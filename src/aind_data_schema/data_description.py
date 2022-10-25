@@ -101,7 +101,7 @@ class DataDescription(BaseModel):
     )
     label: str = Field(
         ...,
-        description="Generic label for method of data creation",
+        description="Label describing provenance of data",
         title="Label",
     )
     name: str = Field(
@@ -170,21 +170,21 @@ class DerivedDataDescription(DataDescription):
 
     input_data: DataDescription
 
-    short_name: Optional[str]
+    processed_name: Optional[str]
 
     @root_validator(pre=True)
     def build_fields(cls, values):
-        """build name, short_name, and data_level fields"""
+        """build name, process_name, and data_level fields"""
 
         dt_str = datetime_to_name_string(
             values["creation_date"], values["creation_time"]
         )
         d = values["input_data"]
         name = (
-            d.short_name if isinstance(d, DerivedDataDescription) else d.name
+            d.processed_name if isinstance(d, DerivedDataDescription) else d.name
         )
         values["name"] = f'{name}_{values["label"]}_{dt_str}'
-        values["short_name"] = f'{values["label"]}_{dt_str}'
+        values["processed_name"] = f'{values["label"]}_{dt_str}'
         values["data_level"] = DataLevel.DERIVED_DATA
         return values
 
