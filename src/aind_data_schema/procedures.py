@@ -179,7 +179,7 @@ class TissuePrepName(Enum):
     PERFUSION = "Perfusion"
     FIXATION = "Fixation"
     DOUBLE_DELIPIDATION = "Double delipidation"
-    DCM_DELIPIDATINO = "DCM delipidation"
+    DCM_DELIPIDATION = "DCM delipidation"
     IMMUNOSTAINING = "Immunostaining"
     GELATION = "Gelation"
 
