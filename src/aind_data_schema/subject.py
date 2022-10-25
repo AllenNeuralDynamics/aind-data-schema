@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import date
+from datetime import date, time
 from enum import Enum
 from typing import Optional
 
@@ -32,8 +32,8 @@ class BackgroundStrain(Enum):
 class LightCycle(BaseModel):
     """ light cycle modes """
 
-    lights_on_time: time = Field(..., "time in UTC that lights were turned on")
-    lights_off_time: time = Field(..., "time in UTC that lights were turned off")
+    lights_on_time: time = Field(..., description="Time in UTC that lights were turned on", title='Lights on time')
+    lights_off_time: time = Field(..., description="Time in UTC that lights were turned off", title='Lights off time')
 
 
 class HomeCageEnrichment(Enum):
