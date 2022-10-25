@@ -13,7 +13,8 @@ classifiers = [
 dynamic = ["version", "readme"]
 
 dependencies = [
-    'pydantic'
+    'pydantic',
+    'jsonschema'
 ]
 
 [project.optional-dependencies]
