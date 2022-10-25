@@ -29,12 +29,14 @@ class Craniotomy(BaseModel):
     )
     craniotomy_protocol_id: str = Field(..., title="Craniotomy protocol ID")
     craniotomy_coordinates_ml: float = Field(
-        ..., title="Craniotomy coordinate ML (mm)"
+        ..., title="Craniotomy coordinate ML (mm)", units="mm"
     )
     craniotomy_coordinates_ap: float = Field(
-        ..., title="Craniotomy coordinates AP (mm)"
+        ..., title="Craniotomy coordinates AP (mm)", units="mm"
     )
-    craniotomy_size: float = Field(..., title="Craniotomy size (mm)")
+    craniotomy_size: float = Field(
+        ..., title="Craniotomy size (mm)", units="mm"
+    )
     implant_part_number: Optional[str] = Field(
         None, title="Implant part number"
     )
@@ -89,7 +91,9 @@ class NanojectInjection(BaseModel):
     """description of nanoject injection"""
 
     injection_type: str = Field("Nanoject", title="Injection type", const=True)
-    injection_volume: float = Field(..., title="Injection volume (nL)")
+    injection_volume: float = Field(
+        ..., title="Injection volume (nL)", units="nL"
+    )
 
 
 class IontophoresisInjection(BaseModel):
@@ -98,7 +102,9 @@ class IontophoresisInjection(BaseModel):
     injection_type: str = Field(
         "Iontophoresis", title="Injection type", const=True
     )
-    injection_current: float = Field(..., title="Injection current (uA)")
+    injection_current: float = Field(
+        ..., title="Injection current (μA)", units="μA"
+    )
     alternating_current: str = Field(..., title="Alternating current")
 
 
@@ -124,7 +130,9 @@ class Injection(BaseModel):
     injection_coordinate_depth: float = Field(
         ..., title="Injection coodinate depth (mm)"
     )
-    injection_angle: float = Field(..., title="Injection angle (deg)")
+    injection_angle: float = Field(
+        ..., title="Injection angle (deg)", units="deg"
+    )
     injection_virus: str = Field(..., title="Injection virus")
     injection_virus_id: Optional[str] = Field(None, title="Injection virus ID")
     injection_duration: time = Field(..., title="Injection duration")
@@ -166,7 +174,7 @@ class MriScan(BaseModel):
         None, title="Scanner location"
     )
     magnetic_strength: Optional[MagneticStrength] = Field(
-        None, title="Magnetic strength (T)"
+        None, title="Magnetic strength (T)", units="T"
     )
     resolution: float = Field(..., title="Resolution")
     protocol_id: str = Field(..., title="Protocol ID")
@@ -232,22 +240,22 @@ class Probe(BaseModel):
     name: ProbeName = Field(..., title="Name")
     manufacturer: str = Field(..., title="Manufacturer")
     part_number: str = Field(..., title="Part number")
-    core_diameter: float = Field(..., title="Core diameter (um)")
+    core_diameter: float = Field(..., title="Core diameter (μm)", units="μm")
     numerical_aperture: float = Field(..., title="Numerical aperture")
     ferrule_material: Optional[FerruleMaterial] = Field(
         None, title="Ferrule material"
     )
     targeted_structure: str = Field(..., title="Targeted structure")
     stereotactic_coordinate_ap: float = Field(
-        ..., title="Stereotactic coordinate A/P (mm)"
+        ..., title="Stereotactic coordinate A/P (mm)", units="mm"
     )
     stereotactic_coordinate_ml: float = Field(
-        ..., title="Stereotactic coodinate M/L (mm)"
+        ..., title="Stereotactic coodinate M/L (mm)", units="mm"
     )
     stereotactic_coordinate_dv: float = Field(
-        ..., title="Stereotactic coordinate D/V (mm)"
+        ..., title="Stereotactic coordinate D/V (mm)", units="mm"
     )
-    angle: float = Field(..., title="Angle (deg)")
+    angle: float = Field(..., title="Angle (deg)", units="deg")
     notes: Optional[str] = Field(None, title="Notes")
 
 
