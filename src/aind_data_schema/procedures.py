@@ -195,9 +195,9 @@ class TissuePrep(BaseModel):
     """information about tissue prep procedure"""
 
     name: TissuePrepName = Field(..., title="Name")
-    date_started: date = Field(..., title="Date started")
-    date_ended: Optional[date] = Field(None, title="Date ended")
-    experimenter_full_name: Optional[str] = Field(
+    date_started: date = Field(..., title="Date-time procedure started")
+    date_ended: date = Field(None, title="Date-time procedure ended")
+    experimenter_full_name: str = Field(
         None,
         description="First and last name of the experimenter.",
         title="Experimenter full name",
