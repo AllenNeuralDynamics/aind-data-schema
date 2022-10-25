@@ -1,9 +1,9 @@
-# library-repo-template
+# aind-data-schema
 
 [![License](https://img.shields.io/badge/license-MIT-brightgreen)](LICENSE)
 ![Code Style](https://img.shields.io/badge/code%20style-black-black)
 
-Template for a minimal, basic repository for an AIND library.
+A library that defines AIND data schema and validates JSON files. 
 
 ## Installation
 To use the software, in the root directory, run
