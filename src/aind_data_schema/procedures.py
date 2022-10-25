@@ -15,7 +15,7 @@ class ProtectiveMaterial(Enum):
     Duragel = "Duragel"
     SORTA_clear = "SORTA-clear"
     Kwik_Cast = "Kwik-Cast"
-    Other___see_notes = "Other - see notes"
+    Other = "Other - see notes"
 
 
 class Craniotomy(BaseModel):
@@ -279,13 +279,13 @@ class Procedures(BaseModel):
     """description of all procedures applied to subject"""
 
     describedBy: str = Field(
-        "https://github.com/AllenNeuralDynamics/data_schema/blob/main/schemas/procedures.py",
+        "https://github.com/AllenNeuralDynamics/aind-data-schema/blob/main/src/aind-data-schema/procedures.py",
         description="The URL reference to the schema.",
         title="Described by",
         const=True,
     )
     schema_version: str = Field(
-        "0.2.0", description="schema version", title="Version", const=True
+        "0.3.0", description="schema version", title="Version", const=True
     )
     specimen_id: str = Field(
         ...,
