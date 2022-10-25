@@ -31,7 +31,7 @@ dev = [
 where = ["src"]
 
 [tool.setuptools.dynamic]
-version = {attr = "hello_world.__version__"}
+version = {attr = "aind_data_schema.__version__"}
 readme = {file = ["README.md"]}
 
 [tool.black]
@@ -57,7 +57,7 @@ exclude = '''
 
 [tool.coverage.run]
 omit = ["*__init__*"]
-source = ["hello_world", "tests"]
+source = ["aind_data_schema", "tests"]
 
 [tool.coverage.report]
 exclude_lines = ["if __name__ == .__main__.:"]
