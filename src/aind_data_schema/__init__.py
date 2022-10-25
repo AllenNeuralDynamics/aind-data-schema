@@ -8,4 +8,6 @@ from .data_description import (
     DerivedDataDescription,
 )
 
-__all__ = [DataDescription, RawDataDescription, DerivedDataDescription]
+from .procedures import Procedures
+
+__all__ = [DataDescription, RawDataDescription, DerivedDataDescription, Procedures]
