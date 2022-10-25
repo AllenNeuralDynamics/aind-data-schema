@@ -61,8 +61,8 @@ class DataDescriptionTest(unittest.TestCase):
         dt = datetime.datetime.now()
         da = DataDescription(
             label="ecephys_1234",
-            acquisition_date=dt.date(),
-            acquisition_time=dt.time(),
+            creation_date=dt.date(),
+            creation_time=dt.time(),
             institution="AIND",
             data_level="raw data",
         )
@@ -70,24 +70,24 @@ class DataDescriptionTest(unittest.TestCase):
         r1 = DerivedDataDescription(
             input_data=da,
             label="spikesort-ks25",
-            acquisition_date=dt.date(),
-            acquisition_time=dt.time(),
+            creation_date=dt.date(),
+            creation_time=dt.time(),
             institution="AIND",
         )
 
         r2 = DerivedDataDescription(
             input_data=r1,
             label="some-model",
-            acquisition_date=dt.date(),
-            acquisition_time=dt.time(),
+            creation_date=dt.date(),
+            creation_time=dt.time(),
             institution="AIND",
         )
 
         r3 = DerivedDataDescription(
             input_data=r2,
             label="a-paper",
-            acquisition_date=dt.date(),
-            acquisition_time=dt.time(),
+            creation_date=dt.date(),
+            creation_time=dt.time(),
             institution="AIND",
         )
         assert r3 is not None
@@ -95,8 +95,8 @@ class DataDescriptionTest(unittest.TestCase):
         ad = RawDataDescription(
             modality="ecephys",
             subject_id="1234",
-            acquisition_date=dt.date(),
-            acquisition_time=dt.time(),
+            creation_date=dt.date(),
+            creation_time=dt.time(),
             institution="AIND",
         )
 

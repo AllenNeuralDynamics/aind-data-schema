@@ -24,9 +24,9 @@ class RegexParts(Enum):
 class DataRegex(Enum):
     """regular expression patterns for different kinds of data and their properties"""
 
-    DATA = f"^(?P<label>.+?)_(?P<acq_date>{RegexParts.DATE.value})_(?P<acq_time>{RegexParts.TIME.value})$"
-    RAW_DATA = f"^(?P<modality>.+?)_(?P<subject_id>.+?)_(?P<acq_date>{RegexParts.DATE.value})_(?P<acq_time>{RegexParts.TIME.value})$"
-    DERIVED_DATA = f"^(?P<input>.+?_{RegexParts.DATE.value}_{RegexParts.TIME.value})_(?P<label>.+?)_(?P<acq_date>{RegexParts.DATE.value})_(?P<acq_time>{RegexParts.TIME.value})"
+    DATA = f"^(?P<label>.+?)_(?P<c_date>{RegexParts.DATE.value})_(?P<c_time>{RegexParts.TIME.value})$"
+    RAW_DATA = f"^(?P<modality>.+?)_(?P<subject_id>.+?)_(?P<c_date>{RegexParts.DATE.value})_(?P<c_time>{RegexParts.TIME.value})$"
+    DERIVED_DATA = f"^(?P<input>.+?_{RegexParts.DATE.value}_{RegexParts.TIME.value})_(?P<label>.+?)_(?P<c_date>{RegexParts.DATE.value})_(?P<c_time>{RegexParts.TIME.value})"
     NO_UNDERSCORES = "^[^_]+$"
 
 
@@ -89,19 +89,19 @@ class DataDescription(BaseModel):
         const=True,
     )
 
-    acquisition_time: time = Field(
+    creation_time: time = Field(
         ...,
-        description="Time of day that data acquisition started",
-        title="Acquisition Time",
+        description="Time of day that data was created, used to uniquely identify the data",
+        title="Creation Time",
     )
-    acquisition_date: date = Field(
+    creation_date: date = Field(
         ...,
-        description="Day that data acquisition started",
-        title="Acquisition Date",
+        description="Day that data was created, used to uniquely identify the data",
+        title="Creation Date",
     )
     label: str = Field(
         ...,
-        description="Generic label for method of acquisition",
+        description="Generic label for method of data creation",
         title="Label",
     )
     name: str = Field(
@@ -140,7 +140,7 @@ class DataDescription(BaseModel):
     def build_fields(cls, values):
         """construct the name field"""
         dt_str = datetime_tostring(
-            values["acquisition_date"], values["acquisition_time"]
+            values["creation_date"], values["creation_time"]
         )
         values["name"] = f'{values["label"]}_{dt_str}'
         return values
@@ -153,14 +153,14 @@ class DataDescription(BaseModel):
         if m is None:
             raise ValueError(f"name({name}) does not match pattern")
 
-        acquisition_date, acquisition_time = datetime_fromstring(
-            m.group("acq_date"), m.group("acq_time")
+        creation_date, creation_time = datetime_fromstring(
+            m.group("c_date"), m.group("c_time")
         )
 
         return cls(
             label=m.group("label"),
-            acquisition_date=acquisition_date,
-            acquisition_time=acquisition_time,
+            creation_date=creation_date,
+            creation_time=creation_time,
             **kwargs,
         )
 
@@ -177,7 +177,7 @@ class DerivedDataDescription(DataDescription):
         """build name, short_name, and data_level fields"""
 
         dt_str = datetime_tostring(
-            values["acquisition_date"], values["acquisition_time"]
+            values["creation_date"], values["creation_time"]
         )
         d = values["input_data"]
         name = (
@@ -204,14 +204,14 @@ class DerivedDataDescription(DataDescription):
         )
 
         label = m.group("label")
-        acquisition_date, acquisition_time = datetime_fromstring(
-            m.group("acq_date"), m.group("acq_time")
+        creation_date, creation_time = datetime_fromstring(
+            m.group("c_date"), m.group("c_time")
         )
 
         return cls(
             label=label,
-            acquisition_date=acquisition_date,
-            acquisition_time=acquisition_time,
+            creation_date=creation_date,
+            creation_time=creation_time,
             input_data=input_data,
             **kwargs,
         )
@@ -237,7 +237,7 @@ class RawDataDescription(DataDescription):
         """compute the label, name, and data_level fields"""
 
         dt_str = datetime_tostring(
-            values["acquisition_date"], values["acquisition_time"]
+            values["creation_date"], values["creation_time"]
         )
         values["label"] = f'{values["modality"]}_{values["subject_id"]}'
         values["name"] = f'{values["label"]}_{dt_str}'
@@ -253,14 +253,14 @@ class RawDataDescription(DataDescription):
         if m is None:
             raise ValueError(f"name({name}) does not match pattern")
 
-        acquisition_date, acquisition_time = datetime_fromstring(
-            m.group("acq_date"), m.group("acq_time")
+        creation_date, creation_time = datetime_fromstring(
+            m.group("c_date"), m.group("c_time")
         )
 
         return cls(
             modality=m.group("modality"),
             subject_id=m.group("subject_id"),
-            acquisition_date=acquisition_date,
-            acquisition_time=acquisition_time,
+            creation_date=creation_date,
+            creation_time=creation_time,
             **kwargs,
         )
