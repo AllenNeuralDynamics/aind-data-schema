@@ -84,7 +84,7 @@ class DataDescription(BaseModel):
     schema_version: str = Field("0.1.0", title="Schema Version", const=True)
     license: str = Field("CC-BY-4.0", title="License", const=True)
     describedBy: str = Field(
-        "https://github.com/AllenNeuralDynamics/data_schema/blob/main/schemas/data_description.py",
+        "https://github.com/AllenNeuralDynamics/aind-data-schema/blob/main/schemas/data_description.py",
         title="Described by",
         const=True,
     )
@@ -197,7 +197,7 @@ class DerivedDataDescription(DataDescription):
 
         if m is None:
             raise ValueError(f"name({name}) does not match pattern")
-            
+
         # data asset with inputs
         input_data = DataDescription.from_name(
             m.group("input"), data_level=DataLevel.derived_data, **kwargs
