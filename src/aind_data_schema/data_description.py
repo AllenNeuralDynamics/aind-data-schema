@@ -195,6 +195,9 @@ class DerivedDataDescription(DataDescription):
         # look for input data name
         m = re.match(f"{DataRegex.DERIVED_DATA.value}", name)
 
+        if m is None:
+            raise ValueError(f"name({name}) does not match pattern")
+            
         # data asset with inputs
         input_data = DataDescription.from_name(
             m.group("input"), data_level=DataLevel.derived_data, **kwargs

@@ -14,6 +14,7 @@ from aind_data_schema.data_description import (
 class DataDescriptionTest(unittest.TestCase):
     """test DataDescription"""
 
+    BAD_NAME = "fizzbuzz"
     BASIC_NAME = "ecephys_1234_3033-12-21_04-22-11"
     DERIVED_NAME = (
         "ecephys_1234_3033-12-21_04-22-11_spikesorted-ks25_2022-10-12_23-23-11"
@@ -27,11 +28,21 @@ class DataDescriptionTest(unittest.TestCase):
         )
         assert da.name == self.BASIC_NAME
 
+        with self.assertRaises(ValueError):
+            DataDescription.from_name(
+                name=self.BAD_NAME, institution="AIND", data_level="raw data"
+            )
+
         rd = RawDataDescription.from_name(
             name=self.BASIC_NAME, institution="AIND"
         )
         assert rd.name == self.BASIC_NAME
         assert rd.data_level.value == "raw data"
+
+        with self.assertRaises(ValueError):
+            RawDataDescription.from_name(
+                name=self.BAD_NAME, institution="AIND", data_level="raw data"
+            )
 
         dd = DerivedDataDescription.from_name(
             name=self.DERIVED_NAME, institution="AIND"
@@ -39,9 +50,14 @@ class DataDescriptionTest(unittest.TestCase):
         assert dd.name == self.DERIVED_NAME
         assert dd.data_level.value == "derived data"
 
+        with self.assertRaises(ValueError):
+            DerivedDataDescription.from_name(
+                name=self.BAD_NAME, institution="AIND", data_level="raw data"
+            )
+
     def test_constructors(self):
         """ test building from component parts """
-        
+
         dt = datetime.datetime.now()
         da = DataDescription(
             label="ecephys_1234",
