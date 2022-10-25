@@ -7,7 +7,11 @@ import aind_data_schema
 
 
 class ExampleTest(unittest.TestCase):
+    """an example test"""
+
     def test_example(self):
+        """always returns true"""
+
         print(aind_data_schema)
         print(pydantic)
         print(jsonschema)
