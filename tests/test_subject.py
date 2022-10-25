@@ -19,10 +19,7 @@ class SubjectTests(unittest.TestCase):
 
         now = datetime.datetime.now()
 
-        lc = LightCycle(
-            lights_on_time=now.time(), 
-            lights_off_time=now.time()
-        )
+        lc = LightCycle(lights_on_time=now.time(), lights_off_time=now.time())
 
         s = Subject(
             species="Mus musculus",
@@ -30,7 +27,7 @@ class SubjectTests(unittest.TestCase):
             sex="Male",
             date_of_birth=now.date(),
             genotype="wt",
-            light_cycle=lc
+            light_cycle=lc,
         )
 
         assert s is not None
