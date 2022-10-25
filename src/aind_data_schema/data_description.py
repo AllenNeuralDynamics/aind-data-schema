@@ -33,8 +33,8 @@ class DataRegex(Enum):
 class DataLevel(Enum):
     """see field description in DataDescription"""
 
-    raw_data = "raw data"
-    derived_data = "derived data"
+    RAW_DATA = "raw data"
+    DERIVED_DATA = "derived data"
 
 
 class Institution(Enum):
@@ -47,20 +47,20 @@ class Institution(Enum):
 class Group(Enum):
     """see field description in DataDescription"""
 
-    ephys = "ephys"
-    ophys = "ophys"
+    EPHYS = "ephys"
+    OPHYS = "ophys"
     MSMA = "MSMA"
-    behavior = "behavior"
+    BEHAVIOR = "behavior"
 
 
 class Modality(Enum):
     """see field description in DataDescription"""
 
-    ecephys = "ecephys"
-    ExASPIM = "ExASPIM"
-    SmartSPIM = "SmartSPIM"
-    mesoSPIM = "mesoSPIM"
-    ophys = "ophys"
+    ECEPHYS = "ecephys"
+    EXASPIM = "ExASPIM"
+    SMARTSPIM = "SmartSPIM"
+    MESOSPIM = "mesoSPIM"
+    OPHYS = "ophys"
 
 
 def datetime_tostring(d, t):
