@@ -2,7 +2,6 @@
 
 import unittest
 
-import jsonschema
 import pydantic
 
 from aind_data_schema import Processing
