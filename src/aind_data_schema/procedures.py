@@ -52,14 +52,7 @@ class HeadframeMaterial(Enum):
 
     TITANIUM = "Titanium"
     STEEL = "Steel"
-
-
-class WellType(Enum):
-    """TODO"""
-
-    A = "A"
-    B = "B"
-
+    
 
 class Headframe(BaseModel):
     """description of headframe procedure"""
@@ -76,7 +69,7 @@ class Headframe(BaseModel):
         ..., title="Headframe material"
     )
     well_part_number: Optional[str] = Field(None, title="Well part number")
-    well_type: Optional[WellType] = Field(None, title="Well type")
+    well_type: Optional[str] = Field(None, title="Well type")
     notes: Optional[str] = Field(None, title="Notes")
 
 
