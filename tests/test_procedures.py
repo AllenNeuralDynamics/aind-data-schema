@@ -15,6 +15,8 @@ class ProceduresTests(unittest.TestCase):
 
         p = Procedures(specimen_id="1234")
 
+        assert p is not None
+
 
 if __name__ == "__main__":
     unittest.main()
