@@ -91,12 +91,12 @@ class DataDescription(BaseModel):
 
     creation_time: time = Field(
         ...,
-        description="Time of day that data was created, used to uniquely identify the data",
+        description="Time in UTC that data files were created, used to uniquely identify the data",
         title="Creation Time",
     )
     creation_date: date = Field(
         ...,
-        description="Day that data was created, used to uniquely identify the data",
+        description="Date in UTC that data files were created, used to uniquely identify the data",
         title="Creation Date",
     )
     label: str = Field(
