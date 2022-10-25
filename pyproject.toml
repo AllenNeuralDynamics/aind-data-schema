@@ -1,0 +1,71 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hello_world"
+description = "Prints messages to stdout. Simple boilerplate for libraries."
+license = {text = "MIT"}
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3"
+]
+dynamic = ["version", "readme"]
+
+dependencies = [
+    'pandas'
+]
+
+[project.optional-dependencies]
+dev = [
+    'black',
+    'coverage',
+    'flake8',
+    'interrogate',
+    'isort',
+    'Sphinx',
+    'pygit2'
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.dynamic]
+version = {attr = "hello_world.__version__"}
+readme = {file = ["README.md"]}
+
+[tool.black]
+line-length = 79
+target_version = ['py36']
+exclude = '''
+
+(
+  /(
+      \.eggs         # exclude a few common directories in the
+    | \.git          # root of the project
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | _build
+    | build
+    | dist
+  )/
+  | .gitignore
+)
+'''
+
+[tool.coverage.run]
+omit = ["*__init__*"]
+source = ["hello_world", "tests"]
+
+[tool.coverage.report]
+exclude_lines = ["if __name__ == .__main__.:"]
+fail_under = 100
+
+[tool.isort]
+line_length = 79
+
+[tool.interrogate]
+exclude = ["setup.py", "docs", "build"]
+fail-under = 100
