@@ -20,6 +20,8 @@ class DataDescriptionTest(unittest.TestCase):
     )
 
     def test_from_name(self):
+        """ test the from_name methods """
+
         da = DataDescription.from_name(
             name=self.BASIC_NAME, institution="AIND", data_level="raw data"
         )
@@ -38,6 +40,8 @@ class DataDescriptionTest(unittest.TestCase):
         assert dd.data_level.value == "derived data"
 
     def test_constructors(self):
+        """ test building from component parts """
+        
         dt = datetime.datetime.now()
         da = DataDescription(
             label="ecephys_1234",
