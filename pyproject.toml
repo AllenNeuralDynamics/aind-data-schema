@@ -3,7 +3,7 @@ requires = ["setuptools", "setuptools-scm"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "hello_world"
+name = "aind-data-schema"
 description = "Prints messages to stdout. Simple boilerplate for libraries."
 license = {text = "MIT"}
 requires-python = ">=3.7"
@@ -13,7 +13,7 @@ classifiers = [
 dynamic = ["version", "readme"]
 
 dependencies = [
-    'pandas'
+    'pydantic'
 ]
 
 [project.optional-dependencies]
