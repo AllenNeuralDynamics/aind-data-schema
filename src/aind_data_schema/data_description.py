@@ -63,14 +63,14 @@ class Modality(Enum):
     OPHYS = "ophys"
 
 
-def datetime_tostring(d, t):
+def datetime_to_name_string(d, t):
     """take a date and time object, format it a as string"""
     ds = d.strftime("%Y-%m-%d")
     ts = t.strftime("%H-%M-%S")
     return f"{ds}_{ts}"
 
 
-def datetime_fromstring(d, t):
+def datetime_from_name_string(d, t):
     """take date and time strings, generate date and time objects"""
     return (
         datetime.strptime(d, "%Y-%m-%d").date(),
@@ -139,7 +139,7 @@ class DataDescription(BaseModel):
     @root_validator(pre=True)
     def build_fields(cls, values):
         """construct the name field"""
-        dt_str = datetime_tostring(
+        dt_str = datetime_to_name_string(
             values["creation_date"], values["creation_time"]
         )
         values["name"] = f'{values["label"]}_{dt_str}'
@@ -153,7 +153,7 @@ class DataDescription(BaseModel):
         if m is None:
             raise ValueError(f"name({name}) does not match pattern")
 
-        creation_date, creation_time = datetime_fromstring(
+        creation_date, creation_time = datetime_from_name_string(
             m.group("c_date"), m.group("c_time")
         )
 
@@ -176,7 +176,7 @@ class DerivedDataDescription(DataDescription):
     def build_fields(cls, values):
         """build name, short_name, and data_level fields"""
 
-        dt_str = datetime_tostring(
+        dt_str = datetime_to_name_string(
             values["creation_date"], values["creation_time"]
         )
         d = values["input_data"]
@@ -185,7 +185,7 @@ class DerivedDataDescription(DataDescription):
         )
         values["name"] = f'{name}_{values["label"]}_{dt_str}'
         values["short_name"] = f'{values["label"]}_{dt_str}'
-        values["data_level"] = DataLevel.derived_data
+        values["data_level"] = DataLevel.DERIVED_DATA
         return values
 
     @classmethod
@@ -200,11 +200,11 @@ class DerivedDataDescription(DataDescription):
 
         # data asset with inputs
         input_data = DataDescription.from_name(
-            m.group("input"), data_level=DataLevel.derived_data, **kwargs
+            m.group("input"), data_level=DataLevel.DERIVED_DATA, **kwargs
         )
 
         label = m.group("label")
-        creation_date, creation_time = datetime_fromstring(
+        creation_date, creation_time = datetime_from_name_string(
             m.group("c_date"), m.group("c_time")
         )
 
@@ -236,12 +236,12 @@ class RawDataDescription(DataDescription):
     def build_fields(cls, values):
         """compute the label, name, and data_level fields"""
 
-        dt_str = datetime_tostring(
+        dt_str = datetime_to_name_string(
             values["creation_date"], values["creation_time"]
         )
         values["label"] = f'{values["modality"]}_{values["subject_id"]}'
         values["name"] = f'{values["label"]}_{dt_str}'
-        values["data_level"] = DataLevel.raw_data
+        values["data_level"] = DataLevel.RAW_DATA
         return values
 
     @classmethod
@@ -253,7 +253,7 @@ class RawDataDescription(DataDescription):
         if m is None:
             raise ValueError(f"name({name}) does not match pattern")
 
-        creation_date, creation_time = datetime_fromstring(
+        creation_date, creation_time = datetime_from_name_string(
             m.group("c_date"), m.group("c_time")
         )
 
