@@ -13,12 +13,11 @@ class HarpDevice(Enum):
     """list of harp device names"""
 
     BEHAVIOR = "Behavior"
-    WEAR_BASESTATION = "WEAR basestation"
-    CAMERA_TRIGGER_CONTROL = "Camera trigger control"
-    LED_ARRAY_INTERFACE = "LED array interface"
-    ANALOG_INPUT = "Analog input"
-    MULTI_PWM_GENERATOR = "Multi PWM generator"
-    CLOCK_SYNCHRONIZER = "Clock synchronizer"
+    CAMERA_CONTROLLER = "Camera Controller"
+    LOAD_CELLS = "Load Cells"
+    SOUND_BOARD = "Sound Board"
+    TIMESTAMP_GENERATOR = "Timestamp Generator"
+    INPUT_EXPANDER = "Input Expander"
 
 
 class CameraName(Enum):
@@ -139,12 +138,25 @@ class ProbeName(Enum):
     PROBE_I = "Probe I"
     PROBE_J = "Probe J"
 
+class ProbeType(Enum):
+    """ TODO """
+
+    NP1 = "Neuropixels 1.0"
+    NP_UHD_FIXED = "Neuropixels UHD (Fixed)"
+    NP_UHD_SWITCHABLE = "Neuropixels UHD (Switchable)"
+    NP2_SINGLE_SHANK = "Neuropixels 2.0 (Single Shank)"
+    NP2_MULTI_SHANK = "Neuropixels 2.0 (Multi Shank)"
+    NP2_QUAD_BASE = "Neuropixels 2.0 (Quad Base)"
+    NP_OPTO_DEMONSTRATOR = "Neuropixels Opto (Demonstrator)"
+    MI_ULED_PROBE = "Michigan uLED Probe (Version 1)"
+    MP_PHOTONIC_V1 = "MPI Photonic Probe (Version 1)"
+
 
 class Probe(BaseModel):
     """description of a probe"""
 
     name: ProbeName = Field(..., title="Name")
-    type: str = Field(..., title="Type")
+    type: ProbeType = Field(..., title="Type")
     serial_number: str = Field(..., title="Serial number")
 
 
