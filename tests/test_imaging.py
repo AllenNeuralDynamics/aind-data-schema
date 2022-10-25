@@ -10,7 +10,7 @@ class ImagingTests(unittest.TestCase):
     """test imaging schemas"""
 
     def test_constructors(self):
-        """ testing constructors """
+        """testing constructors"""
         with self.assertRaises(ValidationError):
             a = Acquisition()
 
@@ -25,6 +25,8 @@ class ImagingTests(unittest.TestCase):
             lasers=[],
         )
 
+        assert a is not None
+
         with self.assertRaises(ValidationError):
             i = Instrument()
 
@@ -35,6 +37,8 @@ class ImagingTests(unittest.TestCase):
         i = Instrument(
             microscope=m, objectives=[], detectors=[], light_sources=[]
         )
+
+        assert i is not None
 
 
 if __name__ == "__main__":
