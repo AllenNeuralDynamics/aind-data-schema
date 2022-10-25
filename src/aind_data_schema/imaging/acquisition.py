@@ -27,13 +27,13 @@ class AxisName(Enum):
 class Direction(Enum):
     """anatomical direction"""
 
-    Left_to_right = "Left_to_right"
-    Right_to_left = "Right_to_left"
-    Anterior_to_posterior = "Anterior_to_posterior"
-    Posterior_to_anterior = "Posterior_to_anterior"
-    Inferior_to_superior = "Inferior_to_superior"
-    Superior_to_inferior = "Superior_to_inferior"
-    Other = "Other"
+    LR = "Left_to_right"
+    RL = "Right_to_left"
+    AP = "Anterior_to_posterior"
+    PA = "Posterior_to_anterior"
+    IS = "Inferior_to_superior"
+    SI = "Superior_to_inferior"
+    OTHER = "Other"
 
 
 class Axis(BaseModel):

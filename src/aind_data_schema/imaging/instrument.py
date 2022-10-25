@@ -12,22 +12,22 @@ from pydantic import BaseModel, Field
 class MicroscopeType(Enum):
     """various microscope names"""
 
-    mesoSPIM = "mesoSPIM"
-    exaSPIM = "exaSPIM"
-    diSPIM = "diSPIM"
-    smartSPIM = "smartSPIM"
-    Confocal = "Confocal"
-    Two_photon = "Two photon"
-    Other = "Other"
+    MESOSPIM = "mesoSPIM"
+    EXASPIM = "exaSPIM"
+    DISPIM = "diSPIM"
+    SMARTSPIM = "smartSPIM"
+    CONFOCAL = "Confocal"
+    TWO_PHOTON = "Two photon"
+    OTHER = "Other"
 
 
 class MicroscopeManufacturer(Enum):
     """various microscope manufacturers"""
 
-    Olympus = "Olympus"
-    Leica = "Leica"
-    LifeCanvas = "LifeCanvas"
-    Custom = "Custom"
+    OLYMPUS = "Olympus"
+    LEICA = "Leica"
+    LIFECANVAS = "LifeCanvas"
+    CUSTOM = "Custom"
 
 
 class Ao(BaseModel):
@@ -49,25 +49,25 @@ class Com(BaseModel):
 class CameraType(Enum):
     """camera type list"""
 
-    Camera = "Camera"
+    CAMERA = "Camera"
     PMT = "PMT"
-    other = "other"
+    OTHER = "other"
 
 
 class DataInterface(Enum):
     """TODO"""
 
     USB = "USB"
-    CameraLink = "CameraLink"
-    Coax = "Coax"
-    other = "other"
+    CAMERALINK = "CameraLink"
+    COAX = "Coax"
+    OTHER = "other"
 
 
 class Cooling(Enum):
     """cooling medium"""
 
-    air = "air"
-    water = "water"
+    AIR = "air"
+    WATER = "water"
 
 
 class Device(BaseModel):
@@ -93,18 +93,18 @@ class Detector(Device):
 class FilterType(Enum):
     """filter types"""
 
-    Long_pass = "Long pass"
-    Band_pass = "Band pass"
-    Short_pass = "Short pass"
-    Multiband = "Multiband"
+    LONG_PASS = "Long pass"
+    BAND_PASS = "Band pass"
+    SHORT_PASS = "Short pass"
+    MULTIBAND = "Multiband"
 
 
 class FilterManufacturer(Enum):
     """list of filter manufacturers"""
 
-    Chroma = "Chroma"
-    Semrock = "Semrock"
-    Other = "Other"
+    CHROMA = "Chroma"
+    SEMROCK = "Semrock"
+    OTHER = "Other"
 
 
 class Filter(Device):
@@ -122,19 +122,19 @@ class Filter(Device):
 class LightsourceType(Enum):
     """light source types"""
 
-    lamp = "lamp"
-    laser = "laser"
+    LAMP = "lamp"
+    LASER = "laser"
     LED = "LED"
-    other = "other"
+    OTHER = "other"
 
 
 class Coupling(Enum):
     """TODO"""
 
-    Free_space = "Free-space"
+    FREE_SPACE = "Free-space"
     SMF = "SMF"
     MMF = "MMF"
-    other = "other"
+    OTHER = "other"
 
 
 class Lightsource(Device):
@@ -150,11 +150,11 @@ class Lightsource(Device):
 class Immersion(Enum):
     """immersion media"""
 
-    air = "air"
-    water = "water"
-    oil = "oil"
-    multi = "multi"
-    other = "other"
+    AIR = "air"
+    WATER = "water"
+    OIL = "oil"
+    MULTI = "multi"
+    OTHER = "other"
 
 
 class Objective(Device):
