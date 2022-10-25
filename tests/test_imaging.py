@@ -7,37 +7,35 @@ import datetime
 
 
 class ImagingTests(unittest.TestCase):
-    """test imaging schemas """
+    """test imaging schemas"""
 
     def test_constructors(self):
+        """ testing constructors """
         with self.assertRaises(ValidationError):
             a = Acquisition()
 
-        a = Acquisition(institution='AIND',
-            experimenter_full_name='alice',
+        a = Acquisition(
+            institution="AIND",
+            experimenter_full_name="alice",
             session_start_time=datetime.datetime.now(),
-            specimen_id='1234',
-            instrument_id='1234',
+            specimen_id="1234",
+            instrument_id="1234",
             session_end_time=datetime.datetime.now(),
             positions=[],
-            lasers=[]
-            )
+            lasers=[],
+        )
 
         with self.assertRaises(ValidationError):
             i = Instrument()
 
         m = Microscope(
-            manufacturer='LifeCanvas',
-            type='smartSPIM',
-            location='440'
+            manufacturer="LifeCanvas", type="smartSPIM", location="440"
         )
 
         i = Instrument(
-            microscope=m,
-            objectives=[],
-            detectors=[],
-            light_sources=[]
+            microscope=m, objectives=[], detectors=[], light_sources=[]
         )
+
 
 if __name__ == "__main__":
     unittest.main()
