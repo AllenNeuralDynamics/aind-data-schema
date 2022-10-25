@@ -13,16 +13,6 @@ jobs:
         python-version: [ '3.7', '3.8', '3.9', '3.10' ]
     steps:
     - uses: actions/checkout@v3
-    - name: Check for version bump
-      run: |
-        echo "Starting version check"
-        pkg_name=$(grep -P 'version = \{attr = .*\}' pyproject.toml | grep -oP '\w+.__version__')
-        echo "Package Version Location: $pkg_name"
-        init_file="./src/${pkg_name//.__version__}/__init__.py"
-        echo "Init File: $init_file"
-        git fetch --quiet --no-tags --prune --depth=1 origin +refs/heads/*:refs/remotes/origin/*
-        [[ -z $(git diff origin/main:$init_file $init_file) ]] && { echo "ERROR: Version needs to be bumped in $init_file" ; exit 1 ; }
-        echo "Version is bumped"
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v3
       with:
