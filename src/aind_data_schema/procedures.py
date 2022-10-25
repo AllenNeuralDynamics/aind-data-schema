@@ -12,10 +12,10 @@ from pydantic import BaseModel, Field
 class ProtectiveMaterial(Enum):
     """material applied post-craniotomy"""
 
-    Duragel = "Duragel"
-    SORTA_clear = "SORTA-clear"
-    Kwik_Cast = "Kwik-Cast"
-    Other = "Other - see notes"
+    DURAGEL = "Duragel"
+    SORTA_CLEAR = "SORTA-clear"
+    KWIK_CAST = "Kwik-Cast"
+    OTHER = "Other - see notes"
 
 
 class Craniotomy(BaseModel):
@@ -48,8 +48,8 @@ class Craniotomy(BaseModel):
 class HeadframeMaterial(Enum):
     """headframe materials"""
 
-    Titanium = "Titanium"
-    Steel = "Steel"
+    TITANIUM = "Titanium"
+    STEEL = "Steel"
 
 
 class WellType(Enum):
@@ -81,8 +81,8 @@ class Headframe(BaseModel):
 class InjectionHemisphere(Enum):
     """brain hemisphere targeted by injection"""
 
-    left = "left"
-    right = "right"
+    LEFT = "left"
+    RIGHT = "right"
 
 
 class NanojectInjection(BaseModel):
@@ -142,14 +142,14 @@ class ScannerLocation(Enum):
     """location of scanner"""
 
     UW_SLU = "UW SLU"
-    Fred_Hutch = "Fred Hutch"
+    FRED_HUTCH = "Fred Hutch"
 
 
 class MagneticStrength(Enum):
     """strength of magnet"""
 
-    integer_7 = 7
-    integer_14 = 14
+    MRI_7T = 7
+    MRI_14T = 14
 
 
 class MriScan(BaseModel):
@@ -175,12 +175,12 @@ class MriScan(BaseModel):
 class TissuePrepName(Enum):
     """type of tissue prep"""
 
-    Perfusion = "Perfusion"
-    Fixation = "Fixation"
-    Double_delipidation = "Double delipidation"
-    DCM_delipidation = "DCM delipidation"
-    Immunostaining = "Immunostaining"
-    Gelation = "Gelation"
+    PERFUSION = "Perfusion"
+    FIXATION = "Fixation"
+    DOUBLE_DELIPIDATION = "Double delipidation"
+    DCM_DELIPIDATINO = "DCM delipidation"
+    IMMUNOSTAINING = "Immunostaining"
+    GELATION = "Gelation"
 
 
 class TissuePrep(BaseModel):
@@ -214,16 +214,16 @@ class TrainingProtocol(BaseModel):
 class ProbeName(Enum):
     """name of probe"""
 
-    Probe_A = "Probe A"
-    Probe_B = "Probe B"
-    Probe_C = "Probe C"
+    PROBE_A = "Probe A"
+    PROBE_B = "Probe B"
+    PROBE_C = "Probe C"
 
 
 class FerruleMaterial(Enum):
     """probe material"""
 
-    Ceramic = "Ceramic"
-    Stainless_steel = "Stainless steel"
+    CERAMIC = "Ceramic"
+    STAINLESS_STEEL = "Stainless steel"
 
 
 class Probe(BaseModel):
