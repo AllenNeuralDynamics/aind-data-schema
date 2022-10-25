@@ -10,6 +10,8 @@ class ProceduresTests(unittest.TestCase):
     """test Procedures"""
 
     def test_constructors(self):
+        """test that we can construct things"""
+
         with self.assertRaises(ValidationError):
             p = Procedures()
 
