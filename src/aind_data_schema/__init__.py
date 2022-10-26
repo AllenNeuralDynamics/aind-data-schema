@@ -16,7 +16,7 @@ __all__ = [
     DataDescription,
     RawDataDescription,
     DerivedDataDescription,
-    ProceduresProcessing,
+    Procedures,
     DataProcess,
     Processing,
 ]
