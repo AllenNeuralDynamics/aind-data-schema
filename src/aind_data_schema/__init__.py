@@ -18,4 +18,5 @@ __all__ = [
     DerivedDataDescription,
     ProceduresProcessing,
     DataProcess,
+    Processing,
 ]
