@@ -1,6 +1,6 @@
-"""Simple package to demo project structure.
+""" imports for BaseModel subclasses
 """
-__version__ = "0.0.4"
+__version__ = "0.0.5"
 
 from .data_description import (
     DataDescription,
@@ -10,4 +10,13 @@ from .data_description import (
 
 from .procedures import Procedures
 
-__all__ = [DataDescription, RawDataDescription, DerivedDataDescription, Procedures]
+from aind_data_schema.processing import Processing, DataProcess
+
+__all__ = [
+    DataDescription,
+    RawDataDescription,
+    DerivedDataDescription,
+    Procedures,
+    DataProcess,
+    Processing,
+]
