@@ -52,7 +52,7 @@ class HeadframeMaterial(Enum):
 
     TITANIUM = "Titanium"
     STEEL = "Steel"
-    
+
 
 class Headframe(BaseModel):
     """description of headframe procedure"""

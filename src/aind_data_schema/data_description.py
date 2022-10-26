@@ -181,7 +181,9 @@ class DerivedDataDescription(DataDescription):
         )
         d = values["input_data"]
         name = (
-            d.processed_name if isinstance(d, DerivedDataDescription) else d.name
+            d.processed_name
+            if isinstance(d, DerivedDataDescription)
+            else d.name
         )
         values["name"] = f'{name}_{values["label"]}_{dt_str}'
         values["processed_name"] = f'{values["label"]}_{dt_str}'

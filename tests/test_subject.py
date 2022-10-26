@@ -23,7 +23,7 @@ class SubjectTests(unittest.TestCase):
 
         s = Subject(
             species="Mus musculus",
-            specimen_id="1234",
+            subject_id="1234",
             sex="Male",
             date_of_birth=now.date(),
             genotype="wt",

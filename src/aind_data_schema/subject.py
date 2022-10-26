@@ -71,7 +71,7 @@ class Subject(BaseModel):
         "0.1.0", description="schema version", title="Version", const=True
     )
     species: Species = Field(..., title="Species")
-    specimen_id: str = Field(
+    subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
         title="Specimen ID",

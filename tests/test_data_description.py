@@ -21,7 +21,7 @@ class DataDescriptionTest(unittest.TestCase):
     )
 
     def test_from_name(self):
-        """ test the from_name methods """
+        """test the from_name methods"""
 
         da = DataDescription.from_name(
             name=self.BASIC_NAME, institution="AIND", data_level="raw data"
@@ -56,7 +56,7 @@ class DataDescriptionTest(unittest.TestCase):
             )
 
     def test_constructors(self):
-        """ test building from component parts """
+        """test building from component parts"""
 
         dt = datetime.datetime.now()
         da = DataDescription(

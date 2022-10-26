@@ -12,4 +12,11 @@ from .procedures import Procedures
 
 from aind_data_schema.subject import Subject, LightCycle
 
-__all__ = [DataDescription, RawDataDescription, DerivedDataDescription, Procedures, Subject, LightCycle]
+__all__ = [
+    DataDescription,
+    RawDataDescription,
+    DerivedDataDescription,
+    Procedures,
+    Subject,
+    LightCycle,
+]
