@@ -138,8 +138,9 @@ class ProbeName(Enum):
     PROBE_I = "Probe I"
     PROBE_J = "Probe J"
 
+
 class ProbeType(Enum):
-    """ TODO """
+    """TODO"""
 
     NP1 = "Neuropixels 1.0"
     NP_UHD_FIXED = "Neuropixels UHD (Fixed)"
