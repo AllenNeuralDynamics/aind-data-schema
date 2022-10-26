@@ -16,9 +16,7 @@ class ProcessingTest(unittest.TestCase):
         with self.assertRaises(pydantic.ValidationError):
             p = Processing()
 
-        p = Processing(
-            data_processes=[]
-        )
+        p = Processing(data_processes=[])
 
         assert p is not None
 
