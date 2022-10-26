@@ -29,7 +29,7 @@ class ExampleTest(unittest.TestCase):
             experimenter_full_name="alice",
             session_start_time=datetime.datetime.now(),
             session_end_time=datetime.datetime.now(),
-            specimen_id="1234",
+            subject_id="1234",
             project_id="1234",
             session_type="Foraging A",
             rig_id="1234",
