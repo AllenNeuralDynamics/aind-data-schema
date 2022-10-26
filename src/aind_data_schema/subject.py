@@ -50,12 +50,12 @@ class LightCycle(BaseModel):
 class HomeCageEnrichment(Enum):
     """TODO"""
 
-    none = "none"
-    running_wheel = "running wheel"
-    social_housing = "social housing"
-    plastic_tube = "plastic tube"
-    plastic_shelter = "plastic shelter"
-    other = "other"
+    NONE = "none"
+    RUNNING_WHEEL = "running wheel"
+    SOCIAL_HOUSING = "social housing"
+    PLASTIC_TUBE = "plastic tube"
+    PLASTIC_SHELTER = "plastic shelter"
+    OTHER = "other"
 
 
 class Subject(BaseModel):
