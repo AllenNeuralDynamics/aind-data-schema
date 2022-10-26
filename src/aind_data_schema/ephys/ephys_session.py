@@ -184,7 +184,7 @@ class EphysSession(BaseModel):
     )
     session_start_time: datetime = Field(..., title="Session start time")
     session_end_time: datetime = Field(..., title="Session end time")
-    specimen_id: int = Field(..., title="Specimen ID")
+    subject_id: int = Field(..., title="Subject ID")
     project_name: Optional[str] = Field(None, title="Project name")
     project_id: str = Field(..., title="Project ID")
     session_type: SessionType = Field(..., title="Session type")
