@@ -1,6 +1,6 @@
 """ imports for BaseModel subclasses
 """
-__version__ = "0.0.6"
+__version__ = "0.0.7"
 
 from .data_description import (
     DataDescription,
@@ -9,14 +9,16 @@ from .data_description import (
 )
 
 from .procedures import Procedures
-
-from aind_data_schema.processing import Processing, DataProcess
+from .subject import Subject, LightCycle
+from .processing import Processing, DataProcess
 
 __all__ = [
     DataDescription,
     RawDataDescription,
     DerivedDataDescription,
     Procedures,
+    Subject,
+    LightCycle,
     DataProcess,
     Processing,
 ]
