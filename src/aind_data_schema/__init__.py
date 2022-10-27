@@ -1,8 +1,33 @@
-"""Simple package to demo project structure.
+""" imports for BaseModel subclasses
 """
-__version__ = "0.0.3"
+__version__ = "0.0.9"
 
-from aind_data_schema.imaging.acquisition import Acquisition
-from aind_data_schema.imaging.instrument import Instrument, Microscope
+from .data_description import (
+    DataDescription,
+    RawDataDescription,
+    DerivedDataDescription,
+)
 
-__all__ = [Acquisition, Instrument, Microscope]
+from .procedures import Procedures
+from .subject import Subject, LightCycle
+from .processing import Processing, DataProcess
+from .ephys.ephys_rig import EphysRig
+from .ephys.ephys_session import EphysSession
+from .imaging.acquisition import Acquisition
+from .imaging.instrument import Instrument, Microscope
+
+__all__ = [
+    DataDescription,
+    RawDataDescription,
+    DerivedDataDescription,
+    Procedures,
+    EphysRig,
+    EphysSession,
+    Subject,
+    LightCycle,
+    DataProcess,
+    Processing,
+    Acquisition,
+    Instrument,
+    Microscope,
+]
