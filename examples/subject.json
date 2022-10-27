@@ -1,5 +1,6 @@
 {
     "schema_version": "0.1.0",
+    "describeBy": "https://github.com/AllenNeuralDynamics/aind-data-schema/blob/main/src/aind_data_schema/subject.py",
     "species": "Callithrix jacchus",
     "subject_id": "12345",
     "sex": "Male",
@@ -12,4 +13,3 @@
     "home_cage_enrichment": "other",
     "background_strain": "C57BL/6J"
   }
-  
