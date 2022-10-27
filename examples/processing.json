@@ -1,0 +1,62 @@
+{
+    "schema_version": "0.0.1",
+    "describedBy": "https://github.com/AllenNeuralDynamics/data_schema/blob/main/schemas/processing.py",
+    "pipeline_url": "https://url/for/pipeline",
+    "pipeline_version": "0.1.0",
+    "data_processes": [
+      {
+        "name": "Merge volume",
+        "version": "elit consequat amet ipsum",
+        "start_date_time": "1983-08-16T02:36:51.0Z",
+        "end_date_time": "1945-02-04T01:24:17.0Z",
+        "input_location": "id ipsum incididunt dolore",
+        "output_location": "cupidatat",
+        "code_url": "sunt dolor",
+        "parameters": {
+          "size": 7
+        },
+        "notes": "cillum nulla minim ut Lorem"
+      },
+      {
+        "name": "Ephys preprocessing",
+        "version": "labore deserunt eu qui laborum",
+        "start_date_time": "2016-03-21T09:53:21.0Z",
+        "end_date_time": "1944-06-06T07:51:28.0Z",
+        "input_location": "sint enim do ullamco dolor",
+        "output_location": "irure voluptate nulla ut",
+        "code_url": "ut Ut",
+        "parameters": {
+          "x": 5
+        },
+        "notes": "non aute ex"
+      },
+      {
+        "name": "OME zarr",
+        "version": "dolore ex id ipsum consequat",
+        "start_date_time": "1991-04-12T04:01:40.0Z",
+        "end_date_time": "1962-09-08T01:34:05.0Z",
+        "input_location": "incididunt",
+        "output_location": "irure aliquip exercitation culpa",
+        "code_url": "ad",
+        "parameters": {
+          "u": 7,
+          "z": true
+        },
+        "notes": "minim esse quis ex veniam"
+      },
+      {
+        "name": "Pystripe",
+        "version": "laboris ut dolor veniam",
+        "start_date_time": "1951-01-19T05:14:03.0Z",
+        "end_date_time": "2016-11-23T23:32:28.0Z",
+        "input_location": "quis",
+        "output_location": "consectetur esse",
+        "code_url": "ad",
+        "parameters": {
+          "a": 2,
+          "b": -2
+        },
+        "notes": "aute"
+      }
+    ]
+  }
