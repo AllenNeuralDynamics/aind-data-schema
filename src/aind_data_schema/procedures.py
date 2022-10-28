@@ -18,16 +18,26 @@ class ProtectiveMaterial(Enum):
     OTHER = "Other - see notes"
 
 
-class Craniotomy(BaseModel):
-    """description of the craniotomy"""
+class Procedure(BaseModel):
+    """basic procedure description"""
 
+    type: Optional[str] = Field(
+        None, description="Generic device type", title="Procedure"
+    )
     date: date = Field(..., title="Date")
     experimenter_full_name: str = Field(
         ...,
         description="First and last name of the experimenter.",
         title="Experimenter full name",
     )
-    craniotomy_protocol_id: str = Field(..., title="Craniotomy protocol ID")
+    protocol_id: str = Field(..., title="Protocol ID")
+    animal_weight: Optional[float] = Field(None, title="Animal weight (g)")
+    notes: Optional[str] = Field(None, title="Notes")
+
+
+class Craniotomy(Procedure):
+    """description of the craniotomy"""
+
     craniotomy_coordinates_ml: float = Field(
         ..., title="Craniotomy coordinate ML (mm)", units="mm"
     )
@@ -44,7 +54,6 @@ class Craniotomy(BaseModel):
     protective_material: Optional[ProtectiveMaterial] = Field(
         None, title="Protective material"
     )
-    notes: Optional[str] = Field(None, title="Notes")
 
 
 class HeadframeMaterial(Enum):
@@ -54,23 +63,15 @@ class HeadframeMaterial(Enum):
     STEEL = "Steel"
 
 
-class Headframe(BaseModel):
+class Headframe(Procedure):
     """description of headframe procedure"""
 
-    date: date = Field(..., title="Date")
-    experimenter_full_name: str = Field(
-        ...,
-        description="First and last name of the experimenter.",
-        title="Experimenter full name",
-    )
-    headframe_protocol_id: str = Field(..., title="Headframe protocol ID")
     headframe_part_number: str = Field(..., title="Headframe part number")
     headframe_material: HeadframeMaterial = Field(
         ..., title="Headframe material"
     )
     well_part_number: Optional[str] = Field(None, title="Well part number")
     well_type: Optional[str] = Field(None, title="Well type")
-    notes: Optional[str] = Field(None, title="Notes")
 
 
 class InjectionHemisphere(Enum):
@@ -101,16 +102,9 @@ class IontophoresisInjection(BaseModel):
     alternating_current: str = Field(..., title="Alternating current")
 
 
-class Injection(BaseModel):
+class Injection(Procedure):
     """general description of injection procedure"""
 
-    date: date = Field(..., title="Date")
-    experimenter_full_name: str = Field(
-        ...,
-        description="First and last name of the experimenter.",
-        title="Experimenter full name",
-    )
-    injection_protocol_id: str = Field(..., title="Injection protocol ID")
     injection_hemisphere: Optional[InjectionHemisphere] = Field(
         None, title="Injection hemisphere"
     )
@@ -129,7 +123,6 @@ class Injection(BaseModel):
     injection_virus: str = Field(..., title="Injection virus")
     injection_virus_id: Optional[str] = Field(None, title="Injection virus ID")
     injection_duration: time = Field(..., title="Injection duration")
-    notes: Optional[str] = Field(None, title="Notes")
     injection_class: Union[NanojectInjection, IontophoresisInjection]
 
 
@@ -153,15 +146,9 @@ class MagneticStrength(Enum):
     MRI_14T = 14
 
 
-class MriScan(BaseModel):
+class MriScan(Procedure):
     """information about MRI scan"""
 
-    date: date = Field(..., title="Date")
-    experimenter_full_name: str = Field(
-        ...,
-        description="First and last name of the experimenter.",
-        title="Experimenter full name",
-    )
     scan_sequence: MriScanSequence = Field(..., title="Scan sequence")
     scanner_location: Optional[ScannerLocation] = Field(
         None, title="Scanner location"
@@ -202,7 +189,7 @@ class TissuePrep(BaseModel):
 class TrainingProtocol(BaseModel):
     """information about training procedures"""
 
-    training_protocol_id: str = Field(..., title="Training protocol ID")
+    protocol_id: str = Field(..., title="Training protocol ID")
     training_protocol_start_date: date = Field(
         ..., title="Training protocol start date"
     )
@@ -252,28 +239,25 @@ class Probe(BaseModel):
     notes: Optional[str] = Field(None, title="Notes")
 
 
-class Implant(BaseModel):
+class Implant(Procedure):
     """description of implant procedure"""
 
-    date: date = Field(..., title="Date")
-    experimenter_full_name: str = Field(
-        ...,
-        description="First and last name of the experimenter.",
-        title="Experimenter full name",
-    )
     probes: List[Probe] = Field(..., title="Probes", unique_items=True)
 
 
 class WaterRestriction(BaseModel):
-    """description of water description protocol"""
+    """description of water restriction procedure"""
 
     protocol_id: Optional[str] = Field(
         None, title="Water restriction protocol number"
     )
-    start_date: Optional[date] = Field(
-        None, title="Water restriction start date"
+    baseline_weight: float = Field(
+        ...,
+        title="Baseline weight (g)",
+        description="Weight at start of water restriction",
     )
-    end_date: Optional[date] = Field(None, title="Water restriction end date")
+    start_date: date = Field(..., title="Water restriction start date")
+    end_date: date = Field(..., title="Water restriction end date")
 
 
 class Procedures(BaseModel):
@@ -286,7 +270,7 @@ class Procedures(BaseModel):
         const=True,
     )
     schema_version: str = Field(
-        "0.3.0", description="schema version", title="Version", const=True
+        "0.3.1", description="schema version", title="Version", const=True
     )
     specimen_id: str = Field(
         ...,
