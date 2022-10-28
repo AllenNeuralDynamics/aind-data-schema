@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import date, datetime, time
+from datetime import date, time
 from enum import Enum
 from typing import List, Optional, Union
 
@@ -17,6 +17,7 @@ class ProtectiveMaterial(Enum):
     KWIK_CAST = "Kwik-Cast"
     OTHER = "Other - see notes"
 
+
 class Procedure(BaseModel):
     """basic procedure description"""
 
@@ -30,8 +31,9 @@ class Procedure(BaseModel):
         title="Experimenter full name",
     )
     protocol_id: str = Field(..., title="Protocol ID")
-    animal_weight: Optional[float]=Field(None, title="Animal weight (g)")
+    animal_weight: Optional[float] = Field(None, title="Animal weight (g)")
     notes: Optional[str] = Field(None, title="Notes")
+
 
 class Craniotomy(Procedure):
     """description of the craniotomy"""
@@ -52,6 +54,7 @@ class Craniotomy(Procedure):
     protective_material: Optional[ProtectiveMaterial] = Field(
         None, title="Protective material"
     )
+
 
 class HeadframeMaterial(Enum):
     """headframe materials"""
@@ -248,10 +251,12 @@ class WaterRestriction(BaseModel):
     protocol_id: Optional[str] = Field(
         None, title="Water restriction protocol number"
     )
-    baseline_weight: float = Field(..., title="Baseline weight (g)", description="Weight at start of water restriction")
-    start_date: date = Field(
-        ..., title="Water restriction start date"
+    baseline_weight: float = Field(
+        ...,
+        title="Baseline weight (g)",
+        description="Weight at start of water restriction",
     )
+    start_date: date = Field(..., title="Water restriction start date")
     end_date: date = Field(..., title="Water restriction end date")
 
 
