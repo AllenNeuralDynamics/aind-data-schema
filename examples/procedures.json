@@ -1,0 +1,122 @@
+{
+    "schema_version": "0.3.0",
+    "specimen_id": "213456",
+    "notes": "exercitation ut reprehenderit occaecat",
+    "mri_scans": [
+      {
+        "date": "1963-03-15",
+        "experimenter_full_name": "dolor ad culpa",
+        "scan_sequence": "RARE",
+        "resolution": 10,
+        "protocol_id": "dx.doi.org/10.12345/protocols.io.abcdefg",
+        "scanner_location": "Fred Hutch",
+        "magnetic_strength": 14
+      }
+    ],    
+    "injections": [
+      {
+        "date": "1970-01-03",
+        "experimenter_full_name": "labore",
+        "injection_protocol_id": "dx.doi.org/10.12345/protocols.io.abcdefg",
+        "injection_coordinate_ml": 0,
+        "injection_coordinate_ap": 0,
+        "injection_coordinate_depth": 0,
+        "injection_angle": 30,
+        "injection_virus": "sint laborum",
+        "injection_duration": "22:02:26.777Z",
+        "injection_class": {
+          "injection_volume": 10,
+          "injection_type": "Nanoject"
+        },
+        "notes": "sint proident in",
+        "injection_virus_id": "virus-id",
+        "injection_hemisphere": "right"
+      }
+    ],
+    "water_restriction": {
+      "protocol_id": "dx.doi.org/10.12345/protocols.io.abcdefg",
+      "start_date": "1978-01-09",
+      "end_date": "2011-02-03"
+    },
+    "training_protocols": [
+      {
+        "training_protocol_id": "dx.doi.org/10.12345/protocols.io.abcdefg",
+        "training_protocol_start_date": "1952-09-28",
+        "notes": "aliqua sit velit ut",
+        "training_protocol_end_date": "1963-04-04"
+      }
+    ],
+    "headframes": [
+      {
+        "date": "1968-03-07",
+        "experimenter_full_name": "ullamco aute qui sit",
+        "headframe_protocol_id": "dx.doi.org/10.12345/protocols.io.abcdefg",
+        "headframe_part_number": "5",
+        "headframe_material": "Steel",
+        "well_type": "deep",
+        "notes": "ullamco pariatur laborum ad",
+        "well_part_number": "7"
+      }
+    ],
+    "fiber_implants": [
+      {
+        "date": "1968-11-02",
+        "experimenter_full_name": "sunt",
+        "probes": [
+          {
+            "name": "Probe C",
+            "manufacturer": "consequat officia fugiat in",
+            "part_number": "4",
+            "core_diameter": 4,
+            "numerical_aperture": 1,
+            "targeted_structure": "brain",
+            "stereotactic_coordinate_ap": 0,
+            "stereotactic_coordinate_ml": 0,
+            "stereotactic_coordinate_dv": 0,
+            "angle": 0,
+            "ferrule_material": "Ceramic",
+            "notes": "pariatur nostrud"
+          },
+          {
+            "name": "Probe B",
+            "manufacturer": "ad adipisicing",
+            "part_number": "exercitation",
+            "core_diameter": 5,
+            "numerical_aperture": 1.4,
+            "targeted_structure": "VISp",
+            "stereotactic_coordinate_ap": 3,
+            "stereotactic_coordinate_ml": 2,
+            "stereotactic_coordinate_dv": 1,
+            "angle": 0,
+            "notes": "nostrud consequat aliquip",
+            "ferrule_material": "Ceramic"
+          }
+        ]
+      }
+    ],
+    "craniotomies": [
+      {
+        "date": "1947-03-01",
+        "experimenter_full_name": "exercitation ea enim id irure",
+        "craniotomy_protocol_id": "dx.doi.org/10.12345/protocols.io.abcdefg",
+        "craniotomy_coordinates_ml": 3,
+        "craniotomy_coordinates_ap": 4,
+        "craniotomy_size": 2,
+        "notes": "nostrud",
+        "protective_material": "Other - see notes",
+        "dura_removed": true,
+        "implant_part_number": "8"
+      }
+    ],
+    "tissue_preparations": [
+      {
+        "name": "Fixation",
+        "date_started": "1996-06-17",
+        "protocol_id": "dx.doi.org/10.12345/protocols.io.abcdefg",
+        "date_ended": "1954-04-18",
+        "experimenter_full_name": "eu",
+        "notes": "commodo consequat sit ut proident"
+      }
+    ]
+  }
+  
