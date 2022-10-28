@@ -1,0 +1,13 @@
+{
+   "schema_version": "0.1.0",
+   "license": "CC-BY-4.0",
+   "describedBy": "https://github.com/AllenNeuralDynamics/aind-data-schema/blob/main/schemas/data_description.py",
+   "creation_time": "11:24:40.520304",
+   "creation_date": "2022-10-28",
+   "label": "ecephys_123456",
+   "name": "ecephys_123456_2022-10-28_11-24-40",
+   "institution": "AIND",
+   "data_level": "raw data",
+   "modality": "ecephys",
+   "subject_id": "123456"
+}
