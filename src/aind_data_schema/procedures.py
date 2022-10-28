@@ -30,7 +30,7 @@ class Procedure(BaseModel):
         title="Experimenter full name",
     )
     protocol_id: str = Field(..., title="Protocol ID")
-    animal_weight: Optional[float]=Field(None, title="Animal weight")
+    animal_weight: Optional[float]=Field(None, title="Animal weight (g)")
     notes: Optional[str] = Field(None, title="Notes")
 
 class Craniotomy(Procedure):
@@ -248,7 +248,7 @@ class WaterRestriction(BaseModel):
     protocol_id: Optional[str] = Field(
         None, title="Water restriction protocol number"
     )
-    baseline_weight: float = Field(..., title="Baseline weight at start of water restriction")
+    baseline_weight: float = Field(..., title="Baseline weight (g)", description="Weight at start of water restriction")
     start_date: date = Field(
         ..., title="Water restriction start date"
     )
