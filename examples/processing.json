@@ -1,0 +1,50 @@
+{
+    "schema_version": "0.0.1",
+    "describedBy": "https://github.com/AllenNeuralDynamics/data_schema/blob/main/schemas/processing.py",
+    "pipeline_url": "https://url/for/pipeline",
+    "pipeline_version": "0.1.0",
+    "data_processes": [
+      {
+        "name": "Merge volume",
+        "version": "0.0.1",
+        "start_date_time": "1983-08-16T02:36:51.0Z",
+        "end_date_time": "1945-02-04T01:24:17.0Z",
+        "input_location": "/path/to/inputs",
+        "output_location": "/path/to/outputs",
+        "code_url": "sunt dolor",
+        "parameters": {
+          "size": 7
+        },
+        "notes": "cillum nulla minim ut Lorem"
+      },
+      {
+        "name": "OME zarr",
+        "version": "0.0.1",
+        "start_date_time": "1991-04-12T04:01:40.0Z",
+        "end_date_time": "1962-09-08T01:34:05.0Z",
+        "input_location": "/path/to/input",
+        "output_location": "/path/to/output",
+        "code_url": "ad",
+        "parameters": {
+          "u": 7,
+          "z": true
+        },
+        "notes": "minim esse quis ex veniam"
+      },
+      {
+        "name": "Pystripe",
+        "version": "0.2.1",
+        "start_date_time": "1951-01-19T05:14:03.0Z",
+        "end_date_time": "2016-11-23T23:32:28.0Z",
+        "input_location": "/path/to/input",
+        "output_location": "/path/to/output",
+        "code_url": "ad",
+        "parameters": {
+          "a": 2,
+          "b": -2
+        },
+        "notes": "hi!"
+      }
+    ]
+  }
+  

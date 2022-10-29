@@ -1,0 +1,15 @@
+{
+    "schema_version": "0.1.0",
+    "describeBy": "https://github.com/AllenNeuralDynamics/aind-data-schema/blob/main/src/aind_data_schema/subject.py",
+    "species": "Callithrix jacchus",
+    "subject_id": "12345",
+    "sex": "Male",
+    "date_of_birth": "1991-01-25",
+    "genotype": "Emx1-IRES-Cre;Camk2a-tTA;Ai93(TITL-GCaMP6f)",
+    "light_cycle": {
+      "lights_on_time": "00:47:45.168Z",
+      "lights_off_time": "06:50:09.953Z"
+    },
+    "home_cage_enrichment": "other",
+    "background_strain": "C57BL/6J"
+  }
