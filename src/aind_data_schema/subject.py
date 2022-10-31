@@ -101,7 +101,7 @@ class Subject(BaseModel):
     maternal_genotype: Optional[str] = Field(None, title="Maternal genotype")
     paternal_id: Optional[str] = Field(None, title="Paternal specimen ID")
     paternal_genotype: Optional[str] = Field(None, title="Paternal genotype")
-    light_cycle: LightCycle = Field(..., title="Light cycle")
+    light_cycle: LightCycle = Field(None, title="Light cycle")
     home_cage_enrichment: Optional[HomeCageEnrichment] = Field(
         None, title="Home cage enrichment"
     )
