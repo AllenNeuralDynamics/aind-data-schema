@@ -1,11 +1,11 @@
 """ tests for Subject """
 
+import datetime
 import unittest
 
 import pydantic
-import datetime
 
-from aind_data_schema import Subject, LightCycle
+from aind_data_schema import LightCycle, Subject
 
 
 class SubjectTests(unittest.TestCase):

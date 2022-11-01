@@ -1,9 +1,9 @@
 """ example unit test file """
 
+import datetime
 import unittest
 
 import pydantic
-import datetime
 
 from aind_data_schema import EphysRig, EphysSession
 
