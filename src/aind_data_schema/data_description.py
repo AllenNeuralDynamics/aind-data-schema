@@ -2,16 +2,12 @@
 
 from __future__ import annotations
 
-from datetime import datetime, date, time
+import re
+from datetime import date, datetime, time
 from enum import Enum
 from typing import Optional
-import re
 
-from pydantic import (
-    BaseModel,
-    Field,
-    root_validator,
-)
+from pydantic import BaseModel, Field, root_validator
 
 
 class RegexParts(Enum):

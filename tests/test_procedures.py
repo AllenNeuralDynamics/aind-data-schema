@@ -2,8 +2,9 @@
 
 import unittest
 
-from aind_data_schema import Procedures
 from pydantic import ValidationError
+
+from aind_data_schema import Procedures
 
 
 class ProceduresTests(unittest.TestCase):

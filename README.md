@@ -35,16 +35,19 @@ interrogate .
 ```
 
 - Use **flake8** to check that code is up to standards (no unused imports, etc.):
+
 ```
 flake8 .
 ```
 
 - Use **black** to automatically format the code into PEP standards:
+
 ```
 black .
 ```
 
 - Use **isort** to automatically sort import statements:
+
 ```
 isort .
 ```
@@ -68,12 +71,16 @@ where scope (optional) describes the packages affected by the code changes and t
 - **test**: Adding missing tests or correcting existing tests
 
 ### Documentation
-To generate the rst files source files for documentation, run
+
+To generate the rst files source files for documentation, run:
+
 ```
 sphinx-apidoc -o doc_template/source/ src 
 ```
-Then to create the documentation html files, run
+
+Then to create the documentation html files, run:
 ```
 sphinx-build -b html doc_template/source/ doc_template/build/html
 ```
+
 More info on sphinx installation can be found here: https://www.sphinx-doc.org/en/master/usage/installation.html

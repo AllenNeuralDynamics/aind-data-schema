@@ -1,20 +1,16 @@
 """ imports for BaseModel subclasses
 """
-__version__ = "0.0.11"
+__version__ = "0.0.12"
 
-from .data_description import (
-    DataDescription,
-    RawDataDescription,
-    DerivedDataDescription,
-)
-
-from .procedures import Procedures
-from .subject import Subject, LightCycle
-from .processing import Processing, DataProcess
+from .data_description import (DataDescription, DerivedDataDescription,
+                               RawDataDescription)
 from .ephys.ephys_rig import EphysRig
 from .ephys.ephys_session import EphysSession
 from .imaging.acquisition import Acquisition
 from .imaging.instrument import Instrument, Microscope
+from .procedures import Procedures
+from .processing import DataProcess, Processing
+from .subject import LightCycle, Subject
 
 __all__ = [
     DataDescription,

@@ -1,9 +1,11 @@
 """ test DataDescription """
 
-import unittest
-from pydantic import ValidationError
-from aind_data_schema import Acquisition, Instrument, Microscope
 import datetime
+import unittest
+
+from pydantic import ValidationError
+
+from aind_data_schema import Acquisition, Instrument, Microscope
 
 
 class ImagingTests(unittest.TestCase):

@@ -1,14 +1,11 @@
 """ test DataDescription """
 
+import datetime
 import unittest
 
-import datetime
-
-from aind_data_schema.data_description import (
-    DataDescription,
-    RawDataDescription,
-    DerivedDataDescription,
-)
+from aind_data_schema.data_description import (DataDescription,
+                                               DerivedDataDescription,
+                                               RawDataDescription)
 
 
 class DataDescriptionTest(unittest.TestCase):
