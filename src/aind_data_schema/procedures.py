@@ -214,8 +214,8 @@ class FerruleMaterial(Enum):
     STAINLESS_STEEL = "Stainless steel"
 
 
-class Probe(BaseModel):
-    """description of probe"""
+class OphysProbe(BaseModel):
+    """description of ophys probe"""
 
     name: ProbeName = Field(..., title="Name")
     manufacturer: str = Field(..., title="Manufacturer")
@@ -239,10 +239,10 @@ class Probe(BaseModel):
     notes: Optional[str] = Field(None, title="Notes")
 
 
-class Implant(Procedure):
+class FiberImplant(Procedure):
     """description of implant procedure"""
 
-    probes: List[Probe] = Field(..., title="Probes", unique_items=True)
+    probes: List[OphysProbe] = Field(..., title="Ophys Probes", unique_items=True)
 
 
 class WaterRestriction(BaseModel):
@@ -289,7 +289,7 @@ class Procedures(BaseModel):
     injections: Optional[List[Injection]] = Field(
         None, title="Injections", unique_items=True
     )
-    fiber_implants: Optional[List[Implant]] = Field(
+    fiber_implants: Optional[List[FiberImplant]] = Field(
         None, title="Fiber implants", unique_items=True
     )
     water_restriction: Optional[WaterRestriction] = Field(

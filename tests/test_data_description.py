@@ -3,9 +3,11 @@
 import datetime
 import unittest
 
-from aind_data_schema.data_description import (DataDescription,
-                                               DerivedDataDescription,
-                                               RawDataDescription)
+from aind_data_schema.data_description import (
+    DataDescription,
+    DerivedDataDescription,
+    RawDataDescription,
+)
 
 
 class DataDescriptionTest(unittest.TestCase):
