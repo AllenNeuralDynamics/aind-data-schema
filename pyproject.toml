@@ -4,13 +4,14 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "aind-data-schema"
-description = "Prints messages to stdout. Simple boilerplate for libraries."
+description = "A library that defines AIND data schema and validates JSON files."
 license = {text = "MIT"}
 requires-python = ">=3.7"
 classifiers = [
     "Programming Language :: Python :: 3"
 ]
-dynamic = ["version", "readme"]
+readme = "README.md"
+dynamic = ["version"]
 
 dependencies = [
     'pydantic',
