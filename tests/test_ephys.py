@@ -6,6 +6,13 @@ import unittest
 import pydantic
 
 from aind_data_schema import EphysRig, EphysSession
+from aind_data_schema.ephys.ephys_session import (
+    EphysProbe,
+    Stream,
+    CcfCoords,
+    Field3dCoordinatesMm,
+    ManipulatorAngles,
+)
 
 
 class ExampleTest(unittest.TestCase):
@@ -33,7 +40,39 @@ class ExampleTest(unittest.TestCase):
             project_id="1234",
             session_type="Foraging A",
             rig_id="1234",
-            probe_streams=[],
+            probe_streams=[
+                Stream(
+                    stream_start_time=datetime.datetime.now(),
+                    stream_stop_time=datetime.datetime.now(),
+                    probes=[
+                        EphysProbe(
+                            name="Probe A",
+                            tip_targeted_structure="VISl4",
+                            targeted_ccf_coordinates=[
+                                CcfCoords(direction="AP", value=1),
+                                CcfCoords(direction="ML", value=1),
+                                CcfCoords(direction="DV", value=1),
+                            ],
+                            targeted_lab_coordinates=[
+                                Field3dCoordinatesMm(direction="X", value=1),
+                                Field3dCoordinatesMm(direction="Y", value=1),
+                                Field3dCoordinatesMm(direction="Z", value=1),
+                            ],
+                            manipulator_coordinates=[
+                                Field3dCoordinatesMm(direction="X", value=1),
+                                Field3dCoordinatesMm(direction="Y", value=1),
+                                Field3dCoordinatesMm(direction="Z", value=1),
+                            ],
+                            manipulator_angles=[
+                                ManipulatorAngles(name="XY", value=1),
+                                ManipulatorAngles(name="YZ", value=1),
+                                ManipulatorAngles(name="XZ", value=1),
+                            ],
+                        )
+                    ],
+                    lasers=[],
+                )
+            ],
             ccf_version="CCFv3",
         )
 

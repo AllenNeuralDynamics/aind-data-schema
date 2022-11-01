@@ -122,8 +122,8 @@ class Laser(BaseModel):
     )
 
 
-class Probe(BaseModel):
-    """probe description"""
+class EphysProbe(BaseModel):
+    """ephys probe description"""
 
     name: str = Field(..., title="Name")
     tip_targeted_structure: str
@@ -160,7 +160,7 @@ class Stream(BaseModel):
 
     stream_start_time: datetime = Field(..., title="Stream start time")
     stream_stop_time: datetime = Field(..., title="Stream stop time")
-    probes: List[Probe] = Field(..., title="Probes", unique_items=True)
+    probes: List[EphysProbe] = Field(..., title="Probes", unique_items=True)
     lasers: List[Laser] = Field(..., title="Lasers", unique_items=True)
 
 
