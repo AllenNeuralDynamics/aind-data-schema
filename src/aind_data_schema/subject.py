@@ -68,7 +68,7 @@ class Subject(BaseModel):
         const=True,
     )
     schema_version: str = Field(
-        "0.1.0", description="schema version", title="Version", const=True
+        "0.2.0", description="schema version", title="Version", const=True
     )
     species: Species = Field(..., title="Species")
     subject_id: str = Field(
@@ -101,7 +101,7 @@ class Subject(BaseModel):
     maternal_genotype: Optional[str] = Field(None, title="Maternal genotype")
     paternal_id: Optional[str] = Field(None, title="Paternal specimen ID")
     paternal_genotype: Optional[str] = Field(None, title="Paternal genotype")
-    light_cycle: LightCycle = Field(None, title="Light cycle")
+    light_cycle: Optional[LightCycle] = Field(None, title="Light cycle")
     home_cage_enrichment: Optional[HomeCageEnrichment] = Field(
         None, title="Home cage enrichment"
     )
