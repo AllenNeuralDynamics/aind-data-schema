@@ -55,16 +55,14 @@ print(s.json(indent=3))
 }
 ```
 
-## Installation and Upgrade
+## Installing and Upgrading
 
-To use the latest version of the software, install from PyPI:
-
+To install the latest version:
 ```
 pip install aind-data-schema
 ```
 
-To upgrade to the latest version:
-
+Every merge to the `main` branch is automatically tagged with a new major/minor/patch version and uploaded to PyPI. To upgrade to the latest version:
 ```
 pip install aind-data-schema --upgrade
 ```
