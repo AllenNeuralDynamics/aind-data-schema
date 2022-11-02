@@ -9,13 +9,6 @@ from typing import List, Optional
 from pydantic import BaseModel, Field
 
 
-class Institution(Enum):
-    """TODO"""
-
-    AIND = "AIND"
-    AIBS = "AIBS"
-
-
 class AxisName(Enum):
     """name of image axis"""
 
@@ -93,7 +86,6 @@ class Acquisition(BaseModel):
         title="Described by",
         const=True,
     )
-    institution: Institution = Field(..., title="Institution")
     experimenter_full_name: str = Field(
         ...,
         description="First and last name of the experimenter.",
@@ -101,8 +93,6 @@ class Acquisition(BaseModel):
     )
     session_start_time: datetime = Field(..., title="Session start time")
     specimen_id: int = Field(..., title="Specimen ID")
-    project_name: Optional[str] = Field(None, title="Project name")
-    project_id: Optional[str] = Field(None, title="Project ID")
     instrument_id: str = Field(..., title="Instrument ID")
     session_end_time: datetime = Field(..., title="Session end time")
     local_storage_directory: Optional[str] = Field(

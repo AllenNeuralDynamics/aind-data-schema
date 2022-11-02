@@ -9,13 +9,6 @@ from typing import List, Optional
 from pydantic import BaseModel, Field
 
 
-class Institution(Enum):
-    """TODO"""
-
-    AIND = "AIND"
-    MSP = "MSP"
-
-
 class SessionType(Enum):
     """shorthand for sessions"""
 
@@ -176,7 +169,6 @@ class EphysSession(BaseModel):
         title="Described by",
         const=True,
     )
-    institution: Institution = Field(..., title="Institution")
     experimenter_full_name: str = Field(
         ...,
         description="First and last name of the experimenter.",
@@ -185,8 +177,6 @@ class EphysSession(BaseModel):
     session_start_time: datetime = Field(..., title="Session start time")
     session_end_time: datetime = Field(..., title="Session end time")
     subject_id: int = Field(..., title="Subject ID")
-    project_name: Optional[str] = Field(None, title="Project name")
-    project_id: str = Field(..., title="Project ID")
     session_type: SessionType = Field(..., title="Session type")
     stimulus_protocol_id: Optional[str] = Field(
         None, title="Stimulus protocol ID"
