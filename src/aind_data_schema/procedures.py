@@ -10,7 +10,7 @@ from pydantic import BaseModel, Field
 
 
 class ProtectiveMaterial(Enum):
-    """material applied post-craniotomy"""
+    """Name of material applied to craniotomy"""
 
     DURAGEL = "Duragel"
     SORTA_CLEAR = "SORTA-clear"
@@ -19,10 +19,10 @@ class ProtectiveMaterial(Enum):
 
 
 class Procedure(BaseModel):
-    """basic procedure description"""
+    """Description of surgical or other procedure performed on a subject"""
 
     type: Optional[str] = Field(
-        None, description="Generic device type", title="Procedure"
+        None, description="Procedure type", title="Procedure Type"
     )
     date: date = Field(..., title="Date")
     experimenter_full_name: str = Field(
@@ -36,7 +36,7 @@ class Procedure(BaseModel):
 
 
 class Craniotomy(Procedure):
-    """description of the craniotomy"""
+    """Description of craniotomy procedure"""
 
     craniotomy_coordinates_ml: float = Field(
         ..., title="Craniotomy coordinate ML (mm)", units="mm"
@@ -57,14 +57,14 @@ class Craniotomy(Procedure):
 
 
 class HeadframeMaterial(Enum):
-    """headframe materials"""
+    """Headframe material name"""
 
     TITANIUM = "Titanium"
     STEEL = "Steel"
 
 
 class Headframe(Procedure):
-    """description of headframe procedure"""
+    """Description of headframe procedure"""
 
     headframe_part_number: str = Field(..., title="Headframe part number")
     headframe_material: HeadframeMaterial = Field(
@@ -74,15 +74,15 @@ class Headframe(Procedure):
     well_type: Optional[str] = Field(None, title="Well type")
 
 
-class InjectionHemisphere(Enum):
-    """brain hemisphere targeted by injection"""
+class Hemisphere(Enum):
+    """Brain hemisphere"""
 
     LEFT = "left"
     RIGHT = "right"
 
 
 class NanojectInjection(BaseModel):
-    """description of nanoject injection"""
+    """Description of a nanoject injection procedure"""
 
     injection_type: str = Field("Nanoject", title="Injection type", const=True)
     injection_volume: float = Field(
@@ -91,7 +91,7 @@ class NanojectInjection(BaseModel):
 
 
 class IontophoresisInjection(BaseModel):
-    """description of nanoject injection"""
+    """Description of an iotophoresis injection procedure"""
 
     injection_type: str = Field(
         "Iontophoresis", title="Injection type", const=True
@@ -103,9 +103,9 @@ class IontophoresisInjection(BaseModel):
 
 
 class Injection(Procedure):
-    """general description of injection procedure"""
+    """Description of an injection procedure"""
 
-    injection_hemisphere: Optional[InjectionHemisphere] = Field(
+    injection_hemisphere: Optional[Hemisphere] = Field(
         None, title="Injection hemisphere"
     )
     injection_coordinate_ml: float = Field(
@@ -140,14 +140,14 @@ class ScannerLocation(Enum):
 
 
 class MagneticStrength(Enum):
-    """strength of magnet"""
+    """Strength of magnet"""
 
     MRI_7T = 7
     MRI_14T = 14
 
 
 class MriScan(Procedure):
-    """information about MRI scan"""
+    """Description of an MRI scan"""
 
     scan_sequence: MriScanSequence = Field(..., title="Scan sequence")
     scanner_location: Optional[ScannerLocation] = Field(
@@ -161,7 +161,7 @@ class MriScan(Procedure):
 
 
 class TissuePrepName(Enum):
-    """type of tissue prep"""
+    """Tissue preparation type names"""
 
     PERFUSION = "Perfusion"
     FIXATION = "Fixation"
@@ -172,7 +172,7 @@ class TissuePrepName(Enum):
 
 
 class TissuePrep(BaseModel):
-    """information about tissue prep procedure"""
+    """Description of a tissue preparation procedure"""
 
     name: TissuePrepName = Field(..., title="Name")
     date_started: date = Field(..., title="Date-time procedure started")
@@ -187,7 +187,7 @@ class TissuePrep(BaseModel):
 
 
 class TrainingProtocol(BaseModel):
-    """information about training procedures"""
+    """Description of an animal training protocol"""
 
     protocol_id: str = Field(..., title="Training protocol ID")
     training_protocol_start_date: date = Field(
@@ -200,7 +200,7 @@ class TrainingProtocol(BaseModel):
 
 
 class ProbeName(Enum):
-    """name of probe"""
+    """Probe name"""
 
     PROBE_A = "Probe A"
     PROBE_B = "Probe B"
@@ -208,14 +208,14 @@ class ProbeName(Enum):
 
 
 class FerruleMaterial(Enum):
-    """probe material"""
+    """Probe ferrule material type name"""
 
     CERAMIC = "Ceramic"
     STAINLESS_STEEL = "Stainless steel"
 
 
 class OphysProbe(BaseModel):
-    """description of ophys probe"""
+    """Description of an ophys probe"""
 
     name: ProbeName = Field(..., title="Name")
     manufacturer: str = Field(..., title="Manufacturer")
@@ -240,13 +240,13 @@ class OphysProbe(BaseModel):
 
 
 class FiberImplant(Procedure):
-    """description of implant procedure"""
+    """Description of an implant procedure"""
 
     probes: List[OphysProbe] = Field(..., title="Ophys Probes", unique_items=True)
 
 
 class WaterRestriction(BaseModel):
-    """description of water restriction procedure"""
+    """Description of a water restriction procedure"""
 
     protocol_id: Optional[str] = Field(
         None, title="Water restriction protocol number"
@@ -261,7 +261,7 @@ class WaterRestriction(BaseModel):
 
 
 class Procedures(BaseModel):
-    """description of all procedures applied to subject"""
+    """Description of all procedures performed on a subject"""
 
     describedBy: str = Field(
         "https://github.com/AllenNeuralDynamics/aind-data-schema/blob/main/src/aind-data-schema/procedures.py",

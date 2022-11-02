@@ -10,14 +10,14 @@ from pydantic import BaseModel, Field
 
 
 class Institution(Enum):
-    """TODO"""
+    """Institution name"""
 
     AIND = "AIND"
     AIBS = "AIBS"
 
 
 class AxisName(Enum):
-    """name of image axis"""
+    """Image axis name"""
 
     X = "X"
     Y = "Y"

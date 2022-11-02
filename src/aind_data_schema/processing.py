@@ -10,7 +10,7 @@ from pydantic import BaseModel, Field
 
 
 class ProcessName(Enum):
-    """list of processing labels"""
+    """Processing type labels"""
 
     EPHYS_PREPROCESSING = "Ephys preprocessing"
     SPIKE_SORTING = "Spike sorting"
@@ -25,7 +25,7 @@ class ProcessName(Enum):
 
 
 class DataProcess(BaseModel):
-    """information about a single processing step"""
+    """Description of a single processing step"""
 
     name: ProcessName = Field(..., title="Name")
     version: str = Field(
@@ -47,7 +47,7 @@ class DataProcess(BaseModel):
 
 
 class Processing(BaseModel):
-    """information about a sequence of processes run on input data"""
+    """Desription of all processes run on data"""
 
     describedBy: str = Field(
         "https://github.com/AllenNeuralDynamics/data_schema/blob/main/schemas/processing.py",
