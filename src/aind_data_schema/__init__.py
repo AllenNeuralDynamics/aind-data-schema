@@ -1,7 +1,7 @@
 """ imports for BaseModel subclasses
 """
 
-__version__ = "0.1.4"
+__version__ = "0.1.3"
 
 from .data_description import (DataDescription, DerivedDataDescription,
                                RawDataDescription)
