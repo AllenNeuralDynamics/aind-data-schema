@@ -10,7 +10,7 @@ from pydantic import BaseModel, Field
 
 
 class ProcessName(Enum):
-    """Processing type labels"""
+    """Data processing type labels"""
 
     EPHYS_PREPROCESSING = "Ephys preprocessing"
     SPIKE_SORTING = "Spike sorting"

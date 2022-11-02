@@ -59,7 +59,7 @@ class Field3dCoordinatesMm(BaseModel):
 
 
 class AnatomicalDirection(Enum):
-    """Anatomical diretion name (TODO: combine with imaging direction)"""
+    """Anatomical direction name (TODO: combine with imaging direction)"""
 
     ML = "ML"
     AP = "AP"
@@ -82,7 +82,7 @@ class AngleName(Enum):
 
 
 class ManipulatorAngles(BaseModel):
-    """Angles with units"""
+    """Description of manipulator angle"""
 
     name: AngleName = Field(..., title="AngleName")
     value: float = Field(..., title="Value (deg)", units="deg")

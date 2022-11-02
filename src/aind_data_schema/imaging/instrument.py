@@ -30,13 +30,13 @@ class MicroscopeManufacturer(Enum):
     CUSTOM = "Custom"
 
 
-class Ao(BaseModel):
-    """Description of adaptive optics"""
+class AnalogOutput(BaseModel):
+    """Description of analog output"""
 
     hardware_device: Optional[str] = Field(
         None, title="Controlled hardware device"
     )
-    ao_channel: int = Field(..., title="AO channel")
+    ao_channel: int = Field(..., title="Analog output channel")
 
 
 class Com(BaseModel):
@@ -148,7 +148,7 @@ class Lightsource(Device):
 
 
 class Immersion(Enum):
-    """immersion media name"""
+    """Immersion media name"""
 
     AIR = "air"
     WATER = "water"
@@ -247,7 +247,7 @@ class Instrument(BaseModel):
     daq_update_frequency: Optional[float] = Field(
         None, title="DAQ update frequency (Hz)"
     )
-    daq_ao_names_to_channel: Optional[List[Ao]] = Field(
+    daq_ao_names_to_channel: Optional[List[AnalogOutput]] = Field(
         None, title="DAQ analog outputs", unique_items=True
     )
     com_ports: Optional[List[Com]] = Field(

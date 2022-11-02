@@ -96,7 +96,7 @@ class Laser(BaseModel):
 
 
 class Monitor(BaseModel):
-    """Description of a physical display"""
+    """Description of a visual monitor"""
 
     manufacturer: str = Field(..., title="Manufacturer")
     model: str = Field(..., title="Model")

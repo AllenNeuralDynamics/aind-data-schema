@@ -68,7 +68,7 @@ class Laser(BaseModel):
 
 
 class Position(BaseModel):
-    """Stage position information"""
+    """Description of stage position"""
 
     x_start_um: float
     x_end_um: float
