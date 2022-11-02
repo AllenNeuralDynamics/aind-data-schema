@@ -161,7 +161,7 @@ class MriScan(Procedure):
 
 
 class TissuePrepName(Enum):
-    """Tissue preparation type names"""
+    """Tissue preparation type name"""
 
     PERFUSION = "Perfusion"
     FIXATION = "Fixation"

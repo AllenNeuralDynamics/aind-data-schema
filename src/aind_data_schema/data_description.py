@@ -27,21 +27,21 @@ class DataRegex(Enum):
 
 
 class DataLevel(Enum):
-    """Data level names"""
+    """Data level name"""
 
     RAW_DATA = "raw data"
     DERIVED_DATA = "derived data"
 
 
 class Institution(Enum):
-    """Institution names"""
+    """Institution name"""
 
     AIND = "AIND"
     AIBS = "AIBS"
 
 
 class Group(Enum):
-    """Data collection group names"""
+    """Data collection group name"""
 
     EPHYS = "ephys"
     OPHYS = "ophys"
@@ -50,7 +50,7 @@ class Group(Enum):
 
 
 class Modality(Enum):
-    """Data collection modality names"""
+    """Data collection modality name"""
 
     ECEPHYS = "ecephys"
     EXASPIM = "ExASPIM"

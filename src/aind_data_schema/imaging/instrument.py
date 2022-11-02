@@ -10,7 +10,7 @@ from pydantic import BaseModel, Field
 
 
 class MicroscopeType(Enum):
-    """various microscope names"""
+    """Microscope name"""
 
     MESOSPIM = "mesoSPIM"
     EXASPIM = "exaSPIM"
@@ -22,7 +22,7 @@ class MicroscopeType(Enum):
 
 
 class MicroscopeManufacturer(Enum):
-    """various microscope manufacturers"""
+    """Microscope manufacturer name"""
 
     OLYMPUS = "Olympus"
     LEICA = "Leica"
@@ -31,7 +31,7 @@ class MicroscopeManufacturer(Enum):
 
 
 class Ao(BaseModel):
-    """TODO"""
+    """Description of adaptive optics"""
 
     hardware_device: Optional[str] = Field(
         None, title="Controlled hardware device"
@@ -40,14 +40,14 @@ class Ao(BaseModel):
 
 
 class Com(BaseModel):
-    """TODO"""
+    """Description of a communication system"""
 
     hardware_name: str = Field(..., title="Controlled hardware device")
     com_port: str = Field(..., title="COM port")
 
 
 class CameraType(Enum):
-    """camera type list"""
+    """Camera type name"""
 
     CAMERA = "Camera"
     PMT = "PMT"
@@ -55,7 +55,7 @@ class CameraType(Enum):
 
 
 class DataInterface(Enum):
-    """TODO"""
+    """Data interface name"""
 
     USB = "USB"
     CAMERALINK = "CameraLink"
@@ -64,14 +64,14 @@ class DataInterface(Enum):
 
 
 class Cooling(Enum):
-    """cooling medium"""
+    """Cooling medium name"""
 
     AIR = "air"
     WATER = "water"
 
 
 class Device(BaseModel):
-    """base device description"""
+    """Description of a device"""
 
     type: Optional[str] = Field(
         None, description="Generic device type", title="Type"
@@ -83,15 +83,15 @@ class Device(BaseModel):
 
 
 class Detector(Device):
-    """detector device description"""
+    """Description of a detector device"""
 
-    type: CameraType = Field(..., title="Type")
+    type: CameraType = Field(..., title="Detector Type")
     data_interface: DataInterface = Field(..., title="Data interface")
     cooling: Cooling = Field(..., title="Cooling")
 
 
 class FilterType(Enum):
-    """filter types"""
+    """Filter type name"""
 
     LONG_PASS = "Long pass"
     BAND_PASS = "Band pass"
@@ -100,7 +100,7 @@ class FilterType(Enum):
 
 
 class FilterManufacturer(Enum):
-    """list of filter manufacturers"""
+    """Filter manufacturer name"""
 
     CHROMA = "Chroma"
     SEMROCK = "Semrock"
@@ -108,9 +108,9 @@ class FilterManufacturer(Enum):
 
 
 class Filter(Device):
-    """filter device description"""
+    """Description of a filter device"""
 
-    type: FilterType = Field(..., title="Type")
+    type: FilterType = Field(..., title="Filter Type")
     manufacturer: FilterManufacturer = Field(..., title="Filter manufacturer")
     diameter: float = Field(..., title="Size (mm)")
     thickness: float = Field(..., title="Size (mm)")
@@ -120,7 +120,7 @@ class Filter(Device):
 
 
 class LightsourceType(Enum):
-    """light source types"""
+    """Light source type name"""
 
     LAMP = "lamp"
     LASER = "laser"
@@ -129,7 +129,7 @@ class LightsourceType(Enum):
 
 
 class Coupling(Enum):
-    """TODO"""
+    """Coupling method name"""
 
     FREE_SPACE = "Free-space"
     SMF = "SMF"
@@ -138,9 +138,9 @@ class Coupling(Enum):
 
 
 class Lightsource(Device):
-    """lightsource device information"""
+    """Description of lightsource device"""
 
-    type: LightsourceType = Field(..., title="Type")
+    type: LightsourceType = Field(..., title="Lightsource Type")
     coupling: Coupling = Field(..., title="Coupling")
     wavelength: float = Field(..., title="Wavelength (nm)")
     max_power: float = Field(..., title=" Maximum power (mW)")
@@ -148,7 +148,7 @@ class Lightsource(Device):
 
 
 class Immersion(Enum):
-    """immersion media"""
+    """immersion media name"""
 
     AIR = "air"
     WATER = "water"
@@ -158,7 +158,7 @@ class Immersion(Enum):
 
 
 class Objective(Device):
-    """objective device information"""
+    """Description of an objective device"""
 
     numerical_aperture: float = Field(..., title="Numerical aperture (in air)")
     magnification: float = Field(..., title="Magnification")
@@ -166,7 +166,7 @@ class Objective(Device):
 
 
 class Microscope(Device):
-    """microscope device information"""
+    """Description of a microscope device"""
 
     type: MicroscopeType = Field(..., title="Microscope type")
     manufacturer: MicroscopeManufacturer = Field(
@@ -176,7 +176,7 @@ class Microscope(Device):
 
 
 class Instrument(BaseModel):
-    """instrument is a collection of devices, etc"""
+    """Description of an instrument, which is a collection of devices"""
 
     version: str = Field(
         "0.1.0", description="schema version", title="Version", const=True

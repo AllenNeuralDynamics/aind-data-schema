@@ -10,7 +10,7 @@ from pydantic import BaseModel, Field
 
 
 class Species(Enum):
-    """Species latin names"""
+    """Species latin name"""
 
     MUS_MUSCULUS = "Mus musculus"
     CALLITHRIX_JACCHUS = "Callithrix jacchus"
@@ -19,7 +19,7 @@ class Species(Enum):
 
 
 class Sex(Enum):
-    """Subject sex names"""
+    """Subject sex name"""
 
     FEMALE = "Female"
     MALE = "Male"
