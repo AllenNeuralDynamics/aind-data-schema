@@ -10,7 +10,7 @@ from pydantic import BaseModel, Field
 
 
 class Species(Enum):
-    """list of species"""
+    """Species latin name"""
 
     MUS_MUSCULUS = "Mus musculus"
     CALLITHRIX_JACCHUS = "Callithrix jacchus"
@@ -19,21 +19,21 @@ class Species(Enum):
 
 
 class Sex(Enum):
-    """TODO"""
+    """Subject sex name"""
 
     FEMALE = "Female"
     MALE = "Male"
 
 
 class BackgroundStrain(Enum):
-    """TODO"""
+    """Animal background strain name"""
 
     C57BL_6J = "C57BL/6J"
     BALB_c = "BALB/c"
 
 
 class LightCycle(BaseModel):
-    """light cycle modes"""
+    """Description of vivarium light cycle times"""
 
     lights_on_time: time = Field(
         ...,
@@ -48,7 +48,7 @@ class LightCycle(BaseModel):
 
 
 class HomeCageEnrichment(Enum):
-    """TODO"""
+    """Materials provided in animal home cage"""
 
     NONE = "none"
     RUNNING_WHEEL = "running wheel"
@@ -59,7 +59,7 @@ class HomeCageEnrichment(Enum):
 
 
 class Subject(BaseModel):
-    """basic description of subject of data collection"""
+    """Description of a subject of data collection"""
 
     describedBy: str = Field(
         "https://github.com/AllenNeuralDynamics/data_schema/blob/main/schemas/subject.py",

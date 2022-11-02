@@ -10,7 +10,7 @@ from pydantic import BaseModel, Field
 
 
 class AxisName(Enum):
-    """name of image axis"""
+    """Image axis name"""
 
     X = "X"
     Y = "Y"
@@ -18,7 +18,7 @@ class AxisName(Enum):
 
 
 class Direction(Enum):
-    """anatomical direction"""
+    """Anatomical direction name"""
 
     LR = "Left_to_right"
     RL = "Right_to_left"
@@ -30,7 +30,7 @@ class Direction(Enum):
 
 
 class Axis(BaseModel):
-    """axis description"""
+    """Description of an image axis"""
 
     name: AxisName = Field(..., title="Name")
     dimension: int = Field(
@@ -51,7 +51,7 @@ class Axis(BaseModel):
 
 
 class Laser(BaseModel):
-    """laser description"""
+    """Description of a laser"""
 
     name: str = Field(..., title="Name")
     channel: int = Field(..., title="Channel")
@@ -61,7 +61,7 @@ class Laser(BaseModel):
 
 
 class Position(BaseModel):
-    """stage position"""
+    """Description of stage position"""
 
     x_start_um: float
     x_end_um: float
@@ -75,7 +75,7 @@ class Position(BaseModel):
 
 
 class Acquisition(BaseModel):
-    """base description of acquisition session"""
+    """Description of an imaging acquisition session"""
 
     version: str = Field(
         "0.1.1", description="schema version", title="Version", const="True"
