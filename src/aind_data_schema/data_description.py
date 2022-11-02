@@ -27,21 +27,21 @@ class DataRegex(Enum):
 
 
 class DataLevel(Enum):
-    """see field description in DataDescription"""
+    """Data level name"""
 
     RAW_DATA = "raw data"
     DERIVED_DATA = "derived data"
 
 
 class Institution(Enum):
-    """see field description in DataDescription"""
+    """Institution name"""
 
     AIND = "AIND"
     AIBS = "AIBS"
 
 
 class Group(Enum):
-    """see field description in DataDescription"""
+    """Data collection group name"""
 
     EPHYS = "ephys"
     OPHYS = "ophys"
@@ -50,7 +50,7 @@ class Group(Enum):
 
 
 class Modality(Enum):
-    """see field description in DataDescription"""
+    """Data collection modality name"""
 
     ECEPHYS = "ecephys"
     EXASPIM = "ExASPIM"
@@ -60,14 +60,14 @@ class Modality(Enum):
 
 
 def datetime_to_name_string(d, t):
-    """take a date and time object, format it a as string"""
+    """Take a date and time object, format it a as string"""
     ds = d.strftime("%Y-%m-%d")
     ts = t.strftime("%H-%M-%S")
     return f"{ds}_{ts}"
 
 
 def datetime_from_name_string(d, t):
-    """take date and time strings, generate date and time objects"""
+    """Take date and time strings, generate date and time objects"""
     return (
         datetime.strptime(d, "%Y-%m-%d").date(),
         datetime.strptime(t, "%H-%M-%S").time(),
@@ -75,7 +75,7 @@ def datetime_from_name_string(d, t):
 
 
 class DataDescription(BaseModel):
-    """logical collection of data, conventionally resulting from an acquisition or analysis session"""
+    """Description of a logical collection of data files"""
 
     schema_version: str = Field("0.1.0", title="Schema Version", const=True)
     license: str = Field("CC-BY-4.0", title="License", const=True)
@@ -162,7 +162,7 @@ class DataDescription(BaseModel):
 
 
 class DerivedDataDescription(DataDescription):
-    """a logical collection of data derived via processing"""
+    """A logical collection of data files derived via processing"""
 
     input_data: DataDescription
 
@@ -216,7 +216,7 @@ class DerivedDataDescription(DataDescription):
 
 
 class RawDataDescription(DataDescription):
-    """a logical collection of data as acquired from a rig or instrument"""
+    """A logical collection of data files as acquired from a rig or instrument"""
 
     modality: str = Field(
         ...,
