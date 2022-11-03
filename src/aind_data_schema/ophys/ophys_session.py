@@ -77,6 +77,8 @@ class Patch(BaseModel):
 
 
 class OphysSession(BaseModel):
+    """Description of an ophys session"""
+    
     schema_version: str = Field(
         "0.0.1",
         description="schema version",
