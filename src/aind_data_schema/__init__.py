@@ -1,7 +1,7 @@
 """ imports for BaseModel subclasses
 """
 
-__version__ = "0.1.4"
+__version__ = "0.1.6"
 
 from .data_description import (DataDescription, DerivedDataDescription,
                                RawDataDescription)
@@ -12,6 +12,8 @@ from .imaging.instrument import Instrument, Microscope
 from .procedures import Procedures
 from .processing import DataProcess, Processing
 from .subject import LightCycle, Subject
+from .ophys.ophys_rig import OphysRig
+from .ophys.ophys_session import OphysSession
 
 __all__ = [
     'DataDescription',
@@ -27,4 +29,6 @@ __all__ = [
     'Acquisition',
     'Instrument',
     'Microscope',
+    'OphysRig',
+    'OphysSession'
 ]
