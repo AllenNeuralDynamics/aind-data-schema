@@ -61,14 +61,6 @@ class Laser(BaseModel):
     )
 
 
-class PatchCordName(Enum):
-    """Patch cord name"""
-
-    PATCH_CORD_A = "Patch Cord A"
-    PATCH_CORD_B = "Patch Cord B"
-    PATCH_CORD_C = "Patch Cord C"
-
-
 class Patch(BaseModel):
     """Description of a patch"""
 
@@ -78,7 +70,7 @@ class Patch(BaseModel):
 
 class OphysSession(BaseModel):
     """Description of an ophys session"""
-    
+
     schema_version: str = Field(
         "0.0.1",
         description="schema version",
