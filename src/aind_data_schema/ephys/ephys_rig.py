@@ -38,7 +38,9 @@ class Camera(BaseModel):
     position_x: float = Field(..., title="Position X")
     position_y: float = Field(..., title="Position Y")
     position_z: float = Field(..., title="Position Z")
-    angle_pitch: float = Field(..., title="Angle pitch (deg)", units="deg")
+    angle_pitch: float = Field(
+        ..., title="Angle pitch (deg)", units="deg", ge=0, le=360
+    )
     angle_yaw: float = Field(
         ..., title="Angle yaw (deg)", units="deg", ge=0, le=360
     )
