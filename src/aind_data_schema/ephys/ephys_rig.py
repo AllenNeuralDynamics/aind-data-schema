@@ -10,7 +10,7 @@ from pydantic import BaseModel, Field
 
 
 class HarpDevice(Enum):
-    """list of harp device names"""
+    """Harp device name"""
 
     BEHAVIOR = "Behavior"
     CAMERA_CONTROLLER = "Camera Controller"
@@ -21,7 +21,7 @@ class HarpDevice(Enum):
 
 
 class CameraName(Enum):
-    """list of camera names"""
+    """Camera name"""
 
     BODY_CAMERA = "Body Camera"
     EYE_CAMERA = "Eye Camera"
@@ -29,7 +29,7 @@ class CameraName(Enum):
 
 
 class Camera(BaseModel):
-    """description of generic camera"""
+    """Description of camera"""
 
     name: CameraName = Field(..., title="Name")
     manufacturer: str = Field(..., title="Manufacturer")
@@ -48,14 +48,14 @@ class Camera(BaseModel):
 
 
 class Surface(Enum):
-    """TODO"""
+    """Running disc surface name"""
 
     NONE = "none"
     FOAM = "foam"
 
 
 class Disc(BaseModel):
-    """basic running disc information"""
+    """Description of a running disc"""
 
     radius: float = Field(..., title="Radius (cm)", units="cm", ge=0)
     surface: Optional[Surface] = Field(None, title="Surface")
@@ -65,16 +65,16 @@ class Disc(BaseModel):
 
 
 class LaserName(Enum):
-    """TODO"""
+    """Laser name"""
 
     LASER_A = "Laser A"
     LASER_B = "Laser B"
 
 
 class Laser(BaseModel):
-    """description of lasers used in ephys recordings"""
+    """Description of lasers used in ephys recordings"""
 
-    name: LaserName = Field(..., title="Name")
+    name: LaserName = Field(..., title="Laser Name")
     manufacturer: str = Field(..., title="Manufacturer")
     model: str = Field(..., title="Model")
     serial_number: str = Field(..., title="Serial number")
@@ -96,7 +96,7 @@ class Laser(BaseModel):
 
 
 class Monitor(BaseModel):
-    """description of a physical display"""
+    """Description of a visual monitor"""
 
     manufacturer: str = Field(..., title="Manufacturer")
     model: str = Field(..., title="Model")
@@ -129,7 +129,7 @@ class Monitor(BaseModel):
 
 
 class ProbeName(Enum):
-    """TODO"""
+    """Probe name"""
 
     PROBE_A = "Probe A"
     PROBE_B = "Probe B"
@@ -144,7 +144,7 @@ class ProbeName(Enum):
 
 
 class ProbeType(Enum):
-    """TODO"""
+    """Probe type name"""
 
     NP1 = "Neuropixels 1.0"
     NP_UHD_FIXED = "Neuropixels UHD (Fixed)"
@@ -158,7 +158,7 @@ class ProbeType(Enum):
 
 
 class Probe(BaseModel):
-    """description of a probe"""
+    """Description of an ephys probe"""
 
     name: ProbeName = Field(..., title="Name")
     type: ProbeType = Field(..., title="Type")
@@ -166,7 +166,7 @@ class Probe(BaseModel):
 
 
 class Devices(BaseModel):
-    """all of the devices in the rig"""
+    """All of the devices in the rig"""
 
     probes: Optional[List[Probe]] = Field(
         None, title="Probes", unique_items=True
@@ -185,7 +185,7 @@ class Devices(BaseModel):
 
 
 class EphysRig(BaseModel):
-    """description of an ephys rig"""
+    """Description of an ephys rig"""
 
     describedBy: str = Field(
         "https://github.com/AllenNeuralDynamics/data_schema/blob/main/schemas/ephys/ephys_rig.py",
