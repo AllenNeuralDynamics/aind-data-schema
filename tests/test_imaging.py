@@ -1,4 +1,4 @@
-""" test DataDescription """
+""" test Imaging """
 
 import datetime
 import unittest
