@@ -35,20 +35,24 @@ class CcfVersion(Enum):
 
     CCFv3 = "CCFv3"
 
-
+'''
 class Direction(Enum):
     """Axis direction name (TODO: combine with imaging axis)"""
 
     X = "X"
     Y = "Y"
     Z = "Z"
-
+'''
+class Direction(BaseModel):
+    X = "X"
+    Y = "Y"
+    Z = "Z"
 
 class Field3dCoordinatesMm(BaseModel):
     """Description of 3d coordinates in mm"""
 
-    direction: Direction = Field(..., title="Direction")
-    value: float = Field(..., title="Value (mm)", units="mm")
+    direction: Direction = Field(..., title="Direction Value", units="mm")
+    #value: float = Field(..., title="Value (mm)", units="mm")
 
 
 class AnatomicalDirection(Enum):
