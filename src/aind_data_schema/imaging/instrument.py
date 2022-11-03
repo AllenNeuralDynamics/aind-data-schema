@@ -112,8 +112,8 @@ class Filter(Device):
 
     type: FilterType = Field(..., title="Type")
     manufacturer: FilterManufacturer = Field(..., title="Filter manufacturer")
-    diameter: float = Field(..., title="Size (mm)")
-    thickness: float = Field(..., title="Size (mm)")
+    diameter: float = Field(..., title="Size (mm)", ge=0)
+    thickness: float = Field(..., title="Size (mm)", ge=0)
     description: Optional[str] = Field(
         None, description="Where/how filter is being used", title="Description"
     )
@@ -142,7 +142,7 @@ class Lightsource(Device):
 
     type: LightsourceType = Field(..., title="Type")
     coupling: Coupling = Field(..., title="Coupling")
-    wavelength: float = Field(..., title="Wavelength (nm)")
+    wavelength: float = Field(..., title="Wavelength (nm)", ge=300, le=1000)
     max_power: float = Field(..., title=" Maximum power (mW)")
     filter_wheel_index: int = Field(..., title="Filter index")
 

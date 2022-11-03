@@ -107,10 +107,10 @@ class Acquisition(BaseModel):
         title="Tile prefix",
     )
     tile_overlap_x: Optional[float] = Field(
-        None, title="Tile overlap x (percent)"
+        None, title="Tile overlap x (percent)", ge=0, le=100
     )
     tile_overlap_y: Optional[float] = Field(
-        None, title="Tile overlap y (percent)"
+        None, title="Tile overlap y (percent)", ge=0, le=100
     )
     step_size_z: Optional[float] = Field(None, title="Step size z (um)")
     axes: Optional[List[Axis]] = Field(None, title="Axes", unique_items=True)
