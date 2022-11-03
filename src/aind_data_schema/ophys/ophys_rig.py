@@ -85,7 +85,9 @@ class Detector(BaseModel):
         title="Name",
     )
     type: CameraType = Field(..., title="Camera Type")
-    manufacturer: DetectorManufacturer = Field(..., title="Detector Manufacturer")
+    manufacturer: DetectorManufacturer = Field(
+        ..., title="Detector Manufacturer"
+    )
     model: str = Field(..., title="Model")
     serial_number: Optional[str] = Field(None, title="Serial number")
     data_interface: DataInterface = Field(..., title="Data interface")
