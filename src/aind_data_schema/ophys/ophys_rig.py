@@ -20,7 +20,7 @@ class CameraName(Enum):
 class Camera(BaseModel):
     """Description of an ophys camera"""
 
-    name: Name = Field(..., title="Name")
+    name: CameraName = Field(..., title="Camera Name")
     manufacturer: str = Field(..., title="Manufacturer")
     model: str = Field(..., title="Model")
     serial_number: str = Field(..., title="Serial number")
@@ -44,8 +44,8 @@ class CameraType(Enum):
     OTHER = "other"
 
 
-class Manufacturer(Enum):
-    """Manufacturer name"""
+class DetectorManufacturer(Enum):
+    """Detector manufacturer name"""
 
     HAMAMATSU = "Hamamatsu"
     PCOS = "PCOS"
@@ -85,7 +85,7 @@ class Detector(BaseModel):
         title="Name",
     )
     type: CameraType = Field(..., title="Camera Type")
-    manufacturer: Manufacturer = Field(..., title="Manufacturer")
+    manufacturer: DetectorManufacturer = Field(..., title="Detector Manufacturer")
     model: str = Field(..., title="Model")
     serial_number: Optional[str] = Field(None, title="Serial number")
     data_interface: DataInterface = Field(..., title="Data interface")
@@ -106,8 +106,8 @@ class DeviceType(Enum):
     OTHER = "Other"
 
 
-class Manufacturer(Enum):
-    """Manufacturer name"""
+class DeviceManufacturer(Enum):
+    """Device manufacturer name"""
 
     THORLABS = "Thorlabs"
     OPTOTUNE = "Optotune"
@@ -127,7 +127,7 @@ class Device(BaseModel):
         description="Type of device. If Other please describe in Notes.",
         title="Type",
     )
-    manufacturer: Manufacturer = Field(..., title="Manufacturer")
+    manufacturer: DeviceManufacturer = Field(..., title="Manufacturer")
     model: Optional[str] = Field(None, title="Model")
     serial_number: Optional[str] = Field(None, title="Serial number")
     notes: Optional[str] = Field(None, title="Notes")
@@ -160,7 +160,7 @@ class Filter(BaseModel):
     type: FilterType = Field(..., title="Filter Type")
     manufacturer: FilterManufacturer = Field(..., title="Filter Manufacturer")
     model: str = Field(..., title="Model")
-    size: Optional[Size] = Field(None, title="Size (mm)")
+    size: Optional[FilterSize] = Field(None, title="Size (mm)")
     cut_off_frequency: Optional[int] = Field(None, title="Cut off frequency")
     cut_on_frequency: Optional[int] = Field(None, title="Cut on frequency")
     description: Optional[str] = Field(
