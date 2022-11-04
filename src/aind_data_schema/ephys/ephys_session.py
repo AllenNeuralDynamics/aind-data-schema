@@ -73,27 +73,18 @@ class Laser(BaseModel):
     wavelength: int = Field(..., title="Wavelength (nm)", units="nm")
     power: float = Field(..., title="Power (mW)", units="mW")
     targeted_structure: str = Field(..., title="Targeted structure")
-    targeted_ccf_coordinates: List[CcfCoords] = Field(
+    targeted_ccf_coordinates: CcfCoords = Field(
         ...,
-        max_items=1,
-        min_items=1,
         title="Targeted CCF coordinates",
-        unique_items=True,
     )
     targeted_lab_coordinates: List[Field3dCoordinatesMm] = Field(
         ...,
         description="Targeted coordinates relative to the headframe",
-        max_items=1,
-        min_items=1,
         title="Targeted lab coordinates",
-        unique_items=True,
     )
     manipulator_coordinates: List[Field3dCoordinatesMm] = Field(
         ...,
-        max_items=1,
-        min_items=1,
         title="Manipulator coordinates",
-        unique_items=True,
     )
     manipulator_angles: List[ManipulatorAngles] = Field(
         ..., title="Manipulator angles", unique_items=True
@@ -106,27 +97,18 @@ class EphysProbe(BaseModel):
     name: str = Field(..., title="Name")
     tip_targeted_structure: str
     other_targeted_structures: Optional[str] = None
-    targeted_ccf_coordinates: List[CcfCoords] = Field(
+    targeted_ccf_coordinates: CcfCoords = Field(
         ...,
-        max_items=1,
-        min_items=1,
         title="Targeted CCF coordinates",
-        unique_items=True,
     )
-    targeted_lab_coordinates: List[Field3dCoordinatesMm] = Field(
+    targeted_lab_coordinates: Field3dCoordinatesMm = Field(
         ...,
         description="Targeted coordinates relative to the headframe",
-        max_items=1,
-        min_items=1,
         title="Targeted lab coordinates",
-        unique_items=True,
     )
-    manipulator_coordinates: List[Field3dCoordinatesMm] = Field(
+    manipulator_coordinates: Field3dCoordinatesMm = Field(
         ...,
-        max_items=1,
-        min_items=1,
         title="Manipulator coordinates",
-        unique_items=True,
     )
     manipulator_angles: List[ManipulatorAngles] = Field(
         ..., title="Manipulator angles", unique_items=True
