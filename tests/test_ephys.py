@@ -10,7 +10,7 @@ from aind_data_schema.ephys.ephys_session import (
     EphysProbe,
     Stream,
     CcfCoords,
-    Field3dCoordinatesMm,
+    Coordinates3d,
     ManipulatorAngles,
 )
 
@@ -49,13 +49,13 @@ class ExampleTest(unittest.TestCase):
                             name="Probe A",
                             tip_targeted_structure="VISl4",
                             targeted_ccf_coordinates=
-                                CcfCoords(ML="1",AP="1", DV='1')
+                                CcfCoords(ml="1",ap="1", dv='1', ccf_version="CCFv3")
                             ,
                             targeted_lab_coordinates=
-                                Field3dCoordinatesMm(X="1", Y="1", Z="1")
+                                Coordinates3d(x="1", y="1", z="1")
                             ,
                             manipulator_coordinates=
-                                Field3dCoordinatesMm(X="1", Y="1", Z="1")
+                                Coordinates3d(x="1", y="1", z="1")
                             ,
                             manipulator_angles=[
                                 ManipulatorAngles(name="XY", value=1),
