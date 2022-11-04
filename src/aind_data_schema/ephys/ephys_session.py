@@ -35,39 +35,20 @@ class CcfVersion(Enum):
 
     CCFv3 = "CCFv3"
 
-'''
-class Direction(Enum):
-    """Axis direction name (TODO: combine with imaging axis)"""
-
-    X = "X"
-    Y = "Y"
-    Z = "Z"
-'''
-class Direction(BaseModel):
-    X = "X"
-    Y = "Y"
-    Z = "Z"
-
 class Field3dCoordinatesMm(BaseModel):
     """Description of 3d coordinates in mm"""
 
-    direction: Direction = Field(..., title="Direction Value", units="mm")
-    #value: float = Field(..., title="Value (mm)", units="mm")
-
-
-class AnatomicalDirection(Enum):
-    """Anatomical direction name (TODO: combine with imaging direction)"""
-
-    ML = "ML"
-    AP = "AP"
-    DV = "DV"
+    X: float = Field(..., title="X (mm)", units="mm")
+    Y: float = Field(..., title="Y (mm)", units="mm")
+    Z: float = Field(..., title="Z (mm)", units="mm")
 
 
 class CcfCoords(BaseModel):
     """Coordinates in CCF template space"""
 
-    direction: AnatomicalDirection = Field(..., title="AnatomicalDirection")
-    value: float = Field(..., title="Value (um)", units="mm")
+    ML: float = Field(..., title="ML (um)", units="um")
+    AP: float = Field(..., title="AP (um)", units="um")
+    DV: float = Field(..., title="DV (um)", units="um")
 
 
 class AngleName(Enum):
@@ -94,23 +75,23 @@ class Laser(BaseModel):
     targeted_structure: str = Field(..., title="Targeted structure")
     targeted_ccf_coordinates: List[CcfCoords] = Field(
         ...,
-        max_items=3,
-        min_items=3,
+        max_items=1,
+        min_items=1,
         title="Targeted CCF coordinates",
         unique_items=True,
     )
     targeted_lab_coordinates: List[Field3dCoordinatesMm] = Field(
         ...,
         description="Targeted coordinates relative to the headframe",
-        max_items=3,
-        min_items=3,
+        max_items=1,
+        min_items=1,
         title="Targeted lab coordinates",
         unique_items=True,
     )
     manipulator_coordinates: List[Field3dCoordinatesMm] = Field(
         ...,
-        max_items=3,
-        min_items=3,
+        max_items=1,
+        min_items=1,
         title="Manipulator coordinates",
         unique_items=True,
     )
@@ -127,23 +108,23 @@ class EphysProbe(BaseModel):
     other_targeted_structures: Optional[str] = None
     targeted_ccf_coordinates: List[CcfCoords] = Field(
         ...,
-        max_items=3,
-        min_items=3,
+        max_items=1,
+        min_items=1,
         title="Targeted CCF coordinates",
         unique_items=True,
     )
     targeted_lab_coordinates: List[Field3dCoordinatesMm] = Field(
         ...,
         description="Targeted coordinates relative to the headframe",
-        max_items=3,
-        min_items=3,
+        max_items=1,
+        min_items=1,
         title="Targeted lab coordinates",
         unique_items=True,
     )
     manipulator_coordinates: List[Field3dCoordinatesMm] = Field(
         ...,
-        max_items=3,
-        min_items=3,
+        max_items=1,
+        min_items=1,
         title="Manipulator coordinates",
         unique_items=True,
     )
