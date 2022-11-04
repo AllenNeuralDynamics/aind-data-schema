@@ -6,7 +6,7 @@ from datetime import datetime
 from enum import Enum
 from typing import List, Optional
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, validator
 
 
 class SessionType(Enum):
@@ -35,20 +35,30 @@ class CcfVersion(Enum):
 
     CCFv3 = "CCFv3"
 
-class Field3dCoordinatesMm(BaseModel):
+
+class Coordinates3d(BaseModel):
     """Description of 3d coordinates in mm"""
 
-    X: float = Field(..., title="X (mm)", units="mm")
-    Y: float = Field(..., title="Y (mm)", units="mm")
-    Z: float = Field(..., title="Z (mm)", units="mm")
+    x: float = Field(..., title="X (mm)", units="mm")
+    y: float = Field(..., title="Y (mm)", units="mm")
+    z: float = Field(..., title="Z (mm)", units="mm")
 
 
 class CcfCoords(BaseModel):
     """Coordinates in CCF template space"""
 
-    ML: float = Field(..., title="ML (um)", units="um")
-    AP: float = Field(..., title="AP (um)", units="um")
-    DV: float = Field(..., title="DV (um)", units="um")
+    ml: float = Field(..., title="ML (um)", units="um")
+    ap: float = Field(..., title="AP (um)", units="um")
+    dv: float = Field(..., title="DV (um)", units="um")
+    ccf_version: CcfVersion = Field(..., title="CCF version")
+    
+    #sets default CcfVersion to "CCFv3"
+    class Config:
+        validate_assignment = True
+
+    @validator('ccf_version')
+    def set_CcfVersion(cls, ccf_version):
+        return ccf_version or CcfVersion.CCFv3
 
 
 class AngleName(Enum):
@@ -77,12 +87,12 @@ class Laser(BaseModel):
         ...,
         title="Targeted CCF coordinates",
     )
-    targeted_lab_coordinates: Field3dCoordinatesMm = Field(
+    targeted_lab_coordinates: Coordinates3d = Field(
         ...,
         description="Targeted coordinates relative to the headframe",
         title="Targeted lab coordinates",
     )
-    manipulator_coordinates: Field3dCoordinatesMm = Field(
+    manipulator_coordinates: Coordinates3d = Field(
         ...,
         title="Manipulator coordinates",
     )
@@ -101,12 +111,12 @@ class EphysProbe(BaseModel):
         ...,
         title="Targeted CCF coordinates",
     )
-    targeted_lab_coordinates: Field3dCoordinatesMm = Field(
+    targeted_lab_coordinates: Coordinates3d = Field(
         ...,
         description="Targeted coordinates relative to the headframe",
         title="Targeted lab coordinates",
     )
-    manipulator_coordinates: Field3dCoordinatesMm = Field(
+    manipulator_coordinates: Coordinates3d = Field(
         ...,
         title="Manipulator coordinates",
     )
@@ -153,7 +163,6 @@ class EphysSession(BaseModel):
     probe_streams: List[Stream] = Field(
         ..., title="Probe streams", unique_items=True
     )
-    ccf_version: CcfVersion = Field(..., title="CCF version")
     coordinate_transform: Optional[str] = Field(
         None,
         description="Path to file that details the coordinate transform.",
