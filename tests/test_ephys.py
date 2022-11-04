@@ -48,21 +48,15 @@ class ExampleTest(unittest.TestCase):
                         EphysProbe(
                             name="Probe A",
                             tip_targeted_structure="VISl4",
-                            targeted_ccf_coordinates=[
-                                CcfCoords(direction="AP", value=1),
-                                CcfCoords(direction="ML", value=1),
-                                CcfCoords(direction="DV", value=1),
-                            ],
-                            targeted_lab_coordinates=[
-                                Field3dCoordinatesMm(direction="X", value=1),
-                                Field3dCoordinatesMm(direction="Y", value=1),
-                                Field3dCoordinatesMm(direction="Z", value=1),
-                            ],
-                            manipulator_coordinates=[
-                                Field3dCoordinatesMm(direction="X", value=1),
-                                Field3dCoordinatesMm(direction="Y", value=1),
-                                Field3dCoordinatesMm(direction="Z", value=1),
-                            ],
+                            targeted_ccf_coordinates=
+                                CcfCoords(ML="1",AP="1", DV='1')
+                            ,
+                            targeted_lab_coordinates=
+                                Field3dCoordinatesMm(X="1", Y="1", Z="1")
+                            ,
+                            manipulator_coordinates=
+                                Field3dCoordinatesMm(X="1", Y="1", Z="1")
+                            ,
                             manipulator_angles=[
                                 ManipulatorAngles(name="XY", value=1),
                                 ManipulatorAngles(name="YZ", value=1),
