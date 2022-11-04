@@ -77,12 +77,12 @@ class Laser(BaseModel):
         ...,
         title="Targeted CCF coordinates",
     )
-    targeted_lab_coordinates: List[Field3dCoordinatesMm] = Field(
+    targeted_lab_coordinates: Field3dCoordinatesMm = Field(
         ...,
         description="Targeted coordinates relative to the headframe",
         title="Targeted lab coordinates",
     )
-    manipulator_coordinates: List[Field3dCoordinatesMm] = Field(
+    manipulator_coordinates: Field3dCoordinatesMm = Field(
         ...,
         title="Manipulator coordinates",
     )
