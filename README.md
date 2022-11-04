@@ -30,6 +30,7 @@ s = Subject(
 
 print(s.json(indent=3))
 ```
+```
 {
    "describedBy": "https://github.com/AllenNeuralDynamics/data_schema/blob/main/schemas/subject.py",
    "schema_version": "0.2.0",
