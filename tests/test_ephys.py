@@ -49,7 +49,7 @@ class ExampleTest(unittest.TestCase):
                             name="Probe A",
                             tip_targeted_structure="VISl4",
                             targeted_ccf_coordinates=
-                                CcfCoords(ml="1",ap="1", dv='1', ccf_version="CCFv3")
+                                CcfCoords(ml="1",ap="1", dv='1')
                             ,
                             targeted_lab_coordinates=
                                 Coordinates3d(x="1", y="1", z="1")

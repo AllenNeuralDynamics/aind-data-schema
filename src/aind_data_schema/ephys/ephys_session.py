@@ -50,15 +50,7 @@ class CcfCoords(BaseModel):
     ml: float = Field(..., title="ML (um)", units="um")
     ap: float = Field(..., title="AP (um)", units="um")
     dv: float = Field(..., title="DV (um)", units="um")
-    ccf_version: CcfVersion = Field(..., title="CCF version")
-    
-    #sets default CcfVersion to "CCFv3"
-    class Config:
-        validate_assignment = True
-
-    @validator('ccf_version')
-    def set_CcfVersion(cls, ccf_version):
-        return ccf_version or CcfVersion.CCFv3
+    ccf_version: CcfVersion = Field(CcfVersion.CCFv3, title="CCF version")
 
 
 class AngleName(Enum):
