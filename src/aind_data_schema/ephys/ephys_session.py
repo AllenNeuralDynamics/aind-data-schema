@@ -9,15 +9,8 @@ from typing import List, Optional
 from pydantic import BaseModel, Field
 
 
-class Institution(Enum):
-    """TODO"""
-
-    AIND = "AIND"
-    MSP = "MSP"
-
-
 class SessionType(Enum):
-    """shorthand for sessions"""
+    """Session type name"""
 
     TEST = "Test"
     FORAGING_A = "Foraging A"
@@ -26,7 +19,7 @@ class SessionType(Enum):
 
 
 class ExpectedDataStream(Enum):
-    """kinds of data to expect in recording"""
+    """Names of data streams to expect in recording"""
 
     NEUROPIXELS_PROBES = "Neuropixels probes"
     BODY_CAMERA = "Body camera"
@@ -38,13 +31,13 @@ class ExpectedDataStream(Enum):
 
 
 class CcfVersion(Enum):
-    """const for now"""
+    """CCF version"""
 
     CCFv3 = "CCFv3"
 
 
 class Direction(Enum):
-    """TODO: combine with imaging axis"""
+    """Axis direction name (TODO: combine with imaging axis)"""
 
     X = "X"
     Y = "Y"
@@ -52,14 +45,14 @@ class Direction(Enum):
 
 
 class Field3dCoordinatesMm(BaseModel):
-    """description of 3d coordinates in MM"""
+    """Description of 3d coordinates in mm"""
 
     direction: Direction = Field(..., title="Direction")
     value: float = Field(..., title="Value (mm)", units="mm")
 
 
 class AnatomicalDirection(Enum):
-    """TODO: combine with imaging direction"""
+    """Anatomical direction name (TODO: combine with imaging direction)"""
 
     ML = "ML"
     AP = "AP"
@@ -67,14 +60,14 @@ class AnatomicalDirection(Enum):
 
 
 class CcfCoords(BaseModel):
-    """coordinates in CCF template space"""
+    """Coordinates in CCF template space"""
 
     direction: AnatomicalDirection = Field(..., title="AnatomicalDirection")
     value: float = Field(..., title="Value (um)", units="mm")
 
 
 class AngleName(Enum):
-    """TODO"""
+    """Euler angle name"""
 
     XY = "XY"
     XZ = "XZ"
@@ -82,14 +75,14 @@ class AngleName(Enum):
 
 
 class ManipulatorAngles(BaseModel):
-    """angles with units"""
+    """Description of manipulator angle"""
 
     name: AngleName = Field(..., title="AngleName")
     value: float = Field(..., title="Value (deg)", units="deg")
 
 
 class Laser(BaseModel):
-    """laser description"""
+    """Description of a laser"""
 
     name: str = Field(..., title="Name")
     wavelength: int = Field(..., title="Wavelength (nm)", units="nm")
@@ -123,7 +116,7 @@ class Laser(BaseModel):
 
 
 class EphysProbe(BaseModel):
-    """ephys probe description"""
+    """Description of an ephys probe"""
 
     name: str = Field(..., title="Name")
     tip_targeted_structure: str
@@ -156,7 +149,7 @@ class EphysProbe(BaseModel):
 
 
 class Stream(BaseModel):
-    """stream of data with a start and stop time"""
+    """Stream of data with a start and stop time"""
 
     stream_start_time: datetime = Field(..., title="Stream start time")
     stream_stop_time: datetime = Field(..., title="Stream stop time")
@@ -165,7 +158,7 @@ class Stream(BaseModel):
 
 
 class EphysSession(BaseModel):
-    """complete description of an ephys recording session"""
+    """Description of an ephys recording session"""
 
     schema_version: str = Field(
         "0.2.0", description="schema version", title="Version", const=True
@@ -176,7 +169,6 @@ class EphysSession(BaseModel):
         title="Described by",
         const=True,
     )
-    institution: Institution = Field(..., title="Institution")
     experimenter_full_name: str = Field(
         ...,
         description="First and last name of the experimenter.",
@@ -185,8 +177,6 @@ class EphysSession(BaseModel):
     session_start_time: datetime = Field(..., title="Session start time")
     session_end_time: datetime = Field(..., title="Session end time")
     subject_id: int = Field(..., title="Subject ID")
-    project_name: Optional[str] = Field(None, title="Project name")
-    project_id: str = Field(..., title="Project ID")
     session_type: SessionType = Field(..., title="Session type")
     stimulus_protocol_id: Optional[str] = Field(
         None, title="Stimulus protocol ID"

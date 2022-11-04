@@ -9,15 +9,8 @@ from typing import List, Optional
 from pydantic import BaseModel, Field
 
 
-class Institution(Enum):
-    """TODO"""
-
-    AIND = "AIND"
-    AIBS = "AIBS"
-
-
 class AxisName(Enum):
-    """name of image axis"""
+    """Image axis name"""
 
     X = "X"
     Y = "Y"
@@ -25,7 +18,7 @@ class AxisName(Enum):
 
 
 class Direction(Enum):
-    """anatomical direction"""
+    """Anatomical direction name"""
 
     LR = "Left_to_right"
     RL = "Right_to_left"
@@ -37,7 +30,7 @@ class Direction(Enum):
 
 
 class Axis(BaseModel):
-    """axis description"""
+    """Description of an image axis"""
 
     name: AxisName = Field(..., title="Name")
     dimension: int = Field(
@@ -58,7 +51,7 @@ class Axis(BaseModel):
 
 
 class Laser(BaseModel):
-    """laser description"""
+    """Description of a laser"""
 
     name: str = Field(..., title="Name")
     channel: int = Field(..., title="Channel")
@@ -68,7 +61,7 @@ class Laser(BaseModel):
 
 
 class Position(BaseModel):
-    """stage position"""
+    """Description of stage position"""
 
     x_start_um: float
     x_end_um: float
@@ -82,7 +75,7 @@ class Position(BaseModel):
 
 
 class Acquisition(BaseModel):
-    """base description of acquisition session"""
+    """Description of an imaging acquisition session"""
 
     version: str = Field(
         "0.1.1", description="schema version", title="Version", const="True"
@@ -93,7 +86,6 @@ class Acquisition(BaseModel):
         title="Described by",
         const=True,
     )
-    institution: Institution = Field(..., title="Institution")
     experimenter_full_name: str = Field(
         ...,
         description="First and last name of the experimenter.",
@@ -101,8 +93,6 @@ class Acquisition(BaseModel):
     )
     session_start_time: datetime = Field(..., title="Session start time")
     specimen_id: int = Field(..., title="Specimen ID")
-    project_name: Optional[str] = Field(None, title="Project name")
-    project_id: Optional[str] = Field(None, title="Project ID")
     instrument_id: str = Field(..., title="Instrument ID")
     session_end_time: datetime = Field(..., title="Session end time")
     local_storage_directory: Optional[str] = Field(
@@ -117,10 +107,10 @@ class Acquisition(BaseModel):
         title="Tile prefix",
     )
     tile_overlap_x: Optional[float] = Field(
-        None, title="Tile overlap x (percent)"
+        None, title="Tile overlap x (percent)", ge=0, le=100
     )
     tile_overlap_y: Optional[float] = Field(
-        None, title="Tile overlap y (percent)"
+        None, title="Tile overlap y (percent)", ge=0, le=100
     )
     step_size_z: Optional[float] = Field(None, title="Step size z (um)")
     axes: Optional[List[Axis]] = Field(None, title="Axes", unique_items=True)

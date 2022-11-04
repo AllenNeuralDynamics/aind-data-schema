@@ -10,7 +10,7 @@ from pydantic import BaseModel, Field
 
 
 class HarpDevice(Enum):
-    """list of harp device names"""
+    """Harp device name"""
 
     BEHAVIOR = "Behavior"
     CAMERA_CONTROLLER = "Camera Controller"
@@ -21,7 +21,7 @@ class HarpDevice(Enum):
 
 
 class CameraName(Enum):
-    """list of camera names"""
+    """Camera name"""
 
     BODY_CAMERA = "Body Camera"
     EYE_CAMERA = "Eye Camera"
@@ -29,7 +29,7 @@ class CameraName(Enum):
 
 
 class Camera(BaseModel):
-    """description of generic camera"""
+    """Description of camera"""
 
     name: CameraName = Field(..., title="Name")
     manufacturer: str = Field(..., title="Manufacturer")
@@ -38,9 +38,15 @@ class Camera(BaseModel):
     position_x: float = Field(..., title="Position X")
     position_y: float = Field(..., title="Position Y")
     position_z: float = Field(..., title="Position Z")
-    angle_pitch: float = Field(..., title="Angle pitch (deg)", units="deg")
-    angle_yaw: float = Field(..., title="Angle yaw (deg)", units="deg")
-    angle_roll: float = Field(..., title="Angle roll (deg)", units="deg")
+    angle_pitch: float = Field(
+        ..., title="Angle pitch (deg)", units="deg", ge=0, le=360
+    )
+    angle_yaw: float = Field(
+        ..., title="Angle yaw (deg)", units="deg", ge=0, le=360
+    )
+    angle_roll: float = Field(
+        ..., title="Angle roll (deg)", units="deg", ge=0, le=360
+    )
     recording_software: Optional[str] = Field(None, title="Recording software")
     recording_software_version: Optional[str] = Field(
         None, title="Recording software version"
@@ -48,16 +54,16 @@ class Camera(BaseModel):
 
 
 class Surface(Enum):
-    """TODO"""
+    """Running disc surface name"""
 
     NONE = "none"
     FOAM = "foam"
 
 
 class Disc(BaseModel):
-    """basic running disc information"""
+    """Description of a running disc"""
 
-    radius: float = Field(..., title="Radius (cm)", units="cm")
+    radius: float = Field(..., title="Radius (cm)", units="cm", ge=0)
     surface: Optional[Surface] = Field(None, title="Surface")
     date_surface_replaced: Optional[datetime] = Field(
         None, title="Date surface replaced"
@@ -65,27 +71,31 @@ class Disc(BaseModel):
 
 
 class LaserName(Enum):
-    """TODO"""
+    """Laser name"""
 
     LASER_A = "Laser A"
     LASER_B = "Laser B"
 
 
 class Laser(BaseModel):
-    """description of lasers used in ephys recordings"""
+    """Description of lasers used in ephys recordings"""
 
-    name: LaserName = Field(..., title="Name")
+    name: LaserName = Field(..., title="Laser Name")
     manufacturer: str = Field(..., title="Manufacturer")
     model: str = Field(..., title="Model")
     serial_number: str = Field(..., title="Serial number")
     wavelength: Optional[int] = Field(
-        None, title="Wavelength (nm)", units="nm"
+        None, title="Wavelength (nm)", units="nm", ge=300, le=1000
     )
     maximum_power: Optional[float] = Field(
         None, title="Maximum power (mW)", units="mW"
     )
     coupling_efficiency: Optional[float] = Field(
-        None, title="Coupling efficiency (percent)", units="percent"
+        None,
+        title="Coupling efficiency (percent)",
+        units="percent",
+        ge=0,
+        le=100,
     )
     calibration_data: Optional[str] = Field(
         None, description="path to calibration data", title="Calibration data"
@@ -96,12 +106,14 @@ class Laser(BaseModel):
 
 
 class Monitor(BaseModel):
-    """description of a physical display"""
+    """Description of a visual monitor"""
 
     manufacturer: str = Field(..., title="Manufacturer")
     model: str = Field(..., title="Model")
     serial_number: str = Field(..., title="Serial number")
-    refresh_rate: int = Field(..., title="Refresh rate (Hz)", units="Hz")
+    refresh_rate: int = Field(
+        ..., title="Refresh rate (Hz)", units="Hz", ge=60
+    )
     width: int = Field(..., title="Width (pixels)", units="pixels")
     height: int = Field(..., title="Height (pixels)", units="pixels")
     viewing_distance: float = Field(
@@ -110,22 +122,34 @@ class Monitor(BaseModel):
     position_x: float = Field(..., title="Position X")
     position_y: float = Field(..., title="Position Y")
     position_z: float = Field(..., title="Position Z")
-    angle_pitch: float = Field(..., title="Angle pitch (deg)", units="deg")
-    angle_yaw: float = Field(..., title="Angle yaw (deg)", units="deg")
-    angle_roll: float = Field(..., title="Angle roll (deg)", units="deg")
+    angle_pitch: float = Field(
+        ..., title="Angle pitch (deg)", units="deg", ge=0, le=360
+    )
+    angle_yaw: float = Field(
+        ..., title="Angle yaw (deg)", units="deg", ge=0, le=360
+    )
+    angle_roll: float = Field(
+        ..., title="Angle roll (deg)", units="deg", ge=0, le=360
+    )
     contrast: int = Field(
         ...,
         description="Monitor's contrast setting",
         title="Contrast (percent)",
         units="percent",
+        ge=0,
+        le=100,
     )
     brightness: int = Field(
-        ..., description="Monitor's brightness setting", title="Brightness"
+        ...,
+        description="Monitor's brightness setting",
+        title="Brightness",
+        ge=0,
+        le=100,
     )
 
 
 class ProbeName(Enum):
-    """TODO"""
+    """Probe name"""
 
     PROBE_A = "Probe A"
     PROBE_B = "Probe B"
@@ -140,7 +164,7 @@ class ProbeName(Enum):
 
 
 class ProbeType(Enum):
-    """TODO"""
+    """Probe type name"""
 
     NP1 = "Neuropixels 1.0"
     NP_UHD_FIXED = "Neuropixels UHD (Fixed)"
@@ -154,7 +178,7 @@ class ProbeType(Enum):
 
 
 class Probe(BaseModel):
-    """description of a probe"""
+    """Description of an ephys probe"""
 
     name: ProbeName = Field(..., title="Name")
     type: ProbeType = Field(..., title="Type")
@@ -162,7 +186,7 @@ class Probe(BaseModel):
 
 
 class Devices(BaseModel):
-    """all of the devices in the rig"""
+    """All of the devices in the rig"""
 
     probes: Optional[List[Probe]] = Field(
         None, title="Probes", unique_items=True
@@ -181,7 +205,7 @@ class Devices(BaseModel):
 
 
 class EphysRig(BaseModel):
-    """description of an ephys rig"""
+    """Description of an ephys rig"""
 
     describedBy: str = Field(
         "https://github.com/AllenNeuralDynamics/data_schema/blob/main/schemas/ephys/ephys_rig.py",
