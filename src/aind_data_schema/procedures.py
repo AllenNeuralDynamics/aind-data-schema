@@ -242,7 +242,9 @@ class OphysProbe(BaseModel):
 class FiberImplant(Procedure):
     """Description of an implant procedure"""
 
-    probes: List[OphysProbe] = Field(..., title="Ophys Probes", unique_items=True)
+    probes: List[OphysProbe] = Field(
+        ..., title="Ophys Probes", unique_items=True
+    )
 
 
 class WaterRestriction(BaseModel):
