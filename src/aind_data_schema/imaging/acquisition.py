@@ -51,30 +51,30 @@ class Axis(BaseModel):
 
     @staticmethod
     def from_direction_code(code, voxel_sizes, volume_sizes) -> List[Axis]:
+        """Convert direction codes like 'RAS' or 'PLA' into a set of axis objects"""
         direction_lookup = {
-            'L': Direction.LR,
-            'R': Direction.RL,
-            'A': Direction.AP,
-            'P': Direction.PA,
-            'I': Direction.IS,
-            'S': Direction.SI
+            "L": Direction.LR,
+            "R": Direction.RL,
+            "A": Direction.AP,
+            "P": Direction.PA,
+            "I": Direction.IS,
+            "S": Direction.SI,
         }
 
         name_lookup = [AxisName.X, AxisName.Y, AxisName.Z]
 
         axes = []
-        for i,c in enumerate(code):
+        for i, c in enumerate(code):
             axis = Axis(
                 name=name_lookup[i],
                 direction=direction_lookup[c],
                 dimension=i,
                 voxel_size=voxel_sizes[i],
-                volume_size=volume_sizes[i]
+                volume_size=volume_sizes[i],
             )
             axes.append(axis)
 
         return axes
-
 
 
 class Laser(BaseModel):

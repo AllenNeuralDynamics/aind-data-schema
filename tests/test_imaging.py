@@ -44,16 +44,16 @@ class ImagingTests(unittest.TestCase):
         assert i is not None
 
     def test_axis(self):
-        voxel_sizes = [1,2,3]
-        volume_sizes = [10,10,10]
+        voxel_sizes = [1, 2, 3]
+        volume_sizes = [10, 10, 10]
 
         # test that a few work
-        test_codes = [ 'RAS', 'LSP', 'RAI', 'PAR' ]
+        test_codes = ["RAS", "LSP", "RAI", "PAR"]
         for test_code in test_codes:
-            axes = Axis.from_direction_code(test_code, voxel_sizes, volume_sizes)
+            axes = Axis.from_direction_code(
+                test_code, voxel_sizes, volume_sizes
+            )
             assert axes is not None
-        
-        
 
 
 if __name__ == "__main__":
