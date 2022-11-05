@@ -54,7 +54,7 @@ class ImagingTests(unittest.TestCase):
             axes = Axis.from_direction_code(
                 test_code, voxel_sizes, volume_sizes
             )
-            assert axes is not None
+            assert len(axes) == 3
 
 
 if __name__ == "__main__":
