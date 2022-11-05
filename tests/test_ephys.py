@@ -51,9 +51,6 @@ class ExampleTest(unittest.TestCase):
                             targeted_ccf_coordinates=
                                 CcfCoords(ml="1",ap="1", dv='1')
                             ,
-                            targeted_lab_coordinates=
-                                Coordinates3d(x="1", y="1", z="1")
-                            ,
                             manipulator_coordinates=
                                 Coordinates3d(x="1", y="1", z="1")
                             ,

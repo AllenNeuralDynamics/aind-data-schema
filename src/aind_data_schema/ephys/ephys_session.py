@@ -6,7 +6,7 @@ from datetime import datetime
 from enum import Enum
 from typing import List, Optional
 
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field
 
 
 class SessionType(Enum):
@@ -79,11 +79,7 @@ class Laser(BaseModel):
         ...,
         title="Targeted CCF coordinates",
     )
-    targeted_lab_coordinates: Coordinates3d = Field(
-        ...,
-        description="Targeted coordinates relative to the headframe",
-        title="Targeted lab coordinates",
-    )
+    
     manipulator_coordinates: Coordinates3d = Field(
         ...,
         title="Manipulator coordinates",
@@ -103,11 +99,7 @@ class EphysProbe(BaseModel):
         ...,
         title="Targeted CCF coordinates",
     )
-    targeted_lab_coordinates: Coordinates3d = Field(
-        ...,
-        description="Targeted coordinates relative to the headframe",
-        title="Targeted lab coordinates",
-    )
+    
     manipulator_coordinates: Coordinates3d = Field(
         ...,
         title="Manipulator coordinates",
