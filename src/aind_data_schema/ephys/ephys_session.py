@@ -36,34 +36,21 @@ class CcfVersion(Enum):
     CCFv3 = "CCFv3"
 
 
-class Direction(Enum):
-    """Axis direction name (TODO: combine with imaging axis)"""
-
-    X = "X"
-    Y = "Y"
-    Z = "Z"
-
-
-class Field3dCoordinatesMm(BaseModel):
+class Coordinates3d(BaseModel):
     """Description of 3d coordinates in mm"""
 
-    direction: Direction = Field(..., title="Direction")
-    value: float = Field(..., title="Value (mm)", units="mm")
-
-
-class AnatomicalDirection(Enum):
-    """Anatomical direction name (TODO: combine with imaging direction)"""
-
-    ML = "ML"
-    AP = "AP"
-    DV = "DV"
+    x: float = Field(..., title="X (mm)", units="mm")
+    y: float = Field(..., title="Y (mm)", units="mm")
+    z: float = Field(..., title="Z (mm)", units="mm")
 
 
 class CcfCoords(BaseModel):
     """Coordinates in CCF template space"""
 
-    direction: AnatomicalDirection = Field(..., title="AnatomicalDirection")
-    value: float = Field(..., title="Value (um)", units="mm")
+    ml: float = Field(..., title="ML (um)", units="um")
+    ap: float = Field(..., title="AP (um)", units="um")
+    dv: float = Field(..., title="DV (um)", units="um")
+    ccf_version: CcfVersion = Field(CcfVersion.CCFv3, title="CCF version")
 
 
 class AngleName(Enum):
@@ -88,27 +75,14 @@ class Laser(BaseModel):
     wavelength: int = Field(..., title="Wavelength (nm)", units="nm")
     power: float = Field(..., title="Power (mW)", units="mW")
     targeted_structure: str = Field(..., title="Targeted structure")
-    targeted_ccf_coordinates: List[CcfCoords] = Field(
+    targeted_ccf_coordinates: CcfCoords = Field(
         ...,
-        max_items=3,
-        min_items=3,
         title="Targeted CCF coordinates",
-        unique_items=True,
     )
-    targeted_lab_coordinates: List[Field3dCoordinatesMm] = Field(
+    
+    manipulator_coordinates: Coordinates3d = Field(
         ...,
-        description="Targeted coordinates relative to the headframe",
-        max_items=3,
-        min_items=3,
-        title="Targeted lab coordinates",
-        unique_items=True,
-    )
-    manipulator_coordinates: List[Field3dCoordinatesMm] = Field(
-        ...,
-        max_items=3,
-        min_items=3,
         title="Manipulator coordinates",
-        unique_items=True,
     )
     manipulator_angles: List[ManipulatorAngles] = Field(
         ..., title="Manipulator angles", unique_items=True
@@ -121,27 +95,14 @@ class EphysProbe(BaseModel):
     name: str = Field(..., title="Name")
     tip_targeted_structure: str
     other_targeted_structures: Optional[str] = None
-    targeted_ccf_coordinates: List[CcfCoords] = Field(
+    targeted_ccf_coordinates: CcfCoords = Field(
         ...,
-        max_items=3,
-        min_items=3,
         title="Targeted CCF coordinates",
-        unique_items=True,
     )
-    targeted_lab_coordinates: List[Field3dCoordinatesMm] = Field(
+    
+    manipulator_coordinates: Coordinates3d = Field(
         ...,
-        description="Targeted coordinates relative to the headframe",
-        max_items=3,
-        min_items=3,
-        title="Targeted lab coordinates",
-        unique_items=True,
-    )
-    manipulator_coordinates: List[Field3dCoordinatesMm] = Field(
-        ...,
-        max_items=3,
-        min_items=3,
         title="Manipulator coordinates",
-        unique_items=True,
     )
     manipulator_angles: List[ManipulatorAngles] = Field(
         ..., title="Manipulator angles", unique_items=True
@@ -186,7 +147,6 @@ class EphysSession(BaseModel):
     probe_streams: List[Stream] = Field(
         ..., title="Probe streams", unique_items=True
     )
-    ccf_version: CcfVersion = Field(..., title="CCF version")
     coordinate_transform: Optional[str] = Field(
         None,
         description="Path to file that details the coordinate transform.",
