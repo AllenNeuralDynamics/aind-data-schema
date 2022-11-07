@@ -21,7 +21,7 @@ class ImagingTests(unittest.TestCase):
             institution="AIND",
             experimenter_full_name="alice",
             session_start_time=datetime.datetime.now(),
-            specimen_id="1234",
+            subject_id="1234",
             instrument_id="1234",
             session_end_time=datetime.datetime.now(),
             positions=[],
