@@ -78,7 +78,7 @@ class Acquisition(BaseModel):
     """Description of an imaging acquisition session"""
 
     version: str = Field(
-        "0.1.1", description="schema version", title="Version", const="True"
+        "0.2.1", description="schema version", title="Version", const="True"
     )
     describedBy: str = Field(
         "https://github.com/AllenNeuralDynamics/aind-data-schema/blob/main/src/aind-data-schema/imaging/acquisition.py",
@@ -92,7 +92,7 @@ class Acquisition(BaseModel):
         title="Experimenter full name",
     )
     session_start_time: datetime = Field(..., title="Session start time")
-    specimen_id: int = Field(..., title="Specimen ID")
+    subject_id: int = Field(..., title="Subject ID")
     instrument_id: str = Field(..., title="Instrument ID")
     session_end_time: datetime = Field(..., title="Session end time")
     local_storage_directory: Optional[str] = Field(

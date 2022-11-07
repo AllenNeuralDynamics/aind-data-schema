@@ -272,12 +272,12 @@ class Procedures(BaseModel):
         const=True,
     )
     schema_version: str = Field(
-        "0.3.1", description="schema version", title="Version", const=True
+        "0.4.1", description="schema version", title="Version", const=True
     )
-    specimen_id: str = Field(
+    subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
-        title="Specimen ID",
+        title="Subject ID",
     )
     headframes: Optional[List[Headframe]] = Field(
         None, title="Headframes", unique_items=True

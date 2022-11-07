@@ -1,6 +1,6 @@
 {
-    "schema_version": "0.3.1",
-    "specimen_id": "12345",
+    "schema_version": "0.4.1",
+    "subject_id": "12345",
     "describedBy": "https://github.com/AllenNeuralDynamics/aind-data-schema/blob/main/src/aind-data-schema/procedures.py",
     "training_protocols": [
       {

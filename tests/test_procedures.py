@@ -17,12 +17,12 @@ class ProceduresTests(unittest.TestCase):
         with self.assertRaises(ValidationError):
             p = Procedures()
 
-        p = Procedures(specimen_id="1234")
+        p = Procedures(subject_id="1234")
 
         assert p is not None
 
         p = Procedures(
-            specimen_id="12345",
+            subject_id="12345",
             fiber_implants=[
                 FiberImplant(
                     date=datetime.datetime.now(),

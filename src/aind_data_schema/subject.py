@@ -74,7 +74,7 @@ class Subject(BaseModel):
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
-        title="Specimen ID",
+        title="Subject ID",
     )
     sex: Sex = Field(..., title="Sex")
     date_of_birth: date = Field(..., title="Date of birth")
@@ -93,7 +93,7 @@ class Subject(BaseModel):
     )
     restrictions: Optional[str] = Field(
         None,
-        description="Any restrictions on use or publishing based on specimen source",
+        description="Any restrictions on use or publishing based on subject source",
         title="Restrictions",
     )
     breeding_group: Optional[str] = Field(None, title="Breeding Group")
