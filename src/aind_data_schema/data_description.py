@@ -38,6 +38,7 @@ class Institution(Enum):
 
     AIND = "AIND"
     AIBS = "AIBS"
+    HUST = "HUST"
 
 
 class Group(Enum):
@@ -57,6 +58,7 @@ class Modality(Enum):
     SMARTSPIM = "SmartSPIM"
     MESOSPIM = "mesoSPIM"
     OPHYS = "ophys"
+    FMOST = "fMOST"
 
 
 def datetime_to_name_string(d, t):
