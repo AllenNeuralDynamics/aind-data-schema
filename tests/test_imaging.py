@@ -6,6 +6,7 @@ import unittest
 from pydantic import ValidationError
 
 from aind_data_schema import Acquisition, Instrument, Microscope
+from aind_data_schema.imaging.acquisition import Axis
 
 
 class ImagingTests(unittest.TestCase):
@@ -41,6 +42,19 @@ class ImagingTests(unittest.TestCase):
         )
 
         assert i is not None
+
+    def test_axis(self):
+        """ test the axis class """
+        voxel_sizes = [1, 2, 3]
+        volume_sizes = [10, 10, 10]
+
+        # test that a few work
+        test_codes = ["RAS", "LSP", "RAI", "PAR"]
+        for test_code in test_codes:
+            axes = Axis.from_direction_code(
+                test_code, voxel_sizes, volume_sizes
+            )
+            assert len(axes) == 3
 
 
 if __name__ == "__main__":
