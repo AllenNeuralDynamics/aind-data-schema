@@ -57,10 +57,13 @@ class HomeCageEnrichment(Enum):
     PLASTIC_SHELTER = "plastic shelter"
     OTHER = "other"
 
+
 class WellnessReport(BaseModel):
     """Wellness report on animal health"""
+
     date: date = Field(..., title="Date")
     report: str = Field(..., title="Report")
+
 
 class Subject(BaseModel):
     """Description of a subject of data collection"""

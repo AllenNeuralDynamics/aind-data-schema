@@ -44,7 +44,7 @@ class ImagingTests(unittest.TestCase):
         assert i is not None
 
     def test_axis(self):
-        """ test the axis class """
+        """test the axis class"""
         voxel_sizes = [1, 2, 3]
         volume_sizes = [10, 10, 10]
 

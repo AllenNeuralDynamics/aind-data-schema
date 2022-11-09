@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from datetime import date, time
 from enum import Enum
-from typing import List, Optional, Union
+from typing import List, Optional
 
 from pydantic import BaseModel, Field
 
@@ -24,7 +24,8 @@ class Procedure(BaseModel):
     type: Optional[str] = Field(
         None, description="Procedure type", title="Procedure Type"
     )
-    date: date = Field(..., title="Date")
+    start_date: date = Field(..., title="Start date")
+    end_date: date = Field(..., title="End date")
     experimenter_full_name: str = Field(
         ...,
         description="First and last name of the experimenter.",
@@ -74,38 +75,37 @@ class Headframe(Procedure):
     well_type: Optional[str] = Field(None, title="Well type")
 
 
-class Hemisphere(Enum):
-    """Brain hemisphere"""
+class Side(Enum):
+    """Side of animal"""
 
     LEFT = "left"
     RIGHT = "right"
 
 
-class NanojectInjection(BaseModel):
-    """Description of a nanoject injection procedure"""
-
-    injection_type: str = Field("Nanoject", title="Injection type", const=True)
-    injection_volume: float = Field(
-        ..., title="Injection volume (nL)", units="nL"
-    )
-
-
-class IontophoresisInjection(BaseModel):
-    """Description of an iotophoresis injection procedure"""
-
-    injection_type: str = Field(
-        "Iontophoresis", title="Injection type", const=True
-    )
-    injection_current: float = Field(
-        ..., title="Injection current (μA)", units="μA"
-    )
-    alternating_current: str = Field(..., title="Alternating current")
-
-
 class Injection(Procedure):
     """Description of an injection procedure"""
 
-    injection_hemisphere: Optional[Hemisphere] = Field(
+    injection_virus: str = Field(..., title="Injection virus")
+    injection_virus_id: Optional[str] = Field(None, title="Injection virus ID")
+    injection_duration: time = Field(..., title="Injection duration")
+
+
+class RetroOrbitalInjection(Injection):
+    """Description of a retro-orbital injection procedure"""
+
+    injection_type: str = Field(
+        "Retro-orbital", title="Injection type", const=True
+    )
+    injection_volume: float = Field(
+        ..., title="Injection volume (nL)", units="nL"
+    )
+    injection_eye: Side = Field(..., title="Injection eye")
+
+
+class BrainInjection(Injection):
+    """Description of a brain injection procedure"""
+
+    injection_hemisphere: Optional[Side] = Field(
         None, title="Injection hemisphere"
     )
     injection_coordinate_ml: float = Field(
@@ -120,10 +120,27 @@ class Injection(Procedure):
     injection_angle: float = Field(
         ..., title="Injection angle (deg)", units="deg"
     )
-    injection_virus: str = Field(..., title="Injection virus")
-    injection_virus_id: Optional[str] = Field(None, title="Injection virus ID")
-    injection_duration: time = Field(..., title="Injection duration")
-    injection_class: Union[NanojectInjection, IontophoresisInjection]
+
+
+class NanojectInjection(BrainInjection):
+    """Description of a nanoject injection procedure"""
+
+    injection_type: str = Field("Nanoject", title="Injection type", const=True)
+    injection_volume: float = Field(
+        ..., title="Injection volume (nL)", units="nL"
+    )
+
+
+class IontophoresisInjection(BrainInjection):
+    """Description of an iotophoresis injection procedure"""
+
+    injection_type: str = Field(
+        "Iontophoresis", title="Injection type", const=True
+    )
+    injection_current: float = Field(
+        ..., title="Injection current (μA)", units="μA"
+    )
+    alternating_current: str = Field(..., title="Alternating current")
 
 
 class MriScanSequence(Enum):
@@ -171,19 +188,10 @@ class TissuePrepName(Enum):
     GELATION = "Gelation"
 
 
-class TissuePrep(BaseModel):
+class TissuePrep(Procedure):
     """Description of a tissue preparation procedure"""
 
     name: TissuePrepName = Field(..., title="Name")
-    date_started: date = Field(..., title="Date-time procedure started")
-    date_ended: date = Field(None, title="Date-time procedure ended")
-    experimenter_full_name: str = Field(
-        None,
-        description="First and last name of the experimenter.",
-        title="Experimenter full name",
-    )
-    protocol_id: str = Field(..., title="Protocol ID")
-    notes: Optional[str] = None
 
 
 class TrainingProtocol(BaseModel):
