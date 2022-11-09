@@ -57,6 +57,10 @@ class HomeCageEnrichment(Enum):
     PLASTIC_SHELTER = "plastic shelter"
     OTHER = "other"
 
+class WellnessReport(BaseModel):
+    """Wellness report on animal health"""
+    date: date = Field(..., title="Date")
+    report: str = Field(..., title="Report")
 
 class Subject(BaseModel):
     """Description of a subject of data collection"""
@@ -105,4 +109,5 @@ class Subject(BaseModel):
     home_cage_enrichment: Optional[HomeCageEnrichment] = Field(
         None, title="Home cage enrichment"
     )
+    wellness_report: Optional[WellnessReport] = Field(None, title="Wellness Report")
     notes: Optional[str] = Field(None, title="Notes")
