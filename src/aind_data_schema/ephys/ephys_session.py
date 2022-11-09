@@ -79,7 +79,7 @@ class Laser(BaseModel):
         ...,
         title="Targeted CCF coordinates",
     )
-    
+
     manipulator_coordinates: Coordinates3d = Field(
         ...,
         title="Manipulator coordinates",
@@ -99,7 +99,7 @@ class EphysProbe(BaseModel):
         ...,
         title="Targeted CCF coordinates",
     )
-    
+
     manipulator_coordinates: Coordinates3d = Field(
         ...,
         title="Manipulator coordinates",
