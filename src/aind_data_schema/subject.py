@@ -109,5 +109,5 @@ class Subject(BaseModel):
     home_cage_enrichment: Optional[HomeCageEnrichment] = Field(
         None, title="Home cage enrichment"
     )
-    wellness_report: Optional[List[WellnessReport]] = Field(None, title="Wellness Report")
+    wellness_reports: Optional[List[WellnessReport]] = Field(None, title="Wellness Report")
     notes: Optional[str] = Field(None, title="Notes")
