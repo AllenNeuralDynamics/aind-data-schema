@@ -83,7 +83,7 @@ class Side(Enum):
 
 
 
-class RetroOrbitalInjection(BaseModel):
+class RetroOrbitalInjection(Injection):
     """Description of a retro-orbital injection procedure"""
     injection_type: str = Field("Retro-orbital", title="Injection type", const=True)
     injection_volume: float = Field(
@@ -91,30 +91,15 @@ class RetroOrbitalInjection(BaseModel):
     )
     injection_eye: str[Side] = Field(..., title="Injection eye")
 
-class NanojectInjection(BaseModel):
+class NanojectInjection(BrainInjection):
     """Description of a nanoject injection procedure"""
 
     injection_type: str = Field("Nanoject", title="Injection type", const=True)
     injection_volume: float = Field(
         ..., title="Injection volume (nL)", units="nL"
     )
-    injection_hemisphere: Optional[Side] = Field(
-        None, title="Injection hemisphere"
-    )
-    injection_coordinate_ml: float = Field(
-        ..., title="Injection coordinate ML (mm)"
-    )
-    injection_coordinate_ap: float = Field(
-        ..., title="Injection coordinate AP (mm)"
-    )
-    injection_coordinate_depth: float = Field(
-        ..., title="Injection coodinate depth (mm)"
-    )
-    injection_angle: float = Field(
-        ..., title="Injection angle (deg)", units="deg"
-    )
 
-class IontophoresisInjection(BaseModel):
+class IontophoresisInjection(BrainInjection):
     """Description of an iotophoresis injection procedure"""
 
     injection_type: str = Field(
@@ -124,6 +109,16 @@ class IontophoresisInjection(BaseModel):
         ..., title="Injection current (μA)", units="μA"
     )
     alternating_current: str = Field(..., title="Alternating current")
+
+class Injection(Procedure):
+    """Description of an injection procedure"""
+
+    injection_virus: str = Field(..., title="Injection virus")
+    injection_virus_id: Optional[str] = Field(None, title="Injection virus ID")
+    injection_duration: time = Field(..., title="Injection duration")
+
+class BrainInjection(Injection):
+    """Description of a brain injection procedure"""
     injection_hemisphere: Optional[Side] = Field(
         None, title="Injection hemisphere"
     )
@@ -139,14 +134,6 @@ class IontophoresisInjection(BaseModel):
     injection_angle: float = Field(
         ..., title="Injection angle (deg)", units="deg"
     )
-
-class Injection(Procedure):
-    """Description of an injection procedure"""
-
-    injection_virus: str = Field(..., title="Injection virus")
-    injection_virus_id: Optional[str] = Field(None, title="Injection virus ID")
-    injection_duration: time = Field(..., title="Injection duration")
-    injection_class: Union[NanojectInjection, IontophoresisInjection, RetroOrbitalInjection]
 
 
 class MriScanSequence(Enum):
