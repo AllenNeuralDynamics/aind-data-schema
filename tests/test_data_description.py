@@ -7,6 +7,7 @@ from aind_data_schema.data_description import (
     DataDescription,
     DerivedDataDescription,
     RawDataDescription,
+    Funding,
 )
 
 
@@ -22,40 +23,55 @@ class DataDescriptionTest(unittest.TestCase):
     def test_from_name(self):
         """test the from_name methods"""
 
+        f = Funding(funder="test")
+
         da = DataDescription.from_name(
-            name=self.BASIC_NAME, institution="AIND", data_level="raw data"
+            name=self.BASIC_NAME,
+            institution="AIND",
+            data_level="raw data",
+            funding_source=[f],
         )
         assert da.name == self.BASIC_NAME
 
         with self.assertRaises(ValueError):
             DataDescription.from_name(
-                name=self.BAD_NAME, institution="AIND", data_level="raw data"
+                name=self.BAD_NAME,
+                institution="AIND",
+                data_level="raw data",
+                funding_source=[f],
             )
 
         rd = RawDataDescription.from_name(
-            name=self.BASIC_NAME, institution="AIND"
+            name=self.BASIC_NAME, institution="AIND", funding_source=[f]
         )
         assert rd.name == self.BASIC_NAME
         assert rd.data_level.value == "raw data"
 
         with self.assertRaises(ValueError):
             RawDataDescription.from_name(
-                name=self.BAD_NAME, institution="AIND", data_level="raw data"
+                name=self.BAD_NAME,
+                institution="AIND",
+                data_level="raw data",
+                funding_source=[f],
             )
 
         dd = DerivedDataDescription.from_name(
-            name=self.DERIVED_NAME, institution="AIND"
+            name=self.DERIVED_NAME, institution="AIND", funding_source=[f]
         )
         assert dd.name == self.DERIVED_NAME
         assert dd.data_level.value == "derived data"
 
         with self.assertRaises(ValueError):
             DerivedDataDescription.from_name(
-                name=self.BAD_NAME, institution="AIND", data_level="raw data"
+                name=self.BAD_NAME,
+                institution="AIND",
+                data_level="raw data",
+                funding_source=[f],
             )
 
     def test_constructors(self):
         """test building from component parts"""
+        f = Funding(funder="test")
 
         dt = datetime.datetime.now()
         da = DataDescription(
@@ -64,6 +80,7 @@ class DataDescriptionTest(unittest.TestCase):
             creation_time=dt.time(),
             institution="AIND",
             data_level="raw data",
+            funding_source=[f],
         )
 
         r1 = DerivedDataDescription(
@@ -72,6 +89,7 @@ class DataDescriptionTest(unittest.TestCase):
             creation_date=dt.date(),
             creation_time=dt.time(),
             institution="AIND",
+            funding_source=[f],
         )
 
         r2 = DerivedDataDescription(
@@ -80,6 +98,7 @@ class DataDescriptionTest(unittest.TestCase):
             creation_date=dt.date(),
             creation_time=dt.time(),
             institution="AIND",
+            funding_source=[f],
         )
 
         r3 = DerivedDataDescription(
@@ -88,6 +107,7 @@ class DataDescriptionTest(unittest.TestCase):
             creation_date=dt.date(),
             creation_time=dt.time(),
             institution="AIND",
+            funding_source=[f],
         )
         assert r3 is not None
 
@@ -97,6 +117,7 @@ class DataDescriptionTest(unittest.TestCase):
             creation_date=dt.date(),
             creation_time=dt.time(),
             institution="AIND",
+            funding_source=[f],
         )
 
         assert ad is not None

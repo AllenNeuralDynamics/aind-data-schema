@@ -8,6 +8,7 @@ from .data_description import (
     DataDescription,
     DerivedDataDescription,
     RawDataDescription,
+    Funding,
 )
 from .ephys.ephys_rig import EphysRig
 from .ephys.ephys_session import EphysSession
@@ -23,6 +24,7 @@ __all__ = [
     "DataDescription",
     "RawDataDescription",
     "DerivedDataDescription",
+    "Funding",
     "Procedures",
     "EphysRig",
     "EphysSession",
