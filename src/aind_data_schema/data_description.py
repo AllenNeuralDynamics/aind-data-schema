@@ -5,9 +5,9 @@ from __future__ import annotations
 import re
 from datetime import date, datetime, time
 from enum import Enum
-from typing import Optional
+from typing import Optional, List
 
-from pydantic import BaseModel, Field, root_validator, List
+from pydantic import BaseModel, Field, root_validator
 
 
 class RegexParts(Enum):
