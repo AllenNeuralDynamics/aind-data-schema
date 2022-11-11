@@ -1,13 +1,14 @@
 """ imports for BaseModel subclasses
 """
 
-__version__ = "0.2.5"
+__version__ = "0.2.6"
 
 
 from .data_description import (
     DataDescription,
     DerivedDataDescription,
     RawDataDescription,
+    Funding,
 )
 from .ephys.ephys_rig import EphysRig
 from .ephys.ephys_session import EphysSession
@@ -23,6 +24,7 @@ __all__ = [
     "DataDescription",
     "RawDataDescription",
     "DerivedDataDescription",
+    "Funding",
     "Procedures",
     "EphysRig",
     "EphysSession",

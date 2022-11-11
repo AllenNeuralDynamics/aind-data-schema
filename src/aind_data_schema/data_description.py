@@ -5,7 +5,7 @@ from __future__ import annotations
 import re
 from datetime import date, datetime, time
 from enum import Enum
-from typing import Optional
+from typing import Optional, List
 
 from pydantic import BaseModel, Field, root_validator
 
@@ -76,10 +76,20 @@ def datetime_from_name_string(d, t):
     )
 
 
+class Funding(BaseModel):
+    """Description of funding sources"""
+
+    funder: str = Field(..., title="Funder")
+    grant_number: Optional[str] = Field(None, title="Grant number")
+    fundee: Optional[str] = Field(
+        None, title="Fundee", description="Person(s) funded by this mechanism"
+    )
+
+
 class DataDescription(BaseModel):
     """Description of a logical collection of data files"""
 
-    schema_version: str = Field("0.1.0", title="Schema Version", const=True)
+    schema_version: str = Field("0.1.1", title="Schema Version", const=True)
     license: str = Field("CC-BY-4.0", title="License", const=True)
     describedBy: str = Field(
         "https://github.com/AllenNeuralDynamics/aind-data-schema/blob/main/schemas/data_description.py",
@@ -112,12 +122,16 @@ class DataDescription(BaseModel):
         description="An established society, corporation, foundation or other organization that collected this data",
         title="Institution",
     )
+    funding_source: List[Funding] = Field(
+        ...,
+        title="Funding source",
+        description="Funding sources. If internal label as Institution.",
+    )
     data_level: DataLevel = Field(
         ...,
         description="level of processing that data has undergone",
         title="Data Level",
     )
-
     group: Optional[Group] = Field(
         None,
         description="A short name for the group of individuals that collected this data",
