@@ -7,7 +7,7 @@ from datetime import date, datetime, time
 from enum import Enum
 from typing import Optional
 
-from pydantic import BaseModel, Field, root_validator
+from pydantic import BaseModel, Field, root_validator, List
 
 
 class RegexParts(Enum):
@@ -75,11 +75,16 @@ def datetime_from_name_string(d, t):
         datetime.strptime(t, "%H-%M-%S").time(),
     )
 
+
 class Funding(BaseModel):
     """Description of funding sources"""
+
     funder: str = Field(..., title="Funder")
     grant_number: Optional[str] = Field(None, title="Grant number")
-    fundee: Optional[str] = Field(none, title="Fundee", description="Person(s) funded by this mechanism")
+    fundee: Optional[str] = Field(
+        None, title="Fundee", description="Person(s) funded by this mechanism"
+    )
+
 
 class DataDescription(BaseModel):
     """Description of a logical collection of data files"""
@@ -117,8 +122,11 @@ class DataDescription(BaseModel):
         description="An established society, corporation, foundation or other organization that collected this data",
         title="Institution",
     )
-    funding_source: List[Funding] = Field(..., title="Funding source", 
-        description="Funding sources. If internal label as Institution.")
+    funding_source: List[Funding] = Field(
+        ...,
+        title="Funding source",
+        description="Funding sources. If internal label as Institution.",
+    )
     data_level: DataLevel = Field(
         ...,
         description="level of processing that data has undergone",
