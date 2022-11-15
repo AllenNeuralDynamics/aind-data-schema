@@ -88,7 +88,6 @@ class FilterType(Enum):
     BAND_PASS = "Band pass"
 
 
-
 class FilterSize(Enum):
     """Filter size value"""
 

@@ -2,6 +2,7 @@ from pydantic import BaseModel, Field
 from enum import Enum
 from typing import Optional
 
+
 class Manufacturer(Enum):
     """Device manufacturer name"""
 
@@ -15,6 +16,7 @@ class Manufacturer(Enum):
     OTHER = "Other"
     CHROMA = "Chroma"
     SEMROCK = "Semrock"
+
 
 class DeviceType(Enum):
     """Device type name"""

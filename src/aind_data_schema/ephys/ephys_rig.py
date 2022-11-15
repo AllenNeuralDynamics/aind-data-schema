@@ -177,7 +177,6 @@ class Probe(Device):
     type: ProbeType = Field(..., title="Type")
 
 
-
 class EphysRig(BaseModel):
     """Description of an ephys rig"""
 
@@ -192,7 +191,7 @@ class EphysRig(BaseModel):
     )
     rig_id: str = Field(
         ..., description="room_stim apparatus_version", title="Rig ID"
-    )    
+    )
     probes: Optional[List[Probe]] = Field(
         None, title="Probes", unique_items=True
     )
