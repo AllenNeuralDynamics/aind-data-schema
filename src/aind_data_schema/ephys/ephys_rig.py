@@ -8,6 +8,8 @@ from typing import List, Optional
 
 from pydantic import BaseModel, Field
 
+from ..device import Device, DeviceManufacturer
+
 
 class HarpDevice(Enum):
     """Harp device name"""
@@ -28,13 +30,10 @@ class CameraName(Enum):
     FACE_CAMERA = "Face Camera"
 
 
-class Camera(BaseModel):
+class Camera(Device):
     """Description of camera"""
 
     name: CameraName = Field(..., title="Name")
-    manufacturer: str = Field(..., title="Manufacturer")
-    model: str = Field(..., title="Model")
-    serial_number: str = Field(..., title="Serial number")
     position_x: float = Field(..., title="Position X")
     position_y: float = Field(..., title="Position Y")
     position_z: float = Field(..., title="Position Z")
@@ -60,7 +59,7 @@ class Surface(Enum):
     FOAM = "foam"
 
 
-class Disc(BaseModel):
+class Disc(Device):
     """Description of a running disc"""
 
     radius: float = Field(..., title="Radius (cm)", units="cm", ge=0)
@@ -77,13 +76,10 @@ class LaserName(Enum):
     LASER_B = "Laser B"
 
 
-class Laser(BaseModel):
+class Laser(Device):
     """Description of lasers used in ephys recordings"""
 
     name: LaserName = Field(..., title="Laser Name")
-    manufacturer: str = Field(..., title="Manufacturer")
-    model: str = Field(..., title="Model")
-    serial_number: str = Field(..., title="Serial number")
     wavelength: Optional[int] = Field(
         None, title="Wavelength (nm)", units="nm", ge=300, le=1000
     )
@@ -105,12 +101,9 @@ class Laser(BaseModel):
     )
 
 
-class Monitor(BaseModel):
+class Monitor(Device):
     """Description of a visual monitor"""
 
-    manufacturer: str = Field(..., title="Manufacturer")
-    model: str = Field(..., title="Model")
-    serial_number: str = Field(..., title="Serial number")
     refresh_rate: int = Field(
         ..., title="Refresh rate (Hz)", units="Hz", ge=60
     )
@@ -177,31 +170,12 @@ class ProbeType(Enum):
     MP_PHOTONIC_V1 = "MPI Photonic Probe (Version 1)"
 
 
-class Probe(BaseModel):
+class Probe(Device):
     """Description of an ephys probe"""
 
     name: ProbeName = Field(..., title="Name")
     type: ProbeType = Field(..., title="Type")
-    serial_number: str = Field(..., title="Serial number")
-
-
-class Devices(BaseModel):
-    """All of the devices in the rig"""
-
-    probes: Optional[List[Probe]] = Field(
-        None, title="Probes", unique_items=True
-    )
-    cameras: Optional[List[Camera]] = Field(
-        None, title="Cameras", unique_items=True
-    )
-    lasers: Optional[List[Laser]] = Field(
-        None, title="Lasers", unique_items=True
-    )
-    visual_monitors: Optional[List[Monitor]] = Field(
-        None, title="Visual monitor", unique_items=True
-    )
-    running_disc: Optional[Disc] = Field(None, title="Running disc")
-    harp_devices: Optional[List[HarpDevice]] = None
+    
 
 
 class EphysRig(BaseModel):
@@ -218,5 +192,18 @@ class EphysRig(BaseModel):
     )
     rig_id: str = Field(
         ..., description="room_stim apparatus_version", title="Rig ID"
+    )    
+    probes: Optional[List[Probe]] = Field(
+        None, title="Probes", unique_items=True
     )
-    devices: Devices
+    cameras: Optional[List[Camera]] = Field(
+        None, title="Cameras", unique_items=True
+    )
+    lasers: Optional[List[Laser]] = Field(
+        None, title="Lasers", unique_items=True
+    )
+    visual_monitors: Optional[List[Monitor]] = Field(
+        None, title="Visual monitor", unique_items=True
+    )
+    running_disc: Optional[Disc] = Field(None, title="Running disc")
+    harp_devices: Optional[List[HarpDevice]] = None
