@@ -175,7 +175,7 @@ class Probe(Device):
 
     name: ProbeName = Field(..., title="Name")
     type: ProbeType = Field(..., title="Type")
-    
+
 
 
 class EphysRig(BaseModel):
@@ -188,7 +188,7 @@ class EphysRig(BaseModel):
         const=True,
     )
     schema_version: str = Field(
-        "0.2.0", description="schema version", title="Version", const=True
+        "0.3.0", description="schema version", title="Version", const=True
     )
     rig_id: str = Field(
         ..., description="room_stim apparatus_version", title="Rig ID"

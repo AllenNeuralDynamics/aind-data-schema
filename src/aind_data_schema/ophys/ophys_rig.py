@@ -199,7 +199,7 @@ class OphysRig(BaseModel):
         const=True,
     )
     schema_version: str = Field(
-        "0.0.1",
+        "0.1.0",
         description="schema version",
         title="Schema Version",
         const=True,
