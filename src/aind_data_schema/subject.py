@@ -69,7 +69,7 @@ class WellnessReport(BaseModel):
 
 class Subject(AindSchema):
     """Description of a subject of data collection"""
-        
+
     schema_version: str = Field(
         "0.2.0", description="schema version", title="Version", const=True
     )

@@ -9,6 +9,7 @@ from typing import List, Optional
 from pydantic import BaseModel, Field
 from ..base import AindSchema
 
+
 class MicroscopeType(Enum):
     """Microscope name"""
 

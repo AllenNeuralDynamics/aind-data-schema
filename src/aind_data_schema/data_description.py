@@ -91,7 +91,7 @@ class DataDescription(AindSchema):
     """Description of a logical collection of data files"""
 
     schema_version: str = Field("0.1.1", title="Schema Version", const=True)
-    license: str = Field("CC-BY-4.0", title="License", const=True)    
+    license: str = Field("CC-BY-4.0", title="License", const=True)
 
     creation_time: time = Field(
         ...,

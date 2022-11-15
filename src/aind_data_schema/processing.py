@@ -10,7 +10,6 @@ from pydantic import BaseModel, Field
 from .base import AindSchema
 
 
-
 class ProcessName(Enum):
     """Data processing type labels"""
 

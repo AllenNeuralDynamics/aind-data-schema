@@ -10,6 +10,7 @@ from pydantic import BaseModel, Field
 
 from ..base import AindSchema
 
+
 class HarpDevice(Enum):
     """Harp device name"""
 
