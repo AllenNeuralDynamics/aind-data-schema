@@ -1,4 +1,6 @@
-from pydantic import BaseModel, validator
+""" generic base class with supporting validators and fields for basic AIND schema """
+
+from pydantic import BaseModel
 from pydantic.fields import ModelField
 
 import urllib.parse
@@ -33,6 +35,7 @@ class AindSchema(BaseModel):
     describedBy: str
 
     def __init_subclass__(cls, optional_fields=None, **kwargs):
+        """add the describedby field to all subclasses"""
         super().__init_subclass__(**kwargs)
 
         value = build_described_by(cls)
