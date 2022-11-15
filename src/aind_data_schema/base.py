@@ -7,21 +7,25 @@ import urllib.parse
 import aind_data_schema
 import os
 import inspect
+from pathlib import Path
 
-DESCRIBED_BY_BASE_URL = "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/"
+DESCRIBED_BY_BASE_URL = "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/"
 
 
 def build_described_by(cls, base_url=DESCRIBED_BY_BASE_URL):
     """construct a pydantic Field that refers to a specific file"""
 
     # find the root path of this package
-    path = os.path.dirname(aind_data_schema.__file__)
+    package_path = Path(os.path.dirname(aind_data_schema.__file__))
+
+    # now the root path of the repository
+    repo_path = (package_path / ".." / "..").resolve()
 
     # get the filename of the class
     filename = inspect.getfile(cls)
 
     # remove package prefix from class filename
-    filename = filename.replace(path + os.sep, "")
+    filename = filename.replace(f"{repo_path}{os.path.sep}", "")
 
     # forward slashes
     filename = filename.replace(os.sep, "/")
