@@ -8,7 +8,7 @@ from typing import List, Optional
 
 from pydantic import BaseModel, Field
 
-from ..device import Device, DeviceManufacturer
+from ..device import Device
 
 
 class HarpDevice(Enum):

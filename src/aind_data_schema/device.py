@@ -2,7 +2,7 @@ from pydantic import BaseModel, Field
 from enum import Enum
 from typing import Optional
 
-class DeviceManufacturer(Enum):
+class Manufacturer(Enum):
     """Device manufacturer name"""
 
     THORLABS = "Thorlabs"
@@ -13,15 +13,8 @@ class DeviceManufacturer(Enum):
     EALING = "Ealing"
     HAMAMATSU = "Hamamatsu"
     OTHER = "Other"
-
-
-class DetectorManufacturer(Enum):
-    """Detector manufacturer name"""
-
-    HAMAMATSU = "Hamamatsu"
-    PCOS = "PCOS"
-    OTHER = "other"
-
+    CHROMA = "Chroma"
+    SEMROCK = "Semrock"
 
 class DeviceType(Enum):
     """Device type name"""
@@ -44,7 +37,7 @@ class Device(BaseModel):
         description="Type of device. If Other please describe in Notes.",
         title="Type",
     )
-    manufacturer: DeviceManufacturer = Field(..., title="Manufacturer")
+    manufacturer: Manufacturer = Field(..., title="Manufacturer")
     model: Optional[str] = Field(None, title="Model")
     serial_number: Optional[str] = Field(None, title="Serial number")
     notes: Optional[str] = Field(None, title="Notes")

@@ -8,7 +8,7 @@ from typing import List, Optional
 
 from pydantic import BaseModel, Field
 
-from ..device import Device, DeviceType, DeviceManufacturer
+from ..device import Device, DeviceType
 
 
 class CameraName(Enum):
@@ -87,12 +87,6 @@ class FilterType(Enum):
     LONG_PASS = "Long pass"
     BAND_PASS = "Band pass"
 
-
-class FilterManufacturer(Enum):
-    """Filter manufacturer name"""
-
-    CHROMA = "Chroma"
-    SEMROCK = "Semrock"
 
 
 class FilterSize(Enum):
