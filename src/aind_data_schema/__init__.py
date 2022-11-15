@@ -3,8 +3,6 @@
 
 __version__ = "0.2.7"
 
-DESCRIBED_BY_URL
-
 from .data_description import (
     DataDescription,
     DerivedDataDescription,
