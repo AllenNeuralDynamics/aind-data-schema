@@ -8,6 +8,7 @@ from typing import List, Optional
 
 from pydantic import BaseModel, Field
 
+from ..base import AindSchema
 
 class HarpDevice(Enum):
     """Harp device name"""
@@ -204,15 +205,9 @@ class Devices(BaseModel):
     harp_devices: Optional[List[HarpDevice]] = None
 
 
-class EphysRig(BaseModel):
+class EphysRig(AindSchema):
     """Description of an ephys rig"""
 
-    describedBy: str = Field(
-        "https://github.com/AllenNeuralDynamics/data_schema/blob/main/schemas/ephys/ephys_rig.py",
-        description="The URL reference to the schema.",
-        title="Described by",
-        const=True,
-    )
     schema_version: str = Field(
         "0.2.0", description="schema version", title="Version", const=True
     )

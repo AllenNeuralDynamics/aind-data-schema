@@ -8,6 +8,7 @@ from enum import Enum
 from typing import Optional, List
 
 from pydantic import BaseModel, Field, root_validator
+from .base import AindSchema
 
 
 class RegexParts(Enum):
@@ -86,16 +87,11 @@ class Funding(BaseModel):
     )
 
 
-class DataDescription(BaseModel):
+class DataDescription(AindSchema):
     """Description of a logical collection of data files"""
 
     schema_version: str = Field("0.1.1", title="Schema Version", const=True)
-    license: str = Field("CC-BY-4.0", title="License", const=True)
-    describedBy: str = Field(
-        "https://github.com/AllenNeuralDynamics/aind-data-schema/blob/main/schemas/data_description.py",
-        title="Described by",
-        const=True,
-    )
+    license: str = Field("CC-BY-4.0", title="License", const=True)    
 
     creation_time: time = Field(
         ...,
