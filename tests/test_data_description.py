@@ -30,7 +30,7 @@ class DataDescriptionTest(unittest.TestCase):
             institution="AIND",
             data_level="raw data",
             funding_source=[f],
-        )               
+        )
         assert da.name == self.BASIC_NAME
 
         with self.assertRaises(ValueError):

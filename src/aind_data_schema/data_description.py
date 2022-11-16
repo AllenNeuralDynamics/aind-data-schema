@@ -79,7 +79,7 @@ def datetime_from_name_string(d, t):
 
 def build_data_name(label, creation_date, creation_time):
     dt_str = datetime_to_name_string(creation_date, creation_time)
-    return f'{label}_{dt_str}'
+    return f"{label}_{dt_str}"
 
 
 class Funding(BaseModel):
@@ -144,14 +144,18 @@ class DataDescription(AindSchema):
         title="Project ID",
     )
     _label: str = PrivateAttr()
-    
-    def __init__(self, label=None, **kwargs):        
+
+    def __init__(self, label=None, **kwargs):
         super().__init__(_label=label, **kwargs)
 
     @root_validator(pre=True)
     def build_fields(cls, values):
-        """build name """        
-        values["name"] = build_data_name(label=values["_label"], creation_date=values['creation_date'], creation_time=values['creation_time'])        
+        """build name"""
+        values["name"] = build_data_name(
+            label=values["_label"],
+            creation_date=values["creation_date"],
+            creation_time=values["creation_time"],
+        )
         return values
 
     @classmethod
@@ -190,8 +194,12 @@ class DerivedDataDescription(DataDescription):
             if isinstance(d, DerivedDataDescription)
             else d.name
         )
-        process_name = values['process_name']        
-        values["name"] = build_data_name(label=f'{name}_{process_name}', creation_date=values['creation_date'], creation_time=values['creation_time'])
+        process_name = values["process_name"]
+        values["name"] = build_data_name(
+            label=f"{name}_{process_name}",
+            creation_date=values["creation_date"],
+            creation_time=values["creation_time"],
+        )
         values["data_level"] = DataLevel.DERIVED_DATA
         return values
 
@@ -241,7 +249,11 @@ class RawDataDescription(DataDescription):
     @root_validator(pre=True)
     def build_fields(cls, values):
         """compute the label, name, and data_level fields"""
-        values["name"] = build_data_name(label=f'{values["modality"]}_{values["subject_id"]}', creation_date=values['creation_date'], creation_time=values['creation_time'])
+        values["name"] = build_data_name(
+            label=f'{values["modality"]}_{values["subject_id"]}',
+            creation_date=values["creation_date"],
+            creation_time=values["creation_time"],
+        )
         values["data_level"] = DataLevel.RAW_DATA
         return values
 
