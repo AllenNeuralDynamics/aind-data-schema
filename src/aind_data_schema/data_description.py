@@ -147,6 +147,11 @@ class DataDescription(BaseModel):
         description="A database or other identifier for a project",
         title="Project ID",
     )
+    restrictions: Optional[str] = Field(
+        None,
+        description="Detail any restrictions on publishing or sharing these data",
+        title="Restrictions"
+    )
 
     @root_validator(pre=True)
     def build_fields(cls, values):
