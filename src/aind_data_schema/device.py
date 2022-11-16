@@ -13,9 +13,15 @@ class Manufacturer(Enum):
     EDMUND_OPTICS = "Edmund Optics"
     EALING = "Ealing"
     HAMAMATSU = "Hamamatsu"
-    OTHER = "Other"
+    OLYMPUS = "Olympus"
+    LEICA = "Leica"
+    LIFECANVAS = "LifeCanvas"
+    CUSTOM = "Custom"
     CHROMA = "Chroma"
     SEMROCK = "Semrock"
+    NEUROPIXELS = "Neuropixels"
+    MPI = "MPI"
+    OTHER = "Other"
 
 
 class DeviceType(Enum):
@@ -34,12 +40,7 @@ class DeviceType(Enum):
 class Device(BaseModel):
     """Description of an general device"""
 
-    type: DeviceType = Field(
-        ...,
-        description="Type of device. If Other please describe in Notes.",
-        title="Type",
-    )
     manufacturer: Manufacturer = Field(..., title="Manufacturer")
+    serial_number: str = Field(..., title="Serial number")
     model: Optional[str] = Field(None, title="Model")
-    serial_number: Optional[str] = Field(None, title="Serial number")
     notes: Optional[str] = Field(None, title="Notes")

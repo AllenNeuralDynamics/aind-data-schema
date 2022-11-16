@@ -8,6 +8,8 @@ from typing import List, Optional
 
 from pydantic import BaseModel, Field
 
+from ..device import Device
+
 
 class MicroscopeType(Enum):
     """Microscope name"""
@@ -19,15 +21,6 @@ class MicroscopeType(Enum):
     CONFOCAL = "Confocal"
     TWO_PHOTON = "Two photon"
     OTHER = "Other"
-
-
-class MicroscopeManufacturer(Enum):
-    """Microscope manufacturer name"""
-
-    OLYMPUS = "Olympus"
-    LEICA = "Leica"
-    LIFECANVAS = "LifeCanvas"
-    CUSTOM = "Custom"
 
 
 class AnalogOutput(BaseModel):
@@ -70,22 +63,10 @@ class Cooling(Enum):
     WATER = "water"
 
 
-class Device(BaseModel):
-    """Description of a device"""
-
-    type: Optional[str] = Field(
-        None, description="Generic device type", title="Type"
-    )
-    manufacturer: Optional[str] = Field(None, title="Manufacturer")
-    model: Optional[str] = Field(None, title="Model")
-    serial_number: Optional[str] = Field(None, title="Serial number")
-    notes: Optional[str] = Field(None, title="Notes")
-
-
 class Detector(Device):
     """Description of a detector device"""
 
-    type: CameraType = Field(..., title="Detector Type")
+    type: CameraType = Field(..., title="Detector type")
     data_interface: DataInterface = Field(..., title="Data interface")
     cooling: Cooling = Field(..., title="Cooling")
 
@@ -99,19 +80,10 @@ class FilterType(Enum):
     MULTIBAND = "Multiband"
 
 
-class FilterManufacturer(Enum):
-    """Filter manufacturer name"""
-
-    CHROMA = "Chroma"
-    SEMROCK = "Semrock"
-    OTHER = "Other"
-
-
 class Filter(Device):
     """Description of a filter device"""
 
     type: FilterType = Field(..., title="Filter Type")
-    manufacturer: FilterManufacturer = Field(..., title="Filter manufacturer")
     diameter: float = Field(..., title="Size (mm)", ge=0)
     thickness: float = Field(..., title="Size (mm)", ge=0)
     description: Optional[str] = Field(
@@ -169,10 +141,26 @@ class Microscope(Device):
     """Description of a microscope device"""
 
     type: MicroscopeType = Field(..., title="Microscope type")
-    manufacturer: MicroscopeManufacturer = Field(
-        ..., title="Microscope manufacturer"
-    )
     location: str = Field(..., title="Microscope location")
+
+
+class DeviceType(Enum):
+    """Device type name"""
+
+    DIFFUSER = "Diffuser"
+    GALVO = "Galvo"
+    BEAM_EXPANDER = "Beam expander"
+    LASER_COUPLER = "Laser coupler"
+    PRISM = "Prism"
+    OBJECTIVE = "Objective"
+    SLIT = "Slit"
+    OTHER = "Other"
+
+
+class AdditionalDevice(Device):
+    """Description of additional devices"""
+
+    type: DeviceType = Field(..., title="Device type")
 
 
 class Instrument(BaseModel):
@@ -196,7 +184,6 @@ class Instrument(BaseModel):
         ...,
         title="Microscope information",
     )
-
     temperature_control: Optional[bool] = Field(
         None, title="Temperature control"
     )
