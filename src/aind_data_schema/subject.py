@@ -8,6 +8,8 @@ from typing import Optional, List
 
 from pydantic import BaseModel, Field
 
+from .base import AindSchema
+
 
 class Species(Enum):
     """Species latin name"""
@@ -65,15 +67,9 @@ class WellnessReport(BaseModel):
     report: str = Field(..., title="Report")
 
 
-class Subject(BaseModel):
+class Subject(AindSchema):
     """Description of a subject of data collection"""
 
-    describedBy: str = Field(
-        "https://github.com/AllenNeuralDynamics/data_schema/blob/main/schemas/subject.py",
-        description="The URL reference to the schema.",
-        title="Described by",
-        const=True,
-    )
     schema_version: str = Field(
         "0.2.0", description="schema version", title="Version", const=True
     )

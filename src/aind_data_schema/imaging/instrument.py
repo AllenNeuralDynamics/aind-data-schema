@@ -7,6 +7,7 @@ from enum import Enum
 from typing import List, Optional
 
 from pydantic import BaseModel, Field
+from ..base import AindSchema
 
 
 class MicroscopeType(Enum):
@@ -175,17 +176,11 @@ class Microscope(Device):
     location: str = Field(..., title="Microscope location")
 
 
-class Instrument(BaseModel):
+class Instrument(AindSchema):
     """Description of an instrument, which is a collection of devices"""
 
     version: str = Field(
         "0.1.0", description="schema version", title="Version", const=True
-    )
-    describedBy: str = Field(
-        "https://github.com/AllenNeuralDynamics/aind-data-schema/blob/main/src/aind-data-schema/imaging/instrument.py",
-        description="The URL reference to the schema.",
-        title="Described by",
-        const=True,
     )
     instrument_id: Optional[str] = Field(
         None,

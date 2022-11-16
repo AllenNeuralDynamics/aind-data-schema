@@ -7,6 +7,7 @@ from enum import Enum
 from typing import List, Optional
 
 from pydantic import BaseModel, Field
+from ..base import AindSchema
 
 
 class SessionType(Enum):
@@ -118,17 +119,11 @@ class Stream(BaseModel):
     lasers: List[Laser] = Field(..., title="Lasers", unique_items=True)
 
 
-class EphysSession(BaseModel):
+class EphysSession(AindSchema):
     """Description of an ephys recording session"""
 
     schema_version: str = Field(
         "0.2.0", description="schema version", title="Version", const=True
-    )
-    describedBy: str = Field(
-        "https://github.com/AllenNeuralDynamics/data_schema/blob/main/schemas/ephys/ephys_session.py",
-        description="The URL reference to the schema.",
-        title="Described by",
-        const=True,
     )
     experimenter_full_name: str = Field(
         ...,
