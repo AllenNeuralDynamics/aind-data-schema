@@ -78,6 +78,7 @@ def datetime_from_name_string(d, t):
 
 
 def build_data_name(label, creation_date, creation_time):
+    """Construct a valid data description name"""
     dt_str = datetime_to_name_string(creation_date, creation_time)
     return f"{label}_{dt_str}"
 
@@ -151,6 +152,7 @@ class DataDescription(AindSchema):
     _label: str = PrivateAttr()
 
     def __init__(self, label=None, **kwargs):
+        """Construct a generic data description"""
         super().__init__(_label=label, **kwargs)
 
     @root_validator(pre=True)
