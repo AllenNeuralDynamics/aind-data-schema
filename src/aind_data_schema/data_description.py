@@ -143,6 +143,11 @@ class DataDescription(AindSchema):
         description="A database or other identifier for a project",
         title="Project ID",
     )
+    restrictions: Optional[str] = Field(
+        None,
+        description="Detail any restrictions on publishing or sharing these data",
+        title="Restrictions"
+    )
     _label: str = PrivateAttr()
 
     def __init__(self, label=None, **kwargs):
