@@ -40,7 +40,7 @@ class Procedure(BaseModel):
         None,
         title="Animal weight (g)",
         description="Animal weight before procedure",
-        units='g'
+        units="g",
     )
     notes: Optional[str] = Field(None, title="Notes")
 
