@@ -24,19 +24,6 @@ class Manufacturer(Enum):
     OTHER = "Other"
 
 
-class DeviceType(Enum):
-    """Device type name"""
-
-    DIFFUSER = "Diffuser"
-    GALVO = "Galvo"
-    BEAM_EXPANDER = "Beam expander"
-    LASER_COUPLER = "Laser coupler"
-    PRISM = "Prism"
-    OBJECTIVE = "Objective"
-    SLIT = "Slit"
-    OTHER = "Other"
-
-
 class Device(BaseModel):
     """Description of an general device"""
 

@@ -144,8 +144,8 @@ class Microscope(Device):
     location: str = Field(..., title="Microscope location")
 
 
-class DeviceType(Enum):
-    """Device type name"""
+class ImagingDeviceType(Enum):
+    """Imaginge device type name"""
 
     DIFFUSER = "Diffuser"
     GALVO = "Galvo"
@@ -157,10 +157,10 @@ class DeviceType(Enum):
     OTHER = "Other"
 
 
-class AdditionalDevice(Device):
+class AdditionalImagingDevice(Device):
     """Description of additional devices"""
 
-    type: DeviceType = Field(..., title="Device type")
+    type: ImagingDeviceType = Field(..., title="Device type")
 
 
 class Instrument(BaseModel):
@@ -210,7 +210,7 @@ class Instrument(BaseModel):
     motorized_stages: Optional[List[Device]] = Field(
         None, title="Motorized stages", unique_items=True
     )
-    additional_devices: Optional[List[Device]] = Field(
+    additional_devices: Optional[List[AdditionalImagingDevice]] = Field(
         None, title="Additional devices", unique_items=True
     )
     calibration_date: Optional[date] = Field(
