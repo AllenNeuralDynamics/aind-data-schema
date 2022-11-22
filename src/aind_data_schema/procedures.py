@@ -40,6 +40,7 @@ class Procedure(BaseModel):
         None,
         title="Animal weight (g)",
         description="Animal weight before procedure",
+        units='g'
     )
     notes: Optional[str] = Field(None, title="Notes")
 
@@ -283,7 +284,7 @@ class Procedures(AindSchema):
     """Description of all procedures performed on a subject"""
 
     schema_version: str = Field(
-        "0.4.1", description="schema version", title="Version", const=True
+        "0.4.2", description="schema version", title="Version", const=True
     )
     subject_id: str = Field(
         ...,
