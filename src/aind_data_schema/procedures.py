@@ -7,6 +7,7 @@ from enum import Enum
 from typing import List, Optional
 
 from pydantic import BaseModel, Field
+from .base import AindSchema
 
 
 class ProtectiveMaterial(Enum):
@@ -277,15 +278,9 @@ class WaterRestriction(BaseModel):
     end_date: date = Field(..., title="Water restriction end date")
 
 
-class Procedures(BaseModel):
+class Procedures(AindSchema):
     """Description of all procedures performed on a subject"""
 
-    describedBy: str = Field(
-        "https://github.com/AllenNeuralDynamics/aind-data-schema/blob/main/src/aind-data-schema/procedures.py",
-        description="The URL reference to the schema.",
-        title="Described by",
-        const=True,
-    )
     schema_version: str = Field(
         "0.4.1", description="schema version", title="Version", const=True
     )

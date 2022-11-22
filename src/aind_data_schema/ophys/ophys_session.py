@@ -7,6 +7,7 @@ from enum import Enum
 from typing import List, Optional
 
 from pydantic import BaseModel, Field
+from ..base import AindSchema
 
 
 class FiberName(Enum):
@@ -68,19 +69,13 @@ class Patch(BaseModel):
     output_power: float = Field(..., title="Output power (uW)")
 
 
-class OphysSession(BaseModel):
+class OphysSession(AindSchema):
     """Description of an ophys session"""
 
     schema_version: str = Field(
         "0.0.1",
         description="schema version",
         title="Schema Version",
-        const=True,
-    )
-    describedBy: str = Field(
-        "https://github.com/AllenNeuralDynamics/aind-data-schema/tree/main/src/aind_data_schema/ophys/ophys_session.py",
-        description="The URL reference to the schema.",
-        title="Described by",
         const=True,
     )
     experimenter_full_name: str = Field(

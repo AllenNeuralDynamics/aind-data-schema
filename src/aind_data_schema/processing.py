@@ -7,6 +7,7 @@ from enum import Enum
 from typing import Any, Dict, List, Optional
 
 from pydantic import BaseModel, Field
+from .base import AindSchema
 
 
 class ProcessName(Enum):
@@ -46,15 +47,9 @@ class DataProcess(BaseModel):
     notes: Optional[str] = None
 
 
-class Processing(BaseModel):
+class Processing(AindSchema):
     """Desription of all processes run on data"""
 
-    describedBy: str = Field(
-        "https://github.com/AllenNeuralDynamics/data_schema/blob/main/schemas/processing.py",
-        description="The URL reference to the schema.",
-        title="Described by",
-        const=True,
-    )
     schema_version: str = Field(
         "0.0.1",
         description="Schema version",

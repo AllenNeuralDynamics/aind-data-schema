@@ -7,7 +7,8 @@ from datetime import date, datetime, time
 from enum import Enum
 from typing import Optional, List
 
-from pydantic import BaseModel, Field, root_validator
+from pydantic import BaseModel, Field, root_validator, PrivateAttr
+from .base import AindSchema
 
 
 class RegexParts(Enum):
@@ -22,7 +23,7 @@ class DataRegex(Enum):
 
     DATA = f"^(?P<label>.+?)_(?P<c_date>{RegexParts.DATE.value})_(?P<c_time>{RegexParts.TIME.value})$"
     RAW_DATA = f"^(?P<modality>.+?)_(?P<subject_id>.+?)_(?P<c_date>{RegexParts.DATE.value})_(?P<c_time>{RegexParts.TIME.value})$"
-    DERIVED_DATA = f"^(?P<input>.+?_{RegexParts.DATE.value}_{RegexParts.TIME.value})_(?P<label>.+?)_(?P<c_date>{RegexParts.DATE.value})_(?P<c_time>{RegexParts.TIME.value})"
+    DERIVED_DATA = f"^(?P<input>.+?_{RegexParts.DATE.value}_{RegexParts.TIME.value})_(?P<process_name>.+?)_(?P<c_date>{RegexParts.DATE.value})_(?P<c_time>{RegexParts.TIME.value})"
     NO_UNDERSCORES = "^[^_]+$"
 
 
@@ -76,6 +77,12 @@ def datetime_from_name_string(d, t):
     )
 
 
+def build_data_name(label, creation_date, creation_time):
+    """Construct a valid data description name"""
+    dt_str = datetime_to_name_string(creation_date, creation_time)
+    return f"{label}_{dt_str}"
+
+
 class Funding(BaseModel):
     """Description of funding sources"""
 
@@ -86,16 +93,11 @@ class Funding(BaseModel):
     )
 
 
-class DataDescription(BaseModel):
+class DataDescription(AindSchema):
     """Description of a logical collection of data files"""
 
-    schema_version: str = Field("0.1.1", title="Schema Version", const=True)
+    schema_version: str = Field("0.2.0", title="Schema Version", const=True)
     license: str = Field("CC-BY-4.0", title="License", const=True)
-    describedBy: str = Field(
-        "https://github.com/AllenNeuralDynamics/aind-data-schema/blob/main/schemas/data_description.py",
-        title="Described by",
-        const=True,
-    )
 
     creation_time: time = Field(
         ...,
@@ -106,11 +108,6 @@ class DataDescription(BaseModel):
         ...,
         description="Date in UTC that data files were created, used to uniquely identify the data",
         title="Creation Date",
-    )
-    label: str = Field(
-        ...,
-        description="Label describing provenance of data",
-        title="Label",
     )
     name: str = Field(
         ...,
@@ -150,16 +147,22 @@ class DataDescription(BaseModel):
     restrictions: Optional[str] = Field(
         None,
         description="Detail any restrictions on publishing or sharing these data",
-        title="Restrictions"
+        title="Restrictions",
     )
+    _label: str = PrivateAttr()
+
+    def __init__(self, label=None, **kwargs):
+        """Construct a generic data description"""
+        super().__init__(_label=label, **kwargs)
 
     @root_validator(pre=True)
     def build_fields(cls, values):
-        """construct the name field"""
-        dt_str = datetime_to_name_string(
-            values["creation_date"], values["creation_time"]
+        """build name"""
+        values["name"] = build_data_name(
+            label=values["_label"],
+            creation_date=values["creation_date"],
+            creation_time=values["creation_time"],
         )
-        values["name"] = f'{values["label"]}_{dt_str}'
         return values
 
     @classmethod
@@ -186,24 +189,24 @@ class DerivedDataDescription(DataDescription):
     """A logical collection of data files derived via processing"""
 
     input_data: DataDescription
-
-    processed_name: Optional[str]
+    process_name: str
 
     @root_validator(pre=True)
     def build_fields(cls, values):
         """build name, process_name, and data_level fields"""
 
-        dt_str = datetime_to_name_string(
-            values["creation_date"], values["creation_time"]
-        )
         d = values["input_data"]
         name = (
-            d.processed_name
+            build_data_name(d.process_name, d.creation_date, d.creation_time)
             if isinstance(d, DerivedDataDescription)
             else d.name
         )
-        values["name"] = f'{name}_{values["label"]}_{dt_str}'
-        values["processed_name"] = f'{values["label"]}_{dt_str}'
+        process_name = values["process_name"]
+        values["name"] = build_data_name(
+            label=f"{name}_{process_name}",
+            creation_date=values["creation_date"],
+            creation_time=values["creation_time"],
+        )
         values["data_level"] = DataLevel.DERIVED_DATA
         return values
 
@@ -222,13 +225,12 @@ class DerivedDataDescription(DataDescription):
             m.group("input"), data_level=DataLevel.DERIVED_DATA, **kwargs
         )
 
-        label = m.group("label")
         creation_date, creation_time = datetime_from_name_string(
             m.group("c_date"), m.group("c_time")
         )
 
         return cls(
-            label=label,
+            process_name=m.group("process_name"),
             creation_date=creation_date,
             creation_time=creation_time,
             input_data=input_data,
@@ -254,12 +256,11 @@ class RawDataDescription(DataDescription):
     @root_validator(pre=True)
     def build_fields(cls, values):
         """compute the label, name, and data_level fields"""
-
-        dt_str = datetime_to_name_string(
-            values["creation_date"], values["creation_time"]
+        values["name"] = build_data_name(
+            label=f'{values["modality"]}_{values["subject_id"]}',
+            creation_date=values["creation_date"],
+            creation_time=values["creation_time"],
         )
-        values["label"] = f'{values["modality"]}_{values["subject_id"]}'
-        values["name"] = f'{values["label"]}_{dt_str}'
         values["data_level"] = DataLevel.RAW_DATA
         return values
 

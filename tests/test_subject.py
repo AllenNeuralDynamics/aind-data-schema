@@ -6,6 +6,7 @@ import unittest
 import pydantic
 
 from aind_data_schema import LightCycle, Subject
+from aind_data_schema.subject import MgiAlleleId
 
 
 class SubjectTests(unittest.TestCase):
@@ -28,6 +29,7 @@ class SubjectTests(unittest.TestCase):
             date_of_birth=now.date(),
             genotype="wt",
             light_cycle=lc,
+            mgi_allele_ids=[MgiAlleleId(mgi_id="12345", allele_name="adsf")],
         )
 
         assert s is not None
