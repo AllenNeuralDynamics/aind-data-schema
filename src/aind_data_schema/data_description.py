@@ -147,7 +147,7 @@ class DataDescription(AindSchema):
     restrictions: Optional[str] = Field(
         None,
         description="Detail any restrictions on publishing or sharing these data",
-        title="Restrictions"
+        title="Restrictions",
     )
     _label: str = PrivateAttr()
 
