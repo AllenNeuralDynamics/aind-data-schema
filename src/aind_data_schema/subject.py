@@ -67,7 +67,7 @@ class WellnessReport(BaseModel):
     report: str = Field(..., title="Report")
 
 
-class MgiIds(BaseModel):
+class MgiAlleleId(BaseModel):
     """Mouse Genome Informatics IDs for genotype alleles"""
     allele_name: str = Field(..., title="Name")
     mgi_id: str = Field(..., title="MGI ID")
@@ -91,7 +91,7 @@ class Subject(AindSchema):
         description="Genotype of the animal providing both alleles",
         title="Genotype",
     )
-    mgi_allele_ids: Optional[List[MgiIds]] = Field(None, title="MGI allele ids")
+    mgi_allele_ids: Optional[List[MgiAlleleId]] = Field(None, title="MGI allele ids")
     background_strain: Optional[BackgroundStrain] = Field(
         None, title="Background strain"
     )
