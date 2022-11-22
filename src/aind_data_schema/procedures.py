@@ -32,12 +32,14 @@ class Procedure(BaseModel):
         description="First and last name of the experimenter.",
         title="Experimenter full name",
     )
-    protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
+    protocol_id: str = Field(
+        ..., title="Protocol ID", description="DOI for protocols.io"
+    )
     iacuc_protocol: Optional[str] = Field(None, title="IACUC protocol")
     animal_weight: Optional[float] = Field(
-        None, 
-        title="Animal weight (g)", 
-        description="Animal weight before procedure"
+        None,
+        title="Animal weight (g)",
+        description="Animal weight before procedure",
     )
     notes: Optional[str] = Field(None, title="Notes")
 
@@ -199,7 +201,6 @@ class TissuePrep(Procedure):
 
     name: TissuePrepName = Field(..., title="Name")
     specimen_id: List[str] = Field(..., title="Specimen ID")
-
 
 
 class TrainingProtocol(BaseModel):
