@@ -90,12 +90,24 @@ class Side(Enum):
     LEFT = "left"
     RIGHT = "right"
 
+class InjectionMaterial(BaseModel):
+    """Description of injection material"""
+    name: str = Field(..., title="Name")
+    id: Optional[str] = Field(None, title="ID")
+    genome_copy: Optional[float] = Field(None, title="Genome copy")
+    titer: Optional[str] = Field(None, title="Titer (gc/mL", units = "gc/mL")
+    prep_lot_number: Optional[str] = Field(None, title="Preparation lot number")
+    prep_date: Optional[date] = Field(None, title="Preparation lot date",
+        description="Date this prep lot was titered"
+        )
+
 
 class Injection(Procedure):
     """Description of an injection procedure"""
 
-    injection_virus: str = Field(..., title="Injection virus")
-    injection_virus_id: Optional[str] = Field(None, title="Injection virus ID")
+    injection_material: List[InjectionMaterial] = Field(
+        None, title="Injection material", unique_items=True
+    )
     injection_duration: time = Field(..., title="Injection duration")
 
 
@@ -151,6 +163,22 @@ class IontophoresisInjection(BrainInjection):
     )
     alternating_current: str = Field(..., title="Alternating current")
 
+
+class IntraCerebellarVentricleInjection(BrainInjection):
+    injection_type: str = Field(
+        "ICV", title="Injection type", const=True
+    )
+    injection_volume: float=Field(
+        ..., title="Injection volume (nL)", units="nL"
+    )
+
+class IntraCisternalMagnaInjection(BrainInjection):
+    injection_type: str = Field(
+        "ICM", title="Injection type", const=True
+    )
+    injection_volume: float=Field(
+        ..., title="Injection volume (nL)", units="nL"
+    )
 
 class MriScanSequence(Enum):
     """MRI scan sequence"""
