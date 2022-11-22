@@ -205,4 +205,4 @@ class EphysRig(BaseModel):
         None, title="Visual monitor", unique_items=True
     )
     running_disc: Optional[Disc] = Field(None, title="Running disc")
-    harp_devices: Optional[List[HarpDevice]] = None
+    harp_devices: Optional[List[HarpDevice]] = Field(None, title="Harp devices")
