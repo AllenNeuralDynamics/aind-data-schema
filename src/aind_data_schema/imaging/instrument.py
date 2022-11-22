@@ -9,9 +9,11 @@ from typing import List, Optional
 from pydantic import BaseModel, Field
 from ..base import AindSchema
 
+from ..device import Device, Manufacturer
 
-class MicroscopeType(Enum):
-    """Microscope name"""
+
+class InstrumentType(Enum):
+    """Instrument type name"""
 
     MESOSPIM = "mesoSPIM"
     EXASPIM = "exaSPIM"
@@ -20,15 +22,6 @@ class MicroscopeType(Enum):
     CONFOCAL = "Confocal"
     TWO_PHOTON = "Two photon"
     OTHER = "Other"
-
-
-class MicroscopeManufacturer(Enum):
-    """Microscope manufacturer name"""
-
-    OLYMPUS = "Olympus"
-    LEICA = "Leica"
-    LIFECANVAS = "LifeCanvas"
-    CUSTOM = "Custom"
 
 
 class AnalogOutput(BaseModel):
@@ -71,22 +64,10 @@ class Cooling(Enum):
     WATER = "water"
 
 
-class Device(BaseModel):
-    """Description of a device"""
-
-    type: Optional[str] = Field(
-        None, description="Generic device type", title="Type"
-    )
-    manufacturer: Optional[str] = Field(None, title="Manufacturer")
-    model: Optional[str] = Field(None, title="Model")
-    serial_number: Optional[str] = Field(None, title="Serial number")
-    notes: Optional[str] = Field(None, title="Notes")
-
-
 class Detector(Device):
     """Description of a detector device"""
 
-    type: CameraType = Field(..., title="Detector Type")
+    type: CameraType = Field(..., title="Detector type")
     data_interface: DataInterface = Field(..., title="Data interface")
     cooling: Cooling = Field(..., title="Cooling")
 
@@ -100,19 +81,10 @@ class FilterType(Enum):
     MULTIBAND = "Multiband"
 
 
-class FilterManufacturer(Enum):
-    """Filter manufacturer name"""
-
-    CHROMA = "Chroma"
-    SEMROCK = "Semrock"
-    OTHER = "Other"
-
-
 class Filter(Device):
     """Description of a filter device"""
 
     type: FilterType = Field(..., title="Filter Type")
-    manufacturer: FilterManufacturer = Field(..., title="Filter manufacturer")
     diameter: float = Field(..., title="Size (mm)", ge=0)
     thickness: float = Field(..., title="Size (mm)", ge=0)
     description: Optional[str] = Field(
@@ -166,32 +138,39 @@ class Objective(Device):
     immersion: Immersion = Field(..., title="Immersion")
 
 
-class Microscope(Device):
-    """Description of a microscope device"""
+class ImagingDeviceType(Enum):
+    """Imaginge device type name"""
 
-    type: MicroscopeType = Field(..., title="Microscope type")
-    manufacturer: MicroscopeManufacturer = Field(
-        ..., title="Microscope manufacturer"
-    )
-    location: str = Field(..., title="Microscope location")
+    DIFFUSER = "Diffuser"
+    GALVO = "Galvo"
+    BEAM_EXPANDER = "Beam expander"
+    LASER_COUPLER = "Laser coupler"
+    PRISM = "Prism"
+    OBJECTIVE = "Objective"
+    SLIT = "Slit"
+    OTHER = "Other"
+
+
+class AdditionalImagingDevice(Device):
+    """Description of additional devices"""
+
+    type: ImagingDeviceType = Field(..., title="Device type")
 
 
 class Instrument(AindSchema):
     """Description of an instrument, which is a collection of devices"""
 
     version: str = Field(
-        "0.1.0", description="schema version", title="Version", const=True
+        "0.2.0", description="schema version", title="Version", const=True
     )
     instrument_id: Optional[str] = Field(
         None,
         description="unique identifier for this instrument configuration",
         title="Instrument ID",
     )
-    microscope: Microscope = Field(
-        ...,
-        title="Microscope information",
-    )
-
+    type: InstrumentType = Field(..., title="Instrument type")
+    location: str = Field(..., title="Instrument location")
+    manufacturer: Manufacturer = Field(..., title="Instrument manufacturer")
     temperature_control: Optional[bool] = Field(
         None, title="Temperature control"
     )
@@ -218,7 +197,7 @@ class Instrument(AindSchema):
     motorized_stages: Optional[List[Device]] = Field(
         None, title="Motorized stages", unique_items=True
     )
-    additional_devices: Optional[List[Device]] = Field(
+    additional_devices: Optional[List[AdditionalImagingDevice]] = Field(
         None, title="Additional devices", unique_items=True
     )
     calibration_date: Optional[date] = Field(

@@ -6,8 +6,10 @@ from datetime import date, datetime
 from enum import Enum
 from typing import List, Optional
 
-from pydantic import BaseModel, Field
+from pydantic import Field
 from ..base import AindSchema
+
+from ..device import Device
 
 
 class CameraName(Enum):
@@ -18,13 +20,10 @@ class CameraName(Enum):
     FACE_CAMERA = "Face Camera"
 
 
-class Camera(BaseModel):
+class Camera(Device):
     """Description of an ophys camera"""
 
     name: CameraName = Field(..., title="Camera Name")
-    manufacturer: str = Field(..., title="Manufacturer")
-    model: str = Field(..., title="Model")
-    serial_number: str = Field(..., title="Serial number")
     position_x: float = Field(..., title="Position X")
     position_y: float = Field(..., title="Position Y")
     position_z: float = Field(..., title="Position Z")
@@ -42,14 +41,6 @@ class CameraType(Enum):
 
     CAMERA = "Camera"
     PMT = "PMT"
-    OTHER = "other"
-
-
-class DetectorManufacturer(Enum):
-    """Detector manufacturer name"""
-
-    HAMAMATSU = "Hamamatsu"
-    PCOS = "PCOS"
     OTHER = "other"
 
 
@@ -77,7 +68,7 @@ class Immersion(Enum):
     OIL = "oil"
 
 
-class Detector(BaseModel):
+class Detector(Device):
     """Description of a generic detector"""
 
     name: Optional[str] = Field(
@@ -86,54 +77,9 @@ class Detector(BaseModel):
         title="Name",
     )
     type: CameraType = Field(..., title="Camera Type")
-    manufacturer: DetectorManufacturer = Field(
-        ..., title="Detector Manufacturer"
-    )
-    model: str = Field(..., title="Model")
-    serial_number: Optional[str] = Field(None, title="Serial number")
     data_interface: DataInterface = Field(..., title="Data interface")
     cooling: Cooling = Field(..., title="Cooling")
     immersion: Optional[Immersion] = Field(None, title="Immersion")
-
-
-class DeviceType(Enum):
-    """Device type name"""
-
-    DIFFUSER = "Diffuser"
-    GALVO = "Galvo"
-    BEAM_EXPANDER = "Beam expander"
-    LASER_COUPLER = "Laser coupler"
-    PRISM = "Prism"
-    OBJECTIVE = "Objective"
-    SLIT = "Slit"
-    OTHER = "Other"
-
-
-class DeviceManufacturer(Enum):
-    """Device manufacturer name"""
-
-    THORLABS = "Thorlabs"
-    OPTOTUNE = "Optotune"
-    CAMBRIDGE_TECHNOLOGY = "Cambridge Technology"
-    NIKON = "Nikon"
-    EDMUND_OPTICS = "Edmund Optics"
-    EALING = "Ealing"
-    HAMAMATSU = "Hamamatsu"
-    OTHER = "Other"
-
-
-class Device(BaseModel):
-    """Description of an ophys device"""
-
-    type: DeviceType = Field(
-        ...,
-        description="Type of device. If Other please describe in Notes.",
-        title="Type",
-    )
-    manufacturer: DeviceManufacturer = Field(..., title="Manufacturer")
-    model: Optional[str] = Field(None, title="Model")
-    serial_number: Optional[str] = Field(None, title="Serial number")
-    notes: Optional[str] = Field(None, title="Notes")
 
 
 class FilterType(Enum):
@@ -143,13 +89,6 @@ class FilterType(Enum):
     BAND_PASS = "Band pass"
 
 
-class FilterManufacturer(Enum):
-    """Filter manufacturer name"""
-
-    CHROMA = "Chroma"
-    SEMROCK = "Semrock"
-
-
 class FilterSize(Enum):
     """Filter size value"""
 
@@ -157,12 +96,10 @@ class FilterSize(Enum):
     FILTER_SIZE_32 = 32
 
 
-class Filter(BaseModel):
+class Filter(Device):
     """Description of a filter"""
 
     type: FilterType = Field(..., title="Filter Type")
-    manufacturer: FilterManufacturer = Field(..., title="Filter Manufacturer")
-    model: str = Field(..., title="Model")
     size: Optional[FilterSize] = Field(None, title="Size (mm)")
     cut_off_frequency: Optional[int] = Field(None, title="Cut off frequency")
     cut_on_frequency: Optional[int] = Field(None, title="Cut on frequency")
@@ -190,14 +127,11 @@ class Coupling(Enum):
     OTHER = "other"
 
 
-class Laser(BaseModel):
+class Laser(Device):
     """Description of a laser"""
 
     name: LaserName = Field(..., title="Laser Name")
-    manufacturer: str = Field(..., title="Manufacturer")
-    model: str = Field(..., title="Model")
     item_number: Optional[str] = Field(None, title="Item number")
-    serial_number: str = Field(..., title="Serial number")
     wavelength: int = Field(..., title="Wavelength (nm)")
     maximum_power: float = Field(..., title="Maximum power (mW)")
     coupling: Optional[Coupling] = Field(None, title="Coupling")
@@ -219,11 +153,9 @@ class LensSize(Enum):
     LENS_SIZE_2 = 2
 
 
-class Lens(BaseModel):
+class Lens(Device):
     """Description of a lens"""
 
-    manufacturer: Optional[str] = Field(None, title="Manufacturer")
-    model: Optional[str] = Field(None, title="Model")
     focal_length: Optional[float] = Field(None, title="Focal length (mm)")
     size: Optional[LensSize] = Field(None, title="Size (inches)")
     optimized_wavelength_range: Optional[str] = Field(
@@ -240,13 +172,10 @@ class PatchName(Enum):
     PATCH_CORD_C = "Patch Cord C"
 
 
-class Patch(BaseModel):
+class Patch(Device):
     """Description of a patch"""
 
     name: PatchName = Field(..., title="Patch Name")
-    manufacturer: Optional[str] = Field(None, title="Manufacturer")
-    part_number: str = Field(..., title="model")
-    serial_number: str = Field(..., title="Serial number")
     core_diameter: float = Field(..., title="Core diameter (um)")
     numerical_aperture: float = Field(..., title="Numerical aperture")
     photobleaching_date: Optional[date] = Field(
@@ -258,7 +187,7 @@ class OphysRig(AindSchema):
     """Description of an optical physiology rig"""
 
     schema_version: str = Field(
-        "0.0.1",
+        "0.2.0",
         description="schema version",
         title="Schema Version",
         const=True,
@@ -288,8 +217,8 @@ class OphysRig(AindSchema):
     lenses: Optional[List[Lens]] = Field(
         None, title="Lenses", unique_items=True
     )
-    devices: Optional[List[Device]] = Field(
-        None, title="Devices", unique_items=True
+    additional_devices: Optional[List[Device]] = Field(
+        None, title="Additional devices", unique_items=True
     )
     light_path_diagram: Optional[str] = Field(
         None,
