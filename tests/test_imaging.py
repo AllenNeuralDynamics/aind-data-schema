@@ -5,7 +5,7 @@ import unittest
 
 from pydantic import ValidationError
 
-from aind_data_schema import Acquisition, Instrument, Microscope
+from aind_data_schema import Acquisition, Instrument
 from aind_data_schema.imaging.acquisition import Axis
 
 
@@ -33,12 +33,13 @@ class ImagingTests(unittest.TestCase):
         with self.assertRaises(ValidationError):
             i = Instrument()
 
-        m = Microscope(
-            manufacturer="LifeCanvas", type="smartSPIM", location="440"
-        )
-
         i = Instrument(
-            microscope=m, objectives=[], detectors=[], light_sources=[]
+            type="smartSPIM",
+            location="440",
+            manufacturer="LifeCanvas",
+            objectives=[],
+            detectors=[],
+            light_sources=[],
         )
 
         assert i is not None

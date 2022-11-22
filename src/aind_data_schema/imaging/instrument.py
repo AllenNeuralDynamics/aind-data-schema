@@ -9,11 +9,11 @@ from typing import List, Optional
 from pydantic import BaseModel, Field
 from ..base import AindSchema
 
-from ..device import Device
+from ..device import Device, Manufacturer
 
 
-class MicroscopeType(Enum):
-    """Microscope name"""
+class InstrumentType(Enum):
+    """Instrument type name"""
 
     MESOSPIM = "mesoSPIM"
     EXASPIM = "exaSPIM"
@@ -138,13 +138,6 @@ class Objective(Device):
     immersion: Immersion = Field(..., title="Immersion")
 
 
-class Microscope(Device):
-    """Description of a microscope device"""
-
-    type: MicroscopeType = Field(..., title="Microscope type")
-    location: str = Field(..., title="Microscope location")
-
-
 class ImagingDeviceType(Enum):
     """Imaginge device type name"""
 
@@ -168,17 +161,16 @@ class Instrument(AindSchema):
     """Description of an instrument, which is a collection of devices"""
 
     version: str = Field(
-        "0.1.0", description="schema version", title="Version", const=True
+        "0.2.0", description="schema version", title="Version", const=True
     )
     instrument_id: Optional[str] = Field(
         None,
         description="unique identifier for this instrument configuration",
         title="Instrument ID",
     )
-    microscope: Microscope = Field(
-        ...,
-        title="Microscope information",
-    )
+    type: InstrumentType = Field(..., title="Instrument type")
+    location: str = Field(..., title="Instrument location")
+    manufacturer: Manufacturer = Field(..., title="Instrument manufacturer")
     temperature_control: Optional[bool] = Field(
         None, title="Temperature control"
     )
