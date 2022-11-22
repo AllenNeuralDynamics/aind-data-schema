@@ -85,7 +85,7 @@ class DataDescriptionTest(unittest.TestCase):
 
         r1 = DerivedDataDescription(
             input_data=da,
-            label="spikesort-ks25",
+            process_name="spikesort-ks25",
             creation_date=dt.date(),
             creation_time=dt.time(),
             institution="AIND",
@@ -94,7 +94,7 @@ class DataDescriptionTest(unittest.TestCase):
 
         r2 = DerivedDataDescription(
             input_data=r1,
-            label="some-model",
+            process_name="some-model",
             creation_date=dt.date(),
             creation_time=dt.time(),
             institution="AIND",
@@ -103,7 +103,7 @@ class DataDescriptionTest(unittest.TestCase):
 
         r3 = DerivedDataDescription(
             input_data=r2,
-            label="a-paper",
+            process_name="a-paper",
             creation_date=dt.date(),
             creation_time=dt.time(),
             institution="AIND",
