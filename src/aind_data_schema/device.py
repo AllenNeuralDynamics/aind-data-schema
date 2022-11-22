@@ -1,3 +1,5 @@
+""" generic device-related classes """
+
 from pydantic import BaseModel, Field
 from enum import Enum
 from typing import Optional
