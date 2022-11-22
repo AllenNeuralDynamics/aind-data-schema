@@ -8,7 +8,7 @@ from typing import List, Optional
 
 from pydantic import BaseModel, Field
 
-from ..device import Device, DeviceType
+from ..device import Device
 
 
 class CameraName(Enum):
@@ -192,7 +192,7 @@ class OphysRig(BaseModel):
         const=True,
     )
     schema_version: str = Field(
-        "0.1.0",
+        "0.2.0",
         description="schema version",
         title="Schema Version",
         const=True,
@@ -222,8 +222,8 @@ class OphysRig(BaseModel):
     lenses: Optional[List[Lens]] = Field(
         None, title="Lenses", unique_items=True
     )
-    devices: Optional[List[Device]] = Field(
-        None, title="Devices", unique_items=True
+    additional_devices: Optional[List[Device]] = Field(
+        None, title="Additional devices", unique_items=True
     )
     light_path_diagram: Optional[str] = Field(
         None,
