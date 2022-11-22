@@ -90,6 +90,7 @@ class OphysSession(AindSchema):
     stimulus_protocol_id: Optional[str] = Field(
         None, title="Stimulus protocol ID"
     )
+    iacuc_protocol: Optional[str] = Field(None, title="IACUC protocol")
     rig_id: str = Field(..., title="Rig ID")
     patch_cords: List[Patch] = Field(
         ..., title="Patch cords", unique_items=True
