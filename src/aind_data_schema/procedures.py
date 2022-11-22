@@ -7,6 +7,7 @@ from enum import Enum
 from typing import List, Optional
 
 from pydantic import BaseModel, Field
+from .base import AindSchema
 
 
 class ProtectiveMaterial(Enum):
@@ -31,8 +32,16 @@ class Procedure(BaseModel):
         description="First and last name of the experimenter.",
         title="Experimenter full name",
     )
-    protocol_id: str = Field(..., title="Protocol ID")
-    animal_weight: Optional[float] = Field(None, title="Animal weight (g)")
+    protocol_id: str = Field(
+        ..., title="Protocol ID", description="DOI for protocols.io"
+    )
+    iacuc_protocol: Optional[str] = Field(None, title="IACUC protocol")
+    animal_weight: Optional[float] = Field(
+        None,
+        title="Animal weight (g)",
+        description="Animal weight before procedure",
+        units='g'
+    )
     notes: Optional[str] = Field(None, title="Notes")
 
 
@@ -192,6 +201,7 @@ class TissuePrep(Procedure):
     """Description of a tissue preparation procedure"""
 
     name: TissuePrepName = Field(..., title="Name")
+    specimen_id: List[str] = Field(..., title="Specimen ID")
 
 
 class TrainingProtocol(BaseModel):
@@ -270,17 +280,11 @@ class WaterRestriction(BaseModel):
     end_date: date = Field(..., title="Water restriction end date")
 
 
-class Procedures(BaseModel):
+class Procedures(AindSchema):
     """Description of all procedures performed on a subject"""
 
-    describedBy: str = Field(
-        "https://github.com/AllenNeuralDynamics/aind-data-schema/blob/main/src/aind-data-schema/procedures.py",
-        description="The URL reference to the schema.",
-        title="Described by",
-        const=True,
-    )
     schema_version: str = Field(
-        "0.4.1", description="schema version", title="Version", const=True
+        "0.4.2", description="schema version", title="Version", const=True
     )
     subject_id: str = Field(
         ...,
@@ -310,5 +314,8 @@ class Procedures(BaseModel):
     )
     tissue_preparations: Optional[List[TissuePrep]] = Field(
         None, title="Tissue preparations", unique_items=True
+    )
+    other_procedures: Optional[List[Procedure]] = Field(
+        None, title="Other procedures", unique_items=True
     )
     notes: Optional[str] = Field(None, title="Notes")

@@ -9,6 +9,7 @@ from typing import List, Optional
 from pydantic import BaseModel, Field
 
 from ..device import Device
+from ..base import AindSchema
 
 
 class HarpDevice(Enum):
@@ -177,7 +178,7 @@ class Probe(Device):
     type: ProbeType = Field(..., title="Type")
 
 
-class EphysRig(BaseModel):
+class EphysRig(AindSchema):
     """Description of an ephys rig"""
 
     describedBy: str = Field(

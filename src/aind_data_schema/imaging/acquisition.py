@@ -7,6 +7,7 @@ from enum import Enum
 from typing import List, Optional
 
 from pydantic import BaseModel, Field
+from ..base import AindSchema
 
 
 class AxisName(Enum):
@@ -101,17 +102,11 @@ class Position(BaseModel):
     z_step_um: float
 
 
-class Acquisition(BaseModel):
+class Acquisition(AindSchema):
     """Description of an imaging acquisition session"""
 
     version: str = Field(
         "0.2.1", description="schema version", title="Version", const="True"
-    )
-    describedBy: str = Field(
-        "https://github.com/AllenNeuralDynamics/aind-data-schema/blob/main/src/aind-data-schema/imaging/acquisition.py",
-        description="The URL reference to the schema.",
-        title="Described by",
-        const=True,
     )
     experimenter_full_name: str = Field(
         ...,

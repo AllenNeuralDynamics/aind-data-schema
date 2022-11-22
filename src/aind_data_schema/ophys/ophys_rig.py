@@ -7,6 +7,7 @@ from enum import Enum
 from typing import List, Optional
 
 from pydantic import BaseModel, Field
+from ..base import AindSchema
 
 from ..device import Device
 
@@ -182,15 +183,9 @@ class Patch(Device):
     )
 
 
-class OphysRig(BaseModel):
+class OphysRig(AindSchema):
     """Description of an optical physiology rig"""
 
-    describedBy: str = Field(
-        "https://github.com/AllenNeuralDynamics/aind-data-schema/tree/main/src/aind_data_schema/ophys/ophys_rig.py",
-        description="The URL reference to the schema.",
-        title="Described by",
-        const=True,
-    )
     schema_version: str = Field(
         "0.2.0",
         description="schema version",

@@ -8,6 +8,8 @@ from typing import Optional, List
 
 from pydantic import BaseModel, Field
 
+from .base import AindSchema
+
 
 class Species(Enum):
     """Species latin name"""
@@ -65,17 +67,18 @@ class WellnessReport(BaseModel):
     report: str = Field(..., title="Report")
 
 
-class Subject(BaseModel):
+class MgiAlleleId(BaseModel):
+    """Mouse Genome Informatics IDs for genotype alleles"""
+
+    allele_name: str = Field(..., title="Name")
+    mgi_id: str = Field(..., title="MGI ID")
+
+
+class Subject(AindSchema):
     """Description of a subject of data collection"""
 
-    describedBy: str = Field(
-        "https://github.com/AllenNeuralDynamics/data_schema/blob/main/schemas/subject.py",
-        description="The URL reference to the schema.",
-        title="Described by",
-        const=True,
-    )
     schema_version: str = Field(
-        "0.2.0", description="schema version", title="Version", const=True
+        "0.2.1", description="schema version", title="Version", const=True
     )
     species: Species = Field(..., title="Species")
     subject_id: str = Field(
@@ -89,6 +92,9 @@ class Subject(BaseModel):
         ...,
         description="Genotype of the animal providing both alleles",
         title="Genotype",
+    )
+    mgi_allele_ids: Optional[List[MgiAlleleId]] = Field(
+        None, title="MGI allele ids"
     )
     background_strain: Optional[BackgroundStrain] = Field(
         None, title="Background strain"
