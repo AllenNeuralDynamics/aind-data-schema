@@ -87,19 +87,34 @@ class Headframe(Procedure):
 class Side(Enum):
     """Side of animal"""
 
-    LEFT = "left"
-    RIGHT = "right"
+    LEFT = "Left"
+    RIGHT = "Right"
+
+class PrepType(Enum):
+    """Type of virus preparation"""
+
+    CRUDE = "Crude"
+    PURIFIED = "Purified"
 
 class InjectionMaterial(BaseModel):
     """Description of injection material"""
     name: str = Field(..., title="Name")
-    id: Optional[str] = Field(None, title="ID")
+    material_id: Optional[str] = Field(None, title="Material ID")
+    full_genome_name: Optional[str] = Field(
+        None, title="Full genome name",
+        description="Full genome for virus construct"
+        )
+    plasmid_name: Optional[str] = Field(
+        None, title="Plasmid name",
+        description="Short name used to reference the plasmid"
+    )
     genome_copy: Optional[float] = Field(None, title="Genome copy")
     titer: Optional[str] = Field(None, title="Titer (gc/mL", units = "gc/mL")
     prep_lot_number: Optional[str] = Field(None, title="Preparation lot number")
     prep_date: Optional[date] = Field(None, title="Preparation lot date",
         description="Date this prep lot was titered"
         )
+    prep_type: Optional[PrepType] = Field(None, title="Viral prep type")
 
 
 class Injection(Procedure):
