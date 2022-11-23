@@ -137,6 +137,7 @@ class EphysSession(AindSchema):
     stimulus_protocol_id: Optional[str] = Field(
         None, title="Stimulus protocol ID"
     )
+    iacuc_protocol: Optional[str] = Field(None, title="IACUC protocol")
     rig_id: str = Field(..., title="Rig ID")
     expected_data_streams: Optional[List[ExpectedDataStream]] = None
     probe_streams: List[Stream] = Field(
