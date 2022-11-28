@@ -189,6 +189,8 @@ class IontophoresisInjection(BrainInjection):
 
 
 class IntraCerebellarVentricleInjection(BrainInjection):
+    """Description of an interacerebellar ventricle injection"""
+
     injection_type: str = Field("ICV", title="Injection type", const=True)
     injection_volume: float = Field(
         ..., title="Injection volume (nL)", units="nL"
@@ -196,6 +198,8 @@ class IntraCerebellarVentricleInjection(BrainInjection):
 
 
 class IntraCisternalMagnaInjection(BrainInjection):
+    """Description of an interacisternal magna injection"""
+
     injection_type: str = Field("ICM", title="Injection type", const=True)
     injection_volume: float = Field(
         ..., title="Injection volume (nL)", units="nL"
