@@ -90,7 +90,7 @@ class Side(Enum):
     LEFT = "Left"
     RIGHT = "Right"
 
-class PrepType(Enum):
+class VirusPrepType(Enum):
     """Type of virus preparation"""
 
     CRUDE = "Crude"
@@ -109,12 +109,12 @@ class InjectionMaterial(BaseModel):
         description="Short name used to reference the plasmid"
     )
     genome_copy: Optional[float] = Field(None, title="Genome copy")
-    titer: Optional[str] = Field(None, title="Titer (gc/mL", units = "gc/mL")
+    titer: Optional[float] = Field(None, title="Titer (gc/mL", units = "gc/mL")
     prep_lot_number: Optional[str] = Field(None, title="Preparation lot number")
     prep_date: Optional[date] = Field(None, title="Preparation lot date",
         description="Date this prep lot was titered"
         )
-    prep_type: Optional[PrepType] = Field(None, title="Viral prep type")
+    prep_type: Optional[VirusPrepType] = Field(None, title="Viral prep type")
 
 
 class Injection(Procedure):
