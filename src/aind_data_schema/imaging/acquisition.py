@@ -102,12 +102,6 @@ class Position(BaseModel):
     z_step_um: float
 
 
-class Coupling(BaseModel):
-    """Description of lightsource coupling"""
-
-    light_source: str = Field(None, title="Light source name")
-    filter: str = Field(None, title="Filter name")
-
 class Acquisition(AindSchema):
     """Description of an imaging acquisition session"""
 
@@ -148,6 +142,6 @@ class Acquisition(AindSchema):
     positions: List[Position] = Field(
         ..., title="Positions", unique_items=True
     )
-    lasers: List[Laser] = Field(..., title="Lasers", unique_items=True)
+    channels: List[Channel] = Field(..., title="Channels", unique_items=True)
     daqs: Optional[List[dict]] = Field(None, title="DAQ", unique_items=True)
     notes: Optional[str] = Field(None, title="Notes")
