@@ -78,14 +78,14 @@ class Axis(BaseModel):
         return axes
 
 
-class Laser(BaseModel):
-    """Description of a laser"""
+class Channel(BaseModel):
+    """Description of a channel"""
 
-    name: str = Field(..., title="Name")
     channel: int = Field(..., title="Channel")
     enabled: Optional[bool] = Field(None, title="Enabled")
-    wavelength: int = Field(..., title="Wavelength (nm)")
-    power: float = Field(..., title="Power")
+    laser_wavelength: int = Field(..., title="Wavelength (nm)", units="nm", ge=300, le=1000)
+    laser_power: float = Field(..., title="Power (mW)", units="mW", le=2000)
+    filter_wheel_index: int = Field(..., title="Filter wheel index")
 
 
 class Position(BaseModel):
@@ -101,6 +101,12 @@ class Position(BaseModel):
     z_end_um: float
     z_step_um: float
 
+
+class Coupling(BaseModel):
+    """Description of lightsource coupling"""
+
+    light_source: str = Field(None, title="Light source name")
+    filter: str = Field(None, title="Filter name")
 
 class Acquisition(AindSchema):
     """Description of an imaging acquisition session"""
