@@ -180,18 +180,18 @@ class DAQ(Device):
 
 class OpticalTable(Device):
     """Description of Optical Table"""
-    optical_table_length: Optional[float] = Field(
-        None, title="Optical table length (inches)", units="inches", ge=0
+    length: Optional[float] = Field(
+        None, title="Length (inches)", units="inches", ge=0
     )
-    optical_table_width: Optional[float] = Field(
-        None, title="Optical table width (inches)", units="inches", ge=0
+    width: Optional[float] = Field(
+        None, title="Width (inches)", units="inches", ge=0
     )
 
 class Instrument(AindSchema):
     """Description of an instrument, which is a collection of devices"""
 
     version: str = Field(
-        "0.2.0", description="schema version", title="Version", const=True
+        "0.3.0", description="schema version", title="Version", const=True
     )
     instrument_id: Optional[str] = Field(
         None,
