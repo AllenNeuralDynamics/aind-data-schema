@@ -105,9 +105,9 @@ class Subject(AindSchema):
         title="Source",
     )
     rrid: Optional[str] = Field(
-        None, 
+        None,
         description="RRID of mouse if acquired from supplier",
-        title="RRID"
+        title="RRID",
     )
     restrictions: Optional[str] = Field(
         None,

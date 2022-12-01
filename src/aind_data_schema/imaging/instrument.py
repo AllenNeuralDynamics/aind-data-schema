@@ -116,7 +116,9 @@ class Lightsource(Device):
 
     type: LightsourceType = Field(..., title="Lightsource Type")
     coupling: Coupling = Field(..., title="Coupling")
-    wavelength: float = Field(..., title="Wavelength (nm)", units="nm", ge=300, le=1000)
+    wavelength: float = Field(
+        ..., title="Wavelength (nm)", units="nm", ge=300, le=1000
+    )
     max_power: float = Field(..., title=" Maximum power (mW)", units="mW")
 
 
@@ -159,17 +161,22 @@ class AdditionalImagingDevice(Device):
 
 class StageAxis(Enum):
     """Direction of motion for motorized stage"""
+
     DETECTION_AXIS = "Detection axis"
     ILLUMINATION_AXIS = "Illumination axis"
     PERPENDICULAR_AXIS = "Perpendicular axis"
 
+
 class MotorizedStage(Device):
     """Description of motorized stage"""
+
     axis: StageAxis = Field(..., title="Axis of stage")
-    travel: float = Field(...,title="Travel of device (mm)", units="mm")
+    travel: float = Field(..., title="Travel of device (mm)", units="mm")
+
 
 class DAQ(Device):
     """Description of DAQ device"""
+
     device_name: str = Field(..., title="PC device name")
     update_frequency: float = Field(
         ..., title="DAQ update frequency (Hz)", units="Hz"
@@ -178,14 +185,17 @@ class DAQ(Device):
         None, title="DAQ analog outputs", unique_items=True
     )
 
+
 class OpticalTable(Device):
     """Description of Optical Table"""
+
     length: Optional[float] = Field(
         None, title="Length (inches)", units="inches", ge=0
     )
     width: Optional[float] = Field(
         None, title="Width (inches)", units="inches", ge=0
     )
+
 
 class Instrument(AindSchema):
     """Description of an instrument, which is a collection of devices"""

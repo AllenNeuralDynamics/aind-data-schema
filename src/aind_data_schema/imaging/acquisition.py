@@ -83,7 +83,9 @@ class Channel(BaseModel):
 
     channel: int = Field(..., title="Channel")
     enabled: Optional[bool] = Field(None, title="Enabled")
-    laser_wavelength: int = Field(..., title="Wavelength (nm)", units="nm", ge=300, le=1000)
+    laser_wavelength: int = Field(
+        ..., title="Wavelength (nm)", units="nm", ge=300, le=1000
+    )
     laser_power: float = Field(..., title="Power (mW)", units="mW", le=2000)
     filter_wheel_index: int = Field(..., title="Filter wheel index")
 
