@@ -1,0 +1,120 @@
+{
+   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/imaging/instrument.py",
+   "version": "0.4.0",
+   "instrument_id": "SmartSPIM01",
+   "type": "smartSPIM",
+   "location": "440 Westlake",
+   "manufacturer": "LifeCanvas",
+   "temperature_control": false,
+   "humidity_control": false,
+   "optical_tables": null,
+   "objectives": [
+      {
+         "manufacturer": "Thorlabs",
+         "serial_number": "unknown",
+         "model": null,
+         "notes": "Thorlabs TL4X-SAP with LifeCanvas dipping cap and correction optics.",
+         "numerical_aperture": 0.2,
+         "magnification": 3.6,
+         "immersion": "multi"
+      }
+   ],
+   "detectors": [
+      {
+         "manufacturer": "Hamamatsu",
+         "serial_number": "001107",
+         "model": "C14440-20UP",
+         "notes": null,
+         "type": "Camera",
+         "data_interface": "USB",
+         "cooling": "air"
+      }
+   ],
+   "light_sources": [
+      {
+         "manufacturer": "Vortran",
+         "serial_number": "VL01222A11",
+         "model": null,
+         "notes": null,
+         "type": "laser",
+         "coupling": "SMF",
+         "wavelength": 488.0,
+         "max_power": 150.0
+      },
+      {
+         "manufacturer": "Coherent Scientific",
+         "serial_number": "417927",
+         "model": null,
+         "notes": null,
+         "type": "laser",
+         "coupling": "SMF",
+         "wavelength": 561.0,
+         "max_power": 150.0
+      },
+      {
+         "manufacturer": "Vortran",
+         "serial_number": "VL01222A10",
+         "model": null,
+         "notes": null,
+         "type": "laser",
+         "coupling": "SMF",
+         "wavelength": 647.0,
+         "max_power": 160.0
+      }
+   ],
+   "fluorescence_filters": [
+      {
+         "manufacturer": "Semrock",
+         "serial_number": "Unknown",
+         "model": "FF03-525/50-25",
+         "notes": null,
+         "type": "Band pass",
+         "diameter": 25.0,
+         "thickness": 2.0,
+         "filter_wheel_index": 0,
+         "description": null
+      },
+      {
+         "manufacturer": "Semrock",
+         "serial_number": "Unknown",
+         "model": "FF01-600/52-25",
+         "notes": null,
+         "type": "Band pass",
+         "diameter": 25.0,
+         "thickness": 2.0,
+         "filter_wheel_index": 1,
+         "description": null
+      },
+      {
+         "manufacturer": "Chroma",
+         "serial_number": "Unknown",
+         "model": "ET690/50m",
+         "notes": null,
+         "type": "Band pass",
+         "diameter": 25.0,
+         "thickness": 2.0,
+         "filter_wheel_index": 2,
+         "description": null
+      }
+   ],
+   "motorized_stages": null,
+   "daqs": null,
+   "additional_devices": null,
+   "calibration_date": null,
+   "calibration_data": null,
+   "com_ports": [
+      {
+         "hardware_name": "Laser Launch",
+         "com_port": "COM3"
+      },
+      {
+         "hardware_name": "ASI Tiger",
+         "com_port": "COM5"
+      },
+      {
+         "hardware_name": "MightyZap",
+         "com_port": "COM4"
+      }
+   ],
+   "notes": null
+}

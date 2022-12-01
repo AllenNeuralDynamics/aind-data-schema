@@ -23,6 +23,9 @@ class Manufacturer(Enum):
     SEMROCK = "Semrock"
     NEUROPIXELS = "Neuropixels"
     MPI = "MPI"
+    VORTRAN = "Vortran"
+    COHERENT_SCIENTIFIC = "Coherent Scientific"
+    NEWPORT = "Newport"
     OTHER = "Other"
 
 
