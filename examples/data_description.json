@@ -1,13 +1,23 @@
 {
-   "schema_version": "0.1.0",
+   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/data_description.py",
+   "schema_version": "0.2.0",
    "license": "CC-BY-4.0",
-   "describedBy": "https://github.com/AllenNeuralDynamics/aind-data-schema/blob/main/schemas/data_description.py",
-   "creation_time": "11:24:40.520304",
-   "creation_date": "2022-10-28",
-   "label": "ecephys_123456",
-   "name": "ecephys_123456_2022-10-28_11-24-40",
+   "creation_time": "16:14:34.525530",
+   "creation_date": "2022-11-30",
+   "name": "ecephys_12345_2022-11-30_16-14-34",
    "institution": "AIND",
+   "funding_source": [
+      {
+         "funder": "AIND",
+         "grant_number": null,
+         "fundee": null
+      }
+   ],
    "data_level": "raw data",
+   "group": null,
+   "project_name": null,
+   "project_id": null,
+   "restrictions": null,
    "modality": "ecephys",
-   "subject_id": "123456"
+   "subject_id": "12345"
 }
