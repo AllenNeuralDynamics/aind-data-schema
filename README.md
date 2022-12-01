@@ -13,48 +13,8 @@ Be aware that this package is still under heavy preliminary development. Expect 
 
 A simple example:
 
-```python
-from aind_data_schema import Subject, LightCycle
-
-s = Subject(
-    subject_id='123456',
-    sex='Female',
-    species='Mus musculus',
-    genotype='wt/wt',
-    date_of_birth='2022-01-01',
-    light_cycle=LightCycle(
-        lights_on_time='08:00:00',
-        lights_off_time='20:00:00'
-    )
-)
-
-print(s.json(indent=3))
-```
-```
-{
-   "describedBy": "https://github.com/AllenNeuralDynamics/data_schema/blob/main/schemas/subject.py",
-   "schema_version": "0.2.0",
-   "species": "Mus musculus",
-   "subject_id": "123456",
-   "sex": "Male",
-   "date_of_birth": "2022-01-01",
-   "genotype": "wt/wt",
-   "background_strain": null,
-   "source": null,
-   "restrictions": null,
-   "breeding_group": null,
-   "maternal_id": null,
-   "maternal_genotype": null,
-   "paternal_id": null,
-   "paternal_genotype": null,
-   "light_cycle": {
-      "lights_on_time": "08:00:00",
-      "lights_off_time": "20:00:00"
-   },
-   "home_cage_enrichment": null,
-   "notes": null
-}
-```
+https://github.com/AllenNeuralDynamics/aind-data-schema/blob/920b58601c6e3aa59bc00a6892d94590f480ffa5/examples/subject.py#L3-L20
+https://github.com/AllenNeuralDynamics/aind-data-schema/blob/920b58601c6e3aa59bc00a6892d94590f480ffa5/examples/subject.json#L1-L22
 
 ## Installing and Upgrading
 
