@@ -78,14 +78,14 @@ class Axis(BaseModel):
         return axes
 
 
-class Laser(BaseModel):
-    """Description of a laser"""
+class Channel(BaseModel):
+    """Description of a channel"""
 
-    name: str = Field(..., title="Name")
     channel: int = Field(..., title="Channel")
     enabled: Optional[bool] = Field(None, title="Enabled")
-    wavelength: int = Field(..., title="Wavelength (nm)")
-    power: float = Field(..., title="Power")
+    laser_wavelength: int = Field(..., title="Wavelength (nm)", units="nm", ge=300, le=1000)
+    laser_power: float = Field(..., title="Power (mW)", units="mW", le=2000)
+    filter_wheel_index: int = Field(..., title="Filter wheel index")
 
 
 class Position(BaseModel):
@@ -106,7 +106,7 @@ class Acquisition(AindSchema):
     """Description of an imaging acquisition session"""
 
     version: str = Field(
-        "0.2.1", description="schema version", title="Version", const="True"
+        "0.3.0", description="schema version", title="Version", const="True"
     )
     experimenter_full_name: str = Field(
         ...,
@@ -142,6 +142,6 @@ class Acquisition(AindSchema):
     positions: List[Position] = Field(
         ..., title="Positions", unique_items=True
     )
-    lasers: List[Laser] = Field(..., title="Lasers", unique_items=True)
+    channels: List[Channel] = Field(..., title="Channels", unique_items=True)
     daqs: Optional[List[dict]] = Field(None, title="DAQ", unique_items=True)
     notes: Optional[str] = Field(None, title="Notes")

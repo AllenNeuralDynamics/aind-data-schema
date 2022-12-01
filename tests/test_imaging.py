@@ -25,7 +25,7 @@ class ImagingTests(unittest.TestCase):
             instrument_id="1234",
             session_end_time=datetime.datetime.now(),
             positions=[],
-            lasers=[],
+            channels=[],
         )
 
         assert a is not None
