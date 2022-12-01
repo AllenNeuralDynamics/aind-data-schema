@@ -1,3 +1,5 @@
+""" example data description """
+
 from aind_data_schema import RawDataDescription
 from aind_data_schema.data_description import Funding
 import datetime

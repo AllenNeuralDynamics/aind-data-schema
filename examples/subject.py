@@ -1,3 +1,5 @@
+""" example subject """
+
 from aind_data_schema import Subject
 import datetime
 

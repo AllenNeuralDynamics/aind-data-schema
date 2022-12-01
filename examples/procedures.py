@@ -1,3 +1,5 @@
+""" example procedures """
+
 import datetime
 from aind_data_schema import Procedures
 from aind_data_schema.procedures import (
