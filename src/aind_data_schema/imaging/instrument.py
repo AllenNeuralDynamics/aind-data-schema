@@ -216,7 +216,7 @@ class Instrument(AindSchema):
         None, title="Temperature control"
     )
     humidity_control: Optional[bool] = Field(None, title="Humidity control")
-    optical_table: List[OpticalTable] = Field(None, title="Optical table")
+    optical_tables: List[OpticalTable] = Field(None, title="Optical table")
     objectives: List[Objective] = Field(
         ..., title="Objectives", unique_items=True
     )
