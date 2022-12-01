@@ -1,5 +1,3 @@
-""" generic device-related classes """
-
 from pydantic import BaseModel, Field
 from enum import Enum
 from typing import Optional
@@ -33,3 +31,4 @@ class Device(BaseModel):
     serial_number: str = Field(..., title="Serial number")
     model: Optional[str] = Field(None, title="Model")
     notes: Optional[str] = Field(None, title="Notes")
+    daq_channel: Optional[int] = Field(None, title="DAQ channel")
