@@ -195,13 +195,14 @@ class OpticalTable(Device):
     width: Optional[float] = Field(
         None, title="Width (inches)", units="inches", ge=0
     )
+    vibration_control: Optional[bool] = Field(None, title="Vibration control")
 
 
 class Instrument(AindSchema):
     """Description of an instrument, which is a collection of devices"""
 
     version: str = Field(
-        "0.3.0", description="schema version", title="Version", const=True
+        "0.4.0", description="schema version", title="Version", const=True
     )
     instrument_id: Optional[str] = Field(
         None,
@@ -215,7 +216,6 @@ class Instrument(AindSchema):
         None, title="Temperature control"
     )
     humidity_control: Optional[bool] = Field(None, title="Humidity control")
-    vibration_control: Optional[bool] = Field(None, title="Vibration control")
     optical_table: List[OpticalTable] = Field(None, title="Optical table")
     objectives: List[Objective] = Field(
         ..., title="Objectives", unique_items=True
