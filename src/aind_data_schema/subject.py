@@ -78,7 +78,7 @@ class Subject(AindSchema):
     """Description of a subject of data collection"""
 
     schema_version: str = Field(
-        "0.2.1", description="schema version", title="Version", const=True
+        "0.2.2", description="schema version", title="Version", const=True
     )
     species: Species = Field(..., title="Species")
     subject_id: str = Field(
@@ -103,6 +103,11 @@ class Subject(AindSchema):
         None,
         description="If the subject was not bred in house, where was it acquired from.",
         title="Source",
+    )
+    rrid: Optional[str] = Field(
+        None, 
+        description="RRID of mouse if acquired from supplier",
+        title="RRID"
     )
     restrictions: Optional[str] = Field(
         None,
