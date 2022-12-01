@@ -78,7 +78,7 @@ class Subject(AindSchema):
     """Description of a subject of data collection"""
 
     schema_version: str = Field(
-        "0.2.1", description="schema version", title="Version", const=True
+        "0.2.2", description="schema version", title="Version", const=True
     )
     species: Species = Field(..., title="Species")
     subject_id: str = Field(
