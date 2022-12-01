@@ -104,6 +104,11 @@ class Subject(AindSchema):
         description="If the subject was not bred in house, where was it acquired from.",
         title="Source",
     )
+    rrid: Optional[str] = Field(
+        None, 
+        description="RRID of mouse if acquired from supplier",
+        title="RRID"
+    )
     restrictions: Optional[str] = Field(
         None,
         description="Any restrictions on use or publishing based on subject source",
