@@ -26,6 +26,8 @@ class Manufacturer(Enum):
     VORTRAN = "Vortran"
     COHERENT_SCIENTIFIC = "Coherent Scientific"
     NEWPORT = "Newport"
+    ASI = "Applied Scientific Instrumentation"
+    MIGHTY_ZAP = "IR Robot Co"
     OTHER = "Other"
 
 

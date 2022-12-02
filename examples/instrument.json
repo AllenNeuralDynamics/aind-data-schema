@@ -12,7 +12,7 @@
       {
          "manufacturer": "Thorlabs",
          "serial_number": "unknown",
-         "model": null,
+         "model": "TL4X-SAP",
          "notes": "Thorlabs TL4X-SAP with LifeCanvas dipping cap and correction optics.",
          "numerical_aperture": 0.2,
          "magnification": 3.6,
@@ -34,8 +34,8 @@
       {
          "manufacturer": "Vortran",
          "serial_number": "VL01222A11",
-         "model": null,
-         "notes": null,
+         "model": "Stradus",
+         "notes": "All lasers controlled via Vortran VersaLase System",
          "type": "laser",
          "coupling": "SMF",
          "wavelength": 488.0,
@@ -44,8 +44,8 @@
       {
          "manufacturer": "Coherent Scientific",
          "serial_number": "417927",
-         "model": null,
-         "notes": null,
+         "model": "Obis",
+         "notes": "All lasers controlled via Vortran VersaLase System",
          "type": "laser",
          "coupling": "SMF",
          "wavelength": 561.0,
@@ -54,8 +54,8 @@
       {
          "manufacturer": "Vortran",
          "serial_number": "VL01222A10",
-         "model": null,
-         "notes": null,
+         "model": "Stradus",
+         "notes": "All lasers controlled via Vortran VersaLase System",
          "type": "laser",
          "coupling": "SMF",
          "wavelength": 647.0,
@@ -97,9 +97,89 @@
          "description": null
       }
    ],
-   "motorized_stages": null,
+   "motorized_stages": [
+      {
+         "manufacturer": "Applied Scientific Instrumentation",
+         "serial_number": "oneFakeNumber",
+         "model": "LS-100",
+         "notes": "Focus stage",
+         "axis": "Detection axis",
+         "travel": 100.0
+      },
+      {
+         "manufacturer": "Applied Scientific Instrumentation",
+         "serial_number": "oneFakeNumber",
+         "model": "LS-50",
+         "notes": "Sample stage Z",
+         "axis": "Detection axis",
+         "travel": 50.0
+      },
+      {
+         "manufacturer": "Applied Scientific Instrumentation",
+         "serial_number": "oneFakeNumber",
+         "model": "LS-50",
+         "notes": "Sample stage X",
+         "axis": "Illumination axis",
+         "travel": 50.0
+      },
+      {
+         "manufacturer": "Applied Scientific Instrumentation",
+         "serial_number": "oneFakeNumber",
+         "model": "LS-50",
+         "notes": "Sample stage Y",
+         "axis": "Perpendicular axis",
+         "travel": 50.0
+      },
+      {
+         "manufacturer": "IR Robot Co",
+         "serial_number": "nobodyKnows1",
+         "model": "L12-20F-4",
+         "notes": "Cylindrical lens #1",
+         "axis": "Perpendicular axis",
+         "travel": 41.0
+      },
+      {
+         "manufacturer": "IR Robot Co",
+         "serial_number": "nobodyKnows2",
+         "model": "L12-20F-4",
+         "notes": "Cylindrical lens #2",
+         "axis": "Perpendicular axis",
+         "travel": 41.0
+      },
+      {
+         "manufacturer": "IR Robot Co",
+         "serial_number": "nobodyKnows3",
+         "model": "L12-20F-4",
+         "notes": "Cylindrical lens #3",
+         "axis": "Perpendicular axis",
+         "travel": 41.0
+      },
+      {
+         "manufacturer": "IR Robot Co",
+         "serial_number": "nobodyKnows4",
+         "model": "L12-20F-4",
+         "notes": "Cylindrical lens #4",
+         "axis": "Perpendicular axis",
+         "travel": 41.0
+      }
+   ],
    "daqs": null,
-   "additional_devices": null,
+   "additional_devices": [
+      {
+         "manufacturer": "Optotune",
+         "serial_number": "oneFakeNumber",
+         "model": "EL-16-40-TC",
+         "notes": null,
+         "type": "Other"
+      },
+      {
+         "manufacturer": "Optotune",
+         "serial_number": "anotherFakeNumber",
+         "model": "EL-16-40-TC",
+         "notes": null,
+         "type": "Other"
+      }
+   ],
    "calibration_date": null,
    "calibration_data": null,
    "com_ports": [
