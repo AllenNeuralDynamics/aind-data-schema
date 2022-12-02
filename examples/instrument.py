@@ -77,7 +77,7 @@ inst = Instrument(
         MotorizedStage(
             model="LS-100",
             manufacturer="Applied Scientific Instrumentation",
-            serial_number="Unknown",
+            serial_number="Unknown-1",
             axis="Detection axis",
             travel=100,
             notes="Focus stage",
@@ -85,7 +85,7 @@ inst = Instrument(
         MotorizedStage(
             model="LS-50",
             manufacturer="Applied Scientific Instrumentation",
-            serial_number="Unknown",
+            serial_number="Unknown-2",
             axis="Detection axis",
             travel=50,
             notes="Sample stage Z",
@@ -93,7 +93,7 @@ inst = Instrument(
         MotorizedStage(
             model="LS-50",
             manufacturer="Applied Scientific Instrumentation",
-            serial_number="Unknown",
+            serial_number="Unknown-3",
             axis="Illumination axis",
             travel=50,
             notes="Sample stage X",
@@ -101,7 +101,7 @@ inst = Instrument(
         MotorizedStage(
             model="LS-50",
             manufacturer="Applied Scientific Instrumentation",
-            serial_number="oneFUnknownakeNumber",
+            serial_number="Unknown-4",
             axis="Perpendicular axis",
             travel=50,
             notes="Sample stage Y",
@@ -109,7 +109,7 @@ inst = Instrument(
         MotorizedStage(
             model="L12-20F-4",
             manufacturer="IR Robot Co",
-            serial_number="Unknown",
+            serial_number="Unknown-5",
             axis="Perpendicular axis",
             travel=41,
             notes="Cylindrical lens #1",
@@ -117,7 +117,7 @@ inst = Instrument(
         MotorizedStage(
             model="L12-20F-4",
             manufacturer="IR Robot Co",
-            serial_number="Unknown",
+            serial_number="Unknown-6",
             axis="Perpendicular axis",
             travel=41,
             notes="Cylindrical lens #2",
@@ -125,7 +125,7 @@ inst = Instrument(
         MotorizedStage(
             model="L12-20F-4",
             manufacturer="IR Robot Co",
-            serial_number="Unknown",
+            serial_number="Unknown-7",
             axis="Perpendicular axis",
             travel=41,
             notes="Cylindrical lens #3",
@@ -133,7 +133,7 @@ inst = Instrument(
         MotorizedStage(
             model="L12-20F-4",
             manufacturer="IR Robot Co",
-            serial_number="Unknown",
+            serial_number="Unknown-8",
             axis="Perpendicular axis",
             travel=41,
             notes="Cylindrical lens #4",
@@ -168,7 +168,7 @@ inst = Instrument(
             thickness=2.0,
             model="FF03-525/50-25",
             filter_wheel_index=0,
-            serial_number="Unknown",
+            serial_number="Unknown-1",
         ),
         Filter(
             type="Band pass",
@@ -177,7 +177,7 @@ inst = Instrument(
             thickness=2.0,
             model="FF01-600/52-25",
             filter_wheel_index=1,
-            serial_number="Unknown",
+            serial_number="Unknown-2",
         ),
         Filter(
             type="Band pass",
@@ -186,7 +186,7 @@ inst = Instrument(
             thickness=2.0,
             model="ET690/50m",
             filter_wheel_index=2,
-            serial_number="Unknown",
+            serial_number="Unknown-3",
         ),
     ],
     additional_devices=[
