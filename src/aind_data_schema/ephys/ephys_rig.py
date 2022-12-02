@@ -157,8 +157,8 @@ class ProbeName(Enum):
     PROBE_J = "Probe J"
 
 
-class ProbeType(Enum):
-    """Probe type name"""
+class ProbeModel(Enum):
+    """Probe model name"""
 
     NP1 = "Neuropixels 1.0"
     NP_UHD_FIXED = "Neuropixels UHD (Fixed)"
@@ -171,11 +171,11 @@ class ProbeType(Enum):
     MP_PHOTONIC_V1 = "MPI Photonic Probe (Version 1)"
 
 
-class Probe(Device):
+class EphysProbe(Device):
     """Description of an ephys probe"""
 
     name: ProbeName = Field(..., title="Name")
-    type: ProbeType = Field(..., title="Type")
+    model: ProbeModel = Field(..., title="Model")
 
 
 class EphysRig(AindSchema):
@@ -188,13 +188,13 @@ class EphysRig(AindSchema):
         const=True,
     )
     schema_version: str = Field(
-        "0.3.0", description="schema version", title="Version", const=True
+        "0.4.0", description="schema version", title="Version", const=True
     )
     rig_id: str = Field(
         ..., description="room_stim apparatus_version", title="Rig ID"
     )
-    probes: Optional[List[Probe]] = Field(
-        None, title="Probes", unique_items=True
+    probes: Optional[List[EphysProbe]] = Field(
+        None, title="Ephys probes", unique_items=True
     )
     cameras: Optional[List[Camera]] = Field(
         None, title="Cameras", unique_items=True
