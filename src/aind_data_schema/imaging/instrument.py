@@ -24,15 +24,6 @@ class InstrumentType(Enum):
     OTHER = "Other"
 
 
-class AnalogOutput(BaseModel):
-    """Description of analog output"""
-
-    hardware_device: Optional[str] = Field(
-        None, title="Controlled hardware device"
-    )
-    ao_channel: int = Field(..., title="Analog output channel")
-
-
 class Com(BaseModel):
     """Description of a communication system"""
 
@@ -181,9 +172,7 @@ class DAQ(Device):
     update_frequency: float = Field(
         ..., title="DAQ update frequency (Hz)", units="Hz"
     )
-    daq_ao_names_to_channel: Optional[List[AnalogOutput]] = Field(
-        None, title="DAQ analog outputs", unique_items=True
-    )
+    number_active_channels: int = Field(..., title="Number of active channels")
 
 
 class OpticalTable(Device):
@@ -202,7 +191,7 @@ class Instrument(AindSchema):
     """Description of an instrument, which is a collection of devices"""
 
     version: str = Field(
-        "0.4.0", description="schema version", title="Version", const=True
+        "0.4.1", description="schema version", title="Version", const=True
     )
     instrument_id: Optional[str] = Field(
         None,
