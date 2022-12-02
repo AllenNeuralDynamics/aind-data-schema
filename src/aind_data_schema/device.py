@@ -1,3 +1,5 @@
+""" schema for various Devices """
+
 from pydantic import BaseModel, Field
 from enum import Enum
 from typing import Optional
@@ -23,15 +25,20 @@ class Manufacturer(Enum):
     MPI = "MPI"
     OTHER = "Other"
 
+
 class DaqChannelType(Enum):
     """DAQ Channel types"""
+
     DO = "Digital Output"
     AO = "Analog Output"
 
+
 class DaqChannel(BaseModel):
     """Description of a DAQ Channel"""
+
     index: int = Field(..., title="index")
     type: DaqChannelType = Field(..., title="DAQ channel type")
+
 
 class Device(BaseModel):
     """Description of a general device"""
