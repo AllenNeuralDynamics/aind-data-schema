@@ -11,7 +11,7 @@
    "objectives": [
       {
          "manufacturer": "Thorlabs",
-         "serial_number": "unknown",
+         "serial_number": "Unknown",
          "model": "TL4X-SAP",
          "notes": "Thorlabs TL4X-SAP with LifeCanvas dipping cap and correction optics.",
          "numerical_aperture": 0.2,
@@ -100,7 +100,7 @@
    "motorized_stages": [
       {
          "manufacturer": "Applied Scientific Instrumentation",
-         "serial_number": "oneFakeNumber",
+         "serial_number": "Unknown",
          "model": "LS-100",
          "notes": "Focus stage",
          "axis": "Detection axis",
@@ -108,7 +108,7 @@
       },
       {
          "manufacturer": "Applied Scientific Instrumentation",
-         "serial_number": "oneFakeNumber",
+         "serial_number": "Unknown",
          "model": "LS-50",
          "notes": "Sample stage Z",
          "axis": "Detection axis",
@@ -116,7 +116,7 @@
       },
       {
          "manufacturer": "Applied Scientific Instrumentation",
-         "serial_number": "oneFakeNumber",
+         "serial_number": "Unknown",
          "model": "LS-50",
          "notes": "Sample stage X",
          "axis": "Illumination axis",
@@ -124,7 +124,7 @@
       },
       {
          "manufacturer": "Applied Scientific Instrumentation",
-         "serial_number": "oneFakeNumber",
+         "serial_number": "oneFUnknownakeNumber",
          "model": "LS-50",
          "notes": "Sample stage Y",
          "axis": "Perpendicular axis",
@@ -132,7 +132,7 @@
       },
       {
          "manufacturer": "IR Robot Co",
-         "serial_number": "nobodyKnows1",
+         "serial_number": "Unknown",
          "model": "L12-20F-4",
          "notes": "Cylindrical lens #1",
          "axis": "Perpendicular axis",
@@ -140,7 +140,7 @@
       },
       {
          "manufacturer": "IR Robot Co",
-         "serial_number": "nobodyKnows2",
+         "serial_number": "Unknown",
          "model": "L12-20F-4",
          "notes": "Cylindrical lens #2",
          "axis": "Perpendicular axis",
@@ -148,7 +148,7 @@
       },
       {
          "manufacturer": "IR Robot Co",
-         "serial_number": "nobodyKnows3",
+         "serial_number": "Unknown",
          "model": "L12-20F-4",
          "notes": "Cylindrical lens #3",
          "axis": "Perpendicular axis",
@@ -156,7 +156,7 @@
       },
       {
          "manufacturer": "IR Robot Co",
-         "serial_number": "nobodyKnows4",
+         "serial_number": "Unknown",
          "model": "L12-20F-4",
          "notes": "Cylindrical lens #4",
          "axis": "Perpendicular axis",
@@ -167,14 +167,14 @@
    "additional_devices": [
       {
          "manufacturer": "Optotune",
-         "serial_number": "oneFakeNumber",
+         "serial_number": "Unknown-1",
          "model": "EL-16-40-TC",
          "notes": null,
          "type": "Other"
       },
       {
          "manufacturer": "Optotune",
-         "serial_number": "anotherFakeNumber",
+         "serial_number": "Unknown-2",
          "model": "EL-16-40-TC",
          "notes": null,
          "type": "Other"

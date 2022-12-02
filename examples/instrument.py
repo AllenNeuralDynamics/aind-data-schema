@@ -24,7 +24,7 @@ inst = Instrument(
             immersion="multi",
             manufacturer="Thorlabs",
             model="TL4X-SAP",
-            serial_number="unknown",
+            serial_number="Unknown",
             notes="Thorlabs TL4X-SAP with LifeCanvas dipping cap and correction optics.",
         ),
     ],
@@ -77,7 +77,7 @@ inst = Instrument(
         MotorizedStage(
             model="LS-100",
             manufacturer="Applied Scientific Instrumentation",
-            serial_number="oneFakeNumber",
+            serial_number="Unknown",
             axis="Detection axis",
             travel=100,
             notes="Focus stage",
@@ -85,7 +85,7 @@ inst = Instrument(
         MotorizedStage(
             model="LS-50",
             manufacturer="Applied Scientific Instrumentation",
-            serial_number="oneFakeNumber",
+            serial_number="Unknown",
             axis="Detection axis",
             travel=50,
             notes="Sample stage Z",
@@ -93,7 +93,7 @@ inst = Instrument(
         MotorizedStage(
             model="LS-50",
             manufacturer="Applied Scientific Instrumentation",
-            serial_number="oneFakeNumber",
+            serial_number="Unknown",
             axis="Illumination axis",
             travel=50,
             notes="Sample stage X",
@@ -101,7 +101,7 @@ inst = Instrument(
         MotorizedStage(
             model="LS-50",
             manufacturer="Applied Scientific Instrumentation",
-            serial_number="oneFakeNumber",
+            serial_number="oneFUnknownakeNumber",
             axis="Perpendicular axis",
             travel=50,
             notes="Sample stage Y",
@@ -109,7 +109,7 @@ inst = Instrument(
         MotorizedStage(
             model="L12-20F-4",
             manufacturer="IR Robot Co",
-            serial_number="nobodyKnows1",
+            serial_number="Unknown",
             axis="Perpendicular axis",
             travel=41,
             notes="Cylindrical lens #1",
@@ -117,7 +117,7 @@ inst = Instrument(
         MotorizedStage(
             model="L12-20F-4",
             manufacturer="IR Robot Co",
-            serial_number="nobodyKnows2",
+            serial_number="Unknown",
             axis="Perpendicular axis",
             travel=41,
             notes="Cylindrical lens #2",
@@ -125,7 +125,7 @@ inst = Instrument(
         MotorizedStage(
             model="L12-20F-4",
             manufacturer="IR Robot Co",
-            serial_number="nobodyKnows3",
+            serial_number="Unknown",
             axis="Perpendicular axis",
             travel=41,
             notes="Cylindrical lens #3",
@@ -133,7 +133,7 @@ inst = Instrument(
         MotorizedStage(
             model="L12-20F-4",
             manufacturer="IR Robot Co",
-            serial_number="nobodyKnows4",
+            serial_number="Unknown",
             axis="Perpendicular axis",
             travel=41,
             notes="Cylindrical lens #4",
@@ -194,13 +194,13 @@ inst = Instrument(
             type="Other",
             manufacturer="Optotune",
             model="EL-16-40-TC",
-            serial_number="oneFakeNumber",
+            serial_number="Unknown-1",
         ),
         AdditionalImagingDevice(
             type="Other",
             manufacturer="Optotune",
             model="EL-16-40-TC",
-            serial_number="anotherFakeNumber",
+            serial_number="Unknown-2",
         ),
     ],
 )
