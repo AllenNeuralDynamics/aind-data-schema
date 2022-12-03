@@ -32,7 +32,7 @@ class Manufacturer(Enum):
 
 
 class DaqChannelType(Enum):
-    """DAQ Channel types"""
+    """DAQ Channel type"""
 
     DO = "Digital Output"
     AO = "Analog Output"
