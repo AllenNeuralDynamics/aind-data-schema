@@ -158,9 +158,6 @@ class DataDescription(AindCoreModel):
             creation_time=kwargs["creation_time"],
         )
 
-        if "name" in kwargs:
-            kwargs.pop("name")
-
         super().__init__(name=name, **kwargs)
 
     @classmethod
