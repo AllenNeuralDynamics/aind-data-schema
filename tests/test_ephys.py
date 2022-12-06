@@ -27,17 +27,15 @@ class ExampleTest(unittest.TestCase):
         with self.assertRaises(pydantic.ValidationError):
             es = EphysSession()
 
-        er = EphysRig(rig_id="1234", devices=[])
+        er = EphysRig(rig_id="1234")
 
         assert er is not None
 
         es = EphysSession(
-            institution="AIND",
             experimenter_full_name="alice",
             session_start_time=datetime.datetime.now(),
             session_end_time=datetime.datetime.now(),
             subject_id="1234",
-            project_id="1234",
             session_type="Foraging A",
             rig_id="1234",
             probe_streams=[
@@ -63,8 +61,7 @@ class ExampleTest(unittest.TestCase):
                     ],
                     lasers=[],
                 )
-            ],
-            ccf_version="CCFv3",
+            ]
         )
 
         assert es is not None

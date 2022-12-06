@@ -29,7 +29,6 @@ class Manufacturer(Enum):
     ASI = "Applied Scientific Instrumentation"
     MIGHTY_ZAP = "IR Robot Co"
     VIEWORKS = "Vieworks"
-    SKV = "Schneider-Kreuznach/Vieworks"
     OXXIUS = "Oxxius"
     NATIONAL_INSTRUMENTS = "National Instruments"
     OTHER = "Other"
