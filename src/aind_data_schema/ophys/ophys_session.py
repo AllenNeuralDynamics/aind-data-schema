@@ -6,8 +6,8 @@ from datetime import datetime
 from enum import Enum
 from typing import List, Optional
 
-from pydantic import BaseModel, Field
-from ..base import AindSchema
+from pydantic import Field
+from ..base import AindCoreModel, AindModel
 
 
 class FiberName(Enum):
@@ -28,14 +28,14 @@ class PatchCordName(Enum):
     PATCH_CORD_C = "Patch Cord C"
 
 
-class Coupling(BaseModel):
+class Coupling(AindModel):
     """Description of fiber coupling"""
 
     fiber_name: FiberName = Field(..., title="Fiber name")
     patch_cord_name: PatchCordName = Field(..., title="Patch cord name")
 
 
-class Detector(BaseModel):
+class Detector(AindModel):
     """Description of detector"""
 
     name: str = Field(..., title="Name")
@@ -52,7 +52,7 @@ class LaserName(Enum):
     Laser_E = "Laser E"
 
 
-class Laser(BaseModel):
+class Laser(AindModel):
     """Description of a laser"""
 
     name: LaserName = Field(..., title="Name")
@@ -62,14 +62,14 @@ class Laser(BaseModel):
     )
 
 
-class Patch(BaseModel):
+class Patch(AindModel):
     """Description of a patch"""
 
     name: PatchCordName = Field(..., title="Name")
     output_power: float = Field(..., title="Output power (uW)")
 
 
-class OphysSession(AindSchema):
+class OphysSession(AindCoreModel):
     """Description of an ophys session"""
 
     schema_version: str = Field(

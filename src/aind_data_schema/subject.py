@@ -6,9 +6,9 @@ from datetime import date, time
 from enum import Enum
 from typing import Optional, List
 
-from pydantic import BaseModel, Field
+from pydantic import Field
 
-from .base import AindSchema
+from .base import AindCoreModel, AindModel
 
 
 class Species(Enum):
@@ -34,7 +34,7 @@ class BackgroundStrain(Enum):
     BALB_c = "BALB/c"
 
 
-class LightCycle(BaseModel):
+class LightCycle(AindModel):
     """Description of vivarium light cycle times"""
 
     lights_on_time: time = Field(
@@ -60,21 +60,21 @@ class HomeCageEnrichment(Enum):
     OTHER = "other"
 
 
-class WellnessReport(BaseModel):
+class WellnessReport(AindModel):
     """Wellness report on animal health"""
 
     date: date = Field(..., title="Date")
     report: str = Field(..., title="Report")
 
 
-class MgiAlleleId(BaseModel):
+class MgiAlleleId(AindModel):
     """Mouse Genome Informatics IDs for genotype alleles"""
 
     allele_name: str = Field(..., title="Name")
     mgi_id: str = Field(..., title="MGI ID")
 
 
-class Subject(AindSchema):
+class Subject(AindCoreModel):
     """Description of a subject of data collection"""
 
     schema_version: str = Field(

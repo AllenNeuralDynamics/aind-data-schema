@@ -6,8 +6,8 @@ from datetime import datetime
 from enum import Enum
 from typing import List, Optional
 
-from pydantic import BaseModel, Field
-from ..base import AindSchema
+from pydantic import Field
+from ..base import AindCoreModel, AindModel
 
 
 class SessionType(Enum):
@@ -37,7 +37,7 @@ class CcfVersion(Enum):
     CCFv3 = "CCFv3"
 
 
-class Coordinates3d(BaseModel):
+class Coordinates3d(AindModel):
     """Description of 3d coordinates in mm"""
 
     x: float = Field(..., title="X (mm)", units="mm")
@@ -45,7 +45,7 @@ class Coordinates3d(BaseModel):
     z: float = Field(..., title="Z (mm)", units="mm")
 
 
-class CcfCoords(BaseModel):
+class CcfCoords(AindModel):
     """Coordinates in CCF template space"""
 
     ml: float = Field(..., title="ML (um)", units="um")
@@ -62,14 +62,14 @@ class AngleName(Enum):
     YZ = "YZ"
 
 
-class ManipulatorAngles(BaseModel):
+class ManipulatorAngles(AindModel):
     """Description of manipulator angle"""
 
     name: AngleName = Field(..., title="AngleName")
     value: float = Field(..., title="Value (deg)", units="deg")
 
 
-class Laser(BaseModel):
+class Laser(AindModel):
     """Description of a laser"""
 
     name: str = Field(..., title="Name")
@@ -90,7 +90,7 @@ class Laser(BaseModel):
     )
 
 
-class EphysProbe(BaseModel):
+class EphysProbe(AindModel):
     """Description of an ephys probe"""
 
     name: str = Field(..., title="Name")
@@ -110,7 +110,7 @@ class EphysProbe(BaseModel):
     )
 
 
-class Stream(BaseModel):
+class Stream(AindModel):
     """Stream of data with a start and stop time"""
 
     stream_start_time: datetime = Field(..., title="Stream start time")
@@ -119,7 +119,7 @@ class Stream(BaseModel):
     lasers: List[Laser] = Field(..., title="Lasers", unique_items=True)
 
 
-class EphysSession(AindSchema):
+class EphysSession(AindCoreModel):
     """Description of an ephys recording session"""
 
     schema_version: str = Field(

@@ -6,8 +6,8 @@ from datetime import date
 from enum import Enum
 from typing import List, Optional
 
-from pydantic import BaseModel, Field
-from ..base import AindSchema
+from pydantic import Field
+from ..base import AindCoreModel, AindModel
 
 from ..device import Device, Manufacturer
 
@@ -24,7 +24,7 @@ class InstrumentType(Enum):
     OTHER = "Other"
 
 
-class Com(BaseModel):
+class Com(AindModel):
     """Description of a communication system"""
 
     hardware_name: str = Field(..., title="Controlled hardware device")
@@ -189,7 +189,7 @@ class OpticalTable(Device):
     vibration_control: Optional[bool] = Field(None, title="Vibration control")
 
 
-class Instrument(AindSchema):
+class Instrument(AindCoreModel):
     """Description of an instrument, which is a collection of devices"""
 
     version: str = Field(

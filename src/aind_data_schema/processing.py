@@ -6,8 +6,8 @@ from datetime import datetime
 from enum import Enum
 from typing import Any, Dict, List, Optional
 
-from pydantic import BaseModel, Field
-from .base import AindSchema
+from pydantic import Field
+from .base import AindCoreModel, AindModel
 
 
 class ProcessName(Enum):
@@ -25,7 +25,7 @@ class ProcessName(Enum):
     OTHER = "Other"
 
 
-class DataProcess(BaseModel):
+class DataProcess(AindModel):
     """Description of a single processing step"""
 
     name: ProcessName = Field(..., title="Name")
@@ -47,7 +47,7 @@ class DataProcess(BaseModel):
     notes: Optional[str] = None
 
 
-class Processing(AindSchema):
+class Processing(AindCoreModel):
     """Desription of all processes run on data"""
 
     schema_version: str = Field(

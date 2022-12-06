@@ -32,8 +32,9 @@ def build_described_by(cls, base_url=DESCRIBED_BY_BASE_URL):
 
     return urllib.parse.urljoin(base_url, filename)
 
+class AindModel(BaseModel, extra=Extra.forbid): pass
 
-class AindSchema(BaseModel, extra=Extra.forbid):
+class AindCoreModel(AindModel):
     """Generic base class to hold common fields/validators/etc for all basic AIND schema"""
 
     describedBy: str

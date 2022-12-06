@@ -7,8 +7,8 @@ from datetime import date, datetime, time
 from enum import Enum
 from typing import Optional, List
 
-from pydantic import BaseModel, Field, root_validator, PrivateAttr
-from .base import AindSchema
+from pydantic import Field, root_validator, PrivateAttr
+from .base import AindCoreModel, AindModel
 
 
 class RegexParts(Enum):
@@ -83,7 +83,7 @@ def build_data_name(label, creation_date, creation_time):
     return f"{label}_{dt_str}"
 
 
-class Funding(BaseModel):
+class Funding(AindModel):
     """Description of funding sources"""
 
     funder: str = Field(..., title="Funder")
@@ -93,7 +93,7 @@ class Funding(BaseModel):
     )
 
 
-class DataDescription(AindSchema):
+class DataDescription(AindCoreModel):
     """Description of a logical collection of data files"""
 
     schema_version: str = Field("0.2.0", title="Schema Version", const=True)

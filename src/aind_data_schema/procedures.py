@@ -6,8 +6,8 @@ from datetime import date, time
 from enum import Enum
 from typing import List, Optional
 
-from pydantic import BaseModel, Field
-from .base import AindSchema
+from pydantic import Field
+from .base import AindCoreModel, AindModel
 
 
 class ProtectiveMaterial(Enum):
@@ -19,7 +19,7 @@ class ProtectiveMaterial(Enum):
     OTHER = "Other - see notes"
 
 
-class Procedure(BaseModel):
+class Procedure(AindModel):
     """Description of surgical or other procedure performed on a subject"""
 
     type: Optional[str] = Field(
@@ -98,7 +98,7 @@ class VirusPrepType(Enum):
     PURIFIED = "Purified"
 
 
-class InjectionMaterial(BaseModel):
+class InjectionMaterial(AindModel):
     """Description of injection material"""
 
     name: str = Field(..., title="Name")
@@ -258,7 +258,7 @@ class TissuePrep(Procedure):
     specimen_id: List[str] = Field(..., title="Specimen ID")
 
 
-class TrainingProtocol(BaseModel):
+class TrainingProtocol(AindModel):
     """Description of an animal training protocol"""
 
     protocol_id: str = Field(..., title="Training protocol ID")
@@ -286,7 +286,7 @@ class FerruleMaterial(Enum):
     STAINLESS_STEEL = "Stainless steel"
 
 
-class OphysProbe(BaseModel):
+class OphysProbe(AindModel):
     """Description of an ophys probe"""
 
     name: ProbeName = Field(..., title="Name")
@@ -319,7 +319,7 @@ class FiberImplant(Procedure):
     )
 
 
-class WaterRestriction(BaseModel):
+class WaterRestriction(AindModel):
     """Description of a water restriction procedure"""
 
     protocol_id: Optional[str] = Field(
@@ -334,7 +334,7 @@ class WaterRestriction(BaseModel):
     end_date: date = Field(..., title="Water restriction end date")
 
 
-class Procedures(AindSchema):
+class Procedures(AindCoreModel):
     """Description of all procedures performed on a subject"""
 
     schema_version: str = Field(
