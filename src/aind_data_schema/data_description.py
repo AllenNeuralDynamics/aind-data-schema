@@ -257,7 +257,7 @@ class RawDataDescription(DataDescription):
     )
 
     def __init__(self, **kwargs):
-        """Construct a derived data description"""
+        """Construct a raw data description"""
         modality = kwargs["modality"]
         subject_id = kwargs["subject_id"]
         super().__init__(label=f'{modality}_{subject_id}', **kwargs)
