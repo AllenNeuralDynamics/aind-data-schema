@@ -25,9 +25,12 @@ class Manufacturer(Enum):
     MPI = "MPI"
     VORTRAN = "Vortran"
     COHERENT_SCIENTIFIC = "Coherent Scientific"
-    NEWPORT = "Newport"
+    MKS_NEWPORT = "MKS Newport"
     ASI = "Applied Scientific Instrumentation"
     MIGHTY_ZAP = "IR Robot Co"
+    VIEWORKS = "Vieworks"
+    OXXIUS = "Oxxius"
+    NATIONAL_INSTRUMENTS = "National Instruments"
     OTHER = "Other"
 
 

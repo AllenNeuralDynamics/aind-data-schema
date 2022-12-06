@@ -141,6 +141,8 @@ class ImagingDeviceType(Enum):
     PRISM = "Prism"
     OBJECTIVE = "Objective"
     SLIT = "Slit"
+    TUNABLE_LENS = "Tunable lens"
+    ROTATION_MOUSE = "Rotation mount"
     OTHER = "Other"
 
 

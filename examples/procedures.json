@@ -6,8 +6,8 @@
    "craniotomies": [
       {
          "type": null,
-         "start_date": "2022-11-30",
-         "end_date": "2022-11-30",
+         "start_date": "2022-12-06",
+         "end_date": "2022-12-06",
          "experimenter_full_name": "jane doe",
          "protocol_id": "dx.doi.org/10.12345/protocols.io.12345",
          "iacuc_protocol": null,
@@ -26,8 +26,8 @@
    "fiber_implants": [
       {
          "type": null,
-         "start_date": "2022-11-30",
-         "end_date": "2022-11-30",
+         "start_date": "2022-12-06",
+         "end_date": "2022-12-06",
          "experimenter_full_name": "john doe",
          "protocol_id": "dx.doi.org/10.12345/protocols.io.12345",
          "iacuc_protocol": null,
@@ -55,8 +55,8 @@
    "training_protocols": [
       {
          "protocol_id": "dx.doi.org/10.12345/protocols.io.12345",
-         "training_protocol_start_date": "2022-11-30",
-         "training_protocol_end_date": "2022-11-30",
+         "training_protocol_start_date": "2022-12-06",
+         "training_protocol_end_date": "2022-12-06",
          "notes": null
       }
    ],

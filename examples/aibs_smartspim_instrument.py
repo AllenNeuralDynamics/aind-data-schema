@@ -139,14 +139,16 @@ inst = Instrument(
             notes="Cylindrical lens #4",
         ),
     ],
-    optical_table=OpticalTable(
-        model="VIS2424-IG2-125A",
-        length=24,
-        width=24,
-        vibration_control=False,
-        manufacturer="Newport",
-        serial_number="Unknown",
-    ),
+    optical_tables=[
+        OpticalTable(
+            model="VIS2424-IG2-125A",
+            length=24,
+            width=24,
+            vibration_control=False,
+            manufacturer="MKS Newport",
+            serial_number="Unknown",
+        )
+    ],
     humidity_control=False,
     temperature_control=False,
     com_ports=[
@@ -205,5 +207,5 @@ inst = Instrument(
     ],
 )
 
-with open("instrument.json", "w") as f:
+with open("aibs_smartspim_instrument.json", "w") as f:
     f.write(inst.json(indent=3))
