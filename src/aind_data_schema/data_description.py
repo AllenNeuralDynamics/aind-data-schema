@@ -7,7 +7,7 @@ from datetime import date, datetime, time
 from enum import Enum
 from typing import Optional, List
 
-from pydantic import Field, root_validator
+from pydantic import Field
 from .base import AindCoreModel, AindModel
 
 
@@ -150,21 +150,18 @@ class DataDescription(AindCoreModel):
         title="Restrictions",
     )
 
-    def __init__(self, label=None, **kwargs):
+    def __init__(self, label, **kwargs):
         """Construct a generic data description"""
-        if label is not None:
-            name = build_data_name(
-                label=label,
-                creation_date=kwargs["creation_date"],
-                creation_time=kwargs["creation_time"],
-            )
+        name = build_data_name(
+            label=label,
+            creation_date=kwargs["creation_date"],
+            creation_time=kwargs["creation_time"],
+        )
 
-            if "name" in kwargs:
-                kwargs.pop("name")
+        if "name" in kwargs:
+            kwargs.pop("name")
 
-            super().__init__(name=name, **kwargs)
-        else:
-            super().__init__(**kwargs)
+        super().__init__(name=name, **kwargs)
 
     @classmethod
     def from_name(cls, name, **kwargs):
@@ -191,25 +188,24 @@ class DerivedDataDescription(DataDescription):
 
     input_data: DataDescription
     process_name: str
+    data_level: DataLevel = Field(
+        DataLevel.DERIVED_DATA,
+        description="level of processing that data has undergone",
+        title="Data Level",
+        const=True
+    )
 
-    @root_validator(pre=True)
-    def build_fields(cls, values):
-        """build name, process_name, and data_level fields"""
-
-        d = values["input_data"]
+    def __init__(self, **kwargs):
+        """Construct a derived data description"""
+        d = kwargs["input_data"]
         name = (
             build_data_name(d.process_name, d.creation_date, d.creation_time)
             if isinstance(d, DerivedDataDescription)
             else d.name
         )
-        process_name = values["process_name"]
-        values["name"] = build_data_name(
-            label=f"{name}_{process_name}",
-            creation_date=values["creation_date"],
-            creation_time=values["creation_time"],
-        )
-        values["data_level"] = DataLevel.DERIVED_DATA
-        return values
+        process_name = kwargs["process_name"]
+
+        super().__init__(label=f"{name}_{process_name}", **kwargs)
 
     @classmethod
     def from_name(cls, name, **kwargs):
@@ -253,17 +249,18 @@ class RawDataDescription(DataDescription):
         regex=DataRegex.NO_UNDERSCORES.value,
         description="Unique identifier for the subject of data acquisition",
     )
+    data_level: DataLevel = Field(
+        DataLevel.RAW_DATA,
+        description="level of processing that data has undergone",
+        title="Data Level",
+        const=True
+    )
 
-    @root_validator(pre=True)
-    def build_fields(cls, values):
-        """compute the label, name, and data_level fields"""
-        values["name"] = build_data_name(
-            label=f'{values["modality"]}_{values["subject_id"]}',
-            creation_date=values["creation_date"],
-            creation_time=values["creation_time"],
-        )
-        values["data_level"] = DataLevel.RAW_DATA
-        return values
+    def __init__(self, **kwargs):
+        """Construct a derived data description"""
+        modality = kwargs["modality"]
+        subject_id = kwargs["subject_id"]
+        super().__init__(label=f'{modality}_{subject_id}', **kwargs)
 
     @classmethod
     def from_name(cls, name, **kwargs):
