@@ -19,6 +19,12 @@ class ProtectiveMaterial(Enum):
     OTHER = "Other - see notes"
 
 
+class Anaesthetic(BaseModel):
+    type: str = Field(..., title="Type")
+    duration: float = Field(..., title="Duration (hours)", units="hours")
+    level: float = Field(..., title="Level (percent)", units="percent", ge=1, le=5)
+
+
 class Procedure(BaseModel):
     """Description of surgical or other procedure performed on a subject"""
 
@@ -42,6 +48,7 @@ class Procedure(BaseModel):
         description="Animal weight before procedure",
         units="g",
     )
+    anaesthesia: Optional[Anaesthetic] = Field(None, title="Anaesthesia")
     notes: Optional[str] = Field(None, title="Notes")
 
 
@@ -133,6 +140,9 @@ class Injection(Procedure):
         None, title="Injection material", unique_items=True
     )
     injection_duration: time = Field(..., title="Injection duration")
+    recovery_time: float = Field(..., title="Recovery time (min)", units="min")
+    workstation_id: Optional[str] = Field(None, title="Workstation ID")
+    instrument_id: Optional[str] = Field(None, title="Instrument ID")
 
 
 class RetroOrbitalInjection(Injection):
