@@ -47,6 +47,7 @@ class ProceduresTests(unittest.TestCase):
                     injection_volume=1,
                     injection_eye="Left",
                     injection_duration=1,
+                    recovery_time=10
                 ),
                 NanojectInjection(
                     start_date=now,
@@ -66,6 +67,7 @@ class ProceduresTests(unittest.TestCase):
                     injection_coordinate_depth=1,
                     injection_angle=1,
                     injection_volume=1,
+                    recovery_time=10
                 ),
             ],
             fiber_implants=[
