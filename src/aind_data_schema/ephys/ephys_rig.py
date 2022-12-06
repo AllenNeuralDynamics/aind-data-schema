@@ -9,7 +9,7 @@ from typing import List, Optional
 from pydantic import Field
 
 from ..device import Device
-from ..base import AindCoreModel, AindModel
+from ..base import AindCoreModel
 
 
 class HarpDevice(Enum):

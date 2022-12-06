@@ -7,7 +7,7 @@ from datetime import date, datetime, time
 from enum import Enum
 from typing import Optional, List
 
-from pydantic import Field, root_validator, PrivateAttr
+from pydantic import Field, root_validator
 from .base import AindCoreModel, AindModel
 
 
@@ -149,21 +149,22 @@ class DataDescription(AindCoreModel):
         description="Detail any restrictions on publishing or sharing these data",
         title="Restrictions",
     )
-    _label: str = PrivateAttr()
 
     def __init__(self, label=None, **kwargs):
         """Construct a generic data description"""
-        super().__init__(_label=label, **kwargs)
+        if label is not None:
+            name = build_data_name(
+                label=label,
+                creation_date=kwargs["creation_date"],
+                creation_time=kwargs["creation_time"],
+            )
 
-    @root_validator(pre=True)
-    def build_fields(cls, values):
-        """build name"""
-        values["name"] = build_data_name(
-            label=values["_label"],
-            creation_date=values["creation_date"],
-            creation_time=values["creation_time"],
-        )
-        return values
+            if "name" in kwargs:
+                kwargs.pop("name")
+
+            super().__init__(name=name, **kwargs)
+        else:
+            super().__init__(**kwargs)
 
     @classmethod
     def from_name(cls, name, **kwargs):
