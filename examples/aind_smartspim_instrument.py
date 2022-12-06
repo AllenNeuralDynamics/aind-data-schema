@@ -1,7 +1,5 @@
 """ example SmartSPIM instrument """
 from aind_data_schema.imaging import instrument
-import json
-
 
 inst = instrument.Instrument(
     instrument_id="SmartSPIM02",

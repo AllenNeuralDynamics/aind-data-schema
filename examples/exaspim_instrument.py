@@ -2,8 +2,6 @@
 
 from aind_data_schema.imaging import instrument
 from aind_data_schema.device import DaqChannel
-from pathlib import Path
-import json
 
 
 inst = instrument.Instrument(
