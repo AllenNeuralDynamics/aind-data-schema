@@ -142,7 +142,7 @@ class ImagingDeviceType(Enum):
     OBJECTIVE = "Objective"
     SLIT = "Slit"
     TUNABLE_LENS = "Tunable lens"
-    ROTATION_MOUSE = "Rotation mount"
+    ROTATION_MOUNT = "Rotation mount"
     OTHER = "Other"
 
 
