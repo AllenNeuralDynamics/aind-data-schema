@@ -21,7 +21,7 @@
    ],
    "objectives": [
       {
-         "manufacturer": "Vieworks",
+         "manufacturer": "Schneider-Kreuznach/Vieworks",
          "serial_number": "Unknown",
          "model": "JM_DIAMOND 5.0X/1.3",
          "notes": null,

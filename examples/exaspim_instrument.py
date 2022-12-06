@@ -16,7 +16,7 @@ inst = instrument.Instrument(
             numerical_aperture=0.305,
             magnification=5.0,
             immersion="air",
-            manufacturer="Vieworks",
+            manufacturer="Schneider-Kreuznach/Vieworks",
             model="JM_DIAMOND 5.0X/1.3",
             serial_number="Unknown",
         ),
