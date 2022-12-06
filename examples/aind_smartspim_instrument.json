@@ -7,7 +7,18 @@
    "manufacturer": "LifeCanvas",
    "temperature_control": false,
    "humidity_control": false,
-   "optical_tables": null,
+   "optical_tables": [
+      {
+         "manufacturer": "MKS Newport",
+         "serial_number": "Unknown",
+         "model": "VIS2424-IG2-125A",
+         "notes": null,
+         "daq_channel": null,
+         "length": 36.0,
+         "width": 48.0,
+         "vibration_control": false
+      }
+   ],
    "objectives": [
       {
          "manufacturer": "LifeCanvas",
