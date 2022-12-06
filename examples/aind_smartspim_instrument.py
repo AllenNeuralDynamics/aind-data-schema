@@ -80,7 +80,7 @@ inst = instrument.Instrument(
             coupling="SMF",
             wavelength=690,
             max_power=160,
-            serial_number="VL08223M03",            
+            serial_number="VL08223M03",
             manufacturer="Vortran",
         ),
     ],

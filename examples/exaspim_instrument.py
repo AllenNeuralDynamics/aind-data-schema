@@ -17,7 +17,7 @@ inst = instrument.Instrument(
             manufacturer="Other",
             model="JM_DIAMOND 5.0X/1.3",
             serial_number="Unknown",
-            notes="manufacturer collaboration between Schneider-Kreuznach and Vieworks"
+            notes="manufacturer collaboration between Schneider-Kreuznach and Vieworks",
         ),
     ],
     detectors=[

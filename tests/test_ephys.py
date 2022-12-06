@@ -61,7 +61,7 @@ class ExampleTest(unittest.TestCase):
                     ],
                     lasers=[],
                 )
-            ]
+            ],
         )
 
         assert es is not None
