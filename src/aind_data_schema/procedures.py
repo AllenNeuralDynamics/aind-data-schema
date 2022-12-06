@@ -348,7 +348,7 @@ class Procedures(AindSchema):
     """Description of all procedures performed on a subject"""
 
     schema_version: str = Field(
-        "0.4.2", description="schema version", title="Version", const=True
+        "0.4.3", description="schema version", title="Version", const=True
     )
     subject_id: str = Field(
         ...,
