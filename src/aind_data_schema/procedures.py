@@ -20,6 +20,8 @@ class ProtectiveMaterial(Enum):
 
 
 class Anaesthetic(BaseModel):
+    """Description of an anaestheic"""
+    
     type: str = Field(..., title="Type")
     duration: float = Field(..., title="Duration (hours)", units="hours")
     level: float = Field(..., title="Level (percent)", units="percent", ge=1, le=5)
