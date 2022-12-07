@@ -195,7 +195,88 @@
          "description": null
       }
    ],
-   "motorized_stages": null,
+   "motorized_stages": [
+      {
+         "manufacturer": "Applied Scientific Instrumentation",
+         "serial_number": "Unknown-1",
+         "model": "LS-100",
+         "notes": "Focus stage",
+         "daq_channel": null,
+         "stage_axis_direction": "Detection axis",
+         "stage_axis_name": "Z",
+         "travel": 100.0
+      },
+      {
+         "manufacturer": "Applied Scientific Instrumentation",
+         "serial_number": "Unknown-2",
+         "model": "LS-50",
+         "notes": "Sample stage Z",
+         "daq_channel": null,
+         "stage_axis_direction": "Detection axis",
+         "stage_axis_name": "Z",
+         "travel": 50.0
+      },
+      {
+         "manufacturer": "Applied Scientific Instrumentation",
+         "serial_number": "Unknown-3",
+         "model": "LS-50",
+         "notes": "Sample stage X",
+         "daq_channel": null,
+         "stage_axis_direction": "Illumination axis",
+         "stage_axis_name": "X",
+         "travel": 50.0
+      },
+      {
+         "manufacturer": "Applied Scientific Instrumentation",
+         "serial_number": "Unknown-4",
+         "model": "LS-50",
+         "notes": "Sample stage Y",
+         "daq_channel": null,
+         "stage_axis_direction": "Perpendicular axis",
+         "stage_axis_name": "Y",
+         "travel": 50.0
+      },
+      {
+         "manufacturer": "IR Robot Co",
+         "serial_number": "Unknown-5",
+         "model": "L12-20F-4",
+         "notes": "Cylindrical lens #1",
+         "daq_channel": null,
+         "stage_axis_direction": "Perpendicular axis",
+         "stage_axis_name": "Y",
+         "travel": 41.0
+      },
+      {
+         "manufacturer": "IR Robot Co",
+         "serial_number": "Unknown-6",
+         "model": "L12-20F-4",
+         "notes": "Cylindrical lens #2",
+         "daq_channel": null,
+         "stage_axis_direction": "Perpendicular axis",
+         "stage_axis_name": "Y",
+         "travel": 41.0
+      },
+      {
+         "manufacturer": "IR Robot Co",
+         "serial_number": "Unknown-7",
+         "model": "L12-20F-4",
+         "notes": "Cylindrical lens #3",
+         "daq_channel": null,
+         "stage_axis_direction": "Perpendicular axis",
+         "stage_axis_name": "Y",
+         "travel": 41.0
+      },
+      {
+         "manufacturer": "IR Robot Co",
+         "serial_number": "Unknown-8",
+         "model": "L12-20F-4",
+         "notes": "Cylindrical lens #4",
+         "daq_channel": null,
+         "stage_axis_direction": "Perpendicular axis",
+         "stage_axis_name": "Y",
+         "travel": 41.0
+      }
+   ],
    "daqs": null,
    "additional_devices": null,
    "calibration_date": null,
