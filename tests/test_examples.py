@@ -1,10 +1,7 @@
 import glob
-import os
 import unittest
 from pathlib import Path
-import json
 import subprocess
-import difflib
 
 EXAMPLES_DIR = Path(__file__).parents[1] / "examples"
 
