@@ -140,7 +140,7 @@ inst = instrument.Instrument(
             manufacturer="Oxxius",
             model="L6Cc",
             serial_number="L6CC-00513",
-        )
+        ),
     ],
     optical_tables=[
         instrument.OpticalTable(

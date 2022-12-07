@@ -189,7 +189,7 @@ class DerivedDataDescription(DataDescription):
         DataLevel.DERIVED_DATA,
         description="level of processing that data has undergone",
         title="Data Level",
-        const=True
+        const=True,
     )
 
     def __init__(self, **kwargs):
@@ -250,14 +250,14 @@ class RawDataDescription(DataDescription):
         DataLevel.RAW_DATA,
         description="level of processing that data has undergone",
         title="Data Level",
-        const=True
+        const=True,
     )
 
     def __init__(self, **kwargs):
         """Construct a raw data description"""
         modality = kwargs["modality"]
         subject_id = kwargs["subject_id"]
-        super().__init__(label=f'{modality}_{subject_id}', **kwargs)
+        super().__init__(label=f"{modality}_{subject_id}", **kwargs)
 
     @classmethod
     def from_name(cls, name, **kwargs):

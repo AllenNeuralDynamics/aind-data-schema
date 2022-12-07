@@ -160,6 +160,7 @@ class StageAxisDirection(Enum):
     ILLUMINATION_AXIS = "Illumination axis"
     PERPENDICULAR_AXIS = "Perpendicular axis"
 
+
 class StageAxisName(Enum):
     """Axis names for motorized stages as configured by hardware"""
 
@@ -167,10 +168,13 @@ class StageAxisName(Enum):
     Y = "Y"
     Z = "Z"
 
+
 class MotorizedStage(Device):
     """Description of motorized stage"""
 
-    stage_axis_direction: StageAxisDirection = Field(..., title="Direction of stage axis")
+    stage_axis_direction: StageAxisDirection = Field(
+        ..., title="Direction of stage axis"
+    )
     stage_axis_name: StageAxisName = Field(..., title="Name of stage axis")
     travel: float = Field(..., title="Travel of device (mm)", units="mm")
 
