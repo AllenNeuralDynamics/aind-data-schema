@@ -1,3 +1,5 @@
+""" testing examples """
+
 import glob
 import unittest
 from pathlib import Path
@@ -10,6 +12,8 @@ class ExampleTests(unittest.TestCase):
     """tests for examples"""
 
     def test_examples(self):
+        """run through each example, compare to rendered json"""
+
         for example_file in glob.glob(f"{EXAMPLES_DIR}/*.py"):
             print(example_file)
 
