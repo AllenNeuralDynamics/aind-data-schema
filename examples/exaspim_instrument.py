@@ -38,7 +38,7 @@ inst = instrument.Instrument(
             max_power=200,
             serial_number="LAS-08307",
             manufacturer="Oxxius",
-            notes="Housed in commercial laser combiner, S/N L6CC-00513",
+            notes="Housed in commercial laser combiner",
             daq_channel=DaqChannel(index=6, type="Analog Output"),
         ),
         instrument.Lightsource(
@@ -48,7 +48,7 @@ inst = instrument.Instrument(
             max_power=200,
             serial_number="LAS-08308",
             manufacturer="Oxxius",
-            notes="Housed in commercial laser combiner, S/N L6CC-00513",
+            notes="Housed in commercial laser combiner",
             daq_channel=DaqChannel(index=3, type="Analog Output"),
         ),
         instrument.Lightsource(
@@ -58,7 +58,7 @@ inst = instrument.Instrument(
             max_power=200,
             serial_number="539251",
             manufacturer="Oxxius",
-            notes="Housed in commercial laser combiner, S/N L6CC-00513",
+            notes="Housed in commercial laser combiner",
             daq_channel=DaqChannel(index=5, type="Analog Output"),
         ),
         instrument.Lightsource(
@@ -68,7 +68,7 @@ inst = instrument.Instrument(
             max_power=200,
             serial_number="LAS-08309",
             manufacturer="Oxxius",
-            notes="Housed in commercial laser combiner, S/N L6CC-00513",
+            notes="Housed in commercial laser combiner",
             daq_channel=DaqChannel(index=4, type="Analog Output"),
         ),
     ],
@@ -96,7 +96,8 @@ inst = instrument.Instrument(
     ],
     motorized_stages=[
         instrument.MotorizedStage(
-            axis="Detection axis",
+            stage_axis_direction="Detection axis",
+            stage_axis_name="X",
             travel=1000,
             model="MS-8000",
             manufacturer="Applied Scientific Instrumentation",
@@ -104,14 +105,16 @@ inst = instrument.Instrument(
             serial_number="Unknown",
         ),
         instrument.MotorizedStage(
-            axis="Illumination axis",
+            stage_axis_direction="Perpendicular axis",
+            stage_axis_name="Y",
             travel=1000,
             model="MS-8000",
             manufacturer="Applied Scientific Instrumentation",
             serial_number="Unknown",
         ),
         instrument.MotorizedStage(
-            axis="Perpendicular axis",
+            stage_axis_direction="Illumination axis",
+            stage_axis_name="Z",
             travel=100,
             model="LS-100",
             manufacturer="Applied Scientific Instrumentation",
@@ -132,6 +135,12 @@ inst = instrument.Instrument(
             model="K10CR1",
             serial_number="01",
         ),
+        instrument.AdditionalImagingDevice(
+            type="Laser combiner",
+            manufacturer="Oxxius",
+            model="L6Cc",
+            serial_number="L6CC-00513",
+        )
     ],
     optical_tables=[
         instrument.OpticalTable(

@@ -48,7 +48,7 @@
          "manufacturer": "Oxxius",
          "serial_number": "LAS-08307",
          "model": null,
-         "notes": "Housed in commercial laser combiner, S/N L6CC-00513",
+         "notes": "Housed in commercial laser combiner",
          "daq_channel": {
             "index": 6,
             "type": "Analog Output"
@@ -62,7 +62,7 @@
          "manufacturer": "Oxxius",
          "serial_number": "LAS-08308",
          "model": null,
-         "notes": "Housed in commercial laser combiner, S/N L6CC-00513",
+         "notes": "Housed in commercial laser combiner",
          "daq_channel": {
             "index": 3,
             "type": "Analog Output"
@@ -76,7 +76,7 @@
          "manufacturer": "Oxxius",
          "serial_number": "539251",
          "model": null,
-         "notes": "Housed in commercial laser combiner, S/N L6CC-00513",
+         "notes": "Housed in commercial laser combiner",
          "daq_channel": {
             "index": 5,
             "type": "Analog Output"
@@ -90,7 +90,7 @@
          "manufacturer": "Oxxius",
          "serial_number": "LAS-08309",
          "model": null,
-         "notes": "Housed in commercial laser combiner, S/N L6CC-00513",
+         "notes": "Housed in commercial laser combiner",
          "daq_channel": {
             "index": 4,
             "type": "Analog Output"
@@ -125,7 +125,8 @@
             "index": 2,
             "type": "Analog Output"
          },
-         "axis": "Detection axis",
+         "stage_axis_direction": "Detection axis",
+         "stage_axis_name": "X",
          "travel": 1000.0
       },
       {
@@ -134,7 +135,8 @@
          "model": "MS-8000",
          "notes": null,
          "daq_channel": null,
-         "axis": "Illumination axis",
+         "stage_axis_direction": "Perpendicular axis",
+         "stage_axis_name": "Y",
          "travel": 1000.0
       },
       {
@@ -143,7 +145,8 @@
          "model": "LS-100",
          "notes": null,
          "daq_channel": null,
-         "axis": "Perpendicular axis",
+         "stage_axis_direction": "Illumination axis",
+         "stage_axis_name": "Z",
          "travel": 100.0
       }
    ],
@@ -178,6 +181,14 @@
          "notes": null,
          "daq_channel": null,
          "type": "Rotation mount"
+      },
+      {
+         "manufacturer": "Oxxius",
+         "serial_number": "L6CC-00513",
+         "model": "L6Cc",
+         "notes": null,
+         "daq_channel": null,
+         "type": "Laser combiner"
       }
    ],
    "calibration_date": null,

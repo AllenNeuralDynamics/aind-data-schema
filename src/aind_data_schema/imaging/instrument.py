@@ -143,6 +143,7 @@ class ImagingDeviceType(Enum):
     SLIT = "Slit"
     TUNABLE_LENS = "Tunable lens"
     ROTATION_MOUNT = "Rotation mount"
+    LASER_COMBINER = "Laser combiner"
     OTHER = "Other"
 
 
@@ -152,18 +153,25 @@ class AdditionalImagingDevice(Device):
     type: ImagingDeviceType = Field(..., title="Device type")
 
 
-class StageAxis(Enum):
+class StageAxisDirection(Enum):
     """Direction of motion for motorized stage"""
 
     DETECTION_AXIS = "Detection axis"
     ILLUMINATION_AXIS = "Illumination axis"
     PERPENDICULAR_AXIS = "Perpendicular axis"
 
+class StageAxisName(Enum):
+    """Axis names for motorized stages as configured by hardware"""
+
+    X = "X"
+    Y = "Y"
+    Z = "Z"
 
 class MotorizedStage(Device):
     """Description of motorized stage"""
 
-    axis: StageAxis = Field(..., title="Axis of stage")
+    stage_axis_direction: StageAxisDirection = Field(..., title="Direction of stage axis")
+    stage_axis_name: StageAxisName = Field(..., title="Name of stage axis")
     travel: float = Field(..., title="Travel of device (mm)", units="mm")
 
 

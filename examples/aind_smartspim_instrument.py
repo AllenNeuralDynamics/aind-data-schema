@@ -1,4 +1,5 @@
 """ example SmartSPIM instrument """
+
 from aind_data_schema.imaging import instrument
 
 inst = instrument.Instrument(
