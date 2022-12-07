@@ -4,7 +4,7 @@ import datetime
 from aind_data_schema import Processing
 from aind_data_schema.processing import DataProcess
 
-t = datetime.datetime(2022,11,22,8,43,00)
+t = datetime.datetime(2022, 11, 22, 8, 43, 00)
 
 p = Processing(
     pipeline_url="https://url/for/pipeline",

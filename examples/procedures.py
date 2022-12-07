@@ -9,7 +9,7 @@ from aind_data_schema.procedures import (
     OphysProbe,
 )
 
-t = datetime.datetime(2022,11,22,8,43,00)
+t = datetime.datetime(2022, 11, 22, 8, 43, 00)
 
 p = Procedures(
     subject_id="12345",

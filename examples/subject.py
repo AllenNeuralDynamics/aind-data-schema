@@ -3,7 +3,7 @@
 from aind_data_schema import Subject
 import datetime
 
-t = datetime.datetime(2022,11,22,8,43,00)
+t = datetime.datetime(2022, 11, 22, 8, 43, 00)
 
 s = Subject(
     species="Mus musculus",
