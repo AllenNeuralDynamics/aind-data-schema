@@ -9,20 +9,20 @@ from aind_data_schema.procedures import (
     OphysProbe,
 )
 
-now = datetime.datetime.now()
+t = datetime.datetime(2022,11,22,8,43,00)
 
 p = Procedures(
     subject_id="12345",
     training_protocols=[
         TrainingProtocol(
             protocol_id="dx.doi.org/10.12345/protocols.io.12345",
-            training_protocol_start_date=now.date(),
-            training_protocol_end_date=now.date(),
+            training_protocol_start_date=t.date(),
+            training_protocol_end_date=t.date(),
         )
     ],
     craniotomies=[
         Craniotomy(
-            date=now.date(),
+            date=t.date(),
             experimenter_full_name="jane doe",
             protocol_id="dx.doi.org/10.12345/protocols.io.12345",
             craniotomy_coordinates_ap=0,
@@ -30,18 +30,18 @@ p = Procedures(
             craniotomy_size=2,
             protective_material="Duragel",
             animal_weight=10,
-            start_date=now.date(),
-            end_date=now.date(),
+            start_date=t.date(),
+            end_date=t.date(),
         )
     ],
     fiber_implants=[
         FiberImplant(
-            date=now.date(),
+            date=t.date(),
             experimenter_full_name="john doe",
             protocol_id="dx.doi.org/10.12345/protocols.io.12345",
             animal_weight=34,
-            start_date=now.date(),
-            end_date=now.date(),
+            start_date=t.date(),
+            end_date=t.date(),
             probes=[
                 OphysProbe(
                     name="Probe A",
@@ -60,6 +60,4 @@ p = Procedures(
     ],
 )
 
-
-with open("procedures.json", "w") as f:
-    f.write(p.json(indent=3))
+print(p.json(indent=3))

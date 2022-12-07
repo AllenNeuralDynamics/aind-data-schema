@@ -205,5 +205,4 @@ inst = Instrument(
     ],
 )
 
-with open("instrument.json", "w") as f:
-    f.write(inst.json(indent=3))
+print(inst.json(indent=3))
