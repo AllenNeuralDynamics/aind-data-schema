@@ -6,8 +6,8 @@ from datetime import date
 from enum import Enum
 from typing import List, Optional
 
-from pydantic import BaseModel, Field
-from ..base import AindSchema
+from pydantic import Field
+from ..base import AindCoreModel, AindModel
 
 from ..device import Device, Manufacturer
 
@@ -24,7 +24,7 @@ class InstrumentType(Enum):
     OTHER = "Other"
 
 
-class Com(BaseModel):
+class Com(AindModel):
     """Description of a communication system"""
 
     hardware_name: str = Field(..., title="Controlled hardware device")
@@ -141,6 +141,9 @@ class ImagingDeviceType(Enum):
     PRISM = "Prism"
     OBJECTIVE = "Objective"
     SLIT = "Slit"
+    TUNABLE_LENS = "Tunable lens"
+    ROTATION_MOUNT = "Rotation mount"
+    LASER_COMBINER = "Laser combiner"
     OTHER = "Other"
 
 
@@ -150,7 +153,7 @@ class AdditionalImagingDevice(Device):
     type: ImagingDeviceType = Field(..., title="Device type")
 
 
-class StageAxis(Enum):
+class StageAxisDirection(Enum):
     """Direction of motion for motorized stage"""
 
     DETECTION_AXIS = "Detection axis"
@@ -158,11 +161,27 @@ class StageAxis(Enum):
     PERPENDICULAR_AXIS = "Perpendicular axis"
 
 
+class StageAxisName(Enum):
+    """Axis names for motorized stages as configured by hardware"""
+
+    X = "X"
+    Y = "Y"
+    Z = "Z"
+
+
 class MotorizedStage(Device):
     """Description of motorized stage"""
 
-    axis: StageAxis = Field(..., title="Axis of stage")
     travel: float = Field(..., title="Travel of device (mm)", units="mm")
+
+
+class ScanningStage(MotorizedStage):
+    """Description of a scanning motorized stages"""
+
+    stage_axis_direction: StageAxisDirection = Field(
+        ..., title="Direction of stage axis"
+    )
+    stage_axis_name: StageAxisName = Field(..., title="Name of stage axis")
 
 
 class DAQ(Device):
@@ -187,7 +206,7 @@ class OpticalTable(Device):
     vibration_control: Optional[bool] = Field(None, title="Vibration control")
 
 
-class Instrument(AindSchema):
+class Instrument(AindCoreModel):
     """Description of an instrument, which is a collection of devices"""
 
     version: str = Field(
@@ -220,6 +239,9 @@ class Instrument(AindSchema):
     )
     motorized_stages: Optional[List[MotorizedStage]] = Field(
         None, title="Motorized stages", unique_items=True
+    )
+    scanning_stages: Optional[List[ScanningStage]] = Field(
+        None, title="Scanning motorized stages", unique_items=True
     )
     daqs: Optional[List[DAQ]] = Field(None, title="DAQ", unique_items=True)
     additional_devices: Optional[List[AdditionalImagingDevice]] = Field(

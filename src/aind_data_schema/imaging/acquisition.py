@@ -6,8 +6,8 @@ from datetime import datetime
 from enum import Enum
 from typing import List, Optional
 
-from pydantic import BaseModel, Field
-from ..base import AindSchema
+from pydantic import Field
+from ..base import AindCoreModel, AindModel
 
 
 class AxisName(Enum):
@@ -30,7 +30,7 @@ class Direction(Enum):
     OTHER = "Other"
 
 
-class Axis(BaseModel):
+class Axis(AindModel):
     """Description of an image axis"""
 
     name: AxisName = Field(..., title="Name")
@@ -78,7 +78,7 @@ class Axis(BaseModel):
         return axes
 
 
-class Channel(BaseModel):
+class Channel(AindModel):
     """Description of a channel"""
 
     channel: int = Field(..., title="Channel")
@@ -90,7 +90,7 @@ class Channel(BaseModel):
     filter_wheel_index: int = Field(..., title="Filter wheel index")
 
 
-class Position(BaseModel):
+class Position(AindModel):
     """Description of stage position"""
 
     x_start_um: float
@@ -104,7 +104,7 @@ class Position(BaseModel):
     z_step_um: float
 
 
-class Acquisition(AindSchema):
+class Acquisition(AindCoreModel):
     """Description of an imaging acquisition session"""
 
     version: str = Field(
