@@ -94,8 +94,8 @@ inst = instrument.Instrument(
             serial_number="Unknown",
         )
     ],
-    motorized_stages=[
-        instrument.MotorizedStage(
+    scanning_stages=[
+        instrument.ScanningStage(
             stage_axis_direction="Detection axis",
             stage_axis_name="X",
             travel=1000,
@@ -104,7 +104,7 @@ inst = instrument.Instrument(
             daq_channel=DaqChannel(index=2, type="Analog Output"),
             serial_number="Unknown",
         ),
-        instrument.MotorizedStage(
+        instrument.ScanningStage(
             stage_axis_direction="Perpendicular axis",
             stage_axis_name="Y",
             travel=1000,
@@ -112,7 +112,7 @@ inst = instrument.Instrument(
             manufacturer="Applied Scientific Instrumentation",
             serial_number="Unknown",
         ),
-        instrument.MotorizedStage(
+        instrument.ScanningStage(
             stage_axis_direction="Illumination axis",
             stage_axis_name="Z",
             travel=100,

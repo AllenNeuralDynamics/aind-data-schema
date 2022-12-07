@@ -146,12 +146,40 @@ inst = instrument.Instrument(
             model="LS-100",
             manufacturer="Applied Scientific Instrumentation",
             serial_number="Unknown-1",
-            stage_axis_direction="Detection axis",
-            stage_axis_name="Z",
             travel=100,
             notes="Focus stage",
         ),
         instrument.MotorizedStage(
+            model="L12-20F-4",
+            manufacturer="IR Robot Co",
+            serial_number="Unknown-5",
+            travel=41,
+            notes="Cylindrical lens #1",
+        ),
+        instrument.MotorizedStage(
+            model="L12-20F-4",
+            manufacturer="IR Robot Co",
+            serial_number="Unknown-6",
+            travel=41,
+            notes="Cylindrical lens #2",
+        ),
+        instrument.MotorizedStage(
+            model="L12-20F-4",
+            manufacturer="IR Robot Co",
+            serial_number="Unknown-7",
+            travel=41,
+            notes="Cylindrical lens #3",
+        ),
+        instrument.MotorizedStage(
+            model="L12-20F-4",
+            manufacturer="IR Robot Co",
+            serial_number="Unknown-8",
+            travel=41,
+            notes="Cylindrical lens #4",
+        ),
+    ],
+    scanning_stages=[
+        instrument.ScanningStage(
             model="LS-50",
             manufacturer="Applied Scientific Instrumentation",
             serial_number="Unknown-2",
@@ -160,7 +188,7 @@ inst = instrument.Instrument(
             travel=50,
             notes="Sample stage Z",
         ),
-        instrument.MotorizedStage(
+        instrument.ScanningStage(
             model="LS-50",
             manufacturer="Applied Scientific Instrumentation",
             serial_number="Unknown-3",
@@ -169,7 +197,7 @@ inst = instrument.Instrument(
             travel=50,
             notes="Sample stage X",
         ),
-        instrument.MotorizedStage(
+        instrument.ScanningStage(
             model="LS-50",
             manufacturer="Applied Scientific Instrumentation",
             serial_number="Unknown-4",
@@ -178,42 +206,6 @@ inst = instrument.Instrument(
             travel=50,
             notes="Sample stage Y",
         ),
-        instrument.MotorizedStage(
-            model="L12-20F-4",
-            manufacturer="IR Robot Co",
-            serial_number="Unknown-5",
-            stage_axis_direction="Perpendicular axis",
-            stage_axis_name="Y",
-            travel=41,
-            notes="Cylindrical lens #1",
-        ),
-        instrument.MotorizedStage(
-            model="L12-20F-4",
-            manufacturer="IR Robot Co",
-            serial_number="Unknown-6",
-            stage_axis_direction="Perpendicular axis",
-            stage_axis_name="Y",
-            travel=41,
-            notes="Cylindrical lens #2",
-        ),
-        instrument.MotorizedStage(
-            model="L12-20F-4",
-            manufacturer="IR Robot Co",
-            serial_number="Unknown-7",
-            stage_axis_direction="Perpendicular axis",
-            stage_axis_name="Y",
-            travel=41,
-            notes="Cylindrical lens #3",
-        ),
-        instrument.MotorizedStage(
-            model="L12-20F-4",
-            manufacturer="IR Robot Co",
-            serial_number="Unknown-8",
-            stage_axis_direction="Perpendicular axis",
-            stage_axis_name="Y",
-            travel=41,
-            notes="Cylindrical lens #4",
-        )
     ],
     optical_tables=[
         instrument.OpticalTable(

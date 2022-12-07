@@ -172,11 +172,16 @@ class StageAxisName(Enum):
 class MotorizedStage(Device):
     """Description of motorized stage"""
 
+    travel: float = Field(..., title="Travel of device (mm)", units="mm")
+
+
+class ScanningStage(MotorizedStage):
+    """Description of a scanning motorized stages"""
+
     stage_axis_direction: StageAxisDirection = Field(
         ..., title="Direction of stage axis"
     )
     stage_axis_name: StageAxisName = Field(..., title="Name of stage axis")
-    travel: float = Field(..., title="Travel of device (mm)", units="mm")
 
 
 class DAQ(Device):
@@ -234,6 +239,9 @@ class Instrument(AindCoreModel):
     )
     motorized_stages: Optional[List[MotorizedStage]] = Field(
         None, title="Motorized stages", unique_items=True
+    )
+    scanning_stages: Optional[List[ScanningStage]] = Field(
+        None, title="Scanning motorized stages", unique_items=True
     )
     daqs: Optional[List[DAQ]] = Field(None, title="DAQ", unique_items=True)
     additional_devices: Optional[List[AdditionalImagingDevice]] = Field(
