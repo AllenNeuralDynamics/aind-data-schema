@@ -7,7 +7,7 @@ from enum import Enum
 from typing import List, Optional
 
 from pydantic import Field
-from ..base import AindSchema
+from ..base import AindCoreModel
 
 from ..device import Device
 
@@ -183,7 +183,7 @@ class Patch(Device):
     )
 
 
-class OphysRig(AindSchema):
+class OphysRig(AindCoreModel):
     """Description of an optical physiology rig"""
 
     schema_version: str = Field(

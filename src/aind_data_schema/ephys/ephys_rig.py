@@ -9,7 +9,7 @@ from typing import List, Optional
 from pydantic import Field
 
 from ..device import Device
-from ..base import AindSchema
+from ..base import AindCoreModel
 
 
 class HarpDevice(Enum):
@@ -178,7 +178,7 @@ class EphysProbe(Device):
     model: ProbeModel = Field(..., title="Model")
 
 
-class EphysRig(AindSchema):
+class EphysRig(AindCoreModel):
     """Description of an ephys rig"""
 
     describedBy: str = Field(

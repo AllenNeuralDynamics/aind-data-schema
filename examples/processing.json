@@ -7,8 +7,8 @@
       {
          "name": "Merge volume",
          "version": "0.0.1",
-         "start_date_time": "2022-11-30T16:32:40.860022",
-         "end_date_time": "2022-11-30T16:32:40.860022",
+         "start_date_time": "2022-12-06T09:39:21.978393",
+         "end_date_time": "2022-12-06T09:39:21.978393",
          "input_location": "/path/to/inputs",
          "output_location": "/path/to/outputs",
          "code_url": "https://github.com/abcd",
@@ -20,8 +20,8 @@
       {
          "name": "OME zarr",
          "version": "0.0.1",
-         "start_date_time": "2022-11-30T16:32:40.860022",
-         "end_date_time": "2022-11-30T16:32:40.860022",
+         "start_date_time": "2022-12-06T09:39:21.978393",
+         "end_date_time": "2022-12-06T09:39:21.978393",
          "input_location": "/path/to/inputs",
          "output_location": "/path/to/outputs",
          "code_url": "https://github.com/asdf",
@@ -34,8 +34,8 @@
       {
          "name": "Pystripe",
          "version": "0.2.1",
-         "start_date_time": "2022-11-30T16:32:40.860022",
-         "end_date_time": "2022-11-30T16:32:40.860022",
+         "start_date_time": "2022-12-06T09:39:21.978393",
+         "end_date_time": "2022-12-06T09:39:21.978393",
          "input_location": "/path/to/input",
          "output_location": "/path/to/output",
          "code_url": "https://github.com/fdsa",

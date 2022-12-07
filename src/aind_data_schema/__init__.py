@@ -1,7 +1,7 @@
-""" imports for BaseModel subclasses
+""" imports for AindModel subclasses
 """
 
-__version__ = "0.2.23"
+__version__ = "0.3.0"
 
 
 from .data_description import (

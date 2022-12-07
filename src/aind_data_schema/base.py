@@ -1,6 +1,6 @@
 """ generic base class with supporting validators and fields for basic AIND schema """
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Extra
 from pydantic.fields import ModelField
 
 import urllib.parse
@@ -33,7 +33,13 @@ def build_described_by(cls, base_url=DESCRIBED_BY_BASE_URL):
     return urllib.parse.urljoin(base_url, filename)
 
 
-class AindSchema(BaseModel):
+class AindModel(BaseModel, extra=Extra.forbid):
+    """BaseModel that disallows extra fields"""
+
+    pass
+
+
+class AindCoreModel(AindModel):
     """Generic base class to hold common fields/validators/etc for all basic AIND schema"""
 
     describedBy: str

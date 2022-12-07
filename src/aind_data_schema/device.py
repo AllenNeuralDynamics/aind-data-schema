@@ -1,8 +1,9 @@
 """ schema for various Devices """
 
-from pydantic import BaseModel, Field
+from pydantic import Field
 from enum import Enum
 from typing import Optional
+from .base import AindModel
 
 
 class Manufacturer(Enum):
@@ -25,9 +26,12 @@ class Manufacturer(Enum):
     MPI = "MPI"
     VORTRAN = "Vortran"
     COHERENT_SCIENTIFIC = "Coherent Scientific"
-    NEWPORT = "Newport"
+    MKS_NEWPORT = "MKS Newport"
     ASI = "Applied Scientific Instrumentation"
     MIGHTY_ZAP = "IR Robot Co"
+    VIEWORKS = "Vieworks"
+    OXXIUS = "Oxxius"
+    NATIONAL_INSTRUMENTS = "National Instruments"
     OTHER = "Other"
 
 
@@ -38,14 +42,14 @@ class DaqChannelType(Enum):
     AO = "Analog Output"
 
 
-class DaqChannel(BaseModel):
+class DaqChannel(AindModel):
     """Description of a DAQ Channel"""
 
     index: int = Field(..., title="index")
     type: DaqChannelType = Field(..., title="DAQ channel type")
 
 
-class Device(BaseModel):
+class Device(AindModel):
     """Description of a general device"""
 
     manufacturer: Manufacturer = Field(..., title="Manufacturer")

@@ -1,0 +1,291 @@
+{
+   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/imaging/instrument.py",
+   "version": "0.4.1",
+   "instrument_id": "SmartSPIM02",
+   "type": "smartSPIM",
+   "location": "440 Westlake",
+   "manufacturer": "LifeCanvas",
+   "temperature_control": false,
+   "humidity_control": false,
+   "optical_tables": [
+      {
+         "manufacturer": "MKS Newport",
+         "serial_number": "Unknown",
+         "model": "VIS2424-IG2-125A",
+         "notes": null,
+         "daq_channel": null,
+         "length": 36.0,
+         "width": 48.0,
+         "vibration_control": false
+      }
+   ],
+   "objectives": [
+      {
+         "manufacturer": "LifeCanvas",
+         "serial_number": "Unknown-1",
+         "model": null,
+         "notes": "Thorlabs TL4X-SAP with LifeCanvas dipping cap and correction optics.",
+         "daq_channel": null,
+         "numerical_aperture": 0.2,
+         "magnification": 3.6,
+         "immersion": "multi"
+      },
+      {
+         "manufacturer": "LifeCanvas",
+         "serial_number": "Unknown-2",
+         "model": null,
+         "notes": "Thorlabs TL2X-SAP with LifeCanvas dipping cap and correction optics.",
+         "daq_channel": null,
+         "numerical_aperture": 0.12,
+         "magnification": 1.625,
+         "immersion": "multi"
+      }
+   ],
+   "detectors": [
+      {
+         "manufacturer": "Hamamatsu",
+         "serial_number": "001284",
+         "model": "C14440-20UP",
+         "notes": null,
+         "daq_channel": null,
+         "type": "Camera",
+         "data_interface": "USB",
+         "cooling": "air"
+      }
+   ],
+   "light_sources": [
+      {
+         "manufacturer": "Vortran",
+         "serial_number": "VL08223M03",
+         "model": null,
+         "notes": null,
+         "daq_channel": null,
+         "type": "laser",
+         "coupling": "SMF",
+         "wavelength": 445.0,
+         "max_power": 200.0
+      },
+      {
+         "manufacturer": "Vortran",
+         "serial_number": "VL08223M03",
+         "model": null,
+         "notes": null,
+         "daq_channel": null,
+         "type": "laser",
+         "coupling": "SMF",
+         "wavelength": 488.0,
+         "max_power": 150.0
+      },
+      {
+         "manufacturer": "Vortran",
+         "serial_number": "VL08223M03",
+         "model": null,
+         "notes": null,
+         "daq_channel": null,
+         "type": "laser",
+         "coupling": "SMF",
+         "wavelength": 561.0,
+         "max_power": 150.0
+      },
+      {
+         "manufacturer": "Vortran",
+         "serial_number": "VL08223M03",
+         "model": null,
+         "notes": null,
+         "daq_channel": null,
+         "type": "laser",
+         "coupling": "SMF",
+         "wavelength": 594.0,
+         "max_power": 100.0
+      },
+      {
+         "manufacturer": "Vortran",
+         "serial_number": "VL08223M03",
+         "model": null,
+         "notes": null,
+         "daq_channel": null,
+         "type": "laser",
+         "coupling": "SMF",
+         "wavelength": 639.0,
+         "max_power": 160.0
+      },
+      {
+         "manufacturer": "Vortran",
+         "serial_number": "VL08223M03",
+         "model": null,
+         "notes": null,
+         "daq_channel": null,
+         "type": "laser",
+         "coupling": "SMF",
+         "wavelength": 690.0,
+         "max_power": 160.0
+      }
+   ],
+   "fluorescence_filters": [
+      {
+         "manufacturer": "Semrock",
+         "serial_number": "Unknown-0",
+         "model": "FF01-469/35-25",
+         "notes": null,
+         "daq_channel": null,
+         "type": "Band pass",
+         "diameter": 25.0,
+         "thickness": 2.0,
+         "filter_wheel_index": 0,
+         "description": null
+      },
+      {
+         "manufacturer": "Semrock",
+         "serial_number": "Unknown-1",
+         "model": "FF01-525/45-25",
+         "notes": null,
+         "daq_channel": null,
+         "type": "Band pass",
+         "diameter": 25.0,
+         "thickness": 2.0,
+         "filter_wheel_index": 1,
+         "description": null
+      },
+      {
+         "manufacturer": "Semrock",
+         "serial_number": "Unknown-2",
+         "model": "FF01-593/40-25",
+         "notes": null,
+         "daq_channel": null,
+         "type": "Band pass",
+         "diameter": 25.0,
+         "thickness": 2.0,
+         "filter_wheel_index": 2,
+         "description": null
+      },
+      {
+         "manufacturer": "Semrock",
+         "serial_number": "Unknown-3",
+         "model": "FF01-624/40-25",
+         "notes": null,
+         "daq_channel": null,
+         "type": "Band pass",
+         "diameter": 25.0,
+         "thickness": 2.0,
+         "filter_wheel_index": 3,
+         "description": null
+      },
+      {
+         "manufacturer": "Chroma",
+         "serial_number": "Unknown-4",
+         "model": "ET667/30m",
+         "notes": null,
+         "daq_channel": null,
+         "type": "Band pass",
+         "diameter": 25.0,
+         "thickness": 2.0,
+         "filter_wheel_index": 4,
+         "description": null
+      },
+      {
+         "manufacturer": "Thorlabs",
+         "serial_number": "Unknown-5",
+         "model": "FELH0700",
+         "notes": null,
+         "daq_channel": null,
+         "type": "Long pass",
+         "diameter": 25.0,
+         "thickness": 2.0,
+         "filter_wheel_index": 5,
+         "description": null
+      }
+   ],
+   "motorized_stages": [
+      {
+         "manufacturer": "Applied Scientific Instrumentation",
+         "serial_number": "Unknown-1",
+         "model": "LS-100",
+         "notes": "Focus stage",
+         "daq_channel": null,
+         "travel": 100.0
+      },
+      {
+         "manufacturer": "IR Robot Co",
+         "serial_number": "Unknown-5",
+         "model": "L12-20F-4",
+         "notes": "Cylindrical lens #1",
+         "daq_channel": null,
+         "travel": 41.0
+      },
+      {
+         "manufacturer": "IR Robot Co",
+         "serial_number": "Unknown-6",
+         "model": "L12-20F-4",
+         "notes": "Cylindrical lens #2",
+         "daq_channel": null,
+         "travel": 41.0
+      },
+      {
+         "manufacturer": "IR Robot Co",
+         "serial_number": "Unknown-7",
+         "model": "L12-20F-4",
+         "notes": "Cylindrical lens #3",
+         "daq_channel": null,
+         "travel": 41.0
+      },
+      {
+         "manufacturer": "IR Robot Co",
+         "serial_number": "Unknown-8",
+         "model": "L12-20F-4",
+         "notes": "Cylindrical lens #4",
+         "daq_channel": null,
+         "travel": 41.0
+      }
+   ],
+   "scanning_stages": [
+      {
+         "manufacturer": "Applied Scientific Instrumentation",
+         "serial_number": "Unknown-2",
+         "model": "LS-50",
+         "notes": "Sample stage Z",
+         "daq_channel": null,
+         "travel": 50.0,
+         "stage_axis_direction": "Detection axis",
+         "stage_axis_name": "Z"
+      },
+      {
+         "manufacturer": "Applied Scientific Instrumentation",
+         "serial_number": "Unknown-3",
+         "model": "LS-50",
+         "notes": "Sample stage X",
+         "daq_channel": null,
+         "travel": 50.0,
+         "stage_axis_direction": "Illumination axis",
+         "stage_axis_name": "X"
+      },
+      {
+         "manufacturer": "Applied Scientific Instrumentation",
+         "serial_number": "Unknown-4",
+         "model": "LS-50",
+         "notes": "Sample stage Y",
+         "daq_channel": null,
+         "travel": 50.0,
+         "stage_axis_direction": "Perpendicular axis",
+         "stage_axis_name": "Y"
+      }
+   ],
+   "daqs": null,
+   "additional_devices": null,
+   "calibration_date": null,
+   "calibration_data": null,
+   "com_ports": [
+      {
+         "hardware_name": "Laser Launch",
+         "com_port": "COM4"
+      },
+      {
+         "hardware_name": "ASI Tiger",
+         "com_port": "COM3"
+      },
+      {
+         "hardware_name": "MightyZap",
+         "com_port": "COM9"
+      }
+   ],
+   "notes": null
+}
