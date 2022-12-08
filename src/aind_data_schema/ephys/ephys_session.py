@@ -14,9 +14,8 @@ class SessionType(Enum):
     """Session type name"""
 
     TEST = "Test"
-    FORAGING_A = "Foraging A"
-    SPONTANEOUS = "Spontaneous"
-    FORAGING_B = "Foraging B"
+    OPTO = "Optotagging"
+    VISUAL_ORIENTATION = "Visual Orientation"
 
 
 class ExpectedDataStream(Enum):
@@ -134,6 +133,7 @@ class EphysSession(AindSchema):
     session_end_time: datetime = Field(..., title="Session end time")
     subject_id: int = Field(..., title="Subject ID")
     session_type: SessionType = Field(..., title="Session type")
+    session_description: Optional[str] = Field(None, title="Session description")
     stimulus_protocol_id: Optional[str] = Field(
         None, title="Stimulus protocol ID"
     )

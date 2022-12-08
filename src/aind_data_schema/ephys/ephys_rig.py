@@ -12,7 +12,7 @@ from ..device import Device
 from ..base import AindSchema
 
 
-class HarpDevice(Enum):
+class HarpDeviceName(Enum):
     """Harp device name"""
 
     BEHAVIOR = "Behavior"
@@ -22,6 +22,11 @@ class HarpDevice(Enum):
     TIMESTAMP_GENERATOR = "Timestamp Generator"
     INPUT_EXPANDER = "Input Expander"
 
+
+class HarpDevice(Device):
+    """Describes a Harp device"""
+    name: HarpDeviceName = Field(..., title="Name")
+    device_version: str = Field(..., title="Device version")
 
 class CameraName(Enum):
     """Camera name"""
@@ -52,21 +57,33 @@ class Camera(Device):
         None, title="Recording software version"
     )
 
-
-class Surface(Enum):
-    """Running disc surface name"""
-
-    NONE = "none"
-    FOAM = "foam"
+class MousePlatform(Device):
+    """Description of a mouse platform"""
+    surface_material: Optional[str] = Field(None, title="Surface material")
 
 
-class Disc(Device):
+class Disc(MousePlatform):
     """Description of a running disc"""
 
+    platform_type: str = Field(
+        "Disc", title="Platform type", const=True
+    )
     radius: float = Field(..., title="Radius (cm)", units="cm", ge=0)
-    surface: Optional[Surface] = Field(None, title="Surface")
     date_surface_replaced: Optional[datetime] = Field(
         None, title="Date surface replaced"
+    )
+
+class Tube(MousePlatform):
+    """Description of a tube platform"""
+    platform_type: str = Field(
+        "Tube", title="Platform type", const=True
+    )
+    diameter: float = Field(..., title="Diameter (cm)", units="cm", ge=0)
+
+class Treadmill(MousePlatform):
+    """Descrsiption of treadmill platform"""
+    platform_type: str = Field(
+        "Treadmill", title="Platform type", const=True
     )
 
 
@@ -100,6 +117,7 @@ class Laser(Device):
     calibration_date: Optional[datetime] = Field(
         None, title="Calibration date"
     )
+    manipulator: Device = Field(..., "Manipulator")
 
 
 class Monitor(Device):
@@ -176,6 +194,23 @@ class EphysProbe(Device):
 
     name: ProbeName = Field(..., title="Name")
     model: ProbeModel = Field(..., title="Model")
+    manipulator: Device = Field(..., title="Manipulator")
+    calibration_data: str = Field(
+        ..., title="Calibration data", 
+        description="Path to calibration data"
+    )
+    calibration_date: Optional[datetime] = Field(
+        None, title="Calibration date"
+    )
+
+    class DAQ(Device):
+    """Description of DAQ device"""
+
+    device_name: str = Field(..., title="PC device name")
+    update_frequency: float = Field(
+        ..., title="DAQ update frequency (Hz)", units="Hz"
+    )
+    number_active_channels: int = Field(..., title="Number of active channels")
 
 
 class EphysRig(AindSchema):
@@ -188,7 +223,7 @@ class EphysRig(AindSchema):
         const=True,
     )
     schema_version: str = Field(
-        "0.4.0", description="schema version", title="Version", const=True
+        "0.4.1", description="schema version", title="Version", const=True
     )
     rig_id: str = Field(
         ..., description="room_stim apparatus_version", title="Rig ID"
@@ -205,7 +240,8 @@ class EphysRig(AindSchema):
     visual_monitors: Optional[List[Monitor]] = Field(
         None, title="Visual monitor", unique_items=True
     )
-    running_disc: Optional[Disc] = Field(None, title="Running disc")
+    mouse_platform: Optional[MousePlatform] = Field(None, title="Mouse platform")
     harp_devices: Optional[List[HarpDevice]] = Field(
         None, title="Harp devices"
     )
+    daqs: Optional[DAQ] = Field(None, title="DAQ", unique_items=True)
