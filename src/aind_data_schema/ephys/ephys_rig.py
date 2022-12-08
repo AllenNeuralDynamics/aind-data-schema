@@ -9,7 +9,7 @@ from typing import List, Optional
 from pydantic import Field
 
 from ..device import Device
-from ..base import AindSchema
+from ..base import AindCoreModel
 
 
 class HarpDeviceName(Enum):
@@ -234,7 +234,7 @@ class DAQ(Device):
     number_active_channels: int = Field(..., title="Number of active channels")
 
 
-class EphysRig(AindSchema):
+class EphysRig(AindCoreModel):
     """Description of an ephys rig"""
 
     describedBy: str = Field(

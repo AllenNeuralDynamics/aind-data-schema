@@ -1,9 +1,9 @@
 """ tests for Subject """
 import unittest
-from aind_data_schema.base import AindSchema
+from aind_data_schema.base import AindCoreModel
 
 
-class TestSchema(AindSchema):
+class TestSchema(AindCoreModel):
     """a made up schema"""
 
     foo: str

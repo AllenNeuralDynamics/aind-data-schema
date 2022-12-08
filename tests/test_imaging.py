@@ -18,7 +18,6 @@ class ImagingTests(unittest.TestCase):
             a = Acquisition()
 
         a = Acquisition(
-            institution="AIND",
             experimenter_full_name="alice",
             session_start_time=datetime.datetime.now(),
             subject_id="1234",

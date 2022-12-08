@@ -7,8 +7,8 @@ from datetime import date, datetime, time
 from enum import Enum
 from typing import Optional, List
 
-from pydantic import BaseModel, Field, root_validator, PrivateAttr
-from .base import AindSchema
+from pydantic import Field
+from .base import AindCoreModel, AindModel
 
 
 class RegexParts(Enum):
@@ -83,7 +83,7 @@ def build_data_name(label, creation_date, creation_time):
     return f"{label}_{dt_str}"
 
 
-class Funding(BaseModel):
+class Funding(AindModel):
     """Description of funding sources"""
 
     funder: str = Field(..., title="Funder")
@@ -93,7 +93,7 @@ class Funding(BaseModel):
     )
 
 
-class DataDescription(AindSchema):
+class DataDescription(AindCoreModel):
     """Description of a logical collection of data files"""
 
     schema_version: str = Field("0.2.0", title="Schema Version", const=True)
@@ -149,21 +149,16 @@ class DataDescription(AindSchema):
         description="Detail any restrictions on publishing or sharing these data",
         title="Restrictions",
     )
-    _label: str = PrivateAttr()
 
-    def __init__(self, label=None, **kwargs):
+    def __init__(self, label, **kwargs):
         """Construct a generic data description"""
-        super().__init__(_label=label, **kwargs)
-
-    @root_validator(pre=True)
-    def build_fields(cls, values):
-        """build name"""
-        values["name"] = build_data_name(
-            label=values["_label"],
-            creation_date=values["creation_date"],
-            creation_time=values["creation_time"],
+        name = build_data_name(
+            label=label,
+            creation_date=kwargs["creation_date"],
+            creation_time=kwargs["creation_time"],
         )
-        return values
+
+        super().__init__(name=name, **kwargs)
 
     @classmethod
     def from_name(cls, name, **kwargs):
@@ -190,25 +185,24 @@ class DerivedDataDescription(DataDescription):
 
     input_data: DataDescription
     process_name: str
+    data_level: DataLevel = Field(
+        DataLevel.DERIVED_DATA,
+        description="level of processing that data has undergone",
+        title="Data Level",
+        const=True,
+    )
 
-    @root_validator(pre=True)
-    def build_fields(cls, values):
-        """build name, process_name, and data_level fields"""
-
-        d = values["input_data"]
+    def __init__(self, **kwargs):
+        """Construct a derived data description"""
+        d = kwargs["input_data"]
         name = (
             build_data_name(d.process_name, d.creation_date, d.creation_time)
             if isinstance(d, DerivedDataDescription)
             else d.name
         )
-        process_name = values["process_name"]
-        values["name"] = build_data_name(
-            label=f"{name}_{process_name}",
-            creation_date=values["creation_date"],
-            creation_time=values["creation_time"],
-        )
-        values["data_level"] = DataLevel.DERIVED_DATA
-        return values
+        process_name = kwargs["process_name"]
+
+        super().__init__(label=f"{name}_{process_name}", **kwargs)
 
     @classmethod
     def from_name(cls, name, **kwargs):
@@ -252,17 +246,18 @@ class RawDataDescription(DataDescription):
         regex=DataRegex.NO_UNDERSCORES.value,
         description="Unique identifier for the subject of data acquisition",
     )
+    data_level: DataLevel = Field(
+        DataLevel.RAW_DATA,
+        description="level of processing that data has undergone",
+        title="Data Level",
+        const=True,
+    )
 
-    @root_validator(pre=True)
-    def build_fields(cls, values):
-        """compute the label, name, and data_level fields"""
-        values["name"] = build_data_name(
-            label=f'{values["modality"]}_{values["subject_id"]}',
-            creation_date=values["creation_date"],
-            creation_time=values["creation_time"],
-        )
-        values["data_level"] = DataLevel.RAW_DATA
-        return values
+    def __init__(self, **kwargs):
+        """Construct a raw data description"""
+        modality = kwargs["modality"]
+        subject_id = kwargs["subject_id"]
+        super().__init__(label=f"{modality}_{subject_id}", **kwargs)
 
     @classmethod
     def from_name(cls, name, **kwargs):
