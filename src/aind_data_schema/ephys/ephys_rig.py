@@ -86,6 +86,26 @@ class Treadmill(MousePlatform):
         "Treadmill", title="Platform type", const=True
     )
 
+class AngleName(Enum):
+    """Euler angle name"""
+
+    XY = "XY"
+    XZ = "XZ"
+    YZ = "YZ"
+
+
+class ManipulatorAngles(BaseModel):
+    """Description of manipulator angle"""
+
+    name: AngleName = Field(..., title="AngleName")
+    value: float = Field(..., title="Value (deg)", units="deg")
+
+
+class Manipulator(Device):
+    """Description of manipulator"""
+    manipulator_angles: List[ManipulatorAngles] = Field(
+        ..., title="Manipulator angles", unique_items=True
+    )
 
 class LaserName(Enum):
     """Laser name"""
@@ -117,7 +137,8 @@ class Laser(Device):
     calibration_date: Optional[datetime] = Field(
         None, title="Calibration date"
     )
-    manipulator: Device = Field(..., "Manipulator")
+    laser_manipulator: Manipulator = Field(..., "Manipulator")
+
 
 
 class Monitor(Device):
@@ -159,7 +180,6 @@ class Monitor(Device):
         le=100,
     )
 
-
 class ProbeName(Enum):
     """Probe name"""
 
@@ -194,7 +214,7 @@ class EphysProbe(Device):
 
     name: ProbeName = Field(..., title="Name")
     model: ProbeModel = Field(..., title="Model")
-    manipulator: Device = Field(..., title="Manipulator")
+    probe_manipulator: Manipulator = Field(..., "Manipulator")
     calibration_data: str = Field(
         ..., title="Calibration data", 
         description="Path to calibration data"
@@ -203,7 +223,7 @@ class EphysProbe(Device):
         None, title="Calibration date"
     )
 
-    class DAQ(Device):
+class DAQ(Device):
     """Description of DAQ device"""
 
     device_name: str = Field(..., title="PC device name")
@@ -244,4 +264,4 @@ class EphysRig(AindSchema):
     harp_devices: Optional[List[HarpDevice]] = Field(
         None, title="Harp devices"
     )
-    daqs: Optional[DAQ] = Field(None, title="DAQ", unique_items=True)
+    daq: Optional[DAQ] = Field(None, title="DAQ", unique_items=True)

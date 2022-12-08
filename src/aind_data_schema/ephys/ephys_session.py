@@ -53,21 +53,6 @@ class CcfCoords(BaseModel):
     ccf_version: CcfVersion = Field(CcfVersion.CCFv3, title="CCF version")
 
 
-class AngleName(Enum):
-    """Euler angle name"""
-
-    XY = "XY"
-    XZ = "XZ"
-    YZ = "YZ"
-
-
-class ManipulatorAngles(BaseModel):
-    """Description of manipulator angle"""
-
-    name: AngleName = Field(..., title="AngleName")
-    value: float = Field(..., title="Value (deg)", units="deg")
-
-
 class Laser(BaseModel):
     """Description of a laser"""
 
@@ -82,9 +67,6 @@ class Laser(BaseModel):
     manipulator_coordinates: Coordinates3d = Field(
         ...,
         title="Manipulator coordinates",
-    )
-    manipulator_angles: List[ManipulatorAngles] = Field(
-        ..., title="Manipulator angles", unique_items=True
     )
 
 
@@ -101,9 +83,6 @@ class EphysProbe(BaseModel):
     manipulator_coordinates: Coordinates3d = Field(
         ...,
         title="Manipulator coordinates",
-    )
-    manipulator_angles: List[ManipulatorAngles] = Field(
-        ..., title="Manipulator angles", unique_items=True
     )
 
 
