@@ -48,6 +48,15 @@ class DaqChannel(AindModel):
     index: int = Field(..., title="index")
     type: DaqChannelType = Field(..., title="DAQ channel type")
 
+class DAQ(Device):
+    """Description of DAQ device"""
+
+    device_name: str = Field(..., title="PC device name")
+    update_frequency: float = Field(
+        ..., title="DAQ update frequency (Hz)", units="Hz"
+    )
+    number_active_channels: int = Field(..., title="Number of active channels")
+
 
 class Device(AindModel):
     """Description of a general device"""

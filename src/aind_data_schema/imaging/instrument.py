@@ -9,7 +9,7 @@ from typing import List, Optional
 from pydantic import Field
 from ..base import AindCoreModel, AindModel
 
-from ..device import Device, Manufacturer
+from ..device import Device, Manufacturer, DAQ
 
 
 class InstrumentType(Enum):
@@ -182,16 +182,6 @@ class ScanningStage(MotorizedStage):
         ..., title="Direction of stage axis"
     )
     stage_axis_name: StageAxisName = Field(..., title="Name of stage axis")
-
-
-class DAQ(Device):
-    """Description of DAQ device"""
-
-    device_name: str = Field(..., title="PC device name")
-    update_frequency: float = Field(
-        ..., title="DAQ update frequency (Hz)", units="Hz"
-    )
-    number_active_channels: int = Field(..., title="Number of active channels")
 
 
 class OpticalTable(Device):

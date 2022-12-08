@@ -8,7 +8,7 @@ from typing import List, Optional
 
 from pydantic import Field
 
-from ..device import Device
+from ..device import Device, DAQ
 from ..base import AindCoreModel, AindModel
 
 
@@ -228,17 +228,6 @@ class EphysProbe(Device):
     calibration_date: Optional[datetime] = Field(
         None, title="Calibration date"
     )
-
-
-class DAQ(Device):
-    """Description of DAQ device"""
-
-    device_name: str = Field(..., title="PC device name")
-    update_frequency: float = Field(
-        ..., title="DAQ update frequency (Hz)", units="Hz"
-    )
-    number_active_channels: int = Field(..., title="Number of active channels")
-
 
 class EphysRig(AindCoreModel):
     """Description of an ephys rig"""
