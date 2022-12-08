@@ -232,5 +232,5 @@ inst = instrument.Instrument(
     temperature_control=False,
 )
 
-with open('aind_smartspim_instrument.json', 'w') as f:
+with open("aind_smartspim_instrument.json", "w") as f:
     f.write(inst.json(indent=3))

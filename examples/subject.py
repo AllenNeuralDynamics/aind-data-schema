@@ -15,5 +15,5 @@ s = Subject(
     background_strain="C57BL/6J",
 )
 
-with open('subject.json', 'w') as f:
+with open("subject.json", "w") as f:
     f.write(s.json(indent=3))

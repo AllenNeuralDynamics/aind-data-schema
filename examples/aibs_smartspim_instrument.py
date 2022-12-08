@@ -205,5 +205,5 @@ inst = Instrument(
     ],
 )
 
-with open('aibs_smartspim_instrument.json', 'w') as f:
+with open("aibs_smartspim_instrument.json", "w") as f:
     f.write(inst.json(indent=3))

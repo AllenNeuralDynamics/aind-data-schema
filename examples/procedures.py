@@ -58,5 +58,5 @@ p = Procedures(
     ],
 )
 
-with open('procedures.json', 'w') as f:
+with open("procedures.json", "w") as f:
     f.write(p.json(indent=3))

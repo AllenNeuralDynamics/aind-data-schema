@@ -13,5 +13,5 @@ d = RawDataDescription(
     funding_source=[Funding(funder="AIND")],
 )
 
-with open('data_description.json', 'w') as f:
+with open("data_description.json", "w") as f:
     f.write(d.json(indent=3))
