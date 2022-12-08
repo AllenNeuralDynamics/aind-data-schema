@@ -3,7 +3,6 @@
 import glob
 import unittest
 from pathlib import Path
-import subprocess
 import importlib
 import sys
 from unittest.mock import patch, mock_open
