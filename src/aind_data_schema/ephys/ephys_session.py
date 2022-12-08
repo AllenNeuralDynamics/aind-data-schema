@@ -53,7 +53,7 @@ class CcfCoords(BaseModel):
     ccf_version: CcfVersion = Field(CcfVersion.CCFv3, title="CCF version")
 
 
-class Laser(BaseModel):
+class LaserModule(BaseModel):
     """Description of a laser"""
 
     name: str = Field(..., title="Name")
@@ -92,7 +92,7 @@ class Stream(BaseModel):
     stream_start_time: datetime = Field(..., title="Stream start time")
     stream_stop_time: datetime = Field(..., title="Stream stop time")
     probes: List[EphysProbe] = Field(..., title="Probes", unique_items=True)
-    lasers: List[Laser] = Field(..., title="Lasers", unique_items=True)
+    lasers: List[LaserModule] = Field(..., title="Lasers", unique_items=True)
 
 
 class EphysSession(AindSchema):

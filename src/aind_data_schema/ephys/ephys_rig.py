@@ -112,9 +112,11 @@ class LaserName(Enum):
 
     LASER_A = "Laser A"
     LASER_B = "Laser B"
+    LASER_C = "Laser C"
+    LASER_D = "Laser D"
 
 
-class Laser(Device):
+class LaserModule(Device):
     """Description of lasers used in ephys recordings"""
 
     name: LaserName = Field(..., title="Laser Name")
@@ -138,8 +140,7 @@ class Laser(Device):
         None, title="Calibration date"
     )
     laser_manipulator: Manipulator = Field(..., "Manipulator")
-
-
+    
 
 class Monitor(Device):
     """Description of a visual monitor"""
@@ -254,7 +255,7 @@ class EphysRig(AindSchema):
     cameras: Optional[List[Camera]] = Field(
         None, title="Cameras", unique_items=True
     )
-    lasers: Optional[List[Laser]] = Field(
+    lasers: Optional[List[LaserModule]] = Field(
         None, title="Lasers", unique_items=True
     )
     visual_monitors: Optional[List[Monitor]] = Field(
