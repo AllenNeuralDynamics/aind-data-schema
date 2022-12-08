@@ -79,7 +79,6 @@ class Laser(BaseModel):
         ...,
         title="Targeted CCF coordinates",
     )
-
     manipulator_coordinates: Coordinates3d = Field(
         ...,
         title="Manipulator coordinates",
@@ -94,12 +93,11 @@ class EphysProbe(BaseModel):
 
     name: str = Field(..., title="Name")
     tip_targeted_structure: str
-    other_targeted_structures: Optional[str] = None
-    targeted_ccf_coordinates: CcfCoords = Field(
-        ...,
+    other_targeted_structures: Optional[List[str]] = None
+    targeted_ccf_coordinates: Optional[CcfCoords] = Field(
+        None,
         title="Targeted CCF coordinates",
     )
-
     manipulator_coordinates: Coordinates3d = Field(
         ...,
         title="Manipulator coordinates",
@@ -143,9 +141,9 @@ class EphysSession(AindSchema):
     probe_streams: List[Stream] = Field(
         ..., title="Probe streams", unique_items=True
     )
-    coordinate_transform: Optional[str] = Field(
+    ccf_coordinate_transform: Optional[str] = Field(
         None,
-        description="Path to file that details the coordinate transform.",
-        title="Coordinate transform",
+        description="Path to file that details the CCF-to-lab coordinate transform.",
+        title="CCF coordinate transform",
     )
     notes: Optional[str] = None
