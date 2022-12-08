@@ -15,7 +15,7 @@ from aind_data_schema.ephys.ephys_session import (
 from aind_data_schema.ephys.ephys_rig import (
     ManipulatorAngle,
     Manipulator,
-    LaserModule
+    LaserModule,
 )
 
 
@@ -32,23 +32,23 @@ class ExampleTest(unittest.TestCase):
             es = EphysSession()
 
         er = EphysRig(
-            rig_id="1234", 
+            rig_id="1234",
             lasers=[
                 LaserModule(
-                    manufacturer='Hamamatsu',
-                    serial_number='1234',
-                    name='Laser A',
+                    manufacturer="Hamamatsu",
+                    serial_number="1234",
+                    name="Laser A",
                     laser_manipulator=Manipulator(
-                        manufacturer='Other',
-                        serial_number='1234',
+                        manufacturer="Other",
+                        serial_number="1234",
                         manipulator_angles=[
                             ManipulatorAngle(name="XY", value=1),
                             ManipulatorAngle(name="YZ", value=1),
                             ManipulatorAngle(name="XZ", value=1),
                         ],
-                    )
+                    ),
                 )
-            ]
+            ],
         )
 
         assert er is not None
@@ -73,7 +73,7 @@ class ExampleTest(unittest.TestCase):
                             ),
                             manipulator_coordinates=Coordinates3d(
                                 x="1", y="1", z="1"
-                            )
+                            ),
                         )
                     ],
                     lasers=[],
