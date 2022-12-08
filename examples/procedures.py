@@ -22,7 +22,6 @@ p = Procedures(
     ],
     craniotomies=[
         Craniotomy(
-            date=t.date(),
             experimenter_full_name="jane doe",
             protocol_id="dx.doi.org/10.12345/protocols.io.12345",
             craniotomy_coordinates_ap=0,
@@ -36,7 +35,6 @@ p = Procedures(
     ],
     fiber_implants=[
         FiberImplant(
-            date=t.date(),
             experimenter_full_name="john doe",
             protocol_id="dx.doi.org/10.12345/protocols.io.12345",
             animal_weight=34,
