@@ -6,6 +6,7 @@ from pathlib import Path
 import importlib
 import sys
 from unittest.mock import patch, mock_open
+import logging
 
 EXAMPLES_DIR = Path(__file__).parents[1] / "examples"
 
@@ -17,7 +18,7 @@ class ExampleTests(unittest.TestCase):
         """run through each example, compare to rendered json"""
 
         for example_file in glob.glob(f"{EXAMPLES_DIR}/*.py"):
-            print(example_file)
+            logging.debug(f"testing {example_file}")
 
             json_file = example_file.replace(".py", ".json")
 

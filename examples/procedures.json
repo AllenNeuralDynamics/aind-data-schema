@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/procedures.py",
-   "schema_version": "0.4.3",
+   "schema_version": "0.4.4",
    "subject_id": "12345",
    "headframes": null,
    "craniotomies": [
@@ -19,7 +19,8 @@
          "craniotomy_size": 2.0,
          "implant_part_number": null,
          "dura_removed": null,
-         "protective_material": "Duragel"
+         "protective_material": "Duragel",
+         "workstation_id": null
       }
    ],
    "mri_scans": null,
