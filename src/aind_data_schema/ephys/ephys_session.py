@@ -14,9 +14,8 @@ class SessionType(Enum):
     """Session type name"""
 
     TEST = "Test"
-    FORAGING_A = "Foraging A"
-    SPONTANEOUS = "Spontaneous"
-    FORAGING_B = "Foraging B"
+    OPTO = "Optotagging"
+    VISUAL_ORIENTATION = "Visual Orientation"
 
 
 class ExpectedDataStream(Enum):
@@ -54,22 +53,7 @@ class CcfCoords(AindModel):
     ccf_version: CcfVersion = Field(CcfVersion.CCFv3, title="CCF version")
 
 
-class AngleName(Enum):
-    """Euler angle name"""
-
-    XY = "XY"
-    XZ = "XZ"
-    YZ = "YZ"
-
-
-class ManipulatorAngles(AindModel):
-    """Description of manipulator angle"""
-
-    name: AngleName = Field(..., title="AngleName")
-    value: float = Field(..., title="Value (deg)", units="deg")
-
-
-class Laser(AindModel):
+class LaserModule(AindModel):
     """Description of a laser"""
 
     name: str = Field(..., title="Name")
@@ -80,13 +64,9 @@ class Laser(AindModel):
         ...,
         title="Targeted CCF coordinates",
     )
-
     manipulator_coordinates: Coordinates3d = Field(
         ...,
         title="Manipulator coordinates",
-    )
-    manipulator_angles: List[ManipulatorAngles] = Field(
-        ..., title="Manipulator angles", unique_items=True
     )
 
 
@@ -95,18 +75,14 @@ class EphysProbe(AindModel):
 
     name: str = Field(..., title="Name")
     tip_targeted_structure: str
-    other_targeted_structures: Optional[str] = None
-    targeted_ccf_coordinates: CcfCoords = Field(
-        ...,
+    other_targeted_structures: Optional[List[str]] = None
+    targeted_ccf_coordinates: Optional[CcfCoords] = Field(
+        None,
         title="Targeted CCF coordinates",
     )
-
     manipulator_coordinates: Coordinates3d = Field(
         ...,
         title="Manipulator coordinates",
-    )
-    manipulator_angles: List[ManipulatorAngles] = Field(
-        ..., title="Manipulator angles", unique_items=True
     )
 
 
@@ -116,14 +92,14 @@ class Stream(AindModel):
     stream_start_time: datetime = Field(..., title="Stream start time")
     stream_stop_time: datetime = Field(..., title="Stream stop time")
     probes: List[EphysProbe] = Field(..., title="Probes", unique_items=True)
-    lasers: List[Laser] = Field(..., title="Lasers", unique_items=True)
+    lasers: List[LaserModule] = Field(..., title="Lasers", unique_items=True)
 
 
 class EphysSession(AindCoreModel):
     """Description of an ephys recording session"""
 
     schema_version: str = Field(
-        "0.2.0", description="schema version", title="Version", const=True
+        "0.2.1", description="schema version", title="Version", const=True
     )
     experimenter_full_name: str = Field(
         ...,
@@ -134,6 +110,9 @@ class EphysSession(AindCoreModel):
     session_end_time: datetime = Field(..., title="Session end time")
     subject_id: int = Field(..., title="Subject ID")
     session_type: SessionType = Field(..., title="Session type")
+    session_description: Optional[str] = Field(
+        None, title="Session description"
+    )
     stimulus_protocol_id: Optional[str] = Field(
         None, title="Stimulus protocol ID"
     )
@@ -143,9 +122,9 @@ class EphysSession(AindCoreModel):
     probe_streams: List[Stream] = Field(
         ..., title="Probe streams", unique_items=True
     )
-    coordinate_transform: Optional[str] = Field(
+    ccf_coordinate_transform: Optional[str] = Field(
         None,
-        description="Path to file that details the coordinate transform.",
-        title="Coordinate transform",
+        description="Path to file that details the CCF-to-lab coordinate transform.",
+        title="CCF coordinate transform",
     )
     notes: Optional[str] = None

@@ -57,3 +57,14 @@ class Device(AindModel):
     model: Optional[str] = Field(None, title="Model")
     notes: Optional[str] = Field(None, title="Notes")
     daq_channel: Optional[DaqChannel] = Field(None, title="DAQ channel")
+
+
+class DAQ(Device):
+    """Description of DAQ device"""
+
+    device_name: str = Field(..., title="PC device name")
+    update_frequency: float = Field(
+        ..., title="DAQ update frequency (Hz)", units="Hz"
+    )
+    number_active_channels: int = Field(..., title="Number of active channels")
+

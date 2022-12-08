@@ -11,7 +11,11 @@ from aind_data_schema.ephys.ephys_session import (
     Stream,
     CcfCoords,
     Coordinates3d,
-    ManipulatorAngles,
+)
+from aind_data_schema.ephys.ephys_rig import (
+    ManipulatorAngle,
+    Manipulator,
+    LaserModule,
 )
 
 
@@ -27,7 +31,25 @@ class ExampleTest(unittest.TestCase):
         with self.assertRaises(pydantic.ValidationError):
             es = EphysSession()
 
-        er = EphysRig(rig_id="1234")
+        er = EphysRig(
+            rig_id="1234",
+            lasers=[
+                LaserModule(
+                    manufacturer="Hamamatsu",
+                    serial_number="1234",
+                    name="Laser A",
+                    laser_manipulator=Manipulator(
+                        manufacturer="Other",
+                        serial_number="1234",
+                        manipulator_angles=[
+                            ManipulatorAngle(name="XY", value=1),
+                            ManipulatorAngle(name="YZ", value=1),
+                            ManipulatorAngle(name="XZ", value=1),
+                        ],
+                    ),
+                )
+            ],
+        )
 
         assert er is not None
 
@@ -36,7 +58,7 @@ class ExampleTest(unittest.TestCase):
             session_start_time=datetime.datetime.now(),
             session_end_time=datetime.datetime.now(),
             subject_id="1234",
-            session_type="Foraging A",
+            session_type="Test",
             rig_id="1234",
             probe_streams=[
                 Stream(
@@ -52,11 +74,6 @@ class ExampleTest(unittest.TestCase):
                             manipulator_coordinates=Coordinates3d(
                                 x="1", y="1", z="1"
                             ),
-                            manipulator_angles=[
-                                ManipulatorAngles(name="XY", value=1),
-                                ManipulatorAngles(name="YZ", value=1),
-                                ManipulatorAngles(name="XZ", value=1),
-                            ],
                         )
                     ],
                     lasers=[],

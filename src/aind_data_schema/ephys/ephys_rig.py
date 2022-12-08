@@ -8,11 +8,11 @@ from typing import List, Optional
 
 from pydantic import Field
 
-from ..device import Device
-from ..base import AindCoreModel
+from ..device import Device, DAQ
+from ..base import AindCoreModel, AindModel
 
 
-class HarpDevice(Enum):
+class HarpDeviceName(Enum):
     """Harp device name"""
 
     BEHAVIOR = "Behavior"
@@ -21,6 +21,13 @@ class HarpDevice(Enum):
     SOUND_BOARD = "Sound Board"
     TIMESTAMP_GENERATOR = "Timestamp Generator"
     INPUT_EXPANDER = "Input Expander"
+
+
+class HarpDevice(Device):
+    """Describes a Harp device"""
+
+    name: HarpDeviceName = Field(..., title="Name")
+    device_version: str = Field(..., title="Device version")
 
 
 class CameraName(Enum):
@@ -53,20 +60,55 @@ class Camera(Device):
     )
 
 
-class Surface(Enum):
-    """Running disc surface name"""
+class MousePlatform(Device):
+    """Description of a mouse platform"""
 
-    NONE = "none"
-    FOAM = "foam"
+    surface_material: Optional[str] = Field(None, title="Surface material")
 
 
-class Disc(Device):
+class Disc(MousePlatform):
     """Description of a running disc"""
 
+    platform_type: str = Field("Disc", title="Platform type", const=True)
     radius: float = Field(..., title="Radius (cm)", units="cm", ge=0)
-    surface: Optional[Surface] = Field(None, title="Surface")
     date_surface_replaced: Optional[datetime] = Field(
         None, title="Date surface replaced"
+    )
+
+
+class Tube(MousePlatform):
+    """Description of a tube platform"""
+
+    platform_type: str = Field("Tube", title="Platform type", const=True)
+    diameter: float = Field(..., title="Diameter (cm)", units="cm", ge=0)
+
+
+class Treadmill(MousePlatform):
+    """Descrsiption of treadmill platform"""
+
+    platform_type: str = Field("Treadmill", title="Platform type", const=True)
+
+
+class AngleName(Enum):
+    """Euler angle name"""
+
+    XY = "XY"
+    XZ = "XZ"
+    YZ = "YZ"
+
+
+class ManipulatorAngle(AindModel):
+    """Description of manipulator angle"""
+
+    name: AngleName = Field(..., title="AngleName")
+    value: float = Field(..., title="Value (deg)", units="deg")
+
+
+class Manipulator(Device):
+    """Description of manipulator"""
+
+    manipulator_angles: List[ManipulatorAngle] = Field(
+        ..., title="Manipulator angles", unique_items=True
     )
 
 
@@ -75,9 +117,11 @@ class LaserName(Enum):
 
     LASER_A = "Laser A"
     LASER_B = "Laser B"
+    LASER_C = "Laser C"
+    LASER_D = "Laser D"
 
 
-class Laser(Device):
+class LaserModule(Device):
     """Description of lasers used in ephys recordings"""
 
     name: LaserName = Field(..., title="Laser Name")
@@ -100,6 +144,7 @@ class Laser(Device):
     calibration_date: Optional[datetime] = Field(
         None, title="Calibration date"
     )
+    laser_manipulator: Manipulator = Field(..., title="Manipulator")
 
 
 class Monitor(Device):
@@ -176,7 +221,13 @@ class EphysProbe(Device):
 
     name: ProbeName = Field(..., title="Name")
     model: ProbeModel = Field(..., title="Model")
-
+    probe_manipulator: Manipulator = Field(..., title="Manipulator")
+    calibration_data: str = Field(
+        ..., title="Calibration data", description="Path to calibration data"
+    )
+    calibration_date: Optional[datetime] = Field(
+        None, title="Calibration date"
+    )
 
 class EphysRig(AindCoreModel):
     """Description of an ephys rig"""
@@ -188,7 +239,7 @@ class EphysRig(AindCoreModel):
         const=True,
     )
     schema_version: str = Field(
-        "0.4.0", description="schema version", title="Version", const=True
+        "0.4.2", description="schema version", title="Version", const=True
     )
     rig_id: str = Field(
         ..., description="room_stim apparatus_version", title="Rig ID"
@@ -199,13 +250,16 @@ class EphysRig(AindCoreModel):
     cameras: Optional[List[Camera]] = Field(
         None, title="Cameras", unique_items=True
     )
-    lasers: Optional[List[Laser]] = Field(
+    lasers: Optional[List[LaserModule]] = Field(
         None, title="Lasers", unique_items=True
     )
     visual_monitors: Optional[List[Monitor]] = Field(
         None, title="Visual monitor", unique_items=True
     )
-    running_disc: Optional[Disc] = Field(None, title="Running disc")
+    mouse_platform: Optional[MousePlatform] = Field(
+        None, title="Mouse platform"
+    )
     harp_devices: Optional[List[HarpDevice]] = Field(
         None, title="Harp devices"
     )
+    daq: Optional[DAQ] = Field(None, title="DAQ")

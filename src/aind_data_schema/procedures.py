@@ -75,6 +75,7 @@ class Craniotomy(Procedure):
     protective_material: Optional[ProtectiveMaterial] = Field(
         None, title="Protective material"
     )
+    workstation_id: Optional[str] = Field(None, title="Workstation ID")
 
 
 class HeadframeMaterial(Enum):
@@ -352,7 +353,7 @@ class Procedures(AindCoreModel):
     """Description of all procedures performed on a subject"""
 
     schema_version: str = Field(
-        "0.4.3", description="schema version", title="Version", const=True
+        "0.4.4", description="schema version", title="Version", const=True
     )
     subject_id: str = Field(
         ...,
