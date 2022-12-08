@@ -232,4 +232,5 @@ inst = instrument.Instrument(
     temperature_control=False,
 )
 
-print(inst.json(indent=3))
+with open('aind_smartspim_instrument.json', 'w') as f:
+    f.write(inst.json(indent=3))

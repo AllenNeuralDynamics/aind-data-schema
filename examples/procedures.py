@@ -58,4 +58,5 @@ p = Procedures(
     ],
 )
 
-print(p.json(indent=3))
+with open('procedures.json', 'w') as f:
+    f.write(p.json(indent=3))

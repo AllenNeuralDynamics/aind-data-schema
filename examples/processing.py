@@ -43,4 +43,5 @@ p = Processing(
     ],
 )
 
-print(p.json(indent=3))
+with open('processing.json', 'w') as f:
+    f.write(p.json(indent=3))
