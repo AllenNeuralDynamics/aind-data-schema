@@ -53,21 +53,6 @@ class CcfCoords(AindModel):
     ccf_version: CcfVersion = Field(CcfVersion.CCFv3, title="CCF version")
 
 
-class AngleName(Enum):
-    """Euler angle name"""
-
-    XY = "XY"
-    XZ = "XZ"
-    YZ = "YZ"
-
-
-class ManipulatorAngles(AindModel):
-    """Description of manipulator angle"""
-
-    name: AngleName = Field(..., title="AngleName")
-    value: float = Field(..., title="Value (deg)", units="deg")
-
-
 class LaserModule(AindModel):
     """Description of a laser"""
 
@@ -125,7 +110,9 @@ class EphysSession(AindCoreModel):
     session_end_time: datetime = Field(..., title="Session end time")
     subject_id: int = Field(..., title="Subject ID")
     session_type: SessionType = Field(..., title="Session type")
-    session_description: Optional[str] = Field(None, title="Session description")
+    session_description: Optional[str] = Field(
+        None, title="Session description"
+    )
     stimulus_protocol_id: Optional[str] = Field(
         None, title="Stimulus protocol ID"
     )

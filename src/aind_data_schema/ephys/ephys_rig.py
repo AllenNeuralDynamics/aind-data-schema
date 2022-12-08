@@ -9,7 +9,7 @@ from typing import List, Optional
 from pydantic import Field
 
 from ..device import Device
-from ..base import AindCoreModel
+from ..base import AindCoreModel, AindModel
 
 
 class HarpDeviceName(Enum):
@@ -25,8 +25,10 @@ class HarpDeviceName(Enum):
 
 class HarpDevice(Device):
     """Describes a Harp device"""
+
     name: HarpDeviceName = Field(..., title="Name")
     device_version: str = Field(..., title="Device version")
+
 
 class CameraName(Enum):
     """Camera name"""
@@ -57,34 +59,35 @@ class Camera(Device):
         None, title="Recording software version"
     )
 
+
 class MousePlatform(Device):
     """Description of a mouse platform"""
+
     surface_material: Optional[str] = Field(None, title="Surface material")
 
 
 class Disc(MousePlatform):
     """Description of a running disc"""
 
-    platform_type: str = Field(
-        "Disc", title="Platform type", const=True
-    )
+    platform_type: str = Field("Disc", title="Platform type", const=True)
     radius: float = Field(..., title="Radius (cm)", units="cm", ge=0)
     date_surface_replaced: Optional[datetime] = Field(
         None, title="Date surface replaced"
     )
 
+
 class Tube(MousePlatform):
     """Description of a tube platform"""
-    platform_type: str = Field(
-        "Tube", title="Platform type", const=True
-    )
+
+    platform_type: str = Field("Tube", title="Platform type", const=True)
     diameter: float = Field(..., title="Diameter (cm)", units="cm", ge=0)
+
 
 class Treadmill(MousePlatform):
     """Descrsiption of treadmill platform"""
-    platform_type: str = Field(
-        "Treadmill", title="Platform type", const=True
-    )
+
+    platform_type: str = Field("Treadmill", title="Platform type", const=True)
+
 
 class AngleName(Enum):
     """Euler angle name"""
@@ -94,7 +97,7 @@ class AngleName(Enum):
     YZ = "YZ"
 
 
-class ManipulatorAngles(BaseModel):
+class ManipulatorAngle(AindModel):
     """Description of manipulator angle"""
 
     name: AngleName = Field(..., title="AngleName")
@@ -103,9 +106,11 @@ class ManipulatorAngles(BaseModel):
 
 class Manipulator(Device):
     """Description of manipulator"""
-    manipulator_angles: List[ManipulatorAngles] = Field(
+
+    manipulator_angles: List[ManipulatorAngle] = Field(
         ..., title="Manipulator angles", unique_items=True
     )
+
 
 class LaserName(Enum):
     """Laser name"""
@@ -139,8 +144,8 @@ class LaserModule(Device):
     calibration_date: Optional[datetime] = Field(
         None, title="Calibration date"
     )
-    laser_manipulator: Manipulator = Field(..., "Manipulator")
-    
+    laser_manipulator: Manipulator = Field(..., title="Manipulator")
+
 
 class Monitor(Device):
     """Description of a visual monitor"""
@@ -181,6 +186,7 @@ class Monitor(Device):
         le=100,
     )
 
+
 class ProbeName(Enum):
     """Probe name"""
 
@@ -215,14 +221,14 @@ class EphysProbe(Device):
 
     name: ProbeName = Field(..., title="Name")
     model: ProbeModel = Field(..., title="Model")
-    probe_manipulator: Manipulator = Field(..., "Manipulator")
+    probe_manipulator: Manipulator = Field(..., title="Manipulator")
     calibration_data: str = Field(
-        ..., title="Calibration data", 
-        description="Path to calibration data"
+        ..., title="Calibration data", description="Path to calibration data"
     )
     calibration_date: Optional[datetime] = Field(
         None, title="Calibration date"
     )
+
 
 class DAQ(Device):
     """Description of DAQ device"""
@@ -261,8 +267,10 @@ class EphysRig(AindCoreModel):
     visual_monitors: Optional[List[Monitor]] = Field(
         None, title="Visual monitor", unique_items=True
     )
-    mouse_platform: Optional[MousePlatform] = Field(None, title="Mouse platform")
+    mouse_platform: Optional[MousePlatform] = Field(
+        None, title="Mouse platform"
+    )
     harp_devices: Optional[List[HarpDevice]] = Field(
         None, title="Harp devices"
     )
-    daq: Optional[DAQ] = Field(None, title="DAQ", unique_items=True)
+    daq: Optional[DAQ] = Field(None, title="DAQ")
