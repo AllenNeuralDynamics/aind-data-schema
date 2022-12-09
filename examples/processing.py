@@ -4,7 +4,7 @@ import datetime
 from aind_data_schema import Processing
 from aind_data_schema.processing import DataProcess
 
-now = datetime.datetime.now()
+t = datetime.datetime(2022, 11, 22, 8, 43, 00)
 
 p = Processing(
     pipeline_url="https://url/for/pipeline",
@@ -13,8 +13,8 @@ p = Processing(
         DataProcess(
             name="Merge volume",
             version="0.0.1",
-            start_date_time=now,
-            end_date_time=now,
+            start_date_time=t,
+            end_date_time=t,
             input_location="/path/to/inputs",
             output_location="/path/to/outputs",
             code_url="https://github.com/abcd",
@@ -23,8 +23,8 @@ p = Processing(
         DataProcess(
             name="OME zarr",
             version="0.0.1",
-            start_date_time=now,
-            end_date_time=now,
+            start_date_time=t,
+            end_date_time=t,
             input_location="/path/to/inputs",
             output_location="/path/to/outputs",
             code_url="https://github.com/asdf",
@@ -33,8 +33,8 @@ p = Processing(
         DataProcess(
             name="Pystripe",
             version="0.2.1",
-            start_date_time=now,
-            end_date_time=now,
+            start_date_time=t,
+            end_date_time=t,
             input_location="/path/to/input",
             output_location="/path/to/output",
             code_url="https://github.com/fdsa",

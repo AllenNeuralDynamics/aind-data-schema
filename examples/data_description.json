@@ -2,9 +2,9 @@
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/data_description.py",
    "schema_version": "0.2.0",
    "license": "CC-BY-4.0",
-   "creation_time": "16:14:34.525530",
-   "creation_date": "2022-11-30",
-   "name": "ecephys_12345_2022-11-30_16-14-34",
+   "creation_time": "16:30:01",
+   "creation_date": "2022-02-21",
+   "name": "ecephys_12345_2022-02-21_16-30-01",
    "institution": "AIND",
    "funding_source": [
       {

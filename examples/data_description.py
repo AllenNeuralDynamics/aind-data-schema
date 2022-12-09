@@ -2,17 +2,16 @@
 
 from aind_data_schema import RawDataDescription
 from aind_data_schema.data_description import Funding
-import datetime
+from datetime import date, time
 
-now = datetime.datetime.now()
-s = RawDataDescription(
+d = RawDataDescription(
     modality="ecephys",
     subject_id="12345",
-    creation_date=now.date(),
-    creation_time=now.time(),
+    creation_date=date(2022, 2, 21),
+    creation_time=time(16, 30, 1),
     institution="AIND",
     funding_source=[Funding(funder="AIND")],
 )
 
 with open("data_description.json", "w") as f:
-    f.write(s.json(indent=3))
+    f.write(d.json(indent=3))
