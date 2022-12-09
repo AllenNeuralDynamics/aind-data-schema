@@ -157,7 +157,6 @@
          "serial_number": "Unknown",
          "model": "PCIe-6738",
          "notes": null,
-         "daq_channel": null,
          "device_name": "Dev2",
          "update_frequency": 10000.0,
          "number_active_channels": 7

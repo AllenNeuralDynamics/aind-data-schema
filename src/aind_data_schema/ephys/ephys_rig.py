@@ -229,6 +229,7 @@ class EphysProbe(Device):
         None, title="Calibration date"
     )
 
+
 class EphysRig(AindCoreModel):
     """Description of an ephys rig"""
 
