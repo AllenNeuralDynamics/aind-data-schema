@@ -49,17 +49,20 @@ class DaqChannel(AindModel):
     type: DaqChannelType = Field(..., title="DAQ channel type")
 
 
-class Device(AindModel):
+class DeviceBase(AindModel):
     """Description of a general device"""
 
     manufacturer: Manufacturer = Field(..., title="Manufacturer")
     serial_number: str = Field(..., title="Serial number")
     model: Optional[str] = Field(None, title="Model")
     notes: Optional[str] = Field(None, title="Notes")
+
+
+class Device(DeviceBase):
     daq_channel: Optional[DaqChannel] = Field(None, title="DAQ channel")
 
 
-class DAQ(Device):
+class DAQ(DeviceBase):
     """Description of DAQ device"""
 
     device_name: str = Field(..., title="PC device name")
