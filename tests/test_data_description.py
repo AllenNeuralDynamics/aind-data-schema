@@ -76,7 +76,7 @@ class DataDescriptionTest(unittest.TestCase):
             )
 
     def test_from_data_description(self):
-        """ test the from_data_description method """
+        """test the from_data_description method"""
         dt = datetime.datetime.now()
         d1 = RawDataDescription(
             creation_date=dt.date(),

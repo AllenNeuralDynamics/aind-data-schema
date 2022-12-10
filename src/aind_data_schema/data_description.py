@@ -248,7 +248,7 @@ class DerivedDataDescription(DataDescription):
 
         if input_data.data_level == DataLevel.DERIVED_DATA:
             input_data_name = input_data.name[
-                len(input_data.input_data_name) + 1 :
+                len(input_data.input_data_name)+1:
             ]
         else:
             input_data_name = input_data.name
