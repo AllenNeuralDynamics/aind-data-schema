@@ -28,10 +28,10 @@ class DataDescriptionTest(unittest.TestCase):
         da = DataDescription.from_name(
             name=self.BASIC_NAME,
             institution="AIND",
-            data_level="raw data",            
+            data_level="raw data",
             funding_source=[f],
-            modality='exaSPIM',
-            subject_id='12345'
+            modality="exaSPIM",
+            subject_id="12345",
         )
         assert da.name == self.BASIC_NAME
 
@@ -58,11 +58,11 @@ class DataDescriptionTest(unittest.TestCase):
             )
 
         dd = DerivedDataDescription.from_name(
-            name=self.DERIVED_NAME, 
-            institution="AIND", 
+            name=self.DERIVED_NAME,
+            institution="AIND",
             funding_source=[f],
-            modality='SmartSPIM',
-            subject_id='12345'
+            modality="SmartSPIM",
+            subject_id="12345",
         )
         assert dd.name == self.DERIVED_NAME
         assert dd.data_level.value == "derived data"
@@ -83,35 +83,34 @@ class DataDescriptionTest(unittest.TestCase):
             institution="AIND",
             data_level="raw data",
             funding_source=[],
-            modality='ecephys',
-            subject_id='12345'
+            modality="ecephys",
+            subject_id="12345",
         )
-        
+
         dt = datetime.datetime.now()
         d2 = DerivedDataDescription.from_data_description(
             input_data=d1,
-            process_name='fishing',
+            process_name="fishing",
             creation_date=dt.date(),
             creation_time=dt.time(),
-            institution='AIND',
-            funding_source=[]
+            institution="AIND",
+            funding_source=[],
         )
 
         assert d2.modality == d1.modality
         assert d2.subject_id == d1.subject_id
-        
+
         d3 = DerivedDataDescription.from_data_description(
             input_data=d2,
-            process_name='bailing',
+            process_name="bailing",
             creation_date=dt.date(),
             creation_time=dt.time(),
-            institution='HUST',
-            funding_source=[]
+            institution="HUST",
+            funding_source=[],
         )
-        
+
         assert d3.modality == d2.modality
         assert d3.subject_id == d2.subject_id
-        
 
     def test_constructors(self):
         """test building from component parts"""
@@ -124,8 +123,8 @@ class DataDescriptionTest(unittest.TestCase):
             institution="AIND",
             data_level="raw data",
             funding_source=[f],
-            modality='ecephys',
-            subject_id='12345'
+            modality="ecephys",
+            subject_id="12345",
         )
 
         r1 = DerivedDataDescription(
@@ -136,7 +135,7 @@ class DataDescriptionTest(unittest.TestCase):
             institution="AIND",
             funding_source=[f],
             modality=da.modality,
-            subject_id=da.subject_id
+            subject_id=da.subject_id,
         )
 
         r2 = DerivedDataDescription(
@@ -146,8 +145,8 @@ class DataDescriptionTest(unittest.TestCase):
             creation_time=dt.time(),
             institution="AIND",
             funding_source=[f],
-            modality='ecephys',
-            subject_id='12345'
+            modality="ecephys",
+            subject_id="12345",
         )
 
         r3 = DerivedDataDescription(
@@ -157,14 +156,14 @@ class DataDescriptionTest(unittest.TestCase):
             creation_time=dt.time(),
             institution="AIND",
             funding_source=[f],
-            modality='ecephys',
-            subject_id='12345'
+            modality="ecephys",
+            subject_id="12345",
         )
         assert r3 is not None
 
         dd = DataDescription(
-            label="test_data",            
-            modality='ecephys',
+            label="test_data",
+            modality="ecephys",
             subject_id="1234",
             data_level="raw data",
             creation_date=dt.date(),

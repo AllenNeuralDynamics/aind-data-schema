@@ -186,7 +186,7 @@ class DataDescription(AindCoreModel):
         return dict(
             label=m.group("label"),
             creation_date=creation_date,
-            creation_time=creation_time,            
+            creation_time=creation_time,
         )
 
     @classmethod
@@ -209,7 +209,7 @@ class DerivedDataDescription(DataDescription):
 
     def __init__(self, process_name, **kwargs):
         """Construct a derived data description"""
-        input_data_name = kwargs['input_data_name']
+        input_data_name = kwargs["input_data_name"]
         super().__init__(label=f"{input_data_name}_{process_name}", **kwargs)
 
     @classmethod
@@ -230,7 +230,7 @@ class DerivedDataDescription(DataDescription):
             process_name=m.group("process_name"),
             creation_date=creation_date,
             creation_time=creation_time,
-            input_data_name=m.group("input")
+            input_data_name=m.group("input"),
         )
 
     @classmethod
@@ -244,16 +244,18 @@ class DerivedDataDescription(DataDescription):
     @classmethod
     def from_data_description(cls, input_data, process_name, **kwargs):
         if input_data.data_level == DataLevel.DERIVED_DATA:
-            input_data_name = input_data.name[len(input_data.input_data_name)+1:]
+            input_data_name = input_data.name[
+                len(input_data.input_data_name) + 1 :
+            ]
         else:
             input_data_name = input_data.name
-        
+
         return cls(
-            input_data_name=input_data_name, 
+            input_data_name=input_data_name,
             process_name=process_name,
             subject_id=input_data.subject_id,
             modality=input_data.modality,
-            **kwargs
+            **kwargs,
         )
 
 
@@ -290,11 +292,11 @@ class RawDataDescription(DataDescription):
             modality=m.group("modality"),
             subject_id=m.group("subject_id"),
             creation_date=creation_date,
-            creation_time=creation_time
+            creation_time=creation_time,
         )
 
     @classmethod
     def from_name(cls, name, **kwargs):
         d = cls.parse_name(name)
 
-        return cls(**d,**kwargs)
+        return cls(**d, **kwargs)

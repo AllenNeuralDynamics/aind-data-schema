@@ -67,4 +67,3 @@ class DAQ(Device):
         ..., title="DAQ update frequency (Hz)", units="Hz"
     )
     number_active_channels: int = Field(..., title="Number of active channels")
-
