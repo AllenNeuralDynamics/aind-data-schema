@@ -96,7 +96,7 @@ class Funding(AindModel):
 class DataDescription(AindCoreModel):
     """Description of a logical collection of data files"""
 
-    schema_version: str = Field("0.2.0", title="Schema Version", const=True)
+    schema_version: str = Field("0.3.0", title="Schema Version", const=True)
     license: str = Field("CC-BY-4.0", title="License", const=True)
 
     creation_time: time = Field(
@@ -149,6 +149,17 @@ class DataDescription(AindCoreModel):
         description="Detail any restrictions on publishing or sharing these data",
         title="Restrictions",
     )
+    modality: str = Field(
+        ...,
+        regex=DataRegex.NO_UNDERSCORES.value,
+        description="A short name for the specific manner, characteristic, pattern of application, or the employment of any technology or formal procedure to generate data for a study",
+        title="Modality",
+    )
+    subject_id: str = Field(
+        ...,
+        regex=DataRegex.NO_UNDERSCORES.value,
+        description="Unique identifier for the subject of data acquisition",
+    )
 
     def __init__(self, label, **kwargs):
         """Construct a generic data description"""
@@ -161,7 +172,7 @@ class DataDescription(AindCoreModel):
         super().__init__(name=name, **kwargs)
 
     @classmethod
-    def from_name(cls, name, **kwargs):
+    def parse_name(cls, name):
         """construct a DataDescription from a name string"""
         m = re.match(f"{DataRegex.DATA.value}", name)
 
@@ -172,19 +183,23 @@ class DataDescription(AindCoreModel):
             m.group("c_date"), m.group("c_time")
         )
 
-        return cls(
+        return dict(
             label=m.group("label"),
             creation_date=creation_date,
-            creation_time=creation_time,
-            **kwargs,
+            creation_time=creation_time,            
         )
+
+    @classmethod
+    def from_name(cls, name, **kwargs):
+        d = cls.parse_name(name)
+
+        return cls(**d, **kwargs)
 
 
 class DerivedDataDescription(DataDescription):
     """A logical collection of data files derived via processing"""
 
-    input_data: DataDescription
-    process_name: str
+    input_data_name: str
     data_level: DataLevel = Field(
         DataLevel.DERIVED_DATA,
         description="level of processing that data has undergone",
@@ -192,21 +207,14 @@ class DerivedDataDescription(DataDescription):
         const=True,
     )
 
-    def __init__(self, **kwargs):
+    def __init__(self, process_name, **kwargs):
         """Construct a derived data description"""
-        d = kwargs["input_data"]
-        name = (
-            build_data_name(d.process_name, d.creation_date, d.creation_time)
-            if isinstance(d, DerivedDataDescription)
-            else d.name
-        )
-        process_name = kwargs["process_name"]
-
-        super().__init__(label=f"{name}_{process_name}", **kwargs)
+        input_data_name = kwargs['input_data_name']
+        super().__init__(label=f"{input_data_name}_{process_name}", **kwargs)
 
     @classmethod
-    def from_name(cls, name, **kwargs):
-        """build DerivedDataDescription from a name"""
+    def parse_name(cls, name):
+        """decompose DerivedDataDescription name into parts"""
 
         # look for input data name
         m = re.match(f"{DataRegex.DERIVED_DATA.value}", name)
@@ -214,38 +222,44 @@ class DerivedDataDescription(DataDescription):
         if m is None:
             raise ValueError(f"name({name}) does not match pattern")
 
-        # data asset with inputs
-        input_data = DataDescription.from_name(
-            m.group("input"), data_level=DataLevel.DERIVED_DATA, **kwargs
-        )
-
         creation_date, creation_time = datetime_from_name_string(
             m.group("c_date"), m.group("c_time")
         )
 
-        return cls(
+        return dict(
             process_name=m.group("process_name"),
             creation_date=creation_date,
             creation_time=creation_time,
-            input_data=input_data,
-            **kwargs,
+            input_data_name=m.group("input")
+        )
+
+    @classmethod
+    def from_name(cls, name, **kwargs):
+        """build DerivedDataDescription from a name"""
+
+        d = cls.parse_name(name)
+
+        return cls(**d, **kwargs)
+
+    @classmethod
+    def from_data_description(cls, input_data, process_name, **kwargs):
+        if input_data.data_level == DataLevel.DERIVED_DATA:
+            input_data_name = input_data.name[len(input_data.input_data_name)+1:]
+        else:
+            input_data_name = input_data.name
+        
+        return cls(
+            input_data_name=input_data_name, 
+            process_name=process_name,
+            subject_id=input_data.subject_id,
+            modality=input_data.modality,
+            **kwargs
         )
 
 
 class RawDataDescription(DataDescription):
     """A logical collection of data files as acquired from a rig or instrument"""
 
-    modality: str = Field(
-        ...,
-        regex=DataRegex.NO_UNDERSCORES.value,
-        description="A short name for the specific manner, characteristic, pattern of application, or the employment of any technology or formal procedure to generate data for a study",
-        title="Modality",
-    )
-    subject_id: str = Field(
-        ...,
-        regex=DataRegex.NO_UNDERSCORES.value,
-        description="Unique identifier for the subject of data acquisition",
-    )
     data_level: DataLevel = Field(
         DataLevel.RAW_DATA,
         description="level of processing that data has undergone",
@@ -260,7 +274,7 @@ class RawDataDescription(DataDescription):
         super().__init__(label=f"{modality}_{subject_id}", **kwargs)
 
     @classmethod
-    def from_name(cls, name, **kwargs):
+    def parse_name(cls, name):
         """construct from a name string"""
 
         m = re.match(f"{DataRegex.RAW_DATA.value}", name)
@@ -272,10 +286,15 @@ class RawDataDescription(DataDescription):
             m.group("c_date"), m.group("c_time")
         )
 
-        return cls(
+        return dict(
             modality=m.group("modality"),
             subject_id=m.group("subject_id"),
             creation_date=creation_date,
-            creation_time=creation_time,
-            **kwargs,
+            creation_time=creation_time
         )
+
+    @classmethod
+    def from_name(cls, name, **kwargs):
+        d = cls.parse_name(name)
+
+        return cls(**d,**kwargs)
