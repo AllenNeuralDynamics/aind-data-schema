@@ -1,5 +1,5 @@
 """ example SmartSPIM instrument """
-
+import os
 from aind_data_schema.imaging import instrument
 
 inst = instrument.Instrument(
@@ -232,5 +232,5 @@ inst = instrument.Instrument(
     temperature_control=False,
 )
 
-with open("aind_smartspim_instrument.json", "w") as f:
-    f.write(inst.json(indent=3))
+dir_path = os.path.dirname(os.path.realpath(__file__))
+inst.write_to_json(dir_path, "aind_smartspim")

@@ -1,5 +1,5 @@
 """ example subject """
-
+import os
 from aind_data_schema import Subject
 import datetime
 
@@ -15,5 +15,5 @@ s = Subject(
     background_strain="C57BL/6J",
 )
 
-with open("subject.json", "w") as f:
-    f.write(s.json(indent=3))
+dir_path = os.path.dirname(os.path.realpath(__file__))
+s.write_to_json(dir_path)

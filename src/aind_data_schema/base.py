@@ -8,7 +8,6 @@ import aind_data_schema
 import os
 import inspect
 from pathlib import Path
-import json
 
 DESCRIBED_BY_BASE_URL = "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/"
 
@@ -60,11 +59,22 @@ class AindCoreModel(AindModel):
         field.field_info.const = True
         cls.__fields__.update({"describedBy": field})
 
-    def save_file(cls, optional_name=''): 
+    def write_to_json(cls, dir=os.getcwd(), optional_name=''): 
         """
-        names and saves schemas as json file
+        Names and saves schema as json file
+        Parameters
+        ----------
+        cls : class instance
+        dir: str
+            optional directory path to write to
+        optional_name: str
+            optional naming attribute 
         """
-        class_name = cls.__class__.__name__
-        filename = optional_name + class_name.lower() + '.json'
-        with open(filename, "w") as f:
+        default_name = cls.__class__.__name__
+        if optional_name:
+            filename = optional_name + '_' + default_name.lower() + '.json'
+        else: 
+            filename = default_name.lower() + '.json'
+
+        with open(os.path.join(dir,filename), "w") as f:
             f.write(cls.json(indent=3))

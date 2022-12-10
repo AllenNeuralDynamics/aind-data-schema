@@ -1,5 +1,5 @@
 """ example processing """
-
+import os
 import datetime
 from aind_data_schema import Processing
 from aind_data_schema.processing import DataProcess
@@ -42,6 +42,5 @@ p = Processing(
         ),
     ],
 )
-
-with open("processing.json", "w") as f:
-    f.write(p.json(indent=3))
+dir_path = os.path.dirname(os.path.realpath(__file__))
+p.write_to_json(dir_path)
