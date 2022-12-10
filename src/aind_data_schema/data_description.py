@@ -173,7 +173,7 @@ class DataDescription(AindCoreModel):
 
     @classmethod
     def parse_name(cls, name):
-        """construct a DataDescription from a name string"""
+        """Decompose a DataDescription name string into component parts"""
         m = re.match(f"{DataRegex.DATA.value}", name)
 
         if m is None:
@@ -191,6 +191,7 @@ class DataDescription(AindCoreModel):
 
     @classmethod
     def from_name(cls, name, **kwargs):
+        """construct a DataDescription from a name string"""
         d = cls.parse_name(name)
 
         return cls(**d, **kwargs)
@@ -243,6 +244,8 @@ class DerivedDataDescription(DataDescription):
 
     @classmethod
     def from_data_description(cls, input_data, process_name, **kwargs):
+        """Build a DerivedDataDescription from an input DataDescription"""
+
         if input_data.data_level == DataLevel.DERIVED_DATA:
             input_data_name = input_data.name[
                 len(input_data.input_data_name) + 1 :
@@ -277,7 +280,7 @@ class RawDataDescription(DataDescription):
 
     @classmethod
     def parse_name(cls, name):
-        """construct from a name string"""
+        """Decompose raw data description name into component parts"""
 
         m = re.match(f"{DataRegex.RAW_DATA.value}", name)
 
@@ -297,6 +300,8 @@ class RawDataDescription(DataDescription):
 
     @classmethod
     def from_name(cls, name, **kwargs):
+        """construct from a name string"""
+
         d = cls.parse_name(name)
 
         return cls(**d, **kwargs)
