@@ -14,7 +14,7 @@ from aind_data_schema.imaging.instrument import (
 )
 
 inst = Instrument(
-    instrument_id="SmartSPIM01",
+    instrument_id="SmartSPIM1-1",
     type="smartSPIM",
     manufacturer="LifeCanvas",
     location="440 Westlake",
