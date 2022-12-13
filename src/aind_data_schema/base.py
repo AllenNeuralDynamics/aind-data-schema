@@ -4,10 +4,8 @@ from pydantic import BaseModel, Extra
 from pydantic.fields import ModelField
 
 import urllib.parse
-import aind_data_schema
 import os
 import inspect
-from pathlib import Path
 
 DESCRIBED_BY_BASE_URL = "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/"
 
