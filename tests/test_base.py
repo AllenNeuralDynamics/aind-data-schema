@@ -1,12 +1,6 @@
 """ tests for Subject """
 import unittest
-from aind_data_schema.base import AindCoreModel
-
-
-class TestSchema(AindCoreModel):
-    """a made up schema"""
-
-    foo: str
+from aind_data_schema import Procedures
 
 
 class BaseTests(unittest.TestCase):
@@ -15,10 +9,11 @@ class BaseTests(unittest.TestCase):
     def test_described_by(self):
         """test that described by works"""
 
-        s = TestSchema(foo="bar")
+        p = Procedures(subject_id="1234")
+
         self.assertEqual(
-            s.describedBy,
-            "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/tests/test_base.py",
+            p.describedBy,
+            "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/procedures.py",
         )
 
 
