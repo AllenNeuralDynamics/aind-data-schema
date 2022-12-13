@@ -5,7 +5,7 @@ from aind_data_schema.device import DaqChannel
 
 
 inst = instrument.Instrument(
-    instrument_id="exaSPIM01",
+    instrument_id="exaSPIM1-1",
     type="exaSPIM",
     manufacturer="Custom",
     location="440 Westlake",
