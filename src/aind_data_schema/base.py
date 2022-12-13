@@ -23,8 +23,6 @@ def build_described_by(cls, base_url=DESCRIBED_BY_BASE_URL):
     # forward slashes
     filename = filename.replace(os.sep, "/")
 
-    print(filename)
-
     described_by = urllib.parse.urljoin(base_url, filename)
 
     return described_by
