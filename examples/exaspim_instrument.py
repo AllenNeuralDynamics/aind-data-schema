@@ -1,5 +1,4 @@
 """ example ExaSPIM instrument """
-import os
 from aind_data_schema.imaging import instrument
 from aind_data_schema.device import DaqChannel
 
@@ -166,5 +165,4 @@ inst = instrument.Instrument(
     temperature_control=False,
 )
 
-dir_path = os.path.dirname(os.path.realpath(__file__))
-inst.write_to_json(dir_path,'exaspim')
+inst.write_to_json(optional_name='exaspim')

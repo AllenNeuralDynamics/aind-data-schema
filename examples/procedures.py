@@ -1,5 +1,4 @@
 """ example procedures """
-import os
 import datetime
 from aind_data_schema import Procedures
 from aind_data_schema.procedures import (
@@ -58,5 +57,4 @@ p = Procedures(
     ],
 )
 
-dir_path = os.path.dirname(os.path.realpath(__file__))
-p.write_to_json(dir_path)
+p.write_to_json()

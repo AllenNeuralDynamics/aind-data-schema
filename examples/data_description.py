@@ -1,5 +1,4 @@
 """ example data description """
-import os
 from aind_data_schema import RawDataDescription
 from aind_data_schema.data_description import Funding
 from datetime import date, time
@@ -13,5 +12,4 @@ d = RawDataDescription(
     funding_source=[Funding(funder="AIND")],
 )
 
-dir_path = os.path.dirname(os.path.realpath(__file__))
-d.write_to_json(dir_path)
+d.write_to_json()

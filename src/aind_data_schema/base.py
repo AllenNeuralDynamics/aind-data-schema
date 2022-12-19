@@ -59,14 +59,14 @@ class AindCoreModel(AindModel):
         field.field_info.const = True
         cls.__fields__.update({"describedBy": field})
 
-    def write_to_json(cls, dir=os.getcwd(), optional_name=''): 
+    def write_to_json(cls, dir='.', optional_name=''): 
         """
         Names and saves schema as json file
         Parameters
         ----------
         cls : class instance
         dir: str
-            optional directory path to write to
+            optional directory path to write to, defaults to current loc
         optional_name: str
             optional naming attribute 
         """

@@ -1,5 +1,4 @@
 """ example SmartSPIM instrument """
-import os
 from aind_data_schema.imaging.instrument import (
     Instrument,
     Objective,
@@ -205,5 +204,4 @@ inst = Instrument(
     ],
 )
 
-dir_path = os.path.dirname(os.path.realpath(__file__))
-inst.write_to_json(dir_path, "aibs_smartspim")
+inst.write_to_json(optional_name="aibs_smartspim")
