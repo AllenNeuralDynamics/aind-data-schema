@@ -8,7 +8,7 @@ from typing import List, Optional
 
 from pydantic import Field
 
-from ..device import Device, DAQ
+from ..device import Device, DeviceBase, DAQ
 from ..base import AindCoreModel, AindModel
 
 
@@ -89,27 +89,12 @@ class Treadmill(MousePlatform):
     platform_type: str = Field("Treadmill", title="Platform type", const=True)
 
 
-class AngleName(Enum):
-    """Euler angle name"""
-
-    XY = "XY"
-    XZ = "XZ"
-    YZ = "YZ"
-
-
-class ManipulatorAngle(AindModel):
-    """Description of manipulator angle"""
-
-    name: AngleName = Field(..., title="AngleName")
-    value: float = Field(..., title="Value (deg)", units="deg")
-
-
-class Manipulator(Device):
+class Manipulator(DeviceBase):
     """Description of manipulator"""
 
-    manipulator_angles: List[ManipulatorAngle] = Field(
-        ..., title="Manipulator angles", unique_items=True
-    )
+    arc_angle: float = Field(..., title="Arc Angle", units="degrees")
+    module_angle: float = Field(..., title="Module Angle", units="degrees")
+    rotation_angle: float = Field(..., title="Rotatle Angle", units="degrees")
 
 
 class LaserName(Enum):
