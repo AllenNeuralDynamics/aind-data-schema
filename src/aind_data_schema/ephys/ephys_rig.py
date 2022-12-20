@@ -220,7 +220,6 @@ class EphysProbe(Device):
     """Description of an ephys probe"""
 
     name: ProbeName = Field(..., title="Name")
-    model: ProbeModel = Field(..., title="Model")
     probe_manipulator: Manipulator = Field(..., title="Manipulator")
     calibration_data: str = Field(
         ..., title="Calibration data", description="Path to calibration data"
@@ -263,4 +262,4 @@ class EphysRig(AindCoreModel):
     harp_devices: Optional[List[HarpDevice]] = Field(
         None, title="Harp devices"
     )
-    daq: Optional[DAQ] = Field(None, title="DAQ")
+    daqs: Optional[List[DAQ]] = Field(None, title="DAQ devices")
