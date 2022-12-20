@@ -204,4 +204,4 @@ inst = Instrument(
     ],
 )
 
-inst.write_to_json(optional_name="aibs_smartspim")
+inst.write_standard_file(prefix="examples/aibs_smartspim")

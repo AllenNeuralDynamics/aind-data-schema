@@ -14,4 +14,4 @@ s = Subject(
     background_strain="C57BL/6J",
 )
 
-s.write_to_json()
+s.write_standard_file()

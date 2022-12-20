@@ -12,4 +12,4 @@ d = RawDataDescription(
     funding_source=[Funding(funder="AIND")],
 )
 
-d.write_to_json()
+d.write_standard_file()

@@ -165,4 +165,4 @@ inst = instrument.Instrument(
     temperature_control=False,
 )
 
-inst.write_to_json(optional_name='exaspim')
+inst.write_standard_file(prefix='examples/exaspim')

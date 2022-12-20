@@ -57,4 +57,4 @@ p = Procedures(
     ],
 )
 
-p.write_to_json()
+p.write_standard_file()
