@@ -13,16 +13,17 @@ from .base import AindCoreModel, AindModel
 class ProcessName(Enum):
     """Data processing type labels"""
 
-    EPHYS_PREPROCESSING = "Ephys preprocessing"
-    SPIKE_SORTING = "Spike sorting"
+    EPHYS_PREPROCESSING = "Ephys preprocessing"    
     EPHYS_POSTPROCESSING = "Ephys postprocessing"
-    IMAGE_IMPORT = "Image import"
-    IMAGE_ALIGN = "Image align"
-    MERGE_VOLUME = "Merge volume"
-    OME_ZARR = "OME zarr"
-    PYSTRIPE = "Pystripe"
-    DISPLTHRESH = "Displthresh"
+    IMAGE_IMPORTING = "Image importing"
+    IMAGE_ALIGNMENT = "Image alignment"
+    IMAGE_FUSING = "Image fusing"
+    IMAGE_PROJECTION = "Image projection" 
+    IMAGE_DESTRIPING = "Image destriping"
+    IMAGE_THRESHOLDING = "Image thresholding"
+    FILE_CONVERSION = "File format conversion"
     OTHER = "Other"
+    SPIKE_SORTING = "Spike sorting"    
 
 
 class DataProcess(AindModel):
@@ -51,7 +52,7 @@ class Processing(AindCoreModel):
     """Desription of all processes run on data"""
 
     schema_version: str = Field(
-        "0.0.1",
+        "0.1.0",
         description="Schema version",
         title="Schema version",
         const=True,

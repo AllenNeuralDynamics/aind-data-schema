@@ -1,11 +1,11 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/processing.py",
-   "schema_version": "0.0.1",
+   "schema_version": "0.1.0",
    "pipeline_version": "0.1.0",
    "pipeline_url": "https://url/for/pipeline",
    "data_processes": [
       {
-         "name": "Merge volume",
+         "name": "Image fusing",
          "version": "0.0.1",
          "start_date_time": "2022-11-22T08:43:00",
          "end_date_time": "2022-11-22T08:43:00",
@@ -18,7 +18,7 @@
          "notes": null
       },
       {
-         "name": "OME zarr",
+         "name": "File format conversion",
          "version": "0.0.1",
          "start_date_time": "2022-11-22T08:43:00",
          "end_date_time": "2022-11-22T08:43:00",
@@ -32,7 +32,7 @@
          "notes": null
       },
       {
-         "name": "Pystripe",
+         "name": "Image destriping",
          "version": "0.2.1",
          "start_date_time": "2022-11-22T08:43:00",
          "end_date_time": "2022-11-22T08:43:00",

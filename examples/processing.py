@@ -11,7 +11,7 @@ p = Processing(
     pipeline_version="0.1.0",
     data_processes=[
         DataProcess(
-            name="Merge volume",
+            name="Image fusing",
             version="0.0.1",
             start_date_time=t,
             end_date_time=t,
@@ -21,7 +21,7 @@ p = Processing(
             parameters={"size": 7},
         ),
         DataProcess(
-            name="OME zarr",
+            name="File format conversion",
             version="0.0.1",
             start_date_time=t,
             end_date_time=t,
@@ -31,7 +31,7 @@ p = Processing(
             parameters={"u": 7, "z": True},
         ),
         DataProcess(
-            name="Pystripe",
+            name="Image destriping",
             version="0.2.1",
             start_date_time=t,
             end_date_time=t,
