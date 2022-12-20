@@ -4,33 +4,28 @@ from pydantic import BaseModel, Extra
 from pydantic.fields import ModelField
 
 import urllib.parse
-import aind_data_schema
 import os
 import inspect
-from pathlib import Path
 
-DESCRIBED_BY_BASE_URL = "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/"
+DESCRIBED_BY_BASE_URL = "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/"
 
 
 def build_described_by(cls, base_url=DESCRIBED_BY_BASE_URL):
     """construct a pydantic Field that refers to a specific file"""
 
-    # find the root path of this package
-    package_path = Path(os.path.dirname(aind_data_schema.__file__))
-
-    # now the root path of the repository
-    repo_path = (package_path / ".." / "..").resolve()
-
     # get the filename of the class
     filename = inspect.getfile(cls)
 
-    # remove package prefix from class filename
-    filename = filename.replace(f"{repo_path}{os.path.sep}", "")
+    # strip off local directories
+    package_index = filename.rfind("aind_data_schema")
+    filename = filename[package_index:]
 
     # forward slashes
     filename = filename.replace(os.sep, "/")
 
-    return urllib.parse.urljoin(base_url, filename)
+    described_by = urllib.parse.urljoin(base_url, filename)
+
+    return described_by
 
 
 class AindModel(BaseModel, extra=Extra.forbid):

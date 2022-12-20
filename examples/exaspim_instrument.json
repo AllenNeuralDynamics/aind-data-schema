@@ -1,7 +1,7 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/imaging/instrument.py",
    "version": "0.4.1",
-   "instrument_id": "exaSPIM01",
+   "instrument_id": "exaSPIM1-1",
    "type": "exaSPIM",
    "location": "440 Westlake",
    "manufacturer": "Custom",
@@ -157,7 +157,6 @@
          "serial_number": "Unknown",
          "model": "PCIe-6738",
          "notes": null,
-         "daq_channel": null,
          "device_name": "Dev2",
          "update_frequency": 10000.0,
          "number_active_channels": 7
