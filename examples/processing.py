@@ -11,7 +11,7 @@ p = Processing(
     pipeline_version="0.1.0",
     data_processes=[
         DataProcess(
-            name="Image fusing",
+            name="Image tile fusing",
             version="0.0.1",
             start_date_time=t,
             end_date_time=t,
