@@ -14,15 +14,17 @@ class ProcessName(Enum):
     """Data processing type labels"""
 
     EPHYS_PREPROCESSING = "Ephys preprocessing"
-    SPIKE_SORTING = "Spike sorting"
     EPHYS_POSTPROCESSING = "Ephys postprocessing"
-    IMAGE_IMPORT = "Image import"
-    IMAGE_ALIGN = "Image align"
-    MERGE_VOLUME = "Merge volume"
-    OME_ZARR = "OME zarr"
-    PYSTRIPE = "Pystripe"
-    DISPLTHRESH = "Displthresh"
+    IMAGE_IMPORTING = "Image importing"
+    IMAGE_ATLAS_ALIGNMENT = "Image atlas alignment"
+    IMAGE_DESTRIPING = "Image destriping"
+    IMAGE_THRESHOLDING = "Image thresholding"
+    IMAGE_TILE_FUSING = "Image tile fusing"
+    IMAGE_TILE_PROJECTION = "Image tile projection"
+    IMAGE_TILE_STITCHING = "Image tile stitching"
+    FILE_CONVERSION = "File format conversion"
     OTHER = "Other"
+    SPIKE_SORTING = "Spike sorting"
 
 
 class DataProcess(AindModel):
@@ -51,7 +53,7 @@ class Processing(AindCoreModel):
     """Desription of all processes run on data"""
 
     schema_version: str = Field(
-        "0.0.1",
+        "0.1.0",
         description="Schema version",
         title="Schema version",
         const=True,
