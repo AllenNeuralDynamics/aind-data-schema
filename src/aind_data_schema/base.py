@@ -59,7 +59,7 @@ class AindCoreModel(AindModel):
         field.field_info.const = True
         cls.__fields__.update({"describedBy": field})
 
-    def write_to_json(cls, dir='.', optional_name=''): 
+    def write_to_json(cls, dir='.', optional_name=None): 
         """
         Names and saves schema as json file
         Parameters
