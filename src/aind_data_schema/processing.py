@@ -13,17 +13,18 @@ from .base import AindCoreModel, AindModel
 class ProcessName(Enum):
     """Data processing type labels"""
 
-    EPHYS_PREPROCESSING = "Ephys preprocessing"    
+    EPHYS_PREPROCESSING = "Ephys preprocessing"
     EPHYS_POSTPROCESSING = "Ephys postprocessing"
     IMAGE_IMPORTING = "Image importing"
-    IMAGE_ALIGNMENT = "Image alignment"
-    IMAGE_FUSING = "Image fusing"
-    IMAGE_PROJECTION = "Image projection" 
+    IMAGE_ATLAS_ALIGNMENT = "Image atlas alignment"
     IMAGE_DESTRIPING = "Image destriping"
     IMAGE_THRESHOLDING = "Image thresholding"
+    IMAGE_TILE_FUSING = "Image tile fusing"
+    IMAGE_TILE_PROJECTION = "Image tile projection"
+    IMAGE_TILE_STITCHING = "Image tile stitching"
     FILE_CONVERSION = "File format conversion"
     OTHER = "Other"
-    SPIKE_SORTING = "Spike sorting"    
+    SPIKE_SORTING = "Spike sorting"
 
 
 class DataProcess(AindModel):
