@@ -43,13 +43,15 @@ class DaqChannelType(Enum):
 
     DO = "Digital Output"
     AO = "Analog Output"
+    DI = "Digital Input"
+    AI = "Analog Input"
 
 
 class DaqChannel(AindModel):
     """Description of a DAQ Channel"""
 
-    index: int = Field(..., title="index")
-    type: DaqChannelType = Field(..., title="DAQ channel type")
+    name: str = Field(None, title="DAQ channel name")
+    type: DaqChannelType = Field(..., title="DAQ channel type")    
 
 
 class DeviceBase(AindModel):
