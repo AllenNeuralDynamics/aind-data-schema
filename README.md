@@ -13,8 +13,8 @@ Be aware that this package is still under heavy preliminary development. Expect 
 
 A simple example:
 
-https://github.com/AllenNeuralDynamics/aind-data-schema/blob/920b58601c6e3aa59bc00a6892d94590f480ffa5/examples/subject.py#L3-L20
-https://github.com/AllenNeuralDynamics/aind-data-schema/blob/920b58601c6e3aa59bc00a6892d94590f480ffa5/examples/subject.json#L1-L22
+https://github.com/AllenNeuralDynamics/aind-data-schema/blob/main/examples/subject.py#L3-L19
+https://github.com/AllenNeuralDynamics/aind-data-schema/blob/main/examples/subject.json#L1-L23
 
 ## Installing and Upgrading
 
