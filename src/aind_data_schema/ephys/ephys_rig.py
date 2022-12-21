@@ -58,7 +58,6 @@ class Camera(Device):
     position_x: Optional[float] = Field(..., title="Position X")
     position_y: Optional[float] = Field(..., title="Position Y")
     position_z: Optional[float] = Field(..., title="Position Z")
-    
 
 
 class MousePlatform(Device):
@@ -249,7 +248,7 @@ class EphysRig(AindCoreModel):
     visual_monitors: Optional[List[Monitor]] = Field(
         None, title="Visual monitor", unique_items=True
     )
-    mouse_platform: Optional[Union[Tube,Treadmill,Disc]] = Field(
+    mouse_platform: Optional[Union[Tube, Treadmill, Disc]] = Field(
         None, title="Mouse platform"
     )
     harp_devices: Optional[List[HarpDevice]] = Field(
