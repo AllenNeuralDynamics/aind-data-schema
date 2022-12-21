@@ -6,7 +6,7 @@ import unittest
 import pydantic
 
 from aind_data_schema import EphysRig, EphysSession
-from aind_data_schema.ephys.ephys_rig import LaserModule, Manipulator
+from aind_data_schema.ephys.ephys_rig import Laser, LaserModule, Manipulator
 from aind_data_schema.ephys.ephys_session import (CcfCoords, Coordinates3d,
                                                   EphysProbe, Stream)
 
@@ -25,18 +25,25 @@ class ExampleTest(unittest.TestCase):
 
         er = EphysRig(
             rig_id="1234",
-            lasers=[
+            laser_modules=[
                 LaserModule(
-                    manufacturer="Hamamatsu",
+                    manufacturer="Other",
+                    model="Unknown",
                     serial_number="1234",
-                    name="Laser A",
-                    laser_manipulator=Manipulator(
-                        manufacturer="Other",
-                        serial_number="1234",
-                        arc_angle=1,
-                        rotation_angle=1,
-                        module_angle=1,
-                    ),
+                    lasers=[
+                        Laser(
+                            manufacturer="Hamamatsu",
+                            serial_number="1234",
+                            name="Laser A",
+                            laser_manipulator=Manipulator(                        
+                                manufacturer="Other",
+                                serial_number="1234",
+                                arc_angle=1,
+                                rotation_angle=1,
+                                module_angle=1,
+                            ),
+                        )
+                    ]
                 )
             ],
         )
