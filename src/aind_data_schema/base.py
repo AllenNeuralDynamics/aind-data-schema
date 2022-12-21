@@ -1,11 +1,11 @@
 """ generic base class with supporting validators and fields for basic AIND schema """
 
+import inspect
+import os
+import urllib.parse
+
 from pydantic import BaseModel, Extra
 from pydantic.fields import ModelField
-
-import urllib.parse
-import os
-import inspect
 
 DESCRIBED_BY_BASE_URL = "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/"
 
@@ -54,19 +54,19 @@ class AindCoreModel(AindModel):
         field.field_info.const = True
         cls.__fields__.update({"describedBy": field})
 
-    def _get_default_filename(self): 
+    def _get_default_filename(self):
         """
         Retrieves default filename
         """
-        return self.__class__.__name__.lower() + '.json'
+        return self.__class__.__name__.lower() + ".json"
 
     def write_standard_file(self, prefix=None):
         """
         prefix: path
         """
-        if prefix is None: 
+        if prefix is None:
             filename = self._get_default_filename()
-        else: 
-            filename = prefix + '_' + self._get_default_filename()
+        else:
+            filename = str(prefix) + "_" + self._get_default_filename()
         with open(filename, "w") as f:
             f.write(self.json(indent=3))
