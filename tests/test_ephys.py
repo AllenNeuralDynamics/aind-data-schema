@@ -35,7 +35,7 @@ class ExampleTest(unittest.TestCase):
                             manufacturer="Hamamatsu",
                             serial_number="1234",
                             name="Laser A",
-                            laser_manipulator=Manipulator(                        
+                            laser_manipulator=Manipulator(
                                 manufacturer="Other",
                                 serial_number="1234",
                                 arc_angle=1,
@@ -43,7 +43,7 @@ class ExampleTest(unittest.TestCase):
                                 module_angle=1,
                             ),
                         )
-                    ]
+                    ],
                 )
             ],
         )
