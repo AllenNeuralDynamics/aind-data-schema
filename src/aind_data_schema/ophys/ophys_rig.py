@@ -7,8 +7,8 @@ from enum import Enum
 from typing import List, Optional
 
 from pydantic import Field
-from ..base import AindCoreModel
 
+from ..base import AindCoreModel
 from ..device import Device
 
 

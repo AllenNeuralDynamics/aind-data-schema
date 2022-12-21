@@ -1,8 +1,10 @@
 """ schema for various Devices """
 
-from pydantic import Field
 from enum import Enum
 from typing import Optional
+
+from pydantic import Field
+
 from .base import AindModel
 
 

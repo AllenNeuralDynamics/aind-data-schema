@@ -1,6 +1,7 @@
 """ example subject """
-from aind_data_schema import Subject
 import datetime
+
+from aind_data_schema import Subject
 
 t = datetime.datetime(2022, 11, 22, 8, 43, 00)
 

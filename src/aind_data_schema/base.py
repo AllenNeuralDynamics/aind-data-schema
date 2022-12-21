@@ -56,13 +56,17 @@ class AindCoreModel(AindModel):
 
     def _get_default_filename(self):
         """
-        Retrieves default filename
+        returns standard filename (schema.json)
         """
         return self.__class__.__name__.lower() + ".json"
 
     def write_standard_file(self, prefix=None):
         """
-        prefix: path
+        writes schema to standard json file
+        parameters
+        ----------
+        prefix: 
+            optional str for intended filepath with extra naming convention
         """
         if prefix is None:
             filename = self._get_default_filename()

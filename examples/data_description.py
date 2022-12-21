@@ -1,7 +1,8 @@
 """ example data description """
+from datetime import date, time
+
 from aind_data_schema import RawDataDescription
 from aind_data_schema.data_description import Funding
-from datetime import date, time
 
 d = RawDataDescription(
     modality="ecephys",

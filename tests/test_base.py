@@ -1,7 +1,6 @@
 """ tests for Subject """
 import unittest
 from pathlib import Path
-from unittest import mock
 from unittest.mock import patch
 
 from aind_data_schema import Procedures
@@ -24,6 +23,8 @@ class BaseTests(unittest.TestCase):
         )
 
     def test_get_default_filename(self):
+        """tests that default filename returns as expected"""
+
         p = Procedures.construct()
         expected_default_filename = "procedures.json"
         actual_default_filename = p._get_default_filename()
@@ -31,6 +32,7 @@ class BaseTests(unittest.TestCase):
 
     @patch("builtins.open", new_callable=unittest.mock.mock_open())
     def test_write_standard_file_no_prefix(self, mocked_file):
+        """tests that standard file is named and written as expected with no prefix"""
         p = Procedures.construct()
         default_filename = p._get_default_filename()
         json_contents = p.json(indent=3)
@@ -43,6 +45,7 @@ class BaseTests(unittest.TestCase):
 
     @patch("builtins.open", new_callable=unittest.mock.mock_open())
     def test_write_standard_file_with_prefix(self, mocked_file):
+        """tests that standard file is named and written as expected with prefix"""
         p = Procedures.construct()
         default_filename = p._get_default_filename()
         json_contents = p.json(indent=3)

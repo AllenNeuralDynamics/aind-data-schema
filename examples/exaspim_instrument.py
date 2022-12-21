@@ -1,7 +1,6 @@
 """ example ExaSPIM instrument """
-from aind_data_schema.imaging import instrument
 from aind_data_schema.device import DaqChannel
-
+from aind_data_schema.imaging import instrument
 
 inst = instrument.Instrument(
     instrument_id="exaSPIM1-1",
@@ -152,17 +151,11 @@ inst = instrument.Instrument(
         )
     ],
     com_ports=[
-        instrument.Com(
-            hardware_name="Laser Launch",
-            com_port="COM2",
-        ),
-        instrument.Com(
-            hardware_name="ASI Tiger",
-            com_port="COM5",
-        ),
+        instrument.Com(hardware_name="Laser Launch", com_port="COM2",),
+        instrument.Com(hardware_name="ASI Tiger", com_port="COM5",),
     ],
     humidity_control=False,
     temperature_control=False,
 )
 
-inst.write_standard_file(prefix='examples/exaspim')
+inst.write_standard_file(prefix="examples/exaspim")
