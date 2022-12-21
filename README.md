@@ -13,8 +13,51 @@ Be aware that this package is still under heavy preliminary development. Expect 
 
 A simple example:
 
-https://github.com/AllenNeuralDynamics/aind-data-schema/blob/920b58601c6e3aa59bc00a6892d94590f480ffa5/examples/subject.py#L3-L20
-https://github.com/AllenNeuralDynamics/aind-data-schema/blob/920b58601c6e3aa59bc00a6892d94590f480ffa5/examples/subject.json#L1-L22
+```python
+from aind_data_schema import Subject
+import datetime
+
+t = datetime.datetime(2022, 11, 22, 8, 43, 00)
+
+s = Subject(
+    species="Mus musculus",
+    subject_id="12345",
+    sex="Male",
+    date_of_birth=t.date(),
+    genotype="Emx1-IRES-Cre;Camk2a-tTA;Ai93(TITL-GCaMP6f)",
+    home_cage_enrichment="other",
+    background_strain="C57BL/6J",
+)
+
+with open("subject.json", "w") as f:
+    f.write(s.json(indent=3))
+```
+
+```json
+{
+   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/subject.py",
+   "schema_version": "0.2.2",
+   "species": "Mus musculus",
+   "subject_id": "12345",
+   "sex": "Male",
+   "date_of_birth": "2022-11-22",
+   "genotype": "Emx1-IRES-Cre;Camk2a-tTA;Ai93(TITL-GCaMP6f)",
+   "mgi_allele_ids": null,
+   "background_strain": "C57BL/6J",
+   "source": null,
+   "rrid": null,
+   "restrictions": null,
+   "breeding_group": null,
+   "maternal_id": null,
+   "maternal_genotype": null,
+   "paternal_id": null,
+   "paternal_genotype": null,
+   "light_cycle": null,
+   "home_cage_enrichment": "other",
+   "wellness_reports": null,
+   "notes": null
+}
+```
 
 ## Installing and Upgrading
 
