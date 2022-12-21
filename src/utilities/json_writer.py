@@ -1,11 +1,5 @@
-# main class
-# convert pydantic models to JSON
-# executable from CLI - argument is user defined (the directory the user wants to write to)
-# default directory is current working directory
-# loop through classes in aind_data_schema and write out to a json file
-# import argparse
-# import json
-
+import argparse, os
+from pathlib import Path
 from aind_data_schema import DataDescription, Procedures, Processing, Subject
 from aind_data_schema.ephys.ephys_rig import EphysRig
 from aind_data_schema.ephys.ephys_session import EphysSession
@@ -14,8 +8,14 @@ from aind_data_schema.imaging.instrument import Instrument
 from aind_data_schema.ophys.ophys_rig import OphysRig
 from aind_data_schema.ophys.ophys_session import OphysSession
 
+def _validate_path(output):
+    # TO-DO: add validation for user defined path, fix filenames for json files
 
-def main():
+    # if not os.path.exists(output):
+    #     return Path(output).parent.mkdir(exist_ok=True, parents=True)
+    return output
+
+def main(output):
 
     pydantic_schemas = [
         EphysRig,
@@ -30,10 +30,18 @@ def main():
         DataDescription,
     ]
 
+    validated_output = _validate_path(output)
+
     for schema in pydantic_schemas:
-        with open(f"{schema.__name__.lower()}.json", "w+") as f:
-            f.write(schema.schema_json(indent=4))
+        filename = f"{validated_output}/{schema.__name__.lower()}.json"
+
+        with open(filename, "w") as f:
+            f.write(schema.schema_json(indent=3))
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-o","--output", default=os.getcwd(), help="Output directory, defaults to current working directory")
+    args = parser.parse_args()
+
+    main(args.output)
