@@ -60,40 +60,40 @@ class LaserModule(AindModel):
     name: str = Field(..., title="Name")
     wavelength: int = Field(..., title="Wavelength (nm)", units="nm")
     power: float = Field(..., title="Power (mW)", units="mW")
-    targeted_structure: str = Field(..., title="Targeted structure")
-    targeted_ccf_coordinates: CcfCoords = Field(
-        ...,
-        title="Targeted CCF coordinates",
-    )
     manipulator_coordinates: Coordinates3d = Field(
         ...,
         title="Manipulator coordinates",
     )
-
+    targeted_structure: Optional[str] = Field(None, title="Targeted structure")
+    targeted_ccf_coordinates: Optional[CcfCoords] = Field(
+        None,
+        title="Targeted CCF coordinates",
+    )
+    
 
 class EphysProbe(AindModel):
     """Description of an ephys probe"""
 
     name: str = Field(..., title="Name")
     tip_targeted_structure: str
+    manipulator_coordinates: Coordinates3d = Field(
+        ...,
+        title="Manipulator coordinates",
+    )
     other_targeted_structures: Optional[List[str]] = None
     targeted_ccf_coordinates: Optional[CcfCoords] = Field(
         None,
         title="Targeted CCF coordinates",
     )
-    manipulator_coordinates: Coordinates3d = Field(
-        ...,
-        title="Manipulator coordinates",
-    )
-
+    
 
 class Stream(AindModel):
     """Stream of data with a start and stop time"""
 
     stream_start_time: datetime = Field(..., title="Stream start time")
     stream_stop_time: datetime = Field(..., title="Stream stop time")
-    probes: List[EphysProbe] = Field(..., title="Probes", unique_items=True)
-    lasers: List[LaserModule] = Field(..., title="Lasers", unique_items=True)
+    probes: Optional[List[EphysProbe]] = Field(None, title="Probes", unique_items=True)
+    lasers: Optional[List[LaserModule]] = Field(None, title="Lasers", unique_items=True)
 
 
 class EphysSession(AindCoreModel):
