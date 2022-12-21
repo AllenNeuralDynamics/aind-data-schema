@@ -92,16 +92,16 @@ class Treadmill(MousePlatform):
 class StickMicroscope(Device):
     """Description of a stick microscope used to monitor probes during insertion"""
 
-    arc_angle: float = Field(..., title="Arc Angle", units="degrees")
-    module_angle: float = Field(..., title="Module Angle", units="degrees")
+    arc_angle: float = Field(..., title="Arc Angle (deg)", units="degrees")
+    module_angle: float = Field(..., title="Module Angle (deg)", units="degrees")
 
 
 class Manipulator(DeviceBase):
     """Description of manipulator"""
 
-    arc_angle: float = Field(..., title="Arc Angle", units="degrees")
-    module_angle: float = Field(..., title="Module Angle", units="degrees")
-    rotation_angle: float = Field(..., title="Rotatle Angle", units="degrees")
+    arc_angle: float = Field(..., title="Arc Angle (deg)", units="degrees")
+    module_angle: float = Field(..., title="Module Angle (deg)", units="degrees")
+    rotation_angle: float = Field(..., title="Rotatle Angle (deg)", units="degrees")
 
 
 class LaserName(Enum):
