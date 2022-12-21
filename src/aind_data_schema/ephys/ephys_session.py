@@ -53,9 +53,8 @@ class CcfCoords(AindModel):
     dv: float = Field(..., title="DV (μm)", units="μm")
     ccf_version: CcfVersion = Field(CcfVersion.CCFv3, title="CCF version")
 
-
-class LaserModule(AindModel):
-    """Description of a laser"""
+class Laser(AindModel):
+    """Description of a laser's session configuration"""
 
     name: str = Field(..., title="Name")
     wavelength: int = Field(..., title="Wavelength (nm)", units="nm")
@@ -93,7 +92,7 @@ class Stream(AindModel):
     stream_start_time: datetime = Field(..., title="Stream start time")
     stream_stop_time: datetime = Field(..., title="Stream stop time")
     probes: Optional[List[EphysProbe]] = Field(None, title="Probes", unique_items=True)
-    lasers: Optional[List[LaserModule]] = Field(None, title="Lasers", unique_items=True)
+    lasers: Optional[List[Laser]] = Field(None, title="Lasers", unique_items=True)
 
 
 class EphysSession(AindCoreModel):
