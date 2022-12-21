@@ -6,16 +6,9 @@ import unittest
 import pydantic
 
 from aind_data_schema import EphysRig, EphysSession
-from aind_data_schema.ephys.ephys_session import (
-    EphysProbe,
-    Stream,
-    CcfCoords,
-    Coordinates3d,
-)
-from aind_data_schema.ephys.ephys_rig import (
-    Manipulator,
-    LaserModule,
-)
+from aind_data_schema.ephys.ephys_rig import (LaserModule, Manipulator)
+from aind_data_schema.ephys.ephys_session import (CcfCoords, Coordinates3d,
+                                                  EphysProbe, Stream)
 
 
 class ExampleTest(unittest.TestCase):

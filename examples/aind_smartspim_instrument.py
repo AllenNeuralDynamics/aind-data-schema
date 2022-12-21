@@ -1,5 +1,4 @@
 """ example SmartSPIM instrument """
-
 from aind_data_schema.imaging import instrument
 
 inst = instrument.Instrument(
@@ -219,18 +218,11 @@ inst = instrument.Instrument(
     ],
     com_ports=[
         instrument.Com(hardware_name="Laser Launch", com_port="COM4"),
-        instrument.Com(
-            hardware_name="ASI Tiger",
-            com_port="COM3",
-        ),
-        instrument.Com(
-            hardware_name="MightyZap",
-            com_port="COM9",
-        ),
+        instrument.Com(hardware_name="ASI Tiger", com_port="COM3",),
+        instrument.Com(hardware_name="MightyZap", com_port="COM9",),
     ],
     humidity_control=False,
     temperature_control=False,
 )
 
-with open("aind_smartspim_instrument.json", "w") as f:
-    f.write(inst.json(indent=3))
+inst.write_standard_file(prefix="aind_smartspim")
