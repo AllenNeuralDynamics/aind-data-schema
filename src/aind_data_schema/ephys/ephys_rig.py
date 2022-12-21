@@ -249,7 +249,7 @@ class EphysRig(AindCoreModel):
     visual_monitors: Optional[List[Monitor]] = Field(
         None, title="Visual monitor", unique_items=True
     )
-    mouse_platform: Optional[MousePlatform] = Field(
+    mouse_platform: Optional[Union[Tube,Treadmill,Disc]] = Field(
         None, title="Mouse platform"
     )
     harp_devices: Optional[List[HarpDevice]] = Field(
