@@ -119,7 +119,7 @@ class EphysSession(AindCoreModel):
     )
     iacuc_protocol: Optional[str] = Field(None, title="IACUC protocol")
     rig_id: str = Field(..., title="Rig ID")
-    expected_data_streams: Optional[List[ExpectedDataStream]] = None
+    expected_data_streams: Optional[List[ExpectedDataStream]] = Field(None, title="Expected data streams")
     probe_streams: List[Stream] = Field(
         ..., title="Probe streams", unique_items=True
     )
