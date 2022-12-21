@@ -99,7 +99,7 @@ class EphysSession(AindCoreModel):
     """Description of an ephys recording session"""
 
     schema_version: str = Field(
-        "0.2.1", description="schema version", title="Version", const=True
+        "0.3.0", description="schema version", title="Version", const=True
     )
     experimenter_full_name: str = Field(
         ...,
