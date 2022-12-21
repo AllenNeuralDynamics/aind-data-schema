@@ -7,6 +7,7 @@ from enum import Enum
 from typing import List, Optional
 
 from pydantic import Field
+
 from ..base import AindCoreModel, AindModel
 
 
@@ -61,12 +62,10 @@ class LaserModule(AindModel):
     power: float = Field(..., title="Power (mW)", units="mW")
     targeted_structure: str = Field(..., title="Targeted structure")
     targeted_ccf_coordinates: CcfCoords = Field(
-        ...,
-        title="Targeted CCF coordinates",
+        ..., title="Targeted CCF coordinates",
     )
     manipulator_coordinates: Coordinates3d = Field(
-        ...,
-        title="Manipulator coordinates",
+        ..., title="Manipulator coordinates",
     )
 
 
@@ -77,12 +76,10 @@ class EphysProbe(AindModel):
     tip_targeted_structure: str
     other_targeted_structures: Optional[List[str]] = None
     targeted_ccf_coordinates: Optional[CcfCoords] = Field(
-        None,
-        title="Targeted CCF coordinates",
+        None, title="Targeted CCF coordinates",
     )
     manipulator_coordinates: Coordinates3d = Field(
-        ...,
-        title="Manipulator coordinates",
+        ..., title="Manipulator coordinates",
     )
 
 

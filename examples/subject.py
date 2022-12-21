@@ -1,7 +1,7 @@
 """ example subject """
+import datetime
 
 from aind_data_schema import Subject
-import datetime
 
 t = datetime.datetime(2022, 11, 22, 8, 43, 00)
 
@@ -15,5 +15,4 @@ s = Subject(
     background_strain="C57BL/6J",
 )
 
-with open("subject.json", "w") as f:
-    f.write(s.json(indent=3))
+s.write_standard_file()
