@@ -89,6 +89,13 @@ class Treadmill(MousePlatform):
     platform_type: str = Field("Treadmill", title="Platform type", const=True)
 
 
+class StickMicroscope(Device):
+    """Description of a stick microscope used to monitor probes during insertion"""
+
+    arc_angle: float = Field(..., title="Arc Angle", units="degrees")
+    module_angle: float = Field(..., title="Module Angle", units="degrees")
+
+
 class Manipulator(DeviceBase):
     """Description of manipulator"""
 
@@ -246,5 +253,8 @@ class EphysRig(AindCoreModel):
     )
     harp_devices: Optional[List[HarpDevice]] = Field(
         None, title="Harp devices"
+    )
+    stick_microscopes: Optional[List[StickMicroscope]] = Field(
+        None, title="Stick microscopes"
     )
     daqs: Optional[List[DAQ]] = Field(None, title="DAQ devices")

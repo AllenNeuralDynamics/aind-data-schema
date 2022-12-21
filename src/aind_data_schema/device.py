@@ -52,7 +52,7 @@ class DaqChannel(AindModel):
 
     channel_name: str = Field(None, title="DAQ channel name")
     daq_name: str = Field(None, title="Device name of DAQ")
-    type: DaqChannelType = Field(..., title="DAQ channel type")    
+    type: DaqChannelType = Field(..., title="DAQ channel type")
 
 
 class DeviceBase(AindModel):
@@ -67,7 +67,9 @@ class DeviceBase(AindModel):
 class Device(DeviceBase):
     """Description of a device that communicates with a DAQ"""
 
-    daq_channels: Optional[List[DaqChannel]] = Field(None, title="DAQ channels")
+    daq_channels: Optional[List[DaqChannel]] = Field(
+        None, title="DAQ channels"
+    )
 
 
 class DAQ(DeviceBase):
