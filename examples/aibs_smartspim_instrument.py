@@ -142,8 +142,14 @@ inst = Instrument(
     humidity_control=False,
     temperature_control=False,
     com_ports=[
-        Com(hardware_name="Laser Launch", com_port="COM3",),
-        Com(hardware_name="ASI Tiger", com_port="COM5",),
+        Com(
+            hardware_name="Laser Launch",
+            com_port="COM3",
+        ),
+        Com(
+            hardware_name="ASI Tiger",
+            com_port="COM5",
+        ),
         Com(hardware_name="MightyZap", com_port="COM4"),
     ],
     fluorescence_filters=[

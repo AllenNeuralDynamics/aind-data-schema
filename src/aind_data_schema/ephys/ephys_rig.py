@@ -8,8 +8,8 @@ from typing import List, Optional, Union
 
 from pydantic import Field
 
-from ..device import Device, DeviceBase, DAQ
 from ..base import AindCoreModel, AindModel
+from ..device import DAQ, Device, DeviceBase
 
 
 class HarpDeviceName(Enum):

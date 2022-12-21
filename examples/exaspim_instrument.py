@@ -151,8 +151,14 @@ inst = instrument.Instrument(
         )
     ],
     com_ports=[
-        instrument.Com(hardware_name="Laser Launch", com_port="COM2",),
-        instrument.Com(hardware_name="ASI Tiger", com_port="COM5",),
+        instrument.Com(
+            hardware_name="Laser Launch",
+            com_port="COM2",
+        ),
+        instrument.Com(
+            hardware_name="ASI Tiger",
+            com_port="COM5",
+        ),
     ],
     humidity_control=False,
     temperature_control=False,
