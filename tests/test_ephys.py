@@ -42,7 +42,7 @@ class ExampleTest(unittest.TestCase):
                         serial_number="1234",
                         arc_angle=1,
                         rotation_angle=1,
-                        module_angle=1
+                        module_angle=1,
                     ),
                 )
             ],
