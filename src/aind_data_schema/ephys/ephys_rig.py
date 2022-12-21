@@ -220,7 +220,7 @@ class EphysProbe(Device):
 
     name: ProbeName = Field(..., title="Name")
     probe_manipulator: Manipulator = Field(..., title="Manipulator")
-    calibration_data: str = Field(
+    calibration_data: Optional[str] = Field(
         ..., title="Calibration data", description="Path to calibration data"
     )
     calibration_date: Optional[datetime] = Field(
