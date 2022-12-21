@@ -158,4 +158,4 @@ inst = instrument.Instrument(
     temperature_control=False,
 )
 
-inst.write_standard_file(prefix="examples/exaspim")
+inst.write_standard_file(prefix="exaspim")

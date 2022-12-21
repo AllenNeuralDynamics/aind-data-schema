@@ -191,4 +191,4 @@ inst = Instrument(
     ],
 )
 
-inst.write_standard_file(prefix="examples/aibs_smartspim")
+inst.write_standard_file(prefix="aibs_smartspim")

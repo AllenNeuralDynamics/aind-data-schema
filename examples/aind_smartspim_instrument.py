@@ -225,4 +225,4 @@ inst = instrument.Instrument(
     temperature_control=False,
 )
 
-inst.write_standard_file(prefix="examples/aind_smartspim")
+inst.write_standard_file(prefix="aind_smartspim")
