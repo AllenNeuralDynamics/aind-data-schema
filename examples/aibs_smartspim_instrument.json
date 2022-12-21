@@ -13,7 +13,7 @@
          "serial_number": "Unknown",
          "model": "VIS2424-IG2-125A",
          "notes": null,
-         "daq_channel": null,
+         "daq_channels": null,
          "length": 24.0,
          "width": 24.0,
          "vibration_control": false
@@ -25,7 +25,7 @@
          "serial_number": "Unknown",
          "model": "TL4X-SAP",
          "notes": "Thorlabs TL4X-SAP with LifeCanvas dipping cap and correction optics.",
-         "daq_channel": null,
+         "daq_channels": null,
          "numerical_aperture": 0.2,
          "magnification": 3.6,
          "immersion": "multi"
@@ -37,7 +37,7 @@
          "serial_number": "001107",
          "model": "C14440-20UP",
          "notes": null,
-         "daq_channel": null,
+         "daq_channels": null,
          "type": "Camera",
          "data_interface": "USB",
          "cooling": "air"
@@ -49,7 +49,7 @@
          "serial_number": "VL01222A11",
          "model": "Stradus",
          "notes": "All lasers controlled via Vortran VersaLase System",
-         "daq_channel": null,
+         "daq_channels": null,
          "type": "laser",
          "coupling": "SMF",
          "wavelength": 488.0,
@@ -60,7 +60,7 @@
          "serial_number": "417927",
          "model": "Obis",
          "notes": "All lasers controlled via Vortran VersaLase System",
-         "daq_channel": null,
+         "daq_channels": null,
          "type": "laser",
          "coupling": "SMF",
          "wavelength": 561.0,
@@ -71,7 +71,7 @@
          "serial_number": "VL01222A10",
          "model": "Stradus",
          "notes": "All lasers controlled via Vortran VersaLase System",
-         "daq_channel": null,
+         "daq_channels": null,
          "type": "laser",
          "coupling": "SMF",
          "wavelength": 647.0,
@@ -84,7 +84,7 @@
          "serial_number": "Unknown-1",
          "model": "FF03-525/50-25",
          "notes": null,
-         "daq_channel": null,
+         "daq_channels": null,
          "type": "Band pass",
          "diameter": 25.0,
          "thickness": 2.0,
@@ -96,7 +96,7 @@
          "serial_number": "Unknown-2",
          "model": "FF01-600/52-25",
          "notes": null,
-         "daq_channel": null,
+         "daq_channels": null,
          "type": "Band pass",
          "diameter": 25.0,
          "thickness": 2.0,
@@ -108,7 +108,7 @@
          "serial_number": "Unknown-3",
          "model": "ET690/50m",
          "notes": null,
-         "daq_channel": null,
+         "daq_channels": null,
          "type": "Band pass",
          "diameter": 25.0,
          "thickness": 2.0,
@@ -122,7 +122,7 @@
          "serial_number": "Unknown-1",
          "model": "LS-100",
          "notes": "Focus stage",
-         "daq_channel": null,
+         "daq_channels": null,
          "travel": 100.0
       },
       {
@@ -130,7 +130,7 @@
          "serial_number": "Unknown-5",
          "model": "L12-20F-4",
          "notes": "Cylindrical lens #1",
-         "daq_channel": null,
+         "daq_channels": null,
          "travel": 41.0
       },
       {
@@ -138,7 +138,7 @@
          "serial_number": "Unknown-6",
          "model": "L12-20F-4",
          "notes": "Cylindrical lens #2",
-         "daq_channel": null,
+         "daq_channels": null,
          "travel": 41.0
       },
       {
@@ -146,7 +146,7 @@
          "serial_number": "Unknown-7",
          "model": "L12-20F-4",
          "notes": "Cylindrical lens #3",
-         "daq_channel": null,
+         "daq_channels": null,
          "travel": 41.0
       },
       {
@@ -154,7 +154,7 @@
          "serial_number": "Unknown-8",
          "model": "L12-20F-4",
          "notes": "Cylindrical lens #4",
-         "daq_channel": null,
+         "daq_channels": null,
          "travel": 41.0
       }
    ],
@@ -164,7 +164,7 @@
          "serial_number": "Unknown-2",
          "model": "LS-50",
          "notes": "Sample stage Z",
-         "daq_channel": null,
+         "daq_channels": null,
          "travel": 50.0,
          "stage_axis_direction": "Detection axis",
          "stage_axis_name": "Z"
@@ -174,7 +174,7 @@
          "serial_number": "Unknown-3",
          "model": "LS-50",
          "notes": "Sample stage X",
-         "daq_channel": null,
+         "daq_channels": null,
          "travel": 50.0,
          "stage_axis_direction": "Illumination axis",
          "stage_axis_name": "X"
@@ -184,7 +184,7 @@
          "serial_number": "Unknown-4",
          "model": "LS-50",
          "notes": "Sample stage Y",
-         "daq_channel": null,
+         "daq_channels": null,
          "travel": 50.0,
          "stage_axis_direction": "Perpendicular axis",
          "stage_axis_name": "Y"
@@ -197,7 +197,7 @@
          "serial_number": "Unknown-1",
          "model": "EL-16-40-TC",
          "notes": null,
-         "daq_channel": null,
+         "daq_channels": null,
          "type": "Other"
       },
       {
@@ -205,7 +205,7 @@
          "serial_number": "Unknown-2",
          "model": "EL-16-40-TC",
          "notes": null,
-         "daq_channel": null,
+         "daq_channels": null,
          "type": "Other"
       }
    ],
