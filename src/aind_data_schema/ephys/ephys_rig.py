@@ -42,9 +42,6 @@ class Camera(Device):
     """Description of camera"""
 
     name: CameraName = Field(..., title="Name")
-    position_x: float = Field(..., title="Position X")
-    position_y: float = Field(..., title="Position Y")
-    position_z: float = Field(..., title="Position Z")
     angle_pitch: float = Field(
         ..., title="Angle pitch (deg)", units="deg", ge=0, le=360
     )
@@ -58,6 +55,10 @@ class Camera(Device):
     recording_software_version: Optional[str] = Field(
         None, title="Recording software version"
     )
+    position_x: Optional[float] = Field(..., title="Position X")
+    position_y: Optional[float] = Field(..., title="Position Y")
+    position_z: Optional[float] = Field(..., title="Position Z")
+    
 
 
 class MousePlatform(Device):
