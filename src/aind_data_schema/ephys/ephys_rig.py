@@ -231,7 +231,7 @@ class EphysRig(AindCoreModel):
         const=True,
     )
     schema_version: str = Field(
-        "0.4.2", description="schema version", title="Version", const=True
+        "0.5.0", description="schema version", title="Version", const=True
     )
     rig_id: str = Field(
         ..., description="room_stim apparatus_version", title="Rig ID"
