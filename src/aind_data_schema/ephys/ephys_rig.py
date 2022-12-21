@@ -113,10 +113,11 @@ class LaserName(Enum):
     LASER_D = "Laser D"
 
 
-class LaserModule(Device):
-    """Description of lasers used in ephys recordings"""
+class Laser(Device):
+    """Description of a laser used in ephys recordings"""
 
     name: LaserName = Field(..., title="Laser Name")
+
     wavelength: Optional[int] = Field(
         None, title="Wavelength (nm)", units="nm", ge=300, le=1000
     )
@@ -137,6 +138,12 @@ class LaserModule(Device):
         None, title="Calibration date"
     )
     laser_manipulator: Manipulator = Field(..., title="Manipulator")
+
+
+class LaserModule(DeviceBase):
+    """Description of a laser housing module used in ephys recordings"""
+
+    lasers: List[Laser] = Field(..., title="Lasers")
 
 
 class Monitor(Device):
@@ -242,7 +249,7 @@ class EphysRig(AindCoreModel):
     cameras: Optional[List[Camera]] = Field(
         None, title="Cameras", unique_items=True
     )
-    lasers: Optional[List[LaserModule]] = Field(
+    laser_modules: Optional[List[LaserModule]] = Field(
         None, title="Lasers", unique_items=True
     )
     visual_monitors: Optional[List[Monitor]] = Field(
