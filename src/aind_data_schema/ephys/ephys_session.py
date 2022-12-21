@@ -40,17 +40,17 @@ class CcfVersion(Enum):
 class Coordinates3d(AindModel):
     """Description of 3d coordinates in mm"""
 
-    x: float = Field(..., title="X (mm)", units="mm")
-    y: float = Field(..., title="Y (mm)", units="mm")
-    z: float = Field(..., title="Z (mm)", units="mm")
+    x: float = Field(..., title="X (μm)", units="μm")
+    y: float = Field(..., title="Y (μm)", units="μm")
+    z: float = Field(..., title="Z (μm)", units="μm")
 
 
 class CcfCoords(AindModel):
     """Coordinates in CCF template space"""
 
-    ml: float = Field(..., title="ML (um)", units="um")
-    ap: float = Field(..., title="AP (um)", units="um")
-    dv: float = Field(..., title="DV (um)", units="um")
+    ml: float = Field(..., title="ML (μm)", units="μm")
+    ap: float = Field(..., title="AP (μm)", units="μm")
+    dv: float = Field(..., title="DV (μm)", units="μm")
     ccf_version: CcfVersion = Field(CcfVersion.CCFv3, title="CCF version")
 
 
