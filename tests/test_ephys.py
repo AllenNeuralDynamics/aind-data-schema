@@ -13,7 +13,6 @@ from aind_data_schema.ephys.ephys_session import (
     Coordinates3d,
 )
 from aind_data_schema.ephys.ephys_rig import (
-    ManipulatorAngle,
     Manipulator,
     LaserModule,
 )
@@ -41,11 +40,9 @@ class ExampleTest(unittest.TestCase):
                     laser_manipulator=Manipulator(
                         manufacturer="Other",
                         serial_number="1234",
-                        manipulator_angles=[
-                            ManipulatorAngle(name="XY", value=1),
-                            ManipulatorAngle(name="YZ", value=1),
-                            ManipulatorAngle(name="XZ", value=1),
-                        ],
+                        arc_angle=1,
+                        rotation_angle=1,
+                        module_angle=1
                     ),
                 )
             ],
