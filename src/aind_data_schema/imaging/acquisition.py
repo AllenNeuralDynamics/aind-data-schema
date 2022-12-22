@@ -44,15 +44,9 @@ class Axis(AindModel):
         ...,
         description="Tissue direction as the value of axis increases. If Other describe in notes.",
     )
-    voxel_size: float = Field(..., title="Voxel size (um)")
-    volume_size: float = Field(
-        ...,
-        description="Size of the volume for this dimension.",
-        title="Volume size (um)",
-    )
 
     @staticmethod
-    def from_direction_code(code, voxel_sizes, volume_sizes) -> List[Axis]:
+    def from_direction_code(code) -> List[Axis]:
         """Convert direction codes like 'RAS' or 'PLA' into a set of axis objects"""
         direction_lookup = {
             "L": Direction.LR,
@@ -68,11 +62,7 @@ class Axis(AindModel):
         axes = []
         for i, c in enumerate(code):
             axis = Axis(
-                name=name_lookup[i],
-                direction=direction_lookup[c],
-                dimension=i,
-                voxel_size=voxel_sizes[i],
-                volume_size=volume_sizes[i],
+                name=name_lookup[i], direction=direction_lookup[c], dimension=i
             )
             axes.append(axis)
 
@@ -82,8 +72,7 @@ class Axis(AindModel):
 class Channel(AindModel):
     """Description of a channel"""
 
-    channel: int = Field(..., title="Channel")
-    enabled: Optional[bool] = Field(None, title="Enabled")
+    channel_name: str = Field(..., title="Channel")
     laser_wavelength: int = Field(
         ..., title="Wavelength (nm)", units="nm", ge=300, le=1000
     )
@@ -91,34 +80,55 @@ class Channel(AindModel):
     filter_wheel_index: int = Field(..., title="Filter wheel index")
 
 
-class Position(AindModel):
+class TilePosition(AindModel):
     """Description of stage position"""
 
-    x_start_um: float
-    x_end_um: float
-    x_step_um: float
-    y_start_um: float
-    y_end_um: float
-    y_step_um: float
-    z_start_um: float
-    z_end_um: float
-    z_step_um: float
+    x_start: float = Field(..., title="X start")
+    x_end: float = Field(..., title="X end")
+    x_step: float = Field(..., title="X step")
+    y_start: float = Field(..., title="Y start")
+    y_end: float = Field(..., title="Y end")
+    y_step: float = Field(..., title="Y step")
+    z_start: float = Field(..., title="Z start")
+    z_end: float = Field(..., title="Z end")
+    z_step: float = Field(..., title="Z step")
+    unit: str = Field("μm", title="Tile position units", const=True)
+
+
+class VoxelSize(AindModel):
+    """Description of the size of a 3D grid cell"""
+
+    size_x: float = Field(..., title="X size")
+    size_y: float = Field(..., title="Y size")
+    size_z: float = Field(..., title="Z size")
+    unit: str = Field("μm", title="size units", const=True)
+
+
+class Tile(AindModel):
+    """Description of an image tile"""
+
+    voxel_size: VoxelSize = Field(..., title="Voxel size")
+    position: TilePosition = Field(..., title="Tile position")
+    channel: Channel = Field(..., title="Channel")
+    daq_params: dict = Field(..., title="DAQ parameters")
+    file_name: Optional[str] = Field(None, title="File name")
+    notes: Optional[str] = Field(None, title="Notes")
 
 
 class Acquisition(AindCoreModel):
     """Description of an imaging acquisition session"""
 
     version: str = Field(
-        "0.3.0", description="schema version", title="Version", const="True"
+        "0.4.0", description="schema version", title="Version", const="True"
     )
     experimenter_full_name: str = Field(
         ...,
         description="First and last name of the experimenter.",
         title="Experimenter full name",
     )
-    session_start_time: datetime = Field(..., title="Session start time")
     subject_id: int = Field(..., title="Subject ID")
     instrument_id: str = Field(..., title="Instrument ID")
+    session_start_time: datetime = Field(..., title="Session start time")
     session_end_time: datetime = Field(..., title="Session end time")
     local_storage_directory: Optional[str] = Field(
         None, title="Local storage directory"
@@ -126,25 +136,3 @@ class Acquisition(AindCoreModel):
     external_storage_directory: Optional[str] = Field(
         None, title="External storage directory"
     )
-    tile_prefix: Optional[str] = Field(
-        None,
-        description="Zstacks will be named: <tile_prefix>_<x>_<y>_<wavelength>.tiff",
-        title="Tile prefix",
-    )
-    tile_overlap_x: Optional[float] = Field(
-        None, title="Tile overlap x (percent)", ge=0, le=100
-    )
-    tile_overlap_y: Optional[float] = Field(
-        None, title="Tile overlap y (percent)", ge=0, le=100
-    )
-    step_size_z: Optional[float] = Field(None, title="Step size z (um)")
-    axes: Optional[List[Axis]] = Field(None, title="Axes", unique_items=True)
-    additional_parameters: Optional[str] = Field(
-        None, title="Additional parameters"
-    )
-    positions: List[Position] = Field(
-        ..., title="Positions", unique_items=True
-    )
-    channels: List[Channel] = Field(..., title="Channels", unique_items=True)
-    daqs: Optional[List[dict]] = Field(None, title="DAQ", unique_items=True)
-    notes: Optional[str] = Field(None, title="Notes")
