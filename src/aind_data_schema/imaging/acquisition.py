@@ -130,6 +130,7 @@ class Acquisition(AindCoreModel):
     instrument_id: str = Field(..., title="Instrument ID")
     session_start_time: datetime = Field(..., title="Session start time")
     session_end_time: datetime = Field(..., title="Session end time")
+    tiles: List[Tile] = Field(..., title="Acquisition tiles")
     local_storage_directory: Optional[str] = Field(
         None, title="Local storage directory"
     )

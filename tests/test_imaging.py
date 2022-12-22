@@ -23,8 +23,7 @@ class ImagingTests(unittest.TestCase):
             subject_id="1234",
             instrument_id="1234",
             session_end_time=datetime.datetime.now(),
-            positions=[],
-            channels=[],
+            tiles=[],
         )
 
         assert a is not None
@@ -45,15 +44,10 @@ class ImagingTests(unittest.TestCase):
 
     def test_axis(self):
         """test the axis class"""
-        voxel_sizes = [1, 2, 3]
-        volume_sizes = [10, 10, 10]
-
         # test that a few work
         test_codes = ["RAS", "LSP", "RAI", "PAR"]
         for test_code in test_codes:
-            axes = Axis.from_direction_code(
-                test_code, voxel_sizes, volume_sizes
-            )
+            axes = Axis.from_direction_code(test_code)
             assert len(axes) == 3
 
 
