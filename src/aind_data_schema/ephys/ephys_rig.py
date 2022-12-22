@@ -42,22 +42,12 @@ class Camera(Device):
     """Description of camera"""
 
     name: CameraName = Field(..., title="Name")
-    angle_pitch: float = Field(
-        ..., title="Angle pitch (deg)", units="deg", ge=0, le=360
-    )
-    angle_yaw: float = Field(
-        ..., title="Angle yaw (deg)", units="deg", ge=0, le=360
-    )
-    angle_roll: float = Field(
-        ..., title="Angle roll (deg)", units="deg", ge=0, le=360
-    )
+    orientation: Orientation3d = Field(..., title="Camera orientation")
+    position: Position3d = Field(..., title="Camera position")
     recording_software: Optional[str] = Field(None, title="Recording software")
     recording_software_version: Optional[str] = Field(
         None, title="Recording software version"
     )
-    position_x: Optional[float] = Field(..., title="Position X")
-    position_y: Optional[float] = Field(..., title="Position Y")
-    position_z: Optional[float] = Field(..., title="Position Z")
 
 
 class MousePlatform(Device):
@@ -93,15 +83,21 @@ class StickMicroscope(Device):
     """Description of a stick microscope used to monitor probes during insertion"""
 
     arc_angle: float = Field(..., title="Arc Angle (deg)", units="degrees")
-    module_angle: float = Field(..., title="Module Angle (deg)", units="degrees")
+    module_angle: float = Field(
+        ..., title="Module Angle (deg)", units="degrees"
+    )
 
 
 class Manipulator(DeviceBase):
     """Description of manipulator"""
 
     arc_angle: float = Field(..., title="Arc Angle (deg)", units="degrees")
-    module_angle: float = Field(..., title="Module Angle (deg)", units="degrees")
-    rotation_angle: float = Field(..., title="Rotatle Angle (deg)", units="degrees")
+    module_angle: float = Field(
+        ..., title="Module Angle (deg)", units="degrees"
+    )
+    rotation_angle: float = Field(
+        ..., title="Rotatle Angle (deg)", units="degrees"
+    )
 
 
 class LaserName(Enum):
@@ -146,6 +142,28 @@ class LaserModule(DeviceBase):
     lasers: List[Laser] = Field(..., title="Lasers")
 
 
+class Orientation3d(AindModel):
+    """3D orientation of an object"""
+
+    pitch: float = Field(
+        ..., title="Angle pitch (deg)", units="deg", ge=0, le=360
+    )
+    yaw: float = Field(..., title="Angle yaw (deg)", units="deg", ge=0, le=360)
+    roll: float = Field(
+        ..., title="Angle roll (deg)", units="deg", ge=0, le=360
+    )
+    unit: str = Field("degrees", title="Angle units", const=True)
+
+
+class Position3d(AindModel):
+    """Position of a 3d object"""
+
+    x: float = Field(..., title="Position X")
+    y: float = Field(..., title="Position Y")
+    z: float = Field(..., title="Position Z")
+    unit: str = Field("unitless", title="Position units", const=True)
+
+
 class Monitor(Device):
     """Description of a visual monitor"""
 
@@ -157,18 +175,8 @@ class Monitor(Device):
     viewing_distance: float = Field(
         ..., title="Viewing distance (cm)", units="cm"
     )
-    position_x: float = Field(..., title="Position X")
-    position_y: float = Field(..., title="Position Y")
-    position_z: float = Field(..., title="Position Z")
-    angle_pitch: float = Field(
-        ..., title="Angle pitch (deg)", units="deg", ge=0, le=360
-    )
-    angle_yaw: float = Field(
-        ..., title="Angle yaw (deg)", units="deg", ge=0, le=360
-    )
-    angle_roll: float = Field(
-        ..., title="Angle roll (deg)", units="deg", ge=0, le=360
-    )
+    position: Position3d = Field(..., title="Monitor position")
+    orientation: Orientation3d = Field(..., title="Monitor orientation")
     contrast: int = Field(
         ...,
         description="Monitor's contrast setting",

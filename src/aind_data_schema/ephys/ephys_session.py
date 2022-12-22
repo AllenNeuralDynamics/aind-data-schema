@@ -53,6 +53,7 @@ class CcfCoords(AindModel):
     dv: float = Field(..., title="DV (μm)", units="μm")
     ccf_version: CcfVersion = Field(CcfVersion.CCFv3, title="CCF version")
 
+
 class Laser(AindModel):
     """Description of a laser's session configuration"""
 
@@ -68,7 +69,7 @@ class Laser(AindModel):
         None,
         title="Targeted CCF coordinates",
     )
-    
+
 
 class EphysProbe(AindModel):
     """Description of an ephys probe"""
@@ -84,15 +85,19 @@ class EphysProbe(AindModel):
         None,
         title="Targeted CCF coordinates",
     )
-    
+
 
 class Stream(AindModel):
     """Stream of data with a start and stop time"""
 
     stream_start_time: datetime = Field(..., title="Stream start time")
     stream_stop_time: datetime = Field(..., title="Stream stop time")
-    probes: Optional[List[EphysProbe]] = Field(None, title="Probes", unique_items=True)
-    lasers: Optional[List[Laser]] = Field(None, title="Lasers", unique_items=True)
+    probes: Optional[List[EphysProbe]] = Field(
+        None, title="Probes", unique_items=True
+    )
+    lasers: Optional[List[Laser]] = Field(
+        None, title="Lasers", unique_items=True
+    )
 
 
 class EphysSession(AindCoreModel):
@@ -118,7 +123,9 @@ class EphysSession(AindCoreModel):
     )
     iacuc_protocol: Optional[str] = Field(None, title="IACUC protocol")
     rig_id: str = Field(..., title="Rig ID")
-    expected_data_streams: Optional[List[ExpectedDataStream]] = Field(None, title="Expected data streams")
+    expected_data_streams: Optional[List[ExpectedDataStream]] = Field(
+        None, title="Expected data streams"
+    )
     probe_streams: List[Stream] = Field(
         ..., title="Probe streams", unique_items=True
     )
