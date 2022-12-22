@@ -5,11 +5,8 @@ import unittest
 
 import pydantic
 
-from aind_data_schema import EphysRig, EphysSession
-from aind_data_schema.ephys.ephys_rig import Laser, LaserModule, Manipulator
-from aind_data_schema.ephys.ephys_session import (CcfCoords, Coordinates3d,
-                                                  EphysProbe, Stream)
-
+from aind_data_schema.ephys import ephys_rig as er
+from aind_data_schema.ephys import ephys_session as es
 
 class ExampleTest(unittest.TestCase):
     """an example test"""
@@ -18,39 +15,41 @@ class ExampleTest(unittest.TestCase):
         """always returns true"""
 
         with self.assertRaises(pydantic.ValidationError):
-            er = EphysRig()
+            rig = er.EphysRig()
 
         with self.assertRaises(pydantic.ValidationError):
-            es = EphysSession()
+            sess = es.EphysSession()
 
-        er = EphysRig(
+        rig = er.EphysRig(
             rig_id="1234",
             laser_modules=[
-                LaserModule(
+                er.LaserModule(
                     manufacturer="Other",
                     model="Unknown",
                     serial_number="1234",
                     lasers=[
-                        Laser(
+                        er.Laser(
                             manufacturer="Hamamatsu",
                             serial_number="1234",
                             name="Laser A",
-                            laser_manipulator=Manipulator(
+                            laser_manipulator=er.Manipulator(
                                 manufacturer="Other",
                                 serial_number="1234",
-                                arc_angle=1,
-                                rotation_angle=1,
-                                module_angle=1,
-                            ),
+                                orientation=er.ModuleOrientation3d(
+                                    arc_angle=1,
+                                    rotation_angle=1,
+                                    module_angle=1,
+                                )
+                            )
                         )
-                    ],
+                    ]
                 )
-            ],
+            ]
         )
 
-        assert er is not None
+        assert rig is not None
 
-        es = EphysSession(
+        sess = es.EphysSession(
             experimenter_full_name="alice",
             session_start_time=datetime.datetime.now(),
             session_end_time=datetime.datetime.now(),
@@ -58,17 +57,17 @@ class ExampleTest(unittest.TestCase):
             session_type="Test",
             rig_id="1234",
             probe_streams=[
-                Stream(
+                es.Stream(
                     stream_start_time=datetime.datetime.now(),
                     stream_stop_time=datetime.datetime.now(),
                     probes=[
-                        EphysProbe(
+                        es.EphysProbe(
                             name="Probe A",
                             tip_targeted_structure="VISl4",
-                            targeted_ccf_coordinates=CcfCoords(
+                            targeted_ccf_coordinates=es.CcfCoords(
                                 ml="1", ap="1", dv="1"
                             ),
-                            manipulator_coordinates=Coordinates3d(
+                            manipulator_coordinates=es.Coordinates3d(
                                 x="1", y="1", z="1"
                             ),
                         )
