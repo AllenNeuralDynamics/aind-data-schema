@@ -8,12 +8,17 @@ from aind_data_schema.imaging.instrument import Instrument
 from aind_data_schema.ophys.ophys_rig import OphysRig
 from aind_data_schema.ophys.ophys_session import OphysSession
 
-def _validate_path(output):
+DEFAULT_FILE_PATH = os.getcwd()
+
+def validate_path(output):
     # TO-DO: add validation for user defined path, fix filenames for json files
 
     # if not os.path.exists(output):
     #     return Path(output).parent.mkdir(exist_ok=True, parents=True)
     return output
+
+def schema_filename(class_name):
+    return ''.join(['_'+i.lower() if i.isupper() else i for i in str]).lstrip('_')
 
 def main(output):
 
@@ -30,10 +35,12 @@ def main(output):
         DataDescription,
     ]
 
-    validated_output = _validate_path(output)
+    validated_output = validate_path(output)
 
     for schema in pydantic_schemas:
-        filename = f"{validated_output}/{schema.__name__.lower()}.json"
+        schema_name = schema.__name__.lower()
+        # new_filename = schema_filename(str(schema_name))
+        filename = f"{validated_output}/{schema_name}.json"
 
         with open(filename, "w") as f:
             f.write(schema.schema_json(indent=3))
@@ -41,7 +48,7 @@ def main(output):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("-o","--output", default=os.getcwd(), help="Output directory, defaults to current working directory")
+    parser.add_argument("-o","--output", default=DEFAULT_FILE_PATH, help="Output directory, defaults to current working directory")
     args = parser.parse_args()
 
     main(args.output)
