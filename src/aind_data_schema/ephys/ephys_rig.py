@@ -12,7 +12,7 @@ from ..base import AindCoreModel, AindModel
 from ..device import DAQ, Device, DeviceBase
 
 
-class SizeUnit(AindModel):
+class SizeUnit(Enum):
     """units for sizes"""
 
     PX = "pixels"
