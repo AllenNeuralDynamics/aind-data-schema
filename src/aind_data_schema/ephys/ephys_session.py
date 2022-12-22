@@ -9,6 +9,7 @@ from typing import List, Optional
 from pydantic import Field
 
 from ..base import AindCoreModel, AindModel
+from .ephys_rig import SizeUnit
 
 
 class SessionType(Enum):
@@ -40,17 +41,19 @@ class CcfVersion(Enum):
 class Coordinates3d(AindModel):
     """Description of 3d coordinates in mm"""
 
-    x: float = Field(..., title="X (μm)", units="μm")
-    y: float = Field(..., title="Y (μm)", units="μm")
-    z: float = Field(..., title="Z (μm)", units="μm")
+    x: float = Field(..., title="X")
+    y: float = Field(..., title="Y")
+    z: float = Field(..., title="Z")
+    unit: SizeUnit = Field(SizeUnit.UM, title="Coordinate unit")
 
 
 class CcfCoords(AindModel):
     """Coordinates in CCF template space"""
 
-    ml: float = Field(..., title="ML (μm)", units="μm")
-    ap: float = Field(..., title="AP (μm)", units="μm")
-    dv: float = Field(..., title="DV (μm)", units="μm")
+    ml: float = Field(..., title="ML")
+    ap: float = Field(..., title="AP")
+    dv: float = Field(..., title="DV")
+    unit: SizeUnit = Field(SizeUnit.UM, title="Coordinate unit")
     ccf_version: CcfVersion = Field(CcfVersion.CCFv3, title="CCF version")
 
 
@@ -58,8 +61,10 @@ class Laser(AindModel):
     """Description of a laser's session configuration"""
 
     name: str = Field(..., title="Name")
-    wavelength: int = Field(..., title="Wavelength (nm)", units="nm")
-    power: float = Field(..., title="Power (mW)", units="mW")
+    wavelength: int = Field(..., title="Wavelength")
+    wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")    
+    power: float = Field(..., title="Power")
+    ower_unit: str = Field("milliwatt", title="Maximum power unit")
     manipulator_coordinates: Coordinates3d = Field(
         ...,
         title="Manipulator coordinates",

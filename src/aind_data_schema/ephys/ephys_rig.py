@@ -15,10 +15,12 @@ from ..device import DAQ, Device, DeviceBase
 class SizeUnit(Enum):
     """units for sizes"""
 
-    PX = "pixels"
-    IN = "inches"
-    MM = "millimeters"
-    UM = "microns"
+    PX = "pixel"
+    IN = "inch"
+    CM = "centimeter"
+    MM = "millimeter"
+    UM = "micrometer"
+    NM = "nanometer"
 
 
 class Size2d(AindModel):
@@ -26,14 +28,14 @@ class Size2d(AindModel):
 
     width: int = Field(..., title="Width")
     height: int = Field(..., title="Height")
-    unit: SizeUnit = Field(SizeUnit.PX, title="Size units")
+    unit: SizeUnit = Field(SizeUnit.PX, title="Size unit")
 
 
 class AngleUnit(Enum):
     """orientation units"""
 
-    DEG = "degrees"
-    RAD = "radians"
+    DEG = "degree"
+    RAD = "radian"
 
 
 class Orientation3d(AindModel):
@@ -42,7 +44,7 @@ class Orientation3d(AindModel):
     pitch: float = Field(..., title="Angle pitch", ge=0, le=360)
     yaw: float = Field(..., title="Angle yaw", ge=0, le=360)
     roll: float = Field(..., title="Angle roll", ge=0, le=360)
-    unit: AngleUnit = Field(AngleUnit.DEG, title="Angle units")
+    unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
 
 
 class ModuleOrientation2d(AindModel):
@@ -50,7 +52,7 @@ class ModuleOrientation2d(AindModel):
 
     arc_angle: float = Field(..., title="Arc angle")
     module_angle: float = Field(..., title="Module angle")
-    unit: AngleUnit = Field(AngleUnit.DEG, title="Angle units")
+    unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
 
 
 class ModuleOrientation3d(AindModel):
@@ -59,7 +61,7 @@ class ModuleOrientation3d(AindModel):
     arc_angle: float = Field(..., title="Arc angle")
     module_angle: float = Field(..., title="Module angle")
     rotation_angle: float = Field(..., title="Rotation angle")
-    unit: AngleUnit = Field(AngleUnit.DEG, title="Angle units")
+    unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
 
 
 class Position3d(AindModel):
@@ -68,7 +70,7 @@ class Position3d(AindModel):
     x: float = Field(..., title="Position X")
     y: float = Field(..., title="Position Y")
     z: float = Field(..., title="Position Z")
-    unit: str = Field("None", title="Position units")
+    unit: str = Field("None", title="Position unit")
 
 
 class HarpDeviceName(Enum):
@@ -119,7 +121,8 @@ class Disc(MousePlatform):
     """Description of a running disc"""
 
     platform_type: str = Field("Disc", title="Platform type", const=True)
-    radius: float = Field(..., title="Radius (cm)", units="cm", ge=0)
+    radius: float = Field(..., title="Radius", ge=0)
+    radius_unit: SizeUnit = Field(SizeUnit.CM, title="radius unit")
     date_surface_replaced: Optional[datetime] = Field(
         None, title="Date surface replaced"
     )
@@ -129,7 +132,8 @@ class Tube(MousePlatform):
     """Description of a tube platform"""
 
     platform_type: str = Field("Tube", title="Platform type", const=True)
-    diameter: float = Field(..., title="Diameter (cm)", units="cm", ge=0)
+    diameter: float = Field(..., title="Diameter", ge=0)
+    diameter_unit: SizeUnit = Field(SizeUnit.CM, title="Diameter unit")
 
 
 class Treadmill(MousePlatform):
@@ -169,18 +173,20 @@ class Laser(Device):
     name: LaserName = Field(..., title="Laser Name")
 
     wavelength: Optional[int] = Field(
-        None, title="Wavelength (nm)", units="nm", ge=300, le=1000
+        None, title="Wavelength", ge=300, le=1000
     )
+    wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
     maximum_power: Optional[float] = Field(
-        None, title="Maximum power (mW)", units="mW"
+        None, title="Maximum power"
     )
+    maximum_power_unit: str = Field("milliwatt", title="Maximum power unit")
     coupling_efficiency: Optional[float] = Field(
         None,
-        title="Coupling efficiency (percent)",
-        units="percent",
+        title="Coupling efficiency",
         ge=0,
         le=100,
     )
+    coupling_efficiency_unit: str = Field("percent", title="Coupling efficienty unit")
     calibration_data: Optional[str] = Field(
         None, description="path to calibration data", title="Calibration data"
     )
@@ -200,22 +206,23 @@ class Monitor(Device):
     """Description of a visual monitor"""
 
     refresh_rate: int = Field(
-        ..., title="Refresh rate (Hz)", units="Hz", ge=60
+        ..., title="Refresh rate", ge=60
     )
+    regresh_rate_unit: str = Field("hertz", title="Refresh rate unit")
     size: Size2d = Field(..., title="Monitor size")
     position: Position3d = Field(..., title="Monitor position")
     orientation: Orientation3d = Field(..., title="Monitor orientation")
     viewing_distance: float = Field(
-        ..., title="Viewing distance (cm)", units="cm"
-    )
+        ..., title="Viewing distance")
+    viewing_distance_unit: SizeUnit = Field(SizeUnit.CM, title="Size unit")
     contrast: int = Field(
         ...,
         description="Monitor's contrast setting",
-        title="Contrast (percent)",
-        units="percent",
+        title="Contrast",
         ge=0,
         le=100,
     )
+    contrast_unit: str = Field("percent", title="Contrast unit")
     brightness: int = Field(
         ...,
         description="Monitor's brightness setting",
