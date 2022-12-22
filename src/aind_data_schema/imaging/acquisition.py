@@ -91,7 +91,7 @@ class TilePosition(AindModel):
     y_end: float = Field(..., title="Y end")    
     z_start: float = Field(..., title="Z start")
     z_end: float = Field(..., title="Z end")    
-    unit: str = Field("μm", title="Tile position units", const=True)
+    unit: str = Field("μm", title="Tile position units")
 
 
 class VoxelSize(AindModel):
@@ -100,7 +100,7 @@ class VoxelSize(AindModel):
     x_size: float = Field(..., title="X size")
     y_size: float = Field(..., title="Y size")
     z_size: float = Field(..., title="Z size")
-    unit: str = Field("μm", title="size units", const=True)
+    unit: str = Field("μm", title="size units")
 
 
 class Tile(AindModel):
@@ -111,6 +111,8 @@ class Tile(AindModel):
     channel: Channel = Field(..., title="Channel")
     file_name: Optional[str] = Field(None, title="File name")
     notes: Optional[str] = Field(None, title="Notes")
+    imaging_angle: int = Field(0, title="Imaging angle")
+    imaging_angle_unit: str = Field("degrees", title="Imaging angle unit")
 
 
 class Acquisition(AindCoreModel):
