@@ -65,7 +65,7 @@ class AindCoreModel(AindModel):
         writes schema to standard json file
         parameters
         ----------
-        prefix: 
+        prefix:
             optional str for intended filepath with extra naming convention
         """
         if prefix is None:
