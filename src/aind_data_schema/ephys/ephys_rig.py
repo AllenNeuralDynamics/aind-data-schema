@@ -12,12 +12,28 @@ from ..base import AindCoreModel, AindModel
 from ..device import DAQ, Device, DeviceBase
 
 
+class SizeUnit(AindModel):
+    """units for sizes"""
+
+    PX = "pixels"
+    IN = "inches"
+    MM = "millimeters"
+    UM = "microns"
+
+
 class Size2d(AindModel):
     """2D size of an object"""
 
     width: int = Field(..., title="Width")
     height: int = Field(..., title="Height")
-    unit: str = Field("pixels", title="Size units")
+    unit: SizeUnit = Field(SizeUnit.PX, title="Size units")
+
+
+class AngleUnit(Enum):
+    """orientation units"""
+
+    DEG = "degrees"
+    RAD = "radians"
 
 
 class Orientation3d(AindModel):
@@ -26,21 +42,24 @@ class Orientation3d(AindModel):
     pitch: float = Field(..., title="Angle pitch", ge=0, le=360)
     yaw: float = Field(..., title="Angle yaw", ge=0, le=360)
     roll: float = Field(..., title="Angle roll", ge=0, le=360)
-    unit: str = Field("degrees", title="Angle units")
+    unit: AngleUnit = Field(AngleUnit.DEG, title="Angle units")
 
 
 class ModuleOrientation2d(AindModel):
     """2D module orientation of an object"""
 
-    arc_angle: float = Field(..., title="Arc Angle")
-    module_angle: float = Field(..., title="Module Angle")
-    unit: str = Field("degrees", title="Degrees")
+    arc_angle: float = Field(..., title="Arc angle")
+    module_angle: float = Field(..., title="Module angle")
+    unit: AngleUnit = Field(AngleUnit.DEG, title="Angle units")
 
 
-class ModuleOrientation3d(ModuleOrientation2d):
+class ModuleOrientation3d(AindModel):
     """3D module orientation of an object"""
 
+    arc_angle: float = Field(..., title="Arc angle")
+    module_angle: float = Field(..., title="Module angle")
     rotation_angle: float = Field(..., title="Rotation angle")
+    unit: AngleUnit = Field(AngleUnit.DEG, title="Angle units")
 
 
 class Position3d(AindModel):
