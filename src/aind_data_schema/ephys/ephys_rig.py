@@ -8,7 +8,7 @@ from typing import List, Optional, Union
 
 from pydantic import Field
 
-from ..base import AindCoreModel
+from ..base import AindCoreModel, AindModel
 from ..device import DAQ, Device, DeviceBase
 
 
