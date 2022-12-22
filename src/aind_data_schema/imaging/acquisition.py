@@ -74,9 +74,11 @@ class Channel(AindModel):
 
     channel_name: str = Field(..., title="Channel")
     laser_wavelength: int = Field(
-        ..., title="Wavelength (nm)", units="nm", ge=300, le=1000
+        ..., title="Wavelength", ge=300, le=1000
     )
-    laser_power: float = Field(..., title="Power (mW)", units="mW", le=2000)
+    laser_wavelength_unit: str = Field("nm", title="Laser wavelength unit")
+    laser_power: float = Field(..., title="Laser power", le=2000)
+    laser_power_unit: float = Field("mW", title="Laser power unit")
     filter_wheel_index: int = Field(..., title="Filter wheel index")
 
 
