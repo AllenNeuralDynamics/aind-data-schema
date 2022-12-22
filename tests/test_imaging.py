@@ -23,6 +23,10 @@ class ImagingTests(unittest.TestCase):
             subject_id="1234",
             instrument_id="1234",
             session_end_time=datetime.datetime.now(),
+            immersion=acq.Immersion(
+                medium="PBS",
+                refractive_index=1
+            ),
             tiles=[
                 acq.Tile(
                     coordinate_transformations=[

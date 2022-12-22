@@ -112,6 +112,11 @@ class Tile(AindModel):
     imaging_angle: int = Field(0, title="Imaging angle")
     imaging_angle_unit: str = Field("degree", title="Imaging angle unit")
 
+class Immersion(AindModel):
+    """Description of immersion media"""
+
+    medium: str = Field(..., title="Immersion medium")
+    refractive_index: float = Field(..., title="Index of refraction")
 
 class Acquisition(AindCoreModel):
     """Description of an imaging acquisition session"""
@@ -130,6 +135,7 @@ class Acquisition(AindCoreModel):
     session_end_time: datetime = Field(..., title="Session end time")
     tiles: List[Tile] = Field(..., title="Acquisition tiles")
     axes: List[Axis] = Field(..., title="Acquisition axes")
+    immersion: Immersion = Field(..., title="Acquisition immersion data")
     active_objectives: Optional[List[str]] = Field(
         None,
         title="List of objectives used in this acquisition. If null, all objectives in instrument were used.",

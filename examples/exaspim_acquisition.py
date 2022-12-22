@@ -14,6 +14,10 @@ acq = acquisition.Acquisition(
     session_end_time=t,
     local_storage_directory="D:",
     external_storage_directory="Z:",
+    immersion=acquisition.Immersion(
+        medium="PBS",
+        refractive_index=1.33
+    ),
     axes=[
         acquisition.Axis(
             name="X",

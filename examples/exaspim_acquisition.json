@@ -92,6 +92,10 @@
          "unit": "micrometer"
       }
    ],
+   "immersion": {
+      "medium": "PBS",
+      "refractive_index": 1.33
+   },
    "active_objectives": null,
    "local_storage_directory": "D:",
    "external_storage_directory": "Z:"
