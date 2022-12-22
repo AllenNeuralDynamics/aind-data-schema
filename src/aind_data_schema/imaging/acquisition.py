@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from datetime import datetime
 from enum import Enum
-from typing import List, Optional, Dict
+from typing import List, Optional
 
 from pydantic import Field
 
@@ -73,9 +73,7 @@ class Channel(AindModel):
     """Description of a channel"""
 
     channel_name: str = Field(..., title="Channel")
-    laser_wavelength: int = Field(
-        ..., title="Wavelength", ge=300, le=1000
-    )
+    laser_wavelength: int = Field(..., title="Wavelength", ge=300, le=1000)
     laser_wavelength_unit: str = Field("nm", title="Laser wavelength unit")
     laser_power: float = Field(..., title="Laser power", le=2000)
     laser_power_unit: float = Field("mW", title="Laser power unit")
@@ -86,11 +84,11 @@ class TilePosition(AindModel):
     """Description of stage position"""
 
     x_start: float = Field(..., title="X start")
-    x_end: float = Field(..., title="X end")    
+    x_end: float = Field(..., title="X end")
     y_start: float = Field(..., title="Y start")
-    y_end: float = Field(..., title="Y end")    
+    y_end: float = Field(..., title="Y end")
     z_start: float = Field(..., title="Z start")
-    z_end: float = Field(..., title="Z end")    
+    z_end: float = Field(..., title="Z end")
     unit: str = Field("μm", title="Tile position units")
 
 
@@ -132,7 +130,10 @@ class Acquisition(AindCoreModel):
     session_end_time: datetime = Field(..., title="Session end time")
     tiles: List[Tile] = Field(..., title="Acquisition tiles")
     axes: List[Axis] = Field(..., title="Acquisition axes")
-    active_objectives: Optional[List[str]] = Field(None, title="List of objectives used in this acquisition. If null, all objectives in instrument were used.")
+    active_objectives: Optional[List[str]] = Field(
+        None,
+        title="List of objectives used in this acquisition. If null, all objectives in instrument were used.",
+    )
     local_storage_directory: Optional[str] = Field(
         None, title="Local storage directory"
     )
