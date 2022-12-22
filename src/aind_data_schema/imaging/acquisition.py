@@ -131,7 +131,7 @@ class Acquisition(AindCoreModel):
     session_start_time: datetime = Field(..., title="Session start time")
     session_end_time: datetime = Field(..., title="Session end time")
     tiles: List[Tile] = Field(..., title="Acquisition tiles")
-    axes: list[Axis] = Field(..., title="Acquisition axes")
+    axes: List[Axis] = Field(..., title="Acquisition axes")
     local_storage_directory: Optional[str] = Field(
         None, title="Local storage directory"
     )
