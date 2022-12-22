@@ -109,7 +109,6 @@ class Tile(AindModel):
     voxel_size: VoxelSize = Field(..., title="Voxel size")
     position: TilePosition = Field(..., title="Tile position")
     channel: Channel = Field(..., title="Channel")
-    daq_params: Dict = Field(..., title="DAQ parameters")
     file_name: Optional[str] = Field(None, title="File name")
     notes: Optional[str] = Field(None, title="Notes")
 
