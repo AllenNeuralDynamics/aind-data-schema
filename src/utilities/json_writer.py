@@ -34,11 +34,11 @@ def main(output):
         DataDescription,
     ]
 
-    # validated_output = validate_path(output)
+    validated_output = validate_path(output)
 
     for schema in pydantic_schemas:
         schema_name = schema.__name__.lower()
-        filename = f"{output}/{schema_name}.json"
+        filename = f"{validate_path(output)}/{schema_name}.json"
 
         with open(filename, "w") as f:
             f.write(schema.schema_json(indent=3))
