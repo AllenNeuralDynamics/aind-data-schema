@@ -1,6 +1,6 @@
 """ example processing """
-
 import datetime
+
 from aind_data_schema import Processing
 from aind_data_schema.processing import DataProcess
 
@@ -42,6 +42,4 @@ p = Processing(
         ),
     ],
 )
-
-with open("processing.json", "w") as f:
-    f.write(p.json(indent=3))
+p.write_standard_file()
