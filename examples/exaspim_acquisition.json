@@ -29,15 +29,15 @@
          "channel": {
             "channel_name": "488",
             "laser_wavelength": 488,
-            "laser_wavelength_unit": "nm",
+            "laser_wavelength_unit": "nanometer",
             "laser_power": 200.0,
-            "laser_power_unit": "mW",
+            "laser_power_unit": "milliwatt",
             "filter_wheel_index": 0
          },
          "file_name": "tile_X_0000_Y_0000_Z_0000_CH_488.ims",
          "notes": "these are my notes",
          "imaging_angle": 0,
-         "imaging_angle_unit": "degrees"
+         "imaging_angle_unit": "degree"
       },
       {
          "coordinate_transformations": [
@@ -61,15 +61,15 @@
          "channel": {
             "channel_name": "561",
             "laser_wavelength": 561,
-            "laser_wavelength_unit": "nm",
+            "laser_wavelength_unit": "nanometer",
             "laser_power": 200.0,
-            "laser_power_unit": "mW",
+            "laser_power_unit": "milliwatt",
             "filter_wheel_index": 0
          },
          "file_name": "tile_X_0000_Y_0000_Z_0000_CH_561.ims",
          "notes": "these are my notes",
          "imaging_angle": 0,
-         "imaging_angle_unit": "degrees"
+         "imaging_angle_unit": "degree"
       }
    ],
    "axes": [
@@ -77,19 +77,19 @@
          "name": "X",
          "dimension": 2,
          "direction": "Left_to_right",
-         "unit": "\u03bcm"
+         "unit": "micrometer"
       },
       {
          "name": "Y",
          "dimension": 1,
          "direction": "Anterior_to_posterior",
-         "unit": "\u03bcm"
+         "unit": "micrometer"
       },
       {
          "name": "Z",
          "dimension": 0,
          "direction": "Inferior_to_superior",
-         "unit": "\u03bcm"
+         "unit": "micrometer"
       }
    ],
    "active_objectives": null,
