@@ -8,83 +8,91 @@
    "session_end_time": "2022-11-22T08:43:00",
    "tiles": [
       {
-         "voxel_size": {
-            "size_x": 0.748,
-            "size_y": 0.748,
-            "size_z": 1.0,
-            "unit": "\u03bcm"
-         },
-         "position": {
-            "x_start": 0.0,
-            "x_end": 100.0,
-            "y_start": 0.0,
-            "y_end": 100.0,
-            "z_start": 0.0,
-            "z_end": 100.0,
-            "unit": "\u03bcm"
-         },
+         "coordinate_transformations": [
+            {
+               "type": "scale",
+               "scale": [
+                  0.748,
+                  0.748,
+                  1.0
+               ]
+            },
+            {
+               "type": "translation",
+               "translation": [
+                  0.0,
+                  0.0,
+                  0.0
+               ]
+            }
+         ],
          "channel": {
             "channel_name": "488",
             "laser_wavelength": 488,
+            "laser_wavelength_unit": "nm",
             "laser_power": 200.0,
+            "laser_power_unit": "mW",
             "filter_wheel_index": 0
          },
-         "daq_params": {
-            "etl_buffer_time_ms": 5.0,
-            "etl_amplitude_volt": 0.2,
-            "etl_offest_volt": 1.77
-         },
          "file_name": "tile_X_0000_Y_0000_Z_0000_CH_488.ims",
-         "notes": "these are my notes"
+         "notes": "these are my notes",
+         "imaging_angle": 0,
+         "imaging_angle_unit": "degrees"
       },
       {
-         "voxel_size": {
-            "size_x": 0.748,
-            "size_y": 0.748,
-            "size_z": 1.0,
-            "unit": "\u03bcm"
-         },
-         "position": {
-            "x_start": 0.0,
-            "x_end": 100.0,
-            "y_start": 0.0,
-            "y_end": 100.0,
-            "z_start": 0.0,
-            "z_end": 100.0,
-            "unit": "\u03bcm"
-         },
+         "coordinate_transformations": [
+            {
+               "type": "scale",
+               "scale": [
+                  0.748,
+                  0.748,
+                  1.0
+               ]
+            },
+            {
+               "type": "translation",
+               "translation": [
+                  0.0,
+                  0.0,
+                  0.0
+               ]
+            }
+         ],
          "channel": {
             "channel_name": "561",
             "laser_wavelength": 561,
+            "laser_wavelength_unit": "nm",
             "laser_power": 200.0,
+            "laser_power_unit": "mW",
             "filter_wheel_index": 0
          },
-         "daq_params": {
-            "etl_buffer_time_ms": 5.0,
-            "etl_amplitude_volt": 0.2,
-            "etl_offest_volt": 1.77
-         },
          "file_name": "tile_X_0000_Y_0000_Z_0000_CH_561.ims",
-         "notes": "these are my notes"
+         "notes": "these are my notes",
+         "imaging_angle": 0,
+         "imaging_angle_unit": "degrees"
       }
    ],
    "axes": [
       {
          "name": "X",
          "dimension": 2,
-         "direction": "Left_to_right"
+         "direction": "Left_to_right",
+         "unit": "\u03bcm"
       },
       {
          "name": "Y",
          "dimension": 1,
-         "direction": "Anterior_to_posterior"
+         "direction": "Anterior_to_posterior",
+         "unit": "\u03bcm"
       },
       {
          "name": "Z",
          "dimension": 0,
-         "direction": "Inferior_to_superior"
+         "direction": "Inferior_to_superior",
+         "unit": "\u03bcm"
       }
    ],
+   "active_objectives": null,
    "local_storage_directory": "D:",
    "external_storage_directory": "Z:"
 }

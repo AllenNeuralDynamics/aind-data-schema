@@ -4,9 +4,10 @@ from __future__ import annotations
 
 from datetime import datetime
 from enum import Enum
-from typing import List, Optional
+from typing import List, Optional, Union
 
 from pydantic import Field
+from pydantic.types import conlist
 
 from ..base import AindCoreModel, AindModel
 
@@ -44,6 +45,7 @@ class Axis(AindModel):
         ...,
         description="Tissue direction as the value of axis increases. If Other describe in notes.",
     )
+    unit: str = Field("μm", title="Axis physical units")
 
     @staticmethod
     def from_direction_code(code) -> List[Axis]:
@@ -80,32 +82,30 @@ class Channel(AindModel):
     filter_wheel_index: int = Field(..., title="Filter wheel index")
 
 
-class TilePosition(AindModel):
-    """Description of stage position"""
+class Scale3dTransform(AindModel):
+    """3D scale transform"""
 
-    x_start: float = Field(..., title="X start")
-    x_end: float = Field(..., title="X end")
-    y_start: float = Field(..., title="Y start")
-    y_end: float = Field(..., title="Y end")
-    z_start: float = Field(..., title="Z start")
-    z_end: float = Field(..., title="Z end")
-    unit: str = Field("μm", title="Tile position units")
+    type: str = Field("scale", title="transformation type")
+    scale: conlist(float, min_items=3, max_items=3) = Field(
+        ..., title="3D scale parameters"
+    )
 
 
-class VoxelSize(AindModel):
-    """Description of the size of a 3D grid cell"""
+class Translation3dTransform(AindModel):
+    """3D scale transform"""
 
-    x_size: float = Field(..., title="X size")
-    y_size: float = Field(..., title="Y size")
-    z_size: float = Field(..., title="Z size")
-    unit: str = Field("μm", title="size units")
+    type: str = Field("translation", title="transformation type")
+    translation: conlist(float, min_items=3, max_items=3) = Field(
+        ..., title="3D translation parameters"
+    )
 
 
 class Tile(AindModel):
     """Description of an image tile"""
 
-    voxel_size: VoxelSize = Field(..., title="Voxel size")
-    position: TilePosition = Field(..., title="Tile position")
+    coordinate_transformations: List[
+        Union[Scale3dTransform, Translation3dTransform]
+    ] = Field(..., title="Tile coordinate transformations")
     channel: Channel = Field(..., title="Channel")
     file_name: Optional[str] = Field(None, title="File name")
     notes: Optional[str] = Field(None, title="Notes")
