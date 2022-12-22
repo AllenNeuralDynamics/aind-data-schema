@@ -130,6 +130,7 @@ class Acquisition(AindCoreModel):
     session_end_time: datetime = Field(..., title="Session end time")
     tiles: List[Tile] = Field(..., title="Acquisition tiles")
     axes: List[Axis] = Field(..., title="Acquisition axes")
+    active_objectives: Optional[List[str]] = Field(None, title="List of objectives used in this acquisition. If null, all objectives in instrument were used.")
     local_storage_directory: Optional[str] = Field(
         None, title="Local storage directory"
     )
