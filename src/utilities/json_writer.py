@@ -11,10 +11,9 @@ from aind_data_schema.ophys.ophys_session import OphysSession
 DEFAULT_FILE_PATH = os.getcwd()
 
 def validate_path(output):
-    # TO-DO: add validation for user defined path, fix filenames for json files
 
-    # if not os.path.exists(output):
-    #     return Path(output).parent.mkdir(exist_ok=True, parents=True)
+    if not os.path.exists(output):
+        Path(output).parent.mkdir(exist_ok=True, parents=True)
     return output
 
 def schema_filename(class_name):
@@ -35,12 +34,11 @@ def main(output):
         DataDescription,
     ]
 
-    validated_output = validate_path(output)
+    # validated_output = validate_path(output)
 
     for schema in pydantic_schemas:
         schema_name = schema.__name__.lower()
-        # new_filename = schema_filename(str(schema_name))
-        filename = f"{validated_output}/{schema_name}.json"
+        filename = f"{output}/{schema_name}.json"
 
         with open(filename, "w") as f:
             f.write(schema.schema_json(indent=3))
