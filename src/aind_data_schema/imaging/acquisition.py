@@ -97,9 +97,9 @@ class TilePosition(AindModel):
 class VoxelSize(AindModel):
     """Description of the size of a 3D grid cell"""
 
-    size_x: float = Field(..., title="X size")
-    size_y: float = Field(..., title="Y size")
-    size_z: float = Field(..., title="Z size")
+    x_size: float = Field(..., title="X size")
+    y_size: float = Field(..., title="Y size")
+    z_size: float = Field(..., title="Z size")
     unit: str = Field("μm", title="size units", const=True)
 
 
