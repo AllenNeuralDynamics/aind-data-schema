@@ -126,11 +126,12 @@ class Acquisition(AindCoreModel):
         description="First and last name of the experimenter.",
         title="Experimenter full name",
     )
-    subject_id: int = Field(..., title="Subject ID")
+    subject_id: str = Field(..., title="Subject ID")
     instrument_id: str = Field(..., title="Instrument ID")
     session_start_time: datetime = Field(..., title="Session start time")
     session_end_time: datetime = Field(..., title="Session end time")
     tiles: List[Tile] = Field(..., title="Acquisition tiles")
+    axes: list[Axis] = Field(..., title="Acquisition axes")
     local_storage_directory: Optional[str] = Field(
         None, title="Local storage directory"
     )
