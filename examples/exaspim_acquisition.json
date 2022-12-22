@@ -17,13 +17,10 @@
          "position": {
             "x_start": 0.0,
             "x_end": 100.0,
-            "x_step": 1.0,
             "y_start": 0.0,
             "y_end": 100.0,
-            "y_step": 1.0,
             "z_start": 0.0,
             "z_end": 100.0,
-            "z_step": 1.0,
             "unit": "\u03bcm"
          },
          "channel": {
@@ -50,13 +47,10 @@
          "position": {
             "x_start": 0.0,
             "x_end": 100.0,
-            "x_step": 1.0,
             "y_start": 0.0,
             "y_end": 100.0,
-            "y_step": 1.0,
             "z_start": 0.0,
             "z_end": 100.0,
-            "z_step": 1.0,
             "unit": "\u03bcm"
          },
          "channel": {

@@ -39,13 +39,10 @@ acq = acquisition.Acquisition(
             ),
             position=acquisition.TilePosition(
                 x_start=0,
-                x_step=1,
                 x_end=100,
                 y_start=0,
-                y_step=1,
                 y_end=100,
                 z_start=0,
-                z_step=1,
                 z_end=100,
             ),
             channel=acquisition.Channel(
@@ -68,13 +65,10 @@ acq = acquisition.Acquisition(
             ),
             position=acquisition.TilePosition(
                 x_start=0,
-                x_step=1,
                 x_end=100,
                 y_start=0,
-                y_step=1,
                 y_end=100,
                 z_start=0,
-                z_step=1,
                 z_end=100,
             ),
             channel=acquisition.Channel(

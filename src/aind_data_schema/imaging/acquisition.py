@@ -84,14 +84,11 @@ class TilePosition(AindModel):
     """Description of stage position"""
 
     x_start: float = Field(..., title="X start")
-    x_end: float = Field(..., title="X end")
-    x_step: float = Field(..., title="X step")
+    x_end: float = Field(..., title="X end")    
     y_start: float = Field(..., title="Y start")
-    y_end: float = Field(..., title="Y end")
-    y_step: float = Field(..., title="Y step")
+    y_end: float = Field(..., title="Y end")    
     z_start: float = Field(..., title="Z start")
-    z_end: float = Field(..., title="Z end")
-    z_step: float = Field(..., title="Z step")
+    z_end: float = Field(..., title="Z end")    
     unit: str = Field("μm", title="Tile position units", const=True)
 
 
