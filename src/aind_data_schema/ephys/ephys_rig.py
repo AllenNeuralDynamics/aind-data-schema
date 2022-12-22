@@ -12,17 +12,35 @@ from ..base import AindCoreModel, AindModel
 from ..device import DAQ, Device, DeviceBase
 
 
+class Size2d(AindModel):
+    """2D size of an object"""
+
+    width: int = Field(..., title="Width")
+    height: int = Field(..., title="Height")
+    unit: str = Field("pixels", title="Size units")
+
+
 class Orientation3d(AindModel):
     """3D orientation of an object"""
 
-    pitch: float = Field(
-        ..., title="Angle pitch (deg)", units="deg", ge=0, le=360
-    )
-    yaw: float = Field(..., title="Angle yaw (deg)", units="deg", ge=0, le=360)
-    roll: float = Field(
-        ..., title="Angle roll (deg)", units="deg", ge=0, le=360
-    )
-    unit: str = Field("degrees", title="Angle units", const=True)
+    pitch: float = Field(..., title="Angle pitch", ge=0, le=360)
+    yaw: float = Field(..., title="Angle yaw", ge=0, le=360)
+    roll: float = Field(..., title="Angle roll", ge=0, le=360)
+    unit: str = Field("degrees", title="Angle units")
+
+
+class ModuleOrientation2d(AindModel):
+    """2D module orientation of an object"""
+
+    arc_angle: float = Field(..., title="Arc Angle")
+    module_angle: float = Field(..., title="Module Angle")
+    unit: str = Field("degrees", title="Degrees")
+
+
+class ModuleOrientation3d(ModuleOrientation2d):
+    """3D module orientation of an object"""
+
+    rotation_angle: float = Field(..., title="Rotation angle")
 
 
 class Position3d(AindModel):
@@ -31,7 +49,7 @@ class Position3d(AindModel):
     x: float = Field(..., title="Position X")
     y: float = Field(..., title="Position Y")
     z: float = Field(..., title="Position Z")
-    unit: str = Field("unitless", title="Position units", const=True)
+    unit: str = Field("None", title="Position units")
 
 
 class HarpDeviceName(Enum):
@@ -104,21 +122,16 @@ class Treadmill(MousePlatform):
 class StickMicroscope(Device):
     """Description of a stick microscope used to monitor probes during insertion"""
 
-    arc_angle: float = Field(..., title="Arc Angle (deg)", units="degrees")
-    module_angle: float = Field(
-        ..., title="Module Angle (deg)", units="degrees"
+    orientation: ModuleOrientation2d = Field(
+        ..., title="Microscope orientation"
     )
 
 
 class Manipulator(DeviceBase):
     """Description of manipulator"""
 
-    arc_angle: float = Field(..., title="Arc Angle (deg)", units="degrees")
-    module_angle: float = Field(
-        ..., title="Module Angle (deg)", units="degrees"
-    )
-    rotation_angle: float = Field(
-        ..., title="Rotatle Angle (deg)", units="degrees"
+    orientation: ModuleOrientation3d = Field(
+        ..., title="Manipulator orientation"
     )
 
 
@@ -170,13 +183,12 @@ class Monitor(Device):
     refresh_rate: int = Field(
         ..., title="Refresh rate (Hz)", units="Hz", ge=60
     )
-    width: int = Field(..., title="Width (pixels)", units="pixels")
-    height: int = Field(..., title="Height (pixels)", units="pixels")
+    size: Size2d = Field(..., title="Monitor size")
+    position: Position3d = Field(..., title="Monitor position")
+    orientation: Orientation3d = Field(..., title="Monitor orientation")
     viewing_distance: float = Field(
         ..., title="Viewing distance (cm)", units="cm"
     )
-    position: Position3d = Field(..., title="Monitor position")
-    orientation: Orientation3d = Field(..., title="Monitor orientation")
     contrast: int = Field(
         ...,
         description="Monitor's contrast setting",
