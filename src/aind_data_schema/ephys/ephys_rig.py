@@ -12,6 +12,28 @@ from ..base import AindCoreModel, AindModel
 from ..device import DAQ, Device, DeviceBase
 
 
+class Orientation3d(AindModel):
+    """3D orientation of an object"""
+
+    pitch: float = Field(
+        ..., title="Angle pitch (deg)", units="deg", ge=0, le=360
+    )
+    yaw: float = Field(..., title="Angle yaw (deg)", units="deg", ge=0, le=360)
+    roll: float = Field(
+        ..., title="Angle roll (deg)", units="deg", ge=0, le=360
+    )
+    unit: str = Field("degrees", title="Angle units", const=True)
+
+
+class Position3d(AindModel):
+    """Position of a 3d object"""
+
+    x: float = Field(..., title="Position X")
+    y: float = Field(..., title="Position Y")
+    z: float = Field(..., title="Position Z")
+    unit: str = Field("unitless", title="Position units", const=True)
+
+
 class HarpDeviceName(Enum):
     """Harp device name"""
 
@@ -140,28 +162,6 @@ class LaserModule(DeviceBase):
     """Description of a laser housing module used in ephys recordings"""
 
     lasers: List[Laser] = Field(..., title="Lasers")
-
-
-class Orientation3d(AindModel):
-    """3D orientation of an object"""
-
-    pitch: float = Field(
-        ..., title="Angle pitch (deg)", units="deg", ge=0, le=360
-    )
-    yaw: float = Field(..., title="Angle yaw (deg)", units="deg", ge=0, le=360)
-    roll: float = Field(
-        ..., title="Angle roll (deg)", units="deg", ge=0, le=360
-    )
-    unit: str = Field("degrees", title="Angle units", const=True)
-
-
-class Position3d(AindModel):
-    """Position of a 3d object"""
-
-    x: float = Field(..., title="Position X")
-    y: float = Field(..., title="Position Y")
-    z: float = Field(..., title="Position Z")
-    unit: str = Field("unitless", title="Position units", const=True)
 
 
 class Monitor(Device):
