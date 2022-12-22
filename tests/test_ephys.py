@@ -77,7 +77,7 @@ class ExampleTest(unittest.TestCase):
             ],
         )
 
-        assert es is not None
+        assert sess is not None
 
 
 if __name__ == "__main__":
