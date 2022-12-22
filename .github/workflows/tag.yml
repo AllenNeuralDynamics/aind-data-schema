@@ -8,7 +8,7 @@ jobs:
   tag:
     uses: AllenNeuralDynamics/aind-reusable-workflows/.github/workflows/tag.yml@main
     secrets:
-      SERVICE_TOKEN: ${{ secrets.GITHUB_TOKEN }} # required
+      SERVICE_TOKEN: ${{ secrets.SERVICE_TOKEN }} # required
 
   publish:
     runs-on: ubuntu-latest
