@@ -64,8 +64,8 @@ class ModuleOrientation3d(AindModel):
     unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
 
 
-class Position3d(AindModel):
-    """Position of a 3d object"""
+class Coordinates3d(AindModel):
+    """Coordinates in a 3D grid"""
 
     x: float = Field(..., title="Position X")
     y: float = Field(..., title="Position Y")
@@ -104,7 +104,7 @@ class Camera(Device):
 
     name: CameraName = Field(..., title="Name")
     orientation: Orientation3d = Field(..., title="Camera orientation")
-    position: Position3d = Field(..., title="Camera position")
+    position: Coordinates3d = Field(..., title="Camera position")
     recording_software: Optional[str] = Field(None, title="Recording software")
     recording_software_version: Optional[str] = Field(
         None, title="Recording software version"
@@ -176,9 +176,7 @@ class Laser(Device):
         None, title="Wavelength", ge=300, le=1000
     )
     wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
-    maximum_power: Optional[float] = Field(
-        None, title="Maximum power"
-    )
+    maximum_power: Optional[float] = Field(None, title="Maximum power")
     maximum_power_unit: str = Field("milliwatt", title="Maximum power unit")
     coupling_efficiency: Optional[float] = Field(
         None,
@@ -186,7 +184,9 @@ class Laser(Device):
         ge=0,
         le=100,
     )
-    coupling_efficiency_unit: str = Field("percent", title="Coupling efficienty unit")
+    coupling_efficiency_unit: str = Field(
+        "percent", title="Coupling efficienty unit"
+    )
     calibration_data: Optional[str] = Field(
         None, description="path to calibration data", title="Calibration data"
     )
@@ -205,15 +205,12 @@ class LaserModule(DeviceBase):
 class Monitor(Device):
     """Description of a visual monitor"""
 
-    refresh_rate: int = Field(
-        ..., title="Refresh rate", ge=60
-    )
+    refresh_rate: int = Field(..., title="Refresh rate", ge=60)
     regresh_rate_unit: str = Field("hertz", title="Refresh rate unit")
     size: Size2d = Field(..., title="Monitor size")
     position: Position3d = Field(..., title="Monitor position")
     orientation: Orientation3d = Field(..., title="Monitor orientation")
-    viewing_distance: float = Field(
-        ..., title="Viewing distance")
+    viewing_distance: float = Field(..., title="Viewing distance")
     viewing_distance_unit: SizeUnit = Field(SizeUnit.CM, title="Size unit")
     contrast: int = Field(
         ...,

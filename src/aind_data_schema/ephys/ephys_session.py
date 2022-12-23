@@ -9,7 +9,7 @@ from typing import List, Optional
 from pydantic import Field
 
 from ..base import AindCoreModel, AindModel
-from .ephys_rig import SizeUnit
+from .ephys_rig import Coordinates3d, SizeUnit
 
 
 class SessionType(Enum):
@@ -38,15 +38,6 @@ class CcfVersion(Enum):
     CCFv3 = "CCFv3"
 
 
-class Coordinates3d(AindModel):
-    """Description of 3d coordinates in mm"""
-
-    x: float = Field(..., title="X")
-    y: float = Field(..., title="Y")
-    z: float = Field(..., title="Z")
-    unit: SizeUnit = Field(SizeUnit.UM, title="Coordinate unit")
-
-
 class CcfCoords(AindModel):
     """Coordinates in CCF template space"""
 
@@ -62,7 +53,7 @@ class Laser(AindModel):
 
     name: str = Field(..., title="Name")
     wavelength: int = Field(..., title="Wavelength")
-    wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")    
+    wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
     power: float = Field(..., title="Power")
     ower_unit: str = Field("milliwatt", title="Maximum power unit")
     manipulator_coordinates: Coordinates3d = Field(
