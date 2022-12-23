@@ -208,7 +208,7 @@ class Monitor(Device):
     refresh_rate: int = Field(..., title="Refresh rate", ge=60)
     regresh_rate_unit: str = Field("hertz", title="Refresh rate unit")
     size: Size2d = Field(..., title="Monitor size")
-    position: Position3d = Field(..., title="Monitor position")
+    position: Coordinates3d = Field(..., title="Monitor position")
     orientation: Orientation3d = Field(..., title="Monitor orientation")
     viewing_distance: float = Field(..., title="Viewing distance")
     viewing_distance_unit: SizeUnit = Field(SizeUnit.CM, title="Size unit")
