@@ -21,6 +21,7 @@ class SizeUnit(Enum):
     MM = "millimeter"
     UM = "micrometer"
     NM = "nanometer"
+    NONE = "none"
 
 
 class Size2d(AindModel):
@@ -70,7 +71,7 @@ class Coordinates3d(AindModel):
     x: float = Field(..., title="Position X")
     y: float = Field(..., title="Position Y")
     z: float = Field(..., title="Position Z")
-    unit: str = Field("None", title="Position unit")
+    unit: SizeUnit = Field(SizeUnit.UM, title="Position unit")
 
 
 class HarpDeviceName(Enum):
