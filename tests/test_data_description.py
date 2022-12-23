@@ -174,6 +174,8 @@ class DataDescriptionTest(unittest.TestCase):
         assert dd is not None
 
     def test_round_trip(self):
+        """ make sure we can round trip from json """
+        
         dt = datetime.datetime.now()
 
         da1 = RawDataDescription(
