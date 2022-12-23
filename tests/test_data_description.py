@@ -1,6 +1,7 @@
 """ test DataDescription """
 
 import datetime
+import json
 import unittest
 
 from aind_data_schema.data_description import (DataDescription,
@@ -171,6 +172,27 @@ class DataDescriptionTest(unittest.TestCase):
         )
 
         assert dd is not None
+
+    def test_round_trip(self):
+        """ make sure we can round trip from json """
+        
+        dt = datetime.datetime.now()
+
+        da1 = RawDataDescription(
+            creation_date=dt.date(),
+            creation_time=dt.time(),
+            institution="AIND",
+            data_level="raw data",
+            funding_source=[],
+            modality="ecephys",
+            subject_id="12345",
+        )
+
+        da2 = RawDataDescription.parse_obj(json.loads(da1.json()))
+
+        assert da1.creation_time == da2.creation_time
+        assert da1.creation_date == da2.creation_date
+        assert da1.name == da2.name
 
 
 if __name__ == "__main__":

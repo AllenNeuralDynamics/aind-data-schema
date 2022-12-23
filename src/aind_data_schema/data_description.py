@@ -110,8 +110,8 @@ class DataDescription(AindCoreModel):
         description="Date in UTC that data files were created, used to uniquely identify the data",
         title="Creation Date",
     )
-    name: str = Field(
-        ...,
+    name: Optional[str] = Field(
+        None,
         description="Name of data, conventionally also the name of the directory containing all data and metadata",
         title="Name",
     )
@@ -162,15 +162,17 @@ class DataDescription(AindCoreModel):
         description="Unique identifier for the subject of data acquisition",
     )
 
-    def __init__(self, label, **kwargs):
-        """Construct a generic data description"""
-        name = build_data_name(
-            label=label,
-            creation_date=kwargs["creation_date"],
-            creation_time=kwargs["creation_time"],
-        )
+    def __init__(self, label=None, **kwargs):
+        """Construct a generic DataDescription"""
 
-        super().__init__(name=name, **kwargs)
+        super().__init__(**kwargs)
+
+        if label is not None:
+            self.name = build_data_name(
+                label,
+                creation_date=self.creation_date,
+                creation_time=self.creation_time,
+            )
 
     @classmethod
     def parse_name(cls, name):
