@@ -3,6 +3,7 @@
 import inspect
 import os
 import urllib.parse
+import re
 
 from pydantic import BaseModel, Extra
 from pydantic.fields import ModelField
@@ -40,7 +41,7 @@ class AindCoreModel(AindModel):
     describedBy: str
 
     def __init_subclass__(cls, optional_fields=None, **kwargs):
-        """add the describedby field to all subclasses"""
+        """Add the describedby field to all subclasses"""
         super().__init_subclass__(**kwargs)
 
         value = build_described_by(cls)
@@ -54,16 +55,27 @@ class AindCoreModel(AindModel):
         field.field_info.const = True
         cls.__fields__.update({"describedBy": field})
 
+    def _get_direct_subclass(self, cls):
+        """
+        Check superclasses for a direct subclass of AindCoreModel
+        """
+        for base in cls.__bases__:
+            if base is AindCoreModel:
+                return cls
+            else:
+                return self._get_direct_subclass(base)
+
     def _get_default_filename(self):
         """
-        returns standard filename (schema.json)
+        Returns standard filename in snakecase
         """
-        return self.__class__.__name__.lower() + ".json"
+        name = self._get_direct_subclass(self.__class__).__name__
+        return re.sub(r"(?<!^)(?=[A-Z])", "_", name).lower() + ".json"
 
     def write_standard_file(self, prefix=None):
         """
-        writes schema to standard json file
-        parameters
+        Writes schema to standard json file
+        Parameters
         ----------
         prefix: 
             optional str for intended filepath with extra naming convention
