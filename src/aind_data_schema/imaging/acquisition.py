@@ -76,7 +76,9 @@ class Channel(AindModel):
 
     channel_name: str = Field(..., title="Channel")
     laser_wavelength: int = Field(..., title="Wavelength", ge=300, le=1000)
-    laser_wavelength_unit: str = Field("nanometer", title="Laser wavelength unit")
+    laser_wavelength_unit: str = Field(
+        "nanometer", title="Laser wavelength unit"
+    )
     laser_power: float = Field(..., title="Laser power", le=2000)
     laser_power_unit: float = Field("milliwatt", title="Laser power unit")
     filter_wheel_index: int = Field(..., title="Filter wheel index")
@@ -112,11 +114,13 @@ class Tile(AindModel):
     imaging_angle: int = Field(0, title="Imaging angle")
     imaging_angle_unit: str = Field("degree", title="Imaging angle unit")
 
+
 class Immersion(AindModel):
     """Description of immersion media"""
 
     medium: str = Field(..., title="Immersion medium")
     refractive_index: float = Field(..., title="Index of refraction")
+
 
 class Acquisition(AindCoreModel):
     """Description of an imaging acquisition session"""
@@ -135,7 +139,12 @@ class Acquisition(AindCoreModel):
     session_end_time: datetime = Field(..., title="Session end time")
     tiles: List[Tile] = Field(..., title="Acquisition tiles")
     axes: List[Axis] = Field(..., title="Acquisition axes")
-    immersion: Immersion = Field(..., title="Acquisition immersion data")
+    chamber_immersion: Immersion = Field(
+        ..., title="Acquisition chamber immersion data "
+    )
+    sample_immersion: Optional[Immersion] = Field(
+        None, title="Acquisition sample immersion data"
+    )
     active_objectives: Optional[List[str]] = Field(
         None,
         title="List of objectives used in this acquisition. If null, all objectives in instrument were used.",
