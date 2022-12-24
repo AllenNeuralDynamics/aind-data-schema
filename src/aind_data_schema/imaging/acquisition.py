@@ -140,7 +140,7 @@ class Acquisition(AindCoreModel):
     tiles: List[Tile] = Field(..., title="Acquisition tiles")
     axes: List[Axis] = Field(..., title="Acquisition axes")
     chamber_immersion: Immersion = Field(
-        ..., title="Acquisition chamber immersion data "
+        ..., title="Acquisition chamber immersion data"
     )
     sample_immersion: Optional[Immersion] = Field(
         None, title="Acquisition sample immersion data"
