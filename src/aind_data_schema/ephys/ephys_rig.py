@@ -8,12 +8,12 @@ from typing import List, Optional, Union
 
 from pydantic import Field
 
-from ..device import DeviceBase, DAQ, Camera, CameraAssembly, RelativePosition, Laser
+from ..device import DeviceBase, DAQ, Camera, CameraAssembly, RelativePosition, Laser, DataInterface
 from ..base import AindCoreModel, AindModel
 
 
 class HarpDeviceType(Enum):
-    """Harp device name"""
+    """Harp device type"""
 
     BEHAVIOR = "Behavior"
     CAMERA_CONTROLLER = "Camera Controller"
@@ -24,40 +24,56 @@ class HarpDeviceType(Enum):
 
 
 class HarpDevice(DAQ):
-    """Describes a Harp device"""
+    """DAQ that uses the Harp protocol for synchronization and data transmission"""
 
-    device_type: HarpDeviceType = Field(..., title="Type of Harp device")
-    device_version: str = Field(..., title="Device version")
-    daq_manufacturer: str = Field("OEPS", title="Harp device manufacturer", const=True)
+    # required fields
+    harp_device_type: HarpDeviceType = Field(..., title="Type of Harp device")
+    harp_device_version: str = Field(..., title="Device version")
+
+    # fixed values
+    daq_manufacturer: str = Field("OEPS", const=True)
+    data_interface: DataInterface = Field("USB", const=True)
 
 
 class ProbePort(AindModel):
     """Port for a probe connection"""
 
-    index: int = Field(..., title="Port index")
+    index: int = Field(..., title="Zero-based port index")
     probes: List[str] = Field(..., title="Names of probes connected to this port")
 
 
 class NeuropixelsBasestation(DAQ):
-    """Describes a Neuropixels basestation"""
+    """PXI-based Neuropixels DAQ"""
 
-    basestation_firmware: str = Field(..., title="Basestation firmware version")
-    bsc_firmware: str = Field(..., title="Basestation connect board firmware")
+    # required fields
+    basestation_firmware_version: str = Field(..., title="Basestation firmware version")
+    bsc_firmware_version: str = Field(..., title="Basestation connect board firmware")
     slot: int = Field(..., title="Slot number for this basestation")
     ports: List[ProbePort] = Field(..., title="Basestation ports")
+
+    # fixed values
+    data_interface: DataInterface = Field("PXI", const=True)
     daq_manufacturer: str = Field("IMEC", title="Basestation device manufacturer", const=True)
 
 
 class OpenEphysAcquisitionBoard(DAQ):
-    """Describes an Open Ephys Acquisition Board"""
+    """Multichannel electrophysiology DAQ"""
 
+    # required fields
     ports: List[ProbePort] = Field(..., title="Acquisition board ports")
+
+    # fixed values
+    data_interface: DataInterface = Field("USB", const=True)
+    daq_manufacturer: str = Field("OEPS", const=True)
 
 
 class MousePlatform(DeviceBase):
     """Description of a mouse platform"""
 
     surface_material: Optional[str] = Field(None, title="Surface material")
+    date_surface_replaced: Optional[datetime] = Field(
+        None, title="Date surface replaced"
+    )
 
 
 class Disc(MousePlatform):
@@ -65,10 +81,7 @@ class Disc(MousePlatform):
 
     platform_type: str = Field("Disc", title="Platform type", const=True)
     radius: float = Field(..., title="Radius (cm)", units="cm", ge=0)
-    date_surface_replaced: Optional[datetime] = Field(
-        None, title="Date surface replaced"
-    )
-
+    
 
 class Tube(MousePlatform):
     """Description of a tube platform"""
@@ -81,13 +94,17 @@ class Treadmill(MousePlatform):
     """Description of treadmill platform"""
 
     platform_type: str = Field("Treadmill", title="Platform type", const=True)
+    treadmill_width: float = Field(..., title="Width of treadmill (mm)", units="mm")
 
 
 class DomeModule(AindModel):
-    """A module that is mounted on the ephys dome insertion system"""
+    """Movable module that is mounted on the ephys dome insertion system"""
 
+    # required fields
     arc_angle: float = Field(..., title="Arc Angle", units="degrees")
     module_angle: float = Field(..., title="Module Angle", units="degrees")
+
+    # optional fields
     rotation_angle: Optional[float] = Field(0.0, title="Rotatle Angle", units="degrees")
     coordinate_transform: Optional[str] = Field(
         None,
@@ -101,9 +118,9 @@ class DomeModule(AindModel):
 
 
 class StickMicroscope(DomeModule):
-    """Description of a stick microscope used to monitor probes during insertion"""
+    """Stick microscope used to monitor probes during insertion"""
 
-    camera: Camera = Field(..., title="Camera on this module")
+    camera: Camera = Field(..., title="Camera for this module")
     
 
 class ManipulatorManufacturer(Enum):
@@ -119,13 +136,13 @@ class MonitorManufacturer(Enum):
 
 
 class Manipulator(DeviceBase):
-    """Description of manipulator"""
+    """Manipulator used on a dome module"""
     
     manipulator_manufacturer: ManipulatorManufacturer = Field(..., title="Manipulator manufacturer")
 
 
 class LaserModule(DomeModule):
-    """Description of lasers used in ephys recordings"""
+    """Named laser module for optogenetic stimulation"""
 
     laser_module_name: str = Field(..., title="Laser module name")
     manipulator: Manipulator = Field(..., title="Manipulator")
@@ -133,8 +150,9 @@ class LaserModule(DomeModule):
 
 
 class Monitor(DeviceBase):
-    """Description of a visual monitor"""
+    """Visual display"""
 
+    # required fields
     monitor_manufacturer: MonitorManufacturer = Field(..., title="Monitor manufacturer")
     refresh_rate: int = Field(
         ..., title="Refresh rate (Hz)", units="Hz", ge=60
@@ -144,6 +162,8 @@ class Monitor(DeviceBase):
     viewing_distance: float = Field(
         ..., title="Viewing distance (cm)", units="cm"
     )
+
+    # optional fields
     contrast: Optional[int] = Field(
         ...,
         description="Monitor's contrast setting",
@@ -176,13 +196,25 @@ class ProbeModel(Enum):
     MP_PHOTONIC_V1 = "MPI Photonic Probe (Version 1)"
 
 
-class EphysProbe(DeviceBase, DomeModule):
-    """Description of an ephys probe"""
+class HeadstageModel(Enum):
+    """Headstage model name"""
 
+    RHD_16_CH = "Intan RHD 16-channel"
+    RHD_32_CH = "Intan RHD 32-channel"
+    RHD_64_CH = "Intan RHD 64-channel"
+
+
+class EphysProbe(DeviceBase, DomeModule):
+    """Named probe used in an ephys experiment"""
+
+    # required fields
     probe_name: str = Field(..., title="Name")
     probe_model: ProbeModel = Field(..., title="Probe model")
     manipulator: Manipulator = Field(..., title="Manipulator")
+
+    # optional fields
     lasers: Optional[List[Laser]] = Field(None, title="Lasers connected to this probe")
+    headstage: Optional[HeadstageModel] = Field(None, title="Headstage for this probe")
 
 
 class EphysRig(AindCoreModel):

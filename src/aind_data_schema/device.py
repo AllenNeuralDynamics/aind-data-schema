@@ -74,7 +74,7 @@ class DaqManufacturer(Enum):
     """DAQ manufacturer"""
 
     NI = "NI"
-    IMEC = "imec"
+    IMEC = "IMEC"
     OEPS = "OEPS"
 
 
@@ -97,7 +97,6 @@ class DataInterface(Enum):
     PXI = "PXI"
     ETH = "Ethernet"
     OTHER = "Other"
-
 
 
 class FilterType(Enum):
@@ -142,23 +141,27 @@ class DaqChannelType(Enum):
 
 
 class RelativePosition(AindModel):
-    angle_pitch: Optional[float] = Field(
+    """Set of 6 values describing relative position on a rig"""
+
+    pitch: Optional[float] = Field(
         None, title="Angle pitch (deg)", units="deg", ge=0, le=360
     )
-    angle_yaw: Optional[float] = Field(
+    yaw: Optional[float] = Field(
         None, title="Angle yaw (deg)", units="deg", ge=0, le=360
     )
-    angle_roll: Optional[float] = Field(
+    roll: Optional[float] = Field(
         None, title="Angle roll (deg)", units="deg", ge=0, le=360
     )
-    position_x: Optional[float] = Field(None, title="Position X")
-    position_y: Optional[float] = Field(None, title="Position Y")
-    position_z: Optional[float] = Field(None, title="Position Z")
+    
+    x: Optional[float] = Field(None, title="Position X (mm)", units="mm")
+    y: Optional[float] = Field(None, title="Position Y (mm)", units="mm")
+    z: Optional[float] = Field(None, title="Position Z (mm)", units="mm")
+    
     coordinate_system: Optional[str] = Field(None, title="Description of the coordinate system used")
 
 
 class DeviceBase(AindModel):
-    """Description of a general device"""
+    """Generic device"""
 
     device_name: Optional[str] = Field(None, title="Device name")
     serial_number: Optional[str] = Field(None, title="Serial number")
@@ -168,11 +171,12 @@ class DeviceBase(AindModel):
 
 
 class Camera(DeviceBase):
-    """A device that acquires images and streams them to a PC"""
+    """Device that acquires images and streams them to a computer"""
 
     # required fields
     data_interface: DataInterface = Field(..., title="Type of connection to PC")
     camera_manufacturer: CameraManufacturer = Field(..., title="Camera manufacturer")
+    computer_name: str = Field(..., title="Name of computer receiving data from this camera")
     max_frame_rate: float = Field(..., title="Maximum frame rate (Hz)", units="Hz")
     pixel_width: int = Field(..., title="Width of the sensor in pixels", units="Pixels")
     pixel_height: int = Field(..., title="Height of the sensor in pixels", units="Pixels")
@@ -184,7 +188,7 @@ class Camera(DeviceBase):
 
 
 class Lens(DeviceBase):
-    """A lens used to focus light onto a camera sensor"""
+    """Lens used to focus light onto a camera sensor"""
 
     # required fields
     lens_manufacturer: LensManufacturer = Field(..., title="Lens manufacturer")
@@ -196,11 +200,10 @@ class Lens(DeviceBase):
         None, title="Optimized wavelength range (nm)"
     )
     max_aperture: Optional[str] = Field(None, title="Max aperture (e.g. f/2)")
-    notes: Optional[str] = Field(None, title="Notes")
 
 
 class Filter(DeviceBase):
-    """A filter used in a light path"""
+    """Filter used in a light path"""
 
     # required fields
     filter_type: FilterType = Field(..., title="Type of filter")
@@ -217,7 +220,7 @@ class Filter(DeviceBase):
 
 
 class CameraAssembly(AindModel):
-    """An assembly of a camera and lens"""
+    """Named assembly of a camera and lens (and optionally a filter)"""
 
     # required fields
     camera_assembly_name: str = Field(..., title="Name of this camera assembly")
@@ -230,7 +233,7 @@ class CameraAssembly(AindModel):
     
 
 class DaqChannel(AindModel):
-    """Description of a DAQ Channel"""
+    """Named input or output channel on a DAQ"""
 
     # required fields
     channel_name: str = Field(..., title="DAQ channel name")
@@ -244,7 +247,7 @@ class DaqChannel(AindModel):
     
 
 class DAQ(DeviceBase):
-    """A non-camera device that interfaces with a computer"""
+    """Data acquisition device containing multiple I/O channels"""
 
     # required fields
     data_interface: DataInterface = Field(..., title="Type of connection to PC")
@@ -258,7 +261,7 @@ class DAQ(DeviceBase):
 
 
 class Laser(DeviceBase):
-    """Description of a laser"""
+    """Laser module with a specific wavelength (may be a sub-component of a larger assembly)"""
     
     # required fields
     laser_manufacturer: LaserManufacturer = Field(..., title="Laser manufacturer")
@@ -267,7 +270,6 @@ class Laser(DeviceBase):
     )
 
     # optional fields
-    item_number: Optional[str] = Field(None, title="Item number")
     maximum_power: Optional[float] = Field(
         None, title="Maximum power (mW)", units="mW"
     )
@@ -279,6 +281,7 @@ class Laser(DeviceBase):
         ge=0,
         le=100,
     )
+    item_number: Optional[str] = Field(None, title="Item number")
     calibration_data: Optional[str] = Field(
         None, description="Path to calibration data", title="Calibration data"
     )
