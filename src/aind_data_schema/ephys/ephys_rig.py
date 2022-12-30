@@ -8,11 +8,11 @@ from typing import List, Optional, Union
 
 from pydantic import Field
 
-from ..device import Device, DeviceBase, DAQ
+from ..device import DeviceBase, DAQ, Camera, CameraAssembly, RelativePosition, Laser
 from ..base import AindCoreModel, AindModel
 
 
-class HarpDeviceName(Enum):
+class HarpDeviceType(Enum):
     """Harp device name"""
 
     BEHAVIOR = "Behavior"
@@ -23,45 +23,38 @@ class HarpDeviceName(Enum):
     INPUT_EXPANDER = "Input Expander"
 
 
-class HarpDevice(Device):
+class HarpDevice(DAQ):
     """Describes a Harp device"""
 
-    name: HarpDeviceName = Field(..., title="Name")
+    device_type: HarpDeviceType = Field(..., title="Type of Harp device")
     device_version: str = Field(..., title="Device version")
+    daq_manufacturer: str = Field("OEPS", title="Harp device manufacturer", const=True)
 
 
-class CameraName(Enum):
-    """Camera name"""
+class ProbePort(AindModel):
+    """Port for a probe connection"""
 
-    BODY_CAMERA = "Body Camera"
-    EYE_CAMERA = "Eye Camera"
-    FACE_CAMERA = "Face Camera"
-
-
-class Camera(Device):
-    """Description of camera"""
-
-    name: CameraName = Field(..., title="Name")
-    angle_pitch: float = Field(
-        ..., title="Angle pitch (deg)", units="deg", ge=0, le=360
-    )
-    angle_yaw: float = Field(
-        ..., title="Angle yaw (deg)", units="deg", ge=0, le=360
-    )
-    angle_roll: float = Field(
-        ..., title="Angle roll (deg)", units="deg", ge=0, le=360
-    )
-    recording_software: Optional[str] = Field(None, title="Recording software")
-    recording_software_version: Optional[str] = Field(
-        None, title="Recording software version"
-    )
-    position_x: Optional[float] = Field(..., title="Position X")
-    position_y: Optional[float] = Field(..., title="Position Y")
-    position_z: Optional[float] = Field(..., title="Position Z")
-    
+    index: int = Field(..., title="Port index")
+    probes: List[str] = Field(..., title="Names of probes connected to this port")
 
 
-class MousePlatform(Device):
+class NeuropixelsBasestation(DAQ):
+    """Describes a Neuropixels basestation"""
+
+    basestation_firmware: str = Field(..., title="Basestation firmware version")
+    bsc_firmware: str = Field(..., title="Basestation connect board firmware")
+    slot: int = Field(..., title="Slot number for this basestation")
+    ports: List[ProbePort] = Field(..., title="Basestation ports")
+    daq_manufacturer: str = Field("IMEC", title="Basestation device manufacturer", const=True)
+
+
+class OpenEphysAcquisitionBoard(DAQ):
+    """Describes an Open Ephys Acquisition Board"""
+
+    ports: List[ProbePort] = Field(..., title="Acquisition board ports")
+
+
+class MousePlatform(DeviceBase):
     """Description of a mouse platform"""
 
     surface_material: Optional[str] = Field(None, title="Surface material")
@@ -85,64 +78,64 @@ class Tube(MousePlatform):
 
 
 class Treadmill(MousePlatform):
-    """Descrsiption of treadmill platform"""
+    """Description of treadmill platform"""
 
     platform_type: str = Field("Treadmill", title="Platform type", const=True)
 
 
-class StickMicroscope(Device):
-    """Description of a stick microscope used to monitor probes during insertion"""
+class DomeModule(AindModel):
+    """A module that is mounted on the ephys dome insertion system"""
 
     arc_angle: float = Field(..., title="Arc Angle", units="degrees")
     module_angle: float = Field(..., title="Module Angle", units="degrees")
+    rotation_angle: Optional[float] = Field(0.0, title="Rotatle Angle", units="degrees")
+    coordinate_transform: Optional[str] = Field(
+        None,
+        title="Transform from local manipulator axes to rig", 
+        description="Path to coordinate transform"
+    )
+    calibration_date: Optional[datetime] = Field(
+        None, 
+        title="Data on which coordinate transform was last calibrated"
+    )
+
+
+class StickMicroscope(DomeModule):
+    """Description of a stick microscope used to monitor probes during insertion"""
+
+    camera: Camera = Field(..., title="Camera on this module")
+    
+
+class ManipulatorManufacturer(Enum):
+    """Manipulator manufacturer"""
+
+    NEW_SCALE_TECHNOLOGIES = "New Scale Technologies"
+
+
+class MonitorManufacturer(Enum):
+    """Monitor manufacturer"""
+
+    LG = "LG"
 
 
 class Manipulator(DeviceBase):
     """Description of manipulator"""
-
-    arc_angle: float = Field(..., title="Arc Angle", units="degrees")
-    module_angle: float = Field(..., title="Module Angle", units="degrees")
-    rotation_angle: float = Field(..., title="Rotatle Angle", units="degrees")
+    
+    manipulator_manufacturer: ManipulatorManufacturer = Field(..., title="Manipulator manufacturer")
 
 
-class LaserName(Enum):
-    """Laser name"""
-
-    LASER_A = "Laser A"
-    LASER_B = "Laser B"
-    LASER_C = "Laser C"
-    LASER_D = "Laser D"
-
-
-class LaserModule(Device):
+class LaserModule(DomeModule):
     """Description of lasers used in ephys recordings"""
 
-    name: LaserName = Field(..., title="Laser Name")
-    wavelength: Optional[int] = Field(
-        None, title="Wavelength (nm)", units="nm", ge=300, le=1000
-    )
-    maximum_power: Optional[float] = Field(
-        None, title="Maximum power (mW)", units="mW"
-    )
-    coupling_efficiency: Optional[float] = Field(
-        None,
-        title="Coupling efficiency (percent)",
-        units="percent",
-        ge=0,
-        le=100,
-    )
-    calibration_data: Optional[str] = Field(
-        None, description="path to calibration data", title="Calibration data"
-    )
-    calibration_date: Optional[datetime] = Field(
-        None, title="Calibration date"
-    )
-    laser_manipulator: Manipulator = Field(..., title="Manipulator")
+    laser_module_name: str = Field(..., title="Laser module name")
+    manipulator: Manipulator = Field(..., title="Manipulator")
+    lasers: List[Laser] = Field(..., title="Lasers connected to this module")
 
 
-class Monitor(Device):
+class Monitor(DeviceBase):
     """Description of a visual monitor"""
 
+    monitor_manufacturer: MonitorManufacturer = Field(..., title="Monitor manufacturer")
     refresh_rate: int = Field(
         ..., title="Refresh rate (Hz)", units="Hz", ge=60
     )
@@ -151,19 +144,7 @@ class Monitor(Device):
     viewing_distance: float = Field(
         ..., title="Viewing distance (cm)", units="cm"
     )
-    position_x: float = Field(..., title="Position X")
-    position_y: float = Field(..., title="Position Y")
-    position_z: float = Field(..., title="Position Z")
-    angle_pitch: float = Field(
-        ..., title="Angle pitch (deg)", units="deg", ge=0, le=360
-    )
-    angle_yaw: float = Field(
-        ..., title="Angle yaw (deg)", units="deg", ge=0, le=360
-    )
-    angle_roll: float = Field(
-        ..., title="Angle roll (deg)", units="deg", ge=0, le=360
-    )
-    contrast: int = Field(
+    contrast: Optional[int] = Field(
         ...,
         description="Monitor's contrast setting",
         title="Contrast (percent)",
@@ -171,28 +152,14 @@ class Monitor(Device):
         ge=0,
         le=100,
     )
-    brightness: int = Field(
+    brightness: Optional[int] = Field(
         ...,
         description="Monitor's brightness setting",
         title="Brightness",
         ge=0,
         le=100,
     )
-
-
-class ProbeName(Enum):
-    """Probe name"""
-
-    PROBE_A = "Probe A"
-    PROBE_B = "Probe B"
-    PROBE_C = "Probe C"
-    PROBE_D = "Probe D"
-    PROBE_E = "Probe E"
-    PROBE_F = "Probe F"
-    PROBE_G = "Probe G"
-    PROBE_H = "Probe H"
-    PROBE_I = "Probe I"
-    PROBE_J = "Probe J"
+    position: Optional[RelativePosition] = Field(None, title="Relative position of the monitor")
 
 
 class ProbeModel(Enum):
@@ -209,17 +176,13 @@ class ProbeModel(Enum):
     MP_PHOTONIC_V1 = "MPI Photonic Probe (Version 1)"
 
 
-class EphysProbe(Device):
+class EphysProbe(DeviceBase, DomeModule):
     """Description of an ephys probe"""
 
-    name: ProbeName = Field(..., title="Name")
-    probe_manipulator: Manipulator = Field(..., title="Manipulator")
-    calibration_data: str = Field(
-        ..., title="Calibration data", description="Path to calibration data"
-    )
-    calibration_date: Optional[datetime] = Field(
-        None, title="Calibration date"
-    )
+    probe_name: str = Field(..., title="Name")
+    probe_model: ProbeModel = Field(..., title="Probe model")
+    manipulator: Manipulator = Field(..., title="Manipulator")
+    lasers: Optional[List[Laser]] = Field(None, title="Lasers connected to this probe")
 
 
 class EphysRig(AindCoreModel):
@@ -240,22 +203,21 @@ class EphysRig(AindCoreModel):
     probes: Optional[List[EphysProbe]] = Field(
         None, title="Ephys probes", unique_items=True
     )
-    cameras: Optional[List[Camera]] = Field(
-        None, title="Cameras", unique_items=True
+    cameras: Optional[List[CameraAssembly]] = Field(
+        None, title="Camera assemblies", unique_items=True
     )
     lasers: Optional[List[LaserModule]] = Field(
-        None, title="Lasers", unique_items=True
+        None, title="Laser modules", unique_items=True
     )
     visual_monitors: Optional[List[Monitor]] = Field(
-        None, title="Visual monitor", unique_items=True
+        None, title="Visual monitors", unique_items=True
     )
     mouse_platform: Optional[Union[Tube,Treadmill,Disc]] = Field(
         None, title="Mouse platform"
     )
-    harp_devices: Optional[List[HarpDevice]] = Field(
-        None, title="Harp devices"
+    daqs: Optional[List[DAQ]] = Field(
+        None, title="DAQs"
     )
     stick_microscopes: Optional[List[StickMicroscope]] = Field(
         None, title="Stick microscopes"
     )
-    daqs: Optional[List[DAQ]] = Field(None, title="DAQ devices")

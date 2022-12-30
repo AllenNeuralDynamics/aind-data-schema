@@ -9,7 +9,7 @@ from typing import List, Optional
 from pydantic import Field
 from ..base import AindCoreModel, AindModel
 
-from ..device import Device, Manufacturer, DAQ
+from ..device import DeviceBase, Manufacturer, DAQ, DataInterface, Filter, Coupling
 
 
 class InstrumentType(Enum):
@@ -39,15 +39,6 @@ class CameraType(Enum):
     OTHER = "other"
 
 
-class DataInterface(Enum):
-    """Data interface name"""
-
-    USB = "USB"
-    CAMERALINK = "CameraLink"
-    COAX = "Coax"
-    OTHER = "other"
-
-
 class Cooling(Enum):
     """Cooling medium name"""
 
@@ -55,33 +46,12 @@ class Cooling(Enum):
     WATER = "water"
 
 
-class Detector(Device):
+class Detector(DeviceBase):
     """Description of a detector device"""
 
     type: CameraType = Field(..., title="Detector type")
     data_interface: DataInterface = Field(..., title="Data interface")
     cooling: Cooling = Field(..., title="Cooling")
-
-
-class FilterType(Enum):
-    """Filter type name"""
-
-    LONG_PASS = "Long pass"
-    BAND_PASS = "Band pass"
-    SHORT_PASS = "Short pass"
-    MULTIBAND = "Multiband"
-
-
-class Filter(Device):
-    """Description of a filter device"""
-
-    type: FilterType = Field(..., title="Filter Type")
-    diameter: float = Field(..., title="Size (mm)", ge=0)
-    thickness: float = Field(..., title="Size (mm)", ge=0)
-    filter_wheel_index: int = Field(..., title="Filter wheel index")
-    description: Optional[str] = Field(
-        None, description="Where/how filter is being used", title="Description"
-    )
 
 
 class LightsourceType(Enum):
@@ -93,16 +63,7 @@ class LightsourceType(Enum):
     OTHER = "other"
 
 
-class Coupling(Enum):
-    """Coupling method name"""
-
-    FREE_SPACE = "Free-space"
-    SMF = "SMF"
-    MMF = "MMF"
-    OTHER = "other"
-
-
-class Lightsource(Device):
+class Lightsource(DeviceBase):
     """Description of lightsource device"""
 
     type: LightsourceType = Field(..., title="Lightsource Type")
@@ -123,7 +84,7 @@ class Immersion(Enum):
     OTHER = "other"
 
 
-class Objective(Device):
+class Objective(DeviceBase):
     """Description of an objective device"""
 
     numerical_aperture: float = Field(..., title="Numerical aperture (in air)")
@@ -147,7 +108,7 @@ class ImagingDeviceType(Enum):
     OTHER = "Other"
 
 
-class AdditionalImagingDevice(Device):
+class AdditionalImagingDevice(DeviceBase):
     """Description of additional devices"""
 
     type: ImagingDeviceType = Field(..., title="Device type")
@@ -169,7 +130,7 @@ class StageAxisName(Enum):
     Z = "Z"
 
 
-class MotorizedStage(Device):
+class MotorizedStage(DeviceBase):
     """Description of motorized stage"""
 
     travel: float = Field(..., title="Travel of device (mm)", units="mm")
@@ -184,7 +145,7 @@ class ScanningStage(MotorizedStage):
     stage_axis_name: StageAxisName = Field(..., title="Name of stage axis")
 
 
-class OpticalTable(Device):
+class OpticalTable(DeviceBase):
     """Description of Optical Table"""
 
     length: Optional[float] = Field(
