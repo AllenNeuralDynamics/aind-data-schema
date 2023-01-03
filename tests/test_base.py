@@ -27,7 +27,7 @@ class BaseTests(unittest.TestCase):
 
         p = Procedures.construct()
         expected_default_filename = "procedures.json"
-        actual_default_filename = p._get_default_filename()
+        actual_default_filename = p.default_filename()
         self.assertEqual(expected_default_filename, actual_default_filename)
 
     def test_get_default_filename_subclass(self):
@@ -35,14 +35,14 @@ class BaseTests(unittest.TestCase):
 
         rd = RawDataDescription.construct()
         expected_default_filename = "data_description.json"
-        actual_default_filename = rd._get_default_filename()
+        actual_default_filename = rd.default_filename()
         self.assertEqual(expected_default_filename, actual_default_filename)
 
     @patch("builtins.open", new_callable=unittest.mock.mock_open())
     def test_write_standard_file_no_prefix(self, mocked_file):
         """tests that standard file is named and written as expected with no prefix"""
         p = Procedures.construct()
-        default_filename = p._get_default_filename()
+        default_filename = p.default_filename()
         json_contents = p.json(indent=3)
         p.write_standard_file()
 
@@ -55,7 +55,7 @@ class BaseTests(unittest.TestCase):
     def test_write_standard_file_with_prefix(self, mocked_file):
         """tests that standard file is named and written as expected with prefix"""
         p = Procedures.construct()
-        default_filename = p._get_default_filename()
+        default_filename = p.default_filename()
         json_contents = p.json(indent=3)
         new_path = Path("foo") / "bar" / "aibs"
         p.write_standard_file(new_path)

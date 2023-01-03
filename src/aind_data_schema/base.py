@@ -4,6 +4,7 @@ import inspect
 import os
 import urllib.parse
 import re
+import logging
 
 from pydantic import BaseModel, Extra
 from pydantic.fields import ModelField
@@ -55,21 +56,26 @@ class AindCoreModel(AindModel):
         field.field_info.const = True
         cls.__fields__.update({"describedBy": field})
 
-    def _get_direct_subclass(self, cls):
+    @staticmethod
+    def _get_direct_subclass(cls):
         """
         Check superclasses for a direct subclass of AindCoreModel
+        Returns string
         """
-        for base in cls.__bases__:
-            if base is AindCoreModel:
-                return cls
-            else:
-                return self._get_direct_subclass(base)
+        bases = list(cls.__bases__)
+        while bases[0] is not AindCoreModel:
+            cls = bases[0]
+            bases = list(cls.__bases__)
+        # Handle weird case where this degenerates to an empty list
+        # log a warning or error and return cls?
+        return cls.__name__
 
-    def _get_default_filename(self):
+    @classmethod
+    def default_filename(cls):
         """
         Returns standard filename in snakecase
         """
-        name = self._get_direct_subclass(self.__class__).__name__
+        name = cls._get_direct_subclass(cls)
         return re.sub(r"(?<!^)(?=[A-Z])", "_", name).lower() + ".json"
 
     def write_standard_file(self, prefix=None):
@@ -81,8 +87,8 @@ class AindCoreModel(AindModel):
             optional str for intended filepath with extra naming convention
         """
         if prefix is None:
-            filename = self._get_default_filename()
+            filename = self.default_filename()
         else:
-            filename = str(prefix) + "_" + self._get_default_filename()
+            filename = str(prefix) + "_" + self.default_filename()
         with open(filename, "w") as f:
             f.write(self.json(indent=3))
