@@ -4,7 +4,7 @@ import inspect
 import os
 import urllib.parse
 import re
-import warnings
+import logging
 
 from pydantic import BaseModel, Extra
 from pydantic.fields import ModelField
@@ -57,27 +57,29 @@ class AindCoreModel(AindModel):
         cls.__fields__.update({"describedBy": field})
 
     @staticmethod
-    def _get_direct_subclass(cls):
+    def _get_direct_subclass(pydantic_class):
         """
         Check superclasses for a direct subclass of AindCoreModel
-        Returns string
         """
-        bases = list(cls.__bases__)
-        if not bases:
-            warnings.warn("Warning: empty list")
-            return cls.__name__
-
-        while bases[0] is not AindCoreModel:
-            cls = bases[0]
-            bases = list(cls.__bases__)
-        return cls.__name__
-
+        try:
+            new_cls = pydantic_class
+            bases = new_cls.__bases__
+            first_base = bases[0]
+            while bases and AindCoreModel is not first_base:
+                new_cls = bases[0]
+                bases = new_cls.__bases__
+                first_base = bases[0]
+            return new_cls
+        except IndexError:
+            logging.error(f"Unable to construct filename for {pydantic_class}")
+            raise IndexError
+        
     @classmethod
     def default_filename(cls):
         """
         Returns standard filename in snakecase
         """
-        name = cls._get_direct_subclass(cls)
+        name = cls._get_direct_subclass(cls).__name__
         return re.sub(r"(?<!^)(?=[A-Z])", "_", name).lower() + ".json"
 
     def write_standard_file(self, prefix=None):
