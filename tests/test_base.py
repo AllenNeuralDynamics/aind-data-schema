@@ -3,7 +3,7 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-from aind_data_schema import Procedures, RawDataDescription
+from aind_data_schema import Procedures, RawDataDescription, Processing, Subject
 
 
 class BaseTests(unittest.TestCase):
@@ -25,18 +25,15 @@ class BaseTests(unittest.TestCase):
     def test_get_default_filename(self):
         """tests that default filename returns as expected"""
 
-        p = Procedures.construct()
-        expected_default_filename = "procedures.json"
-        actual_default_filename = p.default_filename()
-        self.assertEqual(expected_default_filename, actual_default_filename)
-
-    def test_get_default_filename_subclass(self):
-        """tests that default filename returns as expected"""
-
-        rd = RawDataDescription.construct()
-        expected_default_filename = "data_description.json"
-        actual_default_filename = rd.default_filename()
-        self.assertEqual(expected_default_filename, actual_default_filename)
+        test_models = [(RawDataDescription, "data_description.json"), 
+                    (Procedures, "procedures.json"), 
+                    (Subject, "subject.json"),
+                    (Processing, "processing.json")
+        ]
+        for model, expected_name in test_models:
+            m = model.construct()
+            actual_name = m.default_filename()
+            self.assertEqual(expected_name, actual_name)
 
     @patch("builtins.open", new_callable=unittest.mock.mock_open())
     def test_write_standard_file_no_prefix(self, mocked_file):

@@ -4,7 +4,7 @@ import inspect
 import os
 import urllib.parse
 import re
-import logging
+import warnings
 
 from pydantic import BaseModel, Extra
 from pydantic.fields import ModelField
@@ -63,11 +63,13 @@ class AindCoreModel(AindModel):
         Returns string
         """
         bases = list(cls.__bases__)
+        if not bases:
+            warnings.warn("Warning: empty list")
+            return cls.__name__
+
         while bases[0] is not AindCoreModel:
             cls = bases[0]
             bases = list(cls.__bases__)
-        # Handle weird case where this degenerates to an empty list
-        # log a warning or error and return cls?
         return cls.__name__
 
     @classmethod
