@@ -88,17 +88,13 @@ class Subject(AindCoreModel):
     mgi_allele_ids: Optional[List[MgiAlleleId]] = Field(None, title="MGI allele ids")
     background_strain: Optional[BackgroundStrain] = Field(None, title="Background strain")
     source: Optional[str] = Field(
-        None,
-        description="If the subject was not bred in house, where was it acquired from.",
-        title="Source",
+        None, description="If the subject was not bred in house, where was it acquired from.", title="Source",
     )
     rrid: Optional[str] = Field(
         None, description="RRID of mouse if acquired from supplier", title="RRID",
     )
     restrictions: Optional[str] = Field(
-        None,
-        description="Any restrictions on use or publishing based on subject source",
-        title="Restrictions",
+        None, description="Any restrictions on use or publishing based on subject source", title="Restrictions",
     )
     breeding_group: Optional[str] = Field(None, title="Breeding Group")
     maternal_id: Optional[str] = Field(None, title="Maternal specimen ID")

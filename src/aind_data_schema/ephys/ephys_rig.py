@@ -97,9 +97,7 @@ class ManipulatorAngle(AindModel):
 class Manipulator(Device):
     """Description of manipulator"""
 
-    manipulator_angles: List[ManipulatorAngle] = Field(
-        ..., title="Manipulator angles", unique_items=True
-    )
+    manipulator_angles: List[ManipulatorAngle] = Field(..., title="Manipulator angles", unique_items=True)
 
 
 class LaserName(Enum):
@@ -120,9 +118,7 @@ class LaserModule(Device):
     coupling_efficiency: Optional[float] = Field(
         None, title="Coupling efficiency (percent)", units="percent", ge=0, le=100,
     )
-    calibration_data: Optional[str] = Field(
-        None, description="path to calibration data", title="Calibration data"
-    )
+    calibration_data: Optional[str] = Field(None, description="path to calibration data", title="Calibration data")
     calibration_date: Optional[datetime] = Field(None, title="Calibration date")
     laser_manipulator: Manipulator = Field(..., title="Manipulator")
 
@@ -141,12 +137,7 @@ class Monitor(Device):
     angle_yaw: float = Field(..., title="Angle yaw (deg)", units="deg", ge=0, le=360)
     angle_roll: float = Field(..., title="Angle roll (deg)", units="deg", ge=0, le=360)
     contrast: int = Field(
-        ...,
-        description="Monitor's contrast setting",
-        title="Contrast (percent)",
-        units="percent",
-        ge=0,
-        le=100,
+        ..., description="Monitor's contrast setting", title="Contrast (percent)", units="percent", ge=0, le=100,
     )
     brightness: int = Field(
         ..., description="Monitor's brightness setting", title="Brightness", ge=0, le=100,
@@ -188,9 +179,7 @@ class EphysProbe(Device):
     name: ProbeName = Field(..., title="Name")
     model: ProbeModel = Field(..., title="Model")
     probe_manipulator: Manipulator = Field(..., title="Manipulator")
-    calibration_data: str = Field(
-        ..., title="Calibration data", description="Path to calibration data"
-    )
+    calibration_data: str = Field(..., title="Calibration data", description="Path to calibration data")
     calibration_date: Optional[datetime] = Field(None, title="Calibration date")
 
 
@@ -208,9 +197,7 @@ class EphysRig(AindCoreModel):
     probes: Optional[List[EphysProbe]] = Field(None, title="Ephys probes", unique_items=True)
     cameras: Optional[List[Camera]] = Field(None, title="Cameras", unique_items=True)
     lasers: Optional[List[LaserModule]] = Field(None, title="Lasers", unique_items=True)
-    visual_monitors: Optional[List[Monitor]] = Field(
-        None, title="Visual monitor", unique_items=True
-    )
+    visual_monitors: Optional[List[Monitor]] = Field(None, title="Visual monitor", unique_items=True)
     mouse_platform: Optional[MousePlatform] = Field(None, title="Mouse platform")
     harp_devices: Optional[List[HarpDevice]] = Field(None, title="Harp devices")
     daq: Optional[DAQ] = Field(None, title="DAQ")

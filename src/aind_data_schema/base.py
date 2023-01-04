@@ -9,9 +9,7 @@ import logging
 from pydantic import BaseModel, Extra
 from pydantic.fields import ModelField
 
-DESCRIBED_BY_BASE_URL = (
-    "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/"
-)
+DESCRIBED_BY_BASE_URL = "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/"
 
 
 def build_described_by(cls, base_url=DESCRIBED_BY_BASE_URL):
@@ -49,11 +47,7 @@ class AindCoreModel(AindModel):
 
         value = build_described_by(cls)
         field = ModelField.infer(
-            name="describedBy",
-            value=value,
-            annotation=str,
-            class_validators=None,
-            config=cls.__config__,
+            name="describedBy", value=value, annotation=str, class_validators=None, config=cls.__config__,
         )
         field.field_info.const = True
         cls.__fields__.update({"describedBy": field})

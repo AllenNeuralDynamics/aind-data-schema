@@ -50,9 +50,7 @@ class Craniotomy(Procedure):
     """Description of craniotomy procedure"""
 
     craniotomy_coordinates_ml: float = Field(..., title="Craniotomy coordinate ML (mm)", units="mm")
-    craniotomy_coordinates_ap: float = Field(
-        ..., title="Craniotomy coordinates AP (mm)", units="mm"
-    )
+    craniotomy_coordinates_ap: float = Field(..., title="Craniotomy coordinates AP (mm)", units="mm")
     craniotomy_size: float = Field(..., title="Craniotomy size (mm)", units="mm")
     implant_part_number: Optional[str] = Field(None, title="Implant part number")
     dura_removed: Optional[bool] = Field(None, title="Dura removed")
@@ -113,9 +111,7 @@ class InjectionMaterial(AindModel):
 class Injection(Procedure):
     """Description of an injection procedure"""
 
-    injection_materials: List[InjectionMaterial] = Field(
-        None, title="Injection material", unique_items=True
-    )
+    injection_materials: List[InjectionMaterial] = Field(None, title="Injection material", unique_items=True)
     injection_duration: time = Field(..., title="Injection duration")
     recovery_time: float = Field(..., title="Recovery time (min)", units="min")
     workstation_id: Optional[str] = Field(None, title="Workstation ID")
@@ -194,9 +190,7 @@ class MriScan(Procedure):
 
     scan_sequence: MriScanSequence = Field(..., title="Scan sequence")
     scanner_location: Optional[ScannerLocation] = Field(None, title="Scanner location")
-    magnetic_strength: Optional[MagneticStrength] = Field(
-        None, title="Magnetic strength (T)", units="T"
-    )
+    magnetic_strength: Optional[MagneticStrength] = Field(None, title="Magnetic strength (T)", units="T")
     resolution: float = Field(..., title="Resolution")
     protocol_id: str = Field(..., title="Protocol ID")
 
@@ -253,15 +247,9 @@ class OphysProbe(AindModel):
     numerical_aperture: float = Field(..., title="Numerical aperture")
     ferrule_material: Optional[FerruleMaterial] = Field(None, title="Ferrule material")
     targeted_structure: str = Field(..., title="Targeted structure")
-    stereotactic_coordinate_ap: float = Field(
-        ..., title="Stereotactic coordinate A/P (mm)", units="mm"
-    )
-    stereotactic_coordinate_ml: float = Field(
-        ..., title="Stereotactic coodinate M/L (mm)", units="mm"
-    )
-    stereotactic_coordinate_dv: float = Field(
-        ..., title="Stereotactic coordinate D/V (mm)", units="mm"
-    )
+    stereotactic_coordinate_ap: float = Field(..., title="Stereotactic coordinate A/P (mm)", units="mm")
+    stereotactic_coordinate_ml: float = Field(..., title="Stereotactic coodinate M/L (mm)", units="mm")
+    stereotactic_coordinate_dv: float = Field(..., title="Stereotactic coordinate D/V (mm)", units="mm")
     angle: float = Field(..., title="Angle (deg)", units="deg")
     notes: Optional[str] = Field(None, title="Notes")
 
@@ -296,17 +284,9 @@ class Procedures(AindCoreModel):
     craniotomies: Optional[List[Craniotomy]] = Field(None, title="Craniotomies", unique_items=True)
     mri_scans: Optional[List[MriScan]] = Field(None, title="MRI scans", unique_items=True)
     injections: Optional[List[Injection]] = Field(None, title="Injections", unique_items=True)
-    fiber_implants: Optional[List[FiberImplant]] = Field(
-        None, title="Fiber implants", unique_items=True
-    )
+    fiber_implants: Optional[List[FiberImplant]] = Field(None, title="Fiber implants", unique_items=True)
     water_restriction: Optional[WaterRestriction] = Field(None, title="Water restriction")
-    training_protocols: Optional[List[TrainingProtocol]] = Field(
-        None, title="Training protocols", unique_items=True
-    )
-    tissue_preparations: Optional[List[TissuePrep]] = Field(
-        None, title="Tissue preparations", unique_items=True
-    )
-    other_procedures: Optional[List[Procedure]] = Field(
-        None, title="Other procedures", unique_items=True
-    )
+    training_protocols: Optional[List[TrainingProtocol]] = Field(None, title="Training protocols", unique_items=True)
+    tissue_preparations: Optional[List[TissuePrep]] = Field(None, title="Tissue preparations", unique_items=True)
+    other_procedures: Optional[List[Procedure]] = Field(None, title="Other procedures", unique_items=True)
     notes: Optional[str] = Field(None, title="Notes")

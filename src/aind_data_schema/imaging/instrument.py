@@ -79,9 +79,7 @@ class Filter(Device):
     diameter: float = Field(..., title="Size (mm)", ge=0)
     thickness: float = Field(..., title="Size (mm)", ge=0)
     filter_wheel_index: int = Field(..., title="Filter wheel index")
-    description: Optional[str] = Field(
-        None, description="Where/how filter is being used", title="Description"
-    )
+    description: Optional[str] = Field(None, description="Where/how filter is being used", title="Description")
 
 
 class LightsourceType(Enum):
@@ -193,9 +191,7 @@ class Instrument(AindCoreModel):
 
     version: str = Field("0.4.1", description="schema version", title="Version", const=True)
     instrument_id: Optional[str] = Field(
-        None,
-        description="unique identifier for this instrument configuration",
-        title="Instrument ID",
+        None, description="unique identifier for this instrument configuration", title="Instrument ID",
     )
     type: InstrumentType = Field(..., title="Instrument type")
     location: str = Field(..., title="Instrument location")
@@ -206,15 +202,9 @@ class Instrument(AindCoreModel):
     objectives: List[Objective] = Field(..., title="Objectives", unique_items=True)
     detectors: List[Detector] = Field(..., title="Detectors", unique_items=True)
     light_sources: List[Lightsource] = Field(..., title="Light sources", unique_items=True)
-    fluorescence_filters: Optional[List[Filter]] = Field(
-        None, title="Fluorescence filters", unique_items=True
-    )
-    motorized_stages: Optional[List[MotorizedStage]] = Field(
-        None, title="Motorized stages", unique_items=True
-    )
-    scanning_stages: Optional[List[ScanningStage]] = Field(
-        None, title="Scanning motorized stages", unique_items=True
-    )
+    fluorescence_filters: Optional[List[Filter]] = Field(None, title="Fluorescence filters", unique_items=True)
+    motorized_stages: Optional[List[MotorizedStage]] = Field(None, title="Motorized stages", unique_items=True)
+    scanning_stages: Optional[List[ScanningStage]] = Field(None, title="Scanning motorized stages", unique_items=True)
     daqs: Optional[List[DAQ]] = Field(None, title="DAQ", unique_items=True)
     additional_devices: Optional[List[AdditionalImagingDevice]] = Field(
         None, title="Additional devices", unique_items=True
@@ -223,9 +213,7 @@ class Instrument(AindCoreModel):
         None, description="Date of most recent calibration", title="Calibration date",
     )
     calibration_data: Optional[str] = Field(
-        None,
-        description="Path to calibration data from most recent calibration",
-        title="Calibration data",
+        None, description="Path to calibration data from most recent calibration", title="Calibration data",
     )
     com_ports: Optional[List[Com]] = Field(None, title="COM ports", unique_items=True)
     notes: Optional[str] = None

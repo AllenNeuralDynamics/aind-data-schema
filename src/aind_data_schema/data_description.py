@@ -22,9 +22,7 @@ class RegexParts(Enum):
 class DataRegex(Enum):
     """regular expression patterns for different kinds of data and their properties"""
 
-    DATA = (
-        f"^(?P<label>.+?)_(?P<c_date>{RegexParts.DATE.value})_(?P<c_time>{RegexParts.TIME.value})$"
-    )
+    DATA = f"^(?P<label>.+?)_(?P<c_date>{RegexParts.DATE.value})_(?P<c_time>{RegexParts.TIME.value})$"
     RAW_DATA = f"^(?P<modality>.+?)_(?P<subject_id>.+?)_(?P<c_date>{RegexParts.DATE.value})_(?P<c_time>{RegexParts.TIME.value})$"
     DERIVED_DATA = f"^(?P<input>.+?_{RegexParts.DATE.value}_{RegexParts.TIME.value})_(?P<process_name>.+?)_(?P<c_date>{RegexParts.DATE.value})_(?P<c_time>{RegexParts.TIME.value})"
     NO_UNDERSCORES = "^[^_]+$"
@@ -91,9 +89,7 @@ class Funding(AindModel):
 
     funder: str = Field(..., title="Funder")
     grant_number: Optional[str] = Field(None, title="Grant number")
-    fundee: Optional[str] = Field(
-        None, title="Fundee", description="Person(s) funded by this mechanism"
-    )
+    fundee: Optional[str] = Field(None, title="Fundee", description="Person(s) funded by this mechanism")
 
 
 class DataDescription(AindCoreModel):
@@ -123,17 +119,13 @@ class DataDescription(AindCoreModel):
         title="Institution",
     )
     funding_source: List[Funding] = Field(
-        ...,
-        title="Funding source",
-        description="Funding sources. If internal label as Institution.",
+        ..., title="Funding source", description="Funding sources. If internal label as Institution.",
     )
     data_level: DataLevel = Field(
         ..., description="level of processing that data has undergone", title="Data Level",
     )
     group: Optional[Group] = Field(
-        None,
-        description="A short name for the group of individuals that collected this data",
-        title="Group",
+        None, description="A short name for the group of individuals that collected this data", title="Group",
     )
     project_name: Optional[str] = Field(
         None,
@@ -144,9 +136,7 @@ class DataDescription(AindCoreModel):
         None, description="A database or other identifier for a project", title="Project ID",
     )
     restrictions: Optional[str] = Field(
-        None,
-        description="Detail any restrictions on publishing or sharing these data",
-        title="Restrictions",
+        None, description="Detail any restrictions on publishing or sharing these data", title="Restrictions",
     )
     modality: str = Field(
         ...,
@@ -155,9 +145,7 @@ class DataDescription(AindCoreModel):
         title="Modality",
     )
     subject_id: str = Field(
-        ...,
-        regex=DataRegex.NO_UNDERSCORES.value,
-        description="Unique identifier for the subject of data acquisition",
+        ..., regex=DataRegex.NO_UNDERSCORES.value, description="Unique identifier for the subject of data acquisition",
     )
 
     def __init__(self, label=None, **kwargs):
@@ -166,9 +154,7 @@ class DataDescription(AindCoreModel):
         super().__init__(**kwargs)
 
         if label is not None:
-            self.name = build_data_name(
-                label, creation_date=self.creation_date, creation_time=self.creation_time,
-            )
+            self.name = build_data_name(label, creation_date=self.creation_date, creation_time=self.creation_time,)
 
     @classmethod
     def parse_name(cls, name):
@@ -178,13 +164,9 @@ class DataDescription(AindCoreModel):
         if m is None:
             raise ValueError(f"name({name}) does not match pattern")
 
-        creation_date, creation_time = datetime_from_name_string(
-            m.group("c_date"), m.group("c_time")
-        )
+        creation_date, creation_time = datetime_from_name_string(m.group("c_date"), m.group("c_time"))
 
-        return dict(
-            label=m.group("label"), creation_date=creation_date, creation_time=creation_time,
-        )
+        return dict(label=m.group("label"), creation_date=creation_date, creation_time=creation_time,)
 
     @classmethod
     def from_name(cls, name, **kwargs):
@@ -220,9 +202,7 @@ class DerivedDataDescription(DataDescription):
         if m is None:
             raise ValueError(f"name({name}) does not match pattern")
 
-        creation_date, creation_time = datetime_from_name_string(
-            m.group("c_date"), m.group("c_time")
-        )
+        creation_date, creation_time = datetime_from_name_string(m.group("c_date"), m.group("c_time"))
 
         return dict(
             process_name=m.group("process_name"),
@@ -262,10 +242,7 @@ class RawDataDescription(DataDescription):
     """A logical collection of data files as acquired from a rig or instrument"""
 
     data_level: DataLevel = Field(
-        DataLevel.RAW_DATA,
-        description="level of processing that data has undergone",
-        title="Data Level",
-        const=True,
+        DataLevel.RAW_DATA, description="level of processing that data has undergone", title="Data Level", const=True,
     )
 
     def __init__(self, **kwargs):
@@ -283,9 +260,7 @@ class RawDataDescription(DataDescription):
         if m is None:
             raise ValueError(f"name({name}) does not match pattern")
 
-        creation_date, creation_time = datetime_from_name_string(
-            m.group("c_date"), m.group("c_time")
-        )
+        creation_date, creation_time = datetime_from_name_string(m.group("c_date"), m.group("c_time"))
 
         return dict(
             modality=m.group("modality"),

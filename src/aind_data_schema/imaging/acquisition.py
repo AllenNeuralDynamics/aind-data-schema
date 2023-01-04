@@ -39,8 +39,7 @@ class Axis(AindModel):
         ..., description="Reference axis number for stitching", title="Dimension",
     )
     direction: Direction = Field(
-        ...,
-        description="Tissue direction as the value of axis increases. If Other describe in notes.",
+        ..., description="Tissue direction as the value of axis increases. If Other describe in notes.",
     )
     voxel_size: float = Field(..., title="Voxel size (um)")
     volume_size: float = Field(
@@ -113,9 +112,7 @@ class Acquisition(AindCoreModel):
     local_storage_directory: Optional[str] = Field(None, title="Local storage directory")
     external_storage_directory: Optional[str] = Field(None, title="External storage directory")
     tile_prefix: Optional[str] = Field(
-        None,
-        description="Zstacks will be named: <tile_prefix>_<x>_<y>_<wavelength>.tiff",
-        title="Tile prefix",
+        None, description="Zstacks will be named: <tile_prefix>_<x>_<y>_<wavelength>.tiff", title="Tile prefix",
     )
     tile_overlap_x: Optional[float] = Field(None, title="Tile overlap x (percent)", ge=0, le=100)
     tile_overlap_y: Optional[float] = Field(None, title="Tile overlap y (percent)", ge=0, le=100)

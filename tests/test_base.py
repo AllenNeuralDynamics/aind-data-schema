@@ -40,8 +40,7 @@ class BaseTests(unittest.TestCase):
         with self.assertRaises(IndexError):
             AindCoreModel.default_filename()
         mock_log.assert_called_with(
-            "Unable to find direct AindCoreModel subclass for"
-            " <class 'aind_data_schema.base.AindCoreModel'>"
+            "Unable to find direct AindCoreModel subclass for" " <class 'aind_data_schema.base.AindCoreModel'>"
         )
 
     @patch("builtins.open", new_callable=unittest.mock.mock_open())

@@ -39,9 +39,7 @@ class DataDescriptionTest(unittest.TestCase):
                 name=self.BAD_NAME, institution="AIND", data_level="raw data", funding_source=[f],
             )
 
-        rd = RawDataDescription.from_name(
-            name=self.BASIC_NAME, institution="AIND", funding_source=[f]
-        )
+        rd = RawDataDescription.from_name(name=self.BASIC_NAME, institution="AIND", funding_source=[f])
         assert rd.name == self.BASIC_NAME
         assert rd.data_level.value == "raw data"
 
@@ -51,11 +49,7 @@ class DataDescriptionTest(unittest.TestCase):
             )
 
         dd = DerivedDataDescription.from_name(
-            name=self.DERIVED_NAME,
-            institution="AIND",
-            funding_source=[f],
-            modality="SmartSPIM",
-            subject_id="12345",
+            name=self.DERIVED_NAME, institution="AIND", funding_source=[f], modality="SmartSPIM", subject_id="12345",
         )
         assert dd.name == self.DERIVED_NAME
         assert dd.data_level.value == "derived data"

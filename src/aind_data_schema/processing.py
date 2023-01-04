@@ -48,10 +48,6 @@ class Processing(AindCoreModel):
     schema_version: str = Field(
         "0.1.0", description="Schema version", title="Schema version", const=True,
     )
-    pipeline_version: Optional[str] = Field(
-        None, description="Version of the pipeline", title="Pipeline version"
-    )
-    pipeline_url: Optional[str] = Field(
-        None, description="URL to the pipeline code", title="Pipeline URL"
-    )
+    pipeline_version: Optional[str] = Field(None, description="Version of the pipeline", title="Pipeline version")
+    pipeline_url: Optional[str] = Field(None, description="URL to the pipeline code", title="Pipeline URL")
     data_processes: List[DataProcess] = Field(..., title="Data processing", unique_items=True)

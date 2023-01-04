@@ -70,9 +70,7 @@ class Detector(Device):
     """Description of a generic detector"""
 
     name: Optional[str] = Field(
-        None,
-        description="Brief name to identify detector to match with session information",
-        title="Name",
+        None, description="Brief name to identify detector to match with session information", title="Name",
     )
     type: CameraType = Field(..., title="Camera Type")
     data_interface: DataInterface = Field(..., title="Data interface")
@@ -101,9 +99,7 @@ class Filter(Device):
     size: Optional[FilterSize] = Field(None, title="Size (mm)")
     cut_off_frequency: Optional[int] = Field(None, title="Cut off frequency")
     cut_on_frequency: Optional[int] = Field(None, title="Cut on frequency")
-    description: Optional[str] = Field(
-        None, description="Where/how filter is being used", title="Description"
-    )
+    description: Optional[str] = Field(None, description="Where/how filter is being used", title="Description")
 
 
 class LaserName(Enum):
@@ -134,9 +130,7 @@ class Laser(Device):
     maximum_power: float = Field(..., title="Maximum power (mW)")
     coupling: Optional[Coupling] = Field(None, title="Coupling")
     coupling_efficiency: Optional[float] = Field(None, title="Coupling efficiency (percent)")
-    calibration_data: Optional[str] = Field(
-        None, description="path to calibration data", title="Calibration data"
-    )
+    calibration_data: Optional[str] = Field(None, description="path to calibration data", title="Calibration data")
     calibration_date: Optional[datetime] = Field(None, title="Calibration date")
 
 
@@ -190,9 +184,7 @@ class OphysRig(AindCoreModel):
     detectors: Optional[List[Detector]] = Field(None, title="Detectors", unique_items=True)
     filters: Optional[List[Filter]] = Field(None, title="Filters", unique_items=True)
     lenses: Optional[List[Lens]] = Field(None, title="Lenses", unique_items=True)
-    additional_devices: Optional[List[Device]] = Field(
-        None, title="Additional devices", unique_items=True
-    )
+    additional_devices: Optional[List[Device]] = Field(None, title="Additional devices", unique_items=True)
     light_path_diagram: Optional[str] = Field(
         None, description="Path to diagram of the light path.", title="Light path diagram",
     )
