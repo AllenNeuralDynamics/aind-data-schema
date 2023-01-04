@@ -32,20 +32,12 @@ class DataProcess(AindModel):
     """Description of a single processing step"""
 
     name: ProcessName = Field(..., title="Name")
-    version: str = Field(
-        ..., description="Version of the software used", title="Version"
-    )
+    version: str = Field(..., description="Version of the software used", title="Version")
     start_date_time: datetime = Field(..., title="Start date time")
     end_date_time: datetime = Field(..., title="End date time")
-    input_location: str = Field(
-        ..., description="Path to data inputs", title="Input location"
-    )
-    output_location: str = Field(
-        ..., description="Path to data outputs", title="Output location"
-    )
-    code_url: str = Field(
-        ..., description="Path to code respository", title="Code URL"
-    )
+    input_location: str = Field(..., description="Path to data inputs", title="Input location")
+    output_location: str = Field(..., description="Path to data outputs", title="Output location")
+    code_url: str = Field(..., description="Path to code respository", title="Code URL")
     parameters: Dict[str, Any]
     notes: Optional[str] = None
 
@@ -54,10 +46,7 @@ class Processing(AindCoreModel):
     """Desription of all processes run on data"""
 
     schema_version: str = Field(
-        "0.1.0",
-        description="Schema version",
-        title="Schema version",
-        const=True,
+        "0.1.0", description="Schema version", title="Schema version", const=True,
     )
     pipeline_version: Optional[str] = Field(
         None, description="Version of the pipeline", title="Pipeline version"
@@ -65,6 +54,4 @@ class Processing(AindCoreModel):
     pipeline_url: Optional[str] = Field(
         None, description="URL to the pipeline code", title="Pipeline URL"
     )
-    data_processes: List[DataProcess] = Field(
-        ..., title="Data processing", unique_items=True
-    )
+    data_processes: List[DataProcess] = Field(..., title="Data processing", unique_items=True)

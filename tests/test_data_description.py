@@ -17,9 +17,7 @@ class DataDescriptionTest(unittest.TestCase):
 
     BAD_NAME = "fizzbuzz"
     BASIC_NAME = "ecephys_1234_3033-12-21_04-22-11"
-    DERIVED_NAME = (
-        "ecephys_1234_3033-12-21_04-22-11_spikesorted-ks25_2022-10-12_23-23-11"
-    )
+    DERIVED_NAME = "ecephys_1234_3033-12-21_04-22-11_spikesorted-ks25_2022-10-12_23-23-11"
 
     def test_from_name(self):
         """test the from_name methods"""
@@ -38,10 +36,7 @@ class DataDescriptionTest(unittest.TestCase):
 
         with self.assertRaises(ValueError):
             DataDescription.from_name(
-                name=self.BAD_NAME,
-                institution="AIND",
-                data_level="raw data",
-                funding_source=[f],
+                name=self.BAD_NAME, institution="AIND", data_level="raw data", funding_source=[f],
             )
 
         rd = RawDataDescription.from_name(
@@ -52,10 +47,7 @@ class DataDescriptionTest(unittest.TestCase):
 
         with self.assertRaises(ValueError):
             RawDataDescription.from_name(
-                name=self.BAD_NAME,
-                institution="AIND",
-                data_level="raw data",
-                funding_source=[f],
+                name=self.BAD_NAME, institution="AIND", data_level="raw data", funding_source=[f],
             )
 
         dd = DerivedDataDescription.from_name(
@@ -70,10 +62,7 @@ class DataDescriptionTest(unittest.TestCase):
 
         with self.assertRaises(ValueError):
             DerivedDataDescription.from_name(
-                name=self.BAD_NAME,
-                institution="AIND",
-                data_level="raw data",
-                funding_source=[f],
+                name=self.BAD_NAME, institution="AIND", data_level="raw data", funding_source=[f],
             )
 
     def test_from_data_description(self):

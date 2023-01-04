@@ -22,7 +22,9 @@ class RegexParts(Enum):
 class DataRegex(Enum):
     """regular expression patterns for different kinds of data and their properties"""
 
-    DATA = f"^(?P<label>.+?)_(?P<c_date>{RegexParts.DATE.value})_(?P<c_time>{RegexParts.TIME.value})$"
+    DATA = (
+        f"^(?P<label>.+?)_(?P<c_date>{RegexParts.DATE.value})_(?P<c_time>{RegexParts.TIME.value})$"
+    )
     RAW_DATA = f"^(?P<modality>.+?)_(?P<subject_id>.+?)_(?P<c_date>{RegexParts.DATE.value})_(?P<c_time>{RegexParts.TIME.value})$"
     DERIVED_DATA = f"^(?P<input>.+?_{RegexParts.DATE.value}_{RegexParts.TIME.value})_(?P<process_name>.+?)_(?P<c_date>{RegexParts.DATE.value})_(?P<c_time>{RegexParts.TIME.value})"
     NO_UNDERSCORES = "^[^_]+$"
@@ -126,9 +128,7 @@ class DataDescription(AindCoreModel):
         description="Funding sources. If internal label as Institution.",
     )
     data_level: DataLevel = Field(
-        ...,
-        description="level of processing that data has undergone",
-        title="Data Level",
+        ..., description="level of processing that data has undergone", title="Data Level",
     )
     group: Optional[Group] = Field(
         None,
@@ -141,9 +141,7 @@ class DataDescription(AindCoreModel):
         title="Project Name",
     )
     project_id: Optional[str] = Field(
-        None,
-        description="A database or other identifier for a project",
-        title="Project ID",
+        None, description="A database or other identifier for a project", title="Project ID",
     )
     restrictions: Optional[str] = Field(
         None,
@@ -169,9 +167,7 @@ class DataDescription(AindCoreModel):
 
         if label is not None:
             self.name = build_data_name(
-                label,
-                creation_date=self.creation_date,
-                creation_time=self.creation_time,
+                label, creation_date=self.creation_date, creation_time=self.creation_time,
             )
 
     @classmethod
@@ -187,9 +183,7 @@ class DataDescription(AindCoreModel):
         )
 
         return dict(
-            label=m.group("label"),
-            creation_date=creation_date,
-            creation_time=creation_time,
+            label=m.group("label"), creation_date=creation_date, creation_time=creation_time,
         )
 
     @classmethod

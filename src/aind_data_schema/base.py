@@ -9,7 +9,9 @@ import logging
 from pydantic import BaseModel, Extra
 from pydantic.fields import ModelField
 
-DESCRIBED_BY_BASE_URL = "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/"
+DESCRIBED_BY_BASE_URL = (
+    "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/"
+)
 
 
 def build_described_by(cls, base_url=DESCRIBED_BY_BASE_URL):
@@ -73,7 +75,7 @@ class AindCoreModel(AindModel):
         except IndexError:
             logging.error(f"Unable to find direct AindCoreModel subclass for {pydantic_class}")
             raise IndexError
-        
+
     @classmethod
     def default_filename(cls):
         """

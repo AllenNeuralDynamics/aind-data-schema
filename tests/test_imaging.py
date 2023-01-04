@@ -51,9 +51,7 @@ class ImagingTests(unittest.TestCase):
         # test that a few work
         test_codes = ["RAS", "LSP", "RAI", "PAR"]
         for test_code in test_codes:
-            axes = Axis.from_direction_code(
-                test_code, voxel_sizes, volume_sizes
-            )
+            axes = Axis.from_direction_code(test_code, voxel_sizes, volume_sizes)
             assert len(axes) == 3
 
 

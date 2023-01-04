@@ -39,11 +39,7 @@ class ProceduresTests(unittest.TestCase):
                     experimenter_full_name="tom",
                     protocol_id="134",
                     injection_materials=[
-                        InjectionMaterial(
-                            name="abc",
-                            titer="5.46E13",
-                            prep_lot_number="CT323",
-                        )
+                        InjectionMaterial(name="abc", titer="5.46E13", prep_lot_number="CT323",)
                     ],
                     injection_volume=1,
                     injection_eye="Left",
@@ -56,11 +52,7 @@ class ProceduresTests(unittest.TestCase):
                     experimenter_full_name="betsy",
                     protocol_id="bca",
                     injection_materials=[
-                        InjectionMaterial(
-                            name="abc",
-                            titer="5.46E13",
-                            prep_lot_number="CT323",
-                        )
+                        InjectionMaterial(name="abc", titer="5.46E13", prep_lot_number="CT323",)
                     ],
                     injection_duration=1,
                     injection_coordinate_ml=1,

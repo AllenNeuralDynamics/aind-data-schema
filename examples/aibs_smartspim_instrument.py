@@ -184,16 +184,10 @@ inst = Instrument(
     ],
     additional_devices=[
         AdditionalImagingDevice(
-            type="Other",
-            manufacturer="Optotune",
-            model="EL-16-40-TC",
-            serial_number="Unknown-1",
+            type="Other", manufacturer="Optotune", model="EL-16-40-TC", serial_number="Unknown-1",
         ),
         AdditionalImagingDevice(
-            type="Other",
-            manufacturer="Optotune",
-            model="EL-16-40-TC",
-            serial_number="Unknown-2",
+            type="Other", manufacturer="Optotune", model="EL-16-40-TC", serial_number="Unknown-2",
         ),
     ],
 )

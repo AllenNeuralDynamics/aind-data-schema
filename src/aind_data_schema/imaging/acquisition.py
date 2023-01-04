@@ -36,9 +36,7 @@ class Axis(AindModel):
 
     name: AxisName = Field(..., title="Name")
     dimension: int = Field(
-        ...,
-        description="Reference axis number for stitching",
-        title="Dimension",
+        ..., description="Reference axis number for stitching", title="Dimension",
     )
     direction: Direction = Field(
         ...,
@@ -46,9 +44,7 @@ class Axis(AindModel):
     )
     voxel_size: float = Field(..., title="Voxel size (um)")
     volume_size: float = Field(
-        ...,
-        description="Size of the volume for this dimension.",
-        title="Volume size (um)",
+        ..., description="Size of the volume for this dimension.", title="Volume size (um)",
     )
 
     @staticmethod
@@ -84,9 +80,7 @@ class Channel(AindModel):
 
     channel: int = Field(..., title="Channel")
     enabled: Optional[bool] = Field(None, title="Enabled")
-    laser_wavelength: int = Field(
-        ..., title="Wavelength (nm)", units="nm", ge=300, le=1000
-    )
+    laser_wavelength: int = Field(..., title="Wavelength (nm)", units="nm", ge=300, le=1000)
     laser_power: float = Field(..., title="Power (mW)", units="mW", le=2000)
     filter_wheel_index: int = Field(..., title="Filter wheel index")
 
@@ -108,43 +102,27 @@ class Position(AindModel):
 class Acquisition(AindCoreModel):
     """Description of an imaging acquisition session"""
 
-    version: str = Field(
-        "0.3.0", description="schema version", title="Version", const="True"
-    )
+    version: str = Field("0.3.0", description="schema version", title="Version", const="True")
     experimenter_full_name: str = Field(
-        ...,
-        description="First and last name of the experimenter.",
-        title="Experimenter full name",
+        ..., description="First and last name of the experimenter.", title="Experimenter full name",
     )
     session_start_time: datetime = Field(..., title="Session start time")
     subject_id: int = Field(..., title="Subject ID")
     instrument_id: str = Field(..., title="Instrument ID")
     session_end_time: datetime = Field(..., title="Session end time")
-    local_storage_directory: Optional[str] = Field(
-        None, title="Local storage directory"
-    )
-    external_storage_directory: Optional[str] = Field(
-        None, title="External storage directory"
-    )
+    local_storage_directory: Optional[str] = Field(None, title="Local storage directory")
+    external_storage_directory: Optional[str] = Field(None, title="External storage directory")
     tile_prefix: Optional[str] = Field(
         None,
         description="Zstacks will be named: <tile_prefix>_<x>_<y>_<wavelength>.tiff",
         title="Tile prefix",
     )
-    tile_overlap_x: Optional[float] = Field(
-        None, title="Tile overlap x (percent)", ge=0, le=100
-    )
-    tile_overlap_y: Optional[float] = Field(
-        None, title="Tile overlap y (percent)", ge=0, le=100
-    )
+    tile_overlap_x: Optional[float] = Field(None, title="Tile overlap x (percent)", ge=0, le=100)
+    tile_overlap_y: Optional[float] = Field(None, title="Tile overlap y (percent)", ge=0, le=100)
     step_size_z: Optional[float] = Field(None, title="Step size z (um)")
     axes: Optional[List[Axis]] = Field(None, title="Axes", unique_items=True)
-    additional_parameters: Optional[str] = Field(
-        None, title="Additional parameters"
-    )
-    positions: List[Position] = Field(
-        ..., title="Positions", unique_items=True
-    )
+    additional_parameters: Optional[str] = Field(None, title="Additional parameters")
+    positions: List[Position] = Field(..., title="Positions", unique_items=True)
     channels: List[Channel] = Field(..., title="Channels", unique_items=True)
     daqs: Optional[List[dict]] = Field(None, title="DAQ", unique_items=True)
     notes: Optional[str] = Field(None, title="Notes")

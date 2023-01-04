@@ -25,9 +25,7 @@ class ExampleTests(unittest.TestCase):
             with open(json_file, "r") as f:
                 target_data = f.read().replace("\r\n", "\n")
 
-            spec = importlib.util.spec_from_file_location(
-                "test_module", example_file
-            )
+            spec = importlib.util.spec_from_file_location("test_module", example_file)
             module = importlib.util.module_from_spec(spec)
             sys.modules["test_module"] = module
 

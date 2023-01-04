@@ -45,19 +45,11 @@ class Camera(Device):
     position_x: float = Field(..., title="Position X")
     position_y: float = Field(..., title="Position Y")
     position_z: float = Field(..., title="Position Z")
-    angle_pitch: float = Field(
-        ..., title="Angle pitch (deg)", units="deg", ge=0, le=360
-    )
-    angle_yaw: float = Field(
-        ..., title="Angle yaw (deg)", units="deg", ge=0, le=360
-    )
-    angle_roll: float = Field(
-        ..., title="Angle roll (deg)", units="deg", ge=0, le=360
-    )
+    angle_pitch: float = Field(..., title="Angle pitch (deg)", units="deg", ge=0, le=360)
+    angle_yaw: float = Field(..., title="Angle yaw (deg)", units="deg", ge=0, le=360)
+    angle_roll: float = Field(..., title="Angle roll (deg)", units="deg", ge=0, le=360)
     recording_software: Optional[str] = Field(None, title="Recording software")
-    recording_software_version: Optional[str] = Field(
-        None, title="Recording software version"
-    )
+    recording_software_version: Optional[str] = Field(None, title="Recording software version")
 
 
 class MousePlatform(Device):
@@ -71,9 +63,7 @@ class Disc(MousePlatform):
 
     platform_type: str = Field("Disc", title="Platform type", const=True)
     radius: float = Field(..., title="Radius (cm)", units="cm", ge=0)
-    date_surface_replaced: Optional[datetime] = Field(
-        None, title="Date surface replaced"
-    )
+    date_surface_replaced: Optional[datetime] = Field(None, title="Date surface replaced")
 
 
 class Tube(MousePlatform):
@@ -125,51 +115,31 @@ class LaserModule(Device):
     """Description of lasers used in ephys recordings"""
 
     name: LaserName = Field(..., title="Laser Name")
-    wavelength: Optional[int] = Field(
-        None, title="Wavelength (nm)", units="nm", ge=300, le=1000
-    )
-    maximum_power: Optional[float] = Field(
-        None, title="Maximum power (mW)", units="mW"
-    )
+    wavelength: Optional[int] = Field(None, title="Wavelength (nm)", units="nm", ge=300, le=1000)
+    maximum_power: Optional[float] = Field(None, title="Maximum power (mW)", units="mW")
     coupling_efficiency: Optional[float] = Field(
-        None,
-        title="Coupling efficiency (percent)",
-        units="percent",
-        ge=0,
-        le=100,
+        None, title="Coupling efficiency (percent)", units="percent", ge=0, le=100,
     )
     calibration_data: Optional[str] = Field(
         None, description="path to calibration data", title="Calibration data"
     )
-    calibration_date: Optional[datetime] = Field(
-        None, title="Calibration date"
-    )
+    calibration_date: Optional[datetime] = Field(None, title="Calibration date")
     laser_manipulator: Manipulator = Field(..., title="Manipulator")
 
 
 class Monitor(Device):
     """Description of a visual monitor"""
 
-    refresh_rate: int = Field(
-        ..., title="Refresh rate (Hz)", units="Hz", ge=60
-    )
+    refresh_rate: int = Field(..., title="Refresh rate (Hz)", units="Hz", ge=60)
     width: int = Field(..., title="Width (pixels)", units="pixels")
     height: int = Field(..., title="Height (pixels)", units="pixels")
-    viewing_distance: float = Field(
-        ..., title="Viewing distance (cm)", units="cm"
-    )
+    viewing_distance: float = Field(..., title="Viewing distance (cm)", units="cm")
     position_x: float = Field(..., title="Position X")
     position_y: float = Field(..., title="Position Y")
     position_z: float = Field(..., title="Position Z")
-    angle_pitch: float = Field(
-        ..., title="Angle pitch (deg)", units="deg", ge=0, le=360
-    )
-    angle_yaw: float = Field(
-        ..., title="Angle yaw (deg)", units="deg", ge=0, le=360
-    )
-    angle_roll: float = Field(
-        ..., title="Angle roll (deg)", units="deg", ge=0, le=360
-    )
+    angle_pitch: float = Field(..., title="Angle pitch (deg)", units="deg", ge=0, le=360)
+    angle_yaw: float = Field(..., title="Angle yaw (deg)", units="deg", ge=0, le=360)
+    angle_roll: float = Field(..., title="Angle roll (deg)", units="deg", ge=0, le=360)
     contrast: int = Field(
         ...,
         description="Monitor's contrast setting",
@@ -179,11 +149,7 @@ class Monitor(Device):
         le=100,
     )
     brightness: int = Field(
-        ...,
-        description="Monitor's brightness setting",
-        title="Brightness",
-        ge=0,
-        le=100,
+        ..., description="Monitor's brightness setting", title="Brightness", ge=0, le=100,
     )
 
 
@@ -225,9 +191,7 @@ class EphysProbe(Device):
     calibration_data: str = Field(
         ..., title="Calibration data", description="Path to calibration data"
     )
-    calibration_date: Optional[datetime] = Field(
-        None, title="Calibration date"
-    )
+    calibration_date: Optional[datetime] = Field(None, title="Calibration date")
 
 
 class EphysRig(AindCoreModel):
@@ -239,28 +203,14 @@ class EphysRig(AindCoreModel):
         title="Described by",
         const=True,
     )
-    schema_version: str = Field(
-        "0.4.2", description="schema version", title="Version", const=True
-    )
-    rig_id: str = Field(
-        ..., description="room_stim apparatus_version", title="Rig ID"
-    )
-    probes: Optional[List[EphysProbe]] = Field(
-        None, title="Ephys probes", unique_items=True
-    )
-    cameras: Optional[List[Camera]] = Field(
-        None, title="Cameras", unique_items=True
-    )
-    lasers: Optional[List[LaserModule]] = Field(
-        None, title="Lasers", unique_items=True
-    )
+    schema_version: str = Field("0.4.2", description="schema version", title="Version", const=True)
+    rig_id: str = Field(..., description="room_stim apparatus_version", title="Rig ID")
+    probes: Optional[List[EphysProbe]] = Field(None, title="Ephys probes", unique_items=True)
+    cameras: Optional[List[Camera]] = Field(None, title="Cameras", unique_items=True)
+    lasers: Optional[List[LaserModule]] = Field(None, title="Lasers", unique_items=True)
     visual_monitors: Optional[List[Monitor]] = Field(
         None, title="Visual monitor", unique_items=True
     )
-    mouse_platform: Optional[MousePlatform] = Field(
-        None, title="Mouse platform"
-    )
-    harp_devices: Optional[List[HarpDevice]] = Field(
-        None, title="Harp devices"
-    )
+    mouse_platform: Optional[MousePlatform] = Field(None, title="Mouse platform")
+    harp_devices: Optional[List[HarpDevice]] = Field(None, title="Harp devices")
     daq: Optional[DAQ] = Field(None, title="DAQ")

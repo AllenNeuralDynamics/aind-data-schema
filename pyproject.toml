@@ -37,7 +37,7 @@ version = {attr = "aind_data_schema.__version__"}
 readme = {file = ["README.md"]}
 
 [tool.black]
-line-length = 79
+line-length = 100
 target_version = ['py36']
 exclude = '''
 
