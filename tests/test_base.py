@@ -3,7 +3,7 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-from aind_data_schema import Procedures, RawDataDescription, Processing, Subject
+from aind_data_schema import Procedures, Processing, RawDataDescription, Subject
 from aind_data_schema.base import AindCoreModel
 
 

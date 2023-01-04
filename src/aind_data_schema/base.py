@@ -1,10 +1,10 @@
 """ generic base class with supporting validators and fields for basic AIND schema """
 
 import inspect
-import os
-import urllib.parse
-import re
 import logging
+import os
+import re
+import urllib.parse
 
 from pydantic import BaseModel, Extra
 from pydantic.fields import ModelField

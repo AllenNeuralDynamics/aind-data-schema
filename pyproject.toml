@@ -66,7 +66,7 @@ exclude_lines = ["if __name__ == .__main__.:"]
 fail_under = 100
 
 [tool.isort]
-line_length = 79
+line_length = 120
 
 [tool.interrogate]
 exclude = ["setup.py", "docs", "build"]
