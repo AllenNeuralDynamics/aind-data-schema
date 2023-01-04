@@ -71,7 +71,7 @@ class AindCoreModel(AindModel):
                 first_base = bases[0]
             return new_cls
         except IndexError:
-            logging.error(f"Unable to construct filename for {pydantic_class}")
+            logging.error(f"Unable to find direct AindCoreModel subclass for {pydantic_class}")
             raise IndexError
         
     @classmethod
