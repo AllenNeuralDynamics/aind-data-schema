@@ -3,27 +3,19 @@ on:
   push:
     branches:
       - main
+
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Extract version from file
-        id: getversion
-        run: |
-          pkg_name=$(grep -P 'version = \{attr = .*\}' pyproject.toml | grep -oP '\w+.__version__')
-          init_file="./src/${pkg_name//.__version__}/__init__.py"
-          new_tag=$(grep -Po '__version__ = "\K.*?(?=")' $init_file)
-          echo "::set-output name=version::$new_tag"
-      - name: Bump tag
-        uses: mathieudutour/github-tag-action@v6.0
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          custom_tag: ${{ steps.getversion.outputs.version }}
+  tag:
+    uses: AllenNeuralDynamics/aind-github-actions/.github/workflows/tag.yml@main
+    secrets:
+      SERVICE_TOKEN: ${{ secrets.SERVICE_TOKEN }} # required
+
   publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Pull latest changes
+        run: git pull origin main
       - name: Set up Python 3.8
         uses: actions/setup-python@v2
         with:
