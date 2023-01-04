@@ -4,11 +4,11 @@ from __future__ import annotations
 
 from datetime import datetime
 from enum import Enum
-from typing import List, Optional, Union
+from typing import List, Optional, Union, Literal
 
 from pydantic import Field
 
-from ..device import DeviceBase, DAQ, Camera, CameraAssembly, RelativePosition, Laser, DataInterface
+from ..device import Device, DAQDevice, Camera, CameraAssembly, RelativePosition, Laser, DataInterface, Manufacturer
 from ..base import AindCoreModel, AindModel
 
 
@@ -23,7 +23,7 @@ class HarpDeviceType(Enum):
     INPUT_EXPANDER = "Input Expander"
 
 
-class HarpDevice(DAQ):
+class HarpDevice(DAQDevice):
     """DAQ that uses the Harp protocol for synchronization and data transmission"""
 
     # required fields
@@ -31,7 +31,7 @@ class HarpDevice(DAQ):
     harp_device_version: str = Field(..., title="Device version")
 
     # fixed values
-    daq_manufacturer: str = Field("OEPS", const=True)
+    manufacturer: Manufacturer = Manufacturer.OEPS
     data_interface: DataInterface = Field("USB", const=True)
 
 
@@ -42,7 +42,7 @@ class ProbePort(AindModel):
     probes: List[str] = Field(..., title="Names of probes connected to this port")
 
 
-class NeuropixelsBasestation(DAQ):
+class NeuropixelsBasestation(DAQDevice):
     """PXI-based Neuropixels DAQ"""
 
     # required fields
@@ -53,10 +53,10 @@ class NeuropixelsBasestation(DAQ):
 
     # fixed values
     data_interface: DataInterface = Field("PXI", const=True)
-    daq_manufacturer: str = Field("IMEC", title="Basestation device manufacturer", const=True)
+    manufacturer: Manufacturer = Manufacturer.IMEC
 
 
-class OpenEphysAcquisitionBoard(DAQ):
+class OpenEphysAcquisitionBoard(DAQDevice):
     """Multichannel electrophysiology DAQ"""
 
     # required fields
@@ -64,10 +64,10 @@ class OpenEphysAcquisitionBoard(DAQ):
 
     # fixed values
     data_interface: DataInterface = Field("USB", const=True)
-    daq_manufacturer: str = Field("OEPS", const=True)
+    manufacturer: Manufacturer = Manufacturer.OEPS
 
 
-class MousePlatform(DeviceBase):
+class MousePlatform(Device):
     """Description of a mouse platform"""
 
     surface_material: Optional[str] = Field(None, title="Surface material")
@@ -101,6 +101,7 @@ class DomeModule(AindModel):
     """Movable module that is mounted on the ephys dome insertion system"""
 
     # required fields
+    module_name: str = Field(..., title="Module name")
     arc_angle: float = Field(..., title="Arc Angle", units="degrees")
     module_angle: float = Field(..., title="Module Angle", units="degrees")
 
@@ -123,37 +124,24 @@ class StickMicroscope(DomeModule):
     camera: Camera = Field(..., title="Camera for this module")
     
 
-class ManipulatorManufacturer(Enum):
-    """Manipulator manufacturer"""
-
-    NEW_SCALE_TECHNOLOGIES = "New Scale Technologies"
-
-
-class MonitorManufacturer(Enum):
-    """Monitor manufacturer"""
-
-    LG = "LG"
-
-
-class Manipulator(DeviceBase):
+class Manipulator(Device):
     """Manipulator used on a dome module"""
     
-    manipulator_manufacturer: ManipulatorManufacturer = Field(..., title="Manipulator manufacturer")
+    manufacturer: Literal[Manufacturer.NEW_SCALE_TECHNOLOGIES]
 
 
 class LaserModule(DomeModule):
     """Named laser module for optogenetic stimulation"""
 
-    laser_module_name: str = Field(..., title="Laser module name")
     manipulator: Manipulator = Field(..., title="Manipulator")
     lasers: List[Laser] = Field(..., title="Lasers connected to this module")
 
 
-class Monitor(DeviceBase):
+class Monitor(Device):
     """Visual display"""
 
     # required fields
-    monitor_manufacturer: MonitorManufacturer = Field(..., title="Monitor manufacturer")
+    manufacturer: Literal[Manufacturer.LG]
     refresh_rate: int = Field(
         ..., title="Refresh rate (Hz)", units="Hz", ge=60
     )
@@ -204,11 +192,10 @@ class HeadstageModel(Enum):
     RHD_64_CH = "Intan RHD 64-channel"
 
 
-class EphysProbe(DeviceBase, DomeModule):
+class EphysProbe(Device, DomeModule):
     """Named probe used in an ephys experiment"""
 
     # required fields
-    probe_name: str = Field(..., title="Name")
     probe_model: ProbeModel = Field(..., title="Probe model")
     manipulator: Manipulator = Field(..., title="Manipulator")
 
@@ -247,8 +234,8 @@ class EphysRig(AindCoreModel):
     mouse_platform: Optional[Union[Tube,Treadmill,Disc]] = Field(
         None, title="Mouse platform"
     )
-    daqs: Optional[List[DAQ]] = Field(
-        None, title="DAQs"
+    daqs: Optional[List[DAQDevice]] = Field(
+        None, title="Data acquisition devices"
     )
     stick_microscopes: Optional[List[StickMicroscope]] = Field(
         None, title="Stick microscopes"

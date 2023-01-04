@@ -3,79 +3,43 @@
 from pydantic import Field
 from enum import Enum
 from datetime import datetime
-from typing import Optional, List
+from typing import Optional, List, Literal
 from .base import AindModel
 
 class Manufacturer(Enum):
     """Device manufacturer name"""
 
+    ALLIED = "Allied"
     ASI = "Applied Scientific Instrumentation"
+    BASLER = "Basler"
     CAMBRIDGE_TECHNOLOGY = "Cambridge Technology"
     CHROMA = "Chroma"
     COHERENT_SCIENTIFIC = "Coherent Scientific"
     CUSTOM = "Custom"
     EALING = "Ealing"
     EDMUND_OPTICS = "Edmund Optics"
+    FLIR = "FLIR"
     HAMAMATSU = "Hamamatsu"
+    IMEC = "IMEC"
     LEICA = "Leica"
+    LG = "LG"
     LIFECANVAS = "LifeCanvas"
     MIGHTY_ZAP = "IR Robot Co"
     MKS_NEWPORT = "MKS Newport"
     MPI = "MPI"
     NATIONAL_INSTRUMENTS = "National Instruments"
+    NEW_SCALE_TECHNOLOGIES = "New Scale Technologies"
     NIKON = "Nikon"
     OEPS = "OEPS"
     OLYMPUS = "Olympus"
     OPTOTUNE = "Optotune"
     OTHER = "Other"
     OXXIUS = "Oxxius"
+    QUANTIFI = "Quantifi"
     SEMROCK = "Semrock"
     THORLABS = "Thorlabs"
     VIEWORKS = "Vieworks"
     VORTRAN = "Vortran"
-
-
-class LensManufacturer(Enum):
-    """Camera manufacturer"""
-
-    EDMUND_OPTICS = "Edmund Optics"
-    BASLER = "Basler"
-    THORLABS = "Thorlabs"
-
-
-class FilterManufacturer(Enum):
-    """Filter manufacturer"""
-
-    EDMUND_OPTICS = "Edmund Optics"
-    SEMROCK = "Semrock"
-    THORLABS = "Thorlabs"
-
-
-class LaserManufacturer(Enum):
-    """Laser manufacturer"""
-
-    COHERENT_SCIENTIFIC = "Coherent Scientific"
-    HAMAMATSU = "Hamamatsu"
-    OXXIUS = "Oxxius"
-    QUANTIFI = "Quantifi"
-
-
-class CameraManufacturer(Enum):
-    """Camera manufacturer"""
-
-    ALLIED = "Allied"
-    FLIR = "FLIR"
-    BASLER = "Basler"
-    EDMUND_OPTICS = "Edmund Optics"
-    THORLABS = "Thorlabs"
-
-
-class DaqManufacturer(Enum):
-    """DAQ manufacturer"""
-
-    NI = "NI"
-    IMEC = "IMEC"
-    OEPS = "OEPS"
 
 
 class Coupling(Enum):
@@ -160,22 +124,27 @@ class RelativePosition(AindModel):
     coordinate_system: Optional[str] = Field(None, title="Description of the coordinate system used")
 
 
-class DeviceBase(AindModel):
+class Device(AindModel):
     """Generic device"""
 
-    device_name: Optional[str] = Field(None, title="Device name")
+    name: Optional[str] = Field(None, title="Device name")
     serial_number: Optional[str] = Field(None, title="Serial number")
-    device_manufacturer: Optional[Manufacturer] = Field(None, title="Manufacturer")
+    manufacturer: Optional[Manufacturer] = Field(None, title="Manufacturer")
     model: Optional[str] = Field(None, title="Model")
     notes: Optional[str] = Field(None, title="Notes")
 
 
-class Camera(DeviceBase):
+class Camera(Device):
     """Device that acquires images and streams them to a computer"""
 
     # required fields
     data_interface: DataInterface = Field(..., title="Type of connection to PC")
-    camera_manufacturer: CameraManufacturer = Field(..., title="Camera manufacturer")
+    manufacturer: Literal[Manufacturer.ALLIED,
+                          Manufacturer.BASLER,
+                          Manufacturer.EDMUND_OPTICS,
+                          Manufacturer.FLIR,
+                          Manufacturer.THORLABS,
+                          Manufacturer.OTHER]
     computer_name: str = Field(..., title="Name of computer receiving data from this camera")
     max_frame_rate: float = Field(..., title="Maximum frame rate (Hz)", units="Hz")
     pixel_width: int = Field(..., title="Width of the sensor in pixels", units="Pixels")
@@ -187,11 +156,13 @@ class Camera(DeviceBase):
     recording_software: Optional[str] = Field(None, title="Software used to acquire camera data")
 
 
-class Lens(DeviceBase):
+class Lens(Device):
     """Lens used to focus light onto a camera sensor"""
 
     # required fields
-    lens_manufacturer: LensManufacturer = Field(..., title="Lens manufacturer")
+    manufacturer: Literal[Manufacturer.EDMUND_OPTICS,
+                          Manufacturer.THORLABS,
+                          Manufacturer.OTHER]
 
     # optional fields
     focal_length: Optional[float] = Field(None, title="Focal length of the lens", units="mm")
@@ -202,12 +173,15 @@ class Lens(DeviceBase):
     max_aperture: Optional[str] = Field(None, title="Max aperture (e.g. f/2)")
 
 
-class Filter(DeviceBase):
+class Filter(Device):
     """Filter used in a light path"""
 
     # required fields
     filter_type: FilterType = Field(..., title="Type of filter")
-    filter_manufacturer: FilterManufacturer = Field(..., title="Filter manufacturer")
+    manufacturer: Literal[Manufacturer.EDMUND_OPTICS,
+                          Manufacturer.SEMROCK,
+                          Manufacturer.THORLABS,
+                          Manufacturer.OTHER]
 
     # optional fields
     diameter: Optional[FilterSize] = Field(None, title="Size (mm)", units="mm")
@@ -233,7 +207,7 @@ class CameraAssembly(AindModel):
     
 
 class DaqChannel(AindModel):
-    """Named input or output channel on a DAQ"""
+    """Named input or output channel on a DAQ device"""
 
     # required fields
     channel_name: str = Field(..., title="DAQ channel name")
@@ -246,12 +220,15 @@ class DaqChannel(AindModel):
     sample_rate: Optional[float] = Field(-1.0, title="DAQ channel sample rate (Hz); -1 = event-based sampling", units="Hz")
     
 
-class DAQ(DeviceBase):
+class DAQDevice(Device):
     """Data acquisition device containing multiple I/O channels"""
 
     # required fields
     data_interface: DataInterface = Field(..., title="Type of connection to PC")
-    daq_manufacturer: DaqManufacturer = Field(..., title="DAQ manufacturer")
+    manufacturer: Literal[Manufacturer.NATIONAL_INSTRUMENTS,
+                          Manufacturer.IMEC,
+                          Manufacturer.OEPS,
+                          Manufacturer.OTHER]
     computer_name: str = Field(..., title="Name of computer controlling this DAQ")
 
     # optional fields
@@ -260,11 +237,15 @@ class DAQ(DeviceBase):
     )
 
 
-class Laser(DeviceBase):
+class Laser(Device):
     """Laser module with a specific wavelength (may be a sub-component of a larger assembly)"""
     
     # required fields
-    laser_manufacturer: LaserManufacturer = Field(..., title="Laser manufacturer")
+    manufacturer: Literal[Manufacturer.COHERENT_SCIENTIFIC,
+                          Manufacturer.HAMAMATSU,
+                          Manufacturer.OXXIUS,
+                          Manufacturer.QUANTIFI,
+                          Manufacturer.OTHER]
     wavelength: int = Field(
         ..., title="Wavelength (nm)", units="nm"
     )

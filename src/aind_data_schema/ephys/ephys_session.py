@@ -54,10 +54,20 @@ class ManipulatorModule(AindModel):
         title="Manipulator coordinates",
     )
 
+class Laser(AindModel):
+    """Laser used in a LaserModule"""
+
+    name: str = Field(..., title="Laser name (must match rig JSON)")
+    power_level: float = Field(
+        ..., title="Power level used in this session", units="mW"
+    )
+
+
 class LaserModule(ManipulatorModule):
-    """Laser used in a Stream"""
+    """Laser Module used in a Stream"""
 
     name: str = Field(..., title="Laser module name (must match rig JSON)")
+    lasers: List[Laser] = Field(..., title="Active lasers in this module")
     
 
 class EphysProbe(ManipulatorModule):
@@ -67,10 +77,10 @@ class EphysProbe(ManipulatorModule):
     other_targeted_structures: Optional[List[str]] = None
     
 
-class DAQ(AindModel):
-    """DAQ recorded in a Stream"""
+class DAQDevice(AindModel):
+    """Data acquisition device recorded in a Stream"""
     
-    name: str = Field(..., title="DAQ name (must match rig JSON)")
+    name: str = Field(..., title="DAQ device name (must match rig JSON)")
 
 
 class Camera(AindModel):
@@ -82,11 +92,11 @@ class Camera(AindModel):
 class Stream(AindModel):
     """Stream of data with a start and stop time"""
 
-    start_time: datetime = Field(..., title="Stream start time")
-    end_time: datetime = Field(..., title="Stream stop time")
+    stream_start_time: datetime = Field(..., title="Stream start time")
+    stream_end_time: datetime = Field(..., title="Stream stop time")
     probes: List[EphysProbe] = Field(..., title="Probes", unique_items=True)
-    lasers: List[LaserModule] = Field(..., title="Lasers", unique_items=True)
-    daqs: List[DAQ] = Field(..., title="DAQs", unique_items=True)
+    laser_modules: List[LaserModule] = Field(..., title="Laser modules", unique_items=True)
+    daqs: List[DAQDevice] = Field(..., title="DAQ devices", unique_items=True)
     cameras: List[Camera] = Field(..., title="Cameras", unique_items=True)
 
 
@@ -101,8 +111,8 @@ class EphysSession(AindCoreModel):
         description="First and last name of the experimenter.",
         title="Experimenter full name",
     )
-    start_time: datetime = Field(..., title="Session start time")
-    end_time: datetime = Field(..., title="Session end time")
+    stream_start_time: datetime = Field(..., title="Session start time")
+    stream_end_time: datetime = Field(..., title="Session end time")
     subject_id: Optional[int] = Field(1, title="Subject ID; 1 = Test subject")
     session_type: SessionType = Field(..., title="Session type")
     session_description: Optional[str] = Field(

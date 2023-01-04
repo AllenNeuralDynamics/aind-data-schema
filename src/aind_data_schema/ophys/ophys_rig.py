@@ -9,11 +9,11 @@ from typing import List, Optional
 from pydantic import Field
 from ..base import AindCoreModel
 
-from ..device import DeviceBase, DataInterface, Camera, Laser, Filter, Lens
+from ..device import Device, DataInterface, Camera, Laser, Filter, Lens
 
 
-class CameraType(Enum):
-    """Camera type name"""
+class DetectorType(Enum):
+    """Detector type name"""
 
     CAMERA = "Camera"
     PMT = "PMT"
@@ -35,33 +35,19 @@ class Immersion(Enum):
     OIL = "oil"
 
 
-class Detector(DeviceBase):
+class Detector(Device):
     """Description of a generic detector"""
 
-    name: Optional[str] = Field(
-        None,
-        description="Brief name to identify detector to match with session information",
-        title="Name",
-    )
-    type: CameraType = Field(..., title="Camera Type")
+    detector_type: DetectorType = Field(..., title="Detector Type")
     data_interface: DataInterface = Field(..., title="Data interface")
     cooling: Cooling = Field(..., title="Cooling")
     immersion: Optional[Immersion] = Field(None, title="Immersion")
 
 
 
-class PatchName(Enum):
-    """Patch name"""
+class Patch(Device):
+    """Description of a patch cord"""
 
-    PATCH_CORD_A = "Patch Cord A"
-    PATCH_CORD_B = "Patch Cord B"
-    PATCH_CORD_C = "Patch Cord C"
-
-
-class Patch(DeviceBase):
-    """Description of a patch"""
-
-    name: PatchName = Field(..., title="Patch Name")
     core_diameter: float = Field(..., title="Core diameter (um)")
     numerical_aperture: float = Field(..., title="Numerical aperture")
     photobleaching_date: Optional[date] = Field(
@@ -103,7 +89,7 @@ class OphysRig(AindCoreModel):
     lenses: Optional[List[Lens]] = Field(
         None, title="Lenses", unique_items=True
     )
-    additional_devices: Optional[List[DeviceBase]] = Field(
+    additional_devices: Optional[List[Device]] = Field(
         None, title="Additional devices", unique_items=True
     )
     light_path_diagram: Optional[str] = Field(

@@ -9,7 +9,7 @@ from typing import List, Optional
 from pydantic import Field
 from ..base import AindCoreModel, AindModel
 
-from ..device import DeviceBase, Manufacturer, DAQ, DataInterface, Filter, Coupling
+from ..device import Device, Manufacturer, DAQDevice, DataInterface, Filter, Coupling
 
 
 class InstrumentType(Enum):
@@ -46,7 +46,7 @@ class Cooling(Enum):
     WATER = "water"
 
 
-class Detector(DeviceBase):
+class Detector(Device):
     """Description of a detector device"""
 
     type: CameraType = Field(..., title="Detector type")
@@ -63,7 +63,7 @@ class LightsourceType(Enum):
     OTHER = "other"
 
 
-class Lightsource(DeviceBase):
+class Lightsource(Device):
     """Description of lightsource device"""
 
     type: LightsourceType = Field(..., title="Lightsource Type")
@@ -84,7 +84,7 @@ class Immersion(Enum):
     OTHER = "other"
 
 
-class Objective(DeviceBase):
+class Objective(Device):
     """Description of an objective device"""
 
     numerical_aperture: float = Field(..., title="Numerical aperture (in air)")
@@ -108,7 +108,7 @@ class ImagingDeviceType(Enum):
     OTHER = "Other"
 
 
-class AdditionalImagingDevice(DeviceBase):
+class AdditionalImagingDevice(Device):
     """Description of additional devices"""
 
     type: ImagingDeviceType = Field(..., title="Device type")
@@ -130,7 +130,7 @@ class StageAxisName(Enum):
     Z = "Z"
 
 
-class MotorizedStage(DeviceBase):
+class MotorizedStage(Device):
     """Description of motorized stage"""
 
     travel: float = Field(..., title="Travel of device (mm)", units="mm")
@@ -145,7 +145,7 @@ class ScanningStage(MotorizedStage):
     stage_axis_name: StageAxisName = Field(..., title="Name of stage axis")
 
 
-class OpticalTable(DeviceBase):
+class OpticalTable(Device):
     """Description of Optical Table"""
 
     length: Optional[float] = Field(
@@ -194,7 +194,7 @@ class Instrument(AindCoreModel):
     scanning_stages: Optional[List[ScanningStage]] = Field(
         None, title="Scanning motorized stages", unique_items=True
     )
-    daqs: Optional[List[DAQ]] = Field(None, title="DAQ", unique_items=True)
+    daqs: Optional[List[DAQDevice]] = Field(None, title="DAQ", unique_items=True)
     additional_devices: Optional[List[AdditionalImagingDevice]] = Field(
         None, title="Additional devices", unique_items=True
     )
