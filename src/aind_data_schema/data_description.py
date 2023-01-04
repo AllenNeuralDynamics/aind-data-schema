@@ -23,8 +23,10 @@ class DataRegex(Enum):
     """regular expression patterns for different kinds of data and their properties"""
 
     DATA = f"^(?P<label>.+?)_(?P<c_date>{RegexParts.DATE.value})_(?P<c_time>{RegexParts.TIME.value})$"
-    RAW_DATA = f"^(?P<modality>.+?)_(?P<subject_id>.+?)_(?P<c_date>{RegexParts.DATE.value})_(?P<c_time>{RegexParts.TIME.value})$"
-    DERIVED_DATA = f"^(?P<input>.+?_{RegexParts.DATE.value}_{RegexParts.TIME.value})_(?P<process_name>.+?)_(?P<c_date>{RegexParts.DATE.value})_(?P<c_time>{RegexParts.TIME.value})"
+    RAW_DATA = f"^(?P<modality>.+?)_(?P<subject_id>.+?)_(?P<c_date>{RegexParts.DATE.value})_(?P<c_time>" \
+               f"{RegexParts.TIME.value})$"
+    DERIVED_DATA = f"^(?P<input>.+?_{RegexParts.DATE.value}_{RegexParts.TIME.value})_(?P<process_name>.+?)_(?P<c_date>"\
+                   f"{RegexParts.DATE.value})_(?P<c_time>{RegexParts.TIME.value})"
     NO_UNDERSCORES = "^[^_]+$"
 
 
@@ -141,7 +143,8 @@ class DataDescription(AindCoreModel):
     modality: str = Field(
         ...,
         regex=DataRegex.NO_UNDERSCORES.value,
-        description="A short name for the specific manner, characteristic, pattern of application, or the employment of any technology or formal procedure to generate data for a study",
+        description="A short name for the specific manner, characteristic, pattern of application, or the employment of"
+                    " any technology or formal procedure to generate data for a study",
         title="Modality",
     )
     subject_id: str = Field(
