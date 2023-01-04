@@ -1,16 +1,6 @@
 """ example SmartSPIM instrument """
-from aind_data_schema.imaging.instrument import (
-    AdditionalImagingDevice,
-    Com,
-    Detector,
-    Filter,
-    Instrument,
-    Lightsource,
-    MotorizedStage,
-    Objective,
-    OpticalTable,
-    ScanningStage,
-)
+from aind_data_schema.imaging.instrument import (AdditionalImagingDevice, Com, Detector, Filter, Instrument,
+                                                 Lightsource, MotorizedStage, Objective, OpticalTable, ScanningStage)
 
 inst = Instrument(
     instrument_id="SmartSPIM1-1",
@@ -183,18 +173,8 @@ inst = Instrument(
         ),
     ],
     additional_devices=[
-        AdditionalImagingDevice(
-            type="Other",
-            manufacturer="Optotune",
-            model="EL-16-40-TC",
-            serial_number="Unknown-1",
-        ),
-        AdditionalImagingDevice(
-            type="Other",
-            manufacturer="Optotune",
-            model="EL-16-40-TC",
-            serial_number="Unknown-2",
-        ),
+        AdditionalImagingDevice(type="Other", manufacturer="Optotune", model="EL-16-40-TC", serial_number="Unknown-1",),
+        AdditionalImagingDevice(type="Other", manufacturer="Optotune", model="EL-16-40-TC", serial_number="Unknown-2",),
     ],
 )
 

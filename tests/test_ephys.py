@@ -6,17 +6,8 @@ import unittest
 import pydantic
 
 from aind_data_schema import EphysRig, EphysSession
-from aind_data_schema.ephys.ephys_rig import (
-    LaserModule,
-    Manipulator,
-    ManipulatorAngle,
-)
-from aind_data_schema.ephys.ephys_session import (
-    CcfCoords,
-    Coordinates3d,
-    EphysProbe,
-    Stream,
-)
+from aind_data_schema.ephys.ephys_rig import LaserModule, Manipulator, ManipulatorAngle
+from aind_data_schema.ephys.ephys_session import CcfCoords, Coordinates3d, EphysProbe, Stream
 
 
 class ExampleTest(unittest.TestCase):
@@ -68,12 +59,8 @@ class ExampleTest(unittest.TestCase):
                         EphysProbe(
                             name="Probe A",
                             tip_targeted_structure="VISl4",
-                            targeted_ccf_coordinates=CcfCoords(
-                                ml="1", ap="1", dv="1"
-                            ),
-                            manipulator_coordinates=Coordinates3d(
-                                x="1", y="1", z="1"
-                            ),
+                            targeted_ccf_coordinates=CcfCoords(ml="1", ap="1", dv="1"),
+                            manipulator_coordinates=Coordinates3d(x="1", y="1", z="1"),
                         )
                     ],
                     lasers=[],

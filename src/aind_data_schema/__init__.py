@@ -4,12 +4,7 @@
 __version__ = "0.4.3"
 
 
-from .data_description import (
-    DataDescription,
-    DerivedDataDescription,
-    Funding,
-    RawDataDescription,
-)
+from .data_description import DataDescription, DerivedDataDescription, Funding, RawDataDescription
 from .ephys.ephys_rig import EphysRig
 from .ephys.ephys_session import EphysSession
 from .imaging.acquisition import Acquisition, Axis

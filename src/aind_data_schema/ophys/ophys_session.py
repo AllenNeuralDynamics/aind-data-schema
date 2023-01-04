@@ -58,9 +58,7 @@ class Laser(AindModel):
 
     name: LaserName = Field(..., title="Name")
     wavelength: int = Field(..., title="Wavelength (nm)")
-    excitation_power: Optional[float] = Field(
-        None, title="Excitation power (mW)"
-    )
+    excitation_power: Optional[float] = Field(None, title="Excitation power (mW)")
 
 
 class Patch(AindModel):
@@ -74,33 +72,20 @@ class OphysSession(AindCoreModel):
     """Description of an ophys session"""
 
     schema_version: str = Field(
-        "0.0.1",
-        description="schema version",
-        title="Schema Version",
-        const=True,
+        "0.0.1", description="schema version", title="Schema Version", const=True,
     )
     experimenter_full_name: str = Field(
-        ...,
-        description="First and last name of the experimenter.",
-        title="Experimenter full name",
+        ..., description="First and last name of the experimenter.", title="Experimenter full name",
     )
     session_start_time: datetime = Field(..., title="Session start time")
     session_end_time: datetime = Field(..., title="Session end time")
     subject_id: int = Field(..., title="Subject ID")
     session_type: str = Field(..., title="Session type")
-    stimulus_protocol_id: Optional[str] = Field(
-        None, title="Stimulus protocol ID"
-    )
+    stimulus_protocol_id: Optional[str] = Field(None, title="Stimulus protocol ID")
     iacuc_protocol: Optional[str] = Field(None, title="IACUC protocol")
     rig_id: str = Field(..., title="Rig ID")
-    patch_cords: List[Patch] = Field(
-        ..., title="Patch cords", unique_items=True
-    )
+    patch_cords: List[Patch] = Field(..., title="Patch cords", unique_items=True)
     lasers: List[Laser] = Field(..., title="Lasers", unique_items=True)
-    coupling_array: List[Coupling] = Field(
-        ..., title="Coupling array", unique_items=True
-    )
-    detectors: Optional[List[Detector]] = Field(
-        None, title="Detectors", unique_items=True
-    )
+    coupling_array: List[Coupling] = Field(..., title="Coupling array", unique_items=True)
+    detectors: Optional[List[Detector]] = Field(None, title="Detectors", unique_items=True)
     notes: Optional[str] = None
