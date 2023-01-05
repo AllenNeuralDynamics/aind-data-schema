@@ -6,7 +6,7 @@ from datetime import datetime
 from enum import Enum
 from typing import List, Optional, Union, Literal
 
-from pydantic import Field
+from pydantic import Field, root_validator
 
 from ..device import Device, DAQDevice, Camera, CameraAssembly, RelativePosition, Laser, DataInterface, Manufacturer
 from ..base import AindCoreModel, AindModel
@@ -240,3 +240,17 @@ class EphysRig(AindCoreModel):
     stick_microscopes: Optional[List[StickMicroscope]] = Field(
         None, title="Stick microscopes"
     )
+
+    @root_validator
+    def validate_daq_channels(cls, values):
+        cameras = values.get('cameras')
+        daqs = values.get('daqs')
+
+        device_names = [c.camera.name for c in cameras] 
+
+        for daq in daqs:
+            for channel in daq.channels:
+                if not channel.device_name in device_names:
+                    raise ValueError(f'DAQ channel validation error: {channel.device_name} not found in device list')
+        return values
+
