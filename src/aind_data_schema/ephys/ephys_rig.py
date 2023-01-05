@@ -101,7 +101,6 @@ class DomeModule(AindModel):
     """Movable module that is mounted on the ephys dome insertion system"""
 
     # required fields
-    module_name: str = Field(..., title="Module name")
     arc_angle: float = Field(..., title="Arc Angle", units="degrees")
     module_angle: float = Field(..., title="Module Angle", units="degrees")
 
@@ -118,23 +117,26 @@ class DomeModule(AindModel):
     )
 
 
-class StickMicroscope(DomeModule):
-    """Stick microscope used to monitor probes during insertion"""
-
-    camera: Camera = Field(..., title="Camera for this module")
-    
-
 class Manipulator(Device):
     """Manipulator used on a dome module"""
     
     manufacturer: Literal[Manufacturer.NEW_SCALE_TECHNOLOGIES]
 
 
+class StickMicroscope(DomeModule):
+    """Stick microscope used to monitor probes during insertion"""
+
+    camera: Camera = Field(..., title="Camera for this module")
+    
+
 class LaserModule(DomeModule):
-    """Named laser module for optogenetic stimulation"""
+    """Module for optogenetic stimulation"""
 
     manipulator: Manipulator = Field(..., title="Manipulator")
     lasers: List[Laser] = Field(..., title="Lasers connected to this module")
+
+
+
 
 
 class Monitor(Device):
@@ -192,16 +194,22 @@ class HeadstageModel(Enum):
     RHD_64_CH = "Intan RHD 64-channel"
 
 
-class EphysProbe(Device, DomeModule):
+class EphysProbe(Device):
     """Named probe used in an ephys experiment"""
 
     # required fields
     probe_model: ProbeModel = Field(..., title="Probe model")
-    manipulator: Manipulator = Field(..., title="Manipulator")
 
     # optional fields
     lasers: Optional[List[Laser]] = Field(None, title="Lasers connected to this probe")
     headstage: Optional[HeadstageModel] = Field(None, title="Headstage for this probe")
+
+
+class EphysModule(DomeModule):
+    """Module for electrophysiological recording"""
+
+    manipulator: Manipulator = Field(..., title="Manipulator")
+    probes: List[EphysProbe] = Field(..., title="Probes that are held by this module")
 
 
 class EphysRig(AindCoreModel):
@@ -219,14 +227,17 @@ class EphysRig(AindCoreModel):
     rig_id: str = Field(
         ..., description="room_stim apparatus_version", title="Rig ID"
     )
-    probes: Optional[List[EphysProbe]] = Field(
+    ephys_modules: Optional[List[EphysModule]] = Field(
         None, title="Ephys probes", unique_items=True
+    )
+    stick_microscopes: Optional[List[StickMicroscope]] = Field(
+        None, title="Stick microscopes"
+    )
+    laser_modules: Optional[List[LaserModule]] = Field(
+        None, title="Laser modules", unique_items=True
     )
     cameras: Optional[List[CameraAssembly]] = Field(
         None, title="Camera assemblies", unique_items=True
-    )
-    lasers: Optional[List[LaserModule]] = Field(
-        None, title="Laser modules", unique_items=True
     )
     visual_monitors: Optional[List[Monitor]] = Field(
         None, title="Visual monitors", unique_items=True
@@ -237,20 +248,61 @@ class EphysRig(AindCoreModel):
     daqs: Optional[List[DAQDevice]] = Field(
         None, title="Data acquisition devices"
     )
-    stick_microscopes: Optional[List[StickMicroscope]] = Field(
-        None, title="Stick microscopes"
-    )
 
     @root_validator
-    def validate_daq_channels(cls, values):
+    def validate_device_names(cls, values):
         cameras = values.get('cameras')
+        ephys_modules = values.get('ephys_modules')
+        laser_modules = values.get('laser_modules')
+        mouse_platform = values.get('mouse_platform')
         daqs = values.get('daqs')
 
-        device_names = [c.camera.name for c in cameras] 
+        if daqs is None:
+            return values
+
+        device_names = [None]
+
+        if cameras is not None:
+            device_names += [c.camera.name for c in cameras]
+        
+        if ephys_modules is not None:
+            device_names += [probe.name for ephys_module in ephys_modules for probe in ephys_module.probes]
+
+        if laser_modules is not None:
+            device_names += [laser.name for laser_module in laser_modules for laser in laser_module.lasers]
+
+        if mouse_platform is not None:
+            device_names += [mouse_platform.name]
 
         for daq in daqs:
-            for channel in daq.channels:
-                if not channel.device_name in device_names:
-                    raise ValueError(f'DAQ channel validation error: {channel.device_name} not found in device list')
+            if daq.channels is not None:
+                for channel in daq.channels:
+                    if not channel.device_name in device_names:
+                        raise ValueError(f'DAQ channel validation error: {channel.device_name} not found in device list')
+        
+        return values
+
+    @root_validator
+    def validate_probe_names(cls, values):
+        ephys_modules = values.get('ephys_modules')
+        daqs = values.get('daqs')
+
+        if daqs is None or ephys_modules is None:
+            return values
+
+        probe_names = [probe.name for ephys_module in ephys_modules for probe in ephys_module.probes]
+
+        for daq in daqs:
+            try:
+                daq.ports
+            except AttributeError:
+                pass
+            else:
+                if daq.ports is not None:
+                    for port in daq.ports:
+                        for probe in port.probes:
+                            if not probe in probe_names:
+                                raise ValueError(f'DAQ port validation error: {probe} not found in probe list')
+        
         return values
 

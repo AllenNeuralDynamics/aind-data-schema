@@ -206,7 +206,7 @@ class CameraAssembly(AindModel):
     position: Optional[RelativePosition] = Field(None, title="Relative position of this assembly")
     
 
-class DaqChannel(AindModel):
+class DAQChannel(AindModel):
     """Named input or output channel on a DAQ device"""
 
     # required fields
@@ -232,7 +232,7 @@ class DAQDevice(Device):
     computer_name: str = Field(..., title="Name of computer controlling this DAQ")
 
     # optional fields
-    channels: Optional[List[DaqChannel]] = Field(
+    channels: Optional[List[DAQChannel]] = Field(
         None, title="DAQ channels"
     )
 
