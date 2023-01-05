@@ -217,7 +217,9 @@ class DAQChannel(AindModel):
     # optional fields
     port: Optional[int] = Field(None, title="DAQ port")
     channel_index: Optional[int] = Field(None, title="DAQ channel index")
-    sample_rate: Optional[float] = Field(-1.0, title="DAQ channel sample rate (Hz); -1 = event-based sampling", units="Hz")
+    sample_rate: Optional[float] = Field(None, title="DAQ channel sample rate (Hz)", units="Hz")
+    event_based_sampling: Optional[bool] = Field(False, title="Set to true if DAQ channel is sampled at irregular intervals")
+    
     
 
 class DAQDevice(Device):
