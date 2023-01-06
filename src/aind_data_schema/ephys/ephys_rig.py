@@ -4,7 +4,12 @@ from __future__ import annotations
 
 from datetime import datetime
 from enum import Enum
-from typing import List, Literal, Optional, Union
+from typing import List, Optional, Union
+
+try: 
+    from typing import Literal
+except ImportError: # pragma: no cover
+    from typing_extensions import Literal
 
 from pydantic import Field, root_validator
 
