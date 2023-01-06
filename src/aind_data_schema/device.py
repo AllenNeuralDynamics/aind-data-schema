@@ -1,9 +1,10 @@
 """ schema for various Devices """
 
-from pydantic import Field
 from enum import Enum
 from datetime import datetime
 from typing import Optional, List, Literal
+from pydantic import Field
+
 from .base import AindModel
 
 class Manufacturer(Enum):
@@ -107,7 +108,8 @@ class DaqChannelType(Enum):
 class RelativePosition(AindModel):
     """Set of 6 values describing relative position on a rig"""
 
-    pitch: Optional[float] = Field(
+    pitch: Optional[float] = 
+(
         None, title="Angle pitch (deg)", units="deg", ge=0, le=360
     )
     yaw: Optional[float] = Field(

@@ -5,9 +5,10 @@ from __future__ import annotations
 import re
 from datetime import date, datetime, time
 from enum import Enum
-from typing import Optional, List
+from typing import List, Optional
 
 from pydantic import Field
+
 from .base import AindCoreModel, AindModel
 
 

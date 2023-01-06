@@ -11,6 +11,67 @@ from pydantic import Field, root_validator
 from ..device import Device, DAQDevice, Camera, CameraAssembly, RelativePosition, Laser, DataInterface, Manufacturer
 from ..base import AindCoreModel, AindModel
 
+class SizeUnit(Enum):
+    """units for sizes"""
+
+    PX = "pixel"
+    IN = "inch"
+    CM = "centimeter"
+    MM = "millimeter"
+    UM = "micrometer"
+    NM = "nanometer"
+    NONE = "none"
+
+
+class Size2d(AindModel):
+    """2D size of an object"""
+
+    width: int = Field(..., title="Width")
+    height: int = Field(..., title="Height")
+    unit: SizeUnit = Field(SizeUnit.PX, title="Size unit")
+
+
+class AngleUnit(Enum):
+    """orientation units"""
+
+    DEG = "degree"
+    RAD = "radian"
+
+
+class Orientation3d(AindModel):
+    """3D orientation of an object"""
+
+    pitch: float = Field(..., title="Angle pitch", ge=0, le=360)
+    yaw: float = Field(..., title="Angle yaw", ge=0, le=360)
+    roll: float = Field(..., title="Angle roll", ge=0, le=360)
+    unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
+
+
+class ModuleOrientation2d(AindModel):
+    """2D module orientation of an object"""
+
+    arc_angle: float = Field(..., title="Arc angle")
+    module_angle: float = Field(..., title="Module angle")
+    unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
+
+
+class ModuleOrientation3d(AindModel):
+    """3D module orientation of an object"""
+
+    arc_angle: float = Field(..., title="Arc angle")
+    module_angle: float = Field(..., title="Module angle")
+    rotation_angle: float = Field(..., title="Rotation angle")
+    unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
+
+
+class Coordinates3d(AindModel):
+    """Coordinates in a 3D grid"""
+
+    x: float = Field(..., title="Position X")
+    y: float = Field(..., title="Position Y")
+    z: float = Field(..., title="Position Z")
+    unit: SizeUnit = Field(SizeUnit.UM, title="Position unit")
+
 
 class HarpDeviceType(Enum):
     """Harp device type"""
@@ -40,7 +101,6 @@ class ProbePort(AindModel):
 
     index: int = Field(..., title="Zero-based port index")
     probes: List[str] = Field(..., title="Names of probes connected to this port")
-
 
 class NeuropixelsBasestation(DAQDevice):
     """PXI-based Neuropixels DAQ"""
@@ -81,13 +141,15 @@ class Disc(MousePlatform):
 
     platform_type: str = Field("Disc", title="Platform type", const=True)
     radius: float = Field(..., title="Radius (cm)", units="cm", ge=0)
-    
+    radius_unit: SizeUnit = Field(SizeUnit.CM, title="radius unit")
+
 
 class Tube(MousePlatform):
     """Description of a tube platform"""
 
     platform_type: str = Field("Tube", title="Platform type", const=True)
-    diameter: float = Field(..., title="Diameter (cm)", units="cm", ge=0)
+    diameter: float = Field(..., title="Diameter", ge=0)
+    diameter_unit: SizeUnit = Field(SizeUnit.CM, title="Diameter unit")
 
 
 class Treadmill(MousePlatform):
@@ -105,7 +167,7 @@ class DomeModule(AindModel):
     module_angle: float = Field(..., title="Module Angle", units="degrees")
 
     # optional fields
-    rotation_angle: Optional[float] = Field(0.0, title="Rotatle Angle", units="degrees")
+    rotation_angle: Optional[float] = Field(0.0, title="Rotation Angle", units="degrees")
     coordinate_transform: Optional[str] = Field(
         None,
         title="Transform from local manipulator axes to rig", 
@@ -136,7 +198,10 @@ class LaserModule(DomeModule):
     lasers: List[Laser] = Field(..., title="Lasers connected to this module")
 
 
+class LaserModule(DeviceBase):
+    """Description of a laser housing module used in ephys recordings"""
 
+    lasers: List[Laser] = Field(..., title="Lasers")
 
 
 class Monitor(Device):
@@ -157,8 +222,7 @@ class Monitor(Device):
     contrast: Optional[int] = Field(
         ...,
         description="Monitor's contrast setting",
-        title="Contrast (percent)",
-        units="percent",
+        title="Contrast",
         ge=0,
         le=100,
     )
@@ -242,7 +306,7 @@ class EphysRig(AindCoreModel):
     visual_monitors: Optional[List[Monitor]] = Field(
         None, title="Visual monitors", unique_items=True
     )
-    mouse_platform: Optional[Union[Tube,Treadmill,Disc]] = Field(
+    mouse_platform: Optional[Union[Tube, Treadmill, Disc]] = Field(
         None, title="Mouse platform"
     )
     daqs: Optional[List[DAQDevice]] = Field(

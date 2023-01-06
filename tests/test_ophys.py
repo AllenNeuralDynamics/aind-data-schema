@@ -5,7 +5,7 @@ import unittest
 
 from pydantic import ValidationError
 
-from aind_data_schema import OphysSession, OphysRig
+from aind_data_schema import OphysRig, OphysSession
 
 
 class OphysTests(unittest.TestCase):

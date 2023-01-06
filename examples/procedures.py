@@ -1,13 +1,9 @@
 """ example procedures """
-
 import datetime
+
 from aind_data_schema import Procedures
-from aind_data_schema.procedures import (
-    Craniotomy,
-    TrainingProtocol,
-    FiberImplant,
-    OphysProbe,
-)
+from aind_data_schema.procedures import (Craniotomy, FiberImplant, OphysProbe,
+                                         TrainingProtocol)
 
 t = datetime.datetime(2022, 11, 22, 8, 43, 00)
 
@@ -58,5 +54,4 @@ p = Procedures(
     ],
 )
 
-with open("procedures.json", "w") as f:
-    f.write(p.json(indent=3))
+p.write_standard_file()

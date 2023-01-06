@@ -7,7 +7,9 @@ from enum import Enum
 from typing import List, Optional
 
 from pydantic import Field
+
 from ..base import AindCoreModel, AindModel
+from .ephys_rig import Coordinates3d, SizeUnit
 
 
 class SessionType(Enum):
@@ -24,20 +26,13 @@ class CcfVersion(Enum):
     CCFv3 = "CCFv3"
 
 
-class Coordinates3d(AindModel):
-    """Description of 3d coordinates in mm"""
-
-    x: float = Field(..., title="X (mm)", units="mm")
-    y: float = Field(..., title="Y (mm)", units="mm")
-    z: float = Field(..., title="Z (mm)", units="mm")
-
-
 class CcfCoords(AindModel):
     """Coordinates in CCF template space"""
 
-    ml: float = Field(..., title="ML (um)", units="um")
-    ap: float = Field(..., title="AP (um)", units="um")
-    dv: float = Field(..., title="DV (um)", units="um")
+    ml: float = Field(..., title="ML")
+    ap: float = Field(..., title="AP")
+    dv: float = Field(..., title="DV")
+    unit: SizeUnit = Field(SizeUnit.UM, title="Coordinate unit")
     ccf_version: CcfVersion = Field(CcfVersion.CCFv3, title="CCF version")
 
 
@@ -53,6 +48,7 @@ class ManipulatorModule(AindModel):
         ...,
         title="Manipulator coordinates",
     )
+
 
 class Laser(AindModel):
     """Laser used in a LaserModule"""
@@ -104,7 +100,7 @@ class EphysSession(AindCoreModel):
     """Description of an ephys recording session"""
 
     schema_version: str = Field(
-        "0.2.1", description="schema version", title="Version", const=True
+        "0.3.0", description="schema version", title="Version", const=True
     )
     experimenter_full_name: str = Field(
         ...,

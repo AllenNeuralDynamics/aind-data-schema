@@ -7,10 +7,9 @@ from enum import Enum
 from typing import List, Optional
 
 from pydantic import Field
-from ..base import AindCoreModel, AindModel
 
 from ..device import Device, Manufacturer, DAQDevice, DataInterface, Filter, Coupling
-
+from ..base import AindCoreModel, AindModel
 
 class InstrumentType(Enum):
     """Instrument type name"""

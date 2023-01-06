@@ -1,8 +1,6 @@
 """ example ExaSPIM instrument """
-
-from aind_data_schema.imaging import instrument
 from aind_data_schema.device import DaqChannel
-
+from aind_data_schema.imaging import instrument
 
 inst = instrument.Instrument(
     instrument_id="exaSPIM1-1",
@@ -39,7 +37,11 @@ inst = instrument.Instrument(
             serial_number="LAS-08307",
             manufacturer="Oxxius",
             notes="Housed in commercial laser combiner",
-            daq_channel=DaqChannel(index=6, type="Analog Output"),
+            daq_channels=[
+                DaqChannel(
+                    daq_name="Dev2", channel_name="6", type="Analog Output"
+                )
+            ],
         ),
         instrument.Lightsource(
             type="laser",
@@ -49,7 +51,11 @@ inst = instrument.Instrument(
             serial_number="LAS-08308",
             manufacturer="Oxxius",
             notes="Housed in commercial laser combiner",
-            daq_channel=DaqChannel(index=3, type="Analog Output"),
+            daq_channels=[
+                DaqChannel(
+                    daq_name="Dev2", channel_name="3", type="Analog Output"
+                )
+            ],
         ),
         instrument.Lightsource(
             type="laser",
@@ -59,7 +65,11 @@ inst = instrument.Instrument(
             serial_number="539251",
             manufacturer="Oxxius",
             notes="Housed in commercial laser combiner",
-            daq_channel=DaqChannel(index=5, type="Analog Output"),
+            daq_channels=[
+                DaqChannel(
+                    daq_name="Dev2", channel_name="5", type="Analog Output"
+                )
+            ],
         ),
         instrument.Lightsource(
             type="laser",
@@ -69,7 +79,11 @@ inst = instrument.Instrument(
             serial_number="LAS-08309",
             manufacturer="Oxxius",
             notes="Housed in commercial laser combiner",
-            daq_channel=DaqChannel(index=4, type="Analog Output"),
+            daq_channels=[
+                DaqChannel(
+                    daq_name="Dev2", channel_name="4", type="Analog Output"
+                )
+            ],
         ),
     ],
     fluorescence_filters=[
@@ -101,7 +115,11 @@ inst = instrument.Instrument(
             travel=1000,
             model="MS-8000",
             manufacturer="Applied Scientific Instrumentation",
-            daq_channel=DaqChannel(index=2, type="Analog Output"),
+            daq_channels=[
+                DaqChannel(
+                    daq_name="Dev2", channel_name="2", type="Analog Output"
+                )
+            ],
             serial_number="Unknown",
         ),
         instrument.ScanningStage(
@@ -127,7 +145,11 @@ inst = instrument.Instrument(
             manufacturer="Optotune",
             model="EL-16-40-TC-VIS-20D-C",
             serial_number="01",
-            daq_channel=DaqChannel(index=0, type="Analog Output"),
+            daq_channels=[
+                DaqChannel(
+                    daq_name="Dev2", channel_name="0", type="Analog Output"
+                )
+            ],
         ),
         instrument.AdditionalImagingDevice(
             type="Rotation mount",
@@ -166,5 +188,4 @@ inst = instrument.Instrument(
     temperature_control=False,
 )
 
-with open("exaspim_instrument.json", "w") as f:
-    f.write(inst.json(indent=3))
+inst.write_standard_file(prefix="exaspim")

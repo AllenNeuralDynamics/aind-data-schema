@@ -7,10 +7,9 @@ from enum import Enum
 from typing import List, Optional
 
 from pydantic import Field
-from ..base import AindCoreModel
 
 from ..device import Device, DataInterface, Camera, Laser, Filter, Lens
-
+from ..base import AindCoreModel
 
 class DetectorType(Enum):
     """Detector type name"""
