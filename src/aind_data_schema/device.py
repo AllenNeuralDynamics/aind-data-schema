@@ -138,12 +138,12 @@ class Camera(Device):
     # required fields
     data_interface: DataInterface = Field(..., title="Type of connection to PC")
     manufacturer: Literal[
-        Manufacturer.ALLIED,
-        Manufacturer.BASLER,
-        Manufacturer.EDMUND_OPTICS,
-        Manufacturer.FLIR,
-        Manufacturer.THORLABS,
-        Manufacturer.OTHER,
+        Manufacturer.ALLIED.value,
+        Manufacturer.BASLER.value,
+        Manufacturer.EDMUND_OPTICS.value,
+        Manufacturer.FLIR.value,
+        Manufacturer.THORLABS.value,
+        Manufacturer.OTHER.value,
     ]
     computer_name: str = Field(..., title="Name of computer receiving data from this camera")
     max_frame_rate: float = Field(..., title="Maximum frame rate (Hz)", units="Hz")
@@ -160,7 +160,7 @@ class Lens(Device):
     """Lens used to focus light onto a camera sensor"""
 
     # required fields
-    manufacturer: Literal[Manufacturer.EDMUND_OPTICS, Manufacturer.THORLABS, Manufacturer.OTHER]
+    manufacturer: Literal[Manufacturer.EDMUND_OPTICS.value, Manufacturer.THORLABS.value, Manufacturer.OTHER.value]
 
     # optional fields
     focal_length: Optional[float] = Field(None, title="Focal length of the lens", units="mm")
@@ -174,10 +174,10 @@ class Filter(Device):
 
     # required fields
     filter_type: FilterType = Field(..., title="Type of filter")
-    manufacturer: Literal[Manufacturer.EDMUND_OPTICS, Manufacturer.SEMROCK, Manufacturer.THORLABS, Manufacturer.OTHER]
+    manufacturer: Literal[Manufacturer.EDMUND_OPTICS.value, Manufacturer.CHROMA.value, Manufacturer.SEMROCK.value, Manufacturer.THORLABS.value, Manufacturer.OTHER.value]
 
     # optional fields
-    diameter: Optional[FilterSize] = Field(None, title="Size (mm)", units="mm")
+    diameter: Optional[float] = Field(None, title="Size (mm)", units="mm")
     thickness: Optional[float] = Field(None, title="Size (mm)", ge=0)
     filter_wheel_index: Optional[int] = Field(None, title="Filter wheel index")
     cut_off_frequency: Optional[int] = Field(None, title="Cut-off frequency")
@@ -222,7 +222,7 @@ class DAQDevice(Device):
 
     # required fields
     data_interface: DataInterface = Field(..., title="Type of connection to PC")
-    manufacturer: Literal[Manufacturer.NATIONAL_INSTRUMENTS, Manufacturer.IMEC, Manufacturer.OEPS, Manufacturer.OTHER]
+    manufacturer: Literal[Manufacturer.NATIONAL_INSTRUMENTS.value, Manufacturer.IMEC.value, Manufacturer.OEPS.value, Manufacturer.OTHER.value]
     computer_name: str = Field(..., title="Name of computer controlling this DAQ")
 
     # optional fields
@@ -234,11 +234,11 @@ class Laser(Device):
 
     # required fields
     manufacturer: Literal[
-        Manufacturer.COHERENT_SCIENTIFIC,
-        Manufacturer.HAMAMATSU,
-        Manufacturer.OXXIUS,
-        Manufacturer.QUANTIFI,
-        Manufacturer.OTHER,
+        Manufacturer.COHERENT_SCIENTIFIC.value,
+        Manufacturer.HAMAMATSU.value,
+        Manufacturer.OXXIUS.value,
+        Manufacturer.QUANTIFI.value,
+        Manufacturer.OTHER.value,
     ]
     wavelength: int = Field(..., title="Wavelength (nm)", units="nm")
 

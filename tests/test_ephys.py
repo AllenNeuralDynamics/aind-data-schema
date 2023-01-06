@@ -25,25 +25,21 @@ class ExampleTest(unittest.TestCase):
             rig_id="1234",
             laser_modules=[
                 er.LaserModule(
-                    manufacturer="Other",
-                    model="Unknown",
-                    serial_number="1234",
                     lasers=[
                         er.Laser(
                             manufacturer="Hamamatsu",
                             serial_number="1234",
                             name="Laser A",
-                            laser_manipulator=er.Manipulator(
-                                manufacturer="Other",
-                                serial_number="1234",
-                                orientation=er.ModuleOrientation3d(
-                                    arc_angle=1,
-                                    rotation_angle=1,
-                                    module_angle=1,
-                                ),
-                            ),
-                        )
+                            wavelength=488,
+                        ),
                     ],
+                    arc_angle=1,
+                    rotation_angle=1,
+                    module_angle=1,
+                    manipulator=er.Manipulator(
+                        manufacturer="New Scale Technologies",
+                        serial_number="1234",
+                    )
                 )
             ],
         )
@@ -57,19 +53,21 @@ class ExampleTest(unittest.TestCase):
             subject_id="1234",
             session_type="Test",
             rig_id="1234",
-            probe_streams=[
+            data_streams=[
                 es.Stream(
                     stream_start_time=datetime.datetime.now(),
-                    stream_stop_time=datetime.datetime.now(),
+                    stream_end_time=datetime.datetime.now(),
                     probes=[
                         es.EphysProbe(
                             name="Probe A",
-                            tip_targeted_structure="VISl4",
+                            primary_targeted_structure="VISl4",
                             targeted_ccf_coordinates=es.CcfCoords(ml="1", ap="1", dv="1"),
                             manipulator_coordinates=er.Coordinates3d(x="1", y="1", z="1"),
                         )
                     ],
-                    lasers=[],
+                    laser_modules=[],
+                    daqs=[],
+                    cameras=[]
                 )
             ],
         )

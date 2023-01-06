@@ -177,7 +177,7 @@ class DomeModule(AindModel):
 class Manipulator(Device):
     """Manipulator used on a dome module"""
 
-    manufacturer: Literal[Manufacturer.NEW_SCALE_TECHNOLOGIES]
+    manufacturer: Literal[Manufacturer.NEW_SCALE_TECHNOLOGIES.value]
 
 
 class StickMicroscope(DomeModule):
@@ -197,7 +197,7 @@ class Monitor(Device):
     """Visual display"""
 
     # required fields
-    manufacturer: Literal[Manufacturer.LG]
+    manufacturer: Literal[Manufacturer.LG.value]
     refresh_rate: int = Field(..., title="Refresh rate (Hz)", units="Hz", ge=60)
     width: int = Field(..., title="Width (pixels)", units="pixels")
     height: int = Field(..., title="Height (pixels)", units="pixels")
