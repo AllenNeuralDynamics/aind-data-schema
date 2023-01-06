@@ -8,8 +8,9 @@ from typing import List, Optional
 
 from pydantic import Field
 
-from ..device import Device, DataInterface, Camera, Laser, Filter, Lens
 from ..base import AindCoreModel
+from ..device import Camera, DataInterface, Device, Filter, Laser, Lens
+
 
 class DetectorType(Enum):
     """Detector type name"""
@@ -43,7 +44,6 @@ class Detector(Device):
     immersion: Optional[Immersion] = Field(None, title="Immersion")
 
 
-
 class Patch(Device):
     """Description of a patch cord"""
 
@@ -56,7 +56,10 @@ class OphysRig(AindCoreModel):
     """Description of an optical physiology rig"""
 
     schema_version: str = Field(
-        "0.2.0", description="schema version", title="Schema Version", const=True,
+        "0.2.0",
+        description="schema version",
+        title="Schema Version",
+        const=True,
     )
     rig_id: str = Field(..., description="room number_stim apparatus_version", title="Rig ID")
     rig_location: Optional[str] = Field(None, title="Rig location")
@@ -71,6 +74,8 @@ class OphysRig(AindCoreModel):
     lenses: Optional[List[Lens]] = Field(None, title="Lenses", unique_items=True)
     additional_devices: Optional[List[Device]] = Field(None, title="Additional devices", unique_items=True)
     light_path_diagram: Optional[str] = Field(
-        None, description="Path to diagram of the light path.", title="Light path diagram",
+        None,
+        description="Path to diagram of the light path.",
+        title="Light path diagram",
     )
     notes: Optional[str] = Field(None, title="Notes")

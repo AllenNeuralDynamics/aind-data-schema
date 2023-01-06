@@ -54,9 +54,7 @@ class Laser(AindModel):
     """Laser used in a LaserModule"""
 
     name: str = Field(..., title="Laser name (must match rig JSON)")
-    power_level: float = Field(
-        ..., title="Power level used in this session", units="mW"
-    )
+    power_level: float = Field(..., title="Power level used in this session", units="mW")
 
 
 class LaserModule(ManipulatorModule):
@@ -64,18 +62,18 @@ class LaserModule(ManipulatorModule):
 
     name: str = Field(..., title="Laser module name (must match rig JSON)")
     lasers: List[Laser] = Field(..., title="Active lasers in this module")
-    
+
 
 class EphysProbe(ManipulatorModule):
     """Probe recorded in a Stream"""
 
     name: str = Field(..., title="Ephys probe name (must match rig JSON)")
     other_targeted_structures: Optional[List[str]] = None
-    
+
 
 class DAQDevice(AindModel):
     """Data acquisition device recorded in a Stream"""
-    
+
     name: str = Field(..., title="DAQ device name (must match rig JSON)")
 
 
@@ -99,11 +97,11 @@ class Stream(AindModel):
 class EphysSession(AindCoreModel):
     """Description of an ephys recording session"""
 
-    schema_version: str = Field(
-        "0.3.0", description="schema version", title="Version", const=True
-    )
+    schema_version: str = Field("0.3.0", description="schema version", title="Version", const=True)
     experimenter_full_name: str = Field(
-        ..., description="First and last name of the experimenter.", title="Experimenter full name",
+        ...,
+        description="First and last name of the experimenter.",
+        title="Experimenter full name",
     )
     session_start_time: datetime = Field(..., title="Session start time")
     session_end_time: datetime = Field(..., title="Session end time")
@@ -114,10 +112,10 @@ class EphysSession(AindCoreModel):
     iacuc_protocol: Optional[str] = Field(None, title="IACUC protocol")
     rig_id: str = Field(..., title="Rig ID")
     data_streams: List[Stream] = Field(
-        ..., 
-        title="Data streams", 
+        ...,
+        title="Data streams",
         description="A data stream is a collection of devices that are recorded simultaneously. Each session can include multiple streams (e.g., if the manipulators are moved to a new location)",
-        unique_items=True
+        unique_items=True,
     )
     ccf_coordinate_transform: Optional[str] = Field(
         None,

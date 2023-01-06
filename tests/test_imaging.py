@@ -33,7 +33,12 @@ class ImagingTests(unittest.TestCase):
             i = Instrument()
 
         i = Instrument(
-            type="smartSPIM", location="440", manufacturer="LifeCanvas", objectives=[], detectors=[], light_sources=[],
+            type="smartSPIM",
+            location="440",
+            manufacturer="LifeCanvas",
+            objectives=[],
+            detectors=[],
+            light_sources=[],
         )
 
         assert i is not None

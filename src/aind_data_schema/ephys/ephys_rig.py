@@ -4,12 +4,13 @@ from __future__ import annotations
 
 from datetime import datetime
 from enum import Enum
-from typing import List, Optional, Union, Literal
+from typing import List, Literal, Optional, Union
 
 from pydantic import Field, root_validator
 
-from ..device import Device, DAQDevice, Camera, CameraAssembly, RelativePosition, Laser, DataInterface, Manufacturer
 from ..base import AindCoreModel, AindModel
+from ..device import Camera, CameraAssembly, DAQDevice, DataInterface, Device, Laser, Manufacturer, RelativePosition
+
 
 class SizeUnit(Enum):
     """units for sizes"""
@@ -102,6 +103,7 @@ class ProbePort(AindModel):
     index: int = Field(..., title="Zero-based port index")
     probes: List[str] = Field(..., title="Names of probes connected to this port")
 
+
 class NeuropixelsBasestation(DAQDevice):
     """PXI-based Neuropixels DAQ"""
 
@@ -131,9 +133,7 @@ class MousePlatform(Device):
     """Description of a mouse platform"""
 
     surface_material: Optional[str] = Field(None, title="Surface material")
-    date_surface_replaced: Optional[datetime] = Field(
-        None, title="Date surface replaced"
-    )
+    date_surface_replaced: Optional[datetime] = Field(None, title="Date surface replaced")
 
 
 class Disc(MousePlatform):
@@ -169,19 +169,14 @@ class DomeModule(AindModel):
     # optional fields
     rotation_angle: Optional[float] = Field(0.0, title="Rotation Angle", units="degrees")
     coordinate_transform: Optional[str] = Field(
-        None,
-        title="Transform from local manipulator axes to rig", 
-        description="Path to coordinate transform"
+        None, title="Transform from local manipulator axes to rig", description="Path to coordinate transform"
     )
-    calibration_date: Optional[datetime] = Field(
-        None, 
-        title="Data on which coordinate transform was last calibrated"
-    )
+    calibration_date: Optional[datetime] = Field(None, title="Data on which coordinate transform was last calibrated")
 
 
 class Manipulator(Device):
     """Manipulator used on a dome module"""
-    
+
     manufacturer: Literal[Manufacturer.NEW_SCALE_TECHNOLOGIES]
 
 
@@ -189,7 +184,7 @@ class StickMicroscope(DomeModule):
     """Stick microscope used to monitor probes during insertion"""
 
     camera: Camera = Field(..., title="Camera for this module")
-    
+
 
 class LaserModule(DomeModule):
     """Module for optogenetic stimulation"""
@@ -203,14 +198,10 @@ class Monitor(Device):
 
     # required fields
     manufacturer: Literal[Manufacturer.LG]
-    refresh_rate: int = Field(
-        ..., title="Refresh rate (Hz)", units="Hz", ge=60
-    )
+    refresh_rate: int = Field(..., title="Refresh rate (Hz)", units="Hz", ge=60)
     width: int = Field(..., title="Width (pixels)", units="pixels")
     height: int = Field(..., title="Height (pixels)", units="pixels")
-    viewing_distance: float = Field(
-        ..., title="Viewing distance (cm)", units="cm"
-    )
+    viewing_distance: float = Field(..., title="Viewing distance (cm)", units="cm")
 
     # optional fields
     contrast: Optional[int] = Field(
@@ -279,41 +270,23 @@ class EphysRig(AindCoreModel):
         title="Described by",
         const=True,
     )
-    schema_version: str = Field(
-        "0.5.0", description="schema version", title="Version", const=True
-    )
-    rig_id: str = Field(
-        ..., description="room_stim apparatus_version", title="Rig ID"
-    )
-    ephys_modules: Optional[List[EphysModule]] = Field(
-        None, title="Ephys probes", unique_items=True
-    )
-    stick_microscopes: Optional[List[StickMicroscope]] = Field(
-        None, title="Stick microscopes"
-    )
-    laser_modules: Optional[List[LaserModule]] = Field(
-        None, title="Laser modules", unique_items=True
-    )
-    cameras: Optional[List[CameraAssembly]] = Field(
-        None, title="Camera assemblies", unique_items=True
-    )
-    visual_monitors: Optional[List[Monitor]] = Field(
-        None, title="Visual monitors", unique_items=True
-    )
-    mouse_platform: Optional[Union[Tube, Treadmill, Disc]] = Field(
-        None, title="Mouse platform"
-    )
-    daqs: Optional[List[DAQDevice]] = Field(
-        None, title="Data acquisition devices"
-    )
+    schema_version: str = Field("0.5.0", description="schema version", title="Version", const=True)
+    rig_id: str = Field(..., description="room_stim apparatus_version", title="Rig ID")
+    ephys_modules: Optional[List[EphysModule]] = Field(None, title="Ephys probes", unique_items=True)
+    stick_microscopes: Optional[List[StickMicroscope]] = Field(None, title="Stick microscopes")
+    laser_modules: Optional[List[LaserModule]] = Field(None, title="Laser modules", unique_items=True)
+    cameras: Optional[List[CameraAssembly]] = Field(None, title="Camera assemblies", unique_items=True)
+    visual_monitors: Optional[List[Monitor]] = Field(None, title="Visual monitors", unique_items=True)
+    mouse_platform: Optional[Union[Tube, Treadmill, Disc]] = Field(None, title="Mouse platform")
+    daqs: Optional[List[DAQDevice]] = Field(None, title="Data acquisition devices")
 
     @root_validator
     def validate_device_names(cls, values):
-        cameras = values.get('cameras')
-        ephys_modules = values.get('ephys_modules')
-        laser_modules = values.get('laser_modules')
-        mouse_platform = values.get('mouse_platform')
-        daqs = values.get('daqs')
+        cameras = values.get("cameras")
+        ephys_modules = values.get("ephys_modules")
+        laser_modules = values.get("laser_modules")
+        mouse_platform = values.get("mouse_platform")
+        daqs = values.get("daqs")
 
         if daqs is None:
             return values
@@ -322,7 +295,7 @@ class EphysRig(AindCoreModel):
 
         if cameras is not None:
             device_names += [c.camera.name for c in cameras]
-        
+
         if ephys_modules is not None:
             device_names += [probe.name for ephys_module in ephys_modules for probe in ephys_module.probes]
 
@@ -336,14 +309,16 @@ class EphysRig(AindCoreModel):
             if daq.channels is not None:
                 for channel in daq.channels:
                     if channel.device_name not in device_names:
-                        raise ValueError(f'DAQ channel validation error: {channel.device_name} not found in device list')
-        
+                        raise ValueError(
+                            f"DAQ channel validation error: {channel.device_name} not found in device list"
+                        )
+
         return values
 
     @root_validator
     def validate_probe_names(cls, values):
-        ephys_modules = values.get('ephys_modules')
-        daqs = values.get('daqs')
+        ephys_modules = values.get("ephys_modules")
+        daqs = values.get("daqs")
 
         if daqs is None or ephys_modules is None:
             return values
@@ -360,7 +335,6 @@ class EphysRig(AindCoreModel):
                     for port in daq.ports:
                         for probe in port.probes:
                             if probe not in probe_names:
-                                raise ValueError(f'DAQ port validation error: {probe} not found in probe list')
-        
-        return values
+                                raise ValueError(f"DAQ port validation error: {probe} not found in probe list")
 
+        return values

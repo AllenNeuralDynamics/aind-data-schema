@@ -1,11 +1,13 @@
 """ schema for various Devices """
 
-from enum import Enum
 from datetime import datetime
-from typing import Optional, List, Literal
+from enum import Enum
+from typing import List, Literal, Optional
+
 from pydantic import Field
 
 from .base import AindModel
+
 
 class Manufacturer(Enum):
     """Device manufacturer name"""
@@ -54,7 +56,7 @@ class Coupling(Enum):
 
 class DataInterface(Enum):
     """Connection between a device and a PC"""
-    
+
     USB = "USB"
     CAMERALINK = "CameraLink"
     COAX = "Coax"
@@ -92,6 +94,7 @@ class LensSize(Enum):
 
 class CameraChroma(Enum):
     """Color vs. black & white"""
+
     COLOR = "Color"
     BW = "Monochrome"
 
@@ -108,20 +111,14 @@ class DaqChannelType(Enum):
 class RelativePosition(AindModel):
     """Set of 6 values describing relative position on a rig"""
 
-    pitch: Optional[float] = Field(
-        None, title="Angle pitch (deg)", units="deg", ge=0, le=360
-    )
-    yaw: Optional[float] = Field(
-        None, title="Angle yaw (deg)", units="deg", ge=0, le=360
-    )
-    roll: Optional[float] = Field(
-        None, title="Angle roll (deg)", units="deg", ge=0, le=360
-    )
-    
+    pitch: Optional[float] = Field(None, title="Angle pitch (deg)", units="deg", ge=0, le=360)
+    yaw: Optional[float] = Field(None, title="Angle yaw (deg)", units="deg", ge=0, le=360)
+    roll: Optional[float] = Field(None, title="Angle roll (deg)", units="deg", ge=0, le=360)
+
     x: Optional[float] = Field(None, title="Position X (mm)", units="mm")
     y: Optional[float] = Field(None, title="Position Y (mm)", units="mm")
     z: Optional[float] = Field(None, title="Position Z (mm)", units="mm")
-    
+
     coordinate_system: Optional[str] = Field(None, title="Description of the coordinate system used")
 
 
@@ -140,12 +137,14 @@ class Camera(Device):
 
     # required fields
     data_interface: DataInterface = Field(..., title="Type of connection to PC")
-    manufacturer: Literal[Manufacturer.ALLIED,
-                          Manufacturer.BASLER,
-                          Manufacturer.EDMUND_OPTICS,
-                          Manufacturer.FLIR,
-                          Manufacturer.THORLABS,
-                          Manufacturer.OTHER]
+    manufacturer: Literal[
+        Manufacturer.ALLIED,
+        Manufacturer.BASLER,
+        Manufacturer.EDMUND_OPTICS,
+        Manufacturer.FLIR,
+        Manufacturer.THORLABS,
+        Manufacturer.OTHER,
+    ]
     computer_name: str = Field(..., title="Name of computer receiving data from this camera")
     max_frame_rate: float = Field(..., title="Maximum frame rate (Hz)", units="Hz")
     pixel_width: int = Field(..., title="Width of the sensor in pixels", units="Pixels")
@@ -161,16 +160,12 @@ class Lens(Device):
     """Lens used to focus light onto a camera sensor"""
 
     # required fields
-    manufacturer: Literal[Manufacturer.EDMUND_OPTICS,
-                          Manufacturer.THORLABS,
-                          Manufacturer.OTHER]
+    manufacturer: Literal[Manufacturer.EDMUND_OPTICS, Manufacturer.THORLABS, Manufacturer.OTHER]
 
     # optional fields
     focal_length: Optional[float] = Field(None, title="Focal length of the lens", units="mm")
     size: Optional[LensSize] = Field(None, title="Size (inches)")
-    optimized_wavelength_range: Optional[str] = Field(
-        None, title="Optimized wavelength range (nm)"
-    )
+    optimized_wavelength_range: Optional[str] = Field(None, title="Optimized wavelength range (nm)")
     max_aperture: Optional[str] = Field(None, title="Max aperture (e.g. f/2)")
 
 
@@ -179,10 +174,7 @@ class Filter(Device):
 
     # required fields
     filter_type: FilterType = Field(..., title="Type of filter")
-    manufacturer: Literal[Manufacturer.EDMUND_OPTICS,
-                          Manufacturer.SEMROCK,
-                          Manufacturer.THORLABS,
-                          Manufacturer.OTHER]
+    manufacturer: Literal[Manufacturer.EDMUND_OPTICS, Manufacturer.SEMROCK, Manufacturer.THORLABS, Manufacturer.OTHER]
 
     # optional fields
     diameter: Optional[FilterSize] = Field(None, title="Size (mm)", units="mm")
@@ -190,8 +182,9 @@ class Filter(Device):
     filter_wheel_index: Optional[int] = Field(None, title="Filter wheel index")
     cut_off_frequency: Optional[int] = Field(None, title="Cut-off frequency")
     cut_on_frequency: Optional[int] = Field(None, title="Cut-on frequency")
-    description: Optional[str] = Field(None, title="Description", 
-        description="More details about filter properties and where/how it is being used")
+    description: Optional[str] = Field(
+        None, title="Description", description="More details about filter properties and where/how it is being used"
+    )
 
 
 class CameraAssembly(AindModel):
@@ -205,7 +198,7 @@ class CameraAssembly(AindModel):
     # optional fields
     filter: Optional[Filter] = Field(None, title="Filter")
     position: Optional[RelativePosition] = Field(None, title="Relative position of this assembly")
-    
+
 
 class DAQChannel(AindModel):
     """Named input or output channel on a DAQ device"""
@@ -219,44 +212,38 @@ class DAQChannel(AindModel):
     port: Optional[int] = Field(None, title="DAQ port")
     channel_index: Optional[int] = Field(None, title="DAQ channel index")
     sample_rate: Optional[float] = Field(None, title="DAQ channel sample rate (Hz)", units="Hz")
-    event_based_sampling: Optional[bool] = Field(False, title="Set to true if DAQ channel is sampled at irregular intervals")
-    
-    
+    event_based_sampling: Optional[bool] = Field(
+        False, title="Set to true if DAQ channel is sampled at irregular intervals"
+    )
+
 
 class DAQDevice(Device):
     """Data acquisition device containing multiple I/O channels"""
 
     # required fields
     data_interface: DataInterface = Field(..., title="Type of connection to PC")
-    manufacturer: Literal[Manufacturer.NATIONAL_INSTRUMENTS,
-                          Manufacturer.IMEC,
-                          Manufacturer.OEPS,
-                          Manufacturer.OTHER]
+    manufacturer: Literal[Manufacturer.NATIONAL_INSTRUMENTS, Manufacturer.IMEC, Manufacturer.OEPS, Manufacturer.OTHER]
     computer_name: str = Field(..., title="Name of computer controlling this DAQ")
 
     # optional fields
-    channels: Optional[List[DAQChannel]] = Field(
-        None, title="DAQ channels"
-    )
+    channels: Optional[List[DAQChannel]] = Field(None, title="DAQ channels")
 
 
 class Laser(Device):
     """Laser module with a specific wavelength (may be a sub-component of a larger assembly)"""
-    
+
     # required fields
-    manufacturer: Literal[Manufacturer.COHERENT_SCIENTIFIC,
-                          Manufacturer.HAMAMATSU,
-                          Manufacturer.OXXIUS,
-                          Manufacturer.QUANTIFI,
-                          Manufacturer.OTHER]
-    wavelength: int = Field(
-        ..., title="Wavelength (nm)", units="nm"
-    )
+    manufacturer: Literal[
+        Manufacturer.COHERENT_SCIENTIFIC,
+        Manufacturer.HAMAMATSU,
+        Manufacturer.OXXIUS,
+        Manufacturer.QUANTIFI,
+        Manufacturer.OTHER,
+    ]
+    wavelength: int = Field(..., title="Wavelength (nm)", units="nm")
 
     # optional fields
-    maximum_power: Optional[float] = Field(
-        None, title="Maximum power (mW)", units="mW"
-    )
+    maximum_power: Optional[float] = Field(None, title="Maximum power (mW)", units="mW")
     coupling: Optional[Coupling] = Field(None, title="Coupling")
     coupling_efficiency: Optional[float] = Field(
         None,
@@ -266,9 +253,5 @@ class Laser(Device):
         le=100,
     )
     item_number: Optional[str] = Field(None, title="Item number")
-    calibration_data: Optional[str] = Field(
-        None, description="Path to calibration data", title="Calibration data"
-    )
-    calibration_date: Optional[datetime] = Field(
-        None, title="Calibration date"
-    )
+    calibration_data: Optional[str] = Field(None, description="Path to calibration data", title="Calibration data")
+    calibration_date: Optional[datetime] = Field(None, title="Calibration date")

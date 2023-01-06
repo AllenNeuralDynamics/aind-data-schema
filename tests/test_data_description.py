@@ -31,7 +31,10 @@ class DataDescriptionTest(unittest.TestCase):
 
         with self.assertRaises(ValueError):
             DataDescription.from_name(
-                name=self.BAD_NAME, institution="AIND", data_level="raw data", funding_source=[f],
+                name=self.BAD_NAME,
+                institution="AIND",
+                data_level="raw data",
+                funding_source=[f],
             )
 
         rd = RawDataDescription.from_name(name=self.BASIC_NAME, institution="AIND", funding_source=[f])
@@ -40,18 +43,28 @@ class DataDescriptionTest(unittest.TestCase):
 
         with self.assertRaises(ValueError):
             RawDataDescription.from_name(
-                name=self.BAD_NAME, institution="AIND", data_level="raw data", funding_source=[f],
+                name=self.BAD_NAME,
+                institution="AIND",
+                data_level="raw data",
+                funding_source=[f],
             )
 
         dd = DerivedDataDescription.from_name(
-            name=self.DERIVED_NAME, institution="AIND", funding_source=[f], modality="SmartSPIM", subject_id="12345",
+            name=self.DERIVED_NAME,
+            institution="AIND",
+            funding_source=[f],
+            modality="SmartSPIM",
+            subject_id="12345",
         )
         assert dd.name == self.DERIVED_NAME
         assert dd.data_level.value == "derived data"
 
         with self.assertRaises(ValueError):
             DerivedDataDescription.from_name(
-                name=self.BAD_NAME, institution="AIND", data_level="raw data", funding_source=[f],
+                name=self.BAD_NAME,
+                institution="AIND",
+                data_level="raw data",
+                funding_source=[f],
             )
 
     def test_from_data_description(self):
@@ -155,7 +168,7 @@ class DataDescriptionTest(unittest.TestCase):
         assert dd is not None
 
     def test_round_trip(self):
-        """ make sure we can round trip from json """
+        """make sure we can round trip from json"""
 
         dt = datetime.datetime.now()
 
