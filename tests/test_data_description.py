@@ -1,11 +1,10 @@
 """ test DataDescription """
 
 import datetime
+import json
 import unittest
 
-from aind_data_schema.data_description import (DataDescription,
-                                               DerivedDataDescription, Funding,
-                                               RawDataDescription)
+from aind_data_schema.data_description import DataDescription, DerivedDataDescription, Funding, RawDataDescription
 
 
 class DataDescriptionTest(unittest.TestCase):
@@ -13,9 +12,7 @@ class DataDescriptionTest(unittest.TestCase):
 
     BAD_NAME = "fizzbuzz"
     BASIC_NAME = "ecephys_1234_3033-12-21_04-22-11"
-    DERIVED_NAME = (
-        "ecephys_1234_3033-12-21_04-22-11_spikesorted-ks25_2022-10-12_23-23-11"
-    )
+    DERIVED_NAME = "ecephys_1234_3033-12-21_04-22-11_spikesorted-ks25_2022-10-12_23-23-11"
 
     def test_from_name(self):
         """test the from_name methods"""
@@ -40,9 +37,7 @@ class DataDescriptionTest(unittest.TestCase):
                 funding_source=[f],
             )
 
-        rd = RawDataDescription.from_name(
-            name=self.BASIC_NAME, institution="AIND", funding_source=[f]
-        )
+        rd = RawDataDescription.from_name(name=self.BASIC_NAME, institution="AIND", funding_source=[f])
         assert rd.name == self.BASIC_NAME
         assert rd.data_level.value == "raw data"
 
@@ -171,6 +166,27 @@ class DataDescriptionTest(unittest.TestCase):
         )
 
         assert dd is not None
+
+    def test_round_trip(self):
+        """make sure we can round trip from json"""
+
+        dt = datetime.datetime.now()
+
+        da1 = RawDataDescription(
+            creation_date=dt.date(),
+            creation_time=dt.time(),
+            institution="AIND",
+            data_level="raw data",
+            funding_source=[],
+            modality="ecephys",
+            subject_id="12345",
+        )
+
+        da2 = RawDataDescription.parse_obj(json.loads(da1.json()))
+
+        assert da1.creation_time == da2.creation_time
+        assert da1.creation_date == da2.creation_date
+        assert da1.name == da2.name
 
 
 if __name__ == "__main__":

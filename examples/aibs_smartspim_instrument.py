@@ -1,9 +1,6 @@
 """ example SmartSPIM instrument """
-from aind_data_schema.imaging.instrument import (AdditionalImagingDevice, Com,
-                                                 Detector, Filter, Instrument,
-                                                 Lightsource, MotorizedStage,
-                                                 Objective, OpticalTable,
-                                                 ScanningStage)
+from aind_data_schema.imaging.instrument import (AdditionalImagingDevice, Com, Detector, Filter, Instrument,
+                                                 Lightsource, MotorizedStage, Objective, OpticalTable, ScanningStage)
 
 inst = Instrument(
     instrument_id="SmartSPIM1-1",
@@ -142,13 +139,19 @@ inst = Instrument(
     humidity_control=False,
     temperature_control=False,
     com_ports=[
-        Com(hardware_name="Laser Launch", com_port="COM3",),
-        Com(hardware_name="ASI Tiger", com_port="COM5",),
+        Com(
+            hardware_name="Laser Launch",
+            com_port="COM3",
+        ),
+        Com(
+            hardware_name="ASI Tiger",
+            com_port="COM5",
+        ),
         Com(hardware_name="MightyZap", com_port="COM4"),
     ],
     fluorescence_filters=[
         Filter(
-            type="Band pass",
+            filter_type="Band pass",
             manufacturer="Semrock",
             diameter=25,
             thickness=2.0,
@@ -157,7 +160,7 @@ inst = Instrument(
             serial_number="Unknown-1",
         ),
         Filter(
-            type="Band pass",
+            filter_type="Band pass",
             manufacturer="Semrock",
             diameter=25,
             thickness=2.0,
@@ -166,7 +169,7 @@ inst = Instrument(
             serial_number="Unknown-2",
         ),
         Filter(
-            type="Band pass",
+            filter_type="Band pass",
             manufacturer="Chroma",
             diameter=25,
             thickness=2.0,

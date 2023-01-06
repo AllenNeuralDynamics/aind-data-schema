@@ -15,7 +15,8 @@ dynamic = ["version"]
 
 dependencies = [
     'pydantic',
-    'jsonschema'
+    'jsonschema',
+    'typing_extensions; python_version < "3.8"'
 ]
 
 [project.optional-dependencies]
@@ -37,7 +38,7 @@ version = {attr = "aind_data_schema.__version__"}
 readme = {file = ["README.md"]}
 
 [tool.black]
-line-length = 79
+line-length = 120
 target_version = ['py36']
 exclude = '''
 
@@ -62,11 +63,11 @@ omit = ["*__init__*"]
 source = ["aind_data_schema", "tests"]
 
 [tool.coverage.report]
-exclude_lines = ["if __name__ == .__main__.:"]
+exclude_lines = ["if __name__ == .__main__.:", "pragma: no cover"]
 fail_under = 100
 
 [tool.isort]
-line_length = 79
+line_length = 120
 
 [tool.interrogate]
 exclude = ["setup.py", "docs", "build"]
