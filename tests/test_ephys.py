@@ -7,6 +7,7 @@ import pydantic
 
 from aind_data_schema.ephys import ephys_rig as er
 from aind_data_schema.ephys import ephys_session as es
+from aind_data_schema.device import DAQChannel, Lens
 
 
 class ExampleTest(unittest.TestCase):
@@ -23,6 +24,53 @@ class ExampleTest(unittest.TestCase):
 
         rig = er.EphysRig(
             rig_id="1234",
+            daqs=[
+                er.DAQDevice(
+                    manufacturer="Other",
+                    data_interface="USB",
+                    computer_name="foo",
+                    channels=[
+                        DAQChannel(
+                            channel_name="123",
+                            device_name="Laser A",
+                            channel_type="Analog Output"
+                        ),
+                        DAQChannel(
+                            channel_name="321",
+                            device_name="Probe A",
+                            channel_type="Analog Output"
+                        ),
+                        DAQChannel(
+                            channel_name="234",
+                            device_name="Camera A",
+                            channel_type="Digital Output"
+                        ),
+                        DAQChannel(
+                            channel_name="2354",
+                            device_name="Disc A",
+                            channel_type="Digital Output"
+                        )
+                    ]
+                )
+            ],
+            cameras=[
+                er.CameraAssembly(
+                    camera_assembly_name="cam",
+                    lens=Lens(
+                        manufacturer="Other"
+                    ),
+                    camera=er.Camera(
+                        name="Camera A",
+                        manufacturer="Other",
+                        data_interface="USB",
+                        computer_name="ASDF",
+                        max_frame_rate=144,
+                        pixel_width=1,
+                        pixel_height=1,
+                        chroma="Color"
+                    )
+                )
+            ],
             laser_modules=[
                 er.LaserModule(
                     lasers=[
@@ -42,6 +90,26 @@ class ExampleTest(unittest.TestCase):
                     ),
                 )
             ],
+            ephys_modules=[
+                er.EphysModule(
+                    probes=[
+                        er.EphysProbe(
+                            probe_model="Neuropixels 1.0",
+                            name="Probe A"
+                        )
+                    ],
+                    arc_angle=0,
+                    module_angle=0,
+                    manipulator=er.Manipulator(
+                        manufacturer="New Scale Technologies",
+                        serial_number="4321",
+                    )
+                )
+            ],
+            mouse_platform=er.Disc(
+                name="Disc A",
+                radius=1
+            )
         )
 
         assert rig is not None
