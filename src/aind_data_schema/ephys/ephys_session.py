@@ -103,25 +103,19 @@ class EphysSession(AindCoreModel):
         "0.3.0", description="schema version", title="Version", const=True
     )
     experimenter_full_name: str = Field(
-        ...,
-        description="First and last name of the experimenter.",
-        title="Experimenter full name",
+        ..., description="First and last name of the experimenter.", title="Experimenter full name",
     )
     session_start_time: datetime = Field(..., title="Session start time")
     session_end_time: datetime = Field(..., title="Session end time")
     subject_id: int = Field(..., title="Subject ID")
     session_type: SessionType = Field(..., title="Session type")
-    session_description: Optional[str] = Field(
-        None, title="Session description"
-    )
-    stimulus_protocol_id: Optional[str] = Field(
-        None, title="Stimulus protocol ID"
-    )
+    session_description: Optional[str] = Field(None, title="Session description")
+    stimulus_protocol_id: Optional[str] = Field(None, title="Stimulus protocol ID")
     iacuc_protocol: Optional[str] = Field(None, title="IACUC protocol")
     rig_id: str = Field(..., title="Rig ID")
-    expected_data_streams: List[Stream] = Field(
+    data_streams: List[Stream] = Field(
         ..., 
-        title="Expected data streams", 
+        title="Data streams", 
         description="A data stream is a collection of devices that are recorded simultaneously. Each session can include multiple streams (e.g., if the manipulators are moved to a new location)",
         unique_items=True
     )

@@ -3,7 +3,8 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-from aind_data_schema import Procedures
+from aind_data_schema import Procedures, Processing, RawDataDescription, Subject
+from aind_data_schema.base import AindCoreModel
 
 
 class BaseTests(unittest.TestCase):
@@ -22,32 +23,42 @@ class BaseTests(unittest.TestCase):
             ),
         )
 
-    def test_get_default_filename(self):
+    @patch("logging.Logger.error")
+    def test_default_filename(self, mock_log):
         """tests that default filename returns as expected"""
 
-        p = Procedures.construct()
-        expected_default_filename = "procedures.json"
-        actual_default_filename = p._get_default_filename()
-        self.assertEqual(expected_default_filename, actual_default_filename)
+        test_models = [
+            (RawDataDescription, "data_description.json"),
+            (Procedures, "procedures.json"),
+            (Subject, "subject.json"),
+            (Processing, "processing.json"),
+        ]
+        for model, expected_name in test_models:
+            actual_name = model.default_filename()
+            self.assertEqual(expected_name, actual_name)
+
+        with self.assertRaises(IndexError):
+            AindCoreModel.default_filename()
+        mock_log.assert_called_with(
+            "Unable to find direct AindCoreModel subclass for" " <class 'aind_data_schema.base.AindCoreModel'>"
+        )
 
     @patch("builtins.open", new_callable=unittest.mock.mock_open())
     def test_write_standard_file_no_prefix(self, mocked_file):
         """tests that standard file is named and written as expected with no prefix"""
         p = Procedures.construct()
-        default_filename = p._get_default_filename()
+        default_filename = p.default_filename()
         json_contents = p.json(indent=3)
         p.write_standard_file()
 
         mocked_file.assert_called_once_with(default_filename, "w")
-        mocked_file.return_value.__enter__().write.assert_called_once_with(
-            json_contents
-        )
+        mocked_file.return_value.__enter__().write.assert_called_once_with(json_contents)
 
     @patch("builtins.open", new_callable=unittest.mock.mock_open())
     def test_write_standard_file_with_prefix(self, mocked_file):
         """tests that standard file is named and written as expected with prefix"""
         p = Procedures.construct()
-        default_filename = p._get_default_filename()
+        default_filename = p.default_filename()
         json_contents = p.json(indent=3)
         new_path = Path("foo") / "bar" / "aibs"
         p.write_standard_file(new_path)
@@ -57,9 +68,7 @@ class BaseTests(unittest.TestCase):
         expected_file_path = str(new_path) + "_" + default_filename
 
         mocked_file.assert_called_once_with(expected_file_path, "w")
-        mocked_file.return_value.__enter__().write.assert_called_once_with(
-            json_contents
-        )
+        mocked_file.return_value.__enter__().write.assert_called_once_with(json_contents)
 
 
 if __name__ == "__main__":

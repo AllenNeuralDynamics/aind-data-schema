@@ -1,11 +1,10 @@
 """ imports for AindModel subclasses
 """
 
-__version__ = "0.4.2"
+__version__ = "0.5.1"
 
 
-from .data_description import (DataDescription, DerivedDataDescription,
-                               Funding, RawDataDescription)
+from .data_description import DataDescription, DerivedDataDescription, Funding, RawDataDescription
 from .ephys.ephys_rig import EphysRig
 from .ephys.ephys_session import EphysSession
 from .imaging.acquisition import Acquisition, Axis

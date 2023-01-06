@@ -67,9 +67,7 @@ class Lightsource(Device):
 
     type: LightsourceType = Field(..., title="Lightsource Type")
     coupling: Coupling = Field(..., title="Coupling")
-    wavelength: float = Field(
-        ..., title="Wavelength (nm)", units="nm", ge=300, le=1000
-    )
+    wavelength: float = Field(..., title="Wavelength (nm)", units="nm", ge=300, le=1000)
     max_power: float = Field(..., title=" Maximum power (mW)", units="mW")
 
 
@@ -138,41 +136,29 @@ class MotorizedStage(Device):
 class ScanningStage(MotorizedStage):
     """Description of a scanning motorized stages"""
 
-    stage_axis_direction: StageAxisDirection = Field(
-        ..., title="Direction of stage axis"
-    )
+    stage_axis_direction: StageAxisDirection = Field(..., title="Direction of stage axis")
     stage_axis_name: StageAxisName = Field(..., title="Name of stage axis")
 
 
 class OpticalTable(Device):
     """Description of Optical Table"""
 
-    length: Optional[float] = Field(
-        None, title="Length (inches)", units="inches", ge=0
-    )
-    width: Optional[float] = Field(
-        None, title="Width (inches)", units="inches", ge=0
-    )
+    length: Optional[float] = Field(None, title="Length (inches)", units="inches", ge=0)
+    width: Optional[float] = Field(None, title="Width (inches)", units="inches", ge=0)
     vibration_control: Optional[bool] = Field(None, title="Vibration control")
 
 
 class Instrument(AindCoreModel):
     """Description of an instrument, which is a collection of devices"""
 
-    version: str = Field(
-        "0.4.1", description="schema version", title="Version", const=True
-    )
+    version: str = Field("0.4.1", description="schema version", title="Version", const=True)
     instrument_id: Optional[str] = Field(
-        None,
-        description="unique identifier for this instrument configuration",
-        title="Instrument ID",
+        None, description="unique identifier for this instrument configuration", title="Instrument ID",
     )
     type: InstrumentType = Field(..., title="Instrument type")
     location: str = Field(..., title="Instrument location")
     manufacturer: Manufacturer = Field(..., title="Instrument manufacturer")
-    temperature_control: Optional[bool] = Field(
-        None, title="Temperature control"
-    )
+    temperature_control: Optional[bool] = Field(None, title="Temperature control")
     humidity_control: Optional[bool] = Field(None, title="Humidity control")
     optical_tables: List[OpticalTable] = Field(None, title="Optical table")
     objectives: List[Objective] = Field(
@@ -198,16 +184,10 @@ class Instrument(AindCoreModel):
         None, title="Additional devices", unique_items=True
     )
     calibration_date: Optional[date] = Field(
-        None,
-        description="Date of most recent calibration",
-        title="Calibration date",
+        None, description="Date of most recent calibration", title="Calibration date",
     )
     calibration_data: Optional[str] = Field(
-        None,
-        description="Path to calibration data from most recent calibration",
-        title="Calibration data",
+        None, description="Path to calibration data from most recent calibration", title="Calibration data",
     )
-    com_ports: Optional[List[Com]] = Field(
-        None, title="COM ports", unique_items=True
-    )
+    com_ports: Optional[List[Com]] = Field(None, title="COM ports", unique_items=True)
     notes: Optional[str] = None

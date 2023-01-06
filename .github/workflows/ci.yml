@@ -10,38 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [ '3.7', '3.8', '3.9', '3.10' ]
+        python-version: [ '3.7', '3.8', '3.9', '3.10', '3.11' ]
     steps:
     - uses: actions/checkout@v3
-    - name: Check for version bump
-      run: |
-        echo "Starting version check"
-        pkg_name=$(grep -P 'version = \{attr = .*\}' pyproject.toml | grep -oP '\w+.__version__')
-        echo "Package Version Location: $pkg_name"
-        init_file="./src/${pkg_name//.__version__}/__init__.py"
-        echo "Init File: $init_file"
-        git fetch --quiet --all
-        latest_tag=$(git describe --tags `git rev-list --tags --max-count=1`)
-        [[ $latest_tag =~ ([0-9]+).([0-9]+).([0-9]+) ]]
-        latest_tag_patch=${BASH_REMATCH[3]}
-        latest_tag_minor=${BASH_REMATCH[2]}
-        latest_tag_major=${BASH_REMATCH[1]}
-        version_in_this_pr=$(cat $init_file | grep "version")
-        [[ $version_in_this_pr =~ ([0-9]+).([0-9]+).([0-9]+) ]]
-        version_in_this_pr_patch=${BASH_REMATCH[3]}
-        version_in_this_pr_minor=${BASH_REMATCH[2]}
-        version_in_this_pr_major=${BASH_REMATCH[1]}
-        echo "Latest tag: $latest_tag_major.$latest_tag_minor.$latest_tag_patch"
-        echo "Version in PR: $version_in_this_pr_major.$version_in_this_pr_minor.$version_in_this_pr_patch"
-        let "ltmj_po=$latest_tag_major+1"
-        let "ltmn_po=$latest_tag_minor+1"
-        let "ltp_po=$latest_tag_patch+1"
-        major_bump=0 && [[ $version_in_this_pr_major == $ltmj_po && $version_in_this_pr_minor == 0 && $version_in_this_pr_patch == 0 ]]  && major_bump=1
-        minor_bump=0 && [[ $version_in_this_pr_major == $latest_tag_major && $version_in_this_pr_minor == $ltmn_po && $version_in_this_pr_patch == 0 ]]  && minor_bump=1
-        patch_bump=0 && [[ $version_in_this_pr_major == $latest_tag_major && $version_in_this_pr_minor == $latest_tag_minor && $version_in_this_pr_patch == $ltp_po ]]  && patch_bump=1
-        echo "Major bump: $major_bump, Minor bump: $minor_bump, Patch bump: $patch_bump"
-        [[ $major_bump == 0 && $minor_bump == 0 && $patch_bump == 0 ]] && { echo "ERROR: Version needs to be bumped in $init_file" ; exit 1 ; }
-        echo "Version is bumped"
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v3
       with:

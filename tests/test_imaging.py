@@ -33,12 +33,7 @@ class ImagingTests(unittest.TestCase):
             i = Instrument()
 
         i = Instrument(
-            type="smartSPIM",
-            location="440",
-            manufacturer="LifeCanvas",
-            objectives=[],
-            detectors=[],
-            light_sources=[],
+            type="smartSPIM", location="440", manufacturer="LifeCanvas", objectives=[], detectors=[], light_sources=[],
         )
 
         assert i is not None
@@ -51,9 +46,7 @@ class ImagingTests(unittest.TestCase):
         # test that a few work
         test_codes = ["RAS", "LSP", "RAI", "PAR"]
         for test_code in test_codes:
-            axes = Axis.from_direction_code(
-                test_code, voxel_sizes, volume_sizes
-            )
+            axes = Axis.from_direction_code(test_code, voxel_sizes, volume_sizes)
             assert len(axes) == 3
 
 

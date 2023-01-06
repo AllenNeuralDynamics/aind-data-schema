@@ -152,16 +152,10 @@ inst = instrument.Instrument(
             ],
         ),
         instrument.AdditionalImagingDevice(
-            type="Rotation mount",
-            manufacturer="Thorlabs",
-            model="K10CR1",
-            serial_number="01",
+            type="Rotation mount", manufacturer="Thorlabs", model="K10CR1", serial_number="01",
         ),
         instrument.AdditionalImagingDevice(
-            type="Laser combiner",
-            manufacturer="Oxxius",
-            model="L6Cc",
-            serial_number="L6CC-00513",
+            type="Laser combiner", manufacturer="Oxxius", model="L6Cc", serial_number="L6CC-00513",
         ),
     ],
     optical_tables=[

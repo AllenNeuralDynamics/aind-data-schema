@@ -198,12 +198,6 @@ class LaserModule(DomeModule):
     lasers: List[Laser] = Field(..., title="Lasers connected to this module")
 
 
-class LaserModule(DeviceBase):
-    """Description of a laser housing module used in ephys recordings"""
-
-    lasers: List[Laser] = Field(..., title="Lasers")
-
-
 class Monitor(Device):
     """Visual display"""
 
