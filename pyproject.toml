@@ -15,7 +15,8 @@ dynamic = ["version"]
 
 dependencies = [
     'pydantic',
-    'jsonschema'
+    'jsonschema',
+    'typing_extensions; python_version < "3.8"'
 ]
 
 [project.optional-dependencies]
