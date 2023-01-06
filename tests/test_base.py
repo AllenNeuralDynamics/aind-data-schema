@@ -3,7 +3,12 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-from aind_data_schema import Procedures, RawDataDescription, Processing, Subject
+from aind_data_schema import (
+    Procedures,
+    Processing,
+    RawDataDescription,
+    Subject,
+)
 from aind_data_schema.base import AindCoreModel
 
 
@@ -27,10 +32,11 @@ class BaseTests(unittest.TestCase):
     def test_default_filename(self, mock_log):
         """tests that default filename returns as expected"""
 
-        test_models = [(RawDataDescription, "data_description.json"),
-                    (Procedures, "procedures.json"),
-                    (Subject, "subject.json"),
-                    (Processing, "processing.json")
+        test_models = [
+            (RawDataDescription, "data_description.json"),
+            (Procedures, "procedures.json"),
+            (Subject, "subject.json"),
+            (Processing, "processing.json"),
         ]
         for model, expected_name in test_models:
             actual_name = model.default_filename()
@@ -38,8 +44,10 @@ class BaseTests(unittest.TestCase):
 
         with self.assertRaises(IndexError):
             AindCoreModel.default_filename()
-        mock_log.assert_called_with("Unable to find direct AindCoreModel subclass for"
-                                    " <class 'aind_data_schema.base.AindCoreModel'>")
+        mock_log.assert_called_with(
+            "Unable to find direct AindCoreModel subclass for"
+            " <class 'aind_data_schema.base.AindCoreModel'>"
+        )
 
     @patch("builtins.open", new_callable=unittest.mock.mock_open())
     def test_write_standard_file_no_prefix(self, mocked_file):

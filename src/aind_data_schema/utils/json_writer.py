@@ -11,7 +11,7 @@ DEFAULT_FILE_PATH = os.getcwd()
 
 
 class SchemaWriter:
-    """ Class to write Pydantic schemas to JSON """
+    """Class to write Pydantic schemas to JSON"""
 
     @staticmethod
     def get_schemas():
@@ -27,7 +27,7 @@ class SchemaWriter:
                 yield model
 
     def schema_filename(class_name):
-        """ 
+        """
         Returns filename in snakecase
         """
         name = class_name.__name__
@@ -35,14 +35,13 @@ class SchemaWriter:
 
     def write_to_json(self, args):
         """
-        Writes Pydantic models to JSON file. 
+        Writes Pydantic models to JSON file.
         Parameters
         ----------
         args:
-            optional output dir argument. defaults to current working directory
+            optional output directory argument. defaults to current working directory
         """
         schemas_to_write = SchemaWriter.get_schemas()
-
         for schema in schemas_to_write:
             filename = SchemaWriter.schema_filename(schema)
             output_file = f"{args.output}/{filename}"
@@ -52,13 +51,15 @@ class SchemaWriter:
 
 
 def main(args):
-    """ Writes Pydantic models as JSON """
+    """Writes Pydantic models as JSON"""
+
     s = SchemaWriter.get_schemas()
     SchemaWriter.write_to_json(s, args)
 
 
 if __name__ == "__main__":
-    """ User defined argument for output directory """
+    """User defined argument for output directory"""
+
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "-o",
