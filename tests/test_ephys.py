@@ -8,6 +8,7 @@ import pydantic
 from aind_data_schema.ephys import ephys_rig as er
 from aind_data_schema.ephys import ephys_session as es
 
+
 class ExampleTest(unittest.TestCase):
     """an example test"""
 
@@ -39,12 +40,12 @@ class ExampleTest(unittest.TestCase):
                                     arc_angle=1,
                                     rotation_angle=1,
                                     module_angle=1,
-                                )
-                            )
+                                ),
+                            ),
                         )
-                    ]
+                    ],
                 )
-            ]
+            ],
         )
 
         assert rig is not None
