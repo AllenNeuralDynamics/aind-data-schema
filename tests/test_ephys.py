@@ -39,7 +39,7 @@ class ExampleTest(unittest.TestCase):
                     manipulator=er.Manipulator(
                         manufacturer="New Scale Technologies",
                         serial_number="1234",
-                    )
+                    ),
                 )
             ],
         )
@@ -67,7 +67,7 @@ class ExampleTest(unittest.TestCase):
                     ],
                     laser_modules=[],
                     daqs=[],
-                    cameras=[]
+                    cameras=[],
                 )
             ],
         )

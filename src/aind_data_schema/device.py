@@ -174,7 +174,13 @@ class Filter(Device):
 
     # required fields
     filter_type: FilterType = Field(..., title="Type of filter")
-    manufacturer: Literal[Manufacturer.EDMUND_OPTICS.value, Manufacturer.CHROMA.value, Manufacturer.SEMROCK.value, Manufacturer.THORLABS.value, Manufacturer.OTHER.value]
+    manufacturer: Literal[
+        Manufacturer.EDMUND_OPTICS.value,
+        Manufacturer.CHROMA.value,
+        Manufacturer.SEMROCK.value,
+        Manufacturer.THORLABS.value,
+        Manufacturer.OTHER.value,
+    ]
 
     # optional fields
     diameter: Optional[float] = Field(None, title="Size (mm)", units="mm")
@@ -222,7 +228,12 @@ class DAQDevice(Device):
 
     # required fields
     data_interface: DataInterface = Field(..., title="Type of connection to PC")
-    manufacturer: Literal[Manufacturer.NATIONAL_INSTRUMENTS.value, Manufacturer.IMEC.value, Manufacturer.OEPS.value, Manufacturer.OTHER.value]
+    manufacturer: Literal[
+        Manufacturer.NATIONAL_INSTRUMENTS.value,
+        Manufacturer.IMEC.value,
+        Manufacturer.OEPS.value,
+        Manufacturer.OTHER.value,
+    ]
     computer_name: str = Field(..., title="Name of computer controlling this DAQ")
 
     # optional fields

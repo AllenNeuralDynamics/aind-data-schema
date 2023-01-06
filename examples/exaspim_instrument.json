@@ -186,7 +186,7 @@
             },
             {
                "channel_name": "0",
-               "device_name": "tunable-lens-1",
+               "device_name": "TL-1",
                "channel_type": "Analog Output",
                "port": null,
                "channel_index": null,
