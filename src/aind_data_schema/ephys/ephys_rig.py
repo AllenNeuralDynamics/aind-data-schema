@@ -282,6 +282,8 @@ class EphysRig(AindCoreModel):
 
     @root_validator
     def validate_device_names(cls, values):
+        """ validate that devices and are hooked up to valid daqs """
+
         cameras = values.get("cameras")
         ephys_modules = values.get("ephys_modules")
         laser_modules = values.get("laser_modules")
@@ -317,6 +319,8 @@ class EphysRig(AindCoreModel):
 
     @root_validator
     def validate_probe_names(cls, values):
+        """ validate that probe names and daq channels line up """
+
         ephys_modules = values.get("ephys_modules")
         daqs = values.get("daqs")
 
