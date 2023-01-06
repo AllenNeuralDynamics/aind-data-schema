@@ -15,7 +15,8 @@ dynamic = ["version"]
 
 dependencies = [
     'pydantic',
-    'jsonschema'
+    'jsonschema',
+    'typing_extensions; python_version < "3.8"'
 ]
 
 [project.optional-dependencies]
@@ -62,7 +63,7 @@ omit = ["*__init__*"]
 source = ["aind_data_schema", "tests"]
 
 [tool.coverage.report]
-exclude_lines = ["if __name__ == .__main__.:"]
+exclude_lines = ["if __name__ == .__main__.:", "pragma: no cover"]
 fail_under = 100
 
 [tool.isort]

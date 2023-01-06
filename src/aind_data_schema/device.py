@@ -1,7 +1,13 @@
 """ schema for various Devices """
 
+from datetime import datetime
 from enum import Enum
-from typing import Optional
+from typing import List, Optional
+
+try: 
+    from typing import Literal
+except ImportError: # pragma: no cover
+    from typing_extensions import Literal
 
 from pydantic import Field
 
@@ -11,30 +17,91 @@ from .base import AindModel
 class Manufacturer(Enum):
     """Device manufacturer name"""
 
-    THORLABS = "Thorlabs"
-    OPTOTUNE = "Optotune"
-    CAMBRIDGE_TECHNOLOGY = "Cambridge Technology"
-    NIKON = "Nikon"
-    EDMUND_OPTICS = "Edmund Optics"
-    EALING = "Ealing"
-    HAMAMATSU = "Hamamatsu"
-    OLYMPUS = "Olympus"
-    LEICA = "Leica"
-    LIFECANVAS = "LifeCanvas"
-    CUSTOM = "Custom"
-    CHROMA = "Chroma"
-    SEMROCK = "Semrock"
-    NEUROPIXELS = "Neuropixels"
-    MPI = "MPI"
-    VORTRAN = "Vortran"
-    COHERENT_SCIENTIFIC = "Coherent Scientific"
-    MKS_NEWPORT = "MKS Newport"
+    ALLIED = "Allied"
     ASI = "Applied Scientific Instrumentation"
+    BASLER = "Basler"
+    CAMBRIDGE_TECHNOLOGY = "Cambridge Technology"
+    CHROMA = "Chroma"
+    COHERENT_SCIENTIFIC = "Coherent Scientific"
+    CUSTOM = "Custom"
+    EALING = "Ealing"
+    EDMUND_OPTICS = "Edmund Optics"
+    FLIR = "FLIR"
+    HAMAMATSU = "Hamamatsu"
+    IMEC = "IMEC"
+    LEICA = "Leica"
+    LG = "LG"
+    LIFECANVAS = "LifeCanvas"
     MIGHTY_ZAP = "IR Robot Co"
-    VIEWORKS = "Vieworks"
-    OXXIUS = "Oxxius"
+    MKS_NEWPORT = "MKS Newport"
+    MPI = "MPI"
     NATIONAL_INSTRUMENTS = "National Instruments"
+    NEW_SCALE_TECHNOLOGIES = "New Scale Technologies"
+    NIKON = "Nikon"
+    OEPS = "OEPS"
+    OLYMPUS = "Olympus"
+    OPTOTUNE = "Optotune"
     OTHER = "Other"
+    OXXIUS = "Oxxius"
+    QUANTIFI = "Quantifi"
+    SEMROCK = "Semrock"
+    THORLABS = "Thorlabs"
+    VIEWORKS = "Vieworks"
+    VORTRAN = "Vortran"
+
+
+class Coupling(Enum):
+    """Laser coupling type"""
+
+    FREE_SPACE = "Free-space"
+    SMF = "SMF"
+    MMF = "MMF"
+    OTHER = "Other"
+
+
+class DataInterface(Enum):
+    """Connection between a device and a PC"""
+
+    USB = "USB"
+    CAMERALINK = "CameraLink"
+    COAX = "Coax"
+    PCIE = "PCIe"
+    PXI = "PXI"
+    ETH = "Ethernet"
+    OTHER = "Other"
+
+
+class FilterType(Enum):
+    """Filter type"""
+
+    BANDPASS = "Band pass"
+    LONGPASS = "Long pass"
+    SHORTPASS = "Short pass"
+    MULTIBAND = "Multiband"
+    DICHROIC = "Dichroic"
+    ND = "Neutral density"
+    NOTCH = "Notch"
+
+
+class FilterSize(Enum):
+    """Filter size value"""
+
+    FILTER_SIZE_25 = 25
+    FILTER_SIZE_32 = 32
+
+
+class LensSize(Enum):
+    """Lens size value"""
+
+    LENS_SIZE_1 = 1
+    LENS_SIZE_2 = 2
+
+
+class CameraChroma(Enum):
+    """Color vs. black & white"""
+
+    COLOR = "Color"
+    BW = "Monochrome"
 
 
 class DaqChannelType(Enum):
@@ -42,33 +109,165 @@ class DaqChannelType(Enum):
 
     DO = "Digital Output"
     AO = "Analog Output"
+    DI = "Digital Input"
+    AI = "Analog Input"
 
 
-class DaqChannel(AindModel):
-    """Description of a DAQ Channel"""
+class RelativePosition(AindModel):
+    """Set of 6 values describing relative position on a rig"""
 
-    index: int = Field(..., title="index")
-    type: DaqChannelType = Field(..., title="DAQ channel type")
+    pitch: Optional[float] = Field(None, title="Angle pitch (deg)", units="deg", ge=0, le=360)
+    yaw: Optional[float] = Field(None, title="Angle yaw (deg)", units="deg", ge=0, le=360)
+    roll: Optional[float] = Field(None, title="Angle roll (deg)", units="deg", ge=0, le=360)
+
+    x: Optional[float] = Field(None, title="Position X (mm)", units="mm")
+    y: Optional[float] = Field(None, title="Position Y (mm)", units="mm")
+    z: Optional[float] = Field(None, title="Position Z (mm)", units="mm")
+
+    coordinate_system: Optional[str] = Field(None, title="Description of the coordinate system used")
 
 
-class DeviceBase(AindModel):
-    """Description of a general device"""
+class Device(AindModel):
+    """Generic device"""
 
-    manufacturer: Manufacturer = Field(..., title="Manufacturer")
-    serial_number: str = Field(..., title="Serial number")
+    name: Optional[str] = Field(None, title="Device name")
+    serial_number: Optional[str] = Field(None, title="Serial number")
+    manufacturer: Optional[Manufacturer] = Field(None, title="Manufacturer")
     model: Optional[str] = Field(None, title="Model")
     notes: Optional[str] = Field(None, title="Notes")
 
 
-class Device(DeviceBase):
-    """Description of a device that communicates with a DAQ"""
+class Camera(Device):
+    """Device that acquires images and streams them to a computer"""
 
-    daq_channel: Optional[DaqChannel] = Field(None, title="DAQ channel")
+    # required fields
+    data_interface: DataInterface = Field(..., title="Type of connection to PC")
+    manufacturer: Literal[
+        Manufacturer.ALLIED.value,
+        Manufacturer.BASLER.value,
+        Manufacturer.EDMUND_OPTICS.value,
+        Manufacturer.FLIR.value,
+        Manufacturer.THORLABS.value,
+        Manufacturer.OTHER.value,
+    ]
+    computer_name: str = Field(..., title="Name of computer receiving data from this camera")
+    max_frame_rate: float = Field(..., title="Maximum frame rate (Hz)", units="Hz")
+    pixel_width: int = Field(..., title="Width of the sensor in pixels", units="Pixels")
+    pixel_height: int = Field(..., title="Height of the sensor in pixels", units="Pixels")
+    chroma: CameraChroma = Field(..., title="Color or Monochrome")
+
+    # optional fields
+    sensor_format: Optional[str] = Field(None, title='Size of the sensor (e.g. 1/2.9")')
+    recording_software: Optional[str] = Field(None, title="Software used to acquire camera data")
 
 
-class DAQ(DeviceBase):
-    """Description of DAQ system"""
+class Lens(Device):
+    """Lens used to focus light onto a camera sensor"""
 
-    device_name: str = Field(..., title="PC device name")
-    update_frequency: float = Field(..., title="DAQ update frequency (Hz)", units="Hz")
-    number_active_channels: int = Field(..., title="Number of active channels")
+    # required fields
+    manufacturer: Literal[Manufacturer.EDMUND_OPTICS.value, Manufacturer.THORLABS.value, Manufacturer.OTHER.value]
+
+    # optional fields
+    focal_length: Optional[float] = Field(None, title="Focal length of the lens", units="mm")
+    size: Optional[LensSize] = Field(None, title="Size (inches)")
+    optimized_wavelength_range: Optional[str] = Field(None, title="Optimized wavelength range (nm)")
+    max_aperture: Optional[str] = Field(None, title="Max aperture (e.g. f/2)")
+
+
+class Filter(Device):
+    """Filter used in a light path"""
+
+    # required fields
+    filter_type: FilterType = Field(..., title="Type of filter")
+    manufacturer: Literal[
+        Manufacturer.EDMUND_OPTICS.value,
+        Manufacturer.CHROMA.value,
+        Manufacturer.SEMROCK.value,
+        Manufacturer.THORLABS.value,
+        Manufacturer.OTHER.value,
+    ]
+
+    # optional fields
+    diameter: Optional[float] = Field(None, title="Size (mm)", units="mm")
+    thickness: Optional[float] = Field(None, title="Size (mm)", ge=0)
+    filter_wheel_index: Optional[int] = Field(None, title="Filter wheel index")
+    cut_off_frequency: Optional[int] = Field(None, title="Cut-off frequency")
+    cut_on_frequency: Optional[int] = Field(None, title="Cut-on frequency")
+    description: Optional[str] = Field(
+        None, title="Description", description="More details about filter properties and where/how it is being used"
+    )
+
+
+class CameraAssembly(AindModel):
+    """Named assembly of a camera and lens (and optionally a filter)"""
+
+    # required fields
+    camera_assembly_name: str = Field(..., title="Name of this camera assembly")
+    camera: Camera = Field(..., title="Camera")
+    lens: Lens = Field(..., title="Lens")
+
+    # optional fields
+    filter: Optional[Filter] = Field(None, title="Filter")
+    position: Optional[RelativePosition] = Field(None, title="Relative position of this assembly")
+
+
+class DAQChannel(AindModel):
+    """Named input or output channel on a DAQ device"""
+
+    # required fields
+    channel_name: str = Field(..., title="DAQ channel name")
+    device_name: str = Field(..., title="Name of connected device")
+    channel_type: DaqChannelType = Field(..., title="DAQ channel type")
+
+    # optional fields
+    port: Optional[int] = Field(None, title="DAQ port")
+    channel_index: Optional[int] = Field(None, title="DAQ channel index")
+    sample_rate: Optional[float] = Field(None, title="DAQ channel sample rate (Hz)", units="Hz")
+    event_based_sampling: Optional[bool] = Field(
+        False, title="Set to true if DAQ channel is sampled at irregular intervals"
+    )
+
+
+class DAQDevice(Device):
+    """Data acquisition device containing multiple I/O channels"""
+
+    # required fields
+    data_interface: DataInterface = Field(..., title="Type of connection to PC")
+    manufacturer: Literal[
+        Manufacturer.NATIONAL_INSTRUMENTS.value,
+        Manufacturer.IMEC.value,
+        Manufacturer.OEPS.value,
+        Manufacturer.OTHER.value,
+    ]
+    computer_name: str = Field(..., title="Name of computer controlling this DAQ")
+
+    # optional fields
+    channels: Optional[List[DAQChannel]] = Field(None, title="DAQ channels")
+
+
+class Laser(Device):
+    """Laser module with a specific wavelength (may be a sub-component of a larger assembly)"""
+
+    # required fields
+    manufacturer: Literal[
+        Manufacturer.COHERENT_SCIENTIFIC.value,
+        Manufacturer.HAMAMATSU.value,
+        Manufacturer.OXXIUS.value,
+        Manufacturer.QUANTIFI.value,
+        Manufacturer.OTHER.value,
+    ]
+    wavelength: int = Field(..., title="Wavelength (nm)", units="nm")
+
+    # optional fields
+    maximum_power: Optional[float] = Field(None, title="Maximum power (mW)", units="mW")
+    coupling: Optional[Coupling] = Field(None, title="Coupling")
+    coupling_efficiency: Optional[float] = Field(
+        None,
+        title="Coupling efficiency (percent)",
+        units="percent",
+        ge=0,
+        le=100,
+    )
+    item_number: Optional[str] = Field(None, title="Item number")
+    calibration_data: Optional[str] = Field(None, description="Path to calibration data", title="Calibration data")
+    calibration_date: Optional[datetime] = Field(None, title="Calibration date")

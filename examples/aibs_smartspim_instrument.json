@@ -9,11 +9,11 @@
    "humidity_control": false,
    "optical_tables": [
       {
-         "manufacturer": "MKS Newport",
+         "name": null,
          "serial_number": "Unknown",
+         "manufacturer": "MKS Newport",
          "model": "VIS2424-IG2-125A",
          "notes": null,
-         "daq_channel": null,
          "length": 24.0,
          "width": 24.0,
          "vibration_control": false
@@ -21,11 +21,11 @@
    ],
    "objectives": [
       {
-         "manufacturer": "Thorlabs",
+         "name": null,
          "serial_number": "Unknown",
+         "manufacturer": "Thorlabs",
          "model": "TL4X-SAP",
          "notes": "Thorlabs TL4X-SAP with LifeCanvas dipping cap and correction optics.",
-         "daq_channel": null,
          "numerical_aperture": 0.2,
          "magnification": 3.6,
          "immersion": "multi"
@@ -33,11 +33,11 @@
    ],
    "detectors": [
       {
-         "manufacturer": "Hamamatsu",
+         "name": null,
          "serial_number": "001107",
+         "manufacturer": "Hamamatsu",
          "model": "C14440-20UP",
          "notes": null,
-         "daq_channel": null,
          "type": "Camera",
          "data_interface": "USB",
          "cooling": "air"
@@ -45,33 +45,33 @@
    ],
    "light_sources": [
       {
-         "manufacturer": "Vortran",
+         "name": null,
          "serial_number": "VL01222A11",
+         "manufacturer": "Vortran",
          "model": "Stradus",
          "notes": "All lasers controlled via Vortran VersaLase System",
-         "daq_channel": null,
          "type": "laser",
          "coupling": "SMF",
          "wavelength": 488.0,
          "max_power": 150.0
       },
       {
-         "manufacturer": "Coherent Scientific",
+         "name": null,
          "serial_number": "417927",
+         "manufacturer": "Coherent Scientific",
          "model": "Obis",
          "notes": "All lasers controlled via Vortran VersaLase System",
-         "daq_channel": null,
          "type": "laser",
          "coupling": "SMF",
          "wavelength": 561.0,
          "max_power": 150.0
       },
       {
-         "manufacturer": "Vortran",
+         "name": null,
          "serial_number": "VL01222A10",
+         "manufacturer": "Vortran",
          "model": "Stradus",
          "notes": "All lasers controlled via Vortran VersaLase System",
-         "daq_channel": null,
          "type": "laser",
          "coupling": "SMF",
          "wavelength": 647.0,
@@ -80,111 +80,117 @@
    ],
    "fluorescence_filters": [
       {
-         "manufacturer": "Semrock",
+         "name": null,
          "serial_number": "Unknown-1",
+         "manufacturer": "Semrock",
          "model": "FF03-525/50-25",
          "notes": null,
-         "daq_channel": null,
-         "type": "Band pass",
+         "filter_type": "Band pass",
          "diameter": 25.0,
          "thickness": 2.0,
          "filter_wheel_index": 0,
+         "cut_off_frequency": null,
+         "cut_on_frequency": null,
          "description": null
       },
       {
-         "manufacturer": "Semrock",
+         "name": null,
          "serial_number": "Unknown-2",
+         "manufacturer": "Semrock",
          "model": "FF01-600/52-25",
          "notes": null,
-         "daq_channel": null,
-         "type": "Band pass",
+         "filter_type": "Band pass",
          "diameter": 25.0,
          "thickness": 2.0,
          "filter_wheel_index": 1,
+         "cut_off_frequency": null,
+         "cut_on_frequency": null,
          "description": null
       },
       {
-         "manufacturer": "Chroma",
+         "name": null,
          "serial_number": "Unknown-3",
+         "manufacturer": "Chroma",
          "model": "ET690/50m",
          "notes": null,
-         "daq_channel": null,
-         "type": "Band pass",
+         "filter_type": "Band pass",
          "diameter": 25.0,
          "thickness": 2.0,
          "filter_wheel_index": 2,
+         "cut_off_frequency": null,
+         "cut_on_frequency": null,
          "description": null
       }
    ],
    "motorized_stages": [
       {
-         "manufacturer": "Applied Scientific Instrumentation",
+         "name": null,
          "serial_number": "Unknown-1",
+         "manufacturer": "Applied Scientific Instrumentation",
          "model": "LS-100",
          "notes": "Focus stage",
-         "daq_channel": null,
          "travel": 100.0
       },
       {
-         "manufacturer": "IR Robot Co",
+         "name": null,
          "serial_number": "Unknown-5",
+         "manufacturer": "IR Robot Co",
          "model": "L12-20F-4",
          "notes": "Cylindrical lens #1",
-         "daq_channel": null,
          "travel": 41.0
       },
       {
-         "manufacturer": "IR Robot Co",
+         "name": null,
          "serial_number": "Unknown-6",
+         "manufacturer": "IR Robot Co",
          "model": "L12-20F-4",
          "notes": "Cylindrical lens #2",
-         "daq_channel": null,
          "travel": 41.0
       },
       {
-         "manufacturer": "IR Robot Co",
+         "name": null,
          "serial_number": "Unknown-7",
+         "manufacturer": "IR Robot Co",
          "model": "L12-20F-4",
          "notes": "Cylindrical lens #3",
-         "daq_channel": null,
          "travel": 41.0
       },
       {
-         "manufacturer": "IR Robot Co",
+         "name": null,
          "serial_number": "Unknown-8",
+         "manufacturer": "IR Robot Co",
          "model": "L12-20F-4",
          "notes": "Cylindrical lens #4",
-         "daq_channel": null,
          "travel": 41.0
       }
    ],
    "scanning_stages": [
       {
-         "manufacturer": "Applied Scientific Instrumentation",
+         "name": null,
          "serial_number": "Unknown-2",
+         "manufacturer": "Applied Scientific Instrumentation",
          "model": "LS-50",
          "notes": "Sample stage Z",
-         "daq_channel": null,
          "travel": 50.0,
          "stage_axis_direction": "Detection axis",
          "stage_axis_name": "Z"
       },
       {
-         "manufacturer": "Applied Scientific Instrumentation",
+         "name": null,
          "serial_number": "Unknown-3",
+         "manufacturer": "Applied Scientific Instrumentation",
          "model": "LS-50",
          "notes": "Sample stage X",
-         "daq_channel": null,
          "travel": 50.0,
          "stage_axis_direction": "Illumination axis",
          "stage_axis_name": "X"
       },
       {
-         "manufacturer": "Applied Scientific Instrumentation",
+         "name": null,
          "serial_number": "Unknown-4",
+         "manufacturer": "Applied Scientific Instrumentation",
          "model": "LS-50",
          "notes": "Sample stage Y",
-         "daq_channel": null,
          "travel": 50.0,
          "stage_axis_direction": "Perpendicular axis",
          "stage_axis_name": "Y"
@@ -193,19 +199,19 @@
    "daqs": null,
    "additional_devices": [
       {
-         "manufacturer": "Optotune",
+         "name": null,
          "serial_number": "Unknown-1",
+         "manufacturer": "Optotune",
          "model": "EL-16-40-TC",
          "notes": null,
-         "daq_channel": null,
          "type": "Other"
       },
       {
-         "manufacturer": "Optotune",
+         "name": null,
          "serial_number": "Unknown-2",
+         "manufacturer": "Optotune",
          "model": "EL-16-40-TC",
          "notes": null,
-         "daq_channel": null,
          "type": "Other"
       }
    ],

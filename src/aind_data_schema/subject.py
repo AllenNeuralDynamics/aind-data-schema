@@ -38,10 +38,14 @@ class LightCycle(AindModel):
     """Description of vivarium light cycle times"""
 
     lights_on_time: time = Field(
-        ..., description="Time in UTC that lights were turned on", title="Lights on time",
+        ...,
+        description="Time in UTC that lights were turned on",
+        title="Lights on time",
     )
     lights_off_time: time = Field(
-        ..., description="Time in UTC that lights were turned off", title="Lights off time",
+        ...,
+        description="Time in UTC that lights were turned off",
+        title="Lights off time",
     )
 
 
@@ -83,18 +87,26 @@ class Subject(AindCoreModel):
     sex: Sex = Field(..., title="Sex")
     date_of_birth: date = Field(..., title="Date of birth")
     genotype: str = Field(
-        ..., description="Genotype of the animal providing both alleles", title="Genotype",
+        ...,
+        description="Genotype of the animal providing both alleles",
+        title="Genotype",
     )
     mgi_allele_ids: Optional[List[MgiAlleleId]] = Field(None, title="MGI allele ids")
     background_strain: Optional[BackgroundStrain] = Field(None, title="Background strain")
     source: Optional[str] = Field(
-        None, description="If the subject was not bred in house, where was it acquired from.", title="Source",
+        None,
+        description="If the subject was not bred in house, where was it acquired from.",
+        title="Source",
     )
     rrid: Optional[str] = Field(
-        None, description="RRID of mouse if acquired from supplier", title="RRID",
+        None,
+        description="RRID of mouse if acquired from supplier",
+        title="RRID",
     )
     restrictions: Optional[str] = Field(
-        None, description="Any restrictions on use or publishing based on subject source", title="Restrictions",
+        None,
+        description="Any restrictions on use or publishing based on subject source",
+        title="Restrictions",
     )
     breeding_group: Optional[str] = Field(None, title="Breeding Group")
     maternal_id: Optional[str] = Field(None, title="Maternal specimen ID")

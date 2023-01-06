@@ -35,12 +35,17 @@ class Procedure(AindModel):
     start_date: date = Field(..., title="Start date")
     end_date: date = Field(..., title="End date")
     experimenter_full_name: str = Field(
-        ..., description="First and last name of the experimenter.", title="Experimenter full name",
+        ...,
+        description="First and last name of the experimenter.",
+        title="Experimenter full name",
     )
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     iacuc_protocol: Optional[str] = Field(None, title="IACUC protocol")
     animal_weight: Optional[float] = Field(
-        None, title="Animal weight (g)", description="Animal weight before procedure", units="g",
+        None,
+        title="Animal weight (g)",
+        description="Animal weight before procedure",
+        units="g",
     )
     anaesthesia: Optional[Anaesthetic] = Field(None, title="Anaesthesia")
     notes: Optional[str] = Field(None, title="Notes")
@@ -94,16 +99,22 @@ class InjectionMaterial(AindModel):
     name: str = Field(..., title="Name")
     material_id: Optional[str] = Field(None, title="Material ID")
     full_genome_name: Optional[str] = Field(
-        None, title="Full genome name", description="Full genome for virus construct",
+        None,
+        title="Full genome name",
+        description="Full genome for virus construct",
     )
     plasmid_name: Optional[str] = Field(
-        None, title="Plasmid name", description="Short name used to reference the plasmid",
+        None,
+        title="Plasmid name",
+        description="Short name used to reference the plasmid",
     )
     genome_copy: Optional[float] = Field(None, title="Genome copy")
     titer: Optional[float] = Field(None, title="Titer (gc/mL", units="gc/mL")
     prep_lot_number: Optional[str] = Field(None, title="Preparation lot number")
     prep_date: Optional[date] = Field(
-        None, title="Preparation lot date", description="Date this prep lot was titered",
+        None,
+        title="Preparation lot date",
+        description="Date this prep lot was titered",
     )
     prep_type: Optional[VirusPrepType] = Field(None, title="Viral prep type")
 
@@ -265,7 +276,9 @@ class WaterRestriction(AindModel):
 
     protocol_id: Optional[str] = Field(None, title="Water restriction protocol number")
     baseline_weight: float = Field(
-        ..., title="Baseline weight (g)", description="Weight at start of water restriction",
+        ...,
+        title="Baseline weight (g)",
+        description="Weight at start of water restriction",
     )
     start_date: date = Field(..., title="Water restriction start date")
     end_date: date = Field(..., title="Water restriction end date")

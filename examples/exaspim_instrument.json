@@ -9,11 +9,11 @@
    "humidity_control": false,
    "optical_tables": [
       {
-         "manufacturer": "MKS Newport",
+         "name": null,
          "serial_number": "Unknown",
+         "manufacturer": "MKS Newport",
          "model": "VIS3648-PG2-325A",
          "notes": null,
-         "daq_channel": null,
          "length": 36.0,
          "width": 48.0,
          "vibration_control": true
@@ -21,11 +21,11 @@
    ],
    "objectives": [
       {
-         "manufacturer": "Other",
+         "name": null,
          "serial_number": "Unknown",
+         "manufacturer": "Other",
          "model": "JM_DIAMOND 5.0X/1.3",
          "notes": "manufacturer collaboration between Schneider-Kreuznach and Vieworks",
-         "daq_channel": null,
          "numerical_aperture": 0.305,
          "magnification": 5.0,
          "immersion": "air"
@@ -33,11 +33,11 @@
    ],
    "detectors": [
       {
-         "manufacturer": "Vieworks",
+         "name": null,
          "serial_number": "MB151BAY001",
+         "manufacturer": "Vieworks",
          "model": "VNP-604MX",
          "notes": null,
-         "daq_channel": null,
          "type": "Camera",
          "data_interface": "Coax",
          "cooling": "air"
@@ -45,56 +45,44 @@
    ],
    "light_sources": [
       {
-         "manufacturer": "Oxxius",
+         "name": null,
          "serial_number": "LAS-08307",
+         "manufacturer": "Oxxius",
          "model": null,
          "notes": "Housed in commercial laser combiner",
-         "daq_channel": {
-            "index": 6,
-            "type": "Analog Output"
-         },
          "type": "laser",
          "coupling": "SMF",
          "wavelength": 405.0,
          "max_power": 200.0
       },
       {
-         "manufacturer": "Oxxius",
+         "name": null,
          "serial_number": "LAS-08308",
+         "manufacturer": "Oxxius",
          "model": null,
          "notes": "Housed in commercial laser combiner",
-         "daq_channel": {
-            "index": 3,
-            "type": "Analog Output"
-         },
          "type": "laser",
          "coupling": "SMF",
          "wavelength": 488.0,
          "max_power": 200.0
       },
       {
-         "manufacturer": "Oxxius",
+         "name": null,
          "serial_number": "539251",
+         "manufacturer": "Oxxius",
          "model": null,
          "notes": "Housed in commercial laser combiner",
-         "daq_channel": {
-            "index": 5,
-            "type": "Analog Output"
-         },
          "type": "laser",
          "coupling": "SMF",
          "wavelength": 561.0,
          "max_power": 200.0
       },
       {
-         "manufacturer": "Oxxius",
+         "name": null,
          "serial_number": "LAS-08309",
+         "manufacturer": "Oxxius",
          "model": null,
          "notes": "Housed in commercial laser combiner",
-         "daq_channel": {
-            "index": 4,
-            "type": "Analog Output"
-         },
          "type": "laser",
          "coupling": "SMF",
          "wavelength": 638.0,
@@ -103,49 +91,48 @@
    ],
    "fluorescence_filters": [
       {
-         "manufacturer": "Chroma",
+         "name": null,
          "serial_number": "Unknown-0",
+         "manufacturer": "Chroma",
          "model": "ZET405/488/561/640mv2",
          "notes": "Custom made filter",
-         "daq_channel": null,
-         "type": "Multiband",
+         "filter_type": "Multiband",
          "diameter": 44.05,
          "thickness": 1.0,
          "filter_wheel_index": 0,
+         "cut_off_frequency": null,
+         "cut_on_frequency": null,
          "description": null
       }
    ],
    "motorized_stages": null,
    "scanning_stages": [
       {
-         "manufacturer": "Applied Scientific Instrumentation",
+         "name": null,
          "serial_number": "Unknown",
+         "manufacturer": "Applied Scientific Instrumentation",
          "model": "MS-8000",
          "notes": null,
-         "daq_channel": {
-            "index": 2,
-            "type": "Analog Output"
-         },
          "travel": 1000.0,
          "stage_axis_direction": "Detection axis",
          "stage_axis_name": "X"
       },
       {
-         "manufacturer": "Applied Scientific Instrumentation",
+         "name": null,
          "serial_number": "Unknown",
+         "manufacturer": "Applied Scientific Instrumentation",
          "model": "MS-8000",
          "notes": null,
-         "daq_channel": null,
          "travel": 1000.0,
          "stage_axis_direction": "Perpendicular axis",
          "stage_axis_name": "Y"
       },
       {
-         "manufacturer": "Applied Scientific Instrumentation",
+         "name": null,
          "serial_number": "Unknown",
+         "manufacturer": "Applied Scientific Instrumentation",
          "model": "LS-100",
          "notes": null,
-         "daq_channel": null,
          "travel": 100.0,
          "stage_axis_direction": "Illumination axis",
          "stage_axis_name": "Z"
@@ -153,41 +140,94 @@
    ],
    "daqs": [
       {
-         "manufacturer": "National Instruments",
+         "name": "Dev2",
          "serial_number": "Unknown",
+         "manufacturer": "National Instruments",
          "model": "PCIe-6738",
          "notes": null,
-         "device_name": "Dev2",
-         "update_frequency": 10000.0,
-         "number_active_channels": 7
+         "data_interface": "USB",
+         "computer_name": "Dev2",
+         "channels": [
+            {
+               "channel_name": "3",
+               "device_name": "LAS-08308",
+               "channel_type": "Analog Output",
+               "port": null,
+               "channel_index": null,
+               "sample_rate": 10000.0,
+               "event_based_sampling": false
+            },
+            {
+               "channel_name": "5",
+               "device_name": "539251",
+               "channel_type": "Analog Output",
+               "port": null,
+               "channel_index": null,
+               "sample_rate": 10000.0,
+               "event_based_sampling": false
+            },
+            {
+               "channel_name": "4",
+               "device_name": "LAS-08309",
+               "channel_type": "Analog Output",
+               "port": null,
+               "channel_index": null,
+               "sample_rate": 10000.0,
+               "event_based_sampling": false
+            },
+            {
+               "channel_name": "2",
+               "device_name": "stage-x",
+               "channel_type": "Analog Output",
+               "port": null,
+               "channel_index": null,
+               "sample_rate": 10000.0,
+               "event_based_sampling": false
+            },
+            {
+               "channel_name": "0",
+               "device_name": "TL-1",
+               "channel_type": "Analog Output",
+               "port": null,
+               "channel_index": null,
+               "sample_rate": 10000.0,
+               "event_based_sampling": false
+            },
+            {
+               "channel_name": "6",
+               "device_name": "LAS-08307",
+               "channel_type": "Analog Output",
+               "port": null,
+               "channel_index": null,
+               "sample_rate": 10000.0,
+               "event_based_sampling": false
+            }
+         ]
       }
    ],
    "additional_devices": [
       {
-         "manufacturer": "Optotune",
+         "name": null,
          "serial_number": "01",
+         "manufacturer": "Optotune",
          "model": "EL-16-40-TC-VIS-20D-C",
          "notes": null,
-         "daq_channel": {
-            "index": 0,
-            "type": "Analog Output"
-         },
          "type": "Tunable lens"
       },
       {
-         "manufacturer": "Thorlabs",
+         "name": null,
          "serial_number": "01",
+         "manufacturer": "Thorlabs",
          "model": "K10CR1",
          "notes": null,
-         "daq_channel": null,
          "type": "Rotation mount"
       },
       {
-         "manufacturer": "Oxxius",
+         "name": null,
          "serial_number": "L6CC-00513",
+         "manufacturer": "Oxxius",
          "model": "L6Cc",
          "notes": null,
-         "daq_channel": null,
          "type": "Laser combiner"
       }
    ],

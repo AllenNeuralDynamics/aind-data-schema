@@ -9,7 +9,7 @@ from typing import List, Optional
 from pydantic import Field
 
 from ..base import AindCoreModel, AindModel
-from ..device import DAQ, Device, Manufacturer
+from ..device import Coupling, DAQDevice, DataInterface, Device, Filter, Manufacturer
 
 
 class InstrumentType(Enum):
@@ -39,15 +39,6 @@ class CameraType(Enum):
     OTHER = "other"
 
 
-class DataInterface(Enum):
-    """Data interface name"""
-
-    USB = "USB"
-    CAMERALINK = "CameraLink"
-    COAX = "Coax"
-    OTHER = "other"
-
-
 class Cooling(Enum):
     """Cooling medium name"""
 
@@ -63,40 +54,12 @@ class Detector(Device):
     cooling: Cooling = Field(..., title="Cooling")
 
 
-class FilterType(Enum):
-    """Filter type name"""
-
-    LONG_PASS = "Long pass"
-    BAND_PASS = "Band pass"
-    SHORT_PASS = "Short pass"
-    MULTIBAND = "Multiband"
-
-
-class Filter(Device):
-    """Description of a filter device"""
-
-    type: FilterType = Field(..., title="Filter Type")
-    diameter: float = Field(..., title="Size (mm)", ge=0)
-    thickness: float = Field(..., title="Size (mm)", ge=0)
-    filter_wheel_index: int = Field(..., title="Filter wheel index")
-    description: Optional[str] = Field(None, description="Where/how filter is being used", title="Description")
-
-
 class LightsourceType(Enum):
     """Light source type name"""
 
     LAMP = "lamp"
     LASER = "laser"
     LED = "LED"
-    OTHER = "other"
-
-
-class Coupling(Enum):
-    """Coupling method name"""
-
-    FREE_SPACE = "Free-space"
-    SMF = "SMF"
-    MMF = "MMF"
     OTHER = "other"
 
 
@@ -191,7 +154,9 @@ class Instrument(AindCoreModel):
 
     version: str = Field("0.4.1", description="schema version", title="Version", const=True)
     instrument_id: Optional[str] = Field(
-        None, description="unique identifier for this instrument configuration", title="Instrument ID",
+        None,
+        description="unique identifier for this instrument configuration",
+        title="Instrument ID",
     )
     type: InstrumentType = Field(..., title="Instrument type")
     location: str = Field(..., title="Instrument location")
@@ -205,15 +170,19 @@ class Instrument(AindCoreModel):
     fluorescence_filters: Optional[List[Filter]] = Field(None, title="Fluorescence filters", unique_items=True)
     motorized_stages: Optional[List[MotorizedStage]] = Field(None, title="Motorized stages", unique_items=True)
     scanning_stages: Optional[List[ScanningStage]] = Field(None, title="Scanning motorized stages", unique_items=True)
-    daqs: Optional[List[DAQ]] = Field(None, title="DAQ", unique_items=True)
+    daqs: Optional[List[DAQDevice]] = Field(None, title="DAQ", unique_items=True)
     additional_devices: Optional[List[AdditionalImagingDevice]] = Field(
         None, title="Additional devices", unique_items=True
     )
     calibration_date: Optional[date] = Field(
-        None, description="Date of most recent calibration", title="Calibration date",
+        None,
+        description="Date of most recent calibration",
+        title="Calibration date",
     )
     calibration_data: Optional[str] = Field(
-        None, description="Path to calibration data from most recent calibration", title="Calibration data",
+        None,
+        description="Path to calibration data from most recent calibration",
+        title="Calibration data",
     )
     com_ports: Optional[List[Com]] = Field(None, title="COM ports", unique_items=True)
     notes: Optional[str] = None

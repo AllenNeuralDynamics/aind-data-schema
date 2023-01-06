@@ -47,7 +47,7 @@ class AindCoreModel(AindModel):
 
         value = build_described_by(cls)
         field = ModelField.infer(
-            name="describedBy", value=value, annotation=str, class_validators=None, config=cls.__config__,
+            name="describedBy", value=value, annotation=str, class_validators=None, config=cls.__config__
         )
         field.field_info.const = True
         cls.__fields__.update({"describedBy": field})

@@ -4,16 +4,83 @@ from __future__ import annotations
 
 from datetime import datetime
 from enum import Enum
-from typing import List, Optional
+from typing import List, Optional, Union
 
-from pydantic import Field
+try: 
+    from typing import Literal
+except ImportError: # pragma: no cover
+    from typing_extensions import Literal
+
+from pydantic import Field, root_validator
 
 from ..base import AindCoreModel, AindModel
-from ..device import DAQ, Device
+from ..device import Camera, CameraAssembly, DAQDevice, DataInterface, Device, Laser, Manufacturer, RelativePosition
 
 
-class HarpDeviceName(Enum):
-    """Harp device name"""
+class SizeUnit(Enum):
+    """units for sizes"""
+
+    PX = "pixel"
+    IN = "inch"
+    CM = "centimeter"
+    MM = "millimeter"
+    UM = "micrometer"
+    NM = "nanometer"
+    NONE = "none"
+
+
+class Size2d(AindModel):
+    """2D size of an object"""
+
+    width: int = Field(..., title="Width")
+    height: int = Field(..., title="Height")
+    unit: SizeUnit = Field(SizeUnit.PX, title="Size unit")
+
+
+class AngleUnit(Enum):
+    """orientation units"""
+
+    DEG = "degree"
+    RAD = "radian"
+
+
+class Orientation3d(AindModel):
+    """3D orientation of an object"""
+
+    pitch: float = Field(..., title="Angle pitch", ge=0, le=360)
+    yaw: float = Field(..., title="Angle yaw", ge=0, le=360)
+    roll: float = Field(..., title="Angle roll", ge=0, le=360)
+    unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
+
+
+class ModuleOrientation2d(AindModel):
+    """2D module orientation of an object"""
+
+    arc_angle: float = Field(..., title="Arc angle")
+    module_angle: float = Field(..., title="Module angle")
+    unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
+
+
+class ModuleOrientation3d(AindModel):
+    """3D module orientation of an object"""
+
+    arc_angle: float = Field(..., title="Arc angle")
+    module_angle: float = Field(..., title="Module angle")
+    rotation_angle: float = Field(..., title="Rotation angle")
+    unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
+
+
+class Coordinates3d(AindModel):
+    """Coordinates in a 3D grid"""
+
+    x: float = Field(..., title="Position X")
+    y: float = Field(..., title="Position Y")
+    z: float = Field(..., title="Position Z")
+    unit: SizeUnit = Field(SizeUnit.UM, title="Position unit")
+
+
+class HarpDeviceType(Enum):
+    """Harp device type"""
 
     BEHAVIOR = "Behavior"
     CAMERA_CONTROLLER = "Camera Controller"
@@ -23,39 +90,55 @@ class HarpDeviceName(Enum):
     INPUT_EXPANDER = "Input Expander"
 
 
-class HarpDevice(Device):
-    """Describes a Harp device"""
+class HarpDevice(DAQDevice):
+    """DAQ that uses the Harp protocol for synchronization and data transmission"""
 
-    name: HarpDeviceName = Field(..., title="Name")
-    device_version: str = Field(..., title="Device version")
+    # required fields
+    harp_device_type: HarpDeviceType = Field(..., title="Type of Harp device")
+    harp_device_version: str = Field(..., title="Device version")
 
-
-class CameraName(Enum):
-    """Camera name"""
-
-    BODY_CAMERA = "Body Camera"
-    EYE_CAMERA = "Eye Camera"
-    FACE_CAMERA = "Face Camera"
+    # fixed values
+    manufacturer: Manufacturer = Manufacturer.OEPS
+    data_interface: DataInterface = Field("USB", const=True)
 
 
-class Camera(Device):
-    """Description of camera"""
+class ProbePort(AindModel):
+    """Port for a probe connection"""
 
-    name: CameraName = Field(..., title="Name")
-    position_x: float = Field(..., title="Position X")
-    position_y: float = Field(..., title="Position Y")
-    position_z: float = Field(..., title="Position Z")
-    angle_pitch: float = Field(..., title="Angle pitch (deg)", units="deg", ge=0, le=360)
-    angle_yaw: float = Field(..., title="Angle yaw (deg)", units="deg", ge=0, le=360)
-    angle_roll: float = Field(..., title="Angle roll (deg)", units="deg", ge=0, le=360)
-    recording_software: Optional[str] = Field(None, title="Recording software")
-    recording_software_version: Optional[str] = Field(None, title="Recording software version")
+    index: int = Field(..., title="Zero-based port index")
+    probes: List[str] = Field(..., title="Names of probes connected to this port")
+
+
+class NeuropixelsBasestation(DAQDevice):
+    """PXI-based Neuropixels DAQ"""
+
+    # required fields
+    basestation_firmware_version: str = Field(..., title="Basestation firmware version")
+    bsc_firmware_version: str = Field(..., title="Basestation connect board firmware")
+    slot: int = Field(..., title="Slot number for this basestation")
+    ports: List[ProbePort] = Field(..., title="Basestation ports")
+
+    # fixed values
+    data_interface: DataInterface = Field("PXI", const=True)
+    manufacturer: Manufacturer = Manufacturer.IMEC
+
+
+class OpenEphysAcquisitionBoard(DAQDevice):
+    """Multichannel electrophysiology DAQ"""
+
+    # required fields
+    ports: List[ProbePort] = Field(..., title="Acquisition board ports")
+
+    # fixed values
+    data_interface: DataInterface = Field("USB", const=True)
+    manufacturer: Manufacturer = Manufacturer.OEPS
 
 
 class MousePlatform(Device):
     """Description of a mouse platform"""
 
     surface_material: Optional[str] = Field(None, title="Surface material")
+    date_surface_replaced: Optional[datetime] = Field(None, title="Date surface replaced")
 
 
 class Disc(MousePlatform):
@@ -63,100 +146,84 @@ class Disc(MousePlatform):
 
     platform_type: str = Field("Disc", title="Platform type", const=True)
     radius: float = Field(..., title="Radius (cm)", units="cm", ge=0)
-    date_surface_replaced: Optional[datetime] = Field(None, title="Date surface replaced")
+    radius_unit: SizeUnit = Field(SizeUnit.CM, title="radius unit")
 
 
 class Tube(MousePlatform):
     """Description of a tube platform"""
 
     platform_type: str = Field("Tube", title="Platform type", const=True)
-    diameter: float = Field(..., title="Diameter (cm)", units="cm", ge=0)
+    diameter: float = Field(..., title="Diameter", ge=0)
+    diameter_unit: SizeUnit = Field(SizeUnit.CM, title="Diameter unit")
 
 
 class Treadmill(MousePlatform):
-    """Descrsiption of treadmill platform"""
+    """Description of treadmill platform"""
 
     platform_type: str = Field("Treadmill", title="Platform type", const=True)
+    treadmill_width: float = Field(..., title="Width of treadmill (mm)", units="mm")
 
 
-class AngleName(Enum):
-    """Euler angle name"""
+class DomeModule(AindModel):
+    """Movable module that is mounted on the ephys dome insertion system"""
 
-    XY = "XY"
-    XZ = "XZ"
-    YZ = "YZ"
+    # required fields
+    arc_angle: float = Field(..., title="Arc Angle", units="degrees")
+    module_angle: float = Field(..., title="Module Angle", units="degrees")
 
-
-class ManipulatorAngle(AindModel):
-    """Description of manipulator angle"""
-
-    name: AngleName = Field(..., title="AngleName")
-    value: float = Field(..., title="Value (deg)", units="deg")
+    # optional fields
+    rotation_angle: Optional[float] = Field(0.0, title="Rotation Angle", units="degrees")
+    coordinate_transform: Optional[str] = Field(
+        None, title="Transform from local manipulator axes to rig", description="Path to coordinate transform"
+    )
+    calibration_date: Optional[datetime] = Field(None, title="Data on which coordinate transform was last calibrated")
 
 
 class Manipulator(Device):
-    """Description of manipulator"""
+    """Manipulator used on a dome module"""
 
-    manipulator_angles: List[ManipulatorAngle] = Field(..., title="Manipulator angles", unique_items=True)
-
-
-class LaserName(Enum):
-    """Laser name"""
-
-    LASER_A = "Laser A"
-    LASER_B = "Laser B"
-    LASER_C = "Laser C"
-    LASER_D = "Laser D"
+    manufacturer: Literal[Manufacturer.NEW_SCALE_TECHNOLOGIES.value]
 
 
-class LaserModule(Device):
-    """Description of lasers used in ephys recordings"""
+class StickMicroscope(DomeModule):
+    """Stick microscope used to monitor probes during insertion"""
 
-    name: LaserName = Field(..., title="Laser Name")
-    wavelength: Optional[int] = Field(None, title="Wavelength (nm)", units="nm", ge=300, le=1000)
-    maximum_power: Optional[float] = Field(None, title="Maximum power (mW)", units="mW")
-    coupling_efficiency: Optional[float] = Field(
-        None, title="Coupling efficiency (percent)", units="percent", ge=0, le=100,
-    )
-    calibration_data: Optional[str] = Field(None, description="path to calibration data", title="Calibration data")
-    calibration_date: Optional[datetime] = Field(None, title="Calibration date")
-    laser_manipulator: Manipulator = Field(..., title="Manipulator")
+    camera: Camera = Field(..., title="Camera for this module")
+
+
+class LaserModule(DomeModule):
+    """Module for optogenetic stimulation"""
+
+    manipulator: Manipulator = Field(..., title="Manipulator")
+    lasers: List[Laser] = Field(..., title="Lasers connected to this module")
 
 
 class Monitor(Device):
-    """Description of a visual monitor"""
+    """Visual display"""
 
+    # required fields
+    manufacturer: Literal[Manufacturer.LG.value]
     refresh_rate: int = Field(..., title="Refresh rate (Hz)", units="Hz", ge=60)
     width: int = Field(..., title="Width (pixels)", units="pixels")
     height: int = Field(..., title="Height (pixels)", units="pixels")
     viewing_distance: float = Field(..., title="Viewing distance (cm)", units="cm")
-    position_x: float = Field(..., title="Position X")
-    position_y: float = Field(..., title="Position Y")
-    position_z: float = Field(..., title="Position Z")
-    angle_pitch: float = Field(..., title="Angle pitch (deg)", units="deg", ge=0, le=360)
-    angle_yaw: float = Field(..., title="Angle yaw (deg)", units="deg", ge=0, le=360)
-    angle_roll: float = Field(..., title="Angle roll (deg)", units="deg", ge=0, le=360)
-    contrast: int = Field(
-        ..., description="Monitor's contrast setting", title="Contrast (percent)", units="percent", ge=0, le=100,
+
+    # optional fields
+    contrast: Optional[int] = Field(
+        ...,
+        description="Monitor's contrast setting",
+        title="Contrast",
+        ge=0,
+        le=100,
     )
-    brightness: int = Field(
-        ..., description="Monitor's brightness setting", title="Brightness", ge=0, le=100,
+    brightness: Optional[int] = Field(
+        ...,
+        description="Monitor's brightness setting",
+        title="Brightness",
+        ge=0,
+        le=100,
     )
-
-
-class ProbeName(Enum):
-    """Probe name"""
-
-    PROBE_A = "Probe A"
-    PROBE_B = "Probe B"
-    PROBE_C = "Probe C"
-    PROBE_D = "Probe D"
-    PROBE_E = "Probe E"
-    PROBE_F = "Probe F"
-    PROBE_G = "Probe G"
-    PROBE_H = "Probe H"
-    PROBE_I = "Probe I"
-    PROBE_J = "Probe J"
+    position: Optional[RelativePosition] = Field(None, title="Relative position of the monitor")
 
 
 class ProbeModel(Enum):
@@ -173,14 +240,30 @@ class ProbeModel(Enum):
     MP_PHOTONIC_V1 = "MPI Photonic Probe (Version 1)"
 
 
-class EphysProbe(Device):
-    """Description of an ephys probe"""
+class HeadstageModel(Enum):
+    """Headstage model name"""
 
-    name: ProbeName = Field(..., title="Name")
-    model: ProbeModel = Field(..., title="Model")
-    probe_manipulator: Manipulator = Field(..., title="Manipulator")
-    calibration_data: str = Field(..., title="Calibration data", description="Path to calibration data")
-    calibration_date: Optional[datetime] = Field(None, title="Calibration date")
+    RHD_16_CH = "Intan RHD 16-channel"
+    RHD_32_CH = "Intan RHD 32-channel"
+    RHD_64_CH = "Intan RHD 64-channel"
+
+
+class EphysProbe(Device):
+    """Named probe used in an ephys experiment"""
+
+    # required fields
+    probe_model: ProbeModel = Field(..., title="Probe model")
+
+    # optional fields
+    lasers: Optional[List[Laser]] = Field(None, title="Lasers connected to this probe")
+    headstage: Optional[HeadstageModel] = Field(None, title="Headstage for this probe")
+
+
+class EphysModule(DomeModule):
+    """Module for electrophysiological recording"""
+
+    manipulator: Manipulator = Field(..., title="Manipulator")
+    probes: List[EphysProbe] = Field(..., title="Probes that are held by this module")
 
 
 class EphysRig(AindCoreModel):
@@ -192,12 +275,79 @@ class EphysRig(AindCoreModel):
         title="Described by",
         const=True,
     )
-    schema_version: str = Field("0.4.2", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.5.0", description="schema version", title="Version", const=True)
     rig_id: str = Field(..., description="room_stim apparatus_version", title="Rig ID")
-    probes: Optional[List[EphysProbe]] = Field(None, title="Ephys probes", unique_items=True)
-    cameras: Optional[List[Camera]] = Field(None, title="Cameras", unique_items=True)
-    lasers: Optional[List[LaserModule]] = Field(None, title="Lasers", unique_items=True)
-    visual_monitors: Optional[List[Monitor]] = Field(None, title="Visual monitor", unique_items=True)
-    mouse_platform: Optional[MousePlatform] = Field(None, title="Mouse platform")
-    harp_devices: Optional[List[HarpDevice]] = Field(None, title="Harp devices")
-    daq: Optional[DAQ] = Field(None, title="DAQ")
+    ephys_modules: Optional[List[EphysModule]] = Field(None, title="Ephys probes", unique_items=True)
+    stick_microscopes: Optional[List[StickMicroscope]] = Field(None, title="Stick microscopes")
+    laser_modules: Optional[List[LaserModule]] = Field(None, title="Laser modules", unique_items=True)
+    cameras: Optional[List[CameraAssembly]] = Field(None, title="Camera assemblies", unique_items=True)
+    visual_monitors: Optional[List[Monitor]] = Field(None, title="Visual monitors", unique_items=True)
+    mouse_platform: Optional[Union[Tube, Treadmill, Disc]] = Field(None, title="Mouse platform")
+    daqs: Optional[List[DAQDevice]] = Field(None, title="Data acquisition devices")
+
+    @root_validator
+    def validate_device_names(cls, values):
+        """ validate that all DAQ channels are connected to devices that 
+            actually exist
+        """
+
+        cameras = values.get("cameras")
+        ephys_modules = values.get("ephys_modules")
+        laser_modules = values.get("laser_modules")
+        mouse_platform = values.get("mouse_platform")
+        daqs = values.get("daqs")
+
+        if daqs is None:
+            return values
+
+        device_names = [None]
+
+        if cameras is not None:
+            device_names += [c.camera.name for c in cameras]
+
+        if ephys_modules is not None:
+            device_names += [probe.name for ephys_module in ephys_modules for probe in ephys_module.probes]
+
+        if laser_modules is not None:
+            device_names += [laser.name for laser_module in laser_modules for laser in laser_module.lasers]
+
+        if mouse_platform is not None:
+            device_names += [mouse_platform.name]
+
+        for daq in daqs:
+            if daq.channels is not None:
+                for channel in daq.channels:
+                    if channel.device_name not in device_names:
+                        raise ValueError(
+                            f"DAQ channel validation error: {channel.device_name} not found in device list"
+                        )
+
+        return values
+
+    @root_validator
+    def validate_probe_names(cls, values):
+        """ validate that all DAQ probe ports are connected to probes that 
+            actually exist 
+        """
+
+        ephys_modules = values.get("ephys_modules")
+        daqs = values.get("daqs")
+
+        if daqs is None or ephys_modules is None:
+            return values
+
+        probe_names = [probe.name for ephys_module in ephys_modules for probe in ephys_module.probes]
+
+        for daq in daqs:
+            try:
+                daq.ports
+            except AttributeError:
+                pass
+            else:
+                if daq.ports is not None:
+                    for port in daq.ports:
+                        for probe in port.probes:
+                            if probe not in probe_names:
+                                raise ValueError(f"DAQ port validation error: {probe} not found in probe list")
+
+        return values

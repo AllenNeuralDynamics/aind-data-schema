@@ -36,14 +36,19 @@ class Axis(AindModel):
 
     name: AxisName = Field(..., title="Name")
     dimension: int = Field(
-        ..., description="Reference axis number for stitching", title="Dimension",
+        ...,
+        description="Reference axis number for stitching",
+        title="Dimension",
     )
     direction: Direction = Field(
-        ..., description="Tissue direction as the value of axis increases. If Other describe in notes.",
+        ...,
+        description="Tissue direction as the value of axis increases. If Other describe in notes.",
     )
     voxel_size: float = Field(..., title="Voxel size (um)")
     volume_size: float = Field(
-        ..., description="Size of the volume for this dimension.", title="Volume size (um)",
+        ...,
+        description="Size of the volume for this dimension.",
+        title="Volume size (um)",
     )
 
     @staticmethod
@@ -103,7 +108,9 @@ class Acquisition(AindCoreModel):
 
     version: str = Field("0.3.0", description="schema version", title="Version", const="True")
     experimenter_full_name: str = Field(
-        ..., description="First and last name of the experimenter.", title="Experimenter full name",
+        ...,
+        description="First and last name of the experimenter.",
+        title="Experimenter full name",
     )
     session_start_time: datetime = Field(..., title="Session start time")
     subject_id: int = Field(..., title="Subject ID")
@@ -112,7 +119,9 @@ class Acquisition(AindCoreModel):
     local_storage_directory: Optional[str] = Field(None, title="Local storage directory")
     external_storage_directory: Optional[str] = Field(None, title="External storage directory")
     tile_prefix: Optional[str] = Field(
-        None, description="Zstacks will be named: <tile_prefix>_<x>_<y>_<wavelength>.tiff", title="Tile prefix",
+        None,
+        description="Zstacks will be named: <tile_prefix>_<x>_<y>_<wavelength>.tiff",
+        title="Tile prefix",
     )
     tile_overlap_x: Optional[float] = Field(None, title="Tile overlap x (percent)", ge=0, le=100)
     tile_overlap_y: Optional[float] = Field(None, title="Tile overlap y (percent)", ge=0, le=100)
