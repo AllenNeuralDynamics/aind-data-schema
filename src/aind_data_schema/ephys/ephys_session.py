@@ -111,9 +111,9 @@ class EphysSession(AindCoreModel):
         description="First and last name of the experimenter.",
         title="Experimenter full name",
     )
-    stream_start_time: datetime = Field(..., title="Session start time")
-    stream_end_time: datetime = Field(..., title="Session end time")
-    subject_id: Optional[int] = Field(1, title="Subject ID; 1 = Test subject")
+    session_start_time: datetime = Field(..., title="Session start time")
+    session_end_time: datetime = Field(..., title="Session end time")
+    subject_id: int = Field(..., title="Subject ID")
     session_type: SessionType = Field(..., title="Session type")
     session_description: Optional[str] = Field(
         None, title="Session description"
