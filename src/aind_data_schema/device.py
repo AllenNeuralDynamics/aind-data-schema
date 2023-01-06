@@ -108,8 +108,7 @@ class DaqChannelType(Enum):
 class RelativePosition(AindModel):
     """Set of 6 values describing relative position on a rig"""
 
-    pitch: Optional[float] = 
-(
+    pitch: Optional[float] = Field(
         None, title="Angle pitch (deg)", units="deg", ge=0, le=360
     )
     yaw: Optional[float] = Field(

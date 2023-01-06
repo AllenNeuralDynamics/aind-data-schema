@@ -65,8 +65,8 @@ class ExampleTest(unittest.TestCase):
                         es.EphysProbe(
                             name="Probe A",
                             tip_targeted_structure="VISl4",
-                            targeted_ccf_coordinates=CcfCoords(ml="1", ap="1", dv="1"),
-                            manipulator_coordinates=Coordinates3d(x="1", y="1", z="1"),
+                            targeted_ccf_coordinates=es.CcfCoords(ml="1", ap="1", dv="1"),
+                            manipulator_coordinates=er.Coordinates3d(x="1", y="1", z="1"),
                         )
                     ],
                     lasers=[],
