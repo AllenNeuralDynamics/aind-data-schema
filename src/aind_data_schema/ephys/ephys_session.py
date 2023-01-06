@@ -114,7 +114,10 @@ class EphysSession(AindCoreModel):
     data_streams: List[Stream] = Field(
         ...,
         title="Data streams",
-        description="A data stream is a collection of devices that are recorded simultaneously. Each session can include multiple streams (e.g., if the manipulators are moved to a new location)",
+        description=(
+            "A data stream is a collection of devices that are recorded simultaneously. Each session can include"
+            " multiple streams (e.g., if the manipulators are moved to a new location)"
+        ),
         unique_items=True,
     )
     ccf_coordinate_transform: Optional[str] = Field(
