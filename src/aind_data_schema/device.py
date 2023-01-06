@@ -74,9 +74,9 @@ class DataInterface(Enum):
 class FilterType(Enum):
     """Filter type"""
 
-    BANDPASS = "Bandpass"
-    LONGPASS = "Longpass"
-    SHORTPASS = "Shortpass"
+    BANDPASS = "Band pass"
+    LONGPASS = "Long pass"
+    SHORTPASS = "Short pass"
     MULTIBAND = "Multiband"
     DICHROIC = "Dichroic"
     ND = "Neutral density"

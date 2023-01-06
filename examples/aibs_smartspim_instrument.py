@@ -151,7 +151,7 @@ inst = Instrument(
     ],
     fluorescence_filters=[
         Filter(
-            filter_type="Bandpass",
+            filter_type="Band pass",
             manufacturer="Semrock",
             diameter=25,
             thickness=2.0,
@@ -160,7 +160,7 @@ inst = Instrument(
             serial_number="Unknown-1",
         ),
         Filter(
-            filter_type="Bandpass",
+            filter_type="Band pass",
             manufacturer="Semrock",
             diameter=25,
             thickness=2.0,
@@ -169,7 +169,7 @@ inst = Instrument(
             serial_number="Unknown-2",
         ),
         Filter(
-            filter_type="Bandpass",
+            filter_type="Band pass",
             manufacturer="Chroma",
             diameter=25,
             thickness=2.0,
