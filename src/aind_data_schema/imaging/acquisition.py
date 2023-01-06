@@ -63,9 +63,7 @@ class Axis(AindModel):
 
         axes = []
         for i, c in enumerate(code):
-            axis = Axis(
-                name=name_lookup[i], direction=direction_lookup[c], dimension=i
-            )
+            axis = Axis(name=name_lookup[i], direction=direction_lookup[c], dimension=i)
             axes.append(axis)
 
         return axes
@@ -76,9 +74,7 @@ class Channel(AindModel):
 
     channel_name: str = Field(..., title="Channel")
     laser_wavelength: int = Field(..., title="Wavelength", ge=300, le=1000)
-    laser_wavelength_unit: str = Field(
-        "nanometer", title="Laser wavelength unit"
-    )
+    laser_wavelength_unit: str = Field("nanometer", title="Laser wavelength unit")
     laser_power: float = Field(..., title="Laser power", le=2000)
     laser_power_unit: float = Field("milliwatt", title="Laser power unit")
     filter_wheel_index: int = Field(..., title="Filter wheel index")
@@ -88,26 +84,22 @@ class Scale3dTransform(AindModel):
     """3D scale transform"""
 
     type: str = Field("scale", title="transformation type")
-    scale: conlist(float, min_items=3, max_items=3) = Field(
-        ..., title="3D scale parameters"
-    )
+    scale: conlist(float, min_items=3, max_items=3) = Field(..., title="3D scale parameters")
 
 
 class Translation3dTransform(AindModel):
     """3D scale transform"""
 
     type: str = Field("translation", title="transformation type")
-    translation: conlist(float, min_items=3, max_items=3) = Field(
-        ..., title="3D translation parameters"
-    )
+    translation: conlist(float, min_items=3, max_items=3) = Field(..., title="3D translation parameters")
 
 
 class Tile(AindModel):
     """Description of an image tile"""
 
-    coordinate_transformations: List[
-        Union[Scale3dTransform, Translation3dTransform]
-    ] = Field(..., title="Tile coordinate transformations")
+    coordinate_transformations: List[Union[Scale3dTransform, Translation3dTransform]] = Field(
+        ..., title="Tile coordinate transformations"
+    )
     channel: Channel = Field(..., title="Channel")
     file_name: Optional[str] = Field(None, title="File name")
     notes: Optional[str] = Field(None, title="Notes")
@@ -125,9 +117,7 @@ class Immersion(AindModel):
 class Acquisition(AindCoreModel):
     """Description of an imaging acquisition session"""
 
-    version: str = Field(
-        "0.4.0", description="schema version", title="Version", const=True
-    )
+    version: str = Field("0.4.0", description="schema version", title="Version", const=True)
     experimenter_full_name: str = Field(
         ...,
         description="First and last name of the experimenter.",
@@ -139,19 +129,11 @@ class Acquisition(AindCoreModel):
     session_end_time: datetime = Field(..., title="Session end time")
     tiles: List[Tile] = Field(..., title="Acquisition tiles")
     axes: List[Axis] = Field(..., title="Acquisition axes")
-    chamber_immersion: Immersion = Field(
-        ..., title="Acquisition chamber immersion data"
-    )
-    sample_immersion: Optional[Immersion] = Field(
-        None, title="Acquisition sample immersion data"
-    )
+    chamber_immersion: Immersion = Field(..., title="Acquisition chamber immersion data")
+    sample_immersion: Optional[Immersion] = Field(None, title="Acquisition sample immersion data")
     active_objectives: Optional[List[str]] = Field(
         None,
         title="List of objectives used in this acquisition. If null, all objectives in instrument were used.",
     )
-    local_storage_directory: Optional[str] = Field(
-        None, title="Local storage directory"
-    )
-    external_storage_directory: Optional[str] = Field(
-        None, title="External storage directory"
-    )
+    local_storage_directory: Optional[str] = Field(None, title="Local storage directory")
+    external_storage_directory: Optional[str] = Field(None, title="External storage directory")

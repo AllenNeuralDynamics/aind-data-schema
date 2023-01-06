@@ -6,9 +6,9 @@ from datetime import datetime
 from enum import Enum
 from typing import List, Optional, Union
 
-try: 
+try:
     from typing import Literal
-except ImportError: # pragma: no cover
+except ImportError:  # pragma: no cover
     from typing_extensions import Literal
 
 from pydantic import Field, root_validator
@@ -287,8 +287,8 @@ class EphysRig(AindCoreModel):
 
     @root_validator
     def validate_device_names(cls, values):
-        """ validate that all DAQ channels are connected to devices that 
-            actually exist
+        """validate that all DAQ channels are connected to devices that
+        actually exist
         """
 
         cameras = values.get("cameras")
@@ -326,8 +326,8 @@ class EphysRig(AindCoreModel):
 
     @root_validator
     def validate_probe_names(cls, values):
-        """ validate that all DAQ probe ports are connected to probes that 
-            actually exist 
+        """validate that all DAQ probe ports are connected to probes that
+        actually exist
         """
 
         ephys_modules = values.get("ephys_modules")
