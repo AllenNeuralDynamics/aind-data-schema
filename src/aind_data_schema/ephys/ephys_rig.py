@@ -319,7 +319,7 @@ class EphysRig(AindCoreModel):
 
     @root_validator
     def validate_probe_names(cls, values):
-        """ validate that probe names and daq channels line up """
+        """ validate that probes and ports line up """
 
         ephys_modules = values.get("ephys_modules")
         daqs = values.get("daqs")

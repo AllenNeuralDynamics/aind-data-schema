@@ -22,21 +22,46 @@ class ExampleTest(unittest.TestCase):
         with self.assertRaises(pydantic.ValidationError):
             sess = es.EphysSession()
 
+        daqs = [
+            er.NeuropixelsBasestation(
+                basestation_firmware_version="1",
+                bsc_firmware_version="2",
+                slot=0,
+                manufacturer="Other",
+                ports=[],
+                computer_name="foo",
+                channels=[
+                    DAQChannel(channel_name="123", device_name="Laser A", channel_type="Analog Output"),
+                    DAQChannel(channel_name="321", device_name="Probe A", channel_type="Analog Output"),
+                    DAQChannel(channel_name="234", device_name="Camera A", channel_type="Digital Output"),
+                    DAQChannel(channel_name="2354", device_name="Disc A", channel_type="Digital Output"),
+                ],
+            )
+        ]
+
+        ems = [
+            er.EphysModule(
+                probes=[er.EphysProbe(probe_model="Neuropixels 1.0", name="Probe A")],
+                arc_angle=0,
+                module_angle=0,
+                manipulator=er.Manipulator(
+                    manufacturer="New Scale Technologies",
+                    serial_number="4321",
+                ),
+            )
+        ]
+
+        # daq missing devices
+        with self.assertRaises(pydantic.ValidationError):
+            rig = er.EphysRig(rig_id="1234", daqs=daqs)
+
+        # probes missing ports
+        with self.assertRaises(pydantic.ValidationError):
+            rig = er.EphysRig(daqs=daqs, rig_id="1234", ephys_modules=ems)
+
         rig = er.EphysRig(
             rig_id="1234",
-            daqs=[
-                er.DAQDevice(
-                    manufacturer="Other",
-                    data_interface="USB",
-                    computer_name="foo",
-                    channels=[
-                        DAQChannel(channel_name="123", device_name="Laser A", channel_type="Analog Output"),
-                        DAQChannel(channel_name="321", device_name="Probe A", channel_type="Analog Output"),
-                        DAQChannel(channel_name="234", device_name="Camera A", channel_type="Digital Output"),
-                        DAQChannel(channel_name="2354", device_name="Disc A", channel_type="Digital Output"),
-                    ],
-                )
-            ],
+            daqs=daqs,
             cameras=[
                 er.CameraAssembly(
                     camera_assembly_name="cam",
