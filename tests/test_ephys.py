@@ -51,13 +51,50 @@ class ExampleTest(unittest.TestCase):
             )
         ]
 
+        lms = [
+            er.LaserModule(
+                lasers=[
+                    er.Laser(
+                        manufacturer="Hamamatsu",
+                        serial_number="1234",
+                        name="Laser A",
+                        wavelength=488,
+                    ),
+                ],
+                arc_angle=1,
+                rotation_angle=1,
+                module_angle=1,
+                manipulator=er.Manipulator(
+                    manufacturer="New Scale Technologies",
+                    serial_number="1234",
+                ),
+            )
+        ]
+
         # daq missing devices
         with self.assertRaises(pydantic.ValidationError):
             rig = er.EphysRig(rig_id="1234", daqs=daqs)
 
         # probes missing ports
         with self.assertRaises(pydantic.ValidationError):
-            rig = er.EphysRig(daqs=daqs, rig_id="1234", ephys_modules=ems)
+            rig = er.EphysRig(
+                daqs=[
+                    er.HarpDevice(computer_name="asdf", harp_device_type="Sound Board", harp_device_version="1"),
+                    er.NeuropixelsBasestation(
+                        basestation_firmware_version="1",
+                        bsc_firmware_version="2",
+                        slot=0,
+                        manufacturer="Other",
+                        ports=[er.ProbePort(index=0, probes=["Probe B"])],
+                        computer_name="foo",
+                        channels=[
+                            DAQChannel(channel_name="321", device_name="Probe A", channel_type="Analog Output"),
+                        ],
+                    ),
+                ],
+                rig_id="1234",
+                ephys_modules=ems,
+            )
 
         rig = er.EphysRig(
             rig_id="1234",
@@ -78,36 +115,8 @@ class ExampleTest(unittest.TestCase):
                     ),
                 )
             ],
-            laser_modules=[
-                er.LaserModule(
-                    lasers=[
-                        er.Laser(
-                            manufacturer="Hamamatsu",
-                            serial_number="1234",
-                            name="Laser A",
-                            wavelength=488,
-                        ),
-                    ],
-                    arc_angle=1,
-                    rotation_angle=1,
-                    module_angle=1,
-                    manipulator=er.Manipulator(
-                        manufacturer="New Scale Technologies",
-                        serial_number="1234",
-                    ),
-                )
-            ],
-            ephys_modules=[
-                er.EphysModule(
-                    probes=[er.EphysProbe(probe_model="Neuropixels 1.0", name="Probe A")],
-                    arc_angle=0,
-                    module_angle=0,
-                    manipulator=er.Manipulator(
-                        manufacturer="New Scale Technologies",
-                        serial_number="4321",
-                    ),
-                )
-            ],
+            laser_modules=lms,
+            ephys_modules=ems,
             mouse_platform=er.Disc(name="Disc A", radius=1),
         )
 
