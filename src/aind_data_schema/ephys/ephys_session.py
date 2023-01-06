@@ -17,19 +17,7 @@ class SessionType(Enum):
 
     TEST = "Test"
     OPTO = "Optotagging"
-    VISUAL_ORIENTATION = "Visual Orientation"
-
-
-class ExpectedDataStream(Enum):
-    """Names of data streams to expect in recording"""
-
-    NEUROPIXELS_PROBES = "Neuropixels probes"
-    BODY_CAMERA = "Body camera"
-    FACE_CAMERA = "Face camera"
-    EYE_CAMERA = "Eye camera"
-    BONSAI_FILE = "Bonsai file"
-    HARP_FILE = "Harp bin file"
-    OTHER = "Other"
+    RF_MAPPING = "Receptive field mapping"
 
 
 class CcfVersion(Enum):
@@ -48,52 +36,64 @@ class CcfCoords(AindModel):
     ccf_version: CcfVersion = Field(CcfVersion.CCFv3, title="CCF version")
 
 
+class ManipulatorModule(AindModel):
+    """A module connected to a 3-axis manipulator"""
+
+    primary_targeted_structure: str = Field(..., title="Targeted structure")
+    targeted_ccf_coordinates: Optional[CcfCoords] = Field(
+        None,
+        title="Targeted CCF coordinates",
+    )
+    manipulator_coordinates: Coordinates3d = Field(
+        ...,
+        title="Manipulator coordinates",
+    )
+
+
 class Laser(AindModel):
-    """Description of a laser's session configuration"""
+    """Laser used in a LaserModule"""
 
-    name: str = Field(..., title="Name")
-    wavelength: int = Field(..., title="Wavelength")
-    wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
-    power: float = Field(..., title="Power")
-    ower_unit: str = Field("milliwatt", title="Maximum power unit")
-    manipulator_coordinates: Coordinates3d = Field(
-        ...,
-        title="Manipulator coordinates",
-    )
-    targeted_structure: Optional[str] = Field(None, title="Targeted structure")
-    targeted_ccf_coordinates: Optional[CcfCoords] = Field(
-        None,
-        title="Targeted CCF coordinates",
+    name: str = Field(..., title="Laser name (must match rig JSON)")
+    power_level: float = Field(
+        ..., title="Power level used in this session", units="mW"
     )
 
 
-class EphysProbe(AindModel):
-    """Description of an ephys probe"""
+class LaserModule(ManipulatorModule):
+    """Laser Module used in a Stream"""
 
-    name: str = Field(..., title="Name")
-    tip_targeted_structure: str
-    manipulator_coordinates: Coordinates3d = Field(
-        ...,
-        title="Manipulator coordinates",
-    )
+    name: str = Field(..., title="Laser module name (must match rig JSON)")
+    lasers: List[Laser] = Field(..., title="Active lasers in this module")
+    
+
+class EphysProbe(ManipulatorModule):
+    """Probe recorded in a Stream"""
+
+    name: str = Field(..., title="Ephys probe name (must match rig JSON)")
     other_targeted_structures: Optional[List[str]] = None
-    targeted_ccf_coordinates: Optional[CcfCoords] = Field(
-        None,
-        title="Targeted CCF coordinates",
-    )
+    
+
+class DAQDevice(AindModel):
+    """Data acquisition device recorded in a Stream"""
+    
+    name: str = Field(..., title="DAQ device name (must match rig JSON)")
+
+
+class Camera(AindModel):
+    """Camera recorded in a Stream"""
+
+    name: str = Field(..., title="Camera name (must match rig JSON)")
 
 
 class Stream(AindModel):
     """Stream of data with a start and stop time"""
 
     stream_start_time: datetime = Field(..., title="Stream start time")
-    stream_stop_time: datetime = Field(..., title="Stream stop time")
-    probes: Optional[List[EphysProbe]] = Field(
-        None, title="Probes", unique_items=True
-    )
-    lasers: Optional[List[Laser]] = Field(
-        None, title="Lasers", unique_items=True
-    )
+    stream_end_time: datetime = Field(..., title="Stream stop time")
+    probes: List[EphysProbe] = Field(..., title="Probes", unique_items=True)
+    laser_modules: List[LaserModule] = Field(..., title="Laser modules", unique_items=True)
+    daqs: List[DAQDevice] = Field(..., title="DAQ devices", unique_items=True)
+    cameras: List[Camera] = Field(..., title="Cameras", unique_items=True)
 
 
 class EphysSession(AindCoreModel):
@@ -119,15 +119,15 @@ class EphysSession(AindCoreModel):
     )
     iacuc_protocol: Optional[str] = Field(None, title="IACUC protocol")
     rig_id: str = Field(..., title="Rig ID")
-    expected_data_streams: Optional[List[ExpectedDataStream]] = Field(
-        None, title="Expected data streams"
-    )
-    probe_streams: List[Stream] = Field(
-        ..., title="Probe streams", unique_items=True
+    expected_data_streams: List[Stream] = Field(
+        ..., 
+        title="Expected data streams", 
+        description="A data stream is a collection of devices that are recorded simultaneously. Each session can include multiple streams (e.g., if the manipulators are moved to a new location)",
+        unique_items=True
     )
     ccf_coordinate_transform: Optional[str] = Field(
         None,
-        description="Path to file that details the CCF-to-lab coordinate transform.",
+        description="Path to file that details the CCF-to-lab coordinate transform",
         title="CCF coordinate transform",
     )
     notes: Optional[str] = None

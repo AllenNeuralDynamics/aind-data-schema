@@ -8,9 +8,8 @@ from typing import List, Optional
 
 from pydantic import Field
 
+from ..device import Device, Manufacturer, DAQDevice, DataInterface, Filter, Coupling
 from ..base import AindCoreModel, AindModel
-from ..device import DAQ, Device, Manufacturer
-
 
 class InstrumentType(Enum):
     """Instrument type name"""
@@ -39,15 +38,6 @@ class CameraType(Enum):
     OTHER = "other"
 
 
-class DataInterface(Enum):
-    """Data interface name"""
-
-    USB = "USB"
-    CAMERALINK = "CameraLink"
-    COAX = "Coax"
-    OTHER = "other"
-
-
 class Cooling(Enum):
     """Cooling medium name"""
 
@@ -63,42 +53,12 @@ class Detector(Device):
     cooling: Cooling = Field(..., title="Cooling")
 
 
-class FilterType(Enum):
-    """Filter type name"""
-
-    LONG_PASS = "Long pass"
-    BAND_PASS = "Band pass"
-    SHORT_PASS = "Short pass"
-    MULTIBAND = "Multiband"
-
-
-class Filter(Device):
-    """Description of a filter device"""
-
-    type: FilterType = Field(..., title="Filter Type")
-    diameter: float = Field(..., title="Size (mm)", ge=0)
-    thickness: float = Field(..., title="Size (mm)", ge=0)
-    filter_wheel_index: int = Field(..., title="Filter wheel index")
-    description: Optional[str] = Field(
-        None, description="Where/how filter is being used", title="Description"
-    )
-
-
 class LightsourceType(Enum):
     """Light source type name"""
 
     LAMP = "lamp"
     LASER = "laser"
     LED = "LED"
-    OTHER = "other"
-
-
-class Coupling(Enum):
-    """Coupling method name"""
-
-    FREE_SPACE = "Free-space"
-    SMF = "SMF"
-    MMF = "MMF"
     OTHER = "other"
 
 
@@ -233,7 +193,7 @@ class Instrument(AindCoreModel):
     scanning_stages: Optional[List[ScanningStage]] = Field(
         None, title="Scanning motorized stages", unique_items=True
     )
-    daqs: Optional[List[DAQ]] = Field(None, title="DAQ", unique_items=True)
+    daqs: Optional[List[DAQDevice]] = Field(None, title="DAQ", unique_items=True)
     additional_devices: Optional[List[AdditionalImagingDevice]] = Field(
         None, title="Additional devices", unique_items=True
     )
