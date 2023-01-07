@@ -81,14 +81,16 @@ class Channel(AindModel):
 
 
 class Scale3dTransform(AindModel):
-    """3D scale transform"""
+    """Values to be vector-multiplied with a 3D position, equivalent to the diagonals of a 3x3 transform matrix.
+    Represents voxel spacing if used as the first applied coordinate transform.
+    """
 
     type: str = Field("scale", title="transformation type")
     scale: conlist(float, min_items=3, max_items=3) = Field(..., title="3D scale parameters")
 
 
 class Translation3dTransform(AindModel):
-    """3D scale transform"""
+    """Values to be vector-added to a 3D position. Often needed to specify a Tile's origin."""
 
     type: str = Field("translation", title="transformation type")
     translation: conlist(float, min_items=3, max_items=3) = Field(..., title="3D translation parameters")
@@ -131,9 +133,6 @@ class Acquisition(AindCoreModel):
     axes: List[Axis] = Field(..., title="Acquisition axes")
     chamber_immersion: Immersion = Field(..., title="Acquisition chamber immersion data")
     sample_immersion: Optional[Immersion] = Field(None, title="Acquisition sample immersion data")
-    active_objectives: Optional[List[str]] = Field(
-        None,
-        title="List of objectives used in this acquisition. If null, all objectives in instrument were used.",
-    )
+    active_objectives: Optional[List[str]] = Field(None, title="List of objectives used in this acquisition.")
     local_storage_directory: Optional[str] = Field(None, title="Local storage directory")
     external_storage_directory: Optional[str] = Field(None, title="External storage directory")
