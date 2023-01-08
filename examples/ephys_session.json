@@ -1,0 +1,85 @@
+{
+  "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/ephys/ephys_session.py",
+  "schema_version": "0.3.0",
+  "experimenter_full_name": "Josh Siegle",
+  "session_start_time": "2023-01-08T12:19:47.372065",
+  "session_end_time": "2023-01-08T12:19:47.372066",
+  "subject_id": 100001,
+  "session_type": "Test",
+  "session_description": null,
+  "stimulus_protocol_id": null,
+  "iacuc_protocol": null,
+  "rig_id": "323_EPHYS1",
+  "data_streams": [
+    {
+      "stream_start_time": "2023-01-08T12:19:47.371946",
+      "stream_end_time": "2023-01-08T12:19:47.371953",
+      "probes": [
+        {
+          "primary_targeted_structure": "VISp",
+          "targeted_ccf_coordinates": null,
+          "manipulator_coordinates": {
+            "x": 1000.0,
+            "y": 1000.0,
+            "z": 1000.0,
+            "unit": "micrometer"
+          },
+          "name": "Probe A",
+          "other_targeted_structures": null
+        },
+        {
+          "primary_targeted_structure": "STR",
+          "targeted_ccf_coordinates": null,
+          "manipulator_coordinates": {
+            "x": 1000.0,
+            "y": 1000.0,
+            "z": 1000.0,
+            "unit": "micrometer"
+          },
+          "name": "Probe B",
+          "other_targeted_structures": null
+        }
+      ],
+      "laser_modules": [
+        {
+          "primary_targeted_structure": "VISp",
+          "targeted_ccf_coordinates": null,
+          "manipulator_coordinates": {
+            "x": 1000.0,
+            "y": 1000.0,
+            "z": 1000.0,
+            "unit": "micrometer"
+          },
+          "lasers": [
+            {
+              "name": "Red Laser",
+              "power_level": 100.0
+            },
+            {
+              "name": "Blue Laser",
+              "power_level": 50.0
+            }
+          ]
+        }
+      ],
+      "daqs": [
+        {
+          "name": "Harp Behavior"
+        },
+        {
+          "name": "Basestation Slot 3"
+        }
+      ],
+      "cameras": [
+        {
+          "name": "Face Camera"
+        },
+        {
+          "name": "Body Camera"
+        }
+      ]
+    }
+  ],
+  "ccf_coordinate_transform": null,
+  "notes": null
+}
