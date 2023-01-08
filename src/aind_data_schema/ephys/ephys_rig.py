@@ -319,7 +319,9 @@ class EphysRig(AindCoreModel):
                 for channel in daq.channels:
                     if channel.device_name not in device_names:
                         raise ValueError(
-                            f"DAQ channel validation error: {channel.device_name} not found in device list"
+                            f"Device name validation error: '{channel.device_name}' " +  
+                            f"is connected to '{channel.channel_name}' on '{daq.name}', but " +
+                            "this device is not part of the rig."
                         )
 
         return values
@@ -348,6 +350,10 @@ class EphysRig(AindCoreModel):
                     for port in daq.ports:
                         for probe in port.probes:
                             if probe not in probe_names:
-                                raise ValueError(f"DAQ port validation error: {probe} not found in probe list")
+                                raise ValueError(
+                                    f"Probe name validation error: '{probe}' " +  
+                                    f"is connected to '{daq.name}' port '{port.index}', but " +
+                                    "this probe is not part of the rig."
+                                )
 
         return values
