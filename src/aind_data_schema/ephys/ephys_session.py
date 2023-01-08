@@ -60,7 +60,6 @@ class Laser(AindModel):
 class LaserModule(ManipulatorModule):
     """Laser Module used in a Stream"""
 
-    name: str = Field(..., title="Laser module name (must match rig JSON)")
     lasers: List[Laser] = Field(..., title="Active lasers in this module")
 
 
