@@ -20,10 +20,12 @@ class SchemaWriter:
     def parse_args(self, args: list) -> argparse.Namespace:
         """Parses sys args with argparse"""
 
-        help_message = "Output directory, defaults to current working directory"
+        help_message = (
+            "Output directory, defaults to current working directory"
+        )
 
         parser = argparse.ArgumentParser()
-        
+
         parser.add_argument(
             "-o",
             "--output",
@@ -48,14 +50,14 @@ class SchemaWriter:
             if AindCoreModel in model.__bases__:
                 yield model
 
-    def schema_filename(class_name):
+    def schema_filename(class_name: str):
         """
         Returns filename in snakecase
         """
         name = class_name.__name__
         return re.sub(r"(?<!^)(?=[A-Z])", "_", name).lower() + ".json"
 
-    def write_to_json(self, args):
+    def write_to_json(self, args: list):
         """
         Writes Pydantic models to JSON file.
         Parameters
@@ -75,11 +77,10 @@ class SchemaWriter:
 
             with open(output_file, "w") as f:
                 f.write(schema.schema_json(indent=3))
-    
 
 
 if __name__ == "__main__":
-    
+
     """Writes Pydantic models as JSON"""
 
     s = SchemaWriter.get_schemas()
