@@ -105,7 +105,7 @@ class EphysSession(AindCoreModel):
     )
     session_start_time: datetime = Field(..., title="Session start time")
     session_end_time: datetime = Field(..., title="Session end time")
-    subject_id: int = Field(..., title="Subject ID")
+    subject_id: str = Field(..., title="Subject ID")
     session_type: SessionType = Field(..., title="Session type")
     session_description: Optional[str] = Field(None, title="Session description")
     stimulus_protocol_id: Optional[str] = Field(None, title="Stimulus protocol ID")
