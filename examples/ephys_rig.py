@@ -1,3 +1,5 @@
+"""Generates an example JSON file for an ephys rig"""
+
 from aind_data_schema.ephys.ephys_rig import (HarpDevice,
                                               ProbePort,
                                               NeuropixelsBasestation,

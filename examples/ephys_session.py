@@ -1,3 +1,5 @@
+"""Generates an example JSON file for an ephys session"""
+
 from datetime import datetime
 from aind_data_schema.ephys.ephys_session import (Laser,
                                                   LaserModule,
