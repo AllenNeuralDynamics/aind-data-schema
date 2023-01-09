@@ -3,6 +3,7 @@
 import argparse
 import os
 import re
+import sys
 
 import aind_data_schema
 from aind_data_schema.base import AindCoreModel
@@ -12,6 +13,27 @@ DEFAULT_FILE_PATH = os.getcwd()
 
 class SchemaWriter:
     """Class to write Pydantic schemas to JSON"""
+
+    def __init__(self, args: list):
+        self.args = args
+
+    def parse_args(self, args: list) -> argparse.Namespace:
+        """Parses sys args with argparse"""
+
+        help_message = "Output directory, defaults to current working directory"
+
+        parser = argparse.ArgumentParser()
+        
+        parser.add_argument(
+            "-o",
+            "--output",
+            default=DEFAULT_FILE_PATH,
+            help=help_message,
+        )
+
+        optional_args = parser.parse_args()
+
+        return optional_args
 
     @staticmethod
     def get_schemas():
@@ -42,31 +64,23 @@ class SchemaWriter:
             optional output directory argument. defaults to current working directory
         """
         schemas_to_write = SchemaWriter.get_schemas()
+
+        if len(args) > 1:
+            output_path = args[2]
+        output_path = DEFAULT_FILE_PATH
+
         for schema in schemas_to_write:
             filename = SchemaWriter.schema_filename(schema)
-            output_file = f"{args.output}/{filename}"
+            output_file = f"{output_path}/{filename}"
 
             with open(output_file, "w") as f:
                 f.write(schema.schema_json(indent=3))
-
-
-def main(args):
-    """Writes Pydantic models as JSON"""
-
-    s = SchemaWriter.get_schemas()
-    SchemaWriter.write_to_json(s, args)
+    
 
 
 if __name__ == "__main__":
-    """User defined argument for output directory"""
+    
+    """Writes Pydantic models as JSON"""
 
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "-o",
-        "--output",
-        default=DEFAULT_FILE_PATH,
-        help="Output directory, defaults to current working directory",
-    )
-    args = parser.parse_args()
-
-    main(args)
+    s = SchemaWriter.get_schemas()
+    SchemaWriter.write_to_json(s, sys.argv)
