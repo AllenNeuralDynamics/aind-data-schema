@@ -1,5 +1,20 @@
-from aind_data_schema.ephys.ephys_rig import *
-from aind_data_schema.device import *
+from aind_data_schema.ephys.ephys_rig import (HarpDevice,
+                                              ProbePort,
+                                              NeuropixelsBasestation,
+                                              LaserModule,
+                                              Manipulator,
+                                              StickMicroscope,
+                                              EphysModule,
+                                              EphysProbe,
+                                              EphysRig,
+                                              Disc)
+
+from aind_data_schema.device import (DAQChannel,
+                                     Laser,
+                                     Camera,
+                                     Filter,
+                                     Lens,
+                                     CameraAssembly)
 
 # Describes a rig with running wheel, 2 behavior cameras, one Harp Behavior board,
 # one dual-color laser module, one stick microscope, and 2 Neuropixels probes
@@ -133,5 +148,4 @@ rig = EphysRig(rig_id="323_EPHYS1",
               stick_microscopes=[microscope],
               mouse_platform=running_wheel)
 
-with open("ephys_rig.json", "w") as outfile:
-    outfile.write(rig.json(indent=2))
+rig.write_standard_file()

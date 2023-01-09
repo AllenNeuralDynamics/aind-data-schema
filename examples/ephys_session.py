@@ -1,5 +1,12 @@
 from datetime import datetime
-from aind_data_schema.ephys.ephys_session import *
+from aind_data_schema.ephys.ephys_session import (Laser,
+                                                  LaserModule,
+                                                  EphysProbe,
+                                                  Coordinates3d,
+                                                  DAQDevice,
+                                                  Camera,
+                                                  Stream,
+                                                  EphysSession)
 
 red_laser = Laser(name="Red Laser", power_level=100)
 
@@ -38,5 +45,4 @@ session = EphysSession(experimenter_full_name="Josh Siegle",
                       rig_id="323_EPHYS1",
                       data_streams=[stream])
 
-with open("ephys_session.json", "w") as outfile:
-    outfile.write(session.json(indent=2))
+session.write_standard_file()
