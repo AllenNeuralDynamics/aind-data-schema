@@ -283,7 +283,7 @@ class EphysRig(AindCoreModel):
     cameras: Optional[List[CameraAssembly]] = Field(None, title="Camera assemblies", unique_items=True)
     visual_monitors: Optional[List[Monitor]] = Field(None, title="Visual monitors", unique_items=True)
     mouse_platform: Optional[Union[Tube, Treadmill, Disc]] = Field(None, title="Mouse platform")
-    daqs: Optional[List[DAQDevice]] = Field(None, title="Data acquisition devices")
+    daqs: Optional[List[Union[HarpDevice,NeuropixelsBasestation,OpenEphysAcquisitionBoard]]] = Field(None, title="Data acquisition devices")
 
     @root_validator
     def validate_device_names(cls, values):
