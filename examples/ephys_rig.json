@@ -1,0 +1,301 @@
+{
+   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/ephys/ephys_rig.py",
+   "schema_version": "0.5.0",
+   "rig_id": "323_EPHYS1",
+   "ephys_modules": [
+      {
+         "arc_angle": 99.0,
+         "module_angle": 20.0,
+         "rotation_angle": 10.0,
+         "coordinate_transform": null,
+         "calibration_date": null,
+         "manipulator": {
+            "name": null,
+            "serial_number": "SN2938",
+            "manufacturer": "New Scale Technologies",
+            "model": null,
+            "notes": null
+         },
+         "probes": [
+            {
+               "name": "Probe A",
+               "serial_number": "9291019",
+               "manufacturer": null,
+               "model": null,
+               "notes": null,
+               "probe_model": "Neuropixels 1.0",
+               "lasers": null,
+               "headstage": null
+            }
+         ]
+      },
+      {
+         "arc_angle": 120.0,
+         "module_angle": 20.0,
+         "rotation_angle": 15.0,
+         "coordinate_transform": null,
+         "calibration_date": null,
+         "manipulator": {
+            "name": null,
+            "serial_number": "SN2939",
+            "manufacturer": "New Scale Technologies",
+            "model": null,
+            "notes": null
+         },
+         "probes": [
+            {
+               "name": "Probe B",
+               "serial_number": "9291020",
+               "manufacturer": null,
+               "model": null,
+               "notes": null,
+               "probe_model": "Neuropixels 1.0",
+               "lasers": null,
+               "headstage": null
+            }
+         ]
+      }
+   ],
+   "stick_microscopes": [
+      {
+         "arc_angle": 70.0,
+         "module_angle": 20.0,
+         "rotation_angle": 0.0,
+         "coordinate_transform": null,
+         "calibration_date": null,
+         "camera": {
+            "name": "Probe Camera",
+            "serial_number": null,
+            "manufacturer": "FLIR",
+            "model": null,
+            "notes": null,
+            "data_interface": "USB",
+            "computer_name": "W10DT72942",
+            "max_frame_rate": 50.0,
+            "pixel_width": 1080,
+            "pixel_height": 570,
+            "chroma": "Color",
+            "sensor_format": "1/2.9\"",
+            "recording_software": null
+         }
+      }
+   ],
+   "laser_modules": [
+      {
+         "arc_angle": 20.0,
+         "module_angle": 10.0,
+         "rotation_angle": 0.0,
+         "coordinate_transform": null,
+         "calibration_date": null,
+         "manipulator": {
+            "name": null,
+            "serial_number": "SN2937",
+            "manufacturer": "New Scale Technologies",
+            "model": null,
+            "notes": null
+         },
+         "lasers": [
+            {
+               "name": "Red Laser",
+               "serial_number": null,
+               "manufacturer": "Oxxius",
+               "model": null,
+               "notes": null,
+               "wavelength": 473,
+               "maximum_power": null,
+               "coupling": null,
+               "coupling_efficiency": null,
+               "item_number": null,
+               "calibration_data": null,
+               "calibration_date": null
+            },
+            {
+               "name": "Blue Laser",
+               "serial_number": null,
+               "manufacturer": "Oxxius",
+               "model": null,
+               "notes": null,
+               "wavelength": 638,
+               "maximum_power": null,
+               "coupling": null,
+               "coupling_efficiency": null,
+               "item_number": null,
+               "calibration_data": null,
+               "calibration_date": null
+            }
+         ]
+      }
+   ],
+   "cameras": [
+      {
+         "camera_assembly_name": "Face Camera Assembly",
+         "camera": {
+            "name": "Face Camera",
+            "serial_number": null,
+            "manufacturer": "FLIR",
+            "model": null,
+            "notes": null,
+            "data_interface": "USB",
+            "computer_name": "W10DT72941",
+            "max_frame_rate": 500.0,
+            "pixel_width": 1080,
+            "pixel_height": 570,
+            "chroma": "Monochrome",
+            "sensor_format": "1/2.9\"",
+            "recording_software": null
+         },
+         "lens": {
+            "name": null,
+            "serial_number": null,
+            "manufacturer": "Edmund Optics",
+            "model": null,
+            "notes": null,
+            "focal_length": 15.0,
+            "size": null,
+            "optimized_wavelength_range": null,
+            "max_aperture": "f/2"
+         },
+         "filter": {
+            "name": null,
+            "serial_number": null,
+            "manufacturer": "Thorlabs",
+            "model": null,
+            "notes": null,
+            "filter_type": "Long pass",
+            "diameter": null,
+            "thickness": null,
+            "filter_wheel_index": null,
+            "cut_off_frequency": null,
+            "cut_on_frequency": null,
+            "description": "850 nm longpass filter"
+         },
+         "position": null
+      },
+      {
+         "camera_assembly_name": "Body Camera Assembly",
+         "camera": {
+            "name": "Body Camera",
+            "serial_number": null,
+            "manufacturer": "FLIR",
+            "model": null,
+            "notes": null,
+            "data_interface": "USB",
+            "computer_name": "W10DT72941",
+            "max_frame_rate": 500.0,
+            "pixel_width": 1080,
+            "pixel_height": 570,
+            "chroma": "Monochrome",
+            "sensor_format": "1/2.9\"",
+            "recording_software": null
+         },
+         "lens": {
+            "name": null,
+            "serial_number": null,
+            "manufacturer": "Edmund Optics",
+            "model": null,
+            "notes": null,
+            "focal_length": 15.0,
+            "size": null,
+            "optimized_wavelength_range": null,
+            "max_aperture": "f/2"
+         },
+         "filter": {
+            "name": null,
+            "serial_number": null,
+            "manufacturer": "Thorlabs",
+            "model": null,
+            "notes": null,
+            "filter_type": "Long pass",
+            "diameter": null,
+            "thickness": null,
+            "filter_wheel_index": null,
+            "cut_off_frequency": null,
+            "cut_on_frequency": null,
+            "description": "850 nm longpass filter"
+         },
+         "position": null
+      }
+   ],
+   "visual_monitors": null,
+   "mouse_platform": {
+      "name": "Running Wheel",
+      "serial_number": null,
+      "manufacturer": null,
+      "model": null,
+      "notes": null,
+      "surface_material": null,
+      "date_surface_replaced": null,
+      "platform_type": "Disc",
+      "radius": 15.0,
+      "radius_unit": "centimeter"
+   },
+   "daqs": [
+      {
+         "name": "Basestation Slot 3",
+         "serial_number": null,
+         "manufacturer": "IMEC",
+         "model": null,
+         "notes": null,
+         "data_interface": "PXI",
+         "computer_name": "W10DT72942",
+         "channels": null,
+         "basestation_firmware_version": "2.019",
+         "bsc_firmware_version": "2.199",
+         "slot": 3,
+         "ports": [
+            {
+               "index": 1,
+               "probes": [
+                  "Probe A"
+               ]
+            },
+            {
+               "index": 2,
+               "probes": [
+                  "Probe B"
+               ]
+            }
+         ]
+      },
+      {
+         "name": "Harp Behavior",
+         "serial_number": null,
+         "manufacturer": "OEPS",
+         "model": null,
+         "notes": null,
+         "data_interface": "USB",
+         "computer_name": "W10DT72941",
+         "channels": [
+            {
+               "channel_name": "DO0",
+               "device_name": "Face Camera",
+               "channel_type": "Digital Output",
+               "port": null,
+               "channel_index": null,
+               "sample_rate": null,
+               "event_based_sampling": false
+            },
+            {
+               "channel_name": "DO1",
+               "device_name": "Body Camera",
+               "channel_type": "Digital Output",
+               "port": null,
+               "channel_index": null,
+               "sample_rate": null,
+               "event_based_sampling": false
+            },
+            {
+               "channel_name": "AI0",
+               "device_name": "Running Wheel",
+               "channel_type": "Analog Input",
+               "port": null,
+               "channel_index": null,
+               "sample_rate": null,
+               "event_based_sampling": false
+            }
+         ],
+         "harp_device_type": "Behavior",
+         "harp_device_version": "2.1"
+      }
+   ]
+}
