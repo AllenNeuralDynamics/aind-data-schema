@@ -2,9 +2,9 @@
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/ephys/ephys_session.py",
    "schema_version": "0.3.0",
    "experimenter_full_name": "Josh Siegle",
-   "session_start_time": "2023-01-09T15:38:09.411129",
-   "session_end_time": "2023-01-09T15:38:09.411130",
-   "subject_id": 100001,
+   "session_start_time": "2023-01-10T08:40:00",
+   "session_end_time": "2023-01-10T09:46:00",
+   "subject_id": "100001",
    "session_type": "Test",
    "session_description": null,
    "stimulus_protocol_id": null,
@@ -12,8 +12,8 @@
    "rig_id": "323_EPHYS1",
    "data_streams": [
       {
-         "stream_start_time": "2023-01-09T15:38:09.411020",
-         "stream_end_time": "2023-01-09T15:38:09.411023",
+         "stream_start_time": "2023-01-10T08:43:00",
+         "stream_end_time": "2023-01-10T09:43:00",
          "probes": [
             {
                "primary_targeted_structure": "VISp",

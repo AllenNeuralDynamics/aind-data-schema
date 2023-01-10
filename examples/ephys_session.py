@@ -32,17 +32,17 @@ face_camera = Camera(name="Face Camera")
 
 body_camera = Camera(name="Body Camera")
 
-stream = Stream(stream_start_time=datetime.now(),
-                 stream_end_time=datetime.now(),
+stream = Stream(stream_start_time=datetime(2023, 1, 10, 8, 43, 00),
+                 stream_end_time=datetime(2023, 1, 10, 9, 43, 00),
                  probes=[probeA, probeB],
                  laser_modules=[laser_module],
                  daqs=[harp, basestation],
                  cameras=[face_camera, body_camera])
 
 session = EphysSession(experimenter_full_name="Josh Siegle",
-                      subject_id=100001,
-                      session_start_time = datetime.now(),
-                      session_end_time=datetime.now(),
+                      subject_id="100001",
+                      session_start_time=datetime(2023, 1, 10, 8, 40, 00),
+                      session_end_time=datetime(2023, 1, 10, 9, 46, 00),
                       session_type="Test",
                       rig_id="323_EPHYS1",
                       data_streams=[stream])
