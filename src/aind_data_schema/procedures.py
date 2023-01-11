@@ -295,8 +295,18 @@ class Procedures(AindCoreModel):
     )
     headframes: Optional[List[Headframe]] = Field(None, title="Headframes", unique_items=True)
     craniotomies: Optional[List[Craniotomy]] = Field(None, title="Craniotomies", unique_items=True)
-    mri_scans: Optional[List[MriScan]] = Field(None, title="MRI scans", unique_items=True)    
-    injections: Optional[List[Union[RetroOrbitalInjection,NanojectInjection,IontophoresisInjection,IntraCerebellarVentricleInjection,IntraCisternalMagnaInjection]]] = Field(None, title="Injections", unique_items=True)
+    mri_scans: Optional[List[MriScan]] = Field(None, title="MRI scans", unique_items=True)
+    injections: Optional[
+        List[
+            Union[
+                RetroOrbitalInjection,
+                NanojectInjection,
+                IontophoresisInjection,
+                IntraCerebellarVentricleInjection,
+                IntraCisternalMagnaInjection,
+            ]
+        ]
+    ] = Field(None, title="Injections", unique_items=True)
     fiber_implants: Optional[List[FiberImplant]] = Field(None, title="Fiber implants", unique_items=True)
     water_restriction: Optional[WaterRestriction] = Field(None, title="Water restriction")
     training_protocols: Optional[List[TrainingProtocol]] = Field(None, title="Training protocols", unique_items=True)
