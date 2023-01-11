@@ -23,9 +23,7 @@ class SchemaWriter:
     def _parse_arguments(self, args: list) -> argparse.Namespace:
         """Parses sys args with argparse"""
 
-        help_message = (
-            "Output directory, defaults to current working directory"
-        )
+        help_message = "Output directory, defaults to current working directory"
 
         parser = argparse.ArgumentParser()
 
