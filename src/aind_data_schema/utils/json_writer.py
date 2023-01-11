@@ -2,27 +2,30 @@
 
 import argparse
 import os
-import re
 import sys
+from pathlib import Path
+from typing import Iterator
 
 import aind_data_schema
 from aind_data_schema.base import AindCoreModel
-from pathlib import Path
-
-DEFAULT_FILE_PATH = os.getcwd()
 
 
 class SchemaWriter:
     """Class to write Pydantic schemas to JSON"""
 
-    def __init__(self, args: list):
+    DEFAULT_FILE_PATH = os.getcwd()
+
+    def __init__(self, args: list) -> None:
+        """Initialize schema writer class."""
         self.args = args
-        self.configs = self.parse_arguments(args)
-    
-    def parse_arguments(self, args: list) -> argparse.Namespace:
+        self.configs = self._parse_arguments(args)
+
+    def _parse_arguments(self, args: list) -> argparse.Namespace:
         """Parses sys args with argparse"""
 
-        help_message = "Output directory, defaults to current working directory"
+        help_message = (
+            "Output directory, defaults to current working directory"
+        )
 
         parser = argparse.ArgumentParser()
 
@@ -30,7 +33,7 @@ class SchemaWriter:
             "-o",
             "--output",
             required=False,
-            default=DEFAULT_FILE_PATH,
+            default=self.DEFAULT_FILE_PATH,
             help=help_message,
         )
 
@@ -39,9 +42,9 @@ class SchemaWriter:
         return optional_args
 
     @staticmethod
-    def get_schemas():
+    def _get_schemas() -> Iterator[AindCoreModel]:
         """
-        Returns child classes of AindCoreModel in aind_data_schema
+        Returns Iterator of AindCoreModel classes
         """
         aind_data_schema_classes = aind_data_schema.__all__
 
@@ -51,16 +54,11 @@ class SchemaWriter:
             if AindCoreModel in model.__bases__:
                 yield model
 
-
-    def write_to_json(self):
+    def write_to_json(self) -> None:
         """
         Writes Pydantic models to JSON file.
-        Parameters
-        ----------
-        args:
-            optional output directory argument. defaults to current working directory
         """
-        schemas_to_write = self.get_schemas()
+        schemas_to_write = self._get_schemas()
         output_path = self.configs.output
         for schema in schemas_to_write:
             filename = schema.default_filename()
@@ -70,15 +68,8 @@ class SchemaWriter:
                 f.write(schema.schema_json(indent=3))
 
 
-def main(args):
-    """Writes Pydantic models as JSON"""
-
-    s = SchemaWriter(args)
-    s.write_to_json()
-
-
 if __name__ == "__main__":
     """User defined argument for output directory"""
     sys_args = sys.argv[1:]
-
-    main(sys_args)
+    s = SchemaWriter(sys_args)
+    s.write_to_json()
