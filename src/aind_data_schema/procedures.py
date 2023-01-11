@@ -122,9 +122,9 @@ class InjectionMaterial(AindModel):
 class Injection(Procedure):
     """Description of an injection procedure"""
 
-    injection_materials: List[InjectionMaterial] = Field(None, title="Injection material", unique_items=True)
-    injection_duration: time = Field(..., title="Injection duration")
+    injection_materials: List[InjectionMaterial] = Field(None, title="Injection material", unique_items=True)    
     recovery_time: float = Field(..., title="Recovery time (min)", units="min")
+    injection_duration: Optional[time] = Field(..., title="Injection duration")
     workstation_id: Optional[str] = Field(None, title="Workstation ID")
     instrument_id: Optional[str] = Field(None, title="Instrument ID")
 
@@ -287,7 +287,7 @@ class WaterRestriction(AindModel):
 class Procedures(AindCoreModel):
     """Description of all procedures performed on a subject"""
 
-    schema_version: str = Field("0.4.4", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.4.5", description="schema version", title="Version", const=True)
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
