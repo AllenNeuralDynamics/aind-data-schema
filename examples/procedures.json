@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/procedures.py",
-   "schema_version": "0.4.5",
+   "schema_version": "0.5.0",
    "subject_id": "625100",
    "headframes": null,
    "craniotomies": [
@@ -70,7 +70,7 @@
       }
    ],
    "fiber_implants": null,
-   "water_restriction": null,
+   "water_restrictions": null,
    "training_protocols": null,
    "tissue_preparations": null,
    "other_procedures": null,
