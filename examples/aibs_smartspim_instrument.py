@@ -1,16 +1,6 @@
 """ example SmartSPIM instrument """
-from aind_data_schema.imaging.instrument import (
-    AdditionalImagingDevice,
-    Com,
-    Detector,
-    Filter,
-    Instrument,
-    Lightsource,
-    MotorizedStage,
-    Objective,
-    OpticalTable,
-    ScanningStage,
-)
+from aind_data_schema.imaging.instrument import (AdditionalImagingDevice, Com, Detector, Filter, Instrument,
+                                                 Lightsource, MotorizedStage, Objective, OpticalTable, ScanningStage)
 
 inst = Instrument(
     instrument_id="SmartSPIM1-1",
@@ -161,7 +151,7 @@ inst = Instrument(
     ],
     fluorescence_filters=[
         Filter(
-            type="Band pass",
+            filter_type="Band pass",
             manufacturer="Semrock",
             diameter=25,
             thickness=2.0,
@@ -170,7 +160,7 @@ inst = Instrument(
             serial_number="Unknown-1",
         ),
         Filter(
-            type="Band pass",
+            filter_type="Band pass",
             manufacturer="Semrock",
             diameter=25,
             thickness=2.0,
@@ -179,7 +169,7 @@ inst = Instrument(
             serial_number="Unknown-2",
         ),
         Filter(
-            type="Band pass",
+            filter_type="Band pass",
             manufacturer="Chroma",
             diameter=25,
             thickness=2.0,

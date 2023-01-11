@@ -6,13 +6,8 @@ import unittest
 from pydantic import ValidationError
 
 from aind_data_schema import Procedures
-from aind_data_schema.procedures import (
-    FiberImplant,
-    InjectionMaterial,
-    NanojectInjection,
-    OphysProbe,
-    RetroOrbitalInjection,
-)
+from aind_data_schema.procedures import (FiberImplant, InjectionMaterial, NanojectInjection, OphysProbe,
+                                         RetroOrbitalInjection)
 
 
 class ProceduresTests(unittest.TestCase):

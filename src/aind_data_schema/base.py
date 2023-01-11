@@ -1,10 +1,10 @@
 """ generic base class with supporting validators and fields for basic AIND schema """
 
 import inspect
-import os
-import urllib.parse
-import re
 import logging
+import os
+import re
+import urllib.parse
 
 from pydantic import BaseModel, Extra
 from pydantic.fields import ModelField
@@ -47,11 +47,7 @@ class AindCoreModel(AindModel):
 
         value = build_described_by(cls)
         field = ModelField.infer(
-            name="describedBy",
-            value=value,
-            annotation=str,
-            class_validators=None,
-            config=cls.__config__,
+            name="describedBy", value=value, annotation=str, class_validators=None, config=cls.__config__
         )
         field.field_info.const = True
         cls.__fields__.update({"describedBy": field})
@@ -73,7 +69,7 @@ class AindCoreModel(AindModel):
         except IndexError:
             logging.error(f"Unable to find direct AindCoreModel subclass for {pydantic_class}")
             raise IndexError
-        
+
     @classmethod
     def default_filename(cls):
         """

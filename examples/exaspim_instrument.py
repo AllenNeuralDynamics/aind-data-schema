@@ -1,5 +1,5 @@
 """ example ExaSPIM instrument """
-from aind_data_schema.device import DaqChannel
+from aind_data_schema.device import DAQChannel, DAQDevice
 from aind_data_schema.imaging import instrument
 
 inst = instrument.Instrument(
@@ -37,7 +37,6 @@ inst = instrument.Instrument(
             serial_number="LAS-08307",
             manufacturer="Oxxius",
             notes="Housed in commercial laser combiner",
-            daq_channel=DaqChannel(index=6, type="Analog Output"),
         ),
         instrument.Lightsource(
             type="laser",
@@ -47,7 +46,6 @@ inst = instrument.Instrument(
             serial_number="LAS-08308",
             manufacturer="Oxxius",
             notes="Housed in commercial laser combiner",
-            daq_channel=DaqChannel(index=3, type="Analog Output"),
         ),
         instrument.Lightsource(
             type="laser",
@@ -57,7 +55,6 @@ inst = instrument.Instrument(
             serial_number="539251",
             manufacturer="Oxxius",
             notes="Housed in commercial laser combiner",
-            daq_channel=DaqChannel(index=5, type="Analog Output"),
         ),
         instrument.Lightsource(
             type="laser",
@@ -67,12 +64,11 @@ inst = instrument.Instrument(
             serial_number="LAS-08309",
             manufacturer="Oxxius",
             notes="Housed in commercial laser combiner",
-            daq_channel=DaqChannel(index=4, type="Analog Output"),
         ),
     ],
     fluorescence_filters=[
         instrument.Filter(
-            type="Multiband",
+            filter_type="Multiband",
             manufacturer="Chroma",
             diameter=44.05,
             thickness=1.0,
@@ -83,13 +79,21 @@ inst = instrument.Instrument(
         )
     ],
     daqs=[
-        instrument.DAQ(
+        DAQDevice(
             model="PCIe-6738",
+            data_interface="USB",
+            computer_name="Dev2",
             manufacturer="National Instruments",
-            device_name="Dev2",
-            update_frequency="10000",
-            number_active_channels=7,
+            name="Dev2",
             serial_number="Unknown",
+            channels=[
+                DAQChannel(channel_name="3", channel_type="Analog Output", device_name="LAS-08308", sample_rate=10000),
+                DAQChannel(channel_name="5", channel_type="Analog Output", device_name="539251", sample_rate=10000),
+                DAQChannel(channel_name="4", channel_type="Analog Output", device_name="LAS-08309", sample_rate=10000),
+                DAQChannel(channel_name="2", channel_type="Analog Output", device_name="stage-x", sample_rate=10000),
+                DAQChannel(channel_name="0", channel_type="Analog Output", device_name="TL-1", sample_rate=10000),
+                DAQChannel(channel_name="6", channel_type="Analog Output", device_name="LAS-08307", sample_rate=10000),
+            ],
         )
     ],
     scanning_stages=[
@@ -99,7 +103,6 @@ inst = instrument.Instrument(
             travel=1000,
             model="MS-8000",
             manufacturer="Applied Scientific Instrumentation",
-            daq_channel=DaqChannel(index=2, type="Analog Output"),
             serial_number="Unknown",
         ),
         instrument.ScanningStage(
@@ -125,7 +128,6 @@ inst = instrument.Instrument(
             manufacturer="Optotune",
             model="EL-16-40-TC-VIS-20D-C",
             serial_number="01",
-            daq_channel=DaqChannel(index=0, type="Analog Output"),
         ),
         instrument.AdditionalImagingDevice(
             type="Rotation mount",

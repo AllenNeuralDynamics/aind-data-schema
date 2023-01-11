@@ -77,9 +77,7 @@ class MgiAlleleId(AindModel):
 class Subject(AindCoreModel):
     """Description of a subject of data collection"""
 
-    schema_version: str = Field(
-        "0.2.2", description="schema version", title="Version", const=True
-    )
+    schema_version: str = Field("0.2.2", description="schema version", title="Version", const=True)
     species: Species = Field(..., title="Species")
     subject_id: str = Field(
         ...,
@@ -93,12 +91,8 @@ class Subject(AindCoreModel):
         description="Genotype of the animal providing both alleles",
         title="Genotype",
     )
-    mgi_allele_ids: Optional[List[MgiAlleleId]] = Field(
-        None, title="MGI allele ids"
-    )
-    background_strain: Optional[BackgroundStrain] = Field(
-        None, title="Background strain"
-    )
+    mgi_allele_ids: Optional[List[MgiAlleleId]] = Field(None, title="MGI allele ids")
+    background_strain: Optional[BackgroundStrain] = Field(None, title="Background strain")
     source: Optional[str] = Field(
         None,
         description="If the subject was not bred in house, where was it acquired from.",
@@ -120,10 +114,6 @@ class Subject(AindCoreModel):
     paternal_id: Optional[str] = Field(None, title="Paternal specimen ID")
     paternal_genotype: Optional[str] = Field(None, title="Paternal genotype")
     light_cycle: Optional[LightCycle] = Field(None, title="Light cycle")
-    home_cage_enrichment: Optional[HomeCageEnrichment] = Field(
-        None, title="Home cage enrichment"
-    )
-    wellness_reports: Optional[List[WellnessReport]] = Field(
-        None, title="Wellness Report"
-    )
+    home_cage_enrichment: Optional[HomeCageEnrichment] = Field(None, title="Home cage enrichment")
+    wellness_reports: Optional[List[WellnessReport]] = Field(None, title="Wellness Report")
     notes: Optional[str] = Field(None, title="Notes")

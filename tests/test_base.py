@@ -3,12 +3,7 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-from aind_data_schema import (
-    Procedures,
-    Processing,
-    RawDataDescription,
-    Subject,
-)
+from aind_data_schema import Procedures, Processing, RawDataDescription, Subject
 from aind_data_schema.base import AindCoreModel
 
 
@@ -45,8 +40,7 @@ class BaseTests(unittest.TestCase):
         with self.assertRaises(IndexError):
             AindCoreModel.default_filename()
         mock_log.assert_called_with(
-            "Unable to find direct AindCoreModel subclass for"
-            " <class 'aind_data_schema.base.AindCoreModel'>"
+            "Unable to find direct AindCoreModel subclass for" " <class 'aind_data_schema.base.AindCoreModel'>"
         )
 
     @patch("builtins.open", new_callable=unittest.mock.mock_open())
@@ -58,9 +52,7 @@ class BaseTests(unittest.TestCase):
         p.write_standard_file()
 
         mocked_file.assert_called_once_with(default_filename, "w")
-        mocked_file.return_value.__enter__().write.assert_called_once_with(
-            json_contents
-        )
+        mocked_file.return_value.__enter__().write.assert_called_once_with(json_contents)
 
     @patch("builtins.open", new_callable=unittest.mock.mock_open())
     def test_write_standard_file_with_prefix(self, mocked_file):
@@ -76,9 +68,7 @@ class BaseTests(unittest.TestCase):
         expected_file_path = str(new_path) + "_" + default_filename
 
         mocked_file.assert_called_once_with(expected_file_path, "w")
-        mocked_file.return_value.__enter__().write.assert_called_once_with(
-            json_contents
-        )
+        mocked_file.return_value.__enter__().write.assert_called_once_with(json_contents)
 
 
 if __name__ == "__main__":

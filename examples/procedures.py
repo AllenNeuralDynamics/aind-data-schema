@@ -2,12 +2,7 @@
 import datetime
 
 from aind_data_schema import Procedures
-from aind_data_schema.procedures import (
-    Craniotomy,
-    FiberImplant,
-    OphysProbe,
-    TrainingProtocol,
-)
+from aind_data_schema.procedures import Craniotomy, FiberImplant, OphysProbe, TrainingProtocol
 
 t = datetime.datetime(2022, 11, 22, 8, 43, 00)
 

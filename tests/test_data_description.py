@@ -4,12 +4,7 @@ import datetime
 import json
 import unittest
 
-from aind_data_schema.data_description import (
-    DataDescription,
-    DerivedDataDescription,
-    Funding,
-    RawDataDescription,
-)
+from aind_data_schema.data_description import DataDescription, DerivedDataDescription, Funding, RawDataDescription
 
 
 class DataDescriptionTest(unittest.TestCase):
@@ -17,9 +12,7 @@ class DataDescriptionTest(unittest.TestCase):
 
     BAD_NAME = "fizzbuzz"
     BASIC_NAME = "ecephys_1234_3033-12-21_04-22-11"
-    DERIVED_NAME = (
-        "ecephys_1234_3033-12-21_04-22-11_spikesorted-ks25_2022-10-12_23-23-11"
-    )
+    DERIVED_NAME = "ecephys_1234_3033-12-21_04-22-11_spikesorted-ks25_2022-10-12_23-23-11"
 
     def test_from_name(self):
         """test the from_name methods"""
@@ -44,9 +37,7 @@ class DataDescriptionTest(unittest.TestCase):
                 funding_source=[f],
             )
 
-        rd = RawDataDescription.from_name(
-            name=self.BASIC_NAME, institution="AIND", funding_source=[f]
-        )
+        rd = RawDataDescription.from_name(name=self.BASIC_NAME, institution="AIND", funding_source=[f])
         assert rd.name == self.BASIC_NAME
         assert rd.data_level.value == "raw data"
 
