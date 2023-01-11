@@ -306,7 +306,7 @@ class Procedures(AindCoreModel):
                 IntraCisternalMagnaInjection,
             ]
         ]
-    ] = Field(None, title="Injections")
+    ] = Field(None, title="Injections", unique_items=True)
     fiber_implants: Optional[List[FiberImplant]] = Field(None, title="Fiber implants", unique_items=True)
     water_restriction: Optional[WaterRestriction] = Field(None, title="Water restriction")
     training_protocols: Optional[List[TrainingProtocol]] = Field(None, title="Training protocols", unique_items=True)
