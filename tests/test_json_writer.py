@@ -48,7 +48,8 @@ class SchemaWriterTests(unittest.TestCase):
         write_calls = []
         for schema in schema_gen:
             filename = schema.default_filename()
-            path = Path("some_test_dir") / filename
+            schema_filename = filename.replace(".json", "_schema.json")
+            path = Path("some_test_dir") / schema_filename
             schema_contents = schema.schema_json(indent=3)
             open_calls.append(call(path, "w"))
             write_calls.append(call(schema_contents))
