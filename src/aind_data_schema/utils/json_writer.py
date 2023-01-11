@@ -62,7 +62,8 @@ class SchemaWriter:
         output_path = self.configs.output
         for schema in schemas_to_write:
             filename = schema.default_filename()
-            output_file = Path(output_path) / filename
+            schema_filename = filename.replace(".json", "_schema.json")
+            output_file = Path(output_path) / schema_filename
 
             with open(output_file, "w") as f:
                 f.write(schema.schema_json(indent=3))
