@@ -275,7 +275,7 @@ class EphysRig(AindCoreModel):
         title="Described by",
         const=True,
     )
-    schema_version: str = Field("0.5.0", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.5.1", description="schema version", title="Version", const=True)
     rig_id: str = Field(..., description="room_stim apparatus_version", title="Rig ID")
     ephys_modules: Optional[List[EphysModule]] = Field(None, title="Ephys probes", unique_items=True)
     stick_microscopes: Optional[List[StickMicroscope]] = Field(None, title="Stick microscopes")
@@ -283,7 +283,7 @@ class EphysRig(AindCoreModel):
     cameras: Optional[List[CameraAssembly]] = Field(None, title="Camera assemblies", unique_items=True)
     visual_monitors: Optional[List[Monitor]] = Field(None, title="Visual monitors", unique_items=True)
     mouse_platform: Optional[Union[Tube, Treadmill, Disc]] = Field(None, title="Mouse platform")
-    daqs: Optional[List[Union[HarpDevice,NeuropixelsBasestation,OpenEphysAcquisitionBoard]]] = Field(None, title="Data acquisition devices")
+    daqs: Optional[List[Union[HarpDevice,NeuropixelsBasestation,OpenEphysAcquisitionBoard,DAQDevice]]] = Field(None, title="Data acquisition devices")
 
     @root_validator
     def validate_device_names(cls, values):
