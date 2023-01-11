@@ -20,8 +20,9 @@ class SchemaWriterTests(unittest.TestCase):
 
         for schema in schema_gen:
             filename = schema.default_filename()
+            schema_filename = filename.replace(".json", "_schema.json")
             schema_contents = schema.schema_json(indent=3)
-            self.assertIsNotNone(filename)
+            self.assertIsNotNone(schema_filename)
             self.assertIsNotNone(schema_contents)
 
     def test_parse_args(self):
