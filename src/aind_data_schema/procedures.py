@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from datetime import date, time
 from enum import Enum
-from typing import List, Optional
+from typing import List, Optional, Union
 
 from pydantic import Field
 
@@ -124,7 +124,7 @@ class Injection(Procedure):
 
     injection_materials: List[InjectionMaterial] = Field(None, title="Injection material", unique_items=True)    
     recovery_time: float = Field(..., title="Recovery time (min)", units="min")
-    injection_duration: Optional[time] = Field(..., title="Injection duration")
+    injection_duration: Optional[time] = Field(None, title="Injection duration")
     workstation_id: Optional[str] = Field(None, title="Workstation ID")
     instrument_id: Optional[str] = Field(None, title="Instrument ID")
 
@@ -306,7 +306,7 @@ class Procedures(AindCoreModel):
                 IntraCisternalMagnaInjection,
             ]
         ]
-    ] = Field(None, title="Injections", unique_items=True)
+    ] = Field(None, title="Injections")
     fiber_implants: Optional[List[FiberImplant]] = Field(None, title="Fiber implants", unique_items=True)
     water_restriction: Optional[WaterRestriction] = Field(None, title="Water restriction")
     training_protocols: Optional[List[TrainingProtocol]] = Field(None, title="Training protocols", unique_items=True)
