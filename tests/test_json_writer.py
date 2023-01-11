@@ -1,45 +1,55 @@
 import unittest
 import json
+import os
 
 from argparse import Namespace
 from pathlib import Path
-from unittest.mock import patch
+from unittest.mock import patch, call, mock_open
 
 from aind_data_schema import DataDescription, Procedures, Processing, Subject
 from aind_data_schema.utils.json_writer import SchemaWriter
 
-TEST_ARGS = [ "fake_filename.txt", "--output", "some_test_dir"]
-
-TEST_ARGV = Namespace(TEST_ARGS)
+TEST_ARGS = ["--output", "some_test_dir"]
 
 class JsonWriterTests(unittest.TestCase):
     """Tests for the Json Writer module"""
 
-    def test_schema_filename(self):
-        """Tests that filename is returned in expected format"""
+    def test_get_schemas(self):
+        sw = SchemaWriter([])
+        schema_gen = sw.get_schemas()
 
-        test_models = [
-            (DataDescription, "data_description.json"),
-            (Procedures, "procedures.json"),
-            (Processing, "processing.json"),
-            (Subject, "subject.json"),
-        ]
+        for schema in schema_gen:
+            filename = schema.default_filename()
+            schema_contents = schema.schema_json(indent=3)
+            self.assertIsNotNone(filename)
+            self.assertIsNotNone(schema_contents)
 
-        for model, expected_filename in test_models:
-            actual_filename = SchemaWriter.schema_filename(model)
-            self.assertEqual(expected_filename, actual_filename)
+    def test_parse_args(self):
+        sw = SchemaWriter(TEST_ARGS)
 
-    @patch("builtins.open", new_callable=unittest.mock.mock_open())
+        sw2 = SchemaWriter([])
+
+        expected_output = "some_test_dir"
+
+        self.assertEqual(expected_output, sw.configs.output)
+        self.assertEqual(TEST_ARGS, sw.args)
+        self.assertEqual(os.getcwd(), sw2.configs.output)
+
+    @patch("builtins.open", new_callable=mock_open())
     def test_write_to_json(self, mock_json_file):
         """Tests that model is written to JSON"""
+        sw = SchemaWriter(TEST_ARGS)
+        sw.write_to_json()
 
-        mock_schemas_to_write = [DataDescription, Procedures, Processing, Subject]
-
-        s = SchemaWriter.write_to_json(mock_schemas_to_write, TEST_ARGS)
-        s_filename = SchemaWriter.schema_filename(Subject)
-        expected_path =str(TEST_ARGS[2]) + s_filename
-
-        mock_json_file.assert_called_once_with(expected_path, "w")
+        schema_gen = sw.get_schemas()
+        calls = []
+        for schema in schema_gen:
+            filename = schema.default_filename()
+            path = Path(os.getcwd()) / filename
+            schema_contents = schema.schema_json(indent=3)
+            calls.append(call(schema_contents))
+        handle = mock_json_file()
+        handle.write.assert_has_calls(calls, any_order=True)
 
 
 if __name__ == "__main__":
