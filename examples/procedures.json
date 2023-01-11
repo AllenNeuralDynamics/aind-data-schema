@@ -1,68 +1,77 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/procedures.py",
-   "schema_version": "0.4.4",
-   "subject_id": "12345",
+   "schema_version": "0.5.0",
+   "subject_id": "625100",
    "headframes": null,
    "craniotomies": [
       {
          "type": null,
-         "start_date": "2022-11-22",
-         "end_date": "2022-11-22",
-         "experimenter_full_name": "jane doe",
-         "protocol_id": "dx.doi.org/10.12345/protocols.io.12345",
-         "iacuc_protocol": null,
-         "animal_weight": 10.0,
-         "anaesthesia": null,
+         "start_date": "2022-07-12",
+         "end_date": "2022-07-12",
+         "experimenter_full_name": "n/a",
+         "protocol_id": "null",
+         "iacuc_protocol": "2109",
+         "animal_weight": 22.6,
+         "anaesthesia": {
+            "type": "Isoflurane",
+            "duration": 1.0,
+            "level": 1.5
+         },
          "notes": null,
-         "craniotomy_coordinates_ml": 1.0,
+         "craniotomy_coordinates_ml": 0.0,
          "craniotomy_coordinates_ap": 0.0,
-         "craniotomy_size": 2.0,
+         "craniotomy_size": 5.0,
          "implant_part_number": null,
          "dura_removed": null,
-         "protective_material": "Duragel",
-         "workstation_id": null
+         "protective_material": null,
+         "workstation_id": "SWS 3"
       }
    ],
    "mri_scans": null,
-   "injections": null,
-   "fiber_implants": [
+   "injections": [
       {
          "type": null,
-         "start_date": "2022-11-22",
-         "end_date": "2022-11-22",
-         "experimenter_full_name": "john doe",
-         "protocol_id": "dx.doi.org/10.12345/protocols.io.12345",
-         "iacuc_protocol": null,
-         "animal_weight": 34.0,
-         "anaesthesia": null,
+         "start_date": "2022-07-12",
+         "end_date": "2022-07-12",
+         "experimenter_full_name": "n/a",
+         "protocol_id": "null",
+         "iacuc_protocol": "2109",
+         "animal_weight": 22.6,
+         "anaesthesia": {
+            "type": "Isoflurane",
+            "duration": 1.0,
+            "level": 1.5
+         },
          "notes": null,
-         "probes": [
+         "injection_materials": [
             {
-               "name": "Probe A",
-               "manufacturer": "acmecorp",
-               "part_number": "12345",
-               "core_diameter": 10.0,
-               "numerical_aperture": 1.0,
-               "ferrule_material": null,
-               "targeted_structure": "VISp",
-               "stereotactic_coordinate_ap": 0.0,
-               "stereotactic_coordinate_ml": 0.0,
-               "stereotactic_coordinate_dv": 0.0,
-               "angle": 0.0,
-               "notes": null
+               "name": "AAV2-Flex-ChrimsonR",
+               "material_id": null,
+               "full_genome_name": null,
+               "plasmid_name": null,
+               "genome_copy": null,
+               "titer": null,
+               "prep_lot_number": null,
+               "prep_date": null,
+               "prep_type": null
             }
-         ]
+         ],
+         "recovery_time": 0.0,
+         "injection_duration": null,
+         "workstation_id": "SWS 3",
+         "instrument_id": null,
+         "injection_hemisphere": "Left",
+         "injection_coordinate_ml": -0.87,
+         "injection_coordinate_ap": -3.8,
+         "injection_coordinate_depth": -3.3,
+         "injection_angle": 10.0,
+         "injection_type": "Nanoject",
+         "injection_volume": 200.0
       }
    ],
-   "water_restriction": null,
-   "training_protocols": [
-      {
-         "protocol_id": "dx.doi.org/10.12345/protocols.io.12345",
-         "training_protocol_start_date": "2022-11-22",
-         "training_protocol_end_date": "2022-11-22",
-         "notes": null
-      }
-   ],
+   "fiber_implants": null,
+   "water_restrictions": null,
+   "training_protocols": null,
    "tissue_preparations": null,
    "other_procedures": null,
    "notes": null

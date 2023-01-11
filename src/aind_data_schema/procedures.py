@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from datetime import date, time
 from enum import Enum
-from typing import List, Optional
+from typing import List, Optional, Union
 
 from pydantic import Field
 
@@ -122,9 +122,9 @@ class InjectionMaterial(AindModel):
 class Injection(Procedure):
     """Description of an injection procedure"""
 
-    injection_materials: List[InjectionMaterial] = Field(None, title="Injection material", unique_items=True)
-    injection_duration: time = Field(..., title="Injection duration")
+    injection_materials: List[InjectionMaterial] = Field(None, title="Injection material", unique_items=True)    
     recovery_time: float = Field(..., title="Recovery time (min)", units="min")
+    injection_duration: Optional[time] = Field(None, title="Injection duration")
     workstation_id: Optional[str] = Field(None, title="Workstation ID")
     instrument_id: Optional[str] = Field(None, title="Instrument ID")
 
@@ -287,7 +287,7 @@ class WaterRestriction(AindModel):
 class Procedures(AindCoreModel):
     """Description of all procedures performed on a subject"""
 
-    schema_version: str = Field("0.4.4", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.5.0", description="schema version", title="Version", const=True)
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
@@ -296,9 +296,19 @@ class Procedures(AindCoreModel):
     headframes: Optional[List[Headframe]] = Field(None, title="Headframes", unique_items=True)
     craniotomies: Optional[List[Craniotomy]] = Field(None, title="Craniotomies", unique_items=True)
     mri_scans: Optional[List[MriScan]] = Field(None, title="MRI scans", unique_items=True)
-    injections: Optional[List[Injection]] = Field(None, title="Injections", unique_items=True)
+    injections: Optional[
+        List[
+            Union[
+                RetroOrbitalInjection,
+                NanojectInjection,
+                IontophoresisInjection,
+                IntraCerebellarVentricleInjection,
+                IntraCisternalMagnaInjection,
+            ]
+        ]
+    ] = Field(None, title="Injections", unique_items=True)
     fiber_implants: Optional[List[FiberImplant]] = Field(None, title="Fiber implants", unique_items=True)
-    water_restriction: Optional[WaterRestriction] = Field(None, title="Water restriction")
+    water_restrictions: Optional[List[WaterRestriction]] = Field(None, title="Water restriction")
     training_protocols: Optional[List[TrainingProtocol]] = Field(None, title="Training protocols", unique_items=True)
     tissue_preparations: Optional[List[TissuePrep]] = Field(None, title="Tissue preparations", unique_items=True)
     other_procedures: Optional[List[Procedure]] = Field(None, title="Other procedures", unique_items=True)

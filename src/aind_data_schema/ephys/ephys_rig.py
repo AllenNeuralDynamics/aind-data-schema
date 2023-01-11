@@ -283,7 +283,9 @@ class EphysRig(AindCoreModel):
     cameras: Optional[List[CameraAssembly]] = Field(None, title="Camera assemblies", unique_items=True)
     visual_monitors: Optional[List[Monitor]] = Field(None, title="Visual monitors", unique_items=True)
     mouse_platform: Optional[Union[Tube, Treadmill, Disc]] = Field(None, title="Mouse platform")
-    daqs: Optional[List[Union[HarpDevice,NeuropixelsBasestation,OpenEphysAcquisitionBoard,DAQDevice]]] = Field(None, title="Data acquisition devices")
+    daqs: Optional[List[Union[HarpDevice, NeuropixelsBasestation, OpenEphysAcquisitionBoard, DAQDevice]]] = Field(
+        None, title="Data acquisition devices"
+    )
 
     @root_validator
     def validate_device_names(cls, values):
@@ -319,9 +321,9 @@ class EphysRig(AindCoreModel):
                 for channel in daq.channels:
                     if channel.device_name not in device_names:
                         raise ValueError(
-                            f"Device name validation error: '{channel.device_name}' " +  
-                            f"is connected to '{channel.channel_name}' on '{daq.name}', but " +
-                            "this device is not part of the rig."
+                            f"Device name validation error: '{channel.device_name}' "
+                            + f"is connected to '{channel.channel_name}' on '{daq.name}', but "
+                            + "this device is not part of the rig."
                         )
 
         return values
@@ -351,9 +353,9 @@ class EphysRig(AindCoreModel):
                         for probe in port.probes:
                             if probe not in probe_names:
                                 raise ValueError(
-                                    f"Probe name validation error: '{probe}' " +  
-                                    f"is connected to '{daq.name}' port '{port.index}', but " +
-                                    "this probe is not part of the rig."
+                                    f"Probe name validation error: '{probe}' "
+                                    + f"is connected to '{daq.name}' port '{port.index}', but "
+                                    + "this probe is not part of the rig."
                                 )
 
         return values
