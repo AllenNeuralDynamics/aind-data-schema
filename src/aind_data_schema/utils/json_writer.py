@@ -2,12 +2,11 @@
 
 import argparse
 import os
-import re
 import sys
+from pathlib import Path
 
 import aind_data_schema
 from aind_data_schema.base import AindCoreModel
-from pathlib import Path
 
 DEFAULT_FILE_PATH = os.getcwd()
 
@@ -18,11 +17,13 @@ class SchemaWriter:
     def __init__(self, args: list):
         self.args = args
         self.configs = self.parse_arguments(args)
-    
+
     def parse_arguments(self, args: list) -> argparse.Namespace:
         """Parses sys args with argparse"""
 
-        help_message = "Output directory, defaults to current working directory"
+        help_message = (
+            "Output directory, defaults to current working directory"
+        )
 
         parser = argparse.ArgumentParser()
 
@@ -50,7 +51,6 @@ class SchemaWriter:
 
             if AindCoreModel in model.__bases__:
                 yield model
-
 
     def write_to_json(self):
         """
