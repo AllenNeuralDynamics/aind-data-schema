@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/procedures.py",
-   "schema_version": "0.5.0",
+   "schema_version": "0.5.1",
    "subject_id": "625100",
    "headframes": null,
    "craniotomies": [
@@ -18,8 +18,8 @@
             "level": 1.5
          },
          "notes": null,
-         "craniotomy_coordinates_ml": 0.0,
-         "craniotomy_coordinates_ap": 0.0,
+         "craniotomy_coordinates_ml": null,
+         "craniotomy_coordinates_ap": null,
          "craniotomy_size": 5.0,
          "implant_part_number": null,
          "dura_removed": null,

@@ -54,8 +54,8 @@ class Procedure(AindModel):
 class Craniotomy(Procedure):
     """Description of craniotomy procedure"""
 
-    craniotomy_coordinates_ml: float = Field(..., title="Craniotomy coordinate ML (mm)", units="mm")
-    craniotomy_coordinates_ap: float = Field(..., title="Craniotomy coordinates AP (mm)", units="mm")
+    craniotomy_coordinates_ml: Optional[float] = Field(None, title="Craniotomy coordinate ML (mm)", units="mm")
+    craniotomy_coordinates_ap: Optional[float] = Field(None, title="Craniotomy coordinates AP (mm)", units="mm")
     craniotomy_size: float = Field(..., title="Craniotomy size (mm)", units="mm")
     implant_part_number: Optional[str] = Field(None, title="Implant part number")
     dura_removed: Optional[bool] = Field(None, title="Dura removed")
@@ -73,8 +73,9 @@ class HeadframeMaterial(Enum):
 class Headframe(Procedure):
     """Description of headframe procedure"""
 
+    headframe_type: str = Field(..., title="Headframe type")
     headframe_part_number: str = Field(..., title="Headframe part number")
-    headframe_material: HeadframeMaterial = Field(..., title="Headframe material")
+    headframe_material: Optional[HeadframeMaterial] = Field(None, title="Headframe material")
     well_part_number: Optional[str] = Field(None, title="Well part number")
     well_type: Optional[str] = Field(None, title="Well type")
 
@@ -287,7 +288,7 @@ class WaterRestriction(AindModel):
 class Procedures(AindCoreModel):
     """Description of all procedures performed on a subject"""
 
-    schema_version: str = Field("0.5.0", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.5.1", description="schema version", title="Version", const=True)
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
