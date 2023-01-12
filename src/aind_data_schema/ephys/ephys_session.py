@@ -40,7 +40,7 @@ class ManipulatorModule(AindModel):
     """A module connected to a 3-axis manipulator"""
 
     primary_targeted_structure: str = Field(..., title="Targeted structure")
-    targeted_ccf_coordinates: Optional[CcfCoords] = Field(
+    targeted_ccf_coordinates: Optional[List[CcfCoords]] = Field(
         None,
         title="Targeted CCF coordinates",
     )
@@ -87,10 +87,10 @@ class Stream(AindModel):
 
     stream_start_time: datetime = Field(..., title="Stream start time")
     stream_end_time: datetime = Field(..., title="Stream stop time")
-    probes: List[EphysProbe] = Field(..., title="Probes", unique_items=True)
-    laser_modules: List[LaserModule] = Field(..., title="Laser modules", unique_items=True)
-    daqs: List[DAQDevice] = Field(..., title="DAQ devices", unique_items=True)
-    cameras: List[Camera] = Field(..., title="Cameras", unique_items=True)
+    probes: Optional[List[EphysProbe]] = Field(None, title="Probes", unique_items=True)
+    laser_modules: Optional[List[LaserModule]] = Field(None, title="Laser modules", unique_items=True)
+    daqs: Optional[List[DAQDevice]] = Field(None, title="DAQ devices", unique_items=True)
+    cameras: Optional[List[Camera]] = Field(None, title="Cameras", unique_items=True)
 
 
 class EphysSession(AindCoreModel):
