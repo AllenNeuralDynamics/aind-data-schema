@@ -21,8 +21,6 @@ p = Procedures(
             iacuc_protocol="2109",
             animal_weight=22.6,
             anaesthesia=Anaesthetic(type="Isoflurane", duration=1, level=1.5),
-            craniotomy_coordinates_ap=0,
-            craniotomy_coordinates_ml=0,
             craniotomy_size=5,
             workstation_id="SWS 3",
         )
