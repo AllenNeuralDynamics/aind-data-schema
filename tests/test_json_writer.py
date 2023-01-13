@@ -3,7 +3,7 @@
 import os
 import unittest
 from pathlib import Path
-from unittest.mock import call, mock_open, patch
+from unittest.mock import call, mock_open, patch, MagicMock
 
 from aind_data_schema.utils.json_writer import SchemaWriter
 
@@ -38,7 +38,7 @@ class SchemaWriterTests(unittest.TestCase):
         self.assertEqual(os.getcwd(), sw2.configs.output)
 
     @patch("builtins.open", new_callable=mock_open())
-    def test_write_to_json(self, mock_file):
+    def test_write_to_json(self, mock_file: MagicMock):
         """Tests that model is written to JSON"""
         sw = SchemaWriter(self.TEST_ARGS)
         sw.write_to_json()
@@ -50,6 +50,27 @@ class SchemaWriterTests(unittest.TestCase):
             filename = schema.default_filename()
             schema_filename = filename.replace(".json", "_schema.json")
             path = Path("some_test_dir") / schema_filename
+            schema_contents = schema.schema_json(indent=3)
+            open_calls.append(call(path, "w"))
+            write_calls.append(call(schema_contents))
+        mock_file.assert_has_calls(open_calls, any_order=True)
+        file_handle.write.assert_has_calls(write_calls, any_order=True)
+
+    @patch("builtins.open", new_callable=mock_open())
+    def test_write_to_json_version_number(self, mock_file: MagicMock):
+        """Tests that model is written to JSON with version directory"""
+        sys_args = ["--output", "some_test_dir", "--attach-version"]
+        sw = SchemaWriter(sys_args)
+        sw.write_to_json()
+        file_handle = mock_file.return_value.__enter__.return_value
+        schema_gen = sw._get_schemas()
+        open_calls = []
+        write_calls = []
+        for schema in schema_gen:
+            filename = schema.default_filename()
+            schema_filename = filename.replace(".json", "_schema.json")
+            model_directory_name = schema_filename.replace("_schema.json", "")
+            path = Path("some_test_dir") / model_directory_name / schema.construct().schema_version / schema_filename
             schema_contents = schema.schema_json(indent=3)
             open_calls.append(call(path, "w"))
             write_calls.append(call(schema_contents))

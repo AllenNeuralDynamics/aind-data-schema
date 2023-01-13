@@ -35,6 +35,13 @@ class SchemaWriter:
             help=help_message,
         )
 
+        parser.add_argument(
+            "--attach-version",
+            action="store_true",
+            help="Add extra directory with schema version number"
+        )
+        parser.set_defaults(attach_version=False)
+
         optional_args = parser.parse_args(args)
 
         return optional_args
@@ -61,7 +68,15 @@ class SchemaWriter:
         for schema in schemas_to_write:
             filename = schema.default_filename()
             schema_filename = filename.replace(".json", "_schema.json")
-            output_file = Path(output_path) / schema_filename
+            if self.configs.attach_version:
+                schema_version = schema.construct().schema_version
+                model_directory_name = schema_filename.replace("_schema.json", "")
+                sub_directory = Path(output_path) / model_directory_name / schema_version
+                if not os.path.exists(sub_directory):
+                    os.makedirs(sub_directory)
+                output_file = sub_directory /schema_filename
+            else:
+                output_file = Path(output_path) / schema_filename
 
             with open(output_file, "w") as f:
                 f.write(schema.schema_json(indent=3))
