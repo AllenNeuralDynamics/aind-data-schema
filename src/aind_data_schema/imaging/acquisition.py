@@ -119,7 +119,7 @@ class Immersion(AindModel):
 class Acquisition(AindCoreModel):
     """Description of an imaging acquisition session"""
 
-    version: str = Field("0.4.0", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.4.0", description="schema version", title="Version", const=True)
     experimenter_full_name: str = Field(
         ...,
         description="First and last name of the experimenter.",
