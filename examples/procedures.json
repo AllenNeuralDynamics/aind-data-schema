@@ -18,6 +18,7 @@
             "level": 1.5
          },
          "notes": null,
+         "craniotomy_hemisphere": null,
          "craniotomy_coordinates_ml": null,
          "craniotomy_coordinates_ap": null,
          "craniotomy_size": 5.0,
