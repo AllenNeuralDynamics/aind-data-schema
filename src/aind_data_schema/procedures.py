@@ -54,6 +54,7 @@ class Procedure(AindModel):
 class Craniotomy(Procedure):
     """Description of craniotomy procedure"""
 
+    craniotomy_hemisphere: Optional[Side] = Field(None, title="Craniotomy hemisphere")
     craniotomy_coordinates_ml: Optional[float] = Field(None, title="Craniotomy coordinate ML (mm)", units="mm")
     craniotomy_coordinates_ap: Optional[float] = Field(None, title="Craniotomy coordinates AP (mm)", units="mm")
     craniotomy_size: float = Field(..., title="Craniotomy size (mm)", units="mm")
@@ -68,6 +69,7 @@ class HeadframeMaterial(Enum):
 
     TITANIUM = "Titanium"
     STEEL = "Steel"
+    WHITE_ZIRCONIA = "White Zirconia"
 
 
 class Headframe(Procedure):
@@ -204,7 +206,6 @@ class MriScan(Procedure):
     scanner_location: Optional[ScannerLocation] = Field(None, title="Scanner location")
     magnetic_strength: Optional[MagneticStrength] = Field(None, title="Magnetic strength (T)", units="T")
     resolution: float = Field(..., title="Resolution")
-    protocol_id: str = Field(..., title="Protocol ID")
 
 
 class TissuePrepName(Enum):
@@ -288,7 +289,7 @@ class WaterRestriction(AindModel):
 class Procedures(AindCoreModel):
     """Description of all procedures performed on a subject"""
 
-    schema_version: str = Field("0.5.1", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.5.2", description="schema version", title="Version", const=True)
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
