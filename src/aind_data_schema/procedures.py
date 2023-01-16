@@ -1,7 +1,5 @@
 """ schema for various Procedures """
 
-from __future__ import annotations
-
 from datetime import date, time
 from enum import Enum
 from typing import List, Optional, Union
@@ -9,6 +7,12 @@ from typing import List, Optional, Union
 from pydantic import Field
 
 from .base import AindCoreModel, AindModel
+
+class Side(Enum):
+    """Side of animal"""
+
+    LEFT = "Left"
+    RIGHT = "Right"
 
 
 class ProtectiveMaterial(Enum):
@@ -80,13 +84,6 @@ class Headframe(Procedure):
     headframe_material: Optional[HeadframeMaterial] = Field(None, title="Headframe material")
     well_part_number: Optional[str] = Field(None, title="Well part number")
     well_type: Optional[str] = Field(None, title="Well type")
-
-
-class Side(Enum):
-    """Side of animal"""
-
-    LEFT = "Left"
-    RIGHT = "Right"
 
 
 class VirusPrepType(Enum):
