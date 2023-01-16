@@ -1,7 +1,5 @@
 """ schema for various Procedures """
 
-from __future__ import annotations
-
 from datetime import date, time
 from enum import Enum
 from typing import List, Optional, Union
@@ -9,6 +7,12 @@ from typing import List, Optional, Union
 from pydantic import Field
 
 from .base import AindCoreModel, AindModel
+
+class Side(Enum):
+    """Side of animal"""
+
+    LEFT = "Left"
+    RIGHT = "Right"
 
 
 class ProtectiveMaterial(Enum):
@@ -54,6 +58,7 @@ class Procedure(AindModel):
 class Craniotomy(Procedure):
     """Description of craniotomy procedure"""
 
+    craniotomy_hemisphere: Optional[Side] = Field(None, title="Craniotomy hemisphere")
     craniotomy_coordinates_ml: Optional[float] = Field(None, title="Craniotomy coordinate ML (mm)", units="mm")
     craniotomy_coordinates_ap: Optional[float] = Field(None, title="Craniotomy coordinates AP (mm)", units="mm")
     craniotomy_size: float = Field(..., title="Craniotomy size (mm)", units="mm")
@@ -68,6 +73,7 @@ class HeadframeMaterial(Enum):
 
     TITANIUM = "Titanium"
     STEEL = "Steel"
+    WHITE_ZIRCONIA = "White Zirconia"
 
 
 class Headframe(Procedure):
@@ -78,13 +84,6 @@ class Headframe(Procedure):
     headframe_material: Optional[HeadframeMaterial] = Field(None, title="Headframe material")
     well_part_number: Optional[str] = Field(None, title="Well part number")
     well_type: Optional[str] = Field(None, title="Well type")
-
-
-class Side(Enum):
-    """Side of animal"""
-
-    LEFT = "Left"
-    RIGHT = "Right"
 
 
 class VirusPrepType(Enum):
@@ -204,7 +203,6 @@ class MriScan(Procedure):
     scanner_location: Optional[ScannerLocation] = Field(None, title="Scanner location")
     magnetic_strength: Optional[MagneticStrength] = Field(None, title="Magnetic strength (T)", units="T")
     resolution: float = Field(..., title="Resolution")
-    protocol_id: str = Field(..., title="Protocol ID")
 
 
 class TissuePrepName(Enum):
@@ -288,7 +286,7 @@ class WaterRestriction(AindModel):
 class Procedures(AindCoreModel):
     """Description of all procedures performed on a subject"""
 
-    schema_version: str = Field("0.5.1", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.5.2", description="schema version", title="Version", const=True)
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
