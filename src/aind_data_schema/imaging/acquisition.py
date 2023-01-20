@@ -10,7 +10,7 @@ from pydantic import Field
 from pydantic.types import conlist
 
 from ..base import AindCoreModel, AindModel
-
+from tile import AcquisitionTile
 
 class AxisName(Enum):
     """Image axis name"""
@@ -68,47 +68,6 @@ class Axis(AindModel):
 
         return axes
 
-
-class Channel(AindModel):
-    """Description of a channel"""
-
-    channel_name: str = Field(..., title="Channel")
-    laser_wavelength: int = Field(..., title="Wavelength", ge=300, le=1000)
-    laser_wavelength_unit: str = Field("nanometer", title="Laser wavelength unit")
-    laser_power: float = Field(..., title="Laser power", le=2000)
-    laser_power_unit: float = Field("milliwatt", title="Laser power unit")
-    filter_wheel_index: int = Field(..., title="Filter wheel index")
-
-
-class Scale3dTransform(AindModel):
-    """Values to be vector-multiplied with a 3D position, equivalent to the diagonals of a 3x3 transform matrix.
-    Represents voxel spacing if used as the first applied coordinate transform.
-    """
-
-    type: str = Field("scale", title="transformation type")
-    scale: conlist(float, min_items=3, max_items=3) = Field(..., title="3D scale parameters")
-
-
-class Translation3dTransform(AindModel):
-    """Values to be vector-added to a 3D position. Often needed to specify a Tile's origin."""
-
-    type: str = Field("translation", title="transformation type")
-    translation: conlist(float, min_items=3, max_items=3) = Field(..., title="3D translation parameters")
-
-
-class Tile(AindModel):
-    """Description of an image tile"""
-
-    coordinate_transformations: List[Union[Scale3dTransform, Translation3dTransform]] = Field(
-        ..., title="Tile coordinate transformations"
-    )
-    channel: Channel = Field(..., title="Channel")
-    file_name: Optional[str] = Field(None, title="File name")
-    notes: Optional[str] = Field(None, title="Notes")
-    imaging_angle: int = Field(0, title="Imaging angle")
-    imaging_angle_unit: str = Field("degree", title="Imaging angle unit")
-
-
 class Immersion(AindModel):
     """Description of immersion media"""
 
@@ -129,7 +88,7 @@ class Acquisition(AindCoreModel):
     instrument_id: str = Field(..., title="Instrument ID")
     session_start_time: datetime = Field(..., title="Session start time")
     session_end_time: datetime = Field(..., title="Session end time")
-    tiles: List[Tile] = Field(..., title="Acquisition tiles")
+    tiles: List[AcquisitionTile] = Field(..., title="Acquisition tiles")
     axes: List[Axis] = Field(..., title="Acquisition axes")
     chamber_immersion: Immersion = Field(..., title="Acquisition chamber immersion data")
     sample_immersion: Optional[Immersion] = Field(None, title="Acquisition sample immersion data")
