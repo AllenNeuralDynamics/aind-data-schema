@@ -3,21 +3,6 @@ from pydantic import Field
 from pydantic.types import conlist
 from typing import List, Optional, Union
 
-class Tile(AindCoreModel):
-    """Description of an image tile"""
-
-    coordinate_transformations: List[Union[Tile3dTransform]] = Field(
-        ..., title="Tile coordinate transformations"
-    )
-    file_name: Optional[str] = Field(None, title="File name")
-    
-
-class AcquisitionTile(Tile):
-    """Description of acquisition tile"""
-    channel: Channel = Field(..., title="Channel")
-    notes: Optional[str] = Field(None, title="Notes")
-    imaging_angle: int = Field(0, title="Imaging angle")
-    imaging_angle_unit: str = Field("degree", title="Imaging angle unit")
 
 class Channel(AindModel):
     """Description of a channel"""
@@ -57,3 +42,18 @@ class Affine3dTransform(Tile3dTransform):
 
     type: str = Field("affine", title="transformation type")
     affinetransform: conlist(float, min_items=12, max_items=12) = Field(..., title="Affine transform matrix values (top 3x4 matrix)")
+
+class Tile(AindCoreModel):
+    """Description of an image tile"""
+
+    coordinate_transformations: List[Union[Tile3dTransform]] = Field(
+        ..., title="Tile coordinate transformations"
+    )
+    file_name: Optional[str] = Field(None, title="File name")
+
+class AcquisitionTile(Tile):
+    """Description of acquisition tile"""
+    channel: Channel = Field(..., title="Channel")
+    notes: Optional[str] = Field(None, title="Notes")
+    imaging_angle: int = Field(0, title="Imaging angle")
+    imaging_angle_unit: str = Field("degree", title="Imaging angle unit")
