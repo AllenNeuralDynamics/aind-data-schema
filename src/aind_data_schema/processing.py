@@ -9,7 +9,7 @@ from typing import Any, Dict, List, Optional
 from pydantic import Field
 
 from .base import AindCoreModel, AindModel
-from imaging.tile import Tile
+from .imaging.tile import Tile
 
 class ProcessName(Enum):
     """Data processing type labels"""
@@ -60,5 +60,5 @@ class Stitching(DataProcess):
     """Description of an imaging acquisition session"""
 
     schema_version: str = Field("0.1.0", description="schema version for stitching", title="Version", const=True)
-    
+
     tiles: List[Tile] = Field(..., title="Data tiles")
