@@ -1,5 +1,5 @@
-src
-===
+Schema Modules
+==============
 
 .. toctree::
    :maxdepth: 4
