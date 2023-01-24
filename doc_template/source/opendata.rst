@@ -1,0 +1,35 @@
+###########################
+S3 Access to AIND Open Data
+###########################
+
+The Allen Institute for Neural Dynamics (AIND) is committed to FAIR, Open, 
+and Reproducible science. We therefore share all of the raw and derived data 
+we collect publicly with rich metadata, including preliminary data collected 
+during methods development, as near to the time of collection as possible.
+
+In addition to sharing curated datasets with data archives like (DANDI)[https://dandiarchive.org/] 
+and (BIL)[https://www.brainimagelibrary.org/], we also excited to share all of 
+our data in one public S3 bucket generously sponsored by the (Registry of Open Data on AWS program)[https://registry.opendata.aws/]:
+`s3://aind-open-data`
+
+*******************
+Bucket Organization
+*******************
+
+AIND's mission to share data early with full reproducibility has significant 
+implications on how data and metadata should be organized and represented. Notably:
+
+* derived data should not be stored in the same path or directory as source data
+* metadata should be represented in simple human- and machine-readable files
+* metadata should be adjacent to the data it describes
+* data should be stored in cloud-friendly formats (e.g. Zarr), preferably at time of acquisition
+
+
+
+
+
+
+
+
+
+
