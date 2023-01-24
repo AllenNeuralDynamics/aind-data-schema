@@ -13,6 +13,7 @@ In addition to sharing curated datasets with modality-specific NIH data archives
 like `DANDI <https://dandiarchive.org/>`_ and `BIL <https://www.brainimagelibrary.org/>`_, 
 we are also excited to share all of our data in one public S3 bucket generously 
 hosted by the `Registry of Open Data on AWS <https://registry.opendata.aws/>`_. 
+
 All data is stored here: ``s3://aind-open-data``
 
 *******************
