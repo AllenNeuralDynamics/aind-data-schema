@@ -4,8 +4,9 @@ S3 Access to AIND Open Data
 
 The Allen Institute for Neural Dynamics (AIND) is committed to FAIR, Open, 
 and Reproducible science. We therefore share all of the raw and derived data 
-we collect publicly with rich metadata, including preliminary data collected 
-during methods development, as near to the time of collection as possible.
+we collect publicly with rich metadata. We share data as near to the 
+time of collection as possible, including preliminary data collected 
+during methods development.
 
 In addition to sharing curated datasets with data archives like `DANDI <https://dandiarchive.org/>`_ 
 and `BIL <https://www.brainimagelibrary.org/>`_, we are also excited to share all of 
