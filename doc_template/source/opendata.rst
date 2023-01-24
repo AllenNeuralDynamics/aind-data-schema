@@ -7,10 +7,10 @@ and Reproducible science. We therefore share all of the raw and derived data
 we collect publicly with rich metadata, including preliminary data collected 
 during methods development, as near to the time of collection as possible.
 
-In addition to sharing curated datasets with data archives like (DANDI)[https://dandiarchive.org/] 
-and (BIL)[https://www.brainimagelibrary.org/], we also excited to share all of 
-our data in one public S3 bucket generously sponsored by the (Registry of Open Data on AWS program)[https://registry.opendata.aws/]:
-`s3://aind-open-data`
+In addition to sharing curated datasets with data archives like `DANDI <https://dandiarchive.org/>`_ 
+and `BIL <https://www.brainimagelibrary.org/>`_, we also excited to share all of 
+our data in one public S3 bucket generously sponsored by the `Registry of Open Data on AWS program <https://registry.opendata.aws/>`_:
+``s3://aind-open-data``
 
 *******************
 Bucket Organization
@@ -24,22 +24,22 @@ implications on how data and metadata should be organized and represented. Speci
 * metadata should be adjacent to the data it describes
 * data should be stored in cloud-friendly formats (e.g. Zarr), preferably at time of acquisition
 
-Based on these principles, `s3://aind-open-data` is organized as a flat list of
+Based on these principles, ``s3://aind-open-data`` is organized as a flat list of
 data assets, where a data asset is simply a logical collection of files. Raw data assets 
 are named:
 
-`<modality>_<subject-id>_<acquisition-date>_<acquisition-time>`
+``<modality>_<subject-id>_<acquisition-date>_<acquisition-time>``
 
 Derived data assets are named:
 
-`<source-data-asset-name>_<label>_<acquisition-date>_<acquisition-time>`
+``<source-data-asset-name>_<label>_<acquisition-date>_<acquisition-time>``
 
-Inspired by (BIDS)[https://bids.neuroimaging.io/] and the 
-(HCA metadata schema)[https://data.humancellatlas.org/metadata/structure], metadata 
+Inspired by `BIDS <https://bids.neuroimaging.io/>`_ and the 
+`HCA metadata schema <https://data.humancellatlas.org/metadata/structure>`_, metadata 
 describing a data asset is stored as sidecar JSON files that conform to the schemas 
-defined in `aind-data-schema`. 
+defined in ``aind-data-schema``. 
 
-A raw extracellular ephys asset would look like this::
+A raw extracellular ephys asset would look like this:
 
     ecephys_123456_2022-12-12_05-06-07/
         ecephys/<ephys data>
@@ -51,7 +51,7 @@ A raw extracellular ephys asset would look like this::
         rig.json
         acquisition.json
 
-A spike-sorting result asset would look like this::
+A spike-sorting result asset would look like this:
 
     ecephys_123456_2022-12-12_05-06-07_sorted-ks25_2022-12-12_06-07-08/
         sorted/<sorted ephys data>
