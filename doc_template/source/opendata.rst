@@ -8,9 +8,9 @@ we collect publicly with rich metadata, including preliminary data collected
 during methods development, as near to the time of collection as possible.
 
 In addition to sharing curated datasets with data archives like `DANDI <https://dandiarchive.org/>`_ 
-and `BIL <https://www.brainimagelibrary.org/>`_, we also excited to share all of 
-our data in one public S3 bucket generously sponsored by the `Registry of Open Data on AWS program <https://registry.opendata.aws/>`_:
-``s3://aind-open-data``
+and `BIL <https://www.brainimagelibrary.org/>`_, we are also excited to share all of 
+our data in one public S3 bucket generously hosted by the `Registry of Open Data on AWS <https://registry.opendata.aws/>`_. 
+All data is stored here: ``s3://aind-open-data``
 
 *******************
 Bucket Organization
