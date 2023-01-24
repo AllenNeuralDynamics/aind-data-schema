@@ -51,8 +51,16 @@ A raw extracellular ephys asset would look like this::
         rig.json
         acquisition.json
 
+A spike-sorting result asset would look like this::
 
-
+    ecephys_123456_2022-12-12_05-06-07_sorted-ks25_2022-12-12_06-07-08/
+        sorted/<sorted ephys data>
+        data_description.json
+        subject.json
+        procedures.json
+        processing.json
+        rig.json
+        acquisition.json
 
 
 
