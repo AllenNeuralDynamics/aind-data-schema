@@ -1,6 +1,6 @@
-###########################
-S3 Access to AIND Open Data
-###########################
+#####################
+AIND Open Data Access
+#####################
 
 The Allen Institute for Neural Dynamics (AIND) is committed to FAIR, Open, 
 and Reproducible science. We therefore share all of the data we collect publicly 

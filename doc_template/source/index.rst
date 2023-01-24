@@ -13,9 +13,6 @@ Welcome to this repository's documentation!
 
    modules
 
-   opendata
-
-
 Indices and tables
 ==================
 
