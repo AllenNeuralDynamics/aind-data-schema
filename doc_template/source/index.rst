@@ -11,6 +11,8 @@ Welcome to this repository's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   opendata
+   
    modules
 
 Indices and tables
