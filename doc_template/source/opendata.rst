@@ -39,7 +39,9 @@ Inspired by `BIDS <https://bids.neuroimaging.io/>`_ and the
 describing a data asset is stored as sidecar JSON files that conform to the schemas 
 defined in ``aind-data-schema``. 
 
-A raw extracellular ephys asset would look like this::
+A raw extracellular ephys asset would look like this:
+
+.. code-block:: text
 
     ecephys_123456_2022-12-12_05-06-07/
         ecephys/<ephys data>
@@ -51,7 +53,9 @@ A raw extracellular ephys asset would look like this::
         rig.json
         acquisition.json
 
-A spike-sorting result asset would look like this::
+A spike-sorting result asset would look like this:
+
+.. code-block:: text
 
     ecephys_123456_2022-12-12_05-06-07_sorted-ks25_2022-12-12_06-07-08/
         sorted/<sorted ephys data>
