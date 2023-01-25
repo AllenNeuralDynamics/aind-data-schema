@@ -165,6 +165,7 @@ class NanojectInjection(BrainInjection):
 
     injection_type: str = Field("Nanoject", title="Injection type", const=True)
     injection_volume: float = Field(..., title="Injection volume (nL)", units="nL")
+    injection_volume_units: str = ("nL", title="Injection volume units")
 
 
 class IontophoresisInjection(BrainInjection):
@@ -172,6 +173,7 @@ class IontophoresisInjection(BrainInjection):
 
     injection_type: str = Field("Iontophoresis", title="Injection type", const=True)
     injection_current: float = Field(..., title="Injection current (μA)", units="μA")
+    injection_current_units: str = Field("μA", title="Injection current units")
     alternating_current: str = Field(..., title="Alternating current")
 
 
@@ -180,6 +182,7 @@ class IntraCerebellarVentricleInjection(BrainInjection):
 
     injection_type: str = Field("ICV", title="Injection type", const=True)
     injection_volume: float = Field(..., title="Injection volume (nL)", units="nL")
+    injection_volume_units: str = ("nL", title="Injection volume units")
 
 
 class IntraCisternalMagnaInjection(BrainInjection):
@@ -187,6 +190,7 @@ class IntraCisternalMagnaInjection(BrainInjection):
 
     injection_type: str = Field("ICM", title="Injection type", const=True)
     injection_volume: float = Field(..., title="Injection volume (nL)", units="nL")
+    injection_volume_units: str = ("nL", title="Injection volume units")
 
 
 class MriScanSequence(Enum):
@@ -215,6 +219,7 @@ class MriScan(Procedure):
     scan_sequence: MriScanSequence = Field(..., title="Scan sequence")
     scanner_location: Optional[ScannerLocation] = Field(None, title="Scanner location")
     magnetic_strength: Optional[MagneticStrength] = Field(None, title="Magnetic strength (T)", units="T")
+    magnetic_strength_units: str = Field("T", title="Magnetic strength units")
     resolution: float = Field(..., title="Resolution")
 
 
@@ -267,13 +272,16 @@ class OphysProbe(AindModel):
     manufacturer: str = Field(..., title="Manufacturer")
     part_number: str = Field(..., title="Part number")
     core_diameter: float = Field(..., title="Core diameter (μm)", units="μm")
+    core_diameter_units: str = Field("μm", title="Core diameter units")
     numerical_aperture: float = Field(..., title="Numerical aperture")
     ferrule_material: Optional[FerruleMaterial] = Field(None, title="Ferrule material")
     targeted_structure: str = Field(..., title="Targeted structure")
     stereotactic_coordinate_ap: float = Field(..., title="Stereotactic coordinate A/P (mm)", units="mm")
     stereotactic_coordinate_ml: float = Field(..., title="Stereotactic coodinate M/L (mm)", units="mm")
     stereotactic_coordinate_dv: float = Field(..., title="Stereotactic coordinate D/V (mm)", units="mm")
+    stereotactic_coordinate_units: str = Field("mm", title="Sterotactic coordinate units")
     angle: float = Field(..., title="Angle (deg)", units="deg")
+    angle_units: str = Field("deg", title-"Angle units")
     notes: Optional[str] = Field(None, title="Notes")
 
 
@@ -292,6 +300,7 @@ class WaterRestriction(AindModel):
         title="Baseline weight (g)",
         description="Weight at start of water restriction",
     )
+    baseline_weight_units: str = Field("g", title="Baseline weight units")
     start_date: date = Field(..., title="Water restriction start date")
     end_date: date = Field(..., title="Water restriction end date")
 
