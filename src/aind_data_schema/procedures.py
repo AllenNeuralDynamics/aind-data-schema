@@ -57,7 +57,7 @@ class Procedure(AindModel):
         description="Animal weight after procedure",
         units="g",
     )
-    animal_weight_units: str = Field("g", title="Animal weight units")
+    animal_weight_unit: str = Field("g", title="Animal weight unit")
     anaesthesia: Optional[Anaesthetic] = Field(None, title="Anaesthesia")
     notes: Optional[str] = Field(None, title="Notes")
 
@@ -68,9 +68,9 @@ class Craniotomy(Procedure):
     craniotomy_hemisphere: Optional[Side] = Field(None, title="Craniotomy hemisphere")
     craniotomy_coordinates_ml: Optional[float] = Field(None, title="Craniotomy coordinate ML (mm)", units="mm")
     craniotomy_coordinates_ap: Optional[float] = Field(None, title="Craniotomy coordinates AP (mm)", units="mm")
-    craniotomy_coordinates_units: str = Field("mm", title="Craniotomy coordinates units")
+    craniotomy_coordinates_unit: str = Field("mm", title="Craniotomy coordinates unit")
     craniotomy_size: float = Field(..., title="Craniotomy size (mm)", units="mm")
-    craniotomy_size_units: str = Field("mm", title="Craniotomy size units")
+    craniotomy_size_unit: str = Field("mm", title="Craniotomy size unit")
     implant_part_number: Optional[str] = Field(None, title="Implant part number")
     dura_removed: Optional[bool] = Field(None, title="Dura removed")
     protective_material: Optional[ProtectiveMaterial] = Field(None, title="Protective material")
@@ -120,6 +120,7 @@ class InjectionMaterial(AindModel):
     )
     genome_copy: Optional[float] = Field(None, title="Genome copy")
     titer: Optional[float] = Field(None, title="Titer (gc/mL", units="gc/mL")
+    titer_unit: Optional[str] = Field("gc/mL", title="Titer unit")
     prep_lot_number: Optional[str] = Field(None, title="Preparation lot number")
     prep_date: Optional[date] = Field(
         None,
@@ -144,7 +145,7 @@ class RetroOrbitalInjection(Injection):
 
     injection_type: str = Field("Retro-orbital", title="Injection type", const=True)
     injection_volume: float = Field(..., title="Injection volume (nL)", units="nL")
-    injection_volume_units: str = Field("nL", title="Injection volume units")
+    injection_volume_unit: str = Field("nL", title="Injection volume unit")
     injection_eye: Side = Field(..., title="Injection eye")
 
 
@@ -155,9 +156,9 @@ class BrainInjection(Injection):
     injection_coordinate_ml: float = Field(..., title="Injection coordinate ML (mm)")
     injection_coordinate_ap: float = Field(..., title="Injection coordinate AP (mm)")
     injection_coordinate_depth: float = Field(..., title="Injection coodinate depth (mm)")
-    injection_coordinate_units: str = Field("mm", title="Injection coordinate units")
+    injection_coordinate_unit: str = Field("mm", title="Injection coordinate unit")
     injection_angle: float = Field(..., title="Injection angle (deg)", units="deg")
-    injection_angle_units: str = Field("deg", title="Injection angle units")
+    injection_angle_unit: str = Field("deg", title="Injection angle unit")
 
 
 class NanojectInjection(BrainInjection):
@@ -165,7 +166,7 @@ class NanojectInjection(BrainInjection):
 
     injection_type: str = Field("Nanoject", title="Injection type", const=True)
     injection_volume: float = Field(..., title="Injection volume (nL)", units="nL")
-    injection_volume_units: str = ("nL", title="Injection volume units")
+    injection_volume_unit: str = ("nL", title="Injection volume unit")
 
 
 class IontophoresisInjection(BrainInjection):
@@ -173,7 +174,7 @@ class IontophoresisInjection(BrainInjection):
 
     injection_type: str = Field("Iontophoresis", title="Injection type", const=True)
     injection_current: float = Field(..., title="Injection current (μA)", units="μA")
-    injection_current_units: str = Field("μA", title="Injection current units")
+    injection_current_unit: str = Field("μA", title="Injection current unit")
     alternating_current: str = Field(..., title="Alternating current")
 
 
@@ -182,7 +183,7 @@ class IntraCerebellarVentricleInjection(BrainInjection):
 
     injection_type: str = Field("ICV", title="Injection type", const=True)
     injection_volume: float = Field(..., title="Injection volume (nL)", units="nL")
-    injection_volume_units: str = ("nL", title="Injection volume units")
+    injection_volume_unit: str = ("nL", title="Injection volume unit")
 
 
 class IntraCisternalMagnaInjection(BrainInjection):
@@ -190,7 +191,7 @@ class IntraCisternalMagnaInjection(BrainInjection):
 
     injection_type: str = Field("ICM", title="Injection type", const=True)
     injection_volume: float = Field(..., title="Injection volume (nL)", units="nL")
-    injection_volume_units: str = ("nL", title="Injection volume units")
+    injection_volume_unit: str = ("nL", title="Injection volume unit")
 
 
 class MriScanSequence(Enum):
@@ -219,7 +220,7 @@ class MriScan(Procedure):
     scan_sequence: MriScanSequence = Field(..., title="Scan sequence")
     scanner_location: Optional[ScannerLocation] = Field(None, title="Scanner location")
     magnetic_strength: Optional[MagneticStrength] = Field(None, title="Magnetic strength (T)", units="T")
-    magnetic_strength_units: str = Field("T", title="Magnetic strength units")
+    magnetic_strength_unit: str = Field("T", title="Magnetic strength unit")
     resolution: float = Field(..., title="Resolution")
 
 
@@ -272,16 +273,16 @@ class OphysProbe(AindModel):
     manufacturer: str = Field(..., title="Manufacturer")
     part_number: str = Field(..., title="Part number")
     core_diameter: float = Field(..., title="Core diameter (μm)", units="μm")
-    core_diameter_units: str = Field("μm", title="Core diameter units")
+    core_diameter_unit: str = Field("μm", title="Core diameter unit")
     numerical_aperture: float = Field(..., title="Numerical aperture")
     ferrule_material: Optional[FerruleMaterial] = Field(None, title="Ferrule material")
     targeted_structure: str = Field(..., title="Targeted structure")
     stereotactic_coordinate_ap: float = Field(..., title="Stereotactic coordinate A/P (mm)", units="mm")
     stereotactic_coordinate_ml: float = Field(..., title="Stereotactic coodinate M/L (mm)", units="mm")
     stereotactic_coordinate_dv: float = Field(..., title="Stereotactic coordinate D/V (mm)", units="mm")
-    stereotactic_coordinate_units: str = Field("mm", title="Sterotactic coordinate units")
+    stereotactic_coordinate_unit: str = Field("mm", title="Sterotactic coordinate unit")
     angle: float = Field(..., title="Angle (deg)", units="deg")
-    angle_units: str = Field("deg", title-"Angle units")
+    angle_unit: str = Field("deg", title-"Angle unit")
     notes: Optional[str] = Field(None, title="Notes")
 
 
@@ -300,7 +301,7 @@ class WaterRestriction(AindModel):
         title="Baseline weight (g)",
         description="Weight at start of water restriction",
     )
-    baseline_weight_units: str = Field("g", title="Baseline weight units")
+    baseline_weight_unit: str = Field("g", title="Baseline weight unit")
     start_date: date = Field(..., title="Water restriction start date")
     end_date: date = Field(..., title="Water restriction end date")
 

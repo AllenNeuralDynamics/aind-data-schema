@@ -119,12 +119,12 @@ class RelativePosition(AindModel):
     pitch: Optional[float] = Field(None, title="Angle pitch (deg)", units="deg", ge=0, le=360)
     yaw: Optional[float] = Field(None, title="Angle yaw (deg)", units="deg", ge=0, le=360)
     roll: Optional[float] = Field(None, title="Angle roll (deg)", units="deg", ge=0, le=360)
-    angle_units: Optional[str] = Field("deg", title="Angle units")
+    angle_unit: Optional[str] = Field("deg", title="Angle unit")
 
     x: Optional[float] = Field(None, title="Position X (mm)", units="mm")
     y: Optional[float] = Field(None, title="Position Y (mm)", units="mm")
     z: Optional[float] = Field(None, title="Position Z (mm)", units="mm")
-    position_units: Optional[str] = Field("mm", title="Position units")
+    position_unit: Optional[str] = Field("mm", title="Position unit")
 
     coordinate_system: Optional[str] = Field(None, title="Description of the coordinate system used")
 
@@ -154,15 +154,15 @@ class Camera(Device):
     ]
     computer_name: str = Field(..., title="Name of computer receiving data from this camera")
     max_frame_rate: float = Field(..., title="Maximum frame rate (Hz)", units="Hz")
-    frame_rate_units: str = Field("Hz", title="Frame rate units")
+    frame_rate_unit: str = Field("Hz", title="Frame rate unit")
     pixel_width: int = Field(..., title="Width of the sensor in pixels", units="Pixels")
     pixel_height: int = Field(..., title="Height of the sensor in pixels", units="Pixels")
-    size_units: str = Field("pixels", title="Size units")
+    size_unit: str = Field("pixels", title="Size unit")
     chroma: CameraChroma = Field(..., title="Color or Monochrome")
 
     # optional fields
     sensor_format: Optional[str] = Field(None, title='Size of the sensor')
-    format_units: Optional[str] = Field(None, "Format units")
+    format_unit: Optional[str] = Field(None, "Format unit")
     recording_software: Optional[str] = Field(None, title="Software used to acquire camera data")
 
 
@@ -174,11 +174,11 @@ class Lens(Device):
 
     # optional fields
     focal_length: Optional[float] = Field(None, title="Focal length of the lens", units="mm")
-    focal_length_units: Optional[str] = Field("mm", title="Focal length units")
+    focal_length_unit: Optional[str] = Field("mm", title="Focal length unit")
     size: Optional[LensSize] = Field(None, title="Size (inches)")
-    lens_size_units: Optional[str] = Field("inches", title="Lens size units")
+    lens_size_unit: Optional[str] = Field("inches", title="Lens size unit")
     optimized_wavelength_range: Optional[str] = Field(None, title="Optimized wavelength range (nm)")
-    wavelength_units: Optional[str] = Field("nm", title="Wavelength units")
+    wavelength_unit: Optional[str] = Field("nm", title="Wavelength unit")
     max_aperture: Optional[str] = Field(None, title="Max aperture (e.g. f/2)")
 
 
@@ -197,14 +197,14 @@ class Filter(Device):
 
     # optional fields
     diameter: Optional[float] = Field(None, title="Diameter (mm)", units="mm")
-    diameter_units: Optional[str] = Field("mm", title="Diameter units")
+    diameter_unit: Optional[str] = Field("mm", title="Diameter unit")
     thickness: Optional[float] = Field(None, title="Thickness (mm)", ge=0)
-    thickness_units: Optional[str] = Field("mm", title="Thickness units")
+    thickness_unit: Optional[str] = Field("mm", title="Thickness unit")
     filter_wheel_index: Optional[int] = Field(None, title="Filter wheel index")
     cut_off_frequency: Optional[int] = Field(None, title="Cut-off frequency (Hz)")
-    cut_off_frequency_units: Optional[str] = Field("Hz", title="Cut off frequency units")
+    cut_off_frequency_unit: Optional[str] = Field("Hz", title="Cut off frequency unit")
     cut_on_frequency: Optional[int] = Field(None, title="Cut-on frequency (Hz)")
-    cut_on_frequency_units: Optional[str] = Field("Hz", title="Cut on frequency units")
+    cut_on_frequency_unit: Optional[str] = Field("Hz", title="Cut on frequency unit")
     description: Optional[str] = Field(
         None, title="Description", description="More details about filter properties and where/how it is being used"
     )
@@ -235,7 +235,7 @@ class DAQChannel(AindModel):
     port: Optional[int] = Field(None, title="DAQ port")
     channel_index: Optional[int] = Field(None, title="DAQ channel index")
     sample_rate: Optional[float] = Field(None, title="DAQ channel sample rate (Hz)", units="Hz")
-    sample_rate_units: Optional[str] = Field("Hz", title="Sample rate units")
+    sample_rate_unit: Optional[str] = Field("Hz", title="Sample rate unit")
     event_based_sampling: Optional[bool] = Field(
         False, title="Set to true if DAQ channel is sampled at irregular intervals"
     )
@@ -270,11 +270,11 @@ class Laser(Device):
         Manufacturer.OTHER.value,
     ]
     wavelength: int = Field(..., title="Wavelength (nm)", units="nm")
-    wavelength_units: str = Field("nm", title="Wavelength units")
+    wavelength_unit: str = Field("nm", title="Wavelength unit")
 
     # optional fields
     maximum_power: Optional[float] = Field(None, title="Maximum power (mW)", units="mW")
-    power_units: Optional[str] = Field("mW", title="Power units")
+    power_unit: Optional[str] = Field("mW", title="Power unit")
     coupling: Optional[Coupling] = Field(None, title="Coupling")
     coupling_efficiency: Optional[float] = Field(
         None,
@@ -283,7 +283,7 @@ class Laser(Device):
         ge=0,
         le=100,
     )
-    coupling_efficiency_units: Optional[str] = Field("percent", title="Coupling efficiency units")
+    coupling_efficiency_unit: Optional[str] = Field("percent", title="Coupling efficiency unit")
     item_number: Optional[str] = Field(None, title="Item number")
     calibration_data: Optional[str] = Field(None, description="Path to calibration data", title="Calibration data")
     calibration_date: Optional[datetime] = Field(None, title="Calibration date")

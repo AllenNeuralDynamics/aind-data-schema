@@ -69,9 +69,9 @@ class Lightsource(Device):
     type: LightsourceType = Field(..., title="Lightsource Type")
     coupling: Coupling = Field(..., title="Coupling")
     wavelength: float = Field(..., title="Wavelength (nm)", units="nm", ge=300, le=1000)
-    wavelength_units: str = Field("nm", title="Wavelength units")
+    wavelength_unit: str = Field("nm", title="Wavelength unit")
     max_power: float = Field(..., title=" Maximum power (mW)", units="mW")
-    power_units: str = Field("mW", title="Power units")
+    power_unit: str = Field("mW", title="Power unit")
 
 
 class Immersion(Enum):
@@ -134,6 +134,7 @@ class MotorizedStage(Device):
     """Description of motorized stage"""
 
     travel: float = Field(..., title="Travel of device (mm)", units="mm")
+    travel_unit: str = Field("mm", title="Travel unit")
 
 
 class ScanningStage(MotorizedStage):
@@ -148,7 +149,7 @@ class OpticalTable(Device):
 
     length: Optional[float] = Field(None, title="Length (inches)", units="inches", ge=0)
     width: Optional[float] = Field(None, title="Width (inches)", units="inches", ge=0)
-    size_units: Optional[str] = Field("inches", title="Size units")
+    size_unit: Optional[str] = Field("inches", title="Size unit")
     vibration_control: Optional[bool] = Field(None, title="Vibration control")
 
 

@@ -45,7 +45,7 @@ class Axis(AindModel):
         ...,
         description="Tissue direction as the value of axis increases. If Other describe in notes.",
     )
-    unit: str = Field("micrometer", title="Axis physical units")
+    unit: str = Field("um", title="Axis physical units")
 
     @staticmethod
     def from_direction_code(code) -> List[Axis]:
@@ -74,9 +74,9 @@ class Channel(AindModel):
 
     channel_name: str = Field(..., title="Channel")
     laser_wavelength: int = Field(..., title="Wavelength", ge=300, le=1000)
-    laser_wavelength_unit: str = Field("nanometer", title="Laser wavelength unit")
+    wavelength_unit: str = Field("nm", title="Wavelength unit")
     laser_power: float = Field(..., title="Laser power", le=2000)
-    laser_power_unit: float = Field("milliwatt", title="Laser power unit")
+    power_unit: float = Field("mW", title="Power unit")
     filter_wheel_index: int = Field(..., title="Filter wheel index")
 
 
@@ -106,7 +106,7 @@ class Tile(AindModel):
     file_name: Optional[str] = Field(None, title="File name")
     notes: Optional[str] = Field(None, title="Notes")
     imaging_angle: int = Field(0, title="Imaging angle")
-    imaging_angle_unit: str = Field("degree", title="Imaging angle unit")
+    angle_unit: str = Field("deg", title="Angle unit")
 
 
 class Immersion(AindModel):
