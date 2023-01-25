@@ -35,11 +35,12 @@ separate from their source assets, meaning they are not stored in the same path 
 Inspired by `BIDS <https://bids.neuroimaging.io/>`_ and the 
 `HCA metadata schema <https://data.humancellatlas.org/metadata/structure>`_, metadata 
 describing a data asset is stored as sidecar JSON files that live adjacent to the data
-they describe. These JSON filesconform to the schemas defined in ``aind-data-schema``. 
+they describe. These JSON filesconform to the schemas defined in 
+`aind-data-schema (https://github.com/AllenNeuralDynamics/aind-data-schema)`_. 
 
 As soon as possible, data in this bucket are stored in cloud-friendly formats, including 
-`NWB-Zarr (https://github.com/hdmf-dev/hdmf-zarr)`_ for physiology and 
-`OME-Zarr (https://ome-zarr.readthedocs.io/)`_ for imaging. We aspire to produce data in
+`NWB-Zarr <https://github.com/hdmf-dev/hdmf-zarr>`_ for physiology and 
+`OME-Zarr <https://ome-zarr.readthedocs.io/>`_ for imaging. We aspire to produce data in
 these formats at the time of acquisition.
 
 ******************
