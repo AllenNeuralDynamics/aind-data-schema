@@ -10,7 +10,8 @@ from pydantic import Field
 from pydantic.types import conlist
 
 from aind_data_schema.base import AindCoreModel, AindModel
-from tile import AcquisitionTile
+from aind_data_schema.imaging.tile import AcquisitionTile
+
 
 class AxisName(Enum):
     """Image axis name"""
