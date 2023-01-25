@@ -8,8 +8,8 @@ from typing import Any, Dict, List, Optional
 
 from pydantic import Field
 
-from .base import AindCoreModel, AindModel
-from .imaging.tile import Tile
+from aind_data_schema.base import AindCoreModel, AindModel
+from aind_data_schema.imaging.tile import Tile
 
 class ProcessName(Enum):
     """Data processing type labels"""

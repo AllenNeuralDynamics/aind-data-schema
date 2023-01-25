@@ -9,7 +9,7 @@ from typing import List, Optional, Union
 from pydantic import Field
 from pydantic.types import conlist
 
-from ..base import AindCoreModel, AindModel
+from aind_data_schema.base import AindCoreModel, AindModel
 from tile import AcquisitionTile
 
 class AxisName(Enum):
