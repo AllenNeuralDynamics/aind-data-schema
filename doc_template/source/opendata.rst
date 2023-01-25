@@ -60,8 +60,10 @@ A raw extracellular ephys asset would look like this:
 .. code-block:: text
 
     ecephys_123456_2022-12-12_05-06-07/
-        ecephys/<ephys data>
-        behavior/<video data>
+        ecephys/
+            <ephys data>
+        behavior/
+            <video data>
         data_description.json
         subject.json
         procedures.json
@@ -74,7 +76,8 @@ A spike-sorting result asset would look like this:
 .. code-block:: text
 
     ecephys_123456_2022-12-12_05-06-07_sorted-ks25_2022-12-12_06-07-08/
-        sorted/<sorted ephys data>
+        sorted/
+            <sorted ephys data>
         data_description.json
         subject.json
         procedures.json
