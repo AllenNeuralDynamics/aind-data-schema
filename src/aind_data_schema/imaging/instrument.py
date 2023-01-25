@@ -69,7 +69,9 @@ class Lightsource(Device):
     type: LightsourceType = Field(..., title="Lightsource Type")
     coupling: Coupling = Field(..., title="Coupling")
     wavelength: float = Field(..., title="Wavelength (nm)", units="nm", ge=300, le=1000)
+    wavelength_units: str = Field("nm", title="Wavelength units")
     max_power: float = Field(..., title=" Maximum power (mW)", units="mW")
+    power_units: str = Field("mW", title="Power units")
 
 
 class Immersion(Enum):
@@ -146,6 +148,7 @@ class OpticalTable(Device):
 
     length: Optional[float] = Field(None, title="Length (inches)", units="inches", ge=0)
     width: Optional[float] = Field(None, title="Width (inches)", units="inches", ge=0)
+    size_units: Optional[str] = Field("inches", title="Size units")
     vibration_control: Optional[bool] = Field(None, title="Vibration control")
 
 
