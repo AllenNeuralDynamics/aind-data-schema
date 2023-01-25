@@ -45,12 +45,19 @@ class Procedure(AindModel):
     )
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     iacuc_protocol: Optional[str] = Field(None, title="IACUC protocol")
-    animal_weight: Optional[float] = Field(
+    animal_weight_prior: Optional[float] = Field(
         None,
         title="Animal weight (g)",
         description="Animal weight before procedure",
         units="g",
     )
+    animal_weight_post: Optional[float] = Field(
+        None,
+        title="Animal weight (g)",
+        description="Animal weight after procedure",
+        units="g",
+    )
+    animal_weight_units: str = Field("g", title="Animal weight units")
     anaesthesia: Optional[Anaesthetic] = Field(None, title="Anaesthesia")
     notes: Optional[str] = Field(None, title="Notes")
 
@@ -61,11 +68,14 @@ class Craniotomy(Procedure):
     craniotomy_hemisphere: Optional[Side] = Field(None, title="Craniotomy hemisphere")
     craniotomy_coordinates_ml: Optional[float] = Field(None, title="Craniotomy coordinate ML (mm)", units="mm")
     craniotomy_coordinates_ap: Optional[float] = Field(None, title="Craniotomy coordinates AP (mm)", units="mm")
+    craniotomy_coordinates_units: str = Field("mm", title="Craniotomy coordinates units")
     craniotomy_size: float = Field(..., title="Craniotomy size (mm)", units="mm")
+    craniotomy_size_units: str = Field("mm", title="Craniotomy size units")
     implant_part_number: Optional[str] = Field(None, title="Implant part number")
     dura_removed: Optional[bool] = Field(None, title="Dura removed")
     protective_material: Optional[ProtectiveMaterial] = Field(None, title="Protective material")
     workstation_id: Optional[str] = Field(None, title="Workstation ID")
+    recovery_time: Optional[time] = Field(None, title="Recovery time")
 
 
 class HeadframeMaterial(Enum):
@@ -123,7 +133,7 @@ class Injection(Procedure):
     """Description of an injection procedure"""
 
     injection_materials: List[InjectionMaterial] = Field(None, title="Injection material", unique_items=True)    
-    recovery_time: float = Field(..., title="Recovery time (min)", units="min")
+    recovery_time: Optional[time] = Field(None, title="Recovery time")
     injection_duration: Optional[time] = Field(None, title="Injection duration")
     workstation_id: Optional[str] = Field(None, title="Workstation ID")
     instrument_id: Optional[str] = Field(None, title="Instrument ID")
@@ -134,6 +144,7 @@ class RetroOrbitalInjection(Injection):
 
     injection_type: str = Field("Retro-orbital", title="Injection type", const=True)
     injection_volume: float = Field(..., title="Injection volume (nL)", units="nL")
+    injection_volume_units: str = Field("nL", title="Injection volume units")
     injection_eye: Side = Field(..., title="Injection eye")
 
 
@@ -144,7 +155,9 @@ class BrainInjection(Injection):
     injection_coordinate_ml: float = Field(..., title="Injection coordinate ML (mm)")
     injection_coordinate_ap: float = Field(..., title="Injection coordinate AP (mm)")
     injection_coordinate_depth: float = Field(..., title="Injection coodinate depth (mm)")
+    injection_coordinate_units: str = Field("mm", title="Injection coordinate units")
     injection_angle: float = Field(..., title="Injection angle (deg)", units="deg")
+    injection_angle_units: str = Field("deg", title="Injection angle units")
 
 
 class NanojectInjection(BrainInjection):
