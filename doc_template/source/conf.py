@@ -37,6 +37,11 @@ exclude_patterns = []
 
 html_theme = "furo"
 html_static_path = ["_static"]
+html_favicon = '_static/favicon.ico'
+html_theme_options = {
+    "light_logo": "light-logo.svg",
+    "dark_logo": "dark-logo.svg",
+}
 
 # If true, "Created using Sphinx" is shown in the HTML footer. Default is True.
 html_show_sphinx = False
