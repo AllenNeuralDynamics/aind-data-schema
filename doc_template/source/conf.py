@@ -16,7 +16,7 @@ sys.path.insert(0, os.path.abspath("../../src"))
 head = Repository(pathlib.Path.cwd())
 
 project = str(head).split("/")[-3]
-copyright = "2022, Allen Institute of Neural Dynamics"
+copyright = "2023, Allen Institute of Neural Dynamics"
 author = "Allen Institute of Neural Dynamics"
 release = "0.1"
 
@@ -35,7 +35,7 @@ exclude_patterns = []
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = "alabaster"
+html_theme = "furo"
 html_static_path = ["_static"]
 
 # If true, "Created using Sphinx" is shown in the HTML footer. Default is True.

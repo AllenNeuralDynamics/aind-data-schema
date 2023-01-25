@@ -27,7 +27,8 @@ dev = [
     'interrogate',
     'isort',
     'Sphinx',
-    'pygit2'
+    'pygit2',
+    'furo'
 ]
 
 [tool.setuptools.packages.find]
