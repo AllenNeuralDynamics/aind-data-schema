@@ -53,8 +53,6 @@ Derived data assets are named:
 
 ``<source-data-asset-name>_<label>_<acquisition-date>_<acquisition-time>``
 
-
-
 A raw extracellular ephys asset would look like this:
 
 .. code-block:: text
