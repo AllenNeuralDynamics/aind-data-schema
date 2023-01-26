@@ -55,6 +55,7 @@ class Laser(AindModel):
 
     name: str = Field(..., title="Laser name (must match rig JSON)")
     power_level: float = Field(..., title="Power level used in this session", units="mW")
+    power_unit: str = Field("mW", title="Power unit")
 
 
 class LaserModule(ManipulatorModule):

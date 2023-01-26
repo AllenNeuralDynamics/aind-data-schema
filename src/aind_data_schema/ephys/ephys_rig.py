@@ -14,19 +14,7 @@ except ImportError:  # pragma: no cover
 from pydantic import Field, root_validator
 
 from ..base import AindCoreModel, AindModel
-from ..device import Camera, CameraAssembly, DAQDevice, DataInterface, Device, Laser, Manufacturer, RelativePosition
-
-
-class SizeUnit(Enum):
-    """units for sizes"""
-
-    PX = "pixel"
-    IN = "inch"
-    CM = "centimeter"
-    MM = "millimeter"
-    UM = "micrometer"
-    NM = "nanometer"
-    NONE = "none"
+from ..device import Camera, CameraAssembly, DAQDevice, DataInterface, Device, Laser, Manufacturer, RelativePosition, SizeUnit, AngleUnit
 
 
 class Size2d(AindModel):
@@ -35,13 +23,6 @@ class Size2d(AindModel):
     width: int = Field(..., title="Width")
     height: int = Field(..., title="Height")
     unit: SizeUnit = Field(SizeUnit.PX, title="Size unit")
-
-
-class AngleUnit(Enum):
-    """orientation units"""
-
-    DEG = "degree"
-    RAD = "radian"
 
 
 class Orientation3d(AindModel):
@@ -162,7 +143,7 @@ class Treadmill(MousePlatform):
 
     platform_type: str = Field("Treadmill", title="Platform type", const=True)
     treadmill_width: float = Field(..., title="Width of treadmill (mm)", units="mm")
-
+    width_unit: SizeUnit = Field(SizeUnit.CM, title="Width unit")
 
 class DomeModule(AindModel):
     """Movable module that is mounted on the ephys dome insertion system"""
@@ -170,6 +151,7 @@ class DomeModule(AindModel):
     # required fields
     arc_angle: float = Field(..., title="Arc Angle", units="degrees")
     module_angle: float = Field(..., title="Module Angle", units="degrees")
+    angle_unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
 
     # optional fields
     rotation_angle: Optional[float] = Field(0.0, title="Rotation Angle", units="degrees")
@@ -206,7 +188,9 @@ class Monitor(Device):
     refresh_rate: int = Field(..., title="Refresh rate (Hz)", units="Hz", ge=60)
     width: int = Field(..., title="Width (pixels)", units="pixels")
     height: int = Field(..., title="Height (pixels)", units="pixels")
+    size_unit: SizeUnit = Field(SizeUnit.PX, title="Size unit")
     viewing_distance: float = Field(..., title="Viewing distance (cm)", units="cm")
+    viewing_distance_unit: SizeUnit = Field(SizeUnit.CM, title="Viewing distance unit")
 
     # optional fields
     contrast: Optional[int] = Field(
