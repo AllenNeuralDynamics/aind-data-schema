@@ -192,8 +192,8 @@ class Camera(Device):
     chroma: CameraChroma = Field(..., title="Color or Monochrome")
 
     # optional fields
-    sensor_format: Optional[str] = Field(None, title="Size of the sensor")
-    format_unit: Optional[str] = Field(None, "Format unit")
+    sensor_format: Optional[str] = Field(None, title='Size of the sensor')
+    format_unit: Optional[str] = Field(None, title="Format unit")
     recording_software: Optional[str] = Field(None, title="Software used to acquire camera data")
 
 
