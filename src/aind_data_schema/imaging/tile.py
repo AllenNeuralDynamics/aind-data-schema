@@ -1,3 +1,5 @@
+""" Models related to imaging tiles and their transformations """
+
 from typing import List, Optional, Union
 
 from pydantic import Field
