@@ -7,17 +7,20 @@ from typing import List, Optional, Union
 from pydantic import Field
 
 from .base import AindCoreModel, AindModel
-from .device import SizeUnit, AngleUnit
+from .device import AngleUnit, SizeUnit
+
 
 class WeightUnit(Enum):
     """Weight units"""
 
     G = "gram"
 
+
 class VolumeUnit(Enum):
     """Volume units"""
 
     NL = "nanoliter"
+
 
 class CurrentUnit(Enum):
     """Current units"""
@@ -150,7 +153,7 @@ class InjectionMaterial(AindModel):
 class Injection(Procedure):
     """Description of an injection procedure"""
 
-    injection_materials: List[InjectionMaterial] = Field(None, title="Injection material", unique_items=True)    
+    injection_materials: List[InjectionMaterial] = Field(None, title="Injection material", unique_items=True)
     recovery_time: Optional[time] = Field(None, title="Recovery time")
     injection_duration: Optional[time] = Field(None, title="Injection duration")
     workstation_id: Optional[str] = Field(None, title="Workstation ID")

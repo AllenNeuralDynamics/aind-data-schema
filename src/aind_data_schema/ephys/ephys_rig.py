@@ -14,7 +14,8 @@ except ImportError:  # pragma: no cover
 from pydantic import Field, root_validator
 
 from ..base import AindCoreModel, AindModel
-from ..device import Camera, CameraAssembly, DAQDevice, DataInterface, Device, Laser, Manufacturer, RelativePosition, SizeUnit, AngleUnit
+from ..device import (AngleUnit, Camera, CameraAssembly, DAQDevice, DataInterface, Device, Laser, Manufacturer,
+                      RelativePosition, SizeUnit)
 
 
 class Size2d(AindModel):
@@ -144,6 +145,7 @@ class Treadmill(MousePlatform):
     platform_type: str = Field("Treadmill", title="Platform type", const=True)
     treadmill_width: float = Field(..., title="Width of treadmill (mm)", units="mm")
     width_unit: SizeUnit = Field(SizeUnit.CM, title="Width unit")
+
 
 class DomeModule(AindModel):
     """Movable module that is mounted on the ephys dome insertion system"""

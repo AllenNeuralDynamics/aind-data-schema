@@ -38,7 +38,7 @@ exclude_patterns = []
 html_theme = "furo"
 html_static_path = ["_static"]
 html_title = "aind-data-schema"
-html_favicon = '_static/favicon.ico'
+html_favicon = "_static/favicon.ico"
 html_theme_options = {
     "light_logo": "light-logo.svg",
     "dark_logo": "dark-logo.svg",

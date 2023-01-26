@@ -13,6 +13,7 @@ from pydantic import Field
 
 from .base import AindModel
 
+
 class SizeUnit(Enum):
     """units for sizes"""
 
@@ -30,16 +31,19 @@ class AngleUnit(Enum):
 
     DEG = "degree"
 
+
 class FrequencyUnit(Enum):
     """Frequency units"""
 
     HZ = "Hertz"
+
 
 class PowerUnit(Enum):
     """Power units"""
 
     MW = "milliwatt"
     UW = "microwatt"
+
 
 class Manufacturer(Enum):
     """Device manufacturer name"""
@@ -188,7 +192,7 @@ class Camera(Device):
     chroma: CameraChroma = Field(..., title="Color or Monochrome")
 
     # optional fields
-    sensor_format: Optional[str] = Field(None, title='Size of the sensor')
+    sensor_format: Optional[str] = Field(None, title="Size of the sensor")
     format_unit: Optional[str] = Field(None, "Format unit")
     recording_software: Optional[str] = Field(None, title="Software used to acquire camera data")
 

@@ -9,7 +9,7 @@ from typing import List, Optional
 from pydantic import Field
 
 from ..base import AindCoreModel, AindModel
-from ..device import Coupling, DAQDevice, DataInterface, Device, Filter, Manufacturer, SizeUnit, PowerUnit
+from ..device import Coupling, DAQDevice, DataInterface, Device, Filter, Manufacturer, PowerUnit, SizeUnit
 
 
 class InstrumentType(Enum):
