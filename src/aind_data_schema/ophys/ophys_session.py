@@ -9,6 +9,7 @@ from typing import List, Optional
 from pydantic import Field
 
 from ..base import AindCoreModel, AindModel
+from ..device import PowerUnit, SizeUnit
 
 
 class FiberName(Enum):
@@ -58,7 +59,9 @@ class Laser(AindModel):
 
     name: LaserName = Field(..., title="Name")
     wavelength: int = Field(..., title="Wavelength (nm)")
+    wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
     excitation_power: Optional[float] = Field(None, title="Excitation power (mW)")
+    excitation_power_unit: PowerUnit = Field(PowerUnit.MW, title="Excitation power unit")
 
 
 class Patch(AindModel):
@@ -66,13 +69,14 @@ class Patch(AindModel):
 
     name: PatchCordName = Field(..., title="Name")
     output_power: float = Field(..., title="Output power (uW)")
+    output_power_unit: PowerUnit = Field(PowerUnit.UW, title="Output power unit")
 
 
 class OphysSession(AindCoreModel):
     """Description of an ophys session"""
 
     schema_version: str = Field(
-        "0.0.1",
+        "0.0.2",
         description="schema version",
         title="Schema Version",
         const=True,

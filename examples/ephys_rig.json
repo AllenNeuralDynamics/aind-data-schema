@@ -1,11 +1,12 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/ephys/ephys_rig.py",
-   "schema_version": "0.5.1",
+   "schema_version": "0.5.2",
    "rig_id": "323_EPHYS1",
    "ephys_modules": [
       {
          "arc_angle": 99.0,
          "module_angle": 20.0,
+         "angle_unit": "degree",
          "rotation_angle": 10.0,
          "coordinate_transform": null,
          "calibration_date": null,
@@ -32,6 +33,7 @@
       {
          "arc_angle": 120.0,
          "module_angle": 20.0,
+         "angle_unit": "degree",
          "rotation_angle": 15.0,
          "coordinate_transform": null,
          "calibration_date": null,
@@ -60,6 +62,7 @@
       {
          "arc_angle": 70.0,
          "module_angle": 20.0,
+         "angle_unit": "degree",
          "rotation_angle": 0.0,
          "coordinate_transform": null,
          "calibration_date": null,
@@ -72,10 +75,13 @@
             "data_interface": "USB",
             "computer_name": "W10DT72942",
             "max_frame_rate": 50.0,
+            "frame_rate_unit": "Hertz",
             "pixel_width": 1080,
             "pixel_height": 570,
+            "size_unit": "pixel",
             "chroma": "Color",
             "sensor_format": "1/2.9\"",
+            "format_unit": null,
             "recording_software": null
          }
       }
@@ -84,6 +90,7 @@
       {
          "arc_angle": 20.0,
          "module_angle": 10.0,
+         "angle_unit": "degree",
          "rotation_angle": 0.0,
          "coordinate_transform": null,
          "calibration_date": null,
@@ -102,9 +109,12 @@
                "model": null,
                "notes": null,
                "wavelength": 473,
+               "wavelength_unit": "nanometer",
                "maximum_power": null,
+               "power_unit": "milliwatt",
                "coupling": null,
                "coupling_efficiency": null,
+               "coupling_efficiency_unit": "percent",
                "item_number": null,
                "calibration_data": null,
                "calibration_date": null
@@ -116,9 +126,12 @@
                "model": null,
                "notes": null,
                "wavelength": 638,
+               "wavelength_unit": "nanometer",
                "maximum_power": null,
+               "power_unit": "milliwatt",
                "coupling": null,
                "coupling_efficiency": null,
+               "coupling_efficiency_unit": "percent",
                "item_number": null,
                "calibration_data": null,
                "calibration_date": null
@@ -138,10 +151,13 @@
             "data_interface": "USB",
             "computer_name": "W10DT72941",
             "max_frame_rate": 500.0,
+            "frame_rate_unit": "Hertz",
             "pixel_width": 1080,
             "pixel_height": 570,
+            "size_unit": "pixel",
             "chroma": "Monochrome",
             "sensor_format": "1/2.9\"",
+            "format_unit": null,
             "recording_software": null
          },
          "lens": {
@@ -151,8 +167,11 @@
             "model": null,
             "notes": null,
             "focal_length": 15.0,
+            "focal_length_unit": "millimeter",
             "size": null,
+            "lens_size_unit": "inch",
             "optimized_wavelength_range": null,
+            "wavelength_unit": "nanometer",
             "max_aperture": "f/2"
          },
          "filter": {
@@ -163,10 +182,14 @@
             "notes": null,
             "filter_type": "Long pass",
             "diameter": null,
+            "diameter_unit": "millimeter",
             "thickness": null,
+            "thickness_unit": "millimeter",
             "filter_wheel_index": null,
             "cut_off_frequency": null,
+            "cut_off_frequency_unit": "Hertz",
             "cut_on_frequency": null,
+            "cut_on_frequency_unit": "Hertz",
             "description": "850 nm longpass filter"
          },
          "position": null
@@ -182,10 +205,13 @@
             "data_interface": "USB",
             "computer_name": "W10DT72941",
             "max_frame_rate": 500.0,
+            "frame_rate_unit": "Hertz",
             "pixel_width": 1080,
             "pixel_height": 570,
+            "size_unit": "pixel",
             "chroma": "Monochrome",
             "sensor_format": "1/2.9\"",
+            "format_unit": null,
             "recording_software": null
          },
          "lens": {
@@ -195,8 +221,11 @@
             "model": null,
             "notes": null,
             "focal_length": 15.0,
+            "focal_length_unit": "millimeter",
             "size": null,
+            "lens_size_unit": "inch",
             "optimized_wavelength_range": null,
+            "wavelength_unit": "nanometer",
             "max_aperture": "f/2"
          },
          "filter": {
@@ -207,10 +236,14 @@
             "notes": null,
             "filter_type": "Long pass",
             "diameter": null,
+            "diameter_unit": "millimeter",
             "thickness": null,
+            "thickness_unit": "millimeter",
             "filter_wheel_index": null,
             "cut_off_frequency": null,
+            "cut_off_frequency_unit": "Hertz",
             "cut_on_frequency": null,
+            "cut_on_frequency_unit": "Hertz",
             "description": "850 nm longpass filter"
          },
          "position": null
@@ -273,6 +306,7 @@
                "port": null,
                "channel_index": null,
                "sample_rate": null,
+               "sample_rate_unit": "Hertz",
                "event_based_sampling": false
             },
             {
@@ -282,6 +316,7 @@
                "port": null,
                "channel_index": null,
                "sample_rate": null,
+               "sample_rate_unit": "Hertz",
                "event_based_sampling": false
             },
             {
@@ -291,6 +326,7 @@
                "port": null,
                "channel_index": null,
                "sample_rate": null,
+               "sample_rate_unit": "Hertz",
                "event_based_sampling": false
             }
          ],

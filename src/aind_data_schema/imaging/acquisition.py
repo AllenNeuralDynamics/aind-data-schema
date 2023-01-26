@@ -9,6 +9,7 @@ from typing import List, Optional
 from pydantic import Field
 
 from aind_data_schema.base import AindCoreModel, AindModel
+from aind_data_schema.device import SizeUnit
 from aind_data_schema.imaging.tile import AcquisitionTile
 
 
@@ -45,7 +46,7 @@ class Axis(AindModel):
         ...,
         description="Tissue direction as the value of axis increases. If Other describe in notes.",
     )
-    unit: str = Field("micrometer", title="Axis physical units")
+    unit: SizeUnit = Field(SizeUnit.UM, title="Axis physical units")
 
     @staticmethod
     def from_direction_code(code) -> List[Axis]:
@@ -79,7 +80,7 @@ class Immersion(AindModel):
 class Acquisition(AindCoreModel):
     """Description of an imaging acquisition session"""
 
-    schema_version: str = Field("0.4.0", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.4.1", description="schema version", title="Version", const=True)
     experimenter_full_name: str = Field(
         ...,
         description="First and last name of the experimenter.",

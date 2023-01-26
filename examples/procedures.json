@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/procedures.py",
-   "schema_version": "0.5.2",
+   "schema_version": "0.5.3",
    "subject_id": "625100",
    "headframes": null,
    "craniotomies": [
@@ -11,21 +11,26 @@
          "experimenter_full_name": "n/a",
          "protocol_id": "null",
          "iacuc_protocol": "2109",
-         "animal_weight": 22.6,
+         "animal_weight_prior": 22.6,
+         "animal_weight_post": 22.3,
+         "weight_unit": "gram",
          "anaesthesia": {
             "type": "Isoflurane",
-            "duration": 1.0,
+            "duration": "00:00:01",
             "level": 1.5
          },
          "notes": null,
          "craniotomy_hemisphere": null,
          "craniotomy_coordinates_ml": null,
          "craniotomy_coordinates_ap": null,
+         "craniotomy_coordinates_unit": "millimeter",
          "craniotomy_size": 5.0,
+         "craniotomy_size_unit": "millimeter",
          "implant_part_number": null,
          "dura_removed": null,
          "protective_material": null,
-         "workstation_id": "SWS 3"
+         "workstation_id": "SWS 3",
+         "recovery_time": null
       }
    ],
    "mri_scans": null,
@@ -37,10 +42,12 @@
          "experimenter_full_name": "n/a",
          "protocol_id": "null",
          "iacuc_protocol": "2109",
-         "animal_weight": 22.6,
+         "animal_weight_prior": 22.6,
+         "animal_weight_post": 22.7,
+         "weight_unit": "gram",
          "anaesthesia": {
             "type": "Isoflurane",
-            "duration": 1.0,
+            "duration": "00:00:01",
             "level": 1.5
          },
          "notes": null,
@@ -52,12 +59,13 @@
                "plasmid_name": null,
                "genome_copy": null,
                "titer": null,
+               "titer_unit": "gc/mL",
                "prep_lot_number": null,
                "prep_date": null,
                "prep_type": null
             }
          ],
-         "recovery_time": 0.0,
+         "recovery_time": "00:00:00",
          "injection_duration": null,
          "workstation_id": "SWS 3",
          "instrument_id": null,
@@ -65,9 +73,12 @@
          "injection_coordinate_ml": -0.87,
          "injection_coordinate_ap": -3.8,
          "injection_coordinate_depth": -3.3,
+         "injection_coordinate_unit": "millimeter",
          "injection_angle": 10.0,
+         "injection_angle_unit": "degree",
          "injection_type": "Nanoject",
-         "injection_volume": 200.0
+         "injection_volume": 200.0,
+         "injection_volume_unit": "nanoliter"
       }
    ],
    "fiber_implants": null,

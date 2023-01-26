@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/imaging/instrument.py",
-   "schema_version": "0.4.1",
+   "schema_version": "0.4.2",
    "instrument_id": "SmartSPIM2-1",
    "type": "smartSPIM",
    "location": "440 Westlake",
@@ -16,6 +16,7 @@
          "notes": null,
          "length": 36.0,
          "width": 48.0,
+         "table_size_unit": "inch",
          "vibration_control": false
       }
    ],
@@ -63,7 +64,9 @@
          "type": "laser",
          "coupling": "SMF",
          "wavelength": 445.0,
-         "max_power": 200.0
+         "wavelength_unit": "nanometer",
+         "max_power": 200.0,
+         "power_unit": "milliwatt"
       },
       {
          "name": null,
@@ -74,7 +77,9 @@
          "type": "laser",
          "coupling": "SMF",
          "wavelength": 488.0,
-         "max_power": 150.0
+         "wavelength_unit": "nanometer",
+         "max_power": 150.0,
+         "power_unit": "milliwatt"
       },
       {
          "name": null,
@@ -85,7 +90,9 @@
          "type": "laser",
          "coupling": "SMF",
          "wavelength": 561.0,
-         "max_power": 150.0
+         "wavelength_unit": "nanometer",
+         "max_power": 150.0,
+         "power_unit": "milliwatt"
       },
       {
          "name": null,
@@ -96,7 +103,9 @@
          "type": "laser",
          "coupling": "SMF",
          "wavelength": 594.0,
-         "max_power": 100.0
+         "wavelength_unit": "nanometer",
+         "max_power": 100.0,
+         "power_unit": "milliwatt"
       },
       {
          "name": null,
@@ -107,7 +116,9 @@
          "type": "laser",
          "coupling": "SMF",
          "wavelength": 639.0,
-         "max_power": 160.0
+         "wavelength_unit": "nanometer",
+         "max_power": 160.0,
+         "power_unit": "milliwatt"
       },
       {
          "name": null,
@@ -118,7 +129,9 @@
          "type": "laser",
          "coupling": "SMF",
          "wavelength": 690.0,
-         "max_power": 160.0
+         "wavelength_unit": "nanometer",
+         "max_power": 160.0,
+         "power_unit": "milliwatt"
       }
    ],
    "fluorescence_filters": [
@@ -130,10 +143,14 @@
          "notes": null,
          "filter_type": "Band pass",
          "diameter": 25.0,
+         "diameter_unit": "millimeter",
          "thickness": 2.0,
+         "thickness_unit": "millimeter",
          "filter_wheel_index": 0,
          "cut_off_frequency": null,
+         "cut_off_frequency_unit": "Hertz",
          "cut_on_frequency": null,
+         "cut_on_frequency_unit": "Hertz",
          "description": null
       },
       {
@@ -144,10 +161,14 @@
          "notes": null,
          "filter_type": "Band pass",
          "diameter": 25.0,
+         "diameter_unit": "millimeter",
          "thickness": 2.0,
+         "thickness_unit": "millimeter",
          "filter_wheel_index": 1,
          "cut_off_frequency": null,
+         "cut_off_frequency_unit": "Hertz",
          "cut_on_frequency": null,
+         "cut_on_frequency_unit": "Hertz",
          "description": null
       },
       {
@@ -158,10 +179,14 @@
          "notes": null,
          "filter_type": "Band pass",
          "diameter": 25.0,
+         "diameter_unit": "millimeter",
          "thickness": 2.0,
+         "thickness_unit": "millimeter",
          "filter_wheel_index": 2,
          "cut_off_frequency": null,
+         "cut_off_frequency_unit": "Hertz",
          "cut_on_frequency": null,
+         "cut_on_frequency_unit": "Hertz",
          "description": null
       },
       {
@@ -172,10 +197,14 @@
          "notes": null,
          "filter_type": "Band pass",
          "diameter": 25.0,
+         "diameter_unit": "millimeter",
          "thickness": 2.0,
+         "thickness_unit": "millimeter",
          "filter_wheel_index": 3,
          "cut_off_frequency": null,
+         "cut_off_frequency_unit": "Hertz",
          "cut_on_frequency": null,
+         "cut_on_frequency_unit": "Hertz",
          "description": null
       },
       {
@@ -186,10 +215,14 @@
          "notes": null,
          "filter_type": "Band pass",
          "diameter": 25.0,
+         "diameter_unit": "millimeter",
          "thickness": 2.0,
+         "thickness_unit": "millimeter",
          "filter_wheel_index": 4,
          "cut_off_frequency": null,
+         "cut_off_frequency_unit": "Hertz",
          "cut_on_frequency": null,
+         "cut_on_frequency_unit": "Hertz",
          "description": null
       },
       {
@@ -200,10 +233,14 @@
          "notes": null,
          "filter_type": "Long pass",
          "diameter": 25.0,
+         "diameter_unit": "millimeter",
          "thickness": 2.0,
+         "thickness_unit": "millimeter",
          "filter_wheel_index": 5,
          "cut_off_frequency": null,
+         "cut_off_frequency_unit": "Hertz",
          "cut_on_frequency": null,
+         "cut_on_frequency_unit": "Hertz",
          "description": null
       }
    ],
@@ -214,7 +251,8 @@
          "manufacturer": "Applied Scientific Instrumentation",
          "model": "LS-100",
          "notes": "Focus stage",
-         "travel": 100.0
+         "travel": 100.0,
+         "travel_unit": "millimeter"
       },
       {
          "name": null,
@@ -222,7 +260,8 @@
          "manufacturer": "IR Robot Co",
          "model": "L12-20F-4",
          "notes": "Cylindrical lens #1",
-         "travel": 41.0
+         "travel": 41.0,
+         "travel_unit": "millimeter"
       },
       {
          "name": null,
@@ -230,7 +269,8 @@
          "manufacturer": "IR Robot Co",
          "model": "L12-20F-4",
          "notes": "Cylindrical lens #2",
-         "travel": 41.0
+         "travel": 41.0,
+         "travel_unit": "millimeter"
       },
       {
          "name": null,
@@ -238,7 +278,8 @@
          "manufacturer": "IR Robot Co",
          "model": "L12-20F-4",
          "notes": "Cylindrical lens #3",
-         "travel": 41.0
+         "travel": 41.0,
+         "travel_unit": "millimeter"
       },
       {
          "name": null,
@@ -246,7 +287,8 @@
          "manufacturer": "IR Robot Co",
          "model": "L12-20F-4",
          "notes": "Cylindrical lens #4",
-         "travel": 41.0
+         "travel": 41.0,
+         "travel_unit": "millimeter"
       }
    ],
    "scanning_stages": [
@@ -257,6 +299,7 @@
          "model": "LS-50",
          "notes": "Sample stage Z",
          "travel": 50.0,
+         "travel_unit": "millimeter",
          "stage_axis_direction": "Detection axis",
          "stage_axis_name": "Z"
       },
@@ -267,6 +310,7 @@
          "model": "LS-50",
          "notes": "Sample stage X",
          "travel": 50.0,
+         "travel_unit": "millimeter",
          "stage_axis_direction": "Illumination axis",
          "stage_axis_name": "X"
       },
@@ -277,6 +321,7 @@
          "model": "LS-50",
          "notes": "Sample stage Y",
          "travel": 50.0,
+         "travel_unit": "millimeter",
          "stage_axis_direction": "Perpendicular axis",
          "stage_axis_name": "Y"
       }

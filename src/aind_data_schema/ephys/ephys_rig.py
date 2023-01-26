@@ -14,19 +14,8 @@ except ImportError:  # pragma: no cover
 from pydantic import Field, root_validator
 
 from ..base import AindCoreModel, AindModel
-from ..device import Camera, CameraAssembly, DAQDevice, DataInterface, Device, Laser, Manufacturer, RelativePosition
-
-
-class SizeUnit(Enum):
-    """units for sizes"""
-
-    PX = "pixel"
-    IN = "inch"
-    CM = "centimeter"
-    MM = "millimeter"
-    UM = "micrometer"
-    NM = "nanometer"
-    NONE = "none"
+from ..device import (AngleUnit, Camera, CameraAssembly, DAQDevice, DataInterface, Device, Laser, Manufacturer,
+                      RelativePosition, SizeUnit)
 
 
 class Size2d(AindModel):
@@ -35,13 +24,6 @@ class Size2d(AindModel):
     width: int = Field(..., title="Width")
     height: int = Field(..., title="Height")
     unit: SizeUnit = Field(SizeUnit.PX, title="Size unit")
-
-
-class AngleUnit(Enum):
-    """orientation units"""
-
-    DEG = "degree"
-    RAD = "radian"
 
 
 class Orientation3d(AindModel):
@@ -162,6 +144,7 @@ class Treadmill(MousePlatform):
 
     platform_type: str = Field("Treadmill", title="Platform type", const=True)
     treadmill_width: float = Field(..., title="Width of treadmill (mm)", units="mm")
+    width_unit: SizeUnit = Field(SizeUnit.CM, title="Width unit")
 
 
 class DomeModule(AindModel):
@@ -170,6 +153,7 @@ class DomeModule(AindModel):
     # required fields
     arc_angle: float = Field(..., title="Arc Angle", units="degrees")
     module_angle: float = Field(..., title="Module Angle", units="degrees")
+    angle_unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
 
     # optional fields
     rotation_angle: Optional[float] = Field(0.0, title="Rotation Angle", units="degrees")
@@ -206,7 +190,9 @@ class Monitor(Device):
     refresh_rate: int = Field(..., title="Refresh rate (Hz)", units="Hz", ge=60)
     width: int = Field(..., title="Width (pixels)", units="pixels")
     height: int = Field(..., title="Height (pixels)", units="pixels")
+    size_unit: SizeUnit = Field(SizeUnit.PX, title="Size unit")
     viewing_distance: float = Field(..., title="Viewing distance (cm)", units="cm")
+    viewing_distance_unit: SizeUnit = Field(SizeUnit.CM, title="Viewing distance unit")
 
     # optional fields
     contrast: Optional[int] = Field(
@@ -275,7 +261,7 @@ class EphysRig(AindCoreModel):
         title="Described by",
         const=True,
     )
-    schema_version: str = Field("0.5.1", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.5.2", description="schema version", title="Version", const=True)
     rig_id: str = Field(..., description="room_stim apparatus_version", title="Rig ID")
     ephys_modules: Optional[List[EphysModule]] = Field(None, title="Ephys probes", unique_items=True)
     stick_microscopes: Optional[List[StickMicroscope]] = Field(None, title="Stick microscopes")

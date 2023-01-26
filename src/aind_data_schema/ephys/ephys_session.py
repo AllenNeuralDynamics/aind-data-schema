@@ -9,7 +9,8 @@ from typing import List, Optional
 from pydantic import Field
 
 from ..base import AindCoreModel, AindModel
-from .ephys_rig import Coordinates3d, SizeUnit
+from ..device import PowerUnit, SizeUnit
+from .ephys_rig import Coordinates3d
 
 
 class SessionType(Enum):
@@ -55,6 +56,7 @@ class Laser(AindModel):
 
     name: str = Field(..., title="Laser name (must match rig JSON)")
     power_level: float = Field(..., title="Power level used in this session", units="mW")
+    power_unit: PowerUnit = Field(PowerUnit.MW, title="Power unit")
 
 
 class LaserModule(ManipulatorModule):
@@ -96,7 +98,7 @@ class Stream(AindModel):
 class EphysSession(AindCoreModel):
     """Description of an ephys recording session"""
 
-    schema_version: str = Field("0.3.0", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.3.1", description="schema version", title="Version", const=True)
     experimenter_full_name: str = Field(
         ...,
         description="First and last name of the experimenter.",
