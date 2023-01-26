@@ -229,9 +229,9 @@ class Filter(Device):
     thickness_unit: SizeUnit = Field(SizeUnit.MM, title-"Thickness unit")
     filter_wheel_index: Optional[int] = Field(None, title="Filter wheel index")
     cut_off_frequency: Optional[int] = Field(None, title="Cut-off frequency (Hz)")
-    cut_off_frequency_unit: Optional[str] = Field("Hz", title="Cut off frequency unit")
+    cut_off_frequency_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Cut off frequency unit")
     cut_on_frequency: Optional[int] = Field(None, title="Cut-on frequency (Hz)")
-    cut_on_frequency_unit: Optional[str] = Field("Hz", title="Cut on frequency unit")
+    cut_on_frequency_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Cut on frequency unit")
     description: Optional[str] = Field(
         None, title="Description", description="More details about filter properties and where/how it is being used"
     )
