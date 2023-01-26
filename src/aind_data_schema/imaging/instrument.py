@@ -156,7 +156,7 @@ class OpticalTable(Device):
 class Instrument(AindCoreModel):
     """Description of an instrument, which is a collection of devices"""
 
-    schema_version: str = Field("0.4.1", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.4.2", description="schema version", title="Version", const=True)
     instrument_id: Optional[str] = Field(
         None,
         description="unique identifier for this instrument configuration",
