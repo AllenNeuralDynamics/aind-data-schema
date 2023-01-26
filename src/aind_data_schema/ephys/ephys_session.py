@@ -9,7 +9,7 @@ from typing import List, Optional
 from pydantic import Field
 
 from ..base import AindCoreModel, AindModel
-from ..device import SizeUnit, PowerUnit
+from ..device import PowerUnit, SizeUnit
 from .ephys_rig import Coordinates3d
 
 
