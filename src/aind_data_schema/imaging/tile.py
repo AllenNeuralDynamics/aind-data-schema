@@ -1,7 +1,9 @@
-from aind_data_schema.base import AindCoreModel,AindModel
+from typing import List, Optional, Union
+
 from pydantic import Field
 from pydantic.types import conlist
-from typing import List, Optional, Union
+
+from aind_data_schema.base import AindCoreModel, AindModel
 
 
 class Channel(AindModel):
@@ -14,8 +16,12 @@ class Channel(AindModel):
     laser_power_unit: float = Field("milliwatt", title="Laser power unit")
     filter_wheel_index: int = Field(..., title="Filter wheel index")
 
-class CoordinateTransform(AindCoreModel):
-    pass
+
+class CoordinateTransform(AindModel):
+    """Generic base class for coordinate transform subtypes"""
+
+    type: str = Field(..., title="transformation type")
+
 
 class Scale3dTransform(CoordinateTransform):
     """Values to be vector-multiplied with a 3D position, equivalent to the diagonals of a 3x3 transform matrix.
@@ -25,11 +31,13 @@ class Scale3dTransform(CoordinateTransform):
     type: str = Field("scale", title="transformation type")
     scale: conlist(float, min_items=3, max_items=3) = Field(..., title="3D scale parameters")
 
+
 class Translation3dTransform(CoordinateTransform):
     """Values to be vector-added to a 3D position. Often needed to specify a Tile's origin."""
 
     type: str = Field("translation", title="transformation type")
     translation: conlist(float, min_items=3, max_items=3) = Field(..., title="3D translation parameters")
+
 
 class Rotation3dTransform(CoordinateTransform):
     """Values to be vector-added to a 3D position. Often needed to specify a Tile's origin."""
@@ -37,22 +45,28 @@ class Rotation3dTransform(CoordinateTransform):
     type: str = Field("rotation", title="transformation type")
     rotation: conlist(float, min_items=9, max_items=9) = Field(..., title="3D rotation matrix values (3x3) ")
 
+
 class Affine3dTransform(CoordinateTransform):
     """Values to be vector-added to a 3D position. Often needed to specify a Tile's origin."""
 
     type: str = Field("affine", title="transformation type")
-    affinetransform: conlist(float, min_items=12, max_items=12) = Field(..., title="Affine transform matrix values (top 3x4 matrix)")
+    affine_transform: conlist(float, min_items=12, max_items=12) = Field(
+        ..., title="Affine transform matrix values (top 3x4 matrix)"
+    )
 
-class Tile(AindCoreModel):
+
+class Tile(AindModel):
     """Description of an image tile"""
 
-    coordinate_transformations: List[Union[Scale3dTransform,Translation3dTransform,Rotation3dTransform,Affine3dTransform]] = Field(
-        ..., title="Tile coordinate transformations"
-    )
+    coordinate_transformations: List[
+        Union[Scale3dTransform, Translation3dTransform, Rotation3dTransform, Affine3dTransform]
+    ] = Field(..., title="Tile coordinate transformations")
     file_name: Optional[str] = Field(None, title="File name")
+
 
 class AcquisitionTile(Tile):
     """Description of acquisition tile"""
+
     channel: Channel = Field(..., title="Channel")
     notes: Optional[str] = Field(None, title="Notes")
     imaging_angle: int = Field(0, title="Imaging angle")

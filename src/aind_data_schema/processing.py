@@ -11,6 +11,7 @@ from pydantic import Field
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.imaging.tile import Tile
 
+
 class ProcessName(Enum):
     """Data processing type labels"""
 

@@ -69,6 +69,7 @@ class Axis(AindModel):
 
         return axes
 
+
 class Immersion(AindModel):
     """Description of immersion media"""
 

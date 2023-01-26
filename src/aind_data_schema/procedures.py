@@ -8,6 +8,7 @@ from pydantic import Field
 
 from .base import AindCoreModel, AindModel
 
+
 class Side(Enum):
     """Side of animal"""
 
@@ -122,7 +123,7 @@ class InjectionMaterial(AindModel):
 class Injection(Procedure):
     """Description of an injection procedure"""
 
-    injection_materials: List[InjectionMaterial] = Field(None, title="Injection material", unique_items=True)    
+    injection_materials: List[InjectionMaterial] = Field(None, title="Injection material", unique_items=True)
     recovery_time: float = Field(..., title="Recovery time (min)", units="min")
     injection_duration: Optional[time] = Field(None, title="Injection duration")
     workstation_id: Optional[str] = Field(None, title="Workstation ID")

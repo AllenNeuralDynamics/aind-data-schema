@@ -7,6 +7,8 @@ from pydantic import ValidationError
 
 from aind_data_schema.imaging import acquisition as acq
 from aind_data_schema.imaging import instrument as inst
+from aind_data_schema.imaging import tile
+from aind_data_schema.processing import Stitching
 
 
 class ImagingTests(unittest.TestCase):
@@ -25,12 +27,12 @@ class ImagingTests(unittest.TestCase):
             session_end_time=datetime.datetime.now(),
             chamber_immersion=acq.Immersion(medium="PBS", refractive_index=1),
             tiles=[
-                acq.Tile(
+                tile.AcquisitionTile(
                     coordinate_transformations=[
-                        acq.Scale3dTransform(scale=[1, 1, 1]),
-                        acq.Translation3dTransform(translation=[1, 1, 1]),
+                        tile.Scale3dTransform(scale=[1, 1, 1]),
+                        tile.Translation3dTransform(translation=[1, 1, 1]),
                     ],
-                    channel=acq.Channel(
+                    channel=tile.Channel(
                         channel_name="488",
                         laser_wavelength=488,
                         laser_power=0.1,
@@ -64,6 +66,36 @@ class ImagingTests(unittest.TestCase):
         for test_code in test_codes:
             axes = acq.Axis.from_direction_code(test_code)
             assert len(axes) == 3
+
+    def test_stitching(self):
+        """test the tile models"""
+
+        t = Stitching(
+            name="Image tile stitching",
+            version="1.0",
+            start_date_time=datetime.datetime.now(),
+            end_date_time=datetime.datetime.now(),
+            input_location="/some/path",
+            output_location="/some/path",
+            code_url="http://foo",
+            parameters={},
+            tiles=[
+                tile.Tile(
+                    coordinate_transformations=[
+                        tile.Affine3dTransform(affine_transform=[0,1,2,3,4,5,6,7,8,9,10,11])
+                    ]
+                ),
+                tile.Tile(
+                    coordinate_transformations=[
+                        tile.Translation3dTransform(translation=[0,1,2]),
+                        tile.Rotation3dTransform(rotation=[1,2,3,4,5,6,7,8,9]),
+                        tile.Scale3dTransform(scale=[1,2,3])
+                    ]
+                )
+            ]
+        )
+
+        assert t is not None
 
 
 if __name__ == "__main__":
