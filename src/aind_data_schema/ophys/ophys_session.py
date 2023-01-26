@@ -69,7 +69,7 @@ class Patch(AindModel):
 
     name: PatchCordName = Field(..., title="Name")
     output_power: float = Field(..., title="Output power (uW)")
-    output_power_unit: PowerUnit = field(PowerUnit.UW, title="Output power unit")
+    output_power_unit: PowerUnit = Field(PowerUnit.UW, title="Output power unit")
 
 
 class OphysSession(AindCoreModel):
