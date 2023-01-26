@@ -226,7 +226,7 @@ class Filter(Device):
     diameter: Optional[float] = Field(None, title="Diameter (mm)", units="mm")
     diameter_unit: SizeUnit = Field(SizeUnit.MM, title="Diameter unit")
     thickness: Optional[float] = Field(None, title="Thickness (mm)", ge=0)
-    thickness_unit: SizeUnit = Field(SizeUnit.MM, title-"Thickness unit")
+    thickness_unit: SizeUnit = Field(SizeUnit.MM, title="Thickness unit")
     filter_wheel_index: Optional[int] = Field(None, title="Filter wheel index")
     cut_off_frequency: Optional[int] = Field(None, title="Cut-off frequency (Hz)")
     cut_off_frequency_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Cut off frequency unit")

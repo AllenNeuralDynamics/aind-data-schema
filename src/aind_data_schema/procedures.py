@@ -298,7 +298,7 @@ class OphysProbe(AindModel):
     stereotactic_coordinate_dv: float = Field(..., title="Stereotactic coordinate D/V (mm)", units="mm")
     stereotactic_coordinate_unit: SizeUnit = Field(SizeUnit.MM, title="Sterotactic coordinate unit")
     angle: float = Field(..., title="Angle (deg)", units="deg")
-    angle_unit: AngleUnit = Field(AngleUnit.DEG, title-"Angle unit")
+    angle_unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
     notes: Optional[str] = Field(None, title="Notes")
 
 
