@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/imaging/instrument.py",
-   "schema_version": "0.4.1",
+   "schema_version": "0.4.2",
    "instrument_id": "exaSPIM1-1",
    "type": "exaSPIM",
    "location": "440 Westlake",
@@ -16,6 +16,7 @@
          "notes": null,
          "length": 36.0,
          "width": 48.0,
+         "table_size_unit": "inch",
          "vibration_control": true
       }
    ],
@@ -53,7 +54,9 @@
          "type": "laser",
          "coupling": "SMF",
          "wavelength": 405.0,
-         "max_power": 200.0
+         "wavelength_unit": "nanometer",
+         "max_power": 200.0,
+         "power_unit": "milliwatt"
       },
       {
          "name": null,
@@ -64,7 +67,9 @@
          "type": "laser",
          "coupling": "SMF",
          "wavelength": 488.0,
-         "max_power": 200.0
+         "wavelength_unit": "nanometer",
+         "max_power": 200.0,
+         "power_unit": "milliwatt"
       },
       {
          "name": null,
@@ -75,7 +80,9 @@
          "type": "laser",
          "coupling": "SMF",
          "wavelength": 561.0,
-         "max_power": 200.0
+         "wavelength_unit": "nanometer",
+         "max_power": 200.0,
+         "power_unit": "milliwatt"
       },
       {
          "name": null,
@@ -86,7 +93,9 @@
          "type": "laser",
          "coupling": "SMF",
          "wavelength": 638.0,
-         "max_power": 200.0
+         "wavelength_unit": "nanometer",
+         "max_power": 200.0,
+         "power_unit": "milliwatt"
       }
    ],
    "fluorescence_filters": [
@@ -98,10 +107,14 @@
          "notes": "Custom made filter",
          "filter_type": "Multiband",
          "diameter": 44.05,
+         "diameter_unit": "millimeter",
          "thickness": 1.0,
+         "thickness_unit": "millimeter",
          "filter_wheel_index": 0,
          "cut_off_frequency": null,
+         "cut_off_frequency_unit": "Hertz",
          "cut_on_frequency": null,
+         "cut_on_frequency_unit": "Hertz",
          "description": null
       }
    ],
@@ -114,6 +127,7 @@
          "model": "MS-8000",
          "notes": null,
          "travel": 1000.0,
+         "travel_unit": "millimeter",
          "stage_axis_direction": "Detection axis",
          "stage_axis_name": "X"
       },
@@ -124,6 +138,7 @@
          "model": "MS-8000",
          "notes": null,
          "travel": 1000.0,
+         "travel_unit": "millimeter",
          "stage_axis_direction": "Perpendicular axis",
          "stage_axis_name": "Y"
       },
@@ -134,6 +149,7 @@
          "model": "LS-100",
          "notes": null,
          "travel": 100.0,
+         "travel_unit": "millimeter",
          "stage_axis_direction": "Illumination axis",
          "stage_axis_name": "Z"
       }
@@ -155,6 +171,7 @@
                "port": null,
                "channel_index": null,
                "sample_rate": 10000.0,
+               "sample_rate_unit": "Hertz",
                "event_based_sampling": false
             },
             {
@@ -164,6 +181,7 @@
                "port": null,
                "channel_index": null,
                "sample_rate": 10000.0,
+               "sample_rate_unit": "Hertz",
                "event_based_sampling": false
             },
             {
@@ -173,6 +191,7 @@
                "port": null,
                "channel_index": null,
                "sample_rate": 10000.0,
+               "sample_rate_unit": "Hertz",
                "event_based_sampling": false
             },
             {
@@ -182,6 +201,7 @@
                "port": null,
                "channel_index": null,
                "sample_rate": 10000.0,
+               "sample_rate_unit": "Hertz",
                "event_based_sampling": false
             },
             {
@@ -191,6 +211,7 @@
                "port": null,
                "channel_index": null,
                "sample_rate": 10000.0,
+               "sample_rate_unit": "Hertz",
                "event_based_sampling": false
             },
             {
@@ -200,6 +221,7 @@
                "port": null,
                "channel_index": null,
                "sample_rate": 10000.0,
+               "sample_rate_unit": "Hertz",
                "event_based_sampling": false
             }
          ]
