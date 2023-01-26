@@ -2,7 +2,7 @@
 
 import datetime
 
-from aind_data_schema.imaging import acquisition
+from aind_data_schema.imaging import acquisition, tile
 
 t = datetime.datetime(2022, 11, 22, 8, 43, 00)
 
@@ -33,13 +33,13 @@ acq = acquisition.Acquisition(
         ),
     ],
     tiles=[
-        acquisition.Tile(
+        tile.AcquisitionTile(
             file_name="tile_X_0000_Y_0000_Z_0000_CH_488.ims",
             coordinate_transformations=[
-                acquisition.Scale3dTransform(scale=[0.748, 0.748, 1.0]),
-                acquisition.Translation3dTransform(translation=[0, 0, 0]),
+                tile.Scale3dTransform(scale=[0.748, 0.748, 1.0]),
+                tile.Translation3dTransform(translation=[0, 0, 0]),
             ],
-            channel=acquisition.Channel(
+            channel=tile.Channel(
                 channel_name="488",
                 laser_wavelength=488,
                 laser_power=200,
@@ -47,13 +47,13 @@ acq = acquisition.Acquisition(
             ),
             notes="these are my notes",
         ),
-        acquisition.Tile(
+        tile.AcquisitionTile(
             file_name="tile_X_0000_Y_0000_Z_0000_CH_561.ims",
             coordinate_transformations=[
-                acquisition.Scale3dTransform(scale=[0.748, 0.748, 1.0]),
-                acquisition.Translation3dTransform(translation=[0, 0, 0]),
+                tile.Scale3dTransform(scale=[0.748, 0.748, 1.0]),
+                tile.Translation3dTransform(translation=[0, 0, 0]),
             ],
-            channel=acquisition.Channel(
+            channel=tile.Channel(
                 channel_name="561",
                 laser_wavelength=561,
                 laser_power=200,

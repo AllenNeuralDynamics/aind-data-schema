@@ -24,6 +24,7 @@ class CurrentUnit(Enum):
 
     UA = "microamps"
 
+
 class Side(Enum):
     """Side of animal"""
 

@@ -1,12 +1,8 @@
 """ ephys procedure mouse 625100 """
 import datetime
+
 from aind_data_schema import Procedures
-from aind_data_schema.procedures import (
-    Craniotomy,
-    NanojectInjection,
-    Anaesthetic,
-    InjectionMaterial,
-)
+from aind_data_schema.procedures import Anaesthetic, Craniotomy, InjectionMaterial, NanojectInjection
 
 t = datetime.datetime(2022, 7, 12, 7, 00, 00)
 
