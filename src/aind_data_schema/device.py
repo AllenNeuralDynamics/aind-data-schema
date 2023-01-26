@@ -39,6 +39,7 @@ class PowerUnit(Enum):
     """Power units"""
 
     MW = "milliwatt"
+    UW = "microwatt"
 
 class Manufacturer(Enum):
     """Device manufacturer name"""

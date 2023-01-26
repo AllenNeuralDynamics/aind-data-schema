@@ -9,7 +9,7 @@ from typing import List, Optional
 from pydantic import Field
 
 from ..base import AindCoreModel, AindModel
-from ..device import Coupling, DAQDevice, DataInterface, Device, Filter, Manufacturer
+from ..device import Coupling, DAQDevice, DataInterface, Device, Filter, Manufacturer, SizeUnit, PowerUnit
 
 
 class InstrumentType(Enum):
@@ -69,9 +69,9 @@ class Lightsource(Device):
     type: LightsourceType = Field(..., title="Lightsource Type")
     coupling: Coupling = Field(..., title="Coupling")
     wavelength: float = Field(..., title="Wavelength (nm)", units="nm", ge=300, le=1000)
-    wavelength_unit: str = Field("nm", title="Wavelength unit")
+    wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
     max_power: float = Field(..., title=" Maximum power (mW)", units="mW")
-    power_unit: str = Field("mW", title="Power unit")
+    power_unit: PowerUnit = Field(PowerUnit.MW, title="Power unit")
 
 
 class Immersion(Enum):
@@ -134,7 +134,7 @@ class MotorizedStage(Device):
     """Description of motorized stage"""
 
     travel: float = Field(..., title="Travel of device (mm)", units="mm")
-    travel_unit: str = Field("mm", title="Travel unit")
+    travel_unit: SizeUnit = Field(SizeUnit.MM, title="Travel unit")
 
 
 class ScanningStage(MotorizedStage):
@@ -149,7 +149,7 @@ class OpticalTable(Device):
 
     length: Optional[float] = Field(None, title="Length (inches)", units="inches", ge=0)
     width: Optional[float] = Field(None, title="Width (inches)", units="inches", ge=0)
-    size_unit: Optional[str] = Field("inches", title="Size unit")
+    table_size_unit: SizeUnit = Field(SizeUnit.IN, title="Table size unit")
     vibration_control: Optional[bool] = Field(None, title="Vibration control")
 
 
