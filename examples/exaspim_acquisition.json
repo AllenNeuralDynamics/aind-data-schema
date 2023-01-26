@@ -26,6 +26,7 @@
                ]
             }
          ],
+         "file_name": "tile_X_0000_Y_0000_Z_0000_CH_488.ims",
          "channel": {
             "channel_name": "488",
             "laser_wavelength": 488,
@@ -34,7 +35,6 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 0
          },
-         "file_name": "tile_X_0000_Y_0000_Z_0000_CH_488.ims",
          "notes": "these are my notes",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
@@ -58,6 +58,7 @@
                ]
             }
          ],
+         "file_name": "tile_X_0000_Y_0000_Z_0000_CH_561.ims",
          "channel": {
             "channel_name": "561",
             "laser_wavelength": 561,
@@ -66,7 +67,6 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 0
          },
-         "file_name": "tile_X_0000_Y_0000_Z_0000_CH_561.ims",
          "notes": "these are my notes",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
