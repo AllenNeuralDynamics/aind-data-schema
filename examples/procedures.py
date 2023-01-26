@@ -13,6 +13,7 @@ p = Procedures(
             start_date=t.date(),
             end_date=t.date(),
             experimenter_full_name="n/a",
+            craniotomy_type="Visual Cortex",
             protocol_id="null",
             iacuc_protocol="2109",
             animal_weight_prior=22.6,

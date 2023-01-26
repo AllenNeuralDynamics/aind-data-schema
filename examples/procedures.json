@@ -5,7 +5,6 @@
    "headframes": null,
    "craniotomies": [
       {
-         "type": null,
          "start_date": "2022-07-12",
          "end_date": "2022-07-12",
          "experimenter_full_name": "n/a",
@@ -20,6 +19,7 @@
             "level": 1.5
          },
          "notes": null,
+         "craniotomy_type": "Visual Cortex",
          "craniotomy_hemisphere": null,
          "craniotomy_coordinates_ml": null,
          "craniotomy_coordinates_ap": null,
@@ -36,7 +36,6 @@
    "mri_scans": null,
    "injections": [
       {
-         "type": null,
          "start_date": "2022-07-12",
          "end_date": "2022-07-12",
          "experimenter_full_name": "n/a",
