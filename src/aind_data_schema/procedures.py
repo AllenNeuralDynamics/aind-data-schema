@@ -55,7 +55,6 @@ class Anaesthetic(AindModel):
 class Procedure(AindModel):
     """Description of surgical or other procedure performed on a subject"""
 
-    type: Optional[str] = Field(None, description="Procedure type", title="Procedure Type")
     start_date: date = Field(..., title="Start date")
     end_date: date = Field(..., title="End date")
     experimenter_full_name: str = Field(
@@ -82,9 +81,19 @@ class Procedure(AindModel):
     notes: Optional[str] = Field(None, title="Notes")
 
 
+class CraniotomyType(Enum):
+    """Name of craniotomy Type"""
+    VISCTX = "Visual Cortex"
+    WHC = "Whole hemisphere craniotomy"
+    THREE_MM = "3 mm"
+    FIVE_MM = "5 mm"
+    OTHER = "Other"
+
+
 class Craniotomy(Procedure):
     """Description of craniotomy procedure"""
 
+    craniotomy_type: CraniotomyType = Field(..., title="Craniotomy type") 
     craniotomy_hemisphere: Optional[Side] = Field(None, title="Craniotomy hemisphere")
     craniotomy_coordinates_ml: Optional[float] = Field(None, title="Craniotomy coordinate ML (mm)", units="mm")
     craniotomy_coordinates_ap: Optional[float] = Field(None, title="Craniotomy coordinates AP (mm)", units="mm")
@@ -265,6 +274,7 @@ class TissuePrep(Procedure):
 class TrainingProtocol(AindModel):
     """Description of an animal training protocol"""
 
+    training_name: str = Field(..., title="Training protocol name")
     protocol_id: str = Field(..., title="Training protocol ID")
     training_protocol_start_date: date = Field(..., title="Training protocol start date")
     training_protocol_end_date: Optional[date] = Field(None, title="Training protocol end date")
@@ -329,7 +339,7 @@ class WaterRestriction(AindModel):
 class Procedures(AindCoreModel):
     """Description of all procedures performed on a subject"""
 
-    schema_version: str = Field("0.5.3", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.5.4", description="schema version", title="Version", const=True)
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
