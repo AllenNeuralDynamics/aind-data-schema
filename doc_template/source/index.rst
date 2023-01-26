@@ -15,16 +15,17 @@ documentation so that all users have a thorough understanding of the
 data.
 
 A given data asset will have the following JSON files:
-* data_description: Administrative metadata about the source of the 
+
+* **data_description**: Administrative metadata about the source of the 
 data, relevant licenses, and restrictions on use.
-* subject: Metadata about the subject used in the experiments, including
+* **subject**: Metadata about the subject used in the experiments, including
 genotype, age, sex, and source.
-* procedures: Metadata about any procedures performed prior to data 
+* **procedures**: Metadata about any procedures performed prior to data 
 acquisition, including surgeries, behavior training, and tissue preparation.
-* rig or instrument: Metadata describing the equipment used to acquire data,
+* **rig** or **instrument**: Metadata describing the equipment used to acquire data,
 inlcuding part names, serial numbers, and configuration details.
-* session or acquisition: Metadata describing how the data was acquired
-* processing: Metadata describing how data has been processed into derived 
+* **session** or **acquisition**: Metadata describing how the data was acquired
+* **processing**: Metadata describing how data has been processed into derived 
 data assets, including information on what software was used.
 
 .. toctree::
