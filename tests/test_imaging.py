@@ -82,17 +82,17 @@ class ImagingTests(unittest.TestCase):
             tiles=[
                 tile.Tile(
                     coordinate_transformations=[
-                        tile.Affine3dTransform(affine_transform=[0,1,2,3,4,5,6,7,8,9,10,11])
+                        tile.Affine3dTransform(affine_transform=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11])
                     ]
                 ),
                 tile.Tile(
                     coordinate_transformations=[
-                        tile.Translation3dTransform(translation=[0,1,2]),
-                        tile.Rotation3dTransform(rotation=[1,2,3,4,5,6,7,8,9]),
-                        tile.Scale3dTransform(scale=[1,2,3])
+                        tile.Translation3dTransform(translation=[0, 1, 2]),
+                        tile.Rotation3dTransform(rotation=[1, 2, 3, 4, 5, 6, 7, 8, 9]),
+                        tile.Scale3dTransform(scale=[1, 2, 3]),
                     ]
-                )
-            ]
+                ),
+            ],
         )
 
         assert t is not None

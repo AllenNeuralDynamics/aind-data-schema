@@ -4,10 +4,9 @@ from __future__ import annotations
 
 from datetime import datetime
 from enum import Enum
-from typing import List, Optional, Union
+from typing import List, Optional
 
 from pydantic import Field
-from pydantic.types import conlist
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.imaging.tile import AcquisitionTile
