@@ -41,11 +41,17 @@ An example subject file::
 
    s = Subject(
       species="Mus musculus",
+
       subject_id="12345",
+
       sex="Male",
+
       date_of_birth=t.date(),
+
       genotype="Emx1-IRES-Cre;Camk2a-tTA;Ai93(TITL-GCaMP6f)",
+
       home_cage_enrichment="other",
+
       background_strain="C57BL/6J",
    )
 
@@ -55,27 +61,47 @@ An example subject file::
 yields JSON::
    {
       "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/subject.py",
+
       "schema_version": "0.2.2",
+
       "species": "Mus musculus",
+
       "subject_id": "12345",
+
       "sex": "Male",
+
       "date_of_birth": "2022-11-22",
+
       "genotype": "Emx1-IRES-Cre;Camk2a-tTA;Ai93(TITL-GCaMP6f)",
+
       "mgi_allele_ids": null,
+
       "background_strain": "C57BL/6J",
+
       "source": null,
+
       "rrid": null,
+
       "restrictions": null,
+
       "breeding_group": null,
+
       "maternal_id": null,
+
       "maternal_genotype": null,
+
       "paternal_id": null,
+
       "paternal_genotype": null,
+
       "light_cycle": null,
+
       "home_cage_enrichment": "other",
+
       "wellness_reports": null,
+
       "notes": null
-}
+   }
 
 .. toctree::
    :maxdepth: 1
