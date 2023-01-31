@@ -35,6 +35,7 @@ Example
 
 An example subject file:
 .. code-block:: python
+
    from aind_data_schema import Subject
    import datetime
 
@@ -54,7 +55,8 @@ An example subject file:
       f.write(s.json(indent=3))
 
 yields JSON:
-.. code-block:: json
+.. code-block:: JsonLexer
+   
    {
       "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/subject.py",
       "schema_version": "0.2.2",
