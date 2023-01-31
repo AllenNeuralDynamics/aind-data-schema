@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Wecleom to aind-data-schema: 
+Welcome to aind-data-schema: 
 ============================
 
 This repository contains the schema used to define metadata for Allen 
