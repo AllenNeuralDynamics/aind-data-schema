@@ -35,7 +35,6 @@ Example
 
 
 .. code-block:: python
-
 An example subject file::
 
    from aind_data_schema import Subject
@@ -57,7 +56,6 @@ An example subject file::
       f.write(s.json(indent=3))
 
 .. code-block:: json
-
 yields JSON::
 
    {
