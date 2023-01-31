@@ -35,7 +35,6 @@ Example
 
 
 .. code-block:: python
-      :linenos:
 
 An example subject file::
 
