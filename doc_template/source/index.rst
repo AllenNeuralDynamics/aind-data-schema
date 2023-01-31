@@ -3,8 +3,8 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-aind-data-schema documentation: 
-===============================
+aind-data-schema docs: 
+----------------------
 
 This repository contains the schema used to define metadata for Allen 
 Institute for Neural Dynamics (AIND) data. All data is accompanied by 
@@ -29,7 +29,7 @@ A given data asset will have the following JSON files:
 * **processing**: Metadata describing how data has been processed into derived data assets, including information on what software was used.
 
 Example
-=======
+-------
 
 An example subject file:
 
@@ -90,7 +90,7 @@ yields JSON:
    modules
 
 Indices and tables
-==================
+------------------
 
 * :ref:`genindex`
 * :ref:`modindex`
