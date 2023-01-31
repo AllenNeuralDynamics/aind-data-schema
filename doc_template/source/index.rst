@@ -33,8 +33,11 @@ A given data asset will have the following JSON files:
 Example
 =======
 
-An example subject file:
+
 .. code-block:: python
+      :linenos:
+
+An example subject file::
 
    from aind_data_schema import Subject
    import datetime
@@ -54,9 +57,10 @@ An example subject file:
    with open("subject.json", "w") as f:
       f.write(s.json(indent=3))
 
-yields JSON:
-.. code-block:: JsonLexer
-   
+.. code-block:: json
+
+   yields JSON:
+
    {
       "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/subject.py",
       "schema_version": "0.2.2",
