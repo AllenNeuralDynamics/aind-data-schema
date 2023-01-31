@@ -4,8 +4,8 @@
    contain the root `toctree` directive.
 
 
-Welcome to this repository's documentation!
-===========================================
+Welcome to `aind-data-schema`!
+==============================
 This repository contains the schema used to define metadata for Allen 
 Institute for Neural Dynamics (AIND) data. All data is accompanied by 
 a collection of JSON files that include the metadata that provide detailed 
