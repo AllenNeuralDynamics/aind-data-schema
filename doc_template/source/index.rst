@@ -32,8 +32,6 @@ A given data asset will have the following JSON files:
 =======
 Example
 =======
-
-
 .. code-block:: python
 An example subject file::
 
