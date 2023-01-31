@@ -34,6 +34,7 @@ Example
 =======
 
 An example subject file::
+   .. highlight:: python
    from aind_data_schema import Subject
    import datetime
 
@@ -41,17 +42,11 @@ An example subject file::
 
    s = Subject(
       species="Mus musculus",
-
       subject_id="12345",
-
       sex="Male",
-
       date_of_birth=t.date(),
-
       genotype="Emx1-IRES-Cre;Camk2a-tTA;Ai93(TITL-GCaMP6f)",
-
       home_cage_enrichment="other",
-
       background_strain="C57BL/6J",
    )
 
@@ -59,6 +54,7 @@ An example subject file::
       f.write(s.json(indent=3))
 
 yields JSON::
+   .. highlight:: json
    {
       "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/subject.py",
 
