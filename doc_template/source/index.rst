@@ -33,8 +33,8 @@ A given data asset will have the following JSON files:
 Example
 =======
 
-An example subject file
-   .. code-block:: python
+An example subject file:
+.. code-block:: python
    from aind_data_schema import Subject
    import datetime
 
@@ -53,49 +53,29 @@ An example subject file
    with open("subject.json", "w") as f:
       f.write(s.json(indent=3))
 
-yields JSON
-   .. code-block:: json
+yields JSON:
+.. code-block:: json
    {
       "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/subject.py",
-
       "schema_version": "0.2.2",
-
       "species": "Mus musculus",
-
       "subject_id": "12345",
-
       "sex": "Male",
-
       "date_of_birth": "2022-11-22",
-
       "genotype": "Emx1-IRES-Cre;Camk2a-tTA;Ai93(TITL-GCaMP6f)",
-
       "mgi_allele_ids": null,
-
       "background_strain": "C57BL/6J",
-
       "source": null,
-
       "rrid": null,
-
       "restrictions": null,
-
       "breeding_group": null,
-
       "maternal_id": null,
-
       "maternal_genotype": null,
-
       "paternal_id": null,
-
       "paternal_genotype": null,
-
       "light_cycle": null,
-
       "home_cage_enrichment": "other",
-
       "wellness_reports": null,
-
       "notes": null
    }
 
