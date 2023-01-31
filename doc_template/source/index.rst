@@ -58,7 +58,7 @@ An example subject file::
 
 .. code-block:: json
 
-   yields JSON:
+yields JSON::
 
    {
       "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/subject.py",
