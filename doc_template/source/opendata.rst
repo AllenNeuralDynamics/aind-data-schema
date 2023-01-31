@@ -35,7 +35,7 @@ separate from their source assets, meaning they are not stored in the same path 
 Inspired by `BIDS <https://bids.neuroimaging.io/>`_ and the 
 `HCA metadata schema <https://data.humancellatlas.org/metadata/structure>`_, metadata 
 describing a data asset is stored as sidecar JSON files that live adjacent to the data
-they describe. These JSON filesconform to the schemas defined in 
+they describe. These JSON files conform to the schemas defined in 
 `aind-data-schema <https://github.com/AllenNeuralDynamics/aind-data-schema>`_. 
 
 As soon as possible, data in this bucket are stored in cloud-friendly formats, including 
