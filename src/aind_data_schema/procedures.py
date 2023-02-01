@@ -28,6 +28,38 @@ class CurrentUnit(Enum):
     UA = "microamps"
 
 
+
+class SpecimenProcedure(AindModel):
+    """Description of surgical or other procedure performed on a specimen"""
+    specimen_id: str = Field(..., title="Specimen ID")
+    start_date: date = Field(..., title="Start date")
+    end_date: date = Field(..., title="End date")
+    experimenter_full_name: str = Field(
+        ...,
+        description="First and last name of the experimenter.",
+        title="Experimenter full name",
+    )
+    protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
+    notes: Optional[str] = Field(None, title="Notes")
+
+
+class TissuePrepName(Enum):
+    """Tissue preparation type name"""
+
+    PERFUSION = "Perfusion"
+    FIXATION = "Fixation"
+    DOUBLE_DELIPIDATION = "Double delipidation"
+    DCM_DELIPIDATION = "DCM delipidation"
+    IMMUNOSTAINING = "Immunostaining"
+    GELATION = "Gelation"
+
+
+class TissuePrep(SpecimenProcedure):
+    """Description of a tissue preparation procedure"""
+
+    name: TissuePrepName = Field(..., title="Name")
+
+
 class Side(Enum):
     """Side of animal"""
 
@@ -52,7 +84,7 @@ class Anaesthetic(AindModel):
     level: float = Field(..., title="Level (percent)", units="percent", ge=1, le=5)
 
 
-class Procedure(AindModel):
+class SubjectProcedure(AindModel):
     """Description of surgical or other procedure performed on a subject"""
 
     start_date: date = Field(..., title="Start date")
@@ -90,7 +122,7 @@ class CraniotomyType(Enum):
     OTHER = "Other"
 
 
-class Craniotomy(Procedure):
+class Craniotomy(SubjectProcedure):
     """Description of craniotomy procedure"""
 
     craniotomy_type: CraniotomyType = Field(..., title="Craniotomy type") 
@@ -115,7 +147,7 @@ class HeadframeMaterial(Enum):
     WHITE_ZIRCONIA = "White Zirconia"
 
 
-class Headframe(Procedure):
+class Headframe(SubjectProcedure):
     """Description of headframe procedure"""
 
     headframe_type: str = Field(..., title="Headframe type")
@@ -157,9 +189,10 @@ class InjectionMaterial(AindModel):
         description="Date this prep lot was titered",
     )
     prep_type: Optional[VirusPrepType] = Field(None, title="Viral prep type")
+    prep_protocol: Optional[str] = Field(None, title="Prep protocol")
 
 
-class Injection(Procedure):
+class Injection(SubjectProcedure):
     """Description of an injection procedure"""
 
     injection_materials: List[InjectionMaterial] = Field(None, title="Injection material", unique_items=True)
@@ -243,7 +276,7 @@ class MagneticStrength(Enum):
     MRI_14T = 14
 
 
-class MriScan(Procedure):
+class MriScan(SubjectProcedure):
     """Description of an MRI scan"""
 
     scan_sequence: MriScanSequence = Field(..., title="Scan sequence")
@@ -251,24 +284,6 @@ class MriScan(Procedure):
     magnetic_strength: Optional[MagneticStrength] = Field(None, title="Magnetic strength (T)", units="T")
     magnetic_strength_unit: str = Field("T", title="Magnetic strength unit")
     resolution: float = Field(..., title="Resolution")
-
-
-class TissuePrepName(Enum):
-    """Tissue preparation type name"""
-
-    PERFUSION = "Perfusion"
-    FIXATION = "Fixation"
-    DOUBLE_DELIPIDATION = "Double delipidation"
-    DCM_DELIPIDATION = "DCM delipidation"
-    IMMUNOSTAINING = "Immunostaining"
-    GELATION = "Gelation"
-
-
-class TissuePrep(Procedure):
-    """Description of a tissue preparation procedure"""
-
-    name: TissuePrepName = Field(..., title="Name")
-    specimen_id: List[str] = Field(..., title="Specimen ID")
 
 
 class TrainingProtocol(AindModel):
@@ -316,7 +331,7 @@ class OphysProbe(AindModel):
     notes: Optional[str] = Field(None, title="Notes")
 
 
-class FiberImplant(Procedure):
+class FiberImplant(SubjectProcedure):
     """Description of an implant procedure"""
 
     probes: List[OphysProbe] = Field(..., title="Ophys Probes", unique_items=True)
