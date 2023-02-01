@@ -28,10 +28,28 @@ class CurrentUnit(Enum):
     UA = "microamps"
 
 
+class TissuePrepName(Enum):
+    """Tissue preparation type name"""
+
+    FIXATION = "Fixation"
+    DOUBLE_DELIPIDATION = "Double delipidation"
+    DCM_DELIPIDATION = "DCM delipidation"
+    IMMUNOSTAINING = "Immunostaining"
+    GELATION = "Gelation"
+
+
+class Reagent(AindModel):
+    """Description of reagents used in procedure"""
+    name: str = Field(..., title="Name")
+    RRID: Optional[str] = Field(None, "Research Resource ID")
+    lot_number: str = Field(..., title="Lot number")
+    expiration_date: Optional[date] = Field(None, "Lot expiration date")
+
 
 class SpecimenProcedure(AindModel):
     """Description of surgical or other procedure performed on a specimen"""
     specimen_id: str = Field(..., title="Specimen ID")
+    name: TissuePrepName = Field(..., title="Name")
     start_date: date = Field(..., title="Start date")
     end_date: date = Field(..., title="End date")
     experimenter_full_name: str = Field(
@@ -40,24 +58,8 @@ class SpecimenProcedure(AindModel):
         title="Experimenter full name",
     )
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
+    reagents: Optional[List[Reagent]] = Field(None, "Reagents")
     notes: Optional[str] = Field(None, title="Notes")
-
-
-class TissuePrepName(Enum):
-    """Tissue preparation type name"""
-
-    PERFUSION = "Perfusion"
-    FIXATION = "Fixation"
-    DOUBLE_DELIPIDATION = "Double delipidation"
-    DCM_DELIPIDATION = "DCM delipidation"
-    IMMUNOSTAINING = "Immunostaining"
-    GELATION = "Gelation"
-
-
-class TissuePrep(SpecimenProcedure):
-    """Description of a tissue preparation procedure"""
-
-    name: TissuePrepName = Field(..., title="Name")
 
 
 class Side(Enum):
@@ -350,6 +352,16 @@ class WaterRestriction(AindModel):
     start_date: date = Field(..., title="Water restriction start date")
     end_date: date = Field(..., title="Water restriction end date")
 
+
+class Perfusion(SubjectProcedure):
+    """Description of a perfusion procedure that creates a specimen"""
+
+    specimen_id: List[str] = Field(
+        ..., 
+        title="Specimen ID",
+        description="IDs of specimens resulting from this procedure.",
+        unique_items=True,
+        )
 
 class Procedures(AindCoreModel):
     """Description of all procedures performed on a subject"""
