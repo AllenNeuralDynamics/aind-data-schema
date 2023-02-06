@@ -71,6 +71,31 @@ class Patch(AindModel):
     output_power: float = Field(..., title="Output power (uW)")
     output_power_unit: PowerUnit = Field(PowerUnit.UW, title="Output power unit")
 
+class FiberPhotometrySession(OphysSession):
+    """Description of a fiber photometry session"""
+
+    patch_cords: List[Patch] = Field(..., title="Patch cords", unique_items=True)
+    coupling_array: List[Coupling] = Field(..., title="Coupling array", unique_items=True)
+
+
+class FieldOfView(AindCoreModel):
+    """Description of an imaging field of view"""
+
+    index: int = Field(..., title="Index")
+    fov_width: int = Field(..., title="FOV width (pixels)")
+    fov_height: int = Field(..., title="FOV height (pixels)")
+    fov_size_unit: SizeUnit = Field(SizeUnit.PX, title="FOV size unit")
+
+
+class TwoPhotonSession(OphysSession):
+    """Description of a two photon session"""
+
+    number_of_planes: int = Field(..., title="Number of planes")
+    frame_rate: float = Field(..., title="Frame rate (Hz)")
+    frame_rate_unit: 
+
+
+
 
 class OphysSession(AindCoreModel):
     """Description of an ophys session"""
@@ -93,8 +118,8 @@ class OphysSession(AindCoreModel):
     stimulus_protocol_id: Optional[str] = Field(None, title="Stimulus protocol ID")
     iacuc_protocol: Optional[str] = Field(None, title="IACUC protocol")
     rig_id: str = Field(..., title="Rig ID")
-    patch_cords: List[Patch] = Field(..., title="Patch cords", unique_items=True)
     lasers: List[Laser] = Field(..., title="Lasers", unique_items=True)
-    coupling_array: List[Coupling] = Field(..., title="Coupling array", unique_items=True)
     detectors: Optional[List[Detector]] = Field(None, title="Detectors", unique_items=True)
     notes: Optional[str] = None
+
+
