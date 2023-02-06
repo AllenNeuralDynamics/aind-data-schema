@@ -356,7 +356,7 @@ class WaterRestriction(AindModel):
 class Perfusion(SubjectProcedure):
     """Description of a perfusion procedure that creates a specimen"""
 
-    specimen_id: List[str] = Field(
+    output_specimen_ids: List[str] = Field(
         ..., 
         title="Specimen ID",
         description="IDs of specimens resulting from this procedure.",
@@ -390,5 +390,5 @@ class Procedures(AindCoreModel):
     water_restrictions: Optional[List[WaterRestriction]] = Field(None, title="Water restriction")
     training_protocols: Optional[List[TrainingProtocol]] = Field(None, title="Training protocols", unique_items=True)
     tissue_preparations: Optional[List[TissuePrep]] = Field(None, title="Tissue preparations", unique_items=True)
-    other_procedures: Optional[List[Procedure]] = Field(None, title="Other procedures", unique_items=True)
+    other_procedures: Optional[List[SubjectProcedure]] = Field(None, title="Other procedures", unique_items=True)
     notes: Optional[str] = Field(None, title="Notes")
