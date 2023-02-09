@@ -9,17 +9,17 @@ from typing import List, Optional
 from pydantic import Field
 
 from ..base import AindCoreModel, AindModel
-from ..device import PowerUnit, SizeUnit
+from ..device import PowerUnit, SizeUnit, FrequencyUnit
 
 
 class FiberName(Enum):
     """Fiber name"""
 
-    LASER_A = "Laser A"
-    LASER_B = "Laser B"
-    LASER_C = "Laser C"
-    LASER_D = "Laser D"
-    LASER_E = "Laser E"
+    FIBER_A = "Fiber A"
+    FIBER_B = "Fiber B"
+    FIBER_C = "Fiber C"
+    FIBER_D = "Fiber D"
+    FIBER_E = "Fiber E"
 
 
 class PatchCordName(Enum):
@@ -47,11 +47,11 @@ class Detector(AindModel):
 class LaserName(Enum):
     """Laser name"""
 
-    Laser_A = "Laser A"
-    Laser_B = "Laser B"
-    Laser_C = "Laser C"
-    Laser_D = "Laser D"
-    Laser_E = "Laser E"
+    LASER_A = "Laser A"
+    LASER_B = "Laser B"
+    LASER_C = "Laser C"
+    LASER_D = "Laser D"
+    LASER_E = "Laser E"
 
 
 class Laser(AindModel):
@@ -82,26 +82,33 @@ class FieldOfView(AindCoreModel):
     """Description of an imaging field of view"""
 
     index: int = Field(..., title="Index")
+    imaging_depth: int = Field(..., title="Imaging depth (um)")
+    imaging_depth_unit: SizeUnit = Field(SizeUnit.UM, title="Imaging depth unit")
+    targeted_structure: str = Field(..., title="Targeted structure")
+    fov_coordinate_ml: float = Field(..., title="FOV coodinate ML")
+    fov_coordinate_ap: float = Field(..., title="FOV coordinate AP")
+    fov_reference: str = Field(..., title="FOV reference", description="Reference for ML/AP coordinates")
     fov_width: int = Field(..., title="FOV width (pixels)")
     fov_height: int = Field(..., title="FOV height (pixels)")
     fov_size_unit: SizeUnit = Field(SizeUnit.PX, title="FOV size unit")
+    fov_scale_factor: float = Field(..., title="FOV scale factor (pixels/um)")
+    fov_scale_factor_unit: str = Field("um/pixels", title="FOV scale factor unit")
+    frame_rate: float = Field(..., title="Frame rate (Hz)")
+    frame_rate_unit: FrequencyUnit = Field(FrequencyUnit.Hz, title="Frame rate unit")
 
 
 class TwoPhotonSession(OphysSession):
     """Description of a two photon session"""
 
     number_of_planes: int = Field(..., title="Number of planes")
-    frame_rate: float = Field(..., title="Frame rate (Hz)")
-    frame_rate_unit: 
-
-
+    fovs: List[FieldOfView] = Field(..., title="Fields of view", unique_items=True)
 
 
 class OphysSession(AindCoreModel):
     """Description of an ophys session"""
 
     schema_version: str = Field(
-        "0.0.2",
+        "0.1.0",
         description="schema version",
         title="Schema Version",
         const=True,
