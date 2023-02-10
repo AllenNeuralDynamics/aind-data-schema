@@ -78,7 +78,7 @@ class FiberPhotometrySession(OphysSession):
     coupling_array: List[Coupling] = Field(..., title="Coupling array", unique_items=True)
 
 
-class FieldOfView(AindCoreModel):
+class FieldOfView(AindModel):
     """Description of an imaging field of view"""
 
     index: int = Field(..., title="Index")
@@ -87,20 +87,20 @@ class FieldOfView(AindCoreModel):
     targeted_structure: str = Field(..., title="Targeted structure")
     fov_coordinate_ml: float = Field(..., title="FOV coodinate ML")
     fov_coordinate_ap: float = Field(..., title="FOV coordinate AP")
+    fov_coordinate_unit: SizeUnit = Field(SizeUnit.um, title="FOV coordinate unit")
     fov_reference: str = Field(..., title="FOV reference", description="Reference for ML/AP coordinates")
     fov_width: int = Field(..., title="FOV width (pixels)")
     fov_height: int = Field(..., title="FOV height (pixels)")
     fov_size_unit: SizeUnit = Field(SizeUnit.PX, title="FOV size unit")
-    fov_scale_factor: float = Field(..., title="FOV scale factor (pixels/um)")
-    fov_scale_factor_unit: str = Field("um/pixels", title="FOV scale factor unit")
+    fov_scale_factor: float = Field(..., title="FOV scale factor (um/pixel)")
+    fov_scale_factor_unit: str = Field("um/pixel", title="FOV scale factor unit")
     frame_rate: float = Field(..., title="Frame rate (Hz)")
     frame_rate_unit: FrequencyUnit = Field(FrequencyUnit.Hz, title="Frame rate unit")
 
 
-class TwoPhotonSession(OphysSession):
+class TwoPhotonOphysSession(OphysSession):
     """Description of a two photon session"""
 
-    number_of_planes: int = Field(..., title="Number of planes")
     fovs: List[FieldOfView] = Field(..., title="Fields of view", unique_items=True)
 
 
