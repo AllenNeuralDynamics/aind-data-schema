@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from datetime import date
 from enum import Enum
-from typing import List, Optional
+from typing import List, Optional, Union
 
 from pydantic import Field
 
@@ -73,7 +73,8 @@ class OphysRig(AindCoreModel):
     filters: Optional[List[Filter]] = Field(None, title="Filters", unique_items=True)
     lenses: Optional[List[Lens]] = Field(None, title="Lenses", unique_items=True)
     cameras: Optional[List[CameraAssembly]] = Field(None, title="Camera assemblies", unique_items=True)
-
+    mouse_platform: Optional[Union[Tube, Treadmill, Disc]] = Field(None, title="Mouse platform")
+    visual_monitors: Optional[List[Monitor]] = Field(None, title="Visual monitors", unique_items=True)
     additional_devices: Optional[List[Device]] = Field(None, title="Additional devices", unique_items=True)
     light_path_diagram: Optional[str] = Field(
         None,
