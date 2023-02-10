@@ -15,7 +15,7 @@ from pydantic import Field, root_validator
 
 from ..base import AindCoreModel, AindModel
 from ..device import (AngleUnit, Camera, CameraAssembly, DAQDevice, DataInterface, Device, Laser, Manufacturer,
-                      RelativePosition, MousePlatform, Disc, Treadmill, Tube, SizeUnit, Monitor)
+                      Disc, Treadmill, Tube, SizeUnit, Monitor)
 
 
 class Size2d(AindModel):
