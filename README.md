@@ -30,8 +30,7 @@ s = Subject(
     background_strain="C57BL/6J",
 )
 
-with open("subject.json", "w") as f:
-    f.write(s.json(indent=3))
+s.write_standard_file() # writes subject.json
 ```
 
 ```json

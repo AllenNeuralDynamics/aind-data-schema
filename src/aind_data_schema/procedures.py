@@ -180,14 +180,16 @@ class RetroOrbitalInjection(Injection):
 
 class BrainInjection(Injection):
     """Description of a brain injection procedure"""
-
-    injection_hemisphere: Optional[Side] = Field(None, title="Injection hemisphere")
+    
     injection_coordinate_ml: float = Field(..., title="Injection coordinate ML (mm)")
     injection_coordinate_ap: float = Field(..., title="Injection coordinate AP (mm)")
     injection_coordinate_depth: float = Field(..., title="Injection coodinate depth (mm)")
     injection_coordinate_unit: SizeUnit = Field(SizeUnit.MM, title="Injection coordinate unit")
     injection_angle: float = Field(..., title="Injection angle (deg)", units="deg")
     injection_angle_unit: AngleUnit = Field(AngleUnit.DEG, title="Injection angle unit")
+    targeted_structure: str = Field(..., title="Injection targeted brain structure")
+
+    injection_hemisphere: Optional[Side] = Field(None, title="Injection hemisphere")
 
 
 class NanojectInjection(BrainInjection):
@@ -339,7 +341,7 @@ class WaterRestriction(AindModel):
 class Procedures(AindCoreModel):
     """Description of all procedures performed on a subject"""
 
-    schema_version: str = Field("0.5.4", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.6.0", description="schema version", title="Version", const=True)
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
