@@ -1,14 +1,14 @@
 import datetime
 
-from aind_data_schema.ophys.ophys_session import (OphysSession, FiberPhotometrySession, Laser, 
+from aind_data_schema.ophys.ophys_session import (FiberPhotometrySession, Laser, 
                 Detector, Patch, Coupling)
 
 t = datetime.datetime(2022, 7, 12, 7, 00, 00)
 
 s = FiberPhotometrySession(
     experimenter_full_name = "Smrithi Sunil",
-    start_date = t.date(),
-    end_date = t.date(),
+    session_start_time = t.date(),
+    session_end_time = t.date(),
     subject_id = "652567",
     session_type = "Parameter Testing",
     iacuc_protocol = "2115",
