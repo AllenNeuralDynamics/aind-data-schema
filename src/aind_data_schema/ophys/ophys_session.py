@@ -123,7 +123,7 @@ class FieldOfView(AindModel):
     fov_scale_factor: float = Field(..., title="FOV scale factor (um/pixel)")
     fov_scale_factor_unit: str = Field("um/pixel", title="FOV scale factor unit")
     frame_rate: float = Field(..., title="Frame rate (Hz)")
-    frame_rate_unit: FrequencyUnit = Field(FrequencyUnit.Hz, title="Frame rate unit")
+    frame_rate_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Frame rate unit")
 
 class TwoPhotonOphysSession(OphysSession):
     """Description of a two photon session"""
