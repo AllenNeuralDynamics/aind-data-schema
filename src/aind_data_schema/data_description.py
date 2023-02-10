@@ -47,6 +47,8 @@ class Institution(Enum):
     AIND = "AIND"
     AIBS = "AIBS"
     HUST = "HUST"
+    NYU = "NYU"
+    CU = "CU"
 
 
 class Group(Enum):
