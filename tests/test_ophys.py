@@ -5,7 +5,8 @@ import unittest
 
 from pydantic import ValidationError
 
-from aind_data_schema import OphysRig, OphysSession
+from aind_data_schema.ophys.ophys_rig import OphysRig
+from aind_data_schema.ophys.ophys_session import FiberPhotometrySession
 
 
 class OphysTests(unittest.TestCase):
@@ -18,14 +19,14 @@ class OphysTests(unittest.TestCase):
 
         """testing constructors"""
         with self.assertRaises(ValidationError):
-            s = OphysSession()
+            s = FiberPhotometrySession()
 
         r = OphysRig(rig_id="12345", patch_cords=[], lasers=[])
 
         assert r is not None
         now = datetime.datetime.now()
 
-        s = OphysSession(
+        s = FiberPhotometrySession(
             experimenter_full_name="alice",
             session_start_time=now,
             session_end_time=now,
