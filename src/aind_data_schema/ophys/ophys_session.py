@@ -37,11 +37,20 @@ class Coupling(AindModel):
     patch_cord_name: PatchCordName = Field(..., title="Patch cord name")
 
 
+class TriggerType(Enum):
+    """Types of detector triggers"""
+
+    INTERNAL = "Internal"
+    EXTERNAL = "External"
+
+
 class Detector(AindModel):
     """Description of detector"""
 
     name: str = Field(..., title="Name")
     exposure_time: float = Field(..., title="Exposure time (ms)")
+    exposure_time_unit: str = Field("ms", title="Exposure time unit")
+    trigger_type: TriggerType = Field(..., title="Trigger type")
 
 
 class LaserName(Enum):
@@ -87,7 +96,7 @@ class OphysSession(AindCoreModel):
         title="Experimenter full name",
     )
     session_start_time: datetime = Field(..., title="Session start time")
-    session_end_time: datetime = Field(..., title="Session end time")
+    session_end_time: Optional[datetime] = Field(None, title="Session end time")
     subject_id: int = Field(..., title="Subject ID")
     session_type: str = Field(..., title="Session type")
     stimulus_protocol_id: Optional[str] = Field(None, title="Stimulus protocol ID")
@@ -103,7 +112,6 @@ class FiberPhotometrySession(OphysSession):
 
     patch_cords: List[Patch] = Field(..., title="Patch cords", unique_items=True)
     coupling_array: List[Coupling] = Field(..., title="Coupling array", unique_items=True)
-
 
 
 class FieldOfView(AindModel):

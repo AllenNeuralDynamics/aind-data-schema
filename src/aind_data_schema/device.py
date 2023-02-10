@@ -293,6 +293,7 @@ class Laser(Device):
     """Laser module with a specific wavelength (may be a sub-component of a larger assembly)"""
 
     # required fields
+    name: Optional[str] = Field(None, title="Name")
     manufacturer: Literal[
         Manufacturer.COHERENT_SCIENTIFIC.value,
         Manufacturer.HAMAMATSU.value,
