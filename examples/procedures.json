@@ -74,7 +74,7 @@
          "injection_coordinate_unit": "millimeter",
          "injection_angle": 10.0,
          "injection_angle_unit": "degree",
-         "targeted_structure": "VISp1",
+         "targeted_structure": "VISp",
          "injection_hemisphere": "Left",
          "injection_type": "Nanoject",
          "injection_volume": 200.0,
