@@ -15,7 +15,7 @@ from pydantic import Field, root_validator
 
 from ..base import AindCoreModel, AindModel
 from ..device import (AngleUnit, Camera, CameraAssembly, DAQDevice, DataInterface, Device, Laser, Manufacturer,
-                      RelativePosition, SizeUnit)
+                      Disc, Treadmill, Tube, SizeUnit, Monitor)
 
 
 class Size2d(AindModel):
@@ -116,37 +116,6 @@ class OpenEphysAcquisitionBoard(DAQDevice):
     manufacturer: Manufacturer = Manufacturer.OEPS
 
 
-class MousePlatform(Device):
-    """Description of a mouse platform"""
-
-    surface_material: Optional[str] = Field(None, title="Surface material")
-    date_surface_replaced: Optional[datetime] = Field(None, title="Date surface replaced")
-
-
-class Disc(MousePlatform):
-    """Description of a running disc"""
-
-    platform_type: str = Field("Disc", title="Platform type", const=True)
-    radius: float = Field(..., title="Radius (cm)", units="cm", ge=0)
-    radius_unit: SizeUnit = Field(SizeUnit.CM, title="radius unit")
-
-
-class Tube(MousePlatform):
-    """Description of a tube platform"""
-
-    platform_type: str = Field("Tube", title="Platform type", const=True)
-    diameter: float = Field(..., title="Diameter", ge=0)
-    diameter_unit: SizeUnit = Field(SizeUnit.CM, title="Diameter unit")
-
-
-class Treadmill(MousePlatform):
-    """Description of treadmill platform"""
-
-    platform_type: str = Field("Treadmill", title="Platform type", const=True)
-    treadmill_width: float = Field(..., title="Width of treadmill (mm)", units="mm")
-    width_unit: SizeUnit = Field(SizeUnit.CM, title="Width unit")
-
-
 class DomeModule(AindModel):
     """Movable module that is mounted on the ephys dome insertion system"""
 
@@ -182,34 +151,6 @@ class LaserModule(DomeModule):
     lasers: List[Laser] = Field(..., title="Lasers connected to this module")
 
 
-class Monitor(Device):
-    """Visual display"""
-
-    # required fields
-    manufacturer: Literal[Manufacturer.LG.value]
-    refresh_rate: int = Field(..., title="Refresh rate (Hz)", units="Hz", ge=60)
-    width: int = Field(..., title="Width (pixels)", units="pixels")
-    height: int = Field(..., title="Height (pixels)", units="pixels")
-    size_unit: SizeUnit = Field(SizeUnit.PX, title="Size unit")
-    viewing_distance: float = Field(..., title="Viewing distance (cm)", units="cm")
-    viewing_distance_unit: SizeUnit = Field(SizeUnit.CM, title="Viewing distance unit")
-
-    # optional fields
-    contrast: Optional[int] = Field(
-        ...,
-        description="Monitor's contrast setting",
-        title="Contrast",
-        ge=0,
-        le=100,
-    )
-    brightness: Optional[int] = Field(
-        ...,
-        description="Monitor's brightness setting",
-        title="Brightness",
-        ge=0,
-        le=100,
-    )
-    position: Optional[RelativePosition] = Field(None, title="Relative position of the monitor")
 
 
 class ProbeModel(Enum):
@@ -261,7 +202,7 @@ class EphysRig(AindCoreModel):
         title="Described by",
         const=True,
     )
-    schema_version: str = Field("0.5.2", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.5.3", description="schema version", title="Version", const=True)
     rig_id: str = Field(..., description="room_stim apparatus_version", title="Rig ID")
     ephys_modules: Optional[List[EphysModule]] = Field(None, title="Ephys probes", unique_items=True)
     stick_microscopes: Optional[List[StickMicroscope]] = Field(None, title="Stick microscopes")

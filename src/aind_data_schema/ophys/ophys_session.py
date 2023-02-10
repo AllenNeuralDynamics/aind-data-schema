@@ -9,17 +9,17 @@ from typing import List, Optional
 from pydantic import Field
 
 from ..base import AindCoreModel, AindModel
-from ..device import PowerUnit, SizeUnit
+from ..device import PowerUnit, SizeUnit, FrequencyUnit
 
 
 class FiberName(Enum):
     """Fiber name"""
 
-    LASER_A = "Laser A"
-    LASER_B = "Laser B"
-    LASER_C = "Laser C"
-    LASER_D = "Laser D"
-    LASER_E = "Laser E"
+    FIBER_A = "Fiber A"
+    FIBER_B = "Fiber B"
+    FIBER_C = "Fiber C"
+    FIBER_D = "Fiber D"
+    FIBER_E = "Fiber E"
 
 
 class PatchCordName(Enum):
@@ -47,11 +47,11 @@ class Detector(AindModel):
 class LaserName(Enum):
     """Laser name"""
 
-    Laser_A = "Laser A"
-    Laser_B = "Laser B"
-    Laser_C = "Laser C"
-    Laser_D = "Laser D"
-    Laser_E = "Laser E"
+    LASER_A = "Laser A"
+    LASER_B = "Laser B"
+    LASER_C = "Laser C"
+    LASER_D = "Laser D"
+    LASER_E = "Laser E"
 
 
 class Laser(AindModel):
@@ -76,7 +76,7 @@ class OphysSession(AindCoreModel):
     """Description of an ophys session"""
 
     schema_version: str = Field(
-        "0.0.2",
+        "0.1.0",
         description="schema version",
         title="Schema Version",
         const=True,
@@ -93,8 +93,40 @@ class OphysSession(AindCoreModel):
     stimulus_protocol_id: Optional[str] = Field(None, title="Stimulus protocol ID")
     iacuc_protocol: Optional[str] = Field(None, title="IACUC protocol")
     rig_id: str = Field(..., title="Rig ID")
-    patch_cords: List[Patch] = Field(..., title="Patch cords", unique_items=True)
     lasers: List[Laser] = Field(..., title="Lasers", unique_items=True)
-    coupling_array: List[Coupling] = Field(..., title="Coupling array", unique_items=True)
     detectors: Optional[List[Detector]] = Field(None, title="Detectors", unique_items=True)
     notes: Optional[str] = None
+
+
+class FiberPhotometrySession(OphysSession):
+    """Description of a fiber photometry session"""
+
+    patch_cords: List[Patch] = Field(..., title="Patch cords", unique_items=True)
+    coupling_array: List[Coupling] = Field(..., title="Coupling array", unique_items=True)
+
+
+
+class FieldOfView(AindModel):
+    """Description of an imaging field of view"""
+
+    index: int = Field(..., title="Index")
+    imaging_depth: int = Field(..., title="Imaging depth (um)")
+    imaging_depth_unit: SizeUnit = Field(SizeUnit.UM, title="Imaging depth unit")
+    targeted_structure: str = Field(..., title="Targeted structure")
+    fov_coordinate_ml: float = Field(..., title="FOV coodinate ML")
+    fov_coordinate_ap: float = Field(..., title="FOV coordinate AP")
+    fov_coordinate_unit: SizeUnit = Field(SizeUnit.UM, title="FOV coordinate unit")
+    fov_reference: str = Field(..., title="FOV reference", description="Reference for ML/AP coordinates")
+    fov_width: int = Field(..., title="FOV width (pixels)")
+    fov_height: int = Field(..., title="FOV height (pixels)")
+    fov_size_unit: SizeUnit = Field(SizeUnit.PX, title="FOV size unit")
+    fov_scale_factor: float = Field(..., title="FOV scale factor (um/pixel)")
+    fov_scale_factor_unit: str = Field("um/pixel", title="FOV scale factor unit")
+    frame_rate: float = Field(..., title="Frame rate (Hz)")
+    frame_rate_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Frame rate unit")
+
+class TwoPhotonOphysSession(OphysSession):
+    """Description of a two photon session"""
+
+    fovs: List[FieldOfView] = Field(..., title="Fields of view", unique_items=True)
+
