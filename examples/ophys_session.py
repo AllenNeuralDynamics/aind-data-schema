@@ -7,8 +7,8 @@ t = datetime.datetime(2022, 7, 12, 7, 00, 00)
 
 s = FiberPhotometrySession(
     experimenter_full_name = "Smrithi Sunil",
-    session_start_time = t.date(),
-    session_end_time = t.date(),
+    session_start_time = t,
+    session_end_time = t,
     subject_id = "652567",
     session_type = "Parameter Testing",
     iacuc_protocol = "2115",
@@ -17,43 +17,44 @@ s = FiberPhotometrySession(
         Laser(
             name = "Laser A",
             wavelength = 405,
-            wavelength_unit = "nm",
+            wavelength_unit = "nanometer",
             excitation_power = 10,
-            excitation_power_unit = "mW"
+            excitation_power_unit = "milliwatt"
         ),
         Laser(
             name = "Laser B",
             wavelength = 473,
-            wavelength_unit = "nm",
+            wavelength_unit = "nanometer",
             excitation_power = 7,
-            excitation_power_unit = "mW"
+            excitation_power_unit = "milliwatt"
         )
     ],
     detectors = [
         Detector(
             name="Hamamatsu Camera",
-            exposure_time = 10
+            exposure_time = 10,
+            trigger_type = 'Internal'
         )
     ],
     patch_cords = [
         Patch(
             name="Patch Cord A",
             output_power = 40,
-            output_power_unit = "uW"
+            output_power_unit = "microwatt"
         ),
         Patch(
             name="Patch Cord B",
             output_power = 43,
-            output_power_unit = "uW"
+            output_power_unit = "microwatt"
         ),
     ],
     coupling_array = [
         Coupling(
-            fiber_name = "Fiber 1",
+            fiber_name = "Fiber A",
             patch_cord_name = "Patch Cord A"
         ),
         Coupling(
-            fiber_name = "Fiber 2",
+            fiber_name = "Fiber B",
             patch_cord_name = "Patch Cord B"
         )
     ], 

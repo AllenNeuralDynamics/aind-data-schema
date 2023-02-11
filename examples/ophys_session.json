@@ -1,0 +1,59 @@
+{
+   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/ophys/ophys_session.py",
+   "schema_version": "0.1.1",
+   "experimenter_full_name": "Smrithi Sunil",
+   "session_start_time": "2022-07-12T07:00:00",
+   "session_end_time": "2022-07-12T07:00:00",
+   "subject_id": 652567,
+   "session_type": "Parameter Testing",
+   "stimulus_protocol_id": null,
+   "iacuc_protocol": "2115",
+   "rig_id": "ophys_rig",
+   "lasers": [
+      {
+         "name": "Laser A",
+         "wavelength": 405,
+         "wavelength_unit": "nanometer",
+         "excitation_power": 10.0,
+         "excitation_power_unit": "milliwatt"
+      },
+      {
+         "name": "Laser B",
+         "wavelength": 473,
+         "wavelength_unit": "nanometer",
+         "excitation_power": 7.0,
+         "excitation_power_unit": "milliwatt"
+      }
+   ],
+   "detectors": [
+      {
+         "name": "Hamamatsu Camera",
+         "exposure_time": 10.0,
+         "exposure_time_unit": "ms",
+         "trigger_type": "Internal"
+      }
+   ],
+   "notes": "Internal trigger. GRAB-DA2m shows signal. Unclear about GRAB-rAC",
+   "patch_cords": [
+      {
+         "name": "Patch Cord A",
+         "output_power": 40.0,
+         "output_power_unit": "microwatt"
+      },
+      {
+         "name": "Patch Cord B",
+         "output_power": 43.0,
+         "output_power_unit": "microwatt"
+      }
+   ],
+   "coupling_array": [
+      {
+         "fiber_name": "Fiber A",
+         "patch_cord_name": "Patch Cord A"
+      },
+      {
+         "fiber_name": "Fiber B",
+         "patch_cord_name": "Patch Cord B"
+      }
+   ]
+}
