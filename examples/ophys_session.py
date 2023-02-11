@@ -1,3 +1,5 @@
+""" example fiber photometry session """
+
 import datetime
 
 from aind_data_schema.ophys.ophys_session import (FiberPhotometrySession, Laser, 
