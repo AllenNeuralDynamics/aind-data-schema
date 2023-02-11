@@ -9,7 +9,7 @@ from typing import List, Optional
 from pydantic import Field
 
 from ..base import AindCoreModel, AindModel
-from ..device import PowerUnit, SizeUnit, FrequencyUnit
+from ..device import FrequencyUnit, PowerUnit, SizeUnit
 
 
 class FiberName(Enum):
@@ -133,8 +133,8 @@ class FieldOfView(AindModel):
     frame_rate: float = Field(..., title="Frame rate (Hz)")
     frame_rate_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Frame rate unit")
 
+
 class TwoPhotonOphysSession(OphysSession):
     """Description of a two photon session"""
 
     fovs: List[FieldOfView] = Field(..., title="Fields of view", unique_items=True)
-

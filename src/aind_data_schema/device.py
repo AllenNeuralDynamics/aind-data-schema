@@ -319,6 +319,7 @@ class Laser(Device):
     calibration_data: Optional[str] = Field(None, description="Path to calibration data", title="Calibration data")
     calibration_date: Optional[datetime] = Field(None, title="Calibration date")
 
+
 class MousePlatform(Device):
     """Description of a mouse platform"""
 
@@ -348,6 +349,7 @@ class Treadmill(MousePlatform):
     platform_type: str = Field("Treadmill", title="Platform type", const=True)
     treadmill_width: float = Field(..., title="Width of treadmill (mm)", units="mm")
     width_unit: SizeUnit = Field(SizeUnit.CM, title="Width unit")
+
 
 class Monitor(Device):
     """Visual display"""

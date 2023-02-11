@@ -14,8 +14,8 @@ except ImportError:  # pragma: no cover
 from pydantic import Field, root_validator
 
 from ..base import AindCoreModel, AindModel
-from ..device import (AngleUnit, Camera, CameraAssembly, DAQDevice, DataInterface, Device, Laser, Manufacturer,
-                      Disc, Treadmill, Tube, SizeUnit, Monitor)
+from ..device import (AngleUnit, Camera, CameraAssembly, DAQDevice, DataInterface, Device, Disc, Laser, Manufacturer,
+                      Monitor, SizeUnit, Treadmill, Tube)
 
 
 class Size2d(AindModel):
@@ -149,8 +149,6 @@ class LaserModule(DomeModule):
 
     manipulator: Manipulator = Field(..., title="Manipulator")
     lasers: List[Laser] = Field(..., title="Lasers connected to this module")
-
-
 
 
 class ProbeModel(Enum):
