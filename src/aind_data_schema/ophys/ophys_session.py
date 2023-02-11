@@ -9,7 +9,7 @@ from typing import List, Optional
 from pydantic import Field
 
 from ..base import AindCoreModel, AindModel
-from ..device import PowerUnit, SizeUnit, FrequencyUnit
+from ..device import FrequencyUnit, PowerUnit, SizeUnit
 
 
 class FiberName(Enum):
@@ -37,11 +37,20 @@ class Coupling(AindModel):
     patch_cord_name: PatchCordName = Field(..., title="Patch cord name")
 
 
+class TriggerType(Enum):
+    """Types of detector triggers"""
+
+    INTERNAL = "Internal"
+    EXTERNAL = "External"
+
+
 class Detector(AindModel):
     """Description of detector"""
 
     name: str = Field(..., title="Name")
     exposure_time: float = Field(..., title="Exposure time (ms)")
+    exposure_time_unit: str = Field("ms", title="Exposure time unit")
+    trigger_type: TriggerType = Field(..., title="Trigger type")
 
 
 class LaserName(Enum):
@@ -76,7 +85,7 @@ class OphysSession(AindCoreModel):
     """Description of an ophys session"""
 
     schema_version: str = Field(
-        "0.1.0",
+        "0.1.1",
         description="schema version",
         title="Schema Version",
         const=True,
@@ -87,7 +96,7 @@ class OphysSession(AindCoreModel):
         title="Experimenter full name",
     )
     session_start_time: datetime = Field(..., title="Session start time")
-    session_end_time: datetime = Field(..., title="Session end time")
+    session_end_time: Optional[datetime] = Field(None, title="Session end time")
     subject_id: int = Field(..., title="Subject ID")
     session_type: str = Field(..., title="Session type")
     stimulus_protocol_id: Optional[str] = Field(None, title="Stimulus protocol ID")
@@ -103,7 +112,6 @@ class FiberPhotometrySession(OphysSession):
 
     patch_cords: List[Patch] = Field(..., title="Patch cords", unique_items=True)
     coupling_array: List[Coupling] = Field(..., title="Coupling array", unique_items=True)
-
 
 
 class FieldOfView(AindModel):
@@ -125,8 +133,8 @@ class FieldOfView(AindModel):
     frame_rate: float = Field(..., title="Frame rate (Hz)")
     frame_rate_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Frame rate unit")
 
+
 class TwoPhotonOphysSession(OphysSession):
     """Description of a two photon session"""
 
     fovs: List[FieldOfView] = Field(..., title="Fields of view", unique_items=True)
-

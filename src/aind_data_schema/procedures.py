@@ -83,6 +83,7 @@ class Procedure(AindModel):
 
 class CraniotomyType(Enum):
     """Name of craniotomy Type"""
+
     VISCTX = "Visual Cortex"
     WHC = "Whole hemisphere craniotomy"
     THREE_MM = "3 mm"
@@ -93,7 +94,7 @@ class CraniotomyType(Enum):
 class Craniotomy(Procedure):
     """Description of craniotomy procedure"""
 
-    craniotomy_type: CraniotomyType = Field(..., title="Craniotomy type") 
+    craniotomy_type: CraniotomyType = Field(..., title="Craniotomy type")
     craniotomy_hemisphere: Optional[Side] = Field(None, title="Craniotomy hemisphere")
     craniotomy_coordinates_ml: Optional[float] = Field(None, title="Craniotomy coordinate ML (mm)", units="mm")
     craniotomy_coordinates_ap: Optional[float] = Field(None, title="Craniotomy coordinates AP (mm)", units="mm")
@@ -180,7 +181,7 @@ class RetroOrbitalInjection(Injection):
 
 class BrainInjection(Injection):
     """Description of a brain injection procedure"""
-    
+
     injection_coordinate_ml: float = Field(..., title="Injection coordinate ML (mm)")
     injection_coordinate_ap: float = Field(..., title="Injection coordinate AP (mm)")
     injection_coordinate_depth: float = Field(..., title="Injection coodinate depth (mm)")
