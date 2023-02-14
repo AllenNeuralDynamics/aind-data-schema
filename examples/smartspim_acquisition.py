@@ -21,6 +21,15 @@ def digest_asi_line(line):
     hms = datetime.time(*hms)
     return dtime
 
+def get_session_end(asi_mdata):
+    '''Work backward from the last line until there is a timestamp'''
+    idx=-1
+    result = None
+    while result is None:
+        result = digest_asi_line(asi_mdata[idx])
+        idx -= 1
+    return result
+
 def digest_lc_pos_line(line):
     try:
         result = [int(i) for i in line.split()]
@@ -101,7 +110,7 @@ with open(asi_file, 'rb') as file:
 with open(mdata_file, 'rb') as file:
     lc_mdata = file.readlines()
 
-session_end_time = digest_asi_line(asi_mdata[-2])
+session_end_time = get_session_end(asi_mdata)
 
 channels = {}
 for idx, l in enumerate(lc_mdata[3:6]):
