@@ -34,7 +34,7 @@ def get_session_end(asi_mdata):
 def digest_lc_pos_line(line):
     try:
         result = [int(i) for i in line.split()]
-    except:
+    except ValueError:
         return None
     return result
 
