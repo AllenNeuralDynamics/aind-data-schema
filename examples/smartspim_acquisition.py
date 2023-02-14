@@ -3,7 +3,8 @@ from aind_data_schema.imaging import acquisition, tile
 from pathlib import Path
 
 def digest_asi_line(line):
-    if b'2/' not in line:
+    '''Scrape a datetime from a non-empty line, otherwise return None'''
+    if line.isspace():
         return None
     else:
         mdy, hms, ampm = line.split()[0:3]
