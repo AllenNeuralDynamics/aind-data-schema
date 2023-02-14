@@ -71,7 +71,7 @@ class ImagingTests(unittest.TestCase):
         """test the tile models"""
 
         t = Stitching(
-            name="Image tile stitching",
+            name="Image tile alignment",
             version="1.0",
             start_date_time=datetime.datetime.now(),
             end_date_time=datetime.datetime.now(),
