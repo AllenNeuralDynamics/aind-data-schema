@@ -81,7 +81,8 @@ def make_acq_tiles(lc_mdata, ):
         channel = channels[float(W)]
         t = tile.AcquisitionTile(
             channel=channel,
-            notes='Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration',
+            notes=('Example generation only -- accuracy not guaranteed. '
+            '\nLaser power is in percentage of total -- needs calibration'),
             coordinate_transformations=[
                 tform,
                 scale

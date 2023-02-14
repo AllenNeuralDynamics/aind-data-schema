@@ -35,7 +35,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 0
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -67,7 +67,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 1
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -99,7 +99,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 2
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -131,7 +131,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 0
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -163,7 +163,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 1
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -195,7 +195,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 2
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -227,7 +227,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 0
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -259,7 +259,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 1
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -291,7 +291,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 2
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -323,7 +323,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 0
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -355,7 +355,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 1
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -387,7 +387,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 2
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -419,7 +419,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 0
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -451,7 +451,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 1
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -483,7 +483,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 2
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -515,7 +515,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 0
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -547,7 +547,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 1
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -579,7 +579,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 2
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -611,7 +611,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 0
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -643,7 +643,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 1
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -675,7 +675,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 2
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -707,7 +707,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 0
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -739,7 +739,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 1
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -771,7 +771,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 2
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -803,7 +803,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 0
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -835,7 +835,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 1
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -867,7 +867,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 2
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -899,7 +899,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 0
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -931,7 +931,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 1
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -963,7 +963,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 2
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -995,7 +995,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 0
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -1027,7 +1027,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 1
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -1059,7 +1059,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 2
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -1091,7 +1091,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 0
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -1123,7 +1123,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 1
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -1155,7 +1155,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 2
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -1187,7 +1187,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 0
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -1219,7 +1219,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 1
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -1251,7 +1251,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 2
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -1283,7 +1283,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 0
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -1315,7 +1315,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 1
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -1347,7 +1347,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 2
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -1379,7 +1379,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 0
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -1411,7 +1411,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 1
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -1443,7 +1443,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 2
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -1475,7 +1475,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 0
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -1507,7 +1507,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 1
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -1539,7 +1539,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 2
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -1571,7 +1571,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 0
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -1603,7 +1603,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 1
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -1635,7 +1635,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 2
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -1667,7 +1667,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 0
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -1699,7 +1699,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 1
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -1731,7 +1731,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 2
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -1763,7 +1763,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 0
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -1795,7 +1795,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 1
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -1827,7 +1827,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 2
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -1859,7 +1859,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 0
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -1891,7 +1891,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 1
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -1923,7 +1923,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 2
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -1955,7 +1955,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 0
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -1987,7 +1987,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 1
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -2019,7 +2019,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 2
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -2051,7 +2051,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 0
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -2083,7 +2083,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 1
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -2115,7 +2115,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 2
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -2147,7 +2147,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 0
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -2179,7 +2179,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 1
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -2211,7 +2211,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 2
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -2243,7 +2243,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 0
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -2275,7 +2275,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 1
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -2307,7 +2307,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 2
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -2339,7 +2339,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 0
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -2371,7 +2371,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 1
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -2403,7 +2403,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 2
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -2435,7 +2435,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 0
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -2467,7 +2467,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 1
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -2499,7 +2499,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 2
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -2531,7 +2531,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 0
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -2563,7 +2563,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 1
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -2595,7 +2595,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 2
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -2627,7 +2627,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 0
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -2659,7 +2659,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 1
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       },
@@ -2691,7 +2691,7 @@
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 2
          },
-         "notes": "Example generation only -- accuracy not guaranteed.\nLaser power is in percentage of total -- needs calibration",
+         "notes": "Example generation only -- accuracy not guaranteed. \nLaser power is in percentage of total -- needs calibration",
          "imaging_angle": 0,
          "imaging_angle_unit": "degree"
       }
