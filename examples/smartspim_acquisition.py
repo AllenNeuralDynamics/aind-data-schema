@@ -76,7 +76,7 @@ def make_acq_tiles(lc_mdata, ):
                 tform,
                 scale
             ],
-            file_name = f'Ex_{W}_Em{filter_mapping[W]}/{X}/{X}{Y}/'
+            file_name = f'Ex_{W}_Em_{filter_mapping[W]}/{X}/{X}_{Y}/'
         )
         tiles.append(t)
     return tiles
