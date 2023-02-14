@@ -6,6 +6,7 @@ from pydantic import Field
 from pydantic.types import conlist
 
 from aind_data_schema.base import AindModel
+from aind_data_schema.device import AngleUnit, PowerUnit, SizeUnit
 
 
 class Channel(AindModel):
@@ -13,9 +14,9 @@ class Channel(AindModel):
 
     channel_name: str = Field(..., title="Channel")
     laser_wavelength: int = Field(..., title="Wavelength", ge=300, le=1000)
-    laser_wavelength_unit: str = Field("nanometer", title="Laser wavelength unit")
+    laser_wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Laser wavelength unit")
     laser_power: float = Field(..., title="Laser power", le=2000)
-    laser_power_unit: float = Field("milliwatt", title="Laser power unit")
+    laser_power_unit: PowerUnit = Field(PowerUnit.MW, title="Laser power unit")
     filter_wheel_index: int = Field(..., title="Filter wheel index")
 
 
@@ -72,4 +73,4 @@ class AcquisitionTile(Tile):
     channel: Channel = Field(..., title="Channel")
     notes: Optional[str] = Field(None, title="Notes")
     imaging_angle: int = Field(0, title="Imaging angle")
-    imaging_angle_unit: str = Field("degree", title="Imaging angle unit")
+    imaging_angle_unit: AngleUnit = Field(AngleUnit.DEG, title="Imaging angle unit")
