@@ -59,7 +59,7 @@ class Processing(AindCoreModel):
 
 
 class Stitching(DataProcess):
-    """Description of an imaging acquisition session"""
+    """Description of tile alignment coordinate transformations"""
 
     schema_version: str = Field("0.1.1", description="schema version for stitching", title="Version", const=True)
 
