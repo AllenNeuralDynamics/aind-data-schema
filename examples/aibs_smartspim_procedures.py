@@ -167,4 +167,4 @@ all_procedures = procedures.Procedures(
     ],
 )
 
-all_procedures.write_standard_file(prefix='smartspim')
+all_procedures.write_standard_file(prefix='aibs_smartspim')
