@@ -28,14 +28,15 @@ class CurrentUnit(Enum):
     UA = "microamps"
 
 
-class TissuePrepName(Enum):
-    """Tissue preparation type name"""
+class SpecimenProcedureName(Enum):
+    """Specimen procedure type name"""
 
     FIXATION = "Fixation"
     DOUBLE_DELIPIDATION = "Double delipidation"
     DCM_DELIPIDATION = "DCM delipidation"
     IMMUNOSTAINING = "Immunostaining"
     GELATION = "Gelation"
+    OTHER = "Other - see notes"
 
 
 class Reagent(AindModel):
@@ -49,7 +50,7 @@ class Reagent(AindModel):
 class SpecimenProcedure(AindModel):
     """Description of surgical or other procedure performed on a specimen"""
     specimen_id: str = Field(..., title="Specimen ID")
-    name: TissuePrepName = Field(..., title="Name")
+    procedure_type: SpecimenProcedureName = Field(..., title="Procedure type")
     start_date: date = Field(..., title="Start date")
     end_date: date = Field(..., title="End date")
     experimenter_full_name: str = Field(
@@ -127,6 +128,7 @@ class CraniotomyType(Enum):
 class Craniotomy(SubjectProcedure):
     """Description of craniotomy procedure"""
 
+    procedure_type: str = Field("Craniotomy", title="Procedure type", const=True)
     craniotomy_type: CraniotomyType = Field(..., title="Craniotomy type") 
     craniotomy_hemisphere: Optional[Side] = Field(None, title="Craniotomy hemisphere")
     craniotomy_coordinates_ml: Optional[float] = Field(None, title="Craniotomy coordinate ML (mm)", units="mm")
@@ -152,6 +154,7 @@ class HeadframeMaterial(Enum):
 class Headframe(SubjectProcedure):
     """Description of headframe procedure"""
 
+    procedure_type: str = Field("Headframe", title="Procedure type", const=True)
     headframe_type: str = Field(..., title="Headframe type")
     headframe_part_number: str = Field(..., title="Headframe part number")
     headframe_material: Optional[HeadframeMaterial] = Field(None, title="Headframe material")
@@ -207,7 +210,7 @@ class Injection(SubjectProcedure):
 class RetroOrbitalInjection(Injection):
     """Description of a retro-orbital injection procedure"""
 
-    injection_type: str = Field("Retro-orbital", title="Injection type", const=True)
+    procedure_type: str = Field("Retro-orbital injection", title="Procedure type", const=True)
     injection_volume: float = Field(..., title="Injection volume (nL)", units="nL")
     injection_volume_unit: str = Field("nL", title="Injection volume unit")
     injection_eye: Side = Field(..., title="Injection eye")
@@ -228,7 +231,7 @@ class BrainInjection(Injection):
 class NanojectInjection(BrainInjection):
     """Description of a nanoject injection procedure"""
 
-    injection_type: str = Field("Nanoject", title="Injection type", const=True)
+    procedure_type: str = Field("Nanoject injection", title="Procedure type", const=True)
     injection_volume: float = Field(..., title="Injection volume (nL)", units="nL")
     injection_volume_unit: VolumeUnit = Field(VolumeUnit.NL, title="Injection volume unit")
 
@@ -236,7 +239,7 @@ class NanojectInjection(BrainInjection):
 class IontophoresisInjection(BrainInjection):
     """Description of an iotophoresis injection procedure"""
 
-    injection_type: str = Field("Iontophoresis", title="Injection type", const=True)
+    procedure_type: str = Field("Iontophoresis injection", title="Procedure type", const=True)
     injection_current: float = Field(..., title="Injection current (μA)", units="μA")
     injection_current_unit: CurrentUnit = Field(CurrentUnit.UA, title="Injection current unit")
     alternating_current: str = Field(..., title="Alternating current")
@@ -245,7 +248,7 @@ class IontophoresisInjection(BrainInjection):
 class IntraCerebellarVentricleInjection(BrainInjection):
     """Description of an interacerebellar ventricle injection"""
 
-    injection_type: str = Field("ICV", title="Injection type", const=True)
+    procedure_type: str = Field("ICV injection", title="Procedure type", const=True)
     injection_volume: float = Field(..., title="Injection volume (nL)", units="nL")
     injection_volume_unit: VolumeUnit = Field(VolumeUnit.NL, title="Injection volume unit")
 
@@ -253,7 +256,7 @@ class IntraCerebellarVentricleInjection(BrainInjection):
 class IntraCisternalMagnaInjection(BrainInjection):
     """Description of an interacisternal magna injection"""
 
-    injection_type: str = Field("ICM", title="Injection type", const=True)
+    procedure_type: str = Field("ICM injection", title="Procedure type", const=True)
     injection_volume: float = Field(..., title="Injection volume (nL)", units="nL")
     injection_volume_unit: VolumeUnit = Field(VolumeUnit.NL, title="Injection volume unit")
 
@@ -281,6 +284,7 @@ class MagneticStrength(Enum):
 class MriScan(SubjectProcedure):
     """Description of an MRI scan"""
 
+    procedure_type: str = Field("MRI Scan", title="Procedure type")
     scan_sequence: MriScanSequence = Field(..., title="Scan sequence")
     scanner_location: Optional[ScannerLocation] = Field(None, title="Scanner location")
     magnetic_strength: Optional[MagneticStrength] = Field(None, title="Magnetic strength (T)", units="T")
@@ -291,6 +295,7 @@ class MriScan(SubjectProcedure):
 class TrainingProtocol(AindModel):
     """Description of an animal training protocol"""
 
+    procedure_type: str = Field("Training", title="Procedure type", const=True)
     training_name: str = Field(..., title="Training protocol name")
     protocol_id: str = Field(..., title="Training protocol ID")
     training_protocol_start_date: date = Field(..., title="Training protocol start date")
@@ -336,12 +341,14 @@ class OphysProbe(AindModel):
 class FiberImplant(SubjectProcedure):
     """Description of an implant procedure"""
 
+    procedure_type: str = Field("Fiber implant", title="Procedure type")
     probes: List[OphysProbe] = Field(..., title="Ophys Probes", unique_items=True)
 
 
 class WaterRestriction(AindModel):
     """Description of a water restriction procedure"""
 
+    procedure_type: str = Field("Water restriction", title="Procedure type", const=True)
     protocol_id: Optional[str] = Field(None, title="Water restriction protocol number")
     baseline_weight: float = Field(
         ...,
@@ -356,6 +363,7 @@ class WaterRestriction(AindModel):
 class Perfusion(SubjectProcedure):
     """Description of a perfusion procedure that creates a specimen"""
 
+    procedure_type: str = Field("Perfusion", title="Procedure type", const=True)
     output_specimen_ids: List[str] = Field(
         ..., 
         title="Specimen ID",
@@ -363,32 +371,34 @@ class Perfusion(SubjectProcedure):
         unique_items=True,
         )
 
+
 class Procedures(AindCoreModel):
     """Description of all procedures performed on a subject"""
 
-    schema_version: str = Field("0.5.4", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.6.0", description="schema version", title="Version", const=True)
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
         title="Subject ID",
     )
-    headframes: Optional[List[Headframe]] = Field(None, title="Headframes", unique_items=True)
-    craniotomies: Optional[List[Craniotomy]] = Field(None, title="Craniotomies", unique_items=True)
-    mri_scans: Optional[List[MriScan]] = Field(None, title="MRI scans", unique_items=True)
-    injections: Optional[
+    subject_procedures = Optional[
         List[
             Union[
+                Headframe,
+                Craniotomy,
+                MriScan,
                 RetroOrbitalInjection,
                 NanojectInjection,
                 IontophoresisInjection,
                 IntraCerebellarVentricleInjection,
                 IntraCisternalMagnaInjection,
+                FiberImplant,
+                WaterRestriction,
+                TrainingProtocol,
+                Perfusion,
+                SubjectProcedure
             ]
         ]
-    ] = Field(None, title="Injections", unique_items=True)
-    fiber_implants: Optional[List[FiberImplant]] = Field(None, title="Fiber implants", unique_items=True)
-    water_restrictions: Optional[List[WaterRestriction]] = Field(None, title="Water restriction")
-    training_protocols: Optional[List[TrainingProtocol]] = Field(None, title="Training protocols", unique_items=True)
-    tissue_preparations: Optional[List[TissuePrep]] = Field(None, title="Tissue preparations", unique_items=True)
-    other_procedures: Optional[List[SubjectProcedure]] = Field(None, title="Other procedures", unique_items=True)
+    ] = Field(None, title="Subject Procedures", unique_items=True)
+    specimen_procedures = Optional[List[SpecimenProcedure]] = Field(None, title="Specimen Procedures", unique_items=True)
     notes: Optional[str] = Field(None, title="Notes")
