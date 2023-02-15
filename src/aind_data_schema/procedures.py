@@ -36,14 +36,17 @@ class TissuePrepName(Enum):
     DCM_DELIPIDATION = "DCM delipidation"
     IMMUNOSTAINING = "Immunostaining"
     GELATION = "Gelation"
+    ACTIVE_DELIPIDATION = "Active delipidation"
+    SOAK = "Soak"
+    EMBEDDING = "Embedding"
 
 
 class Reagent(AindModel):
     """Description of reagents used in procedure"""
     name: str = Field(..., title="Name")
-    RRID: Optional[str] = Field(None, "Research Resource ID")
+    RRID: Optional[str] = Field(None, title="Research Resource ID")
     lot_number: str = Field(..., title="Lot number")
-    expiration_date: Optional[date] = Field(None, "Lot expiration date")
+    expiration_date: Optional[date] = Field(None, title="Lot expiration date")
 
 
 class SpecimenProcedure(AindModel):
@@ -58,7 +61,7 @@ class SpecimenProcedure(AindModel):
         title="Experimenter full name",
     )
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
-    reagents: Optional[List[Reagent]] = Field(None, "Reagents")
+    reagents: Optional[List[Reagent]] = Field(None, title="Reagents")
     notes: Optional[str] = Field(None, title="Notes")
 
 
@@ -389,6 +392,6 @@ class Procedures(AindCoreModel):
     fiber_implants: Optional[List[FiberImplant]] = Field(None, title="Fiber implants", unique_items=True)
     water_restrictions: Optional[List[WaterRestriction]] = Field(None, title="Water restriction")
     training_protocols: Optional[List[TrainingProtocol]] = Field(None, title="Training protocols", unique_items=True)
-    tissue_preparations: Optional[List[TissuePrep]] = Field(None, title="Tissue preparations", unique_items=True)
+    specimen_procedures: Optional[List[SpecimenProcedure]] = Field(None, title="Specimen procedures", unique_items=True)
     other_procedures: Optional[List[SubjectProcedure]] = Field(None, title="Other procedures", unique_items=True)
     notes: Optional[str] = Field(None, title="Notes")
