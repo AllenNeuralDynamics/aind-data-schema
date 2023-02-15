@@ -31,11 +31,15 @@ class CurrentUnit(Enum):
 class SpecimenProcedureName(Enum):
     """Specimen procedure type name"""
 
-    FIXATION = "Fixation"
-    DOUBLE_DELIPIDATION = "Double delipidation"
+    
+    ACTIVE_DELIPIDATION = "Active delipidation"
     DCM_DELIPIDATION = "DCM delipidation"
-    IMMUNOSTAINING = "Immunostaining"
+    DOUBLE_DELIPIDATION = "Double delipidation"
+    EMBEDDING = "Embedding"
+    FIXATION = "Fixation"
     GELATION = "Gelation"
+    IMMUNOSTAINING = "Immunostaining"
+    SOAK = "Soak"
     OTHER = "Other - see notes"
 
 
