@@ -1,7 +1,7 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/processing.py",
    "schema_version": "0.1.0",
-   "pipeline_version": "0.1.0",
+   "pipeline_version": "0.1.1",
    "pipeline_url": "https://url/for/pipeline",
    "data_processes": [
       {
@@ -12,6 +12,7 @@
          "input_location": "/path/to/inputs",
          "output_location": "/path/to/outputs",
          "code_url": "https://github.com/abcd",
+         "code_version": "0.1",
          "parameters": {
             "size": 7
          },
@@ -25,6 +26,7 @@
          "input_location": "/path/to/inputs",
          "output_location": "/path/to/outputs",
          "code_url": "https://github.com/asdf",
+         "code_version": "0.1",
          "parameters": {
             "u": 7,
             "z": true
@@ -39,6 +41,7 @@
          "input_location": "/path/to/input",
          "output_location": "/path/to/output",
          "code_url": "https://github.com/fdsa",
+         "code_version": "0.3",
          "parameters": {
             "a": 2,
             "b": -2
