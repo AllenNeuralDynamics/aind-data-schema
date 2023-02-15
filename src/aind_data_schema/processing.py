@@ -19,6 +19,8 @@ class ProcessName(Enum):
     EPHYS_POSTPROCESSING = "Ephys postprocessing"
     IMAGE_IMPORTING = "Image importing"
     IMAGE_ATLAS_ALIGNMENT = "Image atlas alignment"
+    IMAGE_BACKGROUND_SUBTRACTION = "Image background subtraction"
+    IMAGE_CELL_SEGMENTATION = "Image cell segmentation"
     IMAGE_DESTRIPING = "Image destriping"
     IMAGE_THRESHOLDING = "Image thresholding"
     IMAGE_TILE_ALIGNMENT = "Image tile alignment"
