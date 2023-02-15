@@ -25,6 +25,8 @@ class ProcessName(Enum):
     IMAGE_TILE_PROJECTION = "Image tile projection"
     IMAGE_TILE_STITCHING = "Image tile stitching"
     FILE_CONVERSION = "File format conversion"
+    BACKGROUND_SUBTRACTION = "Background subtraction"
+    CELL_SEGMENTATION = "Cell segmentation"
     OTHER = "Other"
     SPIKE_SORTING = "Spike sorting"
 
