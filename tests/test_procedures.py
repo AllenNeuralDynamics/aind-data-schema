@@ -27,7 +27,7 @@ class ProceduresTests(unittest.TestCase):
 
         p = Procedures(
             subject_id="12345",
-            injections=[
+            subject_procedures=[
                 RetroOrbitalInjection(
                     start_date=now,
                     end_date=now,
@@ -66,8 +66,6 @@ class ProceduresTests(unittest.TestCase):
                     recovery_time=10,
                     targeted_structure="VISp6",
                 ),
-            ],
-            fiber_implants=[
                 FiberImplant(
                     start_date=now,
                     end_date=now,
