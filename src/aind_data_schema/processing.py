@@ -15,6 +15,7 @@ from aind_data_schema.imaging.tile import Tile
 class ProcessName(Enum):
     """Data processing type labels"""
 
+    EPHYS_CURATION = "Ephys curation"
     EPHYS_PREPROCESSING = "Ephys preprocessing"
     EPHYS_POSTPROCESSING = "Ephys postprocessing"
     IMAGE_IMPORTING = "Image importing"
@@ -47,7 +48,7 @@ class DataProcess(AindModel):
 
 
 class Processing(AindCoreModel):
-    """Desription of all processes run on data"""
+    """Description of all processes run on data"""
 
     schema_version: str = Field(
         "0.1.0",
