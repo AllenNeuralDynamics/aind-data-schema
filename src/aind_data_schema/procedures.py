@@ -408,7 +408,5 @@ class Procedures(AindCoreModel):
             ]
         ]
     ] = Field(None, title="Subject Procedures", unique_items=True)
-    specimen_procedures: Optional[List[SpecimenProcedure]] = Field(
-        None, title="Specimen Procedures", unique_items=True
-    )
+    specimen_procedures: Optional[List[SpecimenProcedure]] = Field(None, title="Specimen Procedures", unique_items=True)
     notes: Optional[str] = Field(None, title="Notes")

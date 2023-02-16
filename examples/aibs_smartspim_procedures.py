@@ -1,3 +1,5 @@
+""" example for specimen procedures """
+
 import datetime
 
 from aind_data_schema import procedures
@@ -6,7 +8,7 @@ experimenter = "Erica Peterson"
 # subject and specimen id can be the same?
 specimen_id = "651286"
 
-## Reagents
+# Reagents
 shield_buffer = procedures.Reagent(
     name="SHIELD Buffer",
     lot_number="1234",
@@ -38,7 +40,7 @@ water = procedures.Reagent(name="Deionized water", lot_number="DDI/Filtered in h
 
 agarose = procedures.Reagent(name="Agarose", lot_number="1234")
 
-## Procedures
+# Procedures
 
 perfusion = procedures.Perfusion(
     output_specimen_ids=[
