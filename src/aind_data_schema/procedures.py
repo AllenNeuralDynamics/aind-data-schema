@@ -31,7 +31,6 @@ class CurrentUnit(Enum):
 class SpecimenProcedureName(Enum):
     """Specimen procedure type name"""
 
-    
     ACTIVE_DELIPIDATION = "Active delipidation"
     DCM_DELIPIDATION = "DCM delipidation"
     DOUBLE_DELIPIDATION = "Double delipidation"
@@ -41,10 +40,11 @@ class SpecimenProcedureName(Enum):
     IMMUNOSTAINING = "Immunostaining"
     SOAK = "Soak"
     OTHER = "Other - see notes"
-    
+
 
 class Reagent(AindModel):
     """Description of reagents used in procedure"""
+
     name: str = Field(..., title="Name")
     RRID: Optional[str] = Field(None, title="Research Resource ID")
     lot_number: str = Field(..., title="Lot number")
@@ -53,6 +53,7 @@ class Reagent(AindModel):
 
 class SpecimenProcedure(AindModel):
     """Description of surgical or other procedure performed on a specimen"""
+
     specimen_id: str = Field(..., title="Specimen ID")
     procedure_type: SpecimenProcedureName = Field(..., title="Procedure type")
     start_date: date = Field(..., title="Start date")
@@ -122,6 +123,7 @@ class SubjectProcedure(AindModel):
 
 class CraniotomyType(Enum):
     """Name of craniotomy Type"""
+
     VISCTX = "Visual Cortex"
     WHC = "Whole hemisphere craniotomy"
     THREE_MM = "3 mm"
@@ -133,7 +135,7 @@ class Craniotomy(SubjectProcedure):
     """Description of craniotomy procedure"""
 
     procedure_type: str = Field("Craniotomy", title="Procedure type", const=True)
-    craniotomy_type: CraniotomyType = Field(..., title="Craniotomy type") 
+    craniotomy_type: CraniotomyType = Field(..., title="Craniotomy type")
     craniotomy_hemisphere: Optional[Side] = Field(None, title="Craniotomy hemisphere")
     craniotomy_coordinates_ml: Optional[float] = Field(None, title="Craniotomy coordinate ML (mm)", units="mm")
     craniotomy_coordinates_ap: Optional[float] = Field(None, title="Craniotomy coordinates AP (mm)", units="mm")
@@ -369,11 +371,11 @@ class Perfusion(SubjectProcedure):
 
     procedure_type: str = Field("Perfusion", title="Procedure type", const=True)
     output_specimen_ids: List[str] = Field(
-        ..., 
+        ...,
         title="Specimen ID",
         description="IDs of specimens resulting from this procedure.",
         unique_items=True,
-        )
+    )
 
 
 class Procedures(AindCoreModel):
@@ -400,9 +402,11 @@ class Procedures(AindCoreModel):
                 WaterRestriction,
                 TrainingProtocol,
                 Perfusion,
-                SubjectProcedure
+                SubjectProcedure,
             ]
         ]
     ] = Field(None, title="Subject Procedures", unique_items=True)
-    specimen_procedures = Optional[List[SpecimenProcedure]] = Field(None, title="Specimen Procedures", unique_items=True)
+    specimen_procedures = Optional[List[SpecimenProcedure]] = Field(
+        None, title="Specimen Procedures", unique_items=True
+    )
     notes: Optional[str] = Field(None, title="Notes")
