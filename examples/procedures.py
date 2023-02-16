@@ -43,6 +43,7 @@ p = Procedures(
             injection_coordinate_depth=-3.3,
             injection_angle=10,
             injection_volume=200,
+            targeted_structure="VISp",
         ),
     ],
 )

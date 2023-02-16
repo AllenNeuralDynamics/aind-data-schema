@@ -225,13 +225,15 @@ class RetroOrbitalInjection(Injection):
 class BrainInjection(Injection):
     """Description of a brain injection procedure"""
 
-    injection_hemisphere: Optional[Side] = Field(None, title="Injection hemisphere")
     injection_coordinate_ml: float = Field(..., title="Injection coordinate ML (mm)")
     injection_coordinate_ap: float = Field(..., title="Injection coordinate AP (mm)")
     injection_coordinate_depth: float = Field(..., title="Injection coodinate depth (mm)")
     injection_coordinate_unit: SizeUnit = Field(SizeUnit.MM, title="Injection coordinate unit")
     injection_angle: float = Field(..., title="Injection angle (deg)", units="deg")
     injection_angle_unit: AngleUnit = Field(AngleUnit.DEG, title="Injection angle unit")
+    targeted_structure: str = Field(..., title="Injection targeted brain structure")
+
+    injection_hemisphere: Optional[Side] = Field(None, title="Injection hemisphere")
 
 
 class NanojectInjection(BrainInjection):
