@@ -404,10 +404,5 @@ class Procedures(AindCoreModel):
             ]
         ]
     ] = Field(None, title="Subject Procedures", unique_items=True)
-    fiber_implants: Optional[List[FiberImplant]] = Field(None, title="Fiber implants", unique_items=True)
-    water_restrictions: Optional[List[WaterRestriction]] = Field(None, title="Water restriction")
-    training_protocols: Optional[List[TrainingProtocol]] = Field(None, title="Training protocols", unique_items=True)
-    tissue_preparations: Optional[List[TissuePrep]] = Field(None, title="Tissue preparations", unique_items=True)
-    other_procedures: Optional[List[SubjectProcedure]] = Field(None, title="Other procedures", unique_items=True)
     specimen_procedures = Optional[List[SpecimenProcedure]] = Field(None, title="Specimen Procedures", unique_items=True)
     notes: Optional[str] = Field(None, title="Notes")
