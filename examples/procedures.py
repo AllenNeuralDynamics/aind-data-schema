@@ -8,7 +8,7 @@ t = datetime.datetime(2022, 7, 12, 7, 00, 00)
 
 p = Procedures(
     subject_id="625100",
-    craniotomies=[
+    subject_procedures=[
         Craniotomy(
             start_date=t.date(),
             end_date=t.date(),
@@ -21,9 +21,7 @@ p = Procedures(
             anaesthesia=Anaesthetic(type="Isoflurane", duration=1, level=1.5),
             craniotomy_size=5,
             workstation_id="SWS 3",
-        )
-    ],
-    injections=[
+        ),
         NanojectInjection(
             start_date=t.date(),
             end_date=t.date(),

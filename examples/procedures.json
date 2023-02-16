@@ -2,8 +2,7 @@
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/procedures.py",
    "schema_version": "0.6.0",
    "subject_id": "625100",
-   "headframes": null,
-   "craniotomies": [
+   "subject_procedures": [
       {
          "start_date": "2022-07-12",
          "end_date": "2022-07-12",
@@ -19,6 +18,7 @@
             "level": 1.5
          },
          "notes": null,
+         "procedure_type": "Craniotomy",
          "craniotomy_type": "Visual Cortex",
          "craniotomy_hemisphere": null,
          "craniotomy_coordinates_ml": null,
@@ -31,10 +31,7 @@
          "protective_material": null,
          "workstation_id": "SWS 3",
          "recovery_time": null
-      }
-   ],
-   "mri_scans": null,
-   "injections": [
+      },
       {
          "start_date": "2022-07-12",
          "end_date": "2022-07-12",
@@ -61,7 +58,8 @@
                "titer_unit": "gc/mL",
                "prep_lot_number": null,
                "prep_date": null,
-               "prep_type": null
+               "prep_type": null,
+               "prep_protocol": null
             }
          ],
          "recovery_time": "00:00:00",
@@ -76,15 +74,11 @@
          "injection_angle_unit": "degree",
          "targeted_structure": "VISp",
          "injection_hemisphere": "Left",
-         "injection_type": "Nanoject",
+         "procedure_type": "Nanoject injection",
          "injection_volume": 200.0,
          "injection_volume_unit": "nanoliter"
       }
    ],
-   "fiber_implants": null,
-   "water_restrictions": null,
-   "training_protocols": null,
-   "tissue_preparations": null,
-   "other_procedures": null,
+   "specimen_procedures": null,
    "notes": null
 }
