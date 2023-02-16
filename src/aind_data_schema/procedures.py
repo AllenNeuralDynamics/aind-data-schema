@@ -387,7 +387,7 @@ class Procedures(AindCoreModel):
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
         title="Subject ID",
     )
-    subject_procedures = Optional[
+    subject_procedures: Optional[
         List[
             Union[
                 Headframe,
@@ -406,7 +406,7 @@ class Procedures(AindCoreModel):
             ]
         ]
     ] = Field(None, title="Subject Procedures", unique_items=True)
-    specimen_procedures = Optional[List[SpecimenProcedure]] = Field(
+    specimen_procedures: Optional[List[SpecimenProcedure]] = Field(
         None, title="Specimen Procedures", unique_items=True
     )
     notes: Optional[str] = Field(None, title="Notes")
