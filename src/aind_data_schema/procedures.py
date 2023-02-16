@@ -403,7 +403,7 @@ class Procedures(AindCoreModel):
                 SubjectProcedure
             ]
         ]
-    ] = Field(None, title="Injections", unique_items=True)
+    ] = Field(None, title="Subject Procedures", unique_items=True)
     fiber_implants: Optional[List[FiberImplant]] = Field(None, title="Fiber implants", unique_items=True)
     water_restrictions: Optional[List[WaterRestriction]] = Field(None, title="Water restriction")
     training_protocols: Optional[List[TrainingProtocol]] = Field(None, title="Training protocols", unique_items=True)
