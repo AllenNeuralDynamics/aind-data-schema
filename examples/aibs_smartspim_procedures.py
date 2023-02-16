@@ -53,7 +53,7 @@ perfusion = procedures.Perfusion(
 # perfused brain goes into SHIELD OFF solution
 shield_off_procedure = procedures.SpecimenProcedure(
     specimen_id=specimen_id,
-    name=procedures.TissuePrepName("Fixation"),
+    procedure_type="Fixation",
     start_date=datetime.date(2023, 1, 13),
     end_date=datetime.date(2023, 1, 17),
     experimenter_full_name=experimenter,
@@ -64,7 +64,7 @@ shield_off_procedure = procedures.SpecimenProcedure(
 # specimen gets transfered to SHIELD ON and baked
 shield_on_procedure = procedures.SpecimenProcedure(
     specimen_id=specimen_id,
-    name=procedures.TissuePrepName("Fixation"),
+    procedure_type="Fixation",
     start_date=datetime.date(2023, 1, 17),
     end_date=datetime.date(2023, 1, 18),
     experimenter_full_name=experimenter,
@@ -78,7 +78,7 @@ shield_on_procedure = procedures.SpecimenProcedure(
 # specimen gets transferred to delipidation buffer
 delipidation_prep_procedure = procedures.SpecimenProcedure(
     specimen_id=specimen_id,
-    name=procedures.TissuePrepName("Soak"),
+    procedure_type="Soak",
     start_date=datetime.date(2023, 1, 18),
     end_date=datetime.date(2023, 1, 19),
     experimenter_full_name=experimenter,
@@ -91,7 +91,7 @@ delipidation_prep_procedure = procedures.SpecimenProcedure(
 # specimen goes into active delipidation box
 active_delipidation_procedure = procedures.SpecimenProcedure(
     specimen_id=specimen_id,
-    name=procedures.TissuePrepName("Active delipidation"),
+    procedure_type="Active delipidation",
     start_date=datetime.date(2023, 1, 19),
     end_date=datetime.date(2023, 1, 20),
     experimenter_full_name=experimenter,
@@ -102,7 +102,7 @@ active_delipidation_procedure = procedures.SpecimenProcedure(
 # First index matching is to 50% EasyIndex
 index1 = procedures.SpecimenProcedure(
     specimen_id=specimen_id,
-    name=procedures.TissuePrepName("Soak"),
+    procedure_type="Soak",
     start_date=datetime.date(2023, 1, 30),
     end_date=datetime.date(2023, 1, 31),
     experimenter_full_name=experimenter,
@@ -116,7 +116,7 @@ index1 = procedures.SpecimenProcedure(
 # Now to 100% EasyIndex
 index2 = procedures.SpecimenProcedure(
     specimen_id=specimen_id,
-    name=procedures.TissuePrepName("Soak"),
+    procedure_type="Soak",
     start_date=datetime.date(2023, 1, 31),
     end_date=datetime.date(2023, 2, 2),
     experimenter_full_name=experimenter,
@@ -129,7 +129,7 @@ index2 = procedures.SpecimenProcedure(
 # Specimen embedded into 2% agarose, prepared with EasyIndex
 embedding = procedures.SpecimenProcedure(
     specimen_id=specimen_id,
-    name=procedures.TissuePrepName("Embedding"),
+    procedure_type="Embedding",
     start_date=datetime.date(2023, 1, 31),
     end_date=datetime.date(2023, 2, 2),
     experimenter_full_name=experimenter,

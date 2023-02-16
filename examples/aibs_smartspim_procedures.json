@@ -1,18 +1,12 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/procedures.py",
-   "schema_version": "0.5.4",
+   "schema_version": "0.6.0",
    "subject_id": "651286",
-   "headframes": null,
-   "craniotomies": null,
-   "mri_scans": null,
-   "injections": null,
-   "fiber_implants": null,
-   "water_restrictions": null,
-   "training_protocols": null,
+   "subject_procedures": null,
    "specimen_procedures": [
       {
          "specimen_id": "651286",
-         "name": "Fixation",
+         "procedure_type": "Fixation",
          "start_date": "2023-01-13",
          "end_date": "2023-01-17",
          "experimenter_full_name": "Erica Peterson",
@@ -35,7 +29,7 @@
       },
       {
          "specimen_id": "651286",
-         "name": "Fixation",
+         "procedure_type": "Fixation",
          "start_date": "2023-01-17",
          "end_date": "2023-01-18",
          "experimenter_full_name": "Erica Peterson",
@@ -52,7 +46,7 @@
       },
       {
          "specimen_id": "651286",
-         "name": "Soak",
+         "procedure_type": "Soak",
          "start_date": "2023-01-18",
          "end_date": "2023-01-19",
          "experimenter_full_name": "Erica Peterson",
@@ -69,7 +63,7 @@
       },
       {
          "specimen_id": "651286",
-         "name": "Active delipidation",
+         "procedure_type": "Active delipidation",
          "start_date": "2023-01-19",
          "end_date": "2023-01-20",
          "experimenter_full_name": "Erica Peterson",
@@ -92,7 +86,7 @@
       },
       {
          "specimen_id": "651286",
-         "name": "Soak",
+         "procedure_type": "Soak",
          "start_date": "2023-01-30",
          "end_date": "2023-01-31",
          "experimenter_full_name": "Erica Peterson",
@@ -115,7 +109,7 @@
       },
       {
          "specimen_id": "651286",
-         "name": "Soak",
+         "procedure_type": "Soak",
          "start_date": "2023-01-31",
          "end_date": "2023-02-02",
          "experimenter_full_name": "Erica Peterson",
@@ -132,7 +126,7 @@
       },
       {
          "specimen_id": "651286",
-         "name": "Embedding",
+         "procedure_type": "Embedding",
          "start_date": "2023-01-31",
          "end_date": "2023-02-02",
          "experimenter_full_name": "Erica Peterson",
@@ -154,6 +148,5 @@
          "notes": null
       }
    ],
-   "other_procedures": null,
    "notes": null
 }
