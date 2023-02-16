@@ -14,13 +14,13 @@
          "reagents": [
             {
                "name": "SHIELD Buffer",
-               "RRID": null,
+               "rrid": null,
                "lot_number": "1234",
                "expiration_date": null
             },
             {
                "name": "SHIELD Epoxy",
-               "RRID": null,
+               "rrid": null,
                "lot_number": "1234",
                "expiration_date": null
             }
@@ -37,7 +37,7 @@
          "reagents": [
             {
                "name": "SHIELD On",
-               "RRID": null,
+               "rrid": null,
                "lot_number": "1234",
                "expiration_date": null
             }
@@ -54,7 +54,7 @@
          "reagents": [
             {
                "name": "Delipidation Buffer",
-               "RRID": null,
+               "rrid": null,
                "lot_number": "1234",
                "expiration_date": null
             }
@@ -71,13 +71,13 @@
          "reagents": [
             {
                "name": "Delipidation Buffer",
-               "RRID": null,
+               "rrid": null,
                "lot_number": "1234",
                "expiration_date": null
             },
             {
                "name": "Conductivity Buffer",
-               "RRID": null,
+               "rrid": null,
                "lot_number": "1234",
                "expiration_date": null
             }
@@ -94,13 +94,13 @@
          "reagents": [
             {
                "name": "Easy Index",
-               "RRID": null,
+               "rrid": null,
                "lot_number": "1234",
                "expiration_date": null
             },
             {
                "name": "Deionized water",
-               "RRID": null,
+               "rrid": null,
                "lot_number": "DDI/Filtered in house",
                "expiration_date": null
             }
@@ -117,7 +117,7 @@
          "reagents": [
             {
                "name": "Easy Index",
-               "RRID": null,
+               "rrid": null,
                "lot_number": "1234",
                "expiration_date": null
             }
@@ -134,13 +134,13 @@
          "reagents": [
             {
                "name": "Easy Index",
-               "RRID": null,
+               "rrid": null,
                "lot_number": "1234",
                "expiration_date": null
             },
             {
                "name": "Agarose",
-               "RRID": null,
+               "rrid": null,
                "lot_number": "1234",
                "expiration_date": null
             }
