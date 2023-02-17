@@ -131,7 +131,7 @@ class CraniotomyType(Enum):
     OTHER = "Other"
 
 
-class CoordinateReferenceType(Enum):
+class CoordinateReferenceLocation(Enum):
     """Name of reference point for Coordinates"""
 
     BREGMA = "Bregma"
@@ -147,8 +147,8 @@ class Craniotomy(SubjectProcedure):
     craniotomy_coordinates_ml: Optional[float] = Field(None, title="Craniotomy coordinate ML (mm)", units="mm")
     craniotomy_coordinates_ap: Optional[float] = Field(None, title="Craniotomy coordinates AP (mm)", units="mm")
     craniotomy_coordinates_unit: SizeUnit = Field(SizeUnit.MM, title="Craniotomy coordinates unit")
-    craniotomy_coordinates_reference: Optional[CoordinateReferenceType] = Field(None, title="Craniotomy coordinate reference")
-    bregma_to_lambda: Optional[float] = Field(None, title="Bregma to lambda (mm)", description="Distance between bregman and lambda", units="mm")
+    craniotomy_coordinates_reference: Optional[CoordinateReferenceLocation] = Field(None, title="Craniotomy coordinate reference")
+    bregma_to_lambda_distance: Optional[float] = Field(None, title="Bregma to lambda (mm)", description="Distance between bregman and lambda", units="mm")
     bregma_to_lambda_unit: SizeUnit = Field(SizeUnit.MM, title="Bregma to lambda unit")
     craniotomy_size: float = Field(..., title="Craniotomy size (mm)", units="mm")
     craniotomy_size_unit: SizeUnit = Field(SizeUnit.MM, title="Craniotomy size unit")
@@ -239,8 +239,8 @@ class BrainInjection(Injection):
     injection_coordinate_ap: float = Field(..., title="Injection coordinate AP (mm)")
     injection_coordinate_depth: float = Field(..., title="Injection coodinate depth (mm)")
     injection_coordinate_unit: SizeUnit = Field(SizeUnit.MM, title="Injection coordinate unit")
-    injection_coordinate_reference: Optional[CoordinateReferenceType] = Field(None, title="Injection coordinate reference")
-    bregma_to_lambda: Optional[float] = Field(None, title="Bregma to lambda (mm)", description="Distance between bregman and lambda", units="mm")
+    injection_coordinate_reference: Optional[CoordinateReferenceLocation] = Field(None, title="Injection coordinate reference")
+    bregma_to_lambda_distance: Optional[float] = Field(None, title="Bregma to lambda (mm)", description="Distance between bregman and lambda", units="mm")
     bregma_to_lambda_unit: SizeUnit = Field(SizeUnit.MM, title="Bregma to lambda unit")
     injection_angle: float = Field(..., title="Injection angle (deg)", units="deg")
     injection_angle_unit: AngleUnit = Field(AngleUnit.DEG, title="Injection angle unit")
@@ -354,8 +354,8 @@ class OphysProbe(AindModel):
     stereotactic_coordinate_ml: float = Field(..., title="Stereotactic coodinate M/L (mm)", units="mm")
     stereotactic_coordinate_dv: float = Field(..., title="Stereotactic coordinate D/V (mm)", units="mm")
     stereotactic_coordinate_unit: SizeUnit = Field(SizeUnit.MM, title="Sterotactic coordinate unit")
-    stereotactic_coordinate_reference: Optional[CoordinateReferenceType] = Field(None, title="Stereotactic coordinate reference")
-    bregma_to_lambda: Optional[float] = Field(None, title="Bregma to lambda (mm)", description="Distance between bregman and lambda", units="mm")
+    stereotactic_coordinate_reference: Optional[CoordinateReferenceLocation] = Field(None, title="Stereotactic coordinate reference")
+    bregma_to_lambda_distance: Optional[float] = Field(None, title="Bregma to lambda (mm)", description="Distance between bregman and lambda", units="mm")
     bregma_to_lambda_unit: SizeUnit = Field(SizeUnit.MM, title="Bregma to lambda unit")
     angle: float = Field(..., title="Angle (deg)", units="deg")
     angle_unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
