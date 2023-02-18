@@ -20,6 +20,7 @@ p = Procedures(
             animal_weight_post=22.3,
             anaesthesia=Anaesthetic(type="Isoflurane", duration=1, level=1.5),
             bregma_to_lambda_distance=4.1,
+            craniotomy_coordinates_reference="Lambda",
             craniotomy_size=5,
             workstation_id="SWS 3",
         ),
