@@ -61,6 +61,8 @@ class ProceduresTests(unittest.TestCase):
                     injection_coordinate_ml=1,
                     injection_coordinate_ap=1,
                     injection_coordinate_depth=1,
+                    injection_coordinate_reference="Bregma",
+                    bregma_to_lambda_distance=4.1,
                     injection_angle=1,
                     injection_volume=1,
                     recovery_time=10,
@@ -82,6 +84,8 @@ class ProceduresTests(unittest.TestCase):
                             stereotactic_coordinate_ap=1,
                             stereotactic_coordinate_dv=2,
                             stereotactic_coordinate_ml=3,
+                            stereotactic_coordinate_reference="Bregma",
+                            bregma_to_lambda_distance=4.1,
                             angle=10,
                         )
                     ],
