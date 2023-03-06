@@ -28,6 +28,7 @@ class PatchCordName(Enum):
     PATCH_CORD_A = "Patch Cord A"
     PATCH_CORD_B = "Patch Cord B"
     PATCH_CORD_C = "Patch Cord C"
+    PATCH_CORD_D = "Patch Cord D"
 
 
 class Coupling(AindModel):
@@ -85,7 +86,7 @@ class OphysSession(AindCoreModel):
     """Description of an ophys session"""
 
     schema_version: str = Field(
-        "0.1.1",
+        "0.1.2",
         description="schema version",
         title="Schema Version",
         const=True,
