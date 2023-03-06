@@ -6,8 +6,9 @@ from typing import Optional
 
 from pydantic import Field
 
-from ..base import AindModel
+from ..base import AindCoreModel
 from ..procedures import WeightUnit, Anaesthetic
+from ..device import Device
 
 
 class MriScanSequence(Enum):
@@ -30,15 +31,17 @@ class MagneticStrength(Enum):
     MRI_14T = 14
 
 
-class MriScan(AindModel):
+class Scanner(Device):
+    """Description of a MRI Scanner"""
+
+    scanner_location: ScannerLocation = Field(..., title="Scanner location")
+    magnetic_strength: MagneticStrength = Field(..., title="Magnetic strength (T)", units="T")
+    magnetic_strength_unit: str = Field("T", title="Magnetic strength unit")
+
+
+class MriSession(AindCoreModel):
     """Description of an MRI scan"""
 
-    describedBy: str = Field(
-        "https://github.com/AllenNeuralDynamics/data_schema/blob/main/schemas/ephys/mri_session.py",
-        description="The URL reference to the schema.",
-        title="Described by",
-        const=True,
-    )
     schema_version: str = Field("0.0.1", description="schema version", title="Version", const=True)
     subject_id: str = Field(
         ...,
@@ -69,8 +72,5 @@ class MriScan(AindModel):
     weight_unit: WeightUnit = Field(WeightUnit.G, title="Weight unit")
     anaesthesia: Optional[Anaesthetic] = Field(None, title="Anaesthesia")
     scan_sequence: MriScanSequence = Field(..., title="Scan sequence")
-    scanner_location: ScannerLocation = Field(..., title="Scanner location")
-    magnetic_strength: MagneticStrength = Field(..., title="Magnetic strength (T)", units="T")
-    magnetic_strength_unit: str = Field("T", title="Magnetic strength unit")
     resolution: float = Field(..., title="Resolution")
     notes: Optional[str] = Field(None, title="Notes")
