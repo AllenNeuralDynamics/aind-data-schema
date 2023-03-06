@@ -57,7 +57,7 @@ class HomeCageEnrichment(Enum):
     PLASTIC_TUBE = "Plastic tube"
     PLASTIC_SHELTER = "Plastic shelter"
     OTHER = "Other"
-    
+
 
 class WellnessReport(AindModel):
     """Wellness report on animal health"""
@@ -82,14 +82,14 @@ class Housing(AindModel):
     cohoused_subjects: Optional[List[str]] = Field(
         None, 
         title="Co-housed subjects",
-        description="List of other subjects housed in same cage",
+        description="List of IDs of other subjects housed in same cage",
         )
 
 
 class Subject(AindCoreModel):
     """Description of a subject of data collection"""
 
-    schema_version: str = Field("0.2.3", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.3.0", description="schema version", title="Version", const=True)
     species: Species = Field(..., title="Species")
     subject_id: str = Field(
         ...,

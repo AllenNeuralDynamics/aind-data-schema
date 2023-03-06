@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/subject.py",
-   "schema_version": "0.2.3",
+   "schema_version": "0.3.0",
    "species": "Mus musculus",
    "subject_id": "12345",
    "sex": "Male",
