@@ -132,7 +132,7 @@ class ExampleTest(unittest.TestCase):
             scan_sequence="RARE",
             scanner_location="UW SLU",
             magnetic_strength=7,
-            magnetic_strenght_unit="T",
+            magnetic_strength_unit="T",
             resolution=12.0,
         )
 
