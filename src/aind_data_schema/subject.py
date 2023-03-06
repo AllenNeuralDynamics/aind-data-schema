@@ -52,13 +52,12 @@ class LightCycle(AindModel):
 class HomeCageEnrichment(Enum):
     """Materials provided in animal home cage"""
 
-    NONE = "none"
-    RUNNING_WHEEL = "running wheel"
-    SOCIAL_HOUSING = "social housing"
-    PLASTIC_TUBE = "plastic tube"
-    PLASTIC_SHELTER = "plastic shelter"
-    OTHER = "other"
-
+    NONE = "None"
+    RUNNING_WHEEL = "Running wheel"
+    PLASTIC_TUBE = "Plastic tube"
+    PLASTIC_SHELTER = "Plastic shelter"
+    OTHER = "Other"
+    
 
 class WellnessReport(AindModel):
     """Wellness report on animal health"""
@@ -74,10 +73,23 @@ class MgiAlleleId(AindModel):
     mgi_id: str = Field(..., title="MGI ID")
 
 
+class Housing(AindModel):
+    """Description of subject housing"""
+    cage_id: Optional[str] = Field(None, title="Cage ID")
+    room_id: Optional[str] = Field(None, title="Room ID")
+    light_cycle: Optional[LightCycle] = Field(None, title="Light cycle")
+    home_cage_enrichment: Optional[List[HomeCageEnrichment]] = Field(None, title="Home cage enrichment")
+    cohoused_subjects: Optional[List[str]] = Field(
+        None, 
+        title="Co-housed subjects",
+        description="List of other subjects housed in same cage",
+        )
+
+
 class Subject(AindCoreModel):
     """Description of a subject of data collection"""
 
-    schema_version: str = Field("0.2.2", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.2.3", description="schema version", title="Version", const=True)
     species: Species = Field(..., title="Species")
     subject_id: str = Field(
         ...,
@@ -113,7 +125,6 @@ class Subject(AindCoreModel):
     maternal_genotype: Optional[str] = Field(None, title="Maternal genotype")
     paternal_id: Optional[str] = Field(None, title="Paternal specimen ID")
     paternal_genotype: Optional[str] = Field(None, title="Paternal genotype")
-    light_cycle: Optional[LightCycle] = Field(None, title="Light cycle")
-    home_cage_enrichment: Optional[HomeCageEnrichment] = Field(None, title="Home cage enrichment")
     wellness_reports: Optional[List[WellnessReport]] = Field(None, title="Wellness Report")
+    housing: Optional[Housing] = Field(None, title="Housing")
     notes: Optional[str] = Field(None, title="Notes")

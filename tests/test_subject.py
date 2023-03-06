@@ -28,7 +28,10 @@ class SubjectTests(unittest.TestCase):
             sex="Male",
             date_of_birth=now.date(),
             genotype="wt",
-            light_cycle=lc,
+            housing=[
+                light_cycle=lc,
+                cage_id="543"
+            ],
             mgi_allele_ids=[MgiAlleleId(mgi_id="12345", allele_name="adsf")],
         )
 
