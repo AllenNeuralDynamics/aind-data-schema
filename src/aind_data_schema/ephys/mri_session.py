@@ -6,8 +6,8 @@ from typing import Optional
 
 from pydantic import Field
 
-from .base import AindModel
-from .procedures import WeightUnit, Anaesthetic
+from ..base import AindModel
+from ..procedures import WeightUnit, Anaesthetic
 
 
 class MriScanSequence(Enum):
