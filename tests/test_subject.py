@@ -5,8 +5,8 @@ import unittest
 
 import pydantic
 
-from aind_data_schema import LightCycle, Subject
-from aind_data_schema.subject import MgiAlleleId, Housing
+from aind_data_schema import Subject
+from aind_data_schema.subject import MgiAlleleId, Housing, LightCycle
 
 
 class SubjectTests(unittest.TestCase):
