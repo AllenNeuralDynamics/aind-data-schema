@@ -130,7 +130,7 @@ class ExampleTest(unittest.TestCase):
             end_date=datetime.datetime.now(),
             protocol_id="doi_path",
             scan_sequence="RARE",
-            scanner_location="UW_SLU",
+            scanner_location="UW SLU",
             magnetic_strength=7,
             magnetic_strenght_unit="T",
             resolution=12.0,
