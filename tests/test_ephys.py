@@ -134,7 +134,7 @@ class ExampleTest(unittest.TestCase):
                 scanner_location="UW SLU",
                 magnetic_strength=7,
                 magnetic_strength_unit="T",
-            )
+            ),
             resolution=12.0,
         )
 
