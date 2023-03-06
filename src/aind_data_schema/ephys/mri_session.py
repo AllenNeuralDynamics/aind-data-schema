@@ -72,5 +72,6 @@ class MriSession(AindCoreModel):
     weight_unit: WeightUnit = Field(WeightUnit.G, title="Weight unit")
     anaesthesia: Optional[Anaesthetic] = Field(None, title="Anaesthesia")
     scan_sequence: MriScanSequence = Field(..., title="Scan sequence")
+    mri_scanner: Scanner = Field(..., title="MRI scanner")
     resolution: float = Field(..., title="Resolution")
     notes: Optional[str] = Field(None, title="Notes")

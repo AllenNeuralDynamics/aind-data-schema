@@ -123,16 +123,18 @@ class ExampleTest(unittest.TestCase):
 
         assert rig is not None
 
-        mri = ms.MriScan(
+        mri = ms.MriSession(
             experimenter_full_name="frank",
             subject_id=1234,
             start_date=datetime.datetime.now(),
             end_date=datetime.datetime.now(),
             protocol_id="doi_path",
             scan_sequence="RARE",
-            scanner_location="UW SLU",
-            magnetic_strength=7,
-            magnetic_strength_unit="T",
+            mri_scanner=ms.Scanner(
+                scanner_location="UW SLU",
+                magnetic_strength=7,
+                magnetic_strength_unit="T",
+            )
             resolution=12.0,
         )
 
