@@ -126,8 +126,8 @@ class ExampleTest(unittest.TestCase):
         mri = ms.MriScan(
             experimenter_full_name="frank",
             subject_id=1234,
-            start_date=datetime.date.now(),
-            end_date=datetime.date.now(),
+            start_date=datetime.datetime.now(),
+            end_date=datetime.datetime.now(),
             protocol_id="doi_path",
             scan_sequence="RARE",
             scanner_location="UW_SLU",
