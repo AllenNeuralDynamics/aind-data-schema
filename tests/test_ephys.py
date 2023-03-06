@@ -8,6 +8,7 @@ import pydantic
 from aind_data_schema.device import DAQChannel, Lens
 from aind_data_schema.ephys import ephys_rig as er
 from aind_data_schema.ephys import ephys_session as es
+from aind_data_schema.ephys import mri_session as ms
 
 
 class ExampleTest(unittest.TestCase):
@@ -121,6 +122,21 @@ class ExampleTest(unittest.TestCase):
         )
 
         assert rig is not None
+
+        mri = ms.MriScan(
+            experimenter_full_name="frank",
+            subject_id=1234,
+            start_date=datetime.date.now(),
+            end_date=datetime.date.now(),
+            protocol_id="doi_path",
+            scan_sequence="RARE",
+            scanner_location="UW_SLU",
+            magnetic_strength=7,
+            magnetic_strenght_unit="T",
+            resolution=12.0,
+        )
+
+        assert mri is not None
 
         sess = es.EphysSession(
             experimenter_full_name="alice",
