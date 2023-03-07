@@ -5,8 +5,8 @@ import unittest
 
 import pydantic
 
-from aind_data_schema import LightCycle, Subject
-from aind_data_schema.subject import MgiAlleleId
+from aind_data_schema import Subject
+from aind_data_schema.subject import MgiAlleleId, Housing, LightCycle
 
 
 class SubjectTests(unittest.TestCase):
@@ -20,15 +20,19 @@ class SubjectTests(unittest.TestCase):
 
         now = datetime.datetime.now()
 
-        lc = LightCycle(lights_on_time=now.time(), lights_off_time=now.time())
-
         s = Subject(
             species="Mus musculus",
             subject_id="1234",
             sex="Male",
             date_of_birth=now.date(),
             genotype="wt",
-            light_cycle=lc,
+            housing=Housing(
+                light_cycle=LightCycle(
+                    lights_on_time=now.time(), 
+                    lights_off_time=now.time(),
+                    ),
+                cage_id="543",
+            ),
             mgi_allele_ids=[MgiAlleleId(mgi_id="12345", allele_name="adsf")],
         )
 
