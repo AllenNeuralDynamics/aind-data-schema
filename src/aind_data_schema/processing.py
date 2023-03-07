@@ -18,6 +18,7 @@ class ProcessName(Enum):
     EPHYS_CURATION = "Ephys curation"
     EPHYS_PREPROCESSING = "Ephys preprocessing"
     EPHYS_POSTPROCESSING = "Ephys postprocessing"
+    EPHYS_VISUALIZATION = "Ephys visualization"
     IMAGE_IMPORTING = "Image importing"
     IMAGE_ATLAS_ALIGNMENT = "Image atlas alignment"
     IMAGE_BACKGROUND_SUBTRACTION = "Image background subtraction"
