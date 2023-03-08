@@ -282,37 +282,6 @@ class IntraCisternalMagnaInjection(BrainInjection):
     injection_volume_unit: VolumeUnit = Field(VolumeUnit.NL, title="Injection volume unit")
 
 
-class MriScanSequence(Enum):
-    """MRI scan sequence"""
-
-    RARE = "RARE"
-
-
-class ScannerLocation(Enum):
-    """location of scanner"""
-
-    UW_SLU = "UW SLU"
-    FRED_HUTCH = "Fred Hutch"
-
-
-class MagneticStrength(Enum):
-    """Strength of magnet"""
-
-    MRI_7T = 7
-    MRI_14T = 14
-
-
-class MriScan(SubjectProcedure):
-    """Description of an MRI scan"""
-
-    procedure_type: str = Field("MRI Scan", title="Procedure type")
-    scan_sequence: MriScanSequence = Field(..., title="Scan sequence")
-    scanner_location: Optional[ScannerLocation] = Field(None, title="Scanner location")
-    magnetic_strength: Optional[MagneticStrength] = Field(None, title="Magnetic strength (T)", units="T")
-    magnetic_strength_unit: str = Field("T", title="Magnetic strength unit")
-    resolution: float = Field(..., title="Resolution")
-
-
 class TrainingProtocol(AindModel):
     """Description of an animal training protocol"""
 
@@ -411,7 +380,6 @@ class Procedures(AindCoreModel):
             Union[
                 Headframe,
                 Craniotomy,
-                MriScan,
                 RetroOrbitalInjection,
                 NanojectInjection,
                 IontophoresisInjection,

@@ -9,6 +9,7 @@ from aind_data_schema.imaging import acquisition as acq
 from aind_data_schema.imaging import instrument as inst
 from aind_data_schema.imaging import tile
 from aind_data_schema.processing import Stitching
+from aind_data_schema.imaging import mri_session as ms
 
 
 class ImagingTests(unittest.TestCase):
@@ -59,6 +60,41 @@ class ImagingTests(unittest.TestCase):
         )
 
         assert i is not None
+
+        mri = ms.MriSession(
+            experimenter_full_name="frank",
+            subject_id=1234,
+            session_start_time=datetime.datetime.now(),
+            session_end_time=datetime.datetime.now(),
+            protocol_id="doi_path",
+            scan_sequence="RARE",
+            mri_scanner=ms.Scanner(
+                scanner_location="UW SLU",
+                magnetic_strength=7,
+                magnetic_strength_unit="T",
+            ),
+            axes=[
+                acq.Axis(
+                    name="X",
+                    dimension=2,
+                    direction="Left_to_right",
+                ),
+                acq.Axis(
+                    name="Y",
+                    dimension=1,
+                    direction="Anterior_to_posterior",
+                ),
+                acq.Axis(
+                    name="Z",
+                    dimension=0,
+                    direction="Inferior_to_superior",
+                ),
+            ],
+            voxel_sizes=tile.Scale3dTransform(scale=[0.01, 0.01, 0.01]),
+        )
+
+        assert mri is not None
+
 
     def test_axis(self):
         """test the axis class"""
