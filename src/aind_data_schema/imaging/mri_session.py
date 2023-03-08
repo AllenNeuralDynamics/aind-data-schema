@@ -1,6 +1,6 @@
 """ schema for MRI Scan """
 
-from datetime import date
+from datetime import datetime
 from enum import Enum
 from typing import Optional
 
@@ -9,6 +9,8 @@ from pydantic import Field
 from ..base import AindCoreModel
 from ..procedures import WeightUnit, Anaesthetic
 from ..device import Device
+from aind_data_schema.imaging.acquisition import Axis
+from aind_data_schema.imaging.tile import Scale3dTransform
 
 
 class MriScanSequence(Enum):
@@ -48,8 +50,8 @@ class MriSession(AindCoreModel):
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
         title="Subject ID",
     )
-    start_date: date = Field(..., title="Start date")
-    end_date: date = Field(..., title="End date")
+    session_start_time: datetime = Field(..., title="Session start time")
+    session_end_time: Optional[datetime] = Field(None, title="Session end time")
     experimenter_full_name: str = Field(
         ...,
         description="First and last name of the experimenter.",
@@ -73,5 +75,9 @@ class MriSession(AindCoreModel):
     anaesthesia: Optional[Anaesthetic] = Field(None, title="Anaesthesia")
     scan_sequence: MriScanSequence = Field(..., title="Scan sequence")
     mri_scanner: Scanner = Field(..., title="MRI scanner")
-    resolution: float = Field(..., title="Resolution")
+    axes: List[Axis] = Field(..., title="Imaging axes")
+    voxel_sizes: Scale3dTransform = Field(
+        ..., 
+        title="Voxel sizes",
+        description="Size of voxels in order as specified in axes")
     notes: Optional[str] = Field(None, title="Notes")
