@@ -244,7 +244,7 @@ class BrainInjection(Injection):
     bregma_to_lambda_unit: SizeUnit = Field(SizeUnit.MM, title="Bregma to lambda unit")
     injection_angle: float = Field(..., title="Injection angle (deg)", units="deg")
     injection_angle_unit: AngleUnit = Field(AngleUnit.DEG, title="Injection angle unit")
-    targeted_structure: str = Field(..., title="Injection targeted brain structure")
+    targeted_structure: Optional[str] = Field(None, title="Injection targeted brain structure")
 
     injection_hemisphere: Optional[Side] = Field(None, title="Injection hemisphere")
 
@@ -369,7 +369,7 @@ class Perfusion(SubjectProcedure):
 class Procedures(AindCoreModel):
     """Description of all procedures performed on a subject"""
 
-    schema_version: str = Field("0.6.2", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.6.3", description="schema version", title="Version", const=True)
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
