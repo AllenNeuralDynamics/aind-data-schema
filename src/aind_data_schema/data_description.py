@@ -103,7 +103,7 @@ class Funding(AindModel):
 class DataDescription(AindCoreModel):
     """Description of a logical collection of data files"""
 
-    schema_version: str = Field("0.3.0", title="Schema Version", const=True)
+    schema_version: str = Field("0.3.1", title="Schema Version", const=True)
     license: str = Field("CC-BY-4.0", title="License", const=True)
 
     creation_time: time = Field(
@@ -126,6 +126,11 @@ class DataDescription(AindCoreModel):
         description="An established society, corporation, foundation or other organization that collected this data",
         title="Institution",
     )
+    ror_id: Optional[str] = Field(
+        None, 
+        title="ROR ID",
+        description="Institution ID from the Research Organization Registry",)
+
     funding_source: List[Funding] = Field(
         ...,
         title="Funding source",
@@ -167,6 +172,12 @@ class DataDescription(AindCoreModel):
         ...,
         regex=DataRegex.NO_UNDERSCORES.value,
         description="Unique identifier for the subject of data acquisition",
+        title="Subject ID"
+    )
+    data_summary: Optional[str] = Field(
+        None,
+        title="Data summary",
+        description="Semantic summary of experimental goal"
     )
 
     def __init__(self, label=None, **kwargs):

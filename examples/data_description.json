@@ -1,11 +1,12 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/data_description.py",
-   "schema_version": "0.3.0",
+   "schema_version": "0.3.1",
    "license": "CC-BY-4.0",
    "creation_time": "16:30:01",
    "creation_date": "2022-02-21",
    "name": "ecephys_12345_2022-02-21_16-30-01",
    "institution": "AIND",
+   "ror_id": null,
    "funding_source": [
       {
          "funder": "AIND",
@@ -19,5 +20,6 @@
    "project_id": null,
    "restrictions": null,
    "modality": "ecephys",
-   "subject_id": "12345"
+   "subject_id": "12345",
+   "data_summary": null
 }
