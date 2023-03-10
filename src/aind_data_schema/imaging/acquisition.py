@@ -6,6 +6,11 @@ from datetime import datetime
 from enum import Enum
 from typing import List, Optional
 
+try:
+    from typing import Literal
+except ImportError:  # pragma: no cover
+    from typing_extensions import Literal
+
 from pydantic import Field
 
 from aind_data_schema.base import AindCoreModel, AindModel
