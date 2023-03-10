@@ -76,11 +76,26 @@ class Immersion(AindModel):
     medium: str = Field(..., title="Immersion medium")
     refractive_index: float = Field(..., title="Index of refraction")
 
+class ProcessName(Enum):
+    """Data processing type labels"""
+
+    FILE_CONVERSION = "File format conversion"
+    IMAGE_IMPORTING = "Image importing"
+    IMAGE_ATLAS_ALIGNMENT = "Image atlas alignment"
+    IMAGE_BACKGROUND_SUBTRACTION = "Image background subtraction"
+    IMAGE_CELL_SEGMENTATION = "Image cell segmentation"
+    IMAGE_DESTRIPING = "Image destriping"
+    IMAGE_THRESHOLDING = "Image thresholding"
+    IMAGE_TILE_ALIGNMENT = "Image tile alignment"
+    IMAGE_TILE_FUSING = "Image tile fusing"
+    IMAGE_TILE_PROJECTION = "Image tile projection"
+    OTHER = "Other"
+
 
 class Acquisition(AindCoreModel):
     """Description of an imaging acquisition session"""
 
-    schema_version: str = Field("0.4.2", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.4.3", description="schema version", title="Version", const=True)
     experimenter_full_name: str = Field(
         ...,
         description="First and last name of the experimenter.",
@@ -91,6 +106,7 @@ class Acquisition(AindCoreModel):
     instrument_id: str = Field(..., title="Instrument ID")
     session_start_time: datetime = Field(..., title="Session start time")
     session_end_time: datetime = Field(..., title="Session end time")
+    session_type: Optional[str] = Field(None, title="Session type")
     tiles: List[AcquisitionTile] = Field(..., title="Acquisition tiles")
     axes: List[Axis] = Field(..., title="Acquisition axes")
     chamber_immersion: Immersion = Field(..., title="Acquisition chamber immersion data")
@@ -98,3 +114,8 @@ class Acquisition(AindCoreModel):
     active_objectives: Optional[List[str]] = Field(None, title="List of objectives used in this acquisition.")
     local_storage_directory: Optional[str] = Field(None, title="Local storage directory")
     external_storage_directory: Optional[str] = Field(None, title="External storage directory")
+    processing_steps: Optional[List[ProcessName]] = Field(
+        None, 
+        title="Processing steps",
+        description="List of downstream processing steps planned for this data",
+        )
