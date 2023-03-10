@@ -172,7 +172,7 @@ class DataDescription(AindCoreModel):
         ...,
         regex=DataRegex.NO_UNDERSCORES.value,
         description="Unique identifier for the subject of data acquisition",
-        title-="Subject ID"
+        title="Subject ID"
     )
     data_summary: Optional[str] = Field(
         None,
