@@ -1,12 +1,13 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/imaging/acquisition.py",
-   "schema_version": "0.4.2",
+   "schema_version": "0.4.3",
    "experimenter_full_name": "###",
    "specimen_id": "###",
    "subject_id": "###",
    "instrument_id": "###",
    "session_start_time": "2022-11-22T08:43:00",
    "session_end_time": "2022-11-22T08:43:00",
+   "session_type": null,
    "tiles": [
       {
          "coordinate_transformations": [
@@ -100,5 +101,6 @@
    "sample_immersion": null,
    "active_objectives": null,
    "local_storage_directory": "D:",
-   "external_storage_directory": "Z:"
+   "external_storage_directory": "Z:",
+   "processing_steps": null
 }

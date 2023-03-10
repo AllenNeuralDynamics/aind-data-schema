@@ -6,11 +6,17 @@ from datetime import datetime
 from enum import Enum
 from typing import List, Optional
 
+try:
+    from typing import Literal
+except ImportError:  # pragma: no cover
+    from typing_extensions import Literal
+
 from pydantic import Field
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.device import SizeUnit
 from aind_data_schema.imaging.tile import AcquisitionTile
+from aind_data_schema.processing import ProcessName
 
 
 class AxisName(Enum):
@@ -76,11 +82,28 @@ class Immersion(AindModel):
     medium: str = Field(..., title="Immersion medium")
     refractive_index: float = Field(..., title="Index of refraction")
 
+class ProcessingSteps(AindModel):
+    """Description of downstream processing steps"""
+
+    channel_name: str = Field(..., title="Channel name")
+    process_name: List[
+        Literal[
+            ProcessName.IMAGE_IMPORTING.value,
+            ProcessName.IMAGE_BACKGROUND_SUBTRACTION.value, 
+            ProcessName.IMAGE_CELL_SEGMENTATION.value, 
+            ProcessName.IMAGE_DESTRIPING.value,  
+            ProcessName.IMAGE_THRESHOLDING.value, 
+            ProcessName.IMAGE_TILE_ALIGNMENT.value, 
+            ProcessName.IMAGE_TILE_FUSING.value,  
+            ProcessName.IMAGE_TILE_PROJECTION.value,  
+            ProcessName.FILE_CONVERSION.value, 
+        ] 
+    ]
 
 class Acquisition(AindCoreModel):
     """Description of an imaging acquisition session"""
 
-    schema_version: str = Field("0.4.2", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.4.3", description="schema version", title="Version", const=True)
     experimenter_full_name: str = Field(
         ...,
         description="First and last name of the experimenter.",
@@ -91,6 +114,7 @@ class Acquisition(AindCoreModel):
     instrument_id: str = Field(..., title="Instrument ID")
     session_start_time: datetime = Field(..., title="Session start time")
     session_end_time: datetime = Field(..., title="Session end time")
+    session_type: Optional[str] = Field(None, title="Session type")
     tiles: List[AcquisitionTile] = Field(..., title="Acquisition tiles")
     axes: List[Axis] = Field(..., title="Acquisition axes")
     chamber_immersion: Immersion = Field(..., title="Acquisition chamber immersion data")
@@ -98,3 +122,8 @@ class Acquisition(AindCoreModel):
     active_objectives: Optional[List[str]] = Field(None, title="List of objectives used in this acquisition.")
     local_storage_directory: Optional[str] = Field(None, title="Local storage directory")
     external_storage_directory: Optional[str] = Field(None, title="External storage directory")
+    processing_steps: Optional[List[ProcessingSteps]] = Field(
+        None, 
+        title="Processing steps",
+        description="List of downstream processing steps planned for each channel",
+        )
