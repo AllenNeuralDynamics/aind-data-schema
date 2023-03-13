@@ -2,12 +2,13 @@
 
 from datetime import date, time
 from enum import Enum
-from typing import List, Optional, Union
+from typing import List, Optional, Union, Boolean
 
 from pydantic import Field
 
 from .base import AindCoreModel, AindModel
 from .device import AngleUnit, SizeUnit
+from .subject import Species
 
 
 class WeightUnit(Enum):
@@ -37,6 +38,7 @@ class SpecimenProcedureName(Enum):
     EMBEDDING = "Embedding"
     FIXATION = "Fixation"
     GELATION = "Gelation"
+    IMMUNOHISTOCHEMISTRY = "ImmunoHistoChemistry"
     IMMUNOSTAINING = "Immunostaining"
     SOAK = "Soak"
     OTHER = "Other - see notes"
@@ -66,6 +68,49 @@ class SpecimenProcedure(AindModel):
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     reagents: Optional[List[Reagent]] = Field(None, title="Reagents")
     notes: Optional[str] = Field(None, title="Notes")
+
+
+class StainType(Enum):
+    """Stain Types for IHC probes"""
+    RNA = "RNA"
+
+
+class Fluorophore(Enum):
+    """Fluorophores used in IHC"""
+
+    ALEXA_546 = "Alexa Fluor 546"
+    ALEXA_594 = "Alexa Fluor 594"
+    ALEXA_647 = "Alexa Fluor 647"
+
+
+
+class OligoProbes(Reagent):
+    """Description of oligo probes used for IHC"""
+
+    channel_index: int = Field(..., title="Channel index")
+    species: Species = Field(..., title="Species")
+    fluorophore: Fluorophore = Field(..., title="Fluorophore")
+    excitation_wavelength: int = Field(..., title="Excitation wavelength")
+    excitation_wavelength_unit = SizeUnit = Field(SizeUnit.NM, title="Excitation wavelength unit")
+    stain_type: StainType = Field(..., title="Stain type")
+    readout: Optional[str] = Field(None, title="Readout")
+
+
+class OligoRound(SpecimenProcedure):
+    """Description of an IHC round""" 
+
+    round_index: int = Field(..., title="Round index")
+    oligo_probes: List[OligoProbes] = Field(..., title="Oligo probes")
+    intrument_id: str = Field(..., title="Instrument ID")
+
+
+class ImmunoHistoChemistry(AindModel):
+    """Description of IHC for mFISH"""
+
+    codebook_name: str = Field(..., title="Codebook name")
+    number_of_rounds: int = Field(..., title="Number of round")
+    oligo_pools: List[OligoRound] = Field(..., title="Oligo pools")
+    strip_qc_compatible: Boolean = Field(..., title="Strip QC compatible")
 
 
 class Side(Enum):
