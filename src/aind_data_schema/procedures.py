@@ -33,14 +33,18 @@ class SpecimenProcedureName(Enum):
     """Specimen procedure type name"""
 
     ACTIVE_DELIPIDATION = "Active delipidation"
+    CLEARING = "Clearing"
     DCM_DELIPIDATION = "DCM delipidation"
     DOUBLE_DELIPIDATION = "Double delipidation"
     EMBEDDING = "Embedding"
     FIXATION = "Fixation"
+    FIXATION_PERMEABILIZATION = "Fixation and permeabilization"
     GELATION = "Gelation"
-    IMMUNOHISTOCHEMISTRY = "ImmunoHistoChemistry"
+    HYBRIDIZATION_AMPLIFICATION = "Hybridication and amplification"
     IMMUNOSTAINING = "Immunostaining"
     SOAK = "Soak"
+    STORAGE = "Storage"
+    STRIPPING = "Stripping"
     OTHER = "Other - see notes"
 
 
@@ -71,21 +75,21 @@ class SpecimenProcedure(AindModel):
 
 
 class StainType(Enum):
-    """Stain Types for IHC probes"""
+    """Stain Types for HCR probes"""
+
     RNA = "RNA"
 
 
 class Fluorophore(Enum):
-    """Fluorophores used in IHC"""
+    """Fluorophores used in HCR"""
 
     ALEXA_546 = "Alexa Fluor 546"
     ALEXA_594 = "Alexa Fluor 594"
     ALEXA_647 = "Alexa Fluor 647"
 
 
-
 class OligoProbes(Reagent):
-    """Description of oligo probes used for IHC"""
+    """Description of oligo probes used for HCR"""
 
     channel_index: int = Field(..., title="Channel index")
     species: Species = Field(..., title="Species")
@@ -101,11 +105,13 @@ class OligoRound(SpecimenProcedure):
 
     round_index: int = Field(..., title="Round index")
     oligo_probes: List[OligoProbes] = Field(..., title="Oligo probes")
+    probe_concentration: float = Field(..., title="Probe concentration")
+    probe_concentration_unit: str = Field(..., title="Probe concentration unit")
     intrument_id: str = Field(..., title="Instrument ID")
 
 
-class ImmunoHistoChemistry(AindModel):
-    """Description of IHC for mFISH"""
+class HybridizationChainReaction(AindModel):
+    """Description of HCR for mFISH"""
 
     codebook_name: str = Field(..., title="Codebook name")
     number_of_rounds: int = Field(..., title="Number of round")
@@ -414,7 +420,7 @@ class Perfusion(SubjectProcedure):
 class Procedures(AindCoreModel):
     """Description of all procedures performed on a subject"""
 
-    schema_version: str = Field("0.6.3", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.6.4", description="schema version", title="Version", const=True)
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
@@ -438,5 +444,10 @@ class Procedures(AindCoreModel):
             ]
         ]
     ] = Field(None, title="Subject Procedures", unique_items=True)
-    specimen_procedures: Optional[List[SpecimenProcedure]] = Field(None, title="Specimen Procedures", unique_items=True)
+    specimen_procedures: Optional[
+        List[
+            HybridizationChainReaction,
+            SpecimenProcedure,
+            ]
+        ] = Field(None, title="Specimen Procedures", unique_items=True)
     notes: Optional[str] = Field(None, title="Notes")
