@@ -44,11 +44,11 @@ class DataLevel(Enum):
 class Institution(Enum):
     """Institution name"""
 
-    AIND = "AIND"
     AIBS = "AIBS"
+    AIND = "AIND"
+    CU = "Columbia University"
     HUST = "HUST"
     NYU = "NYU"
-    CU = "Columbia University"
 
 
 class Group(Enum):
@@ -58,7 +58,7 @@ class Group(Enum):
     EPHYS = "ephys"
     MSMA = "MSMA"
     OPHYS = "ophys"
-    
+
 
 class Modality(Enum):
     """Data collection modality name"""
@@ -130,9 +130,10 @@ class DataDescription(AindCoreModel):
         title="Institution",
     )
     ror_id: Optional[str] = Field(
-        None, 
+        None,
         title="ROR ID",
-        description="Institution ID from the Research Organization Registry",)
+        description="Institution ID from the Research Organization Registry",
+    )
 
     funding_source: List[Funding] = Field(
         ...,
@@ -175,13 +176,9 @@ class DataDescription(AindCoreModel):
         ...,
         regex=DataRegex.NO_UNDERSCORES.value,
         description="Unique identifier for the subject of data acquisition",
-        title="Subject ID"
+        title="Subject ID",
     )
-    data_summary: Optional[str] = Field(
-        None,
-        title="Data summary",
-        description="Semantic summary of experimental goal"
-    )
+    data_summary: Optional[str] = Field(None, title="Data summary", description="Semantic summary of experimental goal")
 
     def __init__(self, label=None, **kwargs):
         """Construct a generic DataDescription"""
