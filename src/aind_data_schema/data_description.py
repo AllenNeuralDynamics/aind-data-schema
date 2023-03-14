@@ -54,21 +54,24 @@ class Institution(Enum):
 class Group(Enum):
     """Data collection group name"""
 
-    EPHYS = "ephys"
-    OPHYS = "ophys"
-    MSMA = "MSMA"
     BEHAVIOR = "behavior"
-
+    EPHYS = "ephys"
+    MSMA = "MSMA"
+    OPHYS = "ophys"
+    
 
 class Modality(Enum):
     """Data collection modality name"""
 
     ECEPHYS = "ecephys"
     EXASPIM = "ExASPIM"
-    SMARTSPIM = "SmartSPIM"
-    MESOSPIM = "mesoSPIM"
-    OPHYS = "ophys"
+    FIP = "FIP"
     FMOST = "fMOST"
+    HSFP = "HSFP"
+    MESOSPIM = "mesoSPIM"
+    MRI = "MRI"
+    OPHYS = "ophys"
+    SMARTSPIM = "SmartSPIM"
 
 
 def datetime_to_name_string(d, t):
