@@ -75,15 +75,16 @@ class MgiAlleleId(AindModel):
 
 class Housing(AindModel):
     """Description of subject housing"""
+
     cage_id: Optional[str] = Field(None, title="Cage ID")
     room_id: Optional[str] = Field(None, title="Room ID")
     light_cycle: Optional[LightCycle] = Field(None, title="Light cycle")
     home_cage_enrichment: Optional[List[HomeCageEnrichment]] = Field(None, title="Home cage enrichment")
     cohoused_subjects: Optional[List[str]] = Field(
-        None, 
+        None,
         title="Co-housed subjects",
         description="List of IDs of other subjects housed in same cage",
-        )
+    )
 
 
 class Subject(AindCoreModel):
