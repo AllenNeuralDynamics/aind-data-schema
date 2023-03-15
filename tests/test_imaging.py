@@ -7,9 +7,9 @@ from pydantic import ValidationError
 
 from aind_data_schema.imaging import acquisition as acq
 from aind_data_schema.imaging import instrument as inst
+from aind_data_schema.imaging import mri_session as ms
 from aind_data_schema.imaging import tile
 from aind_data_schema.processing import Stitching
-from aind_data_schema.imaging import mri_session as ms
 
 
 class ImagingTests(unittest.TestCase):
@@ -94,7 +94,6 @@ class ImagingTests(unittest.TestCase):
         )
 
         assert mri is not None
-
 
     def test_axis(self):
         """test the axis class"""

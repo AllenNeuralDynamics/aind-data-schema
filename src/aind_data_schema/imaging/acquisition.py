@@ -82,6 +82,7 @@ class Immersion(AindModel):
     medium: str = Field(..., title="Immersion medium")
     refractive_index: float = Field(..., title="Index of refraction")
 
+
 class ProcessingSteps(AindModel):
     """Description of downstream processing steps"""
 
@@ -89,16 +90,17 @@ class ProcessingSteps(AindModel):
     process_name: List[
         Literal[
             ProcessName.IMAGE_IMPORTING.value,
-            ProcessName.IMAGE_BACKGROUND_SUBTRACTION.value, 
-            ProcessName.IMAGE_CELL_SEGMENTATION.value, 
-            ProcessName.IMAGE_DESTRIPING.value,  
-            ProcessName.IMAGE_THRESHOLDING.value, 
-            ProcessName.IMAGE_TILE_ALIGNMENT.value, 
-            ProcessName.IMAGE_TILE_FUSING.value,  
-            ProcessName.IMAGE_TILE_PROJECTION.value,  
-            ProcessName.FILE_CONVERSION.value, 
-        ] 
+            ProcessName.IMAGE_BACKGROUND_SUBTRACTION.value,
+            ProcessName.IMAGE_CELL_SEGMENTATION.value,
+            ProcessName.IMAGE_DESTRIPING.value,
+            ProcessName.IMAGE_THRESHOLDING.value,
+            ProcessName.IMAGE_TILE_ALIGNMENT.value,
+            ProcessName.IMAGE_TILE_FUSING.value,
+            ProcessName.IMAGE_TILE_PROJECTION.value,
+            ProcessName.FILE_CONVERSION.value,
+        ]
     ]
+
 
 class Acquisition(AindCoreModel):
     """Description of an imaging acquisition session"""
@@ -123,7 +125,7 @@ class Acquisition(AindCoreModel):
     local_storage_directory: Optional[str] = Field(None, title="Local storage directory")
     external_storage_directory: Optional[str] = Field(None, title="External storage directory")
     processing_steps: Optional[List[ProcessingSteps]] = Field(
-        None, 
+        None,
         title="Processing steps",
         description="List of downstream processing steps planned for each channel",
-        )
+    )
