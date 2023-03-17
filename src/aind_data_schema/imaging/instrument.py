@@ -12,18 +12,6 @@ from ..base import AindCoreModel, AindModel
 from ..device import Coupling, DAQDevice, DataInterface, Device, Filter, Manufacturer, PowerUnit, SizeUnit
 
 
-class InstrumentType(Enum):
-    """Instrument type name"""
-
-    MESOSPIM = "mesoSPIM"
-    EXASPIM = "exaSPIM"
-    DISPIM = "diSPIM"
-    SMARTSPIM = "smartSPIM"
-    CONFOCAL = "Confocal"
-    TWO_PHOTON = "Two photon"
-    OTHER = "Other"
-
-
 class Com(AindModel):
     """Description of a communication system"""
 

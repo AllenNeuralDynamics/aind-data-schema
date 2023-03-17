@@ -14,6 +14,20 @@ from pydantic import Field
 from .base import AindModel
 
 
+class InstrumentType(Enum):
+    """Instrument type name"""
+
+    MESOSPIM = "mesoSPIM"
+    EXASPIM = "exaSPIM"
+    DISPIM = "diSPIM"
+    SMARTSPIM = "smartSPIM"
+    ECEPHYS = "ecephys",
+    OPHYS = "ophys",
+    CONFOCAL = "Confocal"
+    TWO_PHOTON = "Two photon"
+    OTHER = "Other"
+
+
 class SizeUnit(Enum):
     """units for sizes"""
 

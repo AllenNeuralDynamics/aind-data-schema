@@ -7,9 +7,10 @@ from datetime import date, datetime, time
 from enum import Enum
 from typing import List, Optional
 
-from pydantic import Field
+from pydantic import Field, BaseModel
 
-from .base import AindCoreModel, AindModel
+from .base import AindCoreModel, AindModel, BaseName
+from .device import InstrumentType
 
 
 class RegexParts(Enum):
@@ -24,7 +25,7 @@ class DataRegex(Enum):
 
     DATA = f"^(?P<label>.+?)_(?P<c_date>{RegexParts.DATE.value})_(?P<c_time>{RegexParts.TIME.value})$"
     RAW_DATA = (
-        f"^(?P<modality>.+?)_(?P<subject_id>.+?)_(?P<c_date>{RegexParts.DATE.value})_(?P<c_time>"
+        f"^(?P<instrument_type>.+?)_(?P<subject_id>.+?)_(?P<c_date>{RegexParts.DATE.value})_(?P<c_time>"
         f"{RegexParts.TIME.value})$"
     )
     DERIVED_DATA = (
@@ -44,11 +45,11 @@ class DataLevel(Enum):
 class Institution(Enum):
     """Institution name"""
 
-    AIBS = "AIBS"
-    AIND = "AIND"
-    CU = "Columbia University"
-    HUST = "HUST"
-    NYU = "NYU"
+    AIBS = BaseName(name="Allen Institute for Brain Science", abbreviation="AIBS")
+    AIND = BaseName(name="Allen Institute for Neural Dynamics", abbreviation="AIND")
+    CU = BaseName(name="Columbia University", abbreviation="CU")
+    HUST = BaseName(name="Huazhong University of Science and Technology", abbreviation="HUST")
+    NYU = BaseName(name="New York University", abbreviation="NYU")
 
 
 class Group(Enum):
@@ -63,15 +64,13 @@ class Group(Enum):
 class Modality(Enum):
     """Data collection modality name"""
 
-    ECEPHYS = "ecephys"
-    EXASPIM = "ExASPIM"
-    FIP = "FIP"
-    FMOST = "fMOST"
-    HSFP = "HSFP"
-    MESOSPIM = "mesoSPIM"
-    MRI = "MRI"
-    OPHYS = "ophys"
-    SMARTSPIM = "SmartSPIM"
+    ECEPHYS = BaseName(name="extracellular electrophysiology", abbreviation="ecephys")
+    SPIM = BaseName(name="selective plane illumination microscopy", abbreviation="SPIM")
+    FIP = BaseName(name="frame-projected independent-fiber photometry", abbreviation="FIP")
+    FMOST = BaseName(name="fluorescence micro-optical sectioning tomography", abbreviation="fMOST")
+    HSFP = BaseName(name="hyperspectral fiber photometry", abbreviation="HSFP")
+    MRI = BaseName(name="magnetic resonance imaging", abbreviation="MRI")
+    OPHYS = BaseName(name="optical physiology", abbreviation="ophys")
 
 
 def datetime_to_name_string(d, t):
@@ -128,6 +127,7 @@ class DataDescription(AindCoreModel):
         ...,
         description="An established society, corporation, foundation or other organization that collected this data",
         title="Institution",
+        enumNames=[ i.value.name for i in Institution ]
     )
     ror_id: Optional[str] = Field(
         None,
@@ -165,13 +165,18 @@ class DataDescription(AindCoreModel):
         description="Detail any restrictions on publishing or sharing these data",
         title="Restrictions",
     )
-    modality: str = Field(
+    modality: Modality = Field(
         ...,
-        regex=DataRegex.NO_UNDERSCORES.value,
         description="A short name for the specific manner, characteristic, pattern of application, or the employment of"
         " any technology or formal procedure to generate data for a study",
         title="Modality",
-    )
+    ),
+    instrument_type: InstrumentType = Field(
+        ...,
+        regex=DataRegex.NO_UNDERSCORES.value,
+        description="A short name for the type of instrument used to collect this data",
+        title="Instrument Type",
+    ),
     subject_id: str = Field(
         ...,
         regex=DataRegex.NO_UNDERSCORES.value,
@@ -251,31 +256,6 @@ class DerivedDataDescription(DataDescription):
             input_data_name=m.group("input"),
         )
 
-    @classmethod
-    def from_name(cls, name, **kwargs):
-        """build DerivedDataDescription from a name"""
-
-        d = cls.parse_name(name)
-
-        return cls(**d, **kwargs)
-
-    @classmethod
-    def from_data_description(cls, input_data, process_name, **kwargs):
-        """Build a DerivedDataDescription from an input DataDescription"""
-
-        if input_data.data_level == DataLevel.DERIVED_DATA:
-            name_len = len(input_data.input_data_name) + 1
-            input_data_name = input_data.name[name_len:]
-        else:
-            input_data_name = input_data.name
-
-        return cls(
-            input_data_name=input_data_name,
-            process_name=process_name,
-            subject_id=input_data.subject_id,
-            modality=input_data.modality,
-            **kwargs,
-        )
 
 
 class RawDataDescription(DataDescription):
@@ -290,9 +270,9 @@ class RawDataDescription(DataDescription):
 
     def __init__(self, **kwargs):
         """Construct a raw data description"""
-        modality = kwargs["modality"]
+        instrument_type = kwargs["instrument_type"]
         subject_id = kwargs["subject_id"]
-        super().__init__(label=f"{modality}_{subject_id}", **kwargs)
+        super().__init__(label=f"{instrument_type}_{subject_id}", **kwargs)
 
     @classmethod
     def parse_name(cls, name):
@@ -306,16 +286,9 @@ class RawDataDescription(DataDescription):
         creation_date, creation_time = datetime_from_name_string(m.group("c_date"), m.group("c_time"))
 
         return dict(
-            modality=m.group("modality"),
+            instrument_type=m.group("instrument_type"),
             subject_id=m.group("subject_id"),
             creation_date=creation_date,
             creation_time=creation_time,
         )
 
-    @classmethod
-    def from_name(cls, name, **kwargs):
-        """construct from a name string"""
-
-        d = cls.parse_name(name)
-
-        return cls(**d, **kwargs)
