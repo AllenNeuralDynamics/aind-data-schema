@@ -100,6 +100,16 @@ class Funding(AindModel):
     fundee: Optional[str] = Field(None, title="Fundee", description="Person(s) funded by this mechanism")
 
 
+class RelatedData(AindModel):
+    """Description of related data asset"""
+
+    related_data_path: str = Field(..., title="Related data path")
+    relation: str = Field(
+        ..., 
+        title="Relation",
+        description="Relation of data to this asset"
+        )
+
 class DataDescription(AindCoreModel):
     """Description of a logical collection of data files"""
 
@@ -179,10 +189,10 @@ class DataDescription(AindCoreModel):
         title="Data summary",
         description="Semantic summary of experimental goal"
     )
-    related_data: Optional[str] = Field(
+    related_data: Optional[List[RelatedData]] = Field(
         None,
         title="Related data",
-        description="Path to data assets associated with this asset (eg. reference images)"
+        description="Path and description of data assets associated with this asset (eg. reference images)"
     )
 
     def __init__(self, label=None, **kwargs):
