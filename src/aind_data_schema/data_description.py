@@ -103,7 +103,7 @@ class Funding(AindModel):
 class DataDescription(AindCoreModel):
     """Description of a logical collection of data files"""
 
-    schema_version: str = Field("0.3.1", title="Schema Version", const=True)
+    schema_version: str = Field("0.3.2", title="Schema Version", const=True)
     license: str = Field("CC-BY-4.0", title="License", const=True)
 
     creation_time: time = Field(
@@ -178,6 +178,11 @@ class DataDescription(AindCoreModel):
         None,
         title="Data summary",
         description="Semantic summary of experimental goal"
+    )
+    related_data: Optional[str] = Field(
+        None,
+        title="Related data",
+        description="Path to data assets associated with this asset (eg. reference images)"
     )
 
     def __init__(self, label=None, **kwargs):
