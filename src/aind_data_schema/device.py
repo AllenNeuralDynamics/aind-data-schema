@@ -20,9 +20,9 @@ class InstrumentType(Enum):
     MESOSPIM = "mesoSPIM"
     EXASPIM = "exaSPIM"
     DISPIM = "diSPIM"
-    SMARTSPIM = "smartSPIM"
-    ECEPHYS = "ecephys",
-    OPHYS = "ophys",
+    SMARTSPIM = "SmartSPIM"
+    ECEPHYS = "ecephys"
+    OPHYS = "ophys"
     CONFOCAL = "Confocal"
     TWO_PHOTON = "Two photon"
     OTHER = "Other"

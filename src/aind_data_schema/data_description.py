@@ -7,7 +7,7 @@ from datetime import date, datetime, time
 from enum import Enum
 from typing import List, Optional
 
-from pydantic import Field, BaseModel
+from pydantic import BaseModel, Field
 
 from .base import AindCoreModel, AindModel, BaseName
 from .device import InstrumentType
@@ -105,7 +105,7 @@ class Funding(AindModel):
 class DataDescription(AindCoreModel):
     """Description of a logical collection of data files"""
 
-    schema_version: str = Field("0.3.1", title="Schema Version", const=True)
+    schema_version: str = Field("0.4.0", title="Schema Version", const=True)
     license: str = Field("CC-BY-4.0", title="License", const=True)
 
     creation_time: time = Field(
@@ -127,7 +127,7 @@ class DataDescription(AindCoreModel):
         ...,
         description="An established society, corporation, foundation or other organization that collected this data",
         title="Institution",
-        enumNames=[ i.value.name for i in Institution ]
+        enumNames=[i.value.name for i in Institution],
     )
     ror_id: Optional[str] = Field(
         None,
@@ -167,16 +167,14 @@ class DataDescription(AindCoreModel):
     )
     modality: Modality = Field(
         ...,
-        description="A short name for the specific manner, characteristic, pattern of application, or the employment of"
-        " any technology or formal procedure to generate data for a study",
+        description="A short name for the specific manner, characteristic, pattern of application, or the employment of any technology or formal procedure to generate data for a study",
         title="Modality",
-    ),
+    )
     instrument_type: InstrumentType = Field(
         ...,
-        regex=DataRegex.NO_UNDERSCORES.value,
         description="A short name for the type of instrument used to collect this data",
         title="Instrument Type",
-    ),
+    )
     subject_id: str = Field(
         ...,
         regex=DataRegex.NO_UNDERSCORES.value,
@@ -257,7 +255,6 @@ class DerivedDataDescription(DataDescription):
         )
 
 
-
 class RawDataDescription(DataDescription):
     """A logical collection of data files as acquired from a rig or instrument"""
 
@@ -268,11 +265,17 @@ class RawDataDescription(DataDescription):
         const=True,
     )
 
-    def __init__(self, **kwargs):
+    def __init__(self, instrument_type, subject_id, **kwargs):
         """Construct a raw data description"""
-        instrument_type = kwargs["instrument_type"]
-        subject_id = kwargs["subject_id"]
-        super().__init__(label=f"{instrument_type}_{subject_id}", **kwargs)
+
+        instrument_type = InstrumentType(instrument_type)
+
+        super().__init__(
+            label=f"{instrument_type.value}_{subject_id}",
+            instrument_type=instrument_type,
+            subject_id=subject_id,
+            **kwargs,
+        )
 
     @classmethod
     def parse_name(cls, name):
@@ -291,4 +294,3 @@ class RawDataDescription(DataDescription):
             creation_date=creation_date,
             creation_time=creation_time,
         )
-

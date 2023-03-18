@@ -35,6 +35,7 @@ class AindModel(BaseModel, extra=Extra.forbid):
 
     pass
 
+
 class BaseName(AindModel):
     name: str
     abbreviation: str
