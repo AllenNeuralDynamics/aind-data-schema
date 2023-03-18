@@ -37,6 +37,8 @@ class AindModel(BaseModel, extra=Extra.forbid):
 
 
 class BaseName(AindModel):
+    """A simple model associating a name with an abbreviation"""
+    
     name: str
     abbreviation: str
 
