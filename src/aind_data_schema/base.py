@@ -5,12 +5,11 @@ import logging
 import os
 import re
 import urllib.parse
-
 from datetime import timedelta
-from pydantic.json import timedelta_isoformat
 
 from pydantic import BaseModel, Extra
 from pydantic.fields import ModelField
+from pydantic.json import timedelta_isoformat
 
 DESCRIBED_BY_BASE_URL = "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/"
 
@@ -33,9 +32,8 @@ def build_described_by(cls, base_url=DESCRIBED_BY_BASE_URL):
     return described_by
 
 
-JSON_ENCODERS = { 
-    timedelta: lambda td: timedelta_isoformat(td) 
-}
+JSON_ENCODERS = {timedelta: lambda td: timedelta_isoformat(td)}
+
 
 class AindModel(BaseModel, extra=Extra.forbid, json_encoders=JSON_ENCODERS):
     """BaseModel that disallows extra fields"""
