@@ -11,6 +11,7 @@ from .device import AngleUnit, SizeUnit
 
 
 class TimeUnit(Enum):
+    """Time units"""
     S = "second"
     M = "minute"
     H = "hour"
