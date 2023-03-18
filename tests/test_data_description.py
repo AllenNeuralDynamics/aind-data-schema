@@ -6,7 +6,6 @@ import unittest
 
 from aind_data_schema.data_description import (DataDescription, DerivedDataDescription, Funding, Institution, Modality,
                                                RawDataDescription)
-from aind_data_schema.device import InstrumentType
 
 
 class DataDescriptionTest(unittest.TestCase):

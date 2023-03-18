@@ -2,7 +2,6 @@
 from datetime import date, time
 
 from aind_data_schema.data_description import Funding, Institution, Modality, RawDataDescription
-from aind_data_schema.device import InstrumentType
 
 d = RawDataDescription(
     modality=Modality.SPIM,

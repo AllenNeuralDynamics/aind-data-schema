@@ -7,7 +7,7 @@ from datetime import date, datetime, time
 from enum import Enum
 from typing import List, Optional
 
-from pydantic import BaseModel, Field
+from pydantic import Field
 
 from .base import AindCoreModel, AindModel, BaseName
 from .device import InstrumentType
