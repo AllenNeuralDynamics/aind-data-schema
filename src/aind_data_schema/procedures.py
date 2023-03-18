@@ -1,6 +1,6 @@
 """ schema for various Procedures """
 
-from datetime import date, time, timedelta
+from datetime import date, time
 from enum import Enum
 from typing import List, Optional, Union
 
