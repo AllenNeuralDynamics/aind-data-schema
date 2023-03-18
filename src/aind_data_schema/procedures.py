@@ -381,7 +381,7 @@ class Perfusion(SubjectProcedure):
 class Procedures(AindCoreModel):
     """Description of all procedures performed on a subject"""
 
-    schema_version: str = Field("0.6.3", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.7.0", description="schema version", title="Version", const=True)
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
@@ -405,5 +405,5 @@ class Procedures(AindCoreModel):
             ]
         ]
     ] = Field(None, title="Subject Procedures", unique_items=True)
-    specimen_procedures: Optional[List[SpecimenProcedure]] = Field(None, title="Specimen Procedures", unique_items=True)
+    specimen_procedures: Optional[List[SpecimenProcedure]] = Field([], title="Specimen Procedures", unique_items=True)
     notes: Optional[str] = Field(None, title="Notes")
