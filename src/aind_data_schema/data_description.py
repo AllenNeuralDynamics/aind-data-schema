@@ -167,7 +167,8 @@ class DataDescription(AindCoreModel):
     )
     modality: Modality = Field(
         ...,
-        description="A short name for the specific manner, characteristic, pattern of application, or the employment of any technology or formal procedure to generate data for a study",
+        description="A short name for the specific manner, characteristic, pattern of application, or the employment"
+        "of any technology or formal procedure to generate data for a study",
         title="Modality",
     )
     instrument_type: InstrumentType = Field(
