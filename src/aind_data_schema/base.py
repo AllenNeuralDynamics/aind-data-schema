@@ -6,6 +6,9 @@ import os
 import re
 import urllib.parse
 
+from datetime import timedelta
+from pydantic.json import timedelta_isoformat
+
 from pydantic import BaseModel, Extra
 from pydantic.fields import ModelField
 
@@ -30,10 +33,12 @@ def build_described_by(cls, base_url=DESCRIBED_BY_BASE_URL):
     return described_by
 
 
-class AindModel(BaseModel, extra=Extra.forbid):
-    """BaseModel that disallows extra fields"""
+JSON_ENCODERS = { 
+    timedelta: lambda td: timedelta_isoformat(td) 
+}
 
-    pass
+class AindModel(BaseModel, extra=Extra.forbid, json_encoders=JSON_ENCODERS):
+    """BaseModel that disallows extra fields"""
 
 
 class AindCoreModel(AindModel):

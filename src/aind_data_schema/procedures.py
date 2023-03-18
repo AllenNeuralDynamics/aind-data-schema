@@ -10,13 +10,6 @@ from .base import AindCoreModel, AindModel
 from .device import AngleUnit, SizeUnit
 
 
-class TimeUnit(Enum):
-    """Time units"""
-    S = "second"
-    M = "minute"
-    H = "hour"
-
-
 class WeightUnit(Enum):
     """Weight units"""
 
@@ -96,7 +89,6 @@ class Anaesthetic(AindModel):
 
     type: str = Field(..., title="Type")
     duration: timedelta = Field(..., title="Duration")
-    duration_unit: TimeUnit = Field(TimeUnit.M, title="Duration unit")
     level: float = Field(..., title="Level (percent)", units="percent", ge=1, le=5)
 
 
@@ -231,7 +223,6 @@ class Injection(SubjectProcedure):
     injection_materials: List[InjectionMaterial] = Field(None, title="Injection material", unique_items=True)
     recovery_time: Optional[time] = Field(None, title="Recovery time")
     injection_duration: Optional[timedelta] = Field(None, title="Injection duration")
-    injection_duration_unit: Optional[TimeUnit] = Field(TimeUnit.M, title="Injection duration units")
     workstation_id: Optional[str] = Field(None, title="Workstation ID")
     instrument_id: Optional[str] = Field(None, title="Instrument ID")
 
