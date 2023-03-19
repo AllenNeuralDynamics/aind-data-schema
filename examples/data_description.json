@@ -21,5 +21,6 @@
    "restrictions": null,
    "modality": "ecephys",
    "subject_id": "12345",
+   "related_data": [],
    "data_summary": null
 }
