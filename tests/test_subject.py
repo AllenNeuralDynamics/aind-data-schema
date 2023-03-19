@@ -6,7 +6,7 @@ import unittest
 import pydantic
 
 from aind_data_schema import Subject
-from aind_data_schema.subject import MgiAlleleId, Housing, LightCycle
+from aind_data_schema.subject import Housing, LightCycle, MgiAlleleId
 
 
 class SubjectTests(unittest.TestCase):
@@ -28,9 +28,9 @@ class SubjectTests(unittest.TestCase):
             genotype="wt",
             housing=Housing(
                 light_cycle=LightCycle(
-                    lights_on_time=now.time(), 
+                    lights_on_time=now.time(),
                     lights_off_time=now.time(),
-                    ),
+                ),
                 cage_id="543",
             ),
             mgi_allele_ids=[MgiAlleleId(mgi_id="12345", allele_name="adsf")],

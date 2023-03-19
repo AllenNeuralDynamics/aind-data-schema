@@ -89,7 +89,7 @@ class ProceduresTests(unittest.TestCase):
                             angle=10,
                         )
                     ],
-                )
+                ),
             ],
         )
 

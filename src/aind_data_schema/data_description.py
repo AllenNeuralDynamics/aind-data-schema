@@ -104,11 +104,8 @@ class RelatedData(AindModel):
     """Description of related data asset"""
 
     related_data_path: str = Field(..., title="Related data path")
-    relation: str = Field(
-        ..., 
-        title="Relation",
-        description="Relation of data to this asset"
-        )
+    relation: str = Field(..., title="Relation", description="Relation of data to this asset")
+
 
 class DataDescription(AindCoreModel):
     """Description of a logical collection of data files"""
@@ -137,9 +134,10 @@ class DataDescription(AindCoreModel):
         title="Institution",
     )
     ror_id: Optional[str] = Field(
-        None, 
+        None,
         title="ROR ID",
-        description="Institution ID from the Research Organization Registry",)
+        description="Institution ID from the Research Organization Registry",
+    )
 
     funding_source: List[Funding] = Field(
         ...,
@@ -182,17 +180,13 @@ class DataDescription(AindCoreModel):
         ...,
         regex=DataRegex.NO_UNDERSCORES.value,
         description="Unique identifier for the subject of data acquisition",
-        title="Subject ID"
+        title="Subject ID",
     )
-    data_summary: Optional[str] = Field(
-        None,
-        title="Data summary",
-        description="Semantic summary of experimental goal"
-    )
+    data_summary: Optional[str] = Field(None, title="Data summary", description="Semantic summary of experimental goal")
     related_data: Optional[List[RelatedData]] = Field(
-        None,
+        [],
         title="Related data",
-        description="Path and description of data assets associated with this asset (eg. reference images)"
+        description="Path and description of data assets associated with this asset (eg. reference images)",
     )
 
     def __init__(self, label=None, **kwargs):

@@ -2,15 +2,16 @@
 
 from datetime import datetime
 from enum import Enum
-from typing import Optional, List
+from typing import List, Optional
 
 from pydantic import Field
 
-from ..base import AindCoreModel
-from ..procedures import WeightUnit, Anaesthetic
-from ..device import Device
 from aind_data_schema.imaging.acquisition import Axis
 from aind_data_schema.imaging.tile import Scale3dTransform
+
+from ..base import AindCoreModel
+from ..device import Device
+from ..procedures import Anaesthetic, WeightUnit
 
 
 class MriScanSequence(Enum):
@@ -24,7 +25,7 @@ class ScannerLocation(Enum):
 
     FRED_HUTCH = "Fred Hutch"
     UW_SLU = "UW SLU"
-    
+
 
 class MagneticStrength(Enum):
     """Strength of magnet"""
@@ -77,7 +78,6 @@ class MriSession(AindCoreModel):
     mri_scanner: Scanner = Field(..., title="MRI scanner")
     axes: List[Axis] = Field(..., title="Imaging axes")
     voxel_sizes: Scale3dTransform = Field(
-        ..., 
-        title="Voxel sizes",
-        description="Size of voxels in order as specified in axes")
+        ..., title="Voxel sizes", description="Size of voxels in order as specified in axes"
+    )
     notes: Optional[str] = Field(None, title="Notes")
