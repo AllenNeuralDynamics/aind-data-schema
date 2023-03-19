@@ -10,6 +10,12 @@ from .base import AindCoreModel, AindModel
 from .device import AngleUnit, SizeUnit
 
 
+class TimeUnit(Enum):
+    """Time units"""
+
+    M = "minute"
+
+
 class WeightUnit(Enum):
     """Weight units"""
 
@@ -88,7 +94,8 @@ class Anaesthetic(AindModel):
     """Description of an anaestheic"""
 
     type: str = Field(..., title="Type")
-    duration: time = Field(..., title="Duration")
+    duration: float = Field(..., title="Duration")
+    duration_unit: TimeUnit = Field(TimeUnit.M, title="Duration unit")
     level: float = Field(..., title="Level (percent)", units="percent", ge=1, le=5)
 
 
@@ -222,7 +229,8 @@ class Injection(SubjectProcedure):
 
     injection_materials: List[InjectionMaterial] = Field(None, title="Injection material", unique_items=True)
     recovery_time: Optional[time] = Field(None, title="Recovery time")
-    injection_duration: Optional[time] = Field(None, title="Injection duration")
+    injection_duration: Optional[float] = Field(None, title="Injection duration")
+    injection_duration_unit: Optional[TimeUnit] = Field(TimeUnit.M, title="Injection duration unit")
     workstation_id: Optional[str] = Field(None, title="Workstation ID")
     instrument_id: Optional[str] = Field(None, title="Instrument ID")
 
@@ -381,7 +389,7 @@ class Perfusion(SubjectProcedure):
 class Procedures(AindCoreModel):
     """Description of all procedures performed on a subject"""
 
-    schema_version: str = Field("0.6.3", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.7.0", description="schema version", title="Version", const=True)
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
@@ -404,6 +412,6 @@ class Procedures(AindCoreModel):
                 SubjectProcedure,
             ]
         ]
-    ] = Field(None, title="Subject Procedures", unique_items=True)
-    specimen_procedures: Optional[List[SpecimenProcedure]] = Field(None, title="Specimen Procedures", unique_items=True)
+    ] = Field([], title="Subject Procedures", unique_items=True)
+    specimen_procedures: Optional[List[SpecimenProcedure]] = Field([], title="Specimen Procedures", unique_items=True)
     notes: Optional[str] = Field(None, title="Notes")

@@ -44,20 +44,20 @@ class DataLevel(Enum):
 class Institution(Enum):
     """Institution name"""
 
-    AIND = "AIND"
     AIBS = "AIBS"
+    AIND = "AIND"
+    CU = "Columbia University"
     HUST = "HUST"
     NYU = "NYU"
-    CU = "Columbia University"
 
 
 class Group(Enum):
     """Data collection group name"""
 
-    EPHYS = "ephys"
-    OPHYS = "ophys"
-    MSMA = "MSMA"
     BEHAVIOR = "behavior"
+    EPHYS = "ephys"
+    MSMA = "MSMA"
+    OPHYS = "ophys"
 
 
 class Modality(Enum):
@@ -65,10 +65,13 @@ class Modality(Enum):
 
     ECEPHYS = "ecephys"
     EXASPIM = "ExASPIM"
-    SMARTSPIM = "SmartSPIM"
-    MESOSPIM = "mesoSPIM"
-    OPHYS = "ophys"
+    FIP = "FIP"
     FMOST = "fMOST"
+    HSFP = "HSFP"
+    MESOSPIM = "mesoSPIM"
+    MRI = "MRI"
+    OPHYS = "ophys"
+    SMARTSPIM = "SmartSPIM"
 
 
 def datetime_to_name_string(d, t):
@@ -182,12 +185,12 @@ class DataDescription(AindCoreModel):
         description="Unique identifier for the subject of data acquisition",
         title="Subject ID",
     )
-    data_summary: Optional[str] = Field(None, title="Data summary", description="Semantic summary of experimental goal")
     related_data: Optional[List[RelatedData]] = Field(
         [],
         title="Related data",
         description="Path and description of data assets associated with this asset (eg. reference images)",
     )
+    data_summary: Optional[str] = Field(None, title="Data summary", description="Semantic summary of experimental goal")
 
     def __init__(self, label=None, **kwargs):
         """Construct a generic DataDescription"""
