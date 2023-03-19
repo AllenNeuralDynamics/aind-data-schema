@@ -28,5 +28,6 @@
    },
    "instrument_type": "diSPIM",
    "subject_id": "12345",
+   "related_data": [],
    "data_summary": null
 }
