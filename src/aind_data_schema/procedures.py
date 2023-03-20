@@ -52,6 +52,7 @@ class Reagent(AindModel):
     """Description of reagents used in procedure"""
 
     name: str = Field(..., title="Name")
+    source: str = Field(..., title="Source")
     rrid: Optional[str] = Field(None, title="Research Resource ID")
     lot_number: str = Field(..., title="Lot number")
     expiration_date: Optional[date] = Field(None, title="Lot expiration date")
@@ -92,30 +93,57 @@ class OligoProbes(Reagent):
     """Description of oligo probes used for HCR"""
 
     channel_index: int = Field(..., title="Channel index")
+    probe_name: str = Field(..., title="Probe name")
     species: Species = Field(..., title="Species")
+    gene_name: str = Field(..., title="Gene name")
+    gene_accession_number: str = Field(
+        ..., 
+        title="Gene accession number",
+        description="NCBI accession number of the gene"
+        )
+    probe_sequences: List[str] = Field(..., title="Probe sequences")
+    initiator_name: str = Field(..., title="Initiator name")
     fluorophore: Fluorophore = Field(..., title="Fluorophore")
-    excitation_wavelength: int = Field(..., title="Excitation wavelength")
+    excitation_wavelength: int = Field(..., title="Excitation wavelength (nm)")
     excitation_wavelength_unit = SizeUnit = Field(SizeUnit.NM, title="Excitation wavelength unit")
     stain_type: StainType = Field(..., title="Stain type")
     readout: Optional[str] = Field(None, title="Readout")
 
 
-class OligoRound(SpecimenProcedure):
-    """Description of an IHC round""" 
+class OtherProbes(Reagent):
+    """Description of other probes used for HCR"""
+
+    channel_index: int = Field(..., title="Channel index")
+    probe_name: str = Field(..., title="Probe name")
+    gene_name: str = Field(..., title="Gene name")
+    gene_accession_number: str = Field(
+        ..., 
+        title="Gene accession number",
+        description="NCBI accession number of the gene"
+        )
+    probe_sequences: List[str] = Field(..., title="Probe sequences")
+    fluorophore: Fluorophore = Field(..., title="Fluorophore")
+    excitation_wavelength: int = Field(..., title="Excitation wavelength (nm)")
+    excitation_wavelength_unit = SizeUnit = Field(SizeUnit.NM, title="Excitation wavelength unit")
+
+
+class HybridizationChainReaction(SpecimenProcedure):
+    """Description of an HCR round""" 
 
     round_index: int = Field(..., title="Round index")
     oligo_probes: List[OligoProbes] = Field(..., title="Oligo probes")
-    probe_concentration: float = Field(..., title="Probe concentration")
-    probe_concentration_unit: str = Field(..., title="Probe concentration unit")
+    other_probes: Optional[List[OtherProbes]] = Field(None, title="Other probes")
+    probe_concentration: float = Field(..., title="Probe concentration (M)")
+    probe_concentration_unit: str = Field("M", title="Probe concentration unit")
     intrument_id: str = Field(..., title="Instrument ID")
 
 
-class HybridizationChainReaction(AindModel):
-    """Description of HCR for mFISH"""
+class HCRSeries(AindModel):
+    """Description of series of HCR rounds for mFISH"""
 
     codebook_name: str = Field(..., title="Codebook name")
     number_of_rounds: int = Field(..., title="Number of round")
-    oligo_pools: List[OligoRound] = Field(..., title="Oligo pools")
+    hcr_rounds: List[HybridizationChainReaction] = Field(..., title="Hybridization Chain Reaction rounds")
     strip_qc_compatible: Boolean = Field(..., title="Strip QC compatible")
 
 
