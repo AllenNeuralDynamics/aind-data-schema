@@ -105,6 +105,8 @@ class DataDescriptionTest(unittest.TestCase):
         assert da1.name == da2.name
 
     def test_parse_name(self):
+        """tests for parsing names"""
+        
         toks = DataDescription.parse_name(self.BASIC_NAME)
         assert toks["label"] == "ecephys_1234"
         assert toks["creation_date"] == datetime.date(3033, 12, 21)
