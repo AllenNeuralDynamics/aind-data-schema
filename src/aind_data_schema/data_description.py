@@ -224,13 +224,6 @@ class DataDescription(AindCoreModel):
             creation_time=creation_time,
         )
 
-    @classmethod
-    def from_name(cls, name, **kwargs):
-        """construct a DataDescription from a name string"""
-        d = cls.parse_name(name)
-
-        return cls(**d, **kwargs)
-
 
 class DerivedDataDescription(DataDescription):
     """A logical collection of data files derived via processing"""
