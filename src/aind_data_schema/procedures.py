@@ -88,12 +88,9 @@ class Fluorophore(Enum):
     ALEXA_594 = "Alexa Fluor 594"
     ALEXA_647 = "Alexa Fluor 647"
 
+class OligoProbe(Reagent):
+    """Description of oligo probes for HCR"""
 
-class OligoProbes(Reagent):
-    """Description of oligo probes used for HCR"""
-
-    channel_index: int = Field(..., title="Channel index")
-    probe_name: str = Field(..., title="Probe name")
     species: Species = Field(..., title="Species")
     gene_name: str = Field(..., title="Gene name")
     gene_accession_number: str = Field(
@@ -103,12 +100,23 @@ class OligoProbes(Reagent):
         )
     probe_sequences: List[str] = Field(..., title="Probe sequences")
     initiator_name: str = Field(..., title="Initiator name")
+
+class Readout(Reagent):
+    """Description of readout for HCR"""
+
+    initiator_name: str = Field(..., title="Initiator name")
     fluorophore: Fluorophore = Field(..., title="Fluorophore")
     excitation_wavelength: int = Field(..., title="Excitation wavelength (nm)")
     excitation_wavelength_unit = SizeUnit = Field(SizeUnit.NM, title="Excitation wavelength unit")
     stain_type: StainType = Field(..., title="Stain type")
-    readout: Optional[str] = Field(None, title="Readout")
 
+
+class OligoPools(AindModel):
+    """Description of probes and readouts used for HCR"""
+
+    channel_index: int = Field(..., title="Channel index")
+    oligo_probe: OligoProbe = Field(..., title="Oligo probe")
+    readout: Readout = Field(..., title="Readout")
 
 class OtherProbes(Reagent):
     """Description of other probes used for HCR"""
