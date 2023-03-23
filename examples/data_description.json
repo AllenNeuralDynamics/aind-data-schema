@@ -23,7 +23,7 @@
    "project_id": null,
    "restrictions": null,
    "modality": {
-      "name": "selective plane illumination microscopy",
+      "name": "Selective plane illumination microscopy",
       "abbreviation": "SPIM"
    },
    "instrument_type": "diSPIM",

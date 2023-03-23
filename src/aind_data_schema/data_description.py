@@ -47,7 +47,7 @@ class Institution(Enum):
 
     AIBS = BaseName(name="Allen Institute for Brain Science", abbreviation="AIBS")
     AIND = BaseName(name="Allen Institute for Neural Dynamics", abbreviation="AIND")
-    CU = BaseName(name="Columbia University", abbreviation="CU")
+    COLUMBIA = BaseName(name="Columbia University", abbreviation="Columbia")
     HUST = BaseName(name="Huazhong University of Science and Technology", abbreviation="HUST")
     NYU = BaseName(name="New York University", abbreviation="NYU")
 
@@ -64,13 +64,13 @@ class Group(Enum):
 class Modality(Enum):
     """Data collection modality name"""
 
-    ECEPHYS = BaseName(name="extracellular electrophysiology", abbreviation="ecephys")
-    SPIM = BaseName(name="selective plane illumination microscopy", abbreviation="SPIM")
-    FIP = BaseName(name="frame-projected independent-fiber photometry", abbreviation="FIP")
-    FMOST = BaseName(name="fluorescence micro-optical sectioning tomography", abbreviation="fMOST")
-    HSFP = BaseName(name="hyperspectral fiber photometry", abbreviation="HSFP")
-    MRI = BaseName(name="magnetic resonance imaging", abbreviation="MRI")
-    OPHYS = BaseName(name="optical physiology", abbreviation="ophys")
+    ECEPHYS = BaseName(name="Extracellular electrophysiology", abbreviation="ecephys")
+    SPIM = BaseName(name="Selective plane illumination microscopy", abbreviation="SPIM")
+    FIP = BaseName(name="Frame-projected independent-fiber photometry", abbreviation="FIP")
+    FMOST = BaseName(name="Fluorescence micro-optical sectioning tomography", abbreviation="fMOST")
+    HSFP = BaseName(name="Hyperspectral fiber photometry", abbreviation="HSFP")
+    MRI = BaseName(name="Magnetic resonance imaging", abbreviation="MRI")
+    OPHYS = BaseName(name="Optical physiology", abbreviation="ophys")
 
 
 def datetime_to_name_string(d, t):
