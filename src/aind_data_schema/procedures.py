@@ -482,7 +482,7 @@ class Procedures(AindCoreModel):
     ] = Field(None, title="Subject Procedures", unique_items=True)
     specimen_procedures: Optional[
         List[
-            HybridizationChainReaction,
+            HCRSeries,
             SpecimenProcedure,
             ]
         ] = Field(None, title="Specimen Procedures", unique_items=True)
