@@ -158,7 +158,7 @@ class HCRSeries(AindModel):
     codebook_name: str = Field(..., title="Codebook name")
     number_of_rounds: int = Field(..., title="Number of round")
     hcr_rounds: List[HybridizationChainReaction] = Field(..., title="Hybridization Chain Reaction rounds")
-    strip_qc_compatible: Boolean = Field(..., title="Strip QC compatible")
+    strip_qc_compatible: bool = Field(..., title="Strip QC compatible")
 
 
 class Side(Enum):
