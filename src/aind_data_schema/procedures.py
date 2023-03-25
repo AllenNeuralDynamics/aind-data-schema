@@ -118,7 +118,7 @@ class OligoPools(AindModel):
     oligo_probe: OligoProbe = Field(..., title="Oligo probe")
     readout: Readout = Field(..., title="Readout")
 
-class OtherProbes(Reagent):
+class OtherProbe(Reagent):
     """Description of other probes used for HCR"""
 
     channel_index: int = Field(..., title="Channel index")
@@ -139,8 +139,8 @@ class HybridizationChainReaction(SpecimenProcedure):
     """Description of an HCR round""" 
 
     round_index: int = Field(..., title="Round index")
-    oligo_probes: List[OligoProbes] = Field(..., title="Oligo probes")
-    other_probes: Optional[List[OtherProbes]] = Field(None, title="Other probes")
+    oligo_probes: List[OligoProbe] = Field(..., title="Oligo probes")
+    other_probes: Optional[List[OtherProbe]] = Field(None, title="Other probes")
     probe_concentration: float = Field(..., title="Probe concentration (M)")
     probe_concentration_unit: str = Field("M", title="Probe concentration unit")
     intrument_id: str = Field(..., title="Instrument ID")
