@@ -14,7 +14,8 @@
          "weight_unit": "gram",
          "anaesthesia": {
             "type": "Isoflurane",
-            "duration": "00:00:01",
+            "duration": 1.0,
+            "duration_unit": "minute",
             "level": 1.5
          },
          "notes": null,
@@ -46,7 +47,8 @@
          "weight_unit": "gram",
          "anaesthesia": {
             "type": "Isoflurane",
-            "duration": "00:00:01",
+            "duration": 1.0,
+            "duration_unit": "minute",
             "level": 1.5
          },
          "notes": null,
@@ -67,6 +69,7 @@
          ],
          "recovery_time": "00:00:00",
          "injection_duration": null,
+         "injection_duration_unit": "minute",
          "workstation_id": "SWS 3",
          "instrument_id": null,
          "injection_coordinate_ml": -0.87,
@@ -85,6 +88,6 @@
          "injection_volume_unit": "nanoliter"
       }
    ],
-   "specimen_procedures": null,
+   "specimen_procedures": [],
    "notes": null
 }

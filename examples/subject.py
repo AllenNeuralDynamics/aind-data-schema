@@ -12,10 +12,7 @@ s = Subject(
     sex="Male",
     date_of_birth=t.date(),
     genotype="Emx1-IRES-Cre;Camk2a-tTA;Ai93(TITL-GCaMP6f)",
-    housing=Housing(
-        home_cage_enrichment=["Running wheel"],
-        cage_id="123"
-    ),
+    housing=Housing(home_cage_enrichment=["Running wheel"], cage_id="123"),
     background_strain="C57BL/6J",
 )
 

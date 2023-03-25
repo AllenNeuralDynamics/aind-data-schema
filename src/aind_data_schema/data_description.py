@@ -44,20 +44,20 @@ class DataLevel(Enum):
 class Institution(Enum):
     """Institution name"""
 
-    AIND = "AIND"
     AIBS = "AIBS"
+    AIND = "AIND"
+    CU = "Columbia University"
     HUST = "HUST"
     NYU = "NYU"
-    CU = "Columbia University"
 
 
 class Group(Enum):
     """Data collection group name"""
 
-    EPHYS = "ephys"
-    OPHYS = "ophys"
-    MSMA = "MSMA"
     BEHAVIOR = "behavior"
+    EPHYS = "ephys"
+    MSMA = "MSMA"
+    OPHYS = "ophys"
 
 
 class Modality(Enum):
@@ -65,10 +65,13 @@ class Modality(Enum):
 
     ECEPHYS = "ecephys"
     EXASPIM = "ExASPIM"
-    SMARTSPIM = "SmartSPIM"
-    MESOSPIM = "mesoSPIM"
-    OPHYS = "ophys"
+    FIP = "FIP"
     FMOST = "fMOST"
+    HSFP = "HSFP"
+    MESOSPIM = "mesoSPIM"
+    MRI = "MRI"
+    OPHYS = "ophys"
+    SMARTSPIM = "SmartSPIM"
 
 
 def datetime_to_name_string(d, t):
@@ -100,10 +103,17 @@ class Funding(AindModel):
     fundee: Optional[str] = Field(None, title="Fundee", description="Person(s) funded by this mechanism")
 
 
+class RelatedData(AindModel):
+    """Description of related data asset"""
+
+    related_data_path: str = Field(..., title="Related data path")
+    relation: str = Field(..., title="Relation", description="Relation of data to this asset")
+
+
 class DataDescription(AindCoreModel):
     """Description of a logical collection of data files"""
 
-    schema_version: str = Field("0.3.1", title="Schema Version", const=True)
+    schema_version: str = Field("0.3.2", title="Schema Version", const=True)
     license: str = Field("CC-BY-4.0", title="License", const=True)
 
     creation_time: time = Field(
@@ -127,9 +137,10 @@ class DataDescription(AindCoreModel):
         title="Institution",
     )
     ror_id: Optional[str] = Field(
-        None, 
+        None,
         title="ROR ID",
-        description="Institution ID from the Research Organization Registry",)
+        description="Institution ID from the Research Organization Registry",
+    )
 
     funding_source: List[Funding] = Field(
         ...,
@@ -172,13 +183,14 @@ class DataDescription(AindCoreModel):
         ...,
         regex=DataRegex.NO_UNDERSCORES.value,
         description="Unique identifier for the subject of data acquisition",
-        title="Subject ID"
+        title="Subject ID",
     )
-    data_summary: Optional[str] = Field(
-        None,
-        title="Data summary",
-        description="Semantic summary of experimental goal"
+    related_data: Optional[List[RelatedData]] = Field(
+        [],
+        title="Related data",
+        description="Path and description of data assets associated with this asset (eg. reference images)",
     )
+    data_summary: Optional[str] = Field(None, title="Data summary", description="Semantic summary of experimental goal")
 
     def __init__(self, label=None, **kwargs):
         """Construct a generic DataDescription"""
