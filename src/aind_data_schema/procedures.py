@@ -2,7 +2,7 @@
 
 from datetime import date, time
 from enum import Enum
-from typing import List, Optional, Union, Boolean
+from typing import List, Optional, Union
 
 from pydantic import Field
 
