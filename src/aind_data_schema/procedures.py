@@ -482,8 +482,10 @@ class Procedures(AindCoreModel):
     ] = Field(None, title="Subject Procedures", unique_items=True)
     specimen_procedures: Optional[
         List[
-            HCRSeries,
-            SpecimenProcedure,
+            Union[
+                HCRSeries,
+                SpecimenProcedure,
             ]
-        ] = Field(None, title="Specimen Procedures", unique_items=True)
+        ]
+    ] = Field(None, title="Specimen Procedures", unique_items=True)
     notes: Optional[str] = Field(None, title="Notes")
