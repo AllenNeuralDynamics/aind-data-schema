@@ -2,7 +2,7 @@
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/procedures.py",
    "schema_version": "0.7.0",
    "subject_id": "651286",
-   "subject_procedures": [],
+   "subject_procedures": null,
    "specimen_procedures": [
       {
          "specimen_id": "651286",
@@ -14,12 +14,14 @@
          "reagents": [
             {
                "name": "SHIELD Buffer",
+               "source": "Vendor",
                "rrid": null,
                "lot_number": "1234",
                "expiration_date": null
             },
             {
                "name": "SHIELD Epoxy",
+               "source": "Vendor",
                "rrid": null,
                "lot_number": "1234",
                "expiration_date": null
@@ -37,6 +39,7 @@
          "reagents": [
             {
                "name": "SHIELD On",
+               "source": "Vendor",
                "rrid": null,
                "lot_number": "1234",
                "expiration_date": null
@@ -54,6 +57,7 @@
          "reagents": [
             {
                "name": "Delipidation Buffer",
+               "source": "Vendor",
                "rrid": null,
                "lot_number": "1234",
                "expiration_date": null
@@ -71,12 +75,14 @@
          "reagents": [
             {
                "name": "Delipidation Buffer",
+               "source": "Vendor",
                "rrid": null,
                "lot_number": "1234",
                "expiration_date": null
             },
             {
                "name": "Conductivity Buffer",
+               "source": "Vendor",
                "rrid": null,
                "lot_number": "1234",
                "expiration_date": null
@@ -94,12 +100,14 @@
          "reagents": [
             {
                "name": "Easy Index",
+               "source": "Vendor",
                "rrid": null,
                "lot_number": "1234",
                "expiration_date": null
             },
             {
                "name": "Deionized water",
+               "source": "This is not a reagent",
                "rrid": null,
                "lot_number": "DDI/Filtered in house",
                "expiration_date": null
@@ -117,6 +125,7 @@
          "reagents": [
             {
                "name": "Easy Index",
+               "source": "Vendor",
                "rrid": null,
                "lot_number": "1234",
                "expiration_date": null
@@ -134,12 +143,14 @@
          "reagents": [
             {
                "name": "Easy Index",
+               "source": "Vendor",
                "rrid": null,
                "lot_number": "1234",
                "expiration_date": null
             },
             {
                "name": "Agarose",
+               "source": "Other vendor",
                "rrid": null,
                "lot_number": "1234",
                "expiration_date": null
