@@ -3,7 +3,6 @@ from aind_data_schema.imaging import instrument
 
 inst = instrument.Instrument(
     instrument_id="SmartSPIM2-1",
-    type="SmartSPIM",
     manufacturer="LifeCanvas",
     location="440 Westlake",
     objectives=[
