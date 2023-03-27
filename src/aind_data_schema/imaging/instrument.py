@@ -9,7 +9,7 @@ from typing import List, Optional
 from pydantic import Field
 
 from ..base import AindCoreModel, AindModel
-from ..device import (Coupling, DAQDevice, DataInterface, Device, Filter, InstrumentType, Manufacturer, PowerUnit,
+from ..device import (Coupling, DAQDevice, DataInterface, Device, Filter, Manufacturer, PowerUnit,
                       SizeUnit)
 
 
@@ -151,7 +151,6 @@ class Instrument(AindCoreModel):
         description="unique identifier for this instrument configuration",
         title="Instrument ID",
     )
-    type: InstrumentType = Field(..., title="Instrument type")
     location: str = Field(..., title="Instrument location")
     manufacturer: Manufacturer = Field(..., title="Instrument manufacturer")
     temperature_control: Optional[bool] = Field(None, title="Temperature control")

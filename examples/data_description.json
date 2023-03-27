@@ -26,7 +26,7 @@
       "name": "Selective plane illumination microscopy",
       "abbreviation": "SPIM"
    },
-   "instrument_type": "diSPIM",
+   "experiment_type": "diSPIM",
    "subject_id": "12345",
    "related_data": [],
    "data_summary": null

@@ -10,7 +10,6 @@ from typing import List, Optional
 from pydantic import Field
 
 from .base import AindCoreModel, AindModel, BaseName
-from .device import InstrumentType
 
 
 class RegexParts(Enum):
@@ -25,7 +24,7 @@ class DataRegex(Enum):
 
     DATA = f"^(?P<label>.+?)_(?P<c_date>{RegexParts.DATE.value})_(?P<c_time>{RegexParts.TIME.value})$"
     RAW_DATA = (
-        f"^(?P<instrument_type>.+?)_(?P<subject_id>.+?)_(?P<c_date>{RegexParts.DATE.value})_(?P<c_time>"
+        f"^(?P<experiment_type>.+?)_(?P<subject_id>.+?)_(?P<c_date>{RegexParts.DATE.value})_(?P<c_time>"
         f"{RegexParts.TIME.value})$"
     )
     DERIVED_DATA = (
@@ -71,6 +70,19 @@ class Modality(Enum):
     HSFP = BaseName(name="Hyperspectral fiber photometry", abbreviation="HSFP")
     MRI = BaseName(name="Magnetic resonance imaging", abbreviation="MRI")
     OPHYS = BaseName(name="Optical physiology", abbreviation="ophys")
+    
+class ExperimentType(Enum):
+    """Experiment type name"""
+
+    MESOSPIM = "mesoSPIM"
+    EXASPIM = "exaSPIM"
+    DISPIM = "diSPIM"
+    SMARTSPIM = "SmartSPIM"
+    ECEPHYS = "ecephys"
+    OPHYS = "ophys"
+    CONFOCAL = "Confocal"
+    MESOSCOPE = "mesoscope"
+    OTHER = "Other"
 
 
 def datetime_to_name_string(d, t):
@@ -178,10 +190,10 @@ class DataDescription(AindCoreModel):
         "of any technology or formal procedure to generate data for a study",
         title="Modality",
     )
-    instrument_type: InstrumentType = Field(
+    experiment_type: ExperimentType = Field(
         ...,
-        description="A short name for the type of instrument used to collect this data",
-        title="Instrument Type",
+        description="A short name for the experiment motivating the collection of this data",
+        title="Experiment Type",
     )
     subject_id: str = Field(
         ...,
@@ -271,14 +283,14 @@ class RawDataDescription(DataDescription):
         const=True,
     )
 
-    def __init__(self, instrument_type, subject_id, **kwargs):
+    def __init__(self, experiment_type, subject_id, **kwargs):
         """Construct a raw data description"""
 
-        instrument_type = InstrumentType(instrument_type)
+        experiment_type = ExperimentType(experiment_type)
 
         super().__init__(
-            label=f"{instrument_type.value}_{subject_id}",
-            instrument_type=instrument_type,
+            label=f"{experiment_type.value}_{subject_id}",
+            experiment_type=experiment_type,
             subject_id=subject_id,
             **kwargs,
         )
@@ -295,7 +307,7 @@ class RawDataDescription(DataDescription):
         creation_date, creation_time = datetime_from_name_string(m.group("c_date"), m.group("c_time"))
 
         return dict(
-            instrument_type=m.group("instrument_type"),
+            experiment_type=m.group("experiment_type"),
             subject_id=m.group("subject_id"),
             creation_date=creation_date,
             creation_time=creation_time,
