@@ -4,7 +4,7 @@ from datetime import date, time
 from aind_data_schema.data_description import Funding, Institution, Modality, RawDataDescription
 
 d = RawDataDescription(
-    modality=Modality.SPIM,
+    modality=[Modality.SPIM],
     experiment_type="diSPIM",
     subject_id="12345",
     creation_date=date(2022, 2, 21),

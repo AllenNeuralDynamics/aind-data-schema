@@ -22,10 +22,12 @@
    "project_name": null,
    "project_id": null,
    "restrictions": null,
-   "modality": {
-      "name": "Selective plane illumination microscopy",
-      "abbreviation": "SPIM"
-   },
+   "modality": [
+      {
+         "name": "Selective plane illumination microscopy",
+         "abbreviation": "SPIM"
+      }
+   ],
    "experiment_type": "diSPIM",
    "subject_id": "12345",
    "related_data": [],

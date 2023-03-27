@@ -75,15 +75,15 @@ class Modality(Enum):
 class ExperimentType(Enum):
     """Experiment type name"""
 
-    MESOSPIM = "mesoSPIM"
-    EXASPIM = "exaSPIM"
+    CONFOCAL = "confocal"
     DISPIM = "diSPIM"
-    SMARTSPIM = "SmartSPIM"
+    EXASPIM = "exaSPIM"
     ECEPHYS = "ecephys"
-    OPHYS = "ophys"
-    CONFOCAL = "Confocal"
     MESOSCOPE = "mesoscope"
+    MESOSPIM = "mesoSPIM"
+    OPHYS = "ophys"
     OTHER = "Other"
+    SMARTSPIM = "SmartSPIM"
 
 
 def datetime_to_name_string(d, t):
@@ -185,7 +185,7 @@ class DataDescription(AindCoreModel):
         description="Detail any restrictions on publishing or sharing these data",
         title="Restrictions",
     )
-    modality: Modality = Field(
+    modality: List[Modality] = Field(
         ...,
         description="A short name for the specific manner, characteristic, pattern of application, or the employment"
         "of any technology or formal procedure to generate data for a study",
