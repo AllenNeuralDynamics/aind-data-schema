@@ -26,8 +26,8 @@ class DataDescriptionTest(unittest.TestCase):
             institution=Institution.AIND,
             data_level="raw data",
             funding_source=[f],
-            modality=Modality.ECEPHYS,
-            instrument_type="ecephys",
+            modality=[Modality.ECEPHYS],
+            experiment_type="ecephys",
             subject_id="12345",
         )
 
@@ -39,7 +39,7 @@ class DataDescriptionTest(unittest.TestCase):
             institution=Institution.AIND,
             funding_source=[f],
             modality=da.modality,
-            instrument_type=da.instrument_type,
+            experiment_type=da.experiment_type,
             subject_id=da.subject_id,
         )
 
@@ -51,7 +51,7 @@ class DataDescriptionTest(unittest.TestCase):
             institution=Institution.AIND,
             funding_source=[f],
             modality=r1.modality,
-            instrument_type=r1.instrument_type,
+            experiment_type=r1.experiment_type,
             subject_id="12345",
         )
 
@@ -63,15 +63,15 @@ class DataDescriptionTest(unittest.TestCase):
             institution=Institution.AIND,
             funding_source=[f],
             modality=r2.modality,
-            instrument_type=r2.instrument_type,
+            experiment_type=r2.experiment_type,
             subject_id="12345",
         )
         assert r3 is not None
 
         dd = DataDescription(
             label="test_data",
-            modality=Modality.SPIM,
-            instrument_type="exaSPIM",
+            modality=[Modality.SPIM],
+            experiment_type="exaSPIM",
             subject_id="1234",
             data_level="raw data",
             creation_date=dt.date(),
@@ -93,8 +93,8 @@ class DataDescriptionTest(unittest.TestCase):
             institution=Institution.AIND,
             data_level="raw data",
             funding_source=[],
-            modality=Modality.SPIM,
-            instrument_type="exaSPIM",
+            modality=[Modality.SPIM],
+            experiment_type="exaSPIM",
             subject_id="12345",
         )
 
@@ -116,7 +116,7 @@ class DataDescriptionTest(unittest.TestCase):
             toks = DataDescription.parse_name(self.BAD_NAME)
 
         toks = RawDataDescription.parse_name(self.BASIC_NAME)
-        assert toks["instrument_type"] == "ecephys"
+        assert toks["experiment_type"] == "ecephys"
         assert toks["subject_id"] == "1234"
         assert toks["creation_date"] == datetime.date(3033, 12, 21)
         assert toks["creation_time"] == datetime.time(4, 22, 11)
