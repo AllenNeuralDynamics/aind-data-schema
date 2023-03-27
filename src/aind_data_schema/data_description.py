@@ -70,7 +70,8 @@ class Modality(Enum):
     HSFP = BaseName(name="Hyperspectral fiber photometry", abbreviation="HSFP")
     MRI = BaseName(name="Magnetic resonance imaging", abbreviation="MRI")
     OPHYS = BaseName(name="Optical physiology", abbreviation="ophys")
-    
+
+
 class ExperimentType(Enum):
     """Experiment type name"""
 
