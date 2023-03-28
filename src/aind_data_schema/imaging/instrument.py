@@ -96,6 +96,19 @@ class ImagingDeviceType(Enum):
     OTHER = "Other"
 
 
+class ImagingInstrumentType(Enum):
+    """Experiment type name"""
+
+    CONFOCAL = "confocal"
+    DISPIM = "diSPIM"
+    EXASPIM = "exaSPIM"
+    ECEPHYS = "ecephys"
+    MESOSPIM = "mesoSPIM"
+    OTHER = "Other"
+    SMARTSPIM = "SmartSPIM"
+    TWO_PHOTON = "Two photon"
+
+
 class AdditionalImagingDevice(Device):
     """Description of additional devices"""
 
@@ -150,6 +163,7 @@ class Instrument(AindCoreModel):
         description="unique identifier for this instrument configuration",
         title="Instrument ID",
     )
+    instrument_type: ImagingInstrumentType = Field(..., title="Instrument type")
     location: str = Field(..., title="Instrument location")
     manufacturer: Manufacturer = Field(..., title="Instrument manufacturer")
     temperature_control: Optional[bool] = Field(None, title="Temperature control")

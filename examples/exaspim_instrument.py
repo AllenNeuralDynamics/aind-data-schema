@@ -4,6 +4,7 @@ from aind_data_schema.imaging import instrument
 
 inst = instrument.Instrument(
     instrument_id="exaSPIM1-1",
+    instrument_type="exaSPIM",
     manufacturer="Custom",
     location="440 Westlake",
     objectives=[

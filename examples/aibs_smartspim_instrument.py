@@ -4,6 +4,7 @@ from aind_data_schema.imaging.instrument import (AdditionalImagingDevice, Com, D
 
 inst = Instrument(
     instrument_id="SmartSPIM1-1",
+    instrument_type="SmartSPIM",
     manufacturer="LifeCanvas",
     location="440 Westlake",
     objectives=[
