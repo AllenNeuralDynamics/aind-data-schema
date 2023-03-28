@@ -193,7 +193,7 @@ class DataDescription(AindCoreModel):
     )
     experiment_type: ExperimentType = Field(
         ...,
-        description="A short name for the experiment motivating the collection of this data",
+        description="A short name for the experimental technique used to collect this data",
         title="Experiment Type",
     )
     subject_id: str = Field(
