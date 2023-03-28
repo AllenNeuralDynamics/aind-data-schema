@@ -37,7 +37,7 @@ s.write_standard_file() # writes subject.json
 ```json
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/subject.py",
-   "schema_version": "0.2.2",
+   "schema_version": "0.3.0",
    "species": "Mus musculus",
    "subject_id": "12345",
    "sex": "Male",
@@ -53,9 +53,16 @@ s.write_standard_file() # writes subject.json
    "maternal_genotype": null,
    "paternal_id": null,
    "paternal_genotype": null,
-   "light_cycle": null,
-   "home_cage_enrichment": "other",
    "wellness_reports": null,
+   "housing": {
+      "cage_id": "123",
+      "room_id": null,
+      "light_cycle": null,
+      "home_cage_enrichment": [
+         "Running wheel"
+      ],
+      "cohoused_subjects": null
+   },
    "notes": null
 }
 ```
