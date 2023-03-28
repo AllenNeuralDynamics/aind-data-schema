@@ -34,6 +34,13 @@ class AindModel(BaseModel, extra=Extra.forbid):
     """BaseModel that disallows extra fields"""
 
 
+class BaseName(AindModel):
+    """A simple model associating a name with an abbreviation"""
+
+    name: str
+    abbreviation: str
+
+
 class AindCoreModel(AindModel):
     """Generic base class to hold common fields/validators/etc for all basic AIND schema"""
 

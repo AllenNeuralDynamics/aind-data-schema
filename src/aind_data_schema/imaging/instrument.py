@@ -12,18 +12,6 @@ from ..base import AindCoreModel, AindModel
 from ..device import Coupling, DAQDevice, DataInterface, Device, Filter, Manufacturer, PowerUnit, SizeUnit
 
 
-class InstrumentType(Enum):
-    """Instrument type name"""
-
-    MESOSPIM = "mesoSPIM"
-    EXASPIM = "exaSPIM"
-    DISPIM = "diSPIM"
-    SMARTSPIM = "smartSPIM"
-    CONFOCAL = "Confocal"
-    TWO_PHOTON = "Two photon"
-    OTHER = "Other"
-
-
 class Com(AindModel):
     """Description of a communication system"""
 
@@ -108,6 +96,19 @@ class ImagingDeviceType(Enum):
     OTHER = "Other"
 
 
+class ImagingInstrumentType(Enum):
+    """Experiment type name"""
+
+    CONFOCAL = "confocal"
+    DISPIM = "diSPIM"
+    EXASPIM = "exaSPIM"
+    ECEPHYS = "ecephys"
+    MESOSPIM = "mesoSPIM"
+    OTHER = "Other"
+    SMARTSPIM = "SmartSPIM"
+    TWO_PHOTON = "Two photon"
+
+
 class AdditionalImagingDevice(Device):
     """Description of additional devices"""
 
@@ -156,13 +157,13 @@ class OpticalTable(Device):
 class Instrument(AindCoreModel):
     """Description of an instrument, which is a collection of devices"""
 
-    schema_version: str = Field("0.4.2", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.5.0", description="schema version", title="Version", const=True)
     instrument_id: Optional[str] = Field(
         None,
         description="unique identifier for this instrument configuration",
         title="Instrument ID",
     )
-    type: InstrumentType = Field(..., title="Instrument type")
+    instrument_type: ImagingInstrumentType = Field(..., title="Instrument type")
     location: str = Field(..., title="Instrument location")
     manufacturer: Manufacturer = Field(..., title="Instrument manufacturer")
     temperature_control: Optional[bool] = Field(None, title="Temperature control")

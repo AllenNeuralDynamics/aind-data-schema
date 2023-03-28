@@ -51,8 +51,8 @@ class ImagingTests(unittest.TestCase):
             i = inst.Instrument()
 
         i = inst.Instrument(
-            type="smartSPIM",
             location="440",
+            instrument_type="diSPIM",
             manufacturer="LifeCanvas",
             objectives=[],
             detectors=[],

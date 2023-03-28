@@ -38,7 +38,8 @@ class SchemaWriterTests(unittest.TestCase):
         self.assertEqual(os.getcwd(), sw2.configs.output)
 
     @patch("builtins.open", new_callable=mock_open())
-    def test_write_to_json(self, mock_file: MagicMock):
+    @patch("os.path.exists", return_value=False)
+    def test_write_to_json(self, mock_ope: MagicMock, mock_file: MagicMock):
         """Tests that model is written to JSON"""
         sw = SchemaWriter(self.TEST_ARGS)
         sw.write_to_json()
