@@ -73,7 +73,6 @@ class RegistrationType(Enum):
 class Registration(DataProcess):
     """Description of tile alignment coordinate transformations"""
 
-    schema_version: str = Field("0.2.0", description="schema version for stitching", title="Version", const=True)
     registration_type: RegistrationType = Field(
         ..., 
         title="Registration type",
