@@ -26,6 +26,7 @@ class VolumeUnit(Enum):
     """Volume units"""
 
     NL = "nanoliter"
+    UL = "microliter"
 
 
 class CurrentUnit(Enum):
