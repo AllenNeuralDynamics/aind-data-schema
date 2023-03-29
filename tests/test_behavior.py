@@ -5,7 +5,7 @@ import unittest
 
 import pydantic
 
-from aind_data_schema import Behavior
+from aind_data_schema import BehaviorSession
 
 class BehaviorTests(unittest.TestCase):
     """tests for behavior"""
