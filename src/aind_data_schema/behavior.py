@@ -56,7 +56,7 @@ class BehaviorSession(AindCoreModel):
         title="Input parameters", 
         description="Parameters used in behavior session"
     )
-    performance_parameters: Dict[str, Any] = Field(
+    output_parameters: Dict[str, Any] = Field(
         ...,
         title="Performance parameters",
         description="Performance metrics from session"
