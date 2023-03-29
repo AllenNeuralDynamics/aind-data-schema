@@ -114,7 +114,7 @@ class ImagingTests(unittest.TestCase):
             output_location="/some/path",
             code_url="http://foo",
             parameters={},
-            registration_type="Intra-channel"
+            registration_type="Intra-channel",
             tiles=[
                 tile.Tile(
                     coordinate_transformations=[
