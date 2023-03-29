@@ -16,6 +16,7 @@
          "parameters": {
             "size": 7
          },
+         "outputs": null,
          "notes": null
       },
       {
@@ -31,6 +32,7 @@
             "u": 7,
             "z": true
          },
+         "outputs": null,
          "notes": null
       },
       {
@@ -46,6 +48,7 @@
             "a": 2,
             "b": -2
          },
+         "outputs": null,
          "notes": null
       }
    ]
