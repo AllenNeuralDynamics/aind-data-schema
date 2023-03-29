@@ -14,11 +14,11 @@ class BehaviorTests(unittest.TestCase):
         """try building behavior"""
 
         with self.assertRaises(pydantic.ValidationError):
-            b = Behavior()
+            b = BehaviorSession()
 
         now = datetime.datetime.now()
 
-        b = Behavior(
+        b = BehaviorSession(
             subject_id="1234",
             experimenter_full_name="Fred Astaire",
             session_start_time = now,
