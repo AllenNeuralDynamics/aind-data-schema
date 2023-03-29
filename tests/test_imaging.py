@@ -9,7 +9,7 @@ from aind_data_schema.imaging import acquisition as acq
 from aind_data_schema.imaging import instrument as inst
 from aind_data_schema.imaging import mri_session as ms
 from aind_data_schema.imaging import tile
-from aind_data_schema.processing import Stitching
+from aind_data_schema.processing import DataProcess
 
 
 class ImagingTests(unittest.TestCase):
@@ -103,10 +103,10 @@ class ImagingTests(unittest.TestCase):
             axes = acq.Axis.from_direction_code(test_code)
             assert len(axes) == 3
 
-    def test_stitching(self):
+    def test_alignment(self):
         """test the tile models"""
 
-        t = Stitching(
+        t = DataProcess(
             name="Image tile alignment",
             version="1.0",
             start_date_time=datetime.datetime.now(),
