@@ -8,7 +8,7 @@ from typing import Any, Dict, List, Optional
 
 from pydantic import Field
 
-from ..base import AindCoreModel, AindModel
+from ..base import AindCoreModel
 from .procedures import VolumeUnit, WeightUnit
 
 
