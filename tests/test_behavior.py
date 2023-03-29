@@ -33,7 +33,7 @@ class BehaviorTests(unittest.TestCase):
             water_consumed = 820,
         )
 
-        assert s is not None
+        assert b is not None
 
 if __name__ == "__main__":
     unittest.main()
