@@ -44,8 +44,8 @@ class DataProcess(AindModel):
     output_location: str = Field(..., description="Path to data outputs", title="Output location")
     code_url: str = Field(..., description="Path to code respository", title="Code URL")
     code_version: Optional[str] = Field(None, description="Version of the code", title="Code version")
-    parameters: Dict[str, Any]
-    outputs: Dict[str, Any]
+    parameters: Dict[str, Any] = Field(..., title="Parameters")
+    outputs: Optional[Dict[str, Any]] = Field(None, description="Output parameters", title="Outputs")
     notes: Optional[str] = None
 
 
