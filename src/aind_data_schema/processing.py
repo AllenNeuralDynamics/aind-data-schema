@@ -44,7 +44,8 @@ class DataProcess(AindModel):
     output_location: str = Field(..., description="Path to data outputs", title="Output location")
     code_url: str = Field(..., description="Path to code respository", title="Code URL")
     code_version: Optional[str] = Field(None, description="Version of the code", title="Code version")
-    parameters: Dict[str, Any]
+    parameters: Dict[str, Any] = Field(..., title="Parameters")
+    outputs: Optional[Dict[str, Any]] = Field(None, description="Output parameters", title="Outputs")
     notes: Optional[str] = None
 
 
@@ -52,7 +53,7 @@ class Processing(AindCoreModel):
     """Description of all processes run on data"""
 
     schema_version: str = Field(
-        "0.1.0",
+        "0.2.1",
         description="Schema version",
         title="Schema version",
         const=True,
@@ -62,9 +63,24 @@ class Processing(AindCoreModel):
     data_processes: List[DataProcess] = Field(..., title="Data processing", unique_items=True)
 
 
-class Stitching(DataProcess):
+class RegistrationType(Enum):
+    """Types of registration"""
+
+    INTER = "Inter-channel"
+    INTRA = "Intra-channel"
+
+
+class Registration(DataProcess):
     """Description of tile alignment coordinate transformations"""
 
-    schema_version: str = Field("0.1.1", description="schema version for stitching", title="Version", const=True)
-
+    registration_type: RegistrationType = Field(
+        ..., 
+        title="Registration type",
+        description="Either inter channel across different channels or intra channel"
+        )
+    registration_channel: Optional[int] = Field(
+        None, 
+        title="Registration channel",
+        description="Channel registered to when inter channel"
+        )
     tiles: List[Tile] = Field(..., title="Data tiles")

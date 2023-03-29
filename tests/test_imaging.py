@@ -9,7 +9,7 @@ from aind_data_schema.imaging import acquisition as acq
 from aind_data_schema.imaging import instrument as inst
 from aind_data_schema.imaging import mri_session as ms
 from aind_data_schema.imaging import tile
-from aind_data_schema.processing import Stitching
+from aind_data_schema.processing import Registration
 
 
 class ImagingTests(unittest.TestCase):
@@ -103,18 +103,19 @@ class ImagingTests(unittest.TestCase):
             axes = acq.Axis.from_direction_code(test_code)
             assert len(axes) == 3
 
-    def test_stitching(self):
+    def test_registration(self):
         """test the tile models"""
 
-        t = Stitching(
+        t = Registration(
             name="Image tile alignment",
-            version="1.0",
+            version="2.3",
             start_date_time=datetime.datetime.now(),
             end_date_time=datetime.datetime.now(),
             input_location="/some/path",
             output_location="/some/path",
             code_url="http://foo",
             parameters={},
+            registration_type="Intra-channel",
             tiles=[
                 tile.Tile(
                     coordinate_transformations=[
