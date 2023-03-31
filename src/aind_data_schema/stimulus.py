@@ -4,11 +4,13 @@ from __future__ import annotations
 
 from datetime import date, time
 from enum import Enum
-from typing import List, Optional, Dict, Any
+from typing import Optional, Dict, Any
 
 from pydantic import Field
 
 from .base import AindCoreModel, AindModel
+from .device import FrequencyUnit
+from .procedures import TimeUnit
 
 
 class PulseShape(Enum):
@@ -55,4 +57,3 @@ class Stimulus(AindCoreModel):
     )
     stimulus_name: str = Field(..., title="Stimulus name")
     stimulus: OptoStim = Field(..., title="Stimulus") #in future this can be union of other stim types
-    

@@ -14,6 +14,8 @@ class TimeUnit(Enum):
     """Time units"""
 
     M = "minute"
+    S = "second"
+    MS = "millisecond"
 
 
 class WeightUnit(Enum):
