@@ -28,7 +28,7 @@
       {
          "name": "Hamamatsu Camera",
          "exposure_time": 10.0,
-         "exposure_time_unit": "ms",
+         "exposure_time_unit": "millisecond",
          "trigger_type": "Internal"
       }
    ],
