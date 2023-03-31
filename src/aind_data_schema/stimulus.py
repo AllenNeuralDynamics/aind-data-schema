@@ -7,7 +7,7 @@ from typing import Optional, Dict, Any
 
 from pydantic import Field
 
-from .base import AindCoreModel, AindModel
+from .base import AindCoreModel
 from .device import FrequencyUnit
 from .procedures import TimeUnit
 
