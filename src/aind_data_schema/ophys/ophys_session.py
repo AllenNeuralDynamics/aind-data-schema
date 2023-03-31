@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import datetime, time
 from enum import Enum
 from typing import List, Optional
 
@@ -10,6 +10,7 @@ from pydantic import Field
 
 from ..base import AindCoreModel, AindModel
 from ..device import FrequencyUnit, PowerUnit, SizeUnit
+from ..stimulus import Stimulus
 
 class TimeUnit(Enum):
     """Time units"""
@@ -88,34 +89,26 @@ class Patch(AindModel):
     output_power_unit: PowerUnit = Field(PowerUnit.UW, title="Output power unit")
 
 
-class OptoStim(AindModel):
-    """Description of optophysiology stimulation parameters"""
+class Stim(AindModel):
+    """Description of stimulus used during session"""
 
-    pulse_frequency: int = Field(..., title="Pulse frequency (Hz)")
-    pulse_frequency_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Pulse frequency unit")
-    number_pulse_trains: int = Field(..., title="Number of pulse trains")
-    pulse_width: int = Field(..., title="Pulse width (ms)")
-    pulse_width_unit: TimeUnit = Field(TimeUnit.MS, title="Pulse width unit")
-    pulse_train_duration: float = Field(..., title="Pulse train duration (s)")
-    pulse_train_duration_unit: TimeUnit = Field(TimeUnit.S, title="Pulse train duration unit")
-    pulse_train_interval: float = Field(
+    stimulus: Stimulus = Field(..., title="Stimulus")
+    stimulus_start_time: time = Field(
         ..., 
-        title="Pulse train interval (s)",
-        description="Time between pulse trains"
+        title="Stimulus start time",
+        description="When a specific stimulus begins. This might be the same as the session start time."
         )
-    pulse_train_interval_unit: TimeUnit = Field(TimeUnit.S, title="Pulse train interval unit")
-    baseline_duration: float = Field(
+    stimulus_end_time: time = Field(
         ..., 
-        title="Baseline duration (s)",
-        description="Duration of baseline recording prior to first pulse train")
-    baseline_duration_unit: TimeUnit = Field(TimeUnit.S, title="Baseline duration unit")
-
+        title="Stimulus end time",
+        description="When a specific stimulus ends. This might be the same as the session end time."
+        )
 
 class OphysSession(AindCoreModel):
     """Description of an ophys session"""
 
     schema_version: str = Field(
-        "0.1.3",
+        "0.1.4",
         description="schema version",
         title="Schema Version",
         const=True,
@@ -129,11 +122,11 @@ class OphysSession(AindCoreModel):
     session_end_time: Optional[datetime] = Field(None, title="Session end time")
     subject_id: int = Field(..., title="Subject ID")
     session_type: str = Field(..., title="Session type")
-    stimulus_protocol_id: Optional[str] = Field(None, title="Stimulus protocol ID")
     iacuc_protocol: Optional[str] = Field(None, title="IACUC protocol")
     rig_id: str = Field(..., title="Rig ID")
     lasers: List[Laser] = Field(..., title="Lasers", unique_items=True)
     detectors: Optional[List[Detector]] = Field(None, title="Detectors", unique_items=True)
+    stimulus: Optional[List[Stim]] = Field(None, title="Stimulus")
     notes: Optional[str] = None
 
 
