@@ -7,7 +7,6 @@
    "subject_id": "100001",
    "session_type": "Test",
    "session_description": null,
-   "stimulus_protocol_id": null,
    "iacuc_protocol": null,
    "rig_id": "323_EPHYS1",
    "data_streams": [
@@ -79,7 +78,8 @@
             {
                "name": "Body Camera"
             }
-         ]
+         ],
+         "stimulus": null
       }
    ],
    "ccf_coordinate_transform": null,
