@@ -12,6 +12,19 @@ from .device import FrequencyUnit
 from .procedures import TimeUnit
 
 
+class Stimulus(AindCoreModel):
+    """Description of stimulus used in a recording session"""
+
+    schema_version: str = Field(
+        "0.0.1",
+        description="schema version",
+        title="Schema Version",
+        const=True,
+    )
+    stimulus_name: str = Field(..., title="Stimulus name")
+    stimulus: OptoStim = Field(..., title="Stimulus") #in future this can be union of other stim types
+
+
 class PulseShape(Enum):
     """Types of Opto stim pulse shapes"""
     SQUARE = "Square"
@@ -19,7 +32,7 @@ class PulseShape(Enum):
     SINE = "Sinusoidal"
 
 
-class OptoStim(AindModel):
+class OptoStim(Stimulus):
     """Description of optophysiology stimulation parameters"""
 
     pulse_shape: PulseShape = Field(..., title="Pulse shape")
@@ -45,14 +58,3 @@ class OptoStim(AindModel):
     notes: Optional[str] = Field(None, title="Notes")
 
 
-class Stimulus(AindCoreModel):
-    """Description of stimulus used in a recording session"""
-
-    schema_version: str = Field(
-        "0.0.1",
-        description="schema version",
-        title="Schema Version",
-        const=True,
-    )
-    stimulus_name: str = Field(..., title="Stimulus name")
-    stimulus: OptoStim = Field(..., title="Stimulus") #in future this can be union of other stim types

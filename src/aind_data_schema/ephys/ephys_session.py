@@ -10,7 +10,7 @@ from pydantic import Field
 
 from ..base import AindCoreModel, AindModel
 from ..device import PowerUnit, SizeUnit
-from .. stimulus import Stimulus
+from ..stimulus import Stimulus
 from .ephys_rig import Coordinates3d
 
 

@@ -11,12 +11,7 @@ from pydantic import Field
 from ..base import AindCoreModel, AindModel
 from ..device import FrequencyUnit, PowerUnit, SizeUnit
 from ..stimulus import Stimulus
-
-class TimeUnit(Enum):
-    """Time units"""
-
-    S = "seconds"
-    MS = "milliseconds"
+from ..procedures import TimeUnit
 
 
 class FiberName(Enum):
@@ -57,7 +52,7 @@ class Detector(AindModel):
 
     name: str = Field(..., title="Name")
     exposure_time: float = Field(..., title="Exposure time (ms)")
-    exposure_time_unit: str = Field("ms", title="Exposure time unit")
+    exposure_time_unit: TimeUnit = Field(TimeUnit.MS, title="Exposure time unit")
     trigger_type: TriggerType = Field(..., title="Trigger type")
 
 
