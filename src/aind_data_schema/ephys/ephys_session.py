@@ -10,7 +10,7 @@ from pydantic import Field
 
 from ..base import AindCoreModel, AindModel
 from ..device import PowerUnit, SizeUnit
-from ..stimulus import Stimulus
+from ..stimulus import OptoStim
 from .ephys_rig import Coordinates3d
 
 
@@ -88,7 +88,7 @@ class Camera(AindModel):
 class Stim(AindModel):
     """Description of stimulus used during session"""
 
-    stimulus: Stimulus = Field(..., title="Stimulus")
+    stimulus: OptoStim = Field(..., title="Stimulus")
     stimulus_start_time: time = Field(
         ..., 
         title="Stimulus start time",
