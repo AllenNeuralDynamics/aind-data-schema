@@ -94,8 +94,21 @@ class Fluorophore(Enum):
     ALEXA_594 = "Alexa Fluor 594"
     ALEXA_647 = "Alexa Fluor 647"
 
+class Readout(Reagent):
+    """Description of a readout"""
+
+    fluorophore: Fluorophore = Field(..., title="Fluorophore")
+    excitation_wavelength: int = Field(..., title="Excitation wavelength (nm)")
+    excitation_wavelength_unit = SizeUnit = Field(SizeUnit.NM, title="Excitation wavelength unit")
+    stain_type: StainType = Field(..., title="Stain type")
+
+class HCRReadout(Readout):
+    """Description of a readout for HCR"""
+
+    initiator_name: str = Field(..., title="Initiator name")
+
 class OligoProbe(Reagent):
-    """Description of oligo probes for HCR"""
+    """Description of an oligo probe"""
 
     species: Species = Field(..., title="Species")
     gene_name: str = Field(..., title="Gene name")
@@ -105,24 +118,14 @@ class OligoProbe(Reagent):
         description="NCBI accession number of the gene"
         )
     probe_sequences: List[str] = Field(..., title="Probe sequences")
-    initiator_name: str = Field(..., title="Initiator name")
-
-class Readout(Reagent):
-    """Description of readout for HCR"""
-
-    initiator_name: str = Field(..., title="Initiator name")
-    fluorophore: Fluorophore = Field(..., title="Fluorophore")
-    excitation_wavelength: int = Field(..., title="Excitation wavelength (nm)")
-    excitation_wavelength_unit = SizeUnit = Field(SizeUnit.NM, title="Excitation wavelength unit")
-    stain_type: StainType = Field(..., title="Stain type")
-
-
-class OligoPools(AindModel):
-    """Description of probes and readouts used for HCR"""
-
+    readout: HCRReadout = Field(..., title="Readout")
     channel_index: int = Field(..., title="Channel index")
-    oligo_probe: OligoProbe = Field(..., title="Oligo probe")
-    readout: Readout = Field(..., title="Readout")
+
+class HCRProbe(OligoProbe):
+    """Description of a HCR probe"""
+
+    initiator_name: str = Field(..., title="Initiator name")
+    
 
 class OtherProbe(Reagent):
     """Description of other probes used for HCR"""
@@ -145,8 +148,8 @@ class HybridizationChainReaction(SpecimenProcedure):
     """Description of an HCR round""" 
 
     round_index: int = Field(..., title="Round index")
-    oligo_probes: List[OligoProbe] = Field(..., title="Oligo probes")
-    other_probes: Optional[List[OtherProbe]] = Field(None, title="Other probes")
+    HCR_probes: List[HCRProbe] = Field(..., title="HCR probes")
+    other_probes: Optional[List[OligoProbe]] = Field(None, title="Other probes")
     probe_concentration: float = Field(..., title="Probe concentration (M)")
     probe_concentration_unit: str = Field("M", title="Probe concentration unit")
     intrument_id: str = Field(..., title="Instrument ID")
