@@ -86,8 +86,8 @@ class ProtectiveMaterial(Enum):
     """Name of material applied to craniotomy"""
 
     DURAGEL = "Duragel"
-    SORTA_CLEAR = "SORTA-clear"
     KWIK_CAST = "Kwik-Cast"
+    SORTA_CLEAR = "SORTA-clear"    
     OTHER = "Other - see notes"
 
 
@@ -132,10 +132,10 @@ class SubjectProcedure(AindModel):
 class CraniotomyType(Enum):
     """Name of craniotomy Type"""
 
+    THREE_MM = "3 mm"
+    FIVE_MM = "5 mm"    
     VISCTX = "Visual Cortex"
     WHC = "Whole hemisphere craniotomy"
-    THREE_MM = "3 mm"
-    FIVE_MM = "5 mm"
     OTHER = "Other"
 
 
@@ -174,8 +174,8 @@ class Craniotomy(SubjectProcedure):
 class HeadframeMaterial(Enum):
     """Headframe material name"""
 
-    TITANIUM = "Titanium"
     STEEL = "Steel"
+    TITANIUM = "Titanium"
     WHITE_ZIRCONIA = "White Zirconia"
 
 

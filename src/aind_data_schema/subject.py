@@ -14,10 +14,10 @@ from .base import AindCoreModel, AindModel
 class Species(Enum):
     """Species latin name"""
 
-    MUS_MUSCULUS = "Mus musculus"
     CALLITHRIX_JACCHUS = "Callithrix jacchus"
-    MACACA_MULATTA = "Macaca mulatta"
     HOMO_SAPIENS = "Homo sapiens"
+    MACACA_MULATTA = "Macaca mulatta"
+    MUS_MUSCULUS = "Mus musculus"            
 
 
 class Sex(Enum):
@@ -30,8 +30,9 @@ class Sex(Enum):
 class BackgroundStrain(Enum):
     """Animal background strain name"""
 
-    C57BL_6J = "C57BL/6J"
     BALB_c = "BALB/c"
+    C57BL_6J = "C57BL/6J"
+    
 
 
 class LightCycle(AindModel):
@@ -52,10 +53,10 @@ class LightCycle(AindModel):
 class HomeCageEnrichment(Enum):
     """Materials provided in animal home cage"""
 
-    NONE = "None"
-    RUNNING_WHEEL = "Running wheel"
-    PLASTIC_TUBE = "Plastic tube"
+    NONE = "None"    
     PLASTIC_SHELTER = "Plastic shelter"
+    PLASTIC_TUBE = "Plastic tube"    
+    RUNNING_WHEEL = "Running wheel"
     OTHER = "Other"
 
 

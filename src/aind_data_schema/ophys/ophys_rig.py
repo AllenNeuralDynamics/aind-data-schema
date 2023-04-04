@@ -30,9 +30,9 @@ class Cooling(Enum):
 class Immersion(Enum):
     """Immersion medium name"""
 
-    AIR = "air"
-    WATER = "water"
+    AIR = "air"    
     OIL = "oil"
+    WATER = "water"
 
 
 class Detector(Device):
