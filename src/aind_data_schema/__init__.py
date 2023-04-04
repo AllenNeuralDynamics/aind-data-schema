@@ -1,7 +1,7 @@
 """ imports for AindModel subclasses
 """
 
-__version__ = "0.12.24"
+__version__ = "0.13.0"
 
 
 from .data_description import DataDescription, DerivedDataDescription, Funding, RawDataDescription
