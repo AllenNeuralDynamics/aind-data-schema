@@ -70,11 +70,12 @@ class SchemaWriter:
                 schema_version = schema.construct().schema_version
                 model_directory_name = schema_filename.replace("_schema.json", "")
                 sub_directory = Path(output_path) / model_directory_name / schema_version
-                if not os.path.exists(sub_directory):
-                    os.makedirs(sub_directory)
                 output_file = sub_directory / schema_filename
             else:
                 output_file = Path(output_path) / schema_filename
+
+            if not os.path.exists(output_file.parent):
+                os.makedirs(output_file.parent)
 
             with open(output_file, "w") as f:
                 f.write(schema.schema_json(indent=3))

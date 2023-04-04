@@ -1,8 +1,18 @@
 """Generates an example JSON file for an ephys rig"""
 
 from aind_data_schema.device import Camera, CameraAssembly, DAQChannel, Filter, Laser, Lens
-from aind_data_schema.ephys.ephys_rig import (Disc, EphysModule, EphysProbe, EphysRig, HarpDevice, LaserModule,
-                                              Manipulator, NeuropixelsBasestation, ProbePort, StickMicroscope)
+from aind_data_schema.ephys.ephys_rig import (
+    Disc,
+    EphysModule,
+    EphysProbe,
+    EphysRig,
+    HarpDevice,
+    LaserModule,
+    Manipulator,
+    NeuropixelsBasestation,
+    ProbePort,
+    StickMicroscope,
+)
 
 # Describes a rig with running wheel, 2 behavior cameras, one Harp Behavior board,
 # one dual-color laser module, one stick microscope, and 2 Neuropixels probes
