@@ -13,6 +13,7 @@ from .procedures import VolumeUnit, WeightUnit
 
 class BehaviorSession(AindCoreModel):
     """Description of a behavior session"""
+
     schema_version: str = Field(
         "0.0.1",
         description="Schema version",
@@ -40,26 +41,16 @@ class BehaviorSession(AindCoreModel):
         units="g",
     )
     weight_unit: WeightUnit = Field(WeightUnit.G, title="Weight unit")
-    behavior_type: str = Field(
-        ..., 
-        title="Behavior type", 
-        description="Name of the behavior session"
-    )
+    behavior_type: str = Field(..., title="Behavior type", description="Name of the behavior session")
     behavior_code: str = Field(
-        ..., 
-        title="Behavior code",
-        description="URL for the commit of the code used to run the behavior"
+        ..., title="Behavior code", description="URL for the commit of the code used to run the behavior"
     )
     code_version: str = Field(..., description="Version of the software used", title="Code version")
     input_parameters: Dict[str, Any] = Field(
-        ..., 
-        title="Input parameters", 
-        description="Parameters used in behavior session"
+        ..., title="Input parameters", description="Parameters used in behavior session"
     )
     output_parameters: Dict[str, Any] = Field(
-        ...,
-        title="Performance parameters",
-        description="Performance metrics from session"
+        ..., title="Performance parameters", description="Performance metrics from session"
     )
     water_consumed: float = Field(..., title="Water consumed (uL)")
     water_consumed_unit: VolumeUnit = Field(VolumeUnit.UL, title="Water consumed unit")

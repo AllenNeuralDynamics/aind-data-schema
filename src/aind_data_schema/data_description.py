@@ -9,7 +9,7 @@ from typing import List, Optional
 
 from pydantic import Field
 
-from .base import AindCoreModel, AindModel, BaseName
+from .base import AindCoreModel, AindModel, BaseName, BaseNameEnumMeta
 
 
 class RegexParts(Enum):
@@ -41,7 +41,7 @@ class DataLevel(Enum):
     DERIVED_DATA = "derived data"
 
 
-class Institution(Enum):
+class Institution(Enum, metaclass=BaseNameEnumMeta):
     """Institution name"""
 
     AIBS = BaseName(name="Allen Institute for Brain Science", abbreviation="AIBS")
@@ -60,7 +60,7 @@ class Group(Enum):
     OPHYS = "ophys"
 
 
-class Modality(Enum):
+class Modality(Enum, metaclass=BaseNameEnumMeta):
     """Data collection modality name"""
 
     ECEPHYS = BaseName(name="Extracellular electrophysiology", abbreviation="ecephys")

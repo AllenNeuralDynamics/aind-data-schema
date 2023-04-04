@@ -4,8 +4,14 @@ import datetime
 import json
 import unittest
 
-from aind_data_schema.data_description import (DataDescription, DerivedDataDescription, Funding, Institution, Modality,
-                                               RawDataDescription)
+from aind_data_schema.data_description import (
+    DataDescription,
+    DerivedDataDescription,
+    Funding,
+    Institution,
+    Modality,
+    RawDataDescription,
+)
 
 
 class DataDescriptionTest(unittest.TestCase):
@@ -132,6 +138,11 @@ class DataDescriptionTest(unittest.TestCase):
 
         with self.assertRaises(ValueError):
             toks = DerivedDataDescription.parse_name(self.BAD_NAME)
+
+    def test_modality_enums(self):
+        """Tests that BaseName enums can be constructed from attr names"""
+        self.assertEqual(Modality.ECEPHYS, Modality("ECEPHYS"))
+        self.assertEqual(Modality.ECEPHYS, Modality("ecephys"))
 
 
 if __name__ == "__main__":
