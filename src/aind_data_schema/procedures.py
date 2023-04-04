@@ -87,7 +87,7 @@ class ProtectiveMaterial(Enum):
 
     DURAGEL = "Duragel"
     KWIK_CAST = "Kwik-Cast"
-    SORTA_CLEAR = "SORTA-clear"    
+    SORTA_CLEAR = "SORTA-clear"
     OTHER = "Other - see notes"
 
 
@@ -133,7 +133,7 @@ class CraniotomyType(Enum):
     """Name of craniotomy Type"""
 
     THREE_MM = "3 mm"
-    FIVE_MM = "5 mm"    
+    FIVE_MM = "5 mm"
     VISCTX = "Visual Cortex"
     WHC = "Whole hemisphere craniotomy"
     OTHER = "Other"

@@ -18,11 +18,11 @@ class SizeUnit(Enum):
     """units for sizes"""
 
     CM = "centimeter"
-    IN = "inch"        
+    IN = "inch"
     MM = "millimeter"
     NM = "nanometer"
     UM = "micrometer"
-    PX = "pixel"    
+    PX = "pixel"
     NONE = "none"
 
 
@@ -43,7 +43,6 @@ class PowerUnit(Enum):
 
     UW = "microwatt"
     MW = "milliwatt"
-    
 
 
 class Manufacturer(Enum):
@@ -72,7 +71,7 @@ class Manufacturer(Enum):
     NIKON = "Nikon"
     OEPS = "OEPS"
     OLYMPUS = "Olympus"
-    OPTOTUNE = "Optotune"    
+    OPTOTUNE = "Optotune"
     OXXIUS = "Oxxius"
     QUANTIFI = "Quantifi"
     SEMROCK = "Semrock"
@@ -85,7 +84,7 @@ class Manufacturer(Enum):
 class Coupling(Enum):
     """Laser coupling type"""
 
-    FREE_SPACE = "Free-space"    
+    FREE_SPACE = "Free-space"
     MMF = "MMF"
     SMF = "SMF"
     OTHER = "Other"
@@ -93,12 +92,12 @@ class Coupling(Enum):
 
 class DataInterface(Enum):
     """Connection between a device and a PC"""
-    
+
     CAMERALINK = "CameraLink"
     COAX = "Coax"
     ETH = "Ethernet"
     PCIE = "PCIe"
-    PXI = "PXI"    
+    PXI = "PXI"
     USB = "USB"
     OTHER = "Other"
 
@@ -107,9 +106,9 @@ class FilterType(Enum):
     """Filter type"""
 
     BANDPASS = "Band pass"
-    DICHROIC = "Dichroic"    
-    LONGPASS = "Long pass"    
-    MULTIBAND = "Multiband"    
+    DICHROIC = "Dichroic"
+    LONGPASS = "Long pass"
+    MULTIBAND = "Multiband"
     ND = "Neutral density"
     NOTCH = "Notch"
     SHORTPASS = "Short pass"
@@ -142,7 +141,7 @@ class DaqChannelType(Enum):
     AI = "Analog Input"
     AO = "Analog Output"
     DI = "Digital Input"
-    DO = "Digital Output"            
+    DO = "Digital Output"
 
 
 class RelativePosition(AindModel):

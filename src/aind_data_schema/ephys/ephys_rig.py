@@ -158,12 +158,11 @@ class ProbeModel(Enum):
     MP_PHOTONIC_V1 = "MPI Photonic Probe (Version 1)"
     NP_OPTO_DEMONSTRATOR = "Neuropixels Opto (Demonstrator)"
     NP_UHD_FIXED = "Neuropixels UHD (Fixed)"
-    NP_UHD_SWITCHABLE = "Neuropixels UHD (Switchable)"    
+    NP_UHD_SWITCHABLE = "Neuropixels UHD (Switchable)"
     NP1 = "Neuropixels 1.0"
     NP2_SINGLE_SHANK = "Neuropixels 2.0 (Single Shank)"
     NP2_MULTI_SHANK = "Neuropixels 2.0 (Multi Shank)"
-    NP2_QUAD_BASE = "Neuropixels 2.0 (Quad Base)"    
-    
+    NP2_QUAD_BASE = "Neuropixels 2.0 (Quad Base)"
 
 
 class HeadstageModel(Enum):

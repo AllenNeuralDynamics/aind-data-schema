@@ -65,7 +65,7 @@ class Lightsource(Device):
 class Immersion(Enum):
     """Immersion media name"""
 
-    AIR = "air"    
+    AIR = "air"
     MULTI = "multi"
     OIL = "oil"
     WATER = "water"
@@ -84,15 +84,15 @@ class ImagingDeviceType(Enum):
     """Imaginge device type name"""
 
     BEAM_EXPANDER = "Beam expander"
-    DIFFUSER = "Diffuser"    
-    GALVO = "Galvo"    
+    DIFFUSER = "Diffuser"
+    GALVO = "Galvo"
     LASER_COMBINER = "Laser combiner"
     LASER_COUPLER = "Laser coupler"
     PRISM = "Prism"
     OBJECTIVE = "Objective"
     ROTATION_MOUNT = "Rotation mount"
     SLIT = "Slit"
-    TUNABLE_LENS = "Tunable lens"        
+    TUNABLE_LENS = "Tunable lens"
     OTHER = "Other"
 
 

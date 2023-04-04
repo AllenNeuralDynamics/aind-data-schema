@@ -17,7 +17,7 @@ class Species(Enum):
     CALLITHRIX_JACCHUS = "Callithrix jacchus"
     HOMO_SAPIENS = "Homo sapiens"
     MACACA_MULATTA = "Macaca mulatta"
-    MUS_MUSCULUS = "Mus musculus"            
+    MUS_MUSCULUS = "Mus musculus"
 
 
 class Sex(Enum):
@@ -32,7 +32,6 @@ class BackgroundStrain(Enum):
 
     BALB_c = "BALB/c"
     C57BL_6J = "C57BL/6J"
-    
 
 
 class LightCycle(AindModel):
@@ -53,9 +52,9 @@ class LightCycle(AindModel):
 class HomeCageEnrichment(Enum):
     """Materials provided in animal home cage"""
 
-    NONE = "None"    
+    NONE = "None"
     PLASTIC_SHELTER = "Plastic shelter"
-    PLASTIC_TUBE = "Plastic tube"    
+    PLASTIC_TUBE = "Plastic tube"
     RUNNING_WHEEL = "Running wheel"
     OTHER = "Other"
 
