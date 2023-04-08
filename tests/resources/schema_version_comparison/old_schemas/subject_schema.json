@@ -1,0 +1,241 @@
+{
+   "title": "Subject",
+   "description": "Description of a subject of data collection",
+   "type": "object",
+   "properties": {
+      "describedBy": {
+         "title": "Describedby",
+         "default": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/subject.py",
+         "const": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/subject.py",
+         "type": "string"
+      },
+      "schema_version": {
+         "title": "Version",
+         "description": "schema version",
+         "default": "0.2.2",
+         "const": "0.2.2",
+         "type": "string"
+      },
+      "species": {
+         "title": "Species",
+         "allOf": [
+            {
+               "$ref": "#/definitions/Species"
+            }
+         ]
+      },
+      "subject_id": {
+         "title": "Subject ID",
+         "description": "Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
+         "type": "string"
+      },
+      "sex": {
+         "title": "Sex",
+         "allOf": [
+            {
+               "$ref": "#/definitions/Sex"
+            }
+         ]
+      },
+      "date_of_birth": {
+         "title": "Date of birth",
+         "type": "string",
+         "format": "date"
+      },
+      "genotype": {
+         "title": "Genotype",
+         "description": "Genotype of the animal providing both alleles",
+         "type": "string"
+      },
+      "mgi_allele_ids": {
+         "title": "MGI allele ids",
+         "type": "array",
+         "items": {
+            "$ref": "#/definitions/MgiAlleleId"
+         }
+      },
+      "background_strain": {
+         "title": "Background strain",
+         "allOf": [
+            {
+               "$ref": "#/definitions/BackgroundStrain"
+            }
+         ]
+      },
+      "source": {
+         "title": "Source",
+         "description": "If the subject was not bred in house, where was it acquired from.",
+         "type": "string"
+      },
+      "rrid": {
+         "title": "RRID",
+         "description": "RRID of mouse if acquired from supplier",
+         "type": "string"
+      },
+      "restrictions": {
+         "title": "Restrictions",
+         "description": "Any restrictions on use or publishing based on subject source",
+         "type": "string"
+      },
+      "breeding_group": {
+         "title": "Breeding Group",
+         "type": "string"
+      },
+      "maternal_id": {
+         "title": "Maternal specimen ID",
+         "type": "string"
+      },
+      "maternal_genotype": {
+         "title": "Maternal genotype",
+         "type": "string"
+      },
+      "paternal_id": {
+         "title": "Paternal specimen ID",
+         "type": "string"
+      },
+      "paternal_genotype": {
+         "title": "Paternal genotype",
+         "type": "string"
+      },
+      "light_cycle": {
+         "title": "Light cycle",
+         "allOf": [
+            {
+               "$ref": "#/definitions/LightCycle"
+            }
+         ]
+      },
+      "home_cage_enrichment": {
+         "title": "Home cage enrichment",
+         "allOf": [
+            {
+               "$ref": "#/definitions/HomeCageEnrichment"
+            }
+         ]
+      },
+      "wellness_reports": {
+         "title": "Wellness Report",
+         "type": "array",
+         "items": {
+            "$ref": "#/definitions/WellnessReport"
+         }
+      },
+      "notes": {
+         "title": "Notes",
+         "type": "string"
+      }
+   },
+   "required": [
+      "species",
+      "subject_id",
+      "sex",
+      "date_of_birth",
+      "genotype"
+   ],
+   "additionalProperties": false,
+   "definitions": {
+      "Species": {
+         "title": "Species",
+         "description": "Species latin name",
+         "enum": [
+            "Mus musculus",
+            "Callithrix jacchus",
+            "Macaca mulatta",
+            "Homo sapiens"
+         ]
+      },
+      "Sex": {
+         "title": "Sex",
+         "description": "Subject sex name",
+         "enum": [
+            "Female",
+            "Male"
+         ]
+      },
+      "MgiAlleleId": {
+         "title": "MgiAlleleId",
+         "description": "Mouse Genome Informatics IDs for genotype alleles",
+         "type": "object",
+         "properties": {
+            "allele_name": {
+               "title": "Name",
+               "type": "string"
+            },
+            "mgi_id": {
+               "title": "MGI ID",
+               "type": "string"
+            }
+         },
+         "required": [
+            "allele_name",
+            "mgi_id"
+         ],
+         "additionalProperties": false
+      },
+      "BackgroundStrain": {
+         "title": "BackgroundStrain",
+         "description": "Animal background strain name",
+         "enum": [
+            "C57BL/6J",
+            "BALB/c"
+         ]
+      },
+      "LightCycle": {
+         "title": "LightCycle",
+         "description": "Description of vivarium light cycle times",
+         "type": "object",
+         "properties": {
+            "lights_on_time": {
+               "title": "Lights on time",
+               "description": "Time in UTC that lights were turned on",
+               "type": "string",
+               "format": "time"
+            },
+            "lights_off_time": {
+               "title": "Lights off time",
+               "description": "Time in UTC that lights were turned off",
+               "type": "string",
+               "format": "time"
+            }
+         },
+         "required": [
+            "lights_on_time",
+            "lights_off_time"
+         ],
+         "additionalProperties": false
+      },
+      "HomeCageEnrichment": {
+         "title": "HomeCageEnrichment",
+         "description": "Materials provided in animal home cage",
+         "enum": [
+            "none",
+            "running wheel",
+            "social housing",
+            "plastic tube",
+            "plastic shelter",
+            "other"
+         ]
+      },
+      "WellnessReport": {
+         "title": "WellnessReport",
+         "description": "Wellness report on animal health",
+         "type": "object",
+         "properties": {
+            "date": {
+               "title": "Date",
+               "type": "string",
+               "format": "date"
+            },
+            "report": {
+               "title": "Report",
+               "type": "string"
+            }
+         },
+         "required": [
+            "date",
+            "report"
+         ],
+         "additionalProperties": false
+      }
+   }
+}

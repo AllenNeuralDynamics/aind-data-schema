@@ -1,0 +1,292 @@
+{
+   "title": "DataDescription",
+   "description": "Description of a logical collection of data files",
+   "type": "object",
+   "properties": {
+      "describedBy": {
+         "title": "Describedby",
+         "default": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/data_description.py",
+         "const": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/data_description.py",
+         "type": "string"
+      },
+      "schema_version": {
+         "title": "Schema Version",
+         "default": "0.3",
+         "const": "0.3",
+         "type": "string"
+      },
+      "license": {
+         "title": "License",
+         "default": "CC-BY-4.0",
+         "const": "CC-BY-4.0",
+         "type": "string"
+      },
+      "creation_time": {
+         "title": "Creation Time",
+         "description": "Time in UTC that data files were created, used to uniquely identify the data",
+         "type": "string",
+         "format": "time"
+      },
+      "creation_date": {
+         "title": "Creation Date",
+         "description": "Date in UTC that data files were created, used to uniquely identify the data",
+         "type": "string",
+         "format": "date"
+      },
+      "name": {
+         "title": "Name",
+         "description": "Name of data, conventionally also the name of the directory containing all data and metadata",
+         "type": "string"
+      },
+      "institution": {
+         "title": "Institution",
+         "description": "An established society, corporation, foundation or other organization that collected this data",
+         "enumNames": [
+            "Allen Institute for Brain Science",
+            "Allen Institute for Neural Dynamics",
+            "Columbia University",
+            "Huazhong University of Science and Technology",
+            "New York University"
+         ],
+         "allOf": [
+            {
+               "$ref": "#/definitions/Institution"
+            }
+         ]
+      },
+      "ror_id": {
+         "title": "ROR ID",
+         "description": "Institution ID from the Research Organization Registry",
+         "type": "string"
+      },
+      "funding_source": {
+         "title": "Funding source",
+         "description": "Funding sources. If internal label as Institution.",
+         "type": "array",
+         "items": {
+            "$ref": "#/definitions/Funding"
+         }
+      },
+      "data_level": {
+         "title": "Data Level",
+         "description": "level of processing that data has undergone",
+         "allOf": [
+            {
+               "$ref": "#/definitions/DataLevel"
+            }
+         ]
+      },
+      "group": {
+         "title": "Group",
+         "description": "A short name for the group of individuals that collected this data",
+         "allOf": [
+            {
+               "$ref": "#/definitions/Group"
+            }
+         ]
+      },
+      "project_name": {
+         "title": "Project Name",
+         "description": "A name for a set of coordinated activities intended to achieve one or more objectives",
+         "type": "string"
+      },
+      "project_id": {
+         "title": "Project ID",
+         "description": "A database or other identifier for a project",
+         "type": "string"
+      },
+      "restrictions": {
+         "title": "Restrictions",
+         "description": "Detail any restrictions on publishing or sharing these data",
+         "type": "string"
+      },
+      "modality": {
+         "title": "Modality",
+         "description": "A short name for the specific manner, characteristic, pattern of application, or the employmentof any technology or formal procedure to generate data for a study",
+         "type": "array",
+         "items": {
+            "$ref": "#/definitions/Modality"
+         }
+      },
+      "experiment_type": {
+         "title": "Experiment Type",
+         "description": "A short name for the experimental technique used to collect this data",
+         "allOf": [
+            {
+               "$ref": "#/definitions/ExperimentType"
+            }
+         ]
+      },
+      "subject_id": {
+         "title": "Subject ID",
+         "description": "Unique identifier for the subject of data acquisition",
+         "pattern": "^[^_]+$",
+         "type": "string"
+      },
+      "related_data": {
+         "title": "Related data",
+         "description": "Path and description of data assets associated with this asset (eg. reference images)",
+         "default": [],
+         "type": "array",
+         "items": {
+            "$ref": "#/definitions/RelatedData"
+         }
+      },
+      "data_summary": {
+         "title": "Data summary",
+         "description": "Semantic summary of experimental goal",
+         "type": "string"
+      }
+   },
+   "required": [
+      "creation_time",
+      "creation_date",
+      "institution",
+      "funding_source",
+      "data_level",
+      "modality",
+      "experiment_type",
+      "subject_id"
+   ],
+   "additionalProperties": false,
+   "definitions": {
+      "Institution": {
+         "title": "Institution",
+         "description": "Institution name",
+         "enum": [
+            {
+               "name": "Allen Institute for Brain Science",
+               "abbreviation": "AIBS"
+            },
+            {
+               "name": "Allen Institute for Neural Dynamics",
+               "abbreviation": "AIND"
+            },
+            {
+               "name": "Columbia University",
+               "abbreviation": "Columbia"
+            },
+            {
+               "name": "Huazhong University of Science and Technology",
+               "abbreviation": "HUST"
+            },
+            {
+               "name": "New York University",
+               "abbreviation": "NYU"
+            }
+         ]
+      },
+      "Funding": {
+         "title": "Funding",
+         "description": "Description of funding sources",
+         "type": "object",
+         "properties": {
+            "funder": {
+               "title": "Funder",
+               "type": "string"
+            },
+            "grant_number": {
+               "title": "Grant number",
+               "type": "string"
+            },
+            "fundee": {
+               "title": "Fundee",
+               "description": "Person(s) funded by this mechanism",
+               "type": "string"
+            }
+         },
+         "required": [
+            "funder"
+         ],
+         "additionalProperties": false
+      },
+      "DataLevel": {
+         "title": "DataLevel",
+         "description": "Data level name",
+         "enum": [
+            "raw data",
+            "derived data"
+         ]
+      },
+      "Group": {
+         "title": "Group",
+         "description": "Data collection group name",
+         "enum": [
+            "behavior",
+            "ephys",
+            "MSMA",
+            "ophys"
+         ]
+      },
+      "Modality": {
+         "title": "Modality",
+         "description": "Data collection modality name",
+         "enum": [
+            {
+               "name": "Extracellular electrophysiology",
+               "abbreviation": "ecephys"
+            },
+            {
+               "name": "Selective plane illumination microscopy",
+               "abbreviation": "SPIM"
+            },
+            {
+               "name": "Frame-projected independent-fiber photometry",
+               "abbreviation": "FIP"
+            },
+            {
+               "name": "Fluorescence micro-optical sectioning tomography",
+               "abbreviation": "fMOST"
+            },
+            {
+               "name": "Hyperspectral fiber photometry",
+               "abbreviation": "HSFP"
+            },
+            {
+               "name": "Magnetic resonance imaging",
+               "abbreviation": "MRI"
+            },
+            {
+               "name": "Optical physiology",
+               "abbreviation": "ophys"
+            }
+         ]
+      },
+      "ExperimentType": {
+         "title": "ExperimentType",
+         "description": "Experiment type name",
+         "enum": [
+            "confocal",
+            "diSPIM",
+            "exaSPIM",
+            "ecephys",
+            "mesoscope",
+            "mesoSPIM",
+            "ophys",
+            "Other",
+            "SmartSPIM"
+         ]
+      },
+      "RelatedData": {
+         "title": "RelatedData",
+         "description": "Description of related data asset",
+         "type": "object",
+         "properties": {
+            "related_data_path": {
+               "title": "Related data path",
+               "type": "string"
+            },
+            "relation": {
+               "title": "Relation",
+               "description": "Relation of data to this asset",
+               "type": "string"
+            }
+         },
+         "required": [
+            "related_data_path",
+            "relation"
+         ],
+         "additionalProperties": false
+      }
+   }
+}
