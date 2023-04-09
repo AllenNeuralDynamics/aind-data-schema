@@ -1,0 +1,169 @@
+{
+   "title": "DataDescription",
+   "description": "Description of a logical collection of data files",
+   "type": "object",
+   "properties": {
+      "describedBy": {
+         "title": "Describedby",
+         "default": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/data_description.py",
+         "const": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/data_description.py",
+         "type": "string"
+      },
+      "schema_version": {
+         "title": "Schema Version",
+         "default": "0.3.0",
+         "const": "0.3.0",
+         "type": "string"
+      },
+      "license": {
+         "title": "License",
+         "default": "CC-BY-4.0",
+         "const": "CC-BY-4.0",
+         "type": "string"
+      },
+      "creation_time": {
+         "title": "Creation Time",
+         "description": "Time in UTC that data files were created, used to uniquely identify the data",
+         "type": "string",
+         "format": "time"
+      },
+      "creation_date": {
+         "title": "Creation Date",
+         "description": "Date in UTC that data files were created, used to uniquely identify the data",
+         "type": "string",
+         "format": "date"
+      },
+      "name": {
+         "title": "Name",
+         "description": "Name of data, conventionally also the name of the directory containing all data and metadata",
+         "type": "string"
+      },
+      "institution": {
+         "title": "Institution",
+         "description": "An established society, corporation, foundation or other organization that collected this data",
+         "allOf": [
+            {
+               "$ref": "#/definitions/Institution"
+            }
+         ]
+      },
+      "funding_source": {
+         "title": "Funding source",
+         "description": "Funding sources. If internal label as Institution.",
+         "type": "array",
+         "items": {
+            "$ref": "#/definitions/Funding"
+         }
+      },
+      "data_level": {
+         "title": "Data Level",
+         "description": "level of processing that data has undergone",
+         "allOf": [
+            {
+               "$ref": "#/definitions/DataLevel"
+            }
+         ]
+      },
+      "group": {
+         "title": "Group",
+         "description": "A short name for the group of individuals that collected this data",
+         "allOf": [
+            {
+               "$ref": "#/definitions/Group"
+            }
+         ]
+      },
+      "project_name": {
+         "title": "Project Name",
+         "description": "A name for a set of coordinated activities intended to achieve one or more objectives",
+         "type": "string"
+      },
+      "project_id": {
+         "title": "Project ID",
+         "description": "A database or other identifier for a project",
+         "type": "string"
+      },
+      "restrictions": {
+         "title": "Restrictions",
+         "description": "Detail any restrictions on publishing or sharing these data",
+         "type": "string"
+      },
+      "modality": {
+         "title": "Modality",
+         "description": "A short name for the specific manner, characteristic, pattern of application, or the employment of any technology or formal procedure to generate data for a study",
+         "pattern": "^[^_]+$",
+         "type": "string"
+      },
+      "subject_id": {
+         "title": "Subject Id",
+         "description": "Unique identifier for the subject of data acquisition",
+         "pattern": "^[^_]+$",
+         "type": "string"
+      }
+   },
+   "required": [
+      "creation_time",
+      "creation_date",
+      "institution",
+      "funding_source",
+      "data_level",
+      "modality",
+      "subject_id"
+   ],
+   "additionalProperties": false,
+   "definitions": {
+      "Institution": {
+         "title": "Institution",
+         "description": "Institution name",
+         "enum": [
+            "AIND",
+            "AIBS",
+            "HUST",
+            "NYU",
+            "Columbia University"
+         ]
+      },
+      "Funding": {
+         "title": "Funding",
+         "description": "Description of funding sources",
+         "type": "object",
+         "properties": {
+            "funder": {
+               "title": "Funder",
+               "type": "string"
+            },
+            "grant_number": {
+               "title": "Grant number",
+               "type": "string"
+            },
+            "fundee": {
+               "title": "Fundee",
+               "description": "Person(s) funded by this mechanism",
+               "type": "string"
+            }
+         },
+         "required": [
+            "funder"
+         ],
+         "additionalProperties": false
+      },
+      "DataLevel": {
+         "title": "DataLevel",
+         "description": "Data level name",
+         "enum": [
+            "raw data",
+            "derived data"
+         ]
+      },
+      "Group": {
+         "title": "Group",
+         "description": "Data collection group name",
+         "enum": [
+            "ephys",
+            "ophys",
+            "MSMA",
+            "behavior"
+         ]
+      }
+   }
+}
