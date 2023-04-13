@@ -50,6 +50,13 @@ class Institution(Enum, metaclass=BaseNameEnumMeta):
     HUST = BaseName(name="Huazhong University of Science and Technology", abbreviation="HUST")
     NYU = BaseName(name="New York University", abbreviation="NYU")
 
+    @classmethod
+    def __modify_schema__(cls, field_schema):
+        """Adds enumNames to institution"""
+        field_schema.update(
+            enumNames=[e.value.name for e in cls],
+        )
+
 
 class Group(Enum):
     """Data collection group name"""
@@ -70,6 +77,13 @@ class Modality(Enum, metaclass=BaseNameEnumMeta):
     HSFP = BaseName(name="Hyperspectral fiber photometry", abbreviation="HSFP")
     MRI = BaseName(name="Magnetic resonance imaging", abbreviation="MRI")
     OPHYS = BaseName(name="Optical physiology", abbreviation="ophys")
+
+    @classmethod
+    def __modify_schema__(cls, field_schema):
+        """Adds enumNames to modality"""
+        field_schema.update(
+            enumNames=[e.value.name for e in cls],
+        )
 
 
 class ExperimentType(Enum):
@@ -125,7 +139,7 @@ class RelatedData(AindModel):
 class DataDescription(AindCoreModel):
     """Description of a logical collection of data files"""
 
-    schema_version: str = Field("0.4.0", title="Schema Version", const=True)
+    schema_version: str = Field("0.4.1", title="Schema Version", const=True)
     license: str = Field("CC-BY-4.0", title="License", const=True)
 
     creation_time: time = Field(
@@ -147,7 +161,6 @@ class DataDescription(AindCoreModel):
         ...,
         description="An established society, corporation, foundation or other organization that collected this data",
         title="Institution",
-        enumNames=[i.value.name for i in Institution],
     )
     ror_id: Optional[str] = Field(
         None,
