@@ -73,6 +73,7 @@ class Modality(Enum, metaclass=BaseNameEnumMeta):
 
     @classmethod
     def __modify_schema__(cls, field_schema):
+        """Adds enumNames to modality"""
         field_schema.update(
             enumNames=[e.value.name for e in cls],
         )
