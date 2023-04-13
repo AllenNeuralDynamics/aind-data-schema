@@ -50,6 +50,13 @@ class Institution(Enum, metaclass=BaseNameEnumMeta):
     HUST = BaseName(name="Huazhong University of Science and Technology", abbreviation="HUST")
     NYU = BaseName(name="New York University", abbreviation="NYU")
 
+    @classmethod
+    def __modify_schema__(cls, field_schema):
+        """Adds enumNames to institution"""
+        field_schema.update(
+            enumNames=[e.value.name for e in cls],
+        )
+
 
 class Group(Enum):
     """Data collection group name"""
@@ -154,7 +161,6 @@ class DataDescription(AindCoreModel):
         ...,
         description="An established society, corporation, foundation or other organization that collected this data",
         title="Institution",
-        enumNames=[i.value.name for i in Institution],
     )
     ror_id: Optional[str] = Field(
         None,
