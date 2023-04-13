@@ -71,6 +71,12 @@ class Modality(Enum, metaclass=BaseNameEnumMeta):
     MRI = BaseName(name="Magnetic resonance imaging", abbreviation="MRI")
     OPHYS = BaseName(name="Optical physiology", abbreviation="ophys")
 
+    @classmethod
+    def __modify_schema__(cls, field_schema):
+        field_schema.update(
+            enumNames=[e.value.name for e in cls],
+        )
+
 
 class ExperimentType(Enum):
     """Experiment type name"""
@@ -190,7 +196,6 @@ class DataDescription(AindCoreModel):
         description="A short name for the specific manner, characteristic, pattern of application, or the employment"
         "of any technology or formal procedure to generate data for a study",
         title="Modality",
-        enumNames=[m.value.name for m in Modality]
     )
     experiment_type: ExperimentType = Field(
         ...,
