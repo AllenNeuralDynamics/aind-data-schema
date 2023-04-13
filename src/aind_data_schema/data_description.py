@@ -190,6 +190,7 @@ class DataDescription(AindCoreModel):
         description="A short name for the specific manner, characteristic, pattern of application, or the employment"
         "of any technology or formal procedure to generate data for a study",
         title="Modality",
+        enumNames=[m.value.name for m in Modality]
     )
     experiment_type: ExperimentType = Field(
         ...,
