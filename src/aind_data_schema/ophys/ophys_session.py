@@ -87,7 +87,7 @@ class Patch(AindModel):
 class Stim(AindModel):
     """Description of stimulus used during session"""
 
-    stimulus: OptoStim = Field(..., title="Stimulus")
+    stimulus: Union[OptoStim] = Field(..., title="Stimulus")
     stimulus_start_time: time = Field(
         ..., 
         title="Stimulus start time",
@@ -121,7 +121,7 @@ class OphysSession(AindCoreModel):
     rig_id: str = Field(..., title="Rig ID")
     lasers: List[Laser] = Field(..., title="Lasers", unique_items=True)
     detectors: Optional[List[Detector]] = Field(None, title="Detectors", unique_items=True)
-    stimulus: Optional[List[Stim]] = Field(None, title="Stimulus")
+    stimulus_presentations: Optional[List[Stim]] = Field(None, title="Stimulus")
     notes: Optional[str] = None
 
 

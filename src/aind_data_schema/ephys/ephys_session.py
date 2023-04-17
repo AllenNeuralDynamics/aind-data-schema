@@ -88,7 +88,7 @@ class Camera(AindModel):
 class Stim(AindModel):
     """Description of stimulus used during session"""
 
-    stimulus: OptoStim = Field(..., title="Stimulus")
+    stimulus: Union[OptoStim] = Field(..., title="Stimulus")
     stimulus_start_time: time = Field(
         ..., 
         title="Stimulus start time",
@@ -110,7 +110,7 @@ class Stream(AindModel):
     laser_modules: Optional[List[LaserModule]] = Field(None, title="Laser modules", unique_items=True)
     daqs: Optional[List[DAQDevice]] = Field(None, title="DAQ devices", unique_items=True)
     cameras: Optional[List[Camera]] = Field(None, title="Cameras", unique_items=True)
-    stimulus: Optional[List[Stim]] = Field(None, title="Stimulus")
+    stimulus_presentations: Optional[List[Stim]] = Field(None, title="Stimulus")
 
 
 class EphysSession(AindCoreModel):
