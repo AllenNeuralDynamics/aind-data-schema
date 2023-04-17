@@ -1,6 +1,6 @@
 """ schema for various Procedures """
 
-from datetime import date, time
+from datetime import date, time, datetime
 from enum import Enum
 from typing import List, Optional, Union
 
@@ -126,27 +126,14 @@ class HCRProbe(OligoProbe):
 
     initiator_name: str = Field(..., title="Initiator name")
     readout: HCRReadout = Field(..., title="Readout")
-    
-
-class OtherProbe(Reagent):
-    """Description of other probes used for HCR"""
-
-    channel_index: int = Field(..., title="Channel index")
-    probe_name: str = Field(..., title="Probe name")
-    gene_name: str = Field(..., title="Gene name")
-    gene_accession_number: str = Field(
-        ..., 
-        title="Gene accession number",
-        description="NCBI accession number of the gene"
-        )
-    probe_sequences: List[str] = Field(..., title="Probe sequences")
-    readout: Readout = Field(..., title="Readout")
 
 
-class HybridizationChainReaction(SpecimenProcedure):
+class HybridizationChainReaction(AindModel):
     """Description of an HCR round""" 
 
     round_index: int = Field(..., title="Round index")
+    start_time: datetime = Field(..., title="Round start time")
+    end_time: datetime = Field(..., title="Round end time")
     HCR_probes: List[HCRProbe] = Field(..., title="HCR probes")
     other_probes: Optional[List[OligoProbe]] = Field(None, title="Other probes")
     probe_concentration: float = Field(..., title="Probe concentration (M)")
@@ -154,7 +141,7 @@ class HybridizationChainReaction(SpecimenProcedure):
     intrument_id: str = Field(..., title="Instrument ID")
 
 
-class HCRSeries(AindModel):
+class HCRSeries(SpecimenProcedure):
     """Description of series of HCR rounds for mFISH"""
 
     codebook_name: str = Field(..., title="Codebook name")
