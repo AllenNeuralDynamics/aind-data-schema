@@ -32,7 +32,7 @@
          "trigger_type": "Internal"
       }
    ],
-   "stimulus": null,
+   "stimulus_presentations": null,
    "notes": "Internal trigger. GRAB-DA2m shows signal. Unclear about GRAB-rAC",
    "patch_cords": [
       {
