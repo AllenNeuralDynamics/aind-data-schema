@@ -118,13 +118,14 @@ class OligoProbe(Reagent):
         description="NCBI accession number of the gene"
         )
     probe_sequences: List[str] = Field(..., title="Probe sequences")
-    readout: HCRReadout = Field(..., title="Readout")
+    readout: Readout = Field(..., title="Readout")
     channel_index: int = Field(..., title="Channel index")
 
 class HCRProbe(OligoProbe):
     """Description of a HCR probe"""
 
     initiator_name: str = Field(..., title="Initiator name")
+    readout: HCRReadout = Field(..., title="Readout")
     
 
 class OtherProbe(Reagent):
@@ -139,10 +140,8 @@ class OtherProbe(Reagent):
         description="NCBI accession number of the gene"
         )
     probe_sequences: List[str] = Field(..., title="Probe sequences")
-    fluorophore: Fluorophore = Field(..., title="Fluorophore")
-    excitation_wavelength: int = Field(..., title="Excitation wavelength (nm)")
-    excitation_wavelength_unit = SizeUnit = Field(SizeUnit.NM, title="Excitation wavelength unit")
-
+    readout: Readout = Field(..., title="Readout")
+    
 
 class HybridizationChainReaction(SpecimenProcedure):
     """Description of an HCR round""" 
