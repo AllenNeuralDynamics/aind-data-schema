@@ -1,6 +1,6 @@
 """ schema for various Procedures """
 
-from datetime import date, time
+from datetime import date, time, datetime
 from enum import Enum
 from typing import List, Optional, Union
 
@@ -8,6 +8,7 @@ from pydantic import Field
 
 from .base import AindCoreModel, AindModel
 from .device import AngleUnit, SizeUnit
+from .subject import Species
 
 
 class TimeUnit(Enum):
@@ -39,13 +40,18 @@ class SpecimenProcedureName(Enum):
     """Specimen procedure type name"""
 
     ACTIVE_DELIPIDATION = "Active delipidation"
+    CLEARING = "Clearing"
     DCM_DELIPIDATION = "DCM delipidation"
     DOUBLE_DELIPIDATION = "Double delipidation"
     EMBEDDING = "Embedding"
     FIXATION = "Fixation"
+    FIXATION_PERMEABILIZATION = "Fixation and permeabilization"
     GELATION = "Gelation"
+    HYBRIDIZATION_AMPLIFICATION = "Hybridication and amplification"
     IMMUNOSTAINING = "Immunostaining"
     SOAK = "Soak"
+    STORAGE = "Storage"
+    STRIPPING = "Stripping"
     OTHER = "Other - see notes"
 
 
@@ -53,6 +59,7 @@ class Reagent(AindModel):
     """Description of reagents used in procedure"""
 
     name: str = Field(..., title="Name")
+    source: str = Field(..., title="Source")
     rrid: Optional[str] = Field(None, title="Research Resource ID")
     lot_number: str = Field(..., title="Lot number")
     expiration_date: Optional[date] = Field(None, title="Lot expiration date")
@@ -73,6 +80,75 @@ class SpecimenProcedure(AindModel):
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     reagents: Optional[List[Reagent]] = Field(None, title="Reagents")
     notes: Optional[str] = Field(None, title="Notes")
+
+
+class StainType(Enum):
+    """Stain Types for HCR probes"""
+
+    RNA = "RNA"
+
+
+class Fluorophore(Enum):
+    """Fluorophores used in HCR"""
+
+    ALEXA_546 = "Alexa Fluor 546"
+    ALEXA_594 = "Alexa Fluor 594"
+    ALEXA_647 = "Alexa Fluor 647"
+
+class Readout(Reagent):
+    """Description of a readout"""
+
+    fluorophore: Fluorophore = Field(..., title="Fluorophore")
+    excitation_wavelength: int = Field(..., title="Excitation wavelength (nm)")
+    excitation_wavelength_unit = SizeUnit = Field(SizeUnit.NM, title="Excitation wavelength unit")
+    stain_type: StainType = Field(..., title="Stain type")
+
+class HCRReadout(Readout):
+    """Description of a readout for HCR"""
+
+    initiator_name: str = Field(..., title="Initiator name")
+
+class OligoProbe(Reagent):
+    """Description of an oligo probe"""
+
+    species: Species = Field(..., title="Species")
+    gene_name: str = Field(..., title="Gene name")
+    gene_accession_number: str = Field(
+        ..., 
+        title="Gene accession number",
+        description="NCBI accession number of the gene"
+        )
+    probe_sequences: List[str] = Field(..., title="Probe sequences")
+    readout: Readout = Field(..., title="Readout")
+    channel_index: int = Field(..., title="Channel index")
+
+class HCRProbe(OligoProbe):
+    """Description of a HCR probe"""
+
+    initiator_name: str = Field(..., title="Initiator name")
+    readout: HCRReadout = Field(..., title="Readout")
+
+
+class HybridizationChainReaction(AindModel):
+    """Description of an HCR round""" 
+
+    round_index: int = Field(..., title="Round index")
+    start_time: datetime = Field(..., title="Round start time")
+    end_time: datetime = Field(..., title="Round end time")
+    HCR_probes: List[HCRProbe] = Field(..., title="HCR probes")
+    other_probes: Optional[List[OligoProbe]] = Field(None, title="Other probes")
+    probe_concentration: float = Field(..., title="Probe concentration (M)")
+    probe_concentration_unit: str = Field("M", title="Probe concentration unit")
+    intrument_id: str = Field(..., title="Instrument ID")
+
+
+class HCRSeries(SpecimenProcedure):
+    """Description of series of HCR rounds for mFISH"""
+
+    codebook_name: str = Field(..., title="Codebook name")
+    number_of_rounds: int = Field(..., title="Number of round")
+    hcr_rounds: List[HybridizationChainReaction] = Field(..., title="Hybridization Chain Reaction rounds")
+    strip_qc_compatible: bool = Field(..., title="Strip QC compatible")
 
 
 class Side(Enum):
@@ -390,7 +466,7 @@ class Perfusion(SubjectProcedure):
 class Procedures(AindCoreModel):
     """Description of all procedures performed on a subject"""
 
-    schema_version: str = Field("0.7.0", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.7.1", description="schema version", title="Version", const=True)
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
@@ -413,6 +489,13 @@ class Procedures(AindCoreModel):
                 SubjectProcedure,
             ]
         ]
-    ] = Field([], title="Subject Procedures", unique_items=True)
-    specimen_procedures: Optional[List[SpecimenProcedure]] = Field([], title="Specimen Procedures", unique_items=True)
+    ] = Field(None, title="Subject Procedures", unique_items=True)
+    specimen_procedures: Optional[
+        List[
+            Union[
+                HCRSeries,
+                SpecimenProcedure,
+            ]
+        ]
+    ] = Field(None, title="Specimen Procedures", unique_items=True)
     notes: Optional[str] = Field(None, title="Notes")

@@ -12,33 +12,38 @@ specimen_id = "651286"
 shield_buffer = procedures.Reagent(
     name="SHIELD Buffer",
     lot_number="1234",
+    source="Vendor"
 )
 
 shield_epoxy = procedures.Reagent(
     name="SHIELD Epoxy",
     lot_number="1234",
+    source="Vendor"
 )
 
 shield_on = procedures.Reagent(
     name="SHIELD On",
     lot_number="1234",
+    source="Vendor"
 )
 
 delipidation_buffer = procedures.Reagent(
     name="Delipidation Buffer",
     lot_number="1234",
+    source="Vendor"
 )
 
 conductivity_buffer = procedures.Reagent(
     name="Conductivity Buffer",
     lot_number="1234",
+    source="Vendor"
 )
 
-easy_index = procedures.Reagent(name="Easy Index", lot_number="1234")
+easy_index = procedures.Reagent(name="Easy Index", lot_number="1234", source="Vendor")
 
-water = procedures.Reagent(name="Deionized water", lot_number="DDI/Filtered in house")
+water = procedures.Reagent(name="Deionized water", lot_number="DDI/Filtered in house", source="This is not a reagent")
 
-agarose = procedures.Reagent(name="Agarose", lot_number="1234")
+agarose = procedures.Reagent(name="Agarose", lot_number="1234", source="Other vendor")
 
 # Procedures
 
