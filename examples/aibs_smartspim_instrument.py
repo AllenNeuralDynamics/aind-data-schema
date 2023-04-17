@@ -1,10 +1,20 @@
 """ example SmartSPIM instrument """
-from aind_data_schema.imaging.instrument import (AdditionalImagingDevice, Com, Detector, Filter, Instrument,
-                                                 Lightsource, MotorizedStage, Objective, OpticalTable, ScanningStage)
+from aind_data_schema.imaging.instrument import (
+    AdditionalImagingDevice,
+    Com,
+    Detector,
+    Filter,
+    Instrument,
+    Lightsource,
+    MotorizedStage,
+    Objective,
+    OpticalTable,
+    ScanningStage,
+)
 
 inst = Instrument(
     instrument_id="SmartSPIM1-1",
-    type="smartSPIM",
+    instrument_type="SmartSPIM",
     manufacturer="LifeCanvas",
     location="440 Westlake",
     objectives=[

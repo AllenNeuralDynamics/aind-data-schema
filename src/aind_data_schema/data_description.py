@@ -9,7 +9,7 @@ from typing import List, Optional
 
 from pydantic import Field
 
-from .base import AindCoreModel, AindModel
+from .base import AindCoreModel, AindModel, BaseName, BaseNameEnumMeta
 
 
 class RegexParts(Enum):
@@ -24,7 +24,7 @@ class DataRegex(Enum):
 
     DATA = f"^(?P<label>.+?)_(?P<c_date>{RegexParts.DATE.value})_(?P<c_time>{RegexParts.TIME.value})$"
     RAW_DATA = (
-        f"^(?P<modality>.+?)_(?P<subject_id>.+?)_(?P<c_date>{RegexParts.DATE.value})_(?P<c_time>"
+        f"^(?P<experiment_type>.+?)_(?P<subject_id>.+?)_(?P<c_date>{RegexParts.DATE.value})_(?P<c_time>"
         f"{RegexParts.TIME.value})$"
     )
     DERIVED_DATA = (
@@ -41,14 +41,21 @@ class DataLevel(Enum):
     DERIVED_DATA = "derived data"
 
 
-class Institution(Enum):
+class Institution(Enum, metaclass=BaseNameEnumMeta):
     """Institution name"""
 
-    AIBS = "AIBS"
-    AIND = "AIND"
-    CU = "Columbia University"
-    HUST = "HUST"
-    NYU = "NYU"
+    AIBS = BaseName(name="Allen Institute for Brain Science", abbreviation="AIBS")
+    AIND = BaseName(name="Allen Institute for Neural Dynamics", abbreviation="AIND")
+    COLUMBIA = BaseName(name="Columbia University", abbreviation="Columbia")
+    HUST = BaseName(name="Huazhong University of Science and Technology", abbreviation="HUST")
+    NYU = BaseName(name="New York University", abbreviation="NYU")
+
+    @classmethod
+    def __modify_schema__(cls, field_schema):
+        """Adds enumNames to institution"""
+        field_schema.update(
+            enumNames=[e.value.name for e in cls],
+        )
 
 
 class Group(Enum):
@@ -60,17 +67,36 @@ class Group(Enum):
     OPHYS = "ophys"
 
 
-class Modality(Enum):
+class Modality(Enum, metaclass=BaseNameEnumMeta):
     """Data collection modality name"""
 
+    ECEPHYS = BaseName(name="Extracellular electrophysiology", abbreviation="ecephys")
+    SPIM = BaseName(name="Selective plane illumination microscopy", abbreviation="SPIM")
+    FIP = BaseName(name="Frame-projected independent-fiber photometry", abbreviation="FIP")
+    FMOST = BaseName(name="Fluorescence micro-optical sectioning tomography", abbreviation="fMOST")
+    HSFP = BaseName(name="Hyperspectral fiber photometry", abbreviation="HSFP")
+    MRI = BaseName(name="Magnetic resonance imaging", abbreviation="MRI")
+    OPHYS = BaseName(name="Optical physiology", abbreviation="ophys")
+
+    @classmethod
+    def __modify_schema__(cls, field_schema):
+        """Adds enumNames to modality"""
+        field_schema.update(
+            enumNames=[e.value.name for e in cls],
+        )
+
+
+class ExperimentType(Enum):
+    """Experiment type name"""
+
+    CONFOCAL = "confocal"
+    DISPIM = "diSPIM"
+    EXASPIM = "exaSPIM"
     ECEPHYS = "ecephys"
-    EXASPIM = "ExASPIM"
-    FIP = "FIP"
-    FMOST = "fMOST"
-    HSFP = "HSFP"
+    MESOSCOPE = "mesoscope"
     MESOSPIM = "mesoSPIM"
-    MRI = "MRI"
     OPHYS = "ophys"
+    OTHER = "Other"
     SMARTSPIM = "SmartSPIM"
 
 
@@ -113,7 +139,7 @@ class RelatedData(AindModel):
 class DataDescription(AindCoreModel):
     """Description of a logical collection of data files"""
 
-    schema_version: str = Field("0.3.2", title="Schema Version", const=True)
+    schema_version: str = Field("0.4.1", title="Schema Version", const=True)
     license: str = Field("CC-BY-4.0", title="License", const=True)
 
     creation_time: time = Field(
@@ -172,12 +198,16 @@ class DataDescription(AindCoreModel):
         description="Detail any restrictions on publishing or sharing these data",
         title="Restrictions",
     )
-    modality: str = Field(
+    modality: List[Modality] = Field(
         ...,
-        regex=DataRegex.NO_UNDERSCORES.value,
-        description="A short name for the specific manner, characteristic, pattern of application, or the employment of"
-        " any technology or formal procedure to generate data for a study",
+        description="A short name for the specific manner, characteristic, pattern of application, or the employment"
+        "of any technology or formal procedure to generate data for a study",
         title="Modality",
+    )
+    experiment_type: ExperimentType = Field(
+        ...,
+        description="A short name for the experimental technique used to collect this data",
+        title="Experiment Type",
     )
     subject_id: str = Field(
         ...,
@@ -220,13 +250,6 @@ class DataDescription(AindCoreModel):
             creation_time=creation_time,
         )
 
-    @classmethod
-    def from_name(cls, name, **kwargs):
-        """construct a DataDescription from a name string"""
-        d = cls.parse_name(name)
-
-        return cls(**d, **kwargs)
-
 
 class DerivedDataDescription(DataDescription):
     """A logical collection of data files derived via processing"""
@@ -263,32 +286,6 @@ class DerivedDataDescription(DataDescription):
             input_data_name=m.group("input"),
         )
 
-    @classmethod
-    def from_name(cls, name, **kwargs):
-        """build DerivedDataDescription from a name"""
-
-        d = cls.parse_name(name)
-
-        return cls(**d, **kwargs)
-
-    @classmethod
-    def from_data_description(cls, input_data, process_name, **kwargs):
-        """Build a DerivedDataDescription from an input DataDescription"""
-
-        if input_data.data_level == DataLevel.DERIVED_DATA:
-            name_len = len(input_data.input_data_name) + 1
-            input_data_name = input_data.name[name_len:]
-        else:
-            input_data_name = input_data.name
-
-        return cls(
-            input_data_name=input_data_name,
-            process_name=process_name,
-            subject_id=input_data.subject_id,
-            modality=input_data.modality,
-            **kwargs,
-        )
-
 
 class RawDataDescription(DataDescription):
     """A logical collection of data files as acquired from a rig or instrument"""
@@ -300,11 +297,17 @@ class RawDataDescription(DataDescription):
         const=True,
     )
 
-    def __init__(self, **kwargs):
+    def __init__(self, experiment_type, subject_id, **kwargs):
         """Construct a raw data description"""
-        modality = kwargs["modality"]
-        subject_id = kwargs["subject_id"]
-        super().__init__(label=f"{modality}_{subject_id}", **kwargs)
+
+        experiment_type = ExperimentType(experiment_type)
+
+        super().__init__(
+            label=f"{experiment_type.value}_{subject_id}",
+            experiment_type=experiment_type,
+            subject_id=subject_id,
+            **kwargs,
+        )
 
     @classmethod
     def parse_name(cls, name):
@@ -318,16 +321,8 @@ class RawDataDescription(DataDescription):
         creation_date, creation_time = datetime_from_name_string(m.group("c_date"), m.group("c_time"))
 
         return dict(
-            modality=m.group("modality"),
+            experiment_type=m.group("experiment_type"),
             subject_id=m.group("subject_id"),
             creation_date=creation_date,
             creation_time=creation_time,
         )
-
-    @classmethod
-    def from_name(cls, name, **kwargs):
-        """construct from a name string"""
-
-        d = cls.parse_name(name)
-
-        return cls(**d, **kwargs)

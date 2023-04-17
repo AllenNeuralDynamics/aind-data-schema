@@ -5,6 +5,7 @@ import logging
 import os
 import re
 import urllib.parse
+from enum import EnumMeta
 
 from pydantic import BaseModel, Extra
 from pydantic.fields import ModelField
@@ -32,6 +33,23 @@ def build_described_by(cls, base_url=DESCRIBED_BY_BASE_URL):
 
 class AindModel(BaseModel, extra=Extra.forbid):
     """BaseModel that disallows extra fields"""
+
+
+class BaseNameEnumMeta(EnumMeta):
+    """Allows to create complicated enum based on attribute name."""
+
+    def __call__(cls, value, *args, **kw):
+        """Allow enum to be set by a string."""
+        if isinstance(value, str):
+            value = getattr(cls, value.upper())
+        return super().__call__(value, *args, **kw)
+
+
+class BaseName(AindModel):
+    """A simple model associating a name with an abbreviation"""
+
+    name: str
+    abbreviation: str
 
 
 class AindCoreModel(AindModel):

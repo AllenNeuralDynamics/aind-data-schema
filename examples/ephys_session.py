@@ -2,8 +2,16 @@
 
 from datetime import datetime
 
-from aind_data_schema.ephys.ephys_session import (Camera, Coordinates3d, DAQDevice, EphysProbe, EphysSession, Laser,
-                                                  LaserModule, Stream)
+from aind_data_schema.ephys.ephys_session import (
+    Camera,
+    Coordinates3d,
+    DAQDevice,
+    EphysProbe,
+    EphysSession,
+    Laser,
+    LaserModule,
+    Stream,
+)
 
 red_laser = Laser(name="Red Laser", power_level=100)
 

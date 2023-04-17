@@ -15,8 +15,9 @@ Be aware that this package is still under heavy preliminary development. Expect 
 A simple example:
 
 ```python
-from aind_data_schema import Subject
 import datetime
+
+from aind_data_schema.subject import Housing, Subject
 
 t = datetime.datetime(2022, 11, 22, 8, 43, 00)
 
@@ -26,7 +27,7 @@ s = Subject(
     sex="Male",
     date_of_birth=t.date(),
     genotype="Emx1-IRES-Cre;Camk2a-tTA;Ai93(TITL-GCaMP6f)",
-    home_cage_enrichment="other",
+    housing=Housing(home_cage_enrichment=["Running wheel"], cage_id="123"),
     background_strain="C57BL/6J",
 )
 
@@ -36,7 +37,7 @@ s.write_standard_file() # writes subject.json
 ```json
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/subject.py",
-   "schema_version": "0.2.2",
+   "schema_version": "0.3.0",
    "species": "Mus musculus",
    "subject_id": "12345",
    "sex": "Male",
@@ -52,9 +53,16 @@ s.write_standard_file() # writes subject.json
    "maternal_genotype": null,
    "paternal_id": null,
    "paternal_genotype": null,
-   "light_cycle": null,
-   "home_cage_enrichment": "other",
    "wellness_reports": null,
+   "housing": {
+      "cage_id": "123",
+      "room_id": null,
+      "light_cycle": null,
+      "home_cage_enrichment": [
+         "Running wheel"
+      ],
+      "cohoused_subjects": null
+   },
    "notes": null
 }
 ```
