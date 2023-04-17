@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from datetime import datetime, time
 from enum import Enum
-from typing import List, Optional
+from typing import List, Optional, Union
 
 from pydantic import Field
 
