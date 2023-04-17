@@ -10,7 +10,7 @@ from pydantic import Field
 
 from ..base import AindCoreModel, AindModel
 from ..device import PowerUnit, SizeUnit
-from ..stimulus import OptoStim
+from ..stimulus import StimulusPresentation
 from .ephys_rig import Coordinates3d
 
 
@@ -85,21 +85,6 @@ class Camera(AindModel):
     name: str = Field(..., title="Camera name (must match rig JSON)")
 
 
-class Stim(AindModel):
-    """Description of stimulus used during session"""
-
-    stimulus: Union[OptoStim] = Field(..., title="Stimulus")
-    stimulus_start_time: time = Field(
-        ..., 
-        title="Stimulus start time",
-        description="When a specific stimulus begins. This might be the same as the session start time."
-        )
-    stimulus_end_time: time = Field(
-        ..., 
-        title="Stimulus end time",
-        description="When a specific stimulus ends. This might be the same as the session end time."
-        )
-
 
 class Stream(AindModel):
     """Stream of data with a start and stop time"""
@@ -110,7 +95,7 @@ class Stream(AindModel):
     laser_modules: Optional[List[LaserModule]] = Field(None, title="Laser modules", unique_items=True)
     daqs: Optional[List[DAQDevice]] = Field(None, title="DAQ devices", unique_items=True)
     cameras: Optional[List[Camera]] = Field(None, title="Cameras", unique_items=True)
-    stimulus_presentations: Optional[List[Stim]] = Field(None, title="Stimulus")
+    stimulus_presentations: Optional[List[StimulusPresentation]] = Field(None, title="Stimulus")
 
 
 class EphysSession(AindCoreModel):

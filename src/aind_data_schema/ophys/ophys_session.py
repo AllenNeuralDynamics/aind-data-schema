@@ -10,7 +10,7 @@ from pydantic import Field
 
 from ..base import AindCoreModel, AindModel
 from ..device import FrequencyUnit, PowerUnit, SizeUnit
-from ..stimulus import OptoStim
+from ..stimulus import StimulusPresentation
 from ..procedures import TimeUnit
 
 
@@ -84,21 +84,6 @@ class Patch(AindModel):
     output_power_unit: PowerUnit = Field(PowerUnit.UW, title="Output power unit")
 
 
-class Stim(AindModel):
-    """Description of stimulus used during session"""
-
-    stimulus: Union[OptoStim] = Field(..., title="Stimulus")
-    stimulus_start_time: time = Field(
-        ..., 
-        title="Stimulus start time",
-        description="When a specific stimulus begins. This might be the same as the session start time."
-        )
-    stimulus_end_time: time = Field(
-        ..., 
-        title="Stimulus end time",
-        description="When a specific stimulus ends. This might be the same as the session end time."
-        )
-
 class OphysSession(AindCoreModel):
     """Description of an ophys session"""
 
@@ -121,7 +106,7 @@ class OphysSession(AindCoreModel):
     rig_id: str = Field(..., title="Rig ID")
     lasers: List[Laser] = Field(..., title="Lasers", unique_items=True)
     detectors: Optional[List[Detector]] = Field(None, title="Detectors", unique_items=True)
-    stimulus_presentations: Optional[List[Stim]] = Field(None, title="Stimulus")
+    stimulus_presentations: Optional[List[StimulusPresentation]] = Field(None, title="Stimulus")
     notes: Optional[str] = None
 
 

@@ -46,3 +46,18 @@ class OptoStim(AindCoreModel):
     notes: Optional[str] = Field(None, title="Notes")
 
 
+
+class Stim(AindModel):
+    """Description of stimulus used during session"""
+
+    stimulus: Union[OptoStim] = Field(..., title="Stimulus")
+    stimulus_start_time: time = Field(
+        ..., 
+        title="Stimulus start time",
+        description="When a specific stimulus begins. This might be the same as the session start time."
+        )
+    stimulus_end_time: time = Field(
+        ..., 
+        title="Stimulus end time",
+        description="When a specific stimulus ends. This might be the same as the session end time."
+        )
