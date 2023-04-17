@@ -3,11 +3,12 @@
 from __future__ import annotations
 
 from enum import Enum
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, Union
+from datetime import datetime, time
 
 from pydantic import Field
 
-from .base import AindCoreModel
+from .base import AindCoreModel, AindModel
 from .device import FrequencyUnit
 from .procedures import TimeUnit
 
@@ -47,7 +48,7 @@ class OptoStim(AindCoreModel):
 
 
 
-class Stim(AindModel):
+class StimulusPresentation(AindModel):
     """Description of stimulus used during session"""
 
     stimulus: Union[OptoStim] = Field(..., title="Stimulus")

@@ -2,9 +2,9 @@
 
 from __future__ import annotations
 
-from datetime import datetime, time
+from datetime import datetime
 from enum import Enum
-from typing import List, Optional, Union
+from typing import List, Optional
 
 from pydantic import Field
 
