@@ -289,6 +289,29 @@ class DAQDevice(Device):
     channels: Optional[List[DAQChannel]] = Field(None, title="DAQ channels")
 
 
+class HarpDeviceType(Enum):
+    """Harp device type"""
+
+    BEHAVIOR = "Behavior"
+    CAMERA_CONTROLLER = "Camera Controller"
+    LOAD_CELLS = "Load Cells"
+    SOUND_BOARD = "Sound Board"
+    TIMESTAMP_GENERATOR = "Timestamp Generator"
+    INPUT_EXPANDER = "Input Expander"
+
+
+class HarpDevice(DAQDevice):
+    """DAQ that uses the Harp protocol for synchronization and data transmission"""
+
+    # required fields
+    harp_device_type: HarpDeviceType = Field(..., title="Type of Harp device")
+    harp_device_version: str = Field(..., title="Device version")
+
+    # fixed values
+    manufacturer: Manufacturer = Manufacturer.OEPS
+    data_interface: DataInterface = Field("USB", const=True)
+
+
 class Laser(Device):
     """Laser module with a specific wavelength (may be a sub-component of a larger assembly)"""
 

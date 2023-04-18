@@ -22,6 +22,7 @@ from ..device import (
     DataInterface,
     Device,
     Disc,
+    HarpDevice,
     Laser,
     Manufacturer,
     Monitor,
@@ -72,29 +73,6 @@ class Coordinates3d(AindModel):
     y: float = Field(..., title="Position Y")
     z: float = Field(..., title="Position Z")
     unit: SizeUnit = Field(SizeUnit.UM, title="Position unit")
-
-
-class HarpDeviceType(Enum):
-    """Harp device type"""
-
-    BEHAVIOR = "Behavior"
-    CAMERA_CONTROLLER = "Camera Controller"
-    LOAD_CELLS = "Load Cells"
-    SOUND_BOARD = "Sound Board"
-    TIMESTAMP_GENERATOR = "Timestamp Generator"
-    INPUT_EXPANDER = "Input Expander"
-
-
-class HarpDevice(DAQDevice):
-    """DAQ that uses the Harp protocol for synchronization and data transmission"""
-
-    # required fields
-    harp_device_type: HarpDeviceType = Field(..., title="Type of Harp device")
-    harp_device_version: str = Field(..., title="Device version")
-
-    # fixed values
-    manufacturer: Manufacturer = Manufacturer.OEPS
-    data_interface: DataInterface = Field("USB", const=True)
 
 
 class ProbePort(AindModel):
@@ -213,7 +191,7 @@ class EphysRig(AindCoreModel):
         title="Described by",
         const=True,
     )
-    schema_version: str = Field("0.5.4", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.5.5", description="schema version", title="Version", const=True)
     rig_id: str = Field(..., description="room_stim apparatus_version", title="Rig ID")
     ephys_modules: Optional[List[EphysModule]] = Field(None, title="Ephys probes", unique_items=True)
     stick_microscopes: Optional[List[StickMicroscope]] = Field(None, title="Stick microscopes")
