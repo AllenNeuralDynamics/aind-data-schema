@@ -10,6 +10,7 @@ from pydantic import Field
 
 from ..base import AindCoreModel, AindModel
 from ..device import PowerUnit, SizeUnit
+from ..stimulus import StimulusPresentation
 from .ephys_rig import Coordinates3d
 
 
@@ -84,6 +85,7 @@ class Camera(AindModel):
     name: str = Field(..., title="Camera name (must match rig JSON)")
 
 
+
 class Stream(AindModel):
     """Stream of data with a start and stop time"""
 
@@ -93,12 +95,13 @@ class Stream(AindModel):
     laser_modules: Optional[List[LaserModule]] = Field(None, title="Laser modules", unique_items=True)
     daqs: Optional[List[DAQDevice]] = Field(None, title="DAQ devices", unique_items=True)
     cameras: Optional[List[Camera]] = Field(None, title="Cameras", unique_items=True)
+    stimulus_presentations: Optional[List[StimulusPresentation]] = Field(None, title="Stimulus")
 
 
 class EphysSession(AindCoreModel):
     """Description of an ephys recording session"""
 
-    schema_version: str = Field("0.3.1", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.3.2", description="schema version", title="Version", const=True)
     experimenter_full_name: str = Field(
         ...,
         description="First and last name of the experimenter.",
@@ -109,7 +112,6 @@ class EphysSession(AindCoreModel):
     subject_id: str = Field(..., title="Subject ID")
     session_type: SessionType = Field(..., title="Session type")
     session_description: Optional[str] = Field(None, title="Session description")
-    stimulus_protocol_id: Optional[str] = Field(None, title="Stimulus protocol ID")
     iacuc_protocol: Optional[str] = Field(None, title="IACUC protocol")
     rig_id: str = Field(..., title="Rig ID")
     data_streams: List[Stream] = Field(

@@ -10,6 +10,8 @@ from pydantic import Field
 
 from ..base import AindCoreModel, AindModel
 from ..device import FrequencyUnit, PowerUnit, SizeUnit
+from ..stimulus import StimulusPresentation
+from ..procedures import TimeUnit
 
 
 class FiberName(Enum):
@@ -50,7 +52,7 @@ class Detector(AindModel):
 
     name: str = Field(..., title="Name")
     exposure_time: float = Field(..., title="Exposure time (ms)")
-    exposure_time_unit: str = Field("ms", title="Exposure time unit")
+    exposure_time_unit: TimeUnit = Field(TimeUnit.MS, title="Exposure time unit")
     trigger_type: TriggerType = Field(..., title="Trigger type")
 
 
@@ -86,7 +88,7 @@ class OphysSession(AindCoreModel):
     """Description of an ophys session"""
 
     schema_version: str = Field(
-        "0.1.2",
+        "0.1.3",
         description="schema version",
         title="Schema Version",
         const=True,
@@ -100,11 +102,11 @@ class OphysSession(AindCoreModel):
     session_end_time: Optional[datetime] = Field(None, title="Session end time")
     subject_id: int = Field(..., title="Subject ID")
     session_type: str = Field(..., title="Session type")
-    stimulus_protocol_id: Optional[str] = Field(None, title="Stimulus protocol ID")
     iacuc_protocol: Optional[str] = Field(None, title="IACUC protocol")
     rig_id: str = Field(..., title="Rig ID")
     lasers: List[Laser] = Field(..., title="Lasers", unique_items=True)
     detectors: Optional[List[Detector]] = Field(None, title="Detectors", unique_items=True)
+    stimulus_presentations: Optional[List[StimulusPresentation]] = Field(None, title="Stimulus")
     notes: Optional[str] = None
 
 
