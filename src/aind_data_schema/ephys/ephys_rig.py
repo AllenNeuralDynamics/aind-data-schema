@@ -213,7 +213,7 @@ class EphysRig(AindCoreModel):
         title="Described by",
         const=True,
     )
-    schema_version: str = Field("0.5.3", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.5.4", description="schema version", title="Version", const=True)
     rig_id: str = Field(..., description="room_stim apparatus_version", title="Rig ID")
     ephys_modules: Optional[List[EphysModule]] = Field(None, title="Ephys probes", unique_items=True)
     stick_microscopes: Optional[List[StickMicroscope]] = Field(None, title="Stick microscopes")
