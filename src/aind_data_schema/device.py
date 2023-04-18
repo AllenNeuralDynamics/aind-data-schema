@@ -85,8 +85,8 @@ class Coupling(Enum):
     """Laser coupling type"""
 
     FREE_SPACE = "Free-space"
-    MMF = "MMF"
-    SMF = "SMF"
+    MMF = "Multi-mode fiber"
+    SMF = "Single-mode fiber"
     OTHER = "Other"
 
 
