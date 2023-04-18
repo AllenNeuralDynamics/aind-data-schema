@@ -14,8 +14,21 @@ except ImportError:  # pragma: no cover
 from pydantic import Field, root_validator
 
 from ..base import AindCoreModel, AindModel
-from ..device import (AngleUnit, Camera, CameraAssembly, DAQDevice, DataInterface, Device, Disc, Laser, Manufacturer,
-                      Monitor, SizeUnit, Treadmill, Tube)
+from ..device import (
+    AngleUnit,
+    Camera,
+    CameraAssembly,
+    DAQDevice,
+    DataInterface,
+    Device,
+    Disc,
+    Laser,
+    Manufacturer,
+    Monitor,
+    SizeUnit,
+    Treadmill,
+    Tube,
+)
 
 
 class Size2d(AindModel):
