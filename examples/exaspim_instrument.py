@@ -31,7 +31,7 @@ inst = instrument.Instrument(
     light_sources=[
         instrument.Lightsource(
             type="laser",
-            coupling="SMF",
+            coupling="Single-mode fiber",
             wavelength=405,
             max_power=200,
             serial_number="LAS-08307",
@@ -40,7 +40,7 @@ inst = instrument.Instrument(
         ),
         instrument.Lightsource(
             type="laser",
-            coupling="SMF",
+            coupling="Single-mode fiber",
             wavelength=488,
             max_power=200,
             serial_number="LAS-08308",
@@ -49,7 +49,7 @@ inst = instrument.Instrument(
         ),
         instrument.Lightsource(
             type="laser",
-            coupling="SMF",
+            coupling="Single-mode fiber",
             wavelength=561,
             max_power=200,
             serial_number="539251",
@@ -58,7 +58,7 @@ inst = instrument.Instrument(
         ),
         instrument.Lightsource(
             type="laser",
-            coupling="SMF",
+            coupling="Single-mode fiber",
             wavelength=638,
             max_power=200,
             serial_number="LAS-08309",

@@ -167,15 +167,15 @@ class LaserModule(DomeModule):
 class ProbeModel(Enum):
     """Probe model name"""
 
-    NP1 = "Neuropixels 1.0"
+    MI_ULED_PROBE = "Michigan uLED Probe (Version 1)"
+    MP_PHOTONIC_V1 = "MPI Photonic Probe (Version 1)"
+    NP_OPTO_DEMONSTRATOR = "Neuropixels Opto (Demonstrator)"
     NP_UHD_FIXED = "Neuropixels UHD (Fixed)"
     NP_UHD_SWITCHABLE = "Neuropixels UHD (Switchable)"
+    NP1 = "Neuropixels 1.0"
     NP2_SINGLE_SHANK = "Neuropixels 2.0 (Single Shank)"
     NP2_MULTI_SHANK = "Neuropixels 2.0 (Multi Shank)"
     NP2_QUAD_BASE = "Neuropixels 2.0 (Quad Base)"
-    NP_OPTO_DEMONSTRATOR = "Neuropixels Opto (Demonstrator)"
-    MI_ULED_PROBE = "Michigan uLED Probe (Version 1)"
-    MP_PHOTONIC_V1 = "MPI Photonic Probe (Version 1)"
 
 
 class HeadstageModel(Enum):
@@ -213,7 +213,7 @@ class EphysRig(AindCoreModel):
         title="Described by",
         const=True,
     )
-    schema_version: str = Field("0.5.3", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.5.4", description="schema version", title="Version", const=True)
     rig_id: str = Field(..., description="room_stim apparatus_version", title="Rig ID")
     ephys_modules: Optional[List[EphysModule]] = Field(None, title="Ephys probes", unique_items=True)
     stick_microscopes: Optional[List[StickMicroscope]] = Field(None, title="Stick microscopes")

@@ -41,7 +41,7 @@ inst = Instrument(
     light_sources=[
         Lightsource(
             type="laser",
-            coupling="SMF",
+            coupling="Single-mode fiber",
             wavelength=488,
             max_power=150,
             serial_number="VL01222A11",
@@ -51,7 +51,7 @@ inst = Instrument(
         ),
         Lightsource(
             type="laser",
-            coupling="SMF",
+            coupling="Single-mode fiber",
             wavelength=561,
             max_power=150,
             serial_number="417927",
@@ -61,7 +61,7 @@ inst = Instrument(
         ),
         Lightsource(
             type="laser",
-            coupling="SMF",
+            coupling="Single-mode fiber",
             wavelength=647,
             max_power=160,
             serial_number="VL01222A10",

@@ -66,9 +66,9 @@ class Immersion(Enum):
     """Immersion media name"""
 
     AIR = "air"
-    WATER = "water"
-    OIL = "oil"
     MULTI = "multi"
+    OIL = "oil"
+    WATER = "water"
     OTHER = "other"
 
 
@@ -83,16 +83,16 @@ class Objective(Device):
 class ImagingDeviceType(Enum):
     """Imaginge device type name"""
 
+    BEAM_EXPANDER = "Beam expander"
     DIFFUSER = "Diffuser"
     GALVO = "Galvo"
-    BEAM_EXPANDER = "Beam expander"
+    LASER_COMBINER = "Laser combiner"
     LASER_COUPLER = "Laser coupler"
     PRISM = "Prism"
     OBJECTIVE = "Objective"
+    ROTATION_MOUNT = "Rotation mount"
     SLIT = "Slit"
     TUNABLE_LENS = "Tunable lens"
-    ROTATION_MOUNT = "Rotation mount"
-    LASER_COMBINER = "Laser combiner"
     OTHER = "Other"
 
 
@@ -157,7 +157,7 @@ class OpticalTable(Device):
 class Instrument(AindCoreModel):
     """Description of an instrument, which is a collection of devices"""
 
-    schema_version: str = Field("0.5.0", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.5.1", description="schema version", title="Version", const=True)
     instrument_id: Optional[str] = Field(
         None,
         description="unique identifier for this instrument configuration",

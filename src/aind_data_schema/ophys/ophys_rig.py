@@ -31,8 +31,8 @@ class Immersion(Enum):
     """Immersion medium name"""
 
     AIR = "air"
-    WATER = "water"
     OIL = "oil"
+    WATER = "water"
 
 
 class Detector(Device):
@@ -56,7 +56,7 @@ class OphysRig(AindCoreModel):
     """Description of an optical physiology rig"""
 
     schema_version: str = Field(
-        "0.3.0",
+        "0.3.1",
         description="schema version",
         title="Schema Version",
         const=True,

@@ -37,8 +37,8 @@ class DataRegex(Enum):
 class DataLevel(Enum):
     """Data level name"""
 
-    RAW_DATA = "raw data"
     DERIVED_DATA = "derived data"
+    RAW_DATA = "raw data"
 
 
 class Institution(Enum, metaclass=BaseNameEnumMeta):

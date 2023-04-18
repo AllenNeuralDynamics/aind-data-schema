@@ -17,12 +17,12 @@ from .base import AindModel
 class SizeUnit(Enum):
     """units for sizes"""
 
-    PX = "pixel"
-    IN = "inch"
     CM = "centimeter"
+    IN = "inch"
     MM = "millimeter"
-    UM = "micrometer"
     NM = "nanometer"
+    UM = "micrometer"
+    PX = "pixel"
     NONE = "none"
 
 
@@ -41,8 +41,8 @@ class FrequencyUnit(Enum):
 class PowerUnit(Enum):
     """Power units"""
 
-    MW = "milliwatt"
     UW = "microwatt"
+    MW = "milliwatt"
 
 
 class Manufacturer(Enum):
@@ -72,33 +72,33 @@ class Manufacturer(Enum):
     OEPS = "OEPS"
     OLYMPUS = "Olympus"
     OPTOTUNE = "Optotune"
-    OTHER = "Other"
     OXXIUS = "Oxxius"
     QUANTIFI = "Quantifi"
     SEMROCK = "Semrock"
     THORLABS = "Thorlabs"
     VIEWORKS = "Vieworks"
     VORTRAN = "Vortran"
+    OTHER = "Other"
 
 
 class Coupling(Enum):
     """Laser coupling type"""
 
     FREE_SPACE = "Free-space"
-    SMF = "SMF"
-    MMF = "MMF"
+    MMF = "Multi-mode fiber"
+    SMF = "Single-mode fiber"
     OTHER = "Other"
 
 
 class DataInterface(Enum):
     """Connection between a device and a PC"""
 
-    USB = "USB"
     CAMERALINK = "CameraLink"
     COAX = "Coax"
+    ETH = "Ethernet"
     PCIE = "PCIe"
     PXI = "PXI"
-    ETH = "Ethernet"
+    USB = "USB"
     OTHER = "Other"
 
 
@@ -106,12 +106,12 @@ class FilterType(Enum):
     """Filter type"""
 
     BANDPASS = "Band pass"
-    LONGPASS = "Long pass"
-    SHORTPASS = "Short pass"
-    MULTIBAND = "Multiband"
     DICHROIC = "Dichroic"
+    LONGPASS = "Long pass"
+    MULTIBAND = "Multiband"
     ND = "Neutral density"
     NOTCH = "Notch"
+    SHORTPASS = "Short pass"
 
 
 class FilterSize(Enum):
@@ -138,10 +138,10 @@ class CameraChroma(Enum):
 class DaqChannelType(Enum):
     """DAQ Channel type"""
 
-    DO = "Digital Output"
+    AI = "Analog Input"
     AO = "Analog Output"
     DI = "Digital Input"
-    AI = "Analog Input"
+    DO = "Digital Output"
 
 
 class RelativePosition(AindModel):
