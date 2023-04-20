@@ -84,11 +84,17 @@ class Patch(AindModel):
     output_power_unit: PowerUnit = Field(PowerUnit.UW, title="Output power unit")
 
 
+class Camera(AindModel):
+    """Description of camera recorded"""
+
+    name: str = Field(..., title="Camera name (must match rig JSON)")
+
+
 class OphysSession(AindCoreModel):
     """Description of an ophys session"""
 
     schema_version: str = Field(
-        "0.1.3",
+        "0.1.4",
         description="schema version",
         title="Schema Version",
         const=True,
@@ -106,6 +112,7 @@ class OphysSession(AindCoreModel):
     rig_id: str = Field(..., title="Rig ID")
     lasers: List[Laser] = Field(..., title="Lasers", unique_items=True)
     detectors: Optional[List[Detector]] = Field(None, title="Detectors", unique_items=True)
+    cameras: Optional[List[Camera]] = Field(None, title="Cameras", unique_items=True)
     stimulus_presentations: Optional[List[StimulusPresentation]] = Field(None, title="Stimulus")
     notes: Optional[str] = None
 
@@ -131,6 +138,7 @@ class FieldOfView(AindModel):
     fov_width: int = Field(..., title="FOV width (pixels)")
     fov_height: int = Field(..., title="FOV height (pixels)")
     fov_size_unit: SizeUnit = Field(SizeUnit.PX, title="FOV size unit")
+    magnification: str = Field(..., title="Magnification")
     fov_scale_factor: float = Field(..., title="FOV scale factor (um/pixel)")
     fov_scale_factor_unit: str = Field("um/pixel", title="FOV scale factor unit")
     frame_rate: float = Field(..., title="Frame rate (Hz)")

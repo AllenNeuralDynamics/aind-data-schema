@@ -8,7 +8,7 @@ from typing import List, Optional, Union
 
 from pydantic import Field
 
-from ..base import AindCoreModel
+from ..base import AindCoreModel, AindModel
 from ..device import CameraAssembly, DataInterface, Device, DAQDevice, Disc, Filter, HarpDevice, Laser, Lens, Monitor, Treadmill, Tube
 
 
@@ -56,7 +56,7 @@ class OphysRig(AindCoreModel):
     """Description of an optical physiology rig"""
 
     schema_version: str = Field(
-        "0.3.2",
+        "0.3.3",
         description="schema version",
         title="Schema Version",
         const=True,
@@ -66,7 +66,7 @@ class OphysRig(AindCoreModel):
     temperature_control: Optional[bool] = Field(None, title="Temperature control")
     humidity_control: Optional[bool] = Field(None, title="Humidity control")
     vibration_control: Optional[bool] = Field(None, title="Vibration control")
-    patch_cords: List[Patch] = Field(..., title="Patch cords", unique_items=True)
+    patch_cords: Optional[List[Patch]] = Field(..., title="Patch cords", unique_items=True)
     lasers: List[Laser] = Field(..., title="Lasers", unique_items=True)
     detectors: Optional[List[Detector]] = Field(None, title="Detectors", unique_items=True)
     filters: Optional[List[Filter]] = Field(None, title="Filters", unique_items=True)
