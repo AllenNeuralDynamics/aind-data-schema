@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/procedures.py",
-   "schema_version": "0.7.2",
+   "schema_version": "0.7.3",
    "subject_id": "625100",
    "subject_procedures": [
       {
@@ -34,7 +34,8 @@
          "dura_removed": null,
          "protective_material": null,
          "workstation_id": "SWS 3",
-         "recovery_time": null
+         "recovery_time": null,
+         "recovery_time_unit": "minute"
       },
       {
          "start_date": "2022-07-12",
@@ -67,7 +68,8 @@
                "prep_protocol": null
             }
          ],
-         "recovery_time": "00:00:00",
+         "recovery_time": 0.0,
+         "recovery_time_unit": "minute",
          "injection_duration": null,
          "injection_duration_unit": "minute",
          "workstation_id": "SWS 3",
