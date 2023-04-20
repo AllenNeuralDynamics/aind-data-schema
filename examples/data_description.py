@@ -10,6 +10,7 @@ d = RawDataDescription(
     creation_date=date(2022, 2, 21),
     creation_time=time(16, 30, 1),
     institution=Institution.AIND,
+    investigators=["Jane Smith"],
     funding_source=[Funding(funder="AIND")],
 )
 

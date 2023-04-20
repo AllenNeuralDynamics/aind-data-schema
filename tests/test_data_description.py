@@ -35,6 +35,7 @@ class DataDescriptionTest(unittest.TestCase):
             modality=[Modality.ECEPHYS],
             experiment_type="ecephys",
             subject_id="12345",
+            investigators=["Jane Smith"],
         )
 
         r1 = DerivedDataDescription(
@@ -47,6 +48,7 @@ class DataDescriptionTest(unittest.TestCase):
             modality=da.modality,
             experiment_type=da.experiment_type,
             subject_id=da.subject_id,
+            investigators=["Jane Smith"],
         )
 
         r2 = DerivedDataDescription(
@@ -59,6 +61,7 @@ class DataDescriptionTest(unittest.TestCase):
             modality=r1.modality,
             experiment_type=r1.experiment_type,
             subject_id="12345",
+            investigators=["Jane Smith"],
         )
 
         r3 = DerivedDataDescription(
@@ -71,6 +74,7 @@ class DataDescriptionTest(unittest.TestCase):
             modality=r2.modality,
             experiment_type=r2.experiment_type,
             subject_id="12345",
+            investigators=["Jane Smith"],
         )
         assert r3 is not None
 
@@ -84,6 +88,7 @@ class DataDescriptionTest(unittest.TestCase):
             creation_time=dt.time(),
             institution=Institution.AIND,
             funding_source=[f],
+            investigators=["Jane Smith"],
         )
 
         assert dd is not None
@@ -102,6 +107,7 @@ class DataDescriptionTest(unittest.TestCase):
             modality=[Modality.SPIM],
             experiment_type="exaSPIM",
             subject_id="12345",
+            investigators=["Jane Smith"],
         )
 
         da2 = RawDataDescription.parse_obj(json.loads(da1.json()))
