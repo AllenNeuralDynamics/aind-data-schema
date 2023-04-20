@@ -139,7 +139,7 @@ class RelatedData(AindModel):
 class DataDescription(AindCoreModel):
     """Description of a logical collection of data files"""
 
-    schema_version: str = Field("0.4.1", title="Schema Version", const=True)
+    schema_version: str = Field("0.5.0", title="Schema Version", const=True)
     license: str = Field("CC-BY-4.0", title="License", const=True)
 
     creation_time: time = Field(
@@ -182,6 +182,11 @@ class DataDescription(AindCoreModel):
         None,
         description="A short name for the group of individuals that collected this data",
         title="Group",
+    )
+    investigators: List[str] = Field(
+        ...,
+        description="Full name(s) of key investigators (e.g. PI, lead scientist, contact person)",
+        title="Investigators",
     )
     project_name: Optional[str] = Field(
         None,
