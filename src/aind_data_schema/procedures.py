@@ -1,6 +1,6 @@
 """ schema for various Procedures """
 
-from datetime import date, time, datetime
+from datetime import date, datetime
 from enum import Enum
 from typing import List, Optional, Union
 
@@ -246,7 +246,8 @@ class Craniotomy(SubjectProcedure):
     dura_removed: Optional[bool] = Field(None, title="Dura removed")
     protective_material: Optional[ProtectiveMaterial] = Field(None, title="Protective material")
     workstation_id: Optional[str] = Field(None, title="Workstation ID")
-    recovery_time: Optional[time] = Field(None, title="Recovery time")
+    recovery_time: Optional[float] = Field(None, title="Recovery time")
+    recovery_time_unit: Optional[TimeUnit] = Field(TimeUnit.M, title="Recovery time unit")
 
 
 class HeadframeMaterial(Enum):
@@ -307,7 +308,8 @@ class Injection(SubjectProcedure):
     """Description of an injection procedure"""
 
     injection_materials: List[InjectionMaterial] = Field(None, title="Injection material", unique_items=True)
-    recovery_time: Optional[time] = Field(None, title="Recovery time")
+    recovery_time: Optional[float] = Field(None, title="Recovery time")
+    recovery_time_unit: Optional[TimeUnit] = Field(TimeUnit.M, title="Recovery time unit")
     injection_duration: Optional[float] = Field(None, title="Injection duration")
     injection_duration_unit: Optional[TimeUnit] = Field(TimeUnit.M, title="Injection duration unit")
     workstation_id: Optional[str] = Field(None, title="Workstation ID")
@@ -468,7 +470,7 @@ class Perfusion(SubjectProcedure):
 class Procedures(AindCoreModel):
     """Description of all procedures performed on a subject"""
 
-    schema_version: str = Field("0.7.2", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.7.3", description="schema version", title="Version", const=True)
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
