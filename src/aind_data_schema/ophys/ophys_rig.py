@@ -8,7 +8,7 @@ from typing import List, Optional, Union
 
 from pydantic import Field
 
-from ..base import AindCoreModel, AindModel
+from ..base import AindCoreModel
 from ..device import CameraAssembly, DataInterface, Device, DAQDevice, Disc, Filter, HarpDevice, Laser, Lens, Monitor, Treadmill, Tube
 
 
