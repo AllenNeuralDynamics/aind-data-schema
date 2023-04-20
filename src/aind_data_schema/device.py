@@ -245,10 +245,9 @@ class CameraAssembly(AindModel):
     """Named assembly of a camera and lens (and optionally a filter)"""
 
     # required fields
-    camera_assembly_name: str = Field(..., title="Name of this camera assembly")
+    camera_assembly_name: str = Field(..., title="Camera assembly name (describe purpose e.g. Body Camera)",)
     camera: Camera = Field(..., title="Camera")
     lens: Lens = Field(..., title="Lens")
-    description: str = Field(..., title="Description", description="Purpose of the camera recording (e.g. eye tracking)")
 
     # optional fields
     filter: Optional[Filter] = Field(None, title="Filter")
