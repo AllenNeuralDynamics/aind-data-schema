@@ -150,20 +150,6 @@ class DaqChannelType(Enum):
     DO = "Digital Output"
 
 
-class RelativePosition(AindModel):
-    """Set of 6 values describing relative position on a rig"""
-
-    pitch: Optional[float] = Field(None, title="Angle pitch (deg)", units="deg", ge=0, le=360)
-    yaw: Optional[float] = Field(None, title="Angle yaw (deg)", units="deg", ge=0, le=360)
-    roll: Optional[float] = Field(None, title="Angle roll (deg)", units="deg", ge=0, le=360)
-    angle_unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
-
-    x: Optional[float] = Field(None, title="Position X (mm)", units="mm")
-    y: Optional[float] = Field(None, title="Position Y (mm)", units="mm")
-    z: Optional[float] = Field(None, title="Position Z (mm)", units="mm")
-    position_unit: SizeUnit = Field(SizeUnit.MM, title="Position unit")
-
-    coordinate_system: Optional[str] = Field(None, title="Description of the coordinate system used")
 class Software(AindModel):
     """ Generic rig software"""
 
@@ -381,15 +367,7 @@ class Treadmill(MousePlatform):
     treadmill_width: float = Field(..., title="Width of treadmill (mm)", units="mm")
     width_unit: SizeUnit = Field(SizeUnit.CM, title="Width unit")
 
-class WaterDelivery(AindModel):
-    """Description of water delivery system"""
 
-    spout_diameter: str = Field(..., title="Spout dieamter", units="mm")
-    spout_placement: RelativePosition = Field(..., title="Spout stage placement")
-    stage_type: str = Field(..., title="Stage build type")
-    calibration: dict = Field(..., title="Water calibration values")
-    solenoid_part: str = Field(..., title="Solenoid Part number")
-    stage_software: Optional[Software] = Field(None, title="Stage software")
 
 class Monitor(Device):
     """Visual display"""
@@ -400,8 +378,6 @@ class Monitor(Device):
     width: int = Field(..., title="Width (pixels)", units="pixels")
     height: int = Field(..., title="Height (pixels)", units="pixels")
     size_unit: SizeUnit = Field(SizeUnit.PX, title="Size unit")
-    viewing_distance: float = Field(..., title="Viewing distance (cm)", units="cm")
-    viewing_distance_unit: SizeUnit = Field(SizeUnit.CM, title="Viewing distance unit")
 
     # optional fields
     contrast: Optional[int] = Field(
@@ -418,4 +394,4 @@ class Monitor(Device):
         ge=0,
         le=100,
     )
-    position: Optional[RelativePosition] = Field(None, title="Relative position of the monitor")
+
