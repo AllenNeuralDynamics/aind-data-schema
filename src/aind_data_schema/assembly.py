@@ -13,6 +13,17 @@ from .base import AindModel
 
 from device import  Tube, Treadmill, Disc, Camera, Lens, Filter, Monitor, SizeUnit, AngleUnit, Software
 
+class CameraTarget(Enum):
+    """Target of camera"""
+
+    BODY = "Body"
+    BOTTOM = "Bottom"
+    EYE = "Eye"
+    FACE = "Face"
+    SIDE = "Side"
+    TONGUE = "Tongue"
+    OTHER = "Other"
+    
 class RelativePosition(AindModel):
     """Set of 6 values describing relative position on a rig"""
     # required fields
@@ -56,6 +67,7 @@ class CameraAssembly(AindModel):
     camera_assembly_name: str = Field(..., title="Name of this camera assembly")
     camera: Camera = Field(..., title="Camera")
     lens: Lens = Field(..., title="Lens")
+    camera_target: CameraTarget = Field(..., title="Camera target")
 
     # optional fields
     filter: Optional[Filter] = Field(None, title="Filter")
