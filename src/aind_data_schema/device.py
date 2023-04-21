@@ -244,8 +244,11 @@ class CameraTarget(Enum):
     """Target of camera"""
 
     BODY = "Body"
+    BOTTOM = "Bottom"
     EYE = "Eye"
     FACE = "Face"
+    SIDE = "Side"
+    TONGUE = "Tongue"
     OTHER = "Other"
 
 
