@@ -14,9 +14,24 @@ from .base import AindModel
 from device import  Tube, Treadmill, Disc, Camera, Lens, Filter, Monitor, SizeUnit, AngleUnit
 
 
-class BehaviorPlatform(WaterDelivery):
-    """Behavior platform including water delivery system and track wheel"""
+class BehaviorPlatform(AindModel):
+    """Behavior platform for a mouse during a session"""
     track_wheel: Union[Tube, Treadmill, Disc] = Field(..., title="Track wheel type")
+    
+    # optional fields
+    stage_software: Optional[Software] = Field(None, title="Stage software")
+
+
+class WaterDelivery(BehaviorPlatform):
+    """Description of water delivery system"""
+
+    # required fields
+    spout_diameter: str = Field(..., title="Spout diameter", units="mm")
+    spout_placement: RelativePosition = Field(..., title="Spout stage placement")
+    stage_type: str = Field(..., title="Stage build type")
+    calibration: dict = Field(..., title="Water calibration values")
+    solenoid_part: str = Field(..., title="Solenoid Part number")
+
 
 class CameraAssembly(AindModel):
     """Named assembly of a camera and lens (and optionally a filter)"""
@@ -31,22 +46,9 @@ class CameraAssembly(AindModel):
     position: Optional[RelativePosition] = Field(None, title="Relative position of this assembly")
 
 
-class WaterDelivery(AindModel):
-    """Description of water delivery system"""
-
-    # required fields
-    spout_diameter: str = Field(..., title="Spout diameter", units="mm")
-    spout_placement: RelativePosition = Field(..., title="Spout stage placement")
-    stage_type: str = Field(..., title="Stage build type")
-    calibration: dict = Field(..., title="Water calibration values")
-    solenoid_part: str = Field(..., title="Solenoid Part number")
-
-    # optional fields
-    stage_software: Optional[Software] = Field(None, title="Stage software")
-
 class RelativePosition(AindModel):
     """Set of 6 values describing relative position on a rig"""
-
+    # required fields
     pitch: Optional[float] = Field(None, title="Angle pitch (deg)", units="deg", ge=0, le=360)
     yaw: Optional[float] = Field(None, title="Angle yaw (deg)", units="deg", ge=0, le=360)
     roll: Optional[float] = Field(None, title="Angle roll (deg)", units="deg", ge=0, le=360)
@@ -57,6 +59,7 @@ class RelativePosition(AindModel):
     z: Optional[float] = Field(None, title="Position Z (mm)", units="mm")
     position_unit: SizeUnit = Field(SizeUnit.MM, title="Position unit")
 
+    # optional fields
     coordinate_system: Optional[str] = Field(None, title="Description of the coordinate system used")
 
 class VisualStimulusDisplayAssembly(AindModel):
