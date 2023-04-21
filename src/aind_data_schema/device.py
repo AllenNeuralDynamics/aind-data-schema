@@ -243,9 +243,9 @@ class Filter(Device):
 class CameraTarget(Enum):
     """Target of camera"""
 
-    BODY = "Body camera"
-    EYE = "Eye camera"
-    FACE = "Face camera"
+    BODY = "Body"
+    EYE = "Eye"
+    FACE = "Face"
     OTHER = "Other"
 
 
