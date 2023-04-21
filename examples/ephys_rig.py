@@ -111,7 +111,7 @@ face_camera = Camera(
     chroma="Monochrome",
 )
 
-camassm1 = CameraAssembly(camera_assembly_name="Face Camera Assembly", camera=face_camera, filter=filt, lens=lens)
+camassm1 = CameraAssembly(camera_assembly_name="Face Camera Assembly", camera=face_camera, camera_target="Face", filter=filt, lens=lens)
 
 body_camera = Camera(
     name="Body Camera",
@@ -125,7 +125,7 @@ body_camera = Camera(
     chroma="Monochrome",
 )
 
-camassm2 = CameraAssembly(camera_assembly_name="Body Camera Assembly", camera=body_camera, filter=filt, lens=lens)
+camassm2 = CameraAssembly(camera_assembly_name="Body Camera Assembly", camera=body_camera, camera_target="Body", filter=filt, lens=lens)
 
 rig = EphysRig(
     rig_id="323_EPHYS1",

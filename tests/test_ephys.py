@@ -102,6 +102,7 @@ class ExampleTest(unittest.TestCase):
             cameras=[
                 er.CameraAssembly(
                     camera_assembly_name="cam",
+                    camera_target="Face",
                     lens=Lens(manufacturer="Other"),
                     camera=er.Camera(
                         name="Camera A",

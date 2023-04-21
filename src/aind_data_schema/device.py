@@ -240,12 +240,24 @@ class Filter(Device):
         None, title="Description", description="More details about filter properties and where/how it is being used"
     )
 
+class CameraTarget(Enum):
+    """Target of camera"""
+
+    BODY = "Body"
+    BOTTOM = "Bottom"
+    EYE = "Eye"
+    FACE = "Face"
+    SIDE = "Side"
+    TONGUE = "Tongue"
+    OTHER = "Other"
+
 
 class CameraAssembly(AindModel):
     """Named assembly of a camera and lens (and optionally a filter)"""
 
     # required fields
-    camera_assembly_name: str = Field(..., title="Name of this camera assembly")
+    camera_assembly_name: str = Field(..., title="Camera assembly name")
+    camera_target: CameraTarget = Field(..., title="Camera target")
     camera: Camera = Field(..., title="Camera")
     lens: Lens = Field(..., title="Lens")
 
