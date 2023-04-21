@@ -11,40 +11,7 @@ from pydantic import Field
 
 from .base import AindModel
 
-from device import  Tube, Treadmill, Disc, Camera, Lens, Filter, Monitor, SizeUnit, AngleUnit
-
-
-class BehaviorPlatform(AindModel):
-    """Behavior platform for a mouse during a session"""
-    track_wheel: Union[Tube, Treadmill, Disc] = Field(..., title="Track wheel type")
-    
-    # optional fields
-    stage_software: Optional[Software] = Field(None, title="Stage software")
-
-
-class WaterDelivery(BehaviorPlatform):
-    """Description of water delivery system"""
-
-    # required fields
-    spout_diameter: str = Field(..., title="Spout diameter", units="mm")
-    spout_placement: RelativePosition = Field(..., title="Spout stage placement")
-    stage_type: str = Field(..., title="Stage build type")
-    calibration: dict = Field(..., title="Water calibration values")
-    solenoid_part: str = Field(..., title="Solenoid Part number")
-
-
-class CameraAssembly(AindModel):
-    """Named assembly of a camera and lens (and optionally a filter)"""
-
-    # required fields
-    camera_assembly_name: str = Field(..., title="Name of this camera assembly")
-    camera: Camera = Field(..., title="Camera")
-    lens: Lens = Field(..., title="Lens")
-
-    # optional fields
-    filter: Optional[Filter] = Field(None, title="Filter")
-    position: Optional[RelativePosition] = Field(None, title="Relative position of this assembly")
-
+from device import  Tube, Treadmill, Disc, Camera, Lens, Filter, Monitor, SizeUnit, AngleUnit, Software
 
 class RelativePosition(AindModel):
     """Set of 6 values describing relative position on a rig"""
@@ -62,6 +29,38 @@ class RelativePosition(AindModel):
     # optional fields
     coordinate_system: Optional[str] = Field(None, title="Description of the coordinate system used")
 
+
+class WaterDelivery(AindModel):
+    """Description of water delivery system"""
+
+    # required fields
+    spout_diameter: str = Field(..., title="Spout diameter", units="mm")
+    spout_placement: RelativePosition = Field(..., title="Spout stage placement")
+    stage_type: str = Field(..., title="Stage build type")
+    calibration: dict = Field(..., title="Water calibration values")
+    solenoid_part: str = Field(..., title="Solenoid Part number")
+
+class BehaviorPlatform(AindModel):
+    """Behavior platform for a mouse during a session"""
+    track_wheel: Union[Tube, Treadmill, Disc] = Field(..., title="Track wheel type")
+    
+    # optional fields
+    stage_software: Optional[Software] = Field(None, title="Stage software")
+    water_delivery: Optional[WaterDelivery] = Field(None, title="Water delivery")
+
+
+class CameraAssembly(AindModel):
+    """Named assembly of a camera and lens (and optionally a filter)"""
+
+    # required fields
+    camera_assembly_name: str = Field(..., title="Name of this camera assembly")
+    camera: Camera = Field(..., title="Camera")
+    lens: Lens = Field(..., title="Lens")
+
+    # optional fields
+    filter: Optional[Filter] = Field(None, title="Filter")
+    position: Optional[RelativePosition] = Field(None, title="Relative position of this assembly")
+
 class VisualStimulusDisplayAssembly(AindModel):
     """Visual display"""
 
@@ -71,18 +70,4 @@ class VisualStimulusDisplayAssembly(AindModel):
     viewing_distance_unit: SizeUnit = Field(SizeUnit.CM, title="Viewing distance unit")
 
     # optional fields
-    contrast: Optional[int] = Field(
-        ...,
-        description="Monitor's contrast setting",
-        title="Contrast",
-        ge=0,
-        le=100,
-    )
-    brightness: Optional[int] = Field(
-        ...,
-        description="Monitor's brightness setting",
-        title="Brightness",
-        ge=0,
-        le=100,
-    )
     position: Optional[RelativePosition] = Field(None, title="Relative position of the monitor")
