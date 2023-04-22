@@ -95,7 +95,7 @@ class Modality(Enum, metaclass=BaseNameEnumMeta):
 
 
 class ExperimentType(Enum):
-    """Abbreviated name for data collectoin technique"""
+    """Abbreviated name for data collection technique"""
     
     ECEPHYS=Modality.ECEPHYS.value.abbreviation
     EXASPIM=Modality.EXASPIM.value.abbreviation
