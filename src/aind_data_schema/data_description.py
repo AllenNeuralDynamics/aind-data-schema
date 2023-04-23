@@ -103,7 +103,7 @@ class ExperimentType(Enum):
     FIP=Modality.FIP.value.abbreviation
     FMOST=Modality.FMOST.value.abbreviation
     HSFP=Modality.HSFP.value.abbreviation
-    MESOSCOPE=Modality.MESOSCOPE.value.abbreviation
+    MESOSPIM=Modality.MESOSPIM.value.abbreviation
     MRI=Modality.MRI.value.abbreviation
     SMARTSPIM=Modality.SMARTSPIM.value.abbreviation
     OTHER="Other"
