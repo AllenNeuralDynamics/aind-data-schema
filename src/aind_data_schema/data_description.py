@@ -79,7 +79,6 @@ class Modality(Enum, metaclass=BaseNameEnumMeta):
     FMOST = BaseName(name="Fluorescence micro-optical sectioning tomography", abbreviation="fMOST")
     HSFP = BaseName(name="Hyperspectral fiber photometry", abbreviation="HSFP")
     ICEPHYS = BaseName(name="Intracellular electrophysiology", abbreviation="icephys")
-    MESOSCOPE = BaseName(name="Multiplane mesoscopic multiphoton Imaging", abbreviation="mesoscope")
     MESOSPIM = BaseName(name="Mesoscale selective plane illumination microscopy", abbreviation="mesoSPIM")
     MRI = BaseName(name="Magnetic resonance imaging", abbreviation="MRI")
     OPHYS = BaseName(name="Optical physiology", abbreviation="ophys")
@@ -105,7 +104,6 @@ class ExperimentType(Enum):
     FMOST=Modality.FMOST.value.abbreviation
     HSFP=Modality.HSFP.value.abbreviation
     MESOSCOPE=Modality.MESOSCOPE.value.abbreviation
-    MESOSPIM=Modality.MESOSPIM.value.abbreviation
     MRI=Modality.MRI.value.abbreviation
     SMARTSPIM=Modality.SMARTSPIM.value.abbreviation
     OTHER="Other"
