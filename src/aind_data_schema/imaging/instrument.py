@@ -157,7 +157,7 @@ class OpticalTable(Device):
 class Instrument(AindCoreModel):
     """Description of an instrument, which is a collection of devices"""
 
-    schema_version: str = Field("0.5.1", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.5.2", description="schema version", title="Version", const=True)
     instrument_id: Optional[str] = Field(
         None,
         description="unique identifier for this instrument configuration",
@@ -170,8 +170,8 @@ class Instrument(AindCoreModel):
     humidity_control: Optional[bool] = Field(None, title="Humidity control")
     optical_tables: List[OpticalTable] = Field(None, title="Optical table")
     objectives: List[Objective] = Field(..., title="Objectives", unique_items=True)
-    detectors: List[Detector] = Field(..., title="Detectors", unique_items=True)
-    light_sources: List[Lightsource] = Field(..., title="Light sources", unique_items=True)
+    detectors: Optional[List[Detector]] = Field(None, title="Detectors", unique_items=True)
+    light_sources: Optional[List[Lightsource]] = Field(None, title="Light sources", unique_items=True)
     fluorescence_filters: Optional[List[Filter]] = Field(None, title="Fluorescence filters", unique_items=True)
     motorized_stages: Optional[List[MotorizedStage]] = Field(None, title="Motorized stages", unique_items=True)
     scanning_stages: Optional[List[ScanningStage]] = Field(None, title="Scanning motorized stages", unique_items=True)
