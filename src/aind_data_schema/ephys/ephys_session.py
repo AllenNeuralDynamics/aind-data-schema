@@ -38,6 +38,23 @@ class CcfCoords(AindModel):
     ccf_version: CcfVersion = Field(CcfVersion.CCFv3, title="CCF version")
 
 
+class DomeModule(AindModel):
+    """Movable module that is mounted on the ephys dome insertion system"""
+
+    # required fields
+    arc_angle: float = Field(..., title="Arc Angle", units="degrees")
+    module_angle: float = Field(..., title="Module Angle", units="degrees")
+    angle_unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
+
+    # optional fields
+    rotation_angle: Optional[float] = Field(0.0, title="Rotation Angle", units="degrees")
+    coordinate_transform: Optional[str] = Field(
+        None, title="Transform from local manipulator axes to rig", description="Path to coordinate transform"
+    )
+    calibration_date: Optional[datetime] = Field(None, title="Date on which coordinate transform was last calibrated")
+    notes: Optional[str] = Field(None, title="Notes")
+
+
 class ManipulatorModule(AindModel):
     """A module connected to a 3-axis manipulator"""
 
@@ -85,6 +102,11 @@ class Camera(AindModel):
     name: str = Field(..., title="Camera name (must match rig JSON)")
 
 
+class StickMicroscope(DomeModule):
+    """Stick microscope """
+
+    name: str = Field(..., title="Stick microscope name (must match rig JSON)")
+
 
 class Stream(AindModel):
     """Stream of data with a start and stop time"""
@@ -114,6 +136,7 @@ class EphysSession(AindCoreModel):
     session_description: Optional[str] = Field(None, title="Session description")
     iacuc_protocol: Optional[str] = Field(None, title="IACUC protocol")
     rig_id: str = Field(..., title="Rig ID")
+    stick_microscopes: Optional[List[StickMicroscope]] = Field(..., title="Stick microscopes")
     data_streams: List[Stream] = Field(
         ...,
         title="Data streams",

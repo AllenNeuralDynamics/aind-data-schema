@@ -24,6 +24,7 @@ from ..device import (
     Disc,
     HarpDevice,
     Laser,
+    Lens,
     Manufacturer,
     Monitor,
     SizeUnit,
@@ -78,7 +79,7 @@ class Coordinates3d(AindModel):
 class ProbePort(AindModel):
     """Port for a probe connection"""
 
-    index: int = Field(..., title="Zero-based port index")
+    index: int = Field(..., title="One-based port index")
     probes: List[str] = Field(..., title="Names of probes connected to this port")
 
 
@@ -107,36 +108,21 @@ class OpenEphysAcquisitionBoard(DAQDevice):
     manufacturer: Manufacturer = Manufacturer.OEPS
 
 
-class DomeModule(AindModel):
-    """Movable module that is mounted on the ephys dome insertion system"""
-
-    # required fields
-    arc_angle: float = Field(..., title="Arc Angle", units="degrees")
-    module_angle: float = Field(..., title="Module Angle", units="degrees")
-    angle_unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
-
-    # optional fields
-    rotation_angle: Optional[float] = Field(0.0, title="Rotation Angle", units="degrees")
-    coordinate_transform: Optional[str] = Field(
-        None, title="Transform from local manipulator axes to rig", description="Path to coordinate transform"
-    )
-    calibration_date: Optional[datetime] = Field(None, title="Data on which coordinate transform was last calibrated")
-
-
 class Manipulator(Device):
     """Manipulator used on a dome module"""
 
     manufacturer: Literal[Manufacturer.NEW_SCALE_TECHNOLOGIES.value]
 
 
-class StickMicroscope(DomeModule):
+class StickMicroscopeAssembly(AindModel):
     """Stick microscope used to monitor probes during insertion"""
 
     camera: Camera = Field(..., title="Camera for this module")
+    lens: Lens = Field(..., title="Lens for this module")
 
 
-class LaserModule(DomeModule):
-    """Module for optogenetic stimulation"""
+class LaserAssembly(AindModel):
+    """Assembly for optogenetic stimulation"""
 
     manipulator: Manipulator = Field(..., title="Manipulator")
     lasers: List[Laser] = Field(..., title="Lasers connected to this module")
@@ -164,6 +150,12 @@ class HeadstageModel(Enum):
     RHD_64_CH = "Intan RHD 64-channel"
 
 
+class Headstage(Device):
+    """Headstage used with an ephys probe"""
+
+    headstage_model: Optional[HeadstageModel] = Field(None, title="Headstage model")
+
+
 class EphysProbe(Device):
     """Named probe used in an ephys experiment"""
 
@@ -172,10 +164,10 @@ class EphysProbe(Device):
 
     # optional fields
     lasers: Optional[List[Laser]] = Field(None, title="Lasers connected to this probe")
-    headstage: Optional[HeadstageModel] = Field(None, title="Headstage for this probe")
+    headstage: Optional[Headstage] = Field(None, title="Headstage for this probe")
 
 
-class EphysModule(DomeModule):
+class EphysAssembly(AindModel):
     """Module for electrophysiological recording"""
 
     manipulator: Manipulator = Field(..., title="Manipulator")
@@ -191,7 +183,7 @@ class EphysRig(AindCoreModel):
         title="Described by",
         const=True,
     )
-    schema_version: str = Field("0.5.6", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.6.0", description="schema version", title="Version", const=True)
     rig_id: str = Field(..., description="room_stim apparatus_version", title="Rig ID")
     ephys_modules: Optional[List[EphysModule]] = Field(None, title="Ephys probes", unique_items=True)
     stick_microscopes: Optional[List[StickMicroscope]] = Field(None, title="Stick microscopes")
@@ -202,6 +194,8 @@ class EphysRig(AindCoreModel):
     daqs: Optional[List[Union[HarpDevice, NeuropixelsBasestation, OpenEphysAcquisitionBoard, DAQDevice]]] = Field(
         None, title="Data acquisition devices"
     )
+    additional_devices: Optional[List[Device]] = Field(None, title="Additional devices", unique_items=True)
+    notes: Optional[str] = Field(None, title="Notes")
 
     @root_validator
     def validate_device_names(cls, values):
