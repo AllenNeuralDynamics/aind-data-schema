@@ -60,6 +60,7 @@ class Manufacturer(Enum):
     FLIR = "FLIR"
     HAMAMATSU = "Hamamatsu"
     IMEC = "IMEC"
+    JULABO = "Julabo"
     LEICA = "Leica"
     LG = "LG"
     LIFECANVAS = "LifeCanvas"
