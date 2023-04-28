@@ -292,7 +292,7 @@ class InjectionMaterial(AindModel):
         description="Short name used to reference the plasmid",
     )
     genome_copy: Optional[float] = Field(None, title="Genome copy")
-    titer: Optional[float] = Field(None, title="Titer (gc/mL", units="gc/mL")
+    titer: Optional[float] = Field(None, title="Titer (gc/mL)", units="gc/mL")
     titer_unit: Optional[str] = Field("gc/mL", title="Titer unit")
     prep_lot_number: Optional[str] = Field(None, title="Preparation lot number")
     prep_date: Optional[date] = Field(
@@ -320,8 +320,8 @@ class RetroOrbitalInjection(Injection):
     """Description of a retro-orbital injection procedure"""
 
     procedure_type: str = Field("Retro-orbital injection", title="Procedure type", const=True)
-    injection_volume: float = Field(..., title="Injection volume (nL)", units="nL")
-    injection_volume_unit: str = Field("nL", title="Injection volume unit")
+    injection_volume: float = Field(..., title="Injection volume (uL)", units="uL")
+    injection_volume_unit: VolumeUnit = Field(VolumeUnit.UL, title="Injection volume unit")
     injection_eye: Side = Field(..., title="Injection eye")
 
 
