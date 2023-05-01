@@ -131,17 +131,15 @@ class ExampleTest(unittest.TestCase):
                 es.Stream(
                     stream_start_time=datetime.datetime.now(),
                     stream_end_time=datetime.datetime.now(),
-                    ephys_modules=[
-                        es.EphysProbe(
-                            name="Probe A",
-                            ephys_assembly_name="Ephys_assemblyA",
-                            arc_angle=0,
-                            module_angle=10,
-                            primary_targeted_structure="VISlm",
-                            targeted_ccf_coordinates=[es.CcfCoords(ml="1", ap="1", dv="1")],
-                            manipulator_coordinates=er.Coordinates3d(x="1", y="1", z="1"),
-                        )
-                    ],
+                    ephys_modules=es.EphysModule(
+                        ephys_probes=[es.EphysProbe(name="Probe A")],
+                        ephys_assembly_name="Ephys_assemblyA",
+                        arc_angle=0,
+                        module_angle=10,
+                        primary_targeted_structure="VISlm",
+                        targeted_ccf_coordinates=[es.CcfCoords(ml="1", ap="1", dv="1")],
+                        manipulator_coordinates=er.Coordinates3d(x="1", y="1", z="1"),
+                        ),
                     laser_modules=[],
                     daqs=[],
                     cameras=[],
