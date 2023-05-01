@@ -56,7 +56,7 @@ class DomeModule(AindModel):
     notes: Optional[str] = Field(None, title="Notes")
 
 
-class ManipulatorModule(AindModel):
+class ManipulatorModule(DomeModule):
     """A module connected to a 3-axis manipulator"""
 
     primary_targeted_structure: str = Field(..., title="Targeted structure")
@@ -84,11 +84,17 @@ class LaserModule(ManipulatorModule):
     lasers: List[Laser] = Field(..., title="Active lasers in this module")
 
 
-class EphysProbe(ManipulatorModule):
-    """Probe recorded in a Stream"""
+class EphysProbe(AindModel):
+    """Probes in a EphysProbeModule"""
 
     name: str = Field(..., title="Ephys probe name (must match rig JSON)")
     other_targeted_structures: Optional[List[str]] = None
+
+
+class EphysModule(ManipulatorModule):
+    """Probe recorded in a Stream"""
+
+    ephys_probes: List[EphysProbe] = Field(..., title="Ephys probes used in this module")
 
 
 class DAQDevice(AindModel):
@@ -108,7 +114,7 @@ class Stream(AindModel):
 
     stream_start_time: datetime = Field(..., title="Stream start time")
     stream_end_time: datetime = Field(..., title="Stream stop time")
-    probes: Optional[List[EphysProbe]] = Field(None, title="Probes", unique_items=True)
+    ephys_modules: Optional[List[EphysModule]] = Field(None, title="Ephys modules", unique_items=True)
     laser_modules: Optional[List[LaserModule]] = Field(None, title="Laser modules", unique_items=True)
     daqs: Optional[List[DAQDevice]] = Field(None, title="DAQ devices", unique_items=True)
     cameras: Optional[List[Camera]] = Field(None, title="Cameras", unique_items=True)
@@ -136,16 +142,6 @@ class EphysSession(AindCoreModel):
         title="Stick microscopes",
         description="Must match stick microscope assemblies in rig file"
         )
-    laser_assemblies: Optional[List[DomeModule]] = Field(
-        ...,
-        title="Laser assemblies",
-        description="Must match laser assemblies in rig file"
-    )
-    ephys_assemblies: Optional[List[DomeModule]] = Field(
-        ...,
-        title="Ephys assemblies",
-        description="Must match ephys assemblies in rig file"
-    )
     data_streams: List[Stream] = Field(
         ...,
         title="Data streams",
