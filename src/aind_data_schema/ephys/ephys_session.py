@@ -119,7 +119,7 @@ class Stream(AindModel):
     daqs: Optional[List[DAQDevice]] = Field(None, title="DAQ devices", unique_items=True)
     cameras: Optional[List[Camera]] = Field(None, title="Cameras", unique_items=True)
     stimulus_presentations: Optional[List[StimulusPresentation]] = Field(None, title="Stimulus")
-
+    notes: Optional[str] = Field(None, title="Notes")
 
 class EphysSession(AindCoreModel):
     """Description of an ephys recording session"""
@@ -156,4 +156,4 @@ class EphysSession(AindCoreModel):
         description="Path to file that details the CCF-to-lab coordinate transform",
         title="CCF coordinate transform",
     )
-    notes: Optional[str] = None
+    notes: Optional[str] = Field(None, title="Notes")
