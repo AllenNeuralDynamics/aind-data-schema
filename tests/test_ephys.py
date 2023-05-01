@@ -133,7 +133,7 @@ class ExampleTest(unittest.TestCase):
                     stream_end_time=datetime.datetime.now(),
                     ephys_modules=es.EphysModule(
                         ephys_probes=[es.EphysProbe(name="Probe A")],
-                        ephys_assembly_name="Ephys_assemblyA",
+                        assembly_name="Ephys_assemblyA",
                         arc_angle=0,
                         module_angle=10,
                         primary_targeted_structure="VISlm",
