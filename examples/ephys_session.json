@@ -103,7 +103,8 @@
                "name": "Body Camera"
             }
          ],
-         "stimulus_presentations": null
+         "stimulus_presentations": null,
+         "notes": null
       }
    ],
    "ccf_coordinate_transform": null,
