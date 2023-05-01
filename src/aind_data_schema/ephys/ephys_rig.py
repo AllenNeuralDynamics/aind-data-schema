@@ -206,8 +206,8 @@ class EphysRig(AindCoreModel):
         """
 
         cameras = values.get("cameras")
-        ephys_modules = values.get("ephys_modules")
-        laser_modules = values.get("laser_modules")
+        ephys_assemblies = values.get("ephys_assemblies")
+        laser_assemblies = values.get("laser_assemblies")
         mouse_platform = values.get("mouse_platform")
         daqs = values.get("daqs")
 
@@ -220,10 +220,10 @@ class EphysRig(AindCoreModel):
             device_names += [c.camera.name for c in cameras]
 
         if ephys_modules is not None:
-            device_names += [probe.name for ephys_module in ephys_modules for probe in ephys_module.probes]
+            device_names += [probe.name for ephys_assembly in ephys_assemblies for probe in ephys_assembly.probes]
 
         if laser_modules is not None:
-            device_names += [laser.name for laser_module in laser_modules for laser in laser_module.lasers]
+            device_names += [laser.name for laser_assembly in laser_assemblies for laser in laser_assembly.lasers]
 
         if mouse_platform is not None:
             device_names += [mouse_platform.name]
