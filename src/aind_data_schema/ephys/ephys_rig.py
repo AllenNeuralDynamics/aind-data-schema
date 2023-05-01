@@ -117,6 +117,7 @@ class Manipulator(Device):
 class StickMicroscopeAssembly(AindModel):
     """Stick microscope used to monitor probes during insertion"""
 
+    scope_assembly_name = Field(..., title="Scope assembly name")
     camera: Camera = Field(..., title="Camera for this module")
     lens: Lens = Field(..., title="Lens for this module")
 
@@ -124,6 +125,7 @@ class StickMicroscopeAssembly(AindModel):
 class LaserAssembly(AindModel):
     """Assembly for optogenetic stimulation"""
 
+    assembly_name = Field(..., title="Laser assembly name")
     manipulator: Manipulator = Field(..., title="Manipulator")
     lasers: List[Laser] = Field(..., title="Lasers connected to this module")
 
@@ -170,6 +172,7 @@ class EphysProbe(Device):
 class EphysAssembly(AindModel):
     """Module for electrophysiological recording"""
 
+    ephys_assembly_name: str = Field(..., title="Ephys assembly name")
     manipulator: Manipulator = Field(..., title="Manipulator")
     probes: List[EphysProbe] = Field(..., title="Probes that are held by this module")
 
@@ -185,9 +188,9 @@ class EphysRig(AindCoreModel):
     )
     schema_version: str = Field("0.6.0", description="schema version", title="Version", const=True)
     rig_id: str = Field(..., description="room_stim apparatus_version", title="Rig ID")
-    ephys_modules: Optional[List[EphysModule]] = Field(None, title="Ephys probes", unique_items=True)
-    stick_microscopes: Optional[List[StickMicroscope]] = Field(None, title="Stick microscopes")
-    laser_modules: Optional[List[LaserModule]] = Field(None, title="Laser modules", unique_items=True)
+    ephys_assemblies: Optional[List[EphysAssembly]] = Field(None, title="Ephys probes", unique_items=True)
+    stick_microscopes: Optional[List[StickMicroscopeAssembly]] = Field(None, title="Stick microscopes")
+    laser_assemblies: Optional[List[LaserAssembly]] = Field(None, title="Laser modules", unique_items=True)
     cameras: Optional[List[CameraAssembly]] = Field(None, title="Camera assemblies", unique_items=True)
     visual_monitors: Optional[List[Monitor]] = Field(None, title="Visual monitors", unique_items=True)
     mouse_platform: Optional[Union[Tube, Treadmill, Disc]] = Field(None, title="Mouse platform")

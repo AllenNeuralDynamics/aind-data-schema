@@ -42,6 +42,7 @@ class DomeModule(AindModel):
     """Movable module that is mounted on the ephys dome insertion system"""
 
     # required fields
+    assembly_name: str = Field(..., title="Assembly name")
     arc_angle: float = Field(..., title="Arc Angle", units="degrees")
     module_angle: float = Field(..., title="Module Angle", units="degrees")
     angle_unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
@@ -102,12 +103,6 @@ class Camera(AindModel):
     name: str = Field(..., title="Camera name (must match rig JSON)")
 
 
-class StickMicroscope(DomeModule):
-    """Stick microscope """
-
-    name: str = Field(..., title="Stick microscope name (must match rig JSON)")
-
-
 class Stream(AindModel):
     """Stream of data with a start and stop time"""
 
@@ -136,7 +131,21 @@ class EphysSession(AindCoreModel):
     session_description: Optional[str] = Field(None, title="Session description")
     iacuc_protocol: Optional[str] = Field(None, title="IACUC protocol")
     rig_id: str = Field(..., title="Rig ID")
-    stick_microscopes: Optional[List[StickMicroscope]] = Field(..., title="Stick microscopes")
+    stick_microscopes: Optional[List[DomeModule]] = Field(
+        ..., 
+        title="Stick microscopes",
+        description="Must match stick microscope assemblies in rig file"
+        )
+    laser_assemblies: Optional[List[DomeModule]] = Field(
+        ...,
+        title="Laser assemblies",
+        description="Must match laser assemblies in rig file"
+    )
+    ephys_assemblies: Optional[List[DomeModule]] = Field(
+        ...,
+        title="Ephys assemblies",
+        description="Must match ephys assemblies in rig file"
+    )
     data_streams: List[Stream] = Field(
         ...,
         title="Data streams",
