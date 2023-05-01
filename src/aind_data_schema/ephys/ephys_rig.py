@@ -124,7 +124,7 @@ class StickMicroscopeAssembly(AindModel):
 class LaserAssembly(AindModel):
     """Assembly for optogenetic stimulation"""
 
-    assembly_name = Field(..., title="Laser assembly name")
+    assembly_name: str = Field(..., title="Laser assembly name")
     manipulator: Manipulator = Field(..., title="Manipulator")
     lasers: List[Laser] = Field(..., title="Lasers connected to this module")
 
@@ -246,13 +246,13 @@ class EphysRig(AindCoreModel):
         actually exist
         """
 
-        ephys_modules = values.get("ephys_modules")
+        ephys_assemblies = values.get("ephys_assemblies")
         daqs = values.get("daqs")
 
-        if daqs is None or ephys_modules is None:
+        if daqs is None or ephys_assemblies is None:
             return values
 
-        probe_names = [probe.name for ephys_module in ephys_modules for probe in ephys_module.probes]
+        probe_names = [probe.name for ephys_assembly in ephys_assemblies for probe in ephys_assembly.probes]
 
         for daq in daqs:
             try:
