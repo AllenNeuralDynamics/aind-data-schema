@@ -46,6 +46,7 @@ class ExampleTest(unittest.TestCase):
                     manufacturer="New Scale Technologies",
                     serial_number="4321",
                 ),
+                ephys_assembly_name="Ephys_assemblyA",
             )
         ]
 
@@ -63,6 +64,7 @@ class ExampleTest(unittest.TestCase):
                     manufacturer="New Scale Technologies",
                     serial_number="1234",
                 ),
+                assembly_name="Laser_assembly",
             )
         ]
 
@@ -132,7 +134,7 @@ class ExampleTest(unittest.TestCase):
                     ephys_modules=[
                         es.EphysProbe(
                             name="Probe A",
-                            assembly_name="Ephys_assemblyA",
+                            ephys_assembly_name="Ephys_assemblyA",
                             arc_angle=0,
                             module_angle=10,
                             primary_targeted_structure="VISlm",
