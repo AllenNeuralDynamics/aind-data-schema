@@ -77,6 +77,7 @@ class Manufacturer(Enum):
     QUANTIFI = "Quantifi"
     SEMROCK = "Semrock"
     THORLABS = "Thorlabs"
+    TMC = "Technical Manufacturing Corporation"
     VIEWORKS = "Vieworks"
     VORTRAN = "Vortran"
     OTHER = "Other"
