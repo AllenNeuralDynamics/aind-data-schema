@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/imaging/instrument.py",
-   "schema_version": "0.5.1",
+   "schema_version": "0.5.4",
    "instrument_id": "exaSPIM1-1",
    "instrument_type": "exaSPIM",
    "location": "440 Westlake",
