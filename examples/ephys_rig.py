@@ -54,7 +54,7 @@ red_laser = Laser(name="Red Laser", wavelength=473, manufacturer="Oxxius")
 blue_laser = Laser(name="Blue Laser", wavelength=638, manufacturer="Oxxius")
 
 laser_assembly = LaserAssembly(
-    assembly_name="Laser_assemblyA",
+    laser_assembly_name="Laser_assemblyA",
     manipulator=Manipulator(serial_number="SN2937", manufacturer="New Scale Technologies"),
     lasers=[red_laser, blue_laser],
 )

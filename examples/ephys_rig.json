@@ -87,7 +87,7 @@
    ],
    "laser_assemblies": [
       {
-         "assembly_name": "Laser_assemblyA",
+         "laser_assembly_name": "Laser_assemblyA",
          "manipulator": {
             "name": null,
             "serial_number": "SN2937",

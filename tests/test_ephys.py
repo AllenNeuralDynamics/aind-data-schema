@@ -64,7 +64,7 @@ class ExampleTest(unittest.TestCase):
                     manufacturer="New Scale Technologies",
                     serial_number="1234",
                 ),
-                assembly_name="Laser_assembly",
+                laser_assembly_name="Laser_assembly",
             )
         ]
 
