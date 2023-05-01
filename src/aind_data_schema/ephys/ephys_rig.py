@@ -124,7 +124,7 @@ class StickMicroscopeAssembly(AindModel):
 class LaserAssembly(AindModel):
     """Assembly for optogenetic stimulation"""
 
-    assembly_name: str = Field(..., title="Laser assembly name")
+    laser_assembly_name: str = Field(..., title="Laser assembly name")
     manipulator: Manipulator = Field(..., title="Manipulator")
     lasers: List[Laser] = Field(..., title="Lasers connected to this module")
 
