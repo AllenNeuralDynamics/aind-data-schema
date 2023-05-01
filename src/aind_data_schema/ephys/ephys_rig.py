@@ -219,10 +219,10 @@ class EphysRig(AindCoreModel):
         if cameras is not None:
             device_names += [c.camera.name for c in cameras]
 
-        if ephys_modules is not None:
+        if ephys_assemblies is not None:
             device_names += [probe.name for ephys_assembly in ephys_assemblies for probe in ephys_assembly.probes]
 
-        if laser_modules is not None:
+        if laser_assemblies is not None:
             device_names += [laser.name for laser_assembly in laser_assemblies for laser in laser_assembly.lasers]
 
         if mouse_platform is not None:
