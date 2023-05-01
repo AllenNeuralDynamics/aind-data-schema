@@ -116,7 +116,7 @@ class Manipulator(Device):
 class StickMicroscopeAssembly(AindModel):
     """Stick microscope used to monitor probes during insertion"""
 
-    scope_assembly_name = Field(..., title="Scope assembly name")
+    scope_assembly_name: str = Field(..., title="Scope assembly name")
     camera: Camera = Field(..., title="Camera for this module")
     lens: Lens = Field(..., title="Lens for this module")
 
