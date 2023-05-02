@@ -9,7 +9,7 @@ from typing import List, Optional
 from pydantic import Field
 
 from ..base import AindCoreModel, AindModel
-from ..device import PowerUnit, SizeUnit
+from ..device import PowerUnit, SizeUnit, AngleUnit
 from ..stimulus import StimulusPresentation
 from .ephys_rig import Coordinates3d
 
@@ -38,7 +38,25 @@ class CcfCoords(AindModel):
     ccf_version: CcfVersion = Field(CcfVersion.CCFv3, title="CCF version")
 
 
-class ManipulatorModule(AindModel):
+class DomeModule(AindModel):
+    """Movable module that is mounted on the ephys dome insertion system"""
+
+    # required fields
+    assembly_name: str = Field(..., title="Assembly name")
+    arc_angle: float = Field(..., title="Arc Angle", units="degrees")
+    module_angle: float = Field(..., title="Module Angle", units="degrees")
+    angle_unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
+
+    # optional fields
+    rotation_angle: Optional[float] = Field(0.0, title="Rotation Angle", units="degrees")
+    coordinate_transform: Optional[str] = Field(
+        None, title="Transform from local manipulator axes to rig", description="Path to coordinate transform"
+    )
+    calibration_date: Optional[datetime] = Field(None, title="Date on which coordinate transform was last calibrated")
+    notes: Optional[str] = Field(None, title="Notes")
+
+
+class ManipulatorModule(DomeModule):
     """A module connected to a 3-axis manipulator"""
 
     primary_targeted_structure: str = Field(..., title="Targeted structure")
@@ -66,11 +84,17 @@ class LaserModule(ManipulatorModule):
     lasers: List[Laser] = Field(..., title="Active lasers in this module")
 
 
-class EphysProbe(ManipulatorModule):
-    """Probe recorded in a Stream"""
+class EphysProbe(AindModel):
+    """Probes in a EphysProbeModule"""
 
     name: str = Field(..., title="Ephys probe name (must match rig JSON)")
     other_targeted_structures: Optional[List[str]] = None
+
+
+class EphysModule(ManipulatorModule):
+    """Probe recorded in a Stream"""
+
+    ephys_probes: List[EphysProbe] = Field(..., title="Ephys probes used in this module")
 
 
 class DAQDevice(AindModel):
@@ -85,23 +109,22 @@ class Camera(AindModel):
     name: str = Field(..., title="Camera name (must match rig JSON)")
 
 
-
 class Stream(AindModel):
     """Stream of data with a start and stop time"""
 
     stream_start_time: datetime = Field(..., title="Stream start time")
     stream_end_time: datetime = Field(..., title="Stream stop time")
-    probes: Optional[List[EphysProbe]] = Field(None, title="Probes", unique_items=True)
+    ephys_modules: Optional[List[EphysModule]] = Field(None, title="Ephys modules", unique_items=True)
     laser_modules: Optional[List[LaserModule]] = Field(None, title="Laser modules", unique_items=True)
     daqs: Optional[List[DAQDevice]] = Field(None, title="DAQ devices", unique_items=True)
     cameras: Optional[List[Camera]] = Field(None, title="Cameras", unique_items=True)
     stimulus_presentations: Optional[List[StimulusPresentation]] = Field(None, title="Stimulus")
-
+    notes: Optional[str] = Field(None, title="Notes")
 
 class EphysSession(AindCoreModel):
     """Description of an ephys recording session"""
 
-    schema_version: str = Field("0.3.2", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.4.0", description="schema version", title="Version", const=True)
     experimenter_full_name: str = Field(
         ...,
         description="First and last name of the experimenter.",
@@ -114,6 +137,11 @@ class EphysSession(AindCoreModel):
     session_description: Optional[str] = Field(None, title="Session description")
     iacuc_protocol: Optional[str] = Field(None, title="IACUC protocol")
     rig_id: str = Field(..., title="Rig ID")
+    stick_microscopes: Optional[List[DomeModule]] = Field(
+        ..., 
+        title="Stick microscopes",
+        description="Must match stick microscope assemblies in rig file"
+        )
     data_streams: List[Stream] = Field(
         ...,
         title="Data streams",
@@ -128,4 +156,4 @@ class EphysSession(AindCoreModel):
         description="Path to file that details the CCF-to-lab coordinate transform",
         title="CCF coordinate transform",
     )
-    notes: Optional[str] = None
+    notes: Optional[str] = Field(None, title="Notes")

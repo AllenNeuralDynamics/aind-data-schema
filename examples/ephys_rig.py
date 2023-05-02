@@ -3,15 +3,15 @@
 from aind_data_schema.device import Camera, CameraAssembly, DAQChannel, Filter, Laser, Lens
 from aind_data_schema.ephys.ephys_rig import (
     Disc,
-    EphysModule,
+    EphysAssembly,
     EphysProbe,
     EphysRig,
     HarpDevice,
-    LaserModule,
+    LaserAssembly,
     Manipulator,
     NeuropixelsBasestation,
     ProbePort,
-    StickMicroscope,
+    StickMicroscopeAssembly,
 )
 
 # Describes a rig with running wheel, 2 behavior cameras, one Harp Behavior board,
@@ -53,11 +53,10 @@ red_laser = Laser(name="Red Laser", wavelength=473, manufacturer="Oxxius")
 
 blue_laser = Laser(name="Blue Laser", wavelength=638, manufacturer="Oxxius")
 
-laser_module = LaserModule(
+laser_assembly = LaserAssembly(
+    laser_assembly_name="Laser_assemblyA",
     manipulator=Manipulator(serial_number="SN2937", manufacturer="New Scale Technologies"),
     lasers=[red_laser, blue_laser],
-    arc_angle=20,
-    module_angle=10,
 )
 
 probe_camera = Camera(
@@ -72,25 +71,27 @@ probe_camera = Camera(
     chroma="Color",
 )
 
-microscope = StickMicroscope(camera=probe_camera, arc_angle=70, module_angle=20)
+stick_lens = Lens(manufacturer="Edmund Optics")
+
+microscope = StickMicroscopeAssembly(
+    scope_assembly_name="Stick_assembly",
+    camera=probe_camera, 
+    lens=stick_lens,
+    )
 
 probeA = EphysProbe(name="Probe A", serial_number="9291019", probe_model="Neuropixels 1.0")
 
 probeB = EphysProbe(name="Probe B", serial_number="9291020", probe_model="Neuropixels 1.0")
 
-ephys_moduleA = EphysModule(
+ephys_assemblyA = EphysAssembly(
+    ephys_assembly_name="Ephys_assemblyA",
     manipulator=Manipulator(serial_number="SN2938", manufacturer="New Scale Technologies"),
-    arc_angle=99,
-    module_angle=20,
-    rotation_angle=10,
     probes=[probeA],
 )
 
-ephys_moduleB = EphysModule(
+ephys_assemblyB = EphysAssembly(
+    ephys_assembly_name="Ephys_assemblyB",
     manipulator=Manipulator(serial_number="SN2939", manufacturer="New Scale Technologies"),
-    arc_angle=120,
-    module_angle=20,
-    rotation_angle=15,
     probes=[probeB],
 )
 
@@ -129,9 +130,9 @@ camassm2 = CameraAssembly(camera_assembly_name="Body Camera Assembly", camera=bo
 
 rig = EphysRig(
     rig_id="323_EPHYS1",
-    ephys_modules=[ephys_moduleA, ephys_moduleB],
+    ephys_assemblies=[ephys_assemblyA, ephys_assemblyB],
     cameras=[camassm1, camassm2],
-    laser_modules=[laser_module],
+    laser_assemblies=[laser_assembly],
     daqs=[basestation, harp],
     stick_microscopes=[microscope],
     mouse_platform=running_wheel,
