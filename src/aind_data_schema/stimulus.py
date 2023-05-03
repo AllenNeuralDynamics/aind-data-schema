@@ -8,7 +8,7 @@ from datetime import time
 
 from pydantic import Field
 
-from .base import AindCoreModel, AindModel
+from .base import AindModel
 from .device import FrequencyUnit
 from .procedures import TimeUnit
 
