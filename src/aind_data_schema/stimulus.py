@@ -20,7 +20,7 @@ class PulseShape(Enum):
     SINE = "Sinusoidal"
 
 
-class OptoStim(AindCoreModel):
+class OptoStim(AindModel):
     """Description of opto stimulation parameters"""
 
     stimulus_name: str = Field(..., title="Stimulus name")
