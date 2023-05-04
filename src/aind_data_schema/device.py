@@ -2,7 +2,7 @@
 
 from datetime import datetime
 from enum import Enum
-from typing import List, Optional
+from typing import List, Optional, Union, Dict, Any
 
 try:
     from typing import Literal
@@ -44,8 +44,9 @@ class PowerUnit(Enum):
     UW = "microwatt"
     MW = "milliwatt"
 
-class Driver(Enum):
-    """Driver name"""
+
+class DeviceDriver(Enum):
+    """DeviceDriver name"""
 
     OPENGL = "OpenGL"
     VIMBA = "Vimba"
@@ -153,11 +154,9 @@ class DaqChannelType(Enum):
 class Software(AindModel):
     """ Generic rig software"""
 
-    software_name: str = Field(..., title="Software on computer")
-    software_version: str = Field(..., title="Software version")
-    configuration: Optional[dict] = Field(..., title="Software configuration")
-    description: str = Field(..., title="Description of where and how software are used")
-
+    name: str = Field(..., title="Software on computer")
+    version: str = Field(..., title="Software version")
+    parameters: Optional[dict] = Field(..., title="Software configuration")
 class Device(AindModel):
     """Generic device"""
 
@@ -166,6 +165,11 @@ class Device(AindModel):
     manufacturer: Optional[Manufacturer] = Field(None, title="Manufacturer")
     model: Optional[str] = Field(None, title="Model")
     notes: Optional[str] = Field(None, title="Notes")
+
+
+class Solenoid(Device):
+    material: Optional[str] = Field(None, title="Material type")
+    replacement_date: Optional[datetime] = Field(None, title="In use since")
 
 class Camera(Device):
     """Device that acquires images and streams them to a computer"""
@@ -187,7 +191,7 @@ class Camera(Device):
     pixel_height: int = Field(..., title="Height of the sensor in pixels", units="Pixels")
     size_unit: SizeUnit = Field(SizeUnit.PX, title="Size unit")
     chroma: CameraChroma = Field(..., title="Color or Monochrome")
-    driver: Driver = Field(..., title="Camera driver type")
+    driver: DeviceDriver = Field(..., title="Camera driver type")
     driver_version: str = Field(..., title="Camera driver version")
     # optional fields
     sensor_format: Optional[str] = Field(None, title="Size of the sensor")
@@ -255,12 +259,6 @@ class DAQChannel(AindModel):
         False, title="Set to true if DAQ channel is sampled at irregular intervals"
     )
 
-class Computer(AindModel):
-    """ Computer associated with rig"""
-
-    aibs_comp_id: Optional[str] = Field(None, title="AIBS Comp ID issued by engineering")
-    computer_description: str = Field(..., title="What is the computer used for")
-
 class DAQDevice(Device):
     """Data acquisition device containing multiple I/O channels"""
 
@@ -272,7 +270,7 @@ class DAQDevice(Device):
         Manufacturer.OEPS.value,
         Manufacturer.OTHER.value,
     ]
-    computer_id: Computer = Field(..., title="Comp ID associated with DAQ device")
+    computer_id: Optional[str] = Field(None, title="AIBS Comp ID issued by engineering")
 
     # optional fields
     channels: Optional[List[DAQChannel]] = Field(None, title="DAQ channels")
@@ -345,7 +343,7 @@ class Disc(MousePlatform):
     platform_type: str = Field("Disc", title="Platform type", const=True)
     radius: float = Field(..., title="Radius (cm)", units="cm", ge=0)
     radius_unit: SizeUnit = Field(SizeUnit.CM, title="radius unit")
-    analog: Optional[bool] = Field(None,description="analog or digital electronics")
+    output: Optional[DaqChannelType] = Field(None,description="analog or digital electronics")
     encoder: Optional[str] = Field(None, description="Encoder hardware type")
     decoder: Optional[str] = Field(None, description="Decoder chip type")
     encoder_firmware: Optional[str] = Field(None,description="Firmware to read from decoder chip counts")
@@ -378,7 +376,8 @@ class Monitor(Device):
     width: int = Field(..., title="Width (pixels)", units="pixels")
     height: int = Field(..., title="Height (pixels)", units="pixels")
     size_unit: SizeUnit = Field(SizeUnit.PX, title="Size unit")
-
+    viewing_distance: float = Field(..., title="Viewing distance (cm)", units="cm")
+    
     # optional fields
     contrast: Optional[int] = Field(
         ...,
@@ -395,3 +394,76 @@ class Monitor(Device):
         le=100,
     )
 
+
+
+class CameraTarget(Enum):
+    """Target of camera"""
+
+    BODY = "Body"
+    BOTTOM = "Bottom"
+    EYE = "Eye"
+    FACE = "Face"
+    SIDE = "Side"
+    TONGUE = "Tongue"
+    OTHER = "Other"
+    
+class RelativePosition(AindModel):
+    """Set of 6 values describing relative position on a rig"""
+    # required fields
+    pitch: Optional[float] = Field(None, title="Angle pitch (deg)", units="deg", ge=0, le=360)
+    yaw: Optional[float] = Field(None, title="Angle yaw (deg)", units="deg", ge=0, le=360)
+    roll: Optional[float] = Field(None, title="Angle roll (deg)", units="deg", ge=0, le=360)
+    angle_unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
+
+    x: Optional[float] = Field(None, title="Position X (mm)", units="mm")
+    y: Optional[float] = Field(None, title="Position Y (mm)", units="mm")
+    z: Optional[float] = Field(None, title="Position Z (mm)", units="mm")
+    position_unit: SizeUnit = Field(SizeUnit.MM, title="Position unit")
+
+    # optional fields
+    coordinate_system: Optional[str] = Field(None, title="Description of the coordinate system used")
+
+
+class WaterDelivery(AindModel):
+    """Description of water delivery system"""
+
+    # required fields
+    spout_diameter: str = Field(..., title="Spout diameter")
+    spout_diameter_units_mm: SizeUnit = Field(..., title="")
+    spout_placement: RelativePosition = Field(..., title="Spout stage placement")
+    stage_type: str = Field(..., title="Stage build type")
+    water_calibration_values: Dict[str, Any] = Field(..., title="Water calibration values")
+    solenoid_part: str = Field(..., title="Solenoid Part number")
+
+class BehaviorPlatform(AindModel):
+    """Behavior platform for a mouse during a session"""
+    track_wheel: Union[Tube, Treadmill, Disc] = Field(..., title="Track wheel type")
+    
+    # optional fields
+    stage_software: Optional[Software] = Field(None, title="Stage software")
+    water_delivery: Optional[WaterDelivery] = Field(None, title="Water delivery")
+
+
+class CameraAssembly(AindModel):
+    """Named assembly of a camera and lens (and optionally a filter)"""
+
+    # required fields
+    camera_assembly_name: str = Field(..., title="Name of this camera assembly")
+    camera: Camera = Field(..., title="Camera")
+    lens: Lens = Field(..., title="Lens")
+    camera_target: CameraTarget = Field(..., title="Camera target")
+
+    # optional fields
+    filter: Optional[Filter] = Field(None, title="Filter")
+    position: Optional[RelativePosition] = Field(None, title="Relative position of this assembly")
+
+class VisualStimulusDisplayAssembly(AindModel):
+    """Visual display"""
+
+    # required fields
+    monitor: Monitor = Field(..., title= "Monitor")
+    viewing_distance: float = Field(..., title="Viewing distance (cm)", units="cm")
+    viewing_distance_unit: SizeUnit = Field(SizeUnit.CM, title="Viewing distance unit")
+
+    # optional fields
+    position: Optional[RelativePosition] = Field(None, title="Relative position of the monitor")
