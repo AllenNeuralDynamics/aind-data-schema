@@ -80,6 +80,7 @@ class Modality(Enum, metaclass=BaseNameEnumMeta):
     HSFP = BaseName(name="Hyperspectral fiber photometry", abbreviation="HSFP")
     ICEPHYS = BaseName(name="Intracellular electrophysiology", abbreviation="icephys")
     FISH = BaseName(name="Fluorescence in situ Hybridization", abbreviation="fish")
+    FIB = BaseName(name="Fiber photometry", abbreviation="fib")
     MESOSPIM = BaseName(name="Mesoscale selective plane illumination microscopy", abbreviation="mesoSPIM")
     MERFISH = BaseName(name="Multiplexed Error-Robust Fluorescence in situ Hybridization", abbreviation="merfish")
     MRI = BaseName(name="Magnetic resonance imaging", abbreviation="MRI")
