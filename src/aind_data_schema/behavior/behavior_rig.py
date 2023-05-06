@@ -2,12 +2,11 @@
 
 from __future__ import annotations
 
-from datetime import datetime
 from typing import Optional, List, Union
 
 from pydantic import Field
 
-from ..base import AindCoreModel, AindModel
+from ..base import AindCoreModel
 from ..device import (
     CameraAssembly,
     DAQDevice,
