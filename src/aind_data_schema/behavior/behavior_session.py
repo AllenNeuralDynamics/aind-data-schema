@@ -7,13 +7,19 @@ from typing import Any, Dict, Optional
 
 from pydantic import Field
 
-from .base import AindCoreModel
-from .procedures import VolumeUnit, WeightUnit
+from ..base import AindCoreModel
+from ..procedures import VolumeUnit, WeightUnit
 
 
 class BehaviorSession(AindCoreModel):
     """Description of a behavior session"""
 
+    describedBy: str = Field(
+        "https://github.com/AllenNeuralDynamics/data_schema/blob/main/schemas/behavior/behavior_session.py",
+        description="The URL reference to the schema.",
+        title="Described by",
+        const=True,
+    )
     schema_version: str = Field(
         "0.0.1",
         description="Schema version",
