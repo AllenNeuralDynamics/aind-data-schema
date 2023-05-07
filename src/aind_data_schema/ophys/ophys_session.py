@@ -10,8 +10,8 @@ from pydantic import Field
 
 from ..base import AindCoreModel, AindModel
 from ..device import FrequencyUnit, PowerUnit, SizeUnit
-from ..stimulus import StimulusPresentation
 from ..procedures import TimeUnit
+from ..stimulus import StimulusPresentation
 
 
 class FiberName(Enum):

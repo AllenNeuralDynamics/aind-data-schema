@@ -7,8 +7,8 @@ from aind_data_schema.ephys.ephys_session import (
     Coordinates3d,
     DAQDevice,
     DomeModule,
-    EphysProbe,
     EphysModule,
+    EphysProbe,
     EphysSession,
     Laser,
     LaserModule,
@@ -65,7 +65,13 @@ session = EphysSession(
     session_type="Test",
     rig_id="323_EPHYS1",
     data_streams=[stream],
-    stick_microscopes=[DomeModule(assembly_name="Stick_assembly", arc_angle=24, module_angle=10,),],
+    stick_microscopes=[
+        DomeModule(
+            assembly_name="Stick_assembly",
+            arc_angle=24,
+            module_angle=10,
+        ),
+    ],
 )
 
 session.write_standard_file()

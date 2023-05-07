@@ -79,7 +79,10 @@ class Modality(Enum, metaclass=BaseNameEnumMeta):
     FMOST = BaseName(name="Fluorescence micro-optical sectioning tomography", abbreviation="fMOST")
     HSFP = BaseName(name="Hyperspectral fiber photometry", abbreviation="HSFP")
     ICEPHYS = BaseName(name="Intracellular electrophysiology", abbreviation="icephys")
+    FIB = BaseName(name="Fiber photometry", abbreviation="fib")
+    FISH = BaseName(name="Fluorescence in situ Hybridization", abbreviation="fish")
     MESOSPIM = BaseName(name="Mesoscale selective plane illumination microscopy", abbreviation="mesoSPIM")
+    MERFISH = BaseName(name="Multiplexed Error-Robust Fluorescence in situ Hybridization", abbreviation="merfish")
     MRI = BaseName(name="Magnetic resonance imaging", abbreviation="MRI")
     OPHYS = BaseName(name="Optical physiology", abbreviation="ophys")
     SMARTSPIM = BaseName(name="Smart selective plane illumination microscopy", abbreviation="SmartSPIM")
@@ -95,18 +98,19 @@ class Modality(Enum, metaclass=BaseNameEnumMeta):
 
 class ExperimentType(Enum):
     """Abbreviated name for data collection technique"""
-    
-    ECEPHYS=Modality.ECEPHYS.value.abbreviation
-    EXASPIM=Modality.EXASPIM.value.abbreviation
-    CONFOCAL=Modality.CONFOCAL.value.abbreviation
-    DISPIM=Modality.DISPIM.value.abbreviation
-    FIP=Modality.FIP.value.abbreviation
-    FMOST=Modality.FMOST.value.abbreviation
-    HSFP=Modality.HSFP.value.abbreviation
-    MESOSPIM=Modality.MESOSPIM.value.abbreviation
-    MRI=Modality.MRI.value.abbreviation
-    SMARTSPIM=Modality.SMARTSPIM.value.abbreviation
-    OTHER="Other"
+
+    ECEPHYS = Modality.ECEPHYS.value.abbreviation
+    EXASPIM = Modality.EXASPIM.value.abbreviation
+    CONFOCAL = Modality.CONFOCAL.value.abbreviation
+    DISPIM = Modality.DISPIM.value.abbreviation
+    FIP = Modality.FIP.value.abbreviation
+    FMOST = Modality.FMOST.value.abbreviation
+    HSFP = Modality.HSFP.value.abbreviation
+    MESOSPIM = Modality.MESOSPIM.value.abbreviation
+    MERFISH = Modality.MERFISH.value.abbreviation
+    MRI = Modality.MRI.value.abbreviation
+    SMARTSPIM = Modality.SMARTSPIM.value.abbreviation
+    OTHER = "Other"
 
 
 def datetime_to_name_string(d, t):
@@ -148,7 +152,7 @@ class RelatedData(AindModel):
 class DataDescription(AindCoreModel):
     """Description of a logical collection of data files"""
 
-    schema_version: str = Field("0.6.0", title="Schema Version", const=True)
+    schema_version: str = Field("0.6.1", title="Schema Version", const=True)
     license: str = Field("CC-BY-4.0", title="License", const=True)
 
     creation_time: time = Field(

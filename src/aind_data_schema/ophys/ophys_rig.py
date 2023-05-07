@@ -9,7 +9,20 @@ from typing import List, Optional, Union
 from pydantic import Field
 
 from ..base import AindCoreModel
-from ..device import CameraAssembly, DataInterface, Device, DAQDevice, Disc, Filter, HarpDevice, Laser, Lens, Monitor, Treadmill, Tube
+from ..device import (
+    CameraAssembly,
+    DAQDevice,
+    DataInterface,
+    Device,
+    Disc,
+    Filter,
+    HarpDevice,
+    Laser,
+    Lens,
+    Monitor,
+    Treadmill,
+    Tube,
+)
 
 
 class DetectorType(Enum):
@@ -74,9 +87,7 @@ class OphysRig(AindCoreModel):
     cameras: Optional[List[CameraAssembly]] = Field(None, title="Camera assemblies", unique_items=True)
     mouse_platform: Optional[Union[Tube, Treadmill, Disc]] = Field(None, title="Mouse platform")
     visual_monitors: Optional[List[Monitor]] = Field(None, title="Visual monitors", unique_items=True)
-    daqs: Optional[List[Union[DAQDevice, HarpDevice]]] = Field(
-        None, title="Data acquisition devices"
-    )
+    daqs: Optional[List[Union[DAQDevice, HarpDevice]]] = Field(None, title="Data acquisition devices")
     additional_devices: Optional[List[Device]] = Field(None, title="Additional devices", unique_items=True)
     light_path_diagram: Optional[str] = Field(
         None,
