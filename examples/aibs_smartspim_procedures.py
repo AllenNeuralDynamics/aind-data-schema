@@ -9,35 +9,15 @@ experimenter = "Erica Peterson"
 specimen_id = "651286"
 
 # Reagents
-shield_buffer = procedures.Reagent(
-    name="SHIELD Buffer",
-    lot_number="1234",
-    source="Vendor"
-)
+shield_buffer = procedures.Reagent(name="SHIELD Buffer", lot_number="1234", source="Vendor")
 
-shield_epoxy = procedures.Reagent(
-    name="SHIELD Epoxy",
-    lot_number="1234",
-    source="Vendor"
-)
+shield_epoxy = procedures.Reagent(name="SHIELD Epoxy", lot_number="1234", source="Vendor")
 
-shield_on = procedures.Reagent(
-    name="SHIELD On",
-    lot_number="1234",
-    source="Vendor"
-)
+shield_on = procedures.Reagent(name="SHIELD On", lot_number="1234", source="Vendor")
 
-delipidation_buffer = procedures.Reagent(
-    name="Delipidation Buffer",
-    lot_number="1234",
-    source="Vendor"
-)
+delipidation_buffer = procedures.Reagent(name="Delipidation Buffer", lot_number="1234", source="Vendor")
 
-conductivity_buffer = procedures.Reagent(
-    name="Conductivity Buffer",
-    lot_number="1234",
-    source="Vendor"
-)
+conductivity_buffer = procedures.Reagent(name="Conductivity Buffer", lot_number="1234", source="Vendor")
 
 easy_index = procedures.Reagent(name="Easy Index", lot_number="1234", source="Vendor")
 

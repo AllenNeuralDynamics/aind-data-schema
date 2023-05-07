@@ -97,6 +97,7 @@ class Fluorophore(Enum):
     ALEXA_594 = "Alexa Fluor 594"
     ALEXA_647 = "Alexa Fluor 647"
 
+
 class Readout(Reagent):
     """Description of a readout"""
 
@@ -105,10 +106,12 @@ class Readout(Reagent):
     excitation_wavelength_unit = SizeUnit = Field(SizeUnit.NM, title="Excitation wavelength unit")
     stain_type: StainType = Field(..., title="Stain type")
 
+
 class HCRReadout(Readout):
     """Description of a readout for HCR"""
 
     initiator_name: str = Field(..., title="Initiator name")
+
 
 class OligoProbe(Reagent):
     """Description of an oligo probe"""
@@ -116,13 +119,12 @@ class OligoProbe(Reagent):
     species: Species = Field(..., title="Species")
     gene_name: str = Field(..., title="Gene name")
     gene_accession_number: str = Field(
-        ..., 
-        title="Gene accession number",
-        description="NCBI accession number of the gene"
-        )
+        ..., title="Gene accession number", description="NCBI accession number of the gene"
+    )
     probe_sequences: List[str] = Field(..., title="Probe sequences")
     readout: Readout = Field(..., title="Readout")
     channel_index: int = Field(..., title="Channel index")
+
 
 class HCRProbe(OligoProbe):
     """Description of a HCR probe"""
@@ -132,7 +134,7 @@ class HCRProbe(OligoProbe):
 
 
 class HybridizationChainReaction(AindModel):
-    """Description of an HCR round""" 
+    """Description of an HCR round"""
 
     round_index: int = Field(..., title="Round index")
     start_time: datetime = Field(..., title="Round start time")

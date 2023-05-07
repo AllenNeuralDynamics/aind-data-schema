@@ -9,7 +9,7 @@ from typing import List, Optional
 from pydantic import Field
 
 from ..base import AindCoreModel, AindModel
-from ..device import PowerUnit, SizeUnit, AngleUnit
+from ..device import AngleUnit, PowerUnit, SizeUnit
 from ..stimulus import StimulusPresentation
 from .ephys_rig import Coordinates3d
 
@@ -121,6 +121,7 @@ class Stream(AindModel):
     stimulus_presentations: Optional[List[StimulusPresentation]] = Field(None, title="Stimulus")
     notes: Optional[str] = Field(None, title="Notes")
 
+
 class EphysSession(AindCoreModel):
     """Description of an ephys recording session"""
 
@@ -138,10 +139,8 @@ class EphysSession(AindCoreModel):
     iacuc_protocol: Optional[str] = Field(None, title="IACUC protocol")
     rig_id: str = Field(..., title="Rig ID")
     stick_microscopes: Optional[List[DomeModule]] = Field(
-        ..., 
-        title="Stick microscopes",
-        description="Must match stick microscope assemblies in rig file"
-        )
+        ..., title="Stick microscopes", description="Must match stick microscope assemblies in rig file"
+    )
     data_streams: List[Stream] = Field(
         ...,
         title="Data streams",

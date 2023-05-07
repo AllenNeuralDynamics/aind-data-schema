@@ -75,9 +75,9 @@ stick_lens = Lens(manufacturer="Edmund Optics")
 
 microscope = StickMicroscopeAssembly(
     scope_assembly_name="Stick_assembly",
-    camera=probe_camera, 
+    camera=probe_camera,
     lens=stick_lens,
-    )
+)
 
 probeA = EphysProbe(name="Probe A", serial_number="9291019", probe_model="Neuropixels 1.0")
 
@@ -112,7 +112,9 @@ face_camera = Camera(
     chroma="Monochrome",
 )
 
-camassm1 = CameraAssembly(camera_assembly_name="Face Camera Assembly", camera=face_camera, camera_target="Face", filter=filt, lens=lens)
+camassm1 = CameraAssembly(
+    camera_assembly_name="Face Camera Assembly", camera=face_camera, camera_target="Face", filter=filt, lens=lens
+)
 
 body_camera = Camera(
     name="Body Camera",
@@ -126,7 +128,9 @@ body_camera = Camera(
     chroma="Monochrome",
 )
 
-camassm2 = CameraAssembly(camera_assembly_name="Body Camera Assembly", camera=body_camera, camera_target="Body", filter=filt, lens=lens)
+camassm2 = CameraAssembly(
+    camera_assembly_name="Body Camera Assembly", camera=body_camera, camera_target="Body", filter=filt, lens=lens
+)
 
 rig = EphysRig(
     rig_id="323_EPHYS1",

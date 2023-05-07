@@ -242,6 +242,7 @@ class Filter(Device):
         None, title="Description", description="More details about filter properties and where/how it is being used"
     )
 
+
 class CameraTarget(Enum):
     """Target of camera"""
 
