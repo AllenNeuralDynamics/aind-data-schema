@@ -14,7 +14,6 @@ from pydantic import Field, root_validator
 
 from ..base import AindCoreModel, AindModel
 from ..device import (
-    AngleUnit,
     Camera,
     CameraAssembly,
     DAQDevice,
@@ -26,7 +25,6 @@ from ..device import (
     Lens,
     Manufacturer,
     Monitor,
-    SizeUnit,
     Treadmill,
     Tube,
 )
@@ -142,7 +140,7 @@ class EphysRig(AindCoreModel):
         title="Described by",
         const=True,
     )
-    schema_version: str = Field("0.6.0", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.6.1", description="schema version", title="Version", const=True)
     rig_id: str = Field(..., description="room_stim apparatus_version", title="Rig ID")
     ephys_assemblies: Optional[List[EphysAssembly]] = Field(None, title="Ephys probes", unique_items=True)
     stick_microscopes: Optional[List[StickMicroscopeAssembly]] = Field(None, title="Stick microscopes")
