@@ -5,7 +5,7 @@ import unittest
 
 import pydantic
 
-from aind_data_schema.behavior import BehaviorSession
+from aind_data_schema.behavior import behavior_session as bs
 
 
 class BehaviorTests(unittest.TestCase):
@@ -15,11 +15,11 @@ class BehaviorTests(unittest.TestCase):
         """try building behavior"""
 
         with self.assertRaises(pydantic.ValidationError):
-            b = BehaviorSession()
+            b = bs.BehaviorSession()
 
         now = datetime.datetime.now()
 
-        b = BehaviorSession(
+        b = bs.BehaviorSession(
             subject_id="1234",
             experimenter_full_name="Fred Astaire",
             session_start_time=now,
