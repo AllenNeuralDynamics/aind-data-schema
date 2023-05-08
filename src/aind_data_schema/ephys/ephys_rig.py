@@ -32,49 +32,6 @@ from ..device import (
 )
 
 
-class Size2d(AindModel):
-    """2D size of an object"""
-
-    width: int = Field(..., title="Width")
-    height: int = Field(..., title="Height")
-    unit: SizeUnit = Field(SizeUnit.PX, title="Size unit")
-
-
-class Orientation3d(AindModel):
-    """3D orientation of an object"""
-
-    pitch: float = Field(..., title="Angle pitch", ge=0, le=360)
-    yaw: float = Field(..., title="Angle yaw", ge=0, le=360)
-    roll: float = Field(..., title="Angle roll", ge=0, le=360)
-    unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
-
-
-class ModuleOrientation2d(AindModel):
-    """2D module orientation of an object"""
-
-    arc_angle: float = Field(..., title="Arc angle")
-    module_angle: float = Field(..., title="Module angle")
-    unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
-
-
-class ModuleOrientation3d(AindModel):
-    """3D module orientation of an object"""
-
-    arc_angle: float = Field(..., title="Arc angle")
-    module_angle: float = Field(..., title="Module angle")
-    rotation_angle: float = Field(..., title="Rotation angle")
-    unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
-
-
-class Coordinates3d(AindModel):
-    """Coordinates in a 3D grid"""
-
-    x: float = Field(..., title="Position X")
-    y: float = Field(..., title="Position Y")
-    z: float = Field(..., title="Position Z")
-    unit: SizeUnit = Field(SizeUnit.UM, title="Position unit")
-
-
 class ProbePort(AindModel):
     """Port for a probe connection"""
 
