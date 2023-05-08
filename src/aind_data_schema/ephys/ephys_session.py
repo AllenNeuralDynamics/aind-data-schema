@@ -9,9 +9,8 @@ from typing import List, Optional
 from pydantic import Field
 
 from ..base import AindCoreModel, AindModel
-from ..device import AngleUnit, PowerUnit, SizeUnit
+from ..device import AngleUnit, PowerUnit, SizeUnit, Coordinates3d
 from ..stimulus import StimulusPresentation
-from .ephys_rig import Coordinates3d
 
 
 class SessionType(Enum):
