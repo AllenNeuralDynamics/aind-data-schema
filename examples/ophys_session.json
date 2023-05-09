@@ -1,7 +1,7 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/ophys/ophys_session.py",
    "schema_version": "0.2.0",
-   "experimenter_full_name": "Smrithi Sunil",
+   "experimenter_full_name": "John Doe",
    "session_start_time": "2022-07-12T07:00:00",
    "session_end_time": "2022-07-12T07:00:00",
    "subject_id": 652567,
