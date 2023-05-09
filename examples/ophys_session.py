@@ -14,7 +14,7 @@ s = FiberPhotometrySession(
     session_type="Parameter Testing",
     iacuc_protocol="2115",
     rig_id="ophys_rig",
-    lasers=[
+    light_sources=[
         Laser(
             name="Laser A",
             wavelength=405,

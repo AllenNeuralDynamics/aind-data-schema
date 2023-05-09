@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/ophys/ophys_session.py",
-   "schema_version": "0.1.5",
+   "schema_version": "0.2.0",
    "experimenter_full_name": "Smrithi Sunil",
    "session_start_time": "2022-07-12T07:00:00",
    "session_end_time": "2022-07-12T07:00:00",
@@ -8,7 +8,7 @@
    "session_type": "Parameter Testing",
    "iacuc_protocol": "2115",
    "rig_id": "ophys_rig",
-   "lasers": [
+   "light_sources": [
       {
          "name": "Laser A",
          "wavelength": 405,
