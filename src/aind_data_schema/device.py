@@ -55,6 +55,7 @@ class Manufacturer(Enum):
     CHROMA = "Chroma"
     COHERENT_SCIENTIFIC = "Coherent Scientific"
     CUSTOM = "Custom"
+    DORIC = "Doric"
     EALING = "Ealing"
     EDMUND_OPTICS = "Edmund Optics"
     FLIR = "FLIR"
@@ -74,6 +75,7 @@ class Manufacturer(Enum):
     OLYMPUS = "Olympus"
     OPTOTUNE = "Optotune"
     OXXIUS = "Oxxius"
+    PRIZMATIX = "Prizmatix"
     QUANTIFI = "Quantifi"
     SEMROCK = "Semrock"
     THORLABS = "Thorlabs"
@@ -356,6 +358,19 @@ class Laser(Device):
     item_number: Optional[str] = Field(None, title="Item number")
     calibration_data: Optional[str] = Field(None, description="Path to calibration data", title="Calibration data")
     calibration_date: Optional[datetime] = Field(None, title="Calibration date")
+
+
+class LightEmittingDiode(Device):
+    """Description of a LED"""
+
+    manufacturer: Literal[
+        Manufacturer.DORIC.value,
+        Manufacturer.PRIZMATIX.value,
+        Manufacturer.THORLABS.value,
+        Manufacturer.OTHER.value,
+    ]
+    wavelength: int = Field(..., title="Wavelength (nm)", units="nm")
+    wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
 
 
 class MousePlatform(Device):
