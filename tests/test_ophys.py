@@ -33,7 +33,7 @@ class OphysTests(unittest.TestCase):
             subject_id="123456",
             session_type="asdf",
             rig_id="asdf",
-            lasers=[],
+            light_sources=[],
             coupling_array=[],
             patch_cords=[],
         )
