@@ -55,6 +55,7 @@ class Manufacturer(Enum):
     CHROMA = "Chroma"
     COHERENT_SCIENTIFIC = "Coherent Scientific"
     CUSTOM = "Custom"
+    DORIC = "Doric"
     EALING = "Ealing"
     EDMUND_OPTICS = "Edmund Optics"
     FLIR = "FLIR"
@@ -74,6 +75,7 @@ class Manufacturer(Enum):
     OLYMPUS = "Olympus"
     OPTOTUNE = "Optotune"
     OXXIUS = "Oxxius"
+    PRIZMATIX = "Prizmatix"
     QUANTIFI = "Quantifi"
     SEMROCK = "Semrock"
     THORLABS = "Thorlabs"
@@ -160,6 +162,50 @@ class RelativePosition(AindModel):
     position_unit: SizeUnit = Field(SizeUnit.MM, title="Position unit")
 
     coordinate_system: Optional[str] = Field(None, title="Description of the coordinate system used")
+
+
+
+class Size2d(AindModel):
+    """2D size of an object"""
+
+    width: int = Field(..., title="Width")
+    height: int = Field(..., title="Height")
+    unit: SizeUnit = Field(SizeUnit.PX, title="Size unit")
+
+
+class Orientation3d(AindModel):
+    """3D orientation of an object"""
+
+    pitch: float = Field(..., title="Angle pitch", ge=0, le=360)
+    yaw: float = Field(..., title="Angle yaw", ge=0, le=360)
+    roll: float = Field(..., title="Angle roll", ge=0, le=360)
+    unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
+
+
+class ModuleOrientation2d(AindModel):
+    """2D module orientation of an object"""
+
+    arc_angle: float = Field(..., title="Arc angle")
+    module_angle: float = Field(..., title="Module angle")
+    unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
+
+
+class ModuleOrientation3d(AindModel):
+    """3D module orientation of an object"""
+
+    arc_angle: float = Field(..., title="Arc angle")
+    module_angle: float = Field(..., title="Module angle")
+    rotation_angle: float = Field(..., title="Rotation angle")
+    unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
+
+
+class Coordinates3d(AindModel):
+    """Coordinates in a 3D grid"""
+
+    x: float = Field(..., title="Position X")
+    y: float = Field(..., title="Position Y")
+    z: float = Field(..., title="Position Z")
+    unit: SizeUnit = Field(SizeUnit.UM, title="Position unit")
 
 
 class Device(AindModel):
@@ -356,6 +402,19 @@ class Laser(Device):
     item_number: Optional[str] = Field(None, title="Item number")
     calibration_data: Optional[str] = Field(None, description="Path to calibration data", title="Calibration data")
     calibration_date: Optional[datetime] = Field(None, title="Calibration date")
+
+
+class LightEmittingDiode(Device):
+    """Description of a Light Emitting Diode (LED) device"""
+
+    manufacturer: Literal[
+        Manufacturer.DORIC.value,
+        Manufacturer.PRIZMATIX.value,
+        Manufacturer.THORLABS.value,
+        Manufacturer.OTHER.value,
+    ]
+    wavelength: int = Field(..., title="Wavelength (nm)", units="nm")
+    wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
 
 
 class MousePlatform(Device):

@@ -139,7 +139,7 @@ class ExampleTest(unittest.TestCase):
                             module_angle=10,
                             primary_targeted_structure="VISlm",
                             targeted_ccf_coordinates=[es.CcfCoords(ml="1", ap="1", dv="1")],
-                            manipulator_coordinates=er.Coordinates3d(x="1", y="1", z="1"),
+                            manipulator_coordinates=es.Coordinates3d(x="1", y="1", z="1"),
                         ),
                     ],
                     laser_modules=[],
