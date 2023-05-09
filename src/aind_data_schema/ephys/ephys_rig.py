@@ -14,7 +14,6 @@ from pydantic import Field, root_validator
 
 from ..base import AindCoreModel, AindModel
 from ..device import (
-    AngleUnit,
     Camera,
     CameraAssembly,
     DAQDevice,
@@ -26,53 +25,9 @@ from ..device import (
     Lens,
     Manufacturer,
     Monitor,
-    SizeUnit,
     Treadmill,
     Tube,
 )
-
-
-class Size2d(AindModel):
-    """2D size of an object"""
-
-    width: int = Field(..., title="Width")
-    height: int = Field(..., title="Height")
-    unit: SizeUnit = Field(SizeUnit.PX, title="Size unit")
-
-
-class Orientation3d(AindModel):
-    """3D orientation of an object"""
-
-    pitch: float = Field(..., title="Angle pitch", ge=0, le=360)
-    yaw: float = Field(..., title="Angle yaw", ge=0, le=360)
-    roll: float = Field(..., title="Angle roll", ge=0, le=360)
-    unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
-
-
-class ModuleOrientation2d(AindModel):
-    """2D module orientation of an object"""
-
-    arc_angle: float = Field(..., title="Arc angle")
-    module_angle: float = Field(..., title="Module angle")
-    unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
-
-
-class ModuleOrientation3d(AindModel):
-    """3D module orientation of an object"""
-
-    arc_angle: float = Field(..., title="Arc angle")
-    module_angle: float = Field(..., title="Module angle")
-    rotation_angle: float = Field(..., title="Rotation angle")
-    unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
-
-
-class Coordinates3d(AindModel):
-    """Coordinates in a 3D grid"""
-
-    x: float = Field(..., title="Position X")
-    y: float = Field(..., title="Position Y")
-    z: float = Field(..., title="Position Z")
-    unit: SizeUnit = Field(SizeUnit.UM, title="Position unit")
 
 
 class ProbePort(AindModel):
@@ -185,7 +140,7 @@ class EphysRig(AindCoreModel):
         title="Described by",
         const=True,
     )
-    schema_version: str = Field("0.6.0", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.6.1", description="schema version", title="Version", const=True)
     rig_id: str = Field(..., description="room_stim apparatus_version", title="Rig ID")
     ephys_assemblies: Optional[List[EphysAssembly]] = Field(None, title="Ephys probes", unique_items=True)
     stick_microscopes: Optional[List[StickMicroscopeAssembly]] = Field(None, title="Stick microscopes")
