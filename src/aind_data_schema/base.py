@@ -51,6 +51,12 @@ class BaseName(AindModel):
     name: str
     abbreviation: str
 
+class PIDName(AindModel):
+    """Model tracking a species name, PID, and database PID was acquired from"""
+    name: str
+    ID: str
+    database: str
+
 
 class AindCoreModel(AindModel):
     """Generic base class to hold common fields/validators/etc for all basic AIND schema"""
