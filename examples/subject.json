@@ -4,7 +4,7 @@
    "species": {
       "name": "Mus musculus",
       "ID": "10090",
-      "Database": "NCBI"
+      "database": "NCBI"
    },
    "subject_id": "12345",
    "sex": "Male",
