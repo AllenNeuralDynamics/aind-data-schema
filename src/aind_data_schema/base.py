@@ -7,6 +7,8 @@ import re
 import urllib.parse
 from enum import EnumMeta
 
+from pydantic import Field
+
 from pydantic import BaseModel, Extra
 from pydantic.fields import ModelField
 
@@ -47,15 +49,15 @@ class BaseNameEnumMeta(EnumMeta):
 
 class BaseName(AindModel):
     """A simple model associating a name with an abbreviation"""
-
     name: str
     abbreviation: str
 
 class PIDName(AindModel):
     """Model tracking a species name, PID, and database PID was acquired from"""
-    name: str
-    ID: str
-    database: str
+    name: str = Field(..., title="Species name")
+    PID: str = Field(..., title="Persistent identifier (PID)")
+    database_name: str = Field(..., title="Database name")
+    databse_url: str = Field(..., title="Database URL")
 
 
 class AindCoreModel(AindModel):
