@@ -57,7 +57,7 @@ class PIDName(AindModel):
     name: str = Field(..., title="Species name")
     PID: str = Field(..., title="Persistent identifier (PID)")
     database_name: str = Field(..., title="Database name")
-    databse_url: str = Field(..., title="Database URL")
+    database_url: str = Field(..., title="Database URL")
 
 
 class AindCoreModel(AindModel):
