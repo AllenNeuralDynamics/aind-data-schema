@@ -7,7 +7,7 @@ from aind_data_schema.subject import Housing, Subject, Species
 t = datetime.datetime(2022, 11, 22, 8, 43, 00)
 
 s = Subject(
-    species=Species("Mus musculus"),
+    species="Mus musculus",
     subject_id="12345",
     sex="Male",
     date_of_birth=t.date(),
