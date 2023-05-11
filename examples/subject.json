@@ -3,8 +3,8 @@
    "schema_version": "0.3.1",
    "species": {
       "name": "Mus musculus",
-      "ID":"10090",
-      "Database":"NCBI"
+      "ID": "10090",
+      "Database": "NCBI"
    },
    "subject_id": "12345",
    "sex": "Male",
