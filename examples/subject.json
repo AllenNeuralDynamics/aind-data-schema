@@ -3,9 +3,8 @@
    "schema_version": "0.3.1",
    "species": {
       "name": "Mus musculus",
-      "PID": "10090",
-      "database_name": "NCBI",
-      "database_url": "https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&id=10090&lvl=3&p=has_linkout&p=blast_url&p=genome_blast&lin=f&keep=1&srchmode=1&unlock"
+      "registry": "NCBI",
+      "registry_identifier": "10090"
    },
    "subject_id": "12345",
    "sex": "Male",

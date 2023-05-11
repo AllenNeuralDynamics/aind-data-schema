@@ -14,10 +14,10 @@ from .base import AindCoreModel, AindModel, PIDName
 class Species(Enum):
     """Species latin name"""
 
-    CALLITHRIX_JACCHUS = PIDName(name="Callithrix jacchus", PID='9483', database_name='NCBI', database_url='https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&id=9483&lvl=3&p=has_linkout&p=blast_url&p=genome_blast&lin=f&keep=1&srchmode=1&unlock') 
-    HOMO_SAPIENS = PIDName(name="Homo sapiens", PID='9606', database_name='NCBI', database_url='https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&id=9606&lvl=3&p=has_linkout&p=blast_url&p=genome_blast&lin=f&keep=1&srchmode=1&unlock')
-    MACACA_MULATTA = PIDName(name="Macaca mulatta", PID='9544', database_name='NCBI', database_url='https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&id=9544&lvl=3&p=has_linkout&p=blast_url&p=genome_blast&lin=f&keep=1&srchmode=1&unlock')
-    MUS_MUSCULUS = PIDName(name="Mus musculus", PID='10090', database_name='NCBI', database_url='https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&id=10090&lvl=3&p=has_linkout&p=blast_url&p=genome_blast&lin=f&keep=1&srchmode=1&unlock')
+    CALLITHRIX_JACCHUS = PIDName(name="Callithrix jacchus", registry='NCBI', registry_identifier='9483') 
+    HOMO_SAPIENS = PIDName(name="Homo sapiens", registry='NCBI', registry_identifier='9606')
+    MACACA_MULATTA = PIDName(name="Macaca mulatta", registry='NCBI', registry_identifier='9544')
+    MUS_MUSCULUS = PIDName(name="Mus musculus", registry='NCBI', registry_identifier='10090')
 
 
 class Sex(Enum):

@@ -54,10 +54,9 @@ class BaseName(AindModel):
 
 class PIDName(AindModel):
     """Model tracking a species name, PID, and database PID was acquired from"""
-    name: str = Field(..., title="Species name")
-    PID: str = Field(..., title="Persistent identifier (PID)")
-    database_name: str = Field(..., title="Database name")
-    database_url: str = Field(..., title="Database URL")
+    name: str = Field(..., title="Name")
+    registry: str = Field(..., title="Registry")
+    registry_identifier: str = Field(..., title="Registry identifier")
 
 
 class AindCoreModel(AindModel):
