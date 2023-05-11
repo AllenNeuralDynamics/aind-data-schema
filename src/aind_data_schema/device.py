@@ -433,7 +433,6 @@ class WaterDelivery(AindModel):
     spout_position: RelativePosition = Field(..., title="Spout stage position")
     stage_type: str = Field(..., title="Stage build type")
     water_calibration_values: Dict[str, Any] = Field(..., title="Water calibration values")
-    solenoid_part: str = Field(..., title="Solenoid Part number")
 
 class MousePlatform(AindModel):
     """Behavior platform for a mouse during a session"""
