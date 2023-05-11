@@ -11,7 +11,7 @@ from pydantic import Field
 from .base import AindCoreModel, AindModel, PIDName
 
 
-class Species(Enum):
+class Species(Enum, metaclass=PIDName):
     """Species latin name"""
 
     CALLITHRIX_JACCHUS = PIDName(name="Callithrix jacchus", ID='9483', database='NCBI') 
