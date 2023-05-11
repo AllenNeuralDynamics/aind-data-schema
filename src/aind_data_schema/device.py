@@ -435,7 +435,7 @@ class WaterDelivery(AindModel):
     water_calibration_values: Dict[str, Any] = Field(..., title="Water calibration values")
     solenoid_part: str = Field(..., title="Solenoid Part number")
 
-class BehaviorPlatform(AindModel):
+class MousePlatform(AindModel):
     """Behavior platform for a mouse during a session"""
     track_wheel: Union[Tube, Treadmill, Disc] = Field(..., title="Track wheel type")
     
