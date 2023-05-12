@@ -4,24 +4,32 @@ import glob
 import pprint
 import os
 import sys
+import importlib
 
 from src.aind_data_schema.behavior.behavior_rig import *
-from src.aind_data_schema.behavior.behavior_session import *
-from src.aind_data_schema.ephys.ephys_rig import *
-from src.aind_data_schema.ephys.ephys_session import *
+# from src.aind_data_schema.behavior.behavior_session import *
+# from src.aind_data_schema.ephys.ephys_rig import *
+# from src.aind_data_schema.ephys.ephys_session import *
 # from src.aind_data_schema.imaging.
 
+os.environ["PATH"] += os.pathsep + 'C:/Program Files/Graphviz/bin/'
+
 package_paths = glob.glob("**/**/**/*.py")
-file_paths = glob.glob("**/**/*.py")
+script_paths = glob.glob("**/**/*.py")
+file_paths = package_paths + script_paths
 file_paths = [x for x in file_paths if 'examples' not in x if 'tests' not in x if 'doc_template' not in x if 'src' in x]
 file_paths = [x.replace('\\', '.') for x in file_paths]
 file_paths = [x.replace('.py', '') for x in file_paths]
 
-print(file_paths)
-
 # dir_path = os.path.dirname(os.path.abspath(__file__))
 # files_in_dir = [f[:-3] for f in os.listdir(dir_path)
 #                 if f.endswith('.py') and f != '__init__.py']
+
+# for f in file_paths:
+#     print(f)
+#     importlib.import_module(f)
+
+
 for f in file_paths:
     mod = __import__(f, fromlist=[f])
     to_import = [getattr(mod, x) for x in dir(mod)]
@@ -38,17 +46,14 @@ for f in file_paths:
 # print(BehaviorRig.__name__)
 
 
-
 import sys, inspect
 from inspect import signature
 def find_core_classes():
     core_classes = []
     for name, obj in inspect.getmembers(sys.modules[__name__]):
         if inspect.isclass(obj):
-            # print(obj)
             # print('module: ',obj.__module__)
             if 'aind_data_schema' not in obj.__module__:
-                print('skipping')
                 continue
             if 'datetime' in obj.__name__:
                 continue
@@ -64,11 +69,9 @@ def find_core_classes():
     return core_classes
 
 modules = find_core_classes()
-print(modules)
 
 for module in modules:
     diagram = erd.create(module)
-    print(module)
     diagram.draw("ERD_diagrams/" + module.__name__ + '.png')
 
 # ignore = ['sys','glob','']
