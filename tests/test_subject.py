@@ -6,7 +6,7 @@ import unittest
 import pydantic
 
 from aind_data_schema import Subject
-from aind_data_schema.subject import Housing, LightCycle, MgiAlleleId
+from aind_data_schema.subject import Housing, LightCycle, MgiAlleleId, Species
 
 
 class SubjectTests(unittest.TestCase):
@@ -21,7 +21,7 @@ class SubjectTests(unittest.TestCase):
         now = datetime.datetime.now()
 
         s = Subject(
-            species="Mus musculus",
+            species=Species.MUS_MUSCULUS,
             subject_id="1234",
             sex="Male",
             date_of_birth=now.date(),
