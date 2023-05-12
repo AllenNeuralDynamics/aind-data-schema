@@ -1,7 +1,9 @@
 import erdantic as erd
 import glob
 import os
-import sys
+import sys 
+import inspect
+
 
 os.environ["PATH"] += os.pathsep + 'C:/Program Files/Graphviz/bin/'
 
@@ -23,8 +25,6 @@ for f in file_paths:
         except AttributeError:
             pass
 
-import sys, inspect
-from inspect import signature
 def find_core_classes():
     core_classes = []
     for name, obj in inspect.getmembers(sys.modules[__name__]):
