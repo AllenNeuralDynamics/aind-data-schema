@@ -12,6 +12,8 @@ from pydantic import Field
 from pydantic import BaseModel, Extra
 from pydantic.fields import ModelField
 
+from typing import Optional
+
 DESCRIBED_BY_BASE_URL = "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/"
 
 
@@ -49,14 +51,17 @@ class BaseNameEnumMeta(EnumMeta):
 
 class BaseName(AindModel):
     """A simple model associating a name with an abbreviation"""
+
     name: str
     abbreviation: str
 
+
 class PIDName(AindModel):
-    """Model for associate a name with a persistent identifier (PID) and the registry for that PID"""
+    """Model for associate a name with a persistent identifier (PID), the registry for that PID, and abbreviation for that registry"""
     
-    name: str = Field(..., title="Name")
+    name: BaseName = Field(..., title="Name")
     registry: str = Field(..., title="Registry")
+    registry_abbreviation: Optional[str] = Field(None, title="Registry abbreviation")
     registry_identifier: str = Field(..., title="Registry identifier")
 
 

@@ -8,16 +8,16 @@ from typing import List, Optional
 
 from pydantic import Field
 
-from .base import AindCoreModel, AindModel, PIDName
+from .base import AindCoreModel, AindModel, PIDName, BaseName
 
 
 class Species(Enum):
     """Species latin name"""
 
-    CALLITHRIX_JACCHUS = PIDName(name="Callithrix jacchus", registry='NCBI', registry_identifier='9483') 
-    HOMO_SAPIENS = PIDName(name="Homo sapiens", registry='NCBI', registry_identifier='9606')
-    MACACA_MULATTA = PIDName(name="Macaca mulatta", registry='NCBI', registry_identifier='9544')
-    MUS_MUSCULUS = PIDName(name="Mus musculus", registry='NCBI', registry_identifier='10090') 
+    CALLITHRIX_JACCHUS = PIDName(BaseName(name="Callithrix jacchus"), registry='NCBI', registry_identifier='9483') 
+    HOMO_SAPIENS = PIDName(BaseName(name="Homo sapiens"), registry='NCBI', registry_identifier='9606')
+    MACACA_MULATTA = PIDName(BaseName(name="Macaca mulatta"), registry='NCBI', registry_identifier='9544')
+    MUS_MUSCULUS = PIDName(BaseName(name="Mus musculus"), registry='NCBI', registry_identifier='10090') 
 
 
 class Sex(Enum):
