@@ -99,6 +99,12 @@ There are several libraries used to run linters, check documentation, and run te
 coverage run -m unittest discover && coverage report
 ```
 
+- To test any of the following modules, conda/pip install the relevant package (interrogate, flake8, black, isort), navigate to relevant directory, and run any of the following commands in place of [command]:
+
+```
+[command] -v . 
+```
+
 - Use **interrogate** to check that modules, methods, etc. have been documented thoroughly:
 
 ```
