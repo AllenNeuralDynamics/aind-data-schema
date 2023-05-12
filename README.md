@@ -93,7 +93,7 @@ If you've found a bug in the schemas or would like to make a minor change, open 
 
 There are several libraries used to run linters, check documentation, and run tests.
 
-- To run tests locally, navigate to AIND-DATA-SCHEMA directory in terminal and run (this will not run on-line tests, such as schema version check):
+- To run tests locally, navigate to AIND-DATA-SCHEMA directory in terminal and run (this will not run any on-line only tests):
 
 ```
 python -m unittest
