@@ -9,7 +9,7 @@ from typing import List, Optional
 
 from pydantic import Field
 
-from .base import AindCoreModel, AindModel, BaseName, BaseNameEnumMeta
+from .base import AindCoreModel, AindModel, BaseName, BaseNameEnumMeta, PIDName
 
 
 class RegexParts(Enum):
@@ -44,11 +44,16 @@ class DataLevel(Enum):
 class Institution(Enum, metaclass=BaseNameEnumMeta):
     """Institution name"""
 
-    AIBS = BaseName(name="Allen Institute for Brain Science", abbreviation="AIBS")
-    AIND = BaseName(name="Allen Institute for Neural Dynamics", abbreviation="AIND")
-    COLUMBIA = BaseName(name="Columbia University", abbreviation="Columbia")
-    HUST = BaseName(name="Huazhong University of Science and Technology", abbreviation="HUST")
-    NYU = BaseName(name="New York University", abbreviation="NYU")
+    AIBS = PIDName(BaseName(name="Allen Institute for Brain Science", abbreviation="AIBS"),
+                    registry="Research Organization Registry",registry_abbreviation="ROR", registry_identifier="")
+    AIND = PIDName(BaseName(name="Allen Institute for Neural Dynamics", abbreviation="AIND"),
+                    registry="Research Organization Registry",registry_abbreviation="ROR", registry_identifier="")
+    COLUMBIA = PIDName(BaseName(name="Columbia University", abbreviation="Columbia"),
+                    registry="Research Organization Registry",registry_abbreviation="ROR", registry_identifier="")
+    HUST = PIDName(BaseName(name="Huazhong University of Science and Technology", abbreviation="HUST"),
+                    registry="Research Organization Registry",registry_abbreviation="ROR", registry_identifier="")
+    NYU = PIDName(BaseName(name="New York University", abbreviation="NYU"),
+                    registry="Research Organization Registry",registry_abbreviation="ROR", registry_identifier="")
 
     @classmethod
     def __modify_schema__(cls, field_schema):
