@@ -1,7 +1,11 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/subject.py",
-   "schema_version": "0.3.0",
-   "species": "Mus musculus",
+   "schema_version": "0.3.1",
+   "species": {
+      "name": "Mus musculus",
+      "registry": "NCBI",
+      "registry_identifier": "10090"
+   },
    "subject_id": "12345",
    "sex": "Male",
    "date_of_birth": "2022-11-22",
