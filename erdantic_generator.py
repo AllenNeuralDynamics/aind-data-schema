@@ -1,3 +1,5 @@
+"""Generates ERD diagrams for all modules that is a subclass AindCoreModel"""
+
 import erdantic as erd
 import glob
 import os
@@ -25,26 +27,38 @@ for f in file_paths:
         except AttributeError:
             pass
 
+
 def find_core_classes():
-    core_classes = []
+    """Searches for all imported classes which utilize the AindCoreModel class, and returns those modules in a list"""
+
+    core_classes = [] # temp list
     for name, obj in inspect.getmembers(sys.modules[__name__]):
-        if inspect.isclass(obj):
+        if inspect.isclass(obj): # for all classes
+
+            # Assess string for relevant info (ignore irrelevant classes)
             if 'aind_data_schema' not in obj.__module__:
                 continue
             if 'datetime' in obj.__name__:
                 continue
-            argstring = inspect.getsource(obj)
-            declaration = argstring.split(':')[0]
-            if '(' not in declaration:
-                continue
-            args = declaration.split('(')[1]
+
             
-            if 'AindCoreModel' in args:
-                core_classes.append(obj)
+            argstring = inspect.getsource(obj) # Get lines of code for module
+
+            # TODO: Make this split on first newline char, instead of ':'
+            declaration = argstring.split(':')[0] # Split off first line (class declaration)
+
+            if '(' not in declaration: # Drop anything that is not an object
+                continue
+            args = declaration.split('(')[1] # Take arguments
+            
+            if 'AindCoreModel' in args: # Check if AindCoreModel in Arguments
+                core_classes.append(obj) # If yes, append to holder list
         
-    return core_classes
+    return core_classes # Return 
+
 
 modules = find_core_classes()
+
 
 for module in modules:
     diagram = erd.create(module)
