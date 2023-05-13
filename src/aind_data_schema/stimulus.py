@@ -44,10 +44,41 @@ class OptoStim(AindModel):
     notes: Optional[str] = Field(None, title="Notes")
 
 
+class VisualStim(AindModel):
+    """Description of visual stimulus parameters. Provides a high level description of stimulus."""
+
+    stimulus_name: str = Field(..., title="Stimulus name")
+    number_of_conditions: int = Field(
+        ..., 
+        title="Number of conditions",
+        description="Number of unique stimulus conditions",
+    )
+    stimulus_parameters: Optional[Dict[str, Any]] = Field(
+        None, 
+        title="Stimulus parameters",
+        description="Define and list the parameter values used (e.g. all TF or orientation values)"
+    )
+    stimulus_template_name: Optional[List[str]] = Field(
+        None,
+        title="Stimulus template name",
+        description="Name of image set or movie displayed"
+    )
+    trial_duration: float = Field(..., title="Trial duration (s)")
+    trial_duration_unit: TimeUnit = Field(TimeUnit.S, title="Trial duration unit")
+    inter_trial_interval: float = Field(..., title="Inter trial interval (s)")
+    inter_trial_interval_unit: TimeUnit = Field(TimeUnit.S, title="Inter trial interval unit")
+    number_of_trials: int = Field(
+        ...,
+        title="Number of trials",
+        description="Number of trials per condition"
+    )
+    notes: Optional[str] = Field(None, title="Notes")
+
+
 class StimulusPresentation(AindModel):
     """Description of stimulus used during session"""
 
-    stimulus: Union[OptoStim] = Field(..., title="Stimulus")
+    stimulus: Union[OptoStim, VisualStim] = Field(..., title="Stimulus")
     stimulus_start_time: time = Field(
         ...,
         title="Stimulus start time",
