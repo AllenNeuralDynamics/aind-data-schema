@@ -48,11 +48,6 @@ class VisualStim(AindModel):
     """Description of visual stimulus parameters. Provides a high level description of stimulus."""
 
     stimulus_name: str = Field(..., title="Stimulus name")
-    number_of_conditions: int = Field(
-        ..., 
-        title="Number of conditions",
-        description="Number of unique stimulus conditions",
-    )
     stimulus_parameters: Optional[Dict[str, Any]] = Field(
         None, 
         title="Stimulus parameters",
@@ -63,27 +58,18 @@ class VisualStim(AindModel):
         title="Stimulus template name",
         description="Name of image set or movie displayed"
     )
-    trial_duration: float = Field(..., title="Trial duration (s)")
-    trial_duration_unit: TimeUnit = Field(TimeUnit.S, title="Trial duration unit")
-    inter_trial_interval: float = Field(..., title="Inter trial interval (s)")
-    inter_trial_interval_unit: TimeUnit = Field(TimeUnit.S, title="Inter trial interval unit")
-    number_of_trials: int = Field(
+    stimulus_software: str = Field(
         ...,
-        title="Number of trials",
-        description="Number of trials per condition"
-    )
-    stimulus_software: Optional[str] = Field(
-        None,
         title="Stimulus software",
         description="The software used to control the stimulus (e.g. Bonsai)",
     )
-    stimulus_software_version: Optional[str] = Field(None, title="Stimulus software version")
-    stimulus_script: Optional[str] = Field(
-        None,
+    stimulus_software_version: str = Field(..., title="Stimulus software version")
+    stimulus_script: str = Field(
+        ...,
         title="Stimulus script",
         description="The specific code for this stimulus instance",
     )
-    stimulus_script_version: Optional[str] = Field(None, title="Stimulus srcipt version")
+    stimulus_script_version: str = Field(..., title="Stimulus srcipt version")
     notes: Optional[str] = Field(None, title="Notes")
 
 
