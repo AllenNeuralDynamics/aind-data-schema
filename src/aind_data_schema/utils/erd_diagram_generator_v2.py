@@ -8,9 +8,12 @@ class ErdDiagramGenerator:
     """Class to build erdantic diagrams"""
 
     def __init__(self, classes_to_generate: list) -> None:
-        """Initialize erd diagram generator class"""
+        """
+        Initialize erd diagram generator class
+        input: 
+        """
 
-        os.environ["PATH"] += os.pathsep + 'C:/Program Files/Graphviz/bin/'
+        # os.environ["PATH"] += os.pathsep + 'C:/Program Files/Graphviz/bin/'
 
         self.loaded_modules = list(self._get_schemas())
         
