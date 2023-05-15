@@ -17,7 +17,7 @@ class ErdDiagramGenerator:
 
         self.loaded_modules = list(self._get_schemas())
         
-        if not classes_to_generate: 
+        if not classes_to_generate: # if empty list passed in, generate erd docs for all modules
             self.classes_to_generate = list(self.loaded_modules)
         else:
             self.classes_to_generate = [module for module in self.loaded_modules if module.__name__ in classes_to_generate]
