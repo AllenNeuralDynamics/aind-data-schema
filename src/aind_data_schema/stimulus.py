@@ -72,6 +72,8 @@ class VisualStim(AindModel):
         title="Number of trials",
         description="Number of trials per condition"
     )
+    stimulus_code: Optional[str] = Field(..., title="Stimulus code")
+    stimulus_code_version: Optional[str] = Field(..., title="Stimulus code version")
     notes: Optional[str] = Field(None, title="Notes")
 
 
