@@ -83,7 +83,7 @@ class VisualStim(AindModel):
         title="Stimulus script",
         description="The specific code for this stimulus instance",
     )
-    stimulus_script_version: Optional[str] = Field(None, "Stimulus srcipt version")
+    stimulus_script_version: Optional[str] = Field(None, title="Stimulus srcipt version")
     notes: Optional[str] = Field(None, title="Notes")
 
 
