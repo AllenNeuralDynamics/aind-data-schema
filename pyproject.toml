@@ -15,6 +15,7 @@ dynamic = ["version"]
 
 dependencies = [
     'pydantic',
+    'erdantic',
     'jsonschema',
     'typing_extensions; python_version < "3.8"'
 ]
