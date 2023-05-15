@@ -14,6 +14,11 @@ from .ophys.ophys_session import OphysSession
 from .procedures import Procedures
 from .processing import DataProcess, Processing
 from .subject import LightCycle, Subject
+from .behavior.behavior_rig import BehaviorRig
+from .behavior.behavior_session import BehaviorSession
+from .ophys.ophys_rig import OphysRig
+from .ophys.ophys_session import OphysSession
+from .imaging.mri_session import MriSession
 
 __all__ = [
     "DataDescription",
@@ -32,4 +37,9 @@ __all__ = [
     "OphysRig",
     "OphysSession",
     "Axis",
+    "BehaviorRig",
+    "BehaviorSession",
+    "OphysSession",
+    "OphysRig",
+    "MriSession",
 ]
