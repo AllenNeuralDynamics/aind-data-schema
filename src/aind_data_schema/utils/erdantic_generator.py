@@ -9,6 +9,8 @@ import inspect
 
 os.environ["PATH"] += os.pathsep + 'C:/Program Files/Graphviz/bin/'
 
+# python argparse
+
 package_paths = glob.glob("**/**/**/*.py")
 script_paths = glob.glob("**/**/*.py")
 file_paths = package_paths + script_paths
