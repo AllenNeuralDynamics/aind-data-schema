@@ -80,9 +80,9 @@ class Modality(Enum, metaclass=BaseNameEnumMeta):
     HSFP = BaseName(name="Hyperspectral fiber photometry", abbreviation="HSFP")
     ICEPHYS = BaseName(name="Intracellular electrophysiology", abbreviation="icephys")
     FIB = BaseName(name="Fiber photometry", abbreviation="fib")
-    FISH = BaseName(name="Fluorescence in situ Hybridization", abbreviation="fish")
+    FISH = BaseName(name="Fluorescence in situ hybridization", abbreviation="fish")
     MESOSPIM = BaseName(name="Mesoscale selective plane illumination microscopy", abbreviation="mesoSPIM")
-    MERFISH = BaseName(name="Multiplexed Error-Robust Fluorescence in situ Hybridization", abbreviation="merfish")
+    MERFISH = BaseName(name="Multiplexed error-robust fluorescence in situ hybridization", abbreviation="merfish")
     MRI = BaseName(name="Magnetic resonance imaging", abbreviation="MRI")
     OPHYS = BaseName(name="Optical physiology", abbreviation="ophys")
     SMARTSPIM = BaseName(name="Smart selective plane illumination microscopy", abbreviation="SmartSPIM")
@@ -152,7 +152,7 @@ class RelatedData(AindModel):
 class DataDescription(AindCoreModel):
     """Description of a logical collection of data files"""
 
-    schema_version: str = Field("0.6.1", title="Schema Version", const=True)
+    schema_version: str = Field("0.6.2", title="Schema Version", const=True)
     license: str = Field("CC-BY-4.0", title="License", const=True)
 
     creation_time: time = Field(
