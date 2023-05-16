@@ -58,7 +58,7 @@ stream = Stream(
 )
 
 session = EphysSession(
-    experimenter_full_name="Josh Siegle",
+    experimenter_full_name=["Josh Siegle"],
     subject_id="100001",
     session_start_time=datetime(2023, 1, 10, 8, 40, 00),
     session_end_time=datetime(2023, 1, 10, 9, 46, 00),
