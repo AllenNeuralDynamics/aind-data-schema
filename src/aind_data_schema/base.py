@@ -57,7 +57,10 @@ class BaseName(AindModel):
 
 
 class PIDName(AindModel):
-    """Model for associate a name with a persistent identifier (PID), the registry for that PID, and abbreviation for that registry"""
+    """
+    Model for associate a name with a persistent identifier (PID), 
+    the registry for that PID, and abbreviation for that registry
+    """
     
     name: BaseName = Field(..., title="Name")
     registry: BaseName = Field(..., title="Registry")
