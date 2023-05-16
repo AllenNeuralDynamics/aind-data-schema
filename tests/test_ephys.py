@@ -121,7 +121,7 @@ class ExampleTest(unittest.TestCase):
         assert rig is not None
 
         sess = es.EphysSession(
-            experimenter_full_name="alice",
+            experimenter_full_name=["alice"],
             session_start_time=datetime.datetime.now(),
             session_end_time=datetime.datetime.now(),
             subject_id="1234",
