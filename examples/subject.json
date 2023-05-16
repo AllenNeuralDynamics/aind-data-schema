@@ -3,7 +3,8 @@
    "schema_version": "0.3.1",
    "species": {
       "name": {
-         "name": "Mus musculus"
+         "name": "Mus musculus",
+         "abbreviation": null
       },
       "registry": {
          "name": "National Center for Biotechnology Information",
