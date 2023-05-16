@@ -180,11 +180,6 @@ class DataDescription(AindCoreModel):
         description="An established society, corporation, foundation or other organization that collected this data",
         title="Institution",
     )
-    ror_id: Optional[str] = Field(
-        None,
-        title="ROR ID",
-        description="Institution ID from the Research Organization Registry",
-    )
 
     funding_source: List[Funding] = Field(
         ...,
