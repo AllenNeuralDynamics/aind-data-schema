@@ -102,15 +102,15 @@ class OphysSession(AindCoreModel):
     """Description of an ophys session"""
 
     schema_version: str = Field(
-        "0.2.2",
+        "0.2.3",
         description="schema version",
         title="Schema Version",
         const=True,
     )
-    experimenter_full_name: str = Field(
+    experimenter_full_name: List[str] = Field(
         ...,
-        description="First and last name of the experimenter.",
-        title="Experimenter full name",
+        description="First and last name of the experimenter(s).",
+        title="Experimenter(s) full name",
     )
     session_start_time: datetime = Field(..., title="Session start time")
     session_end_time: Optional[datetime] = Field(None, title="Session end time")

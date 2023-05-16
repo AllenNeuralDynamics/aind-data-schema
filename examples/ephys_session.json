@@ -1,7 +1,9 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/ephys/ephys_session.py",
-   "schema_version": "0.4.4",
-   "experimenter_full_name": "Josh Siegle",
+   "schema_version": "0.4.5",
+   "experimenter_full_name": [
+      "Josh Siegle"
+   ],
    "session_start_time": "2023-01-10T08:40:00",
    "session_end_time": "2023-01-10T09:46:00",
    "subject_id": "100001",

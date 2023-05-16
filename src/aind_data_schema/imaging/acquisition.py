@@ -105,11 +105,11 @@ class ProcessingSteps(AindModel):
 class Acquisition(AindCoreModel):
     """Description of an imaging acquisition session"""
 
-    schema_version: str = Field("0.4.3", description="schema version", title="Version", const=True)
-    experimenter_full_name: str = Field(
+    schema_version: str = Field("0.4.4", description="schema version", title="Version", const=True)
+    experimenter_full_name: List[str] = Field(
         ...,
-        description="First and last name of the experimenter.",
-        title="Experimenter full name",
+        description="First and last name of the experimenter(s).",
+        title="Experimenter(s) full name",
     )
     specimen_id: str = Field(..., title="Specimen ID")
     subject_id: Optional[str] = Field(None, title="Subject ID")
