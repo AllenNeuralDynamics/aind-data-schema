@@ -11,12 +11,16 @@ class AindUtils:
     def __init__(self) -> None:
         pass
 
-    def _get_classes():
-        """Searches for all imported classes which utilize the AindCoreModel class, and returns those modules in a list"""
-
-        for name, obj in inspect.getmembers(sys.modules[__name__]):
-            if inspect.isclass(obj): # for all classes
-                yield obj
+    def _get_classes(self, module = None) -> list:
+        """
+        Searches for all imported classes and returns those modules in a list
+        Input: __name__ of module you wish to check, or blank to check the calling namespace's imports
+        """
+        if not module:
+            frm = inspect.currentframe().f_back
+            return inspect.getmembers(sys.modules[frm.f_globals['__name__']], inspect.isclass)
+        else: 
+            return inspect.getmembers(sys.modules[module], inspect.isclass)
 
 
     @staticmethod
