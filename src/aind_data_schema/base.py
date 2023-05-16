@@ -60,8 +60,7 @@ class PIDName(AindModel):
     """Model for associate a name with a persistent identifier (PID), the registry for that PID, and abbreviation for that registry"""
     
     name: BaseName = Field(..., title="Name")
-    registry: str = Field(..., title="Registry") ## Merge this and reg_abb
-    registry_abbreviation: Optional[str] = Field(None, title="Registry abbreviation")
+    registry: BaseName = Field(..., title="Registry")
     registry_identifier: str = Field(..., title="Registry identifier")
 
 
