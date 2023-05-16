@@ -21,7 +21,7 @@ class ImagingTests(unittest.TestCase):
             a = acq.Acquisition()
 
         a = acq.Acquisition(
-            experimenter_full_name="alice",
+            experimenter_full_name=["alice"],
             session_start_time=datetime.datetime.now(),
             specimen_id="12345",
             subject_id="1234",
@@ -62,7 +62,7 @@ class ImagingTests(unittest.TestCase):
         assert i is not None
 
         mri = ms.MriSession(
-            experimenter_full_name="frank",
+            experimenter_full_name=["frank"],
             subject_id=1234,
             session_start_time=datetime.datetime.now(),
             session_end_time=datetime.datetime.now(),
