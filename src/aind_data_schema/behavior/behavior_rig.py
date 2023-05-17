@@ -10,7 +10,6 @@ from ..base import AindCoreModel
 from ..device import CameraAssembly, DAQDevice, Device, Disc, HarpDevice, Monitor, Treadmill, Tube
 
 
-
 class BehaviorRig(AindCoreModel):
     """Description of an behavior rig"""
 

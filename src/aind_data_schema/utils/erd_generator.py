@@ -2,7 +2,6 @@ from typing import Iterator
 import aind_data_schema
 from aind_data_schema.base import AindCoreModel
 import erdantic as erd
-import os
 from pathlib import Path
 
 
