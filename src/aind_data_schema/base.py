@@ -7,9 +7,7 @@ import re
 import urllib.parse
 from enum import EnumMeta
 
-from pydantic import Field
-
-from pydantic import BaseModel, Extra
+from pydantic import BaseModel, Extra, Field
 from pydantic.fields import ModelField
 
 DESCRIBED_BY_BASE_URL = "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/"
@@ -49,12 +47,14 @@ class BaseNameEnumMeta(EnumMeta):
 
 class BaseName(AindModel):
     """A simple model associating a name with an abbreviation"""
+
     name: str
     abbreviation: str
 
+
 class PIDName(AindModel):
     """Model for associate a name with a persistent identifier (PID) and the registry for that PID"""
-    
+
     name: str = Field(..., title="Name")
     registry: str = Field(..., title="Registry")
     registry_identifier: str = Field(..., title="Registry identifier")

@@ -2,7 +2,7 @@
 
 import datetime
 
-from aind_data_schema.subject import Housing, Subject, Species
+from aind_data_schema.subject import Housing, Species, Subject
 
 t = datetime.datetime(2022, 11, 22, 8, 43, 00)
 
