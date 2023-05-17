@@ -10,20 +10,34 @@ class ErdGeneratorTests(unittest.TestCase):
     @patch("aind_data_schema.utils.erd_generator.ErdGenerator")
     def test_erd_generator_object(self, mock_generator):
         """Tests the object constructor for ErdDiagramGenerator"""
+        
         self.assertFalse(mock_generator.called)
-
         erd = mock_generator([])
-        erd.generate_aind_core_model_diagrams()
-
         mock_generator.assert_called_with([])
+        erd2 = mock_generator(['BehaviorRig','OphysSession'])
+        mock_generator.assert_called_with(['BehaviorRig','OphysSession'])
+
 
     @patch.object(ErdGenerator, 'generate_aind_core_model_diagrams')
     def test_generate_ACM_erds(self, mock_generator):
+        """
+        Tests that erdgenerator is being called properly
+
+        TODO: Add test that checks for path write attempt
+        """
+
         ErdGenerator.generate_aind_core_model_diagrams()
         self.assertTrue(mock_generator.called)
 
+
     @patch.object(ErdGenerator, 'generate_erd_diagram')
     def test_generate_single_erd(self, mock_generator):
+        """
+        Tests that erdgenerator is being called properly
+
+        TODO: Add test that checks for path write attempt
+        """
+
         ErdGenerator.generate_erd_diagram(ErdGenerator)
         mock_generator.assert_called_with(ErdGenerator)
 
