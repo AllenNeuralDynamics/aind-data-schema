@@ -137,4 +137,6 @@ dmypy.json
 
 # MacOs
 **/.DS_Store
-src/aind_data_schema/utils/test.ipynb
+
+# Jupyter
+notebook/
