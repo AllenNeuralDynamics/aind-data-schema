@@ -105,7 +105,7 @@ class ProcessingSteps(AindModel):
 class Acquisition(AindCoreModel):
     """Description of an imaging acquisition session"""
 
-    schema_version: str = Field("0.4.4", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.4.5", description="schema version", title="Version", const=True)
     experimenter_full_name: List[str] = Field(
         ...,
         description="First and last name of the experimenter(s).",
@@ -129,3 +129,4 @@ class Acquisition(AindCoreModel):
         title="Processing steps",
         description="List of downstream processing steps planned for each channel",
     )
+    notes: Optional[str] = Field(None, title="Notes")
