@@ -15,18 +15,22 @@ dynamic = ["version"]
 
 dependencies = [
     'pydantic',
-    'erdantic',
     'jsonschema',
     'typing_extensions; python_version < "3.8"'
 ]
 
 [project.optional-dependencies]
 dev = [
+    'aind_data_schema[docs]',
     'black',
     'coverage',
     'flake8',
     'interrogate',
-    'isort',
+    'isort'    
+]
+
+docs = [
+    'erdantic',
     'Sphinx',
     'pygit2',
     'furo'
