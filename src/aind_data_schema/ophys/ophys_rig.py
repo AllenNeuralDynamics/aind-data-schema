@@ -9,7 +9,21 @@ from typing import List, Optional, Union
 from pydantic import Field
 
 from ..base import AindCoreModel
-from ..device import CameraAssembly, DataInterface, Device, DAQDevice, Disc, Filter, HarpDevice, Laser, Lens, LightEmittingDiode, Monitor, Treadmill, Tube
+from ..device import (
+    CameraAssembly,
+    DAQDevice,
+    DataInterface,
+    Device,
+    Disc,
+    Filter,
+    HarpDevice,
+    Laser,
+    Lens,
+    LightEmittingDiode,
+    Monitor,
+    Treadmill,
+    Tube,
+)
 
 
 class DetectorType(Enum):
