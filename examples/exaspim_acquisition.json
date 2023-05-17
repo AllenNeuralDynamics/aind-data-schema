@@ -104,5 +104,6 @@
    "active_objectives": null,
    "local_storage_directory": "D:",
    "external_storage_directory": "Z:",
-   "processing_steps": null
+   "processing_steps": null,
+   "notes": null
 }
