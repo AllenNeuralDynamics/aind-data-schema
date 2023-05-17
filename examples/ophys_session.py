@@ -9,7 +9,7 @@ t = datetime.datetime(2022, 7, 12, 7, 00, 00)
 s = FiberPhotometrySession(
     experimenter_full_name=[
         "John Doe"
-        ],
+    ],
     session_start_time=t,
     session_end_time=t,
     subject_id="652567",
