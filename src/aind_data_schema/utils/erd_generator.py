@@ -16,8 +16,6 @@ class ErdGenerator:
         if list is empty, will generate erd diagrams for all modules loaded in aind_data_schema.__all__
         """
 
-        # os.environ["PATH"] += os.pathsep + 'C:/Program Files/Graphviz/bin/'
-
         self.loaded_modules = list(self._get_schemas())
 
         if not classes_to_generate:  # if empty list passed in, generate erd docs for all modules
