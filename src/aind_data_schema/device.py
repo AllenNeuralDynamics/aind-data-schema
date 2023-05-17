@@ -164,7 +164,6 @@ class RelativePosition(AindModel):
     coordinate_system: Optional[str] = Field(None, title="Description of the coordinate system used")
 
 
-
 class Size2d(AindModel):
     """2D size of an object"""
 

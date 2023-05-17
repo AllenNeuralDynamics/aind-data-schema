@@ -18,6 +18,7 @@ from ..device import (
     Tube,
 )
 
+
 class BehaviorRig(AindCoreModel):
     """Description of an behavior rig"""
 
@@ -26,8 +27,6 @@ class BehaviorRig(AindCoreModel):
     cameras: Optional[List[CameraAssembly]] = Field(None, title="Camera assemblies", unique_items=True)
     visual_monitors: Optional[List[Monitor]] = Field(None, title="Visual monitors", unique_items=True)
     mouse_platform: Optional[Union[Tube, Treadmill, Disc]] = Field(None, title="Mouse platform")
-    daqs: Optional[List[Union[HarpDevice, DAQDevice]]] = Field(
-        None, title="Data acquisition devices"
-    )
+    daqs: Optional[List[Union[HarpDevice, DAQDevice]]] = Field(None, title="Data acquisition devices")
     additional_devices: Optional[List[Device]] = Field(None, title="Additional devices", unique_items=True)
     notes: Optional[str] = Field(None, title="Notes")

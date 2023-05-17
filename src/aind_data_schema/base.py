@@ -49,12 +49,14 @@ class BaseNameEnumMeta(EnumMeta):
 
 class BaseName(AindModel):
     """A simple model associating a name with an abbreviation"""
+
     name: str
     abbreviation: str
 
+
 class PIDName(AindModel):
     """Model for associate a name with a persistent identifier (PID) and the registry for that PID"""
-    
+
     name: str = Field(..., title="Name")
     registry: str = Field(..., title="Registry")
     registry_identifier: str = Field(..., title="Registry identifier")

@@ -34,7 +34,9 @@ class OptoStim(AindModel):
     pulse_train_duration: float = Field(..., title="Pulse train duration (s)")
     pulse_train_duration_unit: TimeUnit = Field(TimeUnit.S, title="Pulse train duration unit")
     fixed_pulse_train_interval: bool = Field(..., title="Fixed pulse train interval")
-    pulse_train_interval: Optional[float] = Field(None, title="Pulse train interval (s)", description="Time between pulse trains")
+    pulse_train_interval: Optional[float] = Field(
+        None, title="Pulse train interval (s)", description="Time between pulse trains"
+    )
     pulse_train_interval_unit: TimeUnit = Field(TimeUnit.S, title="Pulse train interval unit")
     baseline_duration: float = Field(
         ..., title="Baseline duration (s)", description="Duration of baseline recording prior to first pulse train"
