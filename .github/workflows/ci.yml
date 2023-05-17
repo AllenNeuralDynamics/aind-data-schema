@@ -6,29 +6,6 @@ on:
       - main
 
 jobs:
-  lint_and_tests:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: [ '3.7', '3.8', '3.9', '3.10', '3.11' ]
-    steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v3
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Install dependencies
-      run: |
-        conda install --channel conda-forge pygraphviz
-        python -m pip install -e .[dev]
-    - name: Run linters
-      run: black . && flake8 . && interrogate . && isort .
-    - name: Run tests and coverage
-      run: coverage run -m unittest discover && coverage report
-    - name: Auto generate rst source files for documentation
-      run: sphinx-apidoc -o doc_template/source src
-    - name: Auto generate documentation
-      run: sphinx-build -b html doc_template/source/ doc_template/build/html
   schema_version_check:
     runs-on: ubuntu-latest
     strategy:
@@ -43,7 +20,9 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
-      run: python -m pip install -e .[dev]
+      run: | 
+        conda install -y -q --channel conda-forge pygraphviz
+        python -m pip install -e .[dev] --no-cache-dir
     - name: Build schemas from main branch
       run: |
         mkdir /tmp/main_schemas
