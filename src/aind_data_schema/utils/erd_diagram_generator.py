@@ -21,22 +21,34 @@ class ErdDiagramGenerator:
         if not classes_to_generate: # if empty list passed in, generate erd docs for all modules
             self.classes_to_generate = self.loaded_modules
         else:
+            # List of only models that are present in both loaded_modules and classes_to_generate
             self.classes_to_generate = [module for module in self.loaded_modules if module.__name__ in classes_to_generate]
 
 
     def generate_aind_core_model_diagrams(self):
+        """generate erd diagrams for all models in loaded models"""
         for module in self.loaded_modules:
             self.generate_erd_diagram(module)
 
 
     def generate_requested_classes(self):
+        """generate erd diagrams for all models in classes_to_generate"""
         for module in self.classes_to_generate:
             self.generate_erd_diagram(module)
 
 
-    def generate_erd_diagram(self, module):
+    def generate_erd_diagram(self, module, outpath = "ERD_diagrams/"):
+        """
+        Code to generate a single erd diagram, given a generic class/model
+        ie:
+            from xx import yy
+            erd = ErdDiagramGenerator()
+            erd.generate_erd_diagram(yy)
+
+        Can take output file path as input, otherwise defaults to generic output path
+        """
         diagram = erd.create(module)
-        diagram.draw("ERD_diagrams/" + module.__name__ + '.png')
+        diagram.draw(outpath + module.__name__ + '.png')
 
 
     @staticmethod
