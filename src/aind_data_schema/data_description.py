@@ -47,23 +47,28 @@ class Institution(Enum, metaclass=BaseNameEnumMeta):
     AIBS = PIDName(
         name=BaseName(name="Allen Institute for Brain Science", abbreviation="AIBS"),
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
-        registry_identifier="00dcv1019")
+        registry_identifier="00dcv1019",
+    )
     AIND = PIDName(
         name=BaseName(name="Allen Institute for Neural Dynamics", abbreviation="AIND"),
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
-        registry_identifier="04szwah67")
+        registry_identifier="04szwah67",
+    )
     COLUMBIA = PIDName(
         name=BaseName(name="Columbia University", abbreviation="Columbia"),
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
-        registry_identifier="00hj8s172")
+        registry_identifier="00hj8s172",
+    )
     HUST = PIDName(
         name=BaseName(name="Huazhong University of Science and Technology", abbreviation="HUST"),
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
-        registry_identifier="00p991c53")
+        registry_identifier="00p991c53",
+    )
     NYU = PIDName(
         name=BaseName(name="New York University", abbreviation="NYU"),
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
-        registry_identifier="0190ak572")
+        registry_identifier="0190ak572",
+    )
 
     @classmethod
     def __modify_schema__(cls, field_schema):

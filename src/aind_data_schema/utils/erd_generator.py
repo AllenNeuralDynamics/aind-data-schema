@@ -1,8 +1,12 @@
+"""Document for generating erd diagrams"""
+
+from pathlib import Path
 from typing import Iterator
+
+import erdantic as erd
+
 import aind_data_schema
 from aind_data_schema.base import AindCoreModel
-import erdantic as erd
-from pathlib import Path
 
 
 class ErdGenerator:

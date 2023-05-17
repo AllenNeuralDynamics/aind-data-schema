@@ -1,8 +1,9 @@
 """Unit test for erd_diagram_generator"""
 
 import unittest
-from aind_data_schema.utils.erd_generator import ErdGenerator
 from unittest.mock import MagicMock, patch
+
+from aind_data_schema.utils.erd_generator import ErdGenerator
 
 
 class ErdGeneratorTests(unittest.TestCase):
@@ -15,10 +16,10 @@ class ErdGeneratorTests(unittest.TestCase):
         self.assertFalse(mock_generator.called)
         mock_generator([])
         mock_generator.assert_called_with([])
-        mock_generator(['BehaviorRig', 'OphysSession'])
-        mock_generator.assert_called_with(['BehaviorRig', 'OphysSession'])
+        mock_generator(["BehaviorRig", "OphysSession"])
+        mock_generator.assert_called_with(["BehaviorRig", "OphysSession"])
 
-    @patch.object(ErdGenerator, 'generate_aind_core_model_diagrams')
+    @patch.object(ErdGenerator, "generate_aind_core_model_diagrams")
     def test_generate_ACM_erds(self, mock_generator: MagicMock):
         """
         Tests that erdgenerator is being called properly
@@ -29,7 +30,7 @@ class ErdGeneratorTests(unittest.TestCase):
         ErdGenerator.generate_aind_core_model_diagrams()
         self.assertTrue(mock_generator.called)
 
-    @patch.object(ErdGenerator, 'generate_erd_diagram')
+    @patch.object(ErdGenerator, "generate_erd_diagram")
     def test_generate_single_erd(self, mock_generator: MagicMock):
         """
         Tests that erdgenerator is being called properly

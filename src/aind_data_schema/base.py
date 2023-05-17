@@ -6,11 +6,10 @@ import os
 import re
 import urllib.parse
 from enum import EnumMeta
+from typing import Optional
 
 from pydantic import BaseModel, Extra, Field
 from pydantic.fields import ModelField
-
-from typing import Optional
 
 DESCRIBED_BY_BASE_URL = "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/"
 
