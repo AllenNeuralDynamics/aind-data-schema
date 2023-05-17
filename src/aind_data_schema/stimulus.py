@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from datetime import time
 from enum import Enum
-from typing import Any, Dict, Optional, Union
+from typing import Any, Dict, Optional, Union, List
 
 from pydantic import Field
 
@@ -46,10 +46,39 @@ class OptoStim(AindModel):
     notes: Optional[str] = Field(None, title="Notes")
 
 
+class VisualStim(AindModel):
+    """Description of visual stimulus parameters. Provides a high level description of stimulus."""
+
+    stimulus_name: str = Field(..., title="Stimulus name")
+    stimulus_parameters: Optional[Dict[str, Any]] = Field(
+        None, 
+        title="Stimulus parameters",
+        description="Define and list the parameter values used (e.g. all TF or orientation values)"
+    )
+    stimulus_template_name: Optional[List[str]] = Field(
+        None,
+        title="Stimulus template name",
+        description="Name of image set or movie displayed"
+    )
+    stimulus_software: str = Field(
+        ...,
+        title="Stimulus software",
+        description="The software used to control the stimulus (e.g. Bonsai)",
+    )
+    stimulus_software_version: str = Field(..., title="Stimulus software version")
+    stimulus_script: str = Field(
+        ...,
+        title="Stimulus script",
+        description="The specific code for this stimulus instance",
+    )
+    stimulus_script_version: str = Field(..., title="Stimulus srcipt version")
+    notes: Optional[str] = Field(None, title="Notes")
+
+
 class StimulusPresentation(AindModel):
     """Description of stimulus used during session"""
 
-    stimulus: Union[OptoStim] = Field(..., title="Stimulus")
+    stimulus: Union[OptoStim, VisualStim] = Field(..., title="Stimulus")
     stimulus_start_time: time = Field(
         ...,
         title="Stimulus start time",

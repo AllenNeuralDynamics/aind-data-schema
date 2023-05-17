@@ -1,9 +1,15 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/subject.py",
-   "schema_version": "0.3.1",
+   "schema_version": "0.3.2",
    "species": {
-      "name": "Mus musculus",
-      "registry": "NCBI",
+      "name": {
+         "name": "Mus musculus",
+         "abbreviation": null
+      },
+      "registry": {
+         "name": "National Center for Biotechnology Information",
+         "abbreviation": "NCBI"
+      },
       "registry_identifier": "10090"
    },
    "subject_id": "12345",

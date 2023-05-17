@@ -93,10 +93,22 @@ If you've found a bug in the schemas or would like to make a minor change, open 
 
 There are several libraries used to run linters, check documentation, and run tests.
 
+- To run tests locally, navigate to AIND-DATA-SCHEMA directory in terminal and run (this will not run any on-line only tests):
+
+```
+python -m unittest
+```
+
 - Please test your changes using the **coverage** library, which will run the tests and log a coverage report:
 
 ```
 coverage run -m unittest discover && coverage report
+```
+
+- To test any of the following modules, conda/pip install the relevant package (interrogate, flake8, black, isort), navigate to relevant directory, and run any of the following commands in place of [command]:
+
+```
+[command] -v . 
 ```
 
 - Use **interrogate** to check that modules, methods, etc. have been documented thoroughly:

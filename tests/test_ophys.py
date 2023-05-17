@@ -27,7 +27,7 @@ class OphysTests(unittest.TestCase):
         now = datetime.datetime.now()
 
         s = FiberPhotometrySession(
-            experimenter_full_name="alice",
+            experimenter_full_name=["alice"],
             session_start_time=now,
             session_end_time=now,
             subject_id="123456",

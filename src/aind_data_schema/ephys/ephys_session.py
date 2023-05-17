@@ -124,11 +124,11 @@ class Stream(AindModel):
 class EphysSession(AindCoreModel):
     """Description of an ephys recording session"""
 
-    schema_version: str = Field("0.4.3", description="schema version", title="Version", const=True)
-    experimenter_full_name: str = Field(
+    schema_version: str = Field("0.4.5", description="schema version", title="Version", const=True)
+    experimenter_full_name: List[str] = Field(
         ...,
-        description="First and last name of the experimenter.",
-        title="Experimenter full name",
+        description="First and last name of the experimenter(s).",
+        title="Experimenter(s) full name",
     )
     session_start_time: datetime = Field(..., title="Session start time")
     session_end_time: datetime = Field(..., title="Session end time")
