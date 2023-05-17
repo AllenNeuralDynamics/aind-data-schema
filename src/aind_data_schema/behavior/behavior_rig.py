@@ -2,21 +2,13 @@
 
 from __future__ import annotations
 
-from typing import Optional, List, Union
+from typing import List, Optional, Union
 
 from pydantic import Field
 
 from ..base import AindCoreModel
-from ..device import (
-    CameraAssembly,
-    DAQDevice,
-    Device,
-    Disc,
-    HarpDevice,
-    Monitor,
-    Treadmill,
-    Tube,
-)
+from ..device import CameraAssembly, DAQDevice, Device, Disc, HarpDevice, Monitor, Treadmill, Tube
+
 
 
 class BehaviorRig(AindCoreModel):

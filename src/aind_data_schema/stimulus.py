@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from datetime import time
 from enum import Enum
-from typing import Any, Dict, Optional, Union, List
+from typing import Any, Dict, List, Optional, Union
 
 from pydantic import Field
 
@@ -51,14 +51,12 @@ class VisualStim(AindModel):
 
     stimulus_name: str = Field(..., title="Stimulus name")
     stimulus_parameters: Optional[Dict[str, Any]] = Field(
-        None, 
+        None,
         title="Stimulus parameters",
-        description="Define and list the parameter values used (e.g. all TF or orientation values)"
+        description="Define and list the parameter values used (e.g. all TF or orientation values)",
     )
     stimulus_template_name: Optional[List[str]] = Field(
-        None,
-        title="Stimulus template name",
-        description="Name of image set or movie displayed"
+        None, title="Stimulus template name", description="Name of image set or movie displayed"
     )
     stimulus_software: str = Field(
         ...,

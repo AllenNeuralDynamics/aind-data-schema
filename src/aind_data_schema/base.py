@@ -7,9 +7,7 @@ import re
 import urllib.parse
 from enum import EnumMeta
 
-from pydantic import Field
-
-from pydantic import BaseModel, Extra
+from pydantic import BaseModel, Extra, Field
 from pydantic.fields import ModelField
 
 from typing import Optional

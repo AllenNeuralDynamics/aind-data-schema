@@ -138,5 +138,5 @@ dmypy.json
 # MacOs
 **/.DS_Store
 
-# Jupyter Notebook
+# Jupyter
 notebook/

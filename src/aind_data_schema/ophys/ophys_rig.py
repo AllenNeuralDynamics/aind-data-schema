@@ -11,9 +11,9 @@ from pydantic import Field
 from ..base import AindCoreModel
 from ..device import (
     CameraAssembly,
+    DAQDevice,
     DataInterface,
     Device,
-    DAQDevice,
     Disc,
     Filter,
     HarpDevice,
