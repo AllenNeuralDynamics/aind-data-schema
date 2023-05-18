@@ -6,6 +6,7 @@ import unittest
 import pydantic
 
 from aind_data_schema.behavior import behavior_session as bs
+from aind_data_schema.behavior import behavior_rig as br
 
 
 class BehaviorTests(unittest.TestCase):
@@ -35,6 +36,12 @@ class BehaviorTests(unittest.TestCase):
         )
 
         assert b is not None
+
+        r = br.BehaviorRig(
+            rig_id="1234"
+        )
+
+        assert r is not None
 
 
 if __name__ == "__main__":
