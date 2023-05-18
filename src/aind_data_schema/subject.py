@@ -8,20 +8,32 @@ from typing import List, Optional
 
 from pydantic import Field
 
-from .base import AindCoreModel, AindModel, PIDName, BaseName
+from .base import AindCoreModel, AindModel, BaseName, PIDName
 
 
 class Species(Enum):
     """Species latin name"""
 
-    CALLITHRIX_JACCHUS = PIDName(name=BaseName(name="Callithrix jacchus"), registry=BaseName(name='National Center for Biotechnology Information',abbreviation='NCBI'), 
-                                 registry_identifier='9483') 
-    HOMO_SAPIENS = PIDName(name=BaseName(name="Homo sapiens"), registry=BaseName(name='National Center for Biotechnology Information',abbreviation='NCBI'), 
-                           registry_identifier='9606')
-    MACACA_MULATTA = PIDName(name=BaseName(name="Macaca mulatta"), registry=BaseName(name='National Center for Biotechnology Information',abbreviation='NCBI'), 
-                             registry_identifier='9544')
-    MUS_MUSCULUS = PIDName(name=BaseName(name="Mus musculus"), registry=BaseName(name='National Center for Biotechnology Information',abbreviation='NCBI'), 
-                           registry_identifier='10090') 
+    CALLITHRIX_JACCHUS = PIDName(
+        name=BaseName(name="Callithrix jacchus"),
+        registry=BaseName(name="National Center for Biotechnology Information", abbreviation="NCBI"),
+        registry_identifier="9483",
+    )
+    HOMO_SAPIENS = PIDName(
+        name=BaseName(name="Homo sapiens"),
+        registry=BaseName(name="National Center for Biotechnology Information", abbreviation="NCBI"),
+        registry_identifier="9606",
+    )
+    MACACA_MULATTA = PIDName(
+        name=BaseName(name="Macaca mulatta"),
+        registry=BaseName(name="National Center for Biotechnology Information", abbreviation="NCBI"),
+        registry_identifier="9544",
+    )
+    MUS_MUSCULUS = PIDName(
+        name=BaseName(name="Mus musculus"),
+        registry=BaseName(name="National Center for Biotechnology Information", abbreviation="NCBI"),
+        registry_identifier="10090",
+    )
 
 
 class Sex(Enum):
