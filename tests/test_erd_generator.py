@@ -1,7 +1,6 @@
 """Unit test for erd_diagram_generator"""
 
 import unittest
-from pathlib import Path
 from unittest.mock import MagicMock, patch
 
 from aind_data_schema.utils.erd_generator import ErdGenerator
