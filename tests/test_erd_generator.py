@@ -24,7 +24,7 @@ class ErdGeneratorTests(unittest.TestCase):
 
         erd = ErdGenerator(classes_to_generate=[])
         erd.generate_aind_core_model_diagrams()
-        assert mock_draw.call_count == len(erd.classes_to_generate)
+        assert mock_draw.call_count == len(erd.loaded_modules)
 
 
 if __name__ == "__main__":
