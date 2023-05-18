@@ -1,6 +1,7 @@
 """Unit test for erd_diagram_generator"""
 
 import unittest
+from pathlib import Path
 from unittest.mock import MagicMock, patch
 
 from aind_data_schema.utils.erd_generator import ErdGenerator
@@ -9,37 +10,31 @@ from aind_data_schema.utils.erd_generator import ErdGenerator
 class ErdGeneratorTests(unittest.TestCase):
     """Class for testing ErdGenerator"""
 
-    @patch("aind_data_schema.utils.erd_generator.ErdGenerator")
-    def test_erd_generator_object(self, mock_generator: MagicMock):
-        """Tests the object constructor for ErdDiagramGenerator"""
+    @patch("erdantic.EntityRelationshipDiagram.draw")
+    def test_generate_erd_diagram(self, mock_draw: MagicMock):
+        """Tests that draw is called correctly"""
 
-        self.assertFalse(mock_generator.called)
-        mock_generator([])
-        mock_generator.assert_called_with([])
-        mock_generator(["BehaviorRig", "OphysSession"])
-        mock_generator.assert_called_with(["BehaviorRig", "OphysSession"])
+        from aind_data_schema.subject import Subject
 
-    @patch.object(ErdGenerator, "generate_aind_core_model_diagrams")
-    def test_generate_ACM_erds(self, mock_generator: MagicMock):
-        """
-        Tests that erdgenerator is being called properly
+        erd = ErdGenerator(classes_to_generate=[])
+        erd.generate_erd_diagram(module=Subject, outpath=Path("fake_path"))
+        mock_draw.assert_called_once_with(Path("fake_path") / "Subject.png")
 
-        TODO: Add test that checks for path write attempt
-        """
+    @patch("erdantic.EntityRelationshipDiagram.draw")
+    def test_classes_to_generate(self, mock_draw: MagicMock):
+        """Tests that draw is called correctly"""
 
-        ErdGenerator.generate_aind_core_model_diagrams()
-        self.assertTrue(mock_generator.called)
+        erd = ErdGenerator(classes_to_generate=["Subject"])
+        erd.generate_requested_classes()
+        assert mock_draw.call_count == len(erd.classes_to_generate)
 
-    @patch.object(ErdGenerator, "generate_erd_diagram")
-    def test_generate_single_erd(self, mock_generator: MagicMock):
-        """
-        Tests that erdgenerator is being called properly
+    @patch("erdantic.EntityRelationshipDiagram.draw")
+    def test_generate_loaded_models(self, mock_draw: MagicMock):
+        """Tests that draw is called correctly"""
 
-        TODO: Add test that checks for path write attempt
-        """
-
-        ErdGenerator.generate_erd_diagram(ErdGenerator)
-        mock_generator.assert_called_with(ErdGenerator)
+        erd = ErdGenerator(classes_to_generate=[])
+        erd.generate_aind_core_model_diagrams()
+        assert mock_draw.call_count == len(erd.classes_to_generate)
 
 
 if __name__ == "__main__":
