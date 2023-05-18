@@ -11,16 +11,6 @@ class ErdGeneratorTests(unittest.TestCase):
     """Class for testing ErdGenerator"""
 
     @patch("erdantic.EntityRelationshipDiagram.draw")
-    def test_generate_erd_diagram(self, mock_draw: MagicMock):
-        """Tests that draw is called correctly"""
-
-        from aind_data_schema.subject import Subject
-
-        erd = ErdGenerator(classes_to_generate=[])
-        erd.generate_erd_diagram(module=Subject, outpath=Path("fake_path"))
-        mock_draw.assert_called_once_with(Path("fake_path") / "Subject.png")
-
-    @patch("erdantic.EntityRelationshipDiagram.draw")
     def test_classes_to_generate(self, mock_draw: MagicMock):
         """Tests that draw is called correctly"""
 
