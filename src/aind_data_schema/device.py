@@ -154,13 +154,14 @@ class DaqChannelType(Enum):
     DI = "Digital Input"
     DO = "Digital Output"
 
+
 class Software(AindModel):
     """ Generic rig software"""
     name: str = Field(..., title="Software on computer")
     version: str = Field(..., title="Software version")
     parameters: Optional[dict] = Field(..., title="Software configuration")
 
-    
+
 class RelativePosition(AindModel):
     """ Set of 6 values describing relative position on a rig"""
 
@@ -507,7 +508,6 @@ class Monitor(Device):
     )
 
 
-
 class CameraTarget(Enum):
     """Target of camera"""
 
@@ -518,7 +518,8 @@ class CameraTarget(Enum):
     SIDE = "Side"
     TONGUE = "Tongue"
     OTHER = "Other"
-    
+
+
 class RelativePosition(AindModel):
     """Set of 6 values describing relative position on a rig"""
     # required fields
@@ -543,8 +544,12 @@ class WaterDelivery(AindModel):
     spout_diameter: str = Field(..., title="Spout diameter")
     spout_diameter_units_mm: Field(SizeUnit.MM, title="Spout diameter unit")
     spout_position: RelativePosition = Field(..., title="Spout stage position")
-    stage_type: str = Field(..., title="Stage build type")
     water_calibration_values: Dict[str, Any] = Field(..., title="Water calibration values")
+    
+    # optional fields
+    stage_type: Optional[MotorizedStage] = Field(None, title="Motorized stage")
+    
+    
 
 class MousePlatform(AindModel):
     """Behavior platform for a mouse during a session"""
