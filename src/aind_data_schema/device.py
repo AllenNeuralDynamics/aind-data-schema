@@ -542,7 +542,7 @@ class WaterDelivery(AindModel):
 
     # required fields
     spout_diameter: str = Field(..., title="Spout diameter")
-    spout_diameter_units_mm: Field(SizeUnit.MM, title="Spout diameter unit")
+    spout_diameter_units_mm: SizeUnit.MM = Field(..., title="Spout diameter unit")
     spout_position: RelativePosition = Field(..., title="Spout stage position")
     water_calibration_values: Dict[str, Any] = Field(..., title="Water calibration values")
     
