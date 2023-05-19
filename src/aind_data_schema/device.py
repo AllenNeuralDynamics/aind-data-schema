@@ -232,6 +232,9 @@ class MotorizedStage(Device):
 
     travel: float = Field(..., title="Travel of device (mm)", units="mm")
     travel_unit: SizeUnit = Field(SizeUnit.MM, title="Travel unit")
+    
+    # optional fields
+    firmware: Optional[str] = Field(None, title="firmware for motorized stage")
 
 
 class Camera(Device):
