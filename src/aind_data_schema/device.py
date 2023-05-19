@@ -560,18 +560,7 @@ class MousePlatform(AindModel):
     water_delivery: Optional[WaterDelivery] = Field(None, title="Water delivery")
 
 
-class CameraAssembly(AindModel):
-    """Named assembly of a camera and lens (and optionally a filter)"""
 
-    # required fields
-    camera_assembly_name: str = Field(..., title="Name of this camera assembly")
-    camera: Camera = Field(..., title="Camera")
-    lens: Lens = Field(..., title="Lens")
-    camera_target: CameraTarget = Field(..., title="Camera target")
-
-    # optional fields
-    filter: Optional[Filter] = Field(None, title="Filter")
-    position: Optional[RelativePosition] = Field(None, title="Relative position of this assembly")
 
 class VisualStimulusDisplayAssembly(AindModel):
     """Visual display"""
