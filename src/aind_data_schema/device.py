@@ -221,9 +221,6 @@ class Coordinates3d(AindModel):
     unit: SizeUnit = Field(SizeUnit.UM, title="Position unit")
 
 
-    name: str = Field(..., title="Software on computer")
-    version: str = Field(..., title="Software version")
-    parameters: Optional[dict] = Field(..., title="Software configuration")
 class Device(AindModel):
     """Generic device"""
 
