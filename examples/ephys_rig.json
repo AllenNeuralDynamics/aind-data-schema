@@ -1,15 +1,10 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/ephys/ephys_rig.py",
-   "schema_version": "0.5.6",
+   "schema_version": "0.6.2",
    "rig_id": "323_EPHYS1",
-   "ephys_modules": [
+   "ephys_assemblies": [
       {
-         "arc_angle": 99.0,
-         "module_angle": 20.0,
-         "angle_unit": "degree",
-         "rotation_angle": 10.0,
-         "coordinate_transform": null,
-         "calibration_date": null,
+         "ephys_assembly_name": "Ephys_assemblyA",
          "manipulator": {
             "name": null,
             "serial_number": "SN2938",
@@ -31,12 +26,7 @@
          ]
       },
       {
-         "arc_angle": 120.0,
-         "module_angle": 20.0,
-         "angle_unit": "degree",
-         "rotation_angle": 15.0,
-         "coordinate_transform": null,
-         "calibration_date": null,
+         "ephys_assembly_name": "Ephys_assemblyB",
          "manipulator": {
             "name": null,
             "serial_number": "SN2939",
@@ -60,12 +50,7 @@
    ],
    "stick_microscopes": [
       {
-         "arc_angle": 70.0,
-         "module_angle": 20.0,
-         "angle_unit": "degree",
-         "rotation_angle": 0.0,
-         "coordinate_transform": null,
-         "calibration_date": null,
+         "scope_assembly_name": "Stick_assembly",
          "camera": {
             "name": "Probe Camera",
             "serial_number": null,
@@ -83,17 +68,26 @@
             "sensor_format": "1/2.9\"",
             "format_unit": null,
             "recording_software": null
+         },
+         "lens": {
+            "name": null,
+            "serial_number": null,
+            "manufacturer": "Edmund Optics",
+            "model": null,
+            "notes": null,
+            "focal_length": null,
+            "focal_length_unit": "millimeter",
+            "size": null,
+            "lens_size_unit": "inch",
+            "optimized_wavelength_range": null,
+            "wavelength_unit": "nanometer",
+            "max_aperture": null
          }
       }
    ],
-   "laser_modules": [
+   "laser_assemblies": [
       {
-         "arc_angle": 20.0,
-         "module_angle": 10.0,
-         "angle_unit": "degree",
-         "rotation_angle": 0.0,
-         "coordinate_transform": null,
-         "calibration_date": null,
+         "laser_assembly_name": "Laser_assemblyA",
          "manipulator": {
             "name": null,
             "serial_number": "SN2937",
@@ -335,5 +329,7 @@
          "harp_device_type": "Behavior",
          "harp_device_version": "2.1"
       }
-   ]
+   ],
+   "additional_devices": null,
+   "notes": null
 }

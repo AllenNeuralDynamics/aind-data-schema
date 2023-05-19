@@ -21,19 +21,19 @@ class OphysTests(unittest.TestCase):
         with self.assertRaises(ValidationError):
             s = FiberPhotometrySession()
 
-        r = OphysRig(rig_id="12345", patch_cords=[], lasers=[])
+        r = OphysRig(rig_id="12345", patch_cords=[], light_sources=[])
 
         assert r is not None
         now = datetime.datetime.now()
 
         s = FiberPhotometrySession(
-            experimenter_full_name="alice",
+            experimenter_full_name=["alice"],
             session_start_time=now,
             session_end_time=now,
             subject_id="123456",
             session_type="asdf",
             rig_id="asdf",
-            lasers=[],
+            light_sources=[],
             coupling_array=[],
             patch_cords=[],
         )

@@ -40,19 +40,18 @@ class ExampleTest(unittest.TestCase):
         ]
 
         ems = [
-            er.EphysModule(
+            er.EphysAssembly(
                 probes=[er.EphysProbe(probe_model="Neuropixels 1.0", name="Probe A")],
-                arc_angle=0,
-                module_angle=0,
                 manipulator=er.Manipulator(
                     manufacturer="New Scale Technologies",
                     serial_number="4321",
                 ),
+                ephys_assembly_name="Ephys_assemblyA",
             )
         ]
 
         lms = [
-            er.LaserModule(
+            er.LaserAssembly(
                 lasers=[
                     er.Laser(
                         manufacturer="Hamamatsu",
@@ -61,13 +60,11 @@ class ExampleTest(unittest.TestCase):
                         wavelength=488,
                     ),
                 ],
-                arc_angle=1,
-                rotation_angle=1,
-                module_angle=1,
                 manipulator=er.Manipulator(
                     manufacturer="New Scale Technologies",
                     serial_number="1234",
                 ),
+                laser_assembly_name="Laser_assembly",
             )
         ]
 
@@ -93,7 +90,7 @@ class ExampleTest(unittest.TestCase):
                     ),
                 ],
                 rig_id="1234",
-                ephys_modules=ems,
+                ephys_assemblies=ems,
             )
 
         rig = er.EphysRig(
@@ -116,15 +113,15 @@ class ExampleTest(unittest.TestCase):
                     ),
                 )
             ],
-            laser_modules=lms,
-            ephys_modules=ems,
+            laser_assemblies=lms,
+            ephys_assemblies=ems,
             mouse_platform=er.Disc(name="Disc A", radius=1),
         )
 
         assert rig is not None
 
         sess = es.EphysSession(
-            experimenter_full_name="alice",
+            experimenter_full_name=["alice"],
             session_start_time=datetime.datetime.now(),
             session_end_time=datetime.datetime.now(),
             subject_id="1234",
@@ -134,18 +131,28 @@ class ExampleTest(unittest.TestCase):
                 es.Stream(
                     stream_start_time=datetime.datetime.now(),
                     stream_end_time=datetime.datetime.now(),
-                    probes=[
-                        es.EphysProbe(
-                            name="Probe A",
-                            primary_targeted_structure="VISl4",
+                    ephys_modules=[
+                        es.EphysModule(
+                            ephys_probes=[es.EphysProbe(name="Probe A")],
+                            assembly_name="Ephys_assemblyA",
+                            arc_angle=0,
+                            module_angle=10,
+                            primary_targeted_structure="VISlm",
                             targeted_ccf_coordinates=[es.CcfCoords(ml="1", ap="1", dv="1")],
-                            manipulator_coordinates=er.Coordinates3d(x="1", y="1", z="1"),
-                        )
+                            manipulator_coordinates=es.Coordinates3d(x="1", y="1", z="1"),
+                        ),
                     ],
                     laser_modules=[],
                     daqs=[],
                     cameras=[],
                 )
+            ],
+            stick_microscopes=[
+                es.DomeModule(
+                    assembly_name="Stick_assembly",
+                    arc_angle=24,
+                    module_angle=10,
+                ),
             ],
         )
 

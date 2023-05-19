@@ -1,7 +1,9 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/ephys/ephys_session.py",
-   "schema_version": "0.3.2",
-   "experimenter_full_name": "Josh Siegle",
+   "schema_version": "0.4.5",
+   "experimenter_full_name": [
+      "Josh Siegle"
+   ],
    "session_start_time": "2023-01-10T08:40:00",
    "session_end_time": "2023-01-10T09:46:00",
    "subject_id": "100001",
@@ -9,12 +11,32 @@
    "session_description": null,
    "iacuc_protocol": null,
    "rig_id": "323_EPHYS1",
+   "stick_microscopes": [
+      {
+         "assembly_name": "Stick_assembly",
+         "arc_angle": 24.0,
+         "module_angle": 10.0,
+         "angle_unit": "degree",
+         "rotation_angle": 0.0,
+         "coordinate_transform": null,
+         "calibration_date": null,
+         "notes": null
+      }
+   ],
    "data_streams": [
       {
          "stream_start_time": "2023-01-10T08:43:00",
          "stream_end_time": "2023-01-10T09:43:00",
-         "probes": [
+         "ephys_modules": [
             {
+               "assembly_name": "Ephys_assemblyA",
+               "arc_angle": 14.0,
+               "module_angle": 20.0,
+               "angle_unit": "degree",
+               "rotation_angle": 0.0,
+               "coordinate_transform": null,
+               "calibration_date": null,
+               "notes": null,
                "primary_targeted_structure": "VISp",
                "targeted_ccf_coordinates": null,
                "manipulator_coordinates": {
@@ -23,24 +45,28 @@
                   "z": 1000.0,
                   "unit": "micrometer"
                },
-               "name": "Probe A",
-               "other_targeted_structures": null
-            },
-            {
-               "primary_targeted_structure": "STR",
-               "targeted_ccf_coordinates": null,
-               "manipulator_coordinates": {
-                  "x": 1000.0,
-                  "y": 1000.0,
-                  "z": 1000.0,
-                  "unit": "micrometer"
-               },
-               "name": "Probe B",
-               "other_targeted_structures": null
+               "ephys_probes": [
+                  {
+                     "name": "Probe A",
+                     "other_targeted_structures": null
+                  },
+                  {
+                     "name": "Probe B",
+                     "other_targeted_structures": null
+                  }
+               ]
             }
          ],
          "laser_modules": [
             {
+               "assembly_name": "Laser_assemblyA",
+               "arc_angle": 10.0,
+               "module_angle": 15.0,
+               "angle_unit": "degree",
+               "rotation_angle": 0.0,
+               "coordinate_transform": null,
+               "calibration_date": null,
+               "notes": null,
                "primary_targeted_structure": "VISp",
                "targeted_ccf_coordinates": null,
                "manipulator_coordinates": {
@@ -79,7 +105,8 @@
                "name": "Body Camera"
             }
          ],
-         "stimulus_presentations": null
+         "stimulus_presentations": null,
+         "notes": null
       }
    ],
    "ccf_coordinate_transform": null,

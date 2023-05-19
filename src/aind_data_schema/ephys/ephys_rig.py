@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-from datetime import datetime
 from enum import Enum
 from typing import List, Optional, Union
 
@@ -15,7 +14,6 @@ from pydantic import Field, root_validator
 
 from ..base import AindCoreModel, AindModel
 from ..device import (
-    AngleUnit,
     Camera,
     CameraAssembly,
     DAQDevice,
@@ -24,61 +22,18 @@ from ..device import (
     Disc,
     HarpDevice,
     Laser,
+    Lens,
     Manufacturer,
     Monitor,
-    SizeUnit,
     Treadmill,
     Tube,
 )
 
 
-class Size2d(AindModel):
-    """2D size of an object"""
-
-    width: int = Field(..., title="Width")
-    height: int = Field(..., title="Height")
-    unit: SizeUnit = Field(SizeUnit.PX, title="Size unit")
-
-
-class Orientation3d(AindModel):
-    """3D orientation of an object"""
-
-    pitch: float = Field(..., title="Angle pitch", ge=0, le=360)
-    yaw: float = Field(..., title="Angle yaw", ge=0, le=360)
-    roll: float = Field(..., title="Angle roll", ge=0, le=360)
-    unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
-
-
-class ModuleOrientation2d(AindModel):
-    """2D module orientation of an object"""
-
-    arc_angle: float = Field(..., title="Arc angle")
-    module_angle: float = Field(..., title="Module angle")
-    unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
-
-
-class ModuleOrientation3d(AindModel):
-    """3D module orientation of an object"""
-
-    arc_angle: float = Field(..., title="Arc angle")
-    module_angle: float = Field(..., title="Module angle")
-    rotation_angle: float = Field(..., title="Rotation angle")
-    unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
-
-
-class Coordinates3d(AindModel):
-    """Coordinates in a 3D grid"""
-
-    x: float = Field(..., title="Position X")
-    y: float = Field(..., title="Position Y")
-    z: float = Field(..., title="Position Z")
-    unit: SizeUnit = Field(SizeUnit.UM, title="Position unit")
-
-
 class ProbePort(AindModel):
     """Port for a probe connection"""
 
-    index: int = Field(..., title="Zero-based port index")
+    index: int = Field(..., title="One-based port index")
     probes: List[str] = Field(..., title="Names of probes connected to this port")
 
 
@@ -107,37 +62,24 @@ class OpenEphysAcquisitionBoard(DAQDevice):
     manufacturer: Manufacturer = Manufacturer.OEPS
 
 
-class DomeModule(AindModel):
-    """Movable module that is mounted on the ephys dome insertion system"""
-
-    # required fields
-    arc_angle: float = Field(..., title="Arc Angle", units="degrees")
-    module_angle: float = Field(..., title="Module Angle", units="degrees")
-    angle_unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
-
-    # optional fields
-    rotation_angle: Optional[float] = Field(0.0, title="Rotation Angle", units="degrees")
-    coordinate_transform: Optional[str] = Field(
-        None, title="Transform from local manipulator axes to rig", description="Path to coordinate transform"
-    )
-    calibration_date: Optional[datetime] = Field(None, title="Data on which coordinate transform was last calibrated")
-
-
 class Manipulator(Device):
     """Manipulator used on a dome module"""
 
     manufacturer: Literal[Manufacturer.NEW_SCALE_TECHNOLOGIES.value]
 
 
-class StickMicroscope(DomeModule):
+class StickMicroscopeAssembly(AindModel):
     """Stick microscope used to monitor probes during insertion"""
 
+    scope_assembly_name: str = Field(..., title="Scope assembly name")
     camera: Camera = Field(..., title="Camera for this module")
+    lens: Lens = Field(..., title="Lens for this module")
 
 
-class LaserModule(DomeModule):
-    """Module for optogenetic stimulation"""
+class LaserAssembly(AindModel):
+    """Assembly for optogenetic stimulation"""
 
+    laser_assembly_name: str = Field(..., title="Laser assembly name")
     manipulator: Manipulator = Field(..., title="Manipulator")
     lasers: List[Laser] = Field(..., title="Lasers connected to this module")
 
@@ -164,6 +106,12 @@ class HeadstageModel(Enum):
     RHD_64_CH = "Intan RHD 64-channel"
 
 
+class Headstage(Device):
+    """Headstage used with an ephys probe"""
+
+    headstage_model: Optional[HeadstageModel] = Field(None, title="Headstage model")
+
+
 class EphysProbe(Device):
     """Named probe used in an ephys experiment"""
 
@@ -172,12 +120,13 @@ class EphysProbe(Device):
 
     # optional fields
     lasers: Optional[List[Laser]] = Field(None, title="Lasers connected to this probe")
-    headstage: Optional[HeadstageModel] = Field(None, title="Headstage for this probe")
+    headstage: Optional[Headstage] = Field(None, title="Headstage for this probe")
 
 
-class EphysModule(DomeModule):
+class EphysAssembly(AindModel):
     """Module for electrophysiological recording"""
 
+    ephys_assembly_name: str = Field(..., title="Ephys assembly name")
     manipulator: Manipulator = Field(..., title="Manipulator")
     probes: List[EphysProbe] = Field(..., title="Probes that are held by this module")
 
@@ -185,23 +134,19 @@ class EphysModule(DomeModule):
 class EphysRig(AindCoreModel):
     """Description of an ephys rig"""
 
-    describedBy: str = Field(
-        "https://github.com/AllenNeuralDynamics/data_schema/blob/main/schemas/ephys/ephys_rig.py",
-        description="The URL reference to the schema.",
-        title="Described by",
-        const=True,
-    )
-    schema_version: str = Field("0.5.6", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.6.2", description="schema version", title="Version", const=True)
     rig_id: str = Field(..., description="room_stim apparatus_version", title="Rig ID")
-    ephys_modules: Optional[List[EphysModule]] = Field(None, title="Ephys probes", unique_items=True)
-    stick_microscopes: Optional[List[StickMicroscope]] = Field(None, title="Stick microscopes")
-    laser_modules: Optional[List[LaserModule]] = Field(None, title="Laser modules", unique_items=True)
+    ephys_assemblies: Optional[List[EphysAssembly]] = Field(None, title="Ephys probes", unique_items=True)
+    stick_microscopes: Optional[List[StickMicroscopeAssembly]] = Field(None, title="Stick microscopes")
+    laser_assemblies: Optional[List[LaserAssembly]] = Field(None, title="Laser modules", unique_items=True)
     cameras: Optional[List[CameraAssembly]] = Field(None, title="Camera assemblies", unique_items=True)
     visual_monitors: Optional[List[Monitor]] = Field(None, title="Visual monitors", unique_items=True)
     mouse_platform: Optional[Union[Tube, Treadmill, Disc]] = Field(None, title="Mouse platform")
     daqs: Optional[List[Union[HarpDevice, NeuropixelsBasestation, OpenEphysAcquisitionBoard, DAQDevice]]] = Field(
         None, title="Data acquisition devices"
     )
+    additional_devices: Optional[List[Device]] = Field(None, title="Additional devices", unique_items=True)
+    notes: Optional[str] = Field(None, title="Notes")
 
     @root_validator
     def validate_device_names(cls, values):
@@ -210,8 +155,8 @@ class EphysRig(AindCoreModel):
         """
 
         cameras = values.get("cameras")
-        ephys_modules = values.get("ephys_modules")
-        laser_modules = values.get("laser_modules")
+        ephys_assemblies = values.get("ephys_assemblies")
+        laser_assemblies = values.get("laser_assemblies")
         mouse_platform = values.get("mouse_platform")
         daqs = values.get("daqs")
 
@@ -223,11 +168,11 @@ class EphysRig(AindCoreModel):
         if cameras is not None:
             device_names += [c.camera.name for c in cameras]
 
-        if ephys_modules is not None:
-            device_names += [probe.name for ephys_module in ephys_modules for probe in ephys_module.probes]
+        if ephys_assemblies is not None:
+            device_names += [probe.name for ephys_assembly in ephys_assemblies for probe in ephys_assembly.probes]
 
-        if laser_modules is not None:
-            device_names += [laser.name for laser_module in laser_modules for laser in laser_module.lasers]
+        if laser_assemblies is not None:
+            device_names += [laser.name for laser_assembly in laser_assemblies for laser in laser_assembly.lasers]
 
         if mouse_platform is not None:
             device_names += [mouse_platform.name]
@@ -250,13 +195,13 @@ class EphysRig(AindCoreModel):
         actually exist
         """
 
-        ephys_modules = values.get("ephys_modules")
+        ephys_assemblies = values.get("ephys_assemblies")
         daqs = values.get("daqs")
 
-        if daqs is None or ephys_modules is None:
+        if daqs is None or ephys_assemblies is None:
             return values
 
-        probe_names = [probe.name for ephys_module in ephys_modules for probe in ephys_module.probes]
+        probe_names = [probe.name for ephys_assembly in ephys_assemblies for probe in ephys_assembly.probes]
 
         for daq in daqs:
             try:

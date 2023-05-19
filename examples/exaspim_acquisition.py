@@ -7,7 +7,7 @@ from aind_data_schema.imaging import acquisition, tile
 t = datetime.datetime(2022, 11, 22, 8, 43, 00)
 
 acq = acquisition.Acquisition(
-    experimenter_full_name="###",
+    experimenter_full_name=["###"],
     specimen_id="###",
     subject_id="###",
     instrument_id="###",

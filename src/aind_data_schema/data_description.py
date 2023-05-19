@@ -9,7 +9,7 @@ from typing import List, Optional
 
 from pydantic import Field
 
-from .base import AindCoreModel, AindModel, BaseName, BaseNameEnumMeta
+from .base import AindCoreModel, AindModel, BaseName, BaseNameEnumMeta, PIDName
 
 
 class RegexParts(Enum):
@@ -44,11 +44,31 @@ class DataLevel(Enum):
 class Institution(Enum, metaclass=BaseNameEnumMeta):
     """Institution name"""
 
-    AIBS = BaseName(name="Allen Institute for Brain Science", abbreviation="AIBS")
-    AIND = BaseName(name="Allen Institute for Neural Dynamics", abbreviation="AIND")
-    COLUMBIA = BaseName(name="Columbia University", abbreviation="Columbia")
-    HUST = BaseName(name="Huazhong University of Science and Technology", abbreviation="HUST")
-    NYU = BaseName(name="New York University", abbreviation="NYU")
+    AIBS = PIDName(
+        name=BaseName(name="Allen Institute for Brain Science", abbreviation="AIBS"),
+        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry_identifier="00dcv1019",
+    )
+    AIND = PIDName(
+        name=BaseName(name="Allen Institute for Neural Dynamics", abbreviation="AIND"),
+        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry_identifier="04szwah67",
+    )
+    COLUMBIA = PIDName(
+        name=BaseName(name="Columbia University", abbreviation="Columbia"),
+        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry_identifier="00hj8s172",
+    )
+    HUST = PIDName(
+        name=BaseName(name="Huazhong University of Science and Technology", abbreviation="HUST"),
+        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry_identifier="00p991c53",
+    )
+    NYU = PIDName(
+        name=BaseName(name="New York University", abbreviation="NYU"),
+        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry_identifier="0190ak572",
+    )
 
     @classmethod
     def __modify_schema__(cls, field_schema):
@@ -70,13 +90,25 @@ class Group(Enum):
 class Modality(Enum, metaclass=BaseNameEnumMeta):
     """Data collection modality name"""
 
+    CONFOCAL = BaseName(name="Confocal microscopy", abbreviation="confocal")
+    DISPIM = BaseName(name="Dual inverted selective plane illumination microscopy", abbreviation="diSPIM")
     ECEPHYS = BaseName(name="Extracellular electrophysiology", abbreviation="ecephys")
-    SPIM = BaseName(name="Selective plane illumination microscopy", abbreviation="SPIM")
+    EPHYS = BaseName(name="Electrophysiology", abbreviation="ephys")
+    EXASPIM = BaseName(name="Expansion-assisted selective plane illumination microscopy", abbreviation="exaSPIM")
     FIP = BaseName(name="Frame-projected independent-fiber photometry", abbreviation="FIP")
     FMOST = BaseName(name="Fluorescence micro-optical sectioning tomography", abbreviation="fMOST")
     HSFP = BaseName(name="Hyperspectral fiber photometry", abbreviation="HSFP")
+    ICEPHYS = BaseName(name="Intracellular electrophysiology", abbreviation="icephys")
+    FIB = BaseName(name="Fiber photometry", abbreviation="fib")
+    FISH = BaseName(name="Fluorescence in situ hybridization", abbreviation="fish")
+    MESOSPIM = BaseName(name="Mesoscale selective plane illumination microscopy", abbreviation="mesoSPIM")
+    MERFISH = BaseName(name="Multiplexed error-robust fluorescence in situ hybridization", abbreviation="merfish")
     MRI = BaseName(name="Magnetic resonance imaging", abbreviation="MRI")
     OPHYS = BaseName(name="Optical physiology", abbreviation="ophys")
+    POPHYS = BaseName(name="Planar optical physiology", abbreviation="pophys")
+    SLAP = BaseName(name="Scanned line projection", abbreviation="slap")
+    SMARTSPIM = BaseName(name="Smart selective plane illumination microscopy", abbreviation="SmartSPIM")
+    SPIM = BaseName(name="Selective plane illumination microscopy", abbreviation="SPIM")
 
     @classmethod
     def __modify_schema__(cls, field_schema):
@@ -87,17 +119,22 @@ class Modality(Enum, metaclass=BaseNameEnumMeta):
 
 
 class ExperimentType(Enum):
-    """Experiment type name"""
+    """Abbreviated name for data collection technique"""
 
-    CONFOCAL = "confocal"
-    DISPIM = "diSPIM"
-    EXASPIM = "exaSPIM"
-    ECEPHYS = "ecephys"
-    MESOSCOPE = "mesoscope"
-    MESOSPIM = "mesoSPIM"
-    OPHYS = "ophys"
+    ECEPHYS = Modality.ECEPHYS.value.abbreviation
+    EXASPIM = Modality.EXASPIM.value.abbreviation
+    CONFOCAL = Modality.CONFOCAL.value.abbreviation
+    DISPIM = Modality.DISPIM.value.abbreviation
+    FIP = Modality.FIP.value.abbreviation
+    FMOST = Modality.FMOST.value.abbreviation
+    HSFP = Modality.HSFP.value.abbreviation
+    MESOSPIM = Modality.MESOSPIM.value.abbreviation
+    MERFISH = Modality.MERFISH.value.abbreviation
+    MRI = Modality.MRI.value.abbreviation
+    POPHYS = Modality.POPHYS.value.abbreviation
+    SLAP = Modality.SLAP.value.abbreviation
+    SMARTSPIM = Modality.SMARTSPIM.value.abbreviation
     OTHER = "Other"
-    SMARTSPIM = "SmartSPIM"
 
 
 def datetime_to_name_string(d, t):
@@ -139,7 +176,7 @@ class RelatedData(AindModel):
 class DataDescription(AindCoreModel):
     """Description of a logical collection of data files"""
 
-    schema_version: str = Field("0.5.0", title="Schema Version", const=True)
+    schema_version: str = Field("0.6.3", title="Schema Version", const=True)
     license: str = Field("CC-BY-4.0", title="License", const=True)
 
     creation_time: time = Field(
@@ -161,11 +198,6 @@ class DataDescription(AindCoreModel):
         ...,
         description="An established society, corporation, foundation or other organization that collected this data",
         title="Institution",
-    )
-    ror_id: Optional[str] = Field(
-        None,
-        title="ROR ID",
-        description="Institution ID from the Research Organization Registry",
     )
 
     funding_source: List[Funding] = Field(
@@ -211,7 +243,7 @@ class DataDescription(AindCoreModel):
     )
     experiment_type: ExperimentType = Field(
         ...,
-        description="A short name for the experimental technique used to collect this data",
+        description="An abbreviated name for the experimental technique used to collect this data",
         title="Experiment Type",
     )
     subject_id: str = Field(

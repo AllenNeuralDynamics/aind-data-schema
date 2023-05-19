@@ -45,7 +45,7 @@ class Scanner(Device):
 class MriSession(AindCoreModel):
     """Description of an MRI scan"""
 
-    schema_version: str = Field("0.0.1", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.0.2", description="schema version", title="Version", const=True)
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
@@ -53,10 +53,10 @@ class MriSession(AindCoreModel):
     )
     session_start_time: datetime = Field(..., title="Session start time")
     session_end_time: Optional[datetime] = Field(None, title="Session end time")
-    experimenter_full_name: str = Field(
+    experimenter_full_name: List[str] = Field(
         ...,
-        description="First and last name of the experimenter.",
-        title="Experimenter full name",
+        description="First and last name of the experimenter(s).",
+        title="Experimenter(s) full name",
     )
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     iacuc_protocol: Optional[str] = Field(None, title="IACUC protocol")

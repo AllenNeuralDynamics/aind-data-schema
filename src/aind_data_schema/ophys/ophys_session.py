@@ -4,14 +4,14 @@ from __future__ import annotations
 
 from datetime import datetime
 from enum import Enum
-from typing import List, Optional
+from typing import List, Optional, Union
 
 from pydantic import Field
 
 from ..base import AindCoreModel, AindModel
 from ..device import FrequencyUnit, PowerUnit, SizeUnit
-from ..stimulus import StimulusPresentation
 from ..procedures import TimeUnit
+from ..stimulus import StimulusPresentation
 
 
 class FiberName(Enum):
@@ -76,6 +76,14 @@ class Laser(AindModel):
     excitation_power_unit: PowerUnit = Field(PowerUnit.MW, title="Excitation power unit")
 
 
+class LightEmittingDiode(AindModel):
+    """Description of a LED"""
+
+    name: str = Field(..., title="Name")
+    excitation_power: Optional[float] = Field(None, title="Excitation power (mW)")
+    excitation_power_unit: PowerUnit = Field(PowerUnit.MW, title="Excitation power unit")
+
+
 class Patch(AindModel):
     """Description of a patch"""
 
@@ -94,15 +102,15 @@ class OphysSession(AindCoreModel):
     """Description of an ophys session"""
 
     schema_version: str = Field(
-        "0.1.4",
+        "0.2.3",
         description="schema version",
         title="Schema Version",
         const=True,
     )
-    experimenter_full_name: str = Field(
+    experimenter_full_name: List[str] = Field(
         ...,
-        description="First and last name of the experimenter.",
-        title="Experimenter full name",
+        description="First and last name of the experimenter(s).",
+        title="Experimenter(s) full name",
     )
     session_start_time: datetime = Field(..., title="Session start time")
     session_end_time: Optional[datetime] = Field(None, title="Session end time")
@@ -110,7 +118,7 @@ class OphysSession(AindCoreModel):
     session_type: str = Field(..., title="Session type")
     iacuc_protocol: Optional[str] = Field(None, title="IACUC protocol")
     rig_id: str = Field(..., title="Rig ID")
-    lasers: List[Laser] = Field(..., title="Lasers", unique_items=True)
+    light_sources: List[Union[Laser, LightEmittingDiode]] = Field(..., title="Light source", unique_items=True)
     detectors: Optional[List[Detector]] = Field(None, title="Detectors", unique_items=True)
     cameras: Optional[List[Camera]] = Field(None, title="Cameras", unique_items=True)
     stimulus_presentations: Optional[List[StimulusPresentation]] = Field(None, title="Stimulus")

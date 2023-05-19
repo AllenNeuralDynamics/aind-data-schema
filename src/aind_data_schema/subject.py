@@ -8,16 +8,32 @@ from typing import List, Optional
 
 from pydantic import Field
 
-from .base import AindCoreModel, AindModel
+from .base import AindCoreModel, AindModel, BaseName, PIDName
 
 
 class Species(Enum):
     """Species latin name"""
 
-    CALLITHRIX_JACCHUS = "Callithrix jacchus"
-    HOMO_SAPIENS = "Homo sapiens"
-    MACACA_MULATTA = "Macaca mulatta"
-    MUS_MUSCULUS = "Mus musculus"
+    CALLITHRIX_JACCHUS = PIDName(
+        name=BaseName(name="Callithrix jacchus"),
+        registry=BaseName(name="National Center for Biotechnology Information", abbreviation="NCBI"),
+        registry_identifier="9483",
+    )
+    HOMO_SAPIENS = PIDName(
+        name=BaseName(name="Homo sapiens"),
+        registry=BaseName(name="National Center for Biotechnology Information", abbreviation="NCBI"),
+        registry_identifier="9606",
+    )
+    MACACA_MULATTA = PIDName(
+        name=BaseName(name="Macaca mulatta"),
+        registry=BaseName(name="National Center for Biotechnology Information", abbreviation="NCBI"),
+        registry_identifier="9544",
+    )
+    MUS_MUSCULUS = PIDName(
+        name=BaseName(name="Mus musculus"),
+        registry=BaseName(name="National Center for Biotechnology Information", abbreviation="NCBI"),
+        registry_identifier="10090",
+    )
 
 
 class Sex(Enum):
@@ -90,7 +106,7 @@ class Housing(AindModel):
 class Subject(AindCoreModel):
     """Description of a subject of data collection"""
 
-    schema_version: str = Field("0.3.0", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.3.2", description="schema version", title="Version", const=True)
     species: Species = Field(..., title="Species")
     subject_id: str = Field(
         ...,
