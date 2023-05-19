@@ -217,6 +217,13 @@ class Device(AindModel):
     notes: Optional[str] = Field(None, title="Notes")
 
 
+class MotorizedStage(Device):
+    """Description of motorized stage"""
+
+    travel: float = Field(..., title="Travel of device (mm)", units="mm")
+    travel_unit: SizeUnit = Field(SizeUnit.MM, title="Travel unit")
+
+
 class Camera(Device):
     """Device that acquires images and streams them to a computer"""
 
