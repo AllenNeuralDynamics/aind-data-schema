@@ -154,9 +154,15 @@ class DaqChannelType(Enum):
     DI = "Digital Input"
     DO = "Digital Output"
 
-
 class Software(AindModel):
     """ Generic rig software"""
+    name: str = Field(..., title="Software on computer")
+    version: str = Field(..., title="Software version")
+    parameters: Optional[dict] = Field(..., title="Software configuration")
+
+    
+class RelativePosition(AindModel):
+    """ Set of 6 values describing relative position on a rig"""
 
     pitch: Optional[float] = Field(None, title="Angle pitch (deg)", units="deg", ge=0, le=360)
     yaw: Optional[float] = Field(None, title="Angle yaw (deg)", units="deg", ge=0, le=360)
