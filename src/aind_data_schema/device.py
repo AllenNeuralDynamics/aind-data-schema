@@ -155,13 +155,6 @@ class DaqChannelType(Enum):
     DO = "Digital Output"
 
 
-class Software(AindModel):
-    """ Generic rig software"""
-    name: str = Field(..., title="Software on computer")
-    version: str = Field(..., title="Software version")
-    parameters: Optional[dict] = Field(..., title="Software configuration")
-
-
 class RelativePosition(AindModel):
     """ Set of 6 values describing relative position on a rig"""
 
@@ -231,6 +224,14 @@ class Device(AindModel):
     notes: Optional[str] = Field(None, title="Notes")
 
 
+class Software(AindModel):
+    """ Description of generic software"""
+
+    name: str = Field(..., title="Software name")
+    version: str = Field(..., title="Software version")
+    parameters: Optional[dict] = Field(..., title="Software parameters")
+
+
 class MotorizedStage(Device):
     """Description of motorized stage"""
 
@@ -238,7 +239,7 @@ class MotorizedStage(Device):
     travel_unit: SizeUnit = Field(SizeUnit.MM, title="Travel unit")
     
     # optional fields
-    firmware: Optional[str] = Field(None, title="firmware for motorized stage")
+    firmware: Optional[str] = Field(None, title="Firmware")
 
 
 class Camera(Device):
@@ -261,8 +262,9 @@ class Camera(Device):
     pixel_height: int = Field(..., title="Height of the sensor in pixels", units="Pixels")
     size_unit: SizeUnit = Field(SizeUnit.PX, title="Size unit")
     chroma: CameraChroma = Field(..., title="Color or Monochrome")
-    driver: DeviceDriver = Field(..., title="Camera driver type")
-    driver_version: str = Field(..., title="Camera driver version")
+    driver: DeviceDriver = Field(..., title="Driver")
+    driver_version: str = Field(..., title="Driver version")
+
     # optional fields
     sensor_format: Optional[str] = Field(None, title="Size of the sensor")
     format_unit: Optional[str] = Field(None, title="Format unit")
@@ -453,11 +455,11 @@ class Disc(MousePlatform):
     platform_type: str = Field("Disc", title="Platform type", const=True)
     radius: float = Field(..., title="Radius (cm)", units="cm", ge=0)
     radius_unit: SizeUnit = Field(SizeUnit.CM, title="radius unit")
-    output: Optional[DaqChannelType] = Field(None,description="analog or digital electronics")
-    encoder: Optional[str] = Field(None, description="Encoder hardware type")
-    decoder: Optional[str] = Field(None, description="Decoder chip type")
-    encoder_firmware: Optional[str] = Field(None,description="Firmware to read from decoder chip counts")
-    encoder_firmware_version: Optional[str] = Field(None, description="Encoder firmware version")
+    output: Optional[DaqChannelType] = Field(None, description="analog or digital electronics")
+    encoder: Optional[str] = Field(None, title ="Encoder", description="Encoder hardware type")
+    decoder: Optional[str] = Field(None, title="Decoder", description="Decoder chip type")
+    encoder_firmware: Optional[str] = Field(None, title="Encoder firmware", description="Firmware to read from decoder chip counts")
+    encoder_firmware_version: Optional[str] = Field(None, title="Encoder firmware version", description="Encoder firmware version")
 
 
 class Tube(MousePlatform):
@@ -474,7 +476,6 @@ class Treadmill(MousePlatform):
     platform_type: str = Field("Treadmill", title="Platform type", const=True)
     treadmill_width: float = Field(..., title="Width of treadmill (mm)", units="mm")
     width_unit: SizeUnit = Field(SizeUnit.CM, title="Width unit")
-
 
 
 class Monitor(Device):
@@ -517,29 +518,12 @@ class CameraTarget(Enum):
     OTHER = "Other"
 
 
-class RelativePosition(AindModel):
-    """Set of 6 values describing relative position on a rig"""
-    # required fields
-    pitch: Optional[float] = Field(None, title="Angle pitch (deg)", units="deg", ge=0, le=360)
-    yaw: Optional[float] = Field(None, title="Angle yaw (deg)", units="deg", ge=0, le=360)
-    roll: Optional[float] = Field(None, title="Angle roll (deg)", units="deg", ge=0, le=360)
-    angle_unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
-
-    x: Optional[float] = Field(None, title="Position X (mm)", units="mm")
-    y: Optional[float] = Field(None, title="Position Y (mm)", units="mm")
-    z: Optional[float] = Field(None, title="Position Z (mm)", units="mm")
-    position_unit: SizeUnit = Field(SizeUnit.MM, title="Position unit")
-
-    # optional fields
-    coordinate_system: Optional[str] = Field(None, title="Description of the coordinate system used")
-
-
 class WaterDelivery(AindModel):
     """Description of water delivery system"""
 
     # required fields
-    spout_diameter: str = Field(..., title="Spout diameter")
-    spout_diameter_units_mm: SizeUnit = Field(..., title="Spout diameter unit in mm")
+    spout_diameter: str = Field(..., title="Spout diameter (mm)")
+    spout_diameter_unit: SizeUnit = Field(SizeUnit.MM, title="Spout diameter unit")
     spout_position: RelativePosition = Field(..., title="Spout stage position")
     water_calibration_values: Dict[str, Any] = Field(..., title="Water calibration values")
     
@@ -555,8 +539,6 @@ class MousePlatform(AindModel):
     # optional fields
     stage_software: Optional[Software] = Field(None, title="Stage software")
     water_delivery: Optional[WaterDelivery] = Field(None, title="Water delivery")
-
-
 
 
 class VisualStimulusDisplayAssembly(AindModel):
