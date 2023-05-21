@@ -4,7 +4,7 @@ import datetime
 
 from aind_data_schema import procedures
 
-experimenter = "Erica Peterson"
+experimenter = "John Smith"
 # subject and specimen id can be the same?
 specimen_id = "651286"
 
