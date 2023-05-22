@@ -15,7 +15,6 @@ class Units:
         MM = "millimetre"
         CM = "centimetre"
         M = "metre"
-        KM = "kilometre"
 
     class Mass(Enum):
         """Enumeration of Mass Measurements"""
@@ -30,15 +29,14 @@ class Units:
         mHZ = "millihertz"
         HZ = "hertz"
         KHZ = "kilohertz"
-        MHZ = "megahertz"
-        GHZ = "gigahertz"
-        THZ = "terahertz"
 
     class Volume(Enum):
         """Enumeration of Volume Measurements"""
 
         L = "litre"
         ML = "millilitre"
+        UL = "microlitre"
+        NL = "nanolitre"
 
     class Angle(Enum):
         """Enumeration of Angle Measurements"""
@@ -71,7 +69,7 @@ class GenericValues:
         """Generic for Size Measurements"""
 
         value: ScalarType
-        unit: Units.SizeType = Units.Size.M
+        unit: Units.SizeType = Units.Size.MM
 
     class MassValue(GenericModel, Generic[ScalarType, Units.MassType]):
         """Generic for Mass Measurements"""
@@ -83,7 +81,7 @@ class GenericValues:
         """Generic for Volume Measurements"""
 
         value: ScalarType
-        unit: Units.VolumeType = Units.Volume.L
+        unit: Units.VolumeType = Units.Volume.NL
 
     class FrequencyValue(GenericModel, Generic[ScalarType, Units.FrequencyType]):
         """Generic for Frequency Measurements"""
@@ -95,7 +93,7 @@ class GenericValues:
         """Generic for Angle Measurements"""
 
         value: ScalarType
-        unit: Units.AngleType = Units.Angle.RAD
+        unit: Units.AngleType = Units.Angle.DEG
 
     class TimeValue(GenericModel, Generic[ScalarType, Units.TimeType]):
         """Generic for Time Measurements"""
