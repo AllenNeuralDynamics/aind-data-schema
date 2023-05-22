@@ -18,7 +18,7 @@ class UnitsTests(unittest.TestCase):
 
         default = SizeVal(value=10.1)
         testType = GenericValues.SizeValue[ScalarType, Units.SizeType]
-        testVal = testType(value=10.1, unit=Units.Size.M)
+        testVal = testType(value=10.1, unit=Units.Size.MM)
 
         self.assertEqual(default, SizeVal(value=10.1, unit=Units.Size.M))
         self.assertEqual(default, testVal)
