@@ -7,8 +7,8 @@ from typing import Any, Dict, Optional
 
 from pydantic import Field
 
-from ..base import AindCoreModel
-from ..procedures import VolumeUnit, WeightUnit
+from aind_data_schema.base import AindCoreModel
+from aind_data_schema.procedures import VolumeUnit, WeightUnit
 
 
 class BehaviorSession(AindCoreModel):

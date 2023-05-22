@@ -8,8 +8,18 @@ from typing import List, Optional
 
 from pydantic import Field
 
-from ..base import AindCoreModel, AindModel
-from ..device import Coupling, DAQDevice, DataInterface, Device, Filter, Manufacturer, MotorizedStage, PowerUnit, SizeUnit
+from aind_data_schema.base import AindCoreModel, AindModel
+from aind_data_schema.device import (
+    Coupling,
+    DAQDevice,
+    DataInterface,
+    Device,
+    Filter,
+    Manufacturer,
+    MotorizedStage,
+    PowerUnit,
+    SizeUnit,
+)
 
 
 class Com(AindModel):

@@ -6,12 +6,11 @@ from typing import List, Optional
 
 from pydantic import Field
 
+from aind_data_schema.base import AindCoreModel
+from aind_data_schema.device import Device
 from aind_data_schema.imaging.acquisition import Axis
 from aind_data_schema.imaging.tile import Scale3dTransform
-
-from ..base import AindCoreModel
-from ..device import Device
-from ..procedures import Anaesthetic, WeightUnit
+from aind_data_schema.procedures import Anaesthetic, WeightUnit
 
 
 class MriScanSequence(Enum):
