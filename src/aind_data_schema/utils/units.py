@@ -110,9 +110,3 @@ VolumeVal = GenericValues.VolumeValue[ScalarType, Units.VolumeType]
 FrequencyVal = GenericValues.FrequencyValue[ScalarType, Units.FrequencyType]
 AngleVal = GenericValues.AngleValue[ScalarType, Units.AngleType]
 TimeVal = GenericValues.AngleValue[ScalarType, Units.TimeType]
-
-
-# GenericType = TypeVar("GenericType", bound=)
-# generictype = GenericValues.SizeValue[ScalarType, GenericType]
-
-# val = generictype(value=,unit='potato')

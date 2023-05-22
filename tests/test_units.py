@@ -12,6 +12,8 @@ class UnitsTests(unittest.TestCase):
     """Class for testing Utils.Units"""
 
     def test_units(self):
+        """Tests creation of a SizeVal object"""
+        
         self.assertIsNotNone(Units.Size.MM)
 
         default = SizeVal(value=10.1)
