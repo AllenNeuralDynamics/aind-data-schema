@@ -1,10 +1,9 @@
 """Test utils.units"""
 
 import unittest
-
-from aind_data_schema.utils.units import Units, GenericValues
-from aind_data_schema.utils.units import SizeVal
 from typing import TypeVar
+
+from aind_data_schema.utils.units import GenericValues, SizeVal, Units
 
 ScalarType = TypeVar("ScalarType", float, int)
 

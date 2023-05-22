@@ -1,7 +1,8 @@
 """Script for defining UnitWithValue classes"""
 
-from typing import Generic, TypeVar
 from enum import Enum
+from typing import Generic, TypeVar
+
 from pydantic.generics import GenericModel
 
 
@@ -45,11 +46,19 @@ class Units:
         RAD = "radians"
         DEG = "degrees"
 
+    class TimeMeasure(Enum):
+        """Enumeration of Time Measurements"""
+
+        S = "seconds"
+        M = "minutes"
+        HR = "hours"
+
     SizeType = TypeVar("SizeType", bound=Size)
     MassType = TypeVar("MassType", bound=Mass)
     FrequencyType = TypeVar("FrequencyType", bound=Frequency)
     VolumeType = TypeVar("VolumeType", bound=Volume)
     AngleType = TypeVar("AngleType", bound=Angle)
+    TimeType = TypeVar("TimeType", bound=TimeMeasure)
 
 
 ScalarType = TypeVar("ScalarType", float, int)
@@ -88,9 +97,22 @@ class GenericValues:
         value: ScalarType
         unit: Units.AngleType = Units.Angle.RAD
 
+    class TimeValue(GenericModel, Generic[ScalarType, Units.TimeType]):
+        """Generic for Time Measurements"""
+
+        value: ScalarType
+        unit: Units.AngleType = Units.TimeMeasure.S
+
 
 SizeVal = GenericValues.SizeValue[ScalarType, Units.SizeType]
 MassVal = GenericValues.MassValue[ScalarType, Units.MassType]
 VolumeVal = GenericValues.VolumeValue[ScalarType, Units.VolumeType]
 FrequencyVal = GenericValues.FrequencyValue[ScalarType, Units.FrequencyType]
 AngleVal = GenericValues.AngleValue[ScalarType, Units.AngleType]
+TimeVal = GenericValues.AngleValue[ScalarType, Units.TimeType]
+
+
+# GenericType = TypeVar("GenericType", bound=)
+# generictype = GenericValues.SizeValue[ScalarType, GenericType]
+
+# val = generictype(value=,unit='potato')
