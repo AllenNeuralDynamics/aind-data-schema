@@ -18,7 +18,9 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
-      run: python -m pip install -e .[dev]
+      run: |
+        sudo apt-get install -y graphviz graphviz-dev
+        python -m pip install -e .[dev] --no-cache-dir
     - name: Run linters
       run: black . && flake8 . && interrogate . && isort .
     - name: Run tests and coverage
@@ -41,7 +43,7 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
-      run: python -m pip install -e .[dev]
+      run: python -m pip install -e . --no-cache-dir
     - name: Build schemas from main branch
       run: |
         mkdir /tmp/main_schemas
@@ -49,7 +51,7 @@ jobs:
         echo "Finished building main branch schemas"
     - uses: actions/checkout@v3
     - name: Install dependencies
-      run: python -m pip install -e .[dev]
+      run: python -m pip install -e . --no-cache-dir
     - name: Build current branch schemas
       run: |
         mkdir /tmp/branch_schemas

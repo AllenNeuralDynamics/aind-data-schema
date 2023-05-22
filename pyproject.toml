@@ -21,11 +21,16 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
+    'aind_data_schema[docs]',
     'black',
     'coverage',
     'flake8',
     'interrogate',
-    'isort',
+    'isort'    
+]
+
+docs = [
+    'erdantic',
     'Sphinx',
     'pygit2',
     'furo'

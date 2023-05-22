@@ -13,10 +13,10 @@ except ImportError:  # pragma: no cover
 
 from pydantic import Field
 
-from aind_data_schema.base import AindCoreModel, AindModel
-from aind_data_schema.device import SizeUnit
-from aind_data_schema.imaging.tile import AcquisitionTile
-from aind_data_schema.processing import ProcessName
+from ..base import AindCoreModel, AindModel
+from ..device import SizeUnit
+from ..imaging.tile import AcquisitionTile
+from ..processing import ProcessName
 
 
 class AxisName(Enum):

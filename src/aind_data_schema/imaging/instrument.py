@@ -9,7 +9,7 @@ from typing import List, Optional
 from pydantic import Field
 
 from ..base import AindCoreModel, AindModel
-from ..device import Coupling, DAQDevice, DataInterface, Device, Filter, Manufacturer, PowerUnit, SizeUnit
+from ..device import Coupling, DAQDevice, DataInterface, Device, Filter, Manufacturer, MotorizedStage, PowerUnit, SizeUnit
 
 
 class Com(AindModel):
@@ -131,13 +131,6 @@ class StageAxisName(Enum):
     Z = "Z"
 
 
-class MotorizedStage(Device):
-    """Description of motorized stage"""
-
-    travel: float = Field(..., title="Travel of device (mm)", units="mm")
-    travel_unit: SizeUnit = Field(SizeUnit.MM, title="Travel unit")
-
-
 class ScanningStage(MotorizedStage):
     """Description of a scanning motorized stages"""
 
@@ -157,7 +150,7 @@ class OpticalTable(Device):
 class Instrument(AindCoreModel):
     """Description of an instrument, which is a collection of devices"""
 
-    schema_version: str = Field("0.5.5", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.5.6", description="schema version", title="Version", const=True)
     instrument_id: Optional[str] = Field(
         None,
         description="unique identifier for this instrument configuration",
