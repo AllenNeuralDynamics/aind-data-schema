@@ -24,10 +24,12 @@ jobs:
           python -m pip install -e .[dev] --no-cache-dir
       - name: Generate diagrams
         run: python -m aind_data_schema.utils.erd_generator --output-directory $DIAGRAM_DIRECTORY
-      - name: Generate docs
-        run: |
-          sphinx-apidoc -o doc/source src
-          sphinx-build -b html doc/source/ doc/build/html
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          default_author: github_actions
+          message: "docs: updates diagrams"
+          add: '*.png"'
   tag:
     needs: update_docs
     uses: AllenNeuralDynamics/aind-github-actions/.github/workflows/tag.yml@main
