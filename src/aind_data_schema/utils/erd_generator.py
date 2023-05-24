@@ -1,45 +1,60 @@
-"""Document for generating erd diagrams"""
+"""Module for generating erd diagrams"""
 
+import argparse
+import os
+import sys
 from pathlib import Path
-from typing import Iterator
+from typing import List, Optional
 
 import erdantic as erd
 
-import aind_data_schema
-from aind_data_schema.base import AindCoreModel
+from aind_data_schema.utils.aind_utils import aind_core_models
 
 
 class ErdGenerator:
     """Class to build erdantic diagrams"""
 
-    def __init__(self, classes_to_generate: list) -> None:
+    _DEFAULT_CLASSES_TO_GENERATE = None
+    _DEFAULT_OUTPUT_DIRECTORY = os.getcwd()
+
+    def __init__(
+        self,
+        classes_to_generate: Optional[List[str]] = _DEFAULT_CLASSES_TO_GENERATE,
+        output_directory: Path = Path(_DEFAULT_OUTPUT_DIRECTORY)
+    ) -> None:
         """
         Initialize erd diagram generator class
         input: list of AindCoreModel modules you would like to generate erd diagrams for
         if list is empty, will generate erd diagrams for all modules loaded in aind_data_schema.__all__
         """
 
-        self.loaded_modules = list(self._get_schemas())
+        self.classes_to_generate = classes_to_generate
+        self.output_directory = output_directory
 
-        if not classes_to_generate:  # if empty list passed in, generate erd docs for all modules
-            self.classes_to_generate = self.loaded_modules
-        else:
-            # List of only models that are present in both loaded_modules and classes_to_generate
-            self.classes_to_generate = [
-                module for module in self.loaded_modules if module.__name__ in classes_to_generate
-            ]
+    @classmethod
+    def from_args(cls, args: list):
+        parser = argparse.ArgumentParser()
+        parser.add_argument(
+            "-o",
+            "--output-directory",
+            required=False,
+            default=cls._DEFAULT_OUTPUT_DIRECTORY,
+            help="Directory to write the diagrams to. Default is current working directory.",
+        )
+        parser.add_argument(
+            "-c",
+            "--classes-to-generate",
+            nargs="+",
+            required=False,
+            default=cls._DEFAULT_CLASSES_TO_GENERATE,
+            help="List of AindCoreModel subclasses to generate diagrams for. Defaults to all of them.",
+        )
+        optional_args = parser.parse_args(args)
+        return cls(
+            classes_to_generate=optional_args.classes_to_generate, output_directory=Path(optional_args.output_directory)
+        )
 
-    def generate_aind_core_model_diagrams(self):
-        """generate erd diagrams for all models in loaded models"""
-        for module in self.loaded_modules:
-            self.generate_erd_diagram(module)
-
-    def generate_requested_classes(self):
-        """generate erd diagrams for all models in classes_to_generate"""
-        for module in self.classes_to_generate:
-            self.generate_erd_diagram(module)
-
-    def generate_erd_diagram(self, module, outpath: Path = Path("ERD_diagrams")):
+    def generate_erd_diagrams(self) -> None:
         """
         Code to generate a single erd diagram, given a generic class/model
         ie:
@@ -49,20 +64,15 @@ class ErdGenerator:
 
         Can take output file path as input, otherwise defaults to generic output path
         """
+        for model in aind_core_models():
+            if self.classes_to_generate is None or model.__name__ in self.classes_to_generate:
+                file_name = model.__name__ + ".png"
+                diagram = erd.create(model)
+                diagram.draw(self.output_directory / file_name)
+        return None
 
-        file_path = outpath / (module.__name__ + ".png")
-        diagram = erd.create(module)
-        diagram.draw(file_path)
 
-    @staticmethod
-    def _get_schemas() -> Iterator[AindCoreModel]:
-        """
-        Returns Iterator of AindCoreModel classes
-        """
-        aind_data_schema_classes = aind_data_schema.__all__
-
-        for class_name in aind_data_schema_classes:
-            model = getattr(aind_data_schema, class_name)
-
-            if AindCoreModel in model.__bases__:
-                yield model
+if __name__ == "__main__":
+    sys_args = sys.argv[1:]
+    erd_gen = ErdGenerator.from_args(sys_args)
+    erd_gen.generate_erd_diagrams()

@@ -5,7 +5,31 @@ on:
       - main
 
 jobs:
+  update_docs:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    env:
+      DIAGRAM_DIRECTORY: ./docs/source/_static/diagrams
+    steps:
+      - uses: actions/checkout@v2
+      - name: Pull latest changes
+        run: git pull origin main
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Install dependencies
+        run: |
+          sudo apt-get install -y graphviz graphviz-dev
+          python -m pip install -e .[dev] --no-cache-dir
+      - name: Generate diagrams
+        run: python -m aind_data_schema.utils.erd_generator --output-directory $DIAGRAM_DIRECTORY
+      - name: Generate docs
+        run: |
+          sphinx-apidoc -o doc/source src
+          sphinx-build -b html doc/source/ doc/build/html
   tag:
+    needs: update_docs
     uses: AllenNeuralDynamics/aind-github-actions/.github/workflows/tag.yml@main
     secrets:
       SERVICE_TOKEN: ${{ secrets.SERVICE_TOKEN }} # required
@@ -50,4 +74,3 @@ jobs:
           python -m aind_data_schema.utils.json_writer --output $SOURCE_DIR --attach-version
           python -m pip install awscli
           aws s3 sync $SOURCE_DIR s3://${AWS_BUCKET}/$SOURCE_DIR
-

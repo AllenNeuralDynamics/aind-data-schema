@@ -2,23 +2,25 @@
 #
 # For the full list of built-in configuration values, see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
+import os
+from datetime import date
 
 # -- Path Setup --------------------------------------------------------------
-import os
-import pathlib
-import sys
+from os.path import abspath, dirname
+from pathlib import Path
 
-from pygit2 import Repository
+from aind_data_schema import __version__ as package_version
 
-sys.path.insert(0, os.path.abspath("../../src"))
-# -- Project information -----------------------------------------------------
-# https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
-head = Repository(pathlib.Path.cwd())
+INSTITUTE_NAME = "Allen Institute for Neural Dynamics"
 
-project = str(head).split("/")[-3]
-copyright = "2023, Allen Institute of Neural Dynamics"
-author = "Allen Institute of Neural Dynamics"
-release = "0.1"
+current_year = date.today().year
+
+this_file_path = abspath(__file__)
+project = Path(dirname(dirname(dirname(this_file_path)))).name
+project_copyright = f"{current_year}, {INSTITUTE_NAME}"
+author = INSTITUTE_NAME
+release = package_version
+diagrams_path = Path(dirname(this_file_path)) / "_static" / "diagrams"
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -28,6 +30,7 @@ extensions = [
     "sphinx.ext.doctest",
     "sphinx.ext.autodoc",
     "sphinx.ext.napoleon",
+    "sphinx_jinja",
 ]
 templates_path = ["_templates"]
 exclude_patterns = []
@@ -49,3 +52,7 @@ html_show_sphinx = False
 
 # If true, "(C) Copyright ..." is shown in the HTML footer. Default is True.
 html_show_copyright = False
+
+jinja_contexts = {
+    'first_ctx': {'diagrams': dict([(str(f).replace(".png", ""), f"_static/diagrams/{str(f)}") for f in os.listdir(diagrams_path)])}
+}

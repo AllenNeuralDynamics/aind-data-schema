@@ -2,9 +2,8 @@
 
 import inspect
 import sys
-from typing import Iterator
+from typing import Iterator, Type
 
-import aind_data_schema
 from aind_data_schema.base import AindCoreModel
 
 
@@ -22,12 +21,9 @@ def get_classes(module=None) -> list:
         return inspect.getmembers(sys.modules[module], inspect.isclass)  # getmem for passed __name__ scope
 
 
-def get_schemas() -> Iterator[AindCoreModel]:
+def aind_core_models() -> Iterator[Type[AindCoreModel]]:
     """
     Returns Iterator of AindCoreModel classes
     """
-    aind_data_schema_classes = aind_data_schema.__all__
-    for class_name in aind_data_schema_classes:
-        model = getattr(aind_data_schema, class_name)
-        if AindCoreModel in model.__bases__:
-            yield model
+    for model in AindCoreModel.__subclasses__():
+        yield model
