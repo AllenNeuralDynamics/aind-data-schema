@@ -2,7 +2,7 @@
 
 import unittest
 
-from aind_data_schema.utils.aind_utils import get_classes, get_schemas
+from aind_data_schema.utils.aind_utils import aind_core_models, get_classes
 
 
 class UtilsTests(unittest.TestCase):
@@ -10,7 +10,7 @@ class UtilsTests(unittest.TestCase):
 
     def test_get_schemas(self):
         """Tests get schemas method"""
-        schema_gen = get_schemas()
+        schema_gen = aind_core_models()
 
         for schema in schema_gen:
             filename = schema.default_filename()

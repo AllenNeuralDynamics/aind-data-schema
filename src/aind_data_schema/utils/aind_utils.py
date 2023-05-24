@@ -2,18 +2,24 @@
 
 import inspect
 import sys
-from typing import Iterator
+from typing import Iterator, Optional, Type
 
-import aind_data_schema
 from aind_data_schema.base import AindCoreModel
 
 
-def get_classes(module=None) -> list:
+def get_classes(module: Optional[str] = None) -> list:
     """
     Searches for all imported classes and returns those modules in a list
-    Input:
-        (1) _get_classes(__name__), where __name__ is from module/scope you wish to check, or
-        (2) _get_classeS(), blank to check the calling namespace's imports
+    Parameters
+    ----------
+    module : Optional[str]
+      Name of module to check. If None, weill return calling namespace's imports. Defaults to None.
+
+    Returns
+    -------
+    list
+      List of tuples of class name and class.
+
     """
     if not module:
         frm = inspect.currentframe().f_back  # Get frame for most recent level of scope (function caller level of scope)
@@ -22,12 +28,9 @@ def get_classes(module=None) -> list:
         return inspect.getmembers(sys.modules[module], inspect.isclass)  # getmem for passed __name__ scope
 
 
-def get_schemas() -> Iterator[AindCoreModel]:
+def aind_core_models() -> Iterator[Type[AindCoreModel]]:
     """
     Returns Iterator of AindCoreModel classes
     """
-    aind_data_schema_classes = aind_data_schema.__all__
-    for class_name in aind_data_schema_classes:
-        model = getattr(aind_data_schema, class_name)
-        if AindCoreModel in model.__bases__:
-            yield model
+    for model in AindCoreModel.__subclasses__():
+        yield model

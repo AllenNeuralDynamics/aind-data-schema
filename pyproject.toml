@@ -33,7 +33,7 @@ dev = [
 docs = [
     'erdantic',
     'Sphinx',
-    'pygit2',
+    'sphinx-jinja',
     'furo'
 ]
 
