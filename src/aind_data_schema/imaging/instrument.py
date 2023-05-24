@@ -163,7 +163,7 @@ class Instrument(AindCoreModel):
     schema_version: str = Field("0.6.0", description="schema version", title="Version", const=True)
     instrument_id: Optional[str] = Field(
         None,
-        description="unique identifier for this instrument configuration",
+        description="Unique identifier for this instrument. Naming convention: <room>-<apparatus>-<version>",
         title="Instrument ID",
     )
     instrument_type: ImagingInstrumentType = Field(..., title="Instrument type")
