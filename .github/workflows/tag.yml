@@ -35,6 +35,7 @@ jobs:
       SERVICE_TOKEN: ${{ secrets.SERVICE_TOKEN }} # required
 
   publish:
+    needs: tag
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
