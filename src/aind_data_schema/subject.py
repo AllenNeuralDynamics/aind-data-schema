@@ -8,7 +8,7 @@ from typing import List, Optional
 
 from pydantic import Field
 
-from .base import AindCoreModel, AindModel, BaseName, PIDName
+from aind_data_schema.base import AindCoreModel, AindModel, BaseName, PIDName
 
 
 class Species(Enum):

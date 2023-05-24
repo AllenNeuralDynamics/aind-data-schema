@@ -12,8 +12,8 @@ except ImportError:  # pragma: no cover
 
 from pydantic import Field, root_validator
 
-from ..base import AindCoreModel, AindModel
-from ..device import (
+from aind_data_schema.base import AindCoreModel, AindModel
+from aind_data_schema.device import (
     Camera,
     CameraAssembly,
     DAQDevice,
