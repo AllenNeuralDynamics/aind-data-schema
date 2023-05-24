@@ -54,5 +54,9 @@ html_show_sphinx = False
 html_show_copyright = False
 
 jinja_contexts = {
-    'first_ctx': {'diagrams': dict([(str(f).replace(".png", ""), f"_static/diagrams/{str(f)}") for f in os.listdir(diagrams_path)])}
+    "first_ctx": {
+        "diagrams": dict(
+            [(str(f).replace(".png", ""), f"_static/diagrams/{str(f)}") for f in os.listdir(diagrams_path)]
+        )
+    }
 }

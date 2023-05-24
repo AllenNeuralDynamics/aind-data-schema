@@ -20,12 +20,17 @@ class ErdGenerator:
     def __init__(
         self,
         classes_to_generate: Optional[List[str]] = _DEFAULT_CLASSES_TO_GENERATE,
-        output_directory: Path = Path(_DEFAULT_OUTPUT_DIRECTORY)
+        output_directory: Path = Path(_DEFAULT_OUTPUT_DIRECTORY),
     ) -> None:
         """
         Initialize erd diagram generator class
-        input: list of AindCoreModel modules you would like to generate erd diagrams for
-        if list is empty, will generate erd diagrams for all modules loaded in aind_data_schema.__all__
+        Parameters
+        ----------
+        classes_to_generate : Optional[List[str]]
+          Names of classes to generate diagrams for. Defaults to all
+          AindCoreModels.
+        output_directory : Path
+          Directory to write the diagrams to. Defaults to current working dir.
         """
 
         self.classes_to_generate = classes_to_generate
@@ -33,6 +38,13 @@ class ErdGenerator:
 
     @classmethod
     def from_args(cls, args: list):
+        """
+        Constructs class from list of arguments.
+        Parameters
+        ----------
+        args : list
+
+        """
         parser = argparse.ArgumentParser()
         parser.add_argument(
             "-o",
@@ -56,13 +68,7 @@ class ErdGenerator:
 
     def generate_erd_diagrams(self) -> None:
         """
-        Code to generate a single erd diagram, given a generic class/model
-        ie:
-            from xx import yy
-            erd = ErdDiagramGenerator()
-            erd.generate_erd_diagram(yy)
-
-        Can take output file path as input, otherwise defaults to generic output path
+        Write erdantic diagrams to output directory,
         """
         for model in aind_core_models():
             if self.classes_to_generate is None or model.__name__ in self.classes_to_generate:

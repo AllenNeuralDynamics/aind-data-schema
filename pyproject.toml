@@ -30,10 +30,10 @@ dev = [
 ]
 
 docs = [
-    'erdantic==0.5.0',
-    'Sphinx==7.0.1',
-    'sphinx-jinja==2.0.2',
-    'furo==2023.5.20'
+    'erdantic',
+    'Sphinx',
+    'sphinx-jinja',
+    'furo'
 ]
 
 [tool.setuptools.packages.find]
