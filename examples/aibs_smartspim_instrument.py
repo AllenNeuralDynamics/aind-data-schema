@@ -16,7 +16,6 @@ inst = Instrument(
     instrument_id="SmartSPIM1-1",
     instrument_type="SmartSPIM",
     manufacturer="LifeCanvas",
-    location="440 Westlake",
     objectives=[
         Objective(
             numerical_aperture=0.2,
