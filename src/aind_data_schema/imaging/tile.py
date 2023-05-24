@@ -5,8 +5,8 @@ from typing import List, Optional, Union
 from pydantic import Field
 from pydantic.types import conlist
 
-from ..base import AindModel
-from ..device import AngleUnit, PowerUnit, SizeUnit
+from aind_data_schema.base import AindModel
+from aind_data_schema.device import AngleUnit, PowerUnit, SizeUnit
 
 
 class Channel(AindModel):

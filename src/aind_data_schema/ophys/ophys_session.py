@@ -8,10 +8,10 @@ from typing import List, Optional, Union
 
 from pydantic import Field
 
-from ..base import AindCoreModel, AindModel
-from ..device import FrequencyUnit, PowerUnit, SizeUnit
-from ..procedures import TimeUnit
-from ..stimulus import StimulusPresentation
+from aind_data_schema.base import AindCoreModel, AindModel
+from aind_data_schema.device import FrequencyUnit, PowerUnit, SizeUnit
+from aind_data_schema.procedures import TimeUnit
+from aind_data_schema.stimulus import StimulusPresentation
 
 
 class FiberName(Enum):
