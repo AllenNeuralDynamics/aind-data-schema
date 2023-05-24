@@ -1,9 +1,8 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/imaging/instrument.py",
-   "schema_version": "0.5.6",
+   "schema_version": "0.6.0",
    "instrument_id": "SmartSPIM2-1",
    "instrument_type": "SmartSPIM",
-   "location": "440 Westlake",
    "manufacturer": "LifeCanvas",
    "temperature_control": false,
    "humidity_control": false,

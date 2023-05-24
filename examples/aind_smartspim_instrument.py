@@ -5,7 +5,6 @@ inst = instrument.Instrument(
     instrument_id="SmartSPIM2-1",
     instrument_type="SmartSPIM",
     manufacturer="LifeCanvas",
-    location="440 Westlake",
     objectives=[
         instrument.Objective(
             numerical_aperture=0.2,
