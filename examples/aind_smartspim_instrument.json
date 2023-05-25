@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/imaging/instrument.py",
-   "schema_version": "0.6.1",
+   "schema_version": "0.6.2",
    "instrument_id": "SmartSPIM2-1",
    "instrument_type": "SmartSPIM",
    "manufacturer": "LifeCanvas",
