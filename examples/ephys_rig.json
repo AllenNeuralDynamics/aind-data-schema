@@ -181,10 +181,10 @@
             "thickness": null,
             "thickness_unit": "millimeter",
             "filter_wheel_index": null,
-            "cut_off_frequency": null,
-            "cut_off_frequency_unit": "Hertz",
-            "cut_on_frequency": null,
-            "cut_on_frequency_unit": "Hertz",
+            "cut_off_wavelength": null,
+            "cut_off_wavelength_unit": "nanometer",
+            "cut_on_wavelength": null,
+            "cut_on_wavelength_unit": "nanometer",
             "description": "850 nm longpass filter"
          },
          "position": null
@@ -236,10 +236,10 @@
             "thickness": null,
             "thickness_unit": "millimeter",
             "filter_wheel_index": null,
-            "cut_off_frequency": null,
-            "cut_off_frequency_unit": "Hertz",
-            "cut_on_frequency": null,
-            "cut_on_frequency_unit": "Hertz",
+            "cut_off_wavelength": null,
+            "cut_off_wavelength_unit": "nanometer",
+            "cut_on_wavelength": null,
+            "cut_on_wavelength_unit": "nanometer",
             "description": "850 nm longpass filter"
          },
          "position": null
