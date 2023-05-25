@@ -6,9 +6,9 @@ from typing import List, Optional, Union
 
 from pydantic import Field
 
-from .base import AindCoreModel, AindModel
-from .device import AngleUnit, SizeUnit
-from .subject import Species
+from aind_data_schema.base import AindCoreModel, AindModel
+from aind_data_schema.device import AngleUnit, SizeUnit
+from aind_data_schema.subject import Species
 
 
 class TimeUnit(Enum):

@@ -6,8 +6,8 @@ from typing import List, Optional, Union
 
 from pydantic import Field
 
-from ..base import AindCoreModel
-from ..device import CameraAssembly, DAQDevice, Device, Disc, HarpDevice, Monitor, Treadmill, Tube
+from aind_data_schema.base import AindCoreModel
+from aind_data_schema.device import CameraAssembly, DAQDevice, Device, Disc, HarpDevice, Monitor, Treadmill, Tube
 
 
 class BehaviorRig(AindCoreModel):

@@ -11,7 +11,7 @@ except ImportError:  # pragma: no cover
 
 from pydantic import Field
 
-from .base import AindModel
+from aind_data_schema.base import AindModel
 
 
 class SizeUnit(Enum):
@@ -305,10 +305,10 @@ class Filter(Device):
     thickness: Optional[float] = Field(None, title="Thickness (mm)", ge=0)
     thickness_unit: SizeUnit = Field(SizeUnit.MM, title="Thickness unit")
     filter_wheel_index: Optional[int] = Field(None, title="Filter wheel index")
-    cut_off_frequency: Optional[int] = Field(None, title="Cut-off frequency (Hz)")
-    cut_off_frequency_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Cut off frequency unit")
-    cut_on_frequency: Optional[int] = Field(None, title="Cut-on frequency (Hz)")
-    cut_on_frequency_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Cut on frequency unit")
+    cut_off_wavelength: Optional[int] = Field(None, title="Cut-off wavelength (nm)")
+    cut_off_wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Cut off wavelength unit")
+    cut_on_wavelength: Optional[int] = Field(None, title="Cut-on wavelength (nm)")
+    cut_on_wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Cut on wavelength unit")
     description: Optional[str] = Field(
         None, title="Description", description="More details about filter properties and where/how it is being used"
     )
