@@ -8,8 +8,8 @@ from typing import List, Optional
 
 from pydantic import Field
 
-from ..base import AindCoreModel, AindModel
-from ..device import (
+from aind_data_schema.base import AindCoreModel, AindModel
+from aind_data_schema.device import (
     Coupling,
     DAQDevice,
     DataInterface,
@@ -160,14 +160,13 @@ class OpticalTable(Device):
 class Instrument(AindCoreModel):
     """Description of an instrument, which is a collection of devices"""
 
-    schema_version: str = Field("0.5.6", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.6.0", description="schema version", title="Version", const=True)
     instrument_id: Optional[str] = Field(
         None,
-        description="unique identifier for this instrument configuration",
+        description="Unique identifier for this instrument. Naming convention: <room>-<apparatus>-<version>",
         title="Instrument ID",
     )
     instrument_type: ImagingInstrumentType = Field(..., title="Instrument type")
-    location: str = Field(..., title="Instrument location")
     manufacturer: Manufacturer = Field(..., title="Instrument manufacturer")
     temperature_control: Optional[bool] = Field(None, title="Temperature control")
     humidity_control: Optional[bool] = Field(None, title="Humidity control")

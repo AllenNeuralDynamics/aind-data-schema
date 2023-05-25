@@ -25,10 +25,6 @@ jobs:
       run: black . && flake8 . && interrogate . && isort .
     - name: Run tests and coverage
       run: coverage run -m unittest discover && coverage report
-    - name: Auto generate rst source files for documentation
-      run: sphinx-apidoc -o doc_template/source src
-    - name: Auto generate documentation
-      run: sphinx-build -b html doc_template/source/ doc_template/build/html
   schema_version_check:
     runs-on: ubuntu-latest
     strategy:

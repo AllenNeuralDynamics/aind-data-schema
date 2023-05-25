@@ -51,7 +51,6 @@ class ImagingTests(unittest.TestCase):
             i = inst.Instrument()
 
         i = inst.Instrument(
-            location="440",
             instrument_type="diSPIM",
             manufacturer="LifeCanvas",
             objectives=[],

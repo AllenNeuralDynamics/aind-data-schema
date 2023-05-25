@@ -20,6 +20,22 @@ aind\_data\_schema.imaging.instrument module
    :undoc-members:
    :show-inheritance:
 
+aind\_data\_schema.imaging.mri\_session module
+----------------------------------------------
+
+.. automodule:: aind_data_schema.imaging.mri_session
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+aind\_data\_schema.imaging.tile module
+--------------------------------------
+
+.. automodule:: aind_data_schema.imaging.tile
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Module contents
 ---------------
 
