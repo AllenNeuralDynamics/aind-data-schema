@@ -6,12 +6,11 @@ from typing import List, Optional
 
 from pydantic import Field
 
+from aind_data_schema.base import AindCoreModel
+from aind_data_schema.device import Device
 from aind_data_schema.imaging.acquisition import Axis
 from aind_data_schema.imaging.tile import Scale3dTransform
-
-from ..base import AindCoreModel
-from ..device import Device
-from ..procedures import Anaesthetic, WeightUnit
+from aind_data_schema.procedures import Anaesthetic, WeightUnit
 
 
 class MriScanSequence(Enum):
@@ -37,7 +36,7 @@ class MagneticStrength(Enum):
 class Scanner(Device):
     """Description of a MRI Scanner"""
 
-    scanner_location: ScannerLocation = Field(..., title="Scanner location")
+    scanner_location: ScannerLocation = Field(..., title="Scanner site location")
     magnetic_strength: MagneticStrength = Field(..., title="Magnetic strength (T)", units="T")
     magnetic_strength_unit: str = Field("T", title="Magnetic strength unit")
 
@@ -45,7 +44,7 @@ class Scanner(Device):
 class MriSession(AindCoreModel):
     """Description of an MRI scan"""
 
-    schema_version: str = Field("0.0.2", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.0.3", description="schema version", title="Version", const=True)
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",

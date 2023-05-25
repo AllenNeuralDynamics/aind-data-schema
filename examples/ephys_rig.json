@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/ephys/ephys_rig.py",
-   "schema_version": "0.6.2",
+   "schema_version": "0.6.3",
    "rig_id": "323_EPHYS1",
    "ephys_assemblies": [
       {
@@ -181,10 +181,10 @@
             "thickness": null,
             "thickness_unit": "millimeter",
             "filter_wheel_index": null,
-            "cut_off_frequency": null,
-            "cut_off_frequency_unit": "Hertz",
-            "cut_on_frequency": null,
-            "cut_on_frequency_unit": "Hertz",
+            "cut_off_wavelength": null,
+            "cut_off_wavelength_unit": "nanometer",
+            "cut_on_wavelength": null,
+            "cut_on_wavelength_unit": "nanometer",
             "description": "850 nm longpass filter"
          },
          "position": null
@@ -236,10 +236,10 @@
             "thickness": null,
             "thickness_unit": "millimeter",
             "filter_wheel_index": null,
-            "cut_off_frequency": null,
-            "cut_off_frequency_unit": "Hertz",
-            "cut_on_frequency": null,
-            "cut_on_frequency_unit": "Hertz",
+            "cut_off_wavelength": null,
+            "cut_off_wavelength_unit": "nanometer",
+            "cut_on_wavelength": null,
+            "cut_on_wavelength_unit": "nanometer",
             "description": "850 nm longpass filter"
          },
          "position": null
