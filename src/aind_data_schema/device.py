@@ -262,14 +262,13 @@ class Camera(Device):
     pixel_height: int = Field(..., title="Height of the sensor in pixels", units="Pixels")
     size_unit: SizeUnit = Field(SizeUnit.PX, title="Size unit")
     chroma: CameraChroma = Field(..., title="Color or Monochrome")
-    driver: DeviceDriver = Field(..., title="Driver")
-    driver_version: str = Field(..., title="Driver version")
 
     # optional fields
     sensor_format: Optional[str] = Field(None, title="Size of the sensor")
     format_unit: Optional[str] = Field(None, title="Format unit")
     recording_software: Optional[str] = Field(None, title="Recording software")
-
+    driver: Optional[DeviceDriver] = Field(None, title="Driver")
+    driver_version: Optional[str] = Field(None, title="Driver version")
 
 class Lens(Device):
     """Lens used to focus light onto a camera sensor"""
