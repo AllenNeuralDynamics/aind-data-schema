@@ -368,11 +368,11 @@ class DAQDevice(Device):
         Manufacturer.OEPS.value,
         Manufacturer.OTHER.value,
     ]
-    computer_id: Optional[str] = Field(None, title="AIBS Comp ID issued by engineering")
+    computer_name: str = Field(..., title="Name of computer controlling this DAQ")
 
     # optional fields
     channels: Optional[List[DAQChannel]] = Field(None, title="DAQ channels")
-
+    
 
 class HarpDeviceType(Enum):
     """Harp device type"""
