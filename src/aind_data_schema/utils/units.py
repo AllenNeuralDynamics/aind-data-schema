@@ -12,9 +12,9 @@ class Units:
     class Size(Enum):
         """Enumeration of Length Measurements"""
 
-        MM = "millimetre"
-        CM = "centimetre"
-        M = "metre"
+        MM = "millimeter"
+        CM = "centimeter"
+        M = "meter"
 
     class Mass(Enum):
         """Enumeration of Mass Measurements"""
@@ -33,10 +33,10 @@ class Units:
     class Volume(Enum):
         """Enumeration of Volume Measurements"""
 
-        L = "litre"
-        ML = "millilitre"
-        UL = "microlitre"
-        NL = "nanolitre"
+        L = "liter"
+        ML = "milliliter"
+        UL = "microliter"
+        NL = "nanoliter"
 
     class Angle(Enum):
         """Enumeration of Angle Measurements"""
