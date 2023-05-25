@@ -16,18 +16,24 @@ dynamic = ["version"]
 dependencies = [
     'pydantic',
     'jsonschema',
-    'typing_extensions; python_version < "3.8"'
+    'typing_extensions; python_version < "3.8"',
+    'typing_extensions < 4.6.0; python_version < "3.10"' # we will need to unpin this when pydantic releases a new version
 ]
 
 [project.optional-dependencies]
 dev = [
+    'aind_data_schema[docs]',
     'black',
     'coverage',
     'flake8',
     'interrogate',
-    'isort',
+    'isort'    
+]
+
+docs = [
+    'erdantic',
     'Sphinx',
-    'pygit2',
+    'sphinx-jinja',
     'furo'
 ]
 

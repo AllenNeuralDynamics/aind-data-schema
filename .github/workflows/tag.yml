@@ -5,12 +5,47 @@ on:
       - main
 
 jobs:
+  update_docs:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    env:
+      DIAGRAM_DIRECTORY: ./docs/source/_static/diagrams
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ env.DEFAULT_BRANCH }}
+          fetch-depth: 0
+          token: ${{ secrets.SERVICE_TOKEN }}
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Install dependencies
+        run: |
+          sudo apt-get install -y graphviz graphviz-dev
+          python -m pip install -e .[dev] --no-cache-dir
+      - name: Generate new rst files
+        run: |
+          sphinx-apidoc -o docs/source/ src
+          sphinx-build -b html docs/source/ docs/build/html
+      - name: Generate diagrams
+        run: |
+          mkdir -p $DIAGRAM_DIRECTORY
+          python -m aind_data_schema.utils.erd_generator --output-directory $DIAGRAM_DIRECTORY
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          default_author: github_actions
+          message: "updates diagrams [skip actions]"
+          add: '["*.png", "*.rst"]'
   tag:
+    needs: update_docs
     uses: AllenNeuralDynamics/aind-github-actions/.github/workflows/tag.yml@main
     secrets:
       SERVICE_TOKEN: ${{ secrets.SERVICE_TOKEN }} # required
 
   publish:
+    needs: tag
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -50,4 +85,3 @@ jobs:
           python -m aind_data_schema.utils.json_writer --output $SOURCE_DIR --attach-version
           python -m pip install awscli
           aws s3 sync $SOURCE_DIR s3://${AWS_BUCKET}/$SOURCE_DIR
-
