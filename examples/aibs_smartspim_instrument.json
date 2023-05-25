@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/imaging/instrument.py",
-   "schema_version": "0.6.0",
+   "schema_version": "0.6.1",
    "instrument_id": "SmartSPIM1-1",
    "instrument_type": "SmartSPIM",
    "manufacturer": "LifeCanvas",
@@ -97,10 +97,10 @@
          "thickness": 2.0,
          "thickness_unit": "millimeter",
          "filter_wheel_index": 0,
-         "cut_off_frequency": null,
-         "cut_off_frequency_unit": "Hertz",
-         "cut_on_frequency": null,
-         "cut_on_frequency_unit": "Hertz",
+         "cut_off_wavelength": null,
+         "cut_off_wavelength_unit": "nanometer",
+         "cut_on_wavelength": null,
+         "cut_on_wavelength_unit": "nanometer",
          "description": null
       },
       {
@@ -115,10 +115,10 @@
          "thickness": 2.0,
          "thickness_unit": "millimeter",
          "filter_wheel_index": 1,
-         "cut_off_frequency": null,
-         "cut_off_frequency_unit": "Hertz",
-         "cut_on_frequency": null,
-         "cut_on_frequency_unit": "Hertz",
+         "cut_off_wavelength": null,
+         "cut_off_wavelength_unit": "nanometer",
+         "cut_on_wavelength": null,
+         "cut_on_wavelength_unit": "nanometer",
          "description": null
       },
       {
@@ -133,10 +133,10 @@
          "thickness": 2.0,
          "thickness_unit": "millimeter",
          "filter_wheel_index": 2,
-         "cut_off_frequency": null,
-         "cut_off_frequency_unit": "Hertz",
-         "cut_on_frequency": null,
-         "cut_on_frequency_unit": "Hertz",
+         "cut_off_wavelength": null,
+         "cut_off_wavelength_unit": "nanometer",
+         "cut_on_wavelength": null,
+         "cut_on_wavelength_unit": "nanometer",
          "description": null
       }
    ],

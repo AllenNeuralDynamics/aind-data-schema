@@ -70,7 +70,7 @@ class OphysRig(AindCoreModel):
     """Description of an optical physiology rig"""
 
     schema_version: str = Field(
-        "0.5.0",
+        "0.5.1",
         description="schema version",
         title="Schema Version",
         const=True,
