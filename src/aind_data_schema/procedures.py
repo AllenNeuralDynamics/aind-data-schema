@@ -495,7 +495,7 @@ class Procedures(AindCoreModel):
                 SubjectProcedure,
             ]
         ]
-    ] = Field([]], title="Subject Procedures", unique_items=True)
+    ] = Field([], title="Subject Procedures", unique_items=True)
     specimen_procedures: Optional[
         List[
             Union[
@@ -503,5 +503,5 @@ class Procedures(AindCoreModel):
                 SpecimenProcedure,
             ]
         ]
-    ] = Field([]], title="Specimen Procedures", unique_items=True)
+    ] = Field([], title="Specimen Procedures", unique_items=True)
     notes: Optional[str] = Field(None, title="Notes")
