@@ -23,7 +23,7 @@ class BehaviorTests(unittest.TestCase):
         b = bs.BehaviorSession(
             subject_id="1234",
             experimenter_full_name="Fred Astaire",
-            rig_id="AIND-Tower-4"
+            rig_id="AIND-Tower-4",
             session_start_time=now,
             session_end_time=now,
             animal_weight_prior=20.1,
