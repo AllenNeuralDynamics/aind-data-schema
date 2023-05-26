@@ -6,7 +6,7 @@ import unittest
 from pydantic import ValidationError
 
 from aind_data_schema.ophys.ophys_rig import OphysRig
-from aind_data_schema.ophys.ophys_session import FiberPhotometrySession
+from aind_data_schema.ophys.ophys_session import FiberPhotometrySession, Stack
 
 
 class OphysTests(unittest.TestCase):
@@ -39,6 +39,32 @@ class OphysTests(unittest.TestCase):
         )
 
         assert s is not None
+
+        stack = Stack(
+            experimenter_full_name=["Frank Borman"],
+            session_start_date = nw,
+            session_end_time = now,
+            subject_id = "123456",
+            session_type = "cortical stack",
+            rig_id = "meso_1",
+            light_sources = [],
+            start_depth = 100,
+            end_dept = 400,
+            number_of_planes = 60,
+            step_size = 5.0,
+            number_of_plane_repeats_per_volume = 80,
+            number_of_volume_repeats = 1,
+            fov_coordinate_ml = 40.3,
+            fov_coordinate_ap = 10.1,
+            fov_reference = "Reticle center",
+            fov_width = 400,
+            fov_height = 400,
+            magnification = "2X",
+            fov_scale_factor = 1.8,
+            frame_rate = 30.0,
+        )
+
+        assert stack is not None
 
 
 if __name__ == "__main__":
