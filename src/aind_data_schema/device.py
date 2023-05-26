@@ -266,7 +266,7 @@ class Camera(Device):
     # optional fields
     sensor_format: Optional[str] = Field(None, title="Size of the sensor")
     format_unit: Optional[str] = Field(None, title="Format unit")
-    recording_software: Optional[str] = Field(None, title="Recording software")
+    recording_software: Optional[Software] = Field(None, title="Recording software")
     driver: Optional[DeviceDriver] = Field(None, title="Driver")
     driver_version: Optional[str] = Field(None, title="Driver version")
 
@@ -457,8 +457,7 @@ class Disc(MousePlatform):
     output: Optional[DaqChannelType] = Field(None, description="analog or digital electronics")
     encoder: Optional[str] = Field(None, title ="Encoder", description="Encoder hardware type")
     decoder: Optional[str] = Field(None, title="Decoder", description="Decoder chip type")
-    encoder_firmware: Optional[str] = Field(None, title="Encoder firmware", description="Firmware to read from decoder chip counts")
-    encoder_firmware_version: Optional[str] = Field(None, title="Encoder firmware version", description="Encoder firmware version")
+    encoder_firmware: Optional[Software] = Field(None, title="Encoder firmware", description="Firmware to read from decoder chip counts")
 
 
 class Tube(MousePlatform):
