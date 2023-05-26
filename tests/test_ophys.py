@@ -42,7 +42,7 @@ class OphysTests(unittest.TestCase):
 
         stack = Stack(
             experimenter_full_name=["Frank Borman"],
-            session_start_date = nw,
+            session_start_date = now,
             session_end_time = now,
             subject_id = "123456",
             session_type = "cortical stack",
