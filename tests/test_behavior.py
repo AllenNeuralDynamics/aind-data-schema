@@ -23,16 +23,22 @@ class BehaviorTests(unittest.TestCase):
         b = bs.BehaviorSession(
             subject_id="1234",
             experimenter_full_name="Fred Astaire",
+            rig_id="AIND-Tower-4"
             session_start_time=now,
             session_end_time=now,
             animal_weight_prior=20.1,
             animal_weight_post=19.7,
             behavior_type="Foraging",
+            session_number=3,
             behavior_code="URL_to_code",
             code_version="0.1",
             input_parameters={"reward volume": 0.01},
-            output_parameters={"trials": 72},
-            water_consumed=820,
+            output_parameters={},
+            water_consumed_during_training=820,
+            water_consumed_total=1020,
+            trials_total=551,
+            trials_finished=343,
+            trials_rewarded=146,
         )
 
         assert b is not None
