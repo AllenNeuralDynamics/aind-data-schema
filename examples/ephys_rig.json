@@ -266,8 +266,7 @@
       "output": null,
       "encoder": null,
       "decoder": null,
-      "encoder_firmware": null,
-      "encoder_firmware_version": null
+      "encoder_firmware": null
    },
    "daqs": [
       {
