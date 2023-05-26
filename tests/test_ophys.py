@@ -42,14 +42,14 @@ class OphysTests(unittest.TestCase):
 
         stack = Stack(
             experimenter_full_name=["Frank Borman"],
-            session_start_date = now,
+            session_start_time = now,
             session_end_time = now,
             subject_id = "123456",
             session_type = "cortical stack",
             rig_id = "meso_1",
             light_sources = [],
             start_depth = 100,
-            end_dept = 400,
+            end_depth = 400,
             number_of_planes = 60,
             step_size = 5.0,
             number_of_plane_repeats_per_volume = 80,

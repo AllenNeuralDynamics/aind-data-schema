@@ -180,4 +180,4 @@ class Stack(OphysSession):
     fov_scale_factor_unit: str = Field("um/pixel", title="FOV scale factor unit")
     frame_rate: float = Field(..., title="Frame rate (Hz)")
     frame_rate_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Frame rate unit")
-    targeted_structure: Optional[str] = Field(..., title="Targeted structure")
+    targeted_structure: Optional[str] = Field(None, title="Targeted structure")
