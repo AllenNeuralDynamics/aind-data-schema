@@ -90,6 +90,6 @@
          "injection_volume_unit": "nanoliter"
       }
    ],
-   "specimen_procedures": null,
+   "specimen_procedures": [],
    "notes": null
 }
