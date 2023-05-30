@@ -3,7 +3,8 @@
 import unittest
 from typing import TypeVar
 
-from aind_data_schema.utils.units import GenericValues, SizeVal, Units
+from aind_data_schema.utils.units import Size, SizeValue, create_unit_with_value
+
 
 ScalarType = TypeVar("ScalarType", float, int)
 
@@ -13,15 +14,16 @@ class UnitsTests(unittest.TestCase):
 
     def test_units(self):
         """Tests creation of a SizeVal object"""
-        
-        self.assertIsNotNone(Units.Size.MM)
 
-        default = SizeVal(value=10.1)
-        testType = GenericValues.SizeValue[ScalarType, Units.SizeType]
-        testVal = testType(value=10.1, unit=Units.Size.MM)
+        self.assertIsNotNone(Size.MM)
 
-        self.assertEqual(default, SizeVal(value=10.1, unit=Units.Size.MM))
-        self.assertEqual(default, testVal)
+        default = SizeValue(value=10.1)
+
+        self.assertEqual(default, SizeValue(value=10.1, unit=Size.MM))
+
+        ArbitraryValue = create_unit_with_value("ArbitraryValue", float, Size, Size.IN)
+
+        self.assertIsNotNone(ArbitraryValue(value=10, unit=Size.PX))
 
 
 if __name__ == "__main__":

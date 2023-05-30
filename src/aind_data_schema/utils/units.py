@@ -1,110 +1,77 @@
 """Script for defining UnitWithValue classes"""
 
 from enum import Enum
-from typing import Generic, TypeVar
 
-from pydantic.generics import GenericModel
-
-
-class Units:
-    """Class containing enumerations of relevant measurement types"""
-
-    class Size(Enum):
-        """Enumeration of Length Measurements"""
-
-        MM = "millimeter"
-        CM = "centimeter"
-        M = "meter"
-
-    class Mass(Enum):
-        """Enumeration of Mass Measurements"""
-
-        KG = "kilogram"
-        G = "gram"
-        MG = "milligram"
-
-    class Frequency(Enum):
-        """Enumeration of Frequency Measurements"""
-
-        mHZ = "millihertz"
-        HZ = "hertz"
-        KHZ = "kilohertz"
-
-    class Volume(Enum):
-        """Enumeration of Volume Measurements"""
-
-        L = "liter"
-        ML = "milliliter"
-        UL = "microliter"
-        NL = "nanoliter"
-
-    class Angle(Enum):
-        """Enumeration of Angle Measurements"""
-
-        RAD = "radians"
-        DEG = "degrees"
-
-    class TimeMeasure(Enum):
-        """Enumeration of Time Measurements"""
-
-        S = "seconds"
-        M = "minutes"
-        HR = "hours"
-
-    SizeType = TypeVar("SizeType", bound=Size)
-    MassType = TypeVar("MassType", bound=Mass)
-    FrequencyType = TypeVar("FrequencyType", bound=Frequency)
-    VolumeType = TypeVar("VolumeType", bound=Volume)
-    AngleType = TypeVar("AngleType", bound=Angle)
-    TimeType = TypeVar("TimeType", bound=TimeMeasure)
+from pydantic import create_model
 
 
-ScalarType = TypeVar("ScalarType", float, int)
+class Size(Enum):
+    """Enumeration of Length Measurements"""
+
+    M = "meter"
+    CM = "centimeter"
+    MM = "millimeter"
+    UM = "micrometer"
+    NG = "nanometer"
+    IN = "inch"
+    PX = "pixel"
 
 
-class GenericValues:
-    """Constructs UnitWithValue class for each relevant measurement type"""
+class Mass(Enum):
+    """Enumeration of Mass Measurements"""
 
-    class SizeValue(GenericModel, Generic[ScalarType, Units.SizeType]):
-        """Generic for Size Measurements"""
-
-        value: ScalarType
-        unit: Units.SizeType = Units.Size.MM
-
-    class MassValue(GenericModel, Generic[ScalarType, Units.MassType]):
-        """Generic for Mass Measurements"""
-
-        value: ScalarType
-        unit: Units.MassType = Units.Mass.G
-
-    class VolumeValue(GenericModel, Generic[ScalarType, Units.VolumeType]):
-        """Generic for Volume Measurements"""
-
-        value: ScalarType
-        unit: Units.VolumeType = Units.Volume.NL
-
-    class FrequencyValue(GenericModel, Generic[ScalarType, Units.FrequencyType]):
-        """Generic for Frequency Measurements"""
-
-        value: ScalarType
-        unit: Units.FrequencyType = Units.Frequency.HZ
-
-    class AngleValue(GenericModel, Generic[ScalarType, Units.AngleType]):
-        """Generic for Angle Measurements"""
-
-        value: ScalarType
-        unit: Units.AngleType = Units.Angle.DEG
-
-    class TimeValue(GenericModel, Generic[ScalarType, Units.TimeType]):
-        """Generic for Time Measurements"""
-
-        value: ScalarType
-        unit: Units.AngleType = Units.TimeMeasure.S
+    KG = "kilogram"
+    G = "gram"
+    MG = "milligram"
+    UG = "microgram"
+    NG = "nanogram"
 
 
-SizeVal = GenericValues.SizeValue[ScalarType, Units.SizeType]
-MassVal = GenericValues.MassValue[ScalarType, Units.MassType]
-VolumeVal = GenericValues.VolumeValue[ScalarType, Units.VolumeType]
-FrequencyVal = GenericValues.FrequencyValue[ScalarType, Units.FrequencyType]
-AngleVal = GenericValues.AngleValue[ScalarType, Units.AngleType]
-TimeVal = GenericValues.AngleValue[ScalarType, Units.TimeType]
+class Frequency(Enum):
+    """Enumeration of Frequency Measurements"""
+
+    KHZ = "kilohertz"
+    HZ = "hertz"
+    mHZ = "millihertz"
+
+
+class Volume(Enum):
+    """Enumeration of Volume Measurements"""
+
+    L = "liter"
+    ML = "milliliter"
+    UL = "microliter"
+    NL = "nanoliter"
+
+
+class Angle(Enum):
+    """Enumeration of Angle Measurements"""
+
+    RAD = "radians"
+    DEG = "degrees"
+
+
+class TimeMeasure(Enum):
+    """Enumeration of Time Measurements"""
+
+    HR = "hour"
+    M = "minute"
+    S = "second"
+    MS = "milisecond"
+    US = "microsecond"
+    NS = "nanosecond"
+
+
+def create_unit_with_value(model_name, scalar_type, unit_type, unit_default):
+    """this uses create_model instead of generics, which lets us set default values"""
+
+    m = create_model(model_name, value=(scalar_type, ...), unit=(unit_type, unit_default))
+    return m
+
+
+SizeValue = create_unit_with_value("SizeValue", float, Size, Size.MM)
+MassValue = create_unit_with_value("MassValue", float, Mass, Mass.MG)
+VolumeValue = create_unit_with_value("VolumeValue", float, Volume, Volume.NL)
+FrequencyValue = create_unit_with_value("FrequencyValue", float, Frequency, Frequency.HZ)
+AngleValue = create_unit_with_value("AngleValue", float, Angle, Angle.DEG)
+TimeValue = create_unit_with_value("TimeValue", float, TimeMeasure, TimeMeasure.S)
