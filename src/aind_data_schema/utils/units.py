@@ -13,6 +13,8 @@ class Size(Enum):
     MM = "millimeter"
     UM = "micrometer"
     NG = "nanometer"
+    IN = "inch"
+    PX = "pixel"
 
 
 class Mass(Enum):
