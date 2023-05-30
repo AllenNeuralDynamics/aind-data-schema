@@ -1,7 +1,6 @@
 """Script for defining UnitWithValue classes"""
 
 from enum import Enum
-from typing import Generic, TypeVar
 
 from pydantic import create_model
 
