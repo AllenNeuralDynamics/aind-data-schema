@@ -23,7 +23,7 @@ class UnitsTests(unittest.TestCase):
 
         ArbitraryValue = create_unit_with_value("ArbitraryValue", float, Size, Size.IN)
 
-        self.assertIsNotNone(ArbitraryValue(10, Size.PX))
+        self.assertIsNotNone(ArbitraryValue(value=10, unit=Size.PX))
 
 
 if __name__ == "__main__":
