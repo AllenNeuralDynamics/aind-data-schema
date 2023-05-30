@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/ephys/ephys_rig.py",
-   "schema_version": "0.6.3",
+   "schema_version": "0.6.4",
    "rig_id": "323_EPHYS1",
    "ephys_assemblies": [
       {
@@ -67,7 +67,9 @@
             "chroma": "Color",
             "sensor_format": "1/2.9\"",
             "format_unit": null,
-            "recording_software": null
+            "recording_software": null,
+            "driver": null,
+            "driver_version": null
          },
          "lens": {
             "name": null,
@@ -153,7 +155,9 @@
             "chroma": "Monochrome",
             "sensor_format": "1/2.9\"",
             "format_unit": null,
-            "recording_software": null
+            "recording_software": null,
+            "driver": null,
+            "driver_version": null
          },
          "lens": {
             "name": null,
@@ -208,7 +212,9 @@
             "chroma": "Monochrome",
             "sensor_format": "1/2.9\"",
             "format_unit": null,
-            "recording_software": null
+            "recording_software": null,
+            "driver": null,
+            "driver_version": null
          },
          "lens": {
             "name": null,
@@ -256,7 +262,11 @@
       "date_surface_replaced": null,
       "platform_type": "Disc",
       "radius": 15.0,
-      "radius_unit": "centimeter"
+      "radius_unit": "centimeter",
+      "output": null,
+      "encoder": null,
+      "decoder": null,
+      "encoder_firmware": null
    },
    "daqs": [
       {

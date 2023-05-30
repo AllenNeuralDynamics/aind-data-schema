@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/imaging/instrument.py",
-   "schema_version": "0.6.1",
+   "schema_version": "0.6.2",
    "instrument_id": "SmartSPIM1-1",
    "instrument_type": "SmartSPIM",
    "manufacturer": "LifeCanvas",
@@ -148,7 +148,8 @@
          "model": "LS-100",
          "notes": "Focus stage",
          "travel": 100.0,
-         "travel_unit": "millimeter"
+         "travel_unit": "millimeter",
+         "firmware": null
       },
       {
          "name": null,
@@ -157,7 +158,8 @@
          "model": "L12-20F-4",
          "notes": "Cylindrical lens #1",
          "travel": 41.0,
-         "travel_unit": "millimeter"
+         "travel_unit": "millimeter",
+         "firmware": null
       },
       {
          "name": null,
@@ -166,7 +168,8 @@
          "model": "L12-20F-4",
          "notes": "Cylindrical lens #2",
          "travel": 41.0,
-         "travel_unit": "millimeter"
+         "travel_unit": "millimeter",
+         "firmware": null
       },
       {
          "name": null,
@@ -175,7 +178,8 @@
          "model": "L12-20F-4",
          "notes": "Cylindrical lens #3",
          "travel": 41.0,
-         "travel_unit": "millimeter"
+         "travel_unit": "millimeter",
+         "firmware": null
       },
       {
          "name": null,
@@ -184,7 +188,8 @@
          "model": "L12-20F-4",
          "notes": "Cylindrical lens #4",
          "travel": 41.0,
-         "travel_unit": "millimeter"
+         "travel_unit": "millimeter",
+         "firmware": null
       }
    ],
    "scanning_stages": [
@@ -196,6 +201,7 @@
          "notes": "Sample stage Z",
          "travel": 50.0,
          "travel_unit": "millimeter",
+         "firmware": null,
          "stage_axis_direction": "Detection axis",
          "stage_axis_name": "Z"
       },
@@ -207,6 +213,7 @@
          "notes": "Sample stage X",
          "travel": 50.0,
          "travel_unit": "millimeter",
+         "firmware": null,
          "stage_axis_direction": "Illumination axis",
          "stage_axis_name": "X"
       },
@@ -218,6 +225,7 @@
          "notes": "Sample stage Y",
          "travel": 50.0,
          "travel_unit": "millimeter",
+         "firmware": null,
          "stage_axis_direction": "Perpendicular axis",
          "stage_axis_name": "Y"
       }

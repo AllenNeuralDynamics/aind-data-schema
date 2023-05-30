@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/imaging/instrument.py",
-   "schema_version": "0.6.1",
+   "schema_version": "0.6.2",
    "instrument_id": "exaSPIM1-1",
    "instrument_type": "exaSPIM",
    "manufacturer": "Custom",
@@ -127,6 +127,7 @@
          "notes": null,
          "travel": 1000.0,
          "travel_unit": "millimeter",
+         "firmware": null,
          "stage_axis_direction": "Detection axis",
          "stage_axis_name": "X"
       },
@@ -138,6 +139,7 @@
          "notes": null,
          "travel": 1000.0,
          "travel_unit": "millimeter",
+         "firmware": null,
          "stage_axis_direction": "Perpendicular axis",
          "stage_axis_name": "Y"
       },
@@ -149,6 +151,7 @@
          "notes": null,
          "travel": 100.0,
          "travel_unit": "millimeter",
+         "firmware": null,
          "stage_axis_direction": "Illumination axis",
          "stage_axis_name": "Z"
       }
