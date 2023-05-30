@@ -5,7 +5,6 @@ from enum import Enum
 from pydantic import create_model
 
 
-
 class Size(Enum):
     """Enumeration of Length Measurements"""
 
@@ -62,14 +61,15 @@ class TimeMeasure(Enum):
 
 
 def create_unit_with_value(model_name, scalar_type, unit_type, unit_default):
-    """ this uses create_model instead of generics, which lets us set default values """
-    
-    m = create_model(model_name, value=(scalar_type,...), unit=(unit_type, unit_default))
+    """this uses create_model instead of generics, which lets us set default values"""
+
+    m = create_model(model_name, value=(scalar_type, ...), unit=(unit_type, unit_default))
     return m
 
-SizeValue = create_unit_with_value('SizeValue', float, Size, Size.MM)
-MassValue = create_unit_with_value('MassValue', float, Mass, Mass.MG)
-VolumeValue = create_unit_with_value('VolumeValue', float, Volume, Volume.NL)
-FrequencyValue = create_unit_with_value('FrequencyValue', float, Frequency, Frequency.HZ)
-AngleValue = create_unit_with_value('AngleValue', float, Angle, Angle.DEG)
-TimeValue = create_unit_with_value('TimeValue', float, TimeMeasure, TimeMeasure.S)
+
+SizeValue = create_unit_with_value("SizeValue", float, Size, Size.MM)
+MassValue = create_unit_with_value("MassValue", float, Mass, Mass.MG)
+VolumeValue = create_unit_with_value("VolumeValue", float, Volume, Volume.NL)
+FrequencyValue = create_unit_with_value("FrequencyValue", float, Frequency, Frequency.HZ)
+AngleValue = create_unit_with_value("AngleValue", float, Angle, Angle.DEG)
+TimeValue = create_unit_with_value("TimeValue", float, TimeMeasure, TimeMeasure.S)
