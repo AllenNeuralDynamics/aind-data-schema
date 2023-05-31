@@ -74,7 +74,7 @@ class Institution(Enum, metaclass=BaseNameEnumMeta):
     def __modify_schema__(cls, field_schema):
         """Adds enumNames to institution"""
         field_schema.update(
-            enumNames=[e.value.name for e in cls],
+            enumNames=[e.value.name.name for e in cls],
         )
 
 
