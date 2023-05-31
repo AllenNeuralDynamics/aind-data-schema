@@ -8,10 +8,10 @@ from typing import List, Optional
 
 from pydantic import Field
 
-from aind_data_schema.base import AindCoreModel, AindModel, BaseName, BaseNameEnumMeta, PIDName
+from aind_data_schema.base import AindCoreModel, AindModel, BaseName, PIDName
 
 
-class Species(Enum, metaclass=BaseNameEnumMeta):
+class Species(Enum):
     """Species latin name"""
 
     CALLITHRIX_JACCHUS = PIDName(
