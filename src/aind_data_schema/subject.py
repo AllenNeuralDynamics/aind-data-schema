@@ -35,13 +35,6 @@ class Species(Enum):
         registry_identifier="10090",
     )
 
-    @classmethod
-    def __modify_schema__(cls, field_schema):
-        """Adds enumNames to species"""
-        field_schema.update(
-            enumNames=[e.value.name.name for e in cls],
-        )
-
 
 class Sex(Enum):
     """Subject sex name"""
