@@ -74,7 +74,7 @@ class Institution(Enum, metaclass=BaseNameEnumMeta):
     def __modify_schema__(cls, field_schema):
         """Adds enumNames to institution"""
         field_schema.update(
-            enumNames=[e.value.name.name for e in cls],
+            enumNames=[e.value.name for e in cls],
         )
 
 
@@ -176,7 +176,7 @@ class RelatedData(AindModel):
 class DataDescription(AindCoreModel):
     """Description of a logical collection of data files"""
 
-    schema_version: str = Field("0.6.4", title="Schema Version", const=True)
+    schema_version: str = Field("0.6.3", title="Schema Version", const=True)
     license: str = Field("CC-BY-4.0", title="License", const=True)
 
     creation_time: time = Field(
