@@ -1,15 +1,13 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/data_description.py",
-   "schema_version": "0.6.4",
+   "schema_version": "0.7.0",
    "license": "CC-BY-4.0",
    "creation_time": "16:30:01",
    "creation_date": "2022-02-21",
    "name": "diSPIM_12345_2022-02-21_16-30-01",
    "institution": {
-      "name": {
-         "name": "Allen Institute for Neural Dynamics",
-         "abbreviation": "AIND"
-      },
+      "name": "Allen Institute for Neural Dynamics",
+      "abbreviation": "AIND",
       "registry": {
          "name": "Research Organization Registry",
          "abbreviation": "ROR"
