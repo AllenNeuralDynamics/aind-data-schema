@@ -52,16 +52,6 @@ class BaseNameEnumMeta(EnumMeta):
         )
 
 
-# class BaseNameEnum(Enum, metaclass=BaseNameEnumMeta):
-#     """Allows to create enumNames."""
-#     @classmethod
-#     def __modify_schema__(cls, field_schema):
-#         """Adds enumNames to institution"""
-#         field_schema.update(
-#             enumNames=[e.value.name for e in cls],
-#         )
-
-
 class BaseName(AindModel):
     """A simple model associating a name with an abbreviation"""
 
