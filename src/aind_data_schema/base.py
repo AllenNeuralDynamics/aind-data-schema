@@ -5,7 +5,7 @@ import logging
 import os
 import re
 import urllib.parse
-from enum import Enum, EnumMeta
+from enum import EnumMeta
 from typing import Optional
 
 from pydantic import BaseModel, Extra, Field
