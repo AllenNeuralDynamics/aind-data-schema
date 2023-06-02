@@ -45,31 +45,31 @@ class Institution(Enum, metaclass=BaseNameEnumMeta):
     """Institution name"""
 
     AIBS = PIDName(
-        name="Allen Institute for Brain Science", 
+        name="Allen Institute for Brain Science",
         abbreviation="AIBS",
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
         registry_identifier="00dcv1019",
     )
     AIND = PIDName(
-        name="Allen Institute for Neural Dynamics", 
+        name="Allen Institute for Neural Dynamics",
         abbreviation="AIND",
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
         registry_identifier="04szwah67",
     )
     COLUMBIA = PIDName(
-        name="Columbia University", 
+        name="Columbia University",
         abbreviation="Columbia",
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
         registry_identifier="00hj8s172",
     )
     HUST = PIDName(
-        name="Huazhong University of Science and Technology", 
+        name="Huazhong University of Science and Technology",
         abbreviation="HUST",
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
         registry_identifier="00p991c53",
     )
     NYU = PIDName(
-        name="New York University", 
+        name="New York University",
         abbreviation="NYU",
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
         registry_identifier="0190ak572",

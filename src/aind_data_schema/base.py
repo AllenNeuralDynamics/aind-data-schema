@@ -5,7 +5,7 @@ import logging
 import os
 import re
 import urllib.parse
-from enum import EnumMeta, Enum
+from enum import Enum, EnumMeta
 from typing import Optional
 
 from pydantic import BaseModel, Extra, Field
@@ -74,7 +74,7 @@ class PIDName(BaseName):
     Model for associate a name with a persistent identifier (PID),
     the registry for that PID, and abbreviation for that registry
     """
-    
+
     registry: BaseName = Field(..., title="Registry")
     registry_identifier: str = Field(..., title="Registry identifier")
 
