@@ -75,13 +75,6 @@ class Institution(Enum, metaclass=BaseNameEnumMeta):
         registry_identifier="0190ak572",
     )
 
-    @classmethod
-    def __modify_schema__(cls, field_schema):
-        """Adds enumNames to institution"""
-        field_schema.update(
-            enumNames=[e.value.name for e in cls],
-        )
-
 
 class Group(Enum):
     """Data collection group name"""
@@ -114,13 +107,6 @@ class Modality(Enum, metaclass=BaseNameEnumMeta):
     SLAP = BaseName(name="Scanned line projection", abbreviation="slap")
     SMARTSPIM = BaseName(name="Smart selective plane illumination microscopy", abbreviation="SmartSPIM")
     SPIM = BaseName(name="Selective plane illumination microscopy", abbreviation="SPIM")
-
-    @classmethod
-    def __modify_schema__(cls, field_schema):
-        """Adds enumNames to modality"""
-        field_schema.update(
-            enumNames=[e.value.name for e in cls],
-        )
 
 
 class ExperimentType(Enum):

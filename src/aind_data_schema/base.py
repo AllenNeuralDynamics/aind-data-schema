@@ -5,7 +5,7 @@ import logging
 import os
 import re
 import urllib.parse
-from enum import EnumMeta
+from enum import EnumMeta, Enum
 from typing import Optional
 
 from pydantic import BaseModel, Extra, Field
@@ -44,6 +44,22 @@ class BaseNameEnumMeta(EnumMeta):
         if isinstance(value, str):
             value = getattr(cls, value.upper())
         return super().__call__(value, *args, **kw)
+
+    def __modify_schema__(cls, field_schema):
+        """Adds enumNames to institution"""
+        field_schema.update(
+            enumNames=[e.value.name for e in cls],
+        )
+
+
+# class BaseNameEnum(Enum, metaclass=BaseNameEnumMeta):
+#     """Allows to create enumNames."""
+#     @classmethod
+#     def __modify_schema__(cls, field_schema):
+#         """Adds enumNames to institution"""
+#         field_schema.update(
+#             enumNames=[e.value.name for e in cls],
+#         )
 
 
 class BaseName(AindModel):
