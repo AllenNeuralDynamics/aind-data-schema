@@ -62,6 +62,12 @@ class TimeMeasure(Enum):
     NS = "nanosecond"
 
 
+class Power(Enum):
+    UW = "microwatt"
+    MW = "milliwatt"
+    UA = "microamps"
+
+
 def create_unit_with_value(model_name, scalar_type, unit_type, unit_default):
     """this uses create_model instead of generics, which lets us set default values"""
 
@@ -75,3 +81,4 @@ VolumeValue = create_unit_with_value("VolumeValue", float, Volume, Volume.NL)
 FrequencyValue = create_unit_with_value("FrequencyValue", float, Frequency, Frequency.HZ)
 AngleValue = create_unit_with_value("AngleValue", float, Angle, Angle.DEG)
 TimeValue = create_unit_with_value("TimeValue", float, TimeMeasure, TimeMeasure.S)
+PowerValue = create_unit_with_value("PowerValue", float, Power, Power.MW)
