@@ -10,6 +10,7 @@ from pydantic import Field
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.imaging.tile import Tile
+from aind_data_schema.datamanipulation import DataTouched
 
 
 class ProcessName(Enum):
@@ -37,11 +38,8 @@ class DataProcess(AindModel):
     """Description of a single processing step"""
 
     name: ProcessName = Field(..., title="Name")
+    touch_info: DataTouched = Field(..., description="General information regarding the data manipulation performed")
     version: str = Field(..., description="Version of the software used", title="Version")
-    start_date_time: datetime = Field(..., title="Start date time")
-    end_date_time: datetime = Field(..., title="End date time")
-    input_location: str = Field(..., description="Path to data inputs", title="Input location")
-    output_location: str = Field(..., description="Path to data outputs", title="Output location")
     code_url: str = Field(..., description="Path to code respository", title="Code URL")
     code_version: Optional[str] = Field(None, description="Version of the code", title="Code version")
     parameters: Dict[str, Any] = Field(..., title="Parameters")
