@@ -73,7 +73,7 @@ class AindCoreModel(AindModel):
     """Generic base class to hold common fields/validators/etc for all basic AIND schema"""
 
     describedBy: str
-    schema_version: str
+    schema_version: str = Field(..., regex=r"^\d+.\d+.\d+$")
 
     def __init_subclass__(cls, optional_fields=None, **kwargs):
         """Add the describedby field to all subclasses"""
