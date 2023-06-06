@@ -45,6 +45,12 @@ class BaseNameEnumMeta(EnumMeta):
             value = getattr(cls, value.upper())
         return super().__call__(value, *args, **kw)
 
+    def __modify_schema__(cls, field_schema):
+        """Adds enumNames to institution"""
+        field_schema.update(
+            enumNames=[e.value.name for e in cls],
+        )
+
 
 class BaseName(AindModel):
     """A simple model associating a name with an abbreviation"""
@@ -58,7 +64,7 @@ class PIDName(BaseName):
     Model for associate a name with a persistent identifier (PID),
     the registry for that PID, and abbreviation for that registry
     """
-    
+
     registry: BaseName = Field(..., title="Registry")
     registry_identifier: str = Field(..., title="Registry identifier")
 

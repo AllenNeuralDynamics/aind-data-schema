@@ -45,42 +45,35 @@ class Institution(Enum, metaclass=BaseNameEnumMeta):
     """Institution name"""
 
     AIBS = PIDName(
-        name="Allen Institute for Brain Science", 
+        name="Allen Institute for Brain Science",
         abbreviation="AIBS",
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
         registry_identifier="00dcv1019",
     )
     AIND = PIDName(
-        name="Allen Institute for Neural Dynamics", 
+        name="Allen Institute for Neural Dynamics",
         abbreviation="AIND",
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
         registry_identifier="04szwah67",
     )
     COLUMBIA = PIDName(
-        name="Columbia University", 
+        name="Columbia University",
         abbreviation="Columbia",
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
         registry_identifier="00hj8s172",
     )
     HUST = PIDName(
-        name="Huazhong University of Science and Technology", 
+        name="Huazhong University of Science and Technology",
         abbreviation="HUST",
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
         registry_identifier="00p991c53",
     )
     NYU = PIDName(
-        name="New York University", 
+        name="New York University",
         abbreviation="NYU",
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
         registry_identifier="0190ak572",
     )
-
-    @classmethod
-    def __modify_schema__(cls, field_schema):
-        """Adds enumNames to institution"""
-        field_schema.update(
-            enumNames=[e.value.name for e in cls],
-        )
 
 
 class Group(Enum):
@@ -114,13 +107,6 @@ class Modality(Enum, metaclass=BaseNameEnumMeta):
     SLAP = BaseName(name="Scanned line projection", abbreviation="slap")
     SMARTSPIM = BaseName(name="Smart selective plane illumination microscopy", abbreviation="SmartSPIM")
     SPIM = BaseName(name="Selective plane illumination microscopy", abbreviation="SPIM")
-
-    @classmethod
-    def __modify_schema__(cls, field_schema):
-        """Adds enumNames to modality"""
-        field_schema.update(
-            enumNames=[e.value.name for e in cls],
-        )
 
 
 class ExperimentType(Enum):

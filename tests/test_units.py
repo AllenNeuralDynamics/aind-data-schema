@@ -5,7 +5,6 @@ from typing import TypeVar
 
 from aind_data_schema.utils.units import Size, SizeValue, create_unit_with_value
 
-
 ScalarType = TypeVar("ScalarType", float, int)
 
 
