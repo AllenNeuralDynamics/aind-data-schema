@@ -12,7 +12,7 @@ except ImportError:  # pragma: no cover
 from pydantic import Field
 
 from aind_data_schema.base import AindModel
-from aind_data_schema.utils.units import SizeValue, AngleValue
+from aind_data_schema.utils.units import SizeValue, AngleValue, FrequencyValue
 
 
 class SizeUnit(Enum):
@@ -222,7 +222,7 @@ class MotorizedStage(Device):
     """Description of motorized stage"""
 
     travel: SizeValue = Field(..., title="Travel of device (mm)", units="mm")
-    
+
 
 class Camera(Device):
     """Device that acquires images and streams them to a computer"""
@@ -238,8 +238,7 @@ class Camera(Device):
         Manufacturer.OTHER.value,
     ]
     computer_name: str = Field(..., title="Name of computer receiving data from this camera")
-    max_frame_rate: float = Field(..., title="Maximum frame rate (Hz)", units="Hz")
-    frame_rate_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Frame rate unit")
+    max_frame_rate: FrequencyValue = Field(..., title="Maximum frame rate (Hz)", units="Hz")
     pixel_width: int = Field(..., title="Width of the sensor in pixels", units="Pixels")
     pixel_height: int = Field(..., title="Height of the sensor in pixels", units="Pixels")
     size_unit: SizeUnit = Field(SizeUnit.PX, title="Size unit")
@@ -389,7 +388,7 @@ class Laser(Device):
         Manufacturer.QUANTIFI.value,
         Manufacturer.OTHER.value,
     ]
-    wavelength: int = Field(..., title="Wavelength (nm)", units="nm")
+    wavelength: SizeValue = Field(..., title="Wavelength (nm)", units="nm")
     wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
 
     # optional fields
