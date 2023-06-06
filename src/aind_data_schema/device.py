@@ -12,6 +12,7 @@ except ImportError:  # pragma: no cover
 from pydantic import Field
 
 from aind_data_schema.base import AindModel
+from aind_data_schema.utils.units import SizeValue, AngleValue
 
 
 class SizeUnit(Enum):
@@ -172,7 +173,7 @@ class Size2d(AindModel):
     unit: SizeUnit = Field(SizeUnit.PX, title="Size unit")
 
 
-class Orientation3d(AindModel):
+class Orientation3d(AindModel): # TODO: This can become a subunit of RelativePosition
     """3D orientation of an object"""
 
     pitch: float = Field(..., title="Angle pitch", ge=0, le=360)
@@ -198,7 +199,7 @@ class ModuleOrientation3d(AindModel):
     unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
 
 
-class Coordinates3d(AindModel):
+class Coordinates3d(AindModel): # TODO: This can also become a subunit of RelativePosition
     """Coordinates in a 3D grid"""
 
     x: float = Field(..., title="Position X")
@@ -220,8 +221,8 @@ class Device(AindModel):
 class MotorizedStage(Device):
     """Description of motorized stage"""
 
-    travel: float = Field(..., title="Travel of device (mm)", units="mm")
-    travel_unit: SizeUnit = Field(SizeUnit.MM, title="Travel unit")
+    travel: SizeValue = Field(..., title="Travel of device (mm)", units="mm")
+
 
 
 class Camera(Device):
@@ -258,8 +259,7 @@ class Lens(Device):
     manufacturer: Literal[Manufacturer.EDMUND_OPTICS.value, Manufacturer.THORLABS.value, Manufacturer.OTHER.value]
 
     # optional fields
-    focal_length: Optional[float] = Field(None, title="Focal length of the lens", units="mm")
-    focal_length_unit: SizeUnit = Field(SizeUnit.MM, title="Focal length unit")
+    focal_length: Optional[SizeValue] = Field(None, title="Focal length of the lens", units="mm")
     size: Optional[LensSize] = Field(None, title="Size (inches)")
     lens_size_unit: SizeUnit = Field(SizeUnit.IN, title="Lens size unit")
     optimized_wavelength_range: Optional[str] = Field(None, title="Optimized wavelength range (nm)")
