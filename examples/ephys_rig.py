@@ -14,6 +14,8 @@ from aind_data_schema.ephys.ephys_rig import (
     StickMicroscopeAssembly,
 )
 
+from aind_data_schema.utils.units import FrequencyValue, SizeValue, Size
+
 # Describes a rig with running wheel, 2 behavior cameras, one Harp Behavior board,
 # one dual-color laser module, one stick microscope, and 2 Neuropixels probes
 
@@ -49,9 +51,9 @@ basestation = NeuropixelsBasestation(
     computer_name=ephys_computer,
 )
 
-red_laser = Laser(name="Red Laser", wavelength=473, manufacturer="Oxxius")
+red_laser = Laser(name="Red Laser", wavelength=SizeValue(value=473, unit=Size.NM), manufacturer="Oxxius")
 
-blue_laser = Laser(name="Blue Laser", wavelength=638, manufacturer="Oxxius")
+blue_laser = Laser(name="Blue Laser", wavelength=SizeValue(value=638, unit=Size.NM), manufacturer="Oxxius")
 
 laser_assembly = LaserAssembly(
     laser_assembly_name="Laser_assemblyA",
@@ -64,7 +66,7 @@ probe_camera = Camera(
     data_interface="USB",
     manufacturer="FLIR",
     computer_name=ephys_computer,
-    max_frame_rate=50,
+    max_frame_rate=FrequencyValue(value=50),
     pixel_width=1080,
     pixel_height=570,
     sensor_format='1/2.9"',
@@ -98,14 +100,14 @@ ephys_assemblyB = EphysAssembly(
 
 filt = Filter(filter_type="Long pass", manufacturer="Thorlabs", description="850 nm longpass filter")
 
-lens = Lens(focal_length=15, manufacturer="Edmund Optics", max_aperture="f/2")
+lens = Lens(focal_length=SizeValue(value=15), manufacturer="Edmund Optics", max_aperture="f/2")
 
 face_camera = Camera(
     name="Face Camera",
     data_interface="USB",
     manufacturer="FLIR",
     computer_name=behavior_computer,
-    max_frame_rate=500,
+    max_frame_rate=FrequencyValue(value=500),
     pixel_width=1080,
     pixel_height=570,
     sensor_format='1/2.9"',
@@ -121,7 +123,7 @@ body_camera = Camera(
     data_interface="USB",
     manufacturer="FLIR",
     computer_name=behavior_computer,
-    max_frame_rate=500,
+    max_frame_rate=FrequencyValue(value=500),
     pixel_width=1080,
     pixel_height=570,
     sensor_format='1/2.9"',

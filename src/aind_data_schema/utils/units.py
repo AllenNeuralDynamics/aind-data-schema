@@ -12,7 +12,7 @@ class Size(Enum):
     CM = "centimeter"
     MM = "millimeter"
     UM = "micrometer"
-    NG = "nanometer"
+    NM = "nanometer"
     IN = "inch"
     PX = "pixel"
 

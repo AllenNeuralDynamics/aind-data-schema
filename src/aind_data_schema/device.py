@@ -222,8 +222,7 @@ class MotorizedStage(Device):
     """Description of motorized stage"""
 
     travel: SizeValue = Field(..., title="Travel of device (mm)", units="mm")
-
-
+    
 
 class Camera(Device):
     """Device that acquires images and streams them to a computer"""
