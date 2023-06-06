@@ -31,7 +31,8 @@ class DataTouchedInfo:
 class CodeManipulation:
     code_url: str = Field(..., description="Path to code respository", title="Code URL")
     code_version: Optional[str] = Field(None, description="Version of the code", title="Code version")
-    parameters: Dict[str, Any] = Field(..., title="Parameters")
+    input_parameters: Dict[str, Any] = Field(..., title="Input parameters")
+    output_parameters: Optional[Dict[str, Any]] = Field(..., title="Output parameters")
     outputs: Optional[Dict[str, Any]] = Field(None, description="Output parameters", title="Outputs")
 
 
