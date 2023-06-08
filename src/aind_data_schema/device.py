@@ -279,7 +279,7 @@ class Filter(Device):
 
     # optional fields
     diameter: Optional[SizeValue] = Field(None, title="Diameter (mm)")
-    thickness: Optional[SizeValue] = Field(None, title="Thickness (mm)", ge=0)
+    thickness: Optional[SizeValue] = Field(None, title="Thickness (mm)")
     filter_wheel_index: Optional[int] = Field(None, title="Filter wheel index")
     cut_off_frequency: Optional[FrequencyValue] = Field(None, title="Cut-off frequency (Hz)")
     cut_on_frequency: Optional[FrequencyValue] = Field(None, title="Cut-on frequency (Hz)")
@@ -424,16 +424,14 @@ class Disc(MousePlatform):
     """Description of a running disc"""
 
     platform_type: str = Field("Disc", title="Platform type", const=True)
-    radius: float = Field(..., title="Radius (cm)", units="cm", ge=0) # TODO: Can this use a normal SizeValue?
-    radius_unit: SizeUnit = Field(SizeUnit.CM, title="radius unit")
+    radius: SizeValue = Field(..., title="Radius (cm)") # TODO: Can this use a normal SizeValue?
 
 
 class Tube(MousePlatform):
     """Description of a tube platform"""
 
     platform_type: str = Field("Tube", title="Platform type", const=True)
-    diameter: float = Field(..., title="Diameter", ge=0)
-    diameter_unit: SizeUnit = Field(SizeUnit.CM, title="Diameter unit")
+    diameter: SizeValueCM = Field(..., title="Diameter")
 
 
 class Treadmill(MousePlatform):
@@ -449,7 +447,7 @@ class Monitor(Device):
 
     # required fields
     manufacturer: Literal[Manufacturer.LG.value]
-    refresh_rate: FrequencyValue = Field(..., title="Refresh rate (Hz)", ge=60)
+    refresh_rate: FrequencyValue = Field(..., title="Refresh rate (Hz)")
     width: SizeValuePX = Field(..., title="Width (pixels)")
     height: SizeValuePX = Field(..., title="Height (pixels)")
     viewing_distance: SizeValueCM = Field(..., title="Viewing distance (cm)")
