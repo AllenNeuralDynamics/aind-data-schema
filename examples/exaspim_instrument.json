@@ -105,15 +105,17 @@
          "model": "ZET405/488/561/640mv2",
          "notes": "Custom made filter",
          "filter_type": "Multiband",
-         "diameter": 44.05,
-         "diameter_unit": "millimeter",
-         "thickness": 1.0,
-         "thickness_unit": "millimeter",
+         "diameter": {
+            "value": 44.05,
+            "unit": "millimeter"
+         },
+         "thickness": {
+            "value": 1.0,
+            "unit": "millimeter"
+         },
          "filter_wheel_index": 0,
          "cut_off_frequency": null,
-         "cut_off_frequency_unit": "Hertz",
          "cut_on_frequency": null,
-         "cut_on_frequency_unit": "Hertz",
          "description": null
       }
    ],
@@ -125,8 +127,10 @@
          "manufacturer": "Applied Scientific Instrumentation",
          "model": "MS-8000",
          "notes": null,
-         "travel": 1000.0,
-         "travel_unit": "millimeter",
+         "travel": {
+            "value": 1000.0,
+            "unit": "millimeter"
+         },
          "stage_axis_direction": "Detection axis",
          "stage_axis_name": "X"
       },
@@ -136,8 +140,10 @@
          "manufacturer": "Applied Scientific Instrumentation",
          "model": "MS-8000",
          "notes": null,
-         "travel": 1000.0,
-         "travel_unit": "millimeter",
+         "travel": {
+            "value": 1000.0,
+            "unit": "millimeter"
+         },
          "stage_axis_direction": "Perpendicular axis",
          "stage_axis_name": "Y"
       },
@@ -147,8 +153,10 @@
          "manufacturer": "Applied Scientific Instrumentation",
          "model": "LS-100",
          "notes": null,
-         "travel": 100.0,
-         "travel_unit": "millimeter",
+         "travel": {
+            "value": 100.0,
+            "unit": "millimeter"
+         },
          "stage_axis_direction": "Illumination axis",
          "stage_axis_name": "Z"
       }
