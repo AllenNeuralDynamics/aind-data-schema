@@ -2,6 +2,8 @@
 from aind_data_schema.device import DAQChannel, DAQDevice
 from aind_data_schema.imaging import instrument
 
+from aind_data_schema.utils.units import SizeValue
+
 inst = instrument.Instrument(
     instrument_id="exaSPIM1-1",
     instrument_type="exaSPIM",
@@ -69,8 +71,8 @@ inst = instrument.Instrument(
         instrument.Filter(
             filter_type="Multiband",
             manufacturer="Chroma",
-            diameter=44.05,
-            thickness=1.0,
+            diameter=SizeValue(value=44.05),
+            thickness=SizeValue(value=1.0),
             model="ZET405/488/561/640mv2",
             notes="Custom made filter",
             filter_wheel_index=0,
@@ -99,7 +101,7 @@ inst = instrument.Instrument(
         instrument.ScanningStage(
             stage_axis_direction="Detection axis",
             stage_axis_name="X",
-            travel=1000,
+            travel=SizeValue(value=1000),
             model="MS-8000",
             manufacturer="Applied Scientific Instrumentation",
             serial_number="Unknown",
@@ -107,7 +109,7 @@ inst = instrument.Instrument(
         instrument.ScanningStage(
             stage_axis_direction="Perpendicular axis",
             stage_axis_name="Y",
-            travel=1000,
+            travel=SizeValue(value=1000),
             model="MS-8000",
             manufacturer="Applied Scientific Instrumentation",
             serial_number="Unknown",
@@ -115,7 +117,7 @@ inst = instrument.Instrument(
         instrument.ScanningStage(
             stage_axis_direction="Illumination axis",
             stage_axis_name="Z",
-            travel=100,
+            travel=SizeValue(value=100),
             model="LS-100",
             manufacturer="Applied Scientific Instrumentation",
             serial_number="Unknown",
