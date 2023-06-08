@@ -12,7 +12,7 @@ except ImportError:  # pragma: no cover
 from pydantic import Field
 
 from aind_data_schema.base import AindModel
-from aind_data_schema.utils.units import SizeValue, AngleValue, FrequencyValue
+from aind_data_schema.utils.units import SizeValue, SizeValuePX, SizeValueCM, AngleValue, FrequencyValue, WaveLengthNM, PowerValue
 
 
 class SizeUnit(Enum):
@@ -239,9 +239,8 @@ class Camera(Device):
     ]
     computer_name: str = Field(..., title="Name of computer receiving data from this camera")
     max_frame_rate: FrequencyValue = Field(..., title="Maximum frame rate (Hz)", units="Hz")
-    pixel_width: int = Field(..., title="Width of the sensor in pixels", units="Pixels")
-    pixel_height: int = Field(..., title="Height of the sensor in pixels", units="Pixels")
-    size_unit: SizeUnit = Field(SizeUnit.PX, title="Size unit")
+    pixel_width: SizeValuePX = Field(..., title="Width of the sensor in pixels")
+    pixel_height: SizeValuePX = Field(..., title="Height of the sensor in pixels")
     chroma: CameraChroma = Field(..., title="Color or Monochrome")
 
     # optional fields
@@ -260,7 +259,7 @@ class Lens(Device):
     focal_length: Optional[SizeValue] = Field(None, title="Focal length of the lens", units="mm")
     size: Optional[LensSize] = Field(None, title="Size (inches)")
     lens_size_unit: SizeUnit = Field(SizeUnit.IN, title="Lens size unit")
-    optimized_wavelength_range: Optional[str] = Field(None, title="Optimized wavelength range (nm)")
+    optimized_wavelength_range: Optional[str] = Field(None, title="Optimized wavelength range (nm)") # TODO: Covert this to lower/upper bound?
     wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
     max_aperture: Optional[str] = Field(None, title="Max aperture (e.g. f/2)")
 
@@ -279,15 +278,11 @@ class Filter(Device):
     ]
 
     # optional fields
-    diameter: Optional[float] = Field(None, title="Diameter (mm)", units="mm")
-    diameter_unit: SizeUnit = Field(SizeUnit.MM, title="Diameter unit")
-    thickness: Optional[float] = Field(None, title="Thickness (mm)", ge=0)
-    thickness_unit: SizeUnit = Field(SizeUnit.MM, title="Thickness unit")
+    diameter: Optional[SizeValue] = Field(None, title="Diameter (mm)")
+    thickness: Optional[SizeValue] = Field(None, title="Thickness (mm)", ge=0)
     filter_wheel_index: Optional[int] = Field(None, title="Filter wheel index")
-    cut_off_frequency: Optional[int] = Field(None, title="Cut-off frequency (Hz)")
-    cut_off_frequency_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Cut off frequency unit")
-    cut_on_frequency: Optional[int] = Field(None, title="Cut-on frequency (Hz)")
-    cut_on_frequency_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Cut on frequency unit")
+    cut_off_frequency: Optional[FrequencyValue] = Field(None, title="Cut-off frequency (Hz)")
+    cut_on_frequency: Optional[FrequencyValue] = Field(None, title="Cut-on frequency (Hz)")
     description: Optional[str] = Field(
         None, title="Description", description="More details about filter properties and where/how it is being used"
     )
@@ -388,12 +383,10 @@ class Laser(Device):
         Manufacturer.QUANTIFI.value,
         Manufacturer.OTHER.value,
     ]
-    wavelength: SizeValue = Field(..., title="Wavelength (nm)", units="nm")
-    wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
+    wavelength: WaveLengthNM = Field(..., title="Wavelength (nm)")
 
     # optional fields
-    maximum_power: Optional[float] = Field(None, title="Maximum power (mW)", units="mW")
-    power_unit: PowerUnit = Field(PowerUnit.MW, title="Power unit")
+    maximum_power: Optional[PowerValue] = Field(None, title="Maximum power (mW)")
     coupling: Optional[Coupling] = Field(None, title="Coupling")
     coupling_efficiency: Optional[float] = Field(
         None,
@@ -417,8 +410,7 @@ class LightEmittingDiode(Device):
         Manufacturer.THORLABS.value,
         Manufacturer.OTHER.value,
     ]
-    wavelength: int = Field(..., title="Wavelength (nm)", units="nm")
-    wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
+    wavelength: WaveLengthNM = Field(..., title="Wavelength (nm)")
 
 
 class MousePlatform(Device):
@@ -432,7 +424,7 @@ class Disc(MousePlatform):
     """Description of a running disc"""
 
     platform_type: str = Field("Disc", title="Platform type", const=True)
-    radius: float = Field(..., title="Radius (cm)", units="cm", ge=0)
+    radius: float = Field(..., title="Radius (cm)", units="cm", ge=0) # TODO: Can this use a normal SizeValue?
     radius_unit: SizeUnit = Field(SizeUnit.CM, title="radius unit")
 
 
@@ -457,12 +449,10 @@ class Monitor(Device):
 
     # required fields
     manufacturer: Literal[Manufacturer.LG.value]
-    refresh_rate: int = Field(..., title="Refresh rate (Hz)", units="Hz", ge=60)
-    width: int = Field(..., title="Width (pixels)", units="pixels")
-    height: int = Field(..., title="Height (pixels)", units="pixels")
-    size_unit: SizeUnit = Field(SizeUnit.PX, title="Size unit")
-    viewing_distance: float = Field(..., title="Viewing distance (cm)", units="cm")
-    viewing_distance_unit: SizeUnit = Field(SizeUnit.CM, title="Viewing distance unit")
+    refresh_rate: FrequencyValue = Field(..., title="Refresh rate (Hz)", ge=60)
+    width: SizeValuePX = Field(..., title="Width (pixels)")
+    height: SizeValuePX = Field(..., title="Height (pixels)")
+    viewing_distance: SizeValueCM = Field(..., title="Viewing distance (cm)")
 
     # optional fields
     contrast: Optional[int] = Field(
