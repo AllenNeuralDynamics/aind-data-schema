@@ -14,7 +14,7 @@ from aind_data_schema.ephys.ephys_rig import (
     StickMicroscopeAssembly,
 )
 
-from aind_data_schema.utils.units import FrequencyValue, SizeValue, Size
+from aind_data_schema.utils.units import FrequencyValue, SizeValue, SizeValuePX, Size
 
 # Describes a rig with running wheel, 2 behavior cameras, one Harp Behavior board,
 # one dual-color laser module, one stick microscope, and 2 Neuropixels probes
@@ -22,7 +22,7 @@ from aind_data_schema.utils.units import FrequencyValue, SizeValue, Size
 behavior_computer = "W10DT72941"
 ephys_computer = "W10DT72942"
 
-running_wheel = Disc(name="Running Wheel", radius=15)
+running_wheel = Disc(name="Running Wheel", radius=SizeValue(value=15, unit=Size.CM))
 
 digital_out0 = DAQChannel(channel_name="DO0", device_name="Face Camera", channel_type="Digital Output")
 
@@ -67,8 +67,8 @@ probe_camera = Camera(
     manufacturer="FLIR",
     computer_name=ephys_computer,
     max_frame_rate=FrequencyValue(value=50),
-    pixel_width=1080,
-    pixel_height=570,
+    pixel_width=SizeValuePX(value=1080),
+    pixel_height=SizeValuePX(value=570),
     sensor_format='1/2.9"',
     chroma="Color",
 )
@@ -108,8 +108,8 @@ face_camera = Camera(
     manufacturer="FLIR",
     computer_name=behavior_computer,
     max_frame_rate=FrequencyValue(value=500),
-    pixel_width=1080,
-    pixel_height=570,
+    pixel_width=SizeValuePX(value=1080),
+    pixel_height=SizeValuePX(value=570),
     sensor_format='1/2.9"',
     chroma="Monochrome",
 )
@@ -124,8 +124,8 @@ body_camera = Camera(
     manufacturer="FLIR",
     computer_name=behavior_computer,
     max_frame_rate=FrequencyValue(value=500),
-    pixel_width=1080,
-    pixel_height=570,
+    pixel_width=SizeValuePX(value=1080),
+    pixel_height=SizeValuePX(value=570),
     sensor_format='1/2.9"',
     chroma="Monochrome",
 )
