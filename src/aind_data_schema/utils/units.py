@@ -11,6 +11,7 @@ class Size(Enum):
     M = "meter"
     CM = "centimeter"
     MM = "millimeter"
+
     UM = "micrometer"
     NM = "nanometer"
     IN = "inch"
@@ -76,6 +77,11 @@ def create_unit_with_value(model_name, scalar_type, unit_type, unit_default):
 
 
 SizeValue = create_unit_with_value("SizeValue", float, Size, Size.MM)
+
+SizeValueCM = create_unit_with_value("SizeValueCM", float, Size, Size.CM)
+SizeValuePX = create_unit_with_value("SizeValuePX", int, Size, Size.PX)
+
+WaveLengthNM = create_unit_with_value("WaveLengthNM", int, Size, Size.NM)
 MassValue = create_unit_with_value("MassValue", float, Mass, Mass.MG)
 VolumeValue = create_unit_with_value("VolumeValue", float, Volume, Volume.NL)
 FrequencyValue = create_unit_with_value("FrequencyValue", float, Frequency, Frequency.HZ)
