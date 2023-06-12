@@ -10,6 +10,7 @@ from pydantic import Field
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.imaging.tile import Tile
+from aind_data_schema.processing import ProcessName
 
 
 class TouchTypes(Enum):
@@ -19,7 +20,7 @@ class TouchTypes(Enum):
     SORTING = "Sorting"
 
 
-class DataTouchedInfo:
+class DataTouchInfo:
     touch_type: TouchTypes = Field(..., title="Manipulation type")
     start_date_time: datetime = Field(..., title="Start date time")
     end_date_time: datetime = Field(..., title="End date time")
@@ -40,7 +41,15 @@ class AnalysisStep(AindModel):
     """Description of a single processing step"""
 
     analysis_name: str = Field(..., description="Name of the analysis method used", title="Analysis name")
-    touch_info: DataTouchedInfo = Field(..., description="General information regarding the data manipulation performed")
+    touch_info: DataTouchInfo = Field(..., description="General information regarding the data manipulation performed")
+    analysis_code: CodeManipulation = Field(..., description="Info regarding code used to manipulate data")
+
+
+class DataProcess(AindModel):
+    """Description of a single processing step"""
+
+    name: ProcessName = Field(..., title="Name")
+    touch_info: DataTouchInfo = Field(..., description="General information regarding the data manipulation performed")
     analysis_code: CodeManipulation = Field(..., description="Info regarding code used to manipulate data")
 
 
