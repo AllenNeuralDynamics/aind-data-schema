@@ -13,15 +13,24 @@ from aind_data_schema.imaging.tile import Tile
 from aind_data_schema.processing import ProcessName
 
 
-class TouchTypes(Enum):
+class TouchType(Enum):
     ANALYSIS = "Analysis"
     PROCESSING = "Processing"
+
+    ## These could be subtypes of analysis/processing
+
+class ProcessType(Enum):
     CURATION = "Curation"
     SORTING = "Sorting"
 
+class AnalysisType(Enum):
+    uhhh = "some analysis"
+
+
+
 
 class DataTouchInfo:
-    touch_type: TouchTypes = Field(..., title="Manipulation type")
+    touch_type: TouchType = Field(..., title="Manipulation type")
     start_date_time: datetime = Field(..., title="Start date time")
     end_date_time: datetime = Field(..., title="End date time")
     input_location: str = Field(..., description="Path to data inputs", title="Input location")
@@ -41,6 +50,7 @@ class AnalysisStep(AindModel):
     """Description of a single processing step"""
 
     analysis_name: str = Field(..., description="Name of the analysis method used", title="Analysis name")
+    analysis_type: AnalysisType = Field(..., description="Type of analysis performed on dataset", title="Analysis type")
     touch_info: DataTouchInfo = Field(..., description="General information regarding the data manipulation performed")
     analysis_code: CodeManipulation = Field(..., description="Info regarding code used to manipulate data")
 
@@ -48,7 +58,8 @@ class AnalysisStep(AindModel):
 class DataProcess(AindModel):
     """Description of a single processing step"""
 
-    name: ProcessName = Field(..., title="Name")
+    process_name: ProcessName = Field(..., title="Process name")
+    processing_type: ProcessType = Field(..., description="Type of processing performed on dataset", title="Processing type")
     touch_info: DataTouchInfo = Field(..., description="General information regarding the data manipulation performed")
     analysis_code: CodeManipulation = Field(..., description="Info regarding code used to manipulate data")
 
