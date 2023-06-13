@@ -1,4 +1,4 @@
-""" schema for processing """
+""" schema for analyzing/processing data assets """
 
 from __future__ import annotations
 
@@ -14,23 +14,29 @@ from aind_data_schema.processing import ProcessName
 
 
 class TouchType(Enum):
+    """Enumeration of different types of 'touch' (data manipulation)"""
+
     ANALYSIS = "Analysis"
     PROCESSING = "Processing"
 
-    ## These could be subtypes of analysis/processing
 
 class ProcessType(Enum):
+    """Enumeration of different types of processing that could be performed"""
+
     CURATION = "Curation"
     SORTING = "Sorting"
 
+
 class AnalysisType(Enum):
+    """Enumeration of different types of analysis that could be performed"""
+
     uhhh = "some analysis"
 
 
+class DataTouch:
+    """Class to contain basic info about a data asset manipulation"""
 
-
-class DataTouchInfo:
-    touch_type: TouchType = Field(..., title="Manipulation type")
+    touch_type: TouchType = Field(..., title="Manipulation type") # This is arguably redundant, as DataTouch is a subclass of both AnalysisStep and ProcessStep, so they inherently convey this info
     start_date_time: datetime = Field(..., title="Start date time")
     end_date_time: datetime = Field(..., title="End date time")
     input_location: str = Field(..., description="Path to data inputs", title="Input location")
@@ -39,6 +45,7 @@ class DataTouchInfo:
 
 
 class CodeManipulation:
+    """Class to contain basic info about any programmatic manipulations of a data asset"""
     code_url: str = Field(..., description="Path to code respository", title="Code URL")
     code_version: Optional[str] = Field(None, description="Version of the code", title="Code version")
     input_parameters: Dict[str, Any] = Field(..., title="Input parameters")
@@ -47,20 +54,20 @@ class CodeManipulation:
 
 
 class AnalysisStep(AindModel):
-    """Description of a single processing step"""
+    """Description of a single analysis step"""
 
     analysis_name: str = Field(..., description="Name of the analysis method used", title="Analysis name")
-    analysis_type: AnalysisType = Field(..., description="Type of analysis performed on dataset", title="Analysis type")
-    touch_info: DataTouchInfo = Field(..., description="General information regarding the data manipulation performed")
+    analysis_type: AnalysisType = Field(..., description="Type of analysis performed on data asset", title="Analysis type")
+    touch_info: DataTouch = Field(..., description="General information regarding the data manipulation performed")
     analysis_code: CodeManipulation = Field(..., description="Info regarding code used to manipulate data")
 
 
-class DataProcess(AindModel):
+class ProcessingStep(AindModel):
     """Description of a single processing step"""
 
     process_name: ProcessName = Field(..., title="Process name")
-    processing_type: ProcessType = Field(..., description="Type of processing performed on dataset", title="Processing type")
-    touch_info: DataTouchInfo = Field(..., description="General information regarding the data manipulation performed")
+    processing_type: ProcessType = Field(..., description="Type of processing performed on data asset", title="Processing type")
+    touch_info: DataTouch = Field(..., description="General information regarding the data manipulation performed")
     analysis_code: CodeManipulation = Field(..., description="Info regarding code used to manipulate data")
 
 
@@ -75,4 +82,4 @@ class Processing(AindCoreModel):
     )
     pipeline_version: Optional[str] = Field(None, description="Version of the pipeline", title="Pipeline version")
     pipeline_url: Optional[str] = Field(None, description="URL to the pipeline code", title="Pipeline URL")
-    data_processes: List[AnalysisStep] = Field(..., title="Data processing", unique_items=True)
+    data_processes: List[ProcessingStep] = Field(..., title="Data processing", unique_items=True)
