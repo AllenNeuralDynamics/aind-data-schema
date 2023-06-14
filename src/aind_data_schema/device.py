@@ -2,7 +2,7 @@
 
 from datetime import datetime
 from enum import Enum
-from typing import List, Optional
+from typing import Any, Dict, List, Optional, Union
 
 try:
     from typing import Literal
@@ -11,7 +11,8 @@ except ImportError:  # pragma: no cover
 
 from pydantic import Field
 
-from .base import AindModel, BaseName, PIDName
+
+from aind_data_schema.base import AindModel
 
 
 class SizeUnit(Enum):
@@ -43,6 +44,14 @@ class PowerUnit(Enum):
 
     UW = "microwatt"
     MW = "milliwatt"
+
+
+class DeviceDriver(Enum):
+    """DeviceDriver name"""
+
+    OPENGL = "OpenGL"
+    VIMBA = "Vimba"
+    NVIDIA = "Nvidia Graphics"
 
 
 class Manufacturer(Enum):
@@ -333,11 +342,22 @@ class Device(AindModel):
     notes: Optional[str] = Field(None, title="Notes")
 
 
+class Software(AindModel):
+    """Description of generic software"""
+
+    name: str = Field(..., title="Software name")
+    version: str = Field(..., title="Software version")
+    parameters: Optional[dict] = Field(..., title="Software parameters")
+
+
 class MotorizedStage(Device):
     """Description of motorized stage"""
 
     travel: float = Field(..., title="Travel of device (mm)", units="mm")
     travel_unit: SizeUnit = Field(SizeUnit.MM, title="Travel unit")
+
+    # optional fields
+    firmware: Optional[str] = Field(None, title="Firmware")
 
 
 class Camera(Device):
@@ -364,7 +384,9 @@ class Camera(Device):
     # optional fields
     sensor_format: Optional[str] = Field(None, title="Size of the sensor")
     format_unit: Optional[str] = Field(None, title="Format unit")
-    recording_software: Optional[str] = Field(None, title="Recording software")
+    recording_software: Optional[Software] = Field(None, title="Recording software")
+    driver: Optional[DeviceDriver] = Field(None, title="Driver")
+    driver_version: Optional[str] = Field(None, title="Driver version")
 
 
 class Lens(Device):
@@ -402,10 +424,10 @@ class Filter(Device):
     thickness: Optional[float] = Field(None, title="Thickness (mm)", ge=0)
     thickness_unit: SizeUnit = Field(SizeUnit.MM, title="Thickness unit")
     filter_wheel_index: Optional[int] = Field(None, title="Filter wheel index")
-    cut_off_frequency: Optional[int] = Field(None, title="Cut-off frequency (Hz)")
-    cut_off_frequency_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Cut off frequency unit")
-    cut_on_frequency: Optional[int] = Field(None, title="Cut-on frequency (Hz)")
-    cut_on_frequency_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Cut on frequency unit")
+    cut_off_wavelength: Optional[int] = Field(None, title="Cut-off wavelength (nm)")
+    cut_off_wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Cut off wavelength unit")
+    cut_on_wavelength: Optional[int] = Field(None, title="Cut-on wavelength (nm)")
+    cut_on_wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Cut on wavelength unit")
     description: Optional[str] = Field(
         None, title="Description", description="More details about filter properties and where/how it is being used"
     )
@@ -552,6 +574,12 @@ class Disc(MousePlatform):
     platform_type: str = Field("Disc", title="Platform type", const=True)
     radius: float = Field(..., title="Radius (cm)", units="cm", ge=0)
     radius_unit: SizeUnit = Field(SizeUnit.CM, title="radius unit")
+    output: Optional[DaqChannelType] = Field(None, description="analog or digital electronics")
+    encoder: Optional[str] = Field(None, title="Encoder", description="Encoder hardware type")
+    decoder: Optional[str] = Field(None, title="Decoder", description="Decoder chip type")
+    encoder_firmware: Optional[Software] = Field(
+        None, title="Encoder firmware", description="Firmware to read from decoder chip counts"
+    )
 
 
 class Tube(MousePlatform):
@@ -580,7 +608,6 @@ class Monitor(Device):
     height: int = Field(..., title="Height (pixels)", units="pixels")
     size_unit: SizeUnit = Field(SizeUnit.PX, title="Size unit")
     viewing_distance: float = Field(..., title="Viewing distance (cm)", units="cm")
-    viewing_distance_unit: SizeUnit = Field(SizeUnit.CM, title="Viewing distance unit")
 
     # optional fields
     contrast: Optional[int] = Field(
@@ -597,4 +624,50 @@ class Monitor(Device):
         ge=0,
         le=100,
     )
+
+
+class CameraTarget(Enum):
+    """Target of camera"""
+
+    BODY = "Body"
+    BOTTOM = "Bottom"
+    EYE = "Eye"
+    FACE = "Face"
+    SIDE = "Side"
+    TONGUE = "Tongue"
+    OTHER = "Other"
+
+
+class WaterDelivery(AindModel):
+    """Description of water delivery system"""
+
+    # required fields
+    spout_diameter: str = Field(..., title="Spout diameter (mm)")
+    spout_diameter_unit: SizeUnit = Field(SizeUnit.MM, title="Spout diameter unit")
+    spout_position: RelativePosition = Field(..., title="Spout stage position")
+    water_calibration_values: Dict[str, Any] = Field(..., title="Water calibration values")
+
+    # optional fields
+    stage_type: Optional[MotorizedStage] = Field(None, title="Motorized stage")
+
+
+class MousePlatform(AindModel):
+    """Behavior platform for a mouse during a session"""
+
+    track_wheel: Union[Tube, Treadmill, Disc] = Field(..., title="Track wheel type")
+
+    # optional fields
+    stage_software: Optional[Software] = Field(None, title="Stage software")
+    water_delivery: Optional[WaterDelivery] = Field(None, title="Water delivery")
+
+
+class VisualStimulusDisplayAssembly(AindModel):
+    """Visual display"""
+
+    # required fields
+    monitor: Monitor = Field(..., title="Monitor")
+    viewing_distance: float = Field(..., title="Viewing distance (cm)", units="cm")
+    viewing_distance_unit: SizeUnit = Field(SizeUnit.CM, title="Viewing distance unit")
+
+    # optional fields
     position: Optional[RelativePosition] = Field(None, title="Relative position of the monitor")

@@ -158,12 +158,12 @@ where scope (optional) describes the packages affected by the code changes and t
 To generate the rst files source files for documentation, run:
 
 ```
-sphinx-apidoc -o doc_template/source/ src 
+sphinx-apidoc -o docs/source/ src
 ```
 
 Then to create the documentation html files, run:
 ```
-sphinx-build -b html doc_template/source/ doc_template/build/html
+sphinx-build -b html docs/source/ docs/build/html
 ```
 
 More info on sphinx installation can be found here: https://www.sphinx-doc.org/en/master/usage/installation.html

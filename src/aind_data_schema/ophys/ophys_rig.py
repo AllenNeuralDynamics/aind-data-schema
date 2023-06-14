@@ -8,8 +8,8 @@ from typing import List, Optional, Union
 
 from pydantic import Field
 
-from ..base import AindCoreModel
-from ..device import (
+from aind_data_schema.base import AindCoreModel
+from aind_data_schema.device import (
     CameraAssembly,
     DAQDevice,
     DataInterface,
@@ -70,13 +70,12 @@ class OphysRig(AindCoreModel):
     """Description of an optical physiology rig"""
 
     schema_version: str = Field(
-        "0.4.0",
+        "0.5.2",
         description="schema version",
         title="Schema Version",
         const=True,
     )
     rig_id: str = Field(..., description="room number_stim apparatus_version", title="Rig ID")
-    rig_location: Optional[str] = Field(None, title="Rig location")
     temperature_control: Optional[bool] = Field(None, title="Temperature control")
     humidity_control: Optional[bool] = Field(None, title="Humidity control")
     vibration_control: Optional[bool] = Field(None, title="Vibration control")

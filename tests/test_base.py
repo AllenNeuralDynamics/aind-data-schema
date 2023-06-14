@@ -10,6 +10,13 @@ from aind_data_schema.base import AindCoreModel
 class BaseTests(unittest.TestCase):
     """tests for the base module"""
 
+    def test_schema_version_check(self):
+        """test schema version"""
+        with self.assertRaises(Exception):
+            AindCoreModel(schema_version="123", describedBy="test")
+        a = AindCoreModel(schema_version="1.2.3", describedBy="test")
+        self.assertEqual("1.2.3", a.schema_version)
+
     def test_described_by(self):
         """test that described by works"""
 

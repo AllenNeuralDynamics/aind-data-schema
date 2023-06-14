@@ -9,7 +9,7 @@ from typing import List, Optional
 
 from pydantic import Field
 
-from .base import AindCoreModel, AindModel, BaseName, BaseNameEnumMeta, PIDName
+from aind_data_schema.base import AindCoreModel, AindModel, BaseName, BaseNameEnumMeta, PIDName
 
 
 class RegexParts(Enum):
@@ -45,37 +45,35 @@ class Institution(Enum, metaclass=BaseNameEnumMeta):
     """Institution name"""
 
     AIBS = PIDName(
-        name=BaseName(name="Allen Institute for Brain Science", abbreviation="AIBS"),
+        name="Allen Institute for Brain Science",
+        abbreviation="AIBS",
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
         registry_identifier="00dcv1019",
     )
     AIND = PIDName(
-        name=BaseName(name="Allen Institute for Neural Dynamics", abbreviation="AIND"),
+        name="Allen Institute for Neural Dynamics",
+        abbreviation="AIND",
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
         registry_identifier="04szwah67",
     )
     COLUMBIA = PIDName(
-        name=BaseName(name="Columbia University", abbreviation="Columbia"),
+        name="Columbia University",
+        abbreviation="Columbia",
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
         registry_identifier="00hj8s172",
     )
     HUST = PIDName(
-        name=BaseName(name="Huazhong University of Science and Technology", abbreviation="HUST"),
+        name="Huazhong University of Science and Technology",
+        abbreviation="HUST",
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
         registry_identifier="00p991c53",
     )
     NYU = PIDName(
-        name=BaseName(name="New York University", abbreviation="NYU"),
+        name="New York University",
+        abbreviation="NYU",
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
         registry_identifier="0190ak572",
     )
-
-    @classmethod
-    def __modify_schema__(cls, field_schema):
-        """Adds enumNames to institution"""
-        field_schema.update(
-            enumNames=[e.value.name for e in cls],
-        )
 
 
 class Group(Enum):
@@ -109,13 +107,6 @@ class Modality(Enum, metaclass=BaseNameEnumMeta):
     SLAP = BaseName(name="Scanned line projection", abbreviation="slap")
     SMARTSPIM = BaseName(name="Smart selective plane illumination microscopy", abbreviation="SmartSPIM")
     SPIM = BaseName(name="Selective plane illumination microscopy", abbreviation="SPIM")
-
-    @classmethod
-    def __modify_schema__(cls, field_schema):
-        """Adds enumNames to modality"""
-        field_schema.update(
-            enumNames=[e.value.name for e in cls],
-        )
 
 
 class ExperimentType(Enum):
@@ -176,7 +167,7 @@ class RelatedData(AindModel):
 class DataDescription(AindCoreModel):
     """Description of a logical collection of data files"""
 
-    schema_version: str = Field("0.6.3", title="Schema Version", const=True)
+    schema_version: str = Field("0.7.0", title="Schema Version", const=True)
     license: str = Field("CC-BY-4.0", title="License", const=True)
 
     creation_time: time = Field(

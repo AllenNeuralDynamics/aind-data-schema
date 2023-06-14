@@ -13,17 +13,16 @@ class ErdGeneratorTests(unittest.TestCase):
     def test_classes_to_generate(self, mock_draw: MagicMock):
         """Tests that draw is called correctly"""
 
-        erd = ErdGenerator(classes_to_generate=["Subject"])
-        erd.generate_requested_classes()
+        erd = ErdGenerator(classes_to_generate=["Subject", "Processing"])
+        erd.generate_erd_diagrams()
         assert mock_draw.call_count == len(erd.classes_to_generate)
 
     @patch("erdantic.EntityRelationshipDiagram.draw")
-    def test_generate_loaded_models(self, mock_draw: MagicMock):
-        """Tests that draw is called correctly"""
-
-        erd = ErdGenerator(classes_to_generate=[])
-        erd.generate_aind_core_model_diagrams()
-        assert mock_draw.call_count == len(erd.loaded_modules)
+    def test_from_args(self, mock_draw: MagicMock):
+        """Tests that class is constructed from args"""
+        erd = ErdGenerator.from_args(["-c", "Subject", "Processing"])
+        erd.generate_erd_diagrams()
+        assert mock_draw.call_count == len(erd.classes_to_generate)
 
 
 if __name__ == "__main__":

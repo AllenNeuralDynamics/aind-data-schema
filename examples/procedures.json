@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/procedures.py",
-   "schema_version": "0.7.7",
+   "schema_version": "0.8.1",
    "subject_id": "625100",
    "subject_procedures": [
       {
@@ -90,6 +90,6 @@
          "injection_volume_unit": "nanoliter"
       }
    ],
-   "specimen_procedures": null,
+   "specimen_procedures": [],
    "notes": null
 }
