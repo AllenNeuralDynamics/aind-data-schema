@@ -122,6 +122,8 @@ class AindCoreModel(AindModel):
         """
         if prefix is None:
             filename = self.default_filename()
+        elif str(prefix)[-1] == "/" or str(prefix)[-1] == "\\":
+            filename = str(prefix) + self.default_filename()
         else:
             filename = str(prefix) + "_" + self.default_filename()
         with open(filename, "w") as f:
