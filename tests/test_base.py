@@ -84,7 +84,7 @@ class BaseTests(unittest.TestCase):
         default_filename = p.default_filename()
         json_contents = p.json(indent=3)
         new_path = Path("foo") / "bar"
-        new_path = str(new_path)+"\\"
+        new_path = str(new_path) + "\\"
         print(new_path)
         p.write_standard_file(new_path)
 
@@ -94,6 +94,7 @@ class BaseTests(unittest.TestCase):
 
         mock_open.assert_called_once_with(expected_file_path, "w")
         mock_open.return_value.__enter__().write.assert_called_once_with(json_contents)
+
 
 if __name__ == "__main__":
     unittest.main()
