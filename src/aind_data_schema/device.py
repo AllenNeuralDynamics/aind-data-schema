@@ -68,11 +68,31 @@ class Manufacturer(Enum):
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
         registry_identifier=""
     )
-    CHROMA = "Chroma"
-    COHERENT_SCIENTIFIC = "Coherent Scientific"
-    CUSTOM = "Custom"
-    DORIC = "Doric"
-    EALING = "Ealing"
+    CHROMA = PIDName(
+        name=BaseName(name="Chroma"),
+        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry_identifier=""
+    )
+    COHERENT_SCIENTIFIC = PIDName(
+        name=BaseName(name="Coherent Scientific"),
+        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry_identifier=""
+    )
+    CUSTOM = PIDName(
+        name=BaseName(name="Custom"),
+        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry_identifier=""
+    )
+    DORIC = PIDName(
+        name=BaseName(name="Doric"),
+        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry_identifier=""
+    )
+    EALING = PIDName(
+        name=BaseName(name="Ealing"),
+        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry_identifier=""
+    )
     EDMUND_OPTICS = "Edmund Optics"
     FLIR = PIDName(
         name=BaseName(name="Teledyne FLIR", abbreviation="FLIR"),
@@ -85,11 +105,31 @@ class Manufacturer(Enum):
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
         registry_identifier=""
     )
-    JULABO = "Julabo"
-    LEICA = "Leica"
-    LG = "LG"
-    LIFECANVAS = "LifeCanvas"
-    MIGHTY_ZAP = "IR Robot Co"
+    JULABO = PIDName(
+        name=BaseName(name="Julabo"),
+        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry_identifier=""
+    )
+    LEICA = PIDName(
+        name=BaseName(name="Leica"),
+        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry_identifier=""
+    )
+    LG = PIDName(
+        name=BaseName(name="LG"),
+        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry_identifier=""
+    )
+    LIFECANVAS = PIDName(
+        name=BaseName(name="LifeCanvas"),
+        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry_identifier=""
+    )
+    MIGHTY_ZAP = PIDName(
+        name=BaseName(name="IR Robot Co"),
+        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry_identifier=""
+    )
     MKS_NEWPORT = PIDName(
         name=BaseName(name="MKS Newport"),
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
@@ -108,16 +148,56 @@ class Manufacturer(Enum):
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
         registry_identifier="007rkz355"
     )
-    OLYMPUS = "Olympus"
-    OPTOTUNE = "Optotune"
-    OXXIUS = "Oxxius"
-    PRIZMATIX = "Prizmatix"
-    QUANTIFI = "Quantifi"
-    SEMROCK = "Semrock"
-    THORLABS = "Thorlabs"
-    TMC = "Technical Manufacturing Corporation"
-    VIEWORKS = "Vieworks"
-    VORTRAN = "Vortran"
+    OLYMPUS = PIDName(
+        name=BaseName(name="Olympus"),
+        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry_identifier=""
+    )
+    OPTOTUNE = PIDName(
+        name=BaseName(name="Optotune"),
+        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry_identifier=""
+    )
+    OXXIUS = PIDName(
+        name=BaseName(name="Oxxius"),
+        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry_identifier=""
+    )
+    PRIZMATIX = PIDName(
+        name=BaseName(name="Prizmatix"),
+        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry_identifier=""
+    )
+    QUANTIFI = PIDName(
+        name=BaseName(name="Quantifi"),
+        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry_identifier=""
+    )
+    SEMROCK = PIDName(
+        name=BaseName(name="Semrock"),
+        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry_identifier=""
+    )
+    THORLABS = PIDName(
+        name=BaseName(name="Thorlabs"),
+        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry_identifier=""
+    )
+    TMC = PIDName(
+        name=BaseName(name="Technical Manufacturing Corporation", abbreviation="TMC"),
+        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry_identifier=""
+    )
+    VIEWORKS = PIDName(
+        name=BaseName(name="Vieworks"),
+        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry_identifier=""
+    )
+    VORTRAN = PIDName(
+        name=BaseName(name="Vortran"),
+        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry_identifier=""
+    )
     OTHER = "Other"
 
 
