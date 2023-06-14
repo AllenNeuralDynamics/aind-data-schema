@@ -11,7 +11,7 @@ except ImportError:  # pragma: no cover
 
 from pydantic import Field
 
-from .base import AindModel
+from .base import AindModel, BaseName, PIDName
 
 
 class SizeUnit(Enum):
@@ -48,30 +48,66 @@ class PowerUnit(Enum):
 class Manufacturer(Enum):
     """Device manufacturer name"""
 
-    ALLIED = "Allied"
-    ASI = "Applied Scientific Instrumentation"
-    BASLER = "Basler"
-    CAMBRIDGE_TECHNOLOGY = "Cambridge Technology"
+    ALLIED = PIDName(
+        name=BaseName(name="Allied"),
+        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry_identifier=""
+    )
+    ASI = PIDName(
+        name=BaseName(name="Applied Scientific Instrumentation", abbreviation="ASI"),
+        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry_identifier=""
+    )
+    BASLER = PIDName(
+        name=BaseName(name="Basler"),
+        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry_identifier=""
+    )
+    CAMBRIDGE_TECHNOLOGY = PIDName(
+        name=BaseName(name="Cambridge Technology"),
+        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry_identifier=""
+    )
     CHROMA = "Chroma"
     COHERENT_SCIENTIFIC = "Coherent Scientific"
     CUSTOM = "Custom"
     DORIC = "Doric"
     EALING = "Ealing"
     EDMUND_OPTICS = "Edmund Optics"
-    FLIR = "FLIR"
+    FLIR = PIDName(
+        name=BaseName(name="Teledyne FLIR", abbreviation="FLIR"),
+        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry_identifier="01j1gwp17"
+    )
     HAMAMATSU = "Hamamatsu"
-    IMEC = "IMEC"
+    IMEC = PIDName(
+        name=BaseName(name="Interuniversity Microelectronics Center", abbreviation="IMEC"),
+        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry_identifier=""
+    )
     JULABO = "Julabo"
     LEICA = "Leica"
     LG = "LG"
     LIFECANVAS = "LifeCanvas"
     MIGHTY_ZAP = "IR Robot Co"
-    MKS_NEWPORT = "MKS Newport"
-    MPI = "MPI"
+    MKS_NEWPORT = PIDName(
+        name=BaseName(name="MKS Newport"),
+        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry_identifier="00k17f049"
+    )
+    MPI = PIDName(
+        name=BaseName(name="Materials Processing, Inc", abbreviation="MPI"),
+        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry_identifier="01j1gwp17"
+    )
     NATIONAL_INSTRUMENTS = "National Instruments"
     NEW_SCALE_TECHNOLOGIES = "New Scale Technologies"
     NIKON = "Nikon"
-    OEPS = "OEPS"
+    OEPS = PIDName(
+        name=BaseName(name="Open Ephys Production Site", abbreviation="OEPS"),
+        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry_identifier="007rkz355"
+    )
     OLYMPUS = "Olympus"
     OPTOTUNE = "Optotune"
     OXXIUS = "Oxxius"
