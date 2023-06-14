@@ -62,8 +62,8 @@ class BaseTests(unittest.TestCase):
         mocked_file.return_value.__enter__().write.assert_called_once_with(json_contents)
 
     @patch("builtins.open", new_callable=unittest.mock.mock_open())
-    def test_write_standard_file_with_prefix(self, mocked_file):
-        """tests that standard file is named and written as expected with prefix"""
+    def test_write_standard_file_with_file_prefix(self, mocked_file):
+        """tests that standard file is named and written as expected with path to file prefix"""
         p = Procedures.construct()
         default_filename = p.default_filename()
         json_contents = p.json(indent=3)
@@ -77,6 +77,23 @@ class BaseTests(unittest.TestCase):
         mocked_file.assert_called_once_with(expected_file_path, "w")
         mocked_file.return_value.__enter__().write.assert_called_once_with(json_contents)
 
+    @patch("builtins.open", new_callable=unittest.mock.mock_open())
+    def test_write_standard_file_with_directory_prefix(self, mock_open):
+        """tests that standard file is named and written as expected with path to directory prefix"""
+        p = Procedures.construct()
+        default_filename = p.default_filename()
+        json_contents = p.json(indent=3)
+        new_path = Path("foo") / "bar"
+        new_path = str(new_path)+"\\"
+        print(new_path)
+        p.write_standard_file(new_path)
+
+        # It's expected that the file will be written to something like
+        # foo/bar/procedure.json
+        expected_file_path = str(new_path) + default_filename
+
+        mock_open.assert_called_once_with(expected_file_path, "w")
+        mock_open.return_value.__enter__().write.assert_called_once_with(json_contents)
 
 if __name__ == "__main__":
     unittest.main()
