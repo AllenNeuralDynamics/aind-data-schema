@@ -76,7 +76,7 @@ class Manufacturer(Enum):
     COHERENT_SCIENTIFIC = PIDName(
         name=BaseName(name="Coherent Scientific"),
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
-        registry_identifier=""
+        registry_identifier="031tysd23"
     )
     CUSTOM = PIDName(
         name=BaseName(name="Custom"),
@@ -86,7 +86,7 @@ class Manufacturer(Enum):
     DORIC = PIDName(
         name=BaseName(name="Doric"),
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
-        registry_identifier=""
+        registry_identifier="059n53q30"
     )
     EALING = PIDName(
         name=BaseName(name="Ealing"),
@@ -99,11 +99,15 @@ class Manufacturer(Enum):
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
         registry_identifier="01j1gwp17"
     )
-    HAMAMATSU = "Hamamatsu"
+    HAMAMATSU = PIDName(
+        name=BaseName(name="Hamamatsu"),
+        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry_identifier="03natb733"
+    )
     IMEC = PIDName(
         name=BaseName(name="Interuniversity Microelectronics Center", abbreviation="IMEC"),
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
-        registry_identifier=""
+        registry_identifier="02kcbn207"
     )
     JULABO = PIDName(
         name=BaseName(name="Julabo"),
@@ -118,7 +122,7 @@ class Manufacturer(Enum):
     LG = PIDName(
         name=BaseName(name="LG"),
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
-        registry_identifier=""
+        registry_identifier="02b948n83"
     )
     LIFECANVAS = PIDName(
         name=BaseName(name="LifeCanvas"),
@@ -140,9 +144,21 @@ class Manufacturer(Enum):
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
         registry_identifier="01j1gwp17"
     )
-    NATIONAL_INSTRUMENTS = "National Instruments"
-    NEW_SCALE_TECHNOLOGIES = "New Scale Technologies"
-    NIKON = "Nikon"
+    NATIONAL_INSTRUMENTS = PIDName(
+        name=BaseName(name="National Instruments"),
+        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry_identifier="026exqw73"
+    )
+    NEW_SCALE_TECHNOLOGIES = PIDName(
+        name=BaseName(name="New Scale Technologies"),
+        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry_identifier=""
+    )
+    NIKON = PIDName(
+        name=BaseName(name="Nikon"),
+        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry_identifier="0280y9h11"
+    )
     OEPS = PIDName(
         name=BaseName(name="Open Ephys Production Site", abbreviation="OEPS"),
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
@@ -151,7 +167,8 @@ class Manufacturer(Enum):
     OLYMPUS = PIDName(
         name=BaseName(name="Olympus"),
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
-        registry_identifier=""
+        registry_identifier="02vcdte90
+"
     )
     OPTOTUNE = PIDName(
         name=BaseName(name="Optotune"),
