@@ -17,6 +17,7 @@ from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.device import SizeUnit
 from aind_data_schema.imaging.tile import AcquisitionTile
 from aind_data_schema.processing import ProcessName
+from aind_data_schema.imaging.instrument import Lightsource
 
 
 class AxisName(Enum):
@@ -102,6 +103,31 @@ class ProcessingSteps(AindModel):
     ]
 
 
+class PowerUnit(Enum):
+    """Unit for power set by operator"""
+
+    Watt = "W"
+    MilliW = "mW"
+    Percent = "percent"
+
+
+class LightSourcePowerCalibration(AindModel):
+    """Calibration for laser set point/power at sample relationshipe"""
+
+    light_source: Lightsource = Field(..., title="Light Source")
+    illumination_index: int = Field(..., title="Excitation arm index")
+    power_setting: float = Field(
+        ...,
+        title="Excitation power set point",
+    )
+    power_setting_unit: PowerUnit = Field(
+        ...,
+        title="Power set point unit",
+    )
+    power_measurement: float = Field(..., title="Power Measured at sample location")
+    power_measurement_unit: PowerUnit = Field(..., title="Power measurement unit")
+
+
 class Acquisition(AindCoreModel):
     """Description of an imaging acquisition session"""
 
@@ -114,6 +140,12 @@ class Acquisition(AindCoreModel):
     specimen_id: str = Field(..., title="Specimen ID")
     subject_id: Optional[str] = Field(None, title="Subject ID")
     instrument_id: str = Field(..., title="Instrument ID")
+    calibrations: Optional[List[LightSourcePowerCalibration]] = Field(
+        ...,
+        title="Acquisition-time instrument calibrations",
+        description="List of calibration measurements taken at time of \
+            acquisition, e.g. laser power setting - power measuered at sample."
+    )
     session_start_time: datetime = Field(..., title="Session start time")
     session_end_time: datetime = Field(..., title="Session end time")
     session_type: Optional[str] = Field(None, title="Session type")
