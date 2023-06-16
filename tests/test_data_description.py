@@ -23,7 +23,7 @@ class DataDescriptionTest(unittest.TestCase):
 
     def test_constructors(self):
         """test building from component parts"""
-        f = Funding(funder="test")
+        f = Funding(funder=Institution.NINDS, grant_number="grant001")
 
         dt = datetime.datetime.now()
         da = RawDataDescription(
