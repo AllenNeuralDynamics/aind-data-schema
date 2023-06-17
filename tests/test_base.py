@@ -62,35 +62,51 @@ class BaseTests(unittest.TestCase):
         mock_open.return_value.__enter__().write.assert_called_once_with(json_contents)
 
     @patch("builtins.open", new_callable=unittest.mock.mock_open())
-    def test_write_standard_file_with_file_prefix(self, mock_open):
-        """tests that standard file is named and written as expected with path to file prefix"""
+    def test_write_standard_file_with_prefix(self, mock_open):
+        """tests that standard file is named and written as expected with filename prefix"""
         p = Procedures.construct()
         default_filename = p.default_filename()
         json_contents = p.json(indent=3)
-        new_path = Path("foo") / "bar" / "aibs"
-        p.write_standard_file(new_path)
+        prefix = "aibs"
+        p.write_standard_file(prefix=prefix)
 
         # It's expected that the file will be written to something like
-        # foo/bar/aibs_procedure.json
-        expected_file_path = str(new_path) + "_" + default_filename
+        # aibs_procedure.json
+        expected_file_path = str(prefix) + "_" + default_filename
 
         mock_open.assert_called_once_with(expected_file_path, "w")
         mock_open.return_value.__enter__().write.assert_called_once_with(json_contents)
 
     @patch("builtins.open", new_callable=unittest.mock.mock_open())
-    def test_write_standard_file_with_directory_prefix(self, mock_open):
-        """tests that standard file is named and written as expected with path to directory prefix"""
+    def test_write_standard_file_with_output_directory(self, mock_open):
+        """tests that standard file is named and written as expected with designated output directory"""
         p = Procedures.construct()
         default_filename = p.default_filename()
         json_contents = p.json(indent=3)
         new_path = Path("foo") / "bar"
-        new_path = str(new_path) + "\\"
-        print(new_path)
-        p.write_standard_file(new_path)
+        p.write_standard_file(output_directory=new_path)
 
         # It's expected that the file will be written to something like
         # foo/bar/procedure.json
-        expected_file_path = str(new_path) + default_filename
+        expected_file_path = new_path / default_filename
+
+        mock_open.assert_called_once_with(expected_file_path, "w")
+        mock_open.return_value.__enter__().write.assert_called_once_with(json_contents)
+
+    @patch("builtins.open", new_callable=unittest.mock.mock_open())
+    def test_write_standard_file_with_output_directory_and_prefix(self, mock_open):
+        """tests that standard file is named and written as expected
+        with designated output directory and filename prefix"""
+        p = Procedures.construct()
+        default_filename = p.default_filename()
+        json_contents = p.json(indent=3)
+        new_path = Path("foo") / "bar"
+        prefix = "aibs"
+        p.write_standard_file(output_directory=new_path, prefix=prefix)
+
+        # It's expected that the file will be written to something like
+        # foo/bar/aibs_procedure.json
+        expected_file_path = new_path / (prefix + "_" + default_filename)
 
         mock_open.assert_called_once_with(expected_file_path, "w")
         mock_open.return_value.__enter__().write.assert_called_once_with(json_contents)

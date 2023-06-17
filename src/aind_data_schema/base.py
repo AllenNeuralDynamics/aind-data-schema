@@ -6,6 +6,7 @@ import os
 import re
 import urllib.parse
 from enum import EnumMeta
+from pathlib import Path
 from typing import Optional
 
 from pydantic import BaseModel, Extra, Field
@@ -112,19 +113,24 @@ class AindCoreModel(AindModel):
         name = cls._get_direct_subclass(cls).__name__
         return re.sub(r"(?<!^)(?=[A-Z])", "_", name).lower() + ".json"
 
-    def write_standard_file(self, prefix=None):
+    def write_standard_file(self, output_directory: Optional[Path] = None, prefix=None):
         """
         Writes schema to standard json file
         Parameters
         ----------
+        output_directory:
+            optional Path object for output directory
         prefix:
             optional str for intended filepath with extra naming convention
+
         """
         if prefix is None:
             filename = self.default_filename()
-        elif str(prefix)[-1] == "/" or str(prefix)[-1] == "\\":
-            filename = str(prefix) + self.default_filename()
         else:
             filename = str(prefix) + "_" + self.default_filename()
+
+        if output_directory is not None:
+            filename = output_directory / filename
+
         with open(filename, "w") as f:
             f.write(self.json(indent=3))
