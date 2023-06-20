@@ -35,7 +35,7 @@ class AnalysisType(Enum):
 class DataTouch:
     """Class to contain basic info about a data asset manipulation"""
 
-    touch_type: TouchType = Field(..., title="Manipulation type") # This is arguably redundant, as DataTouch is a subclass of both AnalysisStep and ProcessStep, so they inherently convey this info
+    touch_type: TouchType = Field(..., title="Manipulation type") 
     start_date_time: datetime = Field(..., title="Start date time")
     end_date_time: datetime = Field(..., title="End date time")
     input_location: str = Field(..., description="Path to data inputs", title="Input location")
