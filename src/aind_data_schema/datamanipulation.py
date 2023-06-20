@@ -9,7 +9,6 @@ from typing import Any, Dict, List, Optional
 from pydantic import Field
 
 from aind_data_schema.base import AindCoreModel, AindModel
-from aind_data_schema.imaging.tile import Tile
 from aind_data_schema.processing import ProcessName
 
 
@@ -46,7 +45,7 @@ class DataTouch:
 
 class CodeManipulation:
     """Class to contain basic info about any programmatic manipulations of a data asset"""
-    
+
     code_url: str = Field(..., description="Path to code respository", title="Code URL")
     code_version: Optional[str] = Field(None, description="Version of the code", title="Code version")
     input_parameters: Dict[str, Any] = Field(..., title="Input parameters")
