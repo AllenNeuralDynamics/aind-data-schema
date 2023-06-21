@@ -316,6 +316,24 @@ class Filter(Device):
     )
 
 
+class Immersion(Enum):
+    """Immersion media name"""
+
+    AIR = "air"
+    MULTI = "multi"
+    OIL = "oil"
+    WATER = "water"
+    OTHER = "other"
+
+
+class Objective(Device):
+    """Description of an objective device"""
+
+    numerical_aperture: float = Field(..., title="Numerical aperture (in air)")
+    magnification: float = Field(..., title="Magnification")
+    immersion: Immersion = Field(..., title="Immersion")
+
+
 class CameraTarget(Enum):
     """Target of camera"""
 
@@ -404,6 +422,7 @@ class Laser(Device):
     """Laser module with a specific wavelength (may be a sub-component of a larger assembly)"""
 
     # required fields
+    lightsource_type: str = Field("Laser", title="Lightsource type")
     manufacturer: Literal[
         Manufacturer.COHERENT_SCIENTIFIC.value,
         Manufacturer.HAMAMATSU.value,
@@ -434,6 +453,7 @@ class Laser(Device):
 class LightEmittingDiode(Device):
     """Description of a Light Emitting Diode (LED) device"""
 
+    lightsource_type: str = Field("LED", title="Lightsource type")
     manufacturer: Literal[
         Manufacturer.DORIC.value,
         Manufacturer.PRIZMATIX.value,

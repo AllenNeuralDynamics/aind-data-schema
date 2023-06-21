@@ -15,6 +15,7 @@ from aind_data_schema.device import (
     DataInterface,
     Device,
     Filter,
+    Objective,
     Manufacturer,
     MotorizedStage,
     PowerUnit,
@@ -70,24 +71,6 @@ class Lightsource(Device):
     wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
     max_power: float = Field(..., title=" Maximum power (mW)", units="mW")
     power_unit: PowerUnit = Field(PowerUnit.MW, title="Power unit")
-
-
-class Immersion(Enum):
-    """Immersion media name"""
-
-    AIR = "air"
-    MULTI = "multi"
-    OIL = "oil"
-    WATER = "water"
-    OTHER = "other"
-
-
-class Objective(Device):
-    """Description of an objective device"""
-
-    numerical_aperture: float = Field(..., title="Numerical aperture (in air)")
-    magnification: float = Field(..., title="Magnification")
-    immersion: Immersion = Field(..., title="Immersion")
 
 
 class ImagingDeviceType(Enum):

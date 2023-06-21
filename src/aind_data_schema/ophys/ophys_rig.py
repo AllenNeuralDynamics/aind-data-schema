@@ -17,9 +17,11 @@ from aind_data_schema.device import (
     Disc,
     Filter,
     HarpDevice,
+    Immersion,
     Laser,
     Lens,
     LightEmittingDiode,
+    Objective,
     Monitor,
     Treadmill,
     Tube,
@@ -38,14 +40,6 @@ class Cooling(Enum):
     """Cooling medium name"""
 
     AIR = "air"
-    WATER = "water"
-
-
-class Immersion(Enum):
-    """Immersion medium name"""
-
-    AIR = "air"
-    OIL = "oil"
     WATER = "water"
 
 
@@ -82,6 +76,7 @@ class OphysRig(AindCoreModel):
     patch_cords: Optional[List[Patch]] = Field(..., title="Patch cords", unique_items=True)
     light_sources: List[Union[Laser, LightEmittingDiode]] = Field(..., title="Light sources", unique_items=True)
     detectors: Optional[List[Detector]] = Field(None, title="Detectors", unique_items=True)
+    objectives: Optional[List[Objective]] = Field(None, title="Objectives", unique_items=True)
     filters: Optional[List[Filter]] = Field(None, title="Filters", unique_items=True)
     lenses: Optional[List[Lens]] = Field(None, title="Lenses", unique_items=True)
     cameras: Optional[List[CameraAssembly]] = Field(None, title="Camera assemblies", unique_items=True)
