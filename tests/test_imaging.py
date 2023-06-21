@@ -26,6 +26,22 @@ class ImagingTests(unittest.TestCase):
             specimen_id="12345",
             subject_id="1234",
             instrument_id="1234",
+            calibrations=[
+                acq.LightSourcePowerCalibration(
+                    date_of_calibration=datetime.datetime.now(),
+                    light_source=inst.Lightsource(
+                        type="laser",
+                        coupling="Single-mode fiber",
+                        wavelength=488.0,
+                        max_power=150.0,
+                    ),
+                    illumination_index=0,
+                    power_setting=100.0,
+                    power_setting_unit=acq.PowerUnit("percent"),
+                    power_measurement=125.0,
+                    power_measurement_unit=acq.PowerUnit("mW"),
+                ),
+            ],
             session_end_time=datetime.datetime.now(),
             chamber_immersion=acq.Immersion(medium="PBS", refractive_index=1),
             tiles=[
