@@ -145,7 +145,7 @@ class Acquisition(AindCoreModel):
     subject_id: Optional[str] = Field(None, title="Subject ID")
     instrument_id: str = Field(..., title="Instrument ID")
     calibrations: Optional[List[LightSourcePowerCalibration]] = Field(
-        ...,
+        None,
         title="Acquisition-time instrument calibrations",
         description="List of calibration measurements taken at time of \
             acquisition, e.g. laser power setting - power measuered at sample."
