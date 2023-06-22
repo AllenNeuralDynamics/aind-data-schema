@@ -106,7 +106,9 @@
          "notes": "Custom made filter",
          "filter_type": "Multiband",
          "diameter": 44.05,
-         "diameter_unit": "millimeter",
+         "width": null,
+         "height": null,
+         "size_unit": "millimeter",
          "thickness": 1.0,
          "thickness_unit": "millimeter",
          "filter_wheel_index": 0,
@@ -114,6 +116,7 @@
          "cut_off_wavelength_unit": "nanometer",
          "cut_on_wavelength": null,
          "cut_on_wavelength_unit": "nanometer",
+         "center_wavelength": "nanometer",
          "description": null
       }
    ],
