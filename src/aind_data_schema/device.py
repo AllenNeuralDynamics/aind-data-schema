@@ -303,14 +303,18 @@ class Filter(Device):
 
     # optional fields
     diameter: Optional[float] = Field(None, title="Diameter (mm)", units="mm")
-    diameter_unit: SizeUnit = Field(SizeUnit.MM, title="Diameter unit")
+    width: Optional[float] = Field(None, title="Width (mm)")
+    height: Optional[float] = Field(None, title="Height (mm)")
+    size_unit: SizeUnit = Field(SizeUnit.MM, title="Size unit")
     thickness: Optional[float] = Field(None, title="Thickness (mm)", ge=0)
     thickness_unit: SizeUnit = Field(SizeUnit.MM, title="Thickness unit")
     filter_wheel_index: Optional[int] = Field(None, title="Filter wheel index")
     cut_off_wavelength: Optional[int] = Field(None, title="Cut-off wavelength (nm)")
-    cut_off_wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Cut off wavelength unit")
+    cut_off_wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Cut-off wavelength unit")
     cut_on_wavelength: Optional[int] = Field(None, title="Cut-on wavelength (nm)")
-    cut_on_wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Cut on wavelength unit")
+    cut_on_wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Cut-on wavelength unit")
+    center_wavelength: Optional[int] = Field(None, title="Center wavelength (nm)")
+    center_wavelength: SizeUnit = Field (SizeUnit.NM, title = "Center wavelength unit")
     description: Optional[str] = Field(
         None, title="Description", description="More details about filter properties and where/how it is being used"
     )
