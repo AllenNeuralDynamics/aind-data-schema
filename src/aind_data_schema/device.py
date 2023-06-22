@@ -310,11 +310,9 @@ class Filter(Device):
     thickness_unit: SizeUnit = Field(SizeUnit.MM, title="Thickness unit")
     filter_wheel_index: Optional[int] = Field(None, title="Filter wheel index")
     cut_off_wavelength: Optional[int] = Field(None, title="Cut-off wavelength (nm)")
-    cut_off_wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Cut-off wavelength unit")
     cut_on_wavelength: Optional[int] = Field(None, title="Cut-on wavelength (nm)")
-    cut_on_wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Cut-on wavelength unit")
     center_wavelength: Optional[int] = Field(None, title="Center wavelength (nm)")
-    center_wavelength: SizeUnit = Field (SizeUnit.NM, title = "Center wavelength unit")
+    wavelength_unit: SizeUnit = Field (SizeUnit.NM, title = "Wavelength unit")
     description: Optional[str] = Field(
         None, title="Description", description="More details about filter properties and where/how it is being used"
     )
