@@ -100,10 +100,9 @@
          "thickness_unit": "millimeter",
          "filter_wheel_index": 0,
          "cut_off_wavelength": null,
-         "cut_off_wavelength_unit": "nanometer",
          "cut_on_wavelength": null,
-         "cut_on_wavelength_unit": "nanometer",
-         "center_wavelength": "nanometer",
+         "center_wavelength": null,
+         "wavelength_unit": "nanometer",
          "description": null
       },
       {
@@ -121,10 +120,9 @@
          "thickness_unit": "millimeter",
          "filter_wheel_index": 1,
          "cut_off_wavelength": null,
-         "cut_off_wavelength_unit": "nanometer",
          "cut_on_wavelength": null,
-         "cut_on_wavelength_unit": "nanometer",
-         "center_wavelength": "nanometer",
+         "center_wavelength": null,
+         "wavelength_unit": "nanometer",
          "description": null
       },
       {
@@ -142,10 +140,9 @@
          "thickness_unit": "millimeter",
          "filter_wheel_index": 2,
          "cut_off_wavelength": null,
-         "cut_off_wavelength_unit": "nanometer",
          "cut_on_wavelength": null,
-         "cut_on_wavelength_unit": "nanometer",
-         "center_wavelength": "nanometer",
+         "center_wavelength": null,
+         "wavelength_unit": "nanometer",
          "description": null
       }
    ],
