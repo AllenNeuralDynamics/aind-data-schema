@@ -22,6 +22,7 @@ class ProcessName(Enum):
     IMAGE_ATLAS_ALIGNMENT = "Image atlas alignment"
     IMAGE_BACKGROUND_SUBTRACTION = "Image background subtraction"
     IMAGE_CELL_SEGMENTATION = "Image cell segmentation"
+    IMAGE_CELL_QUANTIFICATION = "Image cell quantification"
     IMAGE_DESTRIPING = "Image destriping"
     IMAGE_IMPORTING = "Image importing"
     IMAGE_THRESHOLDING = "Image thresholding"
