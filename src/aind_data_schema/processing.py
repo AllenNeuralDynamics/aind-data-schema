@@ -54,7 +54,7 @@ class Processing(AindCoreModel):
     """Description of all processes run on data"""
 
     schema_version: str = Field(
-        "0.2.1",
+        "0.2.2",
         description="Schema version",
         title="Schema version",
         const=True,
