@@ -186,7 +186,7 @@ class Stack(OphysSession):
     fov_width: int = Field(..., title="FOV width (pixels)")
     fov_height: int = Field(..., title="FOV height (pixels)")
     fov_size_unit: SizeUnit = Field(SizeUnit.PX, title="FOV size unit")
-    magnification: str = Field(..., title="Magnification")
+    magnification: Optional[str] = Field(None, title="Magnification")
     fov_scale_factor: float = Field(..., title="FOV scale factor (um/pixel)")
     fov_scale_factor_unit: str = Field("um/pixel", title="FOV scale factor unit")
     frame_rate: float = Field(..., title="Frame rate (Hz)")

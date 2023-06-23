@@ -8,7 +8,7 @@ from typing import List, Optional, Union
 
 from pydantic import Field
 
-from aind_data_schema.base import AindCoreModel
+from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.device import (
     CameraAssembly,
     DAQDevice,
@@ -91,8 +91,9 @@ class OphysRig(AindCoreModel):
     vibration_control: Optional[bool] = Field(None, title="Vibration control")
     patch_cords: Optional[List[Patch]] = Field(..., title="Patch cords", unique_items=True)
     light_sources: List[Union[Laser, LightEmittingDiode]] = Field(..., title="Light sources", unique_items=True)
-    detectors: Optional[List[Detector]] = Field(None, title="Detectors", unique_items=True)
-    filters: Optional[List[Filter]] = Field(None, title="Filters", unique_items=True)
+    channels: Optional[List[Channel]] = Field(None, title="Channels", unique_items=True)
+    detectors: Optional[List[Detector]] = Field(None, title="Detectors", description="Detectors that are not already in Channels", unique_items=True)
+    filters: Optional[List[Filter]] = Field(None, title="Filters", description="Filters that are not already in Channels", unique_items=True)
     lenses: Optional[List[Lens]] = Field(None, title="Lenses", unique_items=True)
     cameras: Optional[List[CameraAssembly]] = Field(None, title="Camera assemblies", unique_items=True)
     mouse_platform: Optional[Union[Tube, Treadmill, Disc]] = Field(None, title="Mouse platform")
