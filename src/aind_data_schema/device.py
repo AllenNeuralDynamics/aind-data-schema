@@ -303,17 +303,37 @@ class Filter(Device):
 
     # optional fields
     diameter: Optional[float] = Field(None, title="Diameter (mm)", units="mm")
-    diameter_unit: SizeUnit = Field(SizeUnit.MM, title="Diameter unit")
+    width: Optional[float] = Field(None, title="Width (mm)")
+    height: Optional[float] = Field(None, title="Height (mm)")
+    size_unit: SizeUnit = Field(SizeUnit.MM, title="Size unit")
     thickness: Optional[float] = Field(None, title="Thickness (mm)", ge=0)
     thickness_unit: SizeUnit = Field(SizeUnit.MM, title="Thickness unit")
     filter_wheel_index: Optional[int] = Field(None, title="Filter wheel index")
     cut_off_wavelength: Optional[int] = Field(None, title="Cut-off wavelength (nm)")
-    cut_off_wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Cut off wavelength unit")
     cut_on_wavelength: Optional[int] = Field(None, title="Cut-on wavelength (nm)")
-    cut_on_wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Cut on wavelength unit")
+    center_wavelength: Optional[int] = Field(None, title="Center wavelength (nm)")
+    wavelength_unit: SizeUnit = Field (SizeUnit.NM, title = "Wavelength unit")
     description: Optional[str] = Field(
         None, title="Description", description="More details about filter properties and where/how it is being used"
     )
+
+
+class Immersion(Enum):
+    """Immersion media name"""
+
+    AIR = "air"
+    MULTI = "multi"
+    OIL = "oil"
+    WATER = "water"
+    OTHER = "other"
+
+
+class Objective(Device):
+    """Description of an objective device"""
+
+    numerical_aperture: float = Field(..., title="Numerical aperture (in air)")
+    magnification: float = Field(..., title="Magnification")
+    immersion: Immersion = Field(..., title="Immersion")
 
 
 class CameraTarget(Enum):
@@ -404,6 +424,7 @@ class Laser(Device):
     """Laser module with a specific wavelength (may be a sub-component of a larger assembly)"""
 
     # required fields
+    lightsource_type: str = Field("Laser", title="Lightsource type")
     manufacturer: Literal[
         Manufacturer.COHERENT_SCIENTIFIC.value,
         Manufacturer.HAMAMATSU.value,
@@ -434,6 +455,7 @@ class Laser(Device):
 class LightEmittingDiode(Device):
     """Description of a Light Emitting Diode (LED) device"""
 
+    lightsource_type: str = Field("LED", title="Lightsource type")
     manufacturer: Literal[
         Manufacturer.DORIC.value,
         Manufacturer.PRIZMATIX.value,

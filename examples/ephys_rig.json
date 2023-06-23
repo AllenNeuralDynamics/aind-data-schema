@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/ephys/ephys_rig.py",
-   "schema_version": "0.6.4",
+   "schema_version": "0.6.5",
    "rig_id": "323_EPHYS1",
    "ephys_assemblies": [
       {
@@ -104,6 +104,7 @@
                "manufacturer": "Oxxius",
                "model": null,
                "notes": null,
+               "lightsource_type": "Laser",
                "wavelength": 473,
                "wavelength_unit": "nanometer",
                "maximum_power": null,
@@ -121,6 +122,7 @@
                "manufacturer": "Oxxius",
                "model": null,
                "notes": null,
+               "lightsource_type": "Laser",
                "wavelength": 638,
                "wavelength_unit": "nanometer",
                "maximum_power": null,
@@ -181,14 +183,16 @@
             "notes": null,
             "filter_type": "Long pass",
             "diameter": null,
-            "diameter_unit": "millimeter",
+            "width": null,
+            "height": null,
+            "size_unit": "millimeter",
             "thickness": null,
             "thickness_unit": "millimeter",
             "filter_wheel_index": null,
             "cut_off_wavelength": null,
-            "cut_off_wavelength_unit": "nanometer",
             "cut_on_wavelength": null,
-            "cut_on_wavelength_unit": "nanometer",
+            "center_wavelength": null,
+            "wavelength_unit": "nanometer",
             "description": "850 nm longpass filter"
          },
          "position": null
@@ -238,14 +242,16 @@
             "notes": null,
             "filter_type": "Long pass",
             "diameter": null,
-            "diameter_unit": "millimeter",
+            "width": null,
+            "height": null,
+            "size_unit": "millimeter",
             "thickness": null,
             "thickness_unit": "millimeter",
             "filter_wheel_index": null,
             "cut_off_wavelength": null,
-            "cut_off_wavelength_unit": "nanometer",
             "cut_on_wavelength": null,
-            "cut_on_wavelength_unit": "nanometer",
+            "center_wavelength": null,
+            "wavelength_unit": "nanometer",
             "description": "850 nm longpass filter"
          },
          "position": null
