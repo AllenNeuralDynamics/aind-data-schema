@@ -158,14 +158,25 @@ class TwoPhotonOphysSession(OphysSession):
 
     fovs: List[FieldOfView] = Field(..., title="Fields of view", unique_items=True)
 
-class Stack(OphysSession):
-    """Description of a two photon stack"""
 
+class StackChannel(AindModel):
+    """Description of a Channel used in a Stack"""
+
+    channel_name: str = Field(..., title="Channel name", description="Must match Ophys Rig")
+    dilation: Optional[int] = Field(None, title="Dilation (pixels)")
+    dilation_unit: SizeUnit = Field(SizeUnit.PX, title="Dilation unit")
     start_depth: int = Field(..., title="Starting depth (um)")
     end_depth: int = Field(..., title="Ending depth (um)")
     depth_unit: SizeUnit = Field(SizeUnit.UM, title="Depth unit")
+
+
+class Stack(OphysSession):
+    """Description of a two photon stack"""
+
+    channels: List[StackChannel] = Field(..., title="Channels")
     number_of_planes: int = Field(..., title="Number of planes")
-    step_size: float = Field(SizeUnit.UM, title="Step size")
+    step_size: float = Field(..., title="Step size (um)")
+    step_size_unit: SizeUnit = Field(SizeUnit.UM, title="Step size unit")
     number_of_plane_repeats_per_volume: int = Field(..., title="Number of repeats per volume")
     number_of_volume_repeats: int = Field(..., title="Number of volume repeats")
     fov_coordinate_ml: float = Field(..., title="FOV coodinate ML")

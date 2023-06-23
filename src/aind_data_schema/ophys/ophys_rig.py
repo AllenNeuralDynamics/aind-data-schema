@@ -66,6 +66,16 @@ class Patch(Device):
     photobleaching_date: Optional[date] = Field(None, title="Photobleaching date")
 
 
+class Channel(AindModel):
+    """Description of an imaging channel"""
+
+    name: str = Field(..., title="Name")
+    detector: Detector = Field(..., title="Detector")
+    filter: List[Filter] = Field(..., title="Filter")
+    additional_devices: Optional[List[Device]] = Field(None, title="Additional devices", unique_items=True)
+    description: Optional[str] = Field(None, title="Description")
+
+
 class OphysRig(AindCoreModel):
     """Description of an optical physiology rig"""
 
