@@ -11,7 +11,7 @@ d = RawDataDescription(
     creation_time=time(16, 30, 1),
     institution=Institution.AIND,
     investigators=["Jane Smith"],
-    funding_source=[Funding(funder="AIND")],
+    funding_source=[Funding(funder=Institution.AI)],
 )
 
 d.write_standard_file()
