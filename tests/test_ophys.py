@@ -6,7 +6,7 @@ import unittest
 from pydantic import ValidationError
 
 from aind_data_schema.ophys.ophys_rig import OphysRig
-from aind_data_schema.ophys.ophys_session import FiberPhotometrySession, Stack
+from aind_data_schema.ophys.ophys_session import FiberPhotometrySession, Stack, StackChannel
 
 
 class OphysTests(unittest.TestCase):
@@ -48,8 +48,13 @@ class OphysTests(unittest.TestCase):
             session_type = "cortical stack",
             rig_id = "meso_1",
             light_sources = [],
-            start_depth = 100,
-            end_depth = 400,
+            channels=[
+                StackChannel(
+                    channel_name="Red channel",
+                    start_depth=100,
+                    end_depth=400,
+                )
+            ],
             number_of_planes = 60,
             step_size = 5.0,
             number_of_plane_repeats_per_volume = 80,
