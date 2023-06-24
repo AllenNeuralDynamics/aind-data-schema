@@ -22,6 +22,7 @@ class ProcessName(Enum):
     IMAGE_ATLAS_ALIGNMENT = "Image atlas alignment"
     IMAGE_BACKGROUND_SUBTRACTION = "Image background subtraction"
     IMAGE_CELL_SEGMENTATION = "Image cell segmentation"
+    IMAGE_CELL_QUANTIFICATION = "Image cell quantification"
     IMAGE_DESTRIPING = "Image destriping"
     IMAGE_IMPORTING = "Image importing"
     IMAGE_THRESHOLDING = "Image thresholding"
@@ -53,7 +54,7 @@ class Processing(AindCoreModel):
     """Description of all processes run on data"""
 
     schema_version: str = Field(
-        "0.2.1",
+        "0.2.2",
         description="Schema version",
         title="Schema version",
         const=True,

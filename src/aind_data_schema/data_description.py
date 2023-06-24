@@ -44,38 +44,48 @@ class DataLevel(Enum):
 class Institution(Enum, metaclass=BaseNameEnumMeta):
     """Institution name"""
 
+    AI = PIDName(
+        name="Allen Institute",
+        abbreviation="AI",
+        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry_identifier="03cpe7c52",
+    )
     AIBS = PIDName(
-        name=BaseName(name="Allen Institute for Brain Science", abbreviation="AIBS"),
+        name="Allen Institute for Brain Science", 
+        abbreviation="AIBS",
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
         registry_identifier="00dcv1019",
     )
     AIND = PIDName(
-        name=BaseName(name="Allen Institute for Neural Dynamics", abbreviation="AIND"),
+        name="Allen Institute for Neural Dynamics", 
+        abbreviation="AIND",
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
         registry_identifier="04szwah67",
     )
     COLUMBIA = PIDName(
-        name=BaseName(name="Columbia University", abbreviation="Columbia"),
+        name="Columbia University", 
+        abbreviation="Columbia",
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
         registry_identifier="00hj8s172",
     )
     HUST = PIDName(
-        name=BaseName(name="Huazhong University of Science and Technology", abbreviation="HUST"),
+        name="Huazhong University of Science and Technology", 
+        abbreviation="HUST",
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
         registry_identifier="00p991c53",
     )
+    NINDS = PIDName(
+        name="National Institute of Neurological Disorders and Stroke",
+        abbreviation="NINDS",
+        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry_identifier="01s5ya894"
+    )
     NYU = PIDName(
-        name=BaseName(name="New York University", abbreviation="NYU"),
+        name="New York University", 
+        abbreviation="NYU",
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
         registry_identifier="0190ak572",
     )
-
-    @classmethod
-    def __modify_schema__(cls, field_schema):
-        """Adds enumNames to institution"""
-        field_schema.update(
-            enumNames=[e.value.name for e in cls],
-        )
 
 
 class Group(Enum):
@@ -109,13 +119,6 @@ class Modality(Enum, metaclass=BaseNameEnumMeta):
     SLAP = BaseName(name="Scanned line projection", abbreviation="slap")
     SMARTSPIM = BaseName(name="Smart selective plane illumination microscopy", abbreviation="SmartSPIM")
     SPIM = BaseName(name="Selective plane illumination microscopy", abbreviation="SPIM")
-
-    @classmethod
-    def __modify_schema__(cls, field_schema):
-        """Adds enumNames to modality"""
-        field_schema.update(
-            enumNames=[e.value.name for e in cls],
-        )
 
 
 class ExperimentType(Enum):
@@ -161,7 +164,7 @@ def build_data_name(label, creation_date, creation_time):
 class Funding(AindModel):
     """Description of funding sources"""
 
-    funder: str = Field(..., title="Funder")
+    funder: Institution = Field(..., title="Funder")
     grant_number: Optional[str] = Field(None, title="Grant number")
     fundee: Optional[str] = Field(None, title="Fundee", description="Person(s) funded by this mechanism")
 
@@ -176,7 +179,7 @@ class RelatedData(AindModel):
 class DataDescription(AindCoreModel):
     """Description of a logical collection of data files"""
 
-    schema_version: str = Field("0.6.3", title="Schema Version", const=True)
+    schema_version: str = Field("0.7.1", title="Schema Version", const=True)
     license: str = Field("CC-BY-4.0", title="License", const=True)
 
     creation_time: time = Field(
