@@ -21,8 +21,8 @@ from aind_data_schema.device import (
     Laser,
     Lens,
     LightEmittingDiode,
-    Objective,
     Monitor,
+    Objective,
     Treadmill,
     Tube,
 )

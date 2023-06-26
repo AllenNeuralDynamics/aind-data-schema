@@ -78,7 +78,7 @@ class Institution(Enum, metaclass=BaseNameEnumMeta):
         name="National Institute of Neurological Disorders and Stroke",
         abbreviation="NINDS",
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
-        registry_identifier="01s5ya894"
+        registry_identifier="01s5ya894",
     )
     NYU = PIDName(
         name="New York University",

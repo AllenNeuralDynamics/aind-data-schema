@@ -15,9 +15,9 @@ from aind_data_schema.device import (
     DataInterface,
     Device,
     Filter,
-    Objective,
     Manufacturer,
     MotorizedStage,
+    Objective,
     PowerUnit,
     SizeUnit,
 )
