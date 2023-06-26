@@ -163,8 +163,7 @@ class Manufacturer(Enum):
     OLYMPUS = PIDName(
         name=BaseName(name="Olympus"),
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
-        registry_identifier="02vcdte90
-"
+        registry_identifier="02vcdte90"
     )
     OPTOTUNE = PIDName(
         name=BaseName(name="Optotune"),
