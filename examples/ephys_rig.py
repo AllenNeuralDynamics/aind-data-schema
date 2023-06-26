@@ -13,6 +13,7 @@ from aind_data_schema.ephys.ephys_rig import (
     ProbePort,
     StickMicroscopeAssembly,
 )
+from aind_data_schema.device import Manufacturer
 
 # Describes a rig with running wheel, 2 behavior cameras, one Harp Behavior board,
 # one dual-color laser module, one stick microscope, and 2 Neuropixels probes
@@ -49,9 +50,9 @@ basestation = NeuropixelsBasestation(
     computer_name=ephys_computer,
 )
 
-red_laser = Laser(name="Red Laser", wavelength=473, manufacturer="Oxxius")
+red_laser = Laser(name="Red Laser", wavelength=473, manufacturer=Manufacturer.OXXIUS)
 
-blue_laser = Laser(name="Blue Laser", wavelength=638, manufacturer="Oxxius")
+blue_laser = Laser(name="Blue Laser", wavelength=638, manufacturer=Manufacturer.OXXIUS)
 
 laser_assembly = LaserAssembly(
     laser_assembly_name="Laser_assemblyA",
@@ -62,7 +63,7 @@ laser_assembly = LaserAssembly(
 probe_camera = Camera(
     name="Probe Camera",
     data_interface="USB",
-    manufacturer="FLIR",
+    manufacturer=Manufacturer.FLIR,
     computer_name=ephys_computer,
     max_frame_rate=50,
     pixel_width=1080,
@@ -71,7 +72,7 @@ probe_camera = Camera(
     chroma="Color",
 )
 
-stick_lens = Lens(manufacturer="Edmund Optics")
+stick_lens = Lens(manufacturer=Manufacturer.EDMUND_OPTICS)
 
 microscope = StickMicroscopeAssembly(
     scope_assembly_name="Stick_assembly",
@@ -98,12 +99,12 @@ ephys_assemblyB = EphysAssembly(
 
 filt = Filter(filter_type="Long pass", manufacturer="Thorlabs", description="850 nm longpass filter")
 
-lens = Lens(focal_length=15, manufacturer="Edmund Optics", max_aperture="f/2")
+lens = Lens(focal_length=15, manufacturer=Manufacturer.EDMUND_OPTICS, max_aperture="f/2")
 
 face_camera = Camera(
     name="Face Camera",
     data_interface="USB",
-    manufacturer="FLIR",
+    manufacturer=Manufacturer.FLIR,
     computer_name=behavior_computer,
     max_frame_rate=500,
     pixel_width=1080,
@@ -119,7 +120,7 @@ camassm1 = CameraAssembly(
 body_camera = Camera(
     name="Body Camera",
     data_interface="USB",
-    manufacturer="FLIR",
+    manufacturer=Manufacturer.FLIR,
     computer_name=behavior_computer,
     max_frame_rate=500,
     pixel_width=1080,
