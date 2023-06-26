@@ -65,7 +65,7 @@ class PIDName(BaseName):
     Model for associate a name with a persistent identifier (PID),
     the registry for that PID, and abbreviation for that registry
     """
-
+    name: str = Field(..., title="name")
     registry: BaseName = Field(..., title="Registry")
     registry_identifier: str = Field(..., title="Registry identifier")
 

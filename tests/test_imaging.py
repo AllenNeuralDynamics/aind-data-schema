@@ -10,6 +10,7 @@ from aind_data_schema.imaging import instrument as inst
 from aind_data_schema.imaging import mri_session as ms
 from aind_data_schema.imaging import tile
 from aind_data_schema.processing import Registration
+from aind_data_schema.device import Manufacturer
 
 
 class ImagingTests(unittest.TestCase):
@@ -52,7 +53,7 @@ class ImagingTests(unittest.TestCase):
 
         i = inst.Instrument(
             instrument_type="diSPIM",
-            manufacturer="LifeCanvas",
+            manufacturer=Manufacturer.LIFECANVAS,
             objectives=[],
             detectors=[],
             light_sources=[],

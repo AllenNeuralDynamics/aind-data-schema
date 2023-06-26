@@ -65,7 +65,7 @@ class OpenEphysAcquisitionBoard(DAQDevice):
 class Manipulator(Device):
     """Manipulator used on a dome module"""
 
-    manufacturer: Literal[Manufacturer.NEW_SCALE_TECHNOLOGIES.value]
+    manufacturer: Literal[Manufacturer.NEW_SCALE_TECHNOLOGIES.name]
 
 
 class StickMicroscopeAssembly(AindModel):

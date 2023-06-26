@@ -97,7 +97,11 @@ class Manufacturer(Enum):
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
         registry_identifier="",
     )
-    EDMUND_OPTICS = "Edmund Optics"
+    EDMUND_OPTICS = PIDName(
+        name="Edmund Optics",
+        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry_identifier="01j1gwp17",
+    )
     FLIR = PIDName(
         name="Teledyne FLIR", abbreviation="FLIR",
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
@@ -218,7 +222,7 @@ class Manufacturer(Enum):
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
         registry_identifier="",
     )
-    OTHER = "Other"
+    OTHER = "OTHER"
 
 
 class Coupling(Enum):
@@ -377,12 +381,12 @@ class Camera(Device):
     # required fields
     data_interface: DataInterface = Field(..., title="Type of connection to PC")
     manufacturer: Literal[
-        Manufacturer.ALLIED.value,
-        Manufacturer.BASLER.value,
-        Manufacturer.EDMUND_OPTICS.value,
-        Manufacturer.FLIR.value,
-        Manufacturer.THORLABS.value,
-        Manufacturer.OTHER.value,
+        Manufacturer.ALLIED.name,
+        Manufacturer.BASLER.name,
+        Manufacturer.EDMUND_OPTICS.name,
+        Manufacturer.FLIR.name,
+        Manufacturer.THORLABS.name,
+        Manufacturer.OTHER,
     ]
     computer_name: str = Field(..., title="Name of computer receiving data from this camera")
     max_frame_rate: float = Field(..., title="Maximum frame rate (Hz)", units="Hz")
@@ -404,7 +408,7 @@ class Lens(Device):
     """Lens used to focus light onto a camera sensor"""
 
     # required fields
-    manufacturer: Literal[Manufacturer.EDMUND_OPTICS.value, Manufacturer.THORLABS.value, Manufacturer.OTHER.value]
+    manufacturer: Literal[Manufacturer.EDMUND_OPTICS.name, Manufacturer.THORLABS.name, Manufacturer.OTHER]
 
     # optional fields
     focal_length: Optional[float] = Field(None, title="Focal length of the lens", units="mm")
@@ -422,11 +426,11 @@ class Filter(Device):
     # required fields
     filter_type: FilterType = Field(..., title="Type of filter")
     manufacturer: Literal[
-        Manufacturer.EDMUND_OPTICS.value,
-        Manufacturer.CHROMA.value,
-        Manufacturer.SEMROCK.value,
-        Manufacturer.THORLABS.value,
-        Manufacturer.OTHER.value,
+        Manufacturer.EDMUND_OPTICS.name,
+        Manufacturer.CHROMA.name,
+        Manufacturer.SEMROCK.name,
+        Manufacturer.THORLABS.name,
+        Manufacturer.OTHER,
     ]
 
     # optional fields
@@ -514,10 +518,10 @@ class DAQDevice(Device):
     # required fields
     data_interface: DataInterface = Field(..., title="Type of connection to PC")
     manufacturer: Literal[
-        Manufacturer.NATIONAL_INSTRUMENTS.value,
-        Manufacturer.IMEC.value,
-        Manufacturer.OEPS.value,
-        Manufacturer.OTHER.value,
+        Manufacturer.NATIONAL_INSTRUMENTS.name,
+        Manufacturer.IMEC.name,
+        Manufacturer.OEPS.name,
+        Manufacturer.OTHER,
     ]
     computer_name: str = Field(..., title="Name of computer controlling this DAQ")
 
@@ -554,11 +558,11 @@ class Laser(Device):
     # required fields
     lightsource_type: str = Field("Laser", title="Lightsource type")
     manufacturer: Literal[
-        Manufacturer.COHERENT_SCIENTIFIC.value,
-        Manufacturer.HAMAMATSU.value,
-        Manufacturer.OXXIUS.value,
-        Manufacturer.QUANTIFI.value,
-        Manufacturer.OTHER.value,
+        Manufacturer.COHERENT_SCIENTIFIC.name,
+        Manufacturer.HAMAMATSU.name,
+        Manufacturer.OXXIUS.name,
+        Manufacturer.QUANTIFI.name,
+        Manufacturer.OTHER,
     ]
     wavelength: int = Field(..., title="Wavelength (nm)", units="nm")
     wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
@@ -585,10 +589,10 @@ class LightEmittingDiode(Device):
 
     lightsource_type: str = Field("LED", title="Lightsource type")
     manufacturer: Literal[
-        Manufacturer.DORIC.value,
-        Manufacturer.PRIZMATIX.value,
-        Manufacturer.THORLABS.value,
-        Manufacturer.OTHER.value,
+        Manufacturer.DORIC.name,
+        Manufacturer.PRIZMATIX.name,
+        Manufacturer.THORLABS.name,
+        Manufacturer.OTHER,
     ]
     wavelength: int = Field(..., title="Wavelength (nm)", units="nm")
     wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
@@ -635,7 +639,7 @@ class Monitor(Device):
     """Visual display"""
 
     # required fields
-    manufacturer: Literal[Manufacturer.LG.value]
+    manufacturer: Literal[Manufacturer.LG.name]
     refresh_rate: int = Field(..., title="Refresh rate (Hz)", units="Hz", ge=60)
     width: int = Field(..., title="Width (pixels)", units="pixels")
     height: int = Field(..., title="Height (pixels)", units="pixels")
