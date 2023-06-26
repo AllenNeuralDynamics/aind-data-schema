@@ -15,7 +15,6 @@ from pydantic import Field
 from .base import AindModel, BaseName, PIDName
 
 
-
 class SizeUnit(Enum):
     """units for sizes"""
 
@@ -442,7 +441,7 @@ class Filter(Device):
     cut_off_wavelength: Optional[int] = Field(None, title="Cut-off wavelength (nm)")
     cut_on_wavelength: Optional[int] = Field(None, title="Cut-on wavelength (nm)")
     center_wavelength: Optional[int] = Field(None, title="Center wavelength (nm)")
-    wavelength_unit: SizeUnit = Field (SizeUnit.NM, title = "Wavelength unit")
+    wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
     description: Optional[str] = Field(
         None, title="Description", description="More details about filter properties and where/how it is being used"
     )
