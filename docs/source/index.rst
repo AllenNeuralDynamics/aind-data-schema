@@ -15,7 +15,7 @@ including licenses and restrictions on publication. The purpose of these
 files is to provide complete experimental details and documentation so 
 that all users have a thorough understanding of the data. 
 
-As experimental and anaytical methods continue to develop, and new 
+As experimental and analytical methods continue to develop, and new
 experiments and projects are added to the AIND portfolio, these schema
 will continue to evolve in order to capture the full range of our work.
 
@@ -92,7 +92,7 @@ yields JSON:
    :maxdepth: 1
    :caption: Contents:
 
-   opendata
+   diagrams
 
    modules
 

@@ -10,6 +10,13 @@ from aind_data_schema.base import AindCoreModel
 class BaseTests(unittest.TestCase):
     """tests for the base module"""
 
+    def test_schema_version_check(self):
+        """test schema version"""
+        with self.assertRaises(Exception):
+            AindCoreModel(schema_version="123", describedBy="test")
+        a = AindCoreModel(schema_version="1.2.3", describedBy="test")
+        self.assertEqual("1.2.3", a.schema_version)
+
     def test_described_by(self):
         """test that described by works"""
 
@@ -44,31 +51,65 @@ class BaseTests(unittest.TestCase):
         )
 
     @patch("builtins.open", new_callable=unittest.mock.mock_open())
-    def test_write_standard_file_no_prefix(self, mocked_file):
+    def test_write_standard_file_no_prefix(self, mock_open):
         """tests that standard file is named and written as expected with no prefix"""
         p = Procedures.construct()
         default_filename = p.default_filename()
         json_contents = p.json(indent=3)
         p.write_standard_file()
 
-        mocked_file.assert_called_once_with(default_filename, "w")
-        mocked_file.return_value.__enter__().write.assert_called_once_with(json_contents)
+        mock_open.assert_called_once_with(default_filename, "w")
+        mock_open.return_value.__enter__().write.assert_called_once_with(json_contents)
 
     @patch("builtins.open", new_callable=unittest.mock.mock_open())
-    def test_write_standard_file_with_prefix(self, mocked_file):
-        """tests that standard file is named and written as expected with prefix"""
+    def test_write_standard_file_with_prefix(self, mock_open):
+        """tests that standard file is named and written as expected with filename prefix"""
         p = Procedures.construct()
         default_filename = p.default_filename()
         json_contents = p.json(indent=3)
-        new_path = Path("foo") / "bar" / "aibs"
-        p.write_standard_file(new_path)
+        prefix = "aibs"
+        p.write_standard_file(prefix=prefix)
+
+        # It's expected that the file will be written to something like
+        # aibs_procedure.json
+        expected_file_path = str(prefix) + "_" + default_filename
+
+        mock_open.assert_called_once_with(expected_file_path, "w")
+        mock_open.return_value.__enter__().write.assert_called_once_with(json_contents)
+
+    @patch("builtins.open", new_callable=unittest.mock.mock_open())
+    def test_write_standard_file_with_output_directory(self, mock_open):
+        """tests that standard file is named and written as expected with designated output directory"""
+        p = Procedures.construct()
+        default_filename = p.default_filename()
+        json_contents = p.json(indent=3)
+        new_path = Path("foo") / "bar"
+        p.write_standard_file(output_directory=new_path)
+
+        # It's expected that the file will be written to something like
+        # foo/bar/procedure.json
+        expected_file_path = new_path / default_filename
+
+        mock_open.assert_called_once_with(expected_file_path, "w")
+        mock_open.return_value.__enter__().write.assert_called_once_with(json_contents)
+
+    @patch("builtins.open", new_callable=unittest.mock.mock_open())
+    def test_write_standard_file_with_output_directory_and_prefix(self, mock_open):
+        """tests that standard file is named and written as expected
+        with designated output directory and filename prefix"""
+        p = Procedures.construct()
+        default_filename = p.default_filename()
+        json_contents = p.json(indent=3)
+        new_path = Path("foo") / "bar"
+        prefix = "aibs"
+        p.write_standard_file(output_directory=new_path, prefix=prefix)
 
         # It's expected that the file will be written to something like
         # foo/bar/aibs_procedure.json
-        expected_file_path = str(new_path) + "_" + default_filename
+        expected_file_path = new_path / (prefix + "_" + default_filename)
 
-        mocked_file.assert_called_once_with(expected_file_path, "w")
-        mocked_file.return_value.__enter__().write.assert_called_once_with(json_contents)
+        mock_open.assert_called_once_with(expected_file_path, "w")
+        mock_open.return_value.__enter__().write.assert_called_once_with(json_contents)
 
 
 if __name__ == "__main__":

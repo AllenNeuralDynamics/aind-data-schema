@@ -8,8 +8,19 @@ from typing import List, Optional
 
 from pydantic import Field
 
-from ..base import AindCoreModel, AindModel
-from ..device import Coupling, DAQDevice, DataInterface, Device, Filter, Manufacturer, MotorizedStage, PowerUnit, SizeUnit
+from aind_data_schema.base import AindCoreModel, AindModel
+from aind_data_schema.device import (
+    Coupling,
+    DAQDevice,
+    DataInterface,
+    Device,
+    Filter,
+    Objective,
+    Manufacturer,
+    MotorizedStage,
+    PowerUnit,
+    SizeUnit,
+)
 
 
 class Com(AindModel):
@@ -60,24 +71,6 @@ class Lightsource(Device):
     wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
     max_power: float = Field(..., title=" Maximum power (mW)", units="mW")
     power_unit: PowerUnit = Field(PowerUnit.MW, title="Power unit")
-
-
-class Immersion(Enum):
-    """Immersion media name"""
-
-    AIR = "air"
-    MULTI = "multi"
-    OIL = "oil"
-    WATER = "water"
-    OTHER = "other"
-
-
-class Objective(Device):
-    """Description of an objective device"""
-
-    numerical_aperture: float = Field(..., title="Numerical aperture (in air)")
-    magnification: float = Field(..., title="Magnification")
-    immersion: Immersion = Field(..., title="Immersion")
 
 
 class ImagingDeviceType(Enum):
@@ -150,14 +143,13 @@ class OpticalTable(Device):
 class Instrument(AindCoreModel):
     """Description of an instrument, which is a collection of devices"""
 
-    schema_version: str = Field("0.5.6", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.6.3", description="schema version", title="Version", const=True)
     instrument_id: Optional[str] = Field(
         None,
-        description="unique identifier for this instrument configuration",
+        description="Unique identifier for this instrument. Naming convention: <room>-<apparatus>-<version>",
         title="Instrument ID",
     )
     instrument_type: ImagingInstrumentType = Field(..., title="Instrument type")
-    location: str = Field(..., title="Instrument location")
     manufacturer: Manufacturer = Field(..., title="Instrument manufacturer")
     temperature_control: Optional[bool] = Field(None, title="Temperature control")
     humidity_control: Optional[bool] = Field(None, title="Humidity control")

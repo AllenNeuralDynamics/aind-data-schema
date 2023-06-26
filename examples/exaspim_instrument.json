@@ -1,9 +1,8 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/imaging/instrument.py",
-   "schema_version": "0.5.6",
+   "schema_version": "0.6.3",
    "instrument_id": "exaSPIM1-1",
    "instrument_type": "exaSPIM",
-   "location": "440 Westlake",
    "manufacturer": "Custom",
    "temperature_control": false,
    "humidity_control": false,
@@ -107,14 +106,16 @@
          "notes": "Custom made filter",
          "filter_type": "Multiband",
          "diameter": 44.05,
-         "diameter_unit": "millimeter",
+         "width": null,
+         "height": null,
+         "size_unit": "millimeter",
          "thickness": 1.0,
          "thickness_unit": "millimeter",
          "filter_wheel_index": 0,
-         "cut_off_frequency": null,
-         "cut_off_frequency_unit": "Hertz",
-         "cut_on_frequency": null,
-         "cut_on_frequency_unit": "Hertz",
+         "cut_off_wavelength": null,
+         "cut_on_wavelength": null,
+         "center_wavelength": null,
+         "wavelength_unit": "nanometer",
          "description": null
       }
    ],
@@ -128,6 +129,7 @@
          "notes": null,
          "travel": 1000.0,
          "travel_unit": "millimeter",
+         "firmware": null,
          "stage_axis_direction": "Detection axis",
          "stage_axis_name": "X"
       },
@@ -139,6 +141,7 @@
          "notes": null,
          "travel": 1000.0,
          "travel_unit": "millimeter",
+         "firmware": null,
          "stage_axis_direction": "Perpendicular axis",
          "stage_axis_name": "Y"
       },
@@ -150,6 +153,7 @@
          "notes": null,
          "travel": 100.0,
          "travel_unit": "millimeter",
+         "firmware": null,
          "stage_axis_direction": "Illumination axis",
          "stage_axis_name": "Z"
       }
