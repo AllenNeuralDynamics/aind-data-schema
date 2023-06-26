@@ -6,6 +6,7 @@ import os
 import re
 import urllib.parse
 from enum import EnumMeta
+from pathlib import Path
 from typing import Optional
 
 from pydantic import BaseModel, Extra, Field
@@ -45,6 +46,12 @@ class BaseNameEnumMeta(EnumMeta):
             value = getattr(cls, value.upper())
         return super().__call__(value, *args, **kw)
 
+    def __modify_schema__(cls, field_schema):
+        """Adds enumNames to institution"""
+        field_schema.update(
+            enumNames=[e.value.name for e in cls],
+        )
+
 
 class BaseName(AindModel):
     """A simple model associating a name with an abbreviation"""
@@ -53,13 +60,12 @@ class BaseName(AindModel):
     abbreviation: Optional[str] = Field(None, title="Abbreviation")
 
 
-class PIDName(AindModel):
+class PIDName(BaseName):
     """
     Model for associate a name with a persistent identifier (PID),
     the registry for that PID, and abbreviation for that registry
     """
 
-    name: BaseName = Field(..., title="Name")
     registry: BaseName = Field(..., title="Registry")
     registry_identifier: str = Field(..., title="Registry identifier")
 
@@ -68,7 +74,7 @@ class AindCoreModel(AindModel):
     """Generic base class to hold common fields/validators/etc for all basic AIND schema"""
 
     describedBy: str
-    schema_version: str
+    schema_version: str = Field(..., regex=r"^\d+.\d+.\d+$")
 
     def __init_subclass__(cls, optional_fields=None, **kwargs):
         """Add the describedby field to all subclasses"""
@@ -107,17 +113,24 @@ class AindCoreModel(AindModel):
         name = cls._get_direct_subclass(cls).__name__
         return re.sub(r"(?<!^)(?=[A-Z])", "_", name).lower() + ".json"
 
-    def write_standard_file(self, prefix=None):
+    def write_standard_file(self, output_directory: Optional[Path] = None, prefix=None):
         """
         Writes schema to standard json file
         Parameters
         ----------
+        output_directory:
+            optional Path object for output directory
         prefix:
             optional str for intended filepath with extra naming convention
+
         """
         if prefix is None:
             filename = self.default_filename()
         else:
             filename = str(prefix) + "_" + self.default_filename()
+
+        if output_directory is not None:
+            filename = output_directory / filename
+
         with open(filename, "w") as f:
             f.write(self.json(indent=3))

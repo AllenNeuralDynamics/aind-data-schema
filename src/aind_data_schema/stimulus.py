@@ -8,9 +8,9 @@ from typing import Any, Dict, List, Optional, Union
 
 from pydantic import Field
 
-from .base import AindModel
-from .device import FrequencyUnit
-from .procedures import TimeUnit
+from aind_data_schema.base import AindModel
+from aind_data_schema.device import FrequencyUnit
+from aind_data_schema.procedures import TimeUnit
 
 
 class PulseShape(Enum):
