@@ -78,11 +78,7 @@ class Manufacturer(Enum):
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
         registry_identifier="031tysd23"
     )
-    CUSTOM = PIDName(
-        name=BaseName(name="Custom"),
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
-        registry_identifier=""
-    )
+    CUSTOM = "Custom"
     DORIC = PIDName(
         name=BaseName(name="Doric"),
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
@@ -140,9 +136,9 @@ class Manufacturer(Enum):
         registry_identifier="00k17f049"
     )
     MPI = PIDName(
-        name=BaseName(name="Materials Processing, Inc", abbreviation="MPI"),
+        name=BaseName(name="MPI", abbreviation="MPI"),
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
-        registry_identifier="01j1gwp17"
+        registry_identifier=""
     )
     NATIONAL_INSTRUMENTS = PIDName(
         name=BaseName(name="National Instruments"),
@@ -198,7 +194,7 @@ class Manufacturer(Enum):
     THORLABS = PIDName(
         name=BaseName(name="Thorlabs"),
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
-        registry_identifier=""
+        registry_identifier="04gsnvb07"
     )
     TMC = PIDName(
         name=BaseName(name="Technical Manufacturing Corporation", abbreviation="TMC"),
