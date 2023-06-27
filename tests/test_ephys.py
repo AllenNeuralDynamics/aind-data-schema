@@ -44,7 +44,7 @@ class ExampleTest(unittest.TestCase):
             er.EphysAssembly(
                 probes=[er.EphysProbe(probe_model="Neuropixels 1.0", name="Probe A")],
                 manipulator=er.Manipulator(
-                    manufacturer=Manufacturer.NEW_SCALE_TECHNOLOGIES.name,
+                    manufacturer=Manufacturer.NEW_SCALE_TECHNOLOGIES,
                     serial_number="4321",
                 ),
                 ephys_assembly_name="Ephys_assemblyA",
@@ -55,14 +55,14 @@ class ExampleTest(unittest.TestCase):
             er.LaserAssembly(
                 lasers=[
                     er.Laser(
-                        manufacturer=Manufacturer.HAMAMATSU.name,
+                        manufacturer=Manufacturer.HAMAMATSU,
                         serial_number="1234",
                         name="Laser A",
                         wavelength=488,
                     ),
                 ],
                 manipulator=er.Manipulator(
-                    manufacturer=Manufacturer.NEW_SCALE_TECHNOLOGIES.name,
+                    manufacturer=Manufacturer.NEW_SCALE_TECHNOLOGIES,
                     serial_number="1234",
                 ),
                 laser_assembly_name="Laser_assembly",
