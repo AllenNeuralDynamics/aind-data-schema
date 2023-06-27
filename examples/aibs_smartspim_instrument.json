@@ -144,7 +144,15 @@
       {
          "name": null,
          "serial_number": "Unknown-1",
-         "manufacturer": "SEMROCK",
+         "manufacturer": {
+            "name": "Semrock",
+            "abbreviation": null,
+            "registry": {
+               "name": "Research Organization Registry",
+               "abbreviation": "ROR"
+            },
+            "registry_identifier": ""
+         },
          "model": "FF03-525/50-25",
          "notes": null,
          "filter_type": "Band pass",
@@ -164,7 +172,15 @@
       {
          "name": null,
          "serial_number": "Unknown-2",
-         "manufacturer": "SEMROCK",
+         "manufacturer": {
+            "name": "Semrock",
+            "abbreviation": null,
+            "registry": {
+               "name": "Research Organization Registry",
+               "abbreviation": "ROR"
+            },
+            "registry_identifier": ""
+         },
          "model": "FF01-600/52-25",
          "notes": null,
          "filter_type": "Band pass",
@@ -184,7 +200,15 @@
       {
          "name": null,
          "serial_number": "Unknown-3",
-         "manufacturer": "CHROMA",
+         "manufacturer": {
+            "name": "Chroma",
+            "abbreviation": null,
+            "registry": {
+               "name": "Research Organization Registry",
+               "abbreviation": "ROR"
+            },
+            "registry_identifier": ""
+         },
          "model": "ET690/50m",
          "notes": null,
          "filter_type": "Band pass",
