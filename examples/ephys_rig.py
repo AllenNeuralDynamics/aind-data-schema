@@ -56,7 +56,7 @@ blue_laser = Laser(name="Blue Laser", wavelength=638, manufacturer=Manufacturer.
 
 laser_assembly = LaserAssembly(
     laser_assembly_name="Laser_assemblyA",
-    manipulator=Manipulator(serial_number="SN2937", manufacturer="New Scale Technologies"),
+    manipulator=Manipulator(serial_number="SN2937", manufacturer=Manufacturer.NEW_SCALE_TECHNOLOGIES),
     lasers=[red_laser, blue_laser],
 )
 
@@ -86,18 +86,18 @@ probeB = EphysProbe(name="Probe B", serial_number="9291020", probe_model="Neurop
 
 ephys_assemblyA = EphysAssembly(
     ephys_assembly_name="Ephys_assemblyA",
-    manipulator=Manipulator(serial_number="SN2938", manufacturer="New Scale Technologies"),
+    manipulator=Manipulator(serial_number="SN2938", manufacturer=Manufacturer.NEW_SCALE_TECHNOLOGIES),
     probes=[probeA],
 )
 
 ephys_assemblyB = EphysAssembly(
     ephys_assembly_name="Ephys_assemblyB",
-    manipulator=Manipulator(serial_number="SN2939", manufacturer="New Scale Technologies"),
+    manipulator=Manipulator(serial_number="SN2939", manufacturer=Manufacturer.NEW_SCALE_TECHNOLOGIES),
     probes=[probeB],
 )
 
 
-filt = Filter(filter_type="Long pass", manufacturer="Thorlabs", description="850 nm longpass filter")
+filt = Filter(filter_type="Long pass", manufacturer=Manufacturer.THORLABS, description="850 nm longpass filter")
 
 lens = Lens(focal_length=15, manufacturer=Manufacturer.EDMUND_OPTICS, max_aperture="f/2")
 
