@@ -162,7 +162,7 @@ inst = Instrument(
     fluorescence_filters=[
         Filter(
             filter_type="Band pass",
-            manufacturer=Manufacturer.SEMROCK.name,
+            manufacturer=Manufacturer.SEMROCK,
             diameter=25,
             thickness=2.0,
             model="FF03-525/50-25",
@@ -171,7 +171,7 @@ inst = Instrument(
         ),
         Filter(
             filter_type="Band pass",
-            manufacturer=Manufacturer.SEMROCK.name,
+            manufacturer=Manufacturer.SEMROCK,
             diameter=25,
             thickness=2.0,
             model="FF01-600/52-25",
@@ -180,7 +180,7 @@ inst = Instrument(
         ),
         Filter(
             filter_type="Band pass",
-            manufacturer=Manufacturer.CHROMA.name,
+            manufacturer=Manufacturer.CHROMA,
             diameter=25,
             thickness=2.0,
             model="ET690/50m",
