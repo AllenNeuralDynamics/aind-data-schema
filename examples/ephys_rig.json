@@ -8,7 +8,15 @@
          "manipulator": {
             "name": null,
             "serial_number": "SN2938",
-            "manufacturer": "New Scale Technologies",
+            "manufacturer": {
+               "name": "New Scale Technologies",
+               "abbreviation": null,
+               "registry": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "registry_identifier": ""
+            },
             "model": null,
             "notes": null
          },
@@ -30,7 +38,15 @@
          "manipulator": {
             "name": null,
             "serial_number": "SN2939",
-            "manufacturer": "New Scale Technologies",
+            "manufacturer": {
+               "name": "New Scale Technologies",
+               "abbreviation": null,
+               "registry": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "registry_identifier": ""
+            },
             "model": null,
             "notes": null
          },
@@ -54,7 +70,15 @@
          "camera": {
             "name": "Probe Camera",
             "serial_number": null,
-            "manufacturer": "FLIR",
+            "manufacturer": {
+               "name": "Teledyne FLIR",
+               "abbreviation": "FLIR",
+               "registry": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "registry_identifier": "01j1gwp17"
+            },
             "model": null,
             "notes": null,
             "data_interface": "USB",
@@ -74,7 +98,15 @@
          "lens": {
             "name": null,
             "serial_number": null,
-            "manufacturer": "Edmund Optics",
+            "manufacturer": {
+               "name": "Edmund Optics",
+               "abbreviation": null,
+               "registry": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "registry_identifier": "01j1gwp17"
+            },
             "model": null,
             "notes": null,
             "focal_length": null,
@@ -93,7 +125,15 @@
          "manipulator": {
             "name": null,
             "serial_number": "SN2937",
-            "manufacturer": "New Scale Technologies",
+            "manufacturer": {
+               "name": "New Scale Technologies",
+               "abbreviation": null,
+               "registry": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "registry_identifier": ""
+            },
             "model": null,
             "notes": null
          },
@@ -101,7 +141,15 @@
             {
                "name": "Red Laser",
                "serial_number": null,
-               "manufacturer": "Oxxius",
+               "manufacturer": {
+                  "name": "Oxxius",
+                  "abbreviation": null,
+                  "registry": {
+                     "name": "Research Organization Registry",
+                     "abbreviation": "ROR"
+                  },
+                  "registry_identifier": ""
+               },
                "model": null,
                "notes": null,
                "lightsource_type": "Laser",
@@ -119,7 +167,15 @@
             {
                "name": "Blue Laser",
                "serial_number": null,
-               "manufacturer": "Oxxius",
+               "manufacturer": {
+                  "name": "Oxxius",
+                  "abbreviation": null,
+                  "registry": {
+                     "name": "Research Organization Registry",
+                     "abbreviation": "ROR"
+                  },
+                  "registry_identifier": ""
+               },
                "model": null,
                "notes": null,
                "lightsource_type": "Laser",
@@ -144,7 +200,15 @@
          "camera": {
             "name": "Face Camera",
             "serial_number": null,
-            "manufacturer": "FLIR",
+            "manufacturer": {
+               "name": "Teledyne FLIR",
+               "abbreviation": "FLIR",
+               "registry": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "registry_identifier": "01j1gwp17"
+            },
             "model": null,
             "notes": null,
             "data_interface": "USB",
@@ -164,7 +228,15 @@
          "lens": {
             "name": null,
             "serial_number": null,
-            "manufacturer": "Edmund Optics",
+            "manufacturer": {
+               "name": "Edmund Optics",
+               "abbreviation": null,
+               "registry": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "registry_identifier": "01j1gwp17"
+            },
             "model": null,
             "notes": null,
             "focal_length": 15.0,
@@ -178,7 +250,15 @@
          "filter": {
             "name": null,
             "serial_number": null,
-            "manufacturer": "Thorlabs",
+            "manufacturer": {
+               "name": "Thorlabs",
+               "abbreviation": null,
+               "registry": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "registry_identifier": "04gsnvb07"
+            },
             "model": null,
             "notes": null,
             "filter_type": "Long pass",
@@ -203,7 +283,15 @@
          "camera": {
             "name": "Body Camera",
             "serial_number": null,
-            "manufacturer": "FLIR",
+            "manufacturer": {
+               "name": "Teledyne FLIR",
+               "abbreviation": "FLIR",
+               "registry": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "registry_identifier": "01j1gwp17"
+            },
             "model": null,
             "notes": null,
             "data_interface": "USB",
@@ -223,7 +311,15 @@
          "lens": {
             "name": null,
             "serial_number": null,
-            "manufacturer": "Edmund Optics",
+            "manufacturer": {
+               "name": "Edmund Optics",
+               "abbreviation": null,
+               "registry": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "registry_identifier": "01j1gwp17"
+            },
             "model": null,
             "notes": null,
             "focal_length": 15.0,
@@ -237,7 +333,15 @@
          "filter": {
             "name": null,
             "serial_number": null,
-            "manufacturer": "Thorlabs",
+            "manufacturer": {
+               "name": "Thorlabs",
+               "abbreviation": null,
+               "registry": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "registry_identifier": "04gsnvb07"
+            },
             "model": null,
             "notes": null,
             "filter_type": "Long pass",
@@ -278,7 +382,15 @@
       {
          "name": "Basestation Slot 3",
          "serial_number": null,
-         "manufacturer": "IMEC",
+         "manufacturer": {
+            "name": "Interuniversity Microelectronics Center",
+            "abbreviation": "IMEC",
+            "registry": {
+               "name": "Research Organization Registry",
+               "abbreviation": "ROR"
+            },
+            "registry_identifier": "02kcbn207"
+         },
          "model": null,
          "notes": null,
          "data_interface": "PXI",
@@ -305,7 +417,15 @@
       {
          "name": "Harp Behavior",
          "serial_number": null,
-         "manufacturer": "OEPS",
+         "manufacturer": {
+            "name": "Open Ephys Production Site",
+            "abbreviation": "OEPS",
+            "registry": {
+               "name": "Research Organization Registry",
+               "abbreviation": "ROR"
+            },
+            "registry_identifier": "007rkz355"
+         },
          "model": null,
          "notes": null,
          "data_interface": "USB",
