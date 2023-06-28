@@ -6,11 +6,8 @@
    "manufacturer": {
       "name": "LifeCanvas",
       "abbreviation": null,
-      "registry": {
-         "name": "Research Organization Registry",
-         "abbreviation": "ROR"
-      },
-      "registry_identifier": ""
+      "registry": null,
+      "registry_identifier": null
    },
    "temperature_control": false,
    "humidity_control": false,
@@ -82,11 +79,8 @@
          "manufacturer": {
             "name": "Vortran",
             "abbreviation": null,
-            "registry": {
-               "name": "Research Organization Registry",
-               "abbreviation": "ROR"
-            },
-            "registry_identifier": ""
+            "registry": null,
+            "registry_identifier": null
          },
          "model": "Stradus",
          "notes": "All lasers controlled via Vortran VersaLase System",
@@ -124,11 +118,8 @@
          "manufacturer": {
             "name": "Vortran",
             "abbreviation": null,
-            "registry": {
-               "name": "Research Organization Registry",
-               "abbreviation": "ROR"
-            },
-            "registry_identifier": ""
+            "registry": null,
+            "registry_identifier": null
          },
          "model": "Stradus",
          "notes": "All lasers controlled via Vortran VersaLase System",
@@ -147,11 +138,8 @@
          "manufacturer": {
             "name": "Semrock",
             "abbreviation": null,
-            "registry": {
-               "name": "Research Organization Registry",
-               "abbreviation": "ROR"
-            },
-            "registry_identifier": ""
+            "registry": null,
+            "registry_identifier": null
          },
          "model": "FF03-525/50-25",
          "notes": null,
@@ -175,11 +163,8 @@
          "manufacturer": {
             "name": "Semrock",
             "abbreviation": null,
-            "registry": {
-               "name": "Research Organization Registry",
-               "abbreviation": "ROR"
-            },
-            "registry_identifier": ""
+            "registry": null,
+            "registry_identifier": null
          },
          "model": "FF01-600/52-25",
          "notes": null,
@@ -203,11 +188,8 @@
          "manufacturer": {
             "name": "Chroma",
             "abbreviation": null,
-            "registry": {
-               "name": "Research Organization Registry",
-               "abbreviation": "ROR"
-            },
-            "registry_identifier": ""
+            "registry": null,
+            "registry_identifier": null
          },
          "model": "ET690/50m",
          "notes": null,
@@ -233,11 +215,8 @@
          "manufacturer": {
             "name": "Allied",
             "abbreviation": null,
-            "registry": {
-               "name": "Research Organization Registry",
-               "abbreviation": "ROR"
-            },
-            "registry_identifier": ""
+            "registry": null,
+            "registry_identifier": null
          },
          "model": "LS-100",
          "notes": "Focus stage",
@@ -251,11 +230,8 @@
          "manufacturer": {
             "name": "IR Robot Co",
             "abbreviation": null,
-            "registry": {
-               "name": "Research Organization Registry",
-               "abbreviation": "ROR"
-            },
-            "registry_identifier": ""
+            "registry": null,
+            "registry_identifier": null
          },
          "model": "L12-20F-4",
          "notes": "Cylindrical lens #1",
@@ -269,11 +245,8 @@
          "manufacturer": {
             "name": "IR Robot Co",
             "abbreviation": null,
-            "registry": {
-               "name": "Research Organization Registry",
-               "abbreviation": "ROR"
-            },
-            "registry_identifier": ""
+            "registry": null,
+            "registry_identifier": null
          },
          "model": "L12-20F-4",
          "notes": "Cylindrical lens #2",
@@ -287,11 +260,8 @@
          "manufacturer": {
             "name": "IR Robot Co",
             "abbreviation": null,
-            "registry": {
-               "name": "Research Organization Registry",
-               "abbreviation": "ROR"
-            },
-            "registry_identifier": ""
+            "registry": null,
+            "registry_identifier": null
          },
          "model": "L12-20F-4",
          "notes": "Cylindrical lens #3",
@@ -305,11 +275,8 @@
          "manufacturer": {
             "name": "IR Robot Co",
             "abbreviation": null,
-            "registry": {
-               "name": "Research Organization Registry",
-               "abbreviation": "ROR"
-            },
-            "registry_identifier": ""
+            "registry": null,
+            "registry_identifier": null
          },
          "model": "L12-20F-4",
          "notes": "Cylindrical lens #4",
@@ -325,11 +292,8 @@
          "manufacturer": {
             "name": "Applied Scientific Instrumentation",
             "abbreviation": "ASI",
-            "registry": {
-               "name": "Research Organization Registry",
-               "abbreviation": "ROR"
-            },
-            "registry_identifier": ""
+            "registry": null,
+            "registry_identifier": null
          },
          "model": "LS-50",
          "notes": "Sample stage Z",
@@ -345,11 +309,8 @@
          "manufacturer": {
             "name": "Applied Scientific Instrumentation",
             "abbreviation": "ASI",
-            "registry": {
-               "name": "Research Organization Registry",
-               "abbreviation": "ROR"
-            },
-            "registry_identifier": ""
+            "registry": null,
+            "registry_identifier": null
          },
          "model": "LS-50",
          "notes": "Sample stage X",
@@ -365,11 +326,8 @@
          "manufacturer": {
             "name": "Applied Scientific Instrumentation",
             "abbreviation": "ASI",
-            "registry": {
-               "name": "Research Organization Registry",
-               "abbreviation": "ROR"
-            },
-            "registry_identifier": ""
+            "registry": null,
+            "registry_identifier": null
          },
          "model": "LS-50",
          "notes": "Sample stage Y",
@@ -388,11 +346,8 @@
          "manufacturer": {
             "name": "Optotune",
             "abbreviation": null,
-            "registry": {
-               "name": "Research Organization Registry",
-               "abbreviation": "ROR"
-            },
-            "registry_identifier": ""
+            "registry": null,
+            "registry_identifier": null
          },
          "model": "EL-16-40-TC",
          "notes": null,
@@ -404,11 +359,8 @@
          "manufacturer": {
             "name": "Optotune",
             "abbreviation": null,
-            "registry": {
-               "name": "Research Organization Registry",
-               "abbreviation": "ROR"
-            },
-            "registry_identifier": ""
+            "registry": null,
+            "registry_identifier": null
          },
          "model": "EL-16-40-TC",
          "notes": null,

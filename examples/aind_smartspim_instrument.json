@@ -6,11 +6,8 @@
    "manufacturer": {
       "name": "LifeCanvas",
       "abbreviation": null,
-      "registry": {
-         "name": "Research Organization Registry",
-         "abbreviation": "ROR"
-      },
-      "registry_identifier": ""
+      "registry": null,
+      "registry_identifier": null
    },
    "temperature_control": false,
    "humidity_control": false,
@@ -42,11 +39,8 @@
          "manufacturer": {
             "name": "LifeCanvas",
             "abbreviation": null,
-            "registry": {
-               "name": "Research Organization Registry",
-               "abbreviation": "ROR"
-            },
-            "registry_identifier": ""
+            "registry": null,
+            "registry_identifier": null
          },
          "model": null,
          "notes": "Thorlabs TL4X-SAP with LifeCanvas dipping cap and correction optics.",
@@ -60,11 +54,8 @@
          "manufacturer": {
             "name": "LifeCanvas",
             "abbreviation": null,
-            "registry": {
-               "name": "Research Organization Registry",
-               "abbreviation": "ROR"
-            },
-            "registry_identifier": ""
+            "registry": null,
+            "registry_identifier": null
          },
          "model": null,
          "notes": "Thorlabs TL2X-SAP with LifeCanvas dipping cap and correction optics.",
@@ -100,11 +91,8 @@
          "manufacturer": {
             "name": "Vortran",
             "abbreviation": null,
-            "registry": {
-               "name": "Research Organization Registry",
-               "abbreviation": "ROR"
-            },
-            "registry_identifier": ""
+            "registry": null,
+            "registry_identifier": null
          },
          "model": null,
          "notes": null,
@@ -121,11 +109,8 @@
          "manufacturer": {
             "name": "Vortran",
             "abbreviation": null,
-            "registry": {
-               "name": "Research Organization Registry",
-               "abbreviation": "ROR"
-            },
-            "registry_identifier": ""
+            "registry": null,
+            "registry_identifier": null
          },
          "model": null,
          "notes": null,
@@ -142,11 +127,8 @@
          "manufacturer": {
             "name": "Vortran",
             "abbreviation": null,
-            "registry": {
-               "name": "Research Organization Registry",
-               "abbreviation": "ROR"
-            },
-            "registry_identifier": ""
+            "registry": null,
+            "registry_identifier": null
          },
          "model": null,
          "notes": null,
@@ -163,11 +145,8 @@
          "manufacturer": {
             "name": "Vortran",
             "abbreviation": null,
-            "registry": {
-               "name": "Research Organization Registry",
-               "abbreviation": "ROR"
-            },
-            "registry_identifier": ""
+            "registry": null,
+            "registry_identifier": null
          },
          "model": null,
          "notes": null,
@@ -184,11 +163,8 @@
          "manufacturer": {
             "name": "Vortran",
             "abbreviation": null,
-            "registry": {
-               "name": "Research Organization Registry",
-               "abbreviation": "ROR"
-            },
-            "registry_identifier": ""
+            "registry": null,
+            "registry_identifier": null
          },
          "model": null,
          "notes": null,
@@ -205,11 +181,8 @@
          "manufacturer": {
             "name": "Vortran",
             "abbreviation": null,
-            "registry": {
-               "name": "Research Organization Registry",
-               "abbreviation": "ROR"
-            },
-            "registry_identifier": ""
+            "registry": null,
+            "registry_identifier": null
          },
          "model": null,
          "notes": null,
@@ -228,11 +201,8 @@
          "manufacturer": {
             "name": "Semrock",
             "abbreviation": null,
-            "registry": {
-               "name": "Research Organization Registry",
-               "abbreviation": "ROR"
-            },
-            "registry_identifier": ""
+            "registry": null,
+            "registry_identifier": null
          },
          "model": "FF01-469/35-25",
          "notes": null,
@@ -256,11 +226,8 @@
          "manufacturer": {
             "name": "Semrock",
             "abbreviation": null,
-            "registry": {
-               "name": "Research Organization Registry",
-               "abbreviation": "ROR"
-            },
-            "registry_identifier": ""
+            "registry": null,
+            "registry_identifier": null
          },
          "model": "FF01-525/45-25",
          "notes": null,
@@ -284,11 +251,8 @@
          "manufacturer": {
             "name": "Semrock",
             "abbreviation": null,
-            "registry": {
-               "name": "Research Organization Registry",
-               "abbreviation": "ROR"
-            },
-            "registry_identifier": ""
+            "registry": null,
+            "registry_identifier": null
          },
          "model": "FF01-593/40-25",
          "notes": null,
@@ -312,11 +276,8 @@
          "manufacturer": {
             "name": "Semrock",
             "abbreviation": null,
-            "registry": {
-               "name": "Research Organization Registry",
-               "abbreviation": "ROR"
-            },
-            "registry_identifier": ""
+            "registry": null,
+            "registry_identifier": null
          },
          "model": "FF01-624/40-25",
          "notes": null,
@@ -340,11 +301,8 @@
          "manufacturer": {
             "name": "Chroma",
             "abbreviation": null,
-            "registry": {
-               "name": "Research Organization Registry",
-               "abbreviation": "ROR"
-            },
-            "registry_identifier": ""
+            "registry": null,
+            "registry_identifier": null
          },
          "model": "ET667/30m",
          "notes": null,
@@ -398,11 +356,8 @@
          "manufacturer": {
             "name": "Applied Scientific Instrumentation",
             "abbreviation": "ASI",
-            "registry": {
-               "name": "Research Organization Registry",
-               "abbreviation": "ROR"
-            },
-            "registry_identifier": ""
+            "registry": null,
+            "registry_identifier": null
          },
          "model": "LS-100",
          "notes": "Focus stage",
@@ -416,11 +371,8 @@
          "manufacturer": {
             "name": "IR Robot Co",
             "abbreviation": null,
-            "registry": {
-               "name": "Research Organization Registry",
-               "abbreviation": "ROR"
-            },
-            "registry_identifier": ""
+            "registry": null,
+            "registry_identifier": null
          },
          "model": "L12-20F-4",
          "notes": "Cylindrical lens #1",
@@ -434,11 +386,8 @@
          "manufacturer": {
             "name": "IR Robot Co",
             "abbreviation": null,
-            "registry": {
-               "name": "Research Organization Registry",
-               "abbreviation": "ROR"
-            },
-            "registry_identifier": ""
+            "registry": null,
+            "registry_identifier": null
          },
          "model": "L12-20F-4",
          "notes": "Cylindrical lens #2",
@@ -452,11 +401,8 @@
          "manufacturer": {
             "name": "IR Robot Co",
             "abbreviation": null,
-            "registry": {
-               "name": "Research Organization Registry",
-               "abbreviation": "ROR"
-            },
-            "registry_identifier": ""
+            "registry": null,
+            "registry_identifier": null
          },
          "model": "L12-20F-4",
          "notes": "Cylindrical lens #3",
@@ -470,11 +416,8 @@
          "manufacturer": {
             "name": "IR Robot Co",
             "abbreviation": null,
-            "registry": {
-               "name": "Research Organization Registry",
-               "abbreviation": "ROR"
-            },
-            "registry_identifier": ""
+            "registry": null,
+            "registry_identifier": null
          },
          "model": "L12-20F-4",
          "notes": "Cylindrical lens #4",
@@ -490,11 +433,8 @@
          "manufacturer": {
             "name": "Applied Scientific Instrumentation",
             "abbreviation": "ASI",
-            "registry": {
-               "name": "Research Organization Registry",
-               "abbreviation": "ROR"
-            },
-            "registry_identifier": ""
+            "registry": null,
+            "registry_identifier": null
          },
          "model": "LS-50",
          "notes": "Sample stage Z",
@@ -510,11 +450,8 @@
          "manufacturer": {
             "name": "Applied Scientific Instrumentation",
             "abbreviation": "ASI",
-            "registry": {
-               "name": "Research Organization Registry",
-               "abbreviation": "ROR"
-            },
-            "registry_identifier": ""
+            "registry": null,
+            "registry_identifier": null
          },
          "model": "LS-50",
          "notes": "Sample stage X",
@@ -530,11 +467,8 @@
          "manufacturer": {
             "name": "Applied Scientific Instrumentation",
             "abbreviation": "ASI",
-            "registry": {
-               "name": "Research Organization Registry",
-               "abbreviation": "ROR"
-            },
-            "registry_identifier": ""
+            "registry": null,
+            "registry_identifier": null
          },
          "model": "LS-50",
          "notes": "Sample stage Y",
