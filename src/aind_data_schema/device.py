@@ -57,10 +57,10 @@ class Manufacturer(Enum):
     """Device manufacturer name"""
 
     ALLIED = PIDName(
-        name="Allied",
+        name="Allied"
     )
     ASI = PIDName(
-        name="Applied Scientific Instrumentation", abbreviation="ASI"
+        name="Applied Scientific Instrumentation", abbreviation="ASI",
     )
     BASLER = PIDName(
         name="Basler"
@@ -130,7 +130,8 @@ class Manufacturer(Enum):
         registry_identifier="00k17f049",
     )
     MPI = PIDName(
-        name="MPI", abbreviation="MPI"
+        name="MPI", 
+        abbreviation="MPI"
     )
     NATIONAL_INSTRUMENTS = PIDName(
         name="National Instruments",
@@ -176,12 +177,11 @@ class Manufacturer(Enum):
         registry_identifier="04gsnvb07",
     )
     TMC = PIDName(
-        name="Technical Manufacturing Corporation", abbreviation="TMC",
-        
+        name="Technical Manufacturing Corporation", 
+        abbreviation="TMC"        
     )
     VIEWORKS = PIDName(
-        name="Vieworks",
-        
+        name="Vieworks"        
     )
     VORTRAN = PIDName(
         name="Vortran"
