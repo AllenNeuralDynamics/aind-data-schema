@@ -58,44 +58,34 @@ class Manufacturer(Enum):
 
     ALLIED = PIDName(
         name="Allied",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
-        registry_identifier="",
     )
     ASI = PIDName(
-        name="Applied Scientific Instrumentation", abbreviation="ASI",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
-        registry_identifier="",
+        name="Applied Scientific Instrumentation", abbreviation="ASI"
     )
     BASLER = PIDName(
-        name="Basler",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
-        registry_identifier="",
+        name="Basler"
     )
     CAMBRIDGE_TECHNOLOGY = PIDName(
-        name="Cambridge Technology",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
-        registry_identifier="",
+        name="Cambridge Technology"
     )
     CHROMA = PIDName(
-        name="Chroma",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
-        registry_identifier="",
+        name="Chroma"
     )
     COHERENT_SCIENTIFIC = PIDName(
         name="Coherent Scientific",
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
         registry_identifier="031tysd23",
     )
-    CUSTOM = "Custom"
+    CUSTOM = PIDName(
+        name="Custom"
+    )
     DORIC = PIDName(
         name="Doric",
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
         registry_identifier="059n53q30",
     )
     EALING = PIDName(
-        name="Ealing",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
-        registry_identifier="",
+        name="Ealing"
     )
     EDMUND_OPTICS = PIDName(
         name="Edmund Optics",
@@ -118,14 +108,10 @@ class Manufacturer(Enum):
         registry_identifier="02kcbn207",
     )
     JULABO = PIDName(
-        name="Julabo",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
-        registry_identifier="",
+        name="Julabo"
     )
     LEICA = PIDName(
-        name="Leica",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
-        registry_identifier="",
+        name="Leica"
     )
     LG = PIDName(
         name="LG",
@@ -133,14 +119,10 @@ class Manufacturer(Enum):
         registry_identifier="02b948n83",
     )
     LIFECANVAS = PIDName(
-        name="LifeCanvas",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
-        registry_identifier="",
+        name="LifeCanvas"
     )
     MIGHTY_ZAP = PIDName(
-        name="IR Robot Co",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
-        registry_identifier="",
+        name="IR Robot Co"
     )
     MKS_NEWPORT = PIDName(
         name="MKS Newport",
@@ -148,9 +130,7 @@ class Manufacturer(Enum):
         registry_identifier="00k17f049",
     )
     MPI = PIDName(
-        name="MPI", abbreviation="MPI",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
-        registry_identifier="",
+        name="MPI", abbreviation="MPI"
     )
     NATIONAL_INSTRUMENTS = PIDName(
         name="National Instruments",
@@ -158,9 +138,7 @@ class Manufacturer(Enum):
         registry_identifier="026exqw73",
     )
     NEW_SCALE_TECHNOLOGIES = PIDName(
-        name="New Scale Technologies",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
-        registry_identifier="",
+        name="New Scale Technologies"
     )
     NIKON = PIDName(
         name="Nikon",
@@ -178,29 +156,19 @@ class Manufacturer(Enum):
         registry_identifier="02vcdte90",
     )
     OPTOTUNE = PIDName(
-        name="Optotune",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
-        registry_identifier="",
+        name="Optotune"
     )
     OXXIUS = PIDName(
-        name="Oxxius",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
-        registry_identifier="",
+        name="Oxxius"
     )
     PRIZMATIX = PIDName(
-        name="Prizmatix",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
-        registry_identifier="",
+        name="Prizmatix"
     )
     QUANTIFI = PIDName(
-        name="Quantifi",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
-        registry_identifier="",
+        name="Quantifi"
     )
     SEMROCK = PIDName(
-        name="Semrock",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
-        registry_identifier="",
+        name="Semrock"
     )
     THORLABS = PIDName(
         name="Thorlabs",
@@ -209,20 +177,18 @@ class Manufacturer(Enum):
     )
     TMC = PIDName(
         name="Technical Manufacturing Corporation", abbreviation="TMC",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
-        registry_identifier="",
+        
     )
     VIEWORKS = PIDName(
         name="Vieworks",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
-        registry_identifier="",
+        
     )
     VORTRAN = PIDName(
-        name="Vortran",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
-        registry_identifier="",
+        name="Vortran"
     )
-    OTHER = "OTHER"
+    OTHER = PIDName(
+        name="Other"
+    )
 
 
 class Coupling(Enum):
