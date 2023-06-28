@@ -5,10 +5,9 @@ import unittest
 
 import pydantic
 
-from aind_data_schema.device import DAQChannel, Lens
+from aind_data_schema.device import DAQChannel, Lens, Manufacturer
 from aind_data_schema.ephys import ephys_rig as er
 from aind_data_schema.ephys import ephys_session as es
-from aind_data_schema.device import Manufacturer
 
 
 class ExampleTest(unittest.TestCase):

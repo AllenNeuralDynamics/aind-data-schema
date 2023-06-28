@@ -1,7 +1,6 @@
 """ example ExaSPIM instrument """
-from aind_data_schema.device import DAQChannel, DAQDevice
+from aind_data_schema.device import DAQChannel, DAQDevice, Manufacturer
 from aind_data_schema.imaging import instrument
-from aind_data_schema.device import Manufacturer
 
 inst = instrument.Instrument(
     instrument_id="exaSPIM1-1",

@@ -1,6 +1,6 @@
 """ example SmartSPIM instrument """
-from aind_data_schema.imaging import instrument
 from aind_data_schema.device import Manufacturer
+from aind_data_schema.imaging import instrument
 
 inst = instrument.Instrument(
     instrument_id="SmartSPIM2-1",
