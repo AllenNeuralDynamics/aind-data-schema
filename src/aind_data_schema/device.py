@@ -11,7 +11,7 @@ except ImportError:  # pragma: no cover
 
 from pydantic import Field
 
-from .base import AindModel, BaseName, PIDName, BaseNameEnumMeta
+from aind_data_schema.base import AindModel, BaseName, PIDName, BaseNameEnumMeta
 
 
 class SizeUnit(Enum):
