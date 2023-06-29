@@ -11,7 +11,7 @@ except ImportError:  # pragma: no cover
 
 from pydantic import Field
 
-from .base import AindModel, BaseName, PIDName
+from .base import AindModel, BaseName, PIDName, BaseNameEnumMeta
 
 
 class SizeUnit(Enum):
@@ -53,7 +53,7 @@ class DeviceDriver(Enum):
     NVIDIA = "Nvidia Graphics"
 
 
-class Manufacturer(Enum):
+class Manufacturer(Enum, metaclass=BaseNameEnumMeta):
     """Device manufacturer name"""
 
     ALLIED = PIDName(name="Allied")
