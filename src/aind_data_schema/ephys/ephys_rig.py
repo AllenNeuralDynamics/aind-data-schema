@@ -65,7 +65,7 @@ class OpenEphysAcquisitionBoard(DAQDevice):
 class Manipulator(Device):
     """Manipulator used on a dome module"""
 
-    manufacturer: Literal[Manufacturer.NEW_SCALE_TECHNOLOGIES.value]
+    manufacturer: Literal[Manufacturer.NEW_SCALE_TECHNOLOGIES]
 
 
 class StickMicroscopeAssembly(AindModel):
@@ -134,7 +134,7 @@ class EphysAssembly(AindModel):
 class EphysRig(AindCoreModel):
     """Description of an ephys rig"""
 
-    schema_version: str = Field("0.6.5", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.7.0", description="schema version", title="Version", const=True)
     rig_id: str = Field(..., description="room_stim apparatus_version", title="Rig ID")
     ephys_assemblies: Optional[List[EphysAssembly]] = Field(None, title="Ephys probes", unique_items=True)
     stick_microscopes: Optional[List[StickMicroscopeAssembly]] = Field(None, title="Stick microscopes")

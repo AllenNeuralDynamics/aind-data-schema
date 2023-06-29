@@ -93,6 +93,8 @@ def run_job(new_schema_folder: str, old_schema_folder: str) -> None:
             return sorted((key, sorting(values)) for key, values in item.items())
         if isinstance(item, list):
             return sorted(sorting(x) for x in item)
+        if item is None:
+            return "null"
         else:
             return item
 

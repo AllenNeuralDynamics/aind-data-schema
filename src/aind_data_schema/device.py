@@ -11,7 +11,7 @@ except ImportError:  # pragma: no cover
 
 from pydantic import Field
 
-from aind_data_schema.base import AindModel
+from .base import AindModel, BaseName, PIDName
 
 
 class SizeUnit(Enum):
@@ -56,41 +56,99 @@ class DeviceDriver(Enum):
 class Manufacturer(Enum):
     """Device manufacturer name"""
 
-    ALLIED = "Allied"
-    ASI = "Applied Scientific Instrumentation"
-    BASLER = "Basler"
-    CAMBRIDGE_TECHNOLOGY = "Cambridge Technology"
-    CHROMA = "Chroma"
-    COHERENT_SCIENTIFIC = "Coherent Scientific"
-    CUSTOM = "Custom"
-    DORIC = "Doric"
-    EALING = "Ealing"
-    EDMUND_OPTICS = "Edmund Optics"
-    FLIR = "FLIR"
-    HAMAMATSU = "Hamamatsu"
-    IMEC = "IMEC"
-    JULABO = "Julabo"
-    LEICA = "Leica"
-    LG = "LG"
-    LIFECANVAS = "LifeCanvas"
-    MIGHTY_ZAP = "IR Robot Co"
-    MKS_NEWPORT = "MKS Newport"
-    MPI = "MPI"
-    NATIONAL_INSTRUMENTS = "National Instruments"
-    NEW_SCALE_TECHNOLOGIES = "New Scale Technologies"
-    NIKON = "Nikon"
-    OEPS = "OEPS"
-    OLYMPUS = "Olympus"
-    OPTOTUNE = "Optotune"
-    OXXIUS = "Oxxius"
-    PRIZMATIX = "Prizmatix"
-    QUANTIFI = "Quantifi"
-    SEMROCK = "Semrock"
-    THORLABS = "Thorlabs"
-    TMC = "Technical Manufacturing Corporation"
-    VIEWORKS = "Vieworks"
-    VORTRAN = "Vortran"
-    OTHER = "Other"
+    ALLIED = PIDName(name="Allied")
+    ASI = PIDName(
+        name="Applied Scientific Instrumentation",
+        abbreviation="ASI",
+    )
+    BASLER = PIDName(name="Basler")
+    CAMBRIDGE_TECHNOLOGY = PIDName(name="Cambridge Technology")
+    CHROMA = PIDName(name="Chroma")
+    COHERENT_SCIENTIFIC = PIDName(
+        name="Coherent Scientific",
+        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry_identifier="031tysd23",
+    )
+    CUSTOM = PIDName(name="Custom")
+    DORIC = PIDName(
+        name="Doric",
+        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry_identifier="059n53q30",
+    )
+    EALING = PIDName(name="Ealing")
+    EDMUND_OPTICS = PIDName(
+        name="Edmund Optics",
+        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry_identifier="01j1gwp17",
+    )
+    FLIR = PIDName(
+        name="Teledyne FLIR",
+        abbreviation="FLIR",
+        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry_identifier="01j1gwp17",
+    )
+    HAMAMATSU = PIDName(
+        name="Hamamatsu",
+        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry_identifier="03natb733",
+    )
+    IMEC = PIDName(
+        name="Interuniversity Microelectronics Center",
+        abbreviation="IMEC",
+        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry_identifier="02kcbn207",
+    )
+    JULABO = PIDName(name="Julabo")
+    LEICA = PIDName(name="Leica")
+    LG = PIDName(
+        name="LG",
+        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry_identifier="02b948n83",
+    )
+    LIFECANVAS = PIDName(name="LifeCanvas")
+    MIGHTY_ZAP = PIDName(name="IR Robot Co")
+    MKS_NEWPORT = PIDName(
+        name="MKS Newport",
+        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry_identifier="00k17f049",
+    )
+    MPI = PIDName(name="MPI", abbreviation="MPI")
+    NATIONAL_INSTRUMENTS = PIDName(
+        name="National Instruments",
+        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry_identifier="026exqw73",
+    )
+    NEW_SCALE_TECHNOLOGIES = PIDName(name="New Scale Technologies")
+    NIKON = PIDName(
+        name="Nikon",
+        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry_identifier="0280y9h11",
+    )
+    OEPS = PIDName(
+        name="Open Ephys Production Site",
+        abbreviation="OEPS",
+        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry_identifier="007rkz355",
+    )
+    OLYMPUS = PIDName(
+        name="Olympus",
+        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry_identifier="02vcdte90",
+    )
+    OPTOTUNE = PIDName(name="Optotune")
+    OXXIUS = PIDName(name="Oxxius")
+    PRIZMATIX = PIDName(name="Prizmatix")
+    QUANTIFI = PIDName(name="Quantifi")
+    SEMROCK = PIDName(name="Semrock")
+    THORLABS = PIDName(
+        name="Thorlabs",
+        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry_identifier="04gsnvb07",
+    )
+    TMC = PIDName(name="Technical Manufacturing Corporation", abbreviation="TMC")
+    VIEWORKS = PIDName(name="Vieworks")
+    VORTRAN = PIDName(name="Vortran")
+    OTHER = PIDName(name="Other")
 
 
 class Coupling(Enum):
@@ -249,12 +307,12 @@ class Camera(Device):
     # required fields
     data_interface: DataInterface = Field(..., title="Type of connection to PC")
     manufacturer: Literal[
-        Manufacturer.ALLIED.value,
-        Manufacturer.BASLER.value,
-        Manufacturer.EDMUND_OPTICS.value,
-        Manufacturer.FLIR.value,
-        Manufacturer.THORLABS.value,
-        Manufacturer.OTHER.value,
+        Manufacturer.ALLIED,
+        Manufacturer.BASLER,
+        Manufacturer.EDMUND_OPTICS,
+        Manufacturer.FLIR,
+        Manufacturer.THORLABS,
+        Manufacturer.OTHER,
     ]
     computer_name: str = Field(..., title="Name of computer receiving data from this camera")
     max_frame_rate: float = Field(..., title="Maximum frame rate (Hz)", units="Hz")
@@ -276,7 +334,7 @@ class Lens(Device):
     """Lens used to focus light onto a camera sensor"""
 
     # required fields
-    manufacturer: Literal[Manufacturer.EDMUND_OPTICS.value, Manufacturer.THORLABS.value, Manufacturer.OTHER.value]
+    manufacturer: Literal[Manufacturer.EDMUND_OPTICS, Manufacturer.THORLABS, Manufacturer.OTHER]
 
     # optional fields
     focal_length: Optional[float] = Field(None, title="Focal length of the lens", units="mm")
@@ -294,11 +352,11 @@ class Filter(Device):
     # required fields
     filter_type: FilterType = Field(..., title="Type of filter")
     manufacturer: Literal[
-        Manufacturer.EDMUND_OPTICS.value,
-        Manufacturer.CHROMA.value,
-        Manufacturer.SEMROCK.value,
-        Manufacturer.THORLABS.value,
-        Manufacturer.OTHER.value,
+        Manufacturer.EDMUND_OPTICS,
+        Manufacturer.CHROMA,
+        Manufacturer.SEMROCK,
+        Manufacturer.THORLABS,
+        Manufacturer.OTHER,
     ]
 
     # optional fields
@@ -312,7 +370,7 @@ class Filter(Device):
     cut_off_wavelength: Optional[int] = Field(None, title="Cut-off wavelength (nm)")
     cut_on_wavelength: Optional[int] = Field(None, title="Cut-on wavelength (nm)")
     center_wavelength: Optional[int] = Field(None, title="Center wavelength (nm)")
-    wavelength_unit: SizeUnit = Field (SizeUnit.NM, title = "Wavelength unit")
+    wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
     description: Optional[str] = Field(
         None, title="Description", description="More details about filter properties and where/how it is being used"
     )
@@ -386,10 +444,10 @@ class DAQDevice(Device):
     # required fields
     data_interface: DataInterface = Field(..., title="Type of connection to PC")
     manufacturer: Literal[
-        Manufacturer.NATIONAL_INSTRUMENTS.value,
-        Manufacturer.IMEC.value,
-        Manufacturer.OEPS.value,
-        Manufacturer.OTHER.value,
+        Manufacturer.NATIONAL_INSTRUMENTS,
+        Manufacturer.IMEC,
+        Manufacturer.OEPS,
+        Manufacturer.OTHER,
     ]
     computer_name: str = Field(..., title="Name of computer controlling this DAQ")
 
@@ -426,11 +484,11 @@ class Laser(Device):
     # required fields
     lightsource_type: str = Field("Laser", title="Lightsource type")
     manufacturer: Literal[
-        Manufacturer.COHERENT_SCIENTIFIC.value,
-        Manufacturer.HAMAMATSU.value,
-        Manufacturer.OXXIUS.value,
-        Manufacturer.QUANTIFI.value,
-        Manufacturer.OTHER.value,
+        Manufacturer.COHERENT_SCIENTIFIC,
+        Manufacturer.HAMAMATSU,
+        Manufacturer.OXXIUS,
+        Manufacturer.QUANTIFI,
+        Manufacturer.OTHER,
     ]
     wavelength: int = Field(..., title="Wavelength (nm)", units="nm")
     wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
@@ -457,10 +515,10 @@ class LightEmittingDiode(Device):
 
     lightsource_type: str = Field("LED", title="Lightsource type")
     manufacturer: Literal[
-        Manufacturer.DORIC.value,
-        Manufacturer.PRIZMATIX.value,
-        Manufacturer.THORLABS.value,
-        Manufacturer.OTHER.value,
+        Manufacturer.DORIC,
+        Manufacturer.PRIZMATIX,
+        Manufacturer.THORLABS,
+        Manufacturer.OTHER,
     ]
     wavelength: int = Field(..., title="Wavelength (nm)", units="nm")
     wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
@@ -507,7 +565,7 @@ class Monitor(Device):
     """Visual display"""
 
     # required fields
-    manufacturer: Literal[Manufacturer.LG.value]
+    manufacturer: Literal[Manufacturer.LG]
     refresh_rate: int = Field(..., title="Refresh rate (Hz)", units="Hz", ge=60)
     width: int = Field(..., title="Width (pixels)", units="pixels")
     height: int = Field(..., title="Height (pixels)", units="pixels")

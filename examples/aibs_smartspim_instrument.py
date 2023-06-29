@@ -1,4 +1,5 @@
 """ example SmartSPIM instrument """
+from aind_data_schema.device import Manufacturer
 from aind_data_schema.imaging.instrument import (
     AdditionalImagingDevice,
     Com,
@@ -15,13 +16,13 @@ from aind_data_schema.imaging.instrument import (
 inst = Instrument(
     instrument_id="SmartSPIM1-1",
     instrument_type="SmartSPIM",
-    manufacturer="LifeCanvas",
+    manufacturer=Manufacturer.LIFECANVAS,
     objectives=[
         Objective(
             numerical_aperture=0.2,
             magnification=3.6,
             immersion="multi",
-            manufacturer="Thorlabs",
+            manufacturer=Manufacturer.THORLABS,
             model="TL4X-SAP",
             serial_number="Unknown",
             notes="Thorlabs TL4X-SAP with LifeCanvas dipping cap and correction optics.",
@@ -32,7 +33,7 @@ inst = Instrument(
             type="Camera",
             data_interface="USB",
             cooling="air",
-            manufacturer="Hamamatsu",
+            manufacturer=Manufacturer.HAMAMATSU,
             model="C14440-20UP",
             serial_number="001107",
         ),
@@ -44,7 +45,7 @@ inst = Instrument(
             wavelength=488,
             max_power=150,
             serial_number="VL01222A11",
-            manufacturer="Vortran",
+            manufacturer=Manufacturer.VORTRAN,
             model="Stradus",
             notes="All lasers controlled via Vortran VersaLase System",
         ),
@@ -54,7 +55,7 @@ inst = Instrument(
             wavelength=561,
             max_power=150,
             serial_number="417927",
-            manufacturer="Coherent Scientific",
+            manufacturer=Manufacturer.COHERENT_SCIENTIFIC,
             model="Obis",
             notes="All lasers controlled via Vortran VersaLase System",
         ),
@@ -64,7 +65,7 @@ inst = Instrument(
             wavelength=647,
             max_power=160,
             serial_number="VL01222A10",
-            manufacturer="Vortran",
+            manufacturer=Manufacturer.VORTRAN,
             model="Stradus",
             notes="All lasers controlled via Vortran VersaLase System",
         ),
@@ -72,35 +73,35 @@ inst = Instrument(
     motorized_stages=[
         MotorizedStage(
             model="LS-100",
-            manufacturer="Applied Scientific Instrumentation",
+            manufacturer=Manufacturer.ALLIED,
             serial_number="Unknown-1",
             travel=100,
             notes="Focus stage",
         ),
         MotorizedStage(
             model="L12-20F-4",
-            manufacturer="IR Robot Co",
+            manufacturer=Manufacturer.MIGHTY_ZAP,
             serial_number="Unknown-5",
             travel=41,
             notes="Cylindrical lens #1",
         ),
         MotorizedStage(
             model="L12-20F-4",
-            manufacturer="IR Robot Co",
+            manufacturer=Manufacturer.MIGHTY_ZAP,
             serial_number="Unknown-6",
             travel=41,
             notes="Cylindrical lens #2",
         ),
         MotorizedStage(
             model="L12-20F-4",
-            manufacturer="IR Robot Co",
+            manufacturer=Manufacturer.MIGHTY_ZAP,
             serial_number="Unknown-7",
             travel=41,
             notes="Cylindrical lens #3",
         ),
         MotorizedStage(
             model="L12-20F-4",
-            manufacturer="IR Robot Co",
+            manufacturer=Manufacturer.MIGHTY_ZAP,
             serial_number="Unknown-8",
             travel=41,
             notes="Cylindrical lens #4",
@@ -109,7 +110,7 @@ inst = Instrument(
     scanning_stages=[
         ScanningStage(
             model="LS-50",
-            manufacturer="Applied Scientific Instrumentation",
+            manufacturer=Manufacturer.ASI,
             serial_number="Unknown-2",
             stage_axis_direction="Detection axis",
             stage_axis_name="Z",
@@ -118,7 +119,7 @@ inst = Instrument(
         ),
         ScanningStage(
             model="LS-50",
-            manufacturer="Applied Scientific Instrumentation",
+            manufacturer=Manufacturer.ASI,
             serial_number="Unknown-3",
             stage_axis_direction="Illumination axis",
             stage_axis_name="X",
@@ -127,7 +128,7 @@ inst = Instrument(
         ),
         ScanningStage(
             model="LS-50",
-            manufacturer="Applied Scientific Instrumentation",
+            manufacturer=Manufacturer.ASI,
             serial_number="Unknown-4",
             stage_axis_direction="Perpendicular axis",
             stage_axis_name="Y",
@@ -141,7 +142,7 @@ inst = Instrument(
             length=24,
             width=24,
             vibration_control=False,
-            manufacturer="MKS Newport",
+            manufacturer=Manufacturer.MKS_NEWPORT,
             serial_number="Unknown",
         )
     ],
@@ -161,7 +162,7 @@ inst = Instrument(
     fluorescence_filters=[
         Filter(
             filter_type="Band pass",
-            manufacturer="Semrock",
+            manufacturer=Manufacturer.SEMROCK,
             diameter=25,
             thickness=2.0,
             model="FF03-525/50-25",
@@ -170,7 +171,7 @@ inst = Instrument(
         ),
         Filter(
             filter_type="Band pass",
-            manufacturer="Semrock",
+            manufacturer=Manufacturer.SEMROCK,
             diameter=25,
             thickness=2.0,
             model="FF01-600/52-25",
@@ -179,7 +180,7 @@ inst = Instrument(
         ),
         Filter(
             filter_type="Band pass",
-            manufacturer="Chroma",
+            manufacturer=Manufacturer.CHROMA,
             diameter=25,
             thickness=2.0,
             model="ET690/50m",
@@ -190,13 +191,13 @@ inst = Instrument(
     additional_devices=[
         AdditionalImagingDevice(
             type="Other",
-            manufacturer="Optotune",
+            manufacturer=Manufacturer.OPTOTUNE,
             model="EL-16-40-TC",
             serial_number="Unknown-1",
         ),
         AdditionalImagingDevice(
             type="Other",
-            manufacturer="Optotune",
+            manufacturer=Manufacturer.OPTOTUNE,
             model="EL-16-40-TC",
             serial_number="Unknown-2",
         ),

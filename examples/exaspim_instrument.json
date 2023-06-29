@@ -1,16 +1,29 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/imaging/instrument.py",
-   "schema_version": "0.6.3",
+   "schema_version": "0.7.0",
    "instrument_id": "exaSPIM1-1",
    "instrument_type": "exaSPIM",
-   "manufacturer": "Custom",
+   "manufacturer": {
+      "name": "Custom",
+      "abbreviation": null,
+      "registry": null,
+      "registry_identifier": null
+   },
    "temperature_control": false,
    "humidity_control": false,
    "optical_tables": [
       {
          "name": null,
          "serial_number": "Unknown",
-         "manufacturer": "MKS Newport",
+         "manufacturer": {
+            "name": "MKS Newport",
+            "abbreviation": null,
+            "registry": {
+               "name": "Research Organization Registry",
+               "abbreviation": "ROR"
+            },
+            "registry_identifier": "00k17f049"
+         },
          "model": "VIS3648-PG2-325A",
          "notes": null,
          "length": 36.0,
@@ -23,7 +36,12 @@
       {
          "name": null,
          "serial_number": "Unknown",
-         "manufacturer": "Other",
+         "manufacturer": {
+            "name": "Other",
+            "abbreviation": null,
+            "registry": null,
+            "registry_identifier": null
+         },
          "model": "JM_DIAMOND 5.0X/1.3",
          "notes": "manufacturer collaboration between Schneider-Kreuznach and Vieworks",
          "numerical_aperture": 0.305,
@@ -35,7 +53,12 @@
       {
          "name": null,
          "serial_number": "MB151BAY001",
-         "manufacturer": "Vieworks",
+         "manufacturer": {
+            "name": "Vieworks",
+            "abbreviation": null,
+            "registry": null,
+            "registry_identifier": null
+         },
          "model": "VNP-604MX",
          "notes": null,
          "type": "Camera",
@@ -47,7 +70,12 @@
       {
          "name": null,
          "serial_number": "LAS-08307",
-         "manufacturer": "Oxxius",
+         "manufacturer": {
+            "name": "Oxxius",
+            "abbreviation": null,
+            "registry": null,
+            "registry_identifier": null
+         },
          "model": null,
          "notes": "Housed in commercial laser combiner",
          "type": "laser",
@@ -60,7 +88,12 @@
       {
          "name": null,
          "serial_number": "LAS-08308",
-         "manufacturer": "Oxxius",
+         "manufacturer": {
+            "name": "Oxxius",
+            "abbreviation": null,
+            "registry": null,
+            "registry_identifier": null
+         },
          "model": null,
          "notes": "Housed in commercial laser combiner",
          "type": "laser",
@@ -73,7 +106,12 @@
       {
          "name": null,
          "serial_number": "539251",
-         "manufacturer": "Oxxius",
+         "manufacturer": {
+            "name": "Oxxius",
+            "abbreviation": null,
+            "registry": null,
+            "registry_identifier": null
+         },
          "model": null,
          "notes": "Housed in commercial laser combiner",
          "type": "laser",
@@ -86,7 +124,12 @@
       {
          "name": null,
          "serial_number": "LAS-08309",
-         "manufacturer": "Oxxius",
+         "manufacturer": {
+            "name": "Oxxius",
+            "abbreviation": null,
+            "registry": null,
+            "registry_identifier": null
+         },
          "model": null,
          "notes": "Housed in commercial laser combiner",
          "type": "laser",
@@ -101,7 +144,12 @@
       {
          "name": null,
          "serial_number": "Unknown-0",
-         "manufacturer": "Chroma",
+         "manufacturer": {
+            "name": "Chroma",
+            "abbreviation": null,
+            "registry": null,
+            "registry_identifier": null
+         },
          "model": "ZET405/488/561/640mv2",
          "notes": "Custom made filter",
          "filter_type": "Multiband",
@@ -124,7 +172,12 @@
       {
          "name": null,
          "serial_number": "Unknown",
-         "manufacturer": "Applied Scientific Instrumentation",
+         "manufacturer": {
+            "name": "Applied Scientific Instrumentation",
+            "abbreviation": "ASI",
+            "registry": null,
+            "registry_identifier": null
+         },
          "model": "MS-8000",
          "notes": null,
          "travel": 1000.0,
@@ -136,7 +189,12 @@
       {
          "name": null,
          "serial_number": "Unknown",
-         "manufacturer": "Applied Scientific Instrumentation",
+         "manufacturer": {
+            "name": "Applied Scientific Instrumentation",
+            "abbreviation": "ASI",
+            "registry": null,
+            "registry_identifier": null
+         },
          "model": "MS-8000",
          "notes": null,
          "travel": 1000.0,
@@ -148,7 +206,12 @@
       {
          "name": null,
          "serial_number": "Unknown",
-         "manufacturer": "Applied Scientific Instrumentation",
+         "manufacturer": {
+            "name": "Applied Scientific Instrumentation",
+            "abbreviation": "ASI",
+            "registry": null,
+            "registry_identifier": null
+         },
          "model": "LS-100",
          "notes": null,
          "travel": 100.0,
@@ -162,7 +225,15 @@
       {
          "name": "Dev2",
          "serial_number": "Unknown",
-         "manufacturer": "National Instruments",
+         "manufacturer": {
+            "name": "National Instruments",
+            "abbreviation": null,
+            "registry": {
+               "name": "Research Organization Registry",
+               "abbreviation": "ROR"
+            },
+            "registry_identifier": "026exqw73"
+         },
          "model": "PCIe-6738",
          "notes": null,
          "data_interface": "USB",
@@ -235,7 +306,12 @@
       {
          "name": null,
          "serial_number": "01",
-         "manufacturer": "Optotune",
+         "manufacturer": {
+            "name": "Optotune",
+            "abbreviation": null,
+            "registry": null,
+            "registry_identifier": null
+         },
          "model": "EL-16-40-TC-VIS-20D-C",
          "notes": null,
          "type": "Tunable lens"
@@ -243,7 +319,15 @@
       {
          "name": null,
          "serial_number": "01",
-         "manufacturer": "Thorlabs",
+         "manufacturer": {
+            "name": "Thorlabs",
+            "abbreviation": null,
+            "registry": {
+               "name": "Research Organization Registry",
+               "abbreviation": "ROR"
+            },
+            "registry_identifier": "04gsnvb07"
+         },
          "model": "K10CR1",
          "notes": null,
          "type": "Rotation mount"
@@ -251,7 +335,12 @@
       {
          "name": null,
          "serial_number": "L6CC-00513",
-         "manufacturer": "Oxxius",
+         "manufacturer": {
+            "name": "Oxxius",
+            "abbreviation": null,
+            "registry": null,
+            "registry_identifier": null
+         },
          "model": "L6Cc",
          "notes": null,
          "type": "Laser combiner"

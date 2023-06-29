@@ -66,8 +66,8 @@ class PIDName(BaseName):
     the registry for that PID, and abbreviation for that registry
     """
 
-    registry: BaseName = Field(..., title="Registry")
-    registry_identifier: str = Field(..., title="Registry identifier")
+    registry: Optional[BaseName] = Field(None, title="Registry")
+    registry_identifier: Optional[str] = Field(None, title="Registry identifier")
 
 
 class AindCoreModel(AindModel):

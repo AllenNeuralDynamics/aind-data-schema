@@ -5,7 +5,7 @@ import unittest
 
 import pydantic
 
-from aind_data_schema.device import DAQChannel, Lens
+from aind_data_schema.device import DAQChannel, Lens, Manufacturer
 from aind_data_schema.ephys import ephys_rig as er
 from aind_data_schema.ephys import ephys_session as es
 
@@ -27,7 +27,7 @@ class ExampleTest(unittest.TestCase):
                 basestation_firmware_version="1",
                 bsc_firmware_version="2",
                 slot=0,
-                manufacturer="Other",
+                manufacturer=Manufacturer.OTHER,
                 ports=[],
                 computer_name="foo",
                 channels=[
@@ -43,7 +43,7 @@ class ExampleTest(unittest.TestCase):
             er.EphysAssembly(
                 probes=[er.EphysProbe(probe_model="Neuropixels 1.0", name="Probe A")],
                 manipulator=er.Manipulator(
-                    manufacturer="New Scale Technologies",
+                    manufacturer=Manufacturer.NEW_SCALE_TECHNOLOGIES,
                     serial_number="4321",
                 ),
                 ephys_assembly_name="Ephys_assemblyA",
@@ -54,14 +54,14 @@ class ExampleTest(unittest.TestCase):
             er.LaserAssembly(
                 lasers=[
                     er.Laser(
-                        manufacturer="Hamamatsu",
+                        manufacturer=Manufacturer.HAMAMATSU,
                         serial_number="1234",
                         name="Laser A",
                         wavelength=488,
                     ),
                 ],
                 manipulator=er.Manipulator(
-                    manufacturer="New Scale Technologies",
+                    manufacturer=Manufacturer.NEW_SCALE_TECHNOLOGIES,
                     serial_number="1234",
                 ),
                 laser_assembly_name="Laser_assembly",
@@ -81,7 +81,7 @@ class ExampleTest(unittest.TestCase):
                         basestation_firmware_version="1",
                         bsc_firmware_version="2",
                         slot=0,
-                        manufacturer="Other",
+                        manufacturer=Manufacturer.OTHER,
                         ports=[er.ProbePort(index=0, probes=["Probe B"])],
                         computer_name="foo",
                         channels=[
@@ -100,10 +100,10 @@ class ExampleTest(unittest.TestCase):
                 er.CameraAssembly(
                     camera_assembly_name="cam",
                     camera_target="Face",
-                    lens=Lens(manufacturer="Other"),
+                    lens=Lens(manufacturer=Manufacturer.OTHER),
                     camera=er.Camera(
                         name="Camera A",
-                        manufacturer="Other",
+                        manufacturer=Manufacturer.OTHER,
                         data_interface="USB",
                         computer_name="ASDF",
                         max_frame_rate=144,

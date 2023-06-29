@@ -1,16 +1,29 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/imaging/instrument.py",
-   "schema_version": "0.6.3",
+   "schema_version": "0.7.0",
    "instrument_id": "SmartSPIM1-1",
    "instrument_type": "SmartSPIM",
-   "manufacturer": "LifeCanvas",
+   "manufacturer": {
+      "name": "LifeCanvas",
+      "abbreviation": null,
+      "registry": null,
+      "registry_identifier": null
+   },
    "temperature_control": false,
    "humidity_control": false,
    "optical_tables": [
       {
          "name": null,
          "serial_number": "Unknown",
-         "manufacturer": "MKS Newport",
+         "manufacturer": {
+            "name": "MKS Newport",
+            "abbreviation": null,
+            "registry": {
+               "name": "Research Organization Registry",
+               "abbreviation": "ROR"
+            },
+            "registry_identifier": "00k17f049"
+         },
          "model": "VIS2424-IG2-125A",
          "notes": null,
          "length": 24.0,
@@ -23,7 +36,15 @@
       {
          "name": null,
          "serial_number": "Unknown",
-         "manufacturer": "Thorlabs",
+         "manufacturer": {
+            "name": "Thorlabs",
+            "abbreviation": null,
+            "registry": {
+               "name": "Research Organization Registry",
+               "abbreviation": "ROR"
+            },
+            "registry_identifier": "04gsnvb07"
+         },
          "model": "TL4X-SAP",
          "notes": "Thorlabs TL4X-SAP with LifeCanvas dipping cap and correction optics.",
          "numerical_aperture": 0.2,
@@ -35,7 +56,15 @@
       {
          "name": null,
          "serial_number": "001107",
-         "manufacturer": "Hamamatsu",
+         "manufacturer": {
+            "name": "Hamamatsu",
+            "abbreviation": null,
+            "registry": {
+               "name": "Research Organization Registry",
+               "abbreviation": "ROR"
+            },
+            "registry_identifier": "03natb733"
+         },
          "model": "C14440-20UP",
          "notes": null,
          "type": "Camera",
@@ -47,7 +76,12 @@
       {
          "name": null,
          "serial_number": "VL01222A11",
-         "manufacturer": "Vortran",
+         "manufacturer": {
+            "name": "Vortran",
+            "abbreviation": null,
+            "registry": null,
+            "registry_identifier": null
+         },
          "model": "Stradus",
          "notes": "All lasers controlled via Vortran VersaLase System",
          "type": "laser",
@@ -60,7 +94,15 @@
       {
          "name": null,
          "serial_number": "417927",
-         "manufacturer": "Coherent Scientific",
+         "manufacturer": {
+            "name": "Coherent Scientific",
+            "abbreviation": null,
+            "registry": {
+               "name": "Research Organization Registry",
+               "abbreviation": "ROR"
+            },
+            "registry_identifier": "031tysd23"
+         },
          "model": "Obis",
          "notes": "All lasers controlled via Vortran VersaLase System",
          "type": "laser",
@@ -73,7 +115,12 @@
       {
          "name": null,
          "serial_number": "VL01222A10",
-         "manufacturer": "Vortran",
+         "manufacturer": {
+            "name": "Vortran",
+            "abbreviation": null,
+            "registry": null,
+            "registry_identifier": null
+         },
          "model": "Stradus",
          "notes": "All lasers controlled via Vortran VersaLase System",
          "type": "laser",
@@ -88,7 +135,12 @@
       {
          "name": null,
          "serial_number": "Unknown-1",
-         "manufacturer": "Semrock",
+         "manufacturer": {
+            "name": "Semrock",
+            "abbreviation": null,
+            "registry": null,
+            "registry_identifier": null
+         },
          "model": "FF03-525/50-25",
          "notes": null,
          "filter_type": "Band pass",
@@ -108,7 +160,12 @@
       {
          "name": null,
          "serial_number": "Unknown-2",
-         "manufacturer": "Semrock",
+         "manufacturer": {
+            "name": "Semrock",
+            "abbreviation": null,
+            "registry": null,
+            "registry_identifier": null
+         },
          "model": "FF01-600/52-25",
          "notes": null,
          "filter_type": "Band pass",
@@ -128,7 +185,12 @@
       {
          "name": null,
          "serial_number": "Unknown-3",
-         "manufacturer": "Chroma",
+         "manufacturer": {
+            "name": "Chroma",
+            "abbreviation": null,
+            "registry": null,
+            "registry_identifier": null
+         },
          "model": "ET690/50m",
          "notes": null,
          "filter_type": "Band pass",
@@ -150,7 +212,12 @@
       {
          "name": null,
          "serial_number": "Unknown-1",
-         "manufacturer": "Applied Scientific Instrumentation",
+         "manufacturer": {
+            "name": "Allied",
+            "abbreviation": null,
+            "registry": null,
+            "registry_identifier": null
+         },
          "model": "LS-100",
          "notes": "Focus stage",
          "travel": 100.0,
@@ -160,7 +227,12 @@
       {
          "name": null,
          "serial_number": "Unknown-5",
-         "manufacturer": "IR Robot Co",
+         "manufacturer": {
+            "name": "IR Robot Co",
+            "abbreviation": null,
+            "registry": null,
+            "registry_identifier": null
+         },
          "model": "L12-20F-4",
          "notes": "Cylindrical lens #1",
          "travel": 41.0,
@@ -170,7 +242,12 @@
       {
          "name": null,
          "serial_number": "Unknown-6",
-         "manufacturer": "IR Robot Co",
+         "manufacturer": {
+            "name": "IR Robot Co",
+            "abbreviation": null,
+            "registry": null,
+            "registry_identifier": null
+         },
          "model": "L12-20F-4",
          "notes": "Cylindrical lens #2",
          "travel": 41.0,
@@ -180,7 +257,12 @@
       {
          "name": null,
          "serial_number": "Unknown-7",
-         "manufacturer": "IR Robot Co",
+         "manufacturer": {
+            "name": "IR Robot Co",
+            "abbreviation": null,
+            "registry": null,
+            "registry_identifier": null
+         },
          "model": "L12-20F-4",
          "notes": "Cylindrical lens #3",
          "travel": 41.0,
@@ -190,7 +272,12 @@
       {
          "name": null,
          "serial_number": "Unknown-8",
-         "manufacturer": "IR Robot Co",
+         "manufacturer": {
+            "name": "IR Robot Co",
+            "abbreviation": null,
+            "registry": null,
+            "registry_identifier": null
+         },
          "model": "L12-20F-4",
          "notes": "Cylindrical lens #4",
          "travel": 41.0,
@@ -202,7 +289,12 @@
       {
          "name": null,
          "serial_number": "Unknown-2",
-         "manufacturer": "Applied Scientific Instrumentation",
+         "manufacturer": {
+            "name": "Applied Scientific Instrumentation",
+            "abbreviation": "ASI",
+            "registry": null,
+            "registry_identifier": null
+         },
          "model": "LS-50",
          "notes": "Sample stage Z",
          "travel": 50.0,
@@ -214,7 +306,12 @@
       {
          "name": null,
          "serial_number": "Unknown-3",
-         "manufacturer": "Applied Scientific Instrumentation",
+         "manufacturer": {
+            "name": "Applied Scientific Instrumentation",
+            "abbreviation": "ASI",
+            "registry": null,
+            "registry_identifier": null
+         },
          "model": "LS-50",
          "notes": "Sample stage X",
          "travel": 50.0,
@@ -226,7 +323,12 @@
       {
          "name": null,
          "serial_number": "Unknown-4",
-         "manufacturer": "Applied Scientific Instrumentation",
+         "manufacturer": {
+            "name": "Applied Scientific Instrumentation",
+            "abbreviation": "ASI",
+            "registry": null,
+            "registry_identifier": null
+         },
          "model": "LS-50",
          "notes": "Sample stage Y",
          "travel": 50.0,
@@ -241,7 +343,12 @@
       {
          "name": null,
          "serial_number": "Unknown-1",
-         "manufacturer": "Optotune",
+         "manufacturer": {
+            "name": "Optotune",
+            "abbreviation": null,
+            "registry": null,
+            "registry_identifier": null
+         },
          "model": "EL-16-40-TC",
          "notes": null,
          "type": "Other"
@@ -249,7 +356,12 @@
       {
          "name": null,
          "serial_number": "Unknown-2",
-         "manufacturer": "Optotune",
+         "manufacturer": {
+            "name": "Optotune",
+            "abbreviation": null,
+            "registry": null,
+            "registry_identifier": null
+         },
          "model": "EL-16-40-TC",
          "notes": null,
          "type": "Other"

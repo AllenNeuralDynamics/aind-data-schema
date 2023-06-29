@@ -1,15 +1,16 @@
 """ example SmartSPIM instrument """
+from aind_data_schema.device import Manufacturer
 from aind_data_schema.imaging import instrument
 
 inst = instrument.Instrument(
     instrument_id="SmartSPIM2-1",
     instrument_type="SmartSPIM",
-    manufacturer="LifeCanvas",
+    manufacturer=Manufacturer.LIFECANVAS,
     objectives=[
         instrument.Objective(
             numerical_aperture=0.2,
             magnification=3.6,
-            manufacturer="LifeCanvas",
+            manufacturer=Manufacturer.LIFECANVAS,
             immersion="multi",
             notes="Thorlabs TL4X-SAP with LifeCanvas dipping cap and correction optics.",
             serial_number="Unknown-1",
@@ -17,7 +18,7 @@ inst = instrument.Instrument(
         instrument.Objective(
             numerical_aperture=0.12,
             magnification=1.625,
-            manufacturer="LifeCanvas",
+            manufacturer=Manufacturer.LIFECANVAS,
             immersion="multi",
             notes="Thorlabs TL2X-SAP with LifeCanvas dipping cap and correction optics.",
             serial_number="Unknown-2",
@@ -28,7 +29,7 @@ inst = instrument.Instrument(
             type="Camera",
             data_interface="USB",
             cooling="air",
-            manufacturer="Hamamatsu",
+            manufacturer=Manufacturer.HAMAMATSU,
             model="C14440-20UP",
             serial_number="001284",
         ),
@@ -40,7 +41,7 @@ inst = instrument.Instrument(
             wavelength=445,
             max_power=200,
             serial_number="VL08223M03",
-            manufacturer="Vortran",
+            manufacturer=Manufacturer.VORTRAN,
         ),
         instrument.Lightsource(
             type="laser",
@@ -48,7 +49,7 @@ inst = instrument.Instrument(
             wavelength=488,
             max_power=150,
             serial_number="VL08223M03",
-            manufacturer="Vortran",
+            manufacturer=Manufacturer.VORTRAN,
         ),
         instrument.Lightsource(
             type="laser",
@@ -56,7 +57,7 @@ inst = instrument.Instrument(
             wavelength=561,
             max_power=150,
             serial_number="VL08223M03",
-            manufacturer="Vortran",
+            manufacturer=Manufacturer.VORTRAN,
         ),
         instrument.Lightsource(
             type="laser",
@@ -64,7 +65,7 @@ inst = instrument.Instrument(
             wavelength=594,
             max_power=100,
             serial_number="VL08223M03",
-            manufacturer="Vortran",
+            manufacturer=Manufacturer.VORTRAN,
         ),
         instrument.Lightsource(
             type="laser",
@@ -72,7 +73,7 @@ inst = instrument.Instrument(
             wavelength=639,
             max_power=160,
             serial_number="VL08223M03",
-            manufacturer="Vortran",
+            manufacturer=Manufacturer.VORTRAN,
         ),
         instrument.Lightsource(
             type="laser",
@@ -80,13 +81,13 @@ inst = instrument.Instrument(
             wavelength=690,
             max_power=160,
             serial_number="VL08223M03",
-            manufacturer="Vortran",
+            manufacturer=Manufacturer.VORTRAN,
         ),
     ],
     fluorescence_filters=[
         instrument.Filter(
             filter_type="Band pass",
-            manufacturer="Semrock",
+            manufacturer=Manufacturer.SEMROCK,
             diameter=25,
             thickness=2.0,
             model="FF01-469/35-25",
@@ -95,7 +96,7 @@ inst = instrument.Instrument(
         ),
         instrument.Filter(
             filter_type="Band pass",
-            manufacturer="Semrock",
+            manufacturer=Manufacturer.SEMROCK,
             diameter=25,
             thickness=2.0,
             model="FF01-525/45-25",
@@ -104,7 +105,7 @@ inst = instrument.Instrument(
         ),
         instrument.Filter(
             filter_type="Band pass",
-            manufacturer="Semrock",
+            manufacturer=Manufacturer.SEMROCK,
             diameter=25,
             thickness=2.0,
             model="FF01-593/40-25",
@@ -113,7 +114,7 @@ inst = instrument.Instrument(
         ),
         instrument.Filter(
             filter_type="Band pass",
-            manufacturer="Semrock",
+            manufacturer=Manufacturer.SEMROCK,
             diameter=25,
             thickness=2.0,
             model="FF01-624/40-25",
@@ -122,7 +123,7 @@ inst = instrument.Instrument(
         ),
         instrument.Filter(
             filter_type="Band pass",
-            manufacturer="Chroma",
+            manufacturer=Manufacturer.CHROMA,
             diameter=25,
             thickness=2.0,
             model="ET667/30m",
@@ -131,7 +132,7 @@ inst = instrument.Instrument(
         ),
         instrument.Filter(
             filter_type="Long pass",
-            manufacturer="Thorlabs",
+            manufacturer=Manufacturer.THORLABS,
             diameter=25,
             thickness=2.0,
             model="FELH0700",
@@ -142,35 +143,35 @@ inst = instrument.Instrument(
     motorized_stages=[
         instrument.MotorizedStage(
             model="LS-100",
-            manufacturer="Applied Scientific Instrumentation",
+            manufacturer=Manufacturer.ASI,
             serial_number="Unknown-1",
             travel=100,
             notes="Focus stage",
         ),
         instrument.MotorizedStage(
             model="L12-20F-4",
-            manufacturer="IR Robot Co",
+            manufacturer=Manufacturer.MIGHTY_ZAP,
             serial_number="Unknown-5",
             travel=41,
             notes="Cylindrical lens #1",
         ),
         instrument.MotorizedStage(
             model="L12-20F-4",
-            manufacturer="IR Robot Co",
+            manufacturer=Manufacturer.MIGHTY_ZAP,
             serial_number="Unknown-6",
             travel=41,
             notes="Cylindrical lens #2",
         ),
         instrument.MotorizedStage(
             model="L12-20F-4",
-            manufacturer="IR Robot Co",
+            manufacturer=Manufacturer.MIGHTY_ZAP,
             serial_number="Unknown-7",
             travel=41,
             notes="Cylindrical lens #3",
         ),
         instrument.MotorizedStage(
             model="L12-20F-4",
-            manufacturer="IR Robot Co",
+            manufacturer=Manufacturer.MIGHTY_ZAP,
             serial_number="Unknown-8",
             travel=41,
             notes="Cylindrical lens #4",
@@ -179,7 +180,7 @@ inst = instrument.Instrument(
     scanning_stages=[
         instrument.ScanningStage(
             model="LS-50",
-            manufacturer="Applied Scientific Instrumentation",
+            manufacturer=Manufacturer.ASI,
             serial_number="Unknown-2",
             stage_axis_direction="Detection axis",
             stage_axis_name="Z",
@@ -188,7 +189,7 @@ inst = instrument.Instrument(
         ),
         instrument.ScanningStage(
             model="LS-50",
-            manufacturer="Applied Scientific Instrumentation",
+            manufacturer=Manufacturer.ASI,
             serial_number="Unknown-3",
             stage_axis_direction="Illumination axis",
             stage_axis_name="X",
@@ -197,7 +198,7 @@ inst = instrument.Instrument(
         ),
         instrument.ScanningStage(
             model="LS-50",
-            manufacturer="Applied Scientific Instrumentation",
+            manufacturer=Manufacturer.ASI,
             serial_number="Unknown-4",
             stage_axis_direction="Perpendicular axis",
             stage_axis_name="Y",
@@ -211,7 +212,7 @@ inst = instrument.Instrument(
             width=48,
             vibration_control=False,
             model="VIS2424-IG2-125A",
-            manufacturer="MKS Newport",
+            manufacturer=Manufacturer.MKS_NEWPORT,
             serial_number="Unknown",
         )
     ],
