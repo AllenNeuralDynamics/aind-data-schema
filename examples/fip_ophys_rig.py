@@ -2,7 +2,68 @@ import aind_data_schema.ophys.ophys_rig as ophr
 import aind_data_schema.device as d
 
 r = ophr.OphysRig(
-    rig_id="347_FIP1_1",
+    rig_id="428_FIP1_2",
+    cameras=[
+        d.CameraAssembly(
+            camera_assembly_name="BehaviorVideography_FaceSide",
+            camera_target=d.CameraTarget.FACE_SIDE,
+            camera=d.Camera(
+                name="ELP Camera USB 1080P Infrared Webcam 1",
+                serial_number="TBD",
+                manufacturer=d.Manufacturer.AILIPU,
+                model="ELP-USBFHD05MT-KL170IR",
+                notes="The light intensity sensor was removed; IR illumination is constantly on",
+                data_interface="USB",
+                computer_name="W10DTJK7N0M3",
+                max_frame_rate=120,
+                pixel_width=640,
+                pixel_height=480,
+                chroma="Color",
+                recording_software=d.Software(
+                    name="Bonsai",
+                    version="2.5"
+                )
+            ),
+            lens=d.Lens(
+                name='Xenocam 1',
+                model="XC0922LENS",
+                serial_number="unknown",
+                manufacturer=d.Manufacturer.OTHER,
+                max_aperture="f/1.4",
+                notes='Focal Length 9-22mm 1/3" IR F1.4'
+            )
+
+        ),
+        d.CameraAssembly(
+            camera_assembly_name="BehaviorVideography_FaceBottom",
+            camera_target=d.CameraTarget.FACE_BOTTOM,
+            camera=d.Camera(
+                name="ELP Camera USB 1080P Infrared Webcam 2",
+                serial_number="TBD",
+                manufacturer=d.Manufacturer.AILIPU,
+                model="ELP-USBFHD05MT-KL170IR",
+                notes="The light intensity sensor was removed; IR illumination is constantly on",
+                data_interface="USB",
+                computer_name="W10DTJK7N0M3",
+                max_frame_rate=120,
+                pixel_width=640,
+                pixel_height=480,
+                chroma="Color",
+                recording_software=d.Software(
+                    name="Bonsai",
+                    version="2.5"
+                )
+            ),
+            lens=d.Lens(
+                name='Xenocam 2',
+                model="XC0922LENS",
+                serial_number="unknown",
+                manufacturer=d.Manufacturer.OTHER,
+                max_aperture="f/1.4",
+                notes='Focal Length 9-22mm 1/3" IR F1.4'
+            )
+        )
+    ],
     patch_cords=[
         ophr.Patch(
             name="Bundle Branching Fiber-optic Patch Cord",
@@ -38,7 +99,7 @@ r = ophr.OphysRig(
             serial_number="21396991",
             manufacturer=d.Manufacturer.FLIR,
             model="BFS-U3-20S40M",
-            notes="4*4 binning (additive), 200*200pixels, Mono16, Gain2",
+            notes="SpinViewSettings - Binning:4*4, Binning mode: Additive, Crop: 200*200 pixels, Pixel Format: Mono 16 bit, CMOS Gain: 2",
             detector_type="Camera",
             data_interface="USB",
             cooling="air",
@@ -49,7 +110,7 @@ r = ophr.OphysRig(
             serial_number="21396991",
             manufacturer=d.Manufacturer.FLIR,
             model="BFS-U3-20S40M",
-            notes="4*4 binning (additive), 200*200pixels, Mono16, Gain2",
+            notes="SpinViewSettings - Binning:4*4, Binning mode: Additive, Crop: 200*200 pixels, Pixel Format: Mono 16 bit, CMOS Gain: 2",
             detector_type="Camera",
             data_interface="USB",
             cooling="air",
@@ -97,7 +158,7 @@ r = ophr.OphysRig(
             name="dual-edge standard epi-fluorescence dichroic beamsplitter",
             model="FF493/574-Di01-25x36",
             manufacturer=d.Manufacturer.SEMROCK,
-            notes="493/574 nm BrightLine® dual-edge standard epi-fluorescence dichroic beamsplitter",
+            notes="493/574 nm BrightLine dual-edge standard epi-fluorescence dichroic beamsplitter",
             filter_type="Multiband",
             width=36,
             height=24
@@ -192,10 +253,9 @@ r = ophr.OphysRig(
             ]
         )
     ],
-    mouse_platform=d.Tube(
-        diameter=5,
-        name="Mouse Tube for Dynamic Foraging"
+    mouse_platform=d.Disc(
+        radius=8.5
     )
 )
 
-r.write_standard_file()
+r.write_standard_file(prefix="fip")

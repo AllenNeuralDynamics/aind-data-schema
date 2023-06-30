@@ -81,6 +81,9 @@ class Manufacturer(Enum, metaclass=BaseNameEnumMeta):
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
         registry_identifier="01j1gwp17",
     )
+    AILIPU = PIDName(
+        name="Ailipu Technology Co"
+    )
     FLIR = PIDName(
         name="Teledyne FLIR",
         abbreviation="FLIR",
@@ -288,7 +291,7 @@ class Software(AindModel):
 
     name: str = Field(..., title="Software name")
     version: str = Field(..., title="Software version")
-    parameters: Optional[dict] = Field(..., title="Software parameters")
+    parameters: Optional[dict] = Field(None, title="Software parameters")
 
 
 class MotorizedStage(Device):
@@ -307,7 +310,8 @@ class Camera(Device):
     # required fields
     data_interface: DataInterface = Field(..., title="Type of connection to PC")
     manufacturer: Literal[
-        Manufacturer.ALLIED,
+        Manufacturer.AILIPU,
+        Manufacturer.ALLIED,        
         Manufacturer.BASLER,
         Manufacturer.EDMUND_OPTICS,
         Manufacturer.FLIR,
@@ -401,6 +405,8 @@ class CameraTarget(Enum):
     BOTTOM = "Bottom"
     EYE = "Eye"
     FACE = "Face"
+    FACE_BOTTOM = "Face side"
+    FACE_SIDE = "Face side"
     SIDE = "Side"
     TONGUE = "Tongue"
     OTHER = "Other"
@@ -587,18 +593,6 @@ class Monitor(Device):
         ge=0,
         le=100,
     )
-
-
-class CameraTarget(Enum):
-    """Target of camera"""
-
-    BODY = "Body"
-    BOTTOM = "Bottom"
-    EYE = "Eye"
-    FACE = "Face"
-    SIDE = "Side"
-    TONGUE = "Tongue"
-    OTHER = "Other"
 
 
 class WaterDelivery(AindModel):

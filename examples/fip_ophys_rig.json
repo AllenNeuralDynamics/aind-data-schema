@@ -1,7 +1,7 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/ophys/ophys_rig.py",
    "schema_version": "0.6.1",
-   "rig_id": "347_FIP1_1",
+   "rig_id": "428_FIP1_2",
    "temperature_control": null,
    "humidity_control": null,
    "vibration_control": null,
@@ -95,7 +95,7 @@
             "registry_identifier": "01j1gwp17"
          },
          "model": "BFS-U3-20S40M",
-         "notes": "4*4 binning (additive), 200*200pixels, Mono16, Gain2",
+         "notes": "SpinViewSettings - Binning:4*4, Binning mode: Additive, Crop: 200*200 pixels, Pixel Format: Mono 16 bit, CMOS Gain: 2",
          "detector_type": "Camera",
          "data_interface": "USB",
          "cooling": "air",
@@ -114,7 +114,7 @@
             "registry_identifier": "01j1gwp17"
          },
          "model": "BFS-U3-20S40M",
-         "notes": "4*4 binning (additive), 200*200pixels, Mono16, Gain2",
+         "notes": "SpinViewSettings - Binning:4*4, Binning mode: Additive, Crop: 200*200 pixels, Pixel Format: Mono 16 bit, CMOS Gain: 2",
          "detector_type": "Camera",
          "data_interface": "USB",
          "cooling": "air",
@@ -227,7 +227,7 @@
             "registry_identifier": null
          },
          "model": "FF493/574-Di01-25x36",
-         "notes": "493/574 nm BrightLine\u00ae dual-edge standard epi-fluorescence dichroic beamsplitter",
+         "notes": "493/574 nm BrightLine dual-edge standard epi-fluorescence dichroic beamsplitter",
          "filter_type": "Multiband",
          "diameter": null,
          "width": 36.0,
@@ -407,18 +407,131 @@
          "max_aperture": null
       }
    ],
-   "cameras": null,
+   "cameras": [
+      {
+         "camera_assembly_name": "BehaviorVideography_FaceSide",
+         "camera_target": "Face side",
+         "camera": {
+            "name": "ELP Camera USB 1080P Infrared Webcam 1",
+            "serial_number": "TBD",
+            "manufacturer": {
+               "name": "Ailipu Technology Co",
+               "abbreviation": null,
+               "registry": null,
+               "registry_identifier": null
+            },
+            "model": "ELP-USBFHD05MT-KL170IR",
+            "notes": "The light intensity sensor was removed; IR illumination is constantly on",
+            "data_interface": "USB",
+            "computer_name": "W10DTJK7N0M3",
+            "max_frame_rate": 120.0,
+            "frame_rate_unit": "Hertz",
+            "pixel_width": 640,
+            "pixel_height": 480,
+            "size_unit": "pixel",
+            "chroma": "Color",
+            "sensor_format": null,
+            "format_unit": null,
+            "recording_software": {
+               "name": "Bonsai",
+               "version": "2.5",
+               "parameters": null
+            },
+            "driver": null,
+            "driver_version": null
+         },
+         "lens": {
+            "name": "Xenocam 1",
+            "serial_number": "unknown",
+            "manufacturer": {
+               "name": "Other",
+               "abbreviation": null,
+               "registry": null,
+               "registry_identifier": null
+            },
+            "model": "XC0922LENS",
+            "notes": "Focal Length 9-22mm 1/3\" IR F1.4",
+            "focal_length": null,
+            "focal_length_unit": "millimeter",
+            "size": null,
+            "lens_size_unit": "inch",
+            "optimized_wavelength_range": null,
+            "wavelength_unit": "nanometer",
+            "max_aperture": "f/1.4"
+         },
+         "filter": null,
+         "position": null
+      },
+      {
+         "camera_assembly_name": "BehaviorVideography_FaceBottom",
+         "camera_target": "Face side",
+         "camera": {
+            "name": "ELP Camera USB 1080P Infrared Webcam 2",
+            "serial_number": "TBD",
+            "manufacturer": {
+               "name": "Ailipu Technology Co",
+               "abbreviation": null,
+               "registry": null,
+               "registry_identifier": null
+            },
+            "model": "ELP-USBFHD05MT-KL170IR",
+            "notes": "The light intensity sensor was removed; IR illumination is constantly on",
+            "data_interface": "USB",
+            "computer_name": "W10DTJK7N0M3",
+            "max_frame_rate": 120.0,
+            "frame_rate_unit": "Hertz",
+            "pixel_width": 640,
+            "pixel_height": 480,
+            "size_unit": "pixel",
+            "chroma": "Color",
+            "sensor_format": null,
+            "format_unit": null,
+            "recording_software": {
+               "name": "Bonsai",
+               "version": "2.5",
+               "parameters": null
+            },
+            "driver": null,
+            "driver_version": null
+         },
+         "lens": {
+            "name": "Xenocam 2",
+            "serial_number": "unknown",
+            "manufacturer": {
+               "name": "Other",
+               "abbreviation": null,
+               "registry": null,
+               "registry_identifier": null
+            },
+            "model": "XC0922LENS",
+            "notes": "Focal Length 9-22mm 1/3\" IR F1.4",
+            "focal_length": null,
+            "focal_length_unit": "millimeter",
+            "size": null,
+            "lens_size_unit": "inch",
+            "optimized_wavelength_range": null,
+            "wavelength_unit": "nanometer",
+            "max_aperture": "f/1.4"
+         },
+         "filter": null,
+         "position": null
+      }
+   ],
    "mouse_platform": {
-      "name": "Mouse Tube for Dynamic Foraging",
+      "name": null,
       "serial_number": null,
       "manufacturer": null,
       "model": null,
       "notes": null,
       "surface_material": null,
       "date_surface_replaced": null,
-      "platform_type": "Tube",
-      "diameter": 5.0,
-      "diameter_unit": "centimeter"
+      "platform_type": "Disc",
+      "radius": 8.5,
+      "radius_unit": "centimeter",
+      "output": null,
+      "encoder": null,
+      "decoder": null,
+      "encoder_firmware": null
    },
    "visual_monitors": null,
    "daqs": [
