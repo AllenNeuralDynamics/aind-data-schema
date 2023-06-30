@@ -1,5 +1,5 @@
-import aind_data_schema.ophys.ophys_rig as ophr
 import aind_data_schema.device as d
+import aind_data_schema.ophys.ophys_rig as ophr
 
 r = ophr.OphysRig(
     rig_id="428_FIP1_2",
@@ -19,20 +19,16 @@ r = ophr.OphysRig(
                 pixel_width=640,
                 pixel_height=480,
                 chroma="Color",
-                recording_software=d.Software(
-                    name="Bonsai",
-                    version="2.5"
-                )
+                recording_software=d.Software(name="Bonsai", version="2.5"),
             ),
             lens=d.Lens(
-                name='Xenocam 1',
+                name="Xenocam 1",
                 model="XC0922LENS",
                 serial_number="unknown",
                 manufacturer=d.Manufacturer.OTHER,
                 max_aperture="f/1.4",
-                notes='Focal Length 9-22mm 1/3" IR F1.4'
-            )
-
+                notes='Focal Length 9-22mm 1/3" IR F1.4',
+            ),
         ),
         d.CameraAssembly(
             camera_assembly_name="BehaviorVideography_FaceBottom",
@@ -49,20 +45,17 @@ r = ophr.OphysRig(
                 pixel_width=640,
                 pixel_height=480,
                 chroma="Color",
-                recording_software=d.Software(
-                    name="Bonsai",
-                    version="2.5"
-                )
+                recording_software=d.Software(name="Bonsai", version="2.5"),
             ),
             lens=d.Lens(
-                name='Xenocam 2',
+                name="Xenocam 2",
                 model="XC0922LENS",
                 serial_number="unknown",
                 manufacturer=d.Manufacturer.OTHER,
                 max_aperture="f/1.4",
-                notes='Focal Length 9-22mm 1/3" IR F1.4'
-            )
-        )
+                notes='Focal Length 9-22mm 1/3" IR F1.4',
+            ),
+        ),
     ],
     patch_cords=[
         ophr.Patch(
@@ -70,28 +63,13 @@ r = ophr.OphysRig(
             manufacturer=d.Manufacturer.DORIC,
             model="BBP(4)_200/220/900-0.37_Custom_FCM-4xMF1.25",
             core_diameter=200,
-            numerical_aperture=0.37
+            numerical_aperture=0.37,
         )
     ],
     light_sources=[
-        d.LightEmittingDiode(
-            name="470nm LED",
-            manufacturer=d.Manufacturer.THORLABS,
-            model="M470F3",
-            wavelength=470
-        ),
-        d.LightEmittingDiode(
-            name="415nm LED",
-            manufacturer=d.Manufacturer.THORLABS,
-            model="M415F3",
-            wavelength=415
-        ),
-        d.LightEmittingDiode(
-            name="565nm LED",
-            manufacturer=d.Manufacturer.THORLABS,
-            model="M565F3",
-            wavelength=415
-        ),
+        d.LightEmittingDiode(name="470nm LED", manufacturer=d.Manufacturer.THORLABS, model="M470F3", wavelength=470),
+        d.LightEmittingDiode(name="415nm LED", manufacturer=d.Manufacturer.THORLABS, model="M415F3", wavelength=415),
+        d.LightEmittingDiode(name="565nm LED", manufacturer=d.Manufacturer.THORLABS, model="M565F3", wavelength=415),
     ],
     detectors=[
         ophr.Detector(
@@ -103,7 +81,7 @@ r = ophr.OphysRig(
             detector_type="Camera",
             data_interface="USB",
             cooling="air",
-            immersion="air"
+            immersion="air",
         ),
         ophr.Detector(
             name="FLIR CMOS for Red Channel",
@@ -114,8 +92,8 @@ r = ophr.OphysRig(
             detector_type="Camera",
             data_interface="USB",
             cooling="air",
-            immersion="air"
-        )
+            immersion="air",
+        ),
     ],
     objectives=[
         ophr.Objective(
@@ -125,7 +103,7 @@ r = ophr.OphysRig(
             model="CFI Plan Apochromat Lambda D 10x",
             numerical_aperture=0.45,
             magnification=10,
-            immersion="air"
+            immersion="air",
         )
     ],
     filters=[
@@ -135,7 +113,7 @@ r = ophr.OphysRig(
             model="FF01-520/35-25",
             filter_type="Band pass",
             center_wavelength=520,
-            diameter=25
+            diameter=25,
         ),
         d.Filter(
             name="Red emission bandpass filter",
@@ -143,7 +121,7 @@ r = ophr.OphysRig(
             model="FF01-600/37-25",
             filter_type="Band pass",
             center_wavelength=600,
-            diameter=25
+            diameter=25,
         ),
         d.Filter(
             name="Emission Dichroic",
@@ -152,7 +130,7 @@ r = ophr.OphysRig(
             filter_type="Dichroic",
             height=25,
             width=36,
-            cut_off_wavelength=562
+            cut_off_wavelength=562,
         ),
         d.Filter(
             name="dual-edge standard epi-fluorescence dichroic beamsplitter",
@@ -161,7 +139,7 @@ r = ophr.OphysRig(
             notes="493/574 nm BrightLine dual-edge standard epi-fluorescence dichroic beamsplitter",
             filter_type="Multiband",
             width=36,
-            height=24
+            height=24,
         ),
         d.Filter(
             name="Excitation filter 410nm",
@@ -169,7 +147,7 @@ r = ophr.OphysRig(
             model="FB410-10",
             filter_type="Band pass",
             diameter=25,
-            center_wavelength=410
+            center_wavelength=410,
         ),
         d.Filter(
             name="Excitation filter 470nm",
@@ -177,7 +155,7 @@ r = ophr.OphysRig(
             model="FB470-10",
             filter_type="Band pass",
             center_wavelength=470,
-            diameter=25
+            diameter=25,
         ),
         d.Filter(
             name="Excitation filter 560nm",
@@ -185,25 +163,25 @@ r = ophr.OphysRig(
             model="FB560-10",
             filter_type="Band pass",
             diameter=25,
-            center_wavelength=560
+            center_wavelength=560,
         ),
         d.Filter(
             name="450nm, 25.2 x 35.6mm, Dichroic Longpass Filter",
-            manufacturer=d.Manufacturer.EDMUND_OPTICS,            
+            manufacturer=d.Manufacturer.EDMUND_OPTICS,
             model="#69-898",
             filter_type="Dichroic",
             cut_off_wavelength=450,
             width=35.6,
-            height=25.2
+            height=25.2,
         ),
         d.Filter(
             name="500nm, 25.2 x 35.6mm, Dichroic Longpass Filter",
-            manufacturer=d.Manufacturer.EDMUND_OPTICS,            
+            manufacturer=d.Manufacturer.EDMUND_OPTICS,
             model="#69-899",
             filter_type="Dichroic",
             width=35.6,
-            height=23.2
-        )
+            height=23.2,
+        ),
     ],
     lenses=[
         d.Lens(
@@ -211,7 +189,7 @@ r = ophr.OphysRig(
             model="AC254-080-A-ML",
             name="Image focusing lens",
             focal_length=80,
-            size=1
+            size=1,
         )
     ],
     daqs=[
@@ -230,7 +208,7 @@ r = ophr.OphysRig(
                     channel_type="Analog Input",
                     port=0,
                     channel_index=0,
-                    sample_rate=1000
+                    sample_rate=1000,
                 ),
                 d.DAQChannel(
                     event_based_sampling=False,
@@ -239,7 +217,7 @@ r = ophr.OphysRig(
                     channel_type="Analog Input",
                     port=1,
                     channel_index=1,
-                    sample_rate=1000
+                    sample_rate=1000,
                 ),
                 d.DAQChannel(
                     event_based_sampling=False,
@@ -248,14 +226,12 @@ r = ophr.OphysRig(
                     channel_type="Analog Input",
                     port=2,
                     channel_index=2,
-                    sample_rate= 1000
-                )
-            ]
+                    sample_rate=1000,
+                ),
+            ],
         )
     ],
-    mouse_platform=d.Disc(
-        radius=8.5
-    )
+    mouse_platform=d.Disc(radius=8.5),
 )
 
 r.write_standard_file(prefix="fip")

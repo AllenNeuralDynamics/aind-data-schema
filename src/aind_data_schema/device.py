@@ -11,7 +11,7 @@ except ImportError:  # pragma: no cover
 
 from pydantic import Field
 
-from aind_data_schema.base import AindModel, BaseName, PIDName, BaseNameEnumMeta
+from aind_data_schema.base import AindModel, BaseName, BaseNameEnumMeta, PIDName
 
 
 class SizeUnit(Enum):
@@ -81,9 +81,7 @@ class Manufacturer(Enum, metaclass=BaseNameEnumMeta):
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
         registry_identifier="01j1gwp17",
     )
-    AILIPU = PIDName(
-        name="Ailipu Technology Co"
-    )
+    AILIPU = PIDName(name="Ailipu Technology Co")
     FLIR = PIDName(
         name="Teledyne FLIR",
         abbreviation="FLIR",
@@ -311,7 +309,7 @@ class Camera(Device):
     data_interface: DataInterface = Field(..., title="Type of connection to PC")
     manufacturer: Literal[
         Manufacturer.AILIPU,
-        Manufacturer.ALLIED,        
+        Manufacturer.ALLIED,
         Manufacturer.BASLER,
         Manufacturer.EDMUND_OPTICS,
         Manufacturer.FLIR,
