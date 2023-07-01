@@ -77,7 +77,10 @@ r = ophr.OphysRig(
             serial_number="21396991",
             manufacturer=d.Manufacturer.FLIR,
             model="BFS-U3-20S40M",
-            notes="SpinViewSettings - Binning:4*4, Binning mode: Additive, Crop: 200*200 pixels, Pixel Format: Mono 16 bit, CMOS Gain: 2",
+            notes=(
+                "SpinViewSettings - Binning:4*4, Binning mode: Additive, Crop: 200*200 pixels, Pixel Format: Mono 16"
+                " bit, CMOS Gain: 2"
+            ),
             detector_type="Camera",
             data_interface="USB",
             cooling="air",
@@ -88,7 +91,10 @@ r = ophr.OphysRig(
             serial_number="21396991",
             manufacturer=d.Manufacturer.FLIR,
             model="BFS-U3-20S40M",
-            notes="SpinViewSettings - Binning:4*4, Binning mode: Additive, Crop: 200*200 pixels, Pixel Format: Mono 16 bit, CMOS Gain: 2",
+            notes=(
+                "SpinViewSettings - Binning:4*4, Binning mode: Additive, Crop: 200*200 pixels, Pixel Format: Mono 16"
+                " bit, CMOS Gain: 2"
+            ),
             detector_type="Camera",
             data_interface="USB",
             cooling="air",
