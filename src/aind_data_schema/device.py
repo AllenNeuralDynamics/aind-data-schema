@@ -306,14 +306,15 @@ class Camera(Device):
 
     # required fields
     data_interface: DataInterface = Field(..., title="Type of connection to PC")
-    manufacturer: Literal[
+    camera_manufacturer: Enum('Camera_Manufacturer', [(item.name, item.value) for item in Manufacturer if item in [
         Manufacturer.ALLIED,
         Manufacturer.BASLER,
         Manufacturer.EDMUND_OPTICS,
         Manufacturer.FLIR,
         Manufacturer.THORLABS,
-        Manufacturer.OTHER,
-    ]
+        Manufacturer.OTHER
+        ]
+    ])
     computer_name: str = Field(..., title="Name of computer receiving data from this camera")
     max_frame_rate: float = Field(..., title="Maximum frame rate (Hz)", units="Hz")
     frame_rate_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Frame rate unit")
@@ -328,6 +329,14 @@ class Camera(Device):
     recording_software: Optional[Software] = Field(None, title="Recording software")
     driver: Optional[DeviceDriver] = Field(None, title="Driver")
     driver_version: Optional[str] = Field(None, title="Driver version")
+
+    @classmethod
+    def __modify_schema__(cls, field_schema):
+        enum_names = [e.value.name for e in cls.__annotations__['camera_manufacturer']]
+        field_schema.update(cls.schema())
+        field_schema.update(
+            enumNames=enum_names
+        )
 
 
 class Lens(Device):

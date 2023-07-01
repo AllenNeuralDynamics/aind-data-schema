@@ -47,7 +47,7 @@ class BaseNameEnumMeta(EnumMeta):
         return super().__call__(value, *args, **kw)
 
     def __modify_schema__(cls, field_schema):
-        """Adds enumNames to institution"""
+        """Adds enumNames to schema"""
         field_schema.update(
             enumNames=[e.value.name for e in cls],
         )
