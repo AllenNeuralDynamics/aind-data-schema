@@ -541,7 +541,7 @@ class Disc(MousePlatform):
     encoder: Optional[str] = Field(None, title="Encoder", description="Encoder hardware type")
     decoder: Optional[str] = Field(None, title="Decoder", description="Decoder chip type")
     encoder_firmware: Optional[List[Software]] = Field(
-        None, title="Encoder firmware", description="Firmware to read from decoder chip counts"
+        [], title="Encoder firmware", description="Firmware to read from decoder chip counts"
     )
 
 

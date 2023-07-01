@@ -113,7 +113,7 @@ face_camera = Camera(
 )
 
 camassm1 = CameraAssembly(
-    camera_assembly_name="Face Camera Assembly", camera=face_camera, camera_target="Face", filter=filt, lens=lens
+    camera_assembly_name="Face Camera Assembly", camera=face_camera, camera_target="Face", filter=[filt], lens=lens
 )
 
 body_camera = Camera(
@@ -129,7 +129,7 @@ body_camera = Camera(
 )
 
 camassm2 = CameraAssembly(
-    camera_assembly_name="Body Camera Assembly", camera=body_camera, camera_target="Body", filter=filt, lens=lens
+    camera_assembly_name="Body Camera Assembly", camera=body_camera, camera_target="Body", filter=[filt], lens=lens
 )
 
 rig = EphysRig(
