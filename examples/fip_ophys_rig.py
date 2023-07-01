@@ -1,3 +1,5 @@
+""" example FIP ophys rig """
+
 import aind_data_schema.device as d
 import aind_data_schema.ophys.ophys_rig as ophr
 
