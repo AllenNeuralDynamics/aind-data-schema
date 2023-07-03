@@ -11,6 +11,7 @@ from pydantic import Field
 from aind_data_schema.base import AindCoreModel
 from aind_data_schema.device import (
     CameraAssembly,
+    CameraChroma,
     DAQDevice,
     DataInterface,
     Device,
@@ -23,6 +24,7 @@ from aind_data_schema.device import (
     LightEmittingDiode,
     Monitor,
     Objective,
+    SizeUnit,
     Treadmill,
     Tube,
 )
@@ -42,6 +44,13 @@ class Cooling(Enum):
     AIR = "air"
     WATER = "water"
 
+class BinMode(Enum):
+    """Detector binning mode"""
+
+    ADDITIVE = "additive"
+    AVERAGE = "average"
+    NONE = "none"
+
 
 class Detector(Device):
     """Description of a generic detector"""
@@ -50,6 +59,18 @@ class Detector(Device):
     data_interface: DataInterface = Field(..., title="Data interface")
     cooling: Cooling = Field(..., title="Cooling")
     immersion: Optional[Immersion] = Field(None, title="Immersion")
+
+    chroma: Optional[CameraChroma] = Field(None, title="Camera chroma")
+    bit_depth: Optional[int] = Field(None, title="Bit depth")
+    bin_mode: Optional[BinMode] = Field(BinMode.NONE, title="Detector binning mode")
+    bin_width: Optional[int] = Field(None, title="Bin width")
+    bin_height: Optional[int] = Field(None, title="Bin height")
+    bin_unit: Optional[SizeUnit] = Field(SizeUnit.PX, title="Bin size unit", const=True)
+    gain: Optional[float] = Field(None, title="Gain")
+    crop_width: Optional[int] = Field(None, title="Crop width")
+    crop_height: Optional[int] = Field(None, title="Crop width")
+    crop_unit: Optional[SizeUnit] = Field(SizeUnit.PX, title="Crop size unit", const=True)
+
 
 
 class Patch(Device):

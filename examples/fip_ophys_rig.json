@@ -95,11 +95,21 @@
             "registry_identifier": "01j1gwp17"
          },
          "model": "BFS-U3-20S40M",
-         "notes": "SpinViewSettings - Binning:4*4, Binning mode: Additive, Crop: 200*200 pixels, Pixel Format: Mono 16 bit, CMOS Gain: 2",
+         "notes": null,
          "detector_type": "Camera",
          "data_interface": "USB",
          "cooling": "air",
-         "immersion": "air"
+         "immersion": "air",
+         "chroma": "Monochrome",
+         "bit_depth": 16,
+         "bin_mode": "additive",
+         "bin_width": 4,
+         "bin_height": 4,
+         "bin_unit": "pixel",
+         "gain": 2.0,
+         "crop_width": 200,
+         "crop_height": 200,
+         "crop_unit": "pixel"
       },
       {
          "name": "FLIR CMOS for Red Channel",
@@ -114,11 +124,21 @@
             "registry_identifier": "01j1gwp17"
          },
          "model": "BFS-U3-20S40M",
-         "notes": "SpinViewSettings - Binning:4*4, Binning mode: Additive, Crop: 200*200 pixels, Pixel Format: Mono 16 bit, CMOS Gain: 2",
+         "notes": null,
          "detector_type": "Camera",
          "data_interface": "USB",
          "cooling": "air",
-         "immersion": "air"
+         "immersion": "air",
+         "chroma": "Monochrome",
+         "bit_depth": 16,
+         "bin_mode": "additive",
+         "bin_width": 4,
+         "bin_height": 4,
+         "bin_unit": "pixel",
+         "gain": 2.0,
+         "crop_width": 200,
+         "crop_height": 200,
+         "crop_unit": "pixel"
       }
    ],
    "objectives": [
@@ -464,7 +484,7 @@
       },
       {
          "camera_assembly_name": "BehaviorVideography_FaceBottom",
-         "camera_target": "Face side",
+         "camera_target": "Face bottom",
          "camera": {
             "name": "ELP Camera USB 1080P Infrared Webcam 2",
             "serial_number": "TBD",
