@@ -181,7 +181,7 @@
    "cameras": [
       {
          "camera_assembly_name": "Face Camera Assembly",
-         "camera_target": "Face",
+         "camera_target": "Face side",
          "camera": {
             "name": "Face Camera",
             "serial_number": null,
