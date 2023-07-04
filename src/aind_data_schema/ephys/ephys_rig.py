@@ -48,7 +48,7 @@ class NeuropixelsBasestation(DAQDevice):
 
     # fixed values
     data_interface: DataInterface = Field("PXI", const=True)
-    manufacturer: Manufacturer = Manufacturer.IMEC
+    manufacturer: Manufacturer = Field(Manufacturer.IMEC, const=True)
 
 
 class OpenEphysAcquisitionBoard(DAQDevice):
