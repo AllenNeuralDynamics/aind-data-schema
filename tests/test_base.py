@@ -13,8 +13,8 @@ class BaseTests(unittest.TestCase):
     def test_schema_version_check(self):
         """test schema version"""
         with self.assertRaises(Exception):
-            AindCoreModel(schema_version="123", describedBy="test")
-        a = AindCoreModel(schema_version="1.2.3", describedBy="test")
+            AindCoreModel(schema_version="123")
+        a = AindCoreModel(schema_version="1.2.3")
         self.assertEqual("1.2.3", a.schema_version)
 
     def test_described_by(self):
@@ -53,9 +53,9 @@ class BaseTests(unittest.TestCase):
     @patch("builtins.open", new_callable=unittest.mock.mock_open())
     def test_write_standard_file_no_prefix(self, mock_open):
         """tests that standard file is named and written as expected with no prefix"""
-        p = Procedures.construct()
+        p = Procedures.model_construct()
         default_filename = p.default_filename()
-        json_contents = p.json(indent=3)
+        json_contents = p.model_dump_json(indent=3)
         p.write_standard_file()
 
         mock_open.assert_called_once_with(default_filename, "w")
@@ -64,9 +64,9 @@ class BaseTests(unittest.TestCase):
     @patch("builtins.open", new_callable=unittest.mock.mock_open())
     def test_write_standard_file_with_prefix(self, mock_open):
         """tests that standard file is named and written as expected with filename prefix"""
-        p = Procedures.construct()
+        p = Procedures.model_construct()
         default_filename = p.default_filename()
-        json_contents = p.json(indent=3)
+        json_contents = p.model_dump_json(indent=3)
         prefix = "aibs"
         p.write_standard_file(prefix=prefix)
 
@@ -80,9 +80,9 @@ class BaseTests(unittest.TestCase):
     @patch("builtins.open", new_callable=unittest.mock.mock_open())
     def test_write_standard_file_with_output_directory(self, mock_open):
         """tests that standard file is named and written as expected with designated output directory"""
-        p = Procedures.construct()
+        p = Procedures.model_construct()
         default_filename = p.default_filename()
-        json_contents = p.json(indent=3)
+        json_contents = p.model_dump_json(indent=3)
         new_path = Path("foo") / "bar"
         p.write_standard_file(output_directory=new_path)
 
@@ -97,9 +97,9 @@ class BaseTests(unittest.TestCase):
     def test_write_standard_file_with_output_directory_and_prefix(self, mock_open):
         """tests that standard file is named and written as expected
         with designated output directory and filename prefix"""
-        p = Procedures.construct()
+        p = Procedures.model_construct()
         default_filename = p.default_filename()
-        json_contents = p.json(indent=3)
+        json_contents = p.model_dump_json(indent=3)
         new_path = Path("foo") / "bar"
         prefix = "aibs"
         p.write_standard_file(output_directory=new_path, prefix=prefix)

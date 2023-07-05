@@ -1,6 +1,7 @@
 """Module to test json_writer classes."""
 
 import os
+import json
 import unittest
 from pathlib import Path
 from unittest.mock import MagicMock, call, mock_open, patch
@@ -21,7 +22,7 @@ class SchemaWriterTests(unittest.TestCase):
         for schema in schema_gen:
             filename = schema.default_filename()
             schema_filename = filename.replace(".json", "_schema.json")
-            schema_contents = schema.schema_json(indent=3)
+            schema_contents = json.dumps(schema.model_json_schema(), indent=3)
             self.assertIsNotNone(schema_filename)
             self.assertIsNotNone(schema_contents)
 
@@ -55,7 +56,7 @@ class SchemaWriterTests(unittest.TestCase):
             filename = schema.default_filename()
             schema_filename = filename.replace(".json", "_schema.json")
             path = Path("some_test_dir") / schema_filename
-            schema_contents = schema.schema_json(indent=3)
+            schema_contents = json.dumps(schema.model_json_schema(), indent=3)
             open_calls.append(call(path, "w"))
             write_calls.append(call(schema_contents))
         mock_mkdir.assert_called_once_with(Path("some_test_dir"), 511)
@@ -85,7 +86,7 @@ class SchemaWriterTests(unittest.TestCase):
             schema_filename = filename.replace(".json", "_schema.json")
             model_directory_name = schema_filename.replace("_schema.json", "")
             path = Path("some_test_dir") / model_directory_name / schema.construct().schema_version / schema_filename
-            schema_contents = schema.schema_json(indent=3)
+            schema_contents = json.dumps(schema.model_json_schema(), indent=3)
             mkdir_calls.append(call("some_test_dir", 511))
             mkdir_calls.append(call(str(path.parent.parent), 511))
             mkdir_calls.append(call(path.parent, 511))

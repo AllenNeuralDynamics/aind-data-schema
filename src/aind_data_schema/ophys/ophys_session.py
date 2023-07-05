@@ -4,11 +4,11 @@ from __future__ import annotations
 
 from datetime import datetime
 from enum import Enum
-from typing import List, Optional, Union
+from typing import List, Literal, Optional, Set, Union
 
 from pydantic import Field
 
-from aind_data_schema.base import AindCoreModel, AindModel
+from aind_data_schema.base import AindCoreModel, AindModel, Constant
 from aind_data_schema.device import FrequencyUnit, PowerUnit, SizeUnit
 from aind_data_schema.procedures import TimeUnit
 from aind_data_schema.stimulus import StimulusPresentation
@@ -101,12 +101,7 @@ class Camera(AindModel):
 class OphysSession(AindCoreModel):
     """Description of an ophys session"""
 
-    schema_version: str = Field(
-        "0.2.3",
-        description="schema version",
-        title="Schema Version",
-        const=True,
-    )
+    schema_version: Constant("0.2.3", title="Schema version")
     experimenter_full_name: List[str] = Field(
         ...,
         description="First and last name of the experimenter(s).",
@@ -118,9 +113,9 @@ class OphysSession(AindCoreModel):
     session_type: str = Field(..., title="Session type")
     iacuc_protocol: Optional[str] = Field(None, title="IACUC protocol")
     rig_id: str = Field(..., title="Rig ID")
-    light_sources: List[Union[Laser, LightEmittingDiode]] = Field(..., title="Light source", unique_items=True)
-    detectors: Optional[List[Detector]] = Field(None, title="Detectors", unique_items=True)
-    cameras: Optional[List[Camera]] = Field(None, title="Cameras", unique_items=True)
+    light_sources: List[Union[Laser, LightEmittingDiode]] = Field(..., title="Light source")
+    detectors: Optional[List[Detector]] = Field(None, title="Detectors")
+    cameras: Optional[List[Camera]] = Field(None, title="Cameras")
     stimulus_presentations: Optional[List[StimulusPresentation]] = Field(None, title="Stimulus")
     notes: Optional[str] = None
 
@@ -128,8 +123,8 @@ class OphysSession(AindCoreModel):
 class FiberPhotometrySession(OphysSession):
     """Description of a fiber photometry session"""
 
-    patch_cords: List[Patch] = Field(..., title="Patch cords", unique_items=True)
-    coupling_array: List[Coupling] = Field(..., title="Coupling array", unique_items=True)
+    patch_cords: List[Patch] = Field(..., title="Patch cords")
+    coupling_array: List[Coupling] = Field(..., title="Coupling array")
 
 
 class FieldOfView(AindModel):
@@ -156,4 +151,4 @@ class FieldOfView(AindModel):
 class TwoPhotonOphysSession(OphysSession):
     """Description of a two photon session"""
 
-    fovs: List[FieldOfView] = Field(..., title="Fields of view", unique_items=True)
+    fovs: List[FieldOfView] = Field(..., title="Fields of view")

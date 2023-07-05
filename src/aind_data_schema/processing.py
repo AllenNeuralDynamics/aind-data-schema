@@ -4,11 +4,11 @@ from __future__ import annotations
 
 from datetime import datetime
 from enum import Enum
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Literal, Optional, Set, Annotated
 
 from pydantic import Field
 
-from aind_data_schema.base import AindCoreModel, AindModel
+from aind_data_schema.base import AindCoreModel, AindModel, Constant
 from aind_data_schema.imaging.tile import Tile
 
 
@@ -49,19 +49,13 @@ class DataProcess(AindModel):
     outputs: Optional[Dict[str, Any]] = Field(None, description="Output parameters", title="Outputs")
     notes: Optional[str] = None
 
-
 class Processing(AindCoreModel):
     """Description of all processes run on data"""
 
-    schema_version: str = Field(
-        "0.2.2",
-        description="Schema version",
-        title="Schema version",
-        const=True,
-    )
+    schema_version: Constant("0.2.2", title="Schema version")
     pipeline_version: Optional[str] = Field(None, description="Version of the pipeline", title="Pipeline version")
     pipeline_url: Optional[str] = Field(None, description="URL to the pipeline code", title="Pipeline URL")
-    data_processes: List[DataProcess] = Field(..., title="Data processing", unique_items=True)
+    data_processes: List[DataProcess] = Field(..., title="Data processing")
 
 
 class RegistrationType(Enum):

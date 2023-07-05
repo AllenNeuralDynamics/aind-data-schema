@@ -63,7 +63,7 @@ class ImagingTests(unittest.TestCase):
 
         mri = ms.MriSession(
             experimenter_full_name=["frank"],
-            subject_id=1234,
+            subject_id='1234',
             session_start_time=datetime.datetime.now(),
             session_end_time=datetime.datetime.now(),
             protocol_id="doi_path",

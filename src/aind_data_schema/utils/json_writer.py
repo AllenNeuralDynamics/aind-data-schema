@@ -1,6 +1,7 @@
 """ Utility method to write Pydantic schemas to JSON """
 
 import argparse
+import json
 import os
 import sys
 from pathlib import Path
@@ -67,7 +68,7 @@ class SchemaWriter:
             filename = schema.default_filename()
             schema_filename = filename.replace(".json", "_schema.json")
             if self.configs.attach_version:
-                schema_version = schema.construct().schema_version
+                schema_version = schema.model_construct().schema_version
                 model_directory_name = schema_filename.replace("_schema.json", "")
                 sub_directory = Path(output_path) / model_directory_name / schema_version
                 output_file = sub_directory / schema_filename
@@ -78,7 +79,7 @@ class SchemaWriter:
                 os.makedirs(output_file.parent)
 
             with open(output_file, "w") as f:
-                f.write(schema.schema_json(indent=3))
+                f.write(json.dumps(schema.model_json_schema(), indent=3))
 
 
 if __name__ == "__main__":

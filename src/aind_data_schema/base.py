@@ -7,15 +7,14 @@ import re
 import urllib.parse
 from enum import EnumMeta
 from pathlib import Path
-from typing import Optional
+from typing import Annotated, Literal, Optional
 
-from pydantic import BaseModel, Extra, Field
-from pydantic.fields import ModelField
+from pydantic import BaseModel, Field, computed_field, create_model
 
 DESCRIBED_BY_BASE_URL = "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/"
 
 
-def build_described_by(cls, base_url=DESCRIBED_BY_BASE_URL):
+def build_described_by_url(cls, base_url=DESCRIBED_BY_BASE_URL):
     """construct a pydantic Field that refers to a specific file"""
 
     # get the filename of the class
@@ -33,7 +32,11 @@ def build_described_by(cls, base_url=DESCRIBED_BY_BASE_URL):
     return described_by
 
 
-class AindModel(BaseModel, extra=Extra.forbid):
+def Constant(value, *field_args, **field_kwargs):
+    return Annotated[Literal[value], Field(value, *field_args, **field_kwargs)]
+
+
+class AindModel(BaseModel, extra='forbid'):
     """BaseModel that disallows extra fields"""
 
 
@@ -46,11 +49,13 @@ class BaseNameEnumMeta(EnumMeta):
             value = getattr(cls, value.upper())
         return super().__call__(value, *args, **kw)
 
-    def __modify_schema__(cls, field_schema):
+    def __get_pydantic_json_schema__(cls, field_schema, handler):
         """Adds enumNames to institution"""
+        field_schema = handler(field_schema)
         field_schema.update(
             enumNames=[e.value.name for e in cls],
         )
+        return field_schema
 
 
 class BaseName(AindModel):
@@ -73,19 +78,12 @@ class PIDName(BaseName):
 class AindCoreModel(AindModel):
     """Generic base class to hold common fields/validators/etc for all basic AIND schema"""
 
-    describedBy: str
-    schema_version: str = Field(..., regex=r"^\d+.\d+.\d+$")
+    schema_version: str = Field(..., pattern=r"^\d+.\d+.\d+$")
 
-    def __init_subclass__(cls, optional_fields=None, **kwargs):
-        """Add the describedby field to all subclasses"""
-        super().__init_subclass__(**kwargs)
-
-        value = build_described_by(cls)
-        field = ModelField.infer(
-            name="describedBy", value=value, annotation=str, class_validators=None, config=cls.__config__
-        )
-        field.field_info.const = True
-        cls.__fields__.update({"describedBy": field})
+    @computed_field(title="Described by")
+    def describedBy(self) -> str:
+        return build_described_by_url(self.__class__)
+    
 
     @staticmethod
     def _get_direct_subclass(pydantic_class):
@@ -133,4 +131,4 @@ class AindCoreModel(AindModel):
             filename = output_directory / filename
 
         with open(filename, "w") as f:
-            f.write(self.json(indent=3))
+            f.write(self.model_dump_json(indent=3))

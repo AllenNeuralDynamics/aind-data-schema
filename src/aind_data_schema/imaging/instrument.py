@@ -4,11 +4,11 @@ from __future__ import annotations
 
 from datetime import date
 from enum import Enum
-from typing import List, Optional
+from typing import List, Literal, Optional, Set
 
 from pydantic import Field
 
-from aind_data_schema.base import AindCoreModel, AindModel
+from aind_data_schema.base import AindCoreModel, AindModel, Constant
 from aind_data_schema.device import (
     Coupling,
     DAQDevice,
@@ -143,7 +143,7 @@ class OpticalTable(Device):
 class Instrument(AindCoreModel):
     """Description of an instrument, which is a collection of devices"""
 
-    schema_version: str = Field("0.7.1", description="schema version", title="Version", const=True)
+    schema_version: Constant("0.7.1", title="Schema version")
     instrument_id: Optional[str] = Field(
         None,
         description="Unique identifier for this instrument. Naming convention: <room>-<apparatus>-<version>",
@@ -154,15 +154,15 @@ class Instrument(AindCoreModel):
     temperature_control: Optional[bool] = Field(None, title="Temperature control")
     humidity_control: Optional[bool] = Field(None, title="Humidity control")
     optical_tables: List[OpticalTable] = Field(None, title="Optical table")
-    objectives: List[Objective] = Field(..., title="Objectives", unique_items=True)
-    detectors: Optional[List[Detector]] = Field(None, title="Detectors", unique_items=True)
-    light_sources: Optional[List[Lightsource]] = Field(None, title="Light sources", unique_items=True)
-    fluorescence_filters: Optional[List[Filter]] = Field(None, title="Fluorescence filters", unique_items=True)
-    motorized_stages: Optional[List[MotorizedStage]] = Field(None, title="Motorized stages", unique_items=True)
-    scanning_stages: Optional[List[ScanningStage]] = Field(None, title="Scanning motorized stages", unique_items=True)
-    daqs: Optional[List[DAQDevice]] = Field(None, title="DAQ", unique_items=True)
+    objectives: List[Objective] = Field(..., title="Objectives")
+    detectors: Optional[List[Detector]] = Field(None, title="Detectors")
+    light_sources: Optional[List[Lightsource]] = Field(None, title="Light sources")
+    fluorescence_filters: Optional[List[Filter]] = Field(None, title="Fluorescence filters")
+    motorized_stages: Optional[List[MotorizedStage]] = Field(None, title="Motorized stages")
+    scanning_stages: Optional[List[ScanningStage]] = Field(None, title="Scanning motorized stages")
+    daqs: Optional[List[DAQDevice]] = Field(None, title="DAQ")
     additional_devices: Optional[List[AdditionalImagingDevice]] = Field(
-        None, title="Additional devices", unique_items=True
+        None, title="Additional devices"
     )
     calibration_date: Optional[date] = Field(
         None,
@@ -174,5 +174,5 @@ class Instrument(AindCoreModel):
         description="Path to calibration data from most recent calibration",
         title="Calibration data",
     )
-    com_ports: Optional[List[Com]] = Field(None, title="COM ports", unique_items=True)
+    com_ports: Optional[List[Com]] = Field(None, title="COM ports")
     notes: Optional[str] = None

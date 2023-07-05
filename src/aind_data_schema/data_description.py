@@ -5,11 +5,11 @@ from __future__ import annotations
 import re
 from datetime import date, datetime, time
 from enum import Enum
-from typing import List, Optional
+from typing import List, Literal, Optional
 
 from pydantic import Field
 
-from aind_data_schema.base import AindCoreModel, AindModel, BaseName, BaseNameEnumMeta, PIDName
+from aind_data_schema.base import AindCoreModel, AindModel, BaseName, BaseNameEnumMeta, Constant, PIDName
 
 
 class RegexParts(Enum):
@@ -179,8 +179,8 @@ class RelatedData(AindModel):
 class DataDescription(AindCoreModel):
     """Description of a logical collection of data files"""
 
-    schema_version: str = Field("0.7.1", title="Schema Version", const=True)
-    license: str = Field("CC-BY-4.0", title="License", const=True)
+    schema_version: Constant("0.7.1", title="Schema version")
+    license: Constant("CC-BY-4.0", title="License")
 
     creation_time: time = Field(
         ...,
@@ -251,7 +251,7 @@ class DataDescription(AindCoreModel):
     )
     subject_id: str = Field(
         ...,
-        regex=DataRegex.NO_UNDERSCORES.value,
+        pattern=DataRegex.NO_UNDERSCORES.value,
         description="Unique identifier for the subject of data acquisition",
         title="Subject ID",
     )
@@ -295,12 +295,7 @@ class DerivedDataDescription(DataDescription):
     """A logical collection of data files derived via processing"""
 
     input_data_name: str
-    data_level: DataLevel = Field(
-        DataLevel.DERIVED_DATA,
-        description="level of processing that data has undergone",
-        title="Data Level",
-        const=True,
-    )
+    data_level: DataLevel = Literal[DataLevel.DERIVED_DATA]
 
     def __init__(self, process_name, **kwargs):
         """Construct a derived data description"""
@@ -330,12 +325,7 @@ class DerivedDataDescription(DataDescription):
 class RawDataDescription(DataDescription):
     """A logical collection of data files as acquired from a rig or instrument"""
 
-    data_level: DataLevel = Field(
-        DataLevel.RAW_DATA,
-        description="level of processing that data has undergone",
-        title="Data Level",
-        const=True,
-    )
+    data_level: DataLevel = Literal[DataLevel.RAW_DATA]
 
     def __init__(self, experiment_type, subject_id, **kwargs):
         """Construct a raw data description"""

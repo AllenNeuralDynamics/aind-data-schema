@@ -12,7 +12,7 @@ class TestEnumNames(unittest.TestCase):
 
     def test_data_description(self):
         """tests that Institution and Modality enumnames are generated as expected"""
-        data_description_json = DataDescription.schema_json()
+        data_description_json = DataDescription.model_json_schema()
         institution_enum_names = [e.value.name for e in Institution]
         expected_inst_enum_names = str(institution_enum_names).replace("'", '"')
         self.assertIn(expected_inst_enum_names, data_description_json)
@@ -23,7 +23,7 @@ class TestEnumNames(unittest.TestCase):
 
     def test_subject(self):
         """tests that Species enumnames is generated as expected"""
-        subject_json = Subject.schema_json()
+        subject_json = Subject.model_json_schema()
         species_enum_names = [e.value.name for e in Species]
         expected_species_enum_names = str(species_enum_names).replace("'", '"')
         self.assertIn(expected_species_enum_names, subject_json)

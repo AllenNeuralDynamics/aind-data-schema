@@ -32,28 +32,28 @@ class Scale3dTransform(CoordinateTransform):
     """
 
     type: str = Field("scale", title="transformation type")
-    scale: conlist(float, min_items=3, max_items=3) = Field(..., title="3D scale parameters")
+    scale: conlist(float, min_length=3, max_length=3) = Field(..., title="3D scale parameters")
 
 
 class Translation3dTransform(CoordinateTransform):
     """Values to be vector-added to a 3D position. Often needed to specify a Tile's origin."""
 
     type: str = Field("translation", title="transformation type")
-    translation: conlist(float, min_items=3, max_items=3) = Field(..., title="3D translation parameters")
+    translation: conlist(float, min_length=3, max_length=3) = Field(..., title="3D translation parameters")
 
 
 class Rotation3dTransform(CoordinateTransform):
     """Values to be vector-added to a 3D position. Often needed to specify a Tile's origin."""
 
     type: str = Field("rotation", title="transformation type")
-    rotation: conlist(float, min_items=9, max_items=9) = Field(..., title="3D rotation matrix values (3x3) ")
+    rotation: conlist(float, min_length=9, max_length=9) = Field(..., title="3D rotation matrix values (3x3) ")
 
 
 class Affine3dTransform(CoordinateTransform):
     """Values to be vector-added to a 3D position. Often needed to specify a Tile's origin."""
 
     type: str = Field("affine", title="transformation type")
-    affine_transform: conlist(float, min_items=12, max_items=12) = Field(
+    affine_transform: conlist(float, min_length=12, max_length=12) = Field(
         ..., title="Affine transform matrix values (top 3x4 matrix)"
     )
 

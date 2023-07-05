@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from datetime import datetime
 from enum import Enum
-from typing import List, Optional
+from typing import List, Literal, Optional
 
 try:
     from typing import Literal
@@ -13,7 +13,7 @@ except ImportError:  # pragma: no cover
 
 from pydantic import Field
 
-from aind_data_schema.base import AindCoreModel, AindModel
+from aind_data_schema.base import AindCoreModel, AindModel, Constant
 from aind_data_schema.device import SizeUnit
 from aind_data_schema.imaging.tile import AcquisitionTile
 from aind_data_schema.processing import ProcessName
@@ -105,7 +105,7 @@ class ProcessingSteps(AindModel):
 class Acquisition(AindCoreModel):
     """Description of an imaging acquisition session"""
 
-    schema_version: str = Field("0.4.5", description="schema version", title="Version", const=True)
+    schema_version: Constant("0.4.5", title="Schema version")
     experimenter_full_name: List[str] = Field(
         ...,
         description="First and last name of the experimenter(s).",

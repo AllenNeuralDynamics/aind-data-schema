@@ -11,7 +11,7 @@ except ImportError:  # pragma: no cover
 
 from pydantic import Field
 
-from aind_data_schema.base import AindModel, BaseName, PIDName, BaseNameEnumMeta
+from aind_data_schema.base import AindModel, BaseName, Constant, PIDName, BaseNameEnumMeta
 
 
 class SizeUnit(Enum):
@@ -475,7 +475,7 @@ class HarpDevice(DAQDevice):
 
     # fixed values
     manufacturer: Manufacturer = Manufacturer.OEPS
-    data_interface: DataInterface = Field("USB", const=True)
+    data_interface: DataInterface = DataInterface.USB
 
 
 class Laser(Device):
@@ -534,7 +534,7 @@ class MousePlatform(Device):
 class Disc(MousePlatform):
     """Description of a running disc"""
 
-    platform_type: str = Field("Disc", title="Platform type", const=True)
+    platform_type: Constant("Disc", title="Platform type")
     radius: float = Field(..., title="Radius (cm)", units="cm", ge=0)
     radius_unit: SizeUnit = Field(SizeUnit.CM, title="radius unit")
     output: Optional[DaqChannelType] = Field(None, description="analog or digital electronics")
@@ -548,7 +548,7 @@ class Disc(MousePlatform):
 class Tube(MousePlatform):
     """Description of a tube platform"""
 
-    platform_type: str = Field("Tube", title="Platform type", const=True)
+    platform_type: Constant("Tube", title="Platform type")
     diameter: float = Field(..., title="Diameter", ge=0)
     diameter_unit: SizeUnit = Field(SizeUnit.CM, title="Diameter unit")
 
@@ -556,7 +556,7 @@ class Tube(MousePlatform):
 class Treadmill(MousePlatform):
     """Description of treadmill platform"""
 
-    platform_type: str = Field("Treadmill", title="Platform type", const=True)
+    platform_type: Constant("Treadmill", title="Platform type")
     treadmill_width: float = Field(..., title="Width of treadmill (mm)", units="mm")
     width_unit: SizeUnit = Field(SizeUnit.CM, title="Width unit")
 

@@ -2,13 +2,14 @@
 
 from __future__ import annotations
 
-from datetime import date, time
+import datetime
+
 from enum import Enum
-from typing import List, Optional
+from typing import List, Literal, Optional, Set
 
 from pydantic import Field
 
-from aind_data_schema.base import AindCoreModel, AindModel, BaseName, BaseNameEnumMeta, PIDName
+from aind_data_schema.base import AindCoreModel, AindModel, BaseName, BaseNameEnumMeta, Constant, PIDName
 
 
 class Species(Enum, metaclass=BaseNameEnumMeta):
@@ -53,12 +54,12 @@ class BackgroundStrain(Enum):
 class LightCycle(AindModel):
     """Description of vivarium light cycle times"""
 
-    lights_on_time: time = Field(
+    lights_on_time: datetime.time = Field(
         ...,
         description="Time in UTC that lights were turned on",
         title="Lights on time",
     )
-    lights_off_time: time = Field(
+    lights_off_time: datetime.time = Field(
         ...,
         description="Time in UTC that lights were turned off",
         title="Lights off time",
@@ -78,7 +79,7 @@ class HomeCageEnrichment(Enum):
 class WellnessReport(AindModel):
     """Wellness report on animal health"""
 
-    date: date = Field(..., title="Date")
+    date: datetime.date = Field(..., title="Date")
     report: str = Field(..., title="Report")
 
 
@@ -106,7 +107,7 @@ class Housing(AindModel):
 class Subject(AindCoreModel):
     """Description of a subject of data collection"""
 
-    schema_version: str = Field("0.4.1", description="schema version", title="Version", const=True)
+    schema_version: Constant("0.4.1", title="Schema version")
     species: Species = Field(..., title="Species")
     subject_id: str = Field(
         ...,
@@ -114,7 +115,7 @@ class Subject(AindCoreModel):
         title="Subject ID",
     )
     sex: Sex = Field(..., title="Sex")
-    date_of_birth: date = Field(..., title="Date of birth")
+    date_of_birth: datetime.date = Field(..., title="Date of birth")
     genotype: str = Field(
         ...,
         description="Genotype of the animal providing both alleles",

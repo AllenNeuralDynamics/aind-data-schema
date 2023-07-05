@@ -110,7 +110,7 @@ class DataDescriptionTest(unittest.TestCase):
             investigators=["Jane Smith"],
         )
 
-        da2 = RawDataDescription.parse_obj(json.loads(da1.json()))
+        da2 = RawDataDescription.parse_obj(json.loads(da1.model_dump_json()))
 
         assert da1.creation_time == da2.creation_time
         assert da1.creation_date == da2.creation_date

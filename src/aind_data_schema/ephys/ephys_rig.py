@@ -3,16 +3,16 @@
 from __future__ import annotations
 
 from enum import Enum
-from typing import List, Optional, Union
+from typing import List, Optional, Union, Set
 
 try:
     from typing import Literal
 except ImportError:  # pragma: no cover
     from typing_extensions import Literal
 
-from pydantic import Field, root_validator
+from pydantic import Field, model_validator
 
-from aind_data_schema.base import AindCoreModel, AindModel
+from aind_data_schema.base import AindCoreModel, AindModel, Constant
 from aind_data_schema.device import (
     Camera,
     CameraAssembly,
@@ -47,7 +47,7 @@ class NeuropixelsBasestation(DAQDevice):
     ports: List[ProbePort] = Field(..., title="Basestation ports")
 
     # fixed values
-    data_interface: DataInterface = Field("PXI", const=True)
+    data_interface: DataInterface = Literal[DataInterface.PXI]
     manufacturer: Manufacturer = Manufacturer.IMEC
 
 
@@ -58,7 +58,7 @@ class OpenEphysAcquisitionBoard(DAQDevice):
     ports: List[ProbePort] = Field(..., title="Acquisition board ports")
 
     # fixed values
-    data_interface: DataInterface = Field("USB", const=True)
+    data_interface: DataInterface = Literal[DataInterface.USB]
     manufacturer: Manufacturer = Manufacturer.OEPS
 
 
@@ -134,21 +134,21 @@ class EphysAssembly(AindModel):
 class EphysRig(AindCoreModel):
     """Description of an ephys rig"""
 
-    schema_version: str = Field("0.7.1", description="schema version", title="Version", const=True)
+    schema_version: Constant("0.7.1", title="Schema version")
     rig_id: str = Field(..., description="room_stim apparatus_version", title="Rig ID")
-    ephys_assemblies: Optional[List[EphysAssembly]] = Field(None, title="Ephys probes", unique_items=True)
+    ephys_assemblies: Optional[List[EphysAssembly]] = Field(None, title="Ephys probes")
     stick_microscopes: Optional[List[StickMicroscopeAssembly]] = Field(None, title="Stick microscopes")
-    laser_assemblies: Optional[List[LaserAssembly]] = Field(None, title="Laser modules", unique_items=True)
-    cameras: Optional[List[CameraAssembly]] = Field(None, title="Camera assemblies", unique_items=True)
-    visual_monitors: Optional[List[Monitor]] = Field(None, title="Visual monitors", unique_items=True)
+    laser_assemblies: Optional[List[LaserAssembly]] = Field(None, title="Laser modules")
+    cameras: Optional[List[CameraAssembly]] = Field(None, title="Camera assemblies")
+    visual_monitors: Optional[List[Monitor]] = Field(None, title="Visual monitors")
     mouse_platform: Optional[Union[Tube, Treadmill, Disc]] = Field(None, title="Mouse platform")
     daqs: Optional[List[Union[HarpDevice, NeuropixelsBasestation, OpenEphysAcquisitionBoard, DAQDevice]]] = Field(
         None, title="Data acquisition devices"
     )
-    additional_devices: Optional[List[Device]] = Field(None, title="Additional devices", unique_items=True)
+    additional_devices: Optional[List[Device]] = Field(None, title="Additional devices")
     notes: Optional[str] = Field(None, title="Notes")
 
-    @root_validator
+    @model_validator(mode='before')
     def validate_device_names(cls, values):
         """validate that all DAQ channels are connected to devices that
         actually exist
@@ -189,7 +189,7 @@ class EphysRig(AindCoreModel):
 
         return values
 
-    @root_validator
+    @model_validator(mode='before')
     def validate_probe_names(cls, values):
         """validate that all DAQ probe ports are connected to probes that
         actually exist

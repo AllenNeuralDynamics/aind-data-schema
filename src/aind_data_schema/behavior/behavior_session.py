@@ -3,23 +3,18 @@
 from __future__ import annotations
 
 from datetime import datetime
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Literal, Optional
 
 from pydantic import Field
 
-from aind_data_schema.base import AindCoreModel
+from aind_data_schema.base import AindCoreModel, Constant
 from aind_data_schema.procedures import VolumeUnit, WeightUnit
 
 
 class BehaviorSession(AindCoreModel):
     """Description of a behavior session"""
 
-    schema_version: str = Field(
-        "0.0.2",
-        description="Schema version",
-        title="Schema Version",
-        const=True,
-    )
+    schema_version: Constant("0.0.2", title="Schema version")
     experimenter_full_name: str = Field(
         ...,
         description="First and last name of the experimenter.",

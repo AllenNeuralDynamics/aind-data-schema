@@ -4,11 +4,11 @@ from __future__ import annotations
 
 from datetime import datetime
 from enum import Enum
-from typing import List, Optional
+from typing import List, Literal, Optional, Set
 
 from pydantic import Field
 
-from aind_data_schema.base import AindCoreModel, AindModel
+from aind_data_schema.base import AindCoreModel, AindModel, Constant
 from aind_data_schema.device import AngleUnit, Coordinates3d, PowerUnit, SizeUnit
 from aind_data_schema.stimulus import StimulusPresentation
 
@@ -113,10 +113,10 @@ class Stream(AindModel):
 
     stream_start_time: datetime = Field(..., title="Stream start time")
     stream_end_time: datetime = Field(..., title="Stream stop time")
-    ephys_modules: Optional[List[EphysModule]] = Field(None, title="Ephys modules", unique_items=True)
-    laser_modules: Optional[List[LaserModule]] = Field(None, title="Laser modules", unique_items=True)
-    daqs: Optional[List[DAQDevice]] = Field(None, title="DAQ devices", unique_items=True)
-    cameras: Optional[List[Camera]] = Field(None, title="Cameras", unique_items=True)
+    ephys_modules: Optional[List[EphysModule]] = Field(None, title="Ephys modules")
+    laser_modules: Optional[List[LaserModule]] = Field(None, title="Laser modules")
+    daqs: Optional[List[DAQDevice]] = Field(None, title="DAQ devices")
+    cameras: Optional[List[Camera]] = Field(None, title="Cameras")
     stimulus_presentations: Optional[List[StimulusPresentation]] = Field(None, title="Stimulus")
     notes: Optional[str] = Field(None, title="Notes")
 
@@ -124,7 +124,7 @@ class Stream(AindModel):
 class EphysSession(AindCoreModel):
     """Description of an ephys recording session"""
 
-    schema_version: str = Field("0.4.5", description="schema version", title="Version", const=True)
+    schema_version: Constant("0.4.5", title="Schema version")
     experimenter_full_name: List[str] = Field(
         ...,
         description="First and last name of the experimenter(s).",
@@ -146,8 +146,7 @@ class EphysSession(AindCoreModel):
         description=(
             "A data stream is a collection of devices that are recorded simultaneously. Each session can include"
             " multiple streams (e.g., if the manipulators are moved to a new location)"
-        ),
-        unique_items=True,
+        )
     )
     ccf_coordinate_transform: Optional[str] = Field(
         None,

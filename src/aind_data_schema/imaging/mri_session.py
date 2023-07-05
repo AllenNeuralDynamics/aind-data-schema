@@ -2,11 +2,11 @@
 
 from datetime import datetime
 from enum import Enum
-from typing import List, Optional
+from typing import List, Literal, Optional
 
 from pydantic import Field
 
-from aind_data_schema.base import AindCoreModel
+from aind_data_schema.base import AindCoreModel, Constant
 from aind_data_schema.device import Device
 from aind_data_schema.imaging.acquisition import Axis
 from aind_data_schema.imaging.tile import Scale3dTransform
@@ -44,7 +44,7 @@ class Scanner(Device):
 class MriSession(AindCoreModel):
     """Description of an MRI scan"""
 
-    schema_version: str = Field("0.1.1", description="schema version", title="Version", const=True)
+    schema_version: Constant("0.1.1", title="Schema version")
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
