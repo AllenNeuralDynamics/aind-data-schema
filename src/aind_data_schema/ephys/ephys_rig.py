@@ -48,7 +48,7 @@ class NeuropixelsBasestation(DAQDevice):
 
     # fixed values
     data_interface: DataInterface = Field("PXI", const=True)
-    manufacturer: Manufacturer = Manufacturer.IMEC
+    manufacturer: Manufacturer = Field(Manufacturer.IMEC, const=True)
 
 
 class OpenEphysAcquisitionBoard(DAQDevice):
@@ -134,7 +134,7 @@ class EphysAssembly(AindModel):
 class EphysRig(AindCoreModel):
     """Description of an ephys rig"""
 
-    schema_version: str = Field("0.7.1", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.7.2", description="schema version", title="Version", const=True)
     rig_id: str = Field(..., description="room_stim apparatus_version", title="Rig ID")
     ephys_assemblies: Optional[List[EphysAssembly]] = Field(None, title="Ephys probes", unique_items=True)
     stick_microscopes: Optional[List[StickMicroscopeAssembly]] = Field(None, title="Stick microscopes")
