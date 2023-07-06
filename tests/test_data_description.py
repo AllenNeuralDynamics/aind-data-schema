@@ -3,14 +3,17 @@
 import datetime
 import json
 import unittest
+from pathlib import Path
 
 from aind_data_schema.data_description import (
     DataDescription,
     DerivedDataDescription,
+    ExperimentType,
     Funding,
     Institution,
     Modality,
     RawDataDescription,
+    create_derived_data_description,
 )
 
 
@@ -149,6 +152,42 @@ class DataDescriptionTest(unittest.TestCase):
         """Tests that BaseName enums can be constructed from attr names"""
         self.assertEqual(Modality.ECEPHYS, Modality("ECEPHYS"))
         self.assertEqual(Modality.ECEPHYS, Modality("ecephys"))
+
+    def test_create_derived_data_description(self):
+        """Tests create_derived_data_description method"""
+        data_description_files_path = Path(__file__).parent / "resources" / "ephys_data_description"
+        data_description_args = [p for p in data_description_files_path.iterdir()]
+
+        for data_description_arg in data_description_args:
+            if "0.3.0" in data_description_arg.name:
+                experiment_type = ExperimentType.ECEPHYS
+            else:
+                experiment_type = None
+            derived_data_description_from_file = create_derived_data_description(
+                process_name="test_process",
+                existing_data_description_file=data_description_arg,
+                experiment_type=experiment_type,
+            )
+            with open(data_description_arg, "r") as f:
+                data_description_dict = json.load(f)
+            if "experiment_type" not in data_description_dict:
+                data_description_dict["experiment_type"] = ExperimentType.ECEPHYS
+            data_description = DataDescription.construct(**data_description_dict)
+            derived_data_description_from_obj = create_derived_data_description(
+                process_name="test_process", existing_data_description=data_description, experiment_type=experiment_type
+            )
+            self.assertTrue(isinstance(derived_data_description_from_file, DerivedDataDescription))
+            self.assertTrue(isinstance(derived_data_description_from_obj, DerivedDataDescription))
+
+        # Test from scratch
+        derived_data_description_from_scratch = create_derived_data_description(
+            process_name="test_process",
+            modality=[Modality.ECEPHYS],
+            experiment_type=ExperimentType.ECEPHYS,
+            subject_id="00000",
+            input_data_name="test_input_data_name",
+        )
+        self.assertTrue(isinstance(derived_data_description_from_scratch, DerivedDataDescription))
 
 
 if __name__ == "__main__":

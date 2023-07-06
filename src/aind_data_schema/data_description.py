@@ -2,11 +2,15 @@
 
 from __future__ import annotations
 
+import json
 import re
+import warnings
 from datetime import date, datetime, time
 from enum import Enum
+from pathlib import Path
 from typing import List, Optional
 
+from pkg_resources import parse_version
 from pydantic import Field
 
 from aind_data_schema.base import AindCoreModel, AindModel, BaseName, BaseNameEnumMeta, PIDName
@@ -366,3 +370,131 @@ class RawDataDescription(DataDescription):
             creation_date=creation_date,
             creation_time=creation_time,
         )
+
+
+# Utilities
+_skip_existing_data_description_keys = [
+    "schema_version",
+    "version",
+    "data_level",
+    "described_by",
+    "ror_id",
+    "creation_time",
+    "creation_date",
+]
+
+
+def create_derived_data_description(
+    process_name: str,
+    existing_data_description_file: Optional[str | Path] = None,
+    existing_data_description: Optional[DataDescription] = None,
+    input_data_name: Optional[str] = None,
+    subject_id: Optional[str] = None,
+    institution: Institution = Institution.AIND,
+    funding_source: Optional[list[Funding]] = None,
+    investigators: Optional[str] = None,
+    modality: Optional[Modality] = None,
+    experiment_type: Optional[list[ExperimentType]] = None,
+):
+    """
+    Create a new data description from an existing data description, or from scratch if no existing
+    data description is provided.
+
+    Parameters
+    ----------
+    process_name : str
+        Name of the process that created the data
+    existing_data_description : DataDescription, optional
+        Existing data description object, or None if creating
+        from scratch, by default None
+    existing_data_description_file : str or Path, optional
+        Path to existing data description, or None if creating from scratch, by default None
+    input_data_name : str, optional
+        Name of the input data, by default None
+    subject_id : str, optional
+        Subject ID, by default None
+    institution : Institution, optional
+        Institution, by default Institution.AIND
+    funding_source : Funding, optional
+        Funding source, by default Funding(funder="AIND")
+    investigators : list, optional
+        List of investigators, by default []
+    modality : Modality | None, optional
+        Modality, by default None
+    experiment_type : list[ExperimentType] | None, optional
+        Experiment type, by default None
+
+    Returns
+    -------
+    DerivedDataDescription
+        The derived data description
+    """
+    now = datetime.now()
+    # make base dictionary form scratch
+    base_data_description_dict = {}
+    base_data_description_dict["creation_time"] = now.time()
+    base_data_description_dict["creation_date"] = now.date()
+    base_data_description_dict["institution"] = institution if institution is not None else Institution.AIND
+    base_data_description_dict["investigators"] = investigators if investigators is not None else []
+    base_data_description_dict["funding_source"] = (
+        funding_source if funding_source is not None else [Funding(funder="AIND")]
+    )
+
+    if existing_data_description is None and existing_data_description_file is None:
+        assert modality is not None, "Must provide modality if creating new data description"
+        assert experiment_type is not None, "Must provide experiment type if creating new data description"
+        assert input_data_name is not None, "Must provide input_data_name if creating new data description"
+        assert subject_id is not None, "Must provide subject ID if creating new data description"
+        base_data_description_dict["modality"] = modality
+        base_data_description_dict["experiment_type"] = experiment_type
+        base_data_description_dict["input_data_name"] = input_data_name
+        base_data_description_dict["subject_id"] = subject_id
+    else:
+        if existing_data_description_file is not None:
+            assert existing_data_description is None, "Must provide either existing data description file or object"
+            assert Path(existing_data_description_file).is_file(), "Must provide path to existing data description file"
+            with open(existing_data_description_file, "r") as data_description_file:
+                data_description_json = json.load(data_description_file)
+            data_description = DataDescription.construct(**data_description_json)
+        else:
+            assert (
+                existing_data_description_file is None
+            ), "Must provide either existing data description file or object"
+            assert isinstance(
+                existing_data_description, DataDescription
+            ), "Must provide existing DataDescription object"
+            data_description = existing_data_description
+        # construct data_description.json
+        existing_data_description_dict = data_description.dict()
+        existing_version = existing_data_description_dict.get("schema_version")
+        if existing_version is not None and parse_version(existing_version) < parse_version("0.4.0"):
+            existing_data_description_dict["institution"] = Institution(existing_data_description_dict["institution"])
+            existing_data_description_dict["modality"] = [Modality(existing_data_description_dict["modality"])]
+            assert experiment_type is not None, "Must provide experiment type if existing data description is < 0.4.0"
+            existing_data_description_dict["experiment_type"] = experiment_type
+        else:
+            existing_data_description_dict["institution"] = Institution(
+                existing_data_description_dict["institution"]["abbreviation"]
+            )
+        # check that funder is validated
+        funding_source = existing_data_description_dict.get("funding_source")
+        if funding_source is not None:
+            for funding in funding_source:
+                funder = funding["funder"]
+                institution_abbrvs = [inst.value.abbreviation for inst in Institution]
+                institution_names = [inst.value.name for inst in Institution]
+                if funder not in institution_abbrvs:
+                    if funder not in institution_names:
+                        warnings.warn(f"{funder} is not a valid funder. Using AIND as default")
+                        funding["funder"] = institution
+                    else:
+                        funding["funder"] = institution_abbrvs[institution_names.index(funder)]
+
+        for key in _skip_existing_data_description_keys:
+            if key in existing_data_description_dict:
+                del existing_data_description_dict[key]
+        base_data_description_dict.update(existing_data_description_dict)
+        base_data_description_dict["input_data_name"] = existing_data_description_dict["name"]
+
+    derived_data_description = DerivedDataDescription(process_name=process_name, **base_data_description_dict)
+    return derived_data_description
