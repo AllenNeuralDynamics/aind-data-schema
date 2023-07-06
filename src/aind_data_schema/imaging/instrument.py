@@ -3,12 +3,11 @@
 from __future__ import annotations
 
 from datetime import date
+from decimal import Decimal
 from enum import Enum
 from typing import List, Optional
 
 from pydantic import Field
-
-from decimal import Decimal
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.device import (

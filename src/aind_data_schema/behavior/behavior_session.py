@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from datetime import datetime
+from decimal import Decimal
 from typing import Any, Dict, Optional
 
 from pydantic import Field
@@ -10,7 +11,6 @@ from pydantic import Field
 from aind_data_schema.base import AindCoreModel
 from aind_data_schema.procedures import VolumeUnit, WeightUnit
 
-from decimal import Decimal
 
 class BehaviorSession(AindCoreModel):
     """Description of a behavior session"""

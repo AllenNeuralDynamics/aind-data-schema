@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from datetime import datetime
+from decimal import Decimal
 from enum import Enum
 from typing import List, Optional
 
@@ -12,7 +13,6 @@ from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.device import AngleUnit, Coordinates3d, PowerUnit, SizeUnit
 from aind_data_schema.stimulus import StimulusPresentation
 
-from decimal import Decimal
 
 class SessionType(Enum):
     """Session type name"""

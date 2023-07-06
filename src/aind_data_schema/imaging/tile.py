@@ -1,5 +1,6 @@
 """ Models related to imaging tiles and their transformations """
 
+from decimal import Decimal
 from typing import List, Optional, Union
 
 from pydantic import Field
@@ -8,7 +9,6 @@ from pydantic.types import conlist
 from aind_data_schema.base import AindModel
 from aind_data_schema.device import AngleUnit, PowerUnit, SizeUnit
 
-from decimal import Decimal
 
 class Channel(AindModel):
     """Description of a channel"""

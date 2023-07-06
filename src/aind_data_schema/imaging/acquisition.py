@@ -11,14 +11,14 @@ try:
 except ImportError:  # pragma: no cover
     from typing_extensions import Literal
 
+from decimal import Decimal
+
 from pydantic import Field
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.device import SizeUnit
 from aind_data_schema.imaging.tile import AcquisitionTile
 from aind_data_schema.processing import ProcessName
-
-from decimal import Decimal
 
 
 class AxisName(Enum):

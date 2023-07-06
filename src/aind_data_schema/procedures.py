@@ -1,6 +1,7 @@
 """ schema for various Procedures """
 
 from datetime import date, datetime
+from decimal import Decimal
 from enum import Enum
 from typing import List, Optional, Union
 
@@ -9,8 +10,6 @@ from pydantic import Field
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.device import AngleUnit, SizeUnit
 from aind_data_schema.subject import Species
-
-from decimal import Decimal
 
 
 class TimeUnit(Enum):
@@ -283,23 +282,23 @@ class VirusPrepType(Enum):
 class InjectionMaterial(AindModel):
     """Description of injection material"""
 
-    name: str = Field(..., title="Name") # virus
-    material_id: Optional[str] = Field(None, title="Material ID") # don't have
-    full_genome_name: Optional[str] = Field( # empty
+    name: str = Field(..., title="Name")  # virus
+    material_id: Optional[str] = Field(None, title="Material ID")  # don't have
+    full_genome_name: Optional[str] = Field(  # empty
         None,
         title="Full genome name",
         description="Full genome for virus construct",
     )
-    plasmid_name: Optional[str] = Field( # duplicate name
+    plasmid_name: Optional[str] = Field(  # duplicate name
         None,
         title="Plasmid name",
         description="Short name used to reference the plasmid",
     )
-    genome_copy: Optional[Decimal] = Field(None, title="Genome copy") # empty
-    titer: Optional[Decimal] = Field(None, title="Titer (gc/mL)", units="gc/mL") # Titer
-    titer_unit: Optional[str] = Field("gc/mL", title="Titer unit") # default value, ping matthew
-    prep_lot_number: Optional[str] = Field(None, title="Preparation lot number") # Lot
-    prep_date: Optional[date] = Field( # 
+    genome_copy: Optional[Decimal] = Field(None, title="Genome copy")  # empty
+    titer: Optional[Decimal] = Field(None, title="Titer (gc/mL)", units="gc/mL")  # Titer
+    titer_unit: Optional[str] = Field("gc/mL", title="Titer unit")  # default value, ping matthew
+    prep_lot_number: Optional[str] = Field(None, title="Preparation lot number")  # Lot
+    prep_date: Optional[date] = Field(  #
         None,
         title="Preparation lot date",
         description="Date this prep lot was titered",

@@ -90,7 +90,7 @@ r = ophr.OphysRig(
             crop_height=200,
             gain=2,
             chroma="Monochrome",
-            bit_depth=16
+            bit_depth=16,
         ),
         ophr.Detector(
             name="FLIR CMOS for Red Channel",
@@ -108,7 +108,7 @@ r = ophr.OphysRig(
             crop_height=200,
             gain=2,
             chroma="Monochrome",
-            bit_depth=16
+            bit_depth=16,
         ),
     ],
     objectives=[

@@ -1,10 +1,9 @@
 """Script for defining UnitWithValue classes"""
 
+from decimal import Decimal
 from enum import Enum
 
 from pydantic import create_model
-
-from decimal import Decimal
 
 
 class Size(Enum):

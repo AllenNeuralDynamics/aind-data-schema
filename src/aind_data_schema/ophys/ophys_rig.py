@@ -3,12 +3,11 @@
 from __future__ import annotations
 
 from datetime import date
+from decimal import Decimal
 from enum import Enum
 from typing import List, Optional, Union
 
 from pydantic import Field
-
-from decimal import Decimal
 
 from aind_data_schema.base import AindCoreModel
 from aind_data_schema.device import (
@@ -46,6 +45,7 @@ class Cooling(Enum):
     AIR = "air"
     WATER = "water"
 
+
 class BinMode(Enum):
     """Detector binning mode"""
 
@@ -72,7 +72,6 @@ class Detector(Device):
     crop_width: Optional[int] = Field(None, title="Crop width")
     crop_height: Optional[int] = Field(None, title="Crop width")
     crop_unit: Optional[SizeUnit] = Field(SizeUnit.PX, title="Crop size unit", const=True)
-
 
 
 class Patch(Device):

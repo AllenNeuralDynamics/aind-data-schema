@@ -1,9 +1,9 @@
 """ schema for various Devices """
 
 from datetime import datetime
+from decimal import Decimal
 from enum import Enum
 from typing import Any, Dict, List, Optional, Union
-from decimal import Decimal
 
 try:
     from typing import Literal

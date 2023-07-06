@@ -3,12 +3,11 @@
 from __future__ import annotations
 
 from datetime import time
+from decimal import Decimal
 from enum import Enum
 from typing import Any, Dict, List, Optional, Union
 
 from pydantic import Field
-
-from decimal import Decimal
 
 from aind_data_schema.base import AindModel
 from aind_data_schema.device import FrequencyUnit

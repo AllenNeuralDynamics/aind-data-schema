@@ -1,6 +1,7 @@
 """ schema for MRI Scan """
 
 from datetime import datetime
+from decimal import Decimal
 from enum import Enum
 from typing import List, Optional
 
@@ -12,7 +13,6 @@ from aind_data_schema.imaging.acquisition import Axis
 from aind_data_schema.imaging.tile import Scale3dTransform
 from aind_data_schema.procedures import Anaesthetic, WeightUnit
 
-from decimal import Decimal
 
 class MriScanSequence(Enum):
     """MRI scan sequence"""

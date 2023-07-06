@@ -1,11 +1,10 @@
 """Test utils.units"""
 
 import unittest
+from decimal import Decimal
 from typing import TypeVar
 
 from aind_data_schema.utils.units import Size, SizeValue, create_unit_with_value
-
-from decimal import Decimal
 
 ScalarType = TypeVar("ScalarType", Decimal, int)
 

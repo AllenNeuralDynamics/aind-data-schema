@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from datetime import datetime
+from decimal import Decimal
 from enum import Enum
 from typing import List, Optional, Union
 
@@ -13,7 +14,6 @@ from aind_data_schema.device import FrequencyUnit, PowerUnit, SizeUnit
 from aind_data_schema.procedures import TimeUnit
 from aind_data_schema.stimulus import StimulusPresentation
 
-from decimal import Decimal
 
 class FiberName(Enum):
     """Fiber name"""
