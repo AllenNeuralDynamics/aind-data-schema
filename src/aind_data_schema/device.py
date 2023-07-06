@@ -11,7 +11,7 @@ except ImportError:  # pragma: no cover
 
 from pydantic import Field
 
-from aind_data_schema.base import AindModel, BaseName, PIDName, BaseNameEnumMeta
+from aind_data_schema.base import AindModel, BaseName, BaseNameEnumMeta, PIDName
 
 
 class SizeUnit(Enum):
@@ -81,6 +81,7 @@ class Manufacturer(Enum, metaclass=BaseNameEnumMeta):
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
         registry_identifier="01j1gwp17",
     )
+    AILIPU = PIDName(name="Ailipu Technology Co")
     FLIR = PIDName(
         name="Teledyne FLIR",
         abbreviation="FLIR",
@@ -288,7 +289,7 @@ class Software(AindModel):
 
     name: str = Field(..., title="Software name")
     version: str = Field(..., title="Software version")
-    parameters: Optional[dict] = Field(..., title="Software parameters")
+    parameters: Optional[dict] = Field(None, title="Software parameters")
 
 
 class MotorizedStage(Device):
@@ -306,7 +307,8 @@ class Camera(Device):
 
     # required fields
     data_interface: DataInterface = Field(..., title="Type of connection to PC")
-    camera_manufacturer: Enum('Camera_Manufacturer', [(item.name, item.value) for item in Manufacturer if item in [
+    manufacturer: Literal[
+        Manufacturer.AILIPU,
         Manufacturer.ALLIED,
         Manufacturer.BASLER,
         Manufacturer.EDMUND_OPTICS,
@@ -314,7 +316,6 @@ class Camera(Device):
         Manufacturer.THORLABS,
         Manufacturer.OTHER
         ]
-    ])
     computer_name: str = Field(..., title="Name of computer receiving data from this camera")
     max_frame_rate: float = Field(..., title="Maximum frame rate (Hz)", units="Hz")
     frame_rate_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Frame rate unit")
@@ -409,7 +410,8 @@ class CameraTarget(Enum):
     BODY = "Body"
     BOTTOM = "Bottom"
     EYE = "Eye"
-    FACE = "Face"
+    FACE_BOTTOM = "Face bottom"
+    FACE_SIDE = "Face side"
     SIDE = "Side"
     TONGUE = "Tongue"
     OTHER = "Other"
@@ -596,18 +598,6 @@ class Monitor(Device):
         ge=0,
         le=100,
     )
-
-
-class CameraTarget(Enum):
-    """Target of camera"""
-
-    BODY = "Body"
-    BOTTOM = "Bottom"
-    EYE = "Eye"
-    FACE = "Face"
-    SIDE = "Side"
-    TONGUE = "Tongue"
-    OTHER = "Other"
 
 
 class WaterDelivery(AindModel):

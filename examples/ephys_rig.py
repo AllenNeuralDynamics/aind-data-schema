@@ -113,7 +113,7 @@ face_camera = Camera(
 )
 
 camassm1 = CameraAssembly(
-    camera_assembly_name="Face Camera Assembly", camera=face_camera, camera_target="Face", filter=filt, lens=lens
+    camera_assembly_name="Face Camera Assembly", camera=face_camera, camera_target="Face side", filter=filt, lens=lens
 )
 
 body_camera = Camera(

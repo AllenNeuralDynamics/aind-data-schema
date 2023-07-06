@@ -27,7 +27,7 @@ class ExampleTest(unittest.TestCase):
                 basestation_firmware_version="1",
                 bsc_firmware_version="2",
                 slot=0,
-                manufacturer=Manufacturer.OTHER,
+                manufacturer=Manufacturer.IMEC,
                 ports=[],
                 computer_name="foo",
                 channels=[
@@ -81,7 +81,7 @@ class ExampleTest(unittest.TestCase):
                         basestation_firmware_version="1",
                         bsc_firmware_version="2",
                         slot=0,
-                        manufacturer=Manufacturer.OTHER,
+                        manufacturer=Manufacturer.IMEC,
                         ports=[er.ProbePort(index=0, probes=["Probe B"])],
                         computer_name="foo",
                         channels=[
@@ -99,7 +99,7 @@ class ExampleTest(unittest.TestCase):
             cameras=[
                 er.CameraAssembly(
                     camera_assembly_name="cam",
-                    camera_target="Face",
+                    camera_target="Face bottom",
                     lens=Lens(manufacturer=Manufacturer.OTHER),
                     camera=er.Camera(
                         name="Camera A",
