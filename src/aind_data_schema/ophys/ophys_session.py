@@ -13,6 +13,7 @@ from aind_data_schema.device import FrequencyUnit, PowerUnit, SizeUnit
 from aind_data_schema.procedures import TimeUnit
 from aind_data_schema.stimulus import StimulusPresentation
 
+from decimal import Decimal
 
 class FiberName(Enum):
     """Fiber name"""
@@ -51,7 +52,7 @@ class Detector(AindModel):
     """Description of detector"""
 
     name: str = Field(..., title="Name")
-    exposure_time: float = Field(..., title="Exposure time (ms)")
+    exposure_time: Decimal = Field(..., title="Exposure time (ms)")
     exposure_time_unit: TimeUnit = Field(TimeUnit.MS, title="Exposure time unit")
     trigger_type: TriggerType = Field(..., title="Trigger type")
 
@@ -72,7 +73,7 @@ class Laser(AindModel):
     name: LaserName = Field(..., title="Name")
     wavelength: int = Field(..., title="Wavelength (nm)")
     wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
-    excitation_power: Optional[float] = Field(None, title="Excitation power (mW)")
+    excitation_power: Optional[Decimal] = Field(None, title="Excitation power (mW)")
     excitation_power_unit: PowerUnit = Field(PowerUnit.MW, title="Excitation power unit")
 
 
@@ -80,7 +81,7 @@ class LightEmittingDiode(AindModel):
     """Description of a LED"""
 
     name: str = Field(..., title="Name")
-    excitation_power: Optional[float] = Field(None, title="Excitation power (mW)")
+    excitation_power: Optional[Decimal] = Field(None, title="Excitation power (mW)")
     excitation_power_unit: PowerUnit = Field(PowerUnit.MW, title="Excitation power unit")
 
 
@@ -88,7 +89,7 @@ class Patch(AindModel):
     """Description of a patch"""
 
     name: PatchCordName = Field(..., title="Name")
-    output_power: float = Field(..., title="Output power (uW)")
+    output_power: Decimal = Field(..., title="Output power (uW)")
     output_power_unit: PowerUnit = Field(PowerUnit.UW, title="Output power unit")
 
 
@@ -139,17 +140,17 @@ class FieldOfView(AindModel):
     imaging_depth: int = Field(..., title="Imaging depth (um)")
     imaging_depth_unit: SizeUnit = Field(SizeUnit.UM, title="Imaging depth unit")
     targeted_structure: str = Field(..., title="Targeted structure")
-    fov_coordinate_ml: float = Field(..., title="FOV coodinate ML")
-    fov_coordinate_ap: float = Field(..., title="FOV coordinate AP")
+    fov_coordinate_ml: Decimal = Field(..., title="FOV coodinate ML")
+    fov_coordinate_ap: Decimal = Field(..., title="FOV coordinate AP")
     fov_coordinate_unit: SizeUnit = Field(SizeUnit.UM, title="FOV coordinate unit")
     fov_reference: str = Field(..., title="FOV reference", description="Reference for ML/AP coordinates")
     fov_width: int = Field(..., title="FOV width (pixels)")
     fov_height: int = Field(..., title="FOV height (pixels)")
     fov_size_unit: SizeUnit = Field(SizeUnit.PX, title="FOV size unit")
     magnification: str = Field(..., title="Magnification")
-    fov_scale_factor: float = Field(..., title="FOV scale factor (um/pixel)")
+    fov_scale_factor: Decimal = Field(..., title="FOV scale factor (um/pixel)")
     fov_scale_factor_unit: str = Field("um/pixel", title="FOV scale factor unit")
-    frame_rate: float = Field(..., title="Frame rate (Hz)")
+    frame_rate: Decimal = Field(..., title="Frame rate (Hz)")
     frame_rate_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Frame rate unit")
 
 

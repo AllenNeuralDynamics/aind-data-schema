@@ -8,6 +8,8 @@ from typing import Any, Dict, List, Optional, Union
 
 from pydantic import Field
 
+from decimal import Decimal
+
 from aind_data_schema.base import AindModel
 from aind_data_schema.device import FrequencyUnit
 from aind_data_schema.procedures import TimeUnit
@@ -31,14 +33,14 @@ class OptoStim(AindModel):
     number_pulse_trains: int = Field(..., title="Number of pulse trains")
     pulse_width: int = Field(..., title="Pulse width (ms)")
     pulse_width_unit: TimeUnit = Field(TimeUnit.MS, title="Pulse width unit")
-    pulse_train_duration: float = Field(..., title="Pulse train duration (s)")
+    pulse_train_duration: Decimal = Field(..., title="Pulse train duration (s)")
     pulse_train_duration_unit: TimeUnit = Field(TimeUnit.S, title="Pulse train duration unit")
     fixed_pulse_train_interval: bool = Field(..., title="Fixed pulse train interval")
-    pulse_train_interval: Optional[float] = Field(
+    pulse_train_interval: Optional[Decimal] = Field(
         None, title="Pulse train interval (s)", description="Time between pulse trains"
     )
     pulse_train_interval_unit: TimeUnit = Field(TimeUnit.S, title="Pulse train interval unit")
-    baseline_duration: float = Field(
+    baseline_duration: Decimal = Field(
         ..., title="Baseline duration (s)", description="Duration of baseline recording prior to first pulse train"
     )
     baseline_duration_unit: TimeUnit = Field(TimeUnit.S, title="Baseline duration unit")

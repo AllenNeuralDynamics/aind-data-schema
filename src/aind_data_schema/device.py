@@ -3,6 +3,7 @@
 from datetime import datetime
 from enum import Enum
 from typing import Any, Dict, List, Optional, Union
+from decimal import Decimal
 
 try:
     from typing import Literal
@@ -218,14 +219,14 @@ class DaqChannelType(Enum):
 class RelativePosition(AindModel):
     """Set of 6 values describing relative position on a rig"""
 
-    pitch: Optional[float] = Field(None, title="Angle pitch (deg)", units="deg", ge=0, le=360)
-    yaw: Optional[float] = Field(None, title="Angle yaw (deg)", units="deg", ge=0, le=360)
-    roll: Optional[float] = Field(None, title="Angle roll (deg)", units="deg", ge=0, le=360)
+    pitch: Optional[Decimal] = Field(None, title="Angle pitch (deg)", units="deg", ge=0, le=360)
+    yaw: Optional[Decimal] = Field(None, title="Angle yaw (deg)", units="deg", ge=0, le=360)
+    roll: Optional[Decimal] = Field(None, title="Angle roll (deg)", units="deg", ge=0, le=360)
     angle_unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
 
-    x: Optional[float] = Field(None, title="Position X (mm)", units="mm")
-    y: Optional[float] = Field(None, title="Position Y (mm)", units="mm")
-    z: Optional[float] = Field(None, title="Position Z (mm)", units="mm")
+    x: Optional[Decimal] = Field(None, title="Position X (mm)", units="mm")
+    y: Optional[Decimal] = Field(None, title="Position Y (mm)", units="mm")
+    z: Optional[Decimal] = Field(None, title="Position Z (mm)", units="mm")
     position_unit: SizeUnit = Field(SizeUnit.MM, title="Position unit")
 
     coordinate_system: Optional[str] = Field(None, title="Description of the coordinate system used")
@@ -242,35 +243,35 @@ class Size2d(AindModel):
 class Orientation3d(AindModel):
     """3D orientation of an object"""
 
-    pitch: float = Field(..., title="Angle pitch", ge=0, le=360)
-    yaw: float = Field(..., title="Angle yaw", ge=0, le=360)
-    roll: float = Field(..., title="Angle roll", ge=0, le=360)
+    pitch: Decimal = Field(..., title="Angle pitch", ge=0, le=360)
+    yaw: Decimal = Field(..., title="Angle yaw", ge=0, le=360)
+    roll: Decimal = Field(..., title="Angle roll", ge=0, le=360)
     unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
 
 
 class ModuleOrientation2d(AindModel):
     """2D module orientation of an object"""
 
-    arc_angle: float = Field(..., title="Arc angle")
-    module_angle: float = Field(..., title="Module angle")
+    arc_angle: Decimal = Field(..., title="Arc angle")
+    module_angle: Decimal = Field(..., title="Module angle")
     unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
 
 
 class ModuleOrientation3d(AindModel):
     """3D module orientation of an object"""
 
-    arc_angle: float = Field(..., title="Arc angle")
-    module_angle: float = Field(..., title="Module angle")
-    rotation_angle: float = Field(..., title="Rotation angle")
+    arc_angle: Decimal = Field(..., title="Arc angle")
+    module_angle: Decimal = Field(..., title="Module angle")
+    rotation_angle: Decimal = Field(..., title="Rotation angle")
     unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
 
 
 class Coordinates3d(AindModel):
     """Coordinates in a 3D grid"""
 
-    x: float = Field(..., title="Position X")
-    y: float = Field(..., title="Position Y")
-    z: float = Field(..., title="Position Z")
+    x: Decimal = Field(..., title="Position X")
+    y: Decimal = Field(..., title="Position Y")
+    z: Decimal = Field(..., title="Position Z")
     unit: SizeUnit = Field(SizeUnit.UM, title="Position unit")
 
 
@@ -295,7 +296,7 @@ class Software(AindModel):
 class MotorizedStage(Device):
     """Description of motorized stage"""
 
-    travel: float = Field(..., title="Travel of device (mm)", units="mm")
+    travel: Decimal = Field(..., title="Travel of device (mm)", units="mm")
     travel_unit: SizeUnit = Field(SizeUnit.MM, title="Travel unit")
 
     # optional fields
@@ -317,7 +318,7 @@ class Camera(Device):
         Manufacturer.OTHER,
     ]
     computer_name: str = Field(..., title="Name of computer receiving data from this camera")
-    max_frame_rate: float = Field(..., title="Maximum frame rate (Hz)", units="Hz")
+    max_frame_rate: Decimal = Field(..., title="Maximum frame rate (Hz)", units="Hz")
     frame_rate_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Frame rate unit")
     pixel_width: int = Field(..., title="Width of the sensor in pixels", units="Pixels")
     pixel_height: int = Field(..., title="Height of the sensor in pixels", units="Pixels")
@@ -339,7 +340,7 @@ class Lens(Device):
     manufacturer: Literal[Manufacturer.EDMUND_OPTICS, Manufacturer.THORLABS, Manufacturer.OTHER]
 
     # optional fields
-    focal_length: Optional[float] = Field(None, title="Focal length of the lens", units="mm")
+    focal_length: Optional[Decimal] = Field(None, title="Focal length of the lens", units="mm")
     focal_length_unit: SizeUnit = Field(SizeUnit.MM, title="Focal length unit")
     size: Optional[LensSize] = Field(None, title="Size (inches)")
     lens_size_unit: SizeUnit = Field(SizeUnit.IN, title="Lens size unit")
@@ -362,11 +363,11 @@ class Filter(Device):
     ]
 
     # optional fields
-    diameter: Optional[float] = Field(None, title="Diameter (mm)", units="mm")
-    width: Optional[float] = Field(None, title="Width (mm)")
-    height: Optional[float] = Field(None, title="Height (mm)")
+    diameter: Optional[Decimal] = Field(None, title="Diameter (mm)", units="mm")
+    width: Optional[Decimal] = Field(None, title="Width (mm)")
+    height: Optional[Decimal] = Field(None, title="Height (mm)")
     size_unit: SizeUnit = Field(SizeUnit.MM, title="Size unit")
-    thickness: Optional[float] = Field(None, title="Thickness (mm)", ge=0)
+    thickness: Optional[Decimal] = Field(None, title="Thickness (mm)", ge=0)
     thickness_unit: SizeUnit = Field(SizeUnit.MM, title="Thickness unit")
     filter_wheel_index: Optional[int] = Field(None, title="Filter wheel index")
     cut_off_wavelength: Optional[int] = Field(None, title="Cut-off wavelength (nm)")
@@ -391,8 +392,8 @@ class Immersion(Enum):
 class Objective(Device):
     """Description of an objective device"""
 
-    numerical_aperture: float = Field(..., title="Numerical aperture (in air)")
-    magnification: float = Field(..., title="Magnification")
+    numerical_aperture: Decimal = Field(..., title="Numerical aperture (in air)")
+    magnification: Decimal = Field(..., title="Magnification")
     immersion: Immersion = Field(..., title="Immersion")
 
 
@@ -434,7 +435,7 @@ class DAQChannel(AindModel):
     # optional fields
     port: Optional[int] = Field(None, title="DAQ port")
     channel_index: Optional[int] = Field(None, title="DAQ channel index")
-    sample_rate: Optional[float] = Field(None, title="DAQ channel sample rate (Hz)", units="Hz")
+    sample_rate: Optional[Decimal] = Field(None, title="DAQ channel sample rate (Hz)", units="Hz")
     sample_rate_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Sample rate unit")
     event_based_sampling: Optional[bool] = Field(
         False, title="Set to true if DAQ channel is sampled at irregular intervals"
@@ -497,10 +498,10 @@ class Laser(Device):
     wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
 
     # optional fields
-    maximum_power: Optional[float] = Field(None, title="Maximum power (mW)", units="mW")
+    maximum_power: Optional[Decimal] = Field(None, title="Maximum power (mW)", units="mW")
     power_unit: PowerUnit = Field(PowerUnit.MW, title="Power unit")
     coupling: Optional[Coupling] = Field(None, title="Coupling")
-    coupling_efficiency: Optional[float] = Field(
+    coupling_efficiency: Optional[Decimal] = Field(
         None,
         title="Coupling efficiency (percent)",
         units="percent",
@@ -538,7 +539,7 @@ class Disc(MousePlatform):
     """Description of a running disc"""
 
     platform_type: str = Field("Disc", title="Platform type", const=True)
-    radius: float = Field(..., title="Radius (cm)", units="cm", ge=0)
+    radius: Decimal = Field(..., title="Radius (cm)", units="cm", ge=0)
     radius_unit: SizeUnit = Field(SizeUnit.CM, title="radius unit")
     output: Optional[DaqChannelType] = Field(None, description="analog or digital electronics")
     encoder: Optional[str] = Field(None, title="Encoder", description="Encoder hardware type")
@@ -552,7 +553,7 @@ class Tube(MousePlatform):
     """Description of a tube platform"""
 
     platform_type: str = Field("Tube", title="Platform type", const=True)
-    diameter: float = Field(..., title="Diameter", ge=0)
+    diameter: Decimal = Field(..., title="Diameter", ge=0)
     diameter_unit: SizeUnit = Field(SizeUnit.CM, title="Diameter unit")
 
 
@@ -560,7 +561,7 @@ class Treadmill(MousePlatform):
     """Description of treadmill platform"""
 
     platform_type: str = Field("Treadmill", title="Platform type", const=True)
-    treadmill_width: float = Field(..., title="Width of treadmill (mm)", units="mm")
+    treadmill_width: Decimal = Field(..., title="Width of treadmill (mm)", units="mm")
     width_unit: SizeUnit = Field(SizeUnit.CM, title="Width unit")
 
 
@@ -573,7 +574,7 @@ class Monitor(Device):
     width: int = Field(..., title="Width (pixels)", units="pixels")
     height: int = Field(..., title="Height (pixels)", units="pixels")
     size_unit: SizeUnit = Field(SizeUnit.PX, title="Size unit")
-    viewing_distance: float = Field(..., title="Viewing distance (cm)", units="cm")
+    viewing_distance: Decimal = Field(..., title="Viewing distance (cm)", units="cm")
 
     # optional fields
     contrast: Optional[int] = Field(
@@ -620,7 +621,7 @@ class VisualStimulusDisplayAssembly(AindModel):
 
     # required fields
     monitor: Monitor = Field(..., title="Monitor")
-    viewing_distance: float = Field(..., title="Viewing distance (cm)", units="cm")
+    viewing_distance: Decimal = Field(..., title="Viewing distance (cm)", units="cm")
     viewing_distance_unit: SizeUnit = Field(SizeUnit.CM, title="Viewing distance unit")
 
     # optional fields

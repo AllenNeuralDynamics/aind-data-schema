@@ -18,6 +18,8 @@ from aind_data_schema.device import SizeUnit
 from aind_data_schema.imaging.tile import AcquisitionTile
 from aind_data_schema.processing import ProcessName
 
+from decimal import Decimal
+
 
 class AxisName(Enum):
     """Image axis name"""
@@ -80,7 +82,7 @@ class Immersion(AindModel):
     """Description of immersion media"""
 
     medium: str = Field(..., title="Immersion medium")
-    refractive_index: float = Field(..., title="Index of refraction")
+    refractive_index: Decimal = Field(..., title="Index of refraction")
 
 
 class ProcessingSteps(AindModel):

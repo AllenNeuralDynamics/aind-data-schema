@@ -12,6 +12,7 @@ from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.device import AngleUnit, Coordinates3d, PowerUnit, SizeUnit
 from aind_data_schema.stimulus import StimulusPresentation
 
+from decimal import Decimal
 
 class SessionType(Enum):
     """Session type name"""
@@ -30,9 +31,9 @@ class CcfVersion(Enum):
 class CcfCoords(AindModel):
     """Coordinates in CCF template space"""
 
-    ml: float = Field(..., title="ML")
-    ap: float = Field(..., title="AP")
-    dv: float = Field(..., title="DV")
+    ml: Decimal = Field(..., title="ML")
+    ap: Decimal = Field(..., title="AP")
+    dv: Decimal = Field(..., title="DV")
     unit: SizeUnit = Field(SizeUnit.UM, title="Coordinate unit")
     ccf_version: CcfVersion = Field(CcfVersion.CCFv3, title="CCF version")
 
@@ -42,12 +43,12 @@ class DomeModule(AindModel):
 
     # required fields
     assembly_name: str = Field(..., title="Assembly name")
-    arc_angle: float = Field(..., title="Arc Angle", units="degrees")
-    module_angle: float = Field(..., title="Module Angle", units="degrees")
+    arc_angle: Decimal = Field(..., title="Arc Angle", units="degrees")
+    module_angle: Decimal = Field(..., title="Module Angle", units="degrees")
     angle_unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
 
     # optional fields
-    rotation_angle: Optional[float] = Field(0.0, title="Rotation Angle", units="degrees")
+    rotation_angle: Optional[Decimal] = Field(0.0, title="Rotation Angle", units="degrees")
     coordinate_transform: Optional[str] = Field(
         None, title="Transform from local manipulator axes to rig", description="Path to coordinate transform"
     )
@@ -73,7 +74,7 @@ class Laser(AindModel):
     """Laser used in a LaserModule"""
 
     name: str = Field(..., title="Laser name (must match rig JSON)")
-    power_level: float = Field(..., title="Power level used in this session", units="mW")
+    power_level: Decimal = Field(..., title="Power level used in this session", units="mW")
     power_unit: PowerUnit = Field(PowerUnit.MW, title="Power unit")
 
 

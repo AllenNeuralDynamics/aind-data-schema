@@ -12,6 +12,7 @@ from aind_data_schema.imaging.acquisition import Axis
 from aind_data_schema.imaging.tile import Scale3dTransform
 from aind_data_schema.procedures import Anaesthetic, WeightUnit
 
+from decimal import Decimal
 
 class MriScanSequence(Enum):
     """MRI scan sequence"""
@@ -59,13 +60,13 @@ class MriSession(AindCoreModel):
     )
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     iacuc_protocol: Optional[str] = Field(None, title="IACUC protocol")
-    animal_weight_prior: Optional[float] = Field(
+    animal_weight_prior: Optional[Decimal] = Field(
         None,
         title="Animal weight (g)",
         description="Animal weight before procedure",
         units="g",
     )
-    animal_weight_post: Optional[float] = Field(
+    animal_weight_post: Optional[Decimal] = Field(
         None,
         title="Animal weight (g)",
         description="Animal weight after procedure",
