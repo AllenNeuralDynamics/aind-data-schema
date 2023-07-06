@@ -44,6 +44,7 @@ class Cooling(Enum):
     AIR = "air"
     WATER = "water"
 
+
 class BinMode(Enum):
     """Detector binning mode"""
 
@@ -72,7 +73,6 @@ class Detector(Device):
     crop_unit: Optional[SizeUnit] = Field(SizeUnit.PX, title="Crop size unit", const=True)
 
 
-
 class Patch(Device):
     """Description of a patch cord"""
 
@@ -85,7 +85,7 @@ class OphysRig(AindCoreModel):
     """Description of an optical physiology rig"""
 
     schema_version: str = Field(
-        "0.6.2",
+        "0.6.3",
         description="schema version",
         title="Schema Version",
         const=True,
