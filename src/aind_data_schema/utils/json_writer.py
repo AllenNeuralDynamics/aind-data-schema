@@ -9,6 +9,7 @@ from typing import Iterator
 from aind_data_schema.base import AindCoreModel
 from aind_data_schema.utils.aind_utils import aind_core_models
 
+
 class SchemaWriter:
     """Class to write Pydantic schemas to JSON"""
 
@@ -74,9 +75,6 @@ class SchemaWriter:
 
             with open(output_file, "w") as f:
                 f.write(schema.schema_json(indent=3))
-
-
-
 
 
 if __name__ == "__main__":

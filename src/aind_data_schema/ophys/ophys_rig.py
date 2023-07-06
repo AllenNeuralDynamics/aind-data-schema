@@ -44,6 +44,7 @@ class Cooling(Enum):
     AIR = "air"
     WATER = "water"
 
+
 class BinMode(Enum):
     """Detector binning mode"""
 
@@ -70,7 +71,6 @@ class Detector(Device):
     crop_width: Optional[int] = Field(None, title="Crop width")
     crop_height: Optional[int] = Field(None, title="Crop width")
     crop_unit: Optional[SizeUnit] = Field(SizeUnit.PX, title="Crop size unit", const=True)
-
 
 
 class Patch(Device):
