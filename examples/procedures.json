@@ -14,7 +14,7 @@
          "weight_unit": "gram",
          "anaesthesia": {
             "type": "Isoflurane",
-            "duration": 1.0,
+            "duration": 1,
             "duration_unit": "minute",
             "level": 1.5
          },
@@ -48,7 +48,7 @@
          "weight_unit": "gram",
          "anaesthesia": {
             "type": "Isoflurane",
-            "duration": 1.0,
+            "duration": 1,
             "duration_unit": "minute",
             "level": 1.5
          },

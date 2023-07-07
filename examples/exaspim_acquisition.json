@@ -24,8 +24,8 @@
             {
                "type": "translation",
                "translation": [
-                  0.0,
-                  0.0,
+                  0,
+                  0,
                   0.0
                ]
             }
@@ -35,7 +35,7 @@
             "channel_name": "488",
             "laser_wavelength": 488,
             "laser_wavelength_unit": "nanometer",
-            "laser_power": 200.0,
+            "laser_power": 200,
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 0
          },
@@ -56,8 +56,8 @@
             {
                "type": "translation",
                "translation": [
-                  0.0,
-                  0.0,
+                  0,
+                  0,
                   0.0
                ]
             }
@@ -67,7 +67,7 @@
             "channel_name": "561",
             "laser_wavelength": 561,
             "laser_wavelength_unit": "nanometer",
-            "laser_power": 200.0,
+            "laser_power": 200,
             "laser_power_unit": "milliwatt",
             "filter_wheel_index": 0
          },

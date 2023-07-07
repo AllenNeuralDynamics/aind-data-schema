@@ -31,7 +31,7 @@
          "name": "Z",
          "dimension": 2,
          "direction": "Superior_to_inferior",
-         "voxel_size": 2.0,
+         "voxel_size": 2,
          "volume_size": 18400.0
       }
    ],
