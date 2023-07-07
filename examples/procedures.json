@@ -28,7 +28,7 @@
          "craniotomy_coordinates_reference": "Lambda",
          "bregma_to_lambda_distance": 4.1,
          "bregma_to_lambda_unit": "millimeter",
-         "craniotomy_size": 5.0,
+         "craniotomy_size": 5,
          "craniotomy_size_unit": "millimeter",
          "implant_part_number": null,
          "dura_removed": null,
@@ -68,7 +68,7 @@
                "prep_protocol": null
             }
          ],
-         "recovery_time": 0.0,
+         "recovery_time": 0,
          "recovery_time_unit": "minute",
          "injection_duration": null,
          "injection_duration_unit": "minute",
@@ -81,12 +81,12 @@
          "injection_coordinate_reference": "Lambda",
          "bregma_to_lambda_distance": 4.1,
          "bregma_to_lambda_unit": "millimeter",
-         "injection_angle": 10.0,
+         "injection_angle": 10,
          "injection_angle_unit": "degree",
          "targeted_structure": "VISp",
          "injection_hemisphere": "Left",
          "procedure_type": "Nanoject injection",
-         "injection_volume": 200.0,
+         "injection_volume": 200,
          "injection_volume_unit": "nanoliter"
       }
    ],
