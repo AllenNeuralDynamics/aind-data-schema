@@ -282,22 +282,22 @@ class VirusPrepType(Enum):
 class InjectionMaterial(AindModel):
     """Description of injection material"""
 
-    name: str = Field(..., title="Name")  # virus
-    material_id: Optional[str] = Field(None, title="Material ID")  # don't have
-    full_genome_name: Optional[str] = Field(  # empty
+    name: str = Field(..., title="Name") 
+    material_id: Optional[str] = Field(None, title="Material ID") 
+    full_genome_name: Optional[str] = Field(
         None,
         title="Full genome name",
         description="Full genome for virus construct",
     )
-    plasmid_name: Optional[str] = Field(  # duplicate name
+    plasmid_name: Optional[str] = Field(
         None,
         title="Plasmid name",
         description="Short name used to reference the plasmid",
     )
-    genome_copy: Optional[Decimal] = Field(None, title="Genome copy")  # empty
-    titer: Optional[Decimal] = Field(None, title="Titer (gc/mL)", units="gc/mL")  # Titer
-    titer_unit: Optional[str] = Field("gc/mL", title="Titer unit")  # default value, ping matthew
-    prep_lot_number: Optional[str] = Field(None, title="Preparation lot number")  # Lot
+    genome_copy: Optional[Decimal] = Field(None, title="Genome copy")
+    titer: Optional[Decimal] = Field(None, title="Titer (gc/mL)", units="gc/mL")
+    titer_unit: Optional[str] = Field("gc/mL", title="Titer unit")
+    prep_lot_number: Optional[str] = Field(None, title="Preparation lot number")
     prep_date: Optional[date] = Field(  #
         None,
         title="Preparation lot date",
