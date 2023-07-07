@@ -282,8 +282,8 @@ class VirusPrepType(Enum):
 class InjectionMaterial(AindModel):
     """Description of injection material"""
 
-    name: str = Field(..., title="Name") 
-    material_id: Optional[str] = Field(None, title="Material ID") 
+    name: str = Field(..., title="Name")
+    material_id: Optional[str] = Field(None, title="Material ID")
     full_genome_name: Optional[str] = Field(
         None,
         title="Full genome name",
