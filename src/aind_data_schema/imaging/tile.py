@@ -1,5 +1,6 @@
 """ Models related to imaging tiles and their transformations """
 
+from decimal import Decimal
 from typing import List, Optional, Union
 
 from pydantic import Field
@@ -15,7 +16,7 @@ class Channel(AindModel):
     channel_name: str = Field(..., title="Channel")
     laser_wavelength: int = Field(..., title="Wavelength", ge=300, le=1000)
     laser_wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Laser wavelength unit")
-    laser_power: float = Field(..., title="Laser power", le=2000)
+    laser_power: Decimal = Field(..., title="Laser power", le=2000)
     laser_power_unit: PowerUnit = Field(PowerUnit.MW, title="Laser power unit")
     filter_wheel_index: int = Field(..., title="Filter wheel index")
 
@@ -32,28 +33,28 @@ class Scale3dTransform(CoordinateTransform):
     """
 
     type: str = Field("scale", title="transformation type")
-    scale: conlist(float, min_items=3, max_items=3) = Field(..., title="3D scale parameters")
+    scale: conlist(Decimal, min_items=3, max_items=3) = Field(..., title="3D scale parameters")
 
 
 class Translation3dTransform(CoordinateTransform):
     """Values to be vector-added to a 3D position. Often needed to specify a Tile's origin."""
 
     type: str = Field("translation", title="transformation type")
-    translation: conlist(float, min_items=3, max_items=3) = Field(..., title="3D translation parameters")
+    translation: conlist(Decimal, min_items=3, max_items=3) = Field(..., title="3D translation parameters")
 
 
 class Rotation3dTransform(CoordinateTransform):
     """Values to be vector-added to a 3D position. Often needed to specify a Tile's origin."""
 
     type: str = Field("rotation", title="transformation type")
-    rotation: conlist(float, min_items=9, max_items=9) = Field(..., title="3D rotation matrix values (3x3) ")
+    rotation: conlist(Decimal, min_items=9, max_items=9) = Field(..., title="3D rotation matrix values (3x3) ")
 
 
 class Affine3dTransform(CoordinateTransform):
     """Values to be vector-added to a 3D position. Often needed to specify a Tile's origin."""
 
     type: str = Field("affine", title="transformation type")
-    affine_transform: conlist(float, min_items=12, max_items=12) = Field(
+    affine_transform: conlist(Decimal, min_items=12, max_items=12) = Field(
         ..., title="Affine transform matrix values (top 3x4 matrix)"
     )
 

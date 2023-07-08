@@ -11,6 +11,8 @@ try:
 except ImportError:  # pragma: no cover
     from typing_extensions import Literal
 
+from decimal import Decimal
+
 from pydantic import Field
 
 from aind_data_schema.base import AindCoreModel, AindModel
@@ -80,7 +82,7 @@ class Immersion(AindModel):
     """Description of immersion media"""
 
     medium: str = Field(..., title="Immersion medium")
-    refractive_index: float = Field(..., title="Index of refraction")
+    refractive_index: Decimal = Field(..., title="Index of refraction")
 
 
 class ProcessingSteps(AindModel):

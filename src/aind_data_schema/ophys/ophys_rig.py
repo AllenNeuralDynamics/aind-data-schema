@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from datetime import date
+from decimal import Decimal
 from enum import Enum
 from typing import List, Optional, Union
 
@@ -67,7 +68,7 @@ class Detector(Device):
     bin_width: Optional[int] = Field(None, title="Bin width")
     bin_height: Optional[int] = Field(None, title="Bin height")
     bin_unit: Optional[SizeUnit] = Field(SizeUnit.PX, title="Bin size unit", const=True)
-    gain: Optional[float] = Field(None, title="Gain")
+    gain: Optional[Decimal] = Field(None, title="Gain")
     crop_width: Optional[int] = Field(None, title="Crop width")
     crop_height: Optional[int] = Field(None, title="Crop width")
     crop_unit: Optional[SizeUnit] = Field(SizeUnit.PX, title="Crop size unit", const=True)
@@ -76,8 +77,8 @@ class Detector(Device):
 class Patch(Device):
     """Description of a patch cord"""
 
-    core_diameter: float = Field(..., title="Core diameter (um)")
-    numerical_aperture: float = Field(..., title="Numerical aperture")
+    core_diameter: Decimal = Field(..., title="Core diameter (um)")
+    numerical_aperture: Decimal = Field(..., title="Numerical aperture")
     photobleaching_date: Optional[date] = Field(None, title="Photobleaching date")
 
 

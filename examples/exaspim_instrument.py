@@ -9,7 +9,7 @@ inst = instrument.Instrument(
     objectives=[
         instrument.Objective(
             numerical_aperture=0.305,
-            magnification=5.0,
+            magnification=5,
             immersion="air",
             manufacturer=Manufacturer.OTHER,
             model="JM_DIAMOND 5.0X/1.3",
@@ -70,7 +70,7 @@ inst = instrument.Instrument(
             filter_type="Multiband",
             manufacturer=Manufacturer.CHROMA,
             diameter=44.05,
-            thickness=1.0,
+            thickness=1,
             model="ZET405/488/561/640mv2",
             notes="Custom made filter",
             filter_wheel_index=0,

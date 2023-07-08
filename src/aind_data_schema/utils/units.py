@@ -1,5 +1,6 @@
 """Script for defining UnitWithValue classes"""
 
+from decimal import Decimal
 from enum import Enum
 
 from pydantic import create_model
@@ -69,9 +70,9 @@ def create_unit_with_value(model_name, scalar_type, unit_type, unit_default):
     return m
 
 
-SizeValue = create_unit_with_value("SizeValue", float, Size, Size.MM)
-MassValue = create_unit_with_value("MassValue", float, Mass, Mass.MG)
-VolumeValue = create_unit_with_value("VolumeValue", float, Volume, Volume.NL)
-FrequencyValue = create_unit_with_value("FrequencyValue", float, Frequency, Frequency.HZ)
-AngleValue = create_unit_with_value("AngleValue", float, Angle, Angle.DEG)
-TimeValue = create_unit_with_value("TimeValue", float, TimeMeasure, TimeMeasure.S)
+SizeValue = create_unit_with_value("SizeValue", Decimal, Size, Size.MM)
+MassValue = create_unit_with_value("MassValue", Decimal, Mass, Mass.MG)
+VolumeValue = create_unit_with_value("VolumeValue", Decimal, Volume, Volume.NL)
+FrequencyValue = create_unit_with_value("FrequencyValue", Decimal, Frequency, Frequency.HZ)
+AngleValue = create_unit_with_value("AngleValue", Decimal, Angle, Angle.DEG)
+TimeValue = create_unit_with_value("TimeValue", Decimal, TimeMeasure, TimeMeasure.S)
