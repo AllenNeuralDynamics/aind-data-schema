@@ -290,7 +290,7 @@ class Software(AindModel):
 
     name: str = Field(..., title="Software name")
     version: str = Field(..., title="Software version")
-    parameters: Optional[dict] = Field(None, title="Software parameters")
+    parameters: Optional[dict] = Field(None, title="Software parameters", additionalProperties={"type": "string"})
 
 
 class MotorizedStage(Device):
