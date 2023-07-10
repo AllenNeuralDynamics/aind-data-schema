@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from datetime import datetime
+from decimal import Decimal
 from typing import Any, Dict, Optional
 
 from pydantic import Field
@@ -29,13 +30,13 @@ class BehaviorSession(AindCoreModel):
     session_end_time: datetime = Field(..., title="Session end time")
     rig_id: str = Field(..., title="Rig ID")
     subject_id: int = Field(..., title="Subject ID")
-    animal_weight_prior: Optional[float] = Field(
+    animal_weight_prior: Optional[Decimal] = Field(
         None,
         title="Animal weight (g)",
         description="Animal weight before procedure",
         units="g",
     )
-    animal_weight_post: Optional[float] = Field(
+    animal_weight_post: Optional[Decimal] = Field(
         None,
         title="Animal weight (g)",
         description="Animal weight after procedure",
@@ -54,8 +55,8 @@ class BehaviorSession(AindCoreModel):
     output_parameters: Dict[str, Any] = Field(
         ..., title="Performance parameters", description="Performance metrics from session"
     )
-    water_consumed_during_training: float = Field(..., title="Water consumed during training (uL)")
-    water_consumed_total: float = Field(..., title="Total water consumed (uL)")
+    water_consumed_during_training: Decimal = Field(..., title="Water consumed during training (uL)")
+    water_consumed_total: Decimal = Field(..., title="Total water consumed (uL)")
     water_consumed_unit: VolumeUnit = Field(VolumeUnit.UL, title="Water consumed unit")
     trials_total: int = Field(..., title="Total trials")
     trials_finished: int = Field(..., title="Finished trials")

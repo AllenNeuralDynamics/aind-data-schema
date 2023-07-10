@@ -26,8 +26,8 @@
          },
          "model": "VIS3648-PG2-325A",
          "notes": null,
-         "length": 36.0,
-         "width": 48.0,
+         "length": 36,
+         "width": 48,
          "table_size_unit": "inch",
          "vibration_control": true
       }
@@ -45,7 +45,7 @@
          "model": "JM_DIAMOND 5.0X/1.3",
          "notes": "manufacturer collaboration between Schneider-Kreuznach and Vieworks",
          "numerical_aperture": 0.305,
-         "magnification": 5.0,
+         "magnification": 5,
          "immersion": "air"
       }
    ],
@@ -80,9 +80,9 @@
          "notes": "Housed in commercial laser combiner",
          "type": "laser",
          "coupling": "Single-mode fiber",
-         "wavelength": 405.0,
+         "wavelength": 405,
          "wavelength_unit": "nanometer",
-         "max_power": 200.0,
+         "max_power": 200,
          "power_unit": "milliwatt"
       },
       {
@@ -98,9 +98,9 @@
          "notes": "Housed in commercial laser combiner",
          "type": "laser",
          "coupling": "Single-mode fiber",
-         "wavelength": 488.0,
+         "wavelength": 488,
          "wavelength_unit": "nanometer",
-         "max_power": 200.0,
+         "max_power": 200,
          "power_unit": "milliwatt"
       },
       {
@@ -116,9 +116,9 @@
          "notes": "Housed in commercial laser combiner",
          "type": "laser",
          "coupling": "Single-mode fiber",
-         "wavelength": 561.0,
+         "wavelength": 561,
          "wavelength_unit": "nanometer",
-         "max_power": 200.0,
+         "max_power": 200,
          "power_unit": "milliwatt"
       },
       {
@@ -134,9 +134,9 @@
          "notes": "Housed in commercial laser combiner",
          "type": "laser",
          "coupling": "Single-mode fiber",
-         "wavelength": 638.0,
+         "wavelength": 638,
          "wavelength_unit": "nanometer",
-         "max_power": 200.0,
+         "max_power": 200,
          "power_unit": "milliwatt"
       }
    ],
@@ -157,7 +157,7 @@
          "width": null,
          "height": null,
          "size_unit": "millimeter",
-         "thickness": 1.0,
+         "thickness": 1,
          "thickness_unit": "millimeter",
          "filter_wheel_index": 0,
          "cut_off_wavelength": null,
@@ -180,7 +180,7 @@
          },
          "model": "MS-8000",
          "notes": null,
-         "travel": 1000.0,
+         "travel": 1000,
          "travel_unit": "millimeter",
          "firmware": null,
          "stage_axis_direction": "Detection axis",
@@ -197,7 +197,7 @@
          },
          "model": "MS-8000",
          "notes": null,
-         "travel": 1000.0,
+         "travel": 1000,
          "travel_unit": "millimeter",
          "firmware": null,
          "stage_axis_direction": "Perpendicular axis",
@@ -214,7 +214,7 @@
          },
          "model": "LS-100",
          "notes": null,
-         "travel": 100.0,
+         "travel": 100,
          "travel_unit": "millimeter",
          "firmware": null,
          "stage_axis_direction": "Illumination axis",
@@ -245,7 +245,7 @@
                "channel_type": "Analog Output",
                "port": null,
                "channel_index": null,
-               "sample_rate": 10000.0,
+               "sample_rate": 10000,
                "sample_rate_unit": "Hertz",
                "event_based_sampling": false
             },
@@ -255,7 +255,7 @@
                "channel_type": "Analog Output",
                "port": null,
                "channel_index": null,
-               "sample_rate": 10000.0,
+               "sample_rate": 10000,
                "sample_rate_unit": "Hertz",
                "event_based_sampling": false
             },
@@ -265,7 +265,7 @@
                "channel_type": "Analog Output",
                "port": null,
                "channel_index": null,
-               "sample_rate": 10000.0,
+               "sample_rate": 10000,
                "sample_rate_unit": "Hertz",
                "event_based_sampling": false
             },
@@ -275,7 +275,7 @@
                "channel_type": "Analog Output",
                "port": null,
                "channel_index": null,
-               "sample_rate": 10000.0,
+               "sample_rate": 10000,
                "sample_rate_unit": "Hertz",
                "event_based_sampling": false
             },
@@ -285,7 +285,7 @@
                "channel_type": "Analog Output",
                "port": null,
                "channel_index": null,
-               "sample_rate": 10000.0,
+               "sample_rate": 10000,
                "sample_rate_unit": "Hertz",
                "event_based_sampling": false
             },
@@ -295,7 +295,7 @@
                "channel_type": "Analog Output",
                "port": null,
                "channel_index": null,
-               "sample_rate": 10000.0,
+               "sample_rate": 10000,
                "sample_rate_unit": "Hertz",
                "event_based_sampling": false
             }

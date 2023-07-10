@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from datetime import date
+from decimal import Decimal
 from enum import Enum
 from typing import List, Optional
 
@@ -67,9 +68,9 @@ class Lightsource(Device):
 
     type: LightsourceType = Field(..., title="Lightsource Type")
     coupling: Coupling = Field(..., title="Coupling")
-    wavelength: float = Field(..., title="Wavelength (nm)", units="nm", ge=300, le=1000)
+    wavelength: Decimal = Field(..., title="Wavelength (nm)", units="nm", ge=300, le=1000)
     wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
-    max_power: float = Field(..., title=" Maximum power (mW)", units="mW")
+    max_power: Decimal = Field(..., title=" Maximum power (mW)", units="mW")
     power_unit: PowerUnit = Field(PowerUnit.MW, title="Power unit")
 
 
@@ -134,8 +135,8 @@ class ScanningStage(MotorizedStage):
 class OpticalTable(Device):
     """Description of Optical Table"""
 
-    length: Optional[float] = Field(None, title="Length (inches)", units="inches", ge=0)
-    width: Optional[float] = Field(None, title="Width (inches)", units="inches", ge=0)
+    length: Optional[Decimal] = Field(None, title="Length (inches)", units="inches", ge=0)
+    width: Optional[Decimal] = Field(None, title="Width (inches)", units="inches", ge=0)
     table_size_unit: SizeUnit = Field(SizeUnit.IN, title="Table size unit")
     vibration_control: Optional[bool] = Field(None, title="Vibration control")
 
