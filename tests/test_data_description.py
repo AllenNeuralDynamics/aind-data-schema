@@ -13,7 +13,6 @@ from aind_data_schema.data_description import (
     Institution,
     Modality,
     RawDataDescription,
-    create_derived_data_description,
 )
 
 
@@ -153,8 +152,8 @@ class DataDescriptionTest(unittest.TestCase):
         self.assertEqual(Modality.ECEPHYS, Modality("ECEPHYS"))
         self.assertEqual(Modality.ECEPHYS, Modality("ecephys"))
 
-    def test_create_derived_data_description(self):
-        """Tests create_derived_data_description method"""
+    def test_from_data_description_file(self):
+        """Tests DerivedDataDescription.from_data_description_file method"""
         data_description_files_path = Path(__file__).parent / "resources" / "ephys_data_description"
         data_description_args = [p for p in data_description_files_path.iterdir()]
 
@@ -163,24 +162,41 @@ class DataDescriptionTest(unittest.TestCase):
                 experiment_type = ExperimentType.ECEPHYS
             else:
                 experiment_type = None
-            derived_data_description_from_file = create_derived_data_description(
+            derived_data_description_from_file = DerivedDataDescription.from_data_description_file(
+                data_description_file=data_description_arg,
                 process_name="test_process",
-                existing_data_description_file=data_description_arg,
                 experiment_type=experiment_type,
             )
-            with open(data_description_arg, "r") as f:
+            self.assertTrue(isinstance(derived_data_description_from_file, DerivedDataDescription))
+
+    def test_from_data_description(self):
+        """Tests DerivedDataDescription.from_data_description method"""
+        """Tests DerivedDataDescription.from_data_description_file method"""
+        data_description_files_path = Path(__file__).parent / "resources" / "ephys_data_description"
+        data_description_objects = []
+        for data_description_file in data_description_files_path.iterdir():
+            with open(data_description_file, "r") as f:
                 data_description_dict = json.load(f)
             if "experiment_type" not in data_description_dict:
                 data_description_dict["experiment_type"] = ExperimentType.ECEPHYS
             data_description = DataDescription.construct(**data_description_dict)
-            derived_data_description_from_obj = create_derived_data_description(
-                process_name="test_process", existing_data_description=data_description, experiment_type=experiment_type
+            data_description_objects.append(data_description)
+
+        for data_description in data_description_objects:
+            if data_description.schema_version == "0.3.0":
+                experiment_type = ExperimentType.ECEPHYS
+            else:
+                experiment_type = None
+            derived_data_description_from_obj = DerivedDataDescription.from_data_description(
+                data_description=data_description,
+                process_name="test_process",
+                experiment_type=experiment_type,
             )
-            self.assertTrue(isinstance(derived_data_description_from_file, DerivedDataDescription))
             self.assertTrue(isinstance(derived_data_description_from_obj, DerivedDataDescription))
 
-        # Test from scratch
-        derived_data_description_from_scratch = create_derived_data_description(
+    def test_from_scratch(self):
+        """Tests DerivedDataDescription.from_scratch method"""
+        derived_data_description_from_scratch = DerivedDataDescription.from_scratch(
             process_name="test_process",
             modality=[Modality.ECEPHYS],
             experiment_type=ExperimentType.ECEPHYS,
