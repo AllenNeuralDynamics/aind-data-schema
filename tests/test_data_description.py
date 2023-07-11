@@ -152,23 +152,6 @@ class DataDescriptionTest(unittest.TestCase):
         self.assertEqual(Modality.ECEPHYS, Modality("ECEPHYS"))
         self.assertEqual(Modality.ECEPHYS, Modality("ecephys"))
 
-    def test_from_data_description_file(self):
-        """Tests DerivedDataDescription.from_data_description_file method"""
-        data_description_files_path = Path(__file__).parent / "resources" / "ephys_data_description"
-        data_description_args = [p for p in data_description_files_path.iterdir()]
-
-        for data_description_arg in data_description_args:
-            if "0.3.0" in data_description_arg.name:
-                experiment_type = ExperimentType.ECEPHYS
-            else:
-                experiment_type = None
-            derived_data_description_from_file = DerivedDataDescription.from_data_description_file(
-                data_description_file=data_description_arg,
-                process_name="test_process",
-                experiment_type=experiment_type,
-            )
-            self.assertTrue(isinstance(derived_data_description_from_file, DerivedDataDescription))
-
     def test_from_data_description(self):
         """Tests DerivedDataDescription.from_data_description method"""
         """Tests DerivedDataDescription.from_data_description_file method"""
@@ -193,17 +176,6 @@ class DataDescriptionTest(unittest.TestCase):
                 experiment_type=experiment_type,
             )
             self.assertTrue(isinstance(derived_data_description_from_obj, DerivedDataDescription))
-
-    def test_from_scratch(self):
-        """Tests DerivedDataDescription.from_scratch method"""
-        derived_data_description_from_scratch = DerivedDataDescription.from_scratch(
-            process_name="test_process",
-            modality=[Modality.ECEPHYS],
-            experiment_type=ExperimentType.ECEPHYS,
-            subject_id="00000",
-            input_data_name="test_input_data_name",
-        )
-        self.assertTrue(isinstance(derived_data_description_from_scratch, DerivedDataDescription))
 
 
 if __name__ == "__main__":

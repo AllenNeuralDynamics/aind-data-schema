@@ -305,16 +305,6 @@ class DerivedDataDescription(DataDescription):
         title="Data Level",
         const=True,
     )
-    # Utilities
-    skip_existing_data_description_keys = [
-        "schema_version",
-        "version",
-        "data_level",
-        "described_by",
-        "ror_id",
-        "creation_time",
-        "creation_date",
-    ]
 
     def __init__(self, process_name, **kwargs):
         """Construct a derived data description"""
@@ -340,8 +330,9 @@ class DerivedDataDescription(DataDescription):
             input_data_name=m.group("input"),
         )
 
-    @staticmethod
+    @classmethod
     def from_data_description(
+        cls,
         data_description: DataDescription,
         process_name: str,
         experiment_type: Optional[ExperimentType] = None,
@@ -419,106 +410,6 @@ class DerivedDataDescription(DataDescription):
                 del existing_data_description_dict[key]
         derived_data_description_dict.update(existing_data_description_dict)
         derived_data_description_dict["input_data_name"] = existing_data_description_dict["name"]
-        derived_data_description = DerivedDataDescription(process_name=process_name, **derived_data_description_dict)
-
-        return derived_data_description
-
-    @staticmethod
-    def from_data_description_file(
-        data_description_file: str | Path,
-        process_name: str,
-        experiment_type: Optional[ExperimentType] = None,
-        institution: Institution = Institution.AIND,
-        funding_source: Optional[list[Funding]] = None,
-        investigators: Optional[str] = None,
-    ):
-        """
-        Create a DerivedDataDescription from a DataDescription file.
-
-        Parameters
-        ----------
-        data_description_file : str | Path
-            Path to the data description file
-        process_name : str
-            Name of the process that created the data
-        input_data_name : str, optional
-            Name of the input data, by default None
-        subject_id : str, optional
-            Subject ID, by default None
-        institution : Institution, optional
-            Institution, by default Institution.AIND
-        funding_source : Funding, optional
-            Funding source, by default Funding(funder="AIND")
-        investigators : list, optional
-            List of investigators, by default []
-        modality : Modality | None, optional
-            Modality, by default None
-        experiment_type : list[ExperimentType] | None, optional
-            Experiment type, by default None
-
-        Returns
-        -------
-        DerivedDataDescription
-            The derived data description
-        """
-        with open(data_description_file, "r") as data_description_file:
-            data_description_json = json.load(data_description_file)
-            data_description = DataDescription.construct(**data_description_json)
-        return DerivedDataDescription.from_data_description(
-            data_description=data_description,
-            process_name=process_name,
-            experiment_type=experiment_type,
-            institution=institution,
-            funding_source=funding_source,
-            investigators=investigators,
-        )
-
-    @staticmethod
-    def from_scratch(
-        process_name: str,
-        input_data_name: str,
-        subject_id: str,
-        modality: Modality,
-        experiment_type: list[ExperimentType],
-        institution: Institution = Institution.AIND,
-        funding_source: Optional[list[Funding]] = None,
-        investigators: Optional[str] = None,
-    ):
-        """
-        Create a DerivedDataDescription from scratch.
-
-        Parameters
-        ----------
-        process_name : str
-            Name of the process that created the data
-        input_data_name : str
-            Name of the input data, by default None
-        subject_id : str
-            Subject ID, by default None
-        modality : Modality
-            The data description modality
-        experiment_type : list[ExperimentType]
-            The experiment type
-        institution : Institution, optional
-            Institution, by default Institution.AIND
-        funding_source : Funding, optional
-            Funding source, by default Funding(funder="AIND")
-        investigators : list, optional
-            List of investigators, by default []
-
-
-        Returns
-        -------
-        DerivedDataDescription
-            The derived data description
-        """
-        derived_data_description_dict = create_base_data_description_dict(
-            investigators=investigators, institution=institution, funding_source=funding_source
-        )
-        derived_data_description_dict["input_data_name"] = input_data_name
-        derived_data_description_dict["subject_id"] = subject_id
-        derived_data_description_dict["modality"] = modality
-        derived_data_description_dict["experiment_type"] = experiment_type
         derived_data_description = DerivedDataDescription(process_name=process_name, **derived_data_description_dict)
 
         return derived_data_description
