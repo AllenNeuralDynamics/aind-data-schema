@@ -3,13 +3,11 @@
 from __future__ import annotations
 
 import re
-import warnings
 from datetime import date, datetime, time
 from enum import Enum
-from typing import List, Optional
+from typing import Any, List, Optional
 
-from pkg_resources import parse_version
-from pydantic import Field
+from pydantic import Field, validator
 
 from aind_data_schema.base import AindCoreModel, AindModel, BaseName, BaseNameEnumMeta, PIDName
 
@@ -170,6 +168,34 @@ class Funding(AindModel):
     grant_number: Optional[str] = Field(None, title="Grant number")
     fundee: Optional[str] = Field(None, title="Fundee", description="Person(s) funded by this mechanism")
 
+    @validator("funder", pre=True)
+    def from_legacy(cls, input_value: str) -> Institution:
+        """
+        The legacy funder was string type of the full name. We can try to map the
+        legacy strings to the new Enum values.
+        Parameters
+        ----------
+        input_value : str
+          Can be something like 'Allen Institute for Neural Dynamics'. Will also
+          try to parse the enum name like 'AIND' if the string isn't in the
+          full name list.
+
+        Returns
+        -------
+        Institution
+          Will raise a validation error if not parseable.
+
+        """
+        # Check if input_value is name of institution
+        map_full_name_to_enum = dict(
+            [(Institution.__members__[m].value.name, Institution.__members__[m]) for m in Institution.__members__]
+        )
+        if map_full_name_to_enum.get(input_value) is not None:
+            return map_full_name_to_enum.get(input_value)
+        # Otherwise, try using the Institution default method of de-serializing a string
+        else:
+            return Institution(input_value)
+
 
 class RelatedData(AindModel):
     """Description of related data asset"""
@@ -221,7 +247,7 @@ class DataDescription(AindCoreModel):
         title="Group",
     )
     investigators: List[str] = Field(
-        ...,
+        [],
         description="Full name(s) of key investigators (e.g. PI, lead scientist, contact person)",
         title="Investigators",
     )
@@ -329,15 +355,7 @@ class DerivedDataDescription(DataDescription):
         )
 
     @classmethod
-    def from_data_description(
-        cls,
-        data_description: DataDescription,
-        process_name: str,
-        experiment_type: Optional[ExperimentType] = None,
-        institution: Institution = Institution.AIND,
-        funding_source: Optional[list[Funding]] = None,
-        investigators: Optional[str] = None,
-    ):
+    def from_data_description(cls, data_description: DataDescription, process_name: str, **kwargs):  # noqa: C901
         """
         Create a DerivedDataDescription from a DataDescription object.
 
@@ -347,70 +365,78 @@ class DerivedDataDescription(DataDescription):
             The DataDescription object to use as the base for the Derived
         process_name : str
             Name of the process that created the data
-        input_data_name : str, optional
-            Name of the input data, by default None
-        subject_id : str, optional
-            Subject ID, by default None
-        institution : Institution, optional
-            Institution, by default Institution.AIND
-        funding_source : Funding, optional
-            Funding source, by default Funding(funder="AIND")
-        investigators : list, optional
-            List of investigators, by default []
-        modality : Modality | None, optional
-            Modality, by default None
-        experiment_type : list[ExperimentType] | None, optional
-            Experiment type, by default None
+        kwargs
+            DerivedDataDescription fields can be explicitly set and will override
+            values pulled from DataDescription
 
-        Returns
-        -------
-        DerivedDataDescription
-            The derived data description
         """
-        derived_data_description_dict = create_base_data_description_dict(
-            investigators=investigators, institution=institution, funding_source=funding_source
-        )
-        existing_data_description_dict = data_description.dict()
-        existing_version = existing_data_description_dict.get("schema_version")
-        if existing_version is not None and parse_version(existing_version) < parse_version("0.4.0"):
-            existing_data_description_dict["institution"] = Institution(existing_data_description_dict["institution"])
-            existing_data_description_dict["modality"] = [Modality(existing_data_description_dict["modality"])]
-            assert experiment_type is not None, "Must provide experiment type if existing data description is < 0.4.0"
-            existing_data_description_dict["experiment_type"] = experiment_type
-        else:
-            existing_data_description_dict["institution"] = Institution(
-                existing_data_description_dict["institution"]["abbreviation"]
-            )
-        # check that funder is validated
-        funding_source = existing_data_description_dict.get("funding_source")
-        if funding_source is not None:
-            for funding in funding_source:
-                funder = funding["funder"]
-                institution_abbrvs = [inst.value.abbreviation for inst in Institution]
-                institution_names = [inst.value.name for inst in Institution]
-                if funder not in institution_abbrvs:
-                    if funder not in institution_names:
-                        warnings.warn(f"{funder} is not a valid funder. Using AIND as default")
-                        funding["funder"] = institution
-                    else:
-                        funding["funder"] = institution_abbrvs[institution_names.index(funder)]
-        skip_existing_data_description_keys = [
-            "schema_version",
-            "version",
-            "data_level",
-            "described_by",
-            "ror_id",
-            "creation_time",
-            "creation_date",
-        ]
-        for key in skip_existing_data_description_keys:
-            if key in existing_data_description_dict:
-                del existing_data_description_dict[key]
-        derived_data_description_dict.update(existing_data_description_dict)
-        derived_data_description_dict["input_data_name"] = existing_data_description_dict["name"]
-        derived_data_description = DerivedDataDescription(process_name=process_name, **derived_data_description_dict)
 
-        return derived_data_description
+        def get_or_default(field_name: str) -> Any:
+            """
+            If the field is set in kwargs, use that value. Otherwise, check if
+            the field is set in the DataDescription object. If not, pull from
+            the field default value if the field has a default value. Otherwise,
+            return None and allow pydantic to raise a Validation Error if field
+            is not Optional.
+            Parameters
+            ----------
+            field_name : str
+              Name of the field to set
+            skip_from_source : bool
+              Skip pulling from original data description model
+
+            Returns
+            -------
+            Any
+
+            """
+            if kwargs.get(field_name) is not None:
+                return kwargs.get(field_name)
+            elif hasattr(data_description, field_name) and getattr(data_description, field_name) is not None:
+                return getattr(data_description, field_name)
+            else:
+                return getattr(DerivedDataDescription.__fields__.get(field_name), "default")
+
+        def map_modality(old_modality: Any):
+            """Map legacy modality enums to current version"""
+            if type(old_modality) is str or type(Modality) is dict:
+                return Modality(old_modality)
+            else:
+                return old_modality
+
+        dd_modality = get_or_default("modality")
+        if dd_modality is not None and type(dd_modality) is not list:
+            dd_modality = [map_modality(dd_modality)]
+        elif dd_modality is not None and type(dd_modality) is list:
+            dd_modality = [map_modality(m) for m in dd_modality]
+        institution = get_or_default("institution")
+        if type(institution) == str:
+            institution = Institution(institution)
+        elif type(institution) == dict and institution.get("abbreviation") is not None:
+            institution = Institution(institution.get("abbreviation"))
+
+        utcnow = datetime.utcnow()
+        creation_time = utcnow.time() if kwargs.get("creation_time") is None else kwargs["creation_time"]
+        creation_date = utcnow.date() if kwargs.get("creation_date") is None else kwargs["creation_date"]
+
+        return cls(
+            creation_time=creation_time,
+            creation_date=creation_date,
+            process_name=process_name,
+            institution=institution,
+            funding_source=get_or_default("funding_source"),
+            group=get_or_default("group"),
+            investigators=get_or_default("investigators"),
+            project_name=get_or_default("project_name"),
+            project_id=get_or_default("project_id"),
+            restrictions=get_or_default("restrictions"),
+            modality=dd_modality,
+            experiment_type=get_or_default("experiment_type"),
+            subject_id=get_or_default("subject_id"),
+            related_data=get_or_default("related_data"),
+            data_summary=get_or_default("data_summary"),
+            input_data_name=data_description.name,
+        )
 
 
 class RawDataDescription(DataDescription):
@@ -452,38 +478,3 @@ class RawDataDescription(DataDescription):
             creation_date=creation_date,
             creation_time=creation_time,
         )
-
-
-def create_base_data_description_dict(
-    institution: Optional[Institution] = None,
-    funding_source: Optional[Funding] = None,
-    investigators: Optional[list[str]] = None,
-):
-    """
-    Create a base data description dictionary.
-
-    Parameters
-    ----------
-    institution : Institution, optional
-        Institution, by default Institution.AIND
-    funding_source : Funding, optional
-        Funding source, by default Funding(funder="AIND")
-    investigators : list, optional
-        List of investigators, by default []
-
-    Returns
-    -------
-    dict
-        The base data description dictionary
-    """
-    now = datetime.now()
-    # make base dictionary form scratch
-    base_data_description_dict = {}
-    base_data_description_dict["creation_time"] = now.time()
-    base_data_description_dict["creation_date"] = now.date()
-    base_data_description_dict["institution"] = institution if institution is not None else Institution.AIND
-    base_data_description_dict["investigators"] = investigators if investigators is not None else []
-    base_data_description_dict["funding_source"] = (
-        funding_source if funding_source is not None else [Funding(funder="AIND")]
-    )
-    return base_data_description_dict

@@ -2,11 +2,14 @@
 
 import datetime
 import json
+import os
 import unittest
 from pathlib import Path
+from typing import List
 
 from aind_data_schema.data_description import (
     DataDescription,
+    DataLevel,
     DerivedDataDescription,
     ExperimentType,
     Funding,
@@ -15,9 +18,23 @@ from aind_data_schema.data_description import (
     RawDataDescription,
 )
 
+DATA_DESCRIPTION_FILES_PATH = Path(__file__).parent / "resources" / "ephys_data_description"
+
 
 class DataDescriptionTest(unittest.TestCase):
     """test DataDescription"""
+
+    @classmethod
+    def setUpClass(cls):
+        """Load json files before running tests."""
+        data_description_files: List[str] = os.listdir(DATA_DESCRIPTION_FILES_PATH)
+        data_descriptions = []
+        for file_path in data_description_files:
+            with open(DATA_DESCRIPTION_FILES_PATH / file_path) as f:
+                contents = json.load(f)
+            data_descriptions.append((file_path, DataDescription.construct(**contents)))
+        data_descriptions.sort(key=lambda x: x[0])
+        cls.data_descriptions = data_descriptions
 
     BAD_NAME = "fizzbuzz"
     BASIC_NAME = "ecephys_1234_3033-12-21_04-22-11"
@@ -154,28 +171,54 @@ class DataDescriptionTest(unittest.TestCase):
 
     def test_from_data_description(self):
         """Tests DerivedDataDescription.from_data_description method"""
-        """Tests DerivedDataDescription.from_data_description_file method"""
-        data_description_files_path = Path(__file__).parent / "resources" / "ephys_data_description"
-        data_description_objects = []
-        for data_description_file in data_description_files_path.iterdir():
-            with open(data_description_file, "r") as f:
-                data_description_dict = json.load(f)
-            if "experiment_type" not in data_description_dict:
-                data_description_dict["experiment_type"] = ExperimentType.ECEPHYS
-            data_description = DataDescription.construct(**data_description_dict)
-            data_description_objects.append(data_description)
 
-        for data_description in data_description_objects:
-            if data_description.schema_version == "0.3.0":
-                experiment_type = ExperimentType.ECEPHYS
-            else:
-                experiment_type = None
-            derived_data_description_from_obj = DerivedDataDescription.from_data_description(
-                data_description=data_description,
-                process_name="test_process",
-                experiment_type=experiment_type,
+        process_name = "spike_sorter"
+
+        data_description_0_3_0 = self.data_descriptions[0]
+        # data_description_0.3.0 is missing experiment type. It needs to be set
+        # explicitly
+        with self.assertRaises(Exception):
+            DerivedDataDescription.from_data_description(
+                process_name=process_name, data_description=data_description_0_3_0[1]
             )
-            self.assertTrue(isinstance(derived_data_description_from_obj, DerivedDataDescription))
+
+        # data_description_0_6_2_wrong_field has a malformed funding_source input.
+        # That field will need to be explicitly set.
+        data_description_0_6_2_wrong_field = self.data_descriptions[-1]
+        with self.assertRaises(Exception):
+            DerivedDataDescription.from_data_description(
+                process_name=process_name, data_description=data_description_0_6_2_wrong_field[1]
+            )
+
+        # Explicitly setting the fields should correct the validation errors
+        derived_dd_0_3_0 = DerivedDataDescription.from_data_description(
+            process_name=process_name,
+            data_description=data_description_0_3_0[1],
+            experiment_type=ExperimentType.ECEPHYS,
+        )
+        derived_dd_0_6_2_wrong_field = DerivedDataDescription.from_data_description(
+            process_name=process_name,
+            data_description=data_description_0_6_2_wrong_field[1],
+            funding_source=[Funding(funder=Institution.AIND)],
+        )
+
+        self.assertEqual(ExperimentType.ECEPHYS, derived_dd_0_3_0.experiment_type)
+        self.assertEqual([Funding(funder=Institution.AIND)], derived_dd_0_6_2_wrong_field.funding_source)
+
+        # All the other json files should translate correctly:
+        for data_description in self.data_descriptions[1:-1]:
+            derived_dd = DerivedDataDescription.from_data_description(
+                process_name=process_name, data_description=data_description[1]
+            )
+            self.assertEqual(ExperimentType.ECEPHYS, derived_dd.experiment_type)
+            self.assertEqual(DataLevel.DERIVED_DATA, derived_dd.data_level)
+
+        # Extra check to verify None is returned
+        blank_dd = DataDescription.construct()
+        with self.assertRaises(Exception):
+            DerivedDataDescription.from_data_description(
+                process_name=process_name, data_description=blank_dd, institution=Institution.AIND
+            )
 
 
 if __name__ == "__main__":
