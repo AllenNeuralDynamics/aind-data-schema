@@ -326,7 +326,7 @@ class DerivedDataDescription(DataDescription):
             input_data_name=m.group("input"),
         )
 
-    @classmethod
+    @classmethod  # noqa: C901
     def from_data_description(cls, data_description: DataDescription, process_name: str, **kwargs):  # noqa: C901
         """
         Create a DerivedDataDescription from a DataDescription object.
