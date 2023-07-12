@@ -7,7 +7,7 @@ from datetime import date, datetime, time
 from enum import Enum
 from typing import Any, List, Optional
 
-from pydantic import Field, validator
+from pydantic import Field
 
 from aind_data_schema.base import AindCoreModel, AindModel, BaseName, BaseNameEnumMeta, PIDName
 
@@ -167,34 +167,6 @@ class Funding(AindModel):
     funder: Institution = Field(..., title="Funder")
     grant_number: Optional[str] = Field(None, title="Grant number")
     fundee: Optional[str] = Field(None, title="Fundee", description="Person(s) funded by this mechanism")
-
-    @validator("funder", pre=True)
-    def from_legacy(cls, input_value: str) -> Institution:
-        """
-        The legacy funder was string type of the full name. We can try to map the
-        legacy strings to the new Enum values.
-        Parameters
-        ----------
-        input_value : str
-          Can be something like 'Allen Institute for Neural Dynamics'. Will also
-          try to parse the enum name like 'AIND' if the string isn't in the
-          full name list.
-
-        Returns
-        -------
-        Institution
-          Will raise a validation error if not parseable.
-
-        """
-        # Check if input_value is name of institution
-        map_full_name_to_enum = dict(
-            [(Institution.__members__[m].value.name, Institution.__members__[m]) for m in Institution.__members__]
-        )
-        if map_full_name_to_enum.get(input_value) is not None:
-            return map_full_name_to_enum.get(input_value)
-        # Otherwise, try using the Institution default method of de-serializing a string
-        else:
-            return Institution(input_value)
 
 
 class RelatedData(AindModel):
@@ -382,8 +354,6 @@ class DerivedDataDescription(DataDescription):
             ----------
             field_name : str
               Name of the field to set
-            skip_from_source : bool
-              Skip pulling from original data description model
 
             Returns
             -------
@@ -404,6 +374,37 @@ class DerivedDataDescription(DataDescription):
             else:
                 return old_modality
 
+        def map_old_funding(old_funding: Any) -> Funding:
+            """Map legacy Funding model to current version"""
+            if type(old_funding) == Funding:
+                return old_funding
+            elif (
+                type(old_funding) == dict
+                and old_funding.get("funder") is not None
+                and type(old_funding["funder"]) == str
+            ):
+                old_funder = old_funding.get("funder")
+                map_full_name_to_institute = dict(
+                    [
+                        (Institution.__members__[m].value.name, Institution.__members__[m])
+                        for m in Institution.__members__
+                    ]
+                )
+                if map_full_name_to_institute.get(old_funder) is not None:
+                    new_funder = map_full_name_to_institute.get(old_funder)
+                else:
+                    new_funder = Institution(old_funder)
+                old_funding["funder"] = new_funder
+                return Funding.parse_obj(old_funding)
+            elif (
+                type(old_funding) == dict
+                and old_funding.get("funder") is not None
+                and type(old_funding["funder"]) == dict
+            ):
+                return Funding.parse_obj(old_funding)
+            else:
+                raise Exception("Unable to parse legacy funding model")
+
         dd_modality = get_or_default("modality")
         if dd_modality is not None and type(dd_modality) is not list:
             dd_modality = [map_modality(dd_modality)]
@@ -415,6 +416,9 @@ class DerivedDataDescription(DataDescription):
         elif type(institution) == dict and institution.get("abbreviation") is not None:
             institution = Institution(institution.get("abbreviation"))
 
+        funding_source = get_or_default("funding_source")
+        funding_source = [map_old_funding(f) for f in funding_source]
+
         utcnow = datetime.utcnow()
         creation_time = utcnow.time() if kwargs.get("creation_time") is None else kwargs["creation_time"]
         creation_date = utcnow.date() if kwargs.get("creation_date") is None else kwargs["creation_date"]
@@ -424,7 +428,7 @@ class DerivedDataDescription(DataDescription):
             creation_date=creation_date,
             process_name=process_name,
             institution=institution,
-            funding_source=get_or_default("funding_source"),
+            funding_source=funding_source,
             group=get_or_default("group"),
             investigators=get_or_default("investigators"),
             project_name=get_or_default("project_name"),

@@ -213,8 +213,33 @@ class DataDescriptionTest(unittest.TestCase):
             self.assertEqual(ExperimentType.ECEPHYS, derived_dd.experiment_type)
             self.assertEqual(DataLevel.DERIVED_DATA, derived_dd.data_level)
 
-        # Extra check to verify None is returned
-        blank_dd = DataDescription.construct()
+        # Extra check on funding source parsing
+        funding_dd1 = DerivedDataDescription.construct(
+            funding_source=[
+                {
+                    "funder": {
+                        "name": "Allen Institute for Neural Dynamics",
+                        "abbreviation": "AIND",
+                        "registry": {"name": "Research Organization Registry", "abbreviation": "ROR"},
+                        "registry_identifier": "04szwah67",
+                    },
+                    "grant_number": None,
+                    "fundee": None,
+                }
+            ],
+            institution=Institution.AIND,
+            modality=Modality.ECEPHYS,
+            experiment_type=ExperimentType.ECEPHYS,
+            subject_id="12345",
+            name="some_og_data",
+        )
+        derived_finding_dd1 = DerivedDataDescription.from_data_description(
+            data_description=funding_dd1, process_name=process_name
+        )
+        self.assertEqual(Institution.AIND, derived_finding_dd1.funding_source[0].funder)
+
+        # Extra check to verify None is returned with malformed input and nulls
+        blank_dd = DataDescription.construct(funding_source=["Malformed input"])
         with self.assertRaises(Exception):
             DerivedDataDescription.from_data_description(
                 process_name=process_name, data_description=blank_dd, institution=Institution.AIND
