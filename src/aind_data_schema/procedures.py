@@ -12,7 +12,6 @@ from aind_data_schema.device import AngleUnit, SizeUnit
 from aind_data_schema.subject import Species
 
 
-
 class TimeUnit(Enum):
     """Time units"""
 
@@ -471,7 +470,7 @@ class Perfusion(SubjectProcedure):
 class Procedures(AindCoreModel):
     """Description of all procedures performed on a subject"""
 
-    schema_version: str = Field("0.8.1", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.8.2", description="schema version", title="Version", const=True)
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
