@@ -88,7 +88,7 @@ class Institution(Enum, metaclass=BaseNameEnumMeta):
     )
     SIMONS = PIDName(
         name="Simons Foundation",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR")
+        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
         registry_identifier='01cmst727'
     )
 
