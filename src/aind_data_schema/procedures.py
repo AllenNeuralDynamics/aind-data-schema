@@ -118,7 +118,7 @@ class OligoProbe(Reagent):
     """Description of an oligo probe"""
 
     species: Species = Field(..., title="Species")
-    gene: PIDName = Field(..., title="Gene name and accession number")
+    gene: PIDName = Field(..., title="Gene name, accession number, and registry")
     probe_sequences: List[str] = Field(..., title="Probe sequences")
     readout: Readout = Field(..., title="Readout")
     channel_index: int = Field(..., title="Channel index")
