@@ -69,6 +69,8 @@ def EnumLiterals(literals, enum_name_cb=None, optional=False, **field_kwargs):
 
 
 def PIDNameLiterals(*args, **kwargs):
+    """Create an Annotated type that consists of a group of PIDName Literals and decorate with enumNames."""
+
     return EnumLiterals(*args, enum_name_cb=lambda x: x.value.name, **kwargs)
 
 
