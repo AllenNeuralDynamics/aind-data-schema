@@ -118,10 +118,12 @@ class BaseTests(unittest.TestCase):
         """ test that EnumLiterals works """
 
         class TestEnum(Enum):
+            """ temp enum """
             FOO = "foo"
             BAR = "bar"
 
         class TestThing(BaseModel):
+            """ temp model """
             a: EnumLiterals([TestEnum.FOO, TestEnum.BAR])
             b: EnumLiterals([TestEnum.FOO, TestEnum.BAR], optional=True)
 
@@ -141,10 +143,12 @@ class BaseTests(unittest.TestCase):
         """ test that ModelEnumLiterals works """
 
         class TestEnum(Enum):
+            """ temp enum """
             FOO = PIDName(name="foo")
             BAR = PIDName(name="bar", abbreviation="b")
 
         class TestThing(BaseModel):
+            """ temp model """
             a: ModelEnumLiterals([TestEnum.FOO, TestEnum.BAR])
             b: ModelEnumLiterals([TestEnum.FOO, TestEnum.BAR], optional=True)
 
