@@ -3,8 +3,17 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
+from enum import Enum
+
+try:
+    from typing import Annotated, Literal
+except ImportError:  # pragma: no cover
+    from typing_extensions import Annotated, Literal
+
+from pydantic import BaseModel
+
 from aind_data_schema import Procedures, Processing, RawDataDescription, Subject
-from aind_data_schema.base import AindCoreModel
+from aind_data_schema.base import AindCoreModel, PIDName, ModelEnumLiterals, EnumLiterals
 
 
 class BaseTests(unittest.TestCase):
@@ -111,6 +120,46 @@ class BaseTests(unittest.TestCase):
         mock_open.assert_called_once_with(expected_file_path, "w")
         mock_open.return_value.__enter__().write.assert_called_once_with(json_contents)
 
+    def test_enum_literals(self):
+        class TestEnum(Enum):
+            FOO = "foo"
+            BAR = "bar"
+
+        class TestThing(BaseModel):
+            a: EnumLiterals([TestEnum.FOO, TestEnum.BAR])
+            b: EnumLiterals([TestEnum.FOO, TestEnum.BAR], optional=True)
+            
+        # ensure we can generate the schema
+        schema = TestThing.schema()  
+        
+        # now check that the json schema is good
+        json_schema = TestThing.schema_json(indent=2)        
+
+        assert set(schema['properties']['a']['enumNames']) == { 'foo', 'bar' }        
+        assert set(schema['properties']['b']['enumNames']) == { 'foo', 'bar' } 
+        assert 'b' not in schema['required']
+
+
+    def test_model_enum_literals(self):
+        class TestEnum(Enum):
+            FOO = PIDName(name="foo")
+            BAR = PIDName(name="bar", abbreviation="b")
+
+        class TestThing(BaseModel):
+            a: ModelEnumLiterals([TestEnum.FOO, TestEnum.BAR])
+            b: ModelEnumLiterals([TestEnum.FOO, TestEnum.BAR], optional=True)            
+
+        # ensure we can generate the schema
+        schema = TestThing.schema()  
+        
+        # now check that the json schema is good
+        json_schema = TestThing.schema_json(indent=2)        
+
+        assert set(schema['properties']['a']['enumNames']) == { 'foo', 'bar' }        
+        assert set(schema['properties']['b']['enumNames']) == { 'foo', 'bar' } 
+        assert 'b' not in schema['required']
+
+        
 
 if __name__ == "__main__":
     unittest.main()

@@ -7,7 +7,7 @@ from typing import Any, Dict, List, Optional, Union
 
 from pydantic import Field
 
-from aind_data_schema.base import AindModel, BaseName, BaseNameEnumMeta, PIDNameLiterals, PIDName
+from aind_data_schema.base import AindModel, BaseName, BaseNameEnumMeta, ModelEnumLiterals, PIDName
 
 
 class SizeUnit(Enum):
@@ -303,7 +303,7 @@ class Camera(Device):
 
     # required fields
     data_interface: DataInterface = Field(..., title="Type of connection to PC")
-    manufacturer: PIDNameLiterals(
+    manufacturer: ModelEnumLiterals(
         [
             Manufacturer.AILIPU,
             Manufacturer.ALLIED,
@@ -334,7 +334,7 @@ class Lens(Device):
     """Lens used to focus light onto a camera sensor"""
 
     # required fields
-    manufacturer: PIDNameLiterals([Manufacturer.EDMUND_OPTICS, Manufacturer.THORLABS, Manufacturer.OTHER])
+    manufacturer: ModelEnumLiterals([Manufacturer.EDMUND_OPTICS, Manufacturer.THORLABS, Manufacturer.OTHER])
 
     # optional fields
     focal_length: Optional[Decimal] = Field(None, title="Focal length of the lens", units="mm")
@@ -351,7 +351,7 @@ class Filter(Device):
 
     # required fields
     filter_type: FilterType = Field(..., title="Type of filter")
-    manufacturer: PIDNameLiterals(
+    manufacturer: ModelEnumLiterals(
         [
             Manufacturer.EDMUND_OPTICS,
             Manufacturer.CHROMA,
@@ -446,7 +446,7 @@ class DAQDevice(Device):
 
     # required fields
     data_interface: DataInterface = Field(..., title="Type of connection to PC")
-    manufacturer: PIDNameLiterals(
+    manufacturer: ModelEnumLiterals(
         [
             Manufacturer.NATIONAL_INSTRUMENTS,
             Manufacturer.IMEC,
@@ -488,7 +488,7 @@ class Laser(Device):
 
     # required fields
     lightsource_type: str = Field("Laser", title="Lightsource type")
-    manufacturer: PIDNameLiterals(
+    manufacturer: ModelEnumLiterals(
         [
             Manufacturer.COHERENT_SCIENTIFIC,
             Manufacturer.HAMAMATSU,
@@ -521,7 +521,7 @@ class LightEmittingDiode(Device):
     """Description of a Light Emitting Diode (LED) device"""
 
     lightsource_type: str = Field("LED", title="Lightsource type")
-    manufacturer: PIDNameLiterals(
+    manufacturer: ModelEnumLiterals(
         [
             Manufacturer.DORIC,
             Manufacturer.PRIZMATIX,
@@ -574,7 +574,7 @@ class Monitor(Device):
     """Visual display"""
 
     # required fields
-    manufacturer: PIDNameLiterals([Manufacturer.LG])
+    manufacturer: ModelEnumLiterals([Manufacturer.LG])
     refresh_rate: int = Field(..., title="Refresh rate (Hz)", units="Hz", ge=60)
     width: int = Field(..., title="Width (pixels)", units="pixels")
     height: int = Field(..., title="Height (pixels)", units="pixels")
