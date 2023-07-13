@@ -7,12 +7,12 @@ import re
 import urllib.parse
 from enum import EnumMeta, Enum
 from pathlib import Path
-from typing import Optional, get_origin, get_args
+from typing import Optional
 
 try:
-    from typing import Annotated, Literal
+    from typing import Annotated, Literal, get_origin, get_args
 except ImportError:  # pragma: no cover
-    from typing_extensions import Annotated, Literal
+    from typing_extensions import Annotated, Literal, get_origin, get_args
 
 from pydantic import BaseModel, Extra, Field, root_validator
 from pydantic.fields import ModelField
