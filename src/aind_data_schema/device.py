@@ -70,7 +70,7 @@ class Manufacturer(Enum, metaclass=BaseNameEnumMeta):
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
         registry_identifier="031tysd23",
     )
-    COMPUTAR = PIDName(name="Computar")    
+    COMPUTAR = PIDName(name="Computar")
     CUSTOM = PIDName(name="Custom")
     DORIC = PIDName(
         name="Doric",
@@ -314,7 +314,7 @@ class Camera(Device):
         Manufacturer.AILIPU,
         Manufacturer.ALLIED,
         Manufacturer.BASLER,
-        Manufacturer.EDMUND_OPTICS,        
+        Manufacturer.EDMUND_OPTICS,
         Manufacturer.FLIR,
         Manufacturer.IMAGING_SOURCE,
         Manufacturer.THORLABS,
