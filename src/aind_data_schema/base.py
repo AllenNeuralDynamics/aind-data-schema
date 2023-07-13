@@ -43,6 +43,8 @@ class AindModel(BaseModel, extra=Extra.forbid):
 
     @root_validator(pre=True)
     def handle_enum_literals_from_dicts(cls, values):
+        """ handle dictionaries as inputs to literal enum fields """
+
         # iterate through fields to find Literals
         for field_name, field in cls.__fields__.items():
             if get_origin(field.type_) is Literal:
