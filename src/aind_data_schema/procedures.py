@@ -7,7 +7,7 @@ from typing import List, Optional, Union
 
 from pydantic import Field
 
-from aind_data_schema.base import AindCoreModel, AindModel
+from aind_data_schema.base import AindCoreModel, AindModel, PIDName
 from aind_data_schema.device import AngleUnit, SizeUnit
 from aind_data_schema.subject import Species
 
@@ -118,10 +118,7 @@ class OligoProbe(Reagent):
     """Description of an oligo probe"""
 
     species: Species = Field(..., title="Species")
-    gene_name: str = Field(..., title="Gene name")
-    gene_accession_number: str = Field(
-        ..., title="Gene accession number", description="NCBI accession number of the gene"
-    )
+    gene: PIDName = Field(..., title="Gene name, accession number, and registry")
     probe_sequences: List[str] = Field(..., title="Probe sequences")
     readout: Readout = Field(..., title="Readout")
     channel_index: int = Field(..., title="Channel index")
@@ -473,7 +470,7 @@ class Perfusion(SubjectProcedure):
 class Procedures(AindCoreModel):
     """Description of all procedures performed on a subject"""
 
-    schema_version: str = Field("0.8.1", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.8.2", description="schema version", title="Version", const=True)
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
