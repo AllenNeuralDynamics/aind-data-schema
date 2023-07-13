@@ -5,11 +5,6 @@ from __future__ import annotations
 from enum import Enum
 from typing import List, Optional, Union
 
-try:
-    from typing import Literal
-except ImportError:  # pragma: no cover
-    from typing_extensions import Literal
-
 from pydantic import Field, root_validator
 
 from aind_data_schema.base import AindCoreModel, AindModel, PIDNameLiterals

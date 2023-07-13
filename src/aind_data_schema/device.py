@@ -5,11 +5,6 @@ from decimal import Decimal
 from enum import Enum
 from typing import Any, Dict, List, Optional, Union
 
-try:
-    from typing import Literal
-except ImportError:  # pragma: no cover
-    from typing_extensions import Literal
-
 from pydantic import Field
 
 from aind_data_schema.base import AindModel, BaseName, BaseNameEnumMeta, PIDNameLiterals, PIDName

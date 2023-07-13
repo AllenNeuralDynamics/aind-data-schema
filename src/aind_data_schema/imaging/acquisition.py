@@ -6,11 +6,6 @@ from datetime import datetime
 from enum import Enum
 from typing import List, Optional
 
-try:
-    from typing import Literal
-except ImportError:  # pragma: no cover
-    from typing_extensions import Literal
-
 from decimal import Decimal
 
 from pydantic import Field
@@ -90,17 +85,19 @@ class ProcessingSteps(AindModel):
 
     channel_name: str = Field(..., title="Channel name")
     process_name: List[
-        EnumLiterals([
-            ProcessName.IMAGE_IMPORTING,
-            ProcessName.IMAGE_BACKGROUND_SUBTRACTION,
-            ProcessName.IMAGE_CELL_SEGMENTATION,
-            ProcessName.IMAGE_DESTRIPING,
-            ProcessName.IMAGE_THRESHOLDING,
-            ProcessName.IMAGE_TILE_ALIGNMENT,
-            ProcessName.IMAGE_TILE_FUSING,
-            ProcessName.IMAGE_TILE_PROJECTION,
-            ProcessName.FILE_CONVERSION,
-        ])
+        EnumLiterals(
+            [
+                ProcessName.IMAGE_IMPORTING,
+                ProcessName.IMAGE_BACKGROUND_SUBTRACTION,
+                ProcessName.IMAGE_CELL_SEGMENTATION,
+                ProcessName.IMAGE_DESTRIPING,
+                ProcessName.IMAGE_THRESHOLDING,
+                ProcessName.IMAGE_TILE_ALIGNMENT,
+                ProcessName.IMAGE_TILE_FUSING,
+                ProcessName.IMAGE_TILE_PROJECTION,
+                ProcessName.FILE_CONVERSION,
+            ]
+        )
     ]
 
 
