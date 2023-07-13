@@ -5,7 +5,7 @@ from __future__ import annotations
 import re
 from datetime import date, datetime, time
 from enum import Enum
-from typing import List, Optional
+from typing import Any, List, Optional
 
 from pydantic import Field
 
@@ -179,7 +179,7 @@ class RelatedData(AindModel):
 class DataDescription(AindCoreModel):
     """Description of a logical collection of data files"""
 
-    schema_version: str = Field("0.7.1", title="Schema Version", const=True)
+    schema_version: str = Field("0.7.2", title="Schema Version", const=True)
     license: str = Field("CC-BY-4.0", title="License", const=True)
 
     creation_time: time = Field(
@@ -219,7 +219,7 @@ class DataDescription(AindCoreModel):
         title="Group",
     )
     investigators: List[str] = Field(
-        ...,
+        [],
         description="Full name(s) of key investigators (e.g. PI, lead scientist, contact person)",
         title="Investigators",
     )
@@ -324,6 +324,70 @@ class DerivedDataDescription(DataDescription):
             creation_date=creation_date,
             creation_time=creation_time,
             input_data_name=m.group("input"),
+        )
+
+    @classmethod
+    def from_data_description(cls, data_description: DataDescription, process_name: str, **kwargs):
+        """
+        Create a DerivedDataDescription from a DataDescription object.
+
+        Parameters
+        ----------
+        data_description : DataDescription
+            The DataDescription object to use as the base for the Derived
+        process_name : str
+            Name of the process that created the data
+        kwargs
+            DerivedDataDescription fields can be explicitly set and will override
+            values pulled from DataDescription
+
+        """
+
+        def get_or_default(field_name: str) -> Any:
+            """
+            If the field is set in kwargs, use that value. Otherwise, check if
+            the field is set in the DataDescription object. If not, pull from
+            the field default value if the field has a default value. Otherwise,
+            return None and allow pydantic to raise a Validation Error if field
+            is not Optional.
+            Parameters
+            ----------
+            field_name : str
+              Name of the field to set
+
+            Returns
+            -------
+            Any
+
+            """
+            if kwargs.get(field_name) is not None:
+                return kwargs.get(field_name)
+            elif hasattr(data_description, field_name) and getattr(data_description, field_name) is not None:
+                return getattr(data_description, field_name)
+            else:
+                return getattr(DerivedDataDescription.__fields__.get(field_name), "default")
+
+        utcnow = datetime.utcnow()
+        creation_time = utcnow.time() if kwargs.get("creation_time") is None else kwargs["creation_time"]
+        creation_date = utcnow.date() if kwargs.get("creation_date") is None else kwargs["creation_date"]
+
+        return cls(
+            creation_time=creation_time,
+            creation_date=creation_date,
+            process_name=process_name,
+            institution=get_or_default("institution"),
+            funding_source=get_or_default("funding_source"),
+            group=get_or_default("group"),
+            investigators=get_or_default("investigators"),
+            project_name=get_or_default("project_name"),
+            project_id=get_or_default("project_id"),
+            restrictions=get_or_default("restrictions"),
+            modality=get_or_default("modality"),
+            experiment_type=get_or_default("experiment_type"),
+            subject_id=get_or_default("subject_id"),
+            related_data=get_or_default("related_data"),
+            data_summary=get_or_default("data_summary"),
+            input_data_name=data_description.name,
         )
 
 
