@@ -128,17 +128,16 @@ class BaseTests(unittest.TestCase):
         class TestThing(BaseModel):
             a: EnumLiterals([TestEnum.FOO, TestEnum.BAR])
             b: EnumLiterals([TestEnum.FOO, TestEnum.BAR], optional=True)
-            
+
         # ensure we can generate the schema
-        schema = TestThing.schema()  
-        
+        schema = TestThing.schema()
+
         # now check that the json schema is good
-        json_schema = TestThing.schema_json(indent=2)        
+        json_schema = TestThing.schema_json(indent=2)
 
-        assert set(schema['properties']['a']['enumNames']) == { 'foo', 'bar' }        
-        assert set(schema['properties']['b']['enumNames']) == { 'foo', 'bar' } 
-        assert 'b' not in schema['required']
-
+        assert set(schema["properties"]["a"]["enumNames"]) == {"foo", "bar"}
+        assert set(schema["properties"]["b"]["enumNames"]) == {"foo", "bar"}
+        assert "b" not in schema["required"]
 
     def test_model_enum_literals(self):
         class TestEnum(Enum):
@@ -147,19 +146,18 @@ class BaseTests(unittest.TestCase):
 
         class TestThing(BaseModel):
             a: ModelEnumLiterals([TestEnum.FOO, TestEnum.BAR])
-            b: ModelEnumLiterals([TestEnum.FOO, TestEnum.BAR], optional=True)            
+            b: ModelEnumLiterals([TestEnum.FOO, TestEnum.BAR], optional=True)
 
         # ensure we can generate the schema
-        schema = TestThing.schema()  
-        
+        schema = TestThing.schema()
+
         # now check that the json schema is good
-        json_schema = TestThing.schema_json(indent=2)        
+        json_schema = TestThing.schema_json(indent=2)
 
-        assert set(schema['properties']['a']['enumNames']) == { 'foo', 'bar' }        
-        assert set(schema['properties']['b']['enumNames']) == { 'foo', 'bar' } 
-        assert 'b' not in schema['required']
+        assert set(schema["properties"]["a"]["enumNames"]) == {"foo", "bar"}
+        assert set(schema["properties"]["b"]["enumNames"]) == {"foo", "bar"}
+        assert "b" not in schema["required"]
 
-        
 
 if __name__ == "__main__":
     unittest.main()

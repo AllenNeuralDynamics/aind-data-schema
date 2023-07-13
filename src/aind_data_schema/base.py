@@ -60,27 +60,25 @@ class BaseNameEnumMeta(EnumMeta):
 
 def EnumLiterals(literals, enum_names=None, optional=False, **field_kwargs):
     """Create an Annotated type that consists of a group of Literals and decorate with enumNames."""
-    
+
     literals_t = Literal[tuple(literals)]
 
     if optional:
         literals_t = Optional[literals_t]
 
     if enum_names is None:
-        enum_names = [ lit.value for lit in literals ]
+        enum_names = [lit.value for lit in literals]
 
     t = Annotated[literals_t, Field(enumNames=enum_names, **field_kwargs)]
     return t
-    
 
-def ModelEnumLiterals(literals, enum_name_prop='name', *args, **kwargs):
+
+def ModelEnumLiterals(literals, enum_name_prop="name", *args, **kwargs):
     """Create an Annotated type that consists of a group of PIDName Literals and decorate with enumNames."""
 
     return EnumLiterals(
-        literals = literals,
-        enum_names = [ getattr(l.value, enum_name_prop) for l in literals ], 
-        *args, 
-        **kwargs)
+        literals=literals, enum_names=[getattr(l.value, enum_name_prop) for l in literals], *args, **kwargs
+    )
 
 
 class BaseName(AindModel):
