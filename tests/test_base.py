@@ -115,6 +115,8 @@ class BaseTests(unittest.TestCase):
         mock_open.return_value.__enter__().write.assert_called_once_with(json_contents)
 
     def test_enum_literals(self):
+        """ test that EnumLiterals works """
+
         class TestEnum(Enum):
             FOO = "foo"
             BAR = "bar"
@@ -136,6 +138,8 @@ class BaseTests(unittest.TestCase):
         assert json_schema is not None
 
     def test_model_enum_literals(self):
+        """ test that ModelEnumLiterals works """
+
         class TestEnum(Enum):
             FOO = PIDName(name="foo")
             BAR = PIDName(name="bar", abbreviation="b")
