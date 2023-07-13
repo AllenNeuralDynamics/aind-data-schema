@@ -9,7 +9,6 @@ from typing import List
 
 from aind_data_schema.data_description import (
     DataDescription,
-    DataLevel,
     DerivedDataDescription,
     ExperimentType,
     Funding,
@@ -17,6 +16,7 @@ from aind_data_schema.data_description import (
     Modality,
     RawDataDescription,
 )
+from aind_data_schema.schema_upgrade.data_description_upgrade import DataDescriptionUpgrade
 
 DATA_DESCRIPTION_FILES_PATH = Path(__file__).parent / "resources" / "ephys_data_description"
 
@@ -33,8 +33,7 @@ class DataDescriptionTest(unittest.TestCase):
             with open(DATA_DESCRIPTION_FILES_PATH / file_path) as f:
                 contents = json.load(f)
             data_descriptions.append((file_path, DataDescription.construct(**contents)))
-        data_descriptions.sort(key=lambda x: x[0])
-        cls.data_descriptions = data_descriptions
+        cls.data_descriptions = dict(data_descriptions)
 
     BAD_NAME = "fizzbuzz"
     BASIC_NAME = "ecephys_1234_3033-12-21_04-22-11"
@@ -174,76 +173,47 @@ class DataDescriptionTest(unittest.TestCase):
 
         process_name = "spike_sorter"
 
-        data_description_0_3_0 = self.data_descriptions[0]
-        # data_description_0.3.0 is missing experiment type. It needs to be set
-        # explicitly
-        with self.assertRaises(Exception):
-            DerivedDataDescription.from_data_description(
-                process_name=process_name, data_description=data_description_0_3_0[1]
-            )
+        data_description_0_3_0 = self.data_descriptions["data_description_0.3.0.json"]
+        upgrader_0_3_0 = DataDescriptionUpgrade(old_data_description_model=data_description_0_3_0)
+        new_dd_0_3_0 = upgrader_0_3_0.upgrade_data_description(experiment_type=ExperimentType.ECEPHYS)
+        derived_dd_0_3_0 = DerivedDataDescription.from_data_description(new_dd_0_3_0, process_name=process_name)
+        self.assertEqual(ExperimentType.ECEPHYS, derived_dd_0_3_0.experiment_type)
 
-        # data_description_0_6_2_wrong_field has a malformed funding_source input.
-        # That field will need to be explicitly set.
-        data_description_0_6_2_wrong_field = self.data_descriptions[-1]
-        with self.assertRaises(Exception):
-            DerivedDataDescription.from_data_description(
-                process_name=process_name, data_description=data_description_0_6_2_wrong_field[1]
-            )
+        data_description_0_4_0 = self.data_descriptions["data_description_0.4.0.json"]
+        upgrader_0_4_0 = DataDescriptionUpgrade(old_data_description_model=data_description_0_4_0)
+        new_dd_0_4_0 = upgrader_0_4_0.upgrade_data_description()
+        derived_dd_0_4_0 = DerivedDataDescription.from_data_description(new_dd_0_4_0, process_name=process_name)
+        self.assertEqual(ExperimentType.ECEPHYS, derived_dd_0_4_0.experiment_type)
 
-        # Explicitly setting the fields should correct the validation errors
-        derived_dd_0_3_0 = DerivedDataDescription.from_data_description(
-            process_name=process_name,
-            data_description=data_description_0_3_0[1],
-            experiment_type=ExperimentType.ECEPHYS,
+        data_description_0_6_0 = self.data_descriptions["data_description_0.6.0.json"]
+        upgrader_0_6_0 = DataDescriptionUpgrade(old_data_description_model=data_description_0_6_0)
+        new_dd_0_6_0 = upgrader_0_6_0.upgrade_data_description()
+        derived_dd_0_6_0 = DerivedDataDescription.from_data_description(new_dd_0_6_0, process_name=process_name)
+        self.assertEqual(ExperimentType.ECEPHYS, derived_dd_0_6_0.experiment_type)
+
+        data_description_0_6_2 = self.data_descriptions["data_description_0.6.2.json"]
+        upgrader_0_6_2 = DataDescriptionUpgrade(old_data_description_model=data_description_0_6_2)
+        new_dd_0_6_2 = upgrader_0_6_2.upgrade_data_description()
+        derived_dd_0_6_2 = DerivedDataDescription.from_data_description(new_dd_0_6_2, process_name=process_name)
+        self.assertEqual(ExperimentType.ECEPHYS, derived_dd_0_6_2.experiment_type)
+
+        data_description_0_6_2_wrong_field = self.data_descriptions["data_description_0.6.2_wrong_field.json"]
+        upgrader_0_6_2_wrong_field = DataDescriptionUpgrade(
+            old_data_description_model=data_description_0_6_2_wrong_field
+        )
+        new_dd_0_6_2_wrong_field = upgrader_0_6_2_wrong_field.upgrade_data_description(
+            funding_source=[Funding(funder=Institution.AIND)]
         )
         derived_dd_0_6_2_wrong_field = DerivedDataDescription.from_data_description(
-            process_name=process_name,
-            data_description=data_description_0_6_2_wrong_field[1],
-            funding_source=[Funding(funder=Institution.AIND)],
+            new_dd_0_6_2_wrong_field, process_name=process_name
         )
+        self.assertEqual(ExperimentType.ECEPHYS, derived_dd_0_6_2_wrong_field.experiment_type)
 
-        self.assertEqual(ExperimentType.ECEPHYS, derived_dd_0_3_0.experiment_type)
-        self.assertEqual([Funding(funder=Institution.AIND)], derived_dd_0_6_2_wrong_field.funding_source)
-
-        # All the other json files should translate correctly:
-        for data_description in self.data_descriptions[1:-1]:
-            derived_dd = DerivedDataDescription.from_data_description(
-                process_name=process_name, data_description=data_description[1]
-            )
-            self.assertEqual(ExperimentType.ECEPHYS, derived_dd.experiment_type)
-            self.assertEqual(DataLevel.DERIVED_DATA, derived_dd.data_level)
-
-        # Extra check on funding source parsing
-        funding_dd1 = DerivedDataDescription.construct(
-            funding_source=[
-                {
-                    "funder": {
-                        "name": "Allen Institute for Neural Dynamics",
-                        "abbreviation": "AIND",
-                        "registry": {"name": "Research Organization Registry", "abbreviation": "ROR"},
-                        "registry_identifier": "04szwah67",
-                    },
-                    "grant_number": None,
-                    "fundee": None,
-                }
-            ],
-            institution=Institution.AIND,
-            modality=Modality.ECEPHYS,
-            experiment_type=ExperimentType.ECEPHYS,
-            subject_id="12345",
-            name="some_og_data",
+        # Test Override
+        derived_dd_0_6_2_wrong_field2 = DerivedDataDescription.from_data_description(
+            new_dd_0_6_2_wrong_field, process_name=process_name, experiment_type=ExperimentType.OTHER
         )
-        derived_finding_dd1 = DerivedDataDescription.from_data_description(
-            data_description=funding_dd1, process_name=process_name
-        )
-        self.assertEqual(Institution.AIND, derived_finding_dd1.funding_source[0].funder)
-
-        # Extra check to verify None is returned with malformed input and nulls
-        blank_dd = DataDescription.construct(funding_source=["Malformed input"])
-        with self.assertRaises(Exception):
-            DerivedDataDescription.from_data_description(
-                process_name=process_name, data_description=blank_dd, institution=Institution.AIND
-            )
+        self.assertEqual(ExperimentType.OTHER, derived_dd_0_6_2_wrong_field2.experiment_type)
 
 
 if __name__ == "__main__":

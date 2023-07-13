@@ -326,8 +326,8 @@ class DerivedDataDescription(DataDescription):
             input_data_name=m.group("input"),
         )
 
-    @classmethod  # noqa: C901
-    def from_data_description(cls, data_description: DataDescription, process_name: str, **kwargs):  # noqa: C901
+    @classmethod
+    def from_data_description(cls, data_description: DataDescription, process_name: str, **kwargs):
         """
         Create a DerivedDataDescription from a DataDescription object.
 
@@ -367,58 +367,6 @@ class DerivedDataDescription(DataDescription):
             else:
                 return getattr(DerivedDataDescription.__fields__.get(field_name), "default")
 
-        def map_modality(old_modality: Any):
-            """Map legacy modality enums to current version"""
-            if type(old_modality) is str or type(Modality) is dict:
-                return Modality(old_modality)
-            else:
-                return old_modality
-
-        def map_old_funding(old_funding: Any) -> Funding:
-            """Map legacy Funding model to current version"""
-            if type(old_funding) == Funding:
-                return old_funding
-            elif (
-                type(old_funding) == dict
-                and old_funding.get("funder") is not None
-                and type(old_funding["funder"]) == str
-            ):
-                old_funder = old_funding.get("funder")
-                map_full_name_to_institute = dict(
-                    [
-                        (Institution.__members__[m].value.name, Institution.__members__[m])
-                        for m in Institution.__members__
-                    ]
-                )
-                if map_full_name_to_institute.get(old_funder) is not None:
-                    new_funder = map_full_name_to_institute.get(old_funder)
-                else:
-                    new_funder = Institution(old_funder)
-                old_funding["funder"] = new_funder
-                return Funding.parse_obj(old_funding)
-            elif (
-                type(old_funding) == dict
-                and old_funding.get("funder") is not None
-                and type(old_funding["funder"]) == dict
-            ):
-                return Funding.parse_obj(old_funding)
-            else:
-                raise Exception("Unable to parse legacy funding model")
-
-        dd_modality = get_or_default("modality")
-        if dd_modality is not None and type(dd_modality) is not list:
-            dd_modality = [map_modality(dd_modality)]
-        elif dd_modality is not None and type(dd_modality) is list:
-            dd_modality = [map_modality(m) for m in dd_modality]
-        institution = get_or_default("institution")
-        if type(institution) == str:
-            institution = Institution(institution)
-        elif type(institution) == dict and institution.get("abbreviation") is not None:
-            institution = Institution(institution.get("abbreviation"))
-
-        funding_source = get_or_default("funding_source")
-        funding_source = [map_old_funding(f) for f in funding_source]
-
         utcnow = datetime.utcnow()
         creation_time = utcnow.time() if kwargs.get("creation_time") is None else kwargs["creation_time"]
         creation_date = utcnow.date() if kwargs.get("creation_date") is None else kwargs["creation_date"]
@@ -427,14 +375,14 @@ class DerivedDataDescription(DataDescription):
             creation_time=creation_time,
             creation_date=creation_date,
             process_name=process_name,
-            institution=institution,
-            funding_source=funding_source,
+            institution=get_or_default("institution"),
+            funding_source=get_or_default("funding_source"),
             group=get_or_default("group"),
             investigators=get_or_default("investigators"),
             project_name=get_or_default("project_name"),
             project_id=get_or_default("project_id"),
             restrictions=get_or_default("restrictions"),
-            modality=dd_modality,
+            modality=get_or_default("modality"),
             experiment_type=get_or_default("experiment_type"),
             subject_id=get_or_default("subject_id"),
             related_data=get_or_default("related_data"),
