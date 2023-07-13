@@ -1,19 +1,13 @@
 """ tests for Subject """
 import unittest
+from enum import Enum
 from pathlib import Path
 from unittest.mock import patch
-
-from enum import Enum
-
-try:
-    from typing import Annotated, Literal
-except ImportError:  # pragma: no cover
-    from typing_extensions import Annotated, Literal
 
 from pydantic import BaseModel
 
 from aind_data_schema import Procedures, Processing, RawDataDescription, Subject
-from aind_data_schema.base import AindCoreModel, PIDName, ModelEnumLiterals, EnumLiterals
+from aind_data_schema.base import AindCoreModel, EnumLiterals, ModelEnumLiterals, PIDName
 
 
 class BaseTests(unittest.TestCase):
@@ -132,12 +126,14 @@ class BaseTests(unittest.TestCase):
         # ensure we can generate the schema
         schema = TestThing.schema()
 
-        # now check that the json schema is good
-        json_schema = TestThing.schema_json(indent=2)
-
         assert set(schema["properties"]["a"]["enumNames"]) == {"foo", "bar"}
         assert set(schema["properties"]["b"]["enumNames"]) == {"foo", "bar"}
         assert "b" not in schema["required"]
+
+        # now check that the json schema is good
+        json_schema = TestThing.schema_json(indent=2)
+
+        assert json_schema is not None
 
     def test_model_enum_literals(self):
         class TestEnum(Enum):
@@ -151,12 +147,14 @@ class BaseTests(unittest.TestCase):
         # ensure we can generate the schema
         schema = TestThing.schema()
 
-        # now check that the json schema is good
-        json_schema = TestThing.schema_json(indent=2)
-
         assert set(schema["properties"]["a"]["enumNames"]) == {"foo", "bar"}
         assert set(schema["properties"]["b"]["enumNames"]) == {"foo", "bar"}
         assert "b" not in schema["required"]
+
+        # now check that the json schema is good
+        json_schema = TestThing.schema_json(indent=2)
+
+        assert json_schema is not None
 
 
 if __name__ == "__main__":

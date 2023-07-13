@@ -77,7 +77,7 @@ def ModelEnumLiterals(literals, enum_name_prop="name", *args, **kwargs):
     """Create an Annotated type that consists of a group of PIDName Literals and decorate with enumNames."""
 
     return EnumLiterals(
-        literals=literals, enum_names=[getattr(l.value, enum_name_prop) for l in literals], *args, **kwargs
+        literals=literals, enum_names=[getattr(lit.value, enum_name_prop) for lit in literals], *args, **kwargs
     )
 
 
