@@ -12,7 +12,7 @@ except ImportError:  # pragma: no cover
 
 from pydantic import Field, root_validator
 
-from aind_data_schema.base import AindCoreModel, AindModel
+from aind_data_schema.base import AindCoreModel, AindModel, PIDNameLiterals
 from aind_data_schema.device import (
     Camera,
     CameraAssembly,
@@ -65,7 +65,7 @@ class OpenEphysAcquisitionBoard(DAQDevice):
 class Manipulator(Device):
     """Manipulator used on a dome module"""
 
-    manufacturer: Literal[Manufacturer.NEW_SCALE_TECHNOLOGIES]
+    manufacturer: PIDNameLiterals([Manufacturer.NEW_SCALE_TECHNOLOGIES])
 
 
 class StickMicroscopeAssembly(AindModel):

@@ -5,9 +5,9 @@ import logging
 import os
 import re
 import urllib.parse
-from enum import EnumMeta
+from enum import EnumMeta, Enum
 from pathlib import Path
-from typing import Optional
+from typing import Annotated, Literal, Optional
 
 from pydantic import BaseModel, Extra, Field
 from pydantic.fields import ModelField
@@ -51,6 +51,24 @@ class BaseNameEnumMeta(EnumMeta):
         field_schema.update(
             enumNames=[e.value.name for e in cls],
         )
+
+
+def EnumLiterals(literals, enum_name_cb=None, optional=False, **field_kwargs):
+    """Create an Annotated type that consists of a group of Literals and decorate with enumNames."""
+
+    enum_names = None
+    if enum_name_cb:
+        enum_names = [enum_name_cb(lit) for lit in literals]
+        
+    literals_t = Literal[tuple(literals)]
+
+    if optional:
+        return Annotated[literals_t, Field(default=None, enumNames=enum_names, **field_kwargs)]
+    else:
+        return Annotated[literals_t, Field(enumNames=enum_names, **field_kwargs)]
+
+def PIDNameLiterals(*args, **kwargs):
+    return EnumLiterals(*args, enum_name_cb=lambda x: x.value.name, **kwargs)
 
 
 class BaseName(AindModel):
