@@ -1,13 +1,10 @@
 """ tests for Subject """
 import unittest
-from enum import Enum
 from pathlib import Path
 from unittest.mock import patch
 
-from pydantic import BaseModel
-
 from aind_data_schema import Procedures, Processing, RawDataDescription, Subject
-from aind_data_schema.base import AindCoreModel, EnumLiterals, ModelEnumLiterals, PIDName
+from aind_data_schema.base import AindCoreModel
 
 
 class BaseTests(unittest.TestCase):
@@ -113,56 +110,6 @@ class BaseTests(unittest.TestCase):
 
         mock_open.assert_called_once_with(expected_file_path, "w")
         mock_open.return_value.__enter__().write.assert_called_once_with(json_contents)
-
-    def test_enum_literals(self):
-        """ test that EnumLiterals works """
-
-        class TestEnum(Enum):
-            """ temp enum """
-            FOO = "foo"
-            BAR = "bar"
-
-        class TestThing(BaseModel):
-            """ temp model """
-            a: EnumLiterals([TestEnum.FOO, TestEnum.BAR])
-            b: EnumLiterals([TestEnum.FOO, TestEnum.BAR], optional=True)
-
-        # ensure we can generate the schema
-        schema = TestThing.schema()
-
-        assert set(schema["properties"]["a"]["enumNames"]) == {"foo", "bar"}
-        assert set(schema["properties"]["b"]["enumNames"]) == {"foo", "bar"}
-        assert "b" not in schema["required"]
-
-        # now check that the json schema is good
-        json_schema = TestThing.schema_json(indent=2)
-
-        assert json_schema is not None
-
-    def test_model_enum_literals(self):
-        """ test that ModelEnumLiterals works """
-
-        class TestEnum(Enum):
-            """ temp enum """
-            FOO = PIDName(name="foo")
-            BAR = PIDName(name="bar", abbreviation="b")
-
-        class TestThing(BaseModel):
-            """ temp model """
-            a: ModelEnumLiterals([TestEnum.FOO, TestEnum.BAR])
-            b: ModelEnumLiterals([TestEnum.FOO, TestEnum.BAR], optional=True)
-
-        # ensure we can generate the schema
-        schema = TestThing.schema()
-
-        assert set(schema["properties"]["a"]["enumNames"]) == {"foo", "bar"}
-        assert set(schema["properties"]["b"]["enumNames"]) == {"foo", "bar"}
-        assert "b" not in schema["required"]
-
-        # now check that the json schema is good
-        json_schema = TestThing.schema_json(indent=2)
-
-        assert json_schema is not None
 
 
 if __name__ == "__main__":

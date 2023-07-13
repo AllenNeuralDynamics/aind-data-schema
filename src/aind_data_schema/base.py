@@ -5,16 +5,16 @@ import logging
 import os
 import re
 import urllib.parse
-from enum import EnumMeta
+from enum import EnumMeta, Enum
 from pathlib import Path
-from typing import Optional
+from typing import Optional, get_origin, get_args
 
 try:
     from typing import Annotated, Literal
 except ImportError:  # pragma: no cover
     from typing_extensions import Annotated, Literal
 
-from pydantic import BaseModel, Extra, Field
+from pydantic import BaseModel, Extra, Field, root_validator
 from pydantic.fields import ModelField
 
 DESCRIBED_BY_BASE_URL = "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/"
@@ -41,6 +41,23 @@ def build_described_by(cls, base_url=DESCRIBED_BY_BASE_URL):
 class AindModel(BaseModel, extra=Extra.forbid):
     """BaseModel that disallows extra fields"""
 
+    @root_validator(pre=True)
+    def handle_enum_literals_from_dicts(cls, values):
+        # iterate through fields to find Literals
+        for field_name, field in cls.__fields__.items():
+            if get_origin(field.type_) is Literal:
+                field_value = values.get(field_name)
+
+                # if the field value is a dictionary, attempt to map it by 'name'
+                if isinstance(field_value, dict):
+                    for literal_item in get_args(field.type_):
+                        if isinstance(literal_item, Enum):
+                            if literal_item.value.name == field_value["name"]:
+                                # found it, replace dictionary with literal value
+                                values[field_name] = literal_item
+
+        return values
+
 
 class BaseNameEnumMeta(EnumMeta):
     """Allows to create complicated enum based on attribute name."""
@@ -49,6 +66,7 @@ class BaseNameEnumMeta(EnumMeta):
         """Allow enum to be set by a string."""
         if isinstance(value, str):
             value = getattr(cls, value.upper())
+
         return super().__call__(value, *args, **kw)
 
     def __modify_schema__(cls, field_schema):
@@ -70,6 +88,7 @@ def EnumLiterals(literals, enum_names=None, optional=False, **field_kwargs):
         enum_names = [lit.value for lit in literals]
 
     t = Annotated[literals_t, Field(enumNames=enum_names, **field_kwargs)]
+
     return t
 
 
