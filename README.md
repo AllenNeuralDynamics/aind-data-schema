@@ -6,7 +6,7 @@
 
 A library that defines [AIND](https://alleninstitute.org/what-we-do/brain-science/research/allen-institute-neural-dynamics/) data schema and validates JSON files. 
 
-User documentation on [readthedocs](https://aind-data-schema.readthedocs.io/en/latest/).
+User documentation available on [readthedocs](https://aind-data-schema.readthedocs.io/en/latest/).
 
 ## Overview
 
