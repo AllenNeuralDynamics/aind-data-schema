@@ -3,7 +3,6 @@
 import argparse
 import json
 import os
-import re
 import sys
 from pathlib import Path
 from typing import Optional
@@ -32,12 +31,12 @@ def compare_versions(new_ver: str, old_ver: Optional[str]) -> (bool, Optional[st
 
     try:
         new_v = semver.Version.parse(new_ver)
-    except (TypeError, ValueError) as e:
+    except (TypeError, ValueError):
         return (False, f"Malformed version: {new_ver}")
 
     try:
         old_v = semver.Version.parse(old_ver)
-    except (TypeError, ValueError) as e:
+    except (TypeError, ValueError):
         return (True, None)
 
     major_bump = new_v == old_v.bump_major()
