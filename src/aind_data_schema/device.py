@@ -70,6 +70,7 @@ class Manufacturer(Enum, metaclass=BaseNameEnumMeta):
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
         registry_identifier="031tysd23",
     )
+    COMPUTAR = PIDName(name="Computar")
     CUSTOM = PIDName(name="Custom")
     DORIC = PIDName(
         name="Doric",
@@ -94,6 +95,7 @@ class Manufacturer(Enum, metaclass=BaseNameEnumMeta):
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
         registry_identifier="03natb733",
     )
+    IMAGING_SOURCE = PIDName(name="The Imaging Source")
     IMEC = PIDName(
         name="Interuniversity Microelectronics Center",
         abbreviation="IMEC",
@@ -314,6 +316,7 @@ class Camera(Device):
         Manufacturer.BASLER,
         Manufacturer.EDMUND_OPTICS,
         Manufacturer.FLIR,
+        Manufacturer.IMAGING_SOURCE,
         Manufacturer.THORLABS,
         Manufacturer.OTHER,
     ]
@@ -337,7 +340,7 @@ class Lens(Device):
     """Lens used to focus light onto a camera sensor"""
 
     # required fields
-    manufacturer: Literal[Manufacturer.EDMUND_OPTICS, Manufacturer.THORLABS, Manufacturer.OTHER]
+    manufacturer: Literal[Manufacturer.COMPUTAR, Manufacturer.EDMUND_OPTICS, Manufacturer.THORLABS, Manufacturer.OTHER]
 
     # optional fields
     focal_length: Optional[Decimal] = Field(None, title="Focal length of the lens", units="mm")
