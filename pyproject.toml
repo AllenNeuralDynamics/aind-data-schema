@@ -25,9 +25,11 @@ dev = [
     'aind_data_schema[docs]',
     'black',
     'coverage',
+    'dictdiffer',
     'flake8',
     'interrogate',
-    'isort'    
+    'isort',
+    'semver'    
 ]
 
 docs = [
