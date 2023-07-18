@@ -3,19 +3,13 @@
 from __future__ import annotations
 
 from datetime import datetime
+from decimal import Decimal
 from enum import Enum
 from typing import List, Optional
 
-try:
-    from typing import Literal
-except ImportError:  # pragma: no cover
-    from typing_extensions import Literal
-
-from decimal import Decimal
-
 from pydantic import Field
 
-from aind_data_schema.base import AindCoreModel, AindModel
+from aind_data_schema.base import AindCoreModel, AindModel, EnumSubset
 from aind_data_schema.device import SizeUnit
 from aind_data_schema.imaging.tile import AcquisitionTile
 from aind_data_schema.processing import ProcessName
@@ -90,16 +84,16 @@ class ProcessingSteps(AindModel):
 
     channel_name: str = Field(..., title="Channel name")
     process_name: List[
-        Literal[
-            ProcessName.IMAGE_IMPORTING.value,
-            ProcessName.IMAGE_BACKGROUND_SUBTRACTION.value,
-            ProcessName.IMAGE_CELL_SEGMENTATION.value,
-            ProcessName.IMAGE_DESTRIPING.value,
-            ProcessName.IMAGE_THRESHOLDING.value,
-            ProcessName.IMAGE_TILE_ALIGNMENT.value,
-            ProcessName.IMAGE_TILE_FUSING.value,
-            ProcessName.IMAGE_TILE_PROJECTION.value,
-            ProcessName.FILE_CONVERSION.value,
+        EnumSubset[
+            ProcessName.IMAGE_IMPORTING,
+            ProcessName.IMAGE_BACKGROUND_SUBTRACTION,
+            ProcessName.IMAGE_CELL_SEGMENTATION,
+            ProcessName.IMAGE_DESTRIPING,
+            ProcessName.IMAGE_THRESHOLDING,
+            ProcessName.IMAGE_TILE_ALIGNMENT,
+            ProcessName.IMAGE_TILE_FUSING,
+            ProcessName.IMAGE_TILE_PROJECTION,
+            ProcessName.FILE_CONVERSION,
         ]
     ]
 
@@ -107,7 +101,7 @@ class ProcessingSteps(AindModel):
 class Acquisition(AindCoreModel):
     """Description of an imaging acquisition session"""
 
-    schema_version: str = Field("0.4.5", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.4.6", description="schema version", title="Version", const=True)
     experimenter_full_name: List[str] = Field(
         ...,
         description="First and last name of the experimenter(s).",
