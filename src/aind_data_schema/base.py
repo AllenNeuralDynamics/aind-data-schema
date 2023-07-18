@@ -11,6 +11,7 @@ from typing import Optional
 
 from pydantic import BaseModel, Extra, Field
 from pydantic.fields import ModelField
+from aind_data_schema.base import Registry
 
 DESCRIBED_BY_BASE_URL = "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/"
 
@@ -66,7 +67,7 @@ class PIDName(BaseName):
     the registry for that PID, and abbreviation for that registry
     """
 
-    registry: Optional[BaseName] = Field(None, title="Registry")
+    registry: Optional[Registry] = Field(None, title="Registry")
     registry_identifier: Optional[str] = Field(None, title="Registry identifier")
 
 
