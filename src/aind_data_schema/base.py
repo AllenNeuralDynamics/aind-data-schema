@@ -5,17 +5,13 @@ import logging
 import os
 import re
 import urllib.parse
-from enum import EnumMeta, Enum
+from enum import Enum, EnumMeta
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Tuple
 
-try:
-    from typing import Annotated, Literal, get_origin, get_args
-except ImportError:  # pragma: no cover
-    from typing_extensions import Annotated, Literal, get_origin, get_args
-
-from pydantic import BaseModel, Extra, Field, root_validator
+from pydantic import BaseModel, Extra, Field
 from pydantic.fields import ModelField
+from pydantic.main import ModelMetaclass
 
 DESCRIBED_BY_BASE_URL = "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/"
 
@@ -41,25 +37,6 @@ def build_described_by(cls, base_url=DESCRIBED_BY_BASE_URL):
 class AindModel(BaseModel, extra=Extra.forbid):
     """BaseModel that disallows extra fields"""
 
-    @root_validator(pre=True)
-    def handle_enum_literals_from_dicts(cls, values):
-        """ handle dictionaries as inputs to literal enum fields """
-
-        # iterate through fields to find Literals
-        for field_name, field in cls.__fields__.items():
-            if get_origin(field.type_) is Literal:
-                field_value = values.get(field_name)
-
-                # if the field value is a dictionary, attempt to map it by 'name'
-                if isinstance(field_value, dict):
-                    for literal_item in get_args(field.type_):
-                        if isinstance(literal_item, Enum):
-                            if literal_item.value.name == field_value["name"]:
-                                # found it, replace dictionary with literal value
-                                values[field_name] = literal_item
-
-        return values
-
 
 class BaseNameEnumMeta(EnumMeta):
     """Allows to create complicated enum based on attribute name."""
@@ -76,30 +53,6 @@ class BaseNameEnumMeta(EnumMeta):
         field_schema.update(
             enumNames=[e.value.name for e in cls],
         )
-
-
-def EnumLiterals(literals, enum_names=None, optional=False, **field_kwargs):
-    """Create an Annotated type that consists of a group of Literals and decorate with enumNames."""
-
-    literals_t = Literal[tuple(literals)]
-
-    if optional:
-        literals_t = Optional[literals_t]
-
-    if enum_names is None:
-        enum_names = [lit.value for lit in literals]
-
-    t = Annotated[literals_t, Field(enumNames=enum_names, **field_kwargs)]
-
-    return t
-
-
-def ModelEnumLiterals(literals, enum_name_prop="name", *args, **kwargs):
-    """Create an Annotated type that consists of a group of PIDName Literals and decorate with enumNames."""
-
-    return EnumLiterals(
-        literals=literals, enum_names=[getattr(lit.value, enum_name_prop) for lit in literals], *args, **kwargs
-    )
 
 
 class BaseName(AindModel):
@@ -183,3 +136,55 @@ class AindCoreModel(AindModel):
 
         with open(filename, "w") as f:
             f.write(self.json(indent=3))
+
+
+class _TypeEnumSubset(object):
+    """Helper class useful for defining a custom pydantic data type"""
+
+    @classmethod
+    def __get_validators__(cls):
+        """Method needs to be defined for pydantic"""
+        yield cls.validate_allowable
+
+    @classmethod
+    def validate_allowable(cls, val):
+        """This will check whether the input value is one of the enums from the enum_set"""
+        enum_set = getattr(cls, "enum_set")
+        enum_class = type(enum_set) if isinstance(enum_set, tuple) is False else type(enum_set[0])
+        if isinstance(val, dict) or isinstance(val, str) or isinstance(type(val), ModelMetaclass):
+            val = enum_class(val)
+        if val not in enum_set:
+            raise ValueError(f"Value not allowed! {val}")
+        else:
+            return val
+
+    @classmethod
+    def __modify_schema__(cls, field_schema):
+        """To render the schema correctly, it needs an enum field and an enumNames field."""
+        enum_set = getattr(cls, "enum_set")
+        field_schema["enumNames"] = [e.name for e in enum_set]
+        field_schema["enum"] = [e.value for e in enum_set]
+
+
+class _EnumSubsetMeta(type):
+    """Metaclass used to pass the enum set values"""
+
+    def __getitem__(self, t):
+        """Function needed for a user to define a class with square brackets"""
+
+        # Convert to Tuple if only single value passed
+        if not isinstance(t, Tuple):
+            t = (t,)
+
+        # Check that only enums of a specific class are being passed
+        first_type = type(t[0])
+        if not issubclass(first_type, Enum):
+            raise TypeError(f"Only Enums are allowed. {first_type}")
+        for enum_member in t[1:]:
+            if type(enum_member) != first_type:
+                raise ValueError("All enums must be of the same class.")
+        return type("EnumSubset", (_TypeEnumSubset,), {"enum_set": t})
+
+
+class EnumSubset(object, metaclass=_EnumSubsetMeta):
+    """Special data type for fields that use a subset of enums"""

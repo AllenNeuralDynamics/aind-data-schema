@@ -2,10 +2,10 @@
 
 import json
 import unittest
-
 from enum import Enum
+from typing import Optional
 
-from aind_data_schema.base import ModelEnumLiterals, EnumLiterals, PIDName, AindModel
+from aind_data_schema.base import AindModel, EnumSubset, PIDName
 from aind_data_schema.device import Manufacturer
 
 
@@ -24,20 +24,19 @@ class TestEnumLiterals(unittest.TestCase):
         class TestThing(AindModel):
             """temp model"""
 
-            a: EnumLiterals([TestEnum.FOO, TestEnum.BAR])
-            b: EnumLiterals([TestEnum.FOO, TestEnum.BAR], optional=True)
+            a: EnumSubset[TestEnum.FOO, TestEnum.BAR]
+            b: Optional[EnumSubset[TestEnum.FOO, TestEnum.BAR]]
 
         # ensure we can generate the schema
         schema = TestThing.schema()
 
-        assert set(schema["properties"]["a"]["enumNames"]) == {"foo", "bar"}
-        assert set(schema["properties"]["b"]["enumNames"]) == {"foo", "bar"}
-        assert "b" not in schema["required"]
+        self.assertEqual({"FOO", "BAR"}, set(schema["properties"]["a"]["enumNames"]))
+        self.assertEqual({"FOO", "BAR"}, set(schema["properties"]["b"]["enumNames"]))
+        self.assertFalse("b" in schema["required"])
 
         # now check that the json schema is good
         json_schema = TestThing.schema_json(indent=2)
-
-        assert json_schema is not None
+        self.assertIsNotNone(json_schema)
 
     def test_model_enum_literals(self):
         """test that ModelEnumLiterals works"""
@@ -51,15 +50,15 @@ class TestEnumLiterals(unittest.TestCase):
         class TestThing(AindModel):
             """temp model"""
 
-            a: ModelEnumLiterals([TestEnum.FOO, TestEnum.BAR])
-            b: ModelEnumLiterals([TestEnum.FOO, TestEnum.BAR], optional=True)
+            a: EnumSubset[TestEnum.FOO, TestEnum.BAR]
+            b: Optional[EnumSubset[TestEnum.FOO, TestEnum.BAR]]
 
         # ensure we can generate the schema
         schema = TestThing.schema()
 
-        assert set(schema["properties"]["a"]["enumNames"]) == {"foo", "bar"}
-        assert set(schema["properties"]["b"]["enumNames"]) == {"foo", "bar"}
-        assert "b" not in schema["required"]
+        self.assertEqual({"FOO", "BAR"}, set(schema["properties"]["a"]["enumNames"]))
+        self.assertEqual({"FOO", "BAR"}, set(schema["properties"]["b"]["enumNames"]))
+        self.assertFalse("b" in schema["required"])
 
         # now check that the json schema is good
         json_schema = TestThing.schema_json(indent=2)
@@ -72,7 +71,7 @@ class TestEnumLiterals(unittest.TestCase):
         class TestModel(AindModel):
             """Test class"""
 
-            manufacturer: ModelEnumLiterals([Manufacturer.NEW_SCALE_TECHNOLOGIES])
+            manufacturer: EnumSubset[Manufacturer.NEW_SCALE_TECHNOLOGIES]
 
         test_instance = TestModel(manufacturer=Manufacturer.NEW_SCALE_TECHNOLOGIES)
 
@@ -81,6 +80,34 @@ class TestEnumLiterals(unittest.TestCase):
         # Test serialization/de-serialization
         test_instance2 = TestModel.parse_obj(test_json)
         self.assertEqual(test_instance, test_instance2)
+
+    def test_edge_cases(self):
+        """Tests that errors are raised if non-enums or mixed enums are used."""
+
+        class TestEnum(Enum):
+            """temp enum"""
+
+            FOO = PIDName(name="foo")
+            BAR = PIDName(name="bar", abbreviation="b")
+
+        with self.assertRaises(Exception) as e1:
+
+            class A(AindModel):
+                """temp model"""
+
+                a: EnumSubset[4, 5]
+
+        with self.assertRaises(Exception) as e2:
+
+            class B(AindModel):
+                """temp model"""
+
+                a: EnumSubset[TestEnum.FOO, Manufacturer.OTHER]
+
+        expected_exception1 = """TypeError("Only Enums are allowed. <class 'int'>")"""
+        expected_exception2 = """ValueError('All enums must be of the same class.')"""
+        self.assertEqual(expected_exception1, repr(e1.exception))
+        self.assertEqual(expected_exception2, repr(e2.exception))
 
 
 if __name__ == "__main__":

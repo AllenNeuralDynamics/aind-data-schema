@@ -7,7 +7,7 @@ from typing import List, Optional, Union
 
 from pydantic import Field, root_validator
 
-from aind_data_schema.base import AindCoreModel, AindModel, ModelEnumLiterals
+from aind_data_schema.base import AindCoreModel, AindModel, EnumSubset
 from aind_data_schema.device import (
     Camera,
     CameraAssembly,
@@ -60,7 +60,7 @@ class OpenEphysAcquisitionBoard(DAQDevice):
 class Manipulator(Device):
     """Manipulator used on a dome module"""
 
-    manufacturer: ModelEnumLiterals([Manufacturer.NEW_SCALE_TECHNOLOGIES])
+    manufacturer: EnumSubset[Manufacturer.NEW_SCALE_TECHNOLOGIES]
 
 
 class StickMicroscopeAssembly(AindModel):

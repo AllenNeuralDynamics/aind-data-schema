@@ -9,7 +9,7 @@ from typing import List, Optional
 
 from pydantic import Field
 
-from aind_data_schema.base import AindCoreModel, AindModel, EnumLiterals
+from aind_data_schema.base import AindCoreModel, AindModel, EnumSubset
 from aind_data_schema.device import SizeUnit
 from aind_data_schema.imaging.tile import AcquisitionTile
 from aind_data_schema.processing import ProcessName
@@ -84,19 +84,17 @@ class ProcessingSteps(AindModel):
 
     channel_name: str = Field(..., title="Channel name")
     process_name: List[
-        EnumLiterals(
-            [
-                ProcessName.IMAGE_IMPORTING,
-                ProcessName.IMAGE_BACKGROUND_SUBTRACTION,
-                ProcessName.IMAGE_CELL_SEGMENTATION,
-                ProcessName.IMAGE_DESTRIPING,
-                ProcessName.IMAGE_THRESHOLDING,
-                ProcessName.IMAGE_TILE_ALIGNMENT,
-                ProcessName.IMAGE_TILE_FUSING,
-                ProcessName.IMAGE_TILE_PROJECTION,
-                ProcessName.FILE_CONVERSION,
-            ]
-        )
+        EnumSubset[
+            ProcessName.IMAGE_IMPORTING,
+            ProcessName.IMAGE_BACKGROUND_SUBTRACTION,
+            ProcessName.IMAGE_CELL_SEGMENTATION,
+            ProcessName.IMAGE_DESTRIPING,
+            ProcessName.IMAGE_THRESHOLDING,
+            ProcessName.IMAGE_TILE_ALIGNMENT,
+            ProcessName.IMAGE_TILE_FUSING,
+            ProcessName.IMAGE_TILE_PROJECTION,
+            ProcessName.FILE_CONVERSION,
+        ]
     ]
 
 
