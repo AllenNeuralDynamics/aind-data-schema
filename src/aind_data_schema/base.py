@@ -5,13 +5,12 @@ import logging
 import os
 import re
 import urllib.parse
-from enum import EnumMeta, Enum
+from enum import Enum, EnumMeta
 from pathlib import Path
 from typing import Optional
 
 from pydantic import BaseModel, Extra, Field
 from pydantic.fields import ModelField
-
 
 DESCRIBED_BY_BASE_URL = "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/"
 
