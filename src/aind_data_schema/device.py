@@ -7,7 +7,7 @@ from typing import Any, Dict, List, Optional, Union
 
 from pydantic import Field
 
-from aind_data_schema.base import AindModel, BaseNameEnumMeta, PIDName, Registry
+from aind_data_schema.base import AindModel, BaseNameEnumMeta, PIDName, Registry, EnumSubset
 
 
 class SizeUnit(Enum):
