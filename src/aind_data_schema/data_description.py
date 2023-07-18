@@ -9,7 +9,7 @@ from typing import Any, List, Optional
 
 from pydantic import Field
 
-from aind_data_schema.base import AindCoreModel, AindModel, BaseName, BaseNameEnumMeta, PIDName
+from aind_data_schema.base import AindCoreModel, AindModel, BaseName, BaseNameEnumMeta, PIDName, Registry
 
 
 class RegexParts(Enum):
@@ -68,12 +68,7 @@ class Institution(Enum, metaclass=BaseNameEnumMeta):
         registry=Registry.ROR,
         registry_identifier="00hj8s172",
     )
-    JAX = PIDName(
-        name="Jackson Laboratory",
-        abbreviation="JAX",
-        registry=Registry.ROR,
-        registry_identifier="021sy4w91"
-    )
+    JAX = PIDName(name="Jackson Laboratory", abbreviation="JAX", registry=Registry.ROR, registry_identifier="021sy4w91")
     HUST = PIDName(
         name="Huazhong University of Science and Technology",
         abbreviation="HUST",
