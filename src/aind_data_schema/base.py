@@ -11,7 +11,7 @@ from typing import Optional
 
 from pydantic import BaseModel, Extra, Field
 from pydantic.fields import ModelField
-from aind_data_schema.base import Registry
+
 
 DESCRIBED_BY_BASE_URL = "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/"
 
@@ -61,6 +61,11 @@ class BaseName(AindModel):
     abbreviation: Optional[str] = Field(None, title="Abbreviation")
 
 
+class Registry(Enum):
+    ROR = BaseName(name="Research Organization Registry", abbreviation="ROR")
+    NCBI = BaseName(name="National Center for Biotechnology Information", abbreviation="NCBI")
+
+
 class PIDName(BaseName):
     """
     Model for associate a name with a persistent identifier (PID),
@@ -69,11 +74,6 @@ class PIDName(BaseName):
 
     registry: Optional[Registry] = Field(None, title="Registry")
     registry_identifier: Optional[str] = Field(None, title="Registry identifier")
-
-
-class Registry(Enum):
-    ROR = BaseName(name="Research Organization Registry", abbreviation="ROR")
-    NCBI = BaseName(name="National Center for Biotechnology Information", abbreviation="NCBI")
 
 
 class AindCoreModel(AindModel):
