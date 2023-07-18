@@ -5,7 +5,7 @@ import logging
 import os
 import re
 import urllib.parse
-from enum import EnumMeta
+from enum import EnumMeta, Enum
 from pathlib import Path
 from typing import Optional
 
@@ -68,6 +68,11 @@ class PIDName(BaseName):
 
     registry: Optional[BaseName] = Field(None, title="Registry")
     registry_identifier: Optional[str] = Field(None, title="Registry identifier")
+
+
+class Registry(Enum):
+    ROR = BaseName(name="Research Organization Registry", abbreviation="ROR")
+    NCBI = BaseName(name="National Center for Biotechnology Information", abbreviation="NCBI")
 
 
 class AindCoreModel(AindModel):

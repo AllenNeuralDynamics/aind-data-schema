@@ -8,7 +8,8 @@ from typing import List, Optional
 
 from pydantic import Field
 
-from aind_data_schema.base import AindCoreModel, AindModel, BaseName, BaseNameEnumMeta, PIDName
+from aind_data_schema.base import AindCoreModel, AindModel, BaseName, BaseNameEnumMeta, PIDName, Registry
+from aind_data_schema.data_description import Institution
 
 
 class Species(Enum, metaclass=BaseNameEnumMeta):
@@ -16,22 +17,22 @@ class Species(Enum, metaclass=BaseNameEnumMeta):
 
     CALLITHRIX_JACCHUS = PIDName(
         name="Callithrix jacchus",
-        registry=BaseName(name="National Center for Biotechnology Information", abbreviation="NCBI"),
+        registry=Registry.NCBI,
         registry_identifier="9483",
     )
     HOMO_SAPIENS = PIDName(
         name="Homo sapiens",
-        registry=BaseName(name="National Center for Biotechnology Information", abbreviation="NCBI"),
+        registry=Registry.NCBI,
         registry_identifier="9606",
     )
     MACACA_MULATTA = PIDName(
         name="Macaca mulatta",
-        registry=BaseName(name="National Center for Biotechnology Information", abbreviation="NCBI"),
+        registry=Registry.NCBI,
         registry_identifier="9544",
     )
     MUS_MUSCULUS = PIDName(
         name="Mus musculus",
-        registry=BaseName(name="National Center for Biotechnology Information", abbreviation="NCBI"),
+        registry=Registry.NCBI,
         registry_identifier="10090",
     )
 
@@ -122,12 +123,12 @@ class Subject(AindCoreModel):
     )
     mgi_allele_ids: Optional[List[MgiAlleleId]] = Field(None, title="MGI allele ids")
     background_strain: Optional[BackgroundStrain] = Field(None, title="Background strain")
-    source: Optional[str] = Field(
+    source: Optional[Institution] = Field(
         None,
         description="If the subject was not bred in house, where was it acquired from.",
         title="Source",
     )
-    rrid: Optional[str] = Field(
+    rrid: Optional[PIDName] = Field( # this should become a PIDName
         None,
         description="RRID of mouse if acquired from supplier",
         title="RRID",
