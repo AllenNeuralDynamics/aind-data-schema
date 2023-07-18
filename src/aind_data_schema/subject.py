@@ -8,7 +8,7 @@ from typing import List, Optional
 
 from pydantic import Field
 
-from aind_data_schema.base import AindCoreModel, AindModel, BaseName, BaseNameEnumMeta, PIDName, Registry
+from aind_data_schema.base import AindCoreModel, AindModel, BaseNameEnumMeta, PIDName, Registry
 from aind_data_schema.data_description import Institution
 
 
@@ -128,7 +128,7 @@ class Subject(AindCoreModel):
         description="If the subject was not bred in house, where was it acquired from.",
         title="Source",
     )
-    rrid: Optional[PIDName] = Field( # this should become a PIDName
+    rrid: Optional[PIDName] = Field(  # this should become a PIDName
         None,
         description="RRID of mouse if acquired from supplier",
         title="RRID",
