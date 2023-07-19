@@ -211,7 +211,7 @@ class DataDescription(AindCoreModel):
     funding_source: List[Funding] = Field(
         ...,
         title="Funding source",
-        description="Funding sources. If internal label as Institution.",
+        description="Funding source. If internal funding, label select 'Allen Institute'",
     )
     data_level: DataLevel = Field(
         ...,
