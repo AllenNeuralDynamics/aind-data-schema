@@ -184,7 +184,7 @@ class RelatedData(AindModel):
 class DataDescription(AindCoreModel):
     """Description of a logical collection of data files"""
 
-    schema_version: str = Field("0.7.2", title="Schema Version", const=True)
+    schema_version: str = Field("0.7.3", title="Schema Version", const=True)
     license: str = Field("CC-BY-4.0", title="License", const=True)
 
     creation_time: time = Field(
@@ -211,7 +211,7 @@ class DataDescription(AindCoreModel):
     funding_source: List[Funding] = Field(
         ...,
         title="Funding source",
-        description="Funding sources. If internal label as Institution.",
+        description="Funding source. If internal funding, select 'Allen Institute'",
     )
     data_level: DataLevel = Field(
         ...,
