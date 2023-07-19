@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/data_description.py",
-   "schema_version": "0.7.3",
+   "schema_version": "0.7.2",
    "license": "CC-BY-4.0",
    "creation_time": "16:30:01",
    "creation_date": "2022-02-21",
