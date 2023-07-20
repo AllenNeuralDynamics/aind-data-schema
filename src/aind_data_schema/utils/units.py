@@ -75,6 +75,16 @@ def create_unit_with_value(model_name, scalar_type, unit_type, unit_default):
     m = create_model(model_name, value=(scalar_type, ...), unit=(unit_type, unit_default))
     return m
 
+def create_3D_coordinate_with_value(model_name, scalar_type, unit_type, unit_default):
+
+    m = create_model(model_name, x=(scalar_type, ...), y=(scalar_type, ...), z=(scalar_type, ...), unit=(unit_type, unit_default))
+    return m
+
+def create_2D_coordinate_with_value(model_name, scalar_type, unit_type, unit_default):
+
+    m = create_model(model_name, x=(scalar_type, ...), y=(scalar_type, ...), unit=(unit_type, unit_default))
+    return m
+
 
 SizeValue = create_unit_with_value("SizeValue", float, Size, Size.MM)
 
@@ -88,3 +98,4 @@ FrequencyValue = create_unit_with_value("FrequencyValue", float, Frequency, Freq
 AngleValue = create_unit_with_value("AngleValue", float, Angle, Angle.DEG)
 TimeValue = create_unit_with_value("TimeValue", float, TimeMeasure, TimeMeasure.S)
 PowerValue = create_unit_with_value("PowerValue", float, Power, Power.MW)
+
