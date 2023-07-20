@@ -8,7 +8,7 @@ from typing import Any, Dict, List, Optional, Union
 from pydantic import Field
 
 from aind_data_schema.base import AindModel, BaseName, BaseNameEnumMeta, EnumSubset, PIDName
-from aind_data_schema.utils.units import SizeValue, SizeValuePX, SizeValueCM, AngleValue, FrequencyValue, WaveLengthNM, PowerValue
+from aind_data_schema.utils.units import SizeValue, SizeValuePX, SizeValueCM, AngleValue, FrequencyValue, WaveLengthNM, PowerValue, CoordValue2D, CoordValue3D, SizeValue2DPX, OrientationValue2D, OrientationValue3D
 
 
 class SizeUnit(Enum):
@@ -222,10 +222,7 @@ class RelativePosition(AindModel):
     roll: Optional[Decimal] = Field(None, title="Angle roll (deg)", units="deg", ge=0, le=360)
     angle_unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
 
-    x: Optional[Decimal] = Field(None, title="Position X (mm)", units="mm")
-    y: Optional[Decimal] = Field(None, title="Position Y (mm)", units="mm")
-    z: Optional[Decimal] = Field(None, title="Position Z (mm)", units="mm")
-    position_unit: SizeUnit = Field(SizeUnit.MM, title="Position unit")
+    geometric_coordinates: Optional[CoordValue3D] = Field(None, title="Geometric coordinates (x,y,z)")
 
     coordinate_system: Optional[str] = Field(None, title="Description of the coordinate system used")
 
@@ -233,18 +230,13 @@ class RelativePosition(AindModel):
 class Size2d(AindModel):
     """2D size of an object"""
 
-    width: int = Field(..., title="Width")
-    height: int = Field(..., title="Height")
-    unit: SizeUnit = Field(SizeUnit.PX, title="Size unit")
+    Size2D: SizeValue2DPX = Field(..., title="2D size (PX)")
 
 
 class Orientation3d(AindModel): # TODO: This can become a subunit of RelativePosition
     """3D orientation of an object"""
 
-    pitch: Decimal = Field(..., title="Angle pitch", ge=0, le=360)
-    yaw: Decimal = Field(..., title="Angle yaw", ge=0, le=360)
-    roll: Decimal = Field(..., title="Angle roll", ge=0, le=360)
-    unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
+    Orientation3D: OrientationValue3D = Field(..., title="Orientation (pitch, yaw, roll)")
 
 
 class ModuleOrientation2d(AindModel):
