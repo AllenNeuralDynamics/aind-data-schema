@@ -92,8 +92,6 @@ yields JSON:
    :maxdepth: 1
    :caption: Contents:
 
-   opendata
-
    diagrams
 
    modules

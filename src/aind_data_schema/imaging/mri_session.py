@@ -1,6 +1,7 @@
 """ schema for MRI Scan """
 
 from datetime import datetime
+from decimal import Decimal
 from enum import Enum
 from typing import List, Optional
 
@@ -44,7 +45,7 @@ class Scanner(Device):
 class MriSession(AindCoreModel):
     """Description of an MRI scan"""
 
-    schema_version: str = Field("0.0.3", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.1.3", description="schema version", title="Version", const=True)
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
@@ -59,13 +60,13 @@ class MriSession(AindCoreModel):
     )
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     iacuc_protocol: Optional[str] = Field(None, title="IACUC protocol")
-    animal_weight_prior: Optional[float] = Field(
+    animal_weight_prior: Optional[Decimal] = Field(
         None,
         title="Animal weight (g)",
         description="Animal weight before procedure",
         units="g",
     )
-    animal_weight_post: Optional[float] = Field(
+    animal_weight_post: Optional[Decimal] = Field(
         None,
         title="Animal weight (g)",
         description="Animal weight after procedure",

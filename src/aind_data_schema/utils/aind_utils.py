@@ -1,5 +1,4 @@
 """Class for holding generic helper functions that are usable within many packages"""
-
 import inspect
 import sys
 from typing import Iterator, Optional, Type

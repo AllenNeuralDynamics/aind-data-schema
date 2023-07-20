@@ -1,12 +1,12 @@
 """Test utils.units"""
 
 import unittest
+from decimal import Decimal
 from typing import TypeVar
 
 from aind_data_schema.utils.units import Size, SizeValue, create_unit_with_value
 
-
-ScalarType = TypeVar("ScalarType", float, int)
+ScalarType = TypeVar("ScalarType", Decimal, int)
 
 
 class UnitsTests(unittest.TestCase):
@@ -21,7 +21,7 @@ class UnitsTests(unittest.TestCase):
 
         self.assertEqual(default, SizeValue(value=10.1, unit=Size.MM))
 
-        ArbitraryValue = create_unit_with_value("ArbitraryValue", float, Size, Size.IN)
+        ArbitraryValue = create_unit_with_value("ArbitraryValue", Decimal, Size, Size.IN)
 
         self.assertIsNotNone(ArbitraryValue(value=10, unit=Size.PX))
 

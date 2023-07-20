@@ -1,5 +1,5 @@
 """ example ExaSPIM instrument """
-from aind_data_schema.device import DAQChannel, DAQDevice
+from aind_data_schema.device import DAQChannel, DAQDevice, Manufacturer
 from aind_data_schema.imaging import instrument
 
 from aind_data_schema.utils.units import SizeValue
@@ -7,13 +7,13 @@ from aind_data_schema.utils.units import SizeValue
 inst = instrument.Instrument(
     instrument_id="exaSPIM1-1",
     instrument_type="exaSPIM",
-    manufacturer="Custom",
+    manufacturer=Manufacturer.CUSTOM,
     objectives=[
         instrument.Objective(
             numerical_aperture=0.305,
-            magnification=5.0,
+            magnification=5,
             immersion="air",
-            manufacturer="Other",
+            manufacturer=Manufacturer.OTHER,
             model="JM_DIAMOND 5.0X/1.3",
             serial_number="Unknown",
             notes="manufacturer collaboration between Schneider-Kreuznach and Vieworks",
@@ -24,7 +24,7 @@ inst = instrument.Instrument(
             type="Camera",
             data_interface="Coax",
             cooling="air",
-            manufacturer="Vieworks",
+            manufacturer=Manufacturer.VIEWORKS,
             model="VNP-604MX",
             serial_number="MB151BAY001",
         ),
@@ -36,7 +36,7 @@ inst = instrument.Instrument(
             wavelength=405,
             max_power=200,
             serial_number="LAS-08307",
-            manufacturer="Oxxius",
+            manufacturer=Manufacturer.OXXIUS,
             notes="Housed in commercial laser combiner",
         ),
         instrument.Lightsource(
@@ -45,7 +45,7 @@ inst = instrument.Instrument(
             wavelength=488,
             max_power=200,
             serial_number="LAS-08308",
-            manufacturer="Oxxius",
+            manufacturer=Manufacturer.OXXIUS,
             notes="Housed in commercial laser combiner",
         ),
         instrument.Lightsource(
@@ -54,7 +54,7 @@ inst = instrument.Instrument(
             wavelength=561,
             max_power=200,
             serial_number="539251",
-            manufacturer="Oxxius",
+            manufacturer=Manufacturer.OXXIUS,
             notes="Housed in commercial laser combiner",
         ),
         instrument.Lightsource(
@@ -63,16 +63,16 @@ inst = instrument.Instrument(
             wavelength=638,
             max_power=200,
             serial_number="LAS-08309",
-            manufacturer="Oxxius",
+            manufacturer=Manufacturer.OXXIUS,
             notes="Housed in commercial laser combiner",
         ),
     ],
     fluorescence_filters=[
         instrument.Filter(
             filter_type="Multiband",
-            manufacturer="Chroma",
+            manufacturer=Manufacturer.CHROMA,
             diameter=SizeValue(value=44.05),
-            thickness=SizeValue(value=1.0),
+            thickness=SizeValue(value=1),
             model="ZET405/488/561/640mv2",
             notes="Custom made filter",
             filter_wheel_index=0,
@@ -84,7 +84,7 @@ inst = instrument.Instrument(
             model="PCIe-6738",
             data_interface="USB",
             computer_name="Dev2",
-            manufacturer="National Instruments",
+            manufacturer=Manufacturer.NATIONAL_INSTRUMENTS,
             name="Dev2",
             serial_number="Unknown",
             channels=[
@@ -103,7 +103,7 @@ inst = instrument.Instrument(
             stage_axis_name="X",
             travel=SizeValue(value=1000),
             model="MS-8000",
-            manufacturer="Applied Scientific Instrumentation",
+            manufacturer=Manufacturer.ASI,
             serial_number="Unknown",
         ),
         instrument.ScanningStage(
@@ -111,7 +111,7 @@ inst = instrument.Instrument(
             stage_axis_name="Y",
             travel=SizeValue(value=1000),
             model="MS-8000",
-            manufacturer="Applied Scientific Instrumentation",
+            manufacturer=Manufacturer.ASI,
             serial_number="Unknown",
         ),
         instrument.ScanningStage(
@@ -119,26 +119,26 @@ inst = instrument.Instrument(
             stage_axis_name="Z",
             travel=SizeValue(value=100),
             model="LS-100",
-            manufacturer="Applied Scientific Instrumentation",
+            manufacturer=Manufacturer.ASI,
             serial_number="Unknown",
         ),
     ],
     additional_devices=[
         instrument.AdditionalImagingDevice(
             type="Tunable lens",
-            manufacturer="Optotune",
+            manufacturer=Manufacturer.OPTOTUNE,
             model="EL-16-40-TC-VIS-20D-C",
             serial_number="01",
         ),
         instrument.AdditionalImagingDevice(
             type="Rotation mount",
-            manufacturer="Thorlabs",
+            manufacturer=Manufacturer.THORLABS,
             model="K10CR1",
             serial_number="01",
         ),
         instrument.AdditionalImagingDevice(
             type="Laser combiner",
-            manufacturer="Oxxius",
+            manufacturer=Manufacturer.OXXIUS,
             model="L6Cc",
             serial_number="L6CC-00513",
         ),
@@ -149,7 +149,7 @@ inst = instrument.Instrument(
             width=48,
             vibration_control=True,
             model="VIS3648-PG2-325A",
-            manufacturer="MKS Newport",
+            manufacturer=Manufacturer.MKS_NEWPORT,
             serial_number="Unknown",
         )
     ],

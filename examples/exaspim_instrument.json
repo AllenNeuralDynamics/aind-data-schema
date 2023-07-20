@@ -1,20 +1,33 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/imaging/instrument.py",
-   "schema_version": "0.6.0",
+   "schema_version": "0.7.4",
    "instrument_id": "exaSPIM1-1",
    "instrument_type": "exaSPIM",
-   "manufacturer": "Custom",
+   "manufacturer": {
+      "name": "Custom",
+      "abbreviation": null,
+      "registry": null,
+      "registry_identifier": null
+   },
    "temperature_control": false,
    "humidity_control": false,
    "optical_tables": [
       {
          "name": null,
          "serial_number": "Unknown",
-         "manufacturer": "MKS Newport",
+         "manufacturer": {
+            "name": "MKS Newport",
+            "abbreviation": null,
+            "registry": {
+               "name": "Research Organization Registry",
+               "abbreviation": "ROR"
+            },
+            "registry_identifier": "00k17f049"
+         },
          "model": "VIS3648-PG2-325A",
          "notes": null,
-         "length": 36.0,
-         "width": 48.0,
+         "length": 36,
+         "width": 48,
          "table_size_unit": "inch",
          "vibration_control": true
       }
@@ -23,11 +36,16 @@
       {
          "name": null,
          "serial_number": "Unknown",
-         "manufacturer": "Other",
+         "manufacturer": {
+            "name": "Other",
+            "abbreviation": null,
+            "registry": null,
+            "registry_identifier": null
+         },
          "model": "JM_DIAMOND 5.0X/1.3",
          "notes": "manufacturer collaboration between Schneider-Kreuznach and Vieworks",
          "numerical_aperture": 0.305,
-         "magnification": 5.0,
+         "magnification": 5,
          "immersion": "air"
       }
    ],
@@ -35,7 +53,12 @@
       {
          "name": null,
          "serial_number": "MB151BAY001",
-         "manufacturer": "Vieworks",
+         "manufacturer": {
+            "name": "Vieworks",
+            "abbreviation": null,
+            "registry": null,
+            "registry_identifier": null
+         },
          "model": "VNP-604MX",
          "notes": null,
          "type": "Camera",
@@ -47,53 +70,73 @@
       {
          "name": null,
          "serial_number": "LAS-08307",
-         "manufacturer": "Oxxius",
+         "manufacturer": {
+            "name": "Oxxius",
+            "abbreviation": null,
+            "registry": null,
+            "registry_identifier": null
+         },
          "model": null,
          "notes": "Housed in commercial laser combiner",
          "type": "laser",
          "coupling": "Single-mode fiber",
-         "wavelength": 405.0,
+         "wavelength": 405,
          "wavelength_unit": "nanometer",
-         "max_power": 200.0,
+         "max_power": 200,
          "power_unit": "milliwatt"
       },
       {
          "name": null,
          "serial_number": "LAS-08308",
-         "manufacturer": "Oxxius",
+         "manufacturer": {
+            "name": "Oxxius",
+            "abbreviation": null,
+            "registry": null,
+            "registry_identifier": null
+         },
          "model": null,
          "notes": "Housed in commercial laser combiner",
          "type": "laser",
          "coupling": "Single-mode fiber",
-         "wavelength": 488.0,
+         "wavelength": 488,
          "wavelength_unit": "nanometer",
-         "max_power": 200.0,
+         "max_power": 200,
          "power_unit": "milliwatt"
       },
       {
          "name": null,
          "serial_number": "539251",
-         "manufacturer": "Oxxius",
+         "manufacturer": {
+            "name": "Oxxius",
+            "abbreviation": null,
+            "registry": null,
+            "registry_identifier": null
+         },
          "model": null,
          "notes": "Housed in commercial laser combiner",
          "type": "laser",
          "coupling": "Single-mode fiber",
-         "wavelength": 561.0,
+         "wavelength": 561,
          "wavelength_unit": "nanometer",
-         "max_power": 200.0,
+         "max_power": 200,
          "power_unit": "milliwatt"
       },
       {
          "name": null,
          "serial_number": "LAS-08309",
-         "manufacturer": "Oxxius",
+         "manufacturer": {
+            "name": "Oxxius",
+            "abbreviation": null,
+            "registry": null,
+            "registry_identifier": null
+         },
          "model": null,
          "notes": "Housed in commercial laser combiner",
          "type": "laser",
          "coupling": "Single-mode fiber",
-         "wavelength": 638.0,
+         "wavelength": 638,
          "wavelength_unit": "nanometer",
-         "max_power": 200.0,
+         "max_power": 200,
          "power_unit": "milliwatt"
       }
    ],
@@ -101,21 +144,26 @@
       {
          "name": null,
          "serial_number": "Unknown-0",
-         "manufacturer": "Chroma",
+         "manufacturer": {
+            "name": "Chroma",
+            "abbreviation": null,
+            "registry": null,
+            "registry_identifier": null
+         },
          "model": "ZET405/488/561/640mv2",
          "notes": "Custom made filter",
          "filter_type": "Multiband",
-         "diameter": {
-            "value": 44.05,
-            "unit": "millimeter"
-         },
-         "thickness": {
-            "value": 1.0,
-            "unit": "millimeter"
-         },
+         "diameter": 44.05,
+         "width": null,
+         "height": null,
+         "size_unit": "millimeter",
+         "thickness": 1,
+         "thickness_unit": "millimeter",
          "filter_wheel_index": 0,
-         "cut_off_frequency": null,
-         "cut_on_frequency": null,
+         "cut_off_wavelength": null,
+         "cut_on_wavelength": null,
+         "center_wavelength": null,
+         "wavelength_unit": "nanometer",
          "description": null
       }
    ],
@@ -124,39 +172,57 @@
       {
          "name": null,
          "serial_number": "Unknown",
-         "manufacturer": "Applied Scientific Instrumentation",
+         "manufacturer": {
+            "name": "Applied Scientific Instrumentation",
+            "abbreviation": "ASI",
+            "registry": null,
+            "registry_identifier": null
+         },
          "model": "MS-8000",
          "notes": null,
          "travel": {
-            "value": 1000.0,
+            "value": 1000,
             "unit": "millimeter"
          },
+         "firmware": null,
          "stage_axis_direction": "Detection axis",
          "stage_axis_name": "X"
       },
       {
          "name": null,
          "serial_number": "Unknown",
-         "manufacturer": "Applied Scientific Instrumentation",
+         "manufacturer": {
+            "name": "Applied Scientific Instrumentation",
+            "abbreviation": "ASI",
+            "registry": null,
+            "registry_identifier": null
+         },
          "model": "MS-8000",
          "notes": null,
          "travel": {
-            "value": 1000.0,
+            "value": 1000,
             "unit": "millimeter"
          },
+         "firmware": null,
          "stage_axis_direction": "Perpendicular axis",
          "stage_axis_name": "Y"
       },
       {
          "name": null,
          "serial_number": "Unknown",
-         "manufacturer": "Applied Scientific Instrumentation",
+         "manufacturer": {
+            "name": "Applied Scientific Instrumentation",
+            "abbreviation": "ASI",
+            "registry": null,
+            "registry_identifier": null
+         },
          "model": "LS-100",
          "notes": null,
          "travel": {
-            "value": 100.0,
+            "value": 100,
             "unit": "millimeter"
          },
+         "firmware": null,
          "stage_axis_direction": "Illumination axis",
          "stage_axis_name": "Z"
       }
@@ -165,7 +231,15 @@
       {
          "name": "Dev2",
          "serial_number": "Unknown",
-         "manufacturer": "National Instruments",
+         "manufacturer": {
+            "name": "National Instruments",
+            "abbreviation": null,
+            "registry": {
+               "name": "Research Organization Registry",
+               "abbreviation": "ROR"
+            },
+            "registry_identifier": "026exqw73"
+         },
          "model": "PCIe-6738",
          "notes": null,
          "data_interface": "USB",
@@ -177,7 +251,7 @@
                "channel_type": "Analog Output",
                "port": null,
                "channel_index": null,
-               "sample_rate": 10000.0,
+               "sample_rate": 10000,
                "sample_rate_unit": "Hertz",
                "event_based_sampling": false
             },
@@ -187,7 +261,7 @@
                "channel_type": "Analog Output",
                "port": null,
                "channel_index": null,
-               "sample_rate": 10000.0,
+               "sample_rate": 10000,
                "sample_rate_unit": "Hertz",
                "event_based_sampling": false
             },
@@ -197,7 +271,7 @@
                "channel_type": "Analog Output",
                "port": null,
                "channel_index": null,
-               "sample_rate": 10000.0,
+               "sample_rate": 10000,
                "sample_rate_unit": "Hertz",
                "event_based_sampling": false
             },
@@ -207,7 +281,7 @@
                "channel_type": "Analog Output",
                "port": null,
                "channel_index": null,
-               "sample_rate": 10000.0,
+               "sample_rate": 10000,
                "sample_rate_unit": "Hertz",
                "event_based_sampling": false
             },
@@ -217,7 +291,7 @@
                "channel_type": "Analog Output",
                "port": null,
                "channel_index": null,
-               "sample_rate": 10000.0,
+               "sample_rate": 10000,
                "sample_rate_unit": "Hertz",
                "event_based_sampling": false
             },
@@ -227,7 +301,7 @@
                "channel_type": "Analog Output",
                "port": null,
                "channel_index": null,
-               "sample_rate": 10000.0,
+               "sample_rate": 10000,
                "sample_rate_unit": "Hertz",
                "event_based_sampling": false
             }
@@ -238,7 +312,12 @@
       {
          "name": null,
          "serial_number": "01",
-         "manufacturer": "Optotune",
+         "manufacturer": {
+            "name": "Optotune",
+            "abbreviation": null,
+            "registry": null,
+            "registry_identifier": null
+         },
          "model": "EL-16-40-TC-VIS-20D-C",
          "notes": null,
          "type": "Tunable lens"
@@ -246,7 +325,15 @@
       {
          "name": null,
          "serial_number": "01",
-         "manufacturer": "Thorlabs",
+         "manufacturer": {
+            "name": "Thorlabs",
+            "abbreviation": null,
+            "registry": {
+               "name": "Research Organization Registry",
+               "abbreviation": "ROR"
+            },
+            "registry_identifier": "04gsnvb07"
+         },
          "model": "K10CR1",
          "notes": null,
          "type": "Rotation mount"
@@ -254,7 +341,12 @@
       {
          "name": null,
          "serial_number": "L6CC-00513",
-         "manufacturer": "Oxxius",
+         "manufacturer": {
+            "name": "Oxxius",
+            "abbreviation": null,
+            "registry": null,
+            "registry_identifier": null
+         },
          "model": "L6Cc",
          "notes": null,
          "type": "Laser combiner"
