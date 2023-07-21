@@ -564,7 +564,7 @@ class Treadmill(MousePlatform):
 
 
 class Monitor(Device):
-    """Visual display"""
+    """Description of visual display for visual stimuli"""
 
     # required fields
     manufacturer: EnumSubset[Manufacturer.LG]
@@ -573,8 +573,10 @@ class Monitor(Device):
     height: int = Field(..., title="Height (pixels)", units="pixels")
     size_unit: SizeUnit = Field(SizeUnit.PX, title="Size unit")
     viewing_distance: Decimal = Field(..., title="Viewing distance (cm)", units="cm")
+    viewing_distance_unit: SizeUnit = Field(SizeUnit.CM, title="Viewing distance unit")
 
     # optional fields
+    position: Optional[RelativePosition] = Field(None, title="Relative position of the monitor")
     contrast: Optional[int] = Field(
         ...,
         description="Monitor's contrast setting",
@@ -614,13 +616,15 @@ class MousePlatform(AindModel):
     water_delivery: Optional[WaterDelivery] = Field(None, title="Water delivery")
 
 
-class VisualStimulusDisplayAssembly(AindModel):
-    """Visual display"""
+class Speaker(Device):
+    """Description of a speaker for auditory stimuli"""
 
-    # required fields
-    monitor: Monitor = Field(..., title="Monitor")
-    viewing_distance: Decimal = Field(..., title="Viewing distance (cm)", units="cm")
-    viewing_distance_unit: SizeUnit = Field(SizeUnit.CM, title="Viewing distance unit")
-
-    # optional fields
+    minimum_impedance: float = Field(..., title="Minimum impedance (ohms)", units="ohms")
+    impedance_unit: str = Field("ohms", title="Impedance unit")
+    rated_noise_power: int = Field(..., title="Rated noise power (W)", units="W")
+    rated_noise_power_unit: PowerUnit = Field(PowerUnit.W, title="Rated noise power unit")
+    sensitivity: float = Field(..., title="Sensitivity (dB)", units="dB", description="db @ 1W/1m")
+    sensitivity_unit: str = Field("dB", title="Sensitivity unit")
+    test_spectrum_bandwidth: List[int] = Field(..., title="Test spectrum bandwidth (Hz)", units="Hz", description="Low & high end of bandwidth")
+    test_spectrum_bandwidth_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Test spectrum bandwidth unit")
     position: Optional[RelativePosition] = Field(None, title="Relative position of the monitor")
