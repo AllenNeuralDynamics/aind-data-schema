@@ -39,6 +39,7 @@ class PowerUnit(Enum):
 
     UW = "microwatt"
     MW = "milliwatt"
+    W = "watt"
 
 
 class DeviceDriver(Enum):
@@ -145,6 +146,7 @@ class Manufacturer(Enum, metaclass=BaseNameEnumMeta):
         registry_identifier="04gsnvb07",
     )
     TMC = PIDName(name="Technical Manufacturing Corporation", abbreviation="TMC")
+    TYMPHANY = PIDName(name="Tymphany")
     VIEWORKS = PIDName(name="Vieworks")
     VORTRAN = PIDName(name="Vortran")
     OTHER = PIDName(name="Other")
@@ -606,10 +608,10 @@ class WaterDelivery(AindModel):
     stage_type: Optional[MotorizedStage] = Field(None, title="Motorized stage")
 
 
-class MousePlatform(AindModel):
+class BehaviorPlatform(AindModel):
     """Behavior platform for a mouse during a session"""
 
-    track_wheel: Union[Tube, Treadmill, Disc] = Field(..., title="Track wheel type")
+    mouse_platform: Union[Tube, Treadmill, Disc] = Field(..., title="Track wheel type")
 
     # optional fields
     stage_software: Optional[Software] = Field(None, title="Stage software")
@@ -619,6 +621,7 @@ class MousePlatform(AindModel):
 class Speaker(Device):
     """Description of a speaker for auditory stimuli"""
 
+    manufacturer: EnumSubset[Manufacturer.TYMPHANY]
     minimum_impedance: float = Field(..., title="Minimum impedance (ohms)", units="ohms")
     impedance_unit: str = Field("ohms", title="Impedance unit")
     rated_noise_power: int = Field(..., title="Rated noise power (W)", units="W")
