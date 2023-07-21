@@ -95,7 +95,7 @@ class BehaviorStim(AindModel):
     )
     notes: Optional[str] = Field(None, title="Notes")
 
-class StimulusPresentation(AindModel):
+class StimulusEpoch(AindModel):
     """Description of stimulus used during session"""
 
     stimulus: Union[OptoStim, VisualStim, BehaviorStim] = Field(..., title="Stimulus")

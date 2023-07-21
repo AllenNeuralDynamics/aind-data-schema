@@ -11,7 +11,7 @@ from pydantic import Field
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.device import AngleUnit, Coordinates3d, PowerUnit, SizeUnit
-from aind_data_schema.stimulus import StimulusPresentation
+from aind_data_schema.stimulus import StimulusEpoch
 
 
 class SessionType(Enum):
@@ -118,7 +118,7 @@ class Stream(AindModel):
     laser_modules: Optional[List[LaserModule]] = Field(None, title="Laser modules", unique_items=True)
     daqs: Optional[List[DAQDevice]] = Field(None, title="DAQ devices", unique_items=True)
     cameras: Optional[List[Camera]] = Field(None, title="Cameras", unique_items=True)
-    stimulus_presentations: Optional[List[StimulusPresentation]] = Field(None, title="Stimulus")
+    stimulus_epochs: Optional[List[StimulusEpoch]] = Field(None, title="Stimulus")
     notes: Optional[str] = Field(None, title="Notes")
 
 

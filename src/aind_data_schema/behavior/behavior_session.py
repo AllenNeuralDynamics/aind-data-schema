@@ -10,7 +10,7 @@ from pydantic import Field
 
 from aind_data_schema.base import AindCoreModel
 from aind_data_schema.procedures import VolumeUnit, WeightUnit
-from aind_data_schema.stimulus import StimulusPresentation
+from aind_data_schema.stimulus import StimulusEpoch
 
 
 class BehaviorSession(AindCoreModel):
@@ -45,7 +45,7 @@ class BehaviorSession(AindCoreModel):
     )
     weight_unit: WeightUnit = Field(WeightUnit.G, title="Weight unit")
     behavior_type: str = Field(..., title="Behavior type", description="Name of the behavior session")
-    stimulus_presentations: Optional[List[StimulusPresentation]] = Field(None, title="Stimulus")
+    stimulus_epochs: Optional[List[StimulusEpoch]] = Field(None, title="Stimulus")
     session_number: int = Field(..., title="Session number")
     output_parameters: Dict[str, Any] = Field(
         ..., title="Performance parameters", description="Performance metrics from session"
