@@ -73,6 +73,7 @@ class BehaviorTests(unittest.TestCase):
         ]
 
         water_delivery = br.WaterDelivery(
+            stimulus_type="Water delivery",
             stage_type=MotorizedStage(
                 manufacturer=Manufacturer.THORLABS,
                 model="Z825B",
@@ -120,7 +121,9 @@ class BehaviorTests(unittest.TestCase):
                 manufacturer=Manufacturer.CUSTOM,
             ),
             daqs=daqs,
-            water_delivery=water_delivery,
+            stimulus_devices=[
+                water_delivery=water_delivery,
+            ],
             cameras=[
                 br.CameraAssembly(
                     camera_assembly_name="cam",
@@ -137,8 +140,7 @@ class BehaviorTests(unittest.TestCase):
                         chroma="Color",
                     ),
                 )
-            ]
-
+            ],
         )
 
         assert r is not None
