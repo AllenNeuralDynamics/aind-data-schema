@@ -101,6 +101,7 @@ class Manufacturer(Enum, metaclass=BaseNameEnumMeta):
         registry_identifier="02kcbn207",
     )
     JULABO = PIDName(name="Julabo")
+    LEE = PIDName(name="The Lee Company")
     LEICA = PIDName(name="Leica")
     LG = PIDName(
         name="LG",
@@ -598,18 +599,30 @@ class Monitor(Device):
         le=100,
     )
 
+class SpoutSide(Enum):
+    """Spout sides"""
+
+    LEFT = "Left"
+    RIGHT = "Right"
+
+
+class WaterSpout(AindModel):
+    """Description of a water spout"""
+
+    side: SpoutSide = Field(..., title="Spout side")
+    spout_diameter: float = Field(..., title="Spout diameter (mm)")
+    spout_diameter_unit: SizeUnit = Field(SizeUnit.MM, title="Spout diameter unit")
+    spout_position: RelativePosition = Field(..., title="Spout stage position")
+    water_calibration_values: Dict[str, Any] = Field(..., title="Water calibration values")
+    solenoid_valve: Device = Field(..., title="Solenoid valve")
+
 
 class WaterDelivery(AindModel):
     """Description of water delivery system"""
 
-    # required fields
-    spout_diameter: str = Field(..., title="Spout diameter (mm)")
-    spout_diameter_unit: SizeUnit = Field(SizeUnit.MM, title="Spout diameter unit")
-    spout_position: RelativePosition = Field(..., title="Spout stage position")
-    water_calibration_values: Dict[str, Any] = Field(..., title="Water calibration values")
-
-    # optional fields
-    stage_type: Optional[MotorizedStage] = Field(None, title="Motorized stage")
+    stage_type: MotorizedStage = Field(None, title="Motorized stage")
+    water_spouts: List[WaterSpout] = Field(..., title="Water spouts")
+    lick_holder: Device = Field(..., title="Lick holder")
 
 
 class BehaviorPlatform(AindModel):
