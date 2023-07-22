@@ -612,7 +612,7 @@ class WaterSpout(AindModel):
     side: SpoutSide = Field(..., title="Spout side")
     spout_diameter: float = Field(..., title="Spout diameter (mm)")
     spout_diameter_unit: SizeUnit = Field(SizeUnit.MM, title="Spout diameter unit")
-    spout_position: RelativePosition = Field(..., title="Spout stage position")
+    spout_position: Optional[RelativePosition] = Field(..., title="Spout stage position")
     water_calibration_values: Dict[str, Any] = Field(..., title="Water calibration values")
     solenoid_valve: Device = Field(..., title="Solenoid valve")
 
@@ -623,16 +623,6 @@ class WaterDelivery(AindModel):
     stage_type: MotorizedStage = Field(None, title="Motorized stage")
     water_spouts: List[WaterSpout] = Field(..., title="Water spouts")
     lick_holder: Device = Field(..., title="Lick holder")
-
-
-class BehaviorPlatform(AindModel):
-    """Behavior platform for a mouse during a session"""
-
-    mouse_platform: Union[Tube, Treadmill, Disc] = Field(..., title="Track wheel type")
-
-    # optional fields
-    stage_software: Optional[Software] = Field(None, title="Stage software")
-    water_delivery: Optional[WaterDelivery] = Field(None, title="Water delivery")
 
 
 class Speaker(Device):
