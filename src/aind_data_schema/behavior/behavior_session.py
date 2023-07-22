@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from datetime import datetime
 from decimal import Decimal
-from typing import Any, Dict, Optional
+from typing import Any, Dict, List, Optional
 
 from pydantic import Field
 
@@ -45,7 +45,7 @@ class BehaviorSession(AindCoreModel):
     )
     weight_unit: WeightUnit = Field(WeightUnit.G, title="Weight unit")
     behavior_type: str = Field(..., title="Behavior type", description="Name of the behavior session")
-    stimulus_epochs: Optional[List[StimulusEpoch]] = Field(None, title="Stimulus")
+    stimulus_epochs: List[StimulusEpoch] = Field(None, title="Stimulus")
     session_number: int = Field(..., title="Session number")
     output_parameters: Dict[str, Any] = Field(
         ..., title="Performance parameters", description="Performance metrics from session"
