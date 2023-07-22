@@ -5,7 +5,7 @@ import unittest
 
 import pydantic
 
-from aind_data_schema.device import DAQChannel, Device, Manufacturer, MotorizedStage, SpoutSide, WaterSpout
+from aind_data_schema.device import Camera, DAQChannel, Device, Lens, Manufacturer, MotorizedStage, SpoutSide, WaterSpout
 from aind_data_schema.behavior import behavior_rig as br
 from aind_data_schema.behavior import behavior_session as bs
 
@@ -72,7 +72,7 @@ class BehaviorTests(unittest.TestCase):
             )
         ]
 
-        water_delivery = br.WaterDelivery(
+        wd = br.WaterDelivery(
             stimulus_type="Water delivery",
             stage_type=MotorizedStage(
                 manufacturer=Manufacturer.THORLABS,
@@ -122,14 +122,14 @@ class BehaviorTests(unittest.TestCase):
             ),
             daqs=daqs,
             stimulus_devices=[
-                water_delivery=water_delivery,
+                wd,
             ],
             cameras=[
                 br.CameraAssembly(
                     camera_assembly_name="cam",
                     camera_target="Face bottom",
                     lens=Lens(manufacturer=Manufacturer.OTHER),
-                    camera=er.Camera(
+                    camera=Camera(
                         name="Camera A",
                         manufacturer=Manufacturer.OTHER,
                         data_interface="USB",
