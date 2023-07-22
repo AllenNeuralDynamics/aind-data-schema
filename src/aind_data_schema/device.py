@@ -58,6 +58,7 @@ class Manufacturer(Enum, metaclass=BaseNameEnumMeta):
         name="Applied Scientific Instrumentation",
         abbreviation="ASI",
     )
+    AVCOSTAR = PIDName(name="Arecont Vision Costar")
     BASLER = PIDName(name="Basler")
     CAMBRIDGE_TECHNOLOGY = PIDName(name="Cambridge Technology")
     CHROMA = PIDName(name="Chroma")
@@ -86,6 +87,7 @@ class Manufacturer(Enum, metaclass=BaseNameEnumMeta):
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
         registry_identifier="01j1gwp17",
     )
+    FUJINON = PIDName(name="Fujinon")
     HAMAMATSU = PIDName(
         name="Hamamatsu",
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
@@ -139,7 +141,9 @@ class Manufacturer(Enum, metaclass=BaseNameEnumMeta):
     OXXIUS = PIDName(name="Oxxius")
     PRIZMATIX = PIDName(name="Prizmatix")
     QUANTIFI = PIDName(name="Quantifi")
+    RASPBERRYPI = PIDName(name="Raspberry Pi")
     SEMROCK = PIDName(name="Semrock")
+    TAMRON = PIDName(name="Tamron")
     THORLABS = PIDName(
         name="Thorlabs",
         registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
