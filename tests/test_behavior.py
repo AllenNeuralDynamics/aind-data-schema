@@ -5,6 +5,7 @@ import unittest
 
 import pydantic
 
+from aind_data_schema.device import DAQChannel, Device, Manufacturer, MotorizedStage, SpoutSide, WaterSpout
 from aind_data_schema.behavior import behavior_rig as br
 from aind_data_schema.behavior import behavior_session as bs
 
@@ -18,6 +19,9 @@ class BehaviorTests(unittest.TestCase):
         with self.assertRaises(pydantic.ValidationError):
             b = bs.BehaviorSession()
 
+        with self.assertRaises(pydantic.ValidationError):
+            r = br.BehaviorRig()
+
         now = datetime.datetime.now()
 
         b = bs.BehaviorSession(
@@ -30,9 +34,20 @@ class BehaviorTests(unittest.TestCase):
             animal_weight_post=19.7,
             behavior_type="Foraging",
             session_number=3,
-            behavior_code="URL_to_code",
-            code_version="0.1",
-            input_parameters={"reward volume": 0.01},
+            stimulus_epochs=[
+                bs.StimulusEpoch(
+                    stimulus=bs.BehaviorStim(
+                        behavior_name="Foraging",
+                        behavior_software="Bonsai",
+                        behavior_software_version="0.1",
+                        behavior_script="URL_to_code",
+                        behavior_script_version="0.1",
+                        input_parameters={"reward volume": 0.01},
+                    ),
+                    stimulus_start_time=now,
+                    stimulus_end_time=now,
+                )
+            ],
             output_parameters={},
             water_consumed_during_training=820,
             water_consumed_total=1020,
@@ -43,7 +58,88 @@ class BehaviorTests(unittest.TestCase):
 
         assert b is not None
 
-        r = br.BehaviorRig(rig_id="1234")
+        daqs = [
+            br.DAQDevice(
+                manufacturer=Manufacturer.OEPS,
+                model="PCIe-6343",
+                data_interface="PCIe",
+                computer_name="foo",
+                channels=[
+                    DAQChannel(channel_name="123", device_name="Laser A", channel_type="Analog Output"),
+                    DAQChannel(channel_name="234", device_name="Camera A", channel_type="Digital Output"),
+                    DAQChannel(channel_name="2354", device_name="Camera B", channel_type="Digital Output"),
+                ],
+            )
+        ]
+
+        water_delivery = br.WaterDelivery(
+            stage_type=MotorizedStage(
+                manufacturer=Manufacturer.THORLABS,
+                model="Z825B",
+                serial_number="1234",
+                travel=25,
+            ),
+            water_spouts=[
+                WaterSpout(
+                    side=SpoutSide.LEFT,
+                    manufacturer=Manufacturer.OTHER,
+                    model="BD223",
+                    spout_diameter=0.853,
+                    water_calibration_values={},
+                    solenoid_valve=Device(
+                        manufacturer=Manufacturer.LEE,
+                        model="LHDA1231415H",
+                        serial_number="1234",
+                    ),
+                ),
+                WaterSpout(
+                    side=SpoutSide.RIGHT,
+                    manufacturer=Manufacturer.OTHER,
+                    model="BD223",
+                    spout_diameter=0.853,
+                    water_calibration_values={},
+                    solenoid_valve=Device(
+                        manufacturer=Manufacturer.LEE,
+                        model="LHDA1231415H",
+                        serial_number="4321",
+                    )
+                )
+            ],
+            lick_holder=Device(
+                manufacturer=Manufacturer.CUSTOM,
+                name="Dual spout lick holder",
+            )
+        )
+
+        r = br.BehaviorRig(
+            rig_id="1234",
+            mouse_platform=br.Tube(
+                platform_type="Tube",
+                diameter=8,
+                name="Mouse Tube",
+                manufacturer=Manufacturer.CUSTOM,
+            ),
+            daqs=daqs,
+            water_delivery=water_delivery,
+            cameras=[
+                br.CameraAssembly(
+                    camera_assembly_name="cam",
+                    camera_target="Face bottom",
+                    lens=Lens(manufacturer=Manufacturer.OTHER),
+                    camera=er.Camera(
+                        name="Camera A",
+                        manufacturer=Manufacturer.OTHER,
+                        data_interface="USB",
+                        computer_name="ASDF",
+                        max_frame_rate=144,
+                        pixel_width=1,
+                        pixel_height=1,
+                        chroma="Color",
+                    ),
+                )
+            ]
+
+        )
 
         assert r is not None
 
