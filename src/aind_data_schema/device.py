@@ -574,6 +574,7 @@ class Monitor(Device):
     """Description of visual display for visual stimuli"""
 
     # required fields
+    stimulus_type: str = Field("Visual monitor", title="Stimulus type")
     manufacturer: EnumSubset[Manufacturer.LG]
     refresh_rate: int = Field(..., title="Refresh rate (Hz)", units="Hz", ge=60)
     width: int = Field(..., title="Width (pixels)", units="pixels")
@@ -620,6 +621,7 @@ class WaterSpout(AindModel):
 class WaterDelivery(AindModel):
     """Description of water delivery system"""
 
+    stimulus_type: str = Field("Water delivery", title="Stimulus type")
     stage_type: MotorizedStage = Field(None, title="Motorized stage")
     water_spouts: List[WaterSpout] = Field(..., title="Water spouts")
     lick_holder: Device = Field(..., title="Lick holder")
@@ -628,6 +630,7 @@ class WaterDelivery(AindModel):
 class Speaker(Device):
     """Description of a speaker for auditory stimuli"""
 
+    stimulus_type: str = Field("Speaker", title="Stimulus type")
     manufacturer: EnumSubset[Manufacturer.TYMPHANY]
     minimum_impedance: float = Field(..., title="Minimum impedance (ohms)", units="ohms")
     impedance_unit: str = Field("ohms", title="Impedance unit")
