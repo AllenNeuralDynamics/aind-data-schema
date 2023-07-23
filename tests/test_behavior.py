@@ -24,6 +24,7 @@ class BehaviorTests(unittest.TestCase):
             r = br.BehaviorRig()
 
         now = datetime.datetime.now()
+        epoch_time = datetime.time.now()
 
         b = bs.BehaviorSession(
             subject_id="1234",
@@ -45,8 +46,8 @@ class BehaviorTests(unittest.TestCase):
                         behavior_script_version="0.1",
                         input_parameters={"reward volume": 0.01},
                     ),
-                    stimulus_start_time=now,
-                    stimulus_end_time=now,
+                    stimulus_start_time=epoch_time,
+                    stimulus_end_time=epoch_time,
                 )
             ],
             output_parameters={},
