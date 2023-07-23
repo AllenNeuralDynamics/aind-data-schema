@@ -607,7 +607,7 @@ class SpoutSide(Enum):
     RIGHT = "Right"
 
 
-class WaterSpout(AindModel):
+class WaterSpout(Device):
     """Description of a water spout"""
 
     side: SpoutSide = Field(..., title="Spout side")
