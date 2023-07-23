@@ -8,6 +8,7 @@ import pydantic
 from aind_data_schema.device import Camera, DAQChannel, Device, Lens, Manufacturer, MotorizedStage, SpoutSide, WaterSpout
 from aind_data_schema.behavior import behavior_rig as br
 from aind_data_schema.behavior import behavior_session as bs
+from aind_data_schema.stimulus import BehaviorStim
 
 
 class BehaviorTests(unittest.TestCase):
@@ -36,7 +37,7 @@ class BehaviorTests(unittest.TestCase):
             session_number=3,
             stimulus_epochs=[
                 bs.StimulusEpoch(
-                    stimulus=bs.BehaviorStim(
+                    stimulus=BehaviorStim(
                         behavior_name="Foraging",
                         behavior_software="Bonsai",
                         behavior_software_version="0.1",
