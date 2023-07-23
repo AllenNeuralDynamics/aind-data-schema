@@ -613,7 +613,7 @@ class WaterSpout(Device):
     side: SpoutSide = Field(..., title="Spout side")
     spout_diameter: float = Field(..., title="Spout diameter (mm)")
     spout_diameter_unit: SizeUnit = Field(SizeUnit.MM, title="Spout diameter unit")
-    spout_position: Optional[RelativePosition] = Field(..., title="Spout stage position")
+    spout_position: Optional[RelativePosition] = Field(None, title="Spout stage position")
     water_calibration_values: Dict[str, Any] = Field(..., title="Water calibration values")
     solenoid_valve: Device = Field(..., title="Solenoid valve")
 
