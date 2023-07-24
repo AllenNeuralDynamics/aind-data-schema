@@ -86,7 +86,8 @@ def create_3D_orientation_with_value(model_name, scalar_type, unit_type, unit_de
     m = create_model(model_name, pitch=(scalar_type, ...), yaw=(scalar_type, ...), roll=(scalar_type, ...), unit=(unit_type, unit_default))
     return m
 
-def create_2D_module_orientation_with_value(model_name, scalar_type, unit_type, unit_default):
+
+def create_3D_module_orientation_with_value(model_name, scalar_type, unit_type, unit_default):
 
     m = create_model(model_name, arc_angle=(scalar_type, ...), module_angle=(scalar_type, ...), rotation_angle=(scalar_type, ...), unit=(unit_type, unit_default))
     return m
@@ -106,11 +107,18 @@ def create_2D_size_with_value(model_name, scalar_type, unit_type, unit_default):
     m = create_model(model_name, width=(scalar_type, ...), height=(scalar_type, ...), unit=(unit_type, unit_default))
     return m
 
+def create_filter_size_with_value(model_name, scalar_type, unit_type, unit_default):
+
+    m = create_model(model_name, diameter=(scalar_type, ...), width=(scalar_type, ...), height=(scalar_type, ...),  unit=(unit_type, unit_default))
+    return m
+
 
 SizeValue = create_unit_with_value("SizeValue", Decimal, Size, Size.MM)
 
 SizeValueCM = create_unit_with_value("SizeValueCM", Decimal, Size, Size.CM)
 SizeValuePX = create_unit_with_value("SizeValuePX", int, Size, Size.PX)
+
+FilterSizeValue = create_filter_size_with_value("FilterSizeValue", Decimal, Size, Size.MM)
 
 WaveLengthNM = create_unit_with_value("WaveLengthNM", int, Size, Size.NM)
 MassValue = create_unit_with_value("MassValue", Decimal, Mass, Mass.MG)
@@ -124,5 +132,7 @@ CoordValue3D = create_3D_coordinate_with_value("CoordValue3D", Decimal, Size, Si
 CoordValue2D = create_2D_coordinate_with_value("CoordValue2D", Decimal, Size, Size.MM)
 
 SizeValue2DPX = create_2D_size_with_value("SizeValue2DPX", int, Size, Size.PX)
+
 OrientationValue3D = create_3D_orientation_with_value("OrientationValue3D", Decimal, Angle, Angle.DEG)
-ModuleOrientationValue2D = create_2D_module_orientation_with_value("OrientationValue2D", Decimal, Angle, Angle.DEG)
+ModuleOrientationValue2D = create_2D_module_orientation_with_value("ModuleOrientationValue2D", Decimal, Angle, Angle.DEG)
+ModuleOrientationValue3D = create_3D_module_orientation_with_value("ModuleOrientationValue3D", Decimal, Angle, Angle.DEG)
