@@ -140,9 +140,9 @@ class ExperimentType(Enum):
     HSFP = Modality.HSFP.value.abbreviation
     MESOSPIM = Modality.MESOSPIM.value.abbreviation
     MERFISH = Modality.MERFISH.value.abbreviation
-    MRI = Modality.MRI.value.abbreviation    
+    MRI = Modality.MRI.value.abbreviation
     MPOPHYS = Modality.MPOPHYS.value.abbreviation
-    SLAP = Modality.SLAP.value.abbreviation    
+    SLAP = Modality.SLAP.value.abbreviation
     SMARTSPIM = Modality.SMARTSPIM.value.abbreviation
     SPOPHYS = Modality.SPOPHYS.value.abbreviation
     OTHER = "Other"
