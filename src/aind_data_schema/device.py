@@ -8,7 +8,7 @@ from typing import Any, Dict, List, Optional, Union
 from pydantic import Field
 
 from aind_data_schema.base import AindModel, BaseName, BaseNameEnumMeta, EnumSubset, PIDName
-from aind_data_schema.utils.units import SizeValue, SizeValuePX, SizeValueCM, AngleValue, FrequencyValue, WaveLengthNM, PowerValue, CoordValue2D, CoordValue3D, SizeValue2DPX, OrientationValue2D, OrientationValue3D
+from aind_data_schema.utils.units import SizeValue, SizeValuePX, SizeValueCM, AngleValue, FrequencyValue, WaveLengthNM, PowerValue, CoordValue2D, CoordValue3D, SizeValue2DPX, ModuleOrientationValue2D, ModuleOrientationValue3D, OrientationValue3D, FilterSizeValue
 
 
 class SizeUnit(Enum):
@@ -242,18 +242,14 @@ class Orientation3d(AindModel): # TODO: This can become a subunit of RelativePos
 class ModuleOrientation2d(AindModel):
     """2D module orientation of an object"""
 
-    arc_angle: Decimal = Field(..., title="Arc angle")
-    module_angle: Decimal = Field(..., title="Module angle")
-    unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
+    Orientation2D: ModuleOrientationValue2D = Field(..., title="Orientation (arc_angle, module_angle)")
 
 
 class ModuleOrientation3d(AindModel):
     """3D module orientation of an object"""
 
-    arc_angle: Decimal = Field(..., title="Arc angle")
-    module_angle: Decimal = Field(..., title="Module angle")
-    rotation_angle: Decimal = Field(..., title="Rotation angle")
-    unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
+    Orientation3D: ModuleOrientationValue3D = Field(..., title="Orientation (arc_angle, module_angle, rotation_angle)")
+
 
 
 class Coordinates3d(AindModel): # TODO: This can also become a subunit of RelativePosition
@@ -349,7 +345,8 @@ class Filter(Device):
         Manufacturer.OTHER,
     ]
 
-    # optional fields
+    # optional fields # TODO: Get input on how to split this data up
+    size: Optional[FilterSizeValue] = Field(None, title="Filter Size (diameter, width, height)")
     diameter: Optional[Decimal] = Field(None, title="Diameter (mm)", units="mm")
     width: Optional[Decimal] = Field(None, title="Width (mm)")
     height: Optional[Decimal] = Field(None, title="Height (mm)")
