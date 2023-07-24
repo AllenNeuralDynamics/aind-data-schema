@@ -62,7 +62,7 @@ class BaseName(AindModel):
     abbreviation: Optional[str] = Field(None, title="Abbreviation")
 
 
-class Registry(Enum, metaclass=BaseNameEnumMeta):
+class Registry(Enum):
     ROR = BaseName(name="Research Organization Registry", abbreviation="ROR")
     NCBI = BaseName(name="National Center for Biotechnology Information", abbreviation="NCBI")
 
