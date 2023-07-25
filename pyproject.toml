@@ -80,3 +80,8 @@ profile = "black"
 [tool.interrogate]
 exclude = ["setup.py", "docs", "build"]
 fail-under = 100
+
+[tool.codespell]
+skip = '.git,*.pdf,*.svg'
+#
+# ignore-words-list = ''
