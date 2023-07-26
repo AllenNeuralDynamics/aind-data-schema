@@ -17,6 +17,7 @@ from aind_data_schema.data_description import (
     Modality,
     RelatedData,
 )
+from aind_data_schema.base import Registry
 from aind_data_schema.schema_upgrade.data_description_upgrade import (
     DataDescriptionUpgrade,
     FundingUpgrade,
@@ -256,7 +257,7 @@ class TestFundingUpgrade(unittest.TestCase):
                     "funder": {
                         "name": "Allen Institute for Neural Dynamics",
                         "abbreviation": "AIND",
-                        "registry": {"name": "Research Organization Registry", "abbreviation": "ROR"},
+                        "registry": Registry.ROR,
                         "registry_identifier": "04szwah67",
                     },
                     "grant_number": None,
