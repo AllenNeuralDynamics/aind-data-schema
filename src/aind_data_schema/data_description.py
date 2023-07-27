@@ -118,14 +118,13 @@ class Modality(Enum, metaclass=BaseNameEnumMeta):
     FISH = BaseName(name="Fluorescence in situ hybridization", abbreviation="fish")
     MESOSPIM = BaseName(name="Mesoscale selective plane illumination microscopy", abbreviation="mesoSPIM")
     MERFISH = BaseName(name="Multiplexed error-robust fluorescence in situ hybridization", abbreviation="merfish")
+    MPOPHYS = BaseName(name="Multiplane optical physiology", abbreviation="multiplane-ophys")
     MRI = BaseName(name="Magnetic resonance imaging", abbreviation="MRI")
     OPHYS = BaseName(name="Optical physiology", abbreviation="ophys")
-    POPHYS = BaseName(name="Planar optical physiology", abbreviation="pophys")
-    SPOPHYS = BaseName(name="Single plane optical physiology", abbreviation="single-plane-ophys")
-    MPOPHYS = BaseName(name="Multiplane optical physiology", abbreviation="multiplane-ophys")
     SLAP = BaseName(name="Scanned line projection", abbreviation="slap")
     SMARTSPIM = BaseName(name="Smart selective plane illumination microscopy", abbreviation="SmartSPIM")
     SPIM = BaseName(name="Selective plane illumination microscopy", abbreviation="SPIM")
+    SPOPHYS = BaseName(name="Single plane optical physiology", abbreviation="single-plane-ophys")
 
 
 class ExperimentType(Enum):
