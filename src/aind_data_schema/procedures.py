@@ -330,7 +330,7 @@ class BrainInjection(Injection):
 
     injection_coordinate_ml: Decimal = Field(..., title="Injection coordinate ML (mm)")
     injection_coordinate_ap: Decimal = Field(..., title="Injection coordinate AP (mm)")
-    injection_coordinate_depth: Decimal = Field(..., title="Injection coodinate depth (mm)")
+    injection_coordinate_depth: List[Decimal] = Field(..., title="Injection coodinate depth (mm)", max_length=2)
     injection_coordinate_unit: SizeUnit = Field(SizeUnit.MM, title="Injection coordinate unit")
     injection_coordinate_reference: Optional[CoordinateReferenceLocation] = Field(
         None, title="Injection coordinate reference"
@@ -470,7 +470,7 @@ class Perfusion(SubjectProcedure):
 class Procedures(AindCoreModel):
     """Description of all procedures performed on a subject"""
 
-    schema_version: str = Field("0.8.2", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.8.3", description="schema version", title="Version", const=True)
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",

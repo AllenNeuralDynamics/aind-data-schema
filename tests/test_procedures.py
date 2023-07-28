@@ -65,7 +65,7 @@ class ProceduresTests(unittest.TestCase):
                     injection_duration=1,
                     injection_coordinate_ml=1,
                     injection_coordinate_ap=1,
-                    injection_coordinate_depth=1,
+                    injection_coordinate_depth=[1],
                     injection_coordinate_reference="Bregma",
                     bregma_to_lambda_distance=4.1,
                     injection_angle=1,
