@@ -12,7 +12,7 @@ def get_classes(module: Optional[str] = None) -> list:
     Parameters
     ----------
     module : Optional[str]
-      Name of module to check. If None, weill return calling namespace's imports. Defaults to None.
+      Name of module to check. If None, will return calling namespace's imports. Defaults to None.
 
     Returns
     -------

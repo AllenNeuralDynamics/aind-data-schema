@@ -330,7 +330,7 @@ class BrainInjection(Injection):
 
     injection_coordinate_ml: Decimal = Field(..., title="Injection coordinate ML (mm)")
     injection_coordinate_ap: Decimal = Field(..., title="Injection coordinate AP (mm)")
-    injection_coordinate_depth: Decimal = Field(..., title="Injection coodinate depth (mm)")
+    injection_coordinate_depth: Decimal = Field(..., title="Injection coordinate depth (mm)")
     injection_coordinate_unit: SizeUnit = Field(SizeUnit.MM, title="Injection coordinate unit")
     injection_coordinate_reference: Optional[CoordinateReferenceLocation] = Field(
         None, title="Injection coordinate reference"
@@ -418,7 +418,7 @@ class OphysProbe(AindModel):
     ferrule_material: Optional[FerruleMaterial] = Field(None, title="Ferrule material")
     targeted_structure: str = Field(..., title="Targeted structure")
     stereotactic_coordinate_ap: Decimal = Field(..., title="Stereotactic coordinate A/P (mm)", units="mm")
-    stereotactic_coordinate_ml: Decimal = Field(..., title="Stereotactic coodinate M/L (mm)", units="mm")
+    stereotactic_coordinate_ml: Decimal = Field(..., title="Stereotactic coordinate M/L (mm)", units="mm")
     stereotactic_coordinate_dv: Decimal = Field(..., title="Stereotactic coordinate D/V (mm)", units="mm")
     stereotactic_coordinate_unit: SizeUnit = Field(SizeUnit.MM, title="Sterotactic coordinate unit")
     stereotactic_coordinate_reference: Optional[CoordinateReferenceLocation] = Field(
