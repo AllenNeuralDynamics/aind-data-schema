@@ -330,7 +330,7 @@ class BrainInjection(Injection):
 
     injection_coordinate_ml: Decimal = Field(..., title="Injection coordinate ML (mm)")
     injection_coordinate_ap: Decimal = Field(..., title="Injection coordinate AP (mm)")
-    injection_coordinate_depth: List[Decimal] = Field(..., title="Injection coodinate depth (mm)", max_length=2)
+    injection_coordinate_depth: List[Decimal] = Field(..., title="Injection coodinate depth (mm)")
     injection_coordinate_unit: SizeUnit = Field(SizeUnit.MM, title="Injection coordinate unit")
     injection_coordinate_reference: Optional[CoordinateReferenceLocation] = Field(
         None, title="Injection coordinate reference"
