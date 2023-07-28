@@ -25,11 +25,16 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
     'aind_data_schema[docs]',
+    'aind_data_schema[linters]'
+]
+
+linters = [
+    'codespell',
     'black',
-    'coverage',    
+    'coverage',
     'flake8',
     'interrogate',
-    'isort'    
+    'isort'
 ]
 
 docs = [
