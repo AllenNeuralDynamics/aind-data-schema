@@ -350,7 +350,9 @@ class NanojectInjection(BrainInjection):
     """Description of a nanoject injection procedure"""
 
     procedure_type: str = Field("Nanoject injection", title="Procedure type", const=True)
-    injection_volume: List[Decimal] = Field(..., title="Injection volume (nL)", units="nL", description="Injection volume, one value per location")
+    injection_volume: List[Decimal] = Field(
+        ..., title="Injection volume (nL)", units="nL", description="Injection volume, one value per location"
+    )
     injection_volume_unit: VolumeUnit = Field(VolumeUnit.NL, title="Injection volume unit")
 
 
@@ -367,7 +369,9 @@ class IntraCerebellarVentricleInjection(BrainInjection):
     """Description of an interacerebellar ventricle injection"""
 
     procedure_type: str = Field("ICV injection", title="Procedure type", const=True)
-    injection_volume: List[Decimal] = Field(..., title="Injection volume (nL)", units="nL", description="Injection volume, one value per location")
+    injection_volume: List[Decimal] = Field(
+        ..., title="Injection volume (nL)", units="nL", description="Injection volume, one value per location"
+    )
     injection_volume_unit: VolumeUnit = Field(VolumeUnit.NL, title="Injection volume unit")
 
 
@@ -375,7 +379,9 @@ class IntraCisternalMagnaInjection(BrainInjection):
     """Description of an interacisternal magna injection"""
 
     procedure_type: str = Field("ICM injection", title="Procedure type", const=True)
-    injection_volume: List[Decimal] = Field(..., title="Injection volume (nL)", units="nL", description="Injection volume, one value per location")
+    injection_volume: List[Decimal] = Field(
+        ..., title="Injection volume (nL)", units="nL", description="Injection volume, one value per location"
+    )
     injection_volume_unit: VolumeUnit = Field(VolumeUnit.NL, title="Injection volume unit")
 
 

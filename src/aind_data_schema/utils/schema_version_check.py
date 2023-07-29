@@ -111,7 +111,7 @@ def run_job(new_schema_folder: str, old_schema_folder: str) -> None:
             old_schema_version_dict = old_model["properties"].get("schema_version")
             old_schema_version = (
                 None
-                if old_schema_version_dict is None or type(old_schema_version_dict) != dict
+                if old_schema_version_dict is None or type(old_schema_version_dict) is not dict
                 else old_schema_version_dict.get("const")
             )
             v_check = compare_versions(new_schema_version, old_schema_version)
