@@ -69,7 +69,7 @@ class ProceduresTests(unittest.TestCase):
                     injection_coordinate_reference="Bregma",
                     bregma_to_lambda_distance=4.1,
                     injection_angle=1,
-                    injection_volume=1,
+                    injection_volume=[1],
                     recovery_time=10,
                     targeted_structure="VISp6",
                 ),
