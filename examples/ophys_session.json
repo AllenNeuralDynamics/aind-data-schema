@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/ophys/ophys_session.py",
-   "schema_version": "0.2.3",
+   "schema_version": "0.2.4",
    "experimenter_full_name": [
       "John Doe"
    ],
