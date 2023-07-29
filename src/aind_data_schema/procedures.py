@@ -350,7 +350,7 @@ class NanojectInjection(BrainInjection):
     """Description of a nanoject injection procedure"""
 
     procedure_type: str = Field("Nanoject injection", title="Procedure type", const=True)
-    injection_volume: Decimal = Field(..., title="Injection volume (nL)", units="nL")
+    injection_volume: List[Decimal] = Field(..., title="Injection volume (nL)", units="nL", description="Injection volume, one value per location")
     injection_volume_unit: VolumeUnit = Field(VolumeUnit.NL, title="Injection volume unit")
 
 

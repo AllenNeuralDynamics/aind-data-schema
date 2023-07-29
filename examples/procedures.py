@@ -44,7 +44,7 @@ p = Procedures(
             injection_coordinate_reference="Lambda",
             bregma_to_lambda_distance=4.1,
             injection_angle=10,
-            injection_volume=200,
+            injection_volume=[200],
             targeted_structure="VISp",
         ),
     ],
