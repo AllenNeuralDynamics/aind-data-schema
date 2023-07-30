@@ -58,7 +58,7 @@ class TimeMeasure(Enum):
     HR = "hour"
     M = "minute"
     S = "second"
-    MS = "milisecond"
+    MS = "millisecond"
     US = "microsecond"
     NS = "nanosecond"
 
