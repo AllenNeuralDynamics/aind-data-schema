@@ -76,7 +76,9 @@
          "instrument_id": null,
          "injection_coordinate_ml": -0.87,
          "injection_coordinate_ap": -3.8,
-         "injection_coordinate_depth": -3.3,
+         "injection_coordinate_depth": [
+            -3.3
+         ],
          "injection_coordinate_unit": "millimeter",
          "injection_coordinate_reference": "Lambda",
          "bregma_to_lambda_distance": 4.1,
@@ -86,7 +88,9 @@
          "targeted_structure": "VISp",
          "injection_hemisphere": "Left",
          "procedure_type": "Nanoject injection",
-         "injection_volume": 200,
+         "injection_volume": [
+            200
+         ],
          "injection_volume_unit": "nanoliter"
       }
    ],
