@@ -330,7 +330,7 @@ class BrainInjection(Injection):
 
     injection_coordinate_ml: Decimal = Field(..., title="Injection coordinate ML (mm)")
     injection_coordinate_ap: Decimal = Field(..., title="Injection coordinate AP (mm)")
-    injection_coordinate_depth: Decimal = Field(..., title="Injection coodinate depth (mm)")
+    injection_coordinate_depth: List[Decimal] = Field(..., title="Injection coordinate depth (mm)")
     injection_coordinate_unit: SizeUnit = Field(SizeUnit.MM, title="Injection coordinate unit")
     injection_coordinate_reference: Optional[CoordinateReferenceLocation] = Field(
         None, title="Injection coordinate reference"
@@ -350,7 +350,9 @@ class NanojectInjection(BrainInjection):
     """Description of a nanoject injection procedure"""
 
     procedure_type: str = Field("Nanoject injection", title="Procedure type", const=True)
-    injection_volume: Decimal = Field(..., title="Injection volume (nL)", units="nL")
+    injection_volume: List[Decimal] = Field(
+        ..., title="Injection volume (nL)", units="nL", description="Injection volume, one value per location"
+    )
     injection_volume_unit: VolumeUnit = Field(VolumeUnit.NL, title="Injection volume unit")
 
 
@@ -367,7 +369,9 @@ class IntraCerebellarVentricleInjection(BrainInjection):
     """Description of an interacerebellar ventricle injection"""
 
     procedure_type: str = Field("ICV injection", title="Procedure type", const=True)
-    injection_volume: Decimal = Field(..., title="Injection volume (nL)", units="nL")
+    injection_volume: List[Decimal] = Field(
+        ..., title="Injection volume (nL)", units="nL", description="Injection volume, one value per location"
+    )
     injection_volume_unit: VolumeUnit = Field(VolumeUnit.NL, title="Injection volume unit")
 
 
@@ -375,7 +379,9 @@ class IntraCisternalMagnaInjection(BrainInjection):
     """Description of an interacisternal magna injection"""
 
     procedure_type: str = Field("ICM injection", title="Procedure type", const=True)
-    injection_volume: Decimal = Field(..., title="Injection volume (nL)", units="nL")
+    injection_volume: List[Decimal] = Field(
+        ..., title="Injection volume (nL)", units="nL", description="Injection volume, one value per location"
+    )
     injection_volume_unit: VolumeUnit = Field(VolumeUnit.NL, title="Injection volume unit")
 
 
@@ -418,7 +424,7 @@ class OphysProbe(AindModel):
     ferrule_material: Optional[FerruleMaterial] = Field(None, title="Ferrule material")
     targeted_structure: str = Field(..., title="Targeted structure")
     stereotactic_coordinate_ap: Decimal = Field(..., title="Stereotactic coordinate A/P (mm)", units="mm")
-    stereotactic_coordinate_ml: Decimal = Field(..., title="Stereotactic coodinate M/L (mm)", units="mm")
+    stereotactic_coordinate_ml: Decimal = Field(..., title="Stereotactic coordinate M/L (mm)", units="mm")
     stereotactic_coordinate_dv: Decimal = Field(..., title="Stereotactic coordinate D/V (mm)", units="mm")
     stereotactic_coordinate_unit: SizeUnit = Field(SizeUnit.MM, title="Sterotactic coordinate unit")
     stereotactic_coordinate_reference: Optional[CoordinateReferenceLocation] = Field(
@@ -470,7 +476,7 @@ class Perfusion(SubjectProcedure):
 class Procedures(AindCoreModel):
     """Description of all procedures performed on a subject"""
 
-    schema_version: str = Field("0.8.2", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.8.4", description="schema version", title="Version", const=True)
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",

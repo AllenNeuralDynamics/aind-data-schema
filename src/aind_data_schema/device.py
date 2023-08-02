@@ -321,7 +321,9 @@ class Lens(Device):
     """Lens used to focus light onto a camera sensor"""
 
     # required fields
-    manufacturer: EnumSubset[Manufacturer.COMPUTAR, Manufacturer.EDMUND_OPTICS, Manufacturer.THORLABS, Manufacturer.OTHER]
+    manufacturer: EnumSubset[
+        Manufacturer.COMPUTAR, Manufacturer.EDMUND_OPTICS, Manufacturer.THORLABS, Manufacturer.OTHER
+    ]
 
     # optional fields
     focal_length: Optional[SizeValue] = Field(None, title="Focal length of the lens", units="mm")

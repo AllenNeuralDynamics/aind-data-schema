@@ -48,7 +48,7 @@ shield_off_procedure = procedures.SpecimenProcedure(
     reagents=[shield_buffer, shield_epoxy],
 )
 
-# specimen gets transfered to SHIELD ON and baked
+# specimen gets transferred to SHIELD ON and baked
 shield_on_procedure = procedures.SpecimenProcedure(
     specimen_id=specimen_id,
     procedure_type="Fixation",

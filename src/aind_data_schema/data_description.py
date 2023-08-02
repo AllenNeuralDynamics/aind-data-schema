@@ -118,12 +118,13 @@ class Modality(Enum, metaclass=BaseNameEnumMeta):
     FISH = BaseName(name="Fluorescence in situ hybridization", abbreviation="fish")
     MESOSPIM = BaseName(name="Mesoscale selective plane illumination microscopy", abbreviation="mesoSPIM")
     MERFISH = BaseName(name="Multiplexed error-robust fluorescence in situ hybridization", abbreviation="merfish")
+    MPOPHYS = BaseName(name="Multiplane optical physiology", abbreviation="multiplane-ophys")
     MRI = BaseName(name="Magnetic resonance imaging", abbreviation="MRI")
     OPHYS = BaseName(name="Optical physiology", abbreviation="ophys")
-    POPHYS = BaseName(name="Planar optical physiology", abbreviation="pophys")
     SLAP = BaseName(name="Scanned line projection", abbreviation="slap")
     SMARTSPIM = BaseName(name="Smart selective plane illumination microscopy", abbreviation="SmartSPIM")
     SPIM = BaseName(name="Selective plane illumination microscopy", abbreviation="SPIM")
+    SPOPHYS = BaseName(name="Single plane optical physiology", abbreviation="single-plane-ophys")
 
 
 class ExperimentType(Enum):
@@ -139,9 +140,10 @@ class ExperimentType(Enum):
     MESOSPIM = Modality.MESOSPIM.value.abbreviation
     MERFISH = Modality.MERFISH.value.abbreviation
     MRI = Modality.MRI.value.abbreviation
-    POPHYS = Modality.POPHYS.value.abbreviation
+    MPOPHYS = Modality.MPOPHYS.value.abbreviation
     SLAP = Modality.SLAP.value.abbreviation
     SMARTSPIM = Modality.SMARTSPIM.value.abbreviation
+    SPOPHYS = Modality.SPOPHYS.value.abbreviation
     OTHER = "Other"
 
 
@@ -184,7 +186,7 @@ class RelatedData(AindModel):
 class DataDescription(AindCoreModel):
     """Description of a logical collection of data files"""
 
-    schema_version: str = Field("0.7.3", title="Schema Version", const=True)
+    schema_version: str = Field("0.7.4", title="Schema Version", const=True)
     license: str = Field("CC-BY-4.0", title="License", const=True)
 
     creation_time: time = Field(
