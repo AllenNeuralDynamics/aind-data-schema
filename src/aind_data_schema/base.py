@@ -186,7 +186,7 @@ class _EnumSubsetMeta(type):
         if not issubclass(first_type, Enum):
             raise TypeError(f"Only Enums are allowed. {first_type}")
         for enum_member in t[1:]:
-            if type(enum_member) != first_type:
+            if type(enum_member) is not first_type:
                 raise ValueError("All enums must be of the same class.")
         return type("EnumSubset", (_TypeEnumSubset,), {"enum_set": t})
 
