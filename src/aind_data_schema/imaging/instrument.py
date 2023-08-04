@@ -78,6 +78,7 @@ class ImagingDeviceType(Enum):
     """Imaginge device type name"""
 
     BEAM_EXPANDER = "Beam expander"
+    SAMPLE_CHAMBER = "Sample Chamber"
     DIFFUSER = "Diffuser"
     GALVO = "Galvo"
     LASER_COMBINER = "Laser combiner"
