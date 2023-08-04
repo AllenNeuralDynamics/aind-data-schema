@@ -7,7 +7,7 @@ from typing import Any, Dict, List, Optional, Union
 
 from pydantic import Field
 
-from aind_data_schema.base import AindModel, BaseName, BaseNameEnumMeta, EnumSubset, PIDName
+from aind_data_schema.base import AindModel, BaseNameEnumMeta, EnumSubset, PIDName, Registry
 
 
 class SizeUnit(Enum):
@@ -62,76 +62,76 @@ class Manufacturer(Enum, metaclass=BaseNameEnumMeta):
     CHROMA = PIDName(name="Chroma")
     COHERENT_SCIENTIFIC = PIDName(
         name="Coherent Scientific",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry=Registry.ROR,
         registry_identifier="031tysd23",
     )
     COMPUTAR = PIDName(name="Computar")
     CUSTOM = PIDName(name="Custom")
     DORIC = PIDName(
         name="Doric",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry=Registry.ROR,
         registry_identifier="059n53q30",
     )
     EALING = PIDName(name="Ealing")
     EDMUND_OPTICS = PIDName(
         name="Edmund Optics",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry=Registry.ROR,
         registry_identifier="01j1gwp17",
     )
     AILIPU = PIDName(name="Ailipu Technology Co")
     FLIR = PIDName(
         name="Teledyne FLIR",
         abbreviation="FLIR",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry=Registry.ROR,
         registry_identifier="01j1gwp17",
     )
     HAMAMATSU = PIDName(
         name="Hamamatsu",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry=Registry.ROR,
         registry_identifier="03natb733",
     )
     IMAGING_SOURCE = PIDName(name="The Imaging Source")
     IMEC = PIDName(
         name="Interuniversity Microelectronics Center",
         abbreviation="IMEC",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry=Registry.ROR,
         registry_identifier="02kcbn207",
     )
     JULABO = PIDName(name="Julabo")
     LEICA = PIDName(name="Leica")
     LG = PIDName(
         name="LG",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry=Registry.ROR,
         registry_identifier="02b948n83",
     )
     LIFECANVAS = PIDName(name="LifeCanvas")
     MIGHTY_ZAP = PIDName(name="IR Robot Co")
     MKS_NEWPORT = PIDName(
         name="MKS Newport",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry=Registry.ROR,
         registry_identifier="00k17f049",
     )
     MPI = PIDName(name="MPI", abbreviation="MPI")
     NATIONAL_INSTRUMENTS = PIDName(
         name="National Instruments",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry=Registry.ROR,
         registry_identifier="026exqw73",
     )
     NEW_SCALE_TECHNOLOGIES = PIDName(name="New Scale Technologies")
     NIKON = PIDName(
         name="Nikon",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry=Registry.ROR,
         registry_identifier="0280y9h11",
     )
     OEPS = PIDName(
         name="Open Ephys Production Site",
         abbreviation="OEPS",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry=Registry.ROR,
         registry_identifier="007rkz355",
     )
     OLYMPUS = PIDName(
         name="Olympus",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry=Registry.ROR,
         registry_identifier="02vcdte90",
     )
     OPTOTUNE = PIDName(name="Optotune")
@@ -141,7 +141,7 @@ class Manufacturer(Enum, metaclass=BaseNameEnumMeta):
     SEMROCK = PIDName(name="Semrock")
     THORLABS = PIDName(
         name="Thorlabs",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry=Registry.ROR,
         registry_identifier="04gsnvb07",
     )
     TMC = PIDName(name="Technical Manufacturing Corporation", abbreviation="TMC")
