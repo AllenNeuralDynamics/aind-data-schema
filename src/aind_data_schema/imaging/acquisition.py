@@ -98,10 +98,18 @@ class ProcessingSteps(AindModel):
     ]
 
 
+class Calibration(AindModel):
+    """Generic calibration class for acquisition"""
+
+    date_of_calibration: datetime = Field(..., title="Date and time of calibration")
+    description: str = Field(..., title="Calibration description")
+    notes: Optional[str] = Field(..., title="Notes")
+
+
 class Acquisition(AindCoreModel):
     """Description of an imaging acquisition session"""
 
-    schema_version: str = Field("0.4.6", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.4.7", description="schema version", title="Version", const=True)
     experimenter_full_name: List[str] = Field(
         ...,
         description="First and last name of the experimenter(s).",
@@ -110,6 +118,11 @@ class Acquisition(AindCoreModel):
     specimen_id: str = Field(..., title="Specimen ID")
     subject_id: Optional[str] = Field(None, title="Subject ID")
     instrument_id: str = Field(..., title="Instrument ID")
+    calibrations: Optional[List[Calibration]] = Field(
+        None,
+        title="Acquisition-time instrument calibrations",
+        description="List of calibration measurements taken at time of acquisition.",
+    )
     session_start_time: datetime = Field(..., title="Session start time")
     session_end_time: datetime = Field(..., title="Session end time")
     session_type: Optional[str] = Field(None, title="Session type")

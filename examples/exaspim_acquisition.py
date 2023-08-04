@@ -11,6 +11,13 @@ acq = acquisition.Acquisition(
     specimen_id="###",
     subject_id="###",
     instrument_id="###",
+    calibrations=[
+        acquisition.Calibration(
+            date_of_calibration=t,
+            description="Cleaning chamber",
+            notes="We used a special liquid XXX",  # Notes are optional
+        )
+    ],
     session_start_time=t,
     session_end_time=t,
     local_storage_directory="D:",
