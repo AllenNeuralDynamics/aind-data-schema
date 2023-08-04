@@ -62,6 +62,14 @@ class BaseName(AindModel):
     abbreviation: Optional[str] = Field(None, title="Abbreviation")
 
 
+class Registry:
+    """
+    Class to store common registries for use in PIDNames
+    """
+    ROR = BaseName(name="Research Organization Registry", abbreviation="ROR")
+    NCBI = BaseName(name="National Center for Biotechnology Information", abbreviation="NCBI")
+
+
 class PIDName(BaseName):
     """
     Model for associate a name with a persistent identifier (PID),
