@@ -205,8 +205,8 @@ inst = Instrument(
             type="Sample Chamber",
             manufacturer=Manufacturer.LIFECANVAS,
             model="Large-uncoated-glass",
-            serial_number="Unknown-1"
-        )
+            serial_number="Unknown-1",
+        ),
     ],
 )
 

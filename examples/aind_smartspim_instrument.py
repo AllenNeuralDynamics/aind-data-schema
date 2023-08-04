@@ -17,7 +17,7 @@ inst = Instrument(
     instrument_id="SmartSPIM1-3",
     instrument_type="SmartSPIM",
     manufacturer=Manufacturer.LIFECANVAS,
-    objectives=[  
+    objectives=[
         Objective(
             numerical_aperture=0.1,
             magnification=1.6,
@@ -283,8 +283,8 @@ inst = Instrument(
             type="Sample Chamber",
             manufacturer=Manufacturer.LIFECANVAS,
             model="Large-uncoated-glass",
-            serial_number="Unknown-1"
-        )
+            serial_number="Unknown-1",
+        ),
     ],
 )
 
