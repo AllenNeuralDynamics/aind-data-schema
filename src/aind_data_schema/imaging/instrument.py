@@ -78,6 +78,7 @@ class ImagingDeviceType(Enum):
     """Imaginge device type name"""
 
     BEAM_EXPANDER = "Beam expander"
+    SAMPLE_CHAMBER = "Sample Chamber"
     DIFFUSER = "Diffuser"
     GALVO = "Galvo"
     LASER_COMBINER = "Laser combiner"
@@ -144,7 +145,7 @@ class OpticalTable(Device):
 class Instrument(AindCoreModel):
     """Description of an instrument, which is a collection of devices"""
 
-    schema_version: str = Field("0.7.4", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.7.5", description="schema version", title="Version", const=True)
     instrument_id: Optional[str] = Field(
         None,
         description="Unique identifier for this instrument. Naming convention: <room>-<apparatus>-<version>",
