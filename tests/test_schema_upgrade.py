@@ -257,7 +257,7 @@ class TestFundingUpgrade(unittest.TestCase):
                     "funder": {
                         "name": "Allen Institute for Neural Dynamics",
                         "abbreviation": "AIND",
-                        "registry": Registry.ROR,
+                        "registry": {"name": "Research Organization Registry", "abbreviation": "ROR"},
                         "registry_identifier": "04szwah67",
                     },
                     "grant_number": None,
