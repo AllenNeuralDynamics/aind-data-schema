@@ -62,7 +62,7 @@ class BaseName(AindModel):
     abbreviation: Optional[str] = Field(None, title="Abbreviation")
 
 
-class Registry(Enum):
+class Registry:
     ROR = BaseName(name="Research Organization Registry", abbreviation="ROR")
     NCBI = BaseName(name="National Center for Biotechnology Information", abbreviation="NCBI")
 
@@ -73,7 +73,7 @@ class PIDName(BaseName):
     the registry for that PID, and abbreviation for that registry
     """
 
-    registry: Optional[Registry] = Field(None, title="Registry")
+    registry: Optional[BaseName] = Field(None, title="Registry")
     registry_identifier: Optional[str] = Field(None, title="Registry identifier")
 
 
