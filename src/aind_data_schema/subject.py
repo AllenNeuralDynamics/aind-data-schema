@@ -128,7 +128,7 @@ class Subject(AindCoreModel):
         description="If the subject was not bred in house, where was it acquired from.",
         title="Source",
     )
-    rrid: Optional[PIDName] = Field(  # this should become a PIDName
+    rrid: Optional[PIDName] = Field(
         None,
         description="RRID of mouse if acquired from supplier",
         title="RRID",
