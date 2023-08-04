@@ -105,6 +105,7 @@ python -m unittest
 
 ```
 coverage run -m unittest discover && coverage report
+coverage run -m unittest discover && coverage html
 ```
 
 - To test any of the following modules, conda/pip install the relevant package (interrogate, flake8, black, isort), navigate to relevant directory, and run any of the following commands in place of [command]:
