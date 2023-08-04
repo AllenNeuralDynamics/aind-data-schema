@@ -63,6 +63,9 @@ class BaseName(AindModel):
 
 
 class Registry:
+    """
+    Class to store common registries for use in PIDNames
+    """
     ROR = BaseName(name="Research Organization Registry", abbreviation="ROR")
     NCBI = BaseName(name="National Center for Biotechnology Information", abbreviation="NCBI")
 
