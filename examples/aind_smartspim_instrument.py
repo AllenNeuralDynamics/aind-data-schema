@@ -59,7 +59,8 @@ inst = Instrument(
         Detector(
             type="Camera",
             data_interface="USB",
-            cooling="water",  # chiller -> water circulator / #cooling="air", # Cooling changed to reduce vibration ~ February 01
+            # chiller -> water circulator / #cooling="air", # Cooling changed to reduce vibration ~ February 01
+            cooling="water",
             manufacturer=Manufacturer.HAMAMATSU,
             model="C14440-20UP",
             serial_number="220302-SYS-060443",
