@@ -7,7 +7,6 @@ import unittest
 from pathlib import Path
 from typing import List
 
-from aind_data_schema.base import Registry
 from aind_data_schema.data_description import (
     DataDescription,
     DataLevel,
