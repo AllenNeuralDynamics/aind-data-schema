@@ -574,7 +574,7 @@ class Monitor(Device):
     """Description of visual display for visual stimuli"""
 
     # required fields
-    stimulus_type: str = Field("Visual monitor", title="Stimulus type")
+    stimulus_device: str = Field("Visual monitor", title="Stimulus type", const=True)
     manufacturer: EnumSubset[Manufacturer.LG]
     refresh_rate: int = Field(..., title="Refresh rate (Hz)", units="Hz", ge=60)
     width: int = Field(..., title="Width (pixels)", units="pixels")
@@ -623,7 +623,7 @@ class RewardSpout(Device):
 class RewardDelivery(AindModel):
     """Description of reward delivery system"""
 
-    stimulus_type: str = Field("Reward delivery", title="Stimulus type")
+    stimulus_device: str = Field("Reward delivery", title="Stimulus type", const=True)
     stage_type: MotorizedStage = Field(None, title="Motorized stage")
     reward_spouts: List[RewardSpout] = Field(..., title="Water spouts")
 
@@ -631,6 +631,6 @@ class RewardDelivery(AindModel):
 class Speaker(Device):
     """Description of a speaker for auditory stimuli"""
 
-    stimulus_type: str = Field("Speaker", title="Stimulus type")
+    stimulus_device: str = Field("Speaker", title="Stimulus type", const=True)
     manufacturer: EnumSubset[Manufacturer.TYMPHANY]
     position: Optional[RelativePosition] = Field(None, title="Relative position of the monitor")

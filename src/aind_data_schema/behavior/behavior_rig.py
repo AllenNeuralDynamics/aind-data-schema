@@ -32,4 +32,5 @@ class BehaviorRig(AindCoreModel):
     cameras: Optional[List[CameraAssembly]] = Field(None, title="Camera assemblies", unique_items=True)
     daqs: Optional[List[Union[HarpDevice, DAQDevice]]] = Field(None, title="Data acquisition devices")
     additional_devices: Optional[List[Device]] = Field(None, title="Additional devices", unique_items=True)
+    full_calibrations: List[Calibration] = Field(..., title="Full calibration of devices")
     notes: Optional[str] = Field(None, title="Notes")
