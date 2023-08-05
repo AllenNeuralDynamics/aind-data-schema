@@ -8,7 +8,7 @@ from typing import Any, Dict, List, Optional
 from pydantic import Field
 
 from aind_data_schema.base import AindModel, BaseName, BaseNameEnumMeta, EnumSubset, PIDName
-
+from aind_data_schema.utils.units import create_unit_with_value, Size
 
 class SizeUnit(Enum):
     """units for sizes"""
@@ -605,26 +605,27 @@ class SpoutSide(Enum):
 
     LEFT = "Left"
     RIGHT = "Right"
+    CENTER = "Center"
+    OTHER = "Other"
 
 
-class WaterSpout(Device):
-    """Description of a water spout"""
+class RewardSpout(Device):
+    """Description of a reward spout"""
 
-    side: SpoutSide = Field(..., title="Spout side")
-    spout_diameter: float = Field(..., title="Spout diameter (mm)")
-    spout_diameter_unit: SizeUnit = Field(SizeUnit.MM, title="Spout diameter unit")
+    side: SpoutSide = Field(..., title="Spout side", description="If Other use notes")
+    spout_diameter: create_unit_with_value("spout_diameter", Decimal, Size, SizeUnit.MM) = Field(..., title="Spout diameter (mm)")
     spout_position: Optional[RelativePosition] = Field(None, title="Spout stage position")
     water_calibration_values: Dict[str, Any] = Field(..., title="Water calibration values")
     solenoid_valve: Device = Field(..., title="Solenoid valve")
+    notes: Optional[str] = Field(None, title="Notes")
 
 
-class WaterDelivery(AindModel):
-    """Description of water delivery system"""
+class RewardDelivery(AindModel):
+    """Description of reward delivery system"""
 
-    stimulus_type: str = Field("Water delivery", title="Stimulus type")
+    stimulus_type: str = Field("Reward delivery", title="Stimulus type")
     stage_type: MotorizedStage = Field(None, title="Motorized stage")
-    water_spouts: List[WaterSpout] = Field(..., title="Water spouts")
-    lick_holder: Device = Field(..., title="Lick holder")
+    reward_spouts: List[RewardSpout] = Field(..., title="Water spouts")
 
 
 class Speaker(Device):
@@ -632,12 +633,4 @@ class Speaker(Device):
 
     stimulus_type: str = Field("Speaker", title="Stimulus type")
     manufacturer: EnumSubset[Manufacturer.TYMPHANY]
-    minimum_impedance: float = Field(..., title="Minimum impedance (ohms)", units="ohms")
-    impedance_unit: str = Field("ohms", title="Impedance unit")
-    rated_noise_power: int = Field(..., title="Rated noise power (W)", units="W")
-    rated_noise_power_unit: PowerUnit = Field(PowerUnit.W, title="Rated noise power unit")
-    sensitivity: float = Field(..., title="Sensitivity (dB)", units="dB", description="db @ 1W/1m")
-    sensitivity_unit: str = Field("dB", title="Sensitivity unit")
-    test_spectrum_bandwidth: List[int] = Field(..., title="Test spectrum bandwidth (Hz)", units="Hz", description="Low & high end of bandwidth")
-    test_spectrum_bandwidth_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Test spectrum bandwidth unit")
     position: Optional[RelativePosition] = Field(None, title="Relative position of the monitor")

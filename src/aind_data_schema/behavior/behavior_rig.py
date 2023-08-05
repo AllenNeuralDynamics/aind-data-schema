@@ -17,7 +17,7 @@ from aind_data_schema.device import (
     Speaker,
     Treadmill, 
     Tube,
-    WaterDelivery
+    RewardDelivery
 )
 
 
@@ -27,6 +27,7 @@ class BehaviorRig(AindCoreModel):
     schema_version: str = Field("0.1.6", description="schema version", title="Version", const=True)
     rig_id: str = Field(..., description="room_stim apparatus_version", title="Rig ID")
     mouse_platform: Union[Tube, Treadmill, Disc] = Field(..., title="Mouse platform")
+    reward_delivery: RewardDelivery = Field(..., title="Reward delivery")
     stimulus_devices: List[Union[WaterDelivery, Monitor, Speaker]] = Field(..., title="Stimulus devices", unique_items=True)
     cameras: Optional[List[CameraAssembly]] = Field(None, title="Camera assemblies", unique_items=True)
     daqs: Optional[List[Union[HarpDevice, DAQDevice]]] = Field(None, title="Data acquisition devices")
