@@ -267,7 +267,7 @@ class InjectionMaterial(AindModel):
     genome_copy: Optional[Decimal] = Field(None, title="Genome copy")
     titer: Optional[Decimal] = Field(None, title="Titer (gc/mL)", description="Titer for viral materials")
     titer_unit: Optional[str] = Field("gc/mL", title="Titer unit")
-    concentration: Optional[Decimal] = Field(None, title="Concentration", description="Provide unit in concentraion unit")
+    concentration: Optional[Decimal] = Field(None, title="Concentration", description="Also provide concentration unit")
     concentration_unit: Optional[str] = Field(None, title="Concentration unit")
     prep_lot_number: Optional[str] = Field(None, title="Preparation lot number")
     prep_date: Optional[date] = Field(  #
