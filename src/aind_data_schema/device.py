@@ -8,6 +8,7 @@ from typing import Any, Dict, List, Optional, Union
 from pydantic import Field
 
 from aind_data_schema.base import AindModel, BaseNameEnumMeta, EnumSubset, PIDName, Registry
+from aind_data_schema.procedures import Reagent
 from aind_data_schema.utils.units import AngleUnit, FrequencyUnit, PowerUnit, SizeUnit
 
 
@@ -627,6 +628,6 @@ class Calibration(AindModel):
     notes: Optional[str] = Field(None, title="Notes")
     input: Optional[Dict[str, Any]] = Field({}, description="Calibration input", title="inputs")
     output: Optional[Dict[str, Any]] = Field({}, description="Calibration output", title="outputs")
-    # reagents: Optional[List[proc.Reagent]] = Field(
-    #     None, title="Reagents", description="List of reagents used in the calibration"
-    # )
+    reagents: Optional[List[Reagent]] = Field(
+        None, title="Reagents", description="List of reagents used in the calibration"
+    )
