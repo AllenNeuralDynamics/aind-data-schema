@@ -10,8 +10,9 @@ from typing import List, Optional
 from pydantic import Field
 
 from aind_data_schema.base import AindCoreModel, AindModel
-from aind_data_schema.device import AngleUnit, Coordinates3d, PowerUnit, SizeUnit
+from aind_data_schema.device import Coordinates3d
 from aind_data_schema.stimulus import StimulusPresentation
+from aind_data_schema.utils.units import AngleUnit, PowerUnit, SizeUnit
 
 
 class SessionType(Enum):

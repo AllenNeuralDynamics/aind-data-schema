@@ -25,10 +25,10 @@ from aind_data_schema.device import (
     LightEmittingDiode,
     Monitor,
     Objective,
-    SizeUnit,
     Treadmill,
     Tube,
 )
+from aind_data_schema.utils.units import SizeUnit
 
 
 class DetectorType(Enum):

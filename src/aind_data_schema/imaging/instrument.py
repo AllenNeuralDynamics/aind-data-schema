@@ -19,9 +19,8 @@ from aind_data_schema.device import (
     Manufacturer,
     MotorizedStage,
     Objective,
-    PowerUnit,
-    SizeUnit,
 )
+from aind_data_schema.utils.units import PowerUnit, SizeUnit
 
 
 class Com(AindModel):
