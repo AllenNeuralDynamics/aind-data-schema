@@ -6,19 +6,19 @@ from enum import Enum
 from pydantic import create_model
 
 
-class Size(Enum):
+class SizeUnit(Enum):
     """Enumeration of Length Measurements"""
 
     M = "meter"
     CM = "centimeter"
     MM = "millimeter"
     UM = "micrometer"
-    NG = "nanometer"
+    NM = "nanometer"
     IN = "inch"
     PX = "pixel"
 
 
-class Mass(Enum):
+class MassUnit(Enum):
     """Enumeration of Mass Measurements"""
 
     KG = "kilogram"
@@ -28,7 +28,7 @@ class Mass(Enum):
     NG = "nanogram"
 
 
-class Frequency(Enum):
+class FrequencyUnit(Enum):
     """Enumeration of Frequency Measurements"""
 
     KHZ = "kilohertz"
@@ -36,7 +36,7 @@ class Frequency(Enum):
     mHZ = "millihertz"
 
 
-class Volume(Enum):
+class VolumeUnit(Enum):
     """Enumeration of Volume Measurements"""
 
     L = "liter"
@@ -45,14 +45,14 @@ class Volume(Enum):
     NL = "nanoliter"
 
 
-class Angle(Enum):
+class AngleUnit(Enum):
     """Enumeration of Angle Measurements"""
 
     RAD = "radians"
     DEG = "degrees"
 
 
-class TimeMeasure(Enum):
+class TimeUnit(Enum):
     """Enumeration of Time Measurements"""
 
     HR = "hour"
@@ -70,9 +70,9 @@ def create_unit_with_value(model_name, scalar_type, unit_type, unit_default):
     return m
 
 
-SizeValue = create_unit_with_value("SizeValue", Decimal, Size, Size.MM)
-MassValue = create_unit_with_value("MassValue", Decimal, Mass, Mass.MG)
-VolumeValue = create_unit_with_value("VolumeValue", Decimal, Volume, Volume.NL)
-FrequencyValue = create_unit_with_value("FrequencyValue", Decimal, Frequency, Frequency.HZ)
-AngleValue = create_unit_with_value("AngleValue", Decimal, Angle, Angle.DEG)
-TimeValue = create_unit_with_value("TimeValue", Decimal, TimeMeasure, TimeMeasure.S)
+SizeValue = create_unit_with_value("SizeValue", Decimal, SizeUnit, SizeUnit.MM)
+MassValue = create_unit_with_value("MassValue", Decimal, MassUnit, MassUnit.MG)
+VolumeValue = create_unit_with_value("VolumeValue", Decimal, VolumeUnit, VolumeUnit.NL)
+FrequencyValue = create_unit_with_value("FrequencyValue", Decimal, FrequencyUnit, FrequencyUnit.HZ)
+AngleValue = create_unit_with_value("AngleValue", Decimal, AngleUnit, AngleUnit.DEG)
+TimeValue = create_unit_with_value("TimeValue", Decimal, TimeUnit, TimeUnit.S)
