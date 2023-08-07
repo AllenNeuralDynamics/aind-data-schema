@@ -63,6 +63,19 @@ class TimeUnit(Enum):
     NS = "nanosecond"
 
 
+class PowerUnit(Enum):
+    """Power units"""
+
+    UW = "microwatt"
+    MW = "milliwatt"
+
+
+class CurrentUnit(Enum):
+    """Current units"""
+
+    UA = "microamps"
+
+
 def create_unit_with_value(model_name, scalar_type, unit_type, unit_default):
     """this uses create_model instead of generics, which lets us set default values"""
 

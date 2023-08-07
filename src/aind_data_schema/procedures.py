@@ -8,35 +8,8 @@ from typing import List, Optional, Union
 from pydantic import Field
 
 from aind_data_schema.base import AindCoreModel, AindModel, PIDName
-from aind_data_schema.device import AngleUnit, SizeUnit
 from aind_data_schema.subject import Species
-
-
-class TimeUnit(Enum):
-    """Time units"""
-
-    M = "minute"
-    S = "second"
-    MS = "millisecond"
-
-
-class WeightUnit(Enum):
-    """Weight units"""
-
-    G = "gram"
-
-
-class VolumeUnit(Enum):
-    """Volume units"""
-
-    NL = "nanoliter"
-    UL = "microliter"
-
-
-class CurrentUnit(Enum):
-    """Current units"""
-
-    UA = "microamps"
+from aind_data_schema.utils.units import AngleUnit, CurrentUnit, MassUnit, SizeUnit, TimeUnit, VolumeUnit
 
 
 class SpecimenProcedureName(Enum):
@@ -202,7 +175,7 @@ class SubjectProcedure(AindModel):
         description="Animal weight after procedure",
         units="g",
     )
-    weight_unit: WeightUnit = Field(WeightUnit.G, title="Weight unit")
+    weight_unit: MassUnit = Field(MassUnit.G, title="Weight unit")
     anaesthesia: Optional[Anaesthetic] = Field(None, title="Anaesthesia")
     notes: Optional[str] = Field(None, title="Notes")
 
@@ -456,7 +429,7 @@ class WaterRestriction(AindModel):
         title="Baseline weight (g)",
         description="Weight at start of water restriction",
     )
-    weight_unit: WeightUnit = Field(WeightUnit.G, title="Weight unit")
+    weight_unit: MassUnit = Field(MassUnit.G, title="Weight unit")
     start_date: date = Field(..., title="Water restriction start date")
     end_date: date = Field(..., title="Water restriction end date")
 
