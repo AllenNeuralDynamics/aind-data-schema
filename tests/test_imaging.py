@@ -5,7 +5,7 @@ import unittest
 
 from pydantic import ValidationError
 
-from aind_data_schema.device import Manufacturer
+from aind_data_schema.device import CalibrationType, Manufacturer
 from aind_data_schema.imaging import acquisition as acq
 from aind_data_schema.imaging import instrument as inst
 from aind_data_schema.imaging import mri_session as ms
@@ -30,6 +30,7 @@ class ImagingTests(unittest.TestCase):
             calibrations=[
                 acq.LightSourcePowerCalibration(
                     date_of_calibration=datetime.datetime.now(),
+                    calibration_type=CalibrationType.LASER,
                     light_source=inst.Lightsource(
                         type="laser",
                         coupling="Single-mode fiber",

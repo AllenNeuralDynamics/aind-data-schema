@@ -108,10 +108,9 @@ class PowerUnit(Enum):
     Percent = "percent"
 
 
-class LightSourcePowerCalibration(AindModel):
+class LightSourcePowerCalibration(Calibration):
     """Calibration for laser set point/power at sample relationshipe"""
 
-    date_of_calibration: datetime = Field(..., title="Date and time of calibration")
     light_source: Lightsource = Field(..., title="Light Source")
     illumination_index: int = Field(..., title="Excitation arm index")
     power_setting: float = Field(
