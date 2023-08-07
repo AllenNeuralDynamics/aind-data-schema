@@ -2,7 +2,10 @@
 
 import datetime
 
+from aind_data_schema.device import Calibration, CalibrationType
 from aind_data_schema.imaging import acquisition, tile
+
+# from aind_data_schema.procedures import Reagent
 
 t = datetime.datetime(2022, 11, 22, 8, 43, 00)
 
@@ -12,10 +15,13 @@ acq = acquisition.Acquisition(
     subject_id="###",
     instrument_id="###",
     calibrations=[
-        acquisition.Calibration(
+        Calibration(
             date_of_calibration=t,
-            description="Cleaning chamber",
-            notes="We used a special liquid XXX",  # Notes are optional
+            calibration_type=CalibrationType.CHAMBER,
+            # reagents=[
+            #     Reagent(name="reagent1", source="xxx", rrid="xxx", lot_number="xxx", expiration_date=t),
+            # ],
+            notes="Some notes",  # Notes are optional
         )
     ],
     session_start_time=t,

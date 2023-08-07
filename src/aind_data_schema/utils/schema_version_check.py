@@ -46,7 +46,10 @@ def compare_versions(new_ver: str, old_ver: Optional[str]) -> (bool, Optional[st
     if major_bump or minor_bump or patch_bump:
         return (True, None)
     else:
-        return (False, f"Version not bumped correctly. New Version: {new_ver}. Old Version: {old_ver}")
+        return (
+            False,
+            f"Version not bumped correctly. New Version: {new_ver}. Old Version: {old_ver}",
+        )
 
 
 def run_job(new_schema_folder: str, old_schema_folder: str) -> None:
@@ -112,4 +115,7 @@ if __name__ == "__main__":
         required=True,
     )
     folder_args = parser.parse_args(sys_args)
-    run_job(new_schema_folder=folder_args.new_schema_folder, old_schema_folder=folder_args.old_schema_folder)
+    run_job(
+        new_schema_folder=folder_args.new_schema_folder,
+        old_schema_folder=folder_args.old_schema_folder,
+    )

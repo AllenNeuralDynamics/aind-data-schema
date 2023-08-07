@@ -33,27 +33,45 @@ class SchemaVersionTests(unittest.TestCase):
 
         # False checks
         self.assertEqual(
-            (False, "Version not bumped correctly. New Version: 0.0.1. Old Version: 0.0.2"),
+            (
+                False,
+                "Version not bumped correctly. New Version: 0.0.1. Old Version: 0.0.2",
+            ),
             compare_versions("0.0.1", "0.0.2"),
         )
         self.assertEqual(
-            (False, "Version not bumped correctly. New Version: 0.3.2. Old Version: 0.2.1"),
+            (
+                False,
+                "Version not bumped correctly. New Version: 0.3.2. Old Version: 0.2.1",
+            ),
             compare_versions("0.3.2", "0.2.1"),
         )
         self.assertEqual(
-            (False, "Version not bumped correctly. New Version: 2.0.1. Old Version: 1.2.3"),
+            (
+                False,
+                "Version not bumped correctly. New Version: 2.0.1. Old Version: 1.2.3",
+            ),
             compare_versions("2.0.1", "1.2.3"),
         )
         self.assertEqual(
-            (False, "Version not bumped correctly. New Version: 0.0.1. Old Version: 0.0.3"),
+            (
+                False,
+                "Version not bumped correctly. New Version: 0.0.1. Old Version: 0.0.3",
+            ),
             compare_versions("0.0.1", "0.0.3"),
         )
         self.assertEqual(
-            (False, "Version not bumped correctly. New Version: 0.1.1. Old Version: 0.2.1"),
+            (
+                False,
+                "Version not bumped correctly. New Version: 0.1.1. Old Version: 0.2.1",
+            ),
             compare_versions("0.1.1", "0.2.1"),
         )
         self.assertEqual(
-            (False, "Version not bumped correctly. New Version: 1.0.2. Old Version: 2.1.4"),
+            (
+                False,
+                "Version not bumped correctly. New Version: 1.0.2. Old Version: 2.1.4",
+            ),
             compare_versions("1.0.2", "2.1.4"),
         )
         self.assertEqual((False, "Malformed version: 1.0"), compare_versions("1.0", "2.1.4"))
@@ -62,7 +80,12 @@ class SchemaVersionTests(unittest.TestCase):
     def test_run_job(self):
         """Tests the run_job method."""
         # Should run without any errors
-        self.assertIsNone(run_job(new_schema_folder=str(NEW_SCHEMA_DIR), old_schema_folder=str(OLD_SCHEMA_DIR)))
+        self.assertIsNone(
+            run_job(
+                new_schema_folder=str(NEW_SCHEMA_DIR),
+                old_schema_folder=str(OLD_SCHEMA_DIR),
+            )
+        )
 
         # Should raise an assertion
         expected_error_message = (
@@ -72,7 +95,10 @@ class SchemaVersionTests(unittest.TestCase):
             "New Version: 0.2.2. Old Version: 0.2.2']"
         )
         with self.assertRaises(AssertionError) as error:
-            run_job(new_schema_folder=str(NEW_SCHEMA_DIR2), old_schema_folder=str(OLD_SCHEMA_DIR))
+            run_job(
+                new_schema_folder=str(NEW_SCHEMA_DIR2),
+                old_schema_folder=str(OLD_SCHEMA_DIR),
+            )
         self.assertEqual(str(error.exception), expected_error_message)
 
 

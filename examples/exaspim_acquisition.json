@@ -10,8 +10,10 @@
    "calibrations": [
       {
          "date_of_calibration": "2022-11-22T08:43:00",
-         "description": "Cleaning chamber",
-         "notes": "We used a special liquid XXX"
+         "calibration_type": "chamber",
+         "notes": "Some notes",
+         "input": {},
+         "output": {}
       }
    ],
    "session_start_time": "2022-11-22T08:43:00",

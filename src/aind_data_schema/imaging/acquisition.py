@@ -10,7 +10,7 @@ from typing import List, Optional
 from pydantic import Field
 
 from aind_data_schema.base import AindCoreModel, AindModel, EnumSubset
-from aind_data_schema.device import SizeUnit
+from aind_data_schema.device import Calibration, SizeUnit
 from aind_data_schema.imaging.tile import AcquisitionTile
 from aind_data_schema.processing import ProcessName
 
@@ -96,14 +96,6 @@ class ProcessingSteps(AindModel):
             ProcessName.FILE_CONVERSION,
         ]
     ]
-
-
-class Calibration(AindModel):
-    """Generic calibration class for acquisition"""
-
-    date_of_calibration: datetime = Field(..., title="Date and time of calibration")
-    description: str = Field(..., title="Calibration description")
-    notes: Optional[str] = Field(..., title="Notes")
 
 
 class Acquisition(AindCoreModel):

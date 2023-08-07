@@ -63,7 +63,12 @@ class Tile(AindModel):
     """Description of an image tile"""
 
     coordinate_transformations: List[
-        Union[Scale3dTransform, Translation3dTransform, Rotation3dTransform, Affine3dTransform]
+        Union[
+            Scale3dTransform,
+            Translation3dTransform,
+            Rotation3dTransform,
+            Affine3dTransform,
+        ]
     ] = Field(..., title="Tile coordinate transformations")
     file_name: Optional[str] = Field(None, title="File name")
 

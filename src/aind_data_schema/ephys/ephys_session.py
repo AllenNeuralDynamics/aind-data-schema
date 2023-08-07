@@ -50,7 +50,9 @@ class DomeModule(AindModel):
     # optional fields
     rotation_angle: Optional[Decimal] = Field(0.0, title="Rotation Angle", units="degrees")
     coordinate_transform: Optional[str] = Field(
-        None, title="Transform from local manipulator axes to rig", description="Path to coordinate transform"
+        None,
+        title="Transform from local manipulator axes to rig",
+        description="Path to coordinate transform",
     )
     calibration_date: Optional[datetime] = Field(None, title="Date on which coordinate transform was last calibrated")
     notes: Optional[str] = Field(None, title="Notes")
@@ -139,7 +141,9 @@ class EphysSession(AindCoreModel):
     iacuc_protocol: Optional[str] = Field(None, title="IACUC protocol")
     rig_id: str = Field(..., title="Rig ID")
     stick_microscopes: Optional[List[DomeModule]] = Field(
-        ..., title="Stick microscopes", description="Must match stick microscope assemblies in rig file"
+        ...,
+        title="Stick microscopes",
+        description="Must match stick microscope assemblies in rig file",
     )
     data_streams: List[Stream] = Field(
         ...,
