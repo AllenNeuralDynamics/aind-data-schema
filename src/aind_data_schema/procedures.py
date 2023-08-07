@@ -265,8 +265,10 @@ class InjectionMaterial(AindModel):
         description="Short name used to reference the plasmid",
     )
     genome_copy: Optional[Decimal] = Field(None, title="Genome copy")
-    titer: Optional[Decimal] = Field(None, title="Titer (gc/mL)", units="gc/mL")
+    titer: Optional[Decimal] = Field(None, title="Titer (gc/mL)", description="Titer for viral materials")
     titer_unit: Optional[str] = Field("gc/mL", title="Titer unit")
+    concentration: Optional[Decimal] = Field(None, title="Concentration", description="Provide unit in concentraion unit")
+    concentration_unit: Optional[str] = Field(None, title="Concentration unit")
     prep_lot_number: Optional[str] = Field(None, title="Preparation lot number")
     prep_date: Optional[date] = Field(  #
         None,
@@ -449,7 +451,7 @@ class Perfusion(SubjectProcedure):
 class Procedures(AindCoreModel):
     """Description of all procedures performed on a subject"""
 
-    schema_version: str = Field("0.8.5", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.8.6", description="schema version", title="Version", const=True)
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
