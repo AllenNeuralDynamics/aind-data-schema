@@ -2,20 +2,38 @@
 
 import datetime
 import json
+import os
 import unittest
+from pathlib import Path
+from typing import List
 
 from aind_data_schema.data_description import (
     DataDescription,
     DerivedDataDescription,
+    ExperimentType,
     Funding,
     Institution,
     Modality,
     RawDataDescription,
 )
+from aind_data_schema.schema_upgrade.data_description_upgrade import DataDescriptionUpgrade
+
+DATA_DESCRIPTION_FILES_PATH = Path(__file__).parent / "resources" / "ephys_data_description"
 
 
 class DataDescriptionTest(unittest.TestCase):
     """test DataDescription"""
+
+    @classmethod
+    def setUpClass(cls):
+        """Load json files before running tests."""
+        data_description_files: List[str] = os.listdir(DATA_DESCRIPTION_FILES_PATH)
+        data_descriptions = []
+        for file_path in data_description_files:
+            with open(DATA_DESCRIPTION_FILES_PATH / file_path) as f:
+                contents = json.load(f)
+            data_descriptions.append((file_path, DataDescription.construct(**contents)))
+        cls.data_descriptions = dict(data_descriptions)
 
     BAD_NAME = "fizzbuzz"
     BASIC_NAME = "ecephys_1234_3033-12-21_04-22-11"
@@ -23,7 +41,7 @@ class DataDescriptionTest(unittest.TestCase):
 
     def test_constructors(self):
         """test building from component parts"""
-        f = Funding(funder="test")
+        f = Funding(funder=Institution.NINDS, grant_number="grant001")
 
         dt = datetime.datetime.now()
         da = RawDataDescription(
@@ -149,6 +167,53 @@ class DataDescriptionTest(unittest.TestCase):
         """Tests that BaseName enums can be constructed from attr names"""
         self.assertEqual(Modality.ECEPHYS, Modality("ECEPHYS"))
         self.assertEqual(Modality.ECEPHYS, Modality("ecephys"))
+
+    def test_from_data_description(self):
+        """Tests DerivedDataDescription.from_data_description method"""
+
+        process_name = "spike_sorter"
+
+        data_description_0_3_0 = self.data_descriptions["data_description_0.3.0.json"]
+        upgrader_0_3_0 = DataDescriptionUpgrade(old_data_description_model=data_description_0_3_0)
+        new_dd_0_3_0 = upgrader_0_3_0.upgrade_data_description(experiment_type=ExperimentType.ECEPHYS)
+        derived_dd_0_3_0 = DerivedDataDescription.from_data_description(new_dd_0_3_0, process_name=process_name)
+        self.assertEqual(ExperimentType.ECEPHYS, derived_dd_0_3_0.experiment_type)
+
+        data_description_0_4_0 = self.data_descriptions["data_description_0.4.0.json"]
+        upgrader_0_4_0 = DataDescriptionUpgrade(old_data_description_model=data_description_0_4_0)
+        new_dd_0_4_0 = upgrader_0_4_0.upgrade_data_description()
+        derived_dd_0_4_0 = DerivedDataDescription.from_data_description(new_dd_0_4_0, process_name=process_name)
+        self.assertEqual(ExperimentType.ECEPHYS, derived_dd_0_4_0.experiment_type)
+
+        data_description_0_6_0 = self.data_descriptions["data_description_0.6.0.json"]
+        upgrader_0_6_0 = DataDescriptionUpgrade(old_data_description_model=data_description_0_6_0)
+        new_dd_0_6_0 = upgrader_0_6_0.upgrade_data_description()
+        derived_dd_0_6_0 = DerivedDataDescription.from_data_description(new_dd_0_6_0, process_name=process_name)
+        self.assertEqual(ExperimentType.ECEPHYS, derived_dd_0_6_0.experiment_type)
+
+        data_description_0_6_2 = self.data_descriptions["data_description_0.6.2.json"]
+        upgrader_0_6_2 = DataDescriptionUpgrade(old_data_description_model=data_description_0_6_2)
+        new_dd_0_6_2 = upgrader_0_6_2.upgrade_data_description()
+        derived_dd_0_6_2 = DerivedDataDescription.from_data_description(new_dd_0_6_2, process_name=process_name)
+        self.assertEqual(ExperimentType.ECEPHYS, derived_dd_0_6_2.experiment_type)
+
+        data_description_0_6_2_wrong_field = self.data_descriptions["data_description_0.6.2_wrong_field.json"]
+        upgrader_0_6_2_wrong_field = DataDescriptionUpgrade(
+            old_data_description_model=data_description_0_6_2_wrong_field
+        )
+        new_dd_0_6_2_wrong_field = upgrader_0_6_2_wrong_field.upgrade_data_description(
+            funding_source=[Funding(funder=Institution.AIND)]
+        )
+        derived_dd_0_6_2_wrong_field = DerivedDataDescription.from_data_description(
+            new_dd_0_6_2_wrong_field, process_name=process_name
+        )
+        self.assertEqual(ExperimentType.ECEPHYS, derived_dd_0_6_2_wrong_field.experiment_type)
+
+        # Test Override
+        derived_dd_0_6_2_wrong_field2 = DerivedDataDescription.from_data_description(
+            new_dd_0_6_2_wrong_field, process_name=process_name, experiment_type=ExperimentType.OTHER
+        )
+        self.assertEqual(ExperimentType.OTHER, derived_dd_0_6_2_wrong_field2.experiment_type)
 
 
 if __name__ == "__main__":

@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/ephys/ephys_rig.py",
-   "schema_version": "0.6.4",
+   "schema_version": "0.7.6",
    "rig_id": "323_EPHYS1",
    "ephys_assemblies": [
       {
@@ -8,7 +8,12 @@
          "manipulator": {
             "name": null,
             "serial_number": "SN2938",
-            "manufacturer": "New Scale Technologies",
+            "manufacturer": {
+               "name": "New Scale Technologies",
+               "abbreviation": null,
+               "registry": null,
+               "registry_identifier": null
+            },
             "model": null,
             "notes": null
          },
@@ -30,7 +35,12 @@
          "manipulator": {
             "name": null,
             "serial_number": "SN2939",
-            "manufacturer": "New Scale Technologies",
+            "manufacturer": {
+               "name": "New Scale Technologies",
+               "abbreviation": null,
+               "registry": null,
+               "registry_identifier": null
+            },
             "model": null,
             "notes": null
          },
@@ -54,13 +64,21 @@
          "camera": {
             "name": "Probe Camera",
             "serial_number": null,
-            "manufacturer": "FLIR",
+            "manufacturer": {
+               "name": "Teledyne FLIR",
+               "abbreviation": "FLIR",
+               "registry": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "registry_identifier": "01j1gwp17"
+            },
             "model": null,
             "notes": null,
             "data_interface": "USB",
             "computer_name": "W10DT72942",
-            "max_frame_rate": 50.0,
-            "frame_rate_unit": "Hertz",
+            "max_frame_rate": 50,
+            "frame_rate_unit": "hertz",
             "pixel_width": 1080,
             "pixel_height": 570,
             "size_unit": "pixel",
@@ -74,7 +92,15 @@
          "lens": {
             "name": null,
             "serial_number": null,
-            "manufacturer": "Edmund Optics",
+            "manufacturer": {
+               "name": "Edmund Optics",
+               "abbreviation": null,
+               "registry": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "registry_identifier": "01j1gwp17"
+            },
             "model": null,
             "notes": null,
             "focal_length": null,
@@ -93,7 +119,12 @@
          "manipulator": {
             "name": null,
             "serial_number": "SN2937",
-            "manufacturer": "New Scale Technologies",
+            "manufacturer": {
+               "name": "New Scale Technologies",
+               "abbreviation": null,
+               "registry": null,
+               "registry_identifier": null
+            },
             "model": null,
             "notes": null
          },
@@ -101,9 +132,15 @@
             {
                "name": "Red Laser",
                "serial_number": null,
-               "manufacturer": "Oxxius",
+               "manufacturer": {
+                  "name": "Oxxius",
+                  "abbreviation": null,
+                  "registry": null,
+                  "registry_identifier": null
+               },
                "model": null,
                "notes": null,
+               "lightsource_type": "Laser",
                "wavelength": 473,
                "wavelength_unit": "nanometer",
                "maximum_power": null,
@@ -118,9 +155,15 @@
             {
                "name": "Blue Laser",
                "serial_number": null,
-               "manufacturer": "Oxxius",
+               "manufacturer": {
+                  "name": "Oxxius",
+                  "abbreviation": null,
+                  "registry": null,
+                  "registry_identifier": null
+               },
                "model": null,
                "notes": null,
+               "lightsource_type": "Laser",
                "wavelength": 638,
                "wavelength_unit": "nanometer",
                "maximum_power": null,
@@ -138,17 +181,25 @@
    "cameras": [
       {
          "camera_assembly_name": "Face Camera Assembly",
-         "camera_target": "Face",
+         "camera_target": "Face side",
          "camera": {
             "name": "Face Camera",
             "serial_number": null,
-            "manufacturer": "FLIR",
+            "manufacturer": {
+               "name": "Teledyne FLIR",
+               "abbreviation": "FLIR",
+               "registry": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "registry_identifier": "01j1gwp17"
+            },
             "model": null,
             "notes": null,
             "data_interface": "USB",
             "computer_name": "W10DT72941",
-            "max_frame_rate": 500.0,
-            "frame_rate_unit": "Hertz",
+            "max_frame_rate": 500,
+            "frame_rate_unit": "hertz",
             "pixel_width": 1080,
             "pixel_height": 570,
             "size_unit": "pixel",
@@ -162,10 +213,18 @@
          "lens": {
             "name": null,
             "serial_number": null,
-            "manufacturer": "Edmund Optics",
+            "manufacturer": {
+               "name": "Edmund Optics",
+               "abbreviation": null,
+               "registry": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "registry_identifier": "01j1gwp17"
+            },
             "model": null,
             "notes": null,
-            "focal_length": 15.0,
+            "focal_length": 15,
             "focal_length_unit": "millimeter",
             "size": null,
             "lens_size_unit": "inch",
@@ -176,19 +235,29 @@
          "filter": {
             "name": null,
             "serial_number": null,
-            "manufacturer": "Thorlabs",
+            "manufacturer": {
+               "name": "Thorlabs",
+               "abbreviation": null,
+               "registry": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "registry_identifier": "04gsnvb07"
+            },
             "model": null,
             "notes": null,
             "filter_type": "Long pass",
             "diameter": null,
-            "diameter_unit": "millimeter",
+            "width": null,
+            "height": null,
+            "size_unit": "millimeter",
             "thickness": null,
             "thickness_unit": "millimeter",
             "filter_wheel_index": null,
             "cut_off_wavelength": null,
-            "cut_off_wavelength_unit": "nanometer",
             "cut_on_wavelength": null,
-            "cut_on_wavelength_unit": "nanometer",
+            "center_wavelength": null,
+            "wavelength_unit": "nanometer",
             "description": "850 nm longpass filter"
          },
          "position": null
@@ -199,13 +268,21 @@
          "camera": {
             "name": "Body Camera",
             "serial_number": null,
-            "manufacturer": "FLIR",
+            "manufacturer": {
+               "name": "Teledyne FLIR",
+               "abbreviation": "FLIR",
+               "registry": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "registry_identifier": "01j1gwp17"
+            },
             "model": null,
             "notes": null,
             "data_interface": "USB",
             "computer_name": "W10DT72941",
-            "max_frame_rate": 500.0,
-            "frame_rate_unit": "Hertz",
+            "max_frame_rate": 500,
+            "frame_rate_unit": "hertz",
             "pixel_width": 1080,
             "pixel_height": 570,
             "size_unit": "pixel",
@@ -219,10 +296,18 @@
          "lens": {
             "name": null,
             "serial_number": null,
-            "manufacturer": "Edmund Optics",
+            "manufacturer": {
+               "name": "Edmund Optics",
+               "abbreviation": null,
+               "registry": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "registry_identifier": "01j1gwp17"
+            },
             "model": null,
             "notes": null,
-            "focal_length": 15.0,
+            "focal_length": 15,
             "focal_length_unit": "millimeter",
             "size": null,
             "lens_size_unit": "inch",
@@ -233,19 +318,29 @@
          "filter": {
             "name": null,
             "serial_number": null,
-            "manufacturer": "Thorlabs",
+            "manufacturer": {
+               "name": "Thorlabs",
+               "abbreviation": null,
+               "registry": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "registry_identifier": "04gsnvb07"
+            },
             "model": null,
             "notes": null,
             "filter_type": "Long pass",
             "diameter": null,
-            "diameter_unit": "millimeter",
+            "width": null,
+            "height": null,
+            "size_unit": "millimeter",
             "thickness": null,
             "thickness_unit": "millimeter",
             "filter_wheel_index": null,
             "cut_off_wavelength": null,
-            "cut_off_wavelength_unit": "nanometer",
             "cut_on_wavelength": null,
-            "cut_on_wavelength_unit": "nanometer",
+            "center_wavelength": null,
+            "wavelength_unit": "nanometer",
             "description": "850 nm longpass filter"
          },
          "position": null
@@ -261,7 +356,7 @@
       "surface_material": null,
       "date_surface_replaced": null,
       "platform_type": "Disc",
-      "radius": 15.0,
+      "radius": 15,
       "radius_unit": "centimeter",
       "output": null,
       "encoder": null,
@@ -272,7 +367,15 @@
       {
          "name": "Basestation Slot 3",
          "serial_number": null,
-         "manufacturer": "IMEC",
+         "manufacturer": {
+            "name": "Interuniversity Microelectronics Center",
+            "abbreviation": "IMEC",
+            "registry": {
+               "name": "Research Organization Registry",
+               "abbreviation": "ROR"
+            },
+            "registry_identifier": "02kcbn207"
+         },
          "model": null,
          "notes": null,
          "data_interface": "PXI",
@@ -299,7 +402,15 @@
       {
          "name": "Harp Behavior",
          "serial_number": null,
-         "manufacturer": "OEPS",
+         "manufacturer": {
+            "name": "Open Ephys Production Site",
+            "abbreviation": "OEPS",
+            "registry": {
+               "name": "Research Organization Registry",
+               "abbreviation": "ROR"
+            },
+            "registry_identifier": "007rkz355"
+         },
          "model": null,
          "notes": null,
          "data_interface": "USB",
@@ -312,7 +423,7 @@
                "port": null,
                "channel_index": null,
                "sample_rate": null,
-               "sample_rate_unit": "Hertz",
+               "sample_rate_unit": "hertz",
                "event_based_sampling": false
             },
             {
@@ -322,7 +433,7 @@
                "port": null,
                "channel_index": null,
                "sample_rate": null,
-               "sample_rate_unit": "Hertz",
+               "sample_rate_unit": "hertz",
                "event_based_sampling": false
             },
             {
@@ -332,7 +443,7 @@
                "port": null,
                "channel_index": null,
                "sample_rate": null,
-               "sample_rate_unit": "Hertz",
+               "sample_rate_unit": "hertz",
                "event_based_sampling": false
             }
          ],

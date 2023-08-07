@@ -22,6 +22,7 @@ class ProcessName(Enum):
     IMAGE_ATLAS_ALIGNMENT = "Image atlas alignment"
     IMAGE_BACKGROUND_SUBTRACTION = "Image background subtraction"
     IMAGE_CELL_SEGMENTATION = "Image cell segmentation"
+    IMAGE_CELL_QUANTIFICATION = "Image cell quantification"
     IMAGE_DESTRIPING = "Image destriping"
     IMAGE_IMPORTING = "Image importing"
     IMAGE_THRESHOLDING = "Image thresholding"
@@ -42,7 +43,7 @@ class DataProcess(AindModel):
     end_date_time: datetime = Field(..., title="End date time")
     input_location: str = Field(..., description="Path to data inputs", title="Input location")
     output_location: str = Field(..., description="Path to data outputs", title="Output location")
-    code_url: str = Field(..., description="Path to code respository", title="Code URL")
+    code_url: str = Field(..., description="Path to code repository", title="Code URL")
     code_version: Optional[str] = Field(None, description="Version of the code", title="Code version")
     parameters: Dict[str, Any] = Field(..., title="Parameters")
     outputs: Optional[Dict[str, Any]] = Field(None, description="Output parameters", title="Outputs")
@@ -53,7 +54,7 @@ class Processing(AindCoreModel):
     """Description of all processes run on data"""
 
     schema_version: str = Field(
-        "0.2.1",
+        "0.2.3",
         description="Schema version",
         title="Schema version",
         const=True,

@@ -1,48 +1,14 @@
 """ schema for various Devices """
 
 from datetime import datetime
+from decimal import Decimal
 from enum import Enum
 from typing import Any, Dict, List, Optional, Union
 
-try:
-    from typing import Literal
-except ImportError:  # pragma: no cover
-    from typing_extensions import Literal
-
 from pydantic import Field
 
-from aind_data_schema.base import AindModel
-
-
-class SizeUnit(Enum):
-    """units for sizes"""
-
-    CM = "centimeter"
-    IN = "inch"
-    MM = "millimeter"
-    NM = "nanometer"
-    UM = "micrometer"
-    PX = "pixel"
-    NONE = "none"
-
-
-class AngleUnit(Enum):
-    """orientation units"""
-
-    DEG = "degree"
-
-
-class FrequencyUnit(Enum):
-    """Frequency units"""
-
-    HZ = "Hertz"
-
-
-class PowerUnit(Enum):
-    """Power units"""
-
-    UW = "microwatt"
-    MW = "milliwatt"
+from aind_data_schema.base import AindModel, BaseNameEnumMeta, EnumSubset, PIDName, Registry
+from aind_data_schema.utils.units import AngleUnit, FrequencyUnit, PowerUnit, SizeUnit
 
 
 class DeviceDriver(Enum):
@@ -53,44 +19,105 @@ class DeviceDriver(Enum):
     NVIDIA = "Nvidia Graphics"
 
 
-class Manufacturer(Enum):
+class Manufacturer(Enum, metaclass=BaseNameEnumMeta):
     """Device manufacturer name"""
 
-    ALLIED = "Allied"
-    ASI = "Applied Scientific Instrumentation"
-    BASLER = "Basler"
-    CAMBRIDGE_TECHNOLOGY = "Cambridge Technology"
-    CHROMA = "Chroma"
-    COHERENT_SCIENTIFIC = "Coherent Scientific"
-    CUSTOM = "Custom"
-    DORIC = "Doric"
-    EALING = "Ealing"
-    EDMUND_OPTICS = "Edmund Optics"
-    FLIR = "FLIR"
-    HAMAMATSU = "Hamamatsu"
-    IMEC = "IMEC"
-    JULABO = "Julabo"
-    LEICA = "Leica"
-    LG = "LG"
-    LIFECANVAS = "LifeCanvas"
-    MIGHTY_ZAP = "IR Robot Co"
-    MKS_NEWPORT = "MKS Newport"
-    MPI = "MPI"
-    NATIONAL_INSTRUMENTS = "National Instruments"
-    NEW_SCALE_TECHNOLOGIES = "New Scale Technologies"
-    NIKON = "Nikon"
-    OEPS = "OEPS"
-    OLYMPUS = "Olympus"
-    OPTOTUNE = "Optotune"
-    OXXIUS = "Oxxius"
-    PRIZMATIX = "Prizmatix"
-    QUANTIFI = "Quantifi"
-    SEMROCK = "Semrock"
-    THORLABS = "Thorlabs"
-    TMC = "Technical Manufacturing Corporation"
-    VIEWORKS = "Vieworks"
-    VORTRAN = "Vortran"
-    OTHER = "Other"
+    ALLIED = PIDName(name="Allied")
+    ASI = PIDName(
+        name="Applied Scientific Instrumentation",
+        abbreviation="ASI",
+    )
+    BASLER = PIDName(name="Basler")
+    CAMBRIDGE_TECHNOLOGY = PIDName(name="Cambridge Technology")
+    CHROMA = PIDName(name="Chroma")
+    COHERENT_SCIENTIFIC = PIDName(
+        name="Coherent Scientific",
+        registry=Registry.ROR,
+        registry_identifier="031tysd23",
+    )
+    COMPUTAR = PIDName(name="Computar")
+    CUSTOM = PIDName(name="Custom")
+    DORIC = PIDName(
+        name="Doric",
+        registry=Registry.ROR,
+        registry_identifier="059n53q30",
+    )
+    EALING = PIDName(name="Ealing")
+    EDMUND_OPTICS = PIDName(
+        name="Edmund Optics",
+        registry=Registry.ROR,
+        registry_identifier="01j1gwp17",
+    )
+    AILIPU = PIDName(name="Ailipu Technology Co")
+    FLIR = PIDName(
+        name="Teledyne FLIR",
+        abbreviation="FLIR",
+        registry=Registry.ROR,
+        registry_identifier="01j1gwp17",
+    )
+    HAMAMATSU = PIDName(
+        name="Hamamatsu",
+        registry=Registry.ROR,
+        registry_identifier="03natb733",
+    )
+    IMAGING_SOURCE = PIDName(name="The Imaging Source")
+    IMEC = PIDName(
+        name="Interuniversity Microelectronics Center",
+        abbreviation="IMEC",
+        registry=Registry.ROR,
+        registry_identifier="02kcbn207",
+    )
+    JULABO = PIDName(name="Julabo")
+    LEICA = PIDName(name="Leica")
+    LG = PIDName(
+        name="LG",
+        registry=Registry.ROR,
+        registry_identifier="02b948n83",
+    )
+    LIFECANVAS = PIDName(name="LifeCanvas")
+    MIGHTY_ZAP = PIDName(name="IR Robot Co")
+    MKS_NEWPORT = PIDName(
+        name="MKS Newport",
+        registry=Registry.ROR,
+        registry_identifier="00k17f049",
+    )
+    MPI = PIDName(name="MPI", abbreviation="MPI")
+    NATIONAL_INSTRUMENTS = PIDName(
+        name="National Instruments",
+        registry=Registry.ROR,
+        registry_identifier="026exqw73",
+    )
+    NEW_SCALE_TECHNOLOGIES = PIDName(name="New Scale Technologies")
+    NIKON = PIDName(
+        name="Nikon",
+        registry=Registry.ROR,
+        registry_identifier="0280y9h11",
+    )
+    OEPS = PIDName(
+        name="Open Ephys Production Site",
+        abbreviation="OEPS",
+        registry=Registry.ROR,
+        registry_identifier="007rkz355",
+    )
+    OLYMPUS = PIDName(
+        name="Olympus",
+        registry=Registry.ROR,
+        registry_identifier="02vcdte90",
+    )
+    OPTOTUNE = PIDName(name="Optotune")
+    OXXIUS = PIDName(name="Oxxius")
+    PRIZMATIX = PIDName(name="Prizmatix")
+    QUANTIFI = PIDName(name="Quantifi")
+    SEMROCK = PIDName(name="Semrock")
+    THORLABS = PIDName(
+        name="Thorlabs",
+        registry=Registry.ROR,
+        registry_identifier="04gsnvb07",
+    )
+    TMC = PIDName(name="Technical Manufacturing Corporation", abbreviation="TMC")
+    VIEWORKS = PIDName(name="Vieworks")
+    VORTRAN = PIDName(name="Vortran")
+    OTHER = PIDName(name="Other")
 
 
 class Coupling(Enum):
@@ -159,14 +186,14 @@ class DaqChannelType(Enum):
 class RelativePosition(AindModel):
     """Set of 6 values describing relative position on a rig"""
 
-    pitch: Optional[float] = Field(None, title="Angle pitch (deg)", units="deg", ge=0, le=360)
-    yaw: Optional[float] = Field(None, title="Angle yaw (deg)", units="deg", ge=0, le=360)
-    roll: Optional[float] = Field(None, title="Angle roll (deg)", units="deg", ge=0, le=360)
+    pitch: Optional[Decimal] = Field(None, title="Angle pitch (deg)", units="deg", ge=0, le=360)
+    yaw: Optional[Decimal] = Field(None, title="Angle yaw (deg)", units="deg", ge=0, le=360)
+    roll: Optional[Decimal] = Field(None, title="Angle roll (deg)", units="deg", ge=0, le=360)
     angle_unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
 
-    x: Optional[float] = Field(None, title="Position X (mm)", units="mm")
-    y: Optional[float] = Field(None, title="Position Y (mm)", units="mm")
-    z: Optional[float] = Field(None, title="Position Z (mm)", units="mm")
+    x: Optional[Decimal] = Field(None, title="Position X (mm)", units="mm")
+    y: Optional[Decimal] = Field(None, title="Position Y (mm)", units="mm")
+    z: Optional[Decimal] = Field(None, title="Position Z (mm)", units="mm")
     position_unit: SizeUnit = Field(SizeUnit.MM, title="Position unit")
 
     coordinate_system: Optional[str] = Field(None, title="Description of the coordinate system used")
@@ -183,35 +210,35 @@ class Size2d(AindModel):
 class Orientation3d(AindModel):
     """3D orientation of an object"""
 
-    pitch: float = Field(..., title="Angle pitch", ge=0, le=360)
-    yaw: float = Field(..., title="Angle yaw", ge=0, le=360)
-    roll: float = Field(..., title="Angle roll", ge=0, le=360)
+    pitch: Decimal = Field(..., title="Angle pitch", ge=0, le=360)
+    yaw: Decimal = Field(..., title="Angle yaw", ge=0, le=360)
+    roll: Decimal = Field(..., title="Angle roll", ge=0, le=360)
     unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
 
 
 class ModuleOrientation2d(AindModel):
     """2D module orientation of an object"""
 
-    arc_angle: float = Field(..., title="Arc angle")
-    module_angle: float = Field(..., title="Module angle")
+    arc_angle: Decimal = Field(..., title="Arc angle")
+    module_angle: Decimal = Field(..., title="Module angle")
     unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
 
 
 class ModuleOrientation3d(AindModel):
     """3D module orientation of an object"""
 
-    arc_angle: float = Field(..., title="Arc angle")
-    module_angle: float = Field(..., title="Module angle")
-    rotation_angle: float = Field(..., title="Rotation angle")
+    arc_angle: Decimal = Field(..., title="Arc angle")
+    module_angle: Decimal = Field(..., title="Module angle")
+    rotation_angle: Decimal = Field(..., title="Rotation angle")
     unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
 
 
 class Coordinates3d(AindModel):
     """Coordinates in a 3D grid"""
 
-    x: float = Field(..., title="Position X")
-    y: float = Field(..., title="Position Y")
-    z: float = Field(..., title="Position Z")
+    x: Decimal = Field(..., title="Position X")
+    y: Decimal = Field(..., title="Position Y")
+    z: Decimal = Field(..., title="Position Z")
     unit: SizeUnit = Field(SizeUnit.UM, title="Position unit")
 
 
@@ -230,13 +257,13 @@ class Software(AindModel):
 
     name: str = Field(..., title="Software name")
     version: str = Field(..., title="Software version")
-    parameters: Optional[dict] = Field(..., title="Software parameters")
+    parameters: Optional[dict] = Field(None, title="Software parameters", additionalProperties={"type": "string"})
 
 
 class MotorizedStage(Device):
     """Description of motorized stage"""
 
-    travel: float = Field(..., title="Travel of device (mm)", units="mm")
+    travel: Decimal = Field(..., title="Travel of device (mm)", units="mm")
     travel_unit: SizeUnit = Field(SizeUnit.MM, title="Travel unit")
 
     # optional fields
@@ -248,16 +275,18 @@ class Camera(Device):
 
     # required fields
     data_interface: DataInterface = Field(..., title="Type of connection to PC")
-    manufacturer: Literal[
-        Manufacturer.ALLIED.value,
-        Manufacturer.BASLER.value,
-        Manufacturer.EDMUND_OPTICS.value,
-        Manufacturer.FLIR.value,
-        Manufacturer.THORLABS.value,
-        Manufacturer.OTHER.value,
+    manufacturer: EnumSubset[
+        Manufacturer.AILIPU,
+        Manufacturer.ALLIED,
+        Manufacturer.BASLER,
+        Manufacturer.EDMUND_OPTICS,
+        Manufacturer.FLIR,
+        Manufacturer.IMAGING_SOURCE,
+        Manufacturer.THORLABS,
+        Manufacturer.OTHER,
     ]
     computer_name: str = Field(..., title="Name of computer receiving data from this camera")
-    max_frame_rate: float = Field(..., title="Maximum frame rate (Hz)", units="Hz")
+    max_frame_rate: Decimal = Field(..., title="Maximum frame rate (Hz)", units="Hz")
     frame_rate_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Frame rate unit")
     pixel_width: int = Field(..., title="Width of the sensor in pixels", units="Pixels")
     pixel_height: int = Field(..., title="Height of the sensor in pixels", units="Pixels")
@@ -276,10 +305,12 @@ class Lens(Device):
     """Lens used to focus light onto a camera sensor"""
 
     # required fields
-    manufacturer: Literal[Manufacturer.EDMUND_OPTICS.value, Manufacturer.THORLABS.value, Manufacturer.OTHER.value]
+    manufacturer: EnumSubset[
+        Manufacturer.COMPUTAR, Manufacturer.EDMUND_OPTICS, Manufacturer.THORLABS, Manufacturer.OTHER
+    ]
 
     # optional fields
-    focal_length: Optional[float] = Field(None, title="Focal length of the lens", units="mm")
+    focal_length: Optional[Decimal] = Field(None, title="Focal length of the lens", units="mm")
     focal_length_unit: SizeUnit = Field(SizeUnit.MM, title="Focal length unit")
     size: Optional[LensSize] = Field(None, title="Size (inches)")
     lens_size_unit: SizeUnit = Field(SizeUnit.IN, title="Lens size unit")
@@ -293,27 +324,47 @@ class Filter(Device):
 
     # required fields
     filter_type: FilterType = Field(..., title="Type of filter")
-    manufacturer: Literal[
-        Manufacturer.EDMUND_OPTICS.value,
-        Manufacturer.CHROMA.value,
-        Manufacturer.SEMROCK.value,
-        Manufacturer.THORLABS.value,
-        Manufacturer.OTHER.value,
+    manufacturer: EnumSubset[
+        Manufacturer.EDMUND_OPTICS,
+        Manufacturer.CHROMA,
+        Manufacturer.SEMROCK,
+        Manufacturer.THORLABS,
+        Manufacturer.OTHER,
     ]
 
     # optional fields
-    diameter: Optional[float] = Field(None, title="Diameter (mm)", units="mm")
-    diameter_unit: SizeUnit = Field(SizeUnit.MM, title="Diameter unit")
-    thickness: Optional[float] = Field(None, title="Thickness (mm)", ge=0)
+    diameter: Optional[Decimal] = Field(None, title="Diameter (mm)", units="mm")
+    width: Optional[Decimal] = Field(None, title="Width (mm)")
+    height: Optional[Decimal] = Field(None, title="Height (mm)")
+    size_unit: SizeUnit = Field(SizeUnit.MM, title="Size unit")
+    thickness: Optional[Decimal] = Field(None, title="Thickness (mm)", ge=0)
     thickness_unit: SizeUnit = Field(SizeUnit.MM, title="Thickness unit")
     filter_wheel_index: Optional[int] = Field(None, title="Filter wheel index")
     cut_off_wavelength: Optional[int] = Field(None, title="Cut-off wavelength (nm)")
-    cut_off_wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Cut off wavelength unit")
     cut_on_wavelength: Optional[int] = Field(None, title="Cut-on wavelength (nm)")
-    cut_on_wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Cut on wavelength unit")
+    center_wavelength: Optional[int] = Field(None, title="Center wavelength (nm)")
+    wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
     description: Optional[str] = Field(
         None, title="Description", description="More details about filter properties and where/how it is being used"
     )
+
+
+class Immersion(Enum):
+    """Immersion media name"""
+
+    AIR = "air"
+    MULTI = "multi"
+    OIL = "oil"
+    WATER = "water"
+    OTHER = "other"
+
+
+class Objective(Device):
+    """Description of an objective device"""
+
+    numerical_aperture: Decimal = Field(..., title="Numerical aperture (in air)")
+    magnification: Decimal = Field(..., title="Magnification")
+    immersion: Immersion = Field(..., title="Immersion")
 
 
 class CameraTarget(Enum):
@@ -322,7 +373,8 @@ class CameraTarget(Enum):
     BODY = "Body"
     BOTTOM = "Bottom"
     EYE = "Eye"
-    FACE = "Face"
+    FACE_BOTTOM = "Face bottom"
+    FACE_SIDE = "Face side"
     SIDE = "Side"
     TONGUE = "Tongue"
     OTHER = "Other"
@@ -353,7 +405,7 @@ class DAQChannel(AindModel):
     # optional fields
     port: Optional[int] = Field(None, title="DAQ port")
     channel_index: Optional[int] = Field(None, title="DAQ channel index")
-    sample_rate: Optional[float] = Field(None, title="DAQ channel sample rate (Hz)", units="Hz")
+    sample_rate: Optional[Decimal] = Field(None, title="DAQ channel sample rate (Hz)", units="Hz")
     sample_rate_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Sample rate unit")
     event_based_sampling: Optional[bool] = Field(
         False, title="Set to true if DAQ channel is sampled at irregular intervals"
@@ -365,11 +417,11 @@ class DAQDevice(Device):
 
     # required fields
     data_interface: DataInterface = Field(..., title="Type of connection to PC")
-    manufacturer: Literal[
-        Manufacturer.NATIONAL_INSTRUMENTS.value,
-        Manufacturer.IMEC.value,
-        Manufacturer.OEPS.value,
-        Manufacturer.OTHER.value,
+    manufacturer: EnumSubset[
+        Manufacturer.NATIONAL_INSTRUMENTS,
+        Manufacturer.IMEC,
+        Manufacturer.OEPS,
+        Manufacturer.OTHER,
     ]
     computer_name: str = Field(..., title="Name of computer controlling this DAQ")
 
@@ -404,21 +456,22 @@ class Laser(Device):
     """Laser module with a specific wavelength (may be a sub-component of a larger assembly)"""
 
     # required fields
-    manufacturer: Literal[
-        Manufacturer.COHERENT_SCIENTIFIC.value,
-        Manufacturer.HAMAMATSU.value,
-        Manufacturer.OXXIUS.value,
-        Manufacturer.QUANTIFI.value,
-        Manufacturer.OTHER.value,
+    lightsource_type: str = Field("Laser", title="Lightsource type")
+    manufacturer: EnumSubset[
+        Manufacturer.COHERENT_SCIENTIFIC,
+        Manufacturer.HAMAMATSU,
+        Manufacturer.OXXIUS,
+        Manufacturer.QUANTIFI,
+        Manufacturer.OTHER,
     ]
     wavelength: int = Field(..., title="Wavelength (nm)", units="nm")
     wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
 
     # optional fields
-    maximum_power: Optional[float] = Field(None, title="Maximum power (mW)", units="mW")
+    maximum_power: Optional[Decimal] = Field(None, title="Maximum power (mW)", units="mW")
     power_unit: PowerUnit = Field(PowerUnit.MW, title="Power unit")
     coupling: Optional[Coupling] = Field(None, title="Coupling")
-    coupling_efficiency: Optional[float] = Field(
+    coupling_efficiency: Optional[Decimal] = Field(
         None,
         title="Coupling efficiency (percent)",
         units="percent",
@@ -434,11 +487,12 @@ class Laser(Device):
 class LightEmittingDiode(Device):
     """Description of a Light Emitting Diode (LED) device"""
 
-    manufacturer: Literal[
-        Manufacturer.DORIC.value,
-        Manufacturer.PRIZMATIX.value,
-        Manufacturer.THORLABS.value,
-        Manufacturer.OTHER.value,
+    lightsource_type: str = Field("LED", title="Lightsource type")
+    manufacturer: EnumSubset[
+        Manufacturer.DORIC,
+        Manufacturer.PRIZMATIX,
+        Manufacturer.THORLABS,
+        Manufacturer.OTHER,
     ]
     wavelength: int = Field(..., title="Wavelength (nm)", units="nm")
     wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
@@ -455,7 +509,7 @@ class Disc(MousePlatform):
     """Description of a running disc"""
 
     platform_type: str = Field("Disc", title="Platform type", const=True)
-    radius: float = Field(..., title="Radius (cm)", units="cm", ge=0)
+    radius: Decimal = Field(..., title="Radius (cm)", units="cm", ge=0)
     radius_unit: SizeUnit = Field(SizeUnit.CM, title="radius unit")
     output: Optional[DaqChannelType] = Field(None, description="analog or digital electronics")
     encoder: Optional[str] = Field(None, title="Encoder", description="Encoder hardware type")
@@ -469,7 +523,7 @@ class Tube(MousePlatform):
     """Description of a tube platform"""
 
     platform_type: str = Field("Tube", title="Platform type", const=True)
-    diameter: float = Field(..., title="Diameter", ge=0)
+    diameter: Decimal = Field(..., title="Diameter", ge=0)
     diameter_unit: SizeUnit = Field(SizeUnit.CM, title="Diameter unit")
 
 
@@ -477,7 +531,7 @@ class Treadmill(MousePlatform):
     """Description of treadmill platform"""
 
     platform_type: str = Field("Treadmill", title="Platform type", const=True)
-    treadmill_width: float = Field(..., title="Width of treadmill (mm)", units="mm")
+    treadmill_width: Decimal = Field(..., title="Width of treadmill (mm)", units="mm")
     width_unit: SizeUnit = Field(SizeUnit.CM, title="Width unit")
 
 
@@ -485,12 +539,12 @@ class Monitor(Device):
     """Visual display"""
 
     # required fields
-    manufacturer: Literal[Manufacturer.LG.value]
+    manufacturer: EnumSubset[Manufacturer.LG]
     refresh_rate: int = Field(..., title="Refresh rate (Hz)", units="Hz", ge=60)
     width: int = Field(..., title="Width (pixels)", units="pixels")
     height: int = Field(..., title="Height (pixels)", units="pixels")
     size_unit: SizeUnit = Field(SizeUnit.PX, title="Size unit")
-    viewing_distance: float = Field(..., title="Viewing distance (cm)", units="cm")
+    viewing_distance: Decimal = Field(..., title="Viewing distance (cm)", units="cm")
 
     # optional fields
     contrast: Optional[int] = Field(
@@ -507,18 +561,6 @@ class Monitor(Device):
         ge=0,
         le=100,
     )
-
-
-class CameraTarget(Enum):
-    """Target of camera"""
-
-    BODY = "Body"
-    BOTTOM = "Bottom"
-    EYE = "Eye"
-    FACE = "Face"
-    SIDE = "Side"
-    TONGUE = "Tongue"
-    OTHER = "Other"
 
 
 class WaterDelivery(AindModel):
@@ -549,7 +591,7 @@ class VisualStimulusDisplayAssembly(AindModel):
 
     # required fields
     monitor: Monitor = Field(..., title="Monitor")
-    viewing_distance: float = Field(..., title="Viewing distance (cm)", units="cm")
+    viewing_distance: Decimal = Field(..., title="Viewing distance (cm)", units="cm")
     viewing_distance_unit: SizeUnit = Field(SizeUnit.CM, title="Viewing distance unit")
 
     # optional fields

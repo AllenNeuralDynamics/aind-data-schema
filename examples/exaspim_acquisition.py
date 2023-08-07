@@ -37,7 +37,7 @@ acq = acquisition.Acquisition(
         tile.AcquisitionTile(
             file_name="tile_X_0000_Y_0000_Z_0000_CH_488.ims",
             coordinate_transformations=[
-                tile.Scale3dTransform(scale=[0.748, 0.748, 1.0]),
+                tile.Scale3dTransform(scale=[0.748, 0.748, 1]),
                 tile.Translation3dTransform(translation=[0, 0, 0]),
             ],
             channel=tile.Channel(
@@ -51,7 +51,7 @@ acq = acquisition.Acquisition(
         tile.AcquisitionTile(
             file_name="tile_X_0000_Y_0000_Z_0000_CH_561.ims",
             coordinate_transformations=[
-                tile.Scale3dTransform(scale=[0.748, 0.748, 1.0]),
+                tile.Scale3dTransform(scale=[0.748, 0.748, 1]),
                 tile.Translation3dTransform(translation=[0, 0, 0]),
             ],
             channel=tile.Channel(
