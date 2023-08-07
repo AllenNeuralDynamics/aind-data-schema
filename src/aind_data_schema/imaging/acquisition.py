@@ -103,7 +103,7 @@ class ProcessingSteps(AindModel):
 class LightSourcePowerCalibration(Calibration):
     """Calibration for laser set point/power at sample relationshipe"""
 
-    light_source: Lightsource = Field(..., title="Light Source")
+    light_source_name: str = Field(..., title="Light Source Name")
     illumination_index: int = Field(..., title="Excitation arm index")
     power_setting: PowerValue = Field(
         ...,
