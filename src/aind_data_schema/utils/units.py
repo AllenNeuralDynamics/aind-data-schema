@@ -63,8 +63,8 @@ class TimeUnit(Enum):
     NS = "nanosecond"
 
 
-class PowerUnit(Enum):
-    """Power units"""
+class Power(Enum):
+    """Unit for power, set or measured"""
 
     UW = "microwatt"
     MW = "milliwatt"
