@@ -14,7 +14,7 @@ from aind_data_schema.device import Calibration
 from aind_data_schema.imaging.instrument import Lightsource
 from aind_data_schema.imaging.tile import AcquisitionTile
 from aind_data_schema.processing import ProcessName
-from aind_data_schema.utils.units import SizeUnit
+from aind_data_schema.utils.units import SizeUnit, PowerValue
 
 
 class AxisName(Enum):
@@ -100,29 +100,16 @@ class ProcessingSteps(AindModel):
     ]
 
 
-class PowerUnit(Enum):
-    """Unit for power set by operator"""
-
-    Watt = "W"
-    MilliW = "mW"
-    Percent = "percent"
-
-
 class LightSourcePowerCalibration(Calibration):
     """Calibration for laser set point/power at sample relationshipe"""
 
     light_source: Lightsource = Field(..., title="Light Source")
     illumination_index: int = Field(..., title="Excitation arm index")
-    power_setting: float = Field(
+    power_setting: PowerValue = Field(
         ...,
         title="Excitation power set point",
     )
-    power_setting_unit: PowerUnit = Field(
-        ...,
-        title="Power set point unit",
-    )
-    power_measurement: float = Field(..., title="Power Measured at sample location")
-    power_measurement_unit: PowerUnit = Field(..., title="Power measurement unit")
+    power_measurement: PowerValue = Field(..., title="Power Measured at sample location")
 
 
 class Acquisition(AindCoreModel):
