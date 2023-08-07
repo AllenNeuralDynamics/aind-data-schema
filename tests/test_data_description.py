@@ -211,7 +211,9 @@ class DataDescriptionTest(unittest.TestCase):
 
         # Test Override
         derived_dd_0_6_2_wrong_field2 = DerivedDataDescription.from_data_description(
-            new_dd_0_6_2_wrong_field, process_name=process_name, experiment_type=ExperimentType.OTHER
+            new_dd_0_6_2_wrong_field,
+            process_name=process_name,
+            experiment_type=ExperimentType.OTHER,
         )
         self.assertEqual(ExperimentType.OTHER, derived_dd_0_6_2_wrong_field2.experiment_type)
 

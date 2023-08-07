@@ -107,18 +107,30 @@ class Modality(Enum, metaclass=BaseNameEnumMeta):
     """Data collection modality name"""
 
     CONFOCAL = BaseName(name="Confocal microscopy", abbreviation="confocal")
-    DISPIM = BaseName(name="Dual inverted selective plane illumination microscopy", abbreviation="diSPIM")
+    DISPIM = BaseName(
+        name="Dual inverted selective plane illumination microscopy",
+        abbreviation="diSPIM",
+    )
     ECEPHYS = BaseName(name="Extracellular electrophysiology", abbreviation="ecephys")
     EPHYS = BaseName(name="Electrophysiology", abbreviation="ephys")
-    EXASPIM = BaseName(name="Expansion-assisted selective plane illumination microscopy", abbreviation="exaSPIM")
+    EXASPIM = BaseName(
+        name="Expansion-assisted selective plane illumination microscopy",
+        abbreviation="exaSPIM",
+    )
     FIP = BaseName(name="Frame-projected independent-fiber photometry", abbreviation="FIP")
     FMOST = BaseName(name="Fluorescence micro-optical sectioning tomography", abbreviation="fMOST")
     HSFP = BaseName(name="Hyperspectral fiber photometry", abbreviation="HSFP")
     ICEPHYS = BaseName(name="Intracellular electrophysiology", abbreviation="icephys")
     FIB = BaseName(name="Fiber photometry", abbreviation="fib")
     FISH = BaseName(name="Fluorescence in situ hybridization", abbreviation="fish")
-    MESOSPIM = BaseName(name="Mesoscale selective plane illumination microscopy", abbreviation="mesoSPIM")
-    MERFISH = BaseName(name="Multiplexed error-robust fluorescence in situ hybridization", abbreviation="merfish")
+    MESOSPIM = BaseName(
+        name="Mesoscale selective plane illumination microscopy",
+        abbreviation="mesoSPIM",
+    )
+    MERFISH = BaseName(
+        name="Multiplexed error-robust fluorescence in situ hybridization",
+        abbreviation="merfish",
+    )
     MPOPHYS = BaseName(name="Multiplane optical physiology", abbreviation="multiplane-ophys")
     MRI = BaseName(name="Magnetic resonance imaging", abbreviation="MRI")
     OPHYS = BaseName(name="Optical physiology", abbreviation="ophys")

@@ -8,6 +8,7 @@ from typing import Any, Dict, List, Optional, Union
 from pydantic import Field
 
 from aind_data_schema.base import AindModel, BaseNameEnumMeta, EnumSubset, PIDName, Registry
+from aind_data_schema.procedures import Reagent
 from aind_data_schema.utils.units import AngleUnit, FrequencyUnit, PowerUnit, SizeUnit
 
 
@@ -306,7 +307,10 @@ class Lens(Device):
 
     # required fields
     manufacturer: EnumSubset[
-        Manufacturer.COMPUTAR, Manufacturer.EDMUND_OPTICS, Manufacturer.THORLABS, Manufacturer.OTHER
+        Manufacturer.COMPUTAR,
+        Manufacturer.EDMUND_OPTICS,
+        Manufacturer.THORLABS,
+        Manufacturer.OTHER,
     ]
 
     # optional fields
@@ -345,7 +349,9 @@ class Filter(Device):
     center_wavelength: Optional[int] = Field(None, title="Center wavelength (nm)")
     wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
     description: Optional[str] = Field(
-        None, title="Description", description="More details about filter properties and where/how it is being used"
+        None,
+        title="Description",
+        description="More details about filter properties and where/how it is being used",
     )
 
 
@@ -515,7 +521,9 @@ class Disc(MousePlatform):
     encoder: Optional[str] = Field(None, title="Encoder", description="Encoder hardware type")
     decoder: Optional[str] = Field(None, title="Decoder", description="Decoder chip type")
     encoder_firmware: Optional[Software] = Field(
-        None, title="Encoder firmware", description="Firmware to read from decoder chip counts"
+        None,
+        title="Encoder firmware",
+        description="Firmware to read from decoder chip counts",
     )
 
 
@@ -596,3 +604,30 @@ class VisualStimulusDisplayAssembly(AindModel):
 
     # optional fields
     position: Optional[RelativePosition] = Field(None, title="Relative position of the monitor")
+
+
+class CalibrationType(Enum):
+    """Calibration types"""
+
+    LASER = "laser"
+    MONITOR = "monitor"
+    SPEAKER = "speaker"
+    WATER_V = "water valve"
+    CHAMBER = "chamber"
+    OTHER = "other"
+
+
+class Calibration(AindModel):
+    """Generic calibration class for acquisition"""
+
+    date_of_calibration: datetime = Field(..., title="Date and time of calibration")
+    calibration_type: CalibrationType = Field(
+        ...,
+        title="calibration type",
+    )
+    notes: Optional[str] = Field(None, title="Notes")
+    input: Optional[Dict[str, Any]] = Field({}, description="Calibration input", title="inputs")
+    output: Optional[Dict[str, Any]] = Field({}, description="Calibration output", title="outputs")
+    reagents: Optional[List[Reagent]] = Field(
+        None, title="Reagents", description="List of reagents used in the calibration"
+    )

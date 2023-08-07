@@ -10,9 +10,10 @@ from typing import List, Optional
 from pydantic import Field
 
 from aind_data_schema.base import AindCoreModel, AindModel, EnumSubset
+from aind_data_schema.device import Calibration
+from aind_data_schema.imaging.instrument import Lightsource
 from aind_data_schema.imaging.tile import AcquisitionTile
 from aind_data_schema.processing import ProcessName
-from aind_data_schema.imaging.instrument import Lightsource
 from aind_data_schema.utils.units import SizeUnit
 
 
@@ -110,10 +111,7 @@ class PowerUnit(Enum):
 class LightSourcePowerCalibration(AindModel):
     """Calibration for laser set point/power at sample relationshipe"""
 
-    date_of_calibration: datetime = Field(
-        ...,
-        title="Date and time of calibration"
-    )
+    date_of_calibration: datetime = Field(..., title="Date and time of calibration")
     light_source: Lightsource = Field(..., title="Light Source")
     illumination_index: int = Field(..., title="Excitation arm index")
     power_setting: float = Field(
@@ -140,11 +138,10 @@ class Acquisition(AindCoreModel):
     specimen_id: str = Field(..., title="Specimen ID")
     subject_id: Optional[str] = Field(None, title="Subject ID")
     instrument_id: str = Field(..., title="Instrument ID")
-    calibrations: Optional[List[LightSourcePowerCalibration]] = Field(
+    calibrations: Optional[List[Calibration]] = Field(
         None,
         title="Acquisition-time instrument calibrations",
-        description="List of calibration measurements taken at time of \
-            acquisition, e.g. laser power setting - power measuered at sample."
+        description="List of calibration measurements taken at time of acquisition.",
     )
     session_start_time: datetime = Field(..., title="Session start time")
     session_end_time: datetime = Field(..., title="Session end time")

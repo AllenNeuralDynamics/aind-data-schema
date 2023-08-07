@@ -46,14 +46,18 @@ class BehaviorSession(AindCoreModel):
     behavior_type: str = Field(..., title="Behavior type", description="Name of the behavior session")
     session_number: int = Field(..., title="Session number")
     behavior_code: str = Field(
-        ..., title="Behavior code", description="URL for the commit of the code used to run the behavior"
+        ...,
+        title="Behavior code",
+        description="URL for the commit of the code used to run the behavior",
     )
     code_version: str = Field(..., description="Version of the software used", title="Code version")
     input_parameters: Dict[str, Any] = Field(
         ..., title="Input parameters", description="Parameters used in behavior session"
     )
     output_parameters: Dict[str, Any] = Field(
-        ..., title="Performance parameters", description="Performance metrics from session"
+        ...,
+        title="Performance parameters",
+        description="Performance metrics from session",
     )
     water_consumed_during_training: Decimal = Field(..., title="Water consumed during training (uL)")
     water_consumed_total: Decimal = Field(..., title="Total water consumed (uL)")

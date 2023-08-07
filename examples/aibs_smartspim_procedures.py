@@ -21,7 +21,11 @@ conductivity_buffer = procedures.Reagent(name="Conductivity Buffer", lot_number=
 
 easy_index = procedures.Reagent(name="Easy Index", lot_number="1234", source="Vendor")
 
-water = procedures.Reagent(name="Deionized water", lot_number="DDI/Filtered in house", source="This is not a reagent")
+water = procedures.Reagent(
+    name="Deionized water",
+    lot_number="DDI/Filtered in house",
+    source="This is not a reagent",
+)
 
 agarose = procedures.Reagent(name="Agarose", lot_number="1234", source="Other vendor")
 
