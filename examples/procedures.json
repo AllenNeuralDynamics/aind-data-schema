@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/procedures.py",
-   "schema_version": "0.8.4",
+   "schema_version": "0.8.5",
    "subject_id": "625100",
    "subject_procedures": [
       {
@@ -84,7 +84,7 @@
          "bregma_to_lambda_distance": 4.1,
          "bregma_to_lambda_unit": "millimeter",
          "injection_angle": 10,
-         "injection_angle_unit": "degree",
+         "injection_angle_unit": "degrees",
          "targeted_structure": "VISp",
          "injection_hemisphere": "Left",
          "procedure_type": "Nanoject injection",

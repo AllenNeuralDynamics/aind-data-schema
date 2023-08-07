@@ -8,37 +8,7 @@ from typing import Any, Dict, List, Optional, Union
 from pydantic import Field
 
 from aind_data_schema.base import AindModel, BaseNameEnumMeta, EnumSubset, PIDName, Registry
-
-
-class SizeUnit(Enum):
-    """units for sizes"""
-
-    CM = "centimeter"
-    IN = "inch"
-    MM = "millimeter"
-    NM = "nanometer"
-    UM = "micrometer"
-    PX = "pixel"
-    NONE = "none"
-
-
-class AngleUnit(Enum):
-    """orientation units"""
-
-    DEG = "degree"
-
-
-class FrequencyUnit(Enum):
-    """Frequency units"""
-
-    HZ = "Hertz"
-
-
-class PowerUnit(Enum):
-    """Power units"""
-
-    UW = "microwatt"
-    MW = "milliwatt"
+from aind_data_schema.utils.units import AngleUnit, FrequencyUnit, PowerUnit, SizeUnit
 
 
 class DeviceDriver(Enum):

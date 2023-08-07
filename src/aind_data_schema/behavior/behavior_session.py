@@ -9,14 +9,14 @@ from typing import Any, Dict, Optional
 from pydantic import Field
 
 from aind_data_schema.base import AindCoreModel
-from aind_data_schema.procedures import VolumeUnit, WeightUnit
+from aind_data_schema.utils.units import MassUnit, VolumeUnit
 
 
 class BehaviorSession(AindCoreModel):
     """Description of a behavior session"""
 
     schema_version: str = Field(
-        "0.0.2",
+        "0.0.3",
         description="Schema version",
         title="Schema Version",
         const=True,
@@ -42,7 +42,7 @@ class BehaviorSession(AindCoreModel):
         description="Animal weight after procedure",
         units="g",
     )
-    weight_unit: WeightUnit = Field(WeightUnit.G, title="Weight unit")
+    weight_unit: MassUnit = Field(MassUnit.G, title="Weight unit")
     behavior_type: str = Field(..., title="Behavior type", description="Name of the behavior session")
     session_number: int = Field(..., title="Session number")
     behavior_code: str = Field(
