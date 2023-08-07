@@ -10,8 +10,9 @@ from typing import List, Optional
 from pydantic import Field
 
 from aind_data_schema.base import AindCoreModel, AindModel
-from aind_data_schema.device import AngleUnit, Coordinates3d, PowerUnit, SizeUnit
+from aind_data_schema.device import Coordinates3d
 from aind_data_schema.stimulus import StimulusPresentation
+from aind_data_schema.utils.units import AngleUnit, PowerUnit, SizeUnit
 
 
 class SessionType(Enum):
@@ -127,7 +128,7 @@ class Stream(AindModel):
 class EphysSession(AindCoreModel):
     """Description of an ephys recording session"""
 
-    schema_version: str = Field("0.4.6", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.4.7", description="schema version", title="Version", const=True)
     experimenter_full_name: List[str] = Field(
         ...,
         description="First and last name of the experimenter(s).",

@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/imaging/instrument.py",
-   "schema_version": "0.7.4",
+   "schema_version": "0.7.6",
    "instrument_id": "exaSPIM1-1",
    "instrument_type": "exaSPIM",
    "manufacturer": {
@@ -246,7 +246,7 @@
                "port": null,
                "channel_index": null,
                "sample_rate": 10000,
-               "sample_rate_unit": "Hertz",
+               "sample_rate_unit": "hertz",
                "event_based_sampling": false
             },
             {
@@ -256,7 +256,7 @@
                "port": null,
                "channel_index": null,
                "sample_rate": 10000,
-               "sample_rate_unit": "Hertz",
+               "sample_rate_unit": "hertz",
                "event_based_sampling": false
             },
             {
@@ -266,7 +266,7 @@
                "port": null,
                "channel_index": null,
                "sample_rate": 10000,
-               "sample_rate_unit": "Hertz",
+               "sample_rate_unit": "hertz",
                "event_based_sampling": false
             },
             {
@@ -276,7 +276,7 @@
                "port": null,
                "channel_index": null,
                "sample_rate": 10000,
-               "sample_rate_unit": "Hertz",
+               "sample_rate_unit": "hertz",
                "event_based_sampling": false
             },
             {
@@ -286,7 +286,7 @@
                "port": null,
                "channel_index": null,
                "sample_rate": 10000,
-               "sample_rate_unit": "Hertz",
+               "sample_rate_unit": "hertz",
                "event_based_sampling": false
             },
             {
@@ -296,7 +296,7 @@
                "port": null,
                "channel_index": null,
                "sample_rate": 10000,
-               "sample_rate_unit": "Hertz",
+               "sample_rate_unit": "hertz",
                "event_based_sampling": false
             }
          ]

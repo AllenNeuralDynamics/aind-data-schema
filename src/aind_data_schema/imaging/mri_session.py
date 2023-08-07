@@ -11,7 +11,8 @@ from aind_data_schema.base import AindCoreModel
 from aind_data_schema.device import Device
 from aind_data_schema.imaging.acquisition import Axis
 from aind_data_schema.imaging.tile import Scale3dTransform
-from aind_data_schema.procedures import Anaesthetic, WeightUnit
+from aind_data_schema.procedures import Anaesthetic
+from aind_data_schema.utils.units import MassUnit
 
 
 class MriScanSequence(Enum):
@@ -45,7 +46,7 @@ class Scanner(Device):
 class MriSession(AindCoreModel):
     """Description of an MRI scan"""
 
-    schema_version: str = Field("0.1.3", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.1.4", description="schema version", title="Version", const=True)
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
@@ -72,7 +73,7 @@ class MriSession(AindCoreModel):
         description="Animal weight after procedure",
         units="g",
     )
-    weight_unit: WeightUnit = Field(WeightUnit.G, title="Weight unit")
+    weight_unit: MassUnit = Field(MassUnit.G, title="Weight unit")
     anaesthesia: Optional[Anaesthetic] = Field(None, title="Anaesthesia")
     scan_sequence: MriScanSequence = Field(..., title="Scan sequence")
     mri_scanner: Scanner = Field(..., title="MRI scanner")

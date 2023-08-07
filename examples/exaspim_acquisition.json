@@ -50,7 +50,7 @@
          },
          "notes": "these are my notes",
          "imaging_angle": 0,
-         "imaging_angle_unit": "degree"
+         "imaging_angle_unit": "degrees"
       },
       {
          "coordinate_transformations": [
@@ -82,7 +82,7 @@
          },
          "notes": "these are my notes",
          "imaging_angle": 0,
-         "imaging_angle_unit": "degree"
+         "imaging_angle_unit": "degrees"
       }
    ],
    "axes": [

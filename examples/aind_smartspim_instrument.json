@@ -1,7 +1,7 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/imaging/instrument.py",
-   "schema_version": "0.7.4",
-   "instrument_id": "SmartSPIM2-1",
+   "schema_version": "0.7.6",
+   "instrument_id": "SmartSPIM1-3",
    "instrument_type": "SmartSPIM",
    "manufacturer": {
       "name": "LifeCanvas",
@@ -24,50 +24,92 @@
             },
             "registry_identifier": "00k17f049"
          },
-         "model": "VIS2424-IG2-125A",
+         "model": "VIS3648-PG4-325A",
          "notes": null,
          "length": 36,
          "width": 48,
          "table_size_unit": "inch",
-         "vibration_control": false
+         "vibration_control": true
       }
    ],
    "objectives": [
       {
          "name": null,
-         "serial_number": "Unknown-1",
+         "serial_number": "Unknown",
          "manufacturer": {
-            "name": "LifeCanvas",
+            "name": "Thorlabs",
             "abbreviation": null,
-            "registry": null,
-            "registry_identifier": null
+            "registry": {
+               "name": "Research Organization Registry",
+               "abbreviation": "ROR"
+            },
+            "registry_identifier": "04gsnvb07"
          },
-         "model": null,
-         "notes": "Thorlabs TL4X-SAP with LifeCanvas dipping cap and correction optics.",
+         "model": "TL2X-SAP",
+         "notes": "",
+         "numerical_aperture": 0.1,
+         "magnification": 1.6,
+         "immersion": "multi"
+      },
+      {
+         "name": null,
+         "serial_number": "Unknown",
+         "manufacturer": {
+            "name": "Thorlabs",
+            "abbreviation": null,
+            "registry": {
+               "name": "Research Organization Registry",
+               "abbreviation": "ROR"
+            },
+            "registry_identifier": "04gsnvb07"
+         },
+         "model": "TL4X-SAP",
+         "notes": "Thorlabs TL4X-SAP with LifeCanvas dipping cap and correction optics",
          "numerical_aperture": 0.2,
          "magnification": 3.6,
          "immersion": "multi"
       },
       {
          "name": null,
-         "serial_number": "Unknown-2",
+         "serial_number": "Unknown",
          "manufacturer": {
-            "name": "LifeCanvas",
+            "name": "Nikon",
             "abbreviation": null,
-            "registry": null,
-            "registry_identifier": null
+            "registry": {
+               "name": "Research Organization Registry",
+               "abbreviation": "ROR"
+            },
+            "registry_identifier": "0280y9h11"
          },
-         "model": null,
-         "notes": "Thorlabs TL2X-SAP with LifeCanvas dipping cap and correction optics.",
-         "numerical_aperture": 0.12,
-         "magnification": 1.625,
-         "immersion": "multi"
+         "model": "MRP07220",
+         "notes": "",
+         "numerical_aperture": 0.8,
+         "magnification": 16.0,
+         "immersion": "water"
+      },
+      {
+         "name": null,
+         "serial_number": "Unknown",
+         "manufacturer": {
+            "name": "Nikon",
+            "abbreviation": null,
+            "registry": {
+               "name": "Research Organization Registry",
+               "abbreviation": "ROR"
+            },
+            "registry_identifier": "0280y9h11"
+         },
+         "model": "MRD77220",
+         "notes": "",
+         "numerical_aperture": 1.1,
+         "magnification": 25.0,
+         "immersion": "water"
       }
    ],
    "detectors": [
       {
          "name": null,
-         "serial_number": "001284",
+         "serial_number": "220302-SYS-060443",
          "manufacturer": {
             "name": "Hamamatsu",
             "abbreviation": null,
@@ -81,7 +123,7 @@
          "notes": null,
          "type": "Camera",
          "data_interface": "USB",
-         "cooling": "air"
+         "cooling": "water"
       }
    ],
    "light_sources": [
@@ -94,13 +136,13 @@
             "registry": null,
             "registry_identifier": null
          },
-         "model": null,
-         "notes": null,
+         "model": "Stradus",
+         "notes": "All lasers controlled via Vortran VersaLase System",
          "type": "laser",
          "coupling": "Single-mode fiber",
          "wavelength": 445,
          "wavelength_unit": "nanometer",
-         "max_power": 200,
+         "max_power": 150,
          "power_unit": "milliwatt"
       },
       {
@@ -112,8 +154,8 @@
             "registry": null,
             "registry_identifier": null
          },
-         "model": null,
-         "notes": null,
+         "model": "Stradus",
+         "notes": "All lasers controlled via Vortran VersaLase System",
          "type": "laser",
          "coupling": "Single-mode fiber",
          "wavelength": 488,
@@ -130,8 +172,8 @@
             "registry": null,
             "registry_identifier": null
          },
-         "model": null,
-         "notes": null,
+         "model": "Stradus",
+         "notes": "All lasers controlled via Vortran VersaLase System",
          "type": "laser",
          "coupling": "Single-mode fiber",
          "wavelength": 561,
@@ -148,13 +190,13 @@
             "registry": null,
             "registry_identifier": null
          },
-         "model": null,
-         "notes": null,
+         "model": "Stradus",
+         "notes": "All lasers controlled via Vortran VersaLase System",
          "type": "laser",
          "coupling": "Single-mode fiber",
          "wavelength": 594,
          "wavelength_unit": "nanometer",
-         "max_power": 100,
+         "max_power": 150,
          "power_unit": "milliwatt"
       },
       {
@@ -166,8 +208,8 @@
             "registry": null,
             "registry_identifier": null
          },
-         "model": null,
-         "notes": null,
+         "model": "Stradus",
+         "notes": "All lasers controlled via Vortran VersaLase System",
          "type": "laser",
          "coupling": "Single-mode fiber",
          "wavelength": 639,
@@ -184,11 +226,11 @@
             "registry": null,
             "registry_identifier": null
          },
-         "model": null,
-         "notes": null,
+         "model": "Stradus",
+         "notes": "All lasers controlled via Vortran VersaLase System",
          "type": "laser",
          "coupling": "Single-mode fiber",
-         "wavelength": 690,
+         "wavelength": 665,
          "wavelength_unit": "nanometer",
          "max_power": 160,
          "power_unit": "milliwatt"
@@ -211,7 +253,7 @@
          "width": null,
          "height": null,
          "size_unit": "millimeter",
-         "thickness": 2,
+         "thickness": 2.0,
          "thickness_unit": "millimeter",
          "filter_wheel_index": 0,
          "cut_off_wavelength": null,
@@ -236,7 +278,7 @@
          "width": null,
          "height": null,
          "size_unit": "millimeter",
-         "thickness": 2,
+         "thickness": 2.0,
          "thickness_unit": "millimeter",
          "filter_wheel_index": 1,
          "cut_off_wavelength": null,
@@ -261,7 +303,7 @@
          "width": null,
          "height": null,
          "size_unit": "millimeter",
-         "thickness": 2,
+         "thickness": 2.0,
          "thickness_unit": "millimeter",
          "filter_wheel_index": 2,
          "cut_off_wavelength": null,
@@ -286,7 +328,7 @@
          "width": null,
          "height": null,
          "size_unit": "millimeter",
-         "thickness": 2,
+         "thickness": 2.0,
          "thickness_unit": "millimeter",
          "filter_wheel_index": 3,
          "cut_off_wavelength": null,
@@ -311,7 +353,7 @@
          "width": null,
          "height": null,
          "size_unit": "millimeter",
-         "thickness": 2,
+         "thickness": 2.0,
          "thickness_unit": "millimeter",
          "filter_wheel_index": 4,
          "cut_off_wavelength": null,
@@ -339,7 +381,7 @@
          "width": null,
          "height": null,
          "size_unit": "millimeter",
-         "thickness": 2,
+         "thickness": 2.0,
          "thickness_unit": "millimeter",
          "filter_wheel_index": 5,
          "cut_off_wavelength": null,
@@ -352,7 +394,7 @@
    "motorized_stages": [
       {
          "name": null,
-         "serial_number": "Unknown-1",
+         "serial_number": "Unknown-0",
          "manufacturer": {
             "name": "Applied Scientific Instrumentation",
             "abbreviation": "ASI",
@@ -367,7 +409,7 @@
       },
       {
          "name": null,
-         "serial_number": "Unknown-5",
+         "serial_number": "Unknown-1",
          "manufacturer": {
             "name": "IR Robot Co",
             "abbreviation": null,
@@ -382,7 +424,7 @@
       },
       {
          "name": null,
-         "serial_number": "Unknown-6",
+         "serial_number": "Unknown-2",
          "manufacturer": {
             "name": "IR Robot Co",
             "abbreviation": null,
@@ -397,7 +439,7 @@
       },
       {
          "name": null,
-         "serial_number": "Unknown-7",
+         "serial_number": "Unknown-3",
          "manufacturer": {
             "name": "IR Robot Co",
             "abbreviation": null,
@@ -412,7 +454,7 @@
       },
       {
          "name": null,
-         "serial_number": "Unknown-8",
+         "serial_number": "Unknown-4",
          "manufacturer": {
             "name": "IR Robot Co",
             "abbreviation": null,
@@ -429,7 +471,7 @@
    "scanning_stages": [
       {
          "name": null,
-         "serial_number": "Unknown-2",
+         "serial_number": "Unknown-0",
          "manufacturer": {
             "name": "Applied Scientific Instrumentation",
             "abbreviation": "ASI",
@@ -446,7 +488,7 @@
       },
       {
          "name": null,
-         "serial_number": "Unknown-3",
+         "serial_number": "Unknown-1",
          "manufacturer": {
             "name": "Applied Scientific Instrumentation",
             "abbreviation": "ASI",
@@ -463,7 +505,7 @@
       },
       {
          "name": null,
-         "serial_number": "Unknown-4",
+         "serial_number": "Unknown-2",
          "manufacturer": {
             "name": "Applied Scientific Instrumentation",
             "abbreviation": "ASI",
@@ -480,21 +522,48 @@
       }
    ],
    "daqs": null,
-   "additional_devices": null,
+   "additional_devices": [
+      {
+         "name": null,
+         "serial_number": "10436130",
+         "manufacturer": {
+            "name": "Julabo",
+            "abbreviation": null,
+            "registry": null,
+            "registry_identifier": null
+         },
+         "model": "200F",
+         "notes": null,
+         "type": "Other"
+      },
+      {
+         "name": null,
+         "serial_number": "Unknown-1",
+         "manufacturer": {
+            "name": "LifeCanvas",
+            "abbreviation": null,
+            "registry": null,
+            "registry_identifier": null
+         },
+         "model": "Large-uncoated-glass",
+         "notes": null,
+         "type": "Sample Chamber"
+      }
+   ],
    "calibration_date": null,
    "calibration_data": null,
    "com_ports": [
       {
          "hardware_name": "Laser Launch",
-         "com_port": "COM4"
-      },
-      {
-         "hardware_name": "ASI Tiger",
          "com_port": "COM3"
       },
       {
+         "hardware_name": "ASI Tiger",
+         "com_port": "COM5"
+      },
+      {
          "hardware_name": "MightyZap",
-         "com_port": "COM9"
+         "com_port": "COM10"
       }
    ],
    "notes": null

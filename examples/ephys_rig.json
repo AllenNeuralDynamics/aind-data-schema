@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/ephys/ephys_rig.py",
-   "schema_version": "0.7.5",
+   "schema_version": "0.7.6",
    "rig_id": "323_EPHYS1",
    "ephys_assemblies": [
       {
@@ -78,7 +78,7 @@
             "data_interface": "USB",
             "computer_name": "W10DT72942",
             "max_frame_rate": 50,
-            "frame_rate_unit": "Hertz",
+            "frame_rate_unit": "hertz",
             "pixel_width": 1080,
             "pixel_height": 570,
             "size_unit": "pixel",
@@ -199,7 +199,7 @@
             "data_interface": "USB",
             "computer_name": "W10DT72941",
             "max_frame_rate": 500,
-            "frame_rate_unit": "Hertz",
+            "frame_rate_unit": "hertz",
             "pixel_width": 1080,
             "pixel_height": 570,
             "size_unit": "pixel",
@@ -282,7 +282,7 @@
             "data_interface": "USB",
             "computer_name": "W10DT72941",
             "max_frame_rate": 500,
-            "frame_rate_unit": "Hertz",
+            "frame_rate_unit": "hertz",
             "pixel_width": 1080,
             "pixel_height": 570,
             "size_unit": "pixel",
@@ -423,7 +423,7 @@
                "port": null,
                "channel_index": null,
                "sample_rate": null,
-               "sample_rate_unit": "Hertz",
+               "sample_rate_unit": "hertz",
                "event_based_sampling": false
             },
             {
@@ -433,7 +433,7 @@
                "port": null,
                "channel_index": null,
                "sample_rate": null,
-               "sample_rate_unit": "Hertz",
+               "sample_rate_unit": "hertz",
                "event_based_sampling": false
             },
             {
@@ -443,7 +443,7 @@
                "port": null,
                "channel_index": null,
                "sample_rate": null,
-               "sample_rate_unit": "Hertz",
+               "sample_rate_unit": "hertz",
                "event_based_sampling": false
             }
          ],
