@@ -11,6 +11,7 @@ from aind_data_schema.imaging import instrument as inst
 from aind_data_schema.imaging import mri_session as ms
 from aind_data_schema.imaging import tile
 from aind_data_schema.processing import Registration
+from aind_data_schema.utils.units import PowerValue
 
 
 class ImagingTests(unittest.TestCase):
@@ -31,17 +32,14 @@ class ImagingTests(unittest.TestCase):
                 acq.LightSourcePowerCalibration(
                     date_of_calibration=datetime.datetime.now(),
                     calibration_type=CalibrationType.LASER,
-                    light_source=inst.Lightsource(
-                        type="laser",
-                        coupling="Single-mode fiber",
-                        wavelength=488.0,
-                        max_power=150.0,
-                    ),
+                    light_source_name="Ex_488",
                     illumination_index=0,
-                    power_setting=100.0,
-                    power_setting_unit=acq.PowerUnit("percent"),
-                    power_measurement=125.0,
-                    power_measurement_unit=acq.PowerUnit("mW"),
+                    power_setting=PowerValue(
+                        value=100.0, unit="percent"
+                    ),
+                    power_measurement=PowerValue(
+                        value=50.0, unit="milliwatt"
+                    ),
                 ),
             ],
             session_end_time=datetime.datetime.now(),
