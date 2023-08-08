@@ -40,6 +40,7 @@ inst = Instrument(
     ],
     light_sources=[
         Lightsource(
+            name="Ex_488",
             type="laser",
             coupling="Single-mode fiber",
             wavelength=488,
@@ -50,6 +51,7 @@ inst = Instrument(
             notes="All lasers controlled via Vortran VersaLase System",
         ),
         Lightsource(
+            name="Ex_561",
             type="laser",
             coupling="Single-mode fiber",
             wavelength=561,
@@ -60,6 +62,7 @@ inst = Instrument(
             notes="All lasers controlled via Vortran VersaLase System",
         ),
         Lightsource(
+            name="Ex_647",
             type="laser",
             coupling="Single-mode fiber",
             wavelength=647,
