@@ -11,7 +11,6 @@ from pydantic import Field
 
 from aind_data_schema.base import AindCoreModel, AindModel, EnumSubset
 from aind_data_schema.device import Calibration
-from aind_data_schema.imaging.instrument import Lightsource
 from aind_data_schema.imaging.tile import AcquisitionTile
 from aind_data_schema.processing import ProcessName
 from aind_data_schema.utils.units import SizeUnit, PowerValue
