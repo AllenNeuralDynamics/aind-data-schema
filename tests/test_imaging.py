@@ -34,12 +34,8 @@ class ImagingTests(unittest.TestCase):
                     calibration_type=CalibrationType.LASER,
                     light_source_name="Ex_488",
                     illumination_index=0,
-                    power_setting=PowerValue(
-                        value=100.0, unit="percent"
-                    ),
-                    power_measurement=PowerValue(
-                        value=50.0, unit="milliwatt"
-                    ),
+                    power_setting=PowerValue(value=100.0, unit="percent"),
+                    power_measurement=PowerValue(value=50.0, unit="milliwatt"),
                 ),
             ],
             session_end_time=datetime.datetime.now(),
