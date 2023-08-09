@@ -68,7 +68,7 @@ class PowerUnit(Enum):
 
     UW = "microwatt"
     MW = "milliwatt"
-    Percent = "percent"
+    PERCENT = "percent"
 
 
 class CurrentUnit(Enum):
