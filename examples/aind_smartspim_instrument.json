@@ -128,7 +128,7 @@
    ],
    "light_sources": [
       {
-         "name": null,
+         "name": "Ex_445",
          "serial_number": "VL08223M03",
          "manufacturer": {
             "name": "Vortran",
@@ -146,7 +146,7 @@
          "power_unit": "milliwatt"
       },
       {
-         "name": null,
+         "name": "Ex_488",
          "serial_number": "VL08223M03",
          "manufacturer": {
             "name": "Vortran",
@@ -164,7 +164,7 @@
          "power_unit": "milliwatt"
       },
       {
-         "name": null,
+         "name": "Ex_561",
          "serial_number": "VL08223M03",
          "manufacturer": {
             "name": "Vortran",
@@ -182,7 +182,7 @@
          "power_unit": "milliwatt"
       },
       {
-         "name": null,
+         "name": "Ex_594",
          "serial_number": "VL08223M03",
          "manufacturer": {
             "name": "Vortran",
@@ -200,7 +200,7 @@
          "power_unit": "milliwatt"
       },
       {
-         "name": null,
+         "name": "Ex_639",
          "serial_number": "VL08223M03",
          "manufacturer": {
             "name": "Vortran",
@@ -218,7 +218,7 @@
          "power_unit": "milliwatt"
       },
       {
-         "name": null,
+         "name": "Ex_665",
          "serial_number": "VL08223M03",
          "manufacturer": {
             "name": "Vortran",
@@ -238,7 +238,7 @@
    ],
    "fluorescence_filters": [
       {
-         "name": null,
+         "name": "Em_469",
          "serial_number": "Unknown-0",
          "manufacturer": {
             "name": "Semrock",
@@ -263,7 +263,7 @@
          "description": null
       },
       {
-         "name": null,
+         "name": "Em_525",
          "serial_number": "Unknown-1",
          "manufacturer": {
             "name": "Semrock",
@@ -288,7 +288,7 @@
          "description": null
       },
       {
-         "name": null,
+         "name": "Em_593",
          "serial_number": "Unknown-2",
          "manufacturer": {
             "name": "Semrock",
@@ -313,7 +313,7 @@
          "description": null
       },
       {
-         "name": null,
+         "name": "Em_624",
          "serial_number": "Unknown-3",
          "manufacturer": {
             "name": "Semrock",
@@ -338,7 +338,7 @@
          "description": null
       },
       {
-         "name": null,
+         "name": "Em_667",
          "serial_number": "Unknown-4",
          "manufacturer": {
             "name": "Chroma",
@@ -363,7 +363,7 @@
          "description": null
       },
       {
-         "name": null,
+         "name": "Em_700",
          "serial_number": "Unknown-5",
          "manufacturer": {
             "name": "Thorlabs",

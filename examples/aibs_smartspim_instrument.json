@@ -71,7 +71,7 @@
    ],
    "light_sources": [
       {
-         "name": null,
+         "name": "Ex_488",
          "serial_number": "VL01222A11",
          "manufacturer": {
             "name": "Vortran",
@@ -89,7 +89,7 @@
          "power_unit": "milliwatt"
       },
       {
-         "name": null,
+         "name": "Ex_561",
          "serial_number": "417927",
          "manufacturer": {
             "name": "Coherent Scientific",
@@ -110,7 +110,7 @@
          "power_unit": "milliwatt"
       },
       {
-         "name": null,
+         "name": "Ex_647",
          "serial_number": "VL01222A10",
          "manufacturer": {
             "name": "Vortran",
@@ -130,7 +130,7 @@
    ],
    "fluorescence_filters": [
       {
-         "name": null,
+         "name": "Em_525",
          "serial_number": "Unknown-1",
          "manufacturer": {
             "name": "Semrock",
@@ -155,7 +155,7 @@
          "description": null
       },
       {
-         "name": null,
+         "name": "Em_600",
          "serial_number": "Unknown-2",
          "manufacturer": {
             "name": "Semrock",
@@ -180,7 +180,7 @@
          "description": null
       },
       {
-         "name": null,
+         "name": "Em_690",
          "serial_number": "Unknown-3",
          "manufacturer": {
             "name": "Chroma",
