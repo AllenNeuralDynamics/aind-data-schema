@@ -114,23 +114,29 @@ def create_2D_size_with_value(model_name, scalar_type, unit_type, unit_default):
     m = create_model(model_name, width=(scalar_type, ...), height=(scalar_type, ...), unit=(unit_type, unit_default))
     return m
 
+def create_3D_size_with_value(model_name, scalar_type, unit_type, unit_default):
+
+    m = create_model(model_name, length=(scalar_type, ...), width=(scalar_type, ...), height=(scalar_type, ...), unit=(unit_type, unit_default))
+    return m
+
 def create_filter_size_with_value(model_name, scalar_type, unit_type, unit_default):
 
     m = create_model(model_name, diameter=(scalar_type, ...), width=(scalar_type, ...), height=(scalar_type, ...),  unit=(unit_type, unit_default))
     return m
 
 
-SizeValue = create_unit_with_value("SizeValue", Decimal, SizeUnit, SizeUnit.MM)
-
+SizeValueMM = create_unit_with_value("SizeValueMM", Decimal, SizeUnit, SizeUnit.MM)
 SizeValueCM = create_unit_with_value("SizeValueCM", Decimal, SizeUnit, SizeUnit.CM)
 SizeValuePX = create_unit_with_value("SizeValuePX", int, SizeUnit, SizeUnit.PX)
+SizeValueIN = create_unit_with_value("SizeValueIN", Decimal, SizeUnit, SizeUnit.IN)
+SizeValueNM = create_unit_with_value("SizeValueNM", Decimal, SizeUnit, SizeUnit.NM)
 
 FilterSizeValue = create_filter_size_with_value("FilterSizeValue", Decimal, SizeUnit, SizeUnit.MM)
 
 WaveLengthNM = create_unit_with_value("WaveLengthNM", int, SizeUnit, SizeUnit.NM)
 MassValue = create_unit_with_value("MassValue", Decimal, MassUnit, MassUnit.MG)
 VolumeValue = create_unit_with_value("VolumeValue", Decimal, VolumeUnit, VolumeUnit.NL)
-FrequencyValue = create_unit_with_value("FrequencyValue", Decimal, FrequencyUnit, FrequencyUnit.HZ)
+FrequencyValueHZ = create_unit_with_value("FrequencyValue", Decimal, FrequencyUnit, FrequencyUnit.HZ)
 AngleValue = create_unit_with_value("AngleValue", Decimal, AngleUnit, AngleUnit.DEG)
 TimeValue = create_unit_with_value("TimeValue", Decimal, TimeUnit, TimeUnit.S)
 PowerValue = create_unit_with_value("PowerValue", Decimal, PowerUnit, PowerUnit.MW)
@@ -139,6 +145,7 @@ CoordValue3D = create_3D_coordinate_with_value("CoordValue3D", Decimal, SizeUnit
 CoordValue2D = create_2D_coordinate_with_value("CoordValue2D", Decimal, SizeUnit, SizeUnit.MM)
 
 SizeValue2DPX = create_2D_size_with_value("SizeValue2DPX", int, SizeUnit, SizeUnit.PX)
+SizeValue3DMM = create_3D_size_with_value("SizeValue3DMM", Decimal, SizeUnit, SizeUnit.MM)
 
 OrientationValue3D = create_3D_orientation_with_value("OrientationValue3D", Decimal, AngleUnit, AngleUnit.DEG)
 ModuleOrientationValue2D = create_2D_module_orientation_with_value("ModuleOrientationValue2D", Decimal, AngleUnit, AngleUnit.DEG)
