@@ -4,7 +4,7 @@ import unittest
 from decimal import Decimal
 from typing import TypeVar
 
-from aind_data_schema.utils.units import SizeUnit, SizeValue, create_unit_with_value
+from aind_data_schema.utils.units import SizeUnit, SizeValueMM, create_unit_with_value
 
 ScalarType = TypeVar("ScalarType", Decimal, int)
 
@@ -17,9 +17,9 @@ class UnitsTests(unittest.TestCase):
 
         self.assertIsNotNone(SizeUnit.MM)
 
-        default = SizeValue(value=10.1)
+        default = SizeValueMM(value=10.1)
 
-        self.assertEqual(default, SizeValue(value=10.1, unit=SizeUnit.MM))
+        self.assertEqual(default, SizeValueMM(value=10.1, unit=SizeUnit.MM))
 
         ArbitraryValue = create_unit_with_value("ArbitraryValue", Decimal, SizeUnit, SizeUnit.IN)
 
