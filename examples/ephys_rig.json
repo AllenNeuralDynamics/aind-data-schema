@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/ephys/ephys_rig.py",
-   "schema_version": "0.7.5",
+   "schema_version": "0.7.6",
    "rig_id": "323_EPHYS1",
    "ephys_assemblies": [
       {
@@ -449,7 +449,7 @@
                "port": null,
                "channel_index": null,
                "sample_rate": null,
-               "sample_rate_unit": "Hertz",
+               "sample_rate_unit": "hertz",
                "event_based_sampling": false
             },
             {
@@ -459,7 +459,7 @@
                "port": null,
                "channel_index": null,
                "sample_rate": null,
-               "sample_rate_unit": "Hertz",
+               "sample_rate_unit": "hertz",
                "event_based_sampling": false
             },
             {
@@ -469,7 +469,7 @@
                "port": null,
                "channel_index": null,
                "sample_rate": null,
-               "sample_rate_unit": "Hertz",
+               "sample_rate_unit": "hertz",
                "event_based_sampling": false
             }
          ],

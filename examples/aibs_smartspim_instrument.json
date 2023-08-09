@@ -1,7 +1,7 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/imaging/instrument.py",
-   "schema_version": "0.7.4",
-   "instrument_id": "SmartSPIM1-1",
+   "schema_version": "0.7.6",
+   "instrument_id": "SmartSPIM2-2",
    "instrument_type": "SmartSPIM",
    "manufacturer": {
       "name": "LifeCanvas",
@@ -16,20 +16,17 @@
          "name": null,
          "serial_number": "Unknown",
          "manufacturer": {
-            "name": "MKS Newport",
-            "abbreviation": null,
-            "registry": {
-               "name": "Research Organization Registry",
-               "abbreviation": "ROR"
-            },
-            "registry_identifier": "00k17f049"
+            "name": "Technical Manufacturing Corporation",
+            "abbreviation": "TMC",
+            "registry": null,
+            "registry_identifier": null
          },
-         "model": "VIS2424-IG2-125A",
+         "model": "CleanTop",
          "notes": null,
-         "length": 24,
-         "width": 24,
+         "length": 35,
+         "width": 29,
          "table_size_unit": "inch",
-         "vibration_control": false
+         "vibration_control": true
       }
    ],
    "objectives": [
@@ -148,7 +145,7 @@
          "width": null,
          "height": null,
          "size_unit": "millimeter",
-         "thickness": 2,
+         "thickness": 2.0,
          "thickness_unit": "millimeter",
          "filter_wheel_index": 0,
          "cut_off_wavelength": null,
@@ -173,7 +170,7 @@
          "width": null,
          "height": null,
          "size_unit": "millimeter",
-         "thickness": 2,
+         "thickness": 2.0,
          "thickness_unit": "millimeter",
          "filter_wheel_index": 1,
          "cut_off_wavelength": null,
@@ -198,7 +195,7 @@
          "width": null,
          "height": null,
          "size_unit": "millimeter",
-         "thickness": 2,
+         "thickness": 2.0,
          "thickness_unit": "millimeter",
          "filter_wheel_index": 2,
          "cut_off_wavelength": null,
@@ -211,10 +208,10 @@
    "motorized_stages": [
       {
          "name": null,
-         "serial_number": "Unknown-1",
+         "serial_number": "Unknown-0",
          "manufacturer": {
-            "name": "Allied",
-            "abbreviation": null,
+            "name": "Applied Scientific Instrumentation",
+            "abbreviation": "ASI",
             "registry": null,
             "registry_identifier": null
          },
@@ -226,7 +223,7 @@
       },
       {
          "name": null,
-         "serial_number": "Unknown-5",
+         "serial_number": "Unknown-1",
          "manufacturer": {
             "name": "IR Robot Co",
             "abbreviation": null,
@@ -241,7 +238,7 @@
       },
       {
          "name": null,
-         "serial_number": "Unknown-6",
+         "serial_number": "Unknown-2",
          "manufacturer": {
             "name": "IR Robot Co",
             "abbreviation": null,
@@ -256,7 +253,7 @@
       },
       {
          "name": null,
-         "serial_number": "Unknown-7",
+         "serial_number": "Unknown-3",
          "manufacturer": {
             "name": "IR Robot Co",
             "abbreviation": null,
@@ -271,7 +268,7 @@
       },
       {
          "name": null,
-         "serial_number": "Unknown-8",
+         "serial_number": "Unknown-4",
          "manufacturer": {
             "name": "IR Robot Co",
             "abbreviation": null,
@@ -288,7 +285,7 @@
    "scanning_stages": [
       {
          "name": null,
-         "serial_number": "Unknown-2",
+         "serial_number": "Unknown-0",
          "manufacturer": {
             "name": "Applied Scientific Instrumentation",
             "abbreviation": "ASI",
@@ -305,7 +302,7 @@
       },
       {
          "name": null,
-         "serial_number": "Unknown-3",
+         "serial_number": "Unknown-1",
          "manufacturer": {
             "name": "Applied Scientific Instrumentation",
             "abbreviation": "ASI",
@@ -322,7 +319,7 @@
       },
       {
          "name": null,
-         "serial_number": "Unknown-4",
+         "serial_number": "Unknown-2",
          "manufacturer": {
             "name": "Applied Scientific Instrumentation",
             "abbreviation": "ASI",
@@ -365,6 +362,19 @@
          "model": "EL-16-40-TC",
          "notes": null,
          "type": "Other"
+      },
+      {
+         "name": null,
+         "serial_number": "Unknown-1",
+         "manufacturer": {
+            "name": "LifeCanvas",
+            "abbreviation": null,
+            "registry": null,
+            "registry_identifier": null
+         },
+         "model": "Large-uncoated-glass",
+         "notes": null,
+         "type": "Sample Chamber"
       }
    ],
    "calibration_date": null,

@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/imaging/acquisition.py",
-   "schema_version": "0.4.6",
+   "schema_version": "0.4.7",
    "experimenter_full_name": [
       "###"
    ],
@@ -41,7 +41,7 @@
          },
          "notes": "these are my notes",
          "imaging_angle": 0,
-         "imaging_angle_unit": "degree"
+         "imaging_angle_unit": "degrees"
       },
       {
          "coordinate_transformations": [
@@ -73,7 +73,7 @@
          },
          "notes": "these are my notes",
          "imaging_angle": 0,
-         "imaging_angle_unit": "degree"
+         "imaging_angle_unit": "degrees"
       }
    ],
    "axes": [

@@ -6,7 +6,7 @@ from enum import Enum
 from pydantic import create_model
 
 
-class Size(Enum):
+class SizeUnit(Enum):
     """Enumeration of Length Measurements"""
 
     M = "meter"
@@ -19,7 +19,7 @@ class Size(Enum):
     PX = "pixel"
 
 
-class Mass(Enum):
+class MassUnit(Enum):
     """Enumeration of Mass Measurements"""
 
     KG = "kilogram"
@@ -29,7 +29,7 @@ class Mass(Enum):
     NG = "nanogram"
 
 
-class Frequency(Enum):
+class FrequencyUnit(Enum):
     """Enumeration of Frequency Measurements"""
 
     KHZ = "kilohertz"
@@ -37,7 +37,7 @@ class Frequency(Enum):
     mHZ = "millihertz"
 
 
-class Volume(Enum):
+class VolumeUnit(Enum):
     """Enumeration of Volume Measurements"""
 
     L = "liter"
@@ -46,14 +46,14 @@ class Volume(Enum):
     NL = "nanoliter"
 
 
-class Angle(Enum):
+class AngleUnit(Enum):
     """Enumeration of Angle Measurements"""
 
     RAD = "radians"
     DEG = "degrees"
 
 
-class TimeMeasure(Enum):
+class TimeUnit(Enum):
     """Enumeration of Time Measurements"""
 
     HR = "hour"
@@ -64,9 +64,16 @@ class TimeMeasure(Enum):
     NS = "nanosecond"
 
 
-class Power(Enum):
+class PowerUnit(Enum):
+    """Power units"""
+
     UW = "microwatt"
     MW = "milliwatt"
+
+
+class CurrentUnit(Enum):
+    """Current units"""
+
     UA = "microamps"
 
 
@@ -113,26 +120,26 @@ def create_filter_size_with_value(model_name, scalar_type, unit_type, unit_defau
     return m
 
 
-SizeValue = create_unit_with_value("SizeValue", Decimal, Size, Size.MM)
+SizeValue = create_unit_with_value("SizeValue", Decimal, SizeUnit, SizeUnit.MM)
 
-SizeValueCM = create_unit_with_value("SizeValueCM", Decimal, Size, Size.CM)
-SizeValuePX = create_unit_with_value("SizeValuePX", int, Size, Size.PX)
+SizeValueCM = create_unit_with_value("SizeValueCM", Decimal, SizeUnit, SizeUnit.CM)
+SizeValuePX = create_unit_with_value("SizeValuePX", int, SizeUnit, SizeUnit.PX)
 
-FilterSizeValue = create_filter_size_with_value("FilterSizeValue", Decimal, Size, Size.MM)
+FilterSizeValue = create_filter_size_with_value("FilterSizeValue", Decimal, SizeUnit, SizeUnit.MM)
 
-WaveLengthNM = create_unit_with_value("WaveLengthNM", int, Size, Size.NM)
-MassValue = create_unit_with_value("MassValue", Decimal, Mass, Mass.MG)
-VolumeValue = create_unit_with_value("VolumeValue", Decimal, Volume, Volume.NL)
-FrequencyValue = create_unit_with_value("FrequencyValue", Decimal, Frequency, Frequency.HZ)
-AngleValue = create_unit_with_value("AngleValue", Decimal, Angle, Angle.DEG)
-TimeValue = create_unit_with_value("TimeValue", Decimal, TimeMeasure, TimeMeasure.S)
-PowerValue = create_unit_with_value("PowerValue", Decimal, Power, Power.MW)
+WaveLengthNM = create_unit_with_value("WaveLengthNM", int, SizeUnit, SizeUnit.NM)
+MassValue = create_unit_with_value("MassValue", Decimal, MassUnit, MassUnit.MG)
+VolumeValue = create_unit_with_value("VolumeValue", Decimal, VolumeUnit, VolumeUnit.NL)
+FrequencyValue = create_unit_with_value("FrequencyValue", Decimal, FrequencyUnit, FrequencyUnit.HZ)
+AngleValue = create_unit_with_value("AngleValue", Decimal, AngleUnit, AngleUnit.DEG)
+TimeValue = create_unit_with_value("TimeValue", Decimal, TimeUnit, TimeUnit.S)
+PowerValue = create_unit_with_value("PowerValue", Decimal, PowerUnit, PowerUnit.MW)
 
-CoordValue3D = create_3D_coordinate_with_value("CoordValue3D", Decimal, Size, Size.MM)
-CoordValue2D = create_2D_coordinate_with_value("CoordValue2D", Decimal, Size, Size.MM)
+CoordValue3D = create_3D_coordinate_with_value("CoordValue3D", Decimal, SizeUnit, SizeUnit.MM)
+CoordValue2D = create_2D_coordinate_with_value("CoordValue2D", Decimal, SizeUnit, SizeUnit.MM)
 
-SizeValue2DPX = create_2D_size_with_value("SizeValue2DPX", int, Size, Size.PX)
+SizeValue2DPX = create_2D_size_with_value("SizeValue2DPX", int, SizeUnit, SizeUnit.PX)
 
-OrientationValue3D = create_3D_orientation_with_value("OrientationValue3D", Decimal, Angle, Angle.DEG)
-ModuleOrientationValue2D = create_2D_module_orientation_with_value("ModuleOrientationValue2D", Decimal, Angle, Angle.DEG)
-ModuleOrientationValue3D = create_3D_module_orientation_with_value("ModuleOrientationValue3D", Decimal, Angle, Angle.DEG)
+OrientationValue3D = create_3D_orientation_with_value("OrientationValue3D", Decimal, AngleUnit, AngleUnit.DEG)
+ModuleOrientationValue2D = create_2D_module_orientation_with_value("ModuleOrientationValue2D", Decimal, AngleUnit, AngleUnit.DEG)
+ModuleOrientationValue3D = create_3D_module_orientation_with_value("ModuleOrientationValue3D", Decimal, AngleUnit, AngleUnit.DEG)

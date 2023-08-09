@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/ophys/ophys_rig.py",
-   "schema_version": "0.6.5",
+   "schema_version": "0.6.6",
    "rig_id": "428_FIP1_2",
    "temperature_control": null,
    "humidity_control": null,
@@ -445,7 +445,7 @@
             "data_interface": "USB",
             "computer_name": "W10DTJK7N0M3",
             "max_frame_rate": 120,
-            "frame_rate_unit": "Hertz",
+            "frame_rate_unit": "hertz",
             "pixel_width": 640,
             "pixel_height": 480,
             "size_unit": "pixel",
@@ -499,7 +499,7 @@
             "data_interface": "USB",
             "computer_name": "W10DTJK7N0M3",
             "max_frame_rate": 120,
-            "frame_rate_unit": "Hertz",
+            "frame_rate_unit": "hertz",
             "pixel_width": 640,
             "pixel_height": 480,
             "size_unit": "pixel",
@@ -579,7 +579,7 @@
                "port": 0,
                "channel_index": 0,
                "sample_rate": 1000,
-               "sample_rate_unit": "Hertz",
+               "sample_rate_unit": "hertz",
                "event_based_sampling": false
             },
             {
@@ -589,7 +589,7 @@
                "port": 1,
                "channel_index": 1,
                "sample_rate": 1000,
-               "sample_rate_unit": "Hertz",
+               "sample_rate_unit": "hertz",
                "event_based_sampling": false
             },
             {
@@ -599,7 +599,7 @@
                "port": 2,
                "channel_index": 2,
                "sample_rate": 1000,
-               "sample_rate_unit": "Hertz",
+               "sample_rate_unit": "hertz",
                "event_based_sampling": false
             }
          ]

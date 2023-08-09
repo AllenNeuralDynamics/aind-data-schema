@@ -10,9 +10,9 @@ from typing import List, Optional
 from pydantic import Field
 
 from aind_data_schema.base import AindCoreModel, AindModel, EnumSubset
-from aind_data_schema.device import SizeUnit
 from aind_data_schema.imaging.tile import AcquisitionTile
 from aind_data_schema.processing import ProcessName
+from aind_data_schema.utils.units import SizeUnit
 
 
 class AxisName(Enum):
@@ -101,7 +101,7 @@ class ProcessingSteps(AindModel):
 class Acquisition(AindCoreModel):
     """Description of an imaging acquisition session"""
 
-    schema_version: str = Field("0.4.6", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.4.7", description="schema version", title="Version", const=True)
     experimenter_full_name: List[str] = Field(
         ...,
         description="First and last name of the experimenter(s).",
