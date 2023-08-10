@@ -9,7 +9,16 @@ from pydantic import Field
 
 from aind_data_schema.base import AindCoreModel, AindModel, PIDName
 from aind_data_schema.subject import Species
-from aind_data_schema.utils.units import create_unit_with_value, AngleUnit, ConcentrationUnit, CurrentUnit, MassUnit, SizeUnit, TimeUnit, VolumeUnit
+from aind_data_schema.utils.units import (
+    create_unit_with_value, 
+    AngleUnit, 
+    ConcentrationUnit, 
+    CurrentUnit, 
+    MassUnit, 
+    SizeUnit, 
+    TimeUnit, 
+    VolumeUnit
+)
 
 
 class SpecimenProcedureName(Enum):
