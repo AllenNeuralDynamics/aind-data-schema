@@ -9,7 +9,7 @@ from pydantic import Field
 
 from aind_data_schema.base import AindCoreModel, AindModel, PIDName
 from aind_data_schema.subject import Species
-from aind_data_schema.utils.units import create_unit_with_value, AngleUnit, CurrentUnit, MassUnit, SizeUnit, TimeUnit, VolumeUnit
+from aind_data_schema.utils.units import create_unit_with_value, AngleUnit, ConcentrationUnit, CurrentUnit, MassUnit, SizeUnit, TimeUnit, VolumeUnit
 
 
 class SpecimenProcedureName(Enum):
@@ -110,7 +110,7 @@ class Stain(Reagent):
     """Description of a non-oligo probe stain"""
 
     stain_type: StainType = Field(..., title="Stain type")
-    concentration: create_unit_with_value(Decimal, "uM") = Field(..., title="Concentration (uM)")
+    concentration: create_unit_with_value("Concentration", Decimal, ConcentrationUnit, ConcentrationUnit.UM) = Field(..., title="Concentration (uM)")
 
 
 class HybridizationChainReaction(AindModel):
