@@ -119,7 +119,8 @@ class Stain(Reagent):
     """Description of a non-oligo probe stain"""
 
     stain_type: StainType = Field(..., title="Stain type")
-    concentration: create_unit_with_value("Concentration", Decimal, ConcentrationUnit, ConcentrationUnit.UM) = Field(..., title="Concentration (uM)")
+    create_unit_with_value("concentration", Decimal, ConcentrationUnit, 
+                           ConcentrationUnit.UM) = Field(..., title="Concentration (uM)")
 
 
 class HybridizationChainReaction(AindModel):
