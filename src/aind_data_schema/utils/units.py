@@ -84,50 +84,17 @@ def create_unit_with_value(model_name, scalar_type, unit_type, unit_default):
     return m
 
 coord_3d_fields = {'x': Decimal, 'y': Decimal, 'z': Decimal}
+coord_2d_fields = {'x': Decimal, 'y': Decimal}
+
 orientation_3d_fields = {'pitch': Decimal, 'yaw': Decimal, 'roll': Decimal}
-module_orientation_3d_fields = {'arc_angle': Decimal, 'module_angle': Decimal}
 
-def create_3D_coordinate_with_value(model_name, scalar_type, unit_type, unit_default):
+module_orientation_3d_fields = {'arc_angle': Decimal, 'module_angle': Decimal, 'rotation_angle': Decimal}
+module_orientation_2d_fields = {'arc_angle': Decimal, 'module_angle': Decimal}
 
-    m = create_model(model_name, x=(scalar_type, ...), y=(scalar_type, ...), z=(scalar_type, ...), unit=(unit_type, unit_default))
-    return m
+size_3d_fields = {'length': Decimal, 'width': Decimal, 'height': Decimal}
+size_2d_fields = {'width': Decimal, 'height': Decimal}
 
-def create_3D_orientation_with_value(model_name, scalar_type, unit_type, unit_default):
-
-    m = create_model(model_name, pitch=(scalar_type, ...), yaw=(scalar_type, ...), roll=(scalar_type, ...), unit=(unit_type, unit_default))
-    return m
-
-
-def create_3D_module_orientation_with_value(model_name, scalar_type, unit_type, unit_default):
-
-    m = create_model(model_name, arc_angle=(scalar_type, ...), module_angle=(scalar_type, ...), rotation_angle=(scalar_type, ...), unit=(unit_type, unit_default))
-    return m
-
-def create_2D_module_orientation_with_value(model_name, scalar_type, unit_type, unit_default):
-
-    m = create_model(model_name, arc_angle=(scalar_type, ...), module_angle=(scalar_type, ...), unit=(unit_type, unit_default))
-    return m
-
-def create_2D_coordinate_with_value(model_name, scalar_type, unit_type, unit_default):
-
-    m = create_model(model_name, x=(scalar_type, ...), y=(scalar_type, ...), unit=(unit_type, unit_default))
-    return m
-
-def create_2D_size_with_value(model_name, scalar_type, unit_type, unit_default):
-
-    m = create_model(model_name, width=(scalar_type, ...), height=(scalar_type, ...), unit=(unit_type, unit_default))
-    return m
-
-def create_3D_size_with_value(model_name, scalar_type, unit_type, unit_default):
-
-    m = create_model(model_name, length=(scalar_type, ...), width=(scalar_type, ...), height=(scalar_type, ...), unit=(unit_type, unit_default))
-    return m
-
-def create_filter_size_with_value(model_name, scalar_type, unit_type, unit_default):
-
-    m = create_model(model_name, diameter=(scalar_type, ...), width=(scalar_type, ...), height=(scalar_type, ...),  unit=(unit_type, unit_default))
-    return m
-
+filter_size_fields = {'diameter': Decimal, 'width': Decimal, 'height': Decimal}
 
 def create_unit_with_value(model_name, field_names_and_data_types, unit_type, unit_default, scalar_type = None):
     """this uses create_model instead of generics, which lets us set default values"""
@@ -146,7 +113,7 @@ SizeValuePX = create_unit_with_value("SizeValuePX", int, SizeUnit, SizeUnit.PX)
 SizeValueIN = create_unit_with_value("SizeValueIN", Decimal, SizeUnit, SizeUnit.IN)
 SizeValueNM = create_unit_with_value("SizeValueNM", Decimal, SizeUnit, SizeUnit.NM)
 
-FilterSizeValue = create_filter_size_with_value("FilterSizeValue", Decimal, SizeUnit, SizeUnit.MM)
+FilterSizeValue = create_unit_with_value("FilterSizeValue", filter_size_fields, SizeUnit, SizeUnit.MM)
 
 WaveLengthNM = create_unit_with_value("WaveLengthNM", int, SizeUnit, SizeUnit.NM)
 MassValue = create_unit_with_value("MassValue", Decimal, MassUnit, MassUnit.MG)
@@ -156,12 +123,12 @@ AngleValue = create_unit_with_value("AngleValue", Decimal, AngleUnit, AngleUnit.
 TimeValue = create_unit_with_value("TimeValue", Decimal, TimeUnit, TimeUnit.S)
 PowerValue = create_unit_with_value("PowerValue", Decimal, PowerUnit, PowerUnit.MW)
 
-CoordValue3D = create_3D_coordinate_with_value("CoordValue3D", Decimal, SizeUnit, SizeUnit.MM)
-CoordValue2D = create_2D_coordinate_with_value("CoordValue2D", Decimal, SizeUnit, SizeUnit.MM)
+CoordValue3D = create_unit_with_value("CoordValue3D", coord_3d_fields, SizeUnit, SizeUnit.MM)
+CoordValue2D = create_unit_with_value("CoordValue2D", coord_2d_fields, SizeUnit, SizeUnit.MM)
 
-SizeValue2DPX = create_2D_size_with_value("SizeValue2DPX", int, SizeUnit, SizeUnit.PX)
-SizeValue3DMM = create_3D_size_with_value("SizeValue3DMM", Decimal, SizeUnit, SizeUnit.MM)
+SizeValue2DPX = create_unit_with_value("SizeValue2DPX", size_2d_fields, SizeUnit, SizeUnit.PX, int)
+SizeValue3DMM = create_unit_with_value("SizeValue3DMM", size_3d_fields, SizeUnit, SizeUnit.MM)
 
-OrientationValue3D = create_3D_orientation_with_value("OrientationValue3D", Decimal, AngleUnit, AngleUnit.DEG)
-ModuleOrientationValue2D = create_2D_module_orientation_with_value("ModuleOrientationValue2D", Decimal, AngleUnit, AngleUnit.DEG)
-ModuleOrientationValue3D = create_3D_module_orientation_with_value("ModuleOrientationValue3D", Decimal, AngleUnit, AngleUnit.DEG)
+OrientationValue3D = create_unit_with_value("OrientationValue3D", orientation_3d_fields, AngleUnit, AngleUnit.DEG)
+ModuleOrientationValue2D = create_unit_with_value("ModuleOrientationValue2D", module_orientation_2d_fields, AngleUnit, AngleUnit.DEG)
+ModuleOrientationValue3D = create_unit_with_value("ModuleOrientationValue3D", module_orientation_3d_fields, AngleUnit, AngleUnit.DEG)
