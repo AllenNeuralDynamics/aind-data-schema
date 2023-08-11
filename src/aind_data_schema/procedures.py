@@ -120,7 +120,7 @@ class Stain(Reagent):
 
     stain_type: StainType = Field(..., title="Stain type")
     concentration: create_unit_with_value("concentration", Decimal, ConcentrationUnit, 
-                           ConcentrationUnit.UM) = Field(..., title="Concentration (uM)")
+                                          ConcentrationUnit.UM) = Field(..., title="Concentration (uM)")
 
 
 class HybridizationChainReaction(AindModel):
