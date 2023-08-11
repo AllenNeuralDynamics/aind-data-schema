@@ -10,13 +10,13 @@ from pydantic import Field
 from aind_data_schema.base import AindCoreModel, AindModel, PIDName
 from aind_data_schema.subject import Species
 from aind_data_schema.utils.units import (
-    create_unit_with_value, 
-    AngleUnit, 
-    ConcentrationUnit, 
-    CurrentUnit, 
-    MassUnit, 
-    SizeUnit, 
-    TimeUnit, 
+    create_unit_with_value,
+    AngleUnit,
+    ConcentrationUnit,
+    CurrentUnit,
+    MassUnit,
+    SizeUnit,
+    TimeUnit,
     VolumeUnit
 )
 
@@ -119,7 +119,7 @@ class Stain(Reagent):
     """Description of a non-oligo probe stain"""
 
     stain_type: StainType = Field(..., title="Stain type")
-    concentration: create_unit_with_value("concentration", Decimal, ConcentrationUnit, 
+    concentration: create_unit_with_value("concentration", Decimal, ConcentrationUnit,
                                           ConcentrationUnit.UM) = Field(..., title="Concentration (uM)")
 
 
