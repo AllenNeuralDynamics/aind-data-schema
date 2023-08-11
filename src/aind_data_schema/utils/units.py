@@ -76,6 +76,14 @@ class CurrentUnit(Enum):
     UA = "microamps"
 
 
+class ConcentrationUnit(Enum):
+    """Concentraion units"""
+
+    M = "molar"
+    UM = "micromolar"
+    NM = "nanomolar"
+
+
 def create_unit_with_value(model_name, scalar_type, unit_type, unit_default):
     """this uses create_model instead of generics, which lets us set default values"""
 
