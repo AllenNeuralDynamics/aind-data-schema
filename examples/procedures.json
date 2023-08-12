@@ -62,8 +62,6 @@
                "genome_copy": null,
                "titer": null,
                "titer_unit": "gc/mL",
-               "concentration": null,
-               "concentration_unit": null,
                "prep_lot_number": null,
                "prep_date": null,
                "prep_type": null,
