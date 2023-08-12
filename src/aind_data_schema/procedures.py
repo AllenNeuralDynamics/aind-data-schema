@@ -282,7 +282,9 @@ class InjectionMaterial(AindModel):
 class Injection(SubjectProcedure):
     """Description of an injection procedure"""
 
-    injection_materials: List[InjectionMaterial] = Field(None, title="Injection material", unique_items=True)
+    injection_materials: List[InjectionMaterial] = Field(
+        None, title="Injection material", unique_items=True, min_items=1
+    )
     recovery_time: Optional[Decimal] = Field(None, title="Recovery time")
     recovery_time_unit: Optional[TimeUnit] = Field(TimeUnit.M, title="Recovery time unit")
     injection_duration: Optional[Decimal] = Field(None, title="Injection duration")
@@ -451,7 +453,7 @@ class Perfusion(SubjectProcedure):
 class Procedures(AindCoreModel):
     """Description of all procedures performed on a subject"""
 
-    schema_version: str = Field("0.8.6", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.9.0", description="schema version", title="Version", const=True)
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
