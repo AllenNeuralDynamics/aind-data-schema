@@ -1,7 +1,7 @@
 """ test Procedures """
 
 import unittest
-from datetime import date, datetime, time
+from datetime import date
 
 from pydantic import ValidationError
 
