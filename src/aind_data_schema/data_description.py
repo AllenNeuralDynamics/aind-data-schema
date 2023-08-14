@@ -299,7 +299,7 @@ class DataDescription(AindCoreModel):
 
     # deprecated fields
     experiment_type: ExperimentType = Field(
-        ...,
+        None,
         description="An abbreviated name for the experimental technique used to collect this data. This is DEPRECATED and will be removed in a future version.",
         title="Experiment Type",
     )
