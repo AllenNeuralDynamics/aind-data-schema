@@ -485,8 +485,7 @@ class RawDataDescription(DataDescription):
         creation_date, creation_time = datetime_from_name_string(m.group("c_date"), m.group("c_time"))
 
         return dict(
-            project_abbreviation,
-            m.group("project_abbreviation"),
+            project_abbreviation=m.group("project_abbreviation"),
             subject_id=m.group("subject_id"),
             creation_date=creation_date,
             creation_time=creation_time,
