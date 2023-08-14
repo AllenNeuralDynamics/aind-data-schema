@@ -163,11 +163,11 @@ class Project(Enum, metaclass=BaseNameEnumMeta):
     NMDYN = BaseName(name="Neuromodulation dynamics", abbreviation="nmdyn")
     DISCNM = BaseName(name="Discovery - Neuromodulation", abbreviation="disc-nm")
     DISCBWD = BaseName(name="Discovery - Brain wide dynamics", abbreviation="disc-bwd")
-    THP1 = BaseName(name="AIND Thalamus U19 - Project 1", abbreviation="th-p1")
-    THP2 = BaseName(name="AIND Thalamus U19 - Project 2", abbreviation="th-p2")
-    THP4 = BaseName(name="AIND Thalamus U19 - Project 4", abbreviation="th-p4")
+    TIM1 = BaseName(name="AIND Thalamus U19 - Project 1", abbreviation="tim1")
+    TIM2 = BaseName(name="AIND Thalamus U19 - Project 2", abbreviation="tim2")
+    TIM4 = BaseName(name="AIND Thalamus U19 - Project 4", abbreviation="tim4")
     # 122-01-002-20 - AIND Thalamus U19 - DSC
-    THMC = BaseName(name="AIND Thalamus U19 - Molecular core", abbreviation="th-mc")
+    TIMMC = BaseName(name="AIND Thalamus U19 - Molecular core", abbreviation="timmc")
     EXASPIM = BaseName(name="Neural Dynamics - Glaser R00", abbreviation="exaspim")
     # 122-01-005-10 - AIND Svoboda DeepMind Collab
     BRAINSTEM = BaseName(name="AIND Brainstem RF1", abbreviation="brainstem")
