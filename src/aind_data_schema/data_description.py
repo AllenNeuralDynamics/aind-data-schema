@@ -438,6 +438,7 @@ class DerivedDataDescription(DataDescription):
             related_data=get_or_default("related_data"),
             data_summary=get_or_default("data_summary"),
             input_data_name=data_description.name,
+            # deprecated fields
             project_name=get_or_default("project_name"),
             project_id=get_or_default("project_id"),
             experiment_type=get_or_default("experiment_type"),
