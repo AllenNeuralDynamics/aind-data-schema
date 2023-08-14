@@ -24,7 +24,7 @@ class DataRegex(Enum):
 
     DATA = f"^(?P<label>.+?)_(?P<c_date>{RegexParts.DATE.value})_(?P<c_time>{RegexParts.TIME.value})$"
     RAW_DATA = (
-        f"^(?P<experiment_type>.+?)_(?P<subject_id>.+?)_(?P<c_date>{RegexParts.DATE.value})_(?P<c_time>"
+        f"^(?P<project_abbreviation>.+?)_(?P<subject_id>.+?)_(?P<c_date>{RegexParts.DATE.value})_(?P<c_time>"
         f"{RegexParts.TIME.value})$"
     )
     DERIVED_DATA = (
@@ -431,15 +431,16 @@ class DerivedDataDescription(DataDescription):
             funding_source=get_or_default("funding_source"),
             group=get_or_default("group"),
             investigators=get_or_default("investigators"),
-            project_name=get_or_default("project_name"),
-            project_id=get_or_default("project_id"),
+            project=get_or_default("project"),
             restrictions=get_or_default("restrictions"),
             modality=get_or_default("modality"),
-            experiment_type=get_or_default("experiment_type"),
             subject_id=get_or_default("subject_id"),
             related_data=get_or_default("related_data"),
             data_summary=get_or_default("data_summary"),
             input_data_name=data_description.name,
+            project_name=get_or_default("project_name"),
+            project_id=get_or_default("project_id"),
+            experiment_type=get_or_default("experiment_type"),
         )
 
 
@@ -453,14 +454,17 @@ class RawDataDescription(DataDescription):
         const=True,
     )
 
-    def __init__(self, experiment_type, subject_id, **kwargs):
+    def __init__(self, project_abbreviation, subject_id, **kwargs):
         """Construct a raw data description"""
 
-        experiment_type = ExperimentType(experiment_type)
+        project = None
+        for p in Project:
+            if p.value.abbreviation == project_abbreviation"
+                project = p            
 
         super().__init__(
-            label=f"{experiment_type.value}_{subject_id}",
-            experiment_type=experiment_type,
+            label=f"{project.value.abbreviation}_{subject_id}",
+            project=project,
             subject_id=subject_id,
             **kwargs,
         )
@@ -477,7 +481,7 @@ class RawDataDescription(DataDescription):
         creation_date, creation_time = datetime_from_name_string(m.group("c_date"), m.group("c_time"))
 
         return dict(
-            experiment_type=m.group("experiment_type"),
+            project_abbreviation,m.group("project_abbreviation"),
             subject_id=m.group("subject_id"),
             creation_date=creation_date,
             creation_time=creation_time,
