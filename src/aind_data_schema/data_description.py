@@ -129,7 +129,7 @@ class Modality(Enum, metaclass=BaseNameEnumMeta):
 
 
 class ExperimentType(Enum):
-    """Abbreviated name for data collection technique"""
+    """Abbreviated name for data collection technique. This is deprecated and will be removed in a future version. """
 
     ECEPHYS = Modality.ECEPHYS.value.abbreviation
     EXASPIM = Modality.EXASPIM.value.abbreviation
@@ -147,6 +147,47 @@ class ExperimentType(Enum):
     SPOPHYS = Modality.SPOPHYS.value.abbreviation
     OTHER = "Other"
 
+
+class Project(Enum, metaclass=BaseNameEnumMeta):
+    ECEPHYS = BaseName(name="Electrophysiology Platform", abbreviation="ecephys")
+    SLAP2 = BaseName(name="SLAP2", abbreviation="slap2")
+    BEHAVIOR = BaseName(name="Behavior Platform", abbreviation="behavior")
+    MMOD = BaseName(name="Multiplexed Neuromodulation", abbreviation="mmod")
+    CTLUT = BaseName(name="Cell Type Lookup Table", abbreviation="ctlut")
+    OITEST = BaseName(name="Optical physiology indicator testing", abbreviation="oitest")
+    ACTVAL = BaseName(name="Converting value into action", abbreviation="actval")
+    COGFLEX = BaseName(name="Cognitive flexibility in patch foraging", abbreviation="cogflex")
+    BCI = BaseName(name="Brain computer interface", abbreviation="bci")
+    NEFUNC = BaseName(name="Test function differences of NE neurons", abbreviation="nefunc")
+    NMSYS = BaseName(name="Molecular and projection-defined diversity of neuromodulator systems", abbreviation="nmsys")
+    NMDYN = BaseName(name="Neuromodulation dynamics", abbreviation="nmdyn")
+    DISCNM = BaseName(name="Discovery - Neuromodulation", abbreviation="disc-nm")
+    DISCBWD = BaseName(name="Discovery - Brain wide dynamics", abbreviation="disc-bwd")
+    THP1 = BaseName(name="AIND Thalamus U19 - Project 1", abbreviation="th-p1")
+    THP2 = BaseName(name="AIND Thalamus U19 - Project 2", abbreviation="th-p2")
+    THP4 = BaseName(name="AIND Thalamus U19 - Project 4", abbreviation="th-p4")
+    #122-01-002-20 - AIND Thalamus U19 - DSC
+    THMC = BaseName(name="AIND Thalamus U19 - Molecular core", abbreviation="th-mc")
+    EXASPIM = BaseName(name="Neural Dynamics - Glaser R00", abbreviation="exaspim")
+    #122-01-005-10 - AIND Svoboda DeepMind Collab
+    BRAINSTEM = BaseName(name="AIND Brainstem RF1", abbreviation="brainstem")
+    HSFP = BaseName(name="AIND Hagihara HFSP", abbreviation="hsfp")
+    #122-01-007-10 - AIND Svoboda HHMI
+    #122-01-008-10 - AIND CZI Acquisition Software
+    #122-01-009-10 - AIND Kaspar MBF
+    #122-01-009-20 - AIND Amarante F32
+    #122-01-010-20 - AIND Poo Simons BTI
+    #122-01-011-20 - AIND Cohen JHU R01 Transferred Subaward
+    #122-01-012-20 AIND RF1 Functions of locus coeruleus    
+    #102-01-040-20 - CTY BRAIN UG3/UH3 Genetic Viral Tools
+    #102-01-057-20 - CTY BRAIN BG AAV Toolbox
+    #102-01-064-10 - CTY Genetic Tools
+    #102-01-002-20 - TH Grant - Task Molecular Core
+    #102-04-007-10 - CTY Targeted CNS Gene Therapy
+    #102-04-009-10 - Task:Dravet
+    #121-01-025-20 - U01 Bridging Func & Morph
+    LMFISH = BaseName(name="Learning & mFISH", abbreviation="lmfish")
+    V1OMFISH = BaseName(name="v1omFISH", abbreviation="v1omfish")
 
 def datetime_to_name_string(d, t):
     """Take a date and time object, format it a as string"""
@@ -231,16 +272,7 @@ class DataDescription(AindCoreModel):
         description="Full name(s) of key investigators (e.g. PI, lead scientist, contact person)",
         title="Investigators",
     )
-    project_name: Optional[str] = Field(
-        None,
-        description="A name for a set of coordinated activities intended to achieve one or more objectives",
-        title="Project Name",
-    )
-    project_id: Optional[str] = Field(
-        None,
-        description="A database or other identifier for a project",
-        title="Project ID",
-    )
+    project: Project = Field(..., description="A set of coordinated activities intended to achieve one or more objectives", title="Project")
     restrictions: Optional[str] = Field(
         None,
         description="Detail any restrictions on publishing or sharing these data",
@@ -251,11 +283,6 @@ class DataDescription(AindCoreModel):
         description="A short name for the specific manner, characteristic, pattern of application, or the employment"
         "of any technology or formal procedure to generate data for a study",
         title="Modality",
-    )
-    experiment_type: ExperimentType = Field(
-        ...,
-        description="An abbreviated name for the experimental technique used to collect this data",
-        title="Experiment Type",
     )
     subject_id: str = Field(
         ...,
@@ -269,6 +296,23 @@ class DataDescription(AindCoreModel):
         description="Path and description of data assets associated with this asset (eg. reference images)",
     )
     data_summary: Optional[str] = Field(None, title="Data summary", description="Semantic summary of experimental goal")
+
+    # deprecated fields
+    experiment_type: ExperimentType = Field(
+        ...,
+        description="An abbreviated name for the experimental technique used to collect this data. This is DEPRECATED and will be removed in a future version.",
+        title="Experiment Type",
+    )
+    project_name: Optional[str] = Field(
+        None,
+        description="A name for a set of coordinated activities intended to achieve one or more objectives. This is DEPRECATED and will be removed in a future version.",
+        title="Project Name",
+    )
+    project_id: Optional[str] = Field(
+        None,
+        description="A database or other identifier for a project. This is DEPRECATED and will be removed in a future version.",
+        title="Project ID",
+    )
 
     def __init__(self, label=None, **kwargs):
         """Construct a generic DataDescription"""
