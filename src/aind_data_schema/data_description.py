@@ -129,7 +129,7 @@ class Modality(Enum, metaclass=BaseNameEnumMeta):
 
 
 class ExperimentType(Enum):
-    """Abbreviated name for data collection technique. This is deprecated and will be removed in a future version. """
+    """Abbreviated name for data collection technique. This is deprecated and will be removed in a future version."""
 
     ECEPHYS = Modality.ECEPHYS.value.abbreviation
     EXASPIM = Modality.EXASPIM.value.abbreviation
@@ -166,28 +166,29 @@ class Project(Enum, metaclass=BaseNameEnumMeta):
     THP1 = BaseName(name="AIND Thalamus U19 - Project 1", abbreviation="th-p1")
     THP2 = BaseName(name="AIND Thalamus U19 - Project 2", abbreviation="th-p2")
     THP4 = BaseName(name="AIND Thalamus U19 - Project 4", abbreviation="th-p4")
-    #122-01-002-20 - AIND Thalamus U19 - DSC
+    # 122-01-002-20 - AIND Thalamus U19 - DSC
     THMC = BaseName(name="AIND Thalamus U19 - Molecular core", abbreviation="th-mc")
     EXASPIM = BaseName(name="Neural Dynamics - Glaser R00", abbreviation="exaspim")
-    #122-01-005-10 - AIND Svoboda DeepMind Collab
+    # 122-01-005-10 - AIND Svoboda DeepMind Collab
     BRAINSTEM = BaseName(name="AIND Brainstem RF1", abbreviation="brainstem")
     HSFP = BaseName(name="AIND Hagihara HFSP", abbreviation="hsfp")
-    #122-01-007-10 - AIND Svoboda HHMI
-    #122-01-008-10 - AIND CZI Acquisition Software
-    #122-01-009-10 - AIND Kaspar MBF
-    #122-01-009-20 - AIND Amarante F32
-    #122-01-010-20 - AIND Poo Simons BTI
-    #122-01-011-20 - AIND Cohen JHU R01 Transferred Subaward
-    #122-01-012-20 AIND RF1 Functions of locus coeruleus    
-    #102-01-040-20 - CTY BRAIN UG3/UH3 Genetic Viral Tools
-    #102-01-057-20 - CTY BRAIN BG AAV Toolbox
-    #102-01-064-10 - CTY Genetic Tools
-    #102-01-002-20 - TH Grant - Task Molecular Core
-    #102-04-007-10 - CTY Targeted CNS Gene Therapy
-    #102-04-009-10 - Task:Dravet
-    #121-01-025-20 - U01 Bridging Func & Morph
+    # 122-01-007-10 - AIND Svoboda HHMI
+    # 122-01-008-10 - AIND CZI Acquisition Software
+    # 122-01-009-10 - AIND Kaspar MBF
+    # 122-01-009-20 - AIND Amarante F32
+    # 122-01-010-20 - AIND Poo Simons BTI
+    # 122-01-011-20 - AIND Cohen JHU R01 Transferred Subaward
+    # 122-01-012-20 AIND RF1 Functions of locus coeruleus
+    # 102-01-040-20 - CTY BRAIN UG3/UH3 Genetic Viral Tools
+    # 102-01-057-20 - CTY BRAIN BG AAV Toolbox
+    # 102-01-064-10 - CTY Genetic Tools
+    # 102-01-002-20 - TH Grant - Task Molecular Core
+    # 102-04-007-10 - CTY Targeted CNS Gene Therapy
+    # 102-04-009-10 - Task:Dravet
+    # 121-01-025-20 - U01 Bridging Func & Morph
     LMFISH = BaseName(name="Learning & mFISH", abbreviation="lmfish")
     V1OMFISH = BaseName(name="v1omFISH", abbreviation="v1omfish")
+
 
 def datetime_to_name_string(d, t):
     """Take a date and time object, format it a as string"""
@@ -272,7 +273,9 @@ class DataDescription(AindCoreModel):
         description="Full name(s) of key investigators (e.g. PI, lead scientist, contact person)",
         title="Investigators",
     )
-    project: Project = Field(..., description="A set of coordinated activities intended to achieve one or more objectives", title="Project")
+    project: Project = Field(
+        ..., description="A set of coordinated activities intended to achieve one or more objectives", title="Project"
+    )
     restrictions: Optional[str] = Field(
         None,
         description="Detail any restrictions on publishing or sharing these data",
@@ -461,7 +464,7 @@ class RawDataDescription(DataDescription):
         project = None
         for p in Project:
             if p.value.abbreviation == project_abbreviation:
-                project = p            
+                project = p
 
         super().__init__(
             label=f"{project.value.abbreviation}_{subject_id}",
@@ -482,7 +485,8 @@ class RawDataDescription(DataDescription):
         creation_date, creation_time = datetime_from_name_string(m.group("c_date"), m.group("c_time"))
 
         return dict(
-            project_abbreviation,m.group("project_abbreviation"),
+            project_abbreviation,
+            m.group("project_abbreviation"),
             subject_id=m.group("subject_id"),
             creation_date=creation_date,
             creation_time=creation_time,
