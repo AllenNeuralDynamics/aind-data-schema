@@ -459,7 +459,7 @@ class RawDataDescription(DataDescription):
 
         project = None
         for p in Project:
-            if p.value.abbreviation == project_abbreviation"
+            if p.value.abbreviation == project_abbreviation:
                 project = p            
 
         super().__init__(
