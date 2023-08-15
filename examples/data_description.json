@@ -1,10 +1,10 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/data_description.py",
-   "schema_version": "0.7.5",
+   "schema_version": "0.8.0",
    "license": "CC-BY-4.0",
    "creation_time": "16:30:01",
    "creation_date": "2022-02-21",
-   "name": "diSPIM_12345_2022-02-21_16-30-01",
+   "name": "ecephys-dev_12345_2022-02-21_16-30-01",
    "institution": {
       "name": "Allen Institute for Neural Dynamics",
       "abbreviation": "AIND",
@@ -34,17 +34,21 @@
    "investigators": [
       "Jane Smith"
    ],
-   "project_name": null,
-   "project_id": null,
+   "project": {
+      "name": "Electrophysiology Platform Development",
+      "abbreviation": "ecephys-dev"
+   },
    "restrictions": null,
    "modality": [
       {
-         "name": "Selective plane illumination microscopy",
-         "abbreviation": "SPIM"
+         "name": "Extracellular electrophysiology",
+         "abbreviation": "ecephys"
       }
    ],
-   "experiment_type": "diSPIM",
    "subject_id": "12345",
    "related_data": [],
-   "data_summary": null
+   "data_summary": null,
+   "experiment_type": null,
+   "project_name": null,
+   "project_id": null
 }

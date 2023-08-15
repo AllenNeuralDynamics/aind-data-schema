@@ -149,9 +149,9 @@ class ExperimentType(Enum):
 
 
 class Project(Enum, metaclass=BaseNameEnumMeta):
-    ECEPHYS = BaseName(name="Electrophysiology Platform", abbreviation="ecephys")
-    SLAP2 = BaseName(name="SLAP2", abbreviation="slap2")
-    BEHAVIOR = BaseName(name="Behavior Platform", abbreviation="behavior")
+    ECEPHYS = BaseName(name="Electrophysiology Platform Development", abbreviation="ecephys-dev")
+    SLAP2 = BaseName(name="SLAP2 Platform Development", abbreviation="slap2-dev")
+    BEHAVIOR = BaseName(name="Behavior Platform Development", abbreviation="behavior-dev")
     MMOD = BaseName(name="Multiplexed Neuromodulation", abbreviation="mmod")
     CTLUT = BaseName(name="Cell Type Lookup Table", abbreviation="ctlut")
     OITEST = BaseName(name="Optical physiology indicator testing", abbreviation="oitest")
@@ -168,7 +168,7 @@ class Project(Enum, metaclass=BaseNameEnumMeta):
     TIM4 = BaseName(name="AIND Thalamus U19 - Project 4", abbreviation="tim4")
     # 122-01-002-20 - AIND Thalamus U19 - DSC
     TIMMC = BaseName(name="AIND Thalamus U19 - Molecular core", abbreviation="timmc")
-    EXASPIM = BaseName(name="Neural Dynamics - Glaser R00", abbreviation="exaspim")
+    EXASPIM = BaseName(name="Neural Dynamics - Glaser R00", abbreviation="exaspim-dev")
     # 122-01-005-10 - AIND Svoboda DeepMind Collab
     BRAINSTEM = BaseName(name="AIND Brainstem RF1", abbreviation="brainstem")
     HSFP = BaseName(name="AIND Hagihara HFSP", abbreviation="hsfp")
@@ -229,7 +229,7 @@ class RelatedData(AindModel):
 class DataDescription(AindCoreModel):
     """Description of a logical collection of data files"""
 
-    schema_version: str = Field("0.7.5", title="Schema Version", const=True)
+    schema_version: str = Field("0.8.0", title="Schema Version", const=True)
     license: str = Field("CC-BY-4.0", title="License", const=True)
 
     creation_time: time = Field(
