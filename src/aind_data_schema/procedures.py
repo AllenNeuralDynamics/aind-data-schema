@@ -9,7 +9,16 @@ from pydantic import Field
 
 from aind_data_schema.base import AindCoreModel, AindModel, PIDName
 from aind_data_schema.subject import Species
-from aind_data_schema.utils.units import AngleUnit, CurrentUnit, MassUnit, SizeUnit, TimeUnit, VolumeUnit
+from aind_data_schema.utils.units import (
+    AngleUnit,
+    ConcentrationUnit,
+    CurrentUnit,
+    MassUnit,
+    SizeUnit,
+    TimeUnit,
+    VolumeUnit,
+    create_unit_with_value,
+)
 
 
 class SpecimenProcedureName(Enum):
@@ -59,14 +68,17 @@ class SpecimenProcedure(AindModel):
 
 
 class StainType(Enum):
-    """Stain Types for HCR probes"""
+    """Stain types for probes describing what is being labeled"""
 
     RNA = "RNA"
+    NUCLEAR = "Nuclear"
+    FILL = "Fill"
 
 
 class Fluorophore(Enum):
     """Fluorophores used in HCR"""
 
+    ALEXA_488 = "Alexa Fluor 488"
     ALEXA_546 = "Alexa Fluor 546"
     ALEXA_594 = "Alexa Fluor 594"
     ALEXA_647 = "Alexa Fluor 647"
@@ -88,24 +100,32 @@ class HCRReadout(Readout):
 
 
 class OligoProbe(Reagent):
-    """Description of an oligo probe"""
+    """Description of an oligonucleotide probe"""
 
     species: Species = Field(..., title="Species")
     gene: PIDName = Field(..., title="Gene name, accession number, and registry")
     probe_sequences: List[str] = Field(..., title="Probe sequences")
     readout: Readout = Field(..., title="Readout")
-    channel_index: int = Field(..., title="Channel index")
 
 
 class HCRProbe(OligoProbe):
-    """Description of a HCR probe"""
+    """Description of an oligo probe used for HCR"""
 
     initiator_name: str = Field(..., title="Initiator name")
     readout: HCRReadout = Field(..., title="Readout")
 
 
+class Stain(Reagent):
+    """Description of a non-oligo probe stain"""
+
+    stain_type: StainType = Field(..., title="Stain type")
+    concentration: create_unit_with_value("concentration", Decimal, ConcentrationUnit, ConcentrationUnit.UM) = Field(
+        ..., title="Concentration (uM)"
+    )
+
+
 class HybridizationChainReaction(AindModel):
-    """Description of an HCR round"""
+    """Description of an HCR staining round"""
 
     round_index: int = Field(..., title="Round index")
     start_time: datetime = Field(..., title="Round start time")
@@ -114,11 +134,12 @@ class HybridizationChainReaction(AindModel):
     other_probes: Optional[List[OligoProbe]] = Field(None, title="Other probes")
     probe_concentration: Decimal = Field(..., title="Probe concentration (M)")
     probe_concentration_unit: str = Field("M", title="Probe concentration unit")
+    other_stains: Optional[List[Stain]] = Field(None, title="Other stains")
     intrument_id: str = Field(..., title="Instrument ID")
 
 
 class HCRSeries(SpecimenProcedure):
-    """Description of series of HCR rounds for mFISH"""
+    """Description of series of HCR staining rounds for mFISH"""
 
     codebook_name: str = Field(..., title="Codebook name")
     number_of_rounds: int = Field(..., title="Number of round")
@@ -265,10 +286,8 @@ class InjectionMaterial(AindModel):
         description="Short name used to reference the plasmid",
     )
     genome_copy: Optional[Decimal] = Field(None, title="Genome copy")
-    titer: Optional[Decimal] = Field(None, title="Titer (gc/mL)", description="Titer for viral materials")
+    titer: Optional[Decimal] = Field(None, title="Titer (gc/mL)", units="gc/mL")
     titer_unit: Optional[str] = Field("gc/mL", title="Titer unit")
-    concentration: Optional[Decimal] = Field(None, title="Concentration", description="Also provide concentration unit")
-    concentration_unit: Optional[str] = Field(None, title="Concentration unit")
     prep_lot_number: Optional[str] = Field(None, title="Preparation lot number")
     prep_date: Optional[date] = Field(  #
         None,
@@ -282,7 +301,9 @@ class InjectionMaterial(AindModel):
 class Injection(SubjectProcedure):
     """Description of an injection procedure"""
 
-    injection_materials: List[InjectionMaterial] = Field(None, title="Injection material", unique_items=True)
+    injection_materials: List[InjectionMaterial] = Field(
+        None, title="Injection material", unique_items=True, min_items=1
+    )
     recovery_time: Optional[Decimal] = Field(None, title="Recovery time")
     recovery_time_unit: Optional[TimeUnit] = Field(TimeUnit.M, title="Recovery time unit")
     injection_duration: Optional[Decimal] = Field(None, title="Injection duration")
@@ -451,7 +472,7 @@ class Perfusion(SubjectProcedure):
 class Procedures(AindCoreModel):
     """Description of all procedures performed on a subject"""
 
-    schema_version: str = Field("0.8.6", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.9.0", description="schema version", title="Version", const=True)
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",

@@ -106,6 +106,7 @@ class Group(Enum):
 class Modality(Enum, metaclass=BaseNameEnumMeta):
     """Data collection modality name"""
 
+    BEHAVIOR_VIDEOS = BaseName(name="Behavior videos", abbreviation="behavior-videos")
     CONFOCAL = BaseName(name="Confocal microscopy", abbreviation="confocal")
     DISPIM = BaseName(name="Dual inverted selective plane illumination microscopy", abbreviation="diSPIM")
     ECEPHYS = BaseName(name="Extracellular electrophysiology", abbreviation="ecephys")
@@ -126,6 +127,7 @@ class Modality(Enum, metaclass=BaseNameEnumMeta):
     SMARTSPIM = BaseName(name="Smart selective plane illumination microscopy", abbreviation="SmartSPIM")
     SPIM = BaseName(name="Selective plane illumination microscopy", abbreviation="SPIM")
     SPOPHYS = BaseName(name="Single plane optical physiology", abbreviation="single-plane-ophys")
+    TRAINED_BEHAVIOR = BaseName(name="Trained behavior", abbreviation="trained-behavior")
 
 
 class ExperimentType(Enum):
@@ -145,6 +147,7 @@ class ExperimentType(Enum):
     SLAP = Modality.SLAP.value.abbreviation
     SMARTSPIM = Modality.SMARTSPIM.value.abbreviation
     SPOPHYS = Modality.SPOPHYS.value.abbreviation
+    TRAINED_BEHAVIOR = Modality.TRAINED_BEHAVIOR.value.abbreviation
     OTHER = "Other"
 
 
@@ -187,7 +190,7 @@ class RelatedData(AindModel):
 class DataDescription(AindCoreModel):
     """Description of a logical collection of data files"""
 
-    schema_version: str = Field("0.7.5", title="Schema Version", const=True)
+    schema_version: str = Field("0.7.6", title="Schema Version", const=True)
     license: str = Field("CC-BY-4.0", title="License", const=True)
 
     creation_time: time = Field(
