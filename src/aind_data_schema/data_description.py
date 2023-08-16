@@ -184,7 +184,7 @@ class Project(Enum, metaclass=BaseNameEnumMeta):
     # 122-01-012-20 AIND RF1 Functions of locus coeruleus
     # 102-01-040-20 - CTY BRAIN UG3/UH3 Genetic Viral Tools
     # 102-01-057-20 - CTY BRAIN BG AAV Toolbox
-    # 102-01-064-10 - CTY Genetic Tools
+    GENTOOLS = BaseName(name="Cell Type Genetic Tools", abbreviation="gentools")
     # 102-01-002-20 - TH Grant - Task Molecular Core
     # 102-04-007-10 - CTY Targeted CNS Gene Therapy
     # 102-04-009-10 - Task:Dravet
