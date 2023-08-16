@@ -234,7 +234,7 @@ class Software(AindModel):
 class MotorizedStage(Device):
     """Description of motorized stage"""
 
-    travel: SizeValueMM = Field(..., title="Travel of device (mm)", units="mm")
+    travel: create_unit_with_value("Travel", {'value'}, Decimal, SizeUnit, SizeUnit.MM) = Field(..., title="Travel of device (mm)", units="mm")
 
     # optional fields
     firmware: Optional[str] = Field(None, title="Firmware")
@@ -425,7 +425,7 @@ class Laser(Device):
         Manufacturer.QUANTIFI,
         Manufacturer.OTHER,
     ]
-    wavelength: WaveLengthNM = Field(..., title="Wavelength (nm)")
+    wavelength: create_unit_with_value("WaveLength", {'value'}, int, SizeUnit, SizeUnit.NM) = Field(..., title="Wavelength (nm)")
 
     # optional fields
     maximum_power: Optional[create_unit_with_value("Maximum Power", {'value'}, int, SizeUnit, SizeUnit.NM)] = Field(None, title="Maximum power (mW)")
