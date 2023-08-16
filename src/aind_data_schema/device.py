@@ -153,18 +153,11 @@ class FilterType(Enum):
     SHORTPASS = "Short pass"
 
 
-class FilterSize(Enum):
-    """Filter size value"""
-
-    FILTER_SIZE_25 = create_unit_with_value("LENS_SIZE_1", {'size'}, int, SizeUnit, SizeUnit.IN)(size=25)
-    FILTER_SIZE_32 = 32
-
-
 class LensSize(Enum):
     """Lens size value"""
 
-    LENS_SIZE_1 = create_unit_with_value("LENS_SIZE_1", {'size'}, int, SizeUnit, SizeUnit.IN)(size=1)
-    LENS_SIZE_2 = create_unit_with_value("LENS_SIZE_1", {'size'}, int, SizeUnit, SizeUnit.IN)(size=2)
+    LENS_SIZE_1 = 1
+    LENS_SIZE_2 = 2
 
 
 class CameraChroma(Enum):
@@ -198,7 +191,7 @@ class Size2d(AindModel):
 class Orientation3d(AindModel): # TODO: This can become a subunit of RelativePosition
     """3D orientation of an object"""
 
-    Orientation3D: create_unit_with_value("Orientation3D", {'pitch', 'yaw', 'roll'}, AngleUnit, AngleUnit.DEG) = Field(..., title="Orientation (pitch, yaw, roll)")
+    Orientation3D: create_unit_with_value("Orientation3D", {'pitch', 'yaw', 'roll'}, Decimal, AngleUnit, AngleUnit.DEG) = Field(..., title="Orientation (pitch, yaw, roll)")
 
 
 class ModuleOrientation2d(AindModel):
@@ -286,7 +279,7 @@ class Lens(Device):
 
     # optional fields
     focal_length: Optional[create_unit_with_value("Focal length", {'value'}, Decimal, SizeUnit, SizeUnit.MM)] = Field(None, title="Focal length of the lens", units="mm")
-    size: Optional[LensSize] = Field(None, title="Size (inches)")
+    size: Optional[create_unit_with_value("Lens Size", {'size'}, LensSize, SizeUnit, SizeUnit.IN)] = Field(None, title="Size (inches)") #TODO: Make sure this works with LensSize type
     optimized_wavelength_range: Optional[create_unit_with_value("Optimized Wavelength Range", {'value'}, Decimal, SizeUnit, SizeUnit.NM)] = Field(None, title="Optimized wavelength range (nm)") # TODO: Covert this to lower/upper bound?
     max_aperture: Optional[str] = Field(None, title="Max aperture (e.g. f/2)")
 
@@ -305,11 +298,12 @@ class Filter(Device):
     ]
 
     # optional fields # TODO: Get input on how to split this data up
-    filter_size: Optional[create_unit_with_value("Filter Size", {'diameter', 'width', 'height'}, SizeUnit, SizeUnit.MM)] = Field(None, title="Filter Size (diameter, width, height)")
+    filter_size: Optional[create_unit_with_value("Filter Size", {'width', 'height'}, Decimal, SizeUnit, SizeUnit.MM)] = Field(None, title="Filter Size (width, height)")
+    filter_diameter: Optional[create_unit_with_value("Filter Diameter", {'value'}, Decimal, SizeUnit, SizeUnit.MM)] = Field(None, title="Filter Size (diameter, width, height)")
 
     thickness: Optional[create_unit_with_value("Thickness", {'value'}, Decimal, SizeUnit, SizeUnit.MM)] = Field(None, title="Thickness (mm)")
     filter_wheel_index: Optional[int] = Field(None, title="Filter wheel index")
-    cut_off_wavelength: Optional[create_unit_with_value("Cut-Off Wavelenght", {'value'}, Decimal, SizeUnit, SizeUnit.NM)] = Field(None, title="Cut-off wavelength (nm)")
+    cut_off_wavelength: Optional[create_unit_with_value("Cut-Off Wavelength", {'value'}, Decimal, SizeUnit, SizeUnit.NM)] = Field(None, title="Cut-off wavelength (nm)")
     cut_on_wavelength: Optional[create_unit_with_value("Cut-On Wavelength", {'value'}, Decimal, SizeUnit, SizeUnit.NM)] = Field(None, title="Cut-on wavelength (nm)")
     center_wavelength: Optional[create_unit_with_value("Center Wavelength", {'value'}, Decimal, SizeUnit, SizeUnit.NM)] = Field(None, title="Center wavelength (nm)")
     description: Optional[str] = Field(
@@ -503,7 +497,7 @@ class Monitor(Device):
     manufacturer: EnumSubset[Manufacturer.LG]
     refresh_rate: create_unit_with_value("Refresh Rate", {'value'}, Decimal, FrequencyUnit, FrequencyUnit.HZ) = Field(..., title="Refresh rate (Hz)", units="Hz", ge=60)
     size2D: create_unit_with_value("Size2D", {'width', 'height'}, SizeUnit, SizeUnit.PX) = Field(..., title="Size (width, heigh) in pixels", units="pixels")
-    viewing_distance: create_unit_with_value("Viewing Distance", {'value'} Decimal, SizeUnit, SizeUnit.CM) = Field(..., title="Viewing distance (cm)", units="cm")
+    viewing_distance: create_unit_with_value("Viewing Distance", {'value'}, Decimal, SizeUnit, SizeUnit.CM) = Field(..., title="Viewing distance (cm)", units="cm")
 
     # optional fields
     contrast: Optional[int] = Field(
