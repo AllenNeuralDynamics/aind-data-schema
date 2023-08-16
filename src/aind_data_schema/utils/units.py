@@ -83,25 +83,23 @@ def create_unit_with_value(model_name, scalar_type, unit_type, unit_default):
     m = create_model(model_name, value=(scalar_type, ...), unit=(unit_type, unit_default))
     return m
 
-coord_3d_fields = {'x': Decimal, 'y': Decimal, 'z': Decimal}
-coord_2d_fields = {'x': Decimal, 'y': Decimal}
+coord_3d_fields = {'x', 'y', 'z'}
+coord_2d_fields = {'x', 'y'}
 
-orientation_3d_fields = {'pitch': Decimal, 'yaw': Decimal, 'roll': Decimal}
+orientation_3d_fields = {'pitch', 'yaw', 'roll'}
 
-module_orientation_3d_fields = {'arc_angle': Decimal, 'module_angle': Decimal, 'rotation_angle': Decimal}
-module_orientation_2d_fields = {'arc_angle': Decimal, 'module_angle': Decimal}
+module_orientation_3d_fields = {'arc_angle', 'module_angle', 'rotation_angle'}
+module_orientation_2d_fields = {'arc_angle', 'module_angle'}
 
-size_3d_fields = {'length': Decimal, 'width': Decimal, 'height': Decimal}
-size_2d_fields = {'width': Decimal, 'height': Decimal}
+size_3d_fields = {'length', 'width', 'height'}
+size_2d_fields = {'width', 'height'}
 
-filter_size_fields = {'diameter': Decimal, 'width': Decimal, 'height': Decimal}
+filter_size_fields = {'diameter', 'width', 'height'}
 
-def create_unit_with_value(model_name, field_names_and_data_types, unit_type, unit_default, scalar_type = None):
+def create_unit_with_value(model_name, field_names_and_data_types, scalar_type, unit_type, unit_default):
     """this uses create_model instead of generics, which lets us set default values"""
     if scalar_type:
         m = create_model(model_name, **{k: (scalar_type, ...) for k in field_names_and_data_types}, unit=(unit_type, unit_default))
-    else:
-        m = create_model(model_name, **{k: (v, ...) for k, v in field_names_and_data_types.items()}, unit=(unit_type, unit_default))
     return m
 
 

@@ -8,8 +8,7 @@ from typing import Any, Dict, List, Optional, Union
 from pydantic import Field
 
 from aind_data_schema.base import AindModel, BaseNameEnumMeta, EnumSubset, PIDName, Registry
-from aind_data_schema.utils.units import FrequencyValueHZ, FilterSizeValue, PowerValue, CoordValue3D, SizeValue2DPX, OrientationValue3D, ModuleOrientationValue2D, ModuleOrientationValue3D, SizeValueMM, SizeValueCM, SizeValuePX, SizeValueIN, SizeValueNM, WaveLengthNM
-
+from aind_data_schema.utils.units import create_unit_with_value, SizeUnit, MassUnit, FrequencyUnit, VolumeUnit, TimeUnit, AngleUnit, PowerUnit, CurrentUnit
 
 
 class DeviceDriver(Enum):
@@ -164,8 +163,8 @@ class FilterSize(Enum):
 class LensSize(Enum):
     """Lens size value"""
 
-    LENS_SIZE_1 = SizeValueIN(value=1)
-    LENS_SIZE_2 = SizeValueIN(value=2)
+    LENS_SIZE_1 = create_unit_with_value("LENS_SIZE_1", {'size'}, int, SizeUnit, SizeUnit.IN)(size=1)
+    LENS_SIZE_2 = create_unit_with_value("LENS_SIZE_1", {'size'}, int, SizeUnit, SizeUnit.IN)(size=2)
 
 
 class CameraChroma(Enum):
@@ -187,7 +186,7 @@ class DaqChannelType(Enum):
 class RelativePosition(AindModel):
     """Set of 6 values describing relative position on a rig"""
 
-    geometric_coordinates: Optional[CoordValue3D] = Field(None, title="Geometric coordinates (x,y,z)")
+    relative_position: Optional[create_unit_with_value("relative_position", {'pitch', 'yaw', 'roll'}, Decimal, AngleUnit, AngleUnit.DEG)] = Field(None, title="Geometric coordinates (x,y,z)")
 
     coordinate_system: Optional[str] = Field(None, title="Description of the coordinate system used")
 
