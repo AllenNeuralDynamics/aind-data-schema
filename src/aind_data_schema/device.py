@@ -156,7 +156,7 @@ class FilterType(Enum):
 class FilterSize(Enum):
     """Filter size value"""
 
-    FILTER_SIZE_25 = 25
+    FILTER_SIZE_25 = create_unit_with_value("LENS_SIZE_1", {'size'}, int, SizeUnit, SizeUnit.IN)(size=25)
     FILTER_SIZE_32 = 32
 
 
@@ -193,32 +193,31 @@ class RelativePosition(AindModel):
 
 class Size2d(AindModel):
     """2D size of an object"""
-
-    Size2D: SizeValue2DPX = Field(..., title="2D size (PX)")
+    Size2D: create_unit_with_value("Size2D", {'width','height'}, int, SizeUnit, SizeUnit.PX) = Field(..., title="2D size (PX)")
 
 class Orientation3d(AindModel): # TODO: This can become a subunit of RelativePosition
     """3D orientation of an object"""
 
-    Orientation3D: OrientationValue3D = Field(..., title="Orientation (pitch, yaw, roll)")
+    Orientation3D: create_unit_with_value("Orientation3D", {'pitch', 'yaw', 'roll'}, AngleUnit, AngleUnit.DEG) = Field(..., title="Orientation (pitch, yaw, roll)")
 
 
 class ModuleOrientation2d(AindModel):
     """2D module orientation of an object"""
 
-    ModuleOrientation2D: ModuleOrientationValue2D = Field(..., title="Orientation (arc_angle, module_angle)")
+    ModuleOrientation2D: create_unit_with_value("ModuleOrientation2D", {'arc_angle', 'module_angle'}, Decimal, AngleUnit, AngleUnit.DEG) = Field(..., title="Orientation (arc_angle, module_angle)")
 
 
 class ModuleOrientation3d(AindModel):
     """3D module orientation of an object"""
 
-    ModuleOrientation3D: ModuleOrientationValue3D = Field(..., title="Orientation (arc_angle, module_angle, rotation_angle)")
+    ModuleOrientation3D: create_unit_with_value("ModuleOrientation3D", {'arc_angle', 'module_angle', 'rotation_angle'}, Decimal, AngleUnit, AngleUnit.DEG) = Field(..., title="Orientation (arc_angle, module_angle, rotation_angle)")
 
 
 
 class Coordinates3d(AindModel): # TODO: This can also become a subunit of RelativePosition
     """Coordinates in a 3D grid"""
 
-    coordinates_3D: CoordValue3D = Field(..., title="3D Coordinate Position (x, y, z)")
+    coordinates_3D: create_unit_with_value("Coordinates3D", {'x','y','z'}, Decimal, SizeUnit, SizeUnit.MM) = Field(..., title="3D Coordinate Position (x, y, z)")
 
 
 class Device(AindModel):
@@ -264,9 +263,9 @@ class Camera(Device):
         Manufacturer.OTHER,
     ]
     computer_name: str = Field(..., title="Name of computer receiving data from this camera")
-    max_frame_rate: FrequencyValueHZ = Field(..., title="Maximum frame rate (Hz)", units="Hz")
-    pixel_width: SizeValuePX = Field(..., title="Width of the sensor in pixels")
-    pixel_height: SizeValuePX = Field(..., title="Height of the sensor in pixels")
+    max_frame_rate: create_unit_with_value("Max Framerate", {'Frequency'}, Decimal, FrequencyUnit, FrequencyUnit.HZ) = Field(..., title="Maximum frame rate (Hz)", units="Hz")
+    pixel_width: create_unit_with_value("Pixel Width", {'pixels'}, int, SizeUnit, SizeUnit.PX) = Field(..., title="Width of the sensor in pixels")
+    pixel_height: create_unit_with_value("Pixel Height", {'pixels'}, int, SizeUnit, SizeUnit.PX) = Field(..., title="Height of the sensor in pixels")
     chroma: CameraChroma = Field(..., title="Color or Monochrome")
 
     # optional fields
@@ -286,12 +285,12 @@ class Lens(Device):
     ]
 
     # optional fields
-    focal_length: Optional[SizeValueMM] = Field(None, title="Focal length of the lens", units="mm")
+    focal_length: Optional[create_unit_with_value("Focal length", {'value'}, Decimal, SizeUnit, SizeUnit.MM)] = Field(None, title="Focal length of the lens", units="mm")
     size: Optional[LensSize] = Field(None, title="Size (inches)")
-    optimized_wavelength_range: Optional[SizeValueNM] = Field(None, title="Optimized wavelength range (nm)") # TODO: Covert this to lower/upper bound?
+    optimized_wavelength_range: Optional[create_unit_with_value("Optimized Wavelength Range", {'value'}, Decimal, SizeUnit, SizeUnit.NM)] = Field(None, title="Optimized wavelength range (nm)") # TODO: Covert this to lower/upper bound?
     max_aperture: Optional[str] = Field(None, title="Max aperture (e.g. f/2)")
 
-SizeValuePX
+
 class Filter(Device):
     """Filter used in a light path"""
 
@@ -306,13 +305,13 @@ class Filter(Device):
     ]
 
     # optional fields # TODO: Get input on how to split this data up
-    size: Optional[FilterSizeValue] = Field(None, title="Filter Size (diameter, width, height)")
+    filter_size: Optional[create_unit_with_value("Filter Size", {'diameter', 'width', 'height'}, SizeUnit, SizeUnit.MM)] = Field(None, title="Filter Size (diameter, width, height)")
 
-    thickness: Optional[SizeValueMM] = Field(None, title="Thickness (mm)")
+    thickness: Optional[create_unit_with_value("Thickness", {'value'}, Decimal, SizeUnit, SizeUnit.MM)] = Field(None, title="Thickness (mm)")
     filter_wheel_index: Optional[int] = Field(None, title="Filter wheel index")
-    cut_off_wavelength: Optional[SizeValueNM] = Field(None, title="Cut-off wavelength (nm)")
-    cut_on_wavelength: Optional[SizeValueNM] = Field(None, title="Cut-on wavelength (nm)")
-    center_wavelength: Optional[SizeValueNM] = Field(None, title="Center wavelength (nm)")
+    cut_off_wavelength: Optional[create_unit_with_value("Cut-Off Wavelenght", {'value'}, Decimal, SizeUnit, SizeUnit.NM)] = Field(None, title="Cut-off wavelength (nm)")
+    cut_on_wavelength: Optional[create_unit_with_value("Cut-On Wavelength", {'value'}, Decimal, SizeUnit, SizeUnit.NM)] = Field(None, title="Cut-on wavelength (nm)")
+    center_wavelength: Optional[create_unit_with_value("Center Wavelength", {'value'}, Decimal, SizeUnit, SizeUnit.NM)] = Field(None, title="Center wavelength (nm)")
     description: Optional[str] = Field(
         None, title="Description", description="More details about filter properties and where/how it is being used"
     )
@@ -374,7 +373,7 @@ class DAQChannel(AindModel):
     # optional fields
     port: Optional[int] = Field(None, title="DAQ port")
     channel_index: Optional[int] = Field(None, title="DAQ channel index")
-    sample_rate: Optional[FrequencyValueHZ] = Field(None, title="DAQ channel sample rate (Hz)", units="Hz")
+    sample_rate: Optional[create_unit_with_value("Sample Rate", {'value'}, Decimal, FrequencyUnit, FrequencyUnit.HZ)] = Field(None, title="DAQ channel sample rate (Hz)", units="Hz")
     event_based_sampling: Optional[bool] = Field(
         False, title="Set to true if DAQ channel is sampled at irregular intervals"
     )
@@ -435,7 +434,7 @@ class Laser(Device):
     wavelength: WaveLengthNM = Field(..., title="Wavelength (nm)")
 
     # optional fields
-    maximum_power: Optional[PowerValue] = Field(None, title="Maximum power (mW)")
+    maximum_power: Optional[create_unit_with_value("Maximum Power", {'value'}, int, SizeUnit, SizeUnit.NM)] = Field(None, title="Maximum power (mW)")
     coupling: Optional[Coupling] = Field(None, title="Coupling")
     coupling_efficiency: Optional[Decimal] = Field(
         None,
@@ -460,7 +459,7 @@ class LightEmittingDiode(Device):
         Manufacturer.THORLABS,
         Manufacturer.OTHER,
     ]
-    wavelength: WaveLengthNM = Field(..., title="Wavelength (nm)")
+    wavelength: create_unit_with_value("WaveLength", {'value'}, int, SizeUnit, SizeUnit.NM) = Field(..., title="Wavelength (nm)")
 
 
 class MousePlatform(Device):
@@ -474,7 +473,7 @@ class Disc(MousePlatform):
     """Description of a running disc"""
 
     platform_type: str = Field("Disc", title="Platform type", const=True)
-    radius: SizeValueCM = Field(..., title="Radius (cm)", units="cm", ge=0)
+    radius: create_unit_with_value("Radius", {'value'}, Decimal, SizeUnit, SizeUnit.CM) = Field(..., title="Radius (cm)", units="cm", ge=0)
     output: Optional[DaqChannelType] = Field(None, description="analog or digital electronics")
     encoder: Optional[str] = Field(None, title="Encoder", description="Encoder hardware type")
     decoder: Optional[str] = Field(None, title="Decoder", description="Decoder chip type")
@@ -487,14 +486,14 @@ class Tube(MousePlatform):
     """Description of a tube platform"""
 
     platform_type: str = Field("Tube", title="Platform type", const=True)
-    diameter: SizeValueCM = Field(..., title="Diameter")
+    diameter: create_unit_with_value("Diameter", {'value'}, Decimal, SizeUnit, SizeUnit.CM) = Field(..., title="Diameter")
 
 
 class Treadmill(MousePlatform):
     """Description of treadmill platform"""
 
     platform_type: str = Field("Treadmill", title="Platform type", const=True)
-    treadmill_width: SizeValueCM = Field(..., title="Width of treadmill (mm)", units="mm")
+    treadmill_width: create_unit_with_value("Treadmill Width", {'value'}, Decimal, SizeUnit, SizeUnit.CM) = Field(..., title="Width of treadmill (mm)", units="mm")
 
 
 class Monitor(Device):
@@ -502,9 +501,9 @@ class Monitor(Device):
 
     # required fields
     manufacturer: EnumSubset[Manufacturer.LG]
-    refresh_rate: FrequencyValueHZ = Field(..., title="Refresh rate (Hz)", units="Hz", ge=60)
-    size2D: SizeValue2DPX = Field(..., title="Size (width, heigh) in pixels", units="pixels")
-    viewing_distance: SizeValueCM = Field(..., title="Viewing distance (cm)", units="cm")
+    refresh_rate: create_unit_with_value("Refresh Rate", {'value'}, Decimal, FrequencyUnit, FrequencyUnit.HZ) = Field(..., title="Refresh rate (Hz)", units="Hz", ge=60)
+    size2D: create_unit_with_value("Size2D", {'width', 'height'}, SizeUnit, SizeUnit.PX) = Field(..., title="Size (width, heigh) in pixels", units="pixels")
+    viewing_distance: create_unit_with_value("Viewing Distance", {'value'} Decimal, SizeUnit, SizeUnit.CM) = Field(..., title="Viewing distance (cm)", units="cm")
 
     # optional fields
     contrast: Optional[int] = Field(
@@ -527,7 +526,7 @@ class WaterDelivery(AindModel):
     """Description of water delivery system"""
 
     # required fields
-    spout_diameter: SizeValueMM = Field(..., title="Spout diameter (mm)")
+    spout_diameter: create_unit_with_value("Spout Diameter", {'value'}, Decimal, SizeUnit, SizeUnit.MM) = Field(..., title="Spout diameter (mm)")
     spout_position: RelativePosition = Field(..., title="Spout stage position")
     water_calibration_values: Dict[str, Any] = Field(..., title="Water calibration values")
 
@@ -550,7 +549,7 @@ class VisualStimulusDisplayAssembly(AindModel):
 
     # required fields
     monitor: Monitor = Field(..., title="Monitor")
-    viewing_distance: SizeValueCM = Field(..., title="Viewing distance (cm)", units="cm")
+    viewing_distance: create_unit_with_value("Viewing Distance", {'value'}, Decimal, SizeUnit, SizeUnit.CM) = Field(..., title="Viewing distance (cm)", units="cm")
 
     # optional fields
     position: Optional[RelativePosition] = Field(None, title="Relative position of the monitor")
