@@ -496,7 +496,7 @@ class Monitor(Device):
     # required fields
     manufacturer: EnumSubset[Manufacturer.LG]
     refresh_rate: create_unit_with_value("Refresh Rate", {'value'}, Decimal, FrequencyUnit, FrequencyUnit.HZ) = Field(..., title="Refresh rate (Hz)", units="Hz", ge=60)
-    size2D: create_unit_with_value("Size2D", {'width', 'height'}, SizeUnit, SizeUnit.PX) = Field(..., title="Size (width, heigh) in pixels", units="pixels")
+    size2D: create_unit_with_value("Size2D", {'width', 'height'}, Decimal, SizeUnit, SizeUnit.PX) = Field(..., title="Size (width, heigh) in pixels", units="pixels")
     viewing_distance: create_unit_with_value("Viewing Distance", {'value'}, Decimal, SizeUnit, SizeUnit.CM) = Field(..., title="Viewing distance (cm)", units="cm")
 
     # optional fields
