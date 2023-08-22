@@ -10,7 +10,7 @@ from typing import List, Optional
 from pydantic import Field
 
 from aind_data_schema.base import AindCoreModel, AindModel, EnumSubset
-from aind_data_schema.device import Calibration
+from aind_data_schema.device import Calibration, Maintenance
 from aind_data_schema.imaging.tile import AcquisitionTile
 from aind_data_schema.processing import ProcessName
 from aind_data_schema.utils.units import PowerValue, SizeUnit
@@ -99,18 +99,6 @@ class ProcessingSteps(AindModel):
     ]
 
 
-class LightSourcePowerCalibration(Calibration):
-    """Calibration for laser set point/power at sample relationshipe"""
-
-    light_source_name: str = Field(..., title="Light Source Name")
-    illumination_index: int = Field(..., title="Excitation arm index")
-    power_setting: PowerValue = Field(
-        ...,
-        title="Excitation power set point",
-    )
-    power_measurement: PowerValue = Field(..., title="Power Measured at sample location")
-
-
 class Acquisition(AindCoreModel):
     """Description of an imaging acquisition session"""
 
@@ -125,9 +113,14 @@ class Acquisition(AindCoreModel):
     instrument_id: str = Field(..., title="Instrument ID")
     calibrations: Optional[List[Calibration]] = Field(
         None,
-        title="Acquisition-time instrument calibrations",
-        description="List of calibration measurements taken at time of acquisition.",
+        title="Calibrations",
+        description="List of calibration measurements taken prior to acquisition.",
     )
+    maintenance: Optional[List[Maintenance]] = Field(
+        None, 
+        title="Maintenance",
+        description="List of maintenance on rig prior to acquisition."
+        )
     session_start_time: datetime = Field(..., title="Session start time")
     session_end_time: datetime = Field(..., title="Session end time")
     session_type: Optional[str] = Field(None, title="Session type")
