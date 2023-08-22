@@ -261,6 +261,28 @@ class Software(AindModel):
     parameters: Optional[dict] = Field(None, title="Software parameters", additionalProperties={"type": "string"})
 
 
+class Calibration(AindModel):
+    """Generic calibration class"""
+
+    date_of_calibration: datetime = Field(..., title="Date and time of calibration")
+    device_name: str = Field(..., title="Device name")
+    description: str = Field(..., title="Description", description="Brief decsription of what is being calibrated")
+    input: Optional[Dict[str, Any]] = Field({}, description="Calibration input", title="inputs")
+    output: Optional[Dict[str, Any]] = Field({}, description="Calibration output", title="outputs")
+    notes: Optional[str] = Field(None, title="Notes")
+
+
+class Maintenance(AindModel):
+    """Generic maintenance class"""
+
+    datetime: datetime = Field(..., title="Date and time of maintenance")
+    device_name: str = Field(..., title="Device name")
+    description: str = Field(..., title="Description", description="Description on maintenance procedure")
+    protocol_id: Optional[str] = Field(None, title="Protocol ID")
+    reagents: Optional[List[Reagent]] = Field(None, title="Reagents")
+    notes: Optional[str] = Field(None, title="Notes")
+
+
 class MotorizedStage(Device):
     """Description of motorized stage"""
 
@@ -606,28 +628,4 @@ class VisualStimulusDisplayAssembly(AindModel):
     position: Optional[RelativePosition] = Field(None, title="Relative position of the monitor")
 
 
-class CalibrationType(Enum):
-    """Calibration types"""
 
-    LASER = "laser"
-    MONITOR = "monitor"
-    SPEAKER = "speaker"
-    WATER_V = "water valve"
-    CHAMBER = "chamber"
-    OTHER = "other"
-
-
-class Calibration(AindModel):
-    """Generic calibration class for acquisition"""
-
-    date_of_calibration: datetime = Field(..., title="Date and time of calibration")
-    calibration_type: CalibrationType = Field(
-        ...,
-        title="calibration type",
-    )
-    notes: Optional[str] = Field(None, title="Notes")
-    input: Optional[Dict[str, Any]] = Field({}, description="Calibration input", title="inputs")
-    output: Optional[Dict[str, Any]] = Field({}, description="Calibration output", title="outputs")
-    reagents: Optional[List[Reagent]] = Field(
-        None, title="Reagents", description="List of reagents used in the calibration"
-    )
