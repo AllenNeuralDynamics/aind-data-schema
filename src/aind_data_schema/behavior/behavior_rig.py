@@ -7,7 +7,18 @@ from typing import List, Optional, Union
 from pydantic import Field
 
 from aind_data_schema.base import AindCoreModel
-from aind_data_schema.device import CameraAssembly, DAQDevice, Device, Disc, HarpDevice, Monitor, Treadmill, Tube
+from aind_data_schema.device import (
+    Calibration,
+    CameraAssembly, 
+    DAQDevice, 
+    Device, 
+    Disc, 
+    HarpDevice, 
+    Maintenance,
+    Monitor, 
+    Treadmill, 
+    Tube
+)
 
 
 class BehaviorRig(AindCoreModel):
@@ -20,4 +31,5 @@ class BehaviorRig(AindCoreModel):
     mouse_platform: Optional[Union[Tube, Treadmill, Disc]] = Field(None, title="Mouse platform")
     daqs: Optional[List[Union[HarpDevice, DAQDevice]]] = Field(None, title="Data acquisition devices")
     additional_devices: Optional[List[Device]] = Field(None, title="Additional devices", unique_items=True)
+    calibrations: Optional[List[Calibration]] = Field(None, title="Calibrations", unique_items=True)
     notes: Optional[str] = Field(None, title="Notes")
