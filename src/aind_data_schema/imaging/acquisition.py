@@ -117,7 +117,7 @@ class Acquisition(AindCoreModel):
         description="List of calibration measurements taken prior to acquisition.",
     )
     maintenance: Optional[List[Maintenance]] = Field(
-        None, 
+        None,
         title="Maintenance",
         description="List of maintenance on rig prior to acquisition."
         )

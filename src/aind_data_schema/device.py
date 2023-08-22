@@ -626,6 +626,3 @@ class VisualStimulusDisplayAssembly(AindModel):
 
     # optional fields
     position: Optional[RelativePosition] = Field(None, title="Relative position of the monitor")
-
-
-

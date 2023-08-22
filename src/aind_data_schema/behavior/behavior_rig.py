@@ -9,14 +9,14 @@ from pydantic import Field
 from aind_data_schema.base import AindCoreModel
 from aind_data_schema.device import (
     Calibration,
-    CameraAssembly, 
-    DAQDevice, 
-    Device, 
-    Disc, 
-    HarpDevice, 
+    CameraAssembly,
+    DAQDevice,
+    Device,
+    Disc,
+    HarpDevice,
     Maintenance,
-    Monitor, 
-    Treadmill, 
+    Monitor,
+    Treadmill,
     Tube
 )
 
