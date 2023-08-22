@@ -14,7 +14,6 @@ from aind_data_schema.device import (
     Device,
     Disc,
     HarpDevice,
-    Maintenance,
     Monitor,
     Treadmill,
     Tube
