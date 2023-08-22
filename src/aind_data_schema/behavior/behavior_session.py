@@ -30,8 +30,16 @@ class BehaviorSession(AindCoreModel):
     session_start_time: datetime = Field(..., title="Session start time")
     session_end_time: datetime = Field(..., title="Session end time")
     rig_id: str = Field(..., title="Rig ID")
-    calibrations: Optional[List[Calibration]] = Field(None, title="Calibrations", description="Calibrations of rig devices prior to session")
-    maintenance: Optional[List[Maintenance]] = Field(None, title="Maintenance", description="Maintenance of rig devices prior to session")
+    calibrations: Optional[List[Calibration]] = Field(
+        None, 
+        title="Calibrations", 
+        description="Calibrations of rig devices prior to session"
+        )
+    maintenance: Optional[List[Maintenance]] = Field(
+        None, 
+        title="Maintenance", 
+        description="Maintenance of rig devices prior to session"
+        )
     subject_id: int = Field(..., title="Subject ID")
     animal_weight_prior: Optional[Decimal] = Field(
         None,
