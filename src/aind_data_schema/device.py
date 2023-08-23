@@ -275,7 +275,7 @@ class Calibration(AindModel):
 class Maintenance(AindModel):
     """Generic maintenance class"""
 
-    datetime: datetime = Field(..., title="Date and time of maintenance")
+    date_of_maintenance: datetime = Field(..., title="Date and time of maintenance")
     device_name: str = Field(..., title="Device name", description="Must match a device name in rig/instrument")
     description: str = Field(..., title="Description", description="Description on maintenance procedure")
     protocol_id: Optional[str] = Field(None, title="Protocol ID")
