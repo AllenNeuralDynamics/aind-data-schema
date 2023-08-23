@@ -23,7 +23,7 @@ from aind_data_schema.device import (
 class BehaviorRig(AindCoreModel):
     """Description of an behavior rig"""
 
-    schema_version: str = Field("0.1.6", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.1.7", description="schema version", title="Version", const=True)
     rig_id: str = Field(..., description="room_stim apparatus_version", title="Rig ID")
     cameras: Optional[List[CameraAssembly]] = Field(None, title="Camera assemblies", unique_items=True)
     visual_monitors: Optional[List[Monitor]] = Field(None, title="Visual monitors", unique_items=True)
