@@ -5,7 +5,7 @@ import unittest
 
 from pydantic import ValidationError
 
-from aind_data_schema.device import CalibrationType, Manufacturer
+from aind_data_schema.device import Calibration, Manufacturer
 from aind_data_schema.imaging import acquisition as acq
 from aind_data_schema.imaging import instrument as inst
 from aind_data_schema.imaging import mri_session as ms
@@ -29,13 +29,12 @@ class ImagingTests(unittest.TestCase):
             subject_id="1234",
             instrument_id="1234",
             calibrations=[
-                acq.LightSourcePowerCalibration(
+                Calibration(
                     date_of_calibration=datetime.datetime.now(),
-                    calibration_type=CalibrationType.LASER,
-                    light_source_name="Ex_488",
-                    illumination_index=0,
-                    power_setting=PowerValue(value=100.0, unit="percent"),
-                    power_measurement=PowerValue(value=50.0, unit="milliwatt"),
+                    description="Laser power calibration",
+                    device_name="Laser 1",
+                    input={"power_setting": PowerValue(value=100.0, unit="percent")},
+                    output={"power_measurement": PowerValue(value=50.0, unit="milliwatt")},
                 ),
             ],
             session_end_time=datetime.datetime.now(),
