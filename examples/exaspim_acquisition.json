@@ -13,10 +13,16 @@
          "device_name": "Laser_1",
          "description": "Laser power calibration",
          "input": {
-            "power setting": 1
+            "power_setting": {
+               "value": 100.0,
+               "unit": "percent"
+            }
          },
          "output": {
-            "power": 12
+            "power_measurement": {
+               "value": 50.0,
+               "unit": "milliwatt"
+            }
          },
          "notes": null
       }
