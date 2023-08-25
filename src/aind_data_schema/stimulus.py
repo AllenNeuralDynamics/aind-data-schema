@@ -98,6 +98,7 @@ class BehaviorStim(AindModel):
     )
     notes: Optional[str] = Field(None, title="Notes")
 
+
 class StimulusEpoch(AindModel):
     """Description of stimulus used during session"""
 

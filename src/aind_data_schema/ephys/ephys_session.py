@@ -11,7 +11,7 @@ from pydantic import Field
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.device import Coordinates3d
-from aind_data_schema.stimulus import StimulusPresentation, StimulusEpoch
+from aind_data_schema.stimulus import StimulusEpoch
 from aind_data_schema.utils.units import AngleUnit, PowerUnit, SizeUnit
 
 

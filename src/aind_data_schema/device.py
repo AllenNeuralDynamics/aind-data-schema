@@ -615,7 +615,6 @@ class RewardSpout(Device):
     side: SpoutSide = Field(..., title="Spout side", description="If Other use notes")
     spout_diameter: create_unit_with_value("spout_diameter", Decimal, Size, SizeUnit.MM) = Field(..., title="Spout diameter (mm)")
     spout_position: Optional[RelativePosition] = Field(None, title="Spout stage position")
-    water_calibration_values: Dict[str, Any] = Field(..., title="Water calibration values")
     solenoid_valve: Device = Field(..., title="Solenoid valve")
     notes: Optional[str] = Field(None, title="Notes")
 

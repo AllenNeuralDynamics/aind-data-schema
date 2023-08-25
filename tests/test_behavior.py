@@ -5,7 +5,16 @@ import unittest
 
 import pydantic
 
-from aind_data_schema.device import Camera, DAQChannel, Device, Lens, Manufacturer, MotorizedStage, SpoutSide, WaterSpout
+from aind_data_schema.device import (
+    Camera,
+    DAQChannel,
+    Device,
+    Lens,
+    Manufacturer,
+    MotorizedStage,
+    SpoutSide,
+    RewardSpout
+)
 from aind_data_schema.behavior import behavior_rig as br
 from aind_data_schema.behavior import behavior_session as bs
 from aind_data_schema.stimulus import BehaviorStim
@@ -82,24 +91,22 @@ class BehaviorTests(unittest.TestCase):
                 travel=25,
             ),
             water_spouts=[
-                WaterSpout(
+                RewardSpout(
                     side=SpoutSide.LEFT,
                     manufacturer=Manufacturer.OTHER,
                     model="BD223",
                     spout_diameter=0.853,
-                    water_calibration_values={},
                     solenoid_valve=Device(
                         manufacturer=Manufacturer.LEE,
                         model="LHDA1231415H",
                         serial_number="1234",
                     ),
                 ),
-                WaterSpout(
+                RewardSpout(
                     side=SpoutSide.RIGHT,
                     manufacturer=Manufacturer.OTHER,
                     model="BD223",
                     spout_diameter=0.853,
-                    water_calibration_values={},
                     solenoid_valve=Device(
                         manufacturer=Manufacturer.LEE,
                         model="LHDA1231415H",

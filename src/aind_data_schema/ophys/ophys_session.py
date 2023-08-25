@@ -11,7 +11,7 @@ from pydantic import Field
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.procedures import TimeUnit
-from aind_data_schema.stimulus import StimulusEpoch, StimulusPresentation
+from aind_data_schema.stimulus import StimulusEpoch
 from aind_data_schema.utils.units import FrequencyUnit, PowerUnit, SizeUnit
 
 
