@@ -30,7 +30,7 @@ class ProcessName(Enum):
     IMAGE_TILE_ALIGNMENT = "Image tile alignment"
     IMAGE_TILE_FUSING = "Image tile fusing"
     IMAGE_TILE_PROJECTION = "Image tile projection"
-    FILE_CONVERSION = "File format conversion"    
+    FILE_CONVERSION = "File format conversion"
     NEUROPIL_SUBTRACTION = "Neuropil subtraction"
     OTHER = "Other"
     SPIKE_SORTING = "Spike sorting"
@@ -38,9 +38,9 @@ class ProcessName(Enum):
     VIDEO_MOTION_CORRECTION = "Video motion correction"
     VIDEO_PLANE_DECROSSTALK = "Video plane decrosstalk"
     VIDEO_ROI_CLASSIFICATION = "Video ROI classification"
-    VIDEO_ROI_SEGMENTATION = "Video ROI segmentation"    
+    VIDEO_ROI_SEGMENTATION = "Video ROI segmentation"
     VIDEO_ROI_TIMESERIES_EXTRACTION = "Video ROI timeseries extraction"
-    
+
 
 class DataProcess(AindModel):
     """Description of a single processing step"""
