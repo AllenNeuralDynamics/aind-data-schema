@@ -10,6 +10,7 @@ from typing import List, Optional
 from pydantic import Field
 
 from aind_data_schema.base import AindCoreModel, AindModel, EnumSubset
+from aind_data_schema.device import Calibration, Maintenance
 from aind_data_schema.imaging.tile import AcquisitionTile
 from aind_data_schema.processing import ProcessName
 from aind_data_schema.utils.units import SizeUnit
@@ -101,7 +102,7 @@ class ProcessingSteps(AindModel):
 class Acquisition(AindCoreModel):
     """Description of an imaging acquisition session"""
 
-    schema_version: str = Field("0.4.7", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.4.8", description="schema version", title="Version", const=True)
     experimenter_full_name: List[str] = Field(
         ...,
         description="First and last name of the experimenter(s).",
@@ -110,6 +111,16 @@ class Acquisition(AindCoreModel):
     specimen_id: str = Field(..., title="Specimen ID")
     subject_id: Optional[str] = Field(None, title="Subject ID")
     instrument_id: str = Field(..., title="Instrument ID")
+    calibrations: Optional[List[Calibration]] = Field(
+        None,
+        title="Calibrations",
+        description="List of calibration measurements taken prior to acquisition.",
+    )
+    maintenance: Optional[List[Maintenance]] = Field(
+        None,
+        title="Maintenance",
+        description="List of maintenance on rig prior to acquisition."
+        )
     session_start_time: datetime = Field(..., title="Session start time")
     session_end_time: datetime = Field(..., title="Session end time")
     session_type: Optional[str] = Field(None, title="Session type")

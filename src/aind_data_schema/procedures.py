@@ -231,7 +231,10 @@ class Craniotomy(SubjectProcedure):
         None, title="Craniotomy coordinate reference"
     )
     bregma_to_lambda_distance: Optional[Decimal] = Field(
-        None, title="Bregma to lambda (mm)", description="Distance between bregman and lambda", units="mm"
+        None,
+        title="Bregma to lambda (mm)",
+        description="Distance between bregman and lambda",
+        units="mm",
     )
     bregma_to_lambda_unit: SizeUnit = Field(SizeUnit.MM, title="Bregma to lambda unit")
     craniotomy_size: Decimal = Field(..., title="Craniotomy size (mm)", units="mm")
@@ -334,7 +337,10 @@ class BrainInjection(Injection):
         None, title="Injection coordinate reference"
     )
     bregma_to_lambda_distance: Optional[Decimal] = Field(
-        None, title="Bregma to lambda (mm)", description="Distance between bregman and lambda", units="mm"
+        None,
+        title="Bregma to lambda (mm)",
+        description="Distance between bregman and lambda",
+        units="mm",
     )
     bregma_to_lambda_unit: SizeUnit = Field(SizeUnit.MM, title="Bregma to lambda unit")
     injection_angle: Decimal = Field(..., title="Injection angle (deg)", units="deg")
@@ -349,7 +355,10 @@ class NanojectInjection(BrainInjection):
 
     procedure_type: str = Field("Nanoject injection", title="Procedure type", const=True)
     injection_volume: List[Decimal] = Field(
-        ..., title="Injection volume (nL)", units="nL", description="Injection volume, one value per location"
+        ...,
+        title="Injection volume (nL)",
+        units="nL",
+        description="Injection volume, one value per location",
     )
     injection_volume_unit: VolumeUnit = Field(VolumeUnit.NL, title="Injection volume unit")
 
@@ -368,7 +377,10 @@ class IntraCerebellarVentricleInjection(BrainInjection):
 
     procedure_type: str = Field("ICV injection", title="Procedure type", const=True)
     injection_volume: List[Decimal] = Field(
-        ..., title="Injection volume (nL)", units="nL", description="Injection volume, one value per location"
+        ...,
+        title="Injection volume (nL)",
+        units="nL",
+        description="Injection volume, one value per location",
     )
     injection_volume_unit: VolumeUnit = Field(VolumeUnit.NL, title="Injection volume unit")
 
@@ -378,7 +390,10 @@ class IntraCisternalMagnaInjection(BrainInjection):
 
     procedure_type: str = Field("ICM injection", title="Procedure type", const=True)
     injection_volume: List[Decimal] = Field(
-        ..., title="Injection volume (nL)", units="nL", description="Injection volume, one value per location"
+        ...,
+        title="Injection volume (nL)",
+        units="nL",
+        description="Injection volume, one value per location",
     )
     injection_volume_unit: VolumeUnit = Field(VolumeUnit.NL, title="Injection volume unit")
 
@@ -429,7 +444,10 @@ class OphysProbe(AindModel):
         None, title="Stereotactic coordinate reference"
     )
     bregma_to_lambda_distance: Optional[Decimal] = Field(
-        None, title="Bregma to lambda (mm)", description="Distance between bregman and lambda", units="mm"
+        None,
+        title="Bregma to lambda (mm)",
+        description="Distance between bregman and lambda",
+        units="mm",
     )
     bregma_to_lambda_unit: SizeUnit = Field(SizeUnit.MM, title="Bregma to lambda unit")
     angle: Decimal = Field(..., title="Angle (deg)", units="deg")

@@ -96,7 +96,11 @@ ephys_assemblyB = EphysAssembly(
 )
 
 
-filt = Filter(filter_type="Long pass", manufacturer=Manufacturer.THORLABS, description="850 nm longpass filter")
+filt = Filter(
+    filter_type="Long pass",
+    manufacturer=Manufacturer.THORLABS,
+    description="850 nm longpass filter",
+)
 
 lens = Lens(focal_length=15, manufacturer=Manufacturer.EDMUND_OPTICS, max_aperture="f/2")
 
@@ -113,7 +117,11 @@ face_camera = Camera(
 )
 
 camassm1 = CameraAssembly(
-    camera_assembly_name="Face Camera Assembly", camera=face_camera, camera_target="Face side", filter=filt, lens=lens
+    camera_assembly_name="Face Camera Assembly",
+    camera=face_camera,
+    camera_target="Face side",
+    filter=filt,
+    lens=lens,
 )
 
 body_camera = Camera(
@@ -129,7 +137,11 @@ body_camera = Camera(
 )
 
 camassm2 = CameraAssembly(
-    camera_assembly_name="Body Camera Assembly", camera=body_camera, camera_target="Body", filter=filt, lens=lens
+    camera_assembly_name="Body Camera Assembly",
+    camera=body_camera,
+    camera_target="Body",
+    filter=filt,
+    lens=lens,
 )
 
 rig = EphysRig(

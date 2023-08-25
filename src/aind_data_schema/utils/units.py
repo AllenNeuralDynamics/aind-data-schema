@@ -64,10 +64,11 @@ class TimeUnit(Enum):
 
 
 class PowerUnit(Enum):
-    """Power units"""
+    """Unit for power, set or measured"""
 
     UW = "microwatt"
     MW = "milliwatt"
+    PERCENT = "percent"
 
 
 class CurrentUnit(Enum):
@@ -97,3 +98,4 @@ VolumeValue = create_unit_with_value("VolumeValue", Decimal, VolumeUnit, VolumeU
 FrequencyValue = create_unit_with_value("FrequencyValue", Decimal, FrequencyUnit, FrequencyUnit.HZ)
 AngleValue = create_unit_with_value("AngleValue", Decimal, AngleUnit, AngleUnit.DEG)
 TimeValue = create_unit_with_value("TimeValue", Decimal, TimeUnit, TimeUnit.S)
+PowerValue = create_unit_with_value("PowerValue", Decimal, PowerUnit, PowerUnit.MW)

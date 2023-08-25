@@ -40,6 +40,7 @@ inst = Instrument(
     ],
     light_sources=[
         Lightsource(
+            name="Ex_488",
             type="laser",
             coupling="Single-mode fiber",
             wavelength=488,
@@ -50,6 +51,7 @@ inst = Instrument(
             notes="All lasers controlled via Vortran VersaLase System",
         ),
         Lightsource(
+            name="Ex_561",
             type="laser",
             coupling="Single-mode fiber",
             wavelength=561,
@@ -60,6 +62,7 @@ inst = Instrument(
             notes="All lasers controlled via Vortran VersaLase System",
         ),
         Lightsource(
+            name="Ex_647",
             type="laser",
             coupling="Single-mode fiber",
             wavelength=647,
@@ -161,6 +164,7 @@ inst = Instrument(
     ],
     fluorescence_filters=[
         Filter(
+            name="Em_525",
             filter_type="Band pass",
             manufacturer=Manufacturer.SEMROCK,
             diameter=25,
@@ -170,6 +174,7 @@ inst = Instrument(
             serial_number="Unknown-1",
         ),
         Filter(
+            name="Em_600",
             filter_type="Band pass",
             manufacturer=Manufacturer.SEMROCK,
             diameter=25,
@@ -179,6 +184,7 @@ inst = Instrument(
             serial_number="Unknown-2",
         ),
         Filter(
+            name="Em_690",
             filter_type="Band pass",
             manufacturer=Manufacturer.CHROMA,
             diameter=25,

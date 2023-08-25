@@ -79,6 +79,8 @@ class MriSession(AindCoreModel):
     mri_scanner: Scanner = Field(..., title="MRI scanner")
     axes: List[Axis] = Field(..., title="Imaging axes")
     voxel_sizes: Scale3dTransform = Field(
-        ..., title="Voxel sizes", description="Size of voxels in order as specified in axes"
+        ...,
+        title="Voxel sizes",
+        description="Size of voxels in order as specified in axes",
     )
     notes: Optional[str] = Field(None, title="Notes")
