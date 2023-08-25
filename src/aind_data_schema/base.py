@@ -62,6 +62,15 @@ class BaseName(AindModel):
     abbreviation: Optional[str] = Field(None, title="Abbreviation")
 
 
+class Registry:
+    """
+    Class to store common registries for use in PIDNames
+    """
+
+    ROR = BaseName(name="Research Organization Registry", abbreviation="ROR")
+    NCBI = BaseName(name="National Center for Biotechnology Information", abbreviation="NCBI")
+
+
 class PIDName(BaseName):
     """
     Model for associate a name with a persistent identifier (PID),
@@ -84,7 +93,11 @@ class AindCoreModel(AindModel):
 
         value = build_described_by(cls)
         field = ModelField.infer(
-            name="describedBy", value=value, annotation=str, class_validators=None, config=cls.__config__
+            name="describedBy",
+            value=value,
+            annotation=str,
+            class_validators=None,
+            config=cls.__config__,
         )
         field.field_info.const = True
         cls.__fields__.update({"describedBy": field})
@@ -181,7 +194,7 @@ class _EnumSubsetMeta(type):
         if not issubclass(first_type, Enum):
             raise TypeError(f"Only Enums are allowed. {first_type}")
         for enum_member in t[1:]:
-            if type(enum_member) != first_type:
+            if type(enum_member) is not first_type:
                 raise ValueError("All enums must be of the same class.")
         return type("EnumSubset", (_TypeEnumSubset,), {"enum_set": t})
 

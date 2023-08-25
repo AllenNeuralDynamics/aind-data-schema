@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/ephys/ephys_session.py",
-   "schema_version": "0.4.6",
+   "schema_version": "0.4.8",
    "experimenter_full_name": [
       "Jane Doe"
    ],
@@ -16,7 +16,7 @@
          "assembly_name": "Stick_assembly",
          "arc_angle": 24,
          "module_angle": 10,
-         "angle_unit": "degree",
+         "angle_unit": "degrees",
          "rotation_angle": 0.0,
          "coordinate_transform": null,
          "calibration_date": null,
@@ -32,7 +32,7 @@
                "assembly_name": "Ephys_assemblyA",
                "arc_angle": 14,
                "module_angle": 20,
-               "angle_unit": "degree",
+               "angle_unit": "degrees",
                "rotation_angle": 0.0,
                "coordinate_transform": null,
                "calibration_date": null,
@@ -62,7 +62,7 @@
                "assembly_name": "Laser_assemblyA",
                "arc_angle": 10,
                "module_angle": 15,
-               "angle_unit": "degree",
+               "angle_unit": "degrees",
                "rotation_angle": 0.0,
                "coordinate_transform": null,
                "calibration_date": null,

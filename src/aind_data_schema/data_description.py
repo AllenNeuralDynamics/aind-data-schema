@@ -9,7 +9,7 @@ from typing import Any, List, Optional
 
 from pydantic import Field
 
-from aind_data_schema.base import AindCoreModel, AindModel, BaseName, BaseNameEnumMeta, PIDName
+from aind_data_schema.base import AindCoreModel, AindModel, BaseName, BaseNameEnumMeta, PIDName, Registry
 
 
 class RegexParts(Enum):
@@ -47,48 +47,49 @@ class Institution(Enum, metaclass=BaseNameEnumMeta):
     AI = PIDName(
         name="Allen Institute",
         abbreviation="AI",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry=Registry.ROR,
         registry_identifier="03cpe7c52",
     )
     AIBS = PIDName(
         name="Allen Institute for Brain Science",
         abbreviation="AIBS",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry=Registry.ROR,
         registry_identifier="00dcv1019",
     )
     AIND = PIDName(
         name="Allen Institute for Neural Dynamics",
         abbreviation="AIND",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry=Registry.ROR,
         registry_identifier="04szwah67",
     )
     COLUMBIA = PIDName(
         name="Columbia University",
         abbreviation="Columbia",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry=Registry.ROR,
         registry_identifier="00hj8s172",
     )
+    JAX = PIDName(name="Jackson Laboratory", abbreviation="JAX", registry=Registry.ROR, registry_identifier="021sy4w91")
     HUST = PIDName(
         name="Huazhong University of Science and Technology",
         abbreviation="HUST",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry=Registry.ROR,
         registry_identifier="00p991c53",
     )
     NINDS = PIDName(
         name="National Institute of Neurological Disorders and Stroke",
         abbreviation="NINDS",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry=Registry.ROR,
         registry_identifier="01s5ya894",
     )
     NYU = PIDName(
         name="New York University",
         abbreviation="NYU",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry=Registry.ROR,
         registry_identifier="0190ak572",
     )
     SIMONS = PIDName(
         name="Simons Foundation",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry=Registry.ROR,
         registry_identifier="01cmst727",
     )
 
@@ -105,25 +106,40 @@ class Group(Enum):
 class Modality(Enum, metaclass=BaseNameEnumMeta):
     """Data collection modality name"""
 
+    BEHAVIOR_VIDEOS = BaseName(name="Behavior videos", abbreviation="behavior-videos")
     CONFOCAL = BaseName(name="Confocal microscopy", abbreviation="confocal")
-    DISPIM = BaseName(name="Dual inverted selective plane illumination microscopy", abbreviation="diSPIM")
+    DISPIM = BaseName(
+        name="Dual inverted selective plane illumination microscopy",
+        abbreviation="diSPIM",
+    )
     ECEPHYS = BaseName(name="Extracellular electrophysiology", abbreviation="ecephys")
     EPHYS = BaseName(name="Electrophysiology", abbreviation="ephys")
-    EXASPIM = BaseName(name="Expansion-assisted selective plane illumination microscopy", abbreviation="exaSPIM")
+    EXASPIM = BaseName(
+        name="Expansion-assisted selective plane illumination microscopy",
+        abbreviation="exaSPIM",
+    )
     FIP = BaseName(name="Frame-projected independent-fiber photometry", abbreviation="FIP")
     FMOST = BaseName(name="Fluorescence micro-optical sectioning tomography", abbreviation="fMOST")
     HSFP = BaseName(name="Hyperspectral fiber photometry", abbreviation="HSFP")
     ICEPHYS = BaseName(name="Intracellular electrophysiology", abbreviation="icephys")
     FIB = BaseName(name="Fiber photometry", abbreviation="fib")
     FISH = BaseName(name="Fluorescence in situ hybridization", abbreviation="fish")
-    MESOSPIM = BaseName(name="Mesoscale selective plane illumination microscopy", abbreviation="mesoSPIM")
-    MERFISH = BaseName(name="Multiplexed error-robust fluorescence in situ hybridization", abbreviation="merfish")
+    MESOSPIM = BaseName(
+        name="Mesoscale selective plane illumination microscopy",
+        abbreviation="mesoSPIM",
+    )
+    MERFISH = BaseName(
+        name="Multiplexed error-robust fluorescence in situ hybridization",
+        abbreviation="merfish",
+    )
+    MPOPHYS = BaseName(name="Multiplane optical physiology", abbreviation="multiplane-ophys")
     MRI = BaseName(name="Magnetic resonance imaging", abbreviation="MRI")
     OPHYS = BaseName(name="Optical physiology", abbreviation="ophys")
-    POPHYS = BaseName(name="Planar optical physiology", abbreviation="pophys")
     SLAP = BaseName(name="Scanned line projection", abbreviation="slap")
     SMARTSPIM = BaseName(name="Smart selective plane illumination microscopy", abbreviation="SmartSPIM")
     SPIM = BaseName(name="Selective plane illumination microscopy", abbreviation="SPIM")
+    SPOPHYS = BaseName(name="Single plane optical physiology", abbreviation="single-plane-ophys")
+    TRAINED_BEHAVIOR = BaseName(name="Trained behavior", abbreviation="trained-behavior")
 
 
 class ExperimentType(Enum):
@@ -139,9 +155,11 @@ class ExperimentType(Enum):
     MESOSPIM = Modality.MESOSPIM.value.abbreviation
     MERFISH = Modality.MERFISH.value.abbreviation
     MRI = Modality.MRI.value.abbreviation
-    POPHYS = Modality.POPHYS.value.abbreviation
+    MPOPHYS = Modality.MPOPHYS.value.abbreviation
     SLAP = Modality.SLAP.value.abbreviation
     SMARTSPIM = Modality.SMARTSPIM.value.abbreviation
+    SPOPHYS = Modality.SPOPHYS.value.abbreviation
+    TRAINED_BEHAVIOR = Modality.TRAINED_BEHAVIOR.value.abbreviation
     OTHER = "Other"
 
 
@@ -184,7 +202,7 @@ class RelatedData(AindModel):
 class DataDescription(AindCoreModel):
     """Description of a logical collection of data files"""
 
-    schema_version: str = Field("0.7.3", title="Schema Version", const=True)
+    schema_version: str = Field("0.7.6", title="Schema Version", const=True)
     license: str = Field("CC-BY-4.0", title="License", const=True)
 
     creation_time: time = Field(

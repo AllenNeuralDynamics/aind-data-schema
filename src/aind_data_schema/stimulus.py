@@ -10,8 +10,7 @@ from typing import Any, Dict, List, Optional, Union
 from pydantic import Field
 
 from aind_data_schema.base import AindModel
-from aind_data_schema.device import FrequencyUnit
-from aind_data_schema.procedures import TimeUnit
+from aind_data_schema.utils.units import FrequencyUnit, TimeUnit
 
 
 class PulseShape(Enum):
@@ -40,7 +39,9 @@ class OptoStim(AindModel):
     )
     pulse_train_interval_unit: TimeUnit = Field(TimeUnit.S, title="Pulse train interval unit")
     baseline_duration: Decimal = Field(
-        ..., title="Baseline duration (s)", description="Duration of baseline recording prior to first pulse train"
+        ...,
+        title="Baseline duration (s)",
+        description="Duration of baseline recording prior to first pulse train",
     )
     baseline_duration_unit: TimeUnit = Field(TimeUnit.S, title="Baseline duration unit")
     other_parameters: Optional[Dict[str, Any]]
@@ -57,7 +58,9 @@ class VisualStim(AindModel):
         description="Define and list the parameter values used (e.g. all TF or orientation values)",
     )
     stimulus_template_name: Optional[List[str]] = Field(
-        None, title="Stimulus template name", description="Name of image set or movie displayed"
+        None,
+        title="Stimulus template name",
+        description="Name of image set or movie displayed",
     )
     stimulus_software: str = Field(
         ...,
@@ -70,7 +73,7 @@ class VisualStim(AindModel):
         title="Stimulus script",
         description="The specific code for this stimulus instance",
     )
-    stimulus_script_version: str = Field(..., title="Stimulus srcipt version")
+    stimulus_script_version: str = Field(..., title="Stimulus script version")
     notes: Optional[str] = Field(None, title="Notes")
 
 

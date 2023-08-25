@@ -7,40 +7,9 @@ from typing import Any, Dict, List, Optional
 
 from pydantic import Field
 
-from aind_data_schema.base import AindModel, BaseName, BaseNameEnumMeta, EnumSubset, PIDName
-from aind_data_schema.utils.units import create_unit_with_value, Size
-
-class SizeUnit(Enum):
-    """units for sizes"""
-
-    CM = "centimeter"
-    IN = "inch"
-    MM = "millimeter"
-    NM = "nanometer"
-    UM = "micrometer"
-    PX = "pixel"
-    NONE = "none"
-
-
-class AngleUnit(Enum):
-    """orientation units"""
-
-    DEG = "degree"
-
-
-class FrequencyUnit(Enum):
-    """Frequency units"""
-
-    HZ = "Hertz"
-
-
-class PowerUnit(Enum):
-    """Power units"""
-
-    UW = "microwatt"
-    MW = "milliwatt"
-    W = "watt"
-
+from aind_data_schema.base import AindModel, BaseName, BaseNameEnumMeta, EnumSubset, PIDName, Registry
+from aind_data_schema.utils.units import create_unit_with_value, AngleUnit, FrequencyUnit, PowerUnit, SizeUnit
+from aind_data_schema.procedures import Reagent
 
 class DeviceDriver(Enum):
     """DeviceDriver name"""
@@ -64,40 +33,40 @@ class Manufacturer(Enum, metaclass=BaseNameEnumMeta):
     CHROMA = PIDName(name="Chroma")
     COHERENT_SCIENTIFIC = PIDName(
         name="Coherent Scientific",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry=Registry.ROR,
         registry_identifier="031tysd23",
     )
     COMPUTAR = PIDName(name="Computar")
     CUSTOM = PIDName(name="Custom")
     DORIC = PIDName(
         name="Doric",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry=Registry.ROR,
         registry_identifier="059n53q30",
     )
     EALING = PIDName(name="Ealing")
     EDMUND_OPTICS = PIDName(
         name="Edmund Optics",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry=Registry.ROR,
         registry_identifier="01j1gwp17",
     )
     AILIPU = PIDName(name="Ailipu Technology Co")
     FLIR = PIDName(
         name="Teledyne FLIR",
         abbreviation="FLIR",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry=Registry.ROR,
         registry_identifier="01j1gwp17",
     )
     FUJINON = PIDName(name="Fujinon")
     HAMAMATSU = PIDName(
         name="Hamamatsu",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry=Registry.ROR,
         registry_identifier="03natb733",
     )
     IMAGING_SOURCE = PIDName(name="The Imaging Source")
     IMEC = PIDName(
         name="Interuniversity Microelectronics Center",
         abbreviation="IMEC",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry=Registry.ROR,
         registry_identifier="02kcbn207",
     )
     JULABO = PIDName(name="Julabo")
@@ -105,37 +74,37 @@ class Manufacturer(Enum, metaclass=BaseNameEnumMeta):
     LEICA = PIDName(name="Leica")
     LG = PIDName(
         name="LG",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry=Registry.ROR,
         registry_identifier="02b948n83",
     )
     LIFECANVAS = PIDName(name="LifeCanvas")
     MIGHTY_ZAP = PIDName(name="IR Robot Co")
     MKS_NEWPORT = PIDName(
         name="MKS Newport",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry=Registry.ROR,
         registry_identifier="00k17f049",
     )
     MPI = PIDName(name="MPI", abbreviation="MPI")
     NATIONAL_INSTRUMENTS = PIDName(
         name="National Instruments",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry=Registry.ROR,
         registry_identifier="026exqw73",
     )
     NEW_SCALE_TECHNOLOGIES = PIDName(name="New Scale Technologies")
     NIKON = PIDName(
         name="Nikon",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry=Registry.ROR,
         registry_identifier="0280y9h11",
     )
     OEPS = PIDName(
         name="Open Ephys Production Site",
         abbreviation="OEPS",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry=Registry.ROR,
         registry_identifier="007rkz355",
     )
     OLYMPUS = PIDName(
         name="Olympus",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry=Registry.ROR,
         registry_identifier="02vcdte90",
     )
     OPTOTUNE = PIDName(name="Optotune")
@@ -147,7 +116,7 @@ class Manufacturer(Enum, metaclass=BaseNameEnumMeta):
     TAMRON = PIDName(name="Tamron")
     THORLABS = PIDName(
         name="Thorlabs",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry=Registry.ROR,
         registry_identifier="04gsnvb07",
     )
     TMC = PIDName(name="Technical Manufacturing Corporation", abbreviation="TMC")
@@ -297,6 +266,28 @@ class Software(AindModel):
     parameters: Optional[dict] = Field(None, title="Software parameters", additionalProperties={"type": "string"})
 
 
+class Calibration(AindModel):
+    """Generic calibration class"""
+
+    date_of_calibration: datetime = Field(..., title="Date and time of calibration")
+    device_name: str = Field(..., title="Device name", description="Must match a device name in rig/instrument")
+    description: str = Field(..., title="Description", description="Brief decsription of what is being calibrated")
+    input: Optional[Dict[str, Any]] = Field({}, description="Calibration input", title="inputs")
+    output: Optional[Dict[str, Any]] = Field({}, description="Calibration output", title="outputs")
+    notes: Optional[str] = Field(None, title="Notes")
+
+
+class Maintenance(AindModel):
+    """Generic maintenance class"""
+
+    date_of_maintenance: datetime = Field(..., title="Date and time of maintenance")
+    device_name: str = Field(..., title="Device name", description="Must match a device name in rig/instrument")
+    description: str = Field(..., title="Description", description="Description on maintenance procedure")
+    protocol_id: Optional[str] = Field(None, title="Protocol ID")
+    reagents: Optional[List[Reagent]] = Field(None, title="Reagents")
+    notes: Optional[str] = Field(None, title="Notes")
+
+
 class MotorizedStage(Device):
     """Description of motorized stage"""
 
@@ -342,7 +333,12 @@ class Lens(Device):
     """Lens used to focus light onto a camera sensor"""
 
     # required fields
-    manufacturer: EnumSubset[Manufacturer.COMPUTAR, Manufacturer.EDMUND_OPTICS, Manufacturer.THORLABS, Manufacturer.OTHER]
+    manufacturer: EnumSubset[
+        Manufacturer.COMPUTAR,
+        Manufacturer.EDMUND_OPTICS,
+        Manufacturer.THORLABS,
+        Manufacturer.OTHER,
+    ]
 
     # optional fields
     focal_length: Optional[Decimal] = Field(None, title="Focal length of the lens", units="mm")
@@ -380,7 +376,9 @@ class Filter(Device):
     center_wavelength: Optional[int] = Field(None, title="Center wavelength (nm)")
     wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
     description: Optional[str] = Field(
-        None, title="Description", description="More details about filter properties and where/how it is being used"
+        None,
+        title="Description",
+        description="More details about filter properties and where/how it is being used",
     )
 
 
@@ -550,7 +548,9 @@ class Disc(MousePlatform):
     encoder: Optional[str] = Field(None, title="Encoder", description="Encoder hardware type")
     decoder: Optional[str] = Field(None, title="Decoder", description="Decoder chip type")
     encoder_firmware: Optional[Software] = Field(
-        None, title="Encoder firmware", description="Firmware to read from decoder chip counts"
+        None,
+        title="Encoder firmware",
+        description="Firmware to read from decoder chip counts",
     )
 
 

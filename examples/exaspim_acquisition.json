@@ -1,12 +1,50 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/imaging/acquisition.py",
-   "schema_version": "0.4.7",
+   "schema_version": "0.4.8",
    "experimenter_full_name": [
       "###"
    ],
    "specimen_id": "###",
    "subject_id": "###",
    "instrument_id": "###",
+   "calibrations": [
+      {
+         "date_of_calibration": "2022-11-22T08:43:00",
+         "device_name": "Laser_1",
+         "description": "Laser power calibration",
+         "input": {
+            "power_setting": {
+               "value": 100.0,
+               "unit": "percent"
+            }
+         },
+         "output": {
+            "power_measurement": {
+               "value": 50.0,
+               "unit": "milliwatt"
+            }
+         },
+         "notes": null
+      }
+   ],
+   "maintenance": [
+      {
+         "date_of_maintenance": "2022-11-22T08:43:00",
+         "device_name": "Chamber",
+         "description": "Clean chamber",
+         "protocol_id": null,
+         "reagents": [
+            {
+               "name": "reagent1",
+               "source": "xxx",
+               "rrid": "xxx",
+               "lot_number": "xxx",
+               "expiration_date": "2022-11-22"
+            }
+         ],
+         "notes": null
+      }
+   ],
    "session_start_time": "2022-11-22T08:43:00",
    "session_end_time": "2022-11-22T08:43:00",
    "session_type": null,
@@ -41,7 +79,7 @@
          },
          "notes": "these are my notes",
          "imaging_angle": 0,
-         "imaging_angle_unit": "degree"
+         "imaging_angle_unit": "degrees"
       },
       {
          "coordinate_transformations": [
@@ -73,7 +111,7 @@
          },
          "notes": "these are my notes",
          "imaging_angle": 0,
-         "imaging_angle_unit": "degree"
+         "imaging_angle_unit": "degrees"
       }
    ],
    "axes": [

@@ -25,10 +25,10 @@ from aind_data_schema.device import (
     LightEmittingDiode,
     Monitor,
     Objective,
-    SizeUnit,
     Treadmill,
     Tube,
 )
+from aind_data_schema.utils.units import SizeUnit
 
 
 class DetectorType(Enum):
@@ -86,7 +86,7 @@ class OphysRig(AindCoreModel):
     """Description of an optical physiology rig"""
 
     schema_version: str = Field(
-        "0.6.6",
+        "0.6.7",
         description="schema version",
         title="Schema Version",
         const=True,

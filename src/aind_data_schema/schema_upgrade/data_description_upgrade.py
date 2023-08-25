@@ -37,9 +37,9 @@ class FundingUpgrade:
     @staticmethod
     def upgrade_funding(old_funding: Any) -> Optional[Funding]:
         """Map legacy Funding model to current version"""
-        if type(old_funding) == Funding:
+        if type(old_funding) is Funding:
             return old_funding
-        elif type(old_funding) == dict and old_funding.get("funder") is not None and type(old_funding["funder"]) == str:
+        elif type(old_funding) is dict and old_funding.get("funder") is not None and type(old_funding["funder"]) is str:
             old_funder = old_funding.get("funder")
             map_full_name_to_institute = dict(
                 [(Institution.__members__[m].value.name, Institution.__members__[m]) for m in Institution.__members__]
@@ -52,7 +52,7 @@ class FundingUpgrade:
             new_funding["funder"] = new_funder
             return Funding.parse_obj(new_funding)
         elif (
-            type(old_funding) == dict and old_funding.get("funder") is not None and type(old_funding["funder"]) == dict
+            type(old_funding) is dict and old_funding.get("funder") is not None and type(old_funding["funder"]) is dict
         ):
             return Funding.parse_obj(old_funding)
         else:
@@ -65,9 +65,9 @@ class InstitutionUpgrade:
     @staticmethod
     def upgrade_institution(old_institution: Any) -> Optional[Institution]:
         """Map legacy Institution model to current version"""
-        if type(old_institution) == str:
+        if type(old_institution) is str:
             return Institution(old_institution)
-        elif type(old_institution) == dict and old_institution.get("abbreviation") is not None:
+        elif type(old_institution) is dict and old_institution.get("abbreviation") is not None:
             return Institution(old_institution.get("abbreviation"))
         else:
             return None
@@ -121,9 +121,9 @@ class DataDescriptionUpgrade:
         old_modality: Any = self.old_data_description_model.modality
         if kwargs.get("modality") is not None:
             modality = kwargs["modality"]
-        elif type(old_modality) == str or type(old_modality) == dict:
+        elif type(old_modality) is str or type(old_modality) is dict:
             modality = [ModalityUpgrade.upgrade_modality(old_modality)]
-        elif type(old_modality) == list:
+        elif type(old_modality) is list:
             modality = [ModalityUpgrade.upgrade_modality(m) for m in old_modality]
         else:
             modality = getattr(DataDescription.__fields__.get("modality"), "default")

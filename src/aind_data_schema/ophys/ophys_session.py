@@ -10,9 +10,9 @@ from typing import List, Optional, Union
 from pydantic import Field
 
 from aind_data_schema.base import AindCoreModel, AindModel
-from aind_data_schema.device import FrequencyUnit, PowerUnit, SizeUnit
 from aind_data_schema.procedures import TimeUnit
-from aind_data_schema.stimulus import StimulusEpoch
+from aind_data_schema.stimulus import StimulusEpoch, StimulusPresentation
+from aind_data_schema.utils.units import FrequencyUnit, PowerUnit, SizeUnit
 
 
 class FiberName(Enum):
@@ -103,7 +103,7 @@ class OphysSession(AindCoreModel):
     """Description of an ophys session"""
 
     schema_version: str = Field(
-        "0.2.4",
+        "0.2.6",
         description="schema version",
         title="Schema Version",
         const=True,
@@ -140,7 +140,7 @@ class FieldOfView(AindModel):
     imaging_depth: int = Field(..., title="Imaging depth (um)")
     imaging_depth_unit: SizeUnit = Field(SizeUnit.UM, title="Imaging depth unit")
     targeted_structure: str = Field(..., title="Targeted structure")
-    fov_coordinate_ml: Decimal = Field(..., title="FOV coodinate ML")
+    fov_coordinate_ml: Decimal = Field(..., title="FOV coordinate ML")
     fov_coordinate_ap: Decimal = Field(..., title="FOV coordinate AP")
     fov_coordinate_unit: SizeUnit = Field(SizeUnit.UM, title="FOV coordinate unit")
     fov_reference: str = Field(..., title="FOV reference", description="Reference for ML/AP coordinates")

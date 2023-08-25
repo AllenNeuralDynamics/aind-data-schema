@@ -2,7 +2,10 @@
 
 import datetime
 
+from aind_data_schema.device import Calibration, Maintenance
 from aind_data_schema.imaging import acquisition, tile
+from aind_data_schema.procedures import Reagent
+from aind_data_schema.utils.units import PowerValue
 
 t = datetime.datetime(2022, 11, 22, 8, 43, 00)
 
@@ -11,6 +14,25 @@ acq = acquisition.Acquisition(
     specimen_id="###",
     subject_id="###",
     instrument_id="###",
+    maintenance=[
+        Maintenance(
+            date_of_maintenance=t,
+            device_name="Chamber",
+            description="Clean chamber",
+            reagents=[
+                Reagent(name="reagent1", source="xxx", rrid="xxx", lot_number="xxx", expiration_date=t),
+            ]
+        )
+    ],
+    calibrations=[
+        Calibration(
+            date_of_calibration=t,
+            device_name="Laser_1",
+            description="Laser power calibration",
+            input={"power_setting": PowerValue(value=100.0, unit="percent")},
+            output={"power_measurement": PowerValue(value=50.0, unit="milliwatt")},
+        )
+    ],
     session_start_time=t,
     session_end_time=t,
     local_storage_directory="D:",

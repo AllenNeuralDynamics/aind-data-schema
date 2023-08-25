@@ -63,7 +63,8 @@ class ErdGenerator:
         )
         optional_args = parser.parse_args(args)
         return cls(
-            classes_to_generate=optional_args.classes_to_generate, output_directory=Path(optional_args.output_directory)
+            classes_to_generate=optional_args.classes_to_generate,
+            output_directory=Path(optional_args.output_directory),
         )
 
     def generate_erd_diagrams(self) -> None:

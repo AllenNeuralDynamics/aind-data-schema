@@ -1,7 +1,7 @@
 """ test Procedures """
 
-import datetime
 import unittest
+from datetime import date
 
 from pydantic import ValidationError
 
@@ -18,24 +18,44 @@ from aind_data_schema.procedures import (
 class ProceduresTests(unittest.TestCase):
     """test Procedures"""
 
-    def test_constructors(self):
-        """test that we can construct things"""
+    def test_required_field_validation_check(self):
+        """Tests that validation error is thrown if subject_id is not set."""
+        with self.assertRaises(ValidationError):
+            Procedures()
+
+        p = Procedures(subject_id="12345")
+        self.assertEqual("12345", p.subject_id)
+
+    def test_injection_material_check(self):
+        """Tests validation on the presence of injections materials"""
+
+        start_date = date.fromisoformat("2020-10-10")
+        end_date = date.fromisoformat("2020-10-11")
 
         with self.assertRaises(ValidationError):
-            p = Procedures()
-
-        p = Procedures(subject_id="1234")
-
-        assert p is not None
-
-        now = datetime.datetime.now()
+            Procedures(
+                subject_id="12345",
+                subject_procedures=[
+                    RetroOrbitalInjection(
+                        start_date=start_date,
+                        end_date=end_date,
+                        experimenter_full_name="tom",
+                        protocol_id="134",
+                        injection_materials=[],  # An empty list is invalid
+                        injection_volume=1,
+                        injection_eye="Left",
+                        injection_duration=1,
+                        recovery_time=10,
+                    ),
+                ],
+            )
 
         p = Procedures(
             subject_id="12345",
             subject_procedures=[
                 RetroOrbitalInjection(
-                    start_date=now,
-                    end_date=now,
+                    start_date=start_date,
+                    end_date=end_date,
                     experimenter_full_name="tom",
                     protocol_id="134",
                     injection_materials=[
@@ -51,8 +71,8 @@ class ProceduresTests(unittest.TestCase):
                     recovery_time=10,
                 ),
                 NanojectInjection(
-                    start_date=now,
-                    end_date=now,
+                    start_date=start_date,
+                    end_date=end_date,
                     experimenter_full_name="betsy",
                     protocol_id="bca",
                     injection_materials=[
@@ -65,17 +85,17 @@ class ProceduresTests(unittest.TestCase):
                     injection_duration=1,
                     injection_coordinate_ml=1,
                     injection_coordinate_ap=1,
-                    injection_coordinate_depth=1,
+                    injection_coordinate_depth=[1],
                     injection_coordinate_reference="Bregma",
                     bregma_to_lambda_distance=4.1,
                     injection_angle=1,
-                    injection_volume=1,
+                    injection_volume=[1],
                     recovery_time=10,
                     targeted_structure="VISp6",
                 ),
                 FiberImplant(
-                    start_date=now,
-                    end_date=now,
+                    start_date=start_date,
+                    end_date=end_date,
                     experimenter_full_name="Betsy",
                     protocol_id="dx.doi.org/120.123/fkjd",
                     probes=[
@@ -97,6 +117,8 @@ class ProceduresTests(unittest.TestCase):
                 ),
             ],
         )
+
+        self.assertEqual(3, len(p.subject_procedures))
 
 
 if __name__ == "__main__":

@@ -8,35 +8,17 @@ from typing import List, Optional, Union
 from pydantic import Field
 
 from aind_data_schema.base import AindCoreModel, AindModel, PIDName
-from aind_data_schema.device import AngleUnit, SizeUnit
 from aind_data_schema.subject import Species
-
-
-class TimeUnit(Enum):
-    """Time units"""
-
-    M = "minute"
-    S = "second"
-    MS = "millisecond"
-
-
-class WeightUnit(Enum):
-    """Weight units"""
-
-    G = "gram"
-
-
-class VolumeUnit(Enum):
-    """Volume units"""
-
-    NL = "nanoliter"
-    UL = "microliter"
-
-
-class CurrentUnit(Enum):
-    """Current units"""
-
-    UA = "microamps"
+from aind_data_schema.utils.units import (
+    AngleUnit,
+    ConcentrationUnit,
+    CurrentUnit,
+    MassUnit,
+    SizeUnit,
+    TimeUnit,
+    VolumeUnit,
+    create_unit_with_value,
+)
 
 
 class SpecimenProcedureName(Enum):
@@ -86,14 +68,17 @@ class SpecimenProcedure(AindModel):
 
 
 class StainType(Enum):
-    """Stain Types for HCR probes"""
+    """Stain types for probes describing what is being labeled"""
 
     RNA = "RNA"
+    NUCLEAR = "Nuclear"
+    FILL = "Fill"
 
 
 class Fluorophore(Enum):
     """Fluorophores used in HCR"""
 
+    ALEXA_488 = "Alexa Fluor 488"
     ALEXA_546 = "Alexa Fluor 546"
     ALEXA_594 = "Alexa Fluor 594"
     ALEXA_647 = "Alexa Fluor 647"
@@ -115,24 +100,32 @@ class HCRReadout(Readout):
 
 
 class OligoProbe(Reagent):
-    """Description of an oligo probe"""
+    """Description of an oligonucleotide probe"""
 
     species: Species = Field(..., title="Species")
     gene: PIDName = Field(..., title="Gene name, accession number, and registry")
     probe_sequences: List[str] = Field(..., title="Probe sequences")
     readout: Readout = Field(..., title="Readout")
-    channel_index: int = Field(..., title="Channel index")
 
 
 class HCRProbe(OligoProbe):
-    """Description of a HCR probe"""
+    """Description of an oligo probe used for HCR"""
 
     initiator_name: str = Field(..., title="Initiator name")
     readout: HCRReadout = Field(..., title="Readout")
 
 
+class Stain(Reagent):
+    """Description of a non-oligo probe stain"""
+
+    stain_type: StainType = Field(..., title="Stain type")
+    concentration: create_unit_with_value("concentration", Decimal, ConcentrationUnit, ConcentrationUnit.UM) = Field(
+        ..., title="Concentration (uM)"
+    )
+
+
 class HybridizationChainReaction(AindModel):
-    """Description of an HCR round"""
+    """Description of an HCR staining round"""
 
     round_index: int = Field(..., title="Round index")
     start_time: datetime = Field(..., title="Round start time")
@@ -141,11 +134,12 @@ class HybridizationChainReaction(AindModel):
     other_probes: Optional[List[OligoProbe]] = Field(None, title="Other probes")
     probe_concentration: Decimal = Field(..., title="Probe concentration (M)")
     probe_concentration_unit: str = Field("M", title="Probe concentration unit")
+    other_stains: Optional[List[Stain]] = Field(None, title="Other stains")
     intrument_id: str = Field(..., title="Instrument ID")
 
 
 class HCRSeries(SpecimenProcedure):
-    """Description of series of HCR rounds for mFISH"""
+    """Description of series of HCR staining rounds for mFISH"""
 
     codebook_name: str = Field(..., title="Codebook name")
     number_of_rounds: int = Field(..., title="Number of round")
@@ -202,7 +196,7 @@ class SubjectProcedure(AindModel):
         description="Animal weight after procedure",
         units="g",
     )
-    weight_unit: WeightUnit = Field(WeightUnit.G, title="Weight unit")
+    weight_unit: MassUnit = Field(MassUnit.G, title="Weight unit")
     anaesthesia: Optional[Anaesthetic] = Field(None, title="Anaesthesia")
     notes: Optional[str] = Field(None, title="Notes")
 
@@ -237,7 +231,10 @@ class Craniotomy(SubjectProcedure):
         None, title="Craniotomy coordinate reference"
     )
     bregma_to_lambda_distance: Optional[Decimal] = Field(
-        None, title="Bregma to lambda (mm)", description="Distance between bregman and lambda", units="mm"
+        None,
+        title="Bregma to lambda (mm)",
+        description="Distance between bregman and lambda",
+        units="mm",
     )
     bregma_to_lambda_unit: SizeUnit = Field(SizeUnit.MM, title="Bregma to lambda unit")
     craniotomy_size: Decimal = Field(..., title="Craniotomy size (mm)", units="mm")
@@ -292,8 +289,10 @@ class InjectionMaterial(AindModel):
         description="Short name used to reference the plasmid",
     )
     genome_copy: Optional[Decimal] = Field(None, title="Genome copy")
-    titer: Optional[Decimal] = Field(None, title="Titer (gc/mL)", units="gc/mL")
+    titer: Optional[Decimal] = Field(None, title="Titer (gc/mL)", description="Titer for viral materials")
     titer_unit: Optional[str] = Field("gc/mL", title="Titer unit")
+    concentration: Optional[Decimal] = Field(None, title="Concentration", description="Must provide concentration unit")
+    concentration_unit: Optional[str] = Field(None, title="Concentration unit")
     prep_lot_number: Optional[str] = Field(None, title="Preparation lot number")
     prep_date: Optional[date] = Field(  #
         None,
@@ -307,7 +306,9 @@ class InjectionMaterial(AindModel):
 class Injection(SubjectProcedure):
     """Description of an injection procedure"""
 
-    injection_materials: List[InjectionMaterial] = Field(None, title="Injection material", unique_items=True)
+    injection_materials: List[InjectionMaterial] = Field(
+        None, title="Injection material", unique_items=True, min_items=1
+    )
     recovery_time: Optional[Decimal] = Field(None, title="Recovery time")
     recovery_time_unit: Optional[TimeUnit] = Field(TimeUnit.M, title="Recovery time unit")
     injection_duration: Optional[Decimal] = Field(None, title="Injection duration")
@@ -330,13 +331,16 @@ class BrainInjection(Injection):
 
     injection_coordinate_ml: Decimal = Field(..., title="Injection coordinate ML (mm)")
     injection_coordinate_ap: Decimal = Field(..., title="Injection coordinate AP (mm)")
-    injection_coordinate_depth: Decimal = Field(..., title="Injection coodinate depth (mm)")
+    injection_coordinate_depth: List[Decimal] = Field(..., title="Injection coordinate depth (mm)")
     injection_coordinate_unit: SizeUnit = Field(SizeUnit.MM, title="Injection coordinate unit")
     injection_coordinate_reference: Optional[CoordinateReferenceLocation] = Field(
         None, title="Injection coordinate reference"
     )
     bregma_to_lambda_distance: Optional[Decimal] = Field(
-        None, title="Bregma to lambda (mm)", description="Distance between bregman and lambda", units="mm"
+        None,
+        title="Bregma to lambda (mm)",
+        description="Distance between bregman and lambda",
+        units="mm",
     )
     bregma_to_lambda_unit: SizeUnit = Field(SizeUnit.MM, title="Bregma to lambda unit")
     injection_angle: Decimal = Field(..., title="Injection angle (deg)", units="deg")
@@ -350,7 +354,12 @@ class NanojectInjection(BrainInjection):
     """Description of a nanoject injection procedure"""
 
     procedure_type: str = Field("Nanoject injection", title="Procedure type", const=True)
-    injection_volume: Decimal = Field(..., title="Injection volume (nL)", units="nL")
+    injection_volume: List[Decimal] = Field(
+        ...,
+        title="Injection volume (nL)",
+        units="nL",
+        description="Injection volume, one value per location",
+    )
     injection_volume_unit: VolumeUnit = Field(VolumeUnit.NL, title="Injection volume unit")
 
 
@@ -367,7 +376,12 @@ class IntraCerebellarVentricleInjection(BrainInjection):
     """Description of an interacerebellar ventricle injection"""
 
     procedure_type: str = Field("ICV injection", title="Procedure type", const=True)
-    injection_volume: Decimal = Field(..., title="Injection volume (nL)", units="nL")
+    injection_volume: List[Decimal] = Field(
+        ...,
+        title="Injection volume (nL)",
+        units="nL",
+        description="Injection volume, one value per location",
+    )
     injection_volume_unit: VolumeUnit = Field(VolumeUnit.NL, title="Injection volume unit")
 
 
@@ -375,7 +389,12 @@ class IntraCisternalMagnaInjection(BrainInjection):
     """Description of an interacisternal magna injection"""
 
     procedure_type: str = Field("ICM injection", title="Procedure type", const=True)
-    injection_volume: Decimal = Field(..., title="Injection volume (nL)", units="nL")
+    injection_volume: List[Decimal] = Field(
+        ...,
+        title="Injection volume (nL)",
+        units="nL",
+        description="Injection volume, one value per location",
+    )
     injection_volume_unit: VolumeUnit = Field(VolumeUnit.NL, title="Injection volume unit")
 
 
@@ -418,14 +437,17 @@ class OphysProbe(AindModel):
     ferrule_material: Optional[FerruleMaterial] = Field(None, title="Ferrule material")
     targeted_structure: str = Field(..., title="Targeted structure")
     stereotactic_coordinate_ap: Decimal = Field(..., title="Stereotactic coordinate A/P (mm)", units="mm")
-    stereotactic_coordinate_ml: Decimal = Field(..., title="Stereotactic coodinate M/L (mm)", units="mm")
+    stereotactic_coordinate_ml: Decimal = Field(..., title="Stereotactic coordinate M/L (mm)", units="mm")
     stereotactic_coordinate_dv: Decimal = Field(..., title="Stereotactic coordinate D/V (mm)", units="mm")
     stereotactic_coordinate_unit: SizeUnit = Field(SizeUnit.MM, title="Sterotactic coordinate unit")
     stereotactic_coordinate_reference: Optional[CoordinateReferenceLocation] = Field(
         None, title="Stereotactic coordinate reference"
     )
     bregma_to_lambda_distance: Optional[Decimal] = Field(
-        None, title="Bregma to lambda (mm)", description="Distance between bregman and lambda", units="mm"
+        None,
+        title="Bregma to lambda (mm)",
+        description="Distance between bregman and lambda",
+        units="mm",
     )
     bregma_to_lambda_unit: SizeUnit = Field(SizeUnit.MM, title="Bregma to lambda unit")
     angle: Decimal = Field(..., title="Angle (deg)", units="deg")
@@ -450,7 +472,7 @@ class WaterRestriction(AindModel):
         title="Baseline weight (g)",
         description="Weight at start of water restriction",
     )
-    weight_unit: WeightUnit = Field(WeightUnit.G, title="Weight unit")
+    weight_unit: MassUnit = Field(MassUnit.G, title="Weight unit")
     start_date: date = Field(..., title="Water restriction start date")
     end_date: date = Field(..., title="Water restriction end date")
 
@@ -470,7 +492,7 @@ class Perfusion(SubjectProcedure):
 class Procedures(AindCoreModel):
     """Description of all procedures performed on a subject"""
 
-    schema_version: str = Field("0.8.2", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.9.1", description="schema version", title="Version", const=True)
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",

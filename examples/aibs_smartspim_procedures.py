@@ -21,7 +21,11 @@ conductivity_buffer = procedures.Reagent(name="Conductivity Buffer", lot_number=
 
 easy_index = procedures.Reagent(name="Easy Index", lot_number="1234", source="Vendor")
 
-water = procedures.Reagent(name="Deionized water", lot_number="DDI/Filtered in house", source="This is not a reagent")
+water = procedures.Reagent(
+    name="Deionized water",
+    lot_number="DDI/Filtered in house",
+    source="This is not a reagent",
+)
 
 agarose = procedures.Reagent(name="Agarose", lot_number="1234", source="Other vendor")
 
@@ -48,7 +52,7 @@ shield_off_procedure = procedures.SpecimenProcedure(
     reagents=[shield_buffer, shield_epoxy],
 )
 
-# specimen gets transfered to SHIELD ON and baked
+# specimen gets transferred to SHIELD ON and baked
 shield_on_procedure = procedures.SpecimenProcedure(
     specimen_id=specimen_id,
     procedure_type="Fixation",

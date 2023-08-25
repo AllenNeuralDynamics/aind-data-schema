@@ -86,12 +86,42 @@ inst = instrument.Instrument(
             name="Dev2",
             serial_number="Unknown",
             channels=[
-                DAQChannel(channel_name="3", channel_type="Analog Output", device_name="LAS-08308", sample_rate=10000),
-                DAQChannel(channel_name="5", channel_type="Analog Output", device_name="539251", sample_rate=10000),
-                DAQChannel(channel_name="4", channel_type="Analog Output", device_name="LAS-08309", sample_rate=10000),
-                DAQChannel(channel_name="2", channel_type="Analog Output", device_name="stage-x", sample_rate=10000),
-                DAQChannel(channel_name="0", channel_type="Analog Output", device_name="TL-1", sample_rate=10000),
-                DAQChannel(channel_name="6", channel_type="Analog Output", device_name="LAS-08307", sample_rate=10000),
+                DAQChannel(
+                    channel_name="3",
+                    channel_type="Analog Output",
+                    device_name="LAS-08308",
+                    sample_rate=10000,
+                ),
+                DAQChannel(
+                    channel_name="5",
+                    channel_type="Analog Output",
+                    device_name="539251",
+                    sample_rate=10000,
+                ),
+                DAQChannel(
+                    channel_name="4",
+                    channel_type="Analog Output",
+                    device_name="LAS-08309",
+                    sample_rate=10000,
+                ),
+                DAQChannel(
+                    channel_name="2",
+                    channel_type="Analog Output",
+                    device_name="stage-x",
+                    sample_rate=10000,
+                ),
+                DAQChannel(
+                    channel_name="0",
+                    channel_type="Analog Output",
+                    device_name="TL-1",
+                    sample_rate=10000,
+                ),
+                DAQChannel(
+                    channel_name="6",
+                    channel_type="Analog Output",
+                    device_name="LAS-08307",
+                    sample_rate=10000,
+                ),
             ],
         )
     ],
