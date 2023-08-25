@@ -69,6 +69,7 @@ class Registry:
 
     ROR = BaseName(name="Research Organization Registry", abbreviation="ROR")
     NCBI = BaseName(name="National Center for Biotechnology Information", abbreviation="NCBI")
+    RRID = BaseName(name="Research Resource Identifiers", abbreviation="RRID")
 
 
 class PIDName(BaseName):
