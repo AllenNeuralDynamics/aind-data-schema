@@ -16,7 +16,7 @@ from aind_data_schema.device import (
     HarpDevice,
     Monitor,
     Treadmill,
-    Tube
+    Tube,
 )
 
 
