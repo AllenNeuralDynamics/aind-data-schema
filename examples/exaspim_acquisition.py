@@ -28,7 +28,8 @@ acq = acquisition.Acquisition(
                         name="xxx",
                         abbreviation="xx",
                         registry=Registry.RRID,
-                        registry_identifier="100"),
+                        registry_identifier="100"
+                    ),
                     lot_number="xxx",
                     expiration_date=t
                 ),
