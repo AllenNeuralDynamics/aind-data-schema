@@ -22,14 +22,14 @@ acq = acquisition.Acquisition(
             description="Clean chamber",
             reagents=[
                 Reagent(
-                    name="reagent1", 
-                    source="xxx", 
+                    name="reagent1",
+                    source="xxx",
                     rrid=PIDName(
-                        name="xxx", 
-                        abbreviation="xx", 
-                        registry=Registry.RRID, 
-                        registry_identifier="100"), 
-                    lot_number="xxx", 
+                        name="xxx",
+                        abbreviation="xx",
+                        registry=Registry.RRID,
+                        registry_identifier="100"),
+                    lot_number="xxx",
                     expiration_date=t
                 ),
             ]
