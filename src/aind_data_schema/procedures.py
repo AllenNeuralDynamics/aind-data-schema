@@ -45,7 +45,7 @@ class Reagent(AindModel):
 
     name: str = Field(..., title="Name")
     source: str = Field(..., title="Source")
-    rrid: Optional[str] = Field(None, title="Research Resource ID")
+    rrid: Optional[PIDName] = Field(None, title="Research Resource ID")
     lot_number: str = Field(..., title="Lot number")
     expiration_date: Optional[date] = Field(None, title="Lot expiration date")
 
@@ -492,7 +492,7 @@ class Perfusion(SubjectProcedure):
 class Procedures(AindCoreModel):
     """Description of all procedures performed on a subject"""
 
-    schema_version: str = Field("0.9.1", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.9.2", description="schema version", title="Version", const=True)
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",

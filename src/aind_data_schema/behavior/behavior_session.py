@@ -4,20 +4,20 @@ from __future__ import annotations
 
 from datetime import datetime
 from decimal import Decimal
-from typing import Any, Dict, Optional, List
+from typing import Any, Dict, List, Optional
 
 from pydantic import Field
 
 from aind_data_schema.base import AindCoreModel
-from aind_data_schema.utils.units import MassUnit, VolumeUnit
 from aind_data_schema.device import Calibration, Maintenance
+from aind_data_schema.utils.units import MassUnit, VolumeUnit
 
 
 class BehaviorSession(AindCoreModel):
     """Description of a behavior session"""
 
     schema_version: str = Field(
-        "0.0.4",
+        "0.0.5",
         description="Schema version",
         title="Schema Version",
         const=True,
@@ -31,15 +31,11 @@ class BehaviorSession(AindCoreModel):
     session_end_time: datetime = Field(..., title="Session end time")
     rig_id: str = Field(..., title="Rig ID")
     calibrations: Optional[List[Calibration]] = Field(
-        None,
-        title="Calibrations",
-        description="Calibrations of rig devices prior to session"
-        )
+        None, title="Calibrations", description="Calibrations of rig devices prior to session"
+    )
     maintenance: Optional[List[Maintenance]] = Field(
-        None,
-        title="Maintenance",
-        description="Maintenance of rig devices prior to session"
-        )
+        None, title="Maintenance", description="Maintenance of rig devices prior to session"
+    )
     subject_id: int = Field(..., title="Subject ID")
     animal_weight_prior: Optional[Decimal] = Field(
         None,
