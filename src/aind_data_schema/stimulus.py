@@ -92,7 +92,7 @@ class BehaviorStim(AindModel):
         title="Behavior script",
         description="URL for the commit of the code used to run the behavior",
     )
-    behavior_script_version: str = Field(..., title="Behavior srcipt version")
+    behavior_script_version: str = Field(..., title="Behavior script version")
     input_parameters: Dict[str, Any] = Field(
         ..., title="Input parameters", description="Parameters used in behavior session"
     )
