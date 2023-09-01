@@ -7,9 +7,10 @@ from typing import Any, Dict, List, Optional
 
 from pydantic import Field
 
-from aind_data_schema.base import AindModel, BaseName, BaseNameEnumMeta, EnumSubset, PIDName, Registry
-from aind_data_schema.utils.units import create_unit_with_value, AngleUnit, FrequencyUnit, PowerUnit, SizeUnit
+from aind_data_schema.base import AindModel, BaseNameEnumMeta, EnumSubset, PIDName, Registry
+from aind_data_schema.utils.units import create_unit_with_value, AngleUnit, FrequencyUnit, PowerUnit, SizeUnit,
 from aind_data_schema.procedures import Reagent
+
 
 class DeviceDriver(Enum):
     """DeviceDriver name"""
@@ -600,6 +601,7 @@ class Monitor(Device):
         le=100,
     )
 
+
 class SpoutSide(Enum):
     """Spout sides"""
 
@@ -613,7 +615,12 @@ class RewardSpout(Device):
     """Description of a reward spout"""
 
     side: SpoutSide = Field(..., title="Spout side", description="If Other use notes")
-    spout_diameter: create_unit_with_value("spout_diameter", Decimal, Size, SizeUnit.MM) = Field(..., title="Spout diameter (mm)")
+    spout_diameter: create_unit_with_value(
+        "spout_diameter",
+        Decimal,
+        SizeUnit,
+        SizeUnit.MM
+        ) = Field(..., title="Spout diameter (mm)")
     spout_position: Optional[RelativePosition] = Field(None, title="Spout stage position")
     solenoid_valve: Device = Field(..., title="Solenoid valve")
     notes: Optional[str] = Field(None, title="Notes")

@@ -11,9 +11,8 @@ from typing import Any, Dict, List, Optional
 from pydantic import Field
 
 from aind_data_schema.base import AindCoreModel, AindModel
-from aind_data_schema.procedures import WeightUnit
 from aind_data_schema.stimulus import StimulusEpoch
-from aind_data_schema.utils.units import create_unit_with_value, Volume, MassUnit, VolumeUnit
+from aind_data_schema.utils.units import create_unit_with_value, MassUnit, VolumeUnit
 from aind_data_schema.device import Calibration, Maintenance, RelativePosition, SpoutSide
 
 
@@ -29,7 +28,11 @@ class RewardSpout(AindModel):
 
     side: SpoutSide = Field(..., title="Spout side", description="Must match rig")
     starting_position: RelativePosition = Field(..., title="Starting position")
-    variable_position: bool = Field(..., title="Variable position", description="True if spout position changes during session as tracked in data")
+    variable_position: bool = Field(
+        ...,
+        title="Variable position",
+        description="True if spout position changes during session as tracked in data"
+        )
     reward_valve_calibration: Calibration = Field(..., title="Reward valve calibration")
 
 
@@ -39,6 +42,7 @@ class RewardDelivery(AindModel):
     reward_solution: RewardSolution = Field(..., title="Reward solution", description="If Other use notes")
     reward_spouts: List[RewardSpout] = Field(..., title="Reward spouts", unique_items=True)
     notes: Optional[str] = Field(None, title="Notes")
+
 
 class BehaviorSession(AindCoreModel):
     """Description of a behavior session"""
@@ -85,8 +89,18 @@ class BehaviorSession(AindCoreModel):
         title="Performance parameters",
         description="Performance metrics from session",
     )
-    reward_consumed_during_training: create_unit_with_value("reward_consumed_during_training", Decimal, Volume, VolumeUnit.UL) = Field(..., title="Reward consumer during training")
-    reward_consumed_total: create_unit_with_value("reward_consumed_total", Decimal, Volume, VolumeUnit.UL) = Field(..., title="Total reward consumed")
+    reward_consumed_during_training: create_unit_with_value(
+        "reward_consumed_during_training",
+        Decimal,
+        VolumeUnit,
+        VolumeUnit.UL
+        ) = Field(..., title="Reward consumer during training")
+    reward_consumed_total: create_unit_with_value(
+        "reward_consumed_total",
+        Decimal,
+        VolumeUnit,
+        VolumeUnit.UL
+        ) = Field(..., title="Total reward consumed")
     trials_total: int = Field(..., title="Total trials")
     trials_finished: int = Field(..., title="Finished trials")
     trials_rewarded: int = Field(..., title="Rewarded trials")
