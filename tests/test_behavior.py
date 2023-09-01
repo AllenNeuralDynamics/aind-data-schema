@@ -59,8 +59,8 @@ class BehaviorTests(unittest.TestCase):
                 )
             ],
             output_parameters={},
-            water_consumed_during_training=820,
-            water_consumed_total=1020,
+            reward_consumed_during_training=820,
+            reward_consumed_total=1020,
             trials_total=551,
             trials_finished=343,
             trials_rewarded=146,
@@ -82,15 +82,15 @@ class BehaviorTests(unittest.TestCase):
             )
         ]
 
-        wd = br.WaterDelivery(
-            stimulus_type="Water delivery",
+        rd = br.RewardDelivery(
+            stimulus_type="Reward delivery",
             stage_type=MotorizedStage(
                 manufacturer=Manufacturer.THORLABS,
                 model="Z825B",
                 serial_number="1234",
                 travel=25,
             ),
-            water_spouts=[
+            reward_spouts=[
                 RewardSpout(
                     side=SpoutSide.LEFT,
                     manufacturer=Manufacturer.OTHER,
@@ -130,7 +130,7 @@ class BehaviorTests(unittest.TestCase):
             ),
             daqs=daqs,
             stimulus_devices=[
-                wd,
+                rd,
             ],
             cameras=[
                 br.CameraAssembly(
