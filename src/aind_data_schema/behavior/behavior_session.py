@@ -4,16 +4,18 @@ from __future__ import annotations
 
 from datetime import datetime
 from decimal import Decimal
+
 from enum import Enum
 from typing import Any, Dict, List, Optional
 
 from pydantic import Field
 
 from aind_data_schema.base import AindCoreModel, AindModel
-from aind_data_schema.procedures import VolumeUnit, WeightUnit
+from aind_data_schema.procedures import WeightUnit
 from aind_data_schema.stimulus import StimulusEpoch
-from aind_data_schema.utils.units import create_unit_with_value, Volume
-from aind_data_schema.device import RelativePosition, SpoutSide
+from aind_data_schema.utils.units import create_unit_with_value, Volume, MassUnit, VolumeUnit
+from aind_data_schema.device import Calibration, Maintenance, RelativePosition, SpoutSide
+
 
 class RewardSolution(Enum):
     """Reward solution name"""
@@ -55,16 +57,12 @@ class BehaviorSession(AindCoreModel):
     session_start_time: datetime = Field(..., title="Session start time")
     session_end_time: datetime = Field(..., title="Session end time")
     rig_id: str = Field(..., title="Rig ID")
-    spot_calibrations: Optional[List[Calibration]] = Field(
-        None,
-        title="Calibrations",
-        description="Calibrations of rig devices prior to session"
-        )
+    calibrations: Optional[List[Calibration]] = Field(
+        None, title="Calibrations", description="Calibrations of rig devices prior to session"
+    )
     maintenance: Optional[List[Maintenance]] = Field(
-        None,
-        title="Maintenance",
-        description="Maintenance of rig devices prior to session"
-        )
+        None, title="Maintenance", description="Maintenance of rig devices prior to session"
+    )
     subject_id: int = Field(..., title="Subject ID")
     animal_weight_prior: Optional[Decimal] = Field(
         None,

@@ -102,7 +102,7 @@ class ProcessingSteps(AindModel):
 class Acquisition(AindCoreModel):
     """Description of an imaging acquisition session"""
 
-    schema_version: str = Field("0.4.8", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.4.9", description="schema version", title="Version", const=True)
     experimenter_full_name: List[str] = Field(
         ...,
         description="First and last name of the experimenter(s).",
@@ -117,10 +117,8 @@ class Acquisition(AindCoreModel):
         description="List of calibration measurements taken prior to acquisition.",
     )
     maintenance: Optional[List[Maintenance]] = Field(
-        None,
-        title="Maintenance",
-        description="List of maintenance on rig prior to acquisition."
-        )
+        None, title="Maintenance", description="List of maintenance on rig prior to acquisition."
+    )
     session_start_time: datetime = Field(..., title="Session start time")
     session_end_time: datetime = Field(..., title="Session end time")
     session_type: Optional[str] = Field(None, title="Session type")
