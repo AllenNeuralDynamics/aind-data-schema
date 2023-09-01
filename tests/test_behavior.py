@@ -18,6 +18,7 @@ from aind_data_schema.device import (
 from aind_data_schema.behavior import behavior_rig as br
 from aind_data_schema.behavior import behavior_session as bs
 from aind_data_schema.stimulus import BehaviorStim
+from aind_data_schema.utils.units import VolumeUnit
 
 
 class BehaviorTests(unittest.TestCase):
@@ -59,8 +60,8 @@ class BehaviorTests(unittest.TestCase):
                 )
             ],
             output_parameters={},
-            reward_consumed_during_training=820,
-            reward_consumed_total=1020,
+            reward_consumed_during_training=(value=820, unit=VolumeUnit.UL),
+            reward_consumed_total=(value=1020, unit=VolumeUnit.UL),
             trials_total=551,
             trials_finished=343,
             trials_rewarded=146,
