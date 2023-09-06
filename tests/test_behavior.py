@@ -83,7 +83,7 @@ class BehaviorTests(unittest.TestCase):
         ]
 
         rd = br.RewardDelivery(
-            stimulus_type="Reward delivery",
+            stimulus_device="Reward delivery",
             stage_type=MotorizedStage(
                 manufacturer=Manufacturer.THORLABS,
                 model="Z825B",
@@ -113,11 +113,7 @@ class BehaviorTests(unittest.TestCase):
                         serial_number="4321",
                     )
                 )
-            ],
-            lick_holder=Device(
-                manufacturer=Manufacturer.CUSTOM,
-                name="Dual spout lick holder",
-            )
+            ]
         )
 
         r = br.BehaviorRig(
