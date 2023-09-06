@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/ophys/ophys_session.py",
-   "schema_version": "0.2.6",
+   "schema_version": "0.2.7",
    "experimenter_full_name": [
       "John Doe"
    ],
@@ -35,7 +35,7 @@
       }
    ],
    "cameras": null,
-   "stimulus_presentations": null,
+   "stimulus_epochs": null,
    "notes": "Internal trigger. GRAB-DA2m shows signal. Unclear about GRAB-rAC",
    "patch_cords": [
       {
