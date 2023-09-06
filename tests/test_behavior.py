@@ -60,7 +60,7 @@ class BehaviorTests(unittest.TestCase):
                 )
             ],
             output_parameters={},
-            reward_consumed_during_training=820
+            reward_consumed_during_training=820,
             reward_consumed_total=1020,
             trials_total=551,
             trials_finished=343,
