@@ -338,6 +338,7 @@ class Lens(Device):
     manufacturer: EnumSubset[
         Manufacturer.COMPUTAR,
         Manufacturer.EDMUND_OPTICS,
+        Manufacturer.INFINITY_PHOTO_OPTICAL,
         Manufacturer.THORLABS,
         Manufacturer.OTHER,
     ]
