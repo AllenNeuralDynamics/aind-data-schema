@@ -23,6 +23,7 @@ class DeviceDriver(Enum):
 class Manufacturer(Enum, metaclass=BaseNameEnumMeta):
     """Device manufacturer name"""
 
+    AILIPU = PIDName(name="Ailipu Technology Co")
     ALLIED = PIDName(name="Allied")
     ASI = PIDName(
         name="Applied Scientific Instrumentation",
@@ -37,6 +38,7 @@ class Manufacturer(Enum, metaclass=BaseNameEnumMeta):
         registry=Registry.ROR,
         registry_identifier="031tysd23",
     )
+    CONOPTICS = PIDName(name="Conoptics")
     COMPUTAR = PIDName(name="Computar")
     CUSTOM = PIDName(name="Custom")
     DORIC = PIDName(
@@ -50,7 +52,6 @@ class Manufacturer(Enum, metaclass=BaseNameEnumMeta):
         registry=Registry.ROR,
         registry_identifier="01j1gwp17",
     )
-    AILIPU = PIDName(name="Ailipu Technology Co")
     FLIR = PIDName(
         name="Teledyne FLIR",
         abbreviation="FLIR",
@@ -80,6 +81,11 @@ class Manufacturer(Enum, metaclass=BaseNameEnumMeta):
         registry_identifier="02b948n83",
     )
     LIFECANVAS = PIDName(name="LifeCanvas")
+    MEADOWLARK = PIDName(
+        name="Meadowlark Optics",
+        registry=Registry.ROR,
+        registry_identifier="00n8qbq54",
+        )
     MIGHTY_ZAP = PIDName(name="IR Robot Co")
     MKS_NEWPORT = PIDName(
         name="MKS Newport",
@@ -338,6 +344,7 @@ class Lens(Device):
     manufacturer: EnumSubset[
         Manufacturer.COMPUTAR,
         Manufacturer.EDMUND_OPTICS,
+        Manufacturer.INFINITY_PHOTO_OPTICAL,
         Manufacturer.THORLABS,
         Manufacturer.OTHER,
     ]
