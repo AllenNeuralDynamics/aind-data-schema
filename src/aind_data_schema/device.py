@@ -70,6 +70,7 @@ class Manufacturer(Enum, metaclass=BaseNameEnumMeta):
         registry=Registry.ROR,
         registry_identifier="02kcbn207",
     )
+    INFINITY_PHOTO_OPTICAL = PIDName(name="Infinity Photo-Optical")
     JULABO = PIDName(name="Julabo")
     LEE = PIDName(name="The Lee Company")
     LEICA = PIDName(name="Leica")
