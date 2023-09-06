@@ -93,6 +93,7 @@ class BehaviorTests(unittest.TestCase):
             reward_spouts=[
                 RewardSpout(
                     side=SpoutSide.LEFT,
+                    name="Spout A",
                     manufacturer=Manufacturer.OTHER,
                     model="BD223",
                     spout_diameter=0.853,
@@ -104,6 +105,7 @@ class BehaviorTests(unittest.TestCase):
                 ),
                 RewardSpout(
                     side=SpoutSide.RIGHT,
+                    name="Spout B",
                     manufacturer=Manufacturer.OTHER,
                     model="BD223",
                     spout_diameter=0.853,
@@ -143,6 +145,14 @@ class BehaviorTests(unittest.TestCase):
                         pixel_height=1,
                         chroma="Color",
                     ),
+                )
+            ],
+            calibrations=[br.Calibration(
+                date_of_calibration=now,
+                device_name="Spout A",
+                description="Reward spout calibration",
+                input = {"number drops": 1},
+                output = {"volume (uL)": 5},
                 )
             ],
         )

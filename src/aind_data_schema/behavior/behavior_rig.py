@@ -28,7 +28,6 @@ class BehaviorRig(AindCoreModel):
     schema_version: str = Field("0.1.8", description="schema version", title="Version", const=True)
     rig_id: str = Field(..., description="room_stim apparatus_version", title="Rig ID")
     mouse_platform: Union[Tube, Treadmill, Disc] = Field(..., title="Mouse platform")
-    reward_delivery: RewardDelivery = Field(..., title="Reward delivery")
     stimulus_devices: List[Union[RewardDelivery, Monitor, Speaker]] = Field(
         ...,
         title="Stimulus devices",
