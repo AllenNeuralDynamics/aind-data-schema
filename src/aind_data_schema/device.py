@@ -615,12 +615,8 @@ class RewardSpout(Device):
     """Description of a reward spout"""
 
     side: SpoutSide = Field(..., title="Spout side", description="If Other use notes")
-    spout_diameter: create_unit_with_value(
-        "spout_diameter",
-        Decimal,
-        SizeUnit,
-        SizeUnit.MM
-        ) = Field(..., title="Spout diameter (mm)")
+    spout_diameter: Decimal = Field(..., title="Spout diameter (mm)")
+    spout_diameter_unit: SizeUnit = Field(SizeUnit.MM, title="Spout diameter unit")
     spout_position: Optional[RelativePosition] = Field(None, title="Spout stage position")
     solenoid_valve: Device = Field(..., title="Solenoid valve")
     notes: Optional[str] = Field(None, title="Notes")
