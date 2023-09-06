@@ -1,7 +1,7 @@
 """ imports for AindModel subclasses
 """
 
-__version__ = "0.13.87"
+__version__ = "0.13.88"
 
 
 from .behavior.behavior_rig import BehaviorRig
