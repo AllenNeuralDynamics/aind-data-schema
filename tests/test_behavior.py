@@ -95,7 +95,7 @@ class BehaviorTests(unittest.TestCase):
                     side=SpoutSide.LEFT,
                     manufacturer=Manufacturer.OTHER,
                     model="BD223",
-                    spout_diameter=0.853,
+                    spout_diameter={value: 0.853, unit: "mm"},
                     solenoid_valve=Device(
                         manufacturer=Manufacturer.LEE,
                         model="LHDA1231415H",
