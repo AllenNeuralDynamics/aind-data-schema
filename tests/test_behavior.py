@@ -18,7 +18,6 @@ from aind_data_schema.device import (
 from aind_data_schema.behavior import behavior_rig as br
 from aind_data_schema.behavior import behavior_session as bs
 from aind_data_schema.stimulus import BehaviorStim
-from aind_data_schema.utils.units import VolumeUnit
 
 
 class BehaviorTests(unittest.TestCase):
