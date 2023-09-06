@@ -151,8 +151,8 @@ class BehaviorTests(unittest.TestCase):
                 date_of_calibration=now,
                 device_name="Spout A",
                 description="Reward spout calibration",
-                input = {"number drops": 1},
-                output = {"volume (uL)": 5},
+                input={"number drops": 1},
+                output={"volume (uL)": 5},
                 )
             ],
         )
