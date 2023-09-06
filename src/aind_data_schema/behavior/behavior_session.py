@@ -89,18 +89,9 @@ class BehaviorSession(AindCoreModel):
         title="Performance parameters",
         description="Performance metrics from session",
     )
-    reward_consumed_during_training: create_unit_with_value(
-        "reward_consumed_during_training",
-        Decimal,
-        VolumeUnit,
-        VolumeUnit.UL
-        ) = Field(..., title="Reward consumer during training")
-    reward_consumed_total: create_unit_with_value(
-        "reward_consumed_total",
-        Decimal,
-        VolumeUnit,
-        VolumeUnit.UL
-        ) = Field(..., title="Total reward consumed")
+    reward_consumed_during_training: Decimal = Field(..., title="Reward consumed during training (uL)")
+    reward_consumed_total: Decimal = Field(..., title="Total reward consumed (uL)")
+    reward_consumed_unit: VolumeUnit = Field(VolumeUnit.UL, title="Reward consumed unit")
     trials_total: int = Field(..., title="Total trials")
     trials_finished: int = Field(..., title="Finished trials")
     trials_rewarded: int = Field(..., title="Rewarded trials")
