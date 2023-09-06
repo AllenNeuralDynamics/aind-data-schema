@@ -25,7 +25,7 @@ from aind_data_schema.device import (
 class BehaviorRig(AindCoreModel):
     """Description of an behavior rig"""
 
-    schema_version: str = Field("0.1.9, description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.1.9", description="schema version", title="Version", const=True)
     rig_id: str = Field(..., description="room_stim apparatus_version", title="Rig ID")
     mouse_platform: Union[Tube, Treadmill, Disc] = Field(..., title="Mouse platform")
     stimulus_devices: List[Union[RewardDelivery, Monitor, Speaker]] = Field(
