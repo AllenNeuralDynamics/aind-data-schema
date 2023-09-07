@@ -6,18 +6,27 @@ from pydantic import Field
 from pydantic.types import conlist
 
 from aind_data_schema.base import AindModel
-from aind_data_schema.device import AngleUnit, PowerUnit, SizeUnit
+from aind_data_schema.device import AngleUnit, Device, PowerUnit, SizeUnit
 
 
 class Channel(AindModel):
     """Description of a channel"""
 
     channel_name: str = Field(..., title="Channel")
-    laser_wavelength: int = Field(..., title="Wavelength", ge=300, le=1000)
-    laser_wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Laser wavelength unit")
-    laser_power: float = Field(..., title="Laser power", le=2000)
-    laser_power_unit: PowerUnit = Field(PowerUnit.MW, title="Laser power unit")
+    #excitation
+    excitation_wavelength: int = Field(..., title="Wavelength", ge=300, le=1000)
+    excitation_wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Laser wavelength unit")
+    excitation_power: float = Field(..., title="Laser power", le=2000)
+    excitation_power_unit: PowerUnit = Field(PowerUnit.MW, title="Laser power unit")
+    #emission
     filter_wheel_index: int = Field(..., title="Filter wheel index")
+    detector: str = Field(..., title="Detector", description="Detector name must match device name")
+    #dilation
+    dilation: Optional[int] = Field(None, title="Dilation (pixels)")
+    dilation_unit: SizeUnit = Field(SizeUnit.PX, title="Dilation unit")
+    additional_devices: Optional[List[Device]] = Field(None, title="Additional devices", unique_items=True)
+    description: Optional[str] = Field(None, title="Description")
+
 
 
 class CoordinateTransform(AindModel):
