@@ -13,6 +13,10 @@ class Channel(AindModel):
     """Description of a channel"""
 
     channel_name: str = Field(..., title="Channel")
+    light_source_name: str = Field(..., title="Light source name", description="Must match device name")
+    filter_names: List[str] = Field(..., title="Filter names", description="Must match device names")
+    detector_name: str = Field(..., title="Detector name", description="Must match device name")
+    additional_device_names: Optional[List[str]] = Field(None, title="Additional device names")
     #excitation
     excitation_wavelength: int = Field(..., title="Wavelength", ge=300, le=1000)
     excitation_wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Laser wavelength unit")
@@ -20,13 +24,10 @@ class Channel(AindModel):
     excitation_power_unit: PowerUnit = Field(PowerUnit.MW, title="Laser power unit")
     #emission
     filter_wheel_index: int = Field(..., title="Filter wheel index")
-    detector: str = Field(..., title="Detector", description="Detector name must match device name")
     #dilation
     dilation: Optional[int] = Field(None, title="Dilation (pixels)")
     dilation_unit: SizeUnit = Field(SizeUnit.PX, title="Dilation unit")
-    additional_devices: Optional[List[Device]] = Field(None, title="Additional devices", unique_items=True)
     description: Optional[str] = Field(None, title="Description")
-
 
 
 class CoordinateTransform(AindModel):

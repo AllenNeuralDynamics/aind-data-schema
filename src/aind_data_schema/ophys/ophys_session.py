@@ -12,6 +12,7 @@ from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.device import FrequencyUnit, PowerUnit, SizeUnit
 from aind_data_schema.procedures import TimeUnit
 from aind_data_schema.stimulus import StimulusPresentation
+from aind_data_schema.imaging.tile import Channel
 
 
 class FiberName(Enum):
@@ -159,12 +160,9 @@ class TwoPhotonOphysSession(OphysSession):
     fovs: List[FieldOfView] = Field(..., title="Fields of view", unique_items=True)
 
 
-class StackChannel(AindModel):
+class StackChannel(Channel):
     """Description of a Channel used in a Stack"""
 
-    channel_name: str = Field(..., title="Channel name", description="Must match Ophys Rig")
-    dilation: Optional[int] = Field(None, title="Dilation (pixels)")
-    dilation_unit: SizeUnit = Field(SizeUnit.PX, title="Dilation unit")
     start_depth: int = Field(..., title="Starting depth (um)")
     end_depth: int = Field(..., title="Ending depth (um)")
     depth_unit: SizeUnit = Field(SizeUnit.UM, title="Depth unit")
