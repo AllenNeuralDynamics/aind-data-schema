@@ -10,7 +10,7 @@ from typing import Any, Dict, List, Optional, Union
 from pydantic import Field
 
 from aind_data_schema.base import AindModel
-from aind_data_schema.utils.units import FrequencyUnit, TimeUnit
+from aind_data_schema.utils.units import FrequencyUnit, PowerUnit, TimeUnit
 
 
 class PulseShape(Enum):
@@ -99,10 +99,38 @@ class BehaviorStim(AindModel):
     notes: Optional[str] = Field(None, title="Notes")
 
 
+class PhotoStimGroup(AindModel):
+    """Description of a photostimulation group"""
+
+    group_index: int = Field(..., title="Group index")
+    number_of_neurons: int = Field(..., title="Number of neurons")
+    stimulation_laser_power: Decimal = Field(..., title="Stimulation laser power (mW)")
+    stimulation_laser_power_unit: PowerUnit = Field(PowerUnit.MW, title="Stimulation laser power unit")
+    number_trials: int = Field(..., title="Number of trials")
+    number_spirals: int = Field(..., title="Number of spirals")
+    spiral_duration: Decimal = Field(..., title="Spiral duration (s)")
+    spiral_duration_unit: TimeUnit = Field(TimeUnit.S, title="Spiral duration unit")
+    inter_spiral_interval: Decimal = Field(..., title="Inter trial interval (s)")
+    inter_spiral_interval_unit: TimeUnit = Field(TimeUnit.S, title="Inter trial interval unit")
+    other_parameters: Optional[Dict[str, Any]]
+    notes: Optional[str] = Field(None, title="Notes")
+
+class PhotoStimulation(AindModel):
+    """Description of a photostimulation session"""
+
+    stimulus_name: str = Field(..., title="Stimulus name")
+    number_groups: int = Field(..., title="Number of groups")
+    groups: List[PhotoStimGroup] = Field(..., title="Groups")
+    inter_trial_interval: Decimal = Field(..., title="Inter trial interval (s)")
+    inter_trial_interval_unit: TimeUnit = Field(TimeUnit.S, title="Inter trial interval unit")
+    other_parameters: Optional[Dict[str, Any]]
+    notes: Optional[str] = Field(None, title="Notes")
+
+
 class StimulusEpoch(AindModel):
     """Description of stimulus used during session"""
 
-    stimulus: Union[OptoStim, VisualStim, BehaviorStim] = Field(..., title="Stimulus")
+    stimulus: Union[OptoStim, VisualStim, BehaviorStim, PhotoStimulation] = Field(..., title="Stimulus")
     stimulus_start_time: time = Field(
         ...,
         title="Stimulus start time",
