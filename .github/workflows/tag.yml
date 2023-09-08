@@ -69,8 +69,8 @@ jobs:
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      AWS_BUCKET_OLD: 'aind-data-schema-dev'
-      AWS_BUCKET_NEW: 'aind-data-schema-prod-o5171v'
+      AWS_BUCKET_OLD: ${{ vars.AWS_BUCKET_OLD }}
+      AWS_BUCKET_NEW: ${{ vars.AWS_BUCKET_NEW }}
       SOURCE_DIR: 'schemas'
     steps:
       - uses: actions/checkout@master
