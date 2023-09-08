@@ -75,7 +75,6 @@ class OphysRig(AindCoreModel):
     vibration_control: Optional[bool] = Field(None, title="Vibration control")
     patch_cords: Optional[List[Patch]] = Field(..., title="Patch cords", unique_items=True)
     light_sources: List[Union[Laser, LightEmittingDiode]] = Field(..., title="Light sources", unique_items=True)
-    channels: Optional[List[Channel]] = Field(None, title="Channels", unique_items=True)
     detectors: Optional[List[Detector]] = Field(None, title="Detectors", description="Detectors that are not already in Channels", unique_items=True)
     filters: Optional[List[Filter]] = Field(None, title="Filters", description="Filters that are not already in Channels", unique_items=True)
     objectives: Optional[List[Objective]] = Field(None, title="Objectives", unique_items=True)
