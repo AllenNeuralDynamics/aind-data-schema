@@ -163,6 +163,9 @@ class EphysRig(AindCoreModel):
         if cameras is not None:
             device_names += [c.camera.name for c in cameras]
 
+        if daqs is not None:
+            device_names += [daq.name for daq in daqs]
+
         if ephys_assemblies is not None:
             device_names += [probe.name for ephys_assembly in ephys_assemblies for probe in ephys_assembly.probes]
 
