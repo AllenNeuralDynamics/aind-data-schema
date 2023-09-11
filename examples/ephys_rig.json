@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/ephys/ephys_rig.py",
-   "schema_version": "0.7.10",
+   "schema_version": "0.7.11",
    "rig_id": "323_EPHYS1",
    "ephys_assemblies": [
       {
