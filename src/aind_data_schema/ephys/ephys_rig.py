@@ -144,7 +144,7 @@ class EphysRig(AindCoreModel):
     notes: Optional[str] = Field(None, title="Notes")
 
     @root_validator
-    def validate_device_names(cls, values):
+    def validate_device_names(cls, values):  # noqa: C901
         """validate that all DAQ channels are connected to devices that
         actually exist
         """
@@ -162,6 +162,9 @@ class EphysRig(AindCoreModel):
 
         if cameras is not None:
             device_names += [c.camera.name for c in cameras]
+
+        if daqs is not None:
+            device_names += [daq.name for daq in daqs]
 
         if ephys_assemblies is not None:
             device_names += [probe.name for ephys_assembly in ephys_assemblies for probe in ephys_assembly.probes]
