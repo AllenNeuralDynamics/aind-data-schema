@@ -48,7 +48,7 @@ class BehaviorSession(AindCoreModel):
     """Description of a behavior session"""
 
     schema_version: str = Field(
-        "0.0.6",
+        "0.0.7",
         description="Schema version",
         title="Schema Version",
         const=True,
