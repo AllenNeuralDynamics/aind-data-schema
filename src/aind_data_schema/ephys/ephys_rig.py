@@ -129,7 +129,7 @@ class EphysAssembly(AindModel):
 class EphysRig(AindCoreModel):
     """Description of an ephys rig"""
 
-    schema_version: str = Field("0.7.6", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.7.10", description="schema version", title="Version", const=True)
     rig_id: str = Field(..., description="room_stim apparatus_version", title="Rig ID")
     ephys_assemblies: Optional[List[EphysAssembly]] = Field(None, title="Ephys probes", unique_items=True)
     stick_microscopes: Optional[List[StickMicroscopeAssembly]] = Field(None, title="Stick microscopes")
@@ -144,7 +144,7 @@ class EphysRig(AindCoreModel):
     notes: Optional[str] = Field(None, title="Notes")
 
     @root_validator
-    def validate_device_names(cls, values):
+    def validate_device_names(cls, values):  # noqa: C901
         """validate that all DAQ channels are connected to devices that
         actually exist
         """
@@ -162,6 +162,9 @@ class EphysRig(AindCoreModel):
 
         if cameras is not None:
             device_names += [c.camera.name for c in cameras]
+
+        if daqs is not None:
+            device_names += [daq.name for daq in daqs]
 
         if ephys_assemblies is not None:
             device_names += [probe.name for ephys_assembly in ephys_assemblies for probe in ephys_assembly.probes]

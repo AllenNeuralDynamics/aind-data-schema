@@ -68,6 +68,7 @@ inst = Instrument(
     ],
     light_sources=[
         Lightsource(
+            name="Ex_445",
             type="laser",
             coupling="Single-mode fiber",
             wavelength=445,
@@ -78,6 +79,7 @@ inst = Instrument(
             notes="All lasers controlled via Vortran VersaLase System",
         ),
         Lightsource(
+            name="Ex_488",
             type="laser",
             coupling="Single-mode fiber",
             wavelength=488,
@@ -88,6 +90,7 @@ inst = Instrument(
             notes="All lasers controlled via Vortran VersaLase System",
         ),
         Lightsource(
+            name="Ex_561",
             type="laser",
             coupling="Single-mode fiber",
             wavelength=561,
@@ -98,6 +101,7 @@ inst = Instrument(
             notes="All lasers controlled via Vortran VersaLase System",
         ),
         Lightsource(
+            name="Ex_594",
             type="laser",
             coupling="Single-mode fiber",
             wavelength=594,
@@ -108,6 +112,7 @@ inst = Instrument(
             notes="All lasers controlled via Vortran VersaLase System",
         ),
         Lightsource(
+            name="Ex_639",
             type="laser",
             coupling="Single-mode fiber",
             wavelength=639,
@@ -118,6 +123,7 @@ inst = Instrument(
             notes="All lasers controlled via Vortran VersaLase System",
         ),
         Lightsource(
+            name="Ex_665",
             type="laser",
             coupling="Single-mode fiber",
             wavelength=665,
@@ -219,6 +225,7 @@ inst = Instrument(
     ],
     fluorescence_filters=[
         Filter(
+            name="Em_469",
             filter_type="Band pass",
             manufacturer=Manufacturer.SEMROCK,
             diameter=25,
@@ -228,6 +235,7 @@ inst = Instrument(
             serial_number="Unknown-0",
         ),
         Filter(
+            name="Em_525",
             filter_type="Band pass",
             manufacturer=Manufacturer.SEMROCK,
             diameter=25,
@@ -237,6 +245,7 @@ inst = Instrument(
             serial_number="Unknown-1",
         ),
         Filter(
+            name="Em_593",
             filter_type="Band pass",
             manufacturer=Manufacturer.SEMROCK,
             diameter=25,
@@ -246,6 +255,7 @@ inst = Instrument(
             serial_number="Unknown-2",
         ),
         Filter(
+            name="Em_624",
             filter_type="Band pass",
             manufacturer=Manufacturer.SEMROCK,
             diameter=25,
@@ -255,6 +265,7 @@ inst = Instrument(
             serial_number="Unknown-3",
         ),
         Filter(
+            name="Em_667",
             filter_type="Band pass",
             manufacturer=Manufacturer.CHROMA,
             diameter=25,
@@ -264,6 +275,7 @@ inst = Instrument(
             serial_number="Unknown-4",
         ),
         Filter(
+            name="Em_700",
             filter_type="Long pass",
             manufacturer=Manufacturer.THORLABS,
             diameter=25,

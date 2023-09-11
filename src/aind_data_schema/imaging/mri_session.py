@@ -46,7 +46,7 @@ class Scanner(Device):
 class MriSession(AindCoreModel):
     """Description of an MRI scan"""
 
-    schema_version: str = Field("0.1.4", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.1.7", description="schema version", title="Version", const=True)
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
@@ -79,6 +79,8 @@ class MriSession(AindCoreModel):
     mri_scanner: Scanner = Field(..., title="MRI scanner")
     axes: List[Axis] = Field(..., title="Imaging axes")
     voxel_sizes: Scale3dTransform = Field(
-        ..., title="Voxel sizes", description="Size of voxels in order as specified in axes"
+        ...,
+        title="Voxel sizes",
+        description="Size of voxels in order as specified in axes",
     )
     notes: Optional[str] = Field(None, title="Notes")

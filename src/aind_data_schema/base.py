@@ -69,6 +69,7 @@ class Registry:
 
     ROR = BaseName(name="Research Organization Registry", abbreviation="ROR")
     NCBI = BaseName(name="National Center for Biotechnology Information", abbreviation="NCBI")
+    RRID = BaseName(name="Research Resource Identifiers", abbreviation="RRID")
 
 
 class PIDName(BaseName):
@@ -93,7 +94,11 @@ class AindCoreModel(AindModel):
 
         value = build_described_by(cls)
         field = ModelField.infer(
-            name="describedBy", value=value, annotation=str, class_validators=None, config=cls.__config__
+            name="describedBy",
+            value=value,
+            annotation=str,
+            class_validators=None,
+            config=cls.__config__,
         )
         field.field_info.const = True
         cls.__fields__.update({"describedBy": field})

@@ -36,7 +36,9 @@ class SchemaWriter:
         )
 
         parser.add_argument(
-            "--attach-version", action="store_true", help="Add extra directory with schema version number"
+            "--attach-version",
+            action="store_true",
+            help="Add extra directory with schema version number",
         )
         parser.set_defaults(attach_version=False)
 

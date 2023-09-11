@@ -31,10 +31,26 @@ class ExampleTest(unittest.TestCase):
                 ports=[],
                 computer_name="foo",
                 channels=[
-                    DAQChannel(channel_name="123", device_name="Laser A", channel_type="Analog Output"),
-                    DAQChannel(channel_name="321", device_name="Probe A", channel_type="Analog Output"),
-                    DAQChannel(channel_name="234", device_name="Camera A", channel_type="Digital Output"),
-                    DAQChannel(channel_name="2354", device_name="Disc A", channel_type="Digital Output"),
+                    DAQChannel(
+                        channel_name="123",
+                        device_name="Laser A",
+                        channel_type="Analog Output",
+                    ),
+                    DAQChannel(
+                        channel_name="321",
+                        device_name="Probe A",
+                        channel_type="Analog Output",
+                    ),
+                    DAQChannel(
+                        channel_name="234",
+                        device_name="Camera A",
+                        channel_type="Digital Output",
+                    ),
+                    DAQChannel(
+                        channel_name="2354",
+                        device_name="Disc A",
+                        channel_type="Digital Output",
+                    ),
                 ],
             )
         ]
@@ -76,7 +92,11 @@ class ExampleTest(unittest.TestCase):
         with self.assertRaises(pydantic.ValidationError):
             rig = er.EphysRig(
                 daqs=[
-                    er.HarpDevice(computer_name="asdf", harp_device_type="Sound Board", harp_device_version="1"),
+                    er.HarpDevice(
+                        computer_name="asdf",
+                        harp_device_type="Sound Board",
+                        harp_device_version="1",
+                    ),
                     er.NeuropixelsBasestation(
                         basestation_firmware_version="1",
                         bsc_firmware_version="2",
@@ -85,7 +105,11 @@ class ExampleTest(unittest.TestCase):
                         ports=[er.ProbePort(index=0, probes=["Probe B"])],
                         computer_name="foo",
                         channels=[
-                            DAQChannel(channel_name="321", device_name="Probe A", channel_type="Analog Output"),
+                            DAQChannel(
+                                channel_name="321",
+                                device_name="Probe A",
+                                channel_type="Analog Output",
+                            ),
                         ],
                     ),
                 ],

@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/ephys/ephys_session.py",
-   "schema_version": "0.4.7",
+   "schema_version": "0.4.9",
    "experimenter_full_name": [
       "Jane Doe"
    ],
@@ -105,7 +105,7 @@
                "name": "Body Camera"
             }
          ],
-         "stimulus_presentations": null,
+         "stimulus_epochs": null,
          "notes": null
       }
    ],

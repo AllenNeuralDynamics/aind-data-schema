@@ -39,7 +39,9 @@ class OptoStim(AindModel):
     )
     pulse_train_interval_unit: TimeUnit = Field(TimeUnit.S, title="Pulse train interval unit")
     baseline_duration: Decimal = Field(
-        ..., title="Baseline duration (s)", description="Duration of baseline recording prior to first pulse train"
+        ...,
+        title="Baseline duration (s)",
+        description="Duration of baseline recording prior to first pulse train",
     )
     baseline_duration_unit: TimeUnit = Field(TimeUnit.S, title="Baseline duration unit")
     other_parameters: Optional[Dict[str, Any]]
@@ -56,7 +58,9 @@ class VisualStim(AindModel):
         description="Define and list the parameter values used (e.g. all TF or orientation values)",
     )
     stimulus_template_name: Optional[List[str]] = Field(
-        None, title="Stimulus template name", description="Name of image set or movie displayed"
+        None,
+        title="Stimulus template name",
+        description="Name of image set or movie displayed",
     )
     stimulus_software: str = Field(
         ...,
@@ -73,10 +77,32 @@ class VisualStim(AindModel):
     notes: Optional[str] = Field(None, title="Notes")
 
 
-class StimulusPresentation(AindModel):
+class BehaviorStim(AindModel):
+    """Description of behavior parameters. Provides a high level description of stimulus."""
+
+    behavior_name: str = Field(..., title="Behavior name")
+    behavior_software: str = Field(
+        ...,
+        title="Behavior software",
+        description="The software used to control the behavior (e.g. Bonsai)",
+    )
+    behavior_software_version: str = Field(..., title="Behavior software version")
+    behavior_script: str = Field(
+        ...,
+        title="Behavior script",
+        description="URL for the commit of the code used to run the behavior",
+    )
+    behavior_script_version: str = Field(..., title="Behavior script version")
+    input_parameters: Dict[str, Any] = Field(
+        ..., title="Input parameters", description="Parameters used in behavior session"
+    )
+    notes: Optional[str] = Field(None, title="Notes")
+
+
+class StimulusEpoch(AindModel):
     """Description of stimulus used during session"""
 
-    stimulus: Union[OptoStim, VisualStim] = Field(..., title="Stimulus")
+    stimulus: Union[OptoStim, VisualStim, BehaviorStim] = Field(..., title="Stimulus")
     stimulus_start_time: time = Field(
         ...,
         title="Stimulus start time",

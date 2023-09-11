@@ -15,6 +15,7 @@ from aind_data_schema.imaging.tile import Tile
 class ProcessName(Enum):
     """Data processing type labels"""
 
+    DENOISING = "Denoising"
     EPHYS_CURATION = "Ephys curation"
     EPHYS_POSTPROCESSING = "Ephys postprocessing"
     EPHYS_PREPROCESSING = "Ephys preprocessing"
@@ -30,8 +31,15 @@ class ProcessName(Enum):
     IMAGE_TILE_FUSING = "Image tile fusing"
     IMAGE_TILE_PROJECTION = "Image tile projection"
     FILE_CONVERSION = "File format conversion"
+    NEUROPIL_SUBTRACTION = "Neuropil subtraction"
     OTHER = "Other"
     SPIKE_SORTING = "Spike sorting"
+    SPATIAL_TIMESERIES_DEMIXING = "Spatial timeseries demixing"
+    VIDEO_MOTION_CORRECTION = "Video motion correction"
+    VIDEO_PLANE_DECROSSTALK = "Video plane decrosstalk"
+    VIDEO_ROI_CLASSIFICATION = "Video ROI classification"
+    VIDEO_ROI_SEGMENTATION = "Video ROI segmentation"
+    VIDEO_ROI_TIMESERIES_EXTRACTION = "Video ROI timeseries extraction"
 
 
 class DataProcess(AindModel):
@@ -54,7 +62,7 @@ class Processing(AindCoreModel):
     """Description of all processes run on data"""
 
     schema_version: str = Field(
-        "0.2.3",
+        "0.2.4",
         description="Schema version",
         title="Schema version",
         const=True,
@@ -75,9 +83,13 @@ class Registration(DataProcess):
     """Description of tile alignment coordinate transformations"""
 
     registration_type: RegistrationType = Field(
-        ..., title="Registration type", description="Either inter channel across different channels or intra channel"
+        ...,
+        title="Registration type",
+        description="Either inter channel across different channels or intra channel",
     )
     registration_channel: Optional[int] = Field(
-        None, title="Registration channel", description="Channel registered to when inter channel"
+        None,
+        title="Registration channel",
+        description="Channel registered to when inter channel",
     )
     tiles: List[Tile] = Field(..., title="Data tiles")

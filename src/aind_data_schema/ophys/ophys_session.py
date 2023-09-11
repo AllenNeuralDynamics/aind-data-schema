@@ -11,7 +11,7 @@ from pydantic import Field
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.procedures import TimeUnit
-from aind_data_schema.stimulus import StimulusPresentation
+from aind_data_schema.stimulus import StimulusEpoch
 from aind_data_schema.utils.units import FrequencyUnit, PowerUnit, SizeUnit
 
 
@@ -103,7 +103,7 @@ class OphysSession(AindCoreModel):
     """Description of an ophys session"""
 
     schema_version: str = Field(
-        "0.2.5",
+        "0.2.7",
         description="schema version",
         title="Schema Version",
         const=True,
@@ -122,7 +122,7 @@ class OphysSession(AindCoreModel):
     light_sources: List[Union[Laser, LightEmittingDiode]] = Field(..., title="Light source", unique_items=True)
     detectors: Optional[List[Detector]] = Field(None, title="Detectors", unique_items=True)
     cameras: Optional[List[Camera]] = Field(None, title="Cameras", unique_items=True)
-    stimulus_presentations: Optional[List[StimulusPresentation]] = Field(None, title="Stimulus")
+    stimulus_epochs: Optional[List[StimulusEpoch]] = Field(None, title="Stimulus")
     notes: Optional[str] = None
 
 

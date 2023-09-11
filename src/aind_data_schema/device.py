@@ -3,12 +3,13 @@
 from datetime import datetime
 from decimal import Decimal
 from enum import Enum
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List, Optional
 
 from pydantic import Field
 
 from aind_data_schema.base import AindModel, BaseNameEnumMeta, EnumSubset, PIDName, Registry
 from aind_data_schema.utils.units import AngleUnit, FrequencyUnit, PowerUnit, SizeUnit
+from aind_data_schema.procedures import Reagent
 
 
 class DeviceDriver(Enum):
@@ -27,6 +28,7 @@ class Manufacturer(Enum, metaclass=BaseNameEnumMeta):
         name="Applied Scientific Instrumentation",
         abbreviation="ASI",
     )
+    AVCOSTAR = PIDName(name="Arecont Vision Costar")
     BASLER = PIDName(name="Basler")
     CAMBRIDGE_TECHNOLOGY = PIDName(name="Cambridge Technology")
     CHROMA = PIDName(name="Chroma")
@@ -55,6 +57,7 @@ class Manufacturer(Enum, metaclass=BaseNameEnumMeta):
         registry=Registry.ROR,
         registry_identifier="01j1gwp17",
     )
+    FUJINON = PIDName(name="Fujinon")
     HAMAMATSU = PIDName(
         name="Hamamatsu",
         registry=Registry.ROR,
@@ -67,7 +70,9 @@ class Manufacturer(Enum, metaclass=BaseNameEnumMeta):
         registry=Registry.ROR,
         registry_identifier="02kcbn207",
     )
+    INFINITY_PHOTO_OPTICAL = PIDName(name="Infinity Photo-Optical")
     JULABO = PIDName(name="Julabo")
+    LEE = PIDName(name="The Lee Company")
     LEICA = PIDName(name="Leica")
     LG = PIDName(
         name="LG",
@@ -108,13 +113,16 @@ class Manufacturer(Enum, metaclass=BaseNameEnumMeta):
     OXXIUS = PIDName(name="Oxxius")
     PRIZMATIX = PIDName(name="Prizmatix")
     QUANTIFI = PIDName(name="Quantifi")
+    RASPBERRYPI = PIDName(name="Raspberry Pi")
     SEMROCK = PIDName(name="Semrock")
+    TAMRON = PIDName(name="Tamron")
     THORLABS = PIDName(
         name="Thorlabs",
         registry=Registry.ROR,
         registry_identifier="04gsnvb07",
     )
     TMC = PIDName(name="Technical Manufacturing Corporation", abbreviation="TMC")
+    TYMPHANY = PIDName(name="Tymphany")
     VIEWORKS = PIDName(name="Vieworks")
     VORTRAN = PIDName(name="Vortran")
     OTHER = PIDName(name="Other")
@@ -260,6 +268,28 @@ class Software(AindModel):
     parameters: Optional[dict] = Field(None, title="Software parameters", additionalProperties={"type": "string"})
 
 
+class Calibration(AindModel):
+    """Generic calibration class"""
+
+    date_of_calibration: datetime = Field(..., title="Date and time of calibration")
+    device_name: str = Field(..., title="Device name", description="Must match a device name in rig/instrument")
+    description: str = Field(..., title="Description", description="Brief decsription of what is being calibrated")
+    input: Optional[Dict[str, Any]] = Field({}, description="Calibration input", title="inputs")
+    output: Optional[Dict[str, Any]] = Field({}, description="Calibration output", title="outputs")
+    notes: Optional[str] = Field(None, title="Notes")
+
+
+class Maintenance(AindModel):
+    """Generic maintenance class"""
+
+    date_of_maintenance: datetime = Field(..., title="Date and time of maintenance")
+    device_name: str = Field(..., title="Device name", description="Must match a device name in rig/instrument")
+    description: str = Field(..., title="Description", description="Description on maintenance procedure")
+    protocol_id: Optional[str] = Field(None, title="Protocol ID")
+    reagents: Optional[List[Reagent]] = Field(None, title="Reagents")
+    notes: Optional[str] = Field(None, title="Notes")
+
+
 class MotorizedStage(Device):
     """Description of motorized stage"""
 
@@ -306,7 +336,11 @@ class Lens(Device):
 
     # required fields
     manufacturer: EnumSubset[
-        Manufacturer.COMPUTAR, Manufacturer.EDMUND_OPTICS, Manufacturer.THORLABS, Manufacturer.OTHER
+        Manufacturer.COMPUTAR,
+        Manufacturer.EDMUND_OPTICS,
+        Manufacturer.INFINITY_PHOTO_OPTICAL,
+        Manufacturer.THORLABS,
+        Manufacturer.OTHER,
     ]
 
     # optional fields
@@ -345,7 +379,9 @@ class Filter(Device):
     center_wavelength: Optional[int] = Field(None, title="Center wavelength (nm)")
     wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
     description: Optional[str] = Field(
-        None, title="Description", description="More details about filter properties and where/how it is being used"
+        None,
+        title="Description",
+        description="More details about filter properties and where/how it is being used",
     )
 
 
@@ -515,7 +551,9 @@ class Disc(MousePlatform):
     encoder: Optional[str] = Field(None, title="Encoder", description="Encoder hardware type")
     decoder: Optional[str] = Field(None, title="Decoder", description="Decoder chip type")
     encoder_firmware: Optional[Software] = Field(
-        None, title="Encoder firmware", description="Firmware to read from decoder chip counts"
+        None,
+        title="Encoder firmware",
+        description="Firmware to read from decoder chip counts",
     )
 
 
@@ -536,17 +574,20 @@ class Treadmill(MousePlatform):
 
 
 class Monitor(Device):
-    """Visual display"""
+    """Description of visual display for visual stimuli"""
 
     # required fields
+    stimulus_device: str = Field("Visual monitor", title="Stimulus type", const=True)
     manufacturer: EnumSubset[Manufacturer.LG]
     refresh_rate: int = Field(..., title="Refresh rate (Hz)", units="Hz", ge=60)
     width: int = Field(..., title="Width (pixels)", units="pixels")
     height: int = Field(..., title="Height (pixels)", units="pixels")
     size_unit: SizeUnit = Field(SizeUnit.PX, title="Size unit")
     viewing_distance: Decimal = Field(..., title="Viewing distance (cm)", units="cm")
+    viewing_distance_unit: SizeUnit = Field(SizeUnit.CM, title="Viewing distance unit")
 
     # optional fields
+    position: Optional[RelativePosition] = Field(None, title="Relative position of the monitor")
     contrast: Optional[int] = Field(
         ...,
         description="Monitor's contrast setting",
@@ -563,36 +604,37 @@ class Monitor(Device):
     )
 
 
-class WaterDelivery(AindModel):
-    """Description of water delivery system"""
+class SpoutSide(Enum):
+    """Spout sides"""
 
-    # required fields
-    spout_diameter: str = Field(..., title="Spout diameter (mm)")
+    LEFT = "Left"
+    RIGHT = "Right"
+    CENTER = "Center"
+    OTHER = "Other"
+
+
+class RewardSpout(Device):
+    """Description of a reward spout"""
+
+    side: SpoutSide = Field(..., title="Spout side", description="If Other use notes")
+    spout_diameter: Decimal = Field(..., title="Spout diameter (mm)")
     spout_diameter_unit: SizeUnit = Field(SizeUnit.MM, title="Spout diameter unit")
-    spout_position: RelativePosition = Field(..., title="Spout stage position")
-    water_calibration_values: Dict[str, Any] = Field(..., title="Water calibration values")
-
-    # optional fields
-    stage_type: Optional[MotorizedStage] = Field(None, title="Motorized stage")
+    spout_position: Optional[RelativePosition] = Field(None, title="Spout stage position")
+    solenoid_valve: Device = Field(..., title="Solenoid valve")
+    notes: Optional[str] = Field(None, title="Notes")
 
 
-class MousePlatform(AindModel):
-    """Behavior platform for a mouse during a session"""
+class RewardDelivery(AindModel):
+    """Description of reward delivery system"""
 
-    track_wheel: Union[Tube, Treadmill, Disc] = Field(..., title="Track wheel type")
-
-    # optional fields
-    stage_software: Optional[Software] = Field(None, title="Stage software")
-    water_delivery: Optional[WaterDelivery] = Field(None, title="Water delivery")
+    stimulus_device: str = Field("Reward delivery", title="Stimulus type", const=True)
+    stage_type: MotorizedStage = Field(None, title="Motorized stage")
+    reward_spouts: List[RewardSpout] = Field(..., title="Water spouts")
 
 
-class VisualStimulusDisplayAssembly(AindModel):
-    """Visual display"""
+class Speaker(Device):
+    """Description of a speaker for auditory stimuli"""
 
-    # required fields
-    monitor: Monitor = Field(..., title="Monitor")
-    viewing_distance: Decimal = Field(..., title="Viewing distance (cm)", units="cm")
-    viewing_distance_unit: SizeUnit = Field(SizeUnit.CM, title="Viewing distance unit")
-
-    # optional fields
+    stimulus_device: str = Field("Speaker", title="Stimulus type", const=True)
+    manufacturer: EnumSubset[Manufacturer.TYMPHANY]
     position: Optional[RelativePosition] = Field(None, title="Relative position of the monitor")
