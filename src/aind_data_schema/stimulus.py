@@ -115,6 +115,7 @@ class PhotoStimGroup(AindModel):
     other_parameters: Optional[Dict[str, Any]]
     notes: Optional[str] = Field(None, title="Notes")
 
+
 class PhotoStimulation(AindModel):
     """Description of a photostimulation session"""
 
