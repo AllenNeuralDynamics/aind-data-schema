@@ -106,7 +106,7 @@ class OphysRig(AindCoreModel):
     cameras: Optional[List[CameraAssembly]] = Field(None, title="Camera assemblies", unique_items=True)
     mouse_platform: Optional[Union[Tube, Treadmill, Disc]] = Field(None, title="Mouse platform")
     stimulus_devices: Optional[List[Union[RewardDelivery, Monitor, Speaker]]] = Field(
-        ...,
+        None,
         title="Stimulus devices",
         unique_items=True,
         )

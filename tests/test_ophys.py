@@ -36,6 +36,7 @@ class OphysTests(unittest.TestCase):
             light_sources=[],
             coupling_array=[],
             patch_cords=[],
+            stimulus_devices=[],
         )
 
         assert s is not None
