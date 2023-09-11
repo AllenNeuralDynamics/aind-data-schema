@@ -21,7 +21,7 @@ class OphysTests(unittest.TestCase):
         with self.assertRaises(ValidationError):
             s = FiberPhotometrySession()
 
-        r = OphysRig(rig_id="12345", patch_cords=[], light_sources=[])
+        r = OphysRig(rig_id="12345", patch_cords=[], light_sources=[], stimulus_devices=[])
 
         assert r is not None
         now = datetime.datetime.now()
@@ -36,7 +36,6 @@ class OphysTests(unittest.TestCase):
             light_sources=[],
             coupling_array=[],
             patch_cords=[],
-            stimulus_devices=[],
         )
 
         assert s is not None
