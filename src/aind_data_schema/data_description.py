@@ -165,7 +165,7 @@ class ExperimentType(Enum):
 
 class Project(Enum, metaclass=BaseNameEnumMeta):
     ECEPHYS_PLAT = BaseName(name="Electrophysiology Platform", abbreviation="ecephys-plat") # formerly ecephys
-    HIST_PLAT = BaseName("MSMA Platform - Histology", abbreviation="hist-plat") # formerly smartspim
+    HIST_PLAT = BaseName(name="MSMA Platform - Histology", abbreviation="hist-plat") # formerly smartspim
     SLAP2_PLAT = BaseName(name="Ophys Platform - SLAP2", abbreviation="slap2-plat")    
     BEHAVIOR_PLAT = BaseName(name="Behavior Platform Development", abbreviation="behavior-plat")
     CTLUT = BaseName(name="Cell Type Lookup Table", abbreviation="ctlut")

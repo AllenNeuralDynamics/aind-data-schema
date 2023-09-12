@@ -4,7 +4,7 @@
    "license": "CC-BY-4.0",
    "creation_time": "16:30:01",
    "creation_date": "2022-02-21",
-   "name": "ecephys-dev_12345_2022-02-21_16-30-01",
+   "name": "ecephys-plat_12345_2022-02-21_16-30-01",
    "institution": {
       "name": "Allen Institute for Neural Dynamics",
       "abbreviation": "AIND",
@@ -35,8 +35,8 @@
       "Jane Smith"
    ],
    "project": {
-      "name": "Electrophysiology Platform Development",
-      "abbreviation": "ecephys-dev"
+      "name": "Electrophysiology Platform",
+      "abbreviation": "ecephys-plat"
    },
    "restrictions": null,
    "modality": [
