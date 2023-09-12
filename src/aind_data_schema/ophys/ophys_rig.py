@@ -8,7 +8,7 @@ from typing import List, Optional, Union
 
 from pydantic import Field
 
-from aind_data_schema.base import AindCoreModel, AindModel
+from aind_data_schema.base import AindCoreModel
 from aind_data_schema.device import (
     CameraAssembly,
     DAQDevice,

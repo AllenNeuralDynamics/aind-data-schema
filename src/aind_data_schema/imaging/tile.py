@@ -17,14 +17,14 @@ class Channel(AindModel):
     filter_names: List[str] = Field(..., title="Filter names", description="Must match device names")
     detector_name: str = Field(..., title="Detector name", description="Must match device name")
     additional_device_names: Optional[List[str]] = Field(None, title="Additional device names")
-    #excitation
+    # excitation
     excitation_wavelength: int = Field(..., title="Wavelength", ge=300, le=1000)
     excitation_wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Laser wavelength unit")
     excitation_power: float = Field(..., title="Laser power", le=2000)
     excitation_power_unit: PowerUnit = Field(PowerUnit.MW, title="Laser power unit")
-    #emission
+    # emission
     filter_wheel_index: int = Field(..., title="Filter wheel index")
-    #dilation
+    # dilation
     dilation: Optional[int] = Field(None, title="Dilation (pixels)")
     dilation_unit: SizeUnit = Field(SizeUnit.PX, title="Dilation unit")
     description: Optional[str] = Field(None, title="Description")
