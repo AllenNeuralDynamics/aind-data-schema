@@ -6,7 +6,7 @@ from pydantic import Field
 from pydantic.types import conlist
 
 from aind_data_schema.base import AindModel
-from aind_data_schema.device import AngleUnit, Device, PowerUnit, SizeUnit
+from aind_data_schema.device import AngleUnit, PowerUnit, SizeUnit
 
 
 class Channel(AindModel):
