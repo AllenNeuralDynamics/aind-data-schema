@@ -164,46 +164,27 @@ class ExperimentType(Enum):
 
 
 class Project(Enum, metaclass=BaseNameEnumMeta):
-    ECEPHYS = BaseName(name="Electrophysiology Platform Development", abbreviation="ecephys-dev")
-    SLAP2 = BaseName(name="SLAP2 Platform Development", abbreviation="slap2-dev")
-    BEHAVIOR = BaseName(name="Behavior Platform Development", abbreviation="behavior-dev")
-    MMOD = BaseName(name="Multiplexed Neuromodulation", abbreviation="mmod")
+    ECEPHYS_PLAT = BaseName(name="Electrophysiology Platform", abbreviation="ecephys-plat") # formerly ecephys
+    HIST_PLAT = BaseName("MSMA Platform - Histology", abbreviation="hist-plat") # formerly smartspim
+    SLAP2_PLAT = BaseName(name="Ophys Platform - SLAP2", abbreviation="slap2-plat")    
+    BEHAVIOR_PLAT = BaseName(name="Behavior Platform Development", abbreviation="behavior-plat")
     CTLUT = BaseName(name="Cell Type Lookup Table", abbreviation="ctlut")
-    OITEST = BaseName(name="Optical physiology indicator testing", abbreviation="oitest")
-    ACTVAL = BaseName(name="Converting value into action", abbreviation="actval")
+    SCBC = BaseName(name="Single-Neuron Computations with Brain-Wide Circuits", abbreviation="scbc")
+    # thalamus / medulla: what to do with these?
+    CVIA = BaseName(name="Converting value into action", abbreviation="cvia")
     COGFLEX = BaseName(name="Cognitive flexibility in patch foraging", abbreviation="cogflex")
-    BCI = BaseName(name="Brain computer interface", abbreviation="bci")
-    NEFUNC = BaseName(name="Test function differences of NE neurons", abbreviation="nefunc")
-    NMSYS = BaseName(name="Molecular and projection-defined diversity of neuromodulator systems", abbreviation="nmsys")
-    NMDYN = BaseName(name="Neuromodulation dynamics", abbreviation="nmdyn")
-    DISCNM = BaseName(name="Discovery - Neuromodulation", abbreviation="disc-nm")
-    DISCBWD = BaseName(name="Discovery - Brain wide dynamics", abbreviation="disc-bwd")
-    TIM1 = BaseName(name="AIND Thalamus U19 - Project 1", abbreviation="tim1")
-    TIM2 = BaseName(name="AIND Thalamus U19 - Project 2", abbreviation="tim2")
-    TIM4 = BaseName(name="AIND Thalamus U19 - Project 4", abbreviation="tim4")
-    # 122-01-002-20 - AIND Thalamus U19 - DSC
-    TIMMC = BaseName(name="AIND Thalamus U19 - Molecular core", abbreviation="timmc")
-    EXASPIM = BaseName(name="Neural Dynamics - Glaser R00", abbreviation="exaspim-dev")
-    # 122-01-005-10 - AIND Svoboda DeepMind Collab
-    BRAINSTEM = BaseName(name="AIND Brainstem RF1", abbreviation="brainstem")
-    HSFP = BaseName(name="AIND Hagihara HFSP", abbreviation="hsfp")
-    # 122-01-007-10 - AIND Svoboda HHMI
-    # 122-01-008-10 - AIND CZI Acquisition Software
-    # 122-01-009-10 - AIND Kaspar MBF
-    # 122-01-009-20 - AIND Amarante F32
-    # 122-01-010-20 - AIND Poo Simons BTI
-    # 122-01-011-20 - AIND Cohen JHU R01 Transferred Subaward
-    # 122-01-012-20 AIND RF1 Functions of locus coeruleus
-    # 102-01-040-20 - CTY BRAIN UG3/UH3 Genetic Viral Tools
-    # 102-01-057-20 - CTY BRAIN BG AAV Toolbox
-    GENTOOLS = BaseName(name="Cell Type Genetic Tools", abbreviation="gentools")
-    # 102-01-002-20 - TH Grant - Task Molecular Core
-    # 102-04-007-10 - CTY Targeted CNS Gene Therapy
-    # 102-04-009-10 - Task:Dravet
-    # 121-01-025-20 - U01 Bridging Func & Morph
-    LMFISH = BaseName(name="Learning & mFISH", abbreviation="lmfish")
-    V1OMFISH = BaseName(name="v1omFISH", abbreviation="v1omfish")
-
+    BCI = BaseName(name="Brain-computer interface", abbreviation="bci")
+    DR = BaseName(name="Dynamic Routing", abbreviation="dr")
+    LMFISH = BaseName(name="Learning mFISH", abbreviation="lmfish")
+    OPENSCOPE = BaseName(name="OpenScope", abbreviation="openscope") # do we need subprojects here
+    TEMPLETON = BaseName(name="Templeton", abbreviation="templeton")
+    NPU = BaseName(name="Neuropixels Ultra", abbreviation="npu")
+    DISC_BWC = BaseName(name="Discovery - Brain Wide Circuits", abbreviation="dsic-bwc")
+    NMOD_NE = BaseName(name="Functional differences of NE neurons", abbreviation="nmod-ne")
+    NMOD_FD = BaseName(name="Cell-type-specific computations for flexible decisionmaking", abbreviation="nmod-fd")
+    NMOD_DIV = BaseName(name="Molecular and projection-defined diversity of neuromodulator systems", abbreviation="nmod-div")
+    NMOD_DYN = BaseName(name="Neuromodulation dynamics", abbreviation="nmod-dyn")
+    DISC_NMOD = BaseName(name="Discovery - Neuromodulation", abbreviation="disc-nmod")
 
 def datetime_to_name_string(d, t):
     """Take a date and time object, format it a as string"""
