@@ -158,3 +158,34 @@ class TwoPhotonOphysSession(OphysSession):
     """Description of a two photon session"""
 
     fovs: List[FieldOfView] = Field(..., title="Fields of view", unique_items=True)
+
+class StackChannel(Channel):
+    """Description of a Channel used in a Stack"""
+
+    start_depth: int = Field(..., title="Starting depth (um)")
+    end_depth: int = Field(..., title="Ending depth (um)")
+    depth_unit: SizeUnit = Field(SizeUnit.UM, title="Depth unit")
+
+
+class Stack(OphysSession):
+    """Description of a two photon stack"""
+
+    channels: List[StackChannel] = Field(..., title="Channels")
+    number_of_planes: int = Field(..., title="Number of planes")
+    step_size: float = Field(..., title="Step size (um)")
+    step_size_unit: SizeUnit = Field(SizeUnit.UM, title="Step size unit")
+    number_of_plane_repeats_per_volume: int = Field(..., title="Number of repeats per volume")
+    number_of_volume_repeats: int = Field(..., title="Number of volume repeats")
+    fov_coordinate_ml: float = Field(..., title="FOV coodinate ML")
+    fov_coordinate_ap: float = Field(..., title="FOV coordinate AP")
+    fov_coordinate_unit: SizeUnit = Field(SizeUnit.UM, title="FOV coordinate unit")
+    fov_reference: str = Field(..., title="FOV reference", description="Reference for ML/AP coordinates")
+    fov_width: int = Field(..., title="FOV width (pixels)")
+    fov_height: int = Field(..., title="FOV height (pixels)")
+    fov_size_unit: SizeUnit = Field(SizeUnit.PX, title="FOV size unit")
+    magnification: Optional[str] = Field(None, title="Magnification")
+    fov_scale_factor: float = Field(..., title="FOV scale factor (um/pixel)")
+    fov_scale_factor_unit: str = Field("um/pixel", title="FOV scale factor unit")
+    frame_rate: float = Field(..., title="Frame rate (Hz)")
+    frame_rate_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Frame rate unit")
+    targeted_structure: Optional[str] = Field(None, title="Targeted structure")
