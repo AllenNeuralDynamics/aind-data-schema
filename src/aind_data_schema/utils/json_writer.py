@@ -6,8 +6,8 @@ import sys
 from pathlib import Path
 from typing import Iterator
 
-import aind_data_schema
 from aind_data_schema.base import AindCoreModel
+from aind_data_schema.utils.aind_utils import aind_core_models
 
 
 class SchemaWriter:
@@ -36,7 +36,9 @@ class SchemaWriter:
         )
 
         parser.add_argument(
-            "--attach-version", action="store_true", help="Add extra directory with schema version number"
+            "--attach-version",
+            action="store_true",
+            help="Add extra directory with schema version number",
         )
         parser.set_defaults(attach_version=False)
 
@@ -49,13 +51,9 @@ class SchemaWriter:
         """
         Returns Iterator of AindCoreModel classes
         """
-        aind_data_schema_classes = aind_data_schema.__all__
 
-        for class_name in aind_data_schema_classes:
-            model = getattr(aind_data_schema, class_name)
-
-            if AindCoreModel in model.__bases__:
-                yield model
+        for model in aind_core_models():
+            yield model
 
     def write_to_json(self) -> None:
         """

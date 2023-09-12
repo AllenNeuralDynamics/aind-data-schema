@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from datetime import date
+from decimal import Decimal
 from enum import Enum
 from typing import List, Optional, Union
 
@@ -11,6 +12,7 @@ from pydantic import Field
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.device import (
     CameraAssembly,
+    CameraChroma,
     DAQDevice,
     DataInterface,
     Device,
@@ -21,11 +23,14 @@ from aind_data_schema.device import (
     Laser,
     Lens,
     LightEmittingDiode,
-    Objective,
     Monitor,
+    Objective,
+    RewardDelivery,
+    Speaker,
     Treadmill,
     Tube,
 )
+from aind_data_schema.utils.units import SizeUnit
 
 
 class DetectorType(Enum):
@@ -43,6 +48,14 @@ class Cooling(Enum):
     WATER = "water"
 
 
+class BinMode(Enum):
+    """Detector binning mode"""
+
+    ADDITIVE = "additive"
+    AVERAGE = "average"
+    NONE = "none"
+
+
 class Detector(Device):
     """Description of a generic detector"""
 
@@ -51,12 +64,23 @@ class Detector(Device):
     cooling: Cooling = Field(..., title="Cooling")
     immersion: Optional[Immersion] = Field(None, title="Immersion")
 
+    chroma: Optional[CameraChroma] = Field(None, title="Camera chroma")
+    bit_depth: Optional[int] = Field(None, title="Bit depth")
+    bin_mode: Optional[BinMode] = Field(BinMode.NONE, title="Detector binning mode")
+    bin_width: Optional[int] = Field(None, title="Bin width")
+    bin_height: Optional[int] = Field(None, title="Bin height")
+    bin_unit: Optional[SizeUnit] = Field(SizeUnit.PX, title="Bin size unit", const=True)
+    gain: Optional[Decimal] = Field(None, title="Gain")
+    crop_width: Optional[int] = Field(None, title="Crop width")
+    crop_height: Optional[int] = Field(None, title="Crop width")
+    crop_unit: Optional[SizeUnit] = Field(SizeUnit.PX, title="Crop size unit", const=True)
+
 
 class Patch(Device):
     """Description of a patch cord"""
 
-    core_diameter: float = Field(..., title="Core diameter (um)")
-    numerical_aperture: float = Field(..., title="Numerical aperture")
+    core_diameter: Decimal = Field(..., title="Core diameter (um)")
+    numerical_aperture: Decimal = Field(..., title="Numerical aperture")
     photobleaching_date: Optional[date] = Field(None, title="Photobleaching date")
 
 
@@ -64,7 +88,7 @@ class OphysRig(AindCoreModel):
     """Description of an optical physiology rig"""
 
     schema_version: str = Field(
-        "0.5.4",
+        "0.7.0",
         description="schema version",
         title="Schema Version",
         const=True,
@@ -81,7 +105,11 @@ class OphysRig(AindCoreModel):
     lenses: Optional[List[Lens]] = Field(None, title="Lenses", unique_items=True)
     cameras: Optional[List[CameraAssembly]] = Field(None, title="Camera assemblies", unique_items=True)
     mouse_platform: Optional[Union[Tube, Treadmill, Disc]] = Field(None, title="Mouse platform")
-    visual_monitors: Optional[List[Monitor]] = Field(None, title="Visual monitors", unique_items=True)
+    stimulus_devices: Optional[List[Union[RewardDelivery, Monitor, Speaker]]] = Field(
+        None,
+        title="Stimulus devices",
+        unique_items=True,
+        )
     daqs: Optional[List[Union[DAQDevice, HarpDevice]]] = Field(None, title="Data acquisition devices")
     additional_devices: Optional[List[Device]] = Field(None, title="Additional devices", unique_items=True)
     light_path_diagram: Optional[str] = Field(

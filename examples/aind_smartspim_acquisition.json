@@ -18,21 +18,21 @@
          "dimension": 0,
          "direction": "Left_to_right",
          "voxel_size": 1.8,
-         "volume_size": 8640.0
+         "volume_size": 8640,
       },
       {
          "name": "Y",
          "dimension": 1,
          "direction": "Posterior_to_anterior",
          "voxel_size": 1.8,
-         "volume_size": 21024.0
+         "volume_size": 21024,
       },
       {
          "name": "Z",
          "dimension": 2,
          "direction": "Superior_to_inferior",
-         "voxel_size": 2.0,
-         "volume_size": 18400.0
+         "voxel_size": 2,
+         "volume_size": 18400,
       }
    ],
    "additional_parameters": null,

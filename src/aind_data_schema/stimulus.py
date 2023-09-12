@@ -3,14 +3,14 @@
 from __future__ import annotations
 
 from datetime import time
+from decimal import Decimal
 from enum import Enum
 from typing import Any, Dict, List, Optional, Union
 
 from pydantic import Field
 
 from aind_data_schema.base import AindModel
-from aind_data_schema.device import FrequencyUnit
-from aind_data_schema.procedures import TimeUnit
+from aind_data_schema.utils.units import FrequencyUnit, PowerUnit, TimeUnit
 
 
 class PulseShape(Enum):
@@ -21,7 +21,7 @@ class PulseShape(Enum):
     SINE = "Sinusoidal"
 
 
-class OptoStim(AindModel):
+class OptoStimulation(AindModel):
     """Description of opto stimulation parameters"""
 
     stimulus_name: str = Field(..., title="Stimulus name")
@@ -31,22 +31,24 @@ class OptoStim(AindModel):
     number_pulse_trains: int = Field(..., title="Number of pulse trains")
     pulse_width: int = Field(..., title="Pulse width (ms)")
     pulse_width_unit: TimeUnit = Field(TimeUnit.MS, title="Pulse width unit")
-    pulse_train_duration: float = Field(..., title="Pulse train duration (s)")
+    pulse_train_duration: Decimal = Field(..., title="Pulse train duration (s)")
     pulse_train_duration_unit: TimeUnit = Field(TimeUnit.S, title="Pulse train duration unit")
     fixed_pulse_train_interval: bool = Field(..., title="Fixed pulse train interval")
-    pulse_train_interval: Optional[float] = Field(
+    pulse_train_interval: Optional[Decimal] = Field(
         None, title="Pulse train interval (s)", description="Time between pulse trains"
     )
     pulse_train_interval_unit: TimeUnit = Field(TimeUnit.S, title="Pulse train interval unit")
-    baseline_duration: float = Field(
-        ..., title="Baseline duration (s)", description="Duration of baseline recording prior to first pulse train"
+    baseline_duration: Decimal = Field(
+        ...,
+        title="Baseline duration (s)",
+        description="Duration of baseline recording prior to first pulse train",
     )
     baseline_duration_unit: TimeUnit = Field(TimeUnit.S, title="Baseline duration unit")
     other_parameters: Optional[Dict[str, Any]]
     notes: Optional[str] = Field(None, title="Notes")
 
 
-class VisualStim(AindModel):
+class VisualStimulation(AindModel):
     """Description of visual stimulus parameters. Provides a high level description of stimulus."""
 
     stimulus_name: str = Field(..., title="Stimulus name")
@@ -56,7 +58,9 @@ class VisualStim(AindModel):
         description="Define and list the parameter values used (e.g. all TF or orientation values)",
     )
     stimulus_template_name: Optional[List[str]] = Field(
-        None, title="Stimulus template name", description="Name of image set or movie displayed"
+        None,
+        title="Stimulus template name",
+        description="Name of image set or movie displayed",
     )
     stimulus_software: str = Field(
         ...,
@@ -69,14 +73,68 @@ class VisualStim(AindModel):
         title="Stimulus script",
         description="The specific code for this stimulus instance",
     )
-    stimulus_script_version: str = Field(..., title="Stimulus srcipt version")
+    stimulus_script_version: str = Field(..., title="Stimulus script version")
     notes: Optional[str] = Field(None, title="Notes")
 
 
-class StimulusPresentation(AindModel):
+class BehaviorStimulation(AindModel):
+    """Description of behavior parameters. Provides a high level description of stimulus."""
+
+    behavior_name: str = Field(..., title="Behavior name")
+    behavior_software: str = Field(
+        ...,
+        title="Behavior software",
+        description="The software used to control the behavior (e.g. Bonsai)",
+    )
+    behavior_software_version: str = Field(..., title="Behavior software version")
+    behavior_script: str = Field(
+        ...,
+        title="Behavior script",
+        description="URL for the commit of the code used to run the behavior",
+    )
+    behavior_script_version: str = Field(..., title="Behavior script version")
+    input_parameters: Dict[str, Any] = Field(
+        ..., title="Input parameters", description="Parameters used in behavior session"
+    )
+    notes: Optional[str] = Field(None, title="Notes")
+
+
+class PhotoStimulationGroup(AindModel):
+    """Description of a photostimulation group"""
+
+    group_index: int = Field(..., title="Group index")
+    number_of_neurons: int = Field(..., title="Number of neurons")
+    stimulation_laser_power: Decimal = Field(..., title="Stimulation laser power (mW)")
+    stimulation_laser_power_unit: PowerUnit = Field(PowerUnit.MW, title="Stimulation laser power unit")
+    number_trials: int = Field(..., title="Number of trials")
+    number_spirals: int = Field(..., title="Number of spirals")
+    spiral_duration: Decimal = Field(..., title="Spiral duration (s)")
+    spiral_duration_unit: TimeUnit = Field(TimeUnit.S, title="Spiral duration unit")
+    inter_spiral_interval: Decimal = Field(..., title="Inter trial interval (s)")
+    inter_spiral_interval_unit: TimeUnit = Field(TimeUnit.S, title="Inter trial interval unit")
+    other_parameters: Optional[Dict[str, Any]]
+    notes: Optional[str] = Field(None, title="Notes")
+
+
+class PhotoStimulation(AindModel):
+    """Description of a photostimulation session"""
+
+    stimulus_name: str = Field(..., title="Stimulus name")
+    number_groups: int = Field(..., title="Number of groups")
+    groups: List[PhotoStimulationGroup] = Field(..., title="Groups")
+    inter_trial_interval: Decimal = Field(..., title="Inter trial interval (s)")
+    inter_trial_interval_unit: TimeUnit = Field(TimeUnit.S, title="Inter trial interval unit")
+    other_parameters: Optional[Dict[str, Any]]
+    notes: Optional[str] = Field(None, title="Notes")
+
+
+class StimulusEpoch(AindModel):
     """Description of stimulus used during session"""
 
-    stimulus: Union[OptoStim, VisualStim] = Field(..., title="Stimulus")
+    stimulus: Union[OptoStimulation, VisualStimulation, BehaviorStimulation, PhotoStimulation] = Field(
+        ...,
+        title="Stimulus"
+        )
     stimulus_start_time: time = Field(
         ...,
         title="Stimulus start time",

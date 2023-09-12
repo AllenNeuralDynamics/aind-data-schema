@@ -14,8 +14,10 @@ readme = "README.md"
 dynamic = ["version"]
 
 dependencies = [
-    'pydantic',
+    'dictdiffer',
+    'pydantic<2.0',
     'jsonschema',
+    'semver',
     'typing_extensions; python_version < "3.8"',
     'typing_extensions < 4.6.0; python_version < "3.10"' # we will need to unpin this when pydantic releases a new version
 ]
@@ -23,15 +25,20 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
     'aind_data_schema[docs]',
+    'aind_data_schema[linters]'
+]
+
+linters = [
+    'codespell',
     'black',
     'coverage',
     'flake8',
     'interrogate',
-    'isort'    
+    'isort'
 ]
 
 docs = [
-    'erdantic',
+    'erdantic==0.5.0',
     'Sphinx',
     'sphinx-jinja',
     'furo'
@@ -80,3 +87,7 @@ profile = "black"
 [tool.interrogate]
 exclude = ["setup.py", "docs", "build"]
 fail-under = 100
+
+[tool.codespell]
+skip = '.git,*.pdf,*.svg'
+ignore-words-list = 'nd'

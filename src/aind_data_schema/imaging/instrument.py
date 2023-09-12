@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from datetime import date
+from decimal import Decimal
 from enum import Enum
 from typing import List, Optional
 
@@ -15,12 +16,11 @@ from aind_data_schema.device import (
     DataInterface,
     Device,
     Filter,
-    Objective,
     Manufacturer,
     MotorizedStage,
-    PowerUnit,
-    SizeUnit,
+    Objective,
 )
+from aind_data_schema.utils.units import PowerUnit, SizeUnit
 
 
 class Com(AindModel):
@@ -67,9 +67,9 @@ class Lightsource(Device):
 
     type: LightsourceType = Field(..., title="Lightsource Type")
     coupling: Coupling = Field(..., title="Coupling")
-    wavelength: float = Field(..., title="Wavelength (nm)", units="nm", ge=300, le=1000)
+    wavelength: Decimal = Field(..., title="Wavelength (nm)", units="nm", ge=300, le=1000)
     wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
-    max_power: float = Field(..., title=" Maximum power (mW)", units="mW")
+    max_power: Decimal = Field(..., title=" Maximum power (mW)", units="mW")
     power_unit: PowerUnit = Field(PowerUnit.MW, title="Power unit")
 
 
@@ -77,6 +77,7 @@ class ImagingDeviceType(Enum):
     """Imaginge device type name"""
 
     BEAM_EXPANDER = "Beam expander"
+    SAMPLE_CHAMBER = "Sample Chamber"
     DIFFUSER = "Diffuser"
     GALVO = "Galvo"
     LASER_COMBINER = "Laser combiner"
@@ -134,8 +135,8 @@ class ScanningStage(MotorizedStage):
 class OpticalTable(Device):
     """Description of Optical Table"""
 
-    length: Optional[float] = Field(None, title="Length (inches)", units="inches", ge=0)
-    width: Optional[float] = Field(None, title="Width (inches)", units="inches", ge=0)
+    length: Optional[Decimal] = Field(None, title="Length (inches)", units="inches", ge=0)
+    width: Optional[Decimal] = Field(None, title="Width (inches)", units="inches", ge=0)
     table_size_unit: SizeUnit = Field(SizeUnit.IN, title="Table size unit")
     vibration_control: Optional[bool] = Field(None, title="Vibration control")
 
@@ -143,7 +144,7 @@ class OpticalTable(Device):
 class Instrument(AindCoreModel):
     """Description of an instrument, which is a collection of devices"""
 
-    schema_version: str = Field("0.6.3", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.7.11", description="schema version", title="Version", const=True)
     instrument_id: Optional[str] = Field(
         None,
         description="Unique identifier for this instrument. Naming convention: <room>-<apparatus>-<version>",

@@ -1,23 +1,24 @@
 """Script for defining UnitWithValue classes"""
 
+from decimal import Decimal
 from enum import Enum
 
 from pydantic import create_model
 
 
-class Size(Enum):
+class SizeUnit(Enum):
     """Enumeration of Length Measurements"""
 
     M = "meter"
     CM = "centimeter"
     MM = "millimeter"
     UM = "micrometer"
-    NG = "nanometer"
+    NM = "nanometer"
     IN = "inch"
     PX = "pixel"
 
 
-class Mass(Enum):
+class MassUnit(Enum):
     """Enumeration of Mass Measurements"""
 
     KG = "kilogram"
@@ -27,7 +28,7 @@ class Mass(Enum):
     NG = "nanogram"
 
 
-class Frequency(Enum):
+class FrequencyUnit(Enum):
     """Enumeration of Frequency Measurements"""
 
     KHZ = "kilohertz"
@@ -35,7 +36,7 @@ class Frequency(Enum):
     mHZ = "millihertz"
 
 
-class Volume(Enum):
+class VolumeUnit(Enum):
     """Enumeration of Volume Measurements"""
 
     L = "liter"
@@ -44,22 +45,44 @@ class Volume(Enum):
     NL = "nanoliter"
 
 
-class Angle(Enum):
+class AngleUnit(Enum):
     """Enumeration of Angle Measurements"""
 
     RAD = "radians"
     DEG = "degrees"
 
 
-class TimeMeasure(Enum):
+class TimeUnit(Enum):
     """Enumeration of Time Measurements"""
 
     HR = "hour"
     M = "minute"
     S = "second"
-    MS = "milisecond"
+    MS = "millisecond"
     US = "microsecond"
     NS = "nanosecond"
+
+
+class PowerUnit(Enum):
+    """Unit for power, set or measured"""
+
+    UW = "microwatt"
+    MW = "milliwatt"
+    PERCENT = "percent"
+
+
+class CurrentUnit(Enum):
+    """Current units"""
+
+    UA = "microamps"
+
+
+class ConcentrationUnit(Enum):
+    """Concentraion units"""
+
+    M = "molar"
+    UM = "micromolar"
+    NM = "nanomolar"
 
 
 def create_unit_with_value(model_name, scalar_type, unit_type, unit_default):
@@ -69,9 +92,10 @@ def create_unit_with_value(model_name, scalar_type, unit_type, unit_default):
     return m
 
 
-SizeValue = create_unit_with_value("SizeValue", float, Size, Size.MM)
-MassValue = create_unit_with_value("MassValue", float, Mass, Mass.MG)
-VolumeValue = create_unit_with_value("VolumeValue", float, Volume, Volume.NL)
-FrequencyValue = create_unit_with_value("FrequencyValue", float, Frequency, Frequency.HZ)
-AngleValue = create_unit_with_value("AngleValue", float, Angle, Angle.DEG)
-TimeValue = create_unit_with_value("TimeValue", float, TimeMeasure, TimeMeasure.S)
+SizeValue = create_unit_with_value("SizeValue", Decimal, SizeUnit, SizeUnit.MM)
+MassValue = create_unit_with_value("MassValue", Decimal, MassUnit, MassUnit.MG)
+VolumeValue = create_unit_with_value("VolumeValue", Decimal, VolumeUnit, VolumeUnit.NL)
+FrequencyValue = create_unit_with_value("FrequencyValue", Decimal, FrequencyUnit, FrequencyUnit.HZ)
+AngleValue = create_unit_with_value("AngleValue", Decimal, AngleUnit, AngleUnit.DEG)
+TimeValue = create_unit_with_value("TimeValue", Decimal, TimeUnit, TimeUnit.S)
+PowerValue = create_unit_with_value("PowerValue", Decimal, PowerUnit, PowerUnit.MW)

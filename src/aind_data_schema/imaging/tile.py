@@ -1,12 +1,13 @@
 """ Models related to imaging tiles and their transformations """
 
+from decimal import Decimal
 from typing import List, Optional, Union
 
 from pydantic import Field
 from pydantic.types import conlist
 
 from aind_data_schema.base import AindModel
-from aind_data_schema.device import AngleUnit, PowerUnit, SizeUnit
+from aind_data_schema.utils.units import AngleUnit, PowerUnit, SizeUnit
 
 
 class Channel(AindModel):
@@ -42,28 +43,28 @@ class Scale3dTransform(CoordinateTransform):
     """
 
     type: str = Field("scale", title="transformation type")
-    scale: conlist(float, min_items=3, max_items=3) = Field(..., title="3D scale parameters")
+    scale: conlist(Decimal, min_items=3, max_items=3) = Field(..., title="3D scale parameters")
 
 
 class Translation3dTransform(CoordinateTransform):
     """Values to be vector-added to a 3D position. Often needed to specify a Tile's origin."""
 
     type: str = Field("translation", title="transformation type")
-    translation: conlist(float, min_items=3, max_items=3) = Field(..., title="3D translation parameters")
+    translation: conlist(Decimal, min_items=3, max_items=3) = Field(..., title="3D translation parameters")
 
 
 class Rotation3dTransform(CoordinateTransform):
     """Values to be vector-added to a 3D position. Often needed to specify a Tile's origin."""
 
     type: str = Field("rotation", title="transformation type")
-    rotation: conlist(float, min_items=9, max_items=9) = Field(..., title="3D rotation matrix values (3x3) ")
+    rotation: conlist(Decimal, min_items=9, max_items=9) = Field(..., title="3D rotation matrix values (3x3) ")
 
 
 class Affine3dTransform(CoordinateTransform):
     """Values to be vector-added to a 3D position. Often needed to specify a Tile's origin."""
 
     type: str = Field("affine", title="transformation type")
-    affine_transform: conlist(float, min_items=12, max_items=12) = Field(
+    affine_transform: conlist(Decimal, min_items=12, max_items=12) = Field(
         ..., title="Affine transform matrix values (top 3x4 matrix)"
     )
 
@@ -72,7 +73,12 @@ class Tile(AindModel):
     """Description of an image tile"""
 
     coordinate_transformations: List[
-        Union[Scale3dTransform, Translation3dTransform, Rotation3dTransform, Affine3dTransform]
+        Union[
+            Scale3dTransform,
+            Translation3dTransform,
+            Rotation3dTransform,
+            Affine3dTransform,
+        ]
     ] = Field(..., title="Tile coordinate transformations")
     file_name: Optional[str] = Field(None, title="File name")
 

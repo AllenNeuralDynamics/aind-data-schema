@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/procedures.py",
-   "schema_version": "0.8.1",
+   "schema_version": "0.9.2",
    "subject_id": "625100",
    "subject_procedures": [
       {
@@ -14,7 +14,7 @@
          "weight_unit": "gram",
          "anaesthesia": {
             "type": "Isoflurane",
-            "duration": 1.0,
+            "duration": 1,
             "duration_unit": "minute",
             "level": 1.5
          },
@@ -28,7 +28,7 @@
          "craniotomy_coordinates_reference": "Lambda",
          "bregma_to_lambda_distance": 4.1,
          "bregma_to_lambda_unit": "millimeter",
-         "craniotomy_size": 5.0,
+         "craniotomy_size": 5,
          "craniotomy_size_unit": "millimeter",
          "implant_part_number": null,
          "dura_removed": null,
@@ -48,7 +48,7 @@
          "weight_unit": "gram",
          "anaesthesia": {
             "type": "Isoflurane",
-            "duration": 1.0,
+            "duration": 1,
             "duration_unit": "minute",
             "level": 1.5
          },
@@ -62,13 +62,15 @@
                "genome_copy": null,
                "titer": null,
                "titer_unit": "gc/mL",
+               "concentration": null,
+               "concentration_unit": null,
                "prep_lot_number": null,
                "prep_date": null,
                "prep_type": null,
                "prep_protocol": null
             }
          ],
-         "recovery_time": 0.0,
+         "recovery_time": 0,
          "recovery_time_unit": "minute",
          "injection_duration": null,
          "injection_duration_unit": "minute",
@@ -76,17 +78,21 @@
          "instrument_id": null,
          "injection_coordinate_ml": -0.87,
          "injection_coordinate_ap": -3.8,
-         "injection_coordinate_depth": -3.3,
+         "injection_coordinate_depth": [
+            -3.3
+         ],
          "injection_coordinate_unit": "millimeter",
          "injection_coordinate_reference": "Lambda",
          "bregma_to_lambda_distance": 4.1,
          "bregma_to_lambda_unit": "millimeter",
-         "injection_angle": 10.0,
-         "injection_angle_unit": "degree",
+         "injection_angle": 10,
+         "injection_angle_unit": "degrees",
          "targeted_structure": "VISp",
          "injection_hemisphere": "Left",
          "procedure_type": "Nanoject injection",
-         "injection_volume": 200.0,
+         "injection_volume": [
+            200
+         ],
          "injection_volume_unit": "nanoliter"
       }
    ],

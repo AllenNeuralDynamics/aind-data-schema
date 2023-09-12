@@ -5,7 +5,7 @@ import unittest
 
 import pydantic
 
-from aind_data_schema.device import DAQChannel, Lens
+from aind_data_schema.device import DAQChannel, Lens, Manufacturer
 from aind_data_schema.ephys import ephys_rig as er
 from aind_data_schema.ephys import ephys_session as es
 
@@ -27,14 +27,30 @@ class ExampleTest(unittest.TestCase):
                 basestation_firmware_version="1",
                 bsc_firmware_version="2",
                 slot=0,
-                manufacturer="Other",
+                manufacturer=Manufacturer.IMEC,
                 ports=[],
                 computer_name="foo",
                 channels=[
-                    DAQChannel(channel_name="123", device_name="Laser A", channel_type="Analog Output"),
-                    DAQChannel(channel_name="321", device_name="Probe A", channel_type="Analog Output"),
-                    DAQChannel(channel_name="234", device_name="Camera A", channel_type="Digital Output"),
-                    DAQChannel(channel_name="2354", device_name="Disc A", channel_type="Digital Output"),
+                    DAQChannel(
+                        channel_name="123",
+                        device_name="Laser A",
+                        channel_type="Analog Output",
+                    ),
+                    DAQChannel(
+                        channel_name="321",
+                        device_name="Probe A",
+                        channel_type="Analog Output",
+                    ),
+                    DAQChannel(
+                        channel_name="234",
+                        device_name="Camera A",
+                        channel_type="Digital Output",
+                    ),
+                    DAQChannel(
+                        channel_name="2354",
+                        device_name="Disc A",
+                        channel_type="Digital Output",
+                    ),
                 ],
             )
         ]
@@ -43,7 +59,7 @@ class ExampleTest(unittest.TestCase):
             er.EphysAssembly(
                 probes=[er.EphysProbe(probe_model="Neuropixels 1.0", name="Probe A")],
                 manipulator=er.Manipulator(
-                    manufacturer="New Scale Technologies",
+                    manufacturer=Manufacturer.NEW_SCALE_TECHNOLOGIES,
                     serial_number="4321",
                 ),
                 ephys_assembly_name="Ephys_assemblyA",
@@ -54,14 +70,14 @@ class ExampleTest(unittest.TestCase):
             er.LaserAssembly(
                 lasers=[
                     er.Laser(
-                        manufacturer="Hamamatsu",
+                        manufacturer=Manufacturer.HAMAMATSU,
                         serial_number="1234",
                         name="Laser A",
                         wavelength=488,
                     ),
                 ],
                 manipulator=er.Manipulator(
-                    manufacturer="New Scale Technologies",
+                    manufacturer=Manufacturer.NEW_SCALE_TECHNOLOGIES,
                     serial_number="1234",
                 ),
                 laser_assembly_name="Laser_assembly",
@@ -76,16 +92,24 @@ class ExampleTest(unittest.TestCase):
         with self.assertRaises(pydantic.ValidationError):
             rig = er.EphysRig(
                 daqs=[
-                    er.HarpDevice(computer_name="asdf", harp_device_type="Sound Board", harp_device_version="1"),
+                    er.HarpDevice(
+                        computer_name="asdf",
+                        harp_device_type="Sound Board",
+                        harp_device_version="1",
+                    ),
                     er.NeuropixelsBasestation(
                         basestation_firmware_version="1",
                         bsc_firmware_version="2",
                         slot=0,
-                        manufacturer="Other",
+                        manufacturer=Manufacturer.IMEC,
                         ports=[er.ProbePort(index=0, probes=["Probe B"])],
                         computer_name="foo",
                         channels=[
-                            DAQChannel(channel_name="321", device_name="Probe A", channel_type="Analog Output"),
+                            DAQChannel(
+                                channel_name="321",
+                                device_name="Probe A",
+                                channel_type="Analog Output",
+                            ),
                         ],
                     ),
                 ],
@@ -99,11 +123,11 @@ class ExampleTest(unittest.TestCase):
             cameras=[
                 er.CameraAssembly(
                     camera_assembly_name="cam",
-                    camera_target="Face",
-                    lens=Lens(manufacturer="Other"),
+                    camera_target="Face bottom",
+                    lens=Lens(manufacturer=Manufacturer.OTHER),
                     camera=er.Camera(
                         name="Camera A",
-                        manufacturer="Other",
+                        manufacturer=Manufacturer.OTHER,
                         data_interface="USB",
                         computer_name="ASDF",
                         max_frame_rate=144,

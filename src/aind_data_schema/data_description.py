@@ -5,11 +5,11 @@ from __future__ import annotations
 import re
 from datetime import date, datetime, time
 from enum import Enum
-from typing import List, Optional
+from typing import Any, List, Optional
 
 from pydantic import Field
 
-from aind_data_schema.base import AindCoreModel, AindModel, BaseName, BaseNameEnumMeta, PIDName
+from aind_data_schema.base import AindCoreModel, AindModel, BaseName, BaseNameEnumMeta, PIDName, Registry
 
 
 class RegexParts(Enum):
@@ -47,44 +47,50 @@ class Institution(Enum, metaclass=BaseNameEnumMeta):
     AI = PIDName(
         name="Allen Institute",
         abbreviation="AI",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry=Registry.ROR,
         registry_identifier="03cpe7c52",
     )
     AIBS = PIDName(
-        name="Allen Institute for Brain Science", 
+        name="Allen Institute for Brain Science",
         abbreviation="AIBS",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry=Registry.ROR,
         registry_identifier="00dcv1019",
     )
     AIND = PIDName(
-        name="Allen Institute for Neural Dynamics", 
+        name="Allen Institute for Neural Dynamics",
         abbreviation="AIND",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry=Registry.ROR,
         registry_identifier="04szwah67",
     )
     COLUMBIA = PIDName(
-        name="Columbia University", 
+        name="Columbia University",
         abbreviation="Columbia",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry=Registry.ROR,
         registry_identifier="00hj8s172",
     )
+    JAX = PIDName(name="Jackson Laboratory", abbreviation="JAX", registry=Registry.ROR, registry_identifier="021sy4w91")
     HUST = PIDName(
-        name="Huazhong University of Science and Technology", 
+        name="Huazhong University of Science and Technology",
         abbreviation="HUST",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry=Registry.ROR,
         registry_identifier="00p991c53",
     )
     NINDS = PIDName(
         name="National Institute of Neurological Disorders and Stroke",
         abbreviation="NINDS",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
-        registry_identifier="01s5ya894"
+        registry=Registry.ROR,
+        registry_identifier="01s5ya894",
     )
     NYU = PIDName(
-        name="New York University", 
+        name="New York University",
         abbreviation="NYU",
-        registry=BaseName(name="Research Organization Registry", abbreviation="ROR"),
+        registry=Registry.ROR,
         registry_identifier="0190ak572",
+    )
+    SIMONS = PIDName(
+        name="Simons Foundation",
+        registry=Registry.ROR,
+        registry_identifier="01cmst727",
     )
 
 
@@ -100,25 +106,40 @@ class Group(Enum):
 class Modality(Enum, metaclass=BaseNameEnumMeta):
     """Data collection modality name"""
 
+    BEHAVIOR_VIDEOS = BaseName(name="Behavior videos", abbreviation="behavior-videos")
     CONFOCAL = BaseName(name="Confocal microscopy", abbreviation="confocal")
-    DISPIM = BaseName(name="Dual inverted selective plane illumination microscopy", abbreviation="diSPIM")
+    DISPIM = BaseName(
+        name="Dual inverted selective plane illumination microscopy",
+        abbreviation="diSPIM",
+    )
     ECEPHYS = BaseName(name="Extracellular electrophysiology", abbreviation="ecephys")
     EPHYS = BaseName(name="Electrophysiology", abbreviation="ephys")
-    EXASPIM = BaseName(name="Expansion-assisted selective plane illumination microscopy", abbreviation="exaSPIM")
+    EXASPIM = BaseName(
+        name="Expansion-assisted selective plane illumination microscopy",
+        abbreviation="exaSPIM",
+    )
     FIP = BaseName(name="Frame-projected independent-fiber photometry", abbreviation="FIP")
     FMOST = BaseName(name="Fluorescence micro-optical sectioning tomography", abbreviation="fMOST")
     HSFP = BaseName(name="Hyperspectral fiber photometry", abbreviation="HSFP")
     ICEPHYS = BaseName(name="Intracellular electrophysiology", abbreviation="icephys")
     FIB = BaseName(name="Fiber photometry", abbreviation="fib")
     FISH = BaseName(name="Fluorescence in situ hybridization", abbreviation="fish")
-    MESOSPIM = BaseName(name="Mesoscale selective plane illumination microscopy", abbreviation="mesoSPIM")
-    MERFISH = BaseName(name="Multiplexed error-robust fluorescence in situ hybridization", abbreviation="merfish")
+    MESOSPIM = BaseName(
+        name="Mesoscale selective plane illumination microscopy",
+        abbreviation="mesoSPIM",
+    )
+    MERFISH = BaseName(
+        name="Multiplexed error-robust fluorescence in situ hybridization",
+        abbreviation="merfish",
+    )
+    MPOPHYS = BaseName(name="Multiplane optical physiology", abbreviation="multiplane-ophys")
     MRI = BaseName(name="Magnetic resonance imaging", abbreviation="MRI")
     OPHYS = BaseName(name="Optical physiology", abbreviation="ophys")
-    POPHYS = BaseName(name="Planar optical physiology", abbreviation="pophys")
     SLAP = BaseName(name="Scanned line projection", abbreviation="slap")
     SMARTSPIM = BaseName(name="Smart selective plane illumination microscopy", abbreviation="SmartSPIM")
     SPIM = BaseName(name="Selective plane illumination microscopy", abbreviation="SPIM")
+    SPOPHYS = BaseName(name="Single plane optical physiology", abbreviation="single-plane-ophys")
+    TRAINED_BEHAVIOR = BaseName(name="Trained behavior", abbreviation="trained-behavior")
 
 
 class ExperimentType(Enum):
@@ -134,9 +155,11 @@ class ExperimentType(Enum):
     MESOSPIM = Modality.MESOSPIM.value.abbreviation
     MERFISH = Modality.MERFISH.value.abbreviation
     MRI = Modality.MRI.value.abbreviation
-    POPHYS = Modality.POPHYS.value.abbreviation
+    MPOPHYS = Modality.MPOPHYS.value.abbreviation
     SLAP = Modality.SLAP.value.abbreviation
     SMARTSPIM = Modality.SMARTSPIM.value.abbreviation
+    SPOPHYS = Modality.SPOPHYS.value.abbreviation
+    TRAINED_BEHAVIOR = Modality.TRAINED_BEHAVIOR.value.abbreviation
     OTHER = "Other"
 
 
@@ -179,7 +202,7 @@ class RelatedData(AindModel):
 class DataDescription(AindCoreModel):
     """Description of a logical collection of data files"""
 
-    schema_version: str = Field("0.7.1", title="Schema Version", const=True)
+    schema_version: str = Field("0.7.6", title="Schema Version", const=True)
     license: str = Field("CC-BY-4.0", title="License", const=True)
 
     creation_time: time = Field(
@@ -206,7 +229,7 @@ class DataDescription(AindCoreModel):
     funding_source: List[Funding] = Field(
         ...,
         title="Funding source",
-        description="Funding sources. If internal label as Institution.",
+        description="Funding source. If internal funding, select 'Allen Institute'",
     )
     data_level: DataLevel = Field(
         ...,
@@ -219,7 +242,7 @@ class DataDescription(AindCoreModel):
         title="Group",
     )
     investigators: List[str] = Field(
-        ...,
+        [],
         description="Full name(s) of key investigators (e.g. PI, lead scientist, contact person)",
         title="Investigators",
     )
@@ -324,6 +347,70 @@ class DerivedDataDescription(DataDescription):
             creation_date=creation_date,
             creation_time=creation_time,
             input_data_name=m.group("input"),
+        )
+
+    @classmethod
+    def from_data_description(cls, data_description: DataDescription, process_name: str, **kwargs):
+        """
+        Create a DerivedDataDescription from a DataDescription object.
+
+        Parameters
+        ----------
+        data_description : DataDescription
+            The DataDescription object to use as the base for the Derived
+        process_name : str
+            Name of the process that created the data
+        kwargs
+            DerivedDataDescription fields can be explicitly set and will override
+            values pulled from DataDescription
+
+        """
+
+        def get_or_default(field_name: str) -> Any:
+            """
+            If the field is set in kwargs, use that value. Otherwise, check if
+            the field is set in the DataDescription object. If not, pull from
+            the field default value if the field has a default value. Otherwise,
+            return None and allow pydantic to raise a Validation Error if field
+            is not Optional.
+            Parameters
+            ----------
+            field_name : str
+              Name of the field to set
+
+            Returns
+            -------
+            Any
+
+            """
+            if kwargs.get(field_name) is not None:
+                return kwargs.get(field_name)
+            elif hasattr(data_description, field_name) and getattr(data_description, field_name) is not None:
+                return getattr(data_description, field_name)
+            else:
+                return getattr(DerivedDataDescription.__fields__.get(field_name), "default")
+
+        utcnow = datetime.utcnow()
+        creation_time = utcnow.time() if kwargs.get("creation_time") is None else kwargs["creation_time"]
+        creation_date = utcnow.date() if kwargs.get("creation_date") is None else kwargs["creation_date"]
+
+        return cls(
+            creation_time=creation_time,
+            creation_date=creation_date,
+            process_name=process_name,
+            institution=get_or_default("institution"),
+            funding_source=get_or_default("funding_source"),
+            group=get_or_default("group"),
+            investigators=get_or_default("investigators"),
+            project_name=get_or_default("project_name"),
+            project_id=get_or_default("project_id"),
+            restrictions=get_or_default("restrictions"),
+            modality=get_or_default("modality"),
+            experiment_type=get_or_default("experiment_type"),
+            subject_id=get_or_default("subject_id"),
+            related_data=get_or_default("related_data"),
+            data_summary=get_or_default("data_summary"),
+            input_data_name=data_description.name,
         )
 
 

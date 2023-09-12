@@ -235,6 +235,7 @@
          "properties": {
             "cage_id": {
                "title": "Cage ID",
+               "default": null,
                "type": "string"
             },
             "room_id": {
