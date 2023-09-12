@@ -104,7 +104,7 @@ class OphysSession(AindCoreModel):
     """Description of an ophys session"""
 
     schema_version: str = Field(
-        "0.2.8",
+        "0.2.9",
         description="schema version",
         title="Schema Version",
         const=True,
@@ -178,7 +178,7 @@ class Stack(OphysSession):
     step_size_unit: SizeUnit = Field(SizeUnit.UM, title="Step size unit")
     number_of_plane_repeats_per_volume: int = Field(..., title="Number of repeats per volume")
     number_of_volume_repeats: int = Field(..., title="Number of volume repeats")
-    fov_coordinate_ml: float = Field(..., title="FOV coodinate ML")
+    fov_coordinate_ml: float = Field(..., title="FOV coordinate ML")
     fov_coordinate_ap: float = Field(..., title="FOV coordinate AP")
     fov_coordinate_unit: SizeUnit = Field(SizeUnit.UM, title="FOV coordinate unit")
     fov_reference: str = Field(..., title="FOV reference", description="Reference for ML/AP coordinates")
