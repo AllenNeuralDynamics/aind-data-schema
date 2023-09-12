@@ -12,7 +12,7 @@ from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.device import FrequencyUnit, PowerUnit, SizeUnit
 from aind_data_schema.procedures import TimeUnit
 from aind_data_schema.stimulus import StimulusPresentation
-from aind_data_schema.imaging.tile import AcquisitionTile, Channel
+from aind_data_schema.imaging.tile import Channel
 
 
 class FiberName(Enum):
@@ -187,15 +187,6 @@ class Stack(OphysSession):
     magnification: Optional[str] = Field(None, title="Magnification")
     fov_scale_factor: float = Field(..., title="FOV scale factor (um/pixel)")
     fov_scale_factor_unit: str = Field("um/pixel", title="FOV scale factor unit")
-    frame_rate: float = Field(..., title="Frame rate (Hz)")
-    frame_rate_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Frame rate unit")
-    targeted_structure: Optional[str] = Field(None, title="Targeted structure")
-
-
-class TileStack(AindModel):
-    """Description of a 2p stack using the Tile class"""
-
-    tiles: List[AcquisitionTile] = Field(..., title="Acquisition tiles")
     frame_rate: float = Field(..., title="Frame rate (Hz)")
     frame_rate_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Frame rate unit")
     targeted_structure: Optional[str] = Field(None, title="Targeted structure")
