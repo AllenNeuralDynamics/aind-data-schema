@@ -25,6 +25,8 @@ from aind_data_schema.device import (
     LightEmittingDiode,
     Monitor,
     Objective,
+    RewardDelivery,
+    Speaker,
     Treadmill,
     Tube,
 )
@@ -86,7 +88,7 @@ class OphysRig(AindCoreModel):
     """Description of an optical physiology rig"""
 
     schema_version: str = Field(
-        "0.6.10",
+        "0.7.0",
         description="schema version",
         title="Schema Version",
         const=True,
@@ -103,7 +105,11 @@ class OphysRig(AindCoreModel):
     lenses: Optional[List[Lens]] = Field(None, title="Lenses", unique_items=True)
     cameras: Optional[List[CameraAssembly]] = Field(None, title="Camera assemblies", unique_items=True)
     mouse_platform: Optional[Union[Tube, Treadmill, Disc]] = Field(None, title="Mouse platform")
-    visual_monitors: Optional[List[Monitor]] = Field(None, title="Visual monitors", unique_items=True)
+    stimulus_devices: Optional[List[Union[RewardDelivery, Monitor, Speaker]]] = Field(
+        None,
+        title="Stimulus devices",
+        unique_items=True,
+        )
     daqs: Optional[List[Union[DAQDevice, HarpDevice]]] = Field(None, title="Data acquisition devices")
     additional_devices: Optional[List[Device]] = Field(None, title="Additional devices", unique_items=True)
     light_path_diagram: Optional[str] = Field(
