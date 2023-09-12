@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/ephys/ephys_session.py",
-   "schema_version": "0.4.5",
+   "schema_version": "0.4.10",
    "experimenter_full_name": [
       "Jane Doe"
    ],
@@ -14,9 +14,9 @@
    "stick_microscopes": [
       {
          "assembly_name": "Stick_assembly",
-         "arc_angle": 24.0,
-         "module_angle": 10.0,
-         "angle_unit": "degree",
+         "arc_angle": 24,
+         "module_angle": 10,
+         "angle_unit": "degrees",
          "rotation_angle": 0.0,
          "coordinate_transform": null,
          "calibration_date": null,
@@ -30,9 +30,9 @@
          "ephys_modules": [
             {
                "assembly_name": "Ephys_assemblyA",
-               "arc_angle": 14.0,
-               "module_angle": 20.0,
-               "angle_unit": "degree",
+               "arc_angle": 14,
+               "module_angle": 20,
+               "angle_unit": "degrees",
                "rotation_angle": 0.0,
                "coordinate_transform": null,
                "calibration_date": null,
@@ -40,9 +40,9 @@
                "primary_targeted_structure": "VISp",
                "targeted_ccf_coordinates": null,
                "manipulator_coordinates": {
-                  "x": 1000.0,
-                  "y": 1000.0,
-                  "z": 1000.0,
+                  "x": 1000,
+                  "y": 1000,
+                  "z": 1000,
                   "unit": "micrometer"
                },
                "ephys_probes": [
@@ -60,9 +60,9 @@
          "laser_modules": [
             {
                "assembly_name": "Laser_assemblyA",
-               "arc_angle": 10.0,
-               "module_angle": 15.0,
-               "angle_unit": "degree",
+               "arc_angle": 10,
+               "module_angle": 15,
+               "angle_unit": "degrees",
                "rotation_angle": 0.0,
                "coordinate_transform": null,
                "calibration_date": null,
@@ -70,20 +70,20 @@
                "primary_targeted_structure": "VISp",
                "targeted_ccf_coordinates": null,
                "manipulator_coordinates": {
-                  "x": 1000.0,
-                  "y": 1000.0,
-                  "z": 1000.0,
+                  "x": 1000,
+                  "y": 1000,
+                  "z": 1000,
                   "unit": "micrometer"
                },
                "lasers": [
                   {
                      "name": "Red Laser",
-                     "power_level": 100.0,
+                     "power_level": 100,
                      "power_unit": "milliwatt"
                   },
                   {
                      "name": "Blue Laser",
-                     "power_level": 50.0,
+                     "power_level": 50,
                      "power_unit": "milliwatt"
                   }
                ]
@@ -105,7 +105,7 @@
                "name": "Body Camera"
             }
          ],
-         "stimulus_presentations": null,
+         "stimulus_epochs": null,
          "notes": null
       }
    ],

@@ -1,0 +1,40 @@
+{
+    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/data_description.py",
+    "schema_version": "0.6.2",
+    "license": "CC-BY-4.0",
+    "funding_source": [
+        {
+            "funder": "Allen Institute for Neural Dynamics"
+        }
+    ],
+    "investigators": [
+        "John Doe",
+        "Mary Smith"
+    ],
+    "modality": [
+        {
+            "name": "Electrophysiology",
+            "abbreviation": "ephys"
+        }
+    ],
+    "related_data": [
+        {
+            "related_data_path": "\\\\allen\\aind\\scratch\\ephys\\persist\\data\\MRI\\processed\\661279",
+            "relation": "Contains MRI and processing used to choose insertion locations."
+        }
+    ],
+    "creation_time": "22:31:18",
+    "creation_date": "2023-03-23",
+    "name": "661279_2023-03-23_15-31-18",
+    "institution": {
+        "name": "Allen Institute for Neural Dynamics",
+        "abbreviation": "AIND"
+    },
+    "ror_id": "04szwah67",
+    "data_level": "raw data",
+    "group": "ephys",
+    "project_name": "MRI-Guided Elecrophysiology",
+    "experiment_type": "ecephys",
+    "subject_id": "661279",
+    "data_summary": "This dataset was collected to evaluate the accuracy and feasibility of the AIND MRI-guided insertion pipeline. One probe targets the retinotopic center of LGN, with drifting grating for receptive field mapping to evaluate targeting. Other targets can be evaluated in histology."
+}

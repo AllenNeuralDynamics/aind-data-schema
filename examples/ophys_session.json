@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/ophys/ophys_session.py",
-   "schema_version": "0.2.4",
+   "schema_version": "0.2.8",
    "experimenter_full_name": [
       "John Doe"
    ],
@@ -15,37 +15,37 @@
          "name": "Laser A",
          "wavelength": 405,
          "wavelength_unit": "nanometer",
-         "excitation_power": 10.0,
+         "excitation_power": 10,
          "excitation_power_unit": "milliwatt"
       },
       {
          "name": "Laser B",
          "wavelength": 473,
          "wavelength_unit": "nanometer",
-         "excitation_power": 7.0,
+         "excitation_power": 7,
          "excitation_power_unit": "milliwatt"
       }
    ],
    "detectors": [
       {
          "name": "Hamamatsu Camera",
-         "exposure_time": 10.0,
+         "exposure_time": 10,
          "exposure_time_unit": "millisecond",
          "trigger_type": "Internal"
       }
    ],
    "cameras": null,
-   "stimulus_presentations": null,
+   "stimulus_epochs": null,
    "notes": "Internal trigger. GRAB-DA2m shows signal. Unclear about GRAB-rAC",
    "patch_cords": [
       {
          "name": "Patch Cord A",
-         "output_power": 40.0,
+         "output_power": 40,
          "output_power_unit": "microwatt"
       },
       {
          "name": "Patch Cord B",
-         "output_power": 43.0,
+         "output_power": 43,
          "output_power_unit": "microwatt"
       }
    ],

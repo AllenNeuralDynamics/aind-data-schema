@@ -1,5 +1,4 @@
 """Class for holding generic helper functions that are usable within many packages"""
-
 import inspect
 import sys
 from typing import Iterator, Optional, Type
@@ -13,7 +12,7 @@ def get_classes(module: Optional[str] = None) -> list:
     Parameters
     ----------
     module : Optional[str]
-      Name of module to check. If None, weill return calling namespace's imports. Defaults to None.
+      Name of module to check. If None, will return calling namespace's imports. Defaults to None.
 
     Returns
     -------

@@ -5,14 +5,9 @@ from __future__ import annotations
 from enum import Enum
 from typing import List, Optional, Union
 
-try:
-    from typing import Literal
-except ImportError:  # pragma: no cover
-    from typing_extensions import Literal
-
 from pydantic import Field, root_validator
 
-from aind_data_schema.base import AindCoreModel, AindModel
+from aind_data_schema.base import AindCoreModel, AindModel, EnumSubset
 from aind_data_schema.device import (
     Camera,
     CameraAssembly,
@@ -48,7 +43,7 @@ class NeuropixelsBasestation(DAQDevice):
 
     # fixed values
     data_interface: DataInterface = Field("PXI", const=True)
-    manufacturer: Manufacturer = Manufacturer.IMEC
+    manufacturer: Manufacturer = Field(Manufacturer.IMEC, const=True)
 
 
 class OpenEphysAcquisitionBoard(DAQDevice):
@@ -65,7 +60,7 @@ class OpenEphysAcquisitionBoard(DAQDevice):
 class Manipulator(Device):
     """Manipulator used on a dome module"""
 
-    manufacturer: Literal[Manufacturer.NEW_SCALE_TECHNOLOGIES.value]
+    manufacturer: EnumSubset[Manufacturer.NEW_SCALE_TECHNOLOGIES]
 
 
 class StickMicroscopeAssembly(AindModel):
@@ -134,7 +129,7 @@ class EphysAssembly(AindModel):
 class EphysRig(AindCoreModel):
     """Description of an ephys rig"""
 
-    schema_version: str = Field("0.6.5", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.7.11", description="schema version", title="Version", const=True)
     rig_id: str = Field(..., description="room_stim apparatus_version", title="Rig ID")
     ephys_assemblies: Optional[List[EphysAssembly]] = Field(None, title="Ephys probes", unique_items=True)
     stick_microscopes: Optional[List[StickMicroscopeAssembly]] = Field(None, title="Stick microscopes")
@@ -149,7 +144,7 @@ class EphysRig(AindCoreModel):
     notes: Optional[str] = Field(None, title="Notes")
 
     @root_validator
-    def validate_device_names(cls, values):
+    def validate_device_names(cls, values):  # noqa: C901
         """validate that all DAQ channels are connected to devices that
         actually exist
         """
@@ -167,6 +162,9 @@ class EphysRig(AindCoreModel):
 
         if cameras is not None:
             device_names += [c.camera.name for c in cameras]
+
+        if daqs is not None:
+            device_names += [daq.name for daq in daqs]
 
         if ephys_assemblies is not None:
             device_names += [probe.name for ephys_assembly in ephys_assemblies for probe in ephys_assembly.probes]

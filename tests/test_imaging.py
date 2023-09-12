@@ -5,11 +5,13 @@ import unittest
 
 from pydantic import ValidationError
 
+from aind_data_schema.device import Calibration, Manufacturer
 from aind_data_schema.imaging import acquisition as acq
 from aind_data_schema.imaging import instrument as inst
 from aind_data_schema.imaging import mri_session as ms
 from aind_data_schema.imaging import tile
 from aind_data_schema.processing import Registration
+from aind_data_schema.utils.units import PowerValue
 
 
 class ImagingTests(unittest.TestCase):
@@ -26,6 +28,15 @@ class ImagingTests(unittest.TestCase):
             specimen_id="12345",
             subject_id="1234",
             instrument_id="1234",
+            calibrations=[
+                Calibration(
+                    date_of_calibration=datetime.datetime.now(),
+                    description="Laser power calibration",
+                    device_name="Laser 1",
+                    input={"power_setting": PowerValue(value=100.0, unit="percent")},
+                    output={"power_measurement": PowerValue(value=50.0, unit="milliwatt")},
+                ),
+            ],
             session_end_time=datetime.datetime.now(),
             chamber_immersion=acq.Immersion(medium="PBS", refractive_index=1),
             tiles=[
@@ -52,7 +63,7 @@ class ImagingTests(unittest.TestCase):
 
         i = inst.Instrument(
             instrument_type="diSPIM",
-            manufacturer="LifeCanvas",
+            manufacturer=Manufacturer.LIFECANVAS,
             objectives=[],
             detectors=[],
             light_sources=[],

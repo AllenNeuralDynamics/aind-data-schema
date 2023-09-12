@@ -3,14 +3,16 @@
 from __future__ import annotations
 
 from datetime import datetime
+from decimal import Decimal
 from enum import Enum
 from typing import List, Optional
 
 from pydantic import Field
 
 from aind_data_schema.base import AindCoreModel, AindModel
-from aind_data_schema.device import AngleUnit, Coordinates3d, PowerUnit, SizeUnit
-from aind_data_schema.stimulus import StimulusPresentation
+from aind_data_schema.device import Coordinates3d
+from aind_data_schema.stimulus import StimulusEpoch
+from aind_data_schema.utils.units import AngleUnit, PowerUnit, SizeUnit
 
 
 class SessionType(Enum):
@@ -30,9 +32,9 @@ class CcfVersion(Enum):
 class CcfCoords(AindModel):
     """Coordinates in CCF template space"""
 
-    ml: float = Field(..., title="ML")
-    ap: float = Field(..., title="AP")
-    dv: float = Field(..., title="DV")
+    ml: Decimal = Field(..., title="ML")
+    ap: Decimal = Field(..., title="AP")
+    dv: Decimal = Field(..., title="DV")
     unit: SizeUnit = Field(SizeUnit.UM, title="Coordinate unit")
     ccf_version: CcfVersion = Field(CcfVersion.CCFv3, title="CCF version")
 
@@ -42,14 +44,16 @@ class DomeModule(AindModel):
 
     # required fields
     assembly_name: str = Field(..., title="Assembly name")
-    arc_angle: float = Field(..., title="Arc Angle", units="degrees")
-    module_angle: float = Field(..., title="Module Angle", units="degrees")
+    arc_angle: Decimal = Field(..., title="Arc Angle", units="degrees")
+    module_angle: Decimal = Field(..., title="Module Angle", units="degrees")
     angle_unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
 
     # optional fields
-    rotation_angle: Optional[float] = Field(0.0, title="Rotation Angle", units="degrees")
+    rotation_angle: Optional[Decimal] = Field(0.0, title="Rotation Angle", units="degrees")
     coordinate_transform: Optional[str] = Field(
-        None, title="Transform from local manipulator axes to rig", description="Path to coordinate transform"
+        None,
+        title="Transform from local manipulator axes to rig",
+        description="Path to coordinate transform",
     )
     calibration_date: Optional[datetime] = Field(None, title="Date on which coordinate transform was last calibrated")
     notes: Optional[str] = Field(None, title="Notes")
@@ -73,7 +77,7 @@ class Laser(AindModel):
     """Laser used in a LaserModule"""
 
     name: str = Field(..., title="Laser name (must match rig JSON)")
-    power_level: float = Field(..., title="Power level used in this session", units="mW")
+    power_level: Decimal = Field(..., title="Power level used in this session", units="mW")
     power_unit: PowerUnit = Field(PowerUnit.MW, title="Power unit")
 
 
@@ -117,14 +121,14 @@ class Stream(AindModel):
     laser_modules: Optional[List[LaserModule]] = Field(None, title="Laser modules", unique_items=True)
     daqs: Optional[List[DAQDevice]] = Field(None, title="DAQ devices", unique_items=True)
     cameras: Optional[List[Camera]] = Field(None, title="Cameras", unique_items=True)
-    stimulus_presentations: Optional[List[StimulusPresentation]] = Field(None, title="Stimulus")
+    stimulus_epochs: Optional[List[StimulusEpoch]] = Field(None, title="Stimulus")
     notes: Optional[str] = Field(None, title="Notes")
 
 
 class EphysSession(AindCoreModel):
     """Description of an ephys recording session"""
 
-    schema_version: str = Field("0.4.5", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.4.10", description="schema version", title="Version", const=True)
     experimenter_full_name: List[str] = Field(
         ...,
         description="First and last name of the experimenter(s).",
@@ -138,7 +142,9 @@ class EphysSession(AindCoreModel):
     iacuc_protocol: Optional[str] = Field(None, title="IACUC protocol")
     rig_id: str = Field(..., title="Rig ID")
     stick_microscopes: Optional[List[DomeModule]] = Field(
-        ..., title="Stick microscopes", description="Must match stick microscope assemblies in rig file"
+        ...,
+        title="Stick microscopes",
+        description="Must match stick microscope assemblies in rig file",
     )
     data_streams: List[Stream] = Field(
         ...,
