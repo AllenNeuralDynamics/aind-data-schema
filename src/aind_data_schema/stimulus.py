@@ -21,7 +21,7 @@ class PulseShape(Enum):
     SINE = "Sinusoidal"
 
 
-class OptoStim(AindModel):
+class OptoStimulation(AindModel):
     """Description of opto stimulation parameters"""
 
     stimulus_name: str = Field(..., title="Stimulus name")
@@ -48,7 +48,7 @@ class OptoStim(AindModel):
     notes: Optional[str] = Field(None, title="Notes")
 
 
-class VisualStim(AindModel):
+class VisualStimulation(AindModel):
     """Description of visual stimulus parameters. Provides a high level description of stimulus."""
 
     stimulus_name: str = Field(..., title="Stimulus name")
@@ -77,7 +77,7 @@ class VisualStim(AindModel):
     notes: Optional[str] = Field(None, title="Notes")
 
 
-class BehaviorStim(AindModel):
+class BehaviorStimulation(AindModel):
     """Description of behavior parameters. Provides a high level description of stimulus."""
 
     behavior_name: str = Field(..., title="Behavior name")
@@ -99,7 +99,7 @@ class BehaviorStim(AindModel):
     notes: Optional[str] = Field(None, title="Notes")
 
 
-class PhotoStimGroup(AindModel):
+class PhotoStimulationGroup(AindModel):
     """Description of a photostimulation group"""
 
     group_index: int = Field(..., title="Group index")
@@ -121,7 +121,7 @@ class PhotoStimulation(AindModel):
 
     stimulus_name: str = Field(..., title="Stimulus name")
     number_groups: int = Field(..., title="Number of groups")
-    groups: List[PhotoStimGroup] = Field(..., title="Groups")
+    groups: List[PhotoStimulationGroup] = Field(..., title="Groups")
     inter_trial_interval: Decimal = Field(..., title="Inter trial interval (s)")
     inter_trial_interval_unit: TimeUnit = Field(TimeUnit.S, title="Inter trial interval unit")
     other_parameters: Optional[Dict[str, Any]]
@@ -131,7 +131,7 @@ class PhotoStimulation(AindModel):
 class StimulusEpoch(AindModel):
     """Description of stimulus used during session"""
 
-    stimulus: Union[OptoStim, VisualStim, BehaviorStim, PhotoStimulation] = Field(..., title="Stimulus")
+    stimulus: Union[OptoStimulation, VisualStimulation, BehaviorStimulation, PhotoStimulation] = Field(..., title="Stimulus")
     stimulus_start_time: time = Field(
         ...,
         title="Stimulus start time",
