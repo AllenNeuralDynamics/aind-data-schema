@@ -160,6 +160,7 @@ class TwoPhotonOphysSession(OphysSession):
 
     fovs: List[FieldOfView] = Field(..., title="Fields of view", unique_items=True)
 
+
 class StackChannel(Channel):
     """Description of a Channel used in a Stack"""
 
