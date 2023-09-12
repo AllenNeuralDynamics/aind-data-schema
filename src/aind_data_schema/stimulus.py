@@ -131,7 +131,10 @@ class PhotoStimulation(AindModel):
 class StimulusEpoch(AindModel):
     """Description of stimulus used during session"""
 
-    stimulus: Union[OptoStimulation, VisualStimulation, BehaviorStimulation, PhotoStimulation] = Field(..., title="Stimulus")
+    stimulus: Union[OptoStimulation, VisualStimulation, BehaviorStimulation, PhotoStimulation] = Field(
+        ..., 
+        title="Stimulus"
+        )
     stimulus_start_time: time = Field(
         ...,
         title="Stimulus start time",
