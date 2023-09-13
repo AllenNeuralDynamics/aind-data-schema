@@ -425,7 +425,7 @@ class RawDataDescription(DataDescription):
     )
 
     def __init__(self, experiment_type, subject_id, **kwargs):
-        """Construct a raw data description"""
+        """Construct a raw description"""
 
         experiment_type = ExperimentType(experiment_type)
 
@@ -438,7 +438,7 @@ class RawDataDescription(DataDescription):
 
     @classmethod
     def parse_name(cls, name):
-        """Decompose raw data description name into component parts"""
+        """Decompose raw description name into component parts"""
 
         m = re.match(f"{DataRegex.RAW.value}", name)
 
