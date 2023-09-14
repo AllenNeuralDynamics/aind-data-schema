@@ -108,83 +108,43 @@ class Modality(Enum, metaclass=BaseNameEnumMeta):
 
     BEHAVIOR_VIDEOS = BaseName(name="Behavior videos", abbreviation="behavior-videos")
     CONFOCAL = BaseName(name="Confocal microscopy", abbreviation="confocal")
-    DISPIM = BaseName(
-        name="Dual inverted selective plane illumination microscopy",
-        abbreviation="diSPIM",
-    )
     ECEPHYS = BaseName(name="Extracellular electrophysiology", abbreviation="ecephys")
     EPHYS = BaseName(name="Electrophysiology", abbreviation="ephys")
-    EXASPIM = BaseName(
-        name="Expansion-assisted selective plane illumination microscopy",
-        abbreviation="exaSPIM",
-    )
     FIP = BaseName(name="Frame-projected independent-fiber photometry", abbreviation="FIP")
     FMOST = BaseName(name="Fluorescence micro-optical sectioning tomography", abbreviation="fMOST")
     HSFP = BaseName(name="Hyperspectral fiber photometry", abbreviation="HSFP")
     ICEPHYS = BaseName(name="Intracellular electrophysiology", abbreviation="icephys")
     FIB = BaseName(name="Fiber photometry", abbreviation="fib")
     FISH = BaseName(name="Fluorescence in situ hybridization", abbreviation="fish")
-    MESOSPIM = BaseName(
-        name="Mesoscale selective plane illumination microscopy",
-        abbreviation="mesoSPIM",
-    )
     MERFISH = BaseName(
         name="Multiplexed error-robust fluorescence in situ hybridization",
         abbreviation="merfish",
     )
-    MPOPHYS = BaseName(name="Multiplane optical physiology", abbreviation="multiplane-ophys")
     MRI = BaseName(name="Magnetic resonance imaging", abbreviation="MRI")
     OPHYS = BaseName(name="Optical physiology", abbreviation="ophys")
     SLAP = BaseName(name="Scanned line projection", abbreviation="slap")
-    SMARTSPIM = BaseName(name="Smart selective plane illumination microscopy", abbreviation="SmartSPIM")
     SPIM = BaseName(name="Selective plane illumination microscopy", abbreviation="SPIM")
-    SPOPHYS = BaseName(name="Single plane optical physiology", abbreviation="single-plane-ophys")
     TRAINED_BEHAVIOR = BaseName(name="Trained behavior", abbreviation="trained-behavior")
 
 
-class ExperimentType(Enum):
-    """Abbreviated name for data collection technique. This is deprecated and will be removed in a future version."""
+class Platform(Enum, metaclass=BaseNameEnumMeta):
+    """Abbreviated name for standardized data collection system."""
+    
+    BVR_TRAIN = BaseName(name="Behavior training platform", abbreviation="bvr-train")
+    BVR_RECORD = BaseName(name="Behavior recording platform", abbreviation="bvr-record")
+    ECEPHYS = BaseName(name="Electrophysiology platform", abbreviation="ecephys")
+    EXASPIM = BaseName(name="ExaSPIM platform", abbreviation="exaSPIM")    
+    FIP = BaseName(name="Frame-projected independent-fiber photometry platform", abbreviation="FIP")
+    HCR = BaseName(name="HCR platform", abbreviation="HCR")        
+    HSFP = BaseName(name="Hyperspectral fiber photometry platform", abbreviation="HSFP")    
+    MESOSPM = BaseName(name="MesoSPIM platform", abbreviation="mesoSPIM")
+    MERFISH = BaseName(name="MERFISH platform", abberviation="merfish")    
+    MRI = BaseName(name="MRI platform", abbreviation="MRI")    
+    MULTIPLANE_OPHYS = BaseName(name="Multiplane optical physiology platform", abbreviation="multiplane-ophys")
+    SINGLE_PLANE_OPHYS = BaseName(name="Single-plane optical physiology platform", abbreviation="single-plane-ophys")
+    SLAP2 = BaseName(name="SLAP2 platform", abbreviation="SLAP2")    
+    SMARTSPIM = BaseName(name="SmartSPIM platform", abbreviation="smartSPIM")
 
-    ECEPHYS = Modality.ECEPHYS.value.abbreviation
-    EXASPIM = Modality.EXASPIM.value.abbreviation
-    CONFOCAL = Modality.CONFOCAL.value.abbreviation
-    DISPIM = Modality.DISPIM.value.abbreviation
-    FIP = Modality.FIP.value.abbreviation
-    FMOST = Modality.FMOST.value.abbreviation
-    HSFP = Modality.HSFP.value.abbreviation
-    MESOSPIM = Modality.MESOSPIM.value.abbreviation
-    MERFISH = Modality.MERFISH.value.abbreviation
-    MRI = Modality.MRI.value.abbreviation
-    MPOPHYS = Modality.MPOPHYS.value.abbreviation
-    SLAP = Modality.SLAP.value.abbreviation
-    SMARTSPIM = Modality.SMARTSPIM.value.abbreviation
-    SPOPHYS = Modality.SPOPHYS.value.abbreviation
-    TRAINED_BEHAVIOR = Modality.TRAINED_BEHAVIOR.value.abbreviation
-    OTHER = "Other"
-
-
-class Project(Enum, metaclass=BaseNameEnumMeta):
-    ECEPHYS_PLAT = BaseName(name="Electrophysiology Platform", abbreviation="ecephys-plat") # formerly ecephys
-    HIST_PLAT = BaseName(name="MSMA Platform - Histology", abbreviation="hist-plat") # formerly smartspim
-    SLAP2_PLAT = BaseName(name="Ophys Platform - SLAP2", abbreviation="slap2-plat")    
-    BEHAVIOR_PLAT = BaseName(name="Behavior Platform Development", abbreviation="behavior-plat")
-    CTLUT = BaseName(name="Cell Type Lookup Table", abbreviation="ctlut")
-    SCBC = BaseName(name="Single-Neuron Computations with Brain-Wide Circuits", abbreviation="scbc")
-    # thalamus / medulla: what to do with these?
-    CVIA = BaseName(name="Converting value into action", abbreviation="cvia")
-    COGFLEX = BaseName(name="Cognitive flexibility in patch foraging", abbreviation="cogflex")
-    BCI = BaseName(name="Brain-computer interface", abbreviation="bci")
-    DR = BaseName(name="Dynamic Routing", abbreviation="dr")
-    LMFISH = BaseName(name="Learning mFISH", abbreviation="lmfish")
-    OPENSCOPE = BaseName(name="OpenScope", abbreviation="openscope") # do we need subprojects here
-    TEMPLETON = BaseName(name="Templeton", abbreviation="templeton")
-    NPU = BaseName(name="Neuropixels Ultra", abbreviation="npu")
-    DISC_BWC = BaseName(name="Discovery - Brain Wide Circuits", abbreviation="dsic-bwc")
-    NMOD_NE = BaseName(name="Functional differences of NE neurons", abbreviation="nmod-ne")
-    NMOD_FD = BaseName(name="Cell-type-specific computations for flexible decisionmaking", abbreviation="nmod-fd")
-    NMOD_DIV = BaseName(name="Molecular and projection-defined diversity of neuromodulator systems", abbreviation="nmod-div")
-    NMOD_DYN = BaseName(name="Neuromodulation dynamics", abbreviation="nmod-dyn")
-    DISC_NMOD = BaseName(name="Discovery - Neuromodulation", abbreviation="disc-nmod")
 
 def datetime_to_name_string(d, t):
     """Take a date and time object, format it a as string"""
@@ -269,8 +229,20 @@ class DataDescription(AindCoreModel):
         description="Full name(s) of key investigators (e.g. PI, lead scientist, contact person)",
         title="Investigators",
     )
-    project: Project = Field(
-        ..., description="A set of coordinated activities intended to achieve one or more objectives", title="Project"
+    platform: Platform = Field(
+        ...,
+        description="Abbreviated name for standardized data collection system",
+        title="Platform",
+    )
+    project_name: Optional[str] = Field(
+        None,
+        description="A name for a set of coordinated activities intended to achieve one or more objectives. This is DEPRECATED and will be removed in a future version.",
+        title="Project Name",
+    )
+    project_id: Optional[str] = Field(
+        None,
+        description="A database or other identifier for a project. This is DEPRECATED and will be removed in a future version.",
+        title="Project ID",
     )
     restrictions: Optional[str] = Field(
         None,
@@ -296,22 +268,7 @@ class DataDescription(AindCoreModel):
     )
     data_summary: Optional[str] = Field(None, title="Data summary", description="Semantic summary of experimental goal")
 
-    # deprecated fields
-    experiment_type: ExperimentType = Field(
-        None,
-        description="An abbreviated name for the experimental technique used to collect this data. This is DEPRECATED and will be removed in a future version.",
-        title="Experiment Type",
-    )
-    project_name: Optional[str] = Field(
-        None,
-        description="A name for a set of coordinated activities intended to achieve one or more objectives. This is DEPRECATED and will be removed in a future version.",
-        title="Project Name",
-    )
-    project_id: Optional[str] = Field(
-        None,
-        description="A database or other identifier for a project. This is DEPRECATED and will be removed in a future version.",
-        title="Project ID",
-    )
+    
 
     def __init__(self, label=None, **kwargs):
         """Construct a generic DataDescription"""
@@ -430,17 +387,15 @@ class DerivedDataDescription(DataDescription):
             funding_source=get_or_default("funding_source"),
             group=get_or_default("group"),
             investigators=get_or_default("investigators"),
-            project=get_or_default("project"),
             restrictions=get_or_default("restrictions"),
             modality=get_or_default("modality"),
+            platform=get_or_default("platform"),
+            project_name=get_or_default("project_name"),
+            project_id=get_or_default("project_id"),            
             subject_id=get_or_default("subject_id"),
             related_data=get_or_default("related_data"),
             data_summary=get_or_default("data_summary"),
-            input_data_name=data_description.name,
-            # deprecated fields
-            project_name=get_or_default("project_name"),
-            project_id=get_or_default("project_id"),
-            experiment_type=get_or_default("experiment_type"),
+            input_data_name=data_description.name,            
         )
 
 
@@ -454,17 +409,17 @@ class RawDataDescription(DataDescription):
         const=True,
     )
 
-    def __init__(self, project_abbreviation, subject_id, **kwargs):
+    def __init__(self, platform_abbreviation, subject_id, **kwargs):
         """Construct a raw data description"""
 
-        project = None
-        for p in Project:
-            if p.value.abbreviation == project_abbreviation:
-                project = p
+        platform = None
+        for p in Platform:
+            if p.value.abbreviation == platform_abbreviation:
+                platform = p
 
         super().__init__(
-            label=f"{project.value.abbreviation}_{subject_id}",
-            project=project,
+            label=f"{platfrm.value.abbreviation}_{subject_id}",
+            platform=platform,
             subject_id=subject_id,
             **kwargs,
         )
@@ -481,7 +436,7 @@ class RawDataDescription(DataDescription):
         creation_date, creation_time = datetime_from_name_string(m.group("c_date"), m.group("c_time"))
 
         return dict(
-            project_abbreviation=m.group("project_abbreviation"),
+            platform_abbreviation=m.group("platform_abbreviation"),
             subject_id=m.group("subject_id"),
             creation_date=creation_date,
             creation_time=creation_time,
