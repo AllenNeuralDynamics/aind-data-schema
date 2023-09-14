@@ -58,17 +58,24 @@ class DataProcess(AindModel):
     outputs: Optional[Dict[str, Any]] = Field(None, description="Output parameters", title="Outputs")
     notes: Optional[str] = None
 
-class DataManipulation():
-    person: str = Field(..., title='Person')
+
+class DataManipulation:
+    """Description of a set of Data Manipulations (processing/analysis steps)"""
+
+    person: str = Field(..., title="Person")
     data_processes: List[DataProcess] = Field(..., title="Data processing", unique_items=True)
 
 
 class PipelineProcess(DataManipulation):
+    """Description of a Processing Pipeline"""
+
     pipeline_version: Optional[str] = Field(None, description="Version of the pipeline", title="Pipeline version")
     pipeline_url: Optional[str] = Field(None, description="URL to the pipeline code", title="Pipeline URL")
 
 
 class AnalysisProcess(DataManipulation):
+    """Description of an Analysis"""
+
     pass
 
 
@@ -81,8 +88,12 @@ class Processing(AindCoreModel):
         title="Schema version",
         const=True,
     )
-    processing_pipeline: PipelineProcess = Field(..., description="Pipeline used to process data", title="Processing Pipeline")
-    analysis: Optional[AnalysisProcess] = Field(None, description="Analysis steps taken after processing", title="Analysis Steps")
+    processing_pipeline: PipelineProcess = Field(
+        ..., description="Pipeline used to process data", title="Processing Pipeline"
+    )
+    analysis: Optional[AnalysisProcess] = Field(
+        None, description="Analysis steps taken after processing", title="Analysis Steps"
+    )
     notes: Optional[str] = Field(None, title="Notes")
 
 

@@ -109,7 +109,7 @@ class OphysRig(AindCoreModel):
         None,
         title="Stimulus devices",
         unique_items=True,
-        )
+    )
     daqs: Optional[List[Union[DAQDevice, HarpDevice]]] = Field(None, title="Data acquisition devices")
     additional_devices: Optional[List[Device]] = Field(None, title="Additional devices", unique_items=True)
     light_path_diagram: Optional[str] = Field(
