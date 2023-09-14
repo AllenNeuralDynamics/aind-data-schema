@@ -83,4 +83,4 @@ s = TwoPhotonOphysSession(
     ],
 )
 
-s.write_standard_file()
+s.write_standard_file(prefix="bergamo")
