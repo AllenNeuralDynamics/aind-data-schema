@@ -15,6 +15,7 @@ from aind_data_schema.imaging.tile import Tile
 class ProcessName(Enum):
     """Data processing type labels"""
 
+    ANALYSIS = "Analysis"
     DENOISING = "Denoising"
     EPHYS_CURATION = "Ephys curation"
     EPHYS_POSTPROCESSING = "Ephys postprocessing"
@@ -57,6 +58,19 @@ class DataProcess(AindModel):
     outputs: Optional[Dict[str, Any]] = Field(None, description="Output parameters", title="Outputs")
     notes: Optional[str] = None
 
+class DataManipulation():
+    person: str = Field(..., title='Person')
+    data_processes: List[DataProcess] = Field(..., title="Data processing", unique_items=True)
+
+
+class PipelineProcess(DataManipulation):
+    pipeline_version: Optional[str] = Field(None, description="Version of the pipeline", title="Pipeline version")
+    pipeline_url: Optional[str] = Field(None, description="URL to the pipeline code", title="Pipeline URL")
+
+
+class AnalysisProcess(DataManipulation):
+    pass
+
 
 class Processing(AindCoreModel):
     """Description of all processes run on data"""
@@ -67,9 +81,9 @@ class Processing(AindCoreModel):
         title="Schema version",
         const=True,
     )
-    pipeline_version: Optional[str] = Field(None, description="Version of the pipeline", title="Pipeline version")
-    pipeline_url: Optional[str] = Field(None, description="URL to the pipeline code", title="Pipeline URL")
-    data_processes: List[DataProcess] = Field(..., title="Data processing", unique_items=True)
+    processing_pipeline: PipelineProcess = Field(..., description="Pipeline used to process data", title="Processing Pipeline")
+    analysis: Optional[AnalysisProcess] = Field(None, description="Analysis steps taken after processing", title="Analysis Steps")
+    notes: Optional[str] = Field(None, title="Notes")
 
 
 class RegistrationType(Enum):
