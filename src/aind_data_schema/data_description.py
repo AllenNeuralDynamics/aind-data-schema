@@ -24,7 +24,7 @@ class DataRegex(Enum):
 
     DATA = f"^(?P<label>.+?)_(?P<c_date>{RegexParts.DATE.value})_(?P<c_time>{RegexParts.TIME.value})$"
     RAW_DATA = (
-        f"^(?P<project_abbreviation>.+?)_(?P<subject_id>.+?)_(?P<c_date>{RegexParts.DATE.value})_(?P<c_time>"
+        f"^(?P<platform_abbreviation>.+?)_(?P<subject_id>.+?)_(?P<c_date>{RegexParts.DATE.value})_(?P<c_time>"
         f"{RegexParts.TIME.value})$"
     )
     DERIVED_DATA = (
@@ -138,7 +138,7 @@ class Platform(Enum, metaclass=BaseNameEnumMeta):
     HCR = BaseName(name="HCR platform", abbreviation="HCR")        
     HSFP = BaseName(name="Hyperspectral fiber photometry platform", abbreviation="HSFP")    
     MESOSPM = BaseName(name="MesoSPIM platform", abbreviation="mesoSPIM")
-    MERFISH = BaseName(name="MERFISH platform", abberviation="merfish")    
+    MERFISH = BaseName(name="MERFISH platform", abbreviation="merfish")    
     MRI = BaseName(name="MRI platform", abbreviation="MRI")    
     MULTIPLANE_OPHYS = BaseName(name="Multiplane optical physiology platform", abbreviation="multiplane-ophys")
     SINGLE_PLANE_OPHYS = BaseName(name="Single-plane optical physiology platform", abbreviation="single-plane-ophys")
@@ -418,7 +418,7 @@ class RawDataDescription(DataDescription):
                 platform = p
 
         super().__init__(
-            label=f"{platfrm.value.abbreviation}_{subject_id}",
+            label=f"{platform.value.abbreviation}_{subject_id}",
             platform=platform,
             subject_id=subject_id,
             **kwargs,
