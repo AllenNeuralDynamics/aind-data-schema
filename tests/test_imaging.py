@@ -47,8 +47,11 @@ class ImagingTests(unittest.TestCase):
                     ],
                     channel=tile.Channel(
                         channel_name="488",
-                        laser_wavelength=488,
-                        laser_power=0.1,
+                        light_source_name="Ex_488",
+                        filter_names=["Em_600"],
+                        detector_name="PMT_1",
+                        excitation_wavelength=488,
+                        excitation_power=0.1,
                         filter_wheel_index=0,
                     ),
                 )
