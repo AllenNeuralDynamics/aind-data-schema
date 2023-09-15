@@ -109,7 +109,10 @@ class DataDescriptionUpgrade:
         elif hasattr(data_description, field_name) and getattr(data_description, field_name) is not None:
             return getattr(data_description, field_name)
         else:
-            return getattr(DataDescription.__fields__.get(field_name), "default")
+            try:
+                return getattr(DataDescription.__fields__.get(field_name), "default")
+            except AttributeError:
+                return None
 
     def upgrade_data_description(self, **kwargs) -> DataDescription:
         """Upgrades the old model into the current version"""
@@ -135,8 +138,9 @@ class DataDescriptionUpgrade:
                 if p.value.abbreviation == experiment_type:
                     platform = p
                     break
-            if platform is None:
-                self._get_or_default(self.old_data_description_model, "platform", kwargs)
+        
+        if platform is None:
+            platform = self._get_or_default(self.old_data_description_model, "platform", kwargs)
 
         return DataDescription(
             creation_time=self._get_or_default(self.old_data_description_model, "creation_time", kwargs),

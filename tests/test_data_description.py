@@ -175,7 +175,7 @@ class DataDescriptionTest(unittest.TestCase):
 
         data_description_0_3_0 = self.data_descriptions["data_description_0.3.0.json"]
         upgrader_0_3_0 = DataDescriptionUpgrade(old_data_description_model=data_description_0_3_0)
-        new_dd_0_3_0 = upgrader_0_3_0.upgrade_data_description(experiment_type='ecephys')
+        new_dd_0_3_0 = upgrader_0_3_0.upgrade_data_description(platform=Platform.ECEPHYS)
         derived_dd_0_3_0 = DerivedDataDescription.from_data_description(new_dd_0_3_0, process_name=process_name)
         self.assertEqual(Platform.ECEPHYS, derived_dd_0_3_0.platform)
 

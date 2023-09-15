@@ -45,7 +45,7 @@ class TestDataDescriptionUpgrade(unittest.TestCase):
         """Tests data_description_0.3.0.json is mapped correctly."""
         data_description_0_3_0 = self.data_descriptions["data_description_0.3.0.json"]
         upgrader = DataDescriptionUpgrade(old_data_description_model=data_description_0_3_0)
-        # Should complain about experiment type being None
+        # Should complain about platform being None
         with self.assertRaises(Exception) as e:
             upgrader.upgrade_data_description()
 
@@ -53,15 +53,15 @@ class TestDataDescriptionUpgrade(unittest.TestCase):
             "ValidationError("
             "model='DataDescription', "
             "errors=[{"
-            "'loc': ('experiment_type',), "
+            "'loc': ('platform',), "
             "'msg': 'none is not an allowed value', "
             "'type': 'type_error.none.not_allowed'"
             "}])"
         )
         self.assertEqual(expected_error_message, repr(e.exception))
 
-        # Should work by setting experiment type explicitly
-        new_data_description = upgrader.upgrade_data_description(experiment_type=Platform.ECEPHYS)
+        # Should work by setting platform explicitly
+        new_data_description = upgrader.upgrade_data_description(platform=Platform.ECEPHYS)
         self.assertEqual(datetime.time(10, 31, 30), new_data_description.creation_time)
         self.assertEqual(datetime.date(2022, 6, 28), new_data_description.creation_date)
         self.assertEqual("ecephys_623705_2022-06-28_10-31-30", new_data_description.name)
@@ -83,7 +83,7 @@ class TestDataDescriptionUpgrade(unittest.TestCase):
         data_description_0_4_0 = self.data_descriptions["data_description_0.4.0.json"]
         upgrader = DataDescriptionUpgrade(old_data_description_model=data_description_0_4_0)
 
-        # Should work by setting experiment type explicitly
+        # Should work by setting platform explicitly
         new_data_description = upgrader.upgrade_data_description()
         self.assertEqual(datetime.time(14, 35, 51), new_data_description.creation_time)
         self.assertEqual(datetime.date(2023, 4, 13), new_data_description.creation_date)
