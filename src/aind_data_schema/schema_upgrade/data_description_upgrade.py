@@ -138,7 +138,7 @@ class DataDescriptionUpgrade:
                 if p.value.abbreviation == experiment_type:
                     platform = p
                     break
-        
+
         if platform is None:
             platform = self._get_or_default(self.old_data_description_model, "platform", kwargs)
 

@@ -5,6 +5,8 @@ import unittest
 
 import pydantic
 
+from aind_data_schema.behavior import behavior_rig as br
+from aind_data_schema.behavior import behavior_session as bs
 from aind_data_schema.device import (
     Camera,
     DAQChannel,
@@ -12,11 +14,9 @@ from aind_data_schema.device import (
     Lens,
     Manufacturer,
     MotorizedStage,
-    SpoutSide,
     RewardSpout,
+    SpoutSide,
 )
-from aind_data_schema.behavior import behavior_rig as br
-from aind_data_schema.behavior import behavior_session as bs
 from aind_data_schema.stimulus import BehaviorStimulation
 
 

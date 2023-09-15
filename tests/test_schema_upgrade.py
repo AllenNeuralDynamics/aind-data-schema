@@ -10,11 +10,11 @@ from typing import List
 from aind_data_schema.data_description import (
     DataDescription,
     DataLevel,
-    Platform,
     Funding,
     Group,
     Institution,
     Modality,
+    Platform,
     RelatedData,
 )
 from aind_data_schema.schema_upgrade.data_description_upgrade import (

@@ -8,8 +8,8 @@ from typing import Any, Dict, List, Optional
 from pydantic import Field
 
 from aind_data_schema.base import AindModel, BaseNameEnumMeta, EnumSubset, PIDName, Registry
-from aind_data_schema.utils.units import AngleUnit, FrequencyUnit, PowerUnit, SizeUnit
 from aind_data_schema.procedures import Reagent
+from aind_data_schema.utils.units import AngleUnit, FrequencyUnit, PowerUnit, SizeUnit
 
 
 class DeviceDriver(Enum):

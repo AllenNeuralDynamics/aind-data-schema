@@ -4,16 +4,15 @@ from __future__ import annotations
 
 from datetime import datetime
 from decimal import Decimal
-
 from enum import Enum
 from typing import Any, Dict, List, Optional
 
 from pydantic import Field
 
 from aind_data_schema.base import AindCoreModel, AindModel
+from aind_data_schema.device import Calibration, Maintenance, RelativePosition, SpoutSide
 from aind_data_schema.stimulus import StimulusEpoch
 from aind_data_schema.utils.units import MassUnit, VolumeUnit
-from aind_data_schema.device import Calibration, Maintenance, RelativePosition, SpoutSide
 
 
 class RewardSolution(Enum):

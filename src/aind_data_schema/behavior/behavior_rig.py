@@ -15,10 +15,10 @@ from aind_data_schema.device import (
     Disc,
     HarpDevice,
     Monitor,
+    RewardDelivery,
     Speaker,
     Treadmill,
     Tube,
-    RewardDelivery,
 )
 
 
