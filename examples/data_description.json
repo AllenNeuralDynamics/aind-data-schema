@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/data_description.py",
-   "schema_version": "0.7.6",
+   "schema_version": "0.8.0",
    "license": "CC-BY-4.0",
    "creation_time": "16:30:01",
    "creation_date": "2022-02-21",
@@ -29,7 +29,7 @@
          "fundee": null
       }
    ],
-   "data_level": "raw data",
+   "data_level": "raw",
    "group": null,
    "investigators": [
       "Jane Smith"
