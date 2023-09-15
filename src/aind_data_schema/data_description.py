@@ -410,8 +410,13 @@ class RawDataDescription(DataDescription):
     def __init__(self, platform, subject_id, **kwargs):
         """Construct a raw data description"""
 
+        if isinstance(platform, dict):
+            platform_abbreviation = platform.get("abbreviation")
+        else:
+            platform_abbreviation = platform.value.abbreviation
+
         super().__init__(
-            label=f"{platform.value.abbreviation}_{subject_id}",
+            label=f"{platform_abbreviation}_{subject_id}",
             platform=platform,
             subject_id=subject_id,
             **kwargs,
