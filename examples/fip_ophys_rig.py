@@ -263,6 +263,7 @@ r = ophr.OphysRig(
         )
     ],
     mouse_platform=d.Disc(radius=8.5),
+    stimulus_devices=[],
 )
 
 r.write_standard_file(prefix="fip")

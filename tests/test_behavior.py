@@ -17,7 +17,7 @@ from aind_data_schema.device import (
 )
 from aind_data_schema.behavior import behavior_rig as br
 from aind_data_schema.behavior import behavior_session as bs
-from aind_data_schema.stimulus import BehaviorStim
+from aind_data_schema.stimulus import BehaviorStimulation
 
 
 class BehaviorTests(unittest.TestCase):
@@ -46,7 +46,7 @@ class BehaviorTests(unittest.TestCase):
             session_number=3,
             stimulus_epochs=[
                 bs.StimulusEpoch(
-                    stimulus=BehaviorStim(
+                    stimulus=BehaviorStimulation(
                         behavior_name="Foraging",
                         behavior_software="Bonsai",
                         behavior_software_version="0.1",

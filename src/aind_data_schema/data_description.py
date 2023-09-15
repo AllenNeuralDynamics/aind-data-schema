@@ -27,7 +27,7 @@ class DataRegex(Enum):
         f"^(?P<platform_abbreviation>.+?)_(?P<subject_id>.+?)_(?P<c_date>{RegexParts.DATE.value})_(?P<c_time>"
         f"{RegexParts.TIME.value})$"
     )
-    DERIVED_DATA = (
+    DERIVED = (
         f"^(?P<input>.+?_{RegexParts.DATE.value}_{RegexParts.TIME.value})_(?P<process_name>.+?)_(?P<c_date>"
         f"{RegexParts.DATE.value})_(?P<c_time>{RegexParts.TIME.value})"
     )
@@ -37,8 +37,8 @@ class DataRegex(Enum):
 class DataLevel(Enum):
     """Data level name"""
 
-    DERIVED_DATA = "derived data"
-    RAW_DATA = "raw data"
+    DERIVED = "derived"
+    RAW = "raw"
 
 
 class Institution(Enum, metaclass=BaseNameEnumMeta):
@@ -302,7 +302,7 @@ class DerivedDataDescription(DataDescription):
 
     input_data_name: str
     data_level: DataLevel = Field(
-        DataLevel.DERIVED_DATA,
+        DataLevel.DERIVED,
         description="level of processing that data has undergone",
         title="Data Level",
         const=True,
@@ -318,7 +318,7 @@ class DerivedDataDescription(DataDescription):
         """decompose DerivedDataDescription name into parts"""
 
         # look for input data name
-        m = re.match(f"{DataRegex.DERIVED_DATA.value}", name)
+        m = re.match(f"{DataRegex.DERIVED.value}", name)
 
         if m is None:
             raise ValueError(f"name({name}) does not match pattern")
@@ -401,7 +401,7 @@ class RawDataDescription(DataDescription):
     """A logical collection of data files as acquired from a rig or instrument"""
 
     data_level: DataLevel = Field(
-        DataLevel.RAW_DATA,
+        DataLevel.RAW,
         description="level of processing that data has undergone",
         title="Data Level",
         const=True,
@@ -424,9 +424,9 @@ class RawDataDescription(DataDescription):
 
     @classmethod
     def parse_name(cls, name):
-        """Decompose raw data description name into component parts"""
+        """Decompose raw description name into component parts"""
 
-        m = re.match(f"{DataRegex.RAW_DATA.value}", name)
+        m = re.match(f"{DataRegex.RAW.value}", name)
 
         if m is None:
             raise ValueError(f"name({name}) does not match pattern")

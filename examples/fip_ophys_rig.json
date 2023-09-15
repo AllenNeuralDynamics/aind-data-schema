@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/ophys/ophys_rig.py",
-   "schema_version": "0.6.10",
+   "schema_version": "0.7.0",
    "rig_id": "428_FIP1_2",
    "temperature_control": null,
    "humidity_control": null,
@@ -553,7 +553,7 @@
       "decoder": null,
       "encoder_firmware": null
    },
-   "visual_monitors": null,
+   "stimulus_devices": [],
    "daqs": [
       {
          "name": "USB DAQ",
