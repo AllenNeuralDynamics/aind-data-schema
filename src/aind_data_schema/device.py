@@ -85,7 +85,7 @@ class Manufacturer(Enum, metaclass=BaseNameEnumMeta):
         name="Meadowlark Optics",
         registry=Registry.ROR,
         registry_identifier="00n8qbq54",
-        )
+    )
     MIGHTY_ZAP = PIDName(name="IR Robot Co")
     MKS_NEWPORT = PIDName(
         name="MKS Newport",
