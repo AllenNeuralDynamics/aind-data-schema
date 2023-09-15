@@ -236,12 +236,12 @@ class DataDescription(AindCoreModel):
     )
     project_name: Optional[str] = Field(
         None,
-        description="A name for a set of coordinated activities intended to achieve one or more objectives. This is DEPRECATED and will be removed in a future version.",
+        description="A name for a set of coordinated activities intended to achieve one or more objectives.",
         title="Project Name",
     )
     project_id: Optional[str] = Field(
         None,
-        description="A database or other identifier for a project. This is DEPRECATED and will be removed in a future version.",
+        description="A database or other identifier for a project.",
         title="Project ID",
     )
     restrictions: Optional[str] = Field(
