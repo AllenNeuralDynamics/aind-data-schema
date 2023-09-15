@@ -122,24 +122,24 @@ class Modality(Enum, metaclass=BaseNameEnumMeta):
     )
     MRI = BaseName(name="Magnetic resonance imaging", abbreviation="MRI")
     OPHYS = BaseName(name="Optical physiology", abbreviation="ophys")
-    SLAP = BaseName(name="Scanned line projection", abbreviation="slap")
+    SLAP = BaseName(name="Scanned line projection imaging", abbreviation="slap")
     SPIM = BaseName(name="Selective plane illumination microscopy", abbreviation="SPIM")
     TRAINED_BEHAVIOR = BaseName(name="Trained behavior", abbreviation="trained-behavior")
-
+c
 
 class Platform(Enum, metaclass=BaseNameEnumMeta):
-    """Abbreviated name for standardized data collection system."""
+    """Name for standardized data collection system."""
 
     BVR_TRAIN = BaseName(name="Behavior training platform", abbreviation="bvr-train")
     BVR_RECORD = BaseName(name="Behavior recording platform", abbreviation="bvr-record")
     ECEPHYS = BaseName(name="Electrophysiology platform", abbreviation="ecephys")
     EXASPIM = BaseName(name="ExaSPIM platform", abbreviation="exaSPIM")
     FIP = BaseName(name="Frame-projected independent-fiber photometry platform", abbreviation="FIP")
-    HCR = BaseName(name="HCR platform", abbreviation="HCR")
+    HCR = BaseName(name="Hybridization chain reaction platform", abbreviation="HCR")
     HSFP = BaseName(name="Hyperspectral fiber photometry platform", abbreviation="HSFP")
     MESOSPM = BaseName(name="MesoSPIM platform", abbreviation="mesoSPIM")
     MERFISH = BaseName(name="MERFISH platform", abbreviation="merfish")
-    MRI = BaseName(name="MRI platform", abbreviation="MRI")
+    MRI = BaseName(name="Magnetic resonance imaging platform", abbreviation="MRI")
     MULTIPLANE_OPHYS = BaseName(name="Multiplane optical physiology platform", abbreviation="multiplane-ophys")
     SINGLE_PLANE_OPHYS = BaseName(name="Single-plane optical physiology platform", abbreviation="single-plane-ophys")
     SLAP2 = BaseName(name="SLAP2 platform", abbreviation="SLAP2")
@@ -231,18 +231,13 @@ class DataDescription(AindCoreModel):
     )
     platform: Platform = Field(
         ...,
-        description="Abbreviated name for standardized data collection system",
+        description="Name for a standardized primary data collection system",
         title="Platform",
     )
     project_name: Optional[str] = Field(
         None,
         description="A name for a set of coordinated activities intended to achieve one or more objectives.",
         title="Project Name",
-    )
-    project_id: Optional[str] = Field(
-        None,
-        description="A database or other identifier for a project.",
-        title="Project ID",
     )
     restrictions: Optional[str] = Field(
         None,
@@ -389,7 +384,6 @@ class DerivedDataDescription(DataDescription):
             modality=get_or_default("modality"),
             platform=get_or_default("platform"),
             project_name=get_or_default("project_name"),
-            project_id=get_or_default("project_id"),
             subject_id=get_or_default("subject_id"),
             related_data=get_or_default("related_data"),
             data_summary=get_or_default("data_summary"),
