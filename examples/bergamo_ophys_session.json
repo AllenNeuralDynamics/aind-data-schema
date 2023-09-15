@@ -1,0 +1,100 @@
+{
+   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/ophys/ophys_session.py",
+   "schema_version": "0.2.9",
+   "experimenter_full_name": [
+      "John Doe"
+   ],
+   "session_start_time": "2022-07-12T07:00:00",
+   "session_end_time": "2022-07-12T07:00:00",
+   "subject_id": 652567,
+   "session_type": "BCI Photometry",
+   "iacuc_protocol": "2115",
+   "rig_id": "ophys_rig",
+   "light_sources": [
+      {
+         "name": "Laser A",
+         "wavelength": 405,
+         "wavelength_unit": "nanometer",
+         "excitation_power": 10,
+         "excitation_power_unit": "milliwatt"
+      }
+   ],
+   "detectors": [
+      {
+         "name": "PMT A",
+         "exposure_time": 0.1,
+         "exposure_time_unit": "millisecond",
+         "trigger_type": "Internal"
+      }
+   ],
+   "cameras": [
+      {
+         "name": "Face Camera"
+      }
+   ],
+   "stimulus_epochs": [
+      {
+         "stimulus": {
+            "stimulus_name": "PhotoStimulation",
+            "number_groups": 2,
+            "groups": [
+               {
+                  "group_index": 0,
+                  "number_of_neurons": 12,
+                  "stimulation_laser_power": 10,
+                  "stimulation_laser_power_unit": "milliwatt",
+                  "number_trials": 5,
+                  "number_spirals": 3,
+                  "spiral_duration": 2,
+                  "spiral_duration_unit": "second",
+                  "inter_spiral_interval": 1,
+                  "inter_spiral_interval_unit": "second",
+                  "other_parameters": null,
+                  "notes": null
+               },
+               {
+                  "group_index": 2,
+                  "number_of_neurons": 20,
+                  "stimulation_laser_power": 10,
+                  "stimulation_laser_power_unit": "milliwatt",
+                  "number_trials": 5,
+                  "number_spirals": 3,
+                  "spiral_duration": 2,
+                  "spiral_duration_unit": "second",
+                  "inter_spiral_interval": 1,
+                  "inter_spiral_interval_unit": "second",
+                  "other_parameters": null,
+                  "notes": null
+               }
+            ],
+            "inter_trial_interval": 10,
+            "inter_trial_interval_unit": "second",
+            "other_parameters": null,
+            "notes": null
+         },
+         "stimulus_start_time": "07:00:00",
+         "stimulus_end_time": "07:00:00"
+      }
+   ],
+   "notes": null,
+   "fovs": [
+      {
+         "index": 0,
+         "imaging_depth": 150,
+         "imaging_depth_unit": "micrometer",
+         "targeted_structure": "M1",
+         "fov_coordinate_ml": 1.5,
+         "fov_coordinate_ap": 1.5,
+         "fov_coordinate_unit": "micrometer",
+         "fov_reference": "Bregma",
+         "fov_width": 800,
+         "fov_height": 800,
+         "fov_size_unit": "pixel",
+         "magnification": "1x",
+         "fov_scale_factor": 1.5,
+         "fov_scale_factor_unit": "um/pixel",
+         "frame_rate": 20,
+         "frame_rate_unit": "hertz"
+      }
+   ]
+}
