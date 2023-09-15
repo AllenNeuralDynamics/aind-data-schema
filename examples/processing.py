@@ -2,12 +2,11 @@
 import datetime
 
 from aind_data_schema import Processing
-from aind_data_schema.processing import DataProcess, PipelineProcess, AnalysisProcess
+from aind_data_schema.processing import AnalysisProcess, DataProcess, PipelineProcess
 
 t = datetime.datetime(2022, 11, 22, 8, 43, 00)
 
 p = Processing(
-    
     processing_pipeline=PipelineProcess(
         person="Some Processor",
         pipeline_url="https://url/for/pipeline",
@@ -46,7 +45,8 @@ p = Processing(
                 code_url="https://github.com/fdsa",
                 parameters={"a": 2, "b": -2},
             ),
-        ]),
+        ],
+    ),
     analysis=AnalysisProcess(
         person="Some Analyzer",
         data_processes=[
@@ -71,8 +71,8 @@ p = Processing(
                 code_version="0.1",
                 code_url="https://github.com/asdf",
                 parameters={"u": 7, "z": True},
-            )
-        ]
-    )
+            ),
+        ],
+    ),
 )
 p.write_standard_file()
