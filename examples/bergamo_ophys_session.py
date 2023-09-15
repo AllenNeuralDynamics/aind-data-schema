@@ -3,7 +3,7 @@
 import datetime
 
 from aind_data_schema.ophys.ophys_session import Camera, Detector, FieldOfView, Laser, TwoPhotonOphysSession
-from aind_data_schema.stimulus import StimulusEpoch, PhotoStimulation, PhotoStimulationGroup
+from aind_data_schema.stimulus import PhotoStimulation, PhotoStimulationGroup, StimulusEpoch
 
 t = datetime.datetime(2022, 7, 12, 7, 00, 00)
 t2 = datetime.time(7, 00, 00)
@@ -32,9 +32,7 @@ s = TwoPhotonOphysSession(
             trigger_type="Internal",
         ),
     ],
-    cameras=[
-        Camera(name="Face Camera")
-    ],
+    cameras=[Camera(name="Face Camera")],
     stimulus_epochs=[
         StimulusEpoch(
             stimulus=PhotoStimulation(

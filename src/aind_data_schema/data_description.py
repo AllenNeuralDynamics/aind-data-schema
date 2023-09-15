@@ -125,7 +125,7 @@ class Modality(Enum, metaclass=BaseNameEnumMeta):
     SLAP = BaseName(name="Scanned line projection imaging", abbreviation="slap")
     SPIM = BaseName(name="Selective plane illumination microscopy", abbreviation="SPIM")
     TRAINED_BEHAVIOR = BaseName(name="Trained behavior", abbreviation="trained-behavior")
-c
+
 
 class Platform(Enum, metaclass=BaseNameEnumMeta):
     """Name for standardized data collection system."""
