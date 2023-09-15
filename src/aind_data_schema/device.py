@@ -7,8 +7,10 @@ from typing import Any, Dict, List, Optional
 
 from pydantic import Field
 
-from aind_data_schema.base import AindModel, BaseNameEnumMeta, EnumSubset, PIDName, Registry
-from aind_data_schema.utils.units import AngleUnit, FrequencyUnit, PowerUnit, SizeUnit
+from aind_data_schema.base import AindModel, EnumSubset
+from aind_data_schema.utils.units import FrequencyUnit, PowerUnit, SizeUnit
+from aind_data_schema.manufacturers import Manufacturer
+from aind_data_schema.positions import RelativePosition
 from aind_data_schema.procedures import Reagent
 
 
@@ -18,120 +20,6 @@ class DeviceDriver(Enum):
     OPENGL = "OpenGL"
     VIMBA = "Vimba"
     NVIDIA = "Nvidia Graphics"
-
-
-class Manufacturer(Enum, metaclass=BaseNameEnumMeta):
-    """Device manufacturer name"""
-
-    AILIPU = PIDName(name="Ailipu Technology Co")
-    ALLIED = PIDName(name="Allied")
-    ASI = PIDName(
-        name="Applied Scientific Instrumentation",
-        abbreviation="ASI",
-    )
-    AVCOSTAR = PIDName(name="Arecont Vision Costar")
-    BASLER = PIDName(name="Basler")
-    CAMBRIDGE_TECHNOLOGY = PIDName(name="Cambridge Technology")
-    CHROMA = PIDName(name="Chroma")
-    COHERENT_SCIENTIFIC = PIDName(
-        name="Coherent Scientific",
-        registry=Registry.ROR,
-        registry_identifier="031tysd23",
-    )
-    CONOPTICS = PIDName(name="Conoptics")
-    COMPUTAR = PIDName(name="Computar")
-    CUSTOM = PIDName(name="Custom")
-    DORIC = PIDName(
-        name="Doric",
-        registry=Registry.ROR,
-        registry_identifier="059n53q30",
-    )
-    EALING = PIDName(name="Ealing")
-    EDMUND_OPTICS = PIDName(
-        name="Edmund Optics",
-        registry=Registry.ROR,
-        registry_identifier="01j1gwp17",
-    )
-    FLIR = PIDName(
-        name="Teledyne FLIR",
-        abbreviation="FLIR",
-        registry=Registry.ROR,
-        registry_identifier="01j1gwp17",
-    )
-    FUJINON = PIDName(name="Fujinon")
-    HAMAMATSU = PIDName(
-        name="Hamamatsu",
-        registry=Registry.ROR,
-        registry_identifier="03natb733",
-    )
-    IMAGING_SOURCE = PIDName(name="The Imaging Source")
-    IMEC = PIDName(
-        name="Interuniversity Microelectronics Center",
-        abbreviation="IMEC",
-        registry=Registry.ROR,
-        registry_identifier="02kcbn207",
-    )
-    INFINITY_PHOTO_OPTICAL = PIDName(name="Infinity Photo-Optical")
-    JULABO = PIDName(name="Julabo")
-    LEE = PIDName(name="The Lee Company")
-    LEICA = PIDName(name="Leica")
-    LG = PIDName(
-        name="LG",
-        registry=Registry.ROR,
-        registry_identifier="02b948n83",
-    )
-    LIFECANVAS = PIDName(name="LifeCanvas")
-    MEADOWLARK = PIDName(
-        name="Meadowlark Optics",
-        registry=Registry.ROR,
-        registry_identifier="00n8qbq54",
-        )
-    MIGHTY_ZAP = PIDName(name="IR Robot Co")
-    MKS_NEWPORT = PIDName(
-        name="MKS Newport",
-        registry=Registry.ROR,
-        registry_identifier="00k17f049",
-    )
-    MPI = PIDName(name="MPI", abbreviation="MPI")
-    NATIONAL_INSTRUMENTS = PIDName(
-        name="National Instruments",
-        registry=Registry.ROR,
-        registry_identifier="026exqw73",
-    )
-    NEW_SCALE_TECHNOLOGIES = PIDName(name="New Scale Technologies")
-    NIKON = PIDName(
-        name="Nikon",
-        registry=Registry.ROR,
-        registry_identifier="0280y9h11",
-    )
-    OEPS = PIDName(
-        name="Open Ephys Production Site",
-        abbreviation="OEPS",
-        registry=Registry.ROR,
-        registry_identifier="007rkz355",
-    )
-    OLYMPUS = PIDName(
-        name="Olympus",
-        registry=Registry.ROR,
-        registry_identifier="02vcdte90",
-    )
-    OPTOTUNE = PIDName(name="Optotune")
-    OXXIUS = PIDName(name="Oxxius")
-    PRIZMATIX = PIDName(name="Prizmatix")
-    QUANTIFI = PIDName(name="Quantifi")
-    RASPBERRYPI = PIDName(name="Raspberry Pi")
-    SEMROCK = PIDName(name="Semrock")
-    TAMRON = PIDName(name="Tamron")
-    THORLABS = PIDName(
-        name="Thorlabs",
-        registry=Registry.ROR,
-        registry_identifier="04gsnvb07",
-    )
-    TMC = PIDName(name="Technical Manufacturing Corporation", abbreviation="TMC")
-    TYMPHANY = PIDName(name="Tymphany")
-    VIEWORKS = PIDName(name="Vieworks")
-    VORTRAN = PIDName(name="Vortran")
-    OTHER = PIDName(name="Other")
 
 
 class Coupling(Enum):
@@ -197,65 +85,6 @@ class DaqChannelType(Enum):
     DO = "Digital Output"
 
 
-class RelativePosition(AindModel):
-    """Set of 6 values describing relative position on a rig"""
-
-    pitch: Optional[Decimal] = Field(None, title="Angle pitch (deg)", units="deg", ge=0, le=360)
-    yaw: Optional[Decimal] = Field(None, title="Angle yaw (deg)", units="deg", ge=0, le=360)
-    roll: Optional[Decimal] = Field(None, title="Angle roll (deg)", units="deg", ge=0, le=360)
-    angle_unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
-
-    x: Optional[Decimal] = Field(None, title="Position X (mm)", units="mm")
-    y: Optional[Decimal] = Field(None, title="Position Y (mm)", units="mm")
-    z: Optional[Decimal] = Field(None, title="Position Z (mm)", units="mm")
-    position_unit: SizeUnit = Field(SizeUnit.MM, title="Position unit")
-
-    coordinate_system: Optional[str] = Field(None, title="Description of the coordinate system used")
-
-
-class Size2d(AindModel):
-    """2D size of an object"""
-
-    width: int = Field(..., title="Width")
-    height: int = Field(..., title="Height")
-    unit: SizeUnit = Field(SizeUnit.PX, title="Size unit")
-
-
-class Orientation3d(AindModel):
-    """3D orientation of an object"""
-
-    pitch: Decimal = Field(..., title="Angle pitch", ge=0, le=360)
-    yaw: Decimal = Field(..., title="Angle yaw", ge=0, le=360)
-    roll: Decimal = Field(..., title="Angle roll", ge=0, le=360)
-    unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
-
-
-class ModuleOrientation2d(AindModel):
-    """2D module orientation of an object"""
-
-    arc_angle: Decimal = Field(..., title="Arc angle")
-    module_angle: Decimal = Field(..., title="Module angle")
-    unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
-
-
-class ModuleOrientation3d(AindModel):
-    """3D module orientation of an object"""
-
-    arc_angle: Decimal = Field(..., title="Arc angle")
-    module_angle: Decimal = Field(..., title="Module angle")
-    rotation_angle: Decimal = Field(..., title="Rotation angle")
-    unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
-
-
-class Coordinates3d(AindModel):
-    """Coordinates in a 3D grid"""
-
-    x: Decimal = Field(..., title="Position X")
-    y: Decimal = Field(..., title="Position Y")
-    z: Decimal = Field(..., title="Position Z")
-    unit: SizeUnit = Field(SizeUnit.UM, title="Position unit")
-
-
 class Device(AindModel):
     """Generic device"""
 
@@ -296,16 +125,6 @@ class Maintenance(AindModel):
     notes: Optional[str] = Field(None, title="Notes")
 
 
-class MotorizedStage(Device):
-    """Description of motorized stage"""
-
-    travel: Decimal = Field(..., title="Travel of device (mm)", units="mm")
-    travel_unit: SizeUnit = Field(SizeUnit.MM, title="Travel unit")
-
-    # optional fields
-    firmware: Optional[str] = Field(None, title="Firmware")
-
-
 class Camera(Device):
     """Device that acquires images and streams them to a computer"""
 
@@ -335,28 +154,6 @@ class Camera(Device):
     recording_software: Optional[Software] = Field(None, title="Recording software")
     driver: Optional[DeviceDriver] = Field(None, title="Driver")
     driver_version: Optional[str] = Field(None, title="Driver version")
-
-
-class Lens(Device):
-    """Lens used to focus light onto a camera sensor"""
-
-    # required fields
-    manufacturer: EnumSubset[
-        Manufacturer.COMPUTAR,
-        Manufacturer.EDMUND_OPTICS,
-        Manufacturer.INFINITY_PHOTO_OPTICAL,
-        Manufacturer.THORLABS,
-        Manufacturer.OTHER,
-    ]
-
-    # optional fields
-    focal_length: Optional[Decimal] = Field(None, title="Focal length of the lens", units="mm")
-    focal_length_unit: SizeUnit = Field(SizeUnit.MM, title="Focal length unit")
-    size: Optional[LensSize] = Field(None, title="Size (inches)")
-    lens_size_unit: SizeUnit = Field(SizeUnit.IN, title="Lens size unit")
-    optimized_wavelength_range: Optional[str] = Field(None, title="Optimized wavelength range (nm)")
-    wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
-    max_aperture: Optional[str] = Field(None, title="Max aperture (e.g. f/2)")
 
 
 class Filter(Device):
@@ -389,6 +186,38 @@ class Filter(Device):
         title="Description",
         description="More details about filter properties and where/how it is being used",
     )
+
+
+class Lens(Device):
+    """Lens used to focus light onto a camera sensor"""
+
+    # required fields
+    manufacturer: EnumSubset[
+        Manufacturer.COMPUTAR,
+        Manufacturer.EDMUND_OPTICS,
+        Manufacturer.INFINITY_PHOTO_OPTICAL,
+        Manufacturer.THORLABS,
+        Manufacturer.OTHER,
+    ]
+
+    # optional fields
+    focal_length: Optional[Decimal] = Field(None, title="Focal length of the lens", units="mm")
+    focal_length_unit: SizeUnit = Field(SizeUnit.MM, title="Focal length unit")
+    size: Optional[LensSize] = Field(None, title="Size (inches)")
+    lens_size_unit: SizeUnit = Field(SizeUnit.IN, title="Lens size unit")
+    optimized_wavelength_range: Optional[str] = Field(None, title="Optimized wavelength range (nm)")
+    wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
+    max_aperture: Optional[str] = Field(None, title="Max aperture (e.g. f/2)")
+
+
+class MotorizedStage(Device):
+    """Description of motorized stage"""
+
+    travel: Decimal = Field(..., title="Travel of device (mm)", units="mm")
+    travel_unit: SizeUnit = Field(SizeUnit.MM, title="Travel unit")
+
+    # optional fields
+    firmware: Optional[str] = Field(None, title="Firmware")
 
 
 class Immersion(Enum):
@@ -538,6 +367,158 @@ class LightEmittingDiode(Device):
     ]
     wavelength: int = Field(..., title="Wavelength (nm)", units="nm")
     wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
+
+
+class ProbePort(AindModel):
+    """Port for a probe connection"""
+
+    index: int = Field(..., title="One-based port index")
+    probes: List[str] = Field(..., title="Names of probes connected to this port")
+
+
+class NeuropixelsBasestation(DAQDevice):
+    """PXI-based Neuropixels DAQ"""
+
+    # required fields
+    basestation_firmware_version: str = Field(..., title="Basestation firmware version")
+    bsc_firmware_version: str = Field(..., title="Basestation connect board firmware")
+    slot: int = Field(..., title="Slot number for this basestation")
+    ports: List[ProbePort] = Field(..., title="Basestation ports")
+
+    # fixed values
+    data_interface: DataInterface = Field("PXI", const=True)
+    manufacturer: Manufacturer = Field(Manufacturer.IMEC, const=True)
+
+
+class OpenEphysAcquisitionBoard(DAQDevice):
+    """Multichannel electrophysiology DAQ"""
+
+    # required fields
+    ports: List[ProbePort] = Field(..., title="Acquisition board ports")
+
+    # fixed values
+    data_interface: DataInterface = Field("USB", const=True)
+    manufacturer: Manufacturer = Manufacturer.OEPS
+
+
+class Manipulator(Device):
+    """Manipulator used on a dome module"""
+
+    manufacturer: EnumSubset[Manufacturer.NEW_SCALE_TECHNOLOGIES]
+
+
+class StickMicroscopeAssembly(AindModel):
+    """Stick microscope used to monitor probes during insertion"""
+
+    scope_assembly_name: str = Field(..., title="Scope assembly name")
+    camera: Camera = Field(..., title="Camera for this module")
+    lens: Lens = Field(..., title="Lens for this module")
+
+
+class LaserAssembly(AindModel):
+    """Assembly for optogenetic stimulation"""
+
+    laser_assembly_name: str = Field(..., title="Laser assembly name")
+    manipulator: Manipulator = Field(..., title="Manipulator")
+    lasers: List[Laser] = Field(..., title="Lasers connected to this module")
+
+
+class ProbeModel(Enum):
+    """Probe model name"""
+
+    MI_ULED_PROBE = "Michigan uLED Probe (Version 1)"
+    MP_PHOTONIC_V1 = "MPI Photonic Probe (Version 1)"
+    NP_OPTO_DEMONSTRATOR = "Neuropixels Opto (Demonstrator)"
+    NP_UHD_FIXED = "Neuropixels UHD (Fixed)"
+    NP_UHD_SWITCHABLE = "Neuropixels UHD (Switchable)"
+    NP1 = "Neuropixels 1.0"
+    NP2_SINGLE_SHANK = "Neuropixels 2.0 (Single Shank)"
+    NP2_MULTI_SHANK = "Neuropixels 2.0 (Multi Shank)"
+    NP2_QUAD_BASE = "Neuropixels 2.0 (Quad Base)"
+
+
+class HeadstageModel(Enum):
+    """Headstage model name"""
+
+    RHD_16_CH = "Intan RHD 16-channel"
+    RHD_32_CH = "Intan RHD 32-channel"
+    RHD_64_CH = "Intan RHD 64-channel"
+
+
+class Headstage(Device):
+    """Headstage used with an ephys probe"""
+
+    headstage_model: Optional[HeadstageModel] = Field(None, title="Headstage model")
+
+
+class EphysProbe(Device):
+    """Named probe used in an ephys experiment"""
+
+    # required fields
+    probe_model: ProbeModel = Field(..., title="Probe model")
+
+    # optional fields
+    lasers: Optional[List[Laser]] = Field(None, title="Lasers connected to this probe")
+    headstage: Optional[Headstage] = Field(None, title="Headstage for this probe")
+
+
+class EphysAssembly(AindModel):
+    """Module for electrophysiological recording"""
+
+    ephys_assembly_name: str = Field(..., title="Ephys assembly name")
+    manipulator: Manipulator = Field(..., title="Manipulator")
+    probes: List[EphysProbe] = Field(..., title="Probes that are held by this module")
+
+
+class DetectorType(Enum):
+    """Detector type name"""
+
+    CAMERA = "Camera"
+    PMT = "PMT"
+    OTHER = "other"
+
+
+class Cooling(Enum):
+    """Cooling medium name"""
+
+    AIR = "air"
+    WATER = "water"
+
+
+class BinMode(Enum):
+    """Detector binning mode"""
+
+    ADDITIVE = "additive"
+    AVERAGE = "average"
+    NONE = "none"
+
+
+class Detector(Device):
+    """Description of a generic detector"""
+
+    detector_type: DetectorType = Field(..., title="Detector Type")
+    data_interface: DataInterface = Field(..., title="Data interface")
+    cooling: Cooling = Field(..., title="Cooling")
+    immersion: Optional[Immersion] = Field(None, title="Immersion")
+
+    chroma: Optional[CameraChroma] = Field(None, title="Camera chroma")
+    bit_depth: Optional[int] = Field(None, title="Bit depth")
+    bin_mode: Optional[BinMode] = Field(BinMode.NONE, title="Detector binning mode")
+    bin_width: Optional[int] = Field(None, title="Bin width")
+    bin_height: Optional[int] = Field(None, title="Bin height")
+    bin_unit: Optional[SizeUnit] = Field(SizeUnit.PX, title="Bin size unit", const=True)
+    gain: Optional[Decimal] = Field(None, title="Gain")
+    crop_width: Optional[int] = Field(None, title="Crop width")
+    crop_height: Optional[int] = Field(None, title="Crop width")
+    crop_unit: Optional[SizeUnit] = Field(SizeUnit.PX, title="Crop size unit", const=True)
+
+
+class Patch(Device):
+    """Description of a patch cord"""
+
+    core_diameter: Decimal = Field(..., title="Core diameter (um)")
+    numerical_aperture: Decimal = Field(..., title="Numerical aperture")
+    photobleaching_date: Optional[date] = Field(None, title="Photobleaching date")
 
 
 class MousePlatform(Device):
