@@ -129,20 +129,20 @@ class Modality(Enum, metaclass=BaseNameEnumMeta):
 
 class Platform(Enum, metaclass=BaseNameEnumMeta):
     """Abbreviated name for standardized data collection system."""
-    
+
     BVR_TRAIN = BaseName(name="Behavior training platform", abbreviation="bvr-train")
     BVR_RECORD = BaseName(name="Behavior recording platform", abbreviation="bvr-record")
     ECEPHYS = BaseName(name="Electrophysiology platform", abbreviation="ecephys")
-    EXASPIM = BaseName(name="ExaSPIM platform", abbreviation="exaSPIM")    
+    EXASPIM = BaseName(name="ExaSPIM platform", abbreviation="exaSPIM")
     FIP = BaseName(name="Frame-projected independent-fiber photometry platform", abbreviation="FIP")
-    HCR = BaseName(name="HCR platform", abbreviation="HCR")        
-    HSFP = BaseName(name="Hyperspectral fiber photometry platform", abbreviation="HSFP")    
+    HCR = BaseName(name="HCR platform", abbreviation="HCR")
+    HSFP = BaseName(name="Hyperspectral fiber photometry platform", abbreviation="HSFP")
     MESOSPM = BaseName(name="MesoSPIM platform", abbreviation="mesoSPIM")
-    MERFISH = BaseName(name="MERFISH platform", abbreviation="merfish")    
-    MRI = BaseName(name="MRI platform", abbreviation="MRI")    
+    MERFISH = BaseName(name="MERFISH platform", abbreviation="merfish")
+    MRI = BaseName(name="MRI platform", abbreviation="MRI")
     MULTIPLANE_OPHYS = BaseName(name="Multiplane optical physiology platform", abbreviation="multiplane-ophys")
     SINGLE_PLANE_OPHYS = BaseName(name="Single-plane optical physiology platform", abbreviation="single-plane-ophys")
-    SLAP2 = BaseName(name="SLAP2 platform", abbreviation="SLAP2")    
+    SLAP2 = BaseName(name="SLAP2 platform", abbreviation="SLAP2")
     SMARTSPIM = BaseName(name="SmartSPIM platform", abbreviation="smartSPIM")
 
 
@@ -268,8 +268,6 @@ class DataDescription(AindCoreModel):
     )
     data_summary: Optional[str] = Field(None, title="Data summary", description="Semantic summary of experimental goal")
 
-    
-
     def __init__(self, label=None, **kwargs):
         """Construct a generic DataDescription"""
 
@@ -391,11 +389,11 @@ class DerivedDataDescription(DataDescription):
             modality=get_or_default("modality"),
             platform=get_or_default("platform"),
             project_name=get_or_default("project_name"),
-            project_id=get_or_default("project_id"),            
+            project_id=get_or_default("project_id"),
             subject_id=get_or_default("subject_id"),
             related_data=get_or_default("related_data"),
             data_summary=get_or_default("data_summary"),
-            input_data_name=data_description.name,            
+            input_data_name=data_description.name,
         )
 
 

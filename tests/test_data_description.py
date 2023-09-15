@@ -51,7 +51,7 @@ class DataDescriptionTest(unittest.TestCase):
             data_level="raw data",
             funding_source=[f],
             modality=[Modality.ECEPHYS],
-            project_abbreviation="ecephys",
+            platform_abbreviation="ecephys",
             subject_id="12345",
             investigators=["Jane Smith"],
         )
@@ -64,7 +64,7 @@ class DataDescriptionTest(unittest.TestCase):
             institution=Institution.AIND,
             funding_source=[f],
             modality=da.modality,
-            project=da.project,
+            platform=da.platform,
             subject_id=da.subject_id,
             investigators=["Jane Smith"],
         )
@@ -77,7 +77,7 @@ class DataDescriptionTest(unittest.TestCase):
             institution=Institution.AIND,
             funding_source=[f],
             modality=r1.modality,
-            project=r1.project,
+            platform=r1.platform,
             subject_id="12345",
             investigators=["Jane Smith"],
         )
@@ -90,7 +90,7 @@ class DataDescriptionTest(unittest.TestCase):
             institution=Institution.AIND,
             funding_source=[f],
             modality=r2.modality,
-            project=r2.project,
+            platform=r2.platform,
             subject_id="12345",
             investigators=["Jane Smith"],
         )
@@ -99,7 +99,7 @@ class DataDescriptionTest(unittest.TestCase):
         dd = DataDescription(
             label="test_data",
             modality=[Modality.SPIM],
-            project="exaspim",
+            platform="exaspim",
             subject_id="1234",
             data_level="raw data",
             creation_date=dt.date(),
@@ -123,7 +123,7 @@ class DataDescriptionTest(unittest.TestCase):
             data_level="raw data",
             funding_source=[],
             modality=[Modality.SPIM],
-            project="exaspim",
+            platform="exaspim",
             subject_id="12345",
             investigators=["Jane Smith"],
         )
@@ -146,7 +146,7 @@ class DataDescriptionTest(unittest.TestCase):
             toks = DataDescription.parse_name(self.BAD_NAME)
 
         toks = RawDataDescription.parse_name(self.BASIC_NAME)
-        assert toks["project_abbreviation"] == "ecephys"
+        assert toks["platform_abbreviation"] == "ecephys"
         assert toks["subject_id"] == "1234"
         assert toks["creation_date"] == datetime.date(3033, 12, 21)
         assert toks["creation_time"] == datetime.time(4, 22, 11)

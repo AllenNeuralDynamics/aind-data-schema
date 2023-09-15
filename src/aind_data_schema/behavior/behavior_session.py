@@ -29,10 +29,8 @@ class RewardSpout(AindModel):
     side: SpoutSide = Field(..., title="Spout side", description="Must match rig")
     starting_position: RelativePosition = Field(..., title="Starting position")
     variable_position: bool = Field(
-        ...,
-        title="Variable position",
-        description="True if spout position changes during session as tracked in data"
-        )
+        ..., title="Variable position", description="True if spout position changes during session as tracked in data"
+    )
     reward_valve_calibration: Calibration = Field(..., title="Reward valve calibration")
 
 

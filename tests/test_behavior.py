@@ -13,7 +13,7 @@ from aind_data_schema.device import (
     Manufacturer,
     MotorizedStage,
     SpoutSide,
-    RewardSpout
+    RewardSpout,
 )
 from aind_data_schema.behavior import behavior_rig as br
 from aind_data_schema.behavior import behavior_session as bs
@@ -113,9 +113,9 @@ class BehaviorTests(unittest.TestCase):
                         manufacturer=Manufacturer.LEE,
                         model="LHDA1231415H",
                         serial_number="4321",
-                    )
-                )
-            ]
+                    ),
+                ),
+            ],
         )
 
         r = br.BehaviorRig(
@@ -147,12 +147,13 @@ class BehaviorTests(unittest.TestCase):
                     ),
                 )
             ],
-            calibrations=[br.Calibration(
-                date_of_calibration=now,
-                device_name="Spout A",
-                description="Reward spout calibration",
-                input={"number drops": 1},
-                output={"volume (uL)": 5},
+            calibrations=[
+                br.Calibration(
+                    date_of_calibration=now,
+                    device_name="Spout A",
+                    description="Reward spout calibration",
+                    input={"number drops": 1},
+                    output={"volume (uL)": 5},
                 )
             ],
         )

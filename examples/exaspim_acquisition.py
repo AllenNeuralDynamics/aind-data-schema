@@ -24,16 +24,11 @@ acq = acquisition.Acquisition(
                 Reagent(
                     name="reagent1",
                     source="xxx",
-                    rrid=PIDName(
-                        name="xxx",
-                        abbreviation="xx",
-                        registry=Registry.RRID,
-                        registry_identifier="100"
-                    ),
+                    rrid=PIDName(name="xxx", abbreviation="xx", registry=Registry.RRID, registry_identifier="100"),
                     lot_number="xxx",
-                    expiration_date=t
+                    expiration_date=t,
                 ),
-            ]
+            ],
         )
     ],
     calibrations=[
