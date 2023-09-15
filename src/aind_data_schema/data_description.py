@@ -23,7 +23,7 @@ class DataRegex(Enum):
     """regular expression patterns for different kinds of data and their properties"""
 
     DATA = f"^(?P<label>.+?)_(?P<c_date>{RegexParts.DATE.value})_(?P<c_time>{RegexParts.TIME.value})$"
-    RAW_DATA = (
+    RAW = (
         f"^(?P<platform_abbreviation>.+?)_(?P<subject_id>.+?)_(?P<c_date>{RegexParts.DATE.value})_(?P<c_time>"
         f"{RegexParts.TIME.value})$"
     )
@@ -407,13 +407,8 @@ class RawDataDescription(DataDescription):
         const=True,
     )
 
-    def __init__(self, platform_abbreviation, subject_id, **kwargs):
+    def __init__(self, platform, subject_id, **kwargs):
         """Construct a raw data description"""
-
-        platform = None
-        for p in Platform:
-            if p.value.abbreviation == platform_abbreviation:
-                platform = p
 
         super().__init__(
             label=f"{platform.value.abbreviation}_{subject_id}",
@@ -433,8 +428,14 @@ class RawDataDescription(DataDescription):
 
         creation_date, creation_time = datetime_from_name_string(m.group("c_date"), m.group("c_time"))
 
+        platform_abbreviation = m.group("platform_abbreviation")
+        for p in Platform:
+            if p.value.abbreviation == platform_abbreviation:
+                platform = p
+                break
+
         return dict(
-            platform_abbreviation=m.group("platform_abbreviation"),
+            platform=platform,
             subject_id=m.group("subject_id"),
             creation_date=creation_date,
             creation_time=creation_time,

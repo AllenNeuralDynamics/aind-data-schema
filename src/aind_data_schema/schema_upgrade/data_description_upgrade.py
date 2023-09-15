@@ -2,7 +2,7 @@
 from copy import deepcopy
 from typing import Any, Optional, Union
 
-from aind_data_schema.data_description import DataDescription, Funding, Institution, Modality
+from aind_data_schema.data_description import DataDescription, Funding, Institution, Modality, Platform
 
 
 class ModalityUpgrade:
@@ -128,6 +128,16 @@ class DataDescriptionUpgrade:
         else:
             modality = getattr(DataDescription.__fields__.get("modality"), "default")
 
+        experiment_type = self._get_or_default(self.old_data_description_model, "experiment_type", kwargs)
+        platform = None
+        if experiment_type is not None:
+            for p in Platform:
+                if p.value.abbreviation == experiment_type:
+                    platform = p
+                    break
+            if platform is None:
+                self._get_or_default(self.old_data_description_model, "platform", kwargs)
+
         return DataDescription(
             creation_time=self._get_or_default(self.old_data_description_model, "creation_time", kwargs),
             creation_date=self._get_or_default(self.old_data_description_model, "creation_date", kwargs),
@@ -141,7 +151,7 @@ class DataDescriptionUpgrade:
             project_id=self._get_or_default(self.old_data_description_model, "project_id", kwargs),
             restrictions=self._get_or_default(self.old_data_description_model, "restrictions", kwargs),
             modality=modality,
-            experiment_type=self._get_or_default(self.old_data_description_model, "experiment_type", kwargs),
+            platform=platform,
             subject_id=self._get_or_default(self.old_data_description_model, "subject_id", kwargs),
             related_data=self._get_or_default(self.old_data_description_model, "related_data", kwargs),
             data_summary=self._get_or_default(self.old_data_description_model, "data_summary", kwargs),

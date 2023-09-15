@@ -10,7 +10,7 @@ from typing import List
 from aind_data_schema.data_description import (
     DataDescription,
     DataLevel,
-    ExperimentType,
+    Platform,
     Funding,
     Group,
     Institution,
@@ -61,7 +61,7 @@ class TestDataDescriptionUpgrade(unittest.TestCase):
         self.assertEqual(expected_error_message, repr(e.exception))
 
         # Should work by setting experiment type explicitly
-        new_data_description = upgrader.upgrade_data_description(experiment_type=ExperimentType.ECEPHYS)
+        new_data_description = upgrader.upgrade_data_description(experiment_type=Platform.ECEPHYS)
         self.assertEqual(datetime.time(10, 31, 30), new_data_description.creation_time)
         self.assertEqual(datetime.date(2022, 6, 28), new_data_description.creation_date)
         self.assertEqual("ecephys_623705_2022-06-28_10-31-30", new_data_description.name)

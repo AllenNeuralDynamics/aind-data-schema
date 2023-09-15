@@ -2,11 +2,11 @@
 
 import datetime
 
+from aind_data_schema.base import PIDName, Registry
 from aind_data_schema.device import Calibration, Maintenance
 from aind_data_schema.imaging import acquisition, tile
 from aind_data_schema.procedures import Reagent
 from aind_data_schema.utils.units import PowerValue
-from aind_data_schema.base import Registry, PIDName
 
 t = datetime.datetime(2022, 11, 22, 8, 43, 00)
 

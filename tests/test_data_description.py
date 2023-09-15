@@ -10,7 +10,7 @@ from typing import List
 from aind_data_schema.data_description import (
     DataDescription,
     DerivedDataDescription,
-    ExperimentType,
+    Platform,
     Funding,
     Institution,
     Modality,
@@ -51,7 +51,7 @@ class DataDescriptionTest(unittest.TestCase):
             data_level="raw",
             funding_source=[f],
             modality=[Modality.ECEPHYS],
-            platform_abbreviation="ecephys",
+            platform=Platform.ECEPHYS,
             subject_id="12345",
             investigators=["Jane Smith"],
         )
@@ -123,12 +123,14 @@ class DataDescriptionTest(unittest.TestCase):
             data_level="raw",
             funding_source=[],
             modality=[Modality.SPIM],
-            platform="exaspim",
+            platform=Platform.EXASPIM,
             subject_id="12345",
             investigators=["Jane Smith"],
         )
 
-        da2 = RawDataDescription.parse_obj(json.loads(da1.json()))
+        da1_obj = json.loads(da1.json())
+        print(da1_obj)
+        da2 = RawDataDescription.parse_obj(da1_obj)
 
         assert da1.creation_time == da2.creation_time
         assert da1.creation_date == da2.creation_date
@@ -146,7 +148,7 @@ class DataDescriptionTest(unittest.TestCase):
             toks = DataDescription.parse_name(self.BAD_NAME)
 
         toks = RawDataDescription.parse_name(self.BASIC_NAME)
-        assert toks["platform_abbreviation"] == "ecephys"
+        assert toks["platform"] == Platform.ECEPHYS
         assert toks["subject_id"] == "1234"
         assert toks["creation_date"] == datetime.date(3033, 12, 21)
         assert toks["creation_time"] == datetime.time(4, 22, 11)
@@ -175,27 +177,27 @@ class DataDescriptionTest(unittest.TestCase):
 
         data_description_0_3_0 = self.data_descriptions["data_description_0.3.0.json"]
         upgrader_0_3_0 = DataDescriptionUpgrade(old_data_description_model=data_description_0_3_0)
-        new_dd_0_3_0 = upgrader_0_3_0.upgrade_data_description(experiment_type=ExperimentType.ECEPHYS)
+        new_dd_0_3_0 = upgrader_0_3_0.upgrade_data_description(experiment_type='ecephys')
         derived_dd_0_3_0 = DerivedDataDescription.from_data_description(new_dd_0_3_0, process_name=process_name)
-        self.assertEqual(ExperimentType.ECEPHYS, derived_dd_0_3_0.experiment_type)
+        self.assertEqual(Platform.ECEPHYS, derived_dd_0_3_0.platform)
 
         data_description_0_4_0 = self.data_descriptions["data_description_0.4.0.json"]
         upgrader_0_4_0 = DataDescriptionUpgrade(old_data_description_model=data_description_0_4_0)
         new_dd_0_4_0 = upgrader_0_4_0.upgrade_data_description()
         derived_dd_0_4_0 = DerivedDataDescription.from_data_description(new_dd_0_4_0, process_name=process_name)
-        self.assertEqual(ExperimentType.ECEPHYS, derived_dd_0_4_0.experiment_type)
+        self.assertEqual(Platform.ECEPHYS, derived_dd_0_4_0.platform)
 
         data_description_0_6_0 = self.data_descriptions["data_description_0.6.0.json"]
         upgrader_0_6_0 = DataDescriptionUpgrade(old_data_description_model=data_description_0_6_0)
         new_dd_0_6_0 = upgrader_0_6_0.upgrade_data_description()
         derived_dd_0_6_0 = DerivedDataDescription.from_data_description(new_dd_0_6_0, process_name=process_name)
-        self.assertEqual(ExperimentType.ECEPHYS, derived_dd_0_6_0.experiment_type)
+        self.assertEqual(Platform.ECEPHYS, derived_dd_0_6_0.platform)
 
         data_description_0_6_2 = self.data_descriptions["data_description_0.6.2.json"]
         upgrader_0_6_2 = DataDescriptionUpgrade(old_data_description_model=data_description_0_6_2)
         new_dd_0_6_2 = upgrader_0_6_2.upgrade_data_description()
         derived_dd_0_6_2 = DerivedDataDescription.from_data_description(new_dd_0_6_2, process_name=process_name)
-        self.assertEqual(ExperimentType.ECEPHYS, derived_dd_0_6_2.experiment_type)
+        self.assertEqual(Platform.ECEPHYS, derived_dd_0_6_2.platform)
 
         data_description_0_6_2_wrong_field = self.data_descriptions["data_description_0.6.2_wrong_field.json"]
         upgrader_0_6_2_wrong_field = DataDescriptionUpgrade(
@@ -207,15 +209,15 @@ class DataDescriptionTest(unittest.TestCase):
         derived_dd_0_6_2_wrong_field = DerivedDataDescription.from_data_description(
             new_dd_0_6_2_wrong_field, process_name=process_name
         )
-        self.assertEqual(ExperimentType.ECEPHYS, derived_dd_0_6_2_wrong_field.experiment_type)
+        self.assertEqual(Platform.ECEPHYS, derived_dd_0_6_2_wrong_field.platform)
 
         # Test Override
         derived_dd_0_6_2_wrong_field2 = DerivedDataDescription.from_data_description(
             new_dd_0_6_2_wrong_field,
             process_name=process_name,
-            experiment_type=ExperimentType.OTHER,
+            platform=Platform.SMARTSPIM,
         )
-        self.assertEqual(ExperimentType.OTHER, derived_dd_0_6_2_wrong_field2.experiment_type)
+        self.assertEqual(Platform.SMARTSPIM, derived_dd_0_6_2_wrong_field2.platform)
 
 
 if __name__ == "__main__":
