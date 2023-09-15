@@ -56,10 +56,10 @@ class DataProcess(AindModel):
     code_version: Optional[str] = Field(None, description="Version of the code", title="Code version")
     parameters: Dict[str, Any] = Field(..., title="Parameters")
     outputs: Optional[Dict[str, Any]] = Field(None, description="Output parameters", title="Outputs")
-    notes: Optional[str] = None
+    notes: Optional[str] = Field(None, title="Notes")
 
 
-class DataManipulation:
+class DataManipulation(AindModel):
     """Description of a set of Data Manipulations (processing/analysis steps)"""
 
     person: str = Field(..., title="Person")
