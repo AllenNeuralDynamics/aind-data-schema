@@ -7,6 +7,7 @@ from typing import List, Optional, Union
 from pydantic import Field
 
 from aind_data_schema.base import AindCoreModel
+from aind_data_schema.data_description import Modality
 from aind_data_schema.device import (
     Calibration,
     CameraAssembly,
@@ -39,6 +40,7 @@ class Rig(AindCoreModel):
 
     schema_version: str = Field("0.0.1", description="schema version", title="Version", const=True)
     rig_id: str = Field(..., description="room_stim apparatus_version", title="Rig ID")
+    modalities: List[Modality] = Field(..., title="Modalities", unique_items=True)
     mouse_platform: Union[Tube, Treadmill, Disc] = Field(..., title="Mouse platform")
     stimulus_devices: List[Union[RewardDelivery, Monitor, Speaker]] = Field(
         ...,
