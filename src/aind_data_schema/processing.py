@@ -62,13 +62,13 @@ class DataProcess(AindModel):
 class DataManipulation(AindModel):
     """Description of a set of Data Manipulations (processing/analysis steps)"""
 
-    person: str = Field(..., title="Person")
     data_processes: List[DataProcess] = Field(..., title="Data processing", unique_items=True)
 
 
 class PipelineProcess(DataManipulation):
     """Description of a Processing Pipeline"""
 
+    processing_person: str = Field(..., title="Processer Full Name", description="Name of person responsible for processing pipeline ")
     pipeline_version: Optional[str] = Field(None, description="Version of the pipeline", title="Pipeline version")
     pipeline_url: Optional[str] = Field(None, description="URL to the pipeline code", title="Pipeline URL")
 
@@ -76,7 +76,8 @@ class PipelineProcess(DataManipulation):
 class AnalysisProcess(DataManipulation):
     """Description of an Analysis"""
 
-    pass
+    analyzing_person: str = Field(..., title="Analzyer Full Name", description="Name of person responsible for running analysis")
+    description: str = Field(..., title="Analysis Description")
 
 
 class Processing(AindCoreModel):
