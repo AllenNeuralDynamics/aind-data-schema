@@ -2,7 +2,6 @@
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/processing.py",
    "schema_version": "0.3.0",
    "processing_pipeline": {
-      "person": "Some Processor",
       "data_processes": [
          {
             "name": "Image tile fusing",
@@ -52,11 +51,11 @@
             "notes": null
          }
       ],
+      "processing_person": "Some Processor",
       "pipeline_version": "0.1.1",
       "pipeline_url": "https://url/for/pipeline"
    },
    "analysis": {
-      "person": "Some Analyzer",
       "data_processes": [
          {
             "name": "Analysis",
@@ -89,7 +88,9 @@
             "outputs": null,
             "notes": null
          }
-      ]
+      ],
+      "analyzing_person": "Some Analyzer",
+      "description": "some description"
    },
    "notes": null
 }
