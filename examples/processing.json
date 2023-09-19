@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/processing.py",
-   "schema_version": "0.2.5",
+   "schema_version": "0.3.0",
    "processing_pipeline": {
       "person": "Some Processor",
       "data_processes": [
