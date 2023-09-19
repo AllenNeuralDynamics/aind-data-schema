@@ -8,7 +8,7 @@ t = datetime.datetime(2022, 11, 22, 8, 43, 00)
 
 p = Processing(
     processing_pipeline=PipelineProcess(
-        person="Some Processor",
+        processing_person="Some Processor",
         pipeline_url="https://url/for/pipeline",
         pipeline_version="0.1.1",
         data_processes=[
@@ -48,7 +48,7 @@ p = Processing(
         ],
     ),
     analysis=AnalysisProcess(
-        person="Some Analyzer",
+        analyzing_person="Some Analyzer",
         data_processes=[
             DataProcess(
                 name="Analysis",
