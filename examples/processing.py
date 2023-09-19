@@ -49,6 +49,7 @@ p = Processing(
     ),
     analysis=AnalysisProcess(
         analyzing_person="Some Analyzer",
+        description="some description",
         data_processes=[
             DataProcess(
                 name="Analysis",
