@@ -68,7 +68,10 @@ class DataManipulation(AindModel):
 class PipelineProcess(DataManipulation):
     """Description of a Processing Pipeline"""
 
-    processing_person: str = Field(..., title="Processer Full Name", description="Name of person responsible for processing pipeline ")
+    processing_person: str = Field(
+        ..., title="Processer Full Name", 
+        description="Name of person responsible for processing pipeline"
+        )
     pipeline_version: Optional[str] = Field(None, description="Version of the pipeline", title="Pipeline version")
     pipeline_url: Optional[str] = Field(None, description="URL to the pipeline code", title="Pipeline URL")
 
@@ -76,7 +79,10 @@ class PipelineProcess(DataManipulation):
 class AnalysisProcess(DataManipulation):
     """Description of an Analysis"""
 
-    analyzing_person: str = Field(..., title="Analzyer Full Name", description="Name of person responsible for running analysis")
+    analyzing_person: str = Field(
+        ..., title="Analzyer Full Name", 
+        description="Name of person responsible for running analysis"
+        )
     description: str = Field(..., title="Analysis Description")
 
 
