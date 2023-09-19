@@ -69,7 +69,7 @@ class PipelineProcess(DataManipulation):
     """Description of a Processing Pipeline"""
 
     processing_person: str = Field(
-        ..., title="Processer Full Name",
+        ..., title="Processing Lead Full Name",
         description="Name of person responsible for processing pipeline"
         )
     pipeline_version: Optional[str] = Field(None, description="Version of the pipeline", title="Pipeline version")
@@ -80,7 +80,7 @@ class AnalysisProcess(DataManipulation):
     """Description of an Analysis"""
 
     analyzing_person: str = Field(
-        ..., title="Analzyer Full Name",
+        ..., title="Analyzer Full Name",
         description="Name of person responsible for running analysis"
         )
     description: str = Field(..., title="Analysis Description")
