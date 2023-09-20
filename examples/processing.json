@@ -51,7 +51,7 @@
             "notes": null
          }
       ],
-      "processing_person": "Some Processor",
+      "processor_full_name": "Some Processor",
       "pipeline_version": "0.1.1",
       "pipeline_url": "https://url/for/pipeline"
    },
@@ -89,7 +89,7 @@
             "notes": null
          }
       ],
-      "analyzing_person": "Some Analyzer",
+      "analyst_full_name": "Some Analyzer",
       "description": "some description"
    },
    "notes": null

@@ -18,9 +18,9 @@ class ProcessingTest(unittest.TestCase):
             p = Processing()
 
         p = Processing(
-            processing_pipeline=PipelineProcess(processing_person="Processor", data_processes=[]),
+            processing_pipeline=PipelineProcess(processor_full_name="Processor", data_processes=[]),
             analysis=AnalysisProcess(
-                analyzing_person="Analyzer", data_processes=[], description="this was an analysis"
+                analyst_full_name="Analyzer", data_processes=[], description="this was an analysis"
             ),
         )
 
