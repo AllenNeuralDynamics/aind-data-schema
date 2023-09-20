@@ -6,6 +6,7 @@
    "specimen_procedures": [
       {
          "specimen_id": "651286",
+         "procedure_name": "test_name",
          "procedure_type": "Fixation",
          "start_date": "2023-01-13",
          "end_date": "2023-01-17",
@@ -31,6 +32,7 @@
       },
       {
          "specimen_id": "651286",
+         "procedure_name": "test_name",
          "procedure_type": "Fixation",
          "start_date": "2023-01-17",
          "end_date": "2023-01-18",
@@ -49,6 +51,7 @@
       },
       {
          "specimen_id": "651286",
+         "procedure_name": "test_name",
          "procedure_type": "Soak",
          "start_date": "2023-01-18",
          "end_date": "2023-01-19",
@@ -67,7 +70,8 @@
       },
       {
          "specimen_id": "651286",
-         "procedure_type": "Active delipidation",
+         "procedure_name": "Active Delipidation",
+         "procedure_type": "Delipidation",
          "start_date": "2023-01-19",
          "end_date": "2023-01-20",
          "experimenter_full_name": "John Smith",
@@ -92,6 +96,7 @@
       },
       {
          "specimen_id": "651286",
+         "procedure_name": "test_name",
          "procedure_type": "Soak",
          "start_date": "2023-01-30",
          "end_date": "2023-01-31",
@@ -117,6 +122,7 @@
       },
       {
          "specimen_id": "651286",
+         "procedure_name": "test_name",
          "procedure_type": "Soak",
          "start_date": "2023-01-31",
          "end_date": "2023-02-02",
@@ -135,6 +141,7 @@
       },
       {
          "specimen_id": "651286",
+         "procedure_name": "test_name",
          "procedure_type": "Embedding",
          "start_date": "2023-01-31",
          "end_date": "2023-02-02",
