@@ -32,6 +32,7 @@ class ProcessName(Enum):
     IMAGE_TILE_FUSING = "Image tile fusing"
     IMAGE_TILE_PROJECTION = "Image tile projection"
     FILE_CONVERSION = "File format conversion"
+    MANUAL_ANNOTATION = "Manual annotation"
     NEUROPIL_SUBTRACTION = "Neuropil subtraction"
     OTHER = "Other"
     SPIKE_SORTING = "Spike sorting"
@@ -68,8 +69,8 @@ class DataManipulation(AindModel):
 class PipelineProcess(DataManipulation):
     """Description of a Processing Pipeline"""
 
-    processing_person: str = Field(
-        ..., title="Processing Lead Full Name", description="Name of person responsible for processing pipeline"
+    processor_full_name: str = Field(
+        ..., title="Processor Full Name", description="Name of person responsible for processing pipeline"
     )
     pipeline_version: Optional[str] = Field(None, description="Version of the pipeline", title="Pipeline version")
     pipeline_url: Optional[str] = Field(None, description="URL to the pipeline code", title="Pipeline URL")
@@ -78,8 +79,8 @@ class PipelineProcess(DataManipulation):
 class AnalysisProcess(DataManipulation):
     """Description of an Analysis"""
 
-    analyzing_person: str = Field(
-        ..., title="Analyzer Full Name", description="Name of person responsible for running analysis"
+    analyst_full_name: str = Field(
+        ..., title="Analyst Full Name", description="Name of person responsible for running analysis"
     )
     description: str = Field(..., title="Analysis Description")
 
