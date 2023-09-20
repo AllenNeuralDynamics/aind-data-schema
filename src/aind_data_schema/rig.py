@@ -38,11 +38,11 @@ from aind_data_schema.device import (
 class Rig(AindCoreModel):
     """Description of a rig"""
 
-    schema_version: str = Field("0.0.1", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.1.0", description="schema version", title="Version", const=True)
     rig_id: str = Field(..., description="room_stim apparatus_version", title="Rig ID")
     modalities: List[Modality] = Field(..., title="Modalities", unique_items=True)
     mouse_platform: Union[Tube, Treadmill, Disc] = Field(..., title="Mouse platform")
-    stimulus_devices: List[Union[RewardDelivery, Monitor, Speaker]] = Field(
+    stimulus_devices: Optional[List[Union[RewardDelivery, Monitor, Speaker]]] = Field(
         ...,
         title="Stimulus devices",
         unique_items=True,
