@@ -173,16 +173,14 @@ class DataDescriptionTest(unittest.TestCase):
         abbreviations = []
         for m in Modality:
             abbr = m.value.abbreviation
-            if abbr in abbreviations:
-                self.fail(f'Duplicate abbreviation found: {abbr}')
+            self.assertNotIn(abbr, abbreviations)
             abbreviations.append(abbr)
 
     def test_unique_experiment_types(self):
         """Tests that ExperimentType string values are unique"""
         experiment_types = []
         for e in ExperimentType:
-            if e in experiment_types:
-                self.fail(f'Duplicate ExperimentType found: {e}')
+            self.assertNotIn(e, experiment_types)
             experiment_types.append(e)
 
     def test_from_data_description(self):
