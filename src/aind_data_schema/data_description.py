@@ -109,7 +109,7 @@ class ModalityEnumMeta(EnumMeta):
     def __call__(cls, value, *args, **kw):
         """Allow enum to be set by a string."""
         if isinstance(value, str):
-            abbr = dict([(cls[m].value.abbreviation, cls[m]) for m in cls.__members__])
+            abbr = dict([(m.value.abbreviation, m.name) for m in cls])
             if abbr.get(value) is None:
                 value = getattr(cls, value.upper())
             else:

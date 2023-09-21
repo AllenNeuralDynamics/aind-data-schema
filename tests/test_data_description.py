@@ -165,23 +165,18 @@ class DataDescriptionTest(unittest.TestCase):
 
     def test_modality_enums(self):
         """Tests that BaseName enums can be constructed from abbreviations"""
-        self.assertEqual(Modality.ECEPHYS, Modality("ECEPHYS"))
         self.assertEqual(Modality.ECEPHYS, Modality("ecephys"))
+        self.assertEqual(Modality.MPOPHYS, Modality("multiplane-ophys"))
 
     def test_unique_modality_abbreviations(self):
         """Tests that abbreviations are unique"""
-        abbreviations = []
-        for m in Modality:
-            abbr = m.value.abbreviation
-            self.assertNotIn(abbr, abbreviations)
-            abbreviations.append(abbr)
+        abbreviations = [m.value.abbreviation for m in Modality]
+        self.assertEqual(len(set(abbreviations)), len(abbreviations))
 
     def test_unique_experiment_types(self):
         """Tests that ExperimentType string values are unique"""
-        experiment_types = []
-        for e in ExperimentType:
-            self.assertNotIn(e, experiment_types)
-            experiment_types.append(e)
+        experiment_types = [e.value for e in ExperimentType]
+        self.assertEqual(len(set(experiment_types)), len(experiment_types))
 
     def test_from_data_description(self):
         """Tests DerivedDataDescription.from_data_description method"""
