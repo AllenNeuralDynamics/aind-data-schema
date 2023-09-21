@@ -164,9 +164,26 @@ class DataDescriptionTest(unittest.TestCase):
             toks = DerivedDataDescription.parse_name(self.BAD_NAME)
 
     def test_modality_enums(self):
-        """Tests that BaseName enums can be constructed from attr names"""
+        """Tests that BaseName enums can be constructed from abbreviations"""
         self.assertEqual(Modality.ECEPHYS, Modality("ECEPHYS"))
         self.assertEqual(Modality.ECEPHYS, Modality("ecephys"))
+
+    def test_unique_modality_abbreviations(self):
+        """Tests that abbreviations are unique"""
+        abbreviations = []
+        for m in Modality:
+            abbr = m.value.abbreviation
+            if abbr in abbreviations:
+                self.fail(f'Duplicate abbreviation found: {abbr}')
+            abbreviations.append(abbr)
+
+    def test_unique_experiment_types(self):
+        """Tests that ExperimentType string values are unique"""
+        experiment_types = []
+        for e in ExperimentType:
+            if e in experiment_types:
+                self.fail(f'Duplicate ExperimentType found: {e}')
+            experiment_types.append(e)
 
     def test_from_data_description(self):
         """Tests DerivedDataDescription.from_data_description method"""

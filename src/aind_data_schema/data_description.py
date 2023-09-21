@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import re
 from datetime import date, datetime, time
-from enum import Enum
+from enum import Enum, EnumMeta
 from typing import Any, List, Optional
 
 from pydantic import Field
@@ -103,7 +103,27 @@ class Group(Enum):
     OPHYS = "ophys"
 
 
-class Modality(Enum, metaclass=BaseNameEnumMeta):
+class ModalityEnumMeta(EnumMeta):
+    """Allows to create complicated enum based on modality abbreviation."""
+
+    def __call__(cls, value, *args, **kw):
+        """Allow enum to be set by a string."""
+        if isinstance(value, str):
+            abbr = dict([(cls[m].value.abbreviation, cls[m]) for m in cls.__members__])
+            if abbr.get(value) is None:
+                value = getattr(cls, value.upper())
+            else:
+                value = abbr[value]
+        return super().__call__(value, *args, **kw)
+
+    def __modify_schema__(cls, field_schema):
+        """Adds enumNames to schema"""
+        field_schema.update(
+            enumNames=[e.value.name for e in cls],
+        )
+
+
+class Modality(Enum, metaclass=ModalityEnumMeta):
     """Data collection modality name"""
 
     BEHAVIOR_VIDEOS = BaseName(name="Behavior videos", abbreviation="behavior-videos")
@@ -114,6 +134,7 @@ class Modality(Enum, metaclass=BaseNameEnumMeta):
     )
     ECEPHYS = BaseName(name="Extracellular electrophysiology", abbreviation="ecephys")
     EPHYS = BaseName(name="Electrophysiology", abbreviation="ephys")
+    EPHYS_2 = BaseName(name="EXTRA!!!!!", abbreviation="ephys")
     EXASPIM = BaseName(
         name="Expansion-assisted selective plane illumination microscopy",
         abbreviation="exaSPIM",
