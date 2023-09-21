@@ -24,10 +24,8 @@ from aind_data_schema.utils.units import (
 class SpecimenProcedureName(Enum):
     """Specimen procedure type name"""
 
-    ACTIVE_DELIPIDATION = "Active delipidation"
+    DELIPIDATION = "Delipidation"
     CLEARING = "Clearing"
-    DCM_DELIPIDATION = "DCM delipidation"
-    DOUBLE_DELIPIDATION = "Double delipidation"
     EMBEDDING = "Embedding"
     FIXATION = "Fixation"
     FIXATION_PERMEABILIZATION = "Fixation and permeabilization"
@@ -37,6 +35,7 @@ class SpecimenProcedureName(Enum):
     SOAK = "Soak"
     STORAGE = "Storage"
     STRIPPING = "Stripping"
+    REFRACTIVE_INDEX_MATCHING = "Refractive index matching"
     OTHER = "Other - see notes"
 
 
@@ -54,6 +53,7 @@ class SpecimenProcedure(AindModel):
     """Description of surgical or other procedure performed on a specimen"""
 
     specimen_id: str = Field(..., title="Specimen ID")
+    procedure_name: str = Field(..., title="Procedure name")
     procedure_type: SpecimenProcedureName = Field(..., title="Procedure type")
     start_date: date = Field(..., title="Start date")
     end_date: date = Field(..., title="End date")
@@ -492,7 +492,7 @@ class Perfusion(SubjectProcedure):
 class Procedures(AindCoreModel):
     """Description of all procedures performed on a subject"""
 
-    schema_version: str = Field("0.9.2", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.9.3", description="schema version", title="Version", const=True)
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
