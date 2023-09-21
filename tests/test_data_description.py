@@ -167,7 +167,7 @@ class DataDescriptionTest(unittest.TestCase):
         """Tests that BaseName enums can be constructed from abbreviations"""
         self.assertEqual(Modality.ECEPHYS, Modality("ECEPHYS"))
         self.assertEqual(Modality.ECEPHYS, Modality("ecephys"))
-        self.assertEqual(Modality.MPOPHYS, Modality("MOPOPHYS"))
+        self.assertEqual(Modality.MPOPHYS, Modality("MPOPHYS"))
         self.assertEqual(Modality.MPOPHYS, Modality("multiplane-ophys"))
         self.assertEqual(Modality.BEHAVIOR_VIDEOS, Modality("BEHAVIOR_VIDEOS"))
         self.assertEqual(Modality.BEHAVIOR_VIDEOS, Modality("behavior-videos"))
