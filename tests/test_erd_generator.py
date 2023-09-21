@@ -6,7 +6,7 @@ from unittest.mock import MagicMock, patch
 from aind_data_schema.utils.erd_generator import ErdGenerator
 
 
-class ErdGeneratorTests(unittest.TestCase)
+class ErdGeneratorTests(unittest.TestCase):
     """Class for testing ErdGenerator"""
 
     @patch("erdantic.EntityRelationshipDiagram.draw")
