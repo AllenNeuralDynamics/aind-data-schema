@@ -134,7 +134,6 @@ class Modality(Enum, metaclass=ModalityEnumMeta):
     )
     ECEPHYS = BaseName(name="Extracellular electrophysiology", abbreviation="ecephys")
     EPHYS = BaseName(name="Electrophysiology", abbreviation="ephys")
-    EPHYS_2 = BaseName(name="EXTRA!!!!!", abbreviation="ephys")
     EXASPIM = BaseName(
         name="Expansion-assisted selective plane illumination microscopy",
         abbreviation="exaSPIM",
