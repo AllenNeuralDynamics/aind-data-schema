@@ -60,7 +60,7 @@ class DataProcess(AindModel):
     notes: Optional[str] = Field(None, title="Notes")
 
 
-class PipelineProcess():
+class PipelineProcess(AindModel):
     """Description of a Processing Pipeline"""
 
     data_processes: List[DataProcess] = Field(..., title="Data processing", unique_items=True)
