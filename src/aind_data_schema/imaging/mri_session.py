@@ -70,7 +70,7 @@ class MRIScan(AindModel):
     scan_type: ScanType = Field(..., title="Scan type")
     primary_scan: bool = Field(
         ..., title="Primary scan",
-        description="Indicates the primary scan used for downstream anaylsis"
+        description="Indicates the primary scan used for downstream analysis"
         )
     scan_sequence_type: MriScanSequence = Field(..., title="Scan sequence")
     axes: List[Axis] = Field(..., title="Imaging axes")
