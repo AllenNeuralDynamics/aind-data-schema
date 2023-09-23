@@ -114,7 +114,7 @@ class ImagingTests(unittest.TestCase):
                     effective_echo_time=2.0,
                     repetition_time=1.2,
                     additional_scan_parameters={
-                        "number_averages":3
+                        "number_averages": 3
                     },
                 )
             ]
