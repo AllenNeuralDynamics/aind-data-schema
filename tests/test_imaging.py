@@ -88,33 +88,35 @@ class ImagingTests(unittest.TestCase):
                 magnetic_strength_unit="T",
             ),
             scans=[
-                scan_type="3D Scan",
-                scan_sequence_type="RARE",
-                primary_scan=True,
-                axes=[
-                    acq.Axis(
-                        name="X",
-                        dimension=2,
-                        direction="Left_to_right",
-                    ),
-                    acq.Axis(
-                        name="Y",
-                        dimension=1,
-                        direction="Anterior_to_posterior",
-                    ),
-                    acq.Axis(
-                        name="Z",
-                        dimension=0,
-                        direction="Inferior_to_superior",
-                    ),
-                ],
-                voxel_sizes=tile.Scale3dTransform(scale=[0.01, 0.01, 0.01]),
-                echo_time=2.2,
-                effective_echo_time=2.0,
-                repetition_time=1.2,
-                additional_scan_parameters={
-                    number_averages: 3
-                },
+                ms.MRIScan(
+                    scan_type="3D Scan",
+                    scan_sequence_type="RARE",
+                    primary_scan=True,
+                    axes=[
+                        acq.Axis(
+                            name="X",
+                            dimension=2,
+                            direction="Left_to_right",
+                        ),
+                        acq.Axis(
+                            name="Y",
+                            dimension=1,
+                            direction="Anterior_to_posterior",
+                        ),
+                        acq.Axis(
+                            name="Z",
+                            dimension=0,
+                            direction="Inferior_to_superior",
+                        ),
+                    ],
+                    voxel_sizes=tile.Scale3dTransform(scale=[0.01, 0.01, 0.01]),
+                    echo_time=2.2,
+                    effective_echo_time=2.0,
+                    repetition_time=1.2,
+                    additional_scan_parameters={
+                        "number_averages" : 3
+                    },
+                )
             ]
         )
 
