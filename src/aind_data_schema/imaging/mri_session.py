@@ -52,18 +52,6 @@ class Scanner(Device):
     magnetic_strength_unit: str = Field("T", title="Magnetic strength unit")
 
 
-class ProcessingSteps(Enum):
-    """Downstream processing steps"""
-
-    process_name: List[
-        EnumSubset[
-            ProcessName.FIDUCIAL_SEGMENTATION.value,
-            ProcessName.REGISTRATION_TO_TEMPLATE.value,
-            ProcessName.SKULL_STRIPPING.value,
-        ]
-    ]
-
-
 class MRIScan(AindModel):
     """Description of a 3D scan"""
 
@@ -77,11 +65,15 @@ class MRIScan(AindModel):
     voxel_sizes: Scale3dTransform = Field(
         ..., title="Voxel sizes", description="Size of voxels in order as specified in axes"
     )
-    processing_steps: Optional[List[ProcessingSteps]] = Field(
-        None,
-        title="Processing steps",
-        description="List of downstream processing steps",
-    )
+    processing_steps: Optional[
+        List[
+            EnumSubset[
+                ProcessName.FIDUCIAL_SEGMENTATION.value,
+                ProcessName.REGISTRATION_TO_TEMPLATE.value,
+                ProcessName.SKULL_STRIPPING.value,
+            ]
+        ]
+    ]
     echo_time: Decimal = Field(..., title="Echo time (ms)")
     effective_echo_time: Decimal = Field(..., title="Effective echo time (ms)")
     echo_time_unit: TimeUnit = Field(TimeUnit.MS, title="Echo time unit")
