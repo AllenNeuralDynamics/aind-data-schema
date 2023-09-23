@@ -3,11 +3,11 @@
 from datetime import datetime
 from decimal import Decimal
 from enum import Enum
-from typing import List, Dict, Optional
+from typing import Any, List, Dict, Optional
 
 from pydantic import Field
 
-from aind_data_schema.base import AindCoreModel, AindModel
+from aind_data_schema.base import AindCoreModel, AindModel, EnumSubset
 from aind_data_schema.device import Device
 from aind_data_schema.imaging.acquisition import Axis
 from aind_data_schema.imaging.tile import Scale3dTransform
@@ -25,7 +25,7 @@ class MriScanSequence(Enum):
 
 class ScanType(Enum):
     """Type of scan"""
-    
+
     SETUP = "Set Up"
     SCAN_3D = "3D Scan"
 
@@ -56,12 +56,12 @@ class ProcessingSteps(Enum):
     """Downstream processing steps"""
 
     process_name: List[
-        Literal[
+        EnumSubset[
             ProcessName.FIDUCIAL_SEGMENTATION.value,
             ProcessName.REGISTRATION_TO_TEMPLATE.value,
             ProcessName.SKULL_STRIPPING.value,
+        ]
     ]
-]
 
 
 class MRIScan(AindModel):
@@ -69,7 +69,7 @@ class MRIScan(AindModel):
 
     scan_type: ScanType = Field(..., title="Scan type")
     primary_scan: bool = Field(
-        ..., title="Primary scan", 
+        ..., title="Primary scan",
         description="Indicates the primary scan used for downstream anaylsis"
         )
     scan_sequence_type: MriScanSequence = Field(..., title="Scan sequence")
