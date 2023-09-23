@@ -81,7 +81,7 @@ class ImagingTests(unittest.TestCase):
             session_end_time=datetime.datetime.now(),
             protocol_id="doi_path",
             animal_weight_prior=22.1,
-            animal_weight_post = 21.9,
+            animal_weight_post=21.9,
             mri_scanner=ms.Scanner(
                 scanner_location="UW SLU",
                 magnetic_strength=7,
@@ -114,7 +114,7 @@ class ImagingTests(unittest.TestCase):
                     effective_echo_time=2.0,
                     repetition_time=1.2,
                     additional_scan_parameters={
-                        "number_averages" : 3
+                        "number_averages":3
                     },
                 )
             ]
