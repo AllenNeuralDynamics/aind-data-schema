@@ -68,9 +68,9 @@ class MRIScan(AindModel):
     processing_steps: Optional[
         List[
             EnumSubset[
-                ProcessName.FIDUCIAL_SEGMENTATION.value,
-                ProcessName.REGISTRATION_TO_TEMPLATE.value,
-                ProcessName.SKULL_STRIPPING.value,
+                ProcessName.FIDUCIAL_SEGMENTATION,
+                ProcessName.REGISTRATION_TO_TEMPLATE,
+                ProcessName.SKULL_STRIPPING,
             ]
         ]
     ]
