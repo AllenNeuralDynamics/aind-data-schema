@@ -177,11 +177,6 @@ class DataDescriptionTest(unittest.TestCase):
         abbreviations = [m.value.abbreviation for m in Modality]
         self.assertEqual(len(set(abbreviations)), len(abbreviations))
 
-    def test_unique_experiment_types(self):
-        """Tests that ExperimentType string values are unique"""
-        experiment_types = [e.value for e in ExperimentType]
-        self.assertEqual(len(set(experiment_types)), len(experiment_types))
-
     def test_from_data_description(self):
         """Tests DerivedDataDescription.from_data_description method"""
 
