@@ -138,7 +138,7 @@ class TestDataDescriptionUpgrade(unittest.TestCase):
         self.assertEqual(["John Doe", "Mary Smith"], new_data_description.investigators)
         self.assertEqual("MRI-Guided Elecrophysiology", new_data_description.project_name)
         self.assertIsNone(new_data_description.restrictions)
-        self.assertEqual([Modality.EPHYS], new_data_description.modality)
+        self.assertEqual([Modality.ECEPHYS], new_data_description.modality)
         self.assertEqual("661279", new_data_description.subject_id)
         self.assertEqual(
             [
@@ -199,7 +199,7 @@ class TestDataDescriptionUpgrade(unittest.TestCase):
         self.assertEqual(["John Doe", "Mary Smith"], new_data_description.investigators)
         self.assertEqual("MRI-Guided Elecrophysiology", new_data_description.project_name)
         self.assertIsNone(new_data_description.restrictions)
-        self.assertEqual([Modality.EPHYS], new_data_description.modality)
+        self.assertEqual([Modality.ECEPHYS], new_data_description.modality)
         self.assertEqual("661279", new_data_description.subject_id)
         self.assertEqual(
             [
