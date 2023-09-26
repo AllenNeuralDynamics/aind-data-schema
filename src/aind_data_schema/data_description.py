@@ -142,24 +142,23 @@ class Platform(Enum, metaclass=BaseNameEnumMeta):
     SMARTSPIM = BaseName(name="SmartSPIM platform", abbreviation="smartSPIM")
 
 
-def datetime_to_name_string(d, t):
+def datetime_to_name_string(dt):
     """Take a date and time object, format it a as string"""
-    ds = d.strftime("%Y-%m-%d")
-    ts = t.strftime("%H-%M-%S")
+    ds = dt.date().strftime("%Y-%m-%d")
+    ts = dt.time().strftime("%H-%M-%S")
     return f"{ds}_{ts}"
 
 
 def datetime_from_name_string(d, t):
     """Take date and time strings, generate date and time objects"""
-    return (
-        datetime.strptime(d, "%Y-%m-%d").date(),
-        datetime.strptime(t, "%H-%M-%S").time(),
-    )
+    d = d.strptime(d, "%Y-%m-%d").date()
+    t = t.strptime(t, "%H-%M-%S").time()
+    return datetime.combine(d,t)
 
 
-def build_data_name(label, creation_date, creation_time):
+def build_data_name(label, creation_datetime):
     """Construct a valid data description name"""
-    dt_str = datetime_to_name_string(creation_date, creation_time)
+    dt_str = datetime_to_name_string(creation_datetime)
     return f"{label}_{dt_str}"
 
 
@@ -181,19 +180,14 @@ class RelatedData(AindModel):
 class DataDescription(AindCoreModel):
     """Description of a logical collection of data files"""
 
-    schema_version: str = Field("0.9.0", title="Schema Version", const=True)
+    schema_version: str = Field("0.10.0", title="Schema Version", const=True)
     license: str = Field("CC-BY-4.0", title="License", const=True)
 
-    creation_time: time = Field(
+    creation_time: datetime = Field(
         ...,
-        description="Time in UTC that data files were created, used to uniquely identify the data",
+        description="Time that data files were created, used to uniquely identify the data",
         title="Creation Time",
-    )
-    creation_date: date = Field(
-        ...,
-        description="Date in UTC that data files were created, used to uniquely identify the data",
-        title="Creation Date",
-    )
+    )    
     name: Optional[str] = Field(
         None,
         description="Name of data, conventionally also the name of the directory containing all data and metadata",
@@ -267,8 +261,7 @@ class DataDescription(AindCoreModel):
         if label is not None:
             self.name = build_data_name(
                 label,
-                creation_date=self.creation_date,
-                creation_time=self.creation_time,
+                creation_datetime=self.creation_time,
             )
 
     @classmethod
@@ -279,11 +272,10 @@ class DataDescription(AindCoreModel):
         if m is None:
             raise ValueError(f"name({name}) does not match pattern")
 
-        creation_date, creation_time = datetime_from_name_string(m.group("c_date"), m.group("c_time"))
+        creation_time = datetime_from_name_string(m.group("c_date"), m.group("c_time"))
 
         return dict(
             label=m.group("label"),
-            creation_date=creation_date,
             creation_time=creation_time,
         )
 
@@ -314,11 +306,10 @@ class DerivedDataDescription(DataDescription):
         if m is None:
             raise ValueError(f"name({name}) does not match pattern")
 
-        creation_date, creation_time = datetime_from_name_string(m.group("c_date"), m.group("c_time"))
+        creation_time = datetime_from_name_string(m.group("c_date"), m.group("c_time"))
 
         return dict(
             process_name=m.group("process_name"),
-            creation_date=creation_date,
             creation_time=creation_time,
             input_data_name=m.group("input"),
         )
@@ -364,13 +355,10 @@ class DerivedDataDescription(DataDescription):
             else:
                 return getattr(DerivedDataDescription.__fields__.get(field_name), "default")
 
-        utcnow = datetime.utcnow()
-        creation_time = utcnow.time() if kwargs.get("creation_time") is None else kwargs["creation_time"]
-        creation_date = utcnow.date() if kwargs.get("creation_date") is None else kwargs["creation_date"]
-
+        creation_time = datetime.utcnow() if kwargs.get("creation_time") is None else kwargs["creation_time"]
+        
         return cls(
-            creation_time=creation_time,
-            creation_date=creation_date,
+            creation_time=creation_time,        
             process_name=process_name,
             institution=get_or_default("institution"),
             funding_source=get_or_default("funding_source"),
@@ -421,7 +409,7 @@ class RawDataDescription(DataDescription):
         if m is None:
             raise ValueError(f"name({name}) does not match pattern")
 
-        creation_date, creation_time = datetime_from_name_string(m.group("c_date"), m.group("c_time"))
+        creation_time = datetime_from_name_string(m.group("c_date"), m.group("c_time"))
 
         platform_abbreviation = m.group("platform_abbreviation")
         for p in Platform:
@@ -432,6 +420,5 @@ class RawDataDescription(DataDescription):
         return dict(
             platform=platform,
             subject_id=m.group("subject_id"),
-            creation_date=creation_date,
             creation_time=creation_time,
         )
