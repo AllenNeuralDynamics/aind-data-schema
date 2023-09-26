@@ -124,7 +124,7 @@ class Modality(Enum, metaclass=BaseNameEnumMeta):
 
 
 class Platform(Enum, metaclass=BaseNameEnumMeta):
-    """Name for standardized data collection system."""
+    """Name for standardized data collection system that can collect one or more data modalities."""
 
     BEHAVIOR = BaseName(name="Behavior platform", abbreviation="behavior")
     CONFOCAL = BaseName(name="Confocal microscopy platform", abbreviation="confocal")
