@@ -103,8 +103,8 @@ class Group(Enum):
     OPHYS = "ophys"
 
 
-class ModalityEnumMeta(EnumMeta):
-    """Allows to create complicated enum based on modality abbreviation."""
+class AbbreviationEnumMeta(EnumMeta):
+    """Allows to create complicated enum based on abbreviation."""
 
     def __call__(cls, value, *args, **kw):
         """Allow enum to be set by a string."""
@@ -123,7 +123,7 @@ class ModalityEnumMeta(EnumMeta):
         )
 
 
-class Modality(Enum, metaclass=ModalityEnumMeta):
+class Modality(Enum, metaclass=AbbreviationEnumMeta):
     """Data collection modality name"""
 
     BEHAVIOR_VIDEOS = BaseName(name="Behavior videos", abbreviation="behavior-videos")
@@ -143,7 +143,7 @@ class Modality(Enum, metaclass=ModalityEnumMeta):
     TRAINED_BEHAVIOR = BaseName(name="Trained behavior", abbreviation="trained-behavior")
 
 
-class Platform(Enum, metaclass=BaseNameEnumMeta):
+class Platform(Enum, metaclass=AbbreviationEnumMeta):
     """Name for standardized data collection system that can collect one or more data modalities."""
 
     BEHAVIOR = BaseName(name="Behavior platform", abbreviation="behavior")
