@@ -109,8 +109,6 @@ class Modality(Enum, metaclass=BaseNameEnumMeta):
     BEHAVIOR_VIDEOS = BaseName(name="Behavior videos", abbreviation="behavior-videos")
     CONFOCAL = BaseName(name="Confocal microscopy", abbreviation="confocal")
     ECEPHYS = BaseName(name="Extracellular electrophysiology", abbreviation="ecephys")
-    EPHYS = BaseName(name="Electrophysiology", abbreviation="ephys")
-    FIP = BaseName(name="Frame-projected independent-fiber photometry", abbreviation="FIP")
     FMOST = BaseName(name="Fluorescence micro-optical sectioning tomography", abbreviation="fMOST")
     HSFP = BaseName(name="Hyperspectral fiber photometry", abbreviation="HSFP")
     ICEPHYS = BaseName(name="Intracellular electrophysiology", abbreviation="icephys")
@@ -121,7 +119,7 @@ class Modality(Enum, metaclass=BaseNameEnumMeta):
         abbreviation="merfish",
     )
     MRI = BaseName(name="Magnetic resonance imaging", abbreviation="MRI")
-    OPHYS = BaseName(name="Optical physiology", abbreviation="ophys")
+    POPHYS = BaseName(name="Planar optical physiology", abbreviation="ophys")
     SLAP = BaseName(name="Scanned line projection imaging", abbreviation="slap")
     SPIM = BaseName(name="Selective plane illumination microscopy", abbreviation="SPIM")
     TRAINED_BEHAVIOR = BaseName(name="Trained behavior", abbreviation="trained-behavior")
