@@ -3,7 +3,7 @@
 from datetime import datetime
 from decimal import Decimal
 from enum import Enum
-from typing import Any, List, Dict, Optional
+from typing import Any, Dict, List, Optional
 
 from pydantic import Field
 
@@ -57,9 +57,8 @@ class MRIScan(AindModel):
 
     scan_type: ScanType = Field(..., title="Scan type")
     primary_scan: bool = Field(
-        ..., title="Primary scan",
-        description="Indicates the primary scan used for downstream analysis"
-        )
+        ..., title="Primary scan", description="Indicates the primary scan used for downstream analysis"
+    )
     scan_sequence_type: MriScanSequence = Field(..., title="Scan sequence")
     axes: List[Axis] = Field(..., title="Imaging axes")
     voxel_sizes: Scale3dTransform = Field(

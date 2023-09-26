@@ -1,7 +1,7 @@
 """Module to contain code to upgrade old data description models"""
 from copy import deepcopy
-from typing import Any, Optional, Union
 from datetime import datetime
+from typing import Any, Optional, Union
 
 from aind_data_schema.data_description import DataDescription, Funding, Institution, Modality, Platform
 

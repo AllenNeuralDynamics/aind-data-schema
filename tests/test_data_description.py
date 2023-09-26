@@ -124,7 +124,7 @@ class DataDescriptionTest(unittest.TestCase):
 
         da2 = RawDataDescription.parse_obj(json.loads(da1.json()))
 
-        assert da1.creation_time == da2.creation_time        
+        assert da1.creation_time == da2.creation_time
         assert da1.name == da2.name
 
     def test_parse_name(self):

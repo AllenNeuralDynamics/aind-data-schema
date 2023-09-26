@@ -113,11 +113,9 @@ class ImagingTests(unittest.TestCase):
                     echo_time=2.2,
                     effective_echo_time=2.0,
                     repetition_time=1.2,
-                    additional_scan_parameters={
-                        "number_averages": 3
-                    },
+                    additional_scan_parameters={"number_averages": 3},
                 )
-            ]
+            ],
         )
 
         assert mri is not None

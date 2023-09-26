@@ -153,7 +153,7 @@ def datetime_from_name_string(d, t):
     """Take date and time strings, generate date and time objects"""
     d = datetime.strptime(d, "%Y-%m-%d").date()
     t = datetime.strptime(t, "%H-%M-%S").time()
-    return datetime.combine(d,t)
+    return datetime.combine(d, t)
 
 
 def build_data_name(label, creation_datetime):
@@ -187,7 +187,7 @@ class DataDescription(AindCoreModel):
         ...,
         description="Time that data files were created, used to uniquely identify the data",
         title="Creation Time",
-    )    
+    )
     name: Optional[str] = Field(
         None,
         description="Name of data, conventionally also the name of the directory containing all data and metadata",
@@ -356,9 +356,9 @@ class DerivedDataDescription(DataDescription):
                 return getattr(DerivedDataDescription.__fields__.get(field_name), "default")
 
         creation_time = datetime.utcnow() if kwargs.get("creation_time") is None else kwargs["creation_time"]
-        
+
         return cls(
-            creation_time=creation_time,        
+            creation_time=creation_time,
             process_name=process_name,
             institution=get_or_default("institution"),
             funding_source=get_or_default("funding_source"),
