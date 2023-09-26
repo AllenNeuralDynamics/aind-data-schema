@@ -128,8 +128,7 @@ class Modality(Enum, metaclass=BaseNameEnumMeta):
 class Platform(Enum, metaclass=BaseNameEnumMeta):
     """Name for standardized data collection system."""
 
-    BVR_TRAIN = BaseName(name="Behavior training platform", abbreviation="bvr-train")
-    BVR_RECORD = BaseName(name="Behavior recording platform", abbreviation="bvr-record")
+    BEHAVIOR = BaseName(name="Behavior platform", abbreviation="behavior")
     ECEPHYS = BaseName(name="Electrophysiology platform", abbreviation="ecephys")
     EXASPIM = BaseName(name="ExaSPIM platform", abbreviation="exaSPIM")
     FIP = BaseName(name="Frame-projected independent-fiber photometry platform", abbreviation="FIP")
