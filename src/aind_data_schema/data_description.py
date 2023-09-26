@@ -151,8 +151,8 @@ def datetime_to_name_string(dt):
 
 def datetime_from_name_string(d, t):
     """Take date and time strings, generate date and time objects"""
-    d = d.strptime(d, "%Y-%m-%d").date()
-    t = t.strptime(t, "%H-%M-%S").time()
+    d = datetime.strptime(d, "%Y-%m-%d").date()
+    t = datetime.strptime(t, "%H-%M-%S").time()
     return datetime.combine(d,t)
 
 

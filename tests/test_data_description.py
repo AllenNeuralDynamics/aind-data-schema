@@ -45,8 +45,7 @@ class DataDescriptionTest(unittest.TestCase):
 
         dt = datetime.datetime.now()
         da = RawDataDescription(
-            creation_date=dt.date(),
-            creation_time=dt.time(),
+            creation_time=dt,
             institution=Institution.AIND,
             data_level="raw",
             funding_source=[f],
@@ -59,8 +58,7 @@ class DataDescriptionTest(unittest.TestCase):
         r1 = DerivedDataDescription(
             input_data_name=da.name,
             process_name="spikesort-ks25",
-            creation_date=dt.date(),
-            creation_time=dt.time(),
+            creation_time=dt,
             institution=Institution.AIND,
             funding_source=[f],
             modality=da.modality,
@@ -72,8 +70,7 @@ class DataDescriptionTest(unittest.TestCase):
         r2 = DerivedDataDescription(
             input_data_name=r1.name,
             process_name="some-model",
-            creation_date=dt.date(),
-            creation_time=dt.time(),
+            creation_time=dt,
             institution=Institution.AIND,
             funding_source=[f],
             modality=r1.modality,
@@ -85,8 +82,7 @@ class DataDescriptionTest(unittest.TestCase):
         r3 = DerivedDataDescription(
             input_data_name=r2.name,
             process_name="a-paper",
-            creation_date=dt.date(),
-            creation_time=dt.time(),
+            creation_time=dt,
             institution=Institution.AIND,
             funding_source=[f],
             modality=r2.modality,
@@ -102,8 +98,7 @@ class DataDescriptionTest(unittest.TestCase):
             platform="exaspim",
             subject_id="1234",
             data_level="raw",
-            creation_date=dt.date(),
-            creation_time=dt.time(),
+            creation_time=dt,
             institution=Institution.AIND,
             funding_source=[f],
             investigators=["Jane Smith"],
@@ -117,8 +112,7 @@ class DataDescriptionTest(unittest.TestCase):
         dt = datetime.datetime.now()
 
         da1 = RawDataDescription(
-            creation_date=dt.date(),
-            creation_time=dt.time(),
+            creation_time=dt,
             institution=Institution.AIND,
             data_level="raw",
             funding_source=[],
@@ -130,8 +124,7 @@ class DataDescriptionTest(unittest.TestCase):
 
         da2 = RawDataDescription.parse_obj(json.loads(da1.json()))
 
-        assert da1.creation_time == da2.creation_time
-        assert da1.creation_date == da2.creation_date
+        assert da1.creation_time == da2.creation_time        
         assert da1.name == da2.name
 
     def test_parse_name(self):
@@ -139,8 +132,7 @@ class DataDescriptionTest(unittest.TestCase):
 
         toks = DataDescription.parse_name(self.BASIC_NAME)
         assert toks["label"] == "ecephys_1234"
-        assert toks["creation_date"] == datetime.date(3033, 12, 21)
-        assert toks["creation_time"] == datetime.time(4, 22, 11)
+        assert toks["creation_time"] == datetime.datetime(3033, 12, 21, 4, 22, 11)
 
         with self.assertRaises(ValueError):
             toks = DataDescription.parse_name(self.BAD_NAME)
@@ -148,8 +140,7 @@ class DataDescriptionTest(unittest.TestCase):
         toks = RawDataDescription.parse_name(self.BASIC_NAME)
         assert toks["platform"] == Platform.ECEPHYS
         assert toks["subject_id"] == "1234"
-        assert toks["creation_date"] == datetime.date(3033, 12, 21)
-        assert toks["creation_time"] == datetime.time(4, 22, 11)
+        assert toks["creation_time"] == datetime.datetime(3033, 12, 21, 4, 22, 11)
 
         with self.assertRaises(ValueError):
             toks = RawDataDescription.parse_name(self.BAD_NAME)
@@ -157,8 +148,7 @@ class DataDescriptionTest(unittest.TestCase):
         toks = DerivedDataDescription.parse_name(self.DERIVED_NAME)
         assert toks["input_data_name"] == "ecephys_1234_3033-12-21_04-22-11"
         assert toks["process_name"] == "spikesorted-ks25"
-        assert toks["creation_date"] == datetime.date(2022, 10, 12)
-        assert toks["creation_time"] == datetime.time(23, 23, 11)
+        assert toks["creation_time"] == datetime.datetime(2022, 10, 12, 23, 23, 11)
 
         with self.assertRaises(ValueError):
             toks = DerivedDataDescription.parse_name(self.BAD_NAME)

@@ -62,8 +62,7 @@ class TestDataDescriptionUpgrade(unittest.TestCase):
 
         # Should work by setting platform explicitly
         new_data_description = upgrader.upgrade_data_description(platform=Platform.ECEPHYS)
-        self.assertEqual(datetime.time(10, 31, 30), new_data_description.creation_time)
-        self.assertEqual(datetime.date(2022, 6, 28), new_data_description.creation_date)
+        self.assertEqual(datetime.datetime(2022, 6, 28, 10, 31, 30), new_data_description.creation_time)
         self.assertEqual("ecephys_623705_2022-06-28_10-31-30", new_data_description.name)
         self.assertEqual(Institution.AIND, new_data_description.institution)
         self.assertEqual([], new_data_description.funding_source)
@@ -84,8 +83,7 @@ class TestDataDescriptionUpgrade(unittest.TestCase):
 
         # Should work by setting platform explicitly
         new_data_description = upgrader.upgrade_data_description()
-        self.assertEqual(datetime.time(14, 35, 51), new_data_description.creation_time)
-        self.assertEqual(datetime.date(2023, 4, 13), new_data_description.creation_date)
+        self.assertEqual(datetime.datetime(2023, 4, 13, 14, 35, 51), new_data_description.creation_time)
         self.assertEqual("ecephys_664438_2023-04-13_14-35-51", new_data_description.name)
         self.assertEqual(Institution.AIND, new_data_description.institution)
         self.assertEqual([Funding(funder=Institution.AIND)], new_data_description.funding_source)
@@ -106,8 +104,7 @@ class TestDataDescriptionUpgrade(unittest.TestCase):
 
         # Should work by setting experiment type explicitly
         new_data_description = upgrader.upgrade_data_description()
-        self.assertEqual(datetime.time(17, 9, 26), new_data_description.creation_time)
-        self.assertEqual(datetime.date(2023, 4, 10), new_data_description.creation_date)
+        self.assertEqual(datetime.datetime(2023, 4, 10, 17, 9, 26), new_data_description.creation_time)
         self.assertEqual("ecephys_661278_2023-04-10_17-09-26", new_data_description.name)
         self.assertEqual(Institution.AIND, new_data_description.institution)
         self.assertEqual([Funding(funder=Institution.AIND)], new_data_description.funding_source)
@@ -128,8 +125,7 @@ class TestDataDescriptionUpgrade(unittest.TestCase):
 
         # Should work by setting experiment type explicitly
         new_data_description = upgrader.upgrade_data_description()
-        self.assertEqual(datetime.time(22, 31, 18), new_data_description.creation_time)
-        self.assertEqual(datetime.date(2023, 3, 23), new_data_description.creation_date)
+        self.assertEqual(datetime.datetime(2023, 3, 23, 22, 31, 18), new_data_description.creation_time)
         self.assertEqual("661279_2023-03-23_15-31-18", new_data_description.name)
         self.assertEqual(Institution.AIND, new_data_description.institution)
         self.assertEqual([Funding(funder=Institution.AIND)], new_data_description.funding_source)
@@ -189,8 +185,7 @@ class TestDataDescriptionUpgrade(unittest.TestCase):
 
         # Should work by setting funding_source explicitly
         new_data_description = upgrader.upgrade_data_description(funding_source=[Funding(funder=Institution.AIND)])
-        self.assertEqual(datetime.time(22, 31, 18), new_data_description.creation_time)
-        self.assertEqual(datetime.date(2023, 3, 23), new_data_description.creation_date)
+        self.assertEqual(datetime.datetime(2023, 3, 23, 22, 31, 18), new_data_description.creation_time)
         self.assertEqual("661279_2023-03-23_15-31-18", new_data_description.name)
         self.assertEqual(Institution.AIND, new_data_description.institution)
         self.assertEqual([Funding(funder=Institution.AIND)], new_data_description.funding_source)
