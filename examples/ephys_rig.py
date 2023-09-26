@@ -47,6 +47,7 @@ basestation = NeuropixelsBasestation(
     slot=3,
     ports=[port1, port2],
     computer_name=ephys_computer,
+    data_interface="PXI",
 )
 
 red_laser = Laser(name="Red Laser", wavelength=473, manufacturer=Manufacturer.OXXIUS)
