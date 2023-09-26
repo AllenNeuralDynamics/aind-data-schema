@@ -110,10 +110,8 @@ class Modality(Enum, metaclass=BaseNameEnumMeta):
     CONFOCAL = BaseName(name="Confocal microscopy", abbreviation="confocal")
     ECEPHYS = BaseName(name="Extracellular electrophysiology", abbreviation="ecephys")
     FMOST = BaseName(name="Fluorescence micro-optical sectioning tomography", abbreviation="fMOST")
-    HSFP = BaseName(name="Hyperspectral fiber photometry", abbreviation="HSFP")
     ICEPHYS = BaseName(name="Intracellular electrophysiology", abbreviation="icephys")
     FIB = BaseName(name="Fiber photometry", abbreviation="fib")
-    FISH = BaseName(name="Fluorescence in situ hybridization", abbreviation="fish")
     MERFISH = BaseName(
         name="Multiplexed error-robust fluorescence in situ hybridization",
         abbreviation="merfish",
@@ -129,6 +127,7 @@ class Platform(Enum, metaclass=BaseNameEnumMeta):
     """Name for standardized data collection system."""
 
     BEHAVIOR = BaseName(name="Behavior platform", abbreviation="behavior")
+    CONFOCAL = BaseName(name="Confocal microscopy platform", abbreviation="confocal")
     ECEPHYS = BaseName(name="Electrophysiology platform", abbreviation="ecephys")
     EXASPIM = BaseName(name="ExaSPIM platform", abbreviation="exaSPIM")
     FIP = BaseName(name="Frame-projected independent-fiber photometry platform", abbreviation="FIP")
