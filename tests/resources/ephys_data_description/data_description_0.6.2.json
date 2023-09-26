@@ -13,8 +13,8 @@
     ],
     "modality": [
         {
-            "name": "Electrophysiology",
-            "abbreviation": "ephys"
+            "name": "Extracellular electrophysiology",
+            "abbreviation": "ecephys"
         }
     ],
     "related_data": [

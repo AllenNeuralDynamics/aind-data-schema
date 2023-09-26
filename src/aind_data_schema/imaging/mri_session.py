@@ -3,22 +3,31 @@
 from datetime import datetime
 from decimal import Decimal
 from enum import Enum
-from typing import List, Optional
+from typing import Any, List, Dict, Optional
 
 from pydantic import Field
 
-from aind_data_schema.base import AindCoreModel
+from aind_data_schema.base import AindCoreModel, AindModel, EnumSubset
 from aind_data_schema.device import Device
 from aind_data_schema.imaging.acquisition import Axis
 from aind_data_schema.imaging.tile import Scale3dTransform
 from aind_data_schema.procedures import Anaesthetic
-from aind_data_schema.utils.units import MassUnit
+from aind_data_schema.processing import ProcessName
+from aind_data_schema.utils.units import MassUnit, TimeUnit
 
 
 class MriScanSequence(Enum):
     """MRI scan sequence"""
 
     RARE = "RARE"
+    OTHER = "Other"
+
+
+class ScanType(Enum):
+    """Type of scan"""
+
+    SETUP = "Set Up"
+    SCAN_3D = "3D Scan"
 
 
 class ScannerLocation(Enum):
@@ -38,15 +47,46 @@ class MagneticStrength(Enum):
 class Scanner(Device):
     """Description of a MRI Scanner"""
 
-    scanner_location: ScannerLocation = Field(..., title="Scanner site location")
+    scanner_location: ScannerLocation = Field(..., title="Scanner location")
     magnetic_strength: MagneticStrength = Field(..., title="Magnetic strength (T)", units="T")
     magnetic_strength_unit: str = Field("T", title="Magnetic strength unit")
+
+
+class MRIScan(AindModel):
+    """Description of a 3D scan"""
+
+    scan_type: ScanType = Field(..., title="Scan type")
+    primary_scan: bool = Field(
+        ..., title="Primary scan",
+        description="Indicates the primary scan used for downstream analysis"
+        )
+    scan_sequence_type: MriScanSequence = Field(..., title="Scan sequence")
+    axes: List[Axis] = Field(..., title="Imaging axes")
+    voxel_sizes: Scale3dTransform = Field(
+        ..., title="Voxel sizes", description="Size of voxels in order as specified in axes"
+    )
+    processing_steps: Optional[
+        List[
+            EnumSubset[
+                ProcessName.FIDUCIAL_SEGMENTATION,
+                ProcessName.REGISTRATION_TO_TEMPLATE,
+                ProcessName.SKULL_STRIPPING,
+            ]
+        ]
+    ]
+    echo_time: Decimal = Field(..., title="Echo time (ms)")
+    effective_echo_time: Decimal = Field(..., title="Effective echo time (ms)")
+    echo_time_unit: TimeUnit = Field(TimeUnit.MS, title="Echo time unit")
+    repetition_time: Decimal = Field(..., title="Repetition time (ms)")
+    repetition_time_unit: TimeUnit = Field(TimeUnit.MS, title="Repetition time unit")
+    additional_scan_parameters: Dict[str, Any] = Field(..., title="Parameters")
+    notes: Optional[str] = Field(None, title="Notes")
 
 
 class MriSession(AindCoreModel):
     """Description of an MRI scan"""
 
-    schema_version: str = Field("0.1.8", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.1.9", description="schema version", title="Version", const=True)
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
@@ -75,12 +115,6 @@ class MriSession(AindCoreModel):
     )
     weight_unit: MassUnit = Field(MassUnit.G, title="Weight unit")
     anaesthesia: Optional[Anaesthetic] = Field(None, title="Anaesthesia")
-    scan_sequence: MriScanSequence = Field(..., title="Scan sequence")
     mri_scanner: Scanner = Field(..., title="MRI scanner")
-    axes: List[Axis] = Field(..., title="Imaging axes")
-    voxel_sizes: Scale3dTransform = Field(
-        ...,
-        title="Voxel sizes",
-        description="Size of voxels in order as specified in axes",
-    )
+    scans: List[MRIScan] = Field(..., title="MRI scans")
     notes: Optional[str] = Field(None, title="Notes")
