@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import re
 from datetime import datetime
-from enum import Enum
+from enum import Enum, EnumMeta
 from typing import Any, List, Optional
 
 from pydantic import Field
@@ -103,7 +103,27 @@ class Group(Enum):
     OPHYS = "ophys"
 
 
-class Modality(Enum, metaclass=BaseNameEnumMeta):
+class AbbreviationEnumMeta(EnumMeta):
+    """Allows to create complicated enum based on abbreviation."""
+
+    def __call__(cls, value, *args, **kw):
+        """Allow enum to be set by a string."""
+        if isinstance(value, str):
+            abbr = {member.value.abbreviation: member for member in cls}
+            if abbr.get(value) is None:
+                value = getattr(cls, value.upper())
+            else:
+                value = abbr[value]
+        return super().__call__(value, *args, **kw)
+
+    def __modify_schema__(cls, field_schema):
+        """Adds enumNames to schema"""
+        field_schema.update(
+            enumNames=[e.value.name for e in cls],
+        )
+
+
+class Modality(Enum, metaclass=AbbreviationEnumMeta):
     """Data collection modality name"""
 
     BEHAVIOR_VIDEOS = BaseName(name="Behavior videos", abbreviation="behavior-videos")
@@ -123,7 +143,7 @@ class Modality(Enum, metaclass=BaseNameEnumMeta):
     TRAINED_BEHAVIOR = BaseName(name="Trained behavior", abbreviation="trained-behavior")
 
 
-class Platform(Enum, metaclass=BaseNameEnumMeta):
+class Platform(Enum, metaclass=AbbreviationEnumMeta):
     """Name for standardized data collection system that can collect one or more data modalities."""
 
     BEHAVIOR = BaseName(name="Behavior platform", abbreviation="behavior")

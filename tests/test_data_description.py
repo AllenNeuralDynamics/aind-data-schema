@@ -153,10 +153,30 @@ class DataDescriptionTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             toks = DerivedDataDescription.parse_name(self.BAD_NAME)
 
-    def test_modality_enums(self):
-        """Tests that BaseName enums can be constructed from attr names"""
+    def test_abbreviation_enums(self):
+        """Tests that BaseName enums can be constructed from abbreviations"""
+        # Tests that Modality constructed as expected
         self.assertEqual(Modality.ECEPHYS, Modality("ECEPHYS"))
         self.assertEqual(Modality.ECEPHYS, Modality("ecephys"))
+        self.assertEqual(Modality.POPHYS, Modality("POPHYS"))
+        self.assertEqual(Modality.POPHYS, Modality("ophys"))
+        self.assertEqual(Modality.BEHAVIOR_VIDEOS, Modality("BEHAVIOR_VIDEOS"))
+        self.assertEqual(Modality.BEHAVIOR_VIDEOS, Modality("behavior-videos"))
+
+        # Tests that Platform constructed as expected
+        self.assertEqual(Platform.ECEPHYS, Platform("ECEPHYS"))
+        self.assertEqual(Platform.ECEPHYS, Platform("ecephys"))
+        self.assertEqual(Platform.MESOSPM, Platform("MESOSPM"))
+        self.assertEqual(Platform.MESOSPM, Platform("mesoSPIM"))
+        self.assertEqual(Platform.MULTIPLANE_OPHYS, Platform("MULTIPLANE_OPHYS"))
+        self.assertEqual(Platform.MULTIPLANE_OPHYS, Platform("multiplane-ophys"))
+
+    def test_unique_abbreviations(self):
+        """Tests that abbreviations are unique"""
+        modality_abbreviations = [m.value.abbreviation for m in Modality]
+        self.assertEqual(len(set(modality_abbreviations)), len(modality_abbreviations))
+        platform_abbreviations = [p.value.abbreviation for p in Platform]
+        self.assertEqual(len(set(platform_abbreviations)), len(platform_abbreviations))
 
     def test_from_data_description(self):
         """Tests DerivedDataDescription.from_data_description method"""
