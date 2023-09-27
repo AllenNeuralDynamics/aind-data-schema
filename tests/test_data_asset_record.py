@@ -1,3 +1,5 @@
+"""Tests DataAssetRecord model"""
+
 import unittest
 from datetime import datetime
 
@@ -30,3 +32,7 @@ class TestDataAssetRecord(unittest.TestCase):
             subject=Subject.construct(),
         )
         assert d2 is not None
+
+
+if __name__ == "__main__":
+    unittest.main()
