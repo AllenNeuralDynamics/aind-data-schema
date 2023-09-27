@@ -9,6 +9,8 @@ class TestDataAssetRecord(unittest.TestCase):
     """Class to test DataAssetRecord model"""
 
     def test_constructors(self):
+        """test building from component parts"""
+
         d1 = DataAssetRecord(
             _id="00000",
             name="Test Name",
