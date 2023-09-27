@@ -144,9 +144,7 @@ class Platform(Enum, metaclass=BaseNameEnumMeta):
 
 def datetime_to_name_string(dt):
     """Take a date and time object, format it a as string"""
-    ds = dt.date().strftime("%Y-%m-%d")
-    ts = dt.time().strftime("%H-%M-%S")
-    return f"{ds}_{ts}"
+    return dt.strftime("%Y-%m-%d_%H-%M-%S")
 
 
 def datetime_from_name_string(d, t):
