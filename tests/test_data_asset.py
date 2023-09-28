@@ -1,19 +1,19 @@
-"""Tests DataAssetRecord model"""
+"""Tests DataAsset model"""
 
 import unittest
 from datetime import datetime
 
-from aind_data_schema.data_asset_record import DataAssetRecord, MetadataStatus
+from aind_data_schema.data_asset import DataAsset, MetadataStatus
 from aind_data_schema.subject import Subject
 
 
-class TestDataAssetRecord(unittest.TestCase):
-    """Class to test DataAssetRecord model"""
+class TestDataAsset(unittest.TestCase):
+    """Class to test DataAsset model"""
 
     def test_constructors(self):
         """test building from component parts"""
 
-        d1 = DataAssetRecord(
+        d1 = DataAsset(
             _id="00000",
             name="Test Name",
             created=datetime(2023, 9, 27, 0, 0, 0),
@@ -22,7 +22,7 @@ class TestDataAssetRecord(unittest.TestCase):
             metadata_status=MetadataStatus.VALID,
         )
         assert d1 is not None
-        d2 = DataAssetRecord(
+        d2 = DataAsset(
             _id="00000",
             name="Test Name",
             created=datetime(2023, 9, 27, 0, 0, 0),

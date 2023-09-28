@@ -17,7 +17,7 @@ class MetadataStatus(Enum):
     UNKNOWN = "Unknown"
 
 
-class DataAssetRecord(AindCoreModel):
+class DataAsset(AindCoreModel):
     """The records in the Data Asset Collection needs to contain certain fields
     to easily query and index the data."""
 
