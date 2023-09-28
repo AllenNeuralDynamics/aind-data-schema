@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from datetime import date
 from typing import List, Optional, Union
 
 from pydantic import Field
@@ -40,6 +41,7 @@ class Rig(AindCoreModel):
 
     schema_version: str = Field("0.1.0", description="schema version", title="Version", const=True)
     rig_id: str = Field(..., description="room_stim apparatus_version", title="Rig ID")
+    date_of_modification: date = Field(..., title="Date of modification")
     modalities: List[Modality] = Field(..., title="Modalities", unique_items=True)
     mouse_platform: Union[Tube, Treadmill, Disc] = Field(..., title="Mouse platform")
     stimulus_devices: Optional[List[Union[RewardDelivery, Monitor, Speaker]]] = Field(
