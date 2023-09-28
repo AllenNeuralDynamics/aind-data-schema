@@ -10,38 +10,216 @@ from typing import List, Optional, Union
 from pydantic import Field
 
 from aind_data_schema.base import AindCoreModel, AindModel
+from aind_data_schema.data_description import Modality
 from aind_data_schema.device import Calibration, Maintenance, RelativePosition, SpoutSide
+from aind_data_schema.positions import CcfCoords, Coordinates3d
 from aind_data_schema.stimulus import StimulusEpoch
 from aind_data_schema.imaging.tile import Channel
-from aind_data_schema.utils.units import FrequencyUnit, PowerUnit, SizeUnit, TimeUnit
+from aind_data_schema.utils.units import AngleUnit, FrequencyUnit, MassUnit, PowerUnit, SizeUnit, VolumeUnit
+
+###Ophys components###
+class FiberName(Enum):
+    """Fiber name"""
+
+    FIBER_A = "Fiber A"
+    FIBER_B = "Fiber B"
+    FIBER_C = "Fiber C"
+    FIBER_D = "Fiber D"
+    FIBER_E = "Fiber E"
 
 
-class OphysSession(AindModel):
-    """Description of ophys session"""
+class PatchCordName(Enum):
+    """Patch cord name"""
+
+    PATCH_CORD_A = "Patch Cord A"
+    PATCH_CORD_B = "Patch Cord B"
+    PATCH_CORD_C = "Patch Cord C"
+    PATCH_CORD_D = "Patch Cord D"
 
 
-class EphysSession(AindModel):
-    """Description of ephys session"""
+class Coupling(AindModel):
+    """Description of fiber coupling"""
 
-    stick_microscopes: Optional[List[DomeModule]] = Field(
-        ...,
-        title="Stick microscopes",
-        description="Must match stick microscope assemblies in rig file",
-    )
-    data_streams: List[Stream] = Field(
-        ...,
-        title="Data streams",
-        description=(
-            "A data stream is a collection of devices that are recorded simultaneously. Each session can include"
-            " multiple streams (e.g., if the manipulators are moved to a new location)"
-        ),
-        unique_items=True,
-    )
-    ccf_coordinate_transform: Optional[str] = Field(
+    fiber_name: FiberName = Field(..., title="Fiber name")
+    patch_cord_name: PatchCordName = Field(..., title="Patch cord name")
+
+
+class Patch(AindModel):
+    """Description of a patch"""
+
+    name: PatchCordName = Field(..., title="Name")
+    output_power: Decimal = Field(..., title="Output power (uW)")
+    output_power_unit: PowerUnit = Field(PowerUnit.UW, title="Output power unit")
+
+
+class FiberPhotometryDevices(AindModel):
+    """Description of a fiber photometry configuration"""
+
+    patch_cords: List[Patch] = Field(..., title="Patch cords", unique_items=True)
+    coupling_array: List[Coupling] = Field(..., title="Coupling array", unique_items=True)
+
+
+class TriggerType(Enum):
+    """Types of detector triggers"""
+
+    INTERNAL = "Internal"
+    EXTERNAL = "External"
+
+
+class Detector(AindModel):
+    """Description of detector settings"""
+
+    name: str = Field(..., title="Name")
+    exposure_time: Decimal = Field(..., title="Exposure time (ms)")
+    exposure_time_unit: TimeUnit = Field(TimeUnit.MS, title="Exposure time unit")
+    trigger_type: TriggerType = Field(..., title="Trigger type")
+
+
+class LightEmittingDiode(AindModel):
+    """Description of LED settings"""
+
+    name: str = Field(..., title="Name")
+    excitation_power: Optional[Decimal] = Field(None, title="Excitation power (mW)")
+    excitation_power_unit: PowerUnit = Field(PowerUnit.MW, title="Excitation power unit")
+
+
+class FieldOfView(AindModel):
+    """Description of an imaging field of view"""
+
+    index: int = Field(..., title="Index")
+    imaging_depth: int = Field(..., title="Imaging depth (um)")
+    imaging_depth_unit: SizeUnit = Field(SizeUnit.UM, title="Imaging depth unit")
+    targeted_structure: str = Field(..., title="Targeted structure")
+    fov_coordinate_ml: Decimal = Field(..., title="FOV coordinate ML")
+    fov_coordinate_ap: Decimal = Field(..., title="FOV coordinate AP")
+    fov_coordinate_unit: SizeUnit = Field(SizeUnit.UM, title="FOV coordinate unit")
+    fov_reference: str = Field(..., title="FOV reference", description="Reference for ML/AP coordinates")
+    fov_width: int = Field(..., title="FOV width (pixels)")
+    fov_height: int = Field(..., title="FOV height (pixels)")
+    fov_size_unit: SizeUnit = Field(SizeUnit.PX, title="FOV size unit")
+    magnification: str = Field(..., title="Magnification")
+    fov_scale_factor: Decimal = Field(..., title="FOV scale factor (um/pixel)")
+    fov_scale_factor_unit: str = Field("um/pixel", title="FOV scale factor unit")
+    frame_rate: Decimal = Field(..., title="Frame rate (Hz)")
+    frame_rate_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Frame rate unit")
+
+
+class StackChannel(Channel):
+    """Description of a Channel used in a Stack"""
+
+    start_depth: int = Field(..., title="Starting depth (um)")
+    end_depth: int = Field(..., title="Ending depth (um)")
+    depth_unit: SizeUnit = Field(SizeUnit.UM, title="Depth unit")
+
+
+class Stack(OphysSession):
+    """Description of a two photon stack"""
+
+    channels: List[StackChannel] = Field(..., title="Channels")
+    number_of_planes: int = Field(..., title="Number of planes")
+    step_size: float = Field(..., title="Step size (um)")
+    step_size_unit: SizeUnit = Field(SizeUnit.UM, title="Step size unit")
+    number_of_plane_repeats_per_volume: int = Field(..., title="Number of repeats per volume")
+    number_of_volume_repeats: int = Field(..., title="Number of volume repeats")
+    fov_coordinate_ml: float = Field(..., title="FOV coordinate ML")
+    fov_coordinate_ap: float = Field(..., title="FOV coordinate AP")
+    fov_coordinate_unit: SizeUnit = Field(SizeUnit.UM, title="FOV coordinate unit")
+    fov_reference: str = Field(..., title="FOV reference", description="Reference for ML/AP coordinates")
+    fov_width: int = Field(..., title="FOV width (pixels)")
+    fov_height: int = Field(..., title="FOV height (pixels)")
+    fov_size_unit: SizeUnit = Field(SizeUnit.PX, title="FOV size unit")
+    magnification: Optional[str] = Field(None, title="Magnification")
+    fov_scale_factor: float = Field(..., title="FOV scale factor (um/pixel)")
+    fov_scale_factor_unit: str = Field("um/pixel", title="FOV scale factor unit")
+    frame_rate: float = Field(..., title="Frame rate (Hz)")
+    frame_rate_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Frame rate unit")
+    targeted_structure: Optional[str] = Field(None, title="Targeted structure")
+
+
+
+###Ephys Components###
+class DomeModule(AindModel):
+    """Movable module that is mounted on the ephys dome insertion system"""
+
+    # required fields
+    assembly_name: str = Field(..., title="Assembly name")
+    arc_angle: Decimal = Field(..., title="Arc Angle", units="degrees")
+    module_angle: Decimal = Field(..., title="Module Angle", units="degrees")
+    angle_unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
+
+    # optional fields
+    rotation_angle: Optional[Decimal] = Field(0.0, title="Rotation Angle", units="degrees")
+    coordinate_transform: Optional[str] = Field(
         None,
-        description="Path to file that details the CCF-to-lab coordinate transform",
-        title="CCF coordinate transform",
+        title="Transform from local manipulator axes to rig",
+        description="Path to coordinate transform",
     )
+    calibration_date: Optional[datetime] = Field(None, title="Date on which coordinate transform was last calibrated")
+    notes: Optional[str] = Field(None, title="Notes")
+
+
+class ManipulatorModule(DomeModule):
+    """A module connected to a 3-axis manipulator"""
+
+    primary_targeted_structure: str = Field(..., title="Targeted structure")
+    targeted_ccf_coordinates: Optional[List[CcfCoords]] = Field(
+        None,
+        title="Targeted CCF coordinates",
+    )
+    manipulator_coordinates: Coordinates3d = Field(
+        ...,
+        title="Manipulator coordinates",
+    )
+
+
+class EphysProbe(AindModel):
+    """Probes in a EphysProbeModule"""
+
+    name: str = Field(..., title="Ephys probe name (must match rig JSON)")
+    other_targeted_structures: Optional[List[str]] = None
+
+
+class EphysModule(ManipulatorModule):
+    """Probe recorded in a Stream"""
+
+    ephys_probes: List[EphysProbe] = Field(..., title="Ephys probes used in this module")
+
+
+class Laser(AindModel):
+    """Description of laser settings in a session"""
+
+    name: str = Field(..., title="Name", description="Must match rig json")
+    wavelength: int = Field(..., title="Wavelength (nm)")
+    wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
+    excitation_power: Optional[Decimal] = Field(None, title="Excitation power (mW)")
+    excitation_power_unit: PowerUnit = Field(PowerUnit.MW, title="Excitation power unit")
+
+
+###Behavior components###
+class RewardSolution(Enum):
+    """Reward solution name"""
+
+    WATER = "Water"
+    OTHER = "Other"
+
+
+class RewardSpout(AindModel):
+    """Reward spout session information"""
+
+    side: SpoutSide = Field(..., title="Spout side", description="Must match rig")
+    starting_position: RelativePosition = Field(..., title="Starting position")
+    variable_position: bool = Field(
+        ...,
+        title="Variable position",
+        description="True if spout position changes during session as tracked in data"
+        )
+
+
+class RewardDelivery(AindModel):
+    """Description of reward delivery configuration"""
+
+    reward_solution: RewardSolution = Field(..., title="Reward solution", description="If Other use notes")
+    reward_spouts: List[RewardSpout] = Field(..., title="Reward spouts", unique_items=True)
     notes: Optional[str] = Field(None, title="Notes")
 
 
@@ -62,6 +240,26 @@ class Behavior(AindModel):
     trials_total: int = Field(..., title="Total trials")
     trials_finished: int = Field(..., title="Finished trials")
     trials_rewarded: int = Field(..., title="Rewarded trials")
+
+
+class Stream(AindModel):
+    """Stream of data with a start and stop time"""
+
+    stream_start_time: datetime = Field(..., title="Stream start time")
+    stream_end_time: datetime = Field(..., title="Stream stop time")
+    stream_modalities: List[Modality] = Field(..., title="Modalities")
+    behavior: Optional[Behavior] = Field(None, title="Behavior")
+    stimulus_epochs: Optional[List[StimulusEpoch]] = Field(None, title="Stimulus")
+    reward_delivery: Optional[RewardDelivery] = Field(None, title="Reward delivery")
+    daq_names: Optional[List[str]] = Field(None, title="DAQ devices", unique_items=True)
+    camera_names: Optional[List[str]] = Field(None, title="Cameras", unique_items=True)
+    light_sources: Optional[List[Union[Laser, LightEmittingDiode]]] = Field(..., title="Light source", unique_items=True)
+    ephys_modules: Optional[List[EphysModule]] = Field(None, title="Ephys modules", unique_items=True)
+    detectors: Optional[List[Detector]] = Field(None, title="Detectors", unique_items=True)
+    fiber_photometry_devices: Optional[FiberPhotometryDevices] = Field(None, title="Fiber photometry devices")
+    ophys_fovs: Optional[List[FieldOfView]] = Field(None, title="Fields of view", unique_items=True)
+    stack_parameters: Optional[Stack] = Field(None, title="Stack parameters")
+    notes: Optional[str] = Field(None, title="Notes")
 
 
 class Session(AindCoreModel):
@@ -103,15 +301,24 @@ class Session(AindCoreModel):
         units="g",
     )
     weight_unit: MassUnit = Field(MassUnit.G, title="Weight unit")
-    #TODO: stimulus epoch is in Behavior...
-    stimulus_epochs: Optional[List[StimulusEpoch]] = Field(None, title="Stimulus")
+    data_streams: List[Stream] = Field(
+        ...,
+        title="Data streams",
+        description=(
+            "A data stream is a collection of devices that are recorded simultaneously. Each session can include"
+            " multiple streams (e.g., if the manipulators are moved to a new location)"
+        ),
+        unique_items=True,
+    )
 
+    stick_microscopes: Optional[List[DomeModule]] = Field(
+        ...,
+        title="Stick microscopes",
+        description="Must match stick microscope assemblies in rig file",
+    )
+    ccf_coordinate_transform: Optional[str] = Field(
+        None,
+        description="Path to file that details the CCF-to-lab coordinate transform",
+        title="CCF coordinate transform",
+    )
     notes: Optional[str] = Field(None, title="Notes")
-
-
-
-    light_sources: List[Union[Laser, LightEmittingDiode]] = Field(..., title="Light source", unique_items=True)
-    detectors: Optional[List[Detector]] = Field(None, title="Detectors", unique_items=True)
-    cameras: Optional[List[Camera]] = Field(None, title="Cameras", unique_items=True)
-    
-    notes: Optional[str] = None

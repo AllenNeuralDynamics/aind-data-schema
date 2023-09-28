@@ -65,3 +65,19 @@ class Coordinates3d(AindModel):
     y: Decimal = Field(..., title="Position Y")
     z: Decimal = Field(..., title="Position Z")
     unit: SizeUnit = Field(SizeUnit.UM, title="Position unit")
+
+
+class CcfVersion(Enum):
+    """CCF version"""
+
+    CCFv3 = "CCFv3"
+
+
+class CcfCoords(AindModel):
+    """Coordinates in CCF template space"""
+
+    ml: Decimal = Field(..., title="ML")
+    ap: Decimal = Field(..., title="AP")
+    dv: Decimal = Field(..., title="DV")
+    unit: SizeUnit = Field(SizeUnit.UM, title="Coordinate unit")
+    ccf_version: CcfVersion = Field(CcfVersion.CCFv3, title="CCF version")
