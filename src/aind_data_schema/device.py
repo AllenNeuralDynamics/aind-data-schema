@@ -529,7 +529,7 @@ class MousePlatform(Device):
 
 
 class Disc(MousePlatform):
-    """Description of a running disc"""
+    """Description of a running disc (i.e. MindScope Disc)"""
 
     platform_type: str = Field("Disc", title="Platform type", const=True)
     radius: Decimal = Field(..., title="Radius (cm)", units="cm", ge=0)
@@ -542,6 +542,22 @@ class Disc(MousePlatform):
         title="Encoder firmware",
         description="Firmware to read from decoder chip counts",
     )
+
+
+class Wheel(MousePlatform):
+    """Description of a running wheel"""
+
+    platform_type: str = Field("Wheel", title="Platform type", const=True)
+    radius: Decimal = Field(..., title="Radius (mm)")
+    width: Decimal = Field(..., title="Width (mm)")
+    size_unit: SizeUnit = Field(SizeUnit.MM, title="Size unit")
+    encoder: Device = Field(..., title="Encoder")
+    encoder_output: Optional[DaqChannelType] = Field(None, title="Encoder DAQ chanel")
+    pulse_per_revolution: int = Field(..., title="Pulse per revolution")
+    magnetic_brake: Device = Field(..., title="Magnetic brake")
+    brake_output: Optional[DaqChannelType] = Field(None, title="Brake DAQ chanel")
+    torque_sensor: Device = Field(..., title="Torque sensor")
+    torque_output: Optional[DaqChannelType] = Field(None, title="Torque DAQ chanel")
 
 
 class Tube(MousePlatform):
@@ -563,7 +579,6 @@ class Treadmill(MousePlatform):
 class Monitor(Device):
     """Description of visual display for visual stimuli"""
 
-    # required fields
     stimulus_device: str = Field("Visual monitor", title="Stimulus type", const=True)
     manufacturer: EnumSubset[Manufacturer.LG]
     refresh_rate: int = Field(..., title="Refresh rate (Hz)", units="Hz", ge=60)
@@ -572,8 +587,6 @@ class Monitor(Device):
     size_unit: SizeUnit = Field(SizeUnit.PX, title="Size unit")
     viewing_distance: Decimal = Field(..., title="Viewing distance (cm)", units="cm")
     viewing_distance_unit: SizeUnit = Field(SizeUnit.CM, title="Viewing distance unit")
-
-    # optional fields
     position: Optional[RelativePosition] = Field(None, title="Relative position of the monitor")
     contrast: Optional[int] = Field(
         ...,
@@ -624,4 +637,11 @@ class Speaker(Device):
 
     stimulus_device: str = Field("Speaker", title="Stimulus type", const=True)
     manufacturer: EnumSubset[Manufacturer.TYMPHANY]
+    position: Optional[RelativePosition] = Field(None, title="Relative position of the monitor")
+
+
+class Olfactometer(Device):
+    """Description of a olfactometer for odor stimuli"""
+
+    stimulus_device: str = Field("Olfactometer", title="Stimulus type", const=True)
     position: Optional[RelativePosition] = Field(None, title="Relative position of the monitor")

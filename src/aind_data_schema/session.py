@@ -37,26 +37,30 @@ class PatchCordName(Enum):
     PATCH_CORD_D = "Patch Cord D"
 
 
-class Coupling(AindModel):
-    """Description of fiber coupling"""
+# class Coupling(AindModel):
+#     """Description of fiber coupling"""
 
-    fiber_name: FiberName = Field(..., title="Fiber name")
-    patch_cord_name: PatchCordName = Field(..., title="Patch cord name")
+#     fiber_name: FiberName = Field(..., title="Fiber name")
+#     patch_cord_name: PatchCordName = Field(..., title="Patch cord name")
 
 
-class Patch(AindModel):
-    """Description of a patch"""
+# class Patch(AindModel):
+#     """Description of a patch"""
 
-    name: PatchCordName = Field(..., title="Name")
-    output_power: Decimal = Field(..., title="Output power (uW)")
-    output_power_unit: PowerUnit = Field(PowerUnit.UW, title="Output power unit")
+#     name: PatchCordName = Field(..., title="Name")
+#     output_power: Decimal = Field(..., title="Output power (uW)")
+#     output_power_unit: PowerUnit = Field(PowerUnit.UW, title="Output power unit")
 
 
 class FiberPhotometryDevices(AindModel):
     """Description of a fiber photometry configuration"""
 
-    patch_cords: List[Patch] = Field(..., title="Patch cords", unique_items=True)
-    coupling_array: List[Coupling] = Field(..., title="Coupling array", unique_items=True)
+    # patch_cords: List[Patch] = Field(..., title="Patch cords", unique_items=True)
+    # coupling_array: List[Coupling] = Field(..., title="Coupling array", unique_items=True)
+    patch_cord_name: PatchCordName = Field(..., title="Name")
+    patch_cord_output_power: Decimal = Field(..., title="Output power (uW)")
+    output_power_unit: PowerUnit = Field(PowerUnit.UW, title="Output power unit")
+    fiber_name: FiberName = Field(..., title="Fiber name")
 
 
 class TriggerType(Enum):
@@ -136,25 +140,21 @@ class Stack(OphysSession):
     targeted_structure: Optional[str] = Field(None, title="Targeted structure")
 
 
-
 ###Ephys Components###
 class DomeModule(AindModel):
     """Movable module that is mounted on the ephys dome insertion system"""
 
-    # required fields
-    assembly_name: str = Field(..., title="Assembly name")
+    assembly_name: str = Field(
+        ..., title="Assembly name", 
+        description="Must match name in rig json")
     arc_angle: Decimal = Field(..., title="Arc Angle", units="degrees")
     module_angle: Decimal = Field(..., title="Module Angle", units="degrees")
     angle_unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
-
-    # optional fields
     rotation_angle: Optional[Decimal] = Field(0.0, title="Rotation Angle", units="degrees")
     coordinate_transform: Optional[str] = Field(
-        None,
-        title="Transform from local manipulator axes to rig",
-        description="Path to coordinate transform",
+        None, title="Coordinate transform",
+        description="Path to coordinate transform from local manipulator axes to rig.",
     )
-    calibration_date: Optional[datetime] = Field(None, title="Date on which coordinate transform was last calibrated")
     notes: Optional[str] = Field(None, title="Notes")
 
 
@@ -248,9 +248,7 @@ class Stream(AindModel):
     stream_start_time: datetime = Field(..., title="Stream start time")
     stream_end_time: datetime = Field(..., title="Stream stop time")
     stream_modalities: List[Modality] = Field(..., title="Modalities")
-    behavior: Optional[Behavior] = Field(None, title="Behavior")
     stimulus_epochs: Optional[List[StimulusEpoch]] = Field(None, title="Stimulus")
-    reward_delivery: Optional[RewardDelivery] = Field(None, title="Reward delivery")
     daq_names: Optional[List[str]] = Field(None, title="DAQ devices", unique_items=True)
     camera_names: Optional[List[str]] = Field(None, title="Cameras", unique_items=True)
     light_sources: Optional[List[Union[Laser, LightEmittingDiode]]] = Field(..., title="Light source", unique_items=True)
@@ -310,15 +308,11 @@ class Session(AindCoreModel):
         ),
         unique_items=True,
     )
-
+    behavior: Optional[Behavior] = Field(None, title="Behavior")
+    reward_delivery: Optional[RewardDelivery] = Field(None, title="Reward delivery")
     stick_microscopes: Optional[List[DomeModule]] = Field(
         ...,
         title="Stick microscopes",
         description="Must match stick microscope assemblies in rig file",
-    )
-    ccf_coordinate_transform: Optional[str] = Field(
-        None,
-        description="Path to file that details the CCF-to-lab coordinate transform",
-        title="CCF coordinate transform",
     )
     notes: Optional[str] = Field(None, title="Notes")
