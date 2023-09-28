@@ -21,7 +21,9 @@ class TestDataAsset(unittest.TestCase):
             location="Test Location",
             metadata_status=MetadataStatus.VALID,
         )
-        assert d1 is not None
+        self.assertIsNotNone(d1)
+        self.assertEqual(d1.schema_version, '0.0.1')
+        self.assertEqual(d1.location, "Test Location")
         d2 = DataAsset(
             _id="00000",
             name="Test Name",
@@ -31,7 +33,8 @@ class TestDataAsset(unittest.TestCase):
             metadata_status=MetadataStatus.VALID,
             subject=Subject.construct(),
         )
-        assert d2 is not None
+        self.assertIsNotNone(d2)
+        self.assertTrue(hasattr(d2, "subject"))
 
 
 if __name__ == "__main__":
