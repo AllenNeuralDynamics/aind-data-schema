@@ -64,12 +64,12 @@ class PipelineProcess(AindModel):
     """Description of a Processing Pipeline"""
 
     data_processes: List[DataProcess] = Field(..., title="Data processing", unique_items=True)
-
     processor_full_name: str = Field(
         ..., title="Processor Full Name", description="Name of person responsible for processing pipeline"
     )
     pipeline_version: Optional[str] = Field(None, description="Version of the pipeline", title="Pipeline version")
     pipeline_url: Optional[str] = Field(None, description="URL to the pipeline code", title="Pipeline URL")
+    note: Optional[str] = Field(None, title="Notes")
 
 
 class AnalysisProcess(DataProcess):
@@ -93,7 +93,7 @@ class Processing(AindCoreModel):
     processing_pipeline: PipelineProcess = Field(
         ..., description="Pipeline used to process data", title="Processing Pipeline"
     )
-    analysis: Optional[List[AnalysisProcess]] = Field(
+    analyses: Optional[List[AnalysisProcess]] = Field(
         None, description="Analysis steps taken after processing", title="Analysis Steps"
     )
     notes: Optional[str] = Field(None, title="Notes")

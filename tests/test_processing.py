@@ -19,9 +19,6 @@ class ProcessingTest(unittest.TestCase):
 
         p = Processing(
             processing_pipeline=PipelineProcess(processor_full_name="Processor", data_processes=[]),
-            analysis=AnalysisProcess(
-                analyst_full_name="Analyzer", data_processes=[], description="this was an analysis"
-            ),
         )
 
         assert p is not None
