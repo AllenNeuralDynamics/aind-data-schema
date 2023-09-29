@@ -15,7 +15,7 @@ from aind_data_schema.device import Calibration, Maintenance, RelativePosition, 
 from aind_data_schema.positions import CcfCoords, Coordinates3d
 from aind_data_schema.stimulus import StimulusEpoch
 from aind_data_schema.imaging.tile import Channel
-from aind_data_schema.utils.units import AngleUnit, FrequencyUnit, MassUnit, PowerUnit, SizeUnit, VolumeUnit
+from aind_data_schema.utils.units import AngleUnit, FrequencyUnit, MassUnit, PowerUnit, SizeUnit, TimeUnit
 
 ###Ophys components###
 class FiberName(Enum):
@@ -141,8 +141,9 @@ class Stack(OphysSession):
 
 
 ###Ephys Components###
-class DomeModule(AindModel):
-    """Movable module that is mounted on the ephys dome insertion system"""
+class ManipulatorModule(AindModel):
+    """Movable module that is mounted on the ephys dome insertion system
+    and connecte to a 3-axis manipulator"""
 
     assembly_name: str = Field(
         ..., title="Assembly name", 
@@ -155,12 +156,6 @@ class DomeModule(AindModel):
         None, title="Coordinate transform",
         description="Path to coordinate transform from local manipulator axes to rig.",
     )
-    notes: Optional[str] = Field(None, title="Notes")
-
-
-class ManipulatorModule(DomeModule):
-    """A module connected to a 3-axis manipulator"""
-
     primary_targeted_structure: str = Field(..., title="Targeted structure")
     targeted_ccf_coordinates: Optional[List[CcfCoords]] = Field(
         None,
@@ -170,6 +165,7 @@ class ManipulatorModule(DomeModule):
         ...,
         title="Manipulator coordinates",
     )
+    notes: Optional[str] = Field(None, title="Notes")
 
 
 class EphysProbe(AindModel):
@@ -224,7 +220,7 @@ class RewardDelivery(AindModel):
 
 
 class Stream(AindModel):
-    """Stream of data with a start and stop time"""
+    """Data streams with a start and stop time"""
 
     stream_start_time: datetime = Field(..., title="Stream start time")
     stream_end_time: datetime = Field(..., title="Stream stop time")
@@ -234,7 +230,7 @@ class Stream(AindModel):
     light_sources: Optional[List[Union[Laser, LightEmittingDiode]]] = Field(..., title="Light source", unique_items=True)
     ephys_modules: Optional[List[EphysModule]] = Field(None, title="Ephys modules", unique_items=True)
     detectors: Optional[List[Detector]] = Field(None, title="Detectors", unique_items=True)
-    fiber_photometry_devices: Optional[FiberPhotometryDevices] = Field(None, title="Fiber photometry devices")
+    fiber_photometry_devices: Optional[List[FiberPhotometryDevices]] = Field(None, title="Fiber photometry devices")
     ophys_fovs: Optional[List[FieldOfView]] = Field(None, title="Fields of view", unique_items=True)
     stack_parameters: Optional[Stack] = Field(None, title="Stack parameters")
     notes: Optional[str] = Field(None, title="Notes")
