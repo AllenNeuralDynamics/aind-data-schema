@@ -223,32 +223,12 @@ class RewardDelivery(AindModel):
     notes: Optional[str] = Field(None, title="Notes")
 
 
-class Behavior(AindModel):
-    """Description of a behavior"""
-
-    behavior_type: str = Field(..., title="Behavior type", description="Name of the behavior session")
-    stimulus_epochs: List[StimulusEpoch] = Field(None, title="Stimulus")
-    session_number: int = Field(..., title="Session number")
-    output_parameters: Dict[str, Any] = Field(
-        ...,
-        title="Performance parameters",
-        description="Performance metrics from session",
-    )
-    reward_consumed_during_training: Decimal = Field(..., title="Reward consumed during training (uL)")
-    reward_consumed_total: Decimal = Field(..., title="Total reward consumed (uL)")
-    reward_consumed_unit: VolumeUnit = Field(VolumeUnit.UL, title="Reward consumed unit")
-    trials_total: int = Field(..., title="Total trials")
-    trials_finished: int = Field(..., title="Finished trials")
-    trials_rewarded: int = Field(..., title="Rewarded trials")
-
-
 class Stream(AindModel):
     """Stream of data with a start and stop time"""
 
     stream_start_time: datetime = Field(..., title="Stream start time")
     stream_end_time: datetime = Field(..., title="Stream stop time")
     stream_modalities: List[Modality] = Field(..., title="Modalities")
-    stimulus_epochs: Optional[List[StimulusEpoch]] = Field(None, title="Stimulus")
     daq_names: Optional[List[str]] = Field(None, title="DAQ devices", unique_items=True)
     camera_names: Optional[List[str]] = Field(None, title="Cameras", unique_items=True)
     light_sources: Optional[List[Union[Laser, LightEmittingDiode]]] = Field(..., title="Light source", unique_items=True)
@@ -308,7 +288,7 @@ class Session(AindCoreModel):
         ),
         unique_items=True,
     )
-    behavior: Optional[Behavior] = Field(None, title="Behavior")
+    stimulus_epochs: Optional[List[StimulusEpoch]] = Field(None, title="Stimulus")
     reward_delivery: Optional[RewardDelivery] = Field(None, title="Reward delivery")
     stick_microscopes: Optional[List[DomeModule]] = Field(
         ...,
