@@ -53,44 +53,45 @@
       ],
       "processor_full_name": "Some Processor",
       "pipeline_version": "0.1.1",
-      "pipeline_url": "https://url/for/pipeline"
+      "pipeline_url": "https://url/for/pipeline",
+      "note": null
    },
-   "analysis": {
-      "data_processes": [
-         {
-            "name": "Analysis",
-            "version": "0.0.1",
-            "start_date_time": "2022-11-22T08:43:00",
-            "end_date_time": "2022-11-22T08:43:00",
-            "input_location": "/path/to/inputs",
-            "output_location": "/path/to/outputs",
-            "code_url": "https://github.com/abcd",
-            "code_version": "0.1",
-            "parameters": {
-               "size": 7
-            },
-            "outputs": null,
-            "notes": null
+   "analyses": [
+      {
+         "name": "Analysis",
+         "version": "0.0.1",
+         "start_date_time": "2022-11-22T08:43:00",
+         "end_date_time": "2022-11-22T08:43:00",
+         "input_location": "/path/to/inputs",
+         "output_location": "/path/to/outputs",
+         "code_url": "https://github.com/abcd",
+         "code_version": "0.1",
+         "parameters": {
+            "size": 7
          },
-         {
-            "name": "Analysis",
-            "version": "0.0.1",
-            "start_date_time": "2022-11-22T08:43:00",
-            "end_date_time": "2022-11-22T08:43:00",
-            "input_location": "/path/to/inputs",
-            "output_location": "/path/to/outputs",
-            "code_url": "https://github.com/asdf",
-            "code_version": "0.1",
-            "parameters": {
-               "u": 7,
-               "z": true
-            },
-            "outputs": null,
-            "notes": null
-         }
-      ],
-      "analyst_full_name": "Some Analyzer",
-      "description": "some description"
-   },
+         "outputs": null,
+         "notes": null,
+         "analyst_full_name": "Some Analyzer",
+         "description": "some description"
+      },
+      {
+         "name": "Analysis",
+         "version": "0.0.1",
+         "start_date_time": "2022-11-22T08:43:00",
+         "end_date_time": "2022-11-22T08:43:00",
+         "input_location": "/path/to/inputs",
+         "output_location": "/path/to/outputs",
+         "code_url": "https://github.com/asdf",
+         "code_version": "0.1",
+         "parameters": {
+            "u": 7,
+            "z": true
+         },
+         "outputs": null,
+         "notes": null,
+         "analyst_full_name": "Some Analyzer",
+         "description": "some description"
+      }
+   ],
    "notes": null
 }
