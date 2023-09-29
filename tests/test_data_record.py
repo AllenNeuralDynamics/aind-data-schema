@@ -1,19 +1,19 @@
-"""Tests DataAsset model"""
+"""Tests DataRecord model"""
 
 import unittest
 from datetime import datetime
 
-from aind_data_schema.data_asset import DataAsset, MetadataStatus
+from aind_data_schema.data_record import DataRecord, MetadataStatus
 from aind_data_schema.subject import Subject
 
 
-class TestDataAsset(unittest.TestCase):
-    """Class to test DataAsset model"""
+class TestDataRecord(unittest.TestCase):
+    """Class to test DataRecord model"""
 
     def test_constructors(self):
         """test building from component parts"""
 
-        d1 = DataAsset(
+        d1 = DataRecord(
             _id="00000",
             name="Test Name",
             created=datetime(2023, 9, 27, 0, 0, 0),
@@ -24,7 +24,7 @@ class TestDataAsset(unittest.TestCase):
         self.assertIsNotNone(d1)
         self.assertEqual(d1.schema_version, '0.0.1')
         self.assertEqual(d1.location, "Test Location")
-        d2 = DataAsset(
+        d2 = DataRecord(
             _id="00000",
             name="Test Name",
             created=datetime(2023, 9, 27, 0, 0, 0),

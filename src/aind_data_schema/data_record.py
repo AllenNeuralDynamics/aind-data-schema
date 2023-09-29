@@ -1,4 +1,4 @@
-"""Module for models"""
+"""Generic metadata class for Data Asset Records."""
 
 from datetime import datetime
 from enum import Enum
@@ -17,7 +17,7 @@ class MetadataStatus(Enum):
     UNKNOWN = "Unknown"
 
 
-class DataAsset(AindCoreModel):
+class DataRecord(AindCoreModel):
     """The records in the Data Asset Collection needs to contain certain fields
     to easily query and index the data."""
 
