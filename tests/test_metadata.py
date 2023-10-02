@@ -4,8 +4,8 @@ import unittest
 from datetime import datetime
 
 from aind_data_schema.metadata import Metadata, MetadataStatus
-from aind_data_schema.subject import Subject
 from aind_data_schema.procedures import Procedures
+from aind_data_schema.subject import Subject
 
 
 class TestMetadata(unittest.TestCase):
@@ -21,10 +21,10 @@ class TestMetadata(unittest.TestCase):
             last_modified=datetime(2023, 9, 28, 10, 20, 30),
             location="Test Location",
             metadata_status=MetadataStatus.VALID,
-            subject=Subject.construct()
+            subject=Subject.construct(),
         )
         self.assertIsNotNone(d1)
-        self.assertEqual(d1.schema_version, '0.0.1')
+        self.assertEqual(d1.schema_version, "0.0.1")
         self.assertEqual(d1.location, "Test Location")
         self.assertTrue(hasattr(d1, "subject"))
         d2 = Metadata(
@@ -35,7 +35,7 @@ class TestMetadata(unittest.TestCase):
             location="Test Location",
             metadata_status=MetadataStatus.VALID,
             subject=Subject.construct(),
-            procedures=Procedures.construct()
+            procedures=Procedures.construct(),
         )
         self.assertIsNotNone(d2)
         self.assertTrue(hasattr(d2, "procedures"))
