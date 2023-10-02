@@ -106,6 +106,20 @@ class DataDescriptionTest(unittest.TestCase):
 
         assert dd is not None
 
+        # test construction fails
+        with self.assertRaises(AttributeError):
+            _ = DataDescription(
+                label="test_data",
+                modality=[Modality.SPIM],
+                platform="fake platform",
+                subject_id="1234",
+                data_level="raw",
+                creation_time=dt,
+                institution=Institution.AIND,
+                funding_source=[f],
+                investigators=["Jane Smith"],
+            )
+
     def test_round_trip(self):
         """make sure we can round trip from json"""
 

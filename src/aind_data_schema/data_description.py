@@ -430,10 +430,7 @@ class RawDataDescription(DataDescription):
         creation_time = datetime_from_name_string(m.group("c_date"), m.group("c_time"))
 
         platform_abbreviation = m.group("platform_abbreviation")
-        for p in Platform:
-            if p.value.abbreviation == platform_abbreviation:
-                platform = p
-                break
+        platform = Platform(platform_abbreviation)
 
         return dict(
             platform=platform,
