@@ -127,7 +127,7 @@ class Stack(AindModel):
 # Ephys Components
 class ManipulatorModule(AindModel):
     """Movable module that is mounted on the ephys dome insertion system
-    and connecte to a 3-axis manipulator"""
+    and connected to a 3-axis manipulator"""
 
     assembly_name: str = Field(
         ..., title="Assembly name",

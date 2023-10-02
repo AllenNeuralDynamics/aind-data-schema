@@ -552,12 +552,12 @@ class Wheel(MousePlatform):
     width: Decimal = Field(..., title="Width (mm)")
     size_unit: SizeUnit = Field(SizeUnit.MM, title="Size unit")
     encoder: Device = Field(..., title="Encoder")
-    encoder_output: Optional[DaqChannelType] = Field(None, title="Encoder DAQ chanel")
+    encoder_output: Optional[DaqChannelType] = Field(None, title="Encoder DAQ channel")
     pulse_per_revolution: int = Field(..., title="Pulse per revolution")
     magnetic_brake: Device = Field(..., title="Magnetic brake")
-    brake_output: Optional[DaqChannelType] = Field(None, title="Brake DAQ chanel")
+    brake_output: Optional[DaqChannelType] = Field(None, title="Brake DAQ channel")
     torque_sensor: Device = Field(..., title="Torque sensor")
-    torque_output: Optional[DaqChannelType] = Field(None, title="Torque DAQ chanel")
+    torque_output: Optional[DaqChannelType] = Field(None, title="Torque DAQ channel")
 
 
 class Tube(MousePlatform):
