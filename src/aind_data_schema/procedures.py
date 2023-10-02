@@ -177,7 +177,7 @@ class Immunolabeling(SpecimenProcedure):
 
     antibody: Antibody = Field(..., title="Antibody")
     concentration: Decimal = Field(..., title="Concentration")
-    concentration_unit: str = ("ug/ml", title="Concentration unit")
+    concentration_unit: str = Field("ug/ml", title="Concentration unit")
 
 
 class Side(Enum):
