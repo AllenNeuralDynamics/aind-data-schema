@@ -158,7 +158,7 @@ class ImmunolabelClass(Enum):
     """Type of anitbodies"""
 
     PRIMARY = "Primary"
-    SECONDARY = "Seconday"
+    SECONDARY = "Secondary"
     CONJUGATE = "Conjugate"
 
 

@@ -180,7 +180,7 @@ class TestDataDescriptionUpgrade(unittest.TestCase):
         with self.assertRaises(Exception) as e:
             upgrader.upgrade_data_description()
 
-        expected_error_message = "AttributeError('ALLEN INSITUTE FOR NEURAL DYNAMICS')"
+        expected_error_message = "AttributeError('ALLEN INSTITUTE FOR NEURAL DYNAMICS')"
         self.assertEqual(expected_error_message, repr(e.exception))
 
         # Should work by setting funding_source explicitly
