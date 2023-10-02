@@ -76,12 +76,19 @@ class StainType(Enum):
 
 
 class Fluorophore(Enum):
-    """Fluorophores used in HCR"""
+    """Fluorophores used in HCR and Immunolabeling"""
 
+    ALEXA_405 = "Alexa Fluor 405"
     ALEXA_488 = "Alexa Fluor 488"
     ALEXA_546 = "Alexa Fluor 546"
+    ALEXA_568 = "Alexa Fluor 568"
     ALEXA_594 = "Alexa Fluor 594"
+    ALEXA_633 = "Alexa Fluor 633"
     ALEXA_647 = "Alexa Fluor 647"
+    ATTO_488 = "ATTO 488"
+    ATTO_565 = "ATTO 565"
+    ATTO_643 = "ATTO 643"
+    CY3 = "Cyanine Cy 3"
 
 
 class Readout(Reagent):
@@ -145,6 +152,35 @@ class HCRSeries(SpecimenProcedure):
     number_of_rounds: int = Field(..., title="Number of round")
     hcr_rounds: List[HybridizationChainReaction] = Field(..., title="Hybridization Chain Reaction rounds")
     strip_qc_compatible: bool = Field(..., title="Strip QC compatible")
+
+
+class ImmunolabelClass(Enum):
+    """Type of anitbodies"""
+
+    PRIMARY = "Primary"
+    SECONDARY = "Secondary"
+    CONJUGATE = "Conjugate"
+
+
+class Antibody(Reagent):
+    """Description of an antibody used in immunolableing"""
+
+    immunolabel_class: ImmunolabelClass = Field(..., title="Immunolabel class")
+    fluorophore: Optional[Fluorophore] = Field(None, title="Fluorophore")
+    degree_of_labeling: Optional[Decimal] = Field(None, title="Degree of labeling")
+    degree_of_labeling_unit: str = Field("Fluorophore per antibody", title="Degree of labeling unit", const=True)
+    conjugation_protocol: Optional[str] = Field(
+        None, title="Conjugation protocol",
+        description="Only for conjugated anitbody"
+        )
+
+
+class Immunolabeling(SpecimenProcedure):
+    """Description of an immunolabling step"""
+
+    antibody: Antibody = Field(..., title="Antibody")
+    concentration: Decimal = Field(..., title="Concentration")
+    concentration_unit: str = Field("ug/ml", title="Concentration unit")
 
 
 class Side(Enum):
@@ -492,7 +528,7 @@ class Perfusion(SubjectProcedure):
 class Procedures(AindCoreModel):
     """Description of all procedures performed on a subject"""
 
-    schema_version: str = Field("0.9.3", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.9.4", description="schema version", title="Version", const=True)
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
@@ -501,17 +537,17 @@ class Procedures(AindCoreModel):
     subject_procedures: Optional[
         List[
             Union[
-                Headframe,
                 Craniotomy,
-                RetroOrbitalInjection,
-                NanojectInjection,
-                IontophoresisInjection,
+                FiberImplant,
+                Headframe,
                 IntraCerebellarVentricleInjection,
                 IntraCisternalMagnaInjection,
-                FiberImplant,
-                WaterRestriction,
-                TrainingProtocol,
+                IontophoresisInjection,
+                NanojectInjection,
                 Perfusion,
+                RetroOrbitalInjection,
+                TrainingProtocol,
+                WaterRestriction,
                 SubjectProcedure,
             ]
         ]
@@ -520,6 +556,7 @@ class Procedures(AindCoreModel):
         List[
             Union[
                 HCRSeries,
+                Immunolabeling,
                 SpecimenProcedure,
             ]
         ]
