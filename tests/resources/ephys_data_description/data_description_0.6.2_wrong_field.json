@@ -4,7 +4,7 @@
     "license": "CC-BY-4.0",
     "funding_source": [
         {
-            "funder": "Allen Insitute for Neural Dynamics"
+            "funder": "Not a real funder"
         }
     ],
     "investigators": [
@@ -13,8 +13,8 @@
     ],
     "modality": [
         {
-            "name": "Electrophysiology",
-            "abbreviation": "ephys"
+            "name": "Extracellular electrophysiology",
+            "abbreviation": "ecephys"
         }
     ],
     "related_data": [

@@ -4,16 +4,15 @@ from __future__ import annotations
 
 from datetime import datetime
 from decimal import Decimal
-
 from enum import Enum
 from typing import Any, Dict, List, Optional
 
 from pydantic import Field
 
 from aind_data_schema.base import AindCoreModel, AindModel
+from aind_data_schema.device import Calibration, Maintenance, RelativePosition, SpoutSide
 from aind_data_schema.stimulus import StimulusEpoch
 from aind_data_schema.utils.units import MassUnit, VolumeUnit
-from aind_data_schema.device import Calibration, Maintenance, RelativePosition, SpoutSide
 
 
 class RewardSolution(Enum):
@@ -29,10 +28,8 @@ class RewardSpout(AindModel):
     side: SpoutSide = Field(..., title="Spout side", description="Must match rig")
     starting_position: RelativePosition = Field(..., title="Starting position")
     variable_position: bool = Field(
-        ...,
-        title="Variable position",
-        description="True if spout position changes during session as tracked in data"
-        )
+        ..., title="Variable position", description="True if spout position changes during session as tracked in data"
+    )
     reward_valve_calibration: Calibration = Field(..., title="Reward valve calibration")
 
 
@@ -48,7 +45,7 @@ class BehaviorSession(AindCoreModel):
     """Description of a behavior session"""
 
     schema_version: str = Field(
-        "0.0.7",
+        "0.0.8",
         description="Schema version",
         title="Schema Version",
         const=True,

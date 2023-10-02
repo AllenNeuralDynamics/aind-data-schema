@@ -12,6 +12,7 @@ from aind_data_schema.utils.units import FrequencyUnit, PowerUnit, SizeUnit
 from aind_data_schema.manufacturers import Manufacturer
 from aind_data_schema.positions import RelativePosition
 from aind_data_schema.procedures import Reagent
+from aind_data_schema.utils.units import AngleUnit, FrequencyUnit, PowerUnit, SizeUnit
 
 
 class DeviceDriver(Enum):
@@ -108,7 +109,7 @@ class Calibration(AindModel):
 
     date_of_calibration: datetime = Field(..., title="Date and time of calibration")
     device_name: str = Field(..., title="Device name", description="Must match a device name in rig/instrument")
-    description: str = Field(..., title="Description", description="Brief decsription of what is being calibrated")
+    description: str = Field(..., title="Description", description="Brief description of what is being calibrated")
     input: Optional[Dict[str, Any]] = Field({}, description="Calibration input", title="inputs")
     output: Optional[Dict[str, Any]] = Field({}, description="Calibration output", title="outputs")
     notes: Optional[str] = Field(None, title="Notes")
