@@ -169,7 +169,10 @@ class Antibody(Reagent):
     fluorophore: Optional[Fluorophore] = Field(None, title="Fluorophore")
     degree_of_labeling: Optional[Decimal] = Field(None, title="Degree of labeling")
     degree_of_labeling_unit: str = Field("Fluorophore per antibody", title="Degree of labeling unit", const=True)
-    conjugation_protocol: Optional[str] = Field(None, title="Conjugation protocol", description="Only for conjugated anitbody")
+    conjugation_protocol: Optional[str] = Field(
+        None, title="Conjugation protocol",
+        description="Only for conjugated anitbody"
+        )
 
 
 class Immunolabeling(SpecimenProcedure):
