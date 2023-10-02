@@ -6,6 +6,7 @@ from enum import Enum
 from pydantic import Extra, Field
 
 from aind_data_schema.base import AindCoreModel
+from aind_data_schema.subject import Subject
 
 
 class MetadataStatus(Enum):
@@ -17,7 +18,7 @@ class MetadataStatus(Enum):
     UNKNOWN = "Unknown"
 
 
-class DataRecord(AindCoreModel):
+class Metadata(AindCoreModel):
     """The records in the Data Asset Collection needs to contain certain fields
     to easily query and index the data."""
 
@@ -47,6 +48,11 @@ class DataRecord(AindCoreModel):
     )
     metadata_status: MetadataStatus = Field(..., title=" Metadata Status", description="The status of the metadata.")
     schema_version: str = Field("0.0.1", title="Schema Version", const=True)
+    subject: Subject = Field(
+        ...,
+        title="Subject",
+        description="Description of a subject of data collection.",
+    )
 
     class Config:
         """Need to allow for additional fields to append to base model"""
