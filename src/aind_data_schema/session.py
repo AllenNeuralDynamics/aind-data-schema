@@ -37,26 +37,9 @@ class PatchCordName(Enum):
     PATCH_CORD_D = "Patch Cord D"
 
 
-# class Coupling(AindModel):
-#     """Description of fiber coupling"""
-
-#     fiber_name: FiberName = Field(..., title="Fiber name")
-#     patch_cord_name: PatchCordName = Field(..., title="Patch cord name")
-
-
-# class Patch(AindModel):
-#     """Description of a patch"""
-
-#     name: PatchCordName = Field(..., title="Name")
-#     output_power: Decimal = Field(..., title="Output power (uW)")
-#     output_power_unit: PowerUnit = Field(PowerUnit.UW, title="Output power unit")
-
-
 class FiberPhotometryDevices(AindModel):
     """Description of a fiber photometry configuration"""
 
-    # patch_cords: List[Patch] = Field(..., title="Patch cords", unique_items=True)
-    # coupling_array: List[Coupling] = Field(..., title="Coupling array", unique_items=True)
     patch_cord_name: PatchCordName = Field(..., title="Name")
     patch_cord_output_power: Decimal = Field(..., title="Output power (uW)")
     output_power_unit: PowerUnit = Field(PowerUnit.UW, title="Output power unit")
@@ -286,7 +269,7 @@ class Session(AindCoreModel):
     )
     stimulus_epochs: Optional[List[StimulusEpoch]] = Field(None, title="Stimulus")
     reward_delivery: Optional[RewardDelivery] = Field(None, title="Reward delivery")
-    stick_microscopes: Optional[List[DomeModule]] = Field(
+    stick_microscopes: Optional[List[ManipulatorModule]] = Field(
         ...,
         title="Stick microscopes",
         description="Must match stick microscope assemblies in rig file",
