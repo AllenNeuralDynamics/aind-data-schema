@@ -537,17 +537,17 @@ class Procedures(AindCoreModel):
     subject_procedures: Optional[
         List[
             Union[
-                Headframe,
                 Craniotomy,
-                RetroOrbitalInjection,
-                NanojectInjection,
-                IontophoresisInjection,
+                FiberImplant,
+                Headframe,
                 IntraCerebellarVentricleInjection,
                 IntraCisternalMagnaInjection,
-                FiberImplant,
-                WaterRestriction,
-                TrainingProtocol,
+                IontophoresisInjection,
+                NanojectInjection,
                 Perfusion,
+                RetroOrbitalInjection,
+                TrainingProtocol,
+                WaterRestriction,
                 SubjectProcedure,
             ]
         ]
@@ -556,6 +556,7 @@ class Procedures(AindCoreModel):
         List[
             Union[
                 HCRSeries,
+                Immunolabeling,
                 SpecimenProcedure,
             ]
         ]
