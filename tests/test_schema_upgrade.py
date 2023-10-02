@@ -176,11 +176,11 @@ class TestDataDescriptionUpgrade(unittest.TestCase):
         data_description_0_6_2_wrong_field = self.data_descriptions["data_description_0.6.2_wrong_field.json"]
         upgrader = DataDescriptionUpgrade(old_data_description_model=data_description_0_6_2_wrong_field)
 
-        # Should complain about experiment type being None
+        # Should complain about funder not being correct
         with self.assertRaises(Exception) as e:
             upgrader.upgrade_data_description()
 
-        expected_error_message = "AttributeError('ALLEN INSTITUTE FOR NEURAL DYNAMICS')"
+        expected_error_message = "AttributeError('NOT A REAL FUNDER')"
         self.assertEqual(expected_error_message, repr(e.exception))
 
         # Should work by setting funding_source explicitly
