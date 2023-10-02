@@ -10,7 +10,7 @@ from typing import Any, Dict, List, Optional, Union
 from pydantic import Field
 
 from aind_data_schema.base import AindModel
-from aind_data_schema.utils.units import FrequencyUnit, PowerUnit, TimeUnit
+from aind_data_schema.utils.units import FrequencyUnit, PowerUnit, TimeUnit, VolumeUnit
 
 
 class PulseShape(Enum):

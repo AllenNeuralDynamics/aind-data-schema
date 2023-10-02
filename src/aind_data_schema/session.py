@@ -15,7 +15,7 @@ from aind_data_schema.device import Calibration, Maintenance, RelativePosition, 
 from aind_data_schema.positions import CcfCoords, Coordinates3d
 from aind_data_schema.stimulus import StimulusEpoch
 from aind_data_schema.imaging.tile import Channel
-from aind_data_schema.utils.units import AngleUnit, FrequencyUnit, MassUnit, PowerUnit, SizeUnit, TimeUnit, VolumeUnit
+from aind_data_schema.utils.units import AngleUnit, FrequencyUnit, MassUnit, PowerUnit, SizeUnit, TimeUnit
 
 
 # Ophys components
