@@ -1,6 +1,6 @@
 """ schema for various Devices """
 
-from datetime import datetime
+from datetime import date, datetime
 from decimal import Decimal
 from enum import Enum
 from typing import Any, Dict, List, Optional
@@ -8,11 +8,10 @@ from typing import Any, Dict, List, Optional
 from pydantic import Field
 
 from aind_data_schema.base import AindModel, EnumSubset
-from aind_data_schema.utils.units import FrequencyUnit, PowerUnit, SizeUnit
 from aind_data_schema.manufacturers import Manufacturer
 from aind_data_schema.positions import RelativePosition
 from aind_data_schema.procedures import Reagent
-from aind_data_schema.utils.units import AngleUnit, FrequencyUnit, PowerUnit, SizeUnit
+from aind_data_schema.utils.units import FrequencyUnit, PowerUnit, SizeUnit
 
 
 class DeviceDriver(Enum):

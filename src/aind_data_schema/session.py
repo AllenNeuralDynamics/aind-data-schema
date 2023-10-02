@@ -15,9 +15,10 @@ from aind_data_schema.device import Calibration, Maintenance, RelativePosition, 
 from aind_data_schema.positions import CcfCoords, Coordinates3d
 from aind_data_schema.stimulus import StimulusEpoch
 from aind_data_schema.imaging.tile import Channel
-from aind_data_schema.utils.units import AngleUnit, FrequencyUnit, MassUnit, PowerUnit, SizeUnit, TimeUnit
+from aind_data_schema.utils.units import AngleUnit, FrequencyUnit, MassUnit, PowerUnit, SizeUnit, TimeUnit, VolumeUnit
 
-###Ophys components###
+
+# Ophys components
 class FiberName(Enum):
     """Fiber name"""
 
@@ -99,7 +100,7 @@ class StackChannel(Channel):
     depth_unit: SizeUnit = Field(SizeUnit.UM, title="Depth unit")
 
 
-class Stack(OphysSession):
+class Stack(AindModel):
     """Description of a two photon stack"""
 
     channels: List[StackChannel] = Field(..., title="Channels")
@@ -123,13 +124,13 @@ class Stack(OphysSession):
     targeted_structure: Optional[str] = Field(None, title="Targeted structure")
 
 
-###Ephys Components###
+# Ephys Components
 class ManipulatorModule(AindModel):
     """Movable module that is mounted on the ephys dome insertion system
     and connecte to a 3-axis manipulator"""
 
     assembly_name: str = Field(
-        ..., title="Assembly name", 
+        ..., title="Assembly name",
         description="Must match name in rig json")
     arc_angle: Decimal = Field(..., title="Arc Angle", units="degrees")
     module_angle: Decimal = Field(..., title="Module Angle", units="degrees")
@@ -174,7 +175,7 @@ class Laser(AindModel):
     excitation_power_unit: PowerUnit = Field(PowerUnit.MW, title="Excitation power unit")
 
 
-###Behavior components###
+# Behavior components
 class RewardSolution(Enum):
     """Reward solution name"""
 
@@ -210,7 +211,9 @@ class Stream(AindModel):
     stream_modalities: List[Modality] = Field(..., title="Modalities")
     daq_names: Optional[List[str]] = Field(None, title="DAQ devices", unique_items=True)
     camera_names: Optional[List[str]] = Field(None, title="Cameras", unique_items=True)
-    light_sources: Optional[List[Union[Laser, LightEmittingDiode]]] = Field(..., title="Light source", unique_items=True)
+    light_sources: Optional[List[Union[Laser, LightEmittingDiode]]] = Field(
+        ..., title="Light source", unique_items=True
+        )
     ephys_modules: Optional[List[EphysModule]] = Field(None, title="Ephys modules", unique_items=True)
     detectors: Optional[List[Detector]] = Field(None, title="Detectors", unique_items=True)
     fiber_photometry_devices: Optional[List[FiberPhotometryDevices]] = Field(None, title="Fiber photometry devices")

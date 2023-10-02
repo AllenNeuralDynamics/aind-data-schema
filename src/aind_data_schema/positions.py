@@ -1,10 +1,12 @@
 """Classes to define device positions, orientations, and coordinates"""
 
 from decimal import Decimal
-from typing import Any, Dict, List, Optional
+from enum import Enum
+from typing import Optional
 
 from pydantic import Field
 
+from aind_data_schema.base import AindModel
 from aind_data_schema.utils.units import AngleUnit, SizeUnit
 
 

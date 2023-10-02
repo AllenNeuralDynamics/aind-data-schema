@@ -57,7 +57,9 @@ class Rig(AindCoreModel):
     stick_microscopes: Optional[List[StickMicroscopeAssembly]] = Field(None, title="Stick microscopes")
     laser_assemblies: Optional[List[LaserAssembly]] = Field(None, title="Laser modules", unique_items=True)
     patch_cords: Optional[List[Patch]] = Field(..., title="Patch cords", unique_items=True)
-    light_sources: Optional[List[Union[Laser, LightEmittingDiode]]] = Field(..., title="Light sources", unique_items=True)
+    light_sources: Optional[List[Union[Laser, LightEmittingDiode]]] = Field(
+        ..., title="Light sources", unique_items=True
+        )
     detectors: Optional[List[Detector]] = Field(None, title="Detectors", unique_items=True)
     objectives: Optional[List[Objective]] = Field(None, title="Objectives", unique_items=True)
     filters: Optional[List[Filter]] = Field(None, title="Filters", unique_items=True)

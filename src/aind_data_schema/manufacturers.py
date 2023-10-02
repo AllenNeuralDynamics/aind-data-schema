@@ -1,7 +1,7 @@
 """Enum of Manufacturers for use in the AIND data schema."""
 
 from enum import Enum
-from aind_data_schema.base import  BaseNameEnumMeta, PIDName, Registry
+from aind_data_schema.base import BaseNameEnumMeta, PIDName, Registry
 
 
 class Manufacturer(Enum, metaclass=BaseNameEnumMeta):
