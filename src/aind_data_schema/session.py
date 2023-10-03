@@ -273,7 +273,7 @@ class Session(AindCoreModel):
     stimulus_epochs: Optional[List[StimulusEpoch]] = Field(None, title="Stimulus")
     reward_delivery: Optional[RewardDelivery] = Field(None, title="Reward delivery")
     stick_microscopes: Optional[List[ManipulatorModule]] = Field(
-        ...,
+        None,
         title="Stick microscopes",
         description="Must match stick microscope assemblies in rig file",
     )
