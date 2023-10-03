@@ -1,4 +1,6 @@
 """ example SmartSPIM instrument """
+import datetime
+
 from aind_data_schema.device import Manufacturer
 from aind_data_schema.imaging.instrument import (
     AdditionalImagingDevice,
@@ -15,6 +17,7 @@ from aind_data_schema.imaging.instrument import (
 
 inst = Instrument(
     instrument_id="SmartSPIM2-2",
+    date_of_modification=datetime.datetime.now(),
     instrument_type="SmartSPIM",
     manufacturer=Manufacturer.LIFECANVAS,
     objectives=[

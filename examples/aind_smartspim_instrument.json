@@ -1,7 +1,8 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/imaging/instrument.py",
-   "schema_version": "0.7.11",
+   "schema_version": "0.8.0",
    "instrument_id": "SmartSPIM1-3",
+   "date_of_modification": "2023-10-03",
    "instrument_type": "SmartSPIM",
    "manufacturer": {
       "name": "LifeCanvas",
