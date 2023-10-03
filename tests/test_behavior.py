@@ -43,7 +43,6 @@ class BehaviorTests(unittest.TestCase):
             animal_weight_prior=20.1,
             animal_weight_post=19.7,
             behavior_type="Foraging",
-            session_number=3,
             stimulus_epochs=[
                 bs.StimulusEpoch(
                     stimulus=BehaviorStimulation(

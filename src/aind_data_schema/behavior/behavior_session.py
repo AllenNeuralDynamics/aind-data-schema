@@ -45,7 +45,7 @@ class BehaviorSession(AindCoreModel):
     """Description of a behavior session"""
 
     schema_version: str = Field(
-        "0.0.9",
+        "0.0.10",
         description="Schema version",
         title="Schema Version",
         const=True,
@@ -80,16 +80,4 @@ class BehaviorSession(AindCoreModel):
     weight_unit: MassUnit = Field(MassUnit.G, title="Weight unit")
     behavior_type: str = Field(..., title="Behavior type", description="Name of the behavior session")
     stimulus_epochs: List[StimulusEpoch] = Field(None, title="Stimulus")
-    session_number: int = Field(..., title="Session number")
-    output_parameters: Dict[str, Any] = Field(
-        ...,
-        title="Performance parameters",
-        description="Performance metrics from session",
-    )
-    reward_consumed_during_training: Decimal = Field(..., title="Reward consumed during training (uL)")
-    reward_consumed_total: Decimal = Field(..., title="Total reward consumed (uL)")
-    reward_consumed_unit: VolumeUnit = Field(VolumeUnit.UL, title="Reward consumed unit")
-    trials_total: int = Field(..., title="Total trials")
-    trials_finished: int = Field(..., title="Finished trials")
-    trials_rewarded: int = Field(..., title="Rewarded trials")
     notes: Optional[str] = Field(None, title="Notes")
