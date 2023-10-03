@@ -141,5 +141,6 @@ class RigTests(unittest.TestCase):
 
         assert rig is not None
 
+
 if __name__ == "__main__":
     unittest.main()
