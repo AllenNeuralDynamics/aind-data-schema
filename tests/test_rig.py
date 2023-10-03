@@ -14,7 +14,6 @@ from aind_data_schema.device import (
     Disc,
     EphysAssembly,
     EphysProbe,
-
     Laser,
     LaserAssembly,
     Lens,
@@ -124,7 +123,7 @@ class RigTests(unittest.TestCase):
                     serial_number="1234",
                     name="Laser A",
                     wavelength=488,
-                    )
+                )
             ],
             laser_assemblies=lms,
             ephys_assemblies=ems,
@@ -136,8 +135,11 @@ class RigTests(unittest.TestCase):
                     description="Laser power calibration",
                     input={"power percent": [10, 40, 80]},
                     output={"power mW": [2, 6, 10]},
-                    )
-                ],
+                )
+            ],
         )
 
         assert rig is not None
+
+if __name__ == "__main__":
+    unittest.main()
