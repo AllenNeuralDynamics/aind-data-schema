@@ -42,9 +42,6 @@ class ExampleTest(unittest.TestCase):
                             manipulator_coordinates=Coordinates3d(x="1", y="1", z="1"),
                         ),
                     ],
-                    laser_modules=[],
-                    daqs=[],
-                    cameras=[],
                 )
             ],
             stick_microscopes=[

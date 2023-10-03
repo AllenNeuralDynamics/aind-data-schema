@@ -212,7 +212,7 @@ class Stream(AindModel):
     daq_names: Optional[List[str]] = Field(None, title="DAQ devices", unique_items=True)
     camera_names: Optional[List[str]] = Field(None, title="Cameras", unique_items=True)
     light_sources: Optional[List[Union[Laser, LightEmittingDiode]]] = Field(
-        ..., title="Light source", unique_items=True
+        None, title="Light source", unique_items=True
         )
     ephys_modules: Optional[List[EphysModule]] = Field(None, title="Ephys modules", unique_items=True)
     detectors: Optional[List[Detector]] = Field(None, title="Detectors", unique_items=True)
