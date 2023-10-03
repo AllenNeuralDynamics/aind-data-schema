@@ -49,21 +49,22 @@ class BehaviorTests(unittest.TestCase):
                     stimulus=BehaviorStimulation(
                         behavior_name="Foraging",
                         behavior_software="Bonsai",
+                        session_number=3,
                         behavior_software_version="0.1",
                         behavior_script="URL_to_code",
                         behavior_script_version="0.1",
                         input_parameters={"reward volume": 0.01},
+                        output_parameters={},
+                        reward_consumed_during_training=820,
+                        reward_consumed_total=1020,
+                        trials_total=551,
+                        trials_finished=343,
+                        trials_rewarded=146,
                     ),
                     stimulus_start_time=now.time(),
                     stimulus_end_time=now.time(),
                 )
             ],
-            output_parameters={},
-            reward_consumed_during_training=820,
-            reward_consumed_total=1020,
-            trials_total=551,
-            trials_finished=343,
-            trials_rewarded=146,
         )
 
         assert b is not None
