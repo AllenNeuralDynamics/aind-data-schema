@@ -44,13 +44,6 @@ class ExampleTest(unittest.TestCase):
                     ],
                 )
             ],
-            stick_microscopes=[
-                ManipulatorModule(
-                    assembly_name="Stick_assembly",
-                    arc_angle=24,
-                    module_angle=10,
-                ),
-            ],
         )
 
         assert sess is not None
