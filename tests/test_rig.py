@@ -14,7 +14,7 @@ from aind_data_schema.device import (
     Disc,
     EphysAssembly,
     EphysProbe,
-    HarpDevice,
+
     Laser,
     LaserAssembly,
     Lens,
@@ -23,6 +23,7 @@ from aind_data_schema.device import (
 )
 from aind_data_schema.manufacturers import Manufacturer
 from aind_data_schema.rig import Rig
+
 
 class RigTests(unittest.TestCase):
     """test rig schemas"""
@@ -117,7 +118,7 @@ class RigTests(unittest.TestCase):
                     ),
                 )
             ],
-            light_sources = [
+            light_sources=[
                 Laser(
                     manufacturer=Manufacturer.HAMAMATSU,
                     serial_number="1234",
@@ -133,8 +134,8 @@ class RigTests(unittest.TestCase):
                     date_of_calibration=datetime.datetime.now(),
                     device_name="Laser A",
                     description="Laser power calibration",
-                    input={"power percent":[10,40,80]},
-                    output={"power mW": [2,6,10]},
+                    input={"power percent": [10, 40, 80]},
+                    output={"power mW": [2, 6, 10]},
                     )
                 ],
         )
