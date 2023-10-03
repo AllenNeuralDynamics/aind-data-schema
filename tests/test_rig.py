@@ -5,6 +5,7 @@ import unittest
 
 from pydantic import ValidationError
 
+from aind_data_schema.data_description import Modality
 from aind_data_schema.device import (
     Calibration,
     Camera,
@@ -27,45 +28,10 @@ class RigTests(unittest.TestCase):
     """test rig schemas"""
 
     def test_constructors(self):
-        """testing constructors"""
-        with self.assertRaises(ValidationError):
-            r = Rig()
-
-        r = Rig(
-            rig_id="12345",
-            date_of_modification=datetime.datetime.now(),
-            modalities=["Ophys"],
-            mouse_platform=Disc(name="Disc A", radius=1),
-            patch_cords=[],
-            light_sources=[
-                Laser(
-                    manufacturer=Manufacturer.HAMAMATSU,
-                    serial_number="1234",
-                    name="Laser A",
-                    wavelength=488,
-                    )
-                ],
-            stimulus_devices=[],
-            calibrations=[
-                Calibration(
-                    date_of_calibration=datetime.datetime.now(),
-                    device_name="Laser A",
-                    description="Laser power calibration",
-                    input={"power percent":[10,40,80]},
-                    output={"power mW": [2,6,10]},
-                    )
-                ],
-            )
-
-        assert r is not None
-
-
-    def test_constructors(self):
         """always returns true"""
 
         with self.assertRaises(ValidationError):
             rig = Rig()
-
 
         daqs = [
             NeuropixelsBasestation(
@@ -129,41 +95,10 @@ class RigTests(unittest.TestCase):
             )
         ]
 
-        # daq missing devices
-        with self.assertRaises(ValidationError):
-            rig = Rig(rig_id="1234", daqs=daqs)
-
-        # probes missing ports
-        with self.assertRaises(ValidationError):
-            rig = Rig(
-                daqs=[
-                    HarpDevice(
-                        computer_name="asdf",
-                        harp_device_type="Sound Board",
-                        harp_device_version="1",
-                    ),
-                    NeuropixelsBasestation(
-                        basestation_firmware_version="1",
-                        bsc_firmware_version="2",
-                        slot=0,
-                        manufacturer=Manufacturer.IMEC,
-                        ports=[er.ProbePort(index=0, probes=["Probe B"])],
-                        computer_name="foo",
-                        channels=[
-                            DAQChannel(
-                                channel_name="321",
-                                device_name="Probe A",
-                                channel_type="Analog Output",
-                            ),
-                        ],
-                    ),
-                ],
-                rig_id="1234",
-                ephys_assemblies=ems,
-            )
-
         rig = Rig(
             rig_id="1234",
+            date_of_modification=datetime.datetime.now(),
+            modalities=[Modality.ECEPHYS, Modality.FIB],
             daqs=daqs,
             cameras=[
                 CameraAssembly(
@@ -182,9 +117,26 @@ class RigTests(unittest.TestCase):
                     ),
                 )
             ],
+            light_sources = [
+                Laser(
+                    manufacturer=Manufacturer.HAMAMATSU,
+                    serial_number="1234",
+                    name="Laser A",
+                    wavelength=488,
+                    )
+            ],
             laser_assemblies=lms,
             ephys_assemblies=ems,
             mouse_platform=Disc(name="Disc A", radius=1),
+            calibrations=[
+                Calibration(
+                    date_of_calibration=datetime.datetime.now(),
+                    device_name="Laser A",
+                    description="Laser power calibration",
+                    input={"power percent":[10,40,80]},
+                    output={"power mW": [2,6,10]},
+                    )
+                ],
         )
 
         assert rig is not None
