@@ -43,7 +43,7 @@ class Rig(AindCoreModel):
 
     schema_version: str = Field("0.1.0", description="schema version", title="Version", const=True)
     rig_id: str = Field(..., description="room_stim apparatus_version", title="Rig ID")
-    date_of_modification: date = Field(..., title="Date of modification")
+    modification_date: date = Field(..., title="Date of modification")
     modalities: List[Modality] = Field(..., title="Modalities", unique_items=True)
     mouse_platform: Union[Disc, Treadmill, Tube, Wheel] = Field(..., title="Mouse platform")
     stimulus_devices: Optional[List[Union[Monitor, Olfactometer, RewardDelivery, Speaker]]] = Field(

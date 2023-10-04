@@ -106,7 +106,7 @@ class Software(AindModel):
 class Calibration(AindModel):
     """Generic calibration class"""
 
-    date_of_calibration: datetime = Field(..., title="Date and time of calibration")
+    calibration_date: datetime = Field(..., title="Date and time of calibration")
     device_name: str = Field(..., title="Device name", description="Must match a device name in rig/instrument")
     description: str = Field(..., title="Description", description="Brief description of what is being calibrated")
     input: Optional[Dict[str, Any]] = Field({}, description="Calibration input", title="inputs")
@@ -117,7 +117,7 @@ class Calibration(AindModel):
 class Maintenance(AindModel):
     """Generic maintenance class"""
 
-    date_of_maintenance: datetime = Field(..., title="Date and time of maintenance")
+    maintenance_date: datetime = Field(..., title="Date and time of maintenance")
     device_name: str = Field(..., title="Device name", description="Must match a device name in rig/instrument")
     description: str = Field(..., title="Description", description="Description on maintenance procedure")
     protocol_id: Optional[str] = Field(None, title="Protocol ID")

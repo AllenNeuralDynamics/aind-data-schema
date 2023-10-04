@@ -219,6 +219,7 @@ class Stream(AindModel):
     fiber_photometry_devices: Optional[List[FiberPhotometryDevices]] = Field(None, title="Fiber photometry devices")
     ophys_fovs: Optional[List[FieldOfView]] = Field(None, title="Fields of view", unique_items=True)
     stack_parameters: Optional[Stack] = Field(None, title="Stack parameters")
+    stimulus_device_names: Optional[List[str]] = Field(None, title="Stimulus devices")
     notes: Optional[str] = Field(None, title="Notes")
 
 
