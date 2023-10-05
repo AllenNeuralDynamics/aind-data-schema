@@ -5,7 +5,7 @@ import unittest
 import pydantic
 
 from aind_data_schema import Processing
-from aind_data_schema.processing import AnalysisProcess, PipelineProcess
+from aind_data_schema.processing import PipelineProcess
 
 
 class ProcessingTest(unittest.TestCase):
