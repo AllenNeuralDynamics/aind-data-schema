@@ -97,7 +97,7 @@ class RigTests(unittest.TestCase):
 
         rig = Rig(
             rig_id="1234",
-            date_of_modification=datetime.datetime.now(),
+            modification_date=datetime.datetime.now(),
             modalities=[Modality.ECEPHYS, Modality.FIB],
             daqs=daqs,
             cameras=[

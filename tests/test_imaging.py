@@ -30,7 +30,7 @@ class ImagingTests(unittest.TestCase):
             instrument_id="1234",
             calibrations=[
                 Calibration(
-                    date_of_calibration=datetime.datetime.now(),
+                    calibration_date=datetime.datetime.now(),
                     description="Laser power calibration",
                     device_name="Laser 1",
                     input={"power_setting": PowerValue(value=100.0, unit="percent")},
