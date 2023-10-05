@@ -149,7 +149,7 @@ class BehaviorTests(unittest.TestCase):
             ],
             calibrations=[
                 br.Calibration(
-                    date_of_calibration=now,
+                    calibration_date=now,
                     device_name="Spout A",
                     description="Reward spout calibration",
                     input={"number drops": 1},
