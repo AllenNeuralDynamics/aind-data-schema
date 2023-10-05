@@ -125,21 +125,26 @@ class Stack(AindModel):
 
 
 # Ephys Components
-class ManipulatorModule(AindModel):
-    """Movable module that is mounted on the ephys dome insertion system
-    and connected to a 3-axis manipulator"""
+class DomeModule(AindModel):
+    """Movable module that is mounted on the ephys dome insertion system"""
 
-    assembly_name: str = Field(
-        ..., title="Assembly name",
-        description="Must match name in rig json")
+    assembly_name: str = Field(..., title="Assembly name")
     arc_angle: Decimal = Field(..., title="Arc Angle", units="degrees")
     module_angle: Decimal = Field(..., title="Module Angle", units="degrees")
     angle_unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
     rotation_angle: Optional[Decimal] = Field(0.0, title="Rotation Angle", units="degrees")
     coordinate_transform: Optional[str] = Field(
-        None, title="Coordinate transform",
-        description="Path to coordinate transform from local manipulator axes to rig.",
+        None,
+        title="Transform from local manipulator axes to rig",
+        description="Path to coordinate transform",
     )
+    calibration_date: Optional[datetime] = Field(None, title="Date on which coordinate transform was last calibrated")
+    notes: Optional[str] = Field(None, title="Notes")
+
+
+class ManipulatorModule(DomeModule):
+    """A dome module connected to a 3-axis manipulator"""
+
     primary_targeted_structure: str = Field(..., title="Targeted structure")
     targeted_ccf_coordinates: Optional[List[CcfCoords]] = Field(
         None,
@@ -149,7 +154,6 @@ class ManipulatorModule(AindModel):
         ...,
         title="Manipulator coordinates",
     )
-    notes: Optional[str] = Field(None, title="Notes")
 
 
 class EphysProbe(AindModel):
@@ -273,7 +277,7 @@ class Session(AindCoreModel):
     )
     stimulus_epochs: Optional[List[StimulusEpoch]] = Field(None, title="Stimulus")
     reward_delivery: Optional[RewardDelivery] = Field(None, title="Reward delivery")
-    stick_microscopes: Optional[List[ManipulatorModule]] = Field(
+    stick_microscopes: Optional[List[DomeModule]] = Field(
         None,
         title="Stick microscopes",
         description="Must match stick microscope assemblies in rig file",
