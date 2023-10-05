@@ -47,7 +47,7 @@ p = Processing(
             ),
         ],
     ),
-    analyses = [
+    analyses=[
         AnalysisProcess(
             analyst_full_name="Some Analyzer",
             description="some description",
