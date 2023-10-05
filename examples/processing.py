@@ -2,7 +2,7 @@
 import datetime
 
 from aind_data_schema import Processing
-from aind_data_schema.processing import AnalysisProcess, DataProcess, PipelineProcess
+from aind_data_schema.processing import AnalysisProcess, DataProcess, PipelineProcess, ProcessName
 
 t = datetime.datetime(2022, 11, 22, 8, 43, 00)
 
@@ -13,7 +13,7 @@ p = Processing(
         pipeline_version="0.1.1",
         data_processes=[
             DataProcess(
-                name="Image tile fusing",
+                name=ProcessName.IMAGE_TILE_FUSING,
                 software_version="0.0.1",
                 start_date_time=t,
                 end_date_time=t,
@@ -24,7 +24,7 @@ p = Processing(
                 parameters={"size": 7},
             ),
             DataProcess(
-                name="File format conversion",
+                name=ProcessName.FILE_CONVERSION,
                 software_version="0.0.1",
                 start_date_time=t,
                 end_date_time=t,
@@ -35,7 +35,7 @@ p = Processing(
                 parameters={"u": 7, "z": True},
             ),
             DataProcess(
-                name="Image destriping",
+                name=ProcessName.IMAGE_DESTRIPING,
                 software_version="0.2.1",
                 start_date_time=t,
                 end_date_time=t,
