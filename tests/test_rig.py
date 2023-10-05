@@ -130,7 +130,7 @@ class RigTests(unittest.TestCase):
             mouse_platform=Disc(name="Disc A", radius=1),
             calibrations=[
                 Calibration(
-                    date_of_calibration=datetime.datetime.now(),
+                    calibration_date=datetime.datetime.now(),
                     device_name="Laser A",
                     description="Laser power calibration",
                     input={"power percent": [10, 40, 80]},
