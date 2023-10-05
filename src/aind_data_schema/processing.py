@@ -78,6 +78,7 @@ class PipelineProcess(AindModel):
 class AnalysisProcess(DataProcess):
     """Description of an Analysis"""
 
+    name: ProcessName = Field(ProcessName.ANALYSIS, title="Process name")
     analyst_full_name: str = Field(
         ..., title="Analyst Full Name", description="Name of person responsible for running analysis"
     )
