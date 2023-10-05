@@ -150,7 +150,7 @@ class Instrument(AindCoreModel):
         description="Unique identifier for this instrument. Naming convention: <room>-<apparatus>-<version>",
         title="Instrument ID",
     )
-    date_of_modification: date = Field(..., title="Date of modification")
+    modification_date: date = Field(..., title="Date of modification")
     instrument_type: ImagingInstrumentType = Field(..., title="Instrument type")
     manufacturer: Manufacturer = Field(..., title="Instrument manufacturer")
     temperature_control: Optional[bool] = Field(None, title="Temperature control")

@@ -7,7 +7,7 @@ from aind_data_schema.imaging import instrument
 inst = instrument.Instrument(
     instrument_id="exaSPIM1-1",
     instrument_type="exaSPIM",
-    date_of_modification=datetime.datetime.now(),
+    modification_date=datetime.datetime.now(),
     manufacturer=Manufacturer.CUSTOM,
     objectives=[
         instrument.Objective(

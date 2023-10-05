@@ -18,7 +18,7 @@ from aind_data_schema.imaging.instrument import (
 inst = Instrument(
     instrument_id="SmartSPIM1-3",
     instrument_type="SmartSPIM",
-    date_of_modification=datetime.datetime.now(),
+    modification_date=datetime.datetime.now(),
     manufacturer=Manufacturer.LIFECANVAS,
     objectives=[
         Objective(
