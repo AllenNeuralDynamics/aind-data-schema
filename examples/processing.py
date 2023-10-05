@@ -14,7 +14,7 @@ p = Processing(
         data_processes=[
             DataProcess(
                 name="Image tile fusing",
-                version="0.0.1",
+                software_version="0.0.1",
                 start_date_time=t,
                 end_date_time=t,
                 input_location="/path/to/inputs",
@@ -25,7 +25,7 @@ p = Processing(
             ),
             DataProcess(
                 name="File format conversion",
-                version="0.0.1",
+                software_version="0.0.1",
                 start_date_time=t,
                 end_date_time=t,
                 input_location="/path/to/inputs",
@@ -36,7 +36,7 @@ p = Processing(
             ),
             DataProcess(
                 name="Image destriping",
-                version="0.2.1",
+                software_version="0.2.1",
                 start_date_time=t,
                 end_date_time=t,
                 input_location="/path/to/input",
@@ -52,7 +52,7 @@ p = Processing(
             analyst_full_name="Some Analyzer",
             description="some description",
             name="Analysis",
-            version="0.0.1",
+            software_version="0.0.1",
             start_date_time=t,
             end_date_time=t,
             input_location="/path/to/inputs",
@@ -65,7 +65,7 @@ p = Processing(
             analyst_full_name="Some Analyzer",
             description="some description",
             name="Analysis",
-            version="0.0.1",
+            software_version="0.0.1",
             start_date_time=t,
             end_date_time=t,
             input_location="/path/to/inputs",

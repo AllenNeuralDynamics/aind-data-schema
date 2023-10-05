@@ -48,7 +48,7 @@ class DataProcess(AindModel):
     """Description of a single processing step"""
 
     name: ProcessName = Field(..., title="Name")
-    version: str = Field(..., description="Version of the software used", title="Version")
+    software_version: str = Field(..., description="Version of the software used", title="Version")
     start_date_time: datetime = Field(..., title="Start date time")
     end_date_time: datetime = Field(..., title="End date time")
     input_location: str = Field(..., description="Path to data inputs", title="Input location")

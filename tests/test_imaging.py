@@ -118,7 +118,7 @@ class ImagingTests(unittest.TestCase):
 
         t = Registration(
             name="Image tile alignment",
-            version="2.3",
+            software_version="2.3",
             start_date_time=datetime.datetime.now(),
             end_date_time=datetime.datetime.now(),
             input_location="/some/path",
