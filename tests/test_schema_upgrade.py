@@ -10,11 +10,11 @@ from typing import List
 from aind_data_schema.data_description import (
     DataDescription,
     DataLevel,
-    ExperimentType,
     Funding,
     Group,
     Institution,
     Modality,
+    Platform,
     RelatedData,
 )
 from aind_data_schema.schema_upgrade.data_description_upgrade import (
@@ -45,7 +45,7 @@ class TestDataDescriptionUpgrade(unittest.TestCase):
         """Tests data_description_0.3.0.json is mapped correctly."""
         data_description_0_3_0 = self.data_descriptions["data_description_0.3.0.json"]
         upgrader = DataDescriptionUpgrade(old_data_description_model=data_description_0_3_0)
-        # Should complain about experiment type being None
+        # Should complain about platform being None
         with self.assertRaises(Exception) as e:
             upgrader.upgrade_data_description()
 
@@ -53,25 +53,23 @@ class TestDataDescriptionUpgrade(unittest.TestCase):
             "ValidationError("
             "model='DataDescription', "
             "errors=[{"
-            "'loc': ('experiment_type',), "
+            "'loc': ('platform',), "
             "'msg': 'none is not an allowed value', "
             "'type': 'type_error.none.not_allowed'"
             "}])"
         )
         self.assertEqual(expected_error_message, repr(e.exception))
 
-        # Should work by setting experiment type explicitly
-        new_data_description = upgrader.upgrade_data_description(experiment_type=ExperimentType.ECEPHYS)
-        self.assertEqual(datetime.time(10, 31, 30), new_data_description.creation_time)
-        self.assertEqual(datetime.date(2022, 6, 28), new_data_description.creation_date)
+        # Should work by setting platform explicitly
+        new_data_description = upgrader.upgrade_data_description(platform=Platform.ECEPHYS)
+        self.assertEqual(datetime.datetime(2022, 6, 28, 10, 31, 30), new_data_description.creation_time)
         self.assertEqual("ecephys_623705_2022-06-28_10-31-30", new_data_description.name)
         self.assertEqual(Institution.AIND, new_data_description.institution)
         self.assertEqual([], new_data_description.funding_source)
-        self.assertEqual(DataLevel.RAW_DATA, new_data_description.data_level)
+        self.assertEqual(DataLevel.RAW, new_data_description.data_level)
         self.assertIsNone(new_data_description.group)
         self.assertEqual([], new_data_description.investigators)
         self.assertIsNone(new_data_description.project_name)
-        self.assertIsNone(new_data_description.project_id)
         self.assertIsNone(new_data_description.restrictions)
         self.assertEqual([Modality.ECEPHYS], new_data_description.modality)
         self.assertEqual("623705", new_data_description.subject_id)
@@ -83,18 +81,16 @@ class TestDataDescriptionUpgrade(unittest.TestCase):
         data_description_0_4_0 = self.data_descriptions["data_description_0.4.0.json"]
         upgrader = DataDescriptionUpgrade(old_data_description_model=data_description_0_4_0)
 
-        # Should work by setting experiment type explicitly
+        # Should work by setting platform explicitly
         new_data_description = upgrader.upgrade_data_description()
-        self.assertEqual(datetime.time(14, 35, 51), new_data_description.creation_time)
-        self.assertEqual(datetime.date(2023, 4, 13), new_data_description.creation_date)
+        self.assertEqual(datetime.datetime(2023, 4, 13, 14, 35, 51), new_data_description.creation_time)
         self.assertEqual("ecephys_664438_2023-04-13_14-35-51", new_data_description.name)
         self.assertEqual(Institution.AIND, new_data_description.institution)
         self.assertEqual([Funding(funder=Institution.AIND)], new_data_description.funding_source)
-        self.assertEqual(DataLevel.RAW_DATA, new_data_description.data_level)
+        self.assertEqual(DataLevel.RAW, new_data_description.data_level)
         self.assertIsNone(new_data_description.group)
         self.assertEqual([], new_data_description.investigators)
         self.assertIsNone(new_data_description.project_name)
-        self.assertIsNone(new_data_description.project_id)
         self.assertIsNone(new_data_description.restrictions)
         self.assertEqual([Modality.ECEPHYS], new_data_description.modality)
         self.assertEqual("664438", new_data_description.subject_id)
@@ -108,16 +104,14 @@ class TestDataDescriptionUpgrade(unittest.TestCase):
 
         # Should work by setting experiment type explicitly
         new_data_description = upgrader.upgrade_data_description()
-        self.assertEqual(datetime.time(17, 9, 26), new_data_description.creation_time)
-        self.assertEqual(datetime.date(2023, 4, 10), new_data_description.creation_date)
+        self.assertEqual(datetime.datetime(2023, 4, 10, 17, 9, 26), new_data_description.creation_time)
         self.assertEqual("ecephys_661278_2023-04-10_17-09-26", new_data_description.name)
         self.assertEqual(Institution.AIND, new_data_description.institution)
         self.assertEqual([Funding(funder=Institution.AIND)], new_data_description.funding_source)
-        self.assertEqual(DataLevel.RAW_DATA, new_data_description.data_level)
+        self.assertEqual(DataLevel.RAW, new_data_description.data_level)
         self.assertIsNone(new_data_description.group)
         self.assertEqual([], new_data_description.investigators)
         self.assertIsNone(new_data_description.project_name)
-        self.assertIsNone(new_data_description.project_id)
         self.assertIsNone(new_data_description.restrictions)
         self.assertEqual([Modality.ECEPHYS], new_data_description.modality)
         self.assertEqual("661278", new_data_description.subject_id)
@@ -131,18 +125,16 @@ class TestDataDescriptionUpgrade(unittest.TestCase):
 
         # Should work by setting experiment type explicitly
         new_data_description = upgrader.upgrade_data_description()
-        self.assertEqual(datetime.time(22, 31, 18), new_data_description.creation_time)
-        self.assertEqual(datetime.date(2023, 3, 23), new_data_description.creation_date)
+        self.assertEqual(datetime.datetime(2023, 3, 23, 22, 31, 18), new_data_description.creation_time)
         self.assertEqual("661279_2023-03-23_15-31-18", new_data_description.name)
         self.assertEqual(Institution.AIND, new_data_description.institution)
         self.assertEqual([Funding(funder=Institution.AIND)], new_data_description.funding_source)
-        self.assertEqual(DataLevel.RAW_DATA, new_data_description.data_level)
+        self.assertEqual(DataLevel.RAW, new_data_description.data_level)
         self.assertEqual(Group.EPHYS, new_data_description.group)
         self.assertEqual(["John Doe", "Mary Smith"], new_data_description.investigators)
         self.assertEqual("MRI-Guided Elecrophysiology", new_data_description.project_name)
-        self.assertIsNone(new_data_description.project_id)
         self.assertIsNone(new_data_description.restrictions)
-        self.assertEqual([Modality.EPHYS], new_data_description.modality)
+        self.assertEqual([Modality.ECEPHYS], new_data_description.modality)
         self.assertEqual("661279", new_data_description.subject_id)
         self.assertEqual(
             [
@@ -184,27 +176,25 @@ class TestDataDescriptionUpgrade(unittest.TestCase):
         data_description_0_6_2_wrong_field = self.data_descriptions["data_description_0.6.2_wrong_field.json"]
         upgrader = DataDescriptionUpgrade(old_data_description_model=data_description_0_6_2_wrong_field)
 
-        # Should complain about experiment type being None
+        # Should complain about funder not being correct
         with self.assertRaises(Exception) as e:
             upgrader.upgrade_data_description()
 
-        expected_error_message = "AttributeError('ALLEN INSITUTE FOR NEURAL DYNAMICS')"
+        expected_error_message = "AttributeError('NOT A REAL FUNDER')"
         self.assertEqual(expected_error_message, repr(e.exception))
 
         # Should work by setting funding_source explicitly
         new_data_description = upgrader.upgrade_data_description(funding_source=[Funding(funder=Institution.AIND)])
-        self.assertEqual(datetime.time(22, 31, 18), new_data_description.creation_time)
-        self.assertEqual(datetime.date(2023, 3, 23), new_data_description.creation_date)
+        self.assertEqual(datetime.datetime(2023, 3, 23, 22, 31, 18), new_data_description.creation_time)
         self.assertEqual("661279_2023-03-23_15-31-18", new_data_description.name)
         self.assertEqual(Institution.AIND, new_data_description.institution)
         self.assertEqual([Funding(funder=Institution.AIND)], new_data_description.funding_source)
-        self.assertEqual(DataLevel.RAW_DATA, new_data_description.data_level)
+        self.assertEqual(DataLevel.RAW, new_data_description.data_level)
         self.assertEqual(Group.EPHYS, new_data_description.group)
         self.assertEqual(["John Doe", "Mary Smith"], new_data_description.investigators)
         self.assertEqual("MRI-Guided Elecrophysiology", new_data_description.project_name)
-        self.assertIsNone(new_data_description.project_id)
         self.assertIsNone(new_data_description.restrictions)
-        self.assertEqual([Modality.EPHYS], new_data_description.modality)
+        self.assertEqual([Modality.ECEPHYS], new_data_description.modality)
         self.assertEqual("661279", new_data_description.subject_id)
         self.assertEqual(
             [

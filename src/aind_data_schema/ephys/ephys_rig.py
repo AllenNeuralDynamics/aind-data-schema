@@ -42,7 +42,7 @@ class NeuropixelsBasestation(DAQDevice):
     ports: List[ProbePort] = Field(..., title="Basestation ports")
 
     # fixed values
-    data_interface: DataInterface = Field("PXI", const=True)
+    data_interface: DataInterface = Field(DataInterface.PXI, const=True)
     manufacturer: Manufacturer = Field(Manufacturer.IMEC, const=True)
 
 

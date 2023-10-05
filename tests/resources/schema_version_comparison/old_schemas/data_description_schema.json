@@ -151,8 +151,8 @@
          "title": "DataLevel",
          "description": "Data level name",
          "enum": [
-            "raw data",
-            "derived data"
+            "raw",
+            "derived"
          ]
       },
       "Group": {

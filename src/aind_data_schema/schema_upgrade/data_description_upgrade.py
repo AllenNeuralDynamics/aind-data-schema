@@ -1,8 +1,9 @@
 """Module to contain code to upgrade old data description models"""
 from copy import deepcopy
+from datetime import datetime
 from typing import Any, Optional, Union
 
-from aind_data_schema.data_description import DataDescription, Funding, Institution, Modality
+from aind_data_schema.data_description import DataDescription, Funding, Institution, Modality, Platform
 
 
 class ModalityUpgrade:
@@ -109,7 +110,10 @@ class DataDescriptionUpgrade:
         elif hasattr(data_description, field_name) and getattr(data_description, field_name) is not None:
             return getattr(data_description, field_name)
         else:
-            return getattr(DataDescription.__fields__.get(field_name), "default")
+            try:
+                return getattr(DataDescription.__fields__.get(field_name), "default")
+            except AttributeError:
+                return None
 
     def upgrade_data_description(self, **kwargs) -> DataDescription:
         """Upgrades the old model into the current version"""
@@ -128,9 +132,26 @@ class DataDescriptionUpgrade:
         else:
             modality = getattr(DataDescription.__fields__.get("modality"), "default")
 
+        experiment_type = self._get_or_default(self.old_data_description_model, "experiment_type", kwargs)
+        platform = None
+        if experiment_type is not None:
+            for p in Platform:
+                if p.value.abbreviation == experiment_type:
+                    platform = p
+                    break
+
+        if platform is None:
+            platform = self._get_or_default(self.old_data_description_model, "platform", kwargs)
+
+        creation_date = self._get_or_default(self.old_data_description_model, "creation_date", kwargs)
+        if creation_date is not None:
+            creation_time = self._get_or_default(self.old_data_description_model, "creation_time", kwargs)
+            creation_date = datetime.strptime(creation_date, "%Y-%m-%d").date()
+            creation_time = datetime.strptime(creation_time, "%H:%M:%S").time()
+            creation_time = datetime.combine(creation_date, creation_time)
+
         return DataDescription(
-            creation_time=self._get_or_default(self.old_data_description_model, "creation_time", kwargs),
-            creation_date=self._get_or_default(self.old_data_description_model, "creation_date", kwargs),
+            creation_time=creation_time,
             name=self._get_or_default(self.old_data_description_model, "name", kwargs),
             institution=institution,
             funding_source=funding_source,
@@ -138,10 +159,9 @@ class DataDescriptionUpgrade:
             group=self._get_or_default(self.old_data_description_model, "group", kwargs),
             investigators=self._get_or_default(self.old_data_description_model, "investigators", kwargs),
             project_name=self._get_or_default(self.old_data_description_model, "project_name", kwargs),
-            project_id=self._get_or_default(self.old_data_description_model, "project_id", kwargs),
             restrictions=self._get_or_default(self.old_data_description_model, "restrictions", kwargs),
             modality=modality,
-            experiment_type=self._get_or_default(self.old_data_description_model, "experiment_type", kwargs),
+            platform=platform,
             subject_id=self._get_or_default(self.old_data_description_model, "subject_id", kwargs),
             related_data=self._get_or_default(self.old_data_description_model, "related_data", kwargs),
             data_summary=self._get_or_default(self.old_data_description_model, "data_summary", kwargs),

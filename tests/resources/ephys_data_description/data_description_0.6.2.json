@@ -13,8 +13,8 @@
     ],
     "modality": [
         {
-            "name": "Electrophysiology",
-            "abbreviation": "ephys"
+            "name": "Extracellular electrophysiology",
+            "abbreviation": "ecephys"
         }
     ],
     "related_data": [
@@ -31,7 +31,7 @@
         "abbreviation": "AIND"
     },
     "ror_id": "04szwah67",
-    "data_level": "raw data",
+    "data_level": "raw",
     "group": "ephys",
     "project_name": "MRI-Guided Elecrophysiology",
     "experiment_type": "ecephys",

@@ -3,8 +3,8 @@
 from __future__ import annotations
 
 import re
-from datetime import date, datetime, time
-from enum import Enum
+from datetime import datetime
+from enum import Enum, EnumMeta
 from typing import Any, List, Optional
 
 from pydantic import Field
@@ -23,11 +23,11 @@ class DataRegex(Enum):
     """regular expression patterns for different kinds of data and their properties"""
 
     DATA = f"^(?P<label>.+?)_(?P<c_date>{RegexParts.DATE.value})_(?P<c_time>{RegexParts.TIME.value})$"
-    RAW_DATA = (
-        f"^(?P<experiment_type>.+?)_(?P<subject_id>.+?)_(?P<c_date>{RegexParts.DATE.value})_(?P<c_time>"
+    RAW = (
+        f"^(?P<platform_abbreviation>.+?)_(?P<subject_id>.+?)_(?P<c_date>{RegexParts.DATE.value})_(?P<c_time>"
         f"{RegexParts.TIME.value})$"
     )
-    DERIVED_DATA = (
+    DERIVED = (
         f"^(?P<input>.+?_{RegexParts.DATE.value}_{RegexParts.TIME.value})_(?P<process_name>.+?)_(?P<c_date>"
         f"{RegexParts.DATE.value})_(?P<c_time>{RegexParts.TIME.value})"
     )
@@ -37,8 +37,8 @@ class DataRegex(Enum):
 class DataLevel(Enum):
     """Data level name"""
 
-    DERIVED_DATA = "derived data"
-    RAW_DATA = "raw data"
+    DERIVED = "derived"
+    RAW = "raw"
 
 
 class Institution(Enum, metaclass=BaseNameEnumMeta):
@@ -103,84 +103,80 @@ class Group(Enum):
     OPHYS = "ophys"
 
 
-class Modality(Enum, metaclass=BaseNameEnumMeta):
+class AbbreviationEnumMeta(EnumMeta):
+    """Allows to create complicated enum based on abbreviation."""
+
+    def __call__(cls, value, *args, **kw):
+        """Allow enum to be set by a string."""
+        if isinstance(value, str):
+            abbr = {member.value.abbreviation: member for member in cls}
+            if abbr.get(value) is None:
+                value = getattr(cls, value.upper())
+            else:
+                value = abbr[value]
+        return super().__call__(value, *args, **kw)
+
+    def __modify_schema__(cls, field_schema):
+        """Adds enumNames to schema"""
+        field_schema.update(
+            enumNames=[e.value.name for e in cls],
+        )
+
+
+class Modality(Enum, metaclass=AbbreviationEnumMeta):
     """Data collection modality name"""
 
     BEHAVIOR_VIDEOS = BaseName(name="Behavior videos", abbreviation="behavior-videos")
     CONFOCAL = BaseName(name="Confocal microscopy", abbreviation="confocal")
-    DISPIM = BaseName(
-        name="Dual inverted selective plane illumination microscopy",
-        abbreviation="diSPIM",
-    )
     ECEPHYS = BaseName(name="Extracellular electrophysiology", abbreviation="ecephys")
-    EPHYS = BaseName(name="Electrophysiology", abbreviation="ephys")
-    EXASPIM = BaseName(
-        name="Expansion-assisted selective plane illumination microscopy",
-        abbreviation="exaSPIM",
-    )
-    FIP = BaseName(name="Frame-projected independent-fiber photometry", abbreviation="FIP")
     FMOST = BaseName(name="Fluorescence micro-optical sectioning tomography", abbreviation="fMOST")
-    HSFP = BaseName(name="Hyperspectral fiber photometry", abbreviation="HSFP")
     ICEPHYS = BaseName(name="Intracellular electrophysiology", abbreviation="icephys")
     FIB = BaseName(name="Fiber photometry", abbreviation="fib")
-    FISH = BaseName(name="Fluorescence in situ hybridization", abbreviation="fish")
-    MESOSPIM = BaseName(
-        name="Mesoscale selective plane illumination microscopy",
-        abbreviation="mesoSPIM",
-    )
     MERFISH = BaseName(
         name="Multiplexed error-robust fluorescence in situ hybridization",
         abbreviation="merfish",
     )
-    MPOPHYS = BaseName(name="Multiplane optical physiology", abbreviation="multiplane-ophys")
     MRI = BaseName(name="Magnetic resonance imaging", abbreviation="MRI")
-    OPHYS = BaseName(name="Optical physiology", abbreviation="ophys")
-    SLAP = BaseName(name="Scanned line projection", abbreviation="slap")
-    SMARTSPIM = BaseName(name="Smart selective plane illumination microscopy", abbreviation="SmartSPIM")
+    POPHYS = BaseName(name="Planar optical physiology", abbreviation="ophys")
+    SLAP = BaseName(name="Scanned line projection imaging", abbreviation="slap")
     SPIM = BaseName(name="Selective plane illumination microscopy", abbreviation="SPIM")
-    SPOPHYS = BaseName(name="Single plane optical physiology", abbreviation="single-plane-ophys")
     TRAINED_BEHAVIOR = BaseName(name="Trained behavior", abbreviation="trained-behavior")
 
 
-class ExperimentType(Enum):
-    """Abbreviated name for data collection technique"""
+class Platform(Enum, metaclass=AbbreviationEnumMeta):
+    """Name for standardized data collection system that can collect one or more data modalities."""
 
-    ECEPHYS = Modality.ECEPHYS.value.abbreviation
-    EXASPIM = Modality.EXASPIM.value.abbreviation
-    CONFOCAL = Modality.CONFOCAL.value.abbreviation
-    DISPIM = Modality.DISPIM.value.abbreviation
-    FIP = Modality.FIP.value.abbreviation
-    FMOST = Modality.FMOST.value.abbreviation
-    HSFP = Modality.HSFP.value.abbreviation
-    MESOSPIM = Modality.MESOSPIM.value.abbreviation
-    MERFISH = Modality.MERFISH.value.abbreviation
-    MRI = Modality.MRI.value.abbreviation
-    MPOPHYS = Modality.MPOPHYS.value.abbreviation
-    SLAP = Modality.SLAP.value.abbreviation
-    SMARTSPIM = Modality.SMARTSPIM.value.abbreviation
-    SPOPHYS = Modality.SPOPHYS.value.abbreviation
-    TRAINED_BEHAVIOR = Modality.TRAINED_BEHAVIOR.value.abbreviation
-    OTHER = "Other"
+    BEHAVIOR = BaseName(name="Behavior platform", abbreviation="behavior")
+    CONFOCAL = BaseName(name="Confocal microscopy platform", abbreviation="confocal")
+    ECEPHYS = BaseName(name="Electrophysiology platform", abbreviation="ecephys")
+    EXASPIM = BaseName(name="ExaSPIM platform", abbreviation="exaSPIM")
+    FIP = BaseName(name="Frame-projected independent-fiber photometry platform", abbreviation="FIP")
+    HCR = BaseName(name="Hybridization chain reaction platform", abbreviation="HCR")
+    HSFP = BaseName(name="Hyperspectral fiber photometry platform", abbreviation="HSFP")
+    MESOSPM = BaseName(name="MesoSPIM platform", abbreviation="mesoSPIM")
+    MERFISH = BaseName(name="MERFISH platform", abbreviation="merfish")
+    MRI = BaseName(name="Magnetic resonance imaging platform", abbreviation="MRI")
+    MULTIPLANE_OPHYS = BaseName(name="Multiplane optical physiology platform", abbreviation="multiplane-ophys")
+    SINGLE_PLANE_OPHYS = BaseName(name="Single-plane optical physiology platform", abbreviation="single-plane-ophys")
+    SLAP2 = BaseName(name="SLAP2 platform", abbreviation="SLAP2")
+    SMARTSPIM = BaseName(name="SmartSPIM platform", abbreviation="smartSPIM")
 
 
-def datetime_to_name_string(d, t):
+def datetime_to_name_string(dt):
     """Take a date and time object, format it a as string"""
-    ds = d.strftime("%Y-%m-%d")
-    ts = t.strftime("%H-%M-%S")
-    return f"{ds}_{ts}"
+    return dt.strftime("%Y-%m-%d_%H-%M-%S")
 
 
 def datetime_from_name_string(d, t):
     """Take date and time strings, generate date and time objects"""
-    return (
-        datetime.strptime(d, "%Y-%m-%d").date(),
-        datetime.strptime(t, "%H-%M-%S").time(),
-    )
+    d = datetime.strptime(d, "%Y-%m-%d").date()
+    t = datetime.strptime(t, "%H-%M-%S").time()
+    return datetime.combine(d, t)
 
 
-def build_data_name(label, creation_date, creation_time):
+def build_data_name(label, creation_datetime):
     """Construct a valid data description name"""
-    dt_str = datetime_to_name_string(creation_date, creation_time)
+    dt_str = datetime_to_name_string(creation_datetime)
     return f"{label}_{dt_str}"
 
 
@@ -202,18 +198,13 @@ class RelatedData(AindModel):
 class DataDescription(AindCoreModel):
     """Description of a logical collection of data files"""
 
-    schema_version: str = Field("0.7.6", title="Schema Version", const=True)
+    schema_version: str = Field("0.10.0", title="Schema Version", const=True)
     license: str = Field("CC-BY-4.0", title="License", const=True)
 
-    creation_time: time = Field(
+    creation_time: datetime = Field(
         ...,
-        description="Time in UTC that data files were created, used to uniquely identify the data",
+        description="Time that data files were created, used to uniquely identify the data",
         title="Creation Time",
-    )
-    creation_date: date = Field(
-        ...,
-        description="Date in UTC that data files were created, used to uniquely identify the data",
-        title="Creation Date",
     )
     name: Optional[str] = Field(
         None,
@@ -246,15 +237,15 @@ class DataDescription(AindCoreModel):
         description="Full name(s) of key investigators (e.g. PI, lead scientist, contact person)",
         title="Investigators",
     )
+    platform: Platform = Field(
+        ...,
+        description="Name for a standardized primary data collection system",
+        title="Platform",
+    )
     project_name: Optional[str] = Field(
         None,
-        description="A name for a set of coordinated activities intended to achieve one or more objectives",
+        description="A name for a set of coordinated activities intended to achieve one or more objectives.",
         title="Project Name",
-    )
-    project_id: Optional[str] = Field(
-        None,
-        description="A database or other identifier for a project",
-        title="Project ID",
     )
     restrictions: Optional[str] = Field(
         None,
@@ -266,11 +257,6 @@ class DataDescription(AindCoreModel):
         description="A short name for the specific manner, characteristic, pattern of application, or the employment"
         "of any technology or formal procedure to generate data for a study",
         title="Modality",
-    )
-    experiment_type: ExperimentType = Field(
-        ...,
-        description="An abbreviated name for the experimental technique used to collect this data",
-        title="Experiment Type",
     )
     subject_id: str = Field(
         ...,
@@ -293,8 +279,7 @@ class DataDescription(AindCoreModel):
         if label is not None:
             self.name = build_data_name(
                 label,
-                creation_date=self.creation_date,
-                creation_time=self.creation_time,
+                creation_datetime=self.creation_time,
             )
 
     @classmethod
@@ -305,11 +290,10 @@ class DataDescription(AindCoreModel):
         if m is None:
             raise ValueError(f"name({name}) does not match pattern")
 
-        creation_date, creation_time = datetime_from_name_string(m.group("c_date"), m.group("c_time"))
+        creation_time = datetime_from_name_string(m.group("c_date"), m.group("c_time"))
 
         return dict(
             label=m.group("label"),
-            creation_date=creation_date,
             creation_time=creation_time,
         )
 
@@ -319,7 +303,7 @@ class DerivedDataDescription(DataDescription):
 
     input_data_name: str
     data_level: DataLevel = Field(
-        DataLevel.DERIVED_DATA,
+        DataLevel.DERIVED,
         description="level of processing that data has undergone",
         title="Data Level",
         const=True,
@@ -335,16 +319,15 @@ class DerivedDataDescription(DataDescription):
         """decompose DerivedDataDescription name into parts"""
 
         # look for input data name
-        m = re.match(f"{DataRegex.DERIVED_DATA.value}", name)
+        m = re.match(f"{DataRegex.DERIVED.value}", name)
 
         if m is None:
             raise ValueError(f"name({name}) does not match pattern")
 
-        creation_date, creation_time = datetime_from_name_string(m.group("c_date"), m.group("c_time"))
+        creation_time = datetime_from_name_string(m.group("c_date"), m.group("c_time"))
 
         return dict(
             process_name=m.group("process_name"),
-            creation_date=creation_date,
             creation_time=creation_time,
             input_data_name=m.group("input"),
         )
@@ -390,23 +373,19 @@ class DerivedDataDescription(DataDescription):
             else:
                 return getattr(DerivedDataDescription.__fields__.get(field_name), "default")
 
-        utcnow = datetime.utcnow()
-        creation_time = utcnow.time() if kwargs.get("creation_time") is None else kwargs["creation_time"]
-        creation_date = utcnow.date() if kwargs.get("creation_date") is None else kwargs["creation_date"]
+        creation_time = datetime.utcnow() if kwargs.get("creation_time") is None else kwargs["creation_time"]
 
         return cls(
             creation_time=creation_time,
-            creation_date=creation_date,
             process_name=process_name,
             institution=get_or_default("institution"),
             funding_source=get_or_default("funding_source"),
             group=get_or_default("group"),
             investigators=get_or_default("investigators"),
-            project_name=get_or_default("project_name"),
-            project_id=get_or_default("project_id"),
             restrictions=get_or_default("restrictions"),
             modality=get_or_default("modality"),
-            experiment_type=get_or_default("experiment_type"),
+            platform=get_or_default("platform"),
+            project_name=get_or_default("project_name"),
             subject_id=get_or_default("subject_id"),
             related_data=get_or_default("related_data"),
             data_summary=get_or_default("data_summary"),
@@ -418,38 +397,43 @@ class RawDataDescription(DataDescription):
     """A logical collection of data files as acquired from a rig or instrument"""
 
     data_level: DataLevel = Field(
-        DataLevel.RAW_DATA,
+        DataLevel.RAW,
         description="level of processing that data has undergone",
         title="Data Level",
         const=True,
     )
 
-    def __init__(self, experiment_type, subject_id, **kwargs):
+    def __init__(self, platform, subject_id, **kwargs):
         """Construct a raw data description"""
 
-        experiment_type = ExperimentType(experiment_type)
+        if isinstance(platform, dict):
+            platform_abbreviation = platform.get("abbreviation")
+        else:
+            platform_abbreviation = platform.value.abbreviation
 
         super().__init__(
-            label=f"{experiment_type.value}_{subject_id}",
-            experiment_type=experiment_type,
+            label=f"{platform_abbreviation}_{subject_id}",
+            platform=platform,
             subject_id=subject_id,
             **kwargs,
         )
 
     @classmethod
     def parse_name(cls, name):
-        """Decompose raw data description name into component parts"""
+        """Decompose raw description name into component parts"""
 
-        m = re.match(f"{DataRegex.RAW_DATA.value}", name)
+        m = re.match(f"{DataRegex.RAW.value}", name)
 
         if m is None:
             raise ValueError(f"name({name}) does not match pattern")
 
-        creation_date, creation_time = datetime_from_name_string(m.group("c_date"), m.group("c_time"))
+        creation_time = datetime_from_name_string(m.group("c_date"), m.group("c_time"))
+
+        platform_abbreviation = m.group("platform_abbreviation")
+        platform = Platform(platform_abbreviation)
 
         return dict(
-            experiment_type=m.group("experiment_type"),
+            platform=platform,
             subject_id=m.group("subject_id"),
-            creation_date=creation_date,
             creation_time=creation_time,
         )
