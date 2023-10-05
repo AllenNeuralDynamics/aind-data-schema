@@ -12,7 +12,7 @@ from pydantic import Field
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.data_description import Modality
 from aind_data_schema.device import Calibration, Maintenance, RelativePosition, SpoutSide
-from aind_data_schema.positions import CcfCoords, Coordinates3d
+from aind_data_schema.coordinates import CcfCoords, Coordinates3d
 from aind_data_schema.stimulus import StimulusEpoch
 from aind_data_schema.imaging.tile import Channel
 from aind_data_schema.utils.units import AngleUnit, FrequencyUnit, MassUnit, PowerUnit, SizeUnit, TimeUnit
@@ -38,7 +38,7 @@ class PatchCordName(Enum):
     PATCH_CORD_D = "Patch Cord D"
 
 
-class FiberPhotometryDevices(AindModel):
+class FiberPhotometryAssembly(AindModel):
     """Description of a fiber photometry configuration"""
 
     patch_cord_name: PatchCordName = Field(..., title="Name")

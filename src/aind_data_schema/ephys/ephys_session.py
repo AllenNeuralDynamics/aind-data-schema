@@ -10,7 +10,7 @@ from typing import List, Optional
 from pydantic import Field
 
 from aind_data_schema.base import AindCoreModel, AindModel
-from aind_data_schema.positions import Coordinates3d
+from aind_data_schema.coordinates import Coordinates3d
 from aind_data_schema.stimulus import StimulusEpoch
 from aind_data_schema.utils.units import AngleUnit, PowerUnit, SizeUnit
 
