@@ -1,4 +1,4 @@
-""" Schemas for Behavior Sessions """
+""" Schemas for Behavior Rig. This is being deprecated after 2023-11-01. """
 
 from __future__ import annotations
 
@@ -23,7 +23,7 @@ from aind_data_schema.device import (
 
 
 class BehaviorRig(AindCoreModel):
-    """Description of an behavior rig"""
+    """Description of an behavior rig. This is being deprecated after 2023-11-01."""
 
     schema_version: str = Field("0.1.13", description="schema version", title="Version", const=True)
     rig_id: str = Field(..., description="room_stim apparatus_version", title="Rig ID")

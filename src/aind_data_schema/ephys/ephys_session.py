@@ -1,4 +1,4 @@
-""" ephys session description and related objects """
+""" ephys session description and related objects. This is being deprecated after 2023-11-01."""
 
 from __future__ import annotations
 
@@ -126,7 +126,7 @@ class Stream(AindModel):
 
 
 class EphysSession(AindCoreModel):
-    """Description of an ephys recording session"""
+    """Description of an ephys recording session. This is being deprecated after 2023-11-01."""
 
     schema_version: str = Field("0.4.11", description="schema version", title="Version", const=True)
     experimenter_full_name: List[str] = Field(

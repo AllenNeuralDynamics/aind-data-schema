@@ -1,4 +1,4 @@
-""" Schemas for Ophys Rigs"""
+""" Schemas for Ophys Rigs. This is being deprecated after 2023-11-01."""
 
 from __future__ import annotations
 
@@ -85,7 +85,7 @@ class Patch(Device):
 
 
 class OphysRig(AindCoreModel):
-    """Description of an optical physiology rig"""
+    """Description of an optical physiology rig. This is being deprecated after 2023-11-01."""
 
     schema_version: str = Field(
         "0.7.1",
