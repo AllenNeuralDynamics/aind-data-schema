@@ -1,4 +1,4 @@
-""" ephys session description and related objects """
+""" ephys session description and related objects. This is being deprecated after 2023-11-01."""
 
 from __future__ import annotations
 
@@ -10,7 +10,7 @@ from typing import List, Optional
 from pydantic import Field
 
 from aind_data_schema.base import AindCoreModel, AindModel
-from aind_data_schema.device import Coordinates3d
+from aind_data_schema.coordinates import Coordinates3d
 from aind_data_schema.stimulus import StimulusEpoch
 from aind_data_schema.utils.units import AngleUnit, PowerUnit, SizeUnit
 
@@ -126,9 +126,9 @@ class Stream(AindModel):
 
 
 class EphysSession(AindCoreModel):
-    """Description of an ephys recording session"""
+    """Description of an ephys recording session. This is being deprecated after 2023-11-01."""
 
-    schema_version: str = Field("0.4.10", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.4.11", description="schema version", title="Version", const=True)
     experimenter_full_name: List[str] = Field(
         ...,
         description="First and last name of the experimenter(s).",

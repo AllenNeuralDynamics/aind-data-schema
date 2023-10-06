@@ -1,18 +1,18 @@
-""" Schemas for Behavior Sessions """
+""" Schemas for Behavior Sessions. This is being deprecated after 2023-11-01."""
 
 from __future__ import annotations
 
 from datetime import datetime
 from decimal import Decimal
 from enum import Enum
-from typing import Any, Dict, List, Optional
+from typing import List, Optional
 
 from pydantic import Field
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.device import Calibration, Maintenance, RelativePosition, SpoutSide
 from aind_data_schema.stimulus import StimulusEpoch
-from aind_data_schema.utils.units import MassUnit, VolumeUnit
+from aind_data_schema.utils.units import MassUnit
 
 
 class RewardSolution(Enum):
@@ -42,10 +42,10 @@ class RewardDelivery(AindModel):
 
 
 class BehaviorSession(AindCoreModel):
-    """Description of a behavior session"""
+    """Description of a behavior session. This is being deprecated after 2023-11-01."""
 
     schema_version: str = Field(
-        "0.0.8",
+        "0.0.9",
         description="Schema version",
         title="Schema Version",
         const=True,
@@ -80,16 +80,4 @@ class BehaviorSession(AindCoreModel):
     weight_unit: MassUnit = Field(MassUnit.G, title="Weight unit")
     behavior_type: str = Field(..., title="Behavior type", description="Name of the behavior session")
     stimulus_epochs: List[StimulusEpoch] = Field(None, title="Stimulus")
-    session_number: int = Field(..., title="Session number")
-    output_parameters: Dict[str, Any] = Field(
-        ...,
-        title="Performance parameters",
-        description="Performance metrics from session",
-    )
-    reward_consumed_during_training: Decimal = Field(..., title="Reward consumed during training (uL)")
-    reward_consumed_total: Decimal = Field(..., title="Total reward consumed (uL)")
-    reward_consumed_unit: VolumeUnit = Field(VolumeUnit.UL, title="Reward consumed unit")
-    trials_total: int = Field(..., title="Total trials")
-    trials_finished: int = Field(..., title="Finished trials")
-    trials_rewarded: int = Field(..., title="Rewarded trials")
     notes: Optional[str] = Field(None, title="Notes")

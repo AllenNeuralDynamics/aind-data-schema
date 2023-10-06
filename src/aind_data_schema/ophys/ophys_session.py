@@ -1,4 +1,4 @@
-""" Schemas for Ophys Sessions """
+""" Schemas for Ophys Sessions. This is being deprecated after 2023-11-01."""
 
 from __future__ import annotations
 
@@ -104,7 +104,7 @@ class OphysSession(AindCoreModel):
     """Description of an ophys session"""
 
     schema_version: str = Field(
-        "0.2.9",
+        "0.2.10",
         description="schema version",
         title="Schema Version",
         const=True,
@@ -156,7 +156,7 @@ class FieldOfView(AindModel):
 
 
 class TwoPhotonOphysSession(OphysSession):
-    """Description of a two photon session"""
+    """Description of a two photon session. This is being deprecated after 2023-11-01."""
 
     fovs: List[FieldOfView] = Field(..., title="Fields of view", unique_items=True)
 
