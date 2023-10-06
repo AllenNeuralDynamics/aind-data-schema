@@ -154,12 +154,12 @@ class Platform(Enum, metaclass=AbbreviationEnumMeta):
     HCR = BaseName(name="Hybridization chain reaction platform", abbreviation="HCR")
     HSFP = BaseName(name="Hyperspectral fiber photometry platform", abbreviation="HSFP")
     MESOSPM = BaseName(name="MesoSPIM platform", abbreviation="mesoSPIM")
-    MERFISH = BaseName(name="MERFISH platform", abbreviation="merfish")
+    MERFISH = BaseName(name="MERFISH platform", abbreviation="MERFISH")
     MRI = BaseName(name="Magnetic resonance imaging platform", abbreviation="MRI")
     MULTIPLANE_OPHYS = BaseName(name="Multiplane optical physiology platform", abbreviation="multiplane-ophys")
     SINGLE_PLANE_OPHYS = BaseName(name="Single-plane optical physiology platform", abbreviation="single-plane-ophys")
     SLAP2 = BaseName(name="SLAP2 platform", abbreviation="SLAP2")
-    SMARTSPIM = BaseName(name="SmartSPIM platform", abbreviation="smartSPIM")
+    SMARTSPIM = BaseName(name="SmartSPIM platform", abbreviation="SmartSPIM")
 
 
 def datetime_to_name_string(dt):
@@ -198,7 +198,7 @@ class RelatedData(AindModel):
 class DataDescription(AindCoreModel):
     """Description of a logical collection of data files"""
 
-    schema_version: str = Field("0.10.0", title="Schema Version", const=True)
+    schema_version: str = Field("0.10.1", title="Schema Version", const=True)
     license: str = Field("CC-BY-4.0", title="License", const=True)
 
     creation_time: datetime = Field(
