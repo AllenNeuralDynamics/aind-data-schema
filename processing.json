@@ -5,7 +5,7 @@
       "data_processes": [
          {
             "name": "Image tile fusing",
-            "software_version": "0.0.1",
+            "version": "0.0.1",
             "start_date_time": "2022-11-22T08:43:00",
             "end_date_time": "2022-11-22T08:43:00",
             "input_location": "/path/to/inputs",
@@ -20,7 +20,7 @@
          },
          {
             "name": "File format conversion",
-            "software_version": "0.0.1",
+            "version": "0.0.1",
             "start_date_time": "2022-11-22T08:43:00",
             "end_date_time": "2022-11-22T08:43:00",
             "input_location": "/path/to/inputs",
@@ -36,7 +36,7 @@
          },
          {
             "name": "Image destriping",
-            "software_version": "0.2.1",
+            "version": "0.2.1",
             "start_date_time": "2022-11-22T08:43:00",
             "end_date_time": "2022-11-22T08:43:00",
             "input_location": "/path/to/input",
@@ -59,7 +59,7 @@
    "analyses": [
       {
          "name": "Analysis",
-         "software_version": "0.0.1",
+         "version": "0.0.1",
          "start_date_time": "2022-11-22T08:43:00",
          "end_date_time": "2022-11-22T08:43:00",
          "input_location": "/path/to/inputs",
@@ -76,7 +76,7 @@
       },
       {
          "name": "Analysis",
-         "software_version": "0.0.1",
+         "version": "0.0.1",
          "start_date_time": "2022-11-22T08:43:00",
          "end_date_time": "2022-11-22T08:43:00",
          "input_location": "/path/to/inputs",

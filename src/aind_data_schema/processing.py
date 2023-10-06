@@ -15,6 +15,7 @@ from aind_data_schema.imaging.tile import Tile
 class ProcessName(Enum):
     """Data processing type labels"""
 
+    ANALYSIS = "Analysis"
     DENOISING = "Denoising"
     EPHYS_CURATION = "Ephys curation"
     EPHYS_POSTPROCESSING = "Ephys postprocessing"
@@ -32,6 +33,7 @@ class ProcessName(Enum):
     IMAGE_TILE_FUSING = "Image tile fusing"
     IMAGE_TILE_PROJECTION = "Image tile projection"
     FILE_CONVERSION = "File format conversion"
+    MANUAL_ANNOTATION = "Manual annotation"
     NEUROPIL_SUBTRACTION = "Neuropil subtraction"
     OTHER = "Other"
     REGISTRATION_TO_TEMPLATE = "Registration to template"
@@ -49,7 +51,7 @@ class DataProcess(AindModel):
     """Description of a single processing step"""
 
     name: ProcessName = Field(..., title="Name")
-    version: str = Field(..., description="Version of the software used", title="Version")
+    software_version: str = Field(..., description="Version of the software used", title="Version")
     start_date_time: datetime = Field(..., title="Start date time")
     end_date_time: datetime = Field(..., title="End date time")
     input_location: str = Field(..., description="Path to data inputs", title="Input location")
@@ -58,21 +60,47 @@ class DataProcess(AindModel):
     code_version: Optional[str] = Field(None, description="Version of the code", title="Code version")
     parameters: Dict[str, Any] = Field(..., title="Parameters")
     outputs: Optional[Dict[str, Any]] = Field(None, description="Output parameters", title="Outputs")
-    notes: Optional[str] = None
+    notes: Optional[str] = Field(None, title="Notes")
+
+
+class PipelineProcess(AindModel):
+    """Description of a Processing Pipeline"""
+
+    data_processes: List[DataProcess] = Field(..., title="Data processing", unique_items=True)
+    processor_full_name: str = Field(
+        ..., title="Processor Full Name", description="Name of person responsible for processing pipeline"
+    )
+    pipeline_version: Optional[str] = Field(None, description="Version of the pipeline", title="Pipeline version")
+    pipeline_url: Optional[str] = Field(None, description="URL to the pipeline code", title="Pipeline URL")
+    note: Optional[str] = Field(None, title="Notes")
+
+
+class AnalysisProcess(DataProcess):
+    """Description of an Analysis"""
+
+    name: ProcessName = Field(ProcessName.ANALYSIS, title="Process name")
+    analyst_full_name: str = Field(
+        ..., title="Analyst Full Name", description="Name of person responsible for running analysis"
+    )
+    description: str = Field(..., title="Analysis Description")
 
 
 class Processing(AindCoreModel):
     """Description of all processes run on data"""
 
     schema_version: str = Field(
-        "0.2.5",
+        "0.3.0",
         description="Schema version",
         title="Schema version",
         const=True,
     )
-    pipeline_version: Optional[str] = Field(None, description="Version of the pipeline", title="Pipeline version")
-    pipeline_url: Optional[str] = Field(None, description="URL to the pipeline code", title="Pipeline URL")
-    data_processes: List[DataProcess] = Field(..., title="Data processing", unique_items=True)
+    processing_pipeline: PipelineProcess = Field(
+        ..., description="Pipeline used to process data", title="Processing Pipeline"
+    )
+    analyses: Optional[List[AnalysisProcess]] = Field(
+        None, description="Analysis steps taken after processing", title="Analysis Steps"
+    )
+    notes: Optional[str] = Field(None, title="Notes")
 
 
 class RegistrationType(Enum):

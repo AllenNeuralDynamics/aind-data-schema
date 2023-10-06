@@ -5,6 +5,7 @@ import unittest
 import pydantic
 
 from aind_data_schema import Processing
+from aind_data_schema.processing import PipelineProcess
 
 
 class ProcessingTest(unittest.TestCase):
@@ -16,7 +17,9 @@ class ProcessingTest(unittest.TestCase):
         with self.assertRaises(pydantic.ValidationError):
             p = Processing()
 
-        p = Processing(data_processes=[])
+        p = Processing(
+            processing_pipeline=PipelineProcess(processor_full_name="Processor", data_processes=[]),
+        )
 
         assert p is not None
 
