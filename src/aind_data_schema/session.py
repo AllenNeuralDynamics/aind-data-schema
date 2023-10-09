@@ -208,7 +208,7 @@ class RewardDelivery(AindModel):
 
     @root_validator
     def other_notes(cls, v):
-        if v.get('rewared_solution')==RewardSolution.OTHER and v.get('notes')==None:
+        if v.get('reward_solution')==RewardSolution.OTHER and v.get('notes')==None:
             raise ValueError('Other must be specified in notes')
         return v
 

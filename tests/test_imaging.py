@@ -74,6 +74,29 @@ class ImagingTests(unittest.TestCase):
 
         assert i is not None
 
+        with self.assertRaises(ValidationError):
+            i = inst.Instrument(
+                instrument_type="Other",
+                manufacturer=Manufacturer.OTHER,
+                objectives=[],
+                detectors=[],
+                light_sources=[],
+            )
+
+        with self.assertRaises(ValidationError):
+            i = inst.Instrument(
+                instrument_type="diSPIM",
+                manufacturer=Manufacturer.OTHER,
+                objectives=[],
+                detectors=[],
+                light_sources=[],
+            )
+
+        with self.assertRaises(ValidationError):
+            mri = ms.MRIScan(
+                scan_sequence_type="Other",
+            )
+
         mri = ms.MriSession(
             experimenter_full_name=["Frank Frankson"],
             subject_id=1234,
