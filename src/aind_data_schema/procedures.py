@@ -66,7 +66,7 @@ class SpecimenProcedure(AindModel):
     reagents: Optional[List[Reagent]] = Field(None, title="Reagents")
     notes: Optional[str] = Field(None, title="Notes")
 
-    @root_validator('procedure_type')
+    @root_validator
     def other_notes(cls, v):
         if v.get('procedure_type')==SpecimenProcedureName.OTHER and v.get('notes')==None:
             raise ValueError('Other must be specified in notes')
