@@ -5,9 +5,9 @@ import unittest
 
 import pydantic
 
-from aind_data_schema.data_description import Modality
 from aind_data_schema.coordinates import CcfCoords, Coordinates3d
-from aind_data_schema.session import EphysModule, EphysProbe, Session, Stream, RewardDelivery
+from aind_data_schema.data_description import Modality
+from aind_data_schema.session import EphysModule, EphysProbe, RewardDelivery, Session, Stream
 
 
 class ExampleTest(unittest.TestCase):
@@ -18,14 +18,6 @@ class ExampleTest(unittest.TestCase):
 
         with self.assertRaises(pydantic.ValidationError):
             sess = Session()
-
-        with self.assertRaises(pydantic.ValidationError):
-            rd = RewardDelivery()
-
-        with self.assertRaises(pydantic.ValidationError):
-            rd = RewardDelivery(
-                reward_solution='Other'
-            )
 
         sess = Session(
             experimenter_full_name=["alice"],
@@ -55,6 +47,12 @@ class ExampleTest(unittest.TestCase):
         )
 
         assert sess is not None
+
+        with self.assertRaises(pydantic.ValidationError):
+            RewardDelivery()
+
+        with self.assertRaises(pydantic.ValidationError):
+            RewardDelivery(reward_solution="Other")
 
 
 if __name__ == "__main__":

@@ -12,7 +12,7 @@ from aind_data_schema.procedures import (
     NanojectInjection,
     OphysProbe,
     RetroOrbitalInjection,
-    SpecimenProcedure
+    SpecimenProcedure,
 )
 
 
@@ -26,7 +26,6 @@ class ProceduresTests(unittest.TestCase):
 
         p = Procedures(subject_id="12345")
         self.assertEqual("12345", p.subject_id)
-
 
     def test_injection_material_check(self):
         """Tests validation on the presence of injections materials"""
@@ -122,19 +121,20 @@ class ProceduresTests(unittest.TestCase):
 
         self.assertEqual(3, len(p.subject_procedures))
 
-
     def test_notes_other(self):
+        """Test that the other/notes validation error works"""
+
         with self.assertRaises(ValidationError):
-            procedure = SpecimenProcedure(
-                specimen_id='1000',
-                procedure_name='procedure name',
+            SpecimenProcedure(
+                specimen_id="1000",
+                procedure_name="procedure name",
                 procedure_type="Other - see notes",
-                start_date = date.fromisoformat("2020-10-10"),
-                end_date = date.fromisoformat("2020-10-11"),
-                experimenter_full_name='guy person',
-                protocol_id='10',
+                start_date=date.fromisoformat("2020-10-10"),
+                end_date=date.fromisoformat("2020-10-11"),
+                experimenter_full_name="guy person",
+                protocol_id="10",
                 reagents=[],
-                notes=None
+                notes=None,
             )
 
 

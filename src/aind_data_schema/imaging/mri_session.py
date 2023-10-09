@@ -83,8 +83,9 @@ class MRIScan(AindModel):
 
     @root_validator
     def other_notes(cls, v):
-        if v.get('scan_sequence_type')==MriScanSequence.OTHER and v.get('notes')==None:
-            raise ValueError('Other must be specified in notes')
+        """Validator for other/notes"""
+        if v.get("scan_sequence_type") == MriScanSequence.OTHER and v.get("notes") is None:
+            raise ValueError("Other must be specified in notes")
         return v
 
 

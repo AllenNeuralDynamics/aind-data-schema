@@ -68,11 +68,13 @@ class SpecimenProcedure(AindModel):
 
     @root_validator
     def other_notes(cls, v):
-        procedure_type = v.get('procedure_type')
-        notes = v.get('notes')
+        """Validator for other/notes"""
 
-        if procedure_type==SpecimenProcedureName.OTHER and notes==None:
-            raise ValueError('Procedure type: Other must be specified in notes')
+        procedure_type = v.get("procedure_type")
+        notes = v.get("notes")
+
+        if procedure_type == SpecimenProcedureName.OTHER and notes is None:
+            raise ValueError("Procedure type: Other must be specified in notes")
         return v
 
 

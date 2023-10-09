@@ -180,10 +180,12 @@ class Instrument(AindCoreModel):
 
     @root_validator
     def other_notes(cls, v):
-        if v.get('instrument_type')==ImagingInstrumentType.OTHER and v.get('notes')==None:
-            raise ValueError('Instrument Type: Other must be specified in notes')
-        
-        if v.get('manufacturer')==Manufacturer.OTHER and v.get('notes')==None:
-            raise ValueError('Manufacturer: Other must be specified in notes')
-        
+        """Validator for other/notes"""
+
+        if v.get("instrument_type") == ImagingInstrumentType.OTHER and v.get("notes") is None:
+            raise ValueError("Instrument Type: Other must be specified in notes")
+
+        if v.get("manufacturer") == Manufacturer.OTHER and v.get("notes") is None:
+            raise ValueError("Manufacturer: Other must be specified in notes")
+
         return v
