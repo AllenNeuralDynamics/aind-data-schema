@@ -5,7 +5,7 @@ from decimal import Decimal
 from enum import Enum
 from typing import List, Optional, Union
 
-from pydantic import Field
+from pydantic import Field, root_validator
 
 from aind_data_schema.base import AindCoreModel, AindModel, PIDName
 from aind_data_schema.subject import Species
@@ -65,6 +65,12 @@ class SpecimenProcedure(AindModel):
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     reagents: Optional[List[Reagent]] = Field(None, title="Reagents")
     notes: Optional[str] = Field(None, title="Notes")
+
+    @root_validator('procedure_type')
+    def other_notes(cls, v):
+        if v.get('procedure_type')==SpecimenProcedureName.OTHER and v.get('notes')==None:
+            raise ValueError('Other must be specified in notes')
+        return v
 
 
 class StainType(Enum):

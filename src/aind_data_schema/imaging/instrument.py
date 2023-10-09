@@ -7,7 +7,7 @@ from decimal import Decimal
 from enum import Enum
 from typing import List, Optional
 
-from pydantic import Field
+from pydantic import Field, root_validator
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.device import (
@@ -177,3 +177,13 @@ class Instrument(AindCoreModel):
     )
     com_ports: Optional[List[Com]] = Field(None, title="COM ports", unique_items=True)
     notes: Optional[str] = None
+
+    @root_validator
+    def other_notes(cls, v):
+        if v.get('instrument_type')==ImagingInstrumentType.OTHER and v.get('notes')==None:
+            raise ValueError('Instrument Type: Other must be specified in notes')
+        
+        if v.get('manufacturer')==Manufacturer.OTHER and v.get('notes')==None:
+            raise ValueError('Manufacturer: Other must be specified in notes')
+        
+        return v

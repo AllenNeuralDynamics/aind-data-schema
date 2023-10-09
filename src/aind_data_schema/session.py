@@ -7,7 +7,7 @@ from decimal import Decimal
 from enum import Enum
 from typing import List, Optional, Union
 
-from pydantic import Field
+from pydantic import Field, root_validator
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.data_description import Modality
@@ -205,6 +205,12 @@ class RewardDelivery(AindModel):
     reward_solution: RewardSolution = Field(..., title="Reward solution", description="If Other use notes")
     reward_spouts: List[RewardSpout] = Field(..., title="Reward spouts", unique_items=True)
     notes: Optional[str] = Field(None, title="Notes")
+
+    @root_validator
+    def other_notes(cls, v):
+        if v.get('rewared_solution')==RewardSolution.OTHER and v.get('notes')==None:
+            raise ValueError('Other must be specified in notes')
+        return v
 
 
 class Stream(AindModel):

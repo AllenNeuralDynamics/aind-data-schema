@@ -5,7 +5,7 @@ from decimal import Decimal
 from enum import Enum
 from typing import Any, Dict, List, Optional
 
-from pydantic import Field
+from pydantic import Field, root_validator
 
 from aind_data_schema.base import AindCoreModel, AindModel, EnumSubset
 from aind_data_schema.device import Device
@@ -80,6 +80,12 @@ class MRIScan(AindModel):
     repetition_time_unit: TimeUnit = Field(TimeUnit.MS, title="Repetition time unit")
     additional_scan_parameters: Dict[str, Any] = Field(..., title="Parameters")
     notes: Optional[str] = Field(None, title="Notes")
+
+    @root_validator
+    def other_notes(cls, v):
+        if v.get('scan_sequence_type')==MriScanSequence.OTHER and v.get('notes')==None:
+            raise ValueError('Other must be specified in notes')
+        return v
 
 
 class MriSession(AindCoreModel):

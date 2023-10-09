@@ -6,7 +6,7 @@ from datetime import datetime
 from enum import Enum
 from typing import Any, Dict, List, Optional
 
-from pydantic import Field
+from pydantic import Field, root_validator
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.imaging.tile import Tile
@@ -61,6 +61,12 @@ class DataProcess(AindModel):
     parameters: Dict[str, Any] = Field(..., title="Parameters")
     outputs: Optional[Dict[str, Any]] = Field(None, description="Output parameters", title="Outputs")
     notes: Optional[str] = Field(None, title="Notes")
+
+    @root_validator
+    def other_notes(cls, v):
+        if v.get('name')==ProcessName.OTHER and v.get('notes')==None:
+            raise ValueError('Other must be specified in notes')
+        return v
 
 
 class PipelineProcess(AindModel):
