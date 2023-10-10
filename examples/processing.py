@@ -60,7 +60,7 @@ p = Processing(
             code_version="0.1",
             code_url="https://github.com/abcd",
             parameters={"size": 7},
-            ),
+        ),
         AnalysisProcess(
             analyst_full_name="Some Analyzer",
             description="some description",

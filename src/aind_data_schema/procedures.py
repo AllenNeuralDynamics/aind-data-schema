@@ -399,14 +399,14 @@ class NanojectInjection(BrainInjection):
 
     @root_validator
     def check_dv_and_vol_list_lengths(cls, v):
-        injection_vol_len = len(v.get('injection_volume'))
-        coords_len = len(v.get('injection_coordinate_depth'))
+        """Validator for list length of injection volumes and depths"""
+
+        injection_vol_len = len(v.get("injection_volume"))
+        coords_len = len(v.get("injection_coordinate_depth"))
 
         if injection_vol_len != coords_len:
             raise ValueError("Unmatched list sizes for injection volumes and coordinate depths")
         return v
-
-
 
 
 class IontophoresisInjection(BrainInjection):

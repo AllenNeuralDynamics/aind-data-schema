@@ -47,8 +47,10 @@ class Rig(AindCoreModel):
     modalities: List[Modality] = Field(..., title="Modalities", unique_items=True)
     mouse_platform: Union[Disc, Treadmill, Tube, Wheel] = Field(..., title="Mouse platform")
     stimulus_devices: Optional[List[Union[Monitor, Olfactometer, RewardDelivery, Speaker]]] = Field(
-        None, title="Stimulus devices", unique_items=True,
-        )
+        None,
+        title="Stimulus devices",
+        unique_items=True,
+    )
     cameras: Optional[List[CameraAssembly]] = Field(None, title="Camera assemblies", unique_items=True)
     daqs: Optional[List[Union[HarpDevice, NeuropixelsBasestation, OpenEphysAcquisitionBoard, DAQDevice]]] = Field(
         None, title="Data acquisition devices"
@@ -59,7 +61,7 @@ class Rig(AindCoreModel):
     patch_cords: Optional[List[Patch]] = Field(None, title="Patch cords", unique_items=True)
     light_sources: Optional[List[Union[Laser, LightEmittingDiode]]] = Field(
         None, title="Light sources", unique_items=True
-        )
+    )
     detectors: Optional[List[Detector]] = Field(None, title="Detectors", unique_items=True)
     objectives: Optional[List[Objective]] = Field(None, title="Objectives", unique_items=True)
     filters: Optional[List[Filter]] = Field(None, title="Filters", unique_items=True)
@@ -67,7 +69,8 @@ class Rig(AindCoreModel):
     additional_devices: Optional[List[Device]] = Field(None, title="Additional devices", unique_items=True)
     calibrations: List[Calibration] = Field(..., title="Full calibration of devices", unique_items=True)
     ccf_coordinate_transform: Optional[str] = Field(
-        None, title="CCF coordinate transform",
+        None,
+        title="CCF coordinate transform",
         description="Path to file that details the CCF-to-lab coordinate transform",
     )
     notes: Optional[str] = Field(None, title="Notes")
