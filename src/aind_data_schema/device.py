@@ -3,9 +3,10 @@
 from datetime import date, datetime
 from decimal import Decimal
 from enum import Enum
-from typing import Any, Dict, List, Optional, Literal
+from typing import Any, Dict, List, Optional
 
 from pydantic import Field
+from pydantic.typing import Literal
 
 from aind_data_schema.base import AindModel, EnumSubset
 from aind_data_schema.coordinates import RelativePosition
@@ -552,7 +553,7 @@ class Disc(MousePlatform):
 class Wheel(MousePlatform):
     """Description of a running wheel"""
 
-    platform_type: str = Field("Wheel", title="Platform type", const=True)
+    platform_type: Literal["Wheel"] = Field("Wheel", title="Platform type", const=True)
     radius: Decimal = Field(..., title="Radius (mm)")
     width: Decimal = Field(..., title="Width (mm)")
     size_unit: SizeUnit = Field(SizeUnit.MM, title="Size unit")

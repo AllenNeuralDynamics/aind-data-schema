@@ -8,7 +8,7 @@ from enum import Enum
 from typing import List, Optional, Union
 
 from pydantic import Field
-from pydantic.typing import Annotated, Literal
+from pydantic.typing import Annotated
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.coordinates import CcfCoords, Coordinates3d

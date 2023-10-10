@@ -5,10 +5,10 @@ from __future__ import annotations
 from datetime import time
 from decimal import Decimal
 from enum import Enum
-from typing import Any, Dict, List, Optional, Union, Literal
+from typing import Any, Dict, List, Optional, Union
 
 from pydantic import Field
-from pydantic.typing import Annotated
+from pydantic.typing import Annotated, Literal
 
 from aind_data_schema.base import AindModel
 from aind_data_schema.utils.units import FrequencyUnit, PowerUnit, TimeUnit, VolumeUnit
