@@ -122,7 +122,7 @@ class ProceduresTests(unittest.TestCase):
 
     def test_coordinate_volume_validator(self):
         """Test validator for list lengths on NanojectInjection"""
-        
+
         with self.assertRaises(ValidationError):
             NanojectInjection(injection_coordinate_depth=[0.1], injection_volume=[1, 2])
 
