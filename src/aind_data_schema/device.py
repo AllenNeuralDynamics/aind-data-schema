@@ -3,13 +3,13 @@
 from datetime import date, datetime
 from decimal import Decimal
 from enum import Enum
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Literal
 
 from pydantic import Field
 
 from aind_data_schema.base import AindModel, EnumSubset
-from aind_data_schema.manufacturers import Manufacturer
 from aind_data_schema.coordinates import RelativePosition
+from aind_data_schema.manufacturers import Manufacturer
 from aind_data_schema.procedures import Reagent
 from aind_data_schema.utils.units import FrequencyUnit, PowerUnit, SizeUnit
 
@@ -287,6 +287,7 @@ class DAQDevice(Device):
     """Data acquisition device containing multiple I/O channels"""
 
     # required fields
+    daq_device_type: str = Field("DaqDevice", title="Daq Device Type", const=True)
     data_interface: DataInterface = Field(..., title="Type of connection to PC")
     manufacturer: EnumSubset[
         Manufacturer.NATIONAL_INSTRUMENTS,
@@ -315,6 +316,7 @@ class HarpDevice(DAQDevice):
     """DAQ that uses the Harp protocol for synchronization and data transmission"""
 
     # required fields
+    daq_device_type: str = Field("HarpDevice", title="Daq Device Type", const=True)
     harp_device_type: HarpDeviceType = Field(..., title="Type of Harp device")
     harp_device_version: str = Field(..., title="Device version")
 
@@ -327,7 +329,7 @@ class Laser(Device):
     """Laser module with a specific wavelength (may be a sub-component of a larger assembly)"""
 
     # required fields
-    lightsource_type: str = Field("Laser", title="Lightsource type")
+    lightsource_type: str = Field("Laser", title="Lightsource type", const=True)
     manufacturer: EnumSubset[
         Manufacturer.COHERENT_SCIENTIFIC,
         Manufacturer.HAMAMATSU,
@@ -380,6 +382,7 @@ class NeuropixelsBasestation(DAQDevice):
     """PXI-based Neuropixels DAQ"""
 
     # required fields
+    daq_device_type: str = Field("NeuropixelsBasestation", title="Daq Device Type", const=True)
     basestation_firmware_version: str = Field(..., title="Basestation firmware version")
     bsc_firmware_version: str = Field(..., title="Basestation connect board firmware")
     slot: int = Field(..., title="Slot number for this basestation")
@@ -394,6 +397,8 @@ class OpenEphysAcquisitionBoard(DAQDevice):
     """Multichannel electrophysiology DAQ"""
 
     # required fields
+    daq_device_type: str = Field("OpenEphysAcquisitionBoard", title="Daq Device Type", const=True)
+
     ports: List[ProbePort] = Field(..., title="Acquisition board ports")
 
     # fixed values
@@ -563,7 +568,7 @@ class Wheel(MousePlatform):
 class Tube(MousePlatform):
     """Description of a tube platform"""
 
-    platform_type: str = Field("Tube", title="Platform type", const=True)
+    platform_type: Literal["Tube"] = Field("Tube", title="Platform type", const=True)
     diameter: Decimal = Field(..., title="Diameter", ge=0)
     diameter_unit: SizeUnit = Field(SizeUnit.CM, title="Diameter unit")
 

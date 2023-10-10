@@ -5,6 +5,7 @@ from __future__ import annotations
 from typing import List, Optional, Union
 
 from pydantic import Field
+from pydantic.typing import Annotated
 
 from aind_data_schema.base import AindCoreModel
 from aind_data_schema.device import (
@@ -27,14 +28,22 @@ class BehaviorRig(AindCoreModel):
 
     schema_version: str = Field("0.1.13", description="schema version", title="Version", const=True)
     rig_id: str = Field(..., description="room_stim apparatus_version", title="Rig ID")
-    mouse_platform: Union[Tube, Treadmill, Disc] = Field(..., title="Mouse platform")
-    stimulus_devices: List[Union[RewardDelivery, Monitor, Speaker]] = Field(
-        ...,
-        title="Stimulus devices",
-        unique_items=True,
-    )
+    mouse_platform: Annotated[
+        Union[Tube, Treadmill, Disc], Field(..., title="Mouse platform", discriminator="platform_type")
+    ]
+    stimulus_devices: Optional[
+        Annotated[
+            List[Union[Monitor, RewardDelivery, Speaker]],
+            Field(None, title="Stimulus devices", unique_items=True, discriminator="stimulus_device"),
+        ]
+    ]
     cameras: Optional[List[CameraAssembly]] = Field(None, title="Camera assemblies", unique_items=True)
-    daqs: Optional[List[Union[HarpDevice, DAQDevice]]] = Field(None, title="Data acquisition devices")
+    daqs: Optional[
+        Annotated[
+            List[Union[HarpDevice, DAQDevice]],
+            Field(None, title="Data acquisition devices", discriminator="daq_device_type"),
+        ]
+    ]
     additional_devices: Optional[List[Device]] = Field(None, title="Additional devices", unique_items=True)
     calibrations: List[Calibration] = Field(..., title="Full calibration of devices", unique_items=True)
     notes: Optional[str] = Field(None, title="Notes")

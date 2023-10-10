@@ -5,6 +5,7 @@ from typing import List, Optional, Union
 
 from pydantic import Field
 from pydantic.types import conlist
+from pydantic.typing import Annotated
 
 from aind_data_schema.base import AindModel
 from aind_data_schema.utils.units import AngleUnit, PowerUnit, SizeUnit
@@ -42,28 +43,28 @@ class Scale3dTransform(CoordinateTransform):
     Represents voxel spacing if used as the first applied coordinate transform.
     """
 
-    type: str = Field("scale", title="transformation type")
+    type: str = Field("scale", title="transformation type", const=True)
     scale: conlist(Decimal, min_items=3, max_items=3) = Field(..., title="3D scale parameters")
 
 
 class Translation3dTransform(CoordinateTransform):
     """Values to be vector-added to a 3D position. Often needed to specify a Tile's origin."""
 
-    type: str = Field("translation", title="transformation type")
+    type: str = Field("translation", title="transformation type", const=True)
     translation: conlist(Decimal, min_items=3, max_items=3) = Field(..., title="3D translation parameters")
 
 
 class Rotation3dTransform(CoordinateTransform):
     """Values to be vector-added to a 3D position. Often needed to specify a Tile's origin."""
 
-    type: str = Field("rotation", title="transformation type")
+    type: str = Field("rotation", title="transformation type", const=True)
     rotation: conlist(Decimal, min_items=9, max_items=9) = Field(..., title="3D rotation matrix values (3x3) ")
 
 
 class Affine3dTransform(CoordinateTransform):
     """Values to be vector-added to a 3D position. Often needed to specify a Tile's origin."""
 
-    type: str = Field("affine", title="transformation type")
+    type: str = Field("affine", title="transformation type", const=True)
     affine_transform: conlist(Decimal, min_items=12, max_items=12) = Field(
         ..., title="Affine transform matrix values (top 3x4 matrix)"
     )
@@ -72,14 +73,17 @@ class Affine3dTransform(CoordinateTransform):
 class Tile(AindModel):
     """Description of an image tile"""
 
-    coordinate_transformations: List[
-        Union[
-            Scale3dTransform,
-            Translation3dTransform,
-            Rotation3dTransform,
-            Affine3dTransform,
-        ]
-    ] = Field(..., title="Tile coordinate transformations")
+    coordinate_transformations: Annotated[
+        List[
+            Union[
+                Scale3dTransform,
+                Translation3dTransform,
+                Rotation3dTransform,
+                Affine3dTransform,
+            ]
+        ],
+        Field(..., title="Tile coordinate transformations", discriminator="type"),
+    ]
     file_name: Optional[str] = Field(None, title="File name")
 
 

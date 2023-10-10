@@ -8,13 +8,14 @@ from enum import Enum
 from typing import List, Optional, Union
 
 from pydantic import Field
+from pydantic.typing import Annotated, Literal
 
 from aind_data_schema.base import AindCoreModel, AindModel
+from aind_data_schema.coordinates import CcfCoords, Coordinates3d
 from aind_data_schema.data_description import Modality
 from aind_data_schema.device import Calibration, Maintenance, RelativePosition, SpoutSide
-from aind_data_schema.coordinates import CcfCoords, Coordinates3d
-from aind_data_schema.stimulus import StimulusEpoch
 from aind_data_schema.imaging.tile import Channel
+from aind_data_schema.stimulus import StimulusEpoch
 from aind_data_schema.utils.units import AngleUnit, FrequencyUnit, MassUnit, PowerUnit, SizeUnit, TimeUnit
 
 
@@ -193,10 +194,8 @@ class RewardSpout(AindModel):
     side: SpoutSide = Field(..., title="Spout side", description="Must match rig")
     starting_position: RelativePosition = Field(..., title="Starting position")
     variable_position: bool = Field(
-        ...,
-        title="Variable position",
-        description="True if spout position changes during session as tracked in data"
-        )
+        ..., title="Variable position", description="True if spout position changes during session as tracked in data"
+    )
 
 
 class RewardDelivery(AindModel):
@@ -215,9 +214,12 @@ class Stream(AindModel):
     stream_modalities: List[Modality] = Field(..., title="Modalities")
     daq_names: Optional[List[str]] = Field(None, title="DAQ devices", unique_items=True)
     camera_names: Optional[List[str]] = Field(None, title="Cameras", unique_items=True)
-    light_sources: Optional[List[Union[Laser, LightEmittingDiode]]] = Field(
-        None, title="Light source", unique_items=True
-        )
+    light_sources: Optional[
+        Annotated[
+            List[Union[Laser, LightEmittingDiode]],
+            Field(None, title="Light sources", unique_items=True, discriminator="lightsource_type"),
+        ]
+    ]
     ephys_modules: Optional[List[EphysModule]] = Field(None, title="Ephys modules", unique_items=True)
     detectors: Optional[List[Detector]] = Field(None, title="Detectors", unique_items=True)
     fiber_photometry_assemblies: Optional[List[FiberPhotometryAssembly]] = Field(None, title="Fiber photometry devices")
