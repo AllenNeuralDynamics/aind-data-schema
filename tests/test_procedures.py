@@ -120,6 +120,13 @@ class ProceduresTests(unittest.TestCase):
 
         self.assertEqual(3, len(p.subject_procedures))
 
+    def test_coordinate_volume_validator(self):
+        with self.assertRaises(ValidationError):
+            NanojectInjection(
+                injection_coordinate_depth=[.1],
+                injection_volume=[1, 2]
+            )
+
 
 if __name__ == "__main__":
     unittest.main()
