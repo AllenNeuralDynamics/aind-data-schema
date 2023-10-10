@@ -5,7 +5,7 @@ from __future__ import annotations
 from datetime import time
 from decimal import Decimal
 from enum import Enum
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List, Optional, Union, Literal
 
 from pydantic import Field
 from pydantic.typing import Annotated
@@ -25,7 +25,7 @@ class PulseShape(Enum):
 class OptoStimulation(AindModel):
     """Description of opto stimulation parameters"""
 
-    stimulus_type: str = Field("OptoStimulation", title="OptoStimulation", const=True)
+    stimulus_type: Literal["OptoStimulation"] = Field("OptoStimulation", title="OptoStimulation", const=True, readOnly=True)
     stimulus_name: str = Field(..., title="Stimulus name")
     pulse_shape: PulseShape = Field(..., title="Pulse shape")
     pulse_frequency: int = Field(..., title="Pulse frequency (Hz)")
@@ -53,7 +53,7 @@ class OptoStimulation(AindModel):
 class VisualStimulation(AindModel):
     """Description of visual stimulus parameters. Provides a high level description of stimulus."""
 
-    stimulus_type: str = Field("VisualStimulation", title="VisualStimulation", const=True)
+    stimulus_type: Literal["VisualStimulation"] = Field("VisualStimulation", title="VisualStimulation", const=True, readOnly=True)
     stimulus_name: str = Field(..., title="Stimulus name")
     stimulus_parameters: Optional[Dict[str, Any]] = Field(
         None,
@@ -83,7 +83,7 @@ class VisualStimulation(AindModel):
 class BehaviorStimulation(AindModel):
     """Description of behavior parameters. Provides a high level description of stimulus."""
 
-    stimulus_type: str = Field("BehaviorStimulation", title="BehaviorStimulation", const=True)
+    stimulus_type: Literal["BehaviorStimulation"] = Field("BehaviorStimulation", title="BehaviorStimulation", const=True, readOnly=True)
     behavior_name: str = Field(..., title="Behavior name")
     session_number: int = Field(..., title="Session number")
     behavior_software: str = Field(
@@ -135,7 +135,7 @@ class PhotoStimulationGroup(AindModel):
 class PhotoStimulation(AindModel):
     """Description of a photostimulation session"""
 
-    stimulus_type: str = Field("PhotoStimulation", title="PhotoStimulation", const=True)
+    stimulus_type: Literal["PhotoStimulation"] = Field("PhotoStimulation", title="PhotoStimulation", const=True, readOnly=True)
     stimulus_name: str = Field(..., title="Stimulus name")
     number_groups: int = Field(..., title="Number of groups")
     groups: List[PhotoStimulationGroup] = Field(..., title="Groups")

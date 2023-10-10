@@ -287,7 +287,7 @@ class DAQDevice(Device):
     """Data acquisition device containing multiple I/O channels"""
 
     # required fields
-    daq_device_type: str = Field("DaqDevice", title="Daq Device Type", const=True)
+    daq_device_type: Literal["DaqDevice"] = Field(default="DaqDevice", title="Daq Device Type", const=True, readOnly=True)
     data_interface: DataInterface = Field(..., title="Type of connection to PC")
     manufacturer: EnumSubset[
         Manufacturer.NATIONAL_INSTRUMENTS,
@@ -316,7 +316,7 @@ class HarpDevice(DAQDevice):
     """DAQ that uses the Harp protocol for synchronization and data transmission"""
 
     # required fields
-    daq_device_type: str = Field("HarpDevice", title="Daq Device Type", const=True)
+    daq_device_type: Literal["HarpDevice"] = Field(default="HarpDevice", title="Daq Device Type", const=True, readOnly=True)
     harp_device_type: HarpDeviceType = Field(..., title="Type of Harp device")
     harp_device_version: str = Field(..., title="Device version")
 
@@ -329,7 +329,7 @@ class Laser(Device):
     """Laser module with a specific wavelength (may be a sub-component of a larger assembly)"""
 
     # required fields
-    lightsource_type: str = Field("Laser", title="Lightsource type", const=True)
+    lightsource_type: Literal["Laser"] = Field(default="Laser", title="Lightsource type", const=True, readOnly=True)
     manufacturer: EnumSubset[
         Manufacturer.COHERENT_SCIENTIFIC,
         Manufacturer.HAMAMATSU,
@@ -360,7 +360,7 @@ class Laser(Device):
 class LightEmittingDiode(Device):
     """Description of a Light Emitting Diode (LED) device"""
 
-    lightsource_type: str = Field("LED", title="Lightsource type")
+    lightsource_type: Literal["LED"] = Field(default="LED", title="Lightsource type", readOnly=True)
     manufacturer: EnumSubset[
         Manufacturer.DORIC,
         Manufacturer.PRIZMATIX,
@@ -536,7 +536,7 @@ class MousePlatform(Device):
 class Disc(MousePlatform):
     """Description of a running disc (i.e. MindScope Disc)"""
 
-    platform_type: str = Field("Disc", title="Platform type", const=True)
+    platform_type: Literal["Disc"] = Field("Disc", title="Platform type", const=True)
     radius: Decimal = Field(..., title="Radius (cm)", units="cm", ge=0)
     radius_unit: SizeUnit = Field(SizeUnit.CM, title="radius unit")
     output: Optional[DaqChannelType] = Field(None, description="analog or digital electronics")
@@ -568,7 +568,7 @@ class Wheel(MousePlatform):
 class Tube(MousePlatform):
     """Description of a tube platform"""
 
-    platform_type: Literal["Tube"] = Field("Tube", title="Platform type", const=True)
+    platform_type: Literal["Tube"] = Field("Tube", title="Platform type", const=True, readOnly=True)
     diameter: Decimal = Field(..., title="Diameter", ge=0)
     diameter_unit: SizeUnit = Field(SizeUnit.CM, title="Diameter unit")
 
@@ -576,7 +576,7 @@ class Tube(MousePlatform):
 class Treadmill(MousePlatform):
     """Description of treadmill platform"""
 
-    platform_type: str = Field("Treadmill", title="Platform type", const=True)
+    platform_type: Literal["Treadmill"] = Field("Treadmill", title="Platform type", const=True, readOnly=True)
     treadmill_width: Decimal = Field(..., title="Width of treadmill (mm)", units="mm")
     width_unit: SizeUnit = Field(SizeUnit.CM, title="Width unit")
 
@@ -584,7 +584,7 @@ class Treadmill(MousePlatform):
 class Monitor(Device):
     """Description of visual display for visual stimuli"""
 
-    stimulus_device: str = Field("Visual monitor", title="Stimulus type", const=True)
+    stimulus_device: Literal["Visual monitor"] = Field("Visual monitor", title="Stimulus type", const=True, readOnly=True)
     manufacturer: EnumSubset[Manufacturer.LG]
     refresh_rate: int = Field(..., title="Refresh rate (Hz)", units="Hz", ge=60)
     width: int = Field(..., title="Width (pixels)", units="pixels")
@@ -632,7 +632,7 @@ class RewardSpout(Device):
 class RewardDelivery(AindModel):
     """Description of reward delivery system"""
 
-    stimulus_device: str = Field("Reward delivery", title="Stimulus type", const=True)
+    stimulus_device: Literal["Reward delivery"] = Field("Reward delivery", title="Stimulus type", const=True, readOnly=True)
     stage_type: MotorizedStage = Field(None, title="Motorized stage")
     reward_spouts: List[RewardSpout] = Field(..., title="Water spouts")
 
@@ -640,7 +640,7 @@ class RewardDelivery(AindModel):
 class Speaker(Device):
     """Description of a speaker for auditory stimuli"""
 
-    stimulus_device: str = Field("Speaker", title="Stimulus type", const=True)
+    stimulus_device: Literal["Speaker"] = Field("Speaker", title="Stimulus type", const=True, readOnly=True)
     manufacturer: EnumSubset[Manufacturer.TYMPHANY]
     position: Optional[RelativePosition] = Field(None, title="Relative position of the monitor")
 
