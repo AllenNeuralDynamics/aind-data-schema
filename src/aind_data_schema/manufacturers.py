@@ -7,6 +7,7 @@ from aind_data_schema.base import BaseNameEnumMeta, PIDName, Registry
 class Manufacturer(Enum, metaclass=BaseNameEnumMeta):
     """Device manufacturer name"""
 
+    AA_OPTO = PIDName(name="AA Opto Electronic")
     AILIPU = PIDName(name="Ailipu Technology Co")
     ALLIED = PIDName(name="Allied")
     ASI = PIDName(
@@ -36,6 +37,7 @@ class Manufacturer(Enum, metaclass=BaseNameEnumMeta):
         registry=Registry.ROR,
         registry_identifier="01j1gwp17",
     )
+    EURESYS = PIDName(name="Euresys")
     FLIR = PIDName(
         name="Teledyne FLIR",
         abbreviation="FLIR",
@@ -71,6 +73,7 @@ class Manufacturer(Enum, metaclass=BaseNameEnumMeta):
         registry_identifier="00n8qbq54",
         )
     MIGHTY_ZAP = PIDName(name="IR Robot Co")
+    MITUTUYO = PIDName(name="Mitutuyo")
     MKS_NEWPORT = PIDName(
         name="MKS Newport",
         registry=Registry.ROR,
