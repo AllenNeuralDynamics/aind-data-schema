@@ -378,6 +378,7 @@
          },
          "model": null,
          "notes": null,
+         "daq_device_type": "NeuropixelsBasestation",
          "data_interface": "PXI",
          "computer_name": "W10DT72942",
          "channels": null,
@@ -413,6 +414,7 @@
          },
          "model": null,
          "notes": null,
+         "daq_device_type": "HarpDevice",
          "data_interface": "USB",
          "computer_name": "W10DT72941",
          "channels": [

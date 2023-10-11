@@ -237,6 +237,7 @@
          },
          "model": "PCIe-6738",
          "notes": null,
+         "daq_device_type": "DaqDevice",
          "data_interface": "USB",
          "computer_name": "Dev2",
          "channels": [

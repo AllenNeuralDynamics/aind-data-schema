@@ -569,6 +569,7 @@
          },
          "model": "USB-6212",
          "notes": "To record behavior events and licks via AnalogInput node in Bonsai",
+         "daq_device_type": "DaqDevice",
          "data_interface": "USB",
          "computer_name": "W10DTJK7N0M3",
          "channels": [
