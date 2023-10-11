@@ -63,11 +63,11 @@ class DataProcess(AindModel):
     notes: Optional[str] = Field(None, title="Notes")
 
     @root_validator
-    def other_notes(cls, v):
+    def validate_other(cls, v):
         """Validator for other/notes"""
 
-        if v.get("name") == ProcessName.OTHER and v.get("notes") is None:
-            raise ValueError("Other must be specified in notes")
+        if v.get("name") == ProcessName.OTHER and not v.get("notes"):
+            raise ValueError("Notes cannot be empty if 'name' is Other. Describe the process name in the notes field.")
         return v
 
 

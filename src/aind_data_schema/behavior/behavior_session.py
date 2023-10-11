@@ -41,11 +41,11 @@ class RewardDelivery(AindModel):
     notes: Optional[str] = Field(None, title="Notes")
 
     @root_validator
-    def other_notes(cls, v):
+    def validate_other(cls, v):
         """Validator for other/notes"""
 
-        if v.get("reward_solution") == RewardSolution.OTHER and v.get("notes") is None:
-            raise ValueError("Other must be specified in notes")
+        if v.get("reward_solution") == RewardSolution.OTHER and not v.get("notes"):
+            raise ValueError("Notes cannot be empty if reward_solution is Other. Describe the reward_solution in the notes field.")
         return v
 
 

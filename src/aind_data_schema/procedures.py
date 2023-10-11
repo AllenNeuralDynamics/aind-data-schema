@@ -67,14 +67,14 @@ class SpecimenProcedure(AindModel):
     notes: Optional[str] = Field(None, title="Notes")
 
     @root_validator
-    def other_notes(cls, v):
+    def validate_other(cls, v):
         """Validator for other/notes"""
 
         procedure_type = v.get("procedure_type")
         notes = v.get("notes")
 
-        if procedure_type == SpecimenProcedureName.OTHER and notes is None:
-            raise ValueError("Procedure type: Other must be specified in notes")
+        if procedure_type == SpecimenProcedureName.OTHER and not notes:
+            raise ValueError("Notes cannot be empty if procedure_type is Other. Describe the procedure_type in the notes field.")
         return v
 
 
