@@ -155,7 +155,7 @@ camassm2 = CameraAssembly(
 )
 
 red_laser_calibration = Calibration(
-    calibration_date=datetime.datetime(2023,10,2,10,22,13),
+    calibration_date=datetime.datetime(2023, 10, 2, 10, 22, 13),
     device_name="Red Laser",
     description="Laser power calibration",
     input={"power percent": [10, 20, 40]},
@@ -163,7 +163,7 @@ red_laser_calibration = Calibration(
 )
 
 blue_laser_calibration = Calibration(
-    calibration_date=datetime.datetime(2023,10,2,10,22,13),
+    calibration_date=datetime.datetime(2023, 10, 2, 10, 22, 13),
     device_name="Blue Laser",
     description="Laser power calibration",
     input={"power percent": [10, 20, 40]},
@@ -172,7 +172,7 @@ blue_laser_calibration = Calibration(
 
 rig = Rig(
     rig_id="323_EPHYS1",
-    modification_date=datetime.date(2023,10,3),
+    modification_date=datetime.date(2023, 10, 3),
     modalities=[Modality.ECEPHYS],
     ephys_assemblies=[ephys_assemblyA, ephys_assemblyB],
     cameras=[camassm1, camassm2],

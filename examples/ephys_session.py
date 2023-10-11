@@ -4,7 +4,7 @@ from datetime import datetime
 
 from aind_data_schema.coordinates import Coordinates3d
 from aind_data_schema.data_description import Modality
-from aind_data_schema.session import(
+from aind_data_schema.session import (
     DomeModule,
     EphysModule,
     EphysProbe,
