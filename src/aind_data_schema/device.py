@@ -365,7 +365,7 @@ class Laser(Device):
 class LightEmittingDiode(Device):
     """Description of a Light Emitting Diode (LED) device"""
 
-    lightsource_type: Literal["LED"] = Field(default="LED", title="Lightsource type", readOnly=True)
+    lightsource_type: Literal["LED"] = Field(default="LED", title="Lightsource type", const=True, readOnly=True)
     manufacturer: EnumSubset[
         Manufacturer.DORIC,
         Manufacturer.PRIZMATIX,
