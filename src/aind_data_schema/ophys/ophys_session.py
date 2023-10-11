@@ -88,7 +88,7 @@ class OphysSession(AindCoreModel):
     """Description of an ophys session"""
 
     schema_version: str = Field(
-        "0.2.10",
+        "0.2.11",
         description="schema version",
         title="Schema Version",
         const=True,
