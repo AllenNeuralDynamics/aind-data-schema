@@ -23,6 +23,10 @@
             {
                "name": "Extracellular electrophysiology",
                "abbreviation": "ecephys"
+            },
+            {
+               "name": "Behavior videos",
+               "abbreviation": "behavior-videos"
             }
          ],
          "daq_names": [

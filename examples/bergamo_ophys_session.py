@@ -27,7 +27,7 @@ s = Session(
         Stream(
             stream_start_time=t,
             stream_end_time=t,
-            stream_modalities=[Modality.POPHYS],
+            stream_modalities=[Modality.POPHYS, Modality.BEHAVIOR_VIDEOS],
             light_sources=[
                 Laser(
                     name="Laser A",

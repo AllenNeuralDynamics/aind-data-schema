@@ -23,6 +23,10 @@
             {
                "name": "Planar optical physiology",
                "abbreviation": "ophys"
+            },
+            {
+               "name": "Behavior videos",
+               "abbreviation": "behavior-videos"
             }
          ],
          "daq_names": null,
