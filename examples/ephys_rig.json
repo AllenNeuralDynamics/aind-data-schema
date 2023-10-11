@@ -1,7 +1,289 @@
 {
-   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/ephys/ephys_rig.py",
-   "schema_version": "0.7.12",
+   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/rig.py",
+   "schema_version": "0.1.0",
    "rig_id": "323_EPHYS1",
+   "modification_date": "2023-10-03",
+   "modalities": [
+      {
+         "name": "Extracellular electrophysiology",
+         "abbreviation": "ecephys"
+      }
+   ],
+   "mouse_platform": {
+      "name": "Running Wheel",
+      "serial_number": null,
+      "manufacturer": null,
+      "model": null,
+      "notes": null,
+      "surface_material": null,
+      "date_surface_replaced": null,
+      "platform_type": "Disc",
+      "radius": 15,
+      "radius_unit": "centimeter",
+      "output": null,
+      "encoder": null,
+      "decoder": null,
+      "encoder_firmware": null
+   },
+   "stimulus_devices": null,
+   "cameras": [
+      {
+         "camera_assembly_name": "Face Camera Assembly",
+         "camera_target": "Face side",
+         "camera": {
+            "name": "Face Camera",
+            "serial_number": null,
+            "manufacturer": {
+               "name": "Teledyne FLIR",
+               "abbreviation": "FLIR",
+               "registry": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "registry_identifier": "01j1gwp17"
+            },
+            "model": null,
+            "notes": null,
+            "data_interface": "USB",
+            "computer_name": "W10DT72941",
+            "max_frame_rate": 500,
+            "frame_rate_unit": "hertz",
+            "pixel_width": 1080,
+            "pixel_height": 570,
+            "size_unit": "pixel",
+            "chroma": "Monochrome",
+            "sensor_format": "1/2.9\"",
+            "format_unit": null,
+            "recording_software": null,
+            "driver": null,
+            "driver_version": null
+         },
+         "lens": {
+            "name": null,
+            "serial_number": null,
+            "manufacturer": {
+               "name": "Edmund Optics",
+               "abbreviation": null,
+               "registry": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "registry_identifier": "01j1gwp17"
+            },
+            "model": null,
+            "notes": null,
+            "focal_length": 15,
+            "focal_length_unit": "millimeter",
+            "size": null,
+            "lens_size_unit": "inch",
+            "optimized_wavelength_range": null,
+            "wavelength_unit": "nanometer",
+            "max_aperture": "f/2"
+         },
+         "filter": {
+            "name": null,
+            "serial_number": null,
+            "manufacturer": {
+               "name": "Thorlabs",
+               "abbreviation": null,
+               "registry": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "registry_identifier": "04gsnvb07"
+            },
+            "model": null,
+            "notes": null,
+            "filter_type": "Long pass",
+            "diameter": null,
+            "width": null,
+            "height": null,
+            "size_unit": "millimeter",
+            "thickness": null,
+            "thickness_unit": "millimeter",
+            "filter_wheel_index": null,
+            "cut_off_wavelength": null,
+            "cut_on_wavelength": null,
+            "center_wavelength": null,
+            "wavelength_unit": "nanometer",
+            "description": "850 nm longpass filter"
+         },
+         "position": null
+      },
+      {
+         "camera_assembly_name": "Body Camera Assembly",
+         "camera_target": "Body",
+         "camera": {
+            "name": "Body Camera",
+            "serial_number": null,
+            "manufacturer": {
+               "name": "Teledyne FLIR",
+               "abbreviation": "FLIR",
+               "registry": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "registry_identifier": "01j1gwp17"
+            },
+            "model": null,
+            "notes": null,
+            "data_interface": "USB",
+            "computer_name": "W10DT72941",
+            "max_frame_rate": 500,
+            "frame_rate_unit": "hertz",
+            "pixel_width": 1080,
+            "pixel_height": 570,
+            "size_unit": "pixel",
+            "chroma": "Monochrome",
+            "sensor_format": "1/2.9\"",
+            "format_unit": null,
+            "recording_software": null,
+            "driver": null,
+            "driver_version": null
+         },
+         "lens": {
+            "name": null,
+            "serial_number": null,
+            "manufacturer": {
+               "name": "Edmund Optics",
+               "abbreviation": null,
+               "registry": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "registry_identifier": "01j1gwp17"
+            },
+            "model": null,
+            "notes": null,
+            "focal_length": 15,
+            "focal_length_unit": "millimeter",
+            "size": null,
+            "lens_size_unit": "inch",
+            "optimized_wavelength_range": null,
+            "wavelength_unit": "nanometer",
+            "max_aperture": "f/2"
+         },
+         "filter": {
+            "name": null,
+            "serial_number": null,
+            "manufacturer": {
+               "name": "Thorlabs",
+               "abbreviation": null,
+               "registry": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "registry_identifier": "04gsnvb07"
+            },
+            "model": null,
+            "notes": null,
+            "filter_type": "Long pass",
+            "diameter": null,
+            "width": null,
+            "height": null,
+            "size_unit": "millimeter",
+            "thickness": null,
+            "thickness_unit": "millimeter",
+            "filter_wheel_index": null,
+            "cut_off_wavelength": null,
+            "cut_on_wavelength": null,
+            "center_wavelength": null,
+            "wavelength_unit": "nanometer",
+            "description": "850 nm longpass filter"
+         },
+         "position": null
+      }
+   ],
+   "daqs": [
+      {
+         "name": "Basestation Slot 3",
+         "serial_number": null,
+         "manufacturer": {
+            "name": "Interuniversity Microelectronics Center",
+            "abbreviation": "IMEC",
+            "registry": {
+               "name": "Research Organization Registry",
+               "abbreviation": "ROR"
+            },
+            "registry_identifier": "02kcbn207"
+         },
+         "model": null,
+         "notes": null,
+         "daq_device_type": "NeuropixelsBasestation",
+         "data_interface": "PXI",
+         "computer_name": "W10DT72942",
+         "channels": null,
+         "basestation_firmware_version": "2.019",
+         "bsc_firmware_version": "2.199",
+         "slot": 3,
+         "ports": [
+            {
+               "index": 1,
+               "probes": [
+                  "Probe A"
+               ]
+            },
+            {
+               "index": 2,
+               "probes": [
+                  "Probe B"
+               ]
+            }
+         ]
+      },
+      {
+         "name": "Harp Behavior",
+         "serial_number": null,
+         "manufacturer": {
+            "name": "Open Ephys Production Site",
+            "abbreviation": "OEPS",
+            "registry": {
+               "name": "Research Organization Registry",
+               "abbreviation": "ROR"
+            },
+            "registry_identifier": "007rkz355"
+         },
+         "model": null,
+         "notes": null,
+         "daq_device_type": "HarpDevice",
+         "data_interface": "USB",
+         "computer_name": "W10DT72941",
+         "channels": [
+            {
+               "channel_name": "DO0",
+               "device_name": "Face Camera",
+               "channel_type": "Digital Output",
+               "port": null,
+               "channel_index": null,
+               "sample_rate": null,
+               "sample_rate_unit": "hertz",
+               "event_based_sampling": false
+            },
+            {
+               "channel_name": "DO1",
+               "device_name": "Body Camera",
+               "channel_type": "Digital Output",
+               "port": null,
+               "channel_index": null,
+               "sample_rate": null,
+               "sample_rate_unit": "hertz",
+               "event_based_sampling": false
+            },
+            {
+               "channel_name": "AI0",
+               "device_name": "Running Wheel",
+               "channel_type": "Analog Input",
+               "port": null,
+               "channel_index": null,
+               "sample_rate": null,
+               "sample_rate_unit": "hertz",
+               "event_based_sampling": false
+            }
+         ],
+         "harp_device_type": "Behavior",
+         "harp_device_version": "2.1"
+      }
+   ],
    "ephys_assemblies": [
       {
          "ephys_assembly_name": "Ephys_assemblyA",
@@ -178,281 +460,55 @@
          ]
       }
    ],
-   "cameras": [
-      {
-         "camera_assembly_name": "Face Camera Assembly",
-         "camera_target": "Face side",
-         "camera": {
-            "name": "Face Camera",
-            "serial_number": null,
-            "manufacturer": {
-               "name": "Teledyne FLIR",
-               "abbreviation": "FLIR",
-               "registry": {
-                  "name": "Research Organization Registry",
-                  "abbreviation": "ROR"
-               },
-               "registry_identifier": "01j1gwp17"
-            },
-            "model": null,
-            "notes": null,
-            "data_interface": "USB",
-            "computer_name": "W10DT72941",
-            "max_frame_rate": 500,
-            "frame_rate_unit": "hertz",
-            "pixel_width": 1080,
-            "pixel_height": 570,
-            "size_unit": "pixel",
-            "chroma": "Monochrome",
-            "sensor_format": "1/2.9\"",
-            "format_unit": null,
-            "recording_software": null,
-            "driver": null,
-            "driver_version": null
-         },
-         "lens": {
-            "name": null,
-            "serial_number": null,
-            "manufacturer": {
-               "name": "Edmund Optics",
-               "abbreviation": null,
-               "registry": {
-                  "name": "Research Organization Registry",
-                  "abbreviation": "ROR"
-               },
-               "registry_identifier": "01j1gwp17"
-            },
-            "model": null,
-            "notes": null,
-            "focal_length": 15,
-            "focal_length_unit": "millimeter",
-            "size": null,
-            "lens_size_unit": "inch",
-            "optimized_wavelength_range": null,
-            "wavelength_unit": "nanometer",
-            "max_aperture": "f/2"
-         },
-         "filter": {
-            "name": null,
-            "serial_number": null,
-            "manufacturer": {
-               "name": "Thorlabs",
-               "abbreviation": null,
-               "registry": {
-                  "name": "Research Organization Registry",
-                  "abbreviation": "ROR"
-               },
-               "registry_identifier": "04gsnvb07"
-            },
-            "model": null,
-            "notes": null,
-            "filter_type": "Long pass",
-            "diameter": null,
-            "width": null,
-            "height": null,
-            "size_unit": "millimeter",
-            "thickness": null,
-            "thickness_unit": "millimeter",
-            "filter_wheel_index": null,
-            "cut_off_wavelength": null,
-            "cut_on_wavelength": null,
-            "center_wavelength": null,
-            "wavelength_unit": "nanometer",
-            "description": "850 nm longpass filter"
-         },
-         "position": null
-      },
-      {
-         "camera_assembly_name": "Body Camera Assembly",
-         "camera_target": "Body",
-         "camera": {
-            "name": "Body Camera",
-            "serial_number": null,
-            "manufacturer": {
-               "name": "Teledyne FLIR",
-               "abbreviation": "FLIR",
-               "registry": {
-                  "name": "Research Organization Registry",
-                  "abbreviation": "ROR"
-               },
-               "registry_identifier": "01j1gwp17"
-            },
-            "model": null,
-            "notes": null,
-            "data_interface": "USB",
-            "computer_name": "W10DT72941",
-            "max_frame_rate": 500,
-            "frame_rate_unit": "hertz",
-            "pixel_width": 1080,
-            "pixel_height": 570,
-            "size_unit": "pixel",
-            "chroma": "Monochrome",
-            "sensor_format": "1/2.9\"",
-            "format_unit": null,
-            "recording_software": null,
-            "driver": null,
-            "driver_version": null
-         },
-         "lens": {
-            "name": null,
-            "serial_number": null,
-            "manufacturer": {
-               "name": "Edmund Optics",
-               "abbreviation": null,
-               "registry": {
-                  "name": "Research Organization Registry",
-                  "abbreviation": "ROR"
-               },
-               "registry_identifier": "01j1gwp17"
-            },
-            "model": null,
-            "notes": null,
-            "focal_length": 15,
-            "focal_length_unit": "millimeter",
-            "size": null,
-            "lens_size_unit": "inch",
-            "optimized_wavelength_range": null,
-            "wavelength_unit": "nanometer",
-            "max_aperture": "f/2"
-         },
-         "filter": {
-            "name": null,
-            "serial_number": null,
-            "manufacturer": {
-               "name": "Thorlabs",
-               "abbreviation": null,
-               "registry": {
-                  "name": "Research Organization Registry",
-                  "abbreviation": "ROR"
-               },
-               "registry_identifier": "04gsnvb07"
-            },
-            "model": null,
-            "notes": null,
-            "filter_type": "Long pass",
-            "diameter": null,
-            "width": null,
-            "height": null,
-            "size_unit": "millimeter",
-            "thickness": null,
-            "thickness_unit": "millimeter",
-            "filter_wheel_index": null,
-            "cut_off_wavelength": null,
-            "cut_on_wavelength": null,
-            "center_wavelength": null,
-            "wavelength_unit": "nanometer",
-            "description": "850 nm longpass filter"
-         },
-         "position": null
-      }
-   ],
-   "visual_monitors": null,
-   "mouse_platform": {
-      "name": "Running Wheel",
-      "serial_number": null,
-      "manufacturer": null,
-      "model": null,
-      "notes": null,
-      "surface_material": null,
-      "date_surface_replaced": null,
-      "platform_type": "Disc",
-      "radius": 15,
-      "radius_unit": "centimeter",
-      "output": null,
-      "encoder": null,
-      "decoder": null,
-      "encoder_firmware": null
-   },
-   "daqs": [
-      {
-         "name": "Basestation Slot 3",
-         "serial_number": null,
-         "manufacturer": {
-            "name": "Interuniversity Microelectronics Center",
-            "abbreviation": "IMEC",
-            "registry": {
-               "name": "Research Organization Registry",
-               "abbreviation": "ROR"
-            },
-            "registry_identifier": "02kcbn207"
-         },
-         "model": null,
-         "notes": null,
-         "daq_device_type": "NeuropixelsBasestation",
-         "data_interface": "PXI",
-         "computer_name": "W10DT72942",
-         "channels": null,
-         "basestation_firmware_version": "2.019",
-         "bsc_firmware_version": "2.199",
-         "slot": 3,
-         "ports": [
-            {
-               "index": 1,
-               "probes": [
-                  "Probe A"
-               ]
-            },
-            {
-               "index": 2,
-               "probes": [
-                  "Probe B"
-               ]
-            }
-         ]
-      },
-      {
-         "name": "Harp Behavior",
-         "serial_number": null,
-         "manufacturer": {
-            "name": "Open Ephys Production Site",
-            "abbreviation": "OEPS",
-            "registry": {
-               "name": "Research Organization Registry",
-               "abbreviation": "ROR"
-            },
-            "registry_identifier": "007rkz355"
-         },
-         "model": null,
-         "notes": null,
-         "daq_device_type": "HarpDevice",
-         "data_interface": "USB",
-         "computer_name": "W10DT72941",
-         "channels": [
-            {
-               "channel_name": "DO0",
-               "device_name": "Face Camera",
-               "channel_type": "Digital Output",
-               "port": null,
-               "channel_index": null,
-               "sample_rate": null,
-               "sample_rate_unit": "hertz",
-               "event_based_sampling": false
-            },
-            {
-               "channel_name": "DO1",
-               "device_name": "Body Camera",
-               "channel_type": "Digital Output",
-               "port": null,
-               "channel_index": null,
-               "sample_rate": null,
-               "sample_rate_unit": "hertz",
-               "event_based_sampling": false
-            },
-            {
-               "channel_name": "AI0",
-               "device_name": "Running Wheel",
-               "channel_type": "Analog Input",
-               "port": null,
-               "channel_index": null,
-               "sample_rate": null,
-               "sample_rate_unit": "hertz",
-               "event_based_sampling": false
-            }
-         ],
-         "harp_device_type": "Behavior",
-         "harp_device_version": "2.1"
-      }
-   ],
+   "patch_cords": null,
+   "light_sources": null,
+   "detectors": null,
+   "objectives": null,
+   "filters": null,
+   "lenses": null,
    "additional_devices": null,
+   "calibrations": [
+      {
+         "calibration_date": "2023-10-02T10:22:13",
+         "device_name": "Red Laser",
+         "description": "Laser power calibration",
+         "input": {
+            "power percent": [
+               10,
+               20,
+               40
+            ]
+         },
+         "output": {
+            "power mW": [
+               1,
+               3,
+               6
+            ]
+         },
+         "notes": null
+      },
+      {
+         "calibration_date": "2023-10-02T10:22:13",
+         "device_name": "Blue Laser",
+         "description": "Laser power calibration",
+         "input": {
+            "power percent": [
+               10,
+               20,
+               40
+            ]
+         },
+         "output": {
+            "power mW": [
+               1,
+               2,
+               7
+            ]
+         },
+         "notes": null
+      }
+   ],
+   "ccf_coordinate_transform": null,
    "notes": null
 }

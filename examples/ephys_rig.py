@@ -1,18 +1,29 @@
 """Generates an example JSON file for an ephys rig"""
 
-from aind_data_schema.device import Camera, CameraAssembly, DAQChannel, Filter, Laser, Lens, Manufacturer
-from aind_data_schema.ephys.ephys_rig import (
+import datetime
+
+from aind_data_schema.data_description import Modality
+from aind_data_schema.device import (
+    Calibration,
+    Camera,
+    CameraAssembly,
+    DAQChannel,
     Disc,
     EphysAssembly,
     EphysProbe,
-    EphysRig,
+    Filter,
     HarpDevice,
+    Laser,
     LaserAssembly,
+    Lens,
     Manipulator,
     NeuropixelsBasestation,
     ProbePort,
     StickMicroscopeAssembly,
 )
+from aind_data_schema.manufacturers import Manufacturer
+from aind_data_schema.rig import Rig
+
 
 # Describes a rig with running wheel, 2 behavior cameras, one Harp Behavior board,
 # one dual-color laser module, one stick microscope, and 2 Neuropixels probes
@@ -95,7 +106,6 @@ ephys_assemblyB = EphysAssembly(
     probes=[probeB],
 )
 
-
 filt = Filter(
     filter_type="Long pass",
     manufacturer=Manufacturer.THORLABS,
@@ -144,14 +154,33 @@ camassm2 = CameraAssembly(
     lens=lens,
 )
 
-rig = EphysRig(
+red_laser_calibration = Calibration(
+    calibration_date=datetime.datetime(2023, 10, 2, 10, 22, 13),
+    device_name="Red Laser",
+    description="Laser power calibration",
+    input={"power percent": [10, 20, 40]},
+    output={"power mW": [1, 3, 6]},
+)
+
+blue_laser_calibration = Calibration(
+    calibration_date=datetime.datetime(2023, 10, 2, 10, 22, 13),
+    device_name="Blue Laser",
+    description="Laser power calibration",
+    input={"power percent": [10, 20, 40]},
+    output={"power mW": [1, 2, 7]},
+)
+
+rig = Rig(
     rig_id="323_EPHYS1",
+    modification_date=datetime.date(2023, 10, 3),
+    modalities=[Modality.ECEPHYS],
     ephys_assemblies=[ephys_assemblyA, ephys_assemblyB],
     cameras=[camassm1, camassm2],
     laser_assemblies=[laser_assembly],
     daqs=[basestation, harp],
     stick_microscopes=[microscope],
     mouse_platform=running_wheel,
+    calibrations=[red_laser_calibration, blue_laser_calibration],
 )
 
-rig.write_standard_file()
+rig.write_standard_file(prefix="ephys")
