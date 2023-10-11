@@ -5,8 +5,11 @@ from decimal import Decimal
 from enum import Enum
 from typing import List, Optional, Union
 
-from pydantic import Field
+from pydantic import Field, root_validator
 from pydantic.typing import Annotated
+
+from pydantic import Field, root_validator
+
 
 from aind_data_schema.base import AindCoreModel, AindModel, PIDName
 from aind_data_schema.subject import Species
@@ -400,6 +403,17 @@ class NanojectInjection(BrainInjection):
         description="Injection volume, one value per location",
     )
     injection_volume_unit: VolumeUnit = Field(VolumeUnit.NL, title="Injection volume unit")
+
+    @root_validator
+    def check_dv_and_vol_list_lengths(cls, v):
+        """Validator for list length of injection volumes and depths"""
+
+        injection_vol_len = len(v.get("injection_volume"))
+        coords_len = len(v.get("injection_coordinate_depth"))
+
+        if injection_vol_len != coords_len:
+            raise ValueError("Unmatched list sizes for injection volumes and coordinate depths")
+        return v
 
 
 class IontophoresisInjection(BrainInjection):
