@@ -24,7 +24,7 @@ class SchemaVersionTests(unittest.TestCase):
             compare_versions("0.0.1", None),
             # If old schema_version is None of malformed, user can set the new
             # schema version to whatever they want
-            compare_versions("0.7.1", None),
+            compare_versions("0.7.2", None),
             compare_versions("0.0.1", "0.8"),
         ]
 
