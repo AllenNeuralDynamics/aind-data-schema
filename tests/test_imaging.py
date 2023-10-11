@@ -66,6 +66,7 @@ class ImagingTests(unittest.TestCase):
 
         i = inst.Instrument(
             instrument_type="diSPIM",
+            modification_date=datetime.datetime.now(),
             manufacturer=Manufacturer.LIFECANVAS,
             objectives=[],
             detectors=[],

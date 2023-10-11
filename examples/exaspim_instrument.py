@@ -1,10 +1,13 @@
 """ example ExaSPIM instrument """
+import datetime
+
 from aind_data_schema.device import DAQChannel, DAQDevice, Manufacturer
 from aind_data_schema.imaging import instrument
 
 inst = instrument.Instrument(
     instrument_id="exaSPIM1-1",
     instrument_type="exaSPIM",
+    modification_date=datetime.date(2023, 10, 4),
     manufacturer=Manufacturer.CUSTOM,
     objectives=[
         instrument.Objective(

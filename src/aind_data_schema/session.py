@@ -227,6 +227,7 @@ class Stream(AindModel):
         None, title="Light source", unique_items=True
     )
     ephys_modules: Optional[List[EphysModule]] = Field(None, title="Ephys modules", unique_items=True)
+    manipulator_modules: Optional[List[ManipulatorModule]] = Field(None, title="Manipulator modules", unique_items=True)
     detectors: Optional[List[Detector]] = Field(None, title="Detectors", unique_items=True)
     fiber_photometry_assemblies: Optional[List[FiberPhotometryAssembly]] = Field(None, title="Fiber photometry devices")
     ophys_fovs: Optional[List[FieldOfView]] = Field(None, title="Fields of view", unique_items=True)
