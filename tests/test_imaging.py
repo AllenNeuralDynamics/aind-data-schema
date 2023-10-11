@@ -97,6 +97,12 @@ class ImagingTests(unittest.TestCase):
                 scan_sequence_type="Other",
             )
 
+        with self.assertRaises(ValidationError):
+            mri = ms.MRIScan(
+                scan_sequence_type="Other",
+                notes=""
+            )
+
         mri = ms.MriSession(
             experimenter_full_name=["Frank Frankson"],
             subject_id=1234,
