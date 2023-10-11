@@ -2,7 +2,6 @@
 
 import datetime
 
-from aind_data_schema.ophys.ophys_session import Coupling, Detector, FiberPhotometrySession, Laser, Patch
 from aind_data_schema.data_description import Modality
 from aind_data_schema.session import Detector, FiberPhotometryAssembly, Laser, Session, Stream
 
