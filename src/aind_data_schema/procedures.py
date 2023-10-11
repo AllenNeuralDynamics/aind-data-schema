@@ -5,9 +5,8 @@ from decimal import Decimal
 from enum import Enum
 from typing import List, Optional, Union
 
-from pydantic.typing import Annotated
 from pydantic import Field, root_validator
-
+from pydantic.typing import Annotated
 
 from aind_data_schema.base import AindCoreModel, AindModel, PIDName
 from aind_data_schema.subject import Species
