@@ -45,7 +45,9 @@ class RewardDelivery(AindModel):
         """Validator for other/notes"""
 
         if v.get("reward_solution") == RewardSolution.OTHER and not v.get("notes"):
-            raise ValueError("Notes cannot be empty if reward_solution is Other. Describe the reward_solution in the notes field.")
+            raise ValueError(
+                "Notes cannot be empty if reward_solution is Other. Describe the reward_solution in the notes field."
+            )
         return v
 
 

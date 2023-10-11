@@ -84,9 +84,12 @@ class MRIScan(AindModel):
     @root_validator
     def validate_other(cls, v):
         """Validator for other/notes"""
-        
+
         if v.get("scan_sequence_type") == MriScanSequence.OTHER and not v.get("notes"):
-            raise ValueError("Notes cannot be empty if scan_sequence_type is Other. Describe the scan_sequence_type in the notes field.")
+            raise ValueError(
+                "Notes cannot be empty if scan_sequence_type is Other.",
+                "Describe the scan_sequence_type in the notes field."
+            )
         return v
 
 

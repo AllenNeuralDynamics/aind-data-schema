@@ -183,9 +183,13 @@ class Instrument(AindCoreModel):
         """Validator for other/notes"""
 
         if v.get("instrument_type") == ImagingInstrumentType.OTHER and not v.get("notes"):
-            raise ValueError("Notes cannot be empty if instrument_type is Other. Describe the instrument_type in the notes field.")
+            raise ValueError(
+                "Notes cannot be empty if instrument_type is Other. Describe the instrument_type in the notes field."
+            )
 
         if v.get("manufacturer") == Manufacturer.OTHER and not v.get("notes"):
-            raise ValueError("Notes cannot be empty if manufacturer is Other. Describe the manufacturer in the notes field.")
+            raise ValueError(
+                "Notes cannot be empty if manufacturer is Other. Describe the manufacturer in the notes field."
+            )
 
         return v

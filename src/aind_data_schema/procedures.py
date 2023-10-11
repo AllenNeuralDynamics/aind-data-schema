@@ -74,7 +74,9 @@ class SpecimenProcedure(AindModel):
         notes = v.get("notes")
 
         if procedure_type == SpecimenProcedureName.OTHER and not notes:
-            raise ValueError("Notes cannot be empty if procedure_type is Other. Describe the procedure_type in the notes field.")
+            raise ValueError(
+                "Notes cannot be empty if procedure_type is Other. Describe the procedure_type in the notes field."
+            )
         return v
 
 
