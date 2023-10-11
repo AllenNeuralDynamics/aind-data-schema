@@ -1,62 +1,80 @@
 {
-   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/ophys/ophys_session.py",
-   "schema_version": "0.2.10",
+   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/session.py",
+   "schema_version": "0.0.1",
    "experimenter_full_name": [
       "John Doe"
    ],
    "session_start_time": "2022-07-12T07:00:00",
    "session_end_time": "2022-07-12T07:00:00",
-   "subject_id": 652567,
    "session_type": "Parameter Testing",
    "iacuc_protocol": "2115",
    "rig_id": "ophys_rig",
-   "light_sources": [
+   "calibrations": null,
+   "maintenance": null,
+   "subject_id": 652567,
+   "animal_weight_prior": null,
+   "animal_weight_post": null,
+   "weight_unit": "gram",
+   "data_streams": [
       {
-         "name": "Laser A",
-         "wavelength": 405,
-         "wavelength_unit": "nanometer",
-         "excitation_power": 10,
-         "excitation_power_unit": "milliwatt"
-      },
-      {
-         "name": "Laser B",
-         "wavelength": 473,
-         "wavelength_unit": "nanometer",
-         "excitation_power": 7,
-         "excitation_power_unit": "milliwatt"
+         "stream_start_time": "2022-07-12T07:00:00",
+         "stream_end_time": "2022-07-12T07:00:00",
+         "stream_modalities": [
+            {
+               "name": "Fiber photometry",
+               "abbreviation": "fib"
+            }
+         ],
+         "daq_names": null,
+         "camera_names": null,
+         "light_sources": [
+            {
+               "name": "Laser A",
+               "wavelength": 405,
+               "wavelength_unit": "nanometer",
+               "excitation_power": 10,
+               "excitation_power_unit": "milliwatt"
+            },
+            {
+               "name": "Laser B",
+               "wavelength": 473,
+               "wavelength_unit": "nanometer",
+               "excitation_power": 7,
+               "excitation_power_unit": "milliwatt"
+            }
+         ],
+         "ephys_modules": null,
+         "manipulator_modules": null,
+         "detectors": [
+            {
+               "name": "Hamamatsu Camera",
+               "exposure_time": 10,
+               "exposure_time_unit": "millisecond",
+               "trigger_type": "Internal"
+            }
+         ],
+         "fiber_photometry_assemblies": [
+            {
+               "patch_cord_name": "Patch Cord A",
+               "patch_cord_output_power": 40,
+               "output_power_unit": "microwatt",
+               "fiber_name": "Fiber A"
+            },
+            {
+               "patch_cord_name": "Patch Cord B",
+               "patch_cord_output_power": 43,
+               "output_power_unit": "microwatt",
+               "fiber_name": "Fiber B"
+            }
+         ],
+         "ophys_fovs": null,
+         "stack_parameters": null,
+         "stimulus_device_names": null,
+         "notes": "Internal trigger. GRAB-DA2m shows signal. Unclear about GRAB-rAC"
       }
    ],
-   "detectors": [
-      {
-         "name": "Hamamatsu Camera",
-         "exposure_time": 10,
-         "exposure_time_unit": "millisecond",
-         "trigger_type": "Internal"
-      }
-   ],
-   "cameras": null,
    "stimulus_epochs": null,
-   "notes": "Internal trigger. GRAB-DA2m shows signal. Unclear about GRAB-rAC",
-   "patch_cords": [
-      {
-         "name": "Patch Cord A",
-         "output_power": 40,
-         "output_power_unit": "microwatt"
-      },
-      {
-         "name": "Patch Cord B",
-         "output_power": 43,
-         "output_power_unit": "microwatt"
-      }
-   ],
-   "coupling_array": [
-      {
-         "fiber_name": "Fiber A",
-         "patch_cord_name": "Patch Cord A"
-      },
-      {
-         "fiber_name": "Fiber B",
-         "patch_cord_name": "Patch Cord B"
-      }
-   ]
+   "reward_delivery": null,
+   "stick_microscopes": null,
+   "notes": null
 }

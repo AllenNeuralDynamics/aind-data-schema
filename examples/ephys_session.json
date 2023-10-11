@@ -1,32 +1,43 @@
 {
-   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/ephys/ephys_session.py",
-   "schema_version": "0.4.11",
+   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/session.py",
+   "schema_version": "0.0.1",
    "experimenter_full_name": [
       "Jane Doe"
    ],
    "session_start_time": "2023-01-10T08:40:00",
    "session_end_time": "2023-01-10T09:46:00",
-   "subject_id": "100001",
    "session_type": "Test",
-   "session_description": null,
-   "iacuc_protocol": null,
+   "iacuc_protocol": "1294",
    "rig_id": "323_EPHYS1",
-   "stick_microscopes": [
-      {
-         "assembly_name": "Stick_assembly",
-         "arc_angle": 24,
-         "module_angle": 10,
-         "angle_unit": "degrees",
-         "rotation_angle": 0.0,
-         "coordinate_transform": null,
-         "calibration_date": null,
-         "notes": null
-      }
-   ],
+   "calibrations": null,
+   "maintenance": null,
+   "subject_id": 100001,
+   "animal_weight_prior": 21.2,
+   "animal_weight_post": 21.3,
+   "weight_unit": "gram",
    "data_streams": [
       {
          "stream_start_time": "2023-01-10T08:43:00",
          "stream_end_time": "2023-01-10T09:43:00",
+         "stream_modalities": [
+            {
+               "name": "Extracellular electrophysiology",
+               "abbreviation": "ecephys"
+            },
+            {
+               "name": "Behavior videos",
+               "abbreviation": "behavior-videos"
+            }
+         ],
+         "daq_names": [
+            "Harp Behavior",
+            "Basestation Slot 3"
+         ],
+         "camera_names": [
+            "Face Camera",
+            "Body Camera"
+         ],
+         "light_sources": null,
          "ephys_modules": [
             {
                "assembly_name": "Ephys_assemblyA",
@@ -57,7 +68,7 @@
                ]
             }
          ],
-         "laser_modules": [
+         "manipulator_modules": [
             {
                "assembly_name": "Laser_assemblyA",
                "arc_angle": 10,
@@ -74,41 +85,30 @@
                   "y": 1000,
                   "z": 1000,
                   "unit": "micrometer"
-               },
-               "lasers": [
-                  {
-                     "name": "Red Laser",
-                     "power_level": 100,
-                     "power_unit": "milliwatt"
-                  },
-                  {
-                     "name": "Blue Laser",
-                     "power_level": 50,
-                     "power_unit": "milliwatt"
-                  }
-               ]
+               }
             }
          ],
-         "daqs": [
-            {
-               "name": "Harp Behavior"
-            },
-            {
-               "name": "Basestation Slot 3"
-            }
-         ],
-         "cameras": [
-            {
-               "name": "Face Camera"
-            },
-            {
-               "name": "Body Camera"
-            }
-         ],
-         "stimulus_epochs": null,
+         "detectors": null,
+         "fiber_photometry_assemblies": null,
+         "ophys_fovs": null,
+         "stack_parameters": null,
+         "stimulus_device_names": null,
          "notes": null
       }
    ],
-   "ccf_coordinate_transform": null,
+   "stimulus_epochs": null,
+   "reward_delivery": null,
+   "stick_microscopes": [
+      {
+         "assembly_name": "Stick_assembly",
+         "arc_angle": 24,
+         "module_angle": 10,
+         "angle_unit": "degrees",
+         "rotation_angle": 0.0,
+         "coordinate_transform": null,
+         "calibration_date": null,
+         "notes": null
+      }
+   ],
    "notes": null
 }
