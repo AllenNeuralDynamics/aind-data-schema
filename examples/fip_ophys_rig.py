@@ -1,10 +1,14 @@
 """ example FIP ophys rig """
+import datetime
 
+from aind_data_schema.data_description import Modality
 import aind_data_schema.device as d
-import aind_data_schema.ophys.ophys_rig as ophr
+import aind_data_schema.rig as r
 
-r = ophr.OphysRig(
+r = r.Rig(
     rig_id="428_FIP1_2",
+    modification_date=datetime.date(2023,10,3),
+    modalities=[Modality.FIB],
     cameras=[
         d.CameraAssembly(
             camera_assembly_name="BehaviorVideography_FaceSide",
@@ -60,7 +64,7 @@ r = ophr.OphysRig(
         ),
     ],
     patch_cords=[
-        ophr.Patch(
+        d.Patch(
             name="Bundle Branching Fiber-optic Patch Cord",
             manufacturer=d.Manufacturer.DORIC,
             model="BBP(4)_200/220/900-0.37_Custom_FCM-4xMF1.25",
@@ -89,7 +93,7 @@ r = ophr.OphysRig(
         ),
     ],
     detectors=[
-        ophr.Detector(
+        d.Detector(
             name="FLIR CMOS for Green Channel",
             serial_number="21396991",
             manufacturer=d.Manufacturer.FLIR,
@@ -107,7 +111,7 @@ r = ophr.OphysRig(
             chroma="Monochrome",
             bit_depth=16,
         ),
-        ophr.Detector(
+        d.Detector(
             name="FLIR CMOS for Red Channel",
             serial_number="21396991",
             manufacturer=d.Manufacturer.FLIR,
@@ -127,7 +131,7 @@ r = ophr.OphysRig(
         ),
     ],
     objectives=[
-        ophr.Objective(
+        d.Objective(
             name="Nikon 10x Objective",
             serial_number="128022336",
             manufacturer=d.Manufacturer.NIKON,
@@ -263,7 +267,15 @@ r = ophr.OphysRig(
         )
     ],
     mouse_platform=d.Disc(radius=8.5),
-    stimulus_devices=[],
+    calibrations=[
+        d.Calibration(
+            calibration_date=datetime.datetime(2023,10,2,3,15,22),
+            device_name="470nm LED",
+            description="LED calibration",
+            input={"Power setting": [1, 2, 3]},
+            output={"Power mW": [5, 10, 13]},
+        )
+    ],
 )
 
-r.write_standard_file(prefix="fip")
+r.write_standard_file(prefix="fip_ophys")
