@@ -136,6 +136,7 @@ class ProceduresTests(unittest.TestCase):
                 reagents=[],
                 notes=None,
             )
+            
     def test_coordinate_volume_validator(self):
         """Test validator for list lengths on NanojectInjection"""
 
