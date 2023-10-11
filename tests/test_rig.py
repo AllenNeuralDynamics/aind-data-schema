@@ -18,7 +18,7 @@ from aind_data_schema.device import (
     LaserAssembly,
     Lens,
     Manipulator,
-    NeuropixelsBasestation
+    NeuropixelsBasestation,
 )
 from aind_data_schema.manufacturers import Manufacturer
 from aind_data_schema.rig import Rig

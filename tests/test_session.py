@@ -5,8 +5,8 @@ import unittest
 
 import pydantic
 
-from aind_data_schema.data_description import Modality
 from aind_data_schema.coordinates import CcfCoords, Coordinates3d
+from aind_data_schema.data_description import Modality
 from aind_data_schema.session import EphysModule, EphysProbe, Session, Stream
 
 
