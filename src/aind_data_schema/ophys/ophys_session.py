@@ -8,10 +8,12 @@ from enum import Enum
 from typing import List, Optional, Union
 
 from pydantic import Field
+from pydantic.typing import Annotated
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.imaging.tile import Channel
 from aind_data_schema.procedures import TimeUnit
+from aind_data_schema.session import Laser, LightEmittingDiode
 from aind_data_schema.stimulus import StimulusEpoch
 from aind_data_schema.utils.units import FrequencyUnit, PowerUnit, SizeUnit
 
@@ -68,24 +70,6 @@ class LaserName(Enum):
     LASER_E = "Laser E"
 
 
-class Laser(AindModel):
-    """Description of a laser"""
-
-    name: LaserName = Field(..., title="Name")
-    wavelength: int = Field(..., title="Wavelength (nm)")
-    wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
-    excitation_power: Optional[Decimal] = Field(None, title="Excitation power (mW)")
-    excitation_power_unit: PowerUnit = Field(PowerUnit.MW, title="Excitation power unit")
-
-
-class LightEmittingDiode(AindModel):
-    """Description of a LED"""
-
-    name: str = Field(..., title="Name")
-    excitation_power: Optional[Decimal] = Field(None, title="Excitation power (mW)")
-    excitation_power_unit: PowerUnit = Field(PowerUnit.MW, title="Excitation power unit")
-
-
 class Patch(AindModel):
     """Description of a patch"""
 
@@ -104,7 +88,7 @@ class OphysSession(AindCoreModel):
     """Description of an ophys session"""
 
     schema_version: str = Field(
-        "0.2.10",
+        "0.2.11",
         description="schema version",
         title="Schema Version",
         const=True,
@@ -120,7 +104,12 @@ class OphysSession(AindCoreModel):
     session_type: str = Field(..., title="Session type")
     iacuc_protocol: Optional[str] = Field(None, title="IACUC protocol")
     rig_id: str = Field(..., title="Rig ID")
-    light_sources: List[Union[Laser, LightEmittingDiode]] = Field(..., title="Light source", unique_items=True)
+    light_sources: Optional[
+        Annotated[
+            List[Union[Laser, LightEmittingDiode]],
+            Field(None, title="Light sources", unique_items=True, discriminator="device_type"),
+        ]
+    ]
     detectors: Optional[List[Detector]] = Field(None, title="Detectors", unique_items=True)
     cameras: Optional[List[Camera]] = Field(None, title="Cameras", unique_items=True)
     stimulus_epochs: Optional[List[StimulusEpoch]] = Field(None, title="Stimulus")

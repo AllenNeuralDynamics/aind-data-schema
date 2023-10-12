@@ -8,6 +8,7 @@ from enum import Enum
 from typing import List, Optional
 
 from pydantic import Field, root_validator
+from pydantic.typing import Literal
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.device import (
@@ -48,6 +49,7 @@ class Cooling(Enum):
 class Detector(Device):
     """Description of a detector device"""
 
+    device_type: Literal["Detector"] = Field("Detector", const=True, readOnly=True)
     type: CameraType = Field(..., title="Detector type")
     data_interface: DataInterface = Field(..., title="Data interface")
     cooling: Cooling = Field(..., title="Cooling")
@@ -65,6 +67,7 @@ class LightsourceType(Enum):
 class Lightsource(Device):
     """Description of lightsource device"""
 
+    device_type: Literal["Lightsource"] = Field("Lightsource", const=True, readOnly=True)
     type: LightsourceType = Field(..., title="Lightsource Type")
     coupling: Coupling = Field(..., title="Coupling")
     wavelength: Decimal = Field(..., title="Wavelength (nm)", units="nm", ge=300, le=1000)
@@ -106,6 +109,7 @@ class ImagingInstrumentType(Enum):
 class AdditionalImagingDevice(Device):
     """Description of additional devices"""
 
+    device_type: Literal["AdditionalImagingDevice"] = Field("AdditionalImagingDevice", const=True, readOnly=True)
     type: ImagingDeviceType = Field(..., title="Device type")
 
 
@@ -135,6 +139,7 @@ class ScanningStage(MotorizedStage):
 class OpticalTable(Device):
     """Description of Optical Table"""
 
+    device_type: Literal["OpticalTable"] = Field("OpticalTable", const=True, readOnly=True)
     length: Optional[Decimal] = Field(None, title="Length (inches)", units="inches", ge=0)
     width: Optional[Decimal] = Field(None, title="Width (inches)", units="inches", ge=0)
     table_size_unit: SizeUnit = Field(SizeUnit.IN, title="Table size unit")
@@ -144,7 +149,7 @@ class OpticalTable(Device):
 class Instrument(AindCoreModel):
     """Description of an instrument, which is a collection of devices"""
 
-    schema_version: str = Field("0.8.1", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.8.2", description="schema version", title="Version", const=True)
     instrument_id: Optional[str] = Field(
         None,
         description="Unique identifier for this instrument. Naming convention: <room>-<apparatus>-<version>",

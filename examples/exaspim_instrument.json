@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/imaging/instrument.py",
-   "schema_version": "0.8.1",
+   "schema_version": "0.8.2",
    "instrument_id": "exaSPIM1-1",
    "modification_date": "2023-10-04",
    "instrument_type": "exaSPIM",
@@ -14,6 +14,7 @@
    "humidity_control": false,
    "optical_tables": [
       {
+         "device_type": "OpticalTable",
          "name": null,
          "serial_number": "Unknown",
          "manufacturer": {
@@ -35,6 +36,7 @@
    ],
    "objectives": [
       {
+         "device_type": "Objective",
          "name": null,
          "serial_number": "Unknown",
          "manufacturer": {
@@ -52,6 +54,7 @@
    ],
    "detectors": [
       {
+         "device_type": "Detector",
          "name": null,
          "serial_number": "MB151BAY001",
          "manufacturer": {
@@ -69,6 +72,7 @@
    ],
    "light_sources": [
       {
+         "device_type": "Lightsource",
          "name": null,
          "serial_number": "LAS-08307",
          "manufacturer": {
@@ -87,6 +91,7 @@
          "power_unit": "milliwatt"
       },
       {
+         "device_type": "Lightsource",
          "name": null,
          "serial_number": "LAS-08308",
          "manufacturer": {
@@ -105,6 +110,7 @@
          "power_unit": "milliwatt"
       },
       {
+         "device_type": "Lightsource",
          "name": null,
          "serial_number": "539251",
          "manufacturer": {
@@ -123,6 +129,7 @@
          "power_unit": "milliwatt"
       },
       {
+         "device_type": "Lightsource",
          "name": null,
          "serial_number": "LAS-08309",
          "manufacturer": {
@@ -143,6 +150,7 @@
    ],
    "fluorescence_filters": [
       {
+         "device_type": "Filter",
          "name": null,
          "serial_number": "Unknown-0",
          "manufacturer": {
@@ -171,6 +179,7 @@
    "motorized_stages": null,
    "scanning_stages": [
       {
+         "device_type": "MotorizedStage",
          "name": null,
          "serial_number": "Unknown",
          "manufacturer": {
@@ -188,6 +197,7 @@
          "stage_axis_name": "X"
       },
       {
+         "device_type": "MotorizedStage",
          "name": null,
          "serial_number": "Unknown",
          "manufacturer": {
@@ -205,6 +215,7 @@
          "stage_axis_name": "Y"
       },
       {
+         "device_type": "MotorizedStage",
          "name": null,
          "serial_number": "Unknown",
          "manufacturer": {
@@ -224,6 +235,7 @@
    ],
    "daqs": [
       {
+         "device_type": "DAQDevice",
          "name": "Dev2",
          "serial_number": "Unknown",
          "manufacturer": {
@@ -305,6 +317,7 @@
    ],
    "additional_devices": [
       {
+         "device_type": "AdditionalImagingDevice",
          "name": null,
          "serial_number": "01",
          "manufacturer": {
@@ -318,6 +331,7 @@
          "type": "Tunable lens"
       },
       {
+         "device_type": "AdditionalImagingDevice",
          "name": null,
          "serial_number": "01",
          "manufacturer": {
@@ -334,6 +348,7 @@
          "type": "Rotation mount"
       },
       {
+         "device_type": "AdditionalImagingDevice",
          "name": null,
          "serial_number": "L6CC-00513",
          "manufacturer": {
