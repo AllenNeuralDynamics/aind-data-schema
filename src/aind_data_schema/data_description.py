@@ -31,6 +31,10 @@ class DataRegex(Enum):
         f"^(?P<input>.+?_{RegexParts.DATE.value}_{RegexParts.TIME.value})_(?P<process_name>.+?)_(?P<c_date>"
         f"{RegexParts.DATE.value})_(?P<c_time>{RegexParts.TIME.value})"
     )
+    ANALYZED = (
+        f"^(?P<project_abbreviation>.+?)_(?P<analysis-name>.+?)_(?P<c_date>"
+        f"{RegexParts.DATE.value})_(?P<c_time>{RegexParts.TIME.value})$"
+    )
     NO_UNDERSCORES = "^[^_]+$"
 
 
@@ -436,4 +440,26 @@ class RawDataDescription(DataDescription):
             platform=platform,
             subject_id=m.group("subject_id"),
             creation_time=creation_time,
+        )
+
+
+class AnalysisDescription(DataDescription):
+    """A collection of data files as analyzed from an asset"""
+
+    data_level: DataLevel = Field(
+        DataLevel.DERIVED,
+        description="Level of processing that data has undergone",
+        title="Data Level",
+        const=True
+    )
+
+    def __init__(self, project, analysis_name, **kwargs):
+        if isinstance(project, dict):
+            project_abbreviation = project.get("abbreviation")
+        else:
+            project_abbreviation = project.value.abbreviation
+
+        super().__init__(
+            label=f"{project_abbreviation}_{analysis_name}",
+            
         )
