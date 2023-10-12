@@ -454,6 +454,8 @@ class AnalysisDescription(DataDescription):
     )
 
     def __init__(self, analysis_name, **kwargs):
+        """Construct an analysis data description"""
+        
         project_name = kwargs["project_name"]
         super().__init__(
             label=f"{project_name}_{analysis_name}",
