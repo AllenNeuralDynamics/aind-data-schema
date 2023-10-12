@@ -8,6 +8,7 @@ from enum import Enum
 from typing import Any, Dict, List, Optional, Union
 
 from pydantic import Field
+from pydantic.typing import Annotated, Literal
 
 from aind_data_schema.base import AindModel
 from aind_data_schema.utils.units import FrequencyUnit, PowerUnit, TimeUnit, VolumeUnit
@@ -24,6 +25,9 @@ class PulseShape(Enum):
 class OptoStimulation(AindModel):
     """Description of opto stimulation parameters"""
 
+    stimulus_type: Literal["OptoStimulation"] = Field(
+        default="OptoStimulation", title="OptoStimulation", const=True, readOnly=True
+    )
     stimulus_name: str = Field(..., title="Stimulus name")
     pulse_shape: PulseShape = Field(..., title="Pulse shape")
     pulse_frequency: int = Field(..., title="Pulse frequency (Hz)")
@@ -51,6 +55,9 @@ class OptoStimulation(AindModel):
 class VisualStimulation(AindModel):
     """Description of visual stimulus parameters. Provides a high level description of stimulus."""
 
+    stimulus_type: Literal["VisualStimulation"] = Field(
+        default="VisualStimulation", title="VisualStimulation", const=True, readOnly=True
+    )
     stimulus_name: str = Field(..., title="Stimulus name")
     stimulus_parameters: Optional[Dict[str, Any]] = Field(
         None,
@@ -80,6 +87,9 @@ class VisualStimulation(AindModel):
 class BehaviorStimulation(AindModel):
     """Description of behavior parameters. Provides a high level description of stimulus."""
 
+    stimulus_type: Literal["BehaviorStimulation"] = Field(
+        default="BehaviorStimulation", title="BehaviorStimulation", const=True, readOnly=True
+    )
     behavior_name: str = Field(..., title="Behavior name")
     session_number: int = Field(..., title="Session number")
     behavior_software: str = Field(
@@ -131,6 +141,9 @@ class PhotoStimulationGroup(AindModel):
 class PhotoStimulation(AindModel):
     """Description of a photostimulation session"""
 
+    stimulus_type: Literal["PhotoStimulation"] = Field(
+        default="PhotoStimulation", title="PhotoStimulation", const=True, readOnly=True
+    )
     stimulus_name: str = Field(..., title="Stimulus name")
     number_groups: int = Field(..., title="Number of groups")
     groups: List[PhotoStimulationGroup] = Field(..., title="Groups")
@@ -143,9 +156,10 @@ class PhotoStimulation(AindModel):
 class StimulusEpoch(AindModel):
     """Description of stimulus used during session"""
 
-    stimulus: Union[OptoStimulation, VisualStimulation, BehaviorStimulation, PhotoStimulation] = Field(
-        ..., title="Stimulus"
-    )
+    stimulus: Annotated[
+        Union[OptoStimulation, VisualStimulation, BehaviorStimulation, PhotoStimulation],
+        Field(..., title="Stimulus", discriminator="stimulus_type"),
+    ]
     stimulus_start_time: time = Field(
         ...,
         title="Stimulus start time",

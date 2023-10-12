@@ -10,6 +10,7 @@
       }
    ],
    "mouse_platform": {
+      "device_type": "Disc",
       "name": null,
       "serial_number": null,
       "manufacturer": null,
@@ -17,7 +18,6 @@
       "notes": null,
       "surface_material": null,
       "date_surface_replaced": null,
-      "platform_type": "Disc",
       "radius": 8.5,
       "radius_unit": "centimeter",
       "output": null,
@@ -31,6 +31,7 @@
          "camera_assembly_name": "BehaviorVideography_FaceSide",
          "camera_target": "Face side",
          "camera": {
+            "device_type": "Camera",
             "name": "ELP Camera USB 1080P Infrared Webcam 1",
             "serial_number": "TBD",
             "manufacturer": {
@@ -60,6 +61,7 @@
             "driver_version": null
          },
          "lens": {
+            "device_type": "Lens",
             "name": "Xenocam 1",
             "serial_number": "unknown",
             "manufacturer": {
@@ -85,6 +87,7 @@
          "camera_assembly_name": "BehaviorVideography_FaceBottom",
          "camera_target": "Face bottom",
          "camera": {
+            "device_type": "Camera",
             "name": "ELP Camera USB 1080P Infrared Webcam 2",
             "serial_number": "TBD",
             "manufacturer": {
@@ -114,6 +117,7 @@
             "driver_version": null
          },
          "lens": {
+            "device_type": "Lens",
             "name": "Xenocam 2",
             "serial_number": "unknown",
             "manufacturer": {
@@ -138,6 +142,7 @@
    ],
    "daqs": [
       {
+         "device_type": "DAQDevice",
          "name": "USB DAQ",
          "serial_number": null,
          "manufacturer": {
@@ -192,6 +197,7 @@
    "laser_assemblies": null,
    "patch_cords": [
       {
+         "device_type": "Patch",
          "name": "Bundle Branching Fiber-optic Patch Cord",
          "serial_number": null,
          "manufacturer": {
@@ -212,6 +218,7 @@
    ],
    "light_sources": [
       {
+         "device_type": "LightEmittingDiode",
          "name": "470nm LED",
          "serial_number": null,
          "manufacturer": {
@@ -225,11 +232,11 @@
          },
          "model": "M470F3",
          "notes": null,
-         "lightsource_type": "LED",
          "wavelength": 470,
          "wavelength_unit": "nanometer"
       },
       {
+         "device_type": "LightEmittingDiode",
          "name": "415nm LED",
          "serial_number": null,
          "manufacturer": {
@@ -243,11 +250,11 @@
          },
          "model": "M415F3",
          "notes": null,
-         "lightsource_type": "LED",
          "wavelength": 415,
          "wavelength_unit": "nanometer"
       },
       {
+         "device_type": "LightEmittingDiode",
          "name": "565nm LED",
          "serial_number": null,
          "manufacturer": {
@@ -261,13 +268,13 @@
          },
          "model": "M565F3",
          "notes": null,
-         "lightsource_type": "LED",
          "wavelength": 415,
          "wavelength_unit": "nanometer"
       }
    ],
    "detectors": [
       {
+         "device_type": "Detector",
          "name": "FLIR CMOS for Green Channel",
          "serial_number": "21396991",
          "manufacturer": {
@@ -297,6 +304,7 @@
          "crop_unit": "pixel"
       },
       {
+         "device_type": "Detector",
          "name": "FLIR CMOS for Red Channel",
          "serial_number": "21396991",
          "manufacturer": {
@@ -328,6 +336,7 @@
    ],
    "objectives": [
       {
+         "device_type": "Objective",
          "name": "Nikon 10x Objective",
          "serial_number": "128022336",
          "manufacturer": {
@@ -348,6 +357,7 @@
    ],
    "filters": [
       {
+         "device_type": "Filter",
          "name": "Green emission bandpass filter",
          "serial_number": null,
          "manufacturer": {
@@ -373,6 +383,7 @@
          "description": null
       },
       {
+         "device_type": "Filter",
          "name": "Red emission bandpass filter",
          "serial_number": null,
          "manufacturer": {
@@ -398,6 +409,7 @@
          "description": null
       },
       {
+         "device_type": "Filter",
          "name": "Emission Dichroic",
          "serial_number": null,
          "manufacturer": {
@@ -423,6 +435,7 @@
          "description": null
       },
       {
+         "device_type": "Filter",
          "name": "dual-edge standard epi-fluorescence dichroic beamsplitter",
          "serial_number": null,
          "manufacturer": {
@@ -448,6 +461,7 @@
          "description": null
       },
       {
+         "device_type": "Filter",
          "name": "Excitation filter 410nm",
          "serial_number": null,
          "manufacturer": {
@@ -476,6 +490,7 @@
          "description": null
       },
       {
+         "device_type": "Filter",
          "name": "Excitation filter 470nm",
          "serial_number": null,
          "manufacturer": {
@@ -504,6 +519,7 @@
          "description": null
       },
       {
+         "device_type": "Filter",
          "name": "Excitation filter 560nm",
          "serial_number": null,
          "manufacturer": {
@@ -532,6 +548,7 @@
          "description": null
       },
       {
+         "device_type": "Filter",
          "name": "450nm, 25.2 x 35.6mm, Dichroic Longpass Filter",
          "serial_number": null,
          "manufacturer": {
@@ -560,6 +577,7 @@
          "description": null
       },
       {
+         "device_type": "Filter",
          "name": "500nm, 25.2 x 35.6mm, Dichroic Longpass Filter",
          "serial_number": null,
          "manufacturer": {
@@ -590,6 +608,7 @@
    ],
    "lenses": [
       {
+         "device_type": "Lens",
          "name": "Image focusing lens",
          "serial_number": null,
          "manufacturer": {

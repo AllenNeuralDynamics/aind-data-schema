@@ -6,13 +6,13 @@ from enum import Enum
 from typing import List, Optional, Union
 
 from pydantic import Field, root_validator
+from pydantic.typing import Annotated, Literal
 
 from aind_data_schema.base import AindCoreModel, AindModel, EnumSubset
 from aind_data_schema.device import (
     Camera,
     CameraAssembly,
     DAQDevice,
-    DataInterface,
     Device,
     Disc,
     HarpDevice,
@@ -20,6 +20,8 @@ from aind_data_schema.device import (
     Lens,
     Manufacturer,
     Monitor,
+    NeuropixelsBasestation,
+    OpenEphysAcquisitionBoard,
     Treadmill,
     Tube,
 )
@@ -32,33 +34,10 @@ class ProbePort(AindModel):
     probes: List[str] = Field(..., title="Names of probes connected to this port")
 
 
-class NeuropixelsBasestation(DAQDevice):
-    """PXI-based Neuropixels DAQ"""
-
-    # required fields
-    basestation_firmware_version: str = Field(..., title="Basestation firmware version")
-    bsc_firmware_version: str = Field(..., title="Basestation connect board firmware")
-    slot: int = Field(..., title="Slot number for this basestation")
-    ports: List[ProbePort] = Field(..., title="Basestation ports")
-
-    # fixed values
-    data_interface: DataInterface = Field(DataInterface.PXI, const=True)
-    manufacturer: Manufacturer = Field(Manufacturer.IMEC, const=True)
-
-
-class OpenEphysAcquisitionBoard(DAQDevice):
-    """Multichannel electrophysiology DAQ"""
-
-    # required fields
-    ports: List[ProbePort] = Field(..., title="Acquisition board ports")
-
-    # fixed values
-    data_interface: DataInterface = Field("USB", const=True)
-    manufacturer: Manufacturer = Manufacturer.OEPS
-
-
 class Manipulator(Device):
     """Manipulator used on a dome module"""
+
+    device_type: Literal["Manipulator"] = Field("Manipulator", const=True, readOnly=True)
 
     manufacturer: EnumSubset[Manufacturer.NEW_SCALE_TECHNOLOGIES]
 
@@ -104,11 +83,14 @@ class HeadstageModel(Enum):
 class Headstage(Device):
     """Headstage used with an ephys probe"""
 
+    device_type: Literal["Headstage"] = Field("Headstage", const=True, readOnly=True)
     headstage_model: Optional[HeadstageModel] = Field(None, title="Headstage model")
 
 
 class EphysProbe(Device):
     """Named probe used in an ephys experiment"""
+
+    device_type: Literal["EphysProbe"] = Field("EphysProbe", const=True, readOnly=True)
 
     # required fields
     probe_model: ProbeModel = Field(..., title="Probe model")
@@ -129,17 +111,22 @@ class EphysAssembly(AindModel):
 class EphysRig(AindCoreModel):
     """Description of an ephys rig. This is being deprecated after 2023-11-01."""
 
-    schema_version: str = Field("0.7.13", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.7.14", description="schema version", title="Version", const=True)
     rig_id: str = Field(..., description="room_stim apparatus_version", title="Rig ID")
     ephys_assemblies: Optional[List[EphysAssembly]] = Field(None, title="Ephys probes", unique_items=True)
     stick_microscopes: Optional[List[StickMicroscopeAssembly]] = Field(None, title="Stick microscopes")
     laser_assemblies: Optional[List[LaserAssembly]] = Field(None, title="Laser modules", unique_items=True)
     cameras: Optional[List[CameraAssembly]] = Field(None, title="Camera assemblies", unique_items=True)
     visual_monitors: Optional[List[Monitor]] = Field(None, title="Visual monitors", unique_items=True)
-    mouse_platform: Optional[Union[Tube, Treadmill, Disc]] = Field(None, title="Mouse platform")
-    daqs: Optional[List[Union[HarpDevice, NeuropixelsBasestation, OpenEphysAcquisitionBoard, DAQDevice]]] = Field(
-        None, title="Data acquisition devices"
-    )
+    mouse_platform: Optional[
+        Annotated[Union[Tube, Treadmill, Disc], Field(None, title="Mouse platform", discriminator="device_type")]
+    ]
+    daqs: Optional[
+        Annotated[
+            List[Union[HarpDevice, NeuropixelsBasestation, OpenEphysAcquisitionBoard, DAQDevice]],
+            Field(None, title="Data acquisition devices", discriminator="device_type"),
+        ]
+    ]
     additional_devices: Optional[List[Device]] = Field(None, title="Additional devices", unique_items=True)
     notes: Optional[str] = Field(None, title="Notes")
 

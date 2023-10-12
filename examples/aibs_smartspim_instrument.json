@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/imaging/instrument.py",
-   "schema_version": "0.8.1",
+   "schema_version": "0.8.2",
    "instrument_id": "SmartSPIM2-2",
    "modification_date": "2023-10-04",
    "instrument_type": "SmartSPIM",
@@ -14,6 +14,7 @@
    "humidity_control": false,
    "optical_tables": [
       {
+         "device_type": "OpticalTable",
          "name": null,
          "serial_number": "Unknown",
          "manufacturer": {
@@ -32,6 +33,7 @@
    ],
    "objectives": [
       {
+         "device_type": "Objective",
          "name": null,
          "serial_number": "Unknown",
          "manufacturer": {
@@ -52,6 +54,7 @@
    ],
    "detectors": [
       {
+         "device_type": "Detector",
          "name": null,
          "serial_number": "001107",
          "manufacturer": {
@@ -72,6 +75,7 @@
    ],
    "light_sources": [
       {
+         "device_type": "Lightsource",
          "name": "Ex_488",
          "serial_number": "VL01222A11",
          "manufacturer": {
@@ -90,6 +94,7 @@
          "power_unit": "milliwatt"
       },
       {
+         "device_type": "Lightsource",
          "name": "Ex_561",
          "serial_number": "417927",
          "manufacturer": {
@@ -111,6 +116,7 @@
          "power_unit": "milliwatt"
       },
       {
+         "device_type": "Lightsource",
          "name": "Ex_647",
          "serial_number": "VL01222A10",
          "manufacturer": {
@@ -131,6 +137,7 @@
    ],
    "fluorescence_filters": [
       {
+         "device_type": "Filter",
          "name": "Em_525",
          "serial_number": "Unknown-1",
          "manufacturer": {
@@ -156,6 +163,7 @@
          "description": null
       },
       {
+         "device_type": "Filter",
          "name": "Em_600",
          "serial_number": "Unknown-2",
          "manufacturer": {
@@ -181,6 +189,7 @@
          "description": null
       },
       {
+         "device_type": "Filter",
          "name": "Em_690",
          "serial_number": "Unknown-3",
          "manufacturer": {
@@ -208,6 +217,7 @@
    ],
    "motorized_stages": [
       {
+         "device_type": "MotorizedStage",
          "name": null,
          "serial_number": "Unknown-0",
          "manufacturer": {
@@ -223,6 +233,7 @@
          "firmware": null
       },
       {
+         "device_type": "MotorizedStage",
          "name": null,
          "serial_number": "Unknown-1",
          "manufacturer": {
@@ -238,6 +249,7 @@
          "firmware": null
       },
       {
+         "device_type": "MotorizedStage",
          "name": null,
          "serial_number": "Unknown-2",
          "manufacturer": {
@@ -253,6 +265,7 @@
          "firmware": null
       },
       {
+         "device_type": "MotorizedStage",
          "name": null,
          "serial_number": "Unknown-3",
          "manufacturer": {
@@ -268,6 +281,7 @@
          "firmware": null
       },
       {
+         "device_type": "MotorizedStage",
          "name": null,
          "serial_number": "Unknown-4",
          "manufacturer": {
@@ -285,6 +299,7 @@
    ],
    "scanning_stages": [
       {
+         "device_type": "MotorizedStage",
          "name": null,
          "serial_number": "Unknown-0",
          "manufacturer": {
@@ -302,6 +317,7 @@
          "stage_axis_name": "Z"
       },
       {
+         "device_type": "MotorizedStage",
          "name": null,
          "serial_number": "Unknown-1",
          "manufacturer": {
@@ -319,6 +335,7 @@
          "stage_axis_name": "X"
       },
       {
+         "device_type": "MotorizedStage",
          "name": null,
          "serial_number": "Unknown-2",
          "manufacturer": {
@@ -339,6 +356,7 @@
    "daqs": null,
    "additional_devices": [
       {
+         "device_type": "AdditionalImagingDevice",
          "name": null,
          "serial_number": "Unknown-1",
          "manufacturer": {
@@ -352,6 +370,7 @@
          "type": "Other"
       },
       {
+         "device_type": "AdditionalImagingDevice",
          "name": null,
          "serial_number": "Unknown-2",
          "manufacturer": {
@@ -365,6 +384,7 @@
          "type": "Other"
       },
       {
+         "device_type": "AdditionalImagingDevice",
          "name": null,
          "serial_number": "Unknown-1",
          "manufacturer": {

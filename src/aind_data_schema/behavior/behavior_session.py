@@ -45,7 +45,7 @@ class BehaviorSession(AindCoreModel):
     """Description of a behavior session. This is being deprecated after 2023-11-01."""
 
     schema_version: str = Field(
-        "0.0.9",
+        "0.0.10",
         description="Schema version",
         title="Schema Version",
         const=True,
