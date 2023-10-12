@@ -35,6 +35,7 @@
          ],
          "light_sources": [
             {
+               "device_type": "Laser",
                "name": "Laser A",
                "wavelength": 405,
                "wavelength_unit": "nanometer",

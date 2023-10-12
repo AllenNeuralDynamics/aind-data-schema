@@ -8,7 +8,7 @@ from enum import Enum
 from typing import List, Optional, Union
 
 from pydantic import Field
-from pydantic.typing import Annotated
+from pydantic.typing import Annotated, Literal
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.coordinates import CcfCoords, Coordinates3d
@@ -67,6 +67,7 @@ class Detector(AindModel):
 class LightEmittingDiode(AindModel):
     """Description of LED settings"""
 
+    device_type: Literal["LightEmittingDiode"] = Field("LightEmittingDiode", const=True, readOnly=True)
     name: str = Field(..., title="Name")
     excitation_power: Optional[Decimal] = Field(None, title="Excitation power (mW)")
     excitation_power_unit: PowerUnit = Field(PowerUnit.MW, title="Excitation power unit")
@@ -173,6 +174,7 @@ class EphysModule(ManipulatorModule):
 class Laser(AindModel):
     """Description of laser settings in a session"""
 
+    device_type: Literal["Laser"] = Field("Laser", const=True, readOnly=True)
     name: str = Field(..., title="Name", description="Must match rig json")
     wavelength: int = Field(..., title="Wavelength (nm)")
     wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
