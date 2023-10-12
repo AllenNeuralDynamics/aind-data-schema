@@ -447,19 +447,16 @@ class AnalysisDescription(DataDescription):
     """A collection of data files as analyzed from an asset"""
 
     data_level: DataLevel = Field(
-        DataLevel.DERIVED,
-        description="Level of processing that data has undergone",
-        title="Data Level",
-        const=True
+        DataLevel.DERIVED, description="Level of processing that data has undergone", title="Data Level", const=True
     )
 
     def __init__(self, analysis_name, **kwargs):
         """Construct an analysis data description"""
-        
+
         project_name = kwargs["project_name"]
         super().__init__(
             label=f"{project_name}_{analysis_name}",
-            **kwargs,            
+            **kwargs,
         )
 
         @classmethod
@@ -470,10 +467,10 @@ class AnalysisDescription(DataDescription):
 
             if m is None:
                 raise ValueError(f"name({name}) does not match pattern")
-            
-            if '-' in name:
+
+            if "-" in name:
                 raise ValueError("Project abbreviation/Analysis name cannot contain dashes ('-')")
-            
+
             creation_time = datetime_from_name_string(m.group("c_date"), m.group("c_time"))
 
             project_abbreviation = m.group("project_abbreviation")
@@ -481,5 +478,5 @@ class AnalysisDescription(DataDescription):
             return dict(
                 project_abbreviation=project_abbreviation,
                 analysis_name=m.group("analysis_name"),
-                creation_time=creation_time
+                creation_time=creation_time,
             )
