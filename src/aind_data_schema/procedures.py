@@ -566,19 +566,13 @@ class Procedures(AindCoreModel):
                     SubjectProcedure,
                 ]
             ],
-            Field(None, title="Subject Procedures", unique_items=True, discriminator="procedure_type"),
+            Field(title="Subject Procedures", unique_items=True, discriminator="procedure_type"),
         ]
-    ]
+    ] = []
     specimen_procedures: Optional[
         Annotated[
-            List[
-                Union[
-                    HCRSeries,
-                    Immunolabeling,
-                    SpecimenProcedure,
-                ]
-            ],
-            Field(None, title="Specimen Procedures", unique_items=True, discriminator="specimen_procedure_type"),
+            List[Union[HCRSeries, Immunolabeling, SpecimenProcedure]],
+            Field(title="Specimen Procedures", unique_items=True, discriminator="specimen_procedure_type"),
         ]
-    ]
+    ] = []
     notes: Optional[str] = Field(None, title="Notes")
