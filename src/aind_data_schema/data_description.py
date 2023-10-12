@@ -453,13 +453,31 @@ class AnalysisDescription(DataDescription):
         const=True
     )
 
-    def __init__(self, project, analysis_name, **kwargs):
-        if isinstance(project, dict):
-            project_abbreviation = project.get("abbreviation")
-        else:
-            project_abbreviation = project.value.abbreviation
+    def __init__(self, project_abbreviation, analysis_name, **kwargs):
 
         super().__init__(
             label=f"{project_abbreviation}_{analysis_name}",
-            
+            **kwargs,            
         )
+
+        @classmethod
+        def parse_name(cls, name):
+            """Decompose raw Analysis name into component parts"""
+
+            m = re.match(f"{DataRegex.ANALYZED.value}", name)
+
+            if m is None:
+                raise ValueError(f"name({name}) does not match pattern")
+            
+            if '-' in name:
+                raise ValueError("Project abbreviation/Analysis name cannot contain dashes ('-')")
+            
+            creation_time = datetime_from_name_string(m.group("c_date"), m.group("c_time"))
+
+            project_abbreviation = m.group("project_abbreviation")
+
+            return dict(
+                project_abbreviation=project_abbreviation,
+                analysis_name=m.group("analysis_name"),
+                creation_time=creation_time
+            )
