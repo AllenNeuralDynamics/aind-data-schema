@@ -10,6 +10,7 @@
       }
    ],
    "mouse_platform": {
+      "device_type": "Disc",
       "name": "Running Wheel",
       "serial_number": null,
       "manufacturer": null,
@@ -17,7 +18,6 @@
       "notes": null,
       "surface_material": null,
       "date_surface_replaced": null,
-      "platform_type": "Disc",
       "radius": 15,
       "radius_unit": "centimeter",
       "output": null,
@@ -31,6 +31,7 @@
          "camera_assembly_name": "Face Camera Assembly",
          "camera_target": "Face side",
          "camera": {
+            "device_type": "Camera",
             "name": "Face Camera",
             "serial_number": null,
             "manufacturer": {
@@ -59,6 +60,7 @@
             "driver_version": null
          },
          "lens": {
+            "device_type": "Lens",
             "name": null,
             "serial_number": null,
             "manufacturer": {
@@ -81,6 +83,7 @@
             "max_aperture": "f/2"
          },
          "filter": {
+            "device_type": "Filter",
             "name": null,
             "serial_number": null,
             "manufacturer": {
@@ -114,6 +117,7 @@
          "camera_assembly_name": "Body Camera Assembly",
          "camera_target": "Body",
          "camera": {
+            "device_type": "Camera",
             "name": "Body Camera",
             "serial_number": null,
             "manufacturer": {
@@ -142,6 +146,7 @@
             "driver_version": null
          },
          "lens": {
+            "device_type": "Lens",
             "name": null,
             "serial_number": null,
             "manufacturer": {
@@ -164,6 +169,7 @@
             "max_aperture": "f/2"
          },
          "filter": {
+            "device_type": "Filter",
             "name": null,
             "serial_number": null,
             "manufacturer": {
@@ -196,6 +202,7 @@
    ],
    "daqs": [
       {
+         "device_type": "NeuropixelsBasestation",
          "name": "Basestation Slot 3",
          "serial_number": null,
          "manufacturer": {
@@ -209,7 +216,6 @@
          },
          "model": null,
          "notes": null,
-         "daq_device_type": "NeuropixelsBasestation",
          "data_interface": "PXI",
          "computer_name": "W10DT72942",
          "channels": null,
@@ -232,6 +238,7 @@
          ]
       },
       {
+         "device_type": "HarpDevice",
          "name": "Harp Behavior",
          "serial_number": null,
          "manufacturer": {
@@ -245,7 +252,6 @@
          },
          "model": null,
          "notes": null,
-         "daq_device_type": "HarpDevice",
          "data_interface": "USB",
          "computer_name": "W10DT72941",
          "channels": [
@@ -288,6 +294,7 @@
       {
          "ephys_assembly_name": "Ephys_assemblyA",
          "manipulator": {
+            "device_type": "Manipulator",
             "name": null,
             "serial_number": "SN2938",
             "manufacturer": {
@@ -301,6 +308,7 @@
          },
          "probes": [
             {
+               "device_type": "EphysProbe",
                "name": "Probe A",
                "serial_number": "9291019",
                "manufacturer": null,
@@ -315,6 +323,7 @@
       {
          "ephys_assembly_name": "Ephys_assemblyB",
          "manipulator": {
+            "device_type": "Manipulator",
             "name": null,
             "serial_number": "SN2939",
             "manufacturer": {
@@ -328,6 +337,7 @@
          },
          "probes": [
             {
+               "device_type": "EphysProbe",
                "name": "Probe B",
                "serial_number": "9291020",
                "manufacturer": null,
@@ -344,6 +354,7 @@
       {
          "scope_assembly_name": "Stick_assembly",
          "camera": {
+            "device_type": "Camera",
             "name": "Probe Camera",
             "serial_number": null,
             "manufacturer": {
@@ -372,6 +383,7 @@
             "driver_version": null
          },
          "lens": {
+            "device_type": "Lens",
             "name": null,
             "serial_number": null,
             "manufacturer": {
@@ -399,6 +411,7 @@
       {
          "laser_assembly_name": "Laser_assemblyA",
          "manipulator": {
+            "device_type": "Manipulator",
             "name": null,
             "serial_number": "SN2937",
             "manufacturer": {
@@ -412,6 +425,7 @@
          },
          "lasers": [
             {
+               "device_type": "Laser",
                "name": "Red Laser",
                "serial_number": null,
                "manufacturer": {
@@ -422,7 +436,6 @@
                },
                "model": null,
                "notes": null,
-               "lightsource_type": "Laser",
                "wavelength": 473,
                "wavelength_unit": "nanometer",
                "maximum_power": null,
@@ -435,6 +448,7 @@
                "calibration_date": null
             },
             {
+               "device_type": "Laser",
                "name": "Blue Laser",
                "serial_number": null,
                "manufacturer": {
@@ -445,7 +459,6 @@
                },
                "model": null,
                "notes": null,
-               "lightsource_type": "Laser",
                "wavelength": 638,
                "wavelength_unit": "nanometer",
                "maximum_power": null,

@@ -30,19 +30,19 @@ class BehaviorRig(AindCoreModel):
 
     rig_id: str = Field(..., description="room_stim apparatus_version", title="Rig ID")
     mouse_platform: Annotated[
-        Union[Tube, Treadmill, Disc], Field(..., title="Mouse platform", discriminator="platform_type")
+        Union[Tube, Treadmill, Disc], Field(..., title="Mouse platform", discriminator="device_type")
     ]
     stimulus_devices: Optional[
         Annotated[
             List[Union[Monitor, RewardDelivery, Speaker]],
-            Field(None, title="Stimulus devices", unique_items=True, discriminator="stimulus_device"),
+            Field(None, title="Stimulus devices", unique_items=True, discriminator="device_type"),
         ]
     ]
     cameras: Optional[List[CameraAssembly]] = Field(None, title="Camera assemblies", unique_items=True)
     daqs: Optional[
         Annotated[
             List[Union[HarpDevice, DAQDevice]],
-            Field(None, title="Data acquisition devices", discriminator="daq_device_type"),
+            Field(None, title="Data acquisition devices", discriminator="device_type"),
         ]
     ]
     additional_devices: Optional[List[Device]] = Field(None, title="Additional devices", unique_items=True)

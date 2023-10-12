@@ -217,7 +217,7 @@ class Stream(AindModel):
     light_sources: Optional[
         Annotated[
             List[Union[Laser, LightEmittingDiode]],
-            Field(None, title="Light sources", unique_items=True, discriminator="lightsource_type"),
+            Field(None, title="Light sources", unique_items=True, discriminator="device_type"),
         ]
     ]
     ephys_modules: Optional[List[EphysModule]] = Field(None, title="Ephys modules", unique_items=True)

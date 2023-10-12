@@ -6,7 +6,7 @@ from enum import Enum
 from typing import List, Optional, Union
 
 from pydantic import Field, root_validator
-from pydantic.typing import Annotated
+from pydantic.typing import Annotated, Literal
 
 from aind_data_schema.base import AindCoreModel, AindModel, EnumSubset
 from aind_data_schema.device import (
@@ -36,6 +36,8 @@ class ProbePort(AindModel):
 
 class Manipulator(Device):
     """Manipulator used on a dome module"""
+
+    device_type: Literal["Manipulator"] = Field("Manipulator", const=True, readOnly=True)
 
     manufacturer: EnumSubset[Manufacturer.NEW_SCALE_TECHNOLOGIES]
 
@@ -81,11 +83,14 @@ class HeadstageModel(Enum):
 class Headstage(Device):
     """Headstage used with an ephys probe"""
 
+    device_type: Literal["Headstage"] = Field("Headstage", const=True, readOnly=True)
     headstage_model: Optional[HeadstageModel] = Field(None, title="Headstage model")
 
 
 class EphysProbe(Device):
     """Named probe used in an ephys experiment"""
+
+    device_type: Literal["EphysProbe"] = Field("EphysProbe", const=True, readOnly=True)
 
     # required fields
     probe_model: ProbeModel = Field(..., title="Probe model")
@@ -114,12 +119,12 @@ class EphysRig(AindCoreModel):
     cameras: Optional[List[CameraAssembly]] = Field(None, title="Camera assemblies", unique_items=True)
     visual_monitors: Optional[List[Monitor]] = Field(None, title="Visual monitors", unique_items=True)
     mouse_platform: Optional[
-        Annotated[Union[Tube, Treadmill, Disc], Field(None, title="Mouse platform", discriminator="platform_type")]
+        Annotated[Union[Tube, Treadmill, Disc], Field(None, title="Mouse platform", discriminator="device_type")]
     ]
     daqs: Optional[
         Annotated[
             List[Union[HarpDevice, NeuropixelsBasestation, OpenEphysAcquisitionBoard, DAQDevice]],
-            Field(None, title="Data acquisition devices", discriminator="daq_device_type"),
+            Field(None, title="Data acquisition devices", discriminator="device_type"),
         ]
     ]
     additional_devices: Optional[List[Device]] = Field(None, title="Additional devices", unique_items=True)

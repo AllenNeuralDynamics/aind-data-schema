@@ -107,7 +107,7 @@ class OphysSession(AindCoreModel):
     light_sources: Optional[
         Annotated[
             List[Union[Laser, LightEmittingDiode]],
-            Field(None, title="Light sources", unique_items=True, discriminator="lightsource_type"),
+            Field(None, title="Light sources", unique_items=True, discriminator="device_type"),
         ]
     ]
     detectors: Optional[List[Detector]] = Field(None, title="Detectors", unique_items=True)

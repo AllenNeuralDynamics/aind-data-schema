@@ -102,7 +102,7 @@ class OphysRig(AindCoreModel):
     light_sources: Optional[
         Annotated[
             List[Union[Laser, LightEmittingDiode]],
-            Field(None, title="Light sources", unique_items=True, discriminator="lightsource_type"),
+            Field(None, title="Light sources", unique_items=True, discriminator="device_type"),
         ]
     ]
     detectors: Optional[List[Detector]] = Field(None, title="Detectors", unique_items=True)
@@ -111,18 +111,18 @@ class OphysRig(AindCoreModel):
     lenses: Optional[List[Lens]] = Field(None, title="Lenses", unique_items=True)
     cameras: Optional[List[CameraAssembly]] = Field(None, title="Camera assemblies", unique_items=True)
     mouse_platform: Optional[
-        Annotated[Union[Tube, Treadmill, Disc], Field(None, title="Mouse platform", discriminator="platform_type")]
+        Annotated[Union[Tube, Treadmill, Disc], Field(None, title="Mouse platform", discriminator="device_type")]
     ]
     stimulus_devices: Optional[
         Annotated[
             List[Union[Monitor, RewardDelivery, Speaker]],
-            Field(None, title="Stimulus devices", unique_items=True, discriminator="stimulus_device"),
+            Field(None, title="Stimulus devices", unique_items=True, discriminator="device_type"),
         ]
     ]
     daqs: Optional[
         Annotated[
             List[Union[DAQDevice, HarpDevice]],
-            Field(None, title="Data acquisition devices", discriminator="daq_device_type"),
+            Field(None, title="Data acquisition devices", discriminator="device_type"),
         ]
     ]
     additional_devices: Optional[List[Device]] = Field(None, title="Additional devices", unique_items=True)

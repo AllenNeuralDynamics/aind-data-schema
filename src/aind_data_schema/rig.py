@@ -47,19 +47,19 @@ class Rig(AindCoreModel):
     modification_date: date = Field(..., title="Date of modification")
     modalities: List[Modality] = Field(..., title="Modalities", unique_items=True)
     mouse_platform: Annotated[
-        Union[Disc, Treadmill, Tube, Wheel], Field(..., title="Mouse platform", discriminator="platform_type")
+        Union[Disc, Treadmill, Tube, Wheel], Field(..., title="Mouse platform", discriminator="device_type")
     ]
     stimulus_devices: Optional[
         Annotated[
             List[Union[Monitor, Olfactometer, RewardDelivery, Speaker]],
-            Field(None, title="Stimulus devices", unique_items=True, discriminator="stimulus_device"),
+            Field(None, title="Stimulus devices", unique_items=True, discriminator="device_type"),
         ]
     ]
     cameras: Optional[List[CameraAssembly]] = Field(None, title="Camera assemblies", unique_items=True)
     daqs: Optional[
         Annotated[
             List[Union[HarpDevice, NeuropixelsBasestation, OpenEphysAcquisitionBoard, DAQDevice]],
-            Field(None, title="Data acquisition devices", discriminator="daq_device_type"),
+            Field(None, title="Data acquisition devices", discriminator="device_type"),
         ]
     ]
     ephys_assemblies: Optional[List[EphysAssembly]] = Field(None, title="Ephys probes", unique_items=True)
@@ -69,7 +69,7 @@ class Rig(AindCoreModel):
     light_sources: Optional[
         Annotated[
             List[Union[Laser, LightEmittingDiode]],
-            Field(None, title="Light sources", unique_items=True, discriminator="lightsource_type"),
+            Field(None, title="Light sources", unique_items=True, discriminator="device_type"),
         ]
     ]
     detectors: Optional[List[Detector]] = Field(None, title="Detectors", unique_items=True)
