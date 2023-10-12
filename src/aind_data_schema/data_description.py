@@ -453,10 +453,10 @@ class AnalysisDescription(DataDescription):
         const=True
     )
 
-    def __init__(self, project_abbreviation, analysis_name, **kwargs):
-
+    def __init__(self, analysis_name, **kwargs):
+        project_name = kwargs["project_name"]
         super().__init__(
-            label=f"{project_abbreviation}_{analysis_name}",
+            label=f"{project_name}_{analysis_name}",
             **kwargs,            
         )
 
