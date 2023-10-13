@@ -16,6 +16,8 @@ from .ophys.ophys_rig import OphysRig
 from .ophys.ophys_session import OphysSession
 from .procedures import Procedures
 from .processing import DataProcess, Processing
+from .rig import Rig
+from .session import Session
 from .subject import LightCycle, Subject
 
 __all__ = [
@@ -40,4 +42,6 @@ __all__ = [
     "OphysSession",
     "OphysRig",
     "MriSession",
+    "Rig",
+    "Session",
 ]
