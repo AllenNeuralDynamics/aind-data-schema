@@ -34,6 +34,12 @@ class BehaviorTests(unittest.TestCase):
 
         now = datetime.datetime.now()
 
+        with self.assertRaises(pydantic.ValidationError):
+            rd = bs.RewardDelivery(reward_solution="Other")
+
+        with self.assertRaises(pydantic.ValidationError):
+            rd = bs.RewardDelivery()
+
         b = bs.BehaviorSession(
             subject_id="1234",
             experimenter_full_name="Fred Astaire",

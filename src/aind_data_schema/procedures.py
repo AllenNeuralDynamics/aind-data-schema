@@ -68,6 +68,19 @@ class SpecimenProcedure(AindModel):
     reagents: Optional[List[Reagent]] = Field(None, title="Reagents")
     notes: Optional[str] = Field(None, title="Notes")
 
+    @root_validator
+    def validate_other(cls, v):
+        """Validator for other/notes"""
+
+        procedure_type = v.get("procedure_type")
+        notes = v.get("notes")
+
+        if procedure_type == SpecimenProcedureName.OTHER and not notes:
+            raise ValueError(
+                "Notes cannot be empty if procedure_type is Other. Describe the procedure_type in the notes field."
+            )
+        return v
+
 
 class StainType(Enum):
     """Stain types for probes describing what is being labeled"""

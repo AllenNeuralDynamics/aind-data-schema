@@ -7,7 +7,7 @@ from decimal import Decimal
 from enum import Enum
 from typing import List, Optional
 
-from pydantic import Field
+from pydantic import Field, root_validator
 from pydantic.typing import Literal
 
 from aind_data_schema.base import AindCoreModel, AindModel
@@ -183,3 +183,19 @@ class Instrument(AindCoreModel):
     )
     com_ports: Optional[List[Com]] = Field(None, title="COM ports", unique_items=True)
     notes: Optional[str] = None
+
+    @root_validator
+    def validate_other(cls, v):
+        """Validator for other/notes"""
+
+        if v.get("instrument_type") == ImagingInstrumentType.OTHER and not v.get("notes"):
+            raise ValueError(
+                "Notes cannot be empty if instrument_type is Other. Describe the instrument_type in the notes field."
+            )
+
+        if v.get("manufacturer") == Manufacturer.OTHER and not v.get("notes"):
+            raise ValueError(
+                "Notes cannot be empty if manufacturer is Other. Describe the manufacturer in the notes field."
+            )
+
+        return v
