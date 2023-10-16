@@ -88,7 +88,7 @@ class ConcentrationUnit(Enum):
 class TemperatureUnit(Enum):
     """Temperature units"""
 
-    C = "Celcius"
+    C = "Celsius"
     K = "Kelvin"
 
 
