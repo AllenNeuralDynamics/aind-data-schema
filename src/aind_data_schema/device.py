@@ -343,6 +343,7 @@ class Laser(Device):
         Manufacturer.HAMAMATSU,
         Manufacturer.OXXIUS,
         Manufacturer.QUANTIFI,
+        Manufacturer.VORTRAN,
         Manufacturer.OTHER,
     ]
     wavelength: int = Field(..., title="Wavelength (nm)", units="nm")
@@ -361,8 +362,6 @@ class Laser(Device):
     )
     coupling_efficiency_unit: Optional[str] = Field("percent", title="Coupling efficiency unit")
     item_number: Optional[str] = Field(None, title="Item number")
-    calibration_data: Optional[str] = Field(None, description="Path to calibration data", title="Calibration data")
-    calibration_date: Optional[datetime] = Field(None, title="Calibration date")
 
 
 class LightEmittingDiode(Device):

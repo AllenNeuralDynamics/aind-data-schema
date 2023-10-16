@@ -1,19 +1,19 @@
 """ example SmartSPIM instrument """
 import datetime
 
-from aind_data_schema.device import Manufacturer
+from aind_data_schema.device import Detector
 from aind_data_schema.imaging.instrument import (
     AdditionalImagingDevice,
     Com,
-    Detector,
     Filter,
     Instrument,
-    Lightsource,
+    Laser,
     MotorizedStage,
     Objective,
     OpticalTable,
     ScanningStage,
 )
+from aind_data_schema.manufacturers import Manufacturer
 
 inst = Instrument(
     instrument_id="SmartSPIM2-2",
@@ -33,7 +33,7 @@ inst = Instrument(
     ],
     detectors=[
         Detector(
-            type="Camera",
+            detector_type="Camera",
             data_interface="USB",
             cooling="air",
             manufacturer=Manufacturer.HAMAMATSU,
@@ -42,34 +42,34 @@ inst = Instrument(
         ),
     ],
     light_sources=[
-        Lightsource(
+        Laser(
             name="Ex_488",
-            type="laser",
+            device_type="Laser",
             coupling="Single-mode fiber",
             wavelength=488,
-            max_power=150,
+            maximum_power=150,
             serial_number="VL01222A11",
             manufacturer=Manufacturer.VORTRAN,
             model="Stradus",
             notes="All lasers controlled via Vortran VersaLase System",
         ),
-        Lightsource(
+        Laser(
             name="Ex_561",
-            type="laser",
+            device_type="Laser",
             coupling="Single-mode fiber",
             wavelength=561,
-            max_power=150,
+            maximum_power=150,
             serial_number="417927",
             manufacturer=Manufacturer.COHERENT_SCIENTIFIC,
             model="Obis",
             notes="All lasers controlled via Vortran VersaLase System",
         ),
-        Lightsource(
+        Laser(
             name="Ex_647",
-            type="laser",
+            device_type="Laser",
             coupling="Single-mode fiber",
             wavelength=647,
-            max_power=160,
+            maximum_power=160,
             serial_number="VL01222A10",
             manufacturer=Manufacturer.VORTRAN,
             model="Stradus",
