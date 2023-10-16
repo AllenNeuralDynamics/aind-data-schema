@@ -1,13 +1,12 @@
 """ example SmartSPIM instrument """
 import datetime
 
-from aind_data_schema.device import Detector
+from aind_data_schema.device import Detector, Laser
 from aind_data_schema.imaging.instrument import (
     AdditionalImagingDevice,
     Com,
     Filter,
     Instrument,
-    Laser,
     MotorizedStage,
     Objective,
     OpticalTable,
