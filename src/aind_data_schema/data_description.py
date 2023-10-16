@@ -37,6 +37,8 @@ class DataRegex(Enum):
     )
     NO_UNDERSCORES = "^[^_]+$"
 
+    # Add no underscores + no spaces to validate project+analysis
+
 
 class DataLevel(Enum):
     """Data level name"""
@@ -247,7 +249,7 @@ class DataDescription(AindCoreModel):
         title="Platform",
     )
     project_name: Optional[str] = Field(
-        None,
+        None, # enforce no underscores, no spaces (no special characters), ask Saskia if we want to make project a basename
         description="A name for a set of coordinated activities intended to achieve one or more objectives.",
         title="Project Name",
     )
@@ -453,7 +455,11 @@ class AnalysisDescription(DataDescription):
     def __init__(self, analysis_name, **kwargs):
         """Construct an analysis data description"""
 
-        project_name = kwargs["project_name"]
+        project_name = kwargs.get("project_name")
+        # Error handling
+            # check that the thing is here
+            # rules about how name is shaped
+            # regex on analysis name
         super().__init__(
             label=f"{project_name}_{analysis_name}",
             **kwargs,
@@ -467,8 +473,8 @@ class AnalysisDescription(DataDescription):
 
             if m is None:
                 raise ValueError(f"name({name}) does not match pattern")
-
-            if "-" in name:
+            
+            if "-" in name: #replace with a regex
                 raise ValueError("Project abbreviation/Analysis name cannot contain dashes ('-')")
 
             creation_time = datetime_from_name_string(m.group("c_date"), m.group("c_time"))
