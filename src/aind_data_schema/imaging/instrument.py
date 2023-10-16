@@ -5,22 +5,27 @@ from __future__ import annotations
 from datetime import date
 from decimal import Decimal
 from enum import Enum
-from typing import List, Optional
+from typing import List, Optional, Union
 
 from pydantic import Field, root_validator
-from pydantic.typing import Literal
+from pydantic.typing import Literal, Annotated
+
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.device import (
     Coupling,
     DAQDevice,
-    DataInterface,
+    Detector,
     Device,
     Filter,
-    Manufacturer,
+    Lamp,
+    Laser,
+    Lens,
+    LightEmittingDiode,
     MotorizedStage,
     Objective,
 )
+from aind_data_schema.manufacturers import Manufacturer
 from aind_data_schema.utils.units import PowerUnit, SizeUnit
 
 
@@ -29,51 +34,6 @@ class Com(AindModel):
 
     hardware_name: str = Field(..., title="Controlled hardware device")
     com_port: str = Field(..., title="COM port")
-
-
-class CameraType(Enum):
-    """Camera type name"""
-
-    CAMERA = "Camera"
-    PMT = "PMT"
-    OTHER = "other"
-
-
-class Cooling(Enum):
-    """Cooling medium name"""
-
-    AIR = "air"
-    WATER = "water"
-
-
-class Detector(Device):
-    """Description of a detector device"""
-
-    device_type: Literal["Detector"] = Field("Detector", const=True, readOnly=True)
-    type: CameraType = Field(..., title="Detector type")
-    data_interface: DataInterface = Field(..., title="Data interface")
-    cooling: Cooling = Field(..., title="Cooling")
-
-
-class LightsourceType(Enum):
-    """Light source type name"""
-
-    LAMP = "lamp"
-    LASER = "laser"
-    LED = "LED"
-    OTHER = "other"
-
-
-class Lightsource(Device):
-    """Description of lightsource device"""
-
-    device_type: Literal["Lightsource"] = Field("Lightsource", const=True, readOnly=True)
-    type: LightsourceType = Field(..., title="Lightsource Type")
-    coupling: Coupling = Field(..., title="Coupling")
-    wavelength: Decimal = Field(..., title="Wavelength (nm)", units="nm", ge=300, le=1000)
-    wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
-    max_power: Decimal = Field(..., title=" Maximum power (mW)", units="mW")
-    power_unit: PowerUnit = Field(PowerUnit.MW, title="Power unit")
 
 
 class ImagingDeviceType(Enum):
@@ -149,7 +109,7 @@ class OpticalTable(Device):
 class Instrument(AindCoreModel):
     """Description of an instrument, which is a collection of devices"""
 
-    schema_version: str = Field("0.8.2", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.9.0", description="schema version", title="Version", const=True)
     instrument_id: Optional[str] = Field(
         None,
         description="Unique identifier for this instrument. Naming convention: <room>-<apparatus>-<version>",
@@ -163,7 +123,13 @@ class Instrument(AindCoreModel):
     optical_tables: List[OpticalTable] = Field(None, title="Optical table")
     objectives: List[Objective] = Field(..., title="Objectives", unique_items=True)
     detectors: Optional[List[Detector]] = Field(None, title="Detectors", unique_items=True)
-    light_sources: Optional[List[Lightsource]] = Field(None, title="Light sources", unique_items=True)
+    light_sources: Optional[
+        Annotated[
+            List[Union[Laser, Lamp, LightEmittingDiode]],
+            Field(None, title="Light sources", unique_items=True, discriminator="device_type"),
+        ]
+    ]
+    lenses: Optional[List[Lens]] = Field(None, title="Lenses", unique_items=True)
     fluorescence_filters: Optional[List[Filter]] = Field(None, title="Fluorescence filters", unique_items=True)
     motorized_stages: Optional[List[MotorizedStage]] = Field(None, title="Motorized stages", unique_items=True)
     scanning_stages: Optional[List[ScanningStage]] = Field(None, title="Scanning motorized stages", unique_items=True)

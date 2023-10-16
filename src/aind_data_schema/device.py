@@ -12,7 +12,7 @@ from aind_data_schema.base import AindModel, EnumSubset
 from aind_data_schema.coordinates import RelativePosition
 from aind_data_schema.manufacturers import Manufacturer
 from aind_data_schema.procedures import Reagent
-from aind_data_schema.utils.units import FrequencyUnit, PowerUnit, SizeUnit
+from aind_data_schema.utils.units import FrequencyUnit, PowerUnit, SizeUnit, TemperatureUnit
 
 
 class DeviceDriver(Enum):
@@ -379,6 +379,17 @@ class LightEmittingDiode(Device):
     wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
 
 
+class Lamp(Device):
+    """Description of a Lamp lightsource"""
+
+    device_type: Literal["Lamp"] = Field("Lamp", const=True, readOnly=True)
+    wavelength_min: Optional[int] = Field(None, title="Wavelength minimum (nm)")
+    wavelength_max: Optional[int] = Field(None, title="Wavelength maximum (nm)")
+    wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
+    temperature: Optional[int] = Field(None, title="Temperature (K)")
+    temperature_unit: TemperatureUnit = Field(TemperatureUnit.K, title="Temperature unit")
+
+
 class ProbePort(AindModel):
     """Port for a probe connection"""
 
@@ -519,6 +530,9 @@ class Detector(Device):
     immersion: Optional[Immersion] = Field(None, title="Immersion")
 
     chroma: Optional[CameraChroma] = Field(None, title="Camera chroma")
+    sensor_width: Optional[int] = Field(None, title="Width of the sensor in pixels")
+    sensor_height: Optional[int] = Field(None, title="Height of the sensor in pixels")
+    size_unit: SizeUnit = Field(SizeUnit.PX, title="Size unit", const=True)
     bit_depth: Optional[int] = Field(None, title="Bit depth")
     bin_mode: Optional[BinMode] = Field(BinMode.NONE, title="Detector binning mode")
     bin_width: Optional[int] = Field(None, title="Bin width")
