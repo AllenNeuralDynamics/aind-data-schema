@@ -13,7 +13,6 @@ from pydantic.typing import Literal, Annotated
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.device import (
-    Coupling,
     DAQDevice,
     Detector,
     Device,
@@ -26,7 +25,7 @@ from aind_data_schema.device import (
     Objective,
 )
 from aind_data_schema.manufacturers import Manufacturer
-from aind_data_schema.utils.units import PowerUnit, SizeUnit
+from aind_data_schema.utils.units import SizeUnit
 
 
 class Com(AindModel):
