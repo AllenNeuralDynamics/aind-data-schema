@@ -124,8 +124,29 @@ class DataDescriptionTest(unittest.TestCase):
 
         ad = AnalysisDescription(
             analysis_name='analysis',
-            
+            project_name='project',
+            creation_time=dt,
+            subject_id="1234",
+            modality=[Modality.SPIM],
+            platform="exaspim",
+            institution=Institution.AIND,
+            funding_source=[f],
+            investigators=["Jane Smith"],
         )
+
+        with self.assertRaises(ValueError):
+            AnalysisDescription(
+                analysis_name='ana lysis',
+                project_name='pro_ject',
+                subject_id="1234",
+                modality=[Modality.SPIM],
+                platform="exaspim",
+                creation_time=dt,
+                institution=Institution.AIND,
+                funding_source=[f],
+                investigators=["Jane Smith"],
+
+            )
 
     def test_round_trip(self):
         """make sure we can round trip from json"""

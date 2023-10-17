@@ -158,7 +158,7 @@ class DataDescriptionUpgrade:
             data_level=self._get_or_default(self.old_data_description_model, "data_level", kwargs),
             group=self._get_or_default(self.old_data_description_model, "group", kwargs),
             investigators=self._get_or_default(self.old_data_description_model, "investigators", kwargs),
-            project_name=self._get_or_default(self.old_data_description_model, "project_name", kwargs),
+            project_name=self._get_or_default(self.old_data_description_model, "projectname", kwargs),
             restrictions=self._get_or_default(self.old_data_description_model, "restrictions", kwargs),
             modality=modality,
             platform=platform,
