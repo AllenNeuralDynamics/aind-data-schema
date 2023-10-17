@@ -36,7 +36,7 @@ class DataRegex(Enum):
         f"{RegexParts.DATE.value})_(?P<c_time>{RegexParts.TIME.value})$"
     )
     NO_UNDERSCORES = "^[^_]+$"
-    NO_SPECIAL_CHARS = "^[^_@#$^*<>'\"/;`%+=?. -]+$"
+    NO_SPECIAL_CHARS = '^[^<>:"/\|? _]+$'
 
 
 class DataLevel(Enum):
@@ -456,6 +456,12 @@ class AnalysisDescription(DataDescription):
         """Construct an analysis data description"""
 
         project_name = kwargs.get("project_name")
+
+        if analysis_name is None:
+            raise ValueError("Must input Analysis Name")
+        
+        if not re.match(f"{DataRegex.NO_SPECIAL_CHARS.value}", analysis_name):
+            raise ValueError("Invalid analysis name, no special characters")
 
         if project_name is None:
             raise ValueError("No project name input")
