@@ -36,8 +36,7 @@ class DataRegex(Enum):
         f"{RegexParts.DATE.value})_(?P<c_time>{RegexParts.TIME.value})$"
     )
     NO_UNDERSCORES = "^[^_]+$"
-
-    # Add no underscores + no spaces to validate project+analysis
+    NO_SPECIAL_CHARS = "^[^_@#$^*<>'\"/;`%+=?. -]+$"
 
 
 class DataLevel(Enum):
@@ -249,7 +248,8 @@ class DataDescription(AindCoreModel):
         title="Platform",
     )
     project_name: Optional[str] = Field(
-        None, # enforce no underscores, no spaces (no special characters), ask Saskia if we want to make project a basename
+        None,
+        regex=DataRegex.NO_SPECIAL_CHARS.value,
         description="A name for a set of coordinated activities intended to achieve one or more objectives.",
         title="Project Name",
     )
@@ -456,33 +456,30 @@ class AnalysisDescription(DataDescription):
         """Construct an analysis data description"""
 
         project_name = kwargs.get("project_name")
-        # Error handling
-            # check that the thing is here
-            # rules about how name is shaped
-            # regex on analysis name
+
+        if project_name is None:
+            raise ValueError("No project name input")
+
         super().__init__(
             label=f"{project_name}_{analysis_name}",
             **kwargs,
         )
 
-        @classmethod
-        def parse_name(cls, name):
-            """Decompose raw Analysis name into component parts"""
+    @classmethod
+    def parse_name(cls, name):
+        """Decompose raw Analysis name into component parts"""
 
-            m = re.match(f"{DataRegex.ANALYZED.value}", name)
+        m = re.match(f"{DataRegex.ANALYZED.value}", name)
 
-            if m is None:
-                raise ValueError(f"name({name}) does not match pattern")
-            
-            if "-" in name: #replace with a regex
-                raise ValueError("Project abbreviation/Analysis name cannot contain dashes ('-')")
+        if m is None:
+            raise ValueError(f"name({name}) does not match pattern")
 
-            creation_time = datetime_from_name_string(m.group("c_date"), m.group("c_time"))
+        creation_time = datetime_from_name_string(m.group("c_date"), m.group("c_time"))
 
-            project_abbreviation = m.group("project_abbreviation")
+        project_abbreviation = m.group("project_abbreviation")
 
-            return dict(
-                project_abbreviation=project_abbreviation,
-                analysis_name=m.group("analysis_name"),
-                creation_time=creation_time,
-            )
+        return dict(
+            project_abbreviation=project_abbreviation,
+            analysis_name=m.group("analysis_name"),
+            creation_time=creation_time,
+        )
