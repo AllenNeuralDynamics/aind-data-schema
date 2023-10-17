@@ -15,6 +15,7 @@ from aind_data_schema.data_description import (
     Modality,
     Platform,
     RawDataDescription,
+    AnalysisDescription
 )
 from aind_data_schema.schema_upgrade.data_description_upgrade import DataDescriptionUpgrade
 
@@ -38,6 +39,7 @@ class DataDescriptionTest(unittest.TestCase):
     BAD_NAME = "fizzbuzz"
     BASIC_NAME = "ecephys_1234_3033-12-21_04-22-11"
     DERIVED_NAME = "ecephys_1234_3033-12-21_04-22-11_spikesorted-ks25_2022-10-12_23-23-11"
+    ANALYSIS_NAME = "project_analysis_3033-12-21_04-22-11"
 
     def test_constructors(self):
         """test building from component parts"""
@@ -119,6 +121,11 @@ class DataDescriptionTest(unittest.TestCase):
                 funding_source=[f],
                 investigators=["Jane Smith"],
             )
+
+        ad = AnalysisDescription(
+            analysis_name='analysis',
+            
+        )
 
     def test_round_trip(self):
         """make sure we can round trip from json"""
