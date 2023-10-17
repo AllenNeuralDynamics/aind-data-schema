@@ -109,6 +109,7 @@ class Manufacturer(Enum, metaclass=BaseNameEnumMeta):
     QUANTIFI = PIDName(name="Quantifi")
     RASPBERRYPI = PIDName(name="Raspberry Pi")
     SEMROCK = PIDName(name="Semrock")
+    SCHNEIDER_KREUZNACH = PIDName(name="Schneider-Kreuznach")
     TAMRON = PIDName(name="Tamron")
     THORLABS = PIDName(
         name="Thorlabs",
@@ -119,4 +120,9 @@ class Manufacturer(Enum, metaclass=BaseNameEnumMeta):
     TYMPHANY = PIDName(name="Tymphany")
     VIEWORKS = PIDName(name="Vieworks")
     VORTRAN = PIDName(name="Vortran")
+    ZEISS = PIDName(
+        name="Carl Zeiss",
+        registry=Registry.ROR,
+        registry_identifier="01xk5xs43"
+    )
     OTHER = PIDName(name="Other")

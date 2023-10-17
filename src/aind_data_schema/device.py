@@ -201,8 +201,15 @@ class Lens(Device):
     manufacturer: EnumSubset[
         Manufacturer.COMPUTAR,
         Manufacturer.EDMUND_OPTICS,
+        Manufacturer.HAMAMATSU,
         Manufacturer.INFINITY_PHOTO_OPTICAL,
+        Manufacturer.LEICA,
+        Manufacturer.MITUTUYO,
+        Manufacturer.NIKON,
+        Manufacturer.OLYMPUS,
+        Manufacturer.SCHNEIDER_KREUZNACH,
         Manufacturer.THORLABS,
+        Manufacturer.ZEISS,
         Manufacturer.OTHER,
     ]
 
