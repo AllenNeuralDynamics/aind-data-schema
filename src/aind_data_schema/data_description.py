@@ -36,7 +36,7 @@ class DataRegex(Enum):
         f"{RegexParts.DATE.value})_(?P<c_time>{RegexParts.TIME.value})$"
     )
     NO_UNDERSCORES = "^[^_]+$"
-    NO_SPECIAL_CHARS = '^[^<>:;"/|? _\\]+$'
+    NO_SPECIAL_CHARS = "^[^<>:;\"/|? \\_]+$"
 
 
 class DataLevel(Enum):

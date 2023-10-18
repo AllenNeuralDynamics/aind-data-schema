@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import List
 
 from aind_data_schema.data_description import (
+    AnalysisDescription,
     DataDescription,
     DerivedDataDescription,
     Funding,
@@ -15,7 +16,6 @@ from aind_data_schema.data_description import (
     Modality,
     Platform,
     RawDataDescription,
-    AnalysisDescription
 )
 from aind_data_schema.schema_upgrade.data_description_upgrade import DataDescriptionUpgrade
 
@@ -123,8 +123,8 @@ class DataDescriptionTest(unittest.TestCase):
             )
 
         AnalysisDescription(
-            analysis_name='analysis',
-            project_name='project',
+            analysis_name="analysis",
+            project_name="project",
             creation_time=dt,
             subject_id="1234",
             modality=[Modality.SPIM],
@@ -136,8 +136,8 @@ class DataDescriptionTest(unittest.TestCase):
 
         with self.assertRaises(ValueError):
             AnalysisDescription(
-                analysis_name='ana lysis',
-                project_name='pro_ject',
+                analysis_name="ana lysis",
+                project_name="pro_ject",
                 subject_id="1234",
                 modality=[Modality.SPIM],
                 platform="exaspim",
@@ -149,8 +149,8 @@ class DataDescriptionTest(unittest.TestCase):
 
         with self.assertRaises(ValueError):
             AnalysisDescription(
-                analysis_name='',
-                project_name='project',
+                analysis_name="",
+                project_name="project",
                 subject_id="1234",
                 modality=[Modality.SPIM],
                 platform="exaspim",
@@ -162,8 +162,8 @@ class DataDescriptionTest(unittest.TestCase):
 
         with self.assertRaises(ValueError):
             AnalysisDescription(
-                analysis_name='analysis',
-                project_name='',
+                analysis_name="analysis",
+                project_name="",
                 subject_id="1234",
                 modality=[Modality.SPIM],
                 platform="exaspim",
