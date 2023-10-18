@@ -237,6 +237,13 @@ class Immersion(Enum):
     OTHER = "other"
 
 
+class ObjectiveType(Enum):
+    """Objective type for Slap2"""
+
+    REMOTE = "Remote"
+    PRIMARY = "Primary"
+
+
 class Objective(Device):
     """Description of an objective device"""
 
@@ -244,6 +251,7 @@ class Objective(Device):
     numerical_aperture: Decimal = Field(..., title="Numerical aperture (in air)")
     magnification: Decimal = Field(..., title="Magnification")
     immersion: Immersion = Field(..., title="Immersion")
+    objective_type: Optional[ObjectiveType] = Field(None, title="Objective type")
 
 
 class CameraTarget(Enum):
@@ -537,6 +545,42 @@ class Patch(Device):
     core_diameter: Decimal = Field(..., title="Core diameter (um)")
     numerical_aperture: Decimal = Field(..., title="Numerical aperture")
     photobleaching_date: Optional[date] = Field(None, title="Photobleaching date")
+
+
+class DigitalMicromirrorDevice(Device):
+    """Description of a Digital Micromirror Device (DMD)"""
+
+    device_type: Literal["Digital Micromirror Device"] = Field("Digital Micromirror Device", const=True, readOnly=True)
+    max_dmd_patterns: int = Field(..., title="Max DMD patterns")
+    double_bounce_design: bool = Field(..., title="Double bounce design")
+    invert_pixel_values: bool = Field(..., title="Invert pixel values")
+    motion_padding_x: int = Field(..., title="Motion padding X (pixels)")
+    motion_padding_y: int = Field(..., title="Motion padding Y (pixels)")
+    padding_unit: SizeUnit = Field(SizeUnit.PX, title="Padding unit")
+    pixel_size: float = Field(..., title="DMD Pixel size")
+    start_phase: float = Field(..., title="DMD Start phase")
+    dmd_flip: bool = Field(..., title-"DMD Flip")
+    dmd_curtain: List[float] = Field(..., title="DMD Curtain")
+    line_shear: List[int] = Field(..., title="Line shear (pixels)")
+    line_shear_units: SizeUnit = Field(SizeUnit.PX, title="Line shear units")
+
+
+class PolygonalScanner(Device):
+    """Description of a Polygonal scanner"""
+
+    device_type: Literal["Polygonal Scanner"] = Field("Polygonal Scanner", const=True, readOnly=True)
+    speed: int = Field(..., title="Speed (rpm)")
+    speed_unit: str = Field("Rotations per minute", title="Speed unit")
+    number_faces: int = Field(..., title="Number of faces")
+    mode: bool = Field(..., title="Poly scanner mode")
+    scanner_speed_input_debounce: bool = Field(..., title="Scanner speed input debounce")
+
+
+class PockelsCell(Device):
+    """Description of a Pockels Cell"""
+
+    device_type: Literal["Pockels Cell"] = Field("Pockels Cell", const=True, readOnly=True)
+    polygonal_scanner: str = Field(..., title="Polygonal scanner", description="Must match name of Polygonal scanner")
 
 
 class MousePlatform(Device):

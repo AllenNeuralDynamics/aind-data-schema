@@ -126,6 +126,24 @@ class Stack(AindModel):
     targeted_structure: Optional[str] = Field(None, title="Targeted structure")
 
 
+class SlapType(Enum):
+    """Type of slap session"""
+
+    PARENT = "Parent"
+    BRANCH = "Branch"
+
+
+class Slap(FieldOfView):
+    """Description of a Slap2 scan"""
+
+    session_type: SlapType = Field(..., title="Session type")
+    dmd_dilation_x: int = Field(..., title="DMD Dilation X (pixels)")
+    dmd_dilation_y: int = Field(..., title="DMD Dilation Y (pixels)") 
+    dilation_unit: SizeUnit = Field(SizeUnit.PX, title="Dilation unit")
+    target_neuron: Optional[str] = Field(None, title="Target neuron")
+    target_branch: Optional[str] = Field(none, title="Target branch")
+
+
 # Ephys Components
 class DomeModule(AindModel):
     """Movable module that is mounted on the ephys dome insertion system"""
@@ -237,6 +255,7 @@ class Stream(AindModel):
     detectors: Optional[List[Detector]] = Field(None, title="Detectors", unique_items=True)
     fiber_photometry_assemblies: Optional[List[FiberPhotometryAssembly]] = Field(None, title="Fiber photometry devices")
     ophys_fovs: Optional[List[FieldOfView]] = Field(None, title="Fields of view", unique_items=True)
+    slap_fovs: Optional[Slap] = Field(None, title="Slap2 field of view")
     stack_parameters: Optional[Stack] = Field(None, title="Stack parameters")
     stimulus_device_names: Optional[List[str]] = Field(None, title="Stimulus devices")
     notes: Optional[str] = Field(None, title="Notes")
