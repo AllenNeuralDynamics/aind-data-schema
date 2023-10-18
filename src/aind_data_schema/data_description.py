@@ -32,7 +32,7 @@ class DataRegex(Enum):
         f"{RegexParts.DATE.value})_(?P<c_time>{RegexParts.TIME.value})"
     )
     ANALYZED = (
-        f"^(?P<project_abbreviation>.+?)_(?P<analysis-name>.+?)_(?P<c_date>"
+        f"^(?P<project_abbreviation>.+?)_(?P<analysis_name>.+?)_(?P<c_date>"
         f"{RegexParts.DATE.value})_(?P<c_time>{RegexParts.TIME.value})$"
     )
     NO_UNDERSCORES = "^[^_]+$"
@@ -457,13 +457,13 @@ class AnalysisDescription(DataDescription):
 
         project_name = kwargs.get("project_name")
 
-        if analysis_name is None:
+        if not analysis_name:
             raise ValueError("Must input Analysis Name")
         
         if not re.match(f"{DataRegex.NO_SPECIAL_CHARS.value}", analysis_name):
             raise ValueError("Invalid analysis name, no special characters")
 
-        if project_name is None:
+        if not project_name:
             raise ValueError("No project name input")
 
         super().__init__(
@@ -480,12 +480,10 @@ class AnalysisDescription(DataDescription):
         if m is None:
             raise ValueError(f"name({name}) does not match pattern")
 
-        creation_time = datetime_from_name_string(m.group("c_date"), m.group("c_time"))
-
-        project_abbreviation = m.group("project_abbreviation")
+        creation_time = datetime_from_name_string(m.group("c_date"), m.group("c_time")) 
 
         return dict(
-            project_abbreviation=project_abbreviation,
+            project_abbreviation=m.group("project_abbreviation"),
             analysis_name=m.group("analysis_name"),
             creation_time=creation_time,
         )

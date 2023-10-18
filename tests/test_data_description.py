@@ -145,7 +145,32 @@ class DataDescriptionTest(unittest.TestCase):
                 institution=Institution.AIND,
                 funding_source=[f],
                 investigators=["Jane Smith"],
+            )
 
+        with self.assertRaises(ValueError):
+            AnalysisDescription(
+                analysis_name='',
+                project_name='project',
+                subject_id="1234",
+                modality=[Modality.SPIM],
+                platform="exaspim",
+                creation_time=dt,
+                institution=Institution.AIND,
+                funding_source=[f],
+                investigators=["Jane Smith"],
+            )
+
+        with self.assertRaises(ValueError):
+            AnalysisDescription(
+                analysis_name='analysis',
+                project_name='',
+                subject_id="1234",
+                modality=[Modality.SPIM],
+                platform="exaspim",
+                creation_time=dt,
+                institution=Institution.AIND,
+                funding_source=[f],
+                investigators=["Jane Smith"],
             )
 
     def test_round_trip(self):
@@ -194,6 +219,14 @@ class DataDescriptionTest(unittest.TestCase):
 
         with self.assertRaises(ValueError):
             toks = DerivedDataDescription.parse_name(self.BAD_NAME)
+
+        toks = AnalysisDescription.parse_name(self.ANALYSIS_NAME)
+        assert toks["project_abbreviation"] == "project"
+        assert toks["analysis_name"] == "analysis"
+        assert toks["creation_time"] == datetime.datetime(3033, 12, 21, 4, 22, 11)
+
+        with self.assertRaises(ValueError):
+            toks = AnalysisDescription.parse_name(self.BAD_NAME)
 
     def test_abbreviation_enums(self):
         """Tests that BaseName enums can be constructed from abbreviations"""
