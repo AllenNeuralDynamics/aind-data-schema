@@ -2,11 +2,14 @@
 
 import glob
 import importlib.util
+import json
 import logging
 import sys
 import unittest
 from pathlib import Path
 from unittest.mock import mock_open, patch
+
+import dictdiffer
 
 EXAMPLES_DIR = Path(__file__).parents[1] / "examples"
 
@@ -32,7 +35,15 @@ class ExampleTests(unittest.TestCase):
             with patch("builtins.open", new_callable=mock_open) as mocked_file:
                 spec.loader.exec_module(module)
                 h = mocked_file.return_value.__enter__()
-                h.write.assert_called_once_with(target_data)
+                call_args_list = h.write.call_args_list
+                call = call_args_list[0]
+                args, kwargs = call
+                call_argument_json = json.loads(args[0])
+                expected_argument = json.loads(target_data)
+                diff = dictdiffer.diff(expected_argument, call_argument_json)
+                self.assertEqual(
+                    expected_argument, call_argument_json, msg=f"Assertion error in {json_file}: {list(diff)}"
+                )
 
 
 if __name__ == "__main__":

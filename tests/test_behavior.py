@@ -34,6 +34,12 @@ class BehaviorTests(unittest.TestCase):
 
         now = datetime.datetime.now()
 
+        with self.assertRaises(pydantic.ValidationError):
+            rd = bs.RewardDelivery(reward_solution="Other")
+
+        with self.assertRaises(pydantic.ValidationError):
+            rd = bs.RewardDelivery()
+
         b = bs.BehaviorSession(
             subject_id="1234",
             experimenter_full_name="Fred Astaire",
@@ -83,7 +89,6 @@ class BehaviorTests(unittest.TestCase):
         ]
 
         rd = br.RewardDelivery(
-            stimulus_device="Reward delivery",
             stage_type=MotorizedStage(
                 manufacturer=Manufacturer.THORLABS,
                 model="Z825B",
@@ -98,6 +103,7 @@ class BehaviorTests(unittest.TestCase):
                     model="BD223",
                     spout_diameter=0.853,
                     solenoid_valve=Device(
+                        device_type="solenoid_valve",
                         manufacturer=Manufacturer.LEE,
                         model="LHDA1231415H",
                         serial_number="1234",
@@ -110,6 +116,7 @@ class BehaviorTests(unittest.TestCase):
                     model="BD223",
                     spout_diameter=0.853,
                     solenoid_valve=Device(
+                        device_type="solenoid_valve",
                         manufacturer=Manufacturer.LEE,
                         model="LHDA1231415H",
                         serial_number="4321",
@@ -121,7 +128,6 @@ class BehaviorTests(unittest.TestCase):
         r = br.BehaviorRig(
             rig_id="1234",
             mouse_platform=br.Tube(
-                platform_type="Tube",
                 diameter=8,
                 name="Mouse Tube",
                 manufacturer=Manufacturer.CUSTOM,

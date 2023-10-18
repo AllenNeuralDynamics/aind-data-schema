@@ -12,6 +12,7 @@ from aind_data_schema.procedures import (
     NanojectInjection,
     OphysProbe,
     RetroOrbitalInjection,
+    SpecimenProcedure,
 )
 
 
@@ -119,6 +120,22 @@ class ProceduresTests(unittest.TestCase):
         )
 
         self.assertEqual(3, len(p.subject_procedures))
+
+    def test_notes_other(self):
+        """Test that the other/notes validation error works"""
+
+        with self.assertRaises(ValidationError):
+            SpecimenProcedure(
+                specimen_id="1000",
+                procedure_name="procedure name",
+                procedure_type="Other - see notes",
+                start_date=date.fromisoformat("2020-10-10"),
+                end_date=date.fromisoformat("2020-10-11"),
+                experimenter_full_name="guy person",
+                protocol_id="10",
+                reagents=[],
+                notes=None,
+            )
 
     def test_coordinate_volume_validator(self):
         """Test validator for list lengths on NanojectInjection"""

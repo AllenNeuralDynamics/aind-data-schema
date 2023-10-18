@@ -7,7 +7,7 @@ import pydantic
 
 from aind_data_schema.coordinates import CcfCoords, Coordinates3d
 from aind_data_schema.data_description import Modality
-from aind_data_schema.session import EphysModule, EphysProbe, Session, Stream
+from aind_data_schema.session import EphysModule, EphysProbe, RewardDelivery, Session, Stream
 
 
 class ExampleTest(unittest.TestCase):
@@ -47,6 +47,12 @@ class ExampleTest(unittest.TestCase):
         )
 
         assert sess is not None
+
+        with self.assertRaises(pydantic.ValidationError):
+            RewardDelivery()
+
+        with self.assertRaises(pydantic.ValidationError):
+            RewardDelivery(reward_solution="Other")
 
 
 if __name__ == "__main__":

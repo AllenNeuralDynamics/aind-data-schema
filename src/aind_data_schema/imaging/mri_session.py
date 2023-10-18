@@ -5,7 +5,8 @@ from decimal import Decimal
 from enum import Enum
 from typing import Any, Dict, List, Optional
 
-from pydantic import Field
+from pydantic import Field, root_validator
+from pydantic.typing import Literal
 
 from aind_data_schema.base import AindCoreModel, AindModel, EnumSubset
 from aind_data_schema.device import Device
@@ -47,6 +48,7 @@ class MagneticStrength(Enum):
 class Scanner(Device):
     """Description of a MRI Scanner"""
 
+    device_type: Literal["Scanner"] = Field("Scanner", const=True, readOnly=True)
     scanner_location: ScannerLocation = Field(..., title="Scanner location")
     magnetic_strength: MagneticStrength = Field(..., title="Magnetic strength (T)", units="T")
     magnetic_strength_unit: str = Field("T", title="Magnetic strength unit")
@@ -81,11 +83,22 @@ class MRIScan(AindModel):
     additional_scan_parameters: Dict[str, Any] = Field(..., title="Parameters")
     notes: Optional[str] = Field(None, title="Notes")
 
+    @root_validator
+    def validate_other(cls, v):
+        """Validator for other/notes"""
+
+        if v.get("scan_sequence_type") == MriScanSequence.OTHER and not v.get("notes"):
+            raise ValueError(
+                "Notes cannot be empty if scan_sequence_type is Other.",
+                "Describe the scan_sequence_type in the notes field."
+            )
+        return v
+
 
 class MriSession(AindCoreModel):
     """Description of an MRI scan"""
 
-    schema_version: str = Field("0.1.10", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.1.11", description="schema version", title="Version", const=True)
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",

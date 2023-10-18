@@ -29,6 +29,7 @@
          "camera_names": null,
          "light_sources": [
             {
+               "device_type": "Laser",
                "name": "Laser A",
                "wavelength": 405,
                "wavelength_unit": "nanometer",
@@ -36,6 +37,7 @@
                "excitation_power_unit": "milliwatt"
             },
             {
+               "device_type": "Laser",
                "name": "Laser B",
                "wavelength": 473,
                "wavelength_unit": "nanometer",

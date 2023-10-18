@@ -7,7 +7,8 @@ from decimal import Decimal
 from enum import Enum
 from typing import List, Optional, Union
 
-from pydantic import Field
+from pydantic import Field, root_validator
+from pydantic.typing import Annotated, Literal
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.coordinates import CcfCoords, Coordinates3d
@@ -66,6 +67,7 @@ class Detector(AindModel):
 class LightEmittingDiode(AindModel):
     """Description of LED settings"""
 
+    device_type: Literal["LightEmittingDiode"] = Field("LightEmittingDiode", const=True, readOnly=True)
     name: str = Field(..., title="Name")
     excitation_power: Optional[Decimal] = Field(None, title="Excitation power (mW)")
     excitation_power_unit: PowerUnit = Field(PowerUnit.MW, title="Excitation power unit")
@@ -172,6 +174,7 @@ class EphysModule(ManipulatorModule):
 class Laser(AindModel):
     """Description of laser settings in a session"""
 
+    device_type: Literal["Laser"] = Field("Laser", const=True, readOnly=True)
     name: str = Field(..., title="Name", description="Must match rig json")
     wavelength: int = Field(..., title="Wavelength (nm)")
     wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
@@ -204,6 +207,16 @@ class RewardDelivery(AindModel):
     reward_spouts: List[RewardSpout] = Field(..., title="Reward spouts", unique_items=True)
     notes: Optional[str] = Field(None, title="Notes")
 
+    @root_validator
+    def validate_other(cls, v):
+        """Validator for other/notes"""
+
+        if v.get("reward_solution") == RewardSolution.OTHER and not v.get("notes"):
+            raise ValueError(
+                "Notes cannot be empty if reward_solution is Other. Describe the reward_solution in the notes field."
+            )
+        return v
+
 
 class Stream(AindModel):
     """Data streams with a start and stop time"""
@@ -213,9 +226,12 @@ class Stream(AindModel):
     stream_modalities: List[Modality] = Field(..., title="Modalities")
     daq_names: Optional[List[str]] = Field(None, title="DAQ devices", unique_items=True)
     camera_names: Optional[List[str]] = Field(None, title="Cameras", unique_items=True)
-    light_sources: Optional[List[Union[Laser, LightEmittingDiode]]] = Field(
-        None, title="Light source", unique_items=True
-    )
+    light_sources: Optional[
+        Annotated[
+            List[Union[Laser, LightEmittingDiode]],
+            Field(None, title="Light sources", unique_items=True, discriminator="device_type"),
+        ]
+    ]
     ephys_modules: Optional[List[EphysModule]] = Field(None, title="Ephys modules", unique_items=True)
     manipulator_modules: Optional[List[ManipulatorModule]] = Field(None, title="Manipulator modules", unique_items=True)
     detectors: Optional[List[Detector]] = Field(None, title="Detectors", unique_items=True)

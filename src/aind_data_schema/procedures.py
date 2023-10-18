@@ -6,6 +6,7 @@ from enum import Enum
 from typing import List, Optional, Union
 
 from pydantic import Field, root_validator
+from pydantic.typing import Annotated
 
 from aind_data_schema.base import AindCoreModel, AindModel, PIDName
 from aind_data_schema.subject import Species
@@ -52,6 +53,7 @@ class Reagent(AindModel):
 class SpecimenProcedure(AindModel):
     """Description of surgical or other procedure performed on a specimen"""
 
+    specimen_procedure_type: str = Field("SpecimenProcedure", title="SpecimenProcedureType", const=True)
     specimen_id: str = Field(..., title="Specimen ID")
     procedure_name: str = Field(..., title="Procedure name")
     procedure_type: SpecimenProcedureName = Field(..., title="Procedure type")
@@ -65,6 +67,19 @@ class SpecimenProcedure(AindModel):
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     reagents: Optional[List[Reagent]] = Field(None, title="Reagents")
     notes: Optional[str] = Field(None, title="Notes")
+
+    @root_validator
+    def validate_other(cls, v):
+        """Validator for other/notes"""
+
+        procedure_type = v.get("procedure_type")
+        notes = v.get("notes")
+
+        if procedure_type == SpecimenProcedureName.OTHER and not notes:
+            raise ValueError(
+                "Notes cannot be empty if procedure_type is Other. Describe the procedure_type in the notes field."
+            )
+        return v
 
 
 class StainType(Enum):
@@ -148,6 +163,7 @@ class HybridizationChainReaction(AindModel):
 class HCRSeries(SpecimenProcedure):
     """Description of series of HCR staining rounds for mFISH"""
 
+    specimen_procedure_type: str = Field("HCRSeries", title="SpecimenProcedureType", const=True)
     codebook_name: str = Field(..., title="Codebook name")
     number_of_rounds: int = Field(..., title="Number of round")
     hcr_rounds: List[HybridizationChainReaction] = Field(..., title="Hybridization Chain Reaction rounds")
@@ -177,6 +193,7 @@ class Antibody(Reagent):
 class Immunolabeling(SpecimenProcedure):
     """Description of an immunolabling step"""
 
+    specimen_procedure_type: str = Field("Immunolabeling", title="SpecimenProcedureType", const=True)
     antibody: Antibody = Field(..., title="Antibody")
     concentration: Decimal = Field(..., title="Concentration")
     concentration_unit: str = Field("ug/ml", title="Concentration unit")
@@ -538,37 +555,37 @@ class Perfusion(SubjectProcedure):
 class Procedures(AindCoreModel):
     """Description of all procedures performed on a subject"""
 
-    schema_version: str = Field("0.9.4", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.9.5", description="schema version", title="Version", const=True)
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
         title="Subject ID",
     )
     subject_procedures: Optional[
-        List[
-            Union[
-                Craniotomy,
-                FiberImplant,
-                Headframe,
-                IntraCerebellarVentricleInjection,
-                IntraCisternalMagnaInjection,
-                IontophoresisInjection,
-                NanojectInjection,
-                Perfusion,
-                RetroOrbitalInjection,
-                TrainingProtocol,
-                WaterRestriction,
-                SubjectProcedure,
-            ]
+        Annotated[
+            List[
+                Union[
+                    Craniotomy,
+                    FiberImplant,
+                    Headframe,
+                    IntraCerebellarVentricleInjection,
+                    IntraCisternalMagnaInjection,
+                    IontophoresisInjection,
+                    NanojectInjection,
+                    Perfusion,
+                    RetroOrbitalInjection,
+                    TrainingProtocol,
+                    WaterRestriction,
+                    SubjectProcedure,
+                ]
+            ],
+            Field(title="Subject Procedures", unique_items=True, discriminator="procedure_type"),
         ]
-    ] = Field([], title="Subject Procedures", unique_items=True)
+    ] = []
     specimen_procedures: Optional[
-        List[
-            Union[
-                HCRSeries,
-                Immunolabeling,
-                SpecimenProcedure,
-            ]
+        Annotated[
+            List[Union[HCRSeries, Immunolabeling, SpecimenProcedure]],
+            Field(title="Specimen Procedures", unique_items=True, discriminator="specimen_procedure_type"),
         ]
-    ] = Field([], title="Specimen Procedures", unique_items=True)
+    ] = []
     notes: Optional[str] = Field(None, title="Notes")

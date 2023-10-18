@@ -7,7 +7,7 @@ from decimal import Decimal
 from enum import Enum
 from typing import List, Optional
 
-from pydantic import Field
+from pydantic import Field, root_validator
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.device import Calibration, Maintenance, RelativePosition, SpoutSide
@@ -40,12 +40,22 @@ class RewardDelivery(AindModel):
     reward_spouts: List[RewardSpout] = Field(..., title="Reward spouts", unique_items=True)
     notes: Optional[str] = Field(None, title="Notes")
 
+    @root_validator
+    def validate_other(cls, v):
+        """Validator for other/notes"""
+
+        if v.get("reward_solution") == RewardSolution.OTHER and not v.get("notes"):
+            raise ValueError(
+                "Notes cannot be empty if reward_solution is Other. Describe the reward_solution in the notes field."
+            )
+        return v
+
 
 class BehaviorSession(AindCoreModel):
     """Description of a behavior session. This is being deprecated after 2023-11-01."""
 
     schema_version: str = Field(
-        "0.0.9",
+        "0.0.10",
         description="Schema version",
         title="Schema Version",
         const=True,
