@@ -286,7 +286,7 @@ class Session(AindCoreModel):
     maintenance: Optional[List[Maintenance]] = Field(
         None, title="Maintenance", description="Maintenance of rig devices prior to session"
     )
-    subject_id: int = Field(..., title="Subject ID")
+    subject_id: str = Field(..., title="Subject ID")
     animal_weight_prior: Optional[Decimal] = Field(
         None,
         title="Animal weight (g)",
