@@ -22,7 +22,7 @@ class ProcessingTest(unittest.TestCase):
         )
 
         with self.assertRaises(pydantic.ValidationError):
-            dp = DataProcess(
+            DataProcess(
                 name="Other",
                 notes=""
             )

@@ -122,7 +122,7 @@ class DataDescriptionTest(unittest.TestCase):
                 investigators=["Jane Smith"],
             )
 
-        ad = AnalysisDescription(
+        AnalysisDescription(
             analysis_name='analysis',
             project_name='project',
             creation_time=dt,

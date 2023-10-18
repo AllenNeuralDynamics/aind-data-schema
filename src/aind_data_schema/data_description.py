@@ -36,7 +36,7 @@ class DataRegex(Enum):
         f"{RegexParts.DATE.value})_(?P<c_time>{RegexParts.TIME.value})$"
     )
     NO_UNDERSCORES = "^[^_]+$"
-    NO_SPECIAL_CHARS = '^[^<>:;"/\|? _]+$'
+    NO_SPECIAL_CHARS = '^[^<>:;"/|? _\\]+$'
 
 
 class DataLevel(Enum):
@@ -459,7 +459,7 @@ class AnalysisDescription(DataDescription):
 
         if not analysis_name:
             raise ValueError("Must input Analysis Name")
-        
+
         if not re.match(f"{DataRegex.NO_SPECIAL_CHARS.value}", analysis_name):
             raise ValueError("Invalid analysis name, no special characters")
 
@@ -480,7 +480,7 @@ class AnalysisDescription(DataDescription):
         if m is None:
             raise ValueError(f"name({name}) does not match pattern")
 
-        creation_time = datetime_from_name_string(m.group("c_date"), m.group("c_time")) 
+        creation_time = datetime_from_name_string(m.group("c_date"), m.group("c_time"))
 
         return dict(
             project_abbreviation=m.group("project_abbreviation"),
