@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/rig.py",
-   "schema_version": "0.1.0",
+   "schema_version": "0.1.1",
    "rig_id": "323_EPHYS1",
    "modification_date": "2023-10-03",
    "modalities": [
@@ -443,9 +443,7 @@
                "coupling": null,
                "coupling_efficiency": null,
                "coupling_efficiency_unit": "percent",
-               "item_number": null,
-               "calibration_data": null,
-               "calibration_date": null
+               "item_number": null
             },
             {
                "device_type": "Laser",
@@ -466,9 +464,7 @@
                "coupling": null,
                "coupling_efficiency": null,
                "coupling_efficiency_unit": "percent",
-               "item_number": null,
-               "calibration_data": null,
-               "calibration_date": null
+               "item_number": null
             }
          ]
       }
