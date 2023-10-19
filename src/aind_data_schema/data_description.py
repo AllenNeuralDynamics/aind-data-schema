@@ -451,23 +451,24 @@ class AnalysisDescription(DataDescription):
     data_level: DataLevel = Field(
         DataLevel.DERIVED, description="Level of processing that data has undergone", title="Data Level", const=True
     )
+    project_name = str = Field(
+        None,
+        regex=DataRegex.NO_SPECIAL_CHARS.value,
+        description="Name of the project the analysis belongs to"
+        title="Project name"
+    )
+    analysis_name: str = Field(
+        None,
+        regex=DataRegex.NO_SPECIAL_CHARS.value,
+        description="Name of the analysis performed",
+        title="Analysis name"
+    )
 
     def __init__(self, analysis_name, **kwargs):
         """Construct an analysis data description"""
 
-        project_name = kwargs.get("project_name")
-
-        if not analysis_name:
-            raise ValueError("Must input Analysis Name")
-
-        if not re.match(f"{DataRegex.NO_SPECIAL_CHARS.value}", analysis_name):
-            raise ValueError("Invalid analysis name, no special characters")
-
-        if not project_name:
-            raise ValueError("No project name input")
-
         super().__init__(
-            label=f"{project_name}_{analysis_name}",
+            label=f"{kwargs.get('project_name')}_{analysis_name}",
             **kwargs,
         )
 
