@@ -90,7 +90,7 @@ class MRIScan(AindModel):
         if v.get("scan_sequence_type") == MriScanSequence.OTHER and not v.get("notes"):
             raise ValueError(
                 "Notes cannot be empty if scan_sequence_type is Other.",
-                "Describe the scan_sequence_type in the notes field."
+                "Describe the scan_sequence_type in the notes field.",
             )
         return v
 

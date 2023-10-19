@@ -146,6 +146,7 @@ class AindCoreModel(AindModel):
             filename = str(prefix) + "_" + self.default_filename()
 
         if output_directory is not None:
+            output_directory = Path(output_directory)
             filename = output_directory / filename
 
         with open(filename, "w") as f:

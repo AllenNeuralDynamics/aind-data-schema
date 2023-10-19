@@ -8,8 +8,7 @@ from enum import Enum
 from typing import List, Optional, Union
 
 from pydantic import Field, root_validator
-from pydantic.typing import Literal, Annotated
-
+from pydantic.typing import Annotated, Literal
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.device import (

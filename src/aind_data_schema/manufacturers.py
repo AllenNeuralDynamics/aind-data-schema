@@ -120,9 +120,5 @@ class Manufacturer(Enum, metaclass=BaseNameEnumMeta):
     TYMPHANY = PIDName(name="Tymphany")
     VIEWORKS = PIDName(name="Vieworks")
     VORTRAN = PIDName(name="Vortran")
-    ZEISS = PIDName(
-        name="Carl Zeiss",
-        registry=Registry.ROR,
-        registry_identifier="01xk5xs43"
-    )
+    ZEISS = PIDName(name="Carl Zeiss", registry=Registry.ROR, registry_identifier="01xk5xs43")
     OTHER = PIDName(name="Other")
