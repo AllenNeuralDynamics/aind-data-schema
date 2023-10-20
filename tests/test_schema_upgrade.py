@@ -216,6 +216,28 @@ class TestDataDescriptionUpgrade(unittest.TestCase):
             new_data_description.data_summary,
         )
 
+    def test_upgrades_0_10_0(self):
+        """Tests data_description_0.6.0.json is mapped correctly."""
+        data_description_0_10_0 = self.data_descriptions["data_description_0.10.0.json"]
+        upgrader = DataDescriptionUpgrade(old_data_description_model=data_description_0_10_0)
+
+        # Should work by setting experiment type explicitly
+        new_data_description = upgrader.upgrade_data_description()
+        self.assertEqual(datetime.datetime(2023, 10, 18, 16, 00, 6), new_data_description.creation_time)
+        self.assertEqual("ecephys_691897_2023-10-18_16-00-06", new_data_description.name)
+        self.assertEqual(Institution.AIND, new_data_description.institution)
+        self.assertEqual([Funding(funder=Institution.AIND)], new_data_description.funding_source)
+        self.assertEqual(DataLevel.RAW, new_data_description.data_level)
+        self.assertIsNone(new_data_description.group)
+        self.assertEqual([], new_data_description.investigators)
+        self.assertIsNone(new_data_description.project_name)
+        self.assertIsNone(new_data_description.restrictions)
+        self.assertEqual([Modality.ECEPHYS], new_data_description.modality)
+        self.assertEqual("691897", new_data_description.subject_id)
+        self.assertEqual([], new_data_description.related_data)
+        self.assertEqual(Platform.ECEPHYS, new_data_description.platform)
+        self.assertIsNone(new_data_description.data_summary)
+
     # def test_edge_cases(self):
     #     """Tests a few edge cases"""
     #     data_description_0_6_2 = deepcopy(self.data_descriptions["data_description_0.6.2.json"])
