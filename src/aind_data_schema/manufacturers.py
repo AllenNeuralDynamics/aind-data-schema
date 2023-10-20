@@ -15,6 +15,11 @@ class Manufacturer(Enum, metaclass=BaseNameEnumMeta):
         name="Applied Scientific Instrumentation",
         abbreviation="ASI",
     )
+    ASUS = PIDName(
+        name="ASUS",
+        registry=Registry.ROR,
+        registry_identifier="00bxkz165",
+    )
     AVCOSTAR = PIDName(name="Arecont Vision Costar")
     BASLER = PIDName(name="Basler")
     CAMBRIDGE_TECHNOLOGY = PIDName(name="Cambridge Technology")
