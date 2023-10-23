@@ -2,14 +2,16 @@
 
 import unittest
 from datetime import datetime
+
 from pydantic import ValidationError
+
+from aind_data_schema.data_description import DataDescription
 from aind_data_schema.metadata import Metadata, MetadataStatus
 from aind_data_schema.procedures import Procedures
-from aind_data_schema.subject import Subject
-from aind_data_schema.data_description import DataDescription
 from aind_data_schema.processing import Processing
-from aind_data_schema.session import Session
 from aind_data_schema.rig import Rig
+from aind_data_schema.session import Session
+from aind_data_schema.subject import Subject
 
 
 class TestMetadata(unittest.TestCase):
@@ -53,7 +55,7 @@ class TestMetadata(unittest.TestCase):
         self.assertIsNotNone(d2)
         self.assertIsNone(d2.procedures)
         with self.assertRaises(ValidationError) as context:
-            d3 = Metadata(
+            Metadata(
                 _id="00000",
                 name="SmartSPIM_655019_2023-04-03_18-17-09",
                 created=datetime(2023, 9, 27, 0, 0, 0),
@@ -66,7 +68,6 @@ class TestMetadata(unittest.TestCase):
                 rig=Rig.construct(),
             )
         error_message = str(context.exception)
-        print(error_message)
         self.assertIn("Missing metadata:", error_message)
 
 
