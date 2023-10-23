@@ -5,7 +5,7 @@ from __future__ import annotations
 from datetime import date
 from typing import List, Optional, Union
 
-from pydantic import Field
+from pydantic import Field, root_validator
 from pydantic.typing import Annotated
 
 from aind_data_schema.base import AindCoreModel
@@ -84,3 +84,63 @@ class Rig(AindCoreModel):
         description="Path to file that details the CCF-to-lab coordinate transform",
     )
     notes: Optional[str] = Field(None, title="Notes")
+
+    
+
+    @root_validator
+    def validate_modality(cls, v):
+        modalities = v.get("modalities")
+
+        if Modality.ECEPHYS.value in modalities:
+            ephys_assemblies = v.get("ephys_assemblies")
+            stick_microscopes = v.get("stick_microscopes")
+            if not ephys_assemblies:
+                raise ValueError("ephys_assemblies field must be utilized for Ecephys modality")
+            if not stick_microscopes:
+                raise ValueError("stick_microscopes field must be utilized for Ecephys modality")
+            
+        if Modality.FIB.value in modalities:
+            light_source = v.get("light_source")
+            detector = v.get("detectors")
+            patch_cords = v.get("patch_cords")
+            if not light_source:
+                raise ValueError("light_source field must be utilized for FIB modality")
+            if not detector:
+                raise ValueError("detectors field must be utilized for FIB modality")
+            if not patch_cords:
+                raise ValueError("patch_cords field must be utilized for FIB modality")
+        
+        if Modality.POPHYS.value in modalities:
+            light_source = v.get("light_source")
+            detector = v.get("detectors")
+            objectives = v.get("objectives")
+            if not light_source:
+                raise ValueError("light_source field must be utilized for Pophys modality")
+            if not detector:
+                raise ValueError("detectors field must be utilized for Pophys modality")
+            if not objectives:
+                raise ValueError("objectives field must be utilized for Pophys modality")
+            
+        if Modality.SLAP.value in modalities:
+            light_source = v.get("light_source")
+            detector = v.get("detectors")
+            objectives = v.get("objectives")
+            if not light_source:
+                raise ValueError("light_source field must be utilized for SLAP modality")
+            if not detector:
+                raise ValueError("detectors field must be utilized for SLAP modality")
+            if not objectives:
+                raise ValueError("objectives field must be utilized for SLAP modality")
+            
+        if Modality.BEHAVIOR_VIDEOS.value in modalities:
+            cameras = v.get("cameras")
+            if not cameras:
+                raise ValueError("cameras field must be utilized for Behavior Videos modality")
+            
+        if Modality.TRAINED_BEHAVIOR.value in modalities:
+            stimulus_devices = v.get("stimulus_devices")
+            if not stimulus_devices:
+                raise ValueError("stimulus_devices field must be utilized for Trained Behavior modality")
+
+        
+
