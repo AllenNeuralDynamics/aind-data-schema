@@ -451,14 +451,14 @@ class AnalysisDescription(DataDescription):
     data_level: DataLevel = Field(
         DataLevel.DERIVED, description="Level of processing that data has undergone", title="Data Level", const=True
     )
-    project_name = str = Field(
-        None,
+    project_name: str = Field(
+        ...,
         regex=DataRegex.NO_SPECIAL_CHARS.value,
-        description="Name of the project the analysis belongs to"
+        description="Name of the project the analysis belongs to",
         title="Project name"
     )
     analysis_name: str = Field(
-        None,
+        ...,
         regex=DataRegex.NO_SPECIAL_CHARS.value,
         description="Name of the analysis performed",
         title="Analysis name"
