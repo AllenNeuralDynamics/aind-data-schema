@@ -2,12 +2,12 @@
 
 from datetime import datetime
 from enum import Enum
-
-from pydantic import Extra, Field, root_validator
+import re
+from pydantic import Field, root_validator
 
 from aind_data_schema.base import AindCoreModel
 from aind_data_schema.subject import Subject
-from aind_data_schema.data_description import DataDescription
+from aind_data_schema.data_description import DataDescription, Platform, DataRegex
 from aind_data_schema.procedures import Procedures
 from aind_data_schema.rig import Rig
 from aind_data_schema.session import Session
@@ -54,82 +54,54 @@ class Metadata(AindCoreModel):
     metadata_status: MetadataStatus = Field(..., title=" Metadata Status", description="The status of the metadata.")
     schema_version: str = Field("0.0.1", title="Schema Version", const=True)
     subject: Subject = Field(
-        ...,
+        None,
         title="Subject",
         description="Description of a subject of data collection.",
     )
-
-    class Config:
-        """Need to allow for additional fields to append to base model"""
-
-        extra = Extra.allow
-
-
-class SmartSPIMMetadata(Metadata):
-    """The smartSPIM records in the Data Asset Collection require certain metadata."""
     data_description: DataDescription = Field(
-        ...,
+        None,
         title="Data Description",
         description="Description of a logical collection of data files."
     )
     procedures: Procedures = Field(
-        ...,
+        None,
         title="Procedures",
         description="Description of all procedures performed on a subject."
     )
     session: Session = Field(
-        ...,
+        None,
         title="Session",
         description="Description of a session."
     )
     rig: Rig = Field(
-        ...,
+        None,
         title="Rig",
         description="Description of a rig."
     )
     processing: Processing = Field(
-        ...,
+        None,
         title="Processing",
         description="Description of all processes run on data."
     )
 
-    @root_validator
-    def validate_institute_subject(cls, v):
-        """Validator for Institute mice"""
-        subject_id_value = v.get("subject_id")
-        subject_value = v.get('subject')
-        procedures_value = v.get('procedures')
-        if 'AK' in subject_id_value:
-            if subject_value is None or procedures_value is None:
-                raise ValueError("Both subject and procedures are required "
-                                 "when the metadata is describing Allen Institute mice.")
+    @root_validator(pre=True)
+    def validate_metadata_completeness(cls, v):
+        """Validator for complete metadata"""
+        name_value = v.get('name')
+        match = re.match(str(DataRegex.RAW.value), str(name_value))
+        if match:
+            platform_abbreviation = match.group('platform_abbreviation')
+            subject_id = match.group('subject_id')
+
+            if 'AK' in subject_id:
+                complete_metadata = ['subject', 'data_description', 'session', 'rig', 'processing']
+            else:
+                complete_metadata = ['subject', 'procedures', 'data_description', 'session', 'rig', 'processing']
+
+            missing_fields = [field for field in complete_metadata if v.get(field) is None]
+            if (Platform.ECEPHYS.value.abbreviation == platform_abbreviation or Platform.SMARTSPIM.value.abbreviation == platform_abbreviation) and missing_fields:
+                v['metadata_status'] = 'MISSING'
+                raise ValueError(f"Missing metadata: {', '.join(missing_fields)}")
+
         return v
 
-
-class EcephysMetadata(Metadata):
-    """The ecephys records in the Data Asset Collection require certain metadata."""
-    data_description: DataDescription = Field(
-        ...,
-        title="Data Description",
-        description="Description of a logical collection of data files"
-    )
-    procedures: Procedures = Field(
-        ...,
-        title="Procedures",
-        description="Description of all procedures performed on a subject"
-    )
-    session: Session = Field(
-        ...,
-        title="Session",
-        description="Description of a session."
-    )
-    rig: Rig = Field(
-        ...,
-        title="Rig",
-        description="Description of a rig."
-    )
-    processing: Processing = Field(
-        ...,
-        title="Processing",
-        description="Description of all processes run on data."
-    )
