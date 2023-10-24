@@ -12,6 +12,8 @@ from aind_data_schema.processing import Processing
 from aind_data_schema.rig import Rig
 from aind_data_schema.session import Session
 from aind_data_schema.subject import Subject
+from aind_data_schema.imaging.acquisition import Acquisition
+from aind_data_schema.imaging.instrument import Instrument
 
 
 class TestMetadata(unittest.TestCase):
@@ -40,7 +42,7 @@ class TestMetadata(unittest.TestCase):
         self.assertTrue(hasattr(d1, "subject"))
         d2 = Metadata(
             _id="00000",
-            name="ecephys_AK655019_2023-04-03_18-17-09",
+            name="SmartSPIM_AK655019_2023-04-03_18-17-09",
             created=datetime(2023, 9, 27, 0, 0, 0),
             last_modified=datetime(2023, 9, 28, 10, 20, 30),
             location="Test Location",
@@ -48,8 +50,8 @@ class TestMetadata(unittest.TestCase):
             subject=Subject.construct(),
             data_description=DataDescription.construct(),
             procedures=None,
-            session=Session.construct(),
-            rig=Rig.construct(),
+            acquisition=Acquisition.construct(),
+            instrument=Instrument.construct(),
             processing=Processing.construct(),
         )
         self.assertIsNotNone(d2)
@@ -65,7 +67,6 @@ class TestMetadata(unittest.TestCase):
                 subject=Subject.construct(),
                 data_description=DataDescription.construct(),
                 procedures=Procedures.construct(),
-                rig=Rig.construct(),
             )
         error_message = str(context.exception)
         self.assertIn("Missing metadata:", error_message)

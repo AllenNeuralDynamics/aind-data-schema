@@ -13,6 +13,8 @@ from aind_data_schema.processing import Processing
 from aind_data_schema.rig import Rig
 from aind_data_schema.session import Session
 from aind_data_schema.subject import Subject
+from aind_data_schema.imaging.instrument import Instrument
+from aind_data_schema.imaging.acquisition import Acquisition
 
 
 class MetadataStatus(Enum):
@@ -68,6 +70,8 @@ class Metadata(AindCoreModel):
     session: Session = Field(None, title="Session", description="Description of a session.")
     rig: Rig = Field(None, title="Rig", description="Description of a rig.")
     processing: Processing = Field(None, title="Processing", description="Description of all processes run on data.")
+    acquisition: Acquisition = Field(None, title="Acquisition", description="Description of an imaging acquisition session")
+    instrument: Instrument = Field(None, title="Instrument", description="Description of an instrument, which is a collection of devices")
 
     @root_validator(pre=True)
     def validate_metadata_completeness(cls, v):
@@ -78,16 +82,16 @@ class Metadata(AindCoreModel):
             platform_abbreviation = match.group("platform_abbreviation")
             subject_id = match.group("subject_id")
 
-            if "AK" in subject_id:
-                complete_metadata = ["subject", "data_description", "session", "rig", "processing"]
-            else:
-                complete_metadata = ["subject", "procedures", "data_description", "session", "rig", "processing"]
+            complete_metadata = ["subject", "data_description", "processing"]
+            if "AK" not in subject_id:
+                complete_metadata.append("procedures")
+            if Platform.ECEPHYS.value.abbreviation == platform_abbreviation:
+                complete_metadata.extend(["rig", "session"])
+            elif Platform.SMARTSPIM.value.abbreviation == platform_abbreviation:
+                complete_metadata.extend(["acquisition", "instrument"])
 
             missing_fields = [field for field in complete_metadata if v.get(field) is None]
-            if (
-                Platform.ECEPHYS.value.abbreviation == platform_abbreviation
-                or Platform.SMARTSPIM.value.abbreviation == platform_abbreviation
-            ) and missing_fields:
+            if missing_fields:
                 v["metadata_status"] = "MISSING"
                 raise ValueError(f"Missing metadata: {', '.join(missing_fields)}")
 
