@@ -250,21 +250,21 @@ class Stream(AindModel):
         if Modality.ECEPHYS.value in modalities:
             ephys_modules = v.get("ephys_modules")
             stick_microscopes = v.get("stick_microscopes")
-            if not ephys_modules:
-                raise ValueError("ephys_modules field must be utilized for Ecephys modality")
-            if not stick_microscopes:
-                raise ValueError("stick_microscopes field must be utilized for Ecephys modality")
+            for key, value in {"ephys_modules": ephys_modules, "stick_microscopes": stick_microscopes}:
+                if not value:
+                    raise ValueError(f"{key} field must be utilized for Ecephys modality")
 
         if Modality.FIB.value in modalities:
             light_source = v.get("light_source")
             detector = v.get("detectors")
             fiber_photometry_assemblies = v.get("fiber_photometry_assemblies")
-            if not light_source:
-                raise ValueError("light_source field must be utilized for FIB modality")
-            if not detector:
-                raise ValueError("detectors field must be utilized for FIB modality")
-            if not fiber_photometry_assemblies:
-                raise ValueError("fiber_photometry_assemblies field must be utilized for FIB modality")
+            for key, value in {
+                "light_source": light_source,
+                "detectors": detector,
+                "fiber_photometry_assemblies": fiber_photometry_assemblies
+                    }:
+                if not value:
+                    raise ValueError(f"{key} field must be utilized for FIB modality")
 
         if Modality.POPHYS.value in modalities:
             ophys_fovs = v.get("ophys_fovs")
