@@ -19,6 +19,9 @@ from aind_data_schema.device import (
     Lens,
     Manipulator,
     NeuropixelsBasestation,
+    StickMicroscopeAssembly,
+    Detector,
+    Patch
 )
 from aind_data_schema.manufacturers import Manufacturer
 from aind_data_schema.rig import Rig
@@ -117,6 +120,20 @@ class RigTests(unittest.TestCase):
                     ),
                 )
             ],
+            stick_microscopes=[StickMicroscopeAssembly(
+                scope_assembly_name="fake name",
+                camera=Camera(
+                        name="Camera A",
+                        manufacturer=Manufacturer.OTHER,
+                        data_interface="USB",
+                        computer_name="ASDF",
+                        max_frame_rate=144,
+                        pixel_width=1,
+                        pixel_height=1,
+                        chroma="Color",
+                    ),
+                lens=Lens(manufacturer=Manufacturer.OTHER)
+            )],
             light_sources=[
                 Laser(
                     manufacturer=Manufacturer.HAMAMATSU,
@@ -127,6 +144,33 @@ class RigTests(unittest.TestCase):
             ],
             laser_assemblies=lms,
             ephys_assemblies=ems,
+            detectors=[
+                Detector(
+                    name="FLIR CMOS for Green Channel",
+                    serial_number="21396991",
+                    manufacturer=Manufacturer.FLIR,
+                    model="BFS-U3-20S40M",
+                    detector_type="Camera",
+                    data_interface="USB",
+                    cooling="air",
+                    immersion="air",
+                    bin_width=4,
+                    bin_height=4,
+                    bin_mode="additive",
+                    crop_width=200,
+                    crop_height=200,
+                    gain=2,
+                    chroma="Monochrome",
+                    bit_depth=16,
+                )],
+            patch_cords=[
+                Patch(
+                    name="Bundle Branching Fiber-optic Patch Cord",
+                    manufacturer=Manufacturer.DORIC,
+                    model="BBP(4)_200/220/900-0.37_Custom_FCM-4xMF1.25",
+                    core_diameter=200,
+                    numerical_aperture=0.37,
+                )],
             mouse_platform=Disc(name="Disc A", radius=1),
             calibrations=[
                 Calibration(
@@ -141,13 +185,54 @@ class RigTests(unittest.TestCase):
 
         assert rig is not None
 
-        with self.assertRaises(ValueError):
+    def test_validator(self):
+        with self.assertRaises(ValidationError):
             Rig(
-                modalities=[Modality.ECEPHYS, Modality.SLAP, Modality.FIB, Modality.BEHAVIOR_VIDEOS, Modality.POPHYS],
+                modalities=[Modality.ECEPHYS, Modality.SLAP, Modality.FIB, Modality.BEHAVIOR_VIDEOS, Modality.POPHYS, Modality.TRAINED_BEHAVIOR],
                 rig_id="1234",
                 modification_date=datetime.datetime.now(),
-                daqs=daqs,
-                calibrations=[]
+                daqs=[
+                    NeuropixelsBasestation(
+                        basestation_firmware_version="1",
+                        bsc_firmware_version="2",
+                        slot=0,
+                        manufacturer=Manufacturer.IMEC,
+                        ports=[],
+                        computer_name="foo",
+                        channels=[
+                            DAQChannel(
+                                channel_name="123",
+                                device_name="Laser A",
+                                channel_type="Analog Output",
+                            ),
+                            DAQChannel(
+                                channel_name="321",
+                                device_name="Probe A",
+                                channel_type="Analog Output",
+                            ),
+                            DAQChannel(
+                                channel_name="234",
+                                device_name="Camera A",
+                                channel_type="Digital Output",
+                            ),
+                            DAQChannel(
+                                channel_name="2354",
+                                device_name="Disc A",
+                                channel_type="Digital Output",
+                            ),
+                        ],
+                    )
+                ],
+                calibrations=[
+                    Calibration(
+                        calibration_date=datetime.datetime.now(),
+                        device_name="Laser A",
+                        description="Laser power calibration",
+                        input={"power percent": [10, 40, 80]},
+                        output={"power mW": [2, 6, 10]},
+                    )
+                ],
+                mouse_platform=Disc(name="Disc A", radius=1),
             )
 
 

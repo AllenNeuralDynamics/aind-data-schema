@@ -247,30 +247,33 @@ class Stream(AindModel):
 
         modalities = v.get("stream_modalities")
 
+        modalities = [modality.value for modality in modalities]
+
+        error_message = ""
+
         if Modality.ECEPHYS.value in modalities:
             ephys_modules = v.get("ephys_modules")
-            stick_microscopes = v.get("stick_microscopes")
-            for key, value in {"ephys_modules": ephys_modules, "stick_microscopes": stick_microscopes}:
+            for key, value in {"ephys_modules": ephys_modules}.items():
                 if not value:
-                    raise ValueError(f"{key} field must be utilized for Ecephys modality")
+                    error_message += f"{key} field must be utilized for Ecephys modality\n"
 
         if Modality.FIB.value in modalities:
-            light_source = v.get("light_source")
+            light_source = v.get("light_sources")
             detector = v.get("detectors")
             fiber_photometry_assemblies = v.get("fiber_photometry_assemblies")
             for key, value in {
-                "light_source": light_source,
+                "light_sources": light_source,
                 "detectors": detector,
-                "fiber_photometry_assemblies": fiber_photometry_assemblies
-                    }:
+                "fiber_photometry_assemblies": fiber_photometry_assemblies,
+            }.items():
                 if not value:
-                    raise ValueError(f"{key} field must be utilized for FIB modality")
+                    error_message += f"{key} field must be utilized for FIB modality\n"
 
         if Modality.POPHYS.value in modalities:
             ophys_fovs = v.get("ophys_fovs")
             stack_parameters = v.get("stack_parameters")
             if not ophys_fovs and not stack_parameters:
-                raise ValueError("ophys_fovs field OR stack_parameters field must be utilized for Pophys modality")
+                error_message += "ophys_fovs field OR stack_parameters field must be utilized for Pophys modality\n"
 
         if Modality.SLAP.value in modalities:
             pass
@@ -278,12 +281,17 @@ class Stream(AindModel):
         if Modality.BEHAVIOR_VIDEOS.value in modalities:
             camera_names = v.get("camera_names")
             if not camera_names:
-                raise ValueError("camera_names field must be utilized for Behavior Videos modality")
+                error_message += "camera_names field must be utilized for Behavior Videos modality\n"
 
         if Modality.TRAINED_BEHAVIOR.value in modalities:
             stimulus_device_names = v.get("stimulus_device_names")
             if not stimulus_device_names:
-                raise ValueError("stimulus_device_names field must be utilized for Trained Behavior modality")
+                error_message += "stimulus_device_names field must be utilized for Trained Behavior modality\n"
+
+        if error_message:
+            raise ValueError(error_message)
+
+        return v
 
 
 class Session(AindCoreModel):
