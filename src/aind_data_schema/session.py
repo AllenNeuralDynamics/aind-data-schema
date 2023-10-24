@@ -242,7 +242,9 @@ class Stream(AindModel):
     notes: Optional[str] = Field(None, title="Notes")
 
     @root_validator
-    def validate_modality(cls, v):
+    def validate_modality(cls, v):  # noqa: C901
+        """Validator to ensure all expected fields are present, based on given modality"""
+
         modalities = v.get("stream_modalities")
 
         if Modality.ECEPHYS.value in modalities:
@@ -252,7 +254,7 @@ class Stream(AindModel):
                 raise ValueError("ephys_modules field must be utilized for Ecephys modality")
             if not stick_microscopes:
                 raise ValueError("stick_microscopes field must be utilized for Ecephys modality")
-            
+
         if Modality.FIB.value in modalities:
             light_source = v.get("light_source")
             detector = v.get("detectors")
@@ -263,21 +265,21 @@ class Stream(AindModel):
                 raise ValueError("detectors field must be utilized for FIB modality")
             if not fiber_photometry_assemblies:
                 raise ValueError("fiber_photometry_assemblies field must be utilized for FIB modality")
-        
+
         if Modality.POPHYS.value in modalities:
             ophys_fovs = v.get("ophys_fovs")
             stack_parameters = v.get("stack_parameters")
             if not ophys_fovs and not stack_parameters:
                 raise ValueError("ophys_fovs field OR stack_parameters field must be utilized for Pophys modality")
-            
+
         if Modality.SLAP.value in modalities:
             pass
-            
+
         if Modality.BEHAVIOR_VIDEOS.value in modalities:
             camera_names = v.get("camera_names")
             if not camera_names:
                 raise ValueError("camera_names field must be utilized for Behavior Videos modality")
-            
+
         if Modality.TRAINED_BEHAVIOR.value in modalities:
             stimulus_device_names = v.get("stimulus_device_names")
             if not stimulus_device_names:
