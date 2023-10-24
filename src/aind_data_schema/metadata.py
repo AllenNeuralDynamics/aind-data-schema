@@ -2,6 +2,7 @@
 
 from datetime import datetime
 from enum import Enum
+from typing import Dict, List
 
 from pydantic import Extra, Field
 
@@ -16,6 +17,12 @@ class MetadataStatus(Enum):
     INVALID = "Invalid"
     MISSING = "Missing"
     UNKNOWN = "Unknown"
+
+
+class ExternalPlatforms(Enum):
+    """External Platforms of Data Assets."""
+
+    CODEOCEAN = "CodeOcean"
 
 
 class Metadata(AindCoreModel):
@@ -48,6 +55,9 @@ class Metadata(AindCoreModel):
     )
     metadata_status: MetadataStatus = Field(..., title=" Metadata Status", description="The status of the metadata.")
     schema_version: str = Field("0.0.1", title="Schema Version", const=True)
+    external_links: List[Dict[ExternalPlatforms, str]] = Field(
+        ..., title="External Links", description="Links to the data asset on different platforms."
+    )
     subject: Subject = Field(
         ...,
         title="Subject",
