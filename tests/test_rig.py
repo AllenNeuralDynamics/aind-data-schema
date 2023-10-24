@@ -141,6 +141,15 @@ class RigTests(unittest.TestCase):
 
         assert rig is not None
 
+        with self.assertRaises(ValueError):
+            Rig(
+                modalities=[Modality.ECEPHYS, Modality.SLAP, Modality.FIB, Modality.BEHAVIOR_VIDEOS, Modality.POPHYS],
+                rig_id="1234",
+                modification_date=datetime.datetime.now(),
+                daqs=daqs,
+                calibrations=[]
+            )
+
 
 if __name__ == "__main__":
     unittest.main()
