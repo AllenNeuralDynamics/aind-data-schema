@@ -70,8 +70,12 @@ class Metadata(AindCoreModel):
     session: Session = Field(None, title="Session", description="Description of a session.")
     rig: Rig = Field(None, title="Rig", description="Description of a rig.")
     processing: Processing = Field(None, title="Processing", description="Description of all processes run on data.")
-    acquisition: Acquisition = Field(None, title="Acquisition", description="Description of an imaging acquisition session")
-    instrument: Instrument = Field(None, title="Instrument", description="Description of an instrument, which is a collection of devices")
+    acquisition: Acquisition = Field(
+        None, title="Acquisition", description="Description of an imaging acquisition session"
+    )
+    instrument: Instrument = Field(
+        None, title="Instrument", description="Description of an instrument, which is a collection of devices"
+    )
 
     @root_validator(pre=True)
     def validate_metadata_completeness(cls, v):
