@@ -36,7 +36,7 @@ class DataRegex(Enum):
         f"{RegexParts.DATE.value})_(?P<c_time>{RegexParts.TIME.value})$"
     )
     NO_UNDERSCORES = "^[^_]+$"
-    NO_SPECIAL_CHARS = "^[^<>:;\"/|? \\_]+$"
+    NO_SPECIAL_CHARS = '^[^<>:;"/|? \\_]+$'
 
 
 class DataLevel(Enum):
@@ -455,22 +455,15 @@ class AnalysisDescription(DataDescription):
         ...,
         regex=DataRegex.NO_SPECIAL_CHARS.value,
         description="Name of the project the analysis belongs to",
-        title="Project name"
+        title="Project name",
     )
     analysis_name: str = Field(
-        ...,
-        regex=DataRegex.NO_SPECIAL_CHARS.value,
-        description="Name of the analysis performed",
-        title="Analysis name"
+        ..., regex=DataRegex.NO_SPECIAL_CHARS.value, description="Name of the analysis performed", title="Analysis name"
     )
 
-    def __init__(self, analysis_name, **kwargs):
-        """Construct an analysis data description"""
-
-        super().__init__(
-            label=f"{kwargs.get('project_name')}_{analysis_name}",
-            **kwargs,
-        )
+    @property
+    def label(self):
+        return f"{self.project_name}_{self.analysis_name}"
 
     @classmethod
     def parse_name(cls, name):
