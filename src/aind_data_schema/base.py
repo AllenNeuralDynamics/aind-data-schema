@@ -129,7 +129,7 @@ class AindCoreModel(AindModel):
         name = cls._get_direct_subclass(cls).__name__
         return re.sub(r"(?<!^)(?=[A-Z])", "_", name).lower() + ".json"
 
-    def write_standard_file(self, output_directory: Optional[Path] = None, prefix=None):
+    def write_standard_file(self, output_directory: Optional[Path] = None, prefix=None, suffix=None):
         """
         Writes schema to standard json file
         Parameters
@@ -144,6 +144,9 @@ class AindCoreModel(AindModel):
             filename = self.default_filename()
         else:
             filename = str(prefix) + "_" + self.default_filename()
+
+        if suffix:
+            filename += "." + str(suffix)
 
         if output_directory is not None:
             output_directory = Path(output_directory)

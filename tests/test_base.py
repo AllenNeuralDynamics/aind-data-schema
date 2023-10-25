@@ -51,8 +51,8 @@ class BaseTests(unittest.TestCase):
         )
 
     @patch("builtins.open", new_callable=unittest.mock.mock_open())
-    def test_write_standard_file_no_prefix(self, mock_open):
-        """tests that standard file is named and written as expected with no prefix"""
+    def test_write_standard_file_no_prefix_suffix(self, mock_open):
+        """tests that standard file is named and written as expected with no prefix or suffix"""
         p = Procedures.construct()
         default_filename = p.default_filename()
         json_contents = p.json(indent=3)
@@ -73,6 +73,22 @@ class BaseTests(unittest.TestCase):
         # It's expected that the file will be written to something like
         # aibs_procedure.json
         expected_file_path = str(prefix) + "_" + default_filename
+
+        mock_open.assert_called_once_with(expected_file_path, "w")
+        mock_open.return_value.__enter__().write.assert_called_once_with(json_contents)
+
+    @patch("builtins.open", new_callable=unittest.mock.mock_open())
+    def test_write_standard_file_with_suffix(self, mock_open):
+        """tests that standard file is named and written as expected with filename suffix"""
+        p = Procedures.construct()
+        default_filename = p.default_filename()
+        json_contents = p.json(indent=3)
+        suffix = "aind"
+        p.write_standard_file(suffix=suffix)
+
+        # It's expected that the file will be written to something like
+        # procedure.aind.json
+        expected_file_path = default_filename + "." + str(suffix)
 
         mock_open.assert_called_once_with(expected_file_path, "w")
         mock_open.return_value.__enter__().write.assert_called_once_with(json_contents)
