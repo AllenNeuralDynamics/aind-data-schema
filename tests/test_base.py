@@ -85,6 +85,9 @@ class BaseTests(unittest.TestCase):
         json_contents = p.json(indent=3)
         suffix = ".aind.json"
         p.write_standard_file(suffix=suffix)
+
+        # It's expected that the file will be written to something like
+        # procedure.aind.json
         expected_file_path = "procedures.aind.json"
 
         mock_open.assert_called_once_with(expected_file_path, "w")
