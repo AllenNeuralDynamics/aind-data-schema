@@ -205,6 +205,7 @@ class Lens(Device):
         Manufacturer.INFINITY_PHOTO_OPTICAL,
         Manufacturer.LEICA,
         Manufacturer.MITUTUYO,
+        Manufacturer.NAVITAR,
         Manufacturer.NIKON,
         Manufacturer.OLYMPUS,
         Manufacturer.SCHNEIDER_KREUZNACH,
@@ -619,7 +620,7 @@ class Monitor(Device):
     """Description of visual display for visual stimuli"""
 
     device_type: Literal["Monitor"] = Field("Monitor", const=True, readOnly=True)
-    manufacturer: EnumSubset[Manufacturer.LG]
+    manufacturer: EnumSubset[Manufacturer.ASUS, Manufacturer.LG]
     refresh_rate: int = Field(..., title="Refresh rate (Hz)", units="Hz", ge=60)
     width: int = Field(..., title="Width (pixels)", units="pixels")
     height: int = Field(..., title="Height (pixels)", units="pixels")
@@ -676,7 +677,7 @@ class Speaker(Device):
     """Description of a speaker for auditory stimuli"""
 
     device_type: Literal["Speaker"] = Field("Speaker", const=True, readOnly=True)
-    manufacturer: EnumSubset[Manufacturer.TYMPHANY]
+    manufacturer: EnumSubset[Manufacturer.TYMPHANY, Manufacturer.ISL]
     position: Optional[RelativePosition] = Field(None, title="Relative position of the monitor")
 
 
