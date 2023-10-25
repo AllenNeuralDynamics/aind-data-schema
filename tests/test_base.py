@@ -81,7 +81,6 @@ class BaseTests(unittest.TestCase):
     def test_write_standard_file_with_suffix(self, mock_open):
         """tests that standard file is named and written as expected with filename suffix"""
         p = Procedures.construct()
-        default_filename = p.default_filename()
         json_contents = p.json(indent=3)
         suffix = ".aind.json"
         p.write_standard_file(suffix=suffix)
