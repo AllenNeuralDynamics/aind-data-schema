@@ -41,6 +41,7 @@ class TestMetadata(unittest.TestCase):
         )
         self.assertIsNotNone(d2)
         self.assertTrue(hasattr(d2, "procedures"))
+        self.assertTrue(hasattr(d2, "external_links"))
 
 
 if __name__ == "__main__":

@@ -22,7 +22,7 @@ class MetadataStatus(Enum):
 class ExternalPlatforms(Enum):
     """External Platforms of Data Assets."""
 
-    CODEOCEAN = "CodeOcean"
+    CODEOCEAN = "Code Ocean"
 
 
 class Metadata(AindCoreModel):
