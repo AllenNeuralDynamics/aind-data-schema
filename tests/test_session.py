@@ -8,8 +8,6 @@ import pydantic
 from aind_data_schema.coordinates import CcfCoords, Coordinates3d
 from aind_data_schema.data_description import Modality
 from aind_data_schema.session import EphysModule, EphysProbe, RewardDelivery, Session, Stream
-from aind_data_schema.device import Lens, StickMicroscopeAssembly, Camera
-from aind_data_schema.manufacturers import Manufacturer
 
 
 class ExampleTest(unittest.TestCase):
