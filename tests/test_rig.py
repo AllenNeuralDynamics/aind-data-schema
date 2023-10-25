@@ -186,6 +186,8 @@ class RigTests(unittest.TestCase):
         assert rig is not None
 
     def test_validator(self):
+        """Test the rig file validators"""
+        
         with self.assertRaises(ValidationError):
             Rig(
                 modalities=[
