@@ -187,7 +187,7 @@ class RigTests(unittest.TestCase):
 
     def test_validator(self):
         """Test the rig file validators"""
-        
+
         with self.assertRaises(ValidationError):
             Rig(
                 modalities=[
