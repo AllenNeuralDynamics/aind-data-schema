@@ -138,7 +138,8 @@ class AindCoreModel(AindModel):
             optional Path object for output directory
         prefix:
             optional str for intended filepath with extra naming convention
-
+        suffix:
+            optional str for intended filepath with extra naming convention
         """
         if prefix is None:
             filename = self.default_filename()
@@ -146,7 +147,7 @@ class AindCoreModel(AindModel):
             filename = str(prefix) + "_" + self.default_filename()
 
         if suffix:
-            filename += "." + str(suffix)
+            filename += "." + str(suffix.strip("."))
 
         if output_directory is not None:
             output_directory = Path(output_directory)
