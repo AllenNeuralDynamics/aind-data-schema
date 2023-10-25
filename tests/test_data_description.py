@@ -122,7 +122,7 @@ class DataDescriptionTest(unittest.TestCase):
                 investigators=["Jane Smith"],
             )
 
-        AnalysisDescription(
+        ad = AnalysisDescription(
             analysis_name="analysis",
             project_name="project",
             creation_time=dt,
@@ -133,6 +133,8 @@ class DataDescriptionTest(unittest.TestCase):
             funding_source=[f],
             investigators=["Jane Smith"],
         )
+
+        self.assertEqual(ad.label, "project_analysis")
 
         with self.assertRaises(ValueError):
             AnalysisDescription(
