@@ -463,6 +463,8 @@ class AnalysisDescription(DataDescription):
 
     @property
     def label(self):
+        """returns the label of the file"""
+
         return f"{self.project_name}_{self.analysis_name}"
 
     @classmethod
