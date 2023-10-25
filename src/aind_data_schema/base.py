@@ -127,9 +127,9 @@ class AindCoreModel(AindModel):
         Returns standard filename in snakecase
         """
         name = cls._get_direct_subclass(cls).__name__
-        return re.sub(r"(?<!^)(?=[A-Z])", "_", name).lower() + ".json"
+        return re.sub(r"(?<!^)(?=[A-Z])", "_", name).lower()
 
-    def write_standard_file(self, output_directory: Optional[Path] = None, prefix=None, suffix=None):
+    def write_standard_file(self, output_directory: Optional[Path] = None, prefix=None, suffix=".json"):
         """
         Writes schema to standard json file
         Parameters
@@ -142,12 +142,9 @@ class AindCoreModel(AindModel):
             optional str for intended filepath with extra naming convention
         """
         if prefix is None:
-            filename = self.default_filename()
+            filename = self.default_filename() + suffix
         else:
-            filename = str(prefix) + "_" + self.default_filename()
-
-        if suffix:
-            filename += "." + str(suffix.strip("."))
+            filename = str(prefix) + "_" + self.default_filename() + suffix
 
         if output_directory is not None:
             output_directory = Path(output_directory)
