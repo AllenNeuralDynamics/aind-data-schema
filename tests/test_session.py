@@ -56,7 +56,7 @@ class ExampleTest(unittest.TestCase):
 
     def test_validators(self):
         """Test the session file validators"""
-        
+
         with self.assertRaises(pydantic.ValidationError):
             Stream(
                 stream_start_time=datetime.datetime.now(),
