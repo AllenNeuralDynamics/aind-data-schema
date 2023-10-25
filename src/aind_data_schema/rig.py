@@ -107,7 +107,11 @@ class Rig(AindCoreModel):
             light_source = v.get("light_sources")
             detector = v.get("detectors")
             patch_cords = v.get("patch_cords")
-            for key, value in {"light_sources": light_source, "detectors": detector, "patch_cords": patch_cords}.items():
+            for key, value in {
+                "light_sources": light_source,
+                "detectors": detector,
+                "patch_cords": patch_cords
+            }.items():
                 if value is None:
                     error_message += f"{key} field must be utilized for FIB modality\n"
 
@@ -136,7 +140,7 @@ class Rig(AindCoreModel):
             stimulus_devices = v.get("stimulus_devices")
             if not stimulus_devices:
                 error_message += "stimulus_devices field must be utilized for Trained Behavior modality\n"
-    
+
         if error_message:
             raise ValueError(error_message)
 

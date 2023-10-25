@@ -59,7 +59,14 @@ class ExampleTest(unittest.TestCase):
             Stream(
                 stream_start_time=datetime.datetime.now(),
                 stream_end_time=datetime.datetime.now(),
-                stream_modalities=[Modality.ECEPHYS, Modality.SLAP, Modality.FIB, Modality.BEHAVIOR_VIDEOS, Modality.POPHYS, Modality.TRAINED_BEHAVIOR]
+                stream_modalities=[
+                    Modality.ECEPHYS,
+                    Modality.SLAP,
+                    Modality.FIB,
+                    Modality.BEHAVIOR_VIDEOS,
+                    Modality.POPHYS,
+                    Modality.TRAINED_BEHAVIOR
+                ]
             )
 
 

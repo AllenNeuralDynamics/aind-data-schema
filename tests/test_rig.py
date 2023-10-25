@@ -11,6 +11,7 @@ from aind_data_schema.device import (
     Camera,
     CameraAssembly,
     DAQChannel,
+    Detector,
     Disc,
     EphysAssembly,
     EphysProbe,
@@ -19,9 +20,8 @@ from aind_data_schema.device import (
     Lens,
     Manipulator,
     NeuropixelsBasestation,
+    Patch,
     StickMicroscopeAssembly,
-    Detector,
-    Patch
 )
 from aind_data_schema.manufacturers import Manufacturer
 from aind_data_schema.rig import Rig
@@ -188,7 +188,14 @@ class RigTests(unittest.TestCase):
     def test_validator(self):
         with self.assertRaises(ValidationError):
             Rig(
-                modalities=[Modality.ECEPHYS, Modality.SLAP, Modality.FIB, Modality.BEHAVIOR_VIDEOS, Modality.POPHYS, Modality.TRAINED_BEHAVIOR],
+                modalities=[
+                    Modality.ECEPHYS,
+                    Modality.SLAP,
+                    Modality.FIB,
+                    Modality.BEHAVIOR_VIDEOS,
+                    Modality.POPHYS,
+                    Modality.TRAINED_BEHAVIOR
+                    ],
                 rig_id="1234",
                 modification_date=datetime.datetime.now(),
                 daqs=[

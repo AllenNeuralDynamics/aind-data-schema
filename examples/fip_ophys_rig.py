@@ -4,8 +4,6 @@ import datetime
 import aind_data_schema.device as d
 import aind_data_schema.rig as r
 from aind_data_schema.data_description import Modality
-from aind_data_schema.device import Laser
-from aind_data_schema.manufacturers import Manufacturer
 
 r = r.Rig(
     rig_id="428_FIP1_2",
