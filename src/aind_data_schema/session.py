@@ -92,6 +92,7 @@ class FieldOfView(AindModel):
     fov_scale_factor_unit: str = Field("um/pixel", title="FOV scale factor unit")
     frame_rate: Decimal = Field(..., title="Frame rate (Hz)")
     frame_rate_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Frame rate unit")
+    coupled_fov_index: Optional[int] = Field(None, title="Coupled FOV", description="Coupled planes for multiscope")
 
 
 class StackChannel(Channel):
@@ -246,7 +247,7 @@ class Session(AindCoreModel):
     """Description of a physiology and/or behavior session"""
 
     schema_version: str = Field(
-        "0.0.1",
+        "0.0.2",
         description="schema version",
         title="Schema Version",
         const=True,
