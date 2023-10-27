@@ -123,9 +123,30 @@ class Metadata(AindCoreModel):
         else:
             data_description_model = DataDescription(**data_description_contents)
 
+        v_procedures = v.get("procedures")
+        if v_procedures is None:
+            procedures_contents = None
+        elif isinstance(v_procedures, Procedures):
+            procedures_contents = v_procedures.dict()
+        elif isinstance(v_procedures, dict):
+            procedures_contents = v_procedures
+        else:
+            raise ValidationError("procedures needs to be of type Procedures or dictionary.")
+
+        *_, validation_error = validate_model(
+            Procedures, procedures_contents
+        )
+
+        if validation_error:
+            procedures_model = Procedures.construct(**procedures_contents)
+            metadata_status = MetadataStatus.INVALID
+        else:
+            procedures_model = Procedures(**procedures_contents)
+
         v["metadata_status"] = metadata_status
         v["subject"] = subject_model
         v["data_description"] = data_description_model
+        v["procedures"] = procedures_model
         # name_value = v.get("name")
         # match = re.match(str(DataRegex.RAW.value), str(name_value))
         # if match:
