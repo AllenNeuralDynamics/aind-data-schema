@@ -153,7 +153,7 @@ class Platform(Enum, metaclass=AbbreviationEnumMeta):
     FIP = BaseName(name="Frame-projected independent-fiber photometry platform", abbreviation="FIP")
     HCR = BaseName(name="Hybridization chain reaction platform", abbreviation="HCR")
     HSFP = BaseName(name="Hyperspectral fiber photometry platform", abbreviation="HSFP")
-    MESOSPM = BaseName(name="MesoSPIM platform", abbreviation="mesoSPIM")
+    MESOSPIM = BaseName(name="MesoSPIM platform", abbreviation="mesoSPIM")
     MERFISH = BaseName(name="MERFISH platform", abbreviation="MERFISH")
     MRI = BaseName(name="Magnetic resonance imaging platform", abbreviation="MRI")
     MULTIPLANE_OPHYS = BaseName(name="Multiplane optical physiology platform", abbreviation="multiplane-ophys")
