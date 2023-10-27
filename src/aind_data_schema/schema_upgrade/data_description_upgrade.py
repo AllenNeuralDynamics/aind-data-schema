@@ -3,7 +3,7 @@ from copy import deepcopy
 from datetime import datetime
 from typing import Any, Optional, Union
 
-from aind_data_schema.data_description import DataDescription, Funding, Institution, Modality, Platform
+from aind_data_schema.data_description import DataDescription, Funding, Institution, Modality, Platform, DataLevel
 
 
 class ModalityUpgrade:
@@ -74,6 +74,22 @@ class InstitutionUpgrade:
             return None
 
 
+class DataLevelUpgrade:
+    """Handle upgrades for DataLevel class"""
+
+    @staticmethod
+    def upgrade_data_level(old_data_level: Any, default_data_level: DataLevel.RAW) -> Optional[str]:
+        """Map legacy DataLevel model to current version"""
+        available_data_levels = [d.value for d in DataLevel]
+        if type(old_data_level) is str:
+            if old_data_level in available_data_levels:
+                return old_data_level
+            else:
+                return default_data_level
+        else:
+            return default_data_level
+
+
 class DataDescriptionUpgrade:
     """Handle upgrades for DataDescription class"""
 
@@ -131,6 +147,8 @@ class DataDescriptionUpgrade:
             modality = [ModalityUpgrade.upgrade_modality(m) for m in old_modality]
         else:
             modality = getattr(DataDescription.__fields__.get("modality"), "default")
+        old_data_level: Any = self.old_data_description_model.data_level
+        old_data_level = DataLevelUpgrade.upgrade_data_level(old_data_level, default_data_level=DataLevel.RAW)
 
         experiment_type = self._get_or_default(self.old_data_description_model, "experiment_type", kwargs)
         platform = None
@@ -155,7 +173,7 @@ class DataDescriptionUpgrade:
             name=self._get_or_default(self.old_data_description_model, "name", kwargs),
             institution=institution,
             funding_source=funding_source,
-            data_level=self._get_or_default(self.old_data_description_model, "data_level", kwargs),
+            data_level=old_data_level,
             group=self._get_or_default(self.old_data_description_model, "group", kwargs),
             investigators=self._get_or_default(self.old_data_description_model, "investigators", kwargs),
             project_name=self._get_or_default(self.old_data_description_model, "project_name", kwargs),
