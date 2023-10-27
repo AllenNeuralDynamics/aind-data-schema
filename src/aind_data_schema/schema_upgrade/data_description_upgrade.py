@@ -147,7 +147,7 @@ class DataDescriptionUpgrade:
             modality = [ModalityUpgrade.upgrade_modality(m) for m in old_modality]
         else:
             modality = getattr(DataDescription.__fields__.get("modality"), "default")
-        old_data_level: Any = self.old_data_description_model.data_level
+        old_data_level = self._get_or_default(self.old_data_description_model, "data_level", kwargs)
         old_data_level = DataLevelUpgrade.upgrade_data_level(old_data_level, default_data_level=DataLevel.RAW)
 
         experiment_type = self._get_or_default(self.old_data_description_model, "experiment_type", kwargs)
