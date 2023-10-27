@@ -144,8 +144,8 @@ class DataDescriptionUpgrade:
             platform = self._get_or_default(self.old_data_description_model, "platform", kwargs)
 
         creation_date = self._get_or_default(self.old_data_description_model, "creation_date", kwargs)
+        creation_time = self._get_or_default(self.old_data_description_model, "creation_time", kwargs)
         if creation_date is not None:
-            creation_time = self._get_or_default(self.old_data_description_model, "creation_time", kwargs)
             creation_date = datetime.strptime(creation_date, "%Y-%m-%d").date()
             creation_time = datetime.strptime(creation_time, "%H:%M:%S").time()
             creation_time = datetime.combine(creation_date, creation_time)

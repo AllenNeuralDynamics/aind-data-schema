@@ -12,7 +12,7 @@ from aind_data_schema.base import AindModel, EnumSubset
 from aind_data_schema.coordinates import RelativePosition
 from aind_data_schema.manufacturers import Manufacturer
 from aind_data_schema.procedures import Reagent
-from aind_data_schema.utils.units import FrequencyUnit, PowerUnit, SizeUnit
+from aind_data_schema.utils.units import FrequencyUnit, PowerUnit, SizeUnit, TemperatureUnit
 
 
 class DeviceDriver(Enum):
@@ -201,8 +201,16 @@ class Lens(Device):
     manufacturer: EnumSubset[
         Manufacturer.COMPUTAR,
         Manufacturer.EDMUND_OPTICS,
+        Manufacturer.HAMAMATSU,
         Manufacturer.INFINITY_PHOTO_OPTICAL,
+        Manufacturer.LEICA,
+        Manufacturer.MITUTUYO,
+        Manufacturer.NAVITAR,
+        Manufacturer.NIKON,
+        Manufacturer.OLYMPUS,
+        Manufacturer.SCHNEIDER_KREUZNACH,
         Manufacturer.THORLABS,
+        Manufacturer.ZEISS,
         Manufacturer.OTHER,
     ]
 
@@ -343,6 +351,7 @@ class Laser(Device):
         Manufacturer.HAMAMATSU,
         Manufacturer.OXXIUS,
         Manufacturer.QUANTIFI,
+        Manufacturer.VORTRAN,
         Manufacturer.OTHER,
     ]
     wavelength: int = Field(..., title="Wavelength (nm)", units="nm")
@@ -361,8 +370,6 @@ class Laser(Device):
     )
     coupling_efficiency_unit: Optional[str] = Field("percent", title="Coupling efficiency unit")
     item_number: Optional[str] = Field(None, title="Item number")
-    calibration_data: Optional[str] = Field(None, description="Path to calibration data", title="Calibration data")
-    calibration_date: Optional[datetime] = Field(None, title="Calibration date")
 
 
 class LightEmittingDiode(Device):
@@ -377,6 +384,17 @@ class LightEmittingDiode(Device):
     ]
     wavelength: int = Field(..., title="Wavelength (nm)", units="nm")
     wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
+
+
+class Lamp(Device):
+    """Description of a Lamp lightsource"""
+
+    device_type: Literal["Lamp"] = Field("Lamp", const=True, readOnly=True)
+    wavelength_min: Optional[int] = Field(None, title="Wavelength minimum (nm)")
+    wavelength_max: Optional[int] = Field(None, title="Wavelength maximum (nm)")
+    wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
+    temperature: Optional[int] = Field(None, title="Temperature (K)")
+    temperature_unit: TemperatureUnit = Field(TemperatureUnit.K, title="Temperature unit")
 
 
 class ProbePort(AindModel):
@@ -519,6 +537,9 @@ class Detector(Device):
     immersion: Optional[Immersion] = Field(None, title="Immersion")
 
     chroma: Optional[CameraChroma] = Field(None, title="Camera chroma")
+    sensor_width: Optional[int] = Field(None, title="Width of the sensor in pixels")
+    sensor_height: Optional[int] = Field(None, title="Height of the sensor in pixels")
+    size_unit: SizeUnit = Field(SizeUnit.PX, title="Size unit", const=True)
     bit_depth: Optional[int] = Field(None, title="Bit depth")
     bin_mode: Optional[BinMode] = Field(BinMode.NONE, title="Detector binning mode")
     bin_width: Optional[int] = Field(None, title="Bin width")
@@ -599,7 +620,7 @@ class Monitor(Device):
     """Description of visual display for visual stimuli"""
 
     device_type: Literal["Monitor"] = Field("Monitor", const=True, readOnly=True)
-    manufacturer: EnumSubset[Manufacturer.LG]
+    manufacturer: EnumSubset[Manufacturer.ASUS, Manufacturer.LG]
     refresh_rate: int = Field(..., title="Refresh rate (Hz)", units="Hz", ge=60)
     width: int = Field(..., title="Width (pixels)", units="pixels")
     height: int = Field(..., title="Height (pixels)", units="pixels")
@@ -656,7 +677,7 @@ class Speaker(Device):
     """Description of a speaker for auditory stimuli"""
 
     device_type: Literal["Speaker"] = Field("Speaker", const=True, readOnly=True)
-    manufacturer: EnumSubset[Manufacturer.TYMPHANY]
+    manufacturer: EnumSubset[Manufacturer.TYMPHANY, Manufacturer.ISL]
     position: Optional[RelativePosition] = Field(None, title="Relative position of the monitor")
 
 

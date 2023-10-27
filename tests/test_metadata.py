@@ -3,7 +3,7 @@
 import unittest
 from datetime import datetime
 
-from aind_data_schema.metadata import Metadata, MetadataStatus
+from aind_data_schema.metadata import ExternalPlatforms, Metadata, MetadataStatus
 from aind_data_schema.procedures import Procedures
 from aind_data_schema.subject import Subject
 
@@ -22,6 +22,7 @@ class TestMetadata(unittest.TestCase):
             location="Test Location",
             metadata_status=MetadataStatus.VALID,
             subject=Subject.construct(),
+            external_links=[{ExternalPlatforms.CODEOCEAN: "abc-1234"}],
         )
         self.assertIsNotNone(d1)
         self.assertEqual(d1.schema_version, "0.0.1")
@@ -36,9 +37,11 @@ class TestMetadata(unittest.TestCase):
             metadata_status=MetadataStatus.VALID,
             subject=Subject.construct(),
             procedures=Procedures.construct(),
+            external_links=[{ExternalPlatforms.CODEOCEAN: "abc-1234"}],
         )
         self.assertIsNotNone(d2)
         self.assertTrue(hasattr(d2, "procedures"))
+        self.assertTrue(hasattr(d2, "external_links"))
 
 
 if __name__ == "__main__":

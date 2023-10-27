@@ -1,0 +1,49 @@
+{
+   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/data_description.py",
+   "schema_version": "0.10.0",
+   "license": "CC-BY-4.0",
+   "creation_time": "2023-10-18T16:00:06",
+   "name": "ecephys_691897_2023-10-18_16-00-06",
+   "institution": {
+      "name": "Allen Institute for Neural Dynamics",
+      "abbreviation": "AIND",
+      "registry": {
+         "name": "Research Organization Registry",
+         "abbreviation": "ROR"
+      },
+      "registry_identifier": "04szwah67"
+   },
+   "funding_source": [
+      {
+         "funder": {
+            "name": "Allen Institute for Neural Dynamics",
+            "abbreviation": "AIND",
+            "registry": {
+               "name": "Research Organization Registry",
+               "abbreviation": "ROR"
+            },
+            "registry_identifier": "04szwah67"
+         },
+         "grant_number": null,
+         "fundee": null
+      }
+   ],
+   "data_level": "raw",
+   "group": null,
+   "investigators": [],
+   "platform": {
+      "name": "Electrophysiology platform",
+      "abbreviation": "ecephys"
+   },
+   "project_name": null,
+   "restrictions": null,
+   "modality": [
+      {
+         "name": "Extracellular electrophysiology",
+         "abbreviation": "ecephys"
+      }
+   ],
+   "subject_id": "691897",
+   "related_data": [],
+   "data_summary": null
+}
