@@ -7,7 +7,7 @@ from datetime import datetime
 from enum import Enum, EnumMeta
 from typing import Any, List, Optional
 
-from pydantic import Field
+from pydantic import Field, validator
 
 from aind_data_schema.base import AindCoreModel, AindModel, BaseName, BaseNameEnumMeta, PIDName, Registry
 
@@ -296,6 +296,12 @@ class DataDescription(AindCoreModel):
             label=m.group("label"),
             creation_time=creation_time,
         )
+
+    @validator("data_level")
+    def validate_data_level(cls, v):
+        """Validator for data_level"""
+        if v.get("data_level") == "raw level":
+            v["data_level"] = DataLevel.RAW
 
 
 class DerivedDataDescription(DataDescription):

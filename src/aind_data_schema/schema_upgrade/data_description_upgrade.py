@@ -4,7 +4,7 @@ from datetime import datetime
 from typing import Any, Optional, Union
 
 from aind_data_schema.data_description import DataDescription, Funding, Institution, Modality, Platform, DataLevel
-
+from pydantic import validator
 
 class ModalityUpgrade:
     """Handle upgrades for Modality models."""
@@ -74,22 +74,6 @@ class InstitutionUpgrade:
             return None
 
 
-class DataLevelUpgrade:
-    """Handle upgrades for DataLevel class"""
-
-    @staticmethod
-    def upgrade_data_level(old_data_level: Any, default_data_level: DataLevel.RAW) -> Optional[str]:
-        """Map legacy DataLevel model to current version"""
-        available_data_levels = [d.value for d in DataLevel]
-        if type(old_data_level) is str:
-            if old_data_level in available_data_levels:
-                return old_data_level
-            else:
-                return default_data_level
-        else:
-            return default_data_level
-
-
 class DataDescriptionUpgrade:
     """Handle upgrades for DataDescription class"""
 
@@ -148,7 +132,6 @@ class DataDescriptionUpgrade:
         else:
             modality = getattr(DataDescription.__fields__.get("modality"), "default")
         old_data_level = self._get_or_default(self.old_data_description_model, "data_level", kwargs)
-        old_data_level = DataLevelUpgrade.upgrade_data_level(old_data_level, default_data_level=DataLevel.RAW)
 
         experiment_type = self._get_or_default(self.old_data_description_model, "experiment_type", kwargs)
         platform = None
@@ -184,3 +167,6 @@ class DataDescriptionUpgrade:
             related_data=self._get_or_default(self.old_data_description_model, "related_data", kwargs),
             data_summary=self._get_or_default(self.old_data_description_model, "data_summary", kwargs),
         )
+
+
+
