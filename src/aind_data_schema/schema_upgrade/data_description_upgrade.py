@@ -3,8 +3,8 @@ from copy import deepcopy
 from datetime import datetime
 from typing import Any, Optional, Union
 
-from aind_data_schema.data_description import DataDescription, Funding, Institution, Modality, Platform, DataLevel
-from pydantic import validator
+from aind_data_schema.data_description import DataDescription, Funding, Institution, Modality, Platform
+
 
 class ModalityUpgrade:
     """Handle upgrades for Modality models."""
@@ -167,6 +167,3 @@ class DataDescriptionUpgrade:
             related_data=self._get_or_default(self.old_data_description_model, "related_data", kwargs),
             data_summary=self._get_or_default(self.old_data_description_model, "data_summary", kwargs),
         )
-
-
-
