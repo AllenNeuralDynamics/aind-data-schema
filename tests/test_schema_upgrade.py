@@ -140,6 +140,15 @@ class TestDataDescriptionUpgrade(unittest.TestCase):
 
         self.assertEqual(expected_error_message2, repr(e2.exception))
 
+        # Should work if data_level is missing in original json doc and
+        # user sets it explicitly
+        data_description_dict = data_description_0_3_0.dict()
+        del data_description_dict["data_level"]
+        data_description_0_3_0_no_data_level = DataDescription.construct(**data_description_dict)
+        upgrader3 = DataDescriptionUpgrade(old_data_description_model=data_description_0_3_0_no_data_level)
+        new_data_description3 = upgrader3.upgrade_data_description(platform=Platform.ECEPHYS, data_level=DataLevel.RAW)
+        self.assertEqual(DataLevel.RAW, new_data_description3.data_level)
+
     def test_upgrades_0_4_0(self):
         """Tests data_description_0.4.0.json is mapped correctly."""
         data_description_0_4_0 = self.data_descriptions["data_description_0.4.0.json"]
