@@ -5,9 +5,9 @@ from __future__ import annotations
 import re
 from datetime import datetime
 from enum import Enum, EnumMeta
-from typing import Any, List, Optional
+from typing import Any, List, Optional, Union
 
-from pydantic import Field
+from pydantic import Field, ValidationError, validator
 
 from aind_data_schema.base import AindCoreModel, AindModel, BaseName, BaseNameEnumMeta, PIDName, Registry
 
@@ -271,9 +271,14 @@ class DataDescription(AindCoreModel):
     )
     data_summary: Optional[str] = Field(None, title="Data summary", description="Semantic summary of experimental goal")
 
+    # TODO: We need to remove all the custom class constructors on pydantic
+    #  models
     def __init__(self, label=None, **kwargs):
         """Construct a generic DataDescription"""
 
+        # Ideally, we'd like to just use validators to parse information,
+        # but we need to get rid of these init methods first since they
+        # don't get called on here
         super().__init__(**kwargs)
 
         if label is not None:
@@ -296,6 +301,23 @@ class DataDescription(AindCoreModel):
             label=m.group("label"),
             creation_time=creation_time,
         )
+
+    @validator("data_level", pre=True, always=True)
+    def upgrade_data_level(cls, value: Union[str, DataLevel]):
+        """Updates legacy values to current values"""
+        # If user inputs a string and is 'raw level', convert it to RAW
+        if isinstance(value, str) and value in ["raw level", "raw data"]:
+            return DataLevel.RAW
+        # If user inputs a string, try to convert it to a DataLevel. Will raise
+        # an error if unable to parse the input string
+        elif isinstance(value, str):
+            return DataLevel(value)
+        # If user inputs a DataLevel object, return the object without parsing
+        elif isinstance(value, DataLevel):
+            return value
+        # else raise a validation error
+        else:
+            raise ValidationError("Data Level needs to be string or enum")
 
 
 class DerivedDataDescription(DataDescription):
