@@ -131,6 +131,7 @@ class DataDescriptionUpgrade:
             modality = [ModalityUpgrade.upgrade_modality(m) for m in old_modality]
         else:
             modality = getattr(DataDescription.__fields__.get("modality"), "default")
+        old_data_level = self._get_or_default(self.old_data_description_model, "data_level", kwargs)
 
         experiment_type = self._get_or_default(self.old_data_description_model, "experiment_type", kwargs)
         platform = None
@@ -144,8 +145,8 @@ class DataDescriptionUpgrade:
             platform = self._get_or_default(self.old_data_description_model, "platform", kwargs)
 
         creation_date = self._get_or_default(self.old_data_description_model, "creation_date", kwargs)
+        creation_time = self._get_or_default(self.old_data_description_model, "creation_time", kwargs)
         if creation_date is not None:
-            creation_time = self._get_or_default(self.old_data_description_model, "creation_time", kwargs)
             creation_date = datetime.strptime(creation_date, "%Y-%m-%d").date()
             creation_time = datetime.strptime(creation_time, "%H:%M:%S").time()
             creation_time = datetime.combine(creation_date, creation_time)
@@ -155,7 +156,7 @@ class DataDescriptionUpgrade:
             name=self._get_or_default(self.old_data_description_model, "name", kwargs),
             institution=institution,
             funding_source=funding_source,
-            data_level=self._get_or_default(self.old_data_description_model, "data_level", kwargs),
+            data_level=old_data_level,
             group=self._get_or_default(self.old_data_description_model, "group", kwargs),
             investigators=self._get_or_default(self.old_data_description_model, "investigators", kwargs),
             project_name=self._get_or_default(self.old_data_description_model, "project_name", kwargs),

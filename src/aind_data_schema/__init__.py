@@ -1,7 +1,7 @@
 """ imports for AindModel subclasses
 """
 
-__version__ = "0.15.11"
+__version__ = "0.15.17"
 
 
 from .behavior.behavior_rig import BehaviorRig
@@ -19,6 +19,7 @@ from .processing import DataProcess, Processing
 from .rig import Rig
 from .session import Session
 from .subject import LightCycle, Subject
+from .metadata import Metadata
 
 __all__ = [
     "DataDescription",
@@ -44,4 +45,5 @@ __all__ = [
     "MriSession",
     "Rig",
     "Session",
+    "Metadata"
 ]
