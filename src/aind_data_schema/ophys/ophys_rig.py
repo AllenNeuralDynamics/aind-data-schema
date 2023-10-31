@@ -89,7 +89,7 @@ class OphysRig(AindCoreModel):
     """Description of an optical physiology rig. This is being deprecated after 2023-11-01."""
 
     schema_version: str = Field(
-        "0.7.3",
+        "0.7.5",
         description="schema version",
         title="Schema Version",
         const=True,

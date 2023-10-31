@@ -15,6 +15,11 @@ class Manufacturer(Enum, metaclass=BaseNameEnumMeta):
         name="Applied Scientific Instrumentation",
         abbreviation="ASI",
     )
+    ASUS = PIDName(
+        name="ASUS",
+        registry=Registry.ROR,
+        registry_identifier="00bxkz165",
+    )
     AVCOSTAR = PIDName(name="Arecont Vision Costar")
     BASLER = PIDName(name="Basler")
     CAMBRIDGE_TECHNOLOGY = PIDName(name="Cambridge Technology")
@@ -59,6 +64,7 @@ class Manufacturer(Enum, metaclass=BaseNameEnumMeta):
         registry_identifier="02kcbn207",
     )
     INFINITY_PHOTO_OPTICAL = PIDName(name="Infinity Photo-Optical")
+    ISL = PIDName(name="ISL Products International", abbreviation="ISL")
     JULABO = PIDName(name="Julabo")
     LEE = PIDName(name="The Lee Company")
     LEICA = PIDName(name="Leica")
@@ -86,6 +92,7 @@ class Manufacturer(Enum, metaclass=BaseNameEnumMeta):
         registry=Registry.ROR,
         registry_identifier="026exqw73",
     )
+    NAVITAR = PIDName(name="Navitar")
     NEW_SCALE_TECHNOLOGIES = PIDName(name="New Scale Technologies")
     NIKON = PIDName(
         name="Nikon",
@@ -109,6 +116,7 @@ class Manufacturer(Enum, metaclass=BaseNameEnumMeta):
     QUANTIFI = PIDName(name="Quantifi")
     RASPBERRYPI = PIDName(name="Raspberry Pi")
     SEMROCK = PIDName(name="Semrock")
+    SCHNEIDER_KREUZNACH = PIDName(name="Schneider-Kreuznach")
     TAMRON = PIDName(name="Tamron")
     THORLABS = PIDName(
         name="Thorlabs",
@@ -119,4 +127,5 @@ class Manufacturer(Enum, metaclass=BaseNameEnumMeta):
     TYMPHANY = PIDName(name="Tymphany")
     VIEWORKS = PIDName(name="Vieworks")
     VORTRAN = PIDName(name="Vortran")
+    ZEISS = PIDName(name="Carl Zeiss", registry=Registry.ROR, registry_identifier="01xk5xs43")
     OTHER = PIDName(name="Other")

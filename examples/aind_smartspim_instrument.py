@@ -1,19 +1,9 @@
 """ example SmartSPIM instrument """
 import datetime
 
-from aind_data_schema.device import Manufacturer
-from aind_data_schema.imaging.instrument import (
-    AdditionalImagingDevice,
-    Com,
-    Detector,
-    Filter,
-    Instrument,
-    Lightsource,
-    MotorizedStage,
-    Objective,
-    OpticalTable,
-    ScanningStage,
-)
+from aind_data_schema.device import Detector, Filter, Laser, MotorizedStage, Objective
+from aind_data_schema.imaging.instrument import AdditionalImagingDevice, Com, Instrument, OpticalTable, ScanningStage
+from aind_data_schema.manufacturers import Manufacturer
 
 inst = Instrument(
     instrument_id="SmartSPIM1-3",
@@ -60,7 +50,7 @@ inst = Instrument(
     ],
     detectors=[
         Detector(
-            type="Camera",
+            detector_type="Camera",
             data_interface="USB",
             # chiller -> water circulator / #cooling="air", # Cooling changed to reduce vibration ~ February 01
             cooling="water",
@@ -70,67 +60,61 @@ inst = Instrument(
         ),
     ],
     light_sources=[
-        Lightsource(
+        Laser(
             name="Ex_445",
-            type="laser",
             coupling="Single-mode fiber",
             wavelength=445,
-            max_power=150,
+            maximum_power=150,
             serial_number="VL08223M03",
             manufacturer=Manufacturer.VORTRAN,
             model="Stradus",
             notes="All lasers controlled via Vortran VersaLase System",
         ),
-        Lightsource(
+        Laser(
             name="Ex_488",
-            type="laser",
             coupling="Single-mode fiber",
             wavelength=488,
-            max_power=150,
+            maximum_power=150,
             serial_number="VL08223M03",
             manufacturer=Manufacturer.VORTRAN,
             model="Stradus",
             notes="All lasers controlled via Vortran VersaLase System",
         ),
-        Lightsource(
+        Laser(
             name="Ex_561",
-            type="laser",
             coupling="Single-mode fiber",
             wavelength=561,
-            max_power=150,
+            maximum_power=150,
             serial_number="VL08223M03",
             manufacturer=Manufacturer.VORTRAN,
             model="Stradus",
             notes="All lasers controlled via Vortran VersaLase System",
         ),
-        Lightsource(
+        Laser(
             name="Ex_594",
-            type="laser",
             coupling="Single-mode fiber",
             wavelength=594,
-            max_power=150,
+            maximum_power=150,
             serial_number="VL08223M03",
             manufacturer=Manufacturer.VORTRAN,
             model="Stradus",
             notes="All lasers controlled via Vortran VersaLase System",
         ),
-        Lightsource(
+        Laser(
             name="Ex_639",
-            type="laser",
             coupling="Single-mode fiber",
             wavelength=639,
-            max_power=160,
+            maximum_power=160,
             serial_number="VL08223M03",
             manufacturer=Manufacturer.VORTRAN,
             model="Stradus",
             notes="All lasers controlled via Vortran VersaLase System",
         ),
-        Lightsource(
+        Laser(
             name="Ex_665",
-            type="laser",
             coupling="Single-mode fiber",
             wavelength=665,
-            max_power=160,
+            maximum_power=160,
             serial_number="VL08223M03",
             manufacturer=Manufacturer.VORTRAN,
             model="Stradus",

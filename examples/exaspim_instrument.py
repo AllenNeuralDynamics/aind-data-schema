@@ -1,8 +1,9 @@
 """ example ExaSPIM instrument """
 import datetime
 
-from aind_data_schema.device import DAQChannel, DAQDevice, Manufacturer
+from aind_data_schema.device import DAQChannel, DAQDevice, Detector, Filter, Laser
 from aind_data_schema.imaging import instrument
+from aind_data_schema.manufacturers import Manufacturer
 
 inst = instrument.Instrument(
     instrument_id="exaSPIM1-1",
@@ -21,8 +22,8 @@ inst = instrument.Instrument(
         ),
     ],
     detectors=[
-        instrument.Detector(
-            type="Camera",
+        Detector(
+            detector_type="Camera",
             data_interface="Coax",
             cooling="air",
             manufacturer=Manufacturer.VIEWORKS,
@@ -31,45 +32,41 @@ inst = instrument.Instrument(
         ),
     ],
     light_sources=[
-        instrument.Lightsource(
-            type="laser",
+        Laser(
             coupling="Single-mode fiber",
             wavelength=405,
-            max_power=200,
+            maximum_power=200,
             serial_number="LAS-08307",
             manufacturer=Manufacturer.OXXIUS,
             notes="Housed in commercial laser combiner",
         ),
-        instrument.Lightsource(
-            type="laser",
+        Laser(
             coupling="Single-mode fiber",
             wavelength=488,
-            max_power=200,
+            maximum_power=200,
             serial_number="LAS-08308",
             manufacturer=Manufacturer.OXXIUS,
             notes="Housed in commercial laser combiner",
         ),
-        instrument.Lightsource(
-            type="laser",
+        Laser(
             coupling="Single-mode fiber",
             wavelength=561,
-            max_power=200,
+            maximum_power=200,
             serial_number="539251",
             manufacturer=Manufacturer.OXXIUS,
             notes="Housed in commercial laser combiner",
         ),
-        instrument.Lightsource(
-            type="laser",
+        Laser(
             coupling="Single-mode fiber",
             wavelength=638,
-            max_power=200,
+            maximum_power=200,
             serial_number="LAS-08309",
             manufacturer=Manufacturer.OXXIUS,
             notes="Housed in commercial laser combiner",
         ),
     ],
     fluorescence_filters=[
-        instrument.Filter(
+        Filter(
             filter_type="Multiband",
             manufacturer=Manufacturer.CHROMA,
             diameter=44.05,
