@@ -557,10 +557,12 @@ class DigitalMicromirrorDevice(Device):
     motion_padding_x: int = Field(..., title="Motion padding X (pixels)")
     motion_padding_y: int = Field(..., title="Motion padding Y (pixels)")
     padding_unit: SizeUnit = Field(SizeUnit.PX, title="Padding unit")
-    pixel_size: float = Field(..., title="DMD Pixel size")
-    start_phase: float = Field(..., title="DMD Start phase")
+    pixel_size: Decimal = Field(..., title="DMD Pixel size")
+    pixel_size_unit: SizeUnit = Field(SizeUnit.UM, title="Pixel size unit")
+    start_phase: Decimal = Field(..., title="DMD Start phase (fraction of cycle)")
     dmd_flip: bool = Field(..., title-"DMD Flip")
-    dmd_curtain: List[float] = Field(..., title="DMD Curtain")
+    dmd_curtain: List[Decimal] = Field(..., title="DMD Curtain")
+    dmd_curtain_unit: SizeUnit = Field(SizeUnit.PX, title="dmd_curtain_unit")
     line_shear: List[int] = Field(..., title="Line shear (pixels)")
     line_shear_units: SizeUnit = Field(SizeUnit.PX, title="Line shear units")
 
@@ -572,8 +574,6 @@ class PolygonalScanner(Device):
     speed: int = Field(..., title="Speed (rpm)")
     speed_unit: str = Field("Rotations per minute", title="Speed unit")
     number_faces: int = Field(..., title="Number of faces")
-    mode: bool = Field(..., title="Poly scanner mode")
-    scanner_speed_input_debounce: bool = Field(..., title="Scanner speed input debounce")
 
 
 class PockelsCell(Device):
@@ -581,6 +581,8 @@ class PockelsCell(Device):
 
     device_type: Literal["Pockels Cell"] = Field("Pockels Cell", const=True, readOnly=True)
     polygonal_scanner: str = Field(..., title="Polygonal scanner", description="Must match name of Polygonal scanner")
+    on_time: Decimal = Field(..., title="On time (fraction of cycle)")
+    off_time: Decimal = Field(..., title="Off time (fraction of cycle)")
 
 
 class MousePlatform(Device):
