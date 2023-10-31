@@ -1,23 +1,21 @@
 """Generic metadata class for Data Asset Records."""
 
-import re
 from datetime import datetime
 from enum import Enum
-from typing import Dict, List
+from typing import Dict, List, Optional
+from uuid import UUID, uuid4
 
-from pydantic import Field, root_validator, validate_model, ValidationError, validator
+from pydantic import Field, root_validator, validate_model
 
 from aind_data_schema.base import AindCoreModel
-from aind_data_schema.data_description import DataDescription, DataRegex, Platform
+from aind_data_schema.data_description import DataDescription
+from aind_data_schema.imaging.acquisition import Acquisition
+from aind_data_schema.imaging.instrument import Instrument
 from aind_data_schema.procedures import Procedures
 from aind_data_schema.processing import Processing
 from aind_data_schema.rig import Rig
 from aind_data_schema.session import Session
 from aind_data_schema.subject import Subject
-from aind_data_schema.imaging.instrument import Instrument
-from aind_data_schema.imaging.acquisition import Acquisition
-from typing import Optional
-from uuid import uuid4, UUID
 
 
 class MetadataStatus(Enum):
@@ -60,14 +58,18 @@ class Metadata(AindCoreModel):
         description="The utc date and time the data asset created.",
     )
     last_modified: datetime = Field(
-        default_factory=datetime.utcnow, title="Last Modified", description="The utc date and time that the data asset was last modified."
+        default_factory=datetime.utcnow,
+        title="Last Modified",
+        description="The utc date and time that the data asset was last modified.",
     )
     location: str = Field(
         ...,
         title="Location",
         description="Current location of the data asset.",
     )
-    metadata_status: MetadataStatus = Field(default=MetadataStatus.UNKNOWN, title=" Metadata Status", description="The status of the metadata.")
+    metadata_status: MetadataStatus = Field(
+        default=MetadataStatus.UNKNOWN, title=" Metadata Status", description="The status of the metadata."
+    )
     schema_version: str = Field("0.0.1", title="Schema Version", const=True)
     external_links: List[Dict[ExternalPlatforms, str]] = Field(
         default=[], title="External Links", description="Links to the data asset on different platforms."
@@ -90,9 +92,7 @@ class Metadata(AindCoreModel):
     session: Optional[Session] = Field(None, title="Session", description="Description of a session.")
     rig: Optional[Rig] = Field(None, title="Rig", description="Rig.")
     processing: Optional[Processing] = Field(None, title="Processing", description="All processes run on data.")
-    acquisition: Optional[Acquisition] = Field(
-        None, title="Acquisition", description="Imaging acquisition session"
-    )
+    acquisition: Optional[Acquisition] = Field(None, title="Acquisition", description="Imaging acquisition session")
     instrument: Optional[Instrument] = Field(
         None, title="Instrument", description="Instrument, which is a collection of devices"
     )
@@ -126,9 +126,7 @@ class Metadata(AindCoreModel):
                 # Since pre=False, the dictionaries get converted to models
                 # upstream
                 model_contents = model.dict()
-                *_, validation_error = validate_model(
-                    model_class, model_contents
-                )
+                *_, validation_error = validate_model(model_class, model_contents)
                 if validation_error:
                     model_instance = model_class.construct(**model_contents)
                     metadata_status = MetadataStatus.INVALID

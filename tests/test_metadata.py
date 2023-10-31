@@ -1,13 +1,13 @@
 """Tests metadata module"""
 
+import json
 import unittest
 
-import json
 from pydantic import ValidationError
 
 from aind_data_schema.metadata import Metadata, MetadataStatus
 from aind_data_schema.procedures import Procedures
-from aind_data_schema.subject import Subject, Species, Sex
+from aind_data_schema.subject import Sex, Species, Subject
 
 
 class TestMetadata(unittest.TestCase):
@@ -17,28 +17,20 @@ class TestMetadata(unittest.TestCase):
         """Tests that the record is marked as VALID if a valid subject model
         is present."""
         s1 = Subject(
-            species = Species.MUS_MUSCULUS,
+            species=Species.MUS_MUSCULUS,
             subject_id="123345",
-            sex = Sex.MALE,
-            date_of_birth = "2020-10-10",
-            genotype="Emx1-IRES-Cre;Camk2a-tTA;Ai93(TITL-GCaMP6f)"
+            sex=Sex.MALE,
+            date_of_birth="2020-10-10",
+            genotype="Emx1-IRES-Cre;Camk2a-tTA;Ai93(TITL-GCaMP6f)",
         )
-        d1 = Metadata(
-            name="ecephys_655019_2023-04-03_18-17-09",
-            location="bucket",
-            subject=s1
-        )
+        d1 = Metadata(name="ecephys_655019_2023-04-03_18-17-09", location="bucket", subject=s1)
         self.assertEqual("ecephys_655019_2023-04-03_18-17-09", d1.name)
         self.assertEqual("bucket", d1.location)
         self.assertEqual(MetadataStatus.VALID, d1.metadata_status)
         self.assertEqual(s1, d1.subject)
 
         # Test construction via dictionary
-        d2 = Metadata(
-            name="ecephys_655019_2023-04-03_18-17-09",
-            location="bucket",
-            subject=s1.dict()
-        )
+        d2 = Metadata(name="ecephys_655019_2023-04-03_18-17-09", location="bucket", subject=s1.dict())
         self.assertEqual(MetadataStatus.VALID, d2.metadata_status)
         self.assertEqual(s1, d2.subject)
 
@@ -79,11 +71,7 @@ class TestMetadata(unittest.TestCase):
         metadata_status as INVALID"""
 
         # Invalid subject model
-        d1 = Metadata(
-            name="ecephys_655019_2023-04-03_18-17-09",
-            location="bucket",
-            subject=Subject.construct()
-        )
+        d1 = Metadata(name="ecephys_655019_2023-04-03_18-17-09", location="bucket", subject=Subject.construct())
         self.assertEqual(MetadataStatus.INVALID, d1.metadata_status)
 
         # Valid subject model, but invalid procedures model
@@ -92,13 +80,10 @@ class TestMetadata(unittest.TestCase):
             subject_id="123345",
             sex=Sex.MALE,
             date_of_birth="2020-10-10",
-            genotype="Emx1-IRES-Cre;Camk2a-tTA;Ai93(TITL-GCaMP6f)"
+            genotype="Emx1-IRES-Cre;Camk2a-tTA;Ai93(TITL-GCaMP6f)",
         )
         d2 = Metadata(
-            name="ecephys_655019_2023-04-03_18-17-09",
-            location="bucket",
-            subject=s2,
-            procedures=Procedures.construct()
+            name="ecephys_655019_2023-04-03_18-17-09", location="bucket", subject=s2, procedures=Procedures.construct()
         )
         self.assertEqual(MetadataStatus.INVALID, d2.metadata_status)
 
