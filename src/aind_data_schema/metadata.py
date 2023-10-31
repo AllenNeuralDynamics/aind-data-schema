@@ -70,7 +70,6 @@ class Metadata(AindCoreModel):
     metadata_status: MetadataStatus = Field(
         default=MetadataStatus.UNKNOWN, title=" Metadata Status", description="The status of the metadata."
     )
-    schema_version: str = Field("0.0.1", title="Schema Version", const=True)
     external_links: List[Dict[ExternalPlatforms, str]] = Field(
         default=[], title="External Links", description="Links to the data asset on different platforms."
     )
@@ -101,7 +100,6 @@ class Metadata(AindCoreModel):
     def validate_metadata(cls, values):
         """Validator for metadata"""
 
-        # def get_model_fields():
         # There's a simpler way to do this if we drop support for py37
         all_model_fields = []
         for field_name in cls.__fields__:
