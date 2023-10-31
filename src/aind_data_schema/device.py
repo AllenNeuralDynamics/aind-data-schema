@@ -11,7 +11,7 @@ from pydantic.typing import Literal
 from aind_data_schema.base import AindModel, EnumSubset
 from aind_data_schema.coordinates import RelativePosition
 from aind_data_schema.manufacturers import Manufacturer
-from aind_data_schema.procedures import Reagent
+from aind_data_schema.reagent import Reagent
 from aind_data_schema.utils.units import FrequencyUnit, PowerUnit, SizeUnit, TemperatureUnit
 
 

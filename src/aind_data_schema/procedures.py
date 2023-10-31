@@ -9,6 +9,7 @@ from pydantic import Field, root_validator
 from pydantic.typing import Annotated
 
 from aind_data_schema.base import AindCoreModel, AindModel, PIDName
+from aind_data_schema.reagent import Reagent
 from aind_data_schema.subject import Species
 from aind_data_schema.utils.units import (
     AngleUnit,
@@ -38,16 +39,6 @@ class SpecimenProcedureName(Enum):
     STRIPPING = "Stripping"
     REFRACTIVE_INDEX_MATCHING = "Refractive index matching"
     OTHER = "Other - see notes"
-
-
-class Reagent(AindModel):
-    """Description of reagents used in procedure"""
-
-    name: str = Field(..., title="Name")
-    source: str = Field(..., title="Source")
-    rrid: Optional[PIDName] = Field(None, title="Research Resource ID")
-    lot_number: str = Field(..., title="Lot number")
-    expiration_date: Optional[date] = Field(None, title="Lot expiration date")
 
 
 class SpecimenProcedure(AindModel):
