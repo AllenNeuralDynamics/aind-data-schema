@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/session.py",
-   "schema_version": "0.0.1",
+   "schema_version": "0.0.2",
    "experimenter_full_name": [
       "John Doe"
    ],
@@ -71,7 +71,8 @@
                "fov_scale_factor": 1.5,
                "fov_scale_factor_unit": "um/pixel",
                "frame_rate": 20,
-               "frame_rate_unit": "hertz"
+               "frame_rate_unit": "hertz",
+               "coupled_fov_index": null
             }
          ],
          "stack_parameters": null,

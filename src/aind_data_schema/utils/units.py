@@ -85,6 +85,13 @@ class ConcentrationUnit(Enum):
     NM = "nanomolar"
 
 
+class TemperatureUnit(Enum):
+    """Temperature units"""
+
+    C = "Celsius"
+    K = "Kelvin"
+
+
 def create_unit_with_value(model_name, scalar_type, unit_type, unit_default):
     """this uses create_model instead of generics, which lets us set default values"""
 

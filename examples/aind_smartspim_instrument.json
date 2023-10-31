@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/imaging/instrument.py",
-   "schema_version": "0.8.2",
+   "schema_version": "0.9.1",
    "instrument_id": "SmartSPIM1-3",
    "modification_date": "2023-10-04",
    "instrument_type": "SmartSPIM",
@@ -128,14 +128,28 @@
          },
          "model": "C14440-20UP",
          "notes": null,
-         "type": "Camera",
+         "detector_type": "Camera",
          "data_interface": "USB",
-         "cooling": "water"
+         "cooling": "water",
+         "immersion": null,
+         "chroma": null,
+         "sensor_width": null,
+         "sensor_height": null,
+         "size_unit": "pixel",
+         "bit_depth": null,
+         "bin_mode": "none",
+         "bin_width": null,
+         "bin_height": null,
+         "bin_unit": "pixel",
+         "gain": null,
+         "crop_width": null,
+         "crop_height": null,
+         "crop_unit": "pixel"
       }
    ],
    "light_sources": [
       {
-         "device_type": "Lightsource",
+         "device_type": "Laser",
          "name": "Ex_445",
          "serial_number": "VL08223M03",
          "manufacturer": {
@@ -146,15 +160,17 @@
          },
          "model": "Stradus",
          "notes": "All lasers controlled via Vortran VersaLase System",
-         "type": "laser",
-         "coupling": "Single-mode fiber",
          "wavelength": 445,
          "wavelength_unit": "nanometer",
-         "max_power": 150,
-         "power_unit": "milliwatt"
+         "maximum_power": 150,
+         "power_unit": "milliwatt",
+         "coupling": "Single-mode fiber",
+         "coupling_efficiency": null,
+         "coupling_efficiency_unit": "percent",
+         "item_number": null
       },
       {
-         "device_type": "Lightsource",
+         "device_type": "Laser",
          "name": "Ex_488",
          "serial_number": "VL08223M03",
          "manufacturer": {
@@ -165,15 +181,17 @@
          },
          "model": "Stradus",
          "notes": "All lasers controlled via Vortran VersaLase System",
-         "type": "laser",
-         "coupling": "Single-mode fiber",
          "wavelength": 488,
          "wavelength_unit": "nanometer",
-         "max_power": 150,
-         "power_unit": "milliwatt"
+         "maximum_power": 150,
+         "power_unit": "milliwatt",
+         "coupling": "Single-mode fiber",
+         "coupling_efficiency": null,
+         "coupling_efficiency_unit": "percent",
+         "item_number": null
       },
       {
-         "device_type": "Lightsource",
+         "device_type": "Laser",
          "name": "Ex_561",
          "serial_number": "VL08223M03",
          "manufacturer": {
@@ -184,15 +202,17 @@
          },
          "model": "Stradus",
          "notes": "All lasers controlled via Vortran VersaLase System",
-         "type": "laser",
-         "coupling": "Single-mode fiber",
          "wavelength": 561,
          "wavelength_unit": "nanometer",
-         "max_power": 150,
-         "power_unit": "milliwatt"
+         "maximum_power": 150,
+         "power_unit": "milliwatt",
+         "coupling": "Single-mode fiber",
+         "coupling_efficiency": null,
+         "coupling_efficiency_unit": "percent",
+         "item_number": null
       },
       {
-         "device_type": "Lightsource",
+         "device_type": "Laser",
          "name": "Ex_594",
          "serial_number": "VL08223M03",
          "manufacturer": {
@@ -203,15 +223,17 @@
          },
          "model": "Stradus",
          "notes": "All lasers controlled via Vortran VersaLase System",
-         "type": "laser",
-         "coupling": "Single-mode fiber",
          "wavelength": 594,
          "wavelength_unit": "nanometer",
-         "max_power": 150,
-         "power_unit": "milliwatt"
+         "maximum_power": 150,
+         "power_unit": "milliwatt",
+         "coupling": "Single-mode fiber",
+         "coupling_efficiency": null,
+         "coupling_efficiency_unit": "percent",
+         "item_number": null
       },
       {
-         "device_type": "Lightsource",
+         "device_type": "Laser",
          "name": "Ex_639",
          "serial_number": "VL08223M03",
          "manufacturer": {
@@ -222,15 +244,17 @@
          },
          "model": "Stradus",
          "notes": "All lasers controlled via Vortran VersaLase System",
-         "type": "laser",
-         "coupling": "Single-mode fiber",
          "wavelength": 639,
          "wavelength_unit": "nanometer",
-         "max_power": 160,
-         "power_unit": "milliwatt"
+         "maximum_power": 160,
+         "power_unit": "milliwatt",
+         "coupling": "Single-mode fiber",
+         "coupling_efficiency": null,
+         "coupling_efficiency_unit": "percent",
+         "item_number": null
       },
       {
-         "device_type": "Lightsource",
+         "device_type": "Laser",
          "name": "Ex_665",
          "serial_number": "VL08223M03",
          "manufacturer": {
@@ -241,14 +265,17 @@
          },
          "model": "Stradus",
          "notes": "All lasers controlled via Vortran VersaLase System",
-         "type": "laser",
-         "coupling": "Single-mode fiber",
          "wavelength": 665,
          "wavelength_unit": "nanometer",
-         "max_power": 160,
-         "power_unit": "milliwatt"
+         "maximum_power": 160,
+         "power_unit": "milliwatt",
+         "coupling": "Single-mode fiber",
+         "coupling_efficiency": null,
+         "coupling_efficiency_unit": "percent",
+         "item_number": null
       }
    ],
+   "lenses": null,
    "fluorescence_filters": [
       {
          "device_type": "Filter",

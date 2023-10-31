@@ -90,7 +90,7 @@ class MRIScan(AindModel):
         if v.get("scan_sequence_type") == MriScanSequence.OTHER and not v.get("notes"):
             raise ValueError(
                 "Notes cannot be empty if scan_sequence_type is Other.",
-                "Describe the scan_sequence_type in the notes field."
+                "Describe the scan_sequence_type in the notes field.",
             )
         return v
 
@@ -98,7 +98,7 @@ class MRIScan(AindModel):
 class MriSession(AindCoreModel):
     """Description of an MRI scan"""
 
-    schema_version: str = Field("0.1.11", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.1.13", description="schema version", title="Version", const=True)
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",

@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/imaging/instrument.py",
-   "schema_version": "0.8.2",
+   "schema_version": "0.9.1",
    "instrument_id": "exaSPIM1-1",
    "modification_date": "2023-10-04",
    "instrument_type": "exaSPIM",
@@ -65,14 +65,28 @@
          },
          "model": "VNP-604MX",
          "notes": null,
-         "type": "Camera",
+         "detector_type": "Camera",
          "data_interface": "Coax",
-         "cooling": "air"
+         "cooling": "air",
+         "immersion": null,
+         "chroma": null,
+         "sensor_width": null,
+         "sensor_height": null,
+         "size_unit": "pixel",
+         "bit_depth": null,
+         "bin_mode": "none",
+         "bin_width": null,
+         "bin_height": null,
+         "bin_unit": "pixel",
+         "gain": null,
+         "crop_width": null,
+         "crop_height": null,
+         "crop_unit": "pixel"
       }
    ],
    "light_sources": [
       {
-         "device_type": "Lightsource",
+         "device_type": "Laser",
          "name": null,
          "serial_number": "LAS-08307",
          "manufacturer": {
@@ -83,15 +97,17 @@
          },
          "model": null,
          "notes": "Housed in commercial laser combiner",
-         "type": "laser",
-         "coupling": "Single-mode fiber",
          "wavelength": 405,
          "wavelength_unit": "nanometer",
-         "max_power": 200,
-         "power_unit": "milliwatt"
+         "maximum_power": 200,
+         "power_unit": "milliwatt",
+         "coupling": "Single-mode fiber",
+         "coupling_efficiency": null,
+         "coupling_efficiency_unit": "percent",
+         "item_number": null
       },
       {
-         "device_type": "Lightsource",
+         "device_type": "Laser",
          "name": null,
          "serial_number": "LAS-08308",
          "manufacturer": {
@@ -102,15 +118,17 @@
          },
          "model": null,
          "notes": "Housed in commercial laser combiner",
-         "type": "laser",
-         "coupling": "Single-mode fiber",
          "wavelength": 488,
          "wavelength_unit": "nanometer",
-         "max_power": 200,
-         "power_unit": "milliwatt"
+         "maximum_power": 200,
+         "power_unit": "milliwatt",
+         "coupling": "Single-mode fiber",
+         "coupling_efficiency": null,
+         "coupling_efficiency_unit": "percent",
+         "item_number": null
       },
       {
-         "device_type": "Lightsource",
+         "device_type": "Laser",
          "name": null,
          "serial_number": "539251",
          "manufacturer": {
@@ -121,15 +139,17 @@
          },
          "model": null,
          "notes": "Housed in commercial laser combiner",
-         "type": "laser",
-         "coupling": "Single-mode fiber",
          "wavelength": 561,
          "wavelength_unit": "nanometer",
-         "max_power": 200,
-         "power_unit": "milliwatt"
+         "maximum_power": 200,
+         "power_unit": "milliwatt",
+         "coupling": "Single-mode fiber",
+         "coupling_efficiency": null,
+         "coupling_efficiency_unit": "percent",
+         "item_number": null
       },
       {
-         "device_type": "Lightsource",
+         "device_type": "Laser",
          "name": null,
          "serial_number": "LAS-08309",
          "manufacturer": {
@@ -140,14 +160,17 @@
          },
          "model": null,
          "notes": "Housed in commercial laser combiner",
-         "type": "laser",
-         "coupling": "Single-mode fiber",
          "wavelength": 638,
          "wavelength_unit": "nanometer",
-         "max_power": 200,
-         "power_unit": "milliwatt"
+         "maximum_power": 200,
+         "power_unit": "milliwatt",
+         "coupling": "Single-mode fiber",
+         "coupling_efficiency": null,
+         "coupling_efficiency_unit": "percent",
+         "item_number": null
       }
    ],
+   "lenses": null,
    "fluorescence_filters": [
       {
          "device_type": "Filter",

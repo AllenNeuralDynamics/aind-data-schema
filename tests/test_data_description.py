@@ -180,8 +180,8 @@ class DataDescriptionTest(unittest.TestCase):
         # Tests that Platform constructed as expected
         self.assertEqual(Platform.ECEPHYS, Platform("ECEPHYS"))
         self.assertEqual(Platform.ECEPHYS, Platform("ecephys"))
-        self.assertEqual(Platform.MESOSPM, Platform("MESOSPM"))
-        self.assertEqual(Platform.MESOSPM, Platform("mesoSPIM"))
+        self.assertEqual(Platform.MESOSPIM, Platform("MESOSPIM"))
+        self.assertEqual(Platform.MESOSPIM, Platform("mesoSPIM"))
         self.assertEqual(Platform.MULTIPLANE_OPHYS, Platform("MULTIPLANE_OPHYS"))
         self.assertEqual(Platform.MULTIPLANE_OPHYS, Platform("multiplane-ophys"))
 
