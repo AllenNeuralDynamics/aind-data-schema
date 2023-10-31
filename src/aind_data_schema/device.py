@@ -89,7 +89,7 @@ class DaqChannelType(Enum):
 class Device(AindModel):
     """Generic device"""
 
-    device_type: str  # Needs to be set by child classes that inherits
+    device_type: str =Field(..., title="Device type") # Needs to be set by child classes that inherits
     name: Optional[str] = Field(None, title="Device name")
     serial_number: Optional[str] = Field(None, title="Serial number")
     manufacturer: Optional[Manufacturer] = Field(None, title="Manufacturer")
@@ -227,7 +227,7 @@ class Lens(Device):
 class MotorizedStage(Device):
     """Description of motorized stage"""
 
-    device_type: Literal["MotorizedStage"] = Field("MotorizedStage", const=True, readOnly=True)
+    device_type: Literal["Motorized stage"] = Field("Motorized stage", const=True, readOnly=True)
     travel: Decimal = Field(..., title="Travel of device (mm)", units="mm")
     travel_unit: SizeUnit = Field(SizeUnit.MM, title="Travel unit")
 
@@ -303,7 +303,7 @@ class DAQDevice(Device):
     """Data acquisition device containing multiple I/O channels"""
 
     # required fields
-    device_type: Literal["DAQDevice"] = Field("DAQDevice", const=True, readOnly=True)
+    device_type: Literal["DAQ Device"] = Field("DAQ Device", const=True, readOnly=True)
     data_interface: DataInterface = Field(..., title="Type of connection to PC")
     manufacturer: EnumSubset[
         Manufacturer.NATIONAL_INSTRUMENTS,
@@ -332,7 +332,7 @@ class HarpDevice(DAQDevice):
     """DAQ that uses the Harp protocol for synchronization and data transmission"""
 
     # required fields
-    device_type: Literal["HarpDevice"] = Field("HarpDevice", const=True, readOnly=True)
+    device_type: Literal["Harp device"] = Field("Harp device", const=True, readOnly=True)
     harp_device_type: HarpDeviceType = Field(..., title="Type of Harp device")
     harp_device_version: str = Field(..., title="Device version")
 
@@ -375,7 +375,7 @@ class Laser(Device):
 class LightEmittingDiode(Device):
     """Description of a Light Emitting Diode (LED) device"""
 
-    device_type: Literal["LightEmittingDiode"] = Field("LightEmittingDiode", const=True, readOnly=True)
+    device_type: Literal["Light emitting diode"] = Field("Light emitting diode", const=True, readOnly=True)
     manufacturer: EnumSubset[
         Manufacturer.DORIC,
         Manufacturer.PRIZMATIX,
@@ -408,7 +408,7 @@ class NeuropixelsBasestation(DAQDevice):
     """PXI-based Neuropixels DAQ"""
 
     # required fields
-    device_type: Literal["NeuropixelsBasestation"] = Field("NeuropixelsBasestation", const=True, readOnly=True)
+    device_type: Literal["Neuropixels basestation"] = Field("Neuropixels basestation", const=True, readOnly=True)
     basestation_firmware_version: str = Field(..., title="Basestation firmware version")
     bsc_firmware_version: str = Field(..., title="Basestation connect board firmware")
     slot: int = Field(..., title="Slot number for this basestation")
@@ -423,7 +423,7 @@ class OpenEphysAcquisitionBoard(DAQDevice):
     """Multichannel electrophysiology DAQ"""
 
     # required fields
-    device_type: Literal["OpenEphysAcquisitionBoard"] = Field("OpenEphysAcquisitionBoard", const=True, readOnly=True)
+    device_type: Literal["OpenEphys Acquisition Board"] = Field("OpenEphys Acquisition Board", const=True, readOnly=True)
 
     ports: List[ProbePort] = Field(..., title="Acquisition board ports")
 
@@ -488,7 +488,7 @@ class EphysProbe(Device):
     """Named probe used in an ephys experiment"""
 
     # required fields
-    device_type: Literal["EphysProbe"] = Field("EphysProbe", const=True, readOnly=True)
+    device_type: Literal["Ephys probe"] = Field("Ephys probe", const=True, readOnly=True)
     probe_model: ProbeModel = Field(..., title="Probe model")
 
     # optional fields
@@ -551,6 +551,23 @@ class Detector(Device):
     crop_unit: Optional[SizeUnit] = Field(SizeUnit.PX, title="Crop size unit", const=True)
 
 
+class FerruleMaterial(Enum):
+    """Fiber probe ferrule material type name"""
+
+    CERAMIC = "Ceramic"
+    STAINLESS_STEEL = "Stainless steel"
+
+
+class FiberProbe(Device):
+    """Description of a fiber optic probe"""
+
+    device_type: Literal["Fiber probe"] = Field("Fiber probe", const=True, readOnly=True)
+    core_diameter: Decimal = Field(..., title="Core diameter (μm)", units="μm")
+    core_diameter_unit: str = Field("μm", title="Core diameter unit")
+    numerical_aperture: Decimal = Field(..., title="Numerical aperture")
+    ferrule_material: Optional[FerruleMaterial] = Field(None, title="Ferrule material")
+
+
 class Patch(Device):
     """Description of a patch cord"""
 
@@ -563,7 +580,7 @@ class Patch(Device):
 class MousePlatform(Device):
     """Description of a mouse platform"""
 
-    device_type: Literal["MousePlatform"] = Field("MousePlatform", const=True, readOnly=True)
+    device_type: Literal["Mouse platform"] = Field("Mouse platform", const=True, readOnly=True)
     surface_material: Optional[str] = Field(None, title="Surface material")
     date_surface_replaced: Optional[datetime] = Field(None, title="Date surface replaced")
 
@@ -656,7 +673,7 @@ class SpoutSide(Enum):
 class RewardSpout(Device):
     """Description of a reward spout"""
 
-    device_type: Literal["RewardSpout"] = Field("RewardSpout", const=True, readOnly=True)
+    device_type: Literal["Reward spout"] = Field("Reward spout", const=True, readOnly=True)
     side: SpoutSide = Field(..., title="Spout side", description="If Other use notes")
     spout_diameter: Decimal = Field(..., title="Spout diameter (mm)")
     spout_diameter_unit: SizeUnit = Field(SizeUnit.MM, title="Spout diameter unit")
@@ -668,7 +685,7 @@ class RewardSpout(Device):
 class RewardDelivery(AindModel):
     """Description of reward delivery system"""
 
-    device_type: Literal["RewardDelivery"] = Field("RewardDelivery", const=True, readOnly=True)
+    device_type: Literal["Reward delivery"] = Field("Reward delivery", const=True, readOnly=True)
     stage_type: MotorizedStage = Field(None, title="Motorized stage")
     reward_spouts: List[RewardSpout] = Field(..., title="Water spouts")
 
