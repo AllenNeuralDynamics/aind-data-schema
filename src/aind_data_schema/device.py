@@ -560,7 +560,7 @@ class DigitalMicromirrorDevice(Device):
     pixel_size: Decimal = Field(..., title="DMD Pixel size")
     pixel_size_unit: SizeUnit = Field(SizeUnit.UM, title="Pixel size unit")
     start_phase: Decimal = Field(..., title="DMD Start phase (fraction of cycle)")
-    dmd_flip: bool = Field(..., title-"DMD Flip")
+    dmd_flip: bool = Field(..., title="DMD Flip")
     dmd_curtain: List[Decimal] = Field(..., title="DMD Curtain")
     dmd_curtain_unit: SizeUnit = Field(SizeUnit.PX, title="dmd_curtain_unit")
     line_shear: List[int] = Field(..., title="Line shear (pixels)")

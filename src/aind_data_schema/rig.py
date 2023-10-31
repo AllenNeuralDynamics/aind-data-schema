@@ -45,7 +45,7 @@ from aind_data_schema.device import (
 class Rig(AindCoreModel):
     """Description of a rig"""
 
-    schema_version: str = Field("0.1.1", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.1.3", description="schema version", title="Version", const=True)
     rig_id: str = Field(..., description="room_stim apparatus_version", title="Rig ID")
     modification_date: date = Field(..., title="Date of modification")
     modalities: List[Modality] = Field(..., title="Modalities", unique_items=True)

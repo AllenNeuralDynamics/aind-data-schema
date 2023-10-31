@@ -138,7 +138,7 @@ class Slap(FieldOfView):
 
     session_type: SlapType = Field(..., title="Session type")
     dmd_dilation_x: int = Field(..., title="DMD Dilation X (pixels)")
-    dmd_dilation_y: int = Field(..., title="DMD Dilation Y (pixels)") 
+    dmd_dilation_y: int = Field(..., title="DMD Dilation Y (pixels)")
     dilation_unit: SizeUnit = Field(SizeUnit.PX, title="Dilation unit")
     target_neuron: Optional[str] = Field(None, title="Target neuron")
     target_branch: Optional[str] = Field(None, title="Target branch")
