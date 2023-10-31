@@ -18,6 +18,7 @@ from aind_data_schema.device import (
     Device,
     Disc,
     EphysAssembly,
+    FiberAssembly,
     Filter,
     HarpDevice,
     Laser,
@@ -63,6 +64,7 @@ class Rig(AindCoreModel):
         ]
     ]
     ephys_assemblies: Optional[List[EphysAssembly]] = Field(None, title="Ephys probes", unique_items=True)
+    fiber_assemblies: Optional[List[FiberAssembly]] = Field(None, title="Inserted fiber optics", unique_items=True)
     stick_microscopes: Optional[List[StickMicroscopeAssembly]] = Field(None, title="Stick microscopes")
     laser_assemblies: Optional[List[LaserAssembly]] = Field(None, title="Laser modules", unique_items=True)
     patch_cords: Optional[List[Patch]] = Field(None, title="Patch cords", unique_items=True)

@@ -565,6 +565,9 @@ class FiberProbe(Device):
     core_diameter_unit: str = Field("μm", title="Core diameter unit")
     numerical_aperture: Decimal = Field(..., title="Numerical aperture")
     ferrule_material: Optional[FerruleMaterial] = Field(None, title="Ferrule material")
+    active_length: Optional[Decimal] = Field(None, title="Active length (mm)", description="Length of taper")
+    total_length: Decimal = Field(..., title="Total length (mm)")
+    length_unit: SizeUnit = Field(SizeUnit.MM, title="Length unit")
 
 
 class Patch(Device):
@@ -574,6 +577,14 @@ class Patch(Device):
     core_diameter: Decimal = Field(..., title="Core diameter (um)")
     numerical_aperture: Decimal = Field(..., title="Numerical aperture")
     photobleaching_date: Optional[date] = Field(None, title="Photobleaching date")
+
+
+class FiberAssembly(AindModel):
+    """Module for inserted fiber photometry recording"""
+
+    fiber_assembly_name: str = Field(..., title="Ephys assembly name")
+    manipulator: Manipulator = Field(..., title="Manipulator")
+    fibers: List[FiberProbe] = Field(..., title="Probes that are held by this module")
 
 
 class MousePlatform(Device):

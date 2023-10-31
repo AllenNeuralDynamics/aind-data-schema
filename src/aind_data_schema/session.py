@@ -40,7 +40,7 @@ class PatchCordName(Enum):
 
 
 class FiberPhotometryAssembly(AindModel):
-    """Description of a fiber photometry configuration"""
+    """Description for an implanted fiber photometry configuration"""
 
     patch_cord_name: PatchCordName = Field(..., title="Name")
     patch_cord_output_power: Decimal = Field(..., title="Output power (uW)")
@@ -171,6 +171,12 @@ class EphysModule(ManipulatorModule):
     ephys_probes: List[EphysProbe] = Field(..., title="Ephys probes used in this module")
 
 
+class FiberModule(ManipulatorModule):
+    """Insterted fiber photometry probe recorded in a stream"""
+
+    fibers: List[str] = Field(..., title="Fiber optics probe name (must match rig JSON)")
+
+
 class Laser(AindModel):
     """Description of laser settings in a session"""
 
@@ -235,7 +241,8 @@ class Stream(AindModel):
     ephys_modules: Optional[List[EphysModule]] = Field(None, title="Ephys modules", unique_items=True)
     manipulator_modules: Optional[List[ManipulatorModule]] = Field(None, title="Manipulator modules", unique_items=True)
     detectors: Optional[List[Detector]] = Field(None, title="Detectors", unique_items=True)
-    fiber_photometry_assemblies: Optional[List[FiberPhotometryAssembly]] = Field(None, title="Fiber photometry devices")
+    fiber_photometry_assemblies: Optional[List[FiberPhotometryAssembly]] = Field(None, title="Implanted fiber photometry devices")
+    fiber_modules: Optional[List[FiberModule]] = Field(None, title="Inserted fiber modules")
     ophys_fovs: Optional[List[FieldOfView]] = Field(None, title="Fields of view", unique_items=True)
     stack_parameters: Optional[Stack] = Field(None, title="Stack parameters")
     stimulus_device_names: Optional[List[str]] = Field(None, title="Stimulus devices")
