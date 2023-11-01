@@ -2,11 +2,19 @@
 
 from datetime import datetime
 from enum import Enum
-from typing import Dict, List
+from typing import Dict, List, Optional
+from uuid import UUID, uuid4
 
-from pydantic import Extra, Field
+from pydantic import Field, root_validator, validate_model
 
 from aind_data_schema.base import AindCoreModel
+from aind_data_schema.data_description import DataDescription
+from aind_data_schema.imaging.acquisition import Acquisition
+from aind_data_schema.imaging.instrument import Instrument
+from aind_data_schema.procedures import Procedures
+from aind_data_schema.processing import Processing
+from aind_data_schema.rig import Rig
+from aind_data_schema.session import Session
 from aind_data_schema.subject import Subject
 
 
@@ -29,8 +37,10 @@ class Metadata(AindCoreModel):
     """The records in the Data Asset Collection needs to contain certain fields
     to easily query and index the data."""
 
-    id: str = Field(
-        ...,
+    schema_version: str = Field("0.0.2", description="schema version", title="Version", const=True)
+
+    id: UUID = Field(
+        default_factory=uuid4,
         alias="_id",
         title="Data Asset ID",
         description="The unique id of the data asset.",
@@ -40,31 +50,90 @@ class Metadata(AindCoreModel):
         description="Name of the data asset.",
         title="Data Asset Name",
     )
+    # We'll set created and last_modified defaults using the root_validator
+    # to ensure they're synced on creation
     created: datetime = Field(
-        ...,
+        default_factory=datetime.utcnow,
         title="Created",
-        description="The data and time the data asset created.",
+        description="The utc date and time the data asset created.",
     )
     last_modified: datetime = Field(
-        ..., title="Last Modified", description="The date and time that the data asset was last modified."
+        default_factory=datetime.utcnow,
+        title="Last Modified",
+        description="The utc date and time that the data asset was last modified.",
     )
     location: str = Field(
         ...,
         title="Location",
         description="Current location of the data asset.",
     )
-    metadata_status: MetadataStatus = Field(..., title=" Metadata Status", description="The status of the metadata.")
-    schema_version: str = Field("0.0.1", title="Schema Version", const=True)
+    metadata_status: MetadataStatus = Field(
+        default=MetadataStatus.UNKNOWN, title=" Metadata Status", description="The status of the metadata."
+    )
     external_links: List[Dict[ExternalPlatforms, str]] = Field(
-        ..., title="External Links", description="Links to the data asset on different platforms."
+        default=[], title="External Links", description="Links to the data asset on different platforms."
     )
-    subject: Subject = Field(
-        ...,
+    # We can make the AindCoreModel fields optional for now and do more
+    # granular validations using validators. We may have some older data
+    # assets in S3 that don't have metadata attached. We'd still like to
+    # index that data, but we can flag those instances as MISSING or UNKNOWN
+    subject: Optional[Subject] = Field(
+        None,
         title="Subject",
-        description="Description of a subject of data collection.",
+        description="Subject of data collection.",
+    )
+    data_description: Optional[DataDescription] = Field(
+        None, title="Data Description", description="A logical collection of data files."
+    )
+    procedures: Optional[Procedures] = Field(
+        None, title="Procedures", description="All procedures performed on a subject."
+    )
+    session: Optional[Session] = Field(None, title="Session", description="Description of a session.")
+    rig: Optional[Rig] = Field(None, title="Rig", description="Rig.")
+    processing: Optional[Processing] = Field(None, title="Processing", description="All processes run on data.")
+    acquisition: Optional[Acquisition] = Field(None, title="Acquisition", description="Imaging acquisition session")
+    instrument: Optional[Instrument] = Field(
+        None, title="Instrument", description="Instrument, which is a collection of devices"
     )
 
-    class Config:
-        """Need to allow for additional fields to append to base model"""
+    @root_validator(pre=False)
+    def validate_metadata(cls, values):
+        """Validator for metadata"""
 
-        extra = Extra.allow
+        # There's a simpler way to do this if we drop support for py37
+        all_model_fields = []
+        for field_name in cls.__fields__:
+            field_to_check = cls.__fields__[field_name]
+            try:
+                if issubclass(field_to_check.type_, AindCoreModel):
+                    all_model_fields.append(field_to_check)
+            except TypeError:
+                # Type errors in python3.7 when using issubclass on type
+                # generics
+                pass
+
+        # For each model field, check that is present and check if the model
+        # is valid. If it isn't valid, still add it, but mark MetadataStatus
+        # as INVALID
+        metadata_status = MetadataStatus.VALID
+        for model_field in all_model_fields:
+            model_class = model_field.type_
+            model_name = model_field.name
+            if values.get(model_name) is not None:
+                model = values[model_name]
+                # Since pre=False, the dictionaries get converted to models
+                # upstream
+                model_contents = model.dict()
+                *_, validation_error = validate_model(model_class, model_contents)
+                if validation_error:
+                    model_instance = model_class.construct(**model_contents)
+                    metadata_status = MetadataStatus.INVALID
+                else:
+                    model_instance = model_class(**model_contents)
+                values[model_name] = model_instance
+        # For certain required fields, like subject, if they are not present,
+        # mark the metadata record as missing
+        if values.get("subject") is None:
+            metadata_status = MetadataStatus.MISSING
+        values["metadata_status"] = metadata_status
+        return values

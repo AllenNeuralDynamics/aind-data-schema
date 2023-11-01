@@ -12,6 +12,7 @@ from .ephys.ephys_session import EphysSession
 from .imaging.acquisition import Acquisition, Axis
 from .imaging.instrument import Instrument
 from .imaging.mri_session import MriSession
+from .metadata import Metadata
 from .ophys.ophys_rig import OphysRig
 from .ophys.ophys_session import OphysSession
 from .procedures import Procedures
@@ -44,4 +45,5 @@ __all__ = [
     "MriSession",
     "Rig",
     "Session",
+    "Metadata",
 ]
