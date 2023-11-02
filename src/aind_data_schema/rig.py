@@ -16,6 +16,7 @@ from aind_data_schema.device import (
     DAQDevice,
     Detector,
     Device,
+    DigitalMicromirrorDevice,
     Disc,
     EphysAssembly,
     Filter,
@@ -30,6 +31,8 @@ from aind_data_schema.device import (
     Olfactometer,
     OpenEphysAcquisitionBoard,
     Patch,
+    PockelsCell,
+    PolygonalScanner,
     RewardDelivery,
     Speaker,
     StickMicroscopeAssembly,
@@ -42,7 +45,7 @@ from aind_data_schema.device import (
 class Rig(AindCoreModel):
     """Description of a rig"""
 
-    schema_version: str = Field("0.1.2", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.1.3", description="schema version", title="Version", const=True)
     rig_id: str = Field(..., description="room_stim apparatus_version", title="Rig ID")
     modification_date: date = Field(..., title="Date of modification")
     modalities: List[Modality] = Field(..., title="Modalities", unique_items=True)
@@ -76,6 +79,9 @@ class Rig(AindCoreModel):
     objectives: Optional[List[Objective]] = Field(None, title="Objectives", unique_items=True)
     filters: Optional[List[Filter]] = Field(None, title="Filters", unique_items=True)
     lenses: Optional[List[Lens]] = Field(None, title="Lenses", unique_items=True)
+    digital_micromirror_devices: Optional[List[DigitalMicromirrorDevice]] = Field(None, title="DMDs", unique_items=True)
+    polygonal_scanners: Optional[List[PolygonalScanner]] = Field(None, title="Polygonal scanners", unique_items=True)
+    pockels_cells: Optional[List[PockelsCell]] = Field(None, title="Pockels cells", unique_items=True)
     additional_devices: Optional[List[Device]] = Field(None, title="Additional devices", unique_items=True)
     calibrations: List[Calibration] = Field(..., title="Full calibration of devices", unique_items=True)
     ccf_coordinate_transform: Optional[str] = Field(

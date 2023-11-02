@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/rig.py",
-   "schema_version": "0.1.2",
+   "schema_version": "0.1.3",
    "rig_id": "428_FIP1_2",
    "modification_date": "2023-10-03",
    "modalities": [
@@ -358,7 +358,8 @@
          "notes": null,
          "numerical_aperture": 0.45,
          "magnification": 10,
-         "immersion": "air"
+         "immersion": "air",
+         "objective_type": null
       }
    ],
    "filters": [
@@ -637,6 +638,9 @@
          "max_aperture": null
       }
    ],
+   "digital_micromirror_devices": null,
+   "polygonal_scanners": null,
+   "pockels_cells": null,
    "additional_devices": null,
    "calibrations": [
       {

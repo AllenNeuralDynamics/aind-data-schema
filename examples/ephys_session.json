@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/session.py",
-   "schema_version": "0.0.2",
+   "schema_version": "0.0.3",
    "experimenter_full_name": [
       "Jane Doe"
    ],
@@ -11,7 +11,7 @@
    "rig_id": "323_EPHYS1",
    "calibrations": null,
    "maintenance": null,
-   "subject_id": 100001,
+   "subject_id": "100001",
    "animal_weight_prior": 21.2,
    "animal_weight_post": 21.3,
    "weight_unit": "gram",
@@ -91,6 +91,7 @@
          "detectors": null,
          "fiber_photometry_assemblies": null,
          "ophys_fovs": null,
+         "slap_fovs": null,
          "stack_parameters": null,
          "stimulus_device_names": null,
          "notes": null

@@ -12,7 +12,7 @@ from aind_data_schema.base import AindModel, EnumSubset
 from aind_data_schema.coordinates import RelativePosition
 from aind_data_schema.manufacturers import Manufacturer
 from aind_data_schema.procedures import Reagent
-from aind_data_schema.utils.units import FrequencyUnit, PowerUnit, SizeUnit, TemperatureUnit
+from aind_data_schema.utils.units import FrequencyUnit, PowerUnit, SizeUnit, SpeedUnit, TemperatureUnit, UnitlessUnit
 
 
 class DeviceDriver(Enum):
@@ -245,6 +245,13 @@ class Immersion(Enum):
     OTHER = "other"
 
 
+class ObjectiveType(Enum):
+    """Objective type for Slap2"""
+
+    REMOTE = "Remote"
+    PRIMARY = "Primary"
+
+
 class Objective(Device):
     """Description of an objective device"""
 
@@ -252,6 +259,7 @@ class Objective(Device):
     numerical_aperture: Decimal = Field(..., title="Numerical aperture (in air)")
     magnification: Decimal = Field(..., title="Magnification")
     immersion: Immersion = Field(..., title="Immersion")
+    objective_type: Optional[ObjectiveType] = Field(None, title="Objective type")
 
 
 class CameraTarget(Enum):
@@ -558,6 +566,45 @@ class Patch(Device):
     core_diameter: Decimal = Field(..., title="Core diameter (um)")
     numerical_aperture: Decimal = Field(..., title="Numerical aperture")
     photobleaching_date: Optional[date] = Field(None, title="Photobleaching date")
+
+
+class DigitalMicromirrorDevice(Device):
+    """Description of a Digital Micromirror Device (DMD)"""
+
+    device_type: Literal["Digital Micromirror Device"] = Field("Digital Micromirror Device", const=True, readOnly=True)
+    max_dmd_patterns: int = Field(..., title="Max DMD patterns")
+    double_bounce_design: bool = Field(..., title="Double bounce design")
+    invert_pixel_values: bool = Field(..., title="Invert pixel values")
+    motion_padding_x: int = Field(..., title="Motion padding X (pixels)")
+    motion_padding_y: int = Field(..., title="Motion padding Y (pixels)")
+    padding_unit: SizeUnit = Field(SizeUnit.PX, title="Padding unit")
+    pixel_size: Decimal = Field(..., title="DMD Pixel size")
+    pixel_size_unit: SizeUnit = Field(SizeUnit.UM, title="Pixel size unit")
+    start_phase: Decimal = Field(..., title="DMD Start phase (fraction of cycle)")
+    dmd_flip: bool = Field(..., title="DMD Flip")
+    dmd_curtain: List[Decimal] = Field(..., title="DMD Curtain")
+    dmd_curtain_unit: SizeUnit = Field(SizeUnit.PX, title="dmd_curtain_unit")
+    line_shear: List[int] = Field(..., title="Line shear (pixels)")
+    line_shear_units: SizeUnit = Field(SizeUnit.PX, title="Line shear units")
+
+
+class PolygonalScanner(Device):
+    """Description of a Polygonal scanner"""
+
+    device_type: Literal["Polygonal Scanner"] = Field("Polygonal Scanner", const=True, readOnly=True)
+    speed: int = Field(..., title="Speed (rpm)")
+    speed_unit: SpeedUnit = Field(SpeedUnit.RPM, title="Speed unit")
+    number_faces: int = Field(..., title="Number of faces")
+
+
+class PockelsCell(Device):
+    """Description of a Pockels Cell"""
+
+    device_type: Literal["Pockels Cell"] = Field("Pockels Cell", const=True, readOnly=True)
+    polygonal_scanner: str = Field(..., title="Polygonal scanner", description="Must match name of Polygonal scanner")
+    on_time: Decimal = Field(..., title="On time (fraction of cycle)")
+    off_time: Decimal = Field(..., title="Off time (fraction of cycle)")
+    time_setting_unit: UnitlessUnit = Field(UnitlessUnit.FC, title="time setting unit")
 
 
 class MousePlatform(Device):
