@@ -126,7 +126,7 @@ class Stream(AindModel):
 
 
 class EphysSession(AindCoreModel):
-    """Description of an ephys recording session. This is being deprecated after 2023-11-01. 
+    """Description of an ephys recording session. This is being deprecated after 2023-11-01.
     Use Session class instead."""
 
     schema_version: str = Field("0.4.13", description="schema version", title="Version", const=True)
