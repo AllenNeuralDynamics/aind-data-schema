@@ -127,17 +127,17 @@ class Stack(AindModel):
     targeted_structure: Optional[str] = Field(None, title="Targeted structure")
 
 
-class SlapType(Enum):
+class SlapSessionType(Enum):
     """Type of slap session"""
 
     PARENT = "Parent"
     BRANCH = "Branch"
 
 
-class Slap(FieldOfView):
+class SlapFieldOfView(FieldOfView):
     """Description of a Slap2 scan"""
 
-    session_type: SlapType = Field(..., title="Session type")
+    session_type: SlapSessionType = Field(..., title="Session type")
     dmd_dilation_x: int = Field(..., title="DMD Dilation X (pixels)")
     dmd_dilation_y: int = Field(..., title="DMD Dilation Y (pixels)")
     dilation_unit: SizeUnit = Field(SizeUnit.PX, title="Dilation unit")
@@ -257,7 +257,7 @@ class Stream(AindModel):
     detectors: Optional[List[Detector]] = Field(None, title="Detectors", unique_items=True)
     fiber_photometry_assemblies: Optional[List[FiberPhotometryAssembly]] = Field(None, title="Fiber photometry devices")
     ophys_fovs: Optional[List[FieldOfView]] = Field(None, title="Fields of view", unique_items=True)
-    slap_fovs: Optional[Slap] = Field(None, title="Slap2 field of view")
+    slap_fovs: Optional[SlapFieldOfView] = Field(None, title="Slap2 field of view")
     stack_parameters: Optional[Stack] = Field(None, title="Stack parameters")
     stimulus_device_names: Optional[List[str]] = Field(None, title="Stimulus devices")
     notes: Optional[str] = Field(None, title="Notes")

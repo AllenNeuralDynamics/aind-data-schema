@@ -12,7 +12,7 @@ from aind_data_schema.base import AindModel, EnumSubset
 from aind_data_schema.coordinates import RelativePosition
 from aind_data_schema.manufacturers import Manufacturer
 from aind_data_schema.procedures import Reagent
-from aind_data_schema.utils.units import FrequencyUnit, PowerUnit, SizeUnit, TemperatureUnit
+from aind_data_schema.utils.units import FrequencyUnit, PowerUnit, SizeUnit, SpeedUnit, TemperatureUnit, UnitlessUnit
 
 
 class DeviceDriver(Enum):
@@ -593,7 +593,7 @@ class PolygonalScanner(Device):
 
     device_type: Literal["Polygonal Scanner"] = Field("Polygonal Scanner", const=True, readOnly=True)
     speed: int = Field(..., title="Speed (rpm)")
-    speed_unit: str = Field("Rotations per minute", title="Speed unit")
+    speed_unit: SpeedUnit = Field(SpeedUnit.RPM, title="Speed unit")
     number_faces: int = Field(..., title="Number of faces")
 
 
@@ -604,6 +604,7 @@ class PockelsCell(Device):
     polygonal_scanner: str = Field(..., title="Polygonal scanner", description="Must match name of Polygonal scanner")
     on_time: Decimal = Field(..., title="On time (fraction of cycle)")
     off_time: Decimal = Field(..., title="Off time (fraction of cycle)")
+    time_setting_unit: UnitlessUnit = Field(UnitlessUnit.FC, title="time setting unit")
 
 
 class MousePlatform(Device):
