@@ -16,6 +16,7 @@ class ProcessName(Enum):
     """Data processing type labels"""
 
     ANALYSIS = "Analysis"
+    COMPRESSION = "Compression"
     DENOISING = "Denoising"
     EPHYS_CURATION = "Ephys curation"
     EPHYS_POSTPROCESSING = "Ephys postprocessing"
@@ -97,7 +98,7 @@ class Processing(AindCoreModel):
     """Description of all processes run on data"""
 
     schema_version: str = Field(
-        "0.3.0",
+        "0.3.1",
         description="Schema version",
         title="Schema version",
         const=True,
