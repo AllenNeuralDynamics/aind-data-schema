@@ -103,7 +103,7 @@ class UnitlessUnit(Enum):
 
     PERCENT = "percent"
     FC = "fraction of cycle"
-    
+
 
 def create_unit_with_value(model_name, scalar_type, unit_type, unit_default):
     """this uses create_model instead of generics, which lets us set default values"""
