@@ -54,7 +54,7 @@ class Metadata(AindCoreModel):
         description="Current location of the data asset.",
     )
     metadata_status: MetadataStatus = Field(..., title=" Metadata Status", description="The status of the metadata.")
-    schema_version: str = Field("0.0.1", title="Schema Version", const=True)
+    schema_version: str = Field("0.0.2", title="Schema Version", const=True)
     external_links: List[Dict[ExternalPlatforms, str]] = Field(
         ..., title="External Links", description="Links to the data asset on different platforms."
     )
