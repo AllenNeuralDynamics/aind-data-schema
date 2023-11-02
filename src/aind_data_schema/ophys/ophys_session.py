@@ -85,7 +85,7 @@ class Camera(AindModel):
 
 
 class OphysSession(AindCoreModel):
-    """Description of an ophys session"""
+    """Description of an ophys session. This is being deprecated after 2023-11-01. Use Session class instead."""
 
     schema_version: str = Field(
         "0.2.11",

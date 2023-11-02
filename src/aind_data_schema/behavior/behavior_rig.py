@@ -24,7 +24,7 @@ from aind_data_schema.device import (
 
 
 class BehaviorRig(AindCoreModel):
-    """Description of an behavior rig. This is being deprecated after 2023-11-01."""
+    """Description of an behavior rig. This is being deprecated after 2023-11-01. Use Rig class instead."""
 
     schema_version: str = Field("0.1.17", description="schema version", title="Version", const=True)
 
