@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import List
 
 from aind_data_schema.data_description import (
+    AnalysisDescription,
     DataDescription,
     DerivedDataDescription,
     Funding,
@@ -38,6 +39,7 @@ class DataDescriptionTest(unittest.TestCase):
     BAD_NAME = "fizzbuzz"
     BASIC_NAME = "ecephys_1234_3033-12-21_04-22-11"
     DERIVED_NAME = "ecephys_1234_3033-12-21_04-22-11_spikesorted-ks25_2022-10-12_23-23-11"
+    ANALYSIS_NAME = "project_analysis_3033-12-21_04-22-11"
 
     def test_constructors(self):
         """test building from component parts"""
@@ -120,6 +122,59 @@ class DataDescriptionTest(unittest.TestCase):
                 investigators=["Jane Smith"],
             )
 
+        ad = AnalysisDescription(
+            analysis_name="analysis",
+            project_name="project",
+            creation_time=dt,
+            subject_id="1234",
+            modality=[Modality.SPIM],
+            platform="exaspim",
+            institution=Institution.AIND,
+            funding_source=[f],
+            investigators=["Jane Smith"],
+        )
+
+        self.assertEqual(ad.label, "project_analysis")
+
+        with self.assertRaises(ValueError):
+            AnalysisDescription(
+                analysis_name="ana lysis",
+                project_name="pro_ject",
+                subject_id="1234",
+                modality=[Modality.SPIM],
+                platform="exaspim",
+                creation_time=dt,
+                institution=Institution.AIND,
+                funding_source=[f],
+                investigators=["Jane Smith"],
+            )
+
+        with self.assertRaises(ValueError):
+            AnalysisDescription(
+                analysis_name="",
+                project_name="project",
+                subject_id="1234",
+                modality=[Modality.SPIM],
+                platform="exaspim",
+                creation_time=dt,
+                institution=Institution.AIND,
+                funding_source=[f],
+                investigators=["Jane Smith"],
+            )
+
+        with self.assertRaises(ValueError):
+            AnalysisDescription(
+                analysis_name="analysis",
+                project_name="",
+                subject_id="1234",
+                modality=[Modality.SPIM],
+                platform="exaspim",
+                creation_time=dt,
+                institution=Institution.AIND,
+                funding_source=[f],
+                investigators=["Jane Smith"],
+            )
+
     def test_round_trip(self):
         """make sure we can round trip from json"""
 
@@ -166,6 +221,14 @@ class DataDescriptionTest(unittest.TestCase):
 
         with self.assertRaises(ValueError):
             toks = DerivedDataDescription.parse_name(self.BAD_NAME)
+
+        toks = AnalysisDescription.parse_name(self.ANALYSIS_NAME)
+        assert toks["project_abbreviation"] == "project"
+        assert toks["analysis_name"] == "analysis"
+        assert toks["creation_time"] == datetime.datetime(3033, 12, 21, 4, 22, 11)
+
+        with self.assertRaises(ValueError):
+            toks = AnalysisDescription.parse_name(self.BAD_NAME)
 
     def test_abbreviation_enums(self):
         """Tests that BaseName enums can be constructed from abbreviations"""
