@@ -31,7 +31,12 @@ class DataRegex(Enum):
         f"^(?P<input>.+?_{RegexParts.DATE.value}_{RegexParts.TIME.value})_(?P<process_name>.+?)_(?P<c_date>"
         f"{RegexParts.DATE.value})_(?P<c_time>{RegexParts.TIME.value})"
     )
+    ANALYZED = (
+        f"^(?P<project_abbreviation>.+?)_(?P<analysis_name>.+?)_(?P<c_date>"
+        f"{RegexParts.DATE.value})_(?P<c_time>{RegexParts.TIME.value})$"
+    )
     NO_UNDERSCORES = "^[^_]+$"
+    NO_SPECIAL_CHARS = '^[^<>:;"/|? \\_]+$'
 
 
 class DataLevel(Enum):
@@ -198,7 +203,7 @@ class RelatedData(AindModel):
 class DataDescription(AindCoreModel):
     """Description of a logical collection of data files"""
 
-    schema_version: str = Field("0.10.1", title="Schema Version", const=True)
+    schema_version: str = Field("0.10.2", title="Schema Version", const=True)
     license: str = Field("CC-BY-4.0", title="License", const=True)
 
     creation_time: datetime = Field(
@@ -244,6 +249,7 @@ class DataDescription(AindCoreModel):
     )
     project_name: Optional[str] = Field(
         None,
+        regex=DataRegex.NO_SPECIAL_CHARS.value,
         description="A name for a set of coordinated activities intended to achieve one or more objectives.",
         title="Project Name",
     )
@@ -457,5 +463,45 @@ class RawDataDescription(DataDescription):
         return dict(
             platform=platform,
             subject_id=m.group("subject_id"),
+            creation_time=creation_time,
+        )
+
+
+class AnalysisDescription(DataDescription):
+    """A collection of data files as analyzed from an asset"""
+
+    data_level: DataLevel = Field(
+        DataLevel.DERIVED, description="Level of processing that data has undergone", title="Data Level", const=True
+    )
+    project_name: str = Field(
+        ...,
+        regex=DataRegex.NO_SPECIAL_CHARS.value,
+        description="Name of the project the analysis belongs to",
+        title="Project name",
+    )
+    analysis_name: str = Field(
+        ..., regex=DataRegex.NO_SPECIAL_CHARS.value, description="Name of the analysis performed", title="Analysis name"
+    )
+
+    @property
+    def label(self):
+        """returns the label of the file"""
+
+        return f"{self.project_name}_{self.analysis_name}"
+
+    @classmethod
+    def parse_name(cls, name):
+        """Decompose raw Analysis name into component parts"""
+
+        m = re.match(f"{DataRegex.ANALYZED.value}", name)
+
+        if m is None:
+            raise ValueError(f"name({name}) does not match pattern")
+
+        creation_time = datetime_from_name_string(m.group("c_date"), m.group("c_time"))
+
+        return dict(
+            project_abbreviation=m.group("project_abbreviation"),
+            analysis_name=m.group("analysis_name"),
             creation_time=creation_time,
         )
