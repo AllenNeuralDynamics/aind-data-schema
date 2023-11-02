@@ -7,7 +7,6 @@ from aind_data_schema.session import Detector, FieldOfView, Laser, Session, Stre
 from aind_data_schema.stimulus import PhotoStimulation, PhotoStimulationGroup, StimulusEpoch
 
 t = datetime.datetime(2022, 7, 12, 7, 00, 00)
-t2 = datetime.time(7, 00, 00)
 
 s = Session(
     experimenter_full_name=["John Doe"],
@@ -83,8 +82,8 @@ s = Session(
                 ],
                 inter_trial_interval=10,
             ),
-            stimulus_start_time=t2,
-            stimulus_end_time=t2,
+            stimulus_start_time=t,
+            stimulus_end_time=t,
         )
     ],
 )

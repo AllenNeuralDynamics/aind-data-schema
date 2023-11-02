@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/session.py",
-   "schema_version": "0.0.3",
+   "schema_version": "0.0.4",
    "experimenter_full_name": [
       "John Doe"
    ],
@@ -122,8 +122,8 @@
             "other_parameters": null,
             "notes": null
          },
-         "stimulus_start_time": "07:00:00",
-         "stimulus_end_time": "07:00:00"
+         "stimulus_start_time": "2022-07-12T07:00:00",
+         "stimulus_end_time": "2022-07-12T07:00:00"
       }
    ],
    "reward_delivery": null,
