@@ -269,6 +269,7 @@ class CameraTarget(Enum):
     BOTTOM = "Bottom"
     EYE = "Eye"
     FACE_BOTTOM = "Face bottom"
+    FACE_FORWARD = "Face forward"
     FACE_SIDE = "Face side"
     SIDE = "Side"
     TONGUE = "Tongue"
