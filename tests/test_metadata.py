@@ -87,6 +87,15 @@ class TestMetadata(unittest.TestCase):
         )
         self.assertEqual(MetadataStatus.INVALID, d2.metadata_status)
 
+        # Tests constructed via dictionary
+        d3 = Metadata(
+            name="ecephys_655019_2023-04-03_18-17-09",
+            location="bucket",
+            subject=json.loads(Subject.construct().json()),
+            procedures=json.loads(Procedures.construct().json()),
+        )
+        self.assertEqual(MetadataStatus.INVALID, d3.metadata_status)
+
 
 if __name__ == "__main__":
     unittest.main()
