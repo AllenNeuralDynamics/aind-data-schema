@@ -37,7 +37,7 @@ class Metadata(AindCoreModel):
     """The records in the Data Asset Collection needs to contain certain fields
     to easily query and index the data."""
 
-    schema_version: str = Field("0.0.3", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.0.4", description="schema version", title="Version", const=True)
 
     id: UUID = Field(
         default_factory=uuid4,
