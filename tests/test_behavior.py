@@ -66,8 +66,8 @@ class BehaviorTests(unittest.TestCase):
                         trials_finished=343,
                         trials_rewarded=146,
                     ),
-                    stimulus_start_time=now.time(),
-                    stimulus_end_time=now.time(),
+                    stimulus_start_time=now,
+                    stimulus_end_time=now,
                 )
             ],
         )
