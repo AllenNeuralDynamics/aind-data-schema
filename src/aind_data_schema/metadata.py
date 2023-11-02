@@ -5,7 +5,7 @@ from enum import Enum
 from typing import Dict, List, Optional
 from uuid import UUID, uuid4
 
-from pydantic import Field, root_validator, validate_model
+from pydantic import Field, root_validator, validate_model, validator
 
 from aind_data_schema.base import AindCoreModel
 from aind_data_schema.data_description import DataDescription
@@ -37,7 +37,7 @@ class Metadata(AindCoreModel):
     """The records in the Data Asset Collection needs to contain certain fields
     to easily query and index the data."""
 
-    schema_version: str = Field("0.0.4", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.0.5", description="schema version", title="Version", const=True)
 
     id: UUID = Field(
         default_factory=uuid4,
@@ -95,6 +95,25 @@ class Metadata(AindCoreModel):
     instrument: Optional[Instrument] = Field(
         None, title="Instrument", description="Instrument, which is a collection of devices"
     )
+
+    @validator(
+        "subject",
+        "data_description",
+        "procedures",
+        "session",
+        "rig",
+        "processing",
+        "acquisition",
+        "instrument",
+        pre=True,
+    )
+    def validate_core_fields(cls, value, values, field):
+        """Don't automatically raise errors if the core models are invalid"""
+        if isinstance(value, dict):
+            core_model = field.type_.construct(**value)
+        else:
+            core_model = value
+        return core_model
 
     @root_validator(pre=False)
     def validate_metadata(cls, values):
