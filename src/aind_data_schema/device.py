@@ -89,7 +89,7 @@ class DaqChannelType(Enum):
 class Device(AindModel):
     """Generic device"""
 
-    device_type: str =Field(..., title="Device type") # Needs to be set by child classes that inherits
+    device_type: str = Field(..., title="Device type")  # Needs to be set by child classes that inherits
     name: Optional[str] = Field(None, title="Device name")
     serial_number: Optional[str] = Field(None, title="Serial number")
     manufacturer: Optional[Manufacturer] = Field(None, title="Manufacturer")
@@ -432,8 +432,8 @@ class OpenEphysAcquisitionBoard(DAQDevice):
     """Multichannel electrophysiology DAQ"""
 
     # required fields
-    device_type: Literal["OpenEphys Acquisition Board"] = Field("OpenEphys Acquisition Board", const=True, readOnly=True)
-
+    device_type: Literal["OpenEphys Acquisition Board"] = Field(
+        "OpenEphys Acquisition Board", const=True, readOnly=True)
     ports: List[ProbePort] = Field(..., title="Acquisition board ports")
 
     # fixed values
@@ -595,7 +595,7 @@ class FiberAssembly(AindModel):
     manipulator: Manipulator = Field(..., title="Manipulator")
     fibers: List[FiberProbe] = Field(..., title="Probes that are held by this module")
 
-      
+
 class DigitalMicromirrorDevice(Device):
     """Description of a Digital Micromirror Device (DMD)"""
 

@@ -7,6 +7,7 @@ from pydantic import Field
 
 from aind_data_schema.base import AindModel, PIDName
 
+
 class Reagent(AindModel):
     """Description of reagent used in procedure"""
 
