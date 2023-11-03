@@ -1,6 +1,7 @@
 """Classes to define reagents"""
 
 from datetime import date
+from typing import Optional
 
 from pydantic import Field
 
