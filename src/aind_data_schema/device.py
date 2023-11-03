@@ -560,7 +560,7 @@ class FerruleMaterial(Enum):
 class FiberProbe(Device):
     """Description of a fiber optic probe"""
 
-    device_type: Literal["Fiber probe"] = Field("Fiber probe", const=True, readOnly=True)
+    device_type: Literal["Fiber optic probe"] = Field("Fiber optic probe", const=True, readOnly=True)
     core_diameter: Decimal = Field(..., title="Core diameter (μm)", units="μm")
     core_diameter_unit: str = Field("μm", title="Core diameter unit")
     numerical_aperture: Decimal = Field(..., title="Numerical aperture")

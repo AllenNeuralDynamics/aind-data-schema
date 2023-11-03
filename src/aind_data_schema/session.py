@@ -20,32 +20,13 @@ from aind_data_schema.utils.units import AngleUnit, FrequencyUnit, MassUnit, Pow
 
 
 # Ophys components
-class FiberName(Enum):
-    """Fiber name"""
-
-    FIBER_A = "Fiber A"
-    FIBER_B = "Fiber B"
-    FIBER_C = "Fiber C"
-    FIBER_D = "Fiber D"
-    FIBER_E = "Fiber E"
-
-
-class PatchCordName(Enum):
-    """Patch cord name"""
-
-    PATCH_CORD_A = "Patch Cord A"
-    PATCH_CORD_B = "Patch Cord B"
-    PATCH_CORD_C = "Patch Cord C"
-    PATCH_CORD_D = "Patch Cord D"
-
-
 class FiberPhotometryAssembly(AindModel):
     """Description for an implanted fiber photometry configuration"""
 
-    patch_cord_name: PatchCordName = Field(..., title="Name")
+    patch_cord_name: str = Field(..., title="Patch cord name (must match rig)")
     patch_cord_output_power: Decimal = Field(..., title="Output power (uW)")
     output_power_unit: PowerUnit = Field(PowerUnit.UW, title="Output power unit")
-    fiber_name: FiberName = Field(..., title="Fiber name")
+    fiber_name: str = Field(..., title="Fiber name (must match rig)")
 
 
 class TriggerType(Enum):
