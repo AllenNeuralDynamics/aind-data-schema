@@ -36,6 +36,12 @@ class FrequencyUnit(Enum):
     mHZ = "millihertz"
 
 
+class SpeedUnit(Enum):
+    """Enumeration of Speed Measurements"""
+
+    RPM = "rotations per minute"
+
+
 class VolumeUnit(Enum):
     """Enumeration of Volume Measurements"""
 
@@ -90,6 +96,13 @@ class TemperatureUnit(Enum):
 
     C = "Celsius"
     K = "Kelvin"
+
+
+class UnitlessUnit(Enum):
+    """Unitless options"""
+
+    PERCENT = "percent"
+    FC = "fraction of cycle"
 
 
 def create_unit_with_value(model_name, scalar_type, unit_type, unit_default):
