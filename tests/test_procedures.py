@@ -110,7 +110,7 @@ class ProceduresTests(unittest.TestCase):
                                 numerical_aperture=1,
                                 ferrule_material="Ceramic",
                                 total_length=10,
-                            )
+                            ),
                             targeted_structure="MOp",
                             stereotactic_coordinate_ap=1,
                             stereotactic_coordinate_dv=2,
