@@ -173,7 +173,7 @@ class EphysModule(ManipulatorModule):
 
 
 class FiberModule(ManipulatorModule):
-    """Insterted fiber photometry probe recorded in a stream"""
+    """Inserted fiber photometry probe recorded in a stream"""
 
     fibers: List[str] = Field(..., title="Fiber optics probe name (must match rig JSON)")
 
