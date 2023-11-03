@@ -11,6 +11,7 @@ from aind_data_schema.procedures import (
     InjectionMaterial,
     NanojectInjection,
     OphysProbe,
+    Procedures,
     RetroOrbitalInjection,
     SpecimenProcedure,
 )
