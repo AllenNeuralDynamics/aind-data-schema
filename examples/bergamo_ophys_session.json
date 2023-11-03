@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/session.py",
-   "schema_version": "0.0.1",
+   "schema_version": "0.0.4",
    "experimenter_full_name": [
       "John Doe"
    ],
@@ -11,7 +11,7 @@
    "rig_id": "ophys_rig",
    "calibrations": null,
    "maintenance": null,
-   "subject_id": 652567,
+   "subject_id": "652567",
    "animal_weight_prior": null,
    "animal_weight_post": null,
    "weight_unit": "gram",
@@ -71,9 +71,11 @@
                "fov_scale_factor": 1.5,
                "fov_scale_factor_unit": "um/pixel",
                "frame_rate": 20,
-               "frame_rate_unit": "hertz"
+               "frame_rate_unit": "hertz",
+               "coupled_fov_index": null
             }
          ],
+         "slap_fovs": null,
          "stack_parameters": null,
          "stimulus_device_names": null,
          "notes": null
@@ -120,8 +122,8 @@
             "other_parameters": null,
             "notes": null
          },
-         "stimulus_start_time": "07:00:00",
-         "stimulus_end_time": "07:00:00"
+         "stimulus_start_time": "2022-07-12T07:00:00",
+         "stimulus_end_time": "2022-07-12T07:00:00"
       }
    ],
    "reward_delivery": null,

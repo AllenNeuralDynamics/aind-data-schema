@@ -154,7 +154,7 @@ class AindCoreModel(AindModel):
             filename = output_directory / filename
 
         with open(filename, "w") as f:
-            f.write(self.json(indent=3))
+            f.write(self.json(indent=3, by_alias=True))
 
 
 class _TypeEnumSubset(object):

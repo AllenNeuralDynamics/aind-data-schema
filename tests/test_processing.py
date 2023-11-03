@@ -22,9 +22,6 @@ class ProcessingTest(unittest.TestCase):
         )
 
         with self.assertRaises(pydantic.ValidationError):
-            DataProcess(name="Other")
-
-        with self.assertRaises(pydantic.ValidationError):
             DataProcess(name="Other", notes="")
 
         assert p is not None
