@@ -63,7 +63,8 @@ class SchemaWriter:
         output_path = self.configs.output
         for schema in schemas_to_write:
             filename = schema.default_filename()
-            schema_filename = filename.replace(".json", "_schema.json")
+            file_extension = schema.default_file_extension()
+            schema_filename = filename.replace(file_extension, "_schema.json")
             if self.configs.attach_version:
                 schema_version = schema.construct().schema_version
                 model_directory_name = schema_filename.replace("_schema.json", "")
