@@ -106,7 +106,7 @@ class ProceduresTests(unittest.TestCase):
                                 device_type="Fiber optic probe",
                                 name="Probe A",
                                 manufacturer="Doric",
-                                model_number="8",
+                                model="8",
                                 core_diameter=2,
                                 numerical_aperture=1,
                                 ferrule_material="Ceramic",
