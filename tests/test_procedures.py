@@ -105,7 +105,7 @@ class ProceduresTests(unittest.TestCase):
                             ophys_probe=FiberProbe(
                                 device_type="Fiber optic probe",
                                 name="Probe A",
-                                manufacturer="Tom",
+                                manufacturer="Doric",
                                 part_number="8",
                                 core_diameter=2,
                                 numerical_aperture=1,
