@@ -7,7 +7,7 @@ import pydantic
 
 from aind_data_schema.coordinates import CcfCoords, Coordinates3d
 from aind_data_schema.data_description import Modality
-from aind_data_schema.session import EphysModule, EphysProbe, RewardDelivery, Session, Stream
+from aind_data_schema.session import DomeModule, EphysModule, EphysProbe, RewardDelivery, Session, Stream
 
 
 class ExampleTest(unittest.TestCase):
@@ -31,6 +31,13 @@ class ExampleTest(unittest.TestCase):
                     stream_start_time=datetime.datetime.now(),
                     stream_end_time=datetime.datetime.now(),
                     stream_modalities=[Modality.ECEPHYS],
+                    stick_microscopes=[
+                        DomeModule(
+                            assembly_name="Stick_assembly",
+                            arc_angle=24,
+                            module_angle=10,
+                        )
+                    ],
                     ephys_modules=[
                         EphysModule(
                             ephys_probes=[EphysProbe(name="Probe A")],
@@ -67,8 +74,8 @@ class ExampleTest(unittest.TestCase):
                     Modality.FIB,
                     Modality.BEHAVIOR_VIDEOS,
                     Modality.POPHYS,
-                    Modality.TRAINED_BEHAVIOR
-                ]
+                    Modality.TRAINED_BEHAVIOR,
+                ],
             )
 
 

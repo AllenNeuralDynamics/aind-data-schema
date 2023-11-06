@@ -120,9 +120,10 @@ class RigTests(unittest.TestCase):
                     ),
                 )
             ],
-            stick_microscopes=[StickMicroscopeAssembly(
-                scope_assembly_name="fake name",
-                camera=Camera(
+            stick_microscopes=[
+                StickMicroscopeAssembly(
+                    scope_assembly_name="fake name",
+                    camera=Camera(
                         name="Camera A",
                         manufacturer=Manufacturer.OTHER,
                         data_interface="USB",
@@ -132,8 +133,9 @@ class RigTests(unittest.TestCase):
                         pixel_height=1,
                         chroma="Color",
                     ),
-                lens=Lens(manufacturer=Manufacturer.OTHER)
-            )],
+                    lens=Lens(manufacturer=Manufacturer.OTHER),
+                )
+            ],
             light_sources=[
                 Laser(
                     manufacturer=Manufacturer.HAMAMATSU,
@@ -162,7 +164,8 @@ class RigTests(unittest.TestCase):
                     gain=2,
                     chroma="Monochrome",
                     bit_depth=16,
-                )],
+                )
+            ],
             patch_cords=[
                 Patch(
                     name="Bundle Branching Fiber-optic Patch Cord",
@@ -170,7 +173,8 @@ class RigTests(unittest.TestCase):
                     model="BBP(4)_200/220/900-0.37_Custom_FCM-4xMF1.25",
                     core_diameter=200,
                     numerical_aperture=0.37,
-                )],
+                )
+            ],
             mouse_platform=Disc(name="Disc A", radius=1),
             calibrations=[
                 Calibration(
@@ -196,8 +200,8 @@ class RigTests(unittest.TestCase):
                     Modality.FIB,
                     Modality.BEHAVIOR_VIDEOS,
                     Modality.POPHYS,
-                    Modality.TRAINED_BEHAVIOR
-                    ],
+                    Modality.TRAINED_BEHAVIOR,
+                ],
                 rig_id="1234",
                 modification_date=datetime.datetime.now(),
                 daqs=[

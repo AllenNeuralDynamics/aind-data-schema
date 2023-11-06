@@ -3,7 +3,7 @@
 import datetime
 
 from aind_data_schema.data_description import Modality
-from aind_data_schema.session import Detector, FiberPhotometryAssembly, Laser, Session, Stream
+from aind_data_schema.session import Detector, DomeModule, FiberPhotometryAssembly, Laser, Session, Stream
 
 t = datetime.datetime(2022, 7, 12, 7, 00, 00)
 
@@ -35,6 +35,13 @@ s = Session(
                     excitation_power=7,
                     excitation_power_unit="milliwatt",
                 ),
+            ],
+            stick_microscopes=[
+                DomeModule(
+                    assembly_name="Stick_assembly",
+                    arc_angle=24,
+                    module_angle=10,
+                )
             ],
             detectors=[Detector(name="Hamamatsu Camera", exposure_time=10, trigger_type="Internal")],
             fiber_photometry_assemblies=[

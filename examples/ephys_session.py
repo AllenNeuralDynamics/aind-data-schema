@@ -34,6 +34,13 @@ stream = Stream(
     stream_start_time=datetime(2023, 1, 10, 8, 43, 00),
     stream_end_time=datetime(2023, 1, 10, 9, 43, 00),
     stream_modalities=[Modality.ECEPHYS, Modality.BEHAVIOR_VIDEOS],
+    stick_microscopes=[
+        DomeModule(
+            assembly_name="Stick_assembly",
+            arc_angle=24,
+            module_angle=10,
+        )
+    ],
     ephys_modules=[ephys_module],
     manipulator_modules=[laser_module],
     daq_names=["Harp Behavior", "Basestation Slot 3"],
@@ -51,13 +58,6 @@ session = Session(
     animal_weight_prior=21.2,
     animal_weight_post=21.3,
     data_streams=[stream],
-    stick_microscopes=[
-        DomeModule(
-            assembly_name="Stick_assembly",
-            arc_angle=24,
-            module_angle=10,
-        ),
-    ],
 )
 
 session.write_standard_file(prefix="ephys")

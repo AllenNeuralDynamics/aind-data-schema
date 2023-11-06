@@ -233,6 +233,11 @@ class Stream(AindModel):
         ]
     ]
     ephys_modules: Optional[List[EphysModule]] = Field(None, title="Ephys modules", unique_items=True)
+    stick_microscopes: Optional[List[DomeModule]] = Field(
+        None,
+        title="Stick microscopes",
+        description="Must match stick microscope assemblies in rig file",
+    )
     manipulator_modules: Optional[List[ManipulatorModule]] = Field(None, title="Manipulator modules", unique_items=True)
     detectors: Optional[List[Detector]] = Field(None, title="Detectors", unique_items=True)
     fiber_photometry_assemblies: Optional[List[FiberPhotometryAssembly]] = Field(None, title="Fiber photometry devices")
@@ -253,7 +258,8 @@ class Stream(AindModel):
 
         if Modality.ECEPHYS.value in modalities:
             ephys_modules = v.get("ephys_modules")
-            for key, value in {"ephys_modules": ephys_modules}.items():
+            stick_microscopes = v.get("stick_microscopes")
+            for key, value in {"ephys_modules": ephys_modules, "stick_microscopes": stick_microscopes}.items():
                 if not value:
                     error_message += f"{key} field must be utilized for Ecephys modality\n"
 
@@ -344,9 +350,4 @@ class Session(AindCoreModel):
     )
     stimulus_epochs: Optional[List[StimulusEpoch]] = Field(None, title="Stimulus")
     reward_delivery: Optional[RewardDelivery] = Field(None, title="Reward delivery")
-    stick_microscopes: Optional[List[DomeModule]] = Field(
-        None,
-        title="Stick microscopes",
-        description="Must match stick microscope assemblies in rig file",
-    )
     notes: Optional[str] = Field(None, title="Notes")

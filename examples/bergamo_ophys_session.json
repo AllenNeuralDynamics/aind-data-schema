@@ -44,6 +44,7 @@
             }
          ],
          "ephys_modules": null,
+         "stick_microscopes": null,
          "manipulator_modules": null,
          "detectors": [
             {
@@ -125,6 +126,5 @@
       }
    ],
    "reward_delivery": null,
-   "stick_microscopes": null,
    "notes": null
 }

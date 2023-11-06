@@ -110,7 +110,7 @@ class Rig(AindCoreModel):
             for key, value in {
                 "light_sources": light_source,
                 "detectors": detector,
-                "patch_cords": patch_cords
+                "patch_cords": patch_cords,
             }.items():
                 if value is None:
                     error_message += f"{key} field must be utilized for FIB modality\n"
