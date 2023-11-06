@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import time
+from datetime import datetime
 from decimal import Decimal
 from enum import Enum
 from typing import Any, Dict, List, Optional, Union
@@ -160,12 +160,12 @@ class StimulusEpoch(AindModel):
         Union[OptoStimulation, VisualStimulation, BehaviorStimulation, PhotoStimulation],
         Field(..., title="Stimulus", discriminator="stimulus_type"),
     ]
-    stimulus_start_time: time = Field(
+    stimulus_start_time: datetime = Field(
         ...,
         title="Stimulus start time",
         description="When a specific stimulus begins. This might be the same as the session start time.",
     )
-    stimulus_end_time: time = Field(
+    stimulus_end_time: datetime = Field(
         ...,
         title="Stimulus end time",
         description="When a specific stimulus ends. This might be the same as the session end time.",

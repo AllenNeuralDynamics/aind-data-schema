@@ -90,8 +90,9 @@ class FieldOfView(AindModel):
     magnification: str = Field(..., title="Magnification")
     fov_scale_factor: Decimal = Field(..., title="FOV scale factor (um/pixel)")
     fov_scale_factor_unit: str = Field("um/pixel", title="FOV scale factor unit")
-    frame_rate: Decimal = Field(..., title="Frame rate (Hz)")
+    frame_rate: Optional[Decimal] = Field(None, title="Frame rate (Hz)")
     frame_rate_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Frame rate unit")
+    coupled_fov_index: Optional[int] = Field(None, title="Coupled FOV", description="Coupled planes for multiscope")
 
 
 class StackChannel(Channel):
@@ -121,9 +122,28 @@ class Stack(AindModel):
     magnification: Optional[str] = Field(None, title="Magnification")
     fov_scale_factor: float = Field(..., title="FOV scale factor (um/pixel)")
     fov_scale_factor_unit: str = Field("um/pixel", title="FOV scale factor unit")
-    frame_rate: float = Field(..., title="Frame rate (Hz)")
+    frame_rate: Decimal = Field(..., title="Frame rate (Hz)")
     frame_rate_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Frame rate unit")
     targeted_structure: Optional[str] = Field(None, title="Targeted structure")
+
+
+class SlapSessionType(Enum):
+    """Type of slap session"""
+
+    PARENT = "Parent"
+    BRANCH = "Branch"
+
+
+class SlapFieldOfView(FieldOfView):
+    """Description of a Slap2 scan"""
+
+    session_type: SlapSessionType = Field(..., title="Session type")
+    dmd_dilation_x: int = Field(..., title="DMD Dilation X (pixels)")
+    dmd_dilation_y: int = Field(..., title="DMD Dilation Y (pixels)")
+    dilation_unit: SizeUnit = Field(SizeUnit.PX, title="Dilation unit")
+    target_neuron: Optional[str] = Field(None, title="Target neuron")
+    target_branch: Optional[str] = Field(None, title="Target branch")
+    path_to_array_of_frame_rates: str = Field(..., title="Array of frame rates")
 
 
 # Ephys Components
@@ -242,6 +262,7 @@ class Stream(AindModel):
     detectors: Optional[List[Detector]] = Field(None, title="Detectors", unique_items=True)
     fiber_photometry_assemblies: Optional[List[FiberPhotometryAssembly]] = Field(None, title="Fiber photometry devices")
     ophys_fovs: Optional[List[FieldOfView]] = Field(None, title="Fields of view", unique_items=True)
+    slap_fovs: Optional[SlapFieldOfView] = Field(None, title="Slap2 field of view")
     stack_parameters: Optional[Stack] = Field(None, title="Stack parameters")
     stimulus_device_names: Optional[List[str]] = Field(None, title="Stimulus devices")
     notes: Optional[str] = Field(None, title="Notes")
@@ -304,7 +325,7 @@ class Session(AindCoreModel):
     """Description of a physiology and/or behavior session"""
 
     schema_version: str = Field(
-        "0.0.1",
+        "0.0.4",
         description="schema version",
         title="Schema Version",
         const=True,
@@ -325,7 +346,7 @@ class Session(AindCoreModel):
     maintenance: Optional[List[Maintenance]] = Field(
         None, title="Maintenance", description="Maintenance of rig devices prior to session"
     )
-    subject_id: int = Field(..., title="Subject ID")
+    subject_id: str = Field(..., title="Subject ID")
     animal_weight_prior: Optional[Decimal] = Field(
         None,
         title="Animal weight (g)",

@@ -5,9 +5,9 @@ from __future__ import annotations
 import re
 from datetime import datetime
 from enum import Enum, EnumMeta
-from typing import Any, List, Optional
+from typing import Any, List, Optional, Union
 
-from pydantic import Field
+from pydantic import Field, ValidationError, validator
 
 from aind_data_schema.base import AindCoreModel, AindModel, BaseName, BaseNameEnumMeta, PIDName, Registry
 
@@ -31,7 +31,12 @@ class DataRegex(Enum):
         f"^(?P<input>.+?_{RegexParts.DATE.value}_{RegexParts.TIME.value})_(?P<process_name>.+?)_(?P<c_date>"
         f"{RegexParts.DATE.value})_(?P<c_time>{RegexParts.TIME.value})"
     )
+    ANALYZED = (
+        f"^(?P<project_abbreviation>.+?)_(?P<analysis_name>.+?)_(?P<c_date>"
+        f"{RegexParts.DATE.value})_(?P<c_time>{RegexParts.TIME.value})$"
+    )
     NO_UNDERSCORES = "^[^_]+$"
+    NO_SPECIAL_CHARS = '^[^<>:;"/|? \\_]+$'
 
 
 class DataLevel(Enum):
@@ -153,7 +158,7 @@ class Platform(Enum, metaclass=AbbreviationEnumMeta):
     FIP = BaseName(name="Frame-projected independent-fiber photometry platform", abbreviation="FIP")
     HCR = BaseName(name="Hybridization chain reaction platform", abbreviation="HCR")
     HSFP = BaseName(name="Hyperspectral fiber photometry platform", abbreviation="HSFP")
-    MESOSPM = BaseName(name="MesoSPIM platform", abbreviation="mesoSPIM")
+    MESOSPIM = BaseName(name="MesoSPIM platform", abbreviation="mesoSPIM")
     MERFISH = BaseName(name="MERFISH platform", abbreviation="MERFISH")
     MRI = BaseName(name="Magnetic resonance imaging platform", abbreviation="MRI")
     MULTIPLANE_OPHYS = BaseName(name="Multiplane optical physiology platform", abbreviation="multiplane-ophys")
@@ -198,7 +203,7 @@ class RelatedData(AindModel):
 class DataDescription(AindCoreModel):
     """Description of a logical collection of data files"""
 
-    schema_version: str = Field("0.10.1", title="Schema Version", const=True)
+    schema_version: str = Field("0.10.2", title="Schema Version", const=True)
     license: str = Field("CC-BY-4.0", title="License", const=True)
 
     creation_time: datetime = Field(
@@ -244,6 +249,7 @@ class DataDescription(AindCoreModel):
     )
     project_name: Optional[str] = Field(
         None,
+        regex=DataRegex.NO_SPECIAL_CHARS.value,
         description="A name for a set of coordinated activities intended to achieve one or more objectives.",
         title="Project Name",
     )
@@ -271,9 +277,14 @@ class DataDescription(AindCoreModel):
     )
     data_summary: Optional[str] = Field(None, title="Data summary", description="Semantic summary of experimental goal")
 
+    # TODO: We need to remove all the custom class constructors on pydantic
+    #  models
     def __init__(self, label=None, **kwargs):
         """Construct a generic DataDescription"""
 
+        # Ideally, we'd like to just use validators to parse information,
+        # but we need to get rid of these init methods first since they
+        # don't get called on here
         super().__init__(**kwargs)
 
         if label is not None:
@@ -296,6 +307,23 @@ class DataDescription(AindCoreModel):
             label=m.group("label"),
             creation_time=creation_time,
         )
+
+    @validator("data_level", pre=True, always=True)
+    def upgrade_data_level(cls, value: Union[str, DataLevel]):
+        """Updates legacy values to current values"""
+        # If user inputs a string and is 'raw level', convert it to RAW
+        if isinstance(value, str) and value in ["raw level", "raw data"]:
+            return DataLevel.RAW
+        # If user inputs a string, try to convert it to a DataLevel. Will raise
+        # an error if unable to parse the input string
+        elif isinstance(value, str):
+            return DataLevel(value)
+        # If user inputs a DataLevel object, return the object without parsing
+        elif isinstance(value, DataLevel):
+            return value
+        # else raise a validation error
+        else:
+            raise ValidationError("Data Level needs to be string or enum")
 
 
 class DerivedDataDescription(DataDescription):
@@ -435,5 +463,45 @@ class RawDataDescription(DataDescription):
         return dict(
             platform=platform,
             subject_id=m.group("subject_id"),
+            creation_time=creation_time,
+        )
+
+
+class AnalysisDescription(DataDescription):
+    """A collection of data files as analyzed from an asset"""
+
+    data_level: DataLevel = Field(
+        DataLevel.DERIVED, description="Level of processing that data has undergone", title="Data Level", const=True
+    )
+    project_name: str = Field(
+        ...,
+        regex=DataRegex.NO_SPECIAL_CHARS.value,
+        description="Name of the project the analysis belongs to",
+        title="Project name",
+    )
+    analysis_name: str = Field(
+        ..., regex=DataRegex.NO_SPECIAL_CHARS.value, description="Name of the analysis performed", title="Analysis name"
+    )
+
+    @property
+    def label(self):
+        """returns the label of the file"""
+
+        return f"{self.project_name}_{self.analysis_name}"
+
+    @classmethod
+    def parse_name(cls, name):
+        """Decompose raw Analysis name into component parts"""
+
+        m = re.match(f"{DataRegex.ANALYZED.value}", name)
+
+        if m is None:
+            raise ValueError(f"name({name}) does not match pattern")
+
+        creation_time = datetime_from_name_string(m.group("c_date"), m.group("c_time"))
+
+        return dict(
+            project_abbreviation=m.group("project_abbreviation"),
+            analysis_name=m.group("analysis_name"),
             creation_time=creation_time,
         )

@@ -24,9 +24,9 @@ from aind_data_schema.device import (
 
 
 class BehaviorRig(AindCoreModel):
-    """Description of an behavior rig. This is being deprecated after 2023-11-01."""
+    """Description of an behavior rig. This is being deprecated after 2023-11-01. Use Rig class instead."""
 
-    schema_version: str = Field("0.1.16", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.1.18", description="schema version", title="Version", const=True)
 
     rig_id: str = Field(..., description="room_stim apparatus_version", title="Rig ID")
     mouse_platform: Annotated[

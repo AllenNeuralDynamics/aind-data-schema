@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/imaging/instrument.py",
-   "schema_version": "0.9.0",
+   "schema_version": "0.9.2",
    "instrument_id": "SmartSPIM1-3",
    "modification_date": "2023-10-04",
    "instrument_type": "SmartSPIM",
@@ -52,7 +52,8 @@
          "notes": "",
          "numerical_aperture": 0.1,
          "magnification": 1.6,
-         "immersion": "multi"
+         "immersion": "multi",
+         "objective_type": null
       },
       {
          "device_type": "Objective",
@@ -71,7 +72,8 @@
          "notes": "Thorlabs TL4X-SAP with LifeCanvas dipping cap and correction optics",
          "numerical_aperture": 0.2,
          "magnification": 3.6,
-         "immersion": "multi"
+         "immersion": "multi",
+         "objective_type": null
       },
       {
          "device_type": "Objective",
@@ -90,7 +92,8 @@
          "notes": "",
          "numerical_aperture": 0.8,
          "magnification": 16.0,
-         "immersion": "water"
+         "immersion": "water",
+         "objective_type": null
       },
       {
          "device_type": "Objective",
@@ -109,7 +112,8 @@
          "notes": "",
          "numerical_aperture": 1.1,
          "magnification": 25.0,
-         "immersion": "water"
+         "immersion": "water",
+         "objective_type": null
       }
    ],
    "detectors": [
