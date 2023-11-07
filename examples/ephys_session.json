@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/session.py",
-   "schema_version": "0.0.5",
+   "schema_version": "0.0.6",
    "experimenter_full_name": [
       "Jane Doe"
    ],
@@ -101,7 +101,8 @@
             }
          ],
          "detectors": null,
-         "fiber_photometry_assemblies": null,
+         "fiber_connections": null,
+         "fiber_modules": null,
          "ophys_fovs": null,
          "slap_fovs": null,
          "stack_parameters": null,

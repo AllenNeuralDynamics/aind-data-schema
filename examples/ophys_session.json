@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/session.py",
-   "schema_version": "0.0.5",
+   "schema_version": "0.0.6",
    "experimenter_full_name": [
       "John Doe"
    ],
@@ -56,7 +56,7 @@
                "trigger_type": "Internal"
             }
          ],
-         "fiber_photometry_assemblies": [
+         "fiber_connections": [
             {
                "patch_cord_name": "Patch Cord A",
                "patch_cord_output_power": 40,
@@ -70,6 +70,7 @@
                "fiber_name": "Fiber B"
             }
          ],
+         "fiber_modules": null,
          "ophys_fovs": null,
          "slap_fovs": null,
          "stack_parameters": null,

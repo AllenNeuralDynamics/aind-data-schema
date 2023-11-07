@@ -19,6 +19,7 @@ from aind_data_schema.device import (
     DigitalMicromirrorDevice,
     Disc,
     EphysAssembly,
+    FiberAssembly,
     Filter,
     HarpDevice,
     Laser,
@@ -45,7 +46,7 @@ from aind_data_schema.device import (
 class Rig(AindCoreModel):
     """Description of a rig"""
 
-    schema_version: str = Field("0.1.4", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.1.5", description="schema version", title="Version", const=True)
     rig_id: str = Field(..., description="room_stim apparatus_version", title="Rig ID")
     modification_date: date = Field(..., title="Date of modification")
     modalities: List[Modality] = Field(..., title="Modalities", unique_items=True)
@@ -66,6 +67,7 @@ class Rig(AindCoreModel):
         ]
     ]
     ephys_assemblies: Optional[List[EphysAssembly]] = Field(None, title="Ephys probes", unique_items=True)
+    fiber_assemblies: Optional[List[FiberAssembly]] = Field(None, title="Inserted fiber optics", unique_items=True)
     stick_microscopes: Optional[List[StickMicroscopeAssembly]] = Field(None, title="Stick microscopes")
     laser_assemblies: Optional[List[LaserAssembly]] = Field(None, title="Laser modules", unique_items=True)
     patch_cords: Optional[List[Patch]] = Field(None, title="Patch cords", unique_items=True)

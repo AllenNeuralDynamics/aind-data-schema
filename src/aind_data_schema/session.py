@@ -20,32 +20,13 @@ from aind_data_schema.utils.units import AngleUnit, FrequencyUnit, MassUnit, Pow
 
 
 # Ophys components
-class FiberName(Enum):
-    """Fiber name"""
+class FiberConnection(AindModel):
+    """Description for a fiber photometry configuration"""
 
-    FIBER_A = "Fiber A"
-    FIBER_B = "Fiber B"
-    FIBER_C = "Fiber C"
-    FIBER_D = "Fiber D"
-    FIBER_E = "Fiber E"
-
-
-class PatchCordName(Enum):
-    """Patch cord name"""
-
-    PATCH_CORD_A = "Patch Cord A"
-    PATCH_CORD_B = "Patch Cord B"
-    PATCH_CORD_C = "Patch Cord C"
-    PATCH_CORD_D = "Patch Cord D"
-
-
-class FiberPhotometryAssembly(AindModel):
-    """Description of a fiber photometry configuration"""
-
-    patch_cord_name: PatchCordName = Field(..., title="Name")
+    patch_cord_name: str = Field(..., title="Patch cord name (must match rig)")
     patch_cord_output_power: Decimal = Field(..., title="Output power (uW)")
     output_power_unit: PowerUnit = Field(PowerUnit.UW, title="Output power unit")
-    fiber_name: FiberName = Field(..., title="Fiber name")
+    fiber_name: str = Field(..., title="Fiber name (must match procedure)")
 
 
 class TriggerType(Enum):
@@ -191,6 +172,12 @@ class EphysModule(ManipulatorModule):
     ephys_probes: List[EphysProbe] = Field(..., title="Ephys probes used in this module")
 
 
+class FiberModule(ManipulatorModule):
+    """Inserted fiber photometry probe recorded in a stream"""
+
+    fiber_connections: List[FiberConnection] = Field(None, title="Fiber photometry devices")
+
+
 class Laser(AindModel):
     """Description of laser settings in a session"""
 
@@ -260,7 +247,9 @@ class Stream(AindModel):
     )
     manipulator_modules: Optional[List[ManipulatorModule]] = Field(None, title="Manipulator modules", unique_items=True)
     detectors: Optional[List[Detector]] = Field(None, title="Detectors", unique_items=True)
-    fiber_photometry_assemblies: Optional[List[FiberPhotometryAssembly]] = Field(None, title="Fiber photometry devices")
+    fiber_connections: Optional[List[FiberConnection]] = Field(
+        None, title="Implanted fiber photometry devices")
+    fiber_modules: Optional[List[FiberModule]] = Field(None, title="Inserted fiber modules")
     ophys_fovs: Optional[List[FieldOfView]] = Field(None, title="Fields of view", unique_items=True)
     slap_fovs: Optional[SlapFieldOfView] = Field(None, title="Slap2 field of view")
     stack_parameters: Optional[Stack] = Field(None, title="Stack parameters")
@@ -287,11 +276,11 @@ class Stream(AindModel):
         if Modality.FIB.value in modalities:
             light_source = v.get("light_sources")
             detector = v.get("detectors")
-            fiber_photometry_assemblies = v.get("fiber_photometry_assemblies")
+            fiber_connections = v.get("fiber_connections")
             for key, value in {
                 "light_sources": light_source,
                 "detectors": detector,
-                "fiber_photometry_assemblies": fiber_photometry_assemblies,
+                "fiber_connections": fiber_connections
             }.items():
                 if not value:
                     error_message += f"{key} field must be utilized for FIB modality\n"
@@ -325,7 +314,7 @@ class Session(AindCoreModel):
     """Description of a physiology and/or behavior session"""
 
     schema_version: str = Field(
-        "0.0.5",
+        "0.0.6",
         description="schema version",
         title="Schema Version",
         const=True,
