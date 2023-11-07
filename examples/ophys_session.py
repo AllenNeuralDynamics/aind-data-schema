@@ -3,7 +3,7 @@
 import datetime
 
 from aind_data_schema.data_description import Modality
-from aind_data_schema.session import Detector, DomeModule, FiberPhotometryAssembly, Laser, Session, Stream
+from aind_data_schema.session import Detector, FiberPhotometryAssembly, Laser, Session, Stream
 
 t = datetime.datetime(2022, 7, 12, 7, 00, 00)
 
