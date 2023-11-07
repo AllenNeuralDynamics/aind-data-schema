@@ -112,7 +112,7 @@ class Metadata(AindCoreModel):
         "instrument",
         pre=True,
     )
-    def validate_core_fields(cls, value, values, field):
+    def validate_core_fields(cls, value, field):
         """Don't automatically raise errors if the core models are invalid"""
         if isinstance(value, dict):
             core_model = field.type_.construct(**value)
