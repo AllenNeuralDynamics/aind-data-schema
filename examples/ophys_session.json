@@ -46,18 +46,7 @@
             }
          ],
          "ephys_modules": null,
-         "stick_microscopes": [
-            {
-               "assembly_name": "Stick_assembly",
-               "arc_angle": 24,
-               "module_angle": 10,
-               "angle_unit": "degrees",
-               "rotation_angle": 0.0,
-               "coordinate_transform": null,
-               "calibration_date": null,
-               "notes": null
-            }
-         ],
+         "stick_microscopes": null,
          "manipulator_modules": null,
          "detectors": [
             {

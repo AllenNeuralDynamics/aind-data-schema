@@ -36,13 +36,6 @@ s = Session(
                     excitation_power_unit="milliwatt",
                 ),
             ],
-            stick_microscopes=[
-                DomeModule(
-                    assembly_name="Stick_assembly",
-                    arc_angle=24,
-                    module_angle=10,
-                )
-            ],
             detectors=[Detector(name="Hamamatsu Camera", exposure_time=10, trigger_type="Internal")],
             fiber_photometry_assemblies=[
                 FiberPhotometryAssembly(
