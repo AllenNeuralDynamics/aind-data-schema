@@ -46,6 +46,7 @@
             }
          ],
          "ephys_modules": null,
+         "stick_microscopes": null,
          "manipulator_modules": null,
          "detectors": [
             {
@@ -79,6 +80,5 @@
    ],
    "stimulus_epochs": null,
    "reward_delivery": null,
-   "stick_microscopes": null,
    "notes": null
 }
