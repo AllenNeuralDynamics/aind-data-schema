@@ -299,6 +299,10 @@ class DataDescription(AindCoreModel):
         parse = self.parse_name(self.name)
 
         return f"{parse['label']}"
+    
+    def name(self):
+        if self.label is not None:
+            name = self.label
 
     @validator("data_level", pre=True, always=True)
     def upgrade_data_level(cls, value: Union[str, DataLevel]):
@@ -322,6 +326,12 @@ class DerivedDataDescription(DataDescription):
     """A logical collection of data files derived via processing"""
 
     input_data_name: str
+    process_name: Optional[str] = Field(
+        ...,
+        regex=DataRegex.NO_SPECIAL_CHARS.value,
+        description="Name of the process that created the data",
+        title="Process name",
+    )
     data_level: DataLevel = Field(
         DataLevel.DERIVED,
         description="level of processing that data has undergone",

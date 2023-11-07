@@ -258,7 +258,7 @@ class DataDescriptionTest(unittest.TestCase):
     def test_from_data_description(self):
         """Tests DerivedDataDescription.from_data_description method"""
 
-        process_name = "spike_sorter"
+        process_name = "spikesorter"
 
         data_description_0_3_0 = self.data_descriptions["data_description_0.3.0.json"]
         upgrader_0_3_0 = DataDescriptionUpgrade(old_data_description_model=data_description_0_3_0)
