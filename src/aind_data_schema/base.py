@@ -85,6 +85,8 @@ class PIDName(BaseName):
 class AindCoreModel(AindModel):
     """Generic base class to hold common fields/validators/etc for all basic AIND schema"""
 
+    _DEFAULT_FILE_EXTENSION = ".json"
+
     describedBy: str
     schema_version: str = Field(..., regex=r"^\d+.\d+.\d+$")
 
@@ -127,7 +129,7 @@ class AindCoreModel(AindModel):
         Returns standard filename in snakecase
         """
         name = cls._get_direct_subclass(cls).__name__
-        return re.sub(r"(?<!^)(?=[A-Z])", "_", name).lower() + ".json"
+        return re.sub(r"(?<!^)(?=[A-Z])", "_", name).lower() + cls._DEFAULT_FILE_EXTENSION
 
     def write_standard_file(self, output_directory: Optional[Path] = None, prefix=None, suffix=None):
         """
@@ -147,7 +149,7 @@ class AindCoreModel(AindModel):
             filename = str(prefix) + "_" + self.default_filename()
 
         if suffix:
-            filename = filename.replace(".json", suffix)
+            filename = filename.replace(self._DEFAULT_FILE_EXTENSION, suffix)
 
         if output_directory is not None:
             output_directory = Path(output_directory)
@@ -155,6 +157,11 @@ class AindCoreModel(AindModel):
 
         with open(filename, "w") as f:
             f.write(self.json(indent=3, by_alias=True))
+
+    @classmethod
+    def default_file_extension(cls) -> str:
+        """Public method to retrieve protected _DEFAULT_FILE_EXTENSION"""
+        return cls._DEFAULT_FILE_EXTENSION
 
 
 class _TypeEnumSubset(object):

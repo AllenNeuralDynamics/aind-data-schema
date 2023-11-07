@@ -20,7 +20,8 @@ class SchemaWriterTests(unittest.TestCase):
 
         for schema in schema_gen:
             filename = schema.default_filename()
-            schema_filename = filename.replace(".json", "_schema.json")
+            file_extension = schema.default_file_extension()
+            schema_filename = filename.replace(file_extension, "_schema.json")
             schema_contents = schema.schema_json(indent=3)
             self.assertIsNotNone(schema_filename)
             self.assertIsNotNone(schema_contents)
@@ -53,7 +54,8 @@ class SchemaWriterTests(unittest.TestCase):
         write_calls = []
         for schema in schema_gen:
             filename = schema.default_filename()
-            schema_filename = filename.replace(".json", "_schema.json")
+            file_extension = schema.default_file_extension()
+            schema_filename = filename.replace(file_extension, "_schema.json")
             path = Path("some_test_dir") / schema_filename
             schema_contents = schema.schema_json(indent=3)
             open_calls.append(call(path, "w"))
@@ -82,7 +84,8 @@ class SchemaWriterTests(unittest.TestCase):
         mkdir_calls = []
         for schema in schema_gen:
             filename = schema.default_filename()
-            schema_filename = filename.replace(".json", "_schema.json")
+            file_extension = schema.default_file_extension()
+            schema_filename = filename.replace(file_extension, "_schema.json")
             model_directory_name = schema_filename.replace("_schema.json", "")
             path = Path("some_test_dir") / model_directory_name / schema.construct().schema_version / schema_filename
             schema_contents = schema.schema_json(indent=3)

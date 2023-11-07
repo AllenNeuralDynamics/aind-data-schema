@@ -60,6 +60,8 @@ class BaseTests(unittest.TestCase):
 
         mock_open.assert_called_once_with(default_filename, "w")
         mock_open.return_value.__enter__().write.assert_called_once_with(json_contents)
+        # The default file extension is expected to be ".json"
+        self.assertEqual("procedures.json", default_filename)
 
     @patch("builtins.open", new_callable=unittest.mock.mock_open())
     def test_write_standard_file_with_prefix(self, mock_open):
