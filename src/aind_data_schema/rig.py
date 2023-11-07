@@ -5,7 +5,7 @@ from __future__ import annotations
 from datetime import date
 from typing import List, Optional, Union
 
-from pydantic import Field
+from pydantic import Field, root_validator
 from pydantic.typing import Annotated
 
 from aind_data_schema.base import AindCoreModel
@@ -90,3 +90,47 @@ class Rig(AindCoreModel):
         description="Path to file that details the CCF-to-lab coordinate transform",
     )
     notes: Optional[str] = Field(None, title="Notes")
+
+    @root_validator
+    def validate_device_names(cls, values):  # noqa: C901
+        """validate that all DAQ channels are connected to devices that
+        actually exist
+        """
+
+        cameras = values.get("cameras")
+        ephys_assemblies = values.get("ephys_assemblies")
+        laser_assemblies = values.get("laser_assemblies")
+        mouse_platform = values.get("mouse_platform")
+        daqs = values.get("daqs")
+
+        if daqs is None:
+            return values
+
+        device_names = [None]
+
+        if cameras is not None:
+            device_names += [c.camera.name for c in cameras]
+
+        if daqs is not None:
+            device_names += [daq.name for daq in daqs]
+
+        if ephys_assemblies is not None:
+            device_names += [probe.name for ephys_assembly in ephys_assemblies for probe in ephys_assembly.probes]
+
+        if laser_assemblies is not None:
+            device_names += [laser.name for laser_assembly in laser_assemblies for laser in laser_assembly.lasers]
+
+        if mouse_platform is not None:
+            device_names += [mouse_platform.name]
+
+        for daq in daqs:
+            if daq.channels is not None:
+                for channel in daq.channels:
+                    if channel.device_name not in device_names:
+                        raise ValueError(
+                            f"Device name validation error: '{channel.device_name}' "
+                            + f"is connected to '{channel.channel_name}' on '{daq.name}', but "
+                            + "this device is not part of the rig."
+                        )
+
+        return values
