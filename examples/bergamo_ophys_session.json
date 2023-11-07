@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/session.py",
-   "schema_version": "0.0.5",
+   "schema_version": "0.0.6",
    "experimenter_full_name": [
       "John Doe"
    ],
@@ -54,7 +54,7 @@
                "trigger_type": "Internal"
             }
          ],
-         "fiber_photometry_assemblies": null,
+         "fiber_connections": null,
          "fiber_modules": null,
          "ophys_fovs": [
             {

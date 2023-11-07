@@ -276,11 +276,11 @@ class Stream(AindModel):
         if Modality.FIB.value in modalities:
             light_source = v.get("light_sources")
             detector = v.get("detectors")
-            fiber_photometry_assemblies = v.get("fiber_photometry_assemblies")
+            fiber_connections = v.get("fiber_connections")
             for key, value in {
                 "light_sources": light_source,
                 "detectors": detector,
-                "fiber_photometry_assemblies": fiber_photometry_assemblies,
+                "fiber_connections": fiber_connections
             }.items():
                 if not value:
                     error_message += f"{key} field must be utilized for FIB modality\n"
@@ -314,7 +314,7 @@ class Session(AindCoreModel):
     """Description of a physiology and/or behavior session"""
 
     schema_version: str = Field(
-        "0.0.5",
+        "0.0.6",
         description="schema version",
         title="Schema Version",
         const=True,
