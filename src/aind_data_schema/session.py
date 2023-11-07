@@ -175,7 +175,7 @@ class EphysModule(ManipulatorModule):
 class FiberModule(ManipulatorModule):
     """Inserted fiber photometry probe recorded in a stream"""
 
-    fiber_connections: List[FiberConnection] = Field(None, title="Fiber photometry devices") 
+    fiber_connections: List[FiberConnection] = Field(None, title="Fiber photometry devices")
 
 
 class Laser(AindModel):
@@ -248,7 +248,7 @@ class Stream(AindModel):
     manipulator_modules: Optional[List[ManipulatorModule]] = Field(None, title="Manipulator modules", unique_items=True)
     detectors: Optional[List[Detector]] = Field(None, title="Detectors", unique_items=True)
     fiber_connections: Optional[List[FiberConnection]] = Field(
-        None, title="Implanted fiber photometry devices") 
+        None, title="Implanted fiber photometry devices")
     fiber_modules: Optional[List[FiberModule]] = Field(None, title="Inserted fiber modules")
     ophys_fovs: Optional[List[FieldOfView]] = Field(None, title="Fields of view", unique_items=True)
     slap_fovs: Optional[SlapFieldOfView] = Field(None, title="Slap2 field of view")

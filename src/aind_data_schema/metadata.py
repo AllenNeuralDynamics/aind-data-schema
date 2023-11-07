@@ -37,7 +37,6 @@ class Metadata(AindCoreModel):
     """The records in the Data Asset Collection needs to contain certain fields
     to easily query and index the data."""
 
-
     # Special file name extension to distinguish this json file from others
     # The models base on this schema will be saved to metadata.nd.json as
     # default
