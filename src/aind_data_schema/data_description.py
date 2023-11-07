@@ -22,21 +22,23 @@ class RegexParts(Enum):
 class DataRegex(Enum):
     """regular expression patterns for different kinds of data and their properties"""
 
-    DATA = f"^(?P<label>.+?)_(?P<c_date>{RegexParts.DATE.value})_(?P<c_time>{RegexParts.TIME.value})$"
-    RAW = (
+    DATA = re.compile(
+        f"^(?P<label>.+?)_(?P<c_date>{RegexParts.DATE.value})_(?P<c_time>{RegexParts.TIME.value})$"
+    )
+    RAW = re.compile(
         f"^(?P<platform_abbreviation>.+?)_(?P<subject_id>.+?)_(?P<c_date>{RegexParts.DATE.value})_(?P<c_time>"
         f"{RegexParts.TIME.value})$"
     )
-    DERIVED = (
+    DERIVED = re.compile(
         f"^(?P<input>.+?_{RegexParts.DATE.value}_{RegexParts.TIME.value})_(?P<process_name>.+?)_(?P<c_date>"
         f"{RegexParts.DATE.value})_(?P<c_time>{RegexParts.TIME.value})"
     )
-    ANALYZED = (
+    ANALYZED = re.compile(
         f"^(?P<project_abbreviation>.+?)_(?P<analysis_name>.+?)_(?P<c_date>"
         f"{RegexParts.DATE.value})_(?P<c_time>{RegexParts.TIME.value})$"
     )
-    NO_UNDERSCORES = "^[^_]+$"
-    NO_SPECIAL_CHARS = '^[^<>:;"/|? \\_]+$'
+    NO_UNDERSCORES = re.compile("^[^_]+$")
+    NO_SPECIAL_CHARS = re.compile('^[^<>:;"/|? \\_]+$')
 
 
 class DataLevel(Enum):
