@@ -14,7 +14,8 @@ class UtilsTests(unittest.TestCase):
 
         for schema in schema_gen:
             filename = schema.default_filename()
-            schema_filename = filename.replace(".json", "_schema.json")
+            file_extension = schema.default_file_extension()
+            schema_filename = filename.replace(file_extension, "_schema.json")
             schema_contents = schema.schema_json(indent=3)
             self.assertIsNotNone(schema_filename)
             self.assertIsNotNone(schema_contents)

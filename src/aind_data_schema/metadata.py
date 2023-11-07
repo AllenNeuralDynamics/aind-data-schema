@@ -37,6 +37,11 @@ class Metadata(AindCoreModel):
     """The records in the Data Asset Collection needs to contain certain fields
     to easily query and index the data."""
 
+    # Special file name extension to distinguish this json file from others
+    # The models base on this schema will be saved to metadata.nd.json as
+    # default
+    _DEFAULT_FILE_EXTENSION = ".nd.json"
+
     schema_version: str = Field("0.0.6", description="schema version", title="Version", const=True)
 
     id: UUID = Field(
@@ -107,7 +112,7 @@ class Metadata(AindCoreModel):
         "instrument",
         pre=True,
     )
-    def validate_core_fields(cls, value, values, field):
+    def validate_core_fields(cls, value, field):
         """Don't automatically raise errors if the core models are invalid"""
         if isinstance(value, dict):
             core_model = field.type_.construct(**value)
