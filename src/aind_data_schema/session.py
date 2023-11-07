@@ -20,13 +20,13 @@ from aind_data_schema.utils.units import AngleUnit, FrequencyUnit, MassUnit, Pow
 
 
 # Ophys components
-class FiberPhotometryAssembly(AindModel):
-    """Description for an implanted fiber photometry configuration"""
+class FiberConnection(AindModel):
+    """Description for a fiber photometry configuration"""
 
     patch_cord_name: str = Field(..., title="Patch cord name (must match rig)")
     patch_cord_output_power: Decimal = Field(..., title="Output power (uW)")
     output_power_unit: PowerUnit = Field(PowerUnit.UW, title="Output power unit")
-    fiber_name: str = Field(..., title="Fiber name (must match rig)")
+    fiber_name: str = Field(..., title="Fiber name (must match procedure)")
 
 
 class TriggerType(Enum):
@@ -175,7 +175,7 @@ class EphysModule(ManipulatorModule):
 class FiberModule(ManipulatorModule):
     """Inserted fiber photometry probe recorded in a stream"""
 
-    fibers: List[str] = Field(..., title="Fiber optics probe name (must match rig JSON)")
+    fiber_connections: List[FiberConnection] = Field(None, title="Fiber photometry devices") 
 
 
 class Laser(AindModel):
@@ -242,8 +242,8 @@ class Stream(AindModel):
     ephys_modules: Optional[List[EphysModule]] = Field(None, title="Ephys modules", unique_items=True)
     manipulator_modules: Optional[List[ManipulatorModule]] = Field(None, title="Manipulator modules", unique_items=True)
     detectors: Optional[List[Detector]] = Field(None, title="Detectors", unique_items=True)
-    fiber_photometry_assemblies: Optional[List[FiberPhotometryAssembly]] = Field(
-        None, title="Implanted fiber photometry devices")
+    fiber_connections: Optional[List[FiberConnection]] = Field(
+        None, title="Implanted fiber photometry devices") 
     fiber_modules: Optional[List[FiberModule]] = Field(None, title="Inserted fiber modules")
     ophys_fovs: Optional[List[FieldOfView]] = Field(None, title="Fields of view", unique_items=True)
     slap_fovs: Optional[SlapFieldOfView] = Field(None, title="Slap2 field of view")

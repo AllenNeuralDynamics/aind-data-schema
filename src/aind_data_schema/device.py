@@ -432,8 +432,8 @@ class OpenEphysAcquisitionBoard(DAQDevice):
     """Multichannel electrophysiology DAQ"""
 
     # required fields
-    device_type: Literal["OpenEphys Acquisition Board"] = Field(
-        "OpenEphys Acquisition Board", const=True, readOnly=True)
+    device_type: Literal["Open Ephys Acquisition Board"] = Field(
+        "Open Ephys Acquisition Board", const=True, readOnly=True)
     ports: List[ProbePort] = Field(..., title="Acquisition board ports")
 
     # fixed values

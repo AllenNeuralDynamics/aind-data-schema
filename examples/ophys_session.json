@@ -55,7 +55,7 @@
                "trigger_type": "Internal"
             }
          ],
-         "fiber_photometry_assemblies": [
+         "fiber_connections": [
             {
                "patch_cord_name": "Patch Cord A",
                "patch_cord_output_power": 40,
