@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/session.py",
-   "schema_version": "0.0.4",
+   "schema_version": "0.0.5",
    "experimenter_full_name": [
       "Jane Doe"
    ],
@@ -68,6 +68,18 @@
                ]
             }
          ],
+         "stick_microscopes": [
+            {
+               "assembly_name": "Stick_assembly",
+               "arc_angle": 24,
+               "module_angle": 10,
+               "angle_unit": "degrees",
+               "rotation_angle": 0.0,
+               "coordinate_transform": null,
+               "calibration_date": null,
+               "notes": null
+            }
+         ],
          "manipulator_modules": [
             {
                "assembly_name": "Laser_assemblyA",
@@ -99,17 +111,5 @@
    ],
    "stimulus_epochs": null,
    "reward_delivery": null,
-   "stick_microscopes": [
-      {
-         "assembly_name": "Stick_assembly",
-         "arc_angle": 24,
-         "module_angle": 10,
-         "angle_unit": "degrees",
-         "rotation_angle": 0.0,
-         "coordinate_transform": null,
-         "calibration_date": null,
-         "notes": null
-      }
-   ],
    "notes": null
 }

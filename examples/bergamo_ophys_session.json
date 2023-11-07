@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/session.py",
-   "schema_version": "0.0.4",
+   "schema_version": "0.0.5",
    "experimenter_full_name": [
       "John Doe"
    ],
@@ -44,6 +44,7 @@
             }
          ],
          "ephys_modules": null,
+         "stick_microscopes": null,
          "manipulator_modules": null,
          "detectors": [
             {
@@ -127,6 +128,5 @@
       }
    ],
    "reward_delivery": null,
-   "stick_microscopes": null,
    "notes": null
 }
