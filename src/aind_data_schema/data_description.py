@@ -275,23 +275,7 @@ class DataDescription(AindCoreModel):
         title="Related data",
         description="Path and description of data assets associated with this asset (eg. reference images)",
     )
-    data_summary: Optional[str] = Field(None, title="Data summary", description="Semantic summary of experimental goal")
-
-    # TODO: We need to remove all the custom class constructors on pydantic
-    #  models
-    def __init__(self, label=None, **kwargs):
-        """Construct a generic DataDescription"""
-
-        # Ideally, we'd like to just use validators to parse information,
-        # but we need to get rid of these init methods first since they
-        # don't get called on here
-        super().__init__(**kwargs)
-
-        if label is not None:
-            self.name = build_data_name(
-                label,
-                creation_datetime=self.creation_time,
-            )
+    data_summary: Optional[str] = Field(None, title="Data summary", description="Semantic summary of experimental goal")   
 
     @classmethod
     def parse_name(cls, name):
@@ -307,6 +291,14 @@ class DataDescription(AindCoreModel):
             label=m.group("label"),
             creation_time=creation_time,
         )
+    
+    @property
+    def label(self):
+        """returns the label of the file"""
+
+        parse = self.parse_name(self.name)
+
+        return f"{parse['label']}"
 
     @validator("data_level", pre=True, always=True)
     def upgrade_data_level(cls, value: Union[str, DataLevel]):
@@ -337,11 +329,6 @@ class DerivedDataDescription(DataDescription):
         const=True,
     )
 
-    def __init__(self, process_name, **kwargs):
-        """Construct a derived data description"""
-        input_data_name = kwargs["input_data_name"]
-        super().__init__(label=f"{input_data_name}_{process_name}", **kwargs)
-
     @classmethod
     def parse_name(cls, name):
         """decompose DerivedDataDescription name into parts"""
@@ -359,6 +346,14 @@ class DerivedDataDescription(DataDescription):
             creation_time=creation_time,
             input_data_name=m.group("input"),
         )
+    
+    @property
+    def label(self):
+        """returns the label of the file"""
+
+        parse = self.parse_name(self.name)
+
+        return f"{self.input_data_name}_{parse['process_name']}"
 
     @classmethod
     def from_data_description(cls, data_description: DataDescription, process_name: str, **kwargs):
@@ -431,20 +426,17 @@ class RawDataDescription(DataDescription):
         const=True,
     )
 
-    def __init__(self, platform, subject_id, **kwargs):
-        """Construct a raw data description"""
+    @property
+    def label(self):
+        """returns the label of the file"""
 
-        if isinstance(platform, dict):
-            platform_abbreviation = platform.get("abbreviation")
+
+        if isinstance(self.platform, dict):
+            platform_abbreviation = self.platform.get("abbreviation")
         else:
-            platform_abbreviation = platform.value.abbreviation
+            platform_abbreviation = self.platform.value.abbreviation
 
-        super().__init__(
-            label=f"{platform_abbreviation}_{subject_id}",
-            platform=platform,
-            subject_id=subject_id,
-            **kwargs,
-        )
+        return f"{platform_abbreviation}_{self.subject_id}"
 
     @classmethod
     def parse_name(cls, name):
