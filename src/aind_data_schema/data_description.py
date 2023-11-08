@@ -7,7 +7,7 @@ from datetime import datetime
 from enum import Enum, EnumMeta
 from typing import Any, List, Optional, Union
 
-from pydantic import Field, ValidationError, validator
+from pydantic import Field, ValidationError, validator, root_validator
 
 from aind_data_schema.base import AindCoreModel, AindModel, BaseName, BaseNameEnumMeta, PIDName, Registry
 
@@ -300,9 +300,25 @@ class DataDescription(AindCoreModel):
 
         return f"{parse['label']}"
     
-    def name(self):
-        if self.label is not None:
-            name = self.label
+    # @property
+    # def name(self):
+    #     if self.label is not None:
+    #         self.name = build_data_name(
+    #             self.label,
+    #             creation_datetime=self.creation_time,
+    #         )
+
+    @root_validator
+    def build_name(cls, values):
+        """Construct a valid data description name"""
+
+        if values.get("name") is None:
+            values["name"] = build_data_name(
+                cls.label,
+                creation_datetime=values.get("creation_time"),
+            )
+
+        return values
 
     @validator("data_level", pre=True, always=True)
     def upgrade_data_level(cls, value: Union[str, DataLevel]):
