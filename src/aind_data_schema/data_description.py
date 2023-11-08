@@ -216,12 +216,16 @@ class DataDescription(AindCoreModel):
         description="Name of data, conventionally also the name of the directory containing all data and metadata",
         title="Name",
     )
+    label: Optional[str] = Field(
+        None,
+        description="A short name for the data, used in file names and labels",
+        title="Label",
+    )
     institution: Institution = Field(
         ...,
         description="An established society, corporation, foundation or other organization that collected this data",
         title="Institution",
     )
-
     funding_source: List[Funding] = Field(
         ...,
         title="Funding source",
@@ -291,30 +295,14 @@ class DataDescription(AindCoreModel):
             label=m.group("label"),
             creation_time=creation_time,
         )
-    
-    @property
-    def label(self):
-        """returns the label of the file"""
-
-        parse = self.parse_name(self.name)
-
-        return f"{parse['label']}"
-    
-    # @property
-    # def name(self):
-    #     if self.label is not None:
-    #         self.name = build_data_name(
-    #             self.label,
-    #             creation_datetime=self.creation_time,
-    #         )
 
     @root_validator
     def build_name(cls, values):
         """Construct a valid data description name"""
 
-        if values.get("name") is None:
+        if values.get("name") is None and values.get("label") is not None:
             values["name"] = build_data_name(
-                cls.label,
+                values.get("label"),
                 creation_datetime=values.get("creation_time"),
             )
 
@@ -455,7 +443,6 @@ class RawDataDescription(DataDescription):
     @property
     def label(self):
         """returns the label of the file"""
-
 
         if isinstance(self.platform, dict):
             platform_abbreviation = self.platform.get("abbreviation")
