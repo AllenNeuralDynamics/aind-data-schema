@@ -295,18 +295,13 @@ class DataDescription(AindCoreModel):
             label=m.group("label"),
             creation_time=creation_time,
         )
+    
+    @property  
+    def name(self):
+        """returns the name of the file"""
 
-    @root_validator
-    def build_name(cls, values):
-        """Construct a valid data description name"""
+        return build_data_name(self.label, creation_datetime=self.creation_time)
 
-        if values.get("name") is None and values.get("label") is not None:
-            values["name"] = build_data_name(
-                values.get("label"),
-                creation_datetime=values.get("creation_time"),
-            )
-
-        return values
 
     @validator("data_level", pre=True, always=True)
     def upgrade_data_level(cls, value: Union[str, DataLevel]):
@@ -489,7 +484,7 @@ class AnalysisDescription(DataDescription):
     )
 
     @property
-    def label(self):
+    def make_label(self):
         """returns the label of the file"""
 
         return f"{self.project_name}_{self.analysis_name}"
