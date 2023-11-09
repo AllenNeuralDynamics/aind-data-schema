@@ -262,25 +262,25 @@ class DataDescriptionTest(unittest.TestCase):
 
         data_description_0_3_0 = self.data_descriptions["data_description_0.3.0.json"]
         upgrader_0_3_0 = DataDescriptionUpgrade(old_data_description_model=data_description_0_3_0)
-        new_dd_0_3_0 = upgrader_0_3_0.upgrade_data_description(platform=Platform.ECEPHYS)
+        new_dd_0_3_0 = upgrader_0_3_0.upgrade(platform=Platform.ECEPHYS)
         derived_dd_0_3_0 = DerivedDataDescription.from_data_description(new_dd_0_3_0, process_name=process_name)
         self.assertEqual(Platform.ECEPHYS, derived_dd_0_3_0.platform)
 
         data_description_0_4_0 = self.data_descriptions["data_description_0.4.0.json"]
         upgrader_0_4_0 = DataDescriptionUpgrade(old_data_description_model=data_description_0_4_0)
-        new_dd_0_4_0 = upgrader_0_4_0.upgrade_data_description()
+        new_dd_0_4_0 = upgrader_0_4_0.upgrade()
         derived_dd_0_4_0 = DerivedDataDescription.from_data_description(new_dd_0_4_0, process_name=process_name)
         self.assertEqual(Platform.ECEPHYS, derived_dd_0_4_0.platform)
 
         data_description_0_6_0 = self.data_descriptions["data_description_0.6.0.json"]
         upgrader_0_6_0 = DataDescriptionUpgrade(old_data_description_model=data_description_0_6_0)
-        new_dd_0_6_0 = upgrader_0_6_0.upgrade_data_description()
+        new_dd_0_6_0 = upgrader_0_6_0.upgrade()
         derived_dd_0_6_0 = DerivedDataDescription.from_data_description(new_dd_0_6_0, process_name=process_name)
         self.assertEqual(Platform.ECEPHYS, derived_dd_0_6_0.platform)
 
         data_description_0_6_2 = self.data_descriptions["data_description_0.6.2.json"]
         upgrader_0_6_2 = DataDescriptionUpgrade(old_data_description_model=data_description_0_6_2)
-        new_dd_0_6_2 = upgrader_0_6_2.upgrade_data_description()
+        new_dd_0_6_2 = upgrader_0_6_2.upgrade()
         derived_dd_0_6_2 = DerivedDataDescription.from_data_description(new_dd_0_6_2, process_name=process_name)
         self.assertEqual(Platform.ECEPHYS, derived_dd_0_6_2.platform)
 
@@ -288,7 +288,7 @@ class DataDescriptionTest(unittest.TestCase):
         upgrader_0_6_2_wrong_field = DataDescriptionUpgrade(
             old_data_description_model=data_description_0_6_2_wrong_field
         )
-        new_dd_0_6_2_wrong_field = upgrader_0_6_2_wrong_field.upgrade_data_description(
+        new_dd_0_6_2_wrong_field = upgrader_0_6_2_wrong_field.upgrade(
             funding_source=[Funding(funder=Institution.AIND)]
         )
         derived_dd_0_6_2_wrong_field = DerivedDataDescription.from_data_description(
