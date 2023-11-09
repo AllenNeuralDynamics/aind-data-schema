@@ -41,6 +41,35 @@ from aind_data_schema.device import (
     Wheel,
 )
 
+devices = [Calibration,
+    CameraAssembly,
+    DAQDevice,
+    Detector,
+    Device,
+    DigitalMicromirrorDevice,
+    Disc,
+    EphysAssembly,
+    Filter,
+    HarpDevice,
+    Laser,
+    LaserAssembly,
+    Lens,
+    LightEmittingDiode,
+    Monitor,
+    NeuropixelsBasestation,
+    Objective,
+    Olfactometer,
+    OpenEphysAcquisitionBoard,
+    Patch,
+    PockelsCell,
+    PolygonalScanner,
+    RewardDelivery,
+    Speaker,
+    StickMicroscopeAssembly,
+    Treadmill,
+    Tube,
+    Wheel,
+]
 
 class Rig(AindCoreModel):
     """Description of a rig"""
@@ -97,16 +126,27 @@ class Rig(AindCoreModel):
         actually exist
         """
 
+        model_types = [type(model) for model in devices]
+
+        to_check = [field for field in values.keys() if any(isinstance(values.get(field), model) for model in devices)]
+
         cameras = values.get("cameras")
         ephys_assemblies = values.get("ephys_assemblies")
         laser_assemblies = values.get("laser_assemblies")
         mouse_platform = values.get("mouse_platform")
         daqs = values.get("daqs")
 
+
+
         if daqs is None:
             return values
 
         device_names = [None]
+
+        for field in to_check:
+            if values.get(field) is not None:
+                print(values.get(field))
+                device_names += [device.name for device in values.get(field)]
 
         if cameras is not None:
             device_names += [c.camera.name for c in cameras]
