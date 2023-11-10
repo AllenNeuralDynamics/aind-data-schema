@@ -3,7 +3,8 @@
    "schema_version": "0.10.2",
    "license": "CC-BY-4.0",
    "creation_time": "2022-02-21T16:30:01",
-   "name": "ecephys_12345_2022-02-21_16-30-01",
+   "name": "ecephys_12345",
+   "label": null,
    "institution": {
       "name": "Allen Institute for Neural Dynamics",
       "abbreviation": "AIND",

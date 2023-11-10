@@ -7,7 +7,7 @@ from datetime import datetime
 from enum import Enum, EnumMeta
 from typing import Any, List, Optional, Union
 
-from pydantic import Field, ValidationError, validator, root_validator
+from pydantic import Field, ValidationError, root_validator, validator
 
 from aind_data_schema.base import AindCoreModel, AindModel, BaseName, BaseNameEnumMeta, PIDName, Registry
 
@@ -279,7 +279,7 @@ class DataDescription(AindCoreModel):
         title="Related data",
         description="Path and description of data assets associated with this asset (eg. reference images)",
     )
-    data_summary: Optional[str] = Field(None, title="Data summary", description="Semantic summary of experimental goal")   
+    data_summary: Optional[str] = Field(None, title="Data summary", description="Semantic summary of experimental goal")
 
     @classmethod
     def parse_name(cls, name):
@@ -295,13 +295,18 @@ class DataDescription(AindCoreModel):
             label=m.group("label"),
             creation_time=creation_time,
         )
-    
-    @property  
-    def name(self):
-        """returns the name of the file"""
 
-        return build_data_name(self.label, creation_datetime=self.creation_time)
+    @root_validator
+    def build_name(cls, v):
+        """sets the name of the file"""
 
+        label = v.get("label")
+        if not v.get("name") and label:
+            v["name"] = build_data_name(v.get("label"), creation_datetime=v.get("creation_time"))
+        elif not v.get("name"):
+            raise ValidationError("Either label or name must be set")
+
+        return v
 
     @validator("data_level", pre=True, always=True)
     def upgrade_data_level(cls, value: Union[str, DataLevel]):
@@ -355,14 +360,19 @@ class DerivedDataDescription(DataDescription):
             creation_time=creation_time,
             input_data_name=m.group("input"),
         )
-    
-    @property
-    def label(self):
+
+    @root_validator
+    def build_name(cls, v):
         """returns the label of the file"""
 
-        parse = self.parse_name(self.name)
+        process_name = v.get("process_name")
 
-        return f"{self.input_data_name}_{parse['process_name']}"
+        if process_name:
+            v["name"] = f"{v.get('input_data_name')}_{process_name}_{v.get('creation_time')}"
+        else:
+            v["name"] = f"{v.get('input_data_name')}_{v.get('creation_time')}"
+
+        return v
 
     @classmethod
     def from_data_description(cls, data_description: DataDescription, process_name: str, **kwargs):
@@ -435,16 +445,17 @@ class RawDataDescription(DataDescription):
         const=True,
     )
 
-    @property
-    def label(self):
+    @root_validator
+    def build_name(cls, v):
         """returns the label of the file"""
 
-        if isinstance(self.platform, dict):
-            platform_abbreviation = self.platform.get("abbreviation")
-        else:
-            platform_abbreviation = self.platform.value.abbreviation
+        platform = v.get("platform")
 
-        return f"{platform_abbreviation}_{self.subject_id}"
+        platform_abbreviation = platform.value.abbreviation
+
+        v["name"] = f"{platform_abbreviation}_{v.get('subject_id')}"
+
+        return v
 
     @classmethod
     def parse_name(cls, name):
@@ -483,11 +494,16 @@ class AnalysisDescription(DataDescription):
         ..., regex=DataRegex.NO_SPECIAL_CHARS.value, description="Name of the analysis performed", title="Analysis name"
     )
 
-    @property
-    def make_label(self):
+    @root_validator
+    def build_name(cls, v):
         """returns the label of the file"""
 
-        return f"{self.project_name}_{self.analysis_name}"
+        project_name = v.get("project_name")
+        analysis_name = v.get("analysis_name")
+
+        v["name"] = f"{project_name}_{analysis_name}"
+
+        return v
 
     @classmethod
     def parse_name(cls, name):

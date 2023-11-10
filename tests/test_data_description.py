@@ -134,7 +134,7 @@ class DataDescriptionTest(unittest.TestCase):
             investigators=["Jane Smith"],
         )
 
-        self.assertEqual(ad.make_label, "project_analysis")
+        self.assertEqual(ad.name, "project_analysis")
 
         with self.assertRaises(ValueError):
             AnalysisDescription(
@@ -148,6 +148,12 @@ class DataDescriptionTest(unittest.TestCase):
                 funding_source=[f],
                 investigators=["Jane Smith"],
             )
+
+        with self.assertRaises(ValueError):
+            DataDescription()
+
+        with self.assertRaises(ValueError):
+            DerivedDataDescription()
 
         with self.assertRaises(ValueError):
             AnalysisDescription(
