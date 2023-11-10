@@ -540,8 +540,8 @@ class TestProcessingUpgrade(unittest.TestCase):
 class TestDataProcessUpgrade(unittest.TestCase):
     """Tests methods in DataProcessUpgrade class"""
 
-    def test_upgrades(self):
-        """Tests data process is upgraded correctly."""
+    def test_upgrade_from_old_model(self):
+        """Tests data process from old model is upgraded correctly."""
         datetime_now = datetime.datetime.now()
         old_data_process_dict = dict(
             name="Ephys preprocessing",
@@ -556,6 +556,33 @@ class TestDataProcessUpgrade(unittest.TestCase):
         old_data_process = DataProcess.construct(**old_data_process_dict)
 
         upgrader = DataProcessUpgrade(old_data_process_model=old_data_process)
+        new_data_process = upgrader.upgrade()
+
+        # the upgrader updates version to software_version
+        self.assertEqual(new_data_process.software_version, "0.1.5")
+        self.assertEqual(new_data_process.code_url, "my-code-repo")
+        self.assertEqual(new_data_process.start_date_time, datetime_now)
+        self.assertEqual(new_data_process.end_date_time, datetime_now)
+        self.assertEqual(new_data_process.input_location, "my-input-location")
+        self.assertEqual(new_data_process.output_location, "my-output-location")
+        self.assertEqual(new_data_process.parameters, {"param1": "value1"})
+
+    def test_upgrade_from_current_model(self):
+        """Tests data process from current model is upgraded correctly."""
+        datetime_now = datetime.datetime.now()
+        data_process_dict = dict(
+            name="Ephys preprocessing",
+            software_version="0.1.5",
+            code_url="my-code-repo",
+            start_date_time=datetime_now,
+            end_date_time=datetime_now,
+            input_location="my-input-location",
+            output_location="my-output-location",
+            parameters={"param1": "value1"},
+        )
+        data_process = DataProcess(**data_process_dict)
+
+        upgrader = DataProcessUpgrade(old_data_process_model=data_process)
         new_data_process = upgrader.upgrade()
 
         # the upgrader updates version to software_version

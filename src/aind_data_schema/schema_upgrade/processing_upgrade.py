@@ -25,9 +25,10 @@ class DataProcessUpgrade(BaseModelUpgrade):
         data_process_dict = self.old_model.dict()
         if version is not None and software_version is None:
             software_version = version
+            data_process_dict["software_version"] = software_version
             del data_process_dict["version"]
 
-        return DataProcess(software_version=software_version, **data_process_dict)
+        return DataProcess(**data_process_dict)
 
 
 class ProcessingUpgrade(BaseModelUpgrade):
