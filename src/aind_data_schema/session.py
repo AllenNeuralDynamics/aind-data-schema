@@ -20,32 +20,13 @@ from aind_data_schema.utils.units import AngleUnit, FrequencyUnit, MassUnit, Pow
 
 
 # Ophys components
-class FiberName(Enum):
-    """Fiber name"""
+class FiberConnection(AindModel):
+    """Description for a fiber photometry configuration"""
 
-    FIBER_A = "Fiber A"
-    FIBER_B = "Fiber B"
-    FIBER_C = "Fiber C"
-    FIBER_D = "Fiber D"
-    FIBER_E = "Fiber E"
-
-
-class PatchCordName(Enum):
-    """Patch cord name"""
-
-    PATCH_CORD_A = "Patch Cord A"
-    PATCH_CORD_B = "Patch Cord B"
-    PATCH_CORD_C = "Patch Cord C"
-    PATCH_CORD_D = "Patch Cord D"
-
-
-class FiberPhotometryAssembly(AindModel):
-    """Description of a fiber photometry configuration"""
-
-    patch_cord_name: PatchCordName = Field(..., title="Name")
+    patch_cord_name: str = Field(..., title="Patch cord name (must match rig)")
     patch_cord_output_power: Decimal = Field(..., title="Output power (uW)")
     output_power_unit: PowerUnit = Field(PowerUnit.UW, title="Output power unit")
-    fiber_name: FiberName = Field(..., title="Fiber name")
+    fiber_name: str = Field(..., title="Fiber name (must match procedure)")
 
 
 class TriggerType(Enum):
@@ -191,6 +172,12 @@ class EphysModule(ManipulatorModule):
     ephys_probes: List[EphysProbe] = Field(..., title="Ephys probes used in this module")
 
 
+class FiberModule(ManipulatorModule):
+    """Inserted fiber photometry probe recorded in a stream"""
+
+    fiber_connections: List[FiberConnection] = Field(None, title="Fiber photometry devices")
+
+
 class Laser(AindModel):
     """Description of laser settings in a session"""
 
@@ -253,21 +240,81 @@ class Stream(AindModel):
         ]
     ]
     ephys_modules: Optional[List[EphysModule]] = Field(None, title="Ephys modules", unique_items=True)
+    stick_microscopes: Optional[List[DomeModule]] = Field(
+        None,
+        title="Stick microscopes",
+        description="Must match stick microscope assemblies in rig file",
+    )
     manipulator_modules: Optional[List[ManipulatorModule]] = Field(None, title="Manipulator modules", unique_items=True)
     detectors: Optional[List[Detector]] = Field(None, title="Detectors", unique_items=True)
-    fiber_photometry_assemblies: Optional[List[FiberPhotometryAssembly]] = Field(None, title="Fiber photometry devices")
+    fiber_connections: Optional[List[FiberConnection]] = Field(
+        None, title="Implanted fiber photometry devices")
+    fiber_modules: Optional[List[FiberModule]] = Field(None, title="Inserted fiber modules")
     ophys_fovs: Optional[List[FieldOfView]] = Field(None, title="Fields of view", unique_items=True)
     slap_fovs: Optional[SlapFieldOfView] = Field(None, title="Slap2 field of view")
     stack_parameters: Optional[Stack] = Field(None, title="Stack parameters")
     stimulus_device_names: Optional[List[str]] = Field(None, title="Stimulus devices")
     notes: Optional[str] = Field(None, title="Notes")
 
+    @root_validator
+    def validate_modality(cls, v):  # noqa: C901
+        """Validator to ensure all expected fields are present, based on given modality"""
+
+        modalities = v.get("stream_modalities")
+
+        modalities = [modality.value for modality in modalities]
+
+        error_message = ""
+
+        if Modality.ECEPHYS.value in modalities:
+            ephys_modules = v.get("ephys_modules")
+            stick_microscopes = v.get("stick_microscopes")
+            for key, value in {"ephys_modules": ephys_modules, "stick_microscopes": stick_microscopes}.items():
+                if not value:
+                    error_message += f"{key} field must be utilized for Ecephys modality\n"
+
+        if Modality.FIB.value in modalities:
+            light_source = v.get("light_sources")
+            detector = v.get("detectors")
+            fiber_connections = v.get("fiber_connections")
+            for key, value in {
+                "light_sources": light_source,
+                "detectors": detector,
+                "fiber_connections": fiber_connections
+            }.items():
+                if not value:
+                    error_message += f"{key} field must be utilized for FIB modality\n"
+
+        if Modality.POPHYS.value in modalities:
+            ophys_fovs = v.get("ophys_fovs")
+            stack_parameters = v.get("stack_parameters")
+            if not ophys_fovs and not stack_parameters:
+                error_message += "ophys_fovs field OR stack_parameters field must be utilized for Pophys modality\n"
+
+        if Modality.SLAP.value in modalities:
+            pass
+
+        if Modality.BEHAVIOR_VIDEOS.value in modalities:
+            camera_names = v.get("camera_names")
+            if not camera_names:
+                error_message += "camera_names field must be utilized for Behavior Videos modality\n"
+
+        if Modality.TRAINED_BEHAVIOR.value in modalities:
+            stimulus_device_names = v.get("stimulus_device_names")
+            if not stimulus_device_names:
+                error_message += "stimulus_device_names field must be utilized for Trained Behavior modality\n"
+
+        if error_message:
+            raise ValueError(error_message)
+
+        return v
+
 
 class Session(AindCoreModel):
     """Description of a physiology and/or behavior session"""
 
     schema_version: str = Field(
-        "0.0.4",
+        "0.0.6",
         description="schema version",
         title="Schema Version",
         const=True,
@@ -313,9 +360,4 @@ class Session(AindCoreModel):
     )
     stimulus_epochs: Optional[List[StimulusEpoch]] = Field(None, title="Stimulus")
     reward_delivery: Optional[RewardDelivery] = Field(None, title="Reward delivery")
-    stick_microscopes: Optional[List[DomeModule]] = Field(
-        None,
-        title="Stick microscopes",
-        description="Must match stick microscope assemblies in rig file",
-    )
     notes: Optional[str] = Field(None, title="Notes")

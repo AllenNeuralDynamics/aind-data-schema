@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/rig.py",
-   "schema_version": "0.1.4",
+   "schema_version": "0.1.5",
    "rig_id": "323_EPHYS1",
    "modification_date": "2023-10-03",
    "modalities": [
@@ -202,7 +202,7 @@
    ],
    "daqs": [
       {
-         "device_type": "NeuropixelsBasestation",
+         "device_type": "Neuropixels basestation",
          "name": "Basestation Slot 3",
          "serial_number": null,
          "manufacturer": {
@@ -238,7 +238,7 @@
          ]
       },
       {
-         "device_type": "HarpDevice",
+         "device_type": "Harp device",
          "name": "Harp Behavior",
          "serial_number": null,
          "manufacturer": {
@@ -308,7 +308,7 @@
          },
          "probes": [
             {
-               "device_type": "EphysProbe",
+               "device_type": "Ephys probe",
                "name": "Probe A",
                "serial_number": "9291019",
                "manufacturer": null,
@@ -337,7 +337,7 @@
          },
          "probes": [
             {
-               "device_type": "EphysProbe",
+               "device_type": "Ephys probe",
                "name": "Probe B",
                "serial_number": "9291020",
                "manufacturer": null,
@@ -350,6 +350,7 @@
          ]
       }
    ],
+   "fiber_assemblies": null,
    "stick_microscopes": [
       {
          "scope_assembly_name": "Stick_assembly",

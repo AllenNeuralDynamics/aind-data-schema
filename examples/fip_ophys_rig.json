@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/rig.py",
-   "schema_version": "0.1.4",
+   "schema_version": "0.1.5",
    "rig_id": "428_FIP1_2",
    "modification_date": "2023-10-03",
    "modalities": [
@@ -142,7 +142,7 @@
    ],
    "daqs": [
       {
-         "device_type": "DAQDevice",
+         "device_type": "DAQ Device",
          "name": "USB DAQ",
          "serial_number": null,
          "manufacturer": {
@@ -193,6 +193,7 @@
       }
    ],
    "ephys_assemblies": null,
+   "fiber_assemblies": null,
    "stick_microscopes": null,
    "laser_assemblies": null,
    "patch_cords": [
@@ -218,7 +219,7 @@
    ],
    "light_sources": [
       {
-         "device_type": "LightEmittingDiode",
+         "device_type": "Light emitting diode",
          "name": "470nm LED",
          "serial_number": null,
          "manufacturer": {
@@ -236,7 +237,7 @@
          "wavelength_unit": "nanometer"
       },
       {
-         "device_type": "LightEmittingDiode",
+         "device_type": "Light emitting diode",
          "name": "415nm LED",
          "serial_number": null,
          "manufacturer": {
@@ -254,7 +255,7 @@
          "wavelength_unit": "nanometer"
       },
       {
-         "device_type": "LightEmittingDiode",
+         "device_type": "Light emitting diode",
          "name": "565nm LED",
          "serial_number": null,
          "manufacturer": {
