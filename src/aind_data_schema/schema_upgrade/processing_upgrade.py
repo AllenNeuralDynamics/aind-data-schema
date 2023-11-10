@@ -1,17 +1,12 @@
-"""Module to contain code to upgrade old data description models"""
-from copy import deepcopy
-from datetime import datetime
-from typing import Any, Union, Optional
+"""Module to contain code to upgrade old processing models"""
 
-from aind_data_schema.processing import Processing, PipelineProcess, DataProcess
+from aind_data_schema.processing import DataProcess, PipelineProcess, Processing
 
-from .base_upgrade import BaseModelUpgrade, AindModel
-
+from .base_upgrade import AindModel, BaseModelUpgrade
 
 
 class DataProcessUpgrade(BaseModelUpgrade):
-
-    def __init__(self, old_data_process: DataProcess):
+    def __init__(self, old_data_process_model: DataProcess):
         """
         Handle mapping of old DataProcess models into current models
 
@@ -19,7 +14,7 @@ class DataProcessUpgrade(BaseModelUpgrade):
         ----------
         old_processing_model : Processing
         """
-        super().__init__(old_model=old_data_process, model_class=DataProcess)
+        super().__init__(old_model=old_data_process_model, model_class=DataProcess)
 
     def upgrade(self, **kwargs) -> AindModel:
         version = self._get_or_default(self.old_model, "version", kwargs)
@@ -29,10 +24,7 @@ class DataProcessUpgrade(BaseModelUpgrade):
             software_version = version
             del data_process_dict["version"]
 
-        return DataProcess(
-            software_version=software_version,
-            **data_process_dict
-        )
+        return DataProcess(software_version=software_version, **data_process_dict)
 
 
 class ProcessingUpgrade(BaseModelUpgrade):
@@ -60,19 +52,22 @@ class ProcessingUpgrade(BaseModelUpgrade):
 
             if data_processes is not None:
                 # upgrade data processes
-                data_processes_new = [DataProcessUpgrade(DataProcess.construct(**data_process)).upgrade() for data_process in data_processes]
+                data_processes_new = [
+                    DataProcessUpgrade(DataProcess.construct(**data_process)).upgrade()
+                    for data_process in data_processes
+                ]
                 processor_full_name = kwargs.get("processor_full_name")
                 processing_pipeline = PipelineProcess(
                     pipeline_version=pipeline_version,
                     pipeline_url=pipeline_url,
                     data_processes=data_processes_new,
-                    processor_full_name=processor_full_name
+                    processor_full_name=processor_full_name,
                 )
 
             return Processing(
                 processing_pipeline=processing_pipeline,
                 analyses=self._get_or_default(self.old_model, "analyses", kwargs),
-                notes=self._get_or_default(self.old_model, "notes", kwargs)
+                notes=self._get_or_default(self.old_model, "notes", kwargs),
             )
         else:
             return self.old_model

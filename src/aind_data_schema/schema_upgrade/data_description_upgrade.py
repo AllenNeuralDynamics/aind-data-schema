@@ -5,7 +5,7 @@ from typing import Any, Optional, Union
 
 from aind_data_schema.data_description import DataDescription, Funding, Institution, Modality, Platform
 
-from .base_upgrade import BaseModelUpgrade, AindModel
+from .base_upgrade import AindModel, BaseModelUpgrade
 
 
 class ModalityUpgrade:

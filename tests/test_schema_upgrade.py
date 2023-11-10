@@ -24,9 +24,7 @@ from aind_data_schema.schema_upgrade.data_description_upgrade import (
     ModalityUpgrade,
 )
 from aind_data_schema.processing import DataProcess, Processing
-from aind_data_schema.schema_upgrade.processing_upgrade import (
-    DataProcessUpgrade, ProcessingUpgrade
-)
+from aind_data_schema.schema_upgrade.processing_upgrade import DataProcessUpgrade, ProcessingUpgrade
 
 
 DATA_DESCRIPTION_FILES_PATH = Path(__file__).parent / "resources" / "ephys_data_description"
@@ -325,139 +323,6 @@ class TestDataDescriptionUpgrade(unittest.TestCase):
     #     self.assertEqual([Modality.ECEPHYS], new_dd_0_6_2.modality)
 
 
-class TestProcessingUpgrade(unittest.TestCase):
-    """Tests methods in DataDescriptionUpgrade class"""
-
-    @classmethod
-    def setUpClass(cls):
-        """Load json files before running tests."""
-        processing_files: List[str] = os.listdir(PROCESSING_FILES_PATH)
-        processings = []
-        for file_path in processing_files:
-            with open(PROCESSING_FILES_PATH / file_path) as f:
-                contents = json.load(f)
-            processings.append((file_path, Processing.construct(**contents)))
-        cls.processings = dict(processings)
-
-    def test_upgrades_0_0_1(self):
-        """Tests processing_0.0.1.json is mapped correctly."""
-        processing_0_0_1 = self.processings["processing_0.0.1.json"]
-        upgrader = ProcessingUpgrade(old_processing_model=processing_0_0_1)
-        # Should complain about processor_full_name being None
-        with self.assertRaises(Exception) as e:
-            upgrader.upgrade()
-
-        expected_error_message = (
-            "ValidationError("
-            "model='PipelineProcess', "
-            "errors=[{"
-            "'loc': ('processor_full_name',), "
-            "'msg': 'none is not an allowed value', "
-            "'type': 'type_error.none.not_allowed'"
-            "}])"
-        )
-        self.assertEqual(expected_error_message, repr(e.exception))
-
-        # Should work by setting platform explicitly
-        new_processing = upgrader.upgrade(processor_full_name="Unit Test")
-        processing_pipeline = new_processing.processing_pipeline
-        self.assertEqual(processing_pipeline.processor_full_name, "Unit Test")
-        ephys_preprocessing_process = processing_pipeline.data_processes[0]
-        self.assertEqual(ephys_preprocessing_process.name.value, "Ephys preprocessing")
-        self.assertEqual(ephys_preprocessing_process.software_version, "0.1.5")
-        self.assertEqual(ephys_preprocessing_process.code_url, 
-                         "https://github.com/AllenNeuralDynamics/aind-data-transfer", "0.1.5")
-        self.assertEqual(ephys_preprocessing_process.software_version, "0.1.5")
-
-    def test_upgrades_0_1_0(self):
-        """Tests processing_0.1.0.json is mapped correctly."""
-        processing_0_1_0 = self.processings["processing_0.1.0.json"]
-        upgrader = ProcessingUpgrade(old_processing_model=processing_0_1_0)
-        # Should complain about processor_full_name being None
-        with self.assertRaises(Exception) as e:
-            upgrader.upgrade()
-
-        expected_error_message = (
-            "ValidationError("
-            "model='PipelineProcess', "
-            "errors=[{"
-            "'loc': ('processor_full_name',), "
-            "'msg': 'none is not an allowed value', "
-            "'type': 'type_error.none.not_allowed'"
-            "}])"
-        )
-        self.assertEqual(expected_error_message, repr(e.exception))
-
-        # Should work by setting platform explicitly
-        new_processing = upgrader.upgrade(processor_full_name="Unit Test")
-        processing_pipeline = new_processing.processing_pipeline
-        self.assertEqual(processing_pipeline.processor_full_name, "Unit Test")
-        ephys_preprocessing_process = processing_pipeline.data_processes[0]
-        self.assertEqual(ephys_preprocessing_process.name.value, "Ephys preprocessing")
-        self.assertEqual(ephys_preprocessing_process.software_version, "0.5.0")
-        self.assertEqual(ephys_preprocessing_process.code_url, 
-                         "https://github.com/AllenNeuralDynamics/aind-data-transfer")
-
-    def test_upgrades_0_2_1(self):
-        """Tests processing_0.2.1.json is mapped correctly."""
-        processing_0_2_1 = self.processings["processing_0.2.1.json"]
-        upgrader = ProcessingUpgrade(old_processing_model=processing_0_2_1)
-        # Should complain about processor_full_name being None
-        with self.assertRaises(Exception) as e:
-            upgrader.upgrade()
-
-        expected_error_message = (
-            "ValidationError("
-            "model='PipelineProcess', "
-            "errors=[{"
-            "'loc': ('processor_full_name',), "
-            "'msg': 'none is not an allowed value', "
-            "'type': 'type_error.none.not_allowed'"
-            "}])"
-        )
-        self.assertEqual(expected_error_message, repr(e.exception))
-
-        # Should work by setting platform explicitly
-        new_processing = upgrader.upgrade(processor_full_name="Unit Test")
-        processing_pipeline = new_processing.processing_pipeline
-        self.assertEqual(processing_pipeline.processor_full_name, "Unit Test")
-        ephys_preprocessing_process = processing_pipeline.data_processes[0]
-        self.assertEqual(ephys_preprocessing_process.name.value, "Ephys preprocessing")
-        self.assertEqual(ephys_preprocessing_process.software_version, "0.16.2")
-        self.assertEqual(ephys_preprocessing_process.code_url, 
-                         "https://github.com/AllenNeuralDynamics/aind-data-transfer")
-
-    def test_upgrades_0_2_5(self):
-        """Tests processing_0.1.0.json is mapped correctly."""
-        processing_0_2_5 = self.processings["processing_0.2.5.json"]
-        upgrader = ProcessingUpgrade(old_processing_model=processing_0_2_5)
-        # Should complain about processor_full_name being None
-        with self.assertRaises(Exception) as e:
-            upgrader.upgrade()
-
-        expected_error_message = (
-            "ValidationError("
-            "model='PipelineProcess', "
-            "errors=[{"
-            "'loc': ('processor_full_name',), "
-            "'msg': 'none is not an allowed value', "
-            "'type': 'type_error.none.not_allowed'"
-            "}])"
-        )
-        self.assertEqual(expected_error_message, repr(e.exception))
-
-        # Should work by setting platform explicitly
-        new_processing = upgrader.upgrade(processor_full_name="Unit Test")
-        processing_pipeline = new_processing.processing_pipeline
-        self.assertEqual(processing_pipeline.processor_full_name, "Unit Test")
-        ephys_preprocessing_process = processing_pipeline.data_processes[0]
-        self.assertEqual(ephys_preprocessing_process.name.value, "Ephys preprocessing")
-        self.assertEqual(ephys_preprocessing_process.software_version, "0.29.3")
-        self.assertEqual(ephys_preprocessing_process.code_url, 
-                         "https://github.com/AllenNeuralDynamics/aind-data-transfer")
-
-
-
 class TestModalityUpgrade(unittest.TestCase):
     """Tests ModalityUpgrade methods"""
 
@@ -499,6 +364,170 @@ class TestInstitutionUpgrade(unittest.TestCase):
     def test_institution_upgrade(self):
         """Tests edge case"""
         self.assertIsNone(InstitutionUpgrade.upgrade_institution(None))
+
+
+class TestProcessingUpgrade(unittest.TestCase):
+    """Tests methods in DataDescriptionUpgrade class"""
+
+    @classmethod
+    def setUpClass(cls):
+        """Load json files before running tests."""
+        processing_files: List[str] = os.listdir(PROCESSING_FILES_PATH)
+        processings = []
+        for file_path in processing_files:
+            with open(PROCESSING_FILES_PATH / file_path) as f:
+                contents = json.load(f)
+            processings.append((file_path, Processing.construct(**contents)))
+        cls.processings = dict(processings)
+
+    def test_upgrades_0_0_1(self):
+        """Tests processing_0.0.1.json is mapped correctly."""
+        processing_0_0_1 = self.processings["processing_0.0.1.json"]
+        upgrader = ProcessingUpgrade(old_processing_model=processing_0_0_1)
+        # Should complain about processor_full_name being None
+        with self.assertRaises(Exception) as e:
+            upgrader.upgrade()
+
+        expected_error_message = (
+            "ValidationError("
+            "model='PipelineProcess', "
+            "errors=[{"
+            "'loc': ('processor_full_name',), "
+            "'msg': 'none is not an allowed value', "
+            "'type': 'type_error.none.not_allowed'"
+            "}])"
+        )
+        self.assertEqual(expected_error_message, repr(e.exception))
+
+        # Should work by setting platform explicitly
+        new_processing = upgrader.upgrade(processor_full_name="Unit Test")
+        processing_pipeline = new_processing.processing_pipeline
+        self.assertEqual(processing_pipeline.processor_full_name, "Unit Test")
+        ephys_preprocessing_process = processing_pipeline.data_processes[0]
+        self.assertEqual(ephys_preprocessing_process.name.value, "Ephys preprocessing")
+        self.assertEqual(ephys_preprocessing_process.software_version, "0.1.5")
+        self.assertEqual(
+            ephys_preprocessing_process.code_url, "https://github.com/AllenNeuralDynamics/aind-data-transfer", "0.1.5"
+        )
+        self.assertEqual(ephys_preprocessing_process.software_version, "0.1.5")
+
+    def test_upgrades_0_1_0(self):
+        """Tests processing_0.1.0.json is mapped correctly."""
+        processing_0_1_0 = self.processings["processing_0.1.0.json"]
+        upgrader = ProcessingUpgrade(old_processing_model=processing_0_1_0)
+        # Should complain about processor_full_name being None
+        with self.assertRaises(Exception) as e:
+            upgrader.upgrade()
+
+        expected_error_message = (
+            "ValidationError("
+            "model='PipelineProcess', "
+            "errors=[{"
+            "'loc': ('processor_full_name',), "
+            "'msg': 'none is not an allowed value', "
+            "'type': 'type_error.none.not_allowed'"
+            "}])"
+        )
+        self.assertEqual(expected_error_message, repr(e.exception))
+
+        # Should work by setting platform explicitly
+        new_processing = upgrader.upgrade(processor_full_name="Unit Test")
+        processing_pipeline = new_processing.processing_pipeline
+        self.assertEqual(processing_pipeline.processor_full_name, "Unit Test")
+        ephys_preprocessing_process = processing_pipeline.data_processes[0]
+        self.assertEqual(ephys_preprocessing_process.name.value, "Ephys preprocessing")
+        self.assertEqual(ephys_preprocessing_process.software_version, "0.5.0")
+        self.assertEqual(
+            ephys_preprocessing_process.code_url, "https://github.com/AllenNeuralDynamics/aind-data-transfer"
+        )
+
+    def test_upgrades_0_2_1(self):
+        """Tests processing_0.2.1.json is mapped correctly."""
+        processing_0_2_1 = self.processings["processing_0.2.1.json"]
+        upgrader = ProcessingUpgrade(old_processing_model=processing_0_2_1)
+        # Should complain about processor_full_name being None
+        with self.assertRaises(Exception) as e:
+            upgrader.upgrade()
+
+        expected_error_message = (
+            "ValidationError("
+            "model='PipelineProcess', "
+            "errors=[{"
+            "'loc': ('processor_full_name',), "
+            "'msg': 'none is not an allowed value', "
+            "'type': 'type_error.none.not_allowed'"
+            "}])"
+        )
+        self.assertEqual(expected_error_message, repr(e.exception))
+
+        # Should work by setting platform explicitly
+        new_processing = upgrader.upgrade(processor_full_name="Unit Test")
+        processing_pipeline = new_processing.processing_pipeline
+        self.assertEqual(processing_pipeline.processor_full_name, "Unit Test")
+        ephys_preprocessing_process = processing_pipeline.data_processes[0]
+        self.assertEqual(ephys_preprocessing_process.name.value, "Ephys preprocessing")
+        self.assertEqual(ephys_preprocessing_process.software_version, "0.16.2")
+        self.assertEqual(
+            ephys_preprocessing_process.code_url, "https://github.com/AllenNeuralDynamics/aind-data-transfer"
+        )
+
+    def test_upgrades_0_2_5(self):
+        """Tests processing_0.1.0.json is mapped correctly."""
+        processing_0_2_5 = self.processings["processing_0.2.5.json"]
+        upgrader = ProcessingUpgrade(old_processing_model=processing_0_2_5)
+        # Should complain about processor_full_name being None
+        with self.assertRaises(Exception) as e:
+            upgrader.upgrade()
+
+        expected_error_message = (
+            "ValidationError("
+            "model='PipelineProcess', "
+            "errors=[{"
+            "'loc': ('processor_full_name',), "
+            "'msg': 'none is not an allowed value', "
+            "'type': 'type_error.none.not_allowed'"
+            "}])"
+        )
+        self.assertEqual(expected_error_message, repr(e.exception))
+
+        # Should work by setting platform explicitly
+        new_processing = upgrader.upgrade(processor_full_name="Unit Test")
+        processing_pipeline = new_processing.processing_pipeline
+        self.assertEqual(processing_pipeline.processor_full_name, "Unit Test")
+        ephys_preprocessing_process = processing_pipeline.data_processes[0]
+        self.assertEqual(ephys_preprocessing_process.name.value, "Ephys preprocessing")
+        self.assertEqual(ephys_preprocessing_process.software_version, "0.29.3")
+        self.assertEqual(
+            ephys_preprocessing_process.code_url, "https://github.com/AllenNeuralDynamics/aind-data-transfer"
+        )
+
+
+class TestDataProcessUpgrade(unittest.TestCase):
+    def test_upgrades(self):
+        datetime_now = datetime.datetime.now()
+        old_data_process_dict = dict(
+            name="Ephys preprocessing",
+            version="0.1.5",
+            code_url="my-code-repo",
+            start_date_time=datetime_now,
+            end_date_time=datetime_now,
+            input_location="my-input-location",
+            output_location="my-output-location",
+            parameters={"param1": "value1"},
+        )
+        old_data_process = DataProcess.construct(**old_data_process_dict)
+
+        upgrader = DataProcessUpgrade(old_data_process_model=old_data_process)
+        new_data_process = upgrader.upgrade()
+
+        # the upgrader updates version to software_version
+        self.assertEqual(new_data_process.software_version, "0.1.5")
+        self.assertEqual(new_data_process.code_url, "my-code-repo")
+        self.assertEqual(new_data_process.start_date_time, datetime_now)
+        self.assertEqual(new_data_process.end_date_time, datetime_now)
+        self.assertEqual(new_data_process.input_location, "my-input-location")
+        self.assertEqual(new_data_process.output_location, "my-output-location")
+        self.assertEqual(new_data_process.parameters, {"param1": "value1"})
 
 
 if __name__ == "__main__":
