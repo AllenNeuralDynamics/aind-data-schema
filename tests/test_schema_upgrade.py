@@ -23,7 +23,7 @@ from aind_data_schema.schema_upgrade.data_description_upgrade import (
     InstitutionUpgrade,
     ModalityUpgrade,
 )
-from aind_data_schema.processing import DataProcess, Processing
+from aind_data_schema.processing import DataProcess, Processing, PipelineProcess
 from aind_data_schema.schema_upgrade.processing_upgrade import DataProcessUpgrade, ProcessingUpgrade
 
 
@@ -500,6 +500,41 @@ class TestProcessingUpgrade(unittest.TestCase):
         self.assertEqual(
             ephys_preprocessing_process.code_url, "https://github.com/AllenNeuralDynamics/aind-data-transfer"
         )
+
+    def test_upgrades_current(self):
+        """Tests processing_0.1.0.json is mapped correctly."""
+        datetime_now = datetime.datetime.now()
+
+        data_process = DataProcess(
+            name="Ephys preprocessing",
+            software_version="0.1000.0",
+            code_url="my-code-repo",
+            start_date_time=datetime_now,
+            end_date_time=datetime_now,
+            input_location="my-input-location",
+            output_location="my-output-location",
+            parameters={"param1": "value1"},
+        )
+        processing_pipeline = PipelineProcess(
+            data_processes=[data_process],
+            pipeline_url="my-pipeline-url",
+            pipeline_version="0.1.0",
+            processor_full_name="Unit Test",
+        )
+        current_processing = Processing(
+            processing_pipeline=processing_pipeline,
+        )
+
+        upgrader = ProcessingUpgrade(old_processing_model=current_processing)
+        new_processing = upgrader.upgrade()
+        processing_pipeline = new_processing.processing_pipeline
+        self.assertEqual(processing_pipeline.processor_full_name, "Unit Test")
+        self.assertEqual(processing_pipeline.pipeline_url, "my-pipeline-url")
+        self.assertEqual(processing_pipeline.pipeline_version, "0.1.0")
+        ephys_preprocessing_process = processing_pipeline.data_processes[0]
+        self.assertEqual(ephys_preprocessing_process.name.value, "Ephys preprocessing")
+        self.assertEqual(ephys_preprocessing_process.software_version, "0.1000.0")
+        self.assertEqual(ephys_preprocessing_process.code_url, "my-code-repo")
 
 
 class TestDataProcessUpgrade(unittest.TestCase):

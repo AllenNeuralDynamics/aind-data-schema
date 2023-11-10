@@ -48,4 +48,4 @@ class BaseModelUpgrade:
 
     def upgrade(self, **kwargs) -> AindModel:
         """Upgrades the old model into the current version"""
-        raise NotImplementedError
+        raise NotImplementedError  # "pragma: no cover"

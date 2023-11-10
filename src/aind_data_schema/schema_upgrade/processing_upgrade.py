@@ -63,11 +63,11 @@ class ProcessingUpgrade(BaseModelUpgrade):
                     data_processes=data_processes_new,
                     processor_full_name=processor_full_name,
                 )
-
-            return Processing(
-                processing_pipeline=processing_pipeline,
-                analyses=self._get_or_default(self.old_model, "analyses", kwargs),
-                notes=self._get_or_default(self.old_model, "notes", kwargs),
-            )
         else:
-            return self.old_model
+            processing_pipeline = self._get_or_default(self.old_model, "processing_pipeline", kwargs)
+
+        return Processing(
+            processing_pipeline=processing_pipeline,
+            analyses=self._get_or_default(self.old_model, "analyses", kwargs),
+            notes=self._get_or_default(self.old_model, "notes", kwargs),
+        )
