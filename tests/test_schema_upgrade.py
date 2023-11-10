@@ -367,7 +367,7 @@ class TestInstitutionUpgrade(unittest.TestCase):
 
 
 class TestProcessingUpgrade(unittest.TestCase):
-    """Tests methods in DataDescriptionUpgrade class"""
+    """Tests methods in ProcessingUpgrade class"""
 
     @classmethod
     def setUpClass(cls):
@@ -538,7 +538,10 @@ class TestProcessingUpgrade(unittest.TestCase):
 
 
 class TestDataProcessUpgrade(unittest.TestCase):
+    """Tests methods in DataProcessUpgrade class"""
+
     def test_upgrades(self):
+        """Tests data process is upgraded correctly."""
         datetime_now = datetime.datetime.now()
         old_data_process_dict = dict(
             name="Ephys preprocessing",

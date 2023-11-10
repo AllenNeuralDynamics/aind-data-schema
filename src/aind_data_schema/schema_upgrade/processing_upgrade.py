@@ -6,17 +6,20 @@ from .base_upgrade import AindModel, BaseModelUpgrade
 
 
 class DataProcessUpgrade(BaseModelUpgrade):
+    """Handle upgrades for DataProcess class"""
+
     def __init__(self, old_data_process_model: DataProcess):
         """
         Handle mapping of old DataProcess models into current models
 
         Parameters
         ----------
-        old_processing_model : Processing
+        old_data_process_model : DataProcess
         """
         super().__init__(old_model=old_data_process_model, model_class=DataProcess)
 
     def upgrade(self, **kwargs) -> AindModel:
+        """Upgrades the old model into the current version"""
         version = self._get_or_default(self.old_model, "version", kwargs)
         software_version = self._get_or_default(self.old_model, "software_version", kwargs)
         data_process_dict = self.old_model.dict()
@@ -37,12 +40,12 @@ class ProcessingUpgrade(BaseModelUpgrade):
         Parameters
         ----------
         old_processing_model : Processing
+            The old model to upgrade
         """
         super().__init__(old_model=old_processing_model, model_class=Processing)
 
     def upgrade(self, **kwargs) -> AindModel:
         """Upgrades the old model into the current version"""
-
         # old versions of the schema (<0.3.0) had data_processes directly
         schema_version = self.old_model.schema_version
         if schema_version is None or schema_version < "0.3.0":

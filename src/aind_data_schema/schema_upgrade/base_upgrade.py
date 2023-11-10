@@ -1,3 +1,5 @@
+"""Module to contain base code to upgrade old models"""
+
 from typing import Any, Type
 
 from aind_data_schema.base import AindModel
@@ -12,7 +14,10 @@ class BaseModelUpgrade:
 
         Parameters
         ----------
-        old_data_description_model : DataDescription
+        old_model : AindModel
+            The old model to upgrade
+        model_class : Type[AindModel]
+            The class of the model
         """
         self.old_model = old_model
         self.model_class = model_class
