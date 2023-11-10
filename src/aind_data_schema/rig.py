@@ -5,6 +5,8 @@ from __future__ import annotations
 from datetime import date
 from typing import List, Optional, Union
 
+import json
+
 from pydantic import Field, root_validator
 from pydantic.typing import Annotated
 
@@ -144,9 +146,14 @@ class Rig(AindCoreModel):
         device_names = [None]
 
         for field in to_check:
-            if values.get(field) is not None:
-                print(values.get(field))
-                device_names += [device.name for device in values.get(field)]
+            v = values.get(field)
+            if v is not None:
+                if isinstance(v, list):
+                    device_names += [json.dumps(device) for device in values.get(field)]
+                else:
+                    device_names += [v.name]
+
+                print(device_names)
 
         if cameras is not None:
             device_names += [c.camera.name for c in cameras]
