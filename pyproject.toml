@@ -15,11 +15,12 @@ dynamic = ["version"]
 
 dependencies = [
     'dictdiffer',
-    'pydantic<2.0',
+    'pydantic>2.0',
+    'inflection',
     'jsonschema',
     'semver',
-    'typing_extensions; python_version < "3.8"',
-    'typing_extensions < 4.6.0; python_version < "3.10"' # we will need to unpin this when pydantic releases a new version
+    #'typing_extensions; python_version < "3.8"',
+    # 'typing_extensions < 4.6.0; python_version < "3.10"' # we will need to unpin this when pydantic releases a new version
 ]
 
 [project.optional-dependencies]

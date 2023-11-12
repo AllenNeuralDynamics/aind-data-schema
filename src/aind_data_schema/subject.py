@@ -1,54 +1,38 @@
 """ schema for mostly mouse metadata """
 
-from __future__ import annotations
-
-from datetime import date, time
-from enum import Enum
-from typing import List, Optional
-
+from typing import Literal, Final, Optional, List
 from pydantic import Field
+from enum import Enum
+from datetime import date as date_type, time
 
-from aind_data_schema.base import AindCoreModel, AindModel, BaseNameEnumMeta, PIDName, Registry
-from aind_data_schema.data_description import Institution
-
-
-class Species(Enum, metaclass=BaseNameEnumMeta):
-    """Species latin name"""
-
-    CALLITHRIX_JACCHUS = PIDName(
-        name="Callithrix jacchus",
-        registry=Registry.NCBI,
-        registry_identifier="9483",
-    )
-    HOMO_SAPIENS = PIDName(
-        name="Homo sapiens",
-        registry=Registry.NCBI,
-        registry_identifier="9606",
-    )
-    MACACA_MULATTA = PIDName(
-        name="Macaca mulatta",
-        registry=Registry.NCBI,
-        registry_identifier="9544",
-    )
-    MUS_MUSCULUS = PIDName(
-        name="Mus musculus",
-        registry=Registry.NCBI,
-        registry_identifier="10090",
-    )
+from aind_data_schema.base import AindCoreModel, AindModel
+from aind_data_schema.models.species import SPECIES
+from aind_data_schema.models.pid_names import PIDName
+from aind_data_schema.models.institution import INSTITUTIONS
 
 
-class Sex(Enum):
+class Sex(str, Enum):
     """Subject sex name"""
 
     FEMALE = "Female"
     MALE = "Male"
 
 
-class BackgroundStrain(Enum):
+class BackgroundStrain(str, Enum):
     """Animal background strain name"""
 
     BALB_c = "BALB/c"
     C57BL_6J = "C57BL/6J"
+
+
+class HomeCageEnrichment(str, Enum):
+    """Materials provided in animal home cage"""
+
+    NONE = "None"
+    PLASTIC_SHELTER = "Plastic shelter"
+    PLASTIC_TUBE = "Plastic tube"
+    RUNNING_WHEEL = "Running wheel"
+    OTHER = "Other"
 
 
 class LightCycle(AindModel):
@@ -66,20 +50,10 @@ class LightCycle(AindModel):
     )
 
 
-class HomeCageEnrichment(Enum):
-    """Materials provided in animal home cage"""
-
-    NONE = "None"
-    PLASTIC_SHELTER = "Plastic shelter"
-    PLASTIC_TUBE = "Plastic tube"
-    RUNNING_WHEEL = "Running wheel"
-    OTHER = "Other"
-
-
 class WellnessReport(AindModel):
     """Wellness report on animal health"""
 
-    date: date = Field(..., title="Date")
+    date: date_type = Field(..., title="Date")
     report: str = Field(..., title="Report")
 
 
@@ -96,9 +70,9 @@ class Housing(AindModel):
     cage_id: Optional[str] = Field(None, title="Cage ID")
     room_id: Optional[str] = Field(None, title="Room ID")
     light_cycle: Optional[LightCycle] = Field(None, title="Light cycle")
-    home_cage_enrichment: Optional[List[HomeCageEnrichment]] = Field(None, title="Home cage enrichment")
-    cohoused_subjects: Optional[List[str]] = Field(
-        None,
+    home_cage_enrichment: List[HomeCageEnrichment] = Field([], title="Home cage enrichment")
+    cohoused_subjects: List[str] = Field(
+        [],
         title="Co-housed subjects",
         description="List of IDs of other subjects housed in same cage",
     )
@@ -106,24 +80,27 @@ class Housing(AindModel):
 
 class Subject(AindCoreModel):
     """Description of a subject of data collection"""
+    
+    _DESCRIBED_BY_URL: Final = AindCoreModel._DESCRIBED_BY_BASE_URL + "aind_data_schema/subject.py"
 
-    schema_version: str = Field("0.4.2", description="schema version", title="Version", const=True)
-    species: Species = Field(..., title="Species")
+    describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": True})
+    schema_version:  Literal["0.5.0"] = Field("0.5.0")
+    species: SPECIES = Field(..., title="Species")
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
         title="Subject ID",
     )
     sex: Sex = Field(..., title="Sex")
-    date_of_birth: date = Field(..., title="Date of birth")
+    date_of_birth: date_type = Field(..., title="Date of birth")
     genotype: str = Field(
         ...,
         description="Genotype of the animal providing both alleles",
         title="Genotype",
     )
-    mgi_allele_ids: Optional[List[MgiAlleleId]] = Field(None, title="MGI allele ids")
+    mgi_allele_ids: List[MgiAlleleId] = Field([], title="MGI allele ids")
     background_strain: Optional[BackgroundStrain] = Field(None, title="Background strain")
-    source: Optional[Institution] = Field(
+    source: Optional[INSTITUTIONS] = Field(
         None,
         description="If the subject was not bred in house, where was it acquired from.",
         title="Source",
@@ -143,6 +120,6 @@ class Subject(AindCoreModel):
     maternal_genotype: Optional[str] = Field(None, title="Maternal genotype")
     paternal_id: Optional[str] = Field(None, title="Paternal specimen ID")
     paternal_genotype: Optional[str] = Field(None, title="Paternal genotype")
-    wellness_reports: Optional[List[WellnessReport]] = Field(None, title="Wellness Report")
+    wellness_reports: List[WellnessReport] = Field([], title="Wellness Report")
     housing: Optional[Housing] = Field(None, title="Housing")
     notes: Optional[str] = Field(None, title="Notes")

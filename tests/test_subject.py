@@ -5,8 +5,9 @@ import unittest
 
 import pydantic
 
-from aind_data_schema import Subject
-from aind_data_schema.subject import Housing, LightCycle, MgiAlleleId, Species
+from aind_data_schema.subject import Subject
+from aind_data_schema.subject import Housing, LightCycle, MgiAlleleId
+from aind_data_schema.models.species import MUS_MUSCULUS
 
 
 class SubjectTests(unittest.TestCase):
@@ -16,12 +17,12 @@ class SubjectTests(unittest.TestCase):
         """try building Subjects"""
 
         with self.assertRaises(pydantic.ValidationError):
-            s = Subject()
+            Subject()
 
         now = datetime.datetime.now()
 
         s = Subject(
-            species=Species.MUS_MUSCULUS,
+            species=MUS_MUSCULUS,
             subject_id="1234",
             sex="Male",
             date_of_birth=now.date(),
