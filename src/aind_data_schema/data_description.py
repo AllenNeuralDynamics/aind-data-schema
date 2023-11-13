@@ -374,9 +374,11 @@ class DerivedDataDescription(DataDescription):
             raise ValidationError("creation_time must be set")
         else:
             if process_name:
-                v["name"] = build_data_name(f"{v.get('input_data_name')}_{process_name}", creation_datetime=v.get('creation_time'))
+                v["name"] = build_data_name(
+                    f"{v.get('input_data_name')}_{process_name}", creation_datetime=v.get("creation_time")
+                )
             else:
-                v["name"] = build_data_name(f"{v.get('input_data_name')}", creation_datetime=v.get('creation_time'))
+                v["name"] = build_data_name(f"{v.get('input_data_name')}", creation_datetime=v.get("creation_time"))
 
         return v
 
@@ -461,7 +463,9 @@ class RawDataDescription(DataDescription):
         if not v.get("creation_time"):
             raise ValidationError("creation_time must be set")
         else:
-            v["name"] = build_data_name(f"{platform_abbreviation}_{v.get('subject_id')}", creation_datetime=v.get('creation_time'))
+            v["name"] = build_data_name(
+                f"{platform_abbreviation}_{v.get('subject_id')}", creation_datetime=v.get("creation_time")
+            )
 
         return v
 
@@ -512,7 +516,7 @@ class AnalysisDescription(DataDescription):
         if not v.get("creation_time"):
             raise ValidationError("creation_time must be set")
         else:
-            v["name"] = build_data_name(f"{project_name}_{analysis_name}", creation_datetime=v.get('creation_time'))
+            v["name"] = build_data_name(f"{project_name}_{analysis_name}", creation_datetime=v.get("creation_time"))
 
         return v
 

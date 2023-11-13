@@ -16,8 +16,7 @@ from aind_data_schema.data_description import (
     Modality,
     Platform,
     RawDataDescription,
-    datetime_to_name_string,
-    build_data_name
+    build_data_name,
 )
 from aind_data_schema.schema_upgrade.data_description_upgrade import DataDescriptionUpgrade
 
@@ -170,8 +169,6 @@ class DataDescriptionTest(unittest.TestCase):
 
         with self.assertRaises(ValueError):
             RawDataDescription(platform="exaspim")
-
-        
 
         with self.assertRaises(ValueError):
             AnalysisDescription(
