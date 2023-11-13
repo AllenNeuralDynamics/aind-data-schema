@@ -27,6 +27,11 @@ class DataProcessUpgrade(BaseModelUpgrade):
             software_version = version
             data_process_dict["software_version"] = software_version
             del data_process_dict["version"]
+        # Empty notes with 'Other' name is not allowed in the new schema
+        name = self._get_or_default(self.old_model, "name", kwargs)
+        notes = self._get_or_default(self.old_model, "notes", kwargs)
+        if name == "Other" and notes is None:
+            data_process_dict["notes"] = "missing notes"
 
         return DataProcess(**data_process_dict)
 

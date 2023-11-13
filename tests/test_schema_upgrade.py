@@ -567,6 +567,22 @@ class TestDataProcessUpgrade(unittest.TestCase):
         self.assertEqual(new_data_process.output_location, "my-output-location")
         self.assertEqual(new_data_process.parameters, {"param1": "value1"})
 
+    def test_upgrade_from_other_with_no_notes(self):
+        """Tests "Other" data process with not "notes" is upgraded correctly."""
+        processing_path = PROCESSING_FILES_PATH / "processing_other_no_notes.json"
+        with open(processing_path, "r") as f:
+            processing_dict = json.load(f)
+            data_process_no_notes = DataProcess.construct(**processing_dict["data_processes"][1])
+
+        upgrader = DataProcessUpgrade(data_process_no_notes)
+        new_data_process = upgrader.upgrade()
+
+        # the upgrader updates version to software_version
+        self.assertEqual(new_data_process.software_version, "0.29.3")
+        self.assertEqual(new_data_process.code_url, "https://github.com/AllenNeuralDynamics/aind-data-transfer")
+        # notes that are None for "Other" data processes are replaced with "missing notes"
+        self.assertEqual(new_data_process.notes, "missing notes")
+
     def test_upgrade_from_current_model(self):
         """Tests data process from current model is upgraded correctly."""
         datetime_now = datetime.datetime.now()
