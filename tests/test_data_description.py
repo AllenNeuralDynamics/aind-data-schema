@@ -16,6 +16,8 @@ from aind_data_schema.data_description import (
     Modality,
     Platform,
     RawDataDescription,
+    datetime_to_name_string,
+    build_data_name
 )
 from aind_data_schema.schema_upgrade.data_description_upgrade import DataDescriptionUpgrade
 
@@ -133,8 +135,7 @@ class DataDescriptionTest(unittest.TestCase):
             funding_source=[f],
             investigators=["Jane Smith"],
         )
-
-        self.assertEqual(ad.name, "project_analysis")
+        self.assertEqual(ad.name, build_data_name("project_analysis", dt))
 
         with self.assertRaises(ValueError):
             AnalysisDescription(
@@ -153,7 +154,24 @@ class DataDescriptionTest(unittest.TestCase):
             DataDescription()
 
         with self.assertRaises(ValueError):
+            DataDescription(creation_time=dt)
+
+        with self.assertRaises(ValueError):
             DerivedDataDescription()
+
+        with self.assertRaises(ValueError):
+            DerivedDataDescription(creation_time=dt)
+
+        with self.assertRaises(ValueError):
+            AnalysisDescription()
+
+        with self.assertRaises(ValueError):
+            AnalysisDescription(creation_time=dt)
+
+        with self.assertRaises(ValueError):
+            RawDataDescription(platform="exaspim")
+
+        
 
         with self.assertRaises(ValueError):
             AnalysisDescription(

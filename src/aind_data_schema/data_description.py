@@ -300,11 +300,14 @@ class DataDescription(AindCoreModel):
     def build_name(cls, v):
         """sets the name of the file"""
 
-        label = v.get("label")
-        if not v.get("name") and label:
-            v["name"] = build_data_name(v.get("label"), creation_datetime=v.get("creation_time"))
-        elif not v.get("name"):
-            raise ValidationError("Either label or name must be set")
+        if not v.get("creation_time"):
+            raise ValidationError("creation_time must be set")
+        else:
+            label = v.get("label")
+            if not v.get("name") and label:
+                v["name"] = build_data_name(v.get("label"), creation_datetime=v.get("creation_time"))
+            elif not v.get("name"):
+                raise ValidationError("Either label or name must be set")
 
         return v
 
@@ -367,10 +370,13 @@ class DerivedDataDescription(DataDescription):
 
         process_name = v.get("process_name")
 
-        if process_name:
-            v["name"] = build_data_name(f"{v.get('input_data_name')}_{process_name}", creation_datetime=v.get('creation_time'))
+        if not v.get("creation_time"):
+            raise ValidationError("creation_time must be set")
         else:
-            v["name"] = build_data_name(f"{v.get('input_data_name')}", creation_datetime=v.get('creation_time'))
+            if process_name:
+                v["name"] = build_data_name(f"{v.get('input_data_name')}_{process_name}", creation_datetime=v.get('creation_time'))
+            else:
+                v["name"] = build_data_name(f"{v.get('input_data_name')}", creation_datetime=v.get('creation_time'))
 
         return v
 
@@ -452,8 +458,10 @@ class RawDataDescription(DataDescription):
         platform = v.get("platform")
 
         platform_abbreviation = platform.value.abbreviation
-
-        v["name"] = build_data_name(f"{platform_abbreviation}_{v.get('subject_id')}", creation_datetime=v.get('creation_time'))
+        if not v.get("creation_time"):
+            raise ValidationError("creation_time must be set")
+        else:
+            v["name"] = build_data_name(f"{platform_abbreviation}_{v.get('subject_id')}", creation_datetime=v.get('creation_time'))
 
         return v
 
@@ -501,7 +509,10 @@ class AnalysisDescription(DataDescription):
         project_name = v.get("project_name")
         analysis_name = v.get("analysis_name")
 
-        v["name"] = build_data_name(f"{project_name}_{analysis_name}", creation_datetime=v.get('creation_time'))
+        if not v.get("creation_time"):
+            raise ValidationError("creation_time must be set")
+        else:
+            v["name"] = build_data_name(f"{project_name}_{analysis_name}", creation_datetime=v.get('creation_time'))
 
         return v
 
