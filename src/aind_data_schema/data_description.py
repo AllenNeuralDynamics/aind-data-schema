@@ -368,9 +368,9 @@ class DerivedDataDescription(DataDescription):
         process_name = v.get("process_name")
 
         if process_name:
-            v["name"] = f"{v.get('input_data_name')}_{process_name}_{v.get('creation_time')}"
+            v["name"] = build_data_name(f"{v.get('input_data_name')}_{process_name}", creation_datetime=v.get('creation_time'))
         else:
-            v["name"] = f"{v.get('input_data_name')}_{v.get('creation_time')}"
+            v["name"] = build_data_name(f"{v.get('input_data_name')}", creation_datetime=v.get('creation_time'))
 
         return v
 
@@ -453,7 +453,7 @@ class RawDataDescription(DataDescription):
 
         platform_abbreviation = platform.value.abbreviation
 
-        v["name"] = f"{platform_abbreviation}_{v.get('subject_id')}"
+        v["name"] = build_data_name(f"{platform_abbreviation}_{v.get('subject_id')}", creation_datetime=v.get('creation_time'))
 
         return v
 
@@ -501,7 +501,7 @@ class AnalysisDescription(DataDescription):
         project_name = v.get("project_name")
         analysis_name = v.get("analysis_name")
 
-        v["name"] = f"{project_name}_{analysis_name}"
+        v["name"] = build_data_name(f"{project_name}_{analysis_name}", creation_datetime=v.get('creation_time'))
 
         return v
 
