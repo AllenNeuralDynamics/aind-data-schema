@@ -64,7 +64,7 @@ class BehaviorTests(unittest.TestCase):
                             name="Foraging v1",
                             version="0.1",
                             url="URL_to_code",
-                            input_parameters={"reward probability": 0.08},
+                            parameters={"reward probability": 0.08},
                         ),
                         output_parameters={},
                         reward_consumed_during_epoch=820,
