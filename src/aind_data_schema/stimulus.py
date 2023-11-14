@@ -112,12 +112,11 @@ class BehaviorStimulation(AindModel):
         title="Performance parameters",
         description="Performance metrics from session",
     )
-    reward_consumed_during_training: Decimal = Field(..., title="Reward consumed during training (uL)")
-    reward_consumed_total: Decimal = Field(..., title="Total reward consumed (uL)")
+    reward_consumed_during_epoch: Decimal = Field(..., title="Reward consumed during training (uL)")
     reward_consumed_unit: VolumeUnit = Field(VolumeUnit.UL, title="Reward consumed unit")
-    trials_total: int = Field(..., title="Total trials")
-    trials_finished: int = Field(..., title="Finished trials")
-    trials_rewarded: int = Field(..., title="Rewarded trials")
+    trials_total: Optional[int] = Field(..., title="Total trials")
+    trials_finished: Optional[int] = Field(..., title="Finished trials")
+    trials_rewarded: Optional[int] = Field(..., title="Rewarded trials")
     notes: Optional[str] = Field(None, title="Notes")
 
 

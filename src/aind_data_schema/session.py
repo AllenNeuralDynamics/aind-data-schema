@@ -16,7 +16,7 @@ from aind_data_schema.data_description import Modality
 from aind_data_schema.device import Calibration, Maintenance, RelativePosition, SpoutSide
 from aind_data_schema.imaging.tile import Channel
 from aind_data_schema.stimulus import StimulusEpoch
-from aind_data_schema.utils.units import AngleUnit, FrequencyUnit, MassUnit, PowerUnit, SizeUnit, TimeUnit
+from aind_data_schema.utils.units import AngleUnit, FrequencyUnit, MassUnit, PowerUnit, SizeUnit, TimeUnit, VolumeUnit
 
 
 # Ophys components
@@ -361,4 +361,6 @@ class Session(AindCoreModel):
     )
     stimulus_epochs: Optional[List[StimulusEpoch]] = Field(None, title="Stimulus")
     reward_delivery: Optional[RewardDelivery] = Field(None, title="Reward delivery")
+    reward_consumed_total: Optional[Decimal] = Field(..., title="Total reward consumed (uL)")
+    reward_consumed_unit: VolumeUnit = Field(VolumeUnit.UL, title="Reward consumed unit")
     notes: Optional[str] = Field(None, title="Notes")
