@@ -23,6 +23,7 @@ from aind_data_schema.device import (
     FiberAssembly,
     Filter,
     HarpDevice,
+    Lamp,
     Laser,
     LaserAssembly,
     Lens,
@@ -75,7 +76,7 @@ class Rig(AindCoreModel):
     patch_cords: Optional[List[Patch]] = Field(None, title="Patch cords", unique_items=True)
     light_sources: Optional[
         Annotated[
-            List[Union[Laser, LightEmittingDiode]],
+            List[Union[Lamp, Laser, LightEmittingDiode]],
             Field(None, title="Light sources", unique_items=True, discriminator="device_type"),
         ]
     ]
