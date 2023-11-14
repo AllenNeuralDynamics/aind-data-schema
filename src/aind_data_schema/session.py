@@ -253,6 +253,8 @@ class Stream(AindModel):
     slap_fovs: Optional[SlapFieldOfView] = Field(None, title="Slap2 field of view")
     stack_parameters: Optional[Stack] = Field(None, title="Stack parameters")
     stimulus_device_names: Optional[List[str]] = Field(None, title="Stimulus devices")
+    mouse_platform_name: str = Field(..., title="Mouse platform")
+    active_mouse_platform: bool = Field(..., title="Active mouse platform")
     notes: Optional[str] = Field(None, title="Notes")
 
     @root_validator
@@ -313,7 +315,7 @@ class Session(AindCoreModel):
     """Description of a physiology and/or behavior session"""
 
     schema_version: str = Field(
-        "0.0.6",
+        "0.0.7",
         description="schema version",
         title="Schema Version",
         const=True,
