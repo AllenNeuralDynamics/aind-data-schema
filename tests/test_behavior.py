@@ -48,7 +48,6 @@ class BehaviorTests(unittest.TestCase):
             session_end_time=now,
             animal_weight_prior=20.1,
             animal_weight_post=19.7,
-            reward_consumed_total=1020,
             behavior_type="Foraging",
             stimulus_epochs=[
                 bs.StimulusEpoch(
@@ -62,6 +61,7 @@ class BehaviorTests(unittest.TestCase):
                         input_parameters={"reward volume": 0.01},
                         output_parameters={},
                         reward_consumed_during_epoch=820,
+                        reward_consumed_total=1020,
                         trials_total=551,
                         trials_finished=343,
                         trials_rewarded=146,
