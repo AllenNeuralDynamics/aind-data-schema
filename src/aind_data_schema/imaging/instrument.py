@@ -15,6 +15,7 @@ from aind_data_schema.device import (
     DAQDevice,
     Detector,
     Device,
+    Enclosure,
     Filter,
     Lamp,
     Laser,
@@ -107,7 +108,7 @@ class OpticalTable(Device):
 class Instrument(AindCoreModel):
     """Description of an instrument, which is a collection of devices"""
 
-    schema_version: str = Field("0.9.3", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.9.4", description="schema version", title="Version", const=True)
     instrument_id: Optional[str] = Field(
         None,
         description="Unique identifier for this instrument. Naming convention: <room>-<apparatus>-<version>",
@@ -119,6 +120,7 @@ class Instrument(AindCoreModel):
     temperature_control: Optional[bool] = Field(None, title="Temperature control")
     humidity_control: Optional[bool] = Field(None, title="Humidity control")
     optical_tables: List[OpticalTable] = Field(None, title="Optical table")
+    enclosure: Optional[Enclosure] = Field(None, title="Enclosure")
     objectives: List[Objective] = Field(..., title="Objectives", unique_items=True)
     detectors: Optional[List[Detector]] = Field(None, title="Detectors", unique_items=True)
     light_sources: Optional[

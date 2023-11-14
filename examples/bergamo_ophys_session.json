@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/session.py",
-   "schema_version": "0.0.6",
+   "schema_version": "0.0.7",
    "experimenter_full_name": [
       "John Doe"
    ],
@@ -80,6 +80,8 @@
          "slap_fovs": null,
          "stack_parameters": null,
          "stimulus_device_names": null,
+         "mouse_platform_name": "Mouse tube",
+         "active_mouse_platform": false,
          "notes": null
       }
    ],
@@ -129,5 +131,7 @@
       }
    ],
    "reward_delivery": null,
+   "reward_consumed_total": null,
+   "reward_consumed_unit": "microliter",
    "notes": null
 }

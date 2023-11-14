@@ -18,10 +18,12 @@ from aind_data_schema.device import (
     Device,
     DigitalMicromirrorDevice,
     Disc,
+    Enclosure,
     EphysAssembly,
     FiberAssembly,
     Filter,
     HarpDevice,
+    Lamp,
     Laser,
     LaserAssembly,
     Lens,
@@ -46,7 +48,7 @@ from aind_data_schema.device import (
 class Rig(AindCoreModel):
     """Description of a rig"""
 
-    schema_version: str = Field("0.1.5", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.1.6", description="schema version", title="Version", const=True)
     rig_id: str = Field(..., description="room_stim apparatus_version", title="Rig ID")
     modification_date: date = Field(..., title="Date of modification")
     modalities: List[Modality] = Field(..., title="Modalities", unique_items=True)
@@ -66,6 +68,7 @@ class Rig(AindCoreModel):
             Field(None, title="Data acquisition devices", discriminator="device_type"),
         ]
     ]
+    enclosure: Optional[Enclosure] = Field(None, title="Enclosure")
     ephys_assemblies: Optional[List[EphysAssembly]] = Field(None, title="Ephys probes", unique_items=True)
     fiber_assemblies: Optional[List[FiberAssembly]] = Field(None, title="Inserted fiber optics", unique_items=True)
     stick_microscopes: Optional[List[StickMicroscopeAssembly]] = Field(None, title="Stick microscopes")
@@ -73,7 +76,7 @@ class Rig(AindCoreModel):
     patch_cords: Optional[List[Patch]] = Field(None, title="Patch cords", unique_items=True)
     light_sources: Optional[
         Annotated[
-            List[Union[Laser, LightEmittingDiode]],
+            List[Union[Lamp, Laser, LightEmittingDiode]],
             Field(None, title="Light sources", unique_items=True, discriminator="device_type"),
         ]
     ]

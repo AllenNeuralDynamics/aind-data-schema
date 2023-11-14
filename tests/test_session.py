@@ -49,6 +49,8 @@ class ExampleTest(unittest.TestCase):
                             manipulator_coordinates=Coordinates3d(x="1", y="1", z="1"),
                         ),
                     ],
+                    mouse_platform_name="Running wheel",
+                    active_mouse_platform=False,
                 )
             ],
         )

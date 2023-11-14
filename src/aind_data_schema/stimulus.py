@@ -11,6 +11,7 @@ from pydantic import Field
 from pydantic.typing import Annotated, Literal
 
 from aind_data_schema.base import AindModel
+from aind_data_schema.device import Software
 from aind_data_schema.utils.units import FrequencyUnit, PowerUnit, TimeUnit, VolumeUnit
 
 
@@ -92,32 +93,26 @@ class BehaviorStimulation(AindModel):
     )
     behavior_name: str = Field(..., title="Behavior name")
     session_number: int = Field(..., title="Session number")
-    behavior_software: str = Field(
+    behavior_software: List[Software] = Field(
         ...,
         title="Behavior software",
         description="The software used to control the behavior (e.g. Bonsai)",
     )
-    behavior_software_version: str = Field(..., title="Behavior software version")
-    behavior_script: str = Field(
+    behavior_script: Software = Field(
         ...,
         title="Behavior script",
-        description="URL for the commit of the code used to run the behavior",
-    )
-    behavior_script_version: str = Field(..., title="Behavior script version")
-    input_parameters: Dict[str, Any] = Field(
-        ..., title="Input parameters", description="Parameters used in behavior session"
+        description="provide URL to the commit of the script and the parameters used",
     )
     output_parameters: Dict[str, Any] = Field(
         ...,
         title="Performance parameters",
         description="Performance metrics from session",
     )
-    reward_consumed_during_training: Decimal = Field(..., title="Reward consumed during training (uL)")
-    reward_consumed_total: Decimal = Field(..., title="Total reward consumed (uL)")
+    reward_consumed_during_epoch: Decimal = Field(..., title="Reward consumed during training (uL)")
     reward_consumed_unit: VolumeUnit = Field(VolumeUnit.UL, title="Reward consumed unit")
-    trials_total: int = Field(..., title="Total trials")
-    trials_finished: int = Field(..., title="Finished trials")
-    trials_rewarded: int = Field(..., title="Rewarded trials")
+    trials_total: Optional[int] = Field(..., title="Total trials")
+    trials_finished: Optional[int] = Field(..., title="Finished trials")
+    trials_rewarded: Optional[int] = Field(..., title="Rewarded trials")
     notes: Optional[str] = Field(None, title="Notes")
 
 

@@ -9,7 +9,7 @@ from pydantic import Field
 from pydantic.typing import Literal
 
 from aind_data_schema.base import AindModel, EnumSubset
-from aind_data_schema.coordinates import RelativePosition
+from aind_data_schema.coordinates import RelativePosition, Size3d
 from aind_data_schema.manufacturers import Manufacturer
 from aind_data_schema.reagent import Reagent
 from aind_data_schema.utils.units import FrequencyUnit, PowerUnit, SizeUnit, SpeedUnit, TemperatureUnit, UnitlessUnit
@@ -94,6 +94,7 @@ class Device(AindModel):
     serial_number: Optional[str] = Field(None, title="Serial number")
     manufacturer: Optional[Manufacturer] = Field(None, title="Manufacturer")
     model: Optional[str] = Field(None, title="Model")
+    path_to_cad: Optional[str] = Field(None, title="Path to CAD diagram", description="For CUSTOM manufactured devices")
     notes: Optional[str] = Field(None, title="Notes")
 
 
@@ -102,6 +103,7 @@ class Software(AindModel):
 
     name: str = Field(..., title="Software name")
     version: str = Field(..., title="Software version")
+    url: Optional[str] = Field(None, title="URL to commit being used")
     parameters: Optional[dict] = Field(None, title="Software parameters", additionalProperties={"type": "string"})
 
 
@@ -140,6 +142,7 @@ class Camera(Device):
         Manufacturer.EDMUND_OPTICS,
         Manufacturer.FLIR,
         Manufacturer.IMAGING_SOURCE,
+        Manufacturer.SPINNAKER,
         Manufacturer.THORLABS,
         Manufacturer.OTHER,
     ]
@@ -634,6 +637,18 @@ class PockelsCell(Device):
     on_time: Decimal = Field(..., title="On time (fraction of cycle)")
     off_time: Decimal = Field(..., title="Off time (fraction of cycle)")
     time_setting_unit: UnitlessUnit = Field(UnitlessUnit.FC, title="time setting unit")
+
+
+class Enclosure(Device):
+    """Description of an enclosure"""
+
+    device_type: Literal["Enclosure"] = Field("Enclosure", const=True, readOnly=True)
+    size: Size3d = Field(..., title="Size")
+    internal_material: str = Field(..., title="Internal material")
+    external_material: str = Field(..., title="External material")
+    grounded: bool = Field(..., title="Grounded")
+    laser_interlock: bool = Field(..., title="Laser interlock")
+    air_filtration: bool = Field(..., title="Air filtration")
 
 
 class MousePlatform(Device):

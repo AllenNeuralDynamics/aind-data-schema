@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/imaging/instrument.py",
-   "schema_version": "0.9.3",
+   "schema_version": "0.9.4",
    "instrument_id": "SmartSPIM1-3",
    "modification_date": "2023-10-04",
    "instrument_type": "SmartSPIM",
@@ -27,6 +27,7 @@
             "registry_identifier": "00k17f049"
          },
          "model": "VIS3648-PG4-325A",
+         "path_to_cad": null,
          "notes": null,
          "length": 36,
          "width": 48,
@@ -34,6 +35,7 @@
          "vibration_control": true
       }
    ],
+   "enclosure": null,
    "objectives": [
       {
          "device_type": "Objective",
@@ -49,6 +51,7 @@
             "registry_identifier": "04gsnvb07"
          },
          "model": "TL2X-SAP",
+         "path_to_cad": null,
          "notes": "",
          "numerical_aperture": 0.1,
          "magnification": 1.6,
@@ -69,6 +72,7 @@
             "registry_identifier": "04gsnvb07"
          },
          "model": "TL4X-SAP",
+         "path_to_cad": null,
          "notes": "Thorlabs TL4X-SAP with LifeCanvas dipping cap and correction optics",
          "numerical_aperture": 0.2,
          "magnification": 3.6,
@@ -89,6 +93,7 @@
             "registry_identifier": "0280y9h11"
          },
          "model": "MRP07220",
+         "path_to_cad": null,
          "notes": "",
          "numerical_aperture": 0.8,
          "magnification": 16.0,
@@ -109,6 +114,7 @@
             "registry_identifier": "0280y9h11"
          },
          "model": "MRD77220",
+         "path_to_cad": null,
          "notes": "",
          "numerical_aperture": 1.1,
          "magnification": 25.0,
@@ -131,6 +137,7 @@
             "registry_identifier": "03natb733"
          },
          "model": "C14440-20UP",
+         "path_to_cad": null,
          "notes": null,
          "detector_type": "Camera",
          "data_interface": "USB",
@@ -163,6 +170,7 @@
             "registry_identifier": null
          },
          "model": "Stradus",
+         "path_to_cad": null,
          "notes": "All lasers controlled via Vortran VersaLase System",
          "wavelength": 445,
          "wavelength_unit": "nanometer",
@@ -184,6 +192,7 @@
             "registry_identifier": null
          },
          "model": "Stradus",
+         "path_to_cad": null,
          "notes": "All lasers controlled via Vortran VersaLase System",
          "wavelength": 488,
          "wavelength_unit": "nanometer",
@@ -205,6 +214,7 @@
             "registry_identifier": null
          },
          "model": "Stradus",
+         "path_to_cad": null,
          "notes": "All lasers controlled via Vortran VersaLase System",
          "wavelength": 561,
          "wavelength_unit": "nanometer",
@@ -226,6 +236,7 @@
             "registry_identifier": null
          },
          "model": "Stradus",
+         "path_to_cad": null,
          "notes": "All lasers controlled via Vortran VersaLase System",
          "wavelength": 594,
          "wavelength_unit": "nanometer",
@@ -247,6 +258,7 @@
             "registry_identifier": null
          },
          "model": "Stradus",
+         "path_to_cad": null,
          "notes": "All lasers controlled via Vortran VersaLase System",
          "wavelength": 639,
          "wavelength_unit": "nanometer",
@@ -268,6 +280,7 @@
             "registry_identifier": null
          },
          "model": "Stradus",
+         "path_to_cad": null,
          "notes": "All lasers controlled via Vortran VersaLase System",
          "wavelength": 665,
          "wavelength_unit": "nanometer",
@@ -292,6 +305,7 @@
             "registry_identifier": null
          },
          "model": "FF01-469/35-25",
+         "path_to_cad": null,
          "notes": null,
          "filter_type": "Band pass",
          "diameter": 25,
@@ -318,6 +332,7 @@
             "registry_identifier": null
          },
          "model": "FF01-525/45-25",
+         "path_to_cad": null,
          "notes": null,
          "filter_type": "Band pass",
          "diameter": 25,
@@ -344,6 +359,7 @@
             "registry_identifier": null
          },
          "model": "FF01-593/40-25",
+         "path_to_cad": null,
          "notes": null,
          "filter_type": "Band pass",
          "diameter": 25,
@@ -370,6 +386,7 @@
             "registry_identifier": null
          },
          "model": "FF01-624/40-25",
+         "path_to_cad": null,
          "notes": null,
          "filter_type": "Band pass",
          "diameter": 25,
@@ -396,6 +413,7 @@
             "registry_identifier": null
          },
          "model": "ET667/30m",
+         "path_to_cad": null,
          "notes": null,
          "filter_type": "Band pass",
          "diameter": 25,
@@ -425,6 +443,7 @@
             "registry_identifier": "04gsnvb07"
          },
          "model": "FELH0700",
+         "path_to_cad": null,
          "notes": null,
          "filter_type": "Long pass",
          "diameter": 25,
@@ -453,6 +472,7 @@
             "registry_identifier": null
          },
          "model": "LS-100",
+         "path_to_cad": null,
          "notes": "Focus stage",
          "travel": 100,
          "travel_unit": "millimeter",
@@ -469,6 +489,7 @@
             "registry_identifier": null
          },
          "model": "L12-20F-4",
+         "path_to_cad": null,
          "notes": "Cylindrical lens #1",
          "travel": 41,
          "travel_unit": "millimeter",
@@ -485,6 +506,7 @@
             "registry_identifier": null
          },
          "model": "L12-20F-4",
+         "path_to_cad": null,
          "notes": "Cylindrical lens #2",
          "travel": 41,
          "travel_unit": "millimeter",
@@ -501,6 +523,7 @@
             "registry_identifier": null
          },
          "model": "L12-20F-4",
+         "path_to_cad": null,
          "notes": "Cylindrical lens #3",
          "travel": 41,
          "travel_unit": "millimeter",
@@ -517,6 +540,7 @@
             "registry_identifier": null
          },
          "model": "L12-20F-4",
+         "path_to_cad": null,
          "notes": "Cylindrical lens #4",
          "travel": 41,
          "travel_unit": "millimeter",
@@ -535,6 +559,7 @@
             "registry_identifier": null
          },
          "model": "LS-50",
+         "path_to_cad": null,
          "notes": "Sample stage Z",
          "travel": 50,
          "travel_unit": "millimeter",
@@ -553,6 +578,7 @@
             "registry_identifier": null
          },
          "model": "LS-50",
+         "path_to_cad": null,
          "notes": "Sample stage X",
          "travel": 50,
          "travel_unit": "millimeter",
@@ -571,6 +597,7 @@
             "registry_identifier": null
          },
          "model": "LS-50",
+         "path_to_cad": null,
          "notes": "Sample stage Y",
          "travel": 50,
          "travel_unit": "millimeter",
@@ -592,6 +619,7 @@
             "registry_identifier": null
          },
          "model": "200F",
+         "path_to_cad": null,
          "notes": null,
          "type": "Other"
       },
@@ -606,6 +634,7 @@
             "registry_identifier": null
          },
          "model": "Large-uncoated-glass",
+         "path_to_cad": null,
          "notes": null,
          "type": "Sample Chamber"
       }

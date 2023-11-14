@@ -15,6 +15,7 @@ from aind_data_schema.device import (
     Manufacturer,
     MotorizedStage,
     RewardSpout,
+    Software,
     SpoutSide,
 )
 from aind_data_schema.stimulus import BehaviorStimulation
@@ -53,15 +54,20 @@ class BehaviorTests(unittest.TestCase):
                 bs.StimulusEpoch(
                     stimulus=BehaviorStimulation(
                         behavior_name="Foraging",
-                        behavior_software="Bonsai",
+                        behavior_software=[Software(
+                            name="Bonsai",
+                            version="0.1"
+                            ),
+                        ],
                         session_number=3,
-                        behavior_software_version="0.1",
-                        behavior_script="URL_to_code",
-                        behavior_script_version="0.1",
-                        input_parameters={"reward volume": 0.01},
+                        behavior_script=Software(
+                            name="Foraging v1",
+                            version="0.1",
+                            url="URL_to_code",
+                            parameters={"reward probability": 0.08},
+                        ),
                         output_parameters={},
-                        reward_consumed_during_training=820,
-                        reward_consumed_total=1020,
+                        reward_consumed_during_epoch=820,
                         trials_total=551,
                         trials_finished=343,
                         trials_rewarded=146,

@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/imaging/instrument.py",
-   "schema_version": "0.9.3",
+   "schema_version": "0.9.4",
    "instrument_id": "exaSPIM1-1",
    "modification_date": "2023-10-04",
    "instrument_type": "exaSPIM",
@@ -27,6 +27,7 @@
             "registry_identifier": "00k17f049"
          },
          "model": "VIS3648-PG2-325A",
+         "path_to_cad": null,
          "notes": null,
          "length": 36,
          "width": 48,
@@ -34,6 +35,7 @@
          "vibration_control": true
       }
    ],
+   "enclosure": null,
    "objectives": [
       {
          "device_type": "Objective",
@@ -46,6 +48,7 @@
             "registry_identifier": null
          },
          "model": "JM_DIAMOND 5.0X/1.3",
+         "path_to_cad": null,
          "notes": "manufacturer collaboration between Schneider-Kreuznach and Vieworks",
          "numerical_aperture": 0.305,
          "magnification": 5,
@@ -65,6 +68,7 @@
             "registry_identifier": null
          },
          "model": "VNP-604MX",
+         "path_to_cad": null,
          "notes": null,
          "detector_type": "Camera",
          "data_interface": "Coax",
@@ -97,6 +101,7 @@
             "registry_identifier": null
          },
          "model": null,
+         "path_to_cad": null,
          "notes": "Housed in commercial laser combiner",
          "wavelength": 405,
          "wavelength_unit": "nanometer",
@@ -118,6 +123,7 @@
             "registry_identifier": null
          },
          "model": null,
+         "path_to_cad": null,
          "notes": "Housed in commercial laser combiner",
          "wavelength": 488,
          "wavelength_unit": "nanometer",
@@ -139,6 +145,7 @@
             "registry_identifier": null
          },
          "model": null,
+         "path_to_cad": null,
          "notes": "Housed in commercial laser combiner",
          "wavelength": 561,
          "wavelength_unit": "nanometer",
@@ -160,6 +167,7 @@
             "registry_identifier": null
          },
          "model": null,
+         "path_to_cad": null,
          "notes": "Housed in commercial laser combiner",
          "wavelength": 638,
          "wavelength_unit": "nanometer",
@@ -184,6 +192,7 @@
             "registry_identifier": null
          },
          "model": "ZET405/488/561/640mv2",
+         "path_to_cad": null,
          "notes": "Custom made filter",
          "filter_type": "Multiband",
          "diameter": 44.05,
@@ -213,6 +222,7 @@
             "registry_identifier": null
          },
          "model": "MS-8000",
+         "path_to_cad": null,
          "notes": null,
          "travel": 1000,
          "travel_unit": "millimeter",
@@ -231,6 +241,7 @@
             "registry_identifier": null
          },
          "model": "MS-8000",
+         "path_to_cad": null,
          "notes": null,
          "travel": 1000,
          "travel_unit": "millimeter",
@@ -249,6 +260,7 @@
             "registry_identifier": null
          },
          "model": "LS-100",
+         "path_to_cad": null,
          "notes": null,
          "travel": 100,
          "travel_unit": "millimeter",
@@ -272,6 +284,7 @@
             "registry_identifier": "026exqw73"
          },
          "model": "PCIe-6738",
+         "path_to_cad": null,
          "notes": null,
          "data_interface": "USB",
          "computer_name": "Dev2",
@@ -351,6 +364,7 @@
             "registry_identifier": null
          },
          "model": "EL-16-40-TC-VIS-20D-C",
+         "path_to_cad": null,
          "notes": null,
          "type": "Tunable lens"
       },
@@ -368,6 +382,7 @@
             "registry_identifier": "04gsnvb07"
          },
          "model": "K10CR1",
+         "path_to_cad": null,
          "notes": null,
          "type": "Rotation mount"
       },
@@ -382,6 +397,7 @@
             "registry_identifier": null
          },
          "model": "L6Cc",
+         "path_to_cad": null,
          "notes": null,
          "type": "Laser combiner"
       }

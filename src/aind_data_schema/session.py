@@ -16,7 +16,7 @@ from aind_data_schema.data_description import Modality
 from aind_data_schema.device import Calibration, Maintenance, RelativePosition, SpoutSide
 from aind_data_schema.imaging.tile import Channel
 from aind_data_schema.stimulus import StimulusEpoch
-from aind_data_schema.utils.units import AngleUnit, FrequencyUnit, MassUnit, PowerUnit, SizeUnit, TimeUnit
+from aind_data_schema.utils.units import AngleUnit, FrequencyUnit, MassUnit, PowerUnit, SizeUnit, TimeUnit, VolumeUnit
 
 
 # Ophys components
@@ -253,6 +253,8 @@ class Stream(AindModel):
     slap_fovs: Optional[SlapFieldOfView] = Field(None, title="Slap2 field of view")
     stack_parameters: Optional[Stack] = Field(None, title="Stack parameters")
     stimulus_device_names: Optional[List[str]] = Field(None, title="Stimulus devices")
+    mouse_platform_name: str = Field(..., title="Mouse platform")
+    active_mouse_platform: bool = Field(..., title="Active mouse platform")
     notes: Optional[str] = Field(None, title="Notes")
 
     @root_validator
@@ -313,7 +315,7 @@ class Session(AindCoreModel):
     """Description of a physiology and/or behavior session"""
 
     schema_version: str = Field(
-        "0.0.6",
+        "0.0.7",
         description="schema version",
         title="Schema Version",
         const=True,
@@ -359,4 +361,6 @@ class Session(AindCoreModel):
     )
     stimulus_epochs: Optional[List[StimulusEpoch]] = Field(None, title="Stimulus")
     reward_delivery: Optional[RewardDelivery] = Field(None, title="Reward delivery")
+    reward_consumed_total: Optional[Decimal] = Field(None, title="Total reward consumed (uL)")
+    reward_consumed_unit: VolumeUnit = Field(VolumeUnit.UL, title="Reward consumed unit")
     notes: Optional[str] = Field(None, title="Notes")

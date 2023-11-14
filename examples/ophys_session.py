@@ -51,6 +51,8 @@ s = Session(
                     fiber_name="Fiber B",
                 ),
             ],
+            mouse_platform_name="Disc",
+            active_mouse_platform=False,
             notes="Internal trigger. GRAB-DA2m shows signal. Unclear about GRAB-rAC",
         )
     ],
