@@ -92,12 +92,12 @@ class BehaviorStimulation(AindModel):
     )
     behavior_name: str = Field(..., title="Behavior name")
     session_number: int = Field(..., title="Session number")
-    behavior_software: str = Field(
+    behavior_software: List[str] = Field(
         ...,
         title="Behavior software",
         description="The software used to control the behavior (e.g. Bonsai)",
     )
-    behavior_software_version: str = Field(..., title="Behavior software version")
+    behavior_software_version: List[str] = Field(..., title="Behavior software version")
     behavior_script: str = Field(
         ...,
         title="Behavior script",
