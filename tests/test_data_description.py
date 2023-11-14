@@ -16,6 +16,7 @@ from aind_data_schema.data_description import (
     Modality,
     Platform,
     RawDataDescription,
+    build_data_name,
 )
 from aind_data_schema.schema_upgrade.data_description_upgrade import DataDescriptionUpgrade
 
@@ -133,8 +134,7 @@ class DataDescriptionTest(unittest.TestCase):
             funding_source=[f],
             investigators=["Jane Smith"],
         )
-
-        self.assertEqual(ad.label, "project_analysis")
+        self.assertEqual(ad.name, build_data_name("project_analysis", dt))
 
         with self.assertRaises(ValueError):
             AnalysisDescription(
@@ -148,6 +148,27 @@ class DataDescriptionTest(unittest.TestCase):
                 funding_source=[f],
                 investigators=["Jane Smith"],
             )
+
+        with self.assertRaises(ValueError):
+            DataDescription()
+
+        with self.assertRaises(ValueError):
+            DataDescription(creation_time=dt)
+
+        with self.assertRaises(ValueError):
+            DerivedDataDescription()
+
+        with self.assertRaises(ValueError):
+            DerivedDataDescription(creation_time=dt)
+
+        with self.assertRaises(ValueError):
+            AnalysisDescription()
+
+        with self.assertRaises(ValueError):
+            AnalysisDescription(creation_time=dt)
+
+        with self.assertRaises(ValueError):
+            RawDataDescription(platform="exaspim")
 
         with self.assertRaises(ValueError):
             AnalysisDescription(
@@ -258,7 +279,7 @@ class DataDescriptionTest(unittest.TestCase):
     def test_from_data_description(self):
         """Tests DerivedDataDescription.from_data_description method"""
 
-        process_name = "spike_sorter"
+        process_name = "spikesorter"
 
         data_description_0_3_0 = self.data_descriptions["data_description_0.3.0.json"]
         upgrader_0_3_0 = DataDescriptionUpgrade(old_data_description_model=data_description_0_3_0)

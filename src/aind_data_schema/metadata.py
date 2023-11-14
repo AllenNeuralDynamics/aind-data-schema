@@ -42,7 +42,7 @@ class Metadata(AindCoreModel):
     # default
     _DEFAULT_FILE_EXTENSION = ".nd.json"
 
-    schema_version: str = Field("0.0.8", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.0.9", description="schema version", title="Version", const=True)
     id: UUID = Field(
         default_factory=uuid4,
         alias="_id",

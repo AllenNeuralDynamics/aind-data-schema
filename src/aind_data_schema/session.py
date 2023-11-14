@@ -247,8 +247,7 @@ class Stream(AindModel):
     )
     manipulator_modules: Optional[List[ManipulatorModule]] = Field(None, title="Manipulator modules", unique_items=True)
     detectors: Optional[List[Detector]] = Field(None, title="Detectors", unique_items=True)
-    fiber_connections: Optional[List[FiberConnection]] = Field(
-        None, title="Implanted fiber photometry devices")
+    fiber_connections: Optional[List[FiberConnection]] = Field(None, title="Implanted fiber photometry devices")
     fiber_modules: Optional[List[FiberModule]] = Field(None, title="Inserted fiber modules")
     ophys_fovs: Optional[List[FieldOfView]] = Field(None, title="Fields of view", unique_items=True)
     slap_fovs: Optional[SlapFieldOfView] = Field(None, title="Slap2 field of view")
@@ -280,7 +279,7 @@ class Stream(AindModel):
             for key, value in {
                 "light_sources": light_source,
                 "detectors": detector,
-                "fiber_connections": fiber_connections
+                "fiber_connections": fiber_connections,
             }.items():
                 if not value:
                     error_message += f"{key} field must be utilized for FIB modality\n"

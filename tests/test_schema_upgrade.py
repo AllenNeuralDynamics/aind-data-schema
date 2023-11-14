@@ -59,8 +59,8 @@ class TestDataDescriptionUpgrade(unittest.TestCase):
             "errors=[{"
             "'loc': ('platform',), "
             "'msg': 'none is not an allowed value', "
-            "'type': 'type_error.none.not_allowed'"
-            "}])"
+            "'type': 'type_error.none.not_allowed'}"
+            "])"
         )
         self.assertEqual(expected_error_message, repr(e.exception))
 
@@ -94,8 +94,7 @@ class TestDataDescriptionUpgrade(unittest.TestCase):
             "errors=[{"
             "'loc': ('platform',), "
             "'msg': 'none is not an allowed value', "
-            "'type': 'type_error.none.not_allowed'"
-            "}])"
+            "'type': 'type_error.none.not_allowed'}])"
         )
         self.assertEqual(expected_error_message, repr(e.exception))
 
