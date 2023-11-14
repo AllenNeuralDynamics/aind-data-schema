@@ -238,7 +238,7 @@ class MotorizedStage(Device):
     firmware: Optional[str] = Field(None, title="Firmware")
 
 
-class Immersion(Enum):
+class ImmersionMedia(Enum):
     """Immersion media name"""
 
     AIR = "air"
@@ -262,7 +262,7 @@ class Objective(Device):
     device_type: Literal["Objective"] = Field("Objective", const=True, readOnly=True)
     numerical_aperture: Decimal = Field(..., title="Numerical aperture (in air)")
     magnification: Decimal = Field(..., title="Magnification")
-    immersion: Immersion = Field(..., title="Immersion")
+    immersion: ImmersionMedia = Field(..., title="Immersion")
     objective_type: Optional[ObjectiveType] = Field(None, title="Objective type")
 
 
@@ -548,7 +548,7 @@ class Detector(Device):
     detector_type: DetectorType = Field(..., title="Detector Type")
     data_interface: DataInterface = Field(..., title="Data interface")
     cooling: Cooling = Field(..., title="Cooling")
-    immersion: Optional[Immersion] = Field(None, title="Immersion")
+    immersion: Optional[ImmersionMedia] = Field(None, title="Immersion")
     chroma: Optional[CameraChroma] = Field(None, title="Camera chroma")
     sensor_width: Optional[int] = Field(None, title="Width of the sensor in pixels")
     sensor_height: Optional[int] = Field(None, title="Height of the sensor in pixels")
