@@ -129,7 +129,7 @@ class EphysSession(AindCoreModel):
     """Description of an ephys recording session. This is being deprecated after 2023-11-01.
     Use Session class instead."""
 
-    schema_version: str = Field("0.4.13", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.4.14", description="schema version", title="Version", const=True)
     experimenter_full_name: List[str] = Field(
         ...,
         description="First and last name of the experimenter(s).",
