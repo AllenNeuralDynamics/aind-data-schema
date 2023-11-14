@@ -315,7 +315,7 @@ class Session(AindCoreModel):
     """Description of a physiology and/or behavior session"""
 
     schema_version: str = Field(
-        "0.0.7",
+        "0.0.8",
         description="schema version",
         title="Schema Version",
         const=True,
