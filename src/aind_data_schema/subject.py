@@ -8,7 +8,7 @@ from typing import Final, List, Literal, Optional
 from pydantic import Field
 
 from aind_data_schema.base import AindCoreModel, AindModel
-from aind_data_schema.models.institution import INSTITUTIONS
+from aind_data_schema.models.institutions import INSTITUTIONS
 from aind_data_schema.models.pid_names import PIDName
 from aind_data_schema.models.species import SPECIES
 

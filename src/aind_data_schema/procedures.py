@@ -3,13 +3,14 @@
 from datetime import date, datetime
 from decimal import Decimal
 from enum import Enum
-from typing import List, Literal, Optional, Union, Set, Final
+from typing import Final, List, Literal, Optional, Set, Union
 
-from pydantic import Field, root_validator
+from pydantic import Field, field_validator
+from pydantic_core.core_schema import FieldValidationInfo
 from typing_extensions import Annotated
 
 from aind_data_schema.base import AindCoreModel, AindModel
-from aind_data_schema.models.device import FiberProbe
+from aind_data_schema.models.devices import FiberProbe
 from aind_data_schema.models.pid_names import PIDName
 from aind_data_schema.models.reagent import Reagent
 from aind_data_schema.models.species import SPECIES
@@ -23,9 +24,6 @@ from aind_data_schema.models.units import (
     VolumeUnit,
     create_unit_with_value,
 )
-
-# from pydantic.typing import Annotated
-
 
 
 class SpecimenProcedureName(str, Enum):
@@ -147,18 +145,17 @@ class SpecimenProcedure(AindModel):
     reagents: List[Reagent] = Field([], title="Reagents")
     notes: Optional[str] = Field(None, title="Notes")
 
-    # @root_validator
-    # def validate_other(cls, v):
-    #     """Validator for other/notes"""
-    #
-    #     procedure_type = v.get("procedure_type")
-    #     notes = v.get("notes")
-    #
-    #     if procedure_type == SpecimenProcedureName.OTHER and not notes:
-    #         raise ValueError(
-    #             "Notes cannot be empty if procedure_type is Other. Describe the procedure_type in the notes field."
-    #         )
-    #     return v
+    @field_validator("notes")
+    def validate_other(cls, v, info: FieldValidationInfo):
+        """Adds a validation check on 'notes' to verify it is not None if specimen_procedure_type is OTHER"""
+
+        procedure_type = info.data["procedure_type"]
+        notes = v
+        if procedure_type == SpecimenProcedureName.OTHER and not notes:
+            raise AssertionError(
+                "Notes cannot be empty if procedure_type is Other. Describe the procedure_type in the notes field."
+            )
+        return v
 
 
 class Readout(Reagent):
@@ -231,7 +228,9 @@ class Antibody(Reagent):
     immunolabel_class: ImmunolabelClass = Field(..., title="Immunolabel class")
     fluorophore: Optional[Fluorophore] = Field(None, title="Fluorophore")
     degree_of_labeling: Optional[Decimal] = Field(None, title="Degree of labeling")
-    degree_of_labeling_unit: Literal["Fluorophore per antibody"] = Field("Fluorophore per antibody", title="Degree of labeling unit")
+    degree_of_labeling_unit: Literal["Fluorophore per antibody"] = Field(
+        "Fluorophore per antibody", title="Degree of labeling unit"
+    )
     conjugation_protocol: Optional[str] = Field(
         None, title="Conjugation protocol", description="Only for conjugated anitbody"
     )
@@ -358,9 +357,7 @@ class Injection(SubjectProcedure):
     """Description of an injection procedure"""
 
     procedure_type: Literal["Injection"] = Field("Injection", title="Procedure type")
-    injection_materials: Set[InjectionMaterial] = Field(
-        set(), title="Injection material",  min_items=1
-    )
+    injection_materials: List[InjectionMaterial] = Field([], title="Injection material", min_items=1)
     recovery_time: Optional[Decimal] = Field(None, title="Recovery time")
     recovery_time_unit: Optional[TimeUnit] = Field(TimeUnit.M, title="Recovery time unit")
     injection_duration: Optional[Decimal] = Field(None, title="Injection duration")
@@ -414,16 +411,16 @@ class NanojectInjection(BrainInjection):
     )
     injection_volume_unit: VolumeUnit = Field(VolumeUnit.NL, title="Injection volume unit")
 
-    # @root_validator
-    # def check_dv_and_vol_list_lengths(cls, v):
-    #     """Validator for list length of injection volumes and depths"""
-    #
-    #     injection_vol_len = len(v.get("injection_volume"))
-    #     coords_len = len(v.get("injection_coordinate_depth"))
-    #
-    #     if injection_vol_len != coords_len:
-    #         raise ValueError("Unmatched list sizes for injection volumes and coordinate depths")
-    #     return v
+    @field_validator("injection_volume")
+    def check_dv_and_vol_list_lengths(cls, v, info: FieldValidationInfo):
+        """Validator for list length of injection volumes and depths"""
+
+        injection_vol_len = len(v)
+        coords_len = len(info.data["injection_coordinate_depth"])
+
+        if injection_vol_len != coords_len:
+            raise AssertionError("Unmatched list sizes for injection volumes and coordinate depths")
+        return v
 
 
 class IontophoresisInjection(BrainInjection):
@@ -500,7 +497,7 @@ class FiberImplant(SubjectProcedure):
     """Description of an implant procedure"""
 
     procedure_type: Literal["Fiber implant"] = Field("Fiber implant", title="Procedure type")
-    probes: Set[OphysProbe] = Field(..., title="Ophys Probes")
+    probes: List[OphysProbe] = Field(..., title="Ophys Probes")
 
 
 class WaterRestriction(AindModel):
@@ -533,8 +530,7 @@ class Procedures(AindCoreModel):
     """Description of all procedures performed on a subject"""
 
     _DESCRIBED_BY_URL: Final = AindCoreModel._DESCRIBED_BY_BASE_URL + "aind_data_schema/procedures.py"
-    describedBy: str = Field(_DESCRIBED_BY_URL,
-                             json_schema_extra={"const": True})
+    describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": True})
 
     schema_version: Literal["0.10.0"] = Field("0.10.0", description="schema version", title="Version")
     subject_id: str = Field(
@@ -543,26 +539,26 @@ class Procedures(AindCoreModel):
         title="Subject ID",
     )
     subject_procedures: Annotated[
-            Set[
-                Union[
-                    Craniotomy,
-                    FiberImplant,
-                    Headframe,
-                    IntraCerebellarVentricleInjection,
-                    IntraCisternalMagnaInjection,
-                    IontophoresisInjection,
-                    NanojectInjection,
-                    Perfusion,
-                    RetroOrbitalInjection,
-                    TrainingProtocol,
-                    WaterRestriction,
-                    SubjectProcedure,
-                ]
-            ],
-            Field(title="Subject Procedures", discriminator="procedure_type"),
-        ] = set()
+        List[
+            Union[
+                Craniotomy,
+                FiberImplant,
+                Headframe,
+                IntraCerebellarVentricleInjection,
+                IntraCisternalMagnaInjection,
+                IontophoresisInjection,
+                NanojectInjection,
+                Perfusion,
+                RetroOrbitalInjection,
+                TrainingProtocol,
+                WaterRestriction,
+                SubjectProcedure,
+            ]
+        ],
+        Field(title="Subject Procedures", discriminator="procedure_type"),
+    ] = []
     specimen_procedures: Annotated[
-            Set[Union[HCRSeries, Immunolabeling, SpecimenProcedure]],
-            Field(title="Specimen Procedures", discriminator="specimen_procedure_type"),
-        ] = set()
+        List[Union[HCRSeries, Immunolabeling, SpecimenProcedure]],
+        Field(title="Specimen Procedures", discriminator="specimen_procedure_type"),
+    ] = []
     notes: Optional[str] = Field(None, title="Notes")

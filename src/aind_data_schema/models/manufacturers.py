@@ -455,7 +455,8 @@ OTHER = Other()
 MANUFACTURERS = Annotated[Union[tuple(Manufacturer.__subclasses__())], Field(discriminator="name")]
 
 CAMERA_MANUFACTURERS = Annotated[
-    Union[AilipuTechnologyCo, Allied, Basler, EdmundOptics, TeledyneFLIR, TheImagingSource, Thorlabs, Other], Field(discriminator="name")
+    Union[AilipuTechnologyCo, Allied, Basler, EdmundOptics, TeledyneFLIR, TheImagingSource, Thorlabs, Other],
+    Field(discriminator="name"),
 ]
 FILTER_MANUFACTURERS = Annotated[Union[Chroma, EdmundOptics, Semrock, Thorlabs, Other], Field(discriminator="name")]
 LENS_MANUFACTURERS = Annotated[
@@ -476,7 +477,10 @@ LENS_MANUFACTURERS = Annotated[
     ],
     Field(discriminator="name"),
 ]
-DAQ_DEVICE_MANUFACTURERS = Annotated[Union[NationalInstruments, InteruniversityMicroelectronicsCenter, OpenEphysProductionSite, Other], Field(discriminator="name")]
+DAQ_DEVICE_MANUFACTURERS = Annotated[
+    Union[NationalInstruments, InteruniversityMicroelectronicsCenter, OpenEphysProductionSite, Other],
+    Field(discriminator="name"),
+]
 LASER_MANUFACTURERS = Annotated[
     Union[CoherentScientific, Hamamatsu, Oxxius, Quantifi, Vortran, Other], Field(discriminator="name")
 ]

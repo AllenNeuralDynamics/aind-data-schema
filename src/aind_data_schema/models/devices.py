@@ -3,9 +3,10 @@
 from datetime import date, datetime
 from decimal import Decimal
 from enum import Enum
-from typing import Any, Dict, List, Optional, Literal
+from typing import Any, Dict, List, Literal, Optional, Union
 
 from pydantic import Field
+from typing_extensions import Annotated
 
 from aind_data_schema.base import AindModel
 from aind_data_schema.models.coordinates import RelativePosition
@@ -464,7 +465,7 @@ class OpenEphysAcquisitionBoard(DAQDevice):
     ports: List[ProbePort] = Field(..., title="Acquisition board ports")
 
     # fixed values
-    data_interface: DataInterface.USB = DataInterface.USB
+    data_interface: Literal[DataInterface.USB] = DataInterface.USB
     manufacturer: DAQ_DEVICE_MANUFACTURERS = Field(default=OEPS)
 
 
@@ -546,7 +547,7 @@ class FiberProbe(Device):
 
     device_type: Literal["Fiber optic probe"] = "Fiber optic probe"
     core_diameter: Decimal = Field(..., title="Core diameter (μm)", units="μm")
-    # TODO: Check if this should be an enum?
+    #  TODO: Check if this should be an enum?
     core_diameter_unit: str = Field("μm", title="Core diameter unit")
     numerical_aperture: Decimal = Field(..., title="Numerical aperture")
     ferrule_material: Optional[FerruleMaterial] = Field(None, title="Ferrule material")
@@ -724,7 +725,15 @@ class Speaker(Device):
 
 
 class Olfactometer(Device):
-    """Description of a olfactometer for odor stimuli"""
+    """Description of an olfactometer for odor stimuli"""
 
     device_type: Literal["Olfactometer"] = "Olfactometer"
     position: Optional[RelativePosition] = Field(None, title="Relative position of the monitor")
+
+
+MOUSE_PLATFORMS = Annotated[Union[tuple(MousePlatform.__subclasses__())], Field(discriminator="device_type")]
+STIMULUS_DEVICES = Annotated[Union[Monitor, Olfactometer, RewardDelivery, Speaker], Field(discriminator="device_type")]
+DAQ_DEVICES = Annotated[
+    Union[HarpDevice, NeuropixelsBasestation, OpenEphysAcquisitionBoard, DAQDevice], Field(discriminator="device_type")
+]
+LIGHT_SOURCES = Annotated[Union[Laser, LightEmittingDiode], Field(discriminator="device_type")]

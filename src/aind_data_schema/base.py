@@ -2,11 +2,13 @@
 
 from typing import Final
 
-from pydantic import BaseModel, Extra, Field
+from pydantic import BaseModel, ConfigDict, Extra, Field
 
 
-class AindModel(BaseModel, extra=Extra.forbid):
+class AindModel(BaseModel):
     """BaseModel that disallows extra fields"""
+
+    model_config = ConfigDict(extra=Extra.forbid, use_enum_values=True)
 
 
 class AindCoreModel(AindModel):
