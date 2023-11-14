@@ -140,6 +140,7 @@ class Camera(Device):
         Manufacturer.EDMUND_OPTICS,
         Manufacturer.FLIR,
         Manufacturer.IMAGING_SOURCE,
+        Manufacturer.SPINNAKER,
         Manufacturer.THORLABS,
         Manufacturer.OTHER,
     ]

@@ -117,6 +117,7 @@ class Manufacturer(Enum, metaclass=BaseNameEnumMeta):
     RASPBERRYPI = PIDName(name="Raspberry Pi")
     SEMROCK = PIDName(name="Semrock")
     SCHNEIDER_KREUZNACH = PIDName(name="Schneider-Kreuznach")
+    SPINNAKER = PIDName(name="Spinnaker")
     TAMRON = PIDName(name="Tamron")
     THORLABS = PIDName(
         name="Thorlabs",
