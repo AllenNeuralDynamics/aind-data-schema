@@ -11,6 +11,7 @@ from pydantic import Field
 from pydantic.typing import Annotated, Literal
 
 from aind_data_schema.base import AindModel
+from aind_data_schema.device import Software
 from aind_data_schema.utils.units import FrequencyUnit, PowerUnit, TimeUnit, VolumeUnit
 
 
@@ -92,12 +93,11 @@ class BehaviorStimulation(AindModel):
     )
     behavior_name: str = Field(..., title="Behavior name")
     session_number: int = Field(..., title="Session number")
-    behavior_software: List[str] = Field(
+    behavior_software: List[Software] = Field(
         ...,
         title="Behavior software",
         description="The software used to control the behavior (e.g. Bonsai)",
     )
-    behavior_software_version: List[str] = Field(..., title="Behavior software version")
     behavior_script: str = Field(
         ...,
         title="Behavior script",
