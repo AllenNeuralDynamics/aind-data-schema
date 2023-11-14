@@ -244,6 +244,7 @@ class Immersion(Enum):
     AIR = "air"
     MULTI = "multi"
     OIL = "oil"
+    PBS = "PBS"
     WATER = "water"
     OTHER = "other"
 
