@@ -1,14 +1,16 @@
 """ schema for mostly mouse metadata """
 
-from typing import Literal, Final, Optional, List
-from pydantic import Field
+from datetime import date as date_type
+from datetime import time
 from enum import Enum
-from datetime import date as date_type, time
+from typing import Final, List, Literal, Optional
+
+from pydantic import Field
 
 from aind_data_schema.base import AindCoreModel, AindModel
-from aind_data_schema.models.species import SPECIES
-from aind_data_schema.models.pid_names import PIDName
 from aind_data_schema.models.institution import INSTITUTIONS
+from aind_data_schema.models.pid_names import PIDName
+from aind_data_schema.models.species import SPECIES
 
 
 class Sex(str, Enum):
@@ -80,11 +82,11 @@ class Housing(AindModel):
 
 class Subject(AindCoreModel):
     """Description of a subject of data collection"""
-    
+
     _DESCRIBED_BY_URL: Final = AindCoreModel._DESCRIBED_BY_BASE_URL + "aind_data_schema/subject.py"
 
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": True})
-    schema_version:  Literal["0.5.0"] = Field("0.5.0")
+    schema_version: Literal["0.5.0"] = Field("0.5.0")
     species: SPECIES = Field(..., title="Species")
     subject_id: str = Field(
         ...,

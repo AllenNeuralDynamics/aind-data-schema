@@ -1,8 +1,10 @@
-from aind_data_schema.models.registry import ROR
-from aind_data_schema.models.pid_names import PIDName, BaseName
-from pydantic import ConfigDict, Field
 from typing import Literal, Union
+
+from pydantic import ConfigDict, Field
 from typing_extensions import Annotated
+
+from aind_data_schema.models.pid_names import BaseName, PIDName
+from aind_data_schema.models.registry import ROR
 
 
 class Institution(PIDName):
@@ -13,7 +15,7 @@ class AllenInstitute(Institution):
     name: Literal["Allen Institute"] = "Allen Institute"
     abbreviation: Literal["AI"] = "AI"
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
-    registry_identifier: Literal["03cpe7c52"] ="03cpe7c52"
+    registry_identifier: Literal["03cpe7c52"] = "03cpe7c52"
 
 
 class AllenInstituteForBrainScience(Institution):
@@ -52,7 +54,9 @@ class HuazhongUniversityOfScienceAndTechnology(Institution):
 
 
 class NationalInstituteOfNeurologicalDisordersAndStroke(Institution):
-    name: Literal["National Institute of Neurological Disorders and Stroke"] = "National Institute of Neurological Disorders and Stroke"
+    name: Literal[
+        "National Institute of Neurological Disorders and Stroke"
+    ] = "National Institute of Neurological Disorders and Stroke"
     abbreviation: Literal["NINDS"] = "NINDS"
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
     registry_identifier: Literal["03cpe7c52"] = "01s5ya894"

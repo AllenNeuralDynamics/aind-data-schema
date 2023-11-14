@@ -1,6 +1,8 @@
-from aind_data_schema.base import AindModel
-from pydantic import Field
 from typing import Optional
+
+from pydantic import Field
+
+from aind_data_schema.base import AindModel
 
 
 class BaseName(AindModel):

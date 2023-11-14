@@ -1,8 +1,10 @@
-from aind_data_schema.models.registry import NCBI
-from aind_data_schema.models.pid_names import PIDName, BaseName
-from pydantic import ConfigDict, Field
 from typing import Literal, Union
+
+from pydantic import ConfigDict, Field
 from typing_extensions import Annotated
+
+from aind_data_schema.models.pid_names import BaseName, PIDName
+from aind_data_schema.models.registry import NCBI
 
 
 class Species(PIDName):

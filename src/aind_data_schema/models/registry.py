@@ -1,5 +1,6 @@
-from aind_data_schema.models.pid_names import BaseName
 from typing import Final
+
+from aind_data_schema.models.pid_names import BaseName
 
 ROR: Final = BaseName(name="Research Organization Registry", abbreviation="ROR")
 NCBI: Final = BaseName(name="National Center for Biotechnology Information", abbreviation="NCBI")

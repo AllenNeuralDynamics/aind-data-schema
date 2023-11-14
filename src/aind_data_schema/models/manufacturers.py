@@ -1,0 +1,486 @@
+from typing import Literal, Union
+
+from pydantic import ConfigDict, Field
+from typing_extensions import Annotated
+
+from aind_data_schema.models.pid_names import BaseName, PIDName
+from aind_data_schema.models.registry import ROR
+
+
+class Manufacturer(PIDName):
+    model_config = ConfigDict(frozen=True)
+
+
+class AAOptoElectronic(Manufacturer):
+    name: Literal["AA Opto Electronic"] = "AA Opto Electronic"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
+
+
+class AilipuTechnologyCo(Manufacturer):
+    name: Literal["Ailipu Technology Co"] = "Ailipu Technology Co"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
+
+
+class Allied(Manufacturer):
+    name: Literal["Allied"] = "Allied"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
+
+
+class AppliedScientificInstrumentation(Manufacturer):
+    name: Literal["Applied Scientific Instrumentation"] = "Applied Scientific Instrumentation"
+    abbreviation: Literal["ASI"] = "ASI"
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
+
+
+class Asus(Manufacturer):
+    name: Literal["ASUS"] = "ASUS"
+    abbreviation: Literal[None] = None
+    registry: BaseName = Field(ROR, json_schema_extra={"const": True})
+    registry_identifier: Literal["00bxkz165"] = "00bxkz165"
+
+
+class ArecontVisionCostar(Manufacturer):
+    name: Literal["Arecont Vision Costar"] = "Arecont Vision Costar"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
+
+
+class Basler(Manufacturer):
+    name: Literal["Basler"] = "Basler"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
+
+
+class CambridgeTechnology(Manufacturer):
+    name: Literal["Cambridge Technology"] = "Cambridge Technology"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
+
+
+class Chroma(Manufacturer):
+    name: Literal["Chroma"] = "Chroma"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
+
+
+class CoherentScientific(Manufacturer):
+    name: Literal["Coherent Scientific"] = "Coherent Scientific"
+    abbreviation: Literal[None] = None
+    registry: BaseName = Field(ROR, json_schema_extra={"const": True})
+    registry_identifier: Literal["031tysd23"] = "031tysd23"
+
+
+class Conoptics(Manufacturer):
+    name: Literal["Conoptics"] = "Conoptics"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
+
+
+class Computar(Manufacturer):
+    name: Literal["Computar"] = "Computar"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
+
+
+class Custom(Manufacturer):
+    name: Literal["Custom"] = "Custom"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
+
+
+class Doric(Manufacturer):
+    name: Literal["Doric"] = "Doric"
+    abbreviation: Literal[None] = None
+    registry: BaseName = Field(ROR, json_schema_extra={"const": True})
+    registry_identifier: Literal["059n53q30"] = "059n53q30"
+
+
+class Ealing(Manufacturer):
+    name: Literal["Ealing"] = "Ealing"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
+
+
+class EdmundOptics(Manufacturer):
+    name: Literal["Edmund Optics"] = "Edmund Optics"
+    abbreviation: Literal[None] = None
+    registry: BaseName = Field(ROR, json_schema_extra={"const": True})
+    registry_identifier: Literal["01j1gwp17"] = "01j1gwp17"
+
+
+class Euresys(Manufacturer):
+    name: Literal["Euresys"] = "Euresys"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
+
+
+class TeledyneFLIR(Manufacturer):
+    name: Literal["Teledyne FLIR"] = "Teledyne FLIR"
+    abbreviation: Literal["FLIR"] = "FLIR"
+    registry: BaseName = Field(ROR, json_schema_extra={"const": True})
+    registry_identifier: Literal["01j1gwp17"] = "01j1gwp17"
+
+
+class Fujinon(Manufacturer):
+    name: Literal["Fujinon"] = "Fujinon"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
+
+
+class Hamamatsu(Manufacturer):
+    name: Literal["Hamamatsu"] = "Hamamatsu"
+    abbreviation: Literal[None] = None
+    registry: BaseName = Field(ROR, json_schema_extra={"const": True})
+    registry_identifier: Literal["03natb733"] = "03natb733"
+
+
+class TheImagingSource(Manufacturer):
+    name: Literal["The Imaging Source"] = "The Imaging Source"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
+
+
+class InteruniversityMicroelectronicsCenter(Manufacturer):
+    name: Literal["Interuniversity Microelectronics Center"] = "Interuniversity Microelectronics Center"
+    abbreviation: Literal["IMEC"] = "IMEC"
+    registry: BaseName = Field(ROR, json_schema_extra={"const": True})
+    registry_identifier: Literal["02kcbn207"] = "02kcbn207"
+
+
+class InfinityPhotoOptical(Manufacturer):
+    name: Literal["Infinity Photo-Optical"] = "Infinity Photo-Optical"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
+
+
+class ISLProductsInternational(Manufacturer):
+    name: Literal["ISL Products International"] = "ISL Products International"
+    abbreviation: Literal["ISL"] = "ISL"
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
+
+
+class Julabo(Manufacturer):
+    name: Literal["Julabo"] = "Julabo"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
+
+
+class TheLeeCompany(Manufacturer):
+    name: Literal["The Lee Company"] = "The Lee Company"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
+
+
+class Leica(Manufacturer):
+    name: Literal["Leica"] = "Leica"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
+
+
+class Lg(Manufacturer):
+    name: Literal["LG"] = "LG"
+    abbreviation: Literal[None] = None
+    registry: BaseName = Field(ROR, json_schema_extra={"const": True})
+    registry_identifier: Literal["02b948n83"] = "02b948n83"
+
+
+class LifeCanvas(Manufacturer):
+    name: Literal["LifeCanvas"] = "LifeCanvas"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
+
+
+class MeadowlarkOptics(Manufacturer):
+    name: Literal["Meadowlark Optics"] = "Meadowlark Optics"
+    abbreviation: Literal[None] = None
+    registry: BaseName = Field(ROR, json_schema_extra={"const": True})
+    registry_identifier: Literal["00n8qbq54"] = "00n8qbq54"
+
+
+class IRRobotCo(Manufacturer):
+    name: Literal["IR Robot Co"] = "IR Robot Co"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
+
+
+class Mitutuyo(Manufacturer):
+    name: Literal["Mitutuyo"] = "Mitutuyo"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
+
+
+class MKSNewport(Manufacturer):
+    name: Literal["MKS Newport"] = "MKS Newport"
+    abbreviation: Literal[None] = None
+    registry: BaseName = Field(ROR, json_schema_extra={"const": True})
+    registry_identifier: Literal["00k17f049"] = "00k17f049"
+
+
+class Mpi(Manufacturer):
+    name: Literal["MPI"] = "MPI"
+    abbreviation: Literal["MPI"] = "MPI"
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
+
+
+class NationalInstruments(Manufacturer):
+    name: Literal["National Instruments"] = "National Instruments"
+    abbreviation: Literal[None] = None
+    registry: BaseName = Field(ROR, json_schema_extra={"const": True})
+    registry_identifier: Literal["026exqw73"] = "026exqw73"
+
+
+class Navitar(Manufacturer):
+    name: Literal["Navitar"] = "Navitar"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
+
+
+class NewScaleTechnologies(Manufacturer):
+    name: Literal["New Scale Technologies"] = "New Scale Technologies"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
+
+
+class Nikon(Manufacturer):
+    name: Literal["Nikon"] = "Nikon"
+    abbreviation: Literal[None] = None
+    registry: BaseName = Field(ROR, json_schema_extra={"const": True})
+    registry_identifier: Literal["0280y9h11"] = "0280y9h11"
+
+
+class OpenEphysProductionSite(Manufacturer):
+    name: Literal["Open Ephys Production Site"] = "Open Ephys Production Site"
+    abbreviation: Literal["OEPS"] = "OEPS"
+    registry: BaseName = Field(ROR, json_schema_extra={"const": True})
+    registry_identifier: Literal["007rkz355"] = "007rkz355"
+
+
+class Olympus(Manufacturer):
+    name: Literal["Olympus"] = "Olympus"
+    abbreviation: Literal[None] = None
+    registry: BaseName = Field(ROR, json_schema_extra={"const": True})
+    registry_identifier: Literal["02vcdte90"] = "02vcdte90"
+
+
+class Optotune(Manufacturer):
+    name: Literal["Optotune"] = "Optotune"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
+
+
+class Oxxius(Manufacturer):
+    name: Literal["Oxxius"] = "Oxxius"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
+
+
+class Prizmatix(Manufacturer):
+    name: Literal["Prizmatix"] = "Prizmatix"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
+
+
+class Quantifi(Manufacturer):
+    name: Literal["Quantifi"] = "Quantifi"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
+
+
+class RaspberryPi(Manufacturer):
+    name: Literal["Raspberry Pi"] = "Raspberry Pi"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
+
+
+class Semrock(Manufacturer):
+    name: Literal["Semrock"] = "Semrock"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
+
+
+class SchneiderKreuznach(Manufacturer):
+    name: Literal["Schneider-Kreuznach"] = "Schneider-Kreuznach"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
+
+
+class Tamron(Manufacturer):
+    name: Literal["Tamron"] = "Tamron"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
+
+
+class Thorlabs(Manufacturer):
+    name: Literal["Thorlabs"] = "Thorlabs"
+    abbreviation: Literal[None] = None
+    registry: BaseName = Field(ROR, json_schema_extra={"const": True})
+    registry_identifier: Literal["04gsnvb07"] = "04gsnvb07"
+
+
+class TechnicalManufacturingCorporation(Manufacturer):
+    name: Literal["Technical Manufacturing Corporation"] = "Technical Manufacturing Corporation"
+    abbreviation: Literal["TMC"] = "TMC"
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
+
+
+class Tymphany(Manufacturer):
+    name: Literal["Tymphany"] = "Tymphany"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
+
+
+class Vieworks(Manufacturer):
+    name: Literal["Vieworks"] = "Vieworks"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
+
+
+class Vortran(Manufacturer):
+    name: Literal["Vortran"] = "Vortran"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
+
+
+class CarlZeiss(Manufacturer):
+    name: Literal["Carl Zeiss"] = "Carl Zeiss"
+    abbreviation: Literal[None] = None
+    registry: BaseName = Field(ROR, json_schema_extra={"const": True})
+    registry_identifier: Literal["01xk5xs43"] = "01xk5xs43"
+
+
+class Other(Manufacturer):
+    name: Literal["Other"] = "Other"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
+
+
+AA_OPTO = AAOptoElectronic()
+AILIPU = AilipuTechnologyCo()
+ALLIED = Allied()
+ASI = AppliedScientificInstrumentation()
+ASUS = Asus()
+AVCOSTAR = ArecontVisionCostar()
+BASLER = Basler()
+CAMBRIDGE_TECHNOLOGY = CambridgeTechnology()
+CHROMA = Chroma()
+COHERENT_SCIENTIFIC = CoherentScientific()
+CONOPTICS = Conoptics()
+COMPUTAR = Computar()
+CUSTOM = Custom()
+DORIC = Doric()
+EALING = Ealing()
+EDMUND_OPTICS = EdmundOptics()
+EURESYS = Euresys()
+FLIR = TeledyneFLIR()
+FUJINON = Fujinon()
+HAMAMATSU = Hamamatsu()
+IMAGING_SOURCE = TheImagingSource()
+IMEC = InteruniversityMicroelectronicsCenter()
+INFINITY_PHOTO_OPTICAL = InfinityPhotoOptical()
+ISL = ISLProductsInternational()
+JULABO = Julabo()
+LEE = TheLeeCompany()
+LEICA = Leica()
+LG = Lg()
+LIFECANVAS = LifeCanvas()
+MEADOWLARK = MeadowlarkOptics()
+MIGHTY_ZAP = IRRobotCo()
+MITUTUYO = Mitutuyo()
+MKS_NEWPORT = MKSNewport()
+MPI = Mpi()
+NATIONAL_INSTRUMENTS = NationalInstruments()
+NAVITAR = Navitar()
+NEW_SCALE_TECHNOLOGIES = NewScaleTechnologies()
+NIKON = Nikon()
+OEPS = OpenEphysProductionSite()
+OLYMPUS = Olympus()
+OPTOTUNE = Optotune()
+OXXIUS = Oxxius()
+PRIZMATIX = Prizmatix()
+QUANTIFI = Quantifi()
+RASPBERRYPI = RaspberryPi()
+SEMROCK = Semrock()
+SCHNEIDER_KREUZNACH = SchneiderKreuznach()
+TAMRON = Tamron()
+THORLABS = Thorlabs()
+TMC = TechnicalManufacturingCorporation()
+TYMPHANY = Tymphany()
+VIEWORKS = Vieworks()
+VORTRAN = Vortran()
+ZEISS = CarlZeiss()
+OTHER = Other()
+
+MANUFACTURERS = Annotated[Union[tuple(Manufacturer.__subclasses__())], Field(discriminator="name")]
+
+CAMERA_MANUFACTURERS = Annotated[
+    Union[AilipuTechnologyCo, Allied, Basler, EdmundOptics, TeledyneFLIR, TheImagingSource, Thorlabs, Other], Field(discriminator="name")
+]
+FILTER_MANUFACTURERS = Annotated[Union[Chroma, EdmundOptics, Semrock, Thorlabs, Other], Field(discriminator="name")]
+LENS_MANUFACTURERS = Annotated[
+    Union[
+        Computar,
+        EdmundOptics,
+        Hamamatsu,
+        InfinityPhotoOptical,
+        Leica,
+        Mitutuyo,
+        Navitar,
+        Nikon,
+        Olympus,
+        SchneiderKreuznach,
+        Thorlabs,
+        CarlZeiss,
+        Other,
+    ],
+    Field(discriminator="name"),
+]
+DAQ_DEVICE_MANUFACTURERS = Annotated[Union[NationalInstruments, InteruniversityMicroelectronicsCenter, OpenEphysProductionSite, Other], Field(discriminator="name")]
+LASER_MANUFACTURERS = Annotated[
+    Union[CoherentScientific, Hamamatsu, Oxxius, Quantifi, Vortran, Other], Field(discriminator="name")
+]
+LED_MANUFACTURERS = Annotated[Union[Doric, Prizmatix, Thorlabs, Other], Field(discriminator="name")]
+MANIPULATOR_MANUFACTURERS = Annotated[Union[NewScaleTechnologies], Field(discriminator="name")]
+MONITOR_MANUFACTURERS = Annotated[Union[Asus, Lg], Field(discriminator="name")]
+SPEAKER_MANUFACTURERS = Annotated[Union[Tymphany, ISLProductsInternational], Field(discriminator="name")]
