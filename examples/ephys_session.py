@@ -45,6 +45,8 @@ stream = Stream(
     manipulator_modules=[laser_module],
     daq_names=["Harp Behavior", "Basestation Slot 3"],
     camera_names=["Face Camera", "Body Camera"],
+    mouse_platform_name="Running Wheel",
+    active_mouse_platform=False,
 )
 
 session = Session(
