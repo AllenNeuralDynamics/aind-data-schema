@@ -34,6 +34,15 @@ class Size2d(AindModel):
     unit: SizeUnit = Field(SizeUnit.PX, title="Size unit")
 
 
+class Size3d(AindModel):
+    """3D size of an object"""
+
+    width: int = Field(..., title="Width")
+    length: int = Field(..., title="Length")
+    height: int = Field(..., title="Height")
+    unit: SizeUnit = Field(SizeUnit.M, title="Size unit")
+
+
 class Orientation3d(AindModel):
     """3D orientation of an object"""
 
