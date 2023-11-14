@@ -55,8 +55,8 @@ class BehaviorTests(unittest.TestCase):
                     stimulus=BehaviorStimulation(
                         behavior_name="Foraging",
                         behavior_software=["Bonsai"],
-                        session_number=[3],
-                        behavior_software_version="0.1",
+                        session_number=3,
+                        behavior_software_version=["0.1"],
                         behavior_script="URL_to_code",
                         behavior_script_version="0.1",
                         input_parameters={"reward volume": 0.01},
