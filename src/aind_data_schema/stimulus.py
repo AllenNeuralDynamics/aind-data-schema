@@ -98,14 +98,10 @@ class BehaviorStimulation(AindModel):
         title="Behavior software",
         description="The software used to control the behavior (e.g. Bonsai)",
     )
-    behavior_script: str = Field(
+    behavior_script: Software = Field(
         ...,
         title="Behavior script",
-        description="URL for the commit of the code used to run the behavior",
-    )
-    behavior_script_version: str = Field(..., title="Behavior script version")
-    input_parameters: Dict[str, Any] = Field(
-        ..., title="Input parameters", description="Parameters used in behavior session"
+        description="provide URL to the commit of the script and the parameters used",
     )
     output_parameters: Dict[str, Any] = Field(
         ...,

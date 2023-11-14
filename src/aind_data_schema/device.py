@@ -103,6 +103,7 @@ class Software(AindModel):
 
     name: str = Field(..., title="Software name")
     version: str = Field(..., title="Software version")
+    url: Optional[str] = Field(None, title="URL to commit being used")
     parameters: Optional[dict] = Field(None, title="Software parameters", additionalProperties={"type": "string"})
 
 

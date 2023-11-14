@@ -57,12 +57,15 @@ class BehaviorTests(unittest.TestCase):
                         behavior_software=[Software(
                             name="Bonsai",
                             version="0.1"
-                            )
+                            ),
                         ],
                         session_number=3,
-                        behavior_script="URL_to_code",
-                        behavior_script_version="0.1",
-                        input_parameters={"reward volume": 0.01},
+                        behavior_script=Software(
+                            name="Foraging v1",
+                            version="0.1",
+                            url="URL_to_code",
+                            input_parameters={"reward probability": 0.08},
+                        ),
                         output_parameters={},
                         reward_consumed_during_epoch=820,
                         trials_total=551,
