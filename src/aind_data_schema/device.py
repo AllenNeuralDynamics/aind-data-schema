@@ -94,6 +94,7 @@ class Device(AindModel):
     serial_number: Optional[str] = Field(None, title="Serial number")
     manufacturer: Optional[Manufacturer] = Field(None, title="Manufacturer")
     model: Optional[str] = Field(None, title="Model")
+    path_to_cad: Optional[str] = Field(None, title="Path to CAD diagram", description="For CUSTOM manufactured devices")
     notes: Optional[str] = Field(None, title="Notes")
 
 
