@@ -15,7 +15,7 @@ class QualityMetricsTests(unittest.TestCase):
     def test_constructors(self):
         """testing constructors"""
         with self.assertRaises(ValidationError):
-            s = QualityMetrics()
+            q = QualityMetrics()
 
         now = datetime.date.now()
 
