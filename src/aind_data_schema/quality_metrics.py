@@ -8,8 +8,9 @@ from typing import Any, Dict, List, Optional
 
 from pydantic import Field
 
-from aind_data_schema.base import AindCoreModel
+from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.data_description import Modality
+
 
 class Status(Enum):
 
