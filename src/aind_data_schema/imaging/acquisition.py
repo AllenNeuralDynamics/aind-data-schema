@@ -10,7 +10,7 @@ from typing import List, Optional
 from pydantic import Field
 
 from aind_data_schema.base import AindCoreModel, AindModel, EnumSubset
-from aind_data_schema.device import Calibration, ImmersionMedia, Maintenance
+from aind_data_schema.device import Calibration, ImmersionMedium, Maintenance
 from aind_data_schema.imaging.tile import AcquisitionTile
 from aind_data_schema.processing import ProcessName
 from aind_data_schema.utils.units import SizeUnit
@@ -74,9 +74,9 @@ class Axis(AindModel):
 
 
 class Immersion(AindModel):
-    """Description of immersion media"""
+    """Description of immersion medium"""
 
-    medium: ImmersionMedia = Field(..., title="Immersion medium")
+    medium: ImmersionMedium = Field(..., title="Immersion medium")
     refractive_index: Decimal = Field(..., title="Index of refraction")
 
 

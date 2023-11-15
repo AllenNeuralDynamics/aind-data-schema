@@ -238,8 +238,8 @@ class MotorizedStage(Device):
     firmware: Optional[str] = Field(None, title="Firmware")
 
 
-class ImmersionMedia(Enum):
-    """Immersion media name"""
+class ImmersionMedium(Enum):
+    """Immersion medium name"""
 
     AIR = "air"
     MULTI = "multi"
@@ -262,7 +262,7 @@ class Objective(Device):
     device_type: Literal["Objective"] = Field("Objective", const=True, readOnly=True)
     numerical_aperture: Decimal = Field(..., title="Numerical aperture (in air)")
     magnification: Decimal = Field(..., title="Magnification")
-    immersion: ImmersionMedia = Field(..., title="Immersion")
+    immersion: ImmersionMedium = Field(..., title="Immersion")
     objective_type: Optional[ObjectiveType] = Field(None, title="Objective type")
 
 
