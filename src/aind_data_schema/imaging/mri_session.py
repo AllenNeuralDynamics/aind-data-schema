@@ -3,10 +3,9 @@
 from datetime import datetime
 from decimal import Decimal
 from enum import Enum
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Literal
 
 from pydantic import Field, root_validator
-from pydantic.typing import Literal
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.models.devices import Scanner, ScanType, MriScanSequence
