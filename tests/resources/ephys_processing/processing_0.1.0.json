@@ -1,0 +1,76 @@
+{
+    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/processing.py",
+    "schema_version": "0.1.0",
+    "pipeline_version": null,
+    "pipeline_url": null,
+    "data_processes": [
+        {
+            "name": "Ephys preprocessing",
+            "version": "0.5.0",
+            "start_date_time": "2023-02-22T18:16:35.919299+00:00",
+            "end_date_time": "2023-02-22T18:41:06.929027+00:00",
+            "input_location": "\\\\allen\\programs\\aind\\workgroups\\ephys\\data\\ephys\\648843_2023-02-20_16-55-07",
+            "output_location": "s3://aind-ephys-data/ecephys_648843_2023-02-20_16-55-07",
+            "code_url": "https://github.com/AllenNeuralDynamics/aind-data-transfer",
+            "parameters": {
+                "endpoints": {
+                    "raw_data_dir": "\\\\allen\\programs\\aind\\workgroups\\ephys\\data\\ephys\\648843_2023-02-20_16-55-07",
+                    "dest_data_dir": "ecephys_648843_2023-02-20_16-55-07",
+                    "s3_bucket": "aind-ephys-data",
+                    "s3_prefix": "ecephys_648843_2023-02-20_16-55-07",
+                    "gcp_prefix": "ecephys_648843_2023-02-20_16-55-07",
+                    "codeocean_domain": "https://codeocean.allenneuraldynamics.org",
+                    "code_repo_location": "https://github.com/AllenNeuralDynamics/aind-data-transfer",
+                    "metadata_service_url": "http://aind-metadata-service"
+                },
+                "aws_secret_names": {
+                    "region": "us-west-2",
+                    "video_encryption_password": "video_encryption_password",
+                    "code_ocean_api_token_name": "codeocean-api-token"
+                },
+                "jobs": {
+                    "clip": true,
+                    "compress": true,
+                    "attach_metadata": true,
+                    "upload_to_s3": true,
+                    "upload_to_gcp": false,
+                    "trigger_codeocean_job": true
+                },
+                "data": {
+                    "name": "openephys"
+                },
+                "clip_data_job": {
+                    "clip_kwargs": {}
+                },
+                "compress_data_job": {
+                    "write_kwargs": {
+                        "n_jobs": 24,
+                        "chunk_duration": "1s",
+                        "progress_bar": true
+                    },
+                    "format_kwargs": {},
+                    "compressor": {
+                        "compressor_name": "wavpack",
+                        "kwargs": {
+                            "level": 3
+                        }
+                    },
+                    "scale_params": {}
+                },
+                "upload_data_job": {
+                    "dryrun": false
+                },
+                "trigger_codeocean_job": {
+                    "capsule_id": "1991c31e-40d2-4b3c-a344-0628705d2861",
+                    "job_type": "openephys",
+                    "bucket": "aind-ephys-data",
+                    "prefix": "ecephys_648843_2023-02-20_16-55-07"
+                },
+                "logging": {
+                    "level": "INFO"
+                }
+            },
+            "notes": null
+        }
+    ]
+}

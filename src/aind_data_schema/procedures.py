@@ -9,6 +9,8 @@ from pydantic import Field, root_validator
 from pydantic.typing import Annotated
 
 from aind_data_schema.base import AindCoreModel, AindModel, PIDName
+from aind_data_schema.device import FiberProbe
+from aind_data_schema.reagent import Reagent
 from aind_data_schema.subject import Species
 from aind_data_schema.utils.units import (
     AngleUnit,
@@ -38,16 +40,6 @@ class SpecimenProcedureName(Enum):
     STRIPPING = "Stripping"
     REFRACTIVE_INDEX_MATCHING = "Refractive index matching"
     OTHER = "Other - see notes"
-
-
-class Reagent(AindModel):
-    """Description of reagents used in procedure"""
-
-    name: str = Field(..., title="Name")
-    source: str = Field(..., title="Source")
-    rrid: Optional[PIDName] = Field(None, title="Research Resource ID")
-    lot_number: str = Field(..., title="Lot number")
-    expiration_date: Optional[date] = Field(None, title="Lot expiration date")
 
 
 class SpecimenProcedure(AindModel):
@@ -472,32 +464,10 @@ class TrainingProtocol(AindModel):
     notes: Optional[str] = Field(None, title="Notes")
 
 
-class ProbeName(Enum):
-    """Probe name"""
-
-    PROBE_A = "Probe A"
-    PROBE_B = "Probe B"
-    PROBE_C = "Probe C"
-    PROBE_D = "Probe D"
-
-
-class FerruleMaterial(Enum):
-    """Probe ferrule material type name"""
-
-    CERAMIC = "Ceramic"
-    STAINLESS_STEEL = "Stainless steel"
-
-
 class OphysProbe(AindModel):
-    """Description of an ophys probe"""
+    """Description of an implanted ophys probe"""
 
-    name: ProbeName = Field(..., title="Name")
-    manufacturer: str = Field(..., title="Manufacturer")
-    part_number: str = Field(..., title="Part number")
-    core_diameter: Decimal = Field(..., title="Core diameter (μm)", units="μm")
-    core_diameter_unit: str = Field("μm", title="Core diameter unit")
-    numerical_aperture: Decimal = Field(..., title="Numerical aperture")
-    ferrule_material: Optional[FerruleMaterial] = Field(None, title="Ferrule material")
+    ophys_probe: FiberProbe = Field(..., title="Fiber probe")
     targeted_structure: str = Field(..., title="Targeted structure")
     stereotactic_coordinate_ap: Decimal = Field(..., title="Stereotactic coordinate A/P (mm)", units="mm")
     stereotactic_coordinate_ml: Decimal = Field(..., title="Stereotactic coordinate M/L (mm)", units="mm")
@@ -555,7 +525,7 @@ class Perfusion(SubjectProcedure):
 class Procedures(AindCoreModel):
     """Description of all procedures performed on a subject"""
 
-    schema_version: str = Field("0.9.5", description="schema version", title="Version", const=True)
+    schema_version: str = Field("0.9.7", description="schema version", title="Version", const=True)
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",

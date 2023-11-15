@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/rig.py",
-   "schema_version": "0.1.4",
+   "schema_version": "0.1.7",
    "rig_id": "323_EPHYS1",
    "modification_date": "2023-10-03",
    "modalities": [
@@ -15,6 +15,7 @@
       "serial_number": null,
       "manufacturer": null,
       "model": null,
+      "path_to_cad": null,
       "notes": null,
       "surface_material": null,
       "date_surface_replaced": null,
@@ -44,6 +45,7 @@
                "registry_identifier": "01j1gwp17"
             },
             "model": null,
+            "path_to_cad": null,
             "notes": null,
             "data_interface": "USB",
             "computer_name": "W10DT72941",
@@ -73,6 +75,7 @@
                "registry_identifier": "01j1gwp17"
             },
             "model": null,
+            "path_to_cad": null,
             "notes": null,
             "focal_length": 15,
             "focal_length_unit": "millimeter",
@@ -96,6 +99,7 @@
                "registry_identifier": "04gsnvb07"
             },
             "model": null,
+            "path_to_cad": null,
             "notes": null,
             "filter_type": "Long pass",
             "diameter": null,
@@ -130,6 +134,7 @@
                "registry_identifier": "01j1gwp17"
             },
             "model": null,
+            "path_to_cad": null,
             "notes": null,
             "data_interface": "USB",
             "computer_name": "W10DT72941",
@@ -159,6 +164,7 @@
                "registry_identifier": "01j1gwp17"
             },
             "model": null,
+            "path_to_cad": null,
             "notes": null,
             "focal_length": 15,
             "focal_length_unit": "millimeter",
@@ -182,6 +188,7 @@
                "registry_identifier": "04gsnvb07"
             },
             "model": null,
+            "path_to_cad": null,
             "notes": null,
             "filter_type": "Long pass",
             "diameter": null,
@@ -202,7 +209,7 @@
    ],
    "daqs": [
       {
-         "device_type": "NeuropixelsBasestation",
+         "device_type": "Neuropixels basestation",
          "name": "Basestation Slot 3",
          "serial_number": null,
          "manufacturer": {
@@ -215,6 +222,7 @@
             "registry_identifier": "02kcbn207"
          },
          "model": null,
+         "path_to_cad": null,
          "notes": null,
          "data_interface": "PXI",
          "computer_name": "W10DT72942",
@@ -238,7 +246,7 @@
          ]
       },
       {
-         "device_type": "HarpDevice",
+         "device_type": "Harp device",
          "name": "Harp Behavior",
          "serial_number": null,
          "manufacturer": {
@@ -251,6 +259,7 @@
             "registry_identifier": "007rkz355"
          },
          "model": null,
+         "path_to_cad": null,
          "notes": null,
          "data_interface": "USB",
          "computer_name": "W10DT72941",
@@ -290,6 +299,7 @@
          "harp_device_version": "2.1"
       }
    ],
+   "enclosure": null,
    "ephys_assemblies": [
       {
          "ephys_assembly_name": "Ephys_assemblyA",
@@ -304,15 +314,17 @@
                "registry_identifier": null
             },
             "model": null,
+            "path_to_cad": null,
             "notes": null
          },
          "probes": [
             {
-               "device_type": "EphysProbe",
+               "device_type": "Ephys probe",
                "name": "Probe A",
                "serial_number": "9291019",
                "manufacturer": null,
                "model": null,
+               "path_to_cad": null,
                "notes": null,
                "probe_model": "Neuropixels 1.0",
                "lasers": null,
@@ -333,15 +345,17 @@
                "registry_identifier": null
             },
             "model": null,
+            "path_to_cad": null,
             "notes": null
          },
          "probes": [
             {
-               "device_type": "EphysProbe",
+               "device_type": "Ephys probe",
                "name": "Probe B",
                "serial_number": "9291020",
                "manufacturer": null,
                "model": null,
+               "path_to_cad": null,
                "notes": null,
                "probe_model": "Neuropixels 1.0",
                "lasers": null,
@@ -350,6 +364,7 @@
          ]
       }
    ],
+   "fiber_assemblies": null,
    "stick_microscopes": [
       {
          "scope_assembly_name": "Stick_assembly",
@@ -367,6 +382,7 @@
                "registry_identifier": "01j1gwp17"
             },
             "model": null,
+            "path_to_cad": null,
             "notes": null,
             "data_interface": "USB",
             "computer_name": "W10DT72942",
@@ -396,6 +412,7 @@
                "registry_identifier": "01j1gwp17"
             },
             "model": null,
+            "path_to_cad": null,
             "notes": null,
             "focal_length": null,
             "focal_length_unit": "millimeter",
@@ -421,6 +438,7 @@
                "registry_identifier": null
             },
             "model": null,
+            "path_to_cad": null,
             "notes": null
          },
          "lasers": [
@@ -435,6 +453,7 @@
                   "registry_identifier": null
                },
                "model": null,
+               "path_to_cad": null,
                "notes": null,
                "wavelength": 473,
                "wavelength_unit": "nanometer",
@@ -456,6 +475,7 @@
                   "registry_identifier": null
                },
                "model": null,
+               "path_to_cad": null,
                "notes": null,
                "wavelength": 638,
                "wavelength_unit": "nanometer",

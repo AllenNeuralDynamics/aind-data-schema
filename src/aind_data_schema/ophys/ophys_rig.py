@@ -20,7 +20,7 @@ from aind_data_schema.device import (
     Disc,
     Filter,
     HarpDevice,
-    Immersion,
+    ImmersionMedium,
     Laser,
     Lens,
     LightEmittingDiode,
@@ -63,7 +63,7 @@ class Detector(Device):
     detector_type: DetectorType = Field(..., title="Detector Type")
     data_interface: DataInterface = Field(..., title="Data interface")
     cooling: Cooling = Field(..., title="Cooling")
-    immersion: Optional[Immersion] = Field(None, title="Immersion")
+    immersion: Optional[ImmersionMedium] = Field(None, title="Immersion")
 
     chroma: Optional[CameraChroma] = Field(None, title="Camera chroma")
     bit_depth: Optional[int] = Field(None, title="Bit depth")
@@ -89,7 +89,7 @@ class OphysRig(AindCoreModel):
     """Description of an optical physiology rig. This is being deprecated after 2023-11-01. Use Rig class instead."""
 
     schema_version: str = Field(
-        "0.7.7",
+        "0.7.10",
         description="schema version",
         title="Schema Version",
         const=True,

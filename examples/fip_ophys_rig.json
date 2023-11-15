@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/rig.py",
-   "schema_version": "0.1.4",
+   "schema_version": "0.1.7",
    "rig_id": "428_FIP1_2",
    "modification_date": "2023-10-03",
    "modalities": [
@@ -15,6 +15,7 @@
       "serial_number": null,
       "manufacturer": null,
       "model": null,
+      "path_to_cad": null,
       "notes": null,
       "surface_material": null,
       "date_surface_replaced": null,
@@ -41,6 +42,7 @@
                "registry_identifier": null
             },
             "model": "ELP-USBFHD05MT-KL170IR",
+            "path_to_cad": null,
             "notes": "The light intensity sensor was removed; IR illumination is constantly on",
             "data_interface": "USB",
             "computer_name": "W10DTJK7N0M3",
@@ -55,6 +57,7 @@
             "recording_software": {
                "name": "Bonsai",
                "version": "2.5",
+               "url": null,
                "parameters": null
             },
             "driver": null,
@@ -71,6 +74,7 @@
                "registry_identifier": null
             },
             "model": "XC0922LENS",
+            "path_to_cad": null,
             "notes": "Focal Length 9-22mm 1/3\" IR F1.4",
             "focal_length": null,
             "focal_length_unit": "millimeter",
@@ -97,6 +101,7 @@
                "registry_identifier": null
             },
             "model": "ELP-USBFHD05MT-KL170IR",
+            "path_to_cad": null,
             "notes": "The light intensity sensor was removed; IR illumination is constantly on",
             "data_interface": "USB",
             "computer_name": "W10DTJK7N0M3",
@@ -111,6 +116,7 @@
             "recording_software": {
                "name": "Bonsai",
                "version": "2.5",
+               "url": null,
                "parameters": null
             },
             "driver": null,
@@ -127,6 +133,7 @@
                "registry_identifier": null
             },
             "model": "XC0922LENS",
+            "path_to_cad": null,
             "notes": "Focal Length 9-22mm 1/3\" IR F1.4",
             "focal_length": null,
             "focal_length_unit": "millimeter",
@@ -142,7 +149,7 @@
    ],
    "daqs": [
       {
-         "device_type": "DAQDevice",
+         "device_type": "DAQ Device",
          "name": "USB DAQ",
          "serial_number": null,
          "manufacturer": {
@@ -155,6 +162,7 @@
             "registry_identifier": "026exqw73"
          },
          "model": "USB-6212",
+         "path_to_cad": null,
          "notes": "To record behavior events and licks via AnalogInput node in Bonsai",
          "data_interface": "USB",
          "computer_name": "W10DTJK7N0M3",
@@ -192,7 +200,9 @@
          ]
       }
    ],
+   "enclosure": null,
    "ephys_assemblies": null,
+   "fiber_assemblies": null,
    "stick_microscopes": null,
    "laser_assemblies": null,
    "patch_cords": [
@@ -210,6 +220,7 @@
             "registry_identifier": "059n53q30"
          },
          "model": "BBP(4)_200/220/900-0.37_Custom_FCM-4xMF1.25",
+         "path_to_cad": null,
          "notes": null,
          "core_diameter": 200,
          "numerical_aperture": 0.37,
@@ -218,7 +229,7 @@
    ],
    "light_sources": [
       {
-         "device_type": "LightEmittingDiode",
+         "device_type": "Light emitting diode",
          "name": "470nm LED",
          "serial_number": null,
          "manufacturer": {
@@ -231,12 +242,13 @@
             "registry_identifier": "04gsnvb07"
          },
          "model": "M470F3",
+         "path_to_cad": null,
          "notes": null,
          "wavelength": 470,
          "wavelength_unit": "nanometer"
       },
       {
-         "device_type": "LightEmittingDiode",
+         "device_type": "Light emitting diode",
          "name": "415nm LED",
          "serial_number": null,
          "manufacturer": {
@@ -249,12 +261,13 @@
             "registry_identifier": "04gsnvb07"
          },
          "model": "M415F3",
+         "path_to_cad": null,
          "notes": null,
          "wavelength": 415,
          "wavelength_unit": "nanometer"
       },
       {
-         "device_type": "LightEmittingDiode",
+         "device_type": "Light emitting diode",
          "name": "565nm LED",
          "serial_number": null,
          "manufacturer": {
@@ -267,6 +280,7 @@
             "registry_identifier": "04gsnvb07"
          },
          "model": "M565F3",
+         "path_to_cad": null,
          "notes": null,
          "wavelength": 415,
          "wavelength_unit": "nanometer"
@@ -287,6 +301,7 @@
             "registry_identifier": "01j1gwp17"
          },
          "model": "BFS-U3-20S40M",
+         "path_to_cad": null,
          "notes": null,
          "detector_type": "Camera",
          "data_interface": "USB",
@@ -320,6 +335,7 @@
             "registry_identifier": "01j1gwp17"
          },
          "model": "BFS-U3-20S40M",
+         "path_to_cad": null,
          "notes": null,
          "detector_type": "Camera",
          "data_interface": "USB",
@@ -355,6 +371,7 @@
             "registry_identifier": "0280y9h11"
          },
          "model": "CFI Plan Apochromat Lambda D 10x",
+         "path_to_cad": null,
          "notes": null,
          "numerical_aperture": 0.45,
          "magnification": 10,
@@ -374,6 +391,7 @@
             "registry_identifier": null
          },
          "model": "FF01-520/35-25",
+         "path_to_cad": null,
          "notes": null,
          "filter_type": "Band pass",
          "diameter": 25,
@@ -400,6 +418,7 @@
             "registry_identifier": null
          },
          "model": "FF01-600/37-25",
+         "path_to_cad": null,
          "notes": null,
          "filter_type": "Band pass",
          "diameter": 25,
@@ -426,6 +445,7 @@
             "registry_identifier": null
          },
          "model": "FF562-Di03-25x36",
+         "path_to_cad": null,
          "notes": null,
          "filter_type": "Dichroic",
          "diameter": null,
@@ -452,6 +472,7 @@
             "registry_identifier": null
          },
          "model": "FF493/574-Di01-25x36",
+         "path_to_cad": null,
          "notes": "493/574 nm BrightLine dual-edge standard epi-fluorescence dichroic beamsplitter",
          "filter_type": "Multiband",
          "diameter": null,
@@ -481,6 +502,7 @@
             "registry_identifier": "04gsnvb07"
          },
          "model": "FB410-10",
+         "path_to_cad": null,
          "notes": null,
          "filter_type": "Band pass",
          "diameter": 25,
@@ -510,6 +532,7 @@
             "registry_identifier": "04gsnvb07"
          },
          "model": "FB470-10",
+         "path_to_cad": null,
          "notes": null,
          "filter_type": "Band pass",
          "diameter": 25,
@@ -539,6 +562,7 @@
             "registry_identifier": "04gsnvb07"
          },
          "model": "FB560-10",
+         "path_to_cad": null,
          "notes": null,
          "filter_type": "Band pass",
          "diameter": 25,
@@ -568,6 +592,7 @@
             "registry_identifier": "01j1gwp17"
          },
          "model": "#69-898",
+         "path_to_cad": null,
          "notes": null,
          "filter_type": "Dichroic",
          "diameter": null,
@@ -597,6 +622,7 @@
             "registry_identifier": "01j1gwp17"
          },
          "model": "#69-899",
+         "path_to_cad": null,
          "notes": null,
          "filter_type": "Dichroic",
          "diameter": null,
@@ -628,6 +654,7 @@
             "registry_identifier": "04gsnvb07"
          },
          "model": "AC254-080-A-ML",
+         "path_to_cad": null,
          "notes": null,
          "focal_length": 80,
          "focal_length_unit": "millimeter",

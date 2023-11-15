@@ -96,6 +96,10 @@ class TestMetadata(unittest.TestCase):
         )
         self.assertEqual(MetadataStatus.INVALID, d3.metadata_status)
 
+    def test_default_file_extension(self):
+        """Tests that the default file extension used is as expected."""
+        self.assertEqual(".nd.json", Metadata.default_file_extension())
+
 
 if __name__ == "__main__":
     unittest.main()

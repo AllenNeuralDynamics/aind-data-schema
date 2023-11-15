@@ -5,12 +5,13 @@ from datetime import date
 
 from pydantic import ValidationError
 
-from aind_data_schema import Procedures
+from aind_data_schema.device import FiberProbe
 from aind_data_schema.procedures import (
     FiberImplant,
     InjectionMaterial,
     NanojectInjection,
     OphysProbe,
+    Procedures,
     RetroOrbitalInjection,
     SpecimenProcedure,
 )
@@ -101,11 +102,16 @@ class ProceduresTests(unittest.TestCase):
                     protocol_id="dx.doi.org/120.123/fkjd",
                     probes=[
                         OphysProbe(
-                            name="Probe A",
-                            manufacturer="Tom",
-                            part_number="8",
-                            core_diameter=2,
-                            numerical_aperture=1,
+                            ophys_probe=FiberProbe(
+                                device_type="Fiber optic probe",
+                                name="Probe A",
+                                manufacturer="Doric",
+                                model="8",
+                                core_diameter=2,
+                                numerical_aperture=1,
+                                ferrule_material="Ceramic",
+                                total_length=10,
+                            ),
                             targeted_structure="MOp",
                             stereotactic_coordinate_ap=1,
                             stereotactic_coordinate_dv=2,

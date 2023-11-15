@@ -1,0 +1,63 @@
+{
+   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/processing.py",
+   "schema_version": "0.2.1",
+   "pipeline_version": null,
+   "pipeline_url": null,
+   "data_processes": [
+      {
+         "name": "Ephys preprocessing",
+         "version": "0.16.2",
+         "start_date_time": "2023-06-01T22:47:19.784571+00:00",
+         "end_date_time": "2023-06-01T22:51:03.902794+00:00",
+         "input_location": "Y:\\ephys\\temp\\665847_2023-06-01_15-15-32",
+         "output_location": "s3://aind-ephys-data/ecephys_665847_2023-06-01_15-15-32",
+         "code_url": "https://github.com/AllenNeuralDynamics/aind-data-transfer",
+         "code_version": null,
+         "parameters": {
+            "aws_param_store_name": null,
+            "codeocean_domain": "https://codeocean.allenneuraldynamics.org",
+            "codeocean_trigger_capsule_id": "1991c31e-40d2-4b3c-a344-0628705d2861",
+            "codeocean_trigger_capsule_version": null,
+            "metadata_service_domain": "http://aind-metadata-service",
+            "aind_data_transfer_repo_location": "https://github.com/AllenNeuralDynamics/aind-data-transfer",
+            "video_encryption_password": "**********",
+            "codeocean_api_token": "**********",
+            "s3_bucket": "aind-ephys-data",
+            "experiment_type": "ecephys",
+            "modality": {
+               "name": "Extracellular electrophysiology",
+               "abbreviation": "ecephys"
+            },
+            "subject_id": "665847",
+            "acq_date": "2023-06-01",
+            "acq_time": "15:15:32",
+            "data_source": "Y:\\ephys\\temp\\665847_2023-06-01_15-15-32",
+            "process_name": "Ephys preprocessing",
+            "temp_directory": "D:\\",
+            "behavior_dir": null,
+            "metadata_dir": null,
+            "extra_configs": null,
+            "log_level": "WARNING",
+            "metadata_dir_force": false,
+            "dry_run": false,
+            "compress_raw_data": true,
+            "data_reader": "openephys",
+            "clip_n_frames": 100,
+            "compress_write_output_format": "zarr",
+            "compress_max_windows_filename_len": 150,
+            "compressor_name": "wavpack",
+            "compressor_kwargs": {
+               "level": 3
+            },
+            "compress_job_save_kwargs": {
+               "n_jobs": 24
+            },
+            "compress_chunk_duration": "1s",
+            "scale_num_chunks_per_segment": 100,
+            "scale_chunk_size": 10000
+         },
+         "outputs": null,
+         "notes": null
+      }
+   ]
+}

@@ -88,7 +88,7 @@ class OphysSession(AindCoreModel):
     """Description of an ophys session. This is being deprecated after 2023-11-01. Use Session class instead."""
 
     schema_version: str = Field(
-        "0.2.12",
+        "0.2.13",
         description="schema version",
         title="Schema Version",
         const=True,

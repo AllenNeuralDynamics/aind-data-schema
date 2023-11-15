@@ -38,6 +38,8 @@ s = Session(
                 ),
             ],
             camera_names=["Face Camera"],
+            mouse_platform_name="Mouse tube",
+            active_mouse_platform=False,
             ophys_fovs=[
                 FieldOfView(
                     index=0,

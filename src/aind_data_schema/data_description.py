@@ -7,7 +7,7 @@ from datetime import datetime
 from enum import Enum, EnumMeta
 from typing import Any, List, Optional, Union
 
-from pydantic import Field, ValidationError, validator
+from pydantic import Field, ValidationError, root_validator, validator
 
 from aind_data_schema.base import AindCoreModel, AindModel, BaseName, BaseNameEnumMeta, PIDName, Registry
 
@@ -203,7 +203,7 @@ class RelatedData(AindModel):
 class DataDescription(AindCoreModel):
     """Description of a logical collection of data files"""
 
-    schema_version: str = Field("0.10.2", title="Schema Version", const=True)
+    schema_version: str = Field("0.11.0", title="Schema Version", const=True)
     license: str = Field("CC-BY-4.0", title="License", const=True)
 
     creation_time: datetime = Field(
@@ -216,12 +216,16 @@ class DataDescription(AindCoreModel):
         description="Name of data, conventionally also the name of the directory containing all data and metadata",
         title="Name",
     )
+    label: Optional[str] = Field(
+        None,
+        description="A short name for the data, used in file names and labels",
+        title="Label",
+    )
     institution: Institution = Field(
         ...,
         description="An established society, corporation, foundation or other organization that collected this data",
         title="Institution",
     )
-
     funding_source: List[Funding] = Field(
         ...,
         title="Funding source",
@@ -277,22 +281,6 @@ class DataDescription(AindCoreModel):
     )
     data_summary: Optional[str] = Field(None, title="Data summary", description="Semantic summary of experimental goal")
 
-    # TODO: We need to remove all the custom class constructors on pydantic
-    #  models
-    def __init__(self, label=None, **kwargs):
-        """Construct a generic DataDescription"""
-
-        # Ideally, we'd like to just use validators to parse information,
-        # but we need to get rid of these init methods first since they
-        # don't get called on here
-        super().__init__(**kwargs)
-
-        if label is not None:
-            self.name = build_data_name(
-                label,
-                creation_datetime=self.creation_time,
-            )
-
     @classmethod
     def parse_name(cls, name):
         """Decompose a DataDescription name string into component parts"""
@@ -307,6 +295,21 @@ class DataDescription(AindCoreModel):
             label=m.group("label"),
             creation_time=creation_time,
         )
+
+    @root_validator
+    def build_name(cls, v):
+        """sets the name of the file"""
+
+        if not v.get("creation_time"):
+            raise ValidationError("creation_time must be set")
+        else:
+            label = v.get("label")
+            if not v.get("name") and label:
+                v["name"] = build_data_name(v.get("label"), creation_datetime=v.get("creation_time"))
+            elif not v.get("name"):
+                raise ValidationError("Either label or name must be set")
+
+        return v
 
     @validator("data_level", pre=True, always=True)
     def upgrade_data_level(cls, value: Union[str, DataLevel]):
@@ -330,17 +333,18 @@ class DerivedDataDescription(DataDescription):
     """A logical collection of data files derived via processing"""
 
     input_data_name: str
+    process_name: Optional[str] = Field(
+        ...,
+        regex=DataRegex.NO_SPECIAL_CHARS.value,
+        description="Name of the process that created the data",
+        title="Process name",
+    )
     data_level: DataLevel = Field(
         DataLevel.DERIVED,
         description="level of processing that data has undergone",
         title="Data Level",
         const=True,
     )
-
-    def __init__(self, process_name, **kwargs):
-        """Construct a derived data description"""
-        input_data_name = kwargs["input_data_name"]
-        super().__init__(label=f"{input_data_name}_{process_name}", **kwargs)
 
     @classmethod
     def parse_name(cls, name):
@@ -359,6 +363,24 @@ class DerivedDataDescription(DataDescription):
             creation_time=creation_time,
             input_data_name=m.group("input"),
         )
+
+    @root_validator
+    def build_name(cls, v):
+        """returns the label of the file"""
+
+        process_name = v.get("process_name")
+
+        if not v.get("creation_time"):
+            raise ValidationError("creation_time must be set")
+        else:
+            if process_name:
+                v["name"] = build_data_name(
+                    f"{v.get('input_data_name')}_{process_name}", creation_datetime=v.get("creation_time")
+                )
+            else:
+                v["name"] = build_data_name(f"{v.get('input_data_name')}", creation_datetime=v.get("creation_time"))
+
+        return v
 
     @classmethod
     def from_data_description(cls, data_description: DataDescription, process_name: str, **kwargs):
@@ -431,20 +453,21 @@ class RawDataDescription(DataDescription):
         const=True,
     )
 
-    def __init__(self, platform, subject_id, **kwargs):
-        """Construct a raw data description"""
+    @root_validator
+    def build_name(cls, v):
+        """returns the label of the file"""
 
-        if isinstance(platform, dict):
-            platform_abbreviation = platform.get("abbreviation")
+        platform = v.get("platform")
+
+        platform_abbreviation = platform.value.abbreviation
+        if not v.get("creation_time"):
+            raise ValidationError("creation_time must be set")
         else:
-            platform_abbreviation = platform.value.abbreviation
+            v["name"] = build_data_name(
+                f"{platform_abbreviation}_{v.get('subject_id')}", creation_datetime=v.get("creation_time")
+            )
 
-        super().__init__(
-            label=f"{platform_abbreviation}_{subject_id}",
-            platform=platform,
-            subject_id=subject_id,
-            **kwargs,
-        )
+        return v
 
     @classmethod
     def parse_name(cls, name):
@@ -483,11 +506,19 @@ class AnalysisDescription(DataDescription):
         ..., regex=DataRegex.NO_SPECIAL_CHARS.value, description="Name of the analysis performed", title="Analysis name"
     )
 
-    @property
-    def label(self):
+    @root_validator
+    def build_name(cls, v):
         """returns the label of the file"""
 
-        return f"{self.project_name}_{self.analysis_name}"
+        project_name = v.get("project_name")
+        analysis_name = v.get("analysis_name")
+
+        if not v.get("creation_time"):
+            raise ValidationError("creation_time must be set")
+        else:
+            v["name"] = build_data_name(f"{project_name}_{analysis_name}", creation_datetime=v.get("creation_time"))
+
+        return v
 
     @classmethod
     def parse_name(cls, name):

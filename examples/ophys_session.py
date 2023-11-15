@@ -3,7 +3,7 @@
 import datetime
 
 from aind_data_schema.data_description import Modality
-from aind_data_schema.session import Detector, FiberPhotometryAssembly, Laser, Session, Stream
+from aind_data_schema.session import Detector, FiberConnection, Laser, Session, Stream
 
 t = datetime.datetime(2022, 7, 12, 7, 00, 00)
 
@@ -37,20 +37,22 @@ s = Session(
                 ),
             ],
             detectors=[Detector(name="Hamamatsu Camera", exposure_time=10, trigger_type="Internal")],
-            fiber_photometry_assemblies=[
-                FiberPhotometryAssembly(
+            fiber_connections=[
+                FiberConnection(
                     patch_cord_name="Patch Cord A",
                     patch_cord_output_power=40,
                     output_power_unit="microwatt",
                     fiber_name="Fiber A",
                 ),
-                FiberPhotometryAssembly(
+                FiberConnection(
                     patch_cord_name="Patch Cord B",
                     patch_cord_output_power=43,
                     output_power_unit="microwatt",
                     fiber_name="Fiber B",
                 ),
             ],
+            mouse_platform_name="Disc",
+            active_mouse_platform=False,
             notes="Internal trigger. GRAB-DA2m shows signal. Unclear about GRAB-rAC",
         )
     ],

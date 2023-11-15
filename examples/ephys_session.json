@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/session.py",
-   "schema_version": "0.0.4",
+   "schema_version": "0.0.8",
    "experimenter_full_name": [
       "Jane Doe"
    ],
@@ -68,6 +68,18 @@
                ]
             }
          ],
+         "stick_microscopes": [
+            {
+               "assembly_name": "Stick_assembly",
+               "arc_angle": 24,
+               "module_angle": 10,
+               "angle_unit": "degrees",
+               "rotation_angle": 0.0,
+               "coordinate_transform": null,
+               "calibration_date": null,
+               "notes": null
+            }
+         ],
          "manipulator_modules": [
             {
                "assembly_name": "Laser_assemblyA",
@@ -89,27 +101,20 @@
             }
          ],
          "detectors": null,
-         "fiber_photometry_assemblies": null,
+         "fiber_connections": null,
+         "fiber_modules": null,
          "ophys_fovs": null,
          "slap_fovs": null,
          "stack_parameters": null,
          "stimulus_device_names": null,
+         "mouse_platform_name": "Running Wheel",
+         "active_mouse_platform": false,
          "notes": null
       }
    ],
    "stimulus_epochs": null,
    "reward_delivery": null,
-   "stick_microscopes": [
-      {
-         "assembly_name": "Stick_assembly",
-         "arc_angle": 24,
-         "module_angle": 10,
-         "angle_unit": "degrees",
-         "rotation_angle": 0.0,
-         "coordinate_transform": null,
-         "calibration_date": null,
-         "notes": null
-      }
-   ],
+   "reward_consumed_total": null,
+   "reward_consumed_unit": "microliter",
    "notes": null
 }
