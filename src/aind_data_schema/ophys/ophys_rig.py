@@ -20,7 +20,7 @@ from aind_data_schema.device import (
     Disc,
     Filter,
     HarpDevice,
-    ImmersionMedia,
+    ImmersionMedium,
     Laser,
     Lens,
     LightEmittingDiode,
@@ -63,7 +63,7 @@ class Detector(Device):
     detector_type: DetectorType = Field(..., title="Detector Type")
     data_interface: DataInterface = Field(..., title="Data interface")
     cooling: Cooling = Field(..., title="Cooling")
-    immersion: Optional[ImmersionMedia] = Field(None, title="Immersion")
+    immersion: Optional[ImmersionMedium] = Field(None, title="Immersion")
 
     chroma: Optional[CameraChroma] = Field(None, title="Camera chroma")
     bit_depth: Optional[int] = Field(None, title="Bit depth")
