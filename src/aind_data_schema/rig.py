@@ -43,36 +43,6 @@ from aind_data_schema.device import (
     Wheel,
 )
 
-devices = [Calibration,
-    CameraAssembly,
-    DAQDevice,
-    Detector,
-    Device,
-    DigitalMicromirrorDevice,
-    Disc,
-    EphysAssembly,
-    Filter,
-    HarpDevice,
-    Laser,
-    LaserAssembly,
-    Lens,
-    LightEmittingDiode,
-    Monitor,
-    NeuropixelsBasestation,
-    Objective,
-    Olfactometer,
-    OpenEphysAcquisitionBoard,
-    Patch,
-    PockelsCell,
-    PolygonalScanner,
-    RewardDelivery,
-    Speaker,
-    StickMicroscopeAssembly,
-    Treadmill,
-    Tube,
-    Wheel,
-]
-
 class Rig(AindCoreModel):
     """Description of a rig"""
 
@@ -132,25 +102,6 @@ class Rig(AindCoreModel):
 
         device_names = []
 
-        # model_types = [type(model) for model in devices]
-
-        # to_check = [field for field in values.keys() if any(isinstance(values.get(field), model) for model in model_types)]
-        # print("values: ", values.keys())
-        # print("checked: ", to_check)
-
-        # to_check2 = []
-
-        # for field in values.keys():
-        #     cur_value = values.get(field)
-        #     for model_type in devices:
-        #         if type(cur_value) is list:
-        #             for value in cur_value:
-        #                     if isinstance(value, model_type):
-        #                         to_check2 += [field]
-        #         else:
-        #             if isinstance(cur_value, model_type):
-        #                 to_check2 += [field]
-
         cameras = values.get("cameras")
         ephys_assemblies = values.get("ephys_assemblies")
         laser_assemblies = values.get("laser_assemblies")
@@ -169,28 +120,8 @@ class Rig(AindCoreModel):
         additional_devices = values.get("additional_devices")
         daqs = values.get("daqs")
 
-
-
         if daqs is None:
             return values
-
-        # device_names = [None]
-
-        # for field in to_check2:
-        #     v = values.get(field)
-        #     if v is not None:
-        #         if isinstance(v, list):
-        #             for item in v:
-        #                 print("type: ", type(item))
-        #                 print("item: ", item)
-        #                 if isinstance(item, CameraAssembly):
-        #                     device_names += item.camera.name
-        #                 else:
-        #                     device_names += [device.name for device in item]
-        #         else:
-        #             device_names += [v.name]
-
-        #         print(device_names)
 
         for device_type in [daqs, stimulus_devices, light_sources, patch_coords,detectors, objectives, filters, lenses, digital_micromirror_devices, polygonal_scanners, pockels_cells, additional_devices]:
             if device_type is not None:
@@ -209,10 +140,6 @@ class Rig(AindCoreModel):
         if mouse_platform is not None:
             device_names += [mouse_platform.name]
 
-    
-        print(device_names)
-
-
         for daq in daqs:
             if daq.channels is not None:
                 for channel in daq.channels:
@@ -224,6 +151,7 @@ class Rig(AindCoreModel):
                         )
 
         return values
+    
     def validate_modality(cls, v):  # noqa: C901
         """Validator to ensure all expected fields are present, based on given modality"""
 
