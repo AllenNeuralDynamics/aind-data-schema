@@ -128,14 +128,43 @@ class Rig(AindCoreModel):
         actually exist
         """
 
-        model_types = [type(model) for model in devices]
+        device_names = []
 
-        to_check = [field for field in values.keys() if any(isinstance(values.get(field), model) for model in devices)]
+        # model_types = [type(model) for model in devices]
+
+        # to_check = [field for field in values.keys() if any(isinstance(values.get(field), model) for model in model_types)]
+        # print("values: ", values.keys())
+        # print("checked: ", to_check)
+
+        # to_check2 = []
+
+        # for field in values.keys():
+        #     cur_value = values.get(field)
+        #     for model_type in devices:
+        #         if type(cur_value) is list:
+        #             for value in cur_value:
+        #                     if isinstance(value, model_type):
+        #                         to_check2 += [field]
+        #         else:
+        #             if isinstance(cur_value, model_type):
+        #                 to_check2 += [field]
 
         cameras = values.get("cameras")
         ephys_assemblies = values.get("ephys_assemblies")
         laser_assemblies = values.get("laser_assemblies")
         mouse_platform = values.get("mouse_platform")
+        stimulus_devices = values.get("stimulus_devices")
+        stick_microscopes = values.get("stick_microscopes")
+        light_sources = values.get("light_sources")
+        patch_coords = values.get("patch_cords")
+        detectors = values.get("detectors")
+        objectives = values.get("objectives")
+        filters = values.get("filters")
+        lenses = values.get("lenses")  
+        digital_micromirror_devices = values.get("digital_micromirror_devices")
+        polygonal_scanners = values.get("polygonal_scanners")
+        pockels_cells = values.get("pockels_cells")
+        additional_devices = values.get("additional_devices")
         daqs = values.get("daqs")
 
 
@@ -143,23 +172,36 @@ class Rig(AindCoreModel):
         if daqs is None:
             return values
 
-        device_names = [None]
+        # device_names = [None]
 
-        for field in to_check:
-            v = values.get(field)
-            if v is not None:
-                if isinstance(v, list):
-                    device_names += [json.dumps(device) for device in values.get(field)]
-                else:
-                    device_names += [v.name]
+        # for field in to_check2:
+        #     v = values.get(field)
+        #     if v is not None:
+        #         if isinstance(v, list):
+        #             for item in v:
+        #                 print("type: ", type(item))
+        #                 print("item: ", item)
+        #                 if isinstance(item, CameraAssembly):
+        #                     device_names += item.camera.name
+        #                 else:
+        #                     device_names += [device.name for device in item]
+        #         else:
+        #             device_names += [v.name]
 
-                print(device_names)
+        #         print(device_names)
 
-        if cameras is not None:
-            device_names += [c.camera.name for c in cameras]
+        for device_type in [daqs, stimulus_devices, light_sources, patch_coords,detectors, objectives, filters, lenses, digital_micromirror_devices, polygonal_scanners, pockels_cells, additional_devices]:
+            if device_type is not None:
+                device_names += [device.name for device in device_type]
 
-        if daqs is not None:
-            device_names += [daq.name for daq in daqs]
+        for camera_device in [cameras, stick_microscopes]:
+            if camera_device is not None:
+                device_names += [camera.camera.name for camera in camera_device]
+
+        for nested_device in [ephys_assemblies, laser_assemblies]:
+            if nested_device is not None:
+                device_names += [device.name for device in nested_device]
+
 
         if ephys_assemblies is not None:
             device_names += [probe.name for ephys_assembly in ephys_assemblies for probe in ephys_assembly.probes]
@@ -169,6 +211,10 @@ class Rig(AindCoreModel):
 
         if mouse_platform is not None:
             device_names += [mouse_platform.name]
+
+    
+        print(device_names)
+
 
         for daq in daqs:
             if daq.channels is not None:
