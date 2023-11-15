@@ -548,7 +548,7 @@ class Detector(Device):
     detector_type: DetectorType = Field(..., title="Detector Type")
     data_interface: DataInterface = Field(..., title="Data interface")
     cooling: Cooling = Field(..., title="Cooling")
-    immersion: Optional[ImmersionMedia] = Field(None, title="Immersion")
+    immersion: Optional[ImmersionMedium] = Field(None, title="Immersion")
     chroma: Optional[CameraChroma] = Field(None, title="Camera chroma")
     sensor_width: Optional[int] = Field(None, title="Width of the sensor in pixels")
     sensor_height: Optional[int] = Field(None, title="Height of the sensor in pixels")
