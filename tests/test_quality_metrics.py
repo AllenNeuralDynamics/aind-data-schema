@@ -18,14 +18,14 @@ class QualityMetricsTests(unittest.TestCase):
         with self.assertRaises(ValidationError):
             q = QualityMetrics()
 
-        now = datetime.date.now()
+        now = datetime.datetime.now()
 
         q = QualityMetrics(
-            overall_status_date=now,
+            overall_status_date=now.date(),
             overall_status="Pass",
             evaluations=[QCEvaluation(
                 evaluator_full_name="Bob",
-                evaluation_date=now,
+                evaluation_date=now.date(),
                 evauation_modality=Modality.ECEPHYS,
                 evaluation_stage="Spike sorting",
                 qc_metrics={"number_good_units": [622]},
