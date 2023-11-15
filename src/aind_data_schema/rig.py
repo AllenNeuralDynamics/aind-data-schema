@@ -198,11 +198,6 @@ class Rig(AindCoreModel):
             if camera_device is not None:
                 device_names += [camera.camera.name for camera in camera_device]
 
-        for nested_device in [ephys_assemblies, laser_assemblies]:
-            if nested_device is not None:
-                device_names += [device.name for device in nested_device]
-
-
         if ephys_assemblies is not None:
             device_names += [probe.name for ephys_assembly in ephys_assemblies for probe in ephys_assembly.probes]
 
