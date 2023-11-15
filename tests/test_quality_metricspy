@@ -19,20 +19,18 @@ class QualityMetricsTests(unittest.TestCase):
 
         now = datetime.date.now()
 
-        e = QCEvaluation(
-            evaluator_full_name="Bob",
-            evaluation_date=now,
-            evauation_modality=Modality.ECEPHYS,
-            evaluation_stage="Spike sorting",
-            qc_metrics={"number_good_units": 622, "number_good_probes":2},
-            stage_status="Pass",
-        )
-
         q = QualityMetrics(
-            
             overall_status_date=now,
             overall_status="Pass",
-            evaluations=[e],
+            evaluations=[QCEvaluation(
+                evaluator_full_name="Bob",
+                evaluation_date=now,
+                evauation_modality=Modality.ECEPHYS,
+                evaluation_stage="Spike sorting",
+                qc_metrics={"number_good_units": 622, "number_good_probes":2},
+                stage_status="Pass",
+                ),
+            ],
         )
 
         assert q is not None
