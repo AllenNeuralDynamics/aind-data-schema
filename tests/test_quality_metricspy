@@ -28,7 +28,7 @@ class QualityMetricsTests(unittest.TestCase):
                 evaluation_date=now,
                 evauation_modality=Modality.ECEPHYS,
                 evaluation_stage="Spike sorting",
-                qc_metrics={"number_good_units": [622], "number_good_probes": [2]},
+                qc_metrics={"number_good_units": [622]},
                 stage_status="Pass",
                 ),
             ],
