@@ -9,7 +9,7 @@ from pydantic import Field
 from typing_extensions import Annotated
 
 from aind_data_schema.base import AindModel
-from aind_data_schema.models.coordinates import RelativePosition
+from aind_data_schema.models.coordinates import RelativePosition, Size3d
 from aind_data_schema.models.manufacturers import (
     CAMERA_MANUFACTURERS,
     DAQ_DEVICE_MANUFACTURERS,
@@ -27,6 +27,52 @@ from aind_data_schema.models.manufacturers import (
 )
 from aind_data_schema.models.reagent import Reagent
 from aind_data_schema.models.units import FrequencyUnit, PowerUnit, SizeUnit, SpeedUnit, TemperatureUnit, UnitlessUnit
+
+
+class ImagingDeviceType(str, Enum):
+    """Imaginge device type name"""
+
+    BEAM_EXPANDER = "Beam expander"
+    SAMPLE_CHAMBER = "Sample Chamber"
+    DIFFUSER = "Diffuser"
+    GALVO = "Galvo"
+    LASER_COMBINER = "Laser combiner"
+    LASER_COUPLER = "Laser coupler"
+    PRISM = "Prism"
+    OBJECTIVE = "Objective"
+    ROTATION_MOUNT = "Rotation mount"
+    SLIT = "Slit"
+    TUNABLE_LENS = "Tunable lens"
+    OTHER = "Other"
+
+
+class ImagingInstrumentType(str, Enum):
+    """Experiment type name"""
+
+    CONFOCAL = "confocal"
+    DISPIM = "diSPIM"
+    EXASPIM = "exaSPIM"
+    ECEPHYS = "ecephys"
+    MESOSPIM = "mesoSPIM"
+    OTHER = "Other"
+    SMARTSPIM = "SmartSPIM"
+    TWO_PHOTON = "Two photon"
+
+
+class StageAxisDirection(str, Enum):
+    """Direction of motion for motorized stage"""
+
+    DETECTION_AXIS = "Detection axis"
+    ILLUMINATION_AXIS = "Illumination axis"
+    PERPENDICULAR_AXIS = "Perpendicular axis"
+
+
+class StageAxisName(str, Enum):
+    """Axis names for motorized stages as configured by hardware"""
+
+    X = "X"
+    Y = "Y"
+    Z = "Z"
 
 
 class DeviceDriver(str, Enum):
@@ -201,6 +247,34 @@ class SpoutSide(str, Enum):
     RIGHT = "Right"
     CENTER = "Center"
     OTHER = "Other"
+
+
+class MriScanSequence(str, Enum):
+    """MRI scan sequence"""
+
+    RARE = "RARE"
+    OTHER = "Other"
+
+
+class ScanType(str, Enum):
+    """Type of scan"""
+
+    SETUP = "Set Up"
+    SCAN_3D = "3D Scan"
+
+
+class ScannerLocation(str, Enum):
+    """location of scanner"""
+
+    FRED_HUTCH = "Fred Hutch"
+    UW_SLU = "UW SLU"
+
+
+class MagneticStrength(int, Enum):
+    """Strength of magnet"""
+
+    MRI_7T = 7
+    MRI_14T = 14
 
 
 class Device(AindModel):
@@ -612,6 +686,18 @@ class PockelsCell(Device):
     time_setting_unit: UnitlessUnit = Field(UnitlessUnit.FC, title="time setting unit")
 
 
+class Enclosure(Device):
+    """Description of an enclosure"""
+
+    device_type: Literal["Enclosure"] = "Enclosure"
+    size: Size3d = Field(..., title="Size")
+    internal_material: str = Field(..., title="Internal material")
+    external_material: str = Field(..., title="External material")
+    grounded: bool = Field(..., title="Grounded")
+    laser_interlock: bool = Field(..., title="Laser interlock")
+    air_filtration: bool = Field(..., title="Air filtration")
+
+
 class MousePlatform(Device):
     """Description of a mouse platform"""
 
@@ -731,9 +817,43 @@ class Olfactometer(Device):
     position: Optional[RelativePosition] = Field(None, title="Relative position of the monitor")
 
 
+class AdditionalImagingDevice(Device):
+    """Description of additional devices"""
+
+    device_type: Literal["AdditionalImagingDevice"] = "AdditionalImagingDevice"
+    type: ImagingDeviceType = Field(..., title="Device type")
+
+
+class ScanningStage(MotorizedStage):
+    """Description of a scanning motorized stages"""
+
+    stage_axis_direction: StageAxisDirection = Field(..., title="Direction of stage axis")
+    stage_axis_name: StageAxisName = Field(..., title="Name of stage axis")
+
+
+class OpticalTable(Device):
+    """Description of Optical Table"""
+
+    device_type: Literal["OpticalTable"] = "OpticalTable"
+    length: Optional[Decimal] = Field(None, title="Length (inches)", units="inches", ge=0)
+    width: Optional[Decimal] = Field(None, title="Width (inches)", units="inches", ge=0)
+    table_size_unit: SizeUnit = Field(SizeUnit.IN, title="Table size unit")
+    vibration_control: Optional[bool] = Field(None, title="Vibration control")
+
+
+class Scanner(Device):
+    """Description of a MRI Scanner"""
+
+    device_type: Literal["Scanner"] = "Scanner"
+    scanner_location: ScannerLocation = Field(..., title="Scanner location")
+    magnetic_strength: MagneticStrength = Field(..., title="Magnetic strength (T)", units="T")
+    #  TODO: Check if this should go into the units module
+    magnetic_strength_unit: str = Field("T", title="Magnetic strength unit")
+
+
 MOUSE_PLATFORMS = Annotated[Union[tuple(MousePlatform.__subclasses__())], Field(discriminator="device_type")]
 STIMULUS_DEVICES = Annotated[Union[Monitor, Olfactometer, RewardDelivery, Speaker], Field(discriminator="device_type")]
 DAQ_DEVICES = Annotated[
     Union[HarpDevice, NeuropixelsBasestation, OpenEphysAcquisitionBoard, DAQDevice], Field(discriminator="device_type")
 ]
-LIGHT_SOURCES = Annotated[Union[Laser, LightEmittingDiode], Field(discriminator="device_type")]
+LIGHT_SOURCES = Annotated[Union[Laser, LightEmittingDiode, Lamp], Field(discriminator="device_type")]
