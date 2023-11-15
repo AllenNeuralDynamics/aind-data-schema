@@ -13,6 +13,7 @@ from aind_data_schema.data_description import Modality
 
 
 class Status(Enum):
+    """QC Status"""
 
     FAIL = "Fail"
     PASS = "Pass"
