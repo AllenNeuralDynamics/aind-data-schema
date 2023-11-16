@@ -3,20 +3,26 @@
 from datetime import datetime
 from decimal import Decimal
 from enum import Enum
-from typing import List, Optional, Union
+from typing import List, Optional, Union, Literal
 
 from pydantic import Field, root_validator
-from pydantic.typing import Annotated, Literal
 
 from aind_data_schema.base import AindCoreModel, AindModel
-from aind_data_schema.models.device_configurations import FiberConnectionConfigs, EphysProbeConfigs, LIGHT_SOURCE_CONFIGS, DetectorConfigs, RewardDeliveryConfigs
+from aind_data_schema.imaging.tile import Channel
 from aind_data_schema.models.coordinates import CcfCoords, Coordinates3d
+from aind_data_schema.models.modalities import MODALITIES
+from aind_data_schema.models.device_configurations import (
+    LIGHT_SOURCE_CONFIGS,
+    DetectorConfigs,
+    EphysProbeConfigs,
+    FiberConnectionConfigs,
+    RewardDeliveryConfigs,
+)
+
 # from aind_data_schema.data_description import Modality
 from aind_data_schema.models.devices import Calibration, Maintenance, RelativePosition, SpoutSide
-from aind_data_schema.imaging.tile import Channel
 from aind_data_schema.models.stimulus import StimulusEpoch
 from aind_data_schema.models.units import AngleUnit, FrequencyUnit, MassUnit, PowerUnit, SizeUnit, TimeUnit, VolumeUnit
-
 
 # Ophys components
 # class FiberConnection(AindModel):
@@ -131,10 +137,10 @@ class DomeModule(AindModel):
     """Movable module that is mounted on the ephys dome insertion system"""
 
     assembly_name: str = Field(..., title="Assembly name")
-    arc_angle: Decimal = Field(..., title="Arc Angle", units="degrees")
-    module_angle: Decimal = Field(..., title="Module Angle", units="degrees")
+    arc_angle: Decimal = Field(..., title="Arc Angle (deg)")
+    module_angle: Decimal = Field(..., title="Module Angle (deg)")
     angle_unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
-    rotation_angle: Optional[Decimal] = Field(0.0, title="Rotation Angle", units="degrees")
+    rotation_angle: Optional[Decimal] = Field(Decimal(0.0), title="Rotation Angle (deg)")
     coordinate_transform: Optional[str] = Field(
         None,
         title="Transform from local manipulator axes to rig",
@@ -148,8 +154,8 @@ class ManipulatorModule(DomeModule):
     """A dome module connected to a 3-axis manipulator"""
 
     primary_targeted_structure: str = Field(..., title="Targeted structure")
-    targeted_ccf_coordinates: Optional[List[CcfCoords]] = Field(
-        None,
+    targeted_ccf_coordinates: List[CcfCoords] = Field(
+        [],
         title="Targeted CCF coordinates",
     )
     manipulator_coordinates: Coordinates3d = Field(
@@ -229,7 +235,7 @@ class Stream(AindModel):
 
     stream_start_time: datetime = Field(..., title="Stream start time")
     stream_end_time: datetime = Field(..., title="Stream stop time")
-    stream_modalities: List[Modality] = Field(..., title="Modalities")
+    stream_modalities: List[MODALITIES] = Field(..., title="Modalities")
     daq_names: List[str] = Field([], title="DAQ devices")
     camera_names: List[str] = Field([], title="Cameras")
     light_sources: List[LIGHT_SOURCE_CONFIGS] = Field([], title="Light Sources")
@@ -240,10 +246,10 @@ class Stream(AindModel):
         description="Must match stick microscope assemblies in rig file",
     )
     manipulator_modules: List[ManipulatorModule] = Field([], title="Manipulator modules")
-    detectors: List[DetectorConfigs] = Field([], title="Detectors", unique_items=True)
+    detectors: List[DetectorConfigs] = Field([], title="Detectors")
     fiber_connections: List[FiberConnectionConfigs] = Field([], title="Implanted fiber photometry devices")
     fiber_modules: List[FiberModule] = Field([], title="Inserted fiber modules")
-    ophys_fovs: List[FieldOfView] = Field([], title="Fields of view", unique_items=True)
+    ophys_fovs: List[FieldOfView] = Field([], title="Fields of view")
     slap_fovs: Optional[SlapFieldOfView] = Field(None, title="Slap2 field of view")
     stack_parameters: Optional[Stack] = Field(None, title="Stack parameters")
     stimulus_device_names: List[str] = Field([], title="Stimulus devices")
@@ -308,8 +314,7 @@ class Stream(AindModel):
 class Session(AindCoreModel):
     """Description of a physiology and/or behavior session"""
 
-    _DESCRIBED_BY_URL: str = AindCoreModel._DESCRIBED_BY_BASE_URL + "aind_data_schema/session.py"
-
+    _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/session.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": True})
     schema_version: Literal["0.1.0"] = Field("0.1.0")
 
@@ -333,14 +338,12 @@ class Session(AindCoreModel):
     animal_weight_prior: Optional[Decimal] = Field(
         None,
         title="Animal weight (g)",
-        description="Animal weight before procedure",
-        units="g",
+        description="Animal weight before procedure"
     )
     animal_weight_post: Optional[Decimal] = Field(
         None,
         title="Animal weight (g)",
-        description="Animal weight after procedure",
-        units="g",
+        description="Animal weight after procedure"
     )
     weight_unit: MassUnit = Field(MassUnit.G, title="Weight unit")
     data_streams: List[Stream] = Field(
@@ -349,9 +352,9 @@ class Session(AindCoreModel):
         description=(
             "A data stream is a collection of devices that are recorded simultaneously. Each session can include"
             " multiple streams (e.g., if the manipulators are moved to a new location)"
-        )
+        ),
     )
-    stimulus_epochs: Optional[List[StimulusEpoch]] = Field(None, title="Stimulus")
+    stimulus_epochs: List[StimulusEpoch] = Field([], title="Stimulus")
     reward_delivery: Optional[RewardDeliveryConfigs] = Field(None, title="Reward delivery")
     reward_consumed_total: Optional[Decimal] = Field(None, title="Total reward consumed (uL)")
     reward_consumed_unit: VolumeUnit = Field(VolumeUnit.UL, title="Reward consumed unit")

@@ -29,7 +29,7 @@ class AllenInstituteForNeuralDynamics(Institution):
     name: Literal["Allen Institute for Neural Dynamics"] = "Allen Institute for Neural Dynamics"
     abbreviation: Literal["AIND"] = "AIND"
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
-    registry_identifier: Literal["03cpe7c52"] = "04szwah67"
+    registry_identifier: Literal["04szwah67"] = "04szwah67"
 
 
 class ColumbiaUniversity(Institution):
@@ -59,7 +59,7 @@ class NationalInstituteOfNeurologicalDisordersAndStroke(Institution):
     ] = "National Institute of Neurological Disorders and Stroke"
     abbreviation: Literal["NINDS"] = "NINDS"
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
-    registry_identifier: Literal["03cpe7c52"] = "01s5ya894"
+    registry_identifier: Literal["01s5ya894"] = "01s5ya894"
 
 
 class NewYorkUniversity(Institution):

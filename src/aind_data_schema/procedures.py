@@ -6,7 +6,7 @@ from enum import Enum
 from typing import Final, List, Literal, Optional, Set, Union
 
 from pydantic import Field, field_validator
-from pydantic_core.core_schema import FieldValidationInfo
+from pydantic_core.core_schema import ValidationInfo
 from typing_extensions import Annotated
 
 from aind_data_schema.base import AindCoreModel, AindModel
@@ -146,7 +146,7 @@ class SpecimenProcedure(AindModel):
     notes: Optional[str] = Field(None, title="Notes")
 
     @field_validator("notes")
-    def validate_other(cls, v, info: FieldValidationInfo):
+    def validate_other(cls, v, info: ValidationInfo):
         """Adds a validation check on 'notes' to verify it is not None if specimen_procedure_type is OTHER"""
 
         procedure_type = info.data["procedure_type"]
@@ -193,6 +193,7 @@ class Stain(Reagent):
     """Description of a non-oligo probe stain"""
 
     stain_type: StainType = Field(..., title="Stain type")
+    # TODO: It might be easier to maintain to avoid dynamic model creation
     concentration: create_unit_with_value("concentration", Decimal, ConcentrationUnit, ConcentrationUnit.UM) = Field(
         ..., title="Concentration (uM)"
     )
@@ -251,7 +252,7 @@ class Anaesthetic(AindModel):
     type: str = Field(..., title="Type")
     duration: Decimal = Field(..., title="Duration")
     duration_unit: TimeUnit = Field(TimeUnit.M, title="Duration unit")
-    level: Decimal = Field(..., title="Level (percent)", units="percent", ge=1, le=5)
+    level: Decimal = Field(..., title="Level (percent)", ge=1, le=5)
 
 
 class SubjectProcedure(AindModel):
@@ -269,14 +270,12 @@ class SubjectProcedure(AindModel):
     animal_weight_prior: Optional[Decimal] = Field(
         None,
         title="Animal weight (g)",
-        description="Animal weight before procedure",
-        units="g",
+        description="Animal weight before procedure"
     )
     animal_weight_post: Optional[Decimal] = Field(
         None,
         title="Animal weight (g)",
-        description="Animal weight after procedure",
-        units="g",
+        description="Animal weight after procedure"
     )
     weight_unit: MassUnit = Field(MassUnit.G, title="Weight unit")
     anaesthesia: Optional[Anaesthetic] = Field(None, title="Anaesthesia")
@@ -289,8 +288,8 @@ class Craniotomy(SubjectProcedure):
     procedure_type: Literal["Craniotomy"] = Field("Craniotomy", title="Procedure type")
     craniotomy_type: CraniotomyType = Field(..., title="Craniotomy type")
     craniotomy_hemisphere: Optional[Side] = Field(None, title="Craniotomy hemisphere")
-    craniotomy_coordinates_ml: Optional[Decimal] = Field(None, title="Craniotomy coordinate ML (mm)", units="mm")
-    craniotomy_coordinates_ap: Optional[Decimal] = Field(None, title="Craniotomy coordinates AP (mm)", units="mm")
+    craniotomy_coordinates_ml: Optional[Decimal] = Field(None, title="Craniotomy coordinate ML (mm)")
+    craniotomy_coordinates_ap: Optional[Decimal] = Field(None, title="Craniotomy coordinates AP (mm)")
     craniotomy_coordinates_unit: SizeUnit = Field(SizeUnit.MM, title="Craniotomy coordinates unit")
     craniotomy_coordinates_reference: Optional[CoordinateReferenceLocation] = Field(
         None, title="Craniotomy coordinate reference"
@@ -298,11 +297,10 @@ class Craniotomy(SubjectProcedure):
     bregma_to_lambda_distance: Optional[Decimal] = Field(
         None,
         title="Bregma to lambda (mm)",
-        description="Distance between bregman and lambda",
-        units="mm",
+        description="Distance between bregman and lambda"
     )
     bregma_to_lambda_unit: SizeUnit = Field(SizeUnit.MM, title="Bregma to lambda unit")
-    craniotomy_size: Decimal = Field(..., title="Craniotomy size (mm)", units="mm")
+    craniotomy_size: Decimal = Field(..., title="Craniotomy size (mm)")
     craniotomy_size_unit: SizeUnit = Field(SizeUnit.MM, title="Craniotomy size unit")
     implant_part_number: Optional[str] = Field(None, title="Implant part number")
     dura_removed: Optional[bool] = Field(None, title="Dura removed")
@@ -357,7 +355,7 @@ class Injection(SubjectProcedure):
     """Description of an injection procedure"""
 
     procedure_type: Literal["Injection"] = Field("Injection", title="Procedure type")
-    injection_materials: List[InjectionMaterial] = Field([], title="Injection material", min_items=1)
+    injection_materials: List[InjectionMaterial] = Field([], title="Injection material", min_length=1)
     recovery_time: Optional[Decimal] = Field(None, title="Recovery time")
     recovery_time_unit: Optional[TimeUnit] = Field(TimeUnit.M, title="Recovery time unit")
     injection_duration: Optional[Decimal] = Field(None, title="Injection duration")
@@ -370,7 +368,7 @@ class RetroOrbitalInjection(Injection):
     """Description of a retro-orbital injection procedure"""
 
     procedure_type: Literal["Retro-orbital injection"] = Field("Retro-orbital injection", title="Procedure type")
-    injection_volume: Decimal = Field(..., title="Injection volume (uL)", units="uL")
+    injection_volume: Decimal = Field(..., title="Injection volume (uL)")
     injection_volume_unit: VolumeUnit = Field(VolumeUnit.UL, title="Injection volume unit")
     injection_eye: Side = Field(..., title="Injection eye")
 
@@ -389,11 +387,10 @@ class BrainInjection(Injection):
     bregma_to_lambda_distance: Optional[Decimal] = Field(
         None,
         title="Bregma to lambda (mm)",
-        description="Distance between bregman and lambda",
-        units="mm",
+        description="Distance between bregman and lambda"
     )
     bregma_to_lambda_unit: SizeUnit = Field(SizeUnit.MM, title="Bregma to lambda unit")
-    injection_angle: Decimal = Field(..., title="Injection angle (deg)", units="deg")
+    injection_angle: Decimal = Field(..., title="Injection angle (deg)")
     injection_angle_unit: AngleUnit = Field(AngleUnit.DEG, title="Injection angle unit")
     targeted_structure: Optional[str] = Field(None, title="Injection targeted brain structure")
     injection_hemisphere: Optional[Side] = Field(None, title="Injection hemisphere")
@@ -406,13 +403,12 @@ class NanojectInjection(BrainInjection):
     injection_volume: List[Decimal] = Field(
         ...,
         title="Injection volume (nL)",
-        units="nL",
         description="Injection volume, one value per location",
     )
     injection_volume_unit: VolumeUnit = Field(VolumeUnit.NL, title="Injection volume unit")
 
     @field_validator("injection_volume")
-    def check_dv_and_vol_list_lengths(cls, v, info: FieldValidationInfo):
+    def check_dv_and_vol_list_lengths(cls, v, info: ValidationInfo):
         """Validator for list length of injection volumes and depths"""
 
         injection_vol_len = len(v)
@@ -427,7 +423,7 @@ class IontophoresisInjection(BrainInjection):
     """Description of an iotophoresis injection procedure"""
 
     procedure_type: Literal["Iontophoresis injection"] = Field("Iontophoresis injection", title="Procedure type")
-    injection_current: Decimal = Field(..., title="Injection current (μA)", units="μA")
+    injection_current: Decimal = Field(..., title="Injection current (uA)")
     injection_current_unit: CurrentUnit = Field(CurrentUnit.UA, title="Injection current unit")
     alternating_current: str = Field(..., title="Alternating current")
 
@@ -439,7 +435,6 @@ class IntraCerebellarVentricleInjection(BrainInjection):
     injection_volume: List[Decimal] = Field(
         ...,
         title="Injection volume (nL)",
-        units="nL",
         description="Injection volume, one value per location",
     )
     injection_volume_unit: VolumeUnit = Field(VolumeUnit.NL, title="Injection volume unit")
@@ -452,7 +447,6 @@ class IntraCisternalMagnaInjection(BrainInjection):
     injection_volume: List[Decimal] = Field(
         ...,
         title="Injection volume (nL)",
-        units="nL",
         description="Injection volume, one value per location",
     )
     injection_volume_unit: VolumeUnit = Field(VolumeUnit.NL, title="Injection volume unit")
@@ -474,9 +468,9 @@ class OphysProbe(AindModel):
 
     ophys_probe: FiberProbe = Field(..., title="Fiber probe")
     targeted_structure: str = Field(..., title="Targeted structure")
-    stereotactic_coordinate_ap: Decimal = Field(..., title="Stereotactic coordinate A/P (mm)", units="mm")
-    stereotactic_coordinate_ml: Decimal = Field(..., title="Stereotactic coordinate M/L (mm)", units="mm")
-    stereotactic_coordinate_dv: Decimal = Field(..., title="Stereotactic coordinate D/V (mm)", units="mm")
+    stereotactic_coordinate_ap: Decimal = Field(..., title="Stereotactic coordinate A/P (mm)")
+    stereotactic_coordinate_ml: Decimal = Field(..., title="Stereotactic coordinate M/L (mm)")
+    stereotactic_coordinate_dv: Decimal = Field(..., title="Stereotactic coordinate D/V (mm)",)
     stereotactic_coordinate_unit: SizeUnit = Field(SizeUnit.MM, title="Sterotactic coordinate unit")
     stereotactic_coordinate_reference: Optional[CoordinateReferenceLocation] = Field(
         None, title="Stereotactic coordinate reference"
@@ -484,11 +478,10 @@ class OphysProbe(AindModel):
     bregma_to_lambda_distance: Optional[Decimal] = Field(
         None,
         title="Bregma to lambda (mm)",
-        description="Distance between bregman and lambda",
-        units="mm",
+        description="Distance between bregman and lambda"
     )
     bregma_to_lambda_unit: SizeUnit = Field(SizeUnit.MM, title="Bregma to lambda unit")
-    angle: Decimal = Field(..., title="Angle (deg)", units="deg")
+    angle: Decimal = Field(..., title="Angle (deg)")
     angle_unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
     notes: Optional[str] = Field(None, title="Notes")
 
@@ -529,7 +522,7 @@ class Perfusion(SubjectProcedure):
 class Procedures(AindCoreModel):
     """Description of all procedures performed on a subject"""
 
-    _DESCRIBED_BY_URL: Final = AindCoreModel._DESCRIBED_BY_BASE_URL + "aind_data_schema/procedures.py"
+    _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/procedures.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": True})
 
     schema_version: Literal["0.10.0"] = Field("0.10.0", description="schema version", title="Version")

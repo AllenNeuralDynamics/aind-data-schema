@@ -1,11 +1,10 @@
 """ test Rig """
 
-from datetime import date
 import unittest
+from datetime import date
 
 from pydantic import ValidationError
 
-from aind_data_schema.models.modalities import ECEPHYS, SLAP, FIB, BEHAVIOR_VIDEOS, POPHYS, TRAINED_BEHAVIOR
 from aind_data_schema.models.devices import (
     Calibration,
     Camera,
@@ -23,7 +22,8 @@ from aind_data_schema.models.devices import (
     Patch,
     StickMicroscopeAssembly,
 )
-from aind_data_schema.models.manufacturers import NEW_SCALE_TECHNOLOGIES, HAMAMATSU, FLIR, IMEC, OTHER, DORIC
+from aind_data_schema.models.manufacturers import DORIC, FLIR, HAMAMATSU, IMEC, NEW_SCALE_TECHNOLOGIES, OTHER
+from aind_data_schema.models.modalities import BEHAVIOR_VIDEOS, ECEPHYS, FIB, POPHYS, SLAP, TRAINED_BEHAVIOR
 from aind_data_schema.rig import Rig
 
 

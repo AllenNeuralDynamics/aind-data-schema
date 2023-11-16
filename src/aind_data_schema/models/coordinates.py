@@ -19,14 +19,16 @@ class CcfVersion(str, Enum):
 class RelativePosition(AindModel):
     """Set of 6 values describing relative position on a rig"""
 
-    pitch: Optional[Decimal] = Field(None, title="Angle pitch (deg)", units="deg", ge=0, le=360)
-    yaw: Optional[Decimal] = Field(None, title="Angle yaw (deg)", units="deg", ge=0, le=360)
-    roll: Optional[Decimal] = Field(None, title="Angle roll (deg)", units="deg", ge=0, le=360)
+    #  TODO: We can add the units in the description note or add it explicitly to the json schema
+    #    but it isn't recommended.
+    pitch: Optional[Decimal] = Field(None, title="Angle pitch (deg)", ge=0, le=360)
+    yaw: Optional[Decimal] = Field(None, title="Angle yaw (deg)", ge=0, le=360)
+    roll: Optional[Decimal] = Field(None, title="Angle roll (deg)", ge=0, le=360)
     angle_unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
 
-    x: Optional[Decimal] = Field(None, title="Position X (mm)", units="mm")
-    y: Optional[Decimal] = Field(None, title="Position Y (mm)", units="mm")
-    z: Optional[Decimal] = Field(None, title="Position Z (mm)", units="mm")
+    x: Optional[Decimal] = Field(None, title="Position X (mm)")
+    y: Optional[Decimal] = Field(None, title="Position Y (mm)")
+    z: Optional[Decimal] = Field(None, title="Position Z (mm)")
     position_unit: SizeUnit = Field(SizeUnit.MM, title="Position unit")
 
     coordinate_system: Optional[str] = Field(None, title="Description of the coordinate system used")

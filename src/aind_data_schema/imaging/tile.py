@@ -1,7 +1,7 @@
 """" Models related to imaging tiles and their transformations """
 
 from decimal import Decimal
-from typing import List, Optional, Union, Literal
+from typing import List, Literal, Optional, Union
 
 from pydantic import Field
 
@@ -42,28 +42,30 @@ class Scale3dTransform(CoordinateTransform):
     """
 
     type: Literal["scale"] = "scale"
-    scale: List[Decimal] = Field(..., title="3D scale parameters", min_items=3, max_items=3)
+    scale: List[Decimal] = Field(..., title="3D scale parameters", min_length=3, max_length=3)
 
 
 class Translation3dTransform(CoordinateTransform):
     """Values to be vector-added to a 3D position. Often needed to specify a Tile's origin."""
 
     type: Literal["translation"] = "translation"
-    translation: List[Decimal] = Field(..., title="3D translation parameters", min_items=3, max_items=3)
+    translation: List[Decimal] = Field(..., title="3D translation parameters", min_length=3, max_length=3)
 
 
 class Rotation3dTransform(CoordinateTransform):
     """Values to be vector-added to a 3D position. Often needed to specify a Tile's origin."""
 
     type: Literal["rotation"] = "rotation"
-    rotation: List[Decimal] = Field(..., title="3D rotation matrix values (3x3) ", min_items=3, max_items=3)
+    rotation: List[Decimal] = Field(..., title="3D rotation matrix values (3x3) ", min_length=3, max_length=3)
 
 
 class Affine3dTransform(CoordinateTransform):
     """Values to be vector-added to a 3D position. Often needed to specify a Tile's origin."""
 
     type: Literal["affine"] = "affine"
-    affine_transform: List[Decimal] = Field(..., title="Affine transform matrix values (top 3x4 matrix)", min_items=3, max_items=3)
+    affine_transform: List[Decimal] = Field(
+        ..., title="Affine transform matrix values (top 3x4 matrix)", min_length=3, max_length=3
+    )
 
 
 class Tile(AindModel):

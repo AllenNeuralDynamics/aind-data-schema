@@ -2,7 +2,7 @@
 
 from datetime import datetime
 from enum import Enum
-from typing import Any, Dict, List, Optional, Literal
+from typing import Any, Dict, List, Literal, Optional
 
 from pydantic import Field, root_validator
 
@@ -84,10 +84,10 @@ class Registration(DataProcess):
 class Processing(AindCoreModel):
     """Description of all processes run on data"""
 
-    _DESCRIBED_BY_URL: str = AindCoreModel._DESCRIBED_BY_BASE_URL + "aind_data_schema/processing.py"
-
+    _DESCRIBED_BY_URL: str = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/processing.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": True})
     schema_version: Literal["0.4.0"] = Field("0.4.0")
+
     processing_pipeline: PipelineProcess = Field(
         ..., description="Pipeline used to process data", title="Processing Pipeline"
     )

@@ -1,5 +1,5 @@
 from datetime import date
-from typing import List, Optional, Set, Literal
+from typing import List, Literal, Optional, Set
 
 from pydantic import Field, model_validator
 
@@ -31,8 +31,7 @@ from aind_data_schema.models.modalities import BEHAVIOR_VIDEOS, ECEPHYS, FIB, MO
 class Rig(AindCoreModel):
     """Description of a rig"""
 
-    _DESCRIBED_BY_URL: str = AindCoreModel._DESCRIBED_BY_BASE_URL + "aind_data_schema/rig.py"
-
+    _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/rig.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": True})
     schema_version: Literal["0.2.0"] = Field("0.2.0")
 
@@ -69,7 +68,10 @@ class Rig(AindCoreModel):
     def validate_ephys_modality(self):
         error_message = ""
         if ECEPHYS in self.modalities:
-            for key, value in {"ephys_assemblies": len(self.ephys_assemblies) > 0, "stick_microscopes": len(self.stick_microscopes) > 0}.items():
+            for key, value in {
+                "ephys_assemblies": len(self.ephys_assemblies) > 0,
+                "stick_microscopes": len(self.stick_microscopes) > 0,
+            }.items():
                 if value is False:
                     error_message += f"{key} field must be utilized for Ecephys modality\n"
         if error_message:

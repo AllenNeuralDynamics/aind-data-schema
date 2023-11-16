@@ -3,25 +3,31 @@
 from datetime import date
 from decimal import Decimal
 from enum import Enum
-from typing import List, Optional, Union, Literal
+from typing import List, Literal, Optional, Union
 
 from pydantic import Field, root_validator
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.models.devices import (
+    LIGHT_SOURCES,
+    AdditionalImagingDevice,
     DAQDevice,
     Detector,
     Device,
     Enclosure,
     Filter,
+    ImagingInstrumentType,
     Lamp,
     Laser,
     Lens,
     LightEmittingDiode,
     MotorizedStage,
-    Objective, LIGHT_SOURCES, ScanningStage, AdditionalImagingDevice, ImagingInstrumentType, OpticalTable
+    Objective,
+    OpticalTable,
+    ScanningStage,
 )
-from aind_data_schema.models.manufacturers import OTHER, MANUFACTURERS
+from aind_data_schema.models.manufacturers import MANUFACTURERS, OTHER
+
 # from aind_data_schema.utils.units import SizeUnit
 
 
@@ -35,8 +41,7 @@ class Com(AindModel):
 class Instrument(AindCoreModel):
     """Description of an instrument, which is a collection of devices"""
 
-    _DESCRIBED_BY_URL: str = AindCoreModel._DESCRIBED_BY_BASE_URL + "aind_data_schema/imaging/instrument.py"
-
+    _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/imaging/instrument.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": True})
     schema_version: Literal["0.10.0"] = Field("0.10.0")
 
@@ -54,15 +59,13 @@ class Instrument(AindCoreModel):
     enclosure: Optional[Enclosure] = Field(None, title="Enclosure")
     objectives: List[Objective] = Field(..., title="Objectives")
     detectors: List[Detector] = Field([], title="Detectors")
-    light_sources: Optional[LIGHT_SOURCES]
+    light_sources: List[LIGHT_SOURCES] = Field([], title="Light sources")
     lenses: List[Lens] = Field([], title="Lenses")
     fluorescence_filters: List[Filter] = Field([], title="Fluorescence filters")
     motorized_stages: List[MotorizedStage] = Field([], title="Motorized stages")
     scanning_stages: List[ScanningStage] = Field([], title="Scanning motorized stages")
     daqs: List[DAQDevice] = Field([], title="DAQ")
-    additional_devices: List[AdditionalImagingDevice] = Field(
-        [], title="Additional devices"
-    )
+    additional_devices: List[AdditionalImagingDevice] = Field([], title="Additional devices")
     calibration_date: Optional[date] = Field(
         None,
         description="Date of most recent calibration",

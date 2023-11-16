@@ -58,7 +58,7 @@ p = Procedures(
             end_date=t.date(),
             experimenter_full_name="n/a",
             protocol_id="null",
-            output_specimen_ids={"1", "2", "3"},
+            output_specimen_ids=["1"],
         ),
     ],
 )

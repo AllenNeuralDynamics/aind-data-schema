@@ -1,0 +1,120 @@
+{
+   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/session.py",
+   "schema_version": "0.1.0",
+   "experimenter_full_name": [
+      "Jane Doe"
+   ],
+   "session_start_time": "2023-01-10T08:40:00",
+   "session_end_time": "2023-01-10T09:46:00",
+   "session_type": "Test",
+   "iacuc_protocol": "1294",
+   "rig_id": "323_EPHYS1",
+   "calibrations": [],
+   "maintenance": [],
+   "subject_id": "100001",
+   "animal_weight_prior": "21.2",
+   "animal_weight_post": "21.3",
+   "weight_unit": "gram",
+   "data_streams": [
+      {
+         "stream_start_time": "2023-01-10T08:43:00",
+         "stream_end_time": "2023-01-10T09:43:00",
+         "mouse_platform_name": "Running Wheel",
+         "active_mouse_platform": false,
+         "stream_modalities": [
+            {
+               "name": "Extracellular electrophysiology",
+               "abbreviation": "ecephys"
+            },
+            {
+               "name": "Behavior videos",
+               "abbreviation": "behavior-videos"
+            }
+         ],
+         "daq_names": [
+            "Harp Behavior",
+            "Basestation Slot 3"
+         ],
+         "camera_names": [
+            "Face Camera",
+            "Body Camera"
+         ],
+         "light_sources": [],
+         "ephys_modules": [
+            {
+               "assembly_name": "Ephys_assemblyA",
+               "arc_angle": "14",
+               "module_angle": "20",
+               "angle_unit": "degrees",
+               "rotation_angle": "0",
+               "coordinate_transform": null,
+               "calibration_date": null,
+               "notes": null,
+               "primary_targeted_structure": "VISp",
+               "targeted_ccf_coordinates": [],
+               "manipulator_coordinates": {
+                  "x": "1000",
+                  "y": "1000",
+                  "z": "1000",
+                  "unit": "micrometer"
+               },
+               "ephys_probes": [
+                  {
+                     "name": "Probe A",
+                     "other_targeted_structures": []
+                  },
+                  {
+                     "name": "Probe B",
+                     "other_targeted_structures": []
+                  }
+               ]
+            }
+         ],
+         "stick_microscopes": [
+            {
+               "assembly_name": "Stick_assembly",
+               "arc_angle": "24",
+               "module_angle": "10",
+               "angle_unit": "degrees",
+               "rotation_angle": "0",
+               "coordinate_transform": null,
+               "calibration_date": null,
+               "notes": null
+            }
+         ],
+         "manipulator_modules": [
+            {
+               "assembly_name": "Laser_assemblyA",
+               "arc_angle": "10",
+               "module_angle": "15",
+               "angle_unit": "degrees",
+               "rotation_angle": "0",
+               "coordinate_transform": null,
+               "calibration_date": null,
+               "notes": null,
+               "primary_targeted_structure": "VISp",
+               "targeted_ccf_coordinates": [],
+               "manipulator_coordinates": {
+                  "x": "1000",
+                  "y": "1000",
+                  "z": "1000",
+                  "unit": "micrometer"
+               }
+            }
+         ],
+         "detectors": [],
+         "fiber_connections": [],
+         "fiber_modules": [],
+         "ophys_fovs": [],
+         "slap_fovs": null,
+         "stack_parameters": null,
+         "stimulus_device_names": [],
+         "notes": null
+      }
+   ],
+   "stimulus_epochs": [],
+   "reward_consumed_total": null,
+   "reward_consumed_unit": "microliter",
+   "reward_delivery": null,
+   "notes": null
+}

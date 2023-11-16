@@ -2,9 +2,9 @@
 
 from datetime import datetime
 from enum import Enum
-from typing import List, Literal, Optional
+from typing import List, Literal, Optional, Any
 
-from pydantic import Field
+from pydantic import Field, field_validator, ValidationInfo
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.models.institutions import INSTITUTIONS
@@ -91,12 +91,22 @@ class RelatedData(AindModel):
 class DataDescription(AindCoreModel):
     """Description of a logical collection of data files"""
 
-    _DESCRIBED_BY_URL: str = AindCoreModel._DESCRIBED_BY_BASE_URL + "aind_data_schema/data_description.py"
+    _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/data_description.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": True})
-
     schema_version: Literal["0.11.0"] = Field("0.11.0", title="Schema Version")
     license: Literal["CC-BY-4.0"] = Field("CC-BY-4.0", title="License")
 
+    platform: PLATFORMS = Field(
+        ...,
+        description="Name for a standardized primary data collection system",
+        title="Platform",
+    )
+    subject_id: str = Field(
+        ...,
+        pattern=DataRegex.NO_UNDERSCORES.value,
+        description="Unique identifier for the subject of data acquisition",
+        title="Subject ID",
+    )
     creation_time: datetime = Field(
         ...,
         description="Time that data files were created, used to uniquely identify the data",
@@ -106,6 +116,7 @@ class DataDescription(AindCoreModel):
         None,
         description="Name of data, conventionally also the name of the directory containing all data and metadata",
         title="Name",
+        validate_default=True
     )
     institution: INSTITUTIONS = Field(
         ...,
@@ -133,11 +144,6 @@ class DataDescription(AindCoreModel):
         description="Full name(s) of key investigators (e.g. PI, lead scientist, contact person)",
         title="Investigators",
     )
-    platform: PLATFORMS = Field(
-        ...,
-        description="Name for a standardized primary data collection system",
-        title="Platform",
-    )
     project_name: Optional[str] = Field(
         None,
         pattern=DataRegex.NO_SPECIAL_CHARS.value,
@@ -155,18 +161,19 @@ class DataDescription(AindCoreModel):
         "of any technology or formal procedure to generate data for a study",
         title="Modality",
     )
-    subject_id: str = Field(
-        ...,
-        pattern=DataRegex.NO_UNDERSCORES.value,
-        description="Unique identifier for the subject of data acquisition",
-        title="Subject ID",
-    )
     related_data: List[RelatedData] = Field(
         [],
         title="Related data",
         description="Path and description of data assets associated with this asset (eg. reference images)",
     )
     data_summary: Optional[str] = Field(None, title="Data summary", description="Semantic summary of experimental goal")
+
+    @field_validator("name", mode="after")
+    def create_name(cls, value: Any, info: ValidationInfo) -> str:
+        platform_abbr = info.data.get("platform").abbreviation
+        creation_datetime = info.data.get("creation_time")
+        subject_id = info.data.get("subject_id")
+        return "_".join([platform_abbr, subject_id, creation_datetime.strftime("%Y-%m-%d_%H-%M-%S")])
 
     # # TODO: We need to remove all the custom class constructors on pydantic
     # #  models

@@ -3,13 +3,13 @@
 from datetime import datetime
 from decimal import Decimal
 from enum import Enum
-from typing import List, Optional, Literal
+from typing import List, Literal, Optional
 
 from pydantic import Field
 
 from aind_data_schema.base import AindCoreModel, AindModel
-from aind_data_schema.models.devices import Calibration, Maintenance
 from aind_data_schema.imaging.tile import AcquisitionTile
+from aind_data_schema.models.devices import Calibration, Maintenance
 from aind_data_schema.models.process_names import ProcessName
 from aind_data_schema.models.units import SizeUnit
 
@@ -49,7 +49,6 @@ class Axis(AindModel):
     )
     unit: SizeUnit = Field(SizeUnit.UM, title="Axis physical units")
 
-
     # #  TODO: It might make more sense to put this in the utils package
     # @staticmethod
     # def from_direction_code(code) -> List[Axis]:
@@ -84,7 +83,9 @@ class ProcessingSteps(AindModel):
     """Description of downstream processing steps"""
 
     channel_name: str = Field(..., title="Channel name")
-    process_name: List[Literal[ProcessName.IMAGE_IMPORTING,
+    process_name: List[
+        Literal[
+            ProcessName.IMAGE_IMPORTING,
             ProcessName.IMAGE_BACKGROUND_SUBTRACTION,
             ProcessName.IMAGE_CELL_SEGMENTATION,
             ProcessName.IMAGE_DESTRIPING,
@@ -92,16 +93,18 @@ class ProcessingSteps(AindModel):
             ProcessName.IMAGE_TILE_ALIGNMENT,
             ProcessName.IMAGE_TILE_FUSING,
             ProcessName.IMAGE_TILE_PROJECTION,
-            ProcessName.FILE_CONVERSION]] = Field(...)
+            ProcessName.FILE_CONVERSION,
+        ]
+    ] = Field(...)
 
 
 class Acquisition(AindCoreModel):
     """Description of an imaging acquisition session"""
 
-    _DESCRIBED_BY_URL: str = AindCoreModel._DESCRIBED_BY_BASE_URL + "aind_data_schema/imaging/acquisition.py"
-
+    _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/imaging/acquisition.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": True})
     schema_version: Literal["0.6.0"] = Field("0.6.0")
+
     experimenter_full_name: List[str] = Field(
         ...,
         description="First and last name of the experimenter(s).",

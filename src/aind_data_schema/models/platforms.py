@@ -83,3 +83,18 @@ class SmartSpim(Platform):
 
 
 PLATFORMS = Annotated[Union[tuple(Platform.__subclasses__())], Field(discriminator="name")]
+
+BEHAVIOR = Behavior()
+CONFOCAL = Confocal()
+ECEPHYS = Ecephys()
+EXASPIM = ExaSpim()
+FIP = Fip()
+HCR = Hcr()
+HSFP = Hsfp()
+MESOSPIM = MesoSpim()
+MERFISH = Merfish()
+MRI = Mri()
+MULTIPLANE_OPHYS = MultiplaneOphys()
+SINGLE_PLANE_OPHYS = SingleplaneOphys()
+SLAP2 = Slap2()
+SMARTSPIM = SmartSpim()

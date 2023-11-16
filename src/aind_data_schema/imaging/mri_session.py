@@ -3,17 +3,17 @@
 from datetime import datetime
 from decimal import Decimal
 from enum import Enum
-from typing import Any, Dict, List, Optional, Literal
+from typing import Any, Dict, List, Literal, Optional
 
 from pydantic import Field, root_validator
 
 from aind_data_schema.base import AindCoreModel, AindModel
-from aind_data_schema.models.devices import Scanner, ScanType, MriScanSequence
 from aind_data_schema.imaging.acquisition import Axis
 from aind_data_schema.imaging.tile import Scale3dTransform
-from aind_data_schema.procedures import Anaesthetic
+from aind_data_schema.models.devices import MriScanSequence, Scanner, ScanType
 from aind_data_schema.models.process_names import ProcessName
 from aind_data_schema.models.units import MassUnit, TimeUnit
+from aind_data_schema.procedures import Anaesthetic
 
 
 class MRIScan(AindModel):
@@ -29,11 +29,11 @@ class MRIScan(AindModel):
         ..., title="Voxel sizes", description="Size of voxels in order as specified in axes"
     )
     processing_steps: List[
-            Literal[
-                ProcessName.FIDUCIAL_SEGMENTATION,
-                ProcessName.REGISTRATION_TO_TEMPLATE,
-                ProcessName.SKULL_STRIPPING,
-            ]
+        Literal[
+            ProcessName.FIDUCIAL_SEGMENTATION,
+            ProcessName.REGISTRATION_TO_TEMPLATE,
+            ProcessName.SKULL_STRIPPING,
+        ]
     ] = Field([])
     echo_time: Decimal = Field(..., title="Echo time (ms)")
     effective_echo_time: Decimal = Field(..., title="Effective echo time (ms)")
@@ -58,10 +58,10 @@ class MRIScan(AindModel):
 class MriSession(AindCoreModel):
     """Description of an MRI scan"""
 
-    _DESCRIBED_BY_URL: str = AindCoreModel._DESCRIBED_BY_BASE_URL + "aind_data_schema/imaging/mri_session.py"
-
+    _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/imaging/mri_session.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": True})
     schema_version: Literal["0.2.0"] = Field("0.2.0")
+
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
@@ -80,13 +80,11 @@ class MriSession(AindCoreModel):
         None,
         title="Animal weight (g)",
         description="Animal weight before procedure",
-        units="g",
     )
     animal_weight_post: Optional[Decimal] = Field(
         None,
         title="Animal weight (g)",
         description="Animal weight after procedure",
-        units="g",
     )
     weight_unit: MassUnit = Field(MassUnit.G, title="Weight unit")
     anaesthesia: Optional[Anaesthetic] = Field(None, title="Anaesthesia")

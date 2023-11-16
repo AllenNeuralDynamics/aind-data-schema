@@ -1,0 +1,441 @@
+{
+   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/imaging/instrument.py",
+   "schema_version": "0.10.0",
+   "instrument_id": "SmartSPIM2-2",
+   "modification_date": "2023-10-04",
+   "instrument_type": "SmartSPIM",
+   "manufacturer": {
+      "name": "LifeCanvas",
+      "abbreviation": null,
+      "registry": null,
+      "registry_identifier": null
+   },
+   "temperature_control": false,
+   "humidity_control": false,
+   "optical_tables": [
+      {
+         "device_type": "OpticalTable",
+         "name": null,
+         "serial_number": "Unknown",
+         "manufacturer": {
+            "name": "Technical Manufacturing Corporation",
+            "abbreviation": "TMC",
+            "registry": null,
+            "registry_identifier": null
+         },
+         "model": "CleanTop",
+         "notes": null,
+         "length": "35",
+         "width": "29",
+         "table_size_unit": "inch",
+         "vibration_control": true
+      }
+   ],
+   "enclosure": null,
+   "objectives": [
+      {
+         "device_type": "Objective",
+         "name": null,
+         "serial_number": "Unknown",
+         "manufacturer": {
+            "name": "Thorlabs",
+            "abbreviation": null,
+            "registry": {
+               "name": "Research Organization Registry",
+               "abbreviation": "ROR"
+            },
+            "registry_identifier": "04gsnvb07"
+         },
+         "model": "TL4X-SAP",
+         "notes": "Thorlabs TL4X-SAP with LifeCanvas dipping cap and correction optics.",
+         "numerical_aperture": "0.2",
+         "magnification": "3.6",
+         "immersion": "multi",
+         "objective_type": null
+      }
+   ],
+   "detectors": [
+      {
+         "device_type": "Detector",
+         "name": null,
+         "serial_number": "001107",
+         "manufacturer": {
+            "name": "Hamamatsu",
+            "abbreviation": null,
+            "registry": {
+               "name": "Research Organization Registry",
+               "abbreviation": "ROR"
+            },
+            "registry_identifier": "03natb733"
+         },
+         "model": "C14440-20UP",
+         "notes": null,
+         "detector_type": "Camera",
+         "data_interface": "USB",
+         "cooling": "air",
+         "immersion": null,
+         "chroma": null,
+         "sensor_width": null,
+         "sensor_height": null,
+         "size_unit": "pixel",
+         "bit_depth": null,
+         "bin_mode": "none",
+         "bin_width": null,
+         "bin_height": null,
+         "bin_unit": "pixel",
+         "gain": null,
+         "crop_width": null,
+         "crop_height": null,
+         "crop_unit": "pixel"
+      }
+   ],
+   "light_sources": [
+      {
+         "device_type": "Laser",
+         "name": "Ex_488",
+         "serial_number": "VL01222A11",
+         "manufacturer": {
+            "name": "Vortran",
+            "abbreviation": null,
+            "registry": null,
+            "registry_identifier": null
+         },
+         "model": "Stradus",
+         "notes": "All lasers controlled via Vortran VersaLase System",
+         "wavelength": 488,
+         "wavelength_unit": "nanometer",
+         "maximum_power": "150",
+         "power_unit": "milliwatt",
+         "coupling": "Single-mode fiber",
+         "coupling_efficiency": null,
+         "coupling_efficiency_unit": "percent",
+         "item_number": null
+      },
+      {
+         "device_type": "Laser",
+         "name": "Ex_561",
+         "serial_number": "417927",
+         "manufacturer": {
+            "name": "Coherent Scientific",
+            "abbreviation": null,
+            "registry": {
+               "name": "Research Organization Registry",
+               "abbreviation": "ROR"
+            },
+            "registry_identifier": "031tysd23"
+         },
+         "model": "Obis",
+         "notes": "All lasers controlled via Vortran VersaLase System",
+         "wavelength": 561,
+         "wavelength_unit": "nanometer",
+         "maximum_power": "150",
+         "power_unit": "milliwatt",
+         "coupling": "Single-mode fiber",
+         "coupling_efficiency": null,
+         "coupling_efficiency_unit": "percent",
+         "item_number": null
+      },
+      {
+         "device_type": "Laser",
+         "name": "Ex_647",
+         "serial_number": "VL01222A10",
+         "manufacturer": {
+            "name": "Vortran",
+            "abbreviation": null,
+            "registry": null,
+            "registry_identifier": null
+         },
+         "model": "Stradus",
+         "notes": "All lasers controlled via Vortran VersaLase System",
+         "wavelength": 647,
+         "wavelength_unit": "nanometer",
+         "maximum_power": "160",
+         "power_unit": "milliwatt",
+         "coupling": "Single-mode fiber",
+         "coupling_efficiency": null,
+         "coupling_efficiency_unit": "percent",
+         "item_number": null
+      }
+   ],
+   "lenses": [],
+   "fluorescence_filters": [
+      {
+         "device_type": "Filter",
+         "name": "Em_525",
+         "serial_number": "Unknown-1",
+         "manufacturer": {
+            "name": "Semrock",
+            "abbreviation": null,
+            "registry": null,
+            "registry_identifier": null
+         },
+         "model": "FF03-525/50-25",
+         "notes": null,
+         "filter_type": "Band pass",
+         "diameter": "25",
+         "width": null,
+         "height": null,
+         "size_unit": "millimeter",
+         "thickness": "2.0",
+         "thickness_unit": "millimeter",
+         "filter_wheel_index": 0,
+         "cut_off_wavelength": null,
+         "cut_on_wavelength": null,
+         "center_wavelength": null,
+         "wavelength_unit": "nanometer",
+         "description": null
+      },
+      {
+         "device_type": "Filter",
+         "name": "Em_600",
+         "serial_number": "Unknown-2",
+         "manufacturer": {
+            "name": "Semrock",
+            "abbreviation": null,
+            "registry": null,
+            "registry_identifier": null
+         },
+         "model": "FF01-600/52-25",
+         "notes": null,
+         "filter_type": "Band pass",
+         "diameter": "25",
+         "width": null,
+         "height": null,
+         "size_unit": "millimeter",
+         "thickness": "2.0",
+         "thickness_unit": "millimeter",
+         "filter_wheel_index": 1,
+         "cut_off_wavelength": null,
+         "cut_on_wavelength": null,
+         "center_wavelength": null,
+         "wavelength_unit": "nanometer",
+         "description": null
+      },
+      {
+         "device_type": "Filter",
+         "name": "Em_690",
+         "serial_number": "Unknown-3",
+         "manufacturer": {
+            "name": "Chroma",
+            "abbreviation": null,
+            "registry": null,
+            "registry_identifier": null
+         },
+         "model": "ET690/50m",
+         "notes": null,
+         "filter_type": "Band pass",
+         "diameter": "25",
+         "width": null,
+         "height": null,
+         "size_unit": "millimeter",
+         "thickness": "2.0",
+         "thickness_unit": "millimeter",
+         "filter_wheel_index": 2,
+         "cut_off_wavelength": null,
+         "cut_on_wavelength": null,
+         "center_wavelength": null,
+         "wavelength_unit": "nanometer",
+         "description": null
+      }
+   ],
+   "motorized_stages": [
+      {
+         "device_type": "Motorized stage",
+         "name": null,
+         "serial_number": "Unknown-0",
+         "manufacturer": {
+            "name": "Applied Scientific Instrumentation",
+            "abbreviation": "ASI",
+            "registry": null,
+            "registry_identifier": null
+         },
+         "model": "LS-100",
+         "notes": "Focus stage",
+         "travel": "100",
+         "travel_unit": "millimeter",
+         "firmware": null
+      },
+      {
+         "device_type": "Motorized stage",
+         "name": null,
+         "serial_number": "Unknown-1",
+         "manufacturer": {
+            "name": "IR Robot Co",
+            "abbreviation": null,
+            "registry": null,
+            "registry_identifier": null
+         },
+         "model": "L12-20F-4",
+         "notes": "Cylindrical lens #1",
+         "travel": "41",
+         "travel_unit": "millimeter",
+         "firmware": null
+      },
+      {
+         "device_type": "Motorized stage",
+         "name": null,
+         "serial_number": "Unknown-2",
+         "manufacturer": {
+            "name": "IR Robot Co",
+            "abbreviation": null,
+            "registry": null,
+            "registry_identifier": null
+         },
+         "model": "L12-20F-4",
+         "notes": "Cylindrical lens #2",
+         "travel": "41",
+         "travel_unit": "millimeter",
+         "firmware": null
+      },
+      {
+         "device_type": "Motorized stage",
+         "name": null,
+         "serial_number": "Unknown-3",
+         "manufacturer": {
+            "name": "IR Robot Co",
+            "abbreviation": null,
+            "registry": null,
+            "registry_identifier": null
+         },
+         "model": "L12-20F-4",
+         "notes": "Cylindrical lens #3",
+         "travel": "41",
+         "travel_unit": "millimeter",
+         "firmware": null
+      },
+      {
+         "device_type": "Motorized stage",
+         "name": null,
+         "serial_number": "Unknown-4",
+         "manufacturer": {
+            "name": "IR Robot Co",
+            "abbreviation": null,
+            "registry": null,
+            "registry_identifier": null
+         },
+         "model": "L12-20F-4",
+         "notes": "Cylindrical lens #4",
+         "travel": "41",
+         "travel_unit": "millimeter",
+         "firmware": null
+      }
+   ],
+   "scanning_stages": [
+      {
+         "device_type": "Motorized stage",
+         "name": null,
+         "serial_number": "Unknown-0",
+         "manufacturer": {
+            "name": "Applied Scientific Instrumentation",
+            "abbreviation": "ASI",
+            "registry": null,
+            "registry_identifier": null
+         },
+         "model": "LS-50",
+         "notes": "Sample stage Z",
+         "travel": "50",
+         "travel_unit": "millimeter",
+         "firmware": null,
+         "stage_axis_direction": "Detection axis",
+         "stage_axis_name": "Z"
+      },
+      {
+         "device_type": "Motorized stage",
+         "name": null,
+         "serial_number": "Unknown-1",
+         "manufacturer": {
+            "name": "Applied Scientific Instrumentation",
+            "abbreviation": "ASI",
+            "registry": null,
+            "registry_identifier": null
+         },
+         "model": "LS-50",
+         "notes": "Sample stage X",
+         "travel": "50",
+         "travel_unit": "millimeter",
+         "firmware": null,
+         "stage_axis_direction": "Illumination axis",
+         "stage_axis_name": "X"
+      },
+      {
+         "device_type": "Motorized stage",
+         "name": null,
+         "serial_number": "Unknown-2",
+         "manufacturer": {
+            "name": "Applied Scientific Instrumentation",
+            "abbreviation": "ASI",
+            "registry": null,
+            "registry_identifier": null
+         },
+         "model": "LS-50",
+         "notes": "Sample stage Y",
+         "travel": "50",
+         "travel_unit": "millimeter",
+         "firmware": null,
+         "stage_axis_direction": "Perpendicular axis",
+         "stage_axis_name": "Y"
+      }
+   ],
+   "daqs": [],
+   "additional_devices": [
+      {
+         "device_type": "AdditionalImagingDevice",
+         "name": null,
+         "serial_number": "Unknown-1",
+         "manufacturer": {
+            "name": "Optotune",
+            "abbreviation": null,
+            "registry": null,
+            "registry_identifier": null
+         },
+         "model": "EL-16-40-TC",
+         "notes": null,
+         "type": "Other"
+      },
+      {
+         "device_type": "AdditionalImagingDevice",
+         "name": null,
+         "serial_number": "Unknown-2",
+         "manufacturer": {
+            "name": "Optotune",
+            "abbreviation": null,
+            "registry": null,
+            "registry_identifier": null
+         },
+         "model": "EL-16-40-TC",
+         "notes": null,
+         "type": "Other"
+      },
+      {
+         "device_type": "AdditionalImagingDevice",
+         "name": null,
+         "serial_number": "Unknown-1",
+         "manufacturer": {
+            "name": "LifeCanvas",
+            "abbreviation": null,
+            "registry": null,
+            "registry_identifier": null
+         },
+         "model": "Large-uncoated-glass",
+         "notes": null,
+         "type": "Sample Chamber"
+      }
+   ],
+   "calibration_date": null,
+   "calibration_data": null,
+   "com_ports": [
+      {
+         "hardware_name": "Laser Launch",
+         "com_port": "COM3"
+      },
+      {
+         "hardware_name": "ASI Tiger",
+         "com_port": "COM5"
+      },
+      {
+         "hardware_name": "MightyZap",
+         "com_port": "COM4"
+      }
+   ],
+   "notes": null
+}
