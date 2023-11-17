@@ -1,7 +1,7 @@
 """ example SmartSPIM instrument """
 import datetime
 
-from aind_data_schema.imaging.instrument import Com, Instrument
+from aind_data_schema.core.instrument import Com, Instrument
 from aind_data_schema.models.devices import (
     AdditionalImagingDevice,
     Detector,

@@ -2,11 +2,10 @@
 
 import datetime
 
-from aind_data_schema.models.modalities import POPHYS, BEHAVIOR_VIDEOS
+from aind_data_schema.core.session import FieldOfView, Session, Stream
 from aind_data_schema.models.device_configurations import DetectorConfigs, LaserConfigs
-from aind_data_schema.session import FieldOfView, Session, Stream
+from aind_data_schema.models.modalities import BEHAVIOR_VIDEOS, POPHYS
 from aind_data_schema.models.stimulus import PhotoStimulation, PhotoStimulationGroup, StimulusEpoch
-
 
 t = datetime.datetime(2022, 7, 12, 7, 00, 00)
 

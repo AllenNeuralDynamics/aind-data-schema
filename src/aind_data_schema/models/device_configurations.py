@@ -1,10 +1,10 @@
 from datetime import datetime
 from decimal import Decimal
 from enum import Enum
-from typing import List, Optional, Union, Literal
-from typing_extensions import Annotated
+from typing import List, Literal, Optional, Union
 
 from pydantic import Field, root_validator
+from typing_extensions import Annotated
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.models.devices import RelativePosition, SpoutSide

@@ -3,10 +3,10 @@
 from datetime import datetime
 from decimal import Decimal
 from enum import Enum
-from typing import Any, Dict, List, Optional, Union, Literal
-from typing_extensions import Annotated
+from typing import Any, Dict, List, Literal, Optional, Union
 
 from pydantic import Field
+from typing_extensions import Annotated
 
 from aind_data_schema.base import AindModel
 from aind_data_schema.models.devices import Software

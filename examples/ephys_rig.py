@@ -2,7 +2,7 @@
 
 import datetime
 
-from aind_data_schema.models.modalities import ECEPHYS
+from aind_data_schema.core.rig import Rig
 from aind_data_schema.models.devices import (
     Calibration,
     Camera,
@@ -21,8 +21,8 @@ from aind_data_schema.models.devices import (
     ProbePort,
     StickMicroscopeAssembly,
 )
-from aind_data_schema.models.manufacturers import OXXIUS, NEW_SCALE_TECHNOLOGIES, FLIR, EDMUND_OPTICS, THORLABS
-from aind_data_schema.rig import Rig
+from aind_data_schema.models.manufacturers import EDMUND_OPTICS, FLIR, NEW_SCALE_TECHNOLOGIES, OXXIUS, THORLABS
+from aind_data_schema.models.modalities import ECEPHYS
 
 # Describes a rig with running wheel, 2 behavior cameras, one Harp Behavior board,
 # one dual-color laser module, one stick microscope, and 2 Neuropixels probes

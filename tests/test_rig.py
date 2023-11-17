@@ -5,6 +5,7 @@ from datetime import date
 
 from pydantic import ValidationError
 
+from aind_data_schema.core.rig import Rig
 from aind_data_schema.models.devices import (
     Calibration,
     Camera,
@@ -24,7 +25,6 @@ from aind_data_schema.models.devices import (
 )
 from aind_data_schema.models.manufacturers import DORIC, FLIR, HAMAMATSU, IMEC, NEW_SCALE_TECHNOLOGIES, OTHER
 from aind_data_schema.models.modalities import BEHAVIOR_VIDEOS, ECEPHYS, FIB, POPHYS, SLAP, TRAINED_BEHAVIOR
-from aind_data_schema.rig import Rig
 
 
 class RigTests(unittest.TestCase):

@@ -2,7 +2,7 @@
 
 from datetime import date
 
-from aind_data_schema import procedures
+from aind_data_schema.core import procedures
 
 experimenter = "John Smith"
 # subject and specimen id can be the same?

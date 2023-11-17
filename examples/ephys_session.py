@@ -1,11 +1,11 @@
 """Generates an example JSON file for an ephys session"""
 
 from datetime import datetime
-from decimal import Decimal
+
+from aind_data_schema.core.session import DomeModule, EphysModule, ManipulatorModule, Session, Stream
 from aind_data_schema.models.coordinates import Coordinates3d
-from aind_data_schema.models.modalities import ECEPHYS, BEHAVIOR_VIDEOS
-from aind_data_schema.session import DomeModule, EphysModule, ManipulatorModule, Session, Stream
 from aind_data_schema.models.device_configurations import EphysProbeConfigs, LaserConfigs
+from aind_data_schema.models.modalities import BEHAVIOR_VIDEOS, ECEPHYS
 
 red_laser = LaserConfigs(name="Red Laser", wavelength=700, excitation_power=100)
 

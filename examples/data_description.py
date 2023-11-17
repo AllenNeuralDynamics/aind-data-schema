@@ -1,9 +1,9 @@
 """ example data description """
 from datetime import datetime
 
-from aind_data_schema.data_description import Funding, RawDataDescription
-from aind_data_schema.models.institutions import AIND, AI
-from aind_data_schema.models.modalities import ECEPHYS, BEHAVIOR_VIDEOS
+from aind_data_schema.core.data_description import Funding, RawDataDescription
+from aind_data_schema.models.institutions import AI, AIND
+from aind_data_schema.models.modalities import BEHAVIOR_VIDEOS, ECEPHYS
 from aind_data_schema.models.platforms import ECEPHYS as P_ECEPHYS
 
 d = RawDataDescription(

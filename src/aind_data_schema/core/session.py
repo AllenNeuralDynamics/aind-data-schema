@@ -3,14 +3,13 @@
 from datetime import datetime
 from decimal import Decimal
 from enum import Enum
-from typing import List, Optional, Union, Literal
+from typing import List, Literal, Optional, Union
 
 from pydantic import Field, root_validator
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.imaging.tile import Channel
 from aind_data_schema.models.coordinates import CcfCoords, Coordinates3d
-from aind_data_schema.models.modalities import MODALITIES
 from aind_data_schema.models.device_configurations import (
     LIGHT_SOURCE_CONFIGS,
     DetectorConfigs,
@@ -21,6 +20,7 @@ from aind_data_schema.models.device_configurations import (
 
 # from aind_data_schema.data_description import Modality
 from aind_data_schema.models.devices import Calibration, Maintenance, RelativePosition, SpoutSide
+from aind_data_schema.models.modalities import MODALITIES
 from aind_data_schema.models.stimulus import StimulusEpoch
 from aind_data_schema.models.units import AngleUnit, FrequencyUnit, MassUnit, PowerUnit, SizeUnit, TimeUnit, VolumeUnit
 
@@ -336,14 +336,10 @@ class Session(AindCoreModel):
     )
     subject_id: str = Field(..., title="Subject ID")
     animal_weight_prior: Optional[Decimal] = Field(
-        None,
-        title="Animal weight (g)",
-        description="Animal weight before procedure"
+        None, title="Animal weight (g)", description="Animal weight before procedure"
     )
     animal_weight_post: Optional[Decimal] = Field(
-        None,
-        title="Animal weight (g)",
-        description="Animal weight after procedure"
+        None, title="Animal weight (g)", description="Animal weight after procedure"
     )
     weight_unit: MassUnit = Field(MassUnit.G, title="Weight unit")
     data_streams: List[Stream] = Field(

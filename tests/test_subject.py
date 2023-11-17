@@ -5,8 +5,8 @@ import unittest
 
 import pydantic
 
+from aind_data_schema.core.subject import Housing, LightCycle, MgiAlleleId, Subject
 from aind_data_schema.models.species import MUS_MUSCULUS
-from aind_data_schema.subject import Housing, LightCycle, MgiAlleleId, Subject
 
 
 class SubjectTests(unittest.TestCase):

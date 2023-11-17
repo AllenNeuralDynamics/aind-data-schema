@@ -268,14 +268,10 @@ class SubjectProcedure(AindModel):
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     iacuc_protocol: Optional[str] = Field(None, title="IACUC protocol")
     animal_weight_prior: Optional[Decimal] = Field(
-        None,
-        title="Animal weight (g)",
-        description="Animal weight before procedure"
+        None, title="Animal weight (g)", description="Animal weight before procedure"
     )
     animal_weight_post: Optional[Decimal] = Field(
-        None,
-        title="Animal weight (g)",
-        description="Animal weight after procedure"
+        None, title="Animal weight (g)", description="Animal weight after procedure"
     )
     weight_unit: MassUnit = Field(MassUnit.G, title="Weight unit")
     anaesthesia: Optional[Anaesthetic] = Field(None, title="Anaesthesia")
@@ -295,9 +291,7 @@ class Craniotomy(SubjectProcedure):
         None, title="Craniotomy coordinate reference"
     )
     bregma_to_lambda_distance: Optional[Decimal] = Field(
-        None,
-        title="Bregma to lambda (mm)",
-        description="Distance between bregman and lambda"
+        None, title="Bregma to lambda (mm)", description="Distance between bregman and lambda"
     )
     bregma_to_lambda_unit: SizeUnit = Field(SizeUnit.MM, title="Bregma to lambda unit")
     craniotomy_size: Decimal = Field(..., title="Craniotomy size (mm)")
@@ -385,9 +379,7 @@ class BrainInjection(Injection):
         None, title="Injection coordinate reference"
     )
     bregma_to_lambda_distance: Optional[Decimal] = Field(
-        None,
-        title="Bregma to lambda (mm)",
-        description="Distance between bregman and lambda"
+        None, title="Bregma to lambda (mm)", description="Distance between bregman and lambda"
     )
     bregma_to_lambda_unit: SizeUnit = Field(SizeUnit.MM, title="Bregma to lambda unit")
     injection_angle: Decimal = Field(..., title="Injection angle (deg)")
@@ -470,15 +462,16 @@ class OphysProbe(AindModel):
     targeted_structure: str = Field(..., title="Targeted structure")
     stereotactic_coordinate_ap: Decimal = Field(..., title="Stereotactic coordinate A/P (mm)")
     stereotactic_coordinate_ml: Decimal = Field(..., title="Stereotactic coordinate M/L (mm)")
-    stereotactic_coordinate_dv: Decimal = Field(..., title="Stereotactic coordinate D/V (mm)",)
+    stereotactic_coordinate_dv: Decimal = Field(
+        ...,
+        title="Stereotactic coordinate D/V (mm)",
+    )
     stereotactic_coordinate_unit: SizeUnit = Field(SizeUnit.MM, title="Sterotactic coordinate unit")
     stereotactic_coordinate_reference: Optional[CoordinateReferenceLocation] = Field(
         None, title="Stereotactic coordinate reference"
     )
     bregma_to_lambda_distance: Optional[Decimal] = Field(
-        None,
-        title="Bregma to lambda (mm)",
-        description="Distance between bregman and lambda"
+        None, title="Bregma to lambda (mm)", description="Distance between bregman and lambda"
     )
     bregma_to_lambda_unit: SizeUnit = Field(SizeUnit.MM, title="Bregma to lambda unit")
     angle: Decimal = Field(..., title="Angle (deg)")

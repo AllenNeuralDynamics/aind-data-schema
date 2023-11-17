@@ -1,0 +1,332 @@
+""" test DataDescription """
+
+import datetime
+import json
+import os
+import unittest
+from pathlib import Path
+from typing import List
+
+from pydantic import ValidationError
+
+from aind_data_schema.core.data_description import (
+    AnalysisDescription,
+    DataDescription,
+    DerivedDataDescription,
+    Funding,
+    RawDataDescription,
+)
+from aind_data_schema.models.institutions import AIND, NINDS
+from aind_data_schema.models.modalities import ECEPHYS, SPIM, Modality
+from aind_data_schema.models.platforms import ECEPHYS as P_ECEPHYS
+from aind_data_schema.models.platforms import EXASPIM as P_EXASPIM
+from aind_data_schema.models.platforms import Platform
+
+# from aind_data_schema.schema_upgrade.data_description_upgrade import DataDescriptionUpgrade
+
+DATA_DESCRIPTION_FILES_PATH = Path(__file__).parent / "resources" / "ephys_data_description"
+
+
+class DataDescriptionTest(unittest.TestCase):
+    """test DataDescription"""
+
+    @classmethod
+    def setUpClass(cls):
+        """Load json files before running tests."""
+        data_description_files: List[str] = os.listdir(DATA_DESCRIPTION_FILES_PATH)
+        data_descriptions = []
+        for file_path in data_description_files:
+            with open(DATA_DESCRIPTION_FILES_PATH / file_path) as f:
+                contents = json.load(f)
+            data_descriptions.append((file_path, DataDescription.model_construct(**contents)))
+        cls.data_descriptions = dict(data_descriptions)
+
+    BAD_NAME = "fizzbuzz"
+    BASIC_NAME = "ecephys_1234_3033-12-21_04-22-11"
+    DERIVED_NAME = "ecephys_1234_3033-12-21_04-22-11_spikesorted-ks25_2022-10-12_23-23-11"
+    ANALYSIS_NAME = "project_analysis_3033-12-21_04-22-11"
+
+    def test_constructors(self):
+        """test building from component parts"""
+        f = Funding(funder=NINDS, grant_number="grant001")
+
+        dt = datetime.datetime(2020, 10, 10, 10, 10, 10)
+        da = RawDataDescription(
+            creation_time=dt,
+            institution=AIND,
+            data_level="raw",
+            funding_source=[f],
+            modality=[ECEPHYS],
+            platform=P_ECEPHYS,
+            subject_id="12345",
+            investigators=["Jane Smith"],
+        )
+
+        r1 = DerivedDataDescription(
+            input_data_name=da.name,
+            process_name="spikesort-ks25",
+            creation_time=dt,
+            institution=AIND,
+            funding_source=[f],
+            modality=da.modality,
+            platform=da.platform,
+            subject_id=da.subject_id,
+            investigators=["Jane Smith"],
+        )
+
+        r2 = DerivedDataDescription(
+            input_data_name=r1.name,
+            process_name="some-model",
+            creation_time=dt,
+            institution=AIND,
+            funding_source=[f],
+            modality=r1.modality,
+            platform=r1.platform,
+            subject_id="12345",
+            investigators=["Jane Smith"],
+        )
+
+        r3 = DerivedDataDescription(
+            input_data_name=r2.name,
+            process_name="a-paper",
+            creation_time=dt,
+            institution=AIND,
+            funding_source=[f],
+            modality=r2.modality,
+            platform=r2.platform,
+            subject_id="12345",
+            investigators=["Jane Smith"],
+        )
+        assert r3 is not None
+
+        dd = DataDescription(
+            modality=[SPIM],
+            platform=P_EXASPIM,
+            subject_id="1234",
+            data_level="raw",
+            creation_time=dt,
+            institution=AIND,
+            funding_source=[f],
+            investigators=["Jane Smith"],
+        )
+
+        assert dd is not None
+
+        # test construction fails
+        with self.assertRaises(ValidationError):
+            DataDescription(
+                modality=[SPIM],
+                platform="fake platform",
+                subject_id="1234",
+                data_level="raw",
+                creation_time=dt,
+                institution=AIND,
+                funding_source=[f],
+                investigators=["Jane Smith"],
+            )
+
+        ad = AnalysisDescription(
+            analysis_name="analysis",
+            project_name="project",
+            creation_time=dt,
+            subject_id="1234",
+            modality=[SPIM],
+            platform=P_EXASPIM,
+            institution=AIND,
+            funding_source=[f],
+            investigators=["Jane Smith"],
+        )
+        self.assertEqual(ad.name, "exaSPIM_1234_2020-10-10_10-10-10")
+
+        with self.assertRaises(ValueError):
+            AnalysisDescription(
+                analysis_name="ana lysis",
+                project_name="pro_ject",
+                subject_id="1234",
+                modality=[SPIM],
+                platform="exaspim",
+                creation_time=dt,
+                institution=AIND,
+                funding_source=[f],
+                investigators=["Jane Smith"],
+            )
+
+        with self.assertRaises(ValueError):
+            DataDescription()
+
+        with self.assertRaises(ValueError):
+            DataDescription(creation_time=dt)
+
+        with self.assertRaises(ValueError):
+            DerivedDataDescription()
+
+        with self.assertRaises(ValueError):
+            DerivedDataDescription(creation_time=dt)
+
+        with self.assertRaises(ValueError):
+            AnalysisDescription()
+
+        with self.assertRaises(ValueError):
+            AnalysisDescription(creation_time=dt)
+
+        with self.assertRaises(ValueError):
+            RawDataDescription(platform="exaspim")
+
+        with self.assertRaises(ValueError):
+            AnalysisDescription(
+                analysis_name="",
+                project_name="project",
+                subject_id="1234",
+                modality=[SPIM],
+                platform="exaspim",
+                creation_time=dt,
+                institution=AIND,
+                funding_source=[f],
+                investigators=["Jane Smith"],
+            )
+
+        with self.assertRaises(ValueError):
+            AnalysisDescription(
+                analysis_name="analysis",
+                project_name="",
+                subject_id="1234",
+                modality=[SPIM],
+                platform="exaspim",
+                creation_time=dt,
+                institution=AIND,
+                funding_source=[f],
+                investigators=["Jane Smith"],
+            )
+
+    def test_round_trip(self):
+        """make sure we can round trip from json"""
+
+        dt = datetime.datetime.now()
+
+        da1 = RawDataDescription(
+            creation_time=dt,
+            institution=AIND,
+            data_level="raw",
+            funding_source=[],
+            modality=[SPIM],
+            platform=P_EXASPIM,
+            subject_id="12345",
+            investigators=["Jane Smith"],
+        )
+
+        da2 = RawDataDescription.model_validate(json.loads(da1.model_dump_json()))
+
+        assert da1.creation_time == da2.creation_time
+        assert da1.name == da2.name
+
+    # def test_parse_name(self):
+    #     """tests for parsing names"""
+    #
+    #     toks = DataDescription.parse_name(self.BASIC_NAME)
+    #     assert toks["label"] == "ecephys_1234"
+    #     assert toks["creation_time"] == datetime.datetime(3033, 12, 21, 4, 22, 11)
+    #
+    #     with self.assertRaises(ValueError):
+    #         DataDescription.parse_name(self.BAD_NAME)
+    #
+    #     toks = RawDataDescription.parse_name(self.BASIC_NAME)
+    #     assert toks["platform"] == P_ECEPHYS
+    #     assert toks["subject_id"] == "1234"
+    #     assert toks["creation_time"] == datetime.datetime(3033, 12, 21, 4, 22, 11)
+    #
+    #     with self.assertRaises(ValueError):
+    #         RawDataDescription.parse_name(self.BAD_NAME)
+    #
+    #     toks = DerivedDataDescription.parse_name(self.DERIVED_NAME)
+    #     assert toks["input_data_name"] == "ecephys_1234_3033-12-21_04-22-11"
+    #     assert toks["process_name"] == "spikesorted-ks25"
+    #     assert toks["creation_time"] == datetime.datetime(2022, 10, 12, 23, 23, 11)
+    #
+    #     with self.assertRaises(ValueError):
+    #         DerivedDataDescription.parse_name(self.BAD_NAME)
+    #
+    #     toks = AnalysisDescription.parse_name(self.ANALYSIS_NAME)
+    #     assert toks["project_abbreviation"] == "project"
+    #     assert toks["analysis_name"] == "analysis"
+    #     assert toks["creation_time"] == datetime.datetime(3033, 12, 21, 4, 22, 11)
+    #
+    #     with self.assertRaises(ValueError):
+    #         AnalysisDescription.parse_name(self.BAD_NAME)
+
+    # def test_abbreviation_enums(self):
+    #     """Tests that BaseName enums can be constructed from abbreviations"""
+    #     # Tests that Modality constructed as expected
+    #     self.assertEqual(ECEPHYS, Modality("ECEPHYS"))
+    #     self.assertEqual(ECEPHYS, Modality("ecephys"))
+    #     self.assertEqual(POPHYS, Modality("POPHYS"))
+    #     self.assertEqual(POPHYS, Modality("ophys"))
+    #     self.assertEqual(Modality.BEHAVIOR_VIDEOS, Modality("BEHAVIOR_VIDEOS"))
+    #     self.assertEqual(Modality.BEHAVIOR_VIDEOS, Modality("behavior-videos"))
+    #
+    #     # Tests that Platform constructed as expected
+    #     self.assertEqual(Platform.ECEPHYS, Platform("ECEPHYS"))
+    #     self.assertEqual(Platform.ECEPHYS, Platform("ecephys"))
+    #     self.assertEqual(Platform.MESOSPIM, Platform("MESOSPIM"))
+    #     self.assertEqual(Platform.MESOSPIM, Platform("mesoSPIM"))
+    #     self.assertEqual(Platform.MULTIPLANE_OPHYS, Platform("MULTIPLANE_OPHYS"))
+    #     self.assertEqual(Platform.MULTIPLANE_OPHYS, Platform("multiplane-ophys"))
+
+    def test_unique_abbreviations(self):
+        """Tests that abbreviations are unique"""
+        modality_abbreviations = [m().abbreviation for m in tuple(Modality.__subclasses__())]
+        self.assertEqual(len(set(modality_abbreviations)), len(modality_abbreviations))
+        platform_abbreviations = [p().abbreviation for p in tuple(Platform.__subclasses__())]
+        self.assertEqual(len(set(platform_abbreviations)), len(platform_abbreviations))
+
+    # def test_from_data_description(self):
+    #     """Tests DerivedDataDescription.from_data_description method"""
+    #
+    #     process_name = "spikesorter"
+    #
+    #     data_description_0_3_0 = self.data_descriptions["data_description_0.3.0.json"]
+    #     upgrader_0_3_0 = DataDescriptionUpgrade(old_data_description_model=data_description_0_3_0)
+    #     new_dd_0_3_0 = upgrader_0_3_0.upgrade(platform=Platform.ECEPHYS)
+    #     derived_dd_0_3_0 = DerivedDataDescription.from_data_description(new_dd_0_3_0, process_name=process_name)
+    #     self.assertEqual(Platform.ECEPHYS, derived_dd_0_3_0.platform)
+    #
+    #     data_description_0_4_0 = self.data_descriptions["data_description_0.4.0.json"]
+    #     upgrader_0_4_0 = DataDescriptionUpgrade(old_data_description_model=data_description_0_4_0)
+    #     new_dd_0_4_0 = upgrader_0_4_0.upgrade()
+    #     derived_dd_0_4_0 = DerivedDataDescription.from_data_description(new_dd_0_4_0, process_name=process_name)
+    #     self.assertEqual(Platform.ECEPHYS, derived_dd_0_4_0.platform)
+    #
+    #     data_description_0_6_0 = self.data_descriptions["data_description_0.6.0.json"]
+    #     upgrader_0_6_0 = DataDescriptionUpgrade(old_data_description_model=data_description_0_6_0)
+    #     new_dd_0_6_0 = upgrader_0_6_0.upgrade()
+    #     derived_dd_0_6_0 = DerivedDataDescription.from_data_description(new_dd_0_6_0, process_name=process_name)
+    #     self.assertEqual(Platform.ECEPHYS, derived_dd_0_6_0.platform)
+    #
+    #     data_description_0_6_2 = self.data_descriptions["data_description_0.6.2.json"]
+    #     upgrader_0_6_2 = DataDescriptionUpgrade(old_data_description_model=data_description_0_6_2)
+    #     new_dd_0_6_2 = upgrader_0_6_2.upgrade()
+    #     derived_dd_0_6_2 = DerivedDataDescription.from_data_description(new_dd_0_6_2, process_name=process_name)
+    #     self.assertEqual(Platform.ECEPHYS, derived_dd_0_6_2.platform)
+    #
+    #     data_description_0_6_2_wrong_field = self.data_descriptions["data_description_0.6.2_wrong_field.json"]
+    #     upgrader_0_6_2_wrong_field = DataDescriptionUpgrade(
+    #         old_data_description_model=data_description_0_6_2_wrong_field
+    #     )
+    #     new_dd_0_6_2_wrong_field = upgrader_0_6_2_wrong_field.upgrade(
+    #         funding_source=[Funding(funder=AIND)]
+    #     )
+    #     derived_dd_0_6_2_wrong_field = DerivedDataDescription.from_data_description(
+    #         new_dd_0_6_2_wrong_field, process_name=process_name
+    #     )
+    #     self.assertEqual(Platform.ECEPHYS, derived_dd_0_6_2_wrong_field.platform)
+    #
+    #     # Test Override
+    #     derived_dd_0_6_2_wrong_field2 = DerivedDataDescription.from_data_description(
+    #         new_dd_0_6_2_wrong_field,
+    #         process_name=process_name,
+    #         platform=Platform.SMARTSPIM,
+    #     )
+    #     self.assertEqual(Platform.SMARTSPIM, derived_dd_0_6_2_wrong_field2.platform)
+
+
+if __name__ == "__main__":
+    unittest.main()

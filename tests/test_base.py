@@ -1,7 +1,7 @@
 """ tests for Subject """
 import unittest
 
-from aind_data_schema.subject import Subject
+from aind_data_schema.core.subject import Subject
 
 
 class BaseTests(unittest.TestCase):

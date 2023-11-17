@@ -1,7 +1,7 @@
 """ ephys procedure mouse 625100 """
 import datetime
 
-from aind_data_schema.procedures import (
+from aind_data_schema.core.procedures import (
     Anaesthetic,
     Craniotomy,
     InjectionMaterial,

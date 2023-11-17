@@ -1,8 +1,7 @@
 """ example processing """
 import datetime
 
-from aind_data_schema.processing import Processing
-from aind_data_schema.processing import AnalysisProcess, DataProcess, PipelineProcess, ProcessName
+from aind_data_schema.core.processing import AnalysisProcess, DataProcess, PipelineProcess, Processing, ProcessName
 
 t = datetime.datetime(2022, 11, 22, 8, 43, 00)
 

@@ -56,7 +56,7 @@ class Rotation3dTransform(CoordinateTransform):
     """Values to be vector-added to a 3D position. Often needed to specify a Tile's origin."""
 
     type: Literal["rotation"] = "rotation"
-    rotation: List[Decimal] = Field(..., title="3D rotation matrix values (3x3) ", min_length=3, max_length=3)
+    rotation: List[Decimal] = Field(..., title="3D rotation matrix values (3x3) ", min_length=9, max_length=9)
 
 
 class Affine3dTransform(CoordinateTransform):
@@ -64,7 +64,7 @@ class Affine3dTransform(CoordinateTransform):
 
     type: Literal["affine"] = "affine"
     affine_transform: List[Decimal] = Field(
-        ..., title="Affine transform matrix values (top 3x4 matrix)", min_length=3, max_length=3
+        ..., title="Affine transform matrix values (top 3x4 matrix)", min_length=12, max_length=12
     )
 
 

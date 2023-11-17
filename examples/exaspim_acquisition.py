@@ -1,12 +1,13 @@
 """ example ExaSPIM acquisition """
 
-from datetime import date, datetime
+from datetime import datetime
 
+from aind_data_schema.core import acquisition
+from aind_data_schema.core.procedures import Reagent
+from aind_data_schema.imaging import tile
+from aind_data_schema.models.devices import Calibration, Maintenance
 from aind_data_schema.models.pid_names import PIDName
 from aind_data_schema.models.registry import RRID
-from aind_data_schema.models.devices import Calibration, Maintenance
-from aind_data_schema.imaging import acquisition, tile
-from aind_data_schema.procedures import Reagent
 from aind_data_schema.models.units import PowerValue
 
 t = datetime(2022, 11, 22, 8, 43, 00)

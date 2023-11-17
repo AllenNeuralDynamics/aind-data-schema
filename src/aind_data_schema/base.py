@@ -1,10 +1,10 @@
 """ generic base class with supporting validators and fields for basic AIND schema """
 
-from typing import Final, Optional
+import re
 from pathlib import Path
+from typing import Final, Optional
 
 from pydantic import BaseModel, ConfigDict, Extra, Field, PrivateAttr
-import re
 
 
 class AindModel(BaseModel):
@@ -17,7 +17,9 @@ class AindCoreModel(AindModel):
     """Generic base class to hold common fields/validators/etc for all basic AIND schema"""
 
     _FILE_EXTENSION = PrivateAttr(default=".json")
-    _DESCRIBED_BY_BASE_URL = PrivateAttr(default="https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/")
+    _DESCRIBED_BY_BASE_URL = PrivateAttr(
+        default="https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/"
+    )
 
     describedBy: str = Field(..., json_schema_extra={"const": True})
     schema_version: str = Field(
@@ -37,9 +39,7 @@ class AindCoreModel(AindModel):
         name = cls.__name__
         return re.sub(r"(?<!^)(?=[A-Z])", "_", name).lower() + cls._FILE_EXTENSION.default
 
-
-    def write_standard_file(self, output_directory: Optional[Path] = None,
-                            prefix=None, suffix=None):
+    def write_standard_file(self, output_directory: Optional[Path] = None, prefix=None, suffix=None):
         """
         Writes schema to standard json file
         Parameters

@@ -2,9 +2,19 @@
 import datetime
 
 import aind_data_schema.models.devices as d
-from aind_data_schema.rig import Rig
+from aind_data_schema.core.rig import Rig
+from aind_data_schema.models.manufacturers import (
+    AILIPU,
+    DORIC,
+    EDMUND_OPTICS,
+    FLIR,
+    NATIONAL_INSTRUMENTS,
+    NIKON,
+    OTHER,
+    SEMROCK,
+    THORLABS,
+)
 from aind_data_schema.models.modalities import FIB
-from aind_data_schema.models.manufacturers import AILIPU, OTHER, DORIC, THORLABS, FLIR, NIKON, SEMROCK, EDMUND_OPTICS, NATIONAL_INSTRUMENTS
 
 r = Rig(
     rig_id="428_FIP1_2",

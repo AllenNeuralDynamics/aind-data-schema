@@ -2,9 +2,9 @@
 
 import datetime
 
-from aind_data_schema.models.modalities import FIB
+from aind_data_schema.core.session import Session, Stream
 from aind_data_schema.models.device_configurations import DetectorConfigs, FiberConnectionConfigs, LaserConfigs
-from aind_data_schema.session import Session, Stream
+from aind_data_schema.models.modalities import FIB
 
 t = datetime.datetime(2022, 7, 12, 7, 00, 00)
 
@@ -54,7 +54,7 @@ s = Session(
             ],
             mouse_platform_name="Disc",
             active_mouse_platform=False,
-            notes="Internal trigger. GRAB-DA2m shows signal. Unclear about GRAB-rAC"
+            notes="Internal trigger. GRAB-DA2m shows signal. Unclear about GRAB-rAC",
         )
     ],
 )

@@ -5,9 +5,7 @@ from datetime import date
 
 from pydantic import ValidationError
 
-from aind_data_schema.models.devices import FiberProbe
-from aind_data_schema.models.manufacturers import DORIC
-from aind_data_schema.procedures import (
+from aind_data_schema.core.procedures import (
     FiberImplant,
     InjectionMaterial,
     NanojectInjection,
@@ -16,6 +14,8 @@ from aind_data_schema.procedures import (
     RetroOrbitalInjection,
     SpecimenProcedure,
 )
+from aind_data_schema.models.devices import FiberProbe
+from aind_data_schema.models.manufacturers import DORIC
 
 
 class ProceduresTests(unittest.TestCase):

@@ -2,9 +2,9 @@
 
 from datetime import datetime
 from enum import Enum
-from typing import List, Literal, Optional, Any
+from typing import Any, List, Literal, Optional
 
-from pydantic import Field, field_validator, ValidationInfo
+from pydantic import Field, ValidationInfo, field_validator
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.models.institutions import INSTITUTIONS
@@ -116,7 +116,7 @@ class DataDescription(AindCoreModel):
         None,
         description="Name of data, conventionally also the name of the directory containing all data and metadata",
         title="Name",
-        validate_default=True
+        validate_default=True,
     )
     institution: INSTITUTIONS = Field(
         ...,
@@ -170,10 +170,14 @@ class DataDescription(AindCoreModel):
 
     @field_validator("name", mode="after")
     def create_name(cls, value: Any, info: ValidationInfo) -> str:
-        platform_abbr = info.data.get("platform").abbreviation
+        platform = info.data.get("platform")
         creation_datetime = info.data.get("creation_time")
         subject_id = info.data.get("subject_id")
-        return "_".join([platform_abbr, subject_id, creation_datetime.strftime("%Y-%m-%d_%H-%M-%S")])
+        if value is None and platform is not None and creation_datetime is not None and subject_id is not None:
+            platform_abbr = info.data.get("platform").abbreviation
+            return "_".join([platform_abbr, subject_id, creation_datetime.strftime("%Y-%m-%d_%H-%M-%S")])
+        else:
+            return value
 
     # # TODO: We need to remove all the custom class constructors on pydantic
     # #  models
@@ -231,6 +235,7 @@ class DerivedDataDescription(DataDescription):
     data_level: Literal[DataLevel.DERIVED] = Field(
         DataLevel.DERIVED, description="level of processing that data has undergone", title="Data Level"
     )
+    process_name: str
 
     # def __init__(self, process_name, **kwargs):
     #     """Construct a derived data description"""
