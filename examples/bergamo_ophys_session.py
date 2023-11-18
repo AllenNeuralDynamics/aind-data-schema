@@ -4,7 +4,7 @@ import datetime
 
 from aind_data_schema.core.session import FieldOfView, Session, Stream
 from aind_data_schema.models.device_configurations import DetectorConfigs, LaserConfigs
-from aind_data_schema.models.modalities import BEHAVIOR_VIDEOS, POPHYS
+from aind_data_schema.models.modalities import Modality
 from aind_data_schema.models.stimulus import PhotoStimulation, PhotoStimulationGroup, StimulusEpoch
 
 t = datetime.datetime(2022, 7, 12, 7, 00, 00)
@@ -21,7 +21,7 @@ s = Session(
         Stream(
             stream_start_time=t,
             stream_end_time=t,
-            stream_modalities=[POPHYS, BEHAVIOR_VIDEOS],
+            stream_modalities=[Modality.POPHYS, Modality.BEHAVIOR_VIDEOS],
             light_sources=[
                 LaserConfigs(
                     name="Laser A",

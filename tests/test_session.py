@@ -8,7 +8,7 @@ import pydantic
 from aind_data_schema.core.session import DomeModule, EphysModule, Session, Stream
 from aind_data_schema.models.coordinates import CcfCoords, Coordinates3d
 from aind_data_schema.models.device_configurations import EphysProbeConfigs, RewardDeliveryConfigs
-from aind_data_schema.models.modalities import BEHAVIOR_VIDEOS, ECEPHYS, FIB, POPHYS, SLAP, TRAINED_BEHAVIOR
+from aind_data_schema.models.modalities import Modality
 
 
 class ExampleTest(unittest.TestCase):
@@ -31,7 +31,7 @@ class ExampleTest(unittest.TestCase):
                 Stream(
                     stream_start_time=datetime.datetime.now(),
                     stream_end_time=datetime.datetime.now(),
-                    stream_modalities=[ECEPHYS],
+                    stream_modalities=[Modality.ECEPHYS],
                     stick_microscopes=[
                         DomeModule(
                             assembly_name="Stick_assembly",
@@ -72,12 +72,12 @@ class ExampleTest(unittest.TestCase):
                 stream_start_time=datetime.datetime.now(),
                 stream_end_time=datetime.datetime.now(),
                 stream_modalities=[
-                    ECEPHYS,
-                    SLAP,
-                    FIB,
-                    BEHAVIOR_VIDEOS,
-                    POPHYS,
-                    TRAINED_BEHAVIOR,
+                    Modality.ECEPHYS,
+                    Modality.SLAP,
+                    Modality.FIB,
+                    Modality.BEHAVIOR_VIDEOS,
+                    Modality.POPHYS,
+                    Modality.TRAINED_BEHAVIOR,
                 ],
             )
 

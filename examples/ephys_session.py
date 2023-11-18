@@ -5,7 +5,7 @@ from datetime import datetime
 from aind_data_schema.core.session import DomeModule, EphysModule, ManipulatorModule, Session, Stream
 from aind_data_schema.models.coordinates import Coordinates3d
 from aind_data_schema.models.device_configurations import EphysProbeConfigs, LaserConfigs
-from aind_data_schema.models.modalities import BEHAVIOR_VIDEOS, ECEPHYS
+from aind_data_schema.models.modalities import Modality
 
 red_laser = LaserConfigs(name="Red Laser", wavelength=700, excitation_power=100)
 
@@ -34,7 +34,7 @@ ephys_module = EphysModule(
 stream = Stream(
     stream_start_time=datetime(2023, 1, 10, 8, 43, 00),
     stream_end_time=datetime(2023, 1, 10, 9, 43, 00),
-    stream_modalities=[ECEPHYS, BEHAVIOR_VIDEOS],
+    stream_modalities=[Modality.ECEPHYS, Modality.BEHAVIOR_VIDEOS],
     stick_microscopes=[
         DomeModule(
             assembly_name="Stick_assembly",

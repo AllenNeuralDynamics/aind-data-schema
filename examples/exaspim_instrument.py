@@ -3,30 +3,19 @@ import datetime
 
 from aind_data_schema.core import instrument
 from aind_data_schema.models.devices import DAQChannel, DAQDevice, Detector, Filter, Laser
-from aind_data_schema.models.manufacturers import (
-    ASI,
-    CHROMA,
-    CUSTOM,
-    MKS_NEWPORT,
-    NATIONAL_INSTRUMENTS,
-    OPTOTUNE,
-    OTHER,
-    OXXIUS,
-    THORLABS,
-    VIEWORKS,
-)
+from aind_data_schema.models.manufacturers import Manufacturer
 
 inst = instrument.Instrument(
     instrument_id="exaSPIM1-1",
     instrument_type="exaSPIM",
     modification_date=datetime.date(2023, 10, 4),
-    manufacturer=CUSTOM,
+    manufacturer=Manufacturer.CUSTOM,
     objectives=[
         instrument.Objective(
             numerical_aperture=0.305,
             magnification=5,
             immersion="air",
-            manufacturer=OTHER,
+            manufacturer=Manufacturer.OTHER,
             model="JM_DIAMOND 5.0X/1.3",
             serial_number="Unknown",
             notes="manufacturer collaboration between Schneider-Kreuznach and Vieworks",
@@ -37,7 +26,7 @@ inst = instrument.Instrument(
             detector_type="Camera",
             data_interface="Coax",
             cooling="air",
-            manufacturer=VIEWORKS,
+            manufacturer=Manufacturer.VIEWORKS,
             model="VNP-604MX",
             serial_number="MB151BAY001",
         ),
@@ -48,7 +37,7 @@ inst = instrument.Instrument(
             wavelength=405,
             maximum_power=200,
             serial_number="LAS-08307",
-            manufacturer=OXXIUS,
+            manufacturer=Manufacturer.OXXIUS,
             notes="Housed in commercial laser combiner",
         ),
         Laser(
@@ -56,7 +45,7 @@ inst = instrument.Instrument(
             wavelength=488,
             maximum_power=200,
             serial_number="LAS-08308",
-            manufacturer=OXXIUS,
+            manufacturer=Manufacturer.OXXIUS,
             notes="Housed in commercial laser combiner",
         ),
         Laser(
@@ -64,7 +53,7 @@ inst = instrument.Instrument(
             wavelength=561,
             maximum_power=200,
             serial_number="539251",
-            manufacturer=OXXIUS,
+            manufacturer=Manufacturer.OXXIUS,
             notes="Housed in commercial laser combiner",
         ),
         Laser(
@@ -72,14 +61,14 @@ inst = instrument.Instrument(
             wavelength=638,
             maximum_power=200,
             serial_number="LAS-08309",
-            manufacturer=OXXIUS,
+            manufacturer=Manufacturer.OXXIUS,
             notes="Housed in commercial laser combiner",
         ),
     ],
     fluorescence_filters=[
         Filter(
             filter_type="Multiband",
-            manufacturer=CHROMA,
+            manufacturer=Manufacturer.CHROMA,
             diameter=44.05,
             thickness=1,
             model="ZET405/488/561/640mv2",
@@ -93,7 +82,7 @@ inst = instrument.Instrument(
             model="PCIe-6738",
             data_interface="USB",
             computer_name="Dev2",
-            manufacturer=NATIONAL_INSTRUMENTS,
+            manufacturer=Manufacturer.NATIONAL_INSTRUMENTS,
             name="Dev2",
             serial_number="Unknown",
             channels=[
@@ -142,7 +131,7 @@ inst = instrument.Instrument(
             stage_axis_name="X",
             travel=1000,
             model="MS-8000",
-            manufacturer=ASI,
+            manufacturer=Manufacturer.ASI,
             serial_number="Unknown",
         ),
         instrument.ScanningStage(
@@ -150,7 +139,7 @@ inst = instrument.Instrument(
             stage_axis_name="Y",
             travel=1000,
             model="MS-8000",
-            manufacturer=ASI,
+            manufacturer=Manufacturer.ASI,
             serial_number="Unknown",
         ),
         instrument.ScanningStage(
@@ -158,26 +147,26 @@ inst = instrument.Instrument(
             stage_axis_name="Z",
             travel=100,
             model="LS-100",
-            manufacturer=ASI,
+            manufacturer=Manufacturer.ASI,
             serial_number="Unknown",
         ),
     ],
     additional_devices=[
         instrument.AdditionalImagingDevice(
             type="Tunable lens",
-            manufacturer=OPTOTUNE,
+            manufacturer=Manufacturer.OPTOTUNE,
             model="EL-16-40-TC-VIS-20D-C",
             serial_number="01",
         ),
         instrument.AdditionalImagingDevice(
             type="Rotation mount",
-            manufacturer=THORLABS,
+            manufacturer=Manufacturer.THORLABS,
             model="K10CR1",
             serial_number="01",
         ),
         instrument.AdditionalImagingDevice(
             type="Laser combiner",
-            manufacturer=OXXIUS,
+            manufacturer=Manufacturer.OXXIUS,
             model="L6Cc",
             serial_number="L6CC-00513",
         ),
@@ -188,7 +177,7 @@ inst = instrument.Instrument(
             width=48,
             vibration_control=True,
             model="VIS3648-PG2-325A",
-            manufacturer=MKS_NEWPORT,
+            manufacturer=Manufacturer.MKS_NEWPORT,
             serial_number="Unknown",
         )
     ],

@@ -11,7 +11,7 @@ from aind_data_schema.core import mri_session as ms
 from aind_data_schema.core.processing import Registration
 from aind_data_schema.imaging import tile
 from aind_data_schema.models.devices import Calibration
-from aind_data_schema.models.manufacturers import LIFECANVAS, OTHER
+from aind_data_schema.models.manufacturers import Manufacturer
 from aind_data_schema.models.units import PowerValue
 
 
@@ -68,7 +68,7 @@ class ImagingTests(unittest.TestCase):
         i = inst.Instrument(
             instrument_type="diSPIM",
             modification_date=datetime.datetime.now().date(),
-            manufacturer=LIFECANVAS,
+            manufacturer=Manufacturer.LIFECANVAS,
             objectives=[],
             detectors=[],
             light_sources=[],
@@ -79,7 +79,7 @@ class ImagingTests(unittest.TestCase):
         with self.assertRaises(ValidationError):
             i = inst.Instrument(
                 instrument_type="Other",
-                manufacturer=OTHER,
+                manufacturer=Manufacturer.OTHER,
                 objectives=[],
                 detectors=[],
                 light_sources=[],
@@ -88,7 +88,7 @@ class ImagingTests(unittest.TestCase):
         with self.assertRaises(ValidationError):
             i = inst.Instrument(
                 instrument_type="diSPIM",
-                manufacturer=OTHER,
+                manufacturer=Manufacturer.OTHER,
                 objectives=[],
                 detectors=[],
                 light_sources=[],

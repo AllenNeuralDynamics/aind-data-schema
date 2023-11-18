@@ -7,9 +7,9 @@ from typing import Any, List, Literal, Optional
 from pydantic import Field, ValidationInfo, field_validator
 
 from aind_data_schema.base import AindCoreModel, AindModel
-from aind_data_schema.models.institutions import INSTITUTIONS
-from aind_data_schema.models.modalities import MODALITIES
-from aind_data_schema.models.platforms import PLATFORMS
+from aind_data_schema.models.institutions import Institution
+from aind_data_schema.models.modalities import Modality
+from aind_data_schema.models.platforms import Platform
 
 
 class RegexParts(str, Enum):
@@ -76,7 +76,7 @@ def build_data_name(label, creation_datetime):
 class Funding(AindModel):
     """Description of funding sources"""
 
-    funder: INSTITUTIONS = Field(..., title="Funder")
+    funder: Institution.ONE_OF = Field(..., title="Funder")
     grant_number: Optional[str] = Field(None, title="Grant number")
     fundee: Optional[str] = Field(None, title="Fundee", description="Person(s) funded by this mechanism")
 
@@ -96,7 +96,7 @@ class DataDescription(AindCoreModel):
     schema_version: Literal["0.11.0"] = Field("0.11.0", title="Schema Version")
     license: Literal["CC-BY-4.0"] = Field("CC-BY-4.0", title="License")
 
-    platform: PLATFORMS = Field(
+    platform: Platform.ONE_OF = Field(
         ...,
         description="Name for a standardized primary data collection system",
         title="Platform",
@@ -118,7 +118,7 @@ class DataDescription(AindCoreModel):
         title="Name",
         validate_default=True,
     )
-    institution: INSTITUTIONS = Field(
+    institution: Institution.ONE_OF = Field(
         ...,
         description="An established society, corporation, foundation or other organization that collected this data",
         title="Institution",
@@ -155,7 +155,7 @@ class DataDescription(AindCoreModel):
         description="Detail any restrictions on publishing or sharing these data",
         title="Restrictions",
     )
-    modality: List[MODALITIES] = Field(
+    modality: List[Modality.ONE_OF] = Field(
         ...,
         description="A short name for the specific manner, characteristic, pattern of application, or the employment"
         "of any technology or formal procedure to generate data for a study",

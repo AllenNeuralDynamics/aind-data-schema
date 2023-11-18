@@ -4,7 +4,7 @@ import unittest
 
 from aind_data_schema.core.metadata import Metadata, MetadataStatus
 from aind_data_schema.core.subject import Sex, Subject
-from aind_data_schema.models.species import MUS_MUSCULUS
+from aind_data_schema.models.species import Species
 
 
 class TestMetadata(unittest.TestCase):
@@ -14,7 +14,7 @@ class TestMetadata(unittest.TestCase):
         """Tests that the record is marked as VALID if a valid subject model
         is present."""
         s1 = Subject(
-            species=MUS_MUSCULUS,
+            species=Species.MUS_MUSCULUS,
             subject_id="123345",
             sex=Sex.MALE,
             date_of_birth="2020-10-10",

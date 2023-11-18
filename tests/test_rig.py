@@ -23,8 +23,8 @@ from aind_data_schema.models.devices import (
     Patch,
     StickMicroscopeAssembly,
 )
-from aind_data_schema.models.manufacturers import DORIC, FLIR, HAMAMATSU, IMEC, NEW_SCALE_TECHNOLOGIES, OTHER
-from aind_data_schema.models.modalities import BEHAVIOR_VIDEOS, ECEPHYS, FIB, POPHYS, SLAP, TRAINED_BEHAVIOR
+from aind_data_schema.models.manufacturers import Manufacturer
+from aind_data_schema.models.modalities import Modality
 
 
 class RigTests(unittest.TestCase):
@@ -41,7 +41,7 @@ class RigTests(unittest.TestCase):
                 basestation_firmware_version="1",
                 bsc_firmware_version="2",
                 slot=0,
-                manufacturer=IMEC,
+                manufacturer=Manufacturer.IMEC,
                 ports=[],
                 computer_name="foo",
                 channels=[
@@ -73,7 +73,7 @@ class RigTests(unittest.TestCase):
             EphysAssembly(
                 probes=[EphysProbe(probe_model="Neuropixels 1.0", name="Probe A")],
                 manipulator=Manipulator(
-                    manufacturer=NEW_SCALE_TECHNOLOGIES,
+                    manufacturer=Manufacturer.NEW_SCALE_TECHNOLOGIES,
                     serial_number="4321",
                 ),
                 ephys_assembly_name="Ephys_assemblyA",
@@ -84,14 +84,14 @@ class RigTests(unittest.TestCase):
             LaserAssembly(
                 lasers=[
                     Laser(
-                        manufacturer=HAMAMATSU,
+                        manufacturer=Manufacturer.HAMAMATSU,
                         serial_number="1234",
                         name="Laser A",
                         wavelength=488,
                     ),
                 ],
                 manipulator=Manipulator(
-                    manufacturer=NEW_SCALE_TECHNOLOGIES,
+                    manufacturer=Manufacturer.NEW_SCALE_TECHNOLOGIES,
                     serial_number="1234",
                 ),
                 laser_assembly_name="Laser_assembly",
@@ -101,16 +101,16 @@ class RigTests(unittest.TestCase):
         rig = Rig(
             rig_id="1234",
             modification_date=date(2020, 10, 10),
-            modalities=[ECEPHYS, FIB],
+            modalities=[Modality.ECEPHYS, Modality.FIB],
             daqs=daqs,
             cameras=[
                 CameraAssembly(
                     camera_assembly_name="cam",
                     camera_target="Face bottom",
-                    lens=Lens(manufacturer=OTHER),
+                    lens=Lens(manufacturer=Manufacturer.OTHER),
                     camera=Camera(
                         name="Camera A",
-                        manufacturer=OTHER,
+                        manufacturer=Manufacturer.OTHER,
                         data_interface="USB",
                         computer_name="ASDF",
                         max_frame_rate=144,
@@ -125,7 +125,7 @@ class RigTests(unittest.TestCase):
                     scope_assembly_name="fake name",
                     camera=Camera(
                         name="Camera A",
-                        manufacturer=OTHER,
+                        manufacturer=Manufacturer.OTHER,
                         data_interface="USB",
                         computer_name="ASDF",
                         max_frame_rate=144,
@@ -133,12 +133,12 @@ class RigTests(unittest.TestCase):
                         pixel_height=1,
                         chroma="Color",
                     ),
-                    lens=Lens(manufacturer=OTHER),
+                    lens=Lens(manufacturer=Manufacturer.OTHER),
                 )
             ],
             light_sources=[
                 Laser(
-                    manufacturer=HAMAMATSU,
+                    manufacturer=Manufacturer.HAMAMATSU,
                     serial_number="1234",
                     name="Laser A",
                     wavelength=488,
@@ -150,7 +150,7 @@ class RigTests(unittest.TestCase):
                 Detector(
                     name="FLIR CMOS for Green Channel",
                     serial_number="21396991",
-                    manufacturer=FLIR,
+                    manufacturer=Manufacturer.FLIR,
                     model="BFS-U3-20S40M",
                     detector_type="Camera",
                     data_interface="USB",
@@ -169,7 +169,7 @@ class RigTests(unittest.TestCase):
             patch_cords=[
                 Patch(
                     name="Bundle Branching Fiber-optic Patch Cord",
-                    manufacturer=DORIC,
+                    manufacturer=Manufacturer.DORIC,
                     model="BBP(4)_200/220/900-0.37_Custom_FCM-4xMF1.25",
                     core_diameter=200,
                     numerical_aperture=0.37,
@@ -197,12 +197,12 @@ class RigTests(unittest.TestCase):
         with self.assertRaises(ValidationError) as e:
             Rig(
                 modalities=[
-                    ECEPHYS,
-                    SLAP,
-                    FIB,
-                    BEHAVIOR_VIDEOS,
-                    POPHYS,
-                    TRAINED_BEHAVIOR,
+                    Modality.ECEPHYS,
+                    Modality.SLAP,
+                    Modality.FIB,
+                    Modality.BEHAVIOR_VIDEOS,
+                    Modality.POPHYS,
+                    Modality.TRAINED_BEHAVIOR,
                 ],
                 rig_id="1234",
                 modification_date=date(2020, 10, 10),
@@ -211,7 +211,7 @@ class RigTests(unittest.TestCase):
                         basestation_firmware_version="1",
                         bsc_firmware_version="2",
                         slot=0,
-                        manufacturer=IMEC,
+                        manufacturer=Manufacturer.IMEC,
                         ports=[],
                         computer_name="foo",
                         channels=[

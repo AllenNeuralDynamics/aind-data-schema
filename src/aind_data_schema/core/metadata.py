@@ -49,7 +49,7 @@ class Metadata(AindCoreModel):
     schema_version: Literal["0.1.0"] = Field("0.1.0")
     id: UUID = Field(
         default_factory=uuid4,
-        # alias="_id",
+        alias="_id",
         title="Data Asset ID",
         description="The unique id of the data asset.",
     )

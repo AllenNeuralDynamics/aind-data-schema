@@ -13,7 +13,7 @@ from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.models.devices import FiberProbe
 from aind_data_schema.models.pid_names import PIDName
 from aind_data_schema.models.reagent import Reagent
-from aind_data_schema.models.species import SPECIES
+from aind_data_schema.models.species import Species
 from aind_data_schema.models.units import (
     AngleUnit,
     ConcentrationUnit,
@@ -176,7 +176,7 @@ class HCRReadout(Readout):
 class OligoProbe(Reagent):
     """Description of an oligonucleotide probe"""
 
-    species: SPECIES = Field(..., title="Species")
+    species: Species.ONE_OF = Field(..., title="Species")
     gene: PIDName = Field(..., title="Gene name, accession number, and registry")
     probe_sequences: List[str] = Field(..., title="Probe sequences")
     readout: Readout = Field(..., title="Readout")

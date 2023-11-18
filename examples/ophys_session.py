@@ -4,7 +4,7 @@ import datetime
 
 from aind_data_schema.core.session import Session, Stream
 from aind_data_schema.models.device_configurations import DetectorConfigs, FiberConnectionConfigs, LaserConfigs
-from aind_data_schema.models.modalities import FIB
+from aind_data_schema.models.modalities import Modality
 
 t = datetime.datetime(2022, 7, 12, 7, 00, 00)
 
@@ -20,7 +20,7 @@ s = Session(
         Stream(
             stream_start_time=t,
             stream_end_time=t,
-            stream_modalities=[FIB],
+            stream_modalities=[Modality.FIB],
             light_sources=[
                 LaserConfigs(
                     name="Laser A",

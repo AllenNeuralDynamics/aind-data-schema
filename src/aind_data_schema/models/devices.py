@@ -10,21 +10,22 @@ from typing_extensions import Annotated
 
 from aind_data_schema.base import AindModel
 from aind_data_schema.models.coordinates import RelativePosition, Size3d
-from aind_data_schema.models.manufacturers import (
-    CAMERA_MANUFACTURERS,
-    DAQ_DEVICE_MANUFACTURERS,
-    FILTER_MANUFACTURERS,
-    IMEC,
-    LASER_MANUFACTURERS,
-    LED_MANUFACTURERS,
-    LENS_MANUFACTURERS,
-    MANIPULATOR_MANUFACTURERS,
-    MANUFACTURERS,
-    MONITOR_MANUFACTURERS,
-    OEPS,
-    SPEAKER_MANUFACTURERS,
-    InteruniversityMicroelectronicsCenter,
-)
+from aind_data_schema.models.manufacturers import Manufacturer, InteruniversityMicroelectronicsCenter
+# from aind_data_schema.models.manufacturers import (
+#     CAMERA_MANUFACTURERS,
+#     DAQ_DEVICE_MANUFACTURERS,
+#     FILTER_MANUFACTURERS,
+#     IMEC,
+#     LASER_MANUFACTURERS,
+#     LED_MANUFACTURERS,
+#     LENS_MANUFACTURERS,
+#     MANIPULATOR_MANUFACTURERS,
+#     MANUFACTURERS,
+#     MONITOR_MANUFACTURERS,
+#     OEPS,
+#     SPEAKER_MANUFACTURERS,
+#     InteruniversityMicroelectronicsCenter,
+# )
 from aind_data_schema.models.reagent import Reagent
 from aind_data_schema.models.units import FrequencyUnit, PowerUnit, SizeUnit, SpeedUnit, TemperatureUnit, UnitlessUnit
 
@@ -283,7 +284,7 @@ class Device(AindModel):
     device_type: str = Field(..., title="Device type")  # Needs to be set by child classes that inherits
     name: Optional[str] = Field(None, title="Device name")
     serial_number: Optional[str] = Field(None, title="Serial number")
-    manufacturer: Optional[MANUFACTURERS] = Field(None, title="Manufacturer")
+    manufacturer: Optional[Manufacturer.ONE_OF] = Field(None, title="Manufacturer")
     model: Optional[str] = Field(None, title="Model")
     notes: Optional[str] = Field(None, title="Notes")
 
@@ -324,7 +325,7 @@ class Camera(Device):
     device_type: Literal["Camera"] = "Camera"
     # required fields
     data_interface: DataInterface = Field(..., title="Type of connection to PC")
-    manufacturer: CAMERA_MANUFACTURERS
+    manufacturer: Manufacturer.CAMERA_MANUFACTURERS
     computer_name: str = Field(..., title="Name of computer receiving data from this camera")
     max_frame_rate: Decimal = Field(..., title="Maximum frame rate (Hz)")
     frame_rate_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Frame rate unit")
@@ -347,7 +348,7 @@ class Filter(Device):
     device_type: Literal["Filter"] = "Filter"
     # required fields
     filter_type: FilterType = Field(..., title="Type of filter")
-    manufacturer: FILTER_MANUFACTURERS
+    manufacturer: Manufacturer.FILTER_MANUFACTURERS
 
     # optional fields
     diameter: Optional[Decimal] = Field(None, title="Diameter (mm)")
@@ -374,7 +375,7 @@ class Lens(Device):
     device_type: Literal["Lens"] = "Lens"
 
     # required fields
-    manufacturer: LENS_MANUFACTURERS
+    manufacturer: Manufacturer.LENS_MANUFACTURERS
 
     # optional fields
     focal_length: Optional[Decimal] = Field(None, title="Focal length of the lens (mm)")
@@ -445,7 +446,7 @@ class DAQDevice(Device):
     # required fields
     device_type: Literal["DAQ Device"] = "DAQ Device"
     data_interface: DataInterface = Field(..., title="Type of connection to PC")
-    manufacturer: DAQ_DEVICE_MANUFACTURERS
+    manufacturer: Manufacturer.DAQ_DEVICE_MANUFACTURERS
     computer_name: str = Field(..., title="Name of computer controlling this DAQ")
 
     # optional fields
@@ -461,7 +462,7 @@ class HarpDevice(DAQDevice):
     harp_device_version: str = Field(..., title="Device version")
 
     # fixed values
-    manufacturer: DAQ_DEVICE_MANUFACTURERS = Field(default=OEPS)
+    manufacturer: Manufacturer.DAQ_DEVICE_MANUFACTURERS = Field(default=Manufacturer.OEPS)
     data_interface: Literal[DataInterface.USB] = DataInterface.USB
 
 
@@ -470,7 +471,7 @@ class Laser(Device):
 
     # required fields
     device_type: Literal["Laser"] = "Laser"
-    manufacturer: LASER_MANUFACTURERS
+    manufacturer: Manufacturer.LASER_MANUFACTURERS
     wavelength: int = Field(..., title="Wavelength (nm)")
     wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
 
@@ -492,7 +493,7 @@ class LightEmittingDiode(Device):
     """Description of a Light Emitting Diode (LED) device"""
 
     device_type: Literal["Light emitting diode"] = "Light emitting diode"
-    manufacturer: LED_MANUFACTURERS
+    manufacturer: Manufacturer.LED_MANUFACTURERS
     wavelength: int = Field(..., title="Wavelength (nm)")
     wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
 
@@ -527,7 +528,7 @@ class NeuropixelsBasestation(DAQDevice):
 
     # fixed values
     data_interface: Literal[DataInterface.PXI] = DataInterface.PXI
-    manufacturer: InteruniversityMicroelectronicsCenter = Field(IMEC, json_schema_extra={"const": True})
+    manufacturer: InteruniversityMicroelectronicsCenter = Field(Manufacturer.IMEC, json_schema_extra={"const": True})
 
 
 class OpenEphysAcquisitionBoard(DAQDevice):
@@ -539,14 +540,14 @@ class OpenEphysAcquisitionBoard(DAQDevice):
 
     # fixed values
     data_interface: Literal[DataInterface.USB] = DataInterface.USB
-    manufacturer: DAQ_DEVICE_MANUFACTURERS = Field(default=OEPS)
+    manufacturer: Manufacturer.DAQ_DEVICE_MANUFACTURERS = Field(default=Manufacturer.OEPS)
 
 
 class Manipulator(Device):
     """Manipulator used on a dome module"""
 
     device_type: Literal["Manipulator"] = "Manipulator"
-    manufacturer: MANIPULATOR_MANUFACTURERS
+    manufacturer: Manufacturer.MANIPULATOR_MANUFACTURERS
 
 
 class StickMicroscopeAssembly(AindModel):
@@ -757,7 +758,7 @@ class Monitor(Device):
     """Description of visual display for visual stimuli"""
 
     device_type: Literal["Monitor"] = "Monitor"
-    manufacturer: MONITOR_MANUFACTURERS
+    manufacturer: Manufacturer.MONITOR_MANUFACTURERS
     refresh_rate: int = Field(..., title="Refresh rate (Hz)", ge=60)
     width: int = Field(..., title="Width (pixels)")
     height: int = Field(..., title="Height (pixels)")
@@ -805,7 +806,7 @@ class Speaker(Device):
     """Description of a speaker for auditory stimuli"""
 
     device_type: Literal["Speaker"] = "Speaker"
-    manufacturer: SPEAKER_MANUFACTURERS
+    manufacturer: Manufacturer.SPEAKER_MANUFACTURERS
     position: Optional[RelativePosition] = Field(None, title="Relative position of the monitor")
 
 

@@ -26,7 +26,7 @@ from aind_data_schema.models.devices import (
     OpticalTable,
     ScanningStage,
 )
-from aind_data_schema.models.manufacturers import MANUFACTURERS, OTHER
+from aind_data_schema.models.manufacturers import Manufacturer
 
 # from aind_data_schema.utils.units import SizeUnit
 
@@ -52,7 +52,7 @@ class Instrument(AindCoreModel):
     )
     modification_date: date = Field(..., title="Date of modification")
     instrument_type: ImagingInstrumentType = Field(..., title="Instrument type")
-    manufacturer: MANUFACTURERS = Field(..., title="Instrument manufacturer")
+    manufacturer: Manufacturer.ONE_OF = Field(..., title="Instrument manufacturer")
     temperature_control: Optional[bool] = Field(None, title="Temperature control")
     humidity_control: Optional[bool] = Field(None, title="Humidity control")
     optical_tables: List[OpticalTable] = Field(None, title="Optical table")

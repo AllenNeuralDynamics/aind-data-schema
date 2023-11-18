@@ -20,7 +20,7 @@ from aind_data_schema.models.device_configurations import (
 
 # from aind_data_schema.data_description import Modality
 from aind_data_schema.models.devices import Calibration, Maintenance, RelativePosition, SpoutSide
-from aind_data_schema.models.modalities import MODALITIES
+from aind_data_schema.models.modalities import Modality
 from aind_data_schema.models.stimulus import StimulusEpoch
 from aind_data_schema.models.units import AngleUnit, FrequencyUnit, MassUnit, PowerUnit, SizeUnit, TimeUnit, VolumeUnit
 
@@ -235,7 +235,7 @@ class Stream(AindModel):
 
     stream_start_time: datetime = Field(..., title="Stream start time")
     stream_end_time: datetime = Field(..., title="Stream stop time")
-    stream_modalities: List[MODALITIES] = Field(..., title="Modalities")
+    stream_modalities: List[Modality.ONE_OF] = Field(..., title="Modalities")
     daq_names: List[str] = Field([], title="DAQ devices")
     camera_names: List[str] = Field([], title="Cameras")
     light_sources: List[LIGHT_SOURCE_CONFIGS] = Field([], title="Light Sources")

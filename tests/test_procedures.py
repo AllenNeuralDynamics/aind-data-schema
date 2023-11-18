@@ -15,7 +15,7 @@ from aind_data_schema.core.procedures import (
     SpecimenProcedure,
 )
 from aind_data_schema.models.devices import FiberProbe
-from aind_data_schema.models.manufacturers import DORIC
+from aind_data_schema.models.manufacturers import Manufacturer
 
 
 class ProceduresTests(unittest.TestCase):
@@ -106,7 +106,7 @@ class ProceduresTests(unittest.TestCase):
                             ophys_probe=FiberProbe(
                                 device_type="Fiber optic probe",
                                 name="Probe A",
-                                manufacturer=DORIC,
+                                manufacturer=Manufacturer.DORIC,
                                 model="8",
                                 core_diameter=2,
                                 numerical_aperture=1,

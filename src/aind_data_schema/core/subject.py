@@ -8,9 +8,9 @@ from typing import Final, List, Literal, Optional
 from pydantic import Field
 
 from aind_data_schema.base import AindCoreModel, AindModel
-from aind_data_schema.models.institutions import INSTITUTIONS
+from aind_data_schema.models.institutions import Institution
 from aind_data_schema.models.pid_names import PIDName
-from aind_data_schema.models.species import SPECIES
+from aind_data_schema.models.species import Species
 
 
 class Sex(str, Enum):
@@ -86,7 +86,7 @@ class Subject(AindCoreModel):
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/subject.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": True})
     schema_version: Literal["0.5.0"] = Field("0.5.0")
-    species: SPECIES = Field(..., title="Species")
+    species: Species.ONE_OF = Field(..., title="Species")
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
@@ -101,7 +101,7 @@ class Subject(AindCoreModel):
     )
     mgi_allele_ids: List[MgiAlleleId] = Field([], title="MGI allele ids")
     background_strain: Optional[BackgroundStrain] = Field(None, title="Background strain")
-    source: Optional[INSTITUTIONS] = Field(
+    source: Optional[Institution.ONE_OF] = Field(
         None,
         description="If the subject was not bred in house, where was it acquired from.",
         title="Source",

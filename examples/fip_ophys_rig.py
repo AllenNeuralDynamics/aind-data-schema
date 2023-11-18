@@ -3,23 +3,13 @@ import datetime
 
 import aind_data_schema.models.devices as d
 from aind_data_schema.core.rig import Rig
-from aind_data_schema.models.manufacturers import (
-    AILIPU,
-    DORIC,
-    EDMUND_OPTICS,
-    FLIR,
-    NATIONAL_INSTRUMENTS,
-    NIKON,
-    OTHER,
-    SEMROCK,
-    THORLABS,
-)
-from aind_data_schema.models.modalities import FIB
+from aind_data_schema.models.manufacturers import Manufacturer
+from aind_data_schema.models.modalities import Modality
 
 r = Rig(
     rig_id="428_FIP1_2",
     modification_date=datetime.date(2023, 10, 3),
-    modalities=[FIB],
+    modalities=[Modality.FIB],
     cameras=[
         d.CameraAssembly(
             camera_assembly_name="BehaviorVideography_FaceSide",
@@ -27,7 +17,7 @@ r = Rig(
             camera=d.Camera(
                 name="ELP Camera USB 1080P Infrared Webcam 1",
                 serial_number="TBD",
-                manufacturer=AILIPU,
+                manufacturer=Manufacturer.AILIPU,
                 model="ELP-USBFHD05MT-KL170IR",
                 notes="The light intensity sensor was removed; IR illumination is constantly on",
                 data_interface="USB",
@@ -42,7 +32,7 @@ r = Rig(
                 name="Xenocam 1",
                 model="XC0922LENS",
                 serial_number="unknown",
-                manufacturer=OTHER,
+                manufacturer=Manufacturer.OTHER,
                 max_aperture="f/1.4",
                 notes='Focal Length 9-22mm 1/3" IR F1.4',
             ),
@@ -53,7 +43,7 @@ r = Rig(
             camera=d.Camera(
                 name="ELP Camera USB 1080P Infrared Webcam 2",
                 serial_number="TBD",
-                manufacturer=AILIPU,
+                manufacturer=Manufacturer.AILIPU,
                 model="ELP-USBFHD05MT-KL170IR",
                 notes="The light intensity sensor was removed; IR illumination is constantly on",
                 data_interface="USB",
@@ -68,7 +58,7 @@ r = Rig(
                 name="Xenocam 2",
                 model="XC0922LENS",
                 serial_number="unknown",
-                manufacturer=OTHER,
+                manufacturer=Manufacturer.OTHER,
                 max_aperture="f/1.4",
                 notes='Focal Length 9-22mm 1/3" IR F1.4',
             ),
@@ -77,7 +67,7 @@ r = Rig(
     patch_cords=[
         d.Patch(
             name="Bundle Branching Fiber-optic Patch Cord",
-            manufacturer=DORIC,
+            manufacturer=Manufacturer.DORIC,
             model="BBP(4)_200/220/900-0.37_Custom_FCM-4xMF1.25",
             core_diameter=200,
             numerical_aperture=0.37,
@@ -86,19 +76,19 @@ r = Rig(
     light_sources=[
         d.LightEmittingDiode(
             name="470nm LED",
-            manufacturer=THORLABS,
+            manufacturer=Manufacturer.THORLABS,
             model="M470F3",
             wavelength=470,
         ),
         d.LightEmittingDiode(
             name="415nm LED",
-            manufacturer=THORLABS,
+            manufacturer=Manufacturer.THORLABS,
             model="M415F3",
             wavelength=415,
         ),
         d.LightEmittingDiode(
             name="565nm LED",
-            manufacturer=THORLABS,
+            manufacturer=Manufacturer.THORLABS,
             model="M565F3",
             wavelength=415,
         ),
@@ -107,7 +97,7 @@ r = Rig(
         d.Detector(
             name="FLIR CMOS for Green Channel",
             serial_number="21396991",
-            manufacturer=FLIR,
+            manufacturer=Manufacturer.FLIR,
             model="BFS-U3-20S40M",
             detector_type="Camera",
             data_interface="USB",
@@ -125,7 +115,7 @@ r = Rig(
         d.Detector(
             name="FLIR CMOS for Red Channel",
             serial_number="21396991",
-            manufacturer=FLIR,
+            manufacturer=Manufacturer.FLIR,
             model="BFS-U3-20S40M",
             detector_type="Camera",
             data_interface="USB",
@@ -145,7 +135,7 @@ r = Rig(
         d.Objective(
             name="Nikon 10x Objective",
             serial_number="128022336",
-            manufacturer=NIKON,
+            manufacturer=Manufacturer.NIKON,
             model="CFI Plan Apochromat Lambda D 10x",
             numerical_aperture=0.45,
             magnification=10,
@@ -155,7 +145,7 @@ r = Rig(
     filters=[
         d.Filter(
             name="Green emission bandpass filter",
-            manufacturer=SEMROCK,
+            manufacturer=Manufacturer.SEMROCK,
             model="FF01-520/35-25",
             filter_type="Band pass",
             center_wavelength=520,
@@ -163,7 +153,7 @@ r = Rig(
         ),
         d.Filter(
             name="Red emission bandpass filter",
-            manufacturer=SEMROCK,
+            manufacturer=Manufacturer.SEMROCK,
             model="FF01-600/37-25",
             filter_type="Band pass",
             center_wavelength=600,
@@ -172,7 +162,7 @@ r = Rig(
         d.Filter(
             name="Emission Dichroic",
             model="FF562-Di03-25x36",
-            manufacturer=SEMROCK,
+            manufacturer=Manufacturer.SEMROCK,
             filter_type="Dichroic",
             height=25,
             width=36,
@@ -181,7 +171,7 @@ r = Rig(
         d.Filter(
             name="dual-edge standard epi-fluorescence dichroic beamsplitter",
             model="FF493/574-Di01-25x36",
-            manufacturer=SEMROCK,
+            manufacturer=Manufacturer.SEMROCK,
             notes="493/574 nm BrightLine dual-edge standard epi-fluorescence dichroic beamsplitter",
             filter_type="Multiband",
             width=36,
@@ -189,7 +179,7 @@ r = Rig(
         ),
         d.Filter(
             name="Excitation filter 410nm",
-            manufacturer=THORLABS,
+            manufacturer=Manufacturer.THORLABS,
             model="FB410-10",
             filter_type="Band pass",
             diameter=25,
@@ -197,7 +187,7 @@ r = Rig(
         ),
         d.Filter(
             name="Excitation filter 470nm",
-            manufacturer=THORLABS,
+            manufacturer=Manufacturer.THORLABS,
             model="FB470-10",
             filter_type="Band pass",
             center_wavelength=470,
@@ -205,7 +195,7 @@ r = Rig(
         ),
         d.Filter(
             name="Excitation filter 560nm",
-            manufacturer=THORLABS,
+            manufacturer=Manufacturer.THORLABS,
             model="FB560-10",
             filter_type="Band pass",
             diameter=25,
@@ -213,7 +203,7 @@ r = Rig(
         ),
         d.Filter(
             name="450nm, 25.2 x 35.6mm, Dichroic Longpass Filter",
-            manufacturer=EDMUND_OPTICS,
+            manufacturer=Manufacturer.EDMUND_OPTICS,
             model="#69-898",
             filter_type="Dichroic",
             cut_off_wavelength=450,
@@ -222,7 +212,7 @@ r = Rig(
         ),
         d.Filter(
             name="500nm, 25.2 x 35.6mm, Dichroic Longpass Filter",
-            manufacturer=EDMUND_OPTICS,
+            manufacturer=Manufacturer.EDMUND_OPTICS,
             model="#69-899",
             filter_type="Dichroic",
             width=35.6,
@@ -231,7 +221,7 @@ r = Rig(
     ],
     lenses=[
         d.Lens(
-            manufacturer=THORLABS,
+            manufacturer=Manufacturer.THORLABS,
             model="AC254-080-A-ML",
             name="Image focusing lens",
             focal_length=80,
@@ -241,7 +231,7 @@ r = Rig(
     daqs=[
         d.DAQDevice(
             name="USB DAQ",
-            manufacturer=NATIONAL_INSTRUMENTS,
+            manufacturer=Manufacturer.NATIONAL_INSTRUMENTS,
             model="USB-6212",
             notes="To record behavior events and licks via AnalogInput node in Bonsai",
             data_interface="USB",
