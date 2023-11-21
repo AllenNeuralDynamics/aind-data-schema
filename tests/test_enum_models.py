@@ -104,10 +104,24 @@ class TestEnumLiterals(unittest.TestCase):
 
                 a: EnumSubset[TestEnum.FOO, Manufacturer.OTHER]
 
+        with self.assertRaises(Exception) as e3:
+
+            class C(AindModel):
+                """temp model"""
+
+                a: EnumSubset[TestEnum.FOO]
+
+            C(a=TestEnum.BAR)
+
         expected_exception1 = """TypeError("Only Enums are allowed. <class 'int'>")"""
         expected_exception2 = """ValueError('All enums must be of the same class.')"""
+        expected_exception3 = (
+            "ValidationError(model='C', errors=[{'loc': ('a',), 'msg': 'Value not allowed! TestEnum.BAR', " 
+            "'type': 'value_error'}])"
+        )
         self.assertEqual(expected_exception1, repr(e1.exception))
         self.assertEqual(expected_exception2, repr(e2.exception))
+        self.assertEqual(expected_exception3, repr(e3.exception))
 
 
 if __name__ == "__main__":
