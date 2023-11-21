@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from datetime import date
 from typing import List, Optional, Union
+
 from pydantic import Field, root_validator
 from pydantic.typing import Annotated
 
@@ -42,6 +43,7 @@ from aind_data_schema.device import (
     Tube,
     Wheel,
 )
+
 
 class Rig(AindCoreModel):
     """Description of a rig"""
@@ -110,7 +112,7 @@ class Rig(AindCoreModel):
         stick_microscopes = values.get("stick_microscopes")
         light_sources = values.get("light_sources")
         patch_coords = values.get("patch_cords")
-        detectors = values.get("detectors") 
+        detectors = values.get("detectors")
         digital_micromirror_devices = values.get("digital_micromirror_devices")
         polygonal_scanners = values.get("polygonal_scanners")
         pockels_cells = values.get("pockels_cells")
@@ -120,7 +122,17 @@ class Rig(AindCoreModel):
         if daqs is None:
             return values
 
-        for device_type in [daqs, stimulus_devices, light_sources, patch_coords, detectors, digital_micromirror_devices, polygonal_scanners, pockels_cells, additional_devices]:
+        for device_type in [
+            daqs,
+            stimulus_devices,
+            light_sources,
+            patch_coords,
+            detectors,
+            digital_micromirror_devices,
+            polygonal_scanners,
+            pockels_cells,
+            additional_devices,
+        ]:
             if device_type is not None:
                 device_names += [device.name for device in device_type]
 
@@ -148,9 +160,9 @@ class Rig(AindCoreModel):
                         )
 
         return values
-    
+
     @root_validator
-    def validate_modality(cls, v): 
+    def validate_modality(cls, v):  # noqa: C901
         """Validator to ensure all expected fields are present, based on given modality"""
 
         modalities = v.get("modalities")

@@ -309,9 +309,7 @@ class DataDescriptionTest(unittest.TestCase):
         upgrader_0_6_2_wrong_field = DataDescriptionUpgrade(
             old_data_description_model=data_description_0_6_2_wrong_field
         )
-        new_dd_0_6_2_wrong_field = upgrader_0_6_2_wrong_field.upgrade(
-            funding_source=[Funding(funder=Institution.AIND)]
-        )
+        new_dd_0_6_2_wrong_field = upgrader_0_6_2_wrong_field.upgrade(funding_source=[Funding(funder=Institution.AIND)])
         derived_dd_0_6_2_wrong_field = DerivedDataDescription.from_data_description(
             new_dd_0_6_2_wrong_field, process_name=process_name
         )

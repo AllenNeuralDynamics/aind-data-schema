@@ -165,17 +165,27 @@ class Instrument(AindCoreModel):
         motorized_stages = values.get("motorized_stages")
         scanning_stages = values.get("scanning_stages")
         light_sources = values.get("light_sources")
-        detectors = values.get("detectors") 
+        detectors = values.get("detectors")
         additional_devices = values.get("additional_devices")
         daqs = values.get("daqs")
 
         if daqs is None:
             return values
 
-        for device_type in [daqs, light_sources, detectors, additional_devices, optical_tables, enclosure, lenses, fluorescence_filters, motorized_stages, scanning_stages]:
+        for device_type in [
+            daqs,
+            light_sources,
+            detectors,
+            additional_devices,
+            optical_tables,
+            enclosure,
+            lenses,
+            fluorescence_filters,
+            motorized_stages,
+            scanning_stages,
+        ]:
             if device_type is not None:
                 device_names += [device.name for device in device_type]
-
 
         for daq in daqs:
             if daq.channels is not None:

@@ -116,7 +116,7 @@ class TestEnumLiterals(unittest.TestCase):
         expected_exception1 = """TypeError("Only Enums are allowed. <class 'int'>")"""
         expected_exception2 = """ValueError('All enums must be of the same class.')"""
         expected_exception3 = (
-            "ValidationError(model='C', errors=[{'loc': ('a',), 'msg': 'Value not allowed! TestEnum.BAR', " 
+            "ValidationError(model='C', errors=[{'loc': ('a',), 'msg': 'Value not allowed! TestEnum.BAR', "
             "'type': 'value_error'}])"
         )
         self.assertEqual(expected_exception1, repr(e1.exception))

@@ -1,7 +1,7 @@
 """Module to contain base code to upgrade old models"""
 
-from typing import Any, Type
 from abc import ABC, abstractmethod
+from typing import Any, Type
 
 from aind_data_schema.base import AindModel
 

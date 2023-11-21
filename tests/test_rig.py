@@ -249,7 +249,6 @@ class RigTests(unittest.TestCase):
             )
 
         with self.assertRaises(ValidationError):
-
             daqs = [
                 NeuropixelsBasestation(
                     basestation_firmware_version="1",
@@ -282,7 +281,7 @@ class RigTests(unittest.TestCase):
                     ],
                 )
             ]
-        
+
             Rig(
                 rig_id="1234",
                 modification_date=datetime.datetime.now(),
