@@ -190,7 +190,7 @@ class ImagingTests(unittest.TestCase):
 
     def test_validators(self):
         """test the validators"""
-        
+
         with self.assertRaises(ValidationError):
             inst.Instrument(
                 instrument_type="diSPIM",
