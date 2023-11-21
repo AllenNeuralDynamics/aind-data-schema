@@ -248,6 +248,48 @@ class RigTests(unittest.TestCase):
                 mouse_platform=Disc(name="Disc A", radius=1),
             )
 
+        with self.assertRaises(ValidationError):
+
+            daqs = [
+                NeuropixelsBasestation(
+                    basestation_firmware_version="1",
+                    bsc_firmware_version="2",
+                    slot=0,
+                    manufacturer=Manufacturer.IMEC,
+                    ports=[],
+                    computer_name="foo",
+                    channels=[
+                        DAQChannel(
+                            channel_name="123",
+                            device_name="Laser A",
+                            channel_type="Analog Output",
+                        ),
+                        DAQChannel(
+                            channel_name="321",
+                            device_name="Probe A",
+                            channel_type="Analog Output",
+                        ),
+                        DAQChannel(
+                            channel_name="234",
+                            device_name="Camera A",
+                            channel_type="Digital Output",
+                        ),
+                        DAQChannel(
+                            channel_name="2354",
+                            device_name="Disc A",
+                            channel_type="Digital Output",
+                        ),
+                    ],
+                )
+            ]
+        
+            Rig(
+                rig_id="1234",
+                modification_date=datetime.datetime.now(),
+                modalities=[Modality.ECEPHYS, Modality.FIB],
+                daqs=daqs,
+            )
+
 
 if __name__ == "__main__":
     unittest.main()

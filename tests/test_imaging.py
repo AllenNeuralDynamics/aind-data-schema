@@ -5,7 +5,7 @@ import unittest
 
 from pydantic import ValidationError
 
-from aind_data_schema.device import Calibration
+from aind_data_schema.device import Calibration, DAQChannel
 from aind_data_schema.imaging import acquisition as acq
 from aind_data_schema.imaging import instrument as inst
 from aind_data_schema.imaging import mri_session as ms
@@ -13,6 +13,7 @@ from aind_data_schema.imaging import tile
 from aind_data_schema.manufacturers import Manufacturer
 from aind_data_schema.processing import Registration
 from aind_data_schema.utils.units import PowerValue
+from aind_data_schema.rig import NeuropixelsBasestation
 
 
 class ImagingTests(unittest.TestCase):
@@ -186,6 +187,51 @@ class ImagingTests(unittest.TestCase):
         )
 
         assert t is not None
+
+    def test_validators(self):
+
+        with self.assertRaises(ValidationError):
+            inst.Instrument(
+            instrument_type="diSPIM",
+            modification_date=datetime.datetime.now(),
+            manufacturer=Manufacturer.LIFECANVAS,
+            objectives=[],
+            detectors=[],
+            light_sources=[],
+            daqs=[
+                NeuropixelsBasestation(
+                basestation_firmware_version="1",
+                bsc_firmware_version="2",
+                slot=0,
+                manufacturer=Manufacturer.IMEC,
+                ports=[],
+                computer_name="foo",
+                channels=[
+                    DAQChannel(
+                        channel_name="123",
+                        device_name="Laser A",
+                        channel_type="Analog Output",
+                    ),
+                    DAQChannel(
+                        channel_name="321",
+                        device_name="Probe A",
+                        channel_type="Analog Output",
+                    ),
+                    DAQChannel(
+                        channel_name="234",
+                        device_name="Camera A",
+                        channel_type="Digital Output",
+                    ),
+                    DAQChannel(
+                        channel_name="2354",
+                        device_name="Disc A",
+                        channel_type="Digital Output",
+                    ),
+                ],
+            ),
+            ]
+        )
+
 
 
 if __name__ == "__main__":

@@ -149,7 +149,8 @@ class Rig(AindCoreModel):
 
         return values
     
-    def validate_modality(cls, v):  # noqa: C901
+    @root_validator
+    def validate_modality(cls, v): 
         """Validator to ensure all expected fields are present, based on given modality"""
 
         modalities = v.get("modalities")
