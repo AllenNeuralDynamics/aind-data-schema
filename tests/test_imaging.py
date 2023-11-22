@@ -5,7 +5,7 @@ import unittest
 
 from pydantic import ValidationError
 
-from aind_data_schema.device import Calibration, DAQChannel, Detector, Filter, Laser, DAQDevice
+from aind_data_schema.device import Calibration, DAQChannel, DAQDevice
 from aind_data_schema.imaging import acquisition as acq
 from aind_data_schema.imaging import instrument as inst
 from aind_data_schema.imaging import mri_session as ms
