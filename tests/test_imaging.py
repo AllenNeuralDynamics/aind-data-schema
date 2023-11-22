@@ -5,15 +5,15 @@ import unittest
 
 from pydantic import ValidationError
 
-from aind_data_schema.device import Calibration, DAQChannel
+from aind_data_schema.device import Calibration, DAQChannel, Detector, Filter, Laser, DAQDevice
 from aind_data_schema.imaging import acquisition as acq
 from aind_data_schema.imaging import instrument as inst
 from aind_data_schema.imaging import mri_session as ms
 from aind_data_schema.imaging import tile
 from aind_data_schema.manufacturers import Manufacturer
 from aind_data_schema.processing import Registration
-from aind_data_schema.rig import NeuropixelsBasestation
 from aind_data_schema.utils.units import PowerValue
+from aind_data_schema.imaging import instrument
 
 
 class ImagingTests(unittest.TestCase):
@@ -192,44 +192,58 @@ class ImagingTests(unittest.TestCase):
         """test the validators"""
 
         with self.assertRaises(ValidationError):
-            inst.Instrument(
-                instrument_type="diSPIM",
-                modification_date=datetime.datetime.now(),
-                manufacturer=Manufacturer.LIFECANVAS,
-                objectives=[],
-                detectors=[],
-                light_sources=[],
+            instrument.Instrument(
+                instrument_id="exaSPIM1-1",
+                instrument_type="exaSPIM",
+                modification_date=datetime.date(2023, 10, 4),
+                manufacturer=Manufacturer.CUSTOM,
                 daqs=[
-                    NeuropixelsBasestation(
-                        basestation_firmware_version="1",
-                        bsc_firmware_version="2",
-                        slot=0,
-                        manufacturer=Manufacturer.IMEC,
-                        ports=[],
-                        computer_name="foo",
+                    DAQDevice(
+                        model="PCIe-6738",
+                        data_interface="USB",
+                        computer_name="Dev2",
+                        manufacturer=Manufacturer.NATIONAL_INSTRUMENTS,
+                        name="Dev2",
+                        serial_number="Unknown",
                         channels=[
                             DAQChannel(
-                                channel_name="123",
-                                device_name="Laser A",
+                                channel_name="3",
                                 channel_type="Analog Output",
+                                device_name="LAS-08308",
+                                sample_rate=10000,
                             ),
                             DAQChannel(
-                                channel_name="321",
-                                device_name="Probe A",
+                                channel_name="5",
                                 channel_type="Analog Output",
+                                device_name="539251",
+                                sample_rate=10000,
                             ),
                             DAQChannel(
-                                channel_name="234",
-                                device_name="Camera A",
-                                channel_type="Digital Output",
+                                channel_name="4",
+                                channel_type="Analog Output",
+                                device_name="LAS-08309",
+                                sample_rate=10000,
                             ),
                             DAQChannel(
-                                channel_name="2354",
-                                device_name="Disc A",
-                                channel_type="Digital Output",
+                                channel_name="2",
+                                channel_type="Analog Output",
+                                device_name="stage-x",
+                                sample_rate=10000,
+                            ),
+                            DAQChannel(
+                                channel_name="0",
+                                channel_type="Analog Output",
+                                device_name="TL-1",
+                                sample_rate=10000,
+                            ),
+                            DAQChannel(
+                                channel_name="6",
+                                channel_type="Analog Output",
+                                device_name="LAS-08307",
+                                sample_rate=10000,
                             ),
                         ],
-                    ),
+                    )
                 ],
             )
 

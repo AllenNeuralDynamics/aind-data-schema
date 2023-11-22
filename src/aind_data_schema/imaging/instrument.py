@@ -158,10 +158,6 @@ class Instrument(AindCoreModel):
 
         device_names = []
 
-        optical_tables = values.get("optical_tables")
-        enclosure = values.get("enclosure")
-        lenses = values.get("lenses")
-        fluorescence_filters = values.get("fluorescence_filters")
         motorized_stages = values.get("motorized_stages")
         scanning_stages = values.get("scanning_stages")
         light_sources = values.get("light_sources")
@@ -177,10 +173,6 @@ class Instrument(AindCoreModel):
             light_sources,
             detectors,
             additional_devices,
-            optical_tables,
-            enclosure,
-            lenses,
-            fluorescence_filters,
             motorized_stages,
             scanning_stages,
         ]:
