@@ -151,6 +151,47 @@ class Instrument(AindCoreModel):
     notes: Optional[str] = None
 
     @root_validator
+    def validate_device_names(cls, values):  # noqa: C901
+        """validate that all DAQ channels are connected to devices that
+        actually exist
+        """
+
+        device_names = []
+
+        motorized_stages = values.get("motorized_stages")
+        scanning_stages = values.get("scanning_stages")
+        light_sources = values.get("light_sources")
+        detectors = values.get("detectors")
+        additional_devices = values.get("additional_devices")
+        daqs = values.get("daqs")
+
+        if daqs is None:
+            return values
+
+        for device_type in [
+            daqs,
+            light_sources,
+            detectors,
+            additional_devices,
+            motorized_stages,
+            scanning_stages,
+        ]:
+            if device_type is not None:
+                device_names += [device.name for device in device_type]
+
+        for daq in daqs:
+            if daq.channels is not None:
+                for channel in daq.channels:
+                    if channel.device_name not in device_names:
+                        raise ValueError(
+                            f"Device name validation error: '{channel.device_name}' "
+                            + f"is connected to '{channel.channel_name}' on '{daq.name}', but "
+                            + "this device is not part of the rig."
+                        )
+
+        return values
+
+    @root_validator
     def validate_other(cls, v):
         """Validator for other/notes"""
 

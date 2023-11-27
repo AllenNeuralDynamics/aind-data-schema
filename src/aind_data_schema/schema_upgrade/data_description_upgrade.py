@@ -3,7 +3,6 @@ from copy import deepcopy
 from datetime import datetime
 from typing import Any, Optional, Union
 
-
 from aind_data_schema.base import AindModel
 from aind_data_schema.data_description import DataDescription, Funding, Institution, Modality, Platform
 from aind_data_schema.schema_upgrade.base_upgrade import BaseModelUpgrade

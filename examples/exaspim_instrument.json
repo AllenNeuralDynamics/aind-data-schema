@@ -92,7 +92,7 @@
    "light_sources": [
       {
          "device_type": "Laser",
-         "name": null,
+         "name": "LAS-08307",
          "serial_number": "LAS-08307",
          "manufacturer": {
             "name": "Oxxius",
@@ -114,7 +114,7 @@
       },
       {
          "device_type": "Laser",
-         "name": null,
+         "name": "LAS-08308",
          "serial_number": "LAS-08308",
          "manufacturer": {
             "name": "Oxxius",
@@ -136,7 +136,7 @@
       },
       {
          "device_type": "Laser",
-         "name": null,
+         "name": "539251",
          "serial_number": "539251",
          "manufacturer": {
             "name": "Oxxius",
@@ -158,7 +158,7 @@
       },
       {
          "device_type": "Laser",
-         "name": null,
+         "name": "LAS-08309",
          "serial_number": "LAS-08309",
          "manufacturer": {
             "name": "Oxxius",
@@ -213,7 +213,7 @@
    "scanning_stages": [
       {
          "device_type": "Motorized stage",
-         "name": null,
+         "name": "stage-x",
          "serial_number": "Unknown",
          "manufacturer": {
             "name": "Applied Scientific Instrumentation",
@@ -355,7 +355,7 @@
    "additional_devices": [
       {
          "device_type": "AdditionalImagingDevice",
-         "name": null,
+         "name": "TL-1",
          "serial_number": "01",
          "manufacturer": {
             "name": "Optotune",

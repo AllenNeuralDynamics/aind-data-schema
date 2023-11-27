@@ -54,10 +54,8 @@ class BehaviorTests(unittest.TestCase):
                 bs.StimulusEpoch(
                     stimulus=BehaviorStimulation(
                         behavior_name="Foraging",
-                        behavior_software=[Software(
-                            name="Bonsai",
-                            version="0.1"
-                            ),
+                        behavior_software=[
+                            Software(name="Bonsai", version="0.1"),
                         ],
                         session_number=3,
                         behavior_script=Software(
