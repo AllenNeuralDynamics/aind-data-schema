@@ -320,6 +320,13 @@ class TestDataDescriptionUpgrade(unittest.TestCase):
     #     new_dd_0_6_2 = upgrader.upgrade(modality=[Modality.ECEPHYS])
     #     self.assertEqual([Modality.ECEPHYS], new_dd_0_6_2.modality)
 
+    def test_missing_funding(self):
+        desc = {'project_name': None, 'modality': [{'name': 'Extracellular electrophysiology', 'abbreviation': 'ecephys'}]}
+
+        data_desc = DataDescription.construct(**desc)
+        upgrader = DataDescriptionUpgrade(old_data_description_model=data_desc)
+        upgrader.upgrade()
+
 
 class TestModalityUpgrade(unittest.TestCase):
     """Tests ModalityUpgrade methods"""
