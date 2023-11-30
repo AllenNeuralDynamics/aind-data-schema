@@ -35,6 +35,11 @@ class Species(Enum, metaclass=BaseNameEnumMeta):
         registry=Registry.NCBI,
         registry_identifier="10090",
     )
+    RATTUS_NORVEGICUS = PIDName(
+        name="Rattus norvegicus",
+        registry=Registry.NCBI,
+        registry_identifier="10116",
+    )
 
 
 class Sex(Enum):
