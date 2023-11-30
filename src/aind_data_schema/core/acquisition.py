@@ -9,7 +9,7 @@ from pydantic import Field
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.imaging.tile import AcquisitionTile
-from aind_data_schema.models.devices import Calibration, Maintenance
+from aind_data_schema.models.devices import Calibration, Maintenance, ImmersionMedium
 from aind_data_schema.models.process_names import ProcessName
 from aind_data_schema.models.units import SizeUnit
 
@@ -73,9 +73,9 @@ class Axis(AindModel):
 
 
 class Immersion(AindModel):
-    """Description of immersion media"""
+    """Description of immersion medium"""
 
-    medium: str = Field(..., title="Immersion medium")
+    medium: ImmersionMedium = Field(..., title="Immersion medium")
     refractive_index: Decimal = Field(..., title="Index of refraction")
 
 
@@ -104,7 +104,6 @@ class Acquisition(AindCoreModel):
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/imaging/acquisition.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": True})
     schema_version: Literal["0.6.0"] = Field("0.6.0")
-
     experimenter_full_name: List[str] = Field(
         ...,
         description="First and last name of the experimenter(s).",

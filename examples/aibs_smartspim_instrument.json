@@ -24,6 +24,7 @@
             "registry_identifier": null
          },
          "model": "CleanTop",
+         "path_to_cad": null,
          "notes": null,
          "length": "35",
          "width": "29",
@@ -47,6 +48,7 @@
             "registry_identifier": "04gsnvb07"
          },
          "model": "TL4X-SAP",
+         "path_to_cad": null,
          "notes": "Thorlabs TL4X-SAP with LifeCanvas dipping cap and correction optics.",
          "numerical_aperture": "0.2",
          "magnification": "3.6",
@@ -69,6 +71,7 @@
             "registry_identifier": "03natb733"
          },
          "model": "C14440-20UP",
+         "path_to_cad": null,
          "notes": null,
          "detector_type": "Camera",
          "data_interface": "USB",
@@ -101,6 +104,7 @@
             "registry_identifier": null
          },
          "model": "Stradus",
+         "path_to_cad": null,
          "notes": "All lasers controlled via Vortran VersaLase System",
          "wavelength": 488,
          "wavelength_unit": "nanometer",
@@ -125,6 +129,7 @@
             "registry_identifier": "031tysd23"
          },
          "model": "Obis",
+         "path_to_cad": null,
          "notes": "All lasers controlled via Vortran VersaLase System",
          "wavelength": 561,
          "wavelength_unit": "nanometer",
@@ -146,6 +151,7 @@
             "registry_identifier": null
          },
          "model": "Stradus",
+         "path_to_cad": null,
          "notes": "All lasers controlled via Vortran VersaLase System",
          "wavelength": 647,
          "wavelength_unit": "nanometer",
@@ -170,6 +176,7 @@
             "registry_identifier": null
          },
          "model": "FF03-525/50-25",
+         "path_to_cad": null,
          "notes": null,
          "filter_type": "Band pass",
          "diameter": "25",
@@ -196,6 +203,7 @@
             "registry_identifier": null
          },
          "model": "FF01-600/52-25",
+         "path_to_cad": null,
          "notes": null,
          "filter_type": "Band pass",
          "diameter": "25",
@@ -222,6 +230,7 @@
             "registry_identifier": null
          },
          "model": "ET690/50m",
+         "path_to_cad": null,
          "notes": null,
          "filter_type": "Band pass",
          "diameter": "25",
@@ -250,6 +259,7 @@
             "registry_identifier": null
          },
          "model": "LS-100",
+         "path_to_cad": null,
          "notes": "Focus stage",
          "travel": "100",
          "travel_unit": "millimeter",
@@ -266,6 +276,7 @@
             "registry_identifier": null
          },
          "model": "L12-20F-4",
+         "path_to_cad": null,
          "notes": "Cylindrical lens #1",
          "travel": "41",
          "travel_unit": "millimeter",
@@ -282,6 +293,7 @@
             "registry_identifier": null
          },
          "model": "L12-20F-4",
+         "path_to_cad": null,
          "notes": "Cylindrical lens #2",
          "travel": "41",
          "travel_unit": "millimeter",
@@ -298,6 +310,7 @@
             "registry_identifier": null
          },
          "model": "L12-20F-4",
+         "path_to_cad": null,
          "notes": "Cylindrical lens #3",
          "travel": "41",
          "travel_unit": "millimeter",
@@ -314,6 +327,7 @@
             "registry_identifier": null
          },
          "model": "L12-20F-4",
+         "path_to_cad": null,
          "notes": "Cylindrical lens #4",
          "travel": "41",
          "travel_unit": "millimeter",
@@ -332,6 +346,7 @@
             "registry_identifier": null
          },
          "model": "LS-50",
+         "path_to_cad": null,
          "notes": "Sample stage Z",
          "travel": "50",
          "travel_unit": "millimeter",
@@ -350,6 +365,7 @@
             "registry_identifier": null
          },
          "model": "LS-50",
+         "path_to_cad": null,
          "notes": "Sample stage X",
          "travel": "50",
          "travel_unit": "millimeter",
@@ -368,6 +384,7 @@
             "registry_identifier": null
          },
          "model": "LS-50",
+         "path_to_cad": null,
          "notes": "Sample stage Y",
          "travel": "50",
          "travel_unit": "millimeter",
@@ -389,6 +406,7 @@
             "registry_identifier": null
          },
          "model": "EL-16-40-TC",
+         "path_to_cad": null,
          "notes": null,
          "type": "Other"
       },
@@ -403,6 +421,7 @@
             "registry_identifier": null
          },
          "model": "EL-16-40-TC",
+         "path_to_cad": null,
          "notes": null,
          "type": "Other"
       },
@@ -417,6 +436,7 @@
             "registry_identifier": null
          },
          "model": "Large-uncoated-glass",
+         "path_to_cad": null,
          "notes": null,
          "type": "Sample Chamber"
       }

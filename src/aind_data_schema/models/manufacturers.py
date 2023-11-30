@@ -340,6 +340,13 @@ class SchneiderKreuznach(_Manufacturer):
     registry_identifier: Literal[None] = None
 
 
+class Spinnaker(_Manufacturer):
+    name: Literal["Spinnaker"] = "Spinnaker"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
+
+
 class Tamron(_Manufacturer):
     name: Literal["Tamron"] = "Tamron"
     abbreviation: Literal[None] = None
@@ -538,6 +545,7 @@ class Manufacturer:
     RASPBERRYPI = RaspberryPi()
     SEMROCK = Semrock()
     SCHNEIDER_KREUZNACH = SchneiderKreuznach()
+    SPINNAKER = Spinnaker()
     TAMRON = Tamron()
     THORLABS = Thorlabs()
     TMC = TechnicalManufacturingCorporation()
@@ -556,7 +564,7 @@ class Manufacturer:
 
     CAMERA_MANUFACTURERS = Annotated[
         Union[
-            AilipuTechnologyCo, Allied, Basler, EdmundOptics, TeledyneFLIR, TheImagingSource, Thorlabs, Other],
+            AilipuTechnologyCo, Allied, Basler, EdmundOptics, Spinnaker, TeledyneFLIR, TheImagingSource, Thorlabs, Other],
         Field(discriminator="name"),
     ]
     FILTER_MANUFACTURERS = Annotated[

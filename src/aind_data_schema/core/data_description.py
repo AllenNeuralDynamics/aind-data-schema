@@ -93,7 +93,7 @@ class DataDescription(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/data_description.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": True})
-    schema_version: Literal["0.11.0"] = Field("0.11.0", title="Schema Version")
+    schema_version: Literal["0.12.0"] = Field("0.12.0", title="Schema Version")
     license: Literal["CC-BY-4.0"] = Field("CC-BY-4.0", title="License")
 
     platform: Platform.ONE_OF = Field(
@@ -111,6 +111,11 @@ class DataDescription(AindCoreModel):
         ...,
         description="Time that data files were created, used to uniquely identify the data",
         title="Creation Time",
+    )
+    label: Optional[str] = Field(
+        None,
+        description="A short name for the data, used in file names and labels",
+        title="Label",
     )
     name: Optional[str] = Field(
         None,
@@ -167,6 +172,21 @@ class DataDescription(AindCoreModel):
         description="Path and description of data assets associated with this asset (eg. reference images)",
     )
     data_summary: Optional[str] = Field(None, title="Data summary", description="Semantic summary of experimental goal")
+
+    # @root_validator
+    # def build_name(cls, v):
+    #     """sets the name of the file"""
+    #
+    #     if not v.get("creation_time"):
+    #         raise ValidationError("creation_time must be set")
+    #     else:
+    #         label = v.get("label")
+    #         if not v.get("name") and label:
+    #             v["name"] = build_data_name(v.get("label"), creation_datetime=v.get("creation_time"))
+    #         elif not v.get("name"):
+    #             raise ValidationError("Either label or name must be set")
+    #
+    #     return v
 
     @field_validator("name", mode="after")
     def create_name(cls, value: Any, info: ValidationInfo) -> str:
@@ -235,7 +255,30 @@ class DerivedDataDescription(DataDescription):
     data_level: Literal[DataLevel.DERIVED] = Field(
         DataLevel.DERIVED, description="level of processing that data has undergone", title="Data Level"
     )
-    process_name: str
+    process_name: Optional[str] = Field(
+        None,
+        pattern=DataRegex.NO_SPECIAL_CHARS.value,
+        description="Name of the process that created the data",
+        title="Process name",
+    )
+
+    #     @root_validator
+    #     def build_name(cls, v):
+    #         """returns the label of the file"""
+    #
+    #         process_name = v.get("process_name")
+    #
+    #         if not v.get("creation_time"):
+    #             raise ValidationError("creation_time must be set")
+    #         else:
+    #             if process_name:
+    #                 v["name"] = build_data_name(
+    #                     f"{v.get('input_data_name')}_{process_name}", creation_datetime=v.get("creation_time")
+    #                 )
+    #             else:
+    #                 v["name"] = build_data_name(f"{v.get('input_data_name')}", creation_datetime=v.get("creation_time"))
+    #
+    #         return v
 
     # def __init__(self, process_name, **kwargs):
     #     """Construct a derived data description"""
@@ -328,6 +371,22 @@ class RawDataDescription(DataDescription):
         DataLevel.RAW, description="level of processing that data has undergone", title="Data Level"
     )
 
+    #     @root_validator
+    #     def build_name(cls, v):
+    #         """returns the label of the file"""
+    #
+    #         platform = v.get("platform")
+    #
+    #         platform_abbreviation = platform.value.abbreviation
+    #         if not v.get("creation_time"):
+    #             raise ValidationError("creation_time must be set")
+    #         else:
+    #             v["name"] = build_data_name(
+    #                 f"{platform_abbreviation}_{v.get('subject_id')}", creation_datetime=v.get("creation_time")
+    #             )
+    #
+    #         return v
+
     # def __init__(self, platform, subject_id, **kwargs):
     #     """Construct a raw data description"""
     #
@@ -382,6 +441,20 @@ class AnalysisDescription(DataDescription):
         description="Name of the analysis performed",
         title="Analysis name",
     )
+
+    #     @root_validator
+    #     def build_name(cls, v):
+    #         """returns the label of the file"""
+    #
+    #         project_name = v.get("project_name")
+    #         analysis_name = v.get("analysis_name")
+    #
+    #         if not v.get("creation_time"):
+    #             raise ValidationError("creation_time must be set")
+    #         else:
+    #             v["name"] = build_data_name(f"{project_name}_{analysis_name}", creation_datetime=v.get("creation_time"))
+    #
+    #         return v
 
     # @property
     # def label(self):

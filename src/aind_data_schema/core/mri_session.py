@@ -60,7 +60,6 @@ class MriSession(AindCoreModel):
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/imaging/mri_session.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": True})
     schema_version: Literal["0.2.0"] = Field("0.2.0")
-
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",

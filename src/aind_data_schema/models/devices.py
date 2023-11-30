@@ -30,6 +30,7 @@ from aind_data_schema.models.reagent import Reagent
 from aind_data_schema.models.units import FrequencyUnit, PowerUnit, SizeUnit, SpeedUnit, TemperatureUnit, UnitlessUnit
 
 
+
 class ImagingDeviceType(str, Enum):
     """Imaginge device type name"""
 
@@ -147,12 +148,13 @@ class DaqChannelType(str, Enum):
     DO = "Digital Output"
 
 
-class Immersion(str, Enum):
-    """Immersion media name"""
+class ImmersionMedium(str, Enum):
+    """Immersion medium name"""
 
     AIR = "air"
     MULTI = "multi"
     OIL = "oil"
+    PBS = "PBS"
     WATER = "water"
     OTHER = "other"
 
@@ -286,6 +288,7 @@ class Device(AindModel):
     serial_number: Optional[str] = Field(None, title="Serial number")
     manufacturer: Optional[Manufacturer.ONE_OF] = Field(None, title="Manufacturer")
     model: Optional[str] = Field(None, title="Model")
+    path_to_cad: Optional[str] = Field(None, title="Path to CAD diagram", description="For CUSTOM manufactured devices")
     notes: Optional[str] = Field(None, title="Notes")
 
 
@@ -294,6 +297,7 @@ class Software(AindModel):
 
     name: str = Field(..., title="Software name")
     version: str = Field(..., title="Software version")
+    url: Optional[str] = Field(None, title="URL to commit being used")
     parameters: Dict[str, Any] = Field(dict(), title="Software parameters")
 
 
@@ -404,7 +408,7 @@ class Objective(Device):
     device_type: Literal["Objective"] = "Objective"
     numerical_aperture: Decimal = Field(..., title="Numerical aperture (in air)")
     magnification: Decimal = Field(..., title="Magnification")
-    immersion: Immersion = Field(..., title="Immersion")
+    immersion: ImmersionMedium = Field(..., title="Immersion")
     objective_type: Optional[ObjectiveType] = Field(None, title="Objective type")
 
 
@@ -600,7 +604,7 @@ class Detector(Device):
     detector_type: DetectorType = Field(..., title="Detector Type")
     data_interface: DataInterface = Field(..., title="Data interface")
     cooling: Cooling = Field(..., title="Cooling")
-    immersion: Optional[Immersion] = Field(None, title="Immersion")
+    immersion: Optional[ImmersionMedium] = Field(None, title="Immersion")
     chroma: Optional[CameraChroma] = Field(None, title="Camera chroma")
     sensor_width: Optional[int] = Field(None, title="Width of the sensor in pixels")
     sensor_height: Optional[int] = Field(None, title="Height of the sensor in pixels")

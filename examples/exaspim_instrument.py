@@ -33,6 +33,7 @@ inst = instrument.Instrument(
     ],
     light_sources=[
         Laser(
+            name="LAS-08307",
             coupling="Single-mode fiber",
             wavelength=405,
             maximum_power=200,
@@ -41,6 +42,7 @@ inst = instrument.Instrument(
             notes="Housed in commercial laser combiner",
         ),
         Laser(
+            name="LAS-08308",
             coupling="Single-mode fiber",
             wavelength=488,
             maximum_power=200,
@@ -49,6 +51,7 @@ inst = instrument.Instrument(
             notes="Housed in commercial laser combiner",
         ),
         Laser(
+            name="539251",
             coupling="Single-mode fiber",
             wavelength=561,
             maximum_power=200,
@@ -57,6 +60,7 @@ inst = instrument.Instrument(
             notes="Housed in commercial laser combiner",
         ),
         Laser(
+            name="LAS-08309",
             coupling="Single-mode fiber",
             wavelength=638,
             maximum_power=200,
@@ -127,6 +131,7 @@ inst = instrument.Instrument(
     ],
     scanning_stages=[
         instrument.ScanningStage(
+            name="stage-x",
             stage_axis_direction="Detection axis",
             stage_axis_name="X",
             travel=1000,
@@ -154,6 +159,7 @@ inst = instrument.Instrument(
     additional_devices=[
         instrument.AdditionalImagingDevice(
             type="Tunable lens",
+            name="TL-1",
             manufacturer=Manufacturer.OPTOTUNE,
             model="EL-16-40-TC-VIS-20D-C",
             serial_number="01",

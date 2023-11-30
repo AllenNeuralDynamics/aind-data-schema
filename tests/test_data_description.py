@@ -15,6 +15,7 @@ from aind_data_schema.core.data_description import (
     DerivedDataDescription,
     Funding,
     RawDataDescription,
+    build_data_name,
 )
 from aind_data_schema.models.institutions import Institution
 from aind_data_schema.models.modalities import Modality
@@ -137,6 +138,7 @@ class DataDescriptionTest(unittest.TestCase):
             investigators=["Jane Smith"],
         )
         self.assertEqual(ad.name, "exaSPIM_1234_2020-10-10_10-10-10")
+        # self.assertEqual(ad.name, build_data_name("project_analysis", dt))
 
         with self.assertRaises(ValueError):
             AnalysisDescription(
@@ -311,9 +313,7 @@ class DataDescriptionTest(unittest.TestCase):
     #     upgrader_0_6_2_wrong_field = DataDescriptionUpgrade(
     #         old_data_description_model=data_description_0_6_2_wrong_field
     #     )
-    #     new_dd_0_6_2_wrong_field = upgrader_0_6_2_wrong_field.upgrade(
-    #         funding_source=[Funding(funder=AIND)]
-    #     )
+    #     new_dd_0_6_2_wrong_field = upgrader_0_6_2_wrong_field.upgrade(funding_source=[Funding(funder=Institution.AIND)])
     #     derived_dd_0_6_2_wrong_field = DerivedDataDescription.from_data_description(
     #         new_dd_0_6_2_wrong_field, process_name=process_name
     #     )

@@ -14,6 +14,7 @@ from aind_data_schema.models.devices import (
     Detector,
     Device,
     DigitalMicromirrorDevice,
+    Enclosure,
     EphysAssembly,
     FiberAssembly,
     Filter,
@@ -43,6 +44,7 @@ class Rig(AindCoreModel):
     stimulus_devices: List[STIMULUS_DEVICES] = Field([], title="Stimulus devices")
     cameras: List[CameraAssembly] = Field([], title="Camera assemblies")
     daqs: List[DAQ_DEVICES] = Field([], title="Data acquisition devices", discriminator="device_type")
+    enclosure: Optional[Enclosure] = Field(None, title="Enclosure")
     ephys_assemblies: List[EphysAssembly] = Field([], title="Ephys probes")
     fiber_assemblies: List[FiberAssembly] = Field([], title="Inserted fiber optics")
     stick_microscopes: List[StickMicroscopeAssembly] = Field([], title="Stick microscopes")
@@ -64,6 +66,72 @@ class Rig(AindCoreModel):
         description="Path to file that details the CCF-to-lab coordinate transform",
     )
     notes: Optional[str] = Field(None, title="Notes")
+
+    # @root_validator
+    # def validate_device_names(cls, values):  # noqa: C901
+    #     """validate that all DAQ channels are connected to devices that
+    #     actually exist
+    #     """
+    #
+    #     device_names = []
+    #
+    #     cameras = values.get("cameras")
+    #     ephys_assemblies = values.get("ephys_assemblies")
+    #     laser_assemblies = values.get("laser_assemblies")
+    #     mouse_platform = values.get("mouse_platform")
+    #     stimulus_devices = values.get("stimulus_devices")
+    #     stick_microscopes = values.get("stick_microscopes")
+    #     light_sources = values.get("light_sources")
+    #     patch_coords = values.get("patch_cords")
+    #     detectors = values.get("detectors")
+    #     digital_micromirror_devices = values.get("digital_micromirror_devices")
+    #     polygonal_scanners = values.get("polygonal_scanners")
+    #     pockels_cells = values.get("pockels_cells")
+    #     additional_devices = values.get("additional_devices")
+    #     daqs = values.get("daqs")
+    #
+    #     if daqs is None:
+    #         return values
+    #
+    #     for device_type in [
+    #         daqs,
+    #         stimulus_devices,
+    #         light_sources,
+    #         patch_coords,
+    #         detectors,
+    #         digital_micromirror_devices,
+    #         polygonal_scanners,
+    #         pockels_cells,
+    #         additional_devices,
+    #     ]:
+    #         if device_type is not None:
+    #             device_names += [device.name for device in device_type]
+    #
+    #     for camera_device in [cameras, stick_microscopes]:
+    #         if camera_device is not None:
+    #             device_names += [camera.camera.name for camera in camera_device]
+    #
+    #     if ephys_assemblies is not None:
+    #         device_names += [probe.name for ephys_assembly in ephys_assemblies for probe in ephys_assembly.probes]
+    #
+    #     if laser_assemblies is not None:
+    #         device_names += [laser.name for laser_assembly in laser_assemblies for laser in laser_assembly.lasers]
+    #
+    #     if mouse_platform is not None:
+    #         device_names += [mouse_platform.name]
+    #
+    #     for daq in daqs:
+    #         if daq.channels is not None:
+    #             for channel in daq.channels:
+    #                 if channel.device_name not in device_names:
+    #                     raise ValueError(
+    #                         f"Device name validation error: '{channel.device_name}' "
+    #                         + f"is connected to '{channel.channel_name}' on '{daq.name}', but "
+    #                         + "this device is not part of the rig."
+    #                     )
+    #
+    #     return values
+
 
     @model_validator(mode="after")
     def validate_ephys_modality(self):
