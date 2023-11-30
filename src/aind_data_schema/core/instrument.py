@@ -1,11 +1,9 @@
 """ schema describing imaging instrument """
 
 from datetime import date
-from decimal import Decimal
-from enum import Enum
-from typing import List, Literal, Optional, Union
+from typing import List, Literal, Optional
 
-from pydantic import Field, root_validator
+from pydantic import Field, field_validator, ValidationInfo
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.models.devices import (
@@ -13,22 +11,16 @@ from aind_data_schema.models.devices import (
     AdditionalImagingDevice,
     DAQDevice,
     Detector,
-    Device,
     Enclosure,
     Filter,
     ImagingInstrumentType,
-    Lamp,
-    Laser,
     Lens,
-    LightEmittingDiode,
     MotorizedStage,
     Objective,
     OpticalTable,
     ScanningStage,
 )
 from aind_data_schema.models.manufacturers import Manufacturer
-
-# from aind_data_schema.utils.units import SizeUnit
 
 
 class Com(AindModel):
@@ -64,7 +56,6 @@ class Instrument(AindCoreModel):
     fluorescence_filters: List[Filter] = Field([], title="Fluorescence filters")
     motorized_stages: List[MotorizedStage] = Field([], title="Motorized stages")
     scanning_stages: List[ScanningStage] = Field([], title="Scanning motorized stages")
-    daqs: List[DAQDevice] = Field([], title="DAQ")
     additional_devices: List[AdditionalImagingDevice] = Field([], title="Additional devices")
     calibration_date: Optional[date] = Field(
         None,
@@ -77,61 +68,44 @@ class Instrument(AindCoreModel):
         title="Calibration data",
     )
     com_ports: List[Com] = Field([], title="COM ports")
-    notes: Optional[str] = None
+    daqs: List[DAQDevice] = Field([], title="DAQ")
+    notes: Optional[str] = Field(None, validate_default=True)
 
-    # @root_validator
-    # def validate_device_names(cls, values):  # noqa: C901
-    #     """validate that all DAQ channels are connected to devices that
-    #     actually exist
-    #     """
-    #
-    #     device_names = []
-    #
-    #     motorized_stages = values.get("motorized_stages")
-    #     scanning_stages = values.get("scanning_stages")
-    #     light_sources = values.get("light_sources")
-    #     detectors = values.get("detectors")
-    #     additional_devices = values.get("additional_devices")
-    #     daqs = values.get("daqs")
-    #
-    #     if daqs is None:
-    #         return values
-    #
-    #     for device_type in [
-    #         daqs,
-    #         light_sources,
-    #         detectors,
-    #         additional_devices,
-    #         motorized_stages,
-    #         scanning_stages,
-    #     ]:
-    #         if device_type is not None:
-    #             device_names += [device.name for device in device_type]
-    #
-    #     for daq in daqs:
-    #         if daq.channels is not None:
-    #             for channel in daq.channels:
-    #                 if channel.device_name not in device_names:
-    #                     raise ValueError(
-    #                         f"Device name validation error: '{channel.device_name}' "
-    #                         + f"is connected to '{channel.channel_name}' on '{daq.name}', but "
-    #                         + "this device is not part of the rig."
-    #                     )
-    #
-    #     return values
+    @field_validator("daqs", mode="after")
+    def validate_device_names(cls, value: List[DAQDevice], info: ValidationInfo) -> List[DAQDevice]:
+        """validate that all DAQ channels are connected to devices that
+        actually exist
+        """
+        daqs = value
+        all_devices = (
+                info.data["motorized_stages"] +
+                info.data["scanning_stages"] +
+                info.data["light_sources"] +
+                info.data["detectors"] +
+                info.data["additional_devices"] +
+                value
+        )
+        all_device_names = [device.name for device in all_devices]
+        for daq in daqs:
+            for channel in daq.channels:
+                if channel.device_name not in all_device_names:
+                    raise ValueError(
+                        f"Device name validation error: '{channel.device_name}' "
+                        + f"is connected to '{channel.channel_name}' on '{daq.name}', but "
+                        + "this device is not part of the rig."
+                    )
+        return value
 
-    # @root_validator
-    # def validate_other(cls, v):
-    #     """Validator for other/notes"""
-    #
-    #     if v.get("instrument_type") == ImagingInstrumentType.OTHER and not v.get("notes"):
-    #         raise ValueError(
-    #             "Notes cannot be empty if instrument_type is Other. Describe the instrument_type in the notes field."
-    #         )
-    #
-    #     if v.get("manufacturer") == Manufacturer.OTHER and not v.get("notes"):
-    #         raise ValueError(
-    #             "Notes cannot be empty if manufacturer is Other. Describe the manufacturer in the notes field."
-    #         )
-    #
-    #     return v
+    @field_validator("notes", mode="after")
+    def validate_other(cls, value: Optional[str], info: ValidationInfo) -> Optional[str]:
+        """Validator for other/notes"""
+
+        if info.data.get("instrument_type") == ImagingInstrumentType.OTHER and not value:
+            raise ValueError(
+                "Notes cannot be empty if instrument_type is Other. Describe the instrument_type in the notes field."
+            )
+        if info.data.get("manufacturer") == Manufacturer.OTHER and not value:
+            raise ValueError(
+                "Notes cannot be empty if manufacturer is Other. Describe the manufacturer in the notes field."
+            )
+        return value

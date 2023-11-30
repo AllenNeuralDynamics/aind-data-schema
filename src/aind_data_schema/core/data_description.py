@@ -91,7 +91,7 @@ class RelatedData(AindModel):
 class DataDescription(AindCoreModel):
     """Description of a logical collection of data files"""
 
-    _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/data_description.py"
+    _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/data_description.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": True})
     schema_version: Literal["0.12.0"] = Field("0.12.0", title="Schema Version")
     license: Literal["CC-BY-4.0"] = Field("CC-BY-4.0", title="License")

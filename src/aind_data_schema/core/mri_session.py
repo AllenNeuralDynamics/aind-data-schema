@@ -4,7 +4,7 @@ from datetime import datetime
 from decimal import Decimal
 from typing import Any, Dict, List, Literal, Optional
 
-from pydantic import Field
+from pydantic import Field, field_validator, ValidationInfo
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.core.acquisition import Axis
@@ -40,18 +40,18 @@ class MRIScan(AindModel):
     repetition_time: Decimal = Field(..., title="Repetition time (ms)")
     repetition_time_unit: TimeUnit = Field(TimeUnit.MS, title="Repetition time unit")
     additional_scan_parameters: Dict[str, Any] = Field(..., title="Parameters")
-    notes: Optional[str] = Field(None, title="Notes")
+    notes: Optional[str] = Field(None, title="Notes", validate_default=True)
 
-    # @root_validator
-    # def validate_other(cls, v):
-    #     """Validator for other/notes"""
-    #
-    #     if v.get("scan_sequence_type") == MriScanSequence.OTHER and not v.get("notes"):
-    #         raise ValueError(
-    #             "Notes cannot be empty if scan_sequence_type is Other.",
-    #             "Describe the scan_sequence_type in the notes field.",
-    #         )
-    #     return v
+    @field_validator("notes", mode="after")
+    def validate_other(cls, value: Optional[str], info: ValidationInfo) -> Optional[str]:
+        """Validator for other/notes"""
+
+        if info.data.get("scan_sequence_type") == MriScanSequence.OTHER and not value:
+            raise ValueError(
+                "Notes cannot be empty if scan_sequence_type is Other."
+                " Describe the scan_sequence_type in the notes field."
+            )
+        return value
 
 
 class MriSession(AindCoreModel):

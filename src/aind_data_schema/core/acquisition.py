@@ -3,9 +3,9 @@
 from datetime import datetime
 from decimal import Decimal
 from enum import Enum
-from typing import List, Literal, Optional
+from typing import List, Literal, Optional, Union
 
-from pydantic import Field
+from pydantic import Field, field_validator
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.imaging.tile import AcquisitionTile
@@ -49,28 +49,6 @@ class Axis(AindModel):
     )
     unit: SizeUnit = Field(SizeUnit.UM, title="Axis physical units")
 
-    # #  TODO: It might make more sense to put this in the utils package
-    # @staticmethod
-    # def from_direction_code(code) -> List[Axis]:
-    #     """Convert direction codes like 'RAS' or 'PLA' into a set of axis objects"""
-    #     direction_lookup = {
-    #         "L": Direction.LR,
-    #         "R": Direction.RL,
-    #         "A": Direction.AP,
-    #         "P": Direction.PA,
-    #         "I": Direction.IS,
-    #         "S": Direction.SI,
-    #     }
-    #
-    #     name_lookup = [AxisName.X, AxisName.Y, AxisName.Z]
-    #
-    #     axes = []
-    #     for i, c in enumerate(code):
-    #         axis = Axis(name=name_lookup[i], direction=direction_lookup[c], dimension=i)
-    #         axes.append(axis)
-    #
-    #     return axes
-
 
 class Immersion(AindModel):
     """Description of immersion medium"""
@@ -101,7 +79,7 @@ class ProcessingSteps(AindModel):
 class Acquisition(AindCoreModel):
     """Description of an imaging acquisition session"""
 
-    _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/imaging/acquisition.py"
+    _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/acquisition.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": True})
     schema_version: Literal["0.6.0"] = Field("0.6.0")
     experimenter_full_name: List[str] = Field(
@@ -136,3 +114,26 @@ class Acquisition(AindCoreModel):
         description="List of downstream processing steps planned for each channel",
     )
     notes: Optional[str] = Field(None, title="Notes")
+
+    @field_validator("axes", mode="before")
+    def from_direction_code(cls, v: Union[str, List[Axis]]) -> List[Axis]:
+        if type(v) is str:
+            direction_lookup = {
+                "L": Direction.LR,
+                "R": Direction.RL,
+                "A": Direction.AP,
+                "P": Direction.PA,
+                "I": Direction.IS,
+                "S": Direction.SI,
+            }
+
+            name_lookup = [AxisName.X, AxisName.Y, AxisName.Z]
+
+            axes = []
+            for i, c in enumerate(v):
+                axis = Axis(name=name_lookup[i], direction=direction_lookup[c],
+                            dimension=i)
+                axes.append(axis)
+            return axes
+        else:
+            return v

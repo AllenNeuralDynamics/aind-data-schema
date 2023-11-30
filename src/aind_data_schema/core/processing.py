@@ -4,7 +4,7 @@ from datetime import datetime
 from enum import Enum
 from typing import Any, Dict, List, Literal, Optional
 
-from pydantic import Field, root_validator
+from pydantic import Field, field_validator, ValidationInfo
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.imaging.tile import Tile
@@ -33,13 +33,13 @@ class DataProcess(AindModel):
     outputs: Dict[str, Any] = Field(dict(), description="Output parameters", title="Outputs")
     notes: Optional[str] = Field(None, title="Notes")
 
-    # @root_validator
-    # def validate_other(cls, v):
-    #     """Validator for other/notes"""
-    #
-    #     if v.get("name") == ProcessName.OTHER and not v.get("notes"):
-    #         raise ValueError("Notes cannot be empty if 'name' is Other. Describe the process name in the notes field.")
-    #     return v
+    @field_validator("notes", mode="after")
+    def validate_other(cls, value: Optional[str], info: ValidationInfo) -> Optional[str]:
+        """Validator for other/notes"""
+
+        if info.data.get("name") == ProcessName.OTHER and not value:
+            raise ValueError("Notes cannot be empty if 'name' is Other. Describe the process name in the notes field.")
+        return value
 
 
 class PipelineProcess(AindModel):
