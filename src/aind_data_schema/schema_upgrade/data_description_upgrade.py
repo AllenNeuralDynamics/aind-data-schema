@@ -121,6 +121,7 @@ class DataDescriptionUpgrade(BaseModelUpgrade):
             self._get_or_default(self.old_model, "institution", kwargs)
         )
         funding_source = self._get_or_default(self.old_model, "funding_source", kwargs)
+        
         if funding_source is not None:
             if type(funding_source) is list:
                 funding_source = [FundingUpgrade.upgrade_funding(funding) for funding in funding_source]
@@ -128,6 +129,7 @@ class DataDescriptionUpgrade(BaseModelUpgrade):
                 funding_source = FundingUpgrade.upgrade_funding(funding_source)
         else:
             funding_source = []
+            
         old_modality: Any = self.old_model.modality
         if kwargs.get("modality") is not None:
             modality = kwargs["modality"]
