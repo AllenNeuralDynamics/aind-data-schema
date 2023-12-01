@@ -1,16 +1,17 @@
 from datetime import date
 from typing import List, Literal, Optional, Set
 
-from pydantic import Field, model_validator
+from pydantic import Field, ValidationInfo, field_validator, model_validator
 
 from aind_data_schema.base import AindCoreModel
 from aind_data_schema.models.devices import (
-    DAQ_DEVICES,
     LIGHT_SOURCES,
     MOUSE_PLATFORMS,
+    RIG_DAQ_DEVICES,
     STIMULUS_DEVICES,
     Calibration,
     CameraAssembly,
+    DAQDevice,
     Detector,
     Device,
     DigitalMicromirrorDevice,
@@ -26,7 +27,6 @@ from aind_data_schema.models.devices import (
     PolygonalScanner,
     StickMicroscopeAssembly,
 )
-# from aind_data_schema.models.modalities import BEHAVIOR_VIDEOS, ECEPHYS, FIB, MODALITIES, POPHYS, SLAP, TRAINED_BEHAVIOR
 from aind_data_schema.models.modalities import Modality
 
 
@@ -39,11 +39,9 @@ class Rig(AindCoreModel):
 
     rig_id: str = Field(..., description="room_stim apparatus_version", title="Rig ID")
     modification_date: date = Field(..., title="Date of modification")
-    modalities: Set[Modality.ONE_OF] = Field(..., title="Modalities")
     mouse_platform: MOUSE_PLATFORMS
     stimulus_devices: List[STIMULUS_DEVICES] = Field([], title="Stimulus devices")
     cameras: List[CameraAssembly] = Field([], title="Camera assemblies")
-    daqs: List[DAQ_DEVICES] = Field([], title="Data acquisition devices", discriminator="device_type")
     enclosure: Optional[Enclosure] = Field(None, title="Enclosure")
     ephys_assemblies: List[EphysAssembly] = Field([], title="Ephys probes")
     fiber_assemblies: List[FiberAssembly] = Field([], title="Inserted fiber optics")
@@ -59,155 +57,136 @@ class Rig(AindCoreModel):
     polygonal_scanners: List[PolygonalScanner] = Field([], title="Polygonal scanners")
     pockels_cells: List[PockelsCell] = Field([], title="Pockels cells")
     additional_devices: List[Device] = Field([], title="Additional devices")
+    daqs: List[RIG_DAQ_DEVICES] = Field([], title="Data acquisition devices", discriminator="device_type")
     calibrations: List[Calibration] = Field(..., title="Full calibration of devices")
     ccf_coordinate_transform: Optional[str] = Field(
         None,
         title="CCF coordinate transform",
         description="Path to file that details the CCF-to-lab coordinate transform",
     )
+    modalities: Set[Modality.ONE_OF] = Field(..., title="Modalities")
     notes: Optional[str] = Field(None, title="Notes")
 
-    # @root_validator
-    # def validate_device_names(cls, values):  # noqa: C901
-    #     """validate that all DAQ channels are connected to devices that
-    #     actually exist
-    #     """
-    #
-    #     device_names = []
-    #
-    #     cameras = values.get("cameras")
-    #     ephys_assemblies = values.get("ephys_assemblies")
-    #     laser_assemblies = values.get("laser_assemblies")
-    #     mouse_platform = values.get("mouse_platform")
-    #     stimulus_devices = values.get("stimulus_devices")
-    #     stick_microscopes = values.get("stick_microscopes")
-    #     light_sources = values.get("light_sources")
-    #     patch_coords = values.get("patch_cords")
-    #     detectors = values.get("detectors")
-    #     digital_micromirror_devices = values.get("digital_micromirror_devices")
-    #     polygonal_scanners = values.get("polygonal_scanners")
-    #     pockels_cells = values.get("pockels_cells")
-    #     additional_devices = values.get("additional_devices")
-    #     daqs = values.get("daqs")
-    #
-    #     if daqs is None:
-    #         return values
-    #
-    #     for device_type in [
-    #         daqs,
-    #         stimulus_devices,
-    #         light_sources,
-    #         patch_coords,
-    #         detectors,
-    #         digital_micromirror_devices,
-    #         polygonal_scanners,
-    #         pockels_cells,
-    #         additional_devices,
-    #     ]:
-    #         if device_type is not None:
-    #             device_names += [device.name for device in device_type]
-    #
-    #     for camera_device in [cameras, stick_microscopes]:
-    #         if camera_device is not None:
-    #             device_names += [camera.camera.name for camera in camera_device]
-    #
-    #     if ephys_assemblies is not None:
-    #         device_names += [probe.name for ephys_assembly in ephys_assemblies for probe in ephys_assembly.probes]
-    #
-    #     if laser_assemblies is not None:
-    #         device_names += [laser.name for laser_assembly in laser_assemblies for laser in laser_assembly.lasers]
-    #
-    #     if mouse_platform is not None:
-    #         device_names += [mouse_platform.name]
-    #
-    #     for daq in daqs:
-    #         if daq.channels is not None:
-    #             for channel in daq.channels:
-    #                 if channel.device_name not in device_names:
-    #                     raise ValueError(
-    #                         f"Device name validation error: '{channel.device_name}' "
-    #                         + f"is connected to '{channel.channel_name}' on '{daq.name}', but "
-    #                         + "this device is not part of the rig."
-    #                     )
-    #
-    #     return values
+    @field_validator("daqs", mode="after")
+    def validate_device_names(cls, value: List[DAQDevice], info: ValidationInfo) -> List[DAQDevice]:
+        """validate that all DAQ channels are connected to devices that
+        actually exist
+        """
+        daqs = value
+        standard_devices = (
+            daqs +
+            info.data["stimulus_devices"] +
+            info.data["light_sources"] +
+            info.data["patch_cords"] +
+            info.data["detectors"] +
+            info.data["digital_micromirror_devices"] +
+            info.data["polygonal_scanners"] +
+            info.data["pockels_cells"] +
+            info.data["additional_devices"]
+        )
+        camera_devices = info.data["cameras"] + info.data["stick_microscopes"]
+        standard_device_names = [device.name for device in standard_devices]
+        camera_names = [camera.camera.name for camera in camera_devices]
+        ephys_assembly_names = [
+            probe.name for ephys_assembly in info.data["ephys_assemblies"] for probe in ephys_assembly.probes
+        ]
+        laser_assembly_names = [
+            laser.name for laser_assembly in info.data["laser_assemblies"] for laser in laser_assembly.lasers
+        ]
+        mouse_platform_names = [] if info.data.get("mouse_platform") is None else [info.data["mouse_platform"].name]
+        all_device_names = (
+            standard_device_names + camera_names + ephys_assembly_names + laser_assembly_names + mouse_platform_names
+        )
 
+        for daq in daqs:
+            for channel in daq.channels:
+                if channel.device_name not in all_device_names:
+                    raise ValueError(
+                        f"Device name validation error: '{channel.device_name}' "
+                        + f"is connected to '{channel.channel_name}' on '{daq.name}', but "
+                        + "this device is not part of the rig."
+                    )
+        return daqs
 
-    @model_validator(mode="after")
-    def validate_ephys_modality(self):
-        error_message = ""
-        if Modality.ECEPHYS in self.modalities:
-            for key, value in {
-                "ephys_assemblies": len(self.ephys_assemblies) > 0,
-                "stick_microscopes": len(self.stick_microscopes) > 0,
+    @staticmethod
+    def _validate_ephys_modality(value: Set[Modality.ONE_OF], info: ValidationInfo) -> List[str]:
+        errors = []
+        if Modality.ECEPHYS in value:
+            for k, v in {
+                "ephys_assemblies": len(info.data["ephys_assemblies"]) > 0,
+                "stick_microscopes": len(info.data["stick_microscopes"]) > 0,
             }.items():
-                if value is False:
-                    error_message += f"{key} field must be utilized for Ecephys modality\n"
-        if error_message:
-            raise AssertionError(error_message)
-        return self
+                if v is False:
+                    errors.append(f"{k} field must be utilized for Ecephys modality")
+        return errors
 
-    @model_validator(mode="after")
-    def validate_fib_modality(self):
-        error_message = ""
-        if Modality.FIB in self.modalities:
-            for key, value in {
-                "light_sources": len(self.light_sources) > 0,
-                "detectors": len(self.detectors) > 0,
-                "patch_cords": len(self.patch_cords) > 0,
+    @staticmethod
+    def _validate_fib_modality(value: Set[Modality.ONE_OF], info: ValidationInfo) -> List[str]:
+        errors = []
+        if Modality.FIB in value:
+            for k, v in {
+                "light_sources": len(info.data["light_sources"]) > 0,
+                "detectors": len(info.data["detectors"]) > 0,
+                "patch_cords": len(info.data["patch_cords"]) > 0,
             }.items():
-                if value is False:
-                    error_message += f"{key} field must be utilized for FIB modality\n"
-        if error_message:
-            raise AssertionError(error_message)
-        return self
+                if v is False:
+                    errors.append(f"{k} field must be utilized for FIB modality")
+        return errors
 
-    @model_validator(mode="after")
-    def validate_pophys_modality(self):
-        error_message = ""
-        if Modality.POPHYS in self.modalities:
-            for key, value in {
-                "light_sources": len(self.light_sources) > 0,
-                "detectors": len(self.detectors) > 0,
-                "objectives": len(self.objectives) > 0,
+    @staticmethod
+    def _validate_pophys_modality(value: Set[Modality.ONE_OF], info: ValidationInfo) -> List[str]:
+        errors = []
+        if Modality.POPHYS in value:
+            for k, v in {
+                "light_sources": len(info.data["light_sources"]) > 0,
+                "detectors": len(info.data["detectors"]) > 0,
+                "objectives": len(info.data["objectives"]) > 0,
             }.items():
-                if value is False:
-                    error_message += f"{key} field must be utilized for POPHYS modality\n"
-        if error_message:
-            raise AssertionError(error_message)
-        return self
+                if v is False:
+                    errors.append(f"{k} field must be utilized for POPHYS modality")
+        return errors
 
-    @model_validator(mode="after")
-    def validate_slap_modality(self):
-        error_message = ""
-        if Modality.SLAP in self.modalities:
-            for key, value in {
-                "light_sources": len(self.light_sources) > 0,
-                "detectors": len(self.detectors) > 0,
-                "objectives": len(self.objectives) > 0,
+    @staticmethod
+    def _validate_slap_modality(value: Set[Modality.ONE_OF], info: ValidationInfo) -> List[str]:
+        errors = []
+        if Modality.SLAP in value:
+            for k, v in {
+                "light_sources": len(info.data["light_sources"]) > 0,
+                "detectors": len(info.data["detectors"]) > 0,
+                "objectives": len(info.data["objectives"]) > 0,
             }.items():
-                if value is False:
-                    error_message += f"{key} field must be utilized for SLAP modality\n"
-        if error_message:
-            raise AssertionError(error_message)
-        return self
+                if v is False:
+                    errors.append(f"{k} field must be utilized for SLAP modality")
+        return errors
 
-    @model_validator(mode="after")
-    def validate_behavior_videos_modality(self):
-        error_message = ""
-        if Modality.BEHAVIOR_VIDEOS in self.modalities:
-            if len(self.cameras) == 0:
-                error_message += "cameras field must be utilized for Behavior Videos modality\n"
-        if error_message:
-            raise AssertionError(error_message)
-        return self
+    @staticmethod
+    def _validate_behavior_videos_modality(value: Set[Modality.ONE_OF], info: ValidationInfo) -> List[str]:
+        errors = []
+        if Modality.BEHAVIOR_VIDEOS in value:
+            if len(info.data["cameras"]) == 0:
+                errors.append("cameras field must be utilized for Behavior Videos modality")
+        return errors
 
-    @model_validator(mode="after")
-    def validate_trained_behavior_modality(self):
-        error_message = ""
-        if Modality.TRAINED_BEHAVIOR in self.modalities:
-            if len(self.stimulus_devices) == 0:
-                error_message += "stimulus_devices field must be utilized for Trained Behavior modality\n"
-        if error_message:
-            raise AssertionError(error_message)
-        return self
+    @staticmethod
+    def _validate_trained_behavior_modality(value: Set[Modality.ONE_OF], info: ValidationInfo) -> List[str]:
+        errors = []
+        if Modality.TRAINED_BEHAVIOR in value:
+            if len(info.data["stimulus_devices"]) == 0:
+                errors.append("stimulus_devices field must be utilized for Trained Behavior modality")
+        return errors
+
+    @field_validator("modalities", mode="after")
+    def validate_modalities(cls, value: Set[Modality.ONE_OF], info: ValidationInfo) -> Set[Modality.ONE_OF]:
+        ephys_errors = cls._validate_ephys_modality(value, info)
+        fib_errors = cls._validate_fib_modality(value, info)
+        pophys_errors = cls._validate_pophys_modality(value, info)
+        slap_errors = cls._validate_slap_modality(value, info)
+        behavior_vids_errors = cls._validate_behavior_videos_modality(value, info)
+        trained_behavior_errors = cls._validate_trained_behavior_modality(value, info)
+
+        errors = (ephys_errors + fib_errors + pophys_errors + slap_errors + behavior_vids_errors + trained_behavior_errors)
+        if len(errors) > 0:
+            message = "\n     ".join(errors)
+            raise ValueError(message)
+
+        return value

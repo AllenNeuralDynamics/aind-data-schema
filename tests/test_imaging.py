@@ -79,7 +79,7 @@ class ImagingTests(unittest.TestCase):
         with self.assertRaises(ValidationError) as e1:
             inst.Instrument(
                 instrument_type="Other",
-                modification_date = datetime.datetime(2020,10,10,0,0,0).date(),
+                modification_date=datetime.datetime(2020, 10, 10, 0, 0, 0).date(),
                 manufacturer=Manufacturer.OTHER,
                 objectives=[],
                 detectors=[],
@@ -186,15 +186,12 @@ class ImagingTests(unittest.TestCase):
                         calibration_date=datetime.datetime.now(),
                         description="Laser power calibration",
                         device_name="Laser 1",
-                        input={"power_setting": PowerValue(value=100.0,
-                                                           unit="percent")},
-                        output={"power_measurement": PowerValue(value=50.0,
-                                                                unit="milliwatt")},
+                        input={"power_setting": PowerValue(value=100.0, unit="percent")},
+                        output={"power_measurement": PowerValue(value=50.0, unit="milliwatt")},
                     ),
                 ],
                 session_end_time=datetime.datetime.now(),
-                chamber_immersion=acq.Immersion(medium="PBS",
-                                                refractive_index=1),
+                chamber_immersion=acq.Immersion(medium="PBS", refractive_index=1),
                 tiles=[
                     tile.AcquisitionTile(
                         coordinate_transformations=[

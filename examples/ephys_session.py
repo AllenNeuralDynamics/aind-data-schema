@@ -2,9 +2,16 @@
 
 from datetime import datetime
 
-from aind_data_schema.core.session import DomeModule, EphysModule, ManipulatorModule, Session, Stream
+from aind_data_schema.core.session import (
+    DomeModule,
+    EphysModule,
+    EphysProbeConfigs,
+    LaserConfigs,
+    ManipulatorModule,
+    Session,
+    Stream,
+)
 from aind_data_schema.models.coordinates import Coordinates3d
-from aind_data_schema.models.device_configurations import EphysProbeConfigs, LaserConfigs
 from aind_data_schema.models.modalities import Modality
 
 red_laser = LaserConfigs(name="Red Laser", wavelength=700, excitation_power=100)

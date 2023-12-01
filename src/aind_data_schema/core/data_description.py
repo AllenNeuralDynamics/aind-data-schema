@@ -2,9 +2,10 @@
 
 from datetime import datetime
 from enum import Enum
-from typing import Any, List, Literal, Optional
+from typing import List, Literal, Optional, Union, Any
+import re
 
-from pydantic import Field, ValidationInfo, field_validator
+from pydantic import Field, ValidationInfo, field_validator, model_validator
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.models.institutions import Institution
@@ -173,79 +174,43 @@ class DataDescription(AindCoreModel):
     )
     data_summary: Optional[str] = Field(None, title="Data summary", description="Semantic summary of experimental goal")
 
-    # @root_validator
-    # def build_name(cls, v):
-    #     """sets the name of the file"""
-    #
-    #     if not v.get("creation_time"):
-    #         raise ValidationError("creation_time must be set")
-    #     else:
-    #         label = v.get("label")
-    #         if not v.get("name") and label:
-    #             v["name"] = build_data_name(v.get("label"), creation_datetime=v.get("creation_time"))
-    #         elif not v.get("name"):
-    #             raise ValidationError("Either label or name must be set")
-    #
-    #     return v
+    @classmethod
+    def parse_name(cls, name):
+        """Decompose a DataDescription name string into component parts"""
+        m = re.match(f"{DataRegex.DATA.value}", name)
 
-    @field_validator("name", mode="after")
-    def create_name(cls, value: Any, info: ValidationInfo) -> str:
-        platform = info.data.get("platform")
-        creation_datetime = info.data.get("creation_time")
-        subject_id = info.data.get("subject_id")
-        if value is None and platform is not None and creation_datetime is not None and subject_id is not None:
-            platform_abbr = info.data.get("platform").abbreviation
-            return "_".join([platform_abbr, subject_id, creation_datetime.strftime("%Y-%m-%d_%H-%M-%S")])
+        if m is None:
+            raise ValueError(f"name({name}) does not match pattern")
+
+        creation_time = datetime_from_name_string(m.group("c_date"), m.group("c_time"))
+
+        return dict(
+            label=m.group("label"),
+            creation_time=creation_time,
+        )
+
+    @model_validator(mode="after")
+    def build_name(self):
+        """sets the name of the file"""
+        if self.label is not None and self.name is None:
+            self.name = build_data_name(self.label, creation_datetime=self.creation_time)
+        elif self.name is None:
+            raise ValueError("Either label or name must be set")
+        return self
+
+    @field_validator("data_level", mode="before")
+    def upgrade_data_level(cls, value: Union[str, DataLevel]) -> DataLevel:
+        """Updates legacy values to current values"""
+        # If user inputs a string and is 'raw level', convert it to RAW
+        if isinstance(value, str) and value in ["raw level", "raw data"]:
+            return DataLevel.RAW
+        # If user inputs a string, try to convert it to a DataLevel. Will raise
+        # an error if unable to parse the input string
+        elif isinstance(value, str):
+            return DataLevel(value)
+        # else raise a validation error
         else:
-            return value
-
-    # # TODO: We need to remove all the custom class constructors on pydantic
-    # #  models
-    # def __init__(self, label=None, **kwargs):
-    #     """Construct a generic DataDescription"""
-    #
-    #     # Ideally, we'd like to just use validators to parse information,
-    #     # but we need to get rid of these init methods first since they
-    #     # don't get called on here
-    #     super().__init__(**kwargs)
-    #
-    #     if label is not None:
-    #         self.name = build_data_name(
-    #             label,
-    #             creation_datetime=self.creation_time,
-    #         )
-    #
-    # @classmethod
-    # def parse_name(cls, name):
-    #     """Decompose a DataDescription name string into component parts"""
-    #     m = re.match(f"{DataRegex.DATA.value}", name)
-    #
-    #     if m is None:
-    #         raise ValueError(f"name({name}) does not match pattern")
-    #
-    #     creation_time = datetime_from_name_string(m.group("c_date"), m.group("c_time"))
-    #
-    #     return dict(
-    #         label=m.group("label"),
-    #         creation_time=creation_time,
-    #     )
-    #
-    # @validator("data_level", pre=True, always=True)
-    # def upgrade_data_level(cls, value: Union[str, DataLevel]):
-    #     """Updates legacy values to current values"""
-    #     # If user inputs a string and is 'raw level', convert it to RAW
-    #     if isinstance(value, str) and value in ["raw level", "raw data"]:
-    #         return DataLevel.RAW
-    #     # If user inputs a string, try to convert it to a DataLevel. Will raise
-    #     # an error if unable to parse the input string
-    #     elif isinstance(value, str):
-    #         return DataLevel(value)
-    #     # If user inputs a DataLevel object, return the object without parsing
-    #     elif isinstance(value, DataLevel):
-    #         return value
-    #     # else raise a validation error
-    #     else:
-    #         raise ValidationError("Data Level needs to be string or enum")
+            raise ValueError("Data Level needs to be string or enum")
 
 
 class DerivedDataDescription(DataDescription):
@@ -262,106 +227,92 @@ class DerivedDataDescription(DataDescription):
         title="Process name",
     )
 
-    #     @root_validator
-    #     def build_name(cls, v):
-    #         """returns the label of the file"""
-    #
-    #         process_name = v.get("process_name")
-    #
-    #         if not v.get("creation_time"):
-    #             raise ValidationError("creation_time must be set")
-    #         else:
-    #             if process_name:
-    #                 v["name"] = build_data_name(
-    #                     f"{v.get('input_data_name')}_{process_name}", creation_datetime=v.get("creation_time")
-    #                 )
-    #             else:
-    #                 v["name"] = build_data_name(f"{v.get('input_data_name')}", creation_datetime=v.get("creation_time"))
-    #
-    #         return v
+    @classmethod
+    def parse_name(cls, name):
+        """decompose DerivedDataDescription name into parts"""
 
-    # def __init__(self, process_name, **kwargs):
-    #     """Construct a derived data description"""
-    #     input_data_name = kwargs["input_data_name"]
-    #     super().__init__(label=f"{input_data_name}_{process_name}", **kwargs)
-    #
-    # @classmethod
-    # def parse_name(cls, name):
-    #     """decompose DerivedDataDescription name into parts"""
-    #
-    #     # look for input data name
-    #     m = re.match(f"{DataRegex.DERIVED.value}", name)
-    #
-    #     if m is None:
-    #         raise ValueError(f"name({name}) does not match pattern")
-    #
-    #     creation_time = datetime_from_name_string(m.group("c_date"), m.group("c_time"))
-    #
-    #     return dict(
-    #         process_name=m.group("process_name"),
-    #         creation_time=creation_time,
-    #         input_data_name=m.group("input"),
-    #     )
-    #
-    # @classmethod
-    # def from_data_description(cls, data_description: DataDescription, process_name: str, **kwargs):
-    #     """
-    #     Create a DerivedDataDescription from a DataDescription object.
-    #
-    #     Parameters
-    #     ----------
-    #     data_description : DataDescription
-    #         The DataDescription object to use as the base for the Derived
-    #     process_name : str
-    #         Name of the process that created the data
-    #     kwargs
-    #         DerivedDataDescription fields can be explicitly set and will override
-    #         values pulled from DataDescription
-    #
-    #     """
-    #
-    #     def get_or_default(field_name: str) -> Any:
-    #         """
-    #         If the field is set in kwargs, use that value. Otherwise, check if
-    #         the field is set in the DataDescription object. If not, pull from
-    #         the field default value if the field has a default value. Otherwise,
-    #         return None and allow pydantic to raise a Validation Error if field
-    #         is not Optional.
-    #         Parameters
-    #         ----------
-    #         field_name : str
-    #           Name of the field to set
-    #
-    #         Returns
-    #         -------
-    #         Any
-    #
-    #         """
-    #         if kwargs.get(field_name) is not None:
-    #             return kwargs.get(field_name)
-    #         elif hasattr(data_description, field_name) and getattr(data_description, field_name) is not None:
-    #             return getattr(data_description, field_name)
-    #         else:
-    #             return getattr(DerivedDataDescription.__fields__.get(field_name), "default")
-    #
-    #     creation_time = datetime.utcnow() if kwargs.get("creation_time") is None else kwargs["creation_time"]
-    #
-    #     return cls(
-    #         creation_time=creation_time,
-    #         process_name=process_name,
-    #         institution=get_or_default("institution"),
-    #         funding_source=get_or_default("funding_source"),
-    #         group=get_or_default("group"),
-    #         investigators=get_or_default("investigators"),
-    #         restrictions=get_or_default("restrictions"),
-    #         modality=get_or_default("modality"),
-    #         platform=get_or_default("platform"),
-    #         project_name=get_or_default("project_name"),
-    #         subject_id=get_or_default("subject_id"),
-    #         related_data=get_or_default("related_data"),
-    #         data_summary=get_or_default("data_summary"),
-    #         input_data_name=data_description.name,
-    #     )
+        # look for input data name
+        m = re.match(f"{DataRegex.DERIVED.value}", name)
+
+        if m is None:
+            raise ValueError(f"name({name}) does not match pattern")
+
+        creation_time = datetime_from_name_string(m.group("c_date"), m.group("c_time"))
+
+        return dict(
+            process_name=m.group("process_name"),
+            creation_time=creation_time,
+            input_data_name=m.group("input"),
+        )
+
+    @model_validator(mode="after")
+    def build_name(self):
+        """sets the name of the file"""
+        if self.process_name:
+            self.name = build_data_name(f"{self.input_data_name}_{self.process_name}", creation_datetime=self.creation_time)
+        else:
+            self.name = build_data_name(f"{self.input_data_name}", creation_datetime=self.creation_time)
+        return self
+
+    @classmethod
+    def from_data_description(cls, data_description: DataDescription, process_name: str, **kwargs):
+        """
+        Create a DerivedDataDescription from a DataDescription object.
+
+        Parameters
+        ----------
+        data_description : DataDescription
+            The DataDescription object to use as the base for the Derived
+        process_name : str
+            Name of the process that created the data
+        kwargs
+            DerivedDataDescription fields can be explicitly set and will override
+            values pulled from DataDescription
+
+        """
+
+        def get_or_default(field_name: str) -> Any:
+            """
+            If the field is set in kwargs, use that value. Otherwise, check if
+            the field is set in the DataDescription object. If not, pull from
+            the field default value if the field has a default value. Otherwise,
+            return None and allow pydantic to raise a Validation Error if field
+            is not Optional.
+            Parameters
+            ----------
+            field_name : str
+              Name of the field to set
+
+            Returns
+            -------
+            Any
+
+            """
+            if kwargs.get(field_name) is not None:
+                return kwargs.get(field_name)
+            elif hasattr(data_description, field_name) and getattr(data_description, field_name) is not None:
+                return getattr(data_description, field_name)
+            else:
+                return getattr(DerivedDataDescription.model_fields.get(field_name), "default")
+
+        creation_time = datetime.utcnow() if kwargs.get("creation_time") is None else kwargs["creation_time"]
+
+        return cls(
+            creation_time=creation_time,
+            process_name=process_name,
+            institution=get_or_default("institution"),
+            funding_source=get_or_default("funding_source"),
+            group=get_or_default("group"),
+            investigators=get_or_default("investigators"),
+            restrictions=get_or_default("restrictions"),
+            modality=get_or_default("modality"),
+            platform=get_or_default("platform"),
+            project_name=get_or_default("project_name"),
+            subject_id=get_or_default("subject_id"),
+            related_data=get_or_default("related_data"),
+            data_summary=get_or_default("data_summary"),
+            input_data_name=data_description.name,
+        )
 
 
 class RawDataDescription(DataDescription):
@@ -371,56 +322,35 @@ class RawDataDescription(DataDescription):
         DataLevel.RAW, description="level of processing that data has undergone", title="Data Level"
     )
 
-    #     @root_validator
-    #     def build_name(cls, v):
-    #         """returns the label of the file"""
-    #
-    #         platform = v.get("platform")
-    #
-    #         platform_abbreviation = platform.value.abbreviation
-    #         if not v.get("creation_time"):
-    #             raise ValidationError("creation_time must be set")
-    #         else:
-    #             v["name"] = build_data_name(
-    #                 f"{platform_abbreviation}_{v.get('subject_id')}", creation_datetime=v.get("creation_time")
-    #             )
-    #
-    #         return v
+    @model_validator(mode="after")
+    def build_name(self):
+        """sets the name of the file"""
+        platform_abbreviation = self.platform.abbreviation
+        self.name = build_data_name(
+                f"{platform_abbreviation}_{self.subject_id}",
+                creation_datetime=self.creation_time
+            )
+        return self
 
-    # def __init__(self, platform, subject_id, **kwargs):
-    #     """Construct a raw data description"""
-    #
-    #     if isinstance(platform, dict):
-    #         platform_abbreviation = platform.get("abbreviation")
-    #     else:
-    #         platform_abbreviation = platform.value.abbreviation
-    #
-    #     super().__init__(
-    #         label=f"{platform_abbreviation}_{subject_id}",
-    #         platform=platform,
-    #         subject_id=subject_id,
-    #         **kwargs,
-    #     )
-    #
-    # @classmethod
-    # def parse_name(cls, name):
-    #     """Decompose raw description name into component parts"""
-    #
-    #     m = re.match(f"{DataRegex.RAW.value}", name)
-    #
-    #     if m is None:
-    #         raise ValueError(f"name({name}) does not match pattern")
-    #
-    #     creation_time = datetime_from_name_string(m.group("c_date"), m.group("c_time"))
-    #
-    #     platform_abbreviation = m.group("platform_abbreviation")
-    #     platform = Platform(platform_abbreviation)
-    #
-    #     return dict(
-    #         platform=platform,
-    #         subject_id=m.group("subject_id"),
-    #         creation_time=creation_time,
-    #     )
+    @classmethod
+    def parse_name(cls, name):
+        """Decompose raw description name into component parts"""
+
+        m = re.match(f"{DataRegex.RAW.value}", name)
+
+        if m is None:
+            raise ValueError(f"name({name}) does not match pattern")
+
+        creation_time = datetime_from_name_string(m.group("c_date"), m.group("c_time"))
+
+        platform_abbreviation = m.group("platform_abbreviation")
+        platform = Platform.from_abbreviation(platform_abbreviation)
+
+        return dict(
+            platform=platform,
+            subject_id=m.group("subject_id"),
+            creation_time=creation_time,
+        )
 
 
 class AnalysisDescription(DataDescription):
@@ -442,39 +372,26 @@ class AnalysisDescription(DataDescription):
         title="Analysis name",
     )
 
-    #     @root_validator
-    #     def build_name(cls, v):
-    #         """returns the label of the file"""
-    #
-    #         project_name = v.get("project_name")
-    #         analysis_name = v.get("analysis_name")
-    #
-    #         if not v.get("creation_time"):
-    #             raise ValidationError("creation_time must be set")
-    #         else:
-    #             v["name"] = build_data_name(f"{project_name}_{analysis_name}", creation_datetime=v.get("creation_time"))
-    #
-    #         return v
+    @model_validator(mode='after')
+    def build_name(self):
+        """returns the label of the file"""
+        self.name = build_data_name(f"{self.project_name}_{self.analysis_name}", creation_datetime=self.creation_time)
+        return self
 
-    # @property
-    # def label(self):
-    #     """returns the label of the file"""
-    #
-    #     return f"{self.project_name}_{self.analysis_name}"
-    #
-    # @classmethod
-    # def parse_name(cls, name):
-    #     """Decompose raw Analysis name into component parts"""
-    #
-    #     m = re.match(f"{DataRegex.ANALYZED.value}", name)
-    #
-    #     if m is None:
-    #         raise ValueError(f"name({name}) does not match pattern")
-    #
-    #     creation_time = datetime_from_name_string(m.group("c_date"), m.group("c_time"))
-    #
-    #     return dict(
-    #         project_abbreviation=m.group("project_abbreviation"),
-    #         analysis_name=m.group("analysis_name"),
-    #         creation_time=creation_time,
-    #     )
+    @classmethod
+    def parse_name(cls, name):
+        """Decompose raw Analysis name into component parts"""
+
+        m = re.match(f"{DataRegex.ANALYZED.value}", name)
+
+        if m is None:
+            raise ValueError(f"name({name}) does not match pattern")
+
+        creation_time = datetime_from_name_string(m.group("c_date"),
+                                                  m.group("c_time"))
+
+        return dict(
+            project_abbreviation=m.group("project_abbreviation"),
+            analysis_name=m.group("analysis_name"),
+            creation_time=creation_time,
+        )

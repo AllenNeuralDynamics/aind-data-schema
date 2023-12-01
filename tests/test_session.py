@@ -5,9 +5,15 @@ import unittest
 
 import pydantic
 
-from aind_data_schema.core.session import DomeModule, EphysModule, Session, Stream
+from aind_data_schema.core.session import (
+    DomeModule,
+    EphysModule,
+    EphysProbeConfigs,
+    RewardDeliveryConfigs,
+    Session,
+    Stream,
+)
 from aind_data_schema.models.coordinates import CcfCoords, Coordinates3d
-from aind_data_schema.models.device_configurations import EphysProbeConfigs, RewardDeliveryConfigs
 from aind_data_schema.models.modalities import Modality
 
 
@@ -67,7 +73,7 @@ class ExampleTest(unittest.TestCase):
     def test_validators(self):
         """Test the session file validators"""
 
-        with self.assertRaises(pydantic.ValidationError):
+        with self.assertRaises(pydantic.ValidationError) as e:
             Stream(
                 stream_start_time=datetime.datetime.now(),
                 stream_end_time=datetime.datetime.now(),
@@ -80,6 +86,20 @@ class ExampleTest(unittest.TestCase):
                     Modality.TRAINED_BEHAVIOR,
                 ],
             )
+
+        self.assertTrue("ephys_modules field must be utilized for Ecephys modality" in repr(e.exception))
+        self.assertTrue(
+            "light_sources field must be utilized for FIB modality" in repr(
+                e.exception))
+        self.assertTrue(
+            "ophys_fovs field OR stack_parameters field must be utilized for Pophys modality" in repr(
+                e.exception))
+        self.assertTrue(
+            "camera_names field must be utilized for Behavior Videos modality" in repr(
+                e.exception))
+        self.assertTrue(
+            "stimulus_device_names field must be utilized for Trained Behavior modality" in repr(
+                e.exception))
 
 
 if __name__ == "__main__":

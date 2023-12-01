@@ -4,7 +4,7 @@ from datetime import datetime
 from enum import Enum
 from typing import Any, Dict, List, Literal, Optional
 
-from pydantic import Field, field_validator, ValidationInfo
+from pydantic import Field, ValidationInfo, field_validator
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.imaging.tile import Tile
@@ -31,7 +31,7 @@ class DataProcess(AindModel):
     code_version: Optional[str] = Field(None, description="Version of the code", title="Code version")
     parameters: Dict[str, Any] = Field(..., title="Parameters")
     outputs: Dict[str, Any] = Field(dict(), description="Output parameters", title="Outputs")
-    notes: Optional[str] = Field(None, title="Notes")
+    notes: Optional[str] = Field(None, title="Notes", validate_default=True)
 
     @field_validator("notes", mode="after")
     def validate_other(cls, value: Optional[str], info: ValidationInfo) -> Optional[str]:

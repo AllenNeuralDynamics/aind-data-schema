@@ -82,23 +82,6 @@ class SmartSpim(_Platform):
     abbreviation: Literal["SmartSPIM"] = "SmartSPIM"
 
 
-# PLATFORMS = Annotated[Union[tuple(_Platform.__subclasses__())], Field(discriminator="name")]
-#
-# BEHAVIOR = Behavior()
-# CONFOCAL = Confocal()
-# ECEPHYS = Ecephys()
-# EXASPIM = ExaSpim()
-# FIP = Fip()
-# HCR = Hcr()
-# HSFP = Hsfp()
-# MESOSPIM = MesoSpim()
-# MERFISH = Merfish()
-# MRI = Mri()
-# MULTIPLANE_OPHYS = MultiplaneOphys()
-# SINGLE_PLANE_OPHYS = SingleplaneOphys()
-# SLAP2 = Slap2()
-# SMARTSPIM = SmartSpim()
-
 class Platform:
     BEHAVIOR = Behavior()
     CONFOCAL = Confocal()
@@ -116,4 +99,10 @@ class Platform:
     SMARTSPIM = SmartSpim()
     ALL = tuple(_Platform.__subclasses__())
     ONE_OF = Annotated[Union[ALL], Field(discriminator="name")]
-    # ALL = Annotated[Union[tuple(_Platform.__subclasses__())], Field(discriminator="name")]
+
+    _abbreviation_map = {p().abbreviation: p() for p in ALL}
+
+    @classmethod
+    def from_abbreviation(cls, abbreviation: str):
+        return cls._abbreviation_map[abbreviation]
+

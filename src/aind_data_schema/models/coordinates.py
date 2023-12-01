@@ -19,8 +19,6 @@ class CcfVersion(str, Enum):
 class RelativePosition(AindModel):
     """Set of 6 values describing relative position on a rig"""
 
-    #  TODO: We can add the units in the description note or add it explicitly to the json schema
-    #    but it isn't recommended.
     pitch: Optional[Decimal] = Field(None, title="Angle pitch (deg)", ge=0, le=360)
     yaw: Optional[Decimal] = Field(None, title="Angle yaw (deg)", ge=0, le=360)
     roll: Optional[Decimal] = Field(None, title="Angle roll (deg)", ge=0, le=360)

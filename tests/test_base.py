@@ -1,5 +1,7 @@
 """ tests for Subject """
 import unittest
+from unittest.mock import MagicMock, patch, mock_open, call
+from pathlib import Path
 
 from aind_data_schema.core.subject import Subject
 
@@ -16,6 +18,15 @@ class BaseTests(unittest.TestCase):
             "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/subject.py",
             s.describedBy,
         )
+
+    @patch("builtins.open", new_callable=mock_open)
+    def test_write_standard_file(self, mock_open: MagicMock):
+        """Tests writer with suffix and output directory defined"""
+
+        s = Subject.model_construct()
+        s.write_standard_file(output_directory=Path("dir"), suffix=".foo.bar")
+        mock_open.assert_has_calls([call(Path('dir/subject.foo.bar'), 'w')])
+        self.assertEqual(1, 1)
 
 
 if __name__ == "__main__":

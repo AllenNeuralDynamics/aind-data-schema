@@ -403,99 +403,6 @@ class Other(_Manufacturer):
     registry_identifier: Literal[None] = None
 
 
-# AA_OPTO = AAOptoElectronic()
-# AILIPU = AilipuTechnologyCo()
-# ALLIED = Allied()
-# ASI = AppliedScientificInstrumentation()
-# ASUS = Asus()
-# AVCOSTAR = ArecontVisionCostar()
-# BASLER = Basler()
-# CAMBRIDGE_TECHNOLOGY = CambridgeTechnology()
-# CHROMA = Chroma()
-# COHERENT_SCIENTIFIC = CoherentScientific()
-# CONOPTICS = Conoptics()
-# COMPUTAR = Computar()
-# CUSTOM = Custom()
-# DORIC = Doric()
-# EALING = Ealing()
-# EDMUND_OPTICS = EdmundOptics()
-# EURESYS = Euresys()
-# FLIR = TeledyneFLIR()
-# FUJINON = Fujinon()
-# HAMAMATSU = Hamamatsu()
-# IMAGING_SOURCE = TheImagingSource()
-# IMEC = InteruniversityMicroelectronicsCenter()
-# INFINITY_PHOTO_OPTICAL = InfinityPhotoOptical()
-# ISL = ISLProductsInternational()
-# JULABO = Julabo()
-# LEE = TheLeeCompany()
-# LEICA = Leica()
-# LG = Lg()
-# LIFECANVAS = LifeCanvas()
-# MEADOWLARK = MeadowlarkOptics()
-# MIGHTY_ZAP = IRRobotCo()
-# MITUTUYO = Mitutuyo()
-# MKS_NEWPORT = MKSNewport()
-# MPI = Mpi()
-# NATIONAL_INSTRUMENTS = NationalInstruments()
-# NAVITAR = Navitar()
-# NEW_SCALE_TECHNOLOGIES = NewScaleTechnologies()
-# NIKON = Nikon()
-# OEPS = OpenEphysProductionSite()
-# OLYMPUS = Olympus()
-# OPTOTUNE = Optotune()
-# OXXIUS = Oxxius()
-# PRIZMATIX = Prizmatix()
-# QUANTIFI = Quantifi()
-# RASPBERRYPI = RaspberryPi()
-# SEMROCK = Semrock()
-# SCHNEIDER_KREUZNACH = SchneiderKreuznach()
-# TAMRON = Tamron()
-# THORLABS = Thorlabs()
-# TMC = TechnicalManufacturingCorporation()
-# TYMPHANY = Tymphany()
-# VIEWORKS = Vieworks()
-# VORTRAN = Vortran()
-# ZEISS = CarlZeiss()
-# OTHER = Other()
-#
-# MANUFACTURERS = Annotated[Union[tuple(_Manufacturer.__subclasses__())], Field(discriminator="name")]
-#
-# CAMERA_MANUFACTURERS = Annotated[
-#     Union[AilipuTechnologyCo, Allied, Basler, EdmundOptics, TeledyneFLIR, TheImagingSource, Thorlabs, Other],
-#     Field(discriminator="name"),
-# ]
-# FILTER_MANUFACTURERS = Annotated[Union[Chroma, EdmundOptics, Semrock, Thorlabs, Other], Field(discriminator="name")]
-# LENS_MANUFACTURERS = Annotated[
-#     Union[
-#         Computar,
-#         EdmundOptics,
-#         Hamamatsu,
-#         InfinityPhotoOptical,
-#         Leica,
-#         Mitutuyo,
-#         Navitar,
-#         Nikon,
-#         Olympus,
-#         SchneiderKreuznach,
-#         Thorlabs,
-#         CarlZeiss,
-#         Other,
-#     ],
-#     Field(discriminator="name"),
-# ]
-# DAQ_DEVICE_MANUFACTURERS = Annotated[
-#     Union[NationalInstruments, InteruniversityMicroelectronicsCenter, OpenEphysProductionSite, Other],
-#     Field(discriminator="name"),
-# ]
-# LASER_MANUFACTURERS = Annotated[
-#     Union[CoherentScientific, Hamamatsu, Oxxius, Quantifi, Vortran, Other], Field(discriminator="name")
-# ]
-# LED_MANUFACTURERS = Annotated[Union[Doric, Prizmatix, Thorlabs, Other], Field(discriminator="name")]
-# MANIPULATOR_MANUFACTURERS = Annotated[Union[NewScaleTechnologies], Field(discriminator="name")]
-# MONITOR_MANUFACTURERS = Annotated[Union[Asus, Lg], Field(discriminator="name")]
-# SPEAKER_MANUFACTURERS = Annotated[Union[Tymphany, ISLProductsInternational], Field(discriminator="name")]
-
 class Manufacturer:
 
     AA_OPTO = AAOptoElectronic()
@@ -558,18 +465,13 @@ class Manufacturer:
     ALL = tuple(_Manufacturer.__subclasses__())
     ONE_OF = Annotated[Union[ALL], Field(discriminator="name")]
 
-    # ALL = Annotated[
-    #     Union[tuple(_Manufacturer.__subclasses__())], Field(
-    #         discriminator="name")]
-
     CAMERA_MANUFACTURERS = Annotated[
         Union[
-            AilipuTechnologyCo, Allied, Basler, EdmundOptics, Spinnaker, TeledyneFLIR, TheImagingSource, Thorlabs, Other],
+            AilipuTechnologyCo, Allied, Basler, EdmundOptics, Spinnaker, TeledyneFLIR, TheImagingSource, Thorlabs, Other
+        ],
         Field(discriminator="name"),
     ]
-    FILTER_MANUFACTURERS = Annotated[
-        Union[Chroma, EdmundOptics, Semrock, Thorlabs, Other], Field(
-            discriminator="name")]
+    FILTER_MANUFACTURERS = Annotated[Union[Chroma, EdmundOptics, Semrock, Thorlabs, Other], Field(discriminator="name")]
     LENS_MANUFACTURERS = Annotated[
         Union[
             Computar,
@@ -589,20 +491,13 @@ class Manufacturer:
         Field(discriminator="name"),
     ]
     DAQ_DEVICE_MANUFACTURERS = Annotated[
-        Union[
-            NationalInstruments, InteruniversityMicroelectronicsCenter, OpenEphysProductionSite, Other],
+        Union[NationalInstruments, InteruniversityMicroelectronicsCenter, OpenEphysProductionSite, Other],
         Field(discriminator="name"),
     ]
     LASER_MANUFACTURERS = Annotated[
-        Union[
-            CoherentScientific, Hamamatsu, Oxxius, Quantifi, Vortran, Other], Field(
-            discriminator="name")
+        Union[CoherentScientific, Hamamatsu, Oxxius, Quantifi, Vortran, Other], Field(discriminator="name")
     ]
-    LED_MANUFACTURERS = Annotated[
-        Union[Doric, Prizmatix, Thorlabs, Other], Field(discriminator="name")]
-    MANIPULATOR_MANUFACTURERS = Annotated[
-        Union[NewScaleTechnologies], Field(discriminator="name")]
-    MONITOR_MANUFACTURERS = Annotated[
-        Union[Asus, Lg], Field(discriminator="name")]
-    SPEAKER_MANUFACTURERS = Annotated[
-        Union[Tymphany, ISLProductsInternational], Field(discriminator="name")]
+    LED_MANUFACTURERS = Annotated[Union[Doric, Prizmatix, Thorlabs, Other], Field(discriminator="name")]
+    MANIPULATOR_MANUFACTURERS = Annotated[Union[NewScaleTechnologies], Field(discriminator="name")]
+    MONITOR_MANUFACTURERS = Annotated[Union[Asus, Lg], Field(discriminator="name")]
+    SPEAKER_MANUFACTURERS = Annotated[Union[Tymphany, ISLProductsInternational], Field(discriminator="name")]

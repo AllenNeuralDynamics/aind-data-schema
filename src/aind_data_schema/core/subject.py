@@ -3,7 +3,7 @@
 from datetime import date as date_type
 from datetime import time
 from enum import Enum
-from typing import Final, List, Literal, Optional
+from typing import List, Literal, Optional
 
 from pydantic import Field
 

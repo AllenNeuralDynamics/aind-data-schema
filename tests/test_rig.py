@@ -249,8 +249,6 @@ class RigTests(unittest.TestCase):
                 ],
                 mouse_platform=Disc(name="Disc A", radius=1),
             )
-        self.assertTrue("ephys_assemblies field must be utilized for Ecephys modality" in repr(e.exception))
-        self.assertTrue("stick_microscopes field must be utilized for Ecephys modality" in repr(e.exception))
 
         with self.assertRaises(ValidationError):
             daqs = [

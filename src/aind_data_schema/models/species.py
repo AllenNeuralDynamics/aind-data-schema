@@ -39,13 +39,6 @@ class MusMusculus(_Species):
     registry_identifier: Literal["10090"] = "10090"
 
 
-# SPECIES = Annotated[Union[tuple(Species.__subclasses__())], Field(discriminator="name")]
-#
-# CALLITHRIX_JACCHUS = CallithrixJacchus()
-# HOMO_SAPIENS = HomoSapiens()
-# MACACA_MULATTA = MacacaMulatta()
-# MUS_MUSCULUS = MusMusculus()
-
 class Species:
     CALLITHRIX_JACCHUS = CallithrixJacchus()
     HOMO_SAPIENS = HomoSapiens()

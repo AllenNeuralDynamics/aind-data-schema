@@ -5,18 +5,13 @@ from decimal import Decimal
 from enum import Enum
 from typing import List, Literal, Optional, Union
 
-from pydantic import Field, root_validator
+from pydantic import Field, field_validator, root_validator
+from pydantic_core.core_schema import ValidationInfo
+from typing_extensions import Annotated
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.imaging.tile import Channel
-from aind_data_schema.models.coordinates import CcfCoords, Coordinates3d
-from aind_data_schema.models.device_configurations import (
-    LIGHT_SOURCE_CONFIGS,
-    DetectorConfigs,
-    EphysProbeConfigs,
-    FiberConnectionConfigs,
-    RewardDeliveryConfigs,
-)
+from aind_data_schema.models.coordinates import CcfCoords, Coordinates3d, RelativePosition
 
 # from aind_data_schema.data_description import Modality
 from aind_data_schema.models.devices import Calibration, Maintenance, RelativePosition, SpoutSide
@@ -24,39 +19,40 @@ from aind_data_schema.models.modalities import Modality
 from aind_data_schema.models.stimulus import StimulusEpoch
 from aind_data_schema.models.units import AngleUnit, FrequencyUnit, MassUnit, PowerUnit, SizeUnit, TimeUnit, VolumeUnit
 
+
 # Ophys components
-# class FiberConnection(AindModel):
-#     """Description for a fiber photometry configuration"""
-#
-#     patch_cord_name: str = Field(..., title="Patch cord name (must match rig)")
-#     patch_cord_output_power: Decimal = Field(..., title="Output power (uW)")
-#     output_power_unit: PowerUnit = Field(PowerUnit.UW, title="Output power unit")
-#     fiber_name: str = Field(..., title="Fiber name (must match procedure)")
-#
-#
-# class TriggerType(Enum):
-#     """Types of detector triggers"""
-#
-#     INTERNAL = "Internal"
-#     EXTERNAL = "External"
-#
-#
-# class Detector(AindModel):
-#     """Description of detector settings"""
-#
-#     name: str = Field(..., title="Name")
-#     exposure_time: Decimal = Field(..., title="Exposure time (ms)")
-#     exposure_time_unit: TimeUnit = Field(TimeUnit.MS, title="Exposure time unit")
-#     trigger_type: TriggerType = Field(..., title="Trigger type")
+class FiberConnectionConfigs(AindModel):
+    """Description for a fiber photometry configuration"""
+
+    patch_cord_name: str = Field(..., title="Patch cord name (must match rig)")
+    patch_cord_output_power: Decimal = Field(..., title="Output power (uW)")
+    output_power_unit: PowerUnit = Field(PowerUnit.UW, title="Output power unit")
+    fiber_name: str = Field(..., title="Fiber name (must match procedure)")
 
 
-# class LightEmittingDiode(AindModel):
-#     """Description of LED settings"""
-#
-#     device_type: Literal["LightEmittingDiode"] = Field("LightEmittingDiode", const=True, readOnly=True)
-#     name: str = Field(..., title="Name")
-#     excitation_power: Optional[Decimal] = Field(None, title="Excitation power (mW)")
-#     excitation_power_unit: PowerUnit = Field(PowerUnit.MW, title="Excitation power unit")
+class TriggerType(str, Enum):
+    """Types of detector triggers"""
+
+    INTERNAL = "Internal"
+    EXTERNAL = "External"
+
+
+class DetectorConfigs(AindModel):
+    """Description of detector settings"""
+
+    name: str = Field(..., title="Name")
+    exposure_time: Decimal = Field(..., title="Exposure time (ms)")
+    exposure_time_unit: TimeUnit = Field(TimeUnit.MS, title="Exposure time unit")
+    trigger_type: TriggerType = Field(..., title="Trigger type")
+
+
+class LightEmittingDiodeConfigs(AindModel):
+    """Description of LED settings"""
+
+    config_type: Literal["LightEmittingDiodeConfigs"] = "LightEmittingDiodeConfigs"
+    name: str = Field(..., title="Name")
+    excitation_power: Optional[Decimal] = Field(None, title="Excitation power (mW)")
+    excitation_power_unit: PowerUnit = Field(PowerUnit.MW, title="Excitation power unit")
 
 
 class FieldOfView(AindModel):
@@ -113,7 +109,7 @@ class Stack(AindModel):
     targeted_structure: Optional[str] = Field(None, title="Targeted structure")
 
 
-class SlapSessionType(Enum):
+class SlapSessionType(str, Enum):
     """Type of slap session"""
 
     PARENT = "Parent"
@@ -164,11 +160,11 @@ class ManipulatorModule(DomeModule):
     )
 
 
-# class EphysProbeConfigs(AindModel):
-#     """Probes in a EphysProbeModule"""
-#
-#     name: str = Field(..., title="Ephys probe name (must match rig JSON)")
-#     other_targeted_structures: Optional[List[str]] = None
+class EphysProbeConfigs(AindModel):
+    """Probes in a EphysProbeModule"""
+
+    name: str = Field(..., title="Ephys probe name (must match rig JSON)")
+    other_targeted_structures: List[str] = []
 
 
 class EphysModule(ManipulatorModule):
@@ -183,51 +179,54 @@ class FiberModule(ManipulatorModule):
     fiber_connections: List[FiberConnectionConfigs] = Field([], title="Fiber photometry devices")
 
 
-# class Laser(AindModel):
-#     """Description of laser settings in a session"""
-#
-#     device_type: Literal["Laser"] = Field("Laser", const=True, readOnly=True)
-#     name: str = Field(..., title="Name", description="Must match rig json")
-#     wavelength: int = Field(..., title="Wavelength (nm)")
-#     wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
-#     excitation_power: Optional[Decimal] = Field(None, title="Excitation power (mW)")
-#     excitation_power_unit: PowerUnit = Field(PowerUnit.MW, title="Excitation power unit")
+class LaserConfigs(AindModel):
+    """Description of laser settings in a session"""
+
+    config_type: Literal["LaserConfigs"] = "LaserConfigs"
+    name: str = Field(..., title="Name", description="Must match rig json")
+    wavelength: int = Field(..., title="Wavelength (nm)")
+    wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
+    excitation_power: Optional[Decimal] = Field(None, title="Excitation power (mW)")
+    excitation_power_unit: PowerUnit = Field(PowerUnit.MW, title="Excitation power unit")
+
+
+LIGHT_SOURCE_CONFIGS = Annotated[Union[LightEmittingDiodeConfigs, LaserConfigs], Field(discriminator="config_type")]
 
 
 # Behavior components
-class RewardSolution(Enum):
+class RewardSolution(str, Enum):
     """Reward solution name"""
 
     WATER = "Water"
     OTHER = "Other"
 
 
-# class RewardSpout(AindModel):
-#     """Reward spout session information"""
-#
-#     side: SpoutSide = Field(..., title="Spout side", description="Must match rig")
-#     starting_position: RelativePosition = Field(..., title="Starting position")
-#     variable_position: bool = Field(
-#         ..., title="Variable position", description="True if spout position changes during session as tracked in data"
-#     )
+class RewardSpoutConfigs(AindModel):
+    """Reward spout session information"""
+
+    side: SpoutSide = Field(..., title="Spout side", description="Must match rig")
+    starting_position: RelativePosition = Field(..., title="Starting position")
+    variable_position: bool = Field(
+        ..., title="Variable position", description="True if spout position changes during session as tracked in data"
+    )
 
 
-# class RewardDelivery(AindModel):
-#     """Description of reward delivery configuration"""
-#
-#     reward_solution: RewardSolution = Field(..., title="Reward solution", description="If Other use notes")
-#     reward_spouts: List[RewardSpout] = Field(..., title="Reward spouts", unique_items=True)
-#     notes: Optional[str] = Field(None, title="Notes")
-#
-#     @root_validator
-#     def validate_other(cls, v):
-#         """Validator for other/notes"""
-#
-#         if v.get("reward_solution") == RewardSolution.OTHER and not v.get("notes"):
-#             raise ValueError(
-#                 "Notes cannot be empty if reward_solution is Other. Describe the reward_solution in the notes field."
-#             )
-#         return v
+class RewardDeliveryConfigs(AindModel):
+    """Description of reward delivery configuration"""
+
+    reward_solution: RewardSolution = Field(..., title="Reward solution", description="If Other use notes")
+    reward_spouts: List[RewardSpoutConfigs] = Field(..., title="Reward spouts")
+    notes: Optional[str] = Field(None, title="Notes", validate_default=True)
+
+    @field_validator("notes", mode="after")
+    def validate_other(cls, value: Optional[str], info: ValidationInfo) -> Optional[str]:
+        """Validator for other/notes"""
+
+        if info.data.get("reward_solution") == RewardSolution.OTHER and not value:
+            raise ValueError(
+                "Notes cannot be empty if reward_solution is Other. Describe the reward_solution in the notes field."
+            )
+        return value
 
 
 class Stream(AindModel):
@@ -235,7 +234,6 @@ class Stream(AindModel):
 
     stream_start_time: datetime = Field(..., title="Stream start time")
     stream_end_time: datetime = Field(..., title="Stream stop time")
-    stream_modalities: List[Modality.ONE_OF] = Field(..., title="Modalities")
     daq_names: List[str] = Field([], title="DAQ devices")
     camera_names: List[str] = Field([], title="Cameras")
     light_sources: List[LIGHT_SOURCE_CONFIGS] = Field([], title="Light Sources")
@@ -255,60 +253,81 @@ class Stream(AindModel):
     stimulus_device_names: List[str] = Field([], title="Stimulus devices")
     mouse_platform_name: str = Field(..., title="Mouse platform")
     active_mouse_platform: bool = Field(..., title="Active mouse platform")
+    stream_modalities: List[Modality.ONE_OF] = Field(..., title="Modalities")
     notes: Optional[str] = Field(None, title="Notes")
 
-    # @root_validator
-    # def validate_modality(cls, v):  # noqa: C901
-    #     """Validator to ensure all expected fields are present, based on given modality"""
-    #
-    #     modalities = v.get("stream_modalities")
-    #
-    #     modalities = [modality.value for modality in modalities]
-    #
-    #     error_message = ""
-    #
-    #     if Modality.ECEPHYS.value in modalities:
-    #         ephys_modules = v.get("ephys_modules")
-    #         stick_microscopes = v.get("stick_microscopes")
-    #         for key, value in {"ephys_modules": ephys_modules, "stick_microscopes": stick_microscopes}.items():
-    #             if not value:
-    #                 error_message += f"{key} field must be utilized for Ecephys modality\n"
-    #
-    #     if Modality.FIB.value in modalities:
-    #         light_source = v.get("light_sources")
-    #         detector = v.get("detectors")
-    #         fiber_connections = v.get("fiber_connections")
-    #         for key, value in {
-    #             "light_sources": light_source,
-    #             "detectors": detector,
-    #             "fiber_connections": fiber_connections,
-    #         }.items():
-    #             if not value:
-    #                 error_message += f"{key} field must be utilized for FIB modality\n"
-    #
-    #     if Modality.POPHYS.value in modalities:
-    #         ophys_fovs = v.get("ophys_fovs")
-    #         stack_parameters = v.get("stack_parameters")
-    #         if not ophys_fovs and not stack_parameters:
-    #             error_message += "ophys_fovs field OR stack_parameters field must be utilized for Pophys modality\n"
-    #
-    #     if Modality.SLAP.value in modalities:
-    #         pass
-    #
-    #     if Modality.BEHAVIOR_VIDEOS.value in modalities:
-    #         camera_names = v.get("camera_names")
-    #         if not camera_names:
-    #             error_message += "camera_names field must be utilized for Behavior Videos modality\n"
-    #
-    #     if Modality.TRAINED_BEHAVIOR.value in modalities:
-    #         stimulus_device_names = v.get("stimulus_device_names")
-    #         if not stimulus_device_names:
-    #             error_message += "stimulus_device_names field must be utilized for Trained Behavior modality\n"
-    #
-    #     if error_message:
-    #         raise ValueError(error_message)
-    #
-    #     return v
+    @staticmethod
+    def _validate_ephys_modality(value: List[Modality.ONE_OF], info: ValidationInfo) -> Optional[str]:
+        if Modality.ECEPHYS in value:
+            ephys_modules = info.data["ephys_modules"]
+            stick_microscopes = info.data["stick_microscopes"]
+            for k, v in {"ephys_modules": ephys_modules, "stick_microscopes": stick_microscopes}.items():
+                if not v:
+                    return f"{k} field must be utilized for Ecephys modality"
+        return None
+
+    @staticmethod
+    def _validate_fib_modality(value: List[Modality.ONE_OF], info: ValidationInfo) -> Optional[str]:
+        if Modality.FIB in value:
+            light_source = info.data["light_sources"]
+            detector = info.data["detectors"]
+            fiber_connections = info.data["fiber_connections"]
+            for k, v in {
+                "light_sources": light_source,
+                "detectors": detector,
+                "fiber_connections": fiber_connections,
+            }.items():
+                if not v:
+                    return f"{k} field must be utilized for FIB modality"
+        return None
+
+    @staticmethod
+    def _validate_pophys_modality(value: List[Modality.ONE_OF], info: ValidationInfo) -> Optional[str]:
+        if Modality.POPHYS in value:
+            ophys_fovs = info.data["ophys_fovs"]
+            stack_parameters = info.data["stack_parameters"]
+            if not ophys_fovs and not stack_parameters:
+                return "ophys_fovs field OR stack_parameters field must be utilized for Pophys modality"
+        else:
+            return None
+
+    @staticmethod
+    def _validate_behavior_videos_modality(value: List[Modality.ONE_OF], info: ValidationInfo) -> Optional[str]:
+        if Modality.BEHAVIOR_VIDEOS in value and len(info.data["camera_names"]) == 0:
+            return "camera_names field must be utilized for Behavior Videos modality"
+        else:
+            return None
+
+    @staticmethod
+    def _validate_trained_behavior_modality(value: List[Modality.ONE_OF], info: ValidationInfo) -> Optional[str]:
+        if Modality.TRAINED_BEHAVIOR in value and len(info.data["stimulus_device_names"]) == 0:
+            return "stimulus_device_names field must be utilized for Trained Behavior modality"
+        else:
+            return None
+
+    @field_validator("stream_modalities", mode="after")
+    def validate_stream_modalities(cls, value: List[Modality.ONE_OF], info: ValidationInfo) -> List[Modality.ONE_OF]:
+        errors = []
+        ephys_errors = cls._validate_ephys_modality(value, info)
+        fib_errors = cls._validate_fib_modality(value, info)
+        pophys_errors = cls._validate_pophys_modality(value, info)
+        behavior_vids_errors = cls._validate_behavior_videos_modality(value, info)
+        trained_behavior_errors = cls._validate_trained_behavior_modality(value, info)
+
+        if ephys_errors is not None:
+            errors.append(ephys_errors)
+        if fib_errors is not None:
+            errors.append(fib_errors)
+        if pophys_errors is not None:
+            errors.append(pophys_errors)
+        if behavior_vids_errors is not None:
+            errors.append(behavior_vids_errors)
+        if trained_behavior_errors is not None:
+            errors.append(trained_behavior_errors)
+        if len(errors) > 0:
+            message = "\n     ".join(errors)
+            raise ValueError(message)
+        return value
 
 
 class Session(AindCoreModel):

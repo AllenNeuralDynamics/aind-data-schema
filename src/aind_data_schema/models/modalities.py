@@ -74,21 +74,6 @@ class TrainedBehavior(_Modality):
     abbreviation: Literal["trained-behavior"] = "trained-behavior"
 
 
-# MODALITIES = Annotated[Union[tuple(_Modality.__subclasses__())], Field(discriminator="name")]
-#
-# BEHAVIOR_VIDEOS = BehaviorVideos()
-# CONFOCAL = Confocal()
-# ECEPHYS = Ecephys()
-# FMOST = Fmost()
-# ICEPHYS = Icephys()
-# FIB = Fib()
-# MERFISH = Merfish()
-# MRI = Mri()
-# POPHYS = POphys()
-# SLAP = Slap()
-# SPIM = Spim()
-# TRAINED_BEHAVIOR = TrainedBehavior()
-
 class Modality:
     BEHAVIOR_VIDEOS = BehaviorVideos()
     CONFOCAL = Confocal()

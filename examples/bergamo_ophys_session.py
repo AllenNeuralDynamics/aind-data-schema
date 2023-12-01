@@ -2,8 +2,7 @@
 
 import datetime
 
-from aind_data_schema.core.session import FieldOfView, Session, Stream
-from aind_data_schema.models.device_configurations import DetectorConfigs, LaserConfigs
+from aind_data_schema.core.session import DetectorConfigs, FieldOfView, LaserConfigs, Session, Stream
 from aind_data_schema.models.modalities import Modality
 from aind_data_schema.models.stimulus import PhotoStimulation, PhotoStimulationGroup, StimulusEpoch
 

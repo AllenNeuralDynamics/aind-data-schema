@@ -2,8 +2,7 @@
 
 import datetime
 
-from aind_data_schema.core.session import Session, Stream
-from aind_data_schema.models.device_configurations import DetectorConfigs, FiberConnectionConfigs, LaserConfigs
+from aind_data_schema.core.session import DetectorConfigs, FiberConnectionConfigs, LaserConfigs, Session, Stream
 from aind_data_schema.models.modalities import Modality
 
 t = datetime.datetime(2022, 7, 12, 7, 00, 00)

@@ -4,7 +4,7 @@ from datetime import datetime
 from decimal import Decimal
 from typing import Any, Dict, List, Literal, Optional
 
-from pydantic import Field, field_validator, ValidationInfo
+from pydantic import Field, ValidationInfo, field_validator
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.core.acquisition import Axis

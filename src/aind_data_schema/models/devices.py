@@ -10,25 +10,9 @@ from typing_extensions import Annotated
 
 from aind_data_schema.base import AindModel
 from aind_data_schema.models.coordinates import RelativePosition, Size3d
-from aind_data_schema.models.manufacturers import Manufacturer, InteruniversityMicroelectronicsCenter
-# from aind_data_schema.models.manufacturers import (
-#     CAMERA_MANUFACTURERS,
-#     DAQ_DEVICE_MANUFACTURERS,
-#     FILTER_MANUFACTURERS,
-#     IMEC,
-#     LASER_MANUFACTURERS,
-#     LED_MANUFACTURERS,
-#     LENS_MANUFACTURERS,
-#     MANIPULATOR_MANUFACTURERS,
-#     MANUFACTURERS,
-#     MONITOR_MANUFACTURERS,
-#     OEPS,
-#     SPEAKER_MANUFACTURERS,
-#     InteruniversityMicroelectronicsCenter,
-# )
+from aind_data_schema.models.manufacturers import InteruniversityMicroelectronicsCenter, Manufacturer
 from aind_data_schema.models.reagent import Reagent
 from aind_data_schema.models.units import FrequencyUnit, PowerUnit, SizeUnit, SpeedUnit, TemperatureUnit, UnitlessUnit
-
 
 
 class ImagingDeviceType(str, Enum):
@@ -857,7 +841,7 @@ class Scanner(Device):
 
 MOUSE_PLATFORMS = Annotated[Union[tuple(MousePlatform.__subclasses__())], Field(discriminator="device_type")]
 STIMULUS_DEVICES = Annotated[Union[Monitor, Olfactometer, RewardDelivery, Speaker], Field(discriminator="device_type")]
-DAQ_DEVICES = Annotated[
+RIG_DAQ_DEVICES = Annotated[
     Union[HarpDevice, NeuropixelsBasestation, OpenEphysAcquisitionBoard, DAQDevice], Field(discriminator="device_type")
 ]
 LIGHT_SOURCES = Annotated[Union[Laser, LightEmittingDiode, Lamp], Field(discriminator="device_type")]

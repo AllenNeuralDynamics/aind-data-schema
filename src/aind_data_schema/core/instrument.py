@@ -3,7 +3,7 @@
 from datetime import date
 from typing import List, Literal, Optional
 
-from pydantic import Field, field_validator, ValidationInfo
+from pydantic import Field, ValidationInfo, field_validator
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.models.devices import (
@@ -78,12 +78,12 @@ class Instrument(AindCoreModel):
         """
         daqs = value
         all_devices = (
-                info.data["motorized_stages"] +
-                info.data["scanning_stages"] +
-                info.data["light_sources"] +
-                info.data["detectors"] +
-                info.data["additional_devices"] +
-                value
+            info.data["motorized_stages"]
+            + info.data["scanning_stages"]
+            + info.data["light_sources"]
+            + info.data["detectors"]
+            + info.data["additional_devices"]
+            + daqs
         )
         all_device_names = [device.name for device in all_devices]
         for daq in daqs:
@@ -94,7 +94,7 @@ class Instrument(AindCoreModel):
                         + f"is connected to '{channel.channel_name}' on '{daq.name}', but "
                         + "this device is not part of the rig."
                     )
-        return value
+        return daqs
 
     @field_validator("notes", mode="after")
     def validate_other(cls, value: Optional[str], info: ValidationInfo) -> Optional[str]:

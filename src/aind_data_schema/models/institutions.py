@@ -88,4 +88,3 @@ class Institution:
     SIMONS = SimonsFoundation()
     ALL = tuple(_Institution.__subclasses__())
     ONE_OF = Annotated[Union[ALL], Field(discriminator="name")]
-    # ALL = Annotated[Union[tuple(_Institution.__subclasses__())], Field(discriminator="name")]

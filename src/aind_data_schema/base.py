@@ -2,9 +2,9 @@
 
 import re
 from pathlib import Path
-from typing import Final, Optional
+from typing import Optional
 
-from pydantic import BaseModel, ConfigDict, Extra, Field, PrivateAttr
+from pydantic import BaseModel, ConfigDict, Field, PrivateAttr
 
 
 class AindModel(BaseModel):
@@ -25,11 +25,6 @@ class AindCoreModel(AindModel):
     schema_version: str = Field(
         ..., pattern=r"^\d+.\d+.\d+$", description="schema version", title="Version", frozen=True
     )
-
-    # @classmethod
-    # def default_file_extension(cls) -> str:
-    #     """Public method to retrieve protected _DEFAULT_FILE_EXTENSION"""
-    #     return cls._DEFAULT_FILE_EXTENSION.default
 
     @classmethod
     def default_filename(cls):
@@ -55,7 +50,7 @@ class AindCoreModel(AindModel):
         if prefix:
             filename = str(prefix) + "_" + filename
         if suffix:
-            filename = filename.replace(self._DEFAULT_FILE_EXTENSION, suffix)
+            filename = filename.replace(self._FILE_EXTENSION, suffix)
 
         if output_directory is not None:
             output_directory = Path(output_directory)
