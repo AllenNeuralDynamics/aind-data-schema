@@ -23,8 +23,8 @@ def map_modality(modality):
         "merfish": Modality.MERFISH.value,
         "dispim": Modality.SPIM.value,
         "mesospim": Modality.SPIM.value,
-        'single-plane-ophys': Modality.POPHYS.value,
-        'multiplane-ophys': Modality.POPHYS.value,
+        "single-plane-ophys": Modality.POPHYS.value,
+        "multiplane-ophys": Modality.POPHYS.value,
     }
 
     return lookup_table[modality.lower()]
@@ -85,6 +85,17 @@ class FundingUpgrade:
             return Funding.parse_obj(old_funding)
         else:
             return None
+    
+    @staticmethod
+    def upgrade_funding_source(funding_source):
+        """Get funding source from old model"""
+        if funding_source is not None:
+            if type(funding_source) is list:
+                funding_source = [FundingUpgrade.upgrade_funding(funding) for funding in funding_source]
+        else:
+            funding_source = []
+
+        return funding_source
 
 
 class InstitutionUpgrade:
@@ -113,19 +124,8 @@ class DataDescriptionUpgrade(BaseModelUpgrade):
         """
         super().__init__(old_data_description_model, model_class=DataDescription)
 
-    def upgrade(self, **kwargs) -> AindModel:
-        """Upgrades the old model into the current version"""
-        institution = InstitutionUpgrade.upgrade_institution(
-            self._get_or_default(self.old_model, "institution", kwargs)
-        )
-        funding_source = self._get_or_default(self.old_model, "funding_source", kwargs)
-        
-        if funding_source is not None:
-            if type(funding_source) is list:
-                funding_source = [FundingUpgrade.upgrade_funding(funding) for funding in funding_source]
-        else:
-            funding_source = []
-            
+    
+    def get_modality(self, **kwargs):
         old_modality: Any = self.old_model.modality
         if kwargs.get("modality") is not None:
             modality = kwargs["modality"]
@@ -135,8 +135,33 @@ class DataDescriptionUpgrade(BaseModelUpgrade):
             modality = [ModalityUpgrade.upgrade_modality(m) for m in old_modality]
         else:
             modality = getattr(DataDescription.__fields__.get("modality"), "default")
+
+        return modality
+    
+    def get_creation_time(self, **kwargs):
+        creation_date = self._get_or_default(self.old_model, "creation_date", kwargs)
+        creation_time = self._get_or_default(self.old_model, "creation_time", kwargs)
+        if creation_date is not None:
+            creation_date = datetime.strptime(creation_date, "%Y-%m-%d").date()
+            creation_time = datetime.strptime(creation_time, "%H:%M:%S").time()
+            creation_time = datetime.combine(creation_date, creation_time)
+
+        return creation_time
+
+
+    def upgrade(self, **kwargs) -> AindModel:
+        """Upgrades the old model into the current version"""
+        institution = InstitutionUpgrade.upgrade_institution(
+            self._get_or_default(self.old_model, "institution", kwargs)
+        )
+
+        funding_source = self._get_or_default(self.old_model, "funding_source", kwargs)
+
+        funding_source = FundingUpgrade.upgrade_funding_source(funding_source=funding_source)
+
+        modality = self.get_modality(**kwargs)
+
         old_data_level = self._get_or_default(self.old_model, "data_level", kwargs)
-        
 
         experiment_type = self._get_or_default(self.old_model, "experiment_type", kwargs)
         platform = None
@@ -149,12 +174,7 @@ class DataDescriptionUpgrade(BaseModelUpgrade):
         if platform is None:
             platform = self._get_or_default(self.old_model, "platform", kwargs)
 
-        creation_date = self._get_or_default(self.old_model, "creation_date", kwargs)
-        creation_time = self._get_or_default(self.old_model, "creation_time", kwargs)
-        if creation_date is not None:
-            creation_date = datetime.strptime(creation_date, "%Y-%m-%d").date()
-            creation_time = datetime.strptime(creation_time, "%H:%M:%S").time()
-            creation_time = datetime.combine(creation_date, creation_time)
+        creation_time = self.get_creation_time(**kwargs)
 
         return DataDescription(
             creation_time=creation_time,
