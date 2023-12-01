@@ -2,7 +2,8 @@
 
 import re
 from pathlib import Path
-from typing import Annotated, Literal, Optional
+from typing import Literal, Optional
+from typing_extensions import Annotated
 
 from pydantic import BaseModel, ConfigDict, Field, PrivateAttr
 
