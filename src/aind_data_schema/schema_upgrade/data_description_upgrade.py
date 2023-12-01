@@ -85,7 +85,7 @@ class FundingUpgrade:
             return Funding.parse_obj(old_funding)
         else:
             return None
-    
+
     @staticmethod
     def upgrade_funding_source(funding_source):
         """Get funding source from old model"""
@@ -124,8 +124,9 @@ class DataDescriptionUpgrade(BaseModelUpgrade):
         """
         super().__init__(old_data_description_model, model_class=DataDescription)
 
-    
     def get_modality(self, **kwargs):
+        """Get modality from old model"""
+
         old_modality: Any = self.old_model.modality
         if kwargs.get("modality") is not None:
             modality = kwargs["modality"]
@@ -137,8 +138,10 @@ class DataDescriptionUpgrade(BaseModelUpgrade):
             modality = getattr(DataDescription.__fields__.get("modality"), "default")
 
         return modality
-    
+
     def get_creation_time(self, **kwargs):
+        """Get creation time from old model"""
+
         creation_date = self._get_or_default(self.old_model, "creation_date", kwargs)
         creation_time = self._get_or_default(self.old_model, "creation_time", kwargs)
         if creation_date is not None:
@@ -147,7 +150,6 @@ class DataDescriptionUpgrade(BaseModelUpgrade):
             creation_time = datetime.combine(creation_date, creation_time)
 
         return creation_time
-
 
     def upgrade(self, **kwargs) -> AindModel:
         """Upgrades the old model into the current version"""
