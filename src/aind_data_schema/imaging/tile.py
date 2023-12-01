@@ -5,7 +5,7 @@ from typing import List, Literal, Optional, Union
 
 from pydantic import Field
 
-from aind_data_schema.base import AindModel
+from aind_data_schema.base import AindModel, Constant
 from aind_data_schema.models.units import AngleUnit, PowerUnit, SizeUnit
 
 
@@ -41,28 +41,28 @@ class Scale3dTransform(CoordinateTransform):
     Represents voxel spacing if used as the first applied coordinate transform.
     """
 
-    type: Literal["scale"] = "scale"
+    type: Constant("scale")
     scale: List[Decimal] = Field(..., title="3D scale parameters", min_length=3, max_length=3)
 
 
 class Translation3dTransform(CoordinateTransform):
     """Values to be vector-added to a 3D position. Often needed to specify a Tile's origin."""
 
-    type: Literal["translation"] = "translation"
+    type: Constant("translation")
     translation: List[Decimal] = Field(..., title="3D translation parameters", min_length=3, max_length=3)
 
 
 class Rotation3dTransform(CoordinateTransform):
     """Values to be vector-added to a 3D position. Often needed to specify a Tile's origin."""
 
-    type: Literal["rotation"] = "rotation"
+    type: Constant("rotation")
     rotation: List[Decimal] = Field(..., title="3D rotation matrix values (3x3) ", min_length=9, max_length=9)
 
 
 class Affine3dTransform(CoordinateTransform):
     """Values to be vector-added to a 3D position. Often needed to specify a Tile's origin."""
 
-    type: Literal["affine"] = "affine"
+    type: Constant("affine")
     affine_transform: List[Decimal] = Field(
         ..., title="Affine transform matrix values (top 3x4 matrix)", min_length=12, max_length=12
     )

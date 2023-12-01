@@ -8,7 +8,7 @@ from typing import Any, Dict, List, Literal, Optional, Union
 from pydantic import Field
 from typing_extensions import Annotated
 
-from aind_data_schema.base import AindModel
+from aind_data_schema.base import AindModel, Constant
 from aind_data_schema.models.devices import Software
 from aind_data_schema.models.units import FrequencyUnit, PowerUnit, TimeUnit, VolumeUnit
 
@@ -24,7 +24,7 @@ class PulseShape(str, Enum):
 class OptoStimulation(AindModel):
     """Description of opto stimulation parameters"""
 
-    stimulus_type: Literal["OptoStimulation"] = "OptoStimulation"
+    stimulus_type: Constant("OptoStimulation")
     stimulus_name: str = Field(..., title="Stimulus name")
     pulse_shape: PulseShape = Field(..., title="Pulse shape")
     pulse_frequency: int = Field(..., title="Pulse frequency (Hz)")
@@ -52,7 +52,7 @@ class OptoStimulation(AindModel):
 class VisualStimulation(AindModel):
     """Description of visual stimulus parameters. Provides a high level description of stimulus."""
 
-    stimulus_type: Literal["VisualStimulation"] = "VisualStimulation"
+    stimulus_type: Constant("VisualStimulation")
     stimulus_name: str = Field(..., title="Stimulus name")
     stimulus_parameters: Dict[str, Any] = Field(
         dict(),
@@ -82,7 +82,7 @@ class VisualStimulation(AindModel):
 class BehaviorStimulation(AindModel):
     """Description of behavior parameters. Provides a high level description of stimulus."""
 
-    stimulus_type: Literal["BehaviorStimulation"] = "BehaviorStimulation"
+    stimulus_type: Constant("BehaviorStimulation")
     behavior_name: str = Field(..., title="Behavior name")
     session_number: int = Field(..., title="Session number")
     behavior_software: List[Software] = Field(
@@ -128,7 +128,7 @@ class PhotoStimulationGroup(AindModel):
 class PhotoStimulation(AindModel):
     """Description of a photostimulation session"""
 
-    stimulus_type: Literal["PhotoStimulation"] = "PhotoStimulation"
+    stimulus_type: Constant("PhotoStimulation")
     stimulus_name: str = Field(..., title="Stimulus name")
     number_groups: int = Field(..., title="Number of groups")
     groups: List[PhotoStimulationGroup] = Field(..., title="Groups")

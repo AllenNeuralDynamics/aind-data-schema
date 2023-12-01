@@ -5,6 +5,7 @@ from typing import Literal, Union
 from pydantic import ConfigDict, Field
 from typing_extensions import Annotated
 
+from aind_data_schema.base import Constant
 from aind_data_schema.models.pid_names import BaseName
 
 
@@ -17,29 +18,29 @@ class _Platform(BaseName):
 class Behavior(_Platform):
     """Behavior"""
 
-    name: Literal["Behavior platform"] = "Behavior platform"
-    abbreviation: Literal["behavior"] = "behavior"
+    name: Constant("Behavior platform")
+    abbreviation: Constant("behavior")
 
 
 class Confocal(_Platform):
     """Confocal"""
 
-    name: Literal["Confocal microscopy platform"] = "Confocal microscopy platform"
-    abbreviation: Literal["confocal"] = "confocal"
+    name: Constant("Confocal microscopy platform")
+    abbreviation: Constant("confocal")
 
 
 class Ecephys(_Platform):
     """Ecephys"""
 
-    name: Literal["Electrophysiology platform"] = "Electrophysiology platform"
-    abbreviation: Literal["ecephys"] = "ecephys"
+    name: Constant("Electrophysiology platform")
+    abbreviation: Constant("ecephys")
 
 
 class ExaSpim(_Platform):
     """ExaSpim"""
 
-    name: Literal["ExaSPIM platform"] = "ExaSPIM platform"
-    abbreviation: Literal["exaSPIM"] = "exaSPIM"
+    name: Constant("ExaSPIM platform")
+    abbreviation: Constant("exaSPIM")
 
 
 class Fip(_Platform):
@@ -48,70 +49,70 @@ class Fip(_Platform):
     name: Literal[
         "Frame-projected independent-fiber photometry platform"
     ] = "Frame-projected independent-fiber photometry platform"
-    abbreviation: Literal["FIP"] = "FIP"
+    abbreviation: Constant("FIP")
 
 
 class Hcr(_Platform):
     """Hcr"""
 
-    name: Literal["Hybridization chain reaction platform"] = "Hybridization chain reaction platform"
-    abbreviation: Literal["HCR"] = "HCR"
+    name: Constant("Hybridization chain reaction platform")
+    abbreviation: Constant("HCR")
 
 
 class Hsfp(_Platform):
     """Hsfp"""
 
-    name: Literal["Hyperspectral fiber photometry platform"] = "Hyperspectral fiber photometry platform"
-    abbreviation: Literal["HSFP"] = "HSFP"
+    name: Constant("Hyperspectral fiber photometry platform")
+    abbreviation: Constant("HSFP")
 
 
 class MesoSpim(_Platform):
     """MesoSpim"""
 
-    name: Literal["MesoSPIM platform"] = "MesoSPIM platform"
-    abbreviation: Literal["mesoSPIM"] = "mesoSPIM"
+    name: Constant("MesoSPIM platform")
+    abbreviation: Constant("mesoSPIM")
 
 
 class Merfish(_Platform):
     """Merfish"""
 
-    name: Literal["MERFISH platform"] = "MERFISH platform"
-    abbreviation: Literal["MERFISH"] = "MERFISH"
+    name: Constant("MERFISH platform")
+    abbreviation: Constant("MERFISH")
 
 
 class Mri(_Platform):
     """Mri"""
 
-    name: Literal["Magnetic resonance imaging platform"] = "Magnetic resonance imaging platform"
-    abbreviation: Literal["MRI"] = "MRI"
+    name: Constant("Magnetic resonance imaging platform")
+    abbreviation: Constant("MRI")
 
 
 class MultiplaneOphys(_Platform):
     """MulitplaneOphys"""
 
-    name: Literal["Multiplane optical physiology platform"] = "Multiplane optical physiology platform"
-    abbreviation: Literal["multiplane-ophys"] = "multiplane-ophys"
+    name: Constant("Multiplane optical physiology platform")
+    abbreviation: Constant("multiplane-ophys")
 
 
 class SingleplaneOphys(_Platform):
     """SingleplaneOphys"""
 
-    name: Literal["Single-plane optical physiology platform"] = "Single-plane optical physiology platform"
-    abbreviation: Literal["single-plane-ophys"] = "single-plane-ophys"
+    name: Constant("Single-plane optical physiology platform")
+    abbreviation: Constant("single-plane-ophys")
 
 
 class Slap2(_Platform):
     """Slap2"""
 
-    name: Literal["SLAP2 platform"] = "SLAP2 platform"
-    abbreviation: Literal["SLAP2"] = "SLAP2"
+    name: Constant("SLAP2 platform")
+    abbreviation: Constant("SLAP2")
 
 
 class SmartSpim(_Platform):
     """SmartSpim"""
 
-    name: Literal["SmartSPIM platform"] = "SmartSPIM platform"
-    abbreviation: Literal["SmartSPIM"] = "SmartSPIM"
+    name: Constant("SmartSPIM platform")
+    abbreviation: Constant("SmartSPIM")
 
 
 class Platform:
