@@ -88,18 +88,14 @@ class ExampleTest(unittest.TestCase):
             )
 
         self.assertTrue("ephys_modules field must be utilized for Ecephys modality" in repr(e.exception))
+        self.assertTrue("light_sources field must be utilized for FIB modality" in repr(e.exception))
         self.assertTrue(
-            "light_sources field must be utilized for FIB modality" in repr(
-                e.exception))
+            "ophys_fovs field OR stack_parameters field must be utilized for Pophys modality" in repr(e.exception)
+        )
+        self.assertTrue("camera_names field must be utilized for Behavior Videos modality" in repr(e.exception))
         self.assertTrue(
-            "ophys_fovs field OR stack_parameters field must be utilized for Pophys modality" in repr(
-                e.exception))
-        self.assertTrue(
-            "camera_names field must be utilized for Behavior Videos modality" in repr(
-                e.exception))
-        self.assertTrue(
-            "stimulus_device_names field must be utilized for Trained Behavior modality" in repr(
-                e.exception))
+            "stimulus_device_names field must be utilized for Trained Behavior modality" in repr(e.exception)
+        )
 
 
 if __name__ == "__main__":

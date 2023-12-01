@@ -11,10 +11,13 @@ from aind_data_schema.models.registry import ROR
 
 class _Manufacturer(PIDName):
     """Base model config"""
+
     model_config = ConfigDict(frozen=True)
 
 
 class AAOptoElectronic(_Manufacturer):
+    """AAOptoElectronic"""
+
     name: Literal["AA Opto Electronic"] = "AA Opto Electronic"
     abbreviation: Literal[None] = None
     registry: Literal[None] = None
@@ -22,6 +25,8 @@ class AAOptoElectronic(_Manufacturer):
 
 
 class AilipuTechnologyCo(_Manufacturer):
+    """AilipuTechnologyCo"""
+
     name: Literal["Ailipu Technology Co"] = "Ailipu Technology Co"
     abbreviation: Literal[None] = None
     registry: Literal[None] = None
@@ -29,6 +34,8 @@ class AilipuTechnologyCo(_Manufacturer):
 
 
 class Allied(_Manufacturer):
+    """Allied"""
+
     name: Literal["Allied"] = "Allied"
     abbreviation: Literal[None] = None
     registry: Literal[None] = None
@@ -36,6 +43,8 @@ class Allied(_Manufacturer):
 
 
 class AppliedScientificInstrumentation(_Manufacturer):
+    """AppliedScientificInstrumentation"""
+
     name: Literal["Applied Scientific Instrumentation"] = "Applied Scientific Instrumentation"
     abbreviation: Literal["ASI"] = "ASI"
     registry: Literal[None] = None
@@ -43,6 +52,8 @@ class AppliedScientificInstrumentation(_Manufacturer):
 
 
 class Asus(_Manufacturer):
+    """Asus"""
+
     name: Literal["ASUS"] = "ASUS"
     abbreviation: Literal[None] = None
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
@@ -50,6 +61,8 @@ class Asus(_Manufacturer):
 
 
 class ArecontVisionCostar(_Manufacturer):
+    """ArecontVisionCostar"""
+
     name: Literal["Arecont Vision Costar"] = "Arecont Vision Costar"
     abbreviation: Literal[None] = None
     registry: Literal[None] = None
@@ -57,6 +70,8 @@ class ArecontVisionCostar(_Manufacturer):
 
 
 class Basler(_Manufacturer):
+    """Basler"""
+
     name: Literal["Basler"] = "Basler"
     abbreviation: Literal[None] = None
     registry: Literal[None] = None
@@ -64,6 +79,8 @@ class Basler(_Manufacturer):
 
 
 class CambridgeTechnology(_Manufacturer):
+    """CambridgeTechnology"""
+
     name: Literal["Cambridge Technology"] = "Cambridge Technology"
     abbreviation: Literal[None] = None
     registry: Literal[None] = None
@@ -71,6 +88,8 @@ class CambridgeTechnology(_Manufacturer):
 
 
 class Chroma(_Manufacturer):
+    """Chroma"""
+
     name: Literal["Chroma"] = "Chroma"
     abbreviation: Literal[None] = None
     registry: Literal[None] = None
@@ -78,6 +97,8 @@ class Chroma(_Manufacturer):
 
 
 class CoherentScientific(_Manufacturer):
+    """CoherentScientific"""
+
     name: Literal["Coherent Scientific"] = "Coherent Scientific"
     abbreviation: Literal[None] = None
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
@@ -85,6 +106,8 @@ class CoherentScientific(_Manufacturer):
 
 
 class Conoptics(_Manufacturer):
+    """Conoptics"""
+
     name: Literal["Conoptics"] = "Conoptics"
     abbreviation: Literal[None] = None
     registry: Literal[None] = None
@@ -92,6 +115,8 @@ class Conoptics(_Manufacturer):
 
 
 class Computar(_Manufacturer):
+    """Computar"""
+
     name: Literal["Computar"] = "Computar"
     abbreviation: Literal[None] = None
     registry: Literal[None] = None
@@ -99,6 +124,8 @@ class Computar(_Manufacturer):
 
 
 class Custom(_Manufacturer):
+    """Custom"""
+
     name: Literal["Custom"] = "Custom"
     abbreviation: Literal[None] = None
     registry: Literal[None] = None
@@ -106,6 +133,8 @@ class Custom(_Manufacturer):
 
 
 class Doric(_Manufacturer):
+    """Doric"""
+
     name: Literal["Doric"] = "Doric"
     abbreviation: Literal[None] = None
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
@@ -113,6 +142,8 @@ class Doric(_Manufacturer):
 
 
 class Ealing(_Manufacturer):
+    """Ealing"""
+
     name: Literal["Ealing"] = "Ealing"
     abbreviation: Literal[None] = None
     registry: Literal[None] = None
@@ -120,6 +151,8 @@ class Ealing(_Manufacturer):
 
 
 class EdmundOptics(_Manufacturer):
+    """EdmundOptics"""
+
     name: Literal["Edmund Optics"] = "Edmund Optics"
     abbreviation: Literal[None] = None
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
@@ -127,6 +160,8 @@ class EdmundOptics(_Manufacturer):
 
 
 class Euresys(_Manufacturer):
+    """Euresys"""
+
     name: Literal["Euresys"] = "Euresys"
     abbreviation: Literal[None] = None
     registry: Literal[None] = None
@@ -134,6 +169,8 @@ class Euresys(_Manufacturer):
 
 
 class TeledyneFLIR(_Manufacturer):
+    """TeledyneFLIR"""
+
     name: Literal["Teledyne FLIR"] = "Teledyne FLIR"
     abbreviation: Literal["FLIR"] = "FLIR"
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
@@ -141,6 +178,8 @@ class TeledyneFLIR(_Manufacturer):
 
 
 class Fujinon(_Manufacturer):
+    """Fujinon"""
+
     name: Literal["Fujinon"] = "Fujinon"
     abbreviation: Literal[None] = None
     registry: Literal[None] = None
@@ -148,6 +187,8 @@ class Fujinon(_Manufacturer):
 
 
 class Hamamatsu(_Manufacturer):
+    """Hamamatsu"""
+
     name: Literal["Hamamatsu"] = "Hamamatsu"
     abbreviation: Literal[None] = None
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
@@ -155,6 +196,8 @@ class Hamamatsu(_Manufacturer):
 
 
 class TheImagingSource(_Manufacturer):
+    """TheImagingSource"""
+
     name: Literal["The Imaging Source"] = "The Imaging Source"
     abbreviation: Literal[None] = None
     registry: Literal[None] = None
@@ -162,6 +205,8 @@ class TheImagingSource(_Manufacturer):
 
 
 class InteruniversityMicroelectronicsCenter(_Manufacturer):
+    """InteruniversityMicroelectronicsCenter"""
+
     name: Literal["Interuniversity Microelectronics Center"] = "Interuniversity Microelectronics Center"
     abbreviation: Literal["IMEC"] = "IMEC"
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
@@ -169,6 +214,8 @@ class InteruniversityMicroelectronicsCenter(_Manufacturer):
 
 
 class InfinityPhotoOptical(_Manufacturer):
+    """InfinityPhotoOptical"""
+
     name: Literal["Infinity Photo-Optical"] = "Infinity Photo-Optical"
     abbreviation: Literal[None] = None
     registry: Literal[None] = None
@@ -176,6 +223,8 @@ class InfinityPhotoOptical(_Manufacturer):
 
 
 class ISLProductsInternational(_Manufacturer):
+    """ISLProductsInternational"""
+
     name: Literal["ISL Products International"] = "ISL Products International"
     abbreviation: Literal["ISL"] = "ISL"
     registry: Literal[None] = None
@@ -183,6 +232,8 @@ class ISLProductsInternational(_Manufacturer):
 
 
 class Julabo(_Manufacturer):
+    """Julabo"""
+
     name: Literal["Julabo"] = "Julabo"
     abbreviation: Literal[None] = None
     registry: Literal[None] = None
@@ -190,6 +241,8 @@ class Julabo(_Manufacturer):
 
 
 class TheLeeCompany(_Manufacturer):
+    """TheLeeCompany"""
+
     name: Literal["The Lee Company"] = "The Lee Company"
     abbreviation: Literal[None] = None
     registry: Literal[None] = None
@@ -197,6 +250,8 @@ class TheLeeCompany(_Manufacturer):
 
 
 class Leica(_Manufacturer):
+    """Leica"""
+
     name: Literal["Leica"] = "Leica"
     abbreviation: Literal[None] = None
     registry: Literal[None] = None
@@ -204,6 +259,8 @@ class Leica(_Manufacturer):
 
 
 class Lg(_Manufacturer):
+    """Lg"""
+
     name: Literal["LG"] = "LG"
     abbreviation: Literal[None] = None
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
@@ -211,6 +268,8 @@ class Lg(_Manufacturer):
 
 
 class LifeCanvas(_Manufacturer):
+    """LifeCanvas"""
+
     name: Literal["LifeCanvas"] = "LifeCanvas"
     abbreviation: Literal[None] = None
     registry: Literal[None] = None
@@ -218,6 +277,8 @@ class LifeCanvas(_Manufacturer):
 
 
 class MeadowlarkOptics(_Manufacturer):
+    """MeadowlarkOptics"""
+
     name: Literal["Meadowlark Optics"] = "Meadowlark Optics"
     abbreviation: Literal[None] = None
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
@@ -225,6 +286,8 @@ class MeadowlarkOptics(_Manufacturer):
 
 
 class IRRobotCo(_Manufacturer):
+    """IRRobotCo"""
+
     name: Literal["IR Robot Co"] = "IR Robot Co"
     abbreviation: Literal[None] = None
     registry: Literal[None] = None
@@ -232,6 +295,8 @@ class IRRobotCo(_Manufacturer):
 
 
 class Mitutuyo(_Manufacturer):
+    """Mitutuyo"""
+
     name: Literal["Mitutuyo"] = "Mitutuyo"
     abbreviation: Literal[None] = None
     registry: Literal[None] = None
@@ -239,6 +304,8 @@ class Mitutuyo(_Manufacturer):
 
 
 class MKSNewport(_Manufacturer):
+    """MKSNewport"""
+
     name: Literal["MKS Newport"] = "MKS Newport"
     abbreviation: Literal[None] = None
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
@@ -246,6 +313,8 @@ class MKSNewport(_Manufacturer):
 
 
 class Mpi(_Manufacturer):
+    """Mpi"""
+
     name: Literal["MPI"] = "MPI"
     abbreviation: Literal["MPI"] = "MPI"
     registry: Literal[None] = None
@@ -253,6 +322,8 @@ class Mpi(_Manufacturer):
 
 
 class NationalInstruments(_Manufacturer):
+    """NationalInstruments"""
+
     name: Literal["National Instruments"] = "National Instruments"
     abbreviation: Literal[None] = None
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
@@ -260,6 +331,8 @@ class NationalInstruments(_Manufacturer):
 
 
 class Navitar(_Manufacturer):
+    """Navitar"""
+
     name: Literal["Navitar"] = "Navitar"
     abbreviation: Literal[None] = None
     registry: Literal[None] = None
@@ -267,6 +340,8 @@ class Navitar(_Manufacturer):
 
 
 class NewScaleTechnologies(_Manufacturer):
+    """NewScaleTechnologies"""
+
     name: Literal["New Scale Technologies"] = "New Scale Technologies"
     abbreviation: Literal[None] = None
     registry: Literal[None] = None
@@ -274,6 +349,8 @@ class NewScaleTechnologies(_Manufacturer):
 
 
 class Nikon(_Manufacturer):
+    """Nikon"""
+
     name: Literal["Nikon"] = "Nikon"
     abbreviation: Literal[None] = None
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
@@ -281,6 +358,8 @@ class Nikon(_Manufacturer):
 
 
 class OpenEphysProductionSite(_Manufacturer):
+    """OpenEphysProductionSite"""
+
     name: Literal["Open Ephys Production Site"] = "Open Ephys Production Site"
     abbreviation: Literal["OEPS"] = "OEPS"
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
@@ -288,6 +367,8 @@ class OpenEphysProductionSite(_Manufacturer):
 
 
 class Olympus(_Manufacturer):
+    """Olympus"""
+
     name: Literal["Olympus"] = "Olympus"
     abbreviation: Literal[None] = None
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
@@ -295,6 +376,8 @@ class Olympus(_Manufacturer):
 
 
 class Optotune(_Manufacturer):
+    """Optotune"""
+
     name: Literal["Optotune"] = "Optotune"
     abbreviation: Literal[None] = None
     registry: Literal[None] = None
@@ -302,6 +385,8 @@ class Optotune(_Manufacturer):
 
 
 class Oxxius(_Manufacturer):
+    """Oxxius"""
+
     name: Literal["Oxxius"] = "Oxxius"
     abbreviation: Literal[None] = None
     registry: Literal[None] = None
@@ -309,6 +394,8 @@ class Oxxius(_Manufacturer):
 
 
 class Prizmatix(_Manufacturer):
+    """Prizmatix"""
+
     name: Literal["Prizmatix"] = "Prizmatix"
     abbreviation: Literal[None] = None
     registry: Literal[None] = None
@@ -316,6 +403,8 @@ class Prizmatix(_Manufacturer):
 
 
 class Quantifi(_Manufacturer):
+    """Quantifi"""
+
     name: Literal["Quantifi"] = "Quantifi"
     abbreviation: Literal[None] = None
     registry: Literal[None] = None
@@ -323,6 +412,8 @@ class Quantifi(_Manufacturer):
 
 
 class RaspberryPi(_Manufacturer):
+    """RaspberryPi"""
+
     name: Literal["Raspberry Pi"] = "Raspberry Pi"
     abbreviation: Literal[None] = None
     registry: Literal[None] = None
@@ -330,6 +421,8 @@ class RaspberryPi(_Manufacturer):
 
 
 class Semrock(_Manufacturer):
+    """Semrock"""
+
     name: Literal["Semrock"] = "Semrock"
     abbreviation: Literal[None] = None
     registry: Literal[None] = None
@@ -337,6 +430,8 @@ class Semrock(_Manufacturer):
 
 
 class SchneiderKreuznach(_Manufacturer):
+    """SchneiderKreuznach"""
+
     name: Literal["Schneider-Kreuznach"] = "Schneider-Kreuznach"
     abbreviation: Literal[None] = None
     registry: Literal[None] = None
@@ -344,6 +439,8 @@ class SchneiderKreuznach(_Manufacturer):
 
 
 class Spinnaker(_Manufacturer):
+    """Spinnaker"""
+
     name: Literal["Spinnaker"] = "Spinnaker"
     abbreviation: Literal[None] = None
     registry: Literal[None] = None
@@ -351,6 +448,8 @@ class Spinnaker(_Manufacturer):
 
 
 class Tamron(_Manufacturer):
+    """Tamron"""
+
     name: Literal["Tamron"] = "Tamron"
     abbreviation: Literal[None] = None
     registry: Literal[None] = None
@@ -358,6 +457,8 @@ class Tamron(_Manufacturer):
 
 
 class Thorlabs(_Manufacturer):
+    """Thorlabs"""
+
     name: Literal["Thorlabs"] = "Thorlabs"
     abbreviation: Literal[None] = None
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
@@ -365,6 +466,8 @@ class Thorlabs(_Manufacturer):
 
 
 class TechnicalManufacturingCorporation(_Manufacturer):
+    """TechnicalManufacturingCorporation"""
+
     name: Literal["Technical Manufacturing Corporation"] = "Technical Manufacturing Corporation"
     abbreviation: Literal["TMC"] = "TMC"
     registry: Literal[None] = None
@@ -372,6 +475,8 @@ class TechnicalManufacturingCorporation(_Manufacturer):
 
 
 class Tymphany(_Manufacturer):
+    """Tymphany"""
+
     name: Literal["Tymphany"] = "Tymphany"
     abbreviation: Literal[None] = None
     registry: Literal[None] = None
@@ -379,6 +484,8 @@ class Tymphany(_Manufacturer):
 
 
 class Vieworks(_Manufacturer):
+    """Vieworks"""
+
     name: Literal["Vieworks"] = "Vieworks"
     abbreviation: Literal[None] = None
     registry: Literal[None] = None
@@ -386,6 +493,8 @@ class Vieworks(_Manufacturer):
 
 
 class Vortran(_Manufacturer):
+    """Vortran"""
+
     name: Literal["Vortran"] = "Vortran"
     abbreviation: Literal[None] = None
     registry: Literal[None] = None
@@ -393,6 +502,8 @@ class Vortran(_Manufacturer):
 
 
 class CarlZeiss(_Manufacturer):
+    """CarlZeiss"""
+
     name: Literal["Carl Zeiss"] = "Carl Zeiss"
     abbreviation: Literal[None] = None
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
@@ -400,6 +511,8 @@ class CarlZeiss(_Manufacturer):
 
 
 class Other(_Manufacturer):
+    """Other"""
+
     name: Literal["Other"] = "Other"
     abbreviation: Literal[None] = None
     registry: Literal[None] = None
@@ -407,6 +520,7 @@ class Other(_Manufacturer):
 
 
 class Manufacturer:
+    """Manufacturer definitions"""
 
     AA_OPTO = AAOptoElectronic()
     AILIPU = AilipuTechnologyCo()

@@ -11,10 +11,13 @@ from aind_data_schema.models.registry import ROR
 
 class _Institution(PIDName):
     """Base model config"""
+
     model_config = ConfigDict(frozen=True)
 
 
 class AllenInstitute(_Institution):
+    """AllenInstitute"""
+
     name: Literal["Allen Institute"] = "Allen Institute"
     abbreviation: Literal["AI"] = "AI"
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
@@ -22,6 +25,8 @@ class AllenInstitute(_Institution):
 
 
 class AllenInstituteForBrainScience(_Institution):
+    """AllenInstituteForBrainScience"""
+
     name: Literal["Allen Institute for Brain Science"] = "Allen Institute for Brain Science"
     abbreviation: Literal["AIBS"] = "AIBS"
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
@@ -29,6 +34,8 @@ class AllenInstituteForBrainScience(_Institution):
 
 
 class AllenInstituteForNeuralDynamics(_Institution):
+    """AllenInstituteForNeuralDynamics"""
+
     name: Literal["Allen Institute for Neural Dynamics"] = "Allen Institute for Neural Dynamics"
     abbreviation: Literal["AIND"] = "AIND"
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
@@ -36,6 +43,8 @@ class AllenInstituteForNeuralDynamics(_Institution):
 
 
 class ColumbiaUniversity(_Institution):
+    """ColumbiaUniversity"""
+
     name: Literal["Columbia University"] = "Columbia University"
     abbreviation: Literal["Columbia"] = "Columbia"
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
@@ -43,6 +52,8 @@ class ColumbiaUniversity(_Institution):
 
 
 class JacksonLaboratory(_Institution):
+    """JacksonLaboratory"""
+
     name: Literal["Jackson Laboratory"] = "Jackson Laboratory"
     abbreviation: Literal["JAX"] = "JAX"
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
@@ -50,6 +61,8 @@ class JacksonLaboratory(_Institution):
 
 
 class HuazhongUniversityOfScienceAndTechnology(_Institution):
+    """HuazhongUniversityOfScienceAndTechnology"""
+
     name: Literal["Huazhong University of Science and Technology"] = "Huazhong University of Science and Technology"
     abbreviation: Literal["HUST"] = "HUST"
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
@@ -57,6 +70,8 @@ class HuazhongUniversityOfScienceAndTechnology(_Institution):
 
 
 class NationalInstituteOfNeurologicalDisordersAndStroke(_Institution):
+    """NationalInstituteOfNeurologicalDisordersAndStroke"""
+
     name: Literal[
         "National Institute of Neurological Disorders and Stroke"
     ] = "National Institute of Neurological Disorders and Stroke"
@@ -66,6 +81,8 @@ class NationalInstituteOfNeurologicalDisordersAndStroke(_Institution):
 
 
 class NewYorkUniversity(_Institution):
+    """NewYorkUniversity"""
+
     name: Literal["New York University"] = "New York University"
     abbreviation: Literal["NYU"] = "NYU"
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
@@ -73,6 +90,8 @@ class NewYorkUniversity(_Institution):
 
 
 class SimonsFoundation(_Institution):
+    """SimonsFoundation"""
+
     name: Literal["Simons Foundation"] = "Simons Foundation"
     abbreviation: Literal[None] = None
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
@@ -80,6 +99,8 @@ class SimonsFoundation(_Institution):
 
 
 class Institution:
+    """Institution definitions"""
+
     AI = AllenInstitute()
     AIBS = AllenInstituteForBrainScience()
     AIND = AllenInstituteForNeuralDynamics()

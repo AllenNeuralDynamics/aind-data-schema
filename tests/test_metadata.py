@@ -85,7 +85,10 @@ class TestMetadata(unittest.TestCase):
             genotype="Emx1-IRES-Cre;Camk2a-tTA;Ai93(TITL-GCaMP6f)",
         )
         d2 = Metadata(
-            name="ecephys_655019_2023-04-03_18-17-09", location="bucket", subject=s2, procedures=Procedures.model_construct()
+            name="ecephys_655019_2023-04-03_18-17-09",
+            location="bucket",
+            subject=s2,
+            procedures=Procedures.model_construct(),
         )
         self.assertEqual(MetadataStatus.INVALID, d2.metadata_status)
 

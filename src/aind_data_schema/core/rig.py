@@ -76,15 +76,15 @@ class Rig(AindCoreModel):
         """
         daqs = value
         standard_devices = (
-            daqs +
-            info.data["stimulus_devices"] +
-            info.data["light_sources"] +
-            info.data["patch_cords"] +
-            info.data["detectors"] +
-            info.data["digital_micromirror_devices"] +
-            info.data["polygonal_scanners"] +
-            info.data["pockels_cells"] +
-            info.data["additional_devices"]
+            daqs
+            + info.data["stimulus_devices"]
+            + info.data["light_sources"]
+            + info.data["patch_cords"]
+            + info.data["detectors"]
+            + info.data["digital_micromirror_devices"]
+            + info.data["polygonal_scanners"]
+            + info.data["pockels_cells"]
+            + info.data["additional_devices"]
         )
         camera_devices = info.data["cameras"] + info.data["stick_microscopes"]
         standard_device_names = [device.name for device in standard_devices]
@@ -193,7 +193,9 @@ class Rig(AindCoreModel):
         behavior_vids_errors = cls._validate_behavior_videos_modality(value, info)
         trained_behavior_errors = cls._validate_trained_behavior_modality(value, info)
 
-        errors = (ephys_errors + fib_errors + pophys_errors + slap_errors + behavior_vids_errors + trained_behavior_errors)
+        errors = (
+            ephys_errors + fib_errors + pophys_errors + slap_errors + behavior_vids_errors + trained_behavior_errors
+        )
         if len(errors) > 0:
             message = "\n     ".join(errors)
             raise ValueError(message)

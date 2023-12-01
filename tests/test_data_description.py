@@ -12,10 +12,11 @@ from pydantic import ValidationError
 from aind_data_schema.core.data_description import (
     AnalysisDescription,
     DataDescription,
+    DataLevel,
     DerivedDataDescription,
     Funding,
     RawDataDescription,
-    build_data_name, DataLevel,
+    build_data_name,
 )
 from aind_data_schema.models.institutions import Institution
 from aind_data_schema.models.modalities import Modality
@@ -216,17 +217,16 @@ class DataDescriptionTest(unittest.TestCase):
     def test_data_level_upgrade(self):
         """Tests data level can be set from legacy versions"""
         d1 = DataDescription(
-                label="test_data",
-                modality=[Modality.SPIM],
-                platform=Platform.EXASPIM,
-                subject_id="1234",
-                data_level="raw data",
-                creation_time=datetime.datetime(2020, 10, 10, 10, 10, 10),
-                institution=Institution.AIND,
-                funding_source=[
-                    Funding(funder=Institution.NINDS, grant_number="grant001")],
-                investigators=["Jane Smith"],
-            )
+            label="test_data",
+            modality=[Modality.SPIM],
+            platform=Platform.EXASPIM,
+            subject_id="1234",
+            data_level="raw data",
+            creation_time=datetime.datetime(2020, 10, 10, 10, 10, 10),
+            institution=Institution.AIND,
+            funding_source=[Funding(funder=Institution.NINDS, grant_number="grant001")],
+            investigators=["Jane Smith"],
+        )
         d2 = DataDescription(
             label="test_data",
             modality=[Modality.SPIM],
@@ -235,8 +235,7 @@ class DataDescriptionTest(unittest.TestCase):
             data_level=DataLevel.RAW,
             creation_time=datetime.datetime(2020, 10, 10, 10, 10, 10),
             institution=Institution.AIND,
-            funding_source=[
-                Funding(funder=Institution.NINDS, grant_number="grant001")],
+            funding_source=[Funding(funder=Institution.NINDS, grant_number="grant001")],
             investigators=["Jane Smith"],
         )
         with self.assertRaises(ValidationError) as e:
@@ -248,9 +247,7 @@ class DataDescriptionTest(unittest.TestCase):
                 data_level=2,
                 creation_time=datetime.datetime(2020, 10, 10, 10, 10, 10),
                 institution=Institution.AIND,
-                funding_source=[
-                    Funding(funder=Institution.NINDS,
-                            grant_number="grant001")],
+                funding_source=[Funding(funder=Institution.NINDS, grant_number="grant001")],
                 investigators=["Jane Smith"],
             )
         self.assertTrue("Data Level needs to be string or enum" in repr(e.exception))
@@ -329,8 +326,7 @@ class DataDescriptionTest(unittest.TestCase):
             data_level="raw data",
             creation_time=datetime.datetime(2020, 10, 10, 10, 10, 10),
             institution=Institution.AIND,
-            funding_source=[
-                Funding(funder=Institution.NINDS, grant_number="grant001")],
+            funding_source=[Funding(funder=Institution.NINDS, grant_number="grant001")],
             investigators=["Jane Smith"],
         )
 
@@ -349,8 +345,7 @@ class DataDescriptionTest(unittest.TestCase):
             input_data_name="input",
             creation_time=datetime.datetime(2020, 10, 10, 10, 10, 10),
             institution=Institution.AIND,
-            funding_source=[
-                Funding(funder=Institution.NINDS, grant_number="grant001")],
+            funding_source=[Funding(funder=Institution.NINDS, grant_number="grant001")],
             modality=[Modality.ECEPHYS],
             platform=Platform.ECEPHYS,
             subject_id="12345",

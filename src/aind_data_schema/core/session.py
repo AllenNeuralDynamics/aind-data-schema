@@ -5,15 +5,13 @@ from decimal import Decimal
 from enum import Enum
 from typing import List, Literal, Optional, Union
 
-from pydantic import Field, field_validator, root_validator
+from pydantic import Field, field_validator
 from pydantic_core.core_schema import ValidationInfo
 from typing_extensions import Annotated
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.imaging.tile import Channel
-from aind_data_schema.models.coordinates import CcfCoords, Coordinates3d, RelativePosition
-
-# from aind_data_schema.data_description import Modality
+from aind_data_schema.models.coordinates import CcfCoords, Coordinates3d
 from aind_data_schema.models.devices import Calibration, Maintenance, RelativePosition, SpoutSide
 from aind_data_schema.models.modalities import Modality
 from aind_data_schema.models.stimulus import StimulusEpoch

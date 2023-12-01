@@ -120,7 +120,7 @@ class Metadata(AindCoreModel):
 
         # extract field from Optional[<class>] annotation
         field_name = info.field_name
-        field_class = [f for f in get_args(cls.model_fields[field_name].annotation) if f is not type(None)][0]
+        field_class = [f for f in get_args(cls.model_fields[field_name].annotation) if not isinstance(None, f)][0]
 
         # If the input is a json object, we will try to create the field
         if isinstance(value, dict):
@@ -138,19 +138,28 @@ class Metadata(AindCoreModel):
     def validate_metadata(self):
         """Validator for metadata"""
 
-        # There's a simpler way to do this if we drop support for py37
         all_model_fields = dict()
         for field_name in self.model_fields:
             # The fields we're interested in are optional. We need to extract out the
             # class using the get_args method
             annotation_args = get_args(self.model_fields[field_name].annotation)
-            optional_class = (
+            optional_classes = (
                 None
                 if not annotation_args
-                else ([f for f in get_args(self.model_fields[field_name].annotation) if f is not type(None)][0])
+                else (
+                    [
+                        f
+                        for f in get_args(self.model_fields[field_name].annotation)
+                        if inspect.isclass(f) and not isinstance(None, f)
+                    ]
+                )
             )
-            if inspect.isclass(optional_class) and issubclass(optional_class, AindCoreModel):
-                all_model_fields[field_name] = optional_class
+            if (
+                optional_classes
+                and inspect.isclass(optional_classes[0])
+                and issubclass(optional_classes[0], AindCoreModel)
+            ):
+                all_model_fields[field_name] = optional_classes[0]
 
         # For each model field, check that is present and check if the model
         # is valid. If it isn't valid, still add it, but mark MetadataStatus

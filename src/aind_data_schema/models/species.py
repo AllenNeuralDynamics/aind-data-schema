@@ -11,11 +11,13 @@ from aind_data_schema.models.registry import NCBI
 
 class _Species(PIDName):
     """Base model config"""
+
     model_config = ConfigDict(frozen=True)
 
 
 class CallithrixJacchus(_Species):
     """CallithrixJacchus"""
+
     name: Literal["Callithrix jacchus"] = "Callithrix jacchus"
     abbreviation: Literal[None] = None
     registry: BaseName = Field(NCBI, json_schema_extra={"const": True})
@@ -24,6 +26,7 @@ class CallithrixJacchus(_Species):
 
 class HomoSapiens(_Species):
     """HomoSapiens"""
+
     name: Literal["Homo sapiens"] = "Homo sapiens"
     abbreviation: Literal[None] = None
     registry: BaseName = Field(NCBI, json_schema_extra={"const": True})
@@ -32,6 +35,7 @@ class HomoSapiens(_Species):
 
 class MacacaMulatta(_Species):
     """MacacaMulatta"""
+
     name: Literal["Macaca mulatta"] = "Macaca mulatta"
     abbreviation: Literal[None] = None
     registry: BaseName = Field(NCBI, json_schema_extra={"const": True})
@@ -40,6 +44,7 @@ class MacacaMulatta(_Species):
 
 class MusMusculus(_Species):
     """MusMusculus"""
+
     name: Literal["Mus musculus"] = "Mus musculus"
     abbreviation: Literal[None] = None
     registry: BaseName = Field(NCBI, json_schema_extra={"const": True})
@@ -48,6 +53,7 @@ class MusMusculus(_Species):
 
 class Species:
     """Species classes"""
+
     CALLITHRIX_JACCHUS = CallithrixJacchus()
     HOMO_SAPIENS = HomoSapiens()
     MACACA_MULATTA = MacacaMulatta()

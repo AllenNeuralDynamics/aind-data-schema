@@ -1,11 +1,11 @@
 """ Generic metadata classes for data """
 
+import re
 from datetime import datetime
 from enum import Enum
-from typing import List, Literal, Optional, Union, Any
-import re
+from typing import Any, List, Literal, Optional, Union
 
-from pydantic import Field, ValidationInfo, field_validator, model_validator
+from pydantic import Field, field_validator, model_validator
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.models.institutions import Institution
@@ -249,7 +249,9 @@ class DerivedDataDescription(DataDescription):
     def build_name(self):
         """sets the name of the file"""
         if self.process_name:
-            self.name = build_data_name(f"{self.input_data_name}_{self.process_name}", creation_datetime=self.creation_time)
+            self.name = build_data_name(
+                f"{self.input_data_name}_{self.process_name}", creation_datetime=self.creation_time
+            )
         else:
             self.name = build_data_name(f"{self.input_data_name}", creation_datetime=self.creation_time)
         return self
@@ -326,10 +328,7 @@ class RawDataDescription(DataDescription):
     def build_name(self):
         """sets the name of the file"""
         platform_abbreviation = self.platform.abbreviation
-        self.name = build_data_name(
-                f"{platform_abbreviation}_{self.subject_id}",
-                creation_datetime=self.creation_time
-            )
+        self.name = build_data_name(f"{platform_abbreviation}_{self.subject_id}", creation_datetime=self.creation_time)
         return self
 
     @classmethod
@@ -372,7 +371,7 @@ class AnalysisDescription(DataDescription):
         title="Analysis name",
     )
 
-    @model_validator(mode='after')
+    @model_validator(mode="after")
     def build_name(self):
         """returns the label of the file"""
         self.name = build_data_name(f"{self.project_name}_{self.analysis_name}", creation_datetime=self.creation_time)
@@ -387,8 +386,7 @@ class AnalysisDescription(DataDescription):
         if m is None:
             raise ValueError(f"name({name}) does not match pattern")
 
-        creation_time = datetime_from_name_string(m.group("c_date"),
-                                                  m.group("c_time"))
+        creation_time = datetime_from_name_string(m.group("c_date"), m.group("c_time"))
 
         return dict(
             project_abbreviation=m.group("project_abbreviation"),

@@ -89,7 +89,8 @@ class ImagingTests(unittest.TestCase):
         expected_exception1 = (
             "1 validation error for Instrument\n"
             "notes\n"
-            "  Value error, Notes cannot be empty if instrument_type is Other. Describe the instrument_type in the notes field."
+            "  Value error, Notes cannot be empty if instrument_type is Other."
+            " Describe the instrument_type in the notes field."
             " [type=value_error, input_value=None, input_type=NoneType]\n"
             "    For further information visit https://errors.pydantic.dev/2.5/v/value_error"
         )
@@ -107,10 +108,12 @@ class ImagingTests(unittest.TestCase):
         expected_exception2 = (
             "2 validation errors for Instrument\n"
             "modification_date\n"
-            "  Field required [type=missing, input_value={'instrument_type': 'diSP...[], 'light_sources': []}, input_type=dict]\n"
+            "  Field required [type=missing, input_value={'instrument_type': 'diSP...[],"
+            " 'light_sources': []}, input_type=dict]\n"
             "    For further information visit https://errors.pydantic.dev/2.5/v/missing\n"
             "notes\n"
-            "  Value error, Notes cannot be empty if manufacturer is Other. Describe the manufacturer in the notes field."
+            "  Value error, Notes cannot be empty if manufacturer is Other."
+            " Describe the manufacturer in the notes field."
             " [type=value_error, input_value=None, input_type=NoneType]\n"
             "    For further information visit https://errors.pydantic.dev/2.5/v/value_error"
         )
@@ -305,10 +308,12 @@ class ImagingTests(unittest.TestCase):
         expected_exception = (
             "2 validation errors for Instrument\n"
             "objectives\n"
-            "  Field required [type=missing, input_value={'instrument_id': 'exaSPI...ased_sampling=False)])]}, input_type=dict]\n"
+            "  Field required [type=missing, input_value={'instrument_id':"
+            " 'exaSPI...ased_sampling=False)])]}, input_type=dict]\n"
             "    For further information visit https://errors.pydantic.dev/2.5/v/missing\n"
             "daqs\n"
-            "  Value error, Device name validation error: 'LAS-08308' is connected to '3' on 'Dev2', but this device"
+            "  Value error, Device name validation error: 'LAS-08308' is connected to '3' on 'Dev2',"
+            " but this device"
             " is not part of the rig. [type=value_error,"
             " input_value=[DAQDevice(device_type='D...based_sampling=False)])], input_type=list]\n"
             "    For further information visit https://errors.pydantic.dev/2.5/v/value_error"

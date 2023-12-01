@@ -1,7 +1,7 @@
 """ tests for Subject """
 import unittest
-from unittest.mock import MagicMock, patch, mock_open, call
 from pathlib import Path
+from unittest.mock import MagicMock, call, mock_open, patch
 
 from aind_data_schema.core.subject import Subject
 
@@ -15,7 +15,8 @@ class BaseTests(unittest.TestCase):
         s = Subject.model_construct()
 
         self.assertEqual(
-            "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/subject.py",
+            "https://raw.githubusercontent.com/AllenNeuralDynamics/"
+            "aind-data-schema/main/src/aind_data_schema/subject.py",
             s.describedBy,
         )
 
@@ -25,7 +26,7 @@ class BaseTests(unittest.TestCase):
 
         s = Subject.model_construct()
         s.write_standard_file(output_directory=Path("dir"), suffix=".foo.bar")
-        mock_open.assert_has_calls([call(Path('dir/subject.foo.bar'), 'w')])
+        mock_open.assert_has_calls([call(Path("dir/subject.foo.bar"), "w")])
         self.assertEqual(1, 1)
 
 

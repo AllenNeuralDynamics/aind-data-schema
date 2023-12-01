@@ -194,7 +194,7 @@ class RigTests(unittest.TestCase):
 
         # A Rig model with ECEPHYS in the modality list requires
         # ephys_assemblies and stick microscopes
-        with self.assertRaises(ValidationError) as e:
+        with self.assertRaises(ValidationError):
             Rig(
                 modalities=[
                     Modality.ECEPHYS,
