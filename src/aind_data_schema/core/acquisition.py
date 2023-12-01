@@ -117,6 +117,7 @@ class Acquisition(AindCoreModel):
 
     @field_validator("axes", mode="before")
     def from_direction_code(cls, v: Union[str, List[Axis]]) -> List[Axis]:
+        """Map direction codes to Axis model"""
         if type(v) is str:
             direction_lookup = {
                 "L": Direction.LR,

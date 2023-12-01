@@ -1,3 +1,5 @@
+"""Common registries"""
+
 from typing import Final
 
 from aind_data_schema.models.pid_names import BaseName

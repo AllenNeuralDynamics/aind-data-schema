@@ -1,7 +1,9 @@
+"""Core Rig model"""
+
 from datetime import date
 from typing import List, Literal, Optional, Set
 
-from pydantic import Field, ValidationInfo, field_validator, model_validator
+from pydantic import Field, ValidationInfo, field_validator
 
 from aind_data_schema.base import AindCoreModel
 from aind_data_schema.models.devices import (
@@ -110,6 +112,7 @@ class Rig(AindCoreModel):
 
     @staticmethod
     def _validate_ephys_modality(value: Set[Modality.ONE_OF], info: ValidationInfo) -> List[str]:
+        """Validate ecephys modality has ephys_assemblies and stick_microscopes"""
         errors = []
         if Modality.ECEPHYS in value:
             for k, v in {
@@ -122,6 +125,7 @@ class Rig(AindCoreModel):
 
     @staticmethod
     def _validate_fib_modality(value: Set[Modality.ONE_OF], info: ValidationInfo) -> List[str]:
+        """Valudate FIB modality has light_sources, detectors, and patch_cords"""
         errors = []
         if Modality.FIB in value:
             for k, v in {
@@ -135,6 +139,7 @@ class Rig(AindCoreModel):
 
     @staticmethod
     def _validate_pophys_modality(value: Set[Modality.ONE_OF], info: ValidationInfo) -> List[str]:
+        """Validate POPHYS modality has light_sources, detectors, and objectives"""
         errors = []
         if Modality.POPHYS in value:
             for k, v in {
@@ -148,6 +153,7 @@ class Rig(AindCoreModel):
 
     @staticmethod
     def _validate_slap_modality(value: Set[Modality.ONE_OF], info: ValidationInfo) -> List[str]:
+        """Validate SLAP modality has light_sources, detectors, and objectives"""
         errors = []
         if Modality.SLAP in value:
             for k, v in {
@@ -161,6 +167,7 @@ class Rig(AindCoreModel):
 
     @staticmethod
     def _validate_behavior_videos_modality(value: Set[Modality.ONE_OF], info: ValidationInfo) -> List[str]:
+        """Validate BEHAVIOR_VIDEOS modality has cameras"""
         errors = []
         if Modality.BEHAVIOR_VIDEOS in value:
             if len(info.data["cameras"]) == 0:
@@ -169,6 +176,7 @@ class Rig(AindCoreModel):
 
     @staticmethod
     def _validate_trained_behavior_modality(value: Set[Modality.ONE_OF], info: ValidationInfo) -> List[str]:
+        """Validate TRAINED_BEHAVIOR has stimulus devices"""
         errors = []
         if Modality.TRAINED_BEHAVIOR in value:
             if len(info.data["stimulus_devices"]) == 0:
@@ -177,6 +185,7 @@ class Rig(AindCoreModel):
 
     @field_validator("modalities", mode="after")
     def validate_modalities(cls, value: Set[Modality.ONE_OF], info: ValidationInfo) -> Set[Modality.ONE_OF]:
+        """Validate each modality in modalities field has associated data"""
         ephys_errors = cls._validate_ephys_modality(value, info)
         fib_errors = cls._validate_fib_modality(value, info)
         pophys_errors = cls._validate_pophys_modality(value, info)

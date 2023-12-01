@@ -1,3 +1,5 @@
+"""Module for Institution definitions"""
+
 from typing import Literal, Union
 
 from pydantic import ConfigDict, Field
@@ -8,6 +10,7 @@ from aind_data_schema.models.registry import ROR
 
 
 class _Institution(PIDName):
+    """Base model config"""
     model_config = ConfigDict(frozen=True)
 
 

@@ -258,6 +258,7 @@ class Stream(AindModel):
 
     @staticmethod
     def _validate_ephys_modality(value: List[Modality.ONE_OF], info: ValidationInfo) -> Optional[str]:
+        """Validate ecephys modality has ephys_assemblies and stick_microscopes"""
         if Modality.ECEPHYS in value:
             ephys_modules = info.data["ephys_modules"]
             stick_microscopes = info.data["stick_microscopes"]
@@ -268,6 +269,7 @@ class Stream(AindModel):
 
     @staticmethod
     def _validate_fib_modality(value: List[Modality.ONE_OF], info: ValidationInfo) -> Optional[str]:
+        """Valudate FIB modality has light_sources, detectors, and fiber_connections"""
         if Modality.FIB in value:
             light_source = info.data["light_sources"]
             detector = info.data["detectors"]
@@ -283,6 +285,7 @@ class Stream(AindModel):
 
     @staticmethod
     def _validate_pophys_modality(value: List[Modality.ONE_OF], info: ValidationInfo) -> Optional[str]:
+        """Validate POPHYS modality has ophys_fovs and stack_parameters"""
         if Modality.POPHYS in value:
             ophys_fovs = info.data["ophys_fovs"]
             stack_parameters = info.data["stack_parameters"]
@@ -293,6 +296,7 @@ class Stream(AindModel):
 
     @staticmethod
     def _validate_behavior_videos_modality(value: List[Modality.ONE_OF], info: ValidationInfo) -> Optional[str]:
+        """Validate BEHAVIOR_VIDEOS modality has cameras"""
         if Modality.BEHAVIOR_VIDEOS in value and len(info.data["camera_names"]) == 0:
             return "camera_names field must be utilized for Behavior Videos modality"
         else:
@@ -300,6 +304,7 @@ class Stream(AindModel):
 
     @staticmethod
     def _validate_trained_behavior_modality(value: List[Modality.ONE_OF], info: ValidationInfo) -> Optional[str]:
+        """Validate TRAINED_BEHAVIOR has stimulus devices"""
         if Modality.TRAINED_BEHAVIOR in value and len(info.data["stimulus_device_names"]) == 0:
             return "stimulus_device_names field must be utilized for Trained Behavior modality"
         else:
@@ -307,6 +312,7 @@ class Stream(AindModel):
 
     @field_validator("stream_modalities", mode="after")
     def validate_stream_modalities(cls, value: List[Modality.ONE_OF], info: ValidationInfo) -> List[Modality.ONE_OF]:
+        """Validate each modality in stream_modalities field has associated data"""
         errors = []
         ephys_errors = cls._validate_ephys_modality(value, info)
         fib_errors = cls._validate_fib_modality(value, info)

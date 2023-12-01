@@ -1,3 +1,5 @@
+"""Module for process names definitions"""
+
 from enum import Enum
 
 

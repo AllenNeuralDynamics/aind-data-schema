@@ -1,3 +1,5 @@
+"""Module for pidname definitions"""
+
 from typing import Optional
 
 from pydantic import Field
