@@ -8,6 +8,30 @@ from aind_data_schema.data_description import DataDescription, Funding, Institut
 from aind_data_schema.schema_upgrade.base_upgrade import BaseModelUpgrade
 
 
+def map_modality(modality):
+    """converts modality string to an enumerated value"""
+
+    lookup_table = {
+        "exaspim": Modality.SPIM.value.name,
+        "smartspim": Modality.SPIM.value.name,
+        "ecephys": Modality.ECEPHYS.value.name,
+        "mri-14t": Modality.MRI.value.name,
+        "mri-7t": Modality.MRI.value.name,
+        "test-fip-opto": Modality.FIB.value.name,
+        "hsfp": Modality.FIB.value.name,
+        "fip": Modality.FIB.value.name,
+        "merfish": Modality.FISH.value.name,
+        "dispim": Modality.SPIM.value.name,
+        "mesospim": Modality.MESOSPIM.value.name,
+        'exaspim': Modality.SPIM.value.name,
+        'single-plane-ophys': Modality.OPHYS.value.name,
+        'multiplane-ophys': Modality.OPHYS.value.name,
+    }
+
+    return lookup_table[modality.lower()]
+
+
+
 class ModalityUpgrade:
     """Handle upgrades for Modality models."""
 
@@ -27,7 +51,10 @@ class ModalityUpgrade:
 
         """
         if type(old_modality) is str or type(old_modality) is dict:
-            return Modality(old_modality)
+            try:
+                return Modality(old_modality)
+            except:
+                return Modality(map_modality(old_modality))
         elif type(old_modality) is Modality:
             return old_modality
         else:
