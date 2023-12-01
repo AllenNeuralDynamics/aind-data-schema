@@ -267,7 +267,7 @@ class Stream(AindModel):
 
     @staticmethod
     def _validate_fib_modality(value: List[Modality.ONE_OF], info: ValidationInfo) -> Optional[str]:
-        """Valudate FIB modality has light_sources, detectors, and fiber_connections"""
+        """Validate FIB modality has light_sources, detectors, and fiber_connections"""
         if Modality.FIB in value:
             light_source = info.data["light_sources"]
             detector = info.data["detectors"]

@@ -125,7 +125,7 @@ class Rig(AindCoreModel):
 
     @staticmethod
     def _validate_fib_modality(value: Set[Modality.ONE_OF], info: ValidationInfo) -> List[str]:
-        """Valudate FIB modality has light_sources, detectors, and patch_cords"""
+        """Validate FIB modality has light_sources, detectors, and patch_cords"""
         errors = []
         if Modality.FIB in value:
             for k, v in {

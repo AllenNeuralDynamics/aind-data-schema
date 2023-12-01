@@ -138,5 +138,5 @@ class Platform:
 
     @classmethod
     def from_abbreviation(cls, abbreviation: str):
-        """Get platfrom from abbreviation"""
+        """Get platform from abbreviation"""
         return cls._abbreviation_map[abbreviation]

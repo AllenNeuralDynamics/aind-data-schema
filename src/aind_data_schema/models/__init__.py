@@ -1,1 +1,1 @@
-""" Model defintions used by various core schemas"""
+""" Model definitions used by various core schemas"""
