@@ -314,13 +314,23 @@ class DataDescription(AindCoreModel):
     @validator("data_level", pre=True, always=True)
     def upgrade_data_level(cls, value: Union[str, DataLevel]):
         """Updates legacy values to current values"""
-        # If user inputs a string and is 'raw level', convert it to RAW
-        if isinstance(value, str) and value in ["raw level", "raw data"]:
-            return DataLevel.RAW
-        # If user inputs a string, try to convert it to a DataLevel. Will raise
-        # an error if unable to parse the input string
-        elif isinstance(value, str):
-            return DataLevel(value)
+
+        lookup_table = {
+            "derived data": DataLevel.DERIVED.value,
+            "derived level": DataLevel.DERIVED.value,
+            "derived": DataLevel.DERIVED.value,
+            "processed data": DataLevel.DERIVED.value,
+            "processed": DataLevel.DERIVED.value,
+            "raw data": DataLevel.RAW.value,
+            "raw level": DataLevel.RAW.value,
+            "raw": DataLevel.RAW.value,
+        }
+
+        if isinstance(value, str):
+            if value.lower() in lookup_table.keys():
+                return lookup_table[value.lower()]
+            else:
+                raise ValueError(f"'{value}' is not a valid DataLevel")
         # If user inputs a DataLevel object, return the object without parsing
         elif isinstance(value, DataLevel):
             return value

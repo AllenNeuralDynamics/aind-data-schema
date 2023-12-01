@@ -12,24 +12,22 @@ def map_modality(modality):
     """converts modality string to an enumerated value"""
 
     lookup_table = {
-        "exaspim": Modality.SPIM.value.name,
-        "smartspim": Modality.SPIM.value.name,
-        "ecephys": Modality.ECEPHYS.value.name,
-        "mri-14t": Modality.MRI.value.name,
-        "mri-7t": Modality.MRI.value.name,
-        "test-fip-opto": Modality.FIB.value.name,
-        "hsfp": Modality.FIB.value.name,
-        "fip": Modality.FIB.value.name,
-        "merfish": Modality.FISH.value.name,
-        "dispim": Modality.SPIM.value.name,
-        "mesospim": Modality.MESOSPIM.value.name,
-        'exaspim': Modality.SPIM.value.name,
-        'single-plane-ophys': Modality.OPHYS.value.name,
-        'multiplane-ophys': Modality.OPHYS.value.name,
+        "exaspim": Modality.SPIM.value,
+        "smartspim": Modality.SPIM.value,
+        "ecephys": Modality.ECEPHYS.value,
+        "mri-14t": Modality.MRI.value,
+        "mri-7t": Modality.MRI.value,
+        "test-fip-opto": Modality.FIB.value,
+        "hsfp": Modality.FIB.value,
+        "fip": Modality.FIB.value,
+        "merfish": Modality.MERFISH.value,
+        "dispim": Modality.SPIM.value,
+        "mesospim": Modality.SPIM.value,
+        'single-plane-ophys': Modality.POPHYS.value,
+        'multiplane-ophys': Modality.POPHYS.value,
     }
 
     return lookup_table[modality.lower()]
-
 
 
 class ModalityUpgrade:
@@ -53,7 +51,7 @@ class ModalityUpgrade:
         if type(old_modality) is str or type(old_modality) is dict:
             try:
                 return Modality(old_modality)
-            except:
+            except AttributeError:
                 return Modality(map_modality(old_modality))
         elif type(old_modality) is Modality:
             return old_modality
@@ -125,8 +123,6 @@ class DataDescriptionUpgrade(BaseModelUpgrade):
         if funding_source is not None:
             if type(funding_source) is list:
                 funding_source = [FundingUpgrade.upgrade_funding(funding) for funding in funding_source]
-            else:
-                funding_source = FundingUpgrade.upgrade_funding(funding_source)
         else:
             funding_source = []
             
@@ -140,6 +136,7 @@ class DataDescriptionUpgrade(BaseModelUpgrade):
         else:
             modality = getattr(DataDescription.__fields__.get("modality"), "default")
         old_data_level = self._get_or_default(self.old_model, "data_level", kwargs)
+        
 
         experiment_type = self._get_or_default(self.old_model, "experiment_type", kwargs)
         platform = None

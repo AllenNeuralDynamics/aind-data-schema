@@ -320,13 +320,6 @@ class TestDataDescriptionUpgrade(unittest.TestCase):
     #     new_dd_0_6_2 = upgrader.upgrade(modality=[Modality.ECEPHYS])
     #     self.assertEqual([Modality.ECEPHYS], new_dd_0_6_2.modality)
 
-    def test_missing_funding(self):
-        desc = {'project_name': None, 'modality': [{'name': 'Extracellular electrophysiology', 'abbreviation': 'ecephys'}]}
-
-        data_desc = DataDescription.construct(**desc)
-        upgrader = DataDescriptionUpgrade(old_data_description_model=data_desc)
-        upgrader.upgrade()
-
 
 class TestModalityUpgrade(unittest.TestCase):
     """Tests ModalityUpgrade methods"""
@@ -335,6 +328,31 @@ class TestModalityUpgrade(unittest.TestCase):
         """Tests edge case"""
         self.assertIsNone(ModalityUpgrade.upgrade_modality(None))
         self.assertEqual(Modality.ECEPHYS, ModalityUpgrade.upgrade_modality(Modality.ECEPHYS))
+
+    def test_modality_lookup(self):
+        """Tests old modality lookup case"""
+        dd_dict = {
+            'describedBy': 'https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/data_description.py', 
+            'schema_version': '0.3.0',
+            'license': 'CC-BY-4.0',
+            'creation_time': '16:01:12',
+            'creation_date': '2022-11-01',
+            'name': 'SmartSPIM_623711_2022-10-27_16-48-54_stitched_2022-11-01_16-01-12',
+            'institution': 'AIND',
+            'funding_source': None,
+            'data_level': 'derived data',
+            'group': None,
+            'project_name': None,
+            'project_id': None,
+            'restrictions': None,
+            'modality': 'SmartSPIM',
+            'platform': Platform('SMARTSPIM'),
+            'subject_id': '623711',
+            'input_data_name': 'SmartSPIM_623711_2022-10-27_16-48-54'
+        }
+        dd = DataDescription.construct(**dd_dict)
+        upgrader = DataDescriptionUpgrade(old_data_description_model=dd)
+        upgrader.upgrade()
 
 
 class TestFundingUpgrade(unittest.TestCase):
