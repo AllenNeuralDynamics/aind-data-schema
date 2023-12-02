@@ -5,7 +5,6 @@ from typing import Literal, Union
 from pydantic import ConfigDict, Field
 from typing_extensions import Annotated
 
-from aind_data_schema.base import Constant
 from aind_data_schema.models.pid_names import BaseName, PIDName
 from aind_data_schema.models.registry import ROR
 
@@ -19,505 +18,505 @@ class _Manufacturer(PIDName):
 class AAOptoElectronic(_Manufacturer):
     """AAOptoElectronic"""
 
-    name: Constant("AA Opto Electronic")
-    abbreviation: Constant(None)
-    registry: Constant(None)
-    registry_identifier: Constant(None)
+    name: Literal["AA Opto Electronic"] = "AA Opto Electronic"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
 
 
 class AilipuTechnologyCo(_Manufacturer):
     """AilipuTechnologyCo"""
 
-    name: Constant("Ailipu Technology Co")
-    abbreviation: Constant(None)
-    registry: Constant(None)
-    registry_identifier: Constant(None)
+    name: Literal["Ailipu Technology Co"] = "Ailipu Technology Co"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
 
 
 class Allied(_Manufacturer):
     """Allied"""
 
-    name: Constant("Allied")
-    abbreviation: Constant(None)
-    registry: Constant(None)
-    registry_identifier: Constant(None)
+    name: Literal["Allied"] = "Allied"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
 
 
 class AppliedScientificInstrumentation(_Manufacturer):
     """AppliedScientificInstrumentation"""
 
-    name: Constant("Applied Scientific Instrumentation")
-    abbreviation: Constant("ASI")
-    registry: Constant(None)
-    registry_identifier: Constant(None)
+    name: Literal["Applied Scientific Instrumentation"] = "Applied Scientific Instrumentation"
+    abbreviation: Literal["ASI"] = "ASI"
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
 
 
 class Asus(_Manufacturer):
     """Asus"""
 
-    name: Constant("ASUS")
-    abbreviation: Constant(None)
+    name: Literal["ASUS"] = "ASUS"
+    abbreviation: Literal[None] = None
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
-    registry_identifier: Constant("00bxkz165")
+    registry_identifier: Literal["00bxkz165"] = "00bxkz165"
 
 
 class ArecontVisionCostar(_Manufacturer):
     """ArecontVisionCostar"""
 
-    name: Constant("Arecont Vision Costar")
-    abbreviation: Constant(None)
-    registry: Constant(None)
-    registry_identifier: Constant(None)
+    name: Literal["Arecont Vision Costar"] = "Arecont Vision Costar"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
 
 
 class Basler(_Manufacturer):
     """Basler"""
 
-    name: Constant("Basler")
-    abbreviation: Constant(None)
-    registry: Constant(None)
-    registry_identifier: Constant(None)
+    name: Literal["Basler"] = "Basler"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
 
 
 class CambridgeTechnology(_Manufacturer):
     """CambridgeTechnology"""
 
-    name: Constant("Cambridge Technology")
-    abbreviation: Constant(None)
-    registry: Constant(None)
-    registry_identifier: Constant(None)
+    name: Literal["Cambridge Technology"] = "Cambridge Technology"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
 
 
 class Chroma(_Manufacturer):
     """Chroma"""
 
-    name: Constant("Chroma")
-    abbreviation: Constant(None)
-    registry: Constant(None)
-    registry_identifier: Constant(None)
+    name: Literal["Chroma"] = "Chroma"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
 
 
 class CoherentScientific(_Manufacturer):
     """CoherentScientific"""
 
-    name: Constant("Coherent Scientific")
-    abbreviation: Constant(None)
+    name: Literal["Coherent Scientific"] = "Coherent Scientific"
+    abbreviation: Literal[None] = None
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
-    registry_identifier: Constant("031tysd23")
+    registry_identifier: Literal["031tysd23"] = "031tysd23"
 
 
 class Conoptics(_Manufacturer):
     """Conoptics"""
 
-    name: Constant("Conoptics")
-    abbreviation: Constant(None)
-    registry: Constant(None)
-    registry_identifier: Constant(None)
+    name: Literal["Conoptics"] = "Conoptics"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
 
 
 class Computar(_Manufacturer):
     """Computar"""
 
-    name: Constant("Computar")
-    abbreviation: Constant(None)
-    registry: Constant(None)
-    registry_identifier: Constant(None)
+    name: Literal["Computar"] = "Computar"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
 
 
 class Custom(_Manufacturer):
     """Custom"""
 
-    name: Constant("Custom")
-    abbreviation: Constant(None)
-    registry: Constant(None)
-    registry_identifier: Constant(None)
+    name: Literal["Custom"] = "Custom"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
 
 
 class Doric(_Manufacturer):
     """Doric"""
 
-    name: Constant("Doric")
-    abbreviation: Constant(None)
+    name: Literal["Doric"] = "Doric"
+    abbreviation: Literal[None] = None
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
-    registry_identifier: Constant("059n53q30")
+    registry_identifier: Literal["059n53q30"] = "059n53q30"
 
 
 class Ealing(_Manufacturer):
     """Ealing"""
 
-    name: Constant("Ealing")
-    abbreviation: Constant(None)
-    registry: Constant(None)
-    registry_identifier: Constant(None)
+    name: Literal["Ealing"] = "Ealing"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
 
 
 class EdmundOptics(_Manufacturer):
     """EdmundOptics"""
 
-    name: Constant("Edmund Optics")
-    abbreviation: Constant(None)
+    name: Literal["Edmund Optics"] = "Edmund Optics"
+    abbreviation: Literal[None] = None
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
-    registry_identifier: Constant("01j1gwp17")
+    registry_identifier: Literal["01j1gwp17"] = "01j1gwp17"
 
 
 class Euresys(_Manufacturer):
     """Euresys"""
 
-    name: Constant("Euresys")
-    abbreviation: Constant(None)
-    registry: Constant(None)
-    registry_identifier: Constant(None)
+    name: Literal["Euresys"] = "Euresys"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
 
 
 class TeledyneFLIR(_Manufacturer):
     """TeledyneFLIR"""
 
-    name: Constant("Teledyne FLIR")
-    abbreviation: Constant("FLIR")
+    name: Literal["Teledyne FLIR"] = "Teledyne FLIR"
+    abbreviation: Literal["FLIR"] = "FLIR"
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
-    registry_identifier: Constant("01j1gwp17")
+    registry_identifier: Literal["01j1gwp17"] = "01j1gwp17"
 
 
 class Fujinon(_Manufacturer):
     """Fujinon"""
 
-    name: Constant("Fujinon")
-    abbreviation: Constant(None)
-    registry: Constant(None)
-    registry_identifier: Constant(None)
+    name: Literal["Fujinon"] = "Fujinon"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
 
 
 class Hamamatsu(_Manufacturer):
     """Hamamatsu"""
 
-    name: Constant("Hamamatsu")
-    abbreviation: Constant(None)
+    name: Literal["Hamamatsu"] = "Hamamatsu"
+    abbreviation: Literal[None] = None
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
-    registry_identifier: Constant("03natb733")
+    registry_identifier: Literal["03natb733"] = "03natb733"
 
 
 class TheImagingSource(_Manufacturer):
     """TheImagingSource"""
 
-    name: Constant("The Imaging Source")
-    abbreviation: Constant(None)
-    registry: Constant(None)
-    registry_identifier: Constant(None)
+    name: Literal["The Imaging Source"] = "The Imaging Source"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
 
 
 class InteruniversityMicroelectronicsCenter(_Manufacturer):
     """InteruniversityMicroelectronicsCenter"""
 
-    name: Constant("Interuniversity Microelectronics Center")
-    abbreviation: Constant("IMEC")
+    name: Literal["Interuniversity Microelectronics Center"] = "Interuniversity Microelectronics Center"
+    abbreviation: Literal["IMEC"] = "IMEC"
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
-    registry_identifier: Constant("02kcbn207")
+    registry_identifier: Literal["02kcbn207"] = "02kcbn207"
 
 
 class InfinityPhotoOptical(_Manufacturer):
     """InfinityPhotoOptical"""
 
-    name: Constant("Infinity Photo-Optical")
-    abbreviation: Constant(None)
-    registry: Constant(None)
-    registry_identifier: Constant(None)
+    name: Literal["Infinity Photo-Optical"] = "Infinity Photo-Optical"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
 
 
 class ISLProductsInternational(_Manufacturer):
     """ISLProductsInternational"""
 
-    name: Constant("ISL Products International")
-    abbreviation: Constant("ISL")
-    registry: Constant(None)
-    registry_identifier: Constant(None)
+    name: Literal["ISL Products International"] = "ISL Products International"
+    abbreviation: Literal["ISL"] = "ISL"
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
 
 
 class Julabo(_Manufacturer):
     """Julabo"""
 
-    name: Constant("Julabo")
-    abbreviation: Constant(None)
-    registry: Constant(None)
-    registry_identifier: Constant(None)
+    name: Literal["Julabo"] = "Julabo"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
 
 
 class TheLeeCompany(_Manufacturer):
     """TheLeeCompany"""
 
-    name: Constant("The Lee Company")
-    abbreviation: Constant(None)
-    registry: Constant(None)
-    registry_identifier: Constant(None)
+    name: Literal["The Lee Company"] = "The Lee Company"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
 
 
 class Leica(_Manufacturer):
     """Leica"""
 
-    name: Constant("Leica")
-    abbreviation: Constant(None)
-    registry: Constant(None)
-    registry_identifier: Constant(None)
+    name: Literal["Leica"] = "Leica"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
 
 
 class Lg(_Manufacturer):
     """Lg"""
 
-    name: Constant("LG")
-    abbreviation: Constant(None)
+    name: Literal["LG"] = "LG"
+    abbreviation: Literal[None] = None
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
-    registry_identifier: Constant("02b948n83")
+    registry_identifier: Literal["02b948n83"] = "02b948n83"
 
 
 class LifeCanvas(_Manufacturer):
     """LifeCanvas"""
 
-    name: Constant("LifeCanvas")
-    abbreviation: Constant(None)
-    registry: Constant(None)
-    registry_identifier: Constant(None)
+    name: Literal["LifeCanvas"] = "LifeCanvas"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
 
 
 class MeadowlarkOptics(_Manufacturer):
     """MeadowlarkOptics"""
 
-    name: Constant("Meadowlark Optics")
-    abbreviation: Constant(None)
+    name: Literal["Meadowlark Optics"] = "Meadowlark Optics"
+    abbreviation: Literal[None] = None
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
-    registry_identifier: Constant("00n8qbq54")
+    registry_identifier: Literal["00n8qbq54"] = "00n8qbq54"
 
 
 class IRRobotCo(_Manufacturer):
     """IRRobotCo"""
 
-    name: Constant("IR Robot Co")
-    abbreviation: Constant(None)
-    registry: Constant(None)
-    registry_identifier: Constant(None)
+    name: Literal["IR Robot Co"] = "IR Robot Co"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
 
 
 class Mitutuyo(_Manufacturer):
     """Mitutuyo"""
 
-    name: Constant("Mitutuyo")
-    abbreviation: Constant(None)
-    registry: Constant(None)
-    registry_identifier: Constant(None)
+    name: Literal["Mitutuyo"] = "Mitutuyo"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
 
 
 class MKSNewport(_Manufacturer):
     """MKSNewport"""
 
-    name: Constant("MKS Newport")
-    abbreviation: Constant(None)
+    name: Literal["MKS Newport"] = "MKS Newport"
+    abbreviation: Literal[None] = None
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
-    registry_identifier: Constant("00k17f049")
+    registry_identifier: Literal["00k17f049"] = "00k17f049"
 
 
 class Mpi(_Manufacturer):
     """Mpi"""
 
-    name: Constant("MPI")
-    abbreviation: Constant("MPI")
-    registry: Constant(None)
-    registry_identifier: Constant(None)
+    name: Literal["MPI"] = "MPI"
+    abbreviation: Literal["MPI"] = "MPI"
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
 
 
 class NationalInstruments(_Manufacturer):
     """NationalInstruments"""
 
-    name: Constant("National Instruments")
-    abbreviation: Constant(None)
+    name: Literal["National Instruments"] = "National Instruments"
+    abbreviation: Literal[None] = None
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
-    registry_identifier: Constant("026exqw73")
+    registry_identifier: Literal["026exqw73"] = "026exqw73"
 
 
 class Navitar(_Manufacturer):
     """Navitar"""
 
-    name: Constant("Navitar")
-    abbreviation: Constant(None)
-    registry: Constant(None)
-    registry_identifier: Constant(None)
+    name: Literal["Navitar"] = "Navitar"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
 
 
 class NewScaleTechnologies(_Manufacturer):
     """NewScaleTechnologies"""
 
-    name: Constant("New Scale Technologies")
-    abbreviation: Constant(None)
-    registry: Constant(None)
-    registry_identifier: Constant(None)
+    name: Literal["New Scale Technologies"] = "New Scale Technologies"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
 
 
 class Nikon(_Manufacturer):
     """Nikon"""
 
-    name: Constant("Nikon")
-    abbreviation: Constant(None)
+    name: Literal["Nikon"] = "Nikon"
+    abbreviation: Literal[None] = None
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
-    registry_identifier: Constant("0280y9h11")
+    registry_identifier: Literal["0280y9h11"] = "0280y9h11"
 
 
 class OpenEphysProductionSite(_Manufacturer):
     """OpenEphysProductionSite"""
 
-    name: Constant("Open Ephys Production Site")
-    abbreviation: Constant("OEPS")
+    name: Literal["Open Ephys Production Site"] = "Open Ephys Production Site"
+    abbreviation: Literal["OEPS"] = "OEPS"
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
-    registry_identifier: Constant("007rkz355")
+    registry_identifier: Literal["007rkz355"] = "007rkz355"
 
 
 class Olympus(_Manufacturer):
     """Olympus"""
 
-    name: Constant("Olympus")
-    abbreviation: Constant(None)
+    name: Literal["Olympus"] = "Olympus"
+    abbreviation: Literal[None] = None
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
-    registry_identifier: Constant("02vcdte90")
+    registry_identifier: Literal["02vcdte90"] = "02vcdte90"
 
 
 class Optotune(_Manufacturer):
     """Optotune"""
 
-    name: Constant("Optotune")
-    abbreviation: Constant(None)
-    registry: Constant(None)
-    registry_identifier: Constant(None)
+    name: Literal["Optotune"] = "Optotune"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
 
 
 class Oxxius(_Manufacturer):
     """Oxxius"""
 
-    name: Constant("Oxxius")
-    abbreviation: Constant(None)
-    registry: Constant(None)
-    registry_identifier: Constant(None)
+    name: Literal["Oxxius"] = "Oxxius"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
 
 
 class Prizmatix(_Manufacturer):
     """Prizmatix"""
 
-    name: Constant("Prizmatix")
-    abbreviation: Constant(None)
-    registry: Constant(None)
-    registry_identifier: Constant(None)
+    name: Literal["Prizmatix"] = "Prizmatix"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
 
 
 class Quantifi(_Manufacturer):
     """Quantifi"""
 
-    name: Constant("Quantifi")
-    abbreviation: Constant(None)
-    registry: Constant(None)
-    registry_identifier: Constant(None)
+    name: Literal["Quantifi"] = "Quantifi"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
 
 
 class RaspberryPi(_Manufacturer):
     """RaspberryPi"""
 
-    name: Constant("Raspberry Pi")
-    abbreviation: Constant(None)
-    registry: Constant(None)
-    registry_identifier: Constant(None)
+    name: Literal["Raspberry Pi"] = "Raspberry Pi"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
 
 
 class Semrock(_Manufacturer):
     """Semrock"""
 
-    name: Constant("Semrock")
-    abbreviation: Constant(None)
-    registry: Constant(None)
-    registry_identifier: Constant(None)
+    name: Literal["Semrock"] = "Semrock"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
 
 
 class SchneiderKreuznach(_Manufacturer):
     """SchneiderKreuznach"""
 
-    name: Constant("Schneider-Kreuznach")
-    abbreviation: Constant(None)
-    registry: Constant(None)
-    registry_identifier: Constant(None)
+    name: Literal["Schneider-Kreuznach"] = "Schneider-Kreuznach"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
 
 
 class Spinnaker(_Manufacturer):
     """Spinnaker"""
 
-    name: Constant("Spinnaker")
-    abbreviation: Constant(None)
-    registry: Constant(None)
-    registry_identifier: Constant(None)
+    name: Literal["Spinnaker"] = "Spinnaker"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
 
 
 class Tamron(_Manufacturer):
     """Tamron"""
 
-    name: Constant("Tamron")
-    abbreviation: Constant(None)
-    registry: Constant(None)
-    registry_identifier: Constant(None)
+    name: Literal["Tamron"] = "Tamron"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
 
 
 class Thorlabs(_Manufacturer):
     """Thorlabs"""
 
-    name: Constant("Thorlabs")
-    abbreviation: Constant(None)
+    name: Literal["Thorlabs"] = "Thorlabs"
+    abbreviation: Literal[None] = None
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
-    registry_identifier: Constant("04gsnvb07")
+    registry_identifier: Literal["04gsnvb07"] = "04gsnvb07"
 
 
 class TechnicalManufacturingCorporation(_Manufacturer):
     """TechnicalManufacturingCorporation"""
 
-    name: Constant("Technical Manufacturing Corporation")
-    abbreviation: Constant("TMC")
-    registry: Constant(None)
-    registry_identifier: Constant(None)
+    name: Literal["Technical Manufacturing Corporation"] = "Technical Manufacturing Corporation"
+    abbreviation: Literal["TMC"] = "TMC"
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
 
 
 class Tymphany(_Manufacturer):
     """Tymphany"""
 
-    name: Constant("Tymphany")
-    abbreviation: Constant(None)
-    registry: Constant(None)
-    registry_identifier: Constant(None)
+    name: Literal["Tymphany"] = "Tymphany"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
 
 
 class Vieworks(_Manufacturer):
     """Vieworks"""
 
-    name: Constant("Vieworks")
-    abbreviation: Constant(None)
-    registry: Constant(None)
-    registry_identifier: Constant(None)
+    name: Literal["Vieworks"] = "Vieworks"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
 
 
 class Vortran(_Manufacturer):
     """Vortran"""
 
-    name: Constant("Vortran")
-    abbreviation: Constant(None)
-    registry: Constant(None)
-    registry_identifier: Constant(None)
+    name: Literal["Vortran"] = "Vortran"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
 
 
 class CarlZeiss(_Manufacturer):
     """CarlZeiss"""
 
-    name: Constant("Carl Zeiss")
-    abbreviation: Constant(None)
+    name: Literal["Carl Zeiss"] = "Carl Zeiss"
+    abbreviation: Literal[None] = None
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
-    registry_identifier: Constant("01xk5xs43")
+    registry_identifier: Literal["01xk5xs43"] = "01xk5xs43"
 
 
 class Other(_Manufacturer):
     """Other"""
 
-    name: Constant("Other")
-    abbreviation: Constant(None)
-    registry: Constant(None)
-    registry_identifier: Constant(None)
+    name: Literal["Other"] = "Other"
+    abbreviation: Literal[None] = None
+    registry: Literal[None] = None
+    registry_identifier: Literal[None] = None
 
 
 class Manufacturer:

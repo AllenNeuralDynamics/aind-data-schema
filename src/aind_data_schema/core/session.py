@@ -9,7 +9,7 @@ from pydantic import Field, field_validator
 from pydantic_core.core_schema import ValidationInfo
 from typing_extensions import Annotated
 
-from aind_data_schema.base import AindCoreModel, AindModel, Constant
+from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.imaging.tile import Channel
 from aind_data_schema.models.coordinates import CcfCoords, Coordinates3d
 from aind_data_schema.models.devices import Calibration, Maintenance, RelativePosition, SpoutSide
@@ -47,7 +47,7 @@ class DetectorConfigs(AindModel):
 class LightEmittingDiodeConfigs(AindModel):
     """Description of LED settings"""
 
-    config_type: Constant("LightEmittingDiodeConfigs")
+    config_type: Literal["LightEmittingDiodeConfigs"] = "LightEmittingDiodeConfigs"
     name: str = Field(..., title="Name")
     excitation_power: Optional[Decimal] = Field(None, title="Excitation power (mW)")
     excitation_power_unit: PowerUnit = Field(PowerUnit.MW, title="Excitation power unit")
@@ -180,7 +180,7 @@ class FiberModule(ManipulatorModule):
 class LaserConfigs(AindModel):
     """Description of laser settings in a session"""
 
-    config_type: Constant("LaserConfigs")
+    config_type: Literal["LaserConfigs"] = "LaserConfigs"
     name: str = Field(..., title="Name", description="Must match rig json")
     wavelength: int = Field(..., title="Wavelength (nm)")
     wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
@@ -339,7 +339,7 @@ class Session(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/session.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": True})
-    schema_version: Constant("0.1.0", title="Schema version")
+    schema_version: Literal["0.1.0"] = Field("0.1.0")
 
     experimenter_full_name: List[str] = Field(
         ...,

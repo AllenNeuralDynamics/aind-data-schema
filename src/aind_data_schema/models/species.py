@@ -5,7 +5,6 @@ from typing import Literal, Union
 from pydantic import ConfigDict, Field
 from typing_extensions import Annotated
 
-from aind_data_schema.base import Constant
 from aind_data_schema.models.pid_names import BaseName, PIDName
 from aind_data_schema.models.registry import NCBI
 
@@ -19,37 +18,37 @@ class _Species(PIDName):
 class CallithrixJacchus(_Species):
     """CallithrixJacchus"""
 
-    name: Constant("Callithrix jacchus")
-    abbreviation: Constant(None)
+    name: Literal["Callithrix jacchus"] = "Callithrix jacchus"
+    abbreviation: Literal[None] = None
     registry: BaseName = Field(NCBI, json_schema_extra={"const": True})
-    registry_identifier: Constant("9483")
+    registry_identifier: Literal["9483"] = "9483"
 
 
 class HomoSapiens(_Species):
     """HomoSapiens"""
 
-    name: Constant("Homo sapiens")
-    abbreviation: Constant(None)
+    name: Literal["Homo sapiens"] = "Homo sapiens"
+    abbreviation: Literal[None] = None
     registry: BaseName = Field(NCBI, json_schema_extra={"const": True})
-    registry_identifier: Constant("9606")
+    registry_identifier: Literal["9606"] = "9606"
 
 
 class MacacaMulatta(_Species):
     """MacacaMulatta"""
 
-    name: Constant("Macaca mulatta")
-    abbreviation: Constant(None)
+    name: Literal["Macaca mulatta"] = "Macaca mulatta"
+    abbreviation: Literal[None] = None
     registry: BaseName = Field(NCBI, json_schema_extra={"const": True})
-    registry_identifier: Constant("9544")
+    registry_identifier: Literal["9544"] = "9544"
 
 
 class MusMusculus(_Species):
     """MusMusculus"""
 
-    name: Constant("Mus musculus")
-    abbreviation: Constant(None)
+    name: Literal["Mus musculus"] = "Mus musculus"
+    abbreviation: Literal[None] = None
     registry: BaseName = Field(NCBI, json_schema_extra={"const": True})
-    registry_identifier: Constant("10090")
+    registry_identifier: Literal["10090"] = "10090"
 
 
 class Species:

@@ -2,13 +2,10 @@
 
 import re
 from pathlib import Path
-from typing import Annotated, Literal, Optional
+from typing import Optional
 
 from pydantic import BaseModel, ConfigDict, Field, PrivateAttr
 
-def Constant(value, *field_args, **field_kwargs):
-    """An alias for constant literal notation"""
-    return Annotated[Literal[value], Field(value, *field_args, **field_kwargs)]
 
 class AindModel(BaseModel):
     """BaseModel that disallows extra fields"""

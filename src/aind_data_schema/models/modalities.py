@@ -5,7 +5,6 @@ from typing import Literal, Union
 from pydantic import ConfigDict, Field
 from typing_extensions import Annotated
 
-from aind_data_schema.base import Constant
 from aind_data_schema.models.pid_names import BaseName
 
 
@@ -18,22 +17,22 @@ class _Modality(BaseName):
 class BehaviorVideos(_Modality):
     """BehaviorVideos"""
 
-    name: Constant("Behavior videos")
-    abbreviation: Constant("behavior-videos")
+    name: Literal["Behavior videos"] = "Behavior videos"
+    abbreviation: Literal["behavior-videos"] = "behavior-videos"
 
 
 class Confocal(_Modality):
     """Confocal"""
 
-    name: Constant("Confocal microscopy")
-    abbreviation: Constant("confocal")
+    name: Literal["Confocal microscopy"] = "Confocal microscopy"
+    abbreviation: Literal["confocal"] = "confocal"
 
 
 class Ecephys(_Modality):
     """Ecephys"""
 
-    name: Constant("Extracellular electrophysiology")
-    abbreviation: Constant("ecephys")
+    name: Literal["Extracellular electrophysiology"] = "Extracellular electrophysiology"
+    abbreviation: Literal["ecephys"] = "ecephys"
 
 
 class Fmost(_Modality):
@@ -42,21 +41,21 @@ class Fmost(_Modality):
     name: Literal[
         "Fluorescence micro-optical sectioning tomography"
     ] = "Fluorescence micro-optical sectioning tomography"
-    abbreviation: Constant("fMOST")
+    abbreviation: Literal["fMOST"] = "fMOST"
 
 
 class Icephys(_Modality):
     """Icephys"""
 
-    name: Constant("Intracellular electrophysiology")
-    abbreviation: Constant("icephys")
+    name: Literal["Intracellular electrophysiology"] = "Intracellular electrophysiology"
+    abbreviation: Literal["icephys"] = "icephys"
 
 
 class Fib(_Modality):
     """Fib"""
 
-    name: Constant("Fiber photometry")
-    abbreviation: Constant("fib")
+    name: Literal["Fiber photometry"] = "Fiber photometry"
+    abbreviation: Literal["fib"] = "fib"
 
 
 class Merfish(_Modality):
@@ -65,42 +64,42 @@ class Merfish(_Modality):
     name: Literal[
         "Multiplexed error-robust fluorescence in situ hybridization"
     ] = "Multiplexed error-robust fluorescence in situ hybridization"
-    abbreviation: Constant("merfish")
+    abbreviation: Literal["merfish"] = "merfish"
 
 
 class Mri(_Modality):
     """Mri"""
 
-    name: Constant("Magnetic resonance imaging")
-    abbreviation: Constant("MRI")
+    name: Literal["Magnetic resonance imaging"] = "Magnetic resonance imaging"
+    abbreviation: Literal["MRI"] = "MRI"
 
 
 class POphys(_Modality):
     """POphys"""
 
-    name: Constant("Planar optical physiology")
-    abbreviation: Constant("ophys")
+    name: Literal["Planar optical physiology"] = "Planar optical physiology"
+    abbreviation: Literal["ophys"] = "ophys"
 
 
 class Slap(_Modality):
     """Slap"""
 
-    name: Constant("Scanned line projection imaging")
-    abbreviation: Constant("slap")
+    name: Literal["Scanned line projection imaging"] = "Scanned line projection imaging"
+    abbreviation: Literal["slap"] = "slap"
 
 
 class Spim(_Modality):
     """Spim"""
 
-    name: Constant("Selective plane illumination microscopy")
-    abbreviation: Constant("SPIM")
+    name: Literal["Selective plane illumination microscopy"] = "Selective plane illumination microscopy"
+    abbreviation: Literal["SPIM"] = "SPIM"
 
 
 class TrainedBehavior(_Modality):
     """TrainedBehavior"""
 
-    name: Constant("Trained behavior")
-    abbreviation: Constant("trained-behavior")
+    name: Literal["Trained behavior"] = "Trained behavior"
+    abbreviation: Literal["trained-behavior"] = "trained-behavior"
 
 
 class Modality:
