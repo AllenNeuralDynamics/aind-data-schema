@@ -29,7 +29,7 @@
          "camera_names": [],
          "light_sources": [
             {
-               "config_type": "LaserConfigs",
+               "config_type": "LaserConfig",
                "name": "Laser A",
                "wavelength": 405,
                "wavelength_unit": "nanometer",
@@ -37,7 +37,7 @@
                "excitation_power_unit": "milliwatt"
             },
             {
-               "config_type": "LaserConfigs",
+               "config_type": "LaserConfig",
                "name": "Laser B",
                "wavelength": 473,
                "wavelength_unit": "nanometer",

@@ -8,8 +8,8 @@ import pydantic
 from aind_data_schema.core.session import (
     DomeModule,
     EphysModule,
-    EphysProbeConfigs,
-    RewardDeliveryConfigs,
+    EphysProbeConfig,
+    RewardDeliveryConfig,
     Session,
     Stream,
 )
@@ -47,7 +47,7 @@ class ExampleTest(unittest.TestCase):
                     ],
                     ephys_modules=[
                         EphysModule(
-                            ephys_probes=[EphysProbeConfigs(name="Probe A")],
+                            ephys_probes=[EphysProbeConfig(name="Probe A")],
                             assembly_name="Ephys_assemblyA",
                             arc_angle=0,
                             module_angle=10,
@@ -65,10 +65,10 @@ class ExampleTest(unittest.TestCase):
         assert sess is not None
 
         with self.assertRaises(pydantic.ValidationError):
-            RewardDeliveryConfigs()
+            RewardDeliveryConfig()
 
         with self.assertRaises(pydantic.ValidationError):
-            RewardDeliveryConfigs(reward_solution="Other")
+            RewardDeliveryConfig(reward_solution="Other")
 
     def test_validators(self):
         """Test the session file validators"""

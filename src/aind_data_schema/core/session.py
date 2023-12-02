@@ -19,7 +19,7 @@ from aind_data_schema.models.units import AngleUnit, FrequencyUnit, MassUnit, Po
 
 
 # Ophys components
-class FiberConnectionConfigs(AindModel):
+class FiberConnectionConfig(AindModel):
     """Description for a fiber photometry configuration"""
 
     patch_cord_name: str = Field(..., title="Patch cord name (must match rig)")
@@ -35,7 +35,7 @@ class TriggerType(str, Enum):
     EXTERNAL = "External"
 
 
-class DetectorConfigs(AindModel):
+class DetectorConfig(AindModel):
     """Description of detector settings"""
 
     name: str = Field(..., title="Name")
@@ -44,10 +44,10 @@ class DetectorConfigs(AindModel):
     trigger_type: TriggerType = Field(..., title="Trigger type")
 
 
-class LightEmittingDiodeConfigs(AindModel):
+class LightEmittingDiodeConfig(AindModel):
     """Description of LED settings"""
 
-    config_type: Literal["LightEmittingDiodeConfigs"] = "LightEmittingDiodeConfigs"
+    config_type: Literal["LightEmittingDiodeConfig"] = "LightEmittingDiodeConfig"
     name: str = Field(..., title="Name")
     excitation_power: Optional[Decimal] = Field(None, title="Excitation power (mW)")
     excitation_power_unit: PowerUnit = Field(PowerUnit.MW, title="Excitation power unit")
@@ -158,7 +158,7 @@ class ManipulatorModule(DomeModule):
     )
 
 
-class EphysProbeConfigs(AindModel):
+class EphysProbeConfig(AindModel):
     """Probes in a EphysProbeModule"""
 
     name: str = Field(..., title="Ephys probe name (must match rig JSON)")
@@ -168,19 +168,19 @@ class EphysProbeConfigs(AindModel):
 class EphysModule(ManipulatorModule):
     """Probe recorded in a Stream"""
 
-    ephys_probes: List[EphysProbeConfigs] = Field(..., title="Ephys probes used in this module")
+    ephys_probes: List[EphysProbeConfig] = Field(..., title="Ephys probes used in this module")
 
 
 class FiberModule(ManipulatorModule):
     """Inserted fiber photometry probe recorded in a stream"""
 
-    fiber_connections: List[FiberConnectionConfigs] = Field([], title="Fiber photometry devices")
+    fiber_connections: List[FiberConnectionConfig] = Field([], title="Fiber photometry devices")
 
 
-class LaserConfigs(AindModel):
+class LaserConfig(AindModel):
     """Description of laser settings in a session"""
 
-    config_type: Literal["LaserConfigs"] = "LaserConfigs"
+    config_type: Literal["LaserConfig"] = "LaserConfig"
     name: str = Field(..., title="Name", description="Must match rig json")
     wavelength: int = Field(..., title="Wavelength (nm)")
     wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
@@ -188,7 +188,7 @@ class LaserConfigs(AindModel):
     excitation_power_unit: PowerUnit = Field(PowerUnit.MW, title="Excitation power unit")
 
 
-LIGHT_SOURCE_CONFIGS = Annotated[Union[LightEmittingDiodeConfigs, LaserConfigs], Field(discriminator="config_type")]
+LIGHT_SOURCE_CONFIGS = Annotated[Union[LightEmittingDiodeConfig, LaserConfig], Field(discriminator="config_type")]
 
 
 # Behavior components
@@ -199,7 +199,7 @@ class RewardSolution(str, Enum):
     OTHER = "Other"
 
 
-class RewardSpoutConfigs(AindModel):
+class RewardSpoutConfig(AindModel):
     """Reward spout session information"""
 
     side: SpoutSide = Field(..., title="Spout side", description="Must match rig")
@@ -209,11 +209,11 @@ class RewardSpoutConfigs(AindModel):
     )
 
 
-class RewardDeliveryConfigs(AindModel):
+class RewardDeliveryConfig(AindModel):
     """Description of reward delivery configuration"""
 
     reward_solution: RewardSolution = Field(..., title="Reward solution", description="If Other use notes")
-    reward_spouts: List[RewardSpoutConfigs] = Field(..., title="Reward spouts")
+    reward_spouts: List[RewardSpoutConfig] = Field(..., title="Reward spouts")
     notes: Optional[str] = Field(None, title="Notes", validate_default=True)
 
     @field_validator("notes", mode="after")
@@ -242,8 +242,8 @@ class Stream(AindModel):
         description="Must match stick microscope assemblies in rig file",
     )
     manipulator_modules: List[ManipulatorModule] = Field([], title="Manipulator modules")
-    detectors: List[DetectorConfigs] = Field([], title="Detectors")
-    fiber_connections: List[FiberConnectionConfigs] = Field([], title="Implanted fiber photometry devices")
+    detectors: List[DetectorConfig] = Field([], title="Detectors")
+    fiber_connections: List[FiberConnectionConfig] = Field([], title="Implanted fiber photometry devices")
     fiber_modules: List[FiberModule] = Field([], title="Inserted fiber modules")
     ophys_fovs: List[FieldOfView] = Field([], title="Fields of view")
     slap_fovs: Optional[SlapFieldOfView] = Field(None, title="Slap2 field of view")
@@ -374,7 +374,7 @@ class Session(AindCoreModel):
         ),
     )
     stimulus_epochs: List[StimulusEpoch] = Field([], title="Stimulus")
-    reward_delivery: Optional[RewardDeliveryConfigs] = Field(None, title="Reward delivery")
+    reward_delivery: Optional[RewardDeliveryConfig] = Field(None, title="Reward delivery")
     reward_consumed_total: Optional[Decimal] = Field(None, title="Total reward consumed (uL)")
     reward_consumed_unit: VolumeUnit = Field(VolumeUnit.UL, title="Reward consumed unit")
     notes: Optional[str] = Field(None, title="Notes")

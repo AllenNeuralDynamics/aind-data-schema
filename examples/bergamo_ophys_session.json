@@ -37,7 +37,7 @@
          "active_mouse_platform": false,
          "light_sources": [
             {
-               "config_type": "LaserConfigs",
+               "config_type": "LaserConfig",
                "name": "Laser A",
                "wavelength": 405,
                "wavelength_unit": "nanometer",

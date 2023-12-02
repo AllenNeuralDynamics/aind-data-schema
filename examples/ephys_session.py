@@ -5,8 +5,8 @@ from datetime import datetime
 from aind_data_schema.core.session import (
     DomeModule,
     EphysModule,
-    EphysProbeConfigs,
-    LaserConfigs,
+    EphysProbeConfig,
+    LaserConfig,
     ManipulatorModule,
     Session,
     Stream,
@@ -14,9 +14,9 @@ from aind_data_schema.core.session import (
 from aind_data_schema.models.coordinates import Coordinates3d
 from aind_data_schema.models.modalities import Modality
 
-red_laser = LaserConfigs(name="Red Laser", wavelength=700, excitation_power=100)
+red_laser = LaserConfig(name="Red Laser", wavelength=700, excitation_power=100)
 
-blue_laser = LaserConfigs(name="Blue Laser", wavelength=350, excitation_power=50)
+blue_laser = LaserConfig(name="Blue Laser", wavelength=350, excitation_power=50)
 
 laser_module = ManipulatorModule(
     assembly_name="Laser_assemblyA",
@@ -33,8 +33,8 @@ ephys_module = EphysModule(
     primary_targeted_structure="VISp",
     manipulator_coordinates=Coordinates3d(x=1000, y=1000, z=1000),
     ephys_probes=[
-        EphysProbeConfigs(name="Probe A"),
-        EphysProbeConfigs(name="Probe B"),
+        EphysProbeConfig(name="Probe A"),
+        EphysProbeConfig(name="Probe B"),
     ],
 )
 
