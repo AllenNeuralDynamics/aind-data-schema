@@ -112,3 +112,21 @@ class Institution:
     SIMONS = SimonsFoundation()
     ALL = tuple(_Institution.__subclasses__())
     ONE_OF = Annotated[Union[ALL], Field(discriminator="name")]
+
+    _abbreviation_map = {m().abbreviation: m() for m in ALL}
+    _name_map = {m().name: m() for m in ALL}
+
+    @classmethod
+    def from_abbreviation(cls, abbreviation: str):
+        """Get class from abbreviation"""
+        return cls._abbreviation_map[abbreviation]
+
+    @classmethod
+    def from_name(cls, name: str):
+        """Get class from abbreviation"""
+        return cls._name_map[name]
+
+    @property
+    def name_map(self) -> dict:
+        """Dictionary of mapping from name to object"""
+        return self._name_map

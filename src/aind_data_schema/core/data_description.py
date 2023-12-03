@@ -204,6 +204,8 @@ class DataDescription(AindCoreModel):
         # If user inputs a string and is 'raw level', convert it to RAW
         if isinstance(value, str) and value in ["raw level", "raw data"]:
             return DataLevel.RAW
+        if isinstance(value, str) and value in ["derived level", "derived data"]:
+            return DataLevel.DERIVED
         # If user inputs a string, try to convert it to a DataLevel. Will raise
         # an error if unable to parse the input string
         elif isinstance(value, str):

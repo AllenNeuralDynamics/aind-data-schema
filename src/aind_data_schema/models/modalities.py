@@ -119,3 +119,10 @@ class Modality:
     TRAINED_BEHAVIOR = TrainedBehavior()
     ALL = tuple(_Modality.__subclasses__())
     ONE_OF = Annotated[Union[ALL], Field(discriminator="name")]
+
+    _abbreviation_map = {m().abbreviation: m() for m in ALL}
+
+    @classmethod
+    def from_abbreviation(cls, abbreviation: str):
+        """Get class from abbreviation"""
+        return cls._abbreviation_map[abbreviation]
