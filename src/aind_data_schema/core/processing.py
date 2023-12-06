@@ -84,7 +84,7 @@ class Registration(DataProcess):
 class Processing(AindCoreModel):
     """Description of all processes run on data"""
 
-    _DESCRIBED_BY_URL: str = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/processing.py"
+    _DESCRIBED_BY_URL: str = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/processing.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
     schema_version: Literal["0.4.0"] = Field("0.4.0")
 

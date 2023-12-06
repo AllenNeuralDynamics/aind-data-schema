@@ -83,7 +83,7 @@ class Housing(AindModel):
 class Subject(AindCoreModel):
     """Description of a subject of data collection"""
 
-    _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/subject.py"
+    _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/subject.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
     schema_version: Literal["0.5.0"] = Field("0.5.0")
     species: Species.ONE_OF = Field(..., title="Species")

@@ -21,7 +21,7 @@ class AindCoreModel(AindModel):
         default="https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/"
     )
 
-    describedBy: str = Field(..., json_schema_extra={"const": True})
+    describedBy: str = Field(...)
     schema_version: str = Field(
         ..., pattern=r"^\d+.\d+.\d+$", description="schema version", title="Version", frozen=True
     )

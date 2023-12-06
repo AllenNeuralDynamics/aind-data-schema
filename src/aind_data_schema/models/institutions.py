@@ -93,7 +93,7 @@ class SimonsFoundation(_Institution):
     """SimonsFoundation"""
 
     name: Literal["Simons Foundation"] = "Simons Foundation"
-    abbreviation: Literal[None] = Field(None, json_schema_extra={"type": "string"})
+    abbreviation: Literal[None] = Field(None)
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
     registry_identifier: Literal["01cmst727"] = "01cmst727"
 

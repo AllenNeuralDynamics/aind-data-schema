@@ -16,7 +16,7 @@ class BaseTests(unittest.TestCase):
 
         self.assertEqual(
             "https://raw.githubusercontent.com/AllenNeuralDynamics/"
-            "aind-data-schema/main/src/aind_data_schema/subject.py",
+            "aind-data-schema/main/src/aind_data_schema/core/subject.py",
             s.describedBy,
         )
 

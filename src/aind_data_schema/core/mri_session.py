@@ -57,7 +57,7 @@ class MRIScan(AindModel):
 class MriSession(AindCoreModel):
     """Description of an MRI scan"""
 
-    _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/imaging/mri_session.py"
+    _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/mri_session.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
     schema_version: Literal["0.2.0"] = Field("0.2.0")
     subject_id: str = Field(
