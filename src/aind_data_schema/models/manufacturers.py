@@ -19,7 +19,7 @@ class AAOptoElectronic(_Manufacturer):
     """AAOptoElectronic"""
 
     name: Literal["AA Opto Electronic"] = "AA Opto Electronic"
-    abbreviation: Literal[None] = Field(None, json_schema_extra={"const": True})
+    abbreviation: Literal[None] = Field(None, json_schema_extra={"type": "string"})
     registry: Literal[None] = Field(None, json_schema_extra={"const": True})
     registry_identifier: Literal[None] = Field(None, json_schema_extra={"const": True})
 
@@ -28,7 +28,7 @@ class AilipuTechnologyCo(_Manufacturer):
     """AilipuTechnologyCo"""
 
     name: Literal["Ailipu Technology Co"] = "Ailipu Technology Co"
-    abbreviation: Literal[None] = Field(None, json_schema_extra={"const": True})
+    abbreviation: Literal[None] = Field(None, json_schema_extra={"type": "string"})
     registry: Literal[None] = Field(None, json_schema_extra={"const": True})
     registry_identifier: Literal[None] = Field(None, json_schema_extra={"const": True})
 
@@ -37,7 +37,7 @@ class Allied(_Manufacturer):
     """Allied"""
 
     name: Literal["Allied"] = "Allied"
-    abbreviation: Literal[None] = Field(None, json_schema_extra={"const": True})
+    abbreviation: Literal[None] = Field(None, json_schema_extra={"type": "string"})
     registry: Literal[None] = Field(None, json_schema_extra={"const": True})
     registry_identifier: Literal[None] = Field(None, json_schema_extra={"const": True})
 
@@ -55,7 +55,7 @@ class Asus(_Manufacturer):
     """Asus"""
 
     name: Literal["ASUS"] = "ASUS"
-    abbreviation: Literal[None] = Field(None, json_schema_extra={"const": True})
+    abbreviation: Literal[None] = Field(None, json_schema_extra={"type": "string"})
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
     registry_identifier: Literal["00bxkz165"] = "00bxkz165"
 
@@ -64,7 +64,7 @@ class ArecontVisionCostar(_Manufacturer):
     """ArecontVisionCostar"""
 
     name: Literal["Arecont Vision Costar"] = "Arecont Vision Costar"
-    abbreviation: Literal[None] = Field(None, json_schema_extra={"const": True})
+    abbreviation: Literal[None] = Field(None, json_schema_extra={"type": "string"})
     registry: Literal[None] = Field(None, json_schema_extra={"const": True})
     registry_identifier: Literal[None] = Field(None, json_schema_extra={"const": True})
 
@@ -73,7 +73,7 @@ class Basler(_Manufacturer):
     """Basler"""
 
     name: Literal["Basler"] = "Basler"
-    abbreviation: Literal[None] = Field(None, json_schema_extra={"const": True})
+    abbreviation: Literal[None] = Field(None, json_schema_extra={"type": "string"})
     registry: Literal[None] = Field(None, json_schema_extra={"const": True})
     registry_identifier: Literal[None] = Field(None, json_schema_extra={"const": True})
 
@@ -82,7 +82,7 @@ class CambridgeTechnology(_Manufacturer):
     """CambridgeTechnology"""
 
     name: Literal["Cambridge Technology"] = "Cambridge Technology"
-    abbreviation: Literal[None] = Field(None, json_schema_extra={"const": True})
+    abbreviation: Literal[None] = Field(None, json_schema_extra={"type": "string"})
     registry: Literal[None] = Field(None, json_schema_extra={"const": True})
     registry_identifier: Literal[None] = Field(None, json_schema_extra={"const": True})
 
@@ -91,7 +91,7 @@ class Chroma(_Manufacturer):
     """Chroma"""
 
     name: Literal["Chroma"] = "Chroma"
-    abbreviation: Literal[None] = Field(None, json_schema_extra={"const": True})
+    abbreviation: Literal[None] = Field(None, json_schema_extra={"type": "string"})
     registry: Literal[None] = Field(None, json_schema_extra={"const": True})
     registry_identifier: Literal[None] = Field(None, json_schema_extra={"const": True})
 
@@ -100,7 +100,7 @@ class CoherentScientific(_Manufacturer):
     """CoherentScientific"""
 
     name: Literal["Coherent Scientific"] = "Coherent Scientific"
-    abbreviation: Literal[None] = Field(None, json_schema_extra={"const": True})
+    abbreviation: Literal[None] = Field(None, json_schema_extra={"type": "string"})
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
     registry_identifier: Literal["031tysd23"] = "031tysd23"
 
@@ -109,7 +109,7 @@ class Conoptics(_Manufacturer):
     """Conoptics"""
 
     name: Literal["Conoptics"] = "Conoptics"
-    abbreviation: Literal[None] = Field(None, json_schema_extra={"const": True})
+    abbreviation: Literal[None] = Field(None, json_schema_extra={"type": "string"})
     registry: Literal[None] = Field(None, json_schema_extra={"const": True})
     registry_identifier: Literal[None] = Field(None, json_schema_extra={"const": True})
 
@@ -118,7 +118,7 @@ class Computar(_Manufacturer):
     """Computar"""
 
     name: Literal["Computar"] = "Computar"
-    abbreviation: Literal[None] = Field(None, json_schema_extra={"const": True})
+    abbreviation: Literal[None] = Field(None, json_schema_extra={"type": "string"})
     registry: Literal[None] = Field(None, json_schema_extra={"const": True})
     registry_identifier: Literal[None] = Field(None, json_schema_extra={"const": True})
 
@@ -127,7 +127,7 @@ class Custom(_Manufacturer):
     """Custom"""
 
     name: Literal["Custom"] = "Custom"
-    abbreviation: Literal[None] = Field(None, json_schema_extra={"const": True})
+    abbreviation: Literal[None] = Field(None, json_schema_extra={"type": "string"})
     registry: Literal[None] = Field(None, json_schema_extra={"const": True})
     registry_identifier: Literal[None] = Field(None, json_schema_extra={"const": True})
 
@@ -136,7 +136,7 @@ class Doric(_Manufacturer):
     """Doric"""
 
     name: Literal["Doric"] = "Doric"
-    abbreviation: Literal[None] = Field(None, json_schema_extra={"const": True})
+    abbreviation: Literal[None] = Field(None, json_schema_extra={"type": "string"})
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
     registry_identifier: Literal["059n53q30"] = "059n53q30"
 
@@ -145,7 +145,7 @@ class Ealing(_Manufacturer):
     """Ealing"""
 
     name: Literal["Ealing"] = "Ealing"
-    abbreviation: Literal[None] = Field(None, json_schema_extra={"const": True})
+    abbreviation: Literal[None] = Field(None, json_schema_extra={"type": "string"})
     registry: Literal[None] = Field(None, json_schema_extra={"const": True})
     registry_identifier: Literal[None] = Field(None, json_schema_extra={"const": True})
 
@@ -154,7 +154,7 @@ class EdmundOptics(_Manufacturer):
     """EdmundOptics"""
 
     name: Literal["Edmund Optics"] = "Edmund Optics"
-    abbreviation: Literal[None] = Field(None, json_schema_extra={"const": True})
+    abbreviation: Literal[None] = Field(None, json_schema_extra={"type": "string"})
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
     registry_identifier: Literal["01j1gwp17"] = "01j1gwp17"
 
@@ -163,7 +163,7 @@ class Euresys(_Manufacturer):
     """Euresys"""
 
     name: Literal["Euresys"] = "Euresys"
-    abbreviation: Literal[None] = Field(None, json_schema_extra={"const": True})
+    abbreviation: Literal[None] = Field(None, json_schema_extra={"type": "string"})
     registry: Literal[None] = Field(None, json_schema_extra={"const": True})
     registry_identifier: Literal[None] = Field(None, json_schema_extra={"const": True})
 
@@ -181,7 +181,7 @@ class Fujinon(_Manufacturer):
     """Fujinon"""
 
     name: Literal["Fujinon"] = "Fujinon"
-    abbreviation: Literal[None] = Field(None, json_schema_extra={"const": True})
+    abbreviation: Literal[None] = Field(None, json_schema_extra={"type": "string"})
     registry: Literal[None] = Field(None, json_schema_extra={"const": True})
     registry_identifier: Literal[None] = Field(None, json_schema_extra={"const": True})
 
@@ -190,7 +190,7 @@ class Hamamatsu(_Manufacturer):
     """Hamamatsu"""
 
     name: Literal["Hamamatsu"] = "Hamamatsu"
-    abbreviation: Literal[None] = Field(None, json_schema_extra={"const": True})
+    abbreviation: Literal[None] = Field(None, json_schema_extra={"type": "string"})
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
     registry_identifier: Literal["03natb733"] = "03natb733"
 
@@ -199,7 +199,7 @@ class TheImagingSource(_Manufacturer):
     """TheImagingSource"""
 
     name: Literal["The Imaging Source"] = "The Imaging Source"
-    abbreviation: Literal[None] = Field(None, json_schema_extra={"const": True})
+    abbreviation: Literal[None] = Field(None, json_schema_extra={"type": "string"})
     registry: Literal[None] = Field(None, json_schema_extra={"const": True})
     registry_identifier: Literal[None] = Field(None, json_schema_extra={"const": True})
 
@@ -217,7 +217,7 @@ class InfinityPhotoOptical(_Manufacturer):
     """InfinityPhotoOptical"""
 
     name: Literal["Infinity Photo-Optical"] = "Infinity Photo-Optical"
-    abbreviation: Literal[None] = Field(None, json_schema_extra={"const": True})
+    abbreviation: Literal[None] = Field(None, json_schema_extra={"type": "string"})
     registry: Literal[None] = Field(None, json_schema_extra={"const": True})
     registry_identifier: Literal[None] = Field(None, json_schema_extra={"const": True})
 
@@ -235,7 +235,7 @@ class Julabo(_Manufacturer):
     """Julabo"""
 
     name: Literal["Julabo"] = "Julabo"
-    abbreviation: Literal[None] = Field(None, json_schema_extra={"const": True})
+    abbreviation: Literal[None] = Field(None, json_schema_extra={"type": "string"})
     registry: Literal[None] = Field(None, json_schema_extra={"const": True})
     registry_identifier: Literal[None] = Field(None, json_schema_extra={"const": True})
 
@@ -244,7 +244,7 @@ class TheLeeCompany(_Manufacturer):
     """TheLeeCompany"""
 
     name: Literal["The Lee Company"] = "The Lee Company"
-    abbreviation: Literal[None] = Field(None, json_schema_extra={"const": True})
+    abbreviation: Literal[None] = Field(None, json_schema_extra={"type": "string"})
     registry: Literal[None] = Field(None, json_schema_extra={"const": True})
     registry_identifier: Literal[None] = Field(None, json_schema_extra={"const": True})
 
@@ -253,7 +253,7 @@ class Leica(_Manufacturer):
     """Leica"""
 
     name: Literal["Leica"] = "Leica"
-    abbreviation: Literal[None] = Field(None, json_schema_extra={"const": True})
+    abbreviation: Literal[None] = Field(None, json_schema_extra={"type": "string"})
     registry: Literal[None] = Field(None, json_schema_extra={"const": True})
     registry_identifier: Literal[None] = Field(None, json_schema_extra={"const": True})
 
@@ -262,7 +262,7 @@ class Lg(_Manufacturer):
     """Lg"""
 
     name: Literal["LG"] = "LG"
-    abbreviation: Literal[None] = Field(None, json_schema_extra={"const": True})
+    abbreviation: Literal[None] = Field(None, json_schema_extra={"type": "string"})
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
     registry_identifier: Literal["02b948n83"] = "02b948n83"
 
@@ -271,7 +271,7 @@ class LifeCanvas(_Manufacturer):
     """LifeCanvas"""
 
     name: Literal["LifeCanvas"] = "LifeCanvas"
-    abbreviation: Literal[None] = Field(None, json_schema_extra={"const": True})
+    abbreviation: Literal[None] = Field(None, json_schema_extra={"type": "string"})
     registry: Literal[None] = Field(None, json_schema_extra={"const": True})
     registry_identifier: Literal[None] = Field(None, json_schema_extra={"const": True})
 
@@ -280,7 +280,7 @@ class MeadowlarkOptics(_Manufacturer):
     """MeadowlarkOptics"""
 
     name: Literal["Meadowlark Optics"] = "Meadowlark Optics"
-    abbreviation: Literal[None] = Field(None, json_schema_extra={"const": True})
+    abbreviation: Literal[None] = Field(None, json_schema_extra={"type": "string"})
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
     registry_identifier: Literal["00n8qbq54"] = "00n8qbq54"
 
@@ -289,7 +289,7 @@ class IRRobotCo(_Manufacturer):
     """IRRobotCo"""
 
     name: Literal["IR Robot Co"] = "IR Robot Co"
-    abbreviation: Literal[None] = Field(None, json_schema_extra={"const": True})
+    abbreviation: Literal[None] = Field(None, json_schema_extra={"type": "string"})
     registry: Literal[None] = Field(None, json_schema_extra={"const": True})
     registry_identifier: Literal[None] = Field(None, json_schema_extra={"const": True})
 
@@ -298,7 +298,7 @@ class Mitutuyo(_Manufacturer):
     """Mitutuyo"""
 
     name: Literal["Mitutuyo"] = "Mitutuyo"
-    abbreviation: Literal[None] = Field(None, json_schema_extra={"const": True})
+    abbreviation: Literal[None] = Field(None, json_schema_extra={"type": "string"})
     registry: Literal[None] = Field(None, json_schema_extra={"const": True})
     registry_identifier: Literal[None] = Field(None, json_schema_extra={"const": True})
 
@@ -307,7 +307,7 @@ class MKSNewport(_Manufacturer):
     """MKSNewport"""
 
     name: Literal["MKS Newport"] = "MKS Newport"
-    abbreviation: Literal[None] = Field(None, json_schema_extra={"const": True})
+    abbreviation: Literal[None] = Field(None, json_schema_extra={"type": "string"})
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
     registry_identifier: Literal["00k17f049"] = "00k17f049"
 
@@ -325,7 +325,7 @@ class NationalInstruments(_Manufacturer):
     """NationalInstruments"""
 
     name: Literal["National Instruments"] = "National Instruments"
-    abbreviation: Literal[None] = Field(None, json_schema_extra={"const": True})
+    abbreviation: Literal[None] = Field(None, json_schema_extra={"type": "string"})
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
     registry_identifier: Literal["026exqw73"] = "026exqw73"
 
@@ -334,7 +334,7 @@ class Navitar(_Manufacturer):
     """Navitar"""
 
     name: Literal["Navitar"] = "Navitar"
-    abbreviation: Literal[None] = Field(None, json_schema_extra={"const": True})
+    abbreviation: Literal[None] = Field(None, json_schema_extra={"type": "string"})
     registry: Literal[None] = Field(None, json_schema_extra={"const": True})
     registry_identifier: Literal[None] = Field(None, json_schema_extra={"const": True})
 
@@ -343,7 +343,7 @@ class NewScaleTechnologies(_Manufacturer):
     """NewScaleTechnologies"""
 
     name: Literal["New Scale Technologies"] = "New Scale Technologies"
-    abbreviation: Literal[None] = Field(None, json_schema_extra={"const": True})
+    abbreviation: Literal[None] = Field(None, json_schema_extra={"type": "string"})
     registry: Literal[None] = Field(None, json_schema_extra={"const": True})
     registry_identifier: Literal[None] = Field(None, json_schema_extra={"const": True})
 
@@ -352,7 +352,7 @@ class Nikon(_Manufacturer):
     """Nikon"""
 
     name: Literal["Nikon"] = "Nikon"
-    abbreviation: Literal[None] = Field(None, json_schema_extra={"const": True})
+    abbreviation: Literal[None] = Field(None, json_schema_extra={"type": "string"})
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
     registry_identifier: Literal["0280y9h11"] = "0280y9h11"
 
@@ -370,7 +370,7 @@ class Olympus(_Manufacturer):
     """Olympus"""
 
     name: Literal["Olympus"] = "Olympus"
-    abbreviation: Literal[None] = Field(None, json_schema_extra={"const": True})
+    abbreviation: Literal[None] = Field(None, json_schema_extra={"type": "string"})
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
     registry_identifier: Literal["02vcdte90"] = "02vcdte90"
 
@@ -379,7 +379,7 @@ class Optotune(_Manufacturer):
     """Optotune"""
 
     name: Literal["Optotune"] = "Optotune"
-    abbreviation: Literal[None] = Field(None, json_schema_extra={"const": True})
+    abbreviation: Literal[None] = Field(None, json_schema_extra={"type": "string"})
     registry: Literal[None] = Field(None, json_schema_extra={"const": True})
     registry_identifier: Literal[None] = Field(None, json_schema_extra={"const": True})
 
@@ -388,7 +388,7 @@ class Oxxius(_Manufacturer):
     """Oxxius"""
 
     name: Literal["Oxxius"] = "Oxxius"
-    abbreviation: Literal[None] = Field(None, json_schema_extra={"const": True})
+    abbreviation: Literal[None] = Field(None, json_schema_extra={"type": "string"})
     registry: Literal[None] = Field(None, json_schema_extra={"const": True})
     registry_identifier: Literal[None] = Field(None, json_schema_extra={"const": True})
 
@@ -397,7 +397,7 @@ class Prizmatix(_Manufacturer):
     """Prizmatix"""
 
     name: Literal["Prizmatix"] = "Prizmatix"
-    abbreviation: Literal[None] = Field(None, json_schema_extra={"const": True})
+    abbreviation: Literal[None] = Field(None, json_schema_extra={"type": "string"})
     registry: Literal[None] = Field(None, json_schema_extra={"const": True})
     registry_identifier: Literal[None] = Field(None, json_schema_extra={"const": True})
 
@@ -406,7 +406,7 @@ class Quantifi(_Manufacturer):
     """Quantifi"""
 
     name: Literal["Quantifi"] = "Quantifi"
-    abbreviation: Literal[None] = Field(None, json_schema_extra={"const": True})
+    abbreviation: Literal[None] = Field(None, json_schema_extra={"type": "string"})
     registry: Literal[None] = Field(None, json_schema_extra={"const": True})
     registry_identifier: Literal[None] = Field(None, json_schema_extra={"const": True})
 
@@ -415,7 +415,7 @@ class RaspberryPi(_Manufacturer):
     """RaspberryPi"""
 
     name: Literal["Raspberry Pi"] = "Raspberry Pi"
-    abbreviation: Literal[None] = Field(None, json_schema_extra={"const": True})
+    abbreviation: Literal[None] = Field(None, json_schema_extra={"type": "string"})
     registry: Literal[None] = Field(None, json_schema_extra={"const": True})
     registry_identifier: Literal[None] = Field(None, json_schema_extra={"const": True})
 
@@ -424,7 +424,7 @@ class Semrock(_Manufacturer):
     """Semrock"""
 
     name: Literal["Semrock"] = "Semrock"
-    abbreviation: Literal[None] = Field(None, json_schema_extra={"const": True})
+    abbreviation: Literal[None] = Field(None, json_schema_extra={"type": "string"})
     registry: Literal[None] = Field(None, json_schema_extra={"const": True})
     registry_identifier: Literal[None] = Field(None, json_schema_extra={"const": True})
 
@@ -433,7 +433,7 @@ class SchneiderKreuznach(_Manufacturer):
     """SchneiderKreuznach"""
 
     name: Literal["Schneider-Kreuznach"] = "Schneider-Kreuznach"
-    abbreviation: Literal[None] = Field(None, json_schema_extra={"const": True})
+    abbreviation: Literal[None] = Field(None, json_schema_extra={"type": "string"})
     registry: Literal[None] = Field(None, json_schema_extra={"const": True})
     registry_identifier: Literal[None] = Field(None, json_schema_extra={"const": True})
 
@@ -442,7 +442,7 @@ class Spinnaker(_Manufacturer):
     """Spinnaker"""
 
     name: Literal["Spinnaker"] = "Spinnaker"
-    abbreviation: Literal[None] = Field(None, json_schema_extra={"const": True})
+    abbreviation: Literal[None] = Field(None, json_schema_extra={"type": "string"})
     registry: Literal[None] = Field(None, json_schema_extra={"const": True})
     registry_identifier: Literal[None] = Field(None, json_schema_extra={"const": True})
 
@@ -451,7 +451,7 @@ class Tamron(_Manufacturer):
     """Tamron"""
 
     name: Literal["Tamron"] = "Tamron"
-    abbreviation: Literal[None] = Field(None, json_schema_extra={"const": True})
+    abbreviation: Literal[None] = Field(None, json_schema_extra={"type": "string"})
     registry: Literal[None] = Field(None, json_schema_extra={"const": True})
     registry_identifier: Literal[None] = Field(None, json_schema_extra={"const": True})
 
@@ -460,7 +460,7 @@ class Thorlabs(_Manufacturer):
     """Thorlabs"""
 
     name: Literal["Thorlabs"] = "Thorlabs"
-    abbreviation: Literal[None] = Field(None, json_schema_extra={"const": True})
+    abbreviation: Literal[None] = Field(None, json_schema_extra={"type": "string"})
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
     registry_identifier: Literal["04gsnvb07"] = "04gsnvb07"
 
@@ -478,7 +478,7 @@ class Tymphany(_Manufacturer):
     """Tymphany"""
 
     name: Literal["Tymphany"] = "Tymphany"
-    abbreviation: Literal[None] = Field(None, json_schema_extra={"const": True})
+    abbreviation: Literal[None] = Field(None, json_schema_extra={"type": "string"})
     registry: Literal[None] = Field(None, json_schema_extra={"const": True})
     registry_identifier: Literal[None] = Field(None, json_schema_extra={"const": True})
 
@@ -487,7 +487,7 @@ class Vieworks(_Manufacturer):
     """Vieworks"""
 
     name: Literal["Vieworks"] = "Vieworks"
-    abbreviation: Literal[None] = Field(None, json_schema_extra={"const": True})
+    abbreviation: Literal[None] = Field(None, json_schema_extra={"type": "string"})
     registry: Literal[None] = Field(None, json_schema_extra={"const": True})
     registry_identifier: Literal[None] = Field(None, json_schema_extra={"const": True})
 
@@ -496,7 +496,7 @@ class Vortran(_Manufacturer):
     """Vortran"""
 
     name: Literal["Vortran"] = "Vortran"
-    abbreviation: Literal[None] = Field(None, json_schema_extra={"const": True})
+    abbreviation: Literal[None] = Field(None, json_schema_extra={"type": "string"})
     registry: Literal[None] = Field(None, json_schema_extra={"const": True})
     registry_identifier: Literal[None] = Field(None, json_schema_extra={"const": True})
 
@@ -505,7 +505,7 @@ class CarlZeiss(_Manufacturer):
     """CarlZeiss"""
 
     name: Literal["Carl Zeiss"] = "Carl Zeiss"
-    abbreviation: Literal[None] = Field(None, json_schema_extra={"const": True})
+    abbreviation: Literal[None] = Field(None, json_schema_extra={"type": "string"})
     registry: BaseName = Field(ROR, json_schema_extra={"const": True})
     registry_identifier: Literal["01xk5xs43"] = "01xk5xs43"
 
@@ -514,7 +514,7 @@ class Other(_Manufacturer):
     """Other"""
 
     name: Literal["Other"] = "Other"
-    abbreviation: Literal[None] = Field(None, json_schema_extra={"const": True})
+    abbreviation: Literal[None] = Field(None, json_schema_extra={"type": "string"})
     registry: Literal[None] = Field(None, json_schema_extra={"const": True})
     registry_identifier: Literal[None] = Field(None, json_schema_extra={"const": True})
 

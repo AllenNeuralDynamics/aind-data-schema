@@ -3,12 +3,12 @@
 from datetime import date, datetime
 from decimal import Decimal
 from enum import Enum
-from typing import Any, Dict, List, Literal, Union
+from typing import Any, Dict, List, Literal, Optional, Union
 
 from pydantic import Field
 from typing_extensions import Annotated
 
-from aind_data_schema.base import AindModel, OptionalField, OptionalType
+from aind_data_schema.base import AindModel
 from aind_data_schema.models.coordinates import RelativePosition, Size3d
 from aind_data_schema.models.manufacturers import InteruniversityMicroelectronicsCenter, Manufacturer
 from aind_data_schema.models.reagent import Reagent
@@ -268,14 +268,12 @@ class Device(AindModel):
     """Generic device"""
 
     device_type: str = Field(..., title="Device type")  # Needs to be set by child classes that inherits
-    name: OptionalType[str] = OptionalField(title="Device name")
-    serial_number: OptionalType[str] = OptionalField(title="Serial number")
-    manufacturer: OptionalType[Manufacturer.ONE_OF] = OptionalField(title="Manufacturer")
-    model: OptionalType[str] = OptionalField(title="Model")
-    path_to_cad: OptionalType[str] = OptionalField(
-        title="Path to CAD diagram", description="For CUSTOM manufactured devices"
-    )
-    notes: OptionalType[str] = OptionalField(title="Notes")
+    name: Optional[str] = Field(None, title="Device name")
+    serial_number: Optional[str] = Field(None, title="Serial number")
+    manufacturer: Optional[Manufacturer.ONE_OF] = Field(None, title="Manufacturer")
+    model: Optional[str] = Field(None, title="Model")
+    path_to_cad: Optional[str] = Field(None, title="Path to CAD diagram", description="For CUSTOM manufactured devices")
+    notes: Optional[str] = Field(None, title="Notes")
 
 
 class Software(AindModel):
@@ -283,7 +281,7 @@ class Software(AindModel):
 
     name: str = Field(..., title="Software name")
     version: str = Field(..., title="Software version")
-    url: OptionalType[str] = OptionalField(title="URL to commit being used")
+    url: Optional[str] = Field(None, title="URL to commit being used")
     parameters: Dict[str, Any] = Field(dict(), title="Software parameters")
 
 
@@ -295,7 +293,7 @@ class Calibration(AindModel):
     description: str = Field(..., title="Description", description="Brief description of what is being calibrated")
     input: Dict[str, Any] = Field(dict(), description="Calibration input", title="inputs")
     output: Dict[str, Any] = Field(dict(), description="Calibration output", title="outputs")
-    notes: OptionalType[str] = OptionalField(title="Notes")
+    notes: Optional[str] = Field(None, title="Notes")
 
 
 class Maintenance(AindModel):
@@ -304,9 +302,9 @@ class Maintenance(AindModel):
     maintenance_date: datetime = Field(..., title="Date and time of maintenance")
     device_name: str = Field(..., title="Device name", description="Must match a device name in rig/instrument")
     description: str = Field(..., title="Description", description="Description on maintenance procedure")
-    protocol_id: OptionalType[str] = OptionalField(title="Protocol ID")
+    protocol_id: Optional[str] = Field(None, title="Protocol ID")
     reagents: List[Reagent] = Field([], title="Reagents")
-    notes: OptionalType[str] = OptionalField(title="Notes")
+    notes: Optional[str] = Field(None, title="Notes")
 
 
 class Camera(Device):
@@ -325,11 +323,11 @@ class Camera(Device):
     chroma: CameraChroma = Field(..., title="Color or Monochrome")
 
     # optional fields
-    sensor_format: OptionalType[str] = OptionalField(title="Size of the sensor")
-    format_unit: OptionalType[str] = OptionalField(title="Format unit")
-    recording_software: OptionalType[Software] = OptionalField(title="Recording software")
-    driver: OptionalType[DeviceDriver] = OptionalField(title="Driver")
-    driver_version: OptionalType[str] = OptionalField(title="Driver version")
+    sensor_format: Optional[str] = Field(None, title="Size of the sensor")
+    format_unit: Optional[str] = Field(None, title="Format unit")
+    recording_software: Optional[Software] = Field(None, title="Recording software")
+    driver: Optional[DeviceDriver] = Field(None, title="Driver")
+    driver_version: Optional[str] = Field(None, title="Driver version")
 
 
 class Filter(Device):
@@ -341,18 +339,19 @@ class Filter(Device):
     manufacturer: Manufacturer.FILTER_MANUFACTURERS
 
     # optional fields
-    diameter: OptionalType[Decimal] = OptionalField(title="Diameter (mm)")
-    width: OptionalType[Decimal] = OptionalField(title="Width (mm)")
-    height: OptionalType[Decimal] = OptionalField(title="Height (mm)")
+    diameter: Optional[Decimal] = Field(None, title="Diameter (mm)")
+    width: Optional[Decimal] = Field(None, title="Width (mm)")
+    height: Optional[Decimal] = Field(None, title="Height (mm)")
     size_unit: SizeUnit = Field(SizeUnit.MM, title="Size unit")
-    thickness: OptionalType[Decimal] = OptionalField(title="Thickness (mm)", ge=0)
+    thickness: Optional[Decimal] = Field(None, title="Thickness (mm)", ge=0)
     thickness_unit: SizeUnit = Field(SizeUnit.MM, title="Thickness unit")
-    filter_wheel_index: OptionalType[int] = OptionalField(title="Filter wheel index")
-    cut_off_wavelength: OptionalType[int] = OptionalField(title="Cut-off wavelength (nm)")
-    cut_on_wavelength: OptionalType[int] = OptionalField(title="Cut-on wavelength (nm)")
-    center_wavelength: OptionalType[int] = OptionalField(title="Center wavelength (nm)")
+    filter_wheel_index: Optional[int] = Field(None, title="Filter wheel index")
+    cut_off_wavelength: Optional[int] = Field(None, title="Cut-off wavelength (nm)")
+    cut_on_wavelength: Optional[int] = Field(None, title="Cut-on wavelength (nm)")
+    center_wavelength: Optional[int] = Field(None, title="Center wavelength (nm)")
     wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
-    description: OptionalType[str] = OptionalField(
+    description: Optional[str] = Field(
+        None,
         title="Description",
         description="More details about filter properties and where/how it is being used",
     )
@@ -367,13 +366,13 @@ class Lens(Device):
     manufacturer: Manufacturer.LENS_MANUFACTURERS
 
     # optional fields
-    focal_length: OptionalType[Decimal] = OptionalField(title="Focal length of the lens (mm)")
+    focal_length: Optional[Decimal] = Field(None, title="Focal length of the lens (mm)")
     focal_length_unit: SizeUnit = Field(SizeUnit.MM, title="Focal length unit")
-    size: OptionalType[LensSize] = OptionalField(title="Size (inches)")
+    size: Optional[LensSize] = Field(None, title="Size (inches)")
     lens_size_unit: SizeUnit = Field(SizeUnit.IN, title="Lens size unit")
-    optimized_wavelength_range: OptionalType[str] = OptionalField(title="Optimized wavelength range (nm)")
+    optimized_wavelength_range: Optional[str] = Field(None, title="Optimized wavelength range (nm)")
     wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
-    max_aperture: OptionalType[str] = OptionalField(title="Max aperture (e.g. f/2)")
+    max_aperture: Optional[str] = Field(None, title="Max aperture (e.g. f/2)")
 
 
 class MotorizedStage(Device):
@@ -384,7 +383,7 @@ class MotorizedStage(Device):
     travel_unit: SizeUnit = Field(SizeUnit.MM, title="Travel unit")
 
     # optional fields
-    firmware: OptionalType[str] = OptionalField(title="Firmware")
+    firmware: Optional[str] = Field(None, title="Firmware")
 
 
 class Objective(Device):
@@ -394,7 +393,7 @@ class Objective(Device):
     numerical_aperture: Decimal = Field(..., title="Numerical aperture (in air)")
     magnification: Decimal = Field(..., title="Magnification")
     immersion: ImmersionMedium = Field(..., title="Immersion")
-    objective_type: OptionalType[ObjectiveType] = OptionalField(title="Objective type")
+    objective_type: Optional[ObjectiveType] = Field(None, title="Objective type")
 
 
 class CameraAssembly(AindModel):
@@ -407,8 +406,8 @@ class CameraAssembly(AindModel):
     lens: Lens = Field(..., title="Lens")
 
     # optional fields
-    filter: OptionalType[Filter] = OptionalField(title="Filter")
-    position: OptionalType[RelativePosition] = OptionalField(title="Relative position of this assembly")
+    filter: Optional[Filter] = Field(None, title="Filter")
+    position: Optional[RelativePosition] = Field(None, title="Relative position of this assembly")
 
 
 class DAQChannel(AindModel):
@@ -420,12 +419,12 @@ class DAQChannel(AindModel):
     channel_type: DaqChannelType = Field(..., title="DAQ channel type")
 
     # optional fields
-    port: OptionalType[int] = OptionalField(title="DAQ port")
-    channel_index: OptionalType[int] = OptionalField(title="DAQ channel index")
-    sample_rate: OptionalType[Decimal] = OptionalField(title="DAQ channel sample rate (Hz)")
+    port: Optional[int] = Field(None, title="DAQ port")
+    channel_index: Optional[int] = Field(None, title="DAQ channel index")
+    sample_rate: Optional[Decimal] = Field(None, title="DAQ channel sample rate (Hz)")
     sample_rate_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Sample rate unit")
-    event_based_sampling: OptionalType[bool] = OptionalField(
-        title="Set to true if DAQ channel is sampled at irregular intervals"
+    event_based_sampling: Optional[bool] = Field(
+        None, title="Set to true if DAQ channel is sampled at irregular intervals"
     )
 
 
@@ -465,16 +464,17 @@ class Laser(Device):
     wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
 
     # optional fields
-    maximum_power: OptionalType[Decimal] = OptionalField(title="Maximum power (mW)")
+    maximum_power: Optional[Decimal] = Field(None, title="Maximum power (mW)")
     power_unit: PowerUnit = Field(PowerUnit.MW, title="Power unit")
-    coupling: OptionalType[Coupling] = OptionalField(title="Coupling")
-    coupling_efficiency: OptionalType[Decimal] = OptionalField(
+    coupling: Optional[Coupling] = Field(None, title="Coupling")
+    coupling_efficiency: Optional[Decimal] = Field(
+        None,
         title="Coupling efficiency (percent)",
         ge=0,
         le=100,
     )
     coupling_efficiency_unit: Literal["percent"] = Field("percent", title="Coupling efficiency unit")
-    item_number: OptionalType[str] = OptionalField(title="Item number")
+    item_number: Optional[str] = Field(None, title="Item number")
 
 
 class LightEmittingDiode(Device):
@@ -490,10 +490,10 @@ class Lamp(Device):
     """Description of a Lamp lightsource"""
 
     device_type: Literal["Lamp"] = "Lamp"
-    wavelength_min: OptionalType[int] = OptionalField(title="Wavelength minimum (nm)")
-    wavelength_max: OptionalType[int] = OptionalField(title="Wavelength maximum (nm)")
+    wavelength_min: Optional[int] = Field(None, title="Wavelength minimum (nm)")
+    wavelength_max: Optional[int] = Field(None, title="Wavelength maximum (nm)")
     wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
-    temperature: OptionalType[int] = OptionalField(title="Temperature (K)")
+    temperature: Optional[int] = Field(None, title="Temperature (K)")
     temperature_unit: TemperatureUnit = Field(TemperatureUnit.K, title="Temperature unit")
 
 
@@ -558,7 +558,7 @@ class Headstage(Device):
     """Headstage used with an ephys probe"""
 
     device_type: Literal["Headstage"] = "Headstage"
-    headstage_model: OptionalType[HeadstageModel] = OptionalField(title="Headstage model")
+    headstage_model: Optional[HeadstageModel] = Field(None, title="Headstage model")
 
 
 class EphysProbe(Device):
@@ -570,7 +570,7 @@ class EphysProbe(Device):
 
     # optional fields
     lasers: List[Laser] = Field([], title="Lasers connected to this probe")
-    headstage: OptionalType[Headstage] = OptionalField(title="Headstage for this probe")
+    headstage: Optional[Headstage] = Field(None, title="Headstage for this probe")
 
 
 class EphysAssembly(AindModel):
@@ -588,19 +588,19 @@ class Detector(Device):
     detector_type: DetectorType = Field(..., title="Detector Type")
     data_interface: DataInterface = Field(..., title="Data interface")
     cooling: Cooling = Field(..., title="Cooling")
-    immersion: OptionalType[ImmersionMedium] = OptionalField(title="Immersion")
-    chroma: OptionalType[CameraChroma] = OptionalField(title="Camera chroma")
-    sensor_width: OptionalType[int] = OptionalField(title="Width of the sensor in pixels")
-    sensor_height: OptionalType[int] = OptionalField(title="Height of the sensor in pixels")
+    immersion: Optional[ImmersionMedium] = Field(None, title="Immersion")
+    chroma: Optional[CameraChroma] = Field(None, title="Camera chroma")
+    sensor_width: Optional[int] = Field(None, title="Width of the sensor in pixels")
+    sensor_height: Optional[int] = Field(None, title="Height of the sensor in pixels")
     size_unit: SizeUnit = Field(SizeUnit.PX, title="Size unit")
-    bit_depth: OptionalType[int] = OptionalField(title="Bit depth")
+    bit_depth: Optional[int] = Field(None, title="Bit depth")
     bin_mode: BinMode = Field(BinMode.NONE, title="Detector binning mode")
-    bin_width: OptionalType[int] = OptionalField(title="Bin width")
-    bin_height: OptionalType[int] = OptionalField(title="Bin height")
+    bin_width: Optional[int] = Field(None, title="Bin width")
+    bin_height: Optional[int] = Field(None, title="Bin height")
     bin_unit: SizeUnit = Field(SizeUnit.PX, title="Bin size unit")
-    gain: OptionalType[Decimal] = OptionalField(title="Gain")
-    crop_width: OptionalType[int] = OptionalField(title="Crop width")
-    crop_height: OptionalType[int] = OptionalField(title="Crop width")
+    gain: Optional[Decimal] = Field(None, title="Gain")
+    crop_width: Optional[int] = Field(None, title="Crop width")
+    crop_height: Optional[int] = Field(None, title="Crop width")
     crop_unit: SizeUnit = Field(SizeUnit.PX, title="Crop size unit")
 
 
@@ -612,8 +612,8 @@ class FiberProbe(Device):
     #  TODO: Check if this should be an enum?
     core_diameter_unit: str = Field("um", title="Core diameter unit")
     numerical_aperture: Decimal = Field(..., title="Numerical aperture")
-    ferrule_material: OptionalType[FerruleMaterial] = OptionalField(title="Ferrule material")
-    active_length: OptionalType[Decimal] = OptionalField(title="Active length (mm)", description="Length of taper")
+    ferrule_material: Optional[FerruleMaterial] = Field(None, title="Ferrule material")
+    active_length: Optional[Decimal] = Field(None, title="Active length (mm)", description="Length of taper")
     total_length: Decimal = Field(..., title="Total length (mm)")
     length_unit: SizeUnit = Field(SizeUnit.MM, title="Length unit")
 
@@ -624,7 +624,7 @@ class Patch(Device):
     device_type: Literal["Patch"] = "Patch"
     core_diameter: Decimal = Field(..., title="Core diameter (um)")
     numerical_aperture: Decimal = Field(..., title="Numerical aperture")
-    photobleaching_date: OptionalType[date] = OptionalField(title="Photobleaching date")
+    photobleaching_date: Optional[date] = Field(None, title="Photobleaching date")
 
 
 class FiberAssembly(AindModel):
@@ -690,8 +690,8 @@ class MousePlatform(Device):
     """Description of a mouse platform"""
 
     device_type: Literal["Mouse platform"] = "Mouse platform"
-    surface_material: OptionalType[str] = OptionalField(title="Surface material")
-    date_surface_replaced: OptionalType[datetime] = OptionalField(title="Date surface replaced")
+    surface_material: Optional[str] = Field(None, title="Surface material")
+    date_surface_replaced: Optional[datetime] = Field(None, title="Date surface replaced")
 
 
 class Disc(MousePlatform):
@@ -700,10 +700,11 @@ class Disc(MousePlatform):
     device_type: Literal["Disc"] = "Disc"
     radius: Decimal = Field(..., title="Radius (cm)", ge=0)
     radius_unit: SizeUnit = Field(SizeUnit.CM, title="radius unit")
-    output: OptionalType[DaqChannelType] = OptionalField(description="analog or digital electronics")
-    encoder: OptionalType[str] = OptionalField(title="Encoder", description="Encoder hardware type")
-    decoder: OptionalType[str] = OptionalField(title="Decoder", description="Decoder chip type")
-    encoder_firmware: OptionalType[Software] = OptionalField(
+    output: Optional[DaqChannelType] = Field(None, description="analog or digital electronics")
+    encoder: Optional[str] = Field(None, title="Encoder", description="Encoder hardware type")
+    decoder: Optional[str] = Field(None, title="Decoder", description="Decoder chip type")
+    encoder_firmware: Optional[Software] = Field(
+        None,
         title="Encoder firmware",
         description="Firmware to read from decoder chip counts",
     )
@@ -717,12 +718,12 @@ class Wheel(MousePlatform):
     width: Decimal = Field(..., title="Width (mm)")
     size_unit: SizeUnit = Field(SizeUnit.MM, title="Size unit")
     encoder: Device = Field(..., title="Encoder")
-    encoder_output: OptionalType[DaqChannelType] = OptionalField(title="Encoder DAQ channel")
+    encoder_output: Optional[DaqChannelType] = Field(None, title="Encoder DAQ channel")
     pulse_per_revolution: int = Field(..., title="Pulse per revolution")
     magnetic_brake: Device = Field(..., title="Magnetic brake")
-    brake_output: OptionalType[DaqChannelType] = OptionalField(title="Brake DAQ channel")
+    brake_output: Optional[DaqChannelType] = Field(None, title="Brake DAQ channel")
     torque_sensor: Device = Field(..., title="Torque sensor")
-    torque_output: OptionalType[DaqChannelType] = OptionalField(title="Torque DAQ channel")
+    torque_output: Optional[DaqChannelType] = Field(None, title="Torque DAQ channel")
 
 
 class Tube(MousePlatform):
@@ -752,14 +753,16 @@ class Monitor(Device):
     size_unit: SizeUnit = Field(SizeUnit.PX, title="Size unit")
     viewing_distance: Decimal = Field(..., title="Viewing distance (cm)")
     viewing_distance_unit: SizeUnit = Field(SizeUnit.CM, title="Viewing distance unit")
-    position: OptionalType[RelativePosition] = OptionalField(title="Relative position of the monitor")
-    contrast: OptionalType[int] = OptionalField(
+    position: Optional[RelativePosition] = Field(None, title="Relative position of the monitor")
+    contrast: Optional[int] = Field(
+        None,
         description="Monitor's contrast setting",
         title="Contrast",
         ge=0,
         le=100,
     )
-    brightness: OptionalType[int] = OptionalField(
+    brightness: Optional[int] = Field(
+        None,
         description="Monitor's brightness setting",
         title="Brightness",
         ge=0,
@@ -774,16 +777,16 @@ class RewardSpout(Device):
     side: SpoutSide = Field(..., title="Spout side", description="If Other use notes")
     spout_diameter: Decimal = Field(..., title="Spout diameter (mm)")
     spout_diameter_unit: SizeUnit = Field(SizeUnit.MM, title="Spout diameter unit")
-    spout_position: OptionalType[RelativePosition] = OptionalField(title="Spout stage position")
+    spout_position: Optional[RelativePosition] = Field(None, title="Spout stage position")
     solenoid_valve: Device = Field(..., title="Solenoid valve")
-    notes: OptionalType[str] = OptionalField(title="Notes")
+    notes: Optional[str] = Field(None, title="Notes")
 
 
 class RewardDelivery(AindModel):
     """Description of reward delivery system"""
 
     device_type: Literal["Reward delivery"] = "Reward delivery"
-    stage_type: OptionalType[MotorizedStage] = OptionalField(title="Motorized stage")
+    stage_type: Optional[MotorizedStage] = Field(None, title="Motorized stage")
     reward_spouts: List[RewardSpout] = Field(..., title="Water spouts")
 
 
@@ -792,14 +795,14 @@ class Speaker(Device):
 
     device_type: Literal["Speaker"] = "Speaker"
     manufacturer: Manufacturer.SPEAKER_MANUFACTURERS
-    position: OptionalType[RelativePosition] = OptionalField(title="Relative position of the monitor")
+    position: Optional[RelativePosition] = Field(None, title="Relative position of the monitor")
 
 
 class Olfactometer(Device):
     """Description of an olfactometer for odor stimuli"""
 
     device_type: Literal["Olfactometer"] = "Olfactometer"
-    position: OptionalType[RelativePosition] = OptionalField(title="Relative position of the monitor")
+    position: Optional[RelativePosition] = Field(None, title="Relative position of the monitor")
 
 
 class AdditionalImagingDevice(Device):
@@ -820,10 +823,10 @@ class OpticalTable(Device):
     """Description of Optical Table"""
 
     device_type: Literal["OpticalTable"] = "OpticalTable"
-    length: OptionalType[Decimal] = OptionalField(title="Length (inches)", ge=0)
-    width: OptionalType[Decimal] = OptionalField(title="Width (inches)", ge=0)
+    length: Optional[Decimal] = Field(None, title="Length (inches)", ge=0)
+    width: Optional[Decimal] = Field(None, title="Width (inches)", ge=0)
     table_size_unit: SizeUnit = Field(SizeUnit.IN, title="Table size unit")
-    vibration_control: OptionalType[bool] = OptionalField(title="Vibration control")
+    vibration_control: Optional[bool] = Field(None, title="Vibration control")
 
 
 class Scanner(Device):

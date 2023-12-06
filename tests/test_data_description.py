@@ -13,6 +13,7 @@ from aind_data_schema.core.data_description import (
     AnalysisDescription,
     DataDescription,
     DataLevel,
+    DataRegex,
     DerivedDataDescription,
     Funding,
     RawDataDescription,
@@ -217,9 +218,9 @@ class DataDescriptionTest(unittest.TestCase):
         expected_exception = (
             "1 validation error for DataDescription\n"
             "project_name\n"
-            "  Value error, No special characters allowed in project_name!"
-            " [type=value_error, input_value='a_32r&!#R$&#', input_type=str]\n"
-            "    For further information visit https://errors.pydantic.dev/2.5/v/value_error"
+            f"  String should match pattern '{DataRegex.NO_SPECIAL_CHARS.value}'"
+            " [type=string_pattern_mismatch, input_value='a_32r&!#R$&#', input_type=str]\n"
+            "    For further information visit https://errors.pydantic.dev/2.5/v/string_pattern_mismatch"
         )
         self.assertEqual(expected_exception, repr(e.exception))
 

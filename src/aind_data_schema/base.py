@@ -2,21 +2,9 @@
 
 import re
 from pathlib import Path
-from typing import Optional, TypeVar, Union
+from typing import Optional
 
 from pydantic import BaseModel, ConfigDict, Field, PrivateAttr
-from pydantic.json_schema import SkipJsonSchema
-
-# Custom type to handle Optionals. We want Optionals in the schema to render
-# the way they did in pydantic version 1 for the time being while the UIs that
-# create fillable forms from the schema are being updated.
-T = TypeVar("T")
-OptionalType = Union[T, SkipJsonSchema[None]]
-
-
-def OptionalField(**kwargs):
-    """Returns a custom Field for Optionals"""
-    return Field(default=None, json_schema_extra=lambda x: x.pop("default"), **kwargs)
 
 
 class AindModel(BaseModel):

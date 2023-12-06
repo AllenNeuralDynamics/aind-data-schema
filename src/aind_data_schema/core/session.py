@@ -9,7 +9,7 @@ from pydantic import Field, field_validator
 from pydantic_core.core_schema import ValidationInfo
 from typing_extensions import Annotated
 
-from aind_data_schema.base import AindCoreModel, AindModel, OptionalField, OptionalType
+from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.imaging.tile import Channel
 from aind_data_schema.models.coordinates import CcfCoords, Coordinates3d
 from aind_data_schema.models.devices import Calibration, Maintenance, RelativePosition, SpoutSide
@@ -49,7 +49,7 @@ class LightEmittingDiodeConfig(AindModel):
 
     config_type: Literal["LightEmittingDiodeConfig"] = "LightEmittingDiodeConfig"
     name: str = Field(..., title="Name")
-    excitation_power: OptionalType[Decimal] = OptionalField(title="Excitation power (mW)")
+    excitation_power: Optional[Decimal] = Field(None, title="Excitation power (mW)")
     excitation_power_unit: PowerUnit = Field(PowerUnit.MW, title="Excitation power unit")
 
 
@@ -70,11 +70,9 @@ class FieldOfView(AindModel):
     magnification: str = Field(..., title="Magnification")
     fov_scale_factor: Decimal = Field(..., title="FOV scale factor (um/pixel)")
     fov_scale_factor_unit: str = Field("um/pixel", title="FOV scale factor unit")
-    frame_rate: OptionalType[Decimal] = OptionalField(title="Frame rate (Hz)")
+    frame_rate: Optional[Decimal] = Field(None, title="Frame rate (Hz)")
     frame_rate_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Frame rate unit")
-    coupled_fov_index: OptionalType[int] = OptionalField(
-        title="Coupled FOV", description="Coupled planes for multiscope"
-    )
+    coupled_fov_index: Optional[int] = Field(None, title="Coupled FOV", description="Coupled planes for multiscope")
 
 
 class StackChannel(Channel):
@@ -101,12 +99,12 @@ class Stack(AindModel):
     fov_width: int = Field(..., title="FOV width (pixels)")
     fov_height: int = Field(..., title="FOV height (pixels)")
     fov_size_unit: SizeUnit = Field(SizeUnit.PX, title="FOV size unit")
-    magnification: OptionalType[str] = OptionalField(title="Magnification")
+    magnification: Optional[str] = Field(None, title="Magnification")
     fov_scale_factor: float = Field(..., title="FOV scale factor (um/pixel)")
     fov_scale_factor_unit: str = Field("um/pixel", title="FOV scale factor unit")
     frame_rate: Decimal = Field(..., title="Frame rate (Hz)")
     frame_rate_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Frame rate unit")
-    targeted_structure: OptionalType[str] = OptionalField(title="Targeted structure")
+    targeted_structure: Optional[str] = Field(None, title="Targeted structure")
 
 
 class SlapSessionType(str, Enum):
@@ -123,8 +121,8 @@ class SlapFieldOfView(FieldOfView):
     dmd_dilation_x: int = Field(..., title="DMD Dilation X (pixels)")
     dmd_dilation_y: int = Field(..., title="DMD Dilation Y (pixels)")
     dilation_unit: SizeUnit = Field(SizeUnit.PX, title="Dilation unit")
-    target_neuron: OptionalType[str] = OptionalField(title="Target neuron")
-    target_branch: OptionalType[str] = OptionalField(title="Target branch")
+    target_neuron: Optional[str] = Field(None, title="Target neuron")
+    target_branch: Optional[str] = Field(None, title="Target branch")
     path_to_array_of_frame_rates: str = Field(..., title="Array of frame rates")
 
 
@@ -136,15 +134,14 @@ class DomeModule(AindModel):
     arc_angle: Decimal = Field(..., title="Arc Angle (deg)")
     module_angle: Decimal = Field(..., title="Module Angle (deg)")
     angle_unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
-    rotation_angle: OptionalType[Decimal] = OptionalField(title="Rotation Angle (deg)")
-    coordinate_transform: OptionalType[str] = OptionalField(
+    rotation_angle: Optional[Decimal] = Field(None, title="Rotation Angle (deg)")
+    coordinate_transform: Optional[str] = Field(
+        None,
         title="Transform from local manipulator axes to rig",
         description="Path to coordinate transform",
     )
-    calibration_date: OptionalType[datetime] = OptionalField(
-        title="Date on which coordinate transform was last calibrated"
-    )
-    notes: OptionalType[str] = OptionalField(title="Notes")
+    calibration_date: Optional[datetime] = Field(None, title="Date on which coordinate transform was last calibrated")
+    notes: Optional[str] = Field(None, title="Notes")
 
 
 class ManipulatorModule(DomeModule):
@@ -187,7 +184,7 @@ class LaserConfig(AindModel):
     name: str = Field(..., title="Name", description="Must match rig json")
     wavelength: int = Field(..., title="Wavelength (nm)")
     wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
-    excitation_power: OptionalType[Decimal] = OptionalField(title="Excitation power (mW)")
+    excitation_power: Optional[Decimal] = Field(None, title="Excitation power (mW)")
     excitation_power_unit: PowerUnit = Field(PowerUnit.MW, title="Excitation power unit")
 
 
@@ -217,7 +214,7 @@ class RewardDeliveryConfig(AindModel):
 
     reward_solution: RewardSolution = Field(..., title="Reward solution", description="If Other use notes")
     reward_spouts: List[RewardSpoutConfig] = Field(..., title="Reward spouts")
-    notes: OptionalType[str] = OptionalField(title="Notes", validate_default=True)
+    notes: Optional[str] = Field(None, title="Notes", validate_default=True)
 
     @field_validator("notes", mode="after")
     def validate_other(cls, value: Optional[str], info: ValidationInfo) -> Optional[str]:
@@ -249,13 +246,13 @@ class Stream(AindModel):
     fiber_connections: List[FiberConnectionConfig] = Field([], title="Implanted fiber photometry devices")
     fiber_modules: List[FiberModule] = Field([], title="Inserted fiber modules")
     ophys_fovs: List[FieldOfView] = Field([], title="Fields of view")
-    slap_fovs: OptionalType[SlapFieldOfView] = OptionalField(title="Slap2 field of view")
-    stack_parameters: OptionalType[Stack] = OptionalField(title="Stack parameters")
+    slap_fovs: Optional[SlapFieldOfView] = Field(None, title="Slap2 field of view")
+    stack_parameters: Optional[Stack] = Field(None, title="Stack parameters")
     stimulus_device_names: List[str] = Field([], title="Stimulus devices")
     mouse_platform_name: str = Field(..., title="Mouse platform")
     active_mouse_platform: bool = Field(..., title="Active mouse platform")
     stream_modalities: List[Modality.ONE_OF] = Field(..., title="Modalities")
-    notes: OptionalType[str] = OptionalField(title="Notes")
+    notes: Optional[str] = Field(None, title="Notes")
 
     @staticmethod
     def _validate_ephys_modality(value: List[Modality.ONE_OF], info: ValidationInfo) -> Optional[str]:
@@ -341,7 +338,7 @@ class Session(AindCoreModel):
     """Description of a physiology and/or behavior session"""
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/session.py"
-    describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": True})
+    describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
     schema_version: Literal["0.1.0"] = Field("0.1.0")
 
     experimenter_full_name: List[str] = Field(
@@ -350,9 +347,9 @@ class Session(AindCoreModel):
         title="Experimenter(s) full name",
     )
     session_start_time: datetime = Field(..., title="Session start time")
-    session_end_time: OptionalType[datetime] = OptionalField(title="Session end time")
+    session_end_time: Optional[datetime] = Field(None, title="Session end time")
     session_type: str = Field(..., title="Session type")
-    iacuc_protocol: OptionalType[str] = OptionalField(title="IACUC protocol")
+    iacuc_protocol: Optional[str] = Field(None, title="IACUC protocol")
     rig_id: str = Field(..., title="Rig ID")
     calibrations: List[Calibration] = Field(
         [], title="Calibrations", description="Calibrations of rig devices prior to session"
@@ -361,11 +358,11 @@ class Session(AindCoreModel):
         [], title="Maintenance", description="Maintenance of rig devices prior to session"
     )
     subject_id: str = Field(..., title="Subject ID")
-    animal_weight_prior: OptionalType[Decimal] = OptionalField(
-        title="Animal weight (g)", description="Animal weight before procedure"
+    animal_weight_prior: Optional[Decimal] = Field(
+        None, title="Animal weight (g)", description="Animal weight before procedure"
     )
-    animal_weight_post: OptionalType[Decimal] = OptionalField(
-        title="Animal weight (g)", description="Animal weight after procedure"
+    animal_weight_post: Optional[Decimal] = Field(
+        None, title="Animal weight (g)", description="Animal weight after procedure"
     )
     weight_unit: MassUnit = Field(MassUnit.G, title="Weight unit")
     data_streams: List[Stream] = Field(
@@ -377,7 +374,7 @@ class Session(AindCoreModel):
         ),
     )
     stimulus_epochs: List[StimulusEpoch] = Field([], title="Stimulus")
-    reward_delivery: OptionalType[RewardDeliveryConfig] = OptionalField(title="Reward delivery")
-    reward_consumed_total: OptionalType[Decimal] = OptionalField(title="Total reward consumed (uL)")
+    reward_delivery: Optional[RewardDeliveryConfig] = Field(None, title="Reward delivery")
+    reward_consumed_total: Optional[Decimal] = Field(None, title="Total reward consumed (uL)")
     reward_consumed_unit: VolumeUnit = Field(VolumeUnit.UL, title="Reward consumed unit")
-    notes: OptionalType[str] = OptionalField(title="Notes")
+    notes: Optional[str] = Field(None, title="Notes")

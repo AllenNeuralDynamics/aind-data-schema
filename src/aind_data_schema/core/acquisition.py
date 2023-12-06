@@ -3,11 +3,11 @@
 from datetime import datetime
 from decimal import Decimal
 from enum import Enum
-from typing import List, Literal, Union
+from typing import List, Literal, Optional, Union
 
 from pydantic import Field, field_validator
 
-from aind_data_schema.base import AindCoreModel, AindModel, OptionalField, OptionalType
+from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.imaging.tile import AcquisitionTile
 from aind_data_schema.models.devices import Calibration, ImmersionMedium, Maintenance
 from aind_data_schema.models.process_names import ProcessName
@@ -80,7 +80,7 @@ class Acquisition(AindCoreModel):
     """Description of an imaging acquisition session"""
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/acquisition.py"
-    describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": True})
+    describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
     schema_version: Literal["0.6.0"] = Field("0.6.0")
     experimenter_full_name: List[str] = Field(
         ...,
@@ -88,7 +88,7 @@ class Acquisition(AindCoreModel):
         title="Experimenter(s) full name",
     )
     specimen_id: str = Field(..., title="Specimen ID")
-    subject_id: OptionalType[str] = OptionalField(title="Subject ID")
+    subject_id: Optional[str] = Field(None, title="Subject ID")
     instrument_id: str = Field(..., title="Instrument ID")
     calibrations: List[Calibration] = Field(
         [],
@@ -100,20 +100,20 @@ class Acquisition(AindCoreModel):
     )
     session_start_time: datetime = Field(..., title="Session start time")
     session_end_time: datetime = Field(..., title="Session end time")
-    session_type: OptionalType[str] = OptionalField(title="Session type")
+    session_type: Optional[str] = Field(None, title="Session type")
     tiles: List[AcquisitionTile] = Field(..., title="Acquisition tiles")
     axes: List[Axis] = Field(..., title="Acquisition axes")
     chamber_immersion: Immersion = Field(..., title="Acquisition chamber immersion data")
-    sample_immersion: OptionalType[Immersion] = OptionalField(title="Acquisition sample immersion data")
-    active_objectives: OptionalType[List[str]] = OptionalField(title="List of objectives used in this acquisition.")
-    local_storage_directory: OptionalType[str] = OptionalField(title="Local storage directory")
-    external_storage_directory: OptionalType[str] = OptionalField(title="External storage directory")
+    sample_immersion: Optional[Immersion] = Field(None, title="Acquisition sample immersion data")
+    active_objectives: Optional[List[str]] = Field(None, title="List of objectives used in this acquisition.")
+    local_storage_directory: Optional[str] = Field(None, title="Local storage directory")
+    external_storage_directory: Optional[str] = Field(None, title="External storage directory")
     processing_steps: List[ProcessingSteps] = Field(
         [],
         title="Processing steps",
         description="List of downstream processing steps planned for each channel",
     )
-    notes: OptionalType[str] = OptionalField(title="Notes")
+    notes: Optional[str] = Field(None, title="Notes")
 
     @field_validator("axes", mode="before")
     def from_direction_code(cls, v: Union[str, List[Axis]]) -> List[Axis]:

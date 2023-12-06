@@ -6,7 +6,7 @@ from typing import Any, Dict, List, Literal, Optional
 
 from pydantic import Field, ValidationInfo, field_validator
 
-from aind_data_schema.base import AindCoreModel, AindModel, OptionalField, OptionalType
+from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.imaging.tile import Tile
 from aind_data_schema.models.process_names import ProcessName
 
@@ -28,10 +28,10 @@ class DataProcess(AindModel):
     input_location: str = Field(..., description="Path to data inputs", title="Input location")
     output_location: str = Field(..., description="Path to data outputs", title="Output location")
     code_url: str = Field(..., description="Path to code repository", title="Code URL")
-    code_version: OptionalType[str] = OptionalField(description="Version of the code", title="Code version")
+    code_version: Optional[str] = Field(None, description="Version of the code", title="Code version")
     parameters: Dict[str, Any] = Field(..., title="Parameters")
     outputs: Dict[str, Any] = Field(dict(), description="Output parameters", title="Outputs")
-    notes: OptionalType[str] = OptionalField(title="Notes", validate_default=True)
+    notes: Optional[str] = Field(None, title="Notes", validate_default=True)
 
     @field_validator("notes", mode="after")
     def validate_other(cls, value: Optional[str], info: ValidationInfo) -> Optional[str]:
@@ -49,9 +49,9 @@ class PipelineProcess(AindModel):
     processor_full_name: str = Field(
         ..., title="Processor Full Name", description="Name of person responsible for processing pipeline"
     )
-    pipeline_version: OptionalType[str] = OptionalField(description="Version of the pipeline", title="Pipeline version")
-    pipeline_url: OptionalType[str] = OptionalField(description="URL to the pipeline code", title="Pipeline URL")
-    note: OptionalType[str] = OptionalField(title="Notes")
+    pipeline_version: Optional[str] = Field(None, description="Version of the pipeline", title="Pipeline version")
+    pipeline_url: Optional[str] = Field(None, description="URL to the pipeline code", title="Pipeline URL")
+    note: Optional[str] = Field(None, title="Notes")
 
 
 class AnalysisProcess(DataProcess):
@@ -73,7 +73,8 @@ class Registration(DataProcess):
         title="Registration type",
         description="Either inter channel across different channels or intra channel",
     )
-    registration_channel: OptionalType[int] = OptionalField(
+    registration_channel: Optional[int] = Field(
+        None,
         title="Registration channel",
         description="Channel registered to when inter channel",
     )
@@ -84,7 +85,7 @@ class Processing(AindCoreModel):
     """Description of all processes run on data"""
 
     _DESCRIBED_BY_URL: str = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/processing.py"
-    describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": True})
+    describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
     schema_version: Literal["0.4.0"] = Field("0.4.0")
 
     processing_pipeline: PipelineProcess = Field(
@@ -93,4 +94,4 @@ class Processing(AindCoreModel):
     analyses: List[AnalysisProcess] = Field(
         [], description="Analysis steps taken after processing", title="Analysis Steps"
     )
-    notes: OptionalType[str] = OptionalField(title="Notes")
+    notes: Optional[str] = Field(None, title="Notes")

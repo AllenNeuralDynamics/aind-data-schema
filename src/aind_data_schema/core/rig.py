@@ -1,11 +1,11 @@
 """Core Rig model"""
 
 from datetime import date
-from typing import List, Literal, Set
+from typing import List, Literal, Optional, Set
 
 from pydantic import Field, ValidationInfo, field_validator
 
-from aind_data_schema.base import AindCoreModel, OptionalField, OptionalType
+from aind_data_schema.base import AindCoreModel
 from aind_data_schema.models.devices import (
     LIGHT_SOURCES,
     MOUSE_PLATFORMS,
@@ -36,7 +36,7 @@ class Rig(AindCoreModel):
     """Description of a rig"""
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/rig.py"
-    describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": True})
+    describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
     schema_version: Literal["0.2.0"] = Field("0.2.0")
 
     rig_id: str = Field(..., description="room_stim apparatus_version", title="Rig ID")
@@ -44,7 +44,7 @@ class Rig(AindCoreModel):
     mouse_platform: MOUSE_PLATFORMS
     stimulus_devices: List[STIMULUS_DEVICES] = Field([], title="Stimulus devices")
     cameras: List[CameraAssembly] = Field([], title="Camera assemblies")
-    enclosure: OptionalType[Enclosure] = OptionalField(title="Enclosure")
+    enclosure: Optional[Enclosure] = Field(None, title="Enclosure")
     ephys_assemblies: List[EphysAssembly] = Field([], title="Ephys probes")
     fiber_assemblies: List[FiberAssembly] = Field([], title="Inserted fiber optics")
     stick_microscopes: List[StickMicroscopeAssembly] = Field([], title="Stick microscopes")
@@ -61,12 +61,13 @@ class Rig(AindCoreModel):
     additional_devices: List[Device] = Field([], title="Additional devices")
     daqs: List[RIG_DAQ_DEVICES] = Field([], title="Data acquisition devices", discriminator="device_type")
     calibrations: List[Calibration] = Field(..., title="Full calibration of devices")
-    ccf_coordinate_transform: OptionalType[str] = OptionalField(
+    ccf_coordinate_transform: Optional[str] = Field(
+        None,
         title="CCF coordinate transform",
         description="Path to file that details the CCF-to-lab coordinate transform",
     )
     modalities: Set[Modality.ONE_OF] = Field(..., title="Modalities")
-    notes: OptionalType[str] = OptionalField(title="Notes")
+    notes: Optional[str] = Field(None, title="Notes")
 
     @field_validator("daqs", mode="after")
     def validate_device_names(cls, value: List[DAQDevice], info: ValidationInfo) -> List[DAQDevice]:

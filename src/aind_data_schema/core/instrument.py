@@ -5,7 +5,7 @@ from typing import List, Literal, Optional
 
 from pydantic import Field, ValidationInfo, field_validator
 
-from aind_data_schema.base import AindCoreModel, AindModel, OptionalField, OptionalType
+from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.models.devices import (
     LIGHT_SOURCES,
     AdditionalImagingDevice,
@@ -34,20 +34,21 @@ class Instrument(AindCoreModel):
     """Description of an instrument, which is a collection of devices"""
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/imaging/instrument.py"
-    describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": True})
+    describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
     schema_version: Literal["0.10.0"] = Field("0.10.0")
 
-    instrument_id: OptionalType[str] = OptionalField(
+    instrument_id: Optional[str] = Field(
+        None,
         description="Unique identifier for this instrument. Naming convention: <room>-<apparatus>-<version>",
         title="Instrument ID",
     )
     modification_date: date = Field(..., title="Date of modification")
     instrument_type: ImagingInstrumentType = Field(..., title="Instrument type")
     manufacturer: Manufacturer.ONE_OF = Field(..., title="Instrument manufacturer")
-    temperature_control: OptionalType[bool] = OptionalField(title="Temperature control")
-    humidity_control: OptionalType[bool] = OptionalField(title="Humidity control")
+    temperature_control: Optional[bool] = Field(None, title="Temperature control")
+    humidity_control: Optional[bool] = Field(None, title="Humidity control")
     optical_tables: List[OpticalTable] = Field([], title="Optical table")
-    enclosure: OptionalType[Enclosure] = OptionalField(title="Enclosure")
+    enclosure: Optional[Enclosure] = Field(None, title="Enclosure")
     objectives: List[Objective] = Field(..., title="Objectives")
     detectors: List[Detector] = Field([], title="Detectors")
     light_sources: List[LIGHT_SOURCES] = Field([], title="Light sources")
@@ -56,17 +57,19 @@ class Instrument(AindCoreModel):
     motorized_stages: List[MotorizedStage] = Field([], title="Motorized stages")
     scanning_stages: List[ScanningStage] = Field([], title="Scanning motorized stages")
     additional_devices: List[AdditionalImagingDevice] = Field([], title="Additional devices")
-    calibration_date: OptionalType[date] = OptionalField(
+    calibration_date: Optional[date] = Field(
+        None,
         description="Date of most recent calibration",
         title="Calibration date",
     )
-    calibration_data: OptionalType[str] = OptionalField(
+    calibration_data: Optional[str] = Field(
+        None,
         description="Path to calibration data from most recent calibration",
         title="Calibration data",
     )
     com_ports: List[Com] = Field([], title="COM ports")
     daqs: List[DAQDevice] = Field([], title="DAQ")
-    notes: OptionalType[str] = OptionalField(validate_default=True)
+    notes: Optional[str] = Field(None, validate_default=True)
 
     @field_validator("daqs", mode="after")
     def validate_device_names(cls, value: List[DAQDevice], info: ValidationInfo) -> List[DAQDevice]:

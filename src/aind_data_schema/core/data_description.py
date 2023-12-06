@@ -7,7 +7,7 @@ from typing import Any, List, Literal, Optional, Union
 
 from pydantic import Field, field_validator, model_validator
 
-from aind_data_schema.base import AindCoreModel, AindModel, OptionalField, OptionalType
+from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.models.institutions import Institution
 from aind_data_schema.models.modalities import Modality
 from aind_data_schema.models.platforms import Platform
@@ -78,8 +78,8 @@ class Funding(AindModel):
     """Description of funding sources"""
 
     funder: Institution.ONE_OF = Field(..., title="Funder")
-    grant_number: OptionalType[str] = OptionalField(title="Grant number")
-    fundee: OptionalType[str] = OptionalField(title="Fundee", description="Person(s) funded by this mechanism")
+    grant_number: Optional[str] = Field(None, title="Grant number")
+    fundee: Optional[str] = Field(None, title="Fundee", description="Person(s) funded by this mechanism")
 
 
 class RelatedData(AindModel):
@@ -93,7 +93,7 @@ class DataDescription(AindCoreModel):
     """Description of a logical collection of data files"""
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/data_description.py"
-    describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": True})
+    describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
     schema_version: Literal["0.12.0"] = Field("0.12.0", title="Schema Version")
     license: Literal["CC-BY-4.0"] = Field("CC-BY-4.0", title="License")
 
@@ -113,11 +113,13 @@ class DataDescription(AindCoreModel):
         description="Time that data files were created, used to uniquely identify the data",
         title="Creation Time",
     )
-    label: OptionalType[str] = OptionalField(
+    label: Optional[str] = Field(
+        None,
         description="A short name for the data, used in file names and labels",
         title="Label",
     )
-    name: OptionalType[str] = OptionalField(
+    name: Optional[str] = Field(
+        None,
         description="Name of data, conventionally also the name of the directory containing all data and metadata",
         title="Name",
         validate_default=True,
@@ -138,7 +140,8 @@ class DataDescription(AindCoreModel):
         description="level of processing that data has undergone",
         title="Data Level",
     )
-    group: OptionalType[Group] = OptionalField(
+    group: Optional[Group] = Field(
+        None,
         description="A short name for the group of individuals that collected this data",
         title="Group",
     )
@@ -147,11 +150,14 @@ class DataDescription(AindCoreModel):
         description="Full name(s) of key investigators (e.g. PI, lead scientist, contact person)",
         title="Investigators",
     )
-    project_name: OptionalType[str] = OptionalField(
+    project_name: Optional[str] = Field(
+        None,
+        pattern=DataRegex.NO_SPECIAL_CHARS.value,
         description="A name for a set of coordinated activities intended to achieve one or more objectives.",
         title="Project Name",
     )
-    restrictions: OptionalType[str] = OptionalField(
+    restrictions: Optional[str] = Field(
+        None,
         description="Detail any restrictions on publishing or sharing these data",
         title="Restrictions",
     )
@@ -166,9 +172,7 @@ class DataDescription(AindCoreModel):
         title="Related data",
         description="Path and description of data assets associated with this asset (eg. reference images)",
     )
-    data_summary: OptionalType[str] = OptionalField(
-        title="Data summary", description="Semantic summary of experimental goal"
-    )
+    data_summary: Optional[str] = Field(None, title="Data summary", description="Semantic summary of experimental goal")
 
     @classmethod
     def parse_name(cls, name):
@@ -210,13 +214,6 @@ class DataDescription(AindCoreModel):
         else:
             raise ValueError("Data Level needs to be string or enum")
 
-    @field_validator("project_name", mode="after")
-    def validate_pattern(cls, value: Optional[str]) -> Optional[str]:
-        """Validate that the optional project name fits a pattern"""
-        if value is not None and not re.match(DataRegex.NO_SPECIAL_CHARS.value, value):
-            raise ValueError("No special characters allowed in project_name!")
-        return value
-
 
 class DerivedDataDescription(DataDescription):
     """A logical collection of data files derived via processing"""
@@ -225,7 +222,8 @@ class DerivedDataDescription(DataDescription):
     data_level: Literal[DataLevel.DERIVED] = Field(
         DataLevel.DERIVED, description="level of processing that data has undergone", title="Data Level"
     )
-    process_name: OptionalType[str] = OptionalField(
+    process_name: Optional[str] = Field(
+        None,
         pattern=DataRegex.NO_SPECIAL_CHARS.value,
         description="Name of the process that created the data",
         title="Process name",
