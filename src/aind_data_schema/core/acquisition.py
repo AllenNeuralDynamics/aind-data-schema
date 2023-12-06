@@ -88,7 +88,7 @@ class Acquisition(AindCoreModel):
         title="Experimenter(s) full name",
     )
     specimen_id: str = Field(..., title="Specimen ID")
-    subject_id: OptionalType[str] = Field(None, title="Subject ID")
+    subject_id: OptionalType[str] = OptionalField(title="Subject ID")
     instrument_id: str = Field(..., title="Instrument ID")
     calibrations: List[Calibration] = Field(
         [],

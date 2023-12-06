@@ -19,7 +19,7 @@ class CallithrixJacchus(_Species):
     """CallithrixJacchus"""
 
     name: Literal["Callithrix jacchus"] = "Callithrix jacchus"
-    abbreviation: Literal[""] = ""
+    abbreviation: Literal[None] = Field(None, json_schema_extra={"const": True})
     registry: BaseName = Field(NCBI, json_schema_extra={"const": True})
     registry_identifier: Literal["9483"] = "9483"
 
@@ -28,7 +28,7 @@ class HomoSapiens(_Species):
     """HomoSapiens"""
 
     name: Literal["Homo sapiens"] = "Homo sapiens"
-    abbreviation: Literal[""] = ""
+    abbreviation: Literal[None] = Field(None, json_schema_extra={"const": True})
     registry: BaseName = Field(NCBI, json_schema_extra={"const": True})
     registry_identifier: Literal["9606"] = "9606"
 
@@ -37,7 +37,7 @@ class MacacaMulatta(_Species):
     """MacacaMulatta"""
 
     name: Literal["Macaca mulatta"] = "Macaca mulatta"
-    abbreviation: Literal[""] = ""
+    abbreviation: Literal[None] = Field(None, json_schema_extra={"const": True})
     registry: BaseName = Field(NCBI, json_schema_extra={"const": True})
     registry_identifier: Literal["9544"] = "9544"
 
@@ -46,7 +46,7 @@ class MusMusculus(_Species):
     """MusMusculus"""
 
     name: Literal["Mus musculus"] = "Mus musculus"
-    abbreviation: Literal[""] = ""
+    abbreviation: Literal[None] = Field(None, json_schema_extra={"const": True})
     registry: BaseName = Field(NCBI, json_schema_extra={"const": True})
     registry_identifier: Literal["10090"] = "10090"
 
