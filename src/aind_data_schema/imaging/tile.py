@@ -1,11 +1,11 @@
 """" Models related to imaging tiles and their transformations """
 
 from decimal import Decimal
-from typing import List, Literal, Optional, Union
+from typing import List, Literal, Union
 
 from pydantic import Field
 
-from aind_data_schema.base import AindModel
+from aind_data_schema.base import AindModel, OptionalField, OptionalType
 from aind_data_schema.models.units import AngleUnit, PowerUnit, SizeUnit
 
 
@@ -25,9 +25,9 @@ class Channel(AindModel):
     # emission
     filter_wheel_index: int = Field(..., title="Filter wheel index")
     # dilation
-    dilation: Optional[int] = Field(None, title="Dilation (pixels)")
+    dilation: OptionalType[int] = OptionalField(title="Dilation (pixels)")
     dilation_unit: SizeUnit = Field(SizeUnit.PX, title="Dilation unit")
-    description: Optional[str] = Field(None, title="Description")
+    description: OptionalType[str] = OptionalField(title="Description")
 
 
 class CoordinateTransform(AindModel):
@@ -79,13 +79,13 @@ class Tile(AindModel):
             Affine3dTransform,
         ]
     ] = Field(..., title="Tile coordinate transformations", discriminator="type")
-    file_name: Optional[str] = Field(None, title="File name")
+    file_name: OptionalType[str] = OptionalField(title="File name")
 
 
 class AcquisitionTile(Tile):
     """Description of acquisition tile"""
 
     channel: Channel = Field(..., title="Channel")
-    notes: Optional[str] = Field(None, title="Notes")
+    notes: OptionalType[str] = OptionalField(title="Notes")
     imaging_angle: int = Field(0, title="Imaging angle")
     imaging_angle_unit: AngleUnit = Field(AngleUnit.DEG, title="Imaging angle unit")

@@ -3,7 +3,7 @@
    "schema_version": "0.5.0",
    "species": {
       "name": "Mus musculus",
-      "abbreviation": null,
+      "abbreviation": "",
       "registry": {
          "name": "National Center for Biotechnology Information",
          "abbreviation": "NCBI"

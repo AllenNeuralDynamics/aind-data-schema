@@ -3,12 +3,12 @@
 from datetime import datetime
 from decimal import Decimal
 from enum import Enum
-from typing import Any, Dict, List, Literal, Optional, Union
+from typing import Any, Dict, List, Literal, Union
 
 from pydantic import Field
 from typing_extensions import Annotated
 
-from aind_data_schema.base import AindModel
+from aind_data_schema.base import AindModel, OptionalField, OptionalType
 from aind_data_schema.models.devices import Software
 from aind_data_schema.models.units import FrequencyUnit, PowerUnit, TimeUnit, VolumeUnit
 
@@ -35,8 +35,8 @@ class OptoStimulation(AindModel):
     pulse_train_duration: Decimal = Field(..., title="Pulse train duration (s)")
     pulse_train_duration_unit: TimeUnit = Field(TimeUnit.S, title="Pulse train duration unit")
     fixed_pulse_train_interval: bool = Field(..., title="Fixed pulse train interval")
-    pulse_train_interval: Optional[Decimal] = Field(
-        None, title="Pulse train interval (s)", description="Time between pulse trains"
+    pulse_train_interval: OptionalType[Decimal] = OptionalField(
+        title="Pulse train interval (s)", description="Time between pulse trains"
     )
     pulse_train_interval_unit: TimeUnit = Field(TimeUnit.S, title="Pulse train interval unit")
     baseline_duration: Decimal = Field(
@@ -46,7 +46,7 @@ class OptoStimulation(AindModel):
     )
     baseline_duration_unit: TimeUnit = Field(TimeUnit.S, title="Baseline duration unit")
     other_parameters: Dict[str, Any] = Field(dict())
-    notes: Optional[str] = Field(None, title="Notes")
+    notes: OptionalType[str] = OptionalField(title="Notes")
 
 
 class VisualStimulation(AindModel):
@@ -76,7 +76,7 @@ class VisualStimulation(AindModel):
         description="The specific code for this stimulus instance",
     )
     stimulus_script_version: str = Field(..., title="Stimulus script version")
-    notes: Optional[str] = Field(None, title="Notes")
+    notes: OptionalType[str] = OptionalField(title="Notes")
 
 
 class BehaviorStimulation(AindModel):
@@ -102,10 +102,10 @@ class BehaviorStimulation(AindModel):
     )
     reward_consumed_during_epoch: Decimal = Field(..., title="Reward consumed during training (uL)")
     reward_consumed_unit: VolumeUnit = Field(VolumeUnit.UL, title="Reward consumed unit")
-    trials_total: Optional[int] = Field(..., title="Total trials")
-    trials_finished: Optional[int] = Field(..., title="Finished trials")
-    trials_rewarded: Optional[int] = Field(..., title="Rewarded trials")
-    notes: Optional[str] = Field(None, title="Notes")
+    trials_total: OptionalType[int] = OptionalField(title="Total trials")
+    trials_finished: OptionalType[int] = OptionalField(title="Finished trials")
+    trials_rewarded: OptionalType[int] = OptionalField(title="Rewarded trials")
+    notes: OptionalType[str] = OptionalField(title="Notes")
 
 
 class PhotoStimulationGroup(AindModel):
@@ -122,7 +122,7 @@ class PhotoStimulationGroup(AindModel):
     inter_spiral_interval: Decimal = Field(..., title="Inter trial interval (s)")
     inter_spiral_interval_unit: TimeUnit = Field(TimeUnit.S, title="Inter trial interval unit")
     other_parameters: Dict[str, Any] = Field({})
-    notes: Optional[str] = Field(None, title="Notes")
+    notes: OptionalType[str] = OptionalField(title="Notes")
 
 
 class PhotoStimulation(AindModel):
@@ -135,7 +135,7 @@ class PhotoStimulation(AindModel):
     inter_trial_interval: Decimal = Field(..., title="Inter trial interval (s)")
     inter_trial_interval_unit: TimeUnit = Field(TimeUnit.S, title="Inter trial interval unit")
     other_parameters: Dict[str, Any] = Field(dict())
-    notes: Optional[str] = Field(None, title="Notes")
+    notes: OptionalType[str] = OptionalField(title="Notes")
 
 
 class StimulusEpoch(AindModel):

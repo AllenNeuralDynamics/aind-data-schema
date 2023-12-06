@@ -1,17 +1,15 @@
 """Module for pidname definitions"""
 
-from typing import Optional
-
 from pydantic import Field
 
-from aind_data_schema.base import AindModel
+from aind_data_schema.base import AindModel, OptionalField, OptionalType
 
 
 class BaseName(AindModel):
     """A simple model associating a name with an abbreviation"""
 
     name: str = Field(..., title="Name")
-    abbreviation: Optional[str] = Field(None, title="Abbreviation")
+    abbreviation: OptionalType[str] = OptionalField(title="Abbreviation")
 
 
 class PIDName(BaseName):
@@ -20,5 +18,5 @@ class PIDName(BaseName):
     the registry for that PID, and abbreviation for that registry
     """
 
-    registry: Optional[BaseName] = Field(None, title="Registry")
-    registry_identifier: Optional[str] = Field(None, title="Registry identifier")
+    registry: OptionalType[BaseName] = OptionalField(title="Registry")
+    registry_identifier: OptionalType[str] = OptionalField(title="Registry identifier")

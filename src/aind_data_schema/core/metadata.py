@@ -3,12 +3,12 @@
 import inspect
 from datetime import datetime
 from enum import Enum
-from typing import Dict, List, Literal, Optional, get_args
+from typing import Dict, List, Literal, get_args
 from uuid import UUID, uuid4
 
 from pydantic import Field, PrivateAttr, ValidationError, ValidationInfo, field_validator, model_validator
 
-from aind_data_schema.base import AindCoreModel
+from aind_data_schema.base import AindCoreModel, OptionalField, OptionalType
 from aind_data_schema.core.acquisition import Acquisition
 from aind_data_schema.core.data_description import DataDescription
 from aind_data_schema.core.instrument import Instrument
@@ -85,23 +85,24 @@ class Metadata(AindCoreModel):
     # granular validations using validators. We may have some older data
     # assets in S3 that don't have metadata attached. We'd still like to
     # index that data, but we can flag those instances as MISSING or UNKNOWN
-    subject: Optional[Subject] = Field(
-        None,
+    subject: OptionalType[Subject] = OptionalField(
         title="Subject",
         description="Subject of data collection.",
     )
-    data_description: Optional[DataDescription] = Field(
-        None, title="Data Description", description="A logical collection of data files."
+    data_description: OptionalType[DataDescription] = OptionalField(
+        title="Data Description", description="A logical collection of data files."
     )
-    procedures: Optional[Procedures] = Field(
-        None, title="Procedures", description="All procedures performed on a subject."
+    procedures: OptionalType[Procedures] = OptionalField(
+        title="Procedures", description="All procedures performed on a subject."
     )
-    session: Optional[Session] = Field(None, title="Session", description="Description of a session.")
-    rig: Optional[Rig] = Field(None, title="Rig", description="Rig.")
-    processing: Optional[Processing] = Field(None, title="Processing", description="All processes run on data.")
-    acquisition: Optional[Acquisition] = Field(None, title="Acquisition", description="Imaging acquisition session")
-    instrument: Optional[Instrument] = Field(
-        None, title="Instrument", description="Instrument, which is a collection of devices"
+    session: OptionalType[Session] = OptionalField(title="Session", description="Description of a session.")
+    rig: OptionalType[Rig] = OptionalField(title="Rig", description="Rig.")
+    processing: OptionalType[Processing] = OptionalField(title="Processing", description="All processes run on data.")
+    acquisition: OptionalType[Acquisition] = OptionalField(
+        title="Acquisition", description="Imaging acquisition session"
+    )
+    instrument: OptionalType[Instrument] = OptionalField(
+        title="Instrument", description="Instrument, which is a collection of devices"
     )
 
     @field_validator(
@@ -120,7 +121,7 @@ class Metadata(AindCoreModel):
 
         # extract field from Optional[<class>] annotation
         field_name = info.field_name
-        field_class = [f for f in get_args(cls.model_fields[field_name].annotation) if not isinstance(None, f)][0]
+        field_class = [f for f in get_args(cls.model_fields[field_name].annotation) if inspect.isclass(f)][0]
 
         # If the input is a json object, we will try to create the field
         if isinstance(value, dict):
@@ -150,7 +151,7 @@ class Metadata(AindCoreModel):
                     [
                         f
                         for f in get_args(self.model_fields[field_name].annotation)
-                        if inspect.isclass(f) and not isinstance(None, f)
+                        if inspect.isclass(f) and issubclass(f, AindCoreModel)
                     ]
                 )
             )
@@ -179,3 +180,4 @@ class Metadata(AindCoreModel):
             metadata_status = MetadataStatus.MISSING
         self.metadata_status = metadata_status
         # return values
+        return self

@@ -29,19 +29,6 @@ class TestMetadata(unittest.TestCase):
         self.assertEqual(MetadataStatus.VALID, d1.metadata_status)
         self.assertEqual(s1, d1.subject)
 
-        # Test construction via dictionary
-        # d2 = Metadata(name="ecephys_655019_2023-04-03_18-17-09", location="bucket", subject=s1.dict())
-        # self.assertEqual(MetadataStatus.VALID, d2.metadata_status)
-        # self.assertEqual(s1, d2.subject)
-
-        # Test round-trip serialization
-        # We may want override the default file writer to always use by_alias
-        # when writing the Metadata records. This sets the field in the json
-        # file to _id instead of id, which makes it easier to write to
-        # MongoDB.
-        # d3 = Metadata.parse_obj(json.loads(d2.json(by_alias=True)))
-        # self.assertEqual(d2, d3)
-
     def test_missing_subject_info(self):
         """Marks the metadata status as MISSING if a Subject model is not
         present"""

@@ -3,13 +3,13 @@
 from datetime import date, datetime
 from decimal import Decimal
 from enum import Enum
-from typing import List, Literal, Optional, Set, Union
+from typing import List, Literal, Set, Union
 
 from pydantic import Field, field_validator
 from pydantic_core.core_schema import ValidationInfo
 from typing_extensions import Annotated
 
-from aind_data_schema.base import AindCoreModel, AindModel
+from aind_data_schema.base import AindCoreModel, AindModel, OptionalField, OptionalType
 from aind_data_schema.models.devices import FiberProbe
 from aind_data_schema.models.pid_names import PIDName
 from aind_data_schema.models.reagent import Reagent
@@ -143,7 +143,7 @@ class SpecimenProcedure(AindModel):
     )
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     reagents: List[Reagent] = Field([], title="Reagents")
-    notes: Optional[str] = Field(None, title="Notes")
+    notes: OptionalType[str] = OptionalField(title="Notes", validate_default=True)
 
     @field_validator("notes")
     def validate_other(cls, v, info: ValidationInfo):
@@ -227,13 +227,13 @@ class Antibody(Reagent):
     """Description of an antibody used in immunolableing"""
 
     immunolabel_class: ImmunolabelClass = Field(..., title="Immunolabel class")
-    fluorophore: Optional[Fluorophore] = Field(None, title="Fluorophore")
-    degree_of_labeling: Optional[Decimal] = Field(None, title="Degree of labeling")
+    fluorophore: OptionalType[Fluorophore] = OptionalField(title="Fluorophore")
+    degree_of_labeling: OptionalType[Decimal] = OptionalField(title="Degree of labeling")
     degree_of_labeling_unit: Literal["Fluorophore per antibody"] = Field(
         "Fluorophore per antibody", title="Degree of labeling unit"
     )
-    conjugation_protocol: Optional[str] = Field(
-        None, title="Conjugation protocol", description="Only for conjugated anitbody"
+    conjugation_protocol: OptionalType[str] = OptionalField(
+        title="Conjugation protocol", description="Only for conjugated anitbody"
     )
 
 
@@ -266,16 +266,16 @@ class SubjectProcedure(AindModel):
         title="Experimenter full name",
     )
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
-    iacuc_protocol: Optional[str] = Field(None, title="IACUC protocol")
-    animal_weight_prior: Optional[Decimal] = Field(
-        None, title="Animal weight (g)", description="Animal weight before procedure"
+    iacuc_protocol: OptionalType[str] = OptionalField(title="IACUC protocol")
+    animal_weight_prior: OptionalType[Decimal] = OptionalField(
+        title="Animal weight (g)", description="Animal weight before procedure"
     )
-    animal_weight_post: Optional[Decimal] = Field(
-        None, title="Animal weight (g)", description="Animal weight after procedure"
+    animal_weight_post: OptionalType[Decimal] = OptionalField(
+        title="Animal weight (g)", description="Animal weight after procedure"
     )
     weight_unit: MassUnit = Field(MassUnit.G, title="Weight unit")
-    anaesthesia: Optional[Anaesthetic] = Field(None, title="Anaesthesia")
-    notes: Optional[str] = Field(None, title="Notes")
+    anaesthesia: OptionalType[Anaesthetic] = OptionalField(title="Anaesthesia")
+    notes: OptionalType[str] = OptionalField(title="Notes")
 
 
 class Craniotomy(SubjectProcedure):
@@ -283,25 +283,25 @@ class Craniotomy(SubjectProcedure):
 
     procedure_type: Literal["Craniotomy"] = Field("Craniotomy", title="Procedure type")
     craniotomy_type: CraniotomyType = Field(..., title="Craniotomy type")
-    craniotomy_hemisphere: Optional[Side] = Field(None, title="Craniotomy hemisphere")
-    craniotomy_coordinates_ml: Optional[Decimal] = Field(None, title="Craniotomy coordinate ML (mm)")
-    craniotomy_coordinates_ap: Optional[Decimal] = Field(None, title="Craniotomy coordinates AP (mm)")
+    craniotomy_hemisphere: OptionalType[Side] = OptionalField(title="Craniotomy hemisphere")
+    craniotomy_coordinates_ml: OptionalType[Decimal] = OptionalField(title="Craniotomy coordinate ML (mm)")
+    craniotomy_coordinates_ap: OptionalType[Decimal] = OptionalField(title="Craniotomy coordinates AP (mm)")
     craniotomy_coordinates_unit: SizeUnit = Field(SizeUnit.MM, title="Craniotomy coordinates unit")
-    craniotomy_coordinates_reference: Optional[CoordinateReferenceLocation] = Field(
-        None, title="Craniotomy coordinate reference"
+    craniotomy_coordinates_reference: OptionalType[CoordinateReferenceLocation] = OptionalField(
+        title="Craniotomy coordinate reference"
     )
-    bregma_to_lambda_distance: Optional[Decimal] = Field(
-        None, title="Bregma to lambda (mm)", description="Distance between bregman and lambda"
+    bregma_to_lambda_distance: OptionalType[Decimal] = OptionalField(
+        title="Bregma to lambda (mm)", description="Distance between bregman and lambda"
     )
     bregma_to_lambda_unit: SizeUnit = Field(SizeUnit.MM, title="Bregma to lambda unit")
     craniotomy_size: Decimal = Field(..., title="Craniotomy size (mm)")
     craniotomy_size_unit: SizeUnit = Field(SizeUnit.MM, title="Craniotomy size unit")
-    implant_part_number: Optional[str] = Field(None, title="Implant part number")
-    dura_removed: Optional[bool] = Field(None, title="Dura removed")
-    protective_material: Optional[ProtectiveMaterial] = Field(None, title="Protective material")
-    workstation_id: Optional[str] = Field(None, title="Workstation ID")
-    recovery_time: Optional[Decimal] = Field(None, title="Recovery time")
-    recovery_time_unit: Optional[TimeUnit] = Field(TimeUnit.M, title="Recovery time unit")
+    implant_part_number: OptionalType[str] = OptionalField(title="Implant part number")
+    dura_removed: OptionalType[bool] = OptionalField(title="Dura removed")
+    protective_material: OptionalType[ProtectiveMaterial] = Field(None, title="Protective material")
+    workstation_id: OptionalType[str] = OptionalField(title="Workstation ID")
+    recovery_time: OptionalType[Decimal] = OptionalField(title="Recovery time")
+    recovery_time_unit: TimeUnit = Field(TimeUnit.M, title="Recovery time unit")
 
 
 class Headframe(SubjectProcedure):
@@ -310,39 +310,38 @@ class Headframe(SubjectProcedure):
     procedure_type: Literal["Headframe"] = Field("Headframe", title="Procedure type")
     headframe_type: str = Field(..., title="Headframe type")
     headframe_part_number: str = Field(..., title="Headframe part number")
-    headframe_material: Optional[HeadframeMaterial] = Field(None, title="Headframe material")
-    well_part_number: Optional[str] = Field(None, title="Well part number")
-    well_type: Optional[str] = Field(None, title="Well type")
+    headframe_material: OptionalType[HeadframeMaterial] = OptionalField(title="Headframe material")
+    well_part_number: OptionalType[str] = OptionalField(title="Well part number")
+    well_type: OptionalType[str] = OptionalField(title="Well type")
 
 
 class InjectionMaterial(AindModel):
     """Description of injection material"""
 
     name: str = Field(..., title="Name")
-    material_id: Optional[str] = Field(None, title="Material ID")
-    full_genome_name: Optional[str] = Field(
-        None,
+    material_id: OptionalType[str] = OptionalField(title="Material ID")
+    full_genome_name: OptionalType[str] = OptionalField(
         title="Full genome name",
         description="Full genome for virus construct",
     )
-    plasmid_name: Optional[str] = Field(
-        None,
+    plasmid_name: OptionalType[str] = OptionalField(
         title="Plasmid name",
         description="Short name used to reference the plasmid",
     )
-    genome_copy: Optional[Decimal] = Field(None, title="Genome copy")
-    titer: Optional[Decimal] = Field(None, title="Titer (gc/mL)", description="Titer for viral materials")
-    titer_unit: Optional[str] = Field("gc/mL", title="Titer unit")
-    concentration: Optional[Decimal] = Field(None, title="Concentration", description="Must provide concentration unit")
-    concentration_unit: Optional[str] = Field(None, title="Concentration unit")
-    prep_lot_number: Optional[str] = Field(None, title="Preparation lot number")
-    prep_date: Optional[date] = Field(
-        None,
+    genome_copy: OptionalType[Decimal] = OptionalField(title="Genome copy")
+    titer: OptionalType[Decimal] = OptionalField(title="Titer (gc/mL)", description="Titer for viral materials")
+    titer_unit: Literal["gc/mL"] = "gc/mL"
+    concentration: OptionalType[Decimal] = OptionalField(
+        title="Concentration", description="Must provide concentration unit"
+    )
+    concentration_unit: OptionalType[str] = OptionalField(title="Concentration unit")
+    prep_lot_number: OptionalType[str] = OptionalField(title="Preparation lot number")
+    prep_date: OptionalType[date] = OptionalField(
         title="Preparation lot date",
         description="Date this prep lot was titered",
     )
-    prep_type: Optional[VirusPrepType] = Field(None, title="Viral prep type")
-    prep_protocol: Optional[str] = Field(None, title="Prep protocol")
+    prep_type: OptionalType[VirusPrepType] = OptionalField(title="Viral prep type")
+    prep_protocol: OptionalType[str] = OptionalField(title="Prep protocol")
 
 
 class Injection(SubjectProcedure):
@@ -350,12 +349,12 @@ class Injection(SubjectProcedure):
 
     procedure_type: Literal["Injection"] = Field("Injection", title="Procedure type")
     injection_materials: List[InjectionMaterial] = Field([], title="Injection material", min_length=1)
-    recovery_time: Optional[Decimal] = Field(None, title="Recovery time")
-    recovery_time_unit: Optional[TimeUnit] = Field(TimeUnit.M, title="Recovery time unit")
-    injection_duration: Optional[Decimal] = Field(None, title="Injection duration")
-    injection_duration_unit: Optional[TimeUnit] = Field(TimeUnit.M, title="Injection duration unit")
-    workstation_id: Optional[str] = Field(None, title="Workstation ID")
-    instrument_id: Optional[str] = Field(None, title="Instrument ID")
+    recovery_time: OptionalType[Decimal] = OptionalField(title="Recovery time")
+    recovery_time_unit: TimeUnit = Field(TimeUnit.M, title="Recovery time unit")
+    injection_duration: OptionalType[Decimal] = OptionalField(title="Injection duration")
+    injection_duration_unit: TimeUnit = Field(TimeUnit.M, title="Injection duration unit")
+    workstation_id: OptionalType[str] = OptionalField(title="Workstation ID")
+    instrument_id: OptionalType[str] = OptionalField(title="Instrument ID")
 
 
 class RetroOrbitalInjection(Injection):
@@ -375,17 +374,17 @@ class BrainInjection(Injection):
     injection_coordinate_ap: Decimal = Field(..., title="Injection coordinate AP (mm)")
     injection_coordinate_depth: List[Decimal] = Field(..., title="Injection coordinate depth (mm)")
     injection_coordinate_unit: SizeUnit = Field(SizeUnit.MM, title="Injection coordinate unit")
-    injection_coordinate_reference: Optional[CoordinateReferenceLocation] = Field(
-        None, title="Injection coordinate reference"
+    injection_coordinate_reference: OptionalType[CoordinateReferenceLocation] = OptionalField(
+        title="Injection coordinate reference"
     )
-    bregma_to_lambda_distance: Optional[Decimal] = Field(
-        None, title="Bregma to lambda (mm)", description="Distance between bregman and lambda"
+    bregma_to_lambda_distance: OptionalType[Decimal] = OptionalField(
+        title="Bregma to lambda (mm)", description="Distance between bregman and lambda"
     )
     bregma_to_lambda_unit: SizeUnit = Field(SizeUnit.MM, title="Bregma to lambda unit")
     injection_angle: Decimal = Field(..., title="Injection angle (deg)")
     injection_angle_unit: AngleUnit = Field(AngleUnit.DEG, title="Injection angle unit")
-    targeted_structure: Optional[str] = Field(None, title="Injection targeted brain structure")
-    injection_hemisphere: Optional[Side] = Field(None, title="Injection hemisphere")
+    targeted_structure: OptionalType[str] = OptionalField(title="Injection targeted brain structure")
+    injection_hemisphere: OptionalType[Side] = OptionalField(title="Injection hemisphere")
 
 
 class NanojectInjection(BrainInjection):
@@ -451,8 +450,8 @@ class TrainingProtocol(AindModel):
     training_name: str = Field(..., title="Training protocol name")
     protocol_id: str = Field(..., title="Training protocol ID")
     training_protocol_start_date: date = Field(..., title="Training protocol start date")
-    training_protocol_end_date: Optional[date] = Field(None, title="Training protocol end date")
-    notes: Optional[str] = Field(None, title="Notes")
+    training_protocol_end_date: OptionalType[date] = OptionalField(title="Training protocol end date")
+    notes: OptionalType[str] = OptionalField(title="Notes")
 
 
 class OphysProbe(AindModel):
@@ -467,16 +466,16 @@ class OphysProbe(AindModel):
         title="Stereotactic coordinate D/V (mm)",
     )
     stereotactic_coordinate_unit: SizeUnit = Field(SizeUnit.MM, title="Sterotactic coordinate unit")
-    stereotactic_coordinate_reference: Optional[CoordinateReferenceLocation] = Field(
-        None, title="Stereotactic coordinate reference"
+    stereotactic_coordinate_reference: OptionalType[CoordinateReferenceLocation] = OptionalField(
+        title="Stereotactic coordinate reference"
     )
-    bregma_to_lambda_distance: Optional[Decimal] = Field(
-        None, title="Bregma to lambda (mm)", description="Distance between bregman and lambda"
+    bregma_to_lambda_distance: OptionalType[Decimal] = OptionalField(
+        title="Bregma to lambda (mm)", description="Distance between bregman and lambda"
     )
     bregma_to_lambda_unit: SizeUnit = Field(SizeUnit.MM, title="Bregma to lambda unit")
     angle: Decimal = Field(..., title="Angle (deg)")
     angle_unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
-    notes: Optional[str] = Field(None, title="Notes")
+    notes: OptionalType[str] = OptionalField(title="Notes")
 
 
 class FiberImplant(SubjectProcedure):
@@ -490,7 +489,7 @@ class WaterRestriction(AindModel):
     """Description of a water restriction procedure"""
 
     procedure_type: Literal["Water restriction"] = Field("Water restriction", title="Procedure type")
-    protocol_id: Optional[str] = Field(None, title="Water restriction protocol number")
+    protocol_id: OptionalType[str] = OptionalField(title="Water restriction protocol number")
     baseline_weight: Decimal = Field(
         ...,
         title="Baseline weight (g)",
@@ -547,4 +546,4 @@ class Procedures(AindCoreModel):
         List[Union[HCRSeries, Immunolabeling, SpecimenProcedure]],
         Field(title="Specimen Procedures", discriminator="specimen_procedure_type"),
     ] = []
-    notes: Optional[str] = Field(None, title="Notes")
+    notes: OptionalType[str] = OptionalField(title="Notes")

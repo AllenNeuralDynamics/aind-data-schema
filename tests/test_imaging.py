@@ -308,14 +308,13 @@ class ImagingTests(unittest.TestCase):
         expected_exception = (
             "2 validation errors for Instrument\n"
             "objectives\n"
-            "  Field required [type=missing, input_value={'instrument_id':"
-            " 'exaSPI...ased_sampling=False)])]}, input_type=dict]\n"
+            "  Field required [type=missing,"
+            " input_value={'instrument_id': 'exaSPI...based_sampling=None)])]}, input_type=dict]\n"
             "    For further information visit https://errors.pydantic.dev/2.5/v/missing\n"
             "daqs\n"
             "  Value error, Device name validation error: 'LAS-08308' is connected to '3' on 'Dev2',"
-            " but this device"
-            " is not part of the rig. [type=value_error,"
-            " input_value=[DAQDevice(device_type='D...based_sampling=False)])], input_type=list]\n"
+            " but this device is not part of the rig. [type=value_error,"
+            " input_value=[DAQDevice(device_type='D..._based_sampling=None)])], input_type=list]\n"
             "    For further information visit https://errors.pydantic.dev/2.5/v/value_error"
         )
         self.assertEqual(expected_exception, repr(e.exception))

@@ -296,7 +296,7 @@
                "channel_index": null,
                "sample_rate": "10000",
                "sample_rate_unit": "hertz",
-               "event_based_sampling": false
+               "event_based_sampling": null
             },
             {
                "channel_name": "5",
@@ -306,7 +306,7 @@
                "channel_index": null,
                "sample_rate": "10000",
                "sample_rate_unit": "hertz",
-               "event_based_sampling": false
+               "event_based_sampling": null
             },
             {
                "channel_name": "4",
@@ -316,7 +316,7 @@
                "channel_index": null,
                "sample_rate": "10000",
                "sample_rate_unit": "hertz",
-               "event_based_sampling": false
+               "event_based_sampling": null
             },
             {
                "channel_name": "2",
@@ -326,7 +326,7 @@
                "channel_index": null,
                "sample_rate": "10000",
                "sample_rate_unit": "hertz",
-               "event_based_sampling": false
+               "event_based_sampling": null
             },
             {
                "channel_name": "0",
@@ -336,7 +336,7 @@
                "channel_index": null,
                "sample_rate": "10000",
                "sample_rate_unit": "hertz",
-               "event_based_sampling": false
+               "event_based_sampling": null
             },
             {
                "channel_name": "6",
@@ -346,7 +346,7 @@
                "channel_index": null,
                "sample_rate": "10000",
                "sample_rate_unit": "hertz",
-               "event_based_sampling": false
+               "event_based_sampling": null
             }
          ]
       }

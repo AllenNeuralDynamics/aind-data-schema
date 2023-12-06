@@ -6,7 +6,7 @@ from typing import Any, Dict, List, Literal, Optional
 
 from pydantic import Field, ValidationInfo, field_validator
 
-from aind_data_schema.base import AindCoreModel, AindModel
+from aind_data_schema.base import AindCoreModel, AindModel, OptionalField, OptionalType
 from aind_data_schema.core.acquisition import Axis
 from aind_data_schema.core.procedures import Anaesthetic
 from aind_data_schema.imaging.tile import Scale3dTransform
@@ -40,7 +40,7 @@ class MRIScan(AindModel):
     repetition_time: Decimal = Field(..., title="Repetition time (ms)")
     repetition_time_unit: TimeUnit = Field(TimeUnit.MS, title="Repetition time unit")
     additional_scan_parameters: Dict[str, Any] = Field(..., title="Parameters")
-    notes: Optional[str] = Field(None, title="Notes", validate_default=True)
+    notes: OptionalType[str] = OptionalField(title="Notes", validate_default=True)
 
     @field_validator("notes", mode="after")
     def validate_other(cls, value: Optional[str], info: ValidationInfo) -> Optional[str]:
@@ -66,26 +66,24 @@ class MriSession(AindCoreModel):
         title="Subject ID",
     )
     session_start_time: datetime = Field(..., title="Session start time")
-    session_end_time: Optional[datetime] = Field(None, title="Session end time")
+    session_end_time: OptionalType[datetime] = OptionalField(title="Session end time")
     experimenter_full_name: List[str] = Field(
         ...,
         description="First and last name of the experimenter(s).",
         title="Experimenter(s) full name",
     )
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
-    iacuc_protocol: Optional[str] = Field(None, title="IACUC protocol")
-    animal_weight_prior: Optional[Decimal] = Field(
-        None,
+    iacuc_protocol: OptionalType[str] = OptionalField(title="IACUC protocol")
+    animal_weight_prior: OptionalType[Decimal] = OptionalField(
         title="Animal weight (g)",
         description="Animal weight before procedure",
     )
-    animal_weight_post: Optional[Decimal] = Field(
-        None,
+    animal_weight_post: OptionalType[Decimal] = OptionalField(
         title="Animal weight (g)",
         description="Animal weight after procedure",
     )
     weight_unit: MassUnit = Field(MassUnit.G, title="Weight unit")
-    anaesthesia: Optional[Anaesthetic] = Field(None, title="Anaesthesia")
+    anaesthesia: OptionalType[Anaesthetic] = OptionalField(title="Anaesthesia")
     mri_scanner: Scanner = Field(..., title="MRI scanner")
     scans: List[MRIScan] = Field(..., title="MRI scans")
-    notes: Optional[str] = Field(None, title="Notes")
+    notes: OptionalType[str] = OptionalField(title="Notes")

@@ -2,11 +2,10 @@
 
 from decimal import Decimal
 from enum import Enum
-from typing import Optional
 
 from pydantic import Field
 
-from aind_data_schema.base import AindModel
+from aind_data_schema.base import AindModel, OptionalField, OptionalType
 from aind_data_schema.models.units import AngleUnit, SizeUnit
 
 
@@ -19,17 +18,17 @@ class CcfVersion(str, Enum):
 class RelativePosition(AindModel):
     """Set of 6 values describing relative position on a rig"""
 
-    pitch: Optional[Decimal] = Field(None, title="Angle pitch (deg)", ge=0, le=360)
-    yaw: Optional[Decimal] = Field(None, title="Angle yaw (deg)", ge=0, le=360)
-    roll: Optional[Decimal] = Field(None, title="Angle roll (deg)", ge=0, le=360)
+    pitch: OptionalType[Decimal] = OptionalField(title="Angle pitch (deg)", ge=0, le=360)
+    yaw: OptionalType[Decimal] = OptionalField(title="Angle yaw (deg)", ge=0, le=360)
+    roll: OptionalType[Decimal] = OptionalField(title="Angle roll (deg)", ge=0, le=360)
     angle_unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
 
-    x: Optional[Decimal] = Field(None, title="Position X (mm)")
-    y: Optional[Decimal] = Field(None, title="Position Y (mm)")
-    z: Optional[Decimal] = Field(None, title="Position Z (mm)")
+    x: OptionalType[Decimal] = OptionalField(title="Position X (mm)")
+    y: OptionalType[Decimal] = OptionalField(title="Position Y (mm)")
+    z: OptionalType[Decimal] = OptionalField(title="Position Z (mm)")
     position_unit: SizeUnit = Field(SizeUnit.MM, title="Position unit")
 
-    coordinate_system: Optional[str] = Field(None, title="Description of the coordinate system used")
+    coordinate_system: OptionalType[str] = OptionalField(title="Description of the coordinate system used")
 
 
 class Size2d(AindModel):

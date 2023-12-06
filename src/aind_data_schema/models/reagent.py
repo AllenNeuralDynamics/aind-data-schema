@@ -1,11 +1,10 @@
 """Classes to define reagents"""
 
 from datetime import date
-from typing import Optional
 
 from pydantic import Field
 
-from aind_data_schema.base import AindModel
+from aind_data_schema.base import AindModel, OptionalField, OptionalType
 from aind_data_schema.models.pid_names import PIDName
 
 
@@ -14,6 +13,6 @@ class Reagent(AindModel):
 
     name: str = Field(..., title="Name")
     source: str = Field(..., title="Source")
-    rrid: Optional[PIDName] = Field(None, title="Research Resource ID")
+    rrid: OptionalType[PIDName] = OptionalField(title="Research Resource ID")
     lot_number: str = Field(..., title="Lot number")
-    expiration_date: Optional[date] = Field(None, title="Lot expiration date")
+    expiration_date: OptionalType[date] = OptionalField(title="Lot expiration date")

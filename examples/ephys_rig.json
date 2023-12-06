@@ -272,7 +272,7 @@
                "channel_index": null,
                "sample_rate": null,
                "sample_rate_unit": "hertz",
-               "event_based_sampling": false
+               "event_based_sampling": null
             },
             {
                "channel_name": "DO1",
@@ -282,7 +282,7 @@
                "channel_index": null,
                "sample_rate": null,
                "sample_rate_unit": "hertz",
-               "event_based_sampling": false
+               "event_based_sampling": null
             },
             {
                "channel_name": "AI0",
@@ -292,7 +292,7 @@
                "channel_index": null,
                "sample_rate": null,
                "sample_rate_unit": "hertz",
-               "event_based_sampling": false
+               "event_based_sampling": null
             }
          ],
          "harp_device_type": "Behavior",

@@ -36,7 +36,9 @@ class SubjectTests(unittest.TestCase):
             mgi_allele_ids=[MgiAlleleId(mgi_id="12345", allele_name="adsf")],
         )
 
-        assert s is not None
+        Subject.model_validate_json(s.model_dump_json())
+
+        self.assertIsNotNone(s)
 
 
 if __name__ == "__main__":

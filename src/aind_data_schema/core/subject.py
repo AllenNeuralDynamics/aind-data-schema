@@ -3,11 +3,11 @@
 from datetime import date as date_type
 from datetime import time
 from enum import Enum
-from typing import List, Literal, Optional
+from typing import List, Literal
 
 from pydantic import Field
 
-from aind_data_schema.base import AindCoreModel, AindModel
+from aind_data_schema.base import AindCoreModel, AindModel, OptionalField, OptionalType
 from aind_data_schema.models.institutions import Institution
 from aind_data_schema.models.pid_names import PIDName
 from aind_data_schema.models.species import Species
@@ -69,9 +69,9 @@ class MgiAlleleId(AindModel):
 class Housing(AindModel):
     """Description of subject housing"""
 
-    cage_id: Optional[str] = Field(None, title="Cage ID")
-    room_id: Optional[str] = Field(None, title="Room ID")
-    light_cycle: Optional[LightCycle] = Field(None, title="Light cycle")
+    cage_id: OptionalType[str] = OptionalField(title="Cage ID")
+    room_id: OptionalType[str] = OptionalField(title="Room ID")
+    light_cycle: OptionalType[LightCycle] = OptionalField(title="Light cycle")
     home_cage_enrichment: List[HomeCageEnrichment] = Field([], title="Home cage enrichment")
     cohoused_subjects: List[str] = Field(
         [],
@@ -100,27 +100,24 @@ class Subject(AindCoreModel):
         title="Genotype",
     )
     mgi_allele_ids: List[MgiAlleleId] = Field([], title="MGI allele ids")
-    background_strain: Optional[BackgroundStrain] = Field(None, title="Background strain")
-    source: Optional[Institution.ONE_OF] = Field(
-        None,
+    background_strain: OptionalType[BackgroundStrain] = OptionalField(title="Background strain")
+    source: OptionalType[Institution.ONE_OF] = OptionalField(
         description="If the subject was not bred in house, where was it acquired from.",
         title="Source",
     )
-    rrid: Optional[PIDName] = Field(
-        None,
+    rrid: OptionalType[PIDName] = OptionalField(
         description="RRID of mouse if acquired from supplier",
         title="RRID",
     )
-    restrictions: Optional[str] = Field(
-        None,
+    restrictions: OptionalType[str] = OptionalField(
         description="Any restrictions on use or publishing based on subject source",
         title="Restrictions",
     )
-    breeding_group: Optional[str] = Field(None, title="Breeding Group")
-    maternal_id: Optional[str] = Field(None, title="Maternal specimen ID")
-    maternal_genotype: Optional[str] = Field(None, title="Maternal genotype")
-    paternal_id: Optional[str] = Field(None, title="Paternal specimen ID")
-    paternal_genotype: Optional[str] = Field(None, title="Paternal genotype")
+    breeding_group: OptionalType[str] = OptionalField(title="Breeding Group")
+    maternal_id: OptionalType[str] = OptionalField(title="Maternal specimen ID")
+    maternal_genotype: OptionalType[str] = OptionalField(title="Maternal genotype")
+    paternal_id: OptionalType[str] = OptionalField(title="Paternal specimen ID")
+    paternal_genotype: OptionalType[str] = OptionalField(title="Paternal genotype")
     wellness_reports: List[WellnessReport] = Field([], title="Wellness Report")
-    housing: Optional[Housing] = Field(None, title="Housing")
-    notes: Optional[str] = Field(None, title="Notes")
+    housing: OptionalType[Housing] = OptionalField(title="Housing")
+    notes: OptionalType[str] = OptionalField(title="Notes")

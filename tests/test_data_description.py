@@ -198,6 +198,31 @@ class DataDescriptionTest(unittest.TestCase):
                 investigators=["Jane Smith"],
             )
 
+    def test_pattern_errors(self):
+        """Tests that errors are raised if malformed strings are input"""
+        with self.assertRaises(ValidationError) as e:
+            DataDescription(
+                label="test_data",
+                modality=[Modality.SPIM],
+                platform=Platform.EXASPIM,
+                subject_id="1234",
+                data_level="raw",
+                project_name="a_32r&!#R$&#",
+                creation_time=datetime.datetime(2020, 10, 10, 10, 10, 10),
+                institution=Institution.AIND,
+                funding_source=[Funding(funder=Institution.NINDS, grant_number="grant001")],
+                investigators=["Jane Smith"],
+            )
+
+        expected_exception = (
+            "1 validation error for DataDescription\n"
+            "project_name\n"
+            "  Value error, No special characters allowed in project_name!"
+            " [type=value_error, input_value='a_32r&!#R$&#', input_type=str]\n"
+            "    For further information visit https://errors.pydantic.dev/2.5/v/value_error"
+        )
+        self.assertEqual(expected_exception, repr(e.exception))
+
     def test_name_label_error(self):
         """Tests an error is raised if label and name are None"""
 
