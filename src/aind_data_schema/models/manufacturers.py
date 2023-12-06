@@ -5,8 +5,8 @@ from typing import Literal, Union
 from pydantic import ConfigDict, Field
 from typing_extensions import Annotated
 
-from aind_data_schema.models.pid_names import BaseName, PIDName
-from aind_data_schema.models.registry import ROR
+from aind_data_schema.models.pid_names import PIDName
+from aind_data_schema.models.registry import Registry, ResearchOrganizationRegistry
 
 
 class _Manufacturer(PIDName):
@@ -56,7 +56,7 @@ class Asus(_Manufacturer):
 
     name: Literal["ASUS"] = "ASUS"
     abbreviation: Literal[None] = Field(None)
-    registry: BaseName = Field(ROR, json_schema_extra={"const": True})
+    registry: Annotated[Union[ResearchOrganizationRegistry], Field(default=Registry.ROR, discriminator="name")]
     registry_identifier: Literal["00bxkz165"] = "00bxkz165"
 
 
@@ -101,7 +101,7 @@ class CoherentScientific(_Manufacturer):
 
     name: Literal["Coherent Scientific"] = "Coherent Scientific"
     abbreviation: Literal[None] = Field(None)
-    registry: BaseName = Field(ROR, json_schema_extra={"const": True})
+    registry: Annotated[Union[ResearchOrganizationRegistry], Field(default=Registry.ROR, discriminator="name")]
     registry_identifier: Literal["031tysd23"] = "031tysd23"
 
 
@@ -137,7 +137,7 @@ class Doric(_Manufacturer):
 
     name: Literal["Doric"] = "Doric"
     abbreviation: Literal[None] = Field(None)
-    registry: BaseName = Field(ROR, json_schema_extra={"const": True})
+    registry: Annotated[Union[ResearchOrganizationRegistry], Field(default=Registry.ROR, discriminator="name")]
     registry_identifier: Literal["059n53q30"] = "059n53q30"
 
 
@@ -155,7 +155,7 @@ class EdmundOptics(_Manufacturer):
 
     name: Literal["Edmund Optics"] = "Edmund Optics"
     abbreviation: Literal[None] = Field(None)
-    registry: BaseName = Field(ROR, json_schema_extra={"const": True})
+    registry: Annotated[Union[ResearchOrganizationRegistry], Field(default=Registry.ROR, discriminator="name")]
     registry_identifier: Literal["01j1gwp17"] = "01j1gwp17"
 
 
@@ -173,7 +173,7 @@ class TeledyneFLIR(_Manufacturer):
 
     name: Literal["Teledyne FLIR"] = "Teledyne FLIR"
     abbreviation: Literal["FLIR"] = "FLIR"
-    registry: BaseName = Field(ROR, json_schema_extra={"const": True})
+    registry: Annotated[Union[ResearchOrganizationRegistry], Field(default=Registry.ROR, discriminator="name")]
     registry_identifier: Literal["01j1gwp17"] = "01j1gwp17"
 
 
@@ -191,7 +191,7 @@ class Hamamatsu(_Manufacturer):
 
     name: Literal["Hamamatsu"] = "Hamamatsu"
     abbreviation: Literal[None] = Field(None)
-    registry: BaseName = Field(ROR, json_schema_extra={"const": True})
+    registry: Annotated[Union[ResearchOrganizationRegistry], Field(default=Registry.ROR, discriminator="name")]
     registry_identifier: Literal["03natb733"] = "03natb733"
 
 
@@ -209,7 +209,7 @@ class InteruniversityMicroelectronicsCenter(_Manufacturer):
 
     name: Literal["Interuniversity Microelectronics Center"] = "Interuniversity Microelectronics Center"
     abbreviation: Literal["IMEC"] = "IMEC"
-    registry: BaseName = Field(ROR, json_schema_extra={"const": True})
+    registry: Annotated[Union[ResearchOrganizationRegistry], Field(default=Registry.ROR, discriminator="name")]
     registry_identifier: Literal["02kcbn207"] = "02kcbn207"
 
 
@@ -263,7 +263,7 @@ class Lg(_Manufacturer):
 
     name: Literal["LG"] = "LG"
     abbreviation: Literal[None] = Field(None)
-    registry: BaseName = Field(ROR, json_schema_extra={"const": True})
+    registry: Annotated[Union[ResearchOrganizationRegistry], Field(default=Registry.ROR, discriminator="name")]
     registry_identifier: Literal["02b948n83"] = "02b948n83"
 
 
@@ -281,7 +281,7 @@ class MeadowlarkOptics(_Manufacturer):
 
     name: Literal["Meadowlark Optics"] = "Meadowlark Optics"
     abbreviation: Literal[None] = Field(None)
-    registry: BaseName = Field(ROR, json_schema_extra={"const": True})
+    registry: Annotated[Union[ResearchOrganizationRegistry], Field(default=Registry.ROR, discriminator="name")]
     registry_identifier: Literal["00n8qbq54"] = "00n8qbq54"
 
 
@@ -308,7 +308,7 @@ class MKSNewport(_Manufacturer):
 
     name: Literal["MKS Newport"] = "MKS Newport"
     abbreviation: Literal[None] = Field(None)
-    registry: BaseName = Field(ROR, json_schema_extra={"const": True})
+    registry: Annotated[Union[ResearchOrganizationRegistry], Field(default=Registry.ROR, discriminator="name")]
     registry_identifier: Literal["00k17f049"] = "00k17f049"
 
 
@@ -326,7 +326,7 @@ class NationalInstruments(_Manufacturer):
 
     name: Literal["National Instruments"] = "National Instruments"
     abbreviation: Literal[None] = Field(None)
-    registry: BaseName = Field(ROR, json_schema_extra={"const": True})
+    registry: Annotated[Union[ResearchOrganizationRegistry], Field(default=Registry.ROR, discriminator="name")]
     registry_identifier: Literal["026exqw73"] = "026exqw73"
 
 
@@ -353,7 +353,7 @@ class Nikon(_Manufacturer):
 
     name: Literal["Nikon"] = "Nikon"
     abbreviation: Literal[None] = Field(None)
-    registry: BaseName = Field(ROR, json_schema_extra={"const": True})
+    registry: Annotated[Union[ResearchOrganizationRegistry], Field(default=Registry.ROR, discriminator="name")]
     registry_identifier: Literal["0280y9h11"] = "0280y9h11"
 
 
@@ -362,7 +362,7 @@ class OpenEphysProductionSite(_Manufacturer):
 
     name: Literal["Open Ephys Production Site"] = "Open Ephys Production Site"
     abbreviation: Literal["OEPS"] = "OEPS"
-    registry: BaseName = Field(ROR, json_schema_extra={"const": True})
+    registry: Annotated[Union[ResearchOrganizationRegistry], Field(default=Registry.ROR, discriminator="name")]
     registry_identifier: Literal["007rkz355"] = "007rkz355"
 
 
@@ -371,7 +371,7 @@ class Olympus(_Manufacturer):
 
     name: Literal["Olympus"] = "Olympus"
     abbreviation: Literal[None] = Field(None)
-    registry: BaseName = Field(ROR, json_schema_extra={"const": True})
+    registry: Annotated[Union[ResearchOrganizationRegistry], Field(default=Registry.ROR, discriminator="name")]
     registry_identifier: Literal["02vcdte90"] = "02vcdte90"
 
 
@@ -461,7 +461,7 @@ class Thorlabs(_Manufacturer):
 
     name: Literal["Thorlabs"] = "Thorlabs"
     abbreviation: Literal[None] = Field(None)
-    registry: BaseName = Field(ROR, json_schema_extra={"const": True})
+    registry: Annotated[Union[ResearchOrganizationRegistry], Field(default=Registry.ROR, discriminator="name")]
     registry_identifier: Literal["04gsnvb07"] = "04gsnvb07"
 
 
@@ -506,7 +506,7 @@ class CarlZeiss(_Manufacturer):
 
     name: Literal["Carl Zeiss"] = "Carl Zeiss"
     abbreviation: Literal[None] = Field(None)
-    registry: BaseName = Field(ROR, json_schema_extra={"const": True})
+    registry: Annotated[Union[ResearchOrganizationRegistry], Field(default=Registry.ROR, discriminator="name")]
     registry_identifier: Literal["01xk5xs43"] = "01xk5xs43"
 
 

@@ -516,7 +516,6 @@ class NeuropixelsBasestation(DAQDevice):
 
     # fixed values
     data_interface: Literal[DataInterface.PXI] = DataInterface.PXI
-    # Annotated[Union[Foo1], Field(discriminator="name")]
     manufacturer: Annotated[
         Union[InteruniversityMicroelectronicsCenter], Field(default=Manufacturer.IMEC, discriminator="name")
     ]

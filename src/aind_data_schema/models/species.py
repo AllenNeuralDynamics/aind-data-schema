@@ -5,8 +5,8 @@ from typing import Literal, Union
 from pydantic import ConfigDict, Field
 from typing_extensions import Annotated
 
-from aind_data_schema.models.pid_names import BaseName, PIDName
-from aind_data_schema.models.registry import NCBI
+from aind_data_schema.models.pid_names import PIDName
+from aind_data_schema.models.registry import NationalCenterForBiotechnologyInformation, Registry
 
 
 class _Species(PIDName):
@@ -20,7 +20,9 @@ class CallithrixJacchus(_Species):
 
     name: Literal["Callithrix jacchus"] = "Callithrix jacchus"
     abbreviation: Literal[None] = Field(None)
-    registry: BaseName = Field(NCBI, json_schema_extra={"const": True})
+    registry: Annotated[
+        Union[NationalCenterForBiotechnologyInformation], Field(default=Registry.NCBI, discriminator="name")
+    ]
     registry_identifier: Literal["9483"] = "9483"
 
 
@@ -29,7 +31,9 @@ class HomoSapiens(_Species):
 
     name: Literal["Homo sapiens"] = "Homo sapiens"
     abbreviation: Literal[None] = Field(None)
-    registry: BaseName = Field(NCBI, json_schema_extra={"const": True})
+    registry: Annotated[
+        Union[NationalCenterForBiotechnologyInformation], Field(default=Registry.NCBI, discriminator="name")
+    ]
     registry_identifier: Literal["9606"] = "9606"
 
 
@@ -38,7 +42,9 @@ class MacacaMulatta(_Species):
 
     name: Literal["Macaca mulatta"] = "Macaca mulatta"
     abbreviation: Literal[None] = Field(None)
-    registry: BaseName = Field(NCBI, json_schema_extra={"const": True})
+    registry: Annotated[
+        Union[NationalCenterForBiotechnologyInformation], Field(default=Registry.NCBI, discriminator="name")
+    ]
     registry_identifier: Literal["9544"] = "9544"
 
 
@@ -47,7 +53,9 @@ class MusMusculus(_Species):
 
     name: Literal["Mus musculus"] = "Mus musculus"
     abbreviation: Literal[None] = Field(None)
-    registry: BaseName = Field(NCBI, json_schema_extra={"const": True})
+    registry: Annotated[
+        Union[NationalCenterForBiotechnologyInformation], Field(default=Registry.NCBI, discriminator="name")
+    ]
     registry_identifier: Literal["10090"] = "10090"
 
 

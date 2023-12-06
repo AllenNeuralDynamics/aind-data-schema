@@ -7,7 +7,7 @@ from aind_data_schema.core.procedures import Reagent
 from aind_data_schema.imaging import tile
 from aind_data_schema.models.devices import Calibration, Maintenance
 from aind_data_schema.models.pid_names import PIDName
-from aind_data_schema.models.registry import RRID
+from aind_data_schema.models.registry import Registry
 from aind_data_schema.models.units import PowerValue
 
 t = datetime(2022, 11, 22, 8, 43, 00)
@@ -26,7 +26,7 @@ acq = acquisition.Acquisition(
                 Reagent(
                     name="reagent1",
                     source="xxx",
-                    rrid=PIDName(name="xxx", abbreviation="xx", registry=RRID, registry_identifier="100"),
+                    rrid=PIDName(name="xxx", abbreviation="xx", registry=Registry.RRID, registry_identifier="100"),
                     lot_number="xxx",
                     expiration_date=t.date(),
                 ),
