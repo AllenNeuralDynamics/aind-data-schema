@@ -92,8 +92,6 @@ yields JSON:
    :maxdepth: 1
    :caption: Contents:
 
-   diagrams
-
    modules
 
 Indices and tables

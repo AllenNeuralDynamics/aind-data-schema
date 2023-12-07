@@ -37,7 +37,6 @@ linters = [
 ]
 
 docs = [
-    'erdantic==0.5.0',
     'Sphinx',
     'sphinx-jinja',
     'furo'
