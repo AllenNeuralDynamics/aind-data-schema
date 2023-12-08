@@ -336,9 +336,9 @@ class DataDescriptionTest(unittest.TestCase):
 
     def test_unique_abbreviations(self):
         """Tests that abbreviations are unique"""
-        modality_abbreviations = [m().abbreviation for m in Modality.ALL]
+        modality_abbreviations = [m().abbreviation for m in Modality._ALL]
         self.assertEqual(len(set(modality_abbreviations)), len(modality_abbreviations))
-        platform_abbreviations = [p().abbreviation for p in Platform.ALL]
+        platform_abbreviations = [p().abbreviation for p in Platform._ALL]
         self.assertEqual(len(set(platform_abbreviations)), len(platform_abbreviations))
 
     def test_from_data_description(self):

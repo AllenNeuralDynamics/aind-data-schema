@@ -47,7 +47,7 @@ class DetectorConfig(AindModel):
 class LightEmittingDiodeConfig(AindModel):
     """Description of LED settings"""
 
-    config_type: Literal["LightEmittingDiodeConfig"] = "LightEmittingDiodeConfig"
+    device_type: Literal["LightEmittingDiode"] = "LightEmittingDiode"
     name: str = Field(..., title="Name")
     excitation_power: Optional[Decimal] = Field(None, title="Excitation power (mW)")
     excitation_power_unit: PowerUnit = Field(PowerUnit.MW, title="Excitation power unit")
@@ -180,7 +180,7 @@ class FiberModule(ManipulatorModule):
 class LaserConfig(AindModel):
     """Description of laser settings in a session"""
 
-    config_type: Literal["LaserConfig"] = "LaserConfig"
+    device_type: Literal["Laser"] = "Laser"
     name: str = Field(..., title="Name", description="Must match rig json")
     wavelength: int = Field(..., title="Wavelength (nm)")
     wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
@@ -188,7 +188,7 @@ class LaserConfig(AindModel):
     excitation_power_unit: PowerUnit = Field(PowerUnit.MW, title="Excitation power unit")
 
 
-LIGHT_SOURCE_CONFIGS = Annotated[Union[LightEmittingDiodeConfig, LaserConfig], Field(discriminator="config_type")]
+LIGHT_SOURCE_CONFIGS = Annotated[Union[LightEmittingDiodeConfig, LaserConfig], Field(discriminator="device_type")]
 
 
 # Behavior components

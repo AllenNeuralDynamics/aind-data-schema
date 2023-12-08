@@ -2,6 +2,7 @@
 
 from datetime import datetime
 from decimal import Decimal
+from enum import Enum
 from typing import Any, Dict, List, Literal, Optional
 
 from pydantic import Field, ValidationInfo, field_validator
@@ -10,9 +11,23 @@ from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.core.acquisition import Axis
 from aind_data_schema.core.procedures import Anaesthetic
 from aind_data_schema.imaging.tile import Scale3dTransform
-from aind_data_schema.models.devices import MriScanSequence, Scanner, ScanType
+from aind_data_schema.models.devices import Scanner
 from aind_data_schema.models.process_names import ProcessName
 from aind_data_schema.models.units import MassUnit, TimeUnit
+
+
+class MriScanSequence(str, Enum):
+    """MRI scan sequence"""
+
+    RARE = "RARE"
+    OTHER = "Other"
+
+
+class ScanType(str, Enum):
+    """Type of scan"""
+
+    SETUP = "Set Up"
+    SCAN_3D = "3D Scan"
 
 
 class MRIScan(AindModel):

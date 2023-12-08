@@ -110,11 +110,11 @@ class Institution:
     NINDS = NationalInstituteOfNeurologicalDisordersAndStroke()
     NYU = NewYorkUniversity()
     SIMONS = SimonsFoundation()
-    ALL = tuple(_Institution.__subclasses__())
-    ONE_OF = Annotated[Union[ALL], Field(discriminator="name")]
+    _ALL = tuple(_Institution.__subclasses__())
+    ONE_OF = Annotated[Union[_ALL], Field(discriminator="name")]
 
-    _abbreviation_map = {m().abbreviation: m() for m in ALL}
-    _name_map = {m().name: m() for m in ALL}
+    _abbreviation_map = {m().abbreviation: m() for m in _ALL}
+    _name_map = {m().name: m() for m in _ALL}
 
     @classmethod
     def from_abbreviation(cls, abbreviation: str):

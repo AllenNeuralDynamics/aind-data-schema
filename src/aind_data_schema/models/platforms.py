@@ -131,10 +131,10 @@ class Platform:
     SINGLE_PLANE_OPHYS = SingleplaneOphys()
     SLAP2 = Slap2()
     SMARTSPIM = SmartSpim()
-    ALL = tuple(_Platform.__subclasses__())
-    ONE_OF = Annotated[Union[ALL], Field(discriminator="name")]
+    _ALL = tuple(_Platform.__subclasses__())
+    ONE_OF = Annotated[Union[_ALL], Field(discriminator="name")]
 
-    _abbreviation_map = {p().abbreviation: p() for p in ALL}
+    _abbreviation_map = {p().abbreviation: p() for p in _ALL}
 
     @classmethod
     def from_abbreviation(cls, abbreviation: str):

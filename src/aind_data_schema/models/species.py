@@ -66,5 +66,5 @@ class Species:
     HOMO_SAPIENS = HomoSapiens()
     MACACA_MULATTA = MacacaMulatta()
     MUS_MUSCULUS = MusMusculus()
-    ALL = tuple(_Species.__subclasses__())
-    ONE_OF = Annotated[Union[ALL], Field(discriminator="name")]
+    _ALL = tuple(_Species.__subclasses__())
+    ONE_OF = Annotated[Union[_ALL], Field(discriminator="name")]

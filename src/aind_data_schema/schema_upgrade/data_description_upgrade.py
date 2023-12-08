@@ -51,7 +51,7 @@ class ModalityUpgrade:
             return Modality.from_abbreviation(old_modality)
         elif type(old_modality) is dict and old_modality.get("abbreviation") is not None:
             return Modality.from_abbreviation(old_modality["abbreviation"])
-        elif type(old_modality) in Modality.ALL:
+        elif type(old_modality) in Modality._ALL:
             return old_modality
         else:
             return None
@@ -165,7 +165,7 @@ class DataDescriptionUpgrade(BaseModelUpgrade):
         experiment_type = self._get_or_default(self.old_model, "experiment_type", kwargs)
         platform = None
         if experiment_type is not None:
-            for p in Platform.ALL:
+            for p in Platform._ALL:
                 if p().abbreviation == experiment_type:
                     platform = p()
                     break

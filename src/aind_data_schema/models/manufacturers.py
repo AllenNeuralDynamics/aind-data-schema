@@ -579,8 +579,8 @@ class Manufacturer:
     ZEISS = CarlZeiss()
     OTHER = Other()
 
-    ALL = tuple(_Manufacturer.__subclasses__())
-    ONE_OF = Annotated[Union[ALL], Field(discriminator="name")]
+    _ALL = tuple(_Manufacturer.__subclasses__())
+    ONE_OF = Annotated[Union[_ALL], Field(discriminator="name")]
 
     CAMERA_MANUFACTURERS = Annotated[
         Union[

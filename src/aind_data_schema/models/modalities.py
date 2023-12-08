@@ -117,10 +117,10 @@ class Modality:
     SLAP = Slap()
     SPIM = Spim()
     TRAINED_BEHAVIOR = TrainedBehavior()
-    ALL = tuple(_Modality.__subclasses__())
-    ONE_OF = Annotated[Union[ALL], Field(discriminator="name")]
+    _ALL = tuple(_Modality.__subclasses__())
+    ONE_OF = Annotated[Union[_ALL], Field(discriminator="name")]
 
-    _abbreviation_map = {m().abbreviation: m() for m in ALL}
+    _abbreviation_map = {m().abbreviation: m() for m in _ALL}
 
     @classmethod
     def from_abbreviation(cls, abbreviation: str):

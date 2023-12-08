@@ -332,7 +332,7 @@ class InjectionMaterial(AindModel):
     )
     genome_copy: Optional[Decimal] = Field(None, title="Genome copy")
     titer: Optional[Decimal] = Field(None, title="Titer (gc/mL)", description="Titer for viral materials")
-    titer_unit: Literal["gc/mL"] = "gc/mL"
+    titer_unit: Optional[str] = Field("gc/mL", title="Titer unit")
     concentration: Optional[Decimal] = Field(None, title="Concentration", description="Must provide concentration unit")
     concentration_unit: Optional[str] = Field(None, title="Concentration unit")
     prep_lot_number: Optional[str] = Field(None, title="Preparation lot number")
@@ -348,7 +348,6 @@ class InjectionMaterial(AindModel):
 class Injection(SubjectProcedure):
     """Description of an injection procedure"""
 
-    procedure_type: Literal["Injection"] = Field("Injection", title="Procedure type")
     injection_materials: List[InjectionMaterial] = Field([], title="Injection material", min_length=1)
     recovery_time: Optional[Decimal] = Field(None, title="Recovery time")
     recovery_time_unit: TimeUnit = Field(TimeUnit.M, title="Recovery time unit")
@@ -370,7 +369,6 @@ class RetroOrbitalInjection(Injection):
 class BrainInjection(Injection):
     """Description of a brain injection procedure"""
 
-    procedure_type: Literal["BrainInjection"] = Field("BrainInjection", title="Procedure type")
     injection_coordinate_ml: Decimal = Field(..., title="Injection coordinate ML (mm)")
     injection_coordinate_ap: Decimal = Field(..., title="Injection coordinate AP (mm)")
     injection_coordinate_depth: List[Decimal] = Field(..., title="Injection coordinate depth (mm)")

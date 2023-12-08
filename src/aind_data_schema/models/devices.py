@@ -236,20 +236,6 @@ class SpoutSide(str, Enum):
     OTHER = "Other"
 
 
-class MriScanSequence(str, Enum):
-    """MRI scan sequence"""
-
-    RARE = "RARE"
-    OTHER = "Other"
-
-
-class ScanType(str, Enum):
-    """Type of scan"""
-
-    SETUP = "Set Up"
-    SCAN_3D = "3D Scan"
-
-
 class ScannerLocation(str, Enum):
     """location of scanner"""
 
