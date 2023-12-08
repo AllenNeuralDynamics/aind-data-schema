@@ -146,7 +146,7 @@ class DataDescription(AindCoreModel):
         title="Group",
     )
     investigators: List[str] = Field(
-        [],
+        default=[],
         description="Full name(s) of key investigators (e.g. PI, lead scientist, contact person)",
         title="Investigators",
     )
@@ -168,7 +168,7 @@ class DataDescription(AindCoreModel):
         title="Modality",
     )
     related_data: List[RelatedData] = Field(
-        [],
+        default=[],
         title="Related data",
         description="Path and description of data assets associated with this asset (eg. reference images)",
     )

@@ -60,7 +60,7 @@ class VisualStimulation(AindModel):
         description="Define and list the parameter values used (e.g. all TF or orientation values)",
     )
     stimulus_template_name: List[str] = Field(
-        [],
+        default=[],
         title="Stimulus template name",
         description="Name of image set or movie displayed",
     )

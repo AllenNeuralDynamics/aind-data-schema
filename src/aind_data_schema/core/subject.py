@@ -72,9 +72,9 @@ class Housing(AindModel):
     cage_id: Optional[str] = Field(None, title="Cage ID")
     room_id: Optional[str] = Field(None, title="Room ID")
     light_cycle: Optional[LightCycle] = Field(None, title="Light cycle")
-    home_cage_enrichment: List[HomeCageEnrichment] = Field([], title="Home cage enrichment")
+    home_cage_enrichment: List[HomeCageEnrichment] = Field(default=[], title="Home cage enrichment")
     cohoused_subjects: List[str] = Field(
-        [],
+        default=[],
         title="Co-housed subjects",
         description="List of IDs of other subjects housed in same cage",
     )
@@ -99,7 +99,7 @@ class Subject(AindCoreModel):
         description="Genotype of the animal providing both alleles",
         title="Genotype",
     )
-    mgi_allele_ids: List[MgiAlleleId] = Field([], title="MGI allele ids")
+    mgi_allele_ids: List[MgiAlleleId] = Field(default=[], title="MGI allele ids")
     background_strain: Optional[BackgroundStrain] = Field(None, title="Background strain")
     source: Optional[Institution.ONE_OF] = Field(
         None,
@@ -121,6 +121,6 @@ class Subject(AindCoreModel):
     maternal_genotype: Optional[str] = Field(None, title="Maternal genotype")
     paternal_id: Optional[str] = Field(None, title="Paternal specimen ID")
     paternal_genotype: Optional[str] = Field(None, title="Paternal genotype")
-    wellness_reports: List[WellnessReport] = Field([], title="Wellness Report")
+    wellness_reports: List[WellnessReport] = Field(default=[], title="Wellness Report")
     housing: Optional[Housing] = Field(None, title="Housing")
     notes: Optional[str] = Field(None, title="Notes")

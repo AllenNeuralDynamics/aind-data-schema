@@ -149,7 +149,7 @@ class ManipulatorModule(DomeModule):
 
     primary_targeted_structure: str = Field(..., title="Targeted structure")
     targeted_ccf_coordinates: List[CcfCoords] = Field(
-        [],
+        default=[],
         title="Targeted CCF coordinates",
     )
     manipulator_coordinates: Coordinates3d = Field(
@@ -174,7 +174,7 @@ class EphysModule(ManipulatorModule):
 class FiberModule(ManipulatorModule):
     """Inserted fiber photometry probe recorded in a stream"""
 
-    fiber_connections: List[FiberConnectionConfig] = Field([], title="Fiber photometry devices")
+    fiber_connections: List[FiberConnectionConfig] = Field(default=[], title="Fiber photometry devices")
 
 
 class LaserConfig(AindModel):
@@ -232,23 +232,23 @@ class Stream(AindModel):
 
     stream_start_time: datetime = Field(..., title="Stream start time")
     stream_end_time: datetime = Field(..., title="Stream stop time")
-    daq_names: List[str] = Field([], title="DAQ devices")
-    camera_names: List[str] = Field([], title="Cameras")
-    light_sources: List[LIGHT_SOURCE_CONFIGS] = Field([], title="Light Sources")
-    ephys_modules: List[EphysModule] = Field([], title="Ephys modules")
+    daq_names: List[str] = Field(default=[], title="DAQ devices")
+    camera_names: List[str] = Field(default=[], title="Cameras")
+    light_sources: List[LIGHT_SOURCE_CONFIGS] = Field(default=[], title="Light Sources")
+    ephys_modules: List[EphysModule] = Field(default=[], title="Ephys modules")
     stick_microscopes: List[DomeModule] = Field(
-        [],
+        default=[],
         title="Stick microscopes",
         description="Must match stick microscope assemblies in rig file",
     )
-    manipulator_modules: List[ManipulatorModule] = Field([], title="Manipulator modules")
-    detectors: List[DetectorConfig] = Field([], title="Detectors")
-    fiber_connections: List[FiberConnectionConfig] = Field([], title="Implanted fiber photometry devices")
-    fiber_modules: List[FiberModule] = Field([], title="Inserted fiber modules")
-    ophys_fovs: List[FieldOfView] = Field([], title="Fields of view")
+    manipulator_modules: List[ManipulatorModule] = Field(default=[], title="Manipulator modules")
+    detectors: List[DetectorConfig] = Field(default=[], title="Detectors")
+    fiber_connections: List[FiberConnectionConfig] = Field(default=[], title="Implanted fiber photometry devices")
+    fiber_modules: List[FiberModule] = Field(default=[], title="Inserted fiber modules")
+    ophys_fovs: List[FieldOfView] = Field(default=[], title="Fields of view")
     slap_fovs: Optional[SlapFieldOfView] = Field(None, title="Slap2 field of view")
     stack_parameters: Optional[Stack] = Field(None, title="Stack parameters")
-    stimulus_device_names: List[str] = Field([], title="Stimulus devices")
+    stimulus_device_names: List[str] = Field(default=[], title="Stimulus devices")
     mouse_platform_name: str = Field(..., title="Mouse platform")
     active_mouse_platform: bool = Field(..., title="Active mouse platform")
     stream_modalities: List[Modality.ONE_OF] = Field(..., title="Modalities")
@@ -352,10 +352,10 @@ class Session(AindCoreModel):
     iacuc_protocol: Optional[str] = Field(None, title="IACUC protocol")
     rig_id: str = Field(..., title="Rig ID")
     calibrations: List[Calibration] = Field(
-        [], title="Calibrations", description="Calibrations of rig devices prior to session"
+        default=[], title="Calibrations", description="Calibrations of rig devices prior to session"
     )
     maintenance: List[Maintenance] = Field(
-        [], title="Maintenance", description="Maintenance of rig devices prior to session"
+        default=[], title="Maintenance", description="Maintenance of rig devices prior to session"
     )
     subject_id: str = Field(..., title="Subject ID")
     animal_weight_prior: Optional[Decimal] = Field(
@@ -373,7 +373,7 @@ class Session(AindCoreModel):
             " multiple streams (e.g., if the manipulators are moved to a new location)"
         ),
     )
-    stimulus_epochs: List[StimulusEpoch] = Field([], title="Stimulus")
+    stimulus_epochs: List[StimulusEpoch] = Field(default=[], title="Stimulus")
     reward_delivery: Optional[RewardDeliveryConfig] = Field(None, title="Reward delivery")
     reward_consumed_total: Optional[Decimal] = Field(None, title="Total reward consumed (uL)")
     reward_consumed_unit: VolumeUnit = Field(VolumeUnit.UL, title="Reward consumed unit")

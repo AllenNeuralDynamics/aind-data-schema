@@ -91,12 +91,12 @@ class Acquisition(AindCoreModel):
     subject_id: Optional[str] = Field(None, title="Subject ID")
     instrument_id: str = Field(..., title="Instrument ID")
     calibrations: List[Calibration] = Field(
-        [],
+        default=[],
         title="Calibrations",
         description="List of calibration measurements taken prior to acquisition.",
     )
     maintenance: List[Maintenance] = Field(
-        [], title="Maintenance", description="List of maintenance on rig prior to acquisition."
+        default=[], title="Maintenance", description="List of maintenance on rig prior to acquisition."
     )
     session_start_time: datetime = Field(..., title="Session start time")
     session_end_time: datetime = Field(..., title="Session end time")
@@ -109,7 +109,7 @@ class Acquisition(AindCoreModel):
     local_storage_directory: Optional[str] = Field(None, title="Local storage directory")
     external_storage_directory: Optional[str] = Field(None, title="External storage directory")
     processing_steps: List[ProcessingSteps] = Field(
-        [],
+        default=[],
         title="Processing steps",
         description="List of downstream processing steps planned for each channel",
     )

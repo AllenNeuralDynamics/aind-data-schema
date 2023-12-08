@@ -289,7 +289,7 @@ class Maintenance(AindModel):
     device_name: str = Field(..., title="Device name", description="Must match a device name in rig/instrument")
     description: str = Field(..., title="Description", description="Description on maintenance procedure")
     protocol_id: Optional[str] = Field(None, title="Protocol ID")
-    reagents: List[Reagent] = Field([], title="Reagents")
+    reagents: List[Reagent] = Field(default=[], title="Reagents")
     notes: Optional[str] = Field(None, title="Notes")
 
 
@@ -424,7 +424,7 @@ class DAQDevice(Device):
     computer_name: str = Field(..., title="Name of computer controlling this DAQ")
 
     # optional fields
-    channels: List[DAQChannel] = Field([], title="DAQ channels")
+    channels: List[DAQChannel] = Field(default=[], title="DAQ channels")
 
 
 class HarpDevice(DAQDevice):
@@ -557,7 +557,7 @@ class EphysProbe(Device):
     probe_model: ProbeModel = Field(..., title="Probe model")
 
     # optional fields
-    lasers: List[Laser] = Field([], title="Lasers connected to this probe")
+    lasers: List[Laser] = Field(default=[], title="Lasers connected to this probe")
     headstage: Optional[Headstage] = Field(None, title="Headstage for this probe")
 
 

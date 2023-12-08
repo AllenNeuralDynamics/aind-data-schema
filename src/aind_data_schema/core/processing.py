@@ -92,6 +92,6 @@ class Processing(AindCoreModel):
         ..., description="Pipeline used to process data", title="Processing Pipeline"
     )
     analyses: List[AnalysisProcess] = Field(
-        [], description="Analysis steps taken after processing", title="Analysis Steps"
+        default=[], description="Analysis steps taken after processing", title="Analysis Steps"
     )
     notes: Optional[str] = Field(None, title="Notes")

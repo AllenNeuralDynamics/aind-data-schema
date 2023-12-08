@@ -47,16 +47,16 @@ class Instrument(AindCoreModel):
     manufacturer: Manufacturer.ONE_OF = Field(..., title="Instrument manufacturer")
     temperature_control: Optional[bool] = Field(None, title="Temperature control")
     humidity_control: Optional[bool] = Field(None, title="Humidity control")
-    optical_tables: List[OpticalTable] = Field([], title="Optical table")
+    optical_tables: List[OpticalTable] = Field(default=[], title="Optical table")
     enclosure: Optional[Enclosure] = Field(None, title="Enclosure")
     objectives: List[Objective] = Field(..., title="Objectives")
-    detectors: List[Detector] = Field([], title="Detectors")
-    light_sources: List[LIGHT_SOURCES] = Field([], title="Light sources")
-    lenses: List[Lens] = Field([], title="Lenses")
-    fluorescence_filters: List[Filter] = Field([], title="Fluorescence filters")
-    motorized_stages: List[MotorizedStage] = Field([], title="Motorized stages")
-    scanning_stages: List[ScanningStage] = Field([], title="Scanning motorized stages")
-    additional_devices: List[AdditionalImagingDevice] = Field([], title="Additional devices")
+    detectors: List[Detector] = Field(default=[], title="Detectors")
+    light_sources: List[LIGHT_SOURCES] = Field(default=[], title="Light sources")
+    lenses: List[Lens] = Field(default=[], title="Lenses")
+    fluorescence_filters: List[Filter] = Field(default=[], title="Fluorescence filters")
+    motorized_stages: List[MotorizedStage] = Field(default=[], title="Motorized stages")
+    scanning_stages: List[ScanningStage] = Field(default=[], title="Scanning motorized stages")
+    additional_devices: List[AdditionalImagingDevice] = Field(default=[], title="Additional devices")
     calibration_date: Optional[date] = Field(
         None,
         description="Date of most recent calibration",
@@ -67,8 +67,8 @@ class Instrument(AindCoreModel):
         description="Path to calibration data from most recent calibration",
         title="Calibration data",
     )
-    com_ports: List[Com] = Field([], title="COM ports")
-    daqs: List[DAQDevice] = Field([], title="DAQ")
+    com_ports: List[Com] = Field(default=[], title="COM ports")
+    daqs: List[DAQDevice] = Field(default=[], title="DAQ")
     notes: Optional[str] = Field(None, validate_default=True)
 
     @field_validator("daqs", mode="after")

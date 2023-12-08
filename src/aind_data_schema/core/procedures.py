@@ -142,7 +142,7 @@ class SpecimenProcedure(AindModel):
         title="Experimenter full name",
     )
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
-    reagents: List[Reagent] = Field([], title="Reagents")
+    reagents: List[Reagent] = Field(default=[], title="Reagents")
     notes: Optional[str] = Field(None, title="Notes", validate_default=True)
 
     @field_validator("notes")
@@ -206,10 +206,10 @@ class HybridizationChainReaction(AindModel):
     start_time: datetime = Field(..., title="Round start time")
     end_time: datetime = Field(..., title="Round end time")
     HCR_probes: List[HCRProbe] = Field(..., title="HCR probes")
-    other_probes: List[OligoProbe] = Field([], title="Other probes")
+    other_probes: List[OligoProbe] = Field(default=[], title="Other probes")
     probe_concentration: Decimal = Field(..., title="Probe concentration (M)")
     probe_concentration_unit: str = Field("M", title="Probe concentration unit")
-    other_stains: List[Stain] = Field([], title="Other stains")
+    other_stains: List[Stain] = Field(default=[], title="Other stains")
     instrument_id: str = Field(..., title="Instrument ID")
 
 
@@ -348,7 +348,7 @@ class InjectionMaterial(AindModel):
 class Injection(SubjectProcedure):
     """Description of an injection procedure"""
 
-    injection_materials: List[InjectionMaterial] = Field([], title="Injection material", min_length=1)
+    injection_materials: List[InjectionMaterial] = Field(default=[], title="Injection material", min_length=1)
     recovery_time: Optional[Decimal] = Field(None, title="Recovery time")
     recovery_time_unit: TimeUnit = Field(TimeUnit.M, title="Recovery time unit")
     injection_duration: Optional[Decimal] = Field(None, title="Injection duration")

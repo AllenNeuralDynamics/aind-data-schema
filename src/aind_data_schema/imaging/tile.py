@@ -16,7 +16,7 @@ class Channel(AindModel):
     light_source_name: str = Field(..., title="Light source name", description="Must match device name")
     filter_names: List[str] = Field(..., title="Filter names", description="Must match device names")
     detector_name: str = Field(..., title="Detector name", description="Must match device name")
-    additional_device_names: List[str] = Field([], title="Additional device names")
+    additional_device_names: List[str] = Field(default=[], title="Additional device names")
     # excitation
     excitation_wavelength: int = Field(..., title="Wavelength", ge=300, le=1000)
     excitation_wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Laser wavelength unit")
