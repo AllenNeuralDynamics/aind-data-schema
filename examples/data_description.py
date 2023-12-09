@@ -1,7 +1,10 @@
 """ example data description """
 from datetime import datetime
 
-from aind_data_schema.data_description import Funding, Institution, Modality, Platform, RawDataDescription
+from aind_data_schema.core.data_description import Funding, RawDataDescription
+from aind_data_schema.models.institutions import Institution
+from aind_data_schema.models.modalities import Modality
+from aind_data_schema.models.platforms import Platform
 
 d = RawDataDescription(
     modality=[Modality.ECEPHYS, Modality.BEHAVIOR_VIDEOS],

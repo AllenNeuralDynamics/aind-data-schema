@@ -1,13 +1,20 @@
 """ Utility method to write Pydantic schemas to JSON """
 
 import argparse
+import importlib
+import json
 import os
 import sys
 from pathlib import Path
 from typing import Iterator
 
+from aind_data_schema import core
 from aind_data_schema.base import AindCoreModel
-from aind_data_schema.utils.aind_utils import aind_core_models
+
+# Import all modules in core package
+for mod in core.__loader__.get_resource_reader().contents():
+    if "__" not in mod:
+        importlib.import_module(f"aind_data_schema.core.{mod.replace('.py','')}")
 
 
 class SchemaWriter:
@@ -52,7 +59,7 @@ class SchemaWriter:
         Returns Iterator of AindCoreModel classes
         """
 
-        for model in aind_core_models():
+        for model in AindCoreModel.__subclasses__():
             yield model
 
     def write_to_json(self) -> None:
@@ -63,10 +70,10 @@ class SchemaWriter:
         output_path = self.configs.output
         for schema in schemas_to_write:
             filename = schema.default_filename()
-            file_extension = schema.default_file_extension()
+            file_extension = "".join(Path(filename).suffixes)
             schema_filename = filename.replace(file_extension, "_schema.json")
             if self.configs.attach_version:
-                schema_version = schema.construct().schema_version
+                schema_version = schema.model_construct().schema_version
                 model_directory_name = schema_filename.replace("_schema.json", "")
                 sub_directory = Path(output_path) / model_directory_name / schema_version
                 output_file = sub_directory / schema_filename
@@ -77,7 +84,9 @@ class SchemaWriter:
                 os.makedirs(output_file.parent)
 
             with open(output_file, "w") as f:
-                f.write(schema.schema_json(indent=3))
+                schema_json: dict = schema.model_json_schema()
+                schema_json_str: str = json.dumps(schema_json, indent=3)
+                f.write(schema_json_str)
 
 
 if __name__ == "__main__":

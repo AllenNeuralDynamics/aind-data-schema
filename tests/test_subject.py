@@ -5,8 +5,8 @@ import unittest
 
 import pydantic
 
-from aind_data_schema import Subject
-from aind_data_schema.subject import Housing, LightCycle, MgiAlleleId, Species
+from aind_data_schema.core.subject import Housing, LightCycle, MgiAlleleId, Subject
+from aind_data_schema.models.species import Species
 
 
 class SubjectTests(unittest.TestCase):
@@ -16,7 +16,7 @@ class SubjectTests(unittest.TestCase):
         """try building Subjects"""
 
         with self.assertRaises(pydantic.ValidationError):
-            s = Subject()
+            Subject()
 
         now = datetime.datetime.now()
 
@@ -36,7 +36,9 @@ class SubjectTests(unittest.TestCase):
             mgi_allele_ids=[MgiAlleleId(mgi_id="12345", allele_name="adsf")],
         )
 
-        assert s is not None
+        Subject.model_validate_json(s.model_dump_json())
+
+        self.assertIsNotNone(s)
 
 
 if __name__ == "__main__":

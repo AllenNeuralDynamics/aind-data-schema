@@ -2,9 +2,9 @@
 
 import datetime
 
-from aind_data_schema.data_description import Modality
-from aind_data_schema.session import Detector, FieldOfView, Laser, Session, Stream
-from aind_data_schema.stimulus import PhotoStimulation, PhotoStimulationGroup, StimulusEpoch
+from aind_data_schema.core.session import DetectorConfig, FieldOfView, LaserConfig, Session, Stream
+from aind_data_schema.models.modalities import Modality
+from aind_data_schema.models.stimulus import PhotoStimulation, PhotoStimulationGroup, StimulusEpoch
 
 t = datetime.datetime(2022, 7, 12, 7, 00, 00)
 
@@ -22,7 +22,7 @@ s = Session(
             stream_end_time=t,
             stream_modalities=[Modality.POPHYS, Modality.BEHAVIOR_VIDEOS],
             light_sources=[
-                Laser(
+                LaserConfig(
                     name="Laser A",
                     wavelength=405,
                     wavelength_unit="nanometer",
@@ -31,7 +31,7 @@ s = Session(
                 ),
             ],
             detectors=[
-                Detector(
+                DetectorConfig(
                     name="PMT A",
                     exposure_time=0.1,
                     trigger_type="Internal",

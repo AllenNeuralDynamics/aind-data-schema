@@ -1,6 +1,6 @@
 {
-   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/imaging/instrument.py",
-   "schema_version": "0.9.5",
+   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/instrument.py",
+   "schema_version": "0.10.0",
    "instrument_id": "SmartSPIM2-2",
    "modification_date": "2023-10-04",
    "instrument_type": "SmartSPIM",
@@ -26,8 +26,8 @@
          "model": "CleanTop",
          "path_to_cad": null,
          "notes": null,
-         "length": 35,
-         "width": 29,
+         "length": "35",
+         "width": "29",
          "table_size_unit": "inch",
          "vibration_control": true
       }
@@ -50,8 +50,8 @@
          "model": "TL4X-SAP",
          "path_to_cad": null,
          "notes": "Thorlabs TL4X-SAP with LifeCanvas dipping cap and correction optics.",
-         "numerical_aperture": 0.2,
-         "magnification": 3.6,
+         "numerical_aperture": "0.2",
+         "magnification": "3.6",
          "immersion": "multi",
          "objective_type": null
       }
@@ -108,7 +108,7 @@
          "notes": "All lasers controlled via Vortran VersaLase System",
          "wavelength": 488,
          "wavelength_unit": "nanometer",
-         "maximum_power": 150,
+         "maximum_power": "150",
          "power_unit": "milliwatt",
          "coupling": "Single-mode fiber",
          "coupling_efficiency": null,
@@ -133,7 +133,7 @@
          "notes": "All lasers controlled via Vortran VersaLase System",
          "wavelength": 561,
          "wavelength_unit": "nanometer",
-         "maximum_power": 150,
+         "maximum_power": "150",
          "power_unit": "milliwatt",
          "coupling": "Single-mode fiber",
          "coupling_efficiency": null,
@@ -155,7 +155,7 @@
          "notes": "All lasers controlled via Vortran VersaLase System",
          "wavelength": 647,
          "wavelength_unit": "nanometer",
-         "maximum_power": 160,
+         "maximum_power": "160",
          "power_unit": "milliwatt",
          "coupling": "Single-mode fiber",
          "coupling_efficiency": null,
@@ -163,7 +163,7 @@
          "item_number": null
       }
    ],
-   "lenses": null,
+   "lenses": [],
    "fluorescence_filters": [
       {
          "device_type": "Filter",
@@ -179,11 +179,11 @@
          "path_to_cad": null,
          "notes": null,
          "filter_type": "Band pass",
-         "diameter": 25,
+         "diameter": "25",
          "width": null,
          "height": null,
          "size_unit": "millimeter",
-         "thickness": 2.0,
+         "thickness": "2.0",
          "thickness_unit": "millimeter",
          "filter_wheel_index": 0,
          "cut_off_wavelength": null,
@@ -206,11 +206,11 @@
          "path_to_cad": null,
          "notes": null,
          "filter_type": "Band pass",
-         "diameter": 25,
+         "diameter": "25",
          "width": null,
          "height": null,
          "size_unit": "millimeter",
-         "thickness": 2.0,
+         "thickness": "2.0",
          "thickness_unit": "millimeter",
          "filter_wheel_index": 1,
          "cut_off_wavelength": null,
@@ -233,11 +233,11 @@
          "path_to_cad": null,
          "notes": null,
          "filter_type": "Band pass",
-         "diameter": 25,
+         "diameter": "25",
          "width": null,
          "height": null,
          "size_unit": "millimeter",
-         "thickness": 2.0,
+         "thickness": "2.0",
          "thickness_unit": "millimeter",
          "filter_wheel_index": 2,
          "cut_off_wavelength": null,
@@ -261,7 +261,7 @@
          "model": "LS-100",
          "path_to_cad": null,
          "notes": "Focus stage",
-         "travel": 100,
+         "travel": "100",
          "travel_unit": "millimeter",
          "firmware": null
       },
@@ -278,7 +278,7 @@
          "model": "L12-20F-4",
          "path_to_cad": null,
          "notes": "Cylindrical lens #1",
-         "travel": 41,
+         "travel": "41",
          "travel_unit": "millimeter",
          "firmware": null
       },
@@ -295,7 +295,7 @@
          "model": "L12-20F-4",
          "path_to_cad": null,
          "notes": "Cylindrical lens #2",
-         "travel": 41,
+         "travel": "41",
          "travel_unit": "millimeter",
          "firmware": null
       },
@@ -312,7 +312,7 @@
          "model": "L12-20F-4",
          "path_to_cad": null,
          "notes": "Cylindrical lens #3",
-         "travel": 41,
+         "travel": "41",
          "travel_unit": "millimeter",
          "firmware": null
       },
@@ -329,7 +329,7 @@
          "model": "L12-20F-4",
          "path_to_cad": null,
          "notes": "Cylindrical lens #4",
-         "travel": 41,
+         "travel": "41",
          "travel_unit": "millimeter",
          "firmware": null
       }
@@ -348,7 +348,7 @@
          "model": "LS-50",
          "path_to_cad": null,
          "notes": "Sample stage Z",
-         "travel": 50,
+         "travel": "50",
          "travel_unit": "millimeter",
          "firmware": null,
          "stage_axis_direction": "Detection axis",
@@ -367,7 +367,7 @@
          "model": "LS-50",
          "path_to_cad": null,
          "notes": "Sample stage X",
-         "travel": 50,
+         "travel": "50",
          "travel_unit": "millimeter",
          "firmware": null,
          "stage_axis_direction": "Illumination axis",
@@ -386,14 +386,14 @@
          "model": "LS-50",
          "path_to_cad": null,
          "notes": "Sample stage Y",
-         "travel": 50,
+         "travel": "50",
          "travel_unit": "millimeter",
          "firmware": null,
          "stage_axis_direction": "Perpendicular axis",
          "stage_axis_name": "Y"
       }
    ],
-   "daqs": null,
+   "daqs": [],
    "additional_devices": [
       {
          "device_type": "AdditionalImagingDevice",

@@ -4,7 +4,7 @@ import unittest
 from decimal import Decimal
 from typing import TypeVar
 
-from aind_data_schema.utils.units import SizeUnit, SizeValue, create_unit_with_value
+from aind_data_schema.models.units import SizeUnit, SizeValue, create_unit_with_value
 
 ScalarType = TypeVar("ScalarType", Decimal, int)
 

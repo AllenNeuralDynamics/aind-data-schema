@@ -2,8 +2,8 @@
 
 import datetime
 
-from aind_data_schema.data_description import Modality
-from aind_data_schema.device import (
+from aind_data_schema.core.rig import Rig
+from aind_data_schema.models.devices import (
     Calibration,
     Camera,
     CameraAssembly,
@@ -21,8 +21,8 @@ from aind_data_schema.device import (
     ProbePort,
     StickMicroscopeAssembly,
 )
-from aind_data_schema.manufacturers import Manufacturer
-from aind_data_schema.rig import Rig
+from aind_data_schema.models.manufacturers import Manufacturer
+from aind_data_schema.models.modalities import Modality
 
 # Describes a rig with running wheel, 2 behavior cameras, one Harp Behavior board,
 # one dual-color laser module, one stick microscope, and 2 Neuropixels probes

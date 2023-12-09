@@ -1,9 +1,9 @@
 """ example ExaSPIM instrument """
 import datetime
 
-from aind_data_schema.device import DAQChannel, DAQDevice, Detector, Filter, Laser
-from aind_data_schema.imaging import instrument
-from aind_data_schema.manufacturers import Manufacturer
+from aind_data_schema.core import instrument
+from aind_data_schema.models.devices import DAQChannel, DAQDevice, Detector, Filter, Laser
+from aind_data_schema.models.manufacturers import Manufacturer
 
 inst = instrument.Instrument(
     instrument_id="exaSPIM1-1",

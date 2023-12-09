@@ -1,12 +1,12 @@
 """ test Rig """
 
-import datetime
 import unittest
+from datetime import date, datetime
 
 from pydantic import ValidationError
 
-from aind_data_schema.data_description import Modality
-from aind_data_schema.device import (
+from aind_data_schema.core.rig import Rig
+from aind_data_schema.models.devices import (
     Calibration,
     Camera,
     CameraAssembly,
@@ -23,8 +23,8 @@ from aind_data_schema.device import (
     Patch,
     StickMicroscopeAssembly,
 )
-from aind_data_schema.manufacturers import Manufacturer
-from aind_data_schema.rig import Rig
+from aind_data_schema.models.manufacturers import Manufacturer
+from aind_data_schema.models.modalities import Modality
 
 
 class RigTests(unittest.TestCase):
@@ -34,7 +34,7 @@ class RigTests(unittest.TestCase):
         """always returns true"""
 
         with self.assertRaises(ValidationError):
-            rig = Rig()
+            Rig()
 
         daqs = [
             NeuropixelsBasestation(
@@ -100,7 +100,7 @@ class RigTests(unittest.TestCase):
 
         rig = Rig(
             rig_id="1234",
-            modification_date=datetime.datetime.now(),
+            modification_date=date(2020, 10, 10),
             modalities=[Modality.ECEPHYS, Modality.FIB],
             daqs=daqs,
             cameras=[
@@ -178,7 +178,7 @@ class RigTests(unittest.TestCase):
             mouse_platform=Disc(name="Disc A", radius=1),
             calibrations=[
                 Calibration(
-                    calibration_date=datetime.datetime.now(),
+                    calibration_date=date(2020, 10, 10),
                     device_name="Laser A",
                     description="Laser power calibration",
                     input={"power percent": [10, 40, 80]},
@@ -192,6 +192,8 @@ class RigTests(unittest.TestCase):
     def test_validator(self):
         """Test the rig file validators"""
 
+        # A Rig model with ECEPHYS in the modality list requires
+        # ephys_assemblies and stick microscopes
         with self.assertRaises(ValidationError):
             Rig(
                 modalities=[
@@ -203,7 +205,7 @@ class RigTests(unittest.TestCase):
                     Modality.TRAINED_BEHAVIOR,
                 ],
                 rig_id="1234",
-                modification_date=datetime.datetime.now(),
+                modification_date=date(2020, 10, 10),
                 daqs=[
                     NeuropixelsBasestation(
                         basestation_firmware_version="1",
@@ -238,7 +240,7 @@ class RigTests(unittest.TestCase):
                 ],
                 calibrations=[
                     Calibration(
-                        calibration_date=datetime.datetime.now(),
+                        calibration_date=date(2020, 10, 10),
                         device_name="Laser A",
                         description="Laser power calibration",
                         input={"power percent": [10, 40, 80]},
@@ -284,7 +286,7 @@ class RigTests(unittest.TestCase):
 
             Rig(
                 rig_id="1234",
-                modification_date=datetime.datetime.now(),
+                modification_date=datetime.now(),
                 modalities=[Modality.ECEPHYS, Modality.FIB],
                 daqs=daqs,
             )

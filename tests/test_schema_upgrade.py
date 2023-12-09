@@ -7,17 +7,11 @@ import unittest
 from pathlib import Path
 from typing import List
 
-from aind_data_schema.data_description import (
-    DataDescription,
-    DataLevel,
-    Funding,
-    Group,
-    Institution,
-    Modality,
-    Platform,
-    RelatedData,
-)
-from aind_data_schema.processing import DataProcess, PipelineProcess, Processing
+from aind_data_schema.core.data_description import DataDescription, DataLevel, Funding, Group, RelatedData
+from aind_data_schema.core.processing import DataProcess, PipelineProcess, Processing
+from aind_data_schema.models.institutions import Institution
+from aind_data_schema.models.modalities import Modality
+from aind_data_schema.models.platforms import Platform
 from aind_data_schema.schema_upgrade.data_description_upgrade import (
     DataDescriptionUpgrade,
     FundingUpgrade,
@@ -41,7 +35,7 @@ class TestDataDescriptionUpgrade(unittest.TestCase):
         for file_path in data_description_files:
             with open(DATA_DESCRIPTION_FILES_PATH / file_path) as f:
                 contents = json.load(f)
-            data_descriptions.append((file_path, DataDescription.construct(**contents)))
+            data_descriptions.append((file_path, DataDescription.model_construct(**contents)))
         cls.data_descriptions = dict(data_descriptions)
 
     def test_upgrades_0_3_0(self):
@@ -53,13 +47,11 @@ class TestDataDescriptionUpgrade(unittest.TestCase):
             upgrader.upgrade()
 
         expected_error_message = (
-            "ValidationError("
-            "model='DataDescription', "
-            "errors=[{"
-            "'loc': ('platform',), "
-            "'msg': 'none is not an allowed value', "
-            "'type': 'type_error.none.not_allowed'}"
-            "])"
+            "1 validation error for DataDescription\n"
+            "platform\n"
+            "  Input should be a valid dictionary or object to extract fields"
+            " from [type=model_attributes_type, input_value=None, input_type=NoneType]\n"
+            "    For further information visit https://errors.pydantic.dev/2.5/v/model_attributes_type"
         )
         self.assertEqual(expected_error_message, repr(e.exception))
 
@@ -88,12 +80,11 @@ class TestDataDescriptionUpgrade(unittest.TestCase):
             upgrader.upgrade()
 
         expected_error_message = (
-            "ValidationError("
-            "model='DataDescription', "
-            "errors=[{"
-            "'loc': ('platform',), "
-            "'msg': 'none is not an allowed value', "
-            "'type': 'type_error.none.not_allowed'}])"
+            "1 validation error for DataDescription\n"
+            "platform\n"
+            "  Input should be a valid dictionary or object to extract fields"
+            " from [type=model_attributes_type, input_value=None, input_type=NoneType]\n"
+            "    For further information visit https://errors.pydantic.dev/2.5/v/model_attributes_type"
         )
         self.assertEqual(expected_error_message, repr(e.exception))
 
@@ -122,10 +113,11 @@ class TestDataDescriptionUpgrade(unittest.TestCase):
             upgrader.upgrade(platform=Platform.ECEPHYS, data_level="asfnewnjfq")
 
         expected_error_message1 = (
-            "ValidationError(model='DataDescription', "
-            "errors=[{'loc': ('data_level',), "
-            "'msg': \"'asfnewnjfq' is not a valid DataLevel\", "
-            "'type': 'value_error'}])"
+            "1 validation error for DataDescription\n"
+            "data_level\n"
+            "  Value error, 'asfnewnjfq' is not a valid DataLevel"
+            " [type=value_error, input_value='asfnewnjfq', input_type=str]\n"
+            "    For further information visit https://errors.pydantic.dev/2.5/v/value_error"
         )
 
         self.assertEqual(expected_error_message1, repr(e1.exception))
@@ -134,22 +126,22 @@ class TestDataDescriptionUpgrade(unittest.TestCase):
         with self.assertRaises(Exception) as e2:
             upgrader.upgrade(platform=Platform.ECEPHYS, data_level=["raw"])
         expected_error_message2 = (
-            "ValidationError(model='DataDescription', "
-            "errors=[{'loc': ('data_level',), "
-            "'msg': '__init__() takes exactly 3 positional arguments "
-            "(2 given)', 'type': 'type_error'}])"
+            "1 validation error for DataDescription\n"
+            "data_level\n"
+            "  Value error, Data Level needs to be string or enum"
+            " [type=value_error, input_value=['raw'], input_type=list]\n"
+            "    For further information visit https://errors.pydantic.dev/2.5/v/value_error"
         )
 
         self.assertEqual(expected_error_message2, repr(e2.exception))
 
         # Should work if data_level is missing in original json doc and
         # user sets it explicitly
-        data_description_dict = data_description_0_3_0.dict()
-        del data_description_dict["data_level"]
-        data_description_0_3_0_no_data_level = DataDescription.construct(**data_description_dict)
-        upgrader3 = DataDescriptionUpgrade(old_data_description_model=data_description_0_3_0_no_data_level)
-        new_data_description3 = upgrader3.upgrade(platform=Platform.ECEPHYS, data_level=DataLevel.RAW)
-        self.assertEqual(DataLevel.RAW, new_data_description3.data_level)
+        data_description_copy = data_description_0_3_0.model_copy(deep=True)
+        del data_description_copy.data_level
+        upgrader3 = DataDescriptionUpgrade(old_data_description_model=data_description_copy)
+        new_data_description3 = upgrader3.upgrade(platform=Platform.ECEPHYS, data_level=DataLevel.DERIVED)
+        self.assertEqual(DataLevel.DERIVED, new_data_description3.data_level)
 
     def test_upgrades_0_4_0(self):
         """Tests data_description_0.4.0.json is mapped correctly."""
@@ -235,15 +227,13 @@ class TestDataDescriptionUpgrade(unittest.TestCase):
         new_dd_0_6_2 = upgrader.upgrade(modality=[Modality.ECEPHYS])
         self.assertEqual([Modality.ECEPHYS], new_dd_0_6_2.modality)
         # Blank Modality
-        data_description_0_6_2.modality = None
+        data_description_0_6_2_copy = data_description_0_6_2.model_copy(deep=True)
+        data_description_0_6_2_copy.modality = None
+        upgrader2 = DataDescriptionUpgrade(old_data_description_model=data_description_0_6_2_copy)
         with self.assertRaises(Exception) as e:
-            upgrader.upgrade()
+            upgrader2.upgrade()
 
-        expected_error_message = (
-            "ValidationError(model='DataDescription', "
-            "errors=[{'loc': ('modality',), 'msg': 'none is not an allowed value', "
-            "'type': 'type_error.none.not_allowed'}])"
-        )
+        expected_error_message = "ValueError('Unable to upgrade modality: None')"
         self.assertEqual(expected_error_message, repr(e.exception))
 
     def test_upgrades_0_6_2_wrong_field(self):
@@ -255,7 +245,7 @@ class TestDataDescriptionUpgrade(unittest.TestCase):
         with self.assertRaises(Exception) as e:
             upgrader.upgrade()
 
-        expected_error_message = "AttributeError('NOT A REAL FUNDER')"
+        expected_error_message = "KeyError('Not a real funder')"
         self.assertEqual(expected_error_message, repr(e.exception))
 
         # Should work by setting funding_source explicitly
@@ -328,6 +318,33 @@ class TestModalityUpgrade(unittest.TestCase):
         """Tests edge case"""
         self.assertIsNone(ModalityUpgrade.upgrade_modality(None))
         self.assertEqual(Modality.ECEPHYS, ModalityUpgrade.upgrade_modality(Modality.ECEPHYS))
+        self.assertEqual(Modality.ICEPHYS, ModalityUpgrade.upgrade_modality("icephys"))
+
+    def test_modality_lookup(self):
+        """Tests old modality lookup case"""
+        dd_dict = {
+            "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema"
+            "/main/src/aind_data_schema/data_description.py",
+            "schema_version": "0.3.0",
+            "license": "CC-BY-4.0",
+            "creation_time": "16:01:12",
+            "creation_date": "2022-11-01",
+            "name": "SmartSPIM_623711_2022-10-27_16-48-54_stitched_2022-11-01_16-01-12",
+            "institution": "AIND",
+            "funding_source": None,
+            "data_level": "derived data",
+            "group": None,
+            "project_name": None,
+            "project_id": None,
+            "restrictions": None,
+            "modality": "SmartSPIM",
+            "platform": Platform.SMARTSPIM,
+            "subject_id": "623711",
+            "input_data_name": "SmartSPIM_623711_2022-10-27_16-48-54",
+        }
+        dd = DataDescription.model_construct(**dd_dict)
+        upgrader = DataDescriptionUpgrade(old_data_description_model=dd)
+        upgrader.upgrade()
 
 
 class TestFundingUpgrade(unittest.TestCase):
@@ -375,7 +392,7 @@ class TestProcessingUpgrade(unittest.TestCase):
         for file_path in processing_files:
             with open(PROCESSING_FILES_PATH / file_path) as f:
                 contents = json.load(f)
-            processings.append((file_path, Processing.construct(**contents)))
+            processings.append((file_path, Processing.model_construct(**contents)))
         cls.processings = dict(processings)
 
     def test_upgrades_0_0_1(self):
@@ -387,13 +404,10 @@ class TestProcessingUpgrade(unittest.TestCase):
             upgrader.upgrade()
 
         expected_error_message = (
-            "ValidationError("
-            "model='PipelineProcess', "
-            "errors=[{"
-            "'loc': ('processor_full_name',), "
-            "'msg': 'none is not an allowed value', "
-            "'type': 'type_error.none.not_allowed'"
-            "}])"
+            "1 validation error for PipelineProcess\n"
+            "processor_full_name\n"
+            "  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]\n"
+            "    For further information visit https://errors.pydantic.dev/2.5/v/string_type"
         )
         self.assertEqual(expected_error_message, repr(e.exception))
 
@@ -402,7 +416,7 @@ class TestProcessingUpgrade(unittest.TestCase):
         processing_pipeline = new_processing.processing_pipeline
         self.assertEqual(processing_pipeline.processor_full_name, "Unit Test")
         ephys_preprocessing_process = processing_pipeline.data_processes[0]
-        self.assertEqual(ephys_preprocessing_process.name.value, "Ephys preprocessing")
+        self.assertEqual(ephys_preprocessing_process.name, "Ephys preprocessing")
         self.assertEqual(ephys_preprocessing_process.software_version, "0.1.5")
         self.assertEqual(
             ephys_preprocessing_process.code_url, "https://github.com/AllenNeuralDynamics/aind-data-transfer", "0.1.5"
@@ -418,13 +432,10 @@ class TestProcessingUpgrade(unittest.TestCase):
             upgrader.upgrade()
 
         expected_error_message = (
-            "ValidationError("
-            "model='PipelineProcess', "
-            "errors=[{"
-            "'loc': ('processor_full_name',), "
-            "'msg': 'none is not an allowed value', "
-            "'type': 'type_error.none.not_allowed'"
-            "}])"
+            "1 validation error for PipelineProcess\n"
+            "processor_full_name\n"
+            "  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]\n"
+            "    For further information visit https://errors.pydantic.dev/2.5/v/string_type"
         )
         self.assertEqual(expected_error_message, repr(e.exception))
 
@@ -433,7 +444,7 @@ class TestProcessingUpgrade(unittest.TestCase):
         processing_pipeline = new_processing.processing_pipeline
         self.assertEqual(processing_pipeline.processor_full_name, "Unit Test")
         ephys_preprocessing_process = processing_pipeline.data_processes[0]
-        self.assertEqual(ephys_preprocessing_process.name.value, "Ephys preprocessing")
+        self.assertEqual(ephys_preprocessing_process.name, "Ephys preprocessing")
         self.assertEqual(ephys_preprocessing_process.software_version, "0.5.0")
         self.assertEqual(
             ephys_preprocessing_process.code_url, "https://github.com/AllenNeuralDynamics/aind-data-transfer"
@@ -448,13 +459,10 @@ class TestProcessingUpgrade(unittest.TestCase):
             upgrader.upgrade()
 
         expected_error_message = (
-            "ValidationError("
-            "model='PipelineProcess', "
-            "errors=[{"
-            "'loc': ('processor_full_name',), "
-            "'msg': 'none is not an allowed value', "
-            "'type': 'type_error.none.not_allowed'"
-            "}])"
+            "1 validation error for PipelineProcess\n"
+            "processor_full_name\n"
+            "  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]\n"
+            "    For further information visit https://errors.pydantic.dev/2.5/v/string_type"
         )
         self.assertEqual(expected_error_message, repr(e.exception))
 
@@ -463,7 +471,7 @@ class TestProcessingUpgrade(unittest.TestCase):
         processing_pipeline = new_processing.processing_pipeline
         self.assertEqual(processing_pipeline.processor_full_name, "Unit Test")
         ephys_preprocessing_process = processing_pipeline.data_processes[0]
-        self.assertEqual(ephys_preprocessing_process.name.value, "Ephys preprocessing")
+        self.assertEqual(ephys_preprocessing_process.name, "Ephys preprocessing")
         self.assertEqual(ephys_preprocessing_process.software_version, "0.16.2")
         self.assertEqual(
             ephys_preprocessing_process.code_url, "https://github.com/AllenNeuralDynamics/aind-data-transfer"
@@ -478,13 +486,10 @@ class TestProcessingUpgrade(unittest.TestCase):
             upgrader.upgrade()
 
         expected_error_message = (
-            "ValidationError("
-            "model='PipelineProcess', "
-            "errors=[{"
-            "'loc': ('processor_full_name',), "
-            "'msg': 'none is not an allowed value', "
-            "'type': 'type_error.none.not_allowed'"
-            "}])"
+            "1 validation error for PipelineProcess\n"
+            "processor_full_name\n"
+            "  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]\n"
+            "    For further information visit https://errors.pydantic.dev/2.5/v/string_type"
         )
         self.assertEqual(expected_error_message, repr(e.exception))
 
@@ -493,7 +498,7 @@ class TestProcessingUpgrade(unittest.TestCase):
         processing_pipeline = new_processing.processing_pipeline
         self.assertEqual(processing_pipeline.processor_full_name, "Unit Test")
         ephys_preprocessing_process = processing_pipeline.data_processes[0]
-        self.assertEqual(ephys_preprocessing_process.name.value, "Ephys preprocessing")
+        self.assertEqual(ephys_preprocessing_process.name, "Ephys preprocessing")
         self.assertEqual(ephys_preprocessing_process.software_version, "0.29.3")
         self.assertEqual(
             ephys_preprocessing_process.code_url, "https://github.com/AllenNeuralDynamics/aind-data-transfer"
@@ -530,7 +535,7 @@ class TestProcessingUpgrade(unittest.TestCase):
         self.assertEqual(processing_pipeline.pipeline_url, "my-pipeline-url")
         self.assertEqual(processing_pipeline.pipeline_version, "0.1.0")
         ephys_preprocessing_process = processing_pipeline.data_processes[0]
-        self.assertEqual(ephys_preprocessing_process.name.value, "Ephys preprocessing")
+        self.assertEqual(ephys_preprocessing_process.name, "Ephys preprocessing")
         self.assertEqual(ephys_preprocessing_process.software_version, "0.1000.0")
         self.assertEqual(ephys_preprocessing_process.code_url, "my-code-repo")
 
@@ -551,7 +556,7 @@ class TestDataProcessUpgrade(unittest.TestCase):
             output_location="my-output-location",
             parameters={"param1": "value1"},
         )
-        old_data_process = DataProcess.construct(**old_data_process_dict)
+        old_data_process = DataProcess.model_construct(**old_data_process_dict)
 
         upgrader = DataProcessUpgrade(old_data_process_model=old_data_process)
         new_data_process = upgrader.upgrade()
@@ -570,7 +575,7 @@ class TestDataProcessUpgrade(unittest.TestCase):
         processing_path = PROCESSING_FILES_PATH / "processing_other_no_notes.json"
         with open(processing_path, "r") as f:
             processing_dict = json.load(f)
-            data_process_no_notes = DataProcess.construct(**processing_dict["data_processes"][1])
+        data_process_no_notes = DataProcess.model_construct(**processing_dict["data_processes"][1])
 
         upgrader = DataProcessUpgrade(data_process_no_notes)
         new_data_process = upgrader.upgrade()

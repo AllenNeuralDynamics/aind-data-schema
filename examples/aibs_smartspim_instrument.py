@@ -1,9 +1,18 @@
 """ example SmartSPIM instrument """
 import datetime
 
-from aind_data_schema.device import Detector, Filter, Laser, MotorizedStage, Objective
-from aind_data_schema.imaging.instrument import AdditionalImagingDevice, Com, Instrument, OpticalTable, ScanningStage
-from aind_data_schema.manufacturers import Manufacturer
+from aind_data_schema.core.instrument import Com, Instrument
+from aind_data_schema.models.devices import (
+    AdditionalImagingDevice,
+    Detector,
+    Filter,
+    Laser,
+    MotorizedStage,
+    Objective,
+    OpticalTable,
+    ScanningStage,
+)
+from aind_data_schema.models.manufacturers import Manufacturer
 
 inst = Instrument(
     instrument_id="SmartSPIM2-2",

@@ -5,8 +5,7 @@ from datetime import date
 
 from pydantic import ValidationError
 
-from aind_data_schema.device import FiberProbe
-from aind_data_schema.procedures import (
+from aind_data_schema.core.procedures import (
     FiberImplant,
     InjectionMaterial,
     NanojectInjection,
@@ -15,6 +14,8 @@ from aind_data_schema.procedures import (
     RetroOrbitalInjection,
     SpecimenProcedure,
 )
+from aind_data_schema.models.devices import FiberProbe
+from aind_data_schema.models.manufacturers import Manufacturer
 
 
 class ProceduresTests(unittest.TestCase):
@@ -105,7 +106,7 @@ class ProceduresTests(unittest.TestCase):
                             ophys_probe=FiberProbe(
                                 device_type="Fiber optic probe",
                                 name="Probe A",
-                                manufacturer="Doric",
+                                manufacturer=Manufacturer.DORIC,
                                 model="8",
                                 core_diameter=2,
                                 numerical_aperture=1,
@@ -146,8 +147,33 @@ class ProceduresTests(unittest.TestCase):
     def test_coordinate_volume_validator(self):
         """Test validator for list lengths on NanojectInjection"""
 
+        # Should be okay
+        inj1 = NanojectInjection(
+            start_date=date(2020, 10, 10),
+            end_date=date(2020, 10, 10),
+            experimenter_full_name="Betsy",
+            protocol_id="abc",
+            injection_coordinate_ml=1,
+            injection_coordinate_ap=1,
+            injection_angle=1,
+            injection_coordinate_depth=[0, 1],
+            injection_volume=[1, 2],
+        )
+        self.assertEqual(len(inj1.injection_coordinate_depth), len(inj1.injection_volume))
+
+        # Different coord_depth and inj_vol list lengths should raise an error
         with self.assertRaises(ValidationError):
-            NanojectInjection(injection_coordinate_depth=[0.1], injection_volume=[1, 2])
+            NanojectInjection(
+                start_date=date(2020, 10, 10),
+                end_date=date(2020, 10, 10),
+                experimenter_full_name="Betsy",
+                protocol_id="abc",
+                injection_coordinate_ml=1,
+                injection_coordinate_ap=1,
+                injection_angle=1,
+                injection_coordinate_depth=[0.1],
+                injection_volume=[1, 2],
+            )
 
 
 if __name__ == "__main__":

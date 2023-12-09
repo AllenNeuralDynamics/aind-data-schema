@@ -1,6 +1,6 @@
 {
-   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/processing.py",
-   "schema_version": "0.3.1",
+   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/processing.py",
+   "schema_version": "0.4.0",
    "processing_pipeline": {
       "data_processes": [
          {
@@ -15,7 +15,7 @@
             "parameters": {
                "size": 7
             },
-            "outputs": null,
+            "outputs": {},
             "notes": null
          },
          {
@@ -31,7 +31,7 @@
                "u": 7,
                "z": true
             },
-            "outputs": null,
+            "outputs": {},
             "notes": null
          },
          {
@@ -47,7 +47,7 @@
                "a": 2,
                "b": -2
             },
-            "outputs": null,
+            "outputs": {},
             "notes": null
          }
       ],
@@ -69,7 +69,7 @@
          "parameters": {
             "size": 7
          },
-         "outputs": null,
+         "outputs": {},
          "notes": null,
          "analyst_full_name": "Some Analyzer",
          "description": "some description"
@@ -87,7 +87,7 @@
             "u": 7,
             "z": true
          },
-         "outputs": null,
+         "outputs": {},
          "notes": null,
          "analyst_full_name": "Some Analyzer",
          "description": "some description"

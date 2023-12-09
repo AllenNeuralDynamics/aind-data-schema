@@ -1,8 +1,14 @@
 """ ephys procedure mouse 625100 """
 import datetime
 
-from aind_data_schema import Procedures
-from aind_data_schema.procedures import Anaesthetic, Craniotomy, InjectionMaterial, NanojectInjection
+from aind_data_schema.core.procedures import (
+    Anaesthetic,
+    Craniotomy,
+    InjectionMaterial,
+    NanojectInjection,
+    Perfusion,
+    Procedures,
+)
 
 t = datetime.datetime(2022, 7, 12, 7, 00, 00)
 
@@ -46,6 +52,13 @@ p = Procedures(
             injection_angle=10,
             injection_volume=[200],
             targeted_structure="VISp",
+        ),
+        Perfusion(
+            start_date=t.date(),
+            end_date=t.date(),
+            experimenter_full_name="n/a",
+            protocol_id="null",
+            output_specimen_ids=["1"],
         ),
     ],
 )

@@ -3,6 +3,8 @@
 from abc import ABC, abstractmethod
 from typing import Any, Type
 
+from pydantic.fields import PydanticUndefined
+
 from aind_data_schema.base import AindModel
 
 
@@ -48,7 +50,10 @@ class BaseModelUpgrade(ABC):
             return getattr(model, field_name)
         else:
             try:
-                return getattr(self.model_class.__fields__.get(field_name), "default")
+                attr_default = getattr(self.model_class.model_fields.get(field_name), "default")
+                if attr_default == PydanticUndefined:
+                    return None
+                return attr_default
             except AttributeError:
                 return None
 
