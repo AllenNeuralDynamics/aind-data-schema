@@ -19,7 +19,6 @@ class CallithrixJacchus(_Species):
     """Callithrix Jacchus"""
 
     name: Literal["Callithrix jacchus"] = "Callithrix jacchus"
-    abbreviation: Literal[None] = Field(None)
     registry: Annotated[
         Union[NationalCenterForBiotechnologyInformation], Field(default=Registry.NCBI, discriminator="name")
     ]
@@ -30,7 +29,6 @@ class HomoSapiens(_Species):
     """Homo Sapiens"""
 
     name: Literal["Homo sapiens"] = "Homo sapiens"
-    abbreviation: Literal[None] = Field(None)
     registry: Annotated[
         Union[NationalCenterForBiotechnologyInformation], Field(default=Registry.NCBI, discriminator="name")
     ]
@@ -41,7 +39,6 @@ class MacacaMulatta(_Species):
     """Macaca Mulatta"""
 
     name: Literal["Macaca mulatta"] = "Macaca mulatta"
-    abbreviation: Literal[None] = Field(None)
     registry: Annotated[
         Union[NationalCenterForBiotechnologyInformation], Field(default=Registry.NCBI, discriminator="name")
     ]
@@ -52,7 +49,6 @@ class MusMusculus(_Species):
     """Mus Musculus"""
 
     name: Literal["Mus musculus"] = "Mus musculus"
-    abbreviation: Literal[None] = Field(None)
     registry: Annotated[
         Union[NationalCenterForBiotechnologyInformation], Field(default=Registry.NCBI, discriminator="name")
     ]
@@ -63,7 +59,6 @@ class RattusNorvegicus(_Species):
     """Rattus Norvegicus"""
 
     name: Literal["Rattus norvegicus"] = "Rattus norvegicus"
-    abbreviation: Literal[None] = Field(None)
     registry: Annotated[
         Union[NationalCenterForBiotechnologyInformation], Field(default=Registry.NCBI, discriminator="name")
     ]
