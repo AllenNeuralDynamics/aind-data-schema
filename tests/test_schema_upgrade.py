@@ -63,7 +63,7 @@ class TestDataDescriptionUpgrade(unittest.TestCase):
         self.assertEqual([], new_data_description.funding_source)
         self.assertEqual(DataLevel.RAW, new_data_description.data_level)
         self.assertIsNone(new_data_description.group)
-        self.assertEqual([], new_data_description.investigators)
+        self.assertEqual(["John Doe"], new_data_description.investigators)
         self.assertIsNone(new_data_description.project_name)
         self.assertIsNone(new_data_description.restrictions)
         self.assertEqual([Modality.ECEPHYS], new_data_description.modality)
@@ -96,7 +96,7 @@ class TestDataDescriptionUpgrade(unittest.TestCase):
         self.assertEqual([], new_data_description.funding_source)
         self.assertEqual(DataLevel.RAW, new_data_description.data_level)
         self.assertIsNone(new_data_description.group)
-        self.assertEqual([], new_data_description.investigators)
+        self.assertEqual(["John Doe"], new_data_description.investigators)
         self.assertIsNone(new_data_description.project_name)
         self.assertIsNone(new_data_description.restrictions)
         self.assertEqual([Modality.ECEPHYS], new_data_description.modality)
@@ -156,7 +156,7 @@ class TestDataDescriptionUpgrade(unittest.TestCase):
         self.assertEqual([Funding(funder=Institution.AIND)], new_data_description.funding_source)
         self.assertEqual(DataLevel.RAW, new_data_description.data_level)
         self.assertIsNone(new_data_description.group)
-        self.assertEqual([], new_data_description.investigators)
+        self.assertEqual(["John Doe"], new_data_description.investigators)
         self.assertIsNone(new_data_description.project_name)
         self.assertIsNone(new_data_description.restrictions)
         self.assertEqual([Modality.ECEPHYS], new_data_description.modality)
@@ -177,7 +177,7 @@ class TestDataDescriptionUpgrade(unittest.TestCase):
         self.assertEqual([Funding(funder=Institution.AIND)], new_data_description.funding_source)
         self.assertEqual(DataLevel.RAW, new_data_description.data_level)
         self.assertIsNone(new_data_description.group)
-        self.assertEqual([], new_data_description.investigators)
+        self.assertEqual(["John Doe"], new_data_description.investigators)
         self.assertIsNone(new_data_description.project_name)
         self.assertIsNone(new_data_description.restrictions)
         self.assertEqual([Modality.ECEPHYS], new_data_description.modality)
@@ -294,7 +294,7 @@ class TestDataDescriptionUpgrade(unittest.TestCase):
         self.assertEqual([Funding(funder=Institution.AIND)], new_data_description.funding_source)
         self.assertEqual(DataLevel.RAW, new_data_description.data_level)
         self.assertIsNone(new_data_description.group)
-        self.assertEqual([], new_data_description.investigators)
+        self.assertEqual(["John Doe"], new_data_description.investigators)
         self.assertIsNone(new_data_description.project_name)
         self.assertIsNone(new_data_description.restrictions)
         self.assertEqual([Modality.ECEPHYS], new_data_description.modality)
@@ -331,6 +331,7 @@ class TestModalityUpgrade(unittest.TestCase):
             "creation_date": "2022-11-01",
             "name": "SmartSPIM_623711_2022-10-27_16-48-54_stitched_2022-11-01_16-01-12",
             "institution": "AIND",
+            "investigators": ["John Doe"],
             "funding_source": None,
             "data_level": "derived data",
             "group": None,
