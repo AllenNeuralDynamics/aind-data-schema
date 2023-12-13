@@ -22,6 +22,8 @@ from aind_data_schema.utils.units import (
     VolumeUnit,
     create_unit_with_value,
 )
+from aind_data_schema.manufacturers import Manufacturer
+from aind_data_schema.data_description import Institution
 
 
 class SpecimenProcedureName(Enum):
@@ -327,6 +329,18 @@ class InjectionMaterial(AindModel):
         title="Full genome name",
         description="Full genome for virus construct",
     )
+    RRID: Optional[PIDName] = Field(None, title="RRID")
+    source: Optional[
+        Annotated[
+            List[
+                Union[
+                    Manufacturer, 
+                    Institution
+                ]
+            ],
+            Field(None, title="Source")
+        ]
+    ]
     plasmid_name: Optional[str] = Field(
         None,
         title="Plasmid name",
