@@ -6,6 +6,7 @@
    "creation_date": "2022-07-26",
    "name": "ecephys_624643_2022-07-26_10-52-15",
    "institution": "AIND",
+   "investigators": ["John Doe"],
    "funding_source": [],
    "data_level": "raw data",
    "group": null,
