@@ -79,7 +79,7 @@ class FundingUpgrade:
         ):
             return Funding.model_validate(old_funding)
         else:
-            return None
+            return Institution.AI
 
     @staticmethod
     def upgrade_funding_source(funding_source):
