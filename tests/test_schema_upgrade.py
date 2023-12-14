@@ -60,7 +60,7 @@ class TestDataDescriptionUpgrade(unittest.TestCase):
         self.assertEqual(datetime.datetime(2022, 6, 28, 10, 31, 30), new_data_description.creation_time)
         self.assertEqual("ecephys_623705_2022-06-28_10-31-30", new_data_description.name)
         self.assertEqual(Institution.AIND, new_data_description.institution)
-        self.assertEqual([], new_data_description.funding_source)
+        self.assertEqual([Funding(funder=Institution.AI)], new_data_description.funding_source)
         self.assertEqual(DataLevel.RAW, new_data_description.data_level)
         self.assertIsNone(new_data_description.group)
         self.assertEqual(["John Doe"], new_data_description.investigators)
@@ -93,7 +93,7 @@ class TestDataDescriptionUpgrade(unittest.TestCase):
         self.assertEqual(datetime.datetime(2022, 7, 26, 10, 52, 15), new_data_description.creation_time)
         self.assertEqual("ecephys_624643_2022-07-26_10-52-15", new_data_description.name)
         self.assertEqual(Institution.AIND, new_data_description.institution)
-        self.assertEqual([], new_data_description.funding_source)
+        self.assertEqual([Funding(funder=Institution.AI)], new_data_description.funding_source)
         self.assertEqual(DataLevel.RAW, new_data_description.data_level)
         self.assertIsNone(new_data_description.group)
         self.assertEqual(["John Doe"], new_data_description.investigators)
@@ -153,7 +153,7 @@ class TestDataDescriptionUpgrade(unittest.TestCase):
         self.assertEqual(datetime.datetime(2023, 4, 13, 14, 35, 51), new_data_description.creation_time)
         self.assertEqual("ecephys_664438_2023-04-13_14-35-51", new_data_description.name)
         self.assertEqual(Institution.AIND, new_data_description.institution)
-        self.assertEqual([Funding(funder=Institution.AIND)], new_data_description.funding_source)
+        self.assertEqual([Funding(funder=Institution.AI)], new_data_description.funding_source)
         self.assertEqual(DataLevel.RAW, new_data_description.data_level)
         self.assertIsNone(new_data_description.group)
         self.assertEqual(["John Doe"], new_data_description.investigators)
@@ -174,7 +174,7 @@ class TestDataDescriptionUpgrade(unittest.TestCase):
         self.assertEqual(datetime.datetime(2023, 4, 10, 17, 9, 26), new_data_description.creation_time)
         self.assertEqual("ecephys_661278_2023-04-10_17-09-26", new_data_description.name)
         self.assertEqual(Institution.AIND, new_data_description.institution)
-        self.assertEqual([Funding(funder=Institution.AIND)], new_data_description.funding_source)
+        self.assertEqual([Funding(funder=Institution.AI)], new_data_description.funding_source)
         self.assertEqual(DataLevel.RAW, new_data_description.data_level)
         self.assertIsNone(new_data_description.group)
         self.assertEqual(["John Doe"], new_data_description.investigators)
@@ -195,7 +195,7 @@ class TestDataDescriptionUpgrade(unittest.TestCase):
         self.assertEqual(datetime.datetime(2023, 3, 23, 22, 31, 18), new_data_description.creation_time)
         self.assertEqual("661279_2023-03-23_15-31-18", new_data_description.name)
         self.assertEqual(Institution.AIND, new_data_description.institution)
-        self.assertEqual([Funding(funder=Institution.AIND)], new_data_description.funding_source)
+        self.assertEqual([Funding(funder=Institution.AI)], new_data_description.funding_source)
         self.assertEqual(DataLevel.RAW, new_data_description.data_level)
         self.assertEqual(Group.EPHYS, new_data_description.group)
         self.assertEqual(["John Doe", "Mary Smith"], new_data_description.investigators)
@@ -332,7 +332,7 @@ class TestModalityUpgrade(unittest.TestCase):
             "name": "SmartSPIM_623711_2022-10-27_16-48-54_stitched_2022-11-01_16-01-12",
             "institution": "AIND",
             "investigators": ["John Doe"],
-            "funding_source": None,
+            "funding_source": [{"funder": "AI", "grant_number": None, "fundee": None}],
             "data_level": "derived data",
             "group": None,
             "project_name": None,
@@ -353,7 +353,15 @@ class TestFundingUpgrade(unittest.TestCase):
 
     def test_funding_upgrade(self):
         """Tests edge case"""
-        self.assertIsNone(FundingUpgrade.upgrade_funding(None))
+
+        # Default gets set to AI
+        self.assertEqual(
+            Funding(funder=Institution.AI, grant_number=None, fundee=None), FundingUpgrade.upgrade_funding(None)
+        )
+
+        # Check static method edge case:
+        self.assertEqual([], FundingUpgrade.upgrade_funding_source(None))
+
         self.assertEqual(
             Funding(funder=Institution.AIND),
             FundingUpgrade.upgrade_funding(
