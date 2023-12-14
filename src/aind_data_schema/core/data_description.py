@@ -134,6 +134,7 @@ class DataDescription(AindCoreModel):
         ...,
         title="Funding source",
         description="Funding source. If internal funding, select 'Allen Institute'",
+        min_length=1,
     )
     data_level: DataLevel = Field(
         ...,
@@ -149,6 +150,7 @@ class DataDescription(AindCoreModel):
         ...,
         description="Full name(s) of key investigators (e.g. PI, lead scientist, contact person)",
         title="Investigators",
+        min_length=1,
     )
     project_name: Optional[str] = Field(
         None,
