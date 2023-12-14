@@ -16,10 +16,9 @@ class _Species(PIDName):
 
 
 class CallithrixJacchus(_Species):
-    """CallithrixJacchus"""
+    """Callithrix Jacchus"""
 
     name: Literal["Callithrix jacchus"] = "Callithrix jacchus"
-    abbreviation: Literal[None] = Field(None)
     registry: Annotated[
         Union[NationalCenterForBiotechnologyInformation], Field(default=Registry.NCBI, discriminator="name")
     ]
@@ -27,10 +26,9 @@ class CallithrixJacchus(_Species):
 
 
 class HomoSapiens(_Species):
-    """HomoSapiens"""
+    """Homo Sapiens"""
 
     name: Literal["Homo sapiens"] = "Homo sapiens"
-    abbreviation: Literal[None] = Field(None)
     registry: Annotated[
         Union[NationalCenterForBiotechnologyInformation], Field(default=Registry.NCBI, discriminator="name")
     ]
@@ -38,10 +36,9 @@ class HomoSapiens(_Species):
 
 
 class MacacaMulatta(_Species):
-    """MacacaMulatta"""
+    """Macaca Mulatta"""
 
     name: Literal["Macaca mulatta"] = "Macaca mulatta"
-    abbreviation: Literal[None] = Field(None)
     registry: Annotated[
         Union[NationalCenterForBiotechnologyInformation], Field(default=Registry.NCBI, discriminator="name")
     ]
@@ -49,14 +46,23 @@ class MacacaMulatta(_Species):
 
 
 class MusMusculus(_Species):
-    """MusMusculus"""
+    """Mus Musculus"""
 
     name: Literal["Mus musculus"] = "Mus musculus"
-    abbreviation: Literal[None] = Field(None)
     registry: Annotated[
         Union[NationalCenterForBiotechnologyInformation], Field(default=Registry.NCBI, discriminator="name")
     ]
     registry_identifier: Literal["10090"] = "10090"
+
+
+class RattusNorvegicus(_Species):
+    """Rattus Norvegicus"""
+
+    name: Literal["Rattus norvegicus"] = "Rattus norvegicus"
+    registry: Annotated[
+        Union[NationalCenterForBiotechnologyInformation], Field(default=Registry.NCBI, discriminator="name")
+    ]
+    registry_identifier: Literal["10116"] = "10116"
 
 
 class Species:
@@ -66,5 +72,6 @@ class Species:
     HOMO_SAPIENS = HomoSapiens()
     MACACA_MULATTA = MacacaMulatta()
     MUS_MUSCULUS = MusMusculus()
+    RATTUS_NOVEGICUS = RattusNorvegicus()
     _ALL = tuple(_Species.__subclasses__())
     ONE_OF = Annotated[Union[_ALL], Field(discriminator="name")]

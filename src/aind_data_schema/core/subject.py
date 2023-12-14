@@ -85,7 +85,7 @@ class Subject(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/subject.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["0.5.0"] = Field("0.5.0")
+    schema_version: Literal["0.5.1"] = Field("0.5.1")
     species: Species.ONE_OF = Field(..., title="Species")
     subject_id: str = Field(
         ...,
@@ -94,8 +94,8 @@ class Subject(AindCoreModel):
     )
     sex: Sex = Field(..., title="Sex")
     date_of_birth: date_type = Field(..., title="Date of birth")
-    genotype: str = Field(
-        ...,
+    genotype: Optional[str] = Field(
+        None,
         description="Genotype of the animal providing both alleles",
         title="Genotype",
     )
