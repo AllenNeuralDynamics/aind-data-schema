@@ -94,7 +94,7 @@ class DataDescription(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/data_description.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["0.12.0"] = Field("0.12.0", title="Schema Version")
+    schema_version: Literal["0.12.1"] = Field("0.12.1", title="Schema Version")
     license: Literal["CC-BY-4.0"] = Field("CC-BY-4.0", title="License")
 
     platform: Platform.ONE_OF = Field(
@@ -134,6 +134,7 @@ class DataDescription(AindCoreModel):
         ...,
         title="Funding source",
         description="Funding source. If internal funding, select 'Allen Institute'",
+        min_length=1,
     )
     data_level: DataLevel = Field(
         ...,
@@ -146,9 +147,10 @@ class DataDescription(AindCoreModel):
         title="Group",
     )
     investigators: List[str] = Field(
-        default=[],
+        ...,
         description="Full name(s) of key investigators (e.g. PI, lead scientist, contact person)",
         title="Investigators",
+        min_length=1,
     )
     project_name: Optional[str] = Field(
         None,

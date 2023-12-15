@@ -289,7 +289,7 @@ class DataDescriptionTest(unittest.TestCase):
             creation_time=dt,
             institution=Institution.AIND,
             data_level="raw",
-            funding_source=[],
+            funding_source=[Funding(funder=Institution.NINDS, grant_number="grant001")],
             modality=[Modality.SPIM],
             platform=Platform.EXASPIM,
             subject_id="12345",
