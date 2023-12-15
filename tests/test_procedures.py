@@ -7,7 +7,7 @@ from pydantic import ValidationError
 
 from aind_data_schema.core.procedures import (
     FiberImplant,
-    InjectionMaterial,
+    ViralMaterial,
     NanojectInjection,
     OphysProbe,
     Procedures,
@@ -62,10 +62,13 @@ class ProceduresTests(unittest.TestCase):
                     experimenter_full_name="tom",
                     protocol_id="134",
                     injection_materials=[
-                        InjectionMaterial(
-                            name="abc",
-                            titer="5.46E13",
-                            prep_lot_number="CT323",
+                        ViralMaterial(
+                            material_type="Virus",
+                            name="AAV2-Flex-ChrimsonR",
+                            virus_TARS_id="AiV222",
+                            plasmid_TARS_alias="AiP222",
+                            prep_lot_number="VT222",
+                            titer="2300000000",
                         )
                     ],
                     injection_volume=1,
@@ -79,10 +82,13 @@ class ProceduresTests(unittest.TestCase):
                     experimenter_full_name="betsy",
                     protocol_id="bca",
                     injection_materials=[
-                        InjectionMaterial(
-                            name="abc",
-                            titer="5.46E13",
-                            prep_lot_number="CT323",
+                        ViralMaterial(
+                            material_type="Virus",
+                            name="AAV2-Flex-ChrimsonR",
+                            virus_TARS_id="AiV222",
+                            plasmid_TARS_alias="AiP222",
+                            prep_lot_number="VT222",
+                            titer="2300000000",
                         )
                     ],
                     injection_duration=1,
