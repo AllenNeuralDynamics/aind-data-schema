@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/instrument.py",
-   "schema_version": "0.10.0",
+   "schema_version": "0.10.1",
    "instrument_id": "SmartSPIM2-2",
    "modification_date": "2023-10-04",
    "instrument_type": "SmartSPIM",
@@ -15,8 +15,8 @@
    "optical_tables": [
       {
          "device_type": "OpticalTable",
-         "name": null,
-         "serial_number": "Unknown",
+         "name": "Table",
+         "serial_number": null,
          "manufacturer": {
             "name": "Technical Manufacturing Corporation",
             "abbreviation": "TMC",
@@ -36,8 +36,8 @@
    "objectives": [
       {
          "device_type": "Objective",
-         "name": null,
-         "serial_number": "Unknown",
+         "name": "TLX Objective",
+         "serial_number": null,
          "manufacturer": {
             "name": "Thorlabs",
             "abbreviation": null,
@@ -59,7 +59,7 @@
    "detectors": [
       {
          "device_type": "Detector",
-         "name": null,
+         "name": "Camera 1",
          "serial_number": "001107",
          "manufacturer": {
             "name": "Hamamatsu",
@@ -168,7 +168,7 @@
       {
          "device_type": "Filter",
          "name": "Em_525",
-         "serial_number": "Unknown-1",
+         "serial_number": null,
          "manufacturer": {
             "name": "Semrock",
             "abbreviation": null,
@@ -195,7 +195,7 @@
       {
          "device_type": "Filter",
          "name": "Em_600",
-         "serial_number": "Unknown-2",
+         "serial_number": null,
          "manufacturer": {
             "name": "Semrock",
             "abbreviation": null,
@@ -222,7 +222,7 @@
       {
          "device_type": "Filter",
          "name": "Em_690",
-         "serial_number": "Unknown-3",
+         "serial_number": null,
          "manufacturer": {
             "name": "Chroma",
             "abbreviation": null,
@@ -250,8 +250,8 @@
    "motorized_stages": [
       {
          "device_type": "Motorized stage",
-         "name": null,
-         "serial_number": "Unknown-0",
+         "name": "Focus stage",
+         "serial_number": null,
          "manufacturer": {
             "name": "Applied Scientific Instrumentation",
             "abbreviation": "ASI",
@@ -260,15 +260,15 @@
          },
          "model": "LS-100",
          "path_to_cad": null,
-         "notes": "Focus stage",
+         "notes": null,
          "travel": "100",
          "travel_unit": "millimeter",
          "firmware": null
       },
       {
          "device_type": "Motorized stage",
-         "name": null,
-         "serial_number": "Unknown-1",
+         "name": "Cylindrical lens #1",
+         "serial_number": null,
          "manufacturer": {
             "name": "IR Robot Co",
             "abbreviation": null,
@@ -277,15 +277,15 @@
          },
          "model": "L12-20F-4",
          "path_to_cad": null,
-         "notes": "Cylindrical lens #1",
+         "notes": null,
          "travel": "41",
          "travel_unit": "millimeter",
          "firmware": null
       },
       {
          "device_type": "Motorized stage",
-         "name": null,
-         "serial_number": "Unknown-2",
+         "name": "Cylindrical lens #2",
+         "serial_number": null,
          "manufacturer": {
             "name": "IR Robot Co",
             "abbreviation": null,
@@ -294,15 +294,15 @@
          },
          "model": "L12-20F-4",
          "path_to_cad": null,
-         "notes": "Cylindrical lens #2",
+         "notes": null,
          "travel": "41",
          "travel_unit": "millimeter",
          "firmware": null
       },
       {
          "device_type": "Motorized stage",
-         "name": null,
-         "serial_number": "Unknown-3",
+         "name": "Cylindrical lens #3",
+         "serial_number": null,
          "manufacturer": {
             "name": "IR Robot Co",
             "abbreviation": null,
@@ -311,15 +311,15 @@
          },
          "model": "L12-20F-4",
          "path_to_cad": null,
-         "notes": "Cylindrical lens #3",
+         "notes": null,
          "travel": "41",
          "travel_unit": "millimeter",
          "firmware": null
       },
       {
          "device_type": "Motorized stage",
-         "name": null,
-         "serial_number": "Unknown-4",
+         "name": "Cylindrical lens #4",
+         "serial_number": null,
          "manufacturer": {
             "name": "IR Robot Co",
             "abbreviation": null,
@@ -328,7 +328,7 @@
          },
          "model": "L12-20F-4",
          "path_to_cad": null,
-         "notes": "Cylindrical lens #4",
+         "notes": null,
          "travel": "41",
          "travel_unit": "millimeter",
          "firmware": null
@@ -337,8 +337,8 @@
    "scanning_stages": [
       {
          "device_type": "Motorized stage",
-         "name": null,
-         "serial_number": "Unknown-0",
+         "name": "Sample stage Z",
+         "serial_number": null,
          "manufacturer": {
             "name": "Applied Scientific Instrumentation",
             "abbreviation": "ASI",
@@ -347,7 +347,7 @@
          },
          "model": "LS-50",
          "path_to_cad": null,
-         "notes": "Sample stage Z",
+         "notes": null,
          "travel": "50",
          "travel_unit": "millimeter",
          "firmware": null,
@@ -356,8 +356,8 @@
       },
       {
          "device_type": "Motorized stage",
-         "name": null,
-         "serial_number": "Unknown-1",
+         "name": "Sample stage X",
+         "serial_number": null,
          "manufacturer": {
             "name": "Applied Scientific Instrumentation",
             "abbreviation": "ASI",
@@ -366,7 +366,7 @@
          },
          "model": "LS-50",
          "path_to_cad": null,
-         "notes": "Sample stage X",
+         "notes": null,
          "travel": "50",
          "travel_unit": "millimeter",
          "firmware": null,
@@ -375,8 +375,8 @@
       },
       {
          "device_type": "Motorized stage",
-         "name": null,
-         "serial_number": "Unknown-2",
+         "name": "Sample stage Y",
+         "serial_number": null,
          "manufacturer": {
             "name": "Applied Scientific Instrumentation",
             "abbreviation": "ASI",
@@ -385,7 +385,7 @@
          },
          "model": "LS-50",
          "path_to_cad": null,
-         "notes": "Sample stage Y",
+         "notes": null,
          "travel": "50",
          "travel_unit": "millimeter",
          "firmware": null,
@@ -393,12 +393,11 @@
          "stage_axis_name": "Y"
       }
    ],
-   "daqs": [],
    "additional_devices": [
       {
          "device_type": "AdditionalImagingDevice",
-         "name": null,
-         "serial_number": "Unknown-1",
+         "name": "Lens 1",
+         "serial_number": null,
          "manufacturer": {
             "name": "Optotune",
             "abbreviation": null,
@@ -408,12 +407,12 @@
          "model": "EL-16-40-TC",
          "path_to_cad": null,
          "notes": null,
-         "type": "Other"
+         "type": "Tunable lens"
       },
       {
          "device_type": "AdditionalImagingDevice",
-         "name": null,
-         "serial_number": "Unknown-2",
+         "name": "Lens 2",
+         "serial_number": null,
          "manufacturer": {
             "name": "Optotune",
             "abbreviation": null,
@@ -423,12 +422,12 @@
          "model": "EL-16-40-TC",
          "path_to_cad": null,
          "notes": null,
-         "type": "Other"
+         "type": "Tunable lens"
       },
       {
          "device_type": "AdditionalImagingDevice",
-         "name": null,
-         "serial_number": "Unknown-1",
+         "name": "Sample chamber",
+         "serial_number": null,
          "manufacturer": {
             "name": "LifeCanvas",
             "abbreviation": null,
@@ -457,5 +456,6 @@
          "com_port": "COM4"
       }
    ],
+   "daqs": [],
    "notes": null
 }

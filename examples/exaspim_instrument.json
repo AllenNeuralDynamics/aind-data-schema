@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/instrument.py",
-   "schema_version": "0.10.0",
+   "schema_version": "0.10.1",
    "instrument_id": "exaSPIM1-1",
    "modification_date": "2023-10-04",
    "instrument_type": "exaSPIM",
@@ -15,8 +15,8 @@
    "optical_tables": [
       {
          "device_type": "OpticalTable",
-         "name": null,
-         "serial_number": "Unknown",
+         "name": "Table",
+         "serial_number": null,
          "manufacturer": {
             "name": "MKS Newport",
             "abbreviation": null,
@@ -35,11 +35,12 @@
          "vibration_control": true
       }
    ],
+   "enclosure": null,
    "objectives": [
       {
          "device_type": "Objective",
-         "name": null,
-         "serial_number": "Unknown",
+         "name": "Custom Objective",
+         "serial_number": null,
          "manufacturer": {
             "name": "Other",
             "abbreviation": null,
@@ -58,7 +59,7 @@
    "detectors": [
       {
          "device_type": "Detector",
-         "name": null,
+         "name": "Cmaera 1",
          "serial_number": "MB151BAY001",
          "manufacturer": {
             "name": "Vieworks",
@@ -182,8 +183,8 @@
    "fluorescence_filters": [
       {
          "device_type": "Filter",
-         "name": null,
-         "serial_number": "Unknown-0",
+         "name": "Multiband filter",
+         "serial_number": null,
          "manufacturer": {
             "name": "Chroma",
             "abbreviation": null,
@@ -213,7 +214,7 @@
       {
          "device_type": "Motorized stage",
          "name": "stage-x",
-         "serial_number": "Unknown",
+         "serial_number": null,
          "manufacturer": {
             "name": "Applied Scientific Instrumentation",
             "abbreviation": "ASI",
@@ -232,7 +233,7 @@
       {
          "device_type": "Motorized stage",
          "name": null,
-         "serial_number": "Unknown",
+         "serial_number": null,
          "manufacturer": {
             "name": "Applied Scientific Instrumentation",
             "abbreviation": "ASI",
@@ -251,7 +252,7 @@
       {
          "device_type": "Motorized stage",
          "name": null,
-         "serial_number": "Unknown",
+         "serial_number": null,
          "manufacturer": {
             "name": "Applied Scientific Instrumentation",
             "abbreviation": "ASI",
@@ -268,11 +269,73 @@
          "stage_axis_name": "Z"
       }
    ],
+   "additional_devices": [
+      {
+         "device_type": "AdditionalImagingDevice",
+         "name": "TL-1",
+         "serial_number": "01",
+         "manufacturer": {
+            "name": "Optotune",
+            "abbreviation": null,
+            "registry": null,
+            "registry_identifier": null
+         },
+         "model": "EL-16-40-TC-VIS-20D-C",
+         "path_to_cad": null,
+         "notes": null,
+         "type": "Tunable lens"
+      },
+      {
+         "device_type": "AdditionalImagingDevice",
+         "name": "RM-1",
+         "serial_number": "01",
+         "manufacturer": {
+            "name": "Thorlabs",
+            "abbreviation": null,
+            "registry": {
+               "name": "Research Organization Registry",
+               "abbreviation": "ROR"
+            },
+            "registry_identifier": "04gsnvb07"
+         },
+         "model": "K10CR1",
+         "path_to_cad": null,
+         "notes": null,
+         "type": "Rotation mount"
+      },
+      {
+         "device_type": "AdditionalImagingDevice",
+         "name": "LC-1",
+         "serial_number": "L6CC-00513",
+         "manufacturer": {
+            "name": "Oxxius",
+            "abbreviation": null,
+            "registry": null,
+            "registry_identifier": null
+         },
+         "model": "L6Cc",
+         "path_to_cad": null,
+         "notes": null,
+         "type": "Laser combiner"
+      }
+   ],
+   "calibration_date": null,
+   "calibration_data": null,
+   "com_ports": [
+      {
+         "hardware_name": "Laser Launch",
+         "com_port": "COM2"
+      },
+      {
+         "hardware_name": "ASI Tiger",
+         "com_port": "COM5"
+      }
+   ],
    "daqs": [
       {
          "device_type": "DAQ Device",
          "name": "Dev2",
-         "serial_number": "Unknown",
+         "serial_number": null,
          "manufacturer": {
             "name": "National Instruments",
             "abbreviation": null,
@@ -351,68 +414,5 @@
          ]
       }
    ],
-   "additional_devices": [
-      {
-         "device_type": "AdditionalImagingDevice",
-         "name": "TL-1",
-         "serial_number": "01",
-         "manufacturer": {
-            "name": "Optotune",
-            "abbreviation": null,
-            "registry": null,
-            "registry_identifier": null
-         },
-         "model": "EL-16-40-TC-VIS-20D-C",
-         "path_to_cad": null,
-         "notes": null,
-         "type": "Tunable lens"
-      },
-      {
-         "device_type": "AdditionalImagingDevice",
-         "name": null,
-         "serial_number": "01",
-         "manufacturer": {
-            "name": "Thorlabs",
-            "abbreviation": null,
-            "registry": {
-               "name": "Research Organization Registry",
-               "abbreviation": "ROR"
-            },
-            "registry_identifier": "04gsnvb07"
-         },
-         "model": "K10CR1",
-         "path_to_cad": null,
-         "notes": null,
-         "type": "Rotation mount"
-      },
-      {
-         "device_type": "AdditionalImagingDevice",
-         "name": null,
-         "serial_number": "L6CC-00513",
-         "manufacturer": {
-            "name": "Oxxius",
-            "abbreviation": null,
-            "registry": null,
-            "registry_identifier": null
-         },
-         "model": "L6Cc",
-         "path_to_cad": null,
-         "notes": null,
-         "type": "Laser combiner"
-      }
-   ],
-   "calibration_date": null,
-   "calibration_data": null,
-   "com_ports": [
-      {
-         "hardware_name": "Laser Launch",
-         "com_port": "COM2"
-      },
-      {
-         "hardware_name": "ASI Tiger",
-         "com_port": "COM5"
-      }
-   ],
-   "notes": null,
-   "enclosure": null
+   "notes": null
 }
