@@ -343,7 +343,7 @@ class ViralMaterial(AindModel):
         title="Full genome name",
         description="Full genome for virus construct",
     )
-    tars_identifiers: Optional[TarsIds] = Field(None, title="TARS IDs", description="Identifiers from the TARS database")
+    tars_identifiers: Optional[TarsIds] = Field(None, title="TARS IDs", description="TARS database identifiers")
     addgene_id: Optional[PIDName] = Field(None, title="Addgene id", description="Registry must be Addgene")
     genome_copy: Optional[Decimal] = Field(None, title="Genome copy")
     titer: Optional[int] = Field(None, title="Effective titer (gc/mL)",
