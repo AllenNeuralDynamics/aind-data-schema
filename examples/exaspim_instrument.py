@@ -139,6 +139,7 @@ inst = instrument.Instrument(
             manufacturer=Manufacturer.ASI,
         ),
         instrument.ScanningStage(
+            name="stage-y",
             stage_axis_direction="Perpendicular axis",
             stage_axis_name="Y",
             travel=1000,
@@ -146,6 +147,7 @@ inst = instrument.Instrument(
             manufacturer=Manufacturer.ASI,
         ),
         instrument.ScanningStage(
+            name="stage-z",
             stage_axis_direction="Illumination axis",
             stage_axis_name="Z",
             travel=100,

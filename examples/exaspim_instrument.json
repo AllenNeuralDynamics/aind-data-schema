@@ -232,7 +232,7 @@
       },
       {
          "device_type": "Motorized stage",
-         "name": null,
+         "name": "stage-y",
          "serial_number": null,
          "manufacturer": {
             "name": "Applied Scientific Instrumentation",
@@ -251,7 +251,7 @@
       },
       {
          "device_type": "Motorized stage",
-         "name": null,
+         "name": "stage-z",
          "serial_number": null,
          "manufacturer": {
             "name": "Applied Scientific Instrumentation",
