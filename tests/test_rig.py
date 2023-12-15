@@ -125,7 +125,7 @@ class RigTests(unittest.TestCase):
             ],
             stick_microscopes=[
                 StickMicroscopeAssembly(
-                    scope_assembly_name="fake name",
+                    scope_assembly_name="Assembly A",
                     camera=Camera(
                         name="Camera A",
                         manufacturer=Manufacturer.OTHER,
@@ -136,7 +136,7 @@ class RigTests(unittest.TestCase):
                         pixel_height=1,
                         chroma="Color",
                     ),
-                    lens=Lens(manufacturer=Manufacturer.OTHER),
+                    lens=Lens(name="Lens A", manufacturer=Manufacturer.OTHER),
                 )
             ],
             light_sources=[
