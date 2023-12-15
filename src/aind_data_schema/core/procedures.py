@@ -340,7 +340,8 @@ class ViralMaterial(AindModel):
     prep_protocol: Optional[str] = Field(None, title="Prep protocol")
     addgene_id: Optional[PIDName] = Field(None, title="Addgene id", description="Registry must be Addgene")
     genome_copy: Optional[Decimal] = Field(None, title="Genome copy")
-    titer: Optional[int] = Field(None, title="Effective titer (gc/mL)", description="Final titer of viral materials, accounting for mixture/diliution")
+    titer: Optional[int] = Field(None, title="Effective titer (gc/mL)", 
+                                 description="Final titer of viral material, accounting for mixture/diliution")
     titer_unit: str = Field("gc/mL", title="Titer unit")
 
 
