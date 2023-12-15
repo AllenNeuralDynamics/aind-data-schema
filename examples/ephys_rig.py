@@ -81,7 +81,7 @@ probe_camera = Camera(
     chroma="Color",
 )
 
-stick_lens = Lens(manufacturer=Manufacturer.EDMUND_OPTICS)
+stick_lens = Lens(name="Probe lens", manufacturer=Manufacturer.EDMUND_OPTICS)
 
 microscope = StickMicroscopeAssembly(
     scope_assembly_name="Stick_assembly",
@@ -106,12 +106,13 @@ ephys_assemblyB = EphysAssembly(
 )
 
 filt = Filter(
+    name="LP filter",
     filter_type="Long pass",
     manufacturer=Manufacturer.THORLABS,
     description="850 nm longpass filter",
 )
 
-lens = Lens(focal_length=15, manufacturer=Manufacturer.EDMUND_OPTICS, max_aperture="f/2")
+lens = Lens(name="Camera lens", focal_length=15, manufacturer=Manufacturer.EDMUND_OPTICS, max_aperture="f/2")
 
 face_camera = Camera(
     name="Face Camera",

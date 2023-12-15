@@ -3,12 +3,6 @@
    "schema_version": "0.2.1",
    "rig_id": "323_EPHYS1",
    "modification_date": "2023-10-03",
-   "modalities": [
-      {
-         "name": "Extracellular electrophysiology",
-         "abbreviation": "ecephys"
-      }
-   ],
    "mouse_platform": {
       "device_type": "Disc",
       "name": "Running Wheel",
@@ -63,7 +57,7 @@
          },
          "lens": {
             "device_type": "Lens",
-            "name": null,
+            "name": "Camera lens",
             "serial_number": null,
             "manufacturer": {
                "name": "Edmund Optics",
@@ -87,7 +81,7 @@
          },
          "filter": {
             "device_type": "Filter",
-            "name": null,
+            "name": "LP filter",
             "serial_number": null,
             "manufacturer": {
                "name": "Thorlabs",
@@ -152,7 +146,7 @@
          },
          "lens": {
             "device_type": "Lens",
-            "name": null,
+            "name": "Camera lens",
             "serial_number": null,
             "manufacturer": {
                "name": "Edmund Optics",
@@ -176,7 +170,7 @@
          },
          "filter": {
             "device_type": "Filter",
-            "name": null,
+            "name": "LP filter",
             "serial_number": null,
             "manufacturer": {
                "name": "Thorlabs",
@@ -205,98 +199,6 @@
             "description": "850 nm longpass filter"
          },
          "position": null
-      }
-   ],
-   "daqs": [
-      {
-         "device_type": "Neuropixels basestation",
-         "name": "Basestation Slot 3",
-         "serial_number": null,
-         "manufacturer": {
-            "name": "Interuniversity Microelectronics Center",
-            "abbreviation": "IMEC",
-            "registry": {
-               "name": "Research Organization Registry",
-               "abbreviation": "ROR"
-            },
-            "registry_identifier": "02kcbn207"
-         },
-         "model": null,
-         "path_to_cad": null,
-         "notes": null,
-         "data_interface": "PXI",
-         "computer_name": "W10DT72942",
-         "channels": [],
-         "basestation_firmware_version": "2.019",
-         "bsc_firmware_version": "2.199",
-         "slot": 3,
-         "ports": [
-            {
-               "index": 1,
-               "probes": [
-                  "Probe A"
-               ]
-            },
-            {
-               "index": 2,
-               "probes": [
-                  "Probe B"
-               ]
-            }
-         ]
-      },
-      {
-         "device_type": "Harp device",
-         "name": "Harp Behavior",
-         "serial_number": null,
-         "manufacturer": {
-            "name": "Open Ephys Production Site",
-            "abbreviation": "OEPS",
-            "registry": {
-               "name": "Research Organization Registry",
-               "abbreviation": "ROR"
-            },
-            "registry_identifier": "007rkz355"
-         },
-         "model": null,
-         "path_to_cad": null,
-         "notes": null,
-         "data_interface": "USB",
-         "computer_name": "W10DT72941",
-         "channels": [
-            {
-               "channel_name": "DO0",
-               "device_name": "Face Camera",
-               "channel_type": "Digital Output",
-               "port": null,
-               "channel_index": null,
-               "sample_rate": null,
-               "sample_rate_unit": "hertz",
-               "event_based_sampling": null
-            },
-            {
-               "channel_name": "DO1",
-               "device_name": "Body Camera",
-               "channel_type": "Digital Output",
-               "port": null,
-               "channel_index": null,
-               "sample_rate": null,
-               "sample_rate_unit": "hertz",
-               "event_based_sampling": null
-            },
-            {
-               "channel_name": "AI0",
-               "device_name": "Running Wheel",
-               "channel_type": "Analog Input",
-               "port": null,
-               "channel_index": null,
-               "sample_rate": null,
-               "sample_rate_unit": "hertz",
-               "event_based_sampling": null
-            }
-         ],
-         "harp_device_type": "Behavior",
-         "harp_device_version": "2.1"
       }
    ],
    "enclosure": null,
@@ -400,7 +302,7 @@
          },
          "lens": {
             "device_type": "Lens",
-            "name": null,
+            "name": "Probe lens",
             "serial_number": null,
             "manufacturer": {
                "name": "Edmund Optics",
@@ -499,6 +401,98 @@
    "polygonal_scanners": [],
    "pockels_cells": [],
    "additional_devices": [],
+   "daqs": [
+      {
+         "device_type": "Neuropixels basestation",
+         "name": "Basestation Slot 3",
+         "serial_number": null,
+         "manufacturer": {
+            "name": "Interuniversity Microelectronics Center",
+            "abbreviation": "IMEC",
+            "registry": {
+               "name": "Research Organization Registry",
+               "abbreviation": "ROR"
+            },
+            "registry_identifier": "02kcbn207"
+         },
+         "model": null,
+         "path_to_cad": null,
+         "notes": null,
+         "data_interface": "PXI",
+         "computer_name": "W10DT72942",
+         "channels": [],
+         "basestation_firmware_version": "2.019",
+         "bsc_firmware_version": "2.199",
+         "slot": 3,
+         "ports": [
+            {
+               "index": 1,
+               "probes": [
+                  "Probe A"
+               ]
+            },
+            {
+               "index": 2,
+               "probes": [
+                  "Probe B"
+               ]
+            }
+         ]
+      },
+      {
+         "device_type": "Harp device",
+         "name": "Harp Behavior",
+         "serial_number": null,
+         "manufacturer": {
+            "name": "Open Ephys Production Site",
+            "abbreviation": "OEPS",
+            "registry": {
+               "name": "Research Organization Registry",
+               "abbreviation": "ROR"
+            },
+            "registry_identifier": "007rkz355"
+         },
+         "model": null,
+         "path_to_cad": null,
+         "notes": null,
+         "data_interface": "USB",
+         "computer_name": "W10DT72941",
+         "channels": [
+            {
+               "channel_name": "DO0",
+               "device_name": "Face Camera",
+               "channel_type": "Digital Output",
+               "port": null,
+               "channel_index": null,
+               "sample_rate": null,
+               "sample_rate_unit": "hertz",
+               "event_based_sampling": null
+            },
+            {
+               "channel_name": "DO1",
+               "device_name": "Body Camera",
+               "channel_type": "Digital Output",
+               "port": null,
+               "channel_index": null,
+               "sample_rate": null,
+               "sample_rate_unit": "hertz",
+               "event_based_sampling": null
+            },
+            {
+               "channel_name": "AI0",
+               "device_name": "Running Wheel",
+               "channel_type": "Analog Input",
+               "port": null,
+               "channel_index": null,
+               "sample_rate": null,
+               "sample_rate_unit": "hertz",
+               "event_based_sampling": null
+            }
+         ],
+         "harp_device_type": "Behavior",
+         "harp_device_version": "2.1"
+      }
+   ],
    "calibrations": [
       {
          "calibration_date": "2023-10-02T10:22:13",
@@ -542,5 +536,11 @@
       }
    ],
    "ccf_coordinate_transform": null,
+   "modalities": [
+      {
+         "name": "Extracellular electrophysiology",
+         "abbreviation": "ecephys"
+      }
+   ],
    "notes": null
 }
