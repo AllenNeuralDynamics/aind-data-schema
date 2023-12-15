@@ -38,6 +38,7 @@ class RigTests(unittest.TestCase):
 
         daqs = [
             NeuropixelsBasestation(
+                name="Neuropixels basestation",
                 basestation_firmware_version="1",
                 bsc_firmware_version="2",
                 slot=0,
@@ -73,6 +74,7 @@ class RigTests(unittest.TestCase):
             EphysAssembly(
                 probes=[EphysProbe(probe_model="Neuropixels 1.0", name="Probe A")],
                 manipulator=Manipulator(
+                    name="Probe manipulator",
                     manufacturer=Manufacturer.NEW_SCALE_TECHNOLOGIES,
                     serial_number="4321",
                 ),
@@ -91,6 +93,7 @@ class RigTests(unittest.TestCase):
                     ),
                 ],
                 manipulator=Manipulator(
+                    name="Laser manipulator",
                     manufacturer=Manufacturer.NEW_SCALE_TECHNOLOGIES,
                     serial_number="1234",
                 ),
@@ -208,6 +211,7 @@ class RigTests(unittest.TestCase):
                 modification_date=date(2020, 10, 10),
                 daqs=[
                     NeuropixelsBasestation(
+                        name="Basestation",
                         basestation_firmware_version="1",
                         bsc_firmware_version="2",
                         slot=0,
@@ -253,6 +257,7 @@ class RigTests(unittest.TestCase):
         with self.assertRaises(ValidationError):
             daqs = [
                 NeuropixelsBasestation(
+                    name="Basestation",
                     basestation_firmware_version="1",
                     bsc_firmware_version="2",
                     slot=0,
