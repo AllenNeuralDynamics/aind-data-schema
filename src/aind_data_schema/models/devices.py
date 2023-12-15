@@ -254,7 +254,7 @@ class Device(AindModel):
     """Generic device"""
 
     device_type: str = Field(..., title="Device type")  # Needs to be set by child classes that inherits
-    name: Optional[str] = Field(None, title="Device name")
+    name: str = Field(..., title="Device name")
     serial_number: Optional[str] = Field(None, title="Serial number")
     manufacturer: Optional[Manufacturer.ONE_OF] = Field(None, title="Manufacturer")
     model: Optional[str] = Field(None, title="Model")
