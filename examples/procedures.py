@@ -45,8 +45,8 @@ p = Procedures(
                     material_type="Virus",
                     name="AAV2-Flex-ChrimsonR",
                     tars_identifiers=TarsIds(
-                        virus_TARS_id="AiV222",
-                        plasmid_TARS_alias="AiP222",
+                        virus_tars_id="AiV222",
+                        plasmid_tars_alias="AiP222",
                         prep_lot_number="VT222",
                     ),
                     titer=2300000000,
