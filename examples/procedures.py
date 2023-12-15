@@ -8,6 +8,7 @@ from aind_data_schema.core.procedures import (
     NanojectInjection,
     Perfusion,
     Procedures,
+    TarsIds,
 )
 
 t = datetime.datetime(2022, 7, 12, 7, 00, 00)
@@ -43,9 +44,11 @@ p = Procedures(
                 ViralMaterial(
                     material_type="Virus",
                     name="AAV2-Flex-ChrimsonR",
-                    virus_TARS_id="AiV222",
-                    plasmid_TARS_alias="AiP222",
-                    prep_lot_number="VT222",
+                    tars_identifiers=TarsIds(
+                        virus_TARS_id="AiV222",
+                        plasmid_TARS_alias="AiP222",
+                        prep_lot_number="VT222",
+                    ),
                     titer=2300000000,
                 )
             ],
