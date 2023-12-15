@@ -46,7 +46,7 @@ p = Procedures(
                     virus_TARS_id="AiV222",
                     plasmid_TARS_alias="AiP222",
                     prep_lot_number="VT222",
-                    titer="2300000000",
+                    titer=2300000000,
                 )
             ],
             recovery_time=0,
