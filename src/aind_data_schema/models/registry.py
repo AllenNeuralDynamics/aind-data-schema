@@ -13,18 +13,18 @@ class _Registry(BaseName):
     model_config = ConfigDict(frozen=True)
 
 
+class Addgene(_Registry):
+    """Addgene"""
+
+    name: Literal["Addgene"] = "Addgene"
+    abbreviation: Literal["ADDGENE"] = "ADDGENE"
+
+
 class ResearchOrganizationRegistry(_Registry):
     """ResearchOrganizationRegistry"""
 
     name: Literal["Research Organization Registry"] = "Research Organization Registry"
     abbreviation: Literal["ROR"] = "ROR"
-
-
-class NationalCenterForBiotechnologyInformation(_Registry):
-    """NationalCenterForBiotechnologyInformation"""
-
-    name: Literal["National Center for Biotechnology Information"] = "National Center for Biotechnology Information"
-    abbreviation: Literal["NCBI"] = "NCBI"
 
 
 class ResearchResourceIdentifiers(_Registry):
@@ -34,9 +34,17 @@ class ResearchResourceIdentifiers(_Registry):
     abbreviation: Literal["RRID"] = "RRID"
 
 
+class NationalCenterForBiotechnologyInformation(_Registry):
+    """NationalCenterForBiotechnologyInformation"""
+
+    name: Literal["National Center for Biotechnology Information"] = "National Center for Biotechnology Information"
+    abbreviation: Literal["NCBI"] = "NCBI"
+
+
 class Registry:
     """Registry definitions"""
 
+    ADDGENE = Addgene()
     ROR = ResearchOrganizationRegistry()
     NCBI = NationalCenterForBiotechnologyInformation()
     RRID = ResearchResourceIdentifiers()

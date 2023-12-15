@@ -315,17 +315,11 @@ class Headframe(SubjectProcedure):
     well_type: Optional[str] = Field(None, title="Well type")
 
 
-class ViralMaterial(AindModel):
-    """Description of viral material for injections"""
+class TarsIds(AindModel):
+    """TARS data for a viral prep"""
 
-    material_type: Literal["Virus"] = Field("Virus", title="Injection material type")
-    name: str = Field(
-        ...,
-        title="Full genome name",
-        description="Full genome for virus construct",
-    )
-    virus_TARS_id: Optional[str] = Field(None, title="Virus ID, usually beings 'AiV'")
-    plasmid_TARS_alias: Optional[str] = Field(
+    virus_tars_id: Optional[str] = Field(None, title="Virus ID, usually beings 'AiV'")
+    plasmid_tars_alias: Optional[str] = Field(
         None,
         title="Plasmid alias",
         description="Alias used to reference the plasmid, usually begins 'AiP'",
@@ -338,6 +332,18 @@ class ViralMaterial(AindModel):
     )
     prep_type: Optional[VirusPrepType] = Field(None, title="Viral prep type")
     prep_protocol: Optional[str] = Field(None, title="Prep protocol")
+
+
+class ViralMaterial(AindModel):
+    """Description of viral material for injections"""
+
+    material_type: Literal["Virus"] = Field("Virus", title="Injection material type")
+    name: str = Field(
+        ...,
+        title="Full genome name",
+        description="Full genome for virus construct",
+    )
+    tars_identifiers: Optional[TarsIds] = Field(None, title="TARS IDs", description="Identifiers from the TARS database")
     addgene_id: Optional[PIDName] = Field(None, title="Addgene id", description="Registry must be Addgene")
     genome_copy: Optional[Decimal] = Field(None, title="Genome copy")
     titer: Optional[int] = Field(None, title="Effective titer (gc/mL)",
@@ -345,10 +351,10 @@ class ViralMaterial(AindModel):
     titer_unit: str = Field("gc/mL", title="Titer unit")
 
 
-class OtherInjectionMaterial(Reagent):
+class NonViralMaterial(Reagent):
     """Description of a non-viral injection material"""
 
-    material_type: Literal["Other reagent"] = Field("Reagent", title="Injection material type")
+    material_type: Literal["Reagent"] = Field("Reagent", title="Injection material type")
     concentration: Optional[Decimal] = Field(None, title="Concentration", description="Must provide concentration unit")
     concentration_unit: str = Field(default="mg/mL", title="Concentration unit")
 
@@ -356,7 +362,7 @@ class OtherInjectionMaterial(Reagent):
 class Injection(SubjectProcedure):
     """Description of an injection procedure"""
 
-    injection_materials: Annotated[List[Union[ViralMaterial, OtherInjectionMaterial]], Field(
+    injection_materials: Annotated[List[Union[ViralMaterial, NonViralMaterial]], Field(
         title="Injection material", min_length=1, discriminator="material_type")
         ] = []
     recovery_time: Optional[Decimal] = Field(None, title="Recovery time")
