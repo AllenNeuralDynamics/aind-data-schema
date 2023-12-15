@@ -207,7 +207,7 @@
          "ephys_assembly_name": "Ephys_assemblyA",
          "manipulator": {
             "device_type": "Manipulator",
-            "name": null,
+            "name": "Manipulator 1",
             "serial_number": "SN2938",
             "manufacturer": {
                "name": "New Scale Technologies",
@@ -238,7 +238,7 @@
          "ephys_assembly_name": "Ephys_assemblyB",
          "manipulator": {
             "device_type": "Manipulator",
-            "name": null,
+            "name": "Manipulator B",
             "serial_number": "SN2939",
             "manufacturer": {
                "name": "New Scale Technologies",
@@ -331,7 +331,7 @@
          "laser_assembly_name": "Laser_assemblyA",
          "manipulator": {
             "device_type": "Manipulator",
-            "name": null,
+            "name": "Manipulator A",
             "serial_number": "SN2937",
             "manufacturer": {
                "name": "New Scale Technologies",
