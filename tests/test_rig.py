@@ -110,7 +110,7 @@ class RigTests(unittest.TestCase):
                 CameraAssembly(
                     camera_assembly_name="cam",
                     camera_target="Face bottom",
-                    lens=Lens(manufacturer=Manufacturer.OTHER),
+                    lens=Lens(name="Camera lens", manufacturer=Manufacturer.OTHER),
                     camera=Camera(
                         name="Camera A",
                         manufacturer=Manufacturer.OTHER,
