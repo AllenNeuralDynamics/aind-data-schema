@@ -13,6 +13,7 @@ from aind_data_schema.core.procedures import (
     Procedures,
     RetroOrbitalInjection,
     SpecimenProcedure,
+    TarsIds,
 )
 from aind_data_schema.models.devices import FiberProbe
 from aind_data_schema.models.manufacturers import Manufacturer
@@ -65,10 +66,12 @@ class ProceduresTests(unittest.TestCase):
                         ViralMaterial(
                             material_type="Virus",
                             name="AAV2-Flex-ChrimsonR",
-                            virus_TARS_id="AiV222",
-                            plasmid_TARS_alias="AiP222",
-                            prep_lot_number="VT222",
-                            titer="2300000000",
+                            tars_identifiers=TarsIds(
+                                virus_TARS_id="AiV222",
+                                plasmid_TARS_alias="AiP222",
+                                prep_lot_number="VT222",
+                            ),
+                            titer=2300000000,
                         )
                     ],
                     injection_volume=1,
@@ -85,10 +88,12 @@ class ProceduresTests(unittest.TestCase):
                         ViralMaterial(
                             material_type="Virus",
                             name="AAV2-Flex-ChrimsonR",
-                            virus_TARS_id="AiV222",
-                            plasmid_TARS_alias="AiP222",
-                            prep_lot_number="VT222",
-                            titer="2300000000",
+                            tars_identifiers=TarsIds(
+                                virus_TARS_id="AiV222",
+                                plasmid_TARS_alias="AiP222",
+                                prep_lot_number="VT222",
+                            ),
+                            titer=2300000000,
                         )
                     ],
                     injection_duration=1,
