@@ -13,6 +13,7 @@ jobs:
     env:
       AWS_DATA_SCHEMA_ROLE: ${{ secrets.AWS_DATA_SCHEMA_ROLE_PROD}}
       AWS_DATA_SCHEMA_BUCKET: ${{ vars.AWS_DATA_SCHEMA_BUCKET_PROD }}
+      AWS_BUCKET_OLD: ${{ vars.AWS_BUCKET_OLD }}
       AWS_REGION : ${{ vars.AWS_REGION_PROD }}
       SOURCE_DIR: 'schemas'
     steps:
@@ -35,3 +36,4 @@ jobs:
           python -m aind_data_schema.utils.json_writer --output $SOURCE_DIR --attach-version
           python -m pip install awscli
           aws s3 sync $SOURCE_DIR s3://${AWS_DATA_SCHEMA_BUCKET}/$SOURCE_DIR
+          aws s3 sync $SOURCE_DIR s3://${AWS_BUCKET_OLD}/$SOURCE_DIR
