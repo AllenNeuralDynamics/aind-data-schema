@@ -259,6 +259,7 @@ class Device(AindModel):
     manufacturer: Optional[Manufacturer.ONE_OF] = Field(None, title="Manufacturer")
     model: Optional[str] = Field(None, title="Model")
     path_to_cad: Optional[str] = Field(None, title="Path to CAD diagram", description="For CUSTOM manufactured devices")
+    port_index: Optional[str] = Field(None, title="Port index")
     notes: Optional[str] = Field(None, title="Notes")
 
 
