@@ -315,7 +315,7 @@ class Headframe(SubjectProcedure):
     well_type: Optional[str] = Field(None, title="Well type")
 
 
-class TarsIds(AindModel):
+class TarsVirusIdentifiers(AindModel):
     """TARS data for a viral prep"""
 
     virus_tars_id: Optional[str] = Field(None, title="Virus ID, usually beings 'AiV'")
@@ -343,9 +343,8 @@ class ViralMaterial(AindModel):
         title="Full genome name",
         description="Full genome for virus construct",
     )
-    tars_identifiers: Optional[TarsIds] = Field(None, title="TARS IDs", description="TARS database identifiers")
+    tars_identifiers: Optional[TarsVirusIdentifiers] = Field(None, title="TARS IDs", description="TARS database identifiers")
     addgene_id: Optional[PIDName] = Field(None, title="Addgene id", description="Registry must be Addgene")
-    genome_copy: Optional[Decimal] = Field(None, title="Genome copy")
     titer: Optional[int] = Field(None, title="Effective titer (gc/mL)",
                                  description="Final titer of viral material, accounting for mixture/diliution")
     titer_unit: str = Field("gc/mL", title="Titer unit")
