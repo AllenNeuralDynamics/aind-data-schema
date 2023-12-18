@@ -1,14 +1,14 @@
 """Core Rig model"""
 
 from datetime import date
-from typing import List, Literal, Optional, Set
+from typing import List, Literal, Optional, Set, Union
 
 from pydantic import Field, ValidationInfo, field_validator
+from typing_extensions import Annotated
 
 from aind_data_schema.base import AindCoreModel
 from aind_data_schema.models.devices import (
     LIGHT_SOURCES,
-    MOUSE_PLATFORMS,
     RIG_DAQ_DEVICES,
     STIMULUS_DEVICES,
     Calibration,
@@ -23,6 +23,7 @@ from aind_data_schema.models.devices import (
     Filter,
     LaserAssembly,
     Lens,
+    MousePlatform,
     Objective,
     Patch,
     PockelsCell,
@@ -30,6 +31,8 @@ from aind_data_schema.models.devices import (
     StickMicroscopeAssembly,
 )
 from aind_data_schema.models.modalities import Modality
+
+MOUSE_PLATFORMS = Annotated[Union[tuple(MousePlatform.__subclasses__())], Field(discriminator="device_type")]
 
 
 class Rig(AindCoreModel):

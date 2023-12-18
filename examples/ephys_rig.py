@@ -65,8 +65,9 @@ blue_laser = Laser(name="Blue Laser", wavelength=638, manufacturer=Manufacturer.
 
 laser_assembly = LaserAssembly(
     laser_assembly_name="Laser_assemblyA",
-    manipulator=Manipulator(name="Manipulator A", serial_number="SN2937",
-                            manufacturer=Manufacturer.NEW_SCALE_TECHNOLOGIES),
+    manipulator=Manipulator(
+        name="Manipulator A", serial_number="SN2937", manufacturer=Manufacturer.NEW_SCALE_TECHNOLOGIES
+    ),
     lasers=[red_laser, blue_laser],
 )
 
@@ -96,15 +97,17 @@ probeB = EphysProbe(name="Probe B", serial_number="9291020", probe_model="Neurop
 
 ephys_assemblyA = EphysAssembly(
     ephys_assembly_name="Ephys_assemblyA",
-    manipulator=Manipulator(name="Manipulator 1", serial_number="SN2938",
-                            manufacturer=Manufacturer.NEW_SCALE_TECHNOLOGIES),
+    manipulator=Manipulator(
+        name="Manipulator 1", serial_number="SN2938", manufacturer=Manufacturer.NEW_SCALE_TECHNOLOGIES
+    ),
     probes=[probeA],
 )
 
 ephys_assemblyB = EphysAssembly(
     ephys_assembly_name="Ephys_assemblyB",
-    manipulator=Manipulator(name="Manipulator B", serial_number="SN2939",
-                            manufacturer=Manufacturer.NEW_SCALE_TECHNOLOGIES),
+    manipulator=Manipulator(
+        name="Manipulator B", serial_number="SN2939", manufacturer=Manufacturer.NEW_SCALE_TECHNOLOGIES
+    ),
     probes=[probeB],
 )
 
