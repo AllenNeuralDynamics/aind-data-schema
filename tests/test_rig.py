@@ -38,6 +38,7 @@ class RigTests(unittest.TestCase):
 
         daqs = [
             NeuropixelsBasestation(
+                name="Neuropixels basestation",
                 basestation_firmware_version="1",
                 bsc_firmware_version="2",
                 slot=0,
@@ -73,6 +74,7 @@ class RigTests(unittest.TestCase):
             EphysAssembly(
                 probes=[EphysProbe(probe_model="Neuropixels 1.0", name="Probe A")],
                 manipulator=Manipulator(
+                    name="Probe manipulator",
                     manufacturer=Manufacturer.NEW_SCALE_TECHNOLOGIES,
                     serial_number="4321",
                 ),
@@ -91,6 +93,7 @@ class RigTests(unittest.TestCase):
                     ),
                 ],
                 manipulator=Manipulator(
+                    name="Laser manipulator",
                     manufacturer=Manufacturer.NEW_SCALE_TECHNOLOGIES,
                     serial_number="1234",
                 ),
@@ -107,7 +110,7 @@ class RigTests(unittest.TestCase):
                 CameraAssembly(
                     camera_assembly_name="cam",
                     camera_target="Face bottom",
-                    lens=Lens(manufacturer=Manufacturer.OTHER),
+                    lens=Lens(name="Camera lens", manufacturer=Manufacturer.OTHER),
                     camera=Camera(
                         name="Camera A",
                         manufacturer=Manufacturer.OTHER,
@@ -122,7 +125,7 @@ class RigTests(unittest.TestCase):
             ],
             stick_microscopes=[
                 StickMicroscopeAssembly(
-                    scope_assembly_name="fake name",
+                    scope_assembly_name="Assembly A",
                     camera=Camera(
                         name="Camera A",
                         manufacturer=Manufacturer.OTHER,
@@ -133,7 +136,7 @@ class RigTests(unittest.TestCase):
                         pixel_height=1,
                         chroma="Color",
                     ),
-                    lens=Lens(manufacturer=Manufacturer.OTHER),
+                    lens=Lens(name="Lens A", manufacturer=Manufacturer.OTHER),
                 )
             ],
             light_sources=[
@@ -208,6 +211,7 @@ class RigTests(unittest.TestCase):
                 modification_date=date(2020, 10, 10),
                 daqs=[
                     NeuropixelsBasestation(
+                        name="Basestation",
                         basestation_firmware_version="1",
                         bsc_firmware_version="2",
                         slot=0,
@@ -253,6 +257,7 @@ class RigTests(unittest.TestCase):
         with self.assertRaises(ValidationError):
             daqs = [
                 NeuropixelsBasestation(
+                    name="Basestation",
                     basestation_firmware_version="1",
                     bsc_firmware_version="2",
                     slot=0,
