@@ -1,11 +1,14 @@
 """ test Procedures """
-
+import logging
 import unittest
+from unittest.mock import patch, MagicMock
 from datetime import date
-
+import warnings
 from pydantic import ValidationError
+from decimal import Decimal
 
 from aind_data_schema.core.procedures import (
+    Headframe,
     FiberImplant,
     InjectionMaterial,
     NanojectInjection,

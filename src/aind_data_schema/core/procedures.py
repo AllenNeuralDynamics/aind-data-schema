@@ -258,6 +258,8 @@ class Anaesthetic(AindModel):
 class SubjectProcedure(AindModel):
     """Description of surgical or other procedure performed on a subject"""
 
+    procedure_type: Literal["SubjectProcedure"] = "SubjectProcedure"
+
     start_date: date = Field(..., title="Start date")
     end_date: date = Field(..., title="End date")
     experimenter_full_name: str = Field(
@@ -510,6 +512,29 @@ class Perfusion(SubjectProcedure):
     )
 
 
+SUBJECT_PROCEDURES = Annotated[
+    Union[
+        Craniotomy,
+        FiberImplant,
+        Headframe,
+        IntraCerebellarVentricleInjection,
+        IntraCisternalMagnaInjection,
+        IontophoresisInjection,
+        NanojectInjection,
+        Perfusion,
+        RetroOrbitalInjection,
+        TrainingProtocol,
+        WaterRestriction,
+        SubjectProcedure,
+    ], Field(discriminator="procedure_type")]
+
+
+SPECIMEN_PROCEDURES = Annotated[
+    Union[HCRSeries, Immunolabeling, SpecimenProcedure],
+    Field(discriminator="specimen_procedure_type")
+]
+
+
 class Procedures(AindCoreModel):
     """Description of all procedures performed on a subject"""
 
@@ -522,27 +547,6 @@ class Procedures(AindCoreModel):
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
         title="Subject ID",
     )
-    subject_procedures: Annotated[
-        List[
-            Union[
-                Craniotomy,
-                FiberImplant,
-                Headframe,
-                IntraCerebellarVentricleInjection,
-                IntraCisternalMagnaInjection,
-                IontophoresisInjection,
-                NanojectInjection,
-                Perfusion,
-                RetroOrbitalInjection,
-                TrainingProtocol,
-                WaterRestriction,
-                SubjectProcedure,
-            ]
-        ],
-        Field(title="Subject Procedures", discriminator="procedure_type"),
-    ] = []
-    specimen_procedures: Annotated[
-        List[Union[HCRSeries, Immunolabeling, SpecimenProcedure]],
-        Field(title="Specimen Procedures", discriminator="specimen_procedure_type"),
-    ] = []
+    subject_procedures: List[SUBJECT_PROCEDURES] = Field([], title="Subject Procedures")
+    specimen_procedures: List[SPECIMEN_PROCEDURES] = Field([], title="Specimen Procedures")
     notes: Optional[str] = Field(None, title="Notes")
