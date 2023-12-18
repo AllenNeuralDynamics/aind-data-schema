@@ -512,41 +512,38 @@ class Perfusion(SubjectProcedure):
     )
 
 
-SUBJECT_PROCEDURES = Annotated[
-    Union[
-        Craniotomy,
-        FiberImplant,
-        Headframe,
-        IntraCerebellarVentricleInjection,
-        IntraCisternalMagnaInjection,
-        IontophoresisInjection,
-        NanojectInjection,
-        Perfusion,
-        RetroOrbitalInjection,
-        TrainingProtocol,
-        WaterRestriction,
-        SubjectProcedure,
-    ], Field(discriminator="procedure_type")]
-
-
-SPECIMEN_PROCEDURES = Annotated[
-    Union[HCRSeries, Immunolabeling, SpecimenProcedure],
-    Field(discriminator="specimen_procedure_type")
-]
-
-
 class Procedures(AindCoreModel):
     """Description of all procedures performed on a subject"""
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/procedures.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
 
-    schema_version: Literal["0.10.1"] = Field("0.10.1", description="schema version", title="Version")
+    schema_version: Literal["0.10.2"] = Field("0.10.2", description="schema version", title="Version")
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
         title="Subject ID",
     )
-    subject_procedures: List[SUBJECT_PROCEDURES] = Field([], title="Subject Procedures")
-    specimen_procedures: List[SPECIMEN_PROCEDURES] = Field([], title="Specimen Procedures")
+    subject_procedures: List[
+        Annotated[
+            Union[
+                Craniotomy,
+                FiberImplant,
+                Headframe,
+                IntraCerebellarVentricleInjection,
+                IntraCisternalMagnaInjection,
+                IontophoresisInjection,
+                NanojectInjection,
+                Perfusion,
+                RetroOrbitalInjection,
+                TrainingProtocol,
+                WaterRestriction,
+                SubjectProcedure,
+            ],
+            Field(discriminator="procedure_type"),
+        ]
+    ] = Field([], title="Subject Procedures")
+    specimen_procedures: List[
+        Annotated[Union[HCRSeries, Immunolabeling, SpecimenProcedure], Field(discriminator="specimen_procedure_type")]
+    ] = Field([], title="Specimen Procedures")
     notes: Optional[str] = Field(None, title="Notes")

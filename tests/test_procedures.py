@@ -1,14 +1,10 @@
 """ test Procedures """
-import logging
 import unittest
-from unittest.mock import patch, MagicMock
 from datetime import date
-import warnings
+
 from pydantic import ValidationError
-from decimal import Decimal
 
 from aind_data_schema.core.procedures import (
-    Headframe,
     FiberImplant,
     InjectionMaterial,
     NanojectInjection,
@@ -130,6 +126,7 @@ class ProceduresTests(unittest.TestCase):
         )
 
         self.assertEqual(3, len(p.subject_procedures))
+        self.assertEqual(p, Procedures.model_validate_json(p.model_dump_json()))
 
     def test_notes_other(self):
         """Test that the other/notes validation error works"""
