@@ -66,6 +66,7 @@
                   "prep_protocol": null
                },
                "addgene_id": null,
+               "genome_copy": null,
                "titer": 2300000000,
                "titer_unit": "gc/mL"
             }
