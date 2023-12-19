@@ -1,16 +1,14 @@
 """Core Rig model"""
 
 from datetime import date
-from typing import List, Literal, Optional, Set
+from typing import List, Literal, Optional, Set, Union
 
 from pydantic import Field, ValidationInfo, field_validator
+from typing_extensions import Annotated
 
 from aind_data_schema.base import AindCoreModel
 from aind_data_schema.models.devices import (
     LIGHT_SOURCES,
-    MOUSE_PLATFORMS,
-    RIG_DAQ_DEVICES,
-    STIMULUS_DEVICES,
     Calibration,
     CameraAssembly,
     DAQDevice,
@@ -21,15 +19,29 @@ from aind_data_schema.models.devices import (
     EphysAssembly,
     FiberAssembly,
     Filter,
+    HarpDevice,
     LaserAssembly,
     Lens,
+    Monitor,
+    MousePlatform,
+    NeuropixelsBasestation,
     Objective,
+    Olfactometer,
+    OpenEphysAcquisitionBoard,
     Patch,
     PockelsCell,
     PolygonalScanner,
+    RewardDelivery,
+    Speaker,
     StickMicroscopeAssembly,
 )
 from aind_data_schema.models.modalities import Modality
+
+MOUSE_PLATFORMS = Annotated[Union[tuple(MousePlatform.__subclasses__())], Field(discriminator="device_type")]
+STIMULUS_DEVICES = Annotated[Union[Monitor, Olfactometer, RewardDelivery, Speaker], Field(discriminator="device_type")]
+RIG_DAQ_DEVICES = Annotated[
+    Union[HarpDevice, NeuropixelsBasestation, OpenEphysAcquisitionBoard, DAQDevice], Field(discriminator="device_type")
+]
 
 
 class Rig(AindCoreModel):
@@ -37,7 +49,7 @@ class Rig(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/rig.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["0.2.0"] = Field("0.2.0")
+    schema_version: Literal["0.2.1"] = Field("0.2.1")
 
     rig_id: str = Field(..., description="room_stim apparatus_version", title="Rig ID")
     modification_date: date = Field(..., title="Date of modification")

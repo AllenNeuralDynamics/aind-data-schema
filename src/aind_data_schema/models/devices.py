@@ -254,11 +254,12 @@ class Device(AindModel):
     """Generic device"""
 
     device_type: str = Field(..., title="Device type")  # Needs to be set by child classes that inherits
-    name: Optional[str] = Field(None, title="Device name")
+    name: str = Field(..., title="Device name")
     serial_number: Optional[str] = Field(None, title="Serial number")
     manufacturer: Optional[Manufacturer.ONE_OF] = Field(None, title="Manufacturer")
     model: Optional[str] = Field(None, title="Model")
     path_to_cad: Optional[str] = Field(None, title="Path to CAD diagram", description="For CUSTOM manufactured devices")
+    port_index: Optional[str] = Field(None, title="Port index")
     notes: Optional[str] = Field(None, title="Notes")
 
 
@@ -827,9 +828,4 @@ class Scanner(Device):
     magnetic_strength_unit: str = Field("T", title="Magnetic strength unit")
 
 
-MOUSE_PLATFORMS = Annotated[Union[tuple(MousePlatform.__subclasses__())], Field(discriminator="device_type")]
-STIMULUS_DEVICES = Annotated[Union[Monitor, Olfactometer, RewardDelivery, Speaker], Field(discriminator="device_type")]
-RIG_DAQ_DEVICES = Annotated[
-    Union[HarpDevice, NeuropixelsBasestation, OpenEphysAcquisitionBoard, DAQDevice], Field(discriminator="device_type")
-]
 LIGHT_SOURCES = Annotated[Union[Laser, LightEmittingDiode, Lamp], Field(discriminator="device_type")]
