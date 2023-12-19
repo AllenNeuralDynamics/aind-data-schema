@@ -18,7 +18,7 @@ p = Procedures(
     subject_id="625100",
     subject_procedures=[
         Surgery(
-            date=t.date(),
+            start_date=t.date(),
             experimenter_full_name="John Apple",
             iacuc_protocol="2109",
             animal_weight_prior=22.6,
@@ -27,14 +27,17 @@ p = Procedures(
             workstation_id="SWS 3",
             procedures=[
                 Craniotomy(
+                    procedure_type="Craniotomy",
                     craniotomy_type="Visual Cortex",
-                    protocol_id="null",
-                                bregma_to_lambda_distance=4.1,
+                    protocol_id="1234",
+                    craniotomy_hemisphere="Left",
+                    bregma_to_lambda_distance=4.1,
                     craniotomy_coordinates_reference="Lambda",
                     craniotomy_size=5,
                 ),
                 NanojectInjection(
-                    protocol_id="null",
+                    procedure_type="Nanoject injection",
+                    protocol_id="5678",
                     injection_materials=[InjectionMaterial(name="AAV2-Flex-ChrimsonR")],
                     recovery_time=0,
                     instrument_id=None,
@@ -51,17 +54,16 @@ p = Procedures(
             ]
         ),
         Surgery(
-            date=t2.date(),
+            start_date=t2.date(),
             experimenter_full_name="Frank Lee",
             iacuc_protocol="2109",
             procedures=[
                 Perfusion(
-                    protocol_id="null",
+                    procedure_type="Perfusion",
+                    protocol_id="doi_of_protocol",
                     output_specimen_ids=["1"],
                 )
-            ],
-            protocol_id="null",
-            output_specimen_ids=["1"],
+            ]
         )
     ],
 )
