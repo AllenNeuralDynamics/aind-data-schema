@@ -828,8 +828,4 @@ class Scanner(Device):
     magnetic_strength_unit: str = Field("T", title="Magnetic strength unit")
 
 
-STIMULUS_DEVICES = Annotated[Union[Monitor, Olfactometer, RewardDelivery, Speaker], Field(discriminator="device_type")]
-RIG_DAQ_DEVICES = Annotated[
-    Union[HarpDevice, NeuropixelsBasestation, OpenEphysAcquisitionBoard, DAQDevice], Field(discriminator="device_type")
-]
 LIGHT_SOURCES = Annotated[Union[Laser, LightEmittingDiode, Lamp], Field(discriminator="device_type")]

@@ -9,8 +9,6 @@ from typing_extensions import Annotated
 from aind_data_schema.base import AindCoreModel
 from aind_data_schema.models.devices import (
     LIGHT_SOURCES,
-    RIG_DAQ_DEVICES,
-    STIMULUS_DEVICES,
     Calibration,
     CameraAssembly,
     DAQDevice,
@@ -21,18 +19,29 @@ from aind_data_schema.models.devices import (
     EphysAssembly,
     FiberAssembly,
     Filter,
+    HarpDevice,
     LaserAssembly,
     Lens,
+    Monitor,
     MousePlatform,
+    NeuropixelsBasestation,
     Objective,
+    Olfactometer,
+    OpenEphysAcquisitionBoard,
     Patch,
     PockelsCell,
     PolygonalScanner,
+    RewardDelivery,
+    Speaker,
     StickMicroscopeAssembly,
 )
 from aind_data_schema.models.modalities import Modality
 
 MOUSE_PLATFORMS = Annotated[Union[tuple(MousePlatform.__subclasses__())], Field(discriminator="device_type")]
+STIMULUS_DEVICES = Annotated[Union[Monitor, Olfactometer, RewardDelivery, Speaker], Field(discriminator="device_type")]
+RIG_DAQ_DEVICES = Annotated[
+    Union[HarpDevice, NeuropixelsBasestation, OpenEphysAcquisitionBoard, DAQDevice], Field(discriminator="device_type")
+]
 
 
 class Rig(AindCoreModel):
