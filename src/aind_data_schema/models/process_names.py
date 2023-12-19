@@ -9,7 +9,7 @@ class ProcessName(str, Enum):
     ANALYSIS = "Analysis"
     COMPRESSION = "Compression"
     DENOISING = "Denoising"
-    DFF_ESTIMATION= "dF/F estimation"
+    DFF_ESTIMATION = "dF/F estimation"
     EPHYS_CURATION = "Ephys curation"
     EPHYS_POSTPROCESSING = "Ephys postprocessing"
     EPHYS_PREPROCESSING = "Ephys preprocessing"
