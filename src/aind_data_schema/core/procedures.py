@@ -150,7 +150,7 @@ class SpecimenProcedure(AindModel):
 
     @field_validator("notes")
     def validate_other(cls, v, info: ValidationInfo):
-        """Adds a validation check on 'notes' to verify it is not None if procedure_name is OTHER"""
+        """Adds a validation check on 'notes' to verify it is not None if procedure_type is OTHER"""
 
         procedure_type = info.data["procedure_type"]
         notes = v
