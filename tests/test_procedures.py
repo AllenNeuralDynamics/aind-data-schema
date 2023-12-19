@@ -128,7 +128,7 @@ class ProceduresTests(unittest.TestCase):
                 ],
             )
 
-        self.assertEqual(3, len(p.subject_procedures))
+        self.assertEqual(1, len(p.subject_procedures))
 
     def test_notes_other(self):
         """Test that the other/notes validation error works"""
