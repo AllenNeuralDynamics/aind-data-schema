@@ -498,6 +498,21 @@ class Perfusion(AindModel):
 
     procedure_type: Literal["Perfusion"] = Field("Perfusion", title="Procedure type")
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
+    start_date: date = Field(..., title="Start date")
+    end_date: date = Field(..., title="End date")
+    experimenter_full_name: str = Field(
+        ...,
+        description="First and last name of the experimenter.",
+        title="Experimenter full name",
+    )
+    iacuc_protocol: Optional[str] = Field(None, title="IACUC protocol")
+    animal_weight_prior: Optional[Decimal] = Field(
+        None, title="Animal weight (g)", description="Animal weight before procedure"
+    )
+    animal_weight_post: Optional[Decimal] = Field(
+        None, title="Animal weight (g)", description="Animal weight after procedure"
+    )
+    weight_unit: MassUnit = Field(MassUnit.G, title="Weight unit")
     output_specimen_ids: Set[str] = Field(
         ...,
         title="Specimen ID",
