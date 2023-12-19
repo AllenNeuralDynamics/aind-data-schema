@@ -282,7 +282,6 @@ class Craniotomy(AindModel):
     implant_part_number: Optional[str] = Field(None, title="Implant part number")
     dura_removed: Optional[bool] = Field(None, title="Dura removed")
     protective_material: Optional[ProtectiveMaterial] = Field(None, title="Protective material")
-    workstation_id: Optional[str] = Field(None, title="Workstation ID")
     recovery_time: Optional[Decimal] = Field(None, title="Recovery time")
     recovery_time_unit: TimeUnit = Field(TimeUnit.M, title="Recovery time unit")
 
@@ -337,7 +336,6 @@ class Injection(AindModel):
     recovery_time_unit: TimeUnit = Field(TimeUnit.M, title="Recovery time unit")
     injection_duration: Optional[Decimal] = Field(None, title="Injection duration")
     injection_duration_unit: TimeUnit = Field(TimeUnit.M, title="Injection duration unit")
-    workstation_id: Optional[str] = Field(None, title="Workstation ID")
     instrument_id: Optional[str] = Field(None, title="Instrument ID")
 
 
@@ -519,6 +517,7 @@ class Surgery(AindModel):
     )
     weight_unit: MassUnit = Field(MassUnit.G, title="Weight unit")
     anaesthesia: Optional[Anaesthetic] = Field(None, title="Anaesthesia")
+    workstation_id: Optional[str] = Field(None, title="Workstation ID")
     procedures: Annotated[
         List[
             Union[
@@ -535,7 +534,7 @@ class Surgery(AindModel):
             ]
         ],
         Field(title="Procedures", discriminator="procedure_type", min_length=1),
-    ] = []
+    ]
     notes: Optional[str] = Field(None, title="Notes")
 
 
