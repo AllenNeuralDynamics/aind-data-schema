@@ -4,6 +4,7 @@
    "subject_id": "651286",
    "subject_procedures": [
       {
+         "class_tag": "Surgery",
          "start_date": "2022-11-17",
          "experimenter_full_name": "LAS",
          "iacuc_protocol": "xxxx",
@@ -14,7 +15,7 @@
          "workstation_id": null,
          "procedures": [
             {
-               "procedure_type": "Perfusion",
+               "class_tag": "Perfusion",
                "protocol_id": "doi_of_protocol",
                "output_specimen_ids": [
                   "651286"
@@ -26,6 +27,7 @@
    ],
    "specimen_procedures": [
       {
+         "class_tag": "Specimen Procedure",
          "specimen_id": "651286",
          "procedure_name": "test_name",
          "procedure_type": "Fixation",
@@ -52,6 +54,7 @@
          "notes": null
       },
       {
+         "class_tag": "Specimen Procedure",
          "specimen_id": "651286",
          "procedure_name": "test_name",
          "procedure_type": "Fixation",
@@ -71,6 +74,7 @@
          "notes": "40 deg. C"
       },
       {
+         "class_tag": "Specimen Procedure",
          "specimen_id": "651286",
          "procedure_name": "test_name",
          "procedure_type": "Soak",
@@ -90,6 +94,7 @@
          "notes": null
       },
       {
+         "class_tag": "Specimen Procedure",
          "specimen_id": "651286",
          "procedure_name": "Active Delipidation",
          "procedure_type": "Delipidation",
@@ -116,6 +121,7 @@
          "notes": null
       },
       {
+         "class_tag": "Specimen Procedure",
          "specimen_id": "651286",
          "procedure_name": "test_name",
          "procedure_type": "Soak",
@@ -142,6 +148,7 @@
          "notes": null
       },
       {
+         "class_tag": "Specimen Procedure",
          "specimen_id": "651286",
          "procedure_name": "test_name",
          "procedure_type": "Soak",
@@ -161,6 +168,7 @@
          "notes": null
       },
       {
+         "class_tag": "Specimen Procedure",
          "specimen_id": "651286",
          "procedure_name": "test_name",
          "procedure_type": "Embedding",

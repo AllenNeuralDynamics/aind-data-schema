@@ -1,5 +1,4 @@
 """ test Procedures """
-
 import unittest
 from datetime import date
 
@@ -42,7 +41,8 @@ class ProceduresTests(unittest.TestCase):
                     Surgery(
                         start_date=start_date,
                         experimenter_full_name="tom",
-                        procedures=[RetroOrbitalInjection(
+                        procedures=[
+                            RetroOrbitalInjection(
                                 start_date=start_date,
                                 experimenter_full_name="tom",
                                 protocol_id="134",
@@ -52,7 +52,7 @@ class ProceduresTests(unittest.TestCase):
                                 injection_duration=1,
                                 recovery_time=10,
                             ),
-                        ]
+                        ],
                     )
                 ],
             )
@@ -61,74 +61,75 @@ class ProceduresTests(unittest.TestCase):
             subject_id="12345",
             subject_procedures=[
                 Surgery(
-                        start_date=start_date,
-                        experimenter_full_name="tom",
-                        iacuc_protocol="234",
-                        procedures=[
-                            RetroOrbitalInjection(
-                                protocol_id="134",
-                                injection_materials=[
-                                    InjectionMaterial(
-                                        name="abc",
-                                        titer="5.46E13",
-                                        prep_lot_number="CT323",
-                                    )
-                                ],
-                                injection_volume=1,
-                                injection_eye="Left",
-                                injection_duration=1,
-                                recovery_time=10,
-                            ),
-                            NanojectInjection(
-                                protocol_id="bca",
-                                injection_materials=[
-                                    InjectionMaterial(
-                                        name="abc",
-                                        titer="5.46E13",
-                                        prep_lot_number="CT323",
-                                    )
-                                ],
-                                injection_duration=1,
-                                injection_coordinate_ml=1,
-                                injection_coordinate_ap=1,
-                                injection_coordinate_depth=[1],
-                                injection_coordinate_reference="Bregma",
-                                bregma_to_lambda_distance=4.1,
-                                injection_angle=1,
-                                injection_volume=[1],
-                                recovery_time=10,
-                                targeted_structure="VISp6",
-                            ),
-                            FiberImplant(
-                                protocol_id="dx.doi.org/120.123/fkjd",
-                                probes=[
-                                    OphysProbe(
-                                        ophys_probe=FiberProbe(
-                                            device_type="Fiber optic probe",
-                                            name="Probe A",
-                                            manufacturer=Manufacturer.DORIC,
-                                            model="8",
-                                            core_diameter=2,
-                                            numerical_aperture=1,
-                                            ferrule_material="Ceramic",
-                                            total_length=10,
-                                        ),
-                                        targeted_structure="MOp",
-                                        stereotactic_coordinate_ap=1,
-                                        stereotactic_coordinate_dv=2,
-                                        stereotactic_coordinate_ml=3,
-                                        stereotactic_coordinate_reference="Bregma",
-                                        bregma_to_lambda_distance=4.1,
-                                        angle=10,
-                                    )
-                                ],
-                            ),
-                        ]
-                    )
-                ],
-            )
+                    start_date=start_date,
+                    experimenter_full_name="tom",
+                    iacuc_protocol="234",
+                    procedures=[
+                        RetroOrbitalInjection(
+                            protocol_id="134",
+                            injection_materials=[
+                                InjectionMaterial(
+                                    name="abc",
+                                    titer="5.46E13",
+                                    prep_lot_number="CT323",
+                                )
+                            ],
+                            injection_volume=1,
+                            injection_eye="Left",
+                            injection_duration=1,
+                            recovery_time=10,
+                        ),
+                        NanojectInjection(
+                            protocol_id="bca",
+                            injection_materials=[
+                                InjectionMaterial(
+                                    name="abc",
+                                    titer="5.46E13",
+                                    prep_lot_number="CT323",
+                                )
+                            ],
+                            injection_duration=1,
+                            injection_coordinate_ml=1,
+                            injection_coordinate_ap=1,
+                            injection_coordinate_depth=[1],
+                            injection_coordinate_reference="Bregma",
+                            bregma_to_lambda_distance=4.1,
+                            injection_angle=1,
+                            injection_volume=[1],
+                            recovery_time=10,
+                            targeted_structure="VISp6",
+                        ),
+                        FiberImplant(
+                            protocol_id="dx.doi.org/120.123/fkjd",
+                            probes=[
+                                OphysProbe(
+                                    ophys_probe=FiberProbe(
+                                        device_type="Fiber optic probe",
+                                        name="Probe A",
+                                        manufacturer=Manufacturer.DORIC,
+                                        model="8",
+                                        core_diameter=2,
+                                        numerical_aperture=1,
+                                        ferrule_material="Ceramic",
+                                        total_length=10,
+                                    ),
+                                    targeted_structure="MOp",
+                                    stereotactic_coordinate_ap=1,
+                                    stereotactic_coordinate_dv=2,
+                                    stereotactic_coordinate_ml=3,
+                                    stereotactic_coordinate_reference="Bregma",
+                                    bregma_to_lambda_distance=4.1,
+                                    angle=10,
+                                )
+                            ],
+                        ),
+                    ],
+                )
+            ],
+        )
 
         self.assertEqual(1, len(p.subject_procedures))
+        self.assertEqual(p, Procedures.model_validate_json(p.model_dump_json()))
 
     def test_notes_other(self):
         """Test that the other/notes validation error works"""

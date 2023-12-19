@@ -27,7 +27,6 @@ p = Procedures(
             workstation_id="SWS 3",
             procedures=[
                 Craniotomy(
-                    procedure_type="Craniotomy",
                     craniotomy_type="Visual Cortex",
                     protocol_id="1234",
                     craniotomy_hemisphere="Left",
@@ -36,7 +35,6 @@ p = Procedures(
                     craniotomy_size=5,
                 ),
                 NanojectInjection(
-                    procedure_type="Nanoject injection",
                     protocol_id="5678",
                     injection_materials=[InjectionMaterial(name="AAV2-Flex-ChrimsonR")],
                     recovery_time=0,
@@ -51,7 +49,7 @@ p = Procedures(
                     injection_volume=[200],
                     targeted_structure="VISp",
                 ),
-            ]
+            ],
         ),
         Surgery(
             start_date=t2.date(),
@@ -59,12 +57,11 @@ p = Procedures(
             iacuc_protocol="2109",
             procedures=[
                 Perfusion(
-                    procedure_type="Perfusion",
                     protocol_id="doi_of_protocol",
                     output_specimen_ids=["1"],
                 )
-            ]
-        )
+            ],
+        ),
     ],
 )
 

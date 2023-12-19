@@ -37,11 +37,12 @@ perfusion = procedures.Surgery(
     iacuc_protocol="xxxx",
     procedures=[
         procedures.Perfusion(
-            procedure_type="Perfusion",
             protocol_id="doi_of_protocol",
-            output_specimen_ids=[specimen_id,],
+            output_specimen_ids=[
+                specimen_id,
+            ],
         )
-    ]
+    ],
 )
 
 # perfused brain goes into SHIELD OFF solution
