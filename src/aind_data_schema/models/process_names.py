@@ -33,7 +33,7 @@ class ProcessName(str, Enum):
     SKULL_STRIPPING = "Skull stripping"
     SPIKE_SORTING = "Spike sorting"
     SPATIAL_TIMESERIES_DEMIXING = "Spatial timeseries demixing"
-    VIDEO_DFF_EXTRACTION = "Video dF/F extraction"
+    VIDEO_DFF_CALCULATOIN = "Video dF/F calculation"
     VIDEO_EVENT_DETECTION = "Video event detection"
     VIDEO_MOTION_CORRECTION = "Video motion correction"
     VIDEO_PLANE_DECROSSTALK = "Video plane decrosstalk"
