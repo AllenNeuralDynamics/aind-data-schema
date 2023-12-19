@@ -19,6 +19,7 @@ class ProcessName(str, Enum):
     IMAGE_CELL_SEGMENTATION = "Image cell segmentation"
     IMAGE_CELL_QUANTIFICATION = "Image cell quantification"
     IMAGE_DESTRIPING = "Image destriping"
+    IMAGE_FLATFIELD_CORRECTION = "Image flat-field correction"
     IMAGE_IMPORTING = "Image importing"
     IMAGE_THRESHOLDING = "Image thresholding"
     IMAGE_TILE_ALIGNMENT = "Image tile alignment"

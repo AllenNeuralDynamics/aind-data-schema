@@ -107,7 +107,9 @@
          "anaesthesia": null,
          "notes": null,
          "procedure_type": "Perfusion",
-         "output_specimen_ids": ["1"]
+         "output_specimen_ids": [
+            "1"
+         ]
       }
    ],
    "specimen_procedures": [],

@@ -67,6 +67,7 @@ class ProcessingSteps(AindModel):
             ProcessName.IMAGE_BACKGROUND_SUBTRACTION,
             ProcessName.IMAGE_CELL_SEGMENTATION,
             ProcessName.IMAGE_DESTRIPING,
+            ProcessName.IMAGE_FLATFIELD_CORRECTION,
             ProcessName.IMAGE_THRESHOLDING,
             ProcessName.IMAGE_TILE_ALIGNMENT,
             ProcessName.IMAGE_TILE_FUSING,
@@ -81,7 +82,7 @@ class Acquisition(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/acquisition.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["0.6.0"] = Field("0.6.0")
+    schema_version: Literal["0.6.1"] = Field("0.6.1")
     experimenter_full_name: List[str] = Field(
         ...,
         description="First and last name of the experimenter(s).",
