@@ -127,10 +127,6 @@ class VirusPrepType(str, Enum):
 class SpecimenProcedure(AindModel):
     """Description of surgical or other procedure performed on a specimen"""
 
-    specimen_procedure_type: Literal["SpecimenProcedure"] = Field(
-        "SpecimenProcedure",
-        title="SpecimenProcedureType",
-    )
     specimen_id: str = Field(..., title="Specimen ID")
     procedure_name: str = Field(..., title="Procedure name")
     procedure_type: SpecimenProcedureName = Field(..., title="Procedure type")
@@ -216,7 +212,7 @@ class HybridizationChainReaction(AindModel):
 class HCRSeries(SpecimenProcedure):
     """Description of series of HCR staining rounds for mFISH"""
 
-    specimen_procedure_type: Literal["HCRSeries"] = Field("HCRSeries", title="SpecimenProcedureType")
+    procedure_type: Literal["HCRSeries"] = Field("HCRSeries", title="SpecimenProcedureType")
     codebook_name: str = Field(..., title="Codebook name")
     number_of_rounds: int = Field(..., title="Number of round")
     hcr_rounds: List[HybridizationChainReaction] = Field(..., title="Hybridization Chain Reaction rounds")
@@ -240,7 +236,7 @@ class Antibody(Reagent):
 class Immunolabeling(SpecimenProcedure):
     """Description of an immunolabling step"""
 
-    specimen_procedure_type: Literal["Immunolabeling"] = Field("Immunolabeling", title="SpecimenProcedureType")
+    procedure_type: Literal["Immunolabeling"] = Field("Immunolabeling", title="SpecimenProcedureType")
     antibody: Antibody = Field(..., title="Antibody")
     concentration: Decimal = Field(..., title="Concentration")
     concentration_unit: str = Field("ug/ml", title="Concentration unit")
@@ -441,8 +437,8 @@ class TrainingProtocol(AindModel):
     procedure_type: Literal["Training"] = Field("Training", title="Procedure type")
     training_name: str = Field(..., title="Training protocol name")
     protocol_id: str = Field(..., title="Training protocol ID")
-    training_protocol_start_date: date = Field(..., title="Training protocol start date")
-    training_protocol_end_date: Optional[date] = Field(None, title="Training protocol end date")
+    start_date: date = Field(..., title="Training protocol start date")
+    end_date: Optional[date] = Field(None, title="Training protocol end date")
     notes: Optional[str] = Field(None, title="Notes")
 
 
@@ -498,20 +494,6 @@ class Perfusion(AindModel):
 
     procedure_type: Literal["Perfusion"] = Field("Perfusion", title="Procedure type")
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
-    date: date = Field(..., title="Start date")
-    experimenter_full_name: str = Field(
-        ...,
-        description="First and last name of the experimenter.",
-        title="Experimenter full name",
-    )
-    iacuc_protocol: Optional[str] = Field(None, title="IACUC protocol")
-    animal_weight_prior: Optional[Decimal] = Field(
-        None, title="Animal weight (g)", description="Animal weight before procedure"
-    )
-    animal_weight_post: Optional[Decimal] = Field(
-        None, title="Animal weight (g)", description="Animal weight after procedure"
-    )
-    weight_unit: MassUnit = Field(MassUnit.G, title="Weight unit")
     output_specimen_ids: Set[str] = Field(
         ...,
         title="Specimen ID",
@@ -547,8 +529,9 @@ class Surgery(AindModel):
                 IntraCisternalMagnaInjection,
                 IontophoresisInjection,
                 NanojectInjection,
-                RetroOrbitalInjection,
+                Perfusion,
                 OtherProcedure,
+                RetroOrbitalInjection,
             ]
         ],
         Field(title="Procedures", discriminator="procedure_type", min_length=1),
