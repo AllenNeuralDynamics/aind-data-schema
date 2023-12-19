@@ -67,6 +67,7 @@ class ProcessingSteps(AindModel):
             ProcessName.IMAGE_BACKGROUND_SUBTRACTION,
             ProcessName.IMAGE_CELL_SEGMENTATION,
             ProcessName.IMAGE_DESTRIPING,
+            ProcessName.IMAGE_FLATFIELD_CORRECTION,
             ProcessName.IMAGE_THRESHOLDING,
             ProcessName.IMAGE_TILE_ALIGNMENT,
             ProcessName.IMAGE_TILE_FUSING,
