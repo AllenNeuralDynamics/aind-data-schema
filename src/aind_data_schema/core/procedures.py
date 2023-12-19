@@ -255,33 +255,20 @@ class Anaesthetic(AindModel):
     level: Decimal = Field(..., title="Level (percent)", ge=1, le=5)
 
 
-class SubjectProcedure(AindModel):
+class OtherProcedure(AindModel):
     """Description of surgical or other procedure performed on a subject"""
 
-    start_date: date = Field(..., title="Start date")
-    end_date: date = Field(..., title="End date")
-    experimenter_full_name: str = Field(
-        ...,
-        description="First and last name of the experimenter.",
-        title="Experimenter full name",
-    )
-    protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
-    iacuc_protocol: Optional[str] = Field(None, title="IACUC protocol")
-    animal_weight_prior: Optional[Decimal] = Field(
-        None, title="Animal weight (g)", description="Animal weight before procedure"
-    )
-    animal_weight_post: Optional[Decimal] = Field(
-        None, title="Animal weight (g)", description="Animal weight after procedure"
-    )
-    weight_unit: MassUnit = Field(MassUnit.G, title="Weight unit")
-    anaesthesia: Optional[Anaesthetic] = Field(None, title="Anaesthesia")
+    procedure_type: Literal["Other"] = Field("Other", title="Procedure type")
+    protocol_id: Optional[str] = Field(None, title="Protocol ID", description="DOI for protocols.io")
+    description: str = Field(..., title="Description")
     notes: Optional[str] = Field(None, title="Notes")
 
 
-class Craniotomy(SubjectProcedure):
+class Craniotomy(AindModel):
     """Description of craniotomy procedure"""
 
     procedure_type: Literal["Craniotomy"] = Field("Craniotomy", title="Procedure type")
+    protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     craniotomy_type: CraniotomyType = Field(..., title="Craniotomy type")
     craniotomy_hemisphere: Optional[Side] = Field(None, title="Craniotomy hemisphere")
     craniotomy_coordinates_ml: Optional[Decimal] = Field(None, title="Craniotomy coordinate ML (mm)")
@@ -304,10 +291,11 @@ class Craniotomy(SubjectProcedure):
     recovery_time_unit: TimeUnit = Field(TimeUnit.M, title="Recovery time unit")
 
 
-class Headframe(SubjectProcedure):
+class Headframe(AindModel):
     """Description of headframe procedure"""
 
     procedure_type: Literal["Headframe"] = Field("Headframe", title="Procedure type")
+    protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     headframe_type: str = Field(..., title="Headframe type")
     headframe_part_number: str = Field(..., title="Headframe part number")
     headframe_material: Optional[HeadframeMaterial] = Field(None, title="Headframe material")
@@ -345,7 +333,7 @@ class InjectionMaterial(AindModel):
     prep_protocol: Optional[str] = Field(None, title="Prep protocol")
 
 
-class Injection(SubjectProcedure):
+class Injection(AindModel):
     """Description of an injection procedure"""
 
     injection_materials: List[InjectionMaterial] = Field(default=[], title="Injection material", min_length=1)
@@ -361,6 +349,7 @@ class RetroOrbitalInjection(Injection):
     """Description of a retro-orbital injection procedure"""
 
     procedure_type: Literal["Retro-orbital injection"] = Field("Retro-orbital injection", title="Procedure type")
+    protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     injection_volume: Decimal = Field(..., title="Injection volume (uL)")
     injection_volume_unit: VolumeUnit = Field(VolumeUnit.UL, title="Injection volume unit")
     injection_eye: Side = Field(..., title="Injection eye")
@@ -390,6 +379,7 @@ class NanojectInjection(BrainInjection):
     """Description of a nanoject injection procedure"""
 
     procedure_type: Literal["Nanoject injection"] = Field("Nanoject injection", title="Procedure type")
+    protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     injection_volume: List[Decimal] = Field(
         ...,
         title="Injection volume (nL)",
@@ -413,6 +403,7 @@ class IontophoresisInjection(BrainInjection):
     """Description of an iotophoresis injection procedure"""
 
     procedure_type: Literal["Iontophoresis injection"] = Field("Iontophoresis injection", title="Procedure type")
+    protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     injection_current: Decimal = Field(..., title="Injection current (uA)")
     injection_current_unit: CurrentUnit = Field(CurrentUnit.UA, title="Injection current unit")
     alternating_current: str = Field(..., title="Alternating current")
@@ -422,6 +413,7 @@ class IntraCerebellarVentricleInjection(BrainInjection):
     """Description of an interacerebellar ventricle injection"""
 
     procedure_type: Literal["ICV injection"] = Field("ICV injection", title="Procedure type")
+    protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     injection_volume: List[Decimal] = Field(
         ...,
         title="Injection volume (nL)",
@@ -434,6 +426,7 @@ class IntraCisternalMagnaInjection(BrainInjection):
     """Description of an interacisternal magna injection"""
 
     procedure_type: Literal["ICM injection"] = Field("ICM injection", title="Procedure type")
+    protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     injection_volume: List[Decimal] = Field(
         ...,
         title="Injection volume (nL)",
@@ -477,10 +470,11 @@ class OphysProbe(AindModel):
     notes: Optional[str] = Field(None, title="Notes")
 
 
-class FiberImplant(SubjectProcedure):
+class FiberImplant(AindModel):
     """Description of an implant procedure"""
 
     procedure_type: Literal["Fiber implant"] = Field("Fiber implant", title="Procedure type")
+    protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     probes: List[OphysProbe] = Field(..., title="Ophys Probes")
 
 
@@ -499,15 +493,54 @@ class WaterRestriction(AindModel):
     end_date: date = Field(..., title="Water restriction end date")
 
 
-class Perfusion(SubjectProcedure):
+class Perfusion(AindModel):
     """Description of a perfusion procedure that creates a specimen"""
 
     procedure_type: Literal["Perfusion"] = Field("Perfusion", title="Procedure type")
+    protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     output_specimen_ids: Set[str] = Field(
         ...,
         title="Specimen ID",
         description="IDs of specimens resulting from this procedure.",
     )
+
+
+class Surgery(AindModel):
+    """Description of subject procedures performed at one time"""
+
+    start_date: date = Field(..., title="Start date")
+    end_date: date = Field(..., title="End date")
+    experimenter_full_name: str = Field(
+        ...,
+        description="First and last name of the experimenter.",
+        title="Experimenter full name",
+    )
+    iacuc_protocol: Optional[str] = Field(None, title="IACUC protocol")
+    animal_weight_prior: Optional[Decimal] = Field(
+        None, title="Animal weight (g)", description="Animal weight before procedure"
+    )
+    animal_weight_post: Optional[Decimal] = Field(
+        None, title="Animal weight (g)", description="Animal weight after procedure"
+    )
+    weight_unit: MassUnit = Field(MassUnit.G, title="Weight unit")
+    anaesthesia: Optional[Anaesthetic] = Field(None, title="Anaesthesia")
+    procedures: Annotated[
+        List[
+            Union[
+                Craniotomy,
+                FiberImplant,
+                Headframe,
+                IntraCerebellarVentricleInjection,
+                IntraCisternalMagnaInjection,
+                IontophoresisInjection,
+                NanojectInjection,
+                RetroOrbitalInjection,
+                OtherProcedure,
+            ]
+        ],
+        Field(title="Procedures", discriminator="procedure_type", min_length=1),
+    ] = []
+    notes: Optional[str] = Field(None, title="Notes")
 
 
 class Procedures(AindCoreModel):
@@ -525,18 +558,9 @@ class Procedures(AindCoreModel):
     subject_procedures: Annotated[
         List[
             Union[
-                Craniotomy,
-                FiberImplant,
-                Headframe,
-                IntraCerebellarVentricleInjection,
-                IntraCisternalMagnaInjection,
-                IontophoresisInjection,
-                NanojectInjection,
-                Perfusion,
-                RetroOrbitalInjection,
+                Surgery,
                 TrainingProtocol,
                 WaterRestriction,
-                SubjectProcedure,
             ]
         ],
         Field(title="Subject Procedures", discriminator="procedure_type"),
