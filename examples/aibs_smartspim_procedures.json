@@ -2,10 +2,30 @@
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/procedures.py",
    "schema_version": "0.10.2",
    "subject_id": "651286",
-   "subject_procedures": [],
+   "subject_procedures": [
+      {
+         "start_date": "2022-11-17",
+         "experimenter_full_name": "LAS",
+         "iacuc_protocol": "xxxx",
+         "animal_weight_prior": null,
+         "animal_weight_post": null,
+         "weight_unit": "gram",
+         "anaesthesia": null,
+         "workstation_id": null,
+         "procedures": [
+            {
+               "procedure_type": "Perfusion",
+               "protocol_id": "doi_of_protocol",
+               "output_specimen_ids": [
+                  "651286"
+               ]
+            }
+         ],
+         "notes": null
+      }
+   ],
    "specimen_procedures": [
       {
-         "specimen_procedure_type": "SpecimenProcedure",
          "specimen_id": "651286",
          "procedure_name": "test_name",
          "procedure_type": "Fixation",
@@ -32,7 +52,6 @@
          "notes": null
       },
       {
-         "specimen_procedure_type": "SpecimenProcedure",
          "specimen_id": "651286",
          "procedure_name": "test_name",
          "procedure_type": "Fixation",
@@ -52,7 +71,6 @@
          "notes": "40 deg. C"
       },
       {
-         "specimen_procedure_type": "SpecimenProcedure",
          "specimen_id": "651286",
          "procedure_name": "test_name",
          "procedure_type": "Soak",
@@ -72,7 +90,6 @@
          "notes": null
       },
       {
-         "specimen_procedure_type": "SpecimenProcedure",
          "specimen_id": "651286",
          "procedure_name": "Active Delipidation",
          "procedure_type": "Delipidation",
@@ -99,7 +116,6 @@
          "notes": null
       },
       {
-         "specimen_procedure_type": "SpecimenProcedure",
          "specimen_id": "651286",
          "procedure_name": "test_name",
          "procedure_type": "Soak",
@@ -126,7 +142,6 @@
          "notes": null
       },
       {
-         "specimen_procedure_type": "SpecimenProcedure",
          "specimen_id": "651286",
          "procedure_name": "test_name",
          "procedure_type": "Soak",
@@ -146,7 +161,6 @@
          "notes": null
       },
       {
-         "specimen_procedure_type": "SpecimenProcedure",
          "specimen_id": "651286",
          "procedure_name": "test_name",
          "procedure_type": "Embedding",

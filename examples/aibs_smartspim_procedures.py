@@ -31,14 +31,17 @@ agarose = procedures.Reagent(name="Agarose", lot_number="1234", source="Other ve
 
 # Procedures
 
-perfusion = procedures.Perfusion(
-    output_specimen_ids=[
-        specimen_id,
-    ],
-    experimenter_full_name="LAS",
+perfusion = procedures.Surgery(
     start_date=date(2022, 11, 17),
-    end_date=date(2022, 11, 17),
-    protocol_id="unknown",
+    experimenter_full_name="LAS",
+    iacuc_protocol="xxxx",
+    procedures=[
+        procedures.Perfusion(
+            procedure_type="Perfusion",
+            protocol_id="doi_of_protocol",
+            output_specimen_ids=[specimen_id,],
+        )
+    ]
 )
 
 # perfused brain goes into SHIELD OFF solution
@@ -140,6 +143,9 @@ embedding = procedures.SpecimenProcedure(
 
 all_procedures = procedures.Procedures(
     subject_id=specimen_id,
+    subject_procedures=[
+        perfusion,
+    ],
     specimen_procedures=[
         shield_off_procedure,
         shield_on_procedure,
