@@ -498,8 +498,7 @@ class Perfusion(AindModel):
 
     procedure_type: Literal["Perfusion"] = Field("Perfusion", title="Procedure type")
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
-    start_date: date = Field(..., title="Start date")
-    end_date: date = Field(..., title="End date")
+    date: date = Field(..., title="Start date")
     experimenter_full_name: str = Field(
         ...,
         description="First and last name of the experimenter.",
@@ -523,8 +522,7 @@ class Perfusion(AindModel):
 class Surgery(AindModel):
     """Description of subject procedures performed at one time"""
 
-    start_date: date = Field(..., title="Start date")
-    end_date: date = Field(..., title="End date")
+    date: date = Field(..., title="Start date")
     experimenter_full_name: str = Field(
         ...,
         description="First and last name of the experimenter.",
