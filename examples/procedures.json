@@ -4,7 +4,7 @@
    "subject_id": "625100",
    "subject_procedures": [
       {
-         "class_tag": "Surgery",
+         "procedure_class": "Surgery",
          "start_date": "2022-07-12",
          "experimenter_full_name": "John Apple",
          "iacuc_protocol": "2109",
@@ -20,7 +20,7 @@
          "workstation_id": "SWS 3",
          "procedures": [
             {
-               "class_tag": "Craniotomy",
+               "procedure_class": "Craniotomy",
                "protocol_id": "1234",
                "craniotomy_type": "Visual Cortex",
                "craniotomy_hemisphere": "Left",
@@ -74,7 +74,7 @@
                "injection_angle_unit": "degrees",
                "targeted_structure": "VISp",
                "injection_hemisphere": "Left",
-               "class_tag": "Nanoject injection",
+               "procedure_class": "Nanoject injection",
                "protocol_id": "5678",
                "injection_volume": [
                   "200"
@@ -85,7 +85,7 @@
          "notes": null
       },
       {
-         "class_tag": "Surgery",
+         "procedure_class": "Surgery",
          "start_date": "2022-09-23",
          "experimenter_full_name": "Frank Lee",
          "iacuc_protocol": "2109",
@@ -96,7 +96,7 @@
          "workstation_id": null,
          "procedures": [
             {
-               "class_tag": "Perfusion",
+               "procedure_class": "Perfusion",
                "protocol_id": "doi_of_protocol",
                "output_specimen_ids": [
                   "1"
