@@ -2,8 +2,8 @@
 
 import datetime
 
-from aind_data_schema.data_description import Modality
-from aind_data_schema.device import (
+from aind_data_schema.core.rig import Rig
+from aind_data_schema.models.devices import (
     Calibration,
     Camera,
     CameraAssembly,
@@ -21,8 +21,8 @@ from aind_data_schema.device import (
     ProbePort,
     StickMicroscopeAssembly,
 )
-from aind_data_schema.manufacturers import Manufacturer
-from aind_data_schema.rig import Rig
+from aind_data_schema.models.manufacturers import Manufacturer
+from aind_data_schema.models.modalities import Modality
 
 # Describes a rig with running wheel, 2 behavior cameras, one Harp Behavior board,
 # one dual-color laser module, one stick microscope, and 2 Neuropixels probes
@@ -65,7 +65,9 @@ blue_laser = Laser(name="Blue Laser", wavelength=638, manufacturer=Manufacturer.
 
 laser_assembly = LaserAssembly(
     laser_assembly_name="Laser_assemblyA",
-    manipulator=Manipulator(serial_number="SN2937", manufacturer=Manufacturer.NEW_SCALE_TECHNOLOGIES),
+    manipulator=Manipulator(
+        name="Manipulator A", serial_number="SN2937", manufacturer=Manufacturer.NEW_SCALE_TECHNOLOGIES
+    ),
     lasers=[red_laser, blue_laser],
 )
 
@@ -81,7 +83,7 @@ probe_camera = Camera(
     chroma="Color",
 )
 
-stick_lens = Lens(manufacturer=Manufacturer.EDMUND_OPTICS)
+stick_lens = Lens(name="Probe lens", manufacturer=Manufacturer.EDMUND_OPTICS)
 
 microscope = StickMicroscopeAssembly(
     scope_assembly_name="Stick_assembly",
@@ -95,23 +97,28 @@ probeB = EphysProbe(name="Probe B", serial_number="9291020", probe_model="Neurop
 
 ephys_assemblyA = EphysAssembly(
     ephys_assembly_name="Ephys_assemblyA",
-    manipulator=Manipulator(serial_number="SN2938", manufacturer=Manufacturer.NEW_SCALE_TECHNOLOGIES),
+    manipulator=Manipulator(
+        name="Manipulator 1", serial_number="SN2938", manufacturer=Manufacturer.NEW_SCALE_TECHNOLOGIES
+    ),
     probes=[probeA],
 )
 
 ephys_assemblyB = EphysAssembly(
     ephys_assembly_name="Ephys_assemblyB",
-    manipulator=Manipulator(serial_number="SN2939", manufacturer=Manufacturer.NEW_SCALE_TECHNOLOGIES),
+    manipulator=Manipulator(
+        name="Manipulator B", serial_number="SN2939", manufacturer=Manufacturer.NEW_SCALE_TECHNOLOGIES
+    ),
     probes=[probeB],
 )
 
 filt = Filter(
+    name="LP filter",
     filter_type="Long pass",
     manufacturer=Manufacturer.THORLABS,
     description="850 nm longpass filter",
 )
 
-lens = Lens(focal_length=15, manufacturer=Manufacturer.EDMUND_OPTICS, max_aperture="f/2")
+lens = Lens(name="Camera lens", focal_length=15, manufacturer=Manufacturer.EDMUND_OPTICS, max_aperture="f/2")
 
 face_camera = Camera(
     name="Face Camera",

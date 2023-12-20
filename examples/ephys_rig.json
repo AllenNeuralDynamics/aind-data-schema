@@ -1,14 +1,8 @@
 {
-   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/rig.py",
-   "schema_version": "0.1.7",
+   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/rig.py",
+   "schema_version": "0.2.1",
    "rig_id": "323_EPHYS1",
    "modification_date": "2023-10-03",
-   "modalities": [
-      {
-         "name": "Extracellular electrophysiology",
-         "abbreviation": "ecephys"
-      }
-   ],
    "mouse_platform": {
       "device_type": "Disc",
       "name": "Running Wheel",
@@ -16,17 +10,18 @@
       "manufacturer": null,
       "model": null,
       "path_to_cad": null,
+      "port_index": null,
       "notes": null,
       "surface_material": null,
       "date_surface_replaced": null,
-      "radius": 15,
+      "radius": "15",
       "radius_unit": "centimeter",
       "output": null,
       "encoder": null,
       "decoder": null,
       "encoder_firmware": null
    },
-   "stimulus_devices": null,
+   "stimulus_devices": [],
    "cameras": [
       {
          "camera_assembly_name": "Face Camera Assembly",
@@ -46,10 +41,11 @@
             },
             "model": null,
             "path_to_cad": null,
+            "port_index": null,
             "notes": null,
             "data_interface": "USB",
             "computer_name": "W10DT72941",
-            "max_frame_rate": 500,
+            "max_frame_rate": "500",
             "frame_rate_unit": "hertz",
             "pixel_width": 1080,
             "pixel_height": 570,
@@ -63,7 +59,7 @@
          },
          "lens": {
             "device_type": "Lens",
-            "name": null,
+            "name": "Camera lens",
             "serial_number": null,
             "manufacturer": {
                "name": "Edmund Optics",
@@ -76,8 +72,9 @@
             },
             "model": null,
             "path_to_cad": null,
+            "port_index": null,
             "notes": null,
-            "focal_length": 15,
+            "focal_length": "15",
             "focal_length_unit": "millimeter",
             "size": null,
             "lens_size_unit": "inch",
@@ -87,7 +84,7 @@
          },
          "filter": {
             "device_type": "Filter",
-            "name": null,
+            "name": "LP filter",
             "serial_number": null,
             "manufacturer": {
                "name": "Thorlabs",
@@ -100,6 +97,7 @@
             },
             "model": null,
             "path_to_cad": null,
+            "port_index": null,
             "notes": null,
             "filter_type": "Long pass",
             "diameter": null,
@@ -135,10 +133,11 @@
             },
             "model": null,
             "path_to_cad": null,
+            "port_index": null,
             "notes": null,
             "data_interface": "USB",
             "computer_name": "W10DT72941",
-            "max_frame_rate": 500,
+            "max_frame_rate": "500",
             "frame_rate_unit": "hertz",
             "pixel_width": 1080,
             "pixel_height": 570,
@@ -152,7 +151,7 @@
          },
          "lens": {
             "device_type": "Lens",
-            "name": null,
+            "name": "Camera lens",
             "serial_number": null,
             "manufacturer": {
                "name": "Edmund Optics",
@@ -165,8 +164,9 @@
             },
             "model": null,
             "path_to_cad": null,
+            "port_index": null,
             "notes": null,
-            "focal_length": 15,
+            "focal_length": "15",
             "focal_length_unit": "millimeter",
             "size": null,
             "lens_size_unit": "inch",
@@ -176,7 +176,7 @@
          },
          "filter": {
             "device_type": "Filter",
-            "name": null,
+            "name": "LP filter",
             "serial_number": null,
             "manufacturer": {
                "name": "Thorlabs",
@@ -189,6 +189,7 @@
             },
             "model": null,
             "path_to_cad": null,
+            "port_index": null,
             "notes": null,
             "filter_type": "Long pass",
             "diameter": null,
@@ -207,6 +208,215 @@
          "position": null
       }
    ],
+   "enclosure": null,
+   "ephys_assemblies": [
+      {
+         "ephys_assembly_name": "Ephys_assemblyA",
+         "manipulator": {
+            "device_type": "Manipulator",
+            "name": "Manipulator 1",
+            "serial_number": "SN2938",
+            "manufacturer": {
+               "name": "New Scale Technologies",
+               "abbreviation": null,
+               "registry": null,
+               "registry_identifier": null
+            },
+            "model": null,
+            "path_to_cad": null,
+            "port_index": null,
+            "notes": null
+         },
+         "probes": [
+            {
+               "device_type": "Ephys probe",
+               "name": "Probe A",
+               "serial_number": "9291019",
+               "manufacturer": null,
+               "model": null,
+               "path_to_cad": null,
+               "port_index": null,
+               "notes": null,
+               "probe_model": "Neuropixels 1.0",
+               "lasers": [],
+               "headstage": null
+            }
+         ]
+      },
+      {
+         "ephys_assembly_name": "Ephys_assemblyB",
+         "manipulator": {
+            "device_type": "Manipulator",
+            "name": "Manipulator B",
+            "serial_number": "SN2939",
+            "manufacturer": {
+               "name": "New Scale Technologies",
+               "abbreviation": null,
+               "registry": null,
+               "registry_identifier": null
+            },
+            "model": null,
+            "path_to_cad": null,
+            "port_index": null,
+            "notes": null
+         },
+         "probes": [
+            {
+               "device_type": "Ephys probe",
+               "name": "Probe B",
+               "serial_number": "9291020",
+               "manufacturer": null,
+               "model": null,
+               "path_to_cad": null,
+               "port_index": null,
+               "notes": null,
+               "probe_model": "Neuropixels 1.0",
+               "lasers": [],
+               "headstage": null
+            }
+         ]
+      }
+   ],
+   "fiber_assemblies": [],
+   "stick_microscopes": [
+      {
+         "scope_assembly_name": "Stick_assembly",
+         "camera": {
+            "device_type": "Camera",
+            "name": "Probe Camera",
+            "serial_number": null,
+            "manufacturer": {
+               "name": "Teledyne FLIR",
+               "abbreviation": "FLIR",
+               "registry": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "registry_identifier": "01j1gwp17"
+            },
+            "model": null,
+            "path_to_cad": null,
+            "port_index": null,
+            "notes": null,
+            "data_interface": "USB",
+            "computer_name": "W10DT72942",
+            "max_frame_rate": "50",
+            "frame_rate_unit": "hertz",
+            "pixel_width": 1080,
+            "pixel_height": 570,
+            "size_unit": "pixel",
+            "chroma": "Color",
+            "sensor_format": "1/2.9\"",
+            "format_unit": null,
+            "recording_software": null,
+            "driver": null,
+            "driver_version": null
+         },
+         "lens": {
+            "device_type": "Lens",
+            "name": "Probe lens",
+            "serial_number": null,
+            "manufacturer": {
+               "name": "Edmund Optics",
+               "abbreviation": null,
+               "registry": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "registry_identifier": "01j1gwp17"
+            },
+            "model": null,
+            "path_to_cad": null,
+            "port_index": null,
+            "notes": null,
+            "focal_length": null,
+            "focal_length_unit": "millimeter",
+            "size": null,
+            "lens_size_unit": "inch",
+            "optimized_wavelength_range": null,
+            "wavelength_unit": "nanometer",
+            "max_aperture": null
+         }
+      }
+   ],
+   "laser_assemblies": [
+      {
+         "laser_assembly_name": "Laser_assemblyA",
+         "manipulator": {
+            "device_type": "Manipulator",
+            "name": "Manipulator A",
+            "serial_number": "SN2937",
+            "manufacturer": {
+               "name": "New Scale Technologies",
+               "abbreviation": null,
+               "registry": null,
+               "registry_identifier": null
+            },
+            "model": null,
+            "path_to_cad": null,
+            "port_index": null,
+            "notes": null
+         },
+         "lasers": [
+            {
+               "device_type": "Laser",
+               "name": "Red Laser",
+               "serial_number": null,
+               "manufacturer": {
+                  "name": "Oxxius",
+                  "abbreviation": null,
+                  "registry": null,
+                  "registry_identifier": null
+               },
+               "model": null,
+               "path_to_cad": null,
+               "port_index": null,
+               "notes": null,
+               "wavelength": 473,
+               "wavelength_unit": "nanometer",
+               "maximum_power": null,
+               "power_unit": "milliwatt",
+               "coupling": null,
+               "coupling_efficiency": null,
+               "coupling_efficiency_unit": "percent",
+               "item_number": null
+            },
+            {
+               "device_type": "Laser",
+               "name": "Blue Laser",
+               "serial_number": null,
+               "manufacturer": {
+                  "name": "Oxxius",
+                  "abbreviation": null,
+                  "registry": null,
+                  "registry_identifier": null
+               },
+               "model": null,
+               "path_to_cad": null,
+               "port_index": null,
+               "notes": null,
+               "wavelength": 638,
+               "wavelength_unit": "nanometer",
+               "maximum_power": null,
+               "power_unit": "milliwatt",
+               "coupling": null,
+               "coupling_efficiency": null,
+               "coupling_efficiency_unit": "percent",
+               "item_number": null
+            }
+         ]
+      }
+   ],
+   "patch_cords": [],
+   "light_sources": [],
+   "detectors": [],
+   "objectives": [],
+   "filters": [],
+   "lenses": [],
+   "digital_micromirror_devices": [],
+   "polygonal_scanners": [],
+   "pockels_cells": [],
+   "additional_devices": [],
    "daqs": [
       {
          "device_type": "Neuropixels basestation",
@@ -223,10 +433,11 @@
          },
          "model": null,
          "path_to_cad": null,
+         "port_index": null,
          "notes": null,
          "data_interface": "PXI",
          "computer_name": "W10DT72942",
-         "channels": null,
+         "channels": [],
          "basestation_firmware_version": "2.019",
          "bsc_firmware_version": "2.199",
          "slot": 3,
@@ -260,6 +471,7 @@
          },
          "model": null,
          "path_to_cad": null,
+         "port_index": null,
          "notes": null,
          "data_interface": "USB",
          "computer_name": "W10DT72941",
@@ -272,7 +484,7 @@
                "channel_index": null,
                "sample_rate": null,
                "sample_rate_unit": "hertz",
-               "event_based_sampling": false
+               "event_based_sampling": null
             },
             {
                "channel_name": "DO1",
@@ -282,7 +494,7 @@
                "channel_index": null,
                "sample_rate": null,
                "sample_rate_unit": "hertz",
-               "event_based_sampling": false
+               "event_based_sampling": null
             },
             {
                "channel_name": "AI0",
@@ -292,213 +504,13 @@
                "channel_index": null,
                "sample_rate": null,
                "sample_rate_unit": "hertz",
-               "event_based_sampling": false
+               "event_based_sampling": null
             }
          ],
          "harp_device_type": "Behavior",
          "harp_device_version": "2.1"
       }
    ],
-   "enclosure": null,
-   "ephys_assemblies": [
-      {
-         "ephys_assembly_name": "Ephys_assemblyA",
-         "manipulator": {
-            "device_type": "Manipulator",
-            "name": null,
-            "serial_number": "SN2938",
-            "manufacturer": {
-               "name": "New Scale Technologies",
-               "abbreviation": null,
-               "registry": null,
-               "registry_identifier": null
-            },
-            "model": null,
-            "path_to_cad": null,
-            "notes": null
-         },
-         "probes": [
-            {
-               "device_type": "Ephys probe",
-               "name": "Probe A",
-               "serial_number": "9291019",
-               "manufacturer": null,
-               "model": null,
-               "path_to_cad": null,
-               "notes": null,
-               "probe_model": "Neuropixels 1.0",
-               "lasers": null,
-               "headstage": null
-            }
-         ]
-      },
-      {
-         "ephys_assembly_name": "Ephys_assemblyB",
-         "manipulator": {
-            "device_type": "Manipulator",
-            "name": null,
-            "serial_number": "SN2939",
-            "manufacturer": {
-               "name": "New Scale Technologies",
-               "abbreviation": null,
-               "registry": null,
-               "registry_identifier": null
-            },
-            "model": null,
-            "path_to_cad": null,
-            "notes": null
-         },
-         "probes": [
-            {
-               "device_type": "Ephys probe",
-               "name": "Probe B",
-               "serial_number": "9291020",
-               "manufacturer": null,
-               "model": null,
-               "path_to_cad": null,
-               "notes": null,
-               "probe_model": "Neuropixels 1.0",
-               "lasers": null,
-               "headstage": null
-            }
-         ]
-      }
-   ],
-   "fiber_assemblies": null,
-   "stick_microscopes": [
-      {
-         "scope_assembly_name": "Stick_assembly",
-         "camera": {
-            "device_type": "Camera",
-            "name": "Probe Camera",
-            "serial_number": null,
-            "manufacturer": {
-               "name": "Teledyne FLIR",
-               "abbreviation": "FLIR",
-               "registry": {
-                  "name": "Research Organization Registry",
-                  "abbreviation": "ROR"
-               },
-               "registry_identifier": "01j1gwp17"
-            },
-            "model": null,
-            "path_to_cad": null,
-            "notes": null,
-            "data_interface": "USB",
-            "computer_name": "W10DT72942",
-            "max_frame_rate": 50,
-            "frame_rate_unit": "hertz",
-            "pixel_width": 1080,
-            "pixel_height": 570,
-            "size_unit": "pixel",
-            "chroma": "Color",
-            "sensor_format": "1/2.9\"",
-            "format_unit": null,
-            "recording_software": null,
-            "driver": null,
-            "driver_version": null
-         },
-         "lens": {
-            "device_type": "Lens",
-            "name": null,
-            "serial_number": null,
-            "manufacturer": {
-               "name": "Edmund Optics",
-               "abbreviation": null,
-               "registry": {
-                  "name": "Research Organization Registry",
-                  "abbreviation": "ROR"
-               },
-               "registry_identifier": "01j1gwp17"
-            },
-            "model": null,
-            "path_to_cad": null,
-            "notes": null,
-            "focal_length": null,
-            "focal_length_unit": "millimeter",
-            "size": null,
-            "lens_size_unit": "inch",
-            "optimized_wavelength_range": null,
-            "wavelength_unit": "nanometer",
-            "max_aperture": null
-         }
-      }
-   ],
-   "laser_assemblies": [
-      {
-         "laser_assembly_name": "Laser_assemblyA",
-         "manipulator": {
-            "device_type": "Manipulator",
-            "name": null,
-            "serial_number": "SN2937",
-            "manufacturer": {
-               "name": "New Scale Technologies",
-               "abbreviation": null,
-               "registry": null,
-               "registry_identifier": null
-            },
-            "model": null,
-            "path_to_cad": null,
-            "notes": null
-         },
-         "lasers": [
-            {
-               "device_type": "Laser",
-               "name": "Red Laser",
-               "serial_number": null,
-               "manufacturer": {
-                  "name": "Oxxius",
-                  "abbreviation": null,
-                  "registry": null,
-                  "registry_identifier": null
-               },
-               "model": null,
-               "path_to_cad": null,
-               "notes": null,
-               "wavelength": 473,
-               "wavelength_unit": "nanometer",
-               "maximum_power": null,
-               "power_unit": "milliwatt",
-               "coupling": null,
-               "coupling_efficiency": null,
-               "coupling_efficiency_unit": "percent",
-               "item_number": null
-            },
-            {
-               "device_type": "Laser",
-               "name": "Blue Laser",
-               "serial_number": null,
-               "manufacturer": {
-                  "name": "Oxxius",
-                  "abbreviation": null,
-                  "registry": null,
-                  "registry_identifier": null
-               },
-               "model": null,
-               "path_to_cad": null,
-               "notes": null,
-               "wavelength": 638,
-               "wavelength_unit": "nanometer",
-               "maximum_power": null,
-               "power_unit": "milliwatt",
-               "coupling": null,
-               "coupling_efficiency": null,
-               "coupling_efficiency_unit": "percent",
-               "item_number": null
-            }
-         ]
-      }
-   ],
-   "patch_cords": null,
-   "light_sources": null,
-   "detectors": null,
-   "objectives": null,
-   "filters": null,
-   "lenses": null,
-   "digital_micromirror_devices": null,
-   "polygonal_scanners": null,
-   "pockels_cells": null,
-   "additional_devices": null,
    "calibrations": [
       {
          "calibration_date": "2023-10-02T10:22:13",
@@ -542,5 +554,11 @@
       }
    ],
    "ccf_coordinate_transform": null,
+   "modalities": [
+      {
+         "name": "Extracellular electrophysiology",
+         "abbreviation": "ecephys"
+      }
+   ],
    "notes": null
 }

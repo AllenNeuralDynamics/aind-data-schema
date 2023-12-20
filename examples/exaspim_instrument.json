@@ -1,6 +1,6 @@
 {
-   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/imaging/instrument.py",
-   "schema_version": "0.9.5",
+   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/instrument.py",
+   "schema_version": "0.10.1",
    "instrument_id": "exaSPIM1-1",
    "modification_date": "2023-10-04",
    "instrument_type": "exaSPIM",
@@ -15,8 +15,8 @@
    "optical_tables": [
       {
          "device_type": "OpticalTable",
-         "name": null,
-         "serial_number": "Unknown",
+         "name": "Table",
+         "serial_number": null,
          "manufacturer": {
             "name": "MKS Newport",
             "abbreviation": null,
@@ -28,9 +28,10 @@
          },
          "model": "VIS3648-PG2-325A",
          "path_to_cad": null,
+         "port_index": null,
          "notes": null,
-         "length": 36,
-         "width": 48,
+         "length": "36",
+         "width": "48",
          "table_size_unit": "inch",
          "vibration_control": true
       }
@@ -39,8 +40,8 @@
    "objectives": [
       {
          "device_type": "Objective",
-         "name": null,
-         "serial_number": "Unknown",
+         "name": "Custom Objective",
+         "serial_number": null,
          "manufacturer": {
             "name": "Other",
             "abbreviation": null,
@@ -49,9 +50,10 @@
          },
          "model": "JM_DIAMOND 5.0X/1.3",
          "path_to_cad": null,
+         "port_index": null,
          "notes": "manufacturer collaboration between Schneider-Kreuznach and Vieworks",
-         "numerical_aperture": 0.305,
-         "magnification": 5,
+         "numerical_aperture": "0.305",
+         "magnification": "5",
          "immersion": "air",
          "objective_type": null
       }
@@ -59,7 +61,7 @@
    "detectors": [
       {
          "device_type": "Detector",
-         "name": null,
+         "name": "Cmaera 1",
          "serial_number": "MB151BAY001",
          "manufacturer": {
             "name": "Vieworks",
@@ -69,6 +71,7 @@
          },
          "model": "VNP-604MX",
          "path_to_cad": null,
+         "port_index": null,
          "notes": null,
          "detector_type": "Camera",
          "data_interface": "Coax",
@@ -102,10 +105,11 @@
          },
          "model": null,
          "path_to_cad": null,
+         "port_index": null,
          "notes": "Housed in commercial laser combiner",
          "wavelength": 405,
          "wavelength_unit": "nanometer",
-         "maximum_power": 200,
+         "maximum_power": "200",
          "power_unit": "milliwatt",
          "coupling": "Single-mode fiber",
          "coupling_efficiency": null,
@@ -124,10 +128,11 @@
          },
          "model": null,
          "path_to_cad": null,
+         "port_index": null,
          "notes": "Housed in commercial laser combiner",
          "wavelength": 488,
          "wavelength_unit": "nanometer",
-         "maximum_power": 200,
+         "maximum_power": "200",
          "power_unit": "milliwatt",
          "coupling": "Single-mode fiber",
          "coupling_efficiency": null,
@@ -146,10 +151,11 @@
          },
          "model": null,
          "path_to_cad": null,
+         "port_index": null,
          "notes": "Housed in commercial laser combiner",
          "wavelength": 561,
          "wavelength_unit": "nanometer",
-         "maximum_power": 200,
+         "maximum_power": "200",
          "power_unit": "milliwatt",
          "coupling": "Single-mode fiber",
          "coupling_efficiency": null,
@@ -168,10 +174,11 @@
          },
          "model": null,
          "path_to_cad": null,
+         "port_index": null,
          "notes": "Housed in commercial laser combiner",
          "wavelength": 638,
          "wavelength_unit": "nanometer",
-         "maximum_power": 200,
+         "maximum_power": "200",
          "power_unit": "milliwatt",
          "coupling": "Single-mode fiber",
          "coupling_efficiency": null,
@@ -179,12 +186,12 @@
          "item_number": null
       }
    ],
-   "lenses": null,
+   "lenses": [],
    "fluorescence_filters": [
       {
          "device_type": "Filter",
-         "name": null,
-         "serial_number": "Unknown-0",
+         "name": "Multiband filter",
+         "serial_number": null,
          "manufacturer": {
             "name": "Chroma",
             "abbreviation": null,
@@ -193,13 +200,14 @@
          },
          "model": "ZET405/488/561/640mv2",
          "path_to_cad": null,
+         "port_index": null,
          "notes": "Custom made filter",
          "filter_type": "Multiband",
-         "diameter": 44.05,
+         "diameter": "44.05",
          "width": null,
          "height": null,
          "size_unit": "millimeter",
-         "thickness": 1,
+         "thickness": "1",
          "thickness_unit": "millimeter",
          "filter_wheel_index": 0,
          "cut_off_wavelength": null,
@@ -209,12 +217,12 @@
          "description": null
       }
    ],
-   "motorized_stages": null,
+   "motorized_stages": [],
    "scanning_stages": [
       {
          "device_type": "Motorized stage",
          "name": "stage-x",
-         "serial_number": "Unknown",
+         "serial_number": null,
          "manufacturer": {
             "name": "Applied Scientific Instrumentation",
             "abbreviation": "ASI",
@@ -223,8 +231,9 @@
          },
          "model": "MS-8000",
          "path_to_cad": null,
+         "port_index": null,
          "notes": null,
-         "travel": 1000,
+         "travel": "1000",
          "travel_unit": "millimeter",
          "firmware": null,
          "stage_axis_direction": "Detection axis",
@@ -232,8 +241,8 @@
       },
       {
          "device_type": "Motorized stage",
-         "name": null,
-         "serial_number": "Unknown",
+         "name": "stage-y",
+         "serial_number": null,
          "manufacturer": {
             "name": "Applied Scientific Instrumentation",
             "abbreviation": "ASI",
@@ -242,8 +251,9 @@
          },
          "model": "MS-8000",
          "path_to_cad": null,
+         "port_index": null,
          "notes": null,
-         "travel": 1000,
+         "travel": "1000",
          "travel_unit": "millimeter",
          "firmware": null,
          "stage_axis_direction": "Perpendicular axis",
@@ -251,8 +261,8 @@
       },
       {
          "device_type": "Motorized stage",
-         "name": null,
-         "serial_number": "Unknown",
+         "name": "stage-z",
+         "serial_number": null,
          "manufacturer": {
             "name": "Applied Scientific Instrumentation",
             "abbreviation": "ASI",
@@ -261,95 +271,13 @@
          },
          "model": "LS-100",
          "path_to_cad": null,
+         "port_index": null,
          "notes": null,
-         "travel": 100,
+         "travel": "100",
          "travel_unit": "millimeter",
          "firmware": null,
          "stage_axis_direction": "Illumination axis",
          "stage_axis_name": "Z"
-      }
-   ],
-   "daqs": [
-      {
-         "device_type": "DAQ Device",
-         "name": "Dev2",
-         "serial_number": "Unknown",
-         "manufacturer": {
-            "name": "National Instruments",
-            "abbreviation": null,
-            "registry": {
-               "name": "Research Organization Registry",
-               "abbreviation": "ROR"
-            },
-            "registry_identifier": "026exqw73"
-         },
-         "model": "PCIe-6738",
-         "path_to_cad": null,
-         "notes": null,
-         "data_interface": "USB",
-         "computer_name": "Dev2",
-         "channels": [
-            {
-               "channel_name": "3",
-               "device_name": "LAS-08308",
-               "channel_type": "Analog Output",
-               "port": null,
-               "channel_index": null,
-               "sample_rate": 10000,
-               "sample_rate_unit": "hertz",
-               "event_based_sampling": false
-            },
-            {
-               "channel_name": "5",
-               "device_name": "539251",
-               "channel_type": "Analog Output",
-               "port": null,
-               "channel_index": null,
-               "sample_rate": 10000,
-               "sample_rate_unit": "hertz",
-               "event_based_sampling": false
-            },
-            {
-               "channel_name": "4",
-               "device_name": "LAS-08309",
-               "channel_type": "Analog Output",
-               "port": null,
-               "channel_index": null,
-               "sample_rate": 10000,
-               "sample_rate_unit": "hertz",
-               "event_based_sampling": false
-            },
-            {
-               "channel_name": "2",
-               "device_name": "stage-x",
-               "channel_type": "Analog Output",
-               "port": null,
-               "channel_index": null,
-               "sample_rate": 10000,
-               "sample_rate_unit": "hertz",
-               "event_based_sampling": false
-            },
-            {
-               "channel_name": "0",
-               "device_name": "TL-1",
-               "channel_type": "Analog Output",
-               "port": null,
-               "channel_index": null,
-               "sample_rate": 10000,
-               "sample_rate_unit": "hertz",
-               "event_based_sampling": false
-            },
-            {
-               "channel_name": "6",
-               "device_name": "LAS-08307",
-               "channel_type": "Analog Output",
-               "port": null,
-               "channel_index": null,
-               "sample_rate": 10000,
-               "sample_rate_unit": "hertz",
-               "event_based_sampling": false
-            }
-         ]
       }
    ],
    "additional_devices": [
@@ -365,12 +293,13 @@
          },
          "model": "EL-16-40-TC-VIS-20D-C",
          "path_to_cad": null,
+         "port_index": null,
          "notes": null,
          "type": "Tunable lens"
       },
       {
          "device_type": "AdditionalImagingDevice",
-         "name": null,
+         "name": "RM-1",
          "serial_number": "01",
          "manufacturer": {
             "name": "Thorlabs",
@@ -383,12 +312,13 @@
          },
          "model": "K10CR1",
          "path_to_cad": null,
+         "port_index": null,
          "notes": null,
          "type": "Rotation mount"
       },
       {
          "device_type": "AdditionalImagingDevice",
-         "name": null,
+         "name": "LC-1",
          "serial_number": "L6CC-00513",
          "manufacturer": {
             "name": "Oxxius",
@@ -398,6 +328,7 @@
          },
          "model": "L6Cc",
          "path_to_cad": null,
+         "port_index": null,
          "notes": null,
          "type": "Laser combiner"
       }
@@ -412,6 +343,90 @@
       {
          "hardware_name": "ASI Tiger",
          "com_port": "COM5"
+      }
+   ],
+   "daqs": [
+      {
+         "device_type": "DAQ Device",
+         "name": "Dev2",
+         "serial_number": null,
+         "manufacturer": {
+            "name": "National Instruments",
+            "abbreviation": null,
+            "registry": {
+               "name": "Research Organization Registry",
+               "abbreviation": "ROR"
+            },
+            "registry_identifier": "026exqw73"
+         },
+         "model": "PCIe-6738",
+         "path_to_cad": null,
+         "port_index": null,
+         "notes": null,
+         "data_interface": "USB",
+         "computer_name": "Dev2",
+         "channels": [
+            {
+               "channel_name": "3",
+               "device_name": "LAS-08308",
+               "channel_type": "Analog Output",
+               "port": null,
+               "channel_index": null,
+               "sample_rate": "10000",
+               "sample_rate_unit": "hertz",
+               "event_based_sampling": null
+            },
+            {
+               "channel_name": "5",
+               "device_name": "539251",
+               "channel_type": "Analog Output",
+               "port": null,
+               "channel_index": null,
+               "sample_rate": "10000",
+               "sample_rate_unit": "hertz",
+               "event_based_sampling": null
+            },
+            {
+               "channel_name": "4",
+               "device_name": "LAS-08309",
+               "channel_type": "Analog Output",
+               "port": null,
+               "channel_index": null,
+               "sample_rate": "10000",
+               "sample_rate_unit": "hertz",
+               "event_based_sampling": null
+            },
+            {
+               "channel_name": "2",
+               "device_name": "stage-x",
+               "channel_type": "Analog Output",
+               "port": null,
+               "channel_index": null,
+               "sample_rate": "10000",
+               "sample_rate_unit": "hertz",
+               "event_based_sampling": null
+            },
+            {
+               "channel_name": "0",
+               "device_name": "TL-1",
+               "channel_type": "Analog Output",
+               "port": null,
+               "channel_index": null,
+               "sample_rate": "10000",
+               "sample_rate_unit": "hertz",
+               "event_based_sampling": null
+            },
+            {
+               "channel_name": "6",
+               "device_name": "LAS-08307",
+               "channel_type": "Analog Output",
+               "port": null,
+               "channel_index": null,
+               "sample_rate": "10000",
+               "sample_rate_unit": "hertz",
+               "event_based_sampling": null
+            }
+         ]
       }
    ],
    "notes": null

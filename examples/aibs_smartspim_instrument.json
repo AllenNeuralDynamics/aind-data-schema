@@ -1,6 +1,6 @@
 {
-   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/imaging/instrument.py",
-   "schema_version": "0.9.5",
+   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/instrument.py",
+   "schema_version": "0.10.1",
    "instrument_id": "SmartSPIM2-2",
    "modification_date": "2023-10-04",
    "instrument_type": "SmartSPIM",
@@ -15,8 +15,8 @@
    "optical_tables": [
       {
          "device_type": "OpticalTable",
-         "name": null,
-         "serial_number": "Unknown",
+         "name": "Table",
+         "serial_number": null,
          "manufacturer": {
             "name": "Technical Manufacturing Corporation",
             "abbreviation": "TMC",
@@ -25,9 +25,10 @@
          },
          "model": "CleanTop",
          "path_to_cad": null,
+         "port_index": null,
          "notes": null,
-         "length": 35,
-         "width": 29,
+         "length": "35",
+         "width": "29",
          "table_size_unit": "inch",
          "vibration_control": true
       }
@@ -36,8 +37,8 @@
    "objectives": [
       {
          "device_type": "Objective",
-         "name": null,
-         "serial_number": "Unknown",
+         "name": "TLX Objective",
+         "serial_number": null,
          "manufacturer": {
             "name": "Thorlabs",
             "abbreviation": null,
@@ -49,9 +50,10 @@
          },
          "model": "TL4X-SAP",
          "path_to_cad": null,
+         "port_index": null,
          "notes": "Thorlabs TL4X-SAP with LifeCanvas dipping cap and correction optics.",
-         "numerical_aperture": 0.2,
-         "magnification": 3.6,
+         "numerical_aperture": "0.2",
+         "magnification": "3.6",
          "immersion": "multi",
          "objective_type": null
       }
@@ -59,7 +61,7 @@
    "detectors": [
       {
          "device_type": "Detector",
-         "name": null,
+         "name": "Camera 1",
          "serial_number": "001107",
          "manufacturer": {
             "name": "Hamamatsu",
@@ -72,6 +74,7 @@
          },
          "model": "C14440-20UP",
          "path_to_cad": null,
+         "port_index": null,
          "notes": null,
          "detector_type": "Camera",
          "data_interface": "USB",
@@ -105,10 +108,11 @@
          },
          "model": "Stradus",
          "path_to_cad": null,
+         "port_index": null,
          "notes": "All lasers controlled via Vortran VersaLase System",
          "wavelength": 488,
          "wavelength_unit": "nanometer",
-         "maximum_power": 150,
+         "maximum_power": "150",
          "power_unit": "milliwatt",
          "coupling": "Single-mode fiber",
          "coupling_efficiency": null,
@@ -130,10 +134,11 @@
          },
          "model": "Obis",
          "path_to_cad": null,
+         "port_index": null,
          "notes": "All lasers controlled via Vortran VersaLase System",
          "wavelength": 561,
          "wavelength_unit": "nanometer",
-         "maximum_power": 150,
+         "maximum_power": "150",
          "power_unit": "milliwatt",
          "coupling": "Single-mode fiber",
          "coupling_efficiency": null,
@@ -152,10 +157,11 @@
          },
          "model": "Stradus",
          "path_to_cad": null,
+         "port_index": null,
          "notes": "All lasers controlled via Vortran VersaLase System",
          "wavelength": 647,
          "wavelength_unit": "nanometer",
-         "maximum_power": 160,
+         "maximum_power": "160",
          "power_unit": "milliwatt",
          "coupling": "Single-mode fiber",
          "coupling_efficiency": null,
@@ -163,12 +169,12 @@
          "item_number": null
       }
    ],
-   "lenses": null,
+   "lenses": [],
    "fluorescence_filters": [
       {
          "device_type": "Filter",
          "name": "Em_525",
-         "serial_number": "Unknown-1",
+         "serial_number": null,
          "manufacturer": {
             "name": "Semrock",
             "abbreviation": null,
@@ -177,13 +183,14 @@
          },
          "model": "FF03-525/50-25",
          "path_to_cad": null,
+         "port_index": null,
          "notes": null,
          "filter_type": "Band pass",
-         "diameter": 25,
+         "diameter": "25",
          "width": null,
          "height": null,
          "size_unit": "millimeter",
-         "thickness": 2.0,
+         "thickness": "2.0",
          "thickness_unit": "millimeter",
          "filter_wheel_index": 0,
          "cut_off_wavelength": null,
@@ -195,7 +202,7 @@
       {
          "device_type": "Filter",
          "name": "Em_600",
-         "serial_number": "Unknown-2",
+         "serial_number": null,
          "manufacturer": {
             "name": "Semrock",
             "abbreviation": null,
@@ -204,13 +211,14 @@
          },
          "model": "FF01-600/52-25",
          "path_to_cad": null,
+         "port_index": null,
          "notes": null,
          "filter_type": "Band pass",
-         "diameter": 25,
+         "diameter": "25",
          "width": null,
          "height": null,
          "size_unit": "millimeter",
-         "thickness": 2.0,
+         "thickness": "2.0",
          "thickness_unit": "millimeter",
          "filter_wheel_index": 1,
          "cut_off_wavelength": null,
@@ -222,7 +230,7 @@
       {
          "device_type": "Filter",
          "name": "Em_690",
-         "serial_number": "Unknown-3",
+         "serial_number": null,
          "manufacturer": {
             "name": "Chroma",
             "abbreviation": null,
@@ -231,13 +239,14 @@
          },
          "model": "ET690/50m",
          "path_to_cad": null,
+         "port_index": null,
          "notes": null,
          "filter_type": "Band pass",
-         "diameter": 25,
+         "diameter": "25",
          "width": null,
          "height": null,
          "size_unit": "millimeter",
-         "thickness": 2.0,
+         "thickness": "2.0",
          "thickness_unit": "millimeter",
          "filter_wheel_index": 2,
          "cut_off_wavelength": null,
@@ -250,8 +259,8 @@
    "motorized_stages": [
       {
          "device_type": "Motorized stage",
-         "name": null,
-         "serial_number": "Unknown-0",
+         "name": "Focus stage",
+         "serial_number": null,
          "manufacturer": {
             "name": "Applied Scientific Instrumentation",
             "abbreviation": "ASI",
@@ -260,15 +269,16 @@
          },
          "model": "LS-100",
          "path_to_cad": null,
-         "notes": "Focus stage",
-         "travel": 100,
+         "port_index": null,
+         "notes": null,
+         "travel": "100",
          "travel_unit": "millimeter",
          "firmware": null
       },
       {
          "device_type": "Motorized stage",
-         "name": null,
-         "serial_number": "Unknown-1",
+         "name": "Cylindrical lens #1",
+         "serial_number": null,
          "manufacturer": {
             "name": "IR Robot Co",
             "abbreviation": null,
@@ -277,15 +287,16 @@
          },
          "model": "L12-20F-4",
          "path_to_cad": null,
-         "notes": "Cylindrical lens #1",
-         "travel": 41,
+         "port_index": null,
+         "notes": null,
+         "travel": "41",
          "travel_unit": "millimeter",
          "firmware": null
       },
       {
          "device_type": "Motorized stage",
-         "name": null,
-         "serial_number": "Unknown-2",
+         "name": "Cylindrical lens #2",
+         "serial_number": null,
          "manufacturer": {
             "name": "IR Robot Co",
             "abbreviation": null,
@@ -294,15 +305,16 @@
          },
          "model": "L12-20F-4",
          "path_to_cad": null,
-         "notes": "Cylindrical lens #2",
-         "travel": 41,
+         "port_index": null,
+         "notes": null,
+         "travel": "41",
          "travel_unit": "millimeter",
          "firmware": null
       },
       {
          "device_type": "Motorized stage",
-         "name": null,
-         "serial_number": "Unknown-3",
+         "name": "Cylindrical lens #3",
+         "serial_number": null,
          "manufacturer": {
             "name": "IR Robot Co",
             "abbreviation": null,
@@ -311,15 +323,16 @@
          },
          "model": "L12-20F-4",
          "path_to_cad": null,
-         "notes": "Cylindrical lens #3",
-         "travel": 41,
+         "port_index": null,
+         "notes": null,
+         "travel": "41",
          "travel_unit": "millimeter",
          "firmware": null
       },
       {
          "device_type": "Motorized stage",
-         "name": null,
-         "serial_number": "Unknown-4",
+         "name": "Cylindrical lens #4",
+         "serial_number": null,
          "manufacturer": {
             "name": "IR Robot Co",
             "abbreviation": null,
@@ -328,8 +341,9 @@
          },
          "model": "L12-20F-4",
          "path_to_cad": null,
-         "notes": "Cylindrical lens #4",
-         "travel": 41,
+         "port_index": null,
+         "notes": null,
+         "travel": "41",
          "travel_unit": "millimeter",
          "firmware": null
       }
@@ -337,8 +351,8 @@
    "scanning_stages": [
       {
          "device_type": "Motorized stage",
-         "name": null,
-         "serial_number": "Unknown-0",
+         "name": "Sample stage Z",
+         "serial_number": null,
          "manufacturer": {
             "name": "Applied Scientific Instrumentation",
             "abbreviation": "ASI",
@@ -347,8 +361,9 @@
          },
          "model": "LS-50",
          "path_to_cad": null,
-         "notes": "Sample stage Z",
-         "travel": 50,
+         "port_index": null,
+         "notes": null,
+         "travel": "50",
          "travel_unit": "millimeter",
          "firmware": null,
          "stage_axis_direction": "Detection axis",
@@ -356,8 +371,8 @@
       },
       {
          "device_type": "Motorized stage",
-         "name": null,
-         "serial_number": "Unknown-1",
+         "name": "Sample stage X",
+         "serial_number": null,
          "manufacturer": {
             "name": "Applied Scientific Instrumentation",
             "abbreviation": "ASI",
@@ -366,8 +381,9 @@
          },
          "model": "LS-50",
          "path_to_cad": null,
-         "notes": "Sample stage X",
-         "travel": 50,
+         "port_index": null,
+         "notes": null,
+         "travel": "50",
          "travel_unit": "millimeter",
          "firmware": null,
          "stage_axis_direction": "Illumination axis",
@@ -375,8 +391,8 @@
       },
       {
          "device_type": "Motorized stage",
-         "name": null,
-         "serial_number": "Unknown-2",
+         "name": "Sample stage Y",
+         "serial_number": null,
          "manufacturer": {
             "name": "Applied Scientific Instrumentation",
             "abbreviation": "ASI",
@@ -385,20 +401,20 @@
          },
          "model": "LS-50",
          "path_to_cad": null,
-         "notes": "Sample stage Y",
-         "travel": 50,
+         "port_index": null,
+         "notes": null,
+         "travel": "50",
          "travel_unit": "millimeter",
          "firmware": null,
          "stage_axis_direction": "Perpendicular axis",
          "stage_axis_name": "Y"
       }
    ],
-   "daqs": null,
    "additional_devices": [
       {
          "device_type": "AdditionalImagingDevice",
-         "name": null,
-         "serial_number": "Unknown-1",
+         "name": "Lens 1",
+         "serial_number": null,
          "manufacturer": {
             "name": "Optotune",
             "abbreviation": null,
@@ -407,13 +423,14 @@
          },
          "model": "EL-16-40-TC",
          "path_to_cad": null,
+         "port_index": null,
          "notes": null,
-         "type": "Other"
+         "type": "Tunable lens"
       },
       {
          "device_type": "AdditionalImagingDevice",
-         "name": null,
-         "serial_number": "Unknown-2",
+         "name": "Lens 2",
+         "serial_number": null,
          "manufacturer": {
             "name": "Optotune",
             "abbreviation": null,
@@ -422,13 +439,14 @@
          },
          "model": "EL-16-40-TC",
          "path_to_cad": null,
+         "port_index": null,
          "notes": null,
-         "type": "Other"
+         "type": "Tunable lens"
       },
       {
          "device_type": "AdditionalImagingDevice",
-         "name": null,
-         "serial_number": "Unknown-1",
+         "name": "Sample chamber",
+         "serial_number": null,
          "manufacturer": {
             "name": "LifeCanvas",
             "abbreviation": null,
@@ -437,6 +455,7 @@
          },
          "model": "Large-uncoated-glass",
          "path_to_cad": null,
+         "port_index": null,
          "notes": null,
          "type": "Sample Chamber"
       }
@@ -457,5 +476,6 @@
          "com_port": "COM4"
       }
    ],
+   "daqs": [],
    "notes": null
 }

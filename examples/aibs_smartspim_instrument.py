@@ -1,9 +1,18 @@
 """ example SmartSPIM instrument """
 import datetime
 
-from aind_data_schema.device import Detector, Filter, Laser, MotorizedStage, Objective
-from aind_data_schema.imaging.instrument import AdditionalImagingDevice, Com, Instrument, OpticalTable, ScanningStage
-from aind_data_schema.manufacturers import Manufacturer
+from aind_data_schema.core.instrument import Com, Instrument
+from aind_data_schema.models.devices import (
+    AdditionalImagingDevice,
+    Detector,
+    Filter,
+    Laser,
+    MotorizedStage,
+    Objective,
+    OpticalTable,
+    ScanningStage,
+)
+from aind_data_schema.models.manufacturers import Manufacturer
 
 inst = Instrument(
     instrument_id="SmartSPIM2-2",
@@ -12,17 +21,18 @@ inst = Instrument(
     manufacturer=Manufacturer.LIFECANVAS,
     objectives=[
         Objective(
+            name="TLX Objective",
             numerical_aperture=0.2,
             magnification=3.6,
             immersion="multi",
             manufacturer=Manufacturer.THORLABS,
             model="TL4X-SAP",
-            serial_number="Unknown",
             notes="Thorlabs TL4X-SAP with LifeCanvas dipping cap and correction optics.",
         ),
     ],
     detectors=[
         Detector(
+            name="Camera 1",
             detector_type="Camera",
             data_interface="USB",
             cooling="air",
@@ -68,78 +78,70 @@ inst = Instrument(
     ],
     motorized_stages=[
         MotorizedStage(
+            name="Focus stage",
             model="LS-100",
             manufacturer=Manufacturer.ASI,
-            serial_number="Unknown-0",
             travel=100,
-            notes="Focus stage",
         ),
         MotorizedStage(
+            name="Cylindrical lens #1",
             model="L12-20F-4",
             manufacturer=Manufacturer.MIGHTY_ZAP,
-            serial_number="Unknown-1",
             travel=41,
-            notes="Cylindrical lens #1",
         ),
         MotorizedStage(
+            name="Cylindrical lens #2",
             model="L12-20F-4",
             manufacturer=Manufacturer.MIGHTY_ZAP,
-            serial_number="Unknown-2",
             travel=41,
-            notes="Cylindrical lens #2",
         ),
         MotorizedStage(
+            name="Cylindrical lens #3",
             model="L12-20F-4",
             manufacturer=Manufacturer.MIGHTY_ZAP,
-            serial_number="Unknown-3",
             travel=41,
-            notes="Cylindrical lens #3",
         ),
         MotorizedStage(
+            name="Cylindrical lens #4",
             model="L12-20F-4",
             manufacturer=Manufacturer.MIGHTY_ZAP,
-            serial_number="Unknown-4",
             travel=41,
-            notes="Cylindrical lens #4",
         ),
     ],
     scanning_stages=[
         ScanningStage(
+            name="Sample stage Z",
             model="LS-50",
             manufacturer=Manufacturer.ASI,
-            serial_number="Unknown-0",
             stage_axis_direction="Detection axis",
             stage_axis_name="Z",
             travel=50,
-            notes="Sample stage Z",
         ),
         ScanningStage(
+            name="Sample stage X",
             model="LS-50",
             manufacturer=Manufacturer.ASI,
-            serial_number="Unknown-1",
             stage_axis_direction="Illumination axis",
             stage_axis_name="X",
             travel=50,
-            notes="Sample stage X",
         ),
         ScanningStage(
+            name="Sample stage Y",
             model="LS-50",
             manufacturer=Manufacturer.ASI,
-            serial_number="Unknown-2",
             stage_axis_direction="Perpendicular axis",
             stage_axis_name="Y",
             travel=50,
-            notes="Sample stage Y",
         ),
     ],
     optical_tables=[
         OpticalTable(
+            name="Table",
             model="CleanTop",  # model="VIS2424-IG2-125A", # ~3 months
             length=35,  # length=24,
             width=29,  # width=24,
             vibration_control=True,
             manufacturer=Manufacturer.TMC,
-            serial_number="Unknown",
         )
     ],
     humidity_control=False,
@@ -164,7 +166,6 @@ inst = Instrument(
             thickness=2.0,
             model="FF03-525/50-25",
             filter_wheel_index=0,
-            serial_number="Unknown-1",
         ),
         Filter(
             name="Em_600",
@@ -174,7 +175,6 @@ inst = Instrument(
             thickness=2.0,
             model="FF01-600/52-25",
             filter_wheel_index=1,
-            serial_number="Unknown-2",
         ),
         Filter(
             name="Em_690",
@@ -184,27 +184,26 @@ inst = Instrument(
             thickness=2.0,
             model="ET690/50m",
             filter_wheel_index=2,
-            serial_number="Unknown-3",
         ),
     ],
     additional_devices=[
         AdditionalImagingDevice(
-            type="Other",
+            name="Lens 1",
+            type="Tunable lens",
             manufacturer=Manufacturer.OPTOTUNE,
             model="EL-16-40-TC",
-            serial_number="Unknown-1",
         ),
         AdditionalImagingDevice(
-            type="Other",
+            name="Lens 2",
+            type="Tunable lens",
             manufacturer=Manufacturer.OPTOTUNE,
             model="EL-16-40-TC",
-            serial_number="Unknown-2",
         ),
         AdditionalImagingDevice(
+            name="Sample chamber",
             type="Sample Chamber",
             manufacturer=Manufacturer.LIFECANVAS,
             model="Large-uncoated-glass",
-            serial_number="Unknown-1",
         ),
     ],
 )

@@ -1,0 +1,38 @@
+{
+   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/subject.py",
+   "schema_version": "0.5.0",
+   "species": {
+      "name": "Mus musculus",
+      "abbreviation": null,
+      "registry": {
+         "name": "National Center for Biotechnology Information",
+         "abbreviation": "NCBI"
+      },
+      "registry_identifier": "10090"
+   },
+   "subject_id": "12345",
+   "sex": "Male",
+   "date_of_birth": "2022-11-22",
+   "genotype": "Emx1-IRES-Cre;Camk2a-tTA;Ai93(TITL-GCaMP6f)",
+   "mgi_allele_ids": [],
+   "background_strain": "C57BL/6J",
+   "source": null,
+   "rrid": null,
+   "restrictions": null,
+   "breeding_group": null,
+   "maternal_id": null,
+   "maternal_genotype": null,
+   "paternal_id": null,
+   "paternal_genotype": null,
+   "wellness_reports": [],
+   "housing": {
+      "cage_id": "123",
+      "room_id": null,
+      "light_cycle": null,
+      "home_cage_enrichment": [
+         "Running wheel"
+      ],
+      "cohoused_subjects": []
+   },
+   "notes": null
+}

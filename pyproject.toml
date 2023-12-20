@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "aind-data-schema"
 description = "A library that defines AIND data schema and validates JSON files."
 license = {text = "MIT"}
-requires-python = ">=3.7"
+requires-python = ">=3.8"
 classifiers = [
     "Programming Language :: Python :: 3"
 ]
@@ -15,11 +15,10 @@ dynamic = ["version"]
 
 dependencies = [
     'dictdiffer',
-    'pydantic<2.0',
+    'pydantic>2.0',
+    'inflection',
     'jsonschema',
-    'semver',
-    'typing_extensions; python_version < "3.8"',
-    'typing_extensions < 4.6.0; python_version < "3.10"' # we will need to unpin this when pydantic releases a new version
+    'semver'
 ]
 
 [project.optional-dependencies]
@@ -38,7 +37,6 @@ linters = [
 ]
 
 docs = [
-    'erdantic==0.5.0',
     'Sphinx',
     'sphinx-jinja',
     'furo'
@@ -53,7 +51,7 @@ readme = {file = ["README.md"]}
 
 [tool.black]
 line-length = 120
-target_version = ['py36']
+target_version = ['py38']
 exclude = '''
 
 (

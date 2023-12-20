@@ -1,8 +1,7 @@
 """Module to contain code to upgrade old processing models"""
 
-from aind_data_schema.processing import DataProcess, PipelineProcess, Processing
-
-from .base_upgrade import AindModel, BaseModelUpgrade
+from aind_data_schema.core.processing import DataProcess, PipelineProcess, Processing
+from aind_data_schema.schema_upgrade.base_upgrade import AindModel, BaseModelUpgrade
 
 
 class DataProcessUpgrade(BaseModelUpgrade):
@@ -22,18 +21,15 @@ class DataProcessUpgrade(BaseModelUpgrade):
         """Upgrades the old model into the current version"""
         version = self._get_or_default(self.old_model, "version", kwargs)
         software_version = self._get_or_default(self.old_model, "software_version", kwargs)
-        data_process_dict = self.old_model.dict()
         if version is not None and software_version is None:
-            software_version = version
-            data_process_dict["software_version"] = software_version
-            del data_process_dict["version"]
+            self.old_model.software_version = version
         # Empty notes with 'Other' name is not allowed in the new schema
         name = self._get_or_default(self.old_model, "name", kwargs)
         notes = self._get_or_default(self.old_model, "notes", kwargs)
         if name == "Other" and notes is None:
-            data_process_dict["notes"] = "missing notes"
+            self.old_model.notes = "missing notes"
 
-        return DataProcess(**data_process_dict)
+        return self.old_model
 
 
 class ProcessingUpgrade(BaseModelUpgrade):
@@ -62,7 +58,7 @@ class ProcessingUpgrade(BaseModelUpgrade):
             if data_processes is not None:
                 # upgrade data processes
                 data_processes_new = [
-                    DataProcessUpgrade(DataProcess.construct(**data_process)).upgrade()
+                    DataProcessUpgrade(DataProcess.model_construct(**data_process)).upgrade()
                     for data_process in data_processes
                 ]
                 processor_full_name = kwargs.get("processor_full_name")

@@ -133,7 +133,8 @@
             "Mus musculus",
             "Callithrix jacchus",
             "Macaca mulatta",
-            "Homo sapiens"
+            "Homo sapiens",
+            "Rattus norvegicus"
          ]
       },
       "Sex": {

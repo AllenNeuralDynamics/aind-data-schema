@@ -1,6 +1,6 @@
 {
-   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/data_description.py",
-   "schema_version": "0.11.0",
+   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/data_description.py",
+   "schema_version": "0.12.1",
    "license": "CC-BY-4.0",
    "creation_time": "2022-02-21T16:30:01",
    "name": "ecephys_12345_2022-02-21_16-30-01",

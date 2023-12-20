@@ -1,5 +1,6 @@
 """Module to test json_writer classes."""
 
+import json
 import os
 import unittest
 from pathlib import Path
@@ -20,10 +21,10 @@ class SchemaWriterTests(unittest.TestCase):
 
         for schema in schema_gen:
             filename = schema.default_filename()
-            file_extension = schema.default_file_extension()
-            schema_filename = filename.replace(file_extension, "_schema.json")
-            schema_contents = schema.schema_json(indent=3)
-            self.assertIsNotNone(schema_filename)
+            # file_extension = schema.default_file_extension()
+            # schema_filename = filename.replace(file_extension, "_schema.json")
+            schema_contents = schema.model_json_schema()
+            self.assertIsNotNone(filename)
             self.assertIsNotNone(schema_contents)
 
     def test_parse_args(self):
@@ -54,12 +55,13 @@ class SchemaWriterTests(unittest.TestCase):
         write_calls = []
         for schema in schema_gen:
             filename = schema.default_filename()
-            file_extension = schema.default_file_extension()
+            file_extension = "".join(Path(filename).suffixes)
             schema_filename = filename.replace(file_extension, "_schema.json")
             path = Path("some_test_dir") / schema_filename
-            schema_contents = schema.schema_json(indent=3)
+            schema_json: dict = schema.model_json_schema()
+            schema_json_str: str = json.dumps(schema_json, indent=3)
             open_calls.append(call(path, "w"))
-            write_calls.append(call(schema_contents))
+            write_calls.append(call(schema_json_str))
         mock_mkdir.assert_called_once_with(Path("some_test_dir"), 511)
         mock_file.assert_has_calls(open_calls, any_order=True)
         file_handle.write.assert_has_calls(write_calls, any_order=True)
@@ -84,17 +86,20 @@ class SchemaWriterTests(unittest.TestCase):
         mkdir_calls = []
         for schema in schema_gen:
             filename = schema.default_filename()
-            file_extension = schema.default_file_extension()
+            file_extension = "".join(Path(filename).suffixes)
             schema_filename = filename.replace(file_extension, "_schema.json")
             model_directory_name = schema_filename.replace("_schema.json", "")
-            path = Path("some_test_dir") / model_directory_name / schema.construct().schema_version / schema_filename
-            schema_contents = schema.schema_json(indent=3)
+            path = (
+                Path("some_test_dir") / model_directory_name / schema.model_construct().schema_version / schema_filename
+            )
+            schema_json: dict = schema.model_json_schema()
+            schema_json_str: str = json.dumps(schema_json, indent=3)
             mkdir_calls.append(call("some_test_dir", 511))
             mkdir_calls.append(call(str(path.parent.parent), 511))
             mkdir_calls.append(call(path.parent, 511))
 
             open_calls.append(call(path, "w"))
-            write_calls.append(call(schema_contents))
+            write_calls.append(call(schema_json_str))
         mock_mkdir.assert_has_calls(
             calls=mkdir_calls,
             any_order=True,

@@ -1,6 +1,6 @@
 {
-   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/session.py",
-   "schema_version": "0.0.8",
+   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/session.py",
+   "schema_version": "0.1.0",
    "experimenter_full_name": [
       "John Doe"
    ],
@@ -9,8 +9,8 @@
    "session_type": "Parameter Testing",
    "iacuc_protocol": "2115",
    "rig_id": "ophys_rig",
-   "calibrations": null,
-   "maintenance": null,
+   "calibrations": [],
+   "maintenance": [],
    "subject_id": "652567",
    "animal_weight_prior": null,
    "animal_weight_post": null,
@@ -25,15 +25,15 @@
                "abbreviation": "fib"
             }
          ],
-         "daq_names": null,
-         "camera_names": null,
+         "daq_names": [],
+         "camera_names": [],
          "light_sources": [
             {
                "device_type": "Laser",
                "name": "Laser A",
                "wavelength": 405,
                "wavelength_unit": "nanometer",
-               "excitation_power": 10,
+               "excitation_power": "10",
                "excitation_power_unit": "milliwatt"
             },
             {
@@ -41,17 +41,17 @@
                "name": "Laser B",
                "wavelength": 473,
                "wavelength_unit": "nanometer",
-               "excitation_power": 7,
+               "excitation_power": "7",
                "excitation_power_unit": "milliwatt"
             }
          ],
-         "ephys_modules": null,
-         "stick_microscopes": null,
-         "manipulator_modules": null,
+         "ephys_modules": [],
+         "stick_microscopes": [],
+         "manipulator_modules": [],
          "detectors": [
             {
                "name": "Hamamatsu Camera",
-               "exposure_time": 10,
+               "exposure_time": "10",
                "exposure_time_unit": "millisecond",
                "trigger_type": "Internal"
             }
@@ -59,28 +59,28 @@
          "fiber_connections": [
             {
                "patch_cord_name": "Patch Cord A",
-               "patch_cord_output_power": 40,
+               "patch_cord_output_power": "40",
                "output_power_unit": "microwatt",
                "fiber_name": "Fiber A"
             },
             {
                "patch_cord_name": "Patch Cord B",
-               "patch_cord_output_power": 43,
+               "patch_cord_output_power": "43",
                "output_power_unit": "microwatt",
                "fiber_name": "Fiber B"
             }
          ],
-         "fiber_modules": null,
-         "ophys_fovs": null,
+         "fiber_modules": [],
+         "ophys_fovs": [],
          "slap_fovs": null,
          "stack_parameters": null,
-         "stimulus_device_names": null,
+         "stimulus_device_names": [],
          "mouse_platform_name": "Disc",
          "active_mouse_platform": false,
          "notes": "Internal trigger. GRAB-DA2m shows signal. Unclear about GRAB-rAC"
       }
    ],
-   "stimulus_epochs": null,
+   "stimulus_epochs": [],
    "reward_delivery": null,
    "reward_consumed_total": null,
    "reward_consumed_unit": "microliter",
