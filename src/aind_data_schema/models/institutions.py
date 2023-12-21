@@ -5,6 +5,7 @@ from typing import Literal, Union
 from pydantic import ConfigDict, Field
 from typing_extensions import Annotated
 
+from aind_data_schema.base import constant
 from aind_data_schema.models.pid_names import PIDName
 from aind_data_schema.models.registry import Registry, ResearchOrganizationRegistry
 
@@ -18,10 +19,10 @@ class _Institution(PIDName):
 class AllenInstitute(_Institution):
     """AllenInstitute"""
 
-    name: Literal["Allen Institute"] = "Allen Institute"
-    abbreviation: Literal["AI"] = "AI"
+    name: constant("Allen Institute")
+    abbreviation: constant("AI")
     registry: Annotated[Union[ResearchOrganizationRegistry], Field(default=Registry.ROR, discriminator="name")]
-    registry_identifier: Literal["03cpe7c52"] = "03cpe7c52"
+    registry_identifier: constant("03cpe7c52")
 
 
 class AllenInstituteForBrainScience(_Institution):
