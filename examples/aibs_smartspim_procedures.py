@@ -37,18 +37,18 @@ perfusion = procedures.Surgery(
     iacuc_protocol="xxxx",
     procedures=[
         procedures.Perfusion(
-            procedure_type="Perfusion",
             protocol_id="doi_of_protocol",
-            output_specimen_ids=[specimen_id,],
+            output_specimen_ids=[
+                specimen_id,
+            ],
         )
-    ]
+    ],
 )
 
 # perfused brain goes into SHIELD OFF solution
-shield_off_procedure = procedures.SpecimenProcedure(
+shield_off_procedure = procedures.OtherSpecimenProcedure(
     specimen_id=specimen_id,
-    procedure_name="test_name",
-    procedure_type="Fixation",
+    procedure_name="Fixation",
     start_date=date(2023, 1, 13),
     end_date=date(2023, 1, 17),
     experimenter_full_name=experimenter,
@@ -57,10 +57,9 @@ shield_off_procedure = procedures.SpecimenProcedure(
 )
 
 # specimen gets transferred to SHIELD ON and baked
-shield_on_procedure = procedures.SpecimenProcedure(
+shield_on_procedure = procedures.OtherSpecimenProcedure(
     specimen_id=specimen_id,
-    procedure_name="test_name",
-    procedure_type="Fixation",
+    procedure_name="Fixation",
     start_date=date(2023, 1, 17),
     end_date=date(2023, 1, 18),
     experimenter_full_name=experimenter,
@@ -72,10 +71,9 @@ shield_on_procedure = procedures.SpecimenProcedure(
 )
 
 # specimen gets transferred to delipidation buffer
-delipidation_prep_procedure = procedures.SpecimenProcedure(
+delipidation_prep_procedure = procedures.OtherSpecimenProcedure(
     specimen_id=specimen_id,
-    procedure_name="test_name",
-    procedure_type="Soak",
+    procedure_name="Soak",
     start_date=date(2023, 1, 18),
     end_date=date(2023, 1, 19),
     experimenter_full_name=experimenter,
@@ -86,10 +84,9 @@ delipidation_prep_procedure = procedures.SpecimenProcedure(
 )
 
 # specimen goes into active delipidation box
-active_delipidation_procedure = procedures.SpecimenProcedure(
+active_delipidation_procedure = procedures.OtherSpecimenProcedure(
     specimen_id=specimen_id,
-    procedure_name="Active Delipidation",
-    procedure_type="Delipidation",
+    procedure_name="Delipidation",
     start_date=date(2023, 1, 19),
     end_date=date(2023, 1, 20),
     experimenter_full_name=experimenter,
@@ -98,10 +95,9 @@ active_delipidation_procedure = procedures.SpecimenProcedure(
 )
 
 # First index matching is to 50% EasyIndex
-index1 = procedures.SpecimenProcedure(
+index1 = procedures.OtherSpecimenProcedure(
     specimen_id=specimen_id,
-    procedure_name="test_name",
-    procedure_type="Soak",
+    procedure_name="Soak",
     start_date=date(2023, 1, 30),
     end_date=date(2023, 1, 31),
     experimenter_full_name=experimenter,
@@ -113,10 +109,9 @@ index1 = procedures.SpecimenProcedure(
 )
 
 # Now to 100% EasyIndex
-index2 = procedures.SpecimenProcedure(
+index2 = procedures.OtherSpecimenProcedure(
     specimen_id=specimen_id,
-    procedure_name="test_name",
-    procedure_type="Soak",
+    procedure_name="Soak",
     start_date=date(2023, 1, 31),
     end_date=date(2023, 2, 2),
     experimenter_full_name=experimenter,
@@ -127,10 +122,9 @@ index2 = procedures.SpecimenProcedure(
 )
 
 # Specimen embedded into 2% agarose, prepared with EasyIndex
-embedding = procedures.SpecimenProcedure(
+embedding = procedures.OtherSpecimenProcedure(
     specimen_id=specimen_id,
-    procedure_name="test_name",
-    procedure_type="Embedding",
+    procedure_name="Embedding",
     start_date=date(2023, 1, 31),
     end_date=date(2023, 2, 2),
     experimenter_full_name=experimenter,

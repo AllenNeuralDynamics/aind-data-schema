@@ -4,6 +4,7 @@
    "subject_id": "625100",
    "subject_procedures": [
       {
+         "procedure_type": "Surgery",
          "start_date": "2022-07-12",
          "experimenter_full_name": "John Apple",
          "iacuc_protocol": "2109",
@@ -84,6 +85,7 @@
          "notes": null
       },
       {
+         "procedure_type": "Surgery",
          "start_date": "2022-09-23",
          "experimenter_full_name": "Frank Lee",
          "iacuc_protocol": "2109",
