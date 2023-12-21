@@ -7,7 +7,7 @@ from typing import List, Literal, Optional
 
 from pydantic import Field
 
-from aind_data_schema.base import AindCoreModel, AindModel
+from aind_data_schema.base import AindCoreModel, AindModel, Constant
 from aind_data_schema.models.institutions import Institution
 from aind_data_schema.models.pid_names import PIDName
 from aind_data_schema.models.species import Species
@@ -85,7 +85,7 @@ class Subject(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/subject.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["0.5.2"] = Field("0.5.2")
+    schema_version: Constant("0.5.2")
     species: Species.ONE_OF = Field(..., title="Species")
     subject_id: str = Field(
         ...,

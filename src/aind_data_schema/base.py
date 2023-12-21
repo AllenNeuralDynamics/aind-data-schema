@@ -2,7 +2,8 @@
 
 import re
 from pathlib import Path
-from typing import Optional
+from typing import Literal, Optional
+from typing_extensions import Annotated
 
 from pydantic import BaseModel, ConfigDict, Field, PrivateAttr
 
@@ -58,3 +59,9 @@ class AindCoreModel(AindModel):
 
         with open(filename, "w") as f:
             f.write(self.model_dump_json(indent=3))
+
+def Constant(literal, *args, **kwargs):
+    """
+    A field that is always equal to a constant value.
+    """
+    return Annotated[Literal[literal], Field(literal, *args, **kwargs)]
