@@ -60,8 +60,5 @@ class AindCoreModel(AindModel):
         with open(filename, "w") as f:
             f.write(self.model_dump_json(indent=3))
 
-def Constant(literal, *args, **kwargs):
-    """
-    A field that is always equal to a constant value.
-    """
-    return Annotated[Literal[literal], Field(literal, *args, **kwargs)]
+def constant(default, *args, **kwargs):
+    return Annotated[Literal[default], Field(default, *args, **kwargs)]
