@@ -9,9 +9,9 @@ from aind_data_schema.core.procedures import (
     InjectionMaterial,
     NanojectInjection,
     OphysProbe,
+    OtherSpecimenProcedure,
     Procedures,
     RetroOrbitalInjection,
-    SpecimenProcedure,
     Surgery,
 )
 from aind_data_schema.models.devices import FiberProbe
@@ -134,11 +134,10 @@ class ProceduresTests(unittest.TestCase):
     def test_notes_other(self):
         """Test that the other/notes validation error works"""
 
-        with self.assertRaises(ValidationError):
-            SpecimenProcedure(
+        with self.assertRaises(ValidationError) as e:
+            OtherSpecimenProcedure(
                 specimen_id="1000",
-                procedure_name="procedure name",
-                procedure_type="Other - see notes",
+                procedure_name="Other - see notes",
                 start_date=date.fromisoformat("2020-10-10"),
                 end_date=date.fromisoformat("2020-10-11"),
                 experimenter_full_name="guy person",
@@ -146,6 +145,27 @@ class ProceduresTests(unittest.TestCase):
                 reagents=[],
                 notes=None,
             )
+        expected_execption = (
+            "1 validation error for OtherSpecimenProcedure\n"
+            "procedure_name\n"
+            "  Assertion failed, Notes cannot be empty if procedure_name is Other."
+            " Describe the procedure in the notes field."
+            " [type=assertion_error, input_value='Other - see notes', input_type=str]\n"
+            "    For further information visit https://errors.pydantic.dev/2.5/v/assertion_error"
+        )
+        self.assertEqual(expected_execption, repr(e.exception))
+        self.assertIsNotNone(
+            OtherSpecimenProcedure(
+                specimen_id="1000",
+                procedure_name="Other - see notes",
+                start_date=date.fromisoformat("2020-10-10"),
+                end_date=date.fromisoformat("2020-10-11"),
+                experimenter_full_name="guy person",
+                protocol_id="10",
+                reagents=[],
+                notes="some extra information",
+            )
+        )
 
     def test_coordinate_volume_validator(self):
         """Test validator for list lengths on NanojectInjection"""

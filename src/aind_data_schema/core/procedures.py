@@ -139,27 +139,26 @@ class SpecimenProcedure(AindModel):
     )
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     reagents: List[Reagent] = Field(default=[], title="Reagents")
-    notes: Optional[str] = Field(None, title="Notes", validate_default=True)
+    notes: Optional[str] = Field(None, title="Notes")
 
 
 class OtherSpecimenProcedure(SpecimenProcedure):
-    """ """
-    procedure_type: Literal["Other Specimen Procedure"] = "Other Specimen Procedure"
+    """Generic Specimen Procedure class"""
 
+    procedure_type: Literal["Other Specimen Procedure"] = "Other Specimen Procedure"
     procedure_name: SpecimenProcedureName = Field(..., title="Procedure name")
-    
+
     @field_validator("procedure_name")
     def validate_other_procedure_name(cls, v, info: ValidationInfo):
-        """Adds a validation check on 'notes' to verify it is not None if procedure_name is OTHER"""
+        """Adds a validation check on procedure_name to check if notes is not
+        None if procedure_name is SpecimenProcedureName.OTHER"""
 
-        procedure_name = v
         notes = info.data["notes"]
-        if procedure_name == SpecimenProcedureName.OTHER and not notes:
+        if v == SpecimenProcedureName.OTHER and not notes:
             raise AssertionError(
-                "Notes cannot be empty if procedure_name is Other. Describe the procedure_type in the notes field."
+                "Notes cannot be empty if procedure_name is Other. Describe the procedure in the notes field."
             )
         return v
-
 
 
 class Readout(Reagent):
@@ -558,12 +557,7 @@ class Procedures(AindCoreModel):
     )
     subject_procedures: List[
         Annotated[
-            Union[
-                Surgery,
-                TrainingProtocol,
-                WaterRestriction,
-                OtherSubjectProcedure
-            ],
+            Union[Surgery, TrainingProtocol, WaterRestriction, OtherSubjectProcedure],
             Field(discriminator="procedure_type"),
         ]
     ] = Field([], title="Subject Procedures")
