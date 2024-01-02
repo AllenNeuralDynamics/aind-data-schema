@@ -10,6 +10,7 @@ from aind_data_schema.models.devices import (
     Calibration,
     Camera,
     CameraAssembly,
+    ChannelType,
     DAQChannel,
     Detector,
     Disc,
@@ -20,6 +21,8 @@ from aind_data_schema.models.devices import (
     Lens,
     Manipulator,
     NeuropixelsBasestation,
+    Olfactometer,
+    OlfactometerChannel,
     Patch,
     StickMicroscopeAssembly,
 )
@@ -178,6 +181,26 @@ class RigTests(unittest.TestCase):
                     numerical_aperture=0.37,
                 )
             ],
+            olfactometer = Olfactometer(
+                name="Olfactometer",
+                manufacturer=Manufacturer.OEPS,
+                model="1234",
+                serial_number="213456",
+                channels=[
+                    OlfactometerChannel(
+                        channel_index=0,
+                        channel_type=ChannelType.CARRIER,
+                        flow_range="0-100 ml/min",
+                        ),
+                    OlfactometerChannel(
+                        channel_index=1,
+                        channel_type=ChannelType.ODOR,
+                        flow_range="0-100 ml/min",
+                        odor_vial_volume=10,
+                        odorant_volume=6,
+                        )
+                    ]
+                ),
             mouse_platform=Disc(name="Disc A", radius=1),
             calibrations=[
                 Calibration(
