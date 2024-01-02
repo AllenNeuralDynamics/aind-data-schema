@@ -821,7 +821,7 @@ class OlfactometerChannel(AindModel):
     volume_unit: VolumeUnit = Field(VolumeUnit.ML, title="Volume unit")
 
     @field_validator("channel_type")
-    def validate_volume(cls, value, info: ValidationInfo):
+    def validate_channel(cls, value: str, info: ValidationInfo):
         """Validator for channel type"""
 
         if ChannelType.ODOR in value:
