@@ -5,7 +5,8 @@ from decimal import Decimal
 from enum import Enum
 from typing import Any, Dict, List, Literal, Optional, Union
 
-from pydantic import Field
+from pydantic import Field, field_validator
+from pydantic_core.core_schema import ValidationInfo
 from typing_extensions import Annotated
 
 from aind_data_schema.base import AindModel
@@ -802,16 +803,37 @@ class ChannelType(Enum):
     CARRIER = "Carrier"
 
 
+class FlowRange(Enum):
+    """Olfactometer flow ranges"""
+
+    LOW = "0-100 ml/min"
+    HIGH = "0-1000 ml/min"
+
+
 class OlfactometerChannel(AindModel):
     """description of a Olfactometer channel"""
 
     channel_index: int = Field(..., title="Channel index")
-    channel_type: ChannelType = Field(..., title="Channel type")
-    flow_range: int = Field(..., title="Flow range")
-    flow_range_unit: str = Field("mL/min", title="Flow range unit")
-    odor_vial_volume: Decimal = Field(..., title="Odor vial volume")
-    odorant_volume: Decimal = Field(..., title="Odorant volume")
+    channel_type: ChannelType = Field(default=ChannelType.ODOR, title="Channel type")
+    flow_range: FlowRange = Field(..., title="Flow range")
+    odor_vial_volume: Optional[Decimal] = Field(None, title="Odor vial volume")
+    odorant_volume: Optional[Decimal] = Field(None, title="Odorant volume")
     volume_unit: VolumeUnit = Field(VolumeUnit.ML, title="Volume unit")
+
+    @field_validator("channel_type")
+    def validate_volume(cls, value: str, info: ValidationInfo):
+        """Validator for channel type"""
+
+        if ChannelType.ODOR in value:
+            odor_vial = info.data["odor_vial_volume"]
+            odorant = info.data["odorant_volume"]
+            if not odor_vial or not odorant:
+                raise AssertionError(
+                    "Odor channels must specify odor_vial_volume and odorant_volume"
+                )
+            return value
+        else:
+            return None
 
 
 class Olfactometer(HarpDevice):
