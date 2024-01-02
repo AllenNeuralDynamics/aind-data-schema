@@ -181,7 +181,7 @@ class RigTests(unittest.TestCase):
                     numerical_aperture=0.37,
                 )
             ],
-            olfactometer = Olfactometer(
+            olfactometer=Olfactometer(
                 name="Olfactometer",
                 manufacturer=Manufacturer.OEPS,
                 model="1234",
