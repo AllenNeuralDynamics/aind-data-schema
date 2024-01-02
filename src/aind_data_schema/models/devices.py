@@ -12,7 +12,7 @@ from aind_data_schema.base import AindModel
 from aind_data_schema.models.coordinates import RelativePosition, Size3d
 from aind_data_schema.models.manufacturers import InteruniversityMicroelectronicsCenter, Manufacturer
 from aind_data_schema.models.reagent import Reagent
-from aind_data_schema.models.units import FrequencyUnit, PowerUnit, SizeUnit, SpeedUnit, TemperatureUnit, UnitlessUnit
+from aind_data_schema.models.units import FrequencyUnit, PowerUnit, SizeUnit, SpeedUnit, TemperatureUnit, UnitlessUnit, VolumeUnit
 
 
 class ImagingDeviceType(str, Enum):
@@ -259,7 +259,7 @@ class Device(AindModel):
     manufacturer: Optional[Manufacturer.ONE_OF] = Field(None, title="Manufacturer")
     model: Optional[str] = Field(None, title="Model")
     path_to_cad: Optional[str] = Field(None, title="Path to CAD diagram", description="For CUSTOM manufactured devices")
-    port_index: Optional[str] = Field(None, title="Port index")
+    port_index: Optional[int] = Field(None, title="Port index")
     notes: Optional[str] = Field(None, title="Notes")
 
 
@@ -787,11 +787,31 @@ class Speaker(Device):
     position: Optional[RelativePosition] = Field(None, title="Relative position of the monitor")
 
 
-class Olfactometer(Device):
+class ChannelType(Enum):
+    """Olfactometer channel types"""
+
+    ODOR = "Odor"
+    CARRIER = "Carrier"
+
+
+class OlfactometerChannel(AindModel):
+    """description of a Olfactometer channel"""
+
+    channel_index: int = Field(..., title="Channel index")
+    channel_type: ChannelType = Field(..., title="Channel type")
+    flow_range: int = Field(..., title="Flow range")
+    flow_range_unit: str = Field("mL/min", title="Flow range unit")
+    odor_vial_volume: Decimal = Field(..., title="Odor vial volume")
+    odorant_volume: Decimal = Field(..., title="Odorant volume")
+    volume_unit: VolumeUnit = Field(VolumeUnit.ML, title="Volume unit")
+
+
+class Olfactometer(HarpDevice):
     """Description of an olfactometer for odor stimuli"""
 
     device_type: Literal["Olfactometer"] = "Olfactometer"
-    position: Optional[RelativePosition] = Field(None, title="Relative position of the monitor")
+    position: Optional[RelativePosition] = Field(None, title="Relative position of the olfactometer")
+    channels: List[OlfactometerChannel]
 
 
 class AdditionalImagingDevice(Device):
@@ -828,4 +848,9 @@ class Scanner(Device):
     magnetic_strength_unit: str = Field("T", title="Magnetic strength unit")
 
 
+MOUSE_PLATFORMS = Annotated[Union[tuple(MousePlatform.__subclasses__())], Field(discriminator="device_type")]
+STIMULUS_DEVICES = Annotated[Union[Monitor, Olfactometer, RewardDelivery, Speaker], Field(discriminator="device_type")]
+RIG_DAQ_DEVICES = Annotated[
+    Union[HarpDevice, NeuropixelsBasestation, OpenEphysAcquisitionBoard, DAQDevice], Field(discriminator="device_type")
+]
 LIGHT_SOURCES = Annotated[Union[Laser, LightEmittingDiode, Lamp], Field(discriminator="device_type")]

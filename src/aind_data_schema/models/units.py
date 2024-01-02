@@ -89,6 +89,8 @@ class ConcentrationUnit(str, Enum):
     M = "molar"
     UM = "micromolar"
     NM = "nanomolar"
+    MASS_PERCENT = "% m/m"
+    VOLUME_PERCENT = "% v/v"
 
 
 class TemperatureUnit(str, Enum):
