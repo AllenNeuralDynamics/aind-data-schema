@@ -824,7 +824,7 @@ class OlfactometerChannel(AindModel):
     def validate_channel(cls, value: str, info: ValidationInfo):
         """Validator for channel type"""
 
-        if ChannelType.ODOR in value:
+        if "Odor" in value:
             odor_vial = info.data["odor_vial_volume"]
             odorant = info.data["odorant_volume"]
             if not odor_vial or not odorant:
