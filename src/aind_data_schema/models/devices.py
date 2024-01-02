@@ -821,7 +821,7 @@ class OlfactometerChannel(AindModel):
     volume_unit: VolumeUnit = Field(VolumeUnit.ML, title="Volume unit")
 
     @field_validator("channel_type")
-    def validate_volume(cls, value: str, info: ValidationInfo):
+    def validate_volume(cls, value, info: ValidationInfo):
         """Validator for channel type"""
 
         if ChannelType.ODOR in value:
@@ -840,14 +840,13 @@ class Olfactometer(HarpDevice):
     """Description of an olfactometer for odor stimuli"""
 
     device_type: Literal["Olfactometer"] = "Olfactometer"
-    position: Optional[RelativePosition] = Field(None, title="Relative position of the olfactometer")
     channels: List[OlfactometerChannel]
 
 
 class AdditionalImagingDevice(Device):
     """Description of additional devices"""
 
-    device_type: Literal["AdditionalImagingDevice"] = "AdditionalImagingDevice"
+    device_type: Literal["Additional Imaging Device"] = "Additional Imaging Device"
     type: ImagingDeviceType = Field(..., title="Device type")
 
 
@@ -861,7 +860,7 @@ class ScanningStage(MotorizedStage):
 class OpticalTable(Device):
     """Description of Optical Table"""
 
-    device_type: Literal["OpticalTable"] = "OpticalTable"
+    device_type: Literal["Optical Table"] = "Optical Table"
     length: Optional[Decimal] = Field(None, title="Length (inches)", ge=0)
     width: Optional[Decimal] = Field(None, title="Width (inches)", ge=0)
     table_size_unit: SizeUnit = Field(SizeUnit.IN, title="Table size unit")
@@ -874,7 +873,7 @@ class Scanner(Device):
     device_type: Literal["Scanner"] = "Scanner"
     scanner_location: ScannerLocation = Field(..., title="Scanner location")
     magnetic_strength: MagneticStrength = Field(..., title="Magnetic strength (T)")
-    #  TODO: Check if this should go into the units module
+    #  TODO: Check if this should go into the units module.
     magnetic_strength_unit: str = Field("T", title="Magnetic strength unit")
 
 
