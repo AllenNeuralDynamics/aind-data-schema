@@ -34,19 +34,35 @@ class AindCoreModel(AindModel):
         name = cls.__name__
         return re.sub(r"(?<!^)(?=[A-Z])", "_", name).lower() + cls._FILE_EXTENSION.default
 
-    def write_standard_file(self, output_directory: Optional[Path] = None, prefix=None, suffix=None):
+    def write_standard_file(
+        self,
+        output_directory: Optional[Path] = None,
+        filename: Optional[str] = None,
+        prefix: Optional[str] = None,
+        suffix: Optional[str] = None,
+    ):
         """
         Writes schema to standard json file
         Parameters
         ----------
-        output_directory:
-            optional Path object for output directory
-        prefix:
+        output_directory: Optional[Path]
+            optional Path object for output directory.
+            Default: None
+
+        filename: Optional[str]
+            Optional filename for intended json
+
+        prefix: Optional[str]
             optional str for intended filepath with extra naming convention
-        suffix:
+            Default: None
+
+        suffix: Optional[str]
             optional str for intended filepath with extra naming convention
+            Default: None
+
         """
-        filename = self.default_filename()
+        if filename is None:
+            filename = self.default_filename()
         if prefix:
             filename = str(prefix) + "_" + filename
         if suffix:
