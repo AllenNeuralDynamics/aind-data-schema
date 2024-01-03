@@ -65,6 +65,13 @@ class Hsfp(_Platform):
     abbreviation: Literal["HSFP"] = "HSFP"
 
 
+class Isi(_Platform):
+    """Isi"""
+
+    name: Literal["Intrinsic signal imaging platform"] = "Intrinsic signal imaging platform"
+    abbreviation: Literal["ISI"] = "ISI"
+
+
 class MesoSpim(_Platform):
     """MesoSpim"""
 
@@ -124,6 +131,7 @@ class Platform:
     FIP = Fip()
     HCR = Hcr()
     HSFP = Hsfp()
+    ISI = Isi()
     MESOSPIM = MesoSpim()
     MERFISH = Merfish()
     MRI = Mri()

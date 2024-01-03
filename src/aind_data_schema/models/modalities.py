@@ -51,6 +51,13 @@ class Icephys(_Modality):
     abbreviation: Literal["icephys"] = "icephys"
 
 
+class Isi(_Modality):
+    """Intrinsic signal imaging"""
+
+    name: Literal["Intrinsic signal imaging"] = "Intrinsic signal imaging"
+    abbreviation: Literal["isi"] = "isi"
+
+
 class Fib(_Modality):
     """Fib"""
 
@@ -111,6 +118,7 @@ class Modality:
     FMOST = Fmost()
     ICEPHYS = Icephys()
     FIB = Fib()
+    ISI = Isi()
     MERFISH = Merfish()
     MRI = Mri()
     POPHYS = POphys()
