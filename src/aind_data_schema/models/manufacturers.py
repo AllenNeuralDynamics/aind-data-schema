@@ -569,7 +569,7 @@ class Manufacturer:
     NAVITAR = Navitar()
     NEW_SCALE_TECHNOLOGIES = NewScaleTechnologies()
     NIKON = Nikon()
-    OEPS = OpenEphysProductionSite()
+    OEPS = OEPS()
     OLYMPUS = Olympus()
     OPTOTUNE = Optotune()
     OXXIUS = Oxxius()
