@@ -283,6 +283,36 @@ class RigTests(unittest.TestCase):
             )
 
         with self.assertRaises(ValidationError):
+            Rig(
+                rig_id="1234",
+                modification_date=datetime.now(),
+                modalities=[Modality.TRAINED_BEHAVIOR],
+                stimulus_devices=[
+                    Olfactometer(
+                        name="Olfactometer",
+                        manufacturer=Manufacturer.OEPS,
+                        model="1234",
+                        serial_number="213456",
+                        harp_device_type="Behavior",
+                        harp_device_version="1",
+                        computer_name="W10XXX000",
+                        channels=[
+                            OlfactometerChannel(
+                                channel_index=0,
+                                channel_type=ChannelType.CARRIER,
+                                flow_range="0-100 ml/min",
+                            ),
+                            OlfactometerChannel(
+                                channel_index=1,
+                                channel_type=ChannelType.ODOR,
+                                flow_range="0-100 ml/min",
+                            )
+                        ],
+                    )
+                ]
+            )
+
+        with self.assertRaises(ValidationError):
             daqs = [
                 NeuropixelsBasestation(
                     name="Basestation",
