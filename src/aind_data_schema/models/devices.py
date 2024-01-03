@@ -820,7 +820,7 @@ class OlfactometerChannel(AindModel):
     odorant_volume: Optional[Decimal] = Field(None, title="Odorant volume")
     volume_unit: VolumeUnit = Field(VolumeUnit.ML, title="Volume unit")
 
-    @field_validator("channel_type")
+    @field_validator("channel_type", mode="after")
     @classmethod
     def validate_channel(cls, value: str, info: ValidationInfo) -> str:
         """Validator for channel type"""
