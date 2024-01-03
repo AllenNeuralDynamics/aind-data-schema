@@ -181,29 +181,31 @@ class RigTests(unittest.TestCase):
                     numerical_aperture=0.37,
                 )
             ],
-            olfactometer=Olfactometer(
-                name="Olfactometer",
-                manufacturer=Manufacturer.OEPS,
-                model="1234",
-                serial_number="213456",
-                harp_device_type="Behavior",
-                harp_device_version="1",
-                computer_name="W10XXX000",
-                channels=[
-                    OlfactometerChannel(
-                        channel_index=0,
-                        channel_type=ChannelType.CARRIER,
-                        flow_range="0-100 ml/min",
+            stimulus_devices=[
+                Olfactometer(
+                    name="Olfactometer",
+                    manufacturer=Manufacturer.OEPS,
+                    model="1234",
+                    serial_number="213456",
+                    harp_device_type="Behavior",
+                    harp_device_version="1",
+                    computer_name="W10XXX000",
+                    channels=[
+                        OlfactometerChannel(
+                            channel_index=0,
+                            channel_type=ChannelType.CARRIER,
+                            flow_range="0-100 ml/min",
                         ),
-                    OlfactometerChannel(
-                        channel_index=1,
-                        channel_type=ChannelType.ODOR,
-                        flow_range="0-100 ml/min",
-                        odor_vial_volume=10,
-                        odorant_volume=6,
+                        OlfactometerChannel(
+                            channel_index=1,
+                            channel_type=ChannelType.ODOR,
+                            flow_range="0-100 ml/min",
+                            odor_vial_volume=10,
+                            odorant_volume=6,
                         )
-                    ]
-                ),
+                    ],
+                )
+            ],
             mouse_platform=Disc(name="Disc A", radius=1),
             calibrations=[
                 Calibration(
