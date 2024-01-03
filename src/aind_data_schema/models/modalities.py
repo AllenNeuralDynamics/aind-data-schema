@@ -40,6 +40,7 @@ class Electromyography(_Modality):
 
     name: Literal["Electromyography"] = "Electromyography"
     abbreviation: Literal["emg"] = "emg"
+    
 
 class Fmost(_Modality):
     """Fmost"""
