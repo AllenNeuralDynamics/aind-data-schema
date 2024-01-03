@@ -839,7 +839,7 @@ class Olfactometer(HarpDevice):
 
     device_type: Literal["Olfactometer"] = "Olfactometer"
     manufacturer: Manufacturer.CHAMPALIMAUD
-    harp_device_type: HarpDeviceType.OLFACTOMETER
+    harp_device_type: Literal["Olfactometer"] = "Olfactometer"
     channels: List[OlfactometerChannel]
 
 
