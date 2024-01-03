@@ -821,18 +821,17 @@ class OlfactometerChannel(AindModel):
     volume_unit: VolumeUnit = Field(VolumeUnit.ML, title="Volume unit")
 
     @model_validator(mode="after")
-    @classmethod
-    def validate_channel(cls, data: Any) -> Any:
+    def validate_channel(self):
         """Validator for channel type"""
 
-        if ChannelType.ODOR == data["channel_type"]:
-            odor_vial_volume = data["odor_vial_volume"]
-            odorant_volume = data["odorant_volume"]
+        if ChannelType.ODOR == self.channel_type:
+            odor_vial_volume = self.odor_vial_volume
+            odorant_volume = self.odorant_volume
             if not odor_vial_volume or not odorant_volume:
                 raise AssertionError(
                     "Odor channels must specify odor_vial_volume and odorant_volume"
                 )
-        return data
+        return self
 
 
 class Olfactometer(HarpDevice):
