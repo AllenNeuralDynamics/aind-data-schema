@@ -617,7 +617,13 @@ class Manufacturer:
         Field(discriminator="name"),
     ]
     DAQ_DEVICE_MANUFACTURERS = Annotated[
-        Union[NationalInstruments, InteruniversityMicroelectronicsCenter, OpenEphysProductionSite, ChampalimaudFoundation, Other],
+        Union[
+            NationalInstruments,
+            InteruniversityMicroelectronicsCenter,
+            OpenEphysProductionSite,
+            ChampalimaudFoundation,
+            Other
+        ],
         Field(discriminator="name"),
     ]
     LASER_MANUFACTURERS = Annotated[
