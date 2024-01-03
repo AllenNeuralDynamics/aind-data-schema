@@ -35,6 +35,12 @@ class Ecephys(_Modality):
     abbreviation: Literal["ecephys"] = "ecephys"
 
 
+class Electromyography(_Modality):
+    """Electromyography"""
+
+    name: Literal["Electromyography"] = "Electromyography"
+    abbreviation: Literal["emg"] = "emg"
+
 class Fmost(_Modality):
     """Fmost"""
 
@@ -108,6 +114,7 @@ class Modality:
     BEHAVIOR_VIDEOS = BehaviorVideos()
     CONFOCAL = Confocal()
     ECEPHYS = Ecephys()
+    EMG = Electromyography()
     FMOST = Fmost()
     ICEPHYS = Icephys()
     FIB = Fib()
