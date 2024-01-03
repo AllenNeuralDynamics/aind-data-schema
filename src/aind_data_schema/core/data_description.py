@@ -5,7 +5,8 @@ from datetime import datetime
 from enum import Enum
 from typing import Any, List, Literal, Optional, Union
 
-from pydantic import Field, field_validator, model_validator
+from pydantic import Field, 
+from pydantic.functional_validators import field_validator, model_validator
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.models.institutions import Institution
