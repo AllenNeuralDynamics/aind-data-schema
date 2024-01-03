@@ -184,10 +184,10 @@ class RigTests(unittest.TestCase):
             stimulus_devices=[
                 Olfactometer(
                     name="Olfactometer",
-                    manufacturer=Manufacturer.OEPS,
+                    manufacturer=Manufacturer.CHAMPALIMAUD,
                     model="1234",
                     serial_number="213456",
-                    harp_device_type="Behavior",
+                    harp_device_type="Olfactometer",
                     harp_device_version="1",
                     computer_name="W10XXX000",
                     channels=[
@@ -290,10 +290,10 @@ class RigTests(unittest.TestCase):
                 stimulus_devices=[
                     Olfactometer(
                         name="Olfactometer",
-                        manufacturer=Manufacturer.OEPS,
+                        manufacturer=Manufacturer.CHAMPALIMAUD,
                         model="1234",
                         serial_number="213456",
-                        harp_device_type="Behavior",
+                        harp_device_type="Olfactometer",
                         harp_device_version="1",
                         computer_name="W10XXX000",
                         channels=[

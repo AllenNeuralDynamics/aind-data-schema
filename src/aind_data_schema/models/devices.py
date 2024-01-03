@@ -10,7 +10,7 @@ from typing_extensions import Annotated
 
 from aind_data_schema.base import AindModel
 from aind_data_schema.models.coordinates import RelativePosition, Size3d
-from aind_data_schema.models.manufacturers import InteruniversityMicroelectronicsCenter, Manufacturer
+from aind_data_schema.models.manufacturers import IMEC, Manufacturer
 from aind_data_schema.models.reagent import Reagent
 from aind_data_schema.models.units import (
     FrequencyUnit,
@@ -178,7 +178,8 @@ class HarpDeviceType(str, Enum):
     BEHAVIOR = "Behavior"
     CAMERA_CONTROLLER = "Camera Controller"
     LOAD_CELLS = "Load Cells"
-    SOUND_BOARD = "Sound Board"
+    OLFACTOMETER = "Olfactometer"
+    SOUND_CARD = "Sound Card"
     TIMESTAMP_GENERATOR = "Timestamp Generator"
     INPUT_EXPANDER = "Input Expander"
 
@@ -512,7 +513,7 @@ class NeuropixelsBasestation(DAQDevice):
     # fixed values
     data_interface: Literal[DataInterface.PXI] = DataInterface.PXI
     manufacturer: Annotated[
-        Union[InteruniversityMicroelectronicsCenter], Field(default=Manufacturer.IMEC, discriminator="name")
+        Union[IMEC], Field(default=Manufacturer.IMEC, discriminator="name")
     ]
 
 
@@ -837,6 +838,7 @@ class Olfactometer(HarpDevice):
     """Description of an olfactometer for odor stimuli"""
 
     device_type: Literal["Olfactometer"] = "Olfactometer"
+    manufacturer: Manufacturer.CHAMPALIMAUD
     channels: List[OlfactometerChannel]
 
 
@@ -874,9 +876,4 @@ class Scanner(Device):
     magnetic_strength_unit: str = Field("T", title="Magnetic strength unit")
 
 
-MOUSE_PLATFORMS = Annotated[Union[tuple(MousePlatform.__subclasses__())], Field(discriminator="device_type")]
-STIMULUS_DEVICES = Annotated[Union[Monitor, Olfactometer, RewardDelivery, Speaker], Field(discriminator="device_type")]
-RIG_DAQ_DEVICES = Annotated[
-    Union[HarpDevice, NeuropixelsBasestation, OpenEphysAcquisitionBoard, DAQDevice], Field(discriminator="device_type")
-]
 LIGHT_SOURCES = Annotated[Union[Laser, LightEmittingDiode, Lamp], Field(discriminator="device_type")]

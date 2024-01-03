@@ -87,6 +87,14 @@ class CambridgeTechnology(_Manufacturer):
     registry_identifier: Literal[None] = Field(None)
 
 
+class ChampalimaudFoundation(_Manufacturer):
+    """Champalimaud Foundation"""
+
+    name: Literal["Champalimaud Foundation"] = "Champalimaud Foundation"
+    registry: Annotated[Union[ResearchOrganizationRegistry], Field(default=Registry.ROR, discriminator="name")]
+    registry_identifier: Literal["03g001n57"] = "03g001n57"
+
+
 class Chroma(_Manufacturer):
     """Chroma"""
 
@@ -204,8 +212,8 @@ class TheImagingSource(_Manufacturer):
     registry_identifier: Literal[None] = Field(None)
 
 
-class InteruniversityMicroelectronicsCenter(_Manufacturer):
-    """InteruniversityMicroelectronicsCenter"""
+class IMEC(_Manufacturer):
+    """IMEC"""
 
     name: Literal["Interuniversity Microelectronics Center"] = "Interuniversity Microelectronics Center"
     abbreviation: Literal["IMEC"] = "IMEC"
@@ -357,8 +365,8 @@ class Nikon(_Manufacturer):
     registry_identifier: Literal["0280y9h11"] = "0280y9h11"
 
 
-class OpenEphysProductionSite(_Manufacturer):
-    """OpenEphysProductionSite"""
+class OEPS(_Manufacturer):
+    """OEPS"""
 
     name: Literal["Open Ephys Production Site"] = "Open Ephys Production Site"
     abbreviation: Literal["OEPS"] = "OEPS"
@@ -465,8 +473,8 @@ class Thorlabs(_Manufacturer):
     registry_identifier: Literal["04gsnvb07"] = "04gsnvb07"
 
 
-class TechnicalManufacturingCorporation(_Manufacturer):
-    """TechnicalManufacturingCorporation"""
+class TMC(_Manufacturer):
+    """TMC"""
 
     name: Literal["Technical Manufacturing Corporation"] = "Technical Manufacturing Corporation"
     abbreviation: Literal["TMC"] = "TMC"
@@ -530,6 +538,7 @@ class Manufacturer:
     AVCOSTAR = ArecontVisionCostar()
     BASLER = Basler()
     CAMBRIDGE_TECHNOLOGY = CambridgeTechnology()
+    CHAMPALIMAUD = ChampalimaudFoundation()
     CHROMA = Chroma()
     COHERENT_SCIENTIFIC = CoherentScientific()
     CONOPTICS = Conoptics()
@@ -543,7 +552,7 @@ class Manufacturer:
     FUJINON = Fujinon()
     HAMAMATSU = Hamamatsu()
     IMAGING_SOURCE = TheImagingSource()
-    IMEC = InteruniversityMicroelectronicsCenter()
+    IMEC = IMEC()
     INFINITY_PHOTO_OPTICAL = InfinityPhotoOptical()
     ISL = ISLProductsInternational()
     JULABO = Julabo()
@@ -572,7 +581,7 @@ class Manufacturer:
     SPINNAKER = Spinnaker()
     TAMRON = Tamron()
     THORLABS = Thorlabs()
-    TMC = TechnicalManufacturingCorporation()
+    TMC = TMC()
     TYMPHANY = Tymphany()
     VIEWORKS = Vieworks()
     VORTRAN = Vortran()
@@ -608,7 +617,7 @@ class Manufacturer:
         Field(discriminator="name"),
     ]
     DAQ_DEVICE_MANUFACTURERS = Annotated[
-        Union[NationalInstruments, InteruniversityMicroelectronicsCenter, OpenEphysProductionSite, Other],
+        Union[NationalInstruments, IMEC, OEPS, CHAMPALIMAUD, Other],
         Field(discriminator="name"),
     ]
     LASER_MANUFACTURERS = Annotated[
