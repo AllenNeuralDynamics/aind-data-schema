@@ -31,13 +31,18 @@ class AindCoreModel(AindModel):
         """
         Returns standard filename in snakecase
         """
+        parent_classes = [base_class for base_class in cls.__bases__ if base_class.__name__ != AindCoreModel.__name__]
+
         name = cls.__name__
+
+        if len(parent_classes):
+            name = parent_classes[0].__name__
+
         return re.sub(r"(?<!^)(?=[A-Z])", "_", name).lower() + cls._FILE_EXTENSION.default
 
     def write_standard_file(
         self,
         output_directory: Optional[Path] = None,
-        filename: Optional[str] = None,
         prefix: Optional[str] = None,
         suffix: Optional[str] = None,
     ):
@@ -49,9 +54,6 @@ class AindCoreModel(AindModel):
             optional Path object for output directory.
             Default: None
 
-        filename: Optional[str]
-            Optional filename for intended json
-
         prefix: Optional[str]
             optional str for intended filepath with extra naming convention
             Default: None
@@ -61,8 +63,7 @@ class AindCoreModel(AindModel):
             Default: None
 
         """
-        if filename is None:
-            filename = self.default_filename()
+        filename = self.default_filename()
         if prefix:
             filename = str(prefix) + "_" + filename
         if suffix:
