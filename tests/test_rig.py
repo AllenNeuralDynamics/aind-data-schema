@@ -186,6 +186,9 @@ class RigTests(unittest.TestCase):
                 manufacturer=Manufacturer.OEPS,
                 model="1234",
                 serial_number="213456",
+                harp_device_type="Behavior",
+                harp_device_version="1",
+                computer_name="W10XXX000",
                 channels=[
                     OlfactometerChannel(
                         channel_index=0,
