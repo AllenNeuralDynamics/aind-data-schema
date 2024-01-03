@@ -212,8 +212,8 @@ class TheImagingSource(_Manufacturer):
     registry_identifier: Literal[None] = Field(None)
 
 
-class IMEC(_Manufacturer):
-    """IMEC"""
+class InteruniversityMicroelectronicsCenter(_Manufacturer):
+    """InteruniversityMicroelectronicsCenter"""
 
     name: Literal["Interuniversity Microelectronics Center"] = "Interuniversity Microelectronics Center"
     abbreviation: Literal["IMEC"] = "IMEC"
@@ -365,8 +365,8 @@ class Nikon(_Manufacturer):
     registry_identifier: Literal["0280y9h11"] = "0280y9h11"
 
 
-class OEPS(_Manufacturer):
-    """OEPS"""
+class OpenEphysProductionSite(_Manufacturer):
+    """OpenEphysProductionSite"""
 
     name: Literal["Open Ephys Production Site"] = "Open Ephys Production Site"
     abbreviation: Literal["OEPS"] = "OEPS"
@@ -552,7 +552,7 @@ class Manufacturer:
     FUJINON = Fujinon()
     HAMAMATSU = Hamamatsu()
     IMAGING_SOURCE = TheImagingSource()
-    IMEC = IMEC()
+    IMEC = InteruniversityMicroelectronicsCenter()
     INFINITY_PHOTO_OPTICAL = InfinityPhotoOptical()
     ISL = ISLProductsInternational()
     JULABO = Julabo()
@@ -569,7 +569,7 @@ class Manufacturer:
     NAVITAR = Navitar()
     NEW_SCALE_TECHNOLOGIES = NewScaleTechnologies()
     NIKON = Nikon()
-    OEPS = OEPS()
+    OEPS = OpenEphysProductionSite()
     OLYMPUS = Olympus()
     OPTOTUNE = Optotune()
     OXXIUS = Oxxius()
@@ -617,7 +617,7 @@ class Manufacturer:
         Field(discriminator="name"),
     ]
     DAQ_DEVICE_MANUFACTURERS = Annotated[
-        Union[NationalInstruments, IMEC, OEPS, CHAMPALIMAUD, Other],
+        Union[NationalInstruments, InteruniversityMicroelectronicsCenter, OpenEphysProductionSite, ChampalimaudFoundation, Other],
         Field(discriminator="name"),
     ]
     LASER_MANUFACTURERS = Annotated[

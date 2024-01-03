@@ -10,7 +10,7 @@ from typing_extensions import Annotated
 
 from aind_data_schema.base import AindModel
 from aind_data_schema.models.coordinates import RelativePosition, Size3d
-from aind_data_schema.models.manufacturers import IMEC, Manufacturer
+from aind_data_schema.models.manufacturers import InteruniversityMicroelectronicsCenter, Manufacturer
 from aind_data_schema.models.reagent import Reagent
 from aind_data_schema.models.units import (
     FrequencyUnit,
@@ -513,7 +513,7 @@ class NeuropixelsBasestation(DAQDevice):
     # fixed values
     data_interface: Literal[DataInterface.PXI] = DataInterface.PXI
     manufacturer: Annotated[
-        Union[IMEC], Field(default=Manufacturer.IMEC, discriminator="name")
+        Union[InteruniversityMicroelectronicsCenter], Field(default=Manufacturer.IMEC, discriminator="name")
     ]
 
 
