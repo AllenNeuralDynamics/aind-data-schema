@@ -5,7 +5,7 @@ from decimal import Decimal
 from enum import Enum
 from typing import Any, Dict, List, Literal, Optional, Union
 
-from pydantic import Field, field_validator
+from pydantic import Field, model_validator
 from pydantic_core.core_schema import ValidationInfo
 from typing_extensions import Annotated
 
@@ -820,21 +820,19 @@ class OlfactometerChannel(AindModel):
     odorant_volume: Optional[Decimal] = Field(None, title="Odorant volume")
     volume_unit: VolumeUnit = Field(VolumeUnit.ML, title="Volume unit")
 
-    @field_validator("channel_type", mode="after")
+    @model_validator(mode="after")
     @classmethod
-    def validate_channel(cls, value: str, info: ValidationInfo) -> str:
+    def validate_channel(cls, data: Any) -> Any:
         """Validator for channel type"""
 
-        if "Odor" in value:
-            odor_vial_volume = info.data["odor_vial_volume"]
-            odorant_volume = info.data["odorant_volume"]
+        if ChannelType.ODOR == data["channel_type"]:
+            odor_vial_volume = data["odor_vial_volume"]
+            odorant_volume = data["odorant_volume"]
             if not odor_vial_volume or not odorant_volume:
                 raise AssertionError(
                     "Odor channels must specify odor_vial_volume and odorant_volume"
                 )
-            return value
-        else:
-            return None
+        return data
 
 
 class Olfactometer(HarpDevice):
