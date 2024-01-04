@@ -99,10 +99,7 @@ class Rig(AindCoreModel):
             + info.data["additional_devices"]
         )
         camera_devices = info.data["cameras"] + info.data["stick_microscopes"]
-        standard_device_names = [
-            device.name for device in standard_devices
-            if device.device_type not in ("Reward delivery", )
-        ]
+        standard_device_names = [device.name for device in standard_devices]
         camera_names = [camera.camera.name for camera in camera_devices]
         ephys_assembly_names = [
             probe.name for ephys_assembly in info.data["ephys_assemblies"] for probe in ephys_assembly.probes

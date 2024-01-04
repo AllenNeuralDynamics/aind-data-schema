@@ -774,6 +774,7 @@ class RewardSpout(Device):
 class RewardDelivery(AindModel):
     """Description of reward delivery system"""
 
+    name: str = "Reward delivery"
     device_type: Literal["Reward delivery"] = "Reward delivery"
     stage_type: Optional[MotorizedStage] = Field(None, title="Motorized stage")
     reward_spouts: List[RewardSpout] = Field(..., title="Water spouts")
