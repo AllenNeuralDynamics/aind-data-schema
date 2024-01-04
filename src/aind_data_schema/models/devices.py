@@ -807,7 +807,7 @@ class OlfactometerChannel(AindModel):
 
     channel_index: int = Field(..., title="Channel index")
     channel_type: ChannelType = Field(default=ChannelType.ODOR, title="Channel type")
-    flow_capacity: Literal[100,1000] = Field(default=100, title="Flow capacity")
+    flow_capacity: Literal[100, 1000] = Field(default=100, title="Flow capacity")
     flow_unit: str = Field("mL/min", title="Flow unit")
 
 
