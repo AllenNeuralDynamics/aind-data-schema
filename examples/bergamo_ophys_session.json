@@ -19,22 +19,10 @@
       {
          "stream_start_time": "2022-07-12T07:00:00",
          "stream_end_time": "2022-07-12T07:00:00",
-         "stream_modalities": [
-            {
-               "name": "Planar optical physiology",
-               "abbreviation": "ophys"
-            },
-            {
-               "name": "Behavior videos",
-               "abbreviation": "behavior-videos"
-            }
-         ],
          "daq_names": [],
          "camera_names": [
             "Face Camera"
          ],
-         "mouse_platform_name": "Mouse tube",
-         "active_mouse_platform": false,
          "light_sources": [
             {
                "device_type": "Laser",
@@ -82,6 +70,18 @@
          "slap_fovs": null,
          "stack_parameters": null,
          "stimulus_device_names": [],
+         "mouse_platform_name": "Mouse tube",
+         "active_mouse_platform": false,
+         "stream_modalities": [
+            {
+               "name": "Planar optical physiology",
+               "abbreviation": "ophys"
+            },
+            {
+               "name": "Behavior videos",
+               "abbreviation": "behavior-videos"
+            }
+         ],
          "notes": null
       }
    ],
