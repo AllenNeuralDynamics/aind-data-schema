@@ -5,7 +5,7 @@ from decimal import Decimal
 from enum import Enum
 from typing import Any, Dict, List, Literal, Optional, Union
 
-from pydantic import Field, model_validator
+from pydantic import Field
 from typing_extensions import Annotated
 
 from aind_data_schema.base import AindModel
@@ -19,7 +19,6 @@ from aind_data_schema.models.units import (
     SpeedUnit,
     TemperatureUnit,
     UnitlessUnit,
-    VolumeUnit
     )
 
 
@@ -808,7 +807,7 @@ class OlfactometerChannel(AindModel):
 
     channel_index: int = Field(..., title="Channel index")
     channel_type: ChannelType = Field(default=ChannelType.ODOR, title="Channel type")
-    flow_range: set = Field(default={0,100}, title="Flow range")
+    flow_range: set = Field(default={0, 100}, title="Flow range")
     flow_unit: str = Field("mL/min", title="Flow unit")
 
 
