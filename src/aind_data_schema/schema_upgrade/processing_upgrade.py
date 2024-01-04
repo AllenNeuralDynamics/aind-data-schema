@@ -85,10 +85,7 @@ class ProcessingUpgrade(BaseModelUpgrade):
             for data_process in data_processes_old:
                 data_processes_new.append(DataProcessUpgrade(data_process).upgrade())
             processing_pipeline_dict.pop("data_processes")
-            processing_pipeline = PipelineProcess(
-                data_processes=data_processes_new,
-                **processing_pipeline_dict
-            )
+            processing_pipeline = PipelineProcess(data_processes=data_processes_new, **processing_pipeline_dict)
 
         return Processing(
             processing_pipeline=processing_pipeline,

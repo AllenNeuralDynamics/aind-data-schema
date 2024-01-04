@@ -134,7 +134,6 @@ class DataDescriptionUpgrade(BaseModelUpgrade):
 
         return modality
 
-
     def get_investigators(self, **kwargs):
         """Get investigators from old model"""
 
