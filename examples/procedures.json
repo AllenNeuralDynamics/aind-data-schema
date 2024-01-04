@@ -4,6 +4,7 @@
    "subject_id": "625100",
    "subject_procedures": [
       {
+         "procedure_type": "Craniotomy",
          "start_date": "2022-07-12",
          "end_date": "2022-07-12",
          "experimenter_full_name": "n/a",
@@ -19,7 +20,6 @@
             "level": "1.5"
          },
          "notes": null,
-         "procedure_type": "Craniotomy",
          "craniotomy_type": "Visual Cortex",
          "craniotomy_hemisphere": null,
          "craniotomy_coordinates_ml": null,
@@ -38,6 +38,7 @@
          "recovery_time_unit": "minute"
       },
       {
+         "procedure_type": "Nanoject injection",
          "start_date": "2022-07-12",
          "end_date": "2022-07-12",
          "experimenter_full_name": "n/a",
@@ -89,13 +90,13 @@
          "injection_angle_unit": "degrees",
          "targeted_structure": "VISp",
          "injection_hemisphere": "Left",
-         "procedure_type": "Nanoject injection",
          "injection_volume": [
             "200"
          ],
          "injection_volume_unit": "nanoliter"
       },
       {
+         "procedure_type": "Perfusion",
          "start_date": "2022-07-12",
          "end_date": "2022-07-12",
          "experimenter_full_name": "n/a",
@@ -106,7 +107,6 @@
          "weight_unit": "gram",
          "anaesthesia": null,
          "notes": null,
-         "procedure_type": "Perfusion",
          "output_specimen_ids": [
             "1"
          ]
