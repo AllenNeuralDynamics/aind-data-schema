@@ -185,26 +185,38 @@ class TestDataDescriptionUpgrade(unittest.TestCase):
         self.assertEqual([], new_data_description.related_data)
         self.assertIsNone(new_data_description.data_summary)
 
-    def test_upgrades_0_6_0_empty_investigators(self):
+    def test_upgrades_0_6_0_investigators(self):
         """Tests data_description_0.6.0_empty_investigators.json is mapped correctly."""
         data_description_empty_investigators = self.data_descriptions["data_description_0.6.0_empty_investigators.json"]
+
         upgrader = DataDescriptionUpgrade(old_data_description_model=data_description_empty_investigators)
 
         # Should work by setting experiment type explicitly
         new_data_description = upgrader.upgrade()
-        self.assertEqual(datetime.datetime(2023, 4, 10, 17, 9, 26), new_data_description.creation_time)
-        self.assertEqual("ecephys_661278_2023-04-10_17-09-26", new_data_description.name)
-        self.assertEqual(Institution.AIND, new_data_description.institution)
-        self.assertEqual([Funding(funder=Institution.AI)], new_data_description.funding_source)
-        self.assertEqual(DataLevel.RAW, new_data_description.data_level)
-        self.assertIsNone(new_data_description.group)
         self.assertEqual([""], new_data_description.investigators)
-        self.assertIsNone(new_data_description.project_name)
-        self.assertIsNone(new_data_description.restrictions)
-        self.assertEqual([Modality.ECEPHYS], new_data_description.modality)
-        self.assertEqual("661278", new_data_description.subject_id)
-        self.assertEqual([], new_data_description.related_data)
-        self.assertIsNone(new_data_description.data_summary)
+
+        # test other possible edge cases
+        data_description_empty_investigators.investigators = None
+        upgrader = DataDescriptionUpgrade(old_data_description_model=data_description_empty_investigators)
+        new_data_description = upgrader.upgrade(investigators=["John Doe"])
+        self.assertEqual(["John Doe"], new_data_description.investigators)
+
+        data_description_empty_investigators.investigators = "John Doe"
+        upgrader = DataDescriptionUpgrade(old_data_description_model=data_description_empty_investigators)
+        new_data_description = upgrader.upgrade()
+        self.assertEqual(["John Doe"], new_data_description.investigators)
+
+        data_description_empty_investigators.investigators = None
+        upgrader = DataDescriptionUpgrade(old_data_description_model=data_description_empty_investigators)
+        new_data_description = upgrader.upgrade()
+        self.assertEqual([""], new_data_description.investigators)
+
+        with self.assertRaises(Exception) as e:
+            data_description_empty_investigators.investigators = {}
+            upgrader = DataDescriptionUpgrade(old_data_description_model=data_description_empty_investigators)
+            upgrader.upgrade()
+        expected_error_message = "ValueError('Unable to upgrade investigators: {}')"
+        self.assertEqual(expected_error_message, repr(e.exception))
 
     def test_upgrades_0_6_2(self):
         """Tests data_description_0.6.2.json is mapped correctly."""
