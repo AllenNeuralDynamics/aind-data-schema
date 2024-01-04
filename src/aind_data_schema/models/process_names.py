@@ -31,6 +31,7 @@ class ProcessName(str, Enum):
     MANUAL_ANNOTATION = "Manual annotation"
     NEUROPIL_SUBTRACTION = "Neuropil subtraction"
     OTHER = "Other"
+    QUALITY_CONTROL_AND_ASSESSMENT = "Quality control and assessment"
     REGISTRATION_TO_TEMPLATE = "Registration to template"
     SKULL_STRIPPING = "Skull stripping"
     SPIKE_SORTING = "Spike sorting"
