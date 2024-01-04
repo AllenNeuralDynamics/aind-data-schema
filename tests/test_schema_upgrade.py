@@ -185,6 +185,27 @@ class TestDataDescriptionUpgrade(unittest.TestCase):
         self.assertEqual([], new_data_description.related_data)
         self.assertIsNone(new_data_description.data_summary)
 
+    def test_upgrades_0_6_0_empty_investigators(self):
+        """Tests data_description_0.6.0_empty_investigators.json is mapped correctly."""
+        data_description_empty_investigators = self.data_descriptions["data_description_0.6.0_empty_investigators.json"]
+        upgrader = DataDescriptionUpgrade(old_data_description_model=data_description_empty_investigators)
+
+        # Should work by setting experiment type explicitly
+        new_data_description = upgrader.upgrade()
+        self.assertEqual(datetime.datetime(2023, 4, 10, 17, 9, 26), new_data_description.creation_time)
+        self.assertEqual("ecephys_661278_2023-04-10_17-09-26", new_data_description.name)
+        self.assertEqual(Institution.AIND, new_data_description.institution)
+        self.assertEqual([Funding(funder=Institution.AI)], new_data_description.funding_source)
+        self.assertEqual(DataLevel.RAW, new_data_description.data_level)
+        self.assertIsNone(new_data_description.group)
+        self.assertEqual([""], new_data_description.investigators)
+        self.assertIsNone(new_data_description.project_name)
+        self.assertIsNone(new_data_description.restrictions)
+        self.assertEqual([Modality.ECEPHYS], new_data_description.modality)
+        self.assertEqual("661278", new_data_description.subject_id)
+        self.assertEqual([], new_data_description.related_data)
+        self.assertIsNone(new_data_description.data_summary)
+
     def test_upgrades_0_6_2(self):
         """Tests data_description_0.6.2.json is mapped correctly."""
         data_description_0_6_2 = self.data_descriptions["data_description_0.6.2.json"]
@@ -282,7 +303,7 @@ class TestDataDescriptionUpgrade(unittest.TestCase):
         )
 
     def test_upgrades_0_10_0(self):
-        """Tests data_description_0.6.0.json is mapped correctly."""
+        """Tests data_description_0.10.0.json is mapped correctly."""
         data_description_0_10_0 = self.data_descriptions["data_description_0.10.0.json"]
         upgrader = DataDescriptionUpgrade(old_data_description_model=data_description_0_10_0)
 
@@ -509,6 +530,22 @@ class TestProcessingUpgrade(unittest.TestCase):
         ephys_preprocessing_process = processing_pipeline.data_processes[0]
         self.assertEqual(ephys_preprocessing_process.name, "Ephys preprocessing")
         self.assertEqual(ephys_preprocessing_process.software_version, "0.29.3")
+        self.assertEqual(
+            ephys_preprocessing_process.code_url, "https://github.com/AllenNeuralDynamics/aind-data-transfer"
+        )
+
+    def test_upgrades_0_3_1(self):
+        """Tests processing_0.3.1.json is mapped correctly."""
+        processing_0_3_1 = self.processings["processing_0.3.1.json"]
+        upgrader = ProcessingUpgrade(old_processing_model=processing_0_3_1)
+
+        # Should work by setting platform explicitly
+        new_processing = upgrader.upgrade()
+        processing_pipeline = new_processing.processing_pipeline
+        self.assertEqual(processing_pipeline.processor_full_name, "service")
+        ephys_preprocessing_process = processing_pipeline.data_processes[0]
+        self.assertEqual(ephys_preprocessing_process.name, "Compression")
+        self.assertEqual(ephys_preprocessing_process.software_version, "0.32.0")
         self.assertEqual(
             ephys_preprocessing_process.code_url, "https://github.com/AllenNeuralDynamics/aind-data-transfer"
         )
