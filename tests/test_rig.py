@@ -194,7 +194,7 @@ class RigTests(unittest.TestCase):
                         OlfactometerChannel(
                             channel_index=0,
                             channel_type=ChannelType.CARRIER,
-                            flow_capactiy=100,
+                            flow_capacity=100,
                         ),
                         OlfactometerChannel(
                             channel_index=1,
