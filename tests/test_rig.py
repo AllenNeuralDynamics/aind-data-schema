@@ -12,6 +12,7 @@ from aind_data_schema.models.devices import (
     CameraAssembly,
     DAQChannel,
     Detector,
+    Device,
     Disc,
     EphysAssembly,
     EphysProbe,
@@ -22,6 +23,8 @@ from aind_data_schema.models.devices import (
     NeuropixelsBasestation,
     Patch,
     StickMicroscopeAssembly,
+    RewardDelivery,
+    RewardSpout,
 )
 from aind_data_schema.models.manufacturers import Manufacturer
 from aind_data_schema.models.modalities import Modality
@@ -188,6 +191,22 @@ class RigTests(unittest.TestCase):
                     output={"power mW": [2, 6, 10]},
                 )
             ],
+            stimulus_devices=[
+                RewardDelivery(
+                    reward_spouts=[
+                        RewardSpout(
+                            name="Reward Spout #0",
+                            side="Center",
+                            spout_diameter=10.0,
+                            spout_diameter_unit="millimeter",
+                            solenoid_valve=Device(
+                                name="Reward Spout Solenoid Valve #0",
+                                device_type="Solenoid Valve",
+                            )
+                        )
+                    ]
+                )
+            ]
         )
 
         assert rig is not None
