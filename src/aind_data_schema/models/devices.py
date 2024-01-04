@@ -803,35 +803,13 @@ class ChannelType(Enum):
     CARRIER = "Carrier"
 
 
-class FlowRange(Enum):
-    """Olfactometer flow ranges"""
-
-    LOW = "0-100 ml/min"
-    HIGH = "0-1000 ml/min"
-
-
 class OlfactometerChannel(AindModel):
     """description of a Olfactometer channel"""
 
     channel_index: int = Field(..., title="Channel index")
     channel_type: ChannelType = Field(default=ChannelType.ODOR, title="Channel type")
-    flow_range: FlowRange = Field(..., title="Flow range")
-    odor_vial_volume: Optional[Decimal] = Field(None, title="Odor vial volume")
-    odorant_volume: Optional[Decimal] = Field(None, title="Odorant volume")
-    volume_unit: VolumeUnit = Field(VolumeUnit.ML, title="Volume unit")
-
-    @model_validator(mode="after")
-    def validate_channel(self):
-        """Validator for channel type"""
-
-        if self.channel_type == ChannelType.ODOR.value:
-            odor_vial_volume = self.odor_vial_volume
-            odorant_volume = self.odorant_volume
-            if not odor_vial_volume or not odorant_volume:
-                raise AssertionError(
-                    "Odor channels must specify odor_vial_volume and odorant_volume"
-                )
-        return self
+    flow_range: set = Field(default={0,100}, title="Flow range")
+    flow_unit: str = Field("mL/min", title="Flow unit")
 
 
 class Olfactometer(HarpDevice):

@@ -194,14 +194,12 @@ class RigTests(unittest.TestCase):
                         OlfactometerChannel(
                             channel_index=0,
                             channel_type=ChannelType.CARRIER,
-                            flow_range="0-100 ml/min",
+                            flow_range={0,100},
                         ),
                         OlfactometerChannel(
                             channel_index=1,
                             channel_type=ChannelType.ODOR,
-                            flow_range="0-100 ml/min",
-                            odor_vial_volume=10,
-                            odorant_volume=6,
+                            flow_range={0,100},
                         )
                     ],
                 )
@@ -280,36 +278,6 @@ class RigTests(unittest.TestCase):
                     )
                 ],
                 mouse_platform=Disc(name="Disc A", radius=1),
-            )
-
-        with self.assertRaises(ValidationError):
-            Rig(
-                rig_id="1234",
-                modification_date=datetime.now(),
-                modalities=[Modality.TRAINED_BEHAVIOR],
-                stimulus_devices=[
-                    Olfactometer(
-                        name="Olfactometer",
-                        manufacturer=Manufacturer.CHAMPALIMAUD,
-                        model="1234",
-                        serial_number="213456",
-                        harp_device_type="Olfactometer",
-                        harp_device_version="1",
-                        computer_name="W10XXX000",
-                        channels=[
-                            OlfactometerChannel(
-                                channel_index=0,
-                                channel_type=ChannelType.CARRIER,
-                                flow_range="0-100 ml/min",
-                            ),
-                            OlfactometerChannel(
-                                channel_index=1,
-                                channel_type=ChannelType.ODOR,
-                                flow_range="0-100 ml/min",
-                            )
-                        ],
-                    )
-                ]
             )
 
         with self.assertRaises(ValidationError):
