@@ -318,7 +318,7 @@ class Headframe(SubjectProcedure):
 class TarsVirusIdentifiers(AindModel):
     """TARS data for a viral prep"""
 
-    virus_tars_id: Optional[str] = Field(None, title="Virus ID, usually beings 'AiV'")
+    virus_tars_id: Optional[str] = Field(None, title="Virus ID, usually begins 'AiV'")
     plasmid_tars_alias: Optional[str] = Field(
         None,
         title="Plasmid alias",
