@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/session.py",
-   "schema_version": "0.1.0",
+   "schema_version": "0.1.1",
    "experimenter_full_name": [
       "John Doe"
    ],
@@ -19,12 +19,6 @@
       {
          "stream_start_time": "2022-07-12T07:00:00",
          "stream_end_time": "2022-07-12T07:00:00",
-         "stream_modalities": [
-            {
-               "name": "Fiber photometry",
-               "abbreviation": "fib"
-            }
-         ],
          "daq_names": [],
          "camera_names": [],
          "light_sources": [
@@ -77,6 +71,12 @@
          "stimulus_device_names": [],
          "mouse_platform_name": "Disc",
          "active_mouse_platform": false,
+         "stream_modalities": [
+            {
+               "name": "Fiber photometry",
+               "abbreviation": "fib"
+            }
+         ],
          "notes": "Internal trigger. GRAB-DA2m shows signal. Unclear about GRAB-rAC"
       }
    ],
