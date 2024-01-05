@@ -55,7 +55,7 @@ class Isi(_Modality):
     """Intrinsic signal imaging"""
 
     name: Literal["Intrinsic signal imaging"] = "Intrinsic signal imaging"
-    abbreviation: Literal["isi"] = "isi"
+    abbreviation: Literal["ISI"] = "ISI"
 
 
 class Fib(_Modality):
