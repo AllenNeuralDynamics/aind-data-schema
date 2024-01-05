@@ -12,17 +12,18 @@ inst = instrument.Instrument(
     manufacturer=Manufacturer.CUSTOM,
     objectives=[
         instrument.Objective(
+            name="Custom Objective",
             numerical_aperture=0.305,
             magnification=5,
             immersion="air",
             manufacturer=Manufacturer.OTHER,
             model="JM_DIAMOND 5.0X/1.3",
-            serial_number="Unknown",
             notes="manufacturer collaboration between Schneider-Kreuznach and Vieworks",
         ),
     ],
     detectors=[
         Detector(
+            name="Cmaera 1",
             detector_type="Camera",
             data_interface="Coax",
             cooling="air",
@@ -71,6 +72,7 @@ inst = instrument.Instrument(
     ],
     fluorescence_filters=[
         Filter(
+            name="Multiband filter",
             filter_type="Multiband",
             manufacturer=Manufacturer.CHROMA,
             diameter=44.05,
@@ -78,7 +80,6 @@ inst = instrument.Instrument(
             model="ZET405/488/561/640mv2",
             notes="Custom made filter",
             filter_wheel_index=0,
-            serial_number="Unknown-0",
         )
     ],
     daqs=[
@@ -88,7 +89,6 @@ inst = instrument.Instrument(
             computer_name="Dev2",
             manufacturer=Manufacturer.NATIONAL_INSTRUMENTS,
             name="Dev2",
-            serial_number="Unknown",
             channels=[
                 DAQChannel(
                     channel_name="3",
@@ -137,23 +137,22 @@ inst = instrument.Instrument(
             travel=1000,
             model="MS-8000",
             manufacturer=Manufacturer.ASI,
-            serial_number="Unknown",
         ),
         instrument.ScanningStage(
+            name="stage-y",
             stage_axis_direction="Perpendicular axis",
             stage_axis_name="Y",
             travel=1000,
             model="MS-8000",
             manufacturer=Manufacturer.ASI,
-            serial_number="Unknown",
         ),
         instrument.ScanningStage(
+            name="stage-z",
             stage_axis_direction="Illumination axis",
             stage_axis_name="Z",
             travel=100,
             model="LS-100",
             manufacturer=Manufacturer.ASI,
-            serial_number="Unknown",
         ),
     ],
     additional_devices=[
@@ -165,12 +164,14 @@ inst = instrument.Instrument(
             serial_number="01",
         ),
         instrument.AdditionalImagingDevice(
+            name="RM-1",
             type="Rotation mount",
             manufacturer=Manufacturer.THORLABS,
             model="K10CR1",
             serial_number="01",
         ),
         instrument.AdditionalImagingDevice(
+            name="LC-1",
             type="Laser combiner",
             manufacturer=Manufacturer.OXXIUS,
             model="L6Cc",
@@ -179,12 +180,12 @@ inst = instrument.Instrument(
     ],
     optical_tables=[
         instrument.OpticalTable(
+            name="Table",
             length=36,
             width=48,
             vibration_control=True,
             model="VIS3648-PG2-325A",
             manufacturer=Manufacturer.MKS_NEWPORT,
-            serial_number="Unknown",
         )
     ],
     com_ports=[

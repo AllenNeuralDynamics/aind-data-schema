@@ -6,7 +6,14 @@
    "creation_date": "2022-07-26",
    "name": "ecephys_624643_2022-07-26_10-52-15",
    "institution": "AIND",
-   "funding_source": [],
+   "investigators": ["John Doe"],
+   "funding_source": [
+      {
+         "funder": "AI",
+         "grant_number": null,
+         "fundee": null
+      }
+   ],
    "data_level": "raw data",
    "group": null,
    "project_name": null,

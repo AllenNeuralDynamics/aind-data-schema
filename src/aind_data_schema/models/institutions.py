@@ -30,7 +30,7 @@ class AllenInstituteForBrainScience(_Institution):
     name: Literal["Allen Institute for Brain Science"] = "Allen Institute for Brain Science"
     abbreviation: Literal["AIBS"] = "AIBS"
     registry: Annotated[Union[ResearchOrganizationRegistry], Field(default=Registry.ROR, discriminator="name")]
-    registry_identifier: Literal["03cpe7c52"] = "00dcv1019"
+    registry_identifier: Literal["00dcv1019"] = "00dcv1019"
 
 
 class AllenInstituteForNeuralDynamics(_Institution):

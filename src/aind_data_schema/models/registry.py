@@ -48,3 +48,5 @@ class Registry:
     ROR = ResearchOrganizationRegistry()
     NCBI = NationalCenterForBiotechnologyInformation()
     RRID = ResearchResourceIdentifiers()
+
+    _ALL = tuple(_Registry.__subclasses__())
