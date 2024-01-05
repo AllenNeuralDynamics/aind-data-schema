@@ -142,6 +142,7 @@
       "creation_time",
       "creation_date",
       "institution",
+      "investigators",
       "funding_source",
       "data_level",
       "modality",

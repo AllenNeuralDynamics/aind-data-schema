@@ -136,6 +136,7 @@ class ImagingTests(unittest.TestCase):
             animal_weight_prior=22.1,
             animal_weight_post=21.9,
             mri_scanner=ms.Scanner(
+                name="MRI scanner",
                 scanner_location="UW SLU",
                 magnetic_strength=7,
                 magnetic_strength_unit="T",

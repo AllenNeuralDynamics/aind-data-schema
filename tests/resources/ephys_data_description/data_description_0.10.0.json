@@ -30,7 +30,7 @@
    ],
    "data_level": "raw",
    "group": null,
-   "investigators": [],
+   "investigators": ["John Doe"],
    "platform": {
       "name": "Electrophysiology platform",
       "abbreviation": "ecephys"
