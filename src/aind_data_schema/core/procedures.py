@@ -345,10 +345,15 @@ class ViralMaterial(AindModel):
         title="Full genome name",
         description="Full genome for virus construct",
     )
-    tars_identifiers: Optional[TarsVirusIdentifiers] = Field(None, title="TARS IDs", description="TARS database identifiers")
+    tars_identifiers: Optional[TarsVirusIdentifiers] = Field(
+        None, title="TARS IDs",
+        description="TARS database identifiers"
+        )
     addgene_id: Optional[PIDName] = Field(None, title="Addgene id", description="Registry must be Addgene")
-    titer: Optional[int] = Field(None, title="Effective titer (gc/mL)",
-            description="Final titer of viral material, accounting for mixture/diliution")
+    titer: Optional[int] = Field(
+        None, title="Effective titer (gc/mL)",
+        description="Final titer of viral material, accounting for mixture/diliution"
+        )
     titer_unit: str = Field("gc/mL", title="Titer unit")
 
 
