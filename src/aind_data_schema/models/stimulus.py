@@ -10,7 +10,7 @@ from typing_extensions import Annotated
 
 from aind_data_schema.base import AindModel
 from aind_data_schema.models.devices import Software
-from aind_data_schema.models.units import FrequencyUnit, PowerUnit, TimeUnit, VolumeUnit
+from aind_data_schema.models.units import ConcentrationUnit, FrequencyUnit, PowerUnit, TimeUnit, VolumeUnit
 
 
 class PulseShape(str, Enum):
@@ -24,7 +24,7 @@ class PulseShape(str, Enum):
 class OptoStimulation(AindModel):
     """Description of opto stimulation parameters"""
 
-    stimulus_type: Literal["OptoStimulation"] = "OptoStimulation"
+    stimulus_type: Literal["Opto Stimulation"] = "Opto Stimulation"
     stimulus_name: str = Field(..., title="Stimulus name")
     pulse_shape: PulseShape = Field(..., title="Pulse shape")
     pulse_frequency: int = Field(..., title="Pulse frequency (Hz)")
@@ -52,7 +52,7 @@ class OptoStimulation(AindModel):
 class VisualStimulation(AindModel):
     """Description of visual stimulus parameters. Provides a high level description of stimulus."""
 
-    stimulus_type: Literal["VisualStimulation"] = "VisualStimulation"
+    stimulus_type: Literal["Visual"] = "Visual"
     stimulus_name: str = Field(..., title="Stimulus name")
     stimulus_parameters: Dict[str, Any] = Field(
         dict(),
@@ -82,7 +82,7 @@ class VisualStimulation(AindModel):
 class BehaviorStimulation(AindModel):
     """Description of behavior parameters. Provides a high level description of stimulus."""
 
-    stimulus_type: Literal["BehaviorStimulation"] = "BehaviorStimulation"
+    stimulus_type: Literal["Behavior"] = "Behavior"
     behavior_name: str = Field(..., title="Behavior name")
     session_number: int = Field(..., title="Session number")
     behavior_software: List[Software] = Field(
@@ -128,7 +128,7 @@ class PhotoStimulationGroup(AindModel):
 class PhotoStimulation(AindModel):
     """Description of a photostimulation session"""
 
-    stimulus_type: Literal["PhotoStimulation"] = "PhotoStimulation"
+    stimulus_type: Literal["Photo Stimulation"] = "Photo Stimulation"
     stimulus_name: str = Field(..., title="Stimulus name")
     number_groups: int = Field(..., title="Number of groups")
     groups: List[PhotoStimulationGroup] = Field(..., title="Groups")
@@ -138,11 +138,27 @@ class PhotoStimulation(AindModel):
     notes: Optional[str] = Field(None, title="Notes")
 
 
+class OlfactometerChannelConfig(AindModel):
+    """Description of olfactometer channel configurations"""
+
+    channel_index: int = Field(..., title="Channel index")
+    odorant: str = Field(..., title="Odorant")
+    odorant_dilution: Decimal = Field(..., title="Odorant dilution")
+    odorant_dilution_unit: ConcentrationUnit = Field(ConcentrationUnit.VOLUME_PERCENT, title="Dilution unit")
+
+
+class OlfactoryStimulation(AindModel):
+    """Description of a olfactory stimulus"""
+
+    stimulus_type: Literal["Olfactory"] = "Olfactory"
+    channels: List[OlfactometerChannelConfig]
+
+
 class StimulusEpoch(AindModel):
     """Description of stimulus used during session"""
 
     stimulus: Annotated[
-        Union[OptoStimulation, VisualStimulation, BehaviorStimulation, PhotoStimulation],
+        Union[OlfactoryStimulation, OptoStimulation, VisualStimulation, BehaviorStimulation, PhotoStimulation],
         Field(..., title="Stimulus", discriminator="stimulus_type"),
     ]
     stimulus_start_time: datetime = Field(

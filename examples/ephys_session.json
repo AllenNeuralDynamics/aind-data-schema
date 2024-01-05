@@ -19,18 +19,6 @@
       {
          "stream_start_time": "2023-01-10T08:43:00",
          "stream_end_time": "2023-01-10T09:43:00",
-         "mouse_platform_name": "Running Wheel",
-         "active_mouse_platform": false,
-         "stream_modalities": [
-            {
-               "name": "Extracellular electrophysiology",
-               "abbreviation": "ecephys"
-            },
-            {
-               "name": "Behavior videos",
-               "abbreviation": "behavior-videos"
-            }
-         ],
          "daq_names": [
             "Harp Behavior",
             "Basestation Slot 3"
@@ -109,12 +97,24 @@
          "slap_fovs": null,
          "stack_parameters": null,
          "stimulus_device_names": [],
+         "mouse_platform_name": "Running Wheel",
+         "active_mouse_platform": false,
+         "stream_modalities": [
+            {
+               "name": "Extracellular electrophysiology",
+               "abbreviation": "ecephys"
+            },
+            {
+               "name": "Behavior videos",
+               "abbreviation": "behavior-videos"
+            }
+         ],
          "notes": null
       }
    ],
    "stimulus_epochs": [],
+   "reward_delivery": null,
    "reward_consumed_total": null,
    "reward_consumed_unit": "microliter",
-   "reward_delivery": null,
    "notes": null
 }

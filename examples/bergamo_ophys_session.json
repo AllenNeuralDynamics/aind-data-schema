@@ -88,7 +88,7 @@
    "stimulus_epochs": [
       {
          "stimulus": {
-            "stimulus_type": "PhotoStimulation",
+            "stimulus_type": "Photo Stimulation",
             "stimulus_name": "PhotoStimulation",
             "number_groups": 2,
             "groups": [
