@@ -291,7 +291,9 @@ class Calibration(AindModel):
     notes: Optional[str] = Field(None, title="Notes")
 
 
-class WaterCalibrationInput(AindModel):
+class WaterValveCalibrationInput(AindModel):
+    """Input for water valve calibration class"""
+
     valve_open_interval: PositiveFloat = Field(
         ..., description="Time between two consecutive valve openings (s)", title="Valve open interval", units="s"
     )
@@ -304,7 +306,9 @@ class WaterCalibrationInput(AindModel):
     repeat_count: int = Field(..., ge=0, description="Number of times the valve opened.", title="Repeat count")
 
 
-class WaterCalibrationOutput(AindModel):
+class WaterValveCalibrationOutput(AindModel):
+    """Output for water valve calibration class"""
+
     interval_average: Optional[Dict[PositiveFloat, PositiveFloat]] = Field(
         None,
         description="Dictionary keyed by measured valve interval and corresponding average single event volume.",
@@ -333,12 +337,14 @@ class WaterCalibrationOutput(AindModel):
     )
 
 
-class WaterCalibration(Calibration):
+class WaterValveCalibration(Calibration):
+    """Water valve calibration class"""
+
     description: Literal[
         "Calibration of the water valve delivery system"
     ] = "Calibration of the water valve delivery system"
-    input: List[WaterCalibrationInput] = Field([], title="Input of the calibration")
-    output: Optional[WaterCalibrationOutput] = Field(None, title="Output of the calibration.")
+    input: List[WaterValveCalibrationInput] = Field([], title="Input of the calibration")
+    output: Optional[WaterValveCalibrationOutput] = Field(None, title="Output of the calibration.")
 
 
 class Maintenance(AindModel):
