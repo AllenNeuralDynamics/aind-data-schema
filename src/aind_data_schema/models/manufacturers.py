@@ -622,7 +622,7 @@ class Manufacturer:
             InteruniversityMicroelectronicsCenter,
             OpenEphysProductionSite,
             ChampalimaudFoundation,
-            Other
+            Other,
         ],
         Field(discriminator="name"),
     ]

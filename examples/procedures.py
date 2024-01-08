@@ -4,11 +4,11 @@ import datetime
 from aind_data_schema.core.procedures import (
     Anaesthetic,
     Craniotomy,
-    ViralMaterial,
     NanojectInjection,
     Perfusion,
     Procedures,
     TarsVirusIdentifiers,
+    ViralMaterial,
 )
 
 t = datetime.datetime(2022, 7, 12, 7, 00, 00)

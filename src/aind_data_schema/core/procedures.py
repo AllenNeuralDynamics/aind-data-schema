@@ -346,14 +346,14 @@ class ViralMaterial(AindModel):
         description="Full genome for virus construct",
     )
     tars_identifiers: Optional[TarsVirusIdentifiers] = Field(
-        None, title="TARS IDs",
-        description="TARS database identifiers"
-        )
+        None, title="TARS IDs", description="TARS database identifiers"
+    )
     addgene_id: Optional[PIDName] = Field(None, title="Addgene id", description="Registry must be Addgene")
     titer: Optional[int] = Field(
-        None, title="Effective titer (gc/mL)",
-        description="Final titer of viral material, accounting for mixture/diliution"
-        )
+        None,
+        title="Effective titer (gc/mL)",
+        description="Final titer of viral material, accounting for mixture/diliution",
+    )
     titer_unit: str = Field("gc/mL", title="Titer unit")
 
 
@@ -368,9 +368,10 @@ class NonViralMaterial(Reagent):
 class Injection(SubjectProcedure):
     """Description of an injection procedure"""
 
-    injection_materials: Annotated[List[Union[ViralMaterial, NonViralMaterial]], Field(
-        title="Injection material", min_length=1, discriminator="material_type")
-        ] = []
+    injection_materials: Annotated[
+        List[Union[ViralMaterial, NonViralMaterial]],
+        Field(title="Injection material", min_length=1, discriminator="material_type"),
+    ] = []
     recovery_time: Optional[Decimal] = Field(None, title="Recovery time")
     recovery_time_unit: TimeUnit = Field(TimeUnit.M, title="Recovery time unit")
     injection_duration: Optional[Decimal] = Field(None, title="Injection duration")
