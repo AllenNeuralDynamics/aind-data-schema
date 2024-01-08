@@ -81,7 +81,7 @@ probe_camera = Detector(
     max_frame_rate=50,
     sensor_width=1080,
     sensor_height=570,
-    sensor_format=1/2.9",
+    sensor_format="1/2.9",
     sensor_format_unit="inches",
     chroma="Color",
 )
