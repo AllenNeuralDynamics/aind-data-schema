@@ -1,9 +1,10 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/procedures.py",
-   "schema_version": "0.10.3",
+   "schema_version": "0.10.5",
    "subject_id": "625100",
    "subject_procedures": [
       {
+         "procedure_type": "Craniotomy",
          "start_date": "2022-07-12",
          "end_date": "2022-07-12",
          "experimenter_full_name": "n/a",
@@ -19,7 +20,6 @@
             "level": "1.5"
          },
          "notes": null,
-         "procedure_type": "Craniotomy",
          "craniotomy_type": "Visual Cortex",
          "craniotomy_hemisphere": null,
          "craniotomy_coordinates_ml": null,
@@ -38,6 +38,7 @@
          "recovery_time_unit": "minute"
       },
       {
+         "procedure_type": "Nanoject injection",
          "start_date": "2022-07-12",
          "end_date": "2022-07-12",
          "experimenter_full_name": "n/a",
@@ -55,19 +56,19 @@
          "notes": null,
          "injection_materials": [
             {
+               "material_type": "Virus",
                "name": "AAV2-Flex-ChrimsonR",
-               "material_id": null,
-               "full_genome_name": null,
-               "plasmid_name": null,
-               "genome_copy": null,
-               "titer": null,
-               "titer_unit": "gc/mL",
-               "concentration": null,
-               "concentration_unit": null,
-               "prep_lot_number": null,
-               "prep_date": null,
-               "prep_type": null,
-               "prep_protocol": null
+               "tars_identifiers": {
+                  "virus_tars_id": "AiV222",
+                  "plasmid_tars_alias": "AiP222",
+                  "prep_lot_number": "VT222",
+                  "prep_date": null,
+                  "prep_type": null,
+                  "prep_protocol": null
+               },
+               "addgene_id": null,
+               "titer": 2300000000,
+               "titer_unit": "gc/mL"
             }
          ],
          "recovery_time": "0",
@@ -89,13 +90,13 @@
          "injection_angle_unit": "degrees",
          "targeted_structure": "VISp",
          "injection_hemisphere": "Left",
-         "procedure_type": "Nanoject injection",
          "injection_volume": [
             "200"
          ],
          "injection_volume_unit": "nanoliter"
       },
       {
+         "procedure_type": "Perfusion",
          "start_date": "2022-07-12",
          "end_date": "2022-07-12",
          "experimenter_full_name": "n/a",
@@ -106,7 +107,6 @@
          "weight_unit": "gram",
          "anaesthesia": null,
          "notes": null,
-         "procedure_type": "Perfusion",
          "output_specimen_ids": [
             "1"
          ]

@@ -4,10 +4,11 @@ import datetime
 from aind_data_schema.core.procedures import (
     Anaesthetic,
     Craniotomy,
-    InjectionMaterial,
+    ViralMaterial,
     NanojectInjection,
     Perfusion,
     Procedures,
+    TarsVirusIdentifiers,
 )
 
 t = datetime.datetime(2022, 7, 12, 7, 00, 00)
@@ -39,7 +40,18 @@ p = Procedures(
             animal_weight_prior=22.6,
             animal_weight_post=22.7,
             anaesthesia=Anaesthetic(type="Isoflurane", duration=1, level=1.5),
-            injection_materials=[InjectionMaterial(name="AAV2-Flex-ChrimsonR")],
+            injection_materials=[
+                ViralMaterial(
+                    material_type="Virus",
+                    name="AAV2-Flex-ChrimsonR",
+                    tars_identifiers=TarsVirusIdentifiers(
+                        virus_tars_id="AiV222",
+                        plasmid_tars_alias="AiP222",
+                        prep_lot_number="VT222",
+                    ),
+                    titer=2300000000,
+                )
+            ],
             recovery_time=0,
             workstation_id="SWS 3",
             instrument_id=None,

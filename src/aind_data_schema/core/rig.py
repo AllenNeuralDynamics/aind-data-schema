@@ -49,7 +49,7 @@ class Rig(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/rig.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["0.2.1"] = Field("0.2.1")
+    schema_version: Literal["0.2.3"] = Field("0.2.3")
 
     rig_id: str = Field(..., description="room_stim apparatus_version", title="Rig ID")
     modification_date: date = Field(..., title="Date of modification")
@@ -129,7 +129,6 @@ class Rig(AindCoreModel):
         if Modality.ECEPHYS in value:
             for k, v in {
                 "ephys_assemblies": len(info.data["ephys_assemblies"]) > 0,
-                "stick_microscopes": len(info.data["stick_microscopes"]) > 0,
             }.items():
                 if v is False:
                     errors.append(f"{k} field must be utilized for Ecephys modality")
