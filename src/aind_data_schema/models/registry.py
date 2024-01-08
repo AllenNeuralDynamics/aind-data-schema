@@ -53,6 +53,7 @@ class Registry:
 
     ADDGENE = Addgene()
     ROR = ResearchOrganizationRegistry()
+    MGI = MouseGenomeInformatics()
     NCBI = NationalCenterForBiotechnologyInformation()
     RRID = ResearchResourceIdentifiers()
 
