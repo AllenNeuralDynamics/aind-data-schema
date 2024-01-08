@@ -20,6 +20,13 @@ class Addgene(_Registry):
     abbreviation: Literal["ADDGENE"] = "ADDGENE"
 
 
+class MouseGenomeInformatics(_Registry):
+    """MouseGenomeInformatics"""
+
+    name: Literal["Mouse Genome Informatics"] = "Mouse Genome Informatics"
+    abbreviation: Literal["MGI"] = "MGI"
+
+
 class ResearchOrganizationRegistry(_Registry):
     """ResearchOrganizationRegistry"""
 

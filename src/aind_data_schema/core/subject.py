@@ -59,13 +59,6 @@ class WellnessReport(AindModel):
     report: str = Field(..., title="Report")
 
 
-class MgiAlleleId(AindModel):
-    """Mouse Genome Informatics IDs for genotype alleles"""
-
-    allele_name: str = Field(..., title="Name")
-    mgi_id: str = Field(..., title="MGI ID")
-
-
 class Housing(AindModel):
     """Description of subject housing"""
 
@@ -99,7 +92,7 @@ class Subject(AindCoreModel):
         description="Genotype of the animal providing both alleles",
         title="Genotype",
     )
-    mgi_allele_ids: List[MgiAlleleId] = Field(default=[], title="MGI allele ids")
+    mgi_allele_ids: List[PIDName] = Field(default=[], title="MGI allele ids")
     background_strain: Optional[BackgroundStrain] = Field(None, title="Background strain")
     source: Optional[Institution.ONE_OF] = Field(
         None,
