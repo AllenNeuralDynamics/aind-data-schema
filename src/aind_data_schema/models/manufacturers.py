@@ -593,7 +593,17 @@ class Manufacturer:
 
     DETECTOR_MANUFACTURERS = Annotated[
         Union[
-            AilipuTechnologyCo, Allied, Basler, EdmundOptics, Hamamatsu, Spinnaker, TeledyneFLIR, TheImagingSource, Thorlabs, Vieworks, Other
+            AilipuTechnologyCo,
+            Allied,
+            Basler,
+            EdmundOptics,
+            Hamamatsu,
+            Spinnaker,
+            TeledyneFLIR,
+            TheImagingSource,
+            Thorlabs,
+            Vieworks,
+            Other
         ],
         Field(discriminator="name"),
     ]

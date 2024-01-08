@@ -116,7 +116,7 @@ class RigTests(unittest.TestCase):
                     lens=Lens(name="Camera lens", manufacturer=Manufacturer.OTHER),
                     camera=Detector(
                         name="Camera A",
-                        detector_type=DetectorType.Camera,
+                        detector_type=DetectorType.CAMERA,
                         manufacturer=Manufacturer.OTHER,
                         data_interface="USB",
                         computer_name="ASDF",
@@ -132,7 +132,7 @@ class RigTests(unittest.TestCase):
                     scope_assembly_name="Assembly A",
                     camera=Detector(
                         name="Camera A",
-                        detector_type=DetectorType.Camera,
+                        detector_type=DetectorType.CAMERA,
                         manufacturer=Manufacturer.OTHER,
                         data_interface="USB",
                         computer_name="ASDF",
@@ -160,7 +160,7 @@ class RigTests(unittest.TestCase):
                     serial_number="21396991",
                     manufacturer=Manufacturer.FLIR,
                     model="BFS-U3-20S40M",
-                    detector_type="Camera",
+                    detector_type=DetectorType.CAMERA,
                     data_interface="USB",
                     cooling="air",
                     immersion="air",
