@@ -49,7 +49,7 @@ class Rig(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/rig.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["0.2.3"] = Field("0.2.3")
+    schema_version: Literal["0.2.4"] = Field("0.2.4")
 
     rig_id: str = Field(..., description="room_stim apparatus_version", title="Rig ID")
     modification_date: date = Field(..., title="Date of modification")
@@ -100,7 +100,7 @@ class Rig(AindCoreModel):
         )
         camera_devices = info.data["cameras"] + info.data["stick_microscopes"]
         standard_device_names = [device.name for device in standard_devices]
-        camera_names = [camera.detector.name for camera in camera_devices]
+        camera_names = [camera.camera.name for camera in camera_devices]
         ephys_assembly_names = [
             probe.name for ephys_assembly in info.data["ephys_assemblies"] for probe in ephys_assembly.probes
         ]

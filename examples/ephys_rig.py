@@ -8,7 +8,6 @@ from aind_data_schema.models.devices import (
     CameraAssembly,
     DAQChannel,
     Detector,
-    DetectorType,
     Disc,
     EphysAssembly,
     EphysProbe,
@@ -74,7 +73,7 @@ laser_assembly = LaserAssembly(
 
 probe_camera = Detector(
     name="Probe Camera",
-    detector_type=DetectorType.Camera,
+    detector_type="Camera",
     data_interface="USB",
     manufacturer=Manufacturer.FLIR,
     computer_name=ephys_computer,
@@ -125,7 +124,7 @@ lens = Lens(name="Camera lens", focal_length=15, manufacturer=Manufacturer.EDMUN
 
 face_camera = Detector(
     name="Face Camera",
-    detector_type=DetectorType.Camera,
+    detector_type="Camera",
     data_interface="USB",
     manufacturer=Manufacturer.FLIR,
     computer_name=behavior_computer,
@@ -147,7 +146,7 @@ camassm1 = CameraAssembly(
 
 body_camera = Detector(
     name="Body Camera",
-    detector_type=DetectorType.Camera,
+    detector_type="Camera",
     data_interface="USB",
     manufacturer=Manufacturer.FLIR,
     computer_name=behavior_computer,

@@ -311,7 +311,7 @@ class Detector(Device):
     data_interface: DataInterface = Field(..., title="Data interface")
     cooling: Cooling = Field(None, title="Cooling")
     computer_name: Optional[str] = Field(None, title="Name of computer receiving data from this camera")
-    max_frame_rate: Decimal = Field(..., title="Maximum frame rate (Hz)")
+    max_frame_rate: Optional[Decimal] = Field(None, title="Maximum frame rate (Hz)")
     frame_rate_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Frame rate unit")
     immersion: Optional[ImmersionMedium] = Field(None, title="Immersion")
     chroma: Optional[CameraChroma] = Field(None, title="Camera chroma")
