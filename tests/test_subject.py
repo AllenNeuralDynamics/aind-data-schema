@@ -5,8 +5,10 @@ import unittest
 
 import pydantic
 
-from aind_data_schema.core.subject import Housing, LightCycle, MgiAlleleId, Subject
+from aind_data_schema.core.subject import Housing, LightCycle, Subject
 from aind_data_schema.models.species import Species
+from aind_data_schema.models.pid_names import PIDName
+from aind_data_schema.models.registry import Registry
 
 
 class SubjectTests(unittest.TestCase):
@@ -33,7 +35,7 @@ class SubjectTests(unittest.TestCase):
                 ),
                 cage_id="543",
             ),
-            mgi_allele_ids=[MgiAlleleId(mgi_id="12345", allele_name="adsf")],
+            mgi_allele_ids=[PIDName(registry_identifier="12345", name="adsf", registry=Registry.MGI)],
         )
 
         Subject.model_validate_json(s.model_dump_json())
