@@ -9,6 +9,7 @@ from aind_data_schema.models.devices import Calibration, Maintenance
 from aind_data_schema.models.pid_names import PIDName
 from aind_data_schema.models.registry import Registry
 from aind_data_schema.models.units import PowerValue
+from aind_data_schema.models.institutions import Institution
 
 t = datetime(2022, 11, 22, 8, 43, 00)
 
@@ -25,7 +26,7 @@ acq = acquisition.Acquisition(
             reagents=[
                 Reagent(
                     name="reagent1",
-                    source="xxx",
+                    source=Institution.AIBS,
                     rrid=PIDName(name="xxx", abbreviation="xx", registry=Registry.RRID, registry_identifier="100"),
                     lot_number="xxx",
                     expiration_date=t.date(),
