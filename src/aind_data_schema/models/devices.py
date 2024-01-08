@@ -23,7 +23,7 @@ from aind_data_schema.models.units import (
 
 
 class ImagingDeviceType(str, Enum):
-    """Imaginge device type name"""
+    """Imaging device type name"""
 
     BEAM_EXPANDER = "Beam expander"
     SAMPLE_CHAMBER = "Sample Chamber"
