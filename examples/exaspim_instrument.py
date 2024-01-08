@@ -23,7 +23,7 @@ inst = instrument.Instrument(
     ],
     detectors=[
         Detector(
-            name="Cmaera 1",
+            name="Camera 1",
             detector_type="Camera",
             data_interface="Coax",
             cooling="air",

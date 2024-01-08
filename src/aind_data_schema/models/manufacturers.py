@@ -591,7 +591,7 @@ class Manufacturer:
     _ALL = tuple(_Manufacturer.__subclasses__())
     ONE_OF = Annotated[Union[_ALL], Field(discriminator="name")]
 
-    CAMERA_MANUFACTURERS = Annotated[
+    DETECTOR_MANUFACTURERS = Annotated[
         Union[
             AilipuTechnologyCo, Allied, Basler, EdmundOptics, Spinnaker, TeledyneFLIR, TheImagingSource, Thorlabs, Other
         ],

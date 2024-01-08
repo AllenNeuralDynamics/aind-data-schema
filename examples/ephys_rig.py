@@ -5,9 +5,10 @@ import datetime
 from aind_data_schema.core.rig import Rig
 from aind_data_schema.models.devices import (
     Calibration,
-    Camera,
     CameraAssembly,
     DAQChannel,
+    Detector,
+    DetectorType,
     Disc,
     EphysAssembly,
     EphysProbe,
@@ -71,15 +72,17 @@ laser_assembly = LaserAssembly(
     lasers=[red_laser, blue_laser],
 )
 
-probe_camera = Camera(
+probe_camera = Detector(
     name="Probe Camera",
+    detector_type=DetectorType.Camera,
     data_interface="USB",
     manufacturer=Manufacturer.FLIR,
     computer_name=ephys_computer,
     max_frame_rate=50,
-    pixel_width=1080,
-    pixel_height=570,
-    sensor_format='1/2.9"',
+    sensor_width=1080,
+    sensor_height=570,
+    sensor_format=1/2.9",
+    sensor_format_unit="inches",
     chroma="Color",
 )
 
@@ -120,15 +123,17 @@ filt = Filter(
 
 lens = Lens(name="Camera lens", focal_length=15, manufacturer=Manufacturer.EDMUND_OPTICS, max_aperture="f/2")
 
-face_camera = Camera(
+face_camera = Detector(
     name="Face Camera",
+    detector_type=DetectorType.Camera,
     data_interface="USB",
     manufacturer=Manufacturer.FLIR,
     computer_name=behavior_computer,
     max_frame_rate=500,
-    pixel_width=1080,
-    pixel_height=570,
-    sensor_format='1/2.9"',
+    sensor_width=1080,
+    sensor_height=570,
+    sensor_format="1/2.9",
+    sensor_format_unit="inches",
     chroma="Monochrome",
 )
 
@@ -140,15 +145,17 @@ camassm1 = CameraAssembly(
     lens=lens,
 )
 
-body_camera = Camera(
+body_camera = Detector(
     name="Body Camera",
+    detector_type=DetectorType.Camera,
     data_interface="USB",
     manufacturer=Manufacturer.FLIR,
     computer_name=behavior_computer,
     max_frame_rate=500,
-    pixel_width=1080,
-    pixel_height=570,
-    sensor_format='1/2.9"',
+    sensor_width=1080,
+    sensor_height=570,
+    sensor_format="1/2.9",
+    sensor_format_unit="inches",
     chroma="Monochrome",
 )
 

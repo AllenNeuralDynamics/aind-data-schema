@@ -8,11 +8,11 @@ from pydantic import ValidationError
 from aind_data_schema.core.rig import Rig
 from aind_data_schema.models.devices import (
     Calibration,
-    Camera,
     CameraAssembly,
     ChannelType,
     DAQChannel,
     Detector,
+    DetectorType,
     Disc,
     EphysAssembly,
     EphysProbe,
@@ -114,14 +114,15 @@ class RigTests(unittest.TestCase):
                     camera_assembly_name="cam",
                     camera_target="Face bottom",
                     lens=Lens(name="Camera lens", manufacturer=Manufacturer.OTHER),
-                    camera=Camera(
+                    camera=Detector(
                         name="Camera A",
+                        detector_type=DetectorType.Camera,
                         manufacturer=Manufacturer.OTHER,
                         data_interface="USB",
                         computer_name="ASDF",
                         max_frame_rate=144,
-                        pixel_width=1,
-                        pixel_height=1,
+                        sensor_width=1,
+                        sensor_height=1,
                         chroma="Color",
                     ),
                 )
@@ -129,14 +130,15 @@ class RigTests(unittest.TestCase):
             stick_microscopes=[
                 StickMicroscopeAssembly(
                     scope_assembly_name="Assembly A",
-                    camera=Camera(
+                    camera=Detector(
                         name="Camera A",
+                        detector_type=DetectorType.Camera,
                         manufacturer=Manufacturer.OTHER,
                         data_interface="USB",
                         computer_name="ASDF",
                         max_frame_rate=144,
-                        pixel_width=1,
-                        pixel_height=1,
+                        sensor_width=1,
+                        sensor_height=1,
                         chroma="Color",
                     ),
                     lens=Lens(name="Lens A", manufacturer=Manufacturer.OTHER),
