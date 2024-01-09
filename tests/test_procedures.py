@@ -148,7 +148,7 @@ class ProceduresTests(unittest.TestCase):
         with self.assertRaises(ValidationError) as e:
             SpecimenProcedure(
                 specimen_id="1000",
-                procedure_name="Other - see notes",
+                procedure_type="Other - see notes",
                 start_date=date.fromisoformat("2020-10-10"),
                 end_date=date.fromisoformat("2020-10-11"),
                 experimenter_full_name="guy person",
@@ -158,16 +158,15 @@ class ProceduresTests(unittest.TestCase):
             )
         expected_execption = (
             "1 validation error for SpecimenProcedure\n"
-            "procedure_name\n"
-            "Notes cannot be empty if procedure_name is Other. Describe the procedure in the notes field."
-            " [type=assertion_error, input_value='Other - see notes', input_type=str]\n"
-            "    For further information visit https://errors.pydantic.dev/2.5/v/assertion_error"
-        )
+            " Assertion failed, Notes cannot be empty if procedure_type is Other. "
+            "Describe the procedure in the notes field. [type=assertion_error, input_value={'specimen_id': '1000', '...nts': [], 'notes': None}, input_type=dict]/n"
+            " For further information visit https://errors.pydantic.dev/2.5/v/assertion_error/n"
+            )
         self.assertEqual(expected_execption, repr(e.exception))
         self.assertIsNotNone(
             SpecimenProcedure(
                 specimen_id="1000",
-                procedure_name="Other - see notes",
+                procedure_type="Other - see notes",
                 start_date=date.fromisoformat("2020-10-10"),
                 end_date=date.fromisoformat("2020-10-11"),
                 experimenter_full_name="guy person",

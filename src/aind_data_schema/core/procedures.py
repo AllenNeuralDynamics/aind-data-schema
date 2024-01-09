@@ -239,15 +239,15 @@ class SpecimenProcedure(AindModel):
         immunolabeling = self.immunolabeling
         if self.procedure_type == SpecimenProcedureName.OTHER and not notes:
             raise AssertionError(
-                "Notes cannot be empty if procedure_name is Other. Describe the procedure in the notes field."
+                "Notes cannot be empty if procedure_type is Other. Describe the procedure in the notes field."
             )
         elif self.procedure_type == SpecimenProcedureName.HCR and not hcr_series:
             raise AssertionError(
-                "HCR Series cannot be empty if procedure_name is HCR Series."
+                "HCR Series cannot be empty if procedure_type is HCR Series."
             )
         elif self.procedure_type == SpecimenProcedureName.IMMUNOLABELING and not immunolabeling:
             raise AssertionError(
-                "Immunolabeling cannot be empty if procedure_name is Immunolabling"
+                "Immunolabeling cannot be empty if procedure_type is Immunolabling"
             )
         return self
 
