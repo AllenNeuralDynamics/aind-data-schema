@@ -8,11 +8,10 @@ from aind_data_schema.core.procedures import (
     FiberImplant,
     NanojectInjection,
     OphysProbe,
-    OtherSpecimenProcedure,
     Procedures,
     RetroOrbitalInjection,
-    Surgery,
     SpecimenProcedure,
+    Surgery,
     TarsVirusIdentifiers,
     ViralMaterial,
 )
@@ -89,10 +88,15 @@ class ProceduresTests(unittest.TestCase):
                         NanojectInjection(
                             protocol_id="bca",
                             injection_materials=[
-                                InjectionMaterial(
-                                    name="abc",
-                                    titer="5.46E13",
-                                    prep_lot_number="CT323",
+                                ViralMaterial(
+                                    material_type="Virus",
+                                    name="AAV2-Flex-ChrimsonR",
+                                    tars_identifiers=TarsVirusIdentifiers(
+                                        virus_tars_id="AiV222",
+                                        plasmid_tars_alias="AiP222",
+                                        prep_lot_number="VT222",
+                                    ),
+                                    titer=2300000000,
                                 )
                             ],
                             injection_duration=1,
@@ -142,7 +146,7 @@ class ProceduresTests(unittest.TestCase):
         """Test that the other/notes validation error works"""
 
         with self.assertRaises(ValidationError) as e:
-            OtherSpecimenProcedure(
+            SpecimenProcedure(
                 specimen_id="1000",
                 procedure_name="Other - see notes",
                 start_date=date.fromisoformat("2020-10-10"),
@@ -162,7 +166,7 @@ class ProceduresTests(unittest.TestCase):
         )
         self.assertEqual(expected_execption, repr(e.exception))
         self.assertIsNotNone(
-            OtherSpecimenProcedure(
+            SpecimenProcedure(
                 specimen_id="1000",
                 procedure_name="Other - see notes",
                 start_date=date.fromisoformat("2020-10-10"),

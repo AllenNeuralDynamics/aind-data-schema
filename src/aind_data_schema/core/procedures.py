@@ -262,7 +262,7 @@ class Anaesthetic(AindModel):
 
 
 class OtherSubjectProcedure(AindModel):
-    """Description of surgical or other procedure performed on a subject"""
+    """Description of non-surgical procedure performed on a subject"""
 
     procedure_type: Literal["Other Subject Procedure"] = "Other Subject Procedure"
     protocol_id: Optional[str] = Field(None, title="Protocol ID", description="DOI for protocols.io")
@@ -356,7 +356,7 @@ class NonViralMaterial(Reagent):
     concentration_unit: str = Field(default="mg/mL", title="Concentration unit")
 
 
-class Injection(SubjectProcedure):
+class Injection(AindModel):
     """Description of an injection procedure"""
 
     injection_materials: Annotated[
