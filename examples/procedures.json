@@ -61,6 +61,7 @@
                "injection_duration": null,
                "injection_duration_unit": "minute",
                "instrument_id": null,
+               "protocol_id": "5678",
                "injection_coordinate_ml": "-0.87",
                "injection_coordinate_ap": "-3.8",
                "injection_coordinate_depth": [
@@ -75,7 +76,6 @@
                "targeted_structure": "VISp",
                "injection_hemisphere": "Left",
                "procedure_type": "Nanoject injection",
-               "protocol_id": "5678",
                "injection_volume": [
                   "200"
                ],

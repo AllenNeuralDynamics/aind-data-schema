@@ -231,9 +231,8 @@ class SpecimenProcedure(AindModel):
     notes: Optional[str] = Field(None, title="Notes")
 
     @field_validator("procedure_type")
-    def validate_other_procedure_name(cls, v, info: ValidationInfo):
-        """Adds a validation check on procedure_name to check if notes is not
-        None if procedure_name is SpecimenProcedureName.OTHER"""
+    def validate_procedure_type(cls, v, info: ValidationInfo):
+        """Adds a validation check on procedure_type"""
 
         notes = info.data["notes"]
         hcr_series = info.data["hcr_series"]
