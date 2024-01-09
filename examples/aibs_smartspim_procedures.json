@@ -27,7 +27,7 @@
    ],
    "specimen_procedures": [
       {
-         "procedure_type": "Other Specimen Procedure",
+         "procedure_type": "Fixation",
          "specimen_id": "651286",
          "start_date": "2023-01-13",
          "end_date": "2023-01-17",
@@ -49,11 +49,12 @@
                "expiration_date": null
             }
          ],
-         "notes": null,
-         "procedure_name": "Fixation"
+         "hcr_series": null,
+         "immunolabeling": null,
+         "notes": null
       },
       {
-         "procedure_type": "Other Specimen Procedure",
+         "procedure_type": "Fixation",
          "specimen_id": "651286",
          "start_date": "2023-01-17",
          "end_date": "2023-01-18",
@@ -68,11 +69,12 @@
                "expiration_date": null
             }
          ],
-         "notes": "40 deg. C",
-         "procedure_name": "Fixation"
+         "hcr_series": null,
+         "immunolabeling": null,
+         "notes": "40 deg. C"
       },
       {
-         "procedure_type": "Other Specimen Procedure",
+         "procedure_type": "Soak",
          "specimen_id": "651286",
          "start_date": "2023-01-18",
          "end_date": "2023-01-19",
@@ -87,11 +89,12 @@
                "expiration_date": null
             }
          ],
-         "notes": null,
-         "procedure_name": "Soak"
+         "hcr_series": null,
+         "immunolabeling": null,
+         "notes": null
       },
       {
-         "procedure_type": "Other Specimen Procedure",
+         "procedure_type": "Delipidation",
          "specimen_id": "651286",
          "start_date": "2023-01-19",
          "end_date": "2023-01-20",
@@ -113,11 +116,12 @@
                "expiration_date": null
             }
          ],
-         "notes": null,
-         "procedure_name": "Delipidation"
+         "hcr_series": null,
+         "immunolabeling": null,
+         "notes": null
       },
       {
-         "procedure_type": "Other Specimen Procedure",
+         "procedure_type": "Soak",
          "specimen_id": "651286",
          "start_date": "2023-01-30",
          "end_date": "2023-01-31",
@@ -139,11 +143,12 @@
                "expiration_date": null
             }
          ],
-         "notes": null,
-         "procedure_name": "Soak"
+         "hcr_series": null,
+         "immunolabeling": null,
+         "notes": null
       },
       {
-         "procedure_type": "Other Specimen Procedure",
+         "procedure_type": "Soak",
          "specimen_id": "651286",
          "start_date": "2023-01-31",
          "end_date": "2023-02-02",
@@ -158,11 +163,12 @@
                "expiration_date": null
             }
          ],
-         "notes": null,
-         "procedure_name": "Soak"
+         "hcr_series": null,
+         "immunolabeling": null,
+         "notes": null
       },
       {
-         "procedure_type": "Other Specimen Procedure",
+         "procedure_type": "Embedding",
          "specimen_id": "651286",
          "start_date": "2023-01-31",
          "end_date": "2023-02-02",
@@ -184,8 +190,9 @@
                "expiration_date": null
             }
          ],
-         "notes": null,
-         "procedure_name": "Embedding"
+         "hcr_series": null,
+         "immunolabeling": null,
+         "notes": null
       }
    ],
    "notes": null

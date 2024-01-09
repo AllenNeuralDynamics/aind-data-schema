@@ -5,7 +5,7 @@ from decimal import Decimal
 from enum import Enum
 from typing import List, Literal, Optional, Set, Union
 
-from pydantic import Field, field_validator
+from pydantic import Field, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
 from typing_extensions import Annotated
 
@@ -230,26 +230,26 @@ class SpecimenProcedure(AindModel):
     immunolabeling: Optional[Immunolabeling] = Field(None, title="Immunolabeling")
     notes: Optional[str] = Field(None, title="Notes")
 
-    @field_validator("procedure_type")
-    def validate_procedure_type(cls, v, info: ValidationInfo):
+    @model_validator(mode="after")
+    def validate_procedure_type(self):
         """Adds a validation check on procedure_type"""
 
-        notes = info.data["notes"]
-        hcr_series = info.data["hcr_series"]
-        immunolabeling = info.data["immunolabeling"]
-        if v == SpecimenProcedureName.OTHER and not notes:
+        notes = self.notes
+        hcr_series = self.hcr_series
+        immunolabeling = self.immunolabeling
+        if self.procedure_type == SpecimenProcedureName.OTHER and not notes:
             raise AssertionError(
                 "Notes cannot be empty if procedure_name is Other. Describe the procedure in the notes field."
             )
-        elif v == SpecimenProcedureName.HCR and not hcr_series:
+        elif self.procedure_type == SpecimenProcedureName.HCR and not hcr_series:
             raise AssertionError(
                 "HCR Series cannot be empty if procedure_name is HCR Series."
             )
-        elif v == SpecimenProcedureName.IMMUNOLABELING and not immunolabeling:
+        elif self.procedure_type == SpecimenProcedureName.IMMUNOLABELING and not immunolabeling:
             raise AssertionError(
                 "Immunolabeling cannot be empty if procedure_name is Immunolabling"
             )
-        return v
+        return self
 
 
 class Anaesthetic(AindModel):
