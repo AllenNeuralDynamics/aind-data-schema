@@ -3,23 +3,24 @@
 from datetime import date
 
 from aind_data_schema.core import procedures
+from aind_data_schema.models.institutions import Institution
 
 experimenter = "John Smith"
 # subject and specimen id can be the same?
 specimen_id = "651286"
 
 # Reagents
-shield_buffer = procedures.Reagent(name="SHIELD Buffer", lot_number="1234", source="Vendor")
+shield_buffer = procedures.Reagent(name="SHIELD Buffer", lot_number="1234", source=Institution.AI)
 
-shield_epoxy = procedures.Reagent(name="SHIELD Epoxy", lot_number="1234", source="Vendor")
+shield_epoxy = procedures.Reagent(name="SHIELD Epoxy", lot_number="1234", source=Institution.AI)
 
-shield_on = procedures.Reagent(name="SHIELD On", lot_number="1234", source="Vendor")
+shield_on = procedures.Reagent(name="SHIELD On", lot_number="1234", source=Institution.AI)
 
-delipidation_buffer = procedures.Reagent(name="Delipidation Buffer", lot_number="1234", source="Vendor")
+delipidation_buffer = procedures.Reagent(name="Delipidation Buffer", lot_number="1234", source=Institution.AI)
 
-conductivity_buffer = procedures.Reagent(name="Conductivity Buffer", lot_number="1234", source="Vendor")
+conductivity_buffer = procedures.Reagent(name="Conductivity Buffer", lot_number="1234", source=Institution.AI)
 
-easy_index = procedures.Reagent(name="Easy Index", lot_number="1234", source="Vendor")
+easy_index = procedures.Reagent(name="Easy Index", lot_number="1234", source=Institution.AI)
 
 water = procedures.Reagent(
     name="Deionized water",
