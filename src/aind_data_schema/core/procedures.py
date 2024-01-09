@@ -234,20 +234,17 @@ class SpecimenProcedure(AindModel):
     def validate_procedure_type(self):
         """Adds a validation check on procedure_type"""
 
-        notes = self.notes
-        hcr_series = self.hcr_series
-        immunolabeling = self.immunolabeling
-        if self.procedure_type == SpecimenProcedureName.OTHER and not notes:
+        if self.procedure_type == SpecimenProcedureName.OTHER and not self.notes:
             raise AssertionError(
-                "Notes cannot be empty if procedure_type is Other. Describe the procedure in the notes field."
+                "notes cannot be empty if procedure_type is Other. Describe the procedure in the notes field."
             )
-        elif self.procedure_type == SpecimenProcedureName.HCR and not hcr_series:
+        elif self.procedure_type == SpecimenProcedureName.HCR and not self.hcr_series:
             raise AssertionError(
-                "HCR Series cannot be empty if procedure_type is HCR Series."
+                "hcr_series cannot be empty if procedure_type is HCR."
             )
-        elif self.procedure_type == SpecimenProcedureName.IMMUNOLABELING and not immunolabeling:
+        elif self.procedure_type == SpecimenProcedureName.IMMUNOLABELING and not self.immunolabeling:
             raise AssertionError(
-                "Immunolabeling cannot be empty if procedure_type is Immunolabling"
+                "immunolabeling cannot be empty if procedure_type is Immunolabeling."
             )
         return self
 
