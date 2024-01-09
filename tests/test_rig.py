@@ -10,6 +10,7 @@ from aind_data_schema.models.devices import (
     Calibration,
     Camera,
     CameraAssembly,
+    ChannelType,
     DAQChannel,
     Detector,
     Disc,
@@ -20,6 +21,8 @@ from aind_data_schema.models.devices import (
     Lens,
     Manipulator,
     NeuropixelsBasestation,
+    Olfactometer,
+    OlfactometerChannel,
     Patch,
     StickMicroscopeAssembly,
 )
@@ -176,6 +179,29 @@ class RigTests(unittest.TestCase):
                     model="BBP(4)_200/220/900-0.37_Custom_FCM-4xMF1.25",
                     core_diameter=200,
                     numerical_aperture=0.37,
+                )
+            ],
+            stimulus_devices=[
+                Olfactometer(
+                    name="Olfactometer",
+                    manufacturer=Manufacturer.CHAMPALIMAUD,
+                    model="1234",
+                    serial_number="213456",
+                    harp_device_type="Olfactometer",
+                    harp_device_version="1",
+                    computer_name="W10XXX000",
+                    channels=[
+                        OlfactometerChannel(
+                            channel_index=0,
+                            channel_type=ChannelType.CARRIER,
+                            flow_capacity=100,
+                        ),
+                        OlfactometerChannel(
+                            channel_index=1,
+                            channel_type=ChannelType.ODOR,
+                            flow_capacity=100,
+                        ),
+                    ],
                 )
             ],
             mouse_platform=Disc(name="Disc A", radius=1),

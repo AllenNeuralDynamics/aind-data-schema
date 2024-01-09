@@ -308,27 +308,16 @@ class Headframe(AindModel):
     well_type: Optional[str] = Field(None, title="Well type")
 
 
-class InjectionMaterial(AindModel):
-    """Description of injection material"""
+class TarsVirusIdentifiers(AindModel):
+    """TARS data for a viral prep"""
 
-    name: str = Field(..., title="Name")
-    material_id: Optional[str] = Field(None, title="Material ID")
-    full_genome_name: Optional[str] = Field(
+    virus_tars_id: Optional[str] = Field(None, title="Virus ID, usually begins 'AiV'")
+    plasmid_tars_alias: Optional[str] = Field(
         None,
-        title="Full genome name",
-        description="Full genome for virus construct",
+        title="Plasmid alias",
+        description="Alias used to reference the plasmid, usually begins 'AiP'",
     )
-    plasmid_name: Optional[str] = Field(
-        None,
-        title="Plasmid name",
-        description="Short name used to reference the plasmid",
-    )
-    genome_copy: Optional[Decimal] = Field(None, title="Genome copy")
-    titer: Optional[Decimal] = Field(None, title="Titer (gc/mL)", description="Titer for viral materials")
-    titer_unit: Optional[str] = Field("gc/mL", title="Titer unit")
-    concentration: Optional[Decimal] = Field(None, title="Concentration", description="Must provide concentration unit")
-    concentration_unit: Optional[str] = Field(None, title="Concentration unit")
-    prep_lot_number: Optional[str] = Field(None, title="Preparation lot number")
+    prep_lot_number: str = Field(..., title="Preparation lot number")
     prep_date: Optional[date] = Field(
         None,
         title="Preparation lot date",
@@ -338,10 +327,42 @@ class InjectionMaterial(AindModel):
     prep_protocol: Optional[str] = Field(None, title="Prep protocol")
 
 
-class Injection(AindModel):
+class ViralMaterial(AindModel):
+    """Description of viral material for injections"""
+
+    material_type: Literal["Virus"] = Field("Virus", title="Injection material type")
+    name: str = Field(
+        ...,
+        title="Full genome name",
+        description="Full genome for virus construct",
+    )
+    tars_identifiers: Optional[TarsVirusIdentifiers] = Field(
+        None, title="TARS IDs", description="TARS database identifiers"
+    )
+    addgene_id: Optional[PIDName] = Field(None, title="Addgene id", description="Registry must be Addgene")
+    titer: Optional[int] = Field(
+        None,
+        title="Effective titer (gc/mL)",
+        description="Final titer of viral material, accounting for mixture/diliution",
+    )
+    titer_unit: str = Field("gc/mL", title="Titer unit")
+
+
+class NonViralMaterial(Reagent):
+    """Description of a non-viral injection material"""
+
+    material_type: Literal["Reagent"] = Field("Reagent", title="Injection material type")
+    concentration: Optional[Decimal] = Field(None, title="Concentration", description="Must provide concentration unit")
+    concentration_unit: str = Field(default="mg/mL", title="Concentration unit")
+
+
+class Injection(SubjectProcedure):
     """Description of an injection procedure"""
 
-    injection_materials: List[InjectionMaterial] = Field(default=[], title="Injection material", min_length=1)
+    injection_materials: Annotated[
+        List[Union[ViralMaterial, NonViralMaterial]],
+        Field(title="Injection material", min_length=1, discriminator="material_type"),
+    ] = []
     recovery_time: Optional[Decimal] = Field(None, title="Recovery time")
     recovery_time_unit: TimeUnit = Field(TimeUnit.M, title="Recovery time unit")
     injection_duration: Optional[Decimal] = Field(None, title="Injection duration")

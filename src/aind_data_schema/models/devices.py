@@ -170,7 +170,8 @@ class HarpDeviceType(str, Enum):
     BEHAVIOR = "Behavior"
     CAMERA_CONTROLLER = "Camera Controller"
     LOAD_CELLS = "Load Cells"
-    SOUND_BOARD = "Sound Board"
+    OLFACTOMETER = "Olfactometer"
+    SOUND_CARD = "Sound Card"
     TIMESTAMP_GENERATOR = "Timestamp Generator"
     INPUT_EXPANDER = "Input Expander"
 
@@ -259,7 +260,7 @@ class Device(AindModel):
     manufacturer: Optional[Manufacturer.ONE_OF] = Field(None, title="Manufacturer")
     model: Optional[str] = Field(None, title="Model")
     path_to_cad: Optional[str] = Field(None, title="Path to CAD diagram", description="For CUSTOM manufactured devices")
-    port_index: Optional[str] = Field(None, title="Port index")
+    port_index: Optional[int] = Field(None, title="Port index")
     notes: Optional[str] = Field(None, title="Notes")
 
 
@@ -787,17 +788,35 @@ class Speaker(Device):
     position: Optional[RelativePosition] = Field(None, title="Relative position of the monitor")
 
 
-class Olfactometer(Device):
+class ChannelType(Enum):
+    """Olfactometer channel types"""
+
+    ODOR = "Odor"
+    CARRIER = "Carrier"
+
+
+class OlfactometerChannel(AindModel):
+    """description of a Olfactometer channel"""
+
+    channel_index: int = Field(..., title="Channel index")
+    channel_type: ChannelType = Field(default=ChannelType.ODOR, title="Channel type")
+    flow_capacity: Literal[100, 1000] = Field(default=100, title="Flow capacity")
+    flow_unit: str = Field("mL/min", title="Flow unit")
+
+
+class Olfactometer(HarpDevice):
     """Description of an olfactometer for odor stimuli"""
 
     device_type: Literal["Olfactometer"] = "Olfactometer"
-    position: Optional[RelativePosition] = Field(None, title="Relative position of the monitor")
+    manufacturer: Manufacturer.CHAMPALIMAUD
+    harp_device_type: Literal["Olfactometer"] = "Olfactometer"
+    channels: List[OlfactometerChannel]
 
 
 class AdditionalImagingDevice(Device):
     """Description of additional devices"""
 
-    device_type: Literal["AdditionalImagingDevice"] = "AdditionalImagingDevice"
+    device_type: Literal["Additional Imaging Device"] = "Additional Imaging Device"
     type: ImagingDeviceType = Field(..., title="Device type")
 
 
@@ -811,7 +830,7 @@ class ScanningStage(MotorizedStage):
 class OpticalTable(Device):
     """Description of Optical Table"""
 
-    device_type: Literal["OpticalTable"] = "OpticalTable"
+    device_type: Literal["Optical Table"] = "Optical Table"
     length: Optional[Decimal] = Field(None, title="Length (inches)", ge=0)
     width: Optional[Decimal] = Field(None, title="Width (inches)", ge=0)
     table_size_unit: SizeUnit = Field(SizeUnit.IN, title="Table size unit")
@@ -824,7 +843,7 @@ class Scanner(Device):
     device_type: Literal["Scanner"] = "Scanner"
     scanner_location: ScannerLocation = Field(..., title="Scanner location")
     magnetic_strength: MagneticStrength = Field(..., title="Magnetic strength (T)")
-    #  TODO: Check if this should go into the units module
+    #  TODO: Check if this should go into the units module.
     magnetic_strength_unit: str = Field("T", title="Magnetic strength unit")
 
 

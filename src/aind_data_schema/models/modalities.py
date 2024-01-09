@@ -35,6 +35,13 @@ class Ecephys(_Modality):
     abbreviation: Literal["ecephys"] = "ecephys"
 
 
+class Electromyography(_Modality):
+    """Electromyography"""
+
+    name: Literal["Electromyography"] = "Electromyography"
+    abbreviation: Literal["EMG"] = "EMG"
+
+
 class Fmost(_Modality):
     """Fmost"""
 
@@ -49,6 +56,13 @@ class Icephys(_Modality):
 
     name: Literal["Intracellular electrophysiology"] = "Intracellular electrophysiology"
     abbreviation: Literal["icephys"] = "icephys"
+
+
+class Isi(_Modality):
+    """Intrinsic signal imaging"""
+
+    name: Literal["Intrinsic signal imaging"] = "Intrinsic signal imaging"
+    abbreviation: Literal["ISI"] = "ISI"
 
 
 class Fib(_Modality):
@@ -108,9 +122,11 @@ class Modality:
     BEHAVIOR_VIDEOS = BehaviorVideos()
     CONFOCAL = Confocal()
     ECEPHYS = Ecephys()
+    EMG = Electromyography()
     FMOST = Fmost()
     ICEPHYS = Icephys()
     FIB = Fib()
+    ISI = Isi()
     MERFISH = Merfish()
     MRI = Mri()
     POPHYS = POphys()

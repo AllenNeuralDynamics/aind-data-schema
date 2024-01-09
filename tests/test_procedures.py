@@ -6,13 +6,15 @@ from pydantic import ValidationError
 
 from aind_data_schema.core.procedures import (
     FiberImplant,
-    InjectionMaterial,
     NanojectInjection,
     OphysProbe,
     OtherSpecimenProcedure,
     Procedures,
     RetroOrbitalInjection,
     Surgery,
+    SpecimenProcedure,
+    TarsVirusIdentifiers,
+    ViralMaterial,
 )
 from aind_data_schema.models.devices import FiberProbe
 from aind_data_schema.models.manufacturers import Manufacturer
@@ -68,10 +70,15 @@ class ProceduresTests(unittest.TestCase):
                         RetroOrbitalInjection(
                             protocol_id="134",
                             injection_materials=[
-                                InjectionMaterial(
-                                    name="abc",
-                                    titer="5.46E13",
-                                    prep_lot_number="CT323",
+                                ViralMaterial(
+                                    material_type="Virus",
+                                    name="AAV2-Flex-ChrimsonR",
+                                    tars_identifiers=TarsVirusIdentifiers(
+                                        virus_tars_id="AiV222",
+                                        plasmid_tars_alias="AiP222",
+                                        prep_lot_number="VT222",
+                                    ),
+                                    titer=2300000000,
                                 )
                             ],
                             injection_volume=1,
