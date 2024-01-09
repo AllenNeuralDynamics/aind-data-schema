@@ -36,7 +36,8 @@ class SpecimenProcedureName(str, Enum):
     FIXATION_PERMEABILIZATION = "Fixation and permeabilization"
     GELATION = "Gelation"
     HYBRIDIZATION_AMPLIFICATION = "Hybridication and amplification"
-    IMMUNOSTAINING = "Immunostaining"
+    HCR = "Hybridization Chain Reaction"
+    IMMUNOLABELING = "Immunolabeling"
     SOAK = "Soak"
     STORAGE = "Storage"
     STRIPPING = "Stripping"
@@ -124,43 +125,6 @@ class VirusPrepType(str, Enum):
     PURIFIED = "Purified"
 
 
-class SpecimenProcedure(AindModel):
-    """Description of surgical or other procedure performed on a specimen"""
-
-    procedure_type: Literal["Specimen Procedure"] = "Specimen Procedure"
-
-    specimen_id: str = Field(..., title="Specimen ID")
-    start_date: date = Field(..., title="Start date")
-    end_date: date = Field(..., title="End date")
-    experimenter_full_name: str = Field(
-        ...,
-        description="First and last name of the experimenter.",
-        title="Experimenter full name",
-    )
-    protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
-    reagents: List[Reagent] = Field(default=[], title="Reagents")
-    notes: Optional[str] = Field(None, title="Notes")
-
-
-class OtherSpecimenProcedure(SpecimenProcedure):
-    """Generic Specimen Procedure class"""
-
-    procedure_type: Literal["Other Specimen Procedure"] = "Other Specimen Procedure"
-    procedure_name: SpecimenProcedureName = Field(..., title="Procedure name")
-
-    @field_validator("procedure_name")
-    def validate_other_procedure_name(cls, v, info: ValidationInfo):
-        """Adds a validation check on procedure_name to check if notes is not
-        None if procedure_name is SpecimenProcedureName.OTHER"""
-
-        notes = info.data["notes"]
-        if v == SpecimenProcedureName.OTHER and not notes:
-            raise AssertionError(
-                "Notes cannot be empty if procedure_name is Other. Describe the procedure in the notes field."
-            )
-        return v
-
-
 class Readout(Reagent):
     """Description of a readout"""
 
@@ -216,10 +180,9 @@ class HybridizationChainReaction(AindModel):
     instrument_id: str = Field(..., title="Instrument ID")
 
 
-class HCRSeries(SpecimenProcedure):
+class HCRSeries(AindModel):
     """Description of series of HCR staining rounds for mFISH"""
 
-    procedure_type: Literal["HCRSeries"] = "HCRSeries"
     codebook_name: str = Field(..., title="Codebook name")
     number_of_rounds: int = Field(..., title="Number of round")
     hcr_rounds: List[HybridizationChainReaction] = Field(..., title="Hybridization Chain Reaction rounds")
@@ -240,13 +203,54 @@ class Antibody(Reagent):
     )
 
 
-class Immunolabeling(SpecimenProcedure):
+class Immunolabeling(AindModel):
     """Description of an immunolabling step"""
 
     procedure_type: Literal["Immunolabeling"] = "Immunolabeling"
     antibody: Antibody = Field(..., title="Antibody")
     concentration: Decimal = Field(..., title="Concentration")
     concentration_unit: str = Field("ug/ml", title="Concentration unit")
+
+
+class SpecimenProcedure(AindModel):
+    """Description of surgical or other procedure performed on a specimen"""
+
+    procedure_type: SpecimenProcedureName = Field(..., title="Procedure name")
+    specimen_id: str = Field(..., title="Specimen ID")
+    start_date: date = Field(..., title="Start date")
+    end_date: date = Field(..., title="End date")
+    experimenter_full_name: str = Field(
+        ...,
+        description="First and last name of the experimenter.",
+        title="Experimenter full name",
+    )
+    protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
+    reagents: List[Reagent] = Field(default=[], title="Reagents")
+    hcr_series: Optional[HCRSeries] = Field(None, title="HCR Series")
+    immunolabeling: Optional[Immunolabeling] = Field(None, title="Immunolabeling")
+    notes: Optional[str] = Field(None, title="Notes")
+
+    @field_validator("procedure_type")
+    def validate_other_procedure_name(cls, v, info: ValidationInfo):
+        """Adds a validation check on procedure_name to check if notes is not
+        None if procedure_name is SpecimenProcedureName.OTHER"""
+
+        notes = info.data["notes"]
+        hcr_series = info.data["hcr_series"]
+        immunolabeling = info.data["immunolabeling"]
+        if v == SpecimenProcedureName.OTHER and not notes:
+            raise AssertionError(
+                "Notes cannot be empty if procedure_name is Other. Describe the procedure in the notes field."
+            )
+        elif v == SpecimenProcedureName.HCR and not hcr_series:
+            raise AssertionError(
+                "HCR Series cannot be empty if procedure_name is HCR Series."
+            )
+        elif v == SpecimenProcedureName.IMMUNOLABELING and not immunolabeling:
+            raise AssertionError(
+                "Immunolabeling cannot be empty if procedure_name is Immunolabling"
+            )
+        return v
 
 
 class Anaesthetic(AindModel):
@@ -561,7 +565,5 @@ class Procedures(AindCoreModel):
             Field(discriminator="procedure_type"),
         ]
     ] = Field([], title="Subject Procedures")
-    specimen_procedures: List[
-        Annotated[Union[HCRSeries, Immunolabeling, OtherSpecimenProcedure], Field(discriminator="procedure_type")]
-    ] = Field([], title="Specimen Procedures")
+    specimen_procedures: List[SpecimenProcedure] = Field([], title="Specimen Procedures")
     notes: Optional[str] = Field(None, title="Notes")
