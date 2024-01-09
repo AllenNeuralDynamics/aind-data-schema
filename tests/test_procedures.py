@@ -145,7 +145,7 @@ class ProceduresTests(unittest.TestCase):
     maxDiff = None
 
     def test_validate_procedure_type(self):
-        """Test that the other/notes validation error works"""
+        """Test that the procedure type validation error works"""
 
         with self.assertRaises(ValidationError) as e:
             SpecimenProcedure(
