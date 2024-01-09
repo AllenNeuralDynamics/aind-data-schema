@@ -185,39 +185,6 @@ class TestDataDescriptionUpgrade(unittest.TestCase):
         self.assertEqual([], new_data_description.related_data)
         self.assertIsNone(new_data_description.data_summary)
 
-    def test_upgrades_0_6_0_investigators(self):
-        """Tests data_description_0.6.0_empty_investigators.json is mapped correctly."""
-        data_description_empty_investigators = self.data_descriptions["data_description_0.6.0_empty_investigators.json"]
-
-        upgrader = DataDescriptionUpgrade(old_data_description_model=data_description_empty_investigators)
-
-        # Should work by setting experiment type explicitly
-        new_data_description = upgrader.upgrade()
-        self.assertEqual([""], new_data_description.investigators)
-
-        # test other possible edge cases
-        data_description_empty_investigators.investigators = None
-        upgrader = DataDescriptionUpgrade(old_data_description_model=data_description_empty_investigators)
-        new_data_description = upgrader.upgrade(investigators=["John Doe"])
-        self.assertEqual(["John Doe"], new_data_description.investigators)
-
-        data_description_empty_investigators.investigators = "John Doe"
-        upgrader = DataDescriptionUpgrade(old_data_description_model=data_description_empty_investigators)
-        new_data_description = upgrader.upgrade()
-        self.assertEqual(["John Doe"], new_data_description.investigators)
-
-        data_description_empty_investigators.investigators = None
-        upgrader = DataDescriptionUpgrade(old_data_description_model=data_description_empty_investigators)
-        new_data_description = upgrader.upgrade()
-        self.assertEqual([""], new_data_description.investigators)
-
-        with self.assertRaises(Exception) as e:
-            data_description_empty_investigators.investigators = {}
-            upgrader = DataDescriptionUpgrade(old_data_description_model=data_description_empty_investigators)
-            upgrader.upgrade()
-        expected_error_message = "ValueError('Unable to upgrade investigators: {}')"
-        self.assertEqual(expected_error_message, repr(e.exception))
-
     def test_upgrades_0_6_2(self):
         """Tests data_description_0.6.2.json is mapped correctly."""
         data_description_0_6_2 = self.data_descriptions["data_description_0.6.2.json"]

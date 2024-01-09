@@ -134,23 +134,6 @@ class DataDescriptionUpgrade(BaseModelUpgrade):
 
         return modality
 
-    def get_investigators(self, **kwargs):
-        """Get investigators from old model"""
-
-        old_investigators = self.old_model.investigators
-        if kwargs.get("investigators") is not None:
-            investigators = kwargs["investigators"]
-        elif isinstance(old_investigators, str):
-            investigators = [old_investigators]
-        elif old_investigators is None:
-            investigators = [""]
-        elif isinstance(old_investigators, list):
-            investigators = [""] if len(old_investigators) == 0 else old_investigators
-        else:
-            raise ValueError(f"Unable to upgrade investigators: {old_investigators}")
-
-        return investigators
-
     def get_creation_time(self, **kwargs):
         """Get creation time from old model"""
 
@@ -177,8 +160,6 @@ class DataDescriptionUpgrade(BaseModelUpgrade):
 
         modality = self.get_modality(**kwargs)
 
-        investigators = self.get_investigators(**kwargs)
-
         old_data_level = self._get_or_default(self.old_model, "data_level", kwargs)
 
         experiment_type = self._get_or_default(self.old_model, "experiment_type", kwargs)
@@ -201,7 +182,7 @@ class DataDescriptionUpgrade(BaseModelUpgrade):
             funding_source=funding_source,
             data_level=old_data_level,
             group=self._get_or_default(self.old_model, "group", kwargs),
-            investigators=investigators,
+            investigators=self._get_or_default(self.old_model, "investigators", kwargs),
             project_name=self._get_or_default(self.old_model, "project_name", kwargs),
             restrictions=self._get_or_default(self.old_model, "restrictions", kwargs),
             modality=modality,
