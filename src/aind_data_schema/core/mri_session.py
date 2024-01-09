@@ -54,7 +54,7 @@ class MRIScan(AindModel):
     echo_time_unit: TimeUnit = Field(TimeUnit.MS, title="Echo time unit")
     repetition_time: Decimal = Field(..., title="Repetition time (ms)")
     repetition_time_unit: TimeUnit = Field(TimeUnit.MS, title="Repetition time unit")
-    additional_scan_parameters: Dict[str, Any] = Field(..., title="Parameters")
+    additional_scan_parameters: Any = Field(..., title="Parameters")
     notes: Optional[str] = Field(None, title="Notes", validate_default=True)
 
     @field_validator("notes", mode="after")

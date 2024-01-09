@@ -270,7 +270,7 @@ class Software(AindModel):
     name: str = Field(..., title="Software name")
     version: str = Field(..., title="Software version")
     url: Optional[str] = Field(None, title="URL to commit being used")
-    parameters: Dict[str, Any] = Field(dict(), title="Software parameters")
+    parameters: Any = Field(dict(), title="Software parameters")
 
 
 class Calibration(AindModel):
@@ -279,8 +279,8 @@ class Calibration(AindModel):
     calibration_date: datetime = Field(..., title="Date and time of calibration")
     device_name: str = Field(..., title="Device name", description="Must match a device name in rig/instrument")
     description: str = Field(..., title="Description", description="Brief description of what is being calibrated")
-    input: Dict[str, Any] = Field(dict(), description="Calibration input", title="inputs")
-    output: Dict[str, Any] = Field(dict(), description="Calibration output", title="outputs")
+    input: Any = Field(dict(), description="Calibration input", title="inputs")
+    output: Any = Field(dict(), description="Calibration output", title="outputs")
     notes: Optional[str] = Field(None, title="Notes")
 
 

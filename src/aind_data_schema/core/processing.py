@@ -29,8 +29,8 @@ class DataProcess(AindModel):
     output_location: str = Field(..., description="Path to data outputs", title="Output location")
     code_url: str = Field(..., description="Path to code repository", title="Code URL")
     code_version: Optional[str] = Field(None, description="Version of the code", title="Code version")
-    parameters: Dict[str, Any] = Field(..., title="Parameters")
-    outputs: Dict[str, Any] = Field(dict(), description="Output parameters", title="Outputs")
+    parameters: Any = Field(..., title="Parameters")
+    outputs: Any = Field(dict(), description="Output parameters", title="Outputs")
     notes: Optional[str] = Field(None, title="Notes", validate_default=True)
 
     @field_validator("notes", mode="after")
