@@ -16,14 +16,30 @@
          "reagents": [
             {
                "name": "SHIELD Buffer",
-               "source": "Vendor",
+               "source": {
+                  "name": "Allen Institute",
+                  "abbreviation": "AI",
+                  "registry": {
+                     "name": "Research Organization Registry",
+                     "abbreviation": "ROR"
+                  },
+                  "registry_identifier": "03cpe7c52"
+               },
                "rrid": null,
                "lot_number": "1234",
                "expiration_date": null
             },
             {
                "name": "SHIELD Epoxy",
-               "source": "Vendor",
+               "source": {
+                  "name": "Allen Institute",
+                  "abbreviation": "AI",
+                  "registry": {
+                     "name": "Research Organization Registry",
+                     "abbreviation": "ROR"
+                  },
+                  "registry_identifier": "03cpe7c52"
+               },
                "rrid": null,
                "lot_number": "1234",
                "expiration_date": null
@@ -43,7 +59,15 @@
          "reagents": [
             {
                "name": "SHIELD On",
-               "source": "Vendor",
+               "source": {
+                  "name": "Allen Institute",
+                  "abbreviation": "AI",
+                  "registry": {
+                     "name": "Research Organization Registry",
+                     "abbreviation": "ROR"
+                  },
+                  "registry_identifier": "03cpe7c52"
+               },
                "rrid": null,
                "lot_number": "1234",
                "expiration_date": null
@@ -63,7 +87,15 @@
          "reagents": [
             {
                "name": "Delipidation Buffer",
-               "source": "Vendor",
+               "source": {
+                  "name": "Allen Institute",
+                  "abbreviation": "AI",
+                  "registry": {
+                     "name": "Research Organization Registry",
+                     "abbreviation": "ROR"
+                  },
+                  "registry_identifier": "03cpe7c52"
+               },
                "rrid": null,
                "lot_number": "1234",
                "expiration_date": null
@@ -83,14 +115,30 @@
          "reagents": [
             {
                "name": "Delipidation Buffer",
-               "source": "Vendor",
+               "source": {
+                  "name": "Allen Institute",
+                  "abbreviation": "AI",
+                  "registry": {
+                     "name": "Research Organization Registry",
+                     "abbreviation": "ROR"
+                  },
+                  "registry_identifier": "03cpe7c52"
+               },
                "rrid": null,
                "lot_number": "1234",
                "expiration_date": null
             },
             {
                "name": "Conductivity Buffer",
-               "source": "Vendor",
+               "source": {
+                  "name": "Allen Institute",
+                  "abbreviation": "AI",
+                  "registry": {
+                     "name": "Research Organization Registry",
+                     "abbreviation": "ROR"
+                  },
+                  "registry_identifier": "03cpe7c52"
+               },
                "rrid": null,
                "lot_number": "1234",
                "expiration_date": null
@@ -110,14 +158,30 @@
          "reagents": [
             {
                "name": "Easy Index",
-               "source": "Vendor",
+               "source": {
+                  "name": "Allen Institute",
+                  "abbreviation": "AI",
+                  "registry": {
+                     "name": "Research Organization Registry",
+                     "abbreviation": "ROR"
+                  },
+                  "registry_identifier": "03cpe7c52"
+               },
                "rrid": null,
                "lot_number": "1234",
                "expiration_date": null
             },
             {
                "name": "Deionized water",
-               "source": "This is not a reagent",
+               "source": {
+                  "name": "Allen Institute",
+                  "abbreviation": "AI",
+                  "registry": {
+                     "name": "Research Organization Registry",
+                     "abbreviation": "ROR"
+                  },
+                  "registry_identifier": "03cpe7c52"
+               },
                "rrid": null,
                "lot_number": "DDI/Filtered in house",
                "expiration_date": null
@@ -137,7 +201,15 @@
          "reagents": [
             {
                "name": "Easy Index",
-               "source": "Vendor",
+               "source": {
+                  "name": "Allen Institute",
+                  "abbreviation": "AI",
+                  "registry": {
+                     "name": "Research Organization Registry",
+                     "abbreviation": "ROR"
+                  },
+                  "registry_identifier": "03cpe7c52"
+               },
                "rrid": null,
                "lot_number": "1234",
                "expiration_date": null
@@ -157,14 +229,30 @@
          "reagents": [
             {
                "name": "Easy Index",
-               "source": "Vendor",
+               "source": {
+                  "name": "Allen Institute",
+                  "abbreviation": "AI",
+                  "registry": {
+                     "name": "Research Organization Registry",
+                     "abbreviation": "ROR"
+                  },
+                  "registry_identifier": "03cpe7c52"
+               },
                "rrid": null,
                "lot_number": "1234",
                "expiration_date": null
             },
             {
                "name": "Agarose",
-               "source": "Other vendor",
+               "source": {
+                  "name": "Allen Institute for Brain Science",
+                  "abbreviation": "AIBS",
+                  "registry": {
+                     "name": "Research Organization Registry",
+                     "abbreviation": "ROR"
+                  },
+                  "registry_identifier": "00dcv1019"
+               },
                "rrid": null,
                "lot_number": "1234",
                "expiration_date": null

@@ -25,10 +25,10 @@ easy_index = procedures.Reagent(name="Easy Index", lot_number="1234", source=Ins
 water = procedures.Reagent(
     name="Deionized water",
     lot_number="DDI/Filtered in house",
-    source="This is not a reagent",
+    source=Institution.AI,
 )
 
-agarose = procedures.Reagent(name="Agarose", lot_number="1234", source="Other vendor")
+agarose = procedures.Reagent(name="Agarose", lot_number="1234", source=Institution.AIBS)
 
 # Procedures
 
