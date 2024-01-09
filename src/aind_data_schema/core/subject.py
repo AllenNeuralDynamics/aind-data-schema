@@ -85,7 +85,7 @@ class Subject(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/subject.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["0.5.2"] = Field("0.5.2")
+    schema_version: Literal["0.5.3"] = Field("0.5.3")
     species: Species.ONE_OF = Field(..., title="Species")
     subject_id: str = Field(
         ...,

@@ -82,7 +82,7 @@ class Acquisition(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/acquisition.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["0.6.3"] = Field("0.6.3")
+    schema_version: Literal["0.6.4"] = Field("0.6.4")
     experimenter_full_name: List[str] = Field(
         ...,
         description="First and last name of the experimenter(s).",
