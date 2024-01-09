@@ -157,10 +157,9 @@ class ProceduresTests(unittest.TestCase):
                 notes=None,
             )
         expected_execption = (
-            "1 validation error for OtherSpecimenProcedure\n"
+            "1 validation error for SpecimenProcedure\n"
             "procedure_name\n"
-            "  Assertion failed, Notes cannot be empty if procedure_name is Other."
-            " Describe the procedure in the notes field."
+            "Notes cannot be empty if procedure_name is Other. Describe the procedure in the notes field."
             " [type=assertion_error, input_value='Other - see notes', input_type=str]\n"
             "    For further information visit https://errors.pydantic.dev/2.5/v/assertion_error"
         )
