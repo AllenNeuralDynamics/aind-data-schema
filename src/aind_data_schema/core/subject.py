@@ -92,7 +92,7 @@ class Subject(AindCoreModel):
         description="Genotype of the animal providing both alleles",
         title="Genotype",
     )
-    mgi_allele_ids: List[PIDName] = Field(default=[], title="MGI allele ids")
+    alleles: List[PIDName] = Field(default=[], title="Alleles", description="Allele names and persitent IDs")
     background_strain: Optional[BackgroundStrain] = Field(None, title="Background strain")
     source: Optional[Institution.ONE_OF] = Field(
         None,
