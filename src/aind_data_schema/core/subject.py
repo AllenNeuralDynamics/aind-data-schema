@@ -92,7 +92,7 @@ class Subject(AindCoreModel):
         description="Genotype of the animal providing both alleles",
         title="Genotype",
     )
-    alleles: List[PIDName] = Field(default=[], title="Alleles", description="Allele names and persitent IDs")
+    alleles: List[PIDName] = Field(default=[], title="Alleles", description="Allele names and persistent IDs")
     background_strain: Optional[BackgroundStrain] = Field(None, title="Background strain")
     source: Optional[Institution.ONE_OF] = Field(
         None,
