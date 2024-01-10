@@ -35,7 +35,7 @@ class SubjectTests(unittest.TestCase):
                 ),
                 cage_id="543",
             ),
-            mgi_allele_ids=[PIDName(registry_identifier="12345", name="adsf", registry=Registry.MGI)],
+            alleles=[PIDName(registry_identifier="12345", name="adsf", registry=Registry.MGI)],
         )
 
         Subject.model_validate_json(s.model_dump_json())

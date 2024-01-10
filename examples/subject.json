@@ -14,7 +14,7 @@
    "sex": "Male",
    "date_of_birth": "2022-11-22",
    "genotype": "Emx1-IRES-Cre;Camk2a-tTA;Ai93(TITL-GCaMP6f)",
-   "mgi_allele_ids": [],
+   "alleles": [],
    "background_strain": "C57BL/6J",
    "source": null,
    "rrid": null,
