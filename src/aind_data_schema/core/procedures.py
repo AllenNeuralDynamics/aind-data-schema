@@ -378,7 +378,7 @@ class IntraperitonealInjection(Injection):
 
     procedure_type: Literal["Intraperitoneal injection"] = "Intraperitoneal injection"
     injection_volume: Decimal = Field(..., title="Injection volume (uL)")
-    injection_volume_unit: VolumeUnit = Field(VolumeUnit.UL)
+    injection_volume_unit: VolumeUnit = Field(VolumeUnit.UL, title="Injection volume unit")
 
 
 class BrainInjection(Injection):
