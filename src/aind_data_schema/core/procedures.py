@@ -5,7 +5,7 @@ from decimal import Decimal
 from enum import Enum
 from typing import List, Literal, Optional, Set, Union
 
-from pydantic import Field, field_validator
+from pydantic import Field, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
 from typing_extensions import Annotated
 
@@ -27,7 +27,7 @@ from aind_data_schema.models.units import (
 
 
 class SpecimenProcedureName(str, Enum):
-    """Specimen procedure type name"""
+    """Names for general specimen procedures"""
 
     DELIPIDATION = "Delipidation"
     CLEARING = "Clearing"
@@ -36,7 +36,8 @@ class SpecimenProcedureName(str, Enum):
     FIXATION_PERMEABILIZATION = "Fixation and permeabilization"
     GELATION = "Gelation"
     HYBRIDIZATION_AMPLIFICATION = "Hybridication and amplification"
-    IMMUNOSTAINING = "Immunostaining"
+    HCR = "Hybridization Chain Reaction"
+    IMMUNOLABELING = "Immunolabeling"
     SOAK = "Soak"
     STORAGE = "Storage"
     STRIPPING = "Stripping"
@@ -124,40 +125,6 @@ class VirusPrepType(str, Enum):
     PURIFIED = "Purified"
 
 
-class SpecimenProcedure(AindModel):
-    """Description of surgical or other procedure performed on a specimen"""
-
-    specimen_procedure_type: Literal["SpecimenProcedure"] = Field(
-        "SpecimenProcedure",
-        title="SpecimenProcedureType",
-    )
-    specimen_id: str = Field(..., title="Specimen ID")
-    procedure_name: str = Field(..., title="Procedure name")
-    procedure_type: SpecimenProcedureName = Field(..., title="Procedure type")
-    start_date: date = Field(..., title="Start date")
-    end_date: date = Field(..., title="End date")
-    experimenter_full_name: str = Field(
-        ...,
-        description="First and last name of the experimenter.",
-        title="Experimenter full name",
-    )
-    protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
-    reagents: List[Reagent] = Field(default=[], title="Reagents")
-    notes: Optional[str] = Field(None, title="Notes", validate_default=True)
-
-    @field_validator("notes")
-    def validate_other(cls, v, info: ValidationInfo):
-        """Adds a validation check on 'notes' to verify it is not None if specimen_procedure_type is OTHER"""
-
-        procedure_type = info.data["procedure_type"]
-        notes = v
-        if procedure_type == SpecimenProcedureName.OTHER and not notes:
-            raise AssertionError(
-                "Notes cannot be empty if procedure_type is Other. Describe the procedure_type in the notes field."
-            )
-        return v
-
-
 class Readout(Reagent):
     """Description of a readout"""
 
@@ -213,10 +180,9 @@ class HybridizationChainReaction(AindModel):
     instrument_id: str = Field(..., title="Instrument ID")
 
 
-class HCRSeries(SpecimenProcedure):
+class HCRSeries(AindModel):
     """Description of series of HCR staining rounds for mFISH"""
 
-    specimen_procedure_type: Literal["HCRSeries"] = Field("HCRSeries", title="SpecimenProcedureType")
     codebook_name: str = Field(..., title="Codebook name")
     number_of_rounds: int = Field(..., title="Number of round")
     hcr_rounds: List[HybridizationChainReaction] = Field(..., title="Hybridization Chain Reaction rounds")
@@ -237,13 +203,46 @@ class Antibody(Reagent):
     )
 
 
-class Immunolabeling(SpecimenProcedure):
+class Immunolabeling(AindModel):
     """Description of an immunolabling step"""
 
-    specimen_procedure_type: Literal["Immunolabeling"] = Field("Immunolabeling", title="SpecimenProcedureType")
+    procedure_type: Literal["Immunolabeling"] = "Immunolabeling"
     antibody: Antibody = Field(..., title="Antibody")
     concentration: Decimal = Field(..., title="Concentration")
     concentration_unit: str = Field("ug/ml", title="Concentration unit")
+
+
+class SpecimenProcedure(AindModel):
+    """Description of surgical or other procedure performed on a specimen"""
+
+    procedure_type: SpecimenProcedureName = Field(..., title="Procedure name")
+    specimen_id: str = Field(..., title="Specimen ID")
+    start_date: date = Field(..., title="Start date")
+    end_date: date = Field(..., title="End date")
+    experimenter_full_name: str = Field(
+        ...,
+        description="First and last name of the experimenter.",
+        title="Experimenter full name",
+    )
+    protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
+    reagents: List[Reagent] = Field(default=[], title="Reagents")
+    hcr_series: Optional[HCRSeries] = Field(None, title="HCR Series")
+    immunolabeling: Optional[Immunolabeling] = Field(None, title="Immunolabeling")
+    notes: Optional[str] = Field(None, title="Notes")
+
+    @model_validator(mode="after")
+    def validate_procedure_type(self):
+        """Adds a validation check on procedure_type"""
+
+        if self.procedure_type == SpecimenProcedureName.OTHER and not self.notes:
+            raise AssertionError(
+                "notes cannot be empty if procedure_type is Other. Describe the procedure in the notes field."
+            )
+        elif self.procedure_type == SpecimenProcedureName.HCR and not self.hcr_series:
+            raise AssertionError("hcr_series cannot be empty if procedure_type is HCR.")
+        elif self.procedure_type == SpecimenProcedureName.IMMUNOLABELING and not self.immunolabeling:
+            raise AssertionError("immunolabeling cannot be empty if procedure_type is Immunolabeling.")
+        return self
 
 
 class Anaesthetic(AindModel):
@@ -255,35 +254,20 @@ class Anaesthetic(AindModel):
     level: Decimal = Field(..., title="Level (percent)", ge=1, le=5)
 
 
-class SubjectProcedure(AindModel):
-    """Description of surgical or other procedure performed on a subject"""
+class OtherSubjectProcedure(AindModel):
+    """Description of non-surgical procedure performed on a subject"""
 
-    procedure_type: Literal["SubjectProcedure"] = "SubjectProcedure"
-
-    start_date: date = Field(..., title="Start date")
-    end_date: date = Field(..., title="End date")
-    experimenter_full_name: str = Field(
-        ...,
-        description="First and last name of the experimenter.",
-        title="Experimenter full name",
-    )
-    protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
-    iacuc_protocol: Optional[str] = Field(None, title="IACUC protocol")
-    animal_weight_prior: Optional[Decimal] = Field(
-        None, title="Animal weight (g)", description="Animal weight before procedure"
-    )
-    animal_weight_post: Optional[Decimal] = Field(
-        None, title="Animal weight (g)", description="Animal weight after procedure"
-    )
-    weight_unit: MassUnit = Field(MassUnit.G, title="Weight unit")
-    anaesthesia: Optional[Anaesthetic] = Field(None, title="Anaesthesia")
+    procedure_type: Literal["Other Subject Procedure"] = "Other Subject Procedure"
+    protocol_id: Optional[str] = Field(None, title="Protocol ID", description="DOI for protocols.io")
+    description: str = Field(..., title="Description")
     notes: Optional[str] = Field(None, title="Notes")
 
 
-class Craniotomy(SubjectProcedure):
+class Craniotomy(AindModel):
     """Description of craniotomy procedure"""
 
-    procedure_type: Literal["Craniotomy"] = Field("Craniotomy", title="Procedure type")
+    procedure_type: Literal["Craniotomy"] = "Craniotomy"
+    protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     craniotomy_type: CraniotomyType = Field(..., title="Craniotomy type")
     craniotomy_hemisphere: Optional[Side] = Field(None, title="Craniotomy hemisphere")
     craniotomy_coordinates_ml: Optional[Decimal] = Field(None, title="Craniotomy coordinate ML (mm)")
@@ -301,15 +285,15 @@ class Craniotomy(SubjectProcedure):
     implant_part_number: Optional[str] = Field(None, title="Implant part number")
     dura_removed: Optional[bool] = Field(None, title="Dura removed")
     protective_material: Optional[ProtectiveMaterial] = Field(None, title="Protective material")
-    workstation_id: Optional[str] = Field(None, title="Workstation ID")
     recovery_time: Optional[Decimal] = Field(None, title="Recovery time")
     recovery_time_unit: TimeUnit = Field(TimeUnit.M, title="Recovery time unit")
 
 
-class Headframe(SubjectProcedure):
+class Headframe(AindModel):
     """Description of headframe procedure"""
 
-    procedure_type: Literal["Headframe"] = Field("Headframe", title="Procedure type")
+    procedure_type: Literal["Headframe"] = "Headframe"
+    protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     headframe_type: str = Field(..., title="Headframe type")
     headframe_part_number: str = Field(..., title="Headframe part number")
     headframe_material: Optional[HeadframeMaterial] = Field(None, title="Headframe material")
@@ -365,7 +349,7 @@ class NonViralMaterial(Reagent):
     concentration_unit: str = Field(default="mg/mL", title="Concentration unit")
 
 
-class Injection(SubjectProcedure):
+class Injection(AindModel):
     """Description of an injection procedure"""
 
     injection_materials: Annotated[
@@ -376,14 +360,14 @@ class Injection(SubjectProcedure):
     recovery_time_unit: TimeUnit = Field(TimeUnit.M, title="Recovery time unit")
     injection_duration: Optional[Decimal] = Field(None, title="Injection duration")
     injection_duration_unit: TimeUnit = Field(TimeUnit.M, title="Injection duration unit")
-    workstation_id: Optional[str] = Field(None, title="Workstation ID")
     instrument_id: Optional[str] = Field(None, title="Instrument ID")
+    protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
 
 
 class RetroOrbitalInjection(Injection):
     """Description of a retro-orbital injection procedure"""
 
-    procedure_type: Literal["Retro-orbital injection"] = Field("Retro-orbital injection", title="Procedure type")
+    procedure_type: Literal["Retro-orbital injection"] = "Retro-orbital injection"
     injection_volume: Decimal = Field(..., title="Injection volume (uL)")
     injection_volume_unit: VolumeUnit = Field(VolumeUnit.UL, title="Injection volume unit")
     injection_eye: Side = Field(..., title="Injection eye")
@@ -412,7 +396,7 @@ class BrainInjection(Injection):
 class NanojectInjection(BrainInjection):
     """Description of a nanoject injection procedure"""
 
-    procedure_type: Literal["Nanoject injection"] = Field("Nanoject injection", title="Procedure type")
+    procedure_type: Literal["Nanoject injection"] = "Nanoject injection"
     injection_volume: List[Decimal] = Field(
         ...,
         title="Injection volume (nL)",
@@ -435,7 +419,7 @@ class NanojectInjection(BrainInjection):
 class IontophoresisInjection(BrainInjection):
     """Description of an iotophoresis injection procedure"""
 
-    procedure_type: Literal["Iontophoresis injection"] = Field("Iontophoresis injection", title="Procedure type")
+    procedure_type: Literal["Iontophoresis injection"] = "Iontophoresis injection"
     injection_current: Decimal = Field(..., title="Injection current (uA)")
     injection_current_unit: CurrentUnit = Field(CurrentUnit.UA, title="Injection current unit")
     alternating_current: str = Field(..., title="Alternating current")
@@ -444,7 +428,7 @@ class IontophoresisInjection(BrainInjection):
 class IntraCerebellarVentricleInjection(BrainInjection):
     """Description of an interacerebellar ventricle injection"""
 
-    procedure_type: Literal["ICV injection"] = Field("ICV injection", title="Procedure type")
+    procedure_type: Literal["ICV injection"] = "ICV injection"
     injection_volume: List[Decimal] = Field(
         ...,
         title="Injection volume (nL)",
@@ -456,7 +440,7 @@ class IntraCerebellarVentricleInjection(BrainInjection):
 class IntraCisternalMagnaInjection(BrainInjection):
     """Description of an interacisternal magna injection"""
 
-    procedure_type: Literal["ICM injection"] = Field("ICM injection", title="Procedure type")
+    procedure_type: Literal["ICM injection"] = "ICM injection"
     injection_volume: List[Decimal] = Field(
         ...,
         title="Injection volume (nL)",
@@ -468,11 +452,11 @@ class IntraCisternalMagnaInjection(BrainInjection):
 class TrainingProtocol(AindModel):
     """Description of an animal training protocol"""
 
-    procedure_type: Literal["Training"] = Field("Training", title="Procedure type")
+    procedure_type: Literal["Training"] = "Training"
     training_name: str = Field(..., title="Training protocol name")
     protocol_id: str = Field(..., title="Training protocol ID")
-    training_protocol_start_date: date = Field(..., title="Training protocol start date")
-    training_protocol_end_date: Optional[date] = Field(None, title="Training protocol end date")
+    start_date: date = Field(..., title="Training protocol start date")
+    end_date: Optional[date] = Field(None, title="Training protocol end date")
     notes: Optional[str] = Field(None, title="Notes")
 
 
@@ -500,17 +484,18 @@ class OphysProbe(AindModel):
     notes: Optional[str] = Field(None, title="Notes")
 
 
-class FiberImplant(SubjectProcedure):
+class FiberImplant(AindModel):
     """Description of an implant procedure"""
 
-    procedure_type: Literal["Fiber implant"] = Field("Fiber implant", title="Procedure type")
+    procedure_type: Literal["Fiber implant"] = "Fiber implant"
+    protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     probes: List[OphysProbe] = Field(..., title="Ophys Probes")
 
 
 class WaterRestriction(AindModel):
     """Description of a water restriction procedure"""
 
-    procedure_type: Literal["Water restriction"] = Field("Water restriction", title="Procedure type")
+    procedure_type: Literal["Water restriction"] = "Water restriction"
     protocol_id: Optional[str] = Field(None, title="Water restriction protocol number")
     baseline_weight: Decimal = Field(
         ...,
@@ -522,10 +507,11 @@ class WaterRestriction(AindModel):
     end_date: date = Field(..., title="Water restriction end date")
 
 
-class Perfusion(SubjectProcedure):
+class Perfusion(AindModel):
     """Description of a perfusion procedure that creates a specimen"""
 
-    procedure_type: Literal["Perfusion"] = Field("Perfusion", title="Procedure type")
+    procedure_type: Literal["Perfusion"] = "Perfusion"
+    protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     output_specimen_ids: Set[str] = Field(
         ...,
         title="Specimen ID",
@@ -533,19 +519,28 @@ class Perfusion(SubjectProcedure):
     )
 
 
-class Procedures(AindCoreModel):
-    """Description of all procedures performed on a subject"""
+class Surgery(AindModel):
+    """Description of subject procedures performed at one time"""
 
-    _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/procedures.py"
-    describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
+    procedure_type: Literal["Surgery"] = "Surgery"
 
-    schema_version: Literal["0.10.5"] = Field("0.10.5", description="schema version", title="Version")
-    subject_id: str = Field(
+    start_date: date = Field(..., title="Start date")
+    experimenter_full_name: str = Field(
         ...,
-        description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
-        title="Subject ID",
+        description="First and last name of the experimenter.",
+        title="Experimenter full name",
     )
-    subject_procedures: List[
+    iacuc_protocol: Optional[str] = Field(None, title="IACUC protocol")
+    animal_weight_prior: Optional[Decimal] = Field(
+        None, title="Animal weight (g)", description="Animal weight before procedure"
+    )
+    animal_weight_post: Optional[Decimal] = Field(
+        None, title="Animal weight (g)", description="Animal weight after procedure"
+    )
+    weight_unit: MassUnit = Field(MassUnit.G, title="Weight unit")
+    anaesthesia: Optional[Anaesthetic] = Field(None, title="Anaesthesia")
+    workstation_id: Optional[str] = Field(None, title="Workstation ID")
+    procedures: List[
         Annotated[
             Union[
                 Craniotomy,
@@ -556,15 +551,32 @@ class Procedures(AindCoreModel):
                 IontophoresisInjection,
                 NanojectInjection,
                 Perfusion,
+                OtherSubjectProcedure,
                 RetroOrbitalInjection,
-                TrainingProtocol,
-                WaterRestriction,
-                SubjectProcedure,
             ],
             Field(discriminator="procedure_type"),
         ]
+    ] = Field(title="Procedures", min_length=1)
+    notes: Optional[str] = Field(None, title="Notes")
+
+
+class Procedures(AindCoreModel):
+    """Description of all procedures performed on a subject"""
+
+    _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/procedures.py"
+    describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
+
+    schema_version: Literal["0.11.0"] = Field("0.11.0", description="schema version", title="Version")
+    subject_id: str = Field(
+        ...,
+        description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
+        title="Subject ID",
+    )
+    subject_procedures: List[
+        Annotated[
+            Union[Surgery, TrainingProtocol, WaterRestriction, OtherSubjectProcedure],
+            Field(discriminator="procedure_type"),
+        ]
     ] = Field([], title="Subject Procedures")
-    specimen_procedures: List[
-        Annotated[Union[HCRSeries, Immunolabeling, SpecimenProcedure], Field(discriminator="specimen_procedure_type")]
-    ] = Field([], title="Specimen Procedures")
+    specimen_procedures: List[SpecimenProcedure] = Field([], title="Specimen Procedures")
     notes: Optional[str] = Field(None, title="Notes")
