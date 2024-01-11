@@ -10,6 +10,7 @@ from aind_data_schema.core.procedures import (
     OphysProbe,
     Procedures,
     RetroOrbitalInjection,
+    IntraperitonealInjection,
     SpecimenProcedure,
     Surgery,
     TarsVirusIdentifiers,
@@ -84,6 +85,22 @@ class ProceduresTests(unittest.TestCase):
                             injection_eye="Left",
                             injection_duration=1,
                             recovery_time=10,
+                        ),
+                        IntraperitonealInjection(
+                            protocol_id="234",
+                            injection_materials=[
+                                ViralMaterial(
+                                    material_type="Virus",
+                                    name="AAV2-Flex-ChrimsonR",
+                                    tars_identifiers=TarsVirusIdentifiers(
+                                        virus_tars_id="AiV222",
+                                        plasmid_tars_alias="AiP222",
+                                        prep_lot_number="VT222",
+                                    ),
+                                    titer=2300000000,
+                                )
+                            ],
+                            injection_volume=1,
                         ),
                         NanojectInjection(
                             protocol_id="bca",
