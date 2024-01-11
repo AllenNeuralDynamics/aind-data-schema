@@ -266,23 +266,11 @@ r = r.Rig(
             ],
         )
     ],
-    mouse_platform=d.Disc(
-        name='mouse_disc',
-        radius=8.5
-    ),
+    mouse_platform=d.Disc(name="mouse_disc", radius=8.5),
     additional_devices=[
-        d.Device(
-            device_type="bpod",
-            name="Bpod DO"
-        ),
-        d.Device(
-            device_type="lick-o-meter",
-            name="Janelia lick-o-meter circuit board, Left"
-        ),
-        d.Device(
-            device_type="lick-o-meter",
-            name="Janelia lick-o-meter circuit board, Right"
-        )
+        d.Device(device_type="bpod", name="Bpod DO"),
+        d.Device(device_type="lick-o-meter", name="Janelia lick-o-meter circuit board, Left"),
+        d.Device(device_type="lick-o-meter", name="Janelia lick-o-meter circuit board, Right"),
     ],
     calibrations=[
         d.Calibration(
