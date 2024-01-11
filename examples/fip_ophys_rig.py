@@ -228,50 +228,40 @@ r = r.Rig(
         )
     ],
     daqs=[
-        d.DAQDevice(
-            name="USB DAQ",
-            manufacturer=d.Manufacturer.NATIONAL_INSTRUMENTS,
-            model="USB-6212",
-            notes="To record behavior events and licks via AnalogInput node in Bonsai",
-            data_interface="USB",
-            computer_name="W10DTJK7N0M3",
+        d.HarpDevice(
+            name="Harp Behavior",
+            harp_device_type="Behavior",
+            harp_device_version="2.1",
+            computer_name="behavior_computer",
             channels=[
-                d.DAQChannel(
-                    event_based_sampling=False,
-                    channel_name="AI0",
-                    device_name="Bpod DO",
-                    channel_type="Analog Input",
-                    port=0,
-                    channel_index=0,
-                    sample_rate=1000,
-                ),
-                d.DAQChannel(
-                    event_based_sampling=False,
-                    channel_name="AI1",
-                    device_name="Janelia lick-o-meter circuit board, Left",
-                    channel_type="Analog Input",
-                    port=1,
-                    channel_index=1,
-                    sample_rate=1000,
-                ),
-                d.DAQChannel(
-                    event_based_sampling=False,
-                    channel_name="AI2",
-                    device_name="Janelia lick-o-meter circuit board, Right",
-                    channel_type="Analog Input",
-                    port=2,
-                    channel_index=2,
-                    sample_rate=1000,
-                ),
+                d.DAQChannel(channel_name="DO0", device_name="Solenoid Left", channel_type="Digital Output"),
+                d.DAQChannel(channel_name="DO1", device_name="Solenoid Right", channel_type="Digital Output"),
+                d.DAQChannel(channel_name="DI0", device_name="Lick-o-meter Left", channel_type="Digital Input"),
+                d.DAQChannel(channel_name="DI1", device_name="Lick-o-meter Right", channel_type="Digital Input"),
+                d.DAQChannel(channel_name="DI3", device_name="Photometry Clock", channel_type="Digital Input"),
             ],
         )
     ],
     mouse_platform=d.Disc(name="mouse_disc", radius=8.5),
-    additional_devices=[
-        d.Device(device_type="bpod", name="Bpod DO"),
-        d.Device(device_type="lick-o-meter", name="Janelia lick-o-meter circuit board, Left"),
-        d.Device(device_type="lick-o-meter", name="Janelia lick-o-meter circuit board, Right"),
+    stimulus_devices=[
+        d.RewardDelivery(
+            reward_spouts=[
+                d.RewardSpout(
+                    name="Lick-o-meter Left",
+                    side=d.SpoutSide.LEFT,
+                    spout_diameter=1,
+                    solenoid_valve=d.Device(device_type="Solenoid", name="Solenoid Left"),
+                ),
+                d.RewardSpout(
+                    name="Lick-o-meter Right",
+                    side=d.SpoutSide.RIGHT,
+                    spout_diameter=1,
+                    solenoid_valve=d.Device(device_type="Solenoid", name="Solenoid Right"),
+                ),
+            ]
+        )
     ],
+    additional_devices=[d.Device(device_type="Photometry Clock", name="Photometry Clock")],
     calibrations=[
         d.Calibration(
             calibration_date=datetime.datetime(2023, 10, 2, 3, 15, 22),
