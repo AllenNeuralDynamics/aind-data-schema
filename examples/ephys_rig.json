@@ -416,7 +416,44 @@
    "digital_micromirror_devices": [],
    "polygonal_scanners": [],
    "pockels_cells": [],
-   "additional_devices": [],
+   "additional_devices": {
+      "LeftHarpDevice": {
+         "device_type": "Harp device",
+         "name": "Harp Behavior",
+         "serial_number": null,
+         "manufacturer": {
+            "name": "Open Ephys Production Site",
+            "abbreviation": "OEPS",
+            "registry": {
+               "name": "Research Organization Registry",
+               "abbreviation": "ROR"
+            },
+            "registry_identifier": "007rkz355"
+         },
+         "model": null,
+         "path_to_cad": null,
+         "port_index": null,
+         "notes": null
+      },
+      "NpxBaseStation": {
+         "device_type": "Neuropixels basestation",
+         "name": "Basestation Slot 3",
+         "serial_number": null,
+         "manufacturer": {
+            "name": "Interuniversity Microelectronics Center",
+            "abbreviation": "IMEC",
+            "registry": {
+               "name": "Research Organization Registry",
+               "abbreviation": "ROR"
+            },
+            "registry_identifier": "02kcbn207"
+         },
+         "model": null,
+         "path_to_cad": null,
+         "port_index": null,
+         "notes": null
+      }
+   },
    "daqs": [
       {
          "device_type": "Neuropixels basestation",

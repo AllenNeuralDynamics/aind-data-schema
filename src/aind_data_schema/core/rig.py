@@ -1,7 +1,8 @@
 """Core Rig model"""
 
 from datetime import date
-from typing import List, Literal, Optional, Set, Union
+import warnings
+from typing import List, Literal, Optional, Set, Union, Dict
 
 from pydantic import Field, ValidationInfo, field_validator
 from typing_extensions import Annotated
@@ -70,7 +71,7 @@ class Rig(AindCoreModel):
     digital_micromirror_devices: List[DigitalMicromirrorDevice] = Field(default=[], title="DMDs")
     polygonal_scanners: List[PolygonalScanner] = Field(default=[], title="Polygonal scanners")
     pockels_cells: List[PockelsCell] = Field(default=[], title="Pockels cells")
-    additional_devices: List[Device] = Field(default=[], title="Additional devices")
+    additional_devices: List[Device] | Dict[str, Device] = Field(default_factory=dict, title="Additional devices")
     daqs: List[RIG_DAQ_DEVICES] = Field(default=[], title="Data acquisition devices", discriminator="device_type")
     calibrations: List[Calibration] = Field(..., title="Full calibration of devices")
     ccf_coordinate_transform: Optional[str] = Field(
@@ -80,6 +81,14 @@ class Rig(AindCoreModel):
     )
     modalities: Set[Modality.ONE_OF] = Field(..., title="Modalities")
     notes: Optional[str] = Field(None, title="Notes")
+
+
+    def __init__(self, **data):
+        if "additional_devices" in data:
+            if isinstance(data["additional_devices"], list):
+                data["additional_devices"] = {device.name: device for device in data["additional_devices"]}
+                warnings.warn("Input additional_devices as a dict instead of a list.", DeprecationWarning, stacklevel=2)
+        super().__init__(**data)
 
     @field_validator("daqs", mode="after")
     def validate_device_names(cls, value: List[DAQDevice], info: ValidationInfo) -> List[DAQDevice]:
@@ -96,7 +105,7 @@ class Rig(AindCoreModel):
             + info.data["digital_micromirror_devices"]
             + info.data["polygonal_scanners"]
             + info.data["pockels_cells"]
-            + info.data["additional_devices"]
+            + list(info.data["additional_devices"].values())
         )
         camera_devices = info.data["cameras"] + info.data["stick_microscopes"]
         standard_device_names = [device.name for device in standard_devices]

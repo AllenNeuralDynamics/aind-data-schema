@@ -187,6 +187,23 @@ rig = Rig(
     stick_microscopes=[microscope],
     mouse_platform=running_wheel,
     calibrations=[red_laser_calibration, blue_laser_calibration],
+    additional_devices=[harp, basestation]
 )
-
 rig.write_standard_file(prefix="ephys")
+
+rig = Rig(
+    rig_id="323_EPHYS1",
+    modification_date=datetime.date(2023, 10, 3),
+    modalities=[Modality.ECEPHYS],
+    ephys_assemblies=[ephys_assemblyA, ephys_assemblyB],
+    cameras=[camassm1, camassm2],
+    laser_assemblies=[laser_assembly],
+    daqs=[basestation, harp],
+    stick_microscopes=[microscope],
+    mouse_platform=running_wheel,
+    calibrations=[red_laser_calibration, blue_laser_calibration],
+    additional_devices={"LeftHarpDevice": harp, "NpxBaseStation": basestation}
+)
+rig.write_standard_file(prefix="ephys")
+
+
