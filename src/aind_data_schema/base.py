@@ -31,20 +31,37 @@ class AindCoreModel(AindModel):
         """
         Returns standard filename in snakecase
         """
+        parent_classes = [base_class for base_class in cls.__bases__ if base_class.__name__ != AindCoreModel.__name__]
+
         name = cls.__name__
+
+        if len(parent_classes):
+            name = parent_classes[0].__name__
+
         return re.sub(r"(?<!^)(?=[A-Z])", "_", name).lower() + cls._FILE_EXTENSION.default
 
-    def write_standard_file(self, output_directory: Optional[Path] = None, prefix=None, suffix=None):
+    def write_standard_file(
+        self,
+        output_directory: Optional[Path] = None,
+        prefix: Optional[str] = None,
+        suffix: Optional[str] = None,
+    ):
         """
         Writes schema to standard json file
         Parameters
         ----------
-        output_directory:
-            optional Path object for output directory
-        prefix:
+        output_directory: Optional[Path]
+            optional Path object for output directory.
+            Default: None
+
+        prefix: Optional[str]
             optional str for intended filepath with extra naming convention
-        suffix:
+            Default: None
+
+        suffix: Optional[str]
             optional str for intended filepath with extra naming convention
+            Default: None
+
         """
         filename = self.default_filename()
         if prefix:

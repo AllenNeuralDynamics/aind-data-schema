@@ -282,7 +282,7 @@ class TestDataDescriptionUpgrade(unittest.TestCase):
         )
 
     def test_upgrades_0_10_0(self):
-        """Tests data_description_0.6.0.json is mapped correctly."""
+        """Tests data_description_0.10.0.json is mapped correctly."""
         data_description_0_10_0 = self.data_descriptions["data_description_0.10.0.json"]
         upgrader = DataDescriptionUpgrade(old_data_description_model=data_description_0_10_0)
 
@@ -509,6 +509,22 @@ class TestProcessingUpgrade(unittest.TestCase):
         ephys_preprocessing_process = processing_pipeline.data_processes[0]
         self.assertEqual(ephys_preprocessing_process.name, "Ephys preprocessing")
         self.assertEqual(ephys_preprocessing_process.software_version, "0.29.3")
+        self.assertEqual(
+            ephys_preprocessing_process.code_url, "https://github.com/AllenNeuralDynamics/aind-data-transfer"
+        )
+
+    def test_upgrades_0_3_1(self):
+        """Tests processing_0.3.1.json is mapped correctly."""
+        processing_0_3_1 = self.processings["processing_0.3.1.json"]
+        upgrader = ProcessingUpgrade(old_processing_model=processing_0_3_1)
+
+        # Should work by setting platform explicitly
+        new_processing = upgrader.upgrade()
+        processing_pipeline = new_processing.processing_pipeline
+        self.assertEqual(processing_pipeline.processor_full_name, "service")
+        ephys_preprocessing_process = processing_pipeline.data_processes[0]
+        self.assertEqual(ephys_preprocessing_process.name, "Compression")
+        self.assertEqual(ephys_preprocessing_process.software_version, "0.32.0")
         self.assertEqual(
             ephys_preprocessing_process.code_url, "https://github.com/AllenNeuralDynamics/aind-data-transfer"
         )

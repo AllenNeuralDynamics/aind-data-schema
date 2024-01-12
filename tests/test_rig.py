@@ -203,7 +203,7 @@ class RigTests(unittest.TestCase):
                             channel_index=1,
                             channel_type=ChannelType.ODOR,
                             flow_capacity=100,
-                        )
+                        ),
                     ],
                 )
             ],
