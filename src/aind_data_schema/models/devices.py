@@ -430,7 +430,7 @@ class DAQDevice(Device):
     # optional fields
     channels: List[DAQChannel] = Field(default=[], title="DAQ channels")
     firmware: Optional[Software] = Field(None, title="Firmware")
-    hardware_version: str = Field(..., title="Hardware version")
+    hardware_version: Optional[str] = Field(None, title="Hardware version")
 
 
 class HarpDevice(DAQDevice):

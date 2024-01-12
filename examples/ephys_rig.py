@@ -41,7 +41,9 @@ analog_input = DAQChannel(channel_name="AI0", device_name="Running Wheel", chann
 harp = HarpDevice(
     name="Harp Behavior",
     harp_device_type="Behavior",
-    harp_device_version="2.1",
+    harp_device_whoami=1216,
+    hardware_version="2.1",
+    is_clock_generator=False,
     computer_name=behavior_computer,
     channels=[digital_out0, digital_out1, analog_input],
 )
