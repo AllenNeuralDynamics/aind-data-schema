@@ -21,7 +21,62 @@
       "decoder": null,
       "encoder_firmware": null
    },
-   "stimulus_devices": [],
+   "stimulus_devices": [
+      {
+         "device_type": "Reward delivery",
+         "stage_type": null,
+         "reward_spouts": [
+            {
+               "device_type": "Reward spout",
+               "name": "Lick-o-meter Left",
+               "serial_number": null,
+               "manufacturer": null,
+               "model": null,
+               "path_to_cad": null,
+               "port_index": null,
+               "notes": null,
+               "side": "Left",
+               "spout_diameter": "1",
+               "spout_diameter_unit": "millimeter",
+               "spout_position": null,
+               "solenoid_valve": {
+                  "device_type": "Solenoid",
+                  "name": "Solenoid Left",
+                  "serial_number": null,
+                  "manufacturer": null,
+                  "model": null,
+                  "path_to_cad": null,
+                  "port_index": null,
+                  "notes": null
+               }
+            },
+            {
+               "device_type": "Reward spout",
+               "name": "Lick-o-meter Right",
+               "serial_number": null,
+               "manufacturer": null,
+               "model": null,
+               "path_to_cad": null,
+               "port_index": null,
+               "notes": null,
+               "side": "Right",
+               "spout_diameter": "1",
+               "spout_diameter_unit": "millimeter",
+               "spout_position": null,
+               "solenoid_valve": {
+                  "device_type": "Solenoid",
+                  "name": "Solenoid Right",
+                  "serial_number": null,
+                  "manufacturer": null,
+                  "model": null,
+                  "path_to_cad": null,
+                  "port_index": null,
+                  "notes": null
+               }
+            }
+         ]
+      }
+   ],
    "cameras": [
       {
          "camera_assembly_name": "BehaviorVideography_FaceSide",
@@ -633,28 +688,8 @@
    "pockels_cells": [],
    "additional_devices": [
       {
-         "device_type": "bpod",
-         "name": "Bpod DO",
-         "serial_number": null,
-         "manufacturer": null,
-         "model": null,
-         "path_to_cad": null,
-         "port_index": null,
-         "notes": null
-      },
-      {
-         "device_type": "lick-o-meter",
-         "name": "Janelia lick-o-meter circuit board, Left",
-         "serial_number": null,
-         "manufacturer": null,
-         "model": null,
-         "path_to_cad": null,
-         "port_index": null,
-         "notes": null
-      },
-      {
-         "device_type": "lick-o-meter",
-         "name": "Janelia lick-o-meter circuit board, Right",
+         "device_type": "Photometry Clock",
+         "name": "Photometry Clock",
          "serial_number": null,
          "manufacturer": null,
          "model": null,
@@ -665,56 +700,78 @@
    ],
    "daqs": [
       {
-         "device_type": "DAQ Device",
-         "name": "USB DAQ",
+         "device_type": "Harp device",
+         "name": "Harp Behavior",
          "serial_number": null,
          "manufacturer": {
-            "name": "National Instruments",
-            "abbreviation": null,
+            "name": "Open Ephys Production Site",
+            "abbreviation": "OEPS",
             "registry": {
                "name": "Research Organization Registry",
                "abbreviation": "ROR"
             },
-            "registry_identifier": "026exqw73"
+            "registry_identifier": "007rkz355"
          },
-         "model": "USB-6212",
+         "model": null,
          "path_to_cad": null,
          "port_index": null,
-         "notes": "To record behavior events and licks via AnalogInput node in Bonsai",
+         "notes": null,
          "data_interface": "USB",
-         "computer_name": "W10DTJK7N0M3",
+         "computer_name": "behavior_computer",
          "channels": [
             {
-               "channel_name": "AI0",
-               "device_name": "Bpod DO",
-               "channel_type": "Analog Input",
-               "port": 0,
-               "channel_index": 0,
-               "sample_rate": "1000",
+               "channel_name": "DO0",
+               "device_name": "Solenoid Left",
+               "channel_type": "Digital Output",
+               "port": null,
+               "channel_index": null,
+               "sample_rate": null,
                "sample_rate_unit": "hertz",
-               "event_based_sampling": false
+               "event_based_sampling": null
             },
             {
-               "channel_name": "AI1",
-               "device_name": "Janelia lick-o-meter circuit board, Left",
-               "channel_type": "Analog Input",
-               "port": 1,
-               "channel_index": 1,
-               "sample_rate": "1000",
+               "channel_name": "DO1",
+               "device_name": "Solenoid Right",
+               "channel_type": "Digital Output",
+               "port": null,
+               "channel_index": null,
+               "sample_rate": null,
                "sample_rate_unit": "hertz",
-               "event_based_sampling": false
+               "event_based_sampling": null
             },
             {
-               "channel_name": "AI2",
-               "device_name": "Janelia lick-o-meter circuit board, Right",
-               "channel_type": "Analog Input",
-               "port": 2,
-               "channel_index": 2,
-               "sample_rate": "1000",
+               "channel_name": "DI0",
+               "device_name": "Lick-o-meter Left",
+               "channel_type": "Digital Input",
+               "port": null,
+               "channel_index": null,
+               "sample_rate": null,
                "sample_rate_unit": "hertz",
-               "event_based_sampling": false
+               "event_based_sampling": null
+            },
+            {
+               "channel_name": "DI1",
+               "device_name": "Lick-o-meter Right",
+               "channel_type": "Digital Input",
+               "port": null,
+               "channel_index": null,
+               "sample_rate": null,
+               "sample_rate_unit": "hertz",
+               "event_based_sampling": null
+            },
+            {
+               "channel_name": "DI3",
+               "device_name": "Photometry Clock",
+               "channel_type": "Digital Input",
+               "port": null,
+               "channel_index": null,
+               "sample_rate": null,
+               "sample_rate_unit": "hertz",
+               "event_based_sampling": null
             }
-         ]
+         ],
+         "harp_device_type": "Behavior",
+         "harp_device_version": "2.1"
       }
    ],
    "calibrations": [
