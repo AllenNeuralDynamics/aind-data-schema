@@ -188,7 +188,9 @@ class RigTests(unittest.TestCase):
                     model="1234",
                     serial_number="213456",
                     harp_device_type="Olfactometer",
-                    harp_device_version="1",
+                    harp_device_whoami=1140,
+                    hardware_version="1",
+                    is_clock_generator=False,
                     computer_name="W10XXX000",
                     channels=[
                         OlfactometerChannel(
