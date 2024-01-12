@@ -15,6 +15,7 @@ from aind_data_schema.core.procedures import (
     Surgery,
     TarsVirusIdentifiers,
     ViralMaterial,
+    NonViralMaterial,
 )
 from aind_data_schema.models.devices import FiberProbe
 from aind_data_schema.models.manufacturers import Manufacturer
@@ -89,15 +90,12 @@ class ProceduresTests(unittest.TestCase):
                         IntraperitonealInjection(
                             protocol_id="234",
                             injection_materials=[
-                                ViralMaterial(
-                                    material_type="Virus",
-                                    name="AAV2-Flex-ChrimsonR",
-                                    tars_identifiers=TarsVirusIdentifiers(
-                                        virus_tars_id="AiV222",
-                                        plasmid_tars_alias="AiP222",
-                                        prep_lot_number="VT222",
-                                    ),
-                                    titer=2300000000,
+                                NonViralMaterial(
+                                    material_type="Reagent",
+                                    name="drug_xyz",
+                                    source="drug_source",
+                                    lot_number="12345",
+                                    concentration=1
                                 )
                             ],
                             injection_volume=1,
