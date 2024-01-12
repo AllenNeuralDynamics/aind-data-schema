@@ -169,11 +169,13 @@ class HarpDeviceType(str, Enum):
 
     BEHAVIOR = "Behavior"
     CAMERA_CONTROLLER = "Camera Controller"
+    CLOCK_SYNCHRONIZER = "Clock Synchronizer"
+    INPUT_EXPANDER = "Input Expander"
     LOAD_CELLS = "Load Cells"
     OLFACTOMETER = "Olfactometer"
     SOUND_CARD = "Sound Card"
+    SYNCHRONIZER = "Synchronizer"
     TIMESTAMP_GENERATOR = "Timestamp Generator"
-    INPUT_EXPANDER = "Input Expander"
 
 
 class ProbeModel(str, Enum):
@@ -427,6 +429,8 @@ class DAQDevice(Device):
 
     # optional fields
     channels: List[DAQChannel] = Field(default=[], title="DAQ channels")
+    firmware: Optional[Software] = Field(None, title="Firmware")
+    hardware_version: str = Field(..., title="Hardware version")
 
 
 class HarpDevice(DAQDevice):
@@ -434,12 +438,11 @@ class HarpDevice(DAQDevice):
 
     # required fields
     device_type: Literal["Harp device"] = "Harp device"
-    harp_device_type: HarpDeviceType = Field(..., title="Type of Harp device")
-    harp_device_version: str = Field(..., title="Device version")
-
-    # fixed values
     manufacturer: Manufacturer.DAQ_DEVICE_MANUFACTURERS = Field(default=Manufacturer.OEPS)
-    data_interface: Literal[DataInterface.USB] = DataInterface.USB
+    harp_device_type: HarpDeviceType = Field(..., title="Type of Harp device")
+    harp_device_whoami: int = Field(..., title="Harp device WhoAmI")
+    data_interface: DataInterface = Field(DataInterface.USB, title="Data interface")
+    is_clock_generator: bool = Field(..., title="Is Clock Generator")
 
 
 class Laser(Device):
