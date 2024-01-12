@@ -202,23 +202,23 @@ class DetectorType(str, Enum):
     """Detector type name"""
 
     CAMERA = "Camera"
-    PMT = "PMT"
-    OTHER = "other"
+    PMT = "Photomultiplier Tube"
+    OTHER = "Other"
 
 
 class Cooling(str, Enum):
     """Cooling medium name"""
 
-    AIR = "air"
-    WATER = "water"
+    AIR = "Air"
+    WATER = "Water"
 
 
 class BinMode(str, Enum):
     """Detector binning mode"""
 
-    ADDITIVE = "additive"
-    AVERAGE = "average"
-    NONE = "none"
+    ADDITIVE = "Additive"
+    AVERAGE = "Average"
+    NONE = "None"
 
 
 class FerruleMaterial(str, Enum):
@@ -295,27 +295,40 @@ class Maintenance(AindModel):
     notes: Optional[str] = Field(None, title="Notes")
 
 
-class Camera(Device):
-    """Device that acquires images and streams them to a computer"""
+class Detector(Device):
+    """Description of a generic detector"""
 
-    device_type: Literal["Camera"] = "Camera"
-    # required fields
-    data_interface: DataInterface = Field(..., title="Type of connection to PC")
-    manufacturer: Manufacturer.CAMERA_MANUFACTURERS
-    computer_name: str = Field(..., title="Name of computer receiving data from this camera")
-    max_frame_rate: Decimal = Field(..., title="Maximum frame rate (Hz)")
+    device_type: Literal["Detector"] = "Detector"
+    detector_type: DetectorType = Field(..., title="Detector Type")
+    manufacturer: Manufacturer.DETECTOR_MANUFACTURERS
+    data_interface: DataInterface = Field(..., title="Data interface")
+    cooling: Cooling = Field(None, title="Cooling")
+    computer_name: Optional[str] = Field(None, title="Name of computer receiving data from this camera")
+    max_frame_rate: Optional[Decimal] = Field(None, title="Maximum frame rate (Hz)")
     frame_rate_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Frame rate unit")
-    pixel_width: int = Field(..., title="Width of the sensor in pixels")
-    pixel_height: int = Field(..., title="Height of the sensor in pixels")
+    immersion: Optional[ImmersionMedium] = Field(None, title="Immersion")
+    chroma: Optional[CameraChroma] = Field(None, title="Camera chroma")
+    sensor_width: Optional[int] = Field(None, title="Width of the sensor (pixels)")
+    sensor_height: Optional[int] = Field(None, title="Height of the sensor (pixels)")
     size_unit: SizeUnit = Field(SizeUnit.PX, title="Size unit")
-    chroma: CameraChroma = Field(..., title="Color or Monochrome")
-
-    # optional fields
-    sensor_format: Optional[str] = Field(None, title="Size of the sensor")
-    format_unit: Optional[str] = Field(None, title="Format unit")
+    sensor_format: Optional[str] = Field(None, title="Sensor format")
+    sensor_format_unit: Optional[str] = Field(None, title="Sensor format unit")
+    bit_depth: Optional[int] = Field(None, title="Bit depth")
+    bin_mode: BinMode = Field(BinMode.NONE, title="Detector binning mode")
+    bin_width: Optional[int] = Field(None, title="Bin width")
+    bin_height: Optional[int] = Field(None, title="Bin height")
+    bin_unit: SizeUnit = Field(SizeUnit.PX, title="Bin size unit")
+    gain: Optional[Decimal] = Field(None, title="Gain")
+    crop_width: Optional[int] = Field(None, title="Crop width")
+    crop_height: Optional[int] = Field(None, title="Crop width")
+    crop_unit: SizeUnit = Field(SizeUnit.PX, title="Crop size unit")
     recording_software: Optional[Software] = Field(None, title="Recording software")
     driver: Optional[DeviceDriver] = Field(None, title="Driver")
     driver_version: Optional[str] = Field(None, title="Driver version")
+
+
+class Camera(Detector):
+    """Camera Detector"""
 
 
 class Filter(Device):
@@ -346,7 +359,7 @@ class Filter(Device):
 
 
 class Lens(Device):
-    """Lens used to focus light onto a camera sensor"""
+    """Lens"""
 
     device_type: Literal["Lens"] = "Lens"
 
@@ -569,29 +582,6 @@ class EphysAssembly(AindModel):
     ephys_assembly_name: str = Field(..., title="Ephys assembly name")
     manipulator: Manipulator = Field(..., title="Manipulator")
     probes: List[EphysProbe] = Field(..., title="Probes that are held by this module")
-
-
-class Detector(Device):
-    """Description of a generic detector"""
-
-    device_type: Literal["Detector"] = "Detector"
-    detector_type: DetectorType = Field(..., title="Detector Type")
-    data_interface: DataInterface = Field(..., title="Data interface")
-    cooling: Cooling = Field(..., title="Cooling")
-    immersion: Optional[ImmersionMedium] = Field(None, title="Immersion")
-    chroma: Optional[CameraChroma] = Field(None, title="Camera chroma")
-    sensor_width: Optional[int] = Field(None, title="Width of the sensor in pixels")
-    sensor_height: Optional[int] = Field(None, title="Height of the sensor in pixels")
-    size_unit: SizeUnit = Field(SizeUnit.PX, title="Size unit")
-    bit_depth: Optional[int] = Field(None, title="Bit depth")
-    bin_mode: BinMode = Field(BinMode.NONE, title="Detector binning mode")
-    bin_width: Optional[int] = Field(None, title="Bin width")
-    bin_height: Optional[int] = Field(None, title="Bin height")
-    bin_unit: SizeUnit = Field(SizeUnit.PX, title="Bin size unit")
-    gain: Optional[Decimal] = Field(None, title="Gain")
-    crop_width: Optional[int] = Field(None, title="Crop width")
-    crop_height: Optional[int] = Field(None, title="Crop width")
-    crop_unit: SizeUnit = Field(SizeUnit.PX, title="Crop size unit")
 
 
 class FiberProbe(Device):
