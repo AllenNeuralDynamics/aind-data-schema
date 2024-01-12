@@ -426,7 +426,9 @@
                "sample_rate_unit": "hertz",
                "event_based_sampling": null
             }
-         ]
+         ],
+         "firmware": null,
+         "hardware_version": null
       }
    ],
    "notes": null
