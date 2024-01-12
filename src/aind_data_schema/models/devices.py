@@ -334,6 +334,10 @@ class Detector(Device):
     driver_version: Optional[str] = Field(None, title="Driver version")
 
 
+class Camera(Detector):
+    """Camera Detector"""
+
+
 class Filter(Device):
     """Filter used in a light path"""
 
@@ -406,7 +410,7 @@ class CameraAssembly(AindModel):
     # required fields
     camera_assembly_name: str = Field(..., title="Camera assembly name")
     camera_target: CameraTarget = Field(..., title="Camera target")
-    camera: Detector = Field(..., title="Camera")
+    camera: Camera = Field(..., title="Camera")
     lens: Lens = Field(..., title="Lens")
 
     # optional fields
@@ -548,7 +552,7 @@ class StickMicroscopeAssembly(AindModel):
     """Stick microscope used to monitor probes during insertion"""
 
     scope_assembly_name: str = Field(..., title="Scope assembly name")
-    camera: Detector = Field(..., title="Camera for this module")
+    camera: Camera = Field(..., title="Camera for this module")
     lens: Lens = Field(..., title="Lens for this module")
 
 

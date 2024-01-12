@@ -5,9 +5,9 @@ import datetime
 from aind_data_schema.core.rig import Rig
 from aind_data_schema.models.devices import (
     Calibration,
+    Camera,
     CameraAssembly,
     DAQChannel,
-    Detector,
     Disc,
     EphysAssembly,
     EphysProbe,
@@ -71,7 +71,7 @@ laser_assembly = LaserAssembly(
     lasers=[red_laser, blue_laser],
 )
 
-probe_camera = Detector(
+probe_camera = Camera(
     name="Probe Camera",
     detector_type="Camera",
     data_interface="USB",
@@ -122,7 +122,7 @@ filt = Filter(
 
 lens = Lens(name="Camera lens", focal_length=15, manufacturer=Manufacturer.EDMUND_OPTICS, max_aperture="f/2")
 
-face_camera = Detector(
+face_camera = Camera(
     name="Face Camera",
     detector_type="Camera",
     data_interface="USB",
@@ -144,7 +144,7 @@ camassm1 = CameraAssembly(
     lens=lens,
 )
 
-body_camera = Detector(
+body_camera = Camera(
     name="Body Camera",
     detector_type="Camera",
     data_interface="USB",
