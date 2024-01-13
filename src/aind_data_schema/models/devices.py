@@ -10,6 +10,7 @@ from typing_extensions import Annotated
 
 from aind_data_schema.base import AindModel
 from aind_data_schema.models.coordinates import RelativePosition, Size3d
+from aind_data_schema.models.harp_types import HarpDeviceType
 from aind_data_schema.models.manufacturers import InteruniversityMicroelectronicsCenter, Manufacturer
 from aind_data_schema.models.reagent import Reagent
 from aind_data_schema.models.units import FrequencyUnit, PowerUnit, SizeUnit, SpeedUnit, TemperatureUnit, UnitlessUnit
@@ -162,20 +163,6 @@ class CameraTarget(str, Enum):
     SIDE = "Side"
     TONGUE = "Tongue"
     OTHER = "Other"
-
-
-class HarpDeviceType(str, Enum):
-    """Harp device type"""
-
-    BEHAVIOR = "Behavior"
-    CAMERA_CONTROLLER = "Camera Controller"
-    CLOCK_SYNCHRONIZER = "Clock Synchronizer"
-    INPUT_EXPANDER = "Input Expander"
-    LOAD_CELLS = "Load Cells"
-    OLFACTOMETER = "Olfactometer"
-    SOUND_CARD = "Sound Card"
-    SYNCHRONIZER = "Synchronizer"
-    TIMESTAMP_GENERATOR = "Timestamp Generator"
 
 
 class ProbeModel(str, Enum):
@@ -439,8 +426,9 @@ class HarpDevice(DAQDevice):
     # required fields
     device_type: Literal["Harp device"] = "Harp device"
     manufacturer: Manufacturer.DAQ_DEVICE_MANUFACTURERS = Field(default=Manufacturer.OEPS)
-    harp_device_type: HarpDeviceType = Field(..., title="Type of Harp device")
-    harp_device_whoami: int = Field(..., title="Harp device WhoAmI")
+    harp_device_type: HarpDeviceType.ONE_OF = Field(..., title="Type of Harp device")
+    core_version: Optional[str] = Field(None, title="Core version")
+    tag_version: Optional[str] = Field(None, title="Tag version")
     data_interface: DataInterface = Field(DataInterface.USB, title="Data interface")
     is_clock_generator: bool = Field(..., title="Is Clock Generator")
 
