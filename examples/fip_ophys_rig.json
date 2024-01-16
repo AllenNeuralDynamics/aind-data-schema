@@ -36,7 +36,7 @@
                "port_index": null,
                "notes": null,
                "side": "Left",
-               "spout_diameter": "1",
+               "spout_diameter": "1.2",
                "spout_diameter_unit": "millimeter",
                "spout_position": null,
                "solenoid_valve": {
@@ -60,7 +60,7 @@
                "port_index": null,
                "notes": null,
                "side": "Right",
-               "spout_diameter": "1",
+               "spout_diameter": "1.2",
                "spout_diameter_unit": "millimeter",
                "spout_position": null,
                "solenoid_valve": {

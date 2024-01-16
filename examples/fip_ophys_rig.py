@@ -249,13 +249,13 @@ r = r.Rig(
                 d.RewardSpout(
                     name="Lick-o-meter Left",
                     side=d.SpoutSide.LEFT,
-                    spout_diameter=1,
+                    spout_diameter=1.2,
                     solenoid_valve=d.Device(device_type="Solenoid", name="Solenoid Left"),
                 ),
                 d.RewardSpout(
                     name="Lick-o-meter Right",
                     side=d.SpoutSide.RIGHT,
-                    spout_diameter=1,
+                    spout_diameter=1.2,
                     solenoid_valve=d.Device(device_type="Solenoid", name="Solenoid Right"),
                 ),
             ]
