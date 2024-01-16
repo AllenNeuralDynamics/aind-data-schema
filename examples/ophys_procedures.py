@@ -91,7 +91,7 @@ p = Procedures(
         Surgery(
             start_date="2023-05-31",
             experimenter_full_name="John Apple",
-            iacuc_protocol="TO ENTER",
+            iacuc_protocol="2109",
             anaesthesia=Anaesthetic(type="Isoflurane", duration=30, level=3),
             workstation_id="SWS 3",
             procedures=[
