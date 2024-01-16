@@ -14,11 +14,11 @@ from aind_data_schema.core.procedures import (
     Procedures,
     SpecimenProcedure,
     Surgery,
-    TarsVirusIdentifiers,
     ViralMaterial,
     WaterRestriction,
 )
 from aind_data_schema.models.pid_names import PIDName
+from aind_data_schema.models.registry import Registry
 
 t = datetime.datetime(2022, 7, 12, 7, 00, 00)
 t2 = datetime.datetime(2022, 9, 23, 10, 22, 00)
@@ -32,11 +32,11 @@ p = Procedures(
             iacuc_protocol="2109",
             animal_weight_prior=22.6,
             animal_weight_post=22.3,
-            anaesthesia=Anaesthetic(type="Isoflurane", duration=3, level=1.5),
+            anaesthesia=Anaesthetic(type="Isoflurane", duration=180, level=1.5),
             workstation_id="SWS 3",
             procedures=[
                 Headframe(
-                    protocol_id="TO ENTER",
+                    protocol_id="2109",
                     headframe_type="AI straight",
                     headframe_part_number="TO ENTER",
                     headframe_material="Titanium",
@@ -47,9 +47,9 @@ p = Procedures(
                         ViralMaterial(
                             material_type="Virus",
                             name="AAV2/1-Syn-Flex-ChrimsonR-tdT",
-                            tars_identifiers=TarsVirusIdentifiers(
-                                virus_tars_id="Addgene 62723-AAV5",
-                                prep_lot_number="v122159",
+                            addgene_id=PIDName(
+                                name="Addgene 62723-AAV5",
+                                registry_identifier="v122159",
                             ),
                             titer=20000000000000,
                         )
@@ -110,16 +110,41 @@ p = Procedures(
             reagents=[],
             immunolabeling=Immunolabeling(
                 antibody=Antibody(
-                    name="Chicken polyclonal to GFP(ab13970)",
+                    name="Chicken polyclonal",
                     source="Abcam",
-                    rrid=PIDName(name="Chicken polyclonal to GFP(ab13970)", abbreviation="Anti-GFP antibody"),
-                    lot_number="GR3361051-16, GR3361051-7, GR3361051-3",
+                    rrid=PIDName(
+                        name=Registry.RRID.name, abbreviation=Registry.RRID.abbreviation, registry_identifier="ab13970"
+                    ),
+                    lot_number="GR3361051-16",
                     immunolabel_class="Primary",
                     fluorophore=None,
                 ),
                 concentration=10,
             ),
             notes="Primary dilution factor 1:1000 ---final concentration is 10ug/ml",
+        ),
+        SpecimenProcedure(
+            procedure_type="Immunolabeling",
+            specimen_id="672640",
+            start_date="2023-06-12",
+            end_date="2023-06-13",
+            experimenter_full_name="John Apple",
+            protocol_id="TO ENTER",
+            reagents=[],
+            immunolabeling=Immunolabeling(
+                antibody=Antibody(
+                    name="Alexa Fluor 488 goat anti-chicken IgY (H+L)",
+                    source="Invitrogen",
+                    rrid=PIDName(
+                        name=Registry.RRID.name, abbreviation=Registry.RRID.abbreviation, registry_identifier="A11039"
+                    ),
+                    lot_number="2420700",
+                    immunolabel_class="Secondary",
+                    fluorophore="Alexa Fluor 488",
+                ),
+                concentration=4,
+            ),
+            notes="Secondary dilution factor 1:500 - final concentration 4ug/ml",
         ),
     ],
 )
