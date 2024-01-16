@@ -23,10 +23,10 @@ inst = instrument.Instrument(
     ],
     detectors=[
         Detector(
-            name="Cmaera 1",
+            name="Camera 1",
             detector_type="Camera",
             data_interface="Coax",
-            cooling="air",
+            cooling="Air",
             manufacturer=Manufacturer.VIEWORKS,
             model="VNP-604MX",
             serial_number="MB151BAY001",

@@ -1,7 +1,7 @@
 """Module to contain base code to upgrade old models"""
 
 from abc import ABC, abstractmethod
-from typing import Any, Type
+from typing import Any, Type, Union
 
 from pydantic.fields import PydanticUndefined
 
@@ -11,17 +11,19 @@ from aind_data_schema.base import AindModel
 class BaseModelUpgrade(ABC):
     """Base class for handling upgrades for models"""
 
-    def __init__(self, old_model: AindModel, model_class: Type[AindModel]):
+    def __init__(self, old_model: Union[AindModel, dict], model_class: Type[AindModel]):
         """
         Handle mapping of old AindModel model versions into current models
 
         Parameters
         ----------
-        old_model : AindModel
+        old_model : Union[AindModel, dict]
             The old model to upgrade
         model_class : Type[AindModel]
             The class of the model
         """
+        if isinstance(old_model, dict):
+            old_model = model_class.model_construct(**old_model)
         self.old_model = old_model
         self.model_class = model_class
 

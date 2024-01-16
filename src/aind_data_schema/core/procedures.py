@@ -373,6 +373,14 @@ class RetroOrbitalInjection(Injection):
     injection_eye: Side = Field(..., title="Injection eye")
 
 
+class IntraperitonealInjection(Injection):
+    """Description of an intraperitoneal injection procedure"""
+
+    procedure_type: Literal["Intraperitoneal injection"] = "Intraperitoneal injection"
+    injection_volume: Decimal = Field(..., title="Injection volume (uL)")
+    injection_volume_unit: VolumeUnit = Field(VolumeUnit.UL, title="Injection volume unit")
+
+
 class BrainInjection(Injection):
     """Description of a brain injection procedure"""
 
@@ -548,6 +556,7 @@ class Surgery(AindModel):
                 Headframe,
                 IntraCerebellarVentricleInjection,
                 IntraCisternalMagnaInjection,
+                IntraperitonealInjection,
                 IontophoresisInjection,
                 NanojectInjection,
                 Perfusion,
@@ -566,7 +575,7 @@ class Procedures(AindCoreModel):
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/procedures.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
 
-    schema_version: Literal["0.11.0"] = Field("0.11.0", description="schema version", title="Version")
+    schema_version: Literal["0.11.1"] = Field("0.11.1", description="schema version", title="Version")
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",

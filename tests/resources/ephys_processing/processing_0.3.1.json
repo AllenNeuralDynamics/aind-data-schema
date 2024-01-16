@@ -1,0 +1,36 @@
+{
+   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/processing.py",
+   "schema_version": "0.3.1",
+   "processing_pipeline": {
+      "data_processes": [
+         {
+            "name": "Compression",
+            "software_version": "0.32.0",
+            "start_date_time": "2023-12-11T19:47:27.913738+00:00",
+            "end_date_time": "2023-12-11T20:22:24.217059+00:00",
+            "input_location": "/allen/aind/scratch/svc_aind_upload/test_data_sets/ecephys/20231129_688539_0",
+            "output_location": "s3://aind-ephys-data-dev-u5u0i5/ecephys_688539_2023-11-29_00-00-00",
+            "code_url": "https://github.com/AllenNeuralDynamics/aind-data-transfer",
+            "code_version": null,
+            "parameters": {
+               "modality": {
+                  "name": "Extracellular electrophysiology",
+                  "abbreviation": "ecephys"
+               },
+               "source": "/allen/aind/scratch/svc_aind_upload/test_data_sets/ecephys/20231129_688539_0",
+               "compress_raw_data": true,
+               "extra_configs": null,
+               "skip_staging": false
+            },
+            "outputs": null,
+            "notes": null
+         }
+      ],
+      "processor_full_name": "service",
+      "pipeline_version": null,
+      "pipeline_url": null,
+      "note": null
+   },
+   "analyses": null,
+   "notes": null
+}
