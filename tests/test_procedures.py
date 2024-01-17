@@ -95,7 +95,7 @@ class ProceduresTests(unittest.TestCase):
                                     name="drug_xyz",
                                     source="drug_source",
                                     lot_number="12345",
-                                    concentration=1
+                                    concentration=1,
                                 )
                             ],
                             injection_volume=1,
