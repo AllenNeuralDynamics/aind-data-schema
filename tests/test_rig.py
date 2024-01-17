@@ -26,6 +26,7 @@ from aind_data_schema.models.devices import (
     Patch,
     StickMicroscopeAssembly,
 )
+from aind_data_schema.models.harp_types import HarpDeviceType
 from aind_data_schema.models.manufacturers import Manufacturer
 from aind_data_schema.models.modalities import Modality
 
@@ -187,8 +188,7 @@ class RigTests(unittest.TestCase):
                     manufacturer=Manufacturer.CHAMPALIMAUD,
                     model="1234",
                     serial_number="213456",
-                    harp_device_type="Olfactometer",
-                    harp_device_whoami=1140,
+                    harp_device_type=HarpDeviceType.Olfactometer,
                     hardware_version="1",
                     is_clock_generator=False,
                     computer_name="W10XXX000",
