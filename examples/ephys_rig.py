@@ -21,6 +21,7 @@ from aind_data_schema.models.devices import (
     ProbePort,
     StickMicroscopeAssembly,
 )
+from aind_data_schema.models.harp_types import HarpDeviceType
 from aind_data_schema.models.manufacturers import Manufacturer
 from aind_data_schema.models.modalities import Modality
 
@@ -40,8 +41,7 @@ analog_input = DAQChannel(channel_name="AI0", device_name="Running Wheel", chann
 
 harp = HarpDevice(
     name="Harp Behavior",
-    harp_device_type="Behavior",
-    harp_device_whoami=1216,
+    harp_device_type=HarpDeviceType.BEHAVIOR,
     hardware_version="2.1",
     is_clock_generator=False,
     computer_name=behavior_computer,

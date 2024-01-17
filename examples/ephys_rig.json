@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/rig.py",
-   "schema_version": "0.2.4",
+   "schema_version": "0.2.5",
    "rig_id": "323_EPHYS1",
    "modification_date": "2023-10-03",
    "mouse_platform": {
@@ -511,8 +511,12 @@
          ],
          "firmware": null,
          "hardware_version": "2.1",
-         "harp_device_type": "Behavior",
-         "harp_device_whoami": 1216,
+         "harp_device_type": {
+            "name": "Behavior",
+            "whoami": 1216
+         },
+         "core_version": null,
+         "tag_version": null,
          "is_clock_generator": false
       }
    ],
