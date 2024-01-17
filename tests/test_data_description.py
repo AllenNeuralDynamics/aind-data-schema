@@ -224,6 +224,12 @@ class DataDescriptionTest(unittest.TestCase):
         )
         self.assertEqual(expected_exception, repr(e.exception))
 
+    def test_model_constructors(self):
+        assert Institution.from_abbreviation("AIND") == Institution.AIND
+        assert Institution.from_name("Allen Institute for Neural Dynamics") == Institution.AIND
+        assert Modality.from_abbreviation("ecephys") == Modality.ECEPHYS
+        assert Institution().name_map["Allen Institute for Neural Dynamics"] == Institution.AIND
+
     def test_name_label_error(self):
         """Tests an error is raised if label and name are None"""
 
@@ -239,8 +245,6 @@ class DataDescriptionTest(unittest.TestCase):
                 investigators=["Jane Smith"],
             )
         self.assertTrue("Value error, Either label or name must be set" in repr(e.exception))
-
-    
 
     def test_round_trip(self):
         """make sure we can round trip from json"""
@@ -311,7 +315,7 @@ class DataDescriptionTest(unittest.TestCase):
             modality=[Modality.SPIM],
             platform=Platform.EXASPIM,
             subject_id="1234",
-            data_level="raw data",
+            data_level="raw",
             creation_time=datetime.datetime(2020, 10, 10, 10, 10, 10),
             institution=Institution.AIND,
             funding_source=[Funding(funder=Institution.NINDS, grant_number="grant001")],
