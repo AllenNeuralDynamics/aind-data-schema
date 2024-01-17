@@ -61,7 +61,7 @@
    "detectors": [
       {
          "device_type": "Detector",
-         "name": "Cmaera 1",
+         "name": "Camera 1",
          "serial_number": "MB151BAY001",
          "manufacturer": {
             "name": "Vieworks",
@@ -75,21 +75,29 @@
          "notes": null,
          "detector_type": "Camera",
          "data_interface": "Coax",
-         "cooling": "air",
+         "cooling": "Air",
+         "computer_name": null,
+         "max_frame_rate": null,
+         "frame_rate_unit": "hertz",
          "immersion": null,
          "chroma": null,
          "sensor_width": null,
          "sensor_height": null,
          "size_unit": "pixel",
+         "sensor_format": null,
+         "sensor_format_unit": null,
          "bit_depth": null,
-         "bin_mode": "none",
+         "bin_mode": "None",
          "bin_width": null,
          "bin_height": null,
          "bin_unit": "pixel",
          "gain": null,
          "crop_width": null,
          "crop_height": null,
-         "crop_unit": "pixel"
+         "crop_unit": "pixel",
+         "recording_software": null,
+         "driver": null,
+         "driver_version": null
       }
    ],
    "light_sources": [
