@@ -373,6 +373,14 @@ class RetroOrbitalInjection(Injection):
     injection_eye: Side = Field(..., title="Injection eye")
 
 
+class IntraperitonealInjection(Injection):
+    """Description of an intraperitoneal injection procedure"""
+
+    procedure_type: Literal["Intraperitoneal injection"] = "Intraperitoneal injection"
+    injection_volume: Decimal = Field(..., title="Injection volume (uL)")
+    injection_volume_unit: VolumeUnit = Field(VolumeUnit.UL, title="Injection volume unit")
+
+
 class BrainInjection(Injection):
     """Description of a brain injection procedure"""
 
@@ -548,6 +556,7 @@ class Surgery(AindModel):
                 Headframe,
                 IntraCerebellarVentricleInjection,
                 IntraCisternalMagnaInjection,
+                IntraperitonealInjection,
                 IontophoresisInjection,
                 NanojectInjection,
                 Perfusion,
