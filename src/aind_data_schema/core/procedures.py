@@ -215,7 +215,7 @@ class Immunolabeling(AindModel):
 class SpecimenProcedure(AindModel):
     """Description of surgical or other procedure performed on a specimen"""
 
-    procedure_type: SpecimenProcedureType = Field(..., title="Procedure name")
+    procedure_type: SpecimenProcedureType = Field(..., title="Procedure type")
     procedure_name: Optional[str] = Field(None, title="Procedure name")
     specimen_id: str = Field(..., title="Specimen ID")
     start_date: date = Field(..., title="Start date")
