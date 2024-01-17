@@ -576,7 +576,7 @@ class Procedures(AindCoreModel):
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/procedures.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
 
-    schema_version: Literal["0.11.1"] = Field("0.11.1", description="schema version", title="Version")
+    schema_version: Literal["0.11.2"] = Field("0.11.2", description="schema version", title="Version")
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
