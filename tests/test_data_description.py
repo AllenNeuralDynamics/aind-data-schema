@@ -224,6 +224,8 @@ class DataDescriptionTest(unittest.TestCase):
         self.assertEqual(expected_exception, repr(e.exception))
 
     def test_model_constructors(self):
+        """test static methods for constructing models"""
+
         assert Institution.from_abbreviation("AIND") == Institution.AIND
         assert Institution.from_name("Allen Institute for Neural Dynamics") == Institution.AIND
         assert Modality.from_abbreviation("ecephys") == Modality.ECEPHYS
