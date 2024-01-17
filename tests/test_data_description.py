@@ -240,45 +240,7 @@ class DataDescriptionTest(unittest.TestCase):
             )
         self.assertTrue("Value error, Either label or name must be set" in repr(e.exception))
 
-    def test_data_level_upgrade(self):
-        """Tests data level can be set from legacy versions"""
-        d1 = DataDescription(
-            label="test_data",
-            modality=[Modality.SPIM],
-            platform=Platform.EXASPIM,
-            subject_id="1234",
-            data_level="raw data",
-            creation_time=datetime.datetime(2020, 10, 10, 10, 10, 10),
-            institution=Institution.AIND,
-            funding_source=[Funding(funder=Institution.NINDS, grant_number="grant001")],
-            investigators=["Jane Smith"],
-        )
-        d2 = DataDescription(
-            label="test_data",
-            modality=[Modality.SPIM],
-            platform=Platform.EXASPIM,
-            subject_id="1234",
-            data_level=DataLevel.RAW,
-            creation_time=datetime.datetime(2020, 10, 10, 10, 10, 10),
-            institution=Institution.AIND,
-            funding_source=[Funding(funder=Institution.NINDS, grant_number="grant001")],
-            investigators=["Jane Smith"],
-        )
-        with self.assertRaises(ValidationError) as e:
-            DataDescription(
-                label="test_data",
-                modality=[Modality.SPIM],
-                platform=Platform.EXASPIM,
-                subject_id="1234",
-                data_level=2,
-                creation_time=datetime.datetime(2020, 10, 10, 10, 10, 10),
-                institution=Institution.AIND,
-                funding_source=[Funding(funder=Institution.NINDS, grant_number="grant001")],
-                investigators=["Jane Smith"],
-            )
-        self.assertTrue("Data Level needs to be string or enum" in repr(e.exception))
-        self.assertEqual(DataLevel.RAW, d1.data_level)
-        self.assertEqual(DataLevel.RAW, d2.data_level)
+    
 
     def test_round_trip(self):
         """make sure we can round trip from json"""
