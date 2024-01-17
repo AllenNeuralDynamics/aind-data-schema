@@ -1,12 +1,13 @@
 """Module for Harp Device Types"""
 
 from typing import Literal, Union
+from enum import Enum
 
 from pydantic import ConfigDict, Field
 from typing_extensions import Annotated
 
 
-class _HarpDeviceType(AindModel):
+class _HarpDeviceType(str, Enum):
     """Base model config"""
 
     model_config = ConfigDict(frozen=True)
