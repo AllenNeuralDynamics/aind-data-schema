@@ -12,7 +12,6 @@ from pydantic import ValidationError
 from aind_data_schema.core.data_description import (
     AnalysisDescription,
     DataDescription,
-    DataLevel,
     DataRegex,
     DerivedDataDescription,
     Funding,

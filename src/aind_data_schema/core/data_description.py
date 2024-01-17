@@ -3,9 +3,9 @@
 import re
 from datetime import datetime
 from enum import Enum
-from typing import Any, List, Literal, Optional, Union
+from typing import Any, List, Literal, Optional
 
-from pydantic import Field, field_validator, model_validator
+from pydantic import Field, model_validator
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.models.institutions import Institution
