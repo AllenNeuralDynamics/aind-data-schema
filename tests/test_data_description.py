@@ -1,11 +1,7 @@
 """ test DataDescription """
 
 import datetime
-import json
-import os
 import unittest
-from pathlib import Path
-from typing import List
 
 from pydantic import ValidationError
 
