@@ -26,7 +26,7 @@ from aind_data_schema.models.units import (
 )
 
 
-class SpecimenProcedureName(str, Enum):
+class SpecimenProcedureType(str, Enum):
     """Names for general specimen procedures"""
 
     DELIPIDATION = "Delipidation"
@@ -215,7 +215,8 @@ class Immunolabeling(AindModel):
 class SpecimenProcedure(AindModel):
     """Description of surgical or other procedure performed on a specimen"""
 
-    procedure_type: SpecimenProcedureName = Field(..., title="Procedure name")
+    procedure_type: SpecimenProcedureType = Field(..., title="Procedure name")
+    procedure_name: Optional[str] = Field(None, title="Procedure name")
     specimen_id: str = Field(..., title="Specimen ID")
     start_date: date = Field(..., title="Start date")
     end_date: date = Field(..., title="End date")
@@ -234,13 +235,13 @@ class SpecimenProcedure(AindModel):
     def validate_procedure_type(self):
         """Adds a validation check on procedure_type"""
 
-        if self.procedure_type == SpecimenProcedureName.OTHER and not self.notes:
+        if self.procedure_type == SpecimenProcedureType.OTHER and not self.notes:
             raise AssertionError(
                 "notes cannot be empty if procedure_type is Other. Describe the procedure in the notes field."
             )
-        elif self.procedure_type == SpecimenProcedureName.HCR and not self.hcr_series:
+        elif self.procedure_type == SpecimenProcedureType.HCR and not self.hcr_series:
             raise AssertionError("hcr_series cannot be empty if procedure_type is HCR.")
-        elif self.procedure_type == SpecimenProcedureName.IMMUNOLABELING and not self.immunolabeling:
+        elif self.procedure_type == SpecimenProcedureType.IMMUNOLABELING and not self.immunolabeling:
             raise AssertionError("immunolabeling cannot be empty if procedure_type is Immunolabeling.")
         return self
 
