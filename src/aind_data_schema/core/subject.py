@@ -5,7 +5,7 @@ from datetime import time
 from enum import Enum
 from typing import List, Literal, Optional
 
-from pydantic import Field
+from pydantic import Field, model_validator
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.models.institutions import Institution
@@ -79,6 +79,16 @@ class Housing(AindModel):
         description="List of IDs of other subjects housed in same cage",
     )
 
+class BreedingInfo(AindModel):
+    """Description of breeding info for subject"""
+
+    breeding_group: Optional[str] = Field(None, title="Breeding Group")
+    maternal_id: Optional[str] = Field(None, title="Maternal specimen ID")
+    maternal_genotype: Optional[str] = Field(None, title="Maternal genotype")
+    paternal_id: Optional[str] = Field(None, title="Paternal specimen ID")
+    paternal_genotype: Optional[str] = Field(None, title="Paternal genotype")
+
+
 
 class Subject(AindCoreModel):
     """Description of a subject of data collection"""
@@ -101,9 +111,9 @@ class Subject(AindCoreModel):
     )
     mgi_allele_ids: List[MgiAlleleId] = Field(default=[], title="MGI allele ids")
     background_strain: Optional[BackgroundStrain] = Field(None, title="Background strain")
-    source: Optional[Institution.ONE_OF] = Field(
-        None,
-        description="If the subject was not bred in house, where was it acquired from.",
+    source: Institution.ONE_OF = Field(
+        ...,
+        description="Where the subject was acquired from. If bred in-house, use Allen Institute.",
         title="Source",
     )
     rrid: Optional[PIDName] = Field(
@@ -116,11 +126,21 @@ class Subject(AindCoreModel):
         description="Any restrictions on use or publishing based on subject source",
         title="Restrictions",
     )
-    breeding_group: Optional[str] = Field(None, title="Breeding Group")
-    maternal_id: Optional[str] = Field(None, title="Maternal specimen ID")
-    maternal_genotype: Optional[str] = Field(None, title="Maternal genotype")
-    paternal_id: Optional[str] = Field(None, title="Paternal specimen ID")
-    paternal_genotype: Optional[str] = Field(None, title="Paternal genotype")
+    breeding_info: Optional[BreedingInfo] = Field(None, title="Breeding Info")
     wellness_reports: List[WellnessReport] = Field(default=[], title="Wellness Report")
     housing: Optional[Housing] = Field(None, title="Housing")
     notes: Optional[str] = Field(None, title="Notes")
+
+    @model_validator(mode="after")
+    def validate_breeding_info(self):
+        if self.source is Institution.AI:
+            if self.breeding_info is None:
+                raise ValueError("Breeding info should be provided for subjects bred in house")
+            
+    def validate_genotype(self):
+        if self.species is Species.MUS_MUSCULUS:
+            if self.genotype is None:
+                raise ValueError("Genotype should be provided for mouse subjects")
+    
+
+    
