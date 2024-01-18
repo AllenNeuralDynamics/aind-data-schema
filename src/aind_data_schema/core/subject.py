@@ -137,7 +137,9 @@ class Subject(AindCoreModel):
             if self.breeding_info is None:
                 raise ValueError("Breeding info should be provided for subjects bred in house")
 
+
+    @model_validator(mode="after")
     def validate_genotype(self):
         if self.species is Species.MUS_MUSCULUS:
             if self.genotype is None:
-                raise ValueError("Genotype should be provided for mouse subjects")
+                raise ValueError("Full genotype should be provided for mouse subjects")

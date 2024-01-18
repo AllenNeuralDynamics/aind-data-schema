@@ -22,9 +22,9 @@ class TestMetadata(unittest.TestCase):
             subject_id="123345",
             sex=Sex.MALE,
             date_of_birth="2020-10-10",
-            source=Institution.AIND,
+            source=Institution.AI,
             breeding_info=BreedingInfo(),
-            genotype="Emx1-IRES-Cre;Camk2a-tTA;Ai93(TITL-GCaMP6f)",
+            genotype="Emx1-IRES-Cre;Camk2a-tTA;Ai93(TITL-GCaMP6f)/wt",
         )
         d1 = Metadata(name="ecephys_655019_2023-04-03_18-17-09", location="bucket", subject=s1)
         self.assertEqual("ecephys_655019_2023-04-03_18-17-09", d1.name)
@@ -72,9 +72,9 @@ class TestMetadata(unittest.TestCase):
             subject_id="123345",
             sex=Sex.MALE,
             date_of_birth="2020-10-10",
-            source=Institution.AIND,
+            source=Institution.AI,
             breeding_info=BreedingInfo(),
-            genotype="Emx1-IRES-Cre;Camk2a-tTA;Ai93(TITL-GCaMP6f)",
+            genotype="Emx1-IRES-Cre;Camk2a-tTA;Ai93(TITL-GCaMP6f)/wt",
         )
         d2 = Metadata(
             name="ecephys_655019_2023-04-03_18-17-09",
