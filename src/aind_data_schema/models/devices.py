@@ -790,7 +790,7 @@ class Olfactometer(HarpDevice):
 
     device_type: Literal["Olfactometer"] = "Olfactometer"
     manufacturer: Manufacturer.DAQ_DEVICE_MANUFACTURERS = Field(default=Manufacturer.CHAMPALIMAUD)
-    harp_device_type: HarpDeviceType.OLFACTOMETER
+    harp_device_type: Literal[HarpDeviceType.OLFACTOMETER] = HarpDeviceType.OLFACTOMETER
     channels: List[OlfactometerChannel]
 
 
