@@ -621,7 +621,7 @@ class Manufacturer:
             TheImagingSource,
             Thorlabs,
             Vieworks,
-            Other
+            Other,
         ],
         Field(discriminator="name"),
     ]
