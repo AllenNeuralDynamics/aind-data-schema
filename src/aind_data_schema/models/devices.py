@@ -788,6 +788,7 @@ class OlfactometerChannel(AindModel):
 class Olfactometer(HarpDevice):
     """Description of an olfactometer for odor stimuli"""
 
+    device_type: Literal["Olfactometer"] = "Olfactometer"
     manufacturer: Manufacturer.CHAMPALIMAUD
     harp_device_type: HarpDeviceType.OLFACTOMETER
     channels: List[OlfactometerChannel]
