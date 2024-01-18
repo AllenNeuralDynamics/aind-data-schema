@@ -7,7 +7,8 @@ from pydantic import ValidationError
 
 from aind_data_schema.core.metadata import Metadata, MetadataStatus
 from aind_data_schema.core.procedures import Procedures
-from aind_data_schema.core.subject import Sex, Species, Subject
+from aind_data_schema.core.subject import Sex, Species, Subject, BreedingInfo
+from aind_data_schema.models.institutions import Institution
 
 
 class TestMetadata(unittest.TestCase):
@@ -21,6 +22,8 @@ class TestMetadata(unittest.TestCase):
             subject_id="123345",
             sex=Sex.MALE,
             date_of_birth="2020-10-10",
+            source=Institution.AIND,
+            breeding_info=BreedingInfo(),
             genotype="Emx1-IRES-Cre;Camk2a-tTA;Ai93(TITL-GCaMP6f)",
         )
         d1 = Metadata(name="ecephys_655019_2023-04-03_18-17-09", location="bucket", subject=s1)
@@ -60,7 +63,7 @@ class TestMetadata(unittest.TestCase):
         metadata_status as INVALID"""
 
         # Invalid subject model
-        d1 = Metadata(name="ecephys_655019_2023-04-03_18-17-09", location="bucket", subject=Subject.model_construct())
+        Metadata(name="ecephys_655019_2023-04-03_18-17-09", location="bucket", subject=Subject.model_construct())
         self.assertEqual(MetadataStatus.INVALID, d1.metadata_status)
 
         # Valid subject model, but invalid procedures model
@@ -69,6 +72,8 @@ class TestMetadata(unittest.TestCase):
             subject_id="123345",
             sex=Sex.MALE,
             date_of_birth="2020-10-10",
+            source=Institution.AIND,
+            breeding_info=BreedingInfo(),
             genotype="Emx1-IRES-Cre;Camk2a-tTA;Ai93(TITL-GCaMP6f)",
         )
         d2 = Metadata(

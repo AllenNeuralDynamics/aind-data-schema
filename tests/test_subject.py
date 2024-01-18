@@ -27,6 +27,7 @@ class SubjectTests(unittest.TestCase):
             sex="Male",
             date_of_birth=now.date(),
             genotype="wt",
+            source=Institution.AIND,
             housing=Housing(
                 light_cycle=LightCycle(
                     lights_on_time=now.time(),
@@ -35,7 +36,7 @@ class SubjectTests(unittest.TestCase):
                 cage_id="543",
             ),
             breeding_info=BreedingInfo(
-                
+
             ),
             mgi_allele_ids=[MgiAlleleId(mgi_id="12345", allele_name="adsf")],
         )
@@ -74,8 +75,7 @@ class SubjectTests(unittest.TestCase):
                 subject_id="1234",
                 sex="Male",
                 date_of_birth=now.date(),
-                genotype="wt",
-                source=Institution.AI,
+                source=Institution.AIND,
                 housing=Housing(
                     light_cycle=LightCycle(
                         lights_on_time=now.time(),
