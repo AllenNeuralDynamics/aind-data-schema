@@ -216,7 +216,9 @@ class SpecimenProcedure(AindModel):
     """Description of surgical or other procedure performed on a specimen"""
 
     procedure_type: SpecimenProcedureType = Field(..., title="Procedure type")
-    procedure_name: Optional[str] = Field(None, title="Procedure name")
+    procedure_name: Optional[str] = Field(
+        None, title="Procedure name", description="Name to clarify specific procedure used as needed"
+    )
     specimen_id: str = Field(..., title="Specimen ID")
     start_date: date = Field(..., title="Start date")
     end_date: date = Field(..., title="End date")
