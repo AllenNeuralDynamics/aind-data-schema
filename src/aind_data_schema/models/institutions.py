@@ -111,7 +111,7 @@ class Institution:
     NYU = NewYorkUniversity()
     SIMONS = SimonsFoundation()
     _ALL = tuple(_Institution.__subclasses__())
-    SUBJECT_SOURCES = Annotated[Union[AI, JAX], Field(discriminator="name")]
+    SUBJECT_SOURCES = Annotated[Union[AllenInstitute(), JacksonLaboratory()], Field(discriminator="name")]
     ONE_OF = Annotated[Union[_ALL], Field(discriminator="name")]
 
     _abbreviation_map = {m().abbreviation: m() for m in _ALL}

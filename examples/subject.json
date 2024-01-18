@@ -16,14 +16,24 @@
    "genotype": "Emx1-IRES-Cre;Camk2a-tTA;Ai93(TITL-GCaMP6f)",
    "mgi_allele_ids": [],
    "background_strain": "C57BL/6J",
-   "source": null,
+   "source": {
+      "name": "Allen Institute",
+      "abbreviation": "AI",
+      "registry": {
+         "name": "Research Organization Registry",
+         "abbreviation": "ROR"
+      },
+      "registry_identifier": "03cpe7c52"
+   },
    "rrid": null,
    "restrictions": null,
-   "breeding_group": null,
-   "maternal_id": null,
-   "maternal_genotype": null,
-   "paternal_id": null,
-   "paternal_genotype": null,
+   "breeding_info": {
+      "breeding_group": null,
+      "maternal_id": null,
+      "maternal_genotype": null,
+      "paternal_id": null,
+      "paternal_genotype": null
+   },
    "wellness_reports": [],
    "housing": {
       "cage_id": "123",

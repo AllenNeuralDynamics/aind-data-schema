@@ -27,7 +27,7 @@ class SubjectTests(unittest.TestCase):
             sex="Male",
             date_of_birth=now.date(),
             genotype="wt",
-            source=Institution.AIND,
+            source=Institution.AI,
             housing=Housing(
                 light_cycle=LightCycle(
                     lights_on_time=now.time(),
