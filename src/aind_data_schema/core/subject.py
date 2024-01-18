@@ -111,7 +111,7 @@ class Subject(AindCoreModel):
     )
     mgi_allele_ids: List[MgiAlleleId] = Field(default=[], title="MGI allele ids")
     background_strain: Optional[BackgroundStrain] = Field(None, title="Background strain")
-    source: Institution.ONE_OF = Field(
+    source: Institution.SUBJECT_SOURCES = Field(
         ...,
         description="Where the subject was acquired from. If bred in-house, use Allen Institute.",
         title="Source",
@@ -135,9 +135,13 @@ class Subject(AindCoreModel):
     def validate_breeding_info(self):
         if self.source is Institution.AI and self.breeding_info is None:
             raise ValueError("Breeding info should be provided for subjects bred in house")
+        
+        return self
 
 
     @model_validator(mode="after")
     def validate_genotype(self):
         if self.species is Species.MUS_MUSCULUS and self.genotype is None:
             raise ValueError("Full genotype should be provided for mouse subjects")
+        
+        return self
