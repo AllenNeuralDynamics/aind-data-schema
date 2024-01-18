@@ -27,6 +27,7 @@ from aind_data_schema.models.devices import (
     Patch,
     StickMicroscopeAssembly,
 )
+from aind_data_schema.models.harp_types import HarpDeviceType
 from aind_data_schema.models.manufacturers import Manufacturer
 from aind_data_schema.models.modalities import Modality
 
@@ -188,6 +189,7 @@ class RigTests(unittest.TestCase):
                 Olfactometer(
                     name="Olfactometer",
                     manufacturer=Manufacturer.CHAMPALIMAUD,
+                    harp_device_type=HarpDeviceType.OLFACTOMETER
                     model="1234",
                     serial_number="213456",
                     hardware_version="1",
