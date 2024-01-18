@@ -63,7 +63,7 @@ class TestMetadata(unittest.TestCase):
         metadata_status as INVALID"""
 
         # Invalid subject model
-        Metadata(name="ecephys_655019_2023-04-03_18-17-09", location="bucket", subject=Subject.model_construct())
+        d1 = Metadata(name="ecephys_655019_2023-04-03_18-17-09", location="bucket", subject=Subject.model_construct()) #errors
         self.assertEqual(MetadataStatus.INVALID, d1.metadata_status)
 
         # Valid subject model, but invalid procedures model
