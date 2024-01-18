@@ -79,6 +79,7 @@ class Housing(AindModel):
         description="List of IDs of other subjects housed in same cage",
     )
 
+
 class BreedingInfo(AindModel):
     """Description of breeding info for subject"""
 
@@ -87,7 +88,6 @@ class BreedingInfo(AindModel):
     maternal_genotype: Optional[str] = Field(None, title="Maternal genotype")
     paternal_id: Optional[str] = Field(None, title="Paternal specimen ID")
     paternal_genotype: Optional[str] = Field(None, title="Paternal genotype")
-
 
 
 class Subject(AindCoreModel):
@@ -136,11 +136,8 @@ class Subject(AindCoreModel):
         if self.source is Institution.AI:
             if self.breeding_info is None:
                 raise ValueError("Breeding info should be provided for subjects bred in house")
-            
+
     def validate_genotype(self):
         if self.species is Species.MUS_MUSCULUS:
             if self.genotype is None:
                 raise ValueError("Genotype should be provided for mouse subjects")
-    
-
-    

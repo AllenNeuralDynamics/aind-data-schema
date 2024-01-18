@@ -6,16 +6,16 @@ from pydantic import ValidationError
 
 from aind_data_schema.core.procedures import (
     FiberImplant,
+    IntraperitonealInjection,
     NanojectInjection,
+    NonViralMaterial,
     OphysProbe,
     Procedures,
     RetroOrbitalInjection,
-    IntraperitonealInjection,
     SpecimenProcedure,
     Surgery,
     TarsVirusIdentifiers,
     ViralMaterial,
-    NonViralMaterial,
 )
 from aind_data_schema.models.devices import FiberProbe
 from aind_data_schema.models.manufacturers import Manufacturer
@@ -95,7 +95,7 @@ class ProceduresTests(unittest.TestCase):
                                     name="drug_xyz",
                                     source="drug_source",
                                     lot_number="12345",
-                                    concentration=1
+                                    concentration=1,
                                 )
                             ],
                             injection_volume=1,
