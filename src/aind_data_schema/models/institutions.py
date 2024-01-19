@@ -120,7 +120,7 @@ class Institution:
             NationalInstituteOfNeurologicalDisordersAndStroke,
             NewYorkUniversity,
             SimonsFoundation
-        ], 
+        ],
         Field(discriminator="name")
     ]
     ONE_OF = Annotated[Union[_ALL], Field(discriminator="name")]
