@@ -27,7 +27,6 @@ from aind_data_schema.models.devices import (
     Patch,
     StickMicroscopeAssembly,
 )
-from aind_data_schema.models.harp_types import HarpDeviceType
 from aind_data_schema.models.manufacturers import Manufacturer
 from aind_data_schema.models.modalities import Modality
 
