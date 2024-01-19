@@ -189,7 +189,6 @@ class RigTests(unittest.TestCase):
                 Olfactometer(
                     name="Olfactometer",
                     manufacturer=Manufacturer.CHAMPALIMAUD,
-                    harp_device_type=HarpDeviceType.OLFACTOMETER,
                     model="1234",
                     serial_number="213456",
                     hardware_version="1",
