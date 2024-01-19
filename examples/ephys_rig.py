@@ -73,13 +73,15 @@ laser_assembly = LaserAssembly(
 
 probe_camera = Camera(
     name="Probe Camera",
+    detector_type="Camera",
     data_interface="USB",
     manufacturer=Manufacturer.FLIR,
     computer_name=ephys_computer,
     max_frame_rate=50,
-    pixel_width=1080,
-    pixel_height=570,
-    sensor_format='1/2.9"',
+    sensor_width=1080,
+    sensor_height=570,
+    sensor_format="1/2.9",
+    sensor_format_unit="inches",
     chroma="Color",
 )
 
@@ -122,13 +124,15 @@ lens = Lens(name="Camera lens", focal_length=15, manufacturer=Manufacturer.EDMUN
 
 face_camera = Camera(
     name="Face Camera",
+    detector_type="Camera",
     data_interface="USB",
     manufacturer=Manufacturer.FLIR,
     computer_name=behavior_computer,
     max_frame_rate=500,
-    pixel_width=1080,
-    pixel_height=570,
-    sensor_format='1/2.9"',
+    sensor_width=1080,
+    sensor_height=570,
+    sensor_format="1/2.9",
+    sensor_format_unit="inches",
     chroma="Monochrome",
 )
 
@@ -142,13 +146,15 @@ camassm1 = CameraAssembly(
 
 body_camera = Camera(
     name="Body Camera",
+    detector_type="Camera",
     data_interface="USB",
     manufacturer=Manufacturer.FLIR,
     computer_name=behavior_computer,
     max_frame_rate=500,
-    pixel_width=1080,
-    pixel_height=570,
-    sensor_format='1/2.9"',
+    sensor_width=1080,
+    sensor_height=570,
+    sensor_format="1/2.9",
+    sensor_format_unit="inches",
     chroma="Monochrome",
 )
 

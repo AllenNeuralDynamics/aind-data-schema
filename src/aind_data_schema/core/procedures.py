@@ -26,7 +26,7 @@ from aind_data_schema.models.units import (
 )
 
 
-class SpecimenProcedureName(str, Enum):
+class SpecimenProcedureType(str, Enum):
     """Names for general specimen procedures"""
 
     DELIPIDATION = "Delipidation"
@@ -215,7 +215,10 @@ class Immunolabeling(AindModel):
 class SpecimenProcedure(AindModel):
     """Description of surgical or other procedure performed on a specimen"""
 
-    procedure_type: SpecimenProcedureName = Field(..., title="Procedure name")
+    procedure_type: SpecimenProcedureType = Field(..., title="Procedure type")
+    procedure_name: Optional[str] = Field(
+        None, title="Procedure name", description="Name to clarify specific procedure used as needed"
+    )
     specimen_id: str = Field(..., title="Specimen ID")
     start_date: date = Field(..., title="Start date")
     end_date: date = Field(..., title="End date")
@@ -234,13 +237,13 @@ class SpecimenProcedure(AindModel):
     def validate_procedure_type(self):
         """Adds a validation check on procedure_type"""
 
-        if self.procedure_type == SpecimenProcedureName.OTHER and not self.notes:
+        if self.procedure_type == SpecimenProcedureType.OTHER and not self.notes:
             raise AssertionError(
                 "notes cannot be empty if procedure_type is Other. Describe the procedure in the notes field."
             )
-        elif self.procedure_type == SpecimenProcedureName.HCR and not self.hcr_series:
+        elif self.procedure_type == SpecimenProcedureType.HCR and not self.hcr_series:
             raise AssertionError("hcr_series cannot be empty if procedure_type is HCR.")
-        elif self.procedure_type == SpecimenProcedureName.IMMUNOLABELING and not self.immunolabeling:
+        elif self.procedure_type == SpecimenProcedureType.IMMUNOLABELING and not self.immunolabeling:
             raise AssertionError("immunolabeling cannot be empty if procedure_type is Immunolabeling.")
         return self
 
@@ -371,6 +374,14 @@ class RetroOrbitalInjection(Injection):
     injection_volume: Decimal = Field(..., title="Injection volume (uL)")
     injection_volume_unit: VolumeUnit = Field(VolumeUnit.UL, title="Injection volume unit")
     injection_eye: Side = Field(..., title="Injection eye")
+
+
+class IntraperitonealInjection(Injection):
+    """Description of an intraperitoneal injection procedure"""
+
+    procedure_type: Literal["Intraperitoneal injection"] = "Intraperitoneal injection"
+    injection_volume: Decimal = Field(..., title="Injection volume (uL)")
+    injection_volume_unit: VolumeUnit = Field(VolumeUnit.UL, title="Injection volume unit")
 
 
 class BrainInjection(Injection):
@@ -548,6 +559,7 @@ class Surgery(AindModel):
                 Headframe,
                 IntraCerebellarVentricleInjection,
                 IntraCisternalMagnaInjection,
+                IntraperitonealInjection,
                 IontophoresisInjection,
                 NanojectInjection,
                 Perfusion,
@@ -566,7 +578,7 @@ class Procedures(AindCoreModel):
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/procedures.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
 
-    schema_version: Literal["0.11.0"] = Field("0.11.0", description="schema version", title="Version")
+    schema_version: Literal["0.11.2"] = Field("0.11.2", description="schema version", title="Version")
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",

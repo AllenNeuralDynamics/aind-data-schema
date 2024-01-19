@@ -26,8 +26,12 @@ class DataProcessUpgrade(BaseModelUpgrade):
         # Empty notes with 'Other' name is not allowed in the new schema
         name = self._get_or_default(self.old_model, "name", kwargs)
         notes = self._get_or_default(self.old_model, "notes", kwargs)
+        outputs = self._get_or_default(self.old_model, "outputs", kwargs)
+
         if name == "Other" and notes is None:
             self.old_model.notes = "missing notes"
+        # this takes care of setting the outputs to an empty dict (default) if it is None
+        self.old_model.outputs = outputs
 
         return self.old_model
 
@@ -70,6 +74,18 @@ class ProcessingUpgrade(BaseModelUpgrade):
                 )
         else:
             processing_pipeline = self._get_or_default(self.old_model, "processing_pipeline", kwargs)
+            # upgrade data processes
+            data_processes_new = []
+            if isinstance(processing_pipeline, PipelineProcess):
+                data_processes_old = processing_pipeline.data_processes
+                processing_pipeline_dict = processing_pipeline.model_dump()
+            else:
+                data_processes_old = processing_pipeline["data_processes"]
+                processing_pipeline_dict = processing_pipeline
+            for data_process in data_processes_old:
+                data_processes_new.append(DataProcessUpgrade(data_process).upgrade())
+            processing_pipeline_dict.pop("data_processes")
+            processing_pipeline = PipelineProcess(data_processes=data_processes_new, **processing_pipeline_dict)
 
         return Processing(
             processing_pipeline=processing_pipeline,
