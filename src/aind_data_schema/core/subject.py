@@ -83,11 +83,11 @@ class Housing(AindModel):
 class BreedingInfo(AindModel):
     """Description of breeding info for subject"""
 
-    breeding_group: Optional[str] = Field(None, title="Breeding Group")
-    maternal_id: Optional[str] = Field(None, title="Maternal specimen ID")
-    maternal_genotype: Optional[str] = Field(None, title="Maternal genotype")
-    paternal_id: Optional[str] = Field(None, title="Paternal specimen ID")
-    paternal_genotype: Optional[str] = Field(None, title="Paternal genotype")
+    breeding_group: str = Field(None, title="Breeding Group")
+    maternal_id: str = Field(None, title="Maternal specimen ID")
+    maternal_genotype: str = Field(None, title="Maternal genotype")
+    paternal_id: str = Field(None, title="Paternal specimen ID")
+    paternal_genotype: str = Field(None, title="Paternal genotype")
 
 
 class Subject(AindCoreModel):
