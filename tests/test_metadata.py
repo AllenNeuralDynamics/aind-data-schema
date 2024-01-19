@@ -7,7 +7,7 @@ from pydantic import ValidationError
 
 from aind_data_schema.core.metadata import Metadata, MetadataStatus
 from aind_data_schema.core.procedures import Procedures
-from aind_data_schema.core.subject import Sex, Species, Subject, BreedingInfo
+from aind_data_schema.core.subject import BreedingInfo, Sex, Species, Subject
 from aind_data_schema.models.institutions import Institution
 
 
@@ -23,7 +23,13 @@ class TestMetadata(unittest.TestCase):
             sex=Sex.MALE,
             date_of_birth="2020-10-10",
             source=Institution.AI,
-            breeding_info=BreedingInfo(),
+            breeding_info=BreedingInfo(
+                breeding_group="Emx1-IRES-Cre(ND)",
+                maternal_id="546543",
+                maternal_genotype="Emx1-IRES-Cre/wt; Camk2a-tTa/Camk2a-tTA",
+                paternal_id="232323",
+                paternal_genotype="Ai93(TITL-GCaMP6f)/wt",
+            ),
             genotype="Emx1-IRES-Cre;Camk2a-tTA;Ai93(TITL-GCaMP6f)/wt",
         )
         d1 = Metadata(name="ecephys_655019_2023-04-03_18-17-09", location="bucket", subject=s1)
@@ -63,7 +69,7 @@ class TestMetadata(unittest.TestCase):
         metadata_status as INVALID"""
 
         # Invalid subject model
-        d1 = Metadata(name="ecephys_655019_2023-04-03_18-17-09", location="bucket", subject=Subject.model_construct()) #errors
+        d1 = Metadata(name="ecephys_655019_2023-04-03_18-17-09", location="bucket", subject=Subject.model_construct())
         self.assertEqual(MetadataStatus.INVALID, d1.metadata_status)
 
         # Valid subject model, but invalid procedures model
@@ -73,7 +79,13 @@ class TestMetadata(unittest.TestCase):
             sex=Sex.MALE,
             date_of_birth="2020-10-10",
             source=Institution.AI,
-            breeding_info=BreedingInfo(),
+            breeding_info=BreedingInfo(
+                breeding_group="Emx1-IRES-Cre(ND)",
+                maternal_id="546543",
+                maternal_genotype="Emx1-IRES-Cre/wt; Camk2a-tTa/Camk2a-tTA",
+                paternal_id="232323",
+                paternal_genotype="Ai93(TITL-GCaMP6f)/wt",
+            ),
             genotype="Emx1-IRES-Cre;Camk2a-tTA;Ai93(TITL-GCaMP6f)/wt",
         )
         d2 = Metadata(

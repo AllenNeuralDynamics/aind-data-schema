@@ -5,7 +5,8 @@ from datetime import time
 from enum import Enum
 from typing import List, Literal, Optional
 
-from pydantic import Field, model_validator
+from pydantic import Field, field_validator
+from pydantic_core.core_schema import ValidationInfo
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.models.institutions import Institution
@@ -96,7 +97,6 @@ class Subject(AindCoreModel):
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/subject.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
     schema_version: Literal["0.5.2"] = Field("0.5.2")
-    species: Species.ONE_OF = Field(..., title="Species")
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
@@ -109,8 +109,10 @@ class Subject(AindCoreModel):
         description="Genotype of the animal providing both alleles",
         title="Genotype",
     )
+    species: Species.ONE_OF = Field(..., title="Species")
     mgi_allele_ids: List[MgiAlleleId] = Field(default=[], title="MGI allele ids")
     background_strain: Optional[BackgroundStrain] = Field(None, title="Background strain")
+    breeding_info: Optional[BreedingInfo] = Field(None, title="Breeding Info")
     source: Institution.SUBJECT_SOURCES = Field(
         ...,
         description="Where the subject was acquired from. If bred in-house, use Allen Institute.",
@@ -126,22 +128,24 @@ class Subject(AindCoreModel):
         description="Any restrictions on use or publishing based on subject source",
         title="Restrictions",
     )
-    breeding_info: Optional[BreedingInfo] = Field(None, title="Breeding Info")
     wellness_reports: List[WellnessReport] = Field(default=[], title="Wellness Report")
     housing: Optional[Housing] = Field(None, title="Housing")
     notes: Optional[str] = Field(None, title="Notes")
 
-    @model_validator(mode="after")
-    def validate_breeding_info(self):
-        if self.source is Institution.AI and self.breeding_info is None:
+    @field_validator("source", mode="after")
+    def validate_inhouse_breeding_info(cls, v: Institution.SUBJECT_SOURCES, info: ValidationInfo):
+        """Validator for inhouse mice breeding info"""
+
+        if v is Institution.AI and info.data.get("breeding_info") is None:
             raise ValueError("Breeding info should be provided for subjects bred in house")
-        
-        return self
 
+        return v
 
-    @model_validator(mode="after")
-    def validate_genotype(self):
-        if self.species is Species.MUS_MUSCULUS and self.genotype is None:
+    @field_validator("species", mode="after")
+    def validate_genotype(cls, v: Species.ONE_OF, info: ValidationInfo):
+        """Validator for mice genotype"""
+
+        if v is Species.MUS_MUSCULUS and info.data.get("genotype") is None:
             raise ValueError("Full genotype should be provided for mouse subjects")
-        
-        return self
+
+        return v

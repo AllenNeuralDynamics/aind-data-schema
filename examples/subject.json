@@ -13,7 +13,7 @@
    "subject_id": "12345",
    "sex": "Male",
    "date_of_birth": "2022-11-22",
-   "genotype": "Emx1-IRES-Cre;Camk2a-tTA;Ai93(TITL-GCaMP6f)",
+   "genotype": "Emx1-IRES-Cre/wt;Camk2a-tTA/wt;Ai93(TITL-GCaMP6f)/wt",
    "mgi_allele_ids": [],
    "background_strain": "C57BL/6J",
    "source": {
@@ -28,11 +28,11 @@
    "rrid": null,
    "restrictions": null,
    "breeding_info": {
-      "breeding_group": null,
-      "maternal_id": null,
-      "maternal_genotype": null,
-      "paternal_id": null,
-      "paternal_genotype": null
+      "breeding_group": "Emx1-IRES-Cre(ND)",
+      "maternal_id": "546543",
+      "maternal_genotype": "Emx1-IRES-Cre/wt; Camk2a-tTa/Camk2a-tTA",
+      "paternal_id": "232323",
+      "paternal_genotype": "Ai93(TITL-GCaMP6f)/wt"
    },
    "wellness_reports": [],
    "housing": {
