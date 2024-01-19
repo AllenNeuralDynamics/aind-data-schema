@@ -35,6 +35,13 @@ class ClockSynchronizer(_HarpDeviceType):
     whoami: Literal[1152] = 1152
 
 
+class GenericHarpDevice(_HarpDeviceType):
+    """Generic Harp Device"""
+
+    name: Literal["Generic Harp Device"] = "Generic Harp Device"
+    whomai: int = Field(..., ge=0, le=9999)
+
+
 class InputExpander(_HarpDeviceType):
     """Input Expander"""
 

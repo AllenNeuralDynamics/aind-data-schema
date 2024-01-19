@@ -250,6 +250,7 @@ class Device(AindModel):
     model: Optional[str] = Field(None, title="Model")
     path_to_cad: Optional[str] = Field(None, title="Path to CAD diagram", description="For CUSTOM manufactured devices")
     port_index: Optional[str] = Field(None, title="Port index")
+    additional_settings: Optional[Dict[str, Any]] = Field(dict(), title="Additional parameters")
     notes: Optional[str] = Field(None, title="Notes")
 
 
@@ -429,7 +430,7 @@ class DAQDevice(Device):
 
     # optional fields
     channels: List[DAQChannel] = Field(default=[], title="DAQ channels")
-    firmware: Optional[Software] = Field(None, title="Firmware")
+    firmware_version: Optional[str] = Field(None, title="Firmware version")
     hardware_version: Optional[str] = Field(None, title="Hardware version")
 
 
