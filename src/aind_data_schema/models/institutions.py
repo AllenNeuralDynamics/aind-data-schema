@@ -113,9 +113,9 @@ class Institution:
     _ALL = tuple(_Institution.__subclasses__())
     SUBJECT_SOURCES = Annotated[
         Union[
-            AllenInstitute, 
-            ColumbiaUniversity, 
-            JacksonLaboratory, 
+            AllenInstitute,
+            ColumbiaUniversity,
+            JacksonLaboratory,
             HuazhongUniversityOfScienceAndTechnology,
             NationalInstituteOfNeurologicalDisordersAndStroke,
             NewYorkUniversity,
