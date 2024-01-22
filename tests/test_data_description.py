@@ -12,7 +12,6 @@ from pydantic import ValidationError
 from aind_data_schema.core.data_description import (
     AnalysisDescription,
     DataDescription,
-    DataLevel,
     DataRegex,
     DerivedDataDescription,
     Funding,
@@ -224,6 +223,14 @@ class DataDescriptionTest(unittest.TestCase):
         )
         self.assertEqual(expected_exception, repr(e.exception))
 
+    def test_model_constructors(self):
+        """test static methods for constructing models"""
+
+        assert Institution.from_abbreviation("AIND") == Institution.AIND
+        assert Institution.from_name("Allen Institute for Neural Dynamics") == Institution.AIND
+        assert Modality.from_abbreviation("ecephys") == Modality.ECEPHYS
+        assert Institution().name_map["Allen Institute for Neural Dynamics"] == Institution.AIND
+
     def test_name_label_error(self):
         """Tests an error is raised if label and name are None"""
 
@@ -239,46 +246,6 @@ class DataDescriptionTest(unittest.TestCase):
                 investigators=["Jane Smith"],
             )
         self.assertTrue("Value error, Either label or name must be set" in repr(e.exception))
-
-    def test_data_level_upgrade(self):
-        """Tests data level can be set from legacy versions"""
-        d1 = DataDescription(
-            label="test_data",
-            modality=[Modality.SPIM],
-            platform=Platform.EXASPIM,
-            subject_id="1234",
-            data_level="raw data",
-            creation_time=datetime.datetime(2020, 10, 10, 10, 10, 10),
-            institution=Institution.AIND,
-            funding_source=[Funding(funder=Institution.NINDS, grant_number="grant001")],
-            investigators=["Jane Smith"],
-        )
-        d2 = DataDescription(
-            label="test_data",
-            modality=[Modality.SPIM],
-            platform=Platform.EXASPIM,
-            subject_id="1234",
-            data_level=DataLevel.RAW,
-            creation_time=datetime.datetime(2020, 10, 10, 10, 10, 10),
-            institution=Institution.AIND,
-            funding_source=[Funding(funder=Institution.NINDS, grant_number="grant001")],
-            investigators=["Jane Smith"],
-        )
-        with self.assertRaises(ValidationError) as e:
-            DataDescription(
-                label="test_data",
-                modality=[Modality.SPIM],
-                platform=Platform.EXASPIM,
-                subject_id="1234",
-                data_level=2,
-                creation_time=datetime.datetime(2020, 10, 10, 10, 10, 10),
-                institution=Institution.AIND,
-                funding_source=[Funding(funder=Institution.NINDS, grant_number="grant001")],
-                investigators=["Jane Smith"],
-            )
-        self.assertTrue("Data Level needs to be string or enum" in repr(e.exception))
-        self.assertEqual(DataLevel.RAW, d1.data_level)
-        self.assertEqual(DataLevel.RAW, d2.data_level)
 
     def test_round_trip(self):
         """make sure we can round trip from json"""
@@ -349,7 +316,7 @@ class DataDescriptionTest(unittest.TestCase):
             modality=[Modality.SPIM],
             platform=Platform.EXASPIM,
             subject_id="1234",
-            data_level="raw data",
+            data_level="raw",
             creation_time=datetime.datetime(2020, 10, 10, 10, 10, 10),
             institution=Institution.AIND,
             funding_source=[Funding(funder=Institution.NINDS, grant_number="grant001")],
