@@ -39,7 +39,7 @@ class GenericHarpDevice(_HarpDeviceType):
     """Generic Harp Device"""
 
     name: Literal["Generic Harp Device"] = "Generic Harp Device"
-    whomai: int = Field(..., ge=0, le=9999)
+    whomai: Literal[0] = 0
 
 
 class InputExpander(_HarpDeviceType):
