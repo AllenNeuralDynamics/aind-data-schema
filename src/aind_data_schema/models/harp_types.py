@@ -18,21 +18,21 @@ class Behavior(_HarpDeviceType):
     """Behavior"""
 
     name: Literal["Behavior"] = "Behavior"
-    whoami: 1216
+    whoami: Literal[1216] = 1216
 
 
 class CameraController(_HarpDeviceType):
     """Camera Controller"""
 
     name: Literal["Camera Controller"] = "Camera Controller"
-    whoami: 1168
+    whoami: Literal[1168] = 1168
 
 
 class ClockSynchronizer(_HarpDeviceType):
     """Clock Synchronizer"""
 
     name: Literal["Clock Synchronizer"] = "Clock Synchronizer"
-    whoami: 1152
+    whoami: Literal[1152] = 1152
 
 
 class GenericHarpDevice(_HarpDeviceType):
@@ -46,49 +46,49 @@ class InputExpander(_HarpDeviceType):
     """Input Expander"""
 
     name: Literal["Input Expander"] = "Input Expander"
-    whoami: 1106
+    whoami: Literal[1106] = 1106
 
 
 class LoadCells(_HarpDeviceType):
     """Load Cells"""
 
     name: Literal["Load Cells"] = "Load Cells"
-    whoami: 1232
+    whoami: Literal[1232] = 1232
 
 
 class Olfactometer(_HarpDeviceType):
     """Olfactometer"""
 
     name: Literal["Olfactometer"] = "Olfactometer"
-    whoami: 1140
+    whoami: Literal[1140] = 1140
 
 
 class SoundCard(_HarpDeviceType):
     """Sound Card"""
 
     name: Literal["Sound Card"] = "Sound Card"
-    whoami: 1280
+    whoami: Literal[1280] = 1280
 
 
 class Synchronizer(_HarpDeviceType):
     """Synchronizer"""
 
     name: Literal["Synchronizer"] = "Synchronizer"
-    whoami: 1104
+    whoami: Literal[1104] = 1104
 
 
 class TimestampGeneratorGen1(_HarpDeviceType):
     """Timestamp Generator Gen 1"""
 
     name: Literal["Timestamp Generator Gen 1"] = "Timestamp Generator Gen 1"
-    whoami: 1154
+    whoami: Literal[1154] = 1154
 
 
 class TimestampGeneratorGen3(_HarpDeviceType):
     """Timestamp Generator Gen 3"""
 
     name: Literal["Timestamp Generator Gen 3"] = "Timestamp Generator Gen 3"
-    whoami: 1158
+    whoami: Literal[1158] = 1158
 
 
 class HarpDeviceType:
