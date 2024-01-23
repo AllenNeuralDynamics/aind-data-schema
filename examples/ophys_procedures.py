@@ -136,7 +136,9 @@ p = Procedures(
                     name="Alexa Fluor 488 goat anti-chicken IgY (H+L)",
                     source="Invitrogen",
                     rrid=PIDName(
-                        name="Alexa Fluor 488 goat anti-chicken IgY (H+L)", registry=Registry.RRID, registry_identifier="A11039"
+                        name="Alexa Fluor 488 goat anti-chicken IgY (H+L)",
+                        registry=Registry.RRID,
+                        registry_identifier="A11039",
                     ),
                     lot_number="2420700",
                     immunolabel_class="Secondary",

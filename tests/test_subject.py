@@ -6,9 +6,9 @@ import unittest
 import pydantic
 
 from aind_data_schema.core.subject import Housing, LightCycle, Subject
-from aind_data_schema.models.species import Species
 from aind_data_schema.models.pid_names import PIDName
 from aind_data_schema.models.registry import Registry
+from aind_data_schema.models.species import Species
 
 
 class SubjectTests(unittest.TestCase):
