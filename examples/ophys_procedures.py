@@ -113,7 +113,7 @@ p = Procedures(
                     name="Chicken polyclonal",
                     source="Abcam",
                     rrid=PIDName(
-                        name=Registry.RRID.name, registry=Registry.RRID, registry_identifier="ab13970"
+                        name="Chicken polyclonal to GFP", registry=Registry.RRID, registry_identifier="ab13970"
                     ),
                     lot_number="GR3361051-16",
                     immunolabel_class="Primary",
@@ -136,7 +136,7 @@ p = Procedures(
                     name="Alexa Fluor 488 goat anti-chicken IgY (H+L)",
                     source="Invitrogen",
                     rrid=PIDName(
-                        name=Registry.RRID.name, registry=Registry.RRID, registry_identifier="A11039"
+                        name="Alexa Fluor 488 goat anti-chicken IgY (H+L)", registry=Registry.RRID, registry_identifier="A11039"
                     ),
                     lot_number="2420700",
                     immunolabel_class="Secondary",

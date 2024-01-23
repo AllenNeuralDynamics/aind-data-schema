@@ -160,7 +160,7 @@
                "name": "Chicken polyclonal",
                "source": "Abcam",
                "rrid": {
-                  "name": "Research Resource Identifiers",
+                  "name": "Chicken polyclonal to GFP",
                   "abbreviation": null,
                   "registry": {
                      "name": "Research Resource Identifiers",
@@ -197,7 +197,7 @@
                "name": "Alexa Fluor 488 goat anti-chicken IgY (H+L)",
                "source": "Invitrogen",
                "rrid": {
-                  "name": "Research Resource Identifiers",
+                  "name": "Alexa Fluor 488 goat anti-chicken IgY (H+L)",
                   "abbreviation": null,
                   "registry": {
                      "name": "Research Resource Identifiers",
