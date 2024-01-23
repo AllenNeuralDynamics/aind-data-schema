@@ -161,8 +161,11 @@
                "source": "Abcam",
                "rrid": {
                   "name": "Research Resource Identifiers",
-                  "abbreviation": "RRID",
-                  "registry": null,
+                  "abbreviation": null,
+                  "registry": {
+                     "name": "Research Resource Identifiers",
+                     "abbreviation": "RRID"
+                  },
                   "registry_identifier": "ab13970"
                },
                "lot_number": "GR3361051-16",
@@ -195,8 +198,11 @@
                "source": "Invitrogen",
                "rrid": {
                   "name": "Research Resource Identifiers",
-                  "abbreviation": "RRID",
-                  "registry": null,
+                  "abbreviation": null,
+                  "registry": {
+                     "name": "Research Resource Identifiers",
+                     "abbreviation": "RRID"
+                  },
                   "registry_identifier": "A11039"
                },
                "lot_number": "2420700",
