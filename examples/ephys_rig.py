@@ -21,7 +21,7 @@ from aind_data_schema.models.devices import (
     ProbePort,
     StickMicroscopeAssembly,
 )
-from aind_data_schema.models.harp_types import HarpDeviceType, GenericHarpDevice
+from aind_data_schema.models.harp_types import GenericHarpDevice
 from aind_data_schema.models.manufacturers import Manufacturer
 from aind_data_schema.models.modalities import Modality
 
