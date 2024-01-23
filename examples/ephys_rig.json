@@ -513,7 +513,7 @@
       },
       {
          "device_type": "Harp device",
-         "name": "Harp Behavior",
+         "name": "ThermistorPrototypeBoard",
          "serial_number": null,
          "manufacturer": {
             "name": "Open Ephys Production Site",
@@ -566,8 +566,8 @@
          "firmware_version": null,
          "hardware_version": "2.1",
          "harp_device_type": {
-            "name": "Behavior",
-            "whoami": 1216
+            "name": "Generic Harp Device",
+            "whoami": 1234
          },
          "core_version": null,
          "tag_version": null,
