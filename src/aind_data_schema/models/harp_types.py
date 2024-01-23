@@ -39,7 +39,7 @@ class GenericHarpDevice(_HarpDeviceType):
     """Generic Harp Device"""
 
     name: Literal["Generic Harp Device"] = "Generic Harp Device"
-    whomai: Literal[0] = 0
+    whoami: int = Field(default=0, ge=0, le=9999, description="Harp Device unique WhoAmI ID")
 
 
 class InputExpander(_HarpDeviceType):
@@ -95,6 +95,7 @@ class HarpDeviceType:
     """Harp device type definitions"""
 
     BEHAVIOR = Behavior()
+    GENERIC_HARP_DEVICE = GenericHarpDevice()
     CAMERA_CONTROLLER = CameraController()
     CLOCK_SYNCHRONIZER = ClockSynchronizer()
     INPUT_EXPANDER = InputExpander()
