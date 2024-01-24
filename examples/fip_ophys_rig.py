@@ -95,7 +95,7 @@ r = r.Rig(
             name="565nm LED",
             manufacturer=d.Manufacturer.THORLABS,
             model="M565F3",
-            wavelength=415,
+            wavelength=565,
         ),
     ],
     detectors=[
