@@ -10,6 +10,7 @@ from typing_extensions import Annotated
 
 from aind_data_schema.base import AindModel
 from aind_data_schema.models.coordinates import RelativePosition, Size3d
+from aind_data_schema.models.harp_types import HarpDeviceType
 from aind_data_schema.models.manufacturers import InteruniversityMicroelectronicsCenter, Manufacturer
 from aind_data_schema.models.reagent import Reagent
 from aind_data_schema.models.units import FrequencyUnit, PowerUnit, SizeUnit, SpeedUnit, TemperatureUnit, UnitlessUnit
@@ -164,18 +165,6 @@ class CameraTarget(str, Enum):
     OTHER = "Other"
 
 
-class HarpDeviceType(str, Enum):
-    """Harp device type"""
-
-    BEHAVIOR = "Behavior"
-    CAMERA_CONTROLLER = "Camera Controller"
-    LOAD_CELLS = "Load Cells"
-    OLFACTOMETER = "Olfactometer"
-    SOUND_CARD = "Sound Card"
-    TIMESTAMP_GENERATOR = "Timestamp Generator"
-    INPUT_EXPANDER = "Input Expander"
-
-
 class ProbeModel(str, Enum):
     """Probe model name"""
 
@@ -260,7 +249,8 @@ class Device(AindModel):
     manufacturer: Optional[Manufacturer.ONE_OF] = Field(None, title="Manufacturer")
     model: Optional[str] = Field(None, title="Model")
     path_to_cad: Optional[str] = Field(None, title="Path to CAD diagram", description="For CUSTOM manufactured devices")
-    port_index: Optional[int] = Field(None, title="Port index")
+    port_index: Optional[str] = Field(None, title="Port index")
+    additional_settings: Optional[Dict[str, Any]] = Field(dict(), title="Additional parameters")
     notes: Optional[str] = Field(None, title="Notes")
 
 
@@ -440,6 +430,8 @@ class DAQDevice(Device):
 
     # optional fields
     channels: List[DAQChannel] = Field(default=[], title="DAQ channels")
+    firmware_version: Optional[str] = Field(None, title="Firmware version")
+    hardware_version: Optional[str] = Field(None, title="Hardware version")
 
 
 class HarpDevice(DAQDevice):
@@ -447,12 +439,12 @@ class HarpDevice(DAQDevice):
 
     # required fields
     device_type: Literal["Harp device"] = "Harp device"
-    harp_device_type: HarpDeviceType = Field(..., title="Type of Harp device")
-    harp_device_version: str = Field(..., title="Device version")
-
-    # fixed values
     manufacturer: Manufacturer.DAQ_DEVICE_MANUFACTURERS = Field(default=Manufacturer.OEPS)
-    data_interface: Literal[DataInterface.USB] = DataInterface.USB
+    harp_device_type: HarpDeviceType.ONE_OF = Field(..., title="Type of Harp device")
+    core_version: Optional[str] = Field(None, title="Core version")
+    tag_version: Optional[str] = Field(None, title="Tag version")
+    data_interface: DataInterface = Field(DataInterface.USB, title="Data interface")
+    is_clock_generator: bool = Field(..., title="Is Clock Generator")
 
 
 class Laser(Device):
@@ -798,8 +790,8 @@ class Olfactometer(HarpDevice):
     """Description of an olfactometer for odor stimuli"""
 
     device_type: Literal["Olfactometer"] = "Olfactometer"
-    manufacturer: Manufacturer.CHAMPALIMAUD
-    harp_device_type: Literal["Olfactometer"] = "Olfactometer"
+    manufacturer: Manufacturer.DAQ_DEVICE_MANUFACTURERS = Field(default=Manufacturer.CHAMPALIMAUD)
+    harp_device_type: Literal[HarpDeviceType.OLFACTOMETER] = HarpDeviceType.OLFACTOMETER
     channels: List[OlfactometerChannel]
 
 

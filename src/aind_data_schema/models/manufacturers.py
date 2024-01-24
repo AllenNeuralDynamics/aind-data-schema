@@ -42,6 +42,15 @@ class Allied(_Manufacturer):
     registry_identifier: Literal[None] = Field(None)
 
 
+class AllenInstituteForNeuralDynamics(_Manufacturer):
+    """AllenInstituteForNeuralDynamics"""
+
+    name: Literal["Allen Institute for Neural Dynamics"] = "Allen Institute for Neural Dynamics"
+    abbreviation: Literal["AIND"] = "AIND"
+    registry: Annotated[Union[ResearchOrganizationRegistry], Field(default=Registry.ROR, discriminator="name")]
+    registry_identifier: Literal["04szwah67"] = "04szwah67"
+
+
 class AppliedScientificInstrumentation(_Manufacturer):
     """AppliedScientificInstrumentation"""
 
@@ -428,6 +437,15 @@ class RaspberryPi(_Manufacturer):
     registry_identifier: Literal[None] = Field(None)
 
 
+class SecondOrderEffects(_Manufacturer):
+    """Second Order Effects"""
+
+    name: Literal["Second Order Effects"] = "Second Order Effects"
+    abbreviation: Literal[None] = Field(None)
+    registry: Literal[None] = Field(None)
+    registry_identifier: Literal[None] = Field(None)
+
+
 class Semrock(_Manufacturer):
     """Semrock"""
 
@@ -628,11 +646,13 @@ class Manufacturer:
     ]
     DAQ_DEVICE_MANUFACTURERS = Annotated[
         Union[
+            AllenInstituteForNeuralDynamics,
+            ChampalimaudFoundation,
             NationalInstruments,
             InteruniversityMicroelectronicsCenter,
             OpenEphysProductionSite,
-            ChampalimaudFoundation,
             Other,
+            SecondOrderEffects,
         ],
         Field(discriminator="name"),
     ]
