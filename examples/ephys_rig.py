@@ -21,7 +21,7 @@ from aind_data_schema.models.devices import (
     ProbePort,
     StickMicroscopeAssembly,
 )
-from aind_data_schema.models.harp_types import GenericHarpDevice
+from aind_data_schema.models.harp_types import HarpDeviceType
 from aind_data_schema.models.manufacturers import Manufacturer
 from aind_data_schema.models.modalities import Modality
 
@@ -40,12 +40,12 @@ digital_out1 = DAQChannel(channel_name="DO1", device_name="Body Camera", channel
 analog_input = DAQChannel(channel_name="AI0", device_name="Running Wheel", channel_type="Analog Input")
 
 harp = HarpDevice(
-    name="ThermistorPrototypeBoard",
-    harp_device_type=GenericHarpDevice(whoami=1234),
-    hardware_version="2.1",
-    is_clock_generator=False,
+    name="Harp Behavior",
+    harp_device_type=HarpDeviceType.BEHAVIOR,
+    core_version="2.1",
     computer_name=behavior_computer,
     channels=[digital_out0, digital_out1, analog_input],
+    is_clock_generator=False,
 )
 
 port1 = ProbePort(index=1, probes=["Probe A"])
