@@ -113,7 +113,7 @@ class Subject(AindCoreModel):
     mgi_allele_ids: List[MgiAlleleId] = Field(default=[], title="MGI allele ids")
     background_strain: Optional[BackgroundStrain] = Field(None, title="Background strain")
     breeding_info: Optional[BreedingInfo] = Field(None, title="Breeding Info")
-    source: Institution.SUBJECT_SOURCES = Field(
+    source: Institution.ONE_OF = Field(
         ...,
         description="Where the subject was acquired from. If bred in-house, use Allen Institute.",
         title="Source",
