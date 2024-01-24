@@ -133,7 +133,7 @@ class Subject(AindCoreModel):
     notes: Optional[str] = Field(None, title="Notes")
 
     @field_validator("source", mode="after")
-    def validate_inhouse_breeding_info(cls, v: Institution.SUBJECT_SOURCES, info: ValidationInfo):
+    def validate_inhouse_breeding_info(cls, v: Institution.ONE_OF, info: ValidationInfo):
         """Validator for inhouse mice breeding info"""
 
         if v is Institution.AI and info.data.get("breeding_info") is None:
