@@ -60,13 +60,6 @@ class WellnessReport(AindModel):
     report: str = Field(..., title="Report")
 
 
-class MgiAlleleId(AindModel):
-    """Mouse Genome Informatics IDs for genotype alleles"""
-
-    allele_name: str = Field(..., title="Name")
-    mgi_id: str = Field(..., title="MGI ID")
-
-
 class Housing(AindModel):
     """Description of subject housing"""
 
