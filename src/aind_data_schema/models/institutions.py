@@ -119,9 +119,9 @@ class Institution:
             HuazhongUniversityOfScienceAndTechnology,
             NationalInstituteOfNeurologicalDisordersAndStroke,
             NewYorkUniversity,
-            SimonsFoundation
+            SimonsFoundation,
         ],
-        Field(discriminator="name")
+        Field(discriminator="name"),
     ]
     ONE_OF = Annotated[Union[_ALL], Field(discriminator="name")]
 

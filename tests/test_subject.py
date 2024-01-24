@@ -8,8 +8,6 @@ import pydantic
 from aind_data_schema.core.subject import BreedingInfo, Housing, LightCycle, MgiAlleleId, Subject
 from aind_data_schema.models.institutions import Institution
 from aind_data_schema.models.species import Species
-from aind_data_schema.models.pid_names import PIDName
-from aind_data_schema.models.registry import Registry
 
 
 class SubjectTests(unittest.TestCase):

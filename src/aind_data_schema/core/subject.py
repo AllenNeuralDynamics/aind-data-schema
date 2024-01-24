@@ -73,6 +73,7 @@ class Housing(AindModel):
         description="List of IDs of other subjects housed in same cage",
     )
 
+
 class MgiAlleleId(AindModel):
     """Mouse Genome Informatics IDs for genotype alleles"""
 
