@@ -5,10 +5,12 @@ import unittest
 
 import pydantic
 
-from aind_data_schema.core.subject import BreedingInfo, Housing, LightCycle, MgiAlleleId, Subject
+from aind_data_schema.core.subject import BreedingInfo, Housing, LightCycle, Subject
 from aind_data_schema.models.institutions import Institution
 from aind_data_schema.models.species import Species
 
+from aind_data_schema.models.pid_names import PIDName
+from aind_data_schema.models.registry import Registry
 
 class SubjectTests(unittest.TestCase):
     """tests for subject"""
@@ -42,8 +44,7 @@ class SubjectTests(unittest.TestCase):
                 paternal_id="232323",
                 paternal_genotype="Ai93(TITL-GCaMP6f)/wt",
             ),
-            mgi_allele_ids=[MgiAlleleId(mgi_id="12345", allele_name="adsf")],
-        )
+            alleles=[PIDName(registry_identifier="12345", name="adsf", registry=Registry.MGI)],        )
 
         Subject.model_validate_json(s.model_dump_json())
 
@@ -70,7 +71,7 @@ class SubjectTests(unittest.TestCase):
                     ),
                     cage_id="543",
                 ),
-                mgi_allele_ids=[MgiAlleleId(mgi_id="12345", allele_name="adsf")],
+                alleles=[PIDName(registry_identifier="12345", name="adsf", registry=Registry.MGI)],
             )
 
         with self.assertRaises(ValueError):
@@ -87,7 +88,7 @@ class SubjectTests(unittest.TestCase):
                     ),
                     cage_id="543",
                 ),
-                mgi_allele_ids=[MgiAlleleId(mgi_id="12345", allele_name="adsf")],
+                alleles=[PIDName(registry_identifier="12345", name="adsf", registry=Registry.MGI)],
             )
 
 
