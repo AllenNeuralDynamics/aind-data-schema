@@ -73,6 +73,12 @@ class Housing(AindModel):
         description="List of IDs of other subjects housed in same cage",
     )
 
+class MgiAlleleId(AindModel):
+    """Mouse Genome Informatics IDs for genotype alleles"""
+
+    allele_name: str = Field(..., title="Name")
+    mgi_id: str = Field(..., title="MGI ID")
+
 
 class BreedingInfo(AindModel):
     """Description of breeding info for subject"""
