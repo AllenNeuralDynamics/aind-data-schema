@@ -12,6 +12,7 @@ from aind_data_schema.models.species import Species
 from aind_data_schema.models.pid_names import PIDName
 from aind_data_schema.models.registry import Registry
 
+
 class SubjectTests(unittest.TestCase):
     """tests for subject"""
 
@@ -44,7 +45,8 @@ class SubjectTests(unittest.TestCase):
                 paternal_id="232323",
                 paternal_genotype="Ai93(TITL-GCaMP6f)/wt",
             ),
-            alleles=[PIDName(registry_identifier="12345", name="adsf", registry=Registry.MGI)],        )
+            alleles=[PIDName(registry_identifier="12345", name="adsf", registry=Registry.MGI)]
+        )
 
         Subject.model_validate_json(s.model_dump_json())
 
