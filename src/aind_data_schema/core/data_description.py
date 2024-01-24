@@ -3,9 +3,9 @@
 import re
 from datetime import datetime
 from enum import Enum
-from typing import Any, List, Literal, Optional, Union
+from typing import Any, List, Literal, Optional
 
-from pydantic import Field, field_validator, model_validator
+from pydantic import Field, model_validator
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.models.institutions import Institution
@@ -199,22 +199,6 @@ class DataDescription(AindCoreModel):
         elif self.name is None:
             raise ValueError("Either label or name must be set")
         return self
-
-    @field_validator("data_level", mode="before")
-    def upgrade_data_level(cls, value: Union[str, DataLevel]) -> DataLevel:
-        """Updates legacy values to current values"""
-        # If user inputs a string and is 'raw level', convert it to RAW
-        if isinstance(value, str) and value in ["raw level", "raw data"]:
-            return DataLevel.RAW
-        if isinstance(value, str) and value in ["derived level", "derived data"]:
-            return DataLevel.DERIVED
-        # If user inputs a string, try to convert it to a DataLevel. Will raise
-        # an error if unable to parse the input string
-        elif isinstance(value, str):
-            return DataLevel(value)
-        # else raise a validation error
-        else:
-            raise ValueError("Data Level needs to be string or enum")
 
 
 class DerivedDataDescription(DataDescription):

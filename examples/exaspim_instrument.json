@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/instrument.py",
-   "schema_version": "0.10.2",
+   "schema_version": "0.10.4",
    "instrument_id": "exaSPIM1-1",
    "modification_date": "2023-10-04",
    "instrument_type": "exaSPIM",
@@ -29,6 +29,7 @@
          "model": "VIS3648-PG2-325A",
          "path_to_cad": null,
          "port_index": null,
+         "additional_settings": {},
          "notes": null,
          "length": "36",
          "width": "48",
@@ -51,6 +52,7 @@
          "model": "JM_DIAMOND 5.0X/1.3",
          "path_to_cad": null,
          "port_index": null,
+         "additional_settings": {},
          "notes": "manufacturer collaboration between Schneider-Kreuznach and Vieworks",
          "numerical_aperture": "0.305",
          "magnification": "5",
@@ -61,7 +63,7 @@
    "detectors": [
       {
          "device_type": "Detector",
-         "name": "Cmaera 1",
+         "name": "Camera 1",
          "serial_number": "MB151BAY001",
          "manufacturer": {
             "name": "Vieworks",
@@ -72,24 +74,33 @@
          "model": "VNP-604MX",
          "path_to_cad": null,
          "port_index": null,
+         "additional_settings": {},
          "notes": null,
          "detector_type": "Camera",
          "data_interface": "Coax",
-         "cooling": "air",
+         "cooling": "Air",
+         "computer_name": null,
+         "max_frame_rate": null,
+         "frame_rate_unit": "hertz",
          "immersion": null,
          "chroma": null,
          "sensor_width": null,
          "sensor_height": null,
          "size_unit": "pixel",
+         "sensor_format": null,
+         "sensor_format_unit": null,
          "bit_depth": null,
-         "bin_mode": "none",
+         "bin_mode": "None",
          "bin_width": null,
          "bin_height": null,
          "bin_unit": "pixel",
          "gain": null,
          "crop_width": null,
          "crop_height": null,
-         "crop_unit": "pixel"
+         "crop_unit": "pixel",
+         "recording_software": null,
+         "driver": null,
+         "driver_version": null
       }
    ],
    "light_sources": [
@@ -106,6 +117,7 @@
          "model": null,
          "path_to_cad": null,
          "port_index": null,
+         "additional_settings": {},
          "notes": "Housed in commercial laser combiner",
          "wavelength": 405,
          "wavelength_unit": "nanometer",
@@ -129,6 +141,7 @@
          "model": null,
          "path_to_cad": null,
          "port_index": null,
+         "additional_settings": {},
          "notes": "Housed in commercial laser combiner",
          "wavelength": 488,
          "wavelength_unit": "nanometer",
@@ -152,6 +165,7 @@
          "model": null,
          "path_to_cad": null,
          "port_index": null,
+         "additional_settings": {},
          "notes": "Housed in commercial laser combiner",
          "wavelength": 561,
          "wavelength_unit": "nanometer",
@@ -175,6 +189,7 @@
          "model": null,
          "path_to_cad": null,
          "port_index": null,
+         "additional_settings": {},
          "notes": "Housed in commercial laser combiner",
          "wavelength": 638,
          "wavelength_unit": "nanometer",
@@ -201,6 +216,7 @@
          "model": "ZET405/488/561/640mv2",
          "path_to_cad": null,
          "port_index": null,
+         "additional_settings": {},
          "notes": "Custom made filter",
          "filter_type": "Multiband",
          "diameter": "44.05",
@@ -232,6 +248,7 @@
          "model": "MS-8000",
          "path_to_cad": null,
          "port_index": null,
+         "additional_settings": {},
          "notes": null,
          "travel": "1000",
          "travel_unit": "millimeter",
@@ -252,6 +269,7 @@
          "model": "MS-8000",
          "path_to_cad": null,
          "port_index": null,
+         "additional_settings": {},
          "notes": null,
          "travel": "1000",
          "travel_unit": "millimeter",
@@ -272,6 +290,7 @@
          "model": "LS-100",
          "path_to_cad": null,
          "port_index": null,
+         "additional_settings": {},
          "notes": null,
          "travel": "100",
          "travel_unit": "millimeter",
@@ -294,6 +313,7 @@
          "model": "EL-16-40-TC-VIS-20D-C",
          "path_to_cad": null,
          "port_index": null,
+         "additional_settings": {},
          "notes": null,
          "type": "Tunable lens"
       },
@@ -313,6 +333,7 @@
          "model": "K10CR1",
          "path_to_cad": null,
          "port_index": null,
+         "additional_settings": {},
          "notes": null,
          "type": "Rotation mount"
       },
@@ -329,6 +350,7 @@
          "model": "L6Cc",
          "path_to_cad": null,
          "port_index": null,
+         "additional_settings": {},
          "notes": null,
          "type": "Laser combiner"
       }
@@ -362,6 +384,7 @@
          "model": "PCIe-6738",
          "path_to_cad": null,
          "port_index": null,
+         "additional_settings": {},
          "notes": null,
          "data_interface": "USB",
          "computer_name": "Dev2",
@@ -426,7 +449,9 @@
                "sample_rate_unit": "hertz",
                "event_based_sampling": null
             }
-         ]
+         ],
+         "firmware_version": null,
+         "hardware_version": null
       }
    ],
    "notes": null

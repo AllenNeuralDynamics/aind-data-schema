@@ -21,6 +21,7 @@ from aind_data_schema.models.devices import (
     ProbePort,
     StickMicroscopeAssembly,
 )
+from aind_data_schema.models.harp_types import HarpDeviceType
 from aind_data_schema.models.manufacturers import Manufacturer
 from aind_data_schema.models.modalities import Modality
 
@@ -40,10 +41,11 @@ analog_input = DAQChannel(channel_name="AI0", device_name="Running Wheel", chann
 
 harp = HarpDevice(
     name="Harp Behavior",
-    harp_device_type="Behavior",
-    harp_device_version="2.1",
+    harp_device_type=HarpDeviceType.BEHAVIOR,
+    core_version="2.1",
     computer_name=behavior_computer,
     channels=[digital_out0, digital_out1, analog_input],
+    is_clock_generator=False,
 )
 
 port1 = ProbePort(index=1, probes=["Probe A"])
@@ -73,13 +75,15 @@ laser_assembly = LaserAssembly(
 
 probe_camera = Camera(
     name="Probe Camera",
+    detector_type="Camera",
     data_interface="USB",
     manufacturer=Manufacturer.FLIR,
     computer_name=ephys_computer,
     max_frame_rate=50,
-    pixel_width=1080,
-    pixel_height=570,
-    sensor_format='1/2.9"',
+    sensor_width=1080,
+    sensor_height=570,
+    sensor_format="1/2.9",
+    sensor_format_unit="inches",
     chroma="Color",
 )
 
@@ -122,13 +126,15 @@ lens = Lens(name="Camera lens", focal_length=15, manufacturer=Manufacturer.EDMUN
 
 face_camera = Camera(
     name="Face Camera",
+    detector_type="Camera",
     data_interface="USB",
     manufacturer=Manufacturer.FLIR,
     computer_name=behavior_computer,
     max_frame_rate=500,
-    pixel_width=1080,
-    pixel_height=570,
-    sensor_format='1/2.9"',
+    sensor_width=1080,
+    sensor_height=570,
+    sensor_format="1/2.9",
+    sensor_format_unit="inches",
     chroma="Monochrome",
 )
 
@@ -142,13 +148,15 @@ camassm1 = CameraAssembly(
 
 body_camera = Camera(
     name="Body Camera",
+    detector_type="Camera",
     data_interface="USB",
     manufacturer=Manufacturer.FLIR,
     computer_name=behavior_computer,
     max_frame_rate=500,
-    pixel_width=1080,
-    pixel_height=570,
-    sensor_format='1/2.9"',
+    sensor_width=1080,
+    sensor_height=570,
+    sensor_format="1/2.9",
+    sensor_format_unit="inches",
     chroma="Monochrome",
 )
 

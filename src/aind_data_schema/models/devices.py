@@ -10,6 +10,7 @@ from typing_extensions import Annotated
 
 from aind_data_schema.base import AindModel
 from aind_data_schema.models.coordinates import RelativePosition, Size3d
+from aind_data_schema.models.harp_types import HarpDeviceType
 from aind_data_schema.models.manufacturers import InteruniversityMicroelectronicsCenter, Manufacturer
 from aind_data_schema.models.reagent import Reagent
 from aind_data_schema.models.units import FrequencyUnit, PowerUnit, SizeUnit, SpeedUnit, TemperatureUnit, UnitlessUnit
@@ -164,18 +165,6 @@ class CameraTarget(str, Enum):
     OTHER = "Other"
 
 
-class HarpDeviceType(str, Enum):
-    """Harp device type"""
-
-    BEHAVIOR = "Behavior"
-    CAMERA_CONTROLLER = "Camera Controller"
-    LOAD_CELLS = "Load Cells"
-    OLFACTOMETER = "Olfactometer"
-    SOUND_CARD = "Sound Card"
-    TIMESTAMP_GENERATOR = "Timestamp Generator"
-    INPUT_EXPANDER = "Input Expander"
-
-
 class ProbeModel(str, Enum):
     """Probe model name"""
 
@@ -202,23 +191,23 @@ class DetectorType(str, Enum):
     """Detector type name"""
 
     CAMERA = "Camera"
-    PMT = "PMT"
-    OTHER = "other"
+    PMT = "Photomultiplier Tube"
+    OTHER = "Other"
 
 
 class Cooling(str, Enum):
     """Cooling medium name"""
 
-    AIR = "air"
-    WATER = "water"
+    AIR = "Air"
+    WATER = "Water"
 
 
 class BinMode(str, Enum):
     """Detector binning mode"""
 
-    ADDITIVE = "additive"
-    AVERAGE = "average"
-    NONE = "none"
+    ADDITIVE = "Additive"
+    AVERAGE = "Average"
+    NONE = "None"
 
 
 class FerruleMaterial(str, Enum):
@@ -260,7 +249,8 @@ class Device(AindModel):
     manufacturer: Optional[Manufacturer.ONE_OF] = Field(None, title="Manufacturer")
     model: Optional[str] = Field(None, title="Model")
     path_to_cad: Optional[str] = Field(None, title="Path to CAD diagram", description="For CUSTOM manufactured devices")
-    port_index: Optional[int] = Field(None, title="Port index")
+    port_index: Optional[str] = Field(None, title="Port index")
+    additional_settings: Optional[Dict[str, Any]] = Field(dict(), title="Additional parameters")
     notes: Optional[str] = Field(None, title="Notes")
 
 
@@ -295,27 +285,40 @@ class Maintenance(AindModel):
     notes: Optional[str] = Field(None, title="Notes")
 
 
-class Camera(Device):
-    """Device that acquires images and streams them to a computer"""
+class Detector(Device):
+    """Description of a generic detector"""
 
-    device_type: Literal["Camera"] = "Camera"
-    # required fields
-    data_interface: DataInterface = Field(..., title="Type of connection to PC")
-    manufacturer: Manufacturer.CAMERA_MANUFACTURERS
-    computer_name: str = Field(..., title="Name of computer receiving data from this camera")
-    max_frame_rate: Decimal = Field(..., title="Maximum frame rate (Hz)")
+    device_type: Literal["Detector"] = "Detector"
+    detector_type: DetectorType = Field(..., title="Detector Type")
+    manufacturer: Manufacturer.DETECTOR_MANUFACTURERS
+    data_interface: DataInterface = Field(..., title="Data interface")
+    cooling: Cooling = Field(None, title="Cooling")
+    computer_name: Optional[str] = Field(None, title="Name of computer receiving data from this camera")
+    max_frame_rate: Optional[Decimal] = Field(None, title="Maximum frame rate (Hz)")
     frame_rate_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Frame rate unit")
-    pixel_width: int = Field(..., title="Width of the sensor in pixels")
-    pixel_height: int = Field(..., title="Height of the sensor in pixels")
+    immersion: Optional[ImmersionMedium] = Field(None, title="Immersion")
+    chroma: Optional[CameraChroma] = Field(None, title="Camera chroma")
+    sensor_width: Optional[int] = Field(None, title="Width of the sensor (pixels)")
+    sensor_height: Optional[int] = Field(None, title="Height of the sensor (pixels)")
     size_unit: SizeUnit = Field(SizeUnit.PX, title="Size unit")
-    chroma: CameraChroma = Field(..., title="Color or Monochrome")
-
-    # optional fields
-    sensor_format: Optional[str] = Field(None, title="Size of the sensor")
-    format_unit: Optional[str] = Field(None, title="Format unit")
+    sensor_format: Optional[str] = Field(None, title="Sensor format")
+    sensor_format_unit: Optional[str] = Field(None, title="Sensor format unit")
+    bit_depth: Optional[int] = Field(None, title="Bit depth")
+    bin_mode: BinMode = Field(BinMode.NONE, title="Detector binning mode")
+    bin_width: Optional[int] = Field(None, title="Bin width")
+    bin_height: Optional[int] = Field(None, title="Bin height")
+    bin_unit: SizeUnit = Field(SizeUnit.PX, title="Bin size unit")
+    gain: Optional[Decimal] = Field(None, title="Gain")
+    crop_width: Optional[int] = Field(None, title="Crop width")
+    crop_height: Optional[int] = Field(None, title="Crop width")
+    crop_unit: SizeUnit = Field(SizeUnit.PX, title="Crop size unit")
     recording_software: Optional[Software] = Field(None, title="Recording software")
     driver: Optional[DeviceDriver] = Field(None, title="Driver")
     driver_version: Optional[str] = Field(None, title="Driver version")
+
+
+class Camera(Detector):
+    """Camera Detector"""
 
 
 class Filter(Device):
@@ -346,7 +349,7 @@ class Filter(Device):
 
 
 class Lens(Device):
-    """Lens used to focus light onto a camera sensor"""
+    """Lens"""
 
     device_type: Literal["Lens"] = "Lens"
 
@@ -427,6 +430,8 @@ class DAQDevice(Device):
 
     # optional fields
     channels: List[DAQChannel] = Field(default=[], title="DAQ channels")
+    firmware_version: Optional[str] = Field(None, title="Firmware version")
+    hardware_version: Optional[str] = Field(None, title="Hardware version")
 
 
 class HarpDevice(DAQDevice):
@@ -434,12 +439,12 @@ class HarpDevice(DAQDevice):
 
     # required fields
     device_type: Literal["Harp device"] = "Harp device"
-    harp_device_type: HarpDeviceType = Field(..., title="Type of Harp device")
-    harp_device_version: str = Field(..., title="Device version")
-
-    # fixed values
     manufacturer: Manufacturer.DAQ_DEVICE_MANUFACTURERS = Field(default=Manufacturer.OEPS)
-    data_interface: Literal[DataInterface.USB] = DataInterface.USB
+    harp_device_type: HarpDeviceType.ONE_OF = Field(..., title="Type of Harp device")
+    core_version: Optional[str] = Field(None, title="Core version")
+    tag_version: Optional[str] = Field(None, title="Tag version")
+    data_interface: DataInterface = Field(DataInterface.USB, title="Data interface")
+    is_clock_generator: bool = Field(..., title="Is Clock Generator")
 
 
 class Laser(Device):
@@ -569,29 +574,6 @@ class EphysAssembly(AindModel):
     ephys_assembly_name: str = Field(..., title="Ephys assembly name")
     manipulator: Manipulator = Field(..., title="Manipulator")
     probes: List[EphysProbe] = Field(..., title="Probes that are held by this module")
-
-
-class Detector(Device):
-    """Description of a generic detector"""
-
-    device_type: Literal["Detector"] = "Detector"
-    detector_type: DetectorType = Field(..., title="Detector Type")
-    data_interface: DataInterface = Field(..., title="Data interface")
-    cooling: Cooling = Field(..., title="Cooling")
-    immersion: Optional[ImmersionMedium] = Field(None, title="Immersion")
-    chroma: Optional[CameraChroma] = Field(None, title="Camera chroma")
-    sensor_width: Optional[int] = Field(None, title="Width of the sensor in pixels")
-    sensor_height: Optional[int] = Field(None, title="Height of the sensor in pixels")
-    size_unit: SizeUnit = Field(SizeUnit.PX, title="Size unit")
-    bit_depth: Optional[int] = Field(None, title="Bit depth")
-    bin_mode: BinMode = Field(BinMode.NONE, title="Detector binning mode")
-    bin_width: Optional[int] = Field(None, title="Bin width")
-    bin_height: Optional[int] = Field(None, title="Bin height")
-    bin_unit: SizeUnit = Field(SizeUnit.PX, title="Bin size unit")
-    gain: Optional[Decimal] = Field(None, title="Gain")
-    crop_width: Optional[int] = Field(None, title="Crop width")
-    crop_height: Optional[int] = Field(None, title="Crop width")
-    crop_unit: SizeUnit = Field(SizeUnit.PX, title="Crop size unit")
 
 
 class FiberProbe(Device):
@@ -808,8 +790,8 @@ class Olfactometer(HarpDevice):
     """Description of an olfactometer for odor stimuli"""
 
     device_type: Literal["Olfactometer"] = "Olfactometer"
-    manufacturer: Manufacturer.CHAMPALIMAUD
-    harp_device_type: Literal["Olfactometer"] = "Olfactometer"
+    manufacturer: Manufacturer.DAQ_DEVICE_MANUFACTURERS = Field(default=Manufacturer.CHAMPALIMAUD)
+    harp_device_type: Literal[HarpDeviceType.OLFACTOMETER] = HarpDeviceType.OLFACTOMETER
     channels: List[OlfactometerChannel]
 
 

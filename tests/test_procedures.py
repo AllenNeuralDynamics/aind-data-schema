@@ -10,10 +10,12 @@ from aind_data_schema.core.procedures import (
     OphysProbe,
     Procedures,
     RetroOrbitalInjection,
+    IntraperitonealInjection,
     SpecimenProcedure,
     Surgery,
     TarsVirusIdentifiers,
     ViralMaterial,
+    NonViralMaterial,
 )
 from aind_data_schema.models.devices import FiberProbe
 from aind_data_schema.models.manufacturers import Manufacturer
@@ -84,6 +86,19 @@ class ProceduresTests(unittest.TestCase):
                             injection_eye="Left",
                             injection_duration=1,
                             recovery_time=10,
+                        ),
+                        IntraperitonealInjection(
+                            protocol_id="234",
+                            injection_materials=[
+                                NonViralMaterial(
+                                    material_type="Reagent",
+                                    name="drug_xyz",
+                                    source="drug_source",
+                                    lot_number="12345",
+                                    concentration=1,
+                                )
+                            ],
+                            injection_volume=1,
                         ),
                         NanojectInjection(
                             protocol_id="bca",
