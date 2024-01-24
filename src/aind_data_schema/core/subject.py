@@ -74,13 +74,6 @@ class Housing(AindModel):
     )
 
 
-class MgiAlleleId(AindModel):
-    """Mouse Genome Informatics IDs for genotype alleles"""
-
-    allele_name: str = Field(..., title="Name")
-    mgi_id: str = Field(..., title="MGI ID")
-
-
 class BreedingInfo(AindModel):
     """Description of breeding info for subject"""
 
@@ -110,7 +103,7 @@ class Subject(AindCoreModel):
         title="Genotype",
     )
     species: Species.ONE_OF = Field(..., title="Species")
-    mgi_allele_ids: List[MgiAlleleId] = Field(default=[], title="MGI allele ids")
+    alleles: List[PIDName] = Field(default=[], title="MGI allele ids")
     background_strain: Optional[BackgroundStrain] = Field(None, title="Background strain")
     breeding_info: Optional[BreedingInfo] = Field(None, title="Breeding Info")
     source: Institution.ONE_OF = Field(
