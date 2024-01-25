@@ -37,7 +37,10 @@
                      "addgene_id": {
                         "name": "62723-AAV5",
                         "abbreviation": null,
-                        "registry": null,
+                        "registry": {
+                           "name": "Addgene",
+                           "abbreviation": "ADDGENE"
+                        },
                         "registry_identifier": "v122159"
                      },
                      "titer": 20000000000000,
