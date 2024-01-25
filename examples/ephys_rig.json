@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/rig.py",
-   "schema_version": "0.2.4",
+   "schema_version": "0.2.5",
    "rig_id": "323_EPHYS1",
    "modification_date": "2023-10-03",
    "mouse_platform": {
@@ -11,6 +11,7 @@
       "model": null,
       "path_to_cad": null,
       "port_index": null,
+      "additional_settings": {},
       "notes": null,
       "surface_material": null,
       "date_surface_replaced": null,
@@ -42,6 +43,7 @@
             "model": null,
             "path_to_cad": null,
             "port_index": null,
+            "additional_settings": {},
             "notes": null,
             "detector_type": "Camera",
             "data_interface": "USB",
@@ -85,6 +87,7 @@
             "model": null,
             "path_to_cad": null,
             "port_index": null,
+            "additional_settings": {},
             "notes": null,
             "focal_length": "15",
             "focal_length_unit": "millimeter",
@@ -110,6 +113,7 @@
             "model": null,
             "path_to_cad": null,
             "port_index": null,
+            "additional_settings": {},
             "notes": null,
             "filter_type": "Long pass",
             "diameter": null,
@@ -146,6 +150,7 @@
             "model": null,
             "path_to_cad": null,
             "port_index": null,
+            "additional_settings": {},
             "notes": null,
             "detector_type": "Camera",
             "data_interface": "USB",
@@ -189,6 +194,7 @@
             "model": null,
             "path_to_cad": null,
             "port_index": null,
+            "additional_settings": {},
             "notes": null,
             "focal_length": "15",
             "focal_length_unit": "millimeter",
@@ -214,6 +220,7 @@
             "model": null,
             "path_to_cad": null,
             "port_index": null,
+            "additional_settings": {},
             "notes": null,
             "filter_type": "Long pass",
             "diameter": null,
@@ -249,6 +256,7 @@
             "model": null,
             "path_to_cad": null,
             "port_index": null,
+            "additional_settings": {},
             "notes": null
          },
          "probes": [
@@ -260,6 +268,7 @@
                "model": null,
                "path_to_cad": null,
                "port_index": null,
+               "additional_settings": {},
                "notes": null,
                "probe_model": "Neuropixels 1.0",
                "lasers": [],
@@ -282,6 +291,7 @@
             "model": null,
             "path_to_cad": null,
             "port_index": null,
+            "additional_settings": {},
             "notes": null
          },
          "probes": [
@@ -293,6 +303,7 @@
                "model": null,
                "path_to_cad": null,
                "port_index": null,
+               "additional_settings": {},
                "notes": null,
                "probe_model": "Neuropixels 1.0",
                "lasers": [],
@@ -321,6 +332,7 @@
             "model": null,
             "path_to_cad": null,
             "port_index": null,
+            "additional_settings": {},
             "notes": null,
             "detector_type": "Camera",
             "data_interface": "USB",
@@ -364,6 +376,7 @@
             "model": null,
             "path_to_cad": null,
             "port_index": null,
+            "additional_settings": {},
             "notes": null,
             "focal_length": null,
             "focal_length_unit": "millimeter",
@@ -391,6 +404,7 @@
             "model": null,
             "path_to_cad": null,
             "port_index": null,
+            "additional_settings": {},
             "notes": null
          },
          "lasers": [
@@ -407,6 +421,7 @@
                "model": null,
                "path_to_cad": null,
                "port_index": null,
+               "additional_settings": {},
                "notes": null,
                "wavelength": 473,
                "wavelength_unit": "nanometer",
@@ -430,6 +445,7 @@
                "model": null,
                "path_to_cad": null,
                "port_index": null,
+               "additional_settings": {},
                "notes": null,
                "wavelength": 638,
                "wavelength_unit": "nanometer",
@@ -470,10 +486,13 @@
          "model": null,
          "path_to_cad": null,
          "port_index": null,
+         "additional_settings": {},
          "notes": null,
          "data_interface": "PXI",
          "computer_name": "W10DT72942",
          "channels": [],
+         "firmware_version": null,
+         "hardware_version": null,
          "basestation_firmware_version": "2.019",
          "bsc_firmware_version": "2.199",
          "slot": 3,
@@ -508,6 +527,7 @@
          "model": null,
          "path_to_cad": null,
          "port_index": null,
+         "additional_settings": {},
          "notes": null,
          "data_interface": "USB",
          "computer_name": "W10DT72941",
@@ -543,8 +563,15 @@
                "event_based_sampling": null
             }
          ],
-         "harp_device_type": "Behavior",
-         "harp_device_version": "2.1"
+         "firmware_version": null,
+         "hardware_version": null,
+         "harp_device_type": {
+            "name": "Behavior",
+            "whoami": 1216
+         },
+         "core_version": "2.1",
+         "tag_version": null,
+         "is_clock_generator": false
       }
    ],
    "calibrations": [

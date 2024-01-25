@@ -49,8 +49,7 @@ class Rig(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/rig.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["0.2.4"] = Field("0.2.4")
-
+    schema_version: Literal["0.2.5"] = Field("0.2.5")
     rig_id: str = Field(..., description="room_stim apparatus_version", title="Rig ID")
     modification_date: date = Field(..., title="Date of modification")
     mouse_platform: MOUSE_PLATFORMS
@@ -87,9 +86,11 @@ class Rig(AindCoreModel):
         actually exist
         """
         daqs = value
+        non_reward_delivery_stimulus_devices = [
+            d for d in info.data["stimulus_devices"] if not isinstance(d, RewardDelivery)
+        ]
         standard_devices = (
             daqs
-            + info.data["stimulus_devices"]
             + info.data["light_sources"]
             + info.data["patch_cords"]
             + info.data["detectors"]
@@ -97,6 +98,7 @@ class Rig(AindCoreModel):
             + info.data["polygonal_scanners"]
             + info.data["pockels_cells"]
             + info.data["additional_devices"]
+            + non_reward_delivery_stimulus_devices
         )
         camera_devices = info.data["cameras"] + info.data["stick_microscopes"]
         standard_device_names = [device.name for device in standard_devices]
@@ -108,8 +110,19 @@ class Rig(AindCoreModel):
             laser.name for laser_assembly in info.data["laser_assemblies"] for laser in laser_assembly.lasers
         ]
         mouse_platform_names = [] if info.data.get("mouse_platform") is None else [info.data["mouse_platform"].name]
+        reward_deliveries = [d for d in info.data["stimulus_devices"] if isinstance(d, RewardDelivery)]
+        reward_delivery_device_names = []
+        for rd in reward_deliveries:
+            for rs in rd.reward_spouts:
+                reward_delivery_device_names += [rs.name, rs.solenoid_valve.name]
+
         all_device_names = (
-            standard_device_names + camera_names + ephys_assembly_names + laser_assembly_names + mouse_platform_names
+            standard_device_names
+            + camera_names
+            + ephys_assembly_names
+            + laser_assembly_names
+            + mouse_platform_names
+            + reward_delivery_device_names
         )
 
         for daq in daqs:
