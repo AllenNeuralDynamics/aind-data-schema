@@ -11,7 +11,6 @@ from aind_data_schema.models.species import Species
 
 from aind_data_schema.models.pid_names import PIDName
 from aind_data_schema.models.registry import Registry
-from aind_data_schema.models.species import Species
 
 
 class SubjectTests(unittest.TestCase):
