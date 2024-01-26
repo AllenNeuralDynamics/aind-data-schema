@@ -77,11 +77,11 @@ class Housing(AindModel):
 class BreedingInfo(AindModel):
     """Description of breeding info for subject"""
 
-    breeding_group: str = Field(None, title="Breeding Group")
-    maternal_id: str = Field(None, title="Maternal specimen ID")
-    maternal_genotype: str = Field(None, title="Maternal genotype")
-    paternal_id: str = Field(None, title="Paternal specimen ID")
-    paternal_genotype: str = Field(None, title="Paternal genotype")
+    breeding_group: str = Field(..., title="Breeding Group")
+    maternal_id: str = Field(..., title="Maternal specimen ID")
+    maternal_genotype: str = Field(..., title="Maternal genotype")
+    paternal_id: str = Field(..., title="Paternal specimen ID")
+    paternal_genotype: str = Field(..., title="Paternal genotype")
 
 
 class Subject(AindCoreModel):
@@ -103,7 +103,7 @@ class Subject(AindCoreModel):
         title="Genotype",
     )
     species: Species.ONE_OF = Field(..., title="Species")
-    alleles: List[PIDName] = Field(default=[], title="MGI allele ids")
+    alleles: List[PIDName] = Field(default=[], title="Alleles", description="Allele names and persistent IDs")
     background_strain: Optional[BackgroundStrain] = Field(None, title="Background strain")
     breeding_info: Optional[BreedingInfo] = Field(None, title="Breeding Info")
     source: Institution.ONE_OF = Field(
