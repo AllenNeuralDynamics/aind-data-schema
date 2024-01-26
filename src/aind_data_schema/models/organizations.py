@@ -118,6 +118,7 @@ class ChampalimaudFoundation(_Organization):
     """Champalimaud Foundation"""
 
     name: Literal["Champalimaud Foundation"] = "Champalimaud Foundation"
+    abbreviation: Literal[None] = Field(None)
     registry: Annotated[Union[ResearchOrganizationRegistry], Field(default=Registry.ROR, discriminator="name")]
     registry_identifier: Literal["03g001n57"] = "03g001n57"
 
@@ -620,11 +621,14 @@ class Other(_Organization):
     registry_identifier: Literal[None] = Field(None)
 
 
-class Manufacturer:
-    """Manufacturer definitions"""
+class Organization:
+    """Organization definitions"""
 
     AA_OPTO = AAOptoElectronic()
     AILIPU = AilipuTechnologyCo()
+    AI = AllenInstitute()
+    AIBS = AllenInstituteForBrainScience()
+    AIND = AllenInstituteForNeuralDynamics()
     ALLIED = Allied()
     ASI = AppliedScientificInstrumentation()
     ASUS = Asus()
@@ -634,8 +638,9 @@ class Manufacturer:
     CHAMPALIMAUD = ChampalimaudFoundation()
     CHROMA = Chroma()
     COHERENT_SCIENTIFIC = CoherentScientific()
-    CONOPTICS = Conoptics()
+    COLUMBIA = ColumbiaUniversity()
     COMPUTAR = Computar()
+    CONOPTICS = Conoptics()
     CUSTOM = Custom()
     DORIC = Doric()
     EALING = Ealing()
@@ -644,10 +649,12 @@ class Manufacturer:
     FLIR = TeledyneFLIR()
     FUJINON = Fujinon()
     HAMAMATSU = Hamamatsu()
+    HUST = HuazhongUniversityOfScienceAndTechnology()
     IMAGING_SOURCE = TheImagingSource()
     IMEC = InteruniversityMicroelectronicsCenter()
     INFINITY_PHOTO_OPTICAL = InfinityPhotoOptical()
     ISL = ISLProductsInternational()
+    JAX = JacksonLaboratory()
     JULABO = Julabo()
     LEE = TheLeeCompany()
     LEICA = Leica()
@@ -661,7 +668,9 @@ class Manufacturer:
     NATIONAL_INSTRUMENTS = NationalInstruments()
     NAVITAR = Navitar()
     NEW_SCALE_TECHNOLOGIES = NewScaleTechnologies()
+    NINDS = NationalInstituteOfNeurologicalDisordersAndStroke()
     NIKON = Nikon()
+    NYU = NewYorkUniversity()
     OEPS = OpenEphysProductionSite()
     OLYMPUS = Olympus()
     OPTOTUNE = Optotune()
@@ -671,6 +680,7 @@ class Manufacturer:
     RASPBERRYPI = RaspberryPi()
     SEMROCK = Semrock()
     SCHNEIDER_KREUZNACH = SchneiderKreuznach()
+    SIMONS = SimonsFoundation()
     SPINNAKER = Spinnaker()
     TAMRON = Tamron()
     THORLABS = Thorlabs()
@@ -753,6 +763,31 @@ class Manufacturer:
         Union[CoherentScientific, Hamamatsu, Oxxius, Quantifi, Vortran, Other], Field(discriminator="name")
     ]
     LED_MANUFACTURERS = Annotated[Union[Doric, Prizmatix, Thorlabs, Other], Field(discriminator="name")]
-    MANIPULATOR_MANUFACTURERS = Annotated[Union[NewScaleTechnologies], Field(discriminator="name")]
-    MONITOR_MANUFACTURERS = Annotated[Union[Asus, Lg], Field(discriminator="name")]
-    SPEAKER_MANUFACTURERS = Annotated[Union[Tymphany, ISLProductsInternational], Field(discriminator="name")]
+    MANIPULATOR_MANUFACTURERS = Annotated[Union[NewScaleTechnologies, Other], Field(discriminator="name")]
+    MONITOR_MANUFACTURERS = Annotated[Union[Asus, Lg, Other], Field(discriminator="name")]
+    SPEAKER_MANUFACTURERS = Annotated[Union[Tymphany, ISLProductsInternational, Other], Field(discriminator="name")]
+    FUNDERS = Annotated[
+        Union[AllenInstitute, NationalInstituteOfNeurologicalDisordersAndStroke, SimonsFoundation], Field(discriminator="name")
+    ]
+    RESEARCH_INSTITUTIONS = Annotated[
+        Union[
+            AllenInstituteForBrainScience,
+            AllenInstituteForNeuralDynamics,
+            ColumbiaUniversity,
+            HuazhongUniversityOfScienceAndTechnology,
+            NewYorkUniversity,
+            Other
+        ],
+        Field(discriminator="name"),
+    ]
+    SUBJECT_SOURCES = Annotated[
+        Union[
+            AllenInstitute,
+            ColumbiaUniversity,
+            HuazhongUniversityOfScienceAndTechnology,
+            JacksonLaboratory,
+            NewYorkUniversity,
+            Other
+        ],
+        Field(discriminator="name"),
+    ]
