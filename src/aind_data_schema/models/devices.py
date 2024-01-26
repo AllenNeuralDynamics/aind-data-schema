@@ -767,7 +767,7 @@ class Speaker(Device):
 
     device_type: Literal["Speaker"] = "Speaker"
     manufacturer: Manufacturer.SPEAKER_MANUFACTURERS
-    position: Optional[RelativePosition] = Field(None, title="Relative position of the monitor")
+    position: Optional[RelativePosition] = Field(None, title="Relative position of the speaker")
 
 
 class ChannelType(Enum):

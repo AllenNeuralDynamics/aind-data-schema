@@ -2,9 +2,14 @@
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/data_description.py",
    "schema_version": "0.12.3",
    "license": "CC-BY-4.0",
+   "platform": {
+      "name": "Electrophysiology platform",
+      "abbreviation": "ecephys"
+   },
+   "subject_id": "12345",
    "creation_time": "2022-02-21T16:30:01",
-   "name": "ecephys_12345_2022-02-21_16-30-01",
    "label": null,
+   "name": "ecephys_12345_2022-02-21_16-30-01",
    "institution": {
       "name": "Allen Institute for Neural Dynamics",
       "abbreviation": "AIND",
@@ -34,10 +39,6 @@
    "investigators": [
       "Jane Smith"
    ],
-   "platform": {
-      "name": "Electrophysiology platform",
-      "abbreviation": "ecephys"
-   },
    "project_name": null,
    "restrictions": null,
    "modality": [
@@ -50,7 +51,6 @@
          "abbreviation": "behavior-videos"
       }
    ],
-   "subject_id": "12345",
    "related_data": [],
    "data_summary": null
 }
