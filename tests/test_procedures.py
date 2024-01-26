@@ -6,16 +6,16 @@ from pydantic import ValidationError
 
 from aind_data_schema.core.procedures import (
     FiberImplant,
+    IntraperitonealInjection,
     NanojectInjection,
+    NonViralMaterial,
     OphysProbe,
     Procedures,
     RetroOrbitalInjection,
-    IntraperitonealInjection,
     SpecimenProcedure,
     Surgery,
     TarsVirusIdentifiers,
     ViralMaterial,
-    NonViralMaterial,
 )
 from aind_data_schema.models.devices import FiberProbe
 from aind_data_schema.models.manufacturers import Manufacturer
