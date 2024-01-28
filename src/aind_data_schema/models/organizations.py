@@ -294,7 +294,6 @@ class JacksonLaboratory(_Organization):
     registry_identifier: Literal["021sy4w91"] = "021sy4w91"
 
 
-
 class Julabo(_Organization):
     """Julabo"""
 
@@ -767,7 +766,12 @@ class Organization:
     MONITOR_MANUFACTURERS = Annotated[Union[Asus, Lg, Other], Field(discriminator="name")]
     SPEAKER_MANUFACTURERS = Annotated[Union[Tymphany, ISLProductsInternational, Other], Field(discriminator="name")]
     FUNDERS = Annotated[
-        Union[AllenInstitute, NationalInstituteOfNeurologicalDisordersAndStroke, SimonsFoundation], Field(discriminator="name")
+        Union[
+            AllenInstitute,
+            NationalInstituteOfNeurologicalDisordersAndStroke,
+            SimonsFoundation
+        ],
+        Field(discriminator="name"),
     ]
     RESEARCH_INSTITUTIONS = Annotated[
         Union[
@@ -791,3 +795,4 @@ class Organization:
         ],
         Field(discriminator="name"),
     ]
+    

@@ -239,7 +239,7 @@ class MagneticStrength(int, Enum):
     MRI_7T = 7
     MRI_14T = 14
 
-0
+
 class Device(AindModel):
     """Generic device"""
 
