@@ -439,7 +439,7 @@ class HarpDevice(DAQDevice):
 
     # required fields
     device_type: Literal["Harp device"] = "Harp device"
-    manufacturer: Organization.DAQ_DEVICE_MANUFACTURERS = Field(default=Manufacturer.OEPS)
+    manufacturer: Organization.DAQ_DEVICE_MANUFACTURERS = Field(default=Organization.OEPS)
     harp_device_type: HarpDeviceType.ONE_OF = Field(..., title="Type of Harp device")
     core_version: Optional[str] = Field(None, title="Core version")
     tag_version: Optional[str] = Field(None, title="Tag version")
@@ -509,9 +509,7 @@ class NeuropixelsBasestation(DAQDevice):
 
     # fixed values
     data_interface: Literal[DataInterface.PXI] = DataInterface.PXI
-    manufacturer: Annotated[
-        Union[Organization.IMEC], Field(default=Organization.IMEC, discriminator="name")
-    ]
+    manufacturer: Literal[Organization.IMEC] = Organization.IMEC
 
 
 class OpenEphysAcquisitionBoard(DAQDevice):

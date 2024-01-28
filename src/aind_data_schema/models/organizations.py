@@ -754,8 +754,8 @@ class Organization:
             NationalInstruments,
             InteruniversityMicroelectronicsCenter,
             OpenEphysProductionSite,
-            Other,
             SecondOrderEffects,
+            Other,
         ],
         Field(discriminator="name"),
     ]
