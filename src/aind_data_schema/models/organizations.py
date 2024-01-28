@@ -1,4 +1,4 @@
-"""Module for Organization definitions"""
+"""Module for Organization definitions, including manufacturers, institutions, and vendors"""
 
 from typing import Literal, Union
 
