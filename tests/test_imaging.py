@@ -13,7 +13,7 @@ from aind_data_schema.core import mri_session as ms
 from aind_data_schema.core.processing import Registration
 from aind_data_schema.imaging import tile
 from aind_data_schema.models.devices import Calibration, DAQChannel, DAQDevice
-from aind_data_schema.models.manufacturers import Manufacturer
+from aind_data_schema.models.organizations import Organization
 from aind_data_schema.models.units import PowerValue
 
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
@@ -72,7 +72,7 @@ class ImagingTests(unittest.TestCase):
         i = inst.Instrument(
             instrument_type="diSPIM",
             modification_date=datetime.datetime.now().date(),
-            manufacturer=Manufacturer.LIFECANVAS,
+            manufacturer=Organization.LIFECANVAS,
             objectives=[],
             detectors=[],
             light_sources=[],
@@ -84,7 +84,7 @@ class ImagingTests(unittest.TestCase):
             inst.Instrument(
                 instrument_type="Other",
                 modification_date=datetime.datetime(2020, 10, 10, 0, 0, 0).date(),
-                manufacturer=Manufacturer.OTHER,
+                manufacturer=Organization.OTHER,
                 objectives=[],
                 detectors=[],
                 light_sources=[],
@@ -103,7 +103,7 @@ class ImagingTests(unittest.TestCase):
         with self.assertRaises(ValidationError) as e2:
             inst.Instrument(
                 instrument_type="diSPIM",
-                manufacturer=Manufacturer.OTHER,
+                manufacturer=Organization.OTHER,
                 objectives=[],
                 detectors=[],
                 light_sources=[],
@@ -260,13 +260,13 @@ class ImagingTests(unittest.TestCase):
                 instrument_id="exaSPIM1-1",
                 instrument_type="exaSPIM",
                 modification_date=datetime.date(2023, 10, 4),
-                manufacturer=Manufacturer.CUSTOM,
+                manufacturer=Organization.CUSTOM,
                 daqs=[
                     DAQDevice(
                         model="PCIe-6738",
                         data_interface="USB",
                         computer_name="Dev2",
-                        manufacturer=Manufacturer.NATIONAL_INSTRUMENTS,
+                        manufacturer=Organization.NATIONAL_INSTRUMENTS,
                         name="Dev2",
                         serial_number="Unknown",
                         channels=[

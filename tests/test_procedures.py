@@ -20,7 +20,7 @@ from aind_data_schema.core.procedures import (
     ViralMaterial,
 )
 from aind_data_schema.models.devices import FiberProbe
-from aind_data_schema.models.manufacturers import Manufacturer
+from aind_data_schema.models.organizations import Organization
 
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
 
@@ -136,7 +136,7 @@ class ProceduresTests(unittest.TestCase):
                                     ophys_probe=FiberProbe(
                                         device_type="Fiber optic probe",
                                         name="Probe A",
-                                        manufacturer=Manufacturer.DORIC,
+                                        manufacturer=Organization.DORIC,
                                         model="8",
                                         core_diameter=2,
                                         numerical_aperture=1,

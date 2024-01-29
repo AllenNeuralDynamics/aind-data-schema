@@ -8,8 +8,8 @@ from typing import Any, List, Literal, Optional
 from pydantic import Field, model_validator
 
 from aind_data_schema.base import AindCoreModel, AindModel
-from aind_data_schema.models.institutions import Institution
 from aind_data_schema.models.modalities import Modality
+from aind_data_schema.models.organizations import Organization
 from aind_data_schema.models.platforms import Platform
 
 
@@ -77,7 +77,7 @@ def build_data_name(label, creation_datetime):
 class Funding(AindModel):
     """Description of funding sources"""
 
-    funder: Institution.ONE_OF = Field(..., title="Funder")
+    funder: Organization.FUNDERS = Field(..., title="Funder")
     grant_number: Optional[str] = Field(None, title="Grant number")
     fundee: Optional[str] = Field(None, title="Fundee", description="Person(s) funded by this mechanism")
 
@@ -94,7 +94,7 @@ class DataDescription(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/data_description.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["0.12.3"] = Field("0.12.3", title="Schema Version")
+    schema_version: Literal["0.12.4"] = Field("0.12.4", title="Schema Version")
     license: Literal["CC-BY-4.0"] = Field("CC-BY-4.0", title="License")
 
     platform: Platform.ONE_OF = Field(
@@ -124,7 +124,7 @@ class DataDescription(AindCoreModel):
         title="Name",
         validate_default=True,
     )
-    institution: Institution.ONE_OF = Field(
+    institution: Organization.RESEARCH_INSTITUTIONS = Field(
         ...,
         description="An established society, corporation, foundation or other organization that collected this data",
         title="Institution",

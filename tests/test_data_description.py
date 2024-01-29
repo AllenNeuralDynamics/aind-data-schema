@@ -20,7 +20,7 @@ from aind_data_schema.core.data_description import (
     RawDataDescription,
     build_data_name,
 )
-from aind_data_schema.models.institutions import Institution
+from aind_data_schema.models.organizations import Organization
 from aind_data_schema.models.modalities import Modality
 from aind_data_schema.models.platforms import Platform
 
@@ -49,12 +49,12 @@ class DataDescriptionTest(unittest.TestCase):
 
     def test_constructors(self):
         """test building from component parts"""
-        f = Funding(funder=Institution.NINDS, grant_number="grant001")
+        f = Funding(funder=Organization.NINDS, grant_number="grant001")
 
         dt = datetime.datetime.now()
         da = RawDataDescription(
             creation_time=dt,
-            institution=Institution.AIND,
+            institution=Organization.AIND,
             data_level="raw",
             funding_source=[f],
             modality=[Modality.ECEPHYS],
@@ -67,7 +67,7 @@ class DataDescriptionTest(unittest.TestCase):
             input_data_name=da.name,
             process_name="spikesort-ks25",
             creation_time=dt,
-            institution=Institution.AIND,
+            institution=Organization.AIND,
             funding_source=[f],
             modality=da.modality,
             platform=da.platform,
@@ -79,7 +79,7 @@ class DataDescriptionTest(unittest.TestCase):
             input_data_name=r1.name,
             process_name="some-model",
             creation_time=dt,
-            institution=Institution.AIND,
+            institution=Organization.AIND,
             funding_source=[f],
             modality=r1.modality,
             platform=r1.platform,
@@ -91,7 +91,7 @@ class DataDescriptionTest(unittest.TestCase):
             input_data_name=r2.name,
             process_name="a-paper",
             creation_time=dt,
-            institution=Institution.AIND,
+            institution=Organization.AIND,
             funding_source=[f],
             modality=r2.modality,
             platform=r2.platform,
@@ -107,7 +107,7 @@ class DataDescriptionTest(unittest.TestCase):
             subject_id="1234",
             data_level="raw",
             creation_time=dt,
-            institution=Institution.AIND,
+            institution=Organization.AIND,
             funding_source=[f],
             investigators=["Jane Smith"],
         )
@@ -123,7 +123,7 @@ class DataDescriptionTest(unittest.TestCase):
                 subject_id="1234",
                 data_level="raw",
                 creation_time=dt,
-                institution=Institution.AIND,
+                institution=Organization.AIND,
                 funding_source=[f],
                 investigators=["Jane Smith"],
             )
@@ -135,7 +135,7 @@ class DataDescriptionTest(unittest.TestCase):
             subject_id="1234",
             modality=[Modality.SPIM],
             platform=Platform.EXASPIM,
-            institution=Institution.AIND,
+            institution=Organization.AIND,
             funding_source=[f],
             investigators=["Jane Smith"],
         )
@@ -149,7 +149,7 @@ class DataDescriptionTest(unittest.TestCase):
                 modality=[Modality.SPIM],
                 platform="exaspim",
                 creation_time=dt,
-                institution=Institution.AIND,
+                institution=Organization.AIND,
                 funding_source=[f],
                 investigators=["Jane Smith"],
             )
@@ -183,7 +183,7 @@ class DataDescriptionTest(unittest.TestCase):
                 modality=[Modality.SPIM],
                 platform="exaspim",
                 creation_time=dt,
-                institution=Institution.AIND,
+                institution=Organization.AIND,
                 funding_source=[f],
                 investigators=["Jane Smith"],
             )
@@ -196,7 +196,7 @@ class DataDescriptionTest(unittest.TestCase):
                 modality=[Modality.SPIM],
                 platform="exaspim",
                 creation_time=dt,
-                institution=Institution.AIND,
+                institution=Organization.AIND,
                 funding_source=[f],
                 investigators=["Jane Smith"],
             )
@@ -212,8 +212,8 @@ class DataDescriptionTest(unittest.TestCase):
                 data_level="raw",
                 project_name="a_32r&!#R$&#",
                 creation_time=datetime.datetime(2020, 10, 10, 10, 10, 10),
-                institution=Institution.AIND,
-                funding_source=[Funding(funder=Institution.NINDS, grant_number="grant001")],
+                institution=Organization.AIND,
+                funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
                 investigators=["Jane Smith"],
             )
 
@@ -229,10 +229,10 @@ class DataDescriptionTest(unittest.TestCase):
     def test_model_constructors(self):
         """test static methods for constructing models"""
 
-        assert Institution.from_abbreviation("AIND") == Institution.AIND
-        assert Institution.from_name("Allen Institute for Neural Dynamics") == Institution.AIND
+        assert Organization.from_abbreviation("AIND") == Organization.AIND
+        assert Organization.from_name("Allen Institute for Neural Dynamics") == Organization.AIND
         assert Modality.from_abbreviation("ecephys") == Modality.ECEPHYS
-        assert Institution().name_map["Allen Institute for Neural Dynamics"] == Institution.AIND
+        assert Organization().name_map["Allen Institute for Neural Dynamics"] == Organization.AIND
 
     def test_name_label_error(self):
         """Tests an error is raised if label and name are None"""
@@ -244,8 +244,8 @@ class DataDescriptionTest(unittest.TestCase):
                 subject_id="1234",
                 data_level="raw",
                 creation_time=datetime.datetime(2020, 10, 10, 10, 10, 10),
-                institution=Institution.AIND,
-                funding_source=[Funding(funder=Institution.NINDS, grant_number="grant001")],
+                institution=Organization.AIND,
+                funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
                 investigators=["Jane Smith"],
             )
         self.assertTrue("Value error, Either label or name must be set" in repr(e.exception))
@@ -257,9 +257,9 @@ class DataDescriptionTest(unittest.TestCase):
 
         da1 = RawDataDescription(
             creation_time=dt,
-            institution=Institution.AIND,
+            institution=Organization.AIND,
             data_level="raw",
-            funding_source=[Funding(funder=Institution.NINDS, grant_number="grant001")],
+            funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
             modality=[Modality.SPIM],
             platform=Platform.EXASPIM,
             subject_id="12345",
@@ -321,8 +321,8 @@ class DataDescriptionTest(unittest.TestCase):
             subject_id="1234",
             data_level="raw",
             creation_time=datetime.datetime(2020, 10, 10, 10, 10, 10),
-            institution=Institution.AIND,
-            funding_source=[Funding(funder=Institution.NINDS, grant_number="grant001")],
+            institution=Organization.AIND,
+            funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
             investigators=["Jane Smith"],
         )
 
@@ -340,8 +340,8 @@ class DataDescriptionTest(unittest.TestCase):
         dd = DerivedDataDescription(
             input_data_name="input",
             creation_time=datetime.datetime(2020, 10, 10, 10, 10, 10),
-            institution=Institution.AIND,
-            funding_source=[Funding(funder=Institution.NINDS, grant_number="grant001")],
+            institution=Organization.AIND,
+            funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
             modality=[Modality.ECEPHYS],
             platform=Platform.ECEPHYS,
             subject_id="12345",
