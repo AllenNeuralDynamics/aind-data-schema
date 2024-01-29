@@ -92,7 +92,7 @@ class ImagingTests(unittest.TestCase):
             "  Value error, Notes cannot be empty if instrument_type is Other."
             " Describe the instrument_type in the notes field."
             " [type=value_error, input_value=None, input_type=NoneType]\n"
-            "    For further information visit https://errors.pydantic.dev/2.5/v/value_error"
+            "    For further information visit https://errors.pydantic.dev/2.6/v/value_error"
         )
         self.assertEqual(expected_exception1, repr(e1.exception))
 
@@ -110,12 +110,12 @@ class ImagingTests(unittest.TestCase):
             "modification_date\n"
             "  Field required [type=missing, input_value={'instrument_type': 'diSP...[],"
             " 'light_sources': []}, input_type=dict]\n"
-            "    For further information visit https://errors.pydantic.dev/2.5/v/missing\n"
+            "    For further information visit https://errors.pydantic.dev/2.6/v/missing\n"
             "notes\n"
             "  Value error, Notes cannot be empty if manufacturer is Other."
             " Describe the manufacturer in the notes field."
             " [type=value_error, input_value=None, input_type=NoneType]\n"
-            "    For further information visit https://errors.pydantic.dev/2.5/v/value_error"
+            "    For further information visit https://errors.pydantic.dev/2.6/v/value_error"
         )
         self.assertEqual(expected_exception2, repr(e2.exception))
 
@@ -311,12 +311,12 @@ class ImagingTests(unittest.TestCase):
             "objectives\n"
             "  Field required [type=missing,"
             " input_value={'instrument_id': 'exaSPI...hardware_version=None)]}, input_type=dict]\n"
-            "    For further information visit https://errors.pydantic.dev/2.5/v/missing\n"
+            "    For further information visit https://errors.pydantic.dev/2.6/v/missing\n"
             "daqs\n"
             "  Value error, Device name validation error: 'LAS-08308' is connected to '3' on 'Dev2',"
             " but this device is not part of the rig. [type=value_error,"
             " input_value=[DAQDevice(device_type='D... hardware_version=None)], input_type=list]\n"
-            "    For further information visit https://errors.pydantic.dev/2.5/v/value_error"
+            "    For further information visit https://errors.pydantic.dev/2.6/v/value_error"
         )
         self.assertEqual(expected_exception, repr(e.exception))
 

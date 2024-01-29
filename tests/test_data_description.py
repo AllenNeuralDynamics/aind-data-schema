@@ -219,7 +219,7 @@ class DataDescriptionTest(unittest.TestCase):
             "project_name\n"
             f"  String should match pattern '{DataRegex.NO_SPECIAL_CHARS.value}'"
             " [type=string_pattern_mismatch, input_value='a_32r&!#R$&#', input_type=str]\n"
-            "    For further information visit https://errors.pydantic.dev/2.5/v/string_pattern_mismatch"
+            "    For further information visit https://errors.pydantic.dev/2.6/v/string_pattern_mismatch"
         )
         self.assertEqual(expected_exception, repr(e.exception))
 

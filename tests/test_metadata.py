@@ -48,10 +48,10 @@ class TestMetadata(unittest.TestCase):
             "2 validation errors for Metadata\n"
             "name\n"
             "  Field required [type=missing, input_value={}, input_type=dict]\n"
-            "    For further information visit https://errors.pydantic.dev/2.5/v/missing\n"
+            "    For further information visit https://errors.pydantic.dev/2.6/v/missing\n"
             "location\n"
             "  Field required [type=missing, input_value={}, input_type=dict]\n"
-            "    For further information visit https://errors.pydantic.dev/2.5/v/missing"
+            "    For further information visit https://errors.pydantic.dev/2.6/v/missing"
         )
         self.assertEqual(expected_exception_message, str(e.exception))
 
