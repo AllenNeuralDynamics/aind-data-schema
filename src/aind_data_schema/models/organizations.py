@@ -795,4 +795,3 @@ class Organization:
         ],
         Field(discriminator="name"),
     ]
-    
