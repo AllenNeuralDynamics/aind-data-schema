@@ -8,7 +8,7 @@ from typing import List, Literal, Optional
 from pydantic import Field
 
 from aind_data_schema.base import AindCoreModel, AindModel
-from aind_data_schema.models.institutions import Institution
+from aind_data_schema.models.organizations import Organization
 from aind_data_schema.models.pid_names import PIDName
 from aind_data_schema.models.species import Species
 
@@ -78,7 +78,7 @@ class Subject(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/subject.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["0.5.3"] = Field("0.5.3")
+    schema_version: Literal["0.5.4"] = Field("0.5.4")
     species: Species.ONE_OF = Field(..., title="Species")
     subject_id: str = Field(
         ...,
@@ -94,7 +94,7 @@ class Subject(AindCoreModel):
     )
     alleles: List[PIDName] = Field(default=[], title="Alleles", description="Allele names and persistent IDs")
     background_strain: Optional[BackgroundStrain] = Field(None, title="Background strain")
-    source: Optional[Institution.ONE_OF] = Field(
+    source: Optional[Organization.SUBJECT_SOURCES] = Field(
         None,
         description="If the subject was not bred in house, where was it acquired from.",
         title="Source",

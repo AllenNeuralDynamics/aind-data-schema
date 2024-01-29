@@ -20,7 +20,7 @@ from aind_data_schema.models.devices import (
     OpticalTable,
     ScanningStage,
 )
-from aind_data_schema.models.manufacturers import Manufacturer
+from aind_data_schema.models.organizations import Organization
 
 
 class Com(AindModel):
@@ -35,7 +35,7 @@ class Instrument(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/instrument.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["0.10.4"] = Field("0.10.4")
+    schema_version: Literal["0.10.5"] = Field("0.10.5")
 
     instrument_id: Optional[str] = Field(
         None,
@@ -44,7 +44,7 @@ class Instrument(AindCoreModel):
     )
     modification_date: date = Field(..., title="Date of modification")
     instrument_type: ImagingInstrumentType = Field(..., title="Instrument type")
-    manufacturer: Manufacturer.ONE_OF = Field(..., title="Instrument manufacturer")
+    manufacturer: Organization.ONE_OF = Field(..., title="Instrument manufacturer")
     temperature_control: Optional[bool] = Field(None, title="Temperature control")
     humidity_control: Optional[bool] = Field(None, title="Humidity control")
     optical_tables: List[OpticalTable] = Field(default=[], title="Optical table")
@@ -104,7 +104,7 @@ class Instrument(AindCoreModel):
             raise ValueError(
                 "Notes cannot be empty if instrument_type is Other. Describe the instrument_type in the notes field."
             )
-        if info.data.get("manufacturer") == Manufacturer.OTHER and not value:
+        if info.data.get("manufacturer") == Organization.OTHER and not value:
             raise ValueError(
                 "Notes cannot be empty if manufacturer is Other. Describe the manufacturer in the notes field."
             )
