@@ -12,20 +12,20 @@ from aind_data_schema.models.devices import (
     OpticalTable,
     ScanningStage,
 )
-from aind_data_schema.models.organizations import Organization
+from aind_data_schema.models.manufacturers import Manufacturer
 
 inst = Instrument(
     instrument_id="SmartSPIM2-2",
     modification_date=datetime.date(2023, 10, 4),
     instrument_type="SmartSPIM",
-    manufacturer=Organization.LIFECANVAS,
+    manufacturer=Manufacturer.LIFECANVAS,
     objectives=[
         Objective(
             name="TLX Objective",
             numerical_aperture=0.2,
             magnification=3.6,
             immersion="multi",
-            manufacturer=Organization.THORLABS,
+            manufacturer=Manufacturer.THORLABS,
             model="TL4X-SAP",
             notes="Thorlabs TL4X-SAP with LifeCanvas dipping cap and correction optics.",
         ),
@@ -36,7 +36,7 @@ inst = Instrument(
             detector_type="Camera",
             data_interface="USB",
             cooling="Air",
-            manufacturer=Organization.HAMAMATSU,
+            manufacturer=Manufacturer.HAMAMATSU,
             model="C14440-20UP",
             serial_number="001107",
         ),
@@ -49,7 +49,7 @@ inst = Instrument(
             wavelength=488,
             maximum_power=150,
             serial_number="VL01222A11",
-            manufacturer=Organization.VORTRAN,
+            manufacturer=Manufacturer.VORTRAN,
             model="Stradus",
             notes="All lasers controlled via Vortran VersaLase System",
         ),
@@ -60,7 +60,7 @@ inst = Instrument(
             wavelength=561,
             maximum_power=150,
             serial_number="417927",
-            manufacturer=Organization.COHERENT_SCIENTIFIC,
+            manufacturer=Manufacturer.COHERENT_SCIENTIFIC,
             model="Obis",
             notes="All lasers controlled via Vortran VersaLase System",
         ),
@@ -71,7 +71,7 @@ inst = Instrument(
             wavelength=647,
             maximum_power=160,
             serial_number="VL01222A10",
-            manufacturer=Organization.VORTRAN,
+            manufacturer=Manufacturer.VORTRAN,
             model="Stradus",
             notes="All lasers controlled via Vortran VersaLase System",
         ),
@@ -80,31 +80,31 @@ inst = Instrument(
         MotorizedStage(
             name="Focus stage",
             model="LS-100",
-            manufacturer=Organization.ASI,
+            manufacturer=Manufacturer.ASI,
             travel=100,
         ),
         MotorizedStage(
             name="Cylindrical lens #1",
             model="L12-20F-4",
-            manufacturer=Organization.MIGHTY_ZAP,
+            manufacturer=Manufacturer.MIGHTY_ZAP,
             travel=41,
         ),
         MotorizedStage(
             name="Cylindrical lens #2",
             model="L12-20F-4",
-            manufacturer=Organization.MIGHTY_ZAP,
+            manufacturer=Manufacturer.MIGHTY_ZAP,
             travel=41,
         ),
         MotorizedStage(
             name="Cylindrical lens #3",
             model="L12-20F-4",
-            manufacturer=Organization.MIGHTY_ZAP,
+            manufacturer=Manufacturer.MIGHTY_ZAP,
             travel=41,
         ),
         MotorizedStage(
             name="Cylindrical lens #4",
             model="L12-20F-4",
-            manufacturer=Organization.MIGHTY_ZAP,
+            manufacturer=Manufacturer.MIGHTY_ZAP,
             travel=41,
         ),
     ],
@@ -112,7 +112,7 @@ inst = Instrument(
         ScanningStage(
             name="Sample stage Z",
             model="LS-50",
-            manufacturer=Organization.ASI,
+            manufacturer=Manufacturer.ASI,
             stage_axis_direction="Detection axis",
             stage_axis_name="Z",
             travel=50,
@@ -120,7 +120,7 @@ inst = Instrument(
         ScanningStage(
             name="Sample stage X",
             model="LS-50",
-            manufacturer=Organization.ASI,
+            manufacturer=Manufacturer.ASI,
             stage_axis_direction="Illumination axis",
             stage_axis_name="X",
             travel=50,
@@ -128,7 +128,7 @@ inst = Instrument(
         ScanningStage(
             name="Sample stage Y",
             model="LS-50",
-            manufacturer=Organization.ASI,
+            manufacturer=Manufacturer.ASI,
             stage_axis_direction="Perpendicular axis",
             stage_axis_name="Y",
             travel=50,
@@ -141,7 +141,7 @@ inst = Instrument(
             length=35,  # length=24,
             width=29,  # width=24,
             vibration_control=True,
-            manufacturer=Organization.TMC,
+            manufacturer=Manufacturer.TMC,
         )
     ],
     humidity_control=False,
@@ -161,7 +161,7 @@ inst = Instrument(
         Filter(
             name="Em_525",
             filter_type="Band pass",
-            manufacturer=Organization.SEMROCK,
+            manufacturer=Manufacturer.SEMROCK,
             diameter=25,
             thickness=2.0,
             model="FF03-525/50-25",
@@ -170,7 +170,7 @@ inst = Instrument(
         Filter(
             name="Em_600",
             filter_type="Band pass",
-            manufacturer=Organization.SEMROCK,
+            manufacturer=Manufacturer.SEMROCK,
             diameter=25,
             thickness=2.0,
             model="FF01-600/52-25",
@@ -179,7 +179,7 @@ inst = Instrument(
         Filter(
             name="Em_690",
             filter_type="Band pass",
-            manufacturer=Organization.CHROMA,
+            manufacturer=Manufacturer.CHROMA,
             diameter=25,
             thickness=2.0,
             model="ET690/50m",
@@ -190,19 +190,19 @@ inst = Instrument(
         AdditionalImagingDevice(
             name="Lens 1",
             type="Tunable lens",
-            manufacturer=Organization.OPTOTUNE,
+            manufacturer=Manufacturer.OPTOTUNE,
             model="EL-16-40-TC",
         ),
         AdditionalImagingDevice(
             name="Lens 2",
             type="Tunable lens",
-            manufacturer=Organization.OPTOTUNE,
+            manufacturer=Manufacturer.OPTOTUNE,
             model="EL-16-40-TC",
         ),
         AdditionalImagingDevice(
             name="Sample chamber",
             type="Sample Chamber",
-            manufacturer=Organization.LIFECANVAS,
+            manufacturer=Manufacturer.LIFECANVAS,
             model="Large-uncoated-glass",
         ),
     ],

@@ -2,8 +2,8 @@
 
 import unittest
 
-from aind_data_schema.models.harp_types import HarpDeviceType
-from aind_data_schema.models.organizations import Organization
+from aind_data_schema.models.institutions import Institution
+from aind_data_schema.models.manufacturers import Manufacturer
 from aind_data_schema.models.platforms import Platform
 from aind_data_schema.models.registry import Registry
 from aind_data_schema.models.species import Species
@@ -12,19 +12,19 @@ from aind_data_schema.models.species import Species
 class LiteralAndDefaultTests(unittest.TestCase):
     """Tests Literals match defaults in several classes"""
 
-    def test_organations(self):
+    def test_institution(self):
         """Test Literals match defaults"""
 
-        for organization in Organization._ALL:
-            model = organization()
+        for institution in Institution._ALL:
+            model = institution()
             round_trip = model.model_validate_json(model.model_dump_json())
             self.assertIsNotNone(round_trip)
 
-    def test_harp(self):
+    def test_manufacturer(self):
         """Test Literals match defaults"""
 
-        for harp in HarpDeviceType._ALL:
-            model = harp()
+        for manufacturer in Manufacturer._ALL:
+            model = manufacturer()
             round_trip = model.model_validate_json(model.model_dump_json())
             self.assertIsNotNone(round_trip)
 

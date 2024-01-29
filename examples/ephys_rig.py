@@ -22,8 +22,8 @@ from aind_data_schema.models.devices import (
     StickMicroscopeAssembly,
 )
 from aind_data_schema.models.harp_types import HarpDeviceType
+from aind_data_schema.models.manufacturers import Manufacturer
 from aind_data_schema.models.modalities import Modality
-from aind_data_schema.models.organizations import Organization
 
 # Describes a rig with running wheel, 2 behavior cameras, one Harp Behavior board,
 # one dual-color laser module, one stick microscope, and 2 Neuropixels probes
@@ -61,14 +61,14 @@ basestation = NeuropixelsBasestation(
     computer_name=ephys_computer,
 )
 
-red_laser = Laser(name="Red Laser", wavelength=473, manufacturer=Organization.OXXIUS)
+red_laser = Laser(name="Red Laser", wavelength=473, manufacturer=Manufacturer.OXXIUS)
 
-blue_laser = Laser(name="Blue Laser", wavelength=638, manufacturer=Organization.OXXIUS)
+blue_laser = Laser(name="Blue Laser", wavelength=638, manufacturer=Manufacturer.OXXIUS)
 
 laser_assembly = LaserAssembly(
     laser_assembly_name="Laser_assemblyA",
     manipulator=Manipulator(
-        name="Manipulator A", serial_number="SN2937", manufacturer=Organization.NEW_SCALE_TECHNOLOGIES
+        name="Manipulator A", serial_number="SN2937", manufacturer=Manufacturer.NEW_SCALE_TECHNOLOGIES
     ),
     lasers=[red_laser, blue_laser],
 )
@@ -77,7 +77,7 @@ probe_camera = Camera(
     name="Probe Camera",
     detector_type="Camera",
     data_interface="USB",
-    manufacturer=Organization.FLIR,
+    manufacturer=Manufacturer.FLIR,
     computer_name=ephys_computer,
     max_frame_rate=50,
     sensor_width=1080,
@@ -87,7 +87,7 @@ probe_camera = Camera(
     chroma="Color",
 )
 
-stick_lens = Lens(name="Probe lens", manufacturer=Organization.EDMUND_OPTICS)
+stick_lens = Lens(name="Probe lens", manufacturer=Manufacturer.EDMUND_OPTICS)
 
 microscope = StickMicroscopeAssembly(
     scope_assembly_name="Stick_assembly",
@@ -102,7 +102,7 @@ probeB = EphysProbe(name="Probe B", serial_number="9291020", probe_model="Neurop
 ephys_assemblyA = EphysAssembly(
     ephys_assembly_name="Ephys_assemblyA",
     manipulator=Manipulator(
-        name="Manipulator 1", serial_number="SN2938", manufacturer=Organization.NEW_SCALE_TECHNOLOGIES
+        name="Manipulator 1", serial_number="SN2938", manufacturer=Manufacturer.NEW_SCALE_TECHNOLOGIES
     ),
     probes=[probeA],
 )
@@ -110,7 +110,7 @@ ephys_assemblyA = EphysAssembly(
 ephys_assemblyB = EphysAssembly(
     ephys_assembly_name="Ephys_assemblyB",
     manipulator=Manipulator(
-        name="Manipulator B", serial_number="SN2939", manufacturer=Organization.NEW_SCALE_TECHNOLOGIES
+        name="Manipulator B", serial_number="SN2939", manufacturer=Manufacturer.NEW_SCALE_TECHNOLOGIES
     ),
     probes=[probeB],
 )
@@ -118,17 +118,17 @@ ephys_assemblyB = EphysAssembly(
 filt = Filter(
     name="LP filter",
     filter_type="Long pass",
-    manufacturer=Organization.THORLABS,
+    manufacturer=Manufacturer.THORLABS,
     description="850 nm longpass filter",
 )
 
-lens = Lens(name="Camera lens", focal_length=15, manufacturer=Organization.EDMUND_OPTICS, max_aperture="f/2")
+lens = Lens(name="Camera lens", focal_length=15, manufacturer=Manufacturer.EDMUND_OPTICS, max_aperture="f/2")
 
 face_camera = Camera(
     name="Face Camera",
     detector_type="Camera",
     data_interface="USB",
-    manufacturer=Organization.FLIR,
+    manufacturer=Manufacturer.FLIR,
     computer_name=behavior_computer,
     max_frame_rate=500,
     sensor_width=1080,
@@ -150,7 +150,7 @@ body_camera = Camera(
     name="Body Camera",
     detector_type="Camera",
     data_interface="USB",
-    manufacturer=Organization.FLIR,
+    manufacturer=Manufacturer.FLIR,
     computer_name=behavior_computer,
     max_frame_rate=500,
     sensor_width=1080,

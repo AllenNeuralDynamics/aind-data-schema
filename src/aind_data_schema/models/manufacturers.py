@@ -1,4 +1,4 @@
-"""Module for Organization definitions, including manufacturers, institutions, and vendors"""
+"""Module for Manufacturers definitions"""
 
 from typing import Literal, Union
 
@@ -9,13 +9,13 @@ from aind_data_schema.models.pid_names import PIDName
 from aind_data_schema.models.registry import Registry, ResearchOrganizationRegistry
 
 
-class _Organization(PIDName):
+class _Manufacturer(PIDName):
     """Base model config"""
 
     model_config = ConfigDict(frozen=True)
 
 
-class AAOptoElectronic(_Organization):
+class AAOptoElectronic(_Manufacturer):
     """AAOptoElectronic"""
 
     name: Literal["AA Opto Electronic"] = "AA Opto Electronic"
@@ -24,7 +24,7 @@ class AAOptoElectronic(_Organization):
     registry_identifier: Literal[None] = Field(None)
 
 
-class AilipuTechnologyCo(_Organization):
+class AilipuTechnologyCo(_Manufacturer):
     """AilipuTechnologyCo"""
 
     name: Literal["Ailipu Technology Co"] = "Ailipu Technology Co"
@@ -33,34 +33,7 @@ class AilipuTechnologyCo(_Organization):
     registry_identifier: Literal[None] = Field(None)
 
 
-class AllenInstitute(_Organization):
-    """AllenInstitute"""
-
-    name: Literal["Allen Institute"] = "Allen Institute"
-    abbreviation: Literal["AI"] = "AI"
-    registry: Annotated[Union[ResearchOrganizationRegistry], Field(default=Registry.ROR, discriminator="name")]
-    registry_identifier: Literal["03cpe7c52"] = "03cpe7c52"
-
-
-class AllenInstituteForBrainScience(_Organization):
-    """AllenInstituteForBrainScience"""
-
-    name: Literal["Allen Institute for Brain Science"] = "Allen Institute for Brain Science"
-    abbreviation: Literal["AIBS"] = "AIBS"
-    registry: Annotated[Union[ResearchOrganizationRegistry], Field(default=Registry.ROR, discriminator="name")]
-    registry_identifier: Literal["00dcv1019"] = "00dcv1019"
-
-
-class AllenInstituteForNeuralDynamics(_Organization):
-    """AllenInstituteForNeuralDynamics"""
-
-    name: Literal["Allen Institute for Neural Dynamics"] = "Allen Institute for Neural Dynamics"
-    abbreviation: Literal["AIND"] = "AIND"
-    registry: Annotated[Union[ResearchOrganizationRegistry], Field(default=Registry.ROR, discriminator="name")]
-    registry_identifier: Literal["04szwah67"] = "04szwah67"
-
-
-class Allied(_Organization):
+class Allied(_Manufacturer):
     """Allied"""
 
     name: Literal["Allied"] = "Allied"
@@ -69,7 +42,16 @@ class Allied(_Organization):
     registry_identifier: Literal[None] = Field(None)
 
 
-class AppliedScientificInstrumentation(_Organization):
+class AllenInstituteForNeuralDynamics(_Manufacturer):
+    """AllenInstituteForNeuralDynamics"""
+
+    name: Literal["Allen Institute for Neural Dynamics"] = "Allen Institute for Neural Dynamics"
+    abbreviation: Literal["AIND"] = "AIND"
+    registry: Annotated[Union[ResearchOrganizationRegistry], Field(default=Registry.ROR, discriminator="name")]
+    registry_identifier: Literal["04szwah67"] = "04szwah67"
+
+
+class AppliedScientificInstrumentation(_Manufacturer):
     """AppliedScientificInstrumentation"""
 
     name: Literal["Applied Scientific Instrumentation"] = "Applied Scientific Instrumentation"
@@ -78,7 +60,7 @@ class AppliedScientificInstrumentation(_Organization):
     registry_identifier: Literal[None] = Field(None)
 
 
-class Asus(_Organization):
+class Asus(_Manufacturer):
     """Asus"""
 
     name: Literal["ASUS"] = "ASUS"
@@ -87,7 +69,7 @@ class Asus(_Organization):
     registry_identifier: Literal["00bxkz165"] = "00bxkz165"
 
 
-class ArecontVisionCostar(_Organization):
+class ArecontVisionCostar(_Manufacturer):
     """ArecontVisionCostar"""
 
     name: Literal["Arecont Vision Costar"] = "Arecont Vision Costar"
@@ -96,7 +78,7 @@ class ArecontVisionCostar(_Organization):
     registry_identifier: Literal[None] = Field(None)
 
 
-class Basler(_Organization):
+class Basler(_Manufacturer):
     """Basler"""
 
     name: Literal["Basler"] = "Basler"
@@ -105,7 +87,7 @@ class Basler(_Organization):
     registry_identifier: Literal[None] = Field(None)
 
 
-class CambridgeTechnology(_Organization):
+class CambridgeTechnology(_Manufacturer):
     """CambridgeTechnology"""
 
     name: Literal["Cambridge Technology"] = "Cambridge Technology"
@@ -114,16 +96,15 @@ class CambridgeTechnology(_Organization):
     registry_identifier: Literal[None] = Field(None)
 
 
-class ChampalimaudFoundation(_Organization):
+class ChampalimaudFoundation(_Manufacturer):
     """Champalimaud Foundation"""
 
     name: Literal["Champalimaud Foundation"] = "Champalimaud Foundation"
-    abbreviation: Literal[None] = Field(None)
     registry: Annotated[Union[ResearchOrganizationRegistry], Field(default=Registry.ROR, discriminator="name")]
     registry_identifier: Literal["03g001n57"] = "03g001n57"
 
 
-class Chroma(_Organization):
+class Chroma(_Manufacturer):
     """Chroma"""
 
     name: Literal["Chroma"] = "Chroma"
@@ -132,7 +113,7 @@ class Chroma(_Organization):
     registry_identifier: Literal[None] = Field(None)
 
 
-class CoherentScientific(_Organization):
+class CoherentScientific(_Manufacturer):
     """CoherentScientific"""
 
     name: Literal["Coherent Scientific"] = "Coherent Scientific"
@@ -141,25 +122,7 @@ class CoherentScientific(_Organization):
     registry_identifier: Literal["031tysd23"] = "031tysd23"
 
 
-class ColumbiaUniversity(_Organization):
-    """ColumbiaUniversity"""
-
-    name: Literal["Columbia University"] = "Columbia University"
-    abbreviation: Literal["Columbia"] = "Columbia"
-    registry: Annotated[Union[ResearchOrganizationRegistry], Field(default=Registry.ROR, discriminator="name")]
-    registry_identifier: Literal["00hj8s172"] = "00hj8s172"
-
-
-class Computar(_Organization):
-    """Computar"""
-
-    name: Literal["Computar"] = "Computar"
-    abbreviation: Literal[None] = Field(None)
-    registry: Literal[None] = Field(None)
-    registry_identifier: Literal[None] = Field(None)
-
-
-class Conoptics(_Organization):
+class Conoptics(_Manufacturer):
     """Conoptics"""
 
     name: Literal["Conoptics"] = "Conoptics"
@@ -168,7 +131,16 @@ class Conoptics(_Organization):
     registry_identifier: Literal[None] = Field(None)
 
 
-class Custom(_Organization):
+class Computar(_Manufacturer):
+    """Computar"""
+
+    name: Literal["Computar"] = "Computar"
+    abbreviation: Literal[None] = Field(None)
+    registry: Literal[None] = Field(None)
+    registry_identifier: Literal[None] = Field(None)
+
+
+class Custom(_Manufacturer):
     """Custom"""
 
     name: Literal["Custom"] = "Custom"
@@ -177,7 +149,7 @@ class Custom(_Organization):
     registry_identifier: Literal[None] = Field(None)
 
 
-class Doric(_Organization):
+class Doric(_Manufacturer):
     """Doric"""
 
     name: Literal["Doric"] = "Doric"
@@ -186,7 +158,7 @@ class Doric(_Organization):
     registry_identifier: Literal["059n53q30"] = "059n53q30"
 
 
-class Ealing(_Organization):
+class Ealing(_Manufacturer):
     """Ealing"""
 
     name: Literal["Ealing"] = "Ealing"
@@ -195,7 +167,7 @@ class Ealing(_Organization):
     registry_identifier: Literal[None] = Field(None)
 
 
-class EdmundOptics(_Organization):
+class EdmundOptics(_Manufacturer):
     """EdmundOptics"""
 
     name: Literal["Edmund Optics"] = "Edmund Optics"
@@ -204,7 +176,7 @@ class EdmundOptics(_Organization):
     registry_identifier: Literal["01j1gwp17"] = "01j1gwp17"
 
 
-class Euresys(_Organization):
+class Euresys(_Manufacturer):
     """Euresys"""
 
     name: Literal["Euresys"] = "Euresys"
@@ -213,7 +185,7 @@ class Euresys(_Organization):
     registry_identifier: Literal[None] = Field(None)
 
 
-class TeledyneFLIR(_Organization):
+class TeledyneFLIR(_Manufacturer):
     """TeledyneFLIR"""
 
     name: Literal["Teledyne FLIR"] = "Teledyne FLIR"
@@ -222,7 +194,7 @@ class TeledyneFLIR(_Organization):
     registry_identifier: Literal["01j1gwp17"] = "01j1gwp17"
 
 
-class Fujinon(_Organization):
+class Fujinon(_Manufacturer):
     """Fujinon"""
 
     name: Literal["Fujinon"] = "Fujinon"
@@ -231,7 +203,7 @@ class Fujinon(_Organization):
     registry_identifier: Literal[None] = Field(None)
 
 
-class Hamamatsu(_Organization):
+class Hamamatsu(_Manufacturer):
     """Hamamatsu"""
 
     name: Literal["Hamamatsu"] = "Hamamatsu"
@@ -240,16 +212,7 @@ class Hamamatsu(_Organization):
     registry_identifier: Literal["03natb733"] = "03natb733"
 
 
-class HuazhongUniversityOfScienceAndTechnology(_Organization):
-    """HuazhongUniversityOfScienceAndTechnology"""
-
-    name: Literal["Huazhong University of Science and Technology"] = "Huazhong University of Science and Technology"
-    abbreviation: Literal["HUST"] = "HUST"
-    registry: Annotated[Union[ResearchOrganizationRegistry], Field(default=Registry.ROR, discriminator="name")]
-    registry_identifier: Literal["00p991c53"] = "00p991c53"
-
-
-class TheImagingSource(_Organization):
+class TheImagingSource(_Manufacturer):
     """TheImagingSource"""
 
     name: Literal["The Imaging Source"] = "The Imaging Source"
@@ -258,7 +221,7 @@ class TheImagingSource(_Organization):
     registry_identifier: Literal[None] = Field(None)
 
 
-class InteruniversityMicroelectronicsCenter(_Organization):
+class InteruniversityMicroelectronicsCenter(_Manufacturer):
     """InteruniversityMicroelectronicsCenter"""
 
     name: Literal["Interuniversity Microelectronics Center"] = "Interuniversity Microelectronics Center"
@@ -267,7 +230,7 @@ class InteruniversityMicroelectronicsCenter(_Organization):
     registry_identifier: Literal["02kcbn207"] = "02kcbn207"
 
 
-class InfinityPhotoOptical(_Organization):
+class InfinityPhotoOptical(_Manufacturer):
     """InfinityPhotoOptical"""
 
     name: Literal["Infinity Photo-Optical"] = "Infinity Photo-Optical"
@@ -276,7 +239,7 @@ class InfinityPhotoOptical(_Organization):
     registry_identifier: Literal[None] = Field(None)
 
 
-class ISLProductsInternational(_Organization):
+class ISLProductsInternational(_Manufacturer):
     """ISLProductsInternational"""
 
     name: Literal["ISL Products International"] = "ISL Products International"
@@ -285,16 +248,7 @@ class ISLProductsInternational(_Organization):
     registry_identifier: Literal[None] = Field(None)
 
 
-class JacksonLaboratory(_Organization):
-    """JacksonLaboratory"""
-
-    name: Literal["Jackson Laboratory"] = "Jackson Laboratory"
-    abbreviation: Literal["JAX"] = "JAX"
-    registry: Annotated[Union[ResearchOrganizationRegistry], Field(default=Registry.ROR, discriminator="name")]
-    registry_identifier: Literal["021sy4w91"] = "021sy4w91"
-
-
-class Julabo(_Organization):
+class Julabo(_Manufacturer):
     """Julabo"""
 
     name: Literal["Julabo"] = "Julabo"
@@ -303,7 +257,7 @@ class Julabo(_Organization):
     registry_identifier: Literal[None] = Field(None)
 
 
-class TheLeeCompany(_Organization):
+class TheLeeCompany(_Manufacturer):
     """TheLeeCompany"""
 
     name: Literal["The Lee Company"] = "The Lee Company"
@@ -312,7 +266,7 @@ class TheLeeCompany(_Organization):
     registry_identifier: Literal[None] = Field(None)
 
 
-class Leica(_Organization):
+class Leica(_Manufacturer):
     """Leica"""
 
     name: Literal["Leica"] = "Leica"
@@ -321,7 +275,7 @@ class Leica(_Organization):
     registry_identifier: Literal[None] = Field(None)
 
 
-class Lg(_Organization):
+class Lg(_Manufacturer):
     """Lg"""
 
     name: Literal["LG"] = "LG"
@@ -330,7 +284,7 @@ class Lg(_Organization):
     registry_identifier: Literal["02b948n83"] = "02b948n83"
 
 
-class LifeCanvas(_Organization):
+class LifeCanvas(_Manufacturer):
     """LifeCanvas"""
 
     name: Literal["LifeCanvas"] = "LifeCanvas"
@@ -339,7 +293,7 @@ class LifeCanvas(_Organization):
     registry_identifier: Literal[None] = Field(None)
 
 
-class MeadowlarkOptics(_Organization):
+class MeadowlarkOptics(_Manufacturer):
     """MeadowlarkOptics"""
 
     name: Literal["Meadowlark Optics"] = "Meadowlark Optics"
@@ -348,7 +302,7 @@ class MeadowlarkOptics(_Organization):
     registry_identifier: Literal["00n8qbq54"] = "00n8qbq54"
 
 
-class IRRobotCo(_Organization):
+class IRRobotCo(_Manufacturer):
     """IRRobotCo"""
 
     name: Literal["IR Robot Co"] = "IR Robot Co"
@@ -357,7 +311,7 @@ class IRRobotCo(_Organization):
     registry_identifier: Literal[None] = Field(None)
 
 
-class Mitutuyo(_Organization):
+class Mitutuyo(_Manufacturer):
     """Mitutuyo"""
 
     name: Literal["Mitutuyo"] = "Mitutuyo"
@@ -366,7 +320,7 @@ class Mitutuyo(_Organization):
     registry_identifier: Literal[None] = Field(None)
 
 
-class MKSNewport(_Organization):
+class MKSNewport(_Manufacturer):
     """MKSNewport"""
 
     name: Literal["MKS Newport"] = "MKS Newport"
@@ -375,7 +329,7 @@ class MKSNewport(_Organization):
     registry_identifier: Literal["00k17f049"] = "00k17f049"
 
 
-class Mpi(_Organization):
+class Mpi(_Manufacturer):
     """Mpi"""
 
     name: Literal["MPI"] = "MPI"
@@ -384,18 +338,7 @@ class Mpi(_Organization):
     registry_identifier: Literal[None] = Field(None)
 
 
-class NationalInstituteOfNeurologicalDisordersAndStroke(_Organization):
-    """NationalInstituteOfNeurologicalDisordersAndStroke"""
-
-    name: Literal[
-        "National Institute of Neurological Disorders and Stroke"
-    ] = "National Institute of Neurological Disorders and Stroke"
-    abbreviation: Literal["NINDS"] = "NINDS"
-    registry: Annotated[Union[ResearchOrganizationRegistry], Field(default=Registry.ROR, discriminator="name")]
-    registry_identifier: Literal["01s5ya894"] = "01s5ya894"
-
-
-class NationalInstruments(_Organization):
+class NationalInstruments(_Manufacturer):
     """NationalInstruments"""
 
     name: Literal["National Instruments"] = "National Instruments"
@@ -404,7 +347,7 @@ class NationalInstruments(_Organization):
     registry_identifier: Literal["026exqw73"] = "026exqw73"
 
 
-class Navitar(_Organization):
+class Navitar(_Manufacturer):
     """Navitar"""
 
     name: Literal["Navitar"] = "Navitar"
@@ -413,7 +356,7 @@ class Navitar(_Organization):
     registry_identifier: Literal[None] = Field(None)
 
 
-class NewScaleTechnologies(_Organization):
+class NewScaleTechnologies(_Manufacturer):
     """NewScaleTechnologies"""
 
     name: Literal["New Scale Technologies"] = "New Scale Technologies"
@@ -422,16 +365,7 @@ class NewScaleTechnologies(_Organization):
     registry_identifier: Literal[None] = Field(None)
 
 
-class NewYorkUniversity(_Organization):
-    """NewYorkUniversity"""
-
-    name: Literal["New York University"] = "New York University"
-    abbreviation: Literal["NYU"] = "NYU"
-    registry: Annotated[Union[ResearchOrganizationRegistry], Field(default=Registry.ROR, discriminator="name")]
-    registry_identifier: Literal["0190ak572"] = "0190ak572"
-
-
-class Nikon(_Organization):
+class Nikon(_Manufacturer):
     """Nikon"""
 
     name: Literal["Nikon"] = "Nikon"
@@ -440,7 +374,7 @@ class Nikon(_Organization):
     registry_identifier: Literal["0280y9h11"] = "0280y9h11"
 
 
-class OpenEphysProductionSite(_Organization):
+class OpenEphysProductionSite(_Manufacturer):
     """OpenEphysProductionSite"""
 
     name: Literal["Open Ephys Production Site"] = "Open Ephys Production Site"
@@ -449,7 +383,7 @@ class OpenEphysProductionSite(_Organization):
     registry_identifier: Literal["007rkz355"] = "007rkz355"
 
 
-class Olympus(_Organization):
+class Olympus(_Manufacturer):
     """Olympus"""
 
     name: Literal["Olympus"] = "Olympus"
@@ -458,7 +392,7 @@ class Olympus(_Organization):
     registry_identifier: Literal["02vcdte90"] = "02vcdte90"
 
 
-class Optotune(_Organization):
+class Optotune(_Manufacturer):
     """Optotune"""
 
     name: Literal["Optotune"] = "Optotune"
@@ -467,7 +401,7 @@ class Optotune(_Organization):
     registry_identifier: Literal[None] = Field(None)
 
 
-class Oxxius(_Organization):
+class Oxxius(_Manufacturer):
     """Oxxius"""
 
     name: Literal["Oxxius"] = "Oxxius"
@@ -476,7 +410,7 @@ class Oxxius(_Organization):
     registry_identifier: Literal[None] = Field(None)
 
 
-class Prizmatix(_Organization):
+class Prizmatix(_Manufacturer):
     """Prizmatix"""
 
     name: Literal["Prizmatix"] = "Prizmatix"
@@ -485,7 +419,7 @@ class Prizmatix(_Organization):
     registry_identifier: Literal[None] = Field(None)
 
 
-class Quantifi(_Organization):
+class Quantifi(_Manufacturer):
     """Quantifi"""
 
     name: Literal["Quantifi"] = "Quantifi"
@@ -494,7 +428,7 @@ class Quantifi(_Organization):
     registry_identifier: Literal[None] = Field(None)
 
 
-class RaspberryPi(_Organization):
+class RaspberryPi(_Manufacturer):
     """RaspberryPi"""
 
     name: Literal["Raspberry Pi"] = "Raspberry Pi"
@@ -503,7 +437,7 @@ class RaspberryPi(_Organization):
     registry_identifier: Literal[None] = Field(None)
 
 
-class SecondOrderEffects(_Organization):
+class SecondOrderEffects(_Manufacturer):
     """Second Order Effects"""
 
     name: Literal["Second Order Effects"] = "Second Order Effects"
@@ -512,7 +446,7 @@ class SecondOrderEffects(_Organization):
     registry_identifier: Literal[None] = Field(None)
 
 
-class Semrock(_Organization):
+class Semrock(_Manufacturer):
     """Semrock"""
 
     name: Literal["Semrock"] = "Semrock"
@@ -521,7 +455,7 @@ class Semrock(_Organization):
     registry_identifier: Literal[None] = Field(None)
 
 
-class SchneiderKreuznach(_Organization):
+class SchneiderKreuznach(_Manufacturer):
     """SchneiderKreuznach"""
 
     name: Literal["Schneider-Kreuznach"] = "Schneider-Kreuznach"
@@ -530,16 +464,7 @@ class SchneiderKreuznach(_Organization):
     registry_identifier: Literal[None] = Field(None)
 
 
-class SimonsFoundation(_Organization):
-    """SimonsFoundation"""
-
-    name: Literal["Simons Foundation"] = "Simons Foundation"
-    abbreviation: Literal[None] = Field(None)
-    registry: Annotated[Union[ResearchOrganizationRegistry], Field(default=Registry.ROR, discriminator="name")]
-    registry_identifier: Literal["01cmst727"] = "01cmst727"
-
-
-class Spinnaker(_Organization):
+class Spinnaker(_Manufacturer):
     """Spinnaker"""
 
     name: Literal["Spinnaker"] = "Spinnaker"
@@ -548,7 +473,7 @@ class Spinnaker(_Organization):
     registry_identifier: Literal[None] = Field(None)
 
 
-class Tamron(_Organization):
+class Tamron(_Manufacturer):
     """Tamron"""
 
     name: Literal["Tamron"] = "Tamron"
@@ -557,7 +482,7 @@ class Tamron(_Organization):
     registry_identifier: Literal[None] = Field(None)
 
 
-class Thorlabs(_Organization):
+class Thorlabs(_Manufacturer):
     """Thorlabs"""
 
     name: Literal["Thorlabs"] = "Thorlabs"
@@ -566,7 +491,7 @@ class Thorlabs(_Organization):
     registry_identifier: Literal["04gsnvb07"] = "04gsnvb07"
 
 
-class TMC(_Organization):
+class TMC(_Manufacturer):
     """TMC"""
 
     name: Literal["Technical Manufacturing Corporation"] = "Technical Manufacturing Corporation"
@@ -575,7 +500,7 @@ class TMC(_Organization):
     registry_identifier: Literal[None] = Field(None)
 
 
-class Tymphany(_Organization):
+class Tymphany(_Manufacturer):
     """Tymphany"""
 
     name: Literal["Tymphany"] = "Tymphany"
@@ -584,7 +509,7 @@ class Tymphany(_Organization):
     registry_identifier: Literal[None] = Field(None)
 
 
-class Vieworks(_Organization):
+class Vieworks(_Manufacturer):
     """Vieworks"""
 
     name: Literal["Vieworks"] = "Vieworks"
@@ -593,7 +518,7 @@ class Vieworks(_Organization):
     registry_identifier: Literal[None] = Field(None)
 
 
-class Vortran(_Organization):
+class Vortran(_Manufacturer):
     """Vortran"""
 
     name: Literal["Vortran"] = "Vortran"
@@ -602,7 +527,7 @@ class Vortran(_Organization):
     registry_identifier: Literal[None] = Field(None)
 
 
-class CarlZeiss(_Organization):
+class CarlZeiss(_Manufacturer):
     """CarlZeiss"""
 
     name: Literal["Carl Zeiss"] = "Carl Zeiss"
@@ -611,7 +536,7 @@ class CarlZeiss(_Organization):
     registry_identifier: Literal["01xk5xs43"] = "01xk5xs43"
 
 
-class Other(_Organization):
+class Other(_Manufacturer):
     """Other"""
 
     name: Literal["Other"] = "Other"
@@ -620,14 +545,11 @@ class Other(_Organization):
     registry_identifier: Literal[None] = Field(None)
 
 
-class Organization:
-    """Organization definitions"""
+class Manufacturer:
+    """Manufacturer definitions"""
 
     AA_OPTO = AAOptoElectronic()
     AILIPU = AilipuTechnologyCo()
-    AI = AllenInstitute()
-    AIBS = AllenInstituteForBrainScience()
-    AIND = AllenInstituteForNeuralDynamics()
     ALLIED = Allied()
     ASI = AppliedScientificInstrumentation()
     ASUS = Asus()
@@ -637,9 +559,8 @@ class Organization:
     CHAMPALIMAUD = ChampalimaudFoundation()
     CHROMA = Chroma()
     COHERENT_SCIENTIFIC = CoherentScientific()
-    COLUMBIA = ColumbiaUniversity()
-    COMPUTAR = Computar()
     CONOPTICS = Conoptics()
+    COMPUTAR = Computar()
     CUSTOM = Custom()
     DORIC = Doric()
     EALING = Ealing()
@@ -648,12 +569,10 @@ class Organization:
     FLIR = TeledyneFLIR()
     FUJINON = Fujinon()
     HAMAMATSU = Hamamatsu()
-    HUST = HuazhongUniversityOfScienceAndTechnology()
     IMAGING_SOURCE = TheImagingSource()
     IMEC = InteruniversityMicroelectronicsCenter()
     INFINITY_PHOTO_OPTICAL = InfinityPhotoOptical()
     ISL = ISLProductsInternational()
-    JAX = JacksonLaboratory()
     JULABO = Julabo()
     LEE = TheLeeCompany()
     LEICA = Leica()
@@ -667,9 +586,7 @@ class Organization:
     NATIONAL_INSTRUMENTS = NationalInstruments()
     NAVITAR = Navitar()
     NEW_SCALE_TECHNOLOGIES = NewScaleTechnologies()
-    NINDS = NationalInstituteOfNeurologicalDisordersAndStroke()
     NIKON = Nikon()
-    NYU = NewYorkUniversity()
     OEPS = OpenEphysProductionSite()
     OLYMPUS = Olympus()
     OPTOTUNE = Optotune()
@@ -679,7 +596,6 @@ class Organization:
     RASPBERRYPI = RaspberryPi()
     SEMROCK = Semrock()
     SCHNEIDER_KREUZNACH = SchneiderKreuznach()
-    SIMONS = SimonsFoundation()
     SPINNAKER = Spinnaker()
     TAMRON = Tamron()
     THORLABS = Thorlabs()
@@ -690,26 +606,8 @@ class Organization:
     ZEISS = CarlZeiss()
     OTHER = Other()
 
-    _ALL = tuple(_Organization.__subclasses__())
+    _ALL = tuple(_Manufacturer.__subclasses__())
     ONE_OF = Annotated[Union[_ALL], Field(discriminator="name")]
-
-    _abbreviation_map = {m().abbreviation: m() for m in _ALL}
-    _name_map = {m().name: m() for m in _ALL}
-
-    @classmethod
-    def from_abbreviation(cls, abbreviation: str):
-        """Get class from abbreviation"""
-        return cls._abbreviation_map[abbreviation]
-
-    @classmethod
-    def from_name(cls, name: str):
-        """Get class from abbreviation"""
-        return cls._name_map[name]
-
-    @property
-    def name_map(self) -> dict:
-        """Dictionary of mapping from name to object"""
-        return self._name_map
 
     DETECTOR_MANUFACTURERS = Annotated[
         Union[
@@ -753,8 +651,8 @@ class Organization:
             NationalInstruments,
             InteruniversityMicroelectronicsCenter,
             OpenEphysProductionSite,
-            SecondOrderEffects,
             Other,
+            SecondOrderEffects,
         ],
         Field(discriminator="name"),
     ]
@@ -762,36 +660,6 @@ class Organization:
         Union[CoherentScientific, Hamamatsu, Oxxius, Quantifi, Vortran, Other], Field(discriminator="name")
     ]
     LED_MANUFACTURERS = Annotated[Union[Doric, Prizmatix, Thorlabs, Other], Field(discriminator="name")]
-    MANIPULATOR_MANUFACTURERS = Annotated[Union[NewScaleTechnologies, Other], Field(discriminator="name")]
-    MONITOR_MANUFACTURERS = Annotated[Union[Asus, Lg, Other], Field(discriminator="name")]
-    SPEAKER_MANUFACTURERS = Annotated[Union[Tymphany, ISLProductsInternational, Other], Field(discriminator="name")]
-    FUNDERS = Annotated[
-        Union[
-            AllenInstitute,
-            NationalInstituteOfNeurologicalDisordersAndStroke,
-            SimonsFoundation
-        ],
-        Field(discriminator="name"),
-    ]
-    RESEARCH_INSTITUTIONS = Annotated[
-        Union[
-            AllenInstituteForBrainScience,
-            AllenInstituteForNeuralDynamics,
-            ColumbiaUniversity,
-            HuazhongUniversityOfScienceAndTechnology,
-            NewYorkUniversity,
-            Other
-        ],
-        Field(discriminator="name"),
-    ]
-    SUBJECT_SOURCES = Annotated[
-        Union[
-            AllenInstitute,
-            ColumbiaUniversity,
-            HuazhongUniversityOfScienceAndTechnology,
-            JacksonLaboratory,
-            NewYorkUniversity,
-            Other
-        ],
-        Field(discriminator="name"),
-    ]
+    MANIPULATOR_MANUFACTURERS = Annotated[Union[NewScaleTechnologies], Field(discriminator="name")]
+    MONITOR_MANUFACTURERS = Annotated[Union[Asus, Lg], Field(discriminator="name")]
+    SPEAKER_MANUFACTURERS = Annotated[Union[Tymphany, ISLProductsInternational], Field(discriminator="name")]

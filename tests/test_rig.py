@@ -27,7 +27,7 @@ from aind_data_schema.models.devices import (
     Patch,
     StickMicroscopeAssembly,
 )
-from aind_data_schema.models.organizations import Organization
+from aind_data_schema.models.manufacturers import Manufacturer
 from aind_data_schema.models.modalities import Modality
 
 
@@ -46,7 +46,7 @@ class RigTests(unittest.TestCase):
                 basestation_firmware_version="1",
                 bsc_firmware_version="2",
                 slot=0,
-                manufacturer=Organization.IMEC,
+                manufacturer=Manufacturer.IMEC,
                 ports=[],
                 computer_name="foo",
                 channels=[
@@ -79,7 +79,7 @@ class RigTests(unittest.TestCase):
                 probes=[EphysProbe(probe_model="Neuropixels 1.0", name="Probe A")],
                 manipulator=Manipulator(
                     name="Probe manipulator",
-                    manufacturer=Organization.NEW_SCALE_TECHNOLOGIES,
+                    manufacturer=Manufacturer.NEW_SCALE_TECHNOLOGIES,
                     serial_number="4321",
                 ),
                 ephys_assembly_name="Ephys_assemblyA",
@@ -90,7 +90,7 @@ class RigTests(unittest.TestCase):
             LaserAssembly(
                 lasers=[
                     Laser(
-                        manufacturer=Organization.HAMAMATSU,
+                        manufacturer=Manufacturer.HAMAMATSU,
                         serial_number="1234",
                         name="Laser A",
                         wavelength=488,
@@ -98,7 +98,7 @@ class RigTests(unittest.TestCase):
                 ],
                 manipulator=Manipulator(
                     name="Laser manipulator",
-                    manufacturer=Organization.NEW_SCALE_TECHNOLOGIES,
+                    manufacturer=Manufacturer.NEW_SCALE_TECHNOLOGIES,
                     serial_number="1234",
                 ),
                 laser_assembly_name="Laser_assembly",
@@ -114,11 +114,11 @@ class RigTests(unittest.TestCase):
                 CameraAssembly(
                     camera_assembly_name="cam",
                     camera_target="Face bottom",
-                    lens=Lens(name="Camera lens", manufacturer=Organization.OTHER),
+                    lens=Lens(name="Camera lens", manufacturer=Manufacturer.OTHER),
                     camera=Camera(
                         name="Camera A",
                         detector_type=DetectorType.CAMERA,
-                        manufacturer=Organization.OTHER,
+                        manufacturer=Manufacturer.OTHER,
                         data_interface="USB",
                         computer_name="ASDF",
                         max_frame_rate=144,
@@ -134,7 +134,7 @@ class RigTests(unittest.TestCase):
                     camera=Camera(
                         name="Camera A",
                         detector_type=DetectorType.CAMERA,
-                        manufacturer=Organization.OTHER,
+                        manufacturer=Manufacturer.OTHER,
                         data_interface="USB",
                         computer_name="ASDF",
                         max_frame_rate=144,
@@ -142,12 +142,12 @@ class RigTests(unittest.TestCase):
                         sensor_height=1,
                         chroma="Color",
                     ),
-                    lens=Lens(name="Lens A", manufacturer=Organization.OTHER),
+                    lens=Lens(name="Lens A", manufacturer=Manufacturer.OTHER),
                 )
             ],
             light_sources=[
                 Laser(
-                    manufacturer=Organization.HAMAMATSU,
+                    manufacturer=Manufacturer.HAMAMATSU,
                     serial_number="1234",
                     name="Laser A",
                     wavelength=488,
@@ -159,7 +159,7 @@ class RigTests(unittest.TestCase):
                 Detector(
                     name="FLIR CMOS for Green Channel",
                     serial_number="21396991",
-                    manufacturer=Organization.FLIR,
+                    manufacturer=Manufacturer.FLIR,
                     model="BFS-U3-20S40M",
                     detector_type=DetectorType.CAMERA,
                     data_interface="USB",
@@ -178,7 +178,7 @@ class RigTests(unittest.TestCase):
             patch_cords=[
                 Patch(
                     name="Bundle Branching Fiber-optic Patch Cord",
-                    manufacturer=Organization.DORIC,
+                    manufacturer=Manufacturer.DORIC,
                     model="BBP(4)_200/220/900-0.37_Custom_FCM-4xMF1.25",
                     core_diameter=200,
                     numerical_aperture=0.37,
@@ -187,7 +187,7 @@ class RigTests(unittest.TestCase):
             stimulus_devices=[
                 Olfactometer(
                     name="Olfactometer",
-                    manufacturer=Organization.CHAMPALIMAUD,
+                    manufacturer=Manufacturer.CHAMPALIMAUD,
                     model="1234",
                     serial_number="213456",
                     hardware_version="1",
@@ -244,7 +244,7 @@ class RigTests(unittest.TestCase):
                         basestation_firmware_version="1",
                         bsc_firmware_version="2",
                         slot=0,
-                        manufacturer=Organization.IMEC,
+                        manufacturer=Manufacturer.IMEC,
                         ports=[],
                         computer_name="foo",
                         channels=[
@@ -290,7 +290,7 @@ class RigTests(unittest.TestCase):
                     basestation_firmware_version="1",
                     bsc_firmware_version="2",
                     slot=0,
-                    manufacturer=Organization.IMEC,
+                    manufacturer=Manufacturer.IMEC,
                     ports=[],
                     computer_name="foo",
                     channels=[
