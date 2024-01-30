@@ -208,7 +208,7 @@ class Rig(AindCoreModel):
         errors = []
         if Modality.TRAINED_BEHAVIOR in value or Modality.BEHAVIOR in value:
             if len(info.data["stimulus_devices"]) == 0:
-                errors.append("stimulus_devices field must be utilized for Behavior modality")        
+                errors.append("stimulus_devices field must be utilized for Behavior modality")
 
         return errors
 
@@ -222,9 +222,7 @@ class Rig(AindCoreModel):
         behavior_vids_errors = cls._validate_behavior_videos_modality(value, info)
         behavior_errors = cls._validate_behavior_modality(value, info)
 
-        errors = (
-            ephys_errors + fib_errors + pophys_errors + slap_errors + behavior_vids_errors + behavior_errors
-        )
+        errors = ephys_errors + fib_errors + pophys_errors + slap_errors + behavior_vids_errors + behavior_errors
         if len(errors) > 0:
             message = "\n     ".join(errors)
             raise ValueError(message)

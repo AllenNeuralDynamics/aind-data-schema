@@ -2,6 +2,7 @@
 
 import datetime
 import unittest
+import warnings
 
 import pydantic
 
@@ -93,9 +94,26 @@ class ExampleTest(unittest.TestCase):
             "ophys_fovs field OR stack_parameters field must be utilized for Pophys modality" in repr(e.exception)
         )
         self.assertTrue("camera_names field must be utilized for Behavior Videos modality" in repr(e.exception))
-        self.assertTrue(
-            "stimulus_device_names field must be utilized for Behavior modality" in repr(e.exception)
-        )
+        self.assertTrue("stimulus_device_names field must be utilized for Behavior modality" in repr(e.exception))
+
+    def test_deprecations(self):
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("always")
+
+            Stream(
+                stream_start_time=datetime.datetime.now(),
+                stream_end_time=datetime.datetime.now(),
+                stream_modalities=[
+                    Modality.TRAINED_BEHAVIOR,
+                ],
+                mouse_platform_name="Running wheel",
+                active_mouse_platform=False,
+                stimulus_device_names=["test"],
+            )
+
+            self.assertEqual(len(w), 1)
+            self.assertTrue(issubclass(w[-1].category, DeprecationWarning))
+            self.assertIn("deprecated", str(w[-1].message))
 
 
 if __name__ == "__main__":
