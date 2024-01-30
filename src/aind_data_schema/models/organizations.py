@@ -766,11 +766,7 @@ class Organization:
     MONITOR_MANUFACTURERS = Annotated[Union[Asus, Lg, Other], Field(discriminator="name")]
     SPEAKER_MANUFACTURERS = Annotated[Union[Tymphany, ISLProductsInternational, Other], Field(discriminator="name")]
     FUNDERS = Annotated[
-        Union[
-            AllenInstitute,
-            NationalInstituteOfNeurologicalDisordersAndStroke,
-            SimonsFoundation
-        ],
+        Union[AllenInstitute, NationalInstituteOfNeurologicalDisordersAndStroke, SimonsFoundation],
         Field(discriminator="name"),
     ]
     RESEARCH_INSTITUTIONS = Annotated[
@@ -780,7 +776,7 @@ class Organization:
             ColumbiaUniversity,
             HuazhongUniversityOfScienceAndTechnology,
             NewYorkUniversity,
-            Other
+            Other,
         ],
         Field(discriminator="name"),
     ]
@@ -791,7 +787,7 @@ class Organization:
             HuazhongUniversityOfScienceAndTechnology,
             JacksonLaboratory,
             NewYorkUniversity,
-            Other
+            Other,
         ],
         Field(discriminator="name"),
     ]

@@ -14,6 +14,13 @@ class _Modality(BaseName):
     model_config = ConfigDict(frozen=True)
 
 
+class Behavior(_Modality):
+    """Behavior"""
+
+    name: Literal["Behavior"] = "Behavior"
+    abbreviation: Literal["behavior"] = "behavior"
+
+
 class BehaviorVideos(_Modality):
     """BehaviorVideos"""
 
