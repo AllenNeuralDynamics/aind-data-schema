@@ -188,7 +188,7 @@ class Custom(_Organization):
 
 class Dodotronic(_Organization):
     """Dodotronic"""
-    
+
     name: Literal["Dodotronic"] = "Dodotronic"
     abbreviation: Literal[None] = Field(None)
     registry: Literal[None] = Field(None)
