@@ -1,0 +1,33 @@
+name: Update schemas
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  update_schemas:
+    runs-on: ubuntu-latest
+    env:
+      OUTPUT_DIR: './schemas'
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ env.DEFAULT_BRANCH }}
+          fetch-depth: 0
+          token: ${{ secrets.SERVICE_TOKEN }}
+      - name: Pull latest changes
+        run: git pull origin main
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.8
+      - name: Create schemas
+        run: | 
+          python -m pip install -e .
+          python -m aind_data_schema.utils.json_writer --output $OUTPUT_DIR
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          default_author: github_actions
+          message: "updates schemas [skip actions]"
+          add: 'schemas'
