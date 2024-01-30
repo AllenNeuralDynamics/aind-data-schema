@@ -3,7 +3,7 @@
 import datetime
 
 from aind_data_schema.core.subject import BreedingInfo, Housing, Sex, Subject
-from aind_data_schema.models.institutions import Institution
+from aind_data_schema.models.organizations import Organization
 from aind_data_schema.models.species import Species
 
 t = datetime.datetime(2022, 11, 22, 8, 43, 00)
@@ -13,7 +13,7 @@ s = Subject(
     subject_id="12345",
     sex=Sex.MALE,
     date_of_birth=t.date(),
-    source=Institution.AI,
+    source=Organization.AI,
     breeding_info=BreedingInfo(
         breeding_group="Emx1-IRES-Cre(ND)",
         maternal_id="546543",
