@@ -4,6 +4,7 @@ from datetime import datetime
 from decimal import Decimal
 from enum import Enum
 from typing import List, Literal, Optional, Union
+import warnings
 
 from pydantic import Field, field_validator
 from pydantic_core.core_schema import ValidationInfo
@@ -301,10 +302,13 @@ class Stream(AindModel):
             return None
 
     @staticmethod
-    def _validate_trained_behavior_modality(value: List[Modality.ONE_OF], info: ValidationInfo) -> Optional[str]:
-        """Validate TRAINED_BEHAVIOR has stimulus devices"""
-        if Modality.TRAINED_BEHAVIOR in value and len(info.data["stimulus_device_names"]) == 0:
-            return "stimulus_device_names field must be utilized for Trained Behavior modality"
+    def _validate_behavior_modality(value: List[Modality.ONE_OF], info: ValidationInfo) -> Optional[str]:
+        """Validate BEHAVIOR has stimulus devices"""
+        if Modality.TRAINED_BEHAVIOR in value:
+            warnings.warn("TrainedBehavior modality is deprecated. Use Behavior modality instead.", DeprecationWarning)
+
+        if (Modality.BEHAVIOR in value or Modality.TRAINED_BEHAVIOR in value) and len(info.data["stimulus_device_names"]) == 0:
+            return "stimulus_device_names field must be utilized for Behavior modality"        
         else:
             return None
 
@@ -316,7 +320,7 @@ class Stream(AindModel):
         fib_errors = cls._validate_fib_modality(value, info)
         pophys_errors = cls._validate_pophys_modality(value, info)
         behavior_vids_errors = cls._validate_behavior_videos_modality(value, info)
-        trained_behavior_errors = cls._validate_trained_behavior_modality(value, info)
+        behavior_errors = cls._validate_behavior_modality(value, info)
 
         if ephys_errors is not None:
             errors.append(ephys_errors)
@@ -326,8 +330,8 @@ class Stream(AindModel):
             errors.append(pophys_errors)
         if behavior_vids_errors is not None:
             errors.append(behavior_vids_errors)
-        if trained_behavior_errors is not None:
-            errors.append(trained_behavior_errors)
+        if behavior_errors is not None:
+            errors.append(behavior_errors)
         if len(errors) > 0:
             message = "\n     ".join(errors)
             raise ValueError(message)

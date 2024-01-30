@@ -1,5 +1,6 @@
 """Core Rig model"""
 
+import warnings
 from datetime import date
 from typing import List, Literal, Optional, Set, Union
 
@@ -199,12 +200,16 @@ class Rig(AindCoreModel):
         return errors
 
     @staticmethod
-    def _validate_trained_behavior_modality(value: Set[Modality.ONE_OF], info: ValidationInfo) -> List[str]:
-        """Validate TRAINED_BEHAVIOR has stimulus devices"""
-        errors = []
+    def _validate_behavior_modality(value: Set[Modality.ONE_OF], info: ValidationInfo) -> List[str]:
+        """Validate BEHAVIOR has stimulus devices"""
         if Modality.TRAINED_BEHAVIOR in value:
+            warnings.warn("TrainedBehavior modality is deprecated. Use Behavior modality instead.", DeprecationWarning)
+
+        errors = []
+        if Modality.TRAINED_BEHAVIOR in value or Modality.BEHAVIOR in value:
             if len(info.data["stimulus_devices"]) == 0:
-                errors.append("stimulus_devices field must be utilized for Trained Behavior modality")
+                errors.append("stimulus_devices field must be utilized for Behavior modality")        
+
         return errors
 
     @field_validator("modalities", mode="after")
@@ -215,10 +220,10 @@ class Rig(AindCoreModel):
         pophys_errors = cls._validate_pophys_modality(value, info)
         slap_errors = cls._validate_slap_modality(value, info)
         behavior_vids_errors = cls._validate_behavior_videos_modality(value, info)
-        trained_behavior_errors = cls._validate_trained_behavior_modality(value, info)
+        behavior_errors = cls._validate_behavior_modality(value, info)
 
         errors = (
-            ephys_errors + fib_errors + pophys_errors + slap_errors + behavior_vids_errors + trained_behavior_errors
+            ephys_errors + fib_errors + pophys_errors + slap_errors + behavior_vids_errors + behavior_errors
         )
         if len(errors) > 0:
             message = "\n     ".join(errors)

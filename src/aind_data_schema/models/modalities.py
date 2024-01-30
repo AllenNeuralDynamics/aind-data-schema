@@ -126,6 +126,7 @@ class TrainedBehavior(_Modality):
 class Modality:
     """Modality classes"""
 
+    BEHAVIOR = Behavior()
     BEHAVIOR_VIDEOS = BehaviorVideos()
     CONFOCAL = Confocal()
     ECEPHYS = Ecephys()

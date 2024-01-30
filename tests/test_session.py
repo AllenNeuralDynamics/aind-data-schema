@@ -83,7 +83,7 @@ class ExampleTest(unittest.TestCase):
                     Modality.FIB,
                     Modality.BEHAVIOR_VIDEOS,
                     Modality.POPHYS,
-                    Modality.TRAINED_BEHAVIOR,
+                    Modality.BEHAVIOR,
                 ],
             )
 
@@ -94,7 +94,7 @@ class ExampleTest(unittest.TestCase):
         )
         self.assertTrue("camera_names field must be utilized for Behavior Videos modality" in repr(e.exception))
         self.assertTrue(
-            "stimulus_device_names field must be utilized for Trained Behavior modality" in repr(e.exception)
+            "stimulus_device_names field must be utilized for Behavior modality" in repr(e.exception)
         )
 
 
