@@ -10,7 +10,7 @@ from pydantic import __version__ as pyd_version
 from aind_data_schema.core.metadata import Metadata, MetadataStatus
 from aind_data_schema.core.procedures import Procedures
 from aind_data_schema.core.subject import BreedingInfo, Sex, Species, Subject
-from aind_data_schema.models.institutions import Institution
+from aind_data_schema.models.organizations import Organization
 
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
 
@@ -26,7 +26,7 @@ class TestMetadata(unittest.TestCase):
             subject_id="123345",
             sex=Sex.MALE,
             date_of_birth="2020-10-10",
-            source=Institution.AI,
+            source=Organization.AI,
             breeding_info=BreedingInfo(
                 breeding_group="Emx1-IRES-Cre(ND)",
                 maternal_id="546543",
@@ -82,7 +82,7 @@ class TestMetadata(unittest.TestCase):
             subject_id="123345",
             sex=Sex.MALE,
             date_of_birth="2020-10-10",
-            source=Institution.AI,
+            source=Organization.AI,
             breeding_info=BreedingInfo(
                 breeding_group="Emx1-IRES-Cre(ND)",
                 maternal_id="546543",
