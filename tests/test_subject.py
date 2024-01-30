@@ -6,7 +6,7 @@ import unittest
 import pydantic
 
 from aind_data_schema.core.subject import BreedingInfo, Housing, LightCycle, Subject
-from aind_data_schema.models.institutions import Institution
+from aind_data_schema.models.organizations import Organization
 from aind_data_schema.models.species import Species
 
 from aind_data_schema.models.pid_names import PIDName
@@ -30,7 +30,7 @@ class SubjectTests(unittest.TestCase):
             sex="Male",
             date_of_birth=now.date(),
             genotype="wt",
-            source=Institution.AI,
+            source=Organization.AI,
             housing=Housing(
                 light_cycle=LightCycle(
                     lights_on_time=now.time(),
@@ -65,7 +65,7 @@ class SubjectTests(unittest.TestCase):
                 sex="Male",
                 date_of_birth=now.date(),
                 genotype="wt",
-                source=Institution.AI,
+                source=Organization.AI,
                 housing=Housing(
                     light_cycle=LightCycle(
                         lights_on_time=now.time(),
@@ -82,7 +82,7 @@ class SubjectTests(unittest.TestCase):
                 subject_id="1234",
                 sex="Male",
                 date_of_birth=now.date(),
-                source=Institution.AI,
+                source=Organization.AI,
                 housing=Housing(
                     light_cycle=LightCycle(
                         lights_on_time=now.time(),
