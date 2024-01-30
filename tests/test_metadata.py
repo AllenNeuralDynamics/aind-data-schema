@@ -1,14 +1,18 @@
 """Tests metadata module"""
 
 import json
+import re
 import unittest
 
 from pydantic import ValidationError
+from pydantic import __version__ as pyd_version
 
 from aind_data_schema.core.metadata import Metadata, MetadataStatus
 from aind_data_schema.core.procedures import Procedures
 from aind_data_schema.core.subject import BreedingInfo, Sex, Species, Subject
 from aind_data_schema.models.institutions import Institution
+
+PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
 
 
 class TestMetadata(unittest.TestCase):
@@ -57,10 +61,10 @@ class TestMetadata(unittest.TestCase):
             "2 validation errors for Metadata\n"
             "name\n"
             "  Field required [type=missing, input_value={}, input_type=dict]\n"
-            "    For further information visit https://errors.pydantic.dev/2.5/v/missing\n"
+            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/missing\n"
             "location\n"
             "  Field required [type=missing, input_value={}, input_type=dict]\n"
-            "    For further information visit https://errors.pydantic.dev/2.5/v/missing"
+            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/missing"
         )
         self.assertEqual(expected_exception_message, str(e.exception))
 
