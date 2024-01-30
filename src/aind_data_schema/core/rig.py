@@ -1,6 +1,5 @@
 """Core Rig model"""
 
-import warnings
 from datetime import date
 from typing import List, Literal, Optional, Set, Union
 
@@ -201,12 +200,8 @@ class Rig(AindCoreModel):
 
     @staticmethod
     def _validate_behavior_modality(value: Set[Modality.ONE_OF], info: ValidationInfo) -> List[str]:
-        """Validate BEHAVIOR has stimulus devices"""
-        if Modality.TRAINED_BEHAVIOR in value:
-            warnings.warn("TrainedBehavior modality is deprecated. Use Behavior modality instead.", DeprecationWarning)
-
         errors = []
-        if Modality.TRAINED_BEHAVIOR in value or Modality.BEHAVIOR in value:
+        if Modality.BEHAVIOR in value:
             if len(info.data["stimulus_devices"]) == 0:
                 errors.append("stimulus_devices field must be utilized for Behavior modality")
 

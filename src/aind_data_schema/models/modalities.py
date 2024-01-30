@@ -116,13 +116,6 @@ class Spim(_Modality):
     abbreviation: Literal["SPIM"] = "SPIM"
 
 
-class TrainedBehavior(_Modality):
-    """TrainedBehavior: this is deprecated in favor of the 'behavior' modality"""
-
-    name: Literal["Trained behavior"] = "Trained behavior"
-    abbreviation: Literal["trained-behavior"] = "trained-behavior"
-
-
 class Modality:
     """Modality classes"""
 
@@ -140,7 +133,6 @@ class Modality:
     POPHYS = POphys()
     SLAP = Slap()
     SPIM = Spim()
-    TRAINED_BEHAVIOR = TrainedBehavior()
     _ALL = tuple(_Modality.__subclasses__())
     ONE_OF = Annotated[Union[_ALL], Field(discriminator="name")]
 

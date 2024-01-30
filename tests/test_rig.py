@@ -1,7 +1,6 @@
 """ test Rig """
 
 import unittest
-import warnings
 from datetime import date, datetime
 
 from pydantic import ValidationError
@@ -325,38 +324,6 @@ class RigTests(unittest.TestCase):
                 modalities=[Modality.ECEPHYS, Modality.FIB],
                 daqs=daqs,
             )
-
-    def test_deprecations(self):
-        """Test the rig model deprecations"""
-
-        with warnings.catch_warnings(record=True) as w:
-            warnings.simplefilter("always")
-
-            Rig(
-                rig_id="1234",
-                modification_date=date(2020, 10, 10),
-                mouse_platform=Disc(name="Disc A", radius=1),
-                calibrations=[],
-                modalities=[
-                    Modality.TRAINED_BEHAVIOR,
-                ],
-                stimulus_devices=[
-                    Olfactometer(
-                        name="Olfactometer",
-                        manufacturer=Organization.CHAMPALIMAUD,
-                        model="1234",
-                        serial_number="213456",
-                        hardware_version="1",
-                        is_clock_generator=False,
-                        computer_name="W10XXX000",
-                        channels=[],
-                    )
-                ],
-            )
-
-            self.assertEqual(len(w), 1)
-            self.assertTrue(issubclass(w[-1].category, DeprecationWarning))
-            self.assertIn("deprecated", str(w[-1].message))
 
 
 if __name__ == "__main__":

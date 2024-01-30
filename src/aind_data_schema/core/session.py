@@ -1,6 +1,5 @@
 """ Schemas for Physiology and/or Behavior Sessions """
 
-import warnings
 from datetime import datetime
 from decimal import Decimal
 from enum import Enum
@@ -303,13 +302,7 @@ class Stream(AindModel):
 
     @staticmethod
     def _validate_behavior_modality(value: List[Modality.ONE_OF], info: ValidationInfo) -> Optional[str]:
-        """Validate BEHAVIOR has stimulus devices"""
-        if Modality.TRAINED_BEHAVIOR in value:
-            warnings.warn("TrainedBehavior modality is deprecated. Use Behavior modality instead.", DeprecationWarning)
-
-        if (Modality.BEHAVIOR in value or Modality.TRAINED_BEHAVIOR in value) and len(
-            info.data["stimulus_device_names"]
-        ) == 0:
+        if Modality.BEHAVIOR in value and len(info.data["stimulus_device_names"]) == 0:
             return "stimulus_device_names field must be utilized for Behavior modality"
         else:
             return None
