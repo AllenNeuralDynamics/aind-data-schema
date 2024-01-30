@@ -14,6 +14,13 @@ class _Modality(BaseName):
     model_config = ConfigDict(frozen=True)
 
 
+class Behavior(_Modality):
+    """Behavior"""
+
+    name: Literal["Behavior"] = "Behavior"
+    abbreviation: Literal["behavior"] = "behavior"
+
+
 class BehaviorVideos(_Modality):
     """BehaviorVideos"""
 
@@ -109,16 +116,10 @@ class Spim(_Modality):
     abbreviation: Literal["SPIM"] = "SPIM"
 
 
-class TrainedBehavior(_Modality):
-    """TrainedBehavior"""
-
-    name: Literal["Trained behavior"] = "Trained behavior"
-    abbreviation: Literal["trained-behavior"] = "trained-behavior"
-
-
 class Modality:
     """Modality classes"""
 
+    BEHAVIOR = Behavior()
     BEHAVIOR_VIDEOS = BehaviorVideos()
     CONFOCAL = Confocal()
     ECEPHYS = Ecephys()
@@ -132,7 +133,6 @@ class Modality:
     POPHYS = POphys()
     SLAP = Slap()
     SPIM = Spim()
-    TRAINED_BEHAVIOR = TrainedBehavior()
     _ALL = tuple(_Modality.__subclasses__())
     ONE_OF = Annotated[Union[_ALL], Field(discriminator="name")]
 

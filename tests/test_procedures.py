@@ -1,8 +1,10 @@
 """ test Procedures """
+import re
 import unittest
 from datetime import date
 
 from pydantic import ValidationError
+from pydantic import __version__ as pyd_version
 
 from aind_data_schema.core.procedures import (
     FiberImplant,
@@ -18,7 +20,9 @@ from aind_data_schema.core.procedures import (
     ViralMaterial,
 )
 from aind_data_schema.models.devices import FiberProbe
-from aind_data_schema.models.manufacturers import Manufacturer
+from aind_data_schema.models.organizations import Organization
+
+PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
 
 
 class ProceduresTests(unittest.TestCase):
@@ -132,7 +136,7 @@ class ProceduresTests(unittest.TestCase):
                                     ophys_probe=FiberProbe(
                                         device_type="Fiber optic probe",
                                         name="Probe A",
-                                        manufacturer=Manufacturer.DORIC,
+                                        manufacturer=Organization.DORIC,
                                         model="8",
                                         core_diameter=2,
                                         numerical_aperture=1,
@@ -178,7 +182,7 @@ class ProceduresTests(unittest.TestCase):
             "  Assertion failed, notes cannot be empty if procedure_type is Other."
             " Describe the procedure in the notes field. [type=assertion_error, "
             "input_value={'specimen_id': '1000', '...nts': [], 'notes': None}, input_type=dict]\n"
-            "    For further information visit https://errors.pydantic.dev/2.5/v/assertion_error"
+            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/assertion_error"
         )
         self.assertEqual(expected_exception, repr(e.exception))
 
@@ -198,7 +202,7 @@ class ProceduresTests(unittest.TestCase):
             "  Assertion failed, immunolabeling cannot be empty if procedure_type is Immunolabeling."
             " [type=assertion_error, input_value={'specimen_id': '1000', '...nts': [], 'notes': None},"
             " input_type=dict]\n"
-            "    For further information visit https://errors.pydantic.dev/2.5/v/assertion_error"
+            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/assertion_error"
         )
         self.assertEqual(expected_exception, repr(e.exception))
 
@@ -218,7 +222,7 @@ class ProceduresTests(unittest.TestCase):
             "  Assertion failed, hcr_series cannot be empty if procedure_type is HCR."
             " [type=assertion_error, input_value={'specimen_id': '1000', '...nts': [],"
             " 'notes': None}, input_type=dict]\n"
-            "    For further information visit https://errors.pydantic.dev/2.5/v/assertion_error"
+            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/assertion_error"
         )
 
         self.assertEqual(expected_exception, repr(e.exception))

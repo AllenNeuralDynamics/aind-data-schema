@@ -1,0 +1,227 @@
+{
+   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/procedures.py",
+   "schema_version": "0.11.5",
+   "subject_id": "625100",
+   "subject_procedures": [
+      {
+         "procedure_type": "Surgery",
+         "start_date": "2022-07-12",
+         "experimenter_full_name": "John Apple",
+         "iacuc_protocol": "2109",
+         "animal_weight_prior": "22.6",
+         "animal_weight_post": "22.3",
+         "weight_unit": "gram",
+         "anaesthesia": {
+            "type": "Isoflurane",
+            "duration": "180",
+            "duration_unit": "minute",
+            "level": "1.5"
+         },
+         "workstation_id": "SWS 3",
+         "procedures": [
+            {
+               "procedure_type": "Headframe",
+               "protocol_id": "2109",
+               "headframe_type": "AI straight",
+               "headframe_part_number": "TO ENTER",
+               "headframe_material": "Titanium",
+               "well_part_number": null,
+               "well_type": null
+            },
+            {
+               "injection_materials": [
+                  {
+                     "material_type": "Virus",
+                     "name": "AAV2/1-Syn-Flex-ChrimsonR-tdT",
+                     "tars_identifiers": null,
+                     "addgene_id": {
+                        "name": "62723-AAV5",
+                        "abbreviation": null,
+                        "registry": {
+                           "name": "Addgene",
+                           "abbreviation": "ADDGENE"
+                        },
+                        "registry_identifier": "v122159"
+                     },
+                     "titer": 20000000000000,
+                     "titer_unit": "gc/mL"
+                  }
+               ],
+               "recovery_time": "0",
+               "recovery_time_unit": "minute",
+               "injection_duration": null,
+               "injection_duration_unit": "minute",
+               "instrument_id": null,
+               "protocol_id": "5678",
+               "injection_coordinate_ml": "-0.6",
+               "injection_coordinate_ap": "-3.05",
+               "injection_coordinate_depth": [
+                  "-4.2"
+               ],
+               "injection_coordinate_unit": "millimeter",
+               "injection_coordinate_reference": "Bregma",
+               "bregma_to_lambda_distance": null,
+               "bregma_to_lambda_unit": "millimeter",
+               "injection_angle": "0",
+               "injection_angle_unit": "degrees",
+               "targeted_structure": "VTA",
+               "injection_hemisphere": "Left",
+               "procedure_type": "Nanoject injection",
+               "injection_volume": [
+                  "400"
+               ],
+               "injection_volume_unit": "nanoliter"
+            },
+            {
+               "procedure_type": "Fiber implant",
+               "protocol_id": "TO ENTER",
+               "probes": [
+                  {
+                     "ophys_probe": {
+                        "device_type": "Fiber optic probe",
+                        "name": "Probe A",
+                        "serial_number": null,
+                        "manufacturer": null,
+                        "model": null,
+                        "path_to_cad": null,
+                        "port_index": null,
+                        "additional_settings": {},
+                        "notes": null,
+                        "core_diameter": "200",
+                        "core_diameter_unit": "um",
+                        "numerical_aperture": "0.37",
+                        "ferrule_material": "Ceramic",
+                        "active_length": null,
+                        "total_length": "0.5",
+                        "length_unit": "millimeter"
+                     },
+                     "targeted_structure": "VTA",
+                     "stereotactic_coordinate_ap": "-3.05",
+                     "stereotactic_coordinate_ml": "-0.6",
+                     "stereotactic_coordinate_dv": "-4",
+                     "stereotactic_coordinate_unit": "millimeter",
+                     "stereotactic_coordinate_reference": "Bregma",
+                     "bregma_to_lambda_distance": null,
+                     "bregma_to_lambda_unit": "millimeter",
+                     "angle": "0",
+                     "angle_unit": "degrees",
+                     "notes": null
+                  }
+               ]
+            }
+         ],
+         "notes": null
+      },
+      {
+         "procedure_type": "Water restriction",
+         "protocol_id": null,
+         "baseline_weight": "20.4",
+         "weight_unit": "gram",
+         "start_date": "2023-05-15",
+         "end_date": "2023-05-23"
+      },
+      {
+         "procedure_type": "Surgery",
+         "start_date": "2023-05-31",
+         "experimenter_full_name": "John Apple",
+         "iacuc_protocol": "2109",
+         "animal_weight_prior": null,
+         "animal_weight_post": null,
+         "weight_unit": "gram",
+         "anaesthesia": {
+            "type": "Isoflurane",
+            "duration": "30",
+            "duration_unit": "minute",
+            "level": "3"
+         },
+         "workstation_id": "SWS 3",
+         "procedures": [
+            {
+               "procedure_type": "Perfusion",
+               "protocol_id": "dx.doi.org/10.17504/protocols.io.bg5vjy66",
+               "output_specimen_ids": [
+                  "672640"
+               ]
+            }
+         ],
+         "notes": null
+      }
+   ],
+   "specimen_procedures": [
+      {
+         "procedure_type": "Immunolabeling",
+         "procedure_name": null,
+         "specimen_id": "672640",
+         "start_date": "2023-06-09",
+         "end_date": "2023-06-12",
+         "experimenter_full_name": "John Apple",
+         "protocol_id": "TO ENTER",
+         "reagents": [],
+         "hcr_series": null,
+         "immunolabeling": {
+            "procedure_type": "Immunolabeling",
+            "antibody": {
+               "name": "Chicken polyclonal",
+               "source": "Abcam",
+               "rrid": {
+                  "name": "Chicken polyclonal to GFP",
+                  "abbreviation": null,
+                  "registry": {
+                     "name": "Research Resource Identifiers",
+                     "abbreviation": "RRID"
+                  },
+                  "registry_identifier": "ab13970"
+               },
+               "lot_number": "GR3361051-16",
+               "expiration_date": null,
+               "immunolabel_class": "Primary",
+               "fluorophore": null,
+               "degree_of_labeling": null,
+               "degree_of_labeling_unit": "Fluorophore per antibody",
+               "conjugation_protocol": null
+            },
+            "concentration": "10",
+            "concentration_unit": "ug/ml"
+         },
+         "notes": "Primary dilution factor 1:1000 ---final concentration is 10ug/ml"
+      },
+      {
+         "procedure_type": "Immunolabeling",
+         "procedure_name": null,
+         "specimen_id": "672640",
+         "start_date": "2023-06-12",
+         "end_date": "2023-06-13",
+         "experimenter_full_name": "John Apple",
+         "protocol_id": "TO ENTER",
+         "reagents": [],
+         "hcr_series": null,
+         "immunolabeling": {
+            "procedure_type": "Immunolabeling",
+            "antibody": {
+               "name": "Alexa Fluor 488 goat anti-chicken IgY (H+L)",
+               "source": "Invitrogen",
+               "rrid": {
+                  "name": "Alexa Fluor 488 goat anti-chicken IgY (H+L)",
+                  "abbreviation": null,
+                  "registry": {
+                     "name": "Research Resource Identifiers",
+                     "abbreviation": "RRID"
+                  },
+                  "registry_identifier": "A11039"
+               },
+               "lot_number": "2420700",
+               "expiration_date": null,
+               "immunolabel_class": "Secondary",
+               "fluorophore": "Alexa Fluor 488",
+               "degree_of_labeling": null,
+               "degree_of_labeling_unit": "Fluorophore per antibody",
+               "conjugation_protocol": null
+            },
+            "concentration": "4",
+            "concentration_unit": "ug/ml"
+         },
+         "notes": "Secondary dilution factor 1:500 - final concentration 4ug/ml"
+      }
+   ],
+   "notes": null
+}

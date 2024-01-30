@@ -301,10 +301,10 @@ class Stream(AindModel):
             return None
 
     @staticmethod
-    def _validate_trained_behavior_modality(value: List[Modality.ONE_OF], info: ValidationInfo) -> Optional[str]:
-        """Validate TRAINED_BEHAVIOR has stimulus devices"""
-        if Modality.TRAINED_BEHAVIOR in value and len(info.data["stimulus_device_names"]) == 0:
-            return "stimulus_device_names field must be utilized for Trained Behavior modality"
+    def _validate_behavior_modality(value: List[Modality.ONE_OF], info: ValidationInfo) -> Optional[str]:
+        """Validate that BEHAVIOR modality has stimulus_device_names"""
+        if Modality.BEHAVIOR in value and len(info.data["stimulus_device_names"]) == 0:
+            return "stimulus_device_names field must be utilized for Behavior modality"
         else:
             return None
 
@@ -316,7 +316,7 @@ class Stream(AindModel):
         fib_errors = cls._validate_fib_modality(value, info)
         pophys_errors = cls._validate_pophys_modality(value, info)
         behavior_vids_errors = cls._validate_behavior_videos_modality(value, info)
-        trained_behavior_errors = cls._validate_trained_behavior_modality(value, info)
+        behavior_errors = cls._validate_behavior_modality(value, info)
 
         if ephys_errors is not None:
             errors.append(ephys_errors)
@@ -326,8 +326,8 @@ class Stream(AindModel):
             errors.append(pophys_errors)
         if behavior_vids_errors is not None:
             errors.append(behavior_vids_errors)
-        if trained_behavior_errors is not None:
-            errors.append(trained_behavior_errors)
+        if behavior_errors is not None:
+            errors.append(behavior_errors)
         if len(errors) > 0:
             message = "\n     ".join(errors)
             raise ValueError(message)
@@ -339,8 +339,8 @@ class Session(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/session.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["0.1.2"] = Field("0.1.2")
-
+    schema_version: Literal["0.1.4"] = Field("0.1.4")
+    protocol_id: List[str] = Field([], title="Protocol ID", description="DOI for protocols.io")
     experimenter_full_name: List[str] = Field(
         ...,
         description="First and last name of the experimenter(s).",

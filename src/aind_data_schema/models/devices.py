@@ -11,7 +11,7 @@ from typing_extensions import Annotated
 from aind_data_schema.base import AindModel
 from aind_data_schema.models.coordinates import RelativePosition, Size3d
 from aind_data_schema.models.harp_types import HarpDeviceType
-from aind_data_schema.models.manufacturers import InteruniversityMicroelectronicsCenter, Manufacturer
+from aind_data_schema.models.organizations import Organization
 from aind_data_schema.models.reagent import Reagent
 from aind_data_schema.models.units import FrequencyUnit, PowerUnit, SizeUnit, SpeedUnit, TemperatureUnit, UnitlessUnit
 
@@ -246,7 +246,7 @@ class Device(AindModel):
     device_type: str = Field(..., title="Device type")  # Needs to be set by child classes that inherits
     name: str = Field(..., title="Device name")
     serial_number: Optional[str] = Field(None, title="Serial number")
-    manufacturer: Optional[Manufacturer.ONE_OF] = Field(None, title="Manufacturer")
+    manufacturer: Optional[Organization.ONE_OF] = Field(None, title="Manufacturer")
     model: Optional[str] = Field(None, title="Model")
     path_to_cad: Optional[str] = Field(None, title="Path to CAD diagram", description="For CUSTOM manufactured devices")
     port_index: Optional[str] = Field(None, title="Port index")
@@ -290,7 +290,7 @@ class Detector(Device):
 
     device_type: Literal["Detector"] = "Detector"
     detector_type: DetectorType = Field(..., title="Detector Type")
-    manufacturer: Manufacturer.DETECTOR_MANUFACTURERS
+    manufacturer: Organization.DETECTOR_MANUFACTURERS
     data_interface: DataInterface = Field(..., title="Data interface")
     cooling: Cooling = Field(None, title="Cooling")
     computer_name: Optional[str] = Field(None, title="Name of computer receiving data from this camera")
@@ -327,7 +327,7 @@ class Filter(Device):
     device_type: Literal["Filter"] = "Filter"
     # required fields
     filter_type: FilterType = Field(..., title="Type of filter")
-    manufacturer: Manufacturer.FILTER_MANUFACTURERS
+    manufacturer: Organization.FILTER_MANUFACTURERS
 
     # optional fields
     diameter: Optional[Decimal] = Field(None, title="Diameter (mm)")
@@ -354,7 +354,7 @@ class Lens(Device):
     device_type: Literal["Lens"] = "Lens"
 
     # required fields
-    manufacturer: Manufacturer.LENS_MANUFACTURERS
+    manufacturer: Organization.LENS_MANUFACTURERS
 
     # optional fields
     focal_length: Optional[Decimal] = Field(None, title="Focal length of the lens (mm)")
@@ -425,7 +425,7 @@ class DAQDevice(Device):
     # required fields
     device_type: Literal["DAQ Device"] = "DAQ Device"
     data_interface: DataInterface = Field(..., title="Type of connection to PC")
-    manufacturer: Manufacturer.DAQ_DEVICE_MANUFACTURERS
+    manufacturer: Organization.DAQ_DEVICE_MANUFACTURERS
     computer_name: str = Field(..., title="Name of computer controlling this DAQ")
 
     # optional fields
@@ -439,7 +439,7 @@ class HarpDevice(DAQDevice):
 
     # required fields
     device_type: Literal["Harp device"] = "Harp device"
-    manufacturer: Manufacturer.DAQ_DEVICE_MANUFACTURERS = Field(default=Manufacturer.OEPS)
+    manufacturer: Organization.DAQ_DEVICE_MANUFACTURERS = Field(default=Organization.OEPS)
     harp_device_type: HarpDeviceType.ONE_OF = Field(..., title="Type of Harp device")
     core_version: Optional[str] = Field(None, title="Core version")
     tag_version: Optional[str] = Field(None, title="Tag version")
@@ -452,7 +452,7 @@ class Laser(Device):
 
     # required fields
     device_type: Literal["Laser"] = "Laser"
-    manufacturer: Manufacturer.LASER_MANUFACTURERS
+    manufacturer: Organization.LASER_MANUFACTURERS
     wavelength: int = Field(..., title="Wavelength (nm)")
     wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
 
@@ -474,7 +474,7 @@ class LightEmittingDiode(Device):
     """Description of a Light Emitting Diode (LED) device"""
 
     device_type: Literal["Light emitting diode"] = "Light emitting diode"
-    manufacturer: Manufacturer.LED_MANUFACTURERS
+    manufacturer: Organization.LED_MANUFACTURERS
     wavelength: int = Field(..., title="Wavelength (nm)")
     wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
 
@@ -509,9 +509,7 @@ class NeuropixelsBasestation(DAQDevice):
 
     # fixed values
     data_interface: Literal[DataInterface.PXI] = DataInterface.PXI
-    manufacturer: Annotated[
-        Union[InteruniversityMicroelectronicsCenter], Field(default=Manufacturer.IMEC, discriminator="name")
-    ]
+    manufacturer: Literal[Organization.IMEC] = Organization.IMEC
 
 
 class OpenEphysAcquisitionBoard(DAQDevice):
@@ -523,14 +521,14 @@ class OpenEphysAcquisitionBoard(DAQDevice):
 
     # fixed values
     data_interface: Literal[DataInterface.USB] = DataInterface.USB
-    manufacturer: Manufacturer.DAQ_DEVICE_MANUFACTURERS = Field(default=Manufacturer.OEPS)
+    manufacturer: Organization.DAQ_DEVICE_MANUFACTURERS = Field(default=Organization.OEPS)
 
 
 class Manipulator(Device):
     """Manipulator used on a dome module"""
 
     device_type: Literal["Manipulator"] = "Manipulator"
-    manufacturer: Manufacturer.MANIPULATOR_MANUFACTURERS
+    manufacturer: Organization.MANIPULATOR_MANUFACTURERS
 
 
 class StickMicroscopeAssembly(AindModel):
@@ -718,7 +716,7 @@ class Monitor(Device):
     """Description of visual display for visual stimuli"""
 
     device_type: Literal["Monitor"] = "Monitor"
-    manufacturer: Manufacturer.MONITOR_MANUFACTURERS
+    manufacturer: Organization.MONITOR_MANUFACTURERS
     refresh_rate: int = Field(..., title="Refresh rate (Hz)", ge=60)
     width: int = Field(..., title="Width (pixels)")
     height: int = Field(..., title="Height (pixels)")
@@ -766,7 +764,7 @@ class Speaker(Device):
     """Description of a speaker for auditory stimuli"""
 
     device_type: Literal["Speaker"] = "Speaker"
-    manufacturer: Manufacturer.SPEAKER_MANUFACTURERS
+    manufacturer: Organization.SPEAKER_MANUFACTURERS
     position: Optional[RelativePosition] = Field(None, title="Relative position of the monitor")
 
 
@@ -790,7 +788,7 @@ class Olfactometer(HarpDevice):
     """Description of an olfactometer for odor stimuli"""
 
     device_type: Literal["Olfactometer"] = "Olfactometer"
-    manufacturer: Manufacturer.DAQ_DEVICE_MANUFACTURERS = Field(default=Manufacturer.CHAMPALIMAUD)
+    manufacturer: Organization.DAQ_DEVICE_MANUFACTURERS = Field(default=Organization.CHAMPALIMAUD)
     harp_device_type: Literal[HarpDeviceType.OLFACTOMETER] = HarpDeviceType.OLFACTOMETER
     channels: List[OlfactometerChannel]
 
