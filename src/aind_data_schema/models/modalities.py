@@ -117,7 +117,7 @@ class Spim(_Modality):
 
 
 class TrainedBehavior(_Modality):
-    """TrainedBehavior"""
+    """TrainedBehavior: this is deprecated in favor of the 'behavior' modality"""
 
     name: Literal["Trained behavior"] = "Trained behavior"
     abbreviation: Literal["trained-behavior"] = "trained-behavior"
