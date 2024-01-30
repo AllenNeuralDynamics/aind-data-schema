@@ -189,7 +189,7 @@ class Metadata(AindCoreModel):
             and self.data_description.platform == Ecephys
             and not (self.subject and self.procedures and self.session and self.rig and self.processing)
         ):
-            raise ValueError("Missing some metadata")
+            raise ValueError("Missing some metadata.")
         if self.procedures and getattr(self.procedures, "injection_materials", None) is None:
             raise ValueError("Procedures is missing injection materials.")
         return self
