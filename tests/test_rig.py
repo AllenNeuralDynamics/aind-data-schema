@@ -27,8 +27,8 @@ from aind_data_schema.models.devices import (
     Patch,
     StickMicroscopeAssembly,
 )
-from aind_data_schema.models.organizations import Organization
 from aind_data_schema.models.modalities import Modality
+from aind_data_schema.models.organizations import Organization
 
 
 class RigTests(unittest.TestCase):
@@ -234,7 +234,7 @@ class RigTests(unittest.TestCase):
                     Modality.FIB,
                     Modality.BEHAVIOR_VIDEOS,
                     Modality.POPHYS,
-                    Modality.TRAINED_BEHAVIOR,
+                    Modality.BEHAVIOR,
                 ],
                 rig_id="1234",
                 modification_date=date(2020, 10, 10),

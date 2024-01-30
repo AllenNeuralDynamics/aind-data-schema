@@ -49,7 +49,7 @@ class Rig(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/rig.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["0.2.7"] = Field("0.2.7")
+    schema_version: Literal["0.2.8"] = Field("0.2.8")
     rig_id: str = Field(..., description="room_stim apparatus_version", title="Rig ID")
     modification_date: date = Field(..., title="Date of modification")
     mouse_platform: MOUSE_PLATFORMS
@@ -199,12 +199,13 @@ class Rig(AindCoreModel):
         return errors
 
     @staticmethod
-    def _validate_trained_behavior_modality(value: Set[Modality.ONE_OF], info: ValidationInfo) -> List[str]:
-        """Validate TRAINED_BEHAVIOR has stimulus devices"""
+    def _validate_behavior_modality(value: Set[Modality.ONE_OF], info: ValidationInfo) -> List[str]:
+        """Validate that BEHAVIOR modality has stimulus_devices"""
         errors = []
-        if Modality.TRAINED_BEHAVIOR in value:
+        if Modality.BEHAVIOR in value:
             if len(info.data["stimulus_devices"]) == 0:
-                errors.append("stimulus_devices field must be utilized for Trained Behavior modality")
+                errors.append("stimulus_devices field must be utilized for Behavior modality")
+
         return errors
 
     @field_validator("modalities", mode="after")
@@ -215,11 +216,9 @@ class Rig(AindCoreModel):
         pophys_errors = cls._validate_pophys_modality(value, info)
         slap_errors = cls._validate_slap_modality(value, info)
         behavior_vids_errors = cls._validate_behavior_videos_modality(value, info)
-        trained_behavior_errors = cls._validate_trained_behavior_modality(value, info)
+        behavior_errors = cls._validate_behavior_modality(value, info)
 
-        errors = (
-            ephys_errors + fib_errors + pophys_errors + slap_errors + behavior_vids_errors + trained_behavior_errors
-        )
+        errors = ephys_errors + fib_errors + pophys_errors + slap_errors + behavior_vids_errors + behavior_errors
         if len(errors) > 0:
             message = "\n     ".join(errors)
             raise ValueError(message)

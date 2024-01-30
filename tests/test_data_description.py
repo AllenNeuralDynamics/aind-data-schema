@@ -20,8 +20,8 @@ from aind_data_schema.core.data_description import (
     RawDataDescription,
     build_data_name,
 )
-from aind_data_schema.models.organizations import Organization
 from aind_data_schema.models.modalities import Modality
+from aind_data_schema.models.organizations import Organization
 from aind_data_schema.models.platforms import Platform
 
 DATA_DESCRIPTION_FILES_PATH = Path(__file__).parent / "resources" / "ephys_data_description"
