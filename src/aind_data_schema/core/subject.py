@@ -106,7 +106,7 @@ class Subject(AindCoreModel):
     alleles: List[PIDName] = Field(default=[], title="Alleles", description="Allele names and persistent IDs")
     background_strain: Optional[BackgroundStrain] = Field(None, title="Background strain")
     breeding_info: Optional[BreedingInfo] = Field(None, title="Breeding Info")
-    source: Organization.ONE_OF = Field(
+    source: Organization.SUBJECT_SOURCES = Field(
         ...,
         description="Where the subject was acquired from. If bred in-house, use Allen Institute.",
         title="Source",
