@@ -327,6 +327,8 @@ class RigTests(unittest.TestCase):
             )
 
     def test_deprecations(self):
+        """Test the rig model deprecations"""
+
         with warnings.catch_warnings(record=True) as w:
             warnings.simplefilter("always")
 

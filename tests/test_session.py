@@ -97,6 +97,8 @@ class ExampleTest(unittest.TestCase):
         self.assertTrue("stimulus_device_names field must be utilized for Behavior modality" in repr(e.exception))
 
     def test_deprecations(self):
+        """test session model deprecations"""
+        
         with warnings.catch_warnings(record=True) as w:
             warnings.simplefilter("always")
 
