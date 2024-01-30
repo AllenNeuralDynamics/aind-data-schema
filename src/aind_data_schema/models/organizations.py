@@ -69,6 +69,13 @@ class Allied(_Organization):
     registry_identifier: Literal[None] = Field(None)
 
 
+class AMSOsram(_Organization):
+    name: Literal["AMS Osram"] = "AMS Osram"
+    abbreviation: Literal[None] = Field(None)
+    registry: Annotated[Union[ResearchOrganizationRegistry], Field(default=Registry.ROR, discriminator="name")]
+    registry_identifier: Literal["045d0h266"] = "045d0h266"
+
+
 class AppliedScientificInstrumentation(_Organization):
     """AppliedScientificInstrumentation"""
 
@@ -172,6 +179,13 @@ class Custom(_Organization):
     """Custom"""
 
     name: Literal["Custom"] = "Custom"
+    abbreviation: Literal[None] = Field(None)
+    registry: Literal[None] = Field(None)
+    registry_identifier: Literal[None] = Field(None)
+
+
+class Dodotronic(_Organization):
+    name: Literal["Dodotronic"] = "Dodotronic"
     abbreviation: Literal[None] = Field(None)
     registry: Literal[None] = Field(None)
     registry_identifier: Literal[None] = Field(None)
