@@ -17,7 +17,7 @@ r = r.Rig(
                 name="ELP Camera USB 1080P Infrared Webcam 1",
                 detector_type="Camera",
                 serial_number="TBD",
-                manufacturer=d.Manufacturer.AILIPU,
+                manufacturer=d.Organization.AILIPU,
                 model="ELP-USBFHD05MT-KL170IR",
                 notes="The light intensity sensor was removed; IR illumination is constantly on",
                 data_interface="USB",
@@ -34,7 +34,7 @@ r = r.Rig(
                 name="Xenocam 1",
                 model="XC0922LENS",
                 serial_number="unknown",
-                manufacturer=d.Manufacturer.OTHER,
+                manufacturer=d.Organization.OTHER,
                 max_aperture="f/1.4",
                 notes='Focal Length 9-22mm 1/3" IR F1.4',
             ),
@@ -46,7 +46,7 @@ r = r.Rig(
                 name="ELP Camera USB 1080P Infrared Webcam 2",
                 detector_type="Camera",
                 serial_number="TBD",
-                manufacturer=d.Manufacturer.AILIPU,
+                manufacturer=d.Organization.AILIPU,
                 model="ELP-USBFHD05MT-KL170IR",
                 notes="The light intensity sensor was removed; IR illumination is constantly on",
                 data_interface="USB",
@@ -63,7 +63,7 @@ r = r.Rig(
                 name="Xenocam 2",
                 model="XC0922LENS",
                 serial_number="unknown",
-                manufacturer=d.Manufacturer.OTHER,
+                manufacturer=d.Organization.OTHER,
                 max_aperture="f/1.4",
                 notes='Focal Length 9-22mm 1/3" IR F1.4',
             ),
@@ -72,7 +72,7 @@ r = r.Rig(
     patch_cords=[
         d.Patch(
             name="Bundle Branching Fiber-optic Patch Cord",
-            manufacturer=d.Manufacturer.DORIC,
+            manufacturer=d.Organization.DORIC,
             model="BBP(4)_200/220/900-0.37_Custom_FCM-4xMF1.25",
             core_diameter=200,
             numerical_aperture=0.37,
@@ -81,19 +81,19 @@ r = r.Rig(
     light_sources=[
         d.LightEmittingDiode(
             name="470nm LED",
-            manufacturer=d.Manufacturer.THORLABS,
+            manufacturer=d.Organization.THORLABS,
             model="M470F3",
             wavelength=470,
         ),
         d.LightEmittingDiode(
             name="415nm LED",
-            manufacturer=d.Manufacturer.THORLABS,
+            manufacturer=d.Organization.THORLABS,
             model="M415F3",
             wavelength=415,
         ),
         d.LightEmittingDiode(
             name="565nm LED",
-            manufacturer=d.Manufacturer.THORLABS,
+            manufacturer=d.Organization.THORLABS,
             model="M565F3",
             wavelength=565,
         ),
@@ -102,7 +102,7 @@ r = r.Rig(
         d.Detector(
             name="FLIR CMOS for Green Channel",
             serial_number="21396991",
-            manufacturer=d.Manufacturer.FLIR,
+            manufacturer=d.Organization.FLIR,
             model="BFS-U3-20S40M",
             detector_type="Camera",
             data_interface="USB",
@@ -120,7 +120,7 @@ r = r.Rig(
         d.Detector(
             name="FLIR CMOS for Red Channel",
             serial_number="21396991",
-            manufacturer=d.Manufacturer.FLIR,
+            manufacturer=d.Organization.FLIR,
             model="BFS-U3-20S40M",
             detector_type="Camera",
             data_interface="USB",
@@ -140,7 +140,7 @@ r = r.Rig(
         d.Objective(
             name="Nikon 10x Objective",
             serial_number="128022336",
-            manufacturer=d.Manufacturer.NIKON,
+            manufacturer=d.Organization.NIKON,
             model="CFI Plan Apochromat Lambda D 10x",
             numerical_aperture=0.45,
             magnification=10,
@@ -150,7 +150,7 @@ r = r.Rig(
     filters=[
         d.Filter(
             name="Green emission bandpass filter",
-            manufacturer=d.Manufacturer.SEMROCK,
+            manufacturer=d.Organization.SEMROCK,
             model="FF01-520/35-25",
             filter_type="Band pass",
             center_wavelength=520,
@@ -158,7 +158,7 @@ r = r.Rig(
         ),
         d.Filter(
             name="Red emission bandpass filter",
-            manufacturer=d.Manufacturer.SEMROCK,
+            manufacturer=d.Organization.SEMROCK,
             model="FF01-600/37-25",
             filter_type="Band pass",
             center_wavelength=600,
@@ -167,7 +167,7 @@ r = r.Rig(
         d.Filter(
             name="Emission Dichroic",
             model="FF562-Di03-25x36",
-            manufacturer=d.Manufacturer.SEMROCK,
+            manufacturer=d.Organization.SEMROCK,
             filter_type="Dichroic",
             height=25,
             width=36,
@@ -176,7 +176,7 @@ r = r.Rig(
         d.Filter(
             name="dual-edge standard epi-fluorescence dichroic beamsplitter",
             model="FF493/574-Di01-25x36",
-            manufacturer=d.Manufacturer.SEMROCK,
+            manufacturer=d.Organization.SEMROCK,
             notes="493/574 nm BrightLine dual-edge standard epi-fluorescence dichroic beamsplitter",
             filter_type="Multiband",
             width=36,
@@ -184,7 +184,7 @@ r = r.Rig(
         ),
         d.Filter(
             name="Excitation filter 410nm",
-            manufacturer=d.Manufacturer.THORLABS,
+            manufacturer=d.Organization.THORLABS,
             model="FB410-10",
             filter_type="Band pass",
             diameter=25,
@@ -192,7 +192,7 @@ r = r.Rig(
         ),
         d.Filter(
             name="Excitation filter 470nm",
-            manufacturer=d.Manufacturer.THORLABS,
+            manufacturer=d.Organization.THORLABS,
             model="FB470-10",
             filter_type="Band pass",
             center_wavelength=470,
@@ -200,7 +200,7 @@ r = r.Rig(
         ),
         d.Filter(
             name="Excitation filter 560nm",
-            manufacturer=d.Manufacturer.THORLABS,
+            manufacturer=d.Organization.THORLABS,
             model="FB560-10",
             filter_type="Band pass",
             diameter=25,
@@ -208,7 +208,7 @@ r = r.Rig(
         ),
         d.Filter(
             name="450nm, 25.2 x 35.6mm, Dichroic Longpass Filter",
-            manufacturer=d.Manufacturer.EDMUND_OPTICS,
+            manufacturer=d.Organization.EDMUND_OPTICS,
             model="#69-898",
             filter_type="Dichroic",
             cut_off_wavelength=450,
@@ -217,7 +217,7 @@ r = r.Rig(
         ),
         d.Filter(
             name="500nm, 25.2 x 35.6mm, Dichroic Longpass Filter",
-            manufacturer=d.Manufacturer.EDMUND_OPTICS,
+            manufacturer=d.Organization.EDMUND_OPTICS,
             model="#69-899",
             filter_type="Dichroic",
             width=35.6,
@@ -226,7 +226,7 @@ r = r.Rig(
     ],
     lenses=[
         d.Lens(
-            manufacturer=d.Manufacturer.THORLABS,
+            manufacturer=d.Organization.THORLABS,
             model="AC254-080-A-ML",
             name="Image focusing lens",
             focal_length=80,
