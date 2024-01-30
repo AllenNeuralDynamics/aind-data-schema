@@ -9,7 +9,7 @@ from pydantic import Field, field_validator
 from pydantic_core.core_schema import ValidationInfo
 
 from aind_data_schema.base import AindCoreModel, AindModel
-from aind_data_schema.models.institutions import Institution
+from aind_data_schema.models.organizations import Organization
 from aind_data_schema.models.pid_names import PIDName
 from aind_data_schema.models.species import Species
 
@@ -106,7 +106,7 @@ class Subject(AindCoreModel):
     alleles: List[PIDName] = Field(default=[], title="Alleles", description="Allele names and persistent IDs")
     background_strain: Optional[BackgroundStrain] = Field(None, title="Background strain")
     breeding_info: Optional[BreedingInfo] = Field(None, title="Breeding Info")
-    source: Institution.ONE_OF = Field(
+    source: Organization.ONE_OF = Field(
         ...,
         description="Where the subject was acquired from. If bred in-house, use Allen Institute.",
         title="Source",
@@ -126,10 +126,10 @@ class Subject(AindCoreModel):
     notes: Optional[str] = Field(None, title="Notes")
 
     @field_validator("source", mode="after")
-    def validate_inhouse_breeding_info(cls, v: Institution.ONE_OF, info: ValidationInfo):
+    def validate_inhouse_breeding_info(cls, v: Organization.ONE_OF, info: ValidationInfo):
         """Validator for inhouse mice breeding info"""
 
-        if v is Institution.AI and info.data.get("breeding_info") is None:
+        if v is Organization.AI and info.data.get("breeding_info") is None:
             raise ValueError("Breeding info should be provided for subjects bred in house")
 
         return v
