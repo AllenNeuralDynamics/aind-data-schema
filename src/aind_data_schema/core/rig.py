@@ -33,7 +33,6 @@ from aind_data_schema.models.devices import (
     PolygonalScanner,
     RewardDelivery,
     Speaker,
-    StickMicroscopeAssembly,
 )
 from aind_data_schema.models.modalities import Modality
 
@@ -58,7 +57,7 @@ class Rig(AindCoreModel):
     enclosure: Optional[Enclosure] = Field(None, title="Enclosure")
     ephys_assemblies: List[EphysAssembly] = Field(default=[], title="Ephys probes")
     fiber_assemblies: List[FiberAssembly] = Field(default=[], title="Inserted fiber optics")
-    stick_microscopes: List[StickMicroscopeAssembly] = Field(default=[], title="Stick microscopes")
+    stick_microscopes: List[CameraAssembly] = Field(default=[], title="Stick microscopes") # should this field name be changed?
     laser_assemblies: List[LaserAssembly] = Field(default=[], title="Laser modules")
     patch_cords: List[Patch] = Field(default=[], title="Patch cords")
     light_sources: List[LIGHT_SOURCES] = Field(default=[], title="Light sources")

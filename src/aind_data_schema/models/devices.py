@@ -179,14 +179,6 @@ class ProbeModel(str, Enum):
     NP2_QUAD_BASE = "Neuropixels 2.0 (Quad Base)"
 
 
-class HeadstageModel(str, Enum):
-    """Headstage model name"""
-
-    RHD_16_CH = "Intan RHD 16-channel"
-    RHD_32_CH = "Intan RHD 32-channel"
-    RHD_64_CH = "Intan RHD 64-channel"
-
-
 class DetectorType(str, Enum):
     """Detector type name"""
 
@@ -529,14 +521,6 @@ class Manipulator(Device):
 
     device_type: Literal["Manipulator"] = "Manipulator"
     manufacturer: Organization.MANIPULATOR_MANUFACTURERS
-
-
-class StickMicroscopeAssembly(AindModel):
-    """Stick microscope used to monitor probes during insertion"""
-
-    scope_assembly_name: str = Field(..., title="Scope assembly name")
-    camera: Camera = Field(..., title="Camera for this module")
-    lens: Lens = Field(..., title="Lens for this module")
 
 
 class LaserAssembly(AindModel):

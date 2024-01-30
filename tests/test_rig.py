@@ -25,7 +25,6 @@ from aind_data_schema.models.devices import (
     Olfactometer,
     OlfactometerChannel,
     Patch,
-    StickMicroscopeAssembly,
 )
 from aind_data_schema.models.organizations import Organization
 from aind_data_schema.models.modalities import Modality
@@ -129,8 +128,8 @@ class RigTests(unittest.TestCase):
                 )
             ],
             stick_microscopes=[
-                StickMicroscopeAssembly(
-                    scope_assembly_name="Assembly A",
+                CameraAssembly(
+                    camera_assembly_name="Assembly A",
                     camera=Camera(
                         name="Camera A",
                         detector_type=DetectorType.CAMERA,
@@ -142,6 +141,7 @@ class RigTests(unittest.TestCase):
                         sensor_height=1,
                         chroma="Color",
                     ),
+                    camera_target="" # NEEDS A VALUE
                     lens=Lens(name="Lens A", manufacturer=Organization.OTHER),
                 )
             ],
