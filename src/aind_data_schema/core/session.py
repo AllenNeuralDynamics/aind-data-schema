@@ -302,6 +302,7 @@ class Stream(AindModel):
 
     @staticmethod
     def _validate_behavior_modality(value: List[Modality.ONE_OF], info: ValidationInfo) -> Optional[str]:
+        """Validate that BEHAVIOR modality has stimulus_device_names"""
         if Modality.BEHAVIOR in value and len(info.data["stimulus_device_names"]) == 0:
             return "stimulus_device_names field must be utilized for Behavior modality"
         else:

@@ -200,6 +200,7 @@ class Rig(AindCoreModel):
 
     @staticmethod
     def _validate_behavior_modality(value: Set[Modality.ONE_OF], info: ValidationInfo) -> List[str]:
+        """Validate that BEHAVIOR modality has stimulus_devices"""
         errors = []
         if Modality.BEHAVIOR in value:
             if len(info.data["stimulus_devices"]) == 0:
