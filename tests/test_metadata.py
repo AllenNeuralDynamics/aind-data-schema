@@ -2,12 +2,16 @@
 
 import json
 import unittest
+from datetime import time
 
 from pydantic import ValidationError
 
+from aind_data_schema.core.data_description import DataDescription
 from aind_data_schema.core.metadata import Metadata, MetadataStatus
 from aind_data_schema.core.procedures import Procedures
+from aind_data_schema.core.rig import Rig
 from aind_data_schema.core.subject import Sex, Species, Subject
+from aind_data_schema.models.modalities import Ecephys
 
 
 class TestMetadata(unittest.TestCase):
@@ -75,7 +79,7 @@ class TestMetadata(unittest.TestCase):
             name="ecephys_655019_2023-04-03_18-17-09",
             location="bucket",
             subject=s2,
-            procedures=Procedures.model_construct(),
+            procedures=Procedures.model_construct(injection_materials=["some materials"]),
         )
         self.assertEqual(MetadataStatus.INVALID, d2.metadata_status)
 
@@ -84,13 +88,36 @@ class TestMetadata(unittest.TestCase):
             name="ecephys_655019_2023-04-03_18-17-09",
             location="bucket",
             subject=json.loads(Subject.model_construct().model_dump_json()),
-            procedures=json.loads(Procedures.model_construct().model_dump_json()),
         )
         self.assertEqual(MetadataStatus.INVALID, d3.metadata_status)
 
     def test_default_file_extension(self):
         """Tests that the default file extension used is as expected."""
         self.assertEqual(".nd.json", Metadata._FILE_EXTENSION.default)
+
+    def test_validate_ecephys_metadata(self):
+        """Tests that ecephys validator works as expected"""
+        with self.assertRaises(ValueError) as context:
+            Metadata(
+                name="ecephys_655019_2023-04-03_18-17-09",
+                location="bucket",
+                data_description=DataDescription.model_construct(
+                    label="some label", platform=Ecephys, creation_time=time(12, 12, 12)
+                ),
+                procedures=Procedures.model_construct(injection_materials=["some materials"]),
+                rig=Rig.model_construct(),
+            )
+        self.assertIn("Missing some metadata", str(context.exception))
+
+        with self.assertRaises(ValueError) as context:
+            Metadata(
+                name="ecephys_655019_2023-04-03_18-17-09",
+                location="bucket",
+                subject=Subject.model_construct(),
+                procedures=Procedures.model_construct(),
+                rig=Rig.model_construct(),
+            )
+        self.assertIn("Procedures is missing injection materials.", str(context.exception))
 
 
 if __name__ == "__main__":

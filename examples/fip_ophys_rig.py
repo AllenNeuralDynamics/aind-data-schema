@@ -1,8 +1,8 @@
 """ example FIP ophys rig """
 import datetime
 
-import aind_data_schema.models.devices as d
 import aind_data_schema.core.rig as r
+import aind_data_schema.models.devices as d
 from aind_data_schema.models.modalities import Modality
 
 r = r.Rig(
