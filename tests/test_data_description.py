@@ -3,11 +3,13 @@
 import datetime
 import json
 import os
+import re
 import unittest
 from pathlib import Path
 from typing import List
 
 from pydantic import ValidationError
+from pydantic import __version__ as pyd_version
 
 from aind_data_schema.core.data_description import (
     AnalysisDescription,
@@ -23,6 +25,7 @@ from aind_data_schema.models.modalities import Modality
 from aind_data_schema.models.platforms import Platform
 
 DATA_DESCRIPTION_FILES_PATH = Path(__file__).parent / "resources" / "ephys_data_description"
+PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
 
 
 class DataDescriptionTest(unittest.TestCase):
@@ -219,7 +222,7 @@ class DataDescriptionTest(unittest.TestCase):
             "project_name\n"
             f"  String should match pattern '{DataRegex.NO_SPECIAL_CHARS.value}'"
             " [type=string_pattern_mismatch, input_value='a_32r&!#R$&#', input_type=str]\n"
-            "    For further information visit https://errors.pydantic.dev/2.5/v/string_pattern_mismatch"
+            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/string_pattern_mismatch"
         )
         self.assertEqual(expected_exception, repr(e.exception))
 
