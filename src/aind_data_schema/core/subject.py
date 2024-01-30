@@ -5,7 +5,8 @@ from datetime import time
 from enum import Enum
 from typing import List, Literal, Optional
 
-from pydantic import Field
+from pydantic import Field, field_validator
+from pydantic_core.core_schema import ValidationInfo
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.models.organizations import Organization
@@ -73,13 +74,22 @@ class Housing(AindModel):
     )
 
 
+class BreedingInfo(AindModel):
+    """Description of breeding info for subject"""
+
+    breeding_group: str = Field(..., title="Breeding Group")
+    maternal_id: str = Field(..., title="Maternal specimen ID")
+    maternal_genotype: str = Field(..., title="Maternal genotype")
+    paternal_id: str = Field(..., title="Paternal specimen ID")
+    paternal_genotype: str = Field(..., title="Paternal genotype")
+
+
 class Subject(AindCoreModel):
     """Description of a subject of data collection"""
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/subject.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["0.5.4"] = Field("0.5.4")
-    species: Species.ONE_OF = Field(..., title="Species")
+    schema_version: Literal["0.5.5"] = Field("0.5.5")
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
@@ -92,11 +102,13 @@ class Subject(AindCoreModel):
         description="Genotype of the animal providing both alleles",
         title="Genotype",
     )
+    species: Species.ONE_OF = Field(..., title="Species")
     alleles: List[PIDName] = Field(default=[], title="Alleles", description="Allele names and persistent IDs")
     background_strain: Optional[BackgroundStrain] = Field(None, title="Background strain")
-    source: Optional[Organization.SUBJECT_SOURCES] = Field(
-        None,
-        description="If the subject was not bred in house, where was it acquired from.",
+    breeding_info: Optional[BreedingInfo] = Field(None, title="Breeding Info")
+    source: Organization.SUBJECT_SOURCES = Field(
+        ...,
+        description="Where the subject was acquired from. If bred in-house, use Allen Institute.",
         title="Source",
     )
     rrid: Optional[PIDName] = Field(
@@ -109,11 +121,24 @@ class Subject(AindCoreModel):
         description="Any restrictions on use or publishing based on subject source",
         title="Restrictions",
     )
-    breeding_group: Optional[str] = Field(None, title="Breeding Group")
-    maternal_id: Optional[str] = Field(None, title="Maternal specimen ID")
-    maternal_genotype: Optional[str] = Field(None, title="Maternal genotype")
-    paternal_id: Optional[str] = Field(None, title="Paternal specimen ID")
-    paternal_genotype: Optional[str] = Field(None, title="Paternal genotype")
     wellness_reports: List[WellnessReport] = Field(default=[], title="Wellness Report")
     housing: Optional[Housing] = Field(None, title="Housing")
     notes: Optional[str] = Field(None, title="Notes")
+
+    @field_validator("source", mode="after")
+    def validate_inhouse_breeding_info(cls, v: Organization.ONE_OF, info: ValidationInfo):
+        """Validator for inhouse mice breeding info"""
+
+        if v is Organization.AI and info.data.get("breeding_info") is None:
+            raise ValueError("Breeding info should be provided for subjects bred in house")
+
+        return v
+
+    @field_validator("species", mode="after")
+    def validate_genotype(cls, v: Species.ONE_OF, info: ValidationInfo):
+        """Validator for mice genotype"""
+
+        if v is Species.MUS_MUSCULUS and info.data.get("genotype") is None:
+            raise ValueError("Full genotype should be provided for mouse subjects")
+
+        return v

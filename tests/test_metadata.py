@@ -9,7 +9,8 @@ from pydantic import __version__ as pyd_version
 
 from aind_data_schema.core.metadata import Metadata, MetadataStatus
 from aind_data_schema.core.procedures import Procedures
-from aind_data_schema.core.subject import Sex, Species, Subject
+from aind_data_schema.core.subject import BreedingInfo, Sex, Species, Subject
+from aind_data_schema.models.organizations import Organization
 
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
 
@@ -25,7 +26,15 @@ class TestMetadata(unittest.TestCase):
             subject_id="123345",
             sex=Sex.MALE,
             date_of_birth="2020-10-10",
-            genotype="Emx1-IRES-Cre;Camk2a-tTA;Ai93(TITL-GCaMP6f)",
+            source=Organization.AI,
+            breeding_info=BreedingInfo(
+                breeding_group="Emx1-IRES-Cre(ND)",
+                maternal_id="546543",
+                maternal_genotype="Emx1-IRES-Cre/wt; Camk2a-tTa/Camk2a-tTA",
+                paternal_id="232323",
+                paternal_genotype="Ai93(TITL-GCaMP6f)/wt",
+            ),
+            genotype="Emx1-IRES-Cre;Camk2a-tTA;Ai93(TITL-GCaMP6f)/wt",
         )
         d1 = Metadata(name="ecephys_655019_2023-04-03_18-17-09", location="bucket", subject=s1)
         self.assertEqual("ecephys_655019_2023-04-03_18-17-09", d1.name)
@@ -73,7 +82,15 @@ class TestMetadata(unittest.TestCase):
             subject_id="123345",
             sex=Sex.MALE,
             date_of_birth="2020-10-10",
-            genotype="Emx1-IRES-Cre;Camk2a-tTA;Ai93(TITL-GCaMP6f)",
+            source=Organization.AI,
+            breeding_info=BreedingInfo(
+                breeding_group="Emx1-IRES-Cre(ND)",
+                maternal_id="546543",
+                maternal_genotype="Emx1-IRES-Cre/wt; Camk2a-tTa/Camk2a-tTA",
+                paternal_id="232323",
+                paternal_genotype="Ai93(TITL-GCaMP6f)/wt",
+            ),
+            genotype="Emx1-IRES-Cre;Camk2a-tTA;Ai93(TITL-GCaMP6f)/wt",
         )
         d2 = Metadata(
             name="ecephys_655019_2023-04-03_18-17-09",
