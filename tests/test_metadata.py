@@ -17,9 +17,8 @@ from aind_data_schema.core.processing import Processing
 from aind_data_schema.core.rig import Rig
 from aind_data_schema.core.session import Session
 from aind_data_schema.core.subject import BreedingInfo, Sex, Species, Subject
-from aind_data_schema.models.modalities import Ecephys
 from aind_data_schema.models.organizations import Organization
-from aind_data_schema.models.platforms import SmartSpim
+from aind_data_schema.models.platforms import Ecephys, SmartSpim
 
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
 
