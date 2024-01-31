@@ -9,29 +9,10 @@ from pydantic import Field, field_validator
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.imaging.tile import AcquisitionTile
+from aind_data_schema.models.coordinates import AxisName, Direction
 from aind_data_schema.models.devices import Calibration, ImmersionMedium, Maintenance
 from aind_data_schema.models.process_names import ProcessName
 from aind_data_schema.models.units import SizeUnit
-
-
-class AxisName(str, Enum):
-    """Image axis name"""
-
-    X = "X"
-    Y = "Y"
-    Z = "Z"
-
-
-class Direction(str, Enum):
-    """Anatomical direction name"""
-
-    LR = "Left_to_right"
-    RL = "Right_to_left"
-    AP = "Anterior_to_posterior"
-    PA = "Posterior_to_anterior"
-    IS = "Inferior_to_superior"
-    SI = "Superior_to_inferior"
-    OTHER = "Other"
 
 
 class Axis(AindModel):
