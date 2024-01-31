@@ -13,6 +13,8 @@ from aind_data_schema.core.metadata import Metadata, MetadataStatus
 from aind_data_schema.core.procedures import Procedures
 from aind_data_schema.core.rig import Rig
 from aind_data_schema.core.subject import BreedingInfo, Sex, Species, Subject
+from aind_data_schema.core.session import Session
+from aind_data_schema.core.processing import Processing
 from aind_data_schema.models.modalities import Ecephys
 from aind_data_schema.models.organizations import Organization
 
@@ -134,9 +136,14 @@ class TestMetadata(unittest.TestCase):
             Metadata(
                 name="ecephys_655019_2023-04-03_18-17-09",
                 location="bucket",
+                data_description=DataDescription.model_construct(
+                    label="some label", platform=Ecephys, creation_time=time(12, 12, 12)
+                ),
                 subject=Subject.model_construct(),
                 procedures=Procedures.model_construct(),
                 rig=Rig.model_construct(),
+                processing=Processing.model_construct(),
+                session=Session.model_construct(),
             )
         self.assertIn("Procedures is missing injection materials.", str(context.exception))
 
