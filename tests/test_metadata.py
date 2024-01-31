@@ -11,10 +11,10 @@ from pydantic import __version__ as pyd_version
 from aind_data_schema.core.data_description import DataDescription
 from aind_data_schema.core.metadata import Metadata, MetadataStatus
 from aind_data_schema.core.procedures import Procedures
-from aind_data_schema.core.rig import Rig
-from aind_data_schema.core.subject import BreedingInfo, Sex, Species, Subject
-from aind_data_schema.core.session import Session
 from aind_data_schema.core.processing import Processing
+from aind_data_schema.core.rig import Rig
+from aind_data_schema.core.session import Session
+from aind_data_schema.core.subject import BreedingInfo, Sex, Species, Subject
 from aind_data_schema.models.modalities import Ecephys
 from aind_data_schema.models.organizations import Organization
 

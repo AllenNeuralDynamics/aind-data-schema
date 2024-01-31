@@ -191,9 +191,9 @@ class Metadata(AindCoreModel):
         ):
             raise ValueError("Missing some metadata.")
         if (
-                self.data_description
-                and self.data_description.platform == Ecephys
-                and (self.procedures and getattr(self.procedures, "injection_materials", None) is None)
+            self.data_description
+            and self.data_description.platform == Ecephys
+            and (self.procedures and getattr(self.procedures, "injection_materials", None) is None)
         ):
             raise ValueError("Procedures is missing injection materials.")
         return self
