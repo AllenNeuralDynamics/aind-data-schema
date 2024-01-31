@@ -189,7 +189,9 @@ class Metadata(AindCoreModel):
             and self.data_description.platform == SmartSpim
             and not (self.subject and self.procedures and self.acquisition and self.instrument)
         ):
-            raise ValueError("Missing some metadata.")
+            raise ValueError(
+                "Missing some metadata for SmartSpim. Requires subject, procedures, acquisition, and instrument."
+            )
         if (
             self.data_description
             and self.data_description.platform == SmartSpim

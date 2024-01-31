@@ -126,7 +126,10 @@ class TestMetadata(unittest.TestCase):
                 procedures=Procedures.model_construct(injection_materials=["some materials"]),
                 acquisition=Acquisition.model_construct(),
             )
-        self.assertIn("Missing some metadata", str(context.exception))
+        self.assertIn(
+            "Missing some metadata for SmartSpim. Requires subject, procedures, acquisition, and instrument.",
+            str(context.exception),
+        )
 
         with self.assertRaises(ValueError) as context:
             Metadata(
