@@ -130,7 +130,10 @@ class TestMetadata(unittest.TestCase):
                 procedures=Procedures.model_construct(injection_materials=["some materials"]),
                 rig=Rig.model_construct(),
             )
-        self.assertIn("Missing some metadata", str(context.exception))
+        self.assertIn(
+            "Missing some metadata for Ecephys. Requires subject, procedures, session, rig, and processing.",
+            str(context.exception),
+        )
 
         with self.assertRaises(ValueError) as context:
             Metadata(

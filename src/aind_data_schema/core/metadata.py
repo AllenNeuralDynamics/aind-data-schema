@@ -189,7 +189,9 @@ class Metadata(AindCoreModel):
             and self.data_description.platform == Ecephys
             and not (self.subject and self.procedures and self.session and self.rig and self.processing)
         ):
-            raise ValueError("Missing some metadata.")
+            raise ValueError(
+                "Missing some metadata for Ecephys. Requires subject, procedures, session, rig, and processing."
+            )
         if (
             self.data_description
             and self.data_description.platform == Ecephys
