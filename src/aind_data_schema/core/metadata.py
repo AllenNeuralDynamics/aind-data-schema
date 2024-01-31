@@ -17,6 +17,7 @@ from aind_data_schema.core.processing import Processing
 from aind_data_schema.core.rig import Rig
 from aind_data_schema.core.session import Session
 from aind_data_schema.core.subject import Subject
+from aind_data_schema.models.platforms import SmartSpim
 
 
 class MetadataStatus(Enum):
@@ -178,4 +179,21 @@ class Metadata(AindCoreModel):
             metadata_status = MetadataStatus.MISSING
         self.metadata_status = metadata_status
         # return values
+        return self
+
+    @model_validator(mode="after")
+    def validate_smartspim_metadata(self):
+        """Validator for smartspim metadata"""
+        if (
+            self.data_description
+            and self.data_description.platform == SmartSpim
+            and not (self.subject and self.procedures and self.acquisition and self.instrument)
+        ):
+            raise ValueError("Missing some metadata.")
+        if (
+            self.data_description
+            and self.data_description.platform == SmartSpim
+            and (self.procedures and getattr(self.procedures, "injection_materials", None) is None)
+        ):
+            raise ValueError("Procedures is missing injection materials.")
         return self
