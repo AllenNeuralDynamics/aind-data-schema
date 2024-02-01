@@ -7,10 +7,9 @@ import pydantic
 
 from aind_data_schema.core.subject import BreedingInfo, Housing, LightCycle, Subject
 from aind_data_schema.models.organizations import Organization
-from aind_data_schema.models.species import Species
-
 from aind_data_schema.models.pid_names import PIDName
 from aind_data_schema.models.registry import Registry
+from aind_data_schema.models.species import Species
 
 
 class SubjectTests(unittest.TestCase):
@@ -45,7 +44,7 @@ class SubjectTests(unittest.TestCase):
                 paternal_id="232323",
                 paternal_genotype="Ai93(TITL-GCaMP6f)/wt",
             ),
-            alleles=[PIDName(registry_identifier="12345", name="adsf", registry=Registry.MGI)]
+            alleles=[PIDName(registry_identifier="12345", name="adsf", registry=Registry.MGI)],
         )
 
         Subject.model_validate_json(s.model_dump_json())
