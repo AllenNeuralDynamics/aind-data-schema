@@ -15,8 +15,6 @@ jobs:
           ref: ${{ env.DEFAULT_BRANCH }}
           fetch-depth: 0
           token: ${{ secrets.SERVICE_TOKEN }}
-      - name: Pull latest changes
-        run: git pull origin main
       - name: Set up Python 3.8
         uses: actions/setup-python@v3
         with:
