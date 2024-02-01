@@ -12,7 +12,7 @@ from aind_data_schema.base import AindCoreModel
 from aind_data_schema.core.acquisition import Acquisition
 from aind_data_schema.core.data_description import DataDescription
 from aind_data_schema.core.instrument import Instrument
-from aind_data_schema.core.procedures import Procedures
+from aind_data_schema.core.procedures import BrainInjection, Procedures, Surgery
 from aind_data_schema.core.processing import Processing
 from aind_data_schema.core.rig import Rig
 from aind_data_schema.core.session import Session
@@ -195,9 +195,16 @@ class Metadata(AindCoreModel):
         if (
             self.data_description
             and self.data_description.platform == SmartSpim
-            and (self.procedures and getattr(self.procedures, "injection_materials", None) is None)
+            and self.procedures
+            and any(
+                isinstance(surgery, BrainInjection) and getattr(surgery, "injection_materials", []) == []
+                for subject_procedure in self.procedures.subject_procedures
+                if isinstance(subject_procedure, Surgery)
+                for surgery in subject_procedure.procedures
+            )
         ):
-            raise ValueError("Procedures is missing injection materials.")
+            raise ValueError("Injection is missing injection_materials.")
+
         return self
 
     @model_validator(mode="after")
@@ -214,7 +221,13 @@ class Metadata(AindCoreModel):
         if (
             self.data_description
             and self.data_description.platform == Ecephys
-            and (self.procedures and getattr(self.procedures, "injection_materials", None) is None)
+            and self.procedures
+            and any(
+                isinstance(surgery, BrainInjection) and getattr(surgery, "injection_materials", []) == []
+                for subject_procedure in self.procedures.subject_procedures
+                if isinstance(subject_procedure, Surgery)
+                for surgery in subject_procedure.procedures
+            )
         ):
-            raise ValueError("Procedures is missing injection materials.")
+            raise ValueError("Injection is missing injection_materials.")
         return self
