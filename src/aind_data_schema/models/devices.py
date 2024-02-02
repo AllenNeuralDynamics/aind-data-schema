@@ -156,6 +156,7 @@ class CameraTarget(str, Enum):
 
     BODY = "Body"
     BOTTOM = "Bottom"
+    BRAIN_SURFACE = "Brain surface"
     EYE = "Eye"
     FACE_BOTTOM = "Face bottom"
     FACE_FORWARD = "Face forward"

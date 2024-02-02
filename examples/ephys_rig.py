@@ -7,6 +7,7 @@ from aind_data_schema.models.devices import (
     Calibration,
     Camera,
     CameraAssembly,
+    CameraTarget,
     DAQChannel,
     Disc,
     EphysAssembly,
@@ -90,7 +91,7 @@ stick_lens = Lens(name="Probe lens", manufacturer=Organization.EDMUND_OPTICS)
 
 microscope = CameraAssembly(
     camera_assembly_name="Stick_assembly",
-    camera_target="",  # NEEDS TO BE FILLED OUT
+    camera_target=CameraTarget.BRAIN_SURFACE,  # NEEDS TO BE FILLED OUT
     camera=probe_camera,
     lens=stick_lens,
 )
