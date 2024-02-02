@@ -141,7 +141,7 @@ class RigTests(unittest.TestCase):
                         sensor_height=1,
                         chroma="Color",
                     ),
-                    camera_target="" # NEEDS A VALUE
+                    camera_target="", # NEEDS A VALUE
                     lens=Lens(name="Lens A", manufacturer=Organization.OTHER),
                 )
             ],
