@@ -535,7 +535,6 @@ class Headstage(Device):
     """Headstage used with an ephys probe"""
 
     device_type: Literal["Headstage"] = "Headstage"
-    headstage_model: Optional[HeadstageModel] = Field(None, title="Headstage model")
 
 
 class EphysProbe(Device):
