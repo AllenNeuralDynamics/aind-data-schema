@@ -32,7 +32,7 @@ jobs:
           default_author: github_actions
           message: "updates diagrams [skip actions]"
           add: '["*.png", "*.rst"]'
-          
+
   update_schemas:
     runs-on: ubuntu-latest
     env:
@@ -48,7 +48,8 @@ jobs:
         with:
           python-version: 3.8
       - name: Create schemas
-        run: | 
+        run: |
+          rm -rf $OUTPUT_DIR
           python -m pip install -e .
           python -m aind_data_schema.utils.json_writer --output $OUTPUT_DIR
       - name: Commit changes
