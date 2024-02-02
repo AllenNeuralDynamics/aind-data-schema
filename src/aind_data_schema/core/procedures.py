@@ -38,6 +38,8 @@ class SpecimenProcedureType(str, Enum):
     HYBRIDIZATION_AMPLIFICATION = "Hybridication and amplification"
     HCR = "Hybridization Chain Reaction"
     IMMUNOLABELING = "Immunolabeling"
+    MOUNTING = "Mounting"
+    SECTIONING = "Sectioning"
     SOAK = "Soak"
     STORAGE = "Storage"
     STRIPPING = "Stripping"
