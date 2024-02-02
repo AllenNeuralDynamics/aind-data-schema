@@ -26,8 +26,8 @@ from aind_data_schema.models.devices import (
     OlfactometerChannel,
     Patch,
 )
-from aind_data_schema.models.organizations import Organization
 from aind_data_schema.models.modalities import Modality
+from aind_data_schema.models.organizations import Organization
 
 
 class RigTests(unittest.TestCase):
@@ -141,7 +141,7 @@ class RigTests(unittest.TestCase):
                         sensor_height=1,
                         chroma="Color",
                     ),
-                    camera_target="", # NEEDS A VALUE
+                    camera_target="",  # NEEDS A VALUE
                     lens=Lens(name="Lens A", manufacturer=Organization.OTHER),
                 )
             ],
