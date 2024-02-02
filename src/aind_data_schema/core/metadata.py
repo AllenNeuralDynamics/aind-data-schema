@@ -17,6 +17,7 @@ from aind_data_schema.core.processing import Processing
 from aind_data_schema.core.rig import Rig
 from aind_data_schema.core.session import Session
 from aind_data_schema.core.subject import Subject
+from aind_data_schema.models.modalities import Ecephys
 
 
 class MetadataStatus(Enum):
@@ -45,7 +46,7 @@ class Metadata(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/metadata.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["0.1.18"] = Field("0.1.18")
+    schema_version: Literal["0.1.22"] = Field("0.1.22")
     id: UUID = Field(
         default_factory=uuid4,
         alias="_id",
@@ -178,4 +179,23 @@ class Metadata(AindCoreModel):
             metadata_status = MetadataStatus.MISSING
         self.metadata_status = metadata_status
         # return values
+        return self
+
+    @model_validator(mode="after")
+    def validate_ecephys_metadata(self):
+        """Validator for metadata"""
+        if (
+            self.data_description
+            and self.data_description.platform == Ecephys
+            and not (self.subject and self.procedures and self.session and self.rig and self.processing)
+        ):
+            raise ValueError(
+                "Missing some metadata for Ecephys. Requires subject, procedures, session, rig, and processing."
+            )
+        if (
+            self.data_description
+            and self.data_description.platform == Ecephys
+            and (self.procedures and getattr(self.procedures, "injection_materials", None) is None)
+        ):
+            raise ValueError("Procedures is missing injection materials.")
         return self

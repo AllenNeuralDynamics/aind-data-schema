@@ -69,6 +69,15 @@ class Allied(_Organization):
     registry_identifier: Literal[None] = Field(None)
 
 
+class AmsOsram(_Organization):
+    """ams OSRAM"""
+
+    name: Literal["ams OSRAM"] = "ams OSRAM"
+    abbreviation: Literal[None] = Field(None)
+    registry: Annotated[Union[ResearchOrganizationRegistry], Field(default=Registry.ROR, discriminator="name")]
+    registry_identifier: Literal["045d0h266"] = "045d0h266"
+
+
 class AppliedScientificInstrumentation(_Organization):
     """AppliedScientificInstrumentation"""
 
@@ -172,6 +181,15 @@ class Custom(_Organization):
     """Custom"""
 
     name: Literal["Custom"] = "Custom"
+    abbreviation: Literal[None] = Field(None)
+    registry: Literal[None] = Field(None)
+    registry_identifier: Literal[None] = Field(None)
+
+
+class Dodotronic(_Organization):
+    """Dodotronic"""
+
+    name: Literal["Dodotronic"] = "Dodotronic"
     abbreviation: Literal[None] = Field(None)
     registry: Literal[None] = Field(None)
     registry_identifier: Literal[None] = Field(None)
@@ -641,6 +659,7 @@ class Organization:
     COMPUTAR = Computar()
     CONOPTICS = Conoptics()
     CUSTOM = Custom()
+    DODOTRONIC = Dodotronic()
     DORIC = Doric()
     EALING = Ealing()
     EDMUND_OPTICS = EdmundOptics()
@@ -673,6 +692,7 @@ class Organization:
     OEPS = OpenEphysProductionSite()
     OLYMPUS = Olympus()
     OPTOTUNE = Optotune()
+    OSRAM = AmsOsram()
     OXXIUS = Oxxius()
     PRIZMATIX = Prizmatix()
     QUANTIFI = Quantifi()
@@ -761,7 +781,7 @@ class Organization:
     LASER_MANUFACTURERS = Annotated[
         Union[CoherentScientific, Hamamatsu, Oxxius, Quantifi, Vortran, Other], Field(discriminator="name")
     ]
-    LED_MANUFACTURERS = Annotated[Union[Doric, Prizmatix, Thorlabs, Other], Field(discriminator="name")]
+    LED_MANUFACTURERS = Annotated[Union[AmsOsram, Doric, Prizmatix, Thorlabs, Other], Field(discriminator="name")]
     MANIPULATOR_MANUFACTURERS = Annotated[Union[NewScaleTechnologies, Other], Field(discriminator="name")]
     MONITOR_MANUFACTURERS = Annotated[Union[Asus, Lg, Other], Field(discriminator="name")]
     SPEAKER_MANUFACTURERS = Annotated[Union[Tymphany, ISLProductsInternational, Other], Field(discriminator="name")]

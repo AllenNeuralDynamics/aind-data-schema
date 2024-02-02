@@ -235,7 +235,7 @@ class RigTests(unittest.TestCase):
                     Modality.FIB,
                     Modality.BEHAVIOR_VIDEOS,
                     Modality.POPHYS,
-                    Modality.TRAINED_BEHAVIOR,
+                    Modality.BEHAVIOR,
                 ],
                 rig_id="1234",
                 modification_date=date(2020, 10, 10),
