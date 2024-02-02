@@ -315,7 +315,8 @@
    "fiber_assemblies": [],
    "stick_microscopes": [
       {
-         "scope_assembly_name": "Stick_assembly",
+         "camera_assembly_name": "Stick_assembly",
+         "camera_target": "Brain surface",
          "camera": {
             "device_type": "Detector",
             "name": "Probe Camera",
@@ -385,7 +386,9 @@
             "optimized_wavelength_range": null,
             "wavelength_unit": "nanometer",
             "max_aperture": null
-         }
+         },
+         "filter": null,
+         "position": null
       }
    ],
    "laser_assemblies": [
