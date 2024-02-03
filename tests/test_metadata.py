@@ -8,15 +8,23 @@ from datetime import time
 from pydantic import ValidationError
 from pydantic import __version__ as pyd_version
 
+from aind_data_schema.core.acquisition import Acquisition
 from aind_data_schema.core.data_description import DataDescription
+from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.core.metadata import Metadata, MetadataStatus
-from aind_data_schema.core.procedures import Procedures
+from aind_data_schema.core.procedures import (
+    IontophoresisInjection,
+    NanojectInjection,
+    Procedures,
+    Surgery,
+    ViralMaterial,
+)
 from aind_data_schema.core.processing import Processing
 from aind_data_schema.core.rig import Rig
 from aind_data_schema.core.session import Session
 from aind_data_schema.core.subject import BreedingInfo, Sex, Species, Subject
-from aind_data_schema.models.modalities import Ecephys
 from aind_data_schema.models.organizations import Organization
+from aind_data_schema.models.platforms import Ecephys, SmartSpim
 
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
 
@@ -118,8 +126,53 @@ class TestMetadata(unittest.TestCase):
         """Tests that the default file extension used is as expected."""
         self.assertEqual(".nd.json", Metadata._FILE_EXTENSION.default)
 
+    def test_validate_smartspim_metadata(self):
+        """Tests that smartspim validator works as expected"""
+        viral_material = ViralMaterial.model_construct()
+        nano_inj = NanojectInjection.model_construct()
+        ionto_inj = IontophoresisInjection.model_construct(injection_materials=[viral_material])
+
+        # Tests missing metadata
+        surgery1 = Surgery.model_construct(procedures=[nano_inj, ionto_inj])
+        with self.assertRaises(ValueError) as context:
+            Metadata(
+                name="ecephys_655019_2023-04-03_18-17-09",
+                location="bucket",
+                data_description=DataDescription.model_construct(
+                    label="some label", platform=SmartSpim, creation_time=time(12, 12, 12)
+                ),
+                procedures=Procedures.model_construct(subject_procedures=[surgery1]),
+                acquisition=Acquisition.model_construct(),
+            )
+        self.assertIn(
+            "Missing some metadata for SmartSpim. Requires subject, procedures, acquisition, and instrument.",
+            str(context.exception),
+        )
+
+        # Tests missing injection materials
+        surgery2 = Surgery.model_construct(procedures=[nano_inj])
+        with self.assertRaises(ValueError) as context:
+            Metadata(
+                name="ecephys_655019_2023-04-03_18-17-09",
+                location="bucket",
+                data_description=DataDescription.model_construct(
+                    label="some label", platform=SmartSpim, creation_time=time(12, 12, 12)
+                ),
+                subject=Subject.model_construct(),
+                procedures=Procedures.model_construct(subject_procedures=[surgery2]),
+                acquisition=Acquisition.model_construct(),
+                instrument=Instrument.model_construct(),
+            )
+        self.assertIn("Injection is missing injection_materials.", str(context.exception))
+
     def test_validate_ecephys_metadata(self):
         """Tests that ecephys validator works as expected"""
+        viral_material = ViralMaterial.model_construct()
+        nano_inj = NanojectInjection.model_construct()
+        ionto_inj = IontophoresisInjection.model_construct(injection_materials=[viral_material])
+
+        # Tests missing metadata
+        surgery1 = Surgery.model_construct(procedures=[nano_inj, ionto_inj])
         with self.assertRaises(ValueError) as context:
             Metadata(
                 name="ecephys_655019_2023-04-03_18-17-09",
@@ -127,7 +180,7 @@ class TestMetadata(unittest.TestCase):
                 data_description=DataDescription.model_construct(
                     label="some label", platform=Ecephys, creation_time=time(12, 12, 12)
                 ),
-                procedures=Procedures.model_construct(injection_materials=["some materials"]),
+                procedures=Procedures.model_construct(subject_procedures=[surgery1]),
                 rig=Rig.model_construct(),
             )
         self.assertIn(
@@ -135,6 +188,8 @@ class TestMetadata(unittest.TestCase):
             str(context.exception),
         )
 
+        # Tests missing injection materials
+        surgery2 = Surgery.model_construct(procedures=[nano_inj])
         with self.assertRaises(ValueError) as context:
             Metadata(
                 name="ecephys_655019_2023-04-03_18-17-09",
@@ -143,12 +198,12 @@ class TestMetadata(unittest.TestCase):
                     label="some label", platform=Ecephys, creation_time=time(12, 12, 12)
                 ),
                 subject=Subject.model_construct(),
-                procedures=Procedures.model_construct(),
+                procedures=Procedures.model_construct(subject_procedures=[surgery2]),
                 rig=Rig.model_construct(),
                 processing=Processing.model_construct(),
                 session=Session.model_construct(),
             )
-        self.assertIn("Procedures is missing injection materials.", str(context.exception))
+        self.assertIn("Injection is missing injection_materials.", str(context.exception))
 
 
 if __name__ == "__main__":
