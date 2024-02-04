@@ -7,6 +7,7 @@ from aind_data_schema.models.devices import (
     Calibration,
     Camera,
     CameraAssembly,
+    CameraTarget,
     DAQChannel,
     Disc,
     EphysAssembly,
@@ -19,7 +20,6 @@ from aind_data_schema.models.devices import (
     Manipulator,
     NeuropixelsBasestation,
     ProbePort,
-    StickMicroscopeAssembly,
 )
 from aind_data_schema.models.harp_types import HarpDeviceType
 from aind_data_schema.models.modalities import Modality
@@ -89,8 +89,9 @@ probe_camera = Camera(
 
 stick_lens = Lens(name="Probe lens", manufacturer=Organization.EDMUND_OPTICS)
 
-microscope = StickMicroscopeAssembly(
-    scope_assembly_name="Stick_assembly",
+microscope = CameraAssembly(
+    camera_assembly_name="Stick_assembly",
+    camera_target=CameraTarget.BRAIN_SURFACE,  # NEEDS TO BE FILLED OUT
     camera=probe_camera,
     lens=stick_lens,
 )

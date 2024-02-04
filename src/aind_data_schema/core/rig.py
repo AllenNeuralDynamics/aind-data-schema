@@ -33,7 +33,6 @@ from aind_data_schema.models.devices import (
     PolygonalScanner,
     RewardDelivery,
     Speaker,
-    StickMicroscopeAssembly,
 )
 from aind_data_schema.models.modalities import Modality
 
@@ -49,7 +48,7 @@ class Rig(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/rig.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["0.2.8"] = Field("0.2.8")
+    schema_version: Literal["0.2.10"] = Field("0.2.10")
     rig_id: str = Field(..., description="room_stim apparatus_version", title="Rig ID")
     modification_date: date = Field(..., title="Date of modification")
     mouse_platform: MOUSE_PLATFORMS
@@ -58,7 +57,7 @@ class Rig(AindCoreModel):
     enclosure: Optional[Enclosure] = Field(None, title="Enclosure")
     ephys_assemblies: List[EphysAssembly] = Field(default=[], title="Ephys probes")
     fiber_assemblies: List[FiberAssembly] = Field(default=[], title="Inserted fiber optics")
-    stick_microscopes: List[StickMicroscopeAssembly] = Field(default=[], title="Stick microscopes")
+    stick_microscopes: List[CameraAssembly] = Field(default=[], title="Stick microscopes")
     laser_assemblies: List[LaserAssembly] = Field(default=[], title="Laser modules")
     patch_cords: List[Patch] = Field(default=[], title="Patch cords")
     light_sources: List[LIGHT_SOURCES] = Field(default=[], title="Light sources")
