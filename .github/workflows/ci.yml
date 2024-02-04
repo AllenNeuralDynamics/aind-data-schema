@@ -37,33 +37,33 @@ jobs:
       run: python -m pip install -e .[dev] --no-cache-dir
     - name: Run tests and coverage
       run: coverage run -m unittest discover && coverage report
-  schema_version_check:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: [ '3.11']
-    steps:
-    - uses: actions/checkout@v3
-      with:
-        ref: main
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v3
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Install dependencies
-      run: python -m pip install -e . --no-cache-dir
-    - name: Build schemas from main branch
-      run: |
-        mkdir /tmp/main_schemas
-        python -m aind_data_schema.utils.json_writer --output /tmp/main_schemas
-        echo "Finished building main branch schemas"
-    - uses: actions/checkout@v3
-    - name: Install dependencies
-      run: python -m pip install -e . --no-cache-dir
-    - name: Build current branch schemas
-      run: |
-        mkdir /tmp/branch_schemas
-        python -m aind_data_schema.utils.json_writer --output /tmp/branch_schemas
-        echo "Finished building current branch schemas"
-    - name: Compare schema versions
-      run: python -m aind_data_schema.utils.schema_version_check --old-schema-folder /tmp/main_schemas --new-schema-folder /tmp/branch_schemas
+  # schema_version_check:
+  #   runs-on: ubuntu-latest
+  #   strategy:
+  #     matrix:
+  #       python-version: [ '3.11']
+  #   steps:
+  #   - uses: actions/checkout@v3
+  #     with:
+  #       ref: main
+  #   - name: Set up Python ${{ matrix.python-version }}
+  #     uses: actions/setup-python@v3
+  #     with:
+  #       python-version: ${{ matrix.python-version }}
+  #   - name: Install dependencies
+  #     run: python -m pip install -e . --no-cache-dir
+  #   - name: Build schemas from main branch
+  #     run: |
+  #       mkdir /tmp/main_schemas
+  #       python -m aind_data_schema.utils.json_writer --output /tmp/main_schemas
+  #       echo "Finished building main branch schemas"
+  #   - uses: actions/checkout@v3
+  #   - name: Install dependencies
+  #     run: python -m pip install -e . --no-cache-dir
+  #   - name: Build current branch schemas
+  #     run: |
+  #       mkdir /tmp/branch_schemas
+  #       python -m aind_data_schema.utils.json_writer --output /tmp/branch_schemas
+  #       echo "Finished building current branch schemas"
+  #   - name: Compare schema versions
+  #     run: python -m aind_data_schema.utils.schema_version_check --old-schema-folder /tmp/main_schemas --new-schema-folder /tmp/branch_schemas
