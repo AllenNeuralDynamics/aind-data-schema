@@ -19,6 +19,7 @@ from aind_data_schema.core.procedures import (
 )
 from aind_data_schema.models.pid_names import PIDName
 from aind_data_schema.models.registry import Registry
+from aind_data_schema.models.organizations import Organization
 
 t = datetime.datetime(2022, 7, 12, 7, 00, 00)
 t2 = datetime.datetime(2022, 9, 23, 10, 22, 00)
@@ -112,7 +113,7 @@ p = Procedures(
             immunolabeling=Immunolabeling(
                 antibody=Antibody(
                     name="Chicken polyclonal",
-                    source="Abcam",
+                    source=Organization.OTHER,
                     rrid=PIDName(
                         name="Chicken polyclonal to GFP", registry=Registry.RRID, registry_identifier="ab13970"
                     ),
@@ -135,7 +136,7 @@ p = Procedures(
             immunolabeling=Immunolabeling(
                 antibody=Antibody(
                     name="Alexa Fluor 488 goat anti-chicken IgY (H+L)",
-                    source="Invitrogen",
+                    source=Organization.OTHER,
                     rrid=PIDName(
                         name="Alexa Fluor 488 goat anti-chicken IgY (H+L)",
                         registry=Registry.RRID,

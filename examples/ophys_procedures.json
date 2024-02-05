@@ -162,7 +162,12 @@
             "procedure_type": "Immunolabeling",
             "antibody": {
                "name": "Chicken polyclonal",
-               "source": "Abcam",
+               "source": {
+                  "name": "Other",
+                  "abbreviation": null,
+                  "registry": null,
+                  "registry_identifier": null
+               },
                "rrid": {
                   "name": "Chicken polyclonal to GFP",
                   "abbreviation": null,
@@ -199,7 +204,12 @@
             "procedure_type": "Immunolabeling",
             "antibody": {
                "name": "Alexa Fluor 488 goat anti-chicken IgY (H+L)",
-               "source": "Invitrogen",
+               "source": {
+                  "name": "Other",
+                  "abbreviation": null,
+                  "registry": null,
+                  "registry_identifier": null
+               },
                "rrid": {
                   "name": "Alexa Fluor 488 goat anti-chicken IgY (H+L)",
                   "abbreviation": null,
