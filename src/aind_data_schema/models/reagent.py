@@ -6,8 +6,8 @@ from typing import Optional
 from pydantic import Field
 
 from aind_data_schema.base import AindModel
-from aind_data_schema.models.pid_names import PIDName
 from aind_data_schema.models.organizations import Organization
+from aind_data_schema.models.pid_names import PIDName
 
 
 class Reagent(AindModel):

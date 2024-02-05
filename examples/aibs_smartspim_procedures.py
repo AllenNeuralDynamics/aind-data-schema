@@ -3,7 +3,6 @@
 from datetime import date
 
 from aind_data_schema.core import procedures
-
 from aind_data_schema.models.organizations import Organization
 
 experimenter = "John Smith"
