@@ -9,6 +9,7 @@ from aind_data_schema.base import AindModel
 from aind_data_schema.models.pid_names import PIDName
 from aind_data_schema.models.organizations import Organization
 
+
 class Reagent(AindModel):
     """Description of reagent used in procedure"""
 
