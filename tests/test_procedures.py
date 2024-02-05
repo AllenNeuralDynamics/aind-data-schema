@@ -97,7 +97,7 @@ class ProceduresTests(unittest.TestCase):
                                 NonViralMaterial(
                                     material_type="Reagent",
                                     name="drug_xyz",
-                                    source="drug_source",
+                                    source=Organization.AI,
                                     lot_number="12345",
                                     concentration=1,
                                 )

@@ -13,7 +13,7 @@ class Reagent(AindModel):
     """Description of reagent used in procedure"""
 
     name: str = Field(..., title="Name")
-    source: str = Field(..., title="Source")
+    source: Organization.SUBJECT_SOURCES = Field(..., title="Source")
     rrid: Optional[PIDName] = Field(None, title="Research Resource ID")
-    lot_number: Organization.RESEARCH_INSTITUTIONS = Field(..., title="Lot number")
+    lot_number: str = Field(..., title="Lot number")
     expiration_date: Optional[date] = Field(None, title="Lot expiration date")
