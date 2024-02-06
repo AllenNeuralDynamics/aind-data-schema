@@ -24,6 +24,15 @@ class AAOptoElectronic(_Organization):
     registry_identifier: Literal[None] = Field(None)
 
 
+class Abcam(_Organization):
+    """Abcam"""
+
+    name: Literal["Abcam"] = "Abcam"
+    abbreviation: Literal[None] = Field(None)
+    registry: Annotated[Union[ResearchOrganizationRegistry], Field(default=Registry.ROR, discriminator="name")]
+    registry_identifier: Literal["02e1wjw63"] = "02e1wjw63"
+
+
 class AilipuTechnologyCo(_Organization):
     """AilipuTechnologyCo"""
 
@@ -575,6 +584,15 @@ class Tamron(_Organization):
     registry_identifier: Literal[None] = Field(None)
 
 
+class Thermofisher(_Organization):
+    """Thermofisher"""
+
+    name: Literal["Thermo Fisher"] = "Thermo Fisher"
+    abbreviation: Literal[None] = Field(None)
+    registry: Annotated[Union[ResearchOrganizationRegistry], Field(default=Registry.ROR, discriminator="name")]
+    registry_identifier: Literal["03x1ewr52"] = Field("03x1ewr52")
+
+
 class Thorlabs(_Organization):
     """Thorlabs"""
 
@@ -642,6 +660,7 @@ class Organization:
     """Organization definitions"""
 
     AA_OPTO = AAOptoElectronic()
+    ABCAM = Abcam()
     AILIPU = AilipuTechnologyCo()
     AI = AllenInstitute()
     AIBS = AllenInstituteForBrainScience()
@@ -703,6 +722,7 @@ class Organization:
     SPINNAKER = Spinnaker()
     TAMRON = Tamron()
     THORLABS = Thorlabs()
+    THERMOFISHER = Thermofisher()
     TMC = TMC()
     TYMPHANY = Tymphany()
     VIEWORKS = Vieworks()
