@@ -38,13 +38,10 @@
             {
                "name": "SHIELD Buffer",
                "source": {
-                  "name": "Allen Institute",
-                  "abbreviation": "AI",
-                  "registry": {
-                     "name": "Research Organization Registry",
-                     "abbreviation": "ROR"
-                  },
-                  "registry_identifier": "03cpe7c52"
+                  "name": "LifeCanvas",
+                  "abbreviation": null,
+                  "registry": null,
+                  "registry_identifier": null
                },
                "rrid": null,
                "lot_number": "1234",
@@ -53,13 +50,10 @@
             {
                "name": "SHIELD Epoxy",
                "source": {
-                  "name": "Allen Institute",
-                  "abbreviation": "AI",
-                  "registry": {
-                     "name": "Research Organization Registry",
-                     "abbreviation": "ROR"
-                  },
-                  "registry_identifier": "03cpe7c52"
+                  "name": "LifeCanvas",
+                  "abbreviation": null,
+                  "registry": null,
+                  "registry_identifier": null
                },
                "rrid": null,
                "lot_number": "1234",
@@ -82,13 +76,10 @@
             {
                "name": "SHIELD On",
                "source": {
-                  "name": "Allen Institute",
-                  "abbreviation": "AI",
-                  "registry": {
-                     "name": "Research Organization Registry",
-                     "abbreviation": "ROR"
-                  },
-                  "registry_identifier": "03cpe7c52"
+                  "name": "LifeCanvas",
+                  "abbreviation": null,
+                  "registry": null,
+                  "registry_identifier": null
                },
                "rrid": null,
                "lot_number": "1234",
@@ -111,13 +102,10 @@
             {
                "name": "Delipidation Buffer",
                "source": {
-                  "name": "Allen Institute",
-                  "abbreviation": "AI",
-                  "registry": {
-                     "name": "Research Organization Registry",
-                     "abbreviation": "ROR"
-                  },
-                  "registry_identifier": "03cpe7c52"
+                  "name": "Other",
+                  "abbreviation": null,
+                  "registry": null,
+                  "registry_identifier": null
                },
                "rrid": null,
                "lot_number": "1234",
@@ -140,13 +128,10 @@
             {
                "name": "Delipidation Buffer",
                "source": {
-                  "name": "Allen Institute",
-                  "abbreviation": "AI",
-                  "registry": {
-                     "name": "Research Organization Registry",
-                     "abbreviation": "ROR"
-                  },
-                  "registry_identifier": "03cpe7c52"
+                  "name": "Other",
+                  "abbreviation": null,
+                  "registry": null,
+                  "registry_identifier": null
                },
                "rrid": null,
                "lot_number": "1234",
@@ -155,13 +140,10 @@
             {
                "name": "Conductivity Buffer",
                "source": {
-                  "name": "Allen Institute",
-                  "abbreviation": "AI",
-                  "registry": {
-                     "name": "Research Organization Registry",
-                     "abbreviation": "ROR"
-                  },
-                  "registry_identifier": "03cpe7c52"
+                  "name": "Other",
+                  "abbreviation": null,
+                  "registry": null,
+                  "registry_identifier": null
                },
                "rrid": null,
                "lot_number": "1234",
@@ -184,13 +166,10 @@
             {
                "name": "Easy Index",
                "source": {
-                  "name": "Allen Institute",
-                  "abbreviation": "AI",
-                  "registry": {
-                     "name": "Research Organization Registry",
-                     "abbreviation": "ROR"
-                  },
-                  "registry_identifier": "03cpe7c52"
+                  "name": "LifeCanvas",
+                  "abbreviation": null,
+                  "registry": null,
+                  "registry_identifier": null
                },
                "rrid": null,
                "lot_number": "1234",
@@ -225,13 +204,10 @@
             {
                "name": "Easy Index",
                "source": {
-                  "name": "Allen Institute",
-                  "abbreviation": "AI",
-                  "registry": {
-                     "name": "Research Organization Registry",
-                     "abbreviation": "ROR"
-                  },
-                  "registry_identifier": "03cpe7c52"
+                  "name": "LifeCanvas",
+                  "abbreviation": null,
+                  "registry": null,
+                  "registry_identifier": null
                },
                "rrid": null,
                "lot_number": "1234",
@@ -254,13 +230,10 @@
             {
                "name": "Easy Index",
                "source": {
-                  "name": "Allen Institute",
-                  "abbreviation": "AI",
-                  "registry": {
-                     "name": "Research Organization Registry",
-                     "abbreviation": "ROR"
-                  },
-                  "registry_identifier": "03cpe7c52"
+                  "name": "LifeCanvas",
+                  "abbreviation": null,
+                  "registry": null,
+                  "registry_identifier": null
                },
                "rrid": null,
                "lot_number": "1234",
