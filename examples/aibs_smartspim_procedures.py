@@ -10,17 +10,17 @@ experimenter = "John Smith"
 specimen_id = "651286"
 
 # Reagents
-shield_buffer = procedures.Reagent(name="SHIELD Buffer", lot_number="1234", source=Organization.AI)
+shield_buffer = procedures.Reagent(name="SHIELD Buffer", lot_number="1234", source=Organization.LIFECANVAS)
 
-shield_epoxy = procedures.Reagent(name="SHIELD Epoxy", lot_number="1234", source=Organization.AI)
+shield_epoxy = procedures.Reagent(name="SHIELD Epoxy", lot_number="1234", source=Organization.LIFECANVAS)
 
-shield_on = procedures.Reagent(name="SHIELD On", lot_number="1234", source=Organization.AI)
+shield_on = procedures.Reagent(name="SHIELD On", lot_number="1234", source=Organization.LIFECANVAS)
 
-delipidation_buffer = procedures.Reagent(name="Delipidation Buffer", lot_number="1234", source=Organization.AI)
+delipidation_buffer = procedures.Reagent(name="Delipidation Buffer", lot_number="1234", source=Organization.OTHER)
 
-conductivity_buffer = procedures.Reagent(name="Conductivity Buffer", lot_number="1234", source=Organization.AI)
+conductivity_buffer = procedures.Reagent(name="Conductivity Buffer", lot_number="1234", source=Organization.OTHER)
 
-easy_index = procedures.Reagent(name="Easy Index", lot_number="1234", source=Organization.AI)
+easy_index = procedures.Reagent(name="Easy Index", lot_number="1234", source=Organization.LIFECANVAS)
 
 water = procedures.Reagent(
     name="Deionized water",
