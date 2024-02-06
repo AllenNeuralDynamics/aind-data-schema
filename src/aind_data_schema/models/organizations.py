@@ -660,6 +660,7 @@ class Organization:
     """Organization definitions"""
 
     AA_OPTO = AAOptoElectronic()
+    ABCAM = Abcam()
     AILIPU = AilipuTechnologyCo()
     AI = AllenInstitute()
     AIBS = AllenInstituteForBrainScience()
@@ -721,6 +722,7 @@ class Organization:
     SPINNAKER = Spinnaker()
     TAMRON = Tamron()
     THORLABS = Thorlabs()
+    THERMOFISHER = Thermofisher()
     TMC = TMC()
     TYMPHANY = Tymphany()
     VIEWORKS = Vieworks()

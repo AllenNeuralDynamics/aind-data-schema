@@ -113,7 +113,7 @@ p = Procedures(
             immunolabeling=Immunolabeling(
                 antibody=Antibody(
                     name="Chicken polyclonal",
-                    source=Organization.OTHER,
+                    source=Organization.ABCAM,
                     rrid=PIDName(
                         name="Chicken polyclonal to GFP", registry=Registry.RRID, registry_identifier="ab13970"
                     ),
@@ -136,7 +136,7 @@ p = Procedures(
             immunolabeling=Immunolabeling(
                 antibody=Antibody(
                     name="Alexa Fluor 488 goat anti-chicken IgY (H+L)",
-                    source=Organization.OTHER,
+                    source=Organization.THERMOFISHER,
                     rrid=PIDName(
                         name="Alexa Fluor 488 goat anti-chicken IgY (H+L)",
                         registry=Registry.RRID,

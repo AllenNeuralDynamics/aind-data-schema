@@ -163,10 +163,13 @@
             "antibody": {
                "name": "Chicken polyclonal",
                "source": {
-                  "name": "Other",
+                  "name": "Abcam",
                   "abbreviation": null,
-                  "registry": null,
-                  "registry_identifier": null
+                  "registry": {
+                     "name": "Research Organization Registry",
+                     "abbreviation": "ROR"
+                  },
+                  "registry_identifier": "02e1wjw63"
                },
                "rrid": {
                   "name": "Chicken polyclonal to GFP",
@@ -205,10 +208,13 @@
             "antibody": {
                "name": "Alexa Fluor 488 goat anti-chicken IgY (H+L)",
                "source": {
-                  "name": "Other",
+                  "name": "Thermo Fisher",
                   "abbreviation": null,
-                  "registry": null,
-                  "registry_identifier": null
+                  "registry": {
+                     "name": "Research Organization Registry",
+                     "abbreviation": "ROR"
+                  },
+                  "registry_identifier": "03x1ewr52"
                },
                "rrid": {
                   "name": "Alexa Fluor 488 goat anti-chicken IgY (H+L)",
