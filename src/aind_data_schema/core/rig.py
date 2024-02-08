@@ -7,6 +7,7 @@ from pydantic import Field, ValidationInfo, field_validator
 from typing_extensions import Annotated
 
 from aind_data_schema.base import AindCoreModel
+from aind_data_schema.models.coordinates import Axis, Origin
 from aind_data_schema.models.devices import (
     LIGHT_SOURCES,
     Calibration,
@@ -77,6 +78,8 @@ class Rig(AindCoreModel):
         title="CCF coordinate transform",
         description="Path to file that details the CCF-to-lab coordinate transform",
     )
+    origin_point: Optional[Origin] = Field(None, title="Origin point for rig position transforms")
+    rig_axes: Optional[List[Axis]] = Field(default=[], title="Rig axes", min_length=3, max_length=3)
     modalities: Set[Modality.ONE_OF] = Field(..., title="Modalities")
     notes: Optional[str] = Field(None, title="Notes")
 

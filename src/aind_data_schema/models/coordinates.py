@@ -144,11 +144,27 @@ class Affine3dTransform(CoordinateTransform):
     )
 
 
-class RigAxis(AindModel):
-    """Description of rig axis"""
+class Axis(AindModel):
+    """Description of an axis"""
 
     name: AxisName = Field(..., title="Axis")
-    direction: Direction = Field(..., title="Direction as the value of axis increases. If Other describe in notes.")
+    direction: str = Field(..., title="Direction as the value of axis increases. If Other describe in notes.")
+
+
+class AnatomicalAxis(Axis):
+    """Description of an image axis"""
+
+    name: AxisName = Field(..., title="Name")
+    dimension: int = Field(
+        ...,
+        description="Reference axis number for stitching",
+        title="Dimension",
+    )
+    direction: Direction = Field(
+        ...,
+        description="Tissue direction as the value of axis increases. If Other describe in notes.",
+    )
+    unit: SizeUnit = Field(SizeUnit.UM, title="Axis physical units")
 
 
 class RelativePosition(AindModel):
@@ -158,7 +174,7 @@ class RelativePosition(AindModel):
     position_unit: SizeUnit = Field(SizeUnit.MM, title="Position unit")
     device_rotation: Rotation3dTransform = Field(..., title="Device rotation")
     angle_unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
-    origin_point: Origin = Field(..., title="Origin point for rig/instrument")
     device_reference_point: str = Field(..., title="Device reference point", description="Point on device used for position")
-    rig_axes: List[RigAxis] = Field(..., title="Rig axes", min_length=3, max_length=3)
+    device_axes: List[Axis] = Field(..., title="Device axes", min_length=3, max_length=3)
+    
     notes = Optional[str] = Field(None, title="Notes")

@@ -9,26 +9,11 @@ from pydantic import Field, field_validator
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.imaging.tile import AcquisitionTile
-from aind_data_schema.models.coordinates import AxisName, Direction
+from aind_data_schema.models.coordinates import AnatomicalAxis, AxisName, Direction
 from aind_data_schema.models.devices import Calibration, ImmersionMedium, Maintenance
 from aind_data_schema.models.process_names import ProcessName
 from aind_data_schema.models.units import SizeUnit
 
-
-class Axis(AindModel):
-    """Description of an image axis"""
-
-    name: AxisName = Field(..., title="Name")
-    dimension: int = Field(
-        ...,
-        description="Reference axis number for stitching",
-        title="Dimension",
-    )
-    direction: Direction = Field(
-        ...,
-        description="Tissue direction as the value of axis increases. If Other describe in notes.",
-    )
-    unit: SizeUnit = Field(SizeUnit.UM, title="Axis physical units")
 
 
 class Immersion(AindModel):
@@ -85,7 +70,7 @@ class Acquisition(AindCoreModel):
     session_end_time: datetime = Field(..., title="Session end time")
     session_type: Optional[str] = Field(None, title="Session type")
     tiles: List[AcquisitionTile] = Field(..., title="Acquisition tiles")
-    axes: List[Axis] = Field(..., title="Acquisition axes")
+    axes: List[AnatomicalAxis] = Field(..., title="Acquisition axes")
     chamber_immersion: Immersion = Field(..., title="Acquisition chamber immersion data")
     sample_immersion: Optional[Immersion] = Field(None, title="Acquisition sample immersion data")
     active_objectives: Optional[List[str]] = Field(None, title="List of objectives used in this acquisition.")
@@ -99,7 +84,7 @@ class Acquisition(AindCoreModel):
     notes: Optional[str] = Field(None, title="Notes")
 
     @field_validator("axes", mode="before")
-    def from_direction_code(cls, v: Union[str, List[Axis]]) -> List[Axis]:
+    def from_direction_code(cls, v: Union[str, List[AnatomicalAxis]]) -> List[AnatomicalAxis]:
         """Map direction codes to Axis model"""
         if type(v) is str:
             direction_lookup = {
@@ -115,7 +100,7 @@ class Acquisition(AindCoreModel):
 
             axes = []
             for i, c in enumerate(v):
-                axis = Axis(name=name_lookup[i], direction=direction_lookup[c], dimension=i)
+                axis = AnatomicalAxis(name=name_lookup[i], direction=direction_lookup[c], dimension=i)
                 axes.append(axis)
             return axes
         else:
