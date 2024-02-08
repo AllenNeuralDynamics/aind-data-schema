@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/rig.py",
-   "schema_version": "0.2.8",
+   "schema_version": "0.2.11",
    "rig_id": "323_EPHYS1",
    "modification_date": "2023-10-03",
    "mouse_platform": {
@@ -315,7 +315,8 @@
    "fiber_assemblies": [],
    "stick_microscopes": [
       {
-         "scope_assembly_name": "Stick_assembly",
+         "camera_assembly_name": "Stick_assembly",
+         "camera_target": "Brain surface",
          "camera": {
             "device_type": "Detector",
             "name": "Probe Camera",
@@ -385,7 +386,9 @@
             "optimized_wavelength_range": null,
             "wavelength_unit": "nanometer",
             "max_aperture": null
-         }
+         },
+         "filter": null,
+         "position": null
       }
    ],
    "laser_assemblies": [

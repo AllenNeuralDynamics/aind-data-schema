@@ -156,6 +156,7 @@ class CameraTarget(str, Enum):
 
     BODY = "Body"
     BOTTOM = "Bottom"
+    BRAIN_SURFACE = "Brain surface"
     EYE = "Eye"
     FACE_BOTTOM = "Face bottom"
     FACE_FORWARD = "Face forward"
@@ -177,14 +178,6 @@ class ProbeModel(str, Enum):
     NP2_SINGLE_SHANK = "Neuropixels 2.0 (Single Shank)"
     NP2_MULTI_SHANK = "Neuropixels 2.0 (Multi Shank)"
     NP2_QUAD_BASE = "Neuropixels 2.0 (Quad Base)"
-
-
-class HeadstageModel(str, Enum):
-    """Headstage model name"""
-
-    RHD_16_CH = "Intan RHD 16-channel"
-    RHD_32_CH = "Intan RHD 32-channel"
-    RHD_64_CH = "Intan RHD 64-channel"
 
 
 class DetectorType(str, Enum):
@@ -531,14 +524,6 @@ class Manipulator(Device):
     manufacturer: Organization.MANIPULATOR_MANUFACTURERS
 
 
-class StickMicroscopeAssembly(AindModel):
-    """Stick microscope used to monitor probes during insertion"""
-
-    scope_assembly_name: str = Field(..., title="Scope assembly name")
-    camera: Camera = Field(..., title="Camera for this module")
-    lens: Lens = Field(..., title="Lens for this module")
-
-
 class LaserAssembly(AindModel):
     """Assembly for optogenetic stimulation"""
 
@@ -551,7 +536,6 @@ class Headstage(Device):
     """Headstage used with an ephys probe"""
 
     device_type: Literal["Headstage"] = "Headstage"
-    headstage_model: Optional[HeadstageModel] = Field(None, title="Headstage model")
 
 
 class EphysProbe(Device):

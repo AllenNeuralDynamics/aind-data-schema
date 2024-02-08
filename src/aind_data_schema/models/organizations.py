@@ -24,6 +24,15 @@ class AAOptoElectronic(_Organization):
     registry_identifier: Literal[None] = Field(None)
 
 
+class Abcam(_Organization):
+    """Abcam"""
+
+    name: Literal["Abcam"] = "Abcam"
+    abbreviation: Literal[None] = Field(None)
+    registry: Annotated[Union[ResearchOrganizationRegistry], Field(default=Registry.ROR, discriminator="name")]
+    registry_identifier: Literal["02e1wjw63"] = "02e1wjw63"
+
+
 class AilipuTechnologyCo(_Organization):
     """AilipuTechnologyCo"""
 
@@ -67,6 +76,15 @@ class Allied(_Organization):
     abbreviation: Literal[None] = Field(None)
     registry: Literal[None] = Field(None)
     registry_identifier: Literal[None] = Field(None)
+
+
+class AmsOsram(_Organization):
+    """ams OSRAM"""
+
+    name: Literal["ams OSRAM"] = "ams OSRAM"
+    abbreviation: Literal[None] = Field(None)
+    registry: Annotated[Union[ResearchOrganizationRegistry], Field(default=Registry.ROR, discriminator="name")]
+    registry_identifier: Literal["045d0h266"] = "045d0h266"
 
 
 class AppliedScientificInstrumentation(_Organization):
@@ -172,6 +190,15 @@ class Custom(_Organization):
     """Custom"""
 
     name: Literal["Custom"] = "Custom"
+    abbreviation: Literal[None] = Field(None)
+    registry: Literal[None] = Field(None)
+    registry_identifier: Literal[None] = Field(None)
+
+
+class Dodotronic(_Organization):
+    """Dodotronic"""
+
+    name: Literal["Dodotronic"] = "Dodotronic"
     abbreviation: Literal[None] = Field(None)
     registry: Literal[None] = Field(None)
     registry_identifier: Literal[None] = Field(None)
@@ -557,6 +584,15 @@ class Tamron(_Organization):
     registry_identifier: Literal[None] = Field(None)
 
 
+class Thermofisher(_Organization):
+    """Thermofisher"""
+
+    name: Literal["Thermo Fisher"] = "Thermo Fisher"
+    abbreviation: Literal[None] = Field(None)
+    registry: Annotated[Union[ResearchOrganizationRegistry], Field(default=Registry.ROR, discriminator="name")]
+    registry_identifier: Literal["03x1ewr52"] = Field("03x1ewr52")
+
+
 class Thorlabs(_Organization):
     """Thorlabs"""
 
@@ -624,6 +660,7 @@ class Organization:
     """Organization definitions"""
 
     AA_OPTO = AAOptoElectronic()
+    ABCAM = Abcam()
     AILIPU = AilipuTechnologyCo()
     AI = AllenInstitute()
     AIBS = AllenInstituteForBrainScience()
@@ -641,6 +678,7 @@ class Organization:
     COMPUTAR = Computar()
     CONOPTICS = Conoptics()
     CUSTOM = Custom()
+    DODOTRONIC = Dodotronic()
     DORIC = Doric()
     EALING = Ealing()
     EDMUND_OPTICS = EdmundOptics()
@@ -673,6 +711,7 @@ class Organization:
     OEPS = OpenEphysProductionSite()
     OLYMPUS = Olympus()
     OPTOTUNE = Optotune()
+    OSRAM = AmsOsram()
     OXXIUS = Oxxius()
     PRIZMATIX = Prizmatix()
     QUANTIFI = Quantifi()
@@ -683,6 +722,7 @@ class Organization:
     SPINNAKER = Spinnaker()
     TAMRON = Tamron()
     THORLABS = Thorlabs()
+    THERMOFISHER = Thermofisher()
     TMC = TMC()
     TYMPHANY = Tymphany()
     VIEWORKS = Vieworks()
@@ -761,7 +801,7 @@ class Organization:
     LASER_MANUFACTURERS = Annotated[
         Union[CoherentScientific, Hamamatsu, Oxxius, Quantifi, Vortran, Other], Field(discriminator="name")
     ]
-    LED_MANUFACTURERS = Annotated[Union[Doric, Prizmatix, Thorlabs, Other], Field(discriminator="name")]
+    LED_MANUFACTURERS = Annotated[Union[AmsOsram, Doric, Prizmatix, Thorlabs, Other], Field(discriminator="name")]
     MANIPULATOR_MANUFACTURERS = Annotated[Union[NewScaleTechnologies, Other], Field(discriminator="name")]
     MONITOR_MANUFACTURERS = Annotated[Union[Asus, Lg, Other], Field(discriminator="name")]
     SPEAKER_MANUFACTURERS = Annotated[Union[Tymphany, ISLProductsInternational, Other], Field(discriminator="name")]

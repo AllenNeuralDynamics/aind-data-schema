@@ -1,0 +1,351 @@
+{
+   "$defs": {
+      "AnalysisProcess": {
+         "additionalProperties": false,
+         "description": "Description of an Analysis",
+         "properties": {
+            "name": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/ProcessName"
+                  }
+               ],
+               "default": "Analysis",
+               "title": "Process name"
+            },
+            "software_version": {
+               "description": "Version of the software used",
+               "title": "Version",
+               "type": "string"
+            },
+            "start_date_time": {
+               "format": "date-time",
+               "title": "Start date time",
+               "type": "string"
+            },
+            "end_date_time": {
+               "format": "date-time",
+               "title": "End date time",
+               "type": "string"
+            },
+            "input_location": {
+               "description": "Path to data inputs",
+               "title": "Input location",
+               "type": "string"
+            },
+            "output_location": {
+               "description": "Path to data outputs",
+               "title": "Output location",
+               "type": "string"
+            },
+            "code_url": {
+               "description": "Path to code repository",
+               "title": "Code URL",
+               "type": "string"
+            },
+            "code_version": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Version of the code",
+               "title": "Code version"
+            },
+            "parameters": {
+               "title": "Parameters",
+               "type": "object"
+            },
+            "outputs": {
+               "default": {},
+               "description": "Output parameters",
+               "title": "Outputs",
+               "type": "object"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Notes"
+            },
+            "analyst_full_name": {
+               "description": "Name of person responsible for running analysis",
+               "title": "Analyst Full Name",
+               "type": "string"
+            },
+            "description": {
+               "title": "Analysis Description",
+               "type": "string"
+            }
+         },
+         "required": [
+            "software_version",
+            "start_date_time",
+            "end_date_time",
+            "input_location",
+            "output_location",
+            "code_url",
+            "parameters",
+            "analyst_full_name",
+            "description"
+         ],
+         "title": "AnalysisProcess",
+         "type": "object"
+      },
+      "DataProcess": {
+         "additionalProperties": false,
+         "description": "Description of a single processing step",
+         "properties": {
+            "name": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/ProcessName"
+                  }
+               ],
+               "title": "Name"
+            },
+            "software_version": {
+               "description": "Version of the software used",
+               "title": "Version",
+               "type": "string"
+            },
+            "start_date_time": {
+               "format": "date-time",
+               "title": "Start date time",
+               "type": "string"
+            },
+            "end_date_time": {
+               "format": "date-time",
+               "title": "End date time",
+               "type": "string"
+            },
+            "input_location": {
+               "description": "Path to data inputs",
+               "title": "Input location",
+               "type": "string"
+            },
+            "output_location": {
+               "description": "Path to data outputs",
+               "title": "Output location",
+               "type": "string"
+            },
+            "code_url": {
+               "description": "Path to code repository",
+               "title": "Code URL",
+               "type": "string"
+            },
+            "code_version": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Version of the code",
+               "title": "Code version"
+            },
+            "parameters": {
+               "title": "Parameters",
+               "type": "object"
+            },
+            "outputs": {
+               "default": {},
+               "description": "Output parameters",
+               "title": "Outputs",
+               "type": "object"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Notes"
+            }
+         },
+         "required": [
+            "name",
+            "software_version",
+            "start_date_time",
+            "end_date_time",
+            "input_location",
+            "output_location",
+            "code_url",
+            "parameters"
+         ],
+         "title": "DataProcess",
+         "type": "object"
+      },
+      "PipelineProcess": {
+         "additionalProperties": false,
+         "description": "Description of a Processing Pipeline",
+         "properties": {
+            "data_processes": {
+               "items": {
+                  "$ref": "#/$defs/DataProcess"
+               },
+               "title": "Data processing",
+               "type": "array"
+            },
+            "processor_full_name": {
+               "description": "Name of person responsible for processing pipeline",
+               "title": "Processor Full Name",
+               "type": "string"
+            },
+            "pipeline_version": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Version of the pipeline",
+               "title": "Pipeline version"
+            },
+            "pipeline_url": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "URL to the pipeline code",
+               "title": "Pipeline URL"
+            },
+            "note": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Notes"
+            }
+         },
+         "required": [
+            "data_processes",
+            "processor_full_name"
+         ],
+         "title": "PipelineProcess",
+         "type": "object"
+      },
+      "ProcessName": {
+         "description": "Data processing type labels",
+         "enum": [
+            "Analysis",
+            "Compression",
+            "Denoising",
+            "dF/F estimation",
+            "Ephys curation",
+            "Ephys postprocessing",
+            "Ephys preprocessing",
+            "Ephys visualization",
+            "Fiducial segmentation",
+            "Fluorescence event detection",
+            "Image atlas alignment",
+            "Image background subtraction",
+            "Image cell segmentation",
+            "Image cell quantification",
+            "Image destriping",
+            "Image flat-field correction",
+            "Image importing",
+            "Image thresholding",
+            "Image tile alignment",
+            "Image tile fusing",
+            "Image tile projection",
+            "File format conversion",
+            "Manual annotation",
+            "Neuropil subtraction",
+            "Other",
+            "Quality control and assessment",
+            "Registration to template",
+            "Skull stripping",
+            "Spike sorting",
+            "Spatial timeseries demixing",
+            "Video motion correction",
+            "Video plane decrosstalk",
+            "Video ROI classification",
+            "Video ROI segmentation",
+            "Video ROI timeseries extraction"
+         ],
+         "title": "ProcessName",
+         "type": "string"
+      }
+   },
+   "additionalProperties": false,
+   "description": "Description of all processes run on data",
+   "properties": {
+      "describedBy": {
+         "const": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/processing.py",
+         "default": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/processing.py",
+         "title": "Describedby",
+         "type": "string"
+      },
+      "schema_version": {
+         "const": "0.4.3",
+         "default": "0.4.3",
+         "title": "Schema Version"
+      },
+      "processing_pipeline": {
+         "allOf": [
+            {
+               "$ref": "#/$defs/PipelineProcess"
+            }
+         ],
+         "description": "Pipeline used to process data",
+         "title": "Processing Pipeline"
+      },
+      "analyses": {
+         "default": [],
+         "description": "Analysis steps taken after processing",
+         "items": {
+            "$ref": "#/$defs/AnalysisProcess"
+         },
+         "title": "Analysis Steps",
+         "type": "array"
+      },
+      "notes": {
+         "anyOf": [
+            {
+               "type": "string"
+            },
+            {
+               "type": "null"
+            }
+         ],
+         "default": null,
+         "title": "Notes"
+      }
+   },
+   "required": [
+      "processing_pipeline"
+   ],
+   "title": "Processing",
+   "type": "object"
+}

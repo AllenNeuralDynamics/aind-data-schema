@@ -12,11 +12,12 @@ from aind_data_schema.base import AindCoreModel
 from aind_data_schema.core.acquisition import Acquisition
 from aind_data_schema.core.data_description import DataDescription
 from aind_data_schema.core.instrument import Instrument
-from aind_data_schema.core.procedures import Procedures
+from aind_data_schema.core.procedures import Injection, Procedures, Surgery
 from aind_data_schema.core.processing import Processing
 from aind_data_schema.core.rig import Rig
 from aind_data_schema.core.session import Session
 from aind_data_schema.core.subject import Subject
+from aind_data_schema.models.platforms import Ecephys, SmartSpim
 
 
 class MetadataStatus(Enum):
@@ -178,4 +179,55 @@ class Metadata(AindCoreModel):
             metadata_status = MetadataStatus.MISSING
         self.metadata_status = metadata_status
         # return values
+        return self
+
+    @model_validator(mode="after")
+    def validate_smartspim_metadata(self):
+        """Validator for smartspim metadata"""
+        if (
+            self.data_description
+            and self.data_description.platform == SmartSpim
+            and not (self.subject and self.procedures and self.acquisition and self.instrument)
+        ):
+            raise ValueError(
+                "Missing some metadata for SmartSpim. Requires subject, procedures, acquisition, and instrument."
+            )
+        if (
+            self.data_description
+            and self.data_description.platform == SmartSpim
+            and self.procedures
+            and any(
+                isinstance(surgery, Injection) and getattr(surgery, "injection_materials", []) == []
+                for subject_procedure in self.procedures.subject_procedures
+                if isinstance(subject_procedure, Surgery)
+                for surgery in subject_procedure.procedures
+            )
+        ):
+            raise ValueError("Injection is missing injection_materials.")
+
+        return self
+
+    @model_validator(mode="after")
+    def validate_ecephys_metadata(self):
+        """Validator for metadata"""
+        if (
+            self.data_description
+            and self.data_description.platform == Ecephys
+            and not (self.subject and self.procedures and self.session and self.rig and self.processing)
+        ):
+            raise ValueError(
+                "Missing some metadata for Ecephys. Requires subject, procedures, session, rig, and processing."
+            )
+        if (
+            self.data_description
+            and self.data_description.platform == Ecephys
+            and self.procedures
+            and any(
+                isinstance(surgery, Injection) and getattr(surgery, "injection_materials", []) == []
+                for subject_procedure in self.procedures.subject_procedures
+                if isinstance(subject_procedure, Surgery)
+                for surgery in subject_procedure.procedures
+            )
+        ):
+            raise ValueError("Injection is missing injection_materials.")
         return self
