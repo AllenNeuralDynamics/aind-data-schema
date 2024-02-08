@@ -5,7 +5,7 @@ from typing import List, Optional, Union
 from pydantic import Field
 
 from aind_data_schema.base import AindModel
-from aind_data_schema.models.coordinates import(
+from aind_data_schema.models.coordinates import (
     Affine3dTransform,
     Rotation3dTransform,
     Scale3dTransform,

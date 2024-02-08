@@ -8,9 +8,9 @@ from typing import Any, Dict, List, Literal, Optional
 from pydantic import Field, ValidationInfo, field_validator
 
 from aind_data_schema.base import AindCoreModel, AindModel
-from aind_data_schema.core.acquisition import Axis
 from aind_data_schema.core.procedures import Anaesthetic
 from aind_data_schema.imaging.tile import Scale3dTransform
+from aind_data_schema.models.coordinates import AnatomicalAxis
 from aind_data_schema.models.devices import Scanner
 from aind_data_schema.models.process_names import ProcessName
 from aind_data_schema.models.units import MassUnit, TimeUnit
@@ -38,7 +38,7 @@ class MRIScan(AindModel):
         ..., title="Primary scan", description="Indicates the primary scan used for downstream analysis"
     )
     scan_sequence_type: MriScanSequence = Field(..., title="Scan sequence")
-    axes: List[Axis] = Field(..., title="Imaging axes")
+    axes: List[AnatomicalAxis] = Field(..., title="Imaging axes")
     voxel_sizes: Scale3dTransform = Field(
         ..., title="Voxel sizes", description="Size of voxels in order as specified in axes"
     )

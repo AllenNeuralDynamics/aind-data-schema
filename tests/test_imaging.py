@@ -12,7 +12,7 @@ from aind_data_schema.core import instrument as inst
 from aind_data_schema.core import mri_session as ms
 from aind_data_schema.core.processing import Registration
 from aind_data_schema.imaging import tile
-from aind_data_schema.models.coordinates import(
+from aind_data_schema.models.coordinates import (
     Affine3dTransform,
     Rotation3dTransform,
     Scale3dTransform,
