@@ -48,17 +48,17 @@ acq = acquisition.Acquisition(
     external_storage_directory="Z:",
     chamber_immersion=acquisition.Immersion(medium="PBS", refractive_index=1.33),
     axes=[
-        acquisition.Axis(
+        acquisition.AnatomicalAxis(
             name="X",
             dimension=2,
             direction="Left_to_right",
         ),
-        acquisition.Axis(
+        acquisition.AnatomicalAxis(
             name="Y",
             dimension=1,
             direction="Anterior_to_posterior",
         ),
-        acquisition.Axis(
+        acquisition.AnatomicalAxis(
             name="Z",
             dimension=0,
             direction="Inferior_to_superior",

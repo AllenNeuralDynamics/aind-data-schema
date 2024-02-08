@@ -148,7 +148,7 @@ class Axis(AindModel):
     """Description of an axis"""
 
     name: AxisName = Field(..., title="Axis")
-    direction: str = Field(..., title="Direction as the value of axis increases. If Other describe in notes.")
+    direction: str = Field(..., title="Direction as the value of axis increases.")
 
 
 class AnatomicalAxis(Axis):
@@ -179,4 +179,4 @@ class RelativePosition(AindModel):
         description="Reference point on device for position information"
         )
     device_axes: List[Axis] = Field(..., title="Device axes", min_length=3, max_length=3)
-    notes = Optional[str] = Field(None, title="Notes")
+    notes: Optional[str] = Field(None, title="Notes")
