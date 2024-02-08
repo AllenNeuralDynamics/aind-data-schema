@@ -1,12 +1,16 @@
 """" Models related to imaging tiles and their transformations """
 
-from decimal import Decimal
-from typing import List, Literal, Optional, Union
+from typing import List, Optional, Union
 
 from pydantic import Field
 
 from aind_data_schema.base import AindModel
-from aind_data_schema.models.coordinates import Affine3dTransform, Rotation3dTransform, Scale3dTransform, Translation3dTransform
+from aind_data_schema.models.coordinates import(
+    Affine3dTransform,
+    Rotation3dTransform,
+    Scale3dTransform,
+    Translation3dTransform
+)
 from aind_data_schema.models.units import AngleUnit, PowerUnit, SizeUnit
 
 

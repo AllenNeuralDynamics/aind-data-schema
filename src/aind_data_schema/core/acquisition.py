@@ -2,7 +2,6 @@
 
 from datetime import datetime
 from decimal import Decimal
-from enum import Enum
 from typing import List, Literal, Optional, Union
 
 from pydantic import Field, field_validator
@@ -12,8 +11,6 @@ from aind_data_schema.imaging.tile import AcquisitionTile
 from aind_data_schema.models.coordinates import AnatomicalAxis, AxisName, Direction
 from aind_data_schema.models.devices import Calibration, ImmersionMedium, Maintenance
 from aind_data_schema.models.process_names import ProcessName
-from aind_data_schema.models.units import SizeUnit
-
 
 
 class Immersion(AindModel):

@@ -2,7 +2,7 @@
 
 from decimal import Decimal
 from enum import Enum
-from typing import List, Optional
+from typing import List, Literal, Optional
 
 from pydantic import Field
 
@@ -174,7 +174,9 @@ class RelativePosition(AindModel):
     position_unit: SizeUnit = Field(SizeUnit.MM, title="Position unit")
     device_rotation: Rotation3dTransform = Field(..., title="Device rotation")
     angle_unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
-    device_reference_point: str = Field(..., title="Device reference point", description="Point on device used for position")
+    device_reference_point: str = Field(
+        ..., title="Device reference point",
+        description="Reference point on device for position information"
+        )
     device_axes: List[Axis] = Field(..., title="Device axes", min_length=3, max_length=3)
-    
     notes = Optional[str] = Field(None, title="Notes")
