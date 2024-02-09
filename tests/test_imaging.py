@@ -12,6 +12,13 @@ from aind_data_schema.core import instrument as inst
 from aind_data_schema.core import mri_session as ms
 from aind_data_schema.core.processing import Registration
 from aind_data_schema.imaging import tile
+from aind_data_schema.models.coordinates import (
+    ImageAxis,
+    Affine3dTransform,
+    Rotation3dTransform,
+    Scale3dTransform,
+    Translation3dTransform
+)
 from aind_data_schema.models.devices import Calibration, DAQChannel, DAQDevice
 from aind_data_schema.models.organizations import Organization
 from aind_data_schema.models.units import PowerValue
@@ -47,8 +54,8 @@ class ImagingTests(unittest.TestCase):
             tiles=[
                 tile.AcquisitionTile(
                     coordinate_transformations=[
-                        tile.Scale3dTransform(scale=[1, 1, 1]),
-                        tile.Translation3dTransform(translation=[1, 1, 1]),
+                        Scale3dTransform(scale=[1, 1, 1]),
+                        Translation3dTransform(translation=[1, 1, 1]),
                     ],
                     channel=tile.Channel(
                         channel_name="488",
@@ -151,23 +158,23 @@ class ImagingTests(unittest.TestCase):
                     scan_sequence_type="RARE",
                     primary_scan=True,
                     axes=[
-                        acq.Axis(
+                        ImageAxis(
                             name="X",
                             dimension=2,
                             direction="Left_to_right",
                         ),
-                        acq.Axis(
+                        ImageAxis(
                             name="Y",
                             dimension=1,
                             direction="Anterior_to_posterior",
                         ),
-                        acq.Axis(
+                        ImageAxis(
                             name="Z",
                             dimension=0,
                             direction="Inferior_to_superior",
                         ),
                     ],
-                    voxel_sizes=tile.Scale3dTransform(scale=[0.01, 0.01, 0.01]),
+                    voxel_sizes=Scale3dTransform(scale=[0.01, 0.01, 0.01]),
                     echo_time=2.2,
                     effective_echo_time=2.0,
                     repetition_time=1.2,
@@ -203,8 +210,8 @@ class ImagingTests(unittest.TestCase):
                 tiles=[
                     tile.AcquisitionTile(
                         coordinate_transformations=[
-                            tile.Scale3dTransform(scale=[1, 1, 1]),
-                            tile.Translation3dTransform(translation=[1, 1, 1]),
+                            Scale3dTransform(scale=[1, 1, 1]),
+                            Translation3dTransform(translation=[1, 1, 1]),
                         ],
                         channel=tile.Channel(
                             channel_name="488",
@@ -237,14 +244,14 @@ class ImagingTests(unittest.TestCase):
             tiles=[
                 tile.Tile(
                     coordinate_transformations=[
-                        tile.Affine3dTransform(affine_transform=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11])
+                        Affine3dTransform(affine_transform=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11])
                     ]
                 ),
                 tile.Tile(
                     coordinate_transformations=[
-                        tile.Translation3dTransform(translation=[0, 1, 2]),
-                        tile.Rotation3dTransform(rotation=[1, 2, 3, 4, 5, 6, 7, 8, 9]),
-                        tile.Scale3dTransform(scale=[1, 2, 3]),
+                        Translation3dTransform(translation=[0, 1, 2]),
+                        Rotation3dTransform(rotation=[1, 2, 3, 4, 5, 6, 7, 8, 9]),
+                        Scale3dTransform(scale=[1, 2, 3]),
                     ]
                 ),
             ],
