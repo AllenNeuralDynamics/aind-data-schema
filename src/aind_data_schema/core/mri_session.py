@@ -8,9 +8,9 @@ from typing import Any, Dict, List, Literal, Optional
 from pydantic import Field, ValidationInfo, field_validator
 
 from aind_data_schema.base import AindCoreModel, AindModel
-from aind_data_schema.core.acquisition import Axis
 from aind_data_schema.core.procedures import Anaesthetic
 from aind_data_schema.imaging.tile import Scale3dTransform
+from aind_data_schema.models.coordinates import ImageAxis
 from aind_data_schema.models.devices import Scanner
 from aind_data_schema.models.process_names import ProcessName
 from aind_data_schema.models.units import MassUnit, TimeUnit
@@ -38,7 +38,7 @@ class MRIScan(AindModel):
         ..., title="Primary scan", description="Indicates the primary scan used for downstream analysis"
     )
     scan_sequence_type: MriScanSequence = Field(..., title="Scan sequence")
-    axes: List[Axis] = Field(..., title="Imaging axes")
+    axes: List[ImageAxis] = Field(..., title="Imaging axes")
     voxel_sizes: Scale3dTransform = Field(
         ..., title="Voxel sizes", description="Size of voxels in order as specified in axes"
     )
@@ -74,7 +74,7 @@ class MriSession(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/mri_session.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["0.2.8"] = Field("0.2.8")
+    schema_version: Literal["0.2.9"] = Field("0.2.9")
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
