@@ -395,6 +395,40 @@
          "title": "Asus",
          "type": "object"
       },
+      "Axis": {
+         "additionalProperties": false,
+         "description": "Description of an axis",
+         "properties": {
+            "name": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/AxisName"
+                  }
+               ],
+               "title": "Axis"
+            },
+            "direction": {
+               "title": "Direction as the value of axis increases.",
+               "type": "string"
+            }
+         },
+         "required": [
+            "name",
+            "direction"
+         ],
+         "title": "Axis",
+         "type": "object"
+      },
+      "AxisName": {
+         "description": "Image axis name",
+         "enum": [
+            "X",
+            "Y",
+            "Z"
+         ],
+         "title": "AxisName",
+         "type": "string"
+      },
       "BaseName": {
          "additionalProperties": false,
          "description": "A simple model associating a name with an abbreviation",
@@ -4194,117 +4228,37 @@
       },
       "RelativePosition": {
          "additionalProperties": false,
-         "description": "Set of 6 values describing relative position on a rig",
+         "description": "Position and rotation of a device in a rig or instrument",
          "properties": {
-            "pitch": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Angle pitch (deg)"
+            "device_position_transformations": {
+               "items": {
+                  "anyOf": [
+                     {
+                        "$ref": "#/$defs/Translation3dTransform"
+                     },
+                     {
+                        "$ref": "#/$defs/Rotation3dTransform"
+                     }
+                  ]
+               },
+               "title": "Device position transforms",
+               "type": "array"
             },
-            "yaw": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Angle yaw (deg)"
+            "device_origin": {
+               "description": "Reference point on device for position information",
+               "title": "Device origin",
+               "type": "string"
             },
-            "roll": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Angle roll (deg)"
+            "device_axes": {
+               "items": {
+                  "$ref": "#/$defs/Axis"
+               },
+               "maxItems": 3,
+               "minItems": 3,
+               "title": "Device axes",
+               "type": "array"
             },
-            "angle_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AngleUnit"
-                  }
-               ],
-               "default": "degrees",
-               "title": "Angle unit"
-            },
-            "x": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Position X (mm)"
-            },
-            "y": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Position Y (mm)"
-            },
-            "z": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Position Z (mm)"
-            },
-            "position_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
-               "default": "millimeter",
-               "title": "Position unit"
-            },
-            "coordinate_system": {
+            "notes": {
                "anyOf": [
                   {
                      "type": "string"
@@ -4314,9 +4268,14 @@
                   }
                ],
                "default": null,
-               "title": "Description of the coordinate system used"
+               "title": "Notes"
             }
          },
+         "required": [
+            "device_position_transformations",
+            "device_origin",
+            "device_axes"
+         ],
          "title": "RelativePosition",
          "type": "object"
       },
@@ -4420,6 +4379,38 @@
             "variable_position"
          ],
          "title": "RewardSpoutConfig",
+         "type": "object"
+      },
+      "Rotation3dTransform": {
+         "additionalProperties": false,
+         "description": "Values to be vector-added to a 3D position. Often needed to specify a device or tile's origin.",
+         "properties": {
+            "type": {
+               "const": "rotation",
+               "default": "rotation",
+               "title": "Type"
+            },
+            "rotation": {
+               "items": {
+                  "anyOf": [
+                     {
+                        "type": "number"
+                     },
+                     {
+                        "type": "string"
+                     }
+                  ]
+               },
+               "maxItems": 9,
+               "minItems": 9,
+               "title": "3D rotation matrix values (3x3) ",
+               "type": "array"
+            }
+         },
+         "required": [
+            "rotation"
+         ],
+         "title": "Rotation3dTransform",
          "type": "object"
       },
       "SchneiderKreuznach": {
@@ -5712,6 +5703,38 @@
          "title": "TimeUnit",
          "type": "string"
       },
+      "Translation3dTransform": {
+         "additionalProperties": false,
+         "description": "Values to be vector-added to a 3D position. Often needed to specify a device or tile's origin.",
+         "properties": {
+            "type": {
+               "const": "translation",
+               "default": "translation",
+               "title": "Type"
+            },
+            "translation": {
+               "items": {
+                  "anyOf": [
+                     {
+                        "type": "number"
+                     },
+                     {
+                        "type": "string"
+                     }
+                  ]
+               },
+               "maxItems": 3,
+               "minItems": 3,
+               "title": "3D translation parameters",
+               "type": "array"
+            }
+         },
+         "required": [
+            "translation"
+         ],
+         "title": "Translation3dTransform",
+         "type": "object"
+      },
       "TriggerType": {
          "description": "Types of detector triggers",
          "enum": [
@@ -5896,8 +5919,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.1.5",
-         "default": "0.1.5",
+         "const": "0.1.6",
+         "default": "0.1.6",
          "title": "Schema Version"
       },
       "protocol_id": {

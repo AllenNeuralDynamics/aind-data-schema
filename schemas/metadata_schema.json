@@ -80,8 +80,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.6.5",
-               "default": "0.6.5",
+               "const": "0.6.6",
+               "default": "0.6.6",
                "title": "Schema Version"
             },
             "protocol_id": {
@@ -170,7 +170,7 @@
             },
             "axes": {
                "items": {
-                  "$ref": "#/$defs/Axis"
+                  "$ref": "#/$defs/ImageAxis"
                },
                "title": "Acquisition axes",
                "type": "array"
@@ -1150,6 +1150,20 @@
          "title": "AnalysisProcess",
          "type": "object"
       },
+      "AnatomicalDirection": {
+         "description": "Anatomical direction name",
+         "enum": [
+            "Left_to_right",
+            "Right_to_left",
+            "Anterior_to_posterior",
+            "Posterior_to_anterior",
+            "Inferior_to_superior",
+            "Superior_to_inferior",
+            "Other"
+         ],
+         "title": "AnatomicalDirection",
+         "type": "string"
+      },
       "AngleUnit": {
          "description": "Enumeration of Angle Measurements",
          "enum": [
@@ -1652,7 +1666,7 @@
       },
       "Axis": {
          "additionalProperties": false,
-         "description": "Description of an image axis",
+         "description": "Description of an axis",
          "properties": {
             "name": {
                "allOf": [
@@ -1660,34 +1674,15 @@
                      "$ref": "#/$defs/AxisName"
                   }
                ],
-               "title": "Name"
-            },
-            "dimension": {
-               "description": "Reference axis number for stitching",
-               "title": "Dimension",
-               "type": "integer"
+               "title": "Axis"
             },
             "direction": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/Direction"
-                  }
-               ],
-               "description": "Tissue direction as the value of axis increases. If Other describe in notes."
-            },
-            "unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
-               "default": "micrometer",
-               "title": "Axis physical units"
+               "title": "Direction as the value of axis increases.",
+               "type": "string"
             }
          },
          "required": [
             "name",
-            "dimension",
             "direction"
          ],
          "title": "Axis",
@@ -5560,20 +5555,6 @@
          ],
          "title": "DigitalMicromirrorDevice",
          "type": "object"
-      },
-      "Direction": {
-         "description": "Anatomical direction name",
-         "enum": [
-            "Left_to_right",
-            "Right_to_left",
-            "Anterior_to_posterior",
-            "Posterior_to_anterior",
-            "Inferior_to_superior",
-            "Superior_to_inferior",
-            "Other"
-         ],
-         "title": "Direction",
-         "type": "string"
       },
       "Disc": {
          "additionalProperties": false,
@@ -10692,6 +10673,49 @@
             }
          },
          "title": "Icephys",
+         "type": "object"
+      },
+      "ImageAxis": {
+         "additionalProperties": false,
+         "description": "Description of an image axis",
+         "properties": {
+            "name": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/AxisName"
+                  }
+               ],
+               "title": "Name"
+            },
+            "direction": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/AnatomicalDirection"
+                  }
+               ],
+               "description": "Tissue direction as the value of axis increases. If Other describe in notes."
+            },
+            "dimension": {
+               "description": "Reference axis number for stitching",
+               "title": "Dimension",
+               "type": "integer"
+            },
+            "unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  }
+               ],
+               "default": "micrometer",
+               "title": "Axis physical units"
+            }
+         },
+         "required": [
+            "name",
+            "direction",
+            "dimension"
+         ],
+         "title": "ImageAxis",
          "type": "object"
       },
       "ImagingDeviceType": {
@@ -17916,6 +17940,16 @@
          "title": "Optotune",
          "type": "object"
       },
+      "Origin": {
+         "description": "Coordinate reference origin point",
+         "enum": [
+            "Bregma",
+            "Lambda",
+            "Other (see Notes)"
+         ],
+         "title": "Origin",
+         "type": "string"
+      },
       "Other": {
          "additionalProperties": false,
          "description": "Other",
@@ -20779,117 +20813,37 @@
       },
       "RelativePosition": {
          "additionalProperties": false,
-         "description": "Set of 6 values describing relative position on a rig",
+         "description": "Position and rotation of a device in a rig or instrument",
          "properties": {
-            "pitch": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Angle pitch (deg)"
+            "device_position_transformations": {
+               "items": {
+                  "anyOf": [
+                     {
+                        "$ref": "#/$defs/Translation3dTransform"
+                     },
+                     {
+                        "$ref": "#/$defs/Rotation3dTransform"
+                     }
+                  ]
+               },
+               "title": "Device position transforms",
+               "type": "array"
             },
-            "yaw": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Angle yaw (deg)"
+            "device_origin": {
+               "description": "Reference point on device for position information",
+               "title": "Device origin",
+               "type": "string"
             },
-            "roll": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Angle roll (deg)"
+            "device_axes": {
+               "items": {
+                  "$ref": "#/$defs/Axis"
+               },
+               "maxItems": 3,
+               "minItems": 3,
+               "title": "Device axes",
+               "type": "array"
             },
-            "angle_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AngleUnit"
-                  }
-               ],
-               "default": "degrees",
-               "title": "Angle unit"
-            },
-            "x": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Position X (mm)"
-            },
-            "y": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Position Y (mm)"
-            },
-            "z": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Position Z (mm)"
-            },
-            "position_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
-               "default": "millimeter",
-               "title": "Position unit"
-            },
-            "coordinate_system": {
+            "notes": {
                "anyOf": [
                   {
                      "type": "string"
@@ -20899,9 +20853,14 @@
                   }
                ],
                "default": null,
-               "title": "Description of the coordinate system used"
+               "title": "Notes"
             }
          },
+         "required": [
+            "device_position_transformations",
+            "device_origin",
+            "device_axes"
+         ],
          "title": "RelativePosition",
          "type": "object"
       },
@@ -21627,8 +21586,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.2.11",
-               "default": "0.2.11",
+               "const": "0.2.12",
+               "default": "0.2.12",
                "title": "Schema Version"
             },
             "rig_id": {
@@ -21897,6 +21856,35 @@
                "description": "Path to file that details the CCF-to-lab coordinate transform",
                "title": "CCF coordinate transform"
             },
+            "origin": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Origin"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Origin point for rig position transforms"
+            },
+            "rig_axes": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "$ref": "#/$defs/Axis"
+                     },
+                     "maxItems": 3,
+                     "minItems": 3,
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": [],
+               "title": "Rig axes"
+            },
             "modalities": {
                "items": {
                   "discriminator": {
@@ -21992,7 +21980,7 @@
       },
       "Rotation3dTransform": {
          "additionalProperties": false,
-         "description": "Values to be vector-added to a 3D position. Often needed to specify a Tile's origin.",
+         "description": "Values to be vector-added to a 3D position. Often needed to specify a device or tile's origin.",
          "properties": {
             "type": {
                "const": "rotation",
@@ -22595,8 +22583,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.1.5",
-               "default": "0.1.5",
+               "const": "0.1.6",
+               "default": "0.1.6",
                "title": "Schema Version"
             },
             "protocol_id": {
@@ -25351,7 +25339,7 @@
       },
       "Translation3dTransform": {
          "additionalProperties": false,
-         "description": "Values to be vector-added to a 3D position. Often needed to specify a Tile's origin.",
+         "description": "Values to be vector-added to a 3D position. Often needed to specify a device or tile's origin.",
          "properties": {
             "type": {
                "const": "translation",
@@ -27638,8 +27626,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.1.24",
-         "default": "0.1.24",
+         "const": "0.1.25",
+         "default": "0.1.25",
          "title": "Schema Version"
       },
       "_id": {

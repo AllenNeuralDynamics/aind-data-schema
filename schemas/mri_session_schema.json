@@ -339,6 +339,20 @@
          "title": "Anaesthetic",
          "type": "object"
       },
+      "AnatomicalDirection": {
+         "description": "Anatomical direction name",
+         "enum": [
+            "Left_to_right",
+            "Right_to_left",
+            "Anterior_to_posterior",
+            "Posterior_to_anterior",
+            "Inferior_to_superior",
+            "Superior_to_inferior",
+            "Other"
+         ],
+         "title": "AnatomicalDirection",
+         "type": "string"
+      },
       "AppliedScientificInstrumentation": {
          "additionalProperties": false,
          "description": "AppliedScientificInstrumentation",
@@ -434,49 +448,6 @@
             }
          },
          "title": "Asus",
-         "type": "object"
-      },
-      "Axis": {
-         "additionalProperties": false,
-         "description": "Description of an image axis",
-         "properties": {
-            "name": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AxisName"
-                  }
-               ],
-               "title": "Name"
-            },
-            "dimension": {
-               "description": "Reference axis number for stitching",
-               "title": "Dimension",
-               "type": "integer"
-            },
-            "direction": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/Direction"
-                  }
-               ],
-               "description": "Tissue direction as the value of axis increases. If Other describe in notes."
-            },
-            "unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
-               "default": "micrometer",
-               "title": "Axis physical units"
-            }
-         },
-         "required": [
-            "name",
-            "dimension",
-            "direction"
-         ],
-         "title": "Axis",
          "type": "object"
       },
       "AxisName": {
@@ -821,20 +792,6 @@
          "title": "Custom",
          "type": "object"
       },
-      "Direction": {
-         "description": "Anatomical direction name",
-         "enum": [
-            "Left_to_right",
-            "Right_to_left",
-            "Anterior_to_posterior",
-            "Posterior_to_anterior",
-            "Inferior_to_superior",
-            "Superior_to_inferior",
-            "Other"
-         ],
-         "title": "Direction",
-         "type": "string"
-      },
       "Dodotronic": {
          "additionalProperties": false,
          "description": "Dodotronic",
@@ -1167,6 +1124,49 @@
          "title": "ISLProductsInternational",
          "type": "object"
       },
+      "ImageAxis": {
+         "additionalProperties": false,
+         "description": "Description of an image axis",
+         "properties": {
+            "name": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/AxisName"
+                  }
+               ],
+               "title": "Name"
+            },
+            "direction": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/AnatomicalDirection"
+                  }
+               ],
+               "description": "Tissue direction as the value of axis increases. If Other describe in notes."
+            },
+            "dimension": {
+               "description": "Reference axis number for stitching",
+               "title": "Dimension",
+               "type": "integer"
+            },
+            "unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  }
+               ],
+               "default": "micrometer",
+               "title": "Axis physical units"
+            }
+         },
+         "required": [
+            "name",
+            "direction",
+            "dimension"
+         ],
+         "title": "ImageAxis",
+         "type": "object"
+      },
       "InfinityPhotoOptical": {
          "additionalProperties": false,
          "description": "InfinityPhotoOptical",
@@ -1470,7 +1470,7 @@
             },
             "axes": {
                "items": {
-                  "$ref": "#/$defs/Axis"
+                  "$ref": "#/$defs/ImageAxis"
                },
                "title": "Imaging axes",
                "type": "array"
@@ -3172,8 +3172,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.2.8",
-         "default": "0.2.8",
+         "const": "0.2.9",
+         "default": "0.2.9",
          "title": "Schema Version"
       },
       "subject_id": {

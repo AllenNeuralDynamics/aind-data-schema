@@ -394,6 +394,20 @@
          "title": "AmsOsram",
          "type": "object"
       },
+      "AnatomicalDirection": {
+         "description": "Anatomical direction name",
+         "enum": [
+            "Left_to_right",
+            "Right_to_left",
+            "Anterior_to_posterior",
+            "Posterior_to_anterior",
+            "Inferior_to_superior",
+            "Superior_to_inferior",
+            "Other"
+         ],
+         "title": "AnatomicalDirection",
+         "type": "string"
+      },
       "AngleUnit": {
          "description": "Enumeration of Angle Measurements",
          "enum": [
@@ -498,49 +512,6 @@
             }
          },
          "title": "Asus",
-         "type": "object"
-      },
-      "Axis": {
-         "additionalProperties": false,
-         "description": "Description of an image axis",
-         "properties": {
-            "name": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AxisName"
-                  }
-               ],
-               "title": "Name"
-            },
-            "dimension": {
-               "description": "Reference axis number for stitching",
-               "title": "Dimension",
-               "type": "integer"
-            },
-            "direction": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/Direction"
-                  }
-               ],
-               "description": "Tissue direction as the value of axis increases. If Other describe in notes."
-            },
-            "unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
-               "default": "micrometer",
-               "title": "Axis physical units"
-            }
-         },
-         "required": [
-            "name",
-            "dimension",
-            "direction"
-         ],
-         "title": "Axis",
          "type": "object"
       },
       "AxisName": {
@@ -1077,20 +1048,6 @@
          "title": "Custom",
          "type": "object"
       },
-      "Direction": {
-         "description": "Anatomical direction name",
-         "enum": [
-            "Left_to_right",
-            "Right_to_left",
-            "Anterior_to_posterior",
-            "Posterior_to_anterior",
-            "Inferior_to_superior",
-            "Superior_to_inferior",
-            "Other"
-         ],
-         "title": "Direction",
-         "type": "string"
-      },
       "Dodotronic": {
          "additionalProperties": false,
          "description": "Dodotronic",
@@ -1421,6 +1378,49 @@
             }
          },
          "title": "ISLProductsInternational",
+         "type": "object"
+      },
+      "ImageAxis": {
+         "additionalProperties": false,
+         "description": "Description of an image axis",
+         "properties": {
+            "name": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/AxisName"
+                  }
+               ],
+               "title": "Name"
+            },
+            "direction": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/AnatomicalDirection"
+                  }
+               ],
+               "description": "Tissue direction as the value of axis increases. If Other describe in notes."
+            },
+            "dimension": {
+               "description": "Reference axis number for stitching",
+               "title": "Dimension",
+               "type": "integer"
+            },
+            "unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  }
+               ],
+               "default": "micrometer",
+               "title": "Axis physical units"
+            }
+         },
+         "required": [
+            "name",
+            "direction",
+            "dimension"
+         ],
+         "title": "ImageAxis",
          "type": "object"
       },
       "Immersion": {
@@ -2826,7 +2826,7 @@
       },
       "Rotation3dTransform": {
          "additionalProperties": false,
-         "description": "Values to be vector-added to a 3D position. Often needed to specify a Tile's origin.",
+         "description": "Values to be vector-added to a 3D position. Often needed to specify a device or tile's origin.",
          "properties": {
             "type": {
                "const": "rotation",
@@ -3292,7 +3292,7 @@
       },
       "Translation3dTransform": {
          "additionalProperties": false,
-         "description": "Values to be vector-added to a 3D position. Often needed to specify a Tile's origin.",
+         "description": "Values to be vector-added to a 3D position. Often needed to specify a device or tile's origin.",
          "properties": {
             "type": {
                "const": "translation",
@@ -3417,8 +3417,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.6.5",
-         "default": "0.6.5",
+         "const": "0.6.6",
+         "default": "0.6.6",
          "title": "Schema Version"
       },
       "protocol_id": {
@@ -3507,7 +3507,7 @@
       },
       "axes": {
          "items": {
-            "$ref": "#/$defs/Axis"
+            "$ref": "#/$defs/ImageAxis"
          },
          "title": "Acquisition axes",
          "type": "array"
