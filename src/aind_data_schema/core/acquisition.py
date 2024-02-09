@@ -8,7 +8,7 @@ from pydantic import Field, field_validator
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.imaging.tile import AcquisitionTile
-from aind_data_schema.models.coordinates import AxisName, Direction, ImageAxis
+from aind_data_schema.models.coordinates import AxisName, AnatomicalDirection, ImageAxis
 from aind_data_schema.models.devices import Calibration, ImmersionMedium, Maintenance
 from aind_data_schema.models.process_names import ProcessName
 
@@ -85,12 +85,12 @@ class Acquisition(AindCoreModel):
         """Map direction codes to Axis model"""
         if type(v) is str:
             direction_lookup = {
-                "L": Direction.LR,
-                "R": Direction.RL,
-                "A": Direction.AP,
-                "P": Direction.PA,
-                "I": Direction.IS,
-                "S": Direction.SI,
+                "L": AnatomicalDirection.LR,
+                "R": AnatomicalDirection.RL,
+                "A": AnatomicalDirection.AP,
+                "P": AnatomicalDirection.PA,
+                "I": AnatomicalDirection.IS,
+                "S": AnatomicalDirection.SI,
             }
 
             name_lookup = [AxisName.X, AxisName.Y, AxisName.Z]

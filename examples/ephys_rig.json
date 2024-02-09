@@ -620,7 +620,7 @@
       }
    ],
    "ccf_coordinate_transform": null,
-   "origin_point": null,
+   "origin": null,
    "rig_axes": [],
    "modalities": [
       {

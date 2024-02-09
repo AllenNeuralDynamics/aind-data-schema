@@ -2,7 +2,7 @@
 
 from decimal import Decimal
 from enum import Enum
-from typing import List, Literal, Optional
+from typing import List, Literal, Optional, Union
 
 from pydantic import Field
 
@@ -32,7 +32,7 @@ class AxisName(str, Enum):
     Z = "Z"
 
 
-class Direction(str, Enum):
+class AnatomicalDirection(str, Enum):
     """Anatomical direction name"""
 
     LR = "Left_to_right"
@@ -60,14 +60,14 @@ class Scale3dTransform(CoordinateTransform):
 
 
 class Translation3dTransform(CoordinateTransform):
-    """Values to be vector-added to a 3D position. Often needed to specify a Tile's origin."""
+    """Values to be vector-added to a 3D position. Often needed to specify a device or tile's origin."""
 
     type: Literal["translation"] = "translation"
     translation: List[Decimal] = Field(..., title="3D translation parameters", min_length=3, max_length=3)
 
 
 class Rotation3dTransform(CoordinateTransform):
-    """Values to be vector-added to a 3D position. Often needed to specify a Tile's origin."""
+    """Values to be vector-added to a 3D position. Often needed to specify a device or tile's origin."""
 
     type: Literal["rotation"] = "rotation"
     rotation: List[Decimal] = Field(..., title="3D rotation matrix values (3x3) ", min_length=9, max_length=9)
@@ -160,7 +160,7 @@ class ImageAxis(Axis):
         description="Reference axis number for stitching",
         title="Dimension",
     )
-    direction: Direction = Field(
+    direction: AnatomicalDirection = Field(
         ...,
         description="Tissue direction as the value of axis increases. If Other describe in notes.",
     )
@@ -170,12 +170,12 @@ class ImageAxis(Axis):
 class RelativePosition(AindModel):
     """Position and rotation of a device in a rig or instrument"""
 
-    device_position: Translation3dTransform = Field(..., title="Device position")
-    position_unit: SizeUnit = Field(SizeUnit.MM, title="Position unit")
-    device_rotation: Rotation3dTransform = Field(..., title="Device rotation")
-    angle_unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
-    device_reference_point: str = Field(
-        ..., title="Device reference point",
+    device_position_transformations: Union[
+        Translation3dTransform,
+        Rotation3dTransform
+    ] = Field(..., title="Device position transforms")
+    device_origin: str = Field(
+        ..., title="Device origin",
         description="Reference point on device for position information"
         )
     device_axes: List[Axis] = Field(..., title="Device axes", min_length=3, max_length=3)
