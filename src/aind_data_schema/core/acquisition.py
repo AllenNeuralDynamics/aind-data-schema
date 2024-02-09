@@ -8,7 +8,7 @@ from pydantic import Field, field_validator
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.imaging.tile import AcquisitionTile
-from aind_data_schema.models.coordinates import Direction, ImageAxis
+from aind_data_schema.models.coordinates import AxisName, Direction, ImageAxis
 from aind_data_schema.models.devices import Calibration, ImmersionMedium, Maintenance
 from aind_data_schema.models.process_names import ProcessName
 
