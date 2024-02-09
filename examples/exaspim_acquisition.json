@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/acquisition.py",
-   "schema_version": "0.6.5",
+   "schema_version": "0.6.6",
    "protocol_id": [],
    "experimenter_full_name": [
       "###"
@@ -149,20 +149,20 @@
    "axes": [
       {
          "name": "X",
-         "dimension": 2,
          "direction": "Left_to_right",
+         "dimension": 2,
          "unit": "micrometer"
       },
       {
          "name": "Y",
-         "dimension": 1,
          "direction": "Anterior_to_posterior",
+         "dimension": 1,
          "unit": "micrometer"
       },
       {
          "name": "Z",
-         "dimension": 0,
          "direction": "Inferior_to_superior",
+         "dimension": 0,
          "unit": "micrometer"
       }
    ],

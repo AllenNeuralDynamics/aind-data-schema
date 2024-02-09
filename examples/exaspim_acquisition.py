@@ -5,6 +5,11 @@ from datetime import datetime
 from aind_data_schema.core import acquisition
 from aind_data_schema.core.procedures import Reagent
 from aind_data_schema.imaging import tile
+from aind_data_schema.models.coordinates import (
+    ImageAxis,
+    Scale3dTransform,
+    Translation3dTransform
+)
 from aind_data_schema.models.devices import Calibration, Maintenance
 from aind_data_schema.models.pid_names import PIDName
 from aind_data_schema.models.registry import Registry
@@ -49,17 +54,17 @@ acq = acquisition.Acquisition(
     external_storage_directory="Z:",
     chamber_immersion=acquisition.Immersion(medium="PBS", refractive_index=1.33),
     axes=[
-        acquisition.Axis(
+        ImageAxis(
             name="X",
             dimension=2,
             direction="Left_to_right",
         ),
-        acquisition.Axis(
+        ImageAxis(
             name="Y",
             dimension=1,
             direction="Anterior_to_posterior",
         ),
-        acquisition.Axis(
+        ImageAxis(
             name="Z",
             dimension=0,
             direction="Inferior_to_superior",
@@ -69,8 +74,8 @@ acq = acquisition.Acquisition(
         tile.AcquisitionTile(
             file_name="tile_X_0000_Y_0000_Z_0000_CH_488.ims",
             coordinate_transformations=[
-                tile.Scale3dTransform(scale=[0.748, 0.748, 1]),
-                tile.Translation3dTransform(translation=[0, 0, 0]),
+                Scale3dTransform(scale=[0.748, 0.748, 1]),
+                Translation3dTransform(translation=[0, 0, 0]),
             ],
             channel=tile.Channel(
                 channel_name="488",
@@ -86,8 +91,8 @@ acq = acquisition.Acquisition(
         tile.AcquisitionTile(
             file_name="tile_X_0000_Y_0000_Z_0000_CH_561.ims",
             coordinate_transformations=[
-                tile.Scale3dTransform(scale=[0.748, 0.748, 1]),
-                tile.Translation3dTransform(translation=[0, 0, 0]),
+                Scale3dTransform(scale=[0.748, 0.748, 1]),
+                Translation3dTransform(translation=[0, 0, 0]),
             ],
             channel=tile.Channel(
                 channel_name="561",
