@@ -81,6 +81,7 @@ class Affine3dTransform(CoordinateTransform):
         ..., title="Affine transform matrix values (top 3x4 matrix)", min_length=12, max_length=12
     )
 
+
 class Size2d(AindModel):
     """2D size of an object"""
 

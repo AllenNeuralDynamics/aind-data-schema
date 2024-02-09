@@ -1,7 +1,6 @@
 """" Models related to imaging tiles and their transformations """
 
-from decimal import Decimal
-from typing import List, Literal, Optional, Union
+from typing import List, Optional, Union
 
 from pydantic import Field
 
