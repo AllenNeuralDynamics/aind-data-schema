@@ -14,7 +14,7 @@ jobs:
       AWS_DATA_SCHEMA_ROLE: ${{ secrets.AWS_DATA_SCHEMA_ROLE_PROD}}
       AWS_DATA_SCHEMA_BUCKET: ${{ vars.AWS_DATA_SCHEMA_BUCKET_PROD }}
       AWS_REGION : ${{ vars.AWS_REGION_PROD }}
-      SOURCE_DIR: 'schemas'
+      SOURCE_DIR: 'temp_schemas'
     steps:
       - uses: actions/checkout@master
       - name: Pull latest changes
