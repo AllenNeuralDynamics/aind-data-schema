@@ -170,9 +170,11 @@ class ImageAxis(Axis):
 class RelativePosition(AindModel):
     """Position and rotation of a device in a rig or instrument"""
 
-    device_position_transformations: Union[
-        Translation3dTransform,
-        Rotation3dTransform
+    device_position_transformations: List[
+        Union[
+            Translation3dTransform,
+            Rotation3dTransform
+        ]
     ] = Field(..., title="Device position transforms")
     device_origin: str = Field(
         ..., title="Device origin",
