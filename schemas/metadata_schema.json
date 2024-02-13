@@ -3218,57 +3218,6 @@
                "default": null,
                "title": "Craniotomy hemisphere"
             },
-            "craniotomy_coordinates_ml": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Craniotomy coordinate ML (mm)"
-            },
-            "craniotomy_coordinates_ap": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Craniotomy coordinates AP (mm)"
-            },
-            "craniotomy_coordinates_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
-               "default": "millimeter",
-               "title": "Craniotomy coordinates unit"
-            },
-            "craniotomy_coordinates_reference": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/CoordinateReferenceLocation"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Craniotomy coordinate reference"
-            },
             "bregma_to_lambda_distance": {
                "anyOf": [
                   {
@@ -3293,26 +3242,6 @@
                ],
                "default": "millimeter",
                "title": "Bregma to lambda unit"
-            },
-            "craniotomy_size": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  }
-               ],
-               "title": "Craniotomy size (mm)"
-            },
-            "craniotomy_size_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
-               "default": "millimeter",
-               "title": "Craniotomy size unit"
             },
             "implant_part_number": {
                "anyOf": [
@@ -3377,8 +3306,7 @@
          },
          "required": [
             "protocol_id",
-            "craniotomy_type",
-            "craniotomy_size"
+            "craniotomy_type"
          ],
          "title": "Craniotomy",
          "type": "object"
@@ -19762,8 +19690,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.11.7",
-               "default": "0.11.7",
+               "const": "0.12.0",
+               "default": "0.12.0",
                "description": "schema version",
                "title": "Version"
             },
@@ -27626,8 +27554,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.1.25",
-         "default": "0.1.25",
+         "const": "0.1.26",
+         "default": "0.1.26",
          "title": "Schema Version"
       },
       "_id": {
