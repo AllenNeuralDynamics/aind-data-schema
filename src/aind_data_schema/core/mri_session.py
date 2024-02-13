@@ -10,7 +10,7 @@ from pydantic import Field, ValidationInfo, field_validator
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.core.procedures import Anaesthetic
 from aind_data_schema.imaging.tile import Scale3dTransform
-from aind_data_schema.models.coordinates import ImageAxis
+from aind_data_schema.models.coordinates import Rotation3dTransform, Scale3dTransform, Translation3dTransform
 from aind_data_schema.models.devices import Scanner
 from aind_data_schema.models.process_names import ProcessName
 from aind_data_schema.models.units import MassUnit, TimeUnit
@@ -30,6 +30,13 @@ class ScanType(str, Enum):
     SCAN_3D = "3D Scan"
 
 
+class SubjectPosition(str, Enum):
+    """Subject position"""
+
+    PRONE = "Prone"
+    SUPINE = "Supine"
+
+
 class MRIScan(AindModel):
     """Description of a 3D scan"""
 
@@ -38,10 +45,21 @@ class MRIScan(AindModel):
         ..., title="Primary scan", description="Indicates the primary scan used for downstream analysis"
     )
     scan_sequence_type: MriScanSequence = Field(..., title="Scan sequence")
-    axes: List[ImageAxis] = Field(..., title="Imaging axes")
-    voxel_sizes: Scale3dTransform = Field(
-        ..., title="Voxel sizes", description="Size of voxels in order as specified in axes"
-    )
+    rare_factor: Optional[int] = Field(None, title="RARE factor")
+    echo_time: Decimal = Field(..., title="Echo time (ms)")
+    effective_echo_time: Decimal = Field(..., title="Effective echo time (ms)")
+    echo_time_unit: TimeUnit = Field(TimeUnit.MS, title="Echo time unit")
+    repetition_time: Decimal = Field(..., title="Repetition time (ms)")
+    repetition_time_unit: TimeUnit = Field(TimeUnit.MS, title="Repetition time unit")
+    #fields required to get correct orientation
+    vc_orientation: Rotation3dTransform = Field(..., title="Scan orientation")
+    vc_position: Translation3dTransform = Field(..., title="Scan position")
+    subject_position: SubjectPosition = Field(..., title="Subject position")
+    vc_extent: List[int] = Field(..., title="Visu Core Extent", min_length=3, max_length=3)
+    vc_size: List[int] = Field(..., title="Visu Core Size", min_length=3, max_length=3)
+    vc_frame_thickness: int = Field(..., title="Visu Core frame thickness")
+    #other fields
+    voxel_sizes: Scale3dTransform = Field(..., title="Voxel sizes")
     processing_steps: List[
         Literal[
             ProcessName.FIDUCIAL_SEGMENTATION,
@@ -49,11 +67,6 @@ class MRIScan(AindModel):
             ProcessName.SKULL_STRIPPING,
         ]
     ] = Field([])
-    echo_time: Decimal = Field(..., title="Echo time (ms)")
-    effective_echo_time: Decimal = Field(..., title="Effective echo time (ms)")
-    echo_time_unit: TimeUnit = Field(TimeUnit.MS, title="Echo time unit")
-    repetition_time: Decimal = Field(..., title="Repetition time (ms)")
-    repetition_time_unit: TimeUnit = Field(TimeUnit.MS, title="Repetition time unit")
     additional_scan_parameters: Dict[str, Any] = Field(..., title="Parameters")
     notes: Optional[str] = Field(None, title="Notes", validate_default=True)
 
