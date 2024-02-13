@@ -32,8 +32,6 @@ p = Procedures(
                     protocol_id="1234",
                     craniotomy_hemisphere="Left",
                     bregma_to_lambda_distance=4.1,
-                    craniotomy_coordinates_reference="Lambda",
-                    craniotomy_size=5,
                 ),
                 NanojectInjection(
                     protocol_id="5678",

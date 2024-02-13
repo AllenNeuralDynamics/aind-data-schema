@@ -275,18 +275,10 @@ class Craniotomy(AindModel):
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     craniotomy_type: CraniotomyType = Field(..., title="Craniotomy type")
     craniotomy_hemisphere: Optional[Side] = Field(None, title="Craniotomy hemisphere")
-    craniotomy_coordinates_ml: Optional[Decimal] = Field(None, title="Craniotomy coordinate ML (mm)")
-    craniotomy_coordinates_ap: Optional[Decimal] = Field(None, title="Craniotomy coordinates AP (mm)")
-    craniotomy_coordinates_unit: SizeUnit = Field(SizeUnit.MM, title="Craniotomy coordinates unit")
-    craniotomy_coordinates_reference: Optional[CoordinateReferenceLocation] = Field(
-        None, title="Craniotomy coordinate reference"
-    )
     bregma_to_lambda_distance: Optional[Decimal] = Field(
         None, title="Bregma to lambda (mm)", description="Distance between bregman and lambda"
     )
     bregma_to_lambda_unit: SizeUnit = Field(SizeUnit.MM, title="Bregma to lambda unit")
-    craniotomy_size: Decimal = Field(..., title="Craniotomy size (mm)")
-    craniotomy_size_unit: SizeUnit = Field(SizeUnit.MM, title="Craniotomy size unit")
     implant_part_number: Optional[str] = Field(None, title="Implant part number")
     dura_removed: Optional[bool] = Field(None, title="Dura removed")
     protective_material: Optional[ProtectiveMaterial] = Field(None, title="Protective material")
@@ -580,7 +572,7 @@ class Procedures(AindCoreModel):
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/procedures.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
 
-    schema_version: Literal["0.11.7"] = Field("0.11.7", description="schema version", title="Version")
+    schema_version: Literal["0.12.0"] = Field("0.12.0", description="schema version", title="Version")
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
