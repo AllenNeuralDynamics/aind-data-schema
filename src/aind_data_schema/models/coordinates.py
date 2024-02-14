@@ -170,15 +170,11 @@ class ImageAxis(Axis):
 class RelativePosition(AindModel):
     """Position and rotation of a device in a rig or instrument"""
 
-    device_position_transformations: List[
-        Union[
-            Translation3dTransform,
-            Rotation3dTransform
-        ]
-    ] = Field(..., title="Device position transforms")
+    device_position_transformations: List[Union[Translation3dTransform, Rotation3dTransform]] = Field(
+        ..., title="Device position transforms"
+    )
     device_origin: str = Field(
-        ..., title="Device origin",
-        description="Reference point on device for position information"
-        )
+        ..., title="Device origin", description="Reference point on device for position information"
+    )
     device_axes: List[Axis] = Field(..., title="Device axes", min_length=3, max_length=3)
     notes: Optional[str] = Field(None, title="Notes")

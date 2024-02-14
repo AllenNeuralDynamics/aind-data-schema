@@ -216,7 +216,6 @@ class DataDescriptionTest(unittest.TestCase):
                 funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
                 investigators=["Jane Smith"],
             )
-
         expected_exception = (
             "1 validation error for DataDescription\n"
             "project_name\n"
