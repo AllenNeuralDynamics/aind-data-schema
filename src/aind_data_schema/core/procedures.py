@@ -98,6 +98,7 @@ class ProtectiveMaterial(str, Enum):
 class CraniotomyType(str, Enum):
     """Name of craniotomy Type"""
 
+    DHC = "Dual hemisphere craniotomy"
     THREE_MM = "3 mm"
     FIVE_MM = "5 mm"
     VISCTX = "Visual Cortex"
