@@ -153,6 +153,7 @@ class ImagingTests(unittest.TestCase):
             ),
             scans=[
                 ms.MRIScan(
+                    scan_index=1,
                     scan_type="3D Scan",
                     scan_sequence_type="RARE",
                     rare_factor=4,
