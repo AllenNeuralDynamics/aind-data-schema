@@ -219,7 +219,7 @@ class DataDescriptionTest(unittest.TestCase):
         expected_exception = (
             "1 validation error for DataDescription\n"
             "project_name\n"
-            f"  String should match pattern '{DataRegex.NO_SPECIAL_CHARS.value}'"
+            f"  String should match pattern '{DataRegex.NO_SPECIAL_CHARS_EXCEPT_SPACE.value}'"
             " [type=string_pattern_mismatch, input_value='a_32r&!#R$&#', input_type=str]\n"
             f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/string_pattern_mismatch"
         )
