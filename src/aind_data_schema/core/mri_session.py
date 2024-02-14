@@ -9,7 +9,6 @@ from pydantic import Field, ValidationInfo, field_validator
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.core.procedures import Anaesthetic
-from aind_data_schema.imaging.tile import Scale3dTransform
 from aind_data_schema.models.coordinates import Rotation3dTransform, Scale3dTransform, Translation3dTransform
 from aind_data_schema.models.devices import Scanner
 from aind_data_schema.models.process_names import ProcessName
@@ -51,11 +50,11 @@ class MRIScan(AindModel):
     echo_time_unit: TimeUnit = Field(TimeUnit.MS, title="Echo time unit")
     repetition_time: Decimal = Field(..., title="Repetition time (ms)")
     repetition_time_unit: TimeUnit = Field(TimeUnit.MS, title="Repetition time unit")
-    #fields required to get correct orientation
+    # fields required to get correct orientation
     vc_orientation: Rotation3dTransform = Field(..., title="Scan orientation")
     vc_position: Translation3dTransform = Field(..., title="Scan position")
     subject_position: SubjectPosition = Field(..., title="Subject position")
-    #other fields
+    # other fields
     voxel_sizes: Scale3dTransform = Field(..., title="Voxel sizes", description="Resolution")
     processing_steps: List[
         Literal[
