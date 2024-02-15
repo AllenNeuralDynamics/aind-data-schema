@@ -440,6 +440,15 @@ class Navitar(_Organization):
     registry_identifier: Literal[None] = Field(None)
 
 
+class Neurophotometrics(_Organization):
+    """Neurophotometrics"""
+
+    name: Literal["Neurophotometrics"] = "Neurophotometrics"
+    abbreviation: Literal[None] = Field(None)
+    registry: Literal[None] = Field(None)
+    registry_identifier: Literal[None] = Field(None)
+
+
 class NewScaleTechnologies(_Organization):
     """NewScaleTechnologies"""
 
@@ -705,6 +714,7 @@ class Organization:
     NATIONAL_INSTRUMENTS = NationalInstruments()
     NAVITAR = Navitar()
     NEW_SCALE_TECHNOLOGIES = NewScaleTechnologies()
+    NEUROPHOTOMETRICS = Neurophotometrics()
     NINDS = NationalInstituteOfNeurologicalDisordersAndStroke()
     NIKON = Nikon()
     NYU = NewYorkUniversity()

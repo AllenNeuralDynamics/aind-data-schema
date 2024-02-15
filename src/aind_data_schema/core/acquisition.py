@@ -8,7 +8,7 @@ from pydantic import Field, field_validator
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.imaging.tile import AcquisitionTile
-from aind_data_schema.models.coordinates import AxisName, AnatomicalDirection, ImageAxis
+from aind_data_schema.models.coordinates import AnatomicalDirection, AxisName, ImageAxis
 from aind_data_schema.models.devices import Calibration, ImmersionMedium, Maintenance
 from aind_data_schema.models.process_names import ProcessName
 
@@ -45,7 +45,7 @@ class Acquisition(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/acquisition.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["0.6.6"] = Field("0.6.6")
+    schema_version: Literal["0.6.7"] = Field("0.6.7")
     protocol_id: List[str] = Field([], title="Protocol ID", description="DOI for protocols.io")
     experimenter_full_name: List[str] = Field(
         ...,
