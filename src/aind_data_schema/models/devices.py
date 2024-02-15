@@ -13,7 +13,15 @@ from aind_data_schema.models.coordinates import RelativePosition, Size3d
 from aind_data_schema.models.harp_types import HarpDeviceType
 from aind_data_schema.models.organizations import Organization
 from aind_data_schema.models.reagent import Reagent
-from aind_data_schema.models.units import FrequencyUnit, PowerUnit, SizeUnit, SpeedUnit, TemperatureUnit, UnitlessUnit
+from aind_data_schema.models.units import (
+    FrequencyUnit,
+    PowerUnit,
+    SizeUnit,
+    SpeedUnit,
+    TemperatureUnit,
+    TimeUnit,
+    UnitlessUnit
+)
 
 
 class ImagingDeviceType(str, Enum):
@@ -724,6 +732,16 @@ class Monitor(Device):
     )
 
 
+class ServoMotor(Device):
+    """Description of a servo motor"""
+
+    pulse_frequency: Decimal = Field(..., title="Pulse frequency")
+    pulse_frequency_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Pulse frequency unit")
+    pulse_duration_min: Decimal = Field(..., title="Pulse duration minimum")
+    pulse_duration_max: Decimal = Field(..., title="Pulse duration maximum")
+    duration_unit: TimeUnit = Field(TimeUnit.US, title="Duration unit")
+
+
 class RewardSpout(Device):
     """Description of a reward spout"""
 
@@ -740,6 +758,7 @@ class RewardDelivery(AindModel):
     """Description of reward delivery system"""
 
     device_type: Literal["Reward delivery"] = "Reward delivery"
+    servo_motor: Optional[ServoMotor] = Field(None, title="Servo motor")
     stage_type: Optional[MotorizedStage] = Field(None, title="Motorized stage")
     reward_spouts: List[RewardSpout] = Field(..., title="Water spouts")
 
