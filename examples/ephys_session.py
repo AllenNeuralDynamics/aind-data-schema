@@ -14,7 +14,7 @@ from aind_data_schema.models.modalities import Modality
 from aind_data_schema.models.stimulus import StimulusEpoch, VisualStimulation
 
 session = Session(
-    experimenter_full_name=["Yoni Browning", "Galen Lynch"],
+    experimenter_full_name=["Max Quibble", "Finn Tickle"],
     subject_id="664484",
     session_start_time=datetime.datetime(year=2023, month=4, day=25, hour=2, minute=35, second=0),
     session_end_time=datetime.datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0),
@@ -54,6 +54,20 @@ session = Session(
                 DomeModule(
                     rotation_angle=0,
                     assembly_name="22438379",
+                    arc_angle=-180,
+                    module_angle=-180,
+                    notes="Did not record angles, did not calibrate",
+                ),
+                DomeModule(
+                    rotation_angle=0,
+                    assembly_name="22438379",
+                    arc_angle=-180,
+                    module_angle=-180,
+                    notes="Did not record angles, did not calibrate",
+                ),
+                DomeModule(
+                    rotation_angle=0,
+                    assembly_name="22437106",
                     arc_angle=-180,
                     module_angle=-180,
                     notes="Did not record angles, did not calibrate",
@@ -98,6 +112,20 @@ session = Session(
             mouse_platform_name="mouse platform",
             active_mouse_platform=True,
             stick_microscopes=[
+                DomeModule(
+                    rotation_angle=0,
+                    assembly_name="20516338",
+                    arc_angle=-180,
+                    module_angle=-180,
+                    notes="did not record angles, did not calibrate.",
+                ),
+                DomeModule(
+                    rotation_angle=0,
+                    assembly_name="22438379",
+                    arc_angle=-180,
+                    module_angle=-180,
+                    notes="Did not record angles, did not calibrate",
+                ),
                 DomeModule(
                     rotation_angle=0,
                     assembly_name="22438379",
