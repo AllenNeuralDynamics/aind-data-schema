@@ -5,16 +5,12 @@ from datetime import datetime
 from aind_data_schema.core import acquisition
 from aind_data_schema.core.procedures import Reagent
 from aind_data_schema.imaging import tile
-from aind_data_schema.models.coordinates import (
-    ImageAxis,
-    Scale3dTransform,
-    Translation3dTransform
-)
+from aind_data_schema.models.coordinates import ImageAxis, Scale3dTransform, Translation3dTransform
 from aind_data_schema.models.devices import Calibration, Maintenance
+from aind_data_schema.models.organizations import Organization
 from aind_data_schema.models.pid_names import PIDName
 from aind_data_schema.models.registry import Registry
 from aind_data_schema.models.units import PowerValue
-from aind_data_schema.models.organizations import Organization
 
 t = datetime(2022, 11, 22, 8, 43, 00)
 

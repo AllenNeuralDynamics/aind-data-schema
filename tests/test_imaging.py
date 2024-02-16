@@ -14,9 +14,10 @@ from aind_data_schema.core.processing import Registration
 from aind_data_schema.imaging import tile
 from aind_data_schema.models.coordinates import (
     Affine3dTransform,
+    ImageAxis,
     Rotation3dTransform,
     Scale3dTransform,
-    Translation3dTransform
+    Translation3dTransform,
 )
 from aind_data_schema.models.devices import Calibration, DAQChannel, DAQDevice
 from aind_data_schema.models.organizations import Organization
