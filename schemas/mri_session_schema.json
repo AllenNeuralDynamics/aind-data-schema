@@ -339,20 +339,6 @@
          "title": "Anaesthetic",
          "type": "object"
       },
-      "AnatomicalDirection": {
-         "description": "Anatomical direction name",
-         "enum": [
-            "Left_to_right",
-            "Right_to_left",
-            "Anterior_to_posterior",
-            "Posterior_to_anterior",
-            "Inferior_to_superior",
-            "Superior_to_inferior",
-            "Other"
-         ],
-         "title": "AnatomicalDirection",
-         "type": "string"
-      },
       "AppliedScientificInstrumentation": {
          "additionalProperties": false,
          "description": "AppliedScientificInstrumentation",
@@ -449,16 +435,6 @@
          },
          "title": "Asus",
          "type": "object"
-      },
-      "AxisName": {
-         "description": "Image axis name",
-         "enum": [
-            "X",
-            "Y",
-            "Z"
-         ],
-         "title": "AxisName",
-         "type": "string"
       },
       "Basler": {
          "additionalProperties": false,
@@ -1124,49 +1100,6 @@
          "title": "ISLProductsInternational",
          "type": "object"
       },
-      "ImageAxis": {
-         "additionalProperties": false,
-         "description": "Description of an image axis",
-         "properties": {
-            "name": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AxisName"
-                  }
-               ],
-               "title": "Name"
-            },
-            "direction": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AnatomicalDirection"
-                  }
-               ],
-               "description": "Tissue direction as the value of axis increases. If Other describe in notes."
-            },
-            "dimension": {
-               "description": "Reference axis number for stitching",
-               "title": "Dimension",
-               "type": "integer"
-            },
-            "unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
-               "default": "micrometer",
-               "title": "Axis physical units"
-            }
-         },
-         "required": [
-            "name",
-            "direction",
-            "dimension"
-         ],
-         "title": "ImageAxis",
-         "type": "object"
-      },
       "InfinityPhotoOptical": {
          "additionalProperties": false,
          "description": "InfinityPhotoOptical",
@@ -1447,6 +1380,10 @@
          "additionalProperties": false,
          "description": "Description of a 3D scan",
          "properties": {
+            "scan_index": {
+               "title": "Scan index",
+               "type": "integer"
+            },
             "scan_type": {
                "allOf": [
                   {
@@ -1468,34 +1405,17 @@
                ],
                "title": "Scan sequence"
             },
-            "axes": {
-               "items": {
-                  "$ref": "#/$defs/ImageAxis"
-               },
-               "title": "Imaging axes",
-               "type": "array"
-            },
-            "voxel_sizes": {
-               "allOf": [
+            "rare_factor": {
+               "anyOf": [
                   {
-                     "$ref": "#/$defs/Scale3dTransform"
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
                   }
                ],
-               "description": "Size of voxels in order as specified in axes",
-               "title": "Voxel sizes"
-            },
-            "processing_steps": {
-               "default": [],
-               "items": {
-                  "enum": [
-                     "Fiducial segmentation",
-                     "Registration to template",
-                     "Skull stripping"
-                  ],
-                  "type": "string"
-               },
-               "title": "Processing Steps",
-               "type": "array"
+               "default": null,
+               "title": "RARE factor"
             },
             "echo_time": {
                "anyOf": [
@@ -1548,6 +1468,52 @@
                "default": "millisecond",
                "title": "Repetition time unit"
             },
+            "vc_orientation": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/Rotation3dTransform"
+                  }
+               ],
+               "title": "Scan orientation"
+            },
+            "vc_position": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/Translation3dTransform"
+                  }
+               ],
+               "title": "Scan position"
+            },
+            "subject_position": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/SubjectPosition"
+                  }
+               ],
+               "title": "Subject position"
+            },
+            "voxel_sizes": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/Scale3dTransform"
+                  }
+               ],
+               "description": "Resolution",
+               "title": "Voxel sizes"
+            },
+            "processing_steps": {
+               "default": [],
+               "items": {
+                  "enum": [
+                     "Fiducial segmentation",
+                     "Registration to template",
+                     "Skull stripping"
+                  ],
+                  "type": "string"
+               },
+               "title": "Processing Steps",
+               "type": "array"
+            },
             "additional_scan_parameters": {
                "title": "Parameters",
                "type": "object"
@@ -1566,14 +1532,17 @@
             }
          },
          "required": [
+            "scan_index",
             "scan_type",
             "primary_scan",
             "scan_sequence_type",
-            "axes",
-            "voxel_sizes",
             "echo_time",
             "effective_echo_time",
             "repetition_time",
+            "vc_orientation",
+            "vc_position",
+            "subject_position",
+            "voxel_sizes",
             "additional_scan_parameters"
          ],
          "title": "MRIScan",
@@ -2222,6 +2191,38 @@
          "title": "ResearchOrganizationRegistry",
          "type": "object"
       },
+      "Rotation3dTransform": {
+         "additionalProperties": false,
+         "description": "Values to be vector-added to a 3D position. Often needed to specify a device or tile's origin.",
+         "properties": {
+            "type": {
+               "const": "rotation",
+               "default": "rotation",
+               "title": "Type"
+            },
+            "rotation": {
+               "items": {
+                  "anyOf": [
+                     {
+                        "type": "number"
+                     },
+                     {
+                        "type": "string"
+                     }
+                  ]
+               },
+               "maxItems": 9,
+               "minItems": 9,
+               "title": "3D rotation matrix values (3x3) ",
+               "type": "array"
+            }
+         },
+         "required": [
+            "rotation"
+         ],
+         "title": "Rotation3dTransform",
+         "type": "object"
+      },
       "Scale3dTransform": {
          "additionalProperties": false,
          "description": "Values to be vector-multiplied with a 3D position, equivalent to the diagonals of a 3x3 transform matrix.\nRepresents voxel spacing if used as the first applied coordinate transform.",
@@ -2819,20 +2820,6 @@
          "title": "SimonsFoundation",
          "type": "object"
       },
-      "SizeUnit": {
-         "description": "Enumeration of Length Measurements",
-         "enum": [
-            "meter",
-            "centimeter",
-            "millimeter",
-            "micrometer",
-            "nanometer",
-            "inch",
-            "pixel"
-         ],
-         "title": "SizeUnit",
-         "type": "string"
-      },
       "Spinnaker": {
          "additionalProperties": false,
          "description": "Spinnaker",
@@ -2860,6 +2847,15 @@
          },
          "title": "Spinnaker",
          "type": "object"
+      },
+      "SubjectPosition": {
+         "description": "Subject position",
+         "enum": [
+            "Prone",
+            "Supine"
+         ],
+         "title": "SubjectPosition",
+         "type": "string"
       },
       "TMC": {
          "additionalProperties": false,
@@ -3109,6 +3105,38 @@
          "title": "TimeUnit",
          "type": "string"
       },
+      "Translation3dTransform": {
+         "additionalProperties": false,
+         "description": "Values to be vector-added to a 3D position. Often needed to specify a device or tile's origin.",
+         "properties": {
+            "type": {
+               "const": "translation",
+               "default": "translation",
+               "title": "Type"
+            },
+            "translation": {
+               "items": {
+                  "anyOf": [
+                     {
+                        "type": "number"
+                     },
+                     {
+                        "type": "string"
+                     }
+                  ]
+               },
+               "maxItems": 3,
+               "minItems": 3,
+               "title": "3D translation parameters",
+               "type": "array"
+            }
+         },
+         "required": [
+            "translation"
+         ],
+         "title": "Translation3dTransform",
+         "type": "object"
+      },
       "Tymphany": {
          "additionalProperties": false,
          "description": "Tymphany",
@@ -3204,8 +3232,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.2.10",
-         "default": "0.2.10",
+         "const": "0.3.0",
+         "default": "0.3.0",
          "title": "Schema Version"
       },
       "subject_id": {
