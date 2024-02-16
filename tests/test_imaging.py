@@ -154,27 +154,15 @@ class ImagingTests(unittest.TestCase):
             ),
             scans=[
                 ms.MRIScan(
+                    scan_index=1,
                     scan_type="3D Scan",
                     scan_sequence_type="RARE",
+                    rare_factor=4,
                     primary_scan=True,
-                    axes=[
-                        ImageAxis(
-                            name="X",
-                            dimension=2,
-                            direction="Left_to_right",
-                        ),
-                        ImageAxis(
-                            name="Y",
-                            dimension=1,
-                            direction="Anterior_to_posterior",
-                        ),
-                        ImageAxis(
-                            name="Z",
-                            dimension=0,
-                            direction="Inferior_to_superior",
-                        ),
-                    ],
-                    voxel_sizes=Scale3dTransform(scale=[0.01, 0.01, 0.01]),
+                    vc_orientation=Rotation3dTransform(rotation=[1, 2, 3, 4, 5, 6, 7, 8, 9]),
+                    vc_position=Translation3dTransform(translation=[1, 1, 1]),
+                    subject_position="Supine",
+                    voxel_sizes=Scale3dTransform(scale=[0.1, 0.1, 0.1]),
                     echo_time=2.2,
                     effective_echo_time=2.0,
                     repetition_time=1.2,
