@@ -2,52 +2,15 @@
 
 from datetime import datetime
 from decimal import Decimal
-from enum import Enum
 from typing import List, Literal, Optional, Union
 
 from pydantic import Field, field_validator
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.imaging.tile import AcquisitionTile
+from aind_data_schema.models.coordinates import AnatomicalDirection, AxisName, ImageAxis
 from aind_data_schema.models.devices import Calibration, ImmersionMedium, Maintenance
 from aind_data_schema.models.process_names import ProcessName
-from aind_data_schema.models.units import SizeUnit
-
-
-class AxisName(str, Enum):
-    """Image axis name"""
-
-    X = "X"
-    Y = "Y"
-    Z = "Z"
-
-
-class Direction(str, Enum):
-    """Anatomical direction name"""
-
-    LR = "Left_to_right"
-    RL = "Right_to_left"
-    AP = "Anterior_to_posterior"
-    PA = "Posterior_to_anterior"
-    IS = "Inferior_to_superior"
-    SI = "Superior_to_inferior"
-    OTHER = "Other"
-
-
-class Axis(AindModel):
-    """Description of an image axis"""
-
-    name: AxisName = Field(..., title="Name")
-    dimension: int = Field(
-        ...,
-        description="Reference axis number for stitching",
-        title="Dimension",
-    )
-    direction: Direction = Field(
-        ...,
-        description="Tissue direction as the value of axis increases. If Other describe in notes.",
-    )
-    unit: SizeUnit = Field(SizeUnit.UM, title="Axis physical units")
 
 
 class Immersion(AindModel):
@@ -82,7 +45,7 @@ class Acquisition(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/acquisition.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["0.6.4"] = Field("0.6.4")
+    schema_version: Literal["0.6.7"] = Field("0.6.7")
     protocol_id: List[str] = Field([], title="Protocol ID", description="DOI for protocols.io")
     experimenter_full_name: List[str] = Field(
         ...,
@@ -104,7 +67,7 @@ class Acquisition(AindCoreModel):
     session_end_time: datetime = Field(..., title="Session end time")
     session_type: Optional[str] = Field(None, title="Session type")
     tiles: List[AcquisitionTile] = Field(..., title="Acquisition tiles")
-    axes: List[Axis] = Field(..., title="Acquisition axes")
+    axes: List[ImageAxis] = Field(..., title="Acquisition axes")
     chamber_immersion: Immersion = Field(..., title="Acquisition chamber immersion data")
     sample_immersion: Optional[Immersion] = Field(None, title="Acquisition sample immersion data")
     active_objectives: Optional[List[str]] = Field(None, title="List of objectives used in this acquisition.")
@@ -118,23 +81,23 @@ class Acquisition(AindCoreModel):
     notes: Optional[str] = Field(None, title="Notes")
 
     @field_validator("axes", mode="before")
-    def from_direction_code(cls, v: Union[str, List[Axis]]) -> List[Axis]:
+    def from_direction_code(cls, v: Union[str, List[ImageAxis]]) -> List[ImageAxis]:
         """Map direction codes to Axis model"""
         if type(v) is str:
             direction_lookup = {
-                "L": Direction.LR,
-                "R": Direction.RL,
-                "A": Direction.AP,
-                "P": Direction.PA,
-                "I": Direction.IS,
-                "S": Direction.SI,
+                "L": AnatomicalDirection.LR,
+                "R": AnatomicalDirection.RL,
+                "A": AnatomicalDirection.AP,
+                "P": AnatomicalDirection.PA,
+                "I": AnatomicalDirection.IS,
+                "S": AnatomicalDirection.SI,
             }
 
             name_lookup = [AxisName.X, AxisName.Y, AxisName.Z]
 
             axes = []
             for i, c in enumerate(v):
-                axis = Axis(name=name_lookup[i], direction=direction_lookup[c], dimension=i)
+                axis = ImageAxis(name=name_lookup[i], direction=direction_lookup[c], dimension=i)
                 axes.append(axis)
             return axes
         else:

@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/procedures.py",
-   "schema_version": "0.11.6",
+   "schema_version": "0.12.2",
    "subject_id": "651286",
    "subject_procedures": [
       {
@@ -37,14 +37,24 @@
          "reagents": [
             {
                "name": "SHIELD Buffer",
-               "source": "Vendor",
+               "source": {
+                  "name": "LifeCanvas",
+                  "abbreviation": null,
+                  "registry": null,
+                  "registry_identifier": null
+               },
                "rrid": null,
                "lot_number": "1234",
                "expiration_date": null
             },
             {
                "name": "SHIELD Epoxy",
-               "source": "Vendor",
+               "source": {
+                  "name": "LifeCanvas",
+                  "abbreviation": null,
+                  "registry": null,
+                  "registry_identifier": null
+               },
                "rrid": null,
                "lot_number": "1234",
                "expiration_date": null
@@ -65,7 +75,12 @@
          "reagents": [
             {
                "name": "SHIELD On",
-               "source": "Vendor",
+               "source": {
+                  "name": "LifeCanvas",
+                  "abbreviation": null,
+                  "registry": null,
+                  "registry_identifier": null
+               },
                "rrid": null,
                "lot_number": "1234",
                "expiration_date": null
@@ -86,7 +101,12 @@
          "reagents": [
             {
                "name": "Delipidation Buffer",
-               "source": "Vendor",
+               "source": {
+                  "name": "Other",
+                  "abbreviation": null,
+                  "registry": null,
+                  "registry_identifier": null
+               },
                "rrid": null,
                "lot_number": "1234",
                "expiration_date": null
@@ -107,14 +127,24 @@
          "reagents": [
             {
                "name": "Delipidation Buffer",
-               "source": "Vendor",
+               "source": {
+                  "name": "Other",
+                  "abbreviation": null,
+                  "registry": null,
+                  "registry_identifier": null
+               },
                "rrid": null,
                "lot_number": "1234",
                "expiration_date": null
             },
             {
                "name": "Conductivity Buffer",
-               "source": "Vendor",
+               "source": {
+                  "name": "Other",
+                  "abbreviation": null,
+                  "registry": null,
+                  "registry_identifier": null
+               },
                "rrid": null,
                "lot_number": "1234",
                "expiration_date": null
@@ -135,14 +165,24 @@
          "reagents": [
             {
                "name": "Easy Index",
-               "source": "Vendor",
+               "source": {
+                  "name": "LifeCanvas",
+                  "abbreviation": null,
+                  "registry": null,
+                  "registry_identifier": null
+               },
                "rrid": null,
                "lot_number": "1234",
                "expiration_date": null
             },
             {
                "name": "Deionized water",
-               "source": "This is not a reagent",
+               "source": {
+                  "name": "Other",
+                  "abbreviation": null,
+                  "registry": null,
+                  "registry_identifier": null
+               },
                "rrid": null,
                "lot_number": "DDI/Filtered in house",
                "expiration_date": null
@@ -163,7 +203,12 @@
          "reagents": [
             {
                "name": "Easy Index",
-               "source": "Vendor",
+               "source": {
+                  "name": "LifeCanvas",
+                  "abbreviation": null,
+                  "registry": null,
+                  "registry_identifier": null
+               },
                "rrid": null,
                "lot_number": "1234",
                "expiration_date": null
@@ -184,14 +229,24 @@
          "reagents": [
             {
                "name": "Easy Index",
-               "source": "Vendor",
+               "source": {
+                  "name": "LifeCanvas",
+                  "abbreviation": null,
+                  "registry": null,
+                  "registry_identifier": null
+               },
                "rrid": null,
                "lot_number": "1234",
                "expiration_date": null
             },
             {
                "name": "Agarose",
-               "source": "Other vendor",
+               "source": {
+                  "name": "Other",
+                  "abbreviation": null,
+                  "registry": null,
+                  "registry_identifier": null
+               },
                "rrid": null,
                "lot_number": "1234",
                "expiration_date": null

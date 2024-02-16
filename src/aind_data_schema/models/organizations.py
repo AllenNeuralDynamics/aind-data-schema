@@ -24,6 +24,15 @@ class AAOptoElectronic(_Organization):
     registry_identifier: Literal[None] = Field(None)
 
 
+class Abcam(_Organization):
+    """Abcam"""
+
+    name: Literal["Abcam"] = "Abcam"
+    abbreviation: Literal[None] = Field(None)
+    registry: Annotated[Union[ResearchOrganizationRegistry], Field(default=Registry.ROR, discriminator="name")]
+    registry_identifier: Literal["02e1wjw63"] = "02e1wjw63"
+
+
 class AilipuTechnologyCo(_Organization):
     """AilipuTechnologyCo"""
 
@@ -431,6 +440,15 @@ class Navitar(_Organization):
     registry_identifier: Literal[None] = Field(None)
 
 
+class Neurophotometrics(_Organization):
+    """Neurophotometrics"""
+
+    name: Literal["Neurophotometrics"] = "Neurophotometrics"
+    abbreviation: Literal[None] = Field(None)
+    registry: Literal[None] = Field(None)
+    registry_identifier: Literal[None] = Field(None)
+
+
 class NewScaleTechnologies(_Organization):
     """NewScaleTechnologies"""
 
@@ -575,6 +593,15 @@ class Tamron(_Organization):
     registry_identifier: Literal[None] = Field(None)
 
 
+class Thermofisher(_Organization):
+    """Thermofisher"""
+
+    name: Literal["Thermo Fisher"] = "Thermo Fisher"
+    abbreviation: Literal[None] = Field(None)
+    registry: Annotated[Union[ResearchOrganizationRegistry], Field(default=Registry.ROR, discriminator="name")]
+    registry_identifier: Literal["03x1ewr52"] = Field("03x1ewr52")
+
+
 class Thorlabs(_Organization):
     """Thorlabs"""
 
@@ -642,6 +669,7 @@ class Organization:
     """Organization definitions"""
 
     AA_OPTO = AAOptoElectronic()
+    ABCAM = Abcam()
     AILIPU = AilipuTechnologyCo()
     AI = AllenInstitute()
     AIBS = AllenInstituteForBrainScience()
@@ -686,6 +714,7 @@ class Organization:
     NATIONAL_INSTRUMENTS = NationalInstruments()
     NAVITAR = Navitar()
     NEW_SCALE_TECHNOLOGIES = NewScaleTechnologies()
+    NEUROPHOTOMETRICS = Neurophotometrics()
     NINDS = NationalInstituteOfNeurologicalDisordersAndStroke()
     NIKON = Nikon()
     NYU = NewYorkUniversity()
@@ -703,6 +732,7 @@ class Organization:
     SPINNAKER = Spinnaker()
     TAMRON = Tamron()
     THORLABS = Thorlabs()
+    THERMOFISHER = Thermofisher()
     TMC = TMC()
     TYMPHANY = Tymphany()
     VIEWORKS = Vieworks()

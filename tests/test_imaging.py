@@ -12,6 +12,13 @@ from aind_data_schema.core import instrument as inst
 from aind_data_schema.core import mri_session as ms
 from aind_data_schema.core.processing import Registration
 from aind_data_schema.imaging import tile
+from aind_data_schema.models.coordinates import (
+    Affine3dTransform,
+    ImageAxis,
+    Rotation3dTransform,
+    Scale3dTransform,
+    Translation3dTransform,
+)
 from aind_data_schema.models.devices import Calibration, DAQChannel, DAQDevice
 from aind_data_schema.models.organizations import Organization
 from aind_data_schema.models.units import PowerValue
@@ -47,8 +54,8 @@ class ImagingTests(unittest.TestCase):
             tiles=[
                 tile.AcquisitionTile(
                     coordinate_transformations=[
-                        tile.Scale3dTransform(scale=[1, 1, 1]),
-                        tile.Translation3dTransform(translation=[1, 1, 1]),
+                        Scale3dTransform(scale=[1, 1, 1]),
+                        Translation3dTransform(translation=[1, 1, 1]),
                     ],
                     channel=tile.Channel(
                         channel_name="488",
@@ -147,27 +154,15 @@ class ImagingTests(unittest.TestCase):
             ),
             scans=[
                 ms.MRIScan(
+                    scan_index=1,
                     scan_type="3D Scan",
                     scan_sequence_type="RARE",
+                    rare_factor=4,
                     primary_scan=True,
-                    axes=[
-                        acq.Axis(
-                            name="X",
-                            dimension=2,
-                            direction="Left_to_right",
-                        ),
-                        acq.Axis(
-                            name="Y",
-                            dimension=1,
-                            direction="Anterior_to_posterior",
-                        ),
-                        acq.Axis(
-                            name="Z",
-                            dimension=0,
-                            direction="Inferior_to_superior",
-                        ),
-                    ],
-                    voxel_sizes=tile.Scale3dTransform(scale=[0.01, 0.01, 0.01]),
+                    vc_orientation=Rotation3dTransform(rotation=[1, 2, 3, 4, 5, 6, 7, 8, 9]),
+                    vc_position=Translation3dTransform(translation=[1, 1, 1]),
+                    subject_position="Supine",
+                    voxel_sizes=Scale3dTransform(scale=[0.1, 0.1, 0.1]),
                     echo_time=2.2,
                     effective_echo_time=2.0,
                     repetition_time=1.2,
@@ -203,8 +198,8 @@ class ImagingTests(unittest.TestCase):
                 tiles=[
                     tile.AcquisitionTile(
                         coordinate_transformations=[
-                            tile.Scale3dTransform(scale=[1, 1, 1]),
-                            tile.Translation3dTransform(translation=[1, 1, 1]),
+                            Scale3dTransform(scale=[1, 1, 1]),
+                            Translation3dTransform(translation=[1, 1, 1]),
                         ],
                         channel=tile.Channel(
                             channel_name="488",
@@ -237,14 +232,14 @@ class ImagingTests(unittest.TestCase):
             tiles=[
                 tile.Tile(
                     coordinate_transformations=[
-                        tile.Affine3dTransform(affine_transform=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11])
+                        Affine3dTransform(affine_transform=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11])
                     ]
                 ),
                 tile.Tile(
                     coordinate_transformations=[
-                        tile.Translation3dTransform(translation=[0, 1, 2]),
-                        tile.Rotation3dTransform(rotation=[1, 2, 3, 4, 5, 6, 7, 8, 9]),
-                        tile.Scale3dTransform(scale=[1, 2, 3]),
+                        Translation3dTransform(translation=[0, 1, 2]),
+                        Rotation3dTransform(rotation=[1, 2, 3, 4, 5, 6, 7, 8, 9]),
+                        Scale3dTransform(scale=[1, 2, 3]),
                     ]
                 ),
             ],

@@ -2,7 +2,7 @@
 
 from decimal import Decimal
 from enum import Enum
-from typing import Optional
+from typing import List, Literal, Optional, Union
 
 from pydantic import Field
 
@@ -16,20 +16,70 @@ class CcfVersion(str, Enum):
     CCFv3 = "CCFv3"
 
 
-class RelativePosition(AindModel):
-    """Set of 6 values describing relative position on a rig"""
+class Origin(str, Enum):
+    """Coordinate reference origin point"""
 
-    pitch: Optional[Decimal] = Field(None, title="Angle pitch (deg)", ge=0, le=360)
-    yaw: Optional[Decimal] = Field(None, title="Angle yaw (deg)", ge=0, le=360)
-    roll: Optional[Decimal] = Field(None, title="Angle roll (deg)", ge=0, le=360)
-    angle_unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
+    BREGMA = "Bregma"
+    LAMBDA = "Lambda"
+    OTHER = "Other (see Notes)"
 
-    x: Optional[Decimal] = Field(None, title="Position X (mm)")
-    y: Optional[Decimal] = Field(None, title="Position Y (mm)")
-    z: Optional[Decimal] = Field(None, title="Position Z (mm)")
-    position_unit: SizeUnit = Field(SizeUnit.MM, title="Position unit")
 
-    coordinate_system: Optional[str] = Field(None, title="Description of the coordinate system used")
+class AxisName(str, Enum):
+    """Image axis name"""
+
+    X = "X"
+    Y = "Y"
+    Z = "Z"
+
+
+class AnatomicalDirection(str, Enum):
+    """Anatomical direction name"""
+
+    LR = "Left_to_right"
+    RL = "Right_to_left"
+    AP = "Anterior_to_posterior"
+    PA = "Posterior_to_anterior"
+    IS = "Inferior_to_superior"
+    SI = "Superior_to_inferior"
+    OTHER = "Other"
+
+
+class CoordinateTransform(AindModel):
+    """Generic base class for coordinate transform subtypes"""
+
+    type: str = Field(..., title="transformation type")
+
+
+class Scale3dTransform(CoordinateTransform):
+    """Values to be vector-multiplied with a 3D position, equivalent to the diagonals of a 3x3 transform matrix.
+    Represents voxel spacing if used as the first applied coordinate transform.
+    """
+
+    type: Literal["scale"] = "scale"
+    scale: List[Decimal] = Field(..., title="3D scale parameters", min_length=3, max_length=3)
+
+
+class Translation3dTransform(CoordinateTransform):
+    """Values to be vector-added to a 3D position. Often needed to specify a device or tile's origin."""
+
+    type: Literal["translation"] = "translation"
+    translation: List[Decimal] = Field(..., title="3D translation parameters", min_length=3, max_length=3)
+
+
+class Rotation3dTransform(CoordinateTransform):
+    """Values to be vector-added to a 3D position. Often needed to specify a device or tile's origin."""
+
+    type: Literal["rotation"] = "rotation"
+    rotation: List[Decimal] = Field(..., title="3D rotation matrix values (3x3) ", min_length=9, max_length=9)
+
+
+class Affine3dTransform(CoordinateTransform):
+    """Values to be vector-added to a 3D position. Often needed to specify a Tile's origin."""
+
+    type: Literal["affine"] = "affine"
+    affine_transform: List[Decimal] = Field(
+        ..., title="Affine transform matrix values (top 3x4 matrix)", min_length=12, max_length=12
+    )
 
 
 class Size2d(AindModel):
@@ -92,3 +142,39 @@ class CcfCoords(AindModel):
     dv: Decimal = Field(..., title="DV")
     unit: SizeUnit = Field(SizeUnit.UM, title="Coordinate unit")
     ccf_version: CcfVersion = Field(CcfVersion.CCFv3, title="CCF version")
+
+
+class Axis(AindModel):
+    """Description of an axis"""
+
+    name: AxisName = Field(..., title="Axis")
+    direction: str = Field(..., title="Direction as the value of axis increases.")
+
+
+class ImageAxis(Axis):
+    """Description of an image axis"""
+
+    name: AxisName = Field(..., title="Name")
+    dimension: int = Field(
+        ...,
+        description="Reference axis number for stitching",
+        title="Dimension",
+    )
+    direction: AnatomicalDirection = Field(
+        ...,
+        description="Tissue direction as the value of axis increases. If Other describe in notes.",
+    )
+    unit: SizeUnit = Field(SizeUnit.UM, title="Axis physical units")
+
+
+class RelativePosition(AindModel):
+    """Position and rotation of a device in a rig or instrument"""
+
+    device_position_transformations: List[Union[Translation3dTransform, Rotation3dTransform]] = Field(
+        ..., title="Device position transforms"
+    )
+    device_origin: str = Field(
+        ..., title="Device origin", description="Reference point on device for position information"
+    )
+    device_axes: List[Axis] = Field(..., title="Device axes", min_length=3, max_length=3)
+    notes: Optional[str] = Field(None, title="Notes")

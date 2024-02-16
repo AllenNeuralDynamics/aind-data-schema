@@ -1,0 +1,6151 @@
+{
+   "$defs": {
+      "AAOptoElectronic": {
+         "additionalProperties": false,
+         "description": "AAOptoElectronic",
+         "properties": {
+            "name": {
+               "const": "AA Opto Electronic",
+               "default": "AA Opto Electronic",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "AAOptoElectronic",
+         "type": "object"
+      },
+      "Abcam": {
+         "additionalProperties": false,
+         "description": "Abcam",
+         "properties": {
+            "name": {
+               "const": "Abcam",
+               "default": "Abcam",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "02e1wjw63",
+               "default": "02e1wjw63",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Abcam",
+         "type": "object"
+      },
+      "AilipuTechnologyCo": {
+         "additionalProperties": false,
+         "description": "AilipuTechnologyCo",
+         "properties": {
+            "name": {
+               "const": "Ailipu Technology Co",
+               "default": "Ailipu Technology Co",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "AilipuTechnologyCo",
+         "type": "object"
+      },
+      "AllenInstitute": {
+         "additionalProperties": false,
+         "description": "AllenInstitute",
+         "properties": {
+            "name": {
+               "const": "Allen Institute",
+               "default": "Allen Institute",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "AI",
+               "default": "AI",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "03cpe7c52",
+               "default": "03cpe7c52",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "AllenInstitute",
+         "type": "object"
+      },
+      "AllenInstituteForBrainScience": {
+         "additionalProperties": false,
+         "description": "AllenInstituteForBrainScience",
+         "properties": {
+            "name": {
+               "const": "Allen Institute for Brain Science",
+               "default": "Allen Institute for Brain Science",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "AIBS",
+               "default": "AIBS",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "00dcv1019",
+               "default": "00dcv1019",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "AllenInstituteForBrainScience",
+         "type": "object"
+      },
+      "AllenInstituteForNeuralDynamics": {
+         "additionalProperties": false,
+         "description": "AllenInstituteForNeuralDynamics",
+         "properties": {
+            "name": {
+               "const": "Allen Institute for Neural Dynamics",
+               "default": "Allen Institute for Neural Dynamics",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "AIND",
+               "default": "AIND",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "04szwah67",
+               "default": "04szwah67",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "AllenInstituteForNeuralDynamics",
+         "type": "object"
+      },
+      "Allied": {
+         "additionalProperties": false,
+         "description": "Allied",
+         "properties": {
+            "name": {
+               "const": "Allied",
+               "default": "Allied",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Allied",
+         "type": "object"
+      },
+      "AmsOsram": {
+         "additionalProperties": false,
+         "description": "ams OSRAM",
+         "properties": {
+            "name": {
+               "const": "ams OSRAM",
+               "default": "ams OSRAM",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "045d0h266",
+               "default": "045d0h266",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "AmsOsram",
+         "type": "object"
+      },
+      "AngleUnit": {
+         "description": "Enumeration of Angle Measurements",
+         "enum": [
+            "radians",
+            "degrees"
+         ],
+         "title": "AngleUnit",
+         "type": "string"
+      },
+      "AppliedScientificInstrumentation": {
+         "additionalProperties": false,
+         "description": "AppliedScientificInstrumentation",
+         "properties": {
+            "name": {
+               "const": "Applied Scientific Instrumentation",
+               "default": "Applied Scientific Instrumentation",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "ASI",
+               "default": "ASI",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "AppliedScientificInstrumentation",
+         "type": "object"
+      },
+      "ArecontVisionCostar": {
+         "additionalProperties": false,
+         "description": "ArecontVisionCostar",
+         "properties": {
+            "name": {
+               "const": "Arecont Vision Costar",
+               "default": "Arecont Vision Costar",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "ArecontVisionCostar",
+         "type": "object"
+      },
+      "Asus": {
+         "additionalProperties": false,
+         "description": "Asus",
+         "properties": {
+            "name": {
+               "const": "ASUS",
+               "default": "ASUS",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "00bxkz165",
+               "default": "00bxkz165",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Asus",
+         "type": "object"
+      },
+      "Axis": {
+         "additionalProperties": false,
+         "description": "Description of an axis",
+         "properties": {
+            "name": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/AxisName"
+                  }
+               ],
+               "title": "Axis"
+            },
+            "direction": {
+               "title": "Direction as the value of axis increases.",
+               "type": "string"
+            }
+         },
+         "required": [
+            "name",
+            "direction"
+         ],
+         "title": "Axis",
+         "type": "object"
+      },
+      "AxisName": {
+         "description": "Image axis name",
+         "enum": [
+            "X",
+            "Y",
+            "Z"
+         ],
+         "title": "AxisName",
+         "type": "string"
+      },
+      "BaseName": {
+         "additionalProperties": false,
+         "description": "A simple model associating a name with an abbreviation",
+         "properties": {
+            "name": {
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Abbreviation"
+            }
+         },
+         "required": [
+            "name"
+         ],
+         "title": "BaseName",
+         "type": "object"
+      },
+      "Basler": {
+         "additionalProperties": false,
+         "description": "Basler",
+         "properties": {
+            "name": {
+               "const": "Basler",
+               "default": "Basler",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Basler",
+         "type": "object"
+      },
+      "Behavior": {
+         "additionalProperties": false,
+         "description": "Behavior",
+         "properties": {
+            "name": {
+               "const": "Behavior",
+               "default": "Behavior",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "behavior",
+               "default": "behavior",
+               "title": "Abbreviation"
+            }
+         },
+         "title": "Behavior",
+         "type": "object"
+      },
+      "BehaviorStimulation": {
+         "additionalProperties": false,
+         "description": "Description of behavior parameters. Provides a high level description of stimulus.",
+         "properties": {
+            "stimulus_type": {
+               "const": "Behavior",
+               "default": "Behavior",
+               "title": "Stimulus Type"
+            },
+            "behavior_name": {
+               "title": "Behavior name",
+               "type": "string"
+            },
+            "session_number": {
+               "title": "Session number",
+               "type": "integer"
+            },
+            "behavior_software": {
+               "description": "The software used to control the behavior (e.g. Bonsai)",
+               "items": {
+                  "$ref": "#/$defs/Software"
+               },
+               "title": "Behavior software",
+               "type": "array"
+            },
+            "behavior_script": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/Software"
+                  }
+               ],
+               "description": "provide URL to the commit of the script and the parameters used",
+               "title": "Behavior script"
+            },
+            "output_parameters": {
+               "description": "Performance metrics from session",
+               "title": "Performance parameters",
+               "type": "object"
+            },
+            "reward_consumed_during_epoch": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  }
+               ],
+               "title": "Reward consumed during training (uL)"
+            },
+            "reward_consumed_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/VolumeUnit"
+                  }
+               ],
+               "default": "microliter",
+               "title": "Reward consumed unit"
+            },
+            "trials_total": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Total trials"
+            },
+            "trials_finished": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Finished trials"
+            },
+            "trials_rewarded": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Rewarded trials"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Notes"
+            }
+         },
+         "required": [
+            "behavior_name",
+            "session_number",
+            "behavior_software",
+            "behavior_script",
+            "output_parameters",
+            "reward_consumed_during_epoch"
+         ],
+         "title": "BehaviorStimulation",
+         "type": "object"
+      },
+      "BehaviorVideos": {
+         "additionalProperties": false,
+         "description": "BehaviorVideos",
+         "properties": {
+            "name": {
+               "const": "Behavior videos",
+               "default": "Behavior videos",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "behavior-videos",
+               "default": "behavior-videos",
+               "title": "Abbreviation"
+            }
+         },
+         "title": "BehaviorVideos",
+         "type": "object"
+      },
+      "Calibration": {
+         "additionalProperties": false,
+         "description": "Generic calibration class",
+         "properties": {
+            "calibration_date": {
+               "format": "date-time",
+               "title": "Date and time of calibration",
+               "type": "string"
+            },
+            "device_name": {
+               "description": "Must match a device name in rig/instrument",
+               "title": "Device name",
+               "type": "string"
+            },
+            "description": {
+               "description": "Brief description of what is being calibrated",
+               "title": "Description",
+               "type": "string"
+            },
+            "input": {
+               "default": {},
+               "description": "Calibration input",
+               "title": "inputs",
+               "type": "object"
+            },
+            "output": {
+               "default": {},
+               "description": "Calibration output",
+               "title": "outputs",
+               "type": "object"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Notes"
+            }
+         },
+         "required": [
+            "calibration_date",
+            "device_name",
+            "description"
+         ],
+         "title": "Calibration",
+         "type": "object"
+      },
+      "CambridgeTechnology": {
+         "additionalProperties": false,
+         "description": "CambridgeTechnology",
+         "properties": {
+            "name": {
+               "const": "Cambridge Technology",
+               "default": "Cambridge Technology",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "CambridgeTechnology",
+         "type": "object"
+      },
+      "CarlZeiss": {
+         "additionalProperties": false,
+         "description": "CarlZeiss",
+         "properties": {
+            "name": {
+               "const": "Carl Zeiss",
+               "default": "Carl Zeiss",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "01xk5xs43",
+               "default": "01xk5xs43",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "CarlZeiss",
+         "type": "object"
+      },
+      "CcfCoords": {
+         "additionalProperties": false,
+         "description": "Coordinates in CCF template space",
+         "properties": {
+            "ml": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  }
+               ],
+               "title": "ML"
+            },
+            "ap": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  }
+               ],
+               "title": "AP"
+            },
+            "dv": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  }
+               ],
+               "title": "DV"
+            },
+            "unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  }
+               ],
+               "default": "micrometer",
+               "title": "Coordinate unit"
+            },
+            "ccf_version": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/CcfVersion"
+                  }
+               ],
+               "default": "CCFv3",
+               "title": "CCF version"
+            }
+         },
+         "required": [
+            "ml",
+            "ap",
+            "dv"
+         ],
+         "title": "CcfCoords",
+         "type": "object"
+      },
+      "CcfVersion": {
+         "const": "CCFv3",
+         "description": "CCF version",
+         "title": "CcfVersion",
+         "type": "string"
+      },
+      "ChampalimaudFoundation": {
+         "additionalProperties": false,
+         "description": "Champalimaud Foundation",
+         "properties": {
+            "name": {
+               "const": "Champalimaud Foundation",
+               "default": "Champalimaud Foundation",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "03g001n57",
+               "default": "03g001n57",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "ChampalimaudFoundation",
+         "type": "object"
+      },
+      "Chroma": {
+         "additionalProperties": false,
+         "description": "Chroma",
+         "properties": {
+            "name": {
+               "const": "Chroma",
+               "default": "Chroma",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Chroma",
+         "type": "object"
+      },
+      "CoherentScientific": {
+         "additionalProperties": false,
+         "description": "CoherentScientific",
+         "properties": {
+            "name": {
+               "const": "Coherent Scientific",
+               "default": "Coherent Scientific",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "031tysd23",
+               "default": "031tysd23",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "CoherentScientific",
+         "type": "object"
+      },
+      "ColumbiaUniversity": {
+         "additionalProperties": false,
+         "description": "ColumbiaUniversity",
+         "properties": {
+            "name": {
+               "const": "Columbia University",
+               "default": "Columbia University",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "Columbia",
+               "default": "Columbia",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "00hj8s172",
+               "default": "00hj8s172",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "ColumbiaUniversity",
+         "type": "object"
+      },
+      "Computar": {
+         "additionalProperties": false,
+         "description": "Computar",
+         "properties": {
+            "name": {
+               "const": "Computar",
+               "default": "Computar",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Computar",
+         "type": "object"
+      },
+      "ConcentrationUnit": {
+         "description": "Concentraion units",
+         "enum": [
+            "molar",
+            "micromolar",
+            "nanomolar",
+            "% m/m",
+            "% v/v"
+         ],
+         "title": "ConcentrationUnit",
+         "type": "string"
+      },
+      "Confocal": {
+         "additionalProperties": false,
+         "description": "Confocal",
+         "properties": {
+            "name": {
+               "const": "Confocal microscopy",
+               "default": "Confocal microscopy",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "confocal",
+               "default": "confocal",
+               "title": "Abbreviation"
+            }
+         },
+         "title": "Confocal",
+         "type": "object"
+      },
+      "Conoptics": {
+         "additionalProperties": false,
+         "description": "Conoptics",
+         "properties": {
+            "name": {
+               "const": "Conoptics",
+               "default": "Conoptics",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Conoptics",
+         "type": "object"
+      },
+      "Coordinates3d": {
+         "additionalProperties": false,
+         "description": "Coordinates in a 3D grid",
+         "properties": {
+            "x": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  }
+               ],
+               "title": "Position X"
+            },
+            "y": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  }
+               ],
+               "title": "Position Y"
+            },
+            "z": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  }
+               ],
+               "title": "Position Z"
+            },
+            "unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  }
+               ],
+               "default": "micrometer",
+               "title": "Position unit"
+            }
+         },
+         "required": [
+            "x",
+            "y",
+            "z"
+         ],
+         "title": "Coordinates3d",
+         "type": "object"
+      },
+      "Custom": {
+         "additionalProperties": false,
+         "description": "Custom",
+         "properties": {
+            "name": {
+               "const": "Custom",
+               "default": "Custom",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Custom",
+         "type": "object"
+      },
+      "DetectorConfig": {
+         "additionalProperties": false,
+         "description": "Description of detector settings",
+         "properties": {
+            "name": {
+               "title": "Name",
+               "type": "string"
+            },
+            "exposure_time": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  }
+               ],
+               "title": "Exposure time (ms)"
+            },
+            "exposure_time_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  }
+               ],
+               "default": "millisecond",
+               "title": "Exposure time unit"
+            },
+            "trigger_type": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/TriggerType"
+                  }
+               ],
+               "title": "Trigger type"
+            }
+         },
+         "required": [
+            "name",
+            "exposure_time",
+            "trigger_type"
+         ],
+         "title": "DetectorConfig",
+         "type": "object"
+      },
+      "Dodotronic": {
+         "additionalProperties": false,
+         "description": "Dodotronic",
+         "properties": {
+            "name": {
+               "const": "Dodotronic",
+               "default": "Dodotronic",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Dodotronic",
+         "type": "object"
+      },
+      "DomeModule": {
+         "additionalProperties": false,
+         "description": "Movable module that is mounted on the ephys dome insertion system",
+         "properties": {
+            "assembly_name": {
+               "title": "Assembly name",
+               "type": "string"
+            },
+            "arc_angle": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  }
+               ],
+               "title": "Arc Angle (deg)"
+            },
+            "module_angle": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  }
+               ],
+               "title": "Module Angle (deg)"
+            },
+            "angle_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/AngleUnit"
+                  }
+               ],
+               "default": "degrees",
+               "title": "Angle unit"
+            },
+            "rotation_angle": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Rotation Angle (deg)"
+            },
+            "coordinate_transform": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Path to coordinate transform",
+               "title": "Transform from local manipulator axes to rig"
+            },
+            "calibration_date": {
+               "anyOf": [
+                  {
+                     "format": "date-time",
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Date on which coordinate transform was last calibrated"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Notes"
+            }
+         },
+         "required": [
+            "assembly_name",
+            "arc_angle",
+            "module_angle"
+         ],
+         "title": "DomeModule",
+         "type": "object"
+      },
+      "Doric": {
+         "additionalProperties": false,
+         "description": "Doric",
+         "properties": {
+            "name": {
+               "const": "Doric",
+               "default": "Doric",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "059n53q30",
+               "default": "059n53q30",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Doric",
+         "type": "object"
+      },
+      "Ealing": {
+         "additionalProperties": false,
+         "description": "Ealing",
+         "properties": {
+            "name": {
+               "const": "Ealing",
+               "default": "Ealing",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Ealing",
+         "type": "object"
+      },
+      "Ecephys": {
+         "additionalProperties": false,
+         "description": "Ecephys",
+         "properties": {
+            "name": {
+               "const": "Extracellular electrophysiology",
+               "default": "Extracellular electrophysiology",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "ecephys",
+               "default": "ecephys",
+               "title": "Abbreviation"
+            }
+         },
+         "title": "Ecephys",
+         "type": "object"
+      },
+      "EdmundOptics": {
+         "additionalProperties": false,
+         "description": "EdmundOptics",
+         "properties": {
+            "name": {
+               "const": "Edmund Optics",
+               "default": "Edmund Optics",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "01j1gwp17",
+               "default": "01j1gwp17",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "EdmundOptics",
+         "type": "object"
+      },
+      "Electromyography": {
+         "additionalProperties": false,
+         "description": "Electromyography",
+         "properties": {
+            "name": {
+               "const": "Electromyography",
+               "default": "Electromyography",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "EMG",
+               "default": "EMG",
+               "title": "Abbreviation"
+            }
+         },
+         "title": "Electromyography",
+         "type": "object"
+      },
+      "EphysModule": {
+         "additionalProperties": false,
+         "description": "Probe recorded in a Stream",
+         "properties": {
+            "assembly_name": {
+               "title": "Assembly name",
+               "type": "string"
+            },
+            "arc_angle": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  }
+               ],
+               "title": "Arc Angle (deg)"
+            },
+            "module_angle": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  }
+               ],
+               "title": "Module Angle (deg)"
+            },
+            "angle_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/AngleUnit"
+                  }
+               ],
+               "default": "degrees",
+               "title": "Angle unit"
+            },
+            "rotation_angle": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Rotation Angle (deg)"
+            },
+            "coordinate_transform": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Path to coordinate transform",
+               "title": "Transform from local manipulator axes to rig"
+            },
+            "calibration_date": {
+               "anyOf": [
+                  {
+                     "format": "date-time",
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Date on which coordinate transform was last calibrated"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Notes"
+            },
+            "primary_targeted_structure": {
+               "title": "Targeted structure",
+               "type": "string"
+            },
+            "targeted_ccf_coordinates": {
+               "default": [],
+               "items": {
+                  "$ref": "#/$defs/CcfCoords"
+               },
+               "title": "Targeted CCF coordinates",
+               "type": "array"
+            },
+            "manipulator_coordinates": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/Coordinates3d"
+                  }
+               ],
+               "title": "Manipulator coordinates"
+            },
+            "ephys_probes": {
+               "items": {
+                  "$ref": "#/$defs/EphysProbeConfig"
+               },
+               "title": "Ephys probes used in this module",
+               "type": "array"
+            }
+         },
+         "required": [
+            "assembly_name",
+            "arc_angle",
+            "module_angle",
+            "primary_targeted_structure",
+            "manipulator_coordinates",
+            "ephys_probes"
+         ],
+         "title": "EphysModule",
+         "type": "object"
+      },
+      "EphysProbeConfig": {
+         "additionalProperties": false,
+         "description": "Probes in a EphysProbeModule",
+         "properties": {
+            "name": {
+               "title": "Ephys probe name (must match rig JSON)",
+               "type": "string"
+            },
+            "other_targeted_structures": {
+               "default": [],
+               "items": {
+                  "type": "string"
+               },
+               "title": "Other Targeted Structures",
+               "type": "array"
+            }
+         },
+         "required": [
+            "name"
+         ],
+         "title": "EphysProbeConfig",
+         "type": "object"
+      },
+      "Euresys": {
+         "additionalProperties": false,
+         "description": "Euresys",
+         "properties": {
+            "name": {
+               "const": "Euresys",
+               "default": "Euresys",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Euresys",
+         "type": "object"
+      },
+      "Fib": {
+         "additionalProperties": false,
+         "description": "Fib",
+         "properties": {
+            "name": {
+               "const": "Fiber photometry",
+               "default": "Fiber photometry",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "fib",
+               "default": "fib",
+               "title": "Abbreviation"
+            }
+         },
+         "title": "Fib",
+         "type": "object"
+      },
+      "FiberConnectionConfig": {
+         "additionalProperties": false,
+         "description": "Description for a fiber photometry configuration",
+         "properties": {
+            "patch_cord_name": {
+               "title": "Patch cord name (must match rig)",
+               "type": "string"
+            },
+            "patch_cord_output_power": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  }
+               ],
+               "title": "Output power (uW)"
+            },
+            "output_power_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/PowerUnit"
+                  }
+               ],
+               "default": "microwatt",
+               "title": "Output power unit"
+            },
+            "fiber_name": {
+               "title": "Fiber name (must match procedure)",
+               "type": "string"
+            }
+         },
+         "required": [
+            "patch_cord_name",
+            "patch_cord_output_power",
+            "fiber_name"
+         ],
+         "title": "FiberConnectionConfig",
+         "type": "object"
+      },
+      "FiberModule": {
+         "additionalProperties": false,
+         "description": "Inserted fiber photometry probe recorded in a stream",
+         "properties": {
+            "assembly_name": {
+               "title": "Assembly name",
+               "type": "string"
+            },
+            "arc_angle": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  }
+               ],
+               "title": "Arc Angle (deg)"
+            },
+            "module_angle": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  }
+               ],
+               "title": "Module Angle (deg)"
+            },
+            "angle_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/AngleUnit"
+                  }
+               ],
+               "default": "degrees",
+               "title": "Angle unit"
+            },
+            "rotation_angle": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Rotation Angle (deg)"
+            },
+            "coordinate_transform": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Path to coordinate transform",
+               "title": "Transform from local manipulator axes to rig"
+            },
+            "calibration_date": {
+               "anyOf": [
+                  {
+                     "format": "date-time",
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Date on which coordinate transform was last calibrated"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Notes"
+            },
+            "primary_targeted_structure": {
+               "title": "Targeted structure",
+               "type": "string"
+            },
+            "targeted_ccf_coordinates": {
+               "default": [],
+               "items": {
+                  "$ref": "#/$defs/CcfCoords"
+               },
+               "title": "Targeted CCF coordinates",
+               "type": "array"
+            },
+            "manipulator_coordinates": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/Coordinates3d"
+                  }
+               ],
+               "title": "Manipulator coordinates"
+            },
+            "fiber_connections": {
+               "default": [],
+               "items": {
+                  "$ref": "#/$defs/FiberConnectionConfig"
+               },
+               "title": "Fiber photometry devices",
+               "type": "array"
+            }
+         },
+         "required": [
+            "assembly_name",
+            "arc_angle",
+            "module_angle",
+            "primary_targeted_structure",
+            "manipulator_coordinates"
+         ],
+         "title": "FiberModule",
+         "type": "object"
+      },
+      "FieldOfView": {
+         "additionalProperties": false,
+         "description": "Description of an imaging field of view",
+         "properties": {
+            "index": {
+               "title": "Index",
+               "type": "integer"
+            },
+            "imaging_depth": {
+               "title": "Imaging depth (um)",
+               "type": "integer"
+            },
+            "imaging_depth_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  }
+               ],
+               "default": "micrometer",
+               "title": "Imaging depth unit"
+            },
+            "targeted_structure": {
+               "title": "Targeted structure",
+               "type": "string"
+            },
+            "fov_coordinate_ml": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  }
+               ],
+               "title": "FOV coordinate ML"
+            },
+            "fov_coordinate_ap": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  }
+               ],
+               "title": "FOV coordinate AP"
+            },
+            "fov_coordinate_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  }
+               ],
+               "default": "micrometer",
+               "title": "FOV coordinate unit"
+            },
+            "fov_reference": {
+               "description": "Reference for ML/AP coordinates",
+               "title": "FOV reference",
+               "type": "string"
+            },
+            "fov_width": {
+               "title": "FOV width (pixels)",
+               "type": "integer"
+            },
+            "fov_height": {
+               "title": "FOV height (pixels)",
+               "type": "integer"
+            },
+            "fov_size_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  }
+               ],
+               "default": "pixel",
+               "title": "FOV size unit"
+            },
+            "magnification": {
+               "title": "Magnification",
+               "type": "string"
+            },
+            "fov_scale_factor": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  }
+               ],
+               "title": "FOV scale factor (um/pixel)"
+            },
+            "fov_scale_factor_unit": {
+               "default": "um/pixel",
+               "title": "FOV scale factor unit",
+               "type": "string"
+            },
+            "frame_rate": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Frame rate (Hz)"
+            },
+            "frame_rate_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/FrequencyUnit"
+                  }
+               ],
+               "default": "hertz",
+               "title": "Frame rate unit"
+            },
+            "coupled_fov_index": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Coupled planes for multiscope",
+               "title": "Coupled FOV"
+            }
+         },
+         "required": [
+            "index",
+            "imaging_depth",
+            "targeted_structure",
+            "fov_coordinate_ml",
+            "fov_coordinate_ap",
+            "fov_reference",
+            "fov_width",
+            "fov_height",
+            "magnification",
+            "fov_scale_factor"
+         ],
+         "title": "FieldOfView",
+         "type": "object"
+      },
+      "Fmost": {
+         "additionalProperties": false,
+         "description": "Fmost",
+         "properties": {
+            "name": {
+               "const": "Fluorescence micro-optical sectioning tomography",
+               "default": "Fluorescence micro-optical sectioning tomography",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "fMOST",
+               "default": "fMOST",
+               "title": "Abbreviation"
+            }
+         },
+         "title": "Fmost",
+         "type": "object"
+      },
+      "FrequencyUnit": {
+         "description": "Enumeration of Frequency Measurements",
+         "enum": [
+            "kilohertz",
+            "hertz",
+            "millihertz"
+         ],
+         "title": "FrequencyUnit",
+         "type": "string"
+      },
+      "Fujinon": {
+         "additionalProperties": false,
+         "description": "Fujinon",
+         "properties": {
+            "name": {
+               "const": "Fujinon",
+               "default": "Fujinon",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Fujinon",
+         "type": "object"
+      },
+      "Hamamatsu": {
+         "additionalProperties": false,
+         "description": "Hamamatsu",
+         "properties": {
+            "name": {
+               "const": "Hamamatsu",
+               "default": "Hamamatsu",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "03natb733",
+               "default": "03natb733",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Hamamatsu",
+         "type": "object"
+      },
+      "HuazhongUniversityOfScienceAndTechnology": {
+         "additionalProperties": false,
+         "description": "HuazhongUniversityOfScienceAndTechnology",
+         "properties": {
+            "name": {
+               "const": "Huazhong University of Science and Technology",
+               "default": "Huazhong University of Science and Technology",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "HUST",
+               "default": "HUST",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "00p991c53",
+               "default": "00p991c53",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "HuazhongUniversityOfScienceAndTechnology",
+         "type": "object"
+      },
+      "IRRobotCo": {
+         "additionalProperties": false,
+         "description": "IRRobotCo",
+         "properties": {
+            "name": {
+               "const": "IR Robot Co",
+               "default": "IR Robot Co",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "IRRobotCo",
+         "type": "object"
+      },
+      "ISLProductsInternational": {
+         "additionalProperties": false,
+         "description": "ISLProductsInternational",
+         "properties": {
+            "name": {
+               "const": "ISL Products International",
+               "default": "ISL Products International",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "ISL",
+               "default": "ISL",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "ISLProductsInternational",
+         "type": "object"
+      },
+      "Icephys": {
+         "additionalProperties": false,
+         "description": "Icephys",
+         "properties": {
+            "name": {
+               "const": "Intracellular electrophysiology",
+               "default": "Intracellular electrophysiology",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "icephys",
+               "default": "icephys",
+               "title": "Abbreviation"
+            }
+         },
+         "title": "Icephys",
+         "type": "object"
+      },
+      "InfinityPhotoOptical": {
+         "additionalProperties": false,
+         "description": "InfinityPhotoOptical",
+         "properties": {
+            "name": {
+               "const": "Infinity Photo-Optical",
+               "default": "Infinity Photo-Optical",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "InfinityPhotoOptical",
+         "type": "object"
+      },
+      "InteruniversityMicroelectronicsCenter": {
+         "additionalProperties": false,
+         "description": "InteruniversityMicroelectronicsCenter",
+         "properties": {
+            "name": {
+               "const": "Interuniversity Microelectronics Center",
+               "default": "Interuniversity Microelectronics Center",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "IMEC",
+               "default": "IMEC",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "02kcbn207",
+               "default": "02kcbn207",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "InteruniversityMicroelectronicsCenter",
+         "type": "object"
+      },
+      "Isi": {
+         "additionalProperties": false,
+         "description": "Intrinsic signal imaging",
+         "properties": {
+            "name": {
+               "const": "Intrinsic signal imaging",
+               "default": "Intrinsic signal imaging",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "ISI",
+               "default": "ISI",
+               "title": "Abbreviation"
+            }
+         },
+         "title": "Isi",
+         "type": "object"
+      },
+      "JacksonLaboratory": {
+         "additionalProperties": false,
+         "description": "JacksonLaboratory",
+         "properties": {
+            "name": {
+               "const": "Jackson Laboratory",
+               "default": "Jackson Laboratory",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "JAX",
+               "default": "JAX",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "021sy4w91",
+               "default": "021sy4w91",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "JacksonLaboratory",
+         "type": "object"
+      },
+      "Julabo": {
+         "additionalProperties": false,
+         "description": "Julabo",
+         "properties": {
+            "name": {
+               "const": "Julabo",
+               "default": "Julabo",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Julabo",
+         "type": "object"
+      },
+      "LaserConfig": {
+         "additionalProperties": false,
+         "description": "Description of laser settings in a session",
+         "properties": {
+            "device_type": {
+               "const": "Laser",
+               "default": "Laser",
+               "title": "Device Type"
+            },
+            "name": {
+               "description": "Must match rig json",
+               "title": "Name",
+               "type": "string"
+            },
+            "wavelength": {
+               "title": "Wavelength (nm)",
+               "type": "integer"
+            },
+            "wavelength_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  }
+               ],
+               "default": "nanometer",
+               "title": "Wavelength unit"
+            },
+            "excitation_power": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Excitation power (mW)"
+            },
+            "excitation_power_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/PowerUnit"
+                  }
+               ],
+               "default": "milliwatt",
+               "title": "Excitation power unit"
+            }
+         },
+         "required": [
+            "name",
+            "wavelength"
+         ],
+         "title": "LaserConfig",
+         "type": "object"
+      },
+      "Leica": {
+         "additionalProperties": false,
+         "description": "Leica",
+         "properties": {
+            "name": {
+               "const": "Leica",
+               "default": "Leica",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Leica",
+         "type": "object"
+      },
+      "Lg": {
+         "additionalProperties": false,
+         "description": "Lg",
+         "properties": {
+            "name": {
+               "const": "LG",
+               "default": "LG",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "02b948n83",
+               "default": "02b948n83",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Lg",
+         "type": "object"
+      },
+      "LifeCanvas": {
+         "additionalProperties": false,
+         "description": "LifeCanvas",
+         "properties": {
+            "name": {
+               "const": "LifeCanvas",
+               "default": "LifeCanvas",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "LifeCanvas",
+         "type": "object"
+      },
+      "LightEmittingDiodeConfig": {
+         "additionalProperties": false,
+         "description": "Description of LED settings",
+         "properties": {
+            "device_type": {
+               "const": "LightEmittingDiode",
+               "default": "LightEmittingDiode",
+               "title": "Device Type"
+            },
+            "name": {
+               "title": "Name",
+               "type": "string"
+            },
+            "excitation_power": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Excitation power (mW)"
+            },
+            "excitation_power_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/PowerUnit"
+                  }
+               ],
+               "default": "milliwatt",
+               "title": "Excitation power unit"
+            }
+         },
+         "required": [
+            "name"
+         ],
+         "title": "LightEmittingDiodeConfig",
+         "type": "object"
+      },
+      "MKSNewport": {
+         "additionalProperties": false,
+         "description": "MKSNewport",
+         "properties": {
+            "name": {
+               "const": "MKS Newport",
+               "default": "MKS Newport",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "00k17f049",
+               "default": "00k17f049",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "MKSNewport",
+         "type": "object"
+      },
+      "Maintenance": {
+         "additionalProperties": false,
+         "description": "Generic maintenance class",
+         "properties": {
+            "maintenance_date": {
+               "format": "date-time",
+               "title": "Date and time of maintenance",
+               "type": "string"
+            },
+            "device_name": {
+               "description": "Must match a device name in rig/instrument",
+               "title": "Device name",
+               "type": "string"
+            },
+            "description": {
+               "description": "Description on maintenance procedure",
+               "title": "Description",
+               "type": "string"
+            },
+            "protocol_id": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Protocol ID"
+            },
+            "reagents": {
+               "default": [],
+               "items": {
+                  "$ref": "#/$defs/Reagent"
+               },
+               "title": "Reagents",
+               "type": "array"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Notes"
+            }
+         },
+         "required": [
+            "maintenance_date",
+            "device_name",
+            "description"
+         ],
+         "title": "Maintenance",
+         "type": "object"
+      },
+      "ManipulatorModule": {
+         "additionalProperties": false,
+         "description": "A dome module connected to a 3-axis manipulator",
+         "properties": {
+            "assembly_name": {
+               "title": "Assembly name",
+               "type": "string"
+            },
+            "arc_angle": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  }
+               ],
+               "title": "Arc Angle (deg)"
+            },
+            "module_angle": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  }
+               ],
+               "title": "Module Angle (deg)"
+            },
+            "angle_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/AngleUnit"
+                  }
+               ],
+               "default": "degrees",
+               "title": "Angle unit"
+            },
+            "rotation_angle": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Rotation Angle (deg)"
+            },
+            "coordinate_transform": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Path to coordinate transform",
+               "title": "Transform from local manipulator axes to rig"
+            },
+            "calibration_date": {
+               "anyOf": [
+                  {
+                     "format": "date-time",
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Date on which coordinate transform was last calibrated"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Notes"
+            },
+            "primary_targeted_structure": {
+               "title": "Targeted structure",
+               "type": "string"
+            },
+            "targeted_ccf_coordinates": {
+               "default": [],
+               "items": {
+                  "$ref": "#/$defs/CcfCoords"
+               },
+               "title": "Targeted CCF coordinates",
+               "type": "array"
+            },
+            "manipulator_coordinates": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/Coordinates3d"
+                  }
+               ],
+               "title": "Manipulator coordinates"
+            }
+         },
+         "required": [
+            "assembly_name",
+            "arc_angle",
+            "module_angle",
+            "primary_targeted_structure",
+            "manipulator_coordinates"
+         ],
+         "title": "ManipulatorModule",
+         "type": "object"
+      },
+      "MassUnit": {
+         "description": "Enumeration of Mass Measurements",
+         "enum": [
+            "kilogram",
+            "gram",
+            "milligram",
+            "microgram",
+            "nanogram"
+         ],
+         "title": "MassUnit",
+         "type": "string"
+      },
+      "MeadowlarkOptics": {
+         "additionalProperties": false,
+         "description": "MeadowlarkOptics",
+         "properties": {
+            "name": {
+               "const": "Meadowlark Optics",
+               "default": "Meadowlark Optics",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "00n8qbq54",
+               "default": "00n8qbq54",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "MeadowlarkOptics",
+         "type": "object"
+      },
+      "Merfish": {
+         "additionalProperties": false,
+         "description": "Merfish",
+         "properties": {
+            "name": {
+               "const": "Multiplexed error-robust fluorescence in situ hybridization",
+               "default": "Multiplexed error-robust fluorescence in situ hybridization",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "merfish",
+               "default": "merfish",
+               "title": "Abbreviation"
+            }
+         },
+         "title": "Merfish",
+         "type": "object"
+      },
+      "Mitutuyo": {
+         "additionalProperties": false,
+         "description": "Mitutuyo",
+         "properties": {
+            "name": {
+               "const": "Mitutuyo",
+               "default": "Mitutuyo",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Mitutuyo",
+         "type": "object"
+      },
+      "Mpi": {
+         "additionalProperties": false,
+         "description": "Mpi",
+         "properties": {
+            "name": {
+               "const": "MPI",
+               "default": "MPI",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "MPI",
+               "default": "MPI",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Mpi",
+         "type": "object"
+      },
+      "Mri": {
+         "additionalProperties": false,
+         "description": "Mri",
+         "properties": {
+            "name": {
+               "const": "Magnetic resonance imaging",
+               "default": "Magnetic resonance imaging",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "MRI",
+               "default": "MRI",
+               "title": "Abbreviation"
+            }
+         },
+         "title": "Mri",
+         "type": "object"
+      },
+      "NationalInstituteOfNeurologicalDisordersAndStroke": {
+         "additionalProperties": false,
+         "description": "NationalInstituteOfNeurologicalDisordersAndStroke",
+         "properties": {
+            "name": {
+               "const": "National Institute of Neurological Disorders and Stroke",
+               "default": "National Institute of Neurological Disorders and Stroke",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "NINDS",
+               "default": "NINDS",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "01s5ya894",
+               "default": "01s5ya894",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "NationalInstituteOfNeurologicalDisordersAndStroke",
+         "type": "object"
+      },
+      "NationalInstruments": {
+         "additionalProperties": false,
+         "description": "NationalInstruments",
+         "properties": {
+            "name": {
+               "const": "National Instruments",
+               "default": "National Instruments",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "026exqw73",
+               "default": "026exqw73",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "NationalInstruments",
+         "type": "object"
+      },
+      "Navitar": {
+         "additionalProperties": false,
+         "description": "Navitar",
+         "properties": {
+            "name": {
+               "const": "Navitar",
+               "default": "Navitar",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Navitar",
+         "type": "object"
+      },
+      "Neurophotometrics": {
+         "additionalProperties": false,
+         "description": "Neurophotometrics",
+         "properties": {
+            "name": {
+               "const": "Neurophotometrics",
+               "default": "Neurophotometrics",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Neurophotometrics",
+         "type": "object"
+      },
+      "NewScaleTechnologies": {
+         "additionalProperties": false,
+         "description": "NewScaleTechnologies",
+         "properties": {
+            "name": {
+               "const": "New Scale Technologies",
+               "default": "New Scale Technologies",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "NewScaleTechnologies",
+         "type": "object"
+      },
+      "NewYorkUniversity": {
+         "additionalProperties": false,
+         "description": "NewYorkUniversity",
+         "properties": {
+            "name": {
+               "const": "New York University",
+               "default": "New York University",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "NYU",
+               "default": "NYU",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "0190ak572",
+               "default": "0190ak572",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "NewYorkUniversity",
+         "type": "object"
+      },
+      "Nikon": {
+         "additionalProperties": false,
+         "description": "Nikon",
+         "properties": {
+            "name": {
+               "const": "Nikon",
+               "default": "Nikon",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "0280y9h11",
+               "default": "0280y9h11",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Nikon",
+         "type": "object"
+      },
+      "OlfactometerChannelConfig": {
+         "additionalProperties": false,
+         "description": "Description of olfactometer channel configurations",
+         "properties": {
+            "channel_index": {
+               "title": "Channel index",
+               "type": "integer"
+            },
+            "odorant": {
+               "title": "Odorant",
+               "type": "string"
+            },
+            "odorant_dilution": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  }
+               ],
+               "title": "Odorant dilution"
+            },
+            "odorant_dilution_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/ConcentrationUnit"
+                  }
+               ],
+               "default": "% v/v",
+               "title": "Dilution unit"
+            }
+         },
+         "required": [
+            "channel_index",
+            "odorant",
+            "odorant_dilution"
+         ],
+         "title": "OlfactometerChannelConfig",
+         "type": "object"
+      },
+      "OlfactoryStimulation": {
+         "additionalProperties": false,
+         "description": "Description of a olfactory stimulus",
+         "properties": {
+            "stimulus_type": {
+               "const": "Olfactory",
+               "default": "Olfactory",
+               "title": "Stimulus Type"
+            },
+            "channels": {
+               "items": {
+                  "$ref": "#/$defs/OlfactometerChannelConfig"
+               },
+               "title": "Channels",
+               "type": "array"
+            }
+         },
+         "required": [
+            "channels"
+         ],
+         "title": "OlfactoryStimulation",
+         "type": "object"
+      },
+      "Olympus": {
+         "additionalProperties": false,
+         "description": "Olympus",
+         "properties": {
+            "name": {
+               "const": "Olympus",
+               "default": "Olympus",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "02vcdte90",
+               "default": "02vcdte90",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Olympus",
+         "type": "object"
+      },
+      "OpenEphysProductionSite": {
+         "additionalProperties": false,
+         "description": "OpenEphysProductionSite",
+         "properties": {
+            "name": {
+               "const": "Open Ephys Production Site",
+               "default": "Open Ephys Production Site",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "OEPS",
+               "default": "OEPS",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "007rkz355",
+               "default": "007rkz355",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "OpenEphysProductionSite",
+         "type": "object"
+      },
+      "OptoStimulation": {
+         "additionalProperties": false,
+         "description": "Description of opto stimulation parameters",
+         "properties": {
+            "stimulus_type": {
+               "const": "Opto Stimulation",
+               "default": "Opto Stimulation",
+               "title": "Stimulus Type"
+            },
+            "stimulus_name": {
+               "title": "Stimulus name",
+               "type": "string"
+            },
+            "pulse_shape": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/PulseShape"
+                  }
+               ],
+               "title": "Pulse shape"
+            },
+            "pulse_frequency": {
+               "title": "Pulse frequency (Hz)",
+               "type": "integer"
+            },
+            "pulse_frequency_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/FrequencyUnit"
+                  }
+               ],
+               "default": "hertz",
+               "title": "Pulse frequency unit"
+            },
+            "number_pulse_trains": {
+               "title": "Number of pulse trains",
+               "type": "integer"
+            },
+            "pulse_width": {
+               "title": "Pulse width (ms)",
+               "type": "integer"
+            },
+            "pulse_width_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  }
+               ],
+               "default": "millisecond",
+               "title": "Pulse width unit"
+            },
+            "pulse_train_duration": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  }
+               ],
+               "title": "Pulse train duration (s)"
+            },
+            "pulse_train_duration_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  }
+               ],
+               "default": "second",
+               "title": "Pulse train duration unit"
+            },
+            "fixed_pulse_train_interval": {
+               "title": "Fixed pulse train interval",
+               "type": "boolean"
+            },
+            "pulse_train_interval": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Time between pulse trains",
+               "title": "Pulse train interval (s)"
+            },
+            "pulse_train_interval_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  }
+               ],
+               "default": "second",
+               "title": "Pulse train interval unit"
+            },
+            "baseline_duration": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  }
+               ],
+               "description": "Duration of baseline recording prior to first pulse train",
+               "title": "Baseline duration (s)"
+            },
+            "baseline_duration_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  }
+               ],
+               "default": "second",
+               "title": "Baseline duration unit"
+            },
+            "other_parameters": {
+               "default": {},
+               "title": "Other Parameters",
+               "type": "object"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Notes"
+            }
+         },
+         "required": [
+            "stimulus_name",
+            "pulse_shape",
+            "pulse_frequency",
+            "number_pulse_trains",
+            "pulse_width",
+            "pulse_train_duration",
+            "fixed_pulse_train_interval",
+            "baseline_duration"
+         ],
+         "title": "OptoStimulation",
+         "type": "object"
+      },
+      "Optotune": {
+         "additionalProperties": false,
+         "description": "Optotune",
+         "properties": {
+            "name": {
+               "const": "Optotune",
+               "default": "Optotune",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Optotune",
+         "type": "object"
+      },
+      "Other": {
+         "additionalProperties": false,
+         "description": "Other",
+         "properties": {
+            "name": {
+               "const": "Other",
+               "default": "Other",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Other",
+         "type": "object"
+      },
+      "Oxxius": {
+         "additionalProperties": false,
+         "description": "Oxxius",
+         "properties": {
+            "name": {
+               "const": "Oxxius",
+               "default": "Oxxius",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Oxxius",
+         "type": "object"
+      },
+      "PIDName": {
+         "additionalProperties": false,
+         "description": "Model for associate a name with a persistent identifier (PID),\nthe registry for that PID, and abbreviation for that registry",
+         "properties": {
+            "name": {
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/BaseName"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Registry identifier"
+            }
+         },
+         "required": [
+            "name"
+         ],
+         "title": "PIDName",
+         "type": "object"
+      },
+      "POphys": {
+         "additionalProperties": false,
+         "description": "POphys",
+         "properties": {
+            "name": {
+               "const": "Planar optical physiology",
+               "default": "Planar optical physiology",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "ophys",
+               "default": "ophys",
+               "title": "Abbreviation"
+            }
+         },
+         "title": "POphys",
+         "type": "object"
+      },
+      "PhotoStimulation": {
+         "additionalProperties": false,
+         "description": "Description of a photostimulation session",
+         "properties": {
+            "stimulus_type": {
+               "const": "Photo Stimulation",
+               "default": "Photo Stimulation",
+               "title": "Stimulus Type"
+            },
+            "stimulus_name": {
+               "title": "Stimulus name",
+               "type": "string"
+            },
+            "number_groups": {
+               "title": "Number of groups",
+               "type": "integer"
+            },
+            "groups": {
+               "items": {
+                  "$ref": "#/$defs/PhotoStimulationGroup"
+               },
+               "title": "Groups",
+               "type": "array"
+            },
+            "inter_trial_interval": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  }
+               ],
+               "title": "Inter trial interval (s)"
+            },
+            "inter_trial_interval_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  }
+               ],
+               "default": "second",
+               "title": "Inter trial interval unit"
+            },
+            "other_parameters": {
+               "default": {},
+               "title": "Other Parameters",
+               "type": "object"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Notes"
+            }
+         },
+         "required": [
+            "stimulus_name",
+            "number_groups",
+            "groups",
+            "inter_trial_interval"
+         ],
+         "title": "PhotoStimulation",
+         "type": "object"
+      },
+      "PhotoStimulationGroup": {
+         "additionalProperties": false,
+         "description": "Description of a photostimulation group",
+         "properties": {
+            "group_index": {
+               "title": "Group index",
+               "type": "integer"
+            },
+            "number_of_neurons": {
+               "title": "Number of neurons",
+               "type": "integer"
+            },
+            "stimulation_laser_power": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  }
+               ],
+               "title": "Stimulation laser power (mW)"
+            },
+            "stimulation_laser_power_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/PowerUnit"
+                  }
+               ],
+               "default": "milliwatt",
+               "title": "Stimulation laser power unit"
+            },
+            "number_trials": {
+               "title": "Number of trials",
+               "type": "integer"
+            },
+            "number_spirals": {
+               "title": "Number of spirals",
+               "type": "integer"
+            },
+            "spiral_duration": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  }
+               ],
+               "title": "Spiral duration (s)"
+            },
+            "spiral_duration_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  }
+               ],
+               "default": "second",
+               "title": "Spiral duration unit"
+            },
+            "inter_spiral_interval": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  }
+               ],
+               "title": "Inter trial interval (s)"
+            },
+            "inter_spiral_interval_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  }
+               ],
+               "default": "second",
+               "title": "Inter trial interval unit"
+            },
+            "other_parameters": {
+               "default": {},
+               "title": "Other Parameters",
+               "type": "object"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Notes"
+            }
+         },
+         "required": [
+            "group_index",
+            "number_of_neurons",
+            "stimulation_laser_power",
+            "number_trials",
+            "number_spirals",
+            "spiral_duration",
+            "inter_spiral_interval"
+         ],
+         "title": "PhotoStimulationGroup",
+         "type": "object"
+      },
+      "PowerUnit": {
+         "description": "Unit for power, set or measured",
+         "enum": [
+            "microwatt",
+            "milliwatt",
+            "percent"
+         ],
+         "title": "PowerUnit",
+         "type": "string"
+      },
+      "Prizmatix": {
+         "additionalProperties": false,
+         "description": "Prizmatix",
+         "properties": {
+            "name": {
+               "const": "Prizmatix",
+               "default": "Prizmatix",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Prizmatix",
+         "type": "object"
+      },
+      "PulseShape": {
+         "description": "Types of Opto stim pulse shapes",
+         "enum": [
+            "Square",
+            "Ramp",
+            "Sinusoidal"
+         ],
+         "title": "PulseShape",
+         "type": "string"
+      },
+      "Quantifi": {
+         "additionalProperties": false,
+         "description": "Quantifi",
+         "properties": {
+            "name": {
+               "const": "Quantifi",
+               "default": "Quantifi",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Quantifi",
+         "type": "object"
+      },
+      "RaspberryPi": {
+         "additionalProperties": false,
+         "description": "RaspberryPi",
+         "properties": {
+            "name": {
+               "const": "Raspberry Pi",
+               "default": "Raspberry Pi",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "RaspberryPi",
+         "type": "object"
+      },
+      "Reagent": {
+         "additionalProperties": false,
+         "description": "Description of reagent used in procedure",
+         "properties": {
+            "name": {
+               "title": "Name",
+               "type": "string"
+            },
+            "source": {
+               "discriminator": {
+                  "mapping": {
+                     "AA Opto Electronic": "#/$defs/AAOptoElectronic",
+                     "ASUS": "#/$defs/Asus",
+                     "Abcam": "#/$defs/Abcam",
+                     "Ailipu Technology Co": "#/$defs/AilipuTechnologyCo",
+                     "Allen Institute": "#/$defs/AllenInstitute",
+                     "Allen Institute for Brain Science": "#/$defs/AllenInstituteForBrainScience",
+                     "Allen Institute for Neural Dynamics": "#/$defs/AllenInstituteForNeuralDynamics",
+                     "Allied": "#/$defs/Allied",
+                     "Applied Scientific Instrumentation": "#/$defs/AppliedScientificInstrumentation",
+                     "Arecont Vision Costar": "#/$defs/ArecontVisionCostar",
+                     "Basler": "#/$defs/Basler",
+                     "Cambridge Technology": "#/$defs/CambridgeTechnology",
+                     "Carl Zeiss": "#/$defs/CarlZeiss",
+                     "Champalimaud Foundation": "#/$defs/ChampalimaudFoundation",
+                     "Chroma": "#/$defs/Chroma",
+                     "Coherent Scientific": "#/$defs/CoherentScientific",
+                     "Columbia University": "#/$defs/ColumbiaUniversity",
+                     "Computar": "#/$defs/Computar",
+                     "Conoptics": "#/$defs/Conoptics",
+                     "Custom": "#/$defs/Custom",
+                     "Dodotronic": "#/$defs/Dodotronic",
+                     "Doric": "#/$defs/Doric",
+                     "Ealing": "#/$defs/Ealing",
+                     "Edmund Optics": "#/$defs/EdmundOptics",
+                     "Euresys": "#/$defs/Euresys",
+                     "Fujinon": "#/$defs/Fujinon",
+                     "Hamamatsu": "#/$defs/Hamamatsu",
+                     "Huazhong University of Science and Technology": "#/$defs/HuazhongUniversityOfScienceAndTechnology",
+                     "IR Robot Co": "#/$defs/IRRobotCo",
+                     "ISL Products International": "#/$defs/ISLProductsInternational",
+                     "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
+                     "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
+                     "Jackson Laboratory": "#/$defs/JacksonLaboratory",
+                     "Julabo": "#/$defs/Julabo",
+                     "LG": "#/$defs/Lg",
+                     "Leica": "#/$defs/Leica",
+                     "LifeCanvas": "#/$defs/LifeCanvas",
+                     "MKS Newport": "#/$defs/MKSNewport",
+                     "MPI": "#/$defs/Mpi",
+                     "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
+                     "Mitutuyo": "#/$defs/Mitutuyo",
+                     "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
+                     "National Instruments": "#/$defs/NationalInstruments",
+                     "Navitar": "#/$defs/Navitar",
+                     "Neurophotometrics": "#/$defs/Neurophotometrics",
+                     "New Scale Technologies": "#/$defs/NewScaleTechnologies",
+                     "New York University": "#/$defs/NewYorkUniversity",
+                     "Nikon": "#/$defs/Nikon",
+                     "Olympus": "#/$defs/Olympus",
+                     "Open Ephys Production Site": "#/$defs/OpenEphysProductionSite",
+                     "Optotune": "#/$defs/Optotune",
+                     "Other": "#/$defs/Other",
+                     "Oxxius": "#/$defs/Oxxius",
+                     "Prizmatix": "#/$defs/Prizmatix",
+                     "Quantifi": "#/$defs/Quantifi",
+                     "Raspberry Pi": "#/$defs/RaspberryPi",
+                     "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
+                     "Second Order Effects": "#/$defs/SecondOrderEffects",
+                     "Semrock": "#/$defs/Semrock",
+                     "Simons Foundation": "#/$defs/SimonsFoundation",
+                     "Spinnaker": "#/$defs/Spinnaker",
+                     "Tamron": "#/$defs/Tamron",
+                     "Technical Manufacturing Corporation": "#/$defs/TMC",
+                     "Teledyne FLIR": "#/$defs/TeledyneFLIR",
+                     "The Imaging Source": "#/$defs/TheImagingSource",
+                     "The Lee Company": "#/$defs/TheLeeCompany",
+                     "Thermo Fisher": "#/$defs/Thermofisher",
+                     "Thorlabs": "#/$defs/Thorlabs",
+                     "Tymphany": "#/$defs/Tymphany",
+                     "Vieworks": "#/$defs/Vieworks",
+                     "Vortran": "#/$defs/Vortran",
+                     "ams OSRAM": "#/$defs/AmsOsram"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/AAOptoElectronic"
+                  },
+                  {
+                     "$ref": "#/$defs/Abcam"
+                  },
+                  {
+                     "$ref": "#/$defs/AilipuTechnologyCo"
+                  },
+                  {
+                     "$ref": "#/$defs/AllenInstitute"
+                  },
+                  {
+                     "$ref": "#/$defs/AllenInstituteForBrainScience"
+                  },
+                  {
+                     "$ref": "#/$defs/AllenInstituteForNeuralDynamics"
+                  },
+                  {
+                     "$ref": "#/$defs/Allied"
+                  },
+                  {
+                     "$ref": "#/$defs/AmsOsram"
+                  },
+                  {
+                     "$ref": "#/$defs/AppliedScientificInstrumentation"
+                  },
+                  {
+                     "$ref": "#/$defs/Asus"
+                  },
+                  {
+                     "$ref": "#/$defs/ArecontVisionCostar"
+                  },
+                  {
+                     "$ref": "#/$defs/Basler"
+                  },
+                  {
+                     "$ref": "#/$defs/CambridgeTechnology"
+                  },
+                  {
+                     "$ref": "#/$defs/ChampalimaudFoundation"
+                  },
+                  {
+                     "$ref": "#/$defs/Chroma"
+                  },
+                  {
+                     "$ref": "#/$defs/CoherentScientific"
+                  },
+                  {
+                     "$ref": "#/$defs/ColumbiaUniversity"
+                  },
+                  {
+                     "$ref": "#/$defs/Computar"
+                  },
+                  {
+                     "$ref": "#/$defs/Conoptics"
+                  },
+                  {
+                     "$ref": "#/$defs/Custom"
+                  },
+                  {
+                     "$ref": "#/$defs/Dodotronic"
+                  },
+                  {
+                     "$ref": "#/$defs/Doric"
+                  },
+                  {
+                     "$ref": "#/$defs/Ealing"
+                  },
+                  {
+                     "$ref": "#/$defs/EdmundOptics"
+                  },
+                  {
+                     "$ref": "#/$defs/Euresys"
+                  },
+                  {
+                     "$ref": "#/$defs/TeledyneFLIR"
+                  },
+                  {
+                     "$ref": "#/$defs/Fujinon"
+                  },
+                  {
+                     "$ref": "#/$defs/Hamamatsu"
+                  },
+                  {
+                     "$ref": "#/$defs/HuazhongUniversityOfScienceAndTechnology"
+                  },
+                  {
+                     "$ref": "#/$defs/TheImagingSource"
+                  },
+                  {
+                     "$ref": "#/$defs/InteruniversityMicroelectronicsCenter"
+                  },
+                  {
+                     "$ref": "#/$defs/InfinityPhotoOptical"
+                  },
+                  {
+                     "$ref": "#/$defs/ISLProductsInternational"
+                  },
+                  {
+                     "$ref": "#/$defs/JacksonLaboratory"
+                  },
+                  {
+                     "$ref": "#/$defs/Julabo"
+                  },
+                  {
+                     "$ref": "#/$defs/TheLeeCompany"
+                  },
+                  {
+                     "$ref": "#/$defs/Leica"
+                  },
+                  {
+                     "$ref": "#/$defs/Lg"
+                  },
+                  {
+                     "$ref": "#/$defs/LifeCanvas"
+                  },
+                  {
+                     "$ref": "#/$defs/MeadowlarkOptics"
+                  },
+                  {
+                     "$ref": "#/$defs/IRRobotCo"
+                  },
+                  {
+                     "$ref": "#/$defs/Mitutuyo"
+                  },
+                  {
+                     "$ref": "#/$defs/MKSNewport"
+                  },
+                  {
+                     "$ref": "#/$defs/Mpi"
+                  },
+                  {
+                     "$ref": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke"
+                  },
+                  {
+                     "$ref": "#/$defs/NationalInstruments"
+                  },
+                  {
+                     "$ref": "#/$defs/Navitar"
+                  },
+                  {
+                     "$ref": "#/$defs/Neurophotometrics"
+                  },
+                  {
+                     "$ref": "#/$defs/NewScaleTechnologies"
+                  },
+                  {
+                     "$ref": "#/$defs/NewYorkUniversity"
+                  },
+                  {
+                     "$ref": "#/$defs/Nikon"
+                  },
+                  {
+                     "$ref": "#/$defs/OpenEphysProductionSite"
+                  },
+                  {
+                     "$ref": "#/$defs/Olympus"
+                  },
+                  {
+                     "$ref": "#/$defs/Optotune"
+                  },
+                  {
+                     "$ref": "#/$defs/Oxxius"
+                  },
+                  {
+                     "$ref": "#/$defs/Prizmatix"
+                  },
+                  {
+                     "$ref": "#/$defs/Quantifi"
+                  },
+                  {
+                     "$ref": "#/$defs/RaspberryPi"
+                  },
+                  {
+                     "$ref": "#/$defs/SecondOrderEffects"
+                  },
+                  {
+                     "$ref": "#/$defs/Semrock"
+                  },
+                  {
+                     "$ref": "#/$defs/SchneiderKreuznach"
+                  },
+                  {
+                     "$ref": "#/$defs/SimonsFoundation"
+                  },
+                  {
+                     "$ref": "#/$defs/Spinnaker"
+                  },
+                  {
+                     "$ref": "#/$defs/Tamron"
+                  },
+                  {
+                     "$ref": "#/$defs/Thermofisher"
+                  },
+                  {
+                     "$ref": "#/$defs/Thorlabs"
+                  },
+                  {
+                     "$ref": "#/$defs/TMC"
+                  },
+                  {
+                     "$ref": "#/$defs/Tymphany"
+                  },
+                  {
+                     "$ref": "#/$defs/Vieworks"
+                  },
+                  {
+                     "$ref": "#/$defs/Vortran"
+                  },
+                  {
+                     "$ref": "#/$defs/CarlZeiss"
+                  },
+                  {
+                     "$ref": "#/$defs/Other"
+                  }
+               ],
+               "title": "Source"
+            },
+            "rrid": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/PIDName"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Research Resource ID"
+            },
+            "lot_number": {
+               "title": "Lot number",
+               "type": "string"
+            },
+            "expiration_date": {
+               "anyOf": [
+                  {
+                     "format": "date",
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Lot expiration date"
+            }
+         },
+         "required": [
+            "name",
+            "source",
+            "lot_number"
+         ],
+         "title": "Reagent",
+         "type": "object"
+      },
+      "RelativePosition": {
+         "additionalProperties": false,
+         "description": "Position and rotation of a device in a rig or instrument",
+         "properties": {
+            "device_position_transformations": {
+               "items": {
+                  "anyOf": [
+                     {
+                        "$ref": "#/$defs/Translation3dTransform"
+                     },
+                     {
+                        "$ref": "#/$defs/Rotation3dTransform"
+                     }
+                  ]
+               },
+               "title": "Device position transforms",
+               "type": "array"
+            },
+            "device_origin": {
+               "description": "Reference point on device for position information",
+               "title": "Device origin",
+               "type": "string"
+            },
+            "device_axes": {
+               "items": {
+                  "$ref": "#/$defs/Axis"
+               },
+               "maxItems": 3,
+               "minItems": 3,
+               "title": "Device axes",
+               "type": "array"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Notes"
+            }
+         },
+         "required": [
+            "device_position_transformations",
+            "device_origin",
+            "device_axes"
+         ],
+         "title": "RelativePosition",
+         "type": "object"
+      },
+      "ResearchOrganizationRegistry": {
+         "additionalProperties": false,
+         "description": "ResearchOrganizationRegistry",
+         "properties": {
+            "name": {
+               "const": "Research Organization Registry",
+               "default": "Research Organization Registry",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "ROR",
+               "default": "ROR",
+               "title": "Abbreviation"
+            }
+         },
+         "title": "ResearchOrganizationRegistry",
+         "type": "object"
+      },
+      "RewardDeliveryConfig": {
+         "additionalProperties": false,
+         "description": "Description of reward delivery configuration",
+         "properties": {
+            "reward_solution": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/RewardSolution"
+                  }
+               ],
+               "description": "If Other use notes",
+               "title": "Reward solution"
+            },
+            "reward_spouts": {
+               "items": {
+                  "$ref": "#/$defs/RewardSpoutConfig"
+               },
+               "title": "Reward spouts",
+               "type": "array"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Notes"
+            }
+         },
+         "required": [
+            "reward_solution",
+            "reward_spouts"
+         ],
+         "title": "RewardDeliveryConfig",
+         "type": "object"
+      },
+      "RewardSolution": {
+         "description": "Reward solution name",
+         "enum": [
+            "Water",
+            "Other"
+         ],
+         "title": "RewardSolution",
+         "type": "string"
+      },
+      "RewardSpoutConfig": {
+         "additionalProperties": false,
+         "description": "Reward spout session information",
+         "properties": {
+            "side": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/SpoutSide"
+                  }
+               ],
+               "description": "Must match rig",
+               "title": "Spout side"
+            },
+            "starting_position": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/RelativePosition"
+                  }
+               ],
+               "title": "Starting position"
+            },
+            "variable_position": {
+               "description": "True if spout position changes during session as tracked in data",
+               "title": "Variable position",
+               "type": "boolean"
+            }
+         },
+         "required": [
+            "side",
+            "starting_position",
+            "variable_position"
+         ],
+         "title": "RewardSpoutConfig",
+         "type": "object"
+      },
+      "Rotation3dTransform": {
+         "additionalProperties": false,
+         "description": "Values to be vector-added to a 3D position. Often needed to specify a device or tile's origin.",
+         "properties": {
+            "type": {
+               "const": "rotation",
+               "default": "rotation",
+               "title": "Type"
+            },
+            "rotation": {
+               "items": {
+                  "anyOf": [
+                     {
+                        "type": "number"
+                     },
+                     {
+                        "type": "string"
+                     }
+                  ]
+               },
+               "maxItems": 9,
+               "minItems": 9,
+               "title": "3D rotation matrix values (3x3) ",
+               "type": "array"
+            }
+         },
+         "required": [
+            "rotation"
+         ],
+         "title": "Rotation3dTransform",
+         "type": "object"
+      },
+      "SchneiderKreuznach": {
+         "additionalProperties": false,
+         "description": "SchneiderKreuznach",
+         "properties": {
+            "name": {
+               "const": "Schneider-Kreuznach",
+               "default": "Schneider-Kreuznach",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "SchneiderKreuznach",
+         "type": "object"
+      },
+      "SecondOrderEffects": {
+         "additionalProperties": false,
+         "description": "Second Order Effects",
+         "properties": {
+            "name": {
+               "const": "Second Order Effects",
+               "default": "Second Order Effects",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "SecondOrderEffects",
+         "type": "object"
+      },
+      "Semrock": {
+         "additionalProperties": false,
+         "description": "Semrock",
+         "properties": {
+            "name": {
+               "const": "Semrock",
+               "default": "Semrock",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Semrock",
+         "type": "object"
+      },
+      "SimonsFoundation": {
+         "additionalProperties": false,
+         "description": "SimonsFoundation",
+         "properties": {
+            "name": {
+               "const": "Simons Foundation",
+               "default": "Simons Foundation",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "01cmst727",
+               "default": "01cmst727",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "SimonsFoundation",
+         "type": "object"
+      },
+      "SizeUnit": {
+         "description": "Enumeration of Length Measurements",
+         "enum": [
+            "meter",
+            "centimeter",
+            "millimeter",
+            "micrometer",
+            "nanometer",
+            "inch",
+            "pixel"
+         ],
+         "title": "SizeUnit",
+         "type": "string"
+      },
+      "Slap": {
+         "additionalProperties": false,
+         "description": "Slap",
+         "properties": {
+            "name": {
+               "const": "Scanned line projection imaging",
+               "default": "Scanned line projection imaging",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "slap",
+               "default": "slap",
+               "title": "Abbreviation"
+            }
+         },
+         "title": "Slap",
+         "type": "object"
+      },
+      "SlapFieldOfView": {
+         "additionalProperties": false,
+         "description": "Description of a Slap2 scan",
+         "properties": {
+            "index": {
+               "title": "Index",
+               "type": "integer"
+            },
+            "imaging_depth": {
+               "title": "Imaging depth (um)",
+               "type": "integer"
+            },
+            "imaging_depth_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  }
+               ],
+               "default": "micrometer",
+               "title": "Imaging depth unit"
+            },
+            "targeted_structure": {
+               "title": "Targeted structure",
+               "type": "string"
+            },
+            "fov_coordinate_ml": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  }
+               ],
+               "title": "FOV coordinate ML"
+            },
+            "fov_coordinate_ap": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  }
+               ],
+               "title": "FOV coordinate AP"
+            },
+            "fov_coordinate_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  }
+               ],
+               "default": "micrometer",
+               "title": "FOV coordinate unit"
+            },
+            "fov_reference": {
+               "description": "Reference for ML/AP coordinates",
+               "title": "FOV reference",
+               "type": "string"
+            },
+            "fov_width": {
+               "title": "FOV width (pixels)",
+               "type": "integer"
+            },
+            "fov_height": {
+               "title": "FOV height (pixels)",
+               "type": "integer"
+            },
+            "fov_size_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  }
+               ],
+               "default": "pixel",
+               "title": "FOV size unit"
+            },
+            "magnification": {
+               "title": "Magnification",
+               "type": "string"
+            },
+            "fov_scale_factor": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  }
+               ],
+               "title": "FOV scale factor (um/pixel)"
+            },
+            "fov_scale_factor_unit": {
+               "default": "um/pixel",
+               "title": "FOV scale factor unit",
+               "type": "string"
+            },
+            "frame_rate": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Frame rate (Hz)"
+            },
+            "frame_rate_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/FrequencyUnit"
+                  }
+               ],
+               "default": "hertz",
+               "title": "Frame rate unit"
+            },
+            "coupled_fov_index": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Coupled planes for multiscope",
+               "title": "Coupled FOV"
+            },
+            "session_type": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/SlapSessionType"
+                  }
+               ],
+               "title": "Session type"
+            },
+            "dmd_dilation_x": {
+               "title": "DMD Dilation X (pixels)",
+               "type": "integer"
+            },
+            "dmd_dilation_y": {
+               "title": "DMD Dilation Y (pixels)",
+               "type": "integer"
+            },
+            "dilation_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  }
+               ],
+               "default": "pixel",
+               "title": "Dilation unit"
+            },
+            "target_neuron": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Target neuron"
+            },
+            "target_branch": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Target branch"
+            },
+            "path_to_array_of_frame_rates": {
+               "title": "Array of frame rates",
+               "type": "string"
+            }
+         },
+         "required": [
+            "index",
+            "imaging_depth",
+            "targeted_structure",
+            "fov_coordinate_ml",
+            "fov_coordinate_ap",
+            "fov_reference",
+            "fov_width",
+            "fov_height",
+            "magnification",
+            "fov_scale_factor",
+            "session_type",
+            "dmd_dilation_x",
+            "dmd_dilation_y",
+            "path_to_array_of_frame_rates"
+         ],
+         "title": "SlapFieldOfView",
+         "type": "object"
+      },
+      "SlapSessionType": {
+         "description": "Type of slap session",
+         "enum": [
+            "Parent",
+            "Branch"
+         ],
+         "title": "SlapSessionType",
+         "type": "string"
+      },
+      "Software": {
+         "additionalProperties": false,
+         "description": "Description of generic software",
+         "properties": {
+            "name": {
+               "title": "Software name",
+               "type": "string"
+            },
+            "version": {
+               "title": "Software version",
+               "type": "string"
+            },
+            "url": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "URL to commit being used"
+            },
+            "parameters": {
+               "default": {},
+               "title": "Software parameters",
+               "type": "object"
+            }
+         },
+         "required": [
+            "name",
+            "version"
+         ],
+         "title": "Software",
+         "type": "object"
+      },
+      "Spim": {
+         "additionalProperties": false,
+         "description": "Spim",
+         "properties": {
+            "name": {
+               "const": "Selective plane illumination microscopy",
+               "default": "Selective plane illumination microscopy",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "SPIM",
+               "default": "SPIM",
+               "title": "Abbreviation"
+            }
+         },
+         "title": "Spim",
+         "type": "object"
+      },
+      "Spinnaker": {
+         "additionalProperties": false,
+         "description": "Spinnaker",
+         "properties": {
+            "name": {
+               "const": "Spinnaker",
+               "default": "Spinnaker",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Spinnaker",
+         "type": "object"
+      },
+      "SpoutSide": {
+         "description": "Spout sides",
+         "enum": [
+            "Left",
+            "Right",
+            "Center",
+            "Other"
+         ],
+         "title": "SpoutSide",
+         "type": "string"
+      },
+      "Stack": {
+         "additionalProperties": false,
+         "description": "Description of a two photon stack",
+         "properties": {
+            "channels": {
+               "items": {
+                  "$ref": "#/$defs/StackChannel"
+               },
+               "title": "Channels",
+               "type": "array"
+            },
+            "number_of_planes": {
+               "title": "Number of planes",
+               "type": "integer"
+            },
+            "step_size": {
+               "title": "Step size (um)",
+               "type": "number"
+            },
+            "step_size_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  }
+               ],
+               "default": "micrometer",
+               "title": "Step size unit"
+            },
+            "number_of_plane_repeats_per_volume": {
+               "title": "Number of repeats per volume",
+               "type": "integer"
+            },
+            "number_of_volume_repeats": {
+               "title": "Number of volume repeats",
+               "type": "integer"
+            },
+            "fov_coordinate_ml": {
+               "title": "FOV coordinate ML",
+               "type": "number"
+            },
+            "fov_coordinate_ap": {
+               "title": "FOV coordinate AP",
+               "type": "number"
+            },
+            "fov_coordinate_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  }
+               ],
+               "default": "micrometer",
+               "title": "FOV coordinate unit"
+            },
+            "fov_reference": {
+               "description": "Reference for ML/AP coordinates",
+               "title": "FOV reference",
+               "type": "string"
+            },
+            "fov_width": {
+               "title": "FOV width (pixels)",
+               "type": "integer"
+            },
+            "fov_height": {
+               "title": "FOV height (pixels)",
+               "type": "integer"
+            },
+            "fov_size_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  }
+               ],
+               "default": "pixel",
+               "title": "FOV size unit"
+            },
+            "magnification": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Magnification"
+            },
+            "fov_scale_factor": {
+               "title": "FOV scale factor (um/pixel)",
+               "type": "number"
+            },
+            "fov_scale_factor_unit": {
+               "default": "um/pixel",
+               "title": "FOV scale factor unit",
+               "type": "string"
+            },
+            "frame_rate": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  }
+               ],
+               "title": "Frame rate (Hz)"
+            },
+            "frame_rate_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/FrequencyUnit"
+                  }
+               ],
+               "default": "hertz",
+               "title": "Frame rate unit"
+            },
+            "targeted_structure": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Targeted structure"
+            }
+         },
+         "required": [
+            "channels",
+            "number_of_planes",
+            "step_size",
+            "number_of_plane_repeats_per_volume",
+            "number_of_volume_repeats",
+            "fov_coordinate_ml",
+            "fov_coordinate_ap",
+            "fov_reference",
+            "fov_width",
+            "fov_height",
+            "fov_scale_factor",
+            "frame_rate"
+         ],
+         "title": "Stack",
+         "type": "object"
+      },
+      "StackChannel": {
+         "additionalProperties": false,
+         "description": "Description of a Channel used in a Stack",
+         "properties": {
+            "channel_name": {
+               "title": "Channel",
+               "type": "string"
+            },
+            "light_source_name": {
+               "description": "Must match device name",
+               "title": "Light source name",
+               "type": "string"
+            },
+            "filter_names": {
+               "description": "Must match device names",
+               "items": {
+                  "type": "string"
+               },
+               "title": "Filter names",
+               "type": "array"
+            },
+            "detector_name": {
+               "description": "Must match device name",
+               "title": "Detector name",
+               "type": "string"
+            },
+            "additional_device_names": {
+               "default": [],
+               "items": {
+                  "type": "string"
+               },
+               "title": "Additional device names",
+               "type": "array"
+            },
+            "excitation_wavelength": {
+               "maximum": 1000,
+               "minimum": 300,
+               "title": "Wavelength",
+               "type": "integer"
+            },
+            "excitation_wavelength_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  }
+               ],
+               "default": "nanometer",
+               "title": "Laser wavelength unit"
+            },
+            "excitation_power": {
+               "maximum": 2000.0,
+               "title": "Laser power",
+               "type": "number"
+            },
+            "excitation_power_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/PowerUnit"
+                  }
+               ],
+               "default": "milliwatt",
+               "title": "Laser power unit"
+            },
+            "filter_wheel_index": {
+               "title": "Filter wheel index",
+               "type": "integer"
+            },
+            "dilation": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Dilation (pixels)"
+            },
+            "dilation_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  }
+               ],
+               "default": "pixel",
+               "title": "Dilation unit"
+            },
+            "description": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Description"
+            },
+            "start_depth": {
+               "title": "Starting depth (um)",
+               "type": "integer"
+            },
+            "end_depth": {
+               "title": "Ending depth (um)",
+               "type": "integer"
+            },
+            "depth_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  }
+               ],
+               "default": "micrometer",
+               "title": "Depth unit"
+            }
+         },
+         "required": [
+            "channel_name",
+            "light_source_name",
+            "filter_names",
+            "detector_name",
+            "excitation_wavelength",
+            "excitation_power",
+            "filter_wheel_index",
+            "start_depth",
+            "end_depth"
+         ],
+         "title": "StackChannel",
+         "type": "object"
+      },
+      "StimulusEpoch": {
+         "additionalProperties": false,
+         "description": "Description of stimulus used during session",
+         "properties": {
+            "stimulus": {
+               "discriminator": {
+                  "mapping": {
+                     "Behavior": "#/$defs/BehaviorStimulation",
+                     "Olfactory": "#/$defs/OlfactoryStimulation",
+                     "Opto Stimulation": "#/$defs/OptoStimulation",
+                     "Photo Stimulation": "#/$defs/PhotoStimulation",
+                     "Visual": "#/$defs/VisualStimulation"
+                  },
+                  "propertyName": "stimulus_type"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/OlfactoryStimulation"
+                  },
+                  {
+                     "$ref": "#/$defs/OptoStimulation"
+                  },
+                  {
+                     "$ref": "#/$defs/VisualStimulation"
+                  },
+                  {
+                     "$ref": "#/$defs/BehaviorStimulation"
+                  },
+                  {
+                     "$ref": "#/$defs/PhotoStimulation"
+                  }
+               ],
+               "title": "Stimulus"
+            },
+            "stimulus_start_time": {
+               "description": "When a specific stimulus begins. This might be the same as the session start time.",
+               "format": "date-time",
+               "title": "Stimulus start time",
+               "type": "string"
+            },
+            "stimulus_end_time": {
+               "description": "When a specific stimulus ends. This might be the same as the session end time.",
+               "format": "date-time",
+               "title": "Stimulus end time",
+               "type": "string"
+            }
+         },
+         "required": [
+            "stimulus",
+            "stimulus_start_time",
+            "stimulus_end_time"
+         ],
+         "title": "StimulusEpoch",
+         "type": "object"
+      },
+      "Stream": {
+         "additionalProperties": false,
+         "description": "Data streams with a start and stop time",
+         "properties": {
+            "stream_start_time": {
+               "format": "date-time",
+               "title": "Stream start time",
+               "type": "string"
+            },
+            "stream_end_time": {
+               "format": "date-time",
+               "title": "Stream stop time",
+               "type": "string"
+            },
+            "daq_names": {
+               "default": [],
+               "items": {
+                  "type": "string"
+               },
+               "title": "DAQ devices",
+               "type": "array"
+            },
+            "camera_names": {
+               "default": [],
+               "items": {
+                  "type": "string"
+               },
+               "title": "Cameras",
+               "type": "array"
+            },
+            "light_sources": {
+               "default": [],
+               "items": {
+                  "discriminator": {
+                     "mapping": {
+                        "Laser": "#/$defs/LaserConfig",
+                        "LightEmittingDiode": "#/$defs/LightEmittingDiodeConfig"
+                     },
+                     "propertyName": "device_type"
+                  },
+                  "oneOf": [
+                     {
+                        "$ref": "#/$defs/LightEmittingDiodeConfig"
+                     },
+                     {
+                        "$ref": "#/$defs/LaserConfig"
+                     }
+                  ]
+               },
+               "title": "Light Sources",
+               "type": "array"
+            },
+            "ephys_modules": {
+               "default": [],
+               "items": {
+                  "$ref": "#/$defs/EphysModule"
+               },
+               "title": "Ephys modules",
+               "type": "array"
+            },
+            "stick_microscopes": {
+               "default": [],
+               "description": "Must match stick microscope assemblies in rig file",
+               "items": {
+                  "$ref": "#/$defs/DomeModule"
+               },
+               "title": "Stick microscopes",
+               "type": "array"
+            },
+            "manipulator_modules": {
+               "default": [],
+               "items": {
+                  "$ref": "#/$defs/ManipulatorModule"
+               },
+               "title": "Manipulator modules",
+               "type": "array"
+            },
+            "detectors": {
+               "default": [],
+               "items": {
+                  "$ref": "#/$defs/DetectorConfig"
+               },
+               "title": "Detectors",
+               "type": "array"
+            },
+            "fiber_connections": {
+               "default": [],
+               "items": {
+                  "$ref": "#/$defs/FiberConnectionConfig"
+               },
+               "title": "Implanted fiber photometry devices",
+               "type": "array"
+            },
+            "fiber_modules": {
+               "default": [],
+               "items": {
+                  "$ref": "#/$defs/FiberModule"
+               },
+               "title": "Inserted fiber modules",
+               "type": "array"
+            },
+            "ophys_fovs": {
+               "default": [],
+               "items": {
+                  "$ref": "#/$defs/FieldOfView"
+               },
+               "title": "Fields of view",
+               "type": "array"
+            },
+            "slap_fovs": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/SlapFieldOfView"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Slap2 field of view"
+            },
+            "stack_parameters": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Stack"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Stack parameters"
+            },
+            "stimulus_device_names": {
+               "default": [],
+               "items": {
+                  "type": "string"
+               },
+               "title": "Stimulus devices",
+               "type": "array"
+            },
+            "mouse_platform_name": {
+               "title": "Mouse platform",
+               "type": "string"
+            },
+            "active_mouse_platform": {
+               "title": "Active mouse platform",
+               "type": "boolean"
+            },
+            "stream_modalities": {
+               "items": {
+                  "discriminator": {
+                     "mapping": {
+                        "Behavior": "#/$defs/Behavior",
+                        "Behavior videos": "#/$defs/BehaviorVideos",
+                        "Confocal microscopy": "#/$defs/Confocal",
+                        "Electromyography": "#/$defs/Electromyography",
+                        "Extracellular electrophysiology": "#/$defs/Ecephys",
+                        "Fiber photometry": "#/$defs/Fib",
+                        "Fluorescence micro-optical sectioning tomography": "#/$defs/Fmost",
+                        "Intracellular electrophysiology": "#/$defs/Icephys",
+                        "Intrinsic signal imaging": "#/$defs/Isi",
+                        "Magnetic resonance imaging": "#/$defs/Mri",
+                        "Multiplexed error-robust fluorescence in situ hybridization": "#/$defs/Merfish",
+                        "Planar optical physiology": "#/$defs/POphys",
+                        "Scanned line projection imaging": "#/$defs/Slap",
+                        "Selective plane illumination microscopy": "#/$defs/Spim"
+                     },
+                     "propertyName": "name"
+                  },
+                  "oneOf": [
+                     {
+                        "$ref": "#/$defs/Behavior"
+                     },
+                     {
+                        "$ref": "#/$defs/BehaviorVideos"
+                     },
+                     {
+                        "$ref": "#/$defs/Confocal"
+                     },
+                     {
+                        "$ref": "#/$defs/Ecephys"
+                     },
+                     {
+                        "$ref": "#/$defs/Electromyography"
+                     },
+                     {
+                        "$ref": "#/$defs/Fmost"
+                     },
+                     {
+                        "$ref": "#/$defs/Icephys"
+                     },
+                     {
+                        "$ref": "#/$defs/Isi"
+                     },
+                     {
+                        "$ref": "#/$defs/Fib"
+                     },
+                     {
+                        "$ref": "#/$defs/Merfish"
+                     },
+                     {
+                        "$ref": "#/$defs/Mri"
+                     },
+                     {
+                        "$ref": "#/$defs/POphys"
+                     },
+                     {
+                        "$ref": "#/$defs/Slap"
+                     },
+                     {
+                        "$ref": "#/$defs/Spim"
+                     }
+                  ]
+               },
+               "title": "Modalities",
+               "type": "array"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Notes"
+            }
+         },
+         "required": [
+            "stream_start_time",
+            "stream_end_time",
+            "mouse_platform_name",
+            "active_mouse_platform",
+            "stream_modalities"
+         ],
+         "title": "Stream",
+         "type": "object"
+      },
+      "TMC": {
+         "additionalProperties": false,
+         "description": "TMC",
+         "properties": {
+            "name": {
+               "const": "Technical Manufacturing Corporation",
+               "default": "Technical Manufacturing Corporation",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "TMC",
+               "default": "TMC",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "TMC",
+         "type": "object"
+      },
+      "Tamron": {
+         "additionalProperties": false,
+         "description": "Tamron",
+         "properties": {
+            "name": {
+               "const": "Tamron",
+               "default": "Tamron",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Tamron",
+         "type": "object"
+      },
+      "TeledyneFLIR": {
+         "additionalProperties": false,
+         "description": "TeledyneFLIR",
+         "properties": {
+            "name": {
+               "const": "Teledyne FLIR",
+               "default": "Teledyne FLIR",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "FLIR",
+               "default": "FLIR",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "01j1gwp17",
+               "default": "01j1gwp17",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "TeledyneFLIR",
+         "type": "object"
+      },
+      "TheImagingSource": {
+         "additionalProperties": false,
+         "description": "TheImagingSource",
+         "properties": {
+            "name": {
+               "const": "The Imaging Source",
+               "default": "The Imaging Source",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "TheImagingSource",
+         "type": "object"
+      },
+      "TheLeeCompany": {
+         "additionalProperties": false,
+         "description": "TheLeeCompany",
+         "properties": {
+            "name": {
+               "const": "The Lee Company",
+               "default": "The Lee Company",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "TheLeeCompany",
+         "type": "object"
+      },
+      "Thermofisher": {
+         "additionalProperties": false,
+         "description": "Thermofisher",
+         "properties": {
+            "name": {
+               "const": "Thermo Fisher",
+               "default": "Thermo Fisher",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "03x1ewr52",
+               "default": "03x1ewr52",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Thermofisher",
+         "type": "object"
+      },
+      "Thorlabs": {
+         "additionalProperties": false,
+         "description": "Thorlabs",
+         "properties": {
+            "name": {
+               "const": "Thorlabs",
+               "default": "Thorlabs",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "04gsnvb07",
+               "default": "04gsnvb07",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Thorlabs",
+         "type": "object"
+      },
+      "TimeUnit": {
+         "description": "Enumeration of Time Measurements",
+         "enum": [
+            "hour",
+            "minute",
+            "second",
+            "millisecond",
+            "microsecond",
+            "nanosecond"
+         ],
+         "title": "TimeUnit",
+         "type": "string"
+      },
+      "Translation3dTransform": {
+         "additionalProperties": false,
+         "description": "Values to be vector-added to a 3D position. Often needed to specify a device or tile's origin.",
+         "properties": {
+            "type": {
+               "const": "translation",
+               "default": "translation",
+               "title": "Type"
+            },
+            "translation": {
+               "items": {
+                  "anyOf": [
+                     {
+                        "type": "number"
+                     },
+                     {
+                        "type": "string"
+                     }
+                  ]
+               },
+               "maxItems": 3,
+               "minItems": 3,
+               "title": "3D translation parameters",
+               "type": "array"
+            }
+         },
+         "required": [
+            "translation"
+         ],
+         "title": "Translation3dTransform",
+         "type": "object"
+      },
+      "TriggerType": {
+         "description": "Types of detector triggers",
+         "enum": [
+            "Internal",
+            "External"
+         ],
+         "title": "TriggerType",
+         "type": "string"
+      },
+      "Tymphany": {
+         "additionalProperties": false,
+         "description": "Tymphany",
+         "properties": {
+            "name": {
+               "const": "Tymphany",
+               "default": "Tymphany",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Tymphany",
+         "type": "object"
+      },
+      "Vieworks": {
+         "additionalProperties": false,
+         "description": "Vieworks",
+         "properties": {
+            "name": {
+               "const": "Vieworks",
+               "default": "Vieworks",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Vieworks",
+         "type": "object"
+      },
+      "VisualStimulation": {
+         "additionalProperties": false,
+         "description": "Description of visual stimulus parameters. Provides a high level description of stimulus.",
+         "properties": {
+            "stimulus_type": {
+               "const": "Visual",
+               "default": "Visual",
+               "title": "Stimulus Type"
+            },
+            "stimulus_name": {
+               "title": "Stimulus name",
+               "type": "string"
+            },
+            "stimulus_parameters": {
+               "default": {},
+               "description": "Define and list the parameter values used (e.g. all TF or orientation values)",
+               "title": "Stimulus parameters",
+               "type": "object"
+            },
+            "stimulus_template_name": {
+               "default": [],
+               "description": "Name of image set or movie displayed",
+               "items": {
+                  "type": "string"
+               },
+               "title": "Stimulus template name",
+               "type": "array"
+            },
+            "stimulus_software": {
+               "description": "The software used to control the stimulus (e.g. Bonsai)",
+               "title": "Stimulus software",
+               "type": "string"
+            },
+            "stimulus_software_version": {
+               "title": "Stimulus software version",
+               "type": "string"
+            },
+            "stimulus_script": {
+               "description": "The specific code for this stimulus instance",
+               "title": "Stimulus script",
+               "type": "string"
+            },
+            "stimulus_script_version": {
+               "title": "Stimulus script version",
+               "type": "string"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Notes"
+            }
+         },
+         "required": [
+            "stimulus_name",
+            "stimulus_software",
+            "stimulus_software_version",
+            "stimulus_script",
+            "stimulus_script_version"
+         ],
+         "title": "VisualStimulation",
+         "type": "object"
+      },
+      "VolumeUnit": {
+         "description": "Enumeration of Volume Measurements",
+         "enum": [
+            "liter",
+            "milliliter",
+            "microliter",
+            "nanoliter"
+         ],
+         "title": "VolumeUnit",
+         "type": "string"
+      },
+      "Vortran": {
+         "additionalProperties": false,
+         "description": "Vortran",
+         "properties": {
+            "name": {
+               "const": "Vortran",
+               "default": "Vortran",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Vortran",
+         "type": "object"
+      }
+   },
+   "additionalProperties": false,
+   "description": "Description of a physiology and/or behavior session",
+   "properties": {
+      "describedBy": {
+         "const": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/session.py",
+         "default": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/session.py",
+         "title": "Describedby",
+         "type": "string"
+      },
+      "schema_version": {
+         "const": "0.1.7",
+         "default": "0.1.7",
+         "title": "Schema Version"
+      },
+      "protocol_id": {
+         "default": [],
+         "description": "DOI for protocols.io",
+         "items": {
+            "type": "string"
+         },
+         "title": "Protocol ID",
+         "type": "array"
+      },
+      "experimenter_full_name": {
+         "description": "First and last name of the experimenter(s).",
+         "items": {
+            "type": "string"
+         },
+         "title": "Experimenter(s) full name",
+         "type": "array"
+      },
+      "session_start_time": {
+         "format": "date-time",
+         "title": "Session start time",
+         "type": "string"
+      },
+      "session_end_time": {
+         "anyOf": [
+            {
+               "format": "date-time",
+               "type": "string"
+            },
+            {
+               "type": "null"
+            }
+         ],
+         "default": null,
+         "title": "Session end time"
+      },
+      "session_type": {
+         "title": "Session type",
+         "type": "string"
+      },
+      "iacuc_protocol": {
+         "anyOf": [
+            {
+               "type": "string"
+            },
+            {
+               "type": "null"
+            }
+         ],
+         "default": null,
+         "title": "IACUC protocol"
+      },
+      "rig_id": {
+         "title": "Rig ID",
+         "type": "string"
+      },
+      "calibrations": {
+         "default": [],
+         "description": "Calibrations of rig devices prior to session",
+         "items": {
+            "$ref": "#/$defs/Calibration"
+         },
+         "title": "Calibrations",
+         "type": "array"
+      },
+      "maintenance": {
+         "default": [],
+         "description": "Maintenance of rig devices prior to session",
+         "items": {
+            "$ref": "#/$defs/Maintenance"
+         },
+         "title": "Maintenance",
+         "type": "array"
+      },
+      "subject_id": {
+         "title": "Subject ID",
+         "type": "string"
+      },
+      "animal_weight_prior": {
+         "anyOf": [
+            {
+               "type": "number"
+            },
+            {
+               "type": "string"
+            },
+            {
+               "type": "null"
+            }
+         ],
+         "default": null,
+         "description": "Animal weight before procedure",
+         "title": "Animal weight (g)"
+      },
+      "animal_weight_post": {
+         "anyOf": [
+            {
+               "type": "number"
+            },
+            {
+               "type": "string"
+            },
+            {
+               "type": "null"
+            }
+         ],
+         "default": null,
+         "description": "Animal weight after procedure",
+         "title": "Animal weight (g)"
+      },
+      "weight_unit": {
+         "allOf": [
+            {
+               "$ref": "#/$defs/MassUnit"
+            }
+         ],
+         "default": "gram",
+         "title": "Weight unit"
+      },
+      "data_streams": {
+         "description": "A data stream is a collection of devices that are recorded simultaneously. Each session can include multiple streams (e.g., if the manipulators are moved to a new location)",
+         "items": {
+            "$ref": "#/$defs/Stream"
+         },
+         "title": "Data streams",
+         "type": "array"
+      },
+      "stimulus_epochs": {
+         "default": [],
+         "items": {
+            "$ref": "#/$defs/StimulusEpoch"
+         },
+         "title": "Stimulus",
+         "type": "array"
+      },
+      "reward_delivery": {
+         "anyOf": [
+            {
+               "$ref": "#/$defs/RewardDeliveryConfig"
+            },
+            {
+               "type": "null"
+            }
+         ],
+         "default": null,
+         "title": "Reward delivery"
+      },
+      "reward_consumed_total": {
+         "anyOf": [
+            {
+               "type": "number"
+            },
+            {
+               "type": "string"
+            },
+            {
+               "type": "null"
+            }
+         ],
+         "default": null,
+         "title": "Total reward consumed (uL)"
+      },
+      "reward_consumed_unit": {
+         "allOf": [
+            {
+               "$ref": "#/$defs/VolumeUnit"
+            }
+         ],
+         "default": "microliter",
+         "title": "Reward consumed unit"
+      },
+      "notes": {
+         "anyOf": [
+            {
+               "type": "string"
+            },
+            {
+               "type": "null"
+            }
+         ],
+         "default": null,
+         "title": "Notes"
+      }
+   },
+   "required": [
+      "experimenter_full_name",
+      "session_start_time",
+      "session_type",
+      "rig_id",
+      "subject_id",
+      "data_streams"
+   ],
+   "title": "Session",
+   "type": "object"
+}

@@ -17,6 +17,7 @@ from aind_data_schema.core.procedures import (
     ViralMaterial,
     WaterRestriction,
 )
+from aind_data_schema.models.organizations import Organization
 from aind_data_schema.models.pid_names import PIDName
 from aind_data_schema.models.registry import Registry
 
@@ -112,7 +113,7 @@ p = Procedures(
             immunolabeling=Immunolabeling(
                 antibody=Antibody(
                     name="Chicken polyclonal",
-                    source="Abcam",
+                    source=Organization.ABCAM,
                     rrid=PIDName(
                         name="Chicken polyclonal to GFP", registry=Registry.RRID, registry_identifier="ab13970"
                     ),
@@ -135,7 +136,7 @@ p = Procedures(
             immunolabeling=Immunolabeling(
                 antibody=Antibody(
                     name="Alexa Fluor 488 goat anti-chicken IgY (H+L)",
-                    source="Invitrogen",
+                    source=Organization.THERMOFISHER,
                     rrid=PIDName(
                         name="Alexa Fluor 488 goat anti-chicken IgY (H+L)",
                         registry=Registry.RRID,

@@ -1,0 +1,3378 @@
+{
+   "$defs": {
+      "AAOptoElectronic": {
+         "additionalProperties": false,
+         "description": "AAOptoElectronic",
+         "properties": {
+            "name": {
+               "const": "AA Opto Electronic",
+               "default": "AA Opto Electronic",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "AAOptoElectronic",
+         "type": "object"
+      },
+      "Abcam": {
+         "additionalProperties": false,
+         "description": "Abcam",
+         "properties": {
+            "name": {
+               "const": "Abcam",
+               "default": "Abcam",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "02e1wjw63",
+               "default": "02e1wjw63",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Abcam",
+         "type": "object"
+      },
+      "AilipuTechnologyCo": {
+         "additionalProperties": false,
+         "description": "AilipuTechnologyCo",
+         "properties": {
+            "name": {
+               "const": "Ailipu Technology Co",
+               "default": "Ailipu Technology Co",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "AilipuTechnologyCo",
+         "type": "object"
+      },
+      "AllenInstitute": {
+         "additionalProperties": false,
+         "description": "AllenInstitute",
+         "properties": {
+            "name": {
+               "const": "Allen Institute",
+               "default": "Allen Institute",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "AI",
+               "default": "AI",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "03cpe7c52",
+               "default": "03cpe7c52",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "AllenInstitute",
+         "type": "object"
+      },
+      "AllenInstituteForBrainScience": {
+         "additionalProperties": false,
+         "description": "AllenInstituteForBrainScience",
+         "properties": {
+            "name": {
+               "const": "Allen Institute for Brain Science",
+               "default": "Allen Institute for Brain Science",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "AIBS",
+               "default": "AIBS",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "00dcv1019",
+               "default": "00dcv1019",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "AllenInstituteForBrainScience",
+         "type": "object"
+      },
+      "AllenInstituteForNeuralDynamics": {
+         "additionalProperties": false,
+         "description": "AllenInstituteForNeuralDynamics",
+         "properties": {
+            "name": {
+               "const": "Allen Institute for Neural Dynamics",
+               "default": "Allen Institute for Neural Dynamics",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "AIND",
+               "default": "AIND",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "04szwah67",
+               "default": "04szwah67",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "AllenInstituteForNeuralDynamics",
+         "type": "object"
+      },
+      "Allied": {
+         "additionalProperties": false,
+         "description": "Allied",
+         "properties": {
+            "name": {
+               "const": "Allied",
+               "default": "Allied",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Allied",
+         "type": "object"
+      },
+      "AmsOsram": {
+         "additionalProperties": false,
+         "description": "ams OSRAM",
+         "properties": {
+            "name": {
+               "const": "ams OSRAM",
+               "default": "ams OSRAM",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "045d0h266",
+               "default": "045d0h266",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "AmsOsram",
+         "type": "object"
+      },
+      "Anaesthetic": {
+         "additionalProperties": false,
+         "description": "Description of an anaesthetic",
+         "properties": {
+            "type": {
+               "title": "Type",
+               "type": "string"
+            },
+            "duration": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  }
+               ],
+               "title": "Duration"
+            },
+            "duration_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  }
+               ],
+               "default": "minute",
+               "title": "Duration unit"
+            },
+            "level": {
+               "anyOf": [
+                  {
+                     "maximum": 5.0,
+                     "minimum": 1.0,
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  }
+               ],
+               "title": "Level (percent)"
+            }
+         },
+         "required": [
+            "type",
+            "duration",
+            "level"
+         ],
+         "title": "Anaesthetic",
+         "type": "object"
+      },
+      "AppliedScientificInstrumentation": {
+         "additionalProperties": false,
+         "description": "AppliedScientificInstrumentation",
+         "properties": {
+            "name": {
+               "const": "Applied Scientific Instrumentation",
+               "default": "Applied Scientific Instrumentation",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "ASI",
+               "default": "ASI",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "AppliedScientificInstrumentation",
+         "type": "object"
+      },
+      "ArecontVisionCostar": {
+         "additionalProperties": false,
+         "description": "ArecontVisionCostar",
+         "properties": {
+            "name": {
+               "const": "Arecont Vision Costar",
+               "default": "Arecont Vision Costar",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "ArecontVisionCostar",
+         "type": "object"
+      },
+      "Asus": {
+         "additionalProperties": false,
+         "description": "Asus",
+         "properties": {
+            "name": {
+               "const": "ASUS",
+               "default": "ASUS",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "00bxkz165",
+               "default": "00bxkz165",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Asus",
+         "type": "object"
+      },
+      "Basler": {
+         "additionalProperties": false,
+         "description": "Basler",
+         "properties": {
+            "name": {
+               "const": "Basler",
+               "default": "Basler",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Basler",
+         "type": "object"
+      },
+      "CambridgeTechnology": {
+         "additionalProperties": false,
+         "description": "CambridgeTechnology",
+         "properties": {
+            "name": {
+               "const": "Cambridge Technology",
+               "default": "Cambridge Technology",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "CambridgeTechnology",
+         "type": "object"
+      },
+      "CarlZeiss": {
+         "additionalProperties": false,
+         "description": "CarlZeiss",
+         "properties": {
+            "name": {
+               "const": "Carl Zeiss",
+               "default": "Carl Zeiss",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "01xk5xs43",
+               "default": "01xk5xs43",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "CarlZeiss",
+         "type": "object"
+      },
+      "ChampalimaudFoundation": {
+         "additionalProperties": false,
+         "description": "Champalimaud Foundation",
+         "properties": {
+            "name": {
+               "const": "Champalimaud Foundation",
+               "default": "Champalimaud Foundation",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "03g001n57",
+               "default": "03g001n57",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "ChampalimaudFoundation",
+         "type": "object"
+      },
+      "Chroma": {
+         "additionalProperties": false,
+         "description": "Chroma",
+         "properties": {
+            "name": {
+               "const": "Chroma",
+               "default": "Chroma",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Chroma",
+         "type": "object"
+      },
+      "CoherentScientific": {
+         "additionalProperties": false,
+         "description": "CoherentScientific",
+         "properties": {
+            "name": {
+               "const": "Coherent Scientific",
+               "default": "Coherent Scientific",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "031tysd23",
+               "default": "031tysd23",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "CoherentScientific",
+         "type": "object"
+      },
+      "ColumbiaUniversity": {
+         "additionalProperties": false,
+         "description": "ColumbiaUniversity",
+         "properties": {
+            "name": {
+               "const": "Columbia University",
+               "default": "Columbia University",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "Columbia",
+               "default": "Columbia",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "00hj8s172",
+               "default": "00hj8s172",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "ColumbiaUniversity",
+         "type": "object"
+      },
+      "Computar": {
+         "additionalProperties": false,
+         "description": "Computar",
+         "properties": {
+            "name": {
+               "const": "Computar",
+               "default": "Computar",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Computar",
+         "type": "object"
+      },
+      "Conoptics": {
+         "additionalProperties": false,
+         "description": "Conoptics",
+         "properties": {
+            "name": {
+               "const": "Conoptics",
+               "default": "Conoptics",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Conoptics",
+         "type": "object"
+      },
+      "Custom": {
+         "additionalProperties": false,
+         "description": "Custom",
+         "properties": {
+            "name": {
+               "const": "Custom",
+               "default": "Custom",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Custom",
+         "type": "object"
+      },
+      "Dodotronic": {
+         "additionalProperties": false,
+         "description": "Dodotronic",
+         "properties": {
+            "name": {
+               "const": "Dodotronic",
+               "default": "Dodotronic",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Dodotronic",
+         "type": "object"
+      },
+      "Doric": {
+         "additionalProperties": false,
+         "description": "Doric",
+         "properties": {
+            "name": {
+               "const": "Doric",
+               "default": "Doric",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "059n53q30",
+               "default": "059n53q30",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Doric",
+         "type": "object"
+      },
+      "Ealing": {
+         "additionalProperties": false,
+         "description": "Ealing",
+         "properties": {
+            "name": {
+               "const": "Ealing",
+               "default": "Ealing",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Ealing",
+         "type": "object"
+      },
+      "EdmundOptics": {
+         "additionalProperties": false,
+         "description": "EdmundOptics",
+         "properties": {
+            "name": {
+               "const": "Edmund Optics",
+               "default": "Edmund Optics",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "01j1gwp17",
+               "default": "01j1gwp17",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "EdmundOptics",
+         "type": "object"
+      },
+      "Euresys": {
+         "additionalProperties": false,
+         "description": "Euresys",
+         "properties": {
+            "name": {
+               "const": "Euresys",
+               "default": "Euresys",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Euresys",
+         "type": "object"
+      },
+      "Fujinon": {
+         "additionalProperties": false,
+         "description": "Fujinon",
+         "properties": {
+            "name": {
+               "const": "Fujinon",
+               "default": "Fujinon",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Fujinon",
+         "type": "object"
+      },
+      "Hamamatsu": {
+         "additionalProperties": false,
+         "description": "Hamamatsu",
+         "properties": {
+            "name": {
+               "const": "Hamamatsu",
+               "default": "Hamamatsu",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "03natb733",
+               "default": "03natb733",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Hamamatsu",
+         "type": "object"
+      },
+      "HuazhongUniversityOfScienceAndTechnology": {
+         "additionalProperties": false,
+         "description": "HuazhongUniversityOfScienceAndTechnology",
+         "properties": {
+            "name": {
+               "const": "Huazhong University of Science and Technology",
+               "default": "Huazhong University of Science and Technology",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "HUST",
+               "default": "HUST",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "00p991c53",
+               "default": "00p991c53",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "HuazhongUniversityOfScienceAndTechnology",
+         "type": "object"
+      },
+      "IRRobotCo": {
+         "additionalProperties": false,
+         "description": "IRRobotCo",
+         "properties": {
+            "name": {
+               "const": "IR Robot Co",
+               "default": "IR Robot Co",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "IRRobotCo",
+         "type": "object"
+      },
+      "ISLProductsInternational": {
+         "additionalProperties": false,
+         "description": "ISLProductsInternational",
+         "properties": {
+            "name": {
+               "const": "ISL Products International",
+               "default": "ISL Products International",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "ISL",
+               "default": "ISL",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "ISLProductsInternational",
+         "type": "object"
+      },
+      "InfinityPhotoOptical": {
+         "additionalProperties": false,
+         "description": "InfinityPhotoOptical",
+         "properties": {
+            "name": {
+               "const": "Infinity Photo-Optical",
+               "default": "Infinity Photo-Optical",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "InfinityPhotoOptical",
+         "type": "object"
+      },
+      "InteruniversityMicroelectronicsCenter": {
+         "additionalProperties": false,
+         "description": "InteruniversityMicroelectronicsCenter",
+         "properties": {
+            "name": {
+               "const": "Interuniversity Microelectronics Center",
+               "default": "Interuniversity Microelectronics Center",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "IMEC",
+               "default": "IMEC",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "02kcbn207",
+               "default": "02kcbn207",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "InteruniversityMicroelectronicsCenter",
+         "type": "object"
+      },
+      "JacksonLaboratory": {
+         "additionalProperties": false,
+         "description": "JacksonLaboratory",
+         "properties": {
+            "name": {
+               "const": "Jackson Laboratory",
+               "default": "Jackson Laboratory",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "JAX",
+               "default": "JAX",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "021sy4w91",
+               "default": "021sy4w91",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "JacksonLaboratory",
+         "type": "object"
+      },
+      "Julabo": {
+         "additionalProperties": false,
+         "description": "Julabo",
+         "properties": {
+            "name": {
+               "const": "Julabo",
+               "default": "Julabo",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Julabo",
+         "type": "object"
+      },
+      "Leica": {
+         "additionalProperties": false,
+         "description": "Leica",
+         "properties": {
+            "name": {
+               "const": "Leica",
+               "default": "Leica",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Leica",
+         "type": "object"
+      },
+      "Lg": {
+         "additionalProperties": false,
+         "description": "Lg",
+         "properties": {
+            "name": {
+               "const": "LG",
+               "default": "LG",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "02b948n83",
+               "default": "02b948n83",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Lg",
+         "type": "object"
+      },
+      "LifeCanvas": {
+         "additionalProperties": false,
+         "description": "LifeCanvas",
+         "properties": {
+            "name": {
+               "const": "LifeCanvas",
+               "default": "LifeCanvas",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "LifeCanvas",
+         "type": "object"
+      },
+      "MKSNewport": {
+         "additionalProperties": false,
+         "description": "MKSNewport",
+         "properties": {
+            "name": {
+               "const": "MKS Newport",
+               "default": "MKS Newport",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "00k17f049",
+               "default": "00k17f049",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "MKSNewport",
+         "type": "object"
+      },
+      "MRIScan": {
+         "additionalProperties": false,
+         "description": "Description of a 3D scan",
+         "properties": {
+            "scan_index": {
+               "title": "Scan index",
+               "type": "integer"
+            },
+            "scan_type": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/ScanType"
+                  }
+               ],
+               "title": "Scan type"
+            },
+            "primary_scan": {
+               "description": "Indicates the primary scan used for downstream analysis",
+               "title": "Primary scan",
+               "type": "boolean"
+            },
+            "scan_sequence_type": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/MriScanSequence"
+                  }
+               ],
+               "title": "Scan sequence"
+            },
+            "rare_factor": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "RARE factor"
+            },
+            "echo_time": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  }
+               ],
+               "title": "Echo time (ms)"
+            },
+            "effective_echo_time": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  }
+               ],
+               "title": "Effective echo time (ms)"
+            },
+            "echo_time_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  }
+               ],
+               "default": "millisecond",
+               "title": "Echo time unit"
+            },
+            "repetition_time": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  }
+               ],
+               "title": "Repetition time (ms)"
+            },
+            "repetition_time_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  }
+               ],
+               "default": "millisecond",
+               "title": "Repetition time unit"
+            },
+            "vc_orientation": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/Rotation3dTransform"
+                  }
+               ],
+               "title": "Scan orientation"
+            },
+            "vc_position": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/Translation3dTransform"
+                  }
+               ],
+               "title": "Scan position"
+            },
+            "subject_position": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/SubjectPosition"
+                  }
+               ],
+               "title": "Subject position"
+            },
+            "voxel_sizes": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/Scale3dTransform"
+                  }
+               ],
+               "description": "Resolution",
+               "title": "Voxel sizes"
+            },
+            "processing_steps": {
+               "default": [],
+               "items": {
+                  "enum": [
+                     "Fiducial segmentation",
+                     "Registration to template",
+                     "Skull stripping"
+                  ],
+                  "type": "string"
+               },
+               "title": "Processing Steps",
+               "type": "array"
+            },
+            "additional_scan_parameters": {
+               "title": "Parameters",
+               "type": "object"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Notes"
+            }
+         },
+         "required": [
+            "scan_index",
+            "scan_type",
+            "primary_scan",
+            "scan_sequence_type",
+            "echo_time",
+            "effective_echo_time",
+            "repetition_time",
+            "vc_orientation",
+            "vc_position",
+            "subject_position",
+            "voxel_sizes",
+            "additional_scan_parameters"
+         ],
+         "title": "MRIScan",
+         "type": "object"
+      },
+      "MagneticStrength": {
+         "description": "Strength of magnet",
+         "enum": [
+            7,
+            14
+         ],
+         "title": "MagneticStrength",
+         "type": "integer"
+      },
+      "MassUnit": {
+         "description": "Enumeration of Mass Measurements",
+         "enum": [
+            "kilogram",
+            "gram",
+            "milligram",
+            "microgram",
+            "nanogram"
+         ],
+         "title": "MassUnit",
+         "type": "string"
+      },
+      "MeadowlarkOptics": {
+         "additionalProperties": false,
+         "description": "MeadowlarkOptics",
+         "properties": {
+            "name": {
+               "const": "Meadowlark Optics",
+               "default": "Meadowlark Optics",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "00n8qbq54",
+               "default": "00n8qbq54",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "MeadowlarkOptics",
+         "type": "object"
+      },
+      "Mitutuyo": {
+         "additionalProperties": false,
+         "description": "Mitutuyo",
+         "properties": {
+            "name": {
+               "const": "Mitutuyo",
+               "default": "Mitutuyo",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Mitutuyo",
+         "type": "object"
+      },
+      "Mpi": {
+         "additionalProperties": false,
+         "description": "Mpi",
+         "properties": {
+            "name": {
+               "const": "MPI",
+               "default": "MPI",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "MPI",
+               "default": "MPI",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Mpi",
+         "type": "object"
+      },
+      "MriScanSequence": {
+         "description": "MRI scan sequence",
+         "enum": [
+            "RARE",
+            "Other"
+         ],
+         "title": "MriScanSequence",
+         "type": "string"
+      },
+      "NationalInstituteOfNeurologicalDisordersAndStroke": {
+         "additionalProperties": false,
+         "description": "NationalInstituteOfNeurologicalDisordersAndStroke",
+         "properties": {
+            "name": {
+               "const": "National Institute of Neurological Disorders and Stroke",
+               "default": "National Institute of Neurological Disorders and Stroke",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "NINDS",
+               "default": "NINDS",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "01s5ya894",
+               "default": "01s5ya894",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "NationalInstituteOfNeurologicalDisordersAndStroke",
+         "type": "object"
+      },
+      "NationalInstruments": {
+         "additionalProperties": false,
+         "description": "NationalInstruments",
+         "properties": {
+            "name": {
+               "const": "National Instruments",
+               "default": "National Instruments",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "026exqw73",
+               "default": "026exqw73",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "NationalInstruments",
+         "type": "object"
+      },
+      "Navitar": {
+         "additionalProperties": false,
+         "description": "Navitar",
+         "properties": {
+            "name": {
+               "const": "Navitar",
+               "default": "Navitar",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Navitar",
+         "type": "object"
+      },
+      "Neurophotometrics": {
+         "additionalProperties": false,
+         "description": "Neurophotometrics",
+         "properties": {
+            "name": {
+               "const": "Neurophotometrics",
+               "default": "Neurophotometrics",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Neurophotometrics",
+         "type": "object"
+      },
+      "NewScaleTechnologies": {
+         "additionalProperties": false,
+         "description": "NewScaleTechnologies",
+         "properties": {
+            "name": {
+               "const": "New Scale Technologies",
+               "default": "New Scale Technologies",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "NewScaleTechnologies",
+         "type": "object"
+      },
+      "NewYorkUniversity": {
+         "additionalProperties": false,
+         "description": "NewYorkUniversity",
+         "properties": {
+            "name": {
+               "const": "New York University",
+               "default": "New York University",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "NYU",
+               "default": "NYU",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "0190ak572",
+               "default": "0190ak572",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "NewYorkUniversity",
+         "type": "object"
+      },
+      "Nikon": {
+         "additionalProperties": false,
+         "description": "Nikon",
+         "properties": {
+            "name": {
+               "const": "Nikon",
+               "default": "Nikon",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "0280y9h11",
+               "default": "0280y9h11",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Nikon",
+         "type": "object"
+      },
+      "Olympus": {
+         "additionalProperties": false,
+         "description": "Olympus",
+         "properties": {
+            "name": {
+               "const": "Olympus",
+               "default": "Olympus",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "02vcdte90",
+               "default": "02vcdte90",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Olympus",
+         "type": "object"
+      },
+      "OpenEphysProductionSite": {
+         "additionalProperties": false,
+         "description": "OpenEphysProductionSite",
+         "properties": {
+            "name": {
+               "const": "Open Ephys Production Site",
+               "default": "Open Ephys Production Site",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "OEPS",
+               "default": "OEPS",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "007rkz355",
+               "default": "007rkz355",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "OpenEphysProductionSite",
+         "type": "object"
+      },
+      "Optotune": {
+         "additionalProperties": false,
+         "description": "Optotune",
+         "properties": {
+            "name": {
+               "const": "Optotune",
+               "default": "Optotune",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Optotune",
+         "type": "object"
+      },
+      "Other": {
+         "additionalProperties": false,
+         "description": "Other",
+         "properties": {
+            "name": {
+               "const": "Other",
+               "default": "Other",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Other",
+         "type": "object"
+      },
+      "Oxxius": {
+         "additionalProperties": false,
+         "description": "Oxxius",
+         "properties": {
+            "name": {
+               "const": "Oxxius",
+               "default": "Oxxius",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Oxxius",
+         "type": "object"
+      },
+      "Prizmatix": {
+         "additionalProperties": false,
+         "description": "Prizmatix",
+         "properties": {
+            "name": {
+               "const": "Prizmatix",
+               "default": "Prizmatix",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Prizmatix",
+         "type": "object"
+      },
+      "Quantifi": {
+         "additionalProperties": false,
+         "description": "Quantifi",
+         "properties": {
+            "name": {
+               "const": "Quantifi",
+               "default": "Quantifi",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Quantifi",
+         "type": "object"
+      },
+      "RaspberryPi": {
+         "additionalProperties": false,
+         "description": "RaspberryPi",
+         "properties": {
+            "name": {
+               "const": "Raspberry Pi",
+               "default": "Raspberry Pi",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "RaspberryPi",
+         "type": "object"
+      },
+      "ResearchOrganizationRegistry": {
+         "additionalProperties": false,
+         "description": "ResearchOrganizationRegistry",
+         "properties": {
+            "name": {
+               "const": "Research Organization Registry",
+               "default": "Research Organization Registry",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "ROR",
+               "default": "ROR",
+               "title": "Abbreviation"
+            }
+         },
+         "title": "ResearchOrganizationRegistry",
+         "type": "object"
+      },
+      "Rotation3dTransform": {
+         "additionalProperties": false,
+         "description": "Values to be vector-added to a 3D position. Often needed to specify a device or tile's origin.",
+         "properties": {
+            "type": {
+               "const": "rotation",
+               "default": "rotation",
+               "title": "Type"
+            },
+            "rotation": {
+               "items": {
+                  "anyOf": [
+                     {
+                        "type": "number"
+                     },
+                     {
+                        "type": "string"
+                     }
+                  ]
+               },
+               "maxItems": 9,
+               "minItems": 9,
+               "title": "3D rotation matrix values (3x3) ",
+               "type": "array"
+            }
+         },
+         "required": [
+            "rotation"
+         ],
+         "title": "Rotation3dTransform",
+         "type": "object"
+      },
+      "Scale3dTransform": {
+         "additionalProperties": false,
+         "description": "Values to be vector-multiplied with a 3D position, equivalent to the diagonals of a 3x3 transform matrix.\nRepresents voxel spacing if used as the first applied coordinate transform.",
+         "properties": {
+            "type": {
+               "const": "scale",
+               "default": "scale",
+               "title": "Type"
+            },
+            "scale": {
+               "items": {
+                  "anyOf": [
+                     {
+                        "type": "number"
+                     },
+                     {
+                        "type": "string"
+                     }
+                  ]
+               },
+               "maxItems": 3,
+               "minItems": 3,
+               "title": "3D scale parameters",
+               "type": "array"
+            }
+         },
+         "required": [
+            "scale"
+         ],
+         "title": "Scale3dTransform",
+         "type": "object"
+      },
+      "ScanType": {
+         "description": "Type of scan",
+         "enum": [
+            "Set Up",
+            "3D Scan"
+         ],
+         "title": "ScanType",
+         "type": "string"
+      },
+      "Scanner": {
+         "additionalProperties": false,
+         "description": "Description of a MRI Scanner",
+         "properties": {
+            "device_type": {
+               "const": "Scanner",
+               "default": "Scanner",
+               "title": "Device Type"
+            },
+            "name": {
+               "title": "Device name",
+               "type": "string"
+            },
+            "serial_number": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Serial number"
+            },
+            "manufacturer": {
+               "anyOf": [
+                  {
+                     "discriminator": {
+                        "mapping": {
+                           "AA Opto Electronic": "#/$defs/AAOptoElectronic",
+                           "ASUS": "#/$defs/Asus",
+                           "Abcam": "#/$defs/Abcam",
+                           "Ailipu Technology Co": "#/$defs/AilipuTechnologyCo",
+                           "Allen Institute": "#/$defs/AllenInstitute",
+                           "Allen Institute for Brain Science": "#/$defs/AllenInstituteForBrainScience",
+                           "Allen Institute for Neural Dynamics": "#/$defs/AllenInstituteForNeuralDynamics",
+                           "Allied": "#/$defs/Allied",
+                           "Applied Scientific Instrumentation": "#/$defs/AppliedScientificInstrumentation",
+                           "Arecont Vision Costar": "#/$defs/ArecontVisionCostar",
+                           "Basler": "#/$defs/Basler",
+                           "Cambridge Technology": "#/$defs/CambridgeTechnology",
+                           "Carl Zeiss": "#/$defs/CarlZeiss",
+                           "Champalimaud Foundation": "#/$defs/ChampalimaudFoundation",
+                           "Chroma": "#/$defs/Chroma",
+                           "Coherent Scientific": "#/$defs/CoherentScientific",
+                           "Columbia University": "#/$defs/ColumbiaUniversity",
+                           "Computar": "#/$defs/Computar",
+                           "Conoptics": "#/$defs/Conoptics",
+                           "Custom": "#/$defs/Custom",
+                           "Dodotronic": "#/$defs/Dodotronic",
+                           "Doric": "#/$defs/Doric",
+                           "Ealing": "#/$defs/Ealing",
+                           "Edmund Optics": "#/$defs/EdmundOptics",
+                           "Euresys": "#/$defs/Euresys",
+                           "Fujinon": "#/$defs/Fujinon",
+                           "Hamamatsu": "#/$defs/Hamamatsu",
+                           "Huazhong University of Science and Technology": "#/$defs/HuazhongUniversityOfScienceAndTechnology",
+                           "IR Robot Co": "#/$defs/IRRobotCo",
+                           "ISL Products International": "#/$defs/ISLProductsInternational",
+                           "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
+                           "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
+                           "Jackson Laboratory": "#/$defs/JacksonLaboratory",
+                           "Julabo": "#/$defs/Julabo",
+                           "LG": "#/$defs/Lg",
+                           "Leica": "#/$defs/Leica",
+                           "LifeCanvas": "#/$defs/LifeCanvas",
+                           "MKS Newport": "#/$defs/MKSNewport",
+                           "MPI": "#/$defs/Mpi",
+                           "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
+                           "Mitutuyo": "#/$defs/Mitutuyo",
+                           "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
+                           "National Instruments": "#/$defs/NationalInstruments",
+                           "Navitar": "#/$defs/Navitar",
+                           "Neurophotometrics": "#/$defs/Neurophotometrics",
+                           "New Scale Technologies": "#/$defs/NewScaleTechnologies",
+                           "New York University": "#/$defs/NewYorkUniversity",
+                           "Nikon": "#/$defs/Nikon",
+                           "Olympus": "#/$defs/Olympus",
+                           "Open Ephys Production Site": "#/$defs/OpenEphysProductionSite",
+                           "Optotune": "#/$defs/Optotune",
+                           "Other": "#/$defs/Other",
+                           "Oxxius": "#/$defs/Oxxius",
+                           "Prizmatix": "#/$defs/Prizmatix",
+                           "Quantifi": "#/$defs/Quantifi",
+                           "Raspberry Pi": "#/$defs/RaspberryPi",
+                           "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
+                           "Second Order Effects": "#/$defs/SecondOrderEffects",
+                           "Semrock": "#/$defs/Semrock",
+                           "Simons Foundation": "#/$defs/SimonsFoundation",
+                           "Spinnaker": "#/$defs/Spinnaker",
+                           "Tamron": "#/$defs/Tamron",
+                           "Technical Manufacturing Corporation": "#/$defs/TMC",
+                           "Teledyne FLIR": "#/$defs/TeledyneFLIR",
+                           "The Imaging Source": "#/$defs/TheImagingSource",
+                           "The Lee Company": "#/$defs/TheLeeCompany",
+                           "Thermo Fisher": "#/$defs/Thermofisher",
+                           "Thorlabs": "#/$defs/Thorlabs",
+                           "Tymphany": "#/$defs/Tymphany",
+                           "Vieworks": "#/$defs/Vieworks",
+                           "Vortran": "#/$defs/Vortran",
+                           "ams OSRAM": "#/$defs/AmsOsram"
+                        },
+                        "propertyName": "name"
+                     },
+                     "oneOf": [
+                        {
+                           "$ref": "#/$defs/AAOptoElectronic"
+                        },
+                        {
+                           "$ref": "#/$defs/Abcam"
+                        },
+                        {
+                           "$ref": "#/$defs/AilipuTechnologyCo"
+                        },
+                        {
+                           "$ref": "#/$defs/AllenInstitute"
+                        },
+                        {
+                           "$ref": "#/$defs/AllenInstituteForBrainScience"
+                        },
+                        {
+                           "$ref": "#/$defs/AllenInstituteForNeuralDynamics"
+                        },
+                        {
+                           "$ref": "#/$defs/Allied"
+                        },
+                        {
+                           "$ref": "#/$defs/AmsOsram"
+                        },
+                        {
+                           "$ref": "#/$defs/AppliedScientificInstrumentation"
+                        },
+                        {
+                           "$ref": "#/$defs/Asus"
+                        },
+                        {
+                           "$ref": "#/$defs/ArecontVisionCostar"
+                        },
+                        {
+                           "$ref": "#/$defs/Basler"
+                        },
+                        {
+                           "$ref": "#/$defs/CambridgeTechnology"
+                        },
+                        {
+                           "$ref": "#/$defs/ChampalimaudFoundation"
+                        },
+                        {
+                           "$ref": "#/$defs/Chroma"
+                        },
+                        {
+                           "$ref": "#/$defs/CoherentScientific"
+                        },
+                        {
+                           "$ref": "#/$defs/ColumbiaUniversity"
+                        },
+                        {
+                           "$ref": "#/$defs/Computar"
+                        },
+                        {
+                           "$ref": "#/$defs/Conoptics"
+                        },
+                        {
+                           "$ref": "#/$defs/Custom"
+                        },
+                        {
+                           "$ref": "#/$defs/Dodotronic"
+                        },
+                        {
+                           "$ref": "#/$defs/Doric"
+                        },
+                        {
+                           "$ref": "#/$defs/Ealing"
+                        },
+                        {
+                           "$ref": "#/$defs/EdmundOptics"
+                        },
+                        {
+                           "$ref": "#/$defs/Euresys"
+                        },
+                        {
+                           "$ref": "#/$defs/TeledyneFLIR"
+                        },
+                        {
+                           "$ref": "#/$defs/Fujinon"
+                        },
+                        {
+                           "$ref": "#/$defs/Hamamatsu"
+                        },
+                        {
+                           "$ref": "#/$defs/HuazhongUniversityOfScienceAndTechnology"
+                        },
+                        {
+                           "$ref": "#/$defs/TheImagingSource"
+                        },
+                        {
+                           "$ref": "#/$defs/InteruniversityMicroelectronicsCenter"
+                        },
+                        {
+                           "$ref": "#/$defs/InfinityPhotoOptical"
+                        },
+                        {
+                           "$ref": "#/$defs/ISLProductsInternational"
+                        },
+                        {
+                           "$ref": "#/$defs/JacksonLaboratory"
+                        },
+                        {
+                           "$ref": "#/$defs/Julabo"
+                        },
+                        {
+                           "$ref": "#/$defs/TheLeeCompany"
+                        },
+                        {
+                           "$ref": "#/$defs/Leica"
+                        },
+                        {
+                           "$ref": "#/$defs/Lg"
+                        },
+                        {
+                           "$ref": "#/$defs/LifeCanvas"
+                        },
+                        {
+                           "$ref": "#/$defs/MeadowlarkOptics"
+                        },
+                        {
+                           "$ref": "#/$defs/IRRobotCo"
+                        },
+                        {
+                           "$ref": "#/$defs/Mitutuyo"
+                        },
+                        {
+                           "$ref": "#/$defs/MKSNewport"
+                        },
+                        {
+                           "$ref": "#/$defs/Mpi"
+                        },
+                        {
+                           "$ref": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke"
+                        },
+                        {
+                           "$ref": "#/$defs/NationalInstruments"
+                        },
+                        {
+                           "$ref": "#/$defs/Navitar"
+                        },
+                        {
+                           "$ref": "#/$defs/Neurophotometrics"
+                        },
+                        {
+                           "$ref": "#/$defs/NewScaleTechnologies"
+                        },
+                        {
+                           "$ref": "#/$defs/NewYorkUniversity"
+                        },
+                        {
+                           "$ref": "#/$defs/Nikon"
+                        },
+                        {
+                           "$ref": "#/$defs/OpenEphysProductionSite"
+                        },
+                        {
+                           "$ref": "#/$defs/Olympus"
+                        },
+                        {
+                           "$ref": "#/$defs/Optotune"
+                        },
+                        {
+                           "$ref": "#/$defs/Oxxius"
+                        },
+                        {
+                           "$ref": "#/$defs/Prizmatix"
+                        },
+                        {
+                           "$ref": "#/$defs/Quantifi"
+                        },
+                        {
+                           "$ref": "#/$defs/RaspberryPi"
+                        },
+                        {
+                           "$ref": "#/$defs/SecondOrderEffects"
+                        },
+                        {
+                           "$ref": "#/$defs/Semrock"
+                        },
+                        {
+                           "$ref": "#/$defs/SchneiderKreuznach"
+                        },
+                        {
+                           "$ref": "#/$defs/SimonsFoundation"
+                        },
+                        {
+                           "$ref": "#/$defs/Spinnaker"
+                        },
+                        {
+                           "$ref": "#/$defs/Tamron"
+                        },
+                        {
+                           "$ref": "#/$defs/Thermofisher"
+                        },
+                        {
+                           "$ref": "#/$defs/Thorlabs"
+                        },
+                        {
+                           "$ref": "#/$defs/TMC"
+                        },
+                        {
+                           "$ref": "#/$defs/Tymphany"
+                        },
+                        {
+                           "$ref": "#/$defs/Vieworks"
+                        },
+                        {
+                           "$ref": "#/$defs/Vortran"
+                        },
+                        {
+                           "$ref": "#/$defs/CarlZeiss"
+                        },
+                        {
+                           "$ref": "#/$defs/Other"
+                        }
+                     ]
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Manufacturer"
+            },
+            "model": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Model"
+            },
+            "path_to_cad": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "For CUSTOM manufactured devices",
+               "title": "Path to CAD diagram"
+            },
+            "port_index": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Port index"
+            },
+            "additional_settings": {
+               "anyOf": [
+                  {
+                     "type": "object"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": {},
+               "title": "Additional parameters"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Notes"
+            },
+            "scanner_location": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/ScannerLocation"
+                  }
+               ],
+               "title": "Scanner location"
+            },
+            "magnetic_strength": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/MagneticStrength"
+                  }
+               ],
+               "title": "Magnetic strength (T)"
+            },
+            "magnetic_strength_unit": {
+               "default": "T",
+               "title": "Magnetic strength unit",
+               "type": "string"
+            }
+         },
+         "required": [
+            "name",
+            "scanner_location",
+            "magnetic_strength"
+         ],
+         "title": "Scanner",
+         "type": "object"
+      },
+      "ScannerLocation": {
+         "description": "location of scanner",
+         "enum": [
+            "Fred Hutch",
+            "UW SLU"
+         ],
+         "title": "ScannerLocation",
+         "type": "string"
+      },
+      "SchneiderKreuznach": {
+         "additionalProperties": false,
+         "description": "SchneiderKreuznach",
+         "properties": {
+            "name": {
+               "const": "Schneider-Kreuznach",
+               "default": "Schneider-Kreuznach",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "SchneiderKreuznach",
+         "type": "object"
+      },
+      "SecondOrderEffects": {
+         "additionalProperties": false,
+         "description": "Second Order Effects",
+         "properties": {
+            "name": {
+               "const": "Second Order Effects",
+               "default": "Second Order Effects",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "SecondOrderEffects",
+         "type": "object"
+      },
+      "Semrock": {
+         "additionalProperties": false,
+         "description": "Semrock",
+         "properties": {
+            "name": {
+               "const": "Semrock",
+               "default": "Semrock",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Semrock",
+         "type": "object"
+      },
+      "SimonsFoundation": {
+         "additionalProperties": false,
+         "description": "SimonsFoundation",
+         "properties": {
+            "name": {
+               "const": "Simons Foundation",
+               "default": "Simons Foundation",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "01cmst727",
+               "default": "01cmst727",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "SimonsFoundation",
+         "type": "object"
+      },
+      "Spinnaker": {
+         "additionalProperties": false,
+         "description": "Spinnaker",
+         "properties": {
+            "name": {
+               "const": "Spinnaker",
+               "default": "Spinnaker",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Spinnaker",
+         "type": "object"
+      },
+      "SubjectPosition": {
+         "description": "Subject position",
+         "enum": [
+            "Prone",
+            "Supine"
+         ],
+         "title": "SubjectPosition",
+         "type": "string"
+      },
+      "TMC": {
+         "additionalProperties": false,
+         "description": "TMC",
+         "properties": {
+            "name": {
+               "const": "Technical Manufacturing Corporation",
+               "default": "Technical Manufacturing Corporation",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "TMC",
+               "default": "TMC",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "TMC",
+         "type": "object"
+      },
+      "Tamron": {
+         "additionalProperties": false,
+         "description": "Tamron",
+         "properties": {
+            "name": {
+               "const": "Tamron",
+               "default": "Tamron",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Tamron",
+         "type": "object"
+      },
+      "TeledyneFLIR": {
+         "additionalProperties": false,
+         "description": "TeledyneFLIR",
+         "properties": {
+            "name": {
+               "const": "Teledyne FLIR",
+               "default": "Teledyne FLIR",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "FLIR",
+               "default": "FLIR",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "01j1gwp17",
+               "default": "01j1gwp17",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "TeledyneFLIR",
+         "type": "object"
+      },
+      "TheImagingSource": {
+         "additionalProperties": false,
+         "description": "TheImagingSource",
+         "properties": {
+            "name": {
+               "const": "The Imaging Source",
+               "default": "The Imaging Source",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "TheImagingSource",
+         "type": "object"
+      },
+      "TheLeeCompany": {
+         "additionalProperties": false,
+         "description": "TheLeeCompany",
+         "properties": {
+            "name": {
+               "const": "The Lee Company",
+               "default": "The Lee Company",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "TheLeeCompany",
+         "type": "object"
+      },
+      "Thermofisher": {
+         "additionalProperties": false,
+         "description": "Thermofisher",
+         "properties": {
+            "name": {
+               "const": "Thermo Fisher",
+               "default": "Thermo Fisher",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "03x1ewr52",
+               "default": "03x1ewr52",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Thermofisher",
+         "type": "object"
+      },
+      "Thorlabs": {
+         "additionalProperties": false,
+         "description": "Thorlabs",
+         "properties": {
+            "name": {
+               "const": "Thorlabs",
+               "default": "Thorlabs",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "04gsnvb07",
+               "default": "04gsnvb07",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Thorlabs",
+         "type": "object"
+      },
+      "TimeUnit": {
+         "description": "Enumeration of Time Measurements",
+         "enum": [
+            "hour",
+            "minute",
+            "second",
+            "millisecond",
+            "microsecond",
+            "nanosecond"
+         ],
+         "title": "TimeUnit",
+         "type": "string"
+      },
+      "Translation3dTransform": {
+         "additionalProperties": false,
+         "description": "Values to be vector-added to a 3D position. Often needed to specify a device or tile's origin.",
+         "properties": {
+            "type": {
+               "const": "translation",
+               "default": "translation",
+               "title": "Type"
+            },
+            "translation": {
+               "items": {
+                  "anyOf": [
+                     {
+                        "type": "number"
+                     },
+                     {
+                        "type": "string"
+                     }
+                  ]
+               },
+               "maxItems": 3,
+               "minItems": 3,
+               "title": "3D translation parameters",
+               "type": "array"
+            }
+         },
+         "required": [
+            "translation"
+         ],
+         "title": "Translation3dTransform",
+         "type": "object"
+      },
+      "Tymphany": {
+         "additionalProperties": false,
+         "description": "Tymphany",
+         "properties": {
+            "name": {
+               "const": "Tymphany",
+               "default": "Tymphany",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Tymphany",
+         "type": "object"
+      },
+      "Vieworks": {
+         "additionalProperties": false,
+         "description": "Vieworks",
+         "properties": {
+            "name": {
+               "const": "Vieworks",
+               "default": "Vieworks",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Vieworks",
+         "type": "object"
+      },
+      "Vortran": {
+         "additionalProperties": false,
+         "description": "Vortran",
+         "properties": {
+            "name": {
+               "const": "Vortran",
+               "default": "Vortran",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Vortran",
+         "type": "object"
+      }
+   },
+   "additionalProperties": false,
+   "description": "Description of an MRI scan",
+   "properties": {
+      "describedBy": {
+         "const": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/mri_session.py",
+         "default": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/mri_session.py",
+         "title": "Describedby",
+         "type": "string"
+      },
+      "schema_version": {
+         "const": "0.3.0",
+         "default": "0.3.0",
+         "title": "Schema Version"
+      },
+      "subject_id": {
+         "description": "Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
+         "title": "Subject ID",
+         "type": "string"
+      },
+      "session_start_time": {
+         "format": "date-time",
+         "title": "Session start time",
+         "type": "string"
+      },
+      "session_end_time": {
+         "anyOf": [
+            {
+               "format": "date-time",
+               "type": "string"
+            },
+            {
+               "type": "null"
+            }
+         ],
+         "default": null,
+         "title": "Session end time"
+      },
+      "experimenter_full_name": {
+         "description": "First and last name of the experimenter(s).",
+         "items": {
+            "type": "string"
+         },
+         "title": "Experimenter(s) full name",
+         "type": "array"
+      },
+      "protocol_id": {
+         "description": "DOI for protocols.io",
+         "title": "Protocol ID",
+         "type": "string"
+      },
+      "iacuc_protocol": {
+         "anyOf": [
+            {
+               "type": "string"
+            },
+            {
+               "type": "null"
+            }
+         ],
+         "default": null,
+         "title": "IACUC protocol"
+      },
+      "animal_weight_prior": {
+         "anyOf": [
+            {
+               "type": "number"
+            },
+            {
+               "type": "string"
+            },
+            {
+               "type": "null"
+            }
+         ],
+         "default": null,
+         "description": "Animal weight before procedure",
+         "title": "Animal weight (g)"
+      },
+      "animal_weight_post": {
+         "anyOf": [
+            {
+               "type": "number"
+            },
+            {
+               "type": "string"
+            },
+            {
+               "type": "null"
+            }
+         ],
+         "default": null,
+         "description": "Animal weight after procedure",
+         "title": "Animal weight (g)"
+      },
+      "weight_unit": {
+         "allOf": [
+            {
+               "$ref": "#/$defs/MassUnit"
+            }
+         ],
+         "default": "gram",
+         "title": "Weight unit"
+      },
+      "anaesthesia": {
+         "anyOf": [
+            {
+               "$ref": "#/$defs/Anaesthetic"
+            },
+            {
+               "type": "null"
+            }
+         ],
+         "default": null,
+         "title": "Anaesthesia"
+      },
+      "mri_scanner": {
+         "allOf": [
+            {
+               "$ref": "#/$defs/Scanner"
+            }
+         ],
+         "title": "MRI scanner"
+      },
+      "scans": {
+         "items": {
+            "$ref": "#/$defs/MRIScan"
+         },
+         "title": "MRI scans",
+         "type": "array"
+      },
+      "notes": {
+         "anyOf": [
+            {
+               "type": "string"
+            },
+            {
+               "type": "null"
+            }
+         ],
+         "default": null,
+         "title": "Notes"
+      }
+   },
+   "required": [
+      "subject_id",
+      "session_start_time",
+      "experimenter_full_name",
+      "protocol_id",
+      "mri_scanner",
+      "scans"
+   ],
+   "title": "MriSession",
+   "type": "object"
+}

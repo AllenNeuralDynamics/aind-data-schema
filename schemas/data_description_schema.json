@@ -1,0 +1,1334 @@
+{
+   "$defs": {
+      "AllenInstitute": {
+         "additionalProperties": false,
+         "description": "AllenInstitute",
+         "properties": {
+            "name": {
+               "const": "Allen Institute",
+               "default": "Allen Institute",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "AI",
+               "default": "AI",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "03cpe7c52",
+               "default": "03cpe7c52",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "AllenInstitute",
+         "type": "object"
+      },
+      "AllenInstituteForBrainScience": {
+         "additionalProperties": false,
+         "description": "AllenInstituteForBrainScience",
+         "properties": {
+            "name": {
+               "const": "Allen Institute for Brain Science",
+               "default": "Allen Institute for Brain Science",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "AIBS",
+               "default": "AIBS",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "00dcv1019",
+               "default": "00dcv1019",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "AllenInstituteForBrainScience",
+         "type": "object"
+      },
+      "AllenInstituteForNeuralDynamics": {
+         "additionalProperties": false,
+         "description": "AllenInstituteForNeuralDynamics",
+         "properties": {
+            "name": {
+               "const": "Allen Institute for Neural Dynamics",
+               "default": "Allen Institute for Neural Dynamics",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "AIND",
+               "default": "AIND",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "04szwah67",
+               "default": "04szwah67",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "AllenInstituteForNeuralDynamics",
+         "type": "object"
+      },
+      "BehaviorVideos": {
+         "additionalProperties": false,
+         "description": "BehaviorVideos",
+         "properties": {
+            "name": {
+               "const": "Behavior videos",
+               "default": "Behavior videos",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "behavior-videos",
+               "default": "behavior-videos",
+               "title": "Abbreviation"
+            }
+         },
+         "title": "BehaviorVideos",
+         "type": "object"
+      },
+      "ColumbiaUniversity": {
+         "additionalProperties": false,
+         "description": "ColumbiaUniversity",
+         "properties": {
+            "name": {
+               "const": "Columbia University",
+               "default": "Columbia University",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "Columbia",
+               "default": "Columbia",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "00hj8s172",
+               "default": "00hj8s172",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "ColumbiaUniversity",
+         "type": "object"
+      },
+      "DataLevel": {
+         "description": "Data level name",
+         "enum": [
+            "derived",
+            "raw"
+         ],
+         "title": "DataLevel",
+         "type": "string"
+      },
+      "Electromyography": {
+         "additionalProperties": false,
+         "description": "Electromyography",
+         "properties": {
+            "name": {
+               "const": "Electromyography",
+               "default": "Electromyography",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "EMG",
+               "default": "EMG",
+               "title": "Abbreviation"
+            }
+         },
+         "title": "Electromyography",
+         "type": "object"
+      },
+      "ExaSpim": {
+         "additionalProperties": false,
+         "description": "ExaSpim",
+         "properties": {
+            "name": {
+               "const": "ExaSPIM platform",
+               "default": "ExaSPIM platform",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "exaSPIM",
+               "default": "exaSPIM",
+               "title": "Abbreviation"
+            }
+         },
+         "title": "ExaSpim",
+         "type": "object"
+      },
+      "Fib": {
+         "additionalProperties": false,
+         "description": "Fib",
+         "properties": {
+            "name": {
+               "const": "Fiber photometry",
+               "default": "Fiber photometry",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "fib",
+               "default": "fib",
+               "title": "Abbreviation"
+            }
+         },
+         "title": "Fib",
+         "type": "object"
+      },
+      "Fip": {
+         "additionalProperties": false,
+         "description": "Fip",
+         "properties": {
+            "name": {
+               "const": "Frame-projected independent-fiber photometry platform",
+               "default": "Frame-projected independent-fiber photometry platform",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "FIP",
+               "default": "FIP",
+               "title": "Abbreviation"
+            }
+         },
+         "title": "Fip",
+         "type": "object"
+      },
+      "Fmost": {
+         "additionalProperties": false,
+         "description": "Fmost",
+         "properties": {
+            "name": {
+               "const": "Fluorescence micro-optical sectioning tomography",
+               "default": "Fluorescence micro-optical sectioning tomography",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "fMOST",
+               "default": "fMOST",
+               "title": "Abbreviation"
+            }
+         },
+         "title": "Fmost",
+         "type": "object"
+      },
+      "Funding": {
+         "additionalProperties": false,
+         "description": "Description of funding sources",
+         "properties": {
+            "funder": {
+               "discriminator": {
+                  "mapping": {
+                     "Allen Institute": "#/$defs/AllenInstitute",
+                     "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
+                     "Simons Foundation": "#/$defs/SimonsFoundation"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/AllenInstitute"
+                  },
+                  {
+                     "$ref": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke"
+                  },
+                  {
+                     "$ref": "#/$defs/SimonsFoundation"
+                  }
+               ],
+               "title": "Funder"
+            },
+            "grant_number": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Grant number"
+            },
+            "fundee": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Person(s) funded by this mechanism",
+               "title": "Fundee"
+            }
+         },
+         "required": [
+            "funder"
+         ],
+         "title": "Funding",
+         "type": "object"
+      },
+      "Group": {
+         "description": "Data collection group name",
+         "enum": [
+            "behavior",
+            "ephys",
+            "MSMA",
+            "ophys"
+         ],
+         "title": "Group",
+         "type": "string"
+      },
+      "Hcr": {
+         "additionalProperties": false,
+         "description": "Hcr",
+         "properties": {
+            "name": {
+               "const": "Hybridization chain reaction platform",
+               "default": "Hybridization chain reaction platform",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "HCR",
+               "default": "HCR",
+               "title": "Abbreviation"
+            }
+         },
+         "title": "Hcr",
+         "type": "object"
+      },
+      "Hsfp": {
+         "additionalProperties": false,
+         "description": "Hsfp",
+         "properties": {
+            "name": {
+               "const": "Hyperspectral fiber photometry platform",
+               "default": "Hyperspectral fiber photometry platform",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "HSFP",
+               "default": "HSFP",
+               "title": "Abbreviation"
+            }
+         },
+         "title": "Hsfp",
+         "type": "object"
+      },
+      "HuazhongUniversityOfScienceAndTechnology": {
+         "additionalProperties": false,
+         "description": "HuazhongUniversityOfScienceAndTechnology",
+         "properties": {
+            "name": {
+               "const": "Huazhong University of Science and Technology",
+               "default": "Huazhong University of Science and Technology",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "HUST",
+               "default": "HUST",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "00p991c53",
+               "default": "00p991c53",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "HuazhongUniversityOfScienceAndTechnology",
+         "type": "object"
+      },
+      "Icephys": {
+         "additionalProperties": false,
+         "description": "Icephys",
+         "properties": {
+            "name": {
+               "const": "Intracellular electrophysiology",
+               "default": "Intracellular electrophysiology",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "icephys",
+               "default": "icephys",
+               "title": "Abbreviation"
+            }
+         },
+         "title": "Icephys",
+         "type": "object"
+      },
+      "MesoSpim": {
+         "additionalProperties": false,
+         "description": "MesoSpim",
+         "properties": {
+            "name": {
+               "const": "MesoSPIM platform",
+               "default": "MesoSPIM platform",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "mesoSPIM",
+               "default": "mesoSPIM",
+               "title": "Abbreviation"
+            }
+         },
+         "title": "MesoSpim",
+         "type": "object"
+      },
+      "MultiplaneOphys": {
+         "additionalProperties": false,
+         "description": "MulitplaneOphys",
+         "properties": {
+            "name": {
+               "const": "Multiplane optical physiology platform",
+               "default": "Multiplane optical physiology platform",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "multiplane-ophys",
+               "default": "multiplane-ophys",
+               "title": "Abbreviation"
+            }
+         },
+         "title": "MultiplaneOphys",
+         "type": "object"
+      },
+      "NationalInstituteOfNeurologicalDisordersAndStroke": {
+         "additionalProperties": false,
+         "description": "NationalInstituteOfNeurologicalDisordersAndStroke",
+         "properties": {
+            "name": {
+               "const": "National Institute of Neurological Disorders and Stroke",
+               "default": "National Institute of Neurological Disorders and Stroke",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "NINDS",
+               "default": "NINDS",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "01s5ya894",
+               "default": "01s5ya894",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "NationalInstituteOfNeurologicalDisordersAndStroke",
+         "type": "object"
+      },
+      "NewYorkUniversity": {
+         "additionalProperties": false,
+         "description": "NewYorkUniversity",
+         "properties": {
+            "name": {
+               "const": "New York University",
+               "default": "New York University",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "NYU",
+               "default": "NYU",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "0190ak572",
+               "default": "0190ak572",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "NewYorkUniversity",
+         "type": "object"
+      },
+      "Other": {
+         "additionalProperties": false,
+         "description": "Other",
+         "properties": {
+            "name": {
+               "const": "Other",
+               "default": "Other",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Other",
+         "type": "object"
+      },
+      "POphys": {
+         "additionalProperties": false,
+         "description": "POphys",
+         "properties": {
+            "name": {
+               "const": "Planar optical physiology",
+               "default": "Planar optical physiology",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "ophys",
+               "default": "ophys",
+               "title": "Abbreviation"
+            }
+         },
+         "title": "POphys",
+         "type": "object"
+      },
+      "RelatedData": {
+         "additionalProperties": false,
+         "description": "Description of related data asset",
+         "properties": {
+            "related_data_path": {
+               "title": "Related data path",
+               "type": "string"
+            },
+            "relation": {
+               "description": "Relation of data to this asset",
+               "title": "Relation",
+               "type": "string"
+            }
+         },
+         "required": [
+            "related_data_path",
+            "relation"
+         ],
+         "title": "RelatedData",
+         "type": "object"
+      },
+      "ResearchOrganizationRegistry": {
+         "additionalProperties": false,
+         "description": "ResearchOrganizationRegistry",
+         "properties": {
+            "name": {
+               "const": "Research Organization Registry",
+               "default": "Research Organization Registry",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "ROR",
+               "default": "ROR",
+               "title": "Abbreviation"
+            }
+         },
+         "title": "ResearchOrganizationRegistry",
+         "type": "object"
+      },
+      "SimonsFoundation": {
+         "additionalProperties": false,
+         "description": "SimonsFoundation",
+         "properties": {
+            "name": {
+               "const": "Simons Foundation",
+               "default": "Simons Foundation",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "01cmst727",
+               "default": "01cmst727",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "SimonsFoundation",
+         "type": "object"
+      },
+      "SingleplaneOphys": {
+         "additionalProperties": false,
+         "description": "SingleplaneOphys",
+         "properties": {
+            "name": {
+               "const": "Single-plane optical physiology platform",
+               "default": "Single-plane optical physiology platform",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "single-plane-ophys",
+               "default": "single-plane-ophys",
+               "title": "Abbreviation"
+            }
+         },
+         "title": "SingleplaneOphys",
+         "type": "object"
+      },
+      "Slap": {
+         "additionalProperties": false,
+         "description": "Slap",
+         "properties": {
+            "name": {
+               "const": "Scanned line projection imaging",
+               "default": "Scanned line projection imaging",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "slap",
+               "default": "slap",
+               "title": "Abbreviation"
+            }
+         },
+         "title": "Slap",
+         "type": "object"
+      },
+      "Slap2": {
+         "additionalProperties": false,
+         "description": "Slap2",
+         "properties": {
+            "name": {
+               "const": "SLAP2 platform",
+               "default": "SLAP2 platform",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "SLAP2",
+               "default": "SLAP2",
+               "title": "Abbreviation"
+            }
+         },
+         "title": "Slap2",
+         "type": "object"
+      },
+      "SmartSpim": {
+         "additionalProperties": false,
+         "description": "SmartSpim",
+         "properties": {
+            "name": {
+               "const": "SmartSPIM platform",
+               "default": "SmartSPIM platform",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "SmartSPIM",
+               "default": "SmartSPIM",
+               "title": "Abbreviation"
+            }
+         },
+         "title": "SmartSpim",
+         "type": "object"
+      },
+      "Spim": {
+         "additionalProperties": false,
+         "description": "Spim",
+         "properties": {
+            "name": {
+               "const": "Selective plane illumination microscopy",
+               "default": "Selective plane illumination microscopy",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "SPIM",
+               "default": "SPIM",
+               "title": "Abbreviation"
+            }
+         },
+         "title": "Spim",
+         "type": "object"
+      },
+      "aind_data_schema__models__modalities__Behavior": {
+         "additionalProperties": false,
+         "description": "Behavior",
+         "properties": {
+            "name": {
+               "const": "Behavior",
+               "default": "Behavior",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "behavior",
+               "default": "behavior",
+               "title": "Abbreviation"
+            }
+         },
+         "title": "Behavior",
+         "type": "object"
+      },
+      "aind_data_schema__models__modalities__Confocal": {
+         "additionalProperties": false,
+         "description": "Confocal",
+         "properties": {
+            "name": {
+               "const": "Confocal microscopy",
+               "default": "Confocal microscopy",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "confocal",
+               "default": "confocal",
+               "title": "Abbreviation"
+            }
+         },
+         "title": "Confocal",
+         "type": "object"
+      },
+      "aind_data_schema__models__modalities__Ecephys": {
+         "additionalProperties": false,
+         "description": "Ecephys",
+         "properties": {
+            "name": {
+               "const": "Extracellular electrophysiology",
+               "default": "Extracellular electrophysiology",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "ecephys",
+               "default": "ecephys",
+               "title": "Abbreviation"
+            }
+         },
+         "title": "Ecephys",
+         "type": "object"
+      },
+      "aind_data_schema__models__modalities__Isi": {
+         "additionalProperties": false,
+         "description": "Intrinsic signal imaging",
+         "properties": {
+            "name": {
+               "const": "Intrinsic signal imaging",
+               "default": "Intrinsic signal imaging",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "ISI",
+               "default": "ISI",
+               "title": "Abbreviation"
+            }
+         },
+         "title": "Isi",
+         "type": "object"
+      },
+      "aind_data_schema__models__modalities__Merfish": {
+         "additionalProperties": false,
+         "description": "Merfish",
+         "properties": {
+            "name": {
+               "const": "Multiplexed error-robust fluorescence in situ hybridization",
+               "default": "Multiplexed error-robust fluorescence in situ hybridization",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "merfish",
+               "default": "merfish",
+               "title": "Abbreviation"
+            }
+         },
+         "title": "Merfish",
+         "type": "object"
+      },
+      "aind_data_schema__models__modalities__Mri": {
+         "additionalProperties": false,
+         "description": "Mri",
+         "properties": {
+            "name": {
+               "const": "Magnetic resonance imaging",
+               "default": "Magnetic resonance imaging",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "MRI",
+               "default": "MRI",
+               "title": "Abbreviation"
+            }
+         },
+         "title": "Mri",
+         "type": "object"
+      },
+      "aind_data_schema__models__platforms__Behavior": {
+         "additionalProperties": false,
+         "description": "Behavior",
+         "properties": {
+            "name": {
+               "const": "Behavior platform",
+               "default": "Behavior platform",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "behavior",
+               "default": "behavior",
+               "title": "Abbreviation"
+            }
+         },
+         "title": "Behavior",
+         "type": "object"
+      },
+      "aind_data_schema__models__platforms__Confocal": {
+         "additionalProperties": false,
+         "description": "Confocal",
+         "properties": {
+            "name": {
+               "const": "Confocal microscopy platform",
+               "default": "Confocal microscopy platform",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "confocal",
+               "default": "confocal",
+               "title": "Abbreviation"
+            }
+         },
+         "title": "Confocal",
+         "type": "object"
+      },
+      "aind_data_schema__models__platforms__Ecephys": {
+         "additionalProperties": false,
+         "description": "Ecephys",
+         "properties": {
+            "name": {
+               "const": "Electrophysiology platform",
+               "default": "Electrophysiology platform",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "ecephys",
+               "default": "ecephys",
+               "title": "Abbreviation"
+            }
+         },
+         "title": "Ecephys",
+         "type": "object"
+      },
+      "aind_data_schema__models__platforms__Isi": {
+         "additionalProperties": false,
+         "description": "Isi",
+         "properties": {
+            "name": {
+               "const": "Intrinsic signal imaging platform",
+               "default": "Intrinsic signal imaging platform",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "ISI",
+               "default": "ISI",
+               "title": "Abbreviation"
+            }
+         },
+         "title": "Isi",
+         "type": "object"
+      },
+      "aind_data_schema__models__platforms__Merfish": {
+         "additionalProperties": false,
+         "description": "Merfish",
+         "properties": {
+            "name": {
+               "const": "MERFISH platform",
+               "default": "MERFISH platform",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "MERFISH",
+               "default": "MERFISH",
+               "title": "Abbreviation"
+            }
+         },
+         "title": "Merfish",
+         "type": "object"
+      },
+      "aind_data_schema__models__platforms__Mri": {
+         "additionalProperties": false,
+         "description": "Mri",
+         "properties": {
+            "name": {
+               "const": "Magnetic resonance imaging platform",
+               "default": "Magnetic resonance imaging platform",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "MRI",
+               "default": "MRI",
+               "title": "Abbreviation"
+            }
+         },
+         "title": "Mri",
+         "type": "object"
+      }
+   },
+   "additionalProperties": false,
+   "description": "Description of a logical collection of data files",
+   "properties": {
+      "describedBy": {
+         "const": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/data_description.py",
+         "default": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/data_description.py",
+         "title": "Describedby",
+         "type": "string"
+      },
+      "schema_version": {
+         "const": "0.13.0",
+         "default": "0.13.0",
+         "title": "Schema Version"
+      },
+      "license": {
+         "const": "CC-BY-4.0",
+         "default": "CC-BY-4.0",
+         "title": "License"
+      },
+      "platform": {
+         "description": "Name for a standardized primary data collection system",
+         "discriminator": {
+            "mapping": {
+               "Behavior platform": "#/$defs/aind_data_schema__models__platforms__Behavior",
+               "Confocal microscopy platform": "#/$defs/aind_data_schema__models__platforms__Confocal",
+               "Electrophysiology platform": "#/$defs/aind_data_schema__models__platforms__Ecephys",
+               "ExaSPIM platform": "#/$defs/ExaSpim",
+               "Frame-projected independent-fiber photometry platform": "#/$defs/Fip",
+               "Hybridization chain reaction platform": "#/$defs/Hcr",
+               "Hyperspectral fiber photometry platform": "#/$defs/Hsfp",
+               "Intrinsic signal imaging platform": "#/$defs/aind_data_schema__models__platforms__Isi",
+               "MERFISH platform": "#/$defs/aind_data_schema__models__platforms__Merfish",
+               "Magnetic resonance imaging platform": "#/$defs/aind_data_schema__models__platforms__Mri",
+               "MesoSPIM platform": "#/$defs/MesoSpim",
+               "Multiplane optical physiology platform": "#/$defs/MultiplaneOphys",
+               "SLAP2 platform": "#/$defs/Slap2",
+               "Single-plane optical physiology platform": "#/$defs/SingleplaneOphys",
+               "SmartSPIM platform": "#/$defs/SmartSpim"
+            },
+            "propertyName": "name"
+         },
+         "oneOf": [
+            {
+               "$ref": "#/$defs/aind_data_schema__models__platforms__Behavior"
+            },
+            {
+               "$ref": "#/$defs/aind_data_schema__models__platforms__Confocal"
+            },
+            {
+               "$ref": "#/$defs/aind_data_schema__models__platforms__Ecephys"
+            },
+            {
+               "$ref": "#/$defs/ExaSpim"
+            },
+            {
+               "$ref": "#/$defs/Fip"
+            },
+            {
+               "$ref": "#/$defs/Hcr"
+            },
+            {
+               "$ref": "#/$defs/Hsfp"
+            },
+            {
+               "$ref": "#/$defs/aind_data_schema__models__platforms__Isi"
+            },
+            {
+               "$ref": "#/$defs/MesoSpim"
+            },
+            {
+               "$ref": "#/$defs/aind_data_schema__models__platforms__Merfish"
+            },
+            {
+               "$ref": "#/$defs/aind_data_schema__models__platforms__Mri"
+            },
+            {
+               "$ref": "#/$defs/MultiplaneOphys"
+            },
+            {
+               "$ref": "#/$defs/SingleplaneOphys"
+            },
+            {
+               "$ref": "#/$defs/Slap2"
+            },
+            {
+               "$ref": "#/$defs/SmartSpim"
+            }
+         ],
+         "title": "Platform"
+      },
+      "subject_id": {
+         "description": "Unique identifier for the subject of data acquisition",
+         "pattern": "^[^_]+$",
+         "title": "Subject ID",
+         "type": "string"
+      },
+      "creation_time": {
+         "description": "Time that data files were created, used to uniquely identify the data",
+         "format": "date-time",
+         "title": "Creation Time",
+         "type": "string"
+      },
+      "label": {
+         "anyOf": [
+            {
+               "type": "string"
+            },
+            {
+               "type": "null"
+            }
+         ],
+         "default": null,
+         "description": "A short name for the data, used in file names and labels",
+         "title": "Label"
+      },
+      "name": {
+         "anyOf": [
+            {
+               "type": "string"
+            },
+            {
+               "type": "null"
+            }
+         ],
+         "default": null,
+         "description": "Name of data, conventionally also the name of the directory containing all data and metadata",
+         "title": "Name"
+      },
+      "institution": {
+         "description": "An established society, corporation, foundation or other organization that collected this data",
+         "discriminator": {
+            "mapping": {
+               "Allen Institute for Brain Science": "#/$defs/AllenInstituteForBrainScience",
+               "Allen Institute for Neural Dynamics": "#/$defs/AllenInstituteForNeuralDynamics",
+               "Columbia University": "#/$defs/ColumbiaUniversity",
+               "Huazhong University of Science and Technology": "#/$defs/HuazhongUniversityOfScienceAndTechnology",
+               "New York University": "#/$defs/NewYorkUniversity",
+               "Other": "#/$defs/Other"
+            },
+            "propertyName": "name"
+         },
+         "oneOf": [
+            {
+               "$ref": "#/$defs/AllenInstituteForBrainScience"
+            },
+            {
+               "$ref": "#/$defs/AllenInstituteForNeuralDynamics"
+            },
+            {
+               "$ref": "#/$defs/ColumbiaUniversity"
+            },
+            {
+               "$ref": "#/$defs/HuazhongUniversityOfScienceAndTechnology"
+            },
+            {
+               "$ref": "#/$defs/NewYorkUniversity"
+            },
+            {
+               "$ref": "#/$defs/Other"
+            }
+         ],
+         "title": "Institution"
+      },
+      "funding_source": {
+         "description": "Funding source. If internal funding, select 'Allen Institute'",
+         "items": {
+            "$ref": "#/$defs/Funding"
+         },
+         "minItems": 1,
+         "title": "Funding source",
+         "type": "array"
+      },
+      "data_level": {
+         "allOf": [
+            {
+               "$ref": "#/$defs/DataLevel"
+            }
+         ],
+         "description": "level of processing that data has undergone",
+         "title": "Data Level"
+      },
+      "group": {
+         "anyOf": [
+            {
+               "$ref": "#/$defs/Group"
+            },
+            {
+               "type": "null"
+            }
+         ],
+         "default": null,
+         "description": "A short name for the group of individuals that collected this data",
+         "title": "Group"
+      },
+      "investigators": {
+         "description": "Full name(s) of key investigators (e.g. PI, lead scientist, contact person)",
+         "items": {
+            "type": "string"
+         },
+         "minItems": 1,
+         "title": "Investigators",
+         "type": "array"
+      },
+      "project_name": {
+         "anyOf": [
+            {
+               "pattern": "^[^<>:;\"/|? \\_]+$",
+               "type": "string"
+            },
+            {
+               "type": "null"
+            }
+         ],
+         "default": null,
+         "description": "A name for a set of coordinated activities intended to achieve one or more objectives.",
+         "title": "Project Name"
+      },
+      "restrictions": {
+         "anyOf": [
+            {
+               "type": "string"
+            },
+            {
+               "type": "null"
+            }
+         ],
+         "default": null,
+         "description": "Detail any restrictions on publishing or sharing these data",
+         "title": "Restrictions"
+      },
+      "modality": {
+         "description": "A short name for the specific manner, characteristic, pattern of application, or the employmentof any technology or formal procedure to generate data for a study",
+         "items": {
+            "discriminator": {
+               "mapping": {
+                  "Behavior": "#/$defs/aind_data_schema__models__modalities__Behavior",
+                  "Behavior videos": "#/$defs/BehaviorVideos",
+                  "Confocal microscopy": "#/$defs/aind_data_schema__models__modalities__Confocal",
+                  "Electromyography": "#/$defs/Electromyography",
+                  "Extracellular electrophysiology": "#/$defs/aind_data_schema__models__modalities__Ecephys",
+                  "Fiber photometry": "#/$defs/Fib",
+                  "Fluorescence micro-optical sectioning tomography": "#/$defs/Fmost",
+                  "Intracellular electrophysiology": "#/$defs/Icephys",
+                  "Intrinsic signal imaging": "#/$defs/aind_data_schema__models__modalities__Isi",
+                  "Magnetic resonance imaging": "#/$defs/aind_data_schema__models__modalities__Mri",
+                  "Multiplexed error-robust fluorescence in situ hybridization": "#/$defs/aind_data_schema__models__modalities__Merfish",
+                  "Planar optical physiology": "#/$defs/POphys",
+                  "Scanned line projection imaging": "#/$defs/Slap",
+                  "Selective plane illumination microscopy": "#/$defs/Spim"
+               },
+               "propertyName": "name"
+            },
+            "oneOf": [
+               {
+                  "$ref": "#/$defs/aind_data_schema__models__modalities__Behavior"
+               },
+               {
+                  "$ref": "#/$defs/BehaviorVideos"
+               },
+               {
+                  "$ref": "#/$defs/aind_data_schema__models__modalities__Confocal"
+               },
+               {
+                  "$ref": "#/$defs/aind_data_schema__models__modalities__Ecephys"
+               },
+               {
+                  "$ref": "#/$defs/Electromyography"
+               },
+               {
+                  "$ref": "#/$defs/Fmost"
+               },
+               {
+                  "$ref": "#/$defs/Icephys"
+               },
+               {
+                  "$ref": "#/$defs/aind_data_schema__models__modalities__Isi"
+               },
+               {
+                  "$ref": "#/$defs/Fib"
+               },
+               {
+                  "$ref": "#/$defs/aind_data_schema__models__modalities__Merfish"
+               },
+               {
+                  "$ref": "#/$defs/aind_data_schema__models__modalities__Mri"
+               },
+               {
+                  "$ref": "#/$defs/POphys"
+               },
+               {
+                  "$ref": "#/$defs/Slap"
+               },
+               {
+                  "$ref": "#/$defs/Spim"
+               }
+            ]
+         },
+         "title": "Modality",
+         "type": "array"
+      },
+      "related_data": {
+         "default": [],
+         "description": "Path and description of data assets associated with this asset (eg. reference images)",
+         "items": {
+            "$ref": "#/$defs/RelatedData"
+         },
+         "title": "Related data",
+         "type": "array"
+      },
+      "data_summary": {
+         "anyOf": [
+            {
+               "type": "string"
+            },
+            {
+               "type": "null"
+            }
+         ],
+         "default": null,
+         "description": "Semantic summary of experimental goal",
+         "title": "Data summary"
+      }
+   },
+   "required": [
+      "platform",
+      "subject_id",
+      "creation_time",
+      "institution",
+      "funding_source",
+      "data_level",
+      "investigators",
+      "modality"
+   ],
+   "title": "DataDescription",
+   "type": "object"
+}
