@@ -3,8 +3,8 @@
    "schema_version": "0.1.7",
    "protocol_id": [],
    "experimenter_full_name": [
-      "Yoni Browning",
-      "Galen Lynch"
+      "Max Quibble",
+      "Finn Tickle"
    ],
    "session_start_time": "2023-04-25T02:35:00",
    "session_end_time": "2023-04-25T03:16:00",
@@ -107,6 +107,26 @@
                "coordinate_transform": null,
                "calibration_date": null,
                "notes": "Did not record angles, did not calibrate"
+            },
+            {
+               "assembly_name": "22438379",
+               "arc_angle": "-180",
+               "module_angle": "-180",
+               "angle_unit": "degrees",
+               "rotation_angle": "0",
+               "coordinate_transform": null,
+               "calibration_date": null,
+               "notes": "Did not record angles, did not calibrate"
+            },
+            {
+               "assembly_name": "22437106",
+               "arc_angle": "-180",
+               "module_angle": "-180",
+               "angle_unit": "degrees",
+               "rotation_angle": "0",
+               "coordinate_transform": null,
+               "calibration_date": null,
+               "notes": "Did not record angles, did not calibrate"
             }
          ],
          "manipulator_modules": [],
@@ -197,6 +217,26 @@
             }
          ],
          "stick_microscopes": [
+            {
+               "assembly_name": "20516338",
+               "arc_angle": "-180",
+               "module_angle": "-180",
+               "angle_unit": "degrees",
+               "rotation_angle": "0",
+               "coordinate_transform": null,
+               "calibration_date": null,
+               "notes": "did not record angles, did not calibrate."
+            },
+            {
+               "assembly_name": "22438379",
+               "arc_angle": "-180",
+               "module_angle": "-180",
+               "angle_unit": "degrees",
+               "rotation_angle": "0",
+               "coordinate_transform": null,
+               "calibration_date": null,
+               "notes": "Did not record angles, did not calibrate"
+            },
             {
                "assembly_name": "22438379",
                "arc_angle": "-180",
