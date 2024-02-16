@@ -52,9 +52,9 @@ class Electromyography(_Modality):
 class Fmost(_Modality):
     """Fmost"""
 
-    name: Literal[
+    name: Literal["Fluorescence micro-optical sectioning tomography"] = (
         "Fluorescence micro-optical sectioning tomography"
-    ] = "Fluorescence micro-optical sectioning tomography"
+    )
     abbreviation: Literal["fMOST"] = "fMOST"
 
 
@@ -82,9 +82,9 @@ class Fib(_Modality):
 class Merfish(_Modality):
     """Merfish"""
 
-    name: Literal[
+    name: Literal["Multiplexed error-robust fluorescence in situ hybridization"] = (
         "Multiplexed error-robust fluorescence in situ hybridization"
-    ] = "Multiplexed error-robust fluorescence in situ hybridization"
+    )
     abbreviation: Literal["merfish"] = "merfish"
 
 
