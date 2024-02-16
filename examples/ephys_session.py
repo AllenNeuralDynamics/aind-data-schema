@@ -1,16 +1,17 @@
 import datetime
+
 from aind_data_schema.core.session import (
-    ManipulatorModule,
-    DomeModule,
-    Session,
-    EphysModule,
-    Stream,
     CcfCoords,
     Coordinates3d,
+    DomeModule,
+    EphysModule,
     EphysProbeConfig,
+    ManipulatorModule,
+    Session,
+    Stream,
 )
 from aind_data_schema.models.modalities import Modality
-from aind_data_schema.models.stimulus import VisualStimulation, StimulusEpoch
+from aind_data_schema.models.stimulus import StimulusEpoch, VisualStimulation
 
 session = Session(
     experimenter_full_name=["Yoni Browning", "Galen Lynch"],
@@ -19,7 +20,7 @@ session = Session(
     session_end_time=datetime.datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0),
     session_type="Receptive field mapping",
     iacuc_protocol="2109",
-    rig_id="323_EPHYS2-RF_2023-04-24_01",    
+    rig_id="323_EPHYS2-RF_2023-04-24_01",
     stimulus_epochs=[
         StimulusEpoch(
             stimulus_start_time=datetime.datetime(year=2023, month=4, day=20, hour=0, minute=0, second=0),
@@ -39,9 +40,9 @@ session = Session(
             stream_start_time=datetime.datetime(year=2023, month=4, day=20, hour=21, minute=31, second=0),
             stream_end_time=datetime.datetime(year=2023, month=4, day=20, hour=22, minute=3, second=0),
             stream_modalities=[Modality.ECEPHYS],
-            daq_names=["Basestation"],   
+            daq_names=["Basestation"],
             mouse_platform_name="mouse platform",
-            active_mouse_platform=True,         
+            active_mouse_platform=True,
             stick_microscopes=[
                 DomeModule(
                     rotation_angle=0,
@@ -56,7 +57,7 @@ session = Session(
                     arc_angle=-180,
                     module_angle=-180,
                     notes="Did not record angles, did not calibrate",
-                ),                
+                ),
             ],
             ephys_modules=[
                 EphysModule(
@@ -88,7 +89,7 @@ session = Session(
                 ),
             ],
         ),
-        Stream(            
+        Stream(
             stream_start_time=datetime.datetime(year=2023, month=4, day=25, hour=3, minute=6, second=0),
             stream_end_time=datetime.datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0),
             stream_modalities=[Modality.ECEPHYS],
