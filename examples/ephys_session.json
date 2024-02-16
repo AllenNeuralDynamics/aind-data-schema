@@ -3,94 +3,113 @@
    "schema_version": "0.1.7",
    "protocol_id": [],
    "experimenter_full_name": [
-      "Jane Doe"
+      "Yoni Browning",
+      "Galen Lynch"
    ],
-   "session_start_time": "2023-01-10T08:40:00",
-   "session_end_time": "2023-01-10T09:46:00",
-   "session_type": "Test",
-   "iacuc_protocol": "1294",
-   "rig_id": "323_EPHYS1",
+   "session_start_time": "2023-04-25T02:35:00",
+   "session_end_time": "2023-04-25T03:16:00",
+   "session_type": "Receptive field mapping",
+   "iacuc_protocol": "2109",
+   "rig_id": "323_EPHYS2-RF_2023-04-24_01",
    "calibrations": [],
    "maintenance": [],
-   "subject_id": "100001",
-   "animal_weight_prior": "21.2",
-   "animal_weight_post": "21.3",
+   "subject_id": "664484",
+   "animal_weight_prior": null,
+   "animal_weight_post": null,
    "weight_unit": "gram",
    "data_streams": [
       {
-         "stream_start_time": "2023-01-10T08:43:00",
-         "stream_end_time": "2023-01-10T09:43:00",
+         "stream_start_time": "2023-04-20T21:31:00",
+         "stream_end_time": "2023-04-20T22:03:00",
          "daq_names": [
-            "Harp Behavior",
-            "Basestation Slot 3"
+            "Basestation"
          ],
-         "camera_names": [
-            "Face Camera",
-            "Body Camera"
-         ],
+         "camera_names": [],
          "light_sources": [],
          "ephys_modules": [
             {
-               "assembly_name": "Ephys_assemblyA",
-               "arc_angle": "14",
-               "module_angle": "20",
+               "assembly_name": "46117",
+               "arc_angle": "5.2",
+               "module_angle": "8",
                "angle_unit": "degrees",
                "rotation_angle": null,
-               "coordinate_transform": null,
-               "calibration_date": null,
-               "notes": null,
-               "primary_targeted_structure": "VISp",
-               "targeted_ccf_coordinates": [],
+               "coordinate_transform": "behavior/calibration_info_np2_2023_04_24.npy",
+               "calibration_date": "2023-04-25T00:00:00",
+               "notes": "Moved Y to avoid blood vessel, X to avoid edge. Mouse made some noise during the recording with a sudden shift in signals. Lots of motion. Maybe some implant motion.",
+               "primary_targeted_structure": "LGd",
+               "targeted_ccf_coordinates": [
+                  {
+                     "ml": "8150",
+                     "ap": "3250",
+                     "dv": "7800",
+                     "unit": "micrometer",
+                     "ccf_version": "CCFv3"
+                  }
+               ],
                "manipulator_coordinates": {
-                  "x": "1000",
-                  "y": "1000",
-                  "z": "1000",
+                  "x": "8422",
+                  "y": "4205",
+                  "z": "11087.5",
                   "unit": "micrometer"
                },
                "ephys_probes": [
                   {
                      "name": "Probe A",
                      "other_targeted_structures": []
-                  },
-                  {
-                     "name": "Probe B",
-                     "other_targeted_structures": []
                   }
                ]
+            },
+            {
+               "assembly_name": "46805",
+               "arc_angle": "25",
+               "module_angle": "-22",
+               "angle_unit": "degrees",
+               "rotation_angle": "0",
+               "coordinate_transform": "behavior/calibration_info_np2_2023_04_24.py",
+               "calibration_date": "2023-04-25T00:00:00",
+               "notes": "Trouble penitrating. Lots of compression, needed to move probe. Small amount of surface bleeding/bruising. Initial Target: X;10070.3\tY:7476.6",
+               "primary_targeted_structure": "LC",
+               "targeted_ccf_coordinates": [
+                  {
+                     "ml": "6637.28",
+                     "ap": "4265.02",
+                     "dv": "10707.35",
+                     "unit": "micrometer",
+                     "ccf_version": "CCFv3"
+                  }
+               ],
+               "manipulator_coordinates": {
+                  "x": "9015",
+                  "y": "7144",
+                  "z": "13262",
+                  "unit": "micrometer"
+               },
+               "ephys_probes": []
             }
          ],
          "stick_microscopes": [
             {
-               "assembly_name": "Stick_assembly",
-               "arc_angle": "24",
-               "module_angle": "10",
+               "assembly_name": "20516338",
+               "arc_angle": "-180",
+               "module_angle": "-180",
                "angle_unit": "degrees",
-               "rotation_angle": null,
+               "rotation_angle": "0",
                "coordinate_transform": null,
                "calibration_date": null,
-               "notes": null
-            }
-         ],
-         "manipulator_modules": [
+               "notes": "did not record angles, did not calibrate."
+            },
             {
-               "assembly_name": "Laser_assemblyA",
-               "arc_angle": "10",
-               "module_angle": "15",
+               "assembly_name": "22438379",
+               "arc_angle": "-180",
+               "module_angle": "-180",
                "angle_unit": "degrees",
-               "rotation_angle": null,
+               "rotation_angle": "0",
                "coordinate_transform": null,
                "calibration_date": null,
-               "notes": null,
-               "primary_targeted_structure": "VISp",
-               "targeted_ccf_coordinates": [],
-               "manipulator_coordinates": {
-                  "x": "1000",
-                  "y": "1000",
-                  "z": "1000",
-                  "unit": "micrometer"
-               }
+               "notes": "Did not record angles, did not calibrate"
             }
          ],
+         "manipulator_modules": [],
          "detectors": [],
          "fiber_connections": [],
          "fiber_modules": [],
@@ -98,22 +117,143 @@
          "slap_fovs": null,
          "stack_parameters": null,
          "stimulus_device_names": [],
-         "mouse_platform_name": "Running Wheel",
-         "active_mouse_platform": false,
+         "mouse_platform_name": "mouse platform",
+         "active_mouse_platform": true,
          "stream_modalities": [
             {
                "name": "Extracellular electrophysiology",
                "abbreviation": "ecephys"
-            },
-            {
-               "name": "Behavior videos",
-               "abbreviation": "behavior-videos"
             }
          ],
          "notes": null
+      },
+      {
+         "stream_start_time": "2023-04-25T03:06:00",
+         "stream_end_time": "2023-04-25T03:16:00",
+         "daq_names": [
+            "Basestation"
+         ],
+         "camera_names": [],
+         "light_sources": [],
+         "ephys_modules": [
+            {
+               "assembly_name": "46117",
+               "arc_angle": "5.2",
+               "module_angle": "8",
+               "angle_unit": "degrees",
+               "rotation_angle": "0",
+               "coordinate_transform": "behavior/calibration_info_np2_2023_04_24.npy",
+               "calibration_date": "2023-04-25T00:00:00",
+               "notes": "Moved Y to avoid blood vessel, X to avoid edge. Mouse made some noise during the recording with a sudden shift in signals. Lots of motion. Maybe some implant motion.",
+               "primary_targeted_structure": "LGd",
+               "targeted_ccf_coordinates": [
+                  {
+                     "ml": "8150",
+                     "ap": "3250",
+                     "dv": "7800",
+                     "unit": "micrometer",
+                     "ccf_version": "CCFv3"
+                  }
+               ],
+               "manipulator_coordinates": {
+                  "x": "8422",
+                  "y": "4205",
+                  "z": "11087.5",
+                  "unit": "micrometer"
+               },
+               "ephys_probes": [
+                  {
+                     "name": "Probe A",
+                     "other_targeted_structures": []
+                  }
+               ]
+            },
+            {
+               "assembly_name": "46805",
+               "arc_angle": "25",
+               "module_angle": "-22",
+               "angle_unit": "degrees",
+               "rotation_angle": "0",
+               "coordinate_transform": "behavior/calibration_info_np2_2023_04_24.py",
+               "calibration_date": "2023-04-25T00:00:00",
+               "notes": "Trouble penitrating. Lots of compression, needed to move probe. Small amount of surface bleeding/bruising. Initial Target: X;10070.3\tY:7476.6",
+               "primary_targeted_structure": "LC",
+               "targeted_ccf_coordinates": [
+                  {
+                     "ml": "6637.28",
+                     "ap": "4265.02",
+                     "dv": "10707.35",
+                     "unit": "micrometer",
+                     "ccf_version": "CCFv3"
+                  }
+               ],
+               "manipulator_coordinates": {
+                  "x": "9015",
+                  "y": "7144",
+                  "z": "13262",
+                  "unit": "micrometer"
+               },
+               "ephys_probes": []
+            }
+         ],
+         "stick_microscopes": [
+            {
+               "assembly_name": "22438379",
+               "arc_angle": "-180",
+               "module_angle": "-180",
+               "angle_unit": "degrees",
+               "rotation_angle": "0",
+               "coordinate_transform": null,
+               "calibration_date": null,
+               "notes": "Did not record angles, did not calibrate"
+            },
+            {
+               "assembly_name": "22437106",
+               "arc_angle": "-180",
+               "module_angle": "-180",
+               "angle_unit": "degrees",
+               "rotation_angle": "0",
+               "coordinate_transform": null,
+               "calibration_date": null,
+               "notes": "Did not record angles, did not calibrate"
+            }
+         ],
+         "manipulator_modules": [],
+         "detectors": [],
+         "fiber_connections": [],
+         "fiber_modules": [],
+         "ophys_fovs": [],
+         "slap_fovs": null,
+         "stack_parameters": null,
+         "stimulus_device_names": [],
+         "mouse_platform_name": "mouse platform",
+         "active_mouse_platform": true,
+         "stream_modalities": [
+            {
+               "name": "Extracellular electrophysiology",
+               "abbreviation": "ecephys"
+            }
+         ],
+         "notes": "664484_2023-04-24_20-06-37; Surface Finding"
       }
    ],
-   "stimulus_epochs": [],
+   "stimulus_epochs": [
+      {
+         "stimulus": {
+            "stimulus_type": "Visual",
+            "stimulus_name": "Gratings and Flashes",
+            "stimulus_parameters": {},
+            "stimulus_template_name": [],
+            "stimulus_software": "Bonsai",
+            "stimulus_software_version": "2.7",
+            "stimulus_script": "GratingAndFlashes",
+            "stimulus_script_version": "Added Block structure (git commit)",
+            "notes": null
+         },
+         "stimulus_start_time": "2023-04-20T00:00:00",
+         "stimulus_end_time": "2023-04-20T00:28:00"
+      }
+   ],
    "reward_delivery": null,
    "reward_consumed_total": null,
    "reward_consumed_unit": "microliter",

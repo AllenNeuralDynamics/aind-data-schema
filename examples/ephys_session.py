@@ -1,73 +1,147 @@
-"""Generates an example JSON file for an ephys session"""
-
-from datetime import datetime
-
+import datetime
 from aind_data_schema.core.session import (
-    DomeModule,
-    EphysModule,
-    EphysProbeConfig,
-    LaserConfig,
     ManipulatorModule,
+    DomeModule,
     Session,
+    EphysModule,
     Stream,
+    CcfCoords,
+    Coordinates3d,
+    EphysProbeConfig,
 )
-from aind_data_schema.models.coordinates import Coordinates3d
 from aind_data_schema.models.modalities import Modality
-
-red_laser = LaserConfig(name="Red Laser", wavelength=700, excitation_power=100)
-
-blue_laser = LaserConfig(name="Blue Laser", wavelength=350, excitation_power=50)
-
-laser_module = ManipulatorModule(
-    assembly_name="Laser_assemblyA",
-    arc_angle=10,
-    module_angle=15,
-    primary_targeted_structure="VISp",
-    manipulator_coordinates=Coordinates3d(x=1000, y=1000, z=1000),
-)
-
-ephys_module = EphysModule(
-    assembly_name="Ephys_assemblyA",
-    arc_angle=14,
-    module_angle=20,
-    primary_targeted_structure="VISp",
-    manipulator_coordinates=Coordinates3d(x=1000, y=1000, z=1000),
-    ephys_probes=[
-        EphysProbeConfig(name="Probe A"),
-        EphysProbeConfig(name="Probe B"),
-    ],
-)
-
-stream = Stream(
-    stream_start_time=datetime(2023, 1, 10, 8, 43, 00),
-    stream_end_time=datetime(2023, 1, 10, 9, 43, 00),
-    stream_modalities=[Modality.ECEPHYS, Modality.BEHAVIOR_VIDEOS],
-    stick_microscopes=[
-        DomeModule(
-            assembly_name="Stick_assembly",
-            arc_angle=24,
-            module_angle=10,
-        )
-    ],
-    ephys_modules=[ephys_module],
-    manipulator_modules=[laser_module],
-    daq_names=["Harp Behavior", "Basestation Slot 3"],
-    camera_names=["Face Camera", "Body Camera"],
-    mouse_platform_name="Running Wheel",
-    active_mouse_platform=False,
-)
+from aind_data_schema.models.stimulus import VisualStimulation, StimulusEpoch
 
 session = Session(
-    experimenter_full_name=["Jane Doe"],
-    subject_id="100001",
-    session_start_time=datetime(2023, 1, 10, 8, 40, 00),
-    session_end_time=datetime(2023, 1, 10, 9, 46, 00),
-    iacuc_protocol="1294",
-    session_type="Test",
-    rig_id="323_EPHYS1",
-    animal_weight_prior=21.2,
-    animal_weight_post=21.3,
-    data_streams=[stream],
+    experimenter_full_name=["Yoni Browning", "Galen Lynch"],
+    subject_id="664484",
+    session_start_time=datetime.datetime(year=2023, month=4, day=25, hour=2, minute=35, second=0),
+    session_end_time=datetime.datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0),
+    session_type="Receptive field mapping",
+    iacuc_protocol="2109",
+    rig_id="323_EPHYS2-RF_2023-04-24_01",    
+    stimulus_epochs=[
+        StimulusEpoch(
+            stimulus_start_time=datetime.datetime(year=2023, month=4, day=20, hour=0, minute=0, second=0),
+            stimulus_end_time=datetime.datetime(year=2023, month=4, day=20, hour=0, minute=28, second=0),
+            stimulus=VisualStimulation(
+                stimulus_name="Gratings and Flashes",
+                stimulus_parameters={},
+                stimulus_software="Bonsai",
+                stimulus_software_version="2.7",
+                stimulus_script="GratingAndFlashes",
+                stimulus_script_version="Added Block structure (git commit)",
+            ),
+        )
+    ],
+    data_streams=[
+        Stream(
+            stream_start_time=datetime.datetime(year=2023, month=4, day=20, hour=21, minute=31, second=0),
+            stream_end_time=datetime.datetime(year=2023, month=4, day=20, hour=22, minute=3, second=0),
+            stream_modalities=[Modality.ECEPHYS],
+            daq_names=["Basestation"],   
+            mouse_platform_name="mouse platform",
+            active_mouse_platform=True,         
+            stick_microscopes=[
+                DomeModule(
+                    rotation_angle=0,
+                    assembly_name="20516338",
+                    arc_angle=-180,
+                    module_angle=-180,
+                    notes="did not record angles, did not calibrate.",
+                ),
+                DomeModule(
+                    rotation_angle=0,
+                    assembly_name="22438379",
+                    arc_angle=-180,
+                    module_angle=-180,
+                    notes="Did not record angles, did not calibrate",
+                ),                
+            ],
+            ephys_modules=[
+                EphysModule(
+                    targeted_ccf_coordinates=[
+                        CcfCoords(ml=8150, ap=3250, dv=7800),
+                    ],
+                    ephys_probes=[EphysProbeConfig(name="Probe A")],
+                    assembly_name="46117",
+                    arc_angle=5.2,
+                    module_angle=8,
+                    coordinate_transform="behavior/calibration_info_np2_2023_04_24.npy",
+                    primary_targeted_structure="LGd",
+                    manipulator_coordinates=Coordinates3d(x=8422, y=4205, z=11087.5),
+                    calibration_date=datetime.datetime(year=2023, month=4, day=25),
+                    notes="Moved Y to avoid blood vessel, X to avoid edge. Mouse made some noise during the recording with a sudden shift in signals. Lots of motion. Maybe some implant motion.",
+                ),
+                EphysModule(
+                    rotation_angle=0,
+                    arc_angle=25,
+                    module_angle=-22,
+                    targeted_ccf_coordinates=[CcfCoords(ml=6637.28, ap=4265.02, dv=10707.35)],
+                    ephys_probes=[],
+                    assembly_name="46805",
+                    coordinate_transform="behavior/calibration_info_np2_2023_04_24.py",
+                    primary_targeted_structure="LC",
+                    manipulator_coordinates=Coordinates3d(x=9015, y=7144, z=13262),
+                    calibration_date=datetime.datetime(year=2023, month=4, day=25),
+                    notes="Trouble penitrating. Lots of compression, needed to move probe. Small amount of surface bleeding/bruising. Initial Target: X;10070.3\tY:7476.6",
+                ),
+            ],
+        ),
+        Stream(            
+            stream_start_time=datetime.datetime(year=2023, month=4, day=25, hour=3, minute=6, second=0),
+            stream_end_time=datetime.datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0),
+            stream_modalities=[Modality.ECEPHYS],
+            notes="664484_2023-04-24_20-06-37; Surface Finding",
+            daq_names=["Basestation"],
+            mouse_platform_name="mouse platform",
+            active_mouse_platform=True,
+            stick_microscopes=[
+                DomeModule(
+                    rotation_angle=0,
+                    assembly_name="22438379",
+                    arc_angle=-180,
+                    module_angle=-180,
+                    notes="Did not record angles, did not calibrate",
+                ),
+                DomeModule(
+                    rotation_angle=0,
+                    assembly_name="22437106",
+                    arc_angle=-180,
+                    module_angle=-180,
+                    notes="Did not record angles, did not calibrate",
+                ),
+            ],
+            ephys_modules=[
+                EphysModule(
+                    rotation_angle=0,
+                    arc_angle=5.2,
+                    module_angle=8,
+                    targeted_ccf_coordinates=[CcfCoords(ml=8150, ap=3250, dv=7800)],
+                    ephys_probes=[EphysProbeConfig(name="Probe A")],
+                    assembly_name="46117",
+                    coordinate_transform="behavior/calibration_info_np2_2023_04_24.npy",
+                    primary_targeted_structure="LGd",
+                    manipulator_coordinates=Coordinates3d(x=8422, y=4205, z=11087.5),
+                    calibration_date=datetime.datetime(year=2023, month=4, day=25),
+                    notes="Moved Y to avoid blood vessel, X to avoid edge. Mouse made some noise during the recording with a sudden shift in signals. Lots of motion. Maybe some implant motion.",
+                ),
+                EphysModule(
+                    rotation_angle=0,
+                    arc_angle=25,
+                    module_angle=-22,
+                    targeted_ccf_coordinates=[CcfCoords(ml=6637.28, ap=4265.02, dv=10707.35)],
+                    ephys_probes=[],
+                    assembly_name="46805",
+                    coordinate_transform="behavior/calibration_info_np2_2023_04_24.py",
+                    primary_targeted_structure="LC",
+                    manipulator_coordinates=Coordinates3d(x=9015, y=7144, z=13262),
+                    calibration_date=datetime.datetime(year=2023, month=4, day=25),
+                    notes="Trouble penitrating. Lots of compression, needed to move probe. Small amount of surface bleeding/bruising. Initial Target: X;10070.3\tY:7476.6",
+                ),
+            ],
+        ),
+    ],
 )
 
 session.write_standard_file(prefix="ephys")
