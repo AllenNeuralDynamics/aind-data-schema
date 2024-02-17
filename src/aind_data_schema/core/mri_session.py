@@ -3,11 +3,11 @@
 from datetime import datetime
 from decimal import Decimal
 from enum import Enum
-from typing import Any, Dict, List, Literal, Optional
+from typing import Generic, List, Literal, Optional
 
 from pydantic import Field, ValidationInfo, field_validator
 
-from aind_data_schema.base import AindCoreModel, AindModel
+from aind_data_schema.base import AindCoreModel, AindGenericType, AindModel
 from aind_data_schema.core.procedures import Anaesthetic
 from aind_data_schema.models.coordinates import Rotation3dTransform, Scale3dTransform, Translation3dTransform
 from aind_data_schema.models.devices import Scanner
@@ -64,7 +64,12 @@ class MRIScan(AindModel):
             ProcessName.SKULL_STRIPPING,
         ]
     ] = Field([])
-    additional_scan_parameters: Dict[str, Any] = Field(..., title="Parameters")
+    echo_time: Decimal = Field(..., title="Echo time (ms)")
+    effective_echo_time: Decimal = Field(..., title="Effective echo time (ms)")
+    echo_time_unit: TimeUnit = Field(TimeUnit.MS, title="Echo time unit")
+    repetition_time: Decimal = Field(..., title="Repetition time (ms)")
+    repetition_time_unit: TimeUnit = Field(TimeUnit.MS, title="Repetition time unit")
+    additional_scan_parameters: AindGenericType = Field(..., title="Parameters")
     notes: Optional[str] = Field(None, title="Notes", validate_default=True)
 
     @field_validator("notes", mode="after")
