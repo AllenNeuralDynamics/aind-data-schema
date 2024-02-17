@@ -142,10 +142,6 @@ class AuditoryStimulation(AindModel):
 class StimulusEpoch(AindModel):
     """Description of stimulus used during session"""
 
-    stimulus: Annotated[
-        Union[OlfactoryStimulation, OptoStimulation, VisualStimulation, BehaviorStimulation, PhotoStimulation],
-        Field(..., title="Stimulus", discriminator="stimulus_type"),
-    ]
     stimulus_start_time: datetime = Field(
         ...,
         title="Stimulus start time",
