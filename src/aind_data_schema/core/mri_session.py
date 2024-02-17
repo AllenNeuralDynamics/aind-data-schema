@@ -64,11 +64,6 @@ class MRIScan(AindModel):
             ProcessName.SKULL_STRIPPING,
         ]
     ] = Field([])
-    echo_time: Decimal = Field(..., title="Echo time (ms)")
-    effective_echo_time: Decimal = Field(..., title="Effective echo time (ms)")
-    echo_time_unit: TimeUnit = Field(TimeUnit.MS, title="Echo time unit")
-    repetition_time: Decimal = Field(..., title="Repetition time (ms)")
-    repetition_time_unit: TimeUnit = Field(TimeUnit.MS, title="Repetition time unit")
     additional_scan_parameters: AindGenericType = Field(..., title="Parameters")
     notes: Optional[str] = Field(None, title="Notes", validate_default=True)
 
