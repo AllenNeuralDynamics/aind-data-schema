@@ -10,7 +10,26 @@ from typing_extensions import Annotated
 
 from aind_data_schema.base import AindModel
 from aind_data_schema.models.devices import Software
-from aind_data_schema.models.units import ConcentrationUnit, FrequencyUnit, PowerUnit, TimeUnit, VolumeUnit
+from aind_data_schema.models.units import (
+    ConcentrationUnit,
+    FrequencyUnit,
+    PowerUnit,
+    SoundIntensityUnit,
+    TimeUnit,
+    VolumeUnit
+)
+
+
+class StimulusModality(str, Enum):
+    """Types of stimulus modalities"""
+
+    AUDITORY = "Auditory"
+    OLFACTORY = "Olfactory"
+    OPTOGENETICS = "Optogenetics"
+    NONE = "None"
+    VIRTUAL_REALITY = "Virtual reality"
+    VISUAL = "Visual"
+    WHEEL_FRICTION = "Wheel friction"
 
 
 class PulseShape(str, Enum):
@@ -24,7 +43,6 @@ class PulseShape(str, Enum):
 class OptoStimulation(AindModel):
     """Description of opto stimulation parameters"""
 
-    stimulus_type: Literal["Opto Stimulation"] = "Opto Stimulation"
     stimulus_name: str = Field(..., title="Stimulus name")
     pulse_shape: PulseShape = Field(..., title="Pulse shape")
     pulse_frequency: int = Field(..., title="Pulse frequency (Hz)")
@@ -52,7 +70,6 @@ class OptoStimulation(AindModel):
 class VisualStimulation(AindModel):
     """Description of visual stimulus parameters. Provides a high level description of stimulus."""
 
-    stimulus_type: Literal["Visual"] = "Visual"
     stimulus_name: str = Field(..., title="Stimulus name")
     stimulus_parameters: Dict[str, Any] = Field(
         dict(),
@@ -64,47 +81,6 @@ class VisualStimulation(AindModel):
         title="Stimulus template name",
         description="Name of image set or movie displayed",
     )
-    stimulus_software: str = Field(
-        ...,
-        title="Stimulus software",
-        description="The software used to control the stimulus (e.g. Bonsai)",
-    )
-    stimulus_software_version: str = Field(..., title="Stimulus software version")
-    stimulus_script: str = Field(
-        ...,
-        title="Stimulus script",
-        description="The specific code for this stimulus instance",
-    )
-    stimulus_script_version: str = Field(..., title="Stimulus script version")
-    notes: Optional[str] = Field(None, title="Notes")
-
-
-class BehaviorStimulation(AindModel):
-    """Description of behavior parameters. Provides a high level description of stimulus."""
-
-    stimulus_type: Literal["Behavior"] = "Behavior"
-    behavior_name: str = Field(..., title="Behavior name")
-    session_number: int = Field(..., title="Session number")
-    behavior_software: List[Software] = Field(
-        ...,
-        title="Behavior software",
-        description="The software used to control the behavior (e.g. Bonsai)",
-    )
-    behavior_script: Software = Field(
-        ...,
-        title="Behavior script",
-        description="provide URL to the commit of the script and the parameters used",
-    )
-    output_parameters: Dict[str, Any] = Field(
-        ...,
-        title="Performance parameters",
-        description="Performance metrics from session",
-    )
-    reward_consumed_during_epoch: Decimal = Field(..., title="Reward consumed during training (uL)")
-    reward_consumed_unit: VolumeUnit = Field(VolumeUnit.UL, title="Reward consumed unit")
-    trials_total: Optional[int] = Field(None, title="Total trials")
-    trials_finished: Optional[int] = Field(None, title="Finished trials")
-    trials_rewarded: Optional[int] = Field(None, title="Rewarded trials")
     notes: Optional[str] = Field(None, title="Notes")
 
 
@@ -128,7 +104,6 @@ class PhotoStimulationGroup(AindModel):
 class PhotoStimulation(AindModel):
     """Description of a photostimulation session"""
 
-    stimulus_type: Literal["Photo Stimulation"] = "Photo Stimulation"
     stimulus_name: str = Field(..., title="Stimulus name")
     number_groups: int = Field(..., title="Number of groups")
     groups: List[PhotoStimulationGroup] = Field(..., title="Groups")
@@ -150,8 +125,18 @@ class OlfactometerChannelConfig(AindModel):
 class OlfactoryStimulation(AindModel):
     """Description of a olfactory stimulus"""
 
-    stimulus_type: Literal["Olfactory"] = "Olfactory"
     channels: List[OlfactometerChannelConfig]
+    notes: Optional[str] = Field(None, title="Notes")
+
+
+class AuditoryStimulation(AindModel):
+    """Description of an auditory stimulus"""
+
+    tone_frequency: int = Field(..., title="Tone frequency")
+    tone_frequency_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Tone frequency unit")
+    tone_intensity: Decimal = Field(..., title="Tone volume")
+    tone_intensity_unit: SoundIntensityUnit = Field(SoundIntensityUnit.DB, title="Tone intensity unit")
+    notes: Optional[str] = Field(None, title="Notes")
 
 
 class StimulusEpoch(AindModel):
@@ -171,3 +156,31 @@ class StimulusEpoch(AindModel):
         title="Stimulus end time",
         description="When a specific stimulus ends. This might be the same as the session end time.",
     )
+    behavior_name: str = Field(..., title="Behavior name")
+    session_number: int = Field(..., title="Session number")
+    software: List[Software] = Field(
+        ...,
+        title="Behavior software",
+        description="The software used to control the behavior (e.g. Bonsai)",
+    )
+    script: Software = Field(
+        ...,
+        title="Behavior script",
+        description="provide URL to the commit of the script and the parameters used",
+    )
+    stimulus_modalities: List[StimulusModality] = Field(..., title="Stimulus modalities")
+    olfactory_stimulus: Optional[OlfactoryStimulation] = Field(None, title="Olfactory stimulus")
+    visual_stimulus: Optional[VisualStimulation] = Field(None, title="Visual stimulus")
+    opto_stimulus: Optional[OptoStimulation] = Field(None, title="Optogenetic stimulus")
+    auditory_stimulus: Optional[AuditoryStimulation] = Field(None, title="Auditory stimulus")
+    output_parameters: Dict[str, Any] = Field(
+        ...,
+        title="Performance parameters",
+        description="Performance metrics from session",
+    )
+    reward_consumed_during_epoch: Decimal = Field(..., title="Reward consumed during training (uL)")
+    reward_consumed_unit: VolumeUnit = Field(VolumeUnit.UL, title="Reward consumed unit")
+    trials_total: Optional[int] = Field(None, title="Total trials")
+    trials_finished: Optional[int] = Field(None, title="Finished trials")
+    trials_rewarded: Optional[int] = Field(None, title="Rewarded trials")
+    notes: Optional[str] = Field(None, title="Notes")
