@@ -45,9 +45,9 @@ class ExaSpim(_Platform):
 class Fip(_Platform):
     """Fip"""
 
-    name: Literal[
+    name: Literal["Frame-projected independent-fiber photometry platform"] = (
         "Frame-projected independent-fiber photometry platform"
-    ] = "Frame-projected independent-fiber photometry platform"
+    )
     abbreviation: Literal["FIP"] = "FIP"
 
 

@@ -3,7 +3,7 @@
 from datetime import datetime
 from decimal import Decimal
 from enum import Enum
-from typing import Generic, List, Literal, Optional, Union
+from typing import List, Literal, Optional, Union
 
 from pydantic import Field
 from typing_extensions import Annotated
