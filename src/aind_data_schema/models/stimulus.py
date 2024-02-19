@@ -3,10 +3,9 @@
 from datetime import datetime
 from decimal import Decimal
 from enum import Enum
-from typing import Any, Dict, List, Literal, Optional, Union
+from typing import Any, Dict, List, Optional
 
 from pydantic import Field
-from typing_extensions import Annotated
 
 from aind_data_schema.base import AindModel
 from aind_data_schema.models.devices import Software
@@ -152,16 +151,16 @@ class StimulusEpoch(AindModel):
         title="Stimulus end time",
         description="When a specific stimulus ends. This might be the same as the session end time.",
     )
-    behavior_name: str = Field(..., title="Behavior name")
+    stimulus_name: str = Field(..., title="Stimulus name")
     session_number: int = Field(..., title="Session number")
     software: List[Software] = Field(
         ...,
-        title="Behavior software",
-        description="The software used to control the behavior (e.g. Bonsai)",
+        title="Software",
+        description="The software used to control the behavior/stimulus (e.g. Bonsai)",
     )
     script: Software = Field(
         ...,
-        title="Behavior script",
+        title="Script",
         description="provide URL to the commit of the script and the parameters used",
     )
     stimulus_modalities: List[StimulusModality] = Field(..., title="Stimulus modalities")
