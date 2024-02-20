@@ -3,12 +3,12 @@
 from datetime import datetime
 from decimal import Decimal
 from enum import Enum
-from typing import Any, Dict, List, Literal, Optional, Union
+from typing import List, Literal, Optional, Union
 
 from pydantic import Field
 from typing_extensions import Annotated
 
-from aind_data_schema.base import AindModel
+from aind_data_schema.base import AindGeneric, AindGenericType, AindModel
 from aind_data_schema.models.devices import Software
 from aind_data_schema.models.units import ConcentrationUnit, FrequencyUnit, PowerUnit, TimeUnit, VolumeUnit
 
@@ -45,7 +45,7 @@ class OptoStimulation(AindModel):
         description="Duration of baseline recording prior to first pulse train",
     )
     baseline_duration_unit: TimeUnit = Field(TimeUnit.S, title="Baseline duration unit")
-    other_parameters: Dict[str, Any] = Field(dict())
+    other_parameters: AindGenericType = Field(AindGeneric(), title="Other parameters")
     notes: Optional[str] = Field(None, title="Notes")
 
 
@@ -54,8 +54,8 @@ class VisualStimulation(AindModel):
 
     stimulus_type: Literal["Visual"] = "Visual"
     stimulus_name: str = Field(..., title="Stimulus name")
-    stimulus_parameters: Dict[str, Any] = Field(
-        dict(),
+    stimulus_parameters: AindGenericType = Field(
+        AindGeneric(),
         title="Stimulus parameters",
         description="Define and list the parameter values used (e.g. all TF or orientation values)",
     )
@@ -95,7 +95,7 @@ class BehaviorStimulation(AindModel):
         title="Behavior script",
         description="provide URL to the commit of the script and the parameters used",
     )
-    output_parameters: Dict[str, Any] = Field(
+    output_parameters: AindGenericType = Field(
         ...,
         title="Performance parameters",
         description="Performance metrics from session",
@@ -121,7 +121,7 @@ class PhotoStimulationGroup(AindModel):
     spiral_duration_unit: TimeUnit = Field(TimeUnit.S, title="Spiral duration unit")
     inter_spiral_interval: Decimal = Field(..., title="Inter trial interval (s)")
     inter_spiral_interval_unit: TimeUnit = Field(TimeUnit.S, title="Inter trial interval unit")
-    other_parameters: Dict[str, Any] = Field({})
+    other_parameters: AindGenericType = Field(AindGeneric(), title="Other parameters")
     notes: Optional[str] = Field(None, title="Notes")
 
 
@@ -134,7 +134,7 @@ class PhotoStimulation(AindModel):
     groups: List[PhotoStimulationGroup] = Field(..., title="Groups")
     inter_trial_interval: Decimal = Field(..., title="Inter trial interval (s)")
     inter_trial_interval_unit: TimeUnit = Field(TimeUnit.S, title="Inter trial interval unit")
-    other_parameters: Dict[str, Any] = Field(dict())
+    other_parameters: AindGenericType = Field(AindGeneric(), title="Other parameters")
     notes: Optional[str] = Field(None, title="Notes")
 
 

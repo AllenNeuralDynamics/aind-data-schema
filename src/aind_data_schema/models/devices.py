@@ -3,12 +3,12 @@
 from datetime import date, datetime
 from decimal import Decimal
 from enum import Enum
-from typing import Any, Dict, List, Literal, Optional, Union
+from typing import List, Literal, Optional, Union
 
 from pydantic import Field
 from typing_extensions import Annotated
 
-from aind_data_schema.base import AindModel
+from aind_data_schema.base import AindGeneric, AindGenericType, AindModel
 from aind_data_schema.models.coordinates import RelativePosition, Size3d
 from aind_data_schema.models.harp_types import HarpDeviceType
 from aind_data_schema.models.organizations import Organization
@@ -243,7 +243,7 @@ class Device(AindModel):
     model: Optional[str] = Field(None, title="Model")
     path_to_cad: Optional[str] = Field(None, title="Path to CAD diagram", description="For CUSTOM manufactured devices")
     port_index: Optional[str] = Field(None, title="Port index")
-    additional_settings: Optional[Dict[str, Any]] = Field(dict(), title="Additional parameters")
+    additional_settings: AindGenericType = Field(AindGeneric(), title="Additional parameters")
     notes: Optional[str] = Field(None, title="Notes")
 
 
@@ -253,7 +253,7 @@ class Software(AindModel):
     name: str = Field(..., title="Software name")
     version: str = Field(..., title="Software version")
     url: Optional[str] = Field(None, title="URL to commit being used")
-    parameters: Dict[str, Any] = Field(dict(), title="Software parameters")
+    parameters: AindGenericType = Field(AindGeneric(), title="Software parameters")
 
 
 class Calibration(AindModel):
@@ -262,8 +262,8 @@ class Calibration(AindModel):
     calibration_date: datetime = Field(..., title="Date and time of calibration")
     device_name: str = Field(..., title="Device name", description="Must match a device name in rig/instrument")
     description: str = Field(..., title="Description", description="Brief description of what is being calibrated")
-    input: Dict[str, Any] = Field(dict(), description="Calibration input", title="inputs")
-    output: Dict[str, Any] = Field(dict(), description="Calibration output", title="outputs")
+    input: AindGenericType = Field(AindGeneric(), description="Calibration input", title="inputs")
+    output: AindGenericType = Field(AindGeneric(), description="Calibration output", title="outputs")
     notes: Optional[str] = Field(None, title="Notes")
 
 

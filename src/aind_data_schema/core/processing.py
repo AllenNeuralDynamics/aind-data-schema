@@ -2,11 +2,11 @@
 
 from datetime import datetime
 from enum import Enum
-from typing import Any, Dict, List, Literal, Optional
+from typing import List, Literal, Optional
 
 from pydantic import Field, ValidationInfo, field_validator
 
-from aind_data_schema.base import AindCoreModel, AindModel
+from aind_data_schema.base import AindCoreModel, AindGeneric, AindGenericType, AindModel
 from aind_data_schema.imaging.tile import Tile
 from aind_data_schema.models.process_names import ProcessName
 
@@ -29,8 +29,8 @@ class DataProcess(AindModel):
     output_location: str = Field(..., description="Path to data outputs", title="Output location")
     code_url: str = Field(..., description="Path to code repository", title="Code URL")
     code_version: Optional[str] = Field(None, description="Version of the code", title="Code version")
-    parameters: Dict[str, Any] = Field(..., title="Parameters")
-    outputs: Dict[str, Any] = Field(dict(), description="Output parameters", title="Outputs")
+    parameters: AindGenericType = Field(..., title="Parameters")
+    outputs: AindGenericType = Field(AindGeneric(), description="Output parameters", title="Outputs")
     notes: Optional[str] = Field(None, title="Notes", validate_default=True)
 
     @field_validator("notes", mode="after")
@@ -86,7 +86,7 @@ class Processing(AindCoreModel):
 
     _DESCRIBED_BY_URL: str = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/processing.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["0.4.3"] = Field("0.4.3")
+    schema_version: Literal["0.4.4"] = Field("0.4.4")
 
     processing_pipeline: PipelineProcess = Field(
         ..., description="Pipeline used to process data", title="Processing Pipeline"

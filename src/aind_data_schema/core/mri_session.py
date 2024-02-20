@@ -3,11 +3,11 @@
 from datetime import datetime
 from decimal import Decimal
 from enum import Enum
-from typing import Any, Dict, List, Literal, Optional
+from typing import List, Literal, Optional
 
 from pydantic import Field, ValidationInfo, field_validator
 
-from aind_data_schema.base import AindCoreModel, AindModel
+from aind_data_schema.base import AindCoreModel, AindGenericType, AindModel
 from aind_data_schema.core.procedures import Anaesthetic
 from aind_data_schema.models.coordinates import Rotation3dTransform, Scale3dTransform, Translation3dTransform
 from aind_data_schema.models.devices import Scanner
@@ -64,7 +64,7 @@ class MRIScan(AindModel):
             ProcessName.SKULL_STRIPPING,
         ]
     ] = Field([])
-    additional_scan_parameters: Dict[str, Any] = Field(..., title="Parameters")
+    additional_scan_parameters: AindGenericType = Field(..., title="Parameters")
     notes: Optional[str] = Field(None, title="Notes", validate_default=True)
 
     @field_validator("notes", mode="after")
@@ -84,7 +84,7 @@ class MriSession(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/mri_session.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["0.3.0"] = Field("0.3.0")
+    schema_version: Literal["0.3.1"] = Field("0.3.1")
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
