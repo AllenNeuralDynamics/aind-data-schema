@@ -97,6 +97,13 @@
          "title": "AilipuTechnologyCo",
          "type": "object"
       },
+      "AindGeneric": {
+         "additionalProperties": true,
+         "description": "Base class for generic types that can be used in AIND schema",
+         "properties": {},
+         "title": "AindGeneric",
+         "type": "object"
+      },
       "AllenInstitute": {
          "additionalProperties": false,
          "description": "AllenInstitute",
@@ -1990,12 +1997,9 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "anyOf": [
+               "allOf": [
                   {
-                     "type": "object"
-                  },
-                  {
-                     "type": "null"
+                     "$ref": "#/$defs/AindGeneric"
                   }
                ],
                "default": {},
@@ -8918,8 +8922,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.12.2",
-         "default": "0.12.2",
+         "const": "0.12.3",
+         "default": "0.12.3",
          "description": "schema version",
          "title": "Version"
       },

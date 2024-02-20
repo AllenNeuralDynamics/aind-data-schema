@@ -1,5 +1,12 @@
 {
    "$defs": {
+      "AindGeneric": {
+         "additionalProperties": true,
+         "description": "Base class for generic types that can be used in AIND schema",
+         "properties": {},
+         "title": "AindGeneric",
+         "type": "object"
+      },
       "AnalysisProcess": {
          "additionalProperties": false,
          "description": "Description of an Analysis",
@@ -57,14 +64,22 @@
                "title": "Code version"
             },
             "parameters": {
-               "title": "Parameters",
-               "type": "object"
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/AindGeneric"
+                  }
+               ],
+               "title": "Parameters"
             },
             "outputs": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/AindGeneric"
+                  }
+               ],
                "default": {},
                "description": "Output parameters",
-               "title": "Outputs",
-               "type": "object"
+               "title": "Outputs"
             },
             "notes": {
                "anyOf": [
@@ -158,14 +173,22 @@
                "title": "Code version"
             },
             "parameters": {
-               "title": "Parameters",
-               "type": "object"
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/AindGeneric"
+                  }
+               ],
+               "title": "Parameters"
             },
             "outputs": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/AindGeneric"
+                  }
+               ],
                "default": {},
                "description": "Output parameters",
-               "title": "Outputs",
-               "type": "object"
+               "title": "Outputs"
             },
             "notes": {
                "anyOf": [
@@ -308,8 +331,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.4.3",
-         "default": "0.4.3",
+         "const": "0.4.4",
+         "default": "0.4.4",
          "title": "Schema Version"
       },
       "processing_pipeline": {
