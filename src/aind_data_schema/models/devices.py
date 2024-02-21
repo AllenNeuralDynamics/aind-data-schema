@@ -233,7 +233,7 @@ class MagneticStrength(int, Enum):
     MRI_14T = 14
 
 
-class LickSensorType(int, Enum):
+class LickSensorType(str, Enum):
     """Type of lick sensor"""
 
     CAPACITIVE = "Capacitive"
