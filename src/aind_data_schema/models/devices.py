@@ -233,6 +233,13 @@ class MagneticStrength(int, Enum):
     MRI_14T = 14
 
 
+class LickSensorType(str, Enum):
+    """Type of lick sensor"""
+
+    CAPACITIVE = "Capacitive"
+    PIEZOELECTIC = "Piezoelectric"
+
+
 class Device(AindModel):
     """Generic device"""
 
@@ -733,6 +740,8 @@ class RewardSpout(Device):
     spout_diameter_unit: SizeUnit = Field(SizeUnit.MM, title="Spout diameter unit")
     spout_position: Optional[RelativePosition] = Field(None, title="Spout stage position")
     solenoid_valve: Device = Field(..., title="Solenoid valve")
+    lick_sensor: Optional[Union[Device, DAQChannel]] = Field(None, title="Lick sensor")
+    lick_sensor_type: Optional[LickSensorType] = Field(None, title="Lick sensor type")
     notes: Optional[str] = Field(None, title="Notes")
 
 
