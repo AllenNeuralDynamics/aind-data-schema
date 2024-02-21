@@ -10867,8 +10867,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.10.9",
-               "default": "0.10.9",
+               "const": "0.10.10",
+               "default": "0.10.10",
                "title": "Schema Version"
             },
             "instrument_id": {
@@ -13421,6 +13421,15 @@
          },
          "title": "Lg",
          "type": "object"
+      },
+      "LickSensorType": {
+         "description": "Type of lick sensor",
+         "enum": [
+            "Capacitive",
+            "Piezoelectric"
+         ],
+         "title": "LickSensorType",
+         "type": "string"
       },
       "LifeCanvas": {
          "additionalProperties": false,
@@ -19769,8 +19778,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.12.3",
-               "default": "0.12.3",
+               "const": "0.12.4",
+               "default": "0.12.4",
                "description": "schema version",
                "title": "Version"
             },
@@ -21545,6 +21554,33 @@
                   }
                ],
                "title": "Solenoid valve"
+            },
+            "lick_sensor": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Device"
+                  },
+                  {
+                     "$ref": "#/$defs/DAQChannel"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Lick sensor"
+            },
+            "lick_sensor_type": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/LickSensorType"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Lick sensor type"
             }
          },
          "required": [
@@ -21602,8 +21638,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.2.14",
-               "default": "0.2.14",
+               "const": "0.2.15",
+               "default": "0.2.15",
                "title": "Schema Version"
             },
             "rig_id": {
@@ -27652,8 +27688,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.1.29",
-         "default": "0.1.29",
+         "const": "0.1.30",
+         "default": "0.1.30",
          "title": "Schema Version"
       },
       "_id": {

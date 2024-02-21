@@ -7341,8 +7341,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.10.9",
-         "default": "0.10.9",
+         "const": "0.10.10",
+         "default": "0.10.10",
          "title": "Schema Version"
       },
       "instrument_id": {

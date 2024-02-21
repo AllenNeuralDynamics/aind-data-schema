@@ -7559,6 +7559,15 @@
          "title": "Lg",
          "type": "object"
       },
+      "LickSensorType": {
+         "description": "Type of lick sensor",
+         "enum": [
+            "Capacitive",
+            "Piezoelectric"
+         ],
+         "title": "LickSensorType",
+         "type": "string"
+      },
       "LifeCanvas": {
          "additionalProperties": false,
          "description": "LifeCanvas",
@@ -11904,6 +11913,33 @@
                   }
                ],
                "title": "Solenoid valve"
+            },
+            "lick_sensor": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Device"
+                  },
+                  {
+                     "$ref": "#/$defs/DAQChannel"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Lick sensor"
+            },
+            "lick_sensor_type": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/LickSensorType"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Lick sensor type"
             }
          },
          "required": [
@@ -14497,8 +14533,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.2.14",
-         "default": "0.2.14",
+         "const": "0.2.15",
+         "default": "0.2.15",
          "title": "Schema Version"
       },
       "rig_id": {

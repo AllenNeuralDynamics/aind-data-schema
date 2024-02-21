@@ -3240,8 +3240,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.3.1",
-         "default": "0.3.1",
+         "const": "0.3.2",
+         "default": "0.3.2",
          "title": "Schema Version"
       },
       "subject_id": {
