@@ -39,6 +39,13 @@ class PulseShape(str, Enum):
     SINE = "Sinusoidal"
 
 
+class FilterType(str, Enum):
+    """Types of bandpass filters for auditory stim"""
+
+    BUTTERWORTH = "Butterworth"
+    OTHER = "Other"
+
+
 class OptoStimulation(AindModel):
     """Description of opto stimulation parameters"""
 
@@ -131,10 +138,13 @@ class OlfactoryStimulation(AindModel):
 class AuditoryStimulation(AindModel):
     """Description of an auditory stimulus"""
 
-    tone_frequency: int = Field(..., title="Tone frequency")
-    tone_frequency_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Tone frequency unit")
-    tone_intensity: Decimal = Field(..., title="Tone volume")
-    tone_intensity_unit: SoundIntensityUnit = Field(SoundIntensityUnit.DB, title="Tone intensity unit")
+    sample_frequency: Decimal = Field(..., title="Sample frequency")
+    amplitude_modulation_frequency: Optional[int] = Field(None, title="Amplitude modulation frequency")
+    frequency_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Tone frequency unit")
+    bandpass_low_frequency: Optional[Decimal] = Field(None, title="Bandpass low frequency")
+    bandpass_high_frequency: Optional[Decimal] = Field(None, title="Bandpass high frequency")
+    bandpass_filter_type: Optional[FilterType] = Field(None, title="Bandpass filter type")
+    bandpass_order: Optional[int] = Field(None, title="Bandpass order")
     notes: Optional[str] = Field(None, title="Notes")
 
 
