@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/rig.py",
-   "schema_version": "0.2.13",
+   "schema_version": "0.2.15",
    "rig_id": "428_FIP1_2",
    "modification_date": "2023-10-03",
    "mouse_platform": {
@@ -51,7 +51,9 @@
                   "port_index": null,
                   "additional_settings": {},
                   "notes": null
-               }
+               },
+               "lick_sensor": null,
+               "lick_sensor_type": null
             },
             {
                "device_type": "Reward spout",
@@ -77,7 +79,9 @@
                   "port_index": null,
                   "additional_settings": {},
                   "notes": null
-               }
+               },
+               "lick_sensor": null,
+               "lick_sensor_type": null
             }
          ]
       }
