@@ -9,6 +9,7 @@ from aind_data_schema.utils.schema_version_bump import bump_version, run_job
 RESOURCE_DIR = Path(os.path.dirname(os.path.realpath(__file__))) / "resources"
 NEW_SCHEMA_DIR = RESOURCE_DIR / "schema_version_bump" / "new_schemas"
 
+
 class SchemaVersionTests(unittest.TestCase):
     """Tests the methods in schema_version_bump module."""
 
@@ -24,6 +25,7 @@ class SchemaVersionTests(unittest.TestCase):
                 new_schema_folder=str(NEW_SCHEMA_DIR)
             )
         )
+
 
 if __name__ == "__main__":
     unittest.main()

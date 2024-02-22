@@ -15,6 +15,7 @@ ROOT_DIR = CURRENT_DIR.parents[2]
 OLD_SCHEMA_DIR = ROOT_DIR / "schemas"
 CORE_SCHEMA_DIR = ROOT_DIR / "src" / "aind_data_schema" / "core"
 
+
 def bump_version(old_ver: Optional[str]) -> str:
     """
     Bumps an old version to a new version .
