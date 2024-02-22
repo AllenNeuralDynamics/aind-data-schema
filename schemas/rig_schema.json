@@ -14181,7 +14181,7 @@
             "encoder_output": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/DaqChannelType"
+                     "$ref": "#/$defs/DAQChannel"
                   },
                   {
                      "type": "null"
@@ -14205,7 +14205,7 @@
             "brake_output": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/DaqChannelType"
+                     "$ref": "#/$defs/DAQChannel"
                   },
                   {
                      "type": "null"
@@ -14225,7 +14225,7 @@
             "torque_output": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/DaqChannelType"
+                     "$ref": "#/$defs/DAQChannel"
                   },
                   {
                      "type": "null"
