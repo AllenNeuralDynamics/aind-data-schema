@@ -5121,9 +5121,13 @@
                "title": "Core diameter (um)"
             },
             "core_diameter_unit": {
-               "default": "um",
-               "title": "Core diameter unit",
-               "type": "string"
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  }
+               ],
+               "default": "micrometer",
+               "title": "Core diameter unit"
             },
             "numerical_aperture": {
                "anyOf": [
@@ -14533,12 +14537,12 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.2.15",
-         "default": "0.2.15",
+         "const": "0.2.16",
+         "default": "0.2.16",
          "title": "Schema Version"
       },
       "rig_id": {
-         "description": "room_stim apparatus_version",
+         "description": "room_rig name_date modified",
          "title": "Rig ID",
          "type": "string"
       },

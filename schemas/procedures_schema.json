@@ -2029,9 +2029,13 @@
                "title": "Core diameter (um)"
             },
             "core_diameter_unit": {
-               "default": "um",
-               "title": "Core diameter unit",
-               "type": "string"
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  }
+               ],
+               "default": "micrometer",
+               "title": "Core diameter unit"
             },
             "numerical_aperture": {
                "anyOf": [
@@ -8922,8 +8926,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.12.4",
-         "default": "0.12.4",
+         "const": "0.12.5",
+         "default": "0.12.5",
          "description": "schema version",
          "title": "Version"
       },
