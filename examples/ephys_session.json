@@ -28,7 +28,7 @@
          "light_sources": [],
          "ephys_modules": [
             {
-               "assembly_name": "46117",
+               "assembly_name": "ephys module 1",
                "arc_angle": "5.2",
                "module_angle": "8",
                "angle_unit": "degrees",
@@ -60,7 +60,7 @@
                ]
             },
             {
-               "assembly_name": "46805",
+               "assembly_name": "ephys module 2",
                "arc_angle": "25",
                "module_angle": "-22",
                "angle_unit": "degrees",
@@ -89,7 +89,7 @@
          ],
          "stick_microscopes": [
             {
-               "assembly_name": "20516338",
+               "assembly_name": "stick microscope 1",
                "arc_angle": "-180",
                "module_angle": "-180",
                "angle_unit": "degrees",
@@ -99,7 +99,7 @@
                "notes": "did not record angles, did not calibrate."
             },
             {
-               "assembly_name": "22438379",
+               "assembly_name": "stick microscope 2",
                "arc_angle": "-180",
                "module_angle": "-180",
                "angle_unit": "degrees",
@@ -109,7 +109,7 @@
                "notes": "Did not record angles, did not calibrate"
             },
             {
-               "assembly_name": "22438379",
+               "assembly_name": "stick microscope 3",
                "arc_angle": "-180",
                "module_angle": "-180",
                "angle_unit": "degrees",
@@ -119,7 +119,7 @@
                "notes": "Did not record angles, did not calibrate"
             },
             {
-               "assembly_name": "22437106",
+               "assembly_name": "stick microscope 4",
                "arc_angle": "-180",
                "module_angle": "-180",
                "angle_unit": "degrees",
@@ -157,7 +157,7 @@
          "light_sources": [],
          "ephys_modules": [
             {
-               "assembly_name": "46117",
+               "assembly_name": "ephys module 1",
                "arc_angle": "5.2",
                "module_angle": "8",
                "angle_unit": "degrees",
@@ -189,7 +189,7 @@
                ]
             },
             {
-               "assembly_name": "46805",
+               "assembly_name": "ephys module 2",
                "arc_angle": "25",
                "module_angle": "-22",
                "angle_unit": "degrees",
@@ -218,7 +218,7 @@
          ],
          "stick_microscopes": [
             {
-               "assembly_name": "20516338",
+               "assembly_name": "stick microscope 1",
                "arc_angle": "-180",
                "module_angle": "-180",
                "angle_unit": "degrees",
@@ -228,7 +228,7 @@
                "notes": "did not record angles, did not calibrate."
             },
             {
-               "assembly_name": "22438379",
+               "assembly_name": "stick microscope 2",
                "arc_angle": "-180",
                "module_angle": "-180",
                "angle_unit": "degrees",
@@ -238,7 +238,7 @@
                "notes": "Did not record angles, did not calibrate"
             },
             {
-               "assembly_name": "22438379",
+               "assembly_name": "stick microscope 3",
                "arc_angle": "-180",
                "module_angle": "-180",
                "angle_unit": "degrees",
@@ -248,7 +248,7 @@
                "notes": "Did not record angles, did not calibrate"
             },
             {
-               "assembly_name": "22437106",
+               "assembly_name": "stick microscope 4",
                "arc_angle": "-180",
                "module_angle": "-180",
                "angle_unit": "degrees",
@@ -281,16 +281,52 @@
       {
          "stimulus": {
             "stimulus_type": "Visual",
-            "stimulus_name": "Gratings and Flashes",
-            "stimulus_parameters": {},
+            "stimulus_name": "Static Gratings",
+            "stimulus_parameters": {
+               "grating_orientations": [
+                  0,
+                  45,
+                  90,
+                  135
+               ],
+               "grating_orientation_unit": "degrees",
+               "grating_spatial_frequencies": [
+                  0.02,
+                  0.04,
+                  0.08,
+                  0.16,
+                  0.32
+               ],
+               "grating_unit": "pixels/in"
+            },
             "stimulus_template_name": [],
             "stimulus_software": "Bonsai",
             "stimulus_software_version": "2.7",
-            "stimulus_script": "GratingAndFlashes",
-            "stimulus_script_version": "Added Block structure (git commit)",
+            "stimulus_script": "https://github.com/fakeorg/GratingAndFlashes/gratings_and_flashes.bonsai",
+            "stimulus_script_version": "1.0",
             "notes": null
          },
          "stimulus_start_time": "2023-04-20T00:00:00",
+         "stimulus_end_time": "2023-04-20T00:14:00"
+      },
+      {
+         "stimulus": {
+            "stimulus_type": "Visual",
+            "stimulus_name": "Flashes",
+            "stimulus_parameters": {
+               "flash_interval": 5.0,
+               "flash_interval_unit": "seconds",
+               "flash_duration": 0.5,
+               "flash_duration_unit": "seconds"
+            },
+            "stimulus_template_name": [],
+            "stimulus_software": "Bonsai",
+            "stimulus_software_version": "2.7",
+            "stimulus_script": "https://github.com/fakeorg/GratingAndFlashes/gratings_and_flashes.bonsai",
+            "stimulus_script_version": "1.0",
+            "notes": null
+         },
+         "stimulus_start_time": "2023-04-20T00:14:00",
          "stimulus_end_time": "2023-04-20T00:28:00"
       }
    ],
