@@ -17,7 +17,7 @@ class SchemaWriterTests(unittest.TestCase):
     def test_get_schemas(self):
         """Tests get schemas method"""
         sw = SchemaWriter([])
-        schema_gen = sw._get_schemas()
+        schema_gen = sw.get_schemas()
 
         for schema in schema_gen:
             filename = schema.default_filename()
@@ -46,11 +46,11 @@ class SchemaWriterTests(unittest.TestCase):
         """Tests that model is written to JSON"""
         mock_path_exists.return_value = False
         sw = SchemaWriter(self.TEST_ARGS)
-        schema_list = list(sw._get_schemas())
+        schema_list = list(sw.get_schemas())
         mock_path_exists.side_effect = [False] + [True for _ in schema_list[:-1]]
         sw.write_to_json()
         file_handle = mock_file.return_value.__enter__.return_value
-        schema_gen = sw._get_schemas()
+        schema_gen = sw.get_schemas()
         open_calls = []
         write_calls = []
         for schema in schema_gen:
@@ -78,9 +78,9 @@ class SchemaWriterTests(unittest.TestCase):
         sw = SchemaWriter(sys_args)
         sw.write_to_json()
         file_handle = mock_file.return_value.__enter__.return_value
-        schema_list = list(sw._get_schemas())
+        schema_list = list(sw.get_schemas())
         mock_path_exists.side_effect = [False] + [True for _ in schema_list[:-1]]
-        schema_gen = sw._get_schemas()
+        schema_gen = sw.get_schemas()
         open_calls = []
         write_calls = []
         mkdir_calls = []
