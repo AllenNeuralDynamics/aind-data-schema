@@ -5,15 +5,102 @@ import json
 import os
 import sys
 from pathlib import Path
-from typing import Optional
+from typing import Optional, List, Dict, Type
 
 import dictdiffer
 import semver
 
+from aind_data_schema.base import AindCoreModel
+from aind_data_schema.utils.json_writer import SchemaWriter
+
 CURRENT_DIR = Path(os.path.dirname(os.path.realpath(__file__)))
 ROOT_DIR = CURRENT_DIR.parents[2]
 OLD_SCHEMA_DIR = ROOT_DIR / "schemas"
-CORE_SCHEMA_DIR = ROOT_DIR / "src" / "aind_data_schema" / "core"
+CORE_SCHEMA_DIR = ROOT_DIR / "src"
+
+
+class SchemaVersionHandler:
+    """Class that manages semantic versioning of the schemas"""
+
+    def __init__(
+            self,
+            commit_message: str = '',
+            json_schemas_location: Path = Path(OLD_SCHEMA_DIR)
+    ):
+        """
+        Class constructor
+        Parameters
+        ----------
+        commit_message : str
+          We can parse the commit message to manage which version to
+          bump. For now, we will just bump the patch.
+        json_schemas_location : Path
+          Directory location of main branch schemas
+        """
+        self.commit_message = commit_message
+        self.json_schemas_location = json_schemas_location
+
+    def get_list_of_models_that_changed(self) -> List[AindCoreModel]:
+        """Get a list of core models that have been updated."""
+        schemas_that_need_updating = []
+        for core_model in SchemaWriter.get_schemas():
+            core_model_json = core_model.model_json_schema()
+            default_filename = core_model.default_filename()
+            main_branch_schema_path = (
+                    self.json_schemas_location / default_filename
+            )
+            with open(main_branch_schema_path, "r") as f:
+                main_branch_schema_contents = json.load(f)
+            diff = dictdiffer.diff(main_branch_schema_contents, core_model_json)
+            if len(list(diff)) > 0:
+                schemas_that_need_updating.append(core_model)
+        return schemas_that_need_updating
+
+    @staticmethod
+    def get_incremented_versions_map(models_that_changed: List[AindCoreModel]) -> Dict[AindCoreModel, str]:
+        version_bump_map = {}
+        # TODO: Use commit message to determine version number to bump?
+        for model in models_that_changed:
+            old_v = semver.Version.parse(model.model_fields["schema_version"].default)
+            new_v = old_v.bump_patch()
+            version_bump_map[model] = str(new_v)
+        return version_bump_map
+
+    @staticmethod
+    def get_updated_file(python_file_path, new_ver: str) -> list:
+        new_file_contents = []
+        with open(python_file_path, "rb") as f:
+            file_lines = f.readlines()
+        for line in file_lines:
+            if "schema_version: Literal[" in str(line):
+                new_line_str = f'    schema_version: Literal["{new_ver}"] = Field("{new_ver}")\n'
+                new_line = new_line_str.encode()
+            else:
+                new_line = line
+            new_file_contents.append(new_line)
+        return new_file_contents
+
+    @staticmethod
+    def write_new_file(new_file_contents: list, python_file_path) -> None:
+        with open(python_file_path, 'wb') as f:
+            for line in new_file_contents:
+                f.write(line)
+
+    def update_files(self, version_bump_map: Dict[AindCoreModel, str]) -> None:
+        for model, new_ver in version_bump_map.items():
+            python_file_path = os.path.join(CORE_SCHEMA_DIR,
+                                            *model.__module__.split(
+                                                ".")) + ".py"
+            new_file_contents = self.get_updated_file(python_file_path, new_ver)
+            self.write_new_file(new_file_contents, python_file_path)
+
+    def run_job(self):
+        list_of_models_that_changed = self.get_list_of_models_that_changed()
+        list_of_inceremented_versions = self.get_incremented_versions_map(list_of_models_that_changed)
+        self.update_files(list_of_inceremented_versions)
+
+
+
 
 
 def bump_version(old_ver: Optional[str]) -> str:
