@@ -80,8 +80,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.6.7",
-               "default": "0.6.7",
+               "const": "0.6.8",
+               "default": "0.6.8",
                "title": "Schema Version"
             },
             "protocol_id": {
@@ -711,12 +711,9 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "anyOf": [
+               "allOf": [
                   {
-                     "type": "object"
-                  },
-                  {
-                     "type": "null"
+                     "$ref": "#/$defs/AindGeneric"
                   }
                ],
                "default": {},
@@ -808,6 +805,13 @@
             }
          },
          "title": "AilipuTechnologyCo",
+         "type": "object"
+      },
+      "AindGeneric": {
+         "additionalProperties": true,
+         "description": "Base class for generic types that can be used in AIND schema",
+         "properties": {},
+         "title": "AindGeneric",
          "type": "object"
       },
       "AllenInstitute": {
@@ -1109,14 +1113,22 @@
                "title": "Code version"
             },
             "parameters": {
-               "title": "Parameters",
-               "type": "object"
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/AindGeneric"
+                  }
+               ],
+               "title": "Parameters"
             },
             "outputs": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/AindGeneric"
+                  }
+               ],
                "default": {},
                "description": "Output parameters",
-               "title": "Outputs",
-               "type": "object"
+               "title": "Outputs"
             },
             "notes": {
                "anyOf": [
@@ -1805,9 +1817,13 @@
                "title": "Behavior script"
             },
             "output_parameters": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/AindGeneric"
+                  }
+               ],
                "description": "Performance metrics from session",
-               "title": "Performance parameters",
-               "type": "object"
+               "title": "Performance parameters"
             },
             "reward_consumed_during_epoch": {
                "anyOf": [
@@ -1972,16 +1988,24 @@
                "type": "string"
             },
             "input": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/AindGeneric"
+                  }
+               ],
                "default": {},
                "description": "Calibration input",
-               "title": "inputs",
-               "type": "object"
+               "title": "inputs"
             },
             "output": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/AindGeneric"
+                  }
+               ],
                "default": {},
                "description": "Calibration output",
-               "title": "outputs",
-               "type": "object"
+               "title": "outputs"
             },
             "notes": {
                "anyOf": [
@@ -2197,12 +2221,9 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "anyOf": [
+               "allOf": [
                   {
-                     "type": "object"
-                  },
-                  {
-                     "type": "null"
+                     "$ref": "#/$defs/AindGeneric"
                   }
                ],
                "default": {},
@@ -3556,12 +3577,9 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "anyOf": [
+               "allOf": [
                   {
-                     "type": "object"
-                  },
-                  {
-                     "type": "null"
+                     "$ref": "#/$defs/AindGeneric"
                   }
                ],
                "default": {},
@@ -4060,14 +4078,22 @@
                "title": "Code version"
             },
             "parameters": {
-               "title": "Parameters",
-               "type": "object"
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/AindGeneric"
+                  }
+               ],
+               "title": "Parameters"
             },
             "outputs": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/AindGeneric"
+                  }
+               ],
                "default": {},
                "description": "Output parameters",
-               "title": "Outputs",
-               "type": "object"
+               "title": "Outputs"
             },
             "notes": {
                "anyOf": [
@@ -4212,12 +4238,9 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "anyOf": [
+               "allOf": [
                   {
-                     "type": "object"
-                  },
-                  {
-                     "type": "null"
+                     "$ref": "#/$defs/AindGeneric"
                   }
                ],
                "default": {},
@@ -4948,12 +4971,9 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "anyOf": [
+               "allOf": [
                   {
-                     "type": "object"
-                  },
-                  {
-                     "type": "null"
+                     "$ref": "#/$defs/AindGeneric"
                   }
                ],
                "default": {},
@@ -5358,12 +5378,9 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "anyOf": [
+               "allOf": [
                   {
-                     "type": "object"
-                  },
-                  {
-                     "type": "null"
+                     "$ref": "#/$defs/AindGeneric"
                   }
                ],
                "default": {},
@@ -5870,12 +5887,9 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "anyOf": [
+               "allOf": [
                   {
-                     "type": "object"
-                  },
-                  {
-                     "type": "null"
+                     "$ref": "#/$defs/AindGeneric"
                   }
                ],
                "default": {},
@@ -6624,12 +6638,9 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "anyOf": [
+               "allOf": [
                   {
-                     "type": "object"
-                  },
-                  {
-                     "type": "null"
+                     "$ref": "#/$defs/AindGeneric"
                   }
                ],
                "default": {},
@@ -7215,12 +7226,9 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "anyOf": [
+               "allOf": [
                   {
-                     "type": "object"
-                  },
-                  {
-                     "type": "null"
+                     "$ref": "#/$defs/AindGeneric"
                   }
                ],
                "default": {},
@@ -7967,12 +7975,9 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "anyOf": [
+               "allOf": [
                   {
-                     "type": "object"
-                  },
-                  {
-                     "type": "null"
+                     "$ref": "#/$defs/AindGeneric"
                   }
                ],
                "default": {},
@@ -8002,9 +8007,13 @@
                "title": "Core diameter (um)"
             },
             "core_diameter_unit": {
-               "default": "um",
-               "title": "Core diameter unit",
-               "type": "string"
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  }
+               ],
+               "default": "micrometer",
+               "title": "Core diameter unit"
             },
             "numerical_aperture": {
                "anyOf": [
@@ -8319,12 +8328,9 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "anyOf": [
+               "allOf": [
                   {
-                     "type": "object"
-                  },
-                  {
-                     "type": "null"
+                     "$ref": "#/$defs/AindGeneric"
                   }
                ],
                "default": {},
@@ -9667,12 +9673,9 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "anyOf": [
+               "allOf": [
                   {
-                     "type": "object"
-                  },
-                  {
-                     "type": "null"
+                     "$ref": "#/$defs/AindGeneric"
                   }
                ],
                "default": {},
@@ -10291,12 +10294,9 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "anyOf": [
+               "allOf": [
                   {
-                     "type": "object"
-                  },
-                  {
-                     "type": "null"
+                     "$ref": "#/$defs/AindGeneric"
                   }
                ],
                "default": {},
@@ -10871,8 +10871,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.10.8",
-               "default": "0.10.8",
+               "const": "0.10.11",
+               "default": "0.10.11",
                "title": "Schema Version"
             },
             "instrument_id": {
@@ -10885,7 +10885,7 @@
                   }
                ],
                "default": null,
-               "description": "Unique identifier for this instrument. Naming convention: <room>-<apparatus>-<version>",
+               "description": "Unique identifier for this instrument. Naming convention: <room>-<apparatus>-<date modified>",
                "title": "Instrument ID"
             },
             "modification_date": {
@@ -12743,12 +12743,9 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "anyOf": [
+               "allOf": [
                   {
-                     "type": "object"
-                  },
-                  {
-                     "type": "null"
+                     "$ref": "#/$defs/AindGeneric"
                   }
                ],
                "default": {},
@@ -12924,12 +12921,9 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "anyOf": [
+               "allOf": [
                   {
-                     "type": "object"
-                  },
-                  {
-                     "type": "null"
+                     "$ref": "#/$defs/AindGeneric"
                   }
                ],
                "default": {},
@@ -13276,12 +13270,9 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "anyOf": [
+               "allOf": [
                   {
-                     "type": "object"
-                  },
-                  {
-                     "type": "null"
+                     "$ref": "#/$defs/AindGeneric"
                   }
                ],
                "default": {},
@@ -13435,6 +13426,15 @@
          "title": "Lg",
          "type": "object"
       },
+      "LickSensorType": {
+         "description": "Type of lick sensor",
+         "enum": [
+            "Capacitive",
+            "Piezoelectric"
+         ],
+         "title": "LickSensorType",
+         "type": "string"
+      },
       "LifeCanvas": {
          "additionalProperties": false,
          "description": "LifeCanvas",
@@ -13580,12 +13580,9 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "anyOf": [
+               "allOf": [
                   {
-                     "type": "object"
-                  },
-                  {
-                     "type": "null"
+                     "$ref": "#/$defs/AindGeneric"
                   }
                ],
                "default": {},
@@ -13916,12 +13913,9 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "anyOf": [
+               "allOf": [
                   {
-                     "type": "object"
-                  },
-                  {
-                     "type": "null"
+                     "$ref": "#/$defs/AindGeneric"
                   }
                ],
                "default": {},
@@ -14265,12 +14259,9 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "anyOf": [
+               "allOf": [
                   {
-                     "type": "object"
-                  },
-                  {
-                     "type": "null"
+                     "$ref": "#/$defs/AindGeneric"
                   }
                ],
                "default": {},
@@ -14753,12 +14744,9 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "anyOf": [
+               "allOf": [
                   {
-                     "type": "object"
-                  },
-                  {
-                     "type": "null"
+                     "$ref": "#/$defs/AindGeneric"
                   }
                ],
                "default": {},
@@ -15402,12 +15390,9 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "anyOf": [
+               "allOf": [
                   {
-                     "type": "object"
-                  },
-                  {
-                     "type": "null"
+                     "$ref": "#/$defs/AindGeneric"
                   }
                ],
                "default": {},
@@ -16346,12 +16331,9 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "anyOf": [
+               "allOf": [
                   {
-                     "type": "object"
-                  },
-                  {
-                     "type": "null"
+                     "$ref": "#/$defs/AindGeneric"
                   }
                ],
                "default": {},
@@ -17079,12 +17061,9 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "anyOf": [
+               "allOf": [
                   {
-                     "type": "object"
-                  },
-                  {
-                     "type": "null"
+                     "$ref": "#/$defs/AindGeneric"
                   }
                ],
                "default": {},
@@ -17708,12 +17687,9 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "anyOf": [
+               "allOf": [
                   {
-                     "type": "object"
-                  },
-                  {
-                     "type": "null"
+                     "$ref": "#/$defs/AindGeneric"
                   }
                ],
                "default": {},
@@ -17911,9 +17887,13 @@
                "title": "Baseline duration unit"
             },
             "other_parameters": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/AindGeneric"
+                  }
+               ],
                "default": {},
-               "title": "Other Parameters",
-               "type": "object"
+               "title": "Other parameters"
             },
             "notes": {
                "anyOf": [
@@ -18518,12 +18498,9 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "anyOf": [
+               "allOf": [
                   {
-                     "type": "object"
-                  },
-                  {
-                     "type": "null"
+                     "$ref": "#/$defs/AindGeneric"
                   }
                ],
                "default": {},
@@ -18661,9 +18638,13 @@
                "title": "Inter trial interval unit"
             },
             "other_parameters": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/AindGeneric"
+                  }
+               ],
                "default": {},
-               "title": "Other Parameters",
-               "type": "object"
+               "title": "Other parameters"
             },
             "notes": {
                "anyOf": [
@@ -18768,9 +18749,13 @@
                "title": "Inter trial interval unit"
             },
             "other_parameters": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/AindGeneric"
+                  }
+               ],
                "default": {},
-               "title": "Other Parameters",
-               "type": "object"
+               "title": "Other parameters"
             },
             "notes": {
                "anyOf": [
@@ -19228,12 +19213,9 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "anyOf": [
+               "allOf": [
                   {
-                     "type": "object"
-                  },
-                  {
-                     "type": "null"
+                     "$ref": "#/$defs/AindGeneric"
                   }
                ],
                "default": {},
@@ -19666,12 +19648,9 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "anyOf": [
+               "allOf": [
                   {
-                     "type": "object"
-                  },
-                  {
-                     "type": "null"
+                     "$ref": "#/$defs/AindGeneric"
                   }
                ],
                "default": {},
@@ -19803,8 +19782,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.12.2",
-               "default": "0.12.2",
+               "const": "0.12.5",
+               "default": "0.12.5",
                "description": "schema version",
                "title": "Version"
             },
@@ -19923,8 +19902,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.4.3",
-               "default": "0.4.3",
+               "const": "0.4.4",
+               "default": "0.4.4",
                "title": "Schema Version"
             },
             "processing_pipeline": {
@@ -21511,12 +21490,9 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "anyOf": [
+               "allOf": [
                   {
-                     "type": "object"
-                  },
-                  {
-                     "type": "null"
+                     "$ref": "#/$defs/AindGeneric"
                   }
                ],
                "default": {},
@@ -21582,6 +21558,33 @@
                   }
                ],
                "title": "Solenoid valve"
+            },
+            "lick_sensor": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Device"
+                  },
+                  {
+                     "$ref": "#/$defs/DAQChannel"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Lick sensor"
+            },
+            "lick_sensor_type": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/LickSensorType"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Lick sensor type"
             }
          },
          "required": [
@@ -21639,12 +21642,12 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.2.13",
-               "default": "0.2.13",
+               "const": "0.2.16",
+               "default": "0.2.16",
                "title": "Schema Version"
             },
             "rig_id": {
-               "description": "room_stim apparatus_version",
+               "description": "room_rig name_date modified",
                "title": "Rig ID",
                "type": "string"
             },
@@ -22464,12 +22467,9 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "anyOf": [
+               "allOf": [
                   {
-                     "type": "object"
-                  },
-                  {
-                     "type": "null"
+                     "$ref": "#/$defs/AindGeneric"
                   }
                ],
                "default": {},
@@ -22640,8 +22640,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.1.7",
-               "default": "0.1.7",
+               "const": "0.1.8",
+               "default": "0.1.8",
                "title": "Schema Version"
             },
             "protocol_id": {
@@ -23259,9 +23259,13 @@
                "title": "URL to commit being used"
             },
             "parameters": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/AindGeneric"
+                  }
+               ],
                "default": {},
-               "title": "Software parameters",
-               "type": "object"
+               "title": "Software parameters"
             }
          },
          "required": [
@@ -23373,12 +23377,9 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "anyOf": [
+               "allOf": [
                   {
-                     "type": "object"
-                  },
-                  {
-                     "type": "null"
+                     "$ref": "#/$defs/AindGeneric"
                   }
                ],
                "default": {},
@@ -25799,12 +25800,9 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "anyOf": [
+               "allOf": [
                   {
-                     "type": "object"
-                  },
-                  {
-                     "type": "null"
+                     "$ref": "#/$defs/AindGeneric"
                   }
                ],
                "default": {},
@@ -26253,12 +26251,9 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "anyOf": [
+               "allOf": [
                   {
-                     "type": "object"
-                  },
-                  {
-                     "type": "null"
+                     "$ref": "#/$defs/AindGeneric"
                   }
                ],
                "default": {},
@@ -26483,10 +26478,14 @@
                "type": "string"
             },
             "stimulus_parameters": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/AindGeneric"
+                  }
+               ],
                "default": {},
                "description": "Define and list the parameter values used (e.g. all TF or orientation values)",
-               "title": "Stimulus parameters",
-               "type": "object"
+               "title": "Stimulus parameters"
             },
             "stimulus_template_name": {
                "default": [],
@@ -27028,12 +27027,9 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "anyOf": [
+               "allOf": [
                   {
-                     "type": "object"
-                  },
-                  {
-                     "type": "null"
+                     "$ref": "#/$defs/AindGeneric"
                   }
                ],
                "default": {},
@@ -27118,7 +27114,7 @@
             "encoder_output": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/DaqChannelType"
+                     "$ref": "#/$defs/DAQChannel"
                   },
                   {
                      "type": "null"
@@ -27142,7 +27138,7 @@
             "brake_output": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/DaqChannelType"
+                     "$ref": "#/$defs/DAQChannel"
                   },
                   {
                      "type": "null"
@@ -27162,7 +27158,7 @@
             "torque_output": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/DaqChannelType"
+                     "$ref": "#/$defs/DAQChannel"
                   },
                   {
                      "type": "null"
@@ -27294,12 +27290,9 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "anyOf": [
+               "allOf": [
                   {
-                     "type": "object"
-                  },
-                  {
-                     "type": "null"
+                     "$ref": "#/$defs/AindGeneric"
                   }
                ],
                "default": {},
@@ -27699,8 +27692,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.1.28",
-         "default": "0.1.28",
+         "const": "0.1.31",
+         "default": "0.1.31",
          "title": "Schema Version"
       },
       "_id": {

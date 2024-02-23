@@ -202,6 +202,13 @@
          "title": "AilipuTechnologyCo",
          "type": "object"
       },
+      "AindGeneric": {
+         "additionalProperties": true,
+         "description": "Base class for generic types that can be used in AIND schema",
+         "properties": {},
+         "title": "AindGeneric",
+         "type": "object"
+      },
       "AllenInstitute": {
          "additionalProperties": false,
          "description": "AllenInstitute",
@@ -599,16 +606,24 @@
                "type": "string"
             },
             "input": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/AindGeneric"
+                  }
+               ],
                "default": {},
                "description": "Calibration input",
-               "title": "inputs",
-               "type": "object"
+               "title": "inputs"
             },
             "output": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/AindGeneric"
+                  }
+               ],
                "default": {},
                "description": "Calibration output",
-               "title": "outputs",
-               "type": "object"
+               "title": "outputs"
             },
             "notes": {
                "anyOf": [
@@ -3449,8 +3464,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.6.7",
-         "default": "0.6.7",
+         "const": "0.6.8",
+         "default": "0.6.8",
          "title": "Schema Version"
       },
       "protocol_id": {
