@@ -29,6 +29,7 @@ extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.napoleon",
     "sphinx_jinja",
+    "sphinxcontrib.autodoc_pydantic"
 ]
 templates_path = ["_templates"]
 exclude_patterns = []
@@ -50,3 +51,9 @@ html_show_sphinx = False
 
 # If true, "(C) Copyright ..." is shown in the HTML footer. Default is True.
 html_show_copyright = False
+
+
+# Autodoc Pydantic
+autodoc_pydantic_model_show_json = True
+autodoc_pydantic_model_show_config_summary = True
+autodoc_pydantic_model_erdantic_figure = True
