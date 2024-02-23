@@ -28,10 +28,10 @@ session = Session(
             stimulus=VisualStimulation(
                 stimulus_name="Static Gratings",
                 stimulus_parameters={
-                    'grating_orientations': [0, 45, 90, 135],
-                    'grating_orientation_unit': 'degrees',
-                    'grating_spatial_frequencies': [0.02, 0.04, 0.08, 0.16, 0.32],
-                    'grating_unit': 'pixels/in'
+                    "grating_orientations": [0, 45, 90, 135],
+                    "grating_orientation_unit": "degrees",
+                    "grating_spatial_frequencies": [0.02, 0.04, 0.08, 0.16, 0.32],
+                    "grating_unit": "pixels/in",
                 },
                 stimulus_software="Bonsai",
                 stimulus_software_version="2.7",
@@ -45,17 +45,17 @@ session = Session(
             stimulus=VisualStimulation(
                 stimulus_name="Flashes",
                 stimulus_parameters={
-                    'flash_interval': 5.0,
-                    'flash_interval_unit': 'seconds',
-                    'flash_duration': 0.5,
-                    'flash_duration_unit': 'seconds',
+                    "flash_interval": 5.0,
+                    "flash_interval_unit": "seconds",
+                    "flash_duration": 0.5,
+                    "flash_duration_unit": "seconds",
                 },
                 stimulus_software="Bonsai",
                 stimulus_software_version="2.7",
                 stimulus_script="https://github.com/fakeorg/GratingAndFlashes/gratings_and_flashes.bonsai",
                 stimulus_script_version="1.0",
             ),
-        )
+        ),
     ],
     data_streams=[
         Stream(
