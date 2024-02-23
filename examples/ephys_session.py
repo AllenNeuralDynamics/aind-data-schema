@@ -108,7 +108,10 @@ session = Session(
                     primary_targeted_structure="LGd",
                     manipulator_coordinates=Coordinates3d(x=8422, y=4205, z=11087.5),
                     calibration_date=datetime.datetime(year=2023, month=4, day=25),
-                    notes="Moved Y to avoid blood vessel, X to avoid edge. Mouse made some noise during the recording with a sudden shift in signals. Lots of motion. Maybe some implant motion.",
+                    notes=(
+                        "Moved Y to avoid blood vessel, X to avoid edge. Mouse made some noise during the recording"
+                        " with a sudden shift in signals. Lots of motion. Maybe some implant motion."
+                    ),
                 ),
                 EphysModule(
                     rotation_angle=0,
@@ -121,7 +124,10 @@ session = Session(
                     primary_targeted_structure="LC",
                     manipulator_coordinates=Coordinates3d(x=9015, y=7144, z=13262),
                     calibration_date=datetime.datetime(year=2023, month=4, day=25),
-                    notes="Trouble penitrating. Lots of compression, needed to move probe. Small amount of surface bleeding/bruising. Initial Target: X;10070.3\tY:7476.6",
+                    notes=(
+                        "Trouble penitrating. Lots of compression, needed to move probe. Small amount of surface"
+                        " bleeding/bruising. Initial Target: X;10070.3\tY:7476.6"
+                    ),
                 ),
             ],
         ),
@@ -175,7 +181,10 @@ session = Session(
                     primary_targeted_structure="LGd",
                     manipulator_coordinates=Coordinates3d(x=8422, y=4205, z=11087.5),
                     calibration_date=datetime.datetime(year=2023, month=4, day=25),
-                    notes="Moved Y to avoid blood vessel, X to avoid edge. Mouse made some noise during the recording with a sudden shift in signals. Lots of motion. Maybe some implant motion.",
+                    notes=(
+                        "Moved Y to avoid blood vessel, X to avoid edge. Mouse made some noise during the recording"
+                        " with a sudden shift in signals. Lots of motion. Maybe some implant motion."
+                    ),
                 ),
                 EphysModule(
                     rotation_angle=0,
@@ -188,7 +197,10 @@ session = Session(
                     primary_targeted_structure="LC",
                     manipulator_coordinates=Coordinates3d(x=9015, y=7144, z=13262),
                     calibration_date=datetime.datetime(year=2023, month=4, day=25),
-                    notes="Trouble penitrating. Lots of compression, needed to move probe. Small amount of surface bleeding/bruising. Initial Target: X;10070.3\tY:7476.6",
+                    notes=(
+                        "Trouble penitrating. Lots of compression, needed to move probe. Small amount of surface"
+                        " bleeding/bruising. Initial Target: X;10070.3\tY:7476.6"
+                    ),
                 ),
             ],
         ),
