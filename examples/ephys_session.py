@@ -1,3 +1,5 @@
+"""Generates an example JSON file for an ephys session"""
+
 import datetime
 
 from aind_data_schema.core.session import (
