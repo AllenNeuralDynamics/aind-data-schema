@@ -6,7 +6,6 @@ from aind_data_schema.core.session import (
     DomeModule,
     EphysModule,
     EphysProbeConfig,
-    ManipulatorModule,
     Session,
     Stream,
 )
