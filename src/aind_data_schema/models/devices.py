@@ -571,7 +571,7 @@ class FiberProbe(Device):
     device_type: Literal["Fiber optic probe"] = "Fiber optic probe"
     core_diameter: Decimal = Field(..., title="Core diameter (um)")
     #  TODO: Check if this should be an enum?
-    core_diameter_unit: str = Field("um", title="Core diameter unit")
+    core_diameter_unit: SizeUnit = Field(SizeUnit.UM, title="Core diameter unit")
     numerical_aperture: Decimal = Field(..., title="Numerical aperture")
     ferrule_material: Optional[FerruleMaterial] = Field(None, title="Ferrule material")
     active_length: Optional[Decimal] = Field(None, title="Active length (mm)", description="Length of taper")
