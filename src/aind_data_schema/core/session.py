@@ -98,7 +98,7 @@ class FieldOfView(AindModel):
         None,
         title="Z stage position of the fastz actuator for a given targeted depth",
     )
-    scanfield_z_unit = Optional[SizeUnit] = Field(None, title="Z stage position unit")
+    scanfield_z_unit: Optional[SizeUnit] = Field(None, title="Z stage position unit")
     notes: Optional[str] = Field(None, title="Notes")
 
 
