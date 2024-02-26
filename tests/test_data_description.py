@@ -231,38 +231,32 @@ class DataDescriptionTest(unittest.TestCase):
         special_characters_fails = [" ", "_", "<", ">", ":", ";", '"', "/", "|", "?"]
         for pattern in special_characters_fails:
             m = re.match(f"{DataRegex.NO_SPECIAL_CHARS.value}", pattern)
-            expected_result = None
-            self.assertEqual(expected_result, m)
+            self.assertIsNone(m)
 
         special_characters_pass = ["adf7898", "#&%!}", "\\"]
         for pattern in special_characters_pass:
             m = bool(re.match(f"{DataRegex.NO_SPECIAL_CHARS.value}", pattern))
-            expected_result = True
-            self.assertEqual(expected_result, m)
+            self.assertTrue(m)
 
         underscores_fails = ["_"]
         for pattern in underscores_fails:
             m = re.match(f"{DataRegex.NO_UNDERSCORES.value}", pattern)
-            expected_result = None
-            self.assertEqual(expected_result, m)
+            self.assertIsNone(m)
 
         underscores_pass = ["adf7898", " ", "#&%!}"]
         for pattern in underscores_pass:
             m = bool(re.match(f"{DataRegex.NO_UNDERSCORES.value}", pattern))
-            expected_result = True
-            self.assertEqual(expected_result, m)
+            self.assertTrue(m)
 
         special_characters_space_fails = ["_", "<", ">", ":", ";", '"', "/", "|", "?"]
         for pattern in special_characters_space_fails:
             m = re.match(f"{DataRegex.NO_SPECIAL_CHARS_EXCEPT_SPACE.value}", pattern)
-            expected_result = None
-            self.assertEqual(expected_result, m)
+            self.assertIsNone(m)
 
         special_characters_space_pass = ["ad f78 98", " ", "#&%!}", "adf7898"]
         for pattern in special_characters_space_pass:
             m = bool(re.match(f"{DataRegex.NO_SPECIAL_CHARS_EXCEPT_SPACE.value}", pattern))
-            expected_result = True
-            self.assertEqual(expected_result, m)
+            self.assertTrue(m)
 
     def test_model_constructors(self):
         """test static methods for constructing models"""
