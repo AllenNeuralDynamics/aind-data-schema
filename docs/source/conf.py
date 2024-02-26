@@ -56,4 +56,4 @@ html_show_copyright = False
 # Autodoc Pydantic
 autodoc_pydantic_model_show_json = True
 autodoc_pydantic_model_show_config_summary = True
-autodoc_pydantic_model_erdantic_figure = True
+autodoc_pydantic_model_erdantic_figure = False
