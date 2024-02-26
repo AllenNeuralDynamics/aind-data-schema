@@ -12,10 +12,23 @@ from typing_extensions import Annotated
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.imaging.tile import Channel
 from aind_data_schema.models.coordinates import CcfCoords, Coordinates3d
-from aind_data_schema.models.devices import Calibration, Maintenance, RelativePosition, SpoutSide
+from aind_data_schema.models.devices import (
+    Calibration,
+    Maintenance,
+    RelativePosition,
+    SpoutSide,
+)
 from aind_data_schema.models.modalities import Modality
 from aind_data_schema.models.stimulus import StimulusEpoch
-from aind_data_schema.models.units import AngleUnit, FrequencyUnit, MassUnit, PowerUnit, SizeUnit, TimeUnit, VolumeUnit
+from aind_data_schema.models.units import (
+    AngleUnit,
+    FrequencyUnit,
+    MassUnit,
+    PowerUnit,
+    SizeUnit,
+    TimeUnit,
+    VolumeUnit,
+)
 
 
 # Ophys components
@@ -63,7 +76,11 @@ class FieldOfView(AindModel):
     fov_coordinate_ml: Decimal = Field(..., title="FOV coordinate ML")
     fov_coordinate_ap: Decimal = Field(..., title="FOV coordinate AP")
     fov_coordinate_unit: SizeUnit = Field(SizeUnit.UM, title="FOV coordinate unit")
-    fov_reference: str = Field(..., title="FOV reference", description="Reference for ML/AP coordinates")
+    fov_reference: str = Field(
+        ...,
+        title="FOV reference",
+        description="Reference for ML/AP coordinates",
+    )
     fov_width: int = Field(..., title="FOV width (pixels)")
     fov_height: int = Field(..., title="FOV height (pixels)")
     fov_size_unit: SizeUnit = Field(SizeUnit.PX, title="FOV size unit")
@@ -72,7 +89,17 @@ class FieldOfView(AindModel):
     fov_scale_factor_unit: str = Field("um/pixel", title="FOV scale factor unit")
     frame_rate: Optional[Decimal] = Field(None, title="Frame rate (Hz)")
     frame_rate_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Frame rate unit")
-    coupled_fov_index: Optional[int] = Field(None, title="Coupled FOV", description="Coupled planes for multiscope")
+    coupled_fov_index: Optional[int] = Field(
+        None, title="Coupled FOV", description="Coupled planes for multiscope"
+    )
+    power: Optional[Decimal] = Field(None, title="Power (mW)")
+    power_unit: Optional[PowerUnit] = Field(PowerUnit.MW, title="Power unit")
+    scanfield_z = Optional[Decimal] = Field(
+        None,
+        title="Z stage position of the fastz actuator for a given targeted depth",
+    )
+    scanfield_z_unit = Optional[SizeUnit] = Field(None, title="Z stage position unit")
+    notes: Optional[str] = Field(None, title="Notes")
 
 
 class StackChannel(Channel):
@@ -95,7 +122,11 @@ class Stack(AindModel):
     fov_coordinate_ml: float = Field(..., title="FOV coordinate ML")
     fov_coordinate_ap: float = Field(..., title="FOV coordinate AP")
     fov_coordinate_unit: SizeUnit = Field(SizeUnit.UM, title="FOV coordinate unit")
-    fov_reference: str = Field(..., title="FOV reference", description="Reference for ML/AP coordinates")
+    fov_reference: str = Field(
+        ...,
+        title="FOV reference",
+        description="Reference for ML/AP coordinates",
+    )
     fov_width: int = Field(..., title="FOV width (pixels)")
     fov_height: int = Field(..., title="FOV height (pixels)")
     fov_size_unit: SizeUnit = Field(SizeUnit.PX, title="FOV size unit")
@@ -140,7 +171,9 @@ class DomeModule(AindModel):
         title="Transform from local manipulator axes to rig",
         description="Path to coordinate transform",
     )
-    calibration_date: Optional[datetime] = Field(None, title="Date on which coordinate transform was last calibrated")
+    calibration_date: Optional[datetime] = Field(
+        None, title="Date on which coordinate transform was last calibrated"
+    )
     notes: Optional[str] = Field(None, title="Notes")
 
 
@@ -174,7 +207,9 @@ class EphysModule(ManipulatorModule):
 class FiberModule(ManipulatorModule):
     """Inserted fiber photometry probe recorded in a stream"""
 
-    fiber_connections: List[FiberConnectionConfig] = Field(default=[], title="Fiber photometry devices")
+    fiber_connections: List[FiberConnectionConfig] = Field(
+        default=[], title="Fiber photometry devices"
+    )
 
 
 class LaserConfig(AindModel):
@@ -188,7 +223,10 @@ class LaserConfig(AindModel):
     excitation_power_unit: PowerUnit = Field(PowerUnit.MW, title="Excitation power unit")
 
 
-LIGHT_SOURCE_CONFIGS = Annotated[Union[LightEmittingDiodeConfig, LaserConfig], Field(discriminator="device_type")]
+LIGHT_SOURCE_CONFIGS = Annotated[
+    Union[LightEmittingDiodeConfig, LaserConfig],
+    Field(discriminator="device_type"),
+]
 
 
 # Behavior components
@@ -205,14 +243,18 @@ class RewardSpoutConfig(AindModel):
     side: SpoutSide = Field(..., title="Spout side", description="Must match rig")
     starting_position: RelativePosition = Field(..., title="Starting position")
     variable_position: bool = Field(
-        ..., title="Variable position", description="True if spout position changes during session as tracked in data"
+        ...,
+        title="Variable position",
+        description="True if spout position changes during session as tracked in data",
     )
 
 
 class RewardDeliveryConfig(AindModel):
     """Description of reward delivery configuration"""
 
-    reward_solution: RewardSolution = Field(..., title="Reward solution", description="If Other use notes")
+    reward_solution: RewardSolution = Field(
+        ..., title="Reward solution", description="If Other use notes"
+    )
     reward_spouts: List[RewardSpoutConfig] = Field(..., title="Reward spouts")
     notes: Optional[str] = Field(None, title="Notes", validate_default=True)
 
@@ -243,7 +285,9 @@ class Stream(AindModel):
     )
     manipulator_modules: List[ManipulatorModule] = Field(default=[], title="Manipulator modules")
     detectors: List[DetectorConfig] = Field(default=[], title="Detectors")
-    fiber_connections: List[FiberConnectionConfig] = Field(default=[], title="Implanted fiber photometry devices")
+    fiber_connections: List[FiberConnectionConfig] = Field(
+        default=[], title="Implanted fiber photometry devices"
+    )
     fiber_modules: List[FiberModule] = Field(default=[], title="Inserted fiber modules")
     ophys_fovs: List[FieldOfView] = Field(default=[], title="Fields of view")
     slap_fovs: Optional[SlapFieldOfView] = Field(None, title="Slap2 field of view")
@@ -255,12 +299,17 @@ class Stream(AindModel):
     notes: Optional[str] = Field(None, title="Notes")
 
     @staticmethod
-    def _validate_ephys_modality(value: List[Modality.ONE_OF], info: ValidationInfo) -> Optional[str]:
+    def _validate_ephys_modality(
+        value: List[Modality.ONE_OF], info: ValidationInfo
+    ) -> Optional[str]:
         """Validate ecephys modality has ephys_assemblies and stick_microscopes"""
         if Modality.ECEPHYS in value:
             ephys_modules = info.data["ephys_modules"]
             stick_microscopes = info.data["stick_microscopes"]
-            for k, v in {"ephys_modules": ephys_modules, "stick_microscopes": stick_microscopes}.items():
+            for k, v in {
+                "ephys_modules": ephys_modules,
+                "stick_microscopes": stick_microscopes,
+            }.items():
                 if not v:
                     return f"{k} field must be utilized for Ecephys modality"
         return None
@@ -282,7 +331,9 @@ class Stream(AindModel):
         return None
 
     @staticmethod
-    def _validate_pophys_modality(value: List[Modality.ONE_OF], info: ValidationInfo) -> Optional[str]:
+    def _validate_pophys_modality(
+        value: List[Modality.ONE_OF], info: ValidationInfo
+    ) -> Optional[str]:
         """Validate POPHYS modality has ophys_fovs and stack_parameters"""
         if Modality.POPHYS in value:
             ophys_fovs = info.data["ophys_fovs"]
@@ -293,7 +344,9 @@ class Stream(AindModel):
             return None
 
     @staticmethod
-    def _validate_behavior_videos_modality(value: List[Modality.ONE_OF], info: ValidationInfo) -> Optional[str]:
+    def _validate_behavior_videos_modality(
+        value: List[Modality.ONE_OF], info: ValidationInfo
+    ) -> Optional[str]:
         """Validate BEHAVIOR_VIDEOS modality has cameras"""
         if Modality.BEHAVIOR_VIDEOS in value and len(info.data["camera_names"]) == 0:
             return "camera_names field must be utilized for Behavior Videos modality"
@@ -301,7 +354,9 @@ class Stream(AindModel):
             return None
 
     @staticmethod
-    def _validate_behavior_modality(value: List[Modality.ONE_OF], info: ValidationInfo) -> Optional[str]:
+    def _validate_behavior_modality(
+        value: List[Modality.ONE_OF], info: ValidationInfo
+    ) -> Optional[str]:
         """Validate that BEHAVIOR modality has stimulus_device_names"""
         if Modality.BEHAVIOR in value and len(info.data["stimulus_device_names"]) == 0:
             return "stimulus_device_names field must be utilized for Behavior modality"
@@ -309,7 +364,9 @@ class Stream(AindModel):
             return None
 
     @field_validator("stream_modalities", mode="after")
-    def validate_stream_modalities(cls, value: List[Modality.ONE_OF], info: ValidationInfo) -> List[Modality.ONE_OF]:
+    def validate_stream_modalities(
+        cls, value: List[Modality.ONE_OF], info: ValidationInfo
+    ) -> List[Modality.ONE_OF]:
         """Validate each modality in stream_modalities field has associated data"""
         errors = []
         ephys_errors = cls._validate_ephys_modality(value, info)
@@ -337,7 +394,9 @@ class Stream(AindModel):
 class Session(AindCoreModel):
     """Description of a physiology and/or behavior session"""
 
-    _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/session.py"
+    _DESCRIBED_BY_URL = (
+        AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/session.py"
+    )
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
     schema_version: Literal["0.1.8"] = Field("0.1.8")
     protocol_id: List[str] = Field([], title="Protocol ID", description="DOI for protocols.io")
@@ -352,17 +411,25 @@ class Session(AindCoreModel):
     iacuc_protocol: Optional[str] = Field(None, title="IACUC protocol")
     rig_id: str = Field(..., title="Rig ID")
     calibrations: List[Calibration] = Field(
-        default=[], title="Calibrations", description="Calibrations of rig devices prior to session"
+        default=[],
+        title="Calibrations",
+        description="Calibrations of rig devices prior to session",
     )
     maintenance: List[Maintenance] = Field(
-        default=[], title="Maintenance", description="Maintenance of rig devices prior to session"
+        default=[],
+        title="Maintenance",
+        description="Maintenance of rig devices prior to session",
     )
     subject_id: str = Field(..., title="Subject ID")
     animal_weight_prior: Optional[Decimal] = Field(
-        None, title="Animal weight (g)", description="Animal weight before procedure"
+        None,
+        title="Animal weight (g)",
+        description="Animal weight before procedure",
     )
     animal_weight_post: Optional[Decimal] = Field(
-        None, title="Animal weight (g)", description="Animal weight after procedure"
+        None,
+        title="Animal weight (g)",
+        description="Animal weight after procedure",
     )
     weight_unit: MassUnit = Field(MassUnit.G, title="Weight unit")
     data_streams: List[Stream] = Field(
