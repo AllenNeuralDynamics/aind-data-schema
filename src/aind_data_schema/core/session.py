@@ -94,7 +94,7 @@ class FieldOfView(AindModel):
     )
     power: Optional[Decimal] = Field(None, title="Power (mW)")
     power_unit: Optional[PowerUnit] = Field(PowerUnit.MW, title="Power unit")
-    scanfield_z = Optional[Decimal] = Field(
+    scanfield_z: Optional[int] = Field(
         None,
         title="Z stage position of the fastz actuator for a given targeted depth",
     )
