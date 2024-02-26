@@ -38,7 +38,7 @@ class DataRegex(str, Enum):
     )
     NO_UNDERSCORES = "^[^_]+$"
     NO_SPECIAL_CHARS = '^[^<>:;"/|? \\_]+$'
-    NO_SPECIAL_CHARS_EXCEPT_SPACE = '^[^<>:;"/|? \\_]+$'
+    NO_SPECIAL_CHARS_EXCEPT_SPACE = '^[^<>:;"/|?\\_]+$'
 
 
 class DataLevel(str, Enum):
