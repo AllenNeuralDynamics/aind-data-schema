@@ -117,7 +117,9 @@ class Stack(AindModel):
     number_of_planes: int = Field(..., title="Number of planes")
     step_size: float = Field(..., title="Step size (um)")
     step_size_unit: SizeUnit = Field(SizeUnit.UM, title="Step size unit")
-    number_of_plane_repeats_per_volume: int = Field(..., title="Number of repeats per volume")
+    number_of_plane_repeats_per_volume: int = Field(
+        ..., title="Number of repeats per volume"
+    )
     number_of_volume_repeats: int = Field(..., title="Number of volume repeats")
     fov_coordinate_ml: float = Field(..., title="FOV coordinate ML")
     fov_coordinate_ap: float = Field(..., title="FOV coordinate AP")
@@ -201,7 +203,9 @@ class EphysProbeConfig(AindModel):
 class EphysModule(ManipulatorModule):
     """Probe recorded in a Stream"""
 
-    ephys_probes: List[EphysProbeConfig] = Field(..., title="Ephys probes used in this module")
+    ephys_probes: List[EphysProbeConfig] = Field(
+        ..., title="Ephys probes used in this module"
+    )
 
 
 class FiberModule(ManipulatorModule):
@@ -283,7 +287,9 @@ class Stream(AindModel):
         title="Stick microscopes",
         description="Must match stick microscope assemblies in rig file",
     )
-    manipulator_modules: List[ManipulatorModule] = Field(default=[], title="Manipulator modules")
+    manipulator_modules: List[ManipulatorModule] = Field(
+        default=[], title="Manipulator modules"
+    )
     detectors: List[DetectorConfig] = Field(default=[], title="Detectors")
     fiber_connections: List[FiberConnectionConfig] = Field(
         default=[], title="Implanted fiber photometry devices"
@@ -315,7 +321,9 @@ class Stream(AindModel):
         return None
 
     @staticmethod
-    def _validate_fib_modality(value: List[Modality.ONE_OF], info: ValidationInfo) -> Optional[str]:
+    def _validate_fib_modality(
+        value: List[Modality.ONE_OF], info: ValidationInfo
+    ) -> Optional[str]:
         """Validate FIB modality has light_sources, detectors, and fiber_connections"""
         if Modality.FIB in value:
             light_source = info.data["light_sources"]
@@ -397,9 +405,13 @@ class Session(AindCoreModel):
     _DESCRIBED_BY_URL = (
         AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/session.py"
     )
-    describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
+    describedBy: str = Field(
+        _DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL}
+    )
     schema_version: Literal["0.1.8"] = Field("0.1.8")
-    protocol_id: List[str] = Field([], title="Protocol ID", description="DOI for protocols.io")
+    protocol_id: List[str] = Field(
+        [], title="Protocol ID", description="DOI for protocols.io"
+    )
     experimenter_full_name: List[str] = Field(
         ...,
         description="First and last name of the experimenter(s).",
@@ -442,6 +454,8 @@ class Session(AindCoreModel):
     )
     stimulus_epochs: List[StimulusEpoch] = Field(default=[], title="Stimulus")
     reward_delivery: Optional[RewardDeliveryConfig] = Field(None, title="Reward delivery")
-    reward_consumed_total: Optional[Decimal] = Field(None, title="Total reward consumed (uL)")
+    reward_consumed_total: Optional[Decimal] = Field(
+        None, title="Total reward consumed (uL)"
+    )
     reward_consumed_unit: VolumeUnit = Field(VolumeUnit.UL, title="Reward consumed unit")
     notes: Optional[str] = Field(None, title="Notes")
