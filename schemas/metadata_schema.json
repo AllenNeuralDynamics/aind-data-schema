@@ -80,8 +80,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.6.6",
-               "default": "0.6.6",
+               "const": "0.6.7",
+               "default": "0.6.7",
                "title": "Schema Version"
             },
             "protocol_id": {
@@ -416,6 +416,7 @@
                            "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                            "National Instruments": "#/$defs/NationalInstruments",
                            "Navitar": "#/$defs/Navitar",
+                           "Neurophotometrics": "#/$defs/Neurophotometrics",
                            "New Scale Technologies": "#/$defs/NewScaleTechnologies",
                            "New York University": "#/$defs/NewYorkUniversity",
                            "Nikon": "#/$defs/Nikon",
@@ -587,6 +588,9 @@
                         },
                         {
                            "$ref": "#/$defs/Navitar"
+                        },
+                        {
+                           "$ref": "#/$defs/Neurophotometrics"
                         },
                         {
                            "$ref": "#/$defs/NewScaleTechnologies"
@@ -1228,6 +1232,7 @@
                      "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                      "National Instruments": "#/$defs/NationalInstruments",
                      "Navitar": "#/$defs/Navitar",
+                     "Neurophotometrics": "#/$defs/Neurophotometrics",
                      "New Scale Technologies": "#/$defs/NewScaleTechnologies",
                      "New York University": "#/$defs/NewYorkUniversity",
                      "Nikon": "#/$defs/Nikon",
@@ -1399,6 +1404,9 @@
                   },
                   {
                      "$ref": "#/$defs/Navitar"
+                  },
+                  {
+                     "$ref": "#/$defs/Neurophotometrics"
                   },
                   {
                      "$ref": "#/$defs/NewScaleTechnologies"
@@ -3314,6 +3322,7 @@
       "CraniotomyType": {
          "description": "Name of craniotomy Type",
          "enum": [
+            "Dual hemisphere craniotomy",
             "3 mm",
             "5 mm",
             "Visual Cortex",
@@ -4644,6 +4653,7 @@
                            "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                            "National Instruments": "#/$defs/NationalInstruments",
                            "Navitar": "#/$defs/Navitar",
+                           "Neurophotometrics": "#/$defs/Neurophotometrics",
                            "New Scale Technologies": "#/$defs/NewScaleTechnologies",
                            "New York University": "#/$defs/NewYorkUniversity",
                            "Nikon": "#/$defs/Nikon",
@@ -4815,6 +4825,9 @@
                         },
                         {
                            "$ref": "#/$defs/Navitar"
+                        },
+                        {
+                           "$ref": "#/$defs/Neurophotometrics"
                         },
                         {
                            "$ref": "#/$defs/NewScaleTechnologies"
@@ -5050,6 +5063,7 @@
                            "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                            "National Instruments": "#/$defs/NationalInstruments",
                            "Navitar": "#/$defs/Navitar",
+                           "Neurophotometrics": "#/$defs/Neurophotometrics",
                            "New Scale Technologies": "#/$defs/NewScaleTechnologies",
                            "New York University": "#/$defs/NewYorkUniversity",
                            "Nikon": "#/$defs/Nikon",
@@ -5221,6 +5235,9 @@
                         },
                         {
                            "$ref": "#/$defs/Navitar"
+                        },
+                        {
+                           "$ref": "#/$defs/Neurophotometrics"
                         },
                         {
                            "$ref": "#/$defs/NewScaleTechnologies"
@@ -5558,6 +5575,7 @@
                            "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                            "National Instruments": "#/$defs/NationalInstruments",
                            "Navitar": "#/$defs/Navitar",
+                           "Neurophotometrics": "#/$defs/Neurophotometrics",
                            "New Scale Technologies": "#/$defs/NewScaleTechnologies",
                            "New York University": "#/$defs/NewYorkUniversity",
                            "Nikon": "#/$defs/Nikon",
@@ -5729,6 +5747,9 @@
                         },
                         {
                            "$ref": "#/$defs/Navitar"
+                        },
+                        {
+                           "$ref": "#/$defs/Neurophotometrics"
                         },
                         {
                            "$ref": "#/$defs/NewScaleTechnologies"
@@ -6308,6 +6329,7 @@
                            "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                            "National Instruments": "#/$defs/NationalInstruments",
                            "Navitar": "#/$defs/Navitar",
+                           "Neurophotometrics": "#/$defs/Neurophotometrics",
                            "New Scale Technologies": "#/$defs/NewScaleTechnologies",
                            "New York University": "#/$defs/NewYorkUniversity",
                            "Nikon": "#/$defs/Nikon",
@@ -6479,6 +6501,9 @@
                         },
                         {
                            "$ref": "#/$defs/Navitar"
+                        },
+                        {
+                           "$ref": "#/$defs/Neurophotometrics"
                         },
                         {
                            "$ref": "#/$defs/NewScaleTechnologies"
@@ -6895,6 +6920,7 @@
                            "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                            "National Instruments": "#/$defs/NationalInstruments",
                            "Navitar": "#/$defs/Navitar",
+                           "Neurophotometrics": "#/$defs/Neurophotometrics",
                            "New Scale Technologies": "#/$defs/NewScaleTechnologies",
                            "New York University": "#/$defs/NewYorkUniversity",
                            "Nikon": "#/$defs/Nikon",
@@ -7066,6 +7092,9 @@
                         },
                         {
                            "$ref": "#/$defs/Navitar"
+                        },
+                        {
+                           "$ref": "#/$defs/Neurophotometrics"
                         },
                         {
                            "$ref": "#/$defs/NewScaleTechnologies"
@@ -7643,6 +7672,7 @@
                            "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                            "National Instruments": "#/$defs/NationalInstruments",
                            "Navitar": "#/$defs/Navitar",
+                           "Neurophotometrics": "#/$defs/Neurophotometrics",
                            "New Scale Technologies": "#/$defs/NewScaleTechnologies",
                            "New York University": "#/$defs/NewYorkUniversity",
                            "Nikon": "#/$defs/Nikon",
@@ -7814,6 +7844,9 @@
                         },
                         {
                            "$ref": "#/$defs/Navitar"
+                        },
+                        {
+                           "$ref": "#/$defs/Neurophotometrics"
                         },
                         {
                            "$ref": "#/$defs/NewScaleTechnologies"
@@ -8723,6 +8756,7 @@
                      "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                      "National Instruments": "#/$defs/NationalInstruments",
                      "Navitar": "#/$defs/Navitar",
+                     "Neurophotometrics": "#/$defs/Neurophotometrics",
                      "New Scale Technologies": "#/$defs/NewScaleTechnologies",
                      "New York University": "#/$defs/NewYorkUniversity",
                      "Nikon": "#/$defs/Nikon",
@@ -8894,6 +8928,9 @@
                   },
                   {
                      "$ref": "#/$defs/Navitar"
+                  },
+                  {
+                     "$ref": "#/$defs/Neurophotometrics"
                   },
                   {
                      "$ref": "#/$defs/NewScaleTechnologies"
@@ -9125,6 +9162,7 @@
                      "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                      "National Instruments": "#/$defs/NationalInstruments",
                      "Navitar": "#/$defs/Navitar",
+                     "Neurophotometrics": "#/$defs/Neurophotometrics",
                      "New Scale Technologies": "#/$defs/NewScaleTechnologies",
                      "New York University": "#/$defs/NewYorkUniversity",
                      "Nikon": "#/$defs/Nikon",
@@ -9296,6 +9334,9 @@
                   },
                   {
                      "$ref": "#/$defs/Navitar"
+                  },
+                  {
+                     "$ref": "#/$defs/Neurophotometrics"
                   },
                   {
                      "$ref": "#/$defs/NewScaleTechnologies"
@@ -9955,6 +9996,7 @@
                            "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                            "National Instruments": "#/$defs/NationalInstruments",
                            "Navitar": "#/$defs/Navitar",
+                           "Neurophotometrics": "#/$defs/Neurophotometrics",
                            "New Scale Technologies": "#/$defs/NewScaleTechnologies",
                            "New York University": "#/$defs/NewYorkUniversity",
                            "Nikon": "#/$defs/Nikon",
@@ -10126,6 +10168,9 @@
                         },
                         {
                            "$ref": "#/$defs/Navitar"
+                        },
+                        {
+                           "$ref": "#/$defs/Neurophotometrics"
                         },
                         {
                            "$ref": "#/$defs/NewScaleTechnologies"
@@ -10826,8 +10871,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.10.7",
-               "default": "0.10.7",
+               "const": "0.10.8",
+               "default": "0.10.8",
                "title": "Schema Version"
             },
             "instrument_id": {
@@ -10903,6 +10948,7 @@
                      "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                      "National Instruments": "#/$defs/NationalInstruments",
                      "Navitar": "#/$defs/Navitar",
+                     "Neurophotometrics": "#/$defs/Neurophotometrics",
                      "New Scale Technologies": "#/$defs/NewScaleTechnologies",
                      "New York University": "#/$defs/NewYorkUniversity",
                      "Nikon": "#/$defs/Nikon",
@@ -11074,6 +11120,9 @@
                   },
                   {
                      "$ref": "#/$defs/Navitar"
+                  },
+                  {
+                     "$ref": "#/$defs/Neurophotometrics"
                   },
                   {
                      "$ref": "#/$defs/NewScaleTechnologies"
@@ -12399,6 +12448,7 @@
                            "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                            "National Instruments": "#/$defs/NationalInstruments",
                            "Navitar": "#/$defs/Navitar",
+                           "Neurophotometrics": "#/$defs/Neurophotometrics",
                            "New Scale Technologies": "#/$defs/NewScaleTechnologies",
                            "New York University": "#/$defs/NewYorkUniversity",
                            "Nikon": "#/$defs/Nikon",
@@ -12570,6 +12620,9 @@
                         },
                         {
                            "$ref": "#/$defs/Navitar"
+                        },
+                        {
+                           "$ref": "#/$defs/Neurophotometrics"
                         },
                         {
                            "$ref": "#/$defs/NewScaleTechnologies"
@@ -14405,6 +14458,7 @@
                            "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                            "National Instruments": "#/$defs/NationalInstruments",
                            "Navitar": "#/$defs/Navitar",
+                           "Neurophotometrics": "#/$defs/Neurophotometrics",
                            "New Scale Technologies": "#/$defs/NewScaleTechnologies",
                            "New York University": "#/$defs/NewYorkUniversity",
                            "Nikon": "#/$defs/Nikon",
@@ -14576,6 +14630,9 @@
                         },
                         {
                            "$ref": "#/$defs/Navitar"
+                        },
+                        {
+                           "$ref": "#/$defs/Neurophotometrics"
                         },
                         {
                            "$ref": "#/$defs/NewScaleTechnologies"
@@ -15233,6 +15290,34 @@
          "title": "Navitar",
          "type": "object"
       },
+      "Neurophotometrics": {
+         "additionalProperties": false,
+         "description": "Neurophotometrics",
+         "properties": {
+            "name": {
+               "const": "Neurophotometrics",
+               "default": "Neurophotometrics",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Neurophotometrics",
+         "type": "object"
+      },
       "NeuropixelsBasestation": {
          "additionalProperties": false,
          "description": "PXI-based Neuropixels DAQ",
@@ -15577,6 +15662,7 @@
                      "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                      "National Instruments": "#/$defs/NationalInstruments",
                      "Navitar": "#/$defs/Navitar",
+                     "Neurophotometrics": "#/$defs/Neurophotometrics",
                      "New Scale Technologies": "#/$defs/NewScaleTechnologies",
                      "New York University": "#/$defs/NewYorkUniversity",
                      "Nikon": "#/$defs/Nikon",
@@ -15748,6 +15834,9 @@
                   },
                   {
                      "$ref": "#/$defs/Navitar"
+                  },
+                  {
+                     "$ref": "#/$defs/Neurophotometrics"
                   },
                   {
                      "$ref": "#/$defs/NewScaleTechnologies"
@@ -15962,6 +16051,7 @@
                            "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                            "National Instruments": "#/$defs/NationalInstruments",
                            "Navitar": "#/$defs/Navitar",
+                           "Neurophotometrics": "#/$defs/Neurophotometrics",
                            "New Scale Technologies": "#/$defs/NewScaleTechnologies",
                            "New York University": "#/$defs/NewYorkUniversity",
                            "Nikon": "#/$defs/Nikon",
@@ -16133,6 +16223,9 @@
                         },
                         {
                            "$ref": "#/$defs/Navitar"
+                        },
+                        {
+                           "$ref": "#/$defs/Neurophotometrics"
                         },
                         {
                            "$ref": "#/$defs/NewScaleTechnologies"
@@ -16494,6 +16587,7 @@
                      "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                      "National Instruments": "#/$defs/NationalInstruments",
                      "Navitar": "#/$defs/Navitar",
+                     "Neurophotometrics": "#/$defs/Neurophotometrics",
                      "New Scale Technologies": "#/$defs/NewScaleTechnologies",
                      "New York University": "#/$defs/NewYorkUniversity",
                      "Nikon": "#/$defs/Nikon",
@@ -16665,6 +16759,9 @@
                   },
                   {
                      "$ref": "#/$defs/Navitar"
+                  },
+                  {
+                     "$ref": "#/$defs/Neurophotometrics"
                   },
                   {
                      "$ref": "#/$defs/NewScaleTechnologies"
@@ -17316,6 +17413,7 @@
                            "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                            "National Instruments": "#/$defs/NationalInstruments",
                            "Navitar": "#/$defs/Navitar",
+                           "Neurophotometrics": "#/$defs/Neurophotometrics",
                            "New Scale Technologies": "#/$defs/NewScaleTechnologies",
                            "New York University": "#/$defs/NewYorkUniversity",
                            "Nikon": "#/$defs/Nikon",
@@ -17487,6 +17585,9 @@
                         },
                         {
                            "$ref": "#/$defs/Navitar"
+                        },
+                        {
+                           "$ref": "#/$defs/Neurophotometrics"
                         },
                         {
                            "$ref": "#/$defs/NewScaleTechnologies"
@@ -18122,6 +18223,7 @@
                            "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                            "National Instruments": "#/$defs/NationalInstruments",
                            "Navitar": "#/$defs/Navitar",
+                           "Neurophotometrics": "#/$defs/Neurophotometrics",
                            "New Scale Technologies": "#/$defs/NewScaleTechnologies",
                            "New York University": "#/$defs/NewYorkUniversity",
                            "Nikon": "#/$defs/Nikon",
@@ -18293,6 +18395,9 @@
                         },
                         {
                            "$ref": "#/$defs/Navitar"
+                        },
+                        {
+                           "$ref": "#/$defs/Neurophotometrics"
                         },
                         {
                            "$ref": "#/$defs/NewScaleTechnologies"
@@ -18828,6 +18933,7 @@
                            "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                            "National Instruments": "#/$defs/NationalInstruments",
                            "Navitar": "#/$defs/Navitar",
+                           "Neurophotometrics": "#/$defs/Neurophotometrics",
                            "New Scale Technologies": "#/$defs/NewScaleTechnologies",
                            "New York University": "#/$defs/NewYorkUniversity",
                            "Nikon": "#/$defs/Nikon",
@@ -18999,6 +19105,9 @@
                         },
                         {
                            "$ref": "#/$defs/Navitar"
+                        },
+                        {
+                           "$ref": "#/$defs/Neurophotometrics"
                         },
                         {
                            "$ref": "#/$defs/NewScaleTechnologies"
@@ -19262,6 +19371,7 @@
                            "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                            "National Instruments": "#/$defs/NationalInstruments",
                            "Navitar": "#/$defs/Navitar",
+                           "Neurophotometrics": "#/$defs/Neurophotometrics",
                            "New Scale Technologies": "#/$defs/NewScaleTechnologies",
                            "New York University": "#/$defs/NewYorkUniversity",
                            "Nikon": "#/$defs/Nikon",
@@ -19433,6 +19543,9 @@
                         },
                         {
                            "$ref": "#/$defs/Navitar"
+                        },
+                        {
+                           "$ref": "#/$defs/Neurophotometrics"
                         },
                         {
                            "$ref": "#/$defs/NewScaleTechnologies"
@@ -19690,8 +19803,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.12.0",
-               "default": "0.12.0",
+               "const": "0.12.2",
+               "default": "0.12.2",
                "description": "schema version",
                "title": "Version"
             },
@@ -20066,6 +20179,7 @@
                      "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                      "National Instruments": "#/$defs/NationalInstruments",
                      "Navitar": "#/$defs/Navitar",
+                     "Neurophotometrics": "#/$defs/Neurophotometrics",
                      "New Scale Technologies": "#/$defs/NewScaleTechnologies",
                      "New York University": "#/$defs/NewYorkUniversity",
                      "Nikon": "#/$defs/Nikon",
@@ -20237,6 +20351,9 @@
                   },
                   {
                      "$ref": "#/$defs/Navitar"
+                  },
+                  {
+                     "$ref": "#/$defs/Neurophotometrics"
                   },
                   {
                      "$ref": "#/$defs/NewScaleTechnologies"
@@ -20433,6 +20550,7 @@
                      "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                      "National Instruments": "#/$defs/NationalInstruments",
                      "Navitar": "#/$defs/Navitar",
+                     "Neurophotometrics": "#/$defs/Neurophotometrics",
                      "New Scale Technologies": "#/$defs/NewScaleTechnologies",
                      "New York University": "#/$defs/NewYorkUniversity",
                      "Nikon": "#/$defs/Nikon",
@@ -20604,6 +20722,9 @@
                   },
                   {
                      "$ref": "#/$defs/Navitar"
+                  },
+                  {
+                     "$ref": "#/$defs/Neurophotometrics"
                   },
                   {
                      "$ref": "#/$defs/NewScaleTechnologies"
@@ -21095,6 +21216,7 @@
                            "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                            "National Instruments": "#/$defs/NationalInstruments",
                            "Navitar": "#/$defs/Navitar",
+                           "Neurophotometrics": "#/$defs/Neurophotometrics",
                            "New Scale Technologies": "#/$defs/NewScaleTechnologies",
                            "New York University": "#/$defs/NewYorkUniversity",
                            "Nikon": "#/$defs/Nikon",
@@ -21266,6 +21388,9 @@
                         },
                         {
                            "$ref": "#/$defs/Navitar"
+                        },
+                        {
+                           "$ref": "#/$defs/Neurophotometrics"
                         },
                         {
                            "$ref": "#/$defs/NewScaleTechnologies"
@@ -21514,8 +21639,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.2.12",
-               "default": "0.2.12",
+               "const": "0.2.13",
+               "default": "0.2.13",
                "title": "Schema Version"
             },
             "rig_id": {
@@ -22044,6 +22169,7 @@
                            "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                            "National Instruments": "#/$defs/NationalInstruments",
                            "Navitar": "#/$defs/Navitar",
+                           "Neurophotometrics": "#/$defs/Neurophotometrics",
                            "New Scale Technologies": "#/$defs/NewScaleTechnologies",
                            "New York University": "#/$defs/NewYorkUniversity",
                            "Nikon": "#/$defs/Nikon",
@@ -22215,6 +22341,9 @@
                         },
                         {
                            "$ref": "#/$defs/Navitar"
+                        },
+                        {
+                           "$ref": "#/$defs/Neurophotometrics"
                         },
                         {
                            "$ref": "#/$defs/NewScaleTechnologies"
@@ -22511,8 +22640,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.1.6",
-               "default": "0.1.6",
+               "const": "0.1.7",
+               "default": "0.1.7",
                "title": "Schema Version"
             },
             "protocol_id": {
@@ -23831,6 +23960,7 @@
                      "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                      "National Instruments": "#/$defs/NationalInstruments",
                      "Navitar": "#/$defs/Navitar",
+                     "Neurophotometrics": "#/$defs/Neurophotometrics",
                      "New Scale Technologies": "#/$defs/NewScaleTechnologies",
                      "New York University": "#/$defs/NewYorkUniversity",
                      "Nikon": "#/$defs/Nikon",
@@ -24002,6 +24132,9 @@
                   },
                   {
                      "$ref": "#/$defs/Navitar"
+                  },
+                  {
+                     "$ref": "#/$defs/Neurophotometrics"
                   },
                   {
                      "$ref": "#/$defs/NewScaleTechnologies"
@@ -25371,6 +25504,7 @@
                            "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                            "National Instruments": "#/$defs/NationalInstruments",
                            "Navitar": "#/$defs/Navitar",
+                           "Neurophotometrics": "#/$defs/Neurophotometrics",
                            "New Scale Technologies": "#/$defs/NewScaleTechnologies",
                            "New York University": "#/$defs/NewYorkUniversity",
                            "Nikon": "#/$defs/Nikon",
@@ -25542,6 +25676,9 @@
                         },
                         {
                            "$ref": "#/$defs/Navitar"
+                        },
+                        {
+                           "$ref": "#/$defs/Neurophotometrics"
                         },
                         {
                            "$ref": "#/$defs/NewScaleTechnologies"
@@ -25821,6 +25958,7 @@
                            "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                            "National Instruments": "#/$defs/NationalInstruments",
                            "Navitar": "#/$defs/Navitar",
+                           "Neurophotometrics": "#/$defs/Neurophotometrics",
                            "New Scale Technologies": "#/$defs/NewScaleTechnologies",
                            "New York University": "#/$defs/NewYorkUniversity",
                            "Nikon": "#/$defs/Nikon",
@@ -25992,6 +26130,9 @@
                         },
                         {
                            "$ref": "#/$defs/Navitar"
+                        },
+                        {
+                           "$ref": "#/$defs/Neurophotometrics"
                         },
                         {
                            "$ref": "#/$defs/NewScaleTechnologies"
@@ -26592,6 +26733,7 @@
                            "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                            "National Instruments": "#/$defs/NationalInstruments",
                            "Navitar": "#/$defs/Navitar",
+                           "Neurophotometrics": "#/$defs/Neurophotometrics",
                            "New Scale Technologies": "#/$defs/NewScaleTechnologies",
                            "New York University": "#/$defs/NewYorkUniversity",
                            "Nikon": "#/$defs/Nikon",
@@ -26763,6 +26905,9 @@
                         },
                         {
                            "$ref": "#/$defs/Navitar"
+                        },
+                        {
+                           "$ref": "#/$defs/Neurophotometrics"
                         },
                         {
                            "$ref": "#/$defs/NewScaleTechnologies"
@@ -27554,8 +27699,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.1.26",
-         "default": "0.1.26",
+         "const": "0.1.28",
+         "default": "0.1.28",
          "title": "Schema Version"
       },
       "_id": {

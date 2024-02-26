@@ -1816,6 +1816,34 @@
          "title": "Navitar",
          "type": "object"
       },
+      "Neurophotometrics": {
+         "additionalProperties": false,
+         "description": "Neurophotometrics",
+         "properties": {
+            "name": {
+               "const": "Neurophotometrics",
+               "default": "Neurophotometrics",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Neurophotometrics",
+         "type": "object"
+      },
       "NewScaleTechnologies": {
          "additionalProperties": false,
          "description": "NewScaleTechnologies",
@@ -2309,6 +2337,7 @@
                            "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                            "National Instruments": "#/$defs/NationalInstruments",
                            "Navitar": "#/$defs/Navitar",
+                           "Neurophotometrics": "#/$defs/Neurophotometrics",
                            "New Scale Technologies": "#/$defs/NewScaleTechnologies",
                            "New York University": "#/$defs/NewYorkUniversity",
                            "Nikon": "#/$defs/Nikon",
@@ -2480,6 +2509,9 @@
                         },
                         {
                            "$ref": "#/$defs/Navitar"
+                        },
+                        {
+                           "$ref": "#/$defs/Neurophotometrics"
                         },
                         {
                            "$ref": "#/$defs/NewScaleTechnologies"
@@ -3172,8 +3204,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.2.9",
-         "default": "0.2.9",
+         "const": "0.2.10",
+         "default": "0.2.10",
          "title": "Schema Version"
       },
       "subject_id": {
