@@ -60,7 +60,8 @@ jobs:
             python -m aind_data_schema.utils.json_writer --output $OUTPUT_DIR
         - name: Create example schemas
           run: |
-            for script in examples/*.py; do
+            cd examples
+            for script in ./*.py; do
                 python "$script"
             done
         - name: Commit changes
