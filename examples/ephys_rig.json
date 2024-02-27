@@ -621,7 +621,6 @@
    ],
    "ccf_coordinate_transform": null,
    "origin": null,
-   "rig_axes": [],
    "modalities": [
       {
          "name": "Extracellular electrophysiology",
