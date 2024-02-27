@@ -193,6 +193,7 @@ class Cooling(str, Enum):
 
     AIR = "Air"
     WATER = "Water"
+    NONE = None
 
 
 class BinMode(str, Enum):
