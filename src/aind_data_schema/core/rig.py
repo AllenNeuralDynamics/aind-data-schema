@@ -3,7 +3,7 @@
 from datetime import date
 from typing import List, Literal, Optional, Set, Union
 
-from pydantic import Field, ValidationInfo, field_validator
+from pydantic import Field, ValidationInfo, field_validator, model_validator
 from typing_extensions import Annotated
 
 from aind_data_schema.base import AindCoreModel
@@ -82,37 +82,36 @@ class Rig(AindCoreModel):
     modalities: Set[Modality.ONE_OF] = Field(..., title="Modalities")
     notes: Optional[str] = Field(None, title="Notes")
 
-    @field_validator("daqs", mode="after")
-    def validate_device_names(cls, value: List[DAQDevice], info: ValidationInfo) -> List[DAQDevice]:
+    @model_validator(mode="after")
+    def validate_device_names(self):
         """validate that all DAQ channels are connected to devices that
         actually exist
         """
-        daqs = value
         non_reward_delivery_stimulus_devices = [
-            d for d in info.data["stimulus_devices"] if not isinstance(d, RewardDelivery)
+            d for d in self.stimulus_devices if not isinstance(d, RewardDelivery)
         ]
         standard_devices = (
-            daqs
-            + info.data["light_sources"]
-            + info.data["patch_cords"]
-            + info.data["detectors"]
-            + info.data["digital_micromirror_devices"]
-            + info.data["polygonal_scanners"]
-            + info.data["pockels_cells"]
-            + info.data["additional_devices"]
+            self.daqs
+            + self.light_sources
+            + self.patch_cords
+            + self.detectors
+            + self.digital_micromirror_devices
+            + self.polygonal_scanners
+            + self.pockels_cells
+            + self.additional_devices
             + non_reward_delivery_stimulus_devices
         )
-        camera_devices = info.data["cameras"] + info.data["stick_microscopes"]
+        camera_devices = self.cameras + self.stick_microscopes
         standard_device_names = [device.name for device in standard_devices]
         camera_names = [camera.camera.name for camera in camera_devices]
         ephys_assembly_names = [
-            probe.name for ephys_assembly in info.data["ephys_assemblies"] for probe in ephys_assembly.probes
+            probe.name for ephys_assembly in self.ephys_assemblies for probe in ephys_assembly.probes
         ]
         laser_assembly_names = [
-            laser.name for laser_assembly in info.data["laser_assemblies"] for laser in laser_assembly.lasers
+            laser.name for laser_assembly in self.laser_assemblies for laser in laser_assembly.lasers
         ]
-        mouse_platform_names = [] if info.data.get("mouse_platform") is None else [info.data["mouse_platform"].name]
-        reward_deliveries = [d for d in info.data["stimulus_devices"] if isinstance(d, RewardDelivery)]
+        mouse_platform_names = [] if getattr(self, "mouse_platform", None) is None else [self.mouse_platform.name]
+        reward_deliveries = [d for d in self.stimulus_devices if isinstance(d, RewardDelivery)]
         reward_delivery_device_names = []
         for rd in reward_deliveries:
             for rs in rd.reward_spouts:
@@ -127,7 +126,7 @@ class Rig(AindCoreModel):
             + reward_delivery_device_names
         )
 
-        for daq in daqs:
+        for daq in self.daqs:
             for channel in daq.channels:
                 if channel.device_name not in all_device_names:
                     raise ValueError(
@@ -135,7 +134,7 @@ class Rig(AindCoreModel):
                         + f"is connected to '{channel.channel_name}' on '{daq.name}', but "
                         + "this device is not part of the rig."
                     )
-        return daqs
+        return self
 
     @staticmethod
     def _validate_ephys_modality(value: Set[Modality.ONE_OF], info: ValidationInfo) -> List[str]:
