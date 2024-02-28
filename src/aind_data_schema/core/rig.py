@@ -139,7 +139,7 @@ class Rig(AindCoreModel):
     def _validate_ephys_modality(self) -> List[str]:
         """Validate ecephys modality has ephys_assemblies and stick_microscopes"""
         errors = []
-        if Modality.ECEPHYS in getattr(self, "modalities", []):
+        if Modality.ECEPHYS in self.modalities:
             for k, v in {
                 "ephys_assemblies": len(self.ephys_assemblies) > 0,
             }.items():
@@ -173,7 +173,6 @@ class Rig(AindCoreModel):
                     errors.append(f"{k} field must be utilized for POPHYS modality")
         return errors
 
-    # @staticmethod
     def _validate_slap_modality(self) -> List[str]:
         """Validate SLAP modality has light_sources, detectors, and objectives"""
         errors = []
