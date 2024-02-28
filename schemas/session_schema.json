@@ -97,6 +97,13 @@
          "title": "AilipuTechnologyCo",
          "type": "object"
       },
+      "AindGeneric": {
+         "additionalProperties": true,
+         "description": "Base class for generic types that can be used in AIND schema",
+         "properties": {},
+         "title": "AindGeneric",
+         "type": "object"
+      },
       "AllenInstitute": {
          "additionalProperties": false,
          "description": "AllenInstitute",
@@ -537,9 +544,13 @@
                "title": "Behavior script"
             },
             "output_parameters": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/AindGeneric"
+                  }
+               ],
                "description": "Performance metrics from session",
-               "title": "Performance parameters",
-               "type": "object"
+               "title": "Performance parameters"
             },
             "reward_consumed_during_epoch": {
                "anyOf": [
@@ -659,16 +670,24 @@
                "type": "string"
             },
             "input": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/AindGeneric"
+                  }
+               ],
                "default": {},
                "description": "Calibration input",
-               "title": "inputs",
-               "type": "object"
+               "title": "inputs"
             },
             "output": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/AindGeneric"
+                  }
+               ],
                "default": {},
                "description": "Calibration output",
-               "title": "outputs",
-               "type": "object"
+               "title": "outputs"
             },
             "notes": {
                "anyOf": [
@@ -3446,9 +3465,13 @@
                "title": "Baseline duration unit"
             },
             "other_parameters": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/AindGeneric"
+                  }
+               ],
                "default": {},
-               "title": "Other Parameters",
-               "type": "object"
+               "title": "Other parameters"
             },
             "notes": {
                "anyOf": [
@@ -3674,9 +3697,13 @@
                "title": "Inter trial interval unit"
             },
             "other_parameters": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/AindGeneric"
+                  }
+               ],
                "default": {},
-               "title": "Other Parameters",
-               "type": "object"
+               "title": "Other parameters"
             },
             "notes": {
                "anyOf": [
@@ -3781,9 +3808,13 @@
                "title": "Inter trial interval unit"
             },
             "other_parameters": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/AindGeneric"
+                  }
+               ],
                "default": {},
-               "title": "Other Parameters",
-               "type": "object"
+               "title": "Other parameters"
             },
             "notes": {
                "anyOf": [
@@ -4844,9 +4875,13 @@
                "title": "URL to commit being used"
             },
             "parameters": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/AindGeneric"
+                  }
+               ],
                "default": {},
-               "title": "Software parameters",
-               "type": "object"
+               "title": "Software parameters"
             }
          },
          "required": [
@@ -5846,10 +5881,14 @@
                "type": "string"
             },
             "stimulus_parameters": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/AindGeneric"
+                  }
+               ],
                "default": {},
                "description": "Define and list the parameter values used (e.g. all TF or orientation values)",
-               "title": "Stimulus parameters",
-               "type": "object"
+               "title": "Stimulus parameters"
             },
             "stimulus_template_name": {
                "default": [],
@@ -5951,8 +5990,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.1.7",
-         "default": "0.1.7",
+         "const": "0.1.8",
+         "default": "0.1.8",
          "title": "Schema Version"
       },
       "protocol_id": {
