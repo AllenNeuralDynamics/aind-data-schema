@@ -350,10 +350,9 @@ class NonViralMaterial(Reagent):
 class Injection(AindModel):
     """Description of an injection procedure"""
 
-    injection_materials: Annotated[
-        List[Union[ViralMaterial, NonViralMaterial]],
-        Field(title="Injection material", min_length=1, discriminator="material_type"),
-    ] = []
+    injection_materials: Optional[
+        List[Annotated[Union[ViralMaterial, NonViralMaterial], Field(discriminator="material_type")]]
+    ] = Field(None, title="Injection material", min_length=1)
     recovery_time: Optional[Decimal] = Field(None, title="Recovery time")
     recovery_time_unit: TimeUnit = Field(TimeUnit.M, title="Recovery time unit")
     injection_duration: Optional[Decimal] = Field(None, title="Injection duration")

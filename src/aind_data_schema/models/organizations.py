@@ -414,9 +414,9 @@ class Mpi(_Organization):
 class NationalInstituteOfNeurologicalDisordersAndStroke(_Organization):
     """NationalInstituteOfNeurologicalDisordersAndStroke"""
 
-    name: Literal["National Institute of Neurological Disorders and Stroke"] = (
+    name: Literal[
         "National Institute of Neurological Disorders and Stroke"
-    )
+    ] = "National Institute of Neurological Disorders and Stroke"
     abbreviation: Literal["NINDS"] = "NINDS"
     registry: Annotated[Union[ResearchOrganizationRegistry], Field(default=Registry.ROR, discriminator="name")]
     registry_identifier: Literal["01s5ya894"] = "01s5ya894"
