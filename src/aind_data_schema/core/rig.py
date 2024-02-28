@@ -3,7 +3,7 @@
 from datetime import date
 from typing import List, Literal, Optional, Set, Union
 
-from pydantic import Field, ValidationInfo, field_validator, model_validator
+from pydantic import Field, model_validator
 from typing_extensions import Annotated
 
 from aind_data_schema.base import AindCoreModel
@@ -78,9 +78,9 @@ class Rig(AindCoreModel):
         description="Path to file that details the CCF-to-lab coordinate transform",
     )
     origin: Optional[Origin] = Field(None, title="Origin point for rig position transforms")
-    rig_axes: Optional[List[Axis]] = Field(default=[], title="Rig axes", min_length=3, max_length=3)
+    rig_axes: Optional[List[Axis]] = Field(None, title="Rig axes", min_length=3, max_length=3)
     modalities: Set[Modality.ONE_OF] = Field(..., title="Modalities")
-    notes: Optional[str] = Field(None, title="Notes")
+    notes: Optional[str] = Field(default=None, title="Notes")
 
     @model_validator(mode="after")
     def validate_device_names(self):
@@ -136,92 +136,87 @@ class Rig(AindCoreModel):
                     )
         return self
 
-    @staticmethod
-    def _validate_ephys_modality(value: Set[Modality.ONE_OF], info: ValidationInfo) -> List[str]:
+    def _validate_ephys_modality(self) -> List[str]:
         """Validate ecephys modality has ephys_assemblies and stick_microscopes"""
         errors = []
-        if Modality.ECEPHYS in value:
+        if Modality.ECEPHYS in getattr(self, "modalities", []):
             for k, v in {
-                "ephys_assemblies": len(info.data["ephys_assemblies"]) > 0,
+                "ephys_assemblies": len(self.ephys_assemblies) > 0,
             }.items():
                 if v is False:
                     errors.append(f"{k} field must be utilized for Ecephys modality")
         return errors
 
-    @staticmethod
-    def _validate_fib_modality(value: Set[Modality.ONE_OF], info: ValidationInfo) -> List[str]:
+    def _validate_fib_modality(self) -> List[str]:
         """Validate FIB modality has light_sources, detectors, and patch_cords"""
         errors = []
-        if Modality.FIB in value:
+        if Modality.FIB in self.modalities:
             for k, v in {
-                "light_sources": len(info.data["light_sources"]) > 0,
-                "detectors": len(info.data["detectors"]) > 0,
-                "patch_cords": len(info.data["patch_cords"]) > 0,
+                "light_sources": len(self.light_sources) > 0,
+                "detectors": len(self.detectors) > 0,
+                "patch_cords": len(self.patch_cords) > 0,
             }.items():
                 if v is False:
                     errors.append(f"{k} field must be utilized for FIB modality")
         return errors
 
-    @staticmethod
-    def _validate_pophys_modality(value: Set[Modality.ONE_OF], info: ValidationInfo) -> List[str]:
+    def _validate_pophys_modality(self) -> List[str]:
         """Validate POPHYS modality has light_sources, detectors, and objectives"""
         errors = []
-        if Modality.POPHYS in value:
+        if Modality.POPHYS in self.modalities:
             for k, v in {
-                "light_sources": len(info.data["light_sources"]) > 0,
-                "detectors": len(info.data["detectors"]) > 0,
-                "objectives": len(info.data["objectives"]) > 0,
+                "light_sources": len(self.light_sources) > 0,
+                "detectors": len(self.detectors) > 0,
+                "objectives": len(self.objectives) > 0,
             }.items():
                 if v is False:
                     errors.append(f"{k} field must be utilized for POPHYS modality")
         return errors
 
-    @staticmethod
-    def _validate_slap_modality(value: Set[Modality.ONE_OF], info: ValidationInfo) -> List[str]:
+    # @staticmethod
+    def _validate_slap_modality(self) -> List[str]:
         """Validate SLAP modality has light_sources, detectors, and objectives"""
         errors = []
-        if Modality.SLAP in value:
+        if Modality.SLAP in self.modalities:
             for k, v in {
-                "light_sources": len(info.data["light_sources"]) > 0,
-                "detectors": len(info.data["detectors"]) > 0,
-                "objectives": len(info.data["objectives"]) > 0,
+                "light_sources": len(self.light_sources) > 0,
+                "detectors": len(self.detectors) > 0,
+                "objectives": len(self.objectives) > 0,
             }.items():
                 if v is False:
                     errors.append(f"{k} field must be utilized for SLAP modality")
         return errors
 
-    @staticmethod
-    def _validate_behavior_videos_modality(value: Set[Modality.ONE_OF], info: ValidationInfo) -> List[str]:
+    def _validate_behavior_videos_modality(self) -> List[str]:
         """Validate BEHAVIOR_VIDEOS modality has cameras"""
         errors = []
-        if Modality.BEHAVIOR_VIDEOS in value:
-            if len(info.data["cameras"]) == 0:
+        if Modality.BEHAVIOR_VIDEOS in self.modalities:
+            if len(self.cameras) == 0:
                 errors.append("cameras field must be utilized for Behavior Videos modality")
         return errors
 
-    @staticmethod
-    def _validate_behavior_modality(value: Set[Modality.ONE_OF], info: ValidationInfo) -> List[str]:
+    def _validate_behavior_modality(self) -> List[str]:
         """Validate that BEHAVIOR modality has stimulus_devices"""
         errors = []
-        if Modality.BEHAVIOR in value:
-            if len(info.data["stimulus_devices"]) == 0:
+        if Modality.BEHAVIOR in self.modalities:
+            if len(self.stimulus_devices) == 0:
                 errors.append("stimulus_devices field must be utilized for Behavior modality")
 
         return errors
 
-    @field_validator("modalities", mode="after")
-    def validate_modalities(cls, value: Set[Modality.ONE_OF], info: ValidationInfo) -> Set[Modality.ONE_OF]:
+    @model_validator(mode="after")
+    def validate_modalities(self):
         """Validate each modality in modalities field has associated data"""
-        ephys_errors = cls._validate_ephys_modality(value, info)
-        fib_errors = cls._validate_fib_modality(value, info)
-        pophys_errors = cls._validate_pophys_modality(value, info)
-        slap_errors = cls._validate_slap_modality(value, info)
-        behavior_vids_errors = cls._validate_behavior_videos_modality(value, info)
-        behavior_errors = cls._validate_behavior_modality(value, info)
+        ephys_errors = self._validate_ephys_modality()
+        fib_errors = self._validate_fib_modality()
+        pophys_errors = self._validate_pophys_modality()
+        slap_errors = self._validate_slap_modality()
+        behavior_vids_errors = self._validate_behavior_videos_modality()
+        behavior_errors = self._validate_behavior_modality()
 
         errors = ephys_errors + fib_errors + pophys_errors + slap_errors + behavior_vids_errors + behavior_errors
         if len(errors) > 0:
             message = "\n     ".join(errors)
             raise ValueError(message)
 
-        return value
+        return self
