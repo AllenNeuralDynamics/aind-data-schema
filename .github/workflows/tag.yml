@@ -33,34 +33,46 @@ jobs:
           message: "updates diagrams [skip actions]"
           add: '["*.png", "*.rst"]'
 
-  update_schemas:
-    runs-on: ubuntu-latest
-    env:
-      OUTPUT_DIR: 'schemas'
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          ref: ${{ env.DEFAULT_BRANCH }}
-          fetch-depth: 0
-          token: ${{ secrets.SERVICE_TOKEN }}
-      - name: Set up Python 3.8
-        uses: actions/setup-python@v3
-        with:
-          python-version: 3.8
-      - name: Create schemas
-        run: |
-          rm -rf $OUTPUT_DIR
-          python -m pip install -e .
-          python -m aind_data_schema.utils.json_writer --output $OUTPUT_DIR
-      - name: Commit changes
-        uses: EndBug/add-and-commit@v9
-        with:
-          default_author: github_actions
-          message: "updates schemas [skip actions]"
-          add: 'schemas'
+  bump_versions_and_update_schemas:
+      runs-on: ubuntu-latest
+      env:
+        OUTPUT_DIR: 'schemas'
+      steps:
+        - uses: actions/checkout@v3
+          with:
+            ref: ${{ env.DEFAULT_BRANCH }}
+            fetch-depth: 0
+            token: ${{ secrets.SERVICE_TOKEN }}
+        - name: Set up Python 3.8
+          uses: actions/setup-python@v3
+          with:
+            python-version: 3.8
+        - name: Install dependencies
+          run: python -m pip install -e .[dev] --no-cache-dir
+        - name: Bump schema versions
+          run: |
+            python -m aind_data_schema.utils.schema_version_bump
+            echo "Finished schema version bump"
+        - name: Update schemas
+          run: |
+            rm -rf $OUTPUT_DIR
+            python -m pip install -e .
+            python -m aind_data_schema.utils.json_writer --output $OUTPUT_DIR
+        - name: Create example schemas
+          run: |
+            cd examples
+            for script in ./*.py; do
+                python "$script"
+            done
+        - name: Commit changes
+          uses: EndBug/add-and-commit@v9
+          with:
+            default_author: github_actions
+            message: "bump schema version [skip actions]"
+            add: '["src", "schemas", "examples"]'
 
   tag:
-    needs: [update_docs, update_schemas]
+    needs: [update_docs, bump_versions_and_update_schemas]
     uses: AllenNeuralDynamics/aind-github-actions/.github/workflows/tag.yml@main
     secrets:
       SERVICE_TOKEN: ${{ secrets.SERVICE_TOKEN }} # required
