@@ -22,8 +22,8 @@ from aind_data_schema.core.data_description import (
 )
 from aind_data_schema.models.modalities import Modality
 from aind_data_schema.models.organizations import Organization
-from aind_data_schema.models.platforms import Platform
 from aind_data_schema.models.pid_names import PIDName
+from aind_data_schema.models.platforms import Platform
 
 DATA_DESCRIPTION_FILES_PATH = Path(__file__).parent / "resources" / "ephys_data_description"
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)

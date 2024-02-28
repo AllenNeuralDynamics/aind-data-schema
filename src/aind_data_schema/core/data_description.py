@@ -10,8 +10,9 @@ from pydantic import Field, model_validator
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.models.modalities import Modality
 from aind_data_schema.models.organizations import Organization
-from aind_data_schema.models.platforms import Platform
 from aind_data_schema.models.pid_names import PIDName
+from aind_data_schema.models.platforms import Platform
+
 
 class RegexParts(str, Enum):
     """regular expression components to be re-used elsewhere"""

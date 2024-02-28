@@ -47,6 +47,7 @@ class NationalCenterForBiotechnologyInformation(_Registry):
     name: Literal["National Center for Biotechnology Information"] = "National Center for Biotechnology Information"
     abbreviation: Literal["NCBI"] = "NCBI"
 
+
 class OpenResearcherAndContributorID(_Registry):
     """NationalCenterForBiotechnologyInformation"""
 
