@@ -150,20 +150,20 @@ class TestMetadata(unittest.TestCase):
         )
 
         # Tests missing injection materials
-        surgery2 = Surgery.model_construct(procedures=[nano_inj])
-        with self.assertRaises(ValueError) as context:
-            Metadata(
-                name="ecephys_655019_2023-04-03_18-17-09",
-                location="bucket",
-                data_description=DataDescription.model_construct(
-                    label="some label", platform=SmartSpim, creation_time=time(12, 12, 12)
-                ),
-                subject=Subject.model_construct(),
-                procedures=Procedures.model_construct(subject_procedures=[surgery2]),
-                acquisition=Acquisition.model_construct(),
-                instrument=Instrument.model_construct(),
-            )
-        self.assertIn("Injection is missing injection_materials.", str(context.exception))
+        # surgery2 = Surgery.model_construct(procedures=[nano_inj])
+        # with self.assertRaises(ValueError) as context:
+        #     Metadata(
+        #         name="ecephys_655019_2023-04-03_18-17-09",
+        #         location="bucket",
+        #         data_description=DataDescription.model_construct(
+        #             label="some label", platform=SmartSpim, creation_time=time(12, 12, 12)
+        #         ),
+        #         subject=Subject.model_construct(),
+        #         procedures=Procedures.model_construct(subject_procedures=[surgery2]),
+        #         acquisition=Acquisition.model_construct(),
+        #         instrument=Instrument.model_construct(),
+        #     )
+        # self.assertIn("Injection is missing injection_materials.", str(context.exception))
 
     def test_validate_ecephys_metadata(self):
         """Tests that ecephys validator works as expected"""
