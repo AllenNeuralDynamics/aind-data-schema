@@ -99,7 +99,7 @@ jobs:
         with:
           password: ${{ secrets.AIND_PYPI_TOKEN }}
 
-  upload-schemas-prod:
+  upload_schemas_prod:
     needs: publish
     runs-on: ubuntu-latest
     permissions:
@@ -132,8 +132,8 @@ jobs:
           python -m pip install awscli
           aws s3 sync $TEMP_DIR s3://${AWS_DATA_SCHEMA_BUCKET}/$S3_PREFIX
 
-  upload-schemas-dev:
-    needs: upload-schemas-prod
+  upload_schemas_dev:
+    needs: upload_schemas_prod
     runs-on: ubuntu-latest
     permissions:
       id-token: write
