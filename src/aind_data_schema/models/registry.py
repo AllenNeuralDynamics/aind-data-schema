@@ -47,6 +47,12 @@ class NationalCenterForBiotechnologyInformation(_Registry):
     name: Literal["National Center for Biotechnology Information"] = "National Center for Biotechnology Information"
     abbreviation: Literal["NCBI"] = "NCBI"
 
+class OpenResearcherAndContributorID(_Registry):
+    """NationalCenterForBiotechnologyInformation"""
+
+    name: Literal["Open Researcher and Contributor ID"] = "Open Researcher and Contributor ID"
+    abbreviation: Literal["ORCID"] = "ORCID"
+
 
 class Registry:
     """Registry definitions"""
@@ -55,6 +61,7 @@ class Registry:
     ROR = ResearchOrganizationRegistry()
     MGI = MouseGenomeInformatics()
     NCBI = NationalCenterForBiotechnologyInformation()
+    ORCID = OpenResearcherAndContributorID()
     RRID = ResearchResourceIdentifiers()
 
     _ALL = tuple(_Registry.__subclasses__())

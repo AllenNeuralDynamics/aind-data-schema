@@ -23,6 +23,7 @@ from aind_data_schema.core.data_description import (
 from aind_data_schema.models.modalities import Modality
 from aind_data_schema.models.organizations import Organization
 from aind_data_schema.models.platforms import Platform
+from aind_data_schema.models.pid_names import PIDName
 
 DATA_DESCRIPTION_FILES_PATH = Path(__file__).parent / "resources" / "ephys_data_description"
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
@@ -60,7 +61,7 @@ class DataDescriptionTest(unittest.TestCase):
             modality=[Modality.ECEPHYS],
             platform=Platform.ECEPHYS,
             subject_id="12345",
-            investigators=["Jane Smith"],
+            investigators=[PIDName(name="Jane Smith")],
         )
 
         r1 = DerivedDataDescription(
@@ -72,7 +73,7 @@ class DataDescriptionTest(unittest.TestCase):
             modality=da.modality,
             platform=da.platform,
             subject_id=da.subject_id,
-            investigators=["Jane Smith"],
+            investigators=[PIDName(name="Jane Smith")],
         )
 
         r2 = DerivedDataDescription(
@@ -84,7 +85,7 @@ class DataDescriptionTest(unittest.TestCase):
             modality=r1.modality,
             platform=r1.platform,
             subject_id="12345",
-            investigators=["Jane Smith"],
+            investigators=[PIDName(name="Jane Smith")],
         )
 
         r3 = DerivedDataDescription(
@@ -96,7 +97,7 @@ class DataDescriptionTest(unittest.TestCase):
             modality=r2.modality,
             platform=r2.platform,
             subject_id="12345",
-            investigators=["Jane Smith"],
+            investigators=[PIDName(name="Jane Smith")],
         )
         assert r3 is not None
 
@@ -109,7 +110,7 @@ class DataDescriptionTest(unittest.TestCase):
             creation_time=dt,
             institution=Organization.AIND,
             funding_source=[f],
-            investigators=["Jane Smith"],
+            investigators=[PIDName(name="Jane Smith")],
         )
 
         assert dd is not None
@@ -125,7 +126,7 @@ class DataDescriptionTest(unittest.TestCase):
                 creation_time=dt,
                 institution=Organization.AIND,
                 funding_source=[f],
-                investigators=["Jane Smith"],
+                investigators=[PIDName(name="Jane Smith")],
             )
 
         ad = AnalysisDescription(
@@ -137,7 +138,7 @@ class DataDescriptionTest(unittest.TestCase):
             platform=Platform.EXASPIM,
             institution=Organization.AIND,
             funding_source=[f],
-            investigators=["Jane Smith"],
+            investigators=[PIDName(name="Jane Smith")],
         )
         self.assertEqual(ad.name, build_data_name("project_analysis", dt))
 
@@ -151,7 +152,7 @@ class DataDescriptionTest(unittest.TestCase):
                 creation_time=dt,
                 institution=Organization.AIND,
                 funding_source=[f],
-                investigators=["Jane Smith"],
+                investigators=[PIDName(name="Jane Smith")],
             )
 
         with self.assertRaises(ValueError):
@@ -185,7 +186,7 @@ class DataDescriptionTest(unittest.TestCase):
                 creation_time=dt,
                 institution=Organization.AIND,
                 funding_source=[f],
-                investigators=["Jane Smith"],
+                investigators=[PIDName(name="Jane Smith")],
             )
 
         with self.assertRaises(ValueError):
@@ -198,7 +199,7 @@ class DataDescriptionTest(unittest.TestCase):
                 creation_time=dt,
                 institution=Organization.AIND,
                 funding_source=[f],
-                investigators=["Jane Smith"],
+                investigators=[PIDName(name="Jane Smith")],
             )
 
     def test_pattern_errors(self):
@@ -214,7 +215,7 @@ class DataDescriptionTest(unittest.TestCase):
                 creation_time=datetime.datetime(2020, 10, 10, 10, 10, 10),
                 institution=Organization.AIND,
                 funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
-                investigators=["Jane Smith"],
+                investigators=[PIDName(name="Jane Smith")],
             )
 
         expected_exception = (
@@ -246,7 +247,7 @@ class DataDescriptionTest(unittest.TestCase):
                 creation_time=datetime.datetime(2020, 10, 10, 10, 10, 10),
                 institution=Organization.AIND,
                 funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
-                investigators=["Jane Smith"],
+                investigators=[PIDName(name="Jane Smith")],
             )
         self.assertTrue("Value error, Either label or name must be set" in repr(e.exception))
 
@@ -263,7 +264,7 @@ class DataDescriptionTest(unittest.TestCase):
             modality=[Modality.SPIM],
             platform=Platform.EXASPIM,
             subject_id="12345",
-            investigators=["Jane Smith"],
+            investigators=[PIDName(name="Jane Smith")],
         )
 
         da2 = RawDataDescription.model_validate_json(da1.model_dump_json())
@@ -323,7 +324,7 @@ class DataDescriptionTest(unittest.TestCase):
             creation_time=datetime.datetime(2020, 10, 10, 10, 10, 10),
             institution=Organization.AIND,
             funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
-            investigators=["Jane Smith"],
+            investigators=[PIDName(name="Jane Smith")],
         )
 
         process_name = "spikesorter"
@@ -345,7 +346,7 @@ class DataDescriptionTest(unittest.TestCase):
             modality=[Modality.ECEPHYS],
             platform=Platform.ECEPHYS,
             subject_id="12345",
-            investigators=["Jane Smith"],
+            investigators=[PIDName(name="Jane Smith")],
         )
         self.assertEqual("input_2020-10-10_10-10-10", dd.name)
 

@@ -11,7 +11,7 @@ from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.models.modalities import Modality
 from aind_data_schema.models.organizations import Organization
 from aind_data_schema.models.platforms import Platform
-
+from aind_data_schema.models.pid_names import PIDName
 
 class RegexParts(str, Enum):
     """regular expression components to be re-used elsewhere"""
@@ -94,7 +94,7 @@ class DataDescription(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/data_description.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["0.13.0"] = Field("0.13.0", title="Schema Version")
+    schema_version: Literal["0.13.1"] = Field("0.13.1", title="Schema Version")
     license: Literal["CC-BY-4.0"] = Field("CC-BY-4.0", title="License")
 
     platform: Platform.ONE_OF = Field(
@@ -146,7 +146,7 @@ class DataDescription(AindCoreModel):
         description="A short name for the group of individuals that collected this data",
         title="Group",
     )
-    investigators: List[str] = Field(
+    investigators: List[PIDName] = Field(
         ...,
         description="Full name(s) of key investigators (e.g. PI, lead scientist, contact person)",
         title="Investigators",
