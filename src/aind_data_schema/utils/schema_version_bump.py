@@ -47,8 +47,8 @@ class SchemaVersionHandler:
         for core_model in SchemaWriter.get_schemas():
             core_model_json = core_model.model_json_schema()
             default_filename = core_model.default_filename()
-            if default_filename.find('.') != -1:
-                schema_filename = default_filename[:default_filename.find('.')] + '_schema.json'
+            if default_filename.find(".") != -1:
+                schema_filename = default_filename[: default_filename.find(".")] + "_schema.json"
             main_branch_schema_path = self.json_schemas_location / schema_filename
             with open(main_branch_schema_path, "r") as f:
                 main_branch_schema_contents = json.load(f)
