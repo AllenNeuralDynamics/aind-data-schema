@@ -216,15 +216,47 @@ class DataDescriptionTest(unittest.TestCase):
                 funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
                 investigators=["Jane Smith"],
             )
-
         expected_exception = (
             "1 validation error for DataDescription\n"
             "project_name\n"
-            f"  String should match pattern '{DataRegex.NO_SPECIAL_CHARS.value}'"
+            f"  String should match pattern '{DataRegex.NO_SPECIAL_CHARS_EXCEPT_SPACE.value}'"
             " [type=string_pattern_mismatch, input_value='a_32r&!#R$&#', input_type=str]\n"
             f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/string_pattern_mismatch"
         )
         self.assertEqual(expected_exception, repr(e.exception))
+
+    def test_regex_patterns(self):
+        """Tests that checks that the regex patterns are doing what's expected"""
+
+        special_characters_fails = [" ", "_", "<", ">", ":", ";", '"', "/", "|", "?"]
+        for pattern in special_characters_fails:
+            m = re.match(f"{DataRegex.NO_SPECIAL_CHARS.value}", pattern)
+            self.assertIsNone(m)
+
+        special_characters_pass = ["adf7898", "#&%!}", "\\"]
+        for pattern in special_characters_pass:
+            m = bool(re.match(f"{DataRegex.NO_SPECIAL_CHARS.value}", pattern))
+            self.assertTrue(m)
+
+        underscores_fails = ["_"]
+        for pattern in underscores_fails:
+            m = re.match(f"{DataRegex.NO_UNDERSCORES.value}", pattern)
+            self.assertIsNone(m)
+
+        underscores_pass = ["adf7898", " ", "#&%!}"]
+        for pattern in underscores_pass:
+            m = bool(re.match(f"{DataRegex.NO_UNDERSCORES.value}", pattern))
+            self.assertTrue(m)
+
+        special_characters_space_fails = ["_", "<", ">", ":", ";", '"', "/", "|", "?"]
+        for pattern in special_characters_space_fails:
+            m = re.match(f"{DataRegex.NO_SPECIAL_CHARS_EXCEPT_SPACE.value}", pattern)
+            self.assertIsNone(m)
+
+        special_characters_space_pass = ["ad f78 98", " ", "#&%!}", "adf7898"]
+        for pattern in special_characters_space_pass:
+            m = bool(re.match(f"{DataRegex.NO_SPECIAL_CHARS_EXCEPT_SPACE.value}", pattern))
+            self.assertTrue(m)
 
     def test_model_constructors(self):
         """test static methods for constructing models"""
