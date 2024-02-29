@@ -39,6 +39,7 @@ class DataRegex(str, Enum):
     )
     NO_UNDERSCORES = "^[^_]+$"
     NO_SPECIAL_CHARS = '^[^<>:;"/|? \\_]+$'
+    NO_SPECIAL_CHARS_EXCEPT_SPACE = '^[^<>:;"/|?\\_]+$'
 
 
 class DataLevel(str, Enum):
@@ -95,7 +96,7 @@ class DataDescription(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/data_description.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["0.13.1"] = Field("0.13.1", title="Schema Version")
+    schema_version: Literal["0.13.1"] = Field("0.13.1")
     license: Literal["CC-BY-4.0"] = Field("CC-BY-4.0", title="License")
 
     platform: Platform.ONE_OF = Field(
@@ -155,7 +156,7 @@ class DataDescription(AindCoreModel):
     )
     project_name: Optional[str] = Field(
         None,
-        pattern=DataRegex.NO_SPECIAL_CHARS.value,
+        pattern=DataRegex.NO_SPECIAL_CHARS_EXCEPT_SPACE.value,
         description="A name for a set of coordinated activities intended to achieve one or more objectives.",
         title="Project Name",
     )
