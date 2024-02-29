@@ -88,7 +88,8 @@ class ProceduresTests(unittest.TestCase):
         expected_exception = (
             "1 validation error for RetroOrbitalInjection\n"
             "injection_materials\n"
-            "  List should have at least 1 item after validation, not 0 [type=too_short, input_value=[], input_type=list]\n"
+            "  List should have at least 1 item after validation, not 0 [type=too_short, input_value=[], "
+            "input_type=list]\n"
             f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/too_short"
         )
 
