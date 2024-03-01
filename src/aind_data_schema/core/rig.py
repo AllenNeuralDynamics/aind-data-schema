@@ -206,16 +206,17 @@ class Rig(AindCoreModel):
     @model_validator(mode="after")
     def validate_modalities(self):
         """Validate each modality in modalities field has associated data"""
-        ephys_errors = self._validate_ephys_modality()
-        fib_errors = self._validate_fib_modality()
-        pophys_errors = self._validate_pophys_modality()
-        slap_errors = self._validate_slap_modality()
-        behavior_vids_errors = self._validate_behavior_videos_modality()
-        behavior_errors = self._validate_behavior_modality()
+        if hasattr(self, "modalities"):  # previous behavior would only trigger if modalities was set
+            ephys_errors = self._validate_ephys_modality()
+            fib_errors = self._validate_fib_modality()
+            pophys_errors = self._validate_pophys_modality()
+            slap_errors = self._validate_slap_modality()
+            behavior_vids_errors = self._validate_behavior_videos_modality()
+            behavior_errors = self._validate_behavior_modality()
 
-        errors = ephys_errors + fib_errors + pophys_errors + slap_errors + behavior_vids_errors + behavior_errors
-        if len(errors) > 0:
-            message = "\n     ".join(errors)
-            raise ValueError(message)
+            errors = ephys_errors + fib_errors + pophys_errors + slap_errors + behavior_vids_errors + behavior_errors
+            if len(errors) > 0:
+                message = "\n     ".join(errors)
+                raise ValueError(message)
 
         return self
