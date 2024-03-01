@@ -1006,8 +1006,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.13.0",
-         "default": "0.13.0",
+         "const": "0.13.1",
+         "default": "0.13.1",
          "title": "Schema Version"
       },
       "license": {
@@ -1202,7 +1202,7 @@
       "project_name": {
          "anyOf": [
             {
-               "pattern": "^[^<>:;\"/|? \\_]+$",
+               "pattern": "^[^<>:;\"/|?\\_]+$",
                "type": "string"
             },
             {
