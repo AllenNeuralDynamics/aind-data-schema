@@ -326,6 +326,23 @@ class RigTests(unittest.TestCase):
                 daqs=daqs,
             )
 
+        with self.assertRaises(ValueError):  # tests all modality validators
+            Rig(
+                rig_id="1234",
+                modification_date=datetime.now().date(),
+                modalities=[
+                    Modality.ECEPHYS,
+                    Modality.SLAP,
+                    Modality.FIB,
+                    Modality.BEHAVIOR_VIDEOS,
+                    Modality.POPHYS,
+                    Modality.BEHAVIOR,
+                ],
+                daqs=[],
+                calibrations=[],
+                mouse_platform=Disc(name="Disc A", radius=1),
+            )
+
 
 if __name__ == "__main__":
     unittest.main()
