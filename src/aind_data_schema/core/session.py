@@ -92,13 +92,16 @@ class FieldOfView(AindModel):
     coupled_fov_index: Optional[int] = Field(
         None, title="Coupled FOV", description="Coupled planes for multiscope"
     )
-    power: Optional[Decimal] = Field(None, title="Power (mW)")
-    power_unit: Optional[PowerUnit] = Field(PowerUnit.MW, title="Power unit")
+    power: Optional[Decimal] = Field(None, title="Power")
+    power_unit: PowerUnit = Field(PowerUnit.MW, title="Power unit")
     scanfield_z: Optional[int] = Field(
         None,
         title="Z stage position of the fastz actuator for a given targeted depth",
     )
-    scanfield_z_unit: Optional[SizeUnit] = Field(None, title="Z stage position unit")
+    scanfield_z_unit: SizeUnit = Field(SizeUnit.UM, title="Z stage position unit")
+    scanimage_roi_index: Optional[int] = Field(None, title="ScanImage ROI index")
+    scanimage_resolution: Optional[float] = Field(None, title="ScanImage resolution")
+    scanimage_resolution_unit: SizeUnit = Field(SizeUnit.UM, title="ScanImage resolution unit")
     notes: Optional[str] = Field(None, title="Notes")
 
 
