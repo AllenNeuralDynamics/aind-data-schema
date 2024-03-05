@@ -95,28 +95,36 @@ class ProceduresTests(unittest.TestCase):
 
         self.assertEqual(expected_exception, repr(e.exception))
 
-        # Validate injection_materials=None
-        p = Procedures(
-            subject_id="12345",
-            subject_procedures=[
-                Surgery(
-                    start_date=start_date,
-                    experimenter_full_name="Chip Munk",
-                    procedures=[
-                        RetroOrbitalInjection(
-                            protocol_id="134",
-                            injection_materials=None,
-                            injection_volume=1,
-                            injection_eye="Left",
-                            injection_duration=1,
-                            recovery_time=10,
-                        ),
-                    ],
-                )
-            ],
+        # validate error for injection_materials=None
+        with self.assertRaises(ValidationError) as e:
+            p = Procedures(
+                subject_id="12345",
+                subject_procedures=[
+                    Surgery(
+                        start_date=start_date,
+                        experimenter_full_name="Chip Munk",
+                        procedures=[
+                            RetroOrbitalInjection(
+                                protocol_id="134",
+                                injection_materials=None,
+                                injection_volume=1,
+                                injection_eye="Left",
+                                injection_duration=1,
+                                recovery_time=10,
+                            ),
+                        ],
+                    )
+                ],
+            )
+
+        expected_exception = (
+            "1 validation error for RetroOrbitalInjection\n"
+            "injection_materials\n"
+            "  Input should be a valid list [type=list_type, input_value=None, input_type=NoneType]\n"
+            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/list_type"
         )
 
-        self.assertEqual(p, Procedures.model_validate_json(p.model_dump_json()))
+        self.assertEqual(expected_exception, repr(e.exception))
 
         # Validate injection_materials is list of one ViralMaterial or NonViralMaterial item
 
@@ -307,6 +315,18 @@ class ProceduresTests(unittest.TestCase):
             injection_angle=1,
             injection_coordinate_depth=[0, 1],
             injection_volume=[1, 2],
+            injection_materials=[
+                ViralMaterial(
+                    material_type="Virus",
+                    name="AAV2-Flex-ChrimsonR",
+                    tars_identifiers=TarsVirusIdentifiers(
+                        virus_tars_id="AiV222",
+                        plasmid_tars_alias="AiP222",
+                        prep_lot_number="VT222",
+                    ),
+                    titer=2300000000,
+                )
+            ],
         )
         self.assertEqual(len(inj1.injection_coordinate_depth), len(inj1.injection_volume))
 
