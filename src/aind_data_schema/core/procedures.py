@@ -562,6 +562,7 @@ class Surgery(AindModel):
             Union[
                 Craniotomy,
                 FiberImplant,
+                GroundWire,
                 Headframe,
                 IntraCerebellarVentricleInjection,
                 IntraCisternalMagnaInjection,
