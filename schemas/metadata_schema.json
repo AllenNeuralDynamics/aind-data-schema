@@ -3673,8 +3673,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.13.1",
-               "default": "0.13.1",
+               "const": "0.13.2",
+               "default": "0.13.2",
                "title": "Schema Version"
             },
             "license": {
@@ -3860,7 +3860,7 @@
             "investigators": {
                "description": "Full name(s) of key investigators (e.g. PI, lead scientist, contact person)",
                "items": {
-                  "type": "string"
+                  "$ref": "#/$defs/PIDName"
                },
                "minItems": 1,
                "title": "Investigators",
@@ -27692,8 +27692,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.1.32",
-         "default": "0.1.32",
+         "const": "0.1.33",
+         "default": "0.1.33",
          "title": "Schema Version"
       },
       "_id": {
