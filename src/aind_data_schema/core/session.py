@@ -76,9 +76,7 @@ class FieldOfView(AindModel):
     fov_scale_factor_unit: str = Field("um/pixel", title="FOV scale factor unit")
     frame_rate: Optional[Decimal] = Field(None, title="Frame rate (Hz)")
     frame_rate_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Frame rate unit")
-    coupled_fov_index: Optional[int] = Field(
-        None, title="Coupled FOV", description="Coupled planes for multiscope"
-    )
+    coupled_fov_index: Optional[int] = Field(None, title="Coupled FOV", description="Coupled planes for multiscope")
     power: Optional[Decimal] = Field(None, title="Power")
     power_unit: PowerUnit = Field(PowerUnit.MW, title="Power unit")
     scanfield_z: Optional[int] = Field(
