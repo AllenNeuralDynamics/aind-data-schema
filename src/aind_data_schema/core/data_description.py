@@ -10,6 +10,7 @@ from pydantic import Field, model_validator
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.models.modalities import Modality
 from aind_data_schema.models.organizations import Organization
+from aind_data_schema.models.pid_names import PIDName
 from aind_data_schema.models.platforms import Platform
 
 
@@ -147,7 +148,7 @@ class DataDescription(AindCoreModel):
         description="A short name for the group of individuals that collected this data",
         title="Group",
     )
-    investigators: List[str] = Field(
+    investigators: List[PIDName] = Field(
         ...,
         description="Full name(s) of key investigators (e.g. PI, lead scientist, contact person)",
         title="Investigators",
