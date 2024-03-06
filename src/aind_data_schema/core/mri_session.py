@@ -81,7 +81,7 @@ class MRIScan(AindModel):
     @model_validator(mode="after")
     def validate_primary_scan(self):
         """Validate that primary scan has vc_orientation and vc_position fields"""
-        
+
         if self.primary_scan:
             if not self.vc_orientation or not self.vc_position:
                 raise ValueError("Primary scan must have vc_orientation and vc_position")
