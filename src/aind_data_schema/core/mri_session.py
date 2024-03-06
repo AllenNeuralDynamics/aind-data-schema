@@ -5,7 +5,7 @@ from decimal import Decimal
 from enum import Enum
 from typing import List, Literal, Optional
 
-from pydantic import Field, ValidationInfo, field_validator
+from pydantic import Field, ValidationInfo, field_validator, model_validator
 
 from aind_data_schema.base import AindCoreModel, AindGenericType, AindModel
 from aind_data_schema.core.procedures import Anaesthetic
@@ -47,13 +47,13 @@ class MRIScan(AindModel):
     scan_sequence_type: MriScanSequence = Field(..., title="Scan sequence")
     rare_factor: Optional[int] = Field(None, title="RARE factor")
     echo_time: Decimal = Field(..., title="Echo time (ms)")
-    effective_echo_time: Decimal = Field(..., title="Effective echo time (ms)")
+    effective_echo_time: Optional[Decimal] = Field(None, title="Effective echo time (ms)")
     echo_time_unit: TimeUnit = Field(TimeUnit.MS, title="Echo time unit")
     repetition_time: Decimal = Field(..., title="Repetition time (ms)")
     repetition_time_unit: TimeUnit = Field(TimeUnit.MS, title="Repetition time unit")
     # fields required to get correct orientation
-    vc_orientation: Rotation3dTransform = Field(..., title="Scan orientation")
-    vc_position: Translation3dTransform = Field(..., title="Scan position")
+    vc_orientation: Optional[Rotation3dTransform] = Field(None, title="Scan orientation")
+    vc_position: Optional[Translation3dTransform] = Field(None, title="Scan position")
     subject_position: SubjectPosition = Field(..., title="Subject position")
     # other fields
     voxel_sizes: Scale3dTransform = Field(..., title="Voxel sizes", description="Resolution")
@@ -77,6 +77,14 @@ class MRIScan(AindModel):
                 " Describe the scan_sequence_type in the notes field."
             )
         return value
+    
+    @model_validator(mode="after")
+    def validate_primary_scan(self):
+        if self.primary_scan:
+            if not self.vc_orientation or not self.vc_position:
+                raise ValueError(
+                    "Primary scan must have vc_orientation and vc_position"
+                )
 
 
 class MriSession(AindCoreModel):
