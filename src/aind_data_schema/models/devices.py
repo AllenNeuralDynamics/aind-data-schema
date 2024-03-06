@@ -193,7 +193,7 @@ class Cooling(str, Enum):
 
     AIR = "Air"
     WATER = "Water"
-    NONE = None
+    NONE = "None"
 
 
 class BinMode(str, Enum):
@@ -293,7 +293,7 @@ class Detector(Device):
     detector_type: DetectorType = Field(..., title="Detector Type")
     manufacturer: Organization.DETECTOR_MANUFACTURERS
     data_interface: DataInterface = Field(..., title="Data interface")
-    cooling: Cooling = Field(None, title="Cooling")
+    cooling: Optional[Cooling] = Field(Cooling.NONE, title="Cooling")
     computer_name: Optional[str] = Field(None, title="Name of computer receiving data from this camera")
     max_frame_rate: Optional[Decimal] = Field(None, title="Maximum frame rate (Hz)")
     frame_rate_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Frame rate unit")
