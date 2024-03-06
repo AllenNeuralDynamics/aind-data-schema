@@ -877,7 +877,7 @@
    ],
    "ccf_coordinate_transform": null,
    "origin": null,
-   "rig_axes": [],
+   "rig_axes": null,
    "modalities": [
       {
          "name": "Fiber photometry",
