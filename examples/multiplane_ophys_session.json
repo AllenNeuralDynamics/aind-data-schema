@@ -22,9 +22,22 @@
          "stream_end_time": "2022-07-12T07:00:00",
          "daq_names": [],
          "camera_names": [
-            "Mesoscope"
+            "Mesoscope",
+            "Eye",
+            "Face",
+            "Behavior",
+            "Vasculature"
          ],
-         "light_sources": [],
+         "light_sources": [
+            {
+               "device_type": "Laser",
+               "name": "Laser A",
+               "wavelength": 920,
+               "wavelength_unit": "nanometer",
+               "excitation_power": "10",
+               "excitation_power_unit": "milliwatt"
+            }
+         ],
          "ephys_modules": [],
          "stick_microscopes": [],
          "manipulator_modules": [],
@@ -242,115 +255,11 @@
             {
                "name": "Planar optical physiology",
                "abbreviation": "ophys"
-            }
-         ],
-         "notes": null
-      },
-      {
-         "stream_start_time": "2022-07-12T07:00:00",
-         "stream_end_time": "2022-07-12T07:00:00",
-         "daq_names": [],
-         "camera_names": [
-            "Eye"
-         ],
-         "light_sources": [],
-         "ephys_modules": [],
-         "stick_microscopes": [],
-         "manipulator_modules": [],
-         "detectors": [],
-         "fiber_connections": [],
-         "fiber_modules": [],
-         "ophys_fovs": [],
-         "slap_fovs": null,
-         "stack_parameters": null,
-         "stimulus_device_names": [],
-         "mouse_platform_name": "disc",
-         "active_mouse_platform": true,
-         "stream_modalities": [
+            },
             {
                "name": "Behavior videos",
                "abbreviation": "behavior-videos"
-            }
-         ],
-         "notes": null
-      },
-      {
-         "stream_start_time": "2022-07-12T07:00:00",
-         "stream_end_time": "2022-07-12T07:00:00",
-         "daq_names": [],
-         "camera_names": [
-            "Face"
-         ],
-         "light_sources": [],
-         "ephys_modules": [],
-         "stick_microscopes": [],
-         "manipulator_modules": [],
-         "detectors": [],
-         "fiber_connections": [],
-         "fiber_modules": [],
-         "ophys_fovs": [],
-         "slap_fovs": null,
-         "stack_parameters": null,
-         "stimulus_device_names": [],
-         "mouse_platform_name": "disc",
-         "active_mouse_platform": true,
-         "stream_modalities": [
-            {
-               "name": "Behavior videos",
-               "abbreviation": "behavior-videos"
-            }
-         ],
-         "notes": null
-      },
-      {
-         "stream_start_time": "2022-07-12T07:00:00",
-         "stream_end_time": "2022-07-12T07:00:00",
-         "daq_names": [],
-         "camera_names": [
-            "Behavior"
-         ],
-         "light_sources": [],
-         "ephys_modules": [],
-         "stick_microscopes": [],
-         "manipulator_modules": [],
-         "detectors": [],
-         "fiber_connections": [],
-         "fiber_modules": [],
-         "ophys_fovs": [],
-         "slap_fovs": null,
-         "stack_parameters": null,
-         "stimulus_device_names": [],
-         "mouse_platform_name": "disc",
-         "active_mouse_platform": true,
-         "stream_modalities": [
-            {
-               "name": "Behavior videos",
-               "abbreviation": "behavior-videos"
-            }
-         ],
-         "notes": null
-      },
-      {
-         "stream_start_time": "2022-07-12T07:00:00",
-         "stream_end_time": "2022-07-12T07:00:00",
-         "daq_names": [],
-         "camera_names": [
-            "Vasculature"
-         ],
-         "light_sources": [],
-         "ephys_modules": [],
-         "stick_microscopes": [],
-         "manipulator_modules": [],
-         "detectors": [],
-         "fiber_connections": [],
-         "fiber_modules": [],
-         "ophys_fovs": [],
-         "slap_fovs": null,
-         "stack_parameters": null,
-         "stimulus_device_names": [],
-         "mouse_platform_name": "disc",
-         "active_mouse_platform": true,
-         "stream_modalities": [
+            },
             {
                "name": "Confocal microscopy",
                "abbreviation": "confocal"

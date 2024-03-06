@@ -2,7 +2,7 @@
 
 import datetime
 
-from aind_data_schema.core.session import FieldOfView, Session, Stream
+from aind_data_schema.core.session import FieldOfView, Session, Stream, LaserConfig
 from aind_data_schema.models.modalities import Modality
 from aind_data_schema.models.units import SizeUnit, PowerUnit
 
@@ -20,10 +20,29 @@ s = Session(
         Stream(
             stream_start_time=t,
             stream_end_time=t,
-            stream_modalities=[Modality.POPHYS],
+            stream_modalities=[
+                Modality.POPHYS,
+                Modality.BEHAVIOR_VIDEOS,
+                Modality.CONFOCAL
+                ],
             mouse_platform_name="disc",
-            camera_names=["Mesoscope"],
+            camera_names=[
+                "Mesoscope",
+                "Eye",
+                "Face",
+                "Behavior",
+                "Vasculature",
+                ],
             active_mouse_platform=True,
+            light_sources=[
+                LaserConfig(
+                    name="Laser A",
+                    wavelength=920,
+                    wavelength_unit="nanometer",
+                    excitation_power=10,
+                    excitation_power_unit="milliwatt",
+                ),
+            ],
             ophys_fovs=[
                 FieldOfView(
                     index=0,
@@ -44,7 +63,7 @@ s = Session(
                     imaging_depth=190,
                     targeted_structure="VISp",
                     scanfield_z=230,
-                    coupled_fov_index=1
+                    coupled_fov_index=1,
                 ),
                 FieldOfView(
                     index=1,
@@ -64,7 +83,7 @@ s = Session(
                     imaging_depth=232,
                     targeted_structure="VISp",
                     scanfield_z=257,
-                    coupled_fov_index=0
+                    coupled_fov_index=0,
                 ),
                 FieldOfView(
                     index=2,
@@ -84,7 +103,7 @@ s = Session(
                     imaging_depth=136,
                     targeted_structure="VISp",
                     scanfield_z=176,
-                    coupled_fov_index=3
+                    coupled_fov_index=3,
                 ),
                 FieldOfView(
                     index=3,
@@ -104,7 +123,7 @@ s = Session(
                     imaging_depth=282,
                     targeted_structure="VISp",
                     scanfield_z=307,
-                    coupled_fov_index=2
+                    coupled_fov_index=2,
                 ),
                 FieldOfView(
                     index=4,
@@ -124,7 +143,7 @@ s = Session(
                     imaging_depth=72,
                     targeted_structure="VISp",
                     scanfield_z=112,
-                    coupled_fov_index=5
+                    coupled_fov_index=5,
                 ),
                 FieldOfView(
                     index=5,
@@ -144,7 +163,7 @@ s = Session(
                     imaging_depth=326,
                     targeted_structure="VISp",
                     scanfield_z=351,
-                    coupled_fov_index=4
+                    coupled_fov_index=4,
                 ),
                 FieldOfView(
                     index=6,
@@ -164,7 +183,7 @@ s = Session(
                     imaging_depth=30,
                     targeted_structure="VISp",
                     scanfield_z=70,
-                    coupled_fov_index=7
+                    coupled_fov_index=7,
                 ),
                 FieldOfView(
                     index=7,
@@ -184,42 +203,10 @@ s = Session(
                     imaging_depth=364,
                     targeted_structure="VISp",
                     scanfield_z=389,
-                    coupled_fov_index=6
+                    coupled_fov_index=6,
                 ),
             ],
-        ),
-        Stream(
-            stream_start_time=t,
-            stream_end_time=t,
-            stream_modalities=[Modality.BEHAVIOR_VIDEOS],
-            mouse_platform_name="disc",
-            camera_names=["Eye"],
-            active_mouse_platform=True,
-        ),
-        Stream(
-            stream_start_time=t,
-            stream_end_time=t,
-            stream_modalities=[Modality.BEHAVIOR_VIDEOS],
-            mouse_platform_name="disc",
-            camera_names=["Face"],
-            active_mouse_platform=True,
-        ),
-        Stream(
-            stream_start_time=t,
-            stream_end_time=t,
-            stream_modalities=[Modality.BEHAVIOR_VIDEOS],
-            mouse_platform_name="disc",
-            camera_names=["Behavior"],
-            active_mouse_platform=True,
-        ),
-        Stream(
-            stream_start_time=t,
-            stream_end_time=t,
-            stream_modalities=[Modality.CONFOCAL],
-            mouse_platform_name="disc",
-            camera_names=["Vasculature"],
-            active_mouse_platform=True,
-        ),
-    ],
+        )
+    ]
 )
 s.write_standard_file(prefix="multiplane_ophys")
