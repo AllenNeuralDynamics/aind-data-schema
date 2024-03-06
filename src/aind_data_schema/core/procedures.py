@@ -125,7 +125,7 @@ class GroundWireMaterial(str, Enum):
     """Ground wire material name"""
 
     SILVER = "Silver"
-
+    PLATINUM_IRIDIUM = "Platinum iridium"
 
 
 class VirusPrepType(str, Enum):
