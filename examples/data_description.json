@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/data_description.py",
-   "schema_version": "0.13.0",
+   "schema_version": "0.13.2",
    "license": "CC-BY-4.0",
    "platform": {
       "name": "Electrophysiology platform",
@@ -37,7 +37,12 @@
    "data_level": "raw",
    "group": null,
    "investigators": [
-      "Jane Smith"
+      {
+         "name": "Jane Smith",
+         "abbreviation": null,
+         "registry": null,
+         "registry_identifier": null
+      }
    ],
    "project_name": null,
    "restrictions": null,

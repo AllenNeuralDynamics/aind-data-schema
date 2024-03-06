@@ -54,7 +54,7 @@ class SchemaWriter:
         return optional_args
 
     @staticmethod
-    def _get_schemas() -> Iterator[AindCoreModel]:
+    def get_schemas() -> Iterator[AindCoreModel]:
         """
         Returns Iterator of AindCoreModel classes
         """
@@ -66,7 +66,7 @@ class SchemaWriter:
         """
         Writes Pydantic models to JSON file.
         """
-        schemas_to_write = self._get_schemas()
+        schemas_to_write = self.get_schemas()
         output_path = self.configs.output
         for schema in schemas_to_write:
             filename = schema.default_filename()
