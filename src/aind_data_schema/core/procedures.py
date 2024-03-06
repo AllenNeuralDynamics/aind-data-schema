@@ -121,6 +121,13 @@ class HeadframeMaterial(str, Enum):
     WHITE_ZIRCONIA = "White Zirconia"
 
 
+class GroundWireMaterial(str, Enum):
+    """Ground wire material name"""
+
+    SILVER = "Silver"
+
+
+
 class VirusPrepType(str, Enum):
     """Type of virus preparation"""
 
@@ -305,6 +312,9 @@ class GroundWire(AindModel):
     procedure_type: Literal["Ground wire"] = "Ground wire"
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     ground_wire_hole: int = Field(..., title="Ground wire hole")
+    ground_wire_material: GroundWireMaterial = Field(..., title="Ground wire material")
+    ground_wire_diameter: Decimal = Field(..., title="Ground wire diameter")
+    ground_wire_diameter_unit: SizeUnit = Field(SizeUnit.IN, title="Ground wire diameter unit")
     duragel_replacement: bool = Field(..., title="Duragel replacement")
     well_part_number: Optional[str] = Field(None, title="Well part number")
     well_type: Optional[str] = Field(None, title="Well type")
