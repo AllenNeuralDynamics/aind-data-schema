@@ -2263,7 +2263,7 @@
                      "$ref": "#/$defs/Cooling"
                   }
                ],
-               "default": null,
+               "default": "None",
                "title": "Cooling"
             },
             "computer_name": {
@@ -3133,7 +3133,8 @@
          "description": "Cooling medium name",
          "enum": [
             "Air",
-            "Water"
+            "Water",
+            "None"
          ],
          "title": "Cooling",
          "type": "string"
@@ -4280,7 +4281,7 @@
                      "$ref": "#/$defs/Cooling"
                   }
                ],
-               "default": null,
+               "default": "None",
                "title": "Cooling"
             },
             "computer_name": {
@@ -10871,8 +10872,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.10.11",
-               "default": "0.10.11",
+               "const": "0.10.12",
+               "default": "0.10.12",
                "title": "Schema Version"
             },
             "instrument_id": {
@@ -21642,8 +21643,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.2.16",
-               "default": "0.2.16",
+               "const": "0.2.17",
+               "default": "0.2.17",
                "title": "Schema Version"
             },
             "rig_id": {
@@ -21938,7 +21939,7 @@
                      "type": "null"
                   }
                ],
-               "default": [],
+               "default": null,
                "title": "Rig axes"
             },
             "modalities": {
@@ -27692,8 +27693,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.1.33",
-         "default": "0.1.33",
+         "const": "0.1.34",
+         "default": "0.1.34",
          "title": "Schema Version"
       },
       "_id": {

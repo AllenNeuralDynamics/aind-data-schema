@@ -1145,7 +1145,8 @@
          "description": "Cooling medium name",
          "enum": [
             "Air",
-            "Water"
+            "Water",
+            "None"
          ],
          "title": "Cooling",
          "type": "string"
@@ -1637,7 +1638,7 @@
                      "$ref": "#/$defs/Cooling"
                   }
                ],
-               "default": null,
+               "default": "None",
                "title": "Cooling"
             },
             "computer_name": {
@@ -7341,8 +7342,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.10.11",
-         "default": "0.10.11",
+         "const": "0.10.12",
+         "default": "0.10.12",
          "title": "Schema Version"
       },
       "instrument_id": {
