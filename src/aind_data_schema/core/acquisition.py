@@ -18,7 +18,7 @@ class Immersion(AindModel):
 
     medium: ImmersionMedium = Field(..., title="Immersion medium")
     refractive_index: Decimal = Field(..., title="Index of refraction")
-    description: Optional[str] = Field(None, title="Description")
+    description: Optional[str] = Field('', title="Description")
 
 
 class ProcessingSteps(AindModel):
