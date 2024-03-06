@@ -16,7 +16,6 @@ EXAMPLES_DIR = Path(__file__).parents[1] / "examples"
 
 class ExampleTests(unittest.TestCase):
     """tests for examples"""
-   
     def test_examples(self):
         """run through each example, compare to rendered json"""
 
