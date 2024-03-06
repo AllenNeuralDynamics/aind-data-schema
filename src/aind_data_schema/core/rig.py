@@ -78,7 +78,7 @@ class Rig(AindCoreModel):
         description="Path to file that details the CCF-to-lab coordinate transform",
     )
     origin: Optional[Origin] = Field(None, title="Origin point for rig position transforms")
-    rig_axes: Optional[List[Axis]] = Field(default=[], title="Rig axes", min_length=3, max_length=3)
+    rig_axes: Optional[List[Axis]] = Field(None, title="Rig axes", min_length=3, max_length=3)
     modalities: Set[Modality.ONE_OF] = Field(..., title="Modalities")
     notes: Optional[str] = Field(None, title="Notes")
 
