@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/session.py",
-   "schema_version": "0.1.8",
+   "schema_version": "0.1.9",
    "protocol_id": [],
    "experimenter_full_name": [
       "John Doe"

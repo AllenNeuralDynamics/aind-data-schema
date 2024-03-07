@@ -3423,7 +3423,6 @@
          "description": "Description of an interacerebellar ventricle injection",
          "properties": {
             "injection_materials": {
-               "default": [],
                "items": {
                   "anyOf": [
                      {
@@ -3660,6 +3659,7 @@
             }
          },
          "required": [
+            "injection_materials",
             "protocol_id",
             "injection_coordinate_ml",
             "injection_coordinate_ap",
@@ -3675,7 +3675,6 @@
          "description": "Description of an interacisternal magna injection",
          "properties": {
             "injection_materials": {
-               "default": [],
                "items": {
                   "anyOf": [
                      {
@@ -3912,6 +3911,7 @@
             }
          },
          "required": [
+            "injection_materials",
             "protocol_id",
             "injection_coordinate_ml",
             "injection_coordinate_ap",
@@ -3927,7 +3927,6 @@
          "description": "Description of an intraperitoneal injection procedure",
          "properties": {
             "injection_materials": {
-               "default": [],
                "items": {
                   "anyOf": [
                      {
@@ -4034,6 +4033,7 @@
             }
          },
          "required": [
+            "injection_materials",
             "protocol_id",
             "injection_volume"
          ],
@@ -4045,7 +4045,6 @@
          "description": "Description of an iotophoresis injection procedure",
          "properties": {
             "injection_materials": {
-               "default": [],
                "items": {
                   "anyOf": [
                      {
@@ -4282,6 +4281,7 @@
             }
          },
          "required": [
+            "injection_materials",
             "protocol_id",
             "injection_coordinate_ml",
             "injection_coordinate_ap",
@@ -4710,7 +4710,6 @@
          "description": "Description of a nanoject injection procedure",
          "properties": {
             "injection_materials": {
-               "default": [],
                "items": {
                   "anyOf": [
                      {
@@ -4947,6 +4946,7 @@
             }
          },
          "required": [
+            "injection_materials",
             "protocol_id",
             "injection_coordinate_ml",
             "injection_coordinate_ap",
@@ -7302,7 +7302,6 @@
          "description": "Description of a retro-orbital injection procedure",
          "properties": {
             "injection_materials": {
-               "default": [],
                "items": {
                   "anyOf": [
                      {
@@ -7417,6 +7416,7 @@
             }
          },
          "required": [
+            "injection_materials",
             "protocol_id",
             "injection_volume",
             "injection_eye"
@@ -8926,10 +8926,9 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.12.5",
-         "default": "0.12.5",
-         "description": "schema version",
-         "title": "Version"
+         "const": "0.12.6",
+         "default": "0.12.6",
+         "title": "Schema Version"
       },
       "subject_id": {
          "description": "Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
