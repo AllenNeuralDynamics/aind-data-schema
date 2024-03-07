@@ -142,6 +142,9 @@ class ImmersionMedium(str, Enum):
     PBS = "PBS"
     WATER = "water"
     OTHER = "other"
+    EASYINDEX = "easy index"
+    ECI = "ethyl cinnimate"
+    ACB = "aqueous clearing buffer"
 
 
 class ObjectiveType(str, Enum):
