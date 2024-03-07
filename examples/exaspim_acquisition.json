@@ -168,7 +168,8 @@
    ],
    "chamber_immersion": {
       "medium": "PBS",
-      "refractive_index": "1.33"
+      "refractive_index": "1.33",
+      "description": ""
    },
    "sample_immersion": null,
    "active_objectives": null,
