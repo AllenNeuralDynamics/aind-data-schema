@@ -3032,7 +3032,10 @@
             "oil",
             "PBS",
             "water",
-            "other"
+            "other",
+            "easy index",
+            "ethyl cinnimate",
+            "aqueous clearing buffer"
          ],
          "title": "ImmersionMedium",
          "type": "string"
@@ -7342,8 +7345,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.10.12",
-         "default": "0.10.12",
+         "const": "0.10.13",
+         "default": "0.10.13",
          "title": "Schema Version"
       },
       "instrument_id": {

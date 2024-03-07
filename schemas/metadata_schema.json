@@ -80,8 +80,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.6.8",
-               "default": "0.6.8",
+               "const": "0.6.9",
+               "default": "0.6.9",
                "title": "Schema Version"
             },
             "protocol_id": {
@@ -10765,7 +10765,10 @@
             "oil",
             "PBS",
             "water",
-            "other"
+            "other",
+            "easy index",
+            "ethyl cinnimate",
+            "aqueous clearing buffer"
          ],
          "title": "ImmersionMedium",
          "type": "string"
@@ -10872,8 +10875,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.10.12",
-               "default": "0.10.12",
+               "const": "0.10.13",
+               "default": "0.10.13",
                "title": "Schema Version"
             },
             "instrument_id": {
@@ -21643,8 +21646,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.2.17",
-               "default": "0.2.17",
+               "const": "0.2.18",
+               "default": "0.2.18",
                "title": "Schema Version"
             },
             "rig_id": {
@@ -27693,8 +27696,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.1.34",
-         "default": "0.1.34",
+         "const": "0.1.35",
+         "default": "0.1.35",
          "title": "Schema Version"
       },
       "_id": {
