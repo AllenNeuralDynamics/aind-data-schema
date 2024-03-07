@@ -353,7 +353,7 @@ class Injection(AindModel):
     injection_materials: Annotated[
         List[Union[ViralMaterial, NonViralMaterial]],
         Field(title="Injection material", min_length=1, discriminator="material_type"),
-    ] = []
+    ]
     recovery_time: Optional[Decimal] = Field(None, title="Recovery time")
     recovery_time_unit: TimeUnit = Field(TimeUnit.M, title="Recovery time unit")
     injection_duration: Optional[Decimal] = Field(None, title="Injection duration")
