@@ -353,7 +353,7 @@ class Injection(AindModel):
     injection_materials: Annotated[
         List[Union[ViralMaterial, NonViralMaterial]],
         Field(title="Injection material", min_length=1, discriminator="material_type"),
-    ] = []
+    ]
     recovery_time: Optional[Decimal] = Field(None, title="Recovery time")
     recovery_time_unit: TimeUnit = Field(TimeUnit.M, title="Recovery time unit")
     injection_duration: Optional[Decimal] = Field(None, title="Injection duration")
@@ -573,7 +573,7 @@ class Procedures(AindCoreModel):
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/procedures.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
 
-    schema_version: Literal["0.12.5"] = Field("0.12.5", description="schema version", title="Version")
+    schema_version: Literal["0.12.6"] = Field("0.12.6")
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
