@@ -318,6 +318,7 @@ class ImagingTests(unittest.TestCase):
         )
         self.assertEqual(expected_exception, repr(e.exception))
 
+
         with self.assertRaises(ValueError) as e:
             ms.MRIScan(
                 scan_index=1,
