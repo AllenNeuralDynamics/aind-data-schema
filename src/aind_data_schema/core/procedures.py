@@ -89,6 +89,7 @@ class Side(str, Enum):
 class ProtectiveMaterial(str, Enum):
     """Name of material applied to craniotomy"""
 
+    AGAROSE = "Agarose"
     DURAGEL = "Duragel"
     KWIK_CAST = "Kwik-Cast"
     SORTA_CLEAR = "SORTA-clear"
@@ -306,16 +307,16 @@ class Headframe(AindModel):
     well_type: Optional[str] = Field(None, title="Well type")
 
 
-class GroundWire(AindModel):
-    """Description of a ground wire and duragel procedure"""
+class ProtectiveMaterialReplacement(AindModel):
+    """Description of a proective material replacement procedure in preparation for ephys recording"""
 
     procedure_type: Literal["Ground wire"] = "Ground wire"
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
-    ground_wire_hole: int = Field(..., title="Ground wire hole")
-    ground_wire_material: GroundWireMaterial = Field(..., title="Ground wire material")
-    ground_wire_diameter: Decimal = Field(..., title="Ground wire diameter")
+    ground_wire_hole: Optional[int] = Field(None, title="Ground wire hole")
+    ground_wire_material: Optional[GroundWireMaterial] = Field(None, title="Ground wire material")
+    ground_wire_diameter: Optional[Decimal] = Field(None, title="Ground wire diameter")
     ground_wire_diameter_unit: SizeUnit = Field(SizeUnit.IN, title="Ground wire diameter unit")
-    duragel_replacement: bool = Field(..., title="Duragel replacement")
+    protective_material: ProtectiveMaterial = Field(..., title="Protective material")
     well_part_number: Optional[str] = Field(None, title="Well part number")
     well_type: Optional[str] = Field(None, title="Well type")
 
@@ -572,15 +573,15 @@ class Surgery(AindModel):
             Union[
                 Craniotomy,
                 FiberImplant,
-                GroundWire,
                 Headframe,
                 IntraCerebellarVentricleInjection,
                 IntraCisternalMagnaInjection,
                 IntraperitonealInjection,
                 IontophoresisInjection,
                 NanojectInjection,
-                Perfusion,
                 OtherSubjectProcedure,
+                Perfusion,
+                ProtectiveMaterialReplacement,
                 RetroOrbitalInjection,
             ],
             Field(discriminator="procedure_type"),
