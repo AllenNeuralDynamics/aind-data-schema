@@ -3,7 +3,7 @@
 from datetime import date
 from typing import List, Literal, Optional, Set, Union
 
-from pydantic import Field, ValidationInfo, field_validator
+from pydantic import Field, ValidationInfo, field_validator, model_validator
 from typing_extensions import Annotated
 
 from aind_data_schema.base import AindCoreModel

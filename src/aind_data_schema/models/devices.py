@@ -5,7 +5,7 @@ from decimal import Decimal
 from enum import Enum
 from typing import List, Literal, Optional, Union
 
-from pydantic import Field
+from pydantic import Field, ValidationInfo, field_validator
 from typing_extensions import Annotated
 
 from aind_data_schema.base import AindGeneric, AindGenericType, AindModel
@@ -321,6 +321,26 @@ class Detector(Device):
     driver_version: Optional[str] = Field(None, title="Driver version")
 
 
+    @field_validator("notes", mode="after")
+    def validate_other(cls, value: Optional[str], info: ValidationInfo) -> Optional[str]:
+        """Validator for other/notes"""
+
+        validation_message = ""
+
+        if info.data.get("immersion") == ImmersionMedium.OTHER and not value:
+            validation_message += "Notes cannot be empty if immersion is Other. Describe the immersion medium in the notes field."
+
+        if info.data.get("detector_type") == DetectorType.OTHER and not value:
+            validation_message += "Notes cannot be empty if detector_type is Other. Describe the detector_type in the notes field."
+
+        if info.data.get("data_interface") == DataInterface.OTHER and not value:
+            validation_message += "Notes cannot be empty if data_interface is Other. Describe the data interface in the notes field."
+
+        if validation_message:
+            raise ValueError(validation_message)
+        return value
+
+
 class Camera(Detector):
     """Camera Detector"""
 
@@ -390,6 +410,15 @@ class Objective(Device):
     immersion: ImmersionMedium = Field(..., title="Immersion")
     objective_type: Optional[ObjectiveType] = Field(None, title="Objective type")
 
+    @field_validator("notes", mode="after")
+    def validate_other(cls, value: Optional[str], info: ValidationInfo) -> Optional[str]:
+        """Validator for other/notes"""
+
+        if info.data.get("immersion") == DataInterface.OTHER and not value:
+            raise ValueError("Notes cannot be empty if immersion is Other. Describe the immersion in the notes field.")
+
+        return value
+
 
 class CameraAssembly(AindModel):
     """Named assembly of a camera and lens (and optionally a filter)"""
@@ -403,6 +432,15 @@ class CameraAssembly(AindModel):
     # optional fields
     filter: Optional[Filter] = Field(None, title="Filter")
     position: Optional[RelativePosition] = Field(None, title="Relative position of this assembly")
+
+    @field_validator("notes", mode="after")
+    def validate_other(cls, value: Optional[str], info: ValidationInfo) -> Optional[str]:
+        """Validator for other/notes"""
+
+        if info.data.get("camera_target") == CameraTarget.OTHER and not value:
+            raise ValueError("Notes cannot be empty if camera_target is Other. Describe the camera target in the notes field.")
+
+        return value
 
 
 class DAQChannel(AindModel):
@@ -449,6 +487,15 @@ class HarpDevice(DAQDevice):
     tag_version: Optional[str] = Field(None, title="Tag version")
     data_interface: DataInterface = Field(DataInterface.USB, title="Data interface")
     is_clock_generator: bool = Field(..., title="Is Clock Generator")
+
+    @field_validator("notes", mode="after")
+    def validate_other(cls, value: Optional[str], info: ValidationInfo) -> Optional[str]:
+        """Validator for other/notes"""
+
+        if info.data.get("data_interface") == DataInterface.OTHER and not value:
+            raise ValueError("Notes cannot be empty if data_interface is Other. Describe the data interface in the notes field.")
+
+        return value
 
 
 class Laser(Device):
@@ -747,6 +794,15 @@ class RewardSpout(Device):
     lick_sensor: Optional[Union[Device, DAQChannel]] = Field(None, title="Lick sensor")
     lick_sensor_type: Optional[LickSensorType] = Field(None, title="Lick sensor type")
     notes: Optional[str] = Field(None, title="Notes")
+
+    @field_validator("notes", mode="after")
+    def validate_other(cls, value: Optional[str], info: ValidationInfo) -> Optional[str]:
+        """Validator for other/notes"""
+
+        if info.data.get("side") == SpoutSide.OTHER and not value:
+            raise ValueError("Notes cannot be empty if side is Other. Describe the spout side in the notes field.")
+
+        return value
 
 
 class RewardDelivery(AindModel):
