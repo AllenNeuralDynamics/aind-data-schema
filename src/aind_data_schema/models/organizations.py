@@ -267,6 +267,15 @@ class Hamamatsu(_Organization):
     registry_identifier: Literal["03natb733"] = "03natb733"
 
 
+class Hamilton(_Organization):
+    """Hamilton"""
+
+    name: Literal["Hamilton"] = "Hamilton"
+    abbreviation: Literal[None] = Field(None)
+    registry: Literal[None] = Field(None)
+    registry_identifier: Literal[None] = Field(None)
+
+
 class HuazhongUniversityOfScienceAndTechnology(_Organization):
     """HuazhongUniversityOfScienceAndTechnology"""
 
@@ -474,6 +483,15 @@ class Nikon(_Organization):
     abbreviation: Literal[None] = Field(None)
     registry: Annotated[Union[ResearchOrganizationRegistry], Field(default=Registry.ROR, discriminator="name")]
     registry_identifier: Literal["0280y9h11"] = "0280y9h11"
+
+
+class NResearch(_Organization):
+    """NResearch"""
+
+    name: Literal["NResearch"] = "NResearch"
+    abbreviation: Literal[None] = Field(None)
+    registry: Literal[None] = Field(None)
+    registry_identifier: Literal[None] = Field(None)
 
 
 class OpenEphysProductionSite(_Organization):
@@ -695,6 +713,7 @@ class Organization:
     FLIR = TeledyneFLIR()
     FUJINON = Fujinon()
     HAMAMATSU = Hamamatsu()
+    HAMILTON = Hamilton()
     HUST = HuazhongUniversityOfScienceAndTechnology()
     IMAGING_SOURCE = TheImagingSource()
     IMEC = InteruniversityMicroelectronicsCenter()
@@ -717,6 +736,7 @@ class Organization:
     NEUROPHOTOMETRICS = Neurophotometrics()
     NINDS = NationalInstituteOfNeurologicalDisordersAndStroke()
     NIKON = Nikon()
+    NRESEARCH = NResearch()
     NYU = NewYorkUniversity()
     OEPS = OpenEphysProductionSite()
     OLYMPUS = Olympus()
