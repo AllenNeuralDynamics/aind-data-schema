@@ -335,8 +335,8 @@ class ImagingTests(unittest.TestCase):
 
         expected_exception = (
             "1 validation error for MRIScan\n"
-            "  Value error, Primary scan must have vc_orientation and vc_position [type=value_error, "
-            "input_value={'scan_index': 1, 'scan_t... {'number_averages': 3}}, input_type=dict]\n"
+            "  Value error, Primary scan must have vc_orientation, vc_position, and voxel_sizes fields "
+            "[type=value_error, input_value={'scan_index': 1, 'scan_t... {'number_averages': 3}}, input_type=dict]\n"
             f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/value_error"
         )
         self.assertEqual(expected_exception, repr(e.exception))

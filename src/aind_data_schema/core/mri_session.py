@@ -56,7 +56,7 @@ class MRIScan(AindModel):
     vc_position: Optional[Translation3dTransform] = Field(None, title="Scan position")
     subject_position: SubjectPosition = Field(..., title="Subject position")
     # other fields
-    voxel_sizes: Scale3dTransform = Field(..., title="Voxel sizes", description="Resolution")
+    voxel_sizes: Optional[Scale3dTransform] = Field(None, title="Voxel sizes", description="Resolution")
     processing_steps: List[
         Literal[
             ProcessName.FIDUCIAL_SEGMENTATION,
@@ -83,8 +83,8 @@ class MRIScan(AindModel):
         """Validate that primary scan has vc_orientation and vc_position fields"""
 
         if self.primary_scan:
-            if not self.vc_orientation or not self.vc_position:
-                raise ValueError("Primary scan must have vc_orientation and vc_position")
+            if not self.vc_orientation or not self.vc_position or not self.voxel_sizes:
+                raise ValueError("Primary scan must have vc_orientation, vc_position, and voxel_sizes fields")
 
 
 class MriSession(AindCoreModel):
