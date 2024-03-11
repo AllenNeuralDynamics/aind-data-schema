@@ -1512,11 +1512,15 @@
                "title": "Subject position"
             },
             "voxel_sizes": {
-               "allOf": [
+               "anyOf": [
                   {
                      "$ref": "#/$defs/Scale3dTransform"
+                  },
+                  {
+                     "type": "null"
                   }
                ],
+               "default": null,
                "description": "Resolution",
                "title": "Voxel sizes"
             },
@@ -1562,7 +1566,6 @@
             "echo_time",
             "repetition_time",
             "subject_position",
-            "voxel_sizes",
             "additional_scan_parameters"
          ],
          "title": "MRIScan",
@@ -3249,8 +3252,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.3.3",
-         "default": "0.3.3",
+         "const": "0.3.4",
+         "default": "0.3.4",
          "title": "Schema Version"
       },
       "subject_id": {
