@@ -5,6 +5,7 @@ from enum import Enum
 from typing import List, Literal, Optional, Union
 
 from pydantic import Field
+from typing_extensions import Annotated
 
 from aind_data_schema.base import AindModel
 from aind_data_schema.models.units import AngleUnit, SizeUnit
@@ -170,9 +171,9 @@ class ImageAxis(Axis):
 class RelativePosition(AindModel):
     """Position and rotation of a device in a rig or instrument"""
 
-    device_position_transformations: List[Union[Translation3dTransform, Rotation3dTransform]] = Field(
-        ..., title="Device position transforms"
-    )
+    device_position_transformations: List[
+        Annotated[Union[Translation3dTransform, Rotation3dTransform], Field(discriminator="type")]
+    ] = Field(..., title="Device position transforms")
     device_origin: str = Field(
         ..., title="Device origin", description="Reference point on device for position information"
     )

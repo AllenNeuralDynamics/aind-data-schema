@@ -78,6 +78,7 @@
                "probes": [
                   {
                      "ophys_probe": {
+                        "class_type": "Device",
                         "device_type": "Fiber optic probe",
                         "name": "Probe A",
                         "serial_number": null,

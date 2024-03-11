@@ -247,6 +247,8 @@ class LickSensorType(str, Enum):
 class Device(AindModel):
     """Generic device"""
 
+    class_type: Literal["Device"] = "Device"
+
     device_type: str = Field(..., title="Device type")  # Needs to be set by child classes that inherits
     name: str = Field(..., title="Device name")
     serial_number: Optional[str] = Field(None, title="Serial number")
@@ -407,6 +409,8 @@ class CameraAssembly(AindModel):
 
 class DAQChannel(AindModel):
     """Named input or output channel on a DAQ device"""
+
+    class_type: Literal["DAQChannel"] = "DAQChannel"
 
     # required fields
     channel_name: str = Field(..., title="DAQ channel name")
@@ -744,7 +748,9 @@ class RewardSpout(Device):
     spout_diameter_unit: SizeUnit = Field(SizeUnit.MM, title="Spout diameter unit")
     spout_position: Optional[RelativePosition] = Field(None, title="Spout stage position")
     solenoid_valve: Device = Field(..., title="Solenoid valve")
-    lick_sensor: Optional[Union[Device, DAQChannel]] = Field(None, title="Lick sensor")
+    lick_sensor: Optional[Annotated[Union[Device, DAQChannel], Field(discriminator="class_type")]] = Field(
+        None, title="Lick sensor"
+    )
     lick_sensor_type: Optional[LickSensorType] = Field(None, title="Lick sensor type")
     notes: Optional[str] = Field(None, title="Notes")
 

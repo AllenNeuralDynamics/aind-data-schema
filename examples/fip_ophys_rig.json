@@ -4,6 +4,7 @@
    "rig_id": "428_FIP1_2",
    "modification_date": "2023-10-03",
    "mouse_platform": {
+      "class_type": "Device",
       "device_type": "Disc",
       "name": "mouse_disc",
       "serial_number": null,
@@ -28,6 +29,7 @@
          "stage_type": null,
          "reward_spouts": [
             {
+               "class_type": "Device",
                "device_type": "Reward spout",
                "name": "Lick-o-meter Left",
                "serial_number": null,
@@ -42,6 +44,7 @@
                "spout_diameter_unit": "millimeter",
                "spout_position": null,
                "solenoid_valve": {
+                  "class_type": "Device",
                   "device_type": "Solenoid",
                   "name": "Solenoid Left",
                   "serial_number": null,
@@ -56,6 +59,7 @@
                "lick_sensor_type": null
             },
             {
+               "class_type": "Device",
                "device_type": "Reward spout",
                "name": "Lick-o-meter Right",
                "serial_number": null,
@@ -70,6 +74,7 @@
                "spout_diameter_unit": "millimeter",
                "spout_position": null,
                "solenoid_valve": {
+                  "class_type": "Device",
                   "device_type": "Solenoid",
                   "name": "Solenoid Right",
                   "serial_number": null,
@@ -91,6 +96,7 @@
          "camera_assembly_name": "BehaviorVideography_FaceSide",
          "camera_target": "Face side",
          "camera": {
+            "class_type": "Device",
             "device_type": "Detector",
             "name": "ELP Camera USB 1080P Infrared Webcam 1",
             "serial_number": "TBD",
@@ -137,6 +143,7 @@
             "driver_version": null
          },
          "lens": {
+            "class_type": "Device",
             "device_type": "Lens",
             "name": "Xenocam 1",
             "serial_number": "unknown",
@@ -166,6 +173,7 @@
          "camera_assembly_name": "BehaviorVideography_FaceBottom",
          "camera_target": "Face bottom",
          "camera": {
+            "class_type": "Device",
             "device_type": "Detector",
             "name": "ELP Camera USB 1080P Infrared Webcam 2",
             "serial_number": "TBD",
@@ -212,6 +220,7 @@
             "driver_version": null
          },
          "lens": {
+            "class_type": "Device",
             "device_type": "Lens",
             "name": "Xenocam 2",
             "serial_number": "unknown",
@@ -245,6 +254,7 @@
    "laser_assemblies": [],
    "patch_cords": [
       {
+         "class_type": "Device",
          "device_type": "Patch",
          "name": "Bundle Branching Fiber-optic Patch Cord",
          "serial_number": null,
@@ -269,6 +279,7 @@
    ],
    "light_sources": [
       {
+         "class_type": "Device",
          "device_type": "Light emitting diode",
          "name": "470nm LED",
          "serial_number": null,
@@ -290,6 +301,7 @@
          "wavelength_unit": "nanometer"
       },
       {
+         "class_type": "Device",
          "device_type": "Light emitting diode",
          "name": "415nm LED",
          "serial_number": null,
@@ -311,6 +323,7 @@
          "wavelength_unit": "nanometer"
       },
       {
+         "class_type": "Device",
          "device_type": "Light emitting diode",
          "name": "565nm LED",
          "serial_number": null,
@@ -334,6 +347,7 @@
    ],
    "detectors": [
       {
+         "class_type": "Device",
          "device_type": "Detector",
          "name": "FLIR CMOS for Green Channel",
          "serial_number": "21396991",
@@ -378,6 +392,7 @@
          "driver_version": null
       },
       {
+         "class_type": "Device",
          "device_type": "Detector",
          "name": "FLIR CMOS for Red Channel",
          "serial_number": "21396991",
@@ -424,6 +439,7 @@
    ],
    "objectives": [
       {
+         "class_type": "Device",
          "device_type": "Objective",
          "name": "Nikon 10x Objective",
          "serial_number": "128022336",
@@ -449,6 +465,7 @@
    ],
    "filters": [
       {
+         "class_type": "Device",
          "device_type": "Filter",
          "name": "Green emission bandpass filter",
          "serial_number": null,
@@ -478,6 +495,7 @@
          "description": null
       },
       {
+         "class_type": "Device",
          "device_type": "Filter",
          "name": "Red emission bandpass filter",
          "serial_number": null,
@@ -507,6 +525,7 @@
          "description": null
       },
       {
+         "class_type": "Device",
          "device_type": "Filter",
          "name": "Emission Dichroic",
          "serial_number": null,
@@ -536,6 +555,7 @@
          "description": null
       },
       {
+         "class_type": "Device",
          "device_type": "Filter",
          "name": "dual-edge standard epi-fluorescence dichroic beamsplitter",
          "serial_number": null,
@@ -565,6 +585,7 @@
          "description": null
       },
       {
+         "class_type": "Device",
          "device_type": "Filter",
          "name": "Excitation filter 410nm",
          "serial_number": null,
@@ -597,6 +618,7 @@
          "description": null
       },
       {
+         "class_type": "Device",
          "device_type": "Filter",
          "name": "Excitation filter 470nm",
          "serial_number": null,
@@ -629,6 +651,7 @@
          "description": null
       },
       {
+         "class_type": "Device",
          "device_type": "Filter",
          "name": "Excitation filter 560nm",
          "serial_number": null,
@@ -661,6 +684,7 @@
          "description": null
       },
       {
+         "class_type": "Device",
          "device_type": "Filter",
          "name": "450nm, 25.2 x 35.6mm, Dichroic Longpass Filter",
          "serial_number": null,
@@ -693,6 +717,7 @@
          "description": null
       },
       {
+         "class_type": "Device",
          "device_type": "Filter",
          "name": "500nm, 25.2 x 35.6mm, Dichroic Longpass Filter",
          "serial_number": null,
@@ -727,6 +752,7 @@
    ],
    "lenses": [
       {
+         "class_type": "Device",
          "device_type": "Lens",
          "name": "Image focusing lens",
          "serial_number": null,
@@ -758,6 +784,7 @@
    "pockels_cells": [],
    "additional_devices": [
       {
+         "class_type": "Device",
          "device_type": "Photometry Clock",
          "name": "Photometry Clock",
          "serial_number": null,
@@ -771,6 +798,7 @@
    ],
    "daqs": [
       {
+         "class_type": "Device",
          "device_type": "Harp device",
          "name": "Harp Behavior",
          "serial_number": null,
@@ -792,6 +820,7 @@
          "computer_name": "behavior_computer",
          "channels": [
             {
+               "class_type": "DAQChannel",
                "channel_name": "DO0",
                "device_name": "Solenoid Left",
                "channel_type": "Digital Output",
@@ -802,6 +831,7 @@
                "event_based_sampling": null
             },
             {
+               "class_type": "DAQChannel",
                "channel_name": "DO1",
                "device_name": "Solenoid Right",
                "channel_type": "Digital Output",
@@ -812,6 +842,7 @@
                "event_based_sampling": null
             },
             {
+               "class_type": "DAQChannel",
                "channel_name": "DI0",
                "device_name": "Lick-o-meter Left",
                "channel_type": "Digital Input",
@@ -822,6 +853,7 @@
                "event_based_sampling": null
             },
             {
+               "class_type": "DAQChannel",
                "channel_name": "DI1",
                "device_name": "Lick-o-meter Right",
                "channel_type": "Digital Input",
@@ -832,6 +864,7 @@
                "event_based_sampling": null
             },
             {
+               "class_type": "DAQChannel",
                "channel_name": "DI3",
                "device_name": "Photometry Clock",
                "channel_type": "Digital Input",
