@@ -5,17 +5,17 @@
    "session_start_time": "2024-03-12T16:27:55.584892",
    "session_end_time": "2024-03-12T16:27:55.584892",
    "experimenter_full_name": [
-      "test"
+      "Allen Brain"
    ],
-   "protocol_id": "",
-   "iacuc_protocol": "",
+   "protocol_id": "dx.doi.org/10.57824/protocols.io.bh7kl4n6",
+   "iacuc_protocol": "12345",
    "animal_weight_prior": null,
    "animal_weight_post": null,
    "weight_unit": "gram",
    "anaesthesia": null,
    "mri_scanner": {
       "device_type": "Scanner",
-      "name": "test_scanner",
+      "name": "Scanner 72",
       "serial_number": null,
       "manufacturer": null,
       "model": null,
@@ -31,5 +31,5 @@
       null,
       null
    ],
-   "notes": "none"
+   "notes": "There was some information about this scan session"
 }

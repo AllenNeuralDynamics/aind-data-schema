@@ -17,7 +17,7 @@ scan1 = MRIScan(
     voxel_sizes=Scale3dTransform(scale=[0.5, 0.4375, 0.52]),
     processing_steps=[],
     additional_scan_parameters={},
-    notes=None,
+    notes="Set up scan for the 3D scan.",
 )
 
 scan2 = MRIScan(
@@ -44,16 +44,16 @@ sess = MriSession(
     subject_id="",
     session_start_time="2024-03-12T16:27:55.584892",
     session_end_time="2024-03-12T16:27:55.584892",
-    experimenter_full_name=["test"],
-    protocol_id="",
-    iacuc_protocol="",
+    experimenter_full_name=["Allen Brain"],
+    protocol_id="dx.doi.org/10.57824/protocols.io.bh7kl4n6",
+    iacuc_protocol="12345",
     mri_scanner=Scanner(
-        name="test_scanner",
+        name="Scanner 72",
         scanner_location="Fred Hutch",
         magnetic_strength="7",
     ),
     scans=scans,
-    notes="none"
+    notes="There was some information about this scan session"
 )
 
 sess.write_standard_file()
