@@ -308,7 +308,7 @@ class Headframe(AindModel):
 
 
 class ProtectiveMaterialReplacement(AindModel):
-    """Description of a proective material replacement procedure in preparation for ephys recording"""
+    """Description of a protective material replacement procedure in preparation for ephys recording"""
 
     procedure_type: Literal["Ground wire"] = "Ground wire"
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
