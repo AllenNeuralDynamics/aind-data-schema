@@ -433,14 +433,13 @@ class CameraAssembly(AindModel):
     filter: Optional[Filter] = Field(None, title="Filter")
     position: Optional[RelativePosition] = Field(None, title="Relative position of this assembly")
 
-    @field_validator("notes", mode="after")
-    def validate_other(cls, value: Optional[str], info: ValidationInfo) -> Optional[str]:
+    def _validate_other(self, ) -> Optional[str]:
         """Validator for other/notes"""
 
-        if info.data.get("camera_target") == CameraTarget.OTHER and not value:
-            raise ValueError("Notes cannot be empty if camera_target is Other. Describe the camera target in the notes field.")
+        if self.camera_target == CameraTarget.OTHER:
+            return {"camera_target": self.camera_assembly_name}
 
-        return value
+        return None
 
 
 class DAQChannel(AindModel):

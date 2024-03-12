@@ -82,6 +82,12 @@ class Rig(AindCoreModel):
     modalities: Set[Modality.ONE_OF] = Field(..., title="Modalities")
     notes: Optional[str] = Field(None, title="Notes")
 
+
+    @model_validator(mode="after")
+    def validate_other_internal(self):
+        if self.get("cameras"):
+            for camera in self.cameras:
+
     @field_validator("daqs", mode="after")
     def validate_device_names(cls, value: List[DAQDevice], info: ValidationInfo) -> List[DAQDevice]:
         """validate that all DAQ channels are connected to devices that
