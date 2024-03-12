@@ -85,6 +85,8 @@ class MRIScan(AindModel):
         if self.primary_scan:
             if not self.vc_orientation or not self.vc_position or not self.voxel_sizes:
                 raise ValueError("Primary scan must have vc_orientation, vc_position, and voxel_sizes fields")
+            
+        return self
 
 
 class MriSession(AindCoreModel):
