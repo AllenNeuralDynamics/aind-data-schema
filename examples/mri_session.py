@@ -1,12 +1,8 @@
-from aind_data_schema.models.coordinates import Rotation3dTransform, Scale3dTransform, Translation3dTransform
-from aind_data_schema.core.mri_session import MRIScan, MriSession, MriScanSequence, ScanType, SubjectPosition
 from decimal import Decimal
-from aind_data_schema.models.units import MassUnit, TimeUnit
-from aind_data_schema.models.devices import Scanner, ScannerLocation, MagneticStrength
-from datetime import datetime
 
-import traceback
-
+from aind_data_schema.core.mri_session import MRIScan, MriScanSequence, MriSession, ScanType, SubjectPosition
+from aind_data_schema.models.coordinates import Rotation3dTransform, Scale3dTransform, Translation3dTransform
+from aind_data_schema.models.devices import Scanner
 
 scan1 = MRIScan(
     scan_index="1",
@@ -21,7 +17,7 @@ scan1 = MRIScan(
     processing_steps=[],
     additional_scan_parameters={},
     notes=None,
-)  
+)
 
 scan2 = MRIScan(
     scan_index="2",
@@ -43,19 +39,17 @@ scan2 = MRIScan(
 
 scans = [scan1, scan2]
 
-
-
 sess = MriSession(
     subject_id="",
-    session_start_time="2024-03-12T16:27:55.584892", 
+    session_start_time="2024-03-12T16:27:55.584892",
     session_end_time="2024-03-12T16:27:55.584892",
-    experimenter_full_name=["test"], 
+    experimenter_full_name=["test"],
     protocol_id="",
     iacuc_protocol="",
     mri_scanner=Scanner(
         name="test_scanner",
         scanner_location="Fred Hutch",
-        magnetic_strength="7", 
+        magnetic_strength="7",
     ),
     scans=scans,
     notes="none"
