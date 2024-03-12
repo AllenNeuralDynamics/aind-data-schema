@@ -4,6 +4,7 @@ from datetime import datetime
 from aind_data_schema.core.data_description import Funding, RawDataDescription
 from aind_data_schema.models.modalities import Modality
 from aind_data_schema.models.organizations import Organization
+from aind_data_schema.models.pid_names import PIDName
 from aind_data_schema.models.platforms import Platform
 
 d = RawDataDescription(
@@ -12,7 +13,7 @@ d = RawDataDescription(
     subject_id="12345",
     creation_time=datetime(2022, 2, 21, 16, 30, 1),
     institution=Organization.AIND,
-    investigators=["Jane Smith"],
+    investigators=[PIDName(name="Jane Smith")],
     funding_source=[Funding(funder=Organization.AI)],
 )
 

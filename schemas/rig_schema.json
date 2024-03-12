@@ -730,7 +730,7 @@
                      "$ref": "#/$defs/Cooling"
                   }
                ],
-               "default": null,
+               "default": "None",
                "title": "Cooling"
             },
             "computer_name": {
@@ -1403,7 +1403,8 @@
          "description": "Cooling medium name",
          "enum": [
             "Air",
-            "Water"
+            "Water",
+            "None"
          ],
          "title": "Cooling",
          "type": "string"
@@ -1895,7 +1896,7 @@
                      "$ref": "#/$defs/Cooling"
                   }
                ],
-               "default": null,
+               "default": "None",
                "title": "Cooling"
             },
             "computer_name": {
@@ -6392,7 +6393,10 @@
             "oil",
             "PBS",
             "water",
-            "other"
+            "other",
+            "easy index",
+            "ethyl cinnimate",
+            "aqueous clearing buffer"
          ],
          "title": "ImmersionMedium",
          "type": "string"
@@ -14537,8 +14541,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.2.16",
-         "default": "0.2.16",
+         "const": "0.2.18",
+         "default": "0.2.18",
          "title": "Schema Version"
       },
       "rig_id": {
@@ -14833,7 +14837,7 @@
                "type": "null"
             }
          ],
-         "default": [],
+         "default": null,
          "title": "Rig axes"
       },
       "modalities": {

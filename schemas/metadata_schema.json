@@ -80,8 +80,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.6.8",
-               "default": "0.6.8",
+               "const": "0.6.9",
+               "default": "0.6.9",
                "title": "Schema Version"
             },
             "protocol_id": {
@@ -2263,7 +2263,7 @@
                      "$ref": "#/$defs/Cooling"
                   }
                ],
-               "default": null,
+               "default": "None",
                "title": "Cooling"
             },
             "computer_name": {
@@ -3133,7 +3133,8 @@
          "description": "Cooling medium name",
          "enum": [
             "Air",
-            "Water"
+            "Water",
+            "None"
          ],
          "title": "Cooling",
          "type": "string"
@@ -3673,8 +3674,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.13.1",
-               "default": "0.13.1",
+               "const": "0.13.2",
+               "default": "0.13.2",
                "title": "Schema Version"
             },
             "license": {
@@ -3860,7 +3861,7 @@
             "investigators": {
                "description": "Full name(s) of key investigators (e.g. PI, lead scientist, contact person)",
                "items": {
-                  "type": "string"
+                  "$ref": "#/$defs/PIDName"
                },
                "minItems": 1,
                "title": "Investigators",
@@ -4280,7 +4281,7 @@
                      "$ref": "#/$defs/Cooling"
                   }
                ],
-               "default": null,
+               "default": "None",
                "title": "Cooling"
             },
             "computer_name": {
@@ -8218,6 +8219,75 @@
                "default": null,
                "description": "Coupled planes for multiscope",
                "title": "Coupled FOV"
+            },
+            "power": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Power"
+            },
+            "power_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/PowerUnit"
+                  }
+               ],
+               "default": "percent",
+               "title": "Power unit"
+            },
+            "scanfield_z": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Z stage position of the fastz actuator for a given targeted depth"
+            },
+            "scanfield_z_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  }
+               ],
+               "default": "micrometer",
+               "title": "Z stage position unit"
+            },
+            "scanimage_roi_index": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "ScanImage ROI index"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Notes"
             }
          },
          "required": [
@@ -10764,7 +10834,10 @@
             "oil",
             "PBS",
             "water",
-            "other"
+            "other",
+            "easy index",
+            "ethyl cinnimate",
+            "aqueous clearing buffer"
          ],
          "title": "ImmersionMedium",
          "type": "string"
@@ -10871,8 +10944,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.10.11",
-               "default": "0.10.11",
+               "const": "0.10.13",
+               "default": "0.10.13",
                "title": "Schema Version"
             },
             "instrument_id": {
@@ -11435,7 +11508,6 @@
          "description": "Description of an interacerebellar ventricle injection",
          "properties": {
             "injection_materials": {
-               "default": [],
                "items": {
                   "anyOf": [
                      {
@@ -11672,6 +11744,7 @@
             }
          },
          "required": [
+            "injection_materials",
             "protocol_id",
             "injection_coordinate_ml",
             "injection_coordinate_ap",
@@ -11687,7 +11760,6 @@
          "description": "Description of an interacisternal magna injection",
          "properties": {
             "injection_materials": {
-               "default": [],
                "items": {
                   "anyOf": [
                      {
@@ -11924,6 +11996,7 @@
             }
          },
          "required": [
+            "injection_materials",
             "protocol_id",
             "injection_coordinate_ml",
             "injection_coordinate_ap",
@@ -11939,7 +12012,6 @@
          "description": "Description of an intraperitoneal injection procedure",
          "properties": {
             "injection_materials": {
-               "default": [],
                "items": {
                   "anyOf": [
                      {
@@ -12046,6 +12118,7 @@
             }
          },
          "required": [
+            "injection_materials",
             "protocol_id",
             "injection_volume"
          ],
@@ -12057,7 +12130,6 @@
          "description": "Description of an iotophoresis injection procedure",
          "properties": {
             "injection_materials": {
-               "default": [],
                "items": {
                   "anyOf": [
                      {
@@ -12294,6 +12366,7 @@
             }
          },
          "required": [
+            "injection_materials",
             "protocol_id",
             "injection_coordinate_ml",
             "injection_coordinate_ap",
@@ -14903,7 +14976,6 @@
          "description": "Description of a nanoject injection procedure",
          "properties": {
             "injection_materials": {
-               "default": [],
                "items": {
                   "anyOf": [
                      {
@@ -15140,6 +15212,7 @@
             }
          },
          "required": [
+            "injection_materials",
             "protocol_id",
             "injection_coordinate_ml",
             "injection_coordinate_ap",
@@ -19782,10 +19855,9 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.12.5",
-               "default": "0.12.5",
-               "description": "schema version",
-               "title": "Version"
+               "const": "0.12.6",
+               "default": "0.12.6",
+               "title": "Schema Version"
             },
             "subject_id": {
                "description": "Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
@@ -20915,7 +20987,6 @@
          "description": "Description of a retro-orbital injection procedure",
          "properties": {
             "injection_materials": {
-               "default": [],
                "items": {
                   "anyOf": [
                      {
@@ -21030,6 +21101,7 @@
             }
          },
          "required": [
+            "injection_materials",
             "protocol_id",
             "injection_volume",
             "injection_eye"
@@ -21642,8 +21714,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.2.16",
-               "default": "0.2.16",
+               "const": "0.2.18",
+               "default": "0.2.18",
                "title": "Schema Version"
             },
             "rig_id": {
@@ -21938,7 +22010,7 @@
                      "type": "null"
                   }
                ],
-               "default": [],
+               "default": null,
                "title": "Rig axes"
             },
             "modalities": {
@@ -22640,8 +22712,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.1.8",
-               "default": "0.1.8",
+               "const": "0.1.9",
+               "default": "0.1.9",
                "title": "Schema Version"
             },
             "protocol_id": {
@@ -23133,6 +23205,75 @@
                "default": null,
                "description": "Coupled planes for multiscope",
                "title": "Coupled FOV"
+            },
+            "power": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Power"
+            },
+            "power_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/PowerUnit"
+                  }
+               ],
+               "default": "percent",
+               "title": "Power unit"
+            },
+            "scanfield_z": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Z stage position of the fastz actuator for a given targeted depth"
+            },
+            "scanfield_z_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  }
+               ],
+               "default": "micrometer",
+               "title": "Z stage position unit"
+            },
+            "scanimage_roi_index": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "ScanImage ROI index"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Notes"
             },
             "session_type": {
                "allOf": [
@@ -27692,8 +27833,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.1.32",
-         "default": "0.1.32",
+         "const": "0.1.36",
+         "default": "0.1.36",
          "title": "Schema Version"
       },
       "_id": {

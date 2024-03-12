@@ -47,11 +47,11 @@ class ProceduresTests(unittest.TestCase):
                 subject_procedures=[
                     Surgery(
                         start_date=start_date,
-                        experimenter_full_name="tom",
+                        experimenter_full_name="Chip Munk",
                         procedures=[
                             RetroOrbitalInjection(
                                 start_date=start_date,
-                                experimenter_full_name="tom",
+                                experimenter_full_name="Chip Munk",
                                 protocol_id="134",
                                 injection_materials=[],  # An empty list is invalid
                                 injection_volume=1,
@@ -64,12 +64,76 @@ class ProceduresTests(unittest.TestCase):
                 ],
             )
 
+        # validate error for injection_materials=[]
+        with self.assertRaises(ValidationError) as e:
+            Procedures(
+                subject_id="12345",
+                subject_procedures=[
+                    Surgery(
+                        start_date=start_date,
+                        experimenter_full_name="Chip Munk",
+                        procedures=[
+                            RetroOrbitalInjection(
+                                protocol_id="134",
+                                injection_materials=[],  # An empty list is invalid
+                                injection_volume=1,
+                                injection_eye="Left",
+                                injection_duration=1,
+                                recovery_time=10,
+                            ),
+                        ],
+                    )
+                ],
+            )
+        expected_exception = (
+            "1 validation error for RetroOrbitalInjection\n"
+            "injection_materials\n"
+            "  List should have at least 1 item after validation, not 0 [type=too_short, input_value=[], "
+            "input_type=list]\n"
+            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/too_short"
+        )
+
+        self.assertEqual(expected_exception, repr(e.exception))
+
+        # validate error for injection_materials=None
+        with self.assertRaises(ValidationError) as e:
+            p = Procedures(
+                subject_id="12345",
+                subject_procedures=[
+                    Surgery(
+                        start_date=start_date,
+                        experimenter_full_name="Chip Munk",
+                        procedures=[
+                            RetroOrbitalInjection(
+                                protocol_id="134",
+                                injection_materials=None,
+                                injection_volume=1,
+                                injection_eye="Left",
+                                injection_duration=1,
+                                recovery_time=10,
+                            ),
+                        ],
+                    )
+                ],
+            )
+
+        expected_exception = (
+            "1 validation error for RetroOrbitalInjection\n"
+            "injection_materials\n"
+            "  Input should be a valid list [type=list_type, input_value=None, input_type=NoneType]\n"
+            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/list_type"
+        )
+
+        self.assertEqual(expected_exception, repr(e.exception))
+
+        # Validate injection_materials is list of one ViralMaterial or NonViralMaterial item
+
         p = Procedures(
             subject_id="12345",
             subject_procedures=[
                 Surgery(
                     start_date=start_date,
-                    experimenter_full_name="tom",
+                    experimenter_full_name="Chip Munk",
                     iacuc_protocol="234",
                     procedures=[
                         RetroOrbitalInjection(
@@ -251,6 +315,18 @@ class ProceduresTests(unittest.TestCase):
             injection_angle=1,
             injection_coordinate_depth=[0, 1],
             injection_volume=[1, 2],
+            injection_materials=[
+                ViralMaterial(
+                    material_type="Virus",
+                    name="AAV2-Flex-ChrimsonR",
+                    tars_identifiers=TarsVirusIdentifiers(
+                        virus_tars_id="AiV222",
+                        plasmid_tars_alias="AiP222",
+                        prep_lot_number="VT222",
+                    ),
+                    titer=2300000000,
+                )
+            ],
         )
         self.assertEqual(len(inj1.injection_coordinate_depth), len(inj1.injection_volume))
 

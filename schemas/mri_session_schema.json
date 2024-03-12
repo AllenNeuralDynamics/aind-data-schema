@@ -1442,8 +1442,12 @@
                   },
                   {
                      "type": "string"
+                  },
+                  {
+                     "type": "null"
                   }
                ],
+               "default": null,
                "title": "Effective echo time (ms)"
             },
             "echo_time_unit": {
@@ -1476,19 +1480,27 @@
                "title": "Repetition time unit"
             },
             "vc_orientation": {
-               "allOf": [
+               "anyOf": [
                   {
                      "$ref": "#/$defs/Rotation3dTransform"
+                  },
+                  {
+                     "type": "null"
                   }
                ],
+               "default": null,
                "title": "Scan orientation"
             },
             "vc_position": {
-               "allOf": [
+               "anyOf": [
                   {
                      "$ref": "#/$defs/Translation3dTransform"
+                  },
+                  {
+                     "type": "null"
                   }
                ],
+               "default": null,
                "title": "Scan position"
             },
             "subject_position": {
@@ -1500,11 +1512,15 @@
                "title": "Subject position"
             },
             "voxel_sizes": {
-               "allOf": [
+               "anyOf": [
                   {
                      "$ref": "#/$defs/Scale3dTransform"
+                  },
+                  {
+                     "type": "null"
                   }
                ],
+               "default": null,
                "description": "Resolution",
                "title": "Voxel sizes"
             },
@@ -1548,12 +1564,8 @@
             "primary_scan",
             "scan_sequence_type",
             "echo_time",
-            "effective_echo_time",
             "repetition_time",
-            "vc_orientation",
-            "vc_position",
             "subject_position",
-            "voxel_sizes",
             "additional_scan_parameters"
          ],
          "title": "MRIScan",
@@ -3240,8 +3252,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.3.2",
-         "default": "0.3.2",
+         "const": "0.3.4",
+         "default": "0.3.4",
          "title": "Schema Version"
       },
       "subject_id": {
