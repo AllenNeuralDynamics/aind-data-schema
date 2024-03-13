@@ -6,7 +6,7 @@ from aind_data_schema.core.session import DetectorConfig, FieldOfView, LaserConf
 from aind_data_schema.models.modalities import Modality
 from aind_data_schema.models.stimulus import PhotoStimulation, PhotoStimulationGroup, StimulusEpoch
 
-t = datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc).astimezone()
+t = datetime(2022, 7, 12, 7, 00, 00).astimezone(tz=timezone.utc)
 
 s = Session(
     experimenter_full_name=["John Doe"],

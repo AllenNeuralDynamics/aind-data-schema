@@ -2,7 +2,7 @@
 
 import re
 import unittest
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 
 from pydantic import ValidationError
 from pydantic import __version__ as pyd_version
@@ -35,20 +35,20 @@ class ImagingTests(unittest.TestCase):
 
         a = acq.Acquisition(
             experimenter_full_name=["alice"],
-            session_start_time=datetime.now(tz=timezone.utc).astimezone(),
+            session_start_time=datetime.now().astimezone(tz=timezone.utc),
             specimen_id="12345",
             subject_id="1234",
             instrument_id="1234",
             calibrations=[
                 Calibration(
-                    calibration_date=datetime.now(tz=timezone.utc).astimezone(),
+                    calibration_date=datetime.now().astimezone(tz=timezone.utc),
                     description="Laser power calibration",
                     device_name="Laser 1",
                     input={"power_setting": PowerValue(value=100.0, unit="percent")},
                     output={"power_measurement": PowerValue(value=50.0, unit="milliwatt")},
                 ),
             ],
-            session_end_time=datetime.now(tz=timezone.utc).astimezone(),
+            session_end_time=datetime.now().astimezone(tz=timezone.utc),
             chamber_immersion=acq.Immersion(medium="PBS", refractive_index=1),
             tiles=[
                 tile.AcquisitionTile(
@@ -77,7 +77,7 @@ class ImagingTests(unittest.TestCase):
 
         i = inst.Instrument(
             instrument_type="diSPIM",
-            modification_date=datetime.datetime.now().date(),
+            modification_date=datetime.now().date(),
             manufacturer=Organization.LIFECANVAS,
             objectives=[],
             detectors=[],
@@ -89,7 +89,7 @@ class ImagingTests(unittest.TestCase):
         with self.assertRaises(ValidationError) as e1:
             inst.Instrument(
                 instrument_type="Other",
-                modification_date=datetime.datetime(2020, 10, 10, 0, 0, 0).date(),
+                modification_date=datetime(2020, 10, 10, 0, 0, 0).date(),
                 manufacturer=Organization.OTHER,
                 objectives=[],
                 detectors=[],
@@ -140,8 +140,8 @@ class ImagingTests(unittest.TestCase):
         mri = ms.MriSession(
             experimenter_full_name=["Frank Frankson"],
             subject_id="1234",
-            session_start_time=datetime.now(tz=timezone.utc).astimezone(),
-            session_end_time=datetime.now(tz=timezone.utc).astimezone(),
+            session_start_time=datetime.now().astimezone(tz=timezone.utc),
+            session_end_time=datetime.now().astimezone(tz=timezone.utc),
             protocol_id="doi_path",
             animal_weight_prior=22.1,
             animal_weight_post=21.9,
@@ -179,20 +179,20 @@ class ImagingTests(unittest.TestCase):
         for test_code in test_codes:
             a = acq.Acquisition(
                 experimenter_full_name=["alice"],
-                session_start_time=datetime.now(tz=timezone.utc).astimezone(),
+                session_start_time=datetime.now().astimezone(tz=timezone.utc),
                 specimen_id="12345",
                 subject_id="1234",
                 instrument_id="1234",
                 calibrations=[
                     Calibration(
-                        calibration_date=datetime.now(tz=timezone.utc).astimezone(),
+                        calibration_date=datetime.now().astimezone(tz=timezone.utc),
                         description="Laser power calibration",
                         device_name="Laser 1",
                         input={"power_setting": PowerValue(value=100.0, unit="percent")},
                         output={"power_measurement": PowerValue(value=50.0, unit="milliwatt")},
                     ),
                 ],
-                session_end_time=datetime.now(tz=timezone.utc).astimezone(),
+                session_end_time=datetime.now().astimezone(tz=timezone.utc),
                 chamber_immersion=acq.Immersion(medium="PBS", refractive_index=1),
                 tiles=[
                     tile.AcquisitionTile(
@@ -221,8 +221,8 @@ class ImagingTests(unittest.TestCase):
         t = Registration(
             name="Image tile alignment",
             software_version="2.3",
-            start_date_time=datetime.now(tz=timezone.utc).astimezone(),
-            end_date_time=datetime.now(tz=timezone.utc).astimezone(),
+            start_date_time=datetime.now().astimezone(tz=timezone.utc),
+            end_date_time=datetime.now().astimezone(tz=timezone.utc),
             input_location="/some/path",
             output_location="/some/path",
             code_url="http://foo",
@@ -253,7 +253,7 @@ class ImagingTests(unittest.TestCase):
             inst.Instrument(
                 instrument_id="exaSPIM1-1",
                 instrument_type="exaSPIM",
-                modification_date=datetime.date(2023, 10, 4),
+                modification_date=date(2023, 10, 4),
                 manufacturer=Organization.CUSTOM,
                 daqs=[
                     DAQDevice(
