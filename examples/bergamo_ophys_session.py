@@ -1,13 +1,13 @@
 """ example Bergamo ophys session """
 
-import datetime
+from datetime import datetime, timezone
 
 from aind_data_schema.core.session import DetectorConfig, FieldOfView, LaserConfig, Session, Stream
 from aind_data_schema.models.modalities import Modality
 from aind_data_schema.models.stimulus import PhotoStimulation, PhotoStimulationGroup, StimulusEpoch
 
-t = datetime.datetime(2022, 7, 12, 7, 00, 00).astimezone()
-
+t = datetime(2022, 7, 12, 7, 00, 00,tzinfo=timezone.utc).astimezone(tz=timezone.utc)
+print(t)
 s = Session(
     experimenter_full_name=["John Doe"],
     session_start_time=t,
