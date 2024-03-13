@@ -584,6 +584,15 @@ class SchneiderKreuznach(_Organization):
     registry_identifier: Literal[None] = Field(None)
 
 
+class SigmaAldritch(_Organization):
+    """Sigma-Aldritch"""
+
+    name: Literal["Sigma-Aldritch"] = "Sigma-Aldritch"
+    abbreviation: Literal[None] = Field(None)
+    registry: Literal[None] = Field(None)
+    registry_identifier: Literal[None] = Field(None)
+
+
 class SimonsFoundation(_Organization):
     """SimonsFoundation"""
 
@@ -748,6 +757,7 @@ class Organization:
     RASPBERRYPI = RaspberryPi()
     SEMROCK = Semrock()
     SCHNEIDER_KREUZNACH = SchneiderKreuznach()
+    SIGMA = SigmaAldritch()
     SIMONS = SimonsFoundation()
     SPINNAKER = Spinnaker()
     TAMRON = Tamron()
