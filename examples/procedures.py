@@ -1,5 +1,5 @@
 """ ephys procedure mouse 625100 """
-import datetime
+from datetime import datetime, timezone
 
 from aind_data_schema.core.procedures import (
     Anaesthetic,
@@ -12,8 +12,8 @@ from aind_data_schema.core.procedures import (
     ViralMaterial,
 )
 
-t = datetime.datetime(2022, 7, 12, 7, 00, 00).astimezone()
-t2 = datetime.datetime(2022, 9, 23, 10, 22, 00).astimezone()
+t = datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc).astimezone()
+t2 = datetime(2022, 9, 23, 10, 22, 00, tzinfo=timezone.utc).astimezone()
 
 p = Procedures(
     subject_id="625100",

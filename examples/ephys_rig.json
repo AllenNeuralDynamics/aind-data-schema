@@ -579,7 +579,7 @@
    ],
    "calibrations": [
       {
-         "calibration_date": "2023-10-02T10:22:13-07:00",
+         "calibration_date": "2023-10-02T03:22:13-07:00",
          "device_name": "Red Laser",
          "description": "Laser power calibration",
          "input": {
@@ -599,7 +599,7 @@
          "notes": null
       },
       {
-         "calibration_date": "2023-10-02T10:22:13-07:00",
+         "calibration_date": "2023-10-02T03:22:13-07:00",
          "device_name": "Blue Laser",
          "description": "Laser power calibration",
          "input": {

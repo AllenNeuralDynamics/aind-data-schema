@@ -21,7 +21,7 @@ class ExampleTests(unittest.TestCase):
         """run through each example, compare to rendered json"""
 
         for example_file in glob.glob(f"{EXAMPLES_DIR}/*.py"):
-            print(example_file)
+
             logging.debug(f"testing {example_file}")
 
             json_file = example_file.replace(".py", ".json")

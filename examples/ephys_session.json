@@ -5,8 +5,8 @@
    "experimenter_full_name": [
       "Jane Doe"
    ],
-   "session_start_time": "2023-01-10T08:40:00-08:00",
-   "session_end_time": "2023-01-10T09:46:00-08:00",
+   "session_start_time": "2023-01-10T00:40:00-08:00",
+   "session_end_time": "2023-01-10T01:46:00-08:00",
    "session_type": "Test",
    "iacuc_protocol": "1294",
    "rig_id": "323_EPHYS1",
@@ -18,8 +18,8 @@
    "weight_unit": "gram",
    "data_streams": [
       {
-         "stream_start_time": "2023-01-10T08:43:00-08:00",
-         "stream_end_time": "2023-01-10T09:43:00-08:00",
+         "stream_start_time": "2023-01-10T00:43:00-08:00",
+         "stream_end_time": "2023-01-10T01:43:00-08:00",
          "daq_names": [
             "Harp Behavior",
             "Basestation Slot 3"
