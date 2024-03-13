@@ -1,8 +1,8 @@
 """ test Imaging """
 
-from datetime import datetime, timezone
 import re
 import unittest
+from datetime import datetime, timezone
 
 from pydantic import ValidationError
 from pydantic import __version__ as pyd_version

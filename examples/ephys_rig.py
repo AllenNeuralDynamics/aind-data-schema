@@ -1,6 +1,6 @@
 """Generates an example JSON file for an ephys rig"""
 
-from datetime import datetime, timezone, date
+from datetime import date, datetime, timezone
 
 from aind_data_schema.core.rig import Rig
 from aind_data_schema.models.devices import (
