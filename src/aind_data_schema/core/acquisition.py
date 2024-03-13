@@ -1,6 +1,5 @@
 """ schema describing imaging acquisition """
 
-from datetime import datetime
 from decimal import Decimal
 from typing import List, Literal, Optional, Union
 
