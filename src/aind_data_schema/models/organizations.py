@@ -766,6 +766,7 @@ class Organization:
             AilipuTechnologyCo,
             Allied,
             Basler,
+            Dodotronic,
             EdmundOptics,
             Hamamatsu,
             Spinnaker,
