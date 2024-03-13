@@ -6,7 +6,7 @@ from aind_data_schema.core.subject import BreedingInfo, Housing, Sex, Subject
 from aind_data_schema.models.organizations import Organization
 from aind_data_schema.models.species import Species
 
-t = datetime.datetime(2022, 11, 22, 8, 43, 00)
+t = datetime.datetime(2022, 11, 22, 8, 43, 00).astimezone()
 
 s = Subject(
     species=Species.MUS_MUSCULUS,

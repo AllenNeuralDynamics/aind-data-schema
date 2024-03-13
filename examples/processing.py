@@ -3,7 +3,7 @@ import datetime
 
 from aind_data_schema.core.processing import AnalysisProcess, DataProcess, PipelineProcess, Processing, ProcessName
 
-t = datetime.datetime(2022, 11, 22, 8, 43, 00)
+t = datetime.datetime(2022, 11, 22, 8, 43, 00).astimezone()
 
 p = Processing(
     processing_pipeline=PipelineProcess(

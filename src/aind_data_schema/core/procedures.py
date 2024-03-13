@@ -5,7 +5,7 @@ from decimal import Decimal
 from enum import Enum
 from typing import List, Literal, Optional, Set, Union
 
-from pydantic import Field, field_validator, model_validator
+from pydantic import AwareDatetime, Field, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
 from typing_extensions import Annotated
 
@@ -173,8 +173,8 @@ class HybridizationChainReaction(AindModel):
     """Description of an HCR staining round"""
 
     round_index: int = Field(..., title="Round index")
-    start_time: datetime = Field(..., title="Round start time")
-    end_time: datetime = Field(..., title="Round end time")
+    start_time: AwareDatetime = Field(..., title="Round start time")
+    end_time: AwareDatetime = Field(..., title="Round end time")
     HCR_probes: List[HCRProbe] = Field(..., title="HCR probes")
     other_probes: List[OligoProbe] = Field(default=[], title="Other probes")
     probe_concentration: Decimal = Field(..., title="Probe concentration (M)")

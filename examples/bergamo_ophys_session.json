@@ -5,8 +5,8 @@
    "experimenter_full_name": [
       "John Doe"
    ],
-   "session_start_time": "2022-07-12T07:00:00",
-   "session_end_time": "2022-07-12T07:00:00",
+   "session_start_time": "2022-07-12T07:00:00-07:00",
+   "session_end_time": "2022-07-12T07:00:00-07:00",
    "session_type": "BCI Photometry",
    "iacuc_protocol": "2115",
    "rig_id": "ophys_rig",
@@ -18,8 +18,8 @@
    "weight_unit": "gram",
    "data_streams": [
       {
-         "stream_start_time": "2022-07-12T07:00:00",
-         "stream_end_time": "2022-07-12T07:00:00",
+         "stream_start_time": "2022-07-12T07:00:00-07:00",
+         "stream_end_time": "2022-07-12T07:00:00-07:00",
          "daq_names": [],
          "camera_names": [
             "Face Camera"
@@ -133,8 +133,8 @@
             "other_parameters": {},
             "notes": null
          },
-         "stimulus_start_time": "2022-07-12T07:00:00",
-         "stimulus_end_time": "2022-07-12T07:00:00"
+         "stimulus_start_time": "2022-07-12T07:00:00-07:00",
+         "stimulus_end_time": "2022-07-12T07:00:00-07:00"
       }
    ],
    "reward_delivery": null,

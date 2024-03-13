@@ -170,7 +170,7 @@ camassm2 = CameraAssembly(
 )
 
 red_laser_calibration = Calibration(
-    calibration_date=datetime.datetime(2023, 10, 2, 10, 22, 13),
+    calibration_date=datetime.datetime(2023, 10, 2, 10, 22, 13).astimezone(),
     device_name="Red Laser",
     description="Laser power calibration",
     input={"power percent": [10, 20, 40]},
@@ -178,7 +178,7 @@ red_laser_calibration = Calibration(
 )
 
 blue_laser_calibration = Calibration(
-    calibration_date=datetime.datetime(2023, 10, 2, 10, 22, 13),
+    calibration_date=datetime.datetime(2023, 10, 2, 10, 22, 13).astimezone(),
     device_name="Blue Laser",
     description="Laser power calibration",
     input={"power percent": [10, 20, 40]},

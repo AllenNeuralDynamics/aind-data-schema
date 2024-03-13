@@ -4,7 +4,7 @@ from datetime import datetime
 from decimal import Decimal
 from typing import List, Literal, Optional, Union
 
-from pydantic import Field, field_validator
+from pydantic import AwareDatetime, Field, field_validator
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.imaging.tile import AcquisitionTile
@@ -63,8 +63,8 @@ class Acquisition(AindCoreModel):
     maintenance: List[Maintenance] = Field(
         default=[], title="Maintenance", description="List of maintenance on rig prior to acquisition."
     )
-    session_start_time: datetime = Field(..., title="Session start time")
-    session_end_time: datetime = Field(..., title="Session end time")
+    session_start_time: AwareDatetime = Field(..., title="Session start time")
+    session_end_time: AwareDatetime = Field(..., title="Session end time")
     session_type: Optional[str] = Field(None, title="Session type")
     tiles: List[AcquisitionTile] = Field(..., title="Acquisition tiles")
     axes: List[ImageAxis] = Field(..., title="Acquisition axes")

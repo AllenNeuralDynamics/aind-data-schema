@@ -2,9 +2,9 @@
 
 import datetime
 
-from aind_data_schema.core.session import FieldOfView, Session, Stream, LaserConfig
+from aind_data_schema.core.session import FieldOfView, LaserConfig, Session, Stream
 from aind_data_schema.models.modalities import Modality
-from aind_data_schema.models.units import SizeUnit, PowerUnit
+from aind_data_schema.models.units import PowerUnit, SizeUnit
 
 t = datetime.datetime(2022, 7, 12, 7, 00, 00)
 
@@ -20,11 +20,7 @@ s = Session(
         Stream(
             stream_start_time=t,
             stream_end_time=t,
-            stream_modalities=[
-                Modality.POPHYS,
-                Modality.BEHAVIOR_VIDEOS,
-                Modality.CONFOCAL
-                ],
+            stream_modalities=[Modality.POPHYS, Modality.BEHAVIOR_VIDEOS, Modality.CONFOCAL],
             mouse_platform_name="disc",
             camera_names=[
                 "Mesoscope",
@@ -32,7 +28,7 @@ s = Session(
                 "Face",
                 "Behavior",
                 "Vasculature",
-                ],
+            ],
             active_mouse_platform=True,
             light_sources=[
                 LaserConfig(
@@ -199,6 +195,6 @@ s = Session(
                 ),
             ],
         )
-    ]
+    ],
 )
 s.write_standard_file(prefix="multiplane_ophys")

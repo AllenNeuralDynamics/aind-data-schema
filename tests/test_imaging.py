@@ -35,20 +35,20 @@ class ImagingTests(unittest.TestCase):
 
         a = acq.Acquisition(
             experimenter_full_name=["alice"],
-            session_start_time=datetime.datetime.now(),
+            session_start_time=datetime.datetime.now().astimezone(),
             specimen_id="12345",
             subject_id="1234",
             instrument_id="1234",
             calibrations=[
                 Calibration(
-                    calibration_date=datetime.datetime.now(),
+                    calibration_date=datetime.datetime.now().astimezone(),
                     description="Laser power calibration",
                     device_name="Laser 1",
                     input={"power_setting": PowerValue(value=100.0, unit="percent")},
                     output={"power_measurement": PowerValue(value=50.0, unit="milliwatt")},
                 ),
             ],
-            session_end_time=datetime.datetime.now(),
+            session_end_time=datetime.datetime.now().astimezone(),
             chamber_immersion=acq.Immersion(medium="PBS", refractive_index=1),
             tiles=[
                 tile.AcquisitionTile(
@@ -140,8 +140,8 @@ class ImagingTests(unittest.TestCase):
         mri = ms.MriSession(
             experimenter_full_name=["Frank Frankson"],
             subject_id="1234",
-            session_start_time=datetime.datetime.now(),
-            session_end_time=datetime.datetime.now(),
+            session_start_time=datetime.datetime.now().astimezone(),
+            session_end_time=datetime.datetime.now().astimezone(),
             protocol_id="doi_path",
             animal_weight_prior=22.1,
             animal_weight_post=21.9,
@@ -179,20 +179,20 @@ class ImagingTests(unittest.TestCase):
         for test_code in test_codes:
             a = acq.Acquisition(
                 experimenter_full_name=["alice"],
-                session_start_time=datetime.datetime.now(),
+                session_start_time=datetime.datetime.now().astimezone(),
                 specimen_id="12345",
                 subject_id="1234",
                 instrument_id="1234",
                 calibrations=[
                     Calibration(
-                        calibration_date=datetime.datetime.now(),
+                        calibration_date=datetime.datetime.now().astimezone(),
                         description="Laser power calibration",
                         device_name="Laser 1",
                         input={"power_setting": PowerValue(value=100.0, unit="percent")},
                         output={"power_measurement": PowerValue(value=50.0, unit="milliwatt")},
                     ),
                 ],
-                session_end_time=datetime.datetime.now(),
+                session_end_time=datetime.datetime.now().astimezone(),
                 chamber_immersion=acq.Immersion(medium="PBS", refractive_index=1),
                 tiles=[
                     tile.AcquisitionTile(
@@ -221,8 +221,8 @@ class ImagingTests(unittest.TestCase):
         t = Registration(
             name="Image tile alignment",
             software_version="2.3",
-            start_date_time=datetime.datetime.now(),
-            end_date_time=datetime.datetime.now(),
+            start_date_time=datetime.datetime.now().astimezone(),
+            end_date_time=datetime.datetime.now().astimezone(),
             input_location="/some/path",
             output_location="/some/path",
             code_url="http://foo",

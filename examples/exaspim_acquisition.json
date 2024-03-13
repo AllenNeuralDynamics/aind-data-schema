@@ -10,7 +10,7 @@
    "instrument_id": "###",
    "calibrations": [
       {
-         "calibration_date": "2022-11-22T08:43:00",
+         "calibration_date": "2022-11-22T08:43:00-08:00",
          "device_name": "Laser_1",
          "description": "Laser power calibration",
          "input": {
@@ -30,7 +30,7 @@
    ],
    "maintenance": [
       {
-         "maintenance_date": "2022-11-22T08:43:00",
+         "maintenance_date": "2022-11-22T08:43:00-08:00",
          "device_name": "Chamber",
          "description": "Clean chamber",
          "protocol_id": null,
@@ -59,8 +59,8 @@
          "notes": null
       }
    ],
-   "session_start_time": "2022-11-22T08:43:00",
-   "session_end_time": "2022-11-22T08:43:00",
+   "session_start_time": "2022-11-22T08:43:00-08:00",
+   "session_end_time": "2022-11-22T08:43:00-08:00",
    "session_type": null,
    "tiles": [
       {
