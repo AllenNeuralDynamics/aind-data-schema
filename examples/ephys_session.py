@@ -39,8 +39,8 @@ ephys_module = EphysModule(
 )
 
 stream = Stream(
-    stream_start_time=datetime(2023, 1, 10, 8, 43, 00).astimezone(tz=timezone.utc),
-    stream_end_time=datetime(2023, 1, 10, 9, 43, 00).astimezone(tz=timezone.utc),
+    stream_start_time=datetime(2023, 1, 10, 8, 43, 00, tzinfo=timezone.utc).astimezone(tz=timezone.utc),
+    stream_end_time=datetime(2023, 1, 10, 9, 43, 00, tzinfo=timezone.utc).astimezone(tz=timezone.utc),
     stream_modalities=[Modality.ECEPHYS, Modality.BEHAVIOR_VIDEOS],
     stick_microscopes=[
         DomeModule(
@@ -60,8 +60,8 @@ stream = Stream(
 session = Session(
     experimenter_full_name=["Jane Doe"],
     subject_id="100001",
-    session_start_time=datetime(2023, 1, 10, 8, 40, 00).astimezone(tz=timezone.utc),
-    session_end_time=datetime(2023, 1, 10, 9, 46, 00).astimezone(tz=timezone.utc),
+    session_start_time=datetime(2023, 1, 10, 8, 40, 00, tzinfo=timezone.utc).astimezone(tz=timezone.utc),
+    session_end_time=datetime(2023, 1, 10, 9, 46, 00, tzinfo=timezone.utc).astimezone(tz=timezone.utc),
     iacuc_protocol="1294",
     session_type="Test",
     rig_id="323_EPHYS1",
