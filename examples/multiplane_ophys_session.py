@@ -2,9 +2,9 @@
 
 import datetime
 
-from aind_data_schema.core.session import FieldOfView, Session, Stream, LaserConfig
+from aind_data_schema.core.session import FieldOfView, LaserConfig, Session, Stream
 from aind_data_schema.models.modalities import Modality
-from aind_data_schema.models.units import SizeUnit, PowerUnit
+from aind_data_schema.models.units import PowerUnit, SizeUnit
 
 t = datetime.datetime(2022, 7, 12, 7, 00, 00)
 
