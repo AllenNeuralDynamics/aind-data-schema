@@ -48,7 +48,10 @@ acq = acquisition.Acquisition(
     session_end_time=t,
     local_storage_directory="D:",
     external_storage_directory="Z:",
-    chamber_immersion=acquisition.Immersion(medium="PBS", refractive_index=1.33),
+    chamber_immersion=acquisition.Immersion(
+        medium="PBS",
+        refractive_index=1.33,
+    ),
     axes=[
         ImageAxis(
             name="X",

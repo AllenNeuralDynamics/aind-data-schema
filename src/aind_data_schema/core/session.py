@@ -63,7 +63,11 @@ class FieldOfView(AindModel):
     fov_coordinate_ml: Decimal = Field(..., title="FOV coordinate ML")
     fov_coordinate_ap: Decimal = Field(..., title="FOV coordinate AP")
     fov_coordinate_unit: SizeUnit = Field(SizeUnit.UM, title="FOV coordinate unit")
-    fov_reference: str = Field(..., title="FOV reference", description="Reference for ML/AP coordinates")
+    fov_reference: str = Field(
+        ...,
+        title="FOV reference",
+        description="Reference for ML/AP coordinates",
+    )
     fov_width: int = Field(..., title="FOV width (pixels)")
     fov_height: int = Field(..., title="FOV height (pixels)")
     fov_size_unit: SizeUnit = Field(SizeUnit.PX, title="FOV size unit")
@@ -73,6 +77,15 @@ class FieldOfView(AindModel):
     frame_rate: Optional[Decimal] = Field(None, title="Frame rate (Hz)")
     frame_rate_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Frame rate unit")
     coupled_fov_index: Optional[int] = Field(None, title="Coupled FOV", description="Coupled planes for multiscope")
+    power: Optional[Decimal] = Field(None, title="Power")
+    power_unit: PowerUnit = Field(PowerUnit.PERCENT, title="Power unit")
+    scanfield_z: Optional[int] = Field(
+        None,
+        title="Z stage position of the fastz actuator for a given targeted depth",
+    )
+    scanfield_z_unit: SizeUnit = Field(SizeUnit.UM, title="Z stage position unit")
+    scanimage_roi_index: Optional[int] = Field(None, title="ScanImage ROI index")
+    notes: Optional[str] = Field(None, title="Notes")
 
 
 class StackChannel(Channel):
@@ -95,7 +108,11 @@ class Stack(AindModel):
     fov_coordinate_ml: float = Field(..., title="FOV coordinate ML")
     fov_coordinate_ap: float = Field(..., title="FOV coordinate AP")
     fov_coordinate_unit: SizeUnit = Field(SizeUnit.UM, title="FOV coordinate unit")
-    fov_reference: str = Field(..., title="FOV reference", description="Reference for ML/AP coordinates")
+    fov_reference: str = Field(
+        ...,
+        title="FOV reference",
+        description="Reference for ML/AP coordinates",
+    )
     fov_width: int = Field(..., title="FOV width (pixels)")
     fov_height: int = Field(..., title="FOV height (pixels)")
     fov_size_unit: SizeUnit = Field(SizeUnit.PX, title="FOV size unit")
@@ -189,7 +206,10 @@ class LaserConfig(AindModel):
     excitation_power_unit: PowerUnit = Field(PowerUnit.MW, title="Excitation power unit")
 
 
-LIGHT_SOURCE_CONFIGS = Annotated[Union[LightEmittingDiodeConfig, LaserConfig], Field(discriminator="device_type")]
+LIGHT_SOURCE_CONFIGS = Annotated[
+    Union[LightEmittingDiodeConfig, LaserConfig],
+    Field(discriminator="device_type"),
+]
 
 
 # Behavior components
@@ -206,7 +226,9 @@ class RewardSpoutConfig(AindModel):
     side: SpoutSide = Field(..., title="Spout side", description="Must match rig")
     starting_position: RelativePosition = Field(..., title="Starting position")
     variable_position: bool = Field(
-        ..., title="Variable position", description="True if spout position changes during session as tracked in data"
+        ...,
+        title="Variable position",
+        description="True if spout position changes during session as tracked in data",
     )
 
 
@@ -261,7 +283,10 @@ class Stream(AindModel):
         if Modality.ECEPHYS in value:
             ephys_modules = info.data["ephys_modules"]
             stick_microscopes = info.data["stick_microscopes"]
-            for k, v in {"ephys_modules": ephys_modules, "stick_microscopes": stick_microscopes}.items():
+            for k, v in {
+                "ephys_modules": ephys_modules,
+                "stick_microscopes": stick_microscopes,
+            }.items():
                 if not v:
                     return f"{k} field must be utilized for Ecephys modality"
         return None
@@ -353,17 +378,25 @@ class Session(AindCoreModel):
     iacuc_protocol: Optional[str] = Field(None, title="IACUC protocol")
     rig_id: str = Field(..., title="Rig ID")
     calibrations: List[Calibration] = Field(
-        default=[], title="Calibrations", description="Calibrations of rig devices prior to session"
+        default=[],
+        title="Calibrations",
+        description="Calibrations of rig devices prior to session",
     )
     maintenance: List[Maintenance] = Field(
-        default=[], title="Maintenance", description="Maintenance of rig devices prior to session"
+        default=[],
+        title="Maintenance",
+        description="Maintenance of rig devices prior to session",
     )
     subject_id: str = Field(..., title="Subject ID")
     animal_weight_prior: Optional[Decimal] = Field(
-        None, title="Animal weight (g)", description="Animal weight before procedure"
+        None,
+        title="Animal weight (g)",
+        description="Animal weight before procedure",
     )
     animal_weight_post: Optional[Decimal] = Field(
-        None, title="Animal weight (g)", description="Animal weight after procedure"
+        None,
+        title="Animal weight (g)",
+        description="Animal weight after procedure",
     )
     weight_unit: MassUnit = Field(MassUnit.G, title="Weight unit")
     data_streams: List[Stream] = Field(
