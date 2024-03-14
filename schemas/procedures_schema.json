@@ -2176,6 +2176,15 @@
          "title": "Fujinon",
          "type": "object"
       },
+      "GroundWireMaterial": {
+         "description": "Ground wire material name",
+         "enum": [
+            "Silver",
+            "Platinum iridium"
+         ],
+         "title": "GroundWireMaterial",
+         "type": "string"
+      },
       "HCRProbe": {
          "additionalProperties": false,
          "description": "Description of an oligo probe used for HCR",
@@ -6580,6 +6589,7 @@
       "ProtectiveMaterial": {
          "description": "Name of material applied to craniotomy",
          "enum": [
+            "Agarose",
             "Duragel",
             "Kwik-Cast",
             "SORTA-clear",
@@ -6587,6 +6597,109 @@
          ],
          "title": "ProtectiveMaterial",
          "type": "string"
+      },
+      "ProtectiveMaterialReplacement": {
+         "additionalProperties": false,
+         "description": "Description of a protective material replacement procedure in preparation for ephys recording",
+         "properties": {
+            "procedure_type": {
+               "const": "Ground wire",
+               "default": "Ground wire",
+               "title": "Procedure Type"
+            },
+            "protocol_id": {
+               "description": "DOI for protocols.io",
+               "title": "Protocol ID",
+               "type": "string"
+            },
+            "protective_material": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/ProtectiveMaterial"
+                  }
+               ],
+               "description": "New material being applied",
+               "title": "Protective material"
+            },
+            "ground_wire_hole": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Ground wire hole"
+            },
+            "ground_wire_material": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/GroundWireMaterial"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Ground wire material"
+            },
+            "ground_wire_diameter": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Ground wire diameter"
+            },
+            "ground_wire_diameter_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  }
+               ],
+               "default": "inch",
+               "title": "Ground wire diameter unit"
+            },
+            "well_part_number": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Well part number"
+            },
+            "well_type": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Well type"
+            }
+         },
+         "required": [
+            "protocol_id",
+            "protective_material"
+         ],
+         "title": "ProtectiveMaterialReplacement",
+         "type": "object"
       },
       "Quantifi": {
          "additionalProperties": false,
@@ -8394,6 +8507,7 @@
                      "mapping": {
                         "Craniotomy": "#/$defs/Craniotomy",
                         "Fiber implant": "#/$defs/FiberImplant",
+                        "Ground wire": "#/$defs/ProtectiveMaterialReplacement",
                         "Headframe": "#/$defs/Headframe",
                         "ICM injection": "#/$defs/IntraCisternalMagnaInjection",
                         "ICV injection": "#/$defs/IntraCerebellarVentricleInjection",
@@ -8432,10 +8546,13 @@
                         "$ref": "#/$defs/NanojectInjection"
                      },
                      {
+                        "$ref": "#/$defs/OtherSubjectProcedure"
+                     },
+                     {
                         "$ref": "#/$defs/Perfusion"
                      },
                      {
-                        "$ref": "#/$defs/OtherSubjectProcedure"
+                        "$ref": "#/$defs/ProtectiveMaterialReplacement"
                      },
                      {
                         "$ref": "#/$defs/RetroOrbitalInjection"
@@ -9118,8 +9235,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.12.7",
-         "default": "0.12.7",
+         "const": "0.12.8",
+         "default": "0.12.8",
          "title": "Schema Version"
       },
       "subject_id": {

@@ -1601,6 +1601,18 @@
                ],
                "title": "Manipulator coordinates"
             },
+            "implant_hole_number": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Implant hole number"
+            },
             "ephys_probes": {
                "items": {
                   "$ref": "#/$defs/EphysProbeConfig"
@@ -1841,6 +1853,18 @@
                   }
                ],
                "title": "Manipulator coordinates"
+            },
+            "implant_hole_number": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Implant hole number"
             },
             "fiber_connections": {
                "default": [],
@@ -2889,6 +2913,18 @@
                   }
                ],
                "title": "Manipulator coordinates"
+            },
+            "implant_hole_number": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Implant hole number"
             }
          },
          "required": [
@@ -6224,8 +6260,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.1.10",
-         "default": "0.1.10",
+         "const": "0.1.11",
+         "default": "0.1.11",
          "title": "Schema Version"
       },
       "protocol_id": {
