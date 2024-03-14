@@ -39,7 +39,8 @@ linters = [
 docs = [
     'Sphinx',
     'sphinx-jinja',
-    'furo'
+    'furo',
+    'erdantic>=0.7.0'
 ]
 
 [tool.setuptools.packages.find]

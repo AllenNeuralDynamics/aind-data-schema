@@ -53,7 +53,7 @@ sess = MriSession(
         magnetic_strength="7",
     ),
     scans=scans,
-    notes="There was some information about this scan session"
+    notes="There was some information about this scan session",
 )
 
 sess.write_standard_file()
