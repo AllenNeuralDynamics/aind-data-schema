@@ -8,7 +8,6 @@ from typing import Any, Dict, List, Optional
 from pydantic import Field
 
 from aind_data_schema.base import AindModel
-from aind_data_schema.models.devices import Software
 from aind_data_schema.models.units import (
     ConcentrationUnit,
     FrequencyUnit,
@@ -126,6 +125,7 @@ class OlfactometerChannelConfig(AindModel):
     odorant: str = Field(..., title="Odorant")
     odorant_dilution: Decimal = Field(..., title="Odorant dilution")
     odorant_dilution_unit: ConcentrationUnit = Field(ConcentrationUnit.VOLUME_PERCENT, title="Dilution unit")
+    notes: Optional[str] = Field(None, title="Notes")
 
 
 class OlfactoryStimulation(AindModel):

@@ -3,7 +3,7 @@
 from datetime import datetime
 from decimal import Decimal
 from enum import Enum
-from typing import List, Literal, Optional, Union
+from typing import Any, Dict, List, Literal, Optional, Union
 
 from pydantic import Field, field_validator
 from pydantic_core.core_schema import ValidationInfo
@@ -12,9 +12,9 @@ from typing_extensions import Annotated
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.imaging.tile import Channel
 from aind_data_schema.models.coordinates import CcfCoords, Coordinates3d
-from aind_data_schema.models.devices import Calibration, Maintenance, RelativePosition, SpoutSide
+from aind_data_schema.models.devices import Calibration, Maintenance, RelativePosition, Software, SpoutSide
 from aind_data_schema.models.modalities import Modality
-from aind_data_schema.models.stimulus import StimulusEpoch
+from aind_data_schema.models.stimulus import AuditoryStimulation, OlfactoryStimulation, OptoStimulation, StimulusModality, VisualStimulation
 from aind_data_schema.models.units import AngleUnit, FrequencyUnit, MassUnit, PowerUnit, SizeUnit, TimeUnit, VolumeUnit
 
 
@@ -248,9 +248,6 @@ class Stream(AindModel):
     ophys_fovs: List[FieldOfView] = Field(default=[], title="Fields of view")
     slap_fovs: Optional[SlapFieldOfView] = Field(None, title="Slap2 field of view")
     stack_parameters: Optional[Stack] = Field(None, title="Stack parameters")
-    stimulus_device_names: List[str] = Field(default=[], title="Stimulus devices")
-    mouse_platform_name: str = Field(..., title="Mouse platform")
-    active_mouse_platform: bool = Field(..., title="Active mouse platform")
     stream_modalities: List[Modality.ONE_OF] = Field(..., title="Modalities")
     notes: Optional[str] = Field(None, title="Notes")
 
@@ -300,14 +297,6 @@ class Stream(AindModel):
         else:
             return None
 
-    @staticmethod
-    def _validate_behavior_modality(value: List[Modality.ONE_OF], info: ValidationInfo) -> Optional[str]:
-        """Validate that BEHAVIOR modality has stimulus_device_names"""
-        if Modality.BEHAVIOR in value and len(info.data["stimulus_device_names"]) == 0:
-            return "stimulus_device_names field must be utilized for Behavior modality"
-        else:
-            return None
-
     @field_validator("stream_modalities", mode="after")
     def validate_stream_modalities(cls, value: List[Modality.ONE_OF], info: ValidationInfo) -> List[Modality.ONE_OF]:
         """Validate each modality in stream_modalities field has associated data"""
@@ -326,12 +315,55 @@ class Stream(AindModel):
             errors.append(pophys_errors)
         if behavior_vids_errors is not None:
             errors.append(behavior_vids_errors)
-        if behavior_errors is not None:
-            errors.append(behavior_errors)
         if len(errors) > 0:
             message = "\n     ".join(errors)
             raise ValueError(message)
         return value
+
+
+class StimulusEpoch(AindModel):
+    """Description of stimulus used during session"""
+
+    stimulus_start_time: datetime = Field(
+        ...,
+        title="Stimulus start time",
+        description="When a specific stimulus begins. This might be the same as the session start time.",
+    )
+    stimulus_end_time: datetime = Field(
+        ...,
+        title="Stimulus end time",
+        description="When a specific stimulus ends. This might be the same as the session end time.",
+    )
+    stimulus_name: str = Field(..., title="Stimulus name")
+    session_number: int = Field(..., title="Session number")
+    software: List[Software] = Field(
+        ...,
+        title="Software",
+        description="The software used to control the behavior/stimulus (e.g. Bonsai)",
+    )
+    script: Software = Field(
+        ...,
+        title="Script",
+        description="provide URL to the commit of the script and the parameters used",
+    )
+    input_parameters: Dict[str, Any] = Field(..., title="Stimulus parameters")
+    stimulus_modalities: List[StimulusModality] = Field(..., title="Stimulus modalities")
+    stimulus_device_names: List[str] = Field(default=[], title="Stimulus devices")
+    olfactory_stimulus: Optional[OlfactoryStimulation] = Field(None, title="Olfactory stimulus")
+    visual_stimulus: Optional[VisualStimulation] = Field(None, title="Visual stimulus")
+    opto_stimulus: Optional[OptoStimulation] = Field(None, title="Optogenetic stimulus")
+    auditory_stimulus: Optional[AuditoryStimulation] = Field(None, title="Auditory stimulus")
+    output_parameters: Dict[str, Any] = Field(
+        ...,
+        title="Performance parameters",
+        description="Performance metrics from session",
+    )
+    reward_consumed_during_epoch: Decimal = Field(..., title="Reward consumed during training (uL)")
+    reward_consumed_unit: VolumeUnit = Field(VolumeUnit.UL, title="Reward consumed unit")
+    trials_total: Optional[int] = Field(None, title="Total trials")
+    trials_finished: Optional[int] = Field(None, title="Finished trials")
+    trials_rewarded: Optional[int] = Field(None, title="Rewarded trials")
+    notes: Optional[str] = Field(None, title="Notes")
 
 
 class Session(AindCoreModel):
@@ -374,6 +406,8 @@ class Session(AindCoreModel):
         ),
     )
     stimulus_epochs: List[StimulusEpoch] = Field(default=[], title="Stimulus")
+    mouse_platform_name: str = Field(..., title="Mouse platform")
+    active_mouse_platform: bool = Field(..., title="Active mouse platform")
     reward_delivery: Optional[RewardDeliveryConfig] = Field(None, title="Reward delivery")
     reward_consumed_total: Optional[Decimal] = Field(None, title="Total reward consumed (uL)")
     reward_consumed_unit: VolumeUnit = Field(VolumeUnit.UL, title="Reward consumed unit")
