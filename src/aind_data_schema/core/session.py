@@ -14,8 +14,8 @@ from aind_data_schema.imaging.tile import Channel
 from aind_data_schema.models.coordinates import CcfCoords, Coordinates3d
 from aind_data_schema.models.devices import Calibration, Maintenance, RelativePosition, Software, SpoutSide
 from aind_data_schema.models.modalities import Modality
-from aind_data_schema.models.stimulus import AuditoryStimulation, OlfactoryStimulation, OptoStimulation, StimulusModality, VisualStimulation
-from aind_data_schema.models.units import AngleUnit, FrequencyUnit, MassUnit, PowerUnit, SizeUnit, TimeUnit, VolumeUnit
+from aind_data_schema.models.stimulus import AuditoryStimulation, OlfactoryStimulation, OptoStimulation, PhotoStimulation, StimulusModality, VisualStimulation
+from aind_data_schema.models.units import AngleUnit, FrequencyUnit, MassUnit, PowerUnit, SizeUnit, SoundIntensityUnit, TimeUnit, VolumeUnit
 
 
 # Ophys components
@@ -227,6 +227,14 @@ class RewardDeliveryConfig(AindModel):
         return value
 
 
+class SpeakerConfig(AindModel):
+    """Description of auditory speaker configuration"""
+
+    name: str = Field(..., title="Name", description="Must match rig json")
+    volume: Optional[Decimal] = Field(None, title="Volume (dB)")
+    volume_unit: SoundIntensityUnit = Field(SoundIntensityUnit.DB, title="Volume unit")
+
+
 class Stream(AindModel):
     """Data streams with a start and stop time"""
 
@@ -305,7 +313,6 @@ class Stream(AindModel):
         fib_errors = cls._validate_fib_modality(value, info)
         pophys_errors = cls._validate_pophys_modality(value, info)
         behavior_vids_errors = cls._validate_behavior_videos_modality(value, info)
-        behavior_errors = cls._validate_behavior_modality(value, info)
 
         if ephys_errors is not None:
             errors.append(ephys_errors)
@@ -336,22 +343,25 @@ class StimulusEpoch(AindModel):
     )
     stimulus_name: str = Field(..., title="Stimulus name")
     session_number: int = Field(..., title="Session number")
-    software: List[Software] = Field(
-        ...,
+    software: Optional[List[Software]] = Field(
+        default=[],
         title="Software",
         description="The software used to control the behavior/stimulus (e.g. Bonsai)",
     )
-    script: Software = Field(
-        ...,
+    script: Optional[Software] = Field(
+        None,
         title="Script",
         description="provide URL to the commit of the script and the parameters used",
     )
     input_parameters: Dict[str, Any] = Field(..., title="Stimulus parameters")
     stimulus_modalities: List[StimulusModality] = Field(..., title="Stimulus modalities")
     stimulus_device_names: List[str] = Field(default=[], title="Stimulus devices")
+    speaker_config: Optional[SpeakerConfig] = Field(None, title="Speaker Config")
+    light_source_config: Optional[LIGHT_SOURCE_CONFIGS] = Field(None, title="Light source config")
     olfactory_stimulus: Optional[OlfactoryStimulation] = Field(None, title="Olfactory stimulus")
     visual_stimulus: Optional[VisualStimulation] = Field(None, title="Visual stimulus")
-    opto_stimulus: Optional[OptoStimulation] = Field(None, title="Optogenetic stimulus")
+    opto_stimulus: Optional[OptoStimulation] = Field(None, title="Opto stimulus")
+    photo_stimulus: Optional[PhotoStimulation] = Field(None, title="Photo stimulus")
     auditory_stimulus: Optional[AuditoryStimulation] = Field(None, title="Auditory stimulus")
     output_parameters: Dict[str, Any] = Field(
         ...,
@@ -407,7 +417,10 @@ class Session(AindCoreModel):
     )
     stimulus_epochs: List[StimulusEpoch] = Field(default=[], title="Stimulus")
     mouse_platform_name: str = Field(..., title="Mouse platform")
-    active_mouse_platform: bool = Field(..., title="Active mouse platform")
+    active_mouse_platform: bool = Field(
+        ..., title="Active mouse platform", 
+        description="Is the mouse platform being actively controlled"
+        )
     reward_delivery: Optional[RewardDeliveryConfig] = Field(None, title="Reward delivery")
     reward_consumed_total: Optional[Decimal] = Field(None, title="Total reward consumed (uL)")
     reward_consumed_unit: VolumeUnit = Field(VolumeUnit.UL, title="Reward consumed unit")
