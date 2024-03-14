@@ -488,7 +488,7 @@ class Nikon(_Organization):
 class NResearch(_Organization):
     """NResearch"""
 
-    name: Literal["NResearch"] = "NResearch"
+    name: Literal["NResearch Inc"] = "NResearch Inc"
     abbreviation: Literal[None] = Field(None)
     registry: Literal[None] = Field(None)
     registry_identifier: Literal[None] = Field(None)
