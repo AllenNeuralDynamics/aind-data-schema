@@ -1452,6 +1452,23 @@
          "title": "Custom",
          "type": "object"
       },
+      "Cuttlefish": {
+         "description": "Cuttlefish",
+         "properties": {
+            "name": {
+               "const": "Cuttlefish",
+               "default": "Cuttlefish",
+               "title": "Name"
+            },
+            "whoami": {
+               "const": 1403,
+               "default": 1403,
+               "title": "Whoami"
+            }
+         },
+         "title": "Cuttlefish",
+         "type": "object"
+      },
       "DAQChannel": {
          "additionalProperties": false,
          "description": "Named input or output channel on a DAQ device",
@@ -5796,14 +5813,18 @@
                      "Behavior": "#/$defs/aind_data_schema__models__harp_types__Behavior",
                      "Camera Controller": "#/$defs/CameraController",
                      "Clock Synchronizer": "#/$defs/ClockSynchronizer",
+                     "Cuttlefish": "#/$defs/Cuttlefish",
                      "Generic Harp Device": "#/$defs/GenericHarpDevice",
                      "Input Expander": "#/$defs/InputExpander",
+                     "Lickety Split": "#/$defs/LicketySplit",
                      "Load Cells": "#/$defs/LoadCells",
                      "Olfactometer": "#/$defs/aind_data_schema__models__harp_types__Olfactometer",
+                     "Sniff Detector": "#/$defs/SniffDetector",
                      "Sound Card": "#/$defs/SoundCard",
                      "Synchronizer": "#/$defs/Synchronizer",
                      "Timestamp Generator Gen 1": "#/$defs/TimestampGeneratorGen1",
-                     "Timestamp Generator Gen 3": "#/$defs/TimestampGeneratorGen3"
+                     "Timestamp Generator Gen 3": "#/$defs/TimestampGeneratorGen3",
+                     "Treadmill": "#/$defs/aind_data_schema__models__harp_types__Treadmill"
                   },
                   "propertyName": "name"
                },
@@ -5840,6 +5861,18 @@
                   },
                   {
                      "$ref": "#/$defs/TimestampGeneratorGen3"
+                  },
+                  {
+                     "$ref": "#/$defs/LicketySplit"
+                  },
+                  {
+                     "$ref": "#/$defs/SniffDetector"
+                  },
+                  {
+                     "$ref": "#/$defs/aind_data_schema__models__harp_types__Treadmill"
+                  },
+                  {
+                     "$ref": "#/$defs/Cuttlefish"
                   }
                ],
                "title": "Type of Harp device"
@@ -7583,6 +7616,23 @@
          ],
          "title": "LickSensorType",
          "type": "string"
+      },
+      "LicketySplit": {
+         "description": "Lickety Split",
+         "properties": {
+            "name": {
+               "const": "Lickety Split",
+               "default": "Lickety Split",
+               "title": "Name"
+            },
+            "whoami": {
+               "const": 1400,
+               "default": 1400,
+               "title": "Whoami"
+            }
+         },
+         "title": "LicketySplit",
+         "type": "object"
       },
       "LifeCanvas": {
          "additionalProperties": false,
@@ -12190,6 +12240,23 @@
          "title": "Slap",
          "type": "object"
       },
+      "SniffDetector": {
+         "description": "Sniff Detector",
+         "properties": {
+            "name": {
+               "const": "Sniff Detector",
+               "default": "Sniff Detector",
+               "title": "Name"
+            },
+            "whoami": {
+               "const": 1401,
+               "default": 1401,
+               "title": "Whoami"
+            }
+         },
+         "title": "SniffDetector",
+         "type": "object"
+      },
       "Software": {
          "additionalProperties": false,
          "description": "Description of generic software",
@@ -12761,448 +12828,6 @@
             "translation"
          ],
          "title": "Translation3dTransform",
-         "type": "object"
-      },
-      "Treadmill": {
-         "additionalProperties": false,
-         "description": "Description of treadmill platform",
-         "properties": {
-            "device_type": {
-               "const": "Treadmill",
-               "default": "Treadmill",
-               "title": "Device Type"
-            },
-            "name": {
-               "title": "Device name",
-               "type": "string"
-            },
-            "serial_number": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Serial number"
-            },
-            "manufacturer": {
-               "anyOf": [
-                  {
-                     "discriminator": {
-                        "mapping": {
-                           "AA Opto Electronic": "#/$defs/AAOptoElectronic",
-                           "ASUS": "#/$defs/Asus",
-                           "Abcam": "#/$defs/Abcam",
-                           "Ailipu Technology Co": "#/$defs/AilipuTechnologyCo",
-                           "Allen Institute": "#/$defs/AllenInstitute",
-                           "Allen Institute for Brain Science": "#/$defs/AllenInstituteForBrainScience",
-                           "Allen Institute for Neural Dynamics": "#/$defs/AllenInstituteForNeuralDynamics",
-                           "Allied": "#/$defs/Allied",
-                           "Applied Scientific Instrumentation": "#/$defs/AppliedScientificInstrumentation",
-                           "Arecont Vision Costar": "#/$defs/ArecontVisionCostar",
-                           "Basler": "#/$defs/Basler",
-                           "Cambridge Technology": "#/$defs/CambridgeTechnology",
-                           "Carl Zeiss": "#/$defs/CarlZeiss",
-                           "Champalimaud Foundation": "#/$defs/ChampalimaudFoundation",
-                           "Chroma": "#/$defs/Chroma",
-                           "Coherent Scientific": "#/$defs/CoherentScientific",
-                           "Columbia University": "#/$defs/ColumbiaUniversity",
-                           "Computar": "#/$defs/Computar",
-                           "Conoptics": "#/$defs/Conoptics",
-                           "Custom": "#/$defs/Custom",
-                           "Dodotronic": "#/$defs/Dodotronic",
-                           "Doric": "#/$defs/Doric",
-                           "Ealing": "#/$defs/Ealing",
-                           "Edmund Optics": "#/$defs/EdmundOptics",
-                           "Euresys": "#/$defs/Euresys",
-                           "Fujinon": "#/$defs/Fujinon",
-                           "Hamamatsu": "#/$defs/Hamamatsu",
-                           "Huazhong University of Science and Technology": "#/$defs/HuazhongUniversityOfScienceAndTechnology",
-                           "IR Robot Co": "#/$defs/IRRobotCo",
-                           "ISL Products International": "#/$defs/ISLProductsInternational",
-                           "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
-                           "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
-                           "Jackson Laboratory": "#/$defs/JacksonLaboratory",
-                           "Julabo": "#/$defs/Julabo",
-                           "LG": "#/$defs/Lg",
-                           "Leica": "#/$defs/Leica",
-                           "LifeCanvas": "#/$defs/LifeCanvas",
-                           "MKS Newport": "#/$defs/MKSNewport",
-                           "MPI": "#/$defs/Mpi",
-                           "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
-                           "Mitutuyo": "#/$defs/Mitutuyo",
-                           "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
-                           "National Instruments": "#/$defs/NationalInstruments",
-                           "Navitar": "#/$defs/Navitar",
-                           "Neurophotometrics": "#/$defs/Neurophotometrics",
-                           "New Scale Technologies": "#/$defs/NewScaleTechnologies",
-                           "New York University": "#/$defs/NewYorkUniversity",
-                           "Nikon": "#/$defs/Nikon",
-                           "Olympus": "#/$defs/Olympus",
-                           "Open Ephys Production Site": "#/$defs/OpenEphysProductionSite",
-                           "Optotune": "#/$defs/Optotune",
-                           "Other": "#/$defs/Other",
-                           "Oxxius": "#/$defs/Oxxius",
-                           "Prizmatix": "#/$defs/Prizmatix",
-                           "Quantifi": "#/$defs/Quantifi",
-                           "Raspberry Pi": "#/$defs/RaspberryPi",
-                           "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
-                           "Second Order Effects": "#/$defs/SecondOrderEffects",
-                           "Semrock": "#/$defs/Semrock",
-                           "Simons Foundation": "#/$defs/SimonsFoundation",
-                           "Spinnaker": "#/$defs/Spinnaker",
-                           "Tamron": "#/$defs/Tamron",
-                           "Technical Manufacturing Corporation": "#/$defs/TMC",
-                           "Teledyne FLIR": "#/$defs/TeledyneFLIR",
-                           "The Imaging Source": "#/$defs/TheImagingSource",
-                           "The Lee Company": "#/$defs/TheLeeCompany",
-                           "Thermo Fisher": "#/$defs/Thermofisher",
-                           "Thorlabs": "#/$defs/Thorlabs",
-                           "Tymphany": "#/$defs/Tymphany",
-                           "Vieworks": "#/$defs/Vieworks",
-                           "Vortran": "#/$defs/Vortran",
-                           "ams OSRAM": "#/$defs/AmsOsram"
-                        },
-                        "propertyName": "name"
-                     },
-                     "oneOf": [
-                        {
-                           "$ref": "#/$defs/AAOptoElectronic"
-                        },
-                        {
-                           "$ref": "#/$defs/Abcam"
-                        },
-                        {
-                           "$ref": "#/$defs/AilipuTechnologyCo"
-                        },
-                        {
-                           "$ref": "#/$defs/AllenInstitute"
-                        },
-                        {
-                           "$ref": "#/$defs/AllenInstituteForBrainScience"
-                        },
-                        {
-                           "$ref": "#/$defs/AllenInstituteForNeuralDynamics"
-                        },
-                        {
-                           "$ref": "#/$defs/Allied"
-                        },
-                        {
-                           "$ref": "#/$defs/AmsOsram"
-                        },
-                        {
-                           "$ref": "#/$defs/AppliedScientificInstrumentation"
-                        },
-                        {
-                           "$ref": "#/$defs/Asus"
-                        },
-                        {
-                           "$ref": "#/$defs/ArecontVisionCostar"
-                        },
-                        {
-                           "$ref": "#/$defs/Basler"
-                        },
-                        {
-                           "$ref": "#/$defs/CambridgeTechnology"
-                        },
-                        {
-                           "$ref": "#/$defs/ChampalimaudFoundation"
-                        },
-                        {
-                           "$ref": "#/$defs/Chroma"
-                        },
-                        {
-                           "$ref": "#/$defs/CoherentScientific"
-                        },
-                        {
-                           "$ref": "#/$defs/ColumbiaUniversity"
-                        },
-                        {
-                           "$ref": "#/$defs/Computar"
-                        },
-                        {
-                           "$ref": "#/$defs/Conoptics"
-                        },
-                        {
-                           "$ref": "#/$defs/Custom"
-                        },
-                        {
-                           "$ref": "#/$defs/Dodotronic"
-                        },
-                        {
-                           "$ref": "#/$defs/Doric"
-                        },
-                        {
-                           "$ref": "#/$defs/Ealing"
-                        },
-                        {
-                           "$ref": "#/$defs/EdmundOptics"
-                        },
-                        {
-                           "$ref": "#/$defs/Euresys"
-                        },
-                        {
-                           "$ref": "#/$defs/TeledyneFLIR"
-                        },
-                        {
-                           "$ref": "#/$defs/Fujinon"
-                        },
-                        {
-                           "$ref": "#/$defs/Hamamatsu"
-                        },
-                        {
-                           "$ref": "#/$defs/HuazhongUniversityOfScienceAndTechnology"
-                        },
-                        {
-                           "$ref": "#/$defs/TheImagingSource"
-                        },
-                        {
-                           "$ref": "#/$defs/InteruniversityMicroelectronicsCenter"
-                        },
-                        {
-                           "$ref": "#/$defs/InfinityPhotoOptical"
-                        },
-                        {
-                           "$ref": "#/$defs/ISLProductsInternational"
-                        },
-                        {
-                           "$ref": "#/$defs/JacksonLaboratory"
-                        },
-                        {
-                           "$ref": "#/$defs/Julabo"
-                        },
-                        {
-                           "$ref": "#/$defs/TheLeeCompany"
-                        },
-                        {
-                           "$ref": "#/$defs/Leica"
-                        },
-                        {
-                           "$ref": "#/$defs/Lg"
-                        },
-                        {
-                           "$ref": "#/$defs/LifeCanvas"
-                        },
-                        {
-                           "$ref": "#/$defs/MeadowlarkOptics"
-                        },
-                        {
-                           "$ref": "#/$defs/IRRobotCo"
-                        },
-                        {
-                           "$ref": "#/$defs/Mitutuyo"
-                        },
-                        {
-                           "$ref": "#/$defs/MKSNewport"
-                        },
-                        {
-                           "$ref": "#/$defs/Mpi"
-                        },
-                        {
-                           "$ref": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke"
-                        },
-                        {
-                           "$ref": "#/$defs/NationalInstruments"
-                        },
-                        {
-                           "$ref": "#/$defs/Navitar"
-                        },
-                        {
-                           "$ref": "#/$defs/Neurophotometrics"
-                        },
-                        {
-                           "$ref": "#/$defs/NewScaleTechnologies"
-                        },
-                        {
-                           "$ref": "#/$defs/NewYorkUniversity"
-                        },
-                        {
-                           "$ref": "#/$defs/Nikon"
-                        },
-                        {
-                           "$ref": "#/$defs/OpenEphysProductionSite"
-                        },
-                        {
-                           "$ref": "#/$defs/Olympus"
-                        },
-                        {
-                           "$ref": "#/$defs/Optotune"
-                        },
-                        {
-                           "$ref": "#/$defs/Oxxius"
-                        },
-                        {
-                           "$ref": "#/$defs/Prizmatix"
-                        },
-                        {
-                           "$ref": "#/$defs/Quantifi"
-                        },
-                        {
-                           "$ref": "#/$defs/RaspberryPi"
-                        },
-                        {
-                           "$ref": "#/$defs/SecondOrderEffects"
-                        },
-                        {
-                           "$ref": "#/$defs/Semrock"
-                        },
-                        {
-                           "$ref": "#/$defs/SchneiderKreuznach"
-                        },
-                        {
-                           "$ref": "#/$defs/SimonsFoundation"
-                        },
-                        {
-                           "$ref": "#/$defs/Spinnaker"
-                        },
-                        {
-                           "$ref": "#/$defs/Tamron"
-                        },
-                        {
-                           "$ref": "#/$defs/Thermofisher"
-                        },
-                        {
-                           "$ref": "#/$defs/Thorlabs"
-                        },
-                        {
-                           "$ref": "#/$defs/TMC"
-                        },
-                        {
-                           "$ref": "#/$defs/Tymphany"
-                        },
-                        {
-                           "$ref": "#/$defs/Vieworks"
-                        },
-                        {
-                           "$ref": "#/$defs/Vortran"
-                        },
-                        {
-                           "$ref": "#/$defs/CarlZeiss"
-                        },
-                        {
-                           "$ref": "#/$defs/Other"
-                        }
-                     ]
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Manufacturer"
-            },
-            "model": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Model"
-            },
-            "path_to_cad": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "For CUSTOM manufactured devices",
-               "title": "Path to CAD diagram"
-            },
-            "port_index": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Port index"
-            },
-            "additional_settings": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
-               "default": {},
-               "title": "Additional parameters"
-            },
-            "notes": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Notes"
-            },
-            "surface_material": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Surface material"
-            },
-            "date_surface_replaced": {
-               "anyOf": [
-                  {
-                     "format": "date-time",
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Date surface replaced"
-            },
-            "treadmill_width": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  }
-               ],
-               "title": "Width of treadmill (mm)"
-            },
-            "width_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
-               "default": "centimeter",
-               "title": "Width unit"
-            }
-         },
-         "required": [
-            "name",
-            "treadmill_width"
-         ],
-         "title": "Treadmill",
          "type": "object"
       },
       "Tube": {
@@ -14486,6 +14111,448 @@
          "title": "Olfactometer",
          "type": "object"
       },
+      "aind_data_schema__models__devices__Treadmill": {
+         "additionalProperties": false,
+         "description": "Description of treadmill platform",
+         "properties": {
+            "device_type": {
+               "const": "Treadmill",
+               "default": "Treadmill",
+               "title": "Device Type"
+            },
+            "name": {
+               "title": "Device name",
+               "type": "string"
+            },
+            "serial_number": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Serial number"
+            },
+            "manufacturer": {
+               "anyOf": [
+                  {
+                     "discriminator": {
+                        "mapping": {
+                           "AA Opto Electronic": "#/$defs/AAOptoElectronic",
+                           "ASUS": "#/$defs/Asus",
+                           "Abcam": "#/$defs/Abcam",
+                           "Ailipu Technology Co": "#/$defs/AilipuTechnologyCo",
+                           "Allen Institute": "#/$defs/AllenInstitute",
+                           "Allen Institute for Brain Science": "#/$defs/AllenInstituteForBrainScience",
+                           "Allen Institute for Neural Dynamics": "#/$defs/AllenInstituteForNeuralDynamics",
+                           "Allied": "#/$defs/Allied",
+                           "Applied Scientific Instrumentation": "#/$defs/AppliedScientificInstrumentation",
+                           "Arecont Vision Costar": "#/$defs/ArecontVisionCostar",
+                           "Basler": "#/$defs/Basler",
+                           "Cambridge Technology": "#/$defs/CambridgeTechnology",
+                           "Carl Zeiss": "#/$defs/CarlZeiss",
+                           "Champalimaud Foundation": "#/$defs/ChampalimaudFoundation",
+                           "Chroma": "#/$defs/Chroma",
+                           "Coherent Scientific": "#/$defs/CoherentScientific",
+                           "Columbia University": "#/$defs/ColumbiaUniversity",
+                           "Computar": "#/$defs/Computar",
+                           "Conoptics": "#/$defs/Conoptics",
+                           "Custom": "#/$defs/Custom",
+                           "Dodotronic": "#/$defs/Dodotronic",
+                           "Doric": "#/$defs/Doric",
+                           "Ealing": "#/$defs/Ealing",
+                           "Edmund Optics": "#/$defs/EdmundOptics",
+                           "Euresys": "#/$defs/Euresys",
+                           "Fujinon": "#/$defs/Fujinon",
+                           "Hamamatsu": "#/$defs/Hamamatsu",
+                           "Huazhong University of Science and Technology": "#/$defs/HuazhongUniversityOfScienceAndTechnology",
+                           "IR Robot Co": "#/$defs/IRRobotCo",
+                           "ISL Products International": "#/$defs/ISLProductsInternational",
+                           "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
+                           "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
+                           "Jackson Laboratory": "#/$defs/JacksonLaboratory",
+                           "Julabo": "#/$defs/Julabo",
+                           "LG": "#/$defs/Lg",
+                           "Leica": "#/$defs/Leica",
+                           "LifeCanvas": "#/$defs/LifeCanvas",
+                           "MKS Newport": "#/$defs/MKSNewport",
+                           "MPI": "#/$defs/Mpi",
+                           "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
+                           "Mitutuyo": "#/$defs/Mitutuyo",
+                           "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
+                           "National Instruments": "#/$defs/NationalInstruments",
+                           "Navitar": "#/$defs/Navitar",
+                           "Neurophotometrics": "#/$defs/Neurophotometrics",
+                           "New Scale Technologies": "#/$defs/NewScaleTechnologies",
+                           "New York University": "#/$defs/NewYorkUniversity",
+                           "Nikon": "#/$defs/Nikon",
+                           "Olympus": "#/$defs/Olympus",
+                           "Open Ephys Production Site": "#/$defs/OpenEphysProductionSite",
+                           "Optotune": "#/$defs/Optotune",
+                           "Other": "#/$defs/Other",
+                           "Oxxius": "#/$defs/Oxxius",
+                           "Prizmatix": "#/$defs/Prizmatix",
+                           "Quantifi": "#/$defs/Quantifi",
+                           "Raspberry Pi": "#/$defs/RaspberryPi",
+                           "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
+                           "Second Order Effects": "#/$defs/SecondOrderEffects",
+                           "Semrock": "#/$defs/Semrock",
+                           "Simons Foundation": "#/$defs/SimonsFoundation",
+                           "Spinnaker": "#/$defs/Spinnaker",
+                           "Tamron": "#/$defs/Tamron",
+                           "Technical Manufacturing Corporation": "#/$defs/TMC",
+                           "Teledyne FLIR": "#/$defs/TeledyneFLIR",
+                           "The Imaging Source": "#/$defs/TheImagingSource",
+                           "The Lee Company": "#/$defs/TheLeeCompany",
+                           "Thermo Fisher": "#/$defs/Thermofisher",
+                           "Thorlabs": "#/$defs/Thorlabs",
+                           "Tymphany": "#/$defs/Tymphany",
+                           "Vieworks": "#/$defs/Vieworks",
+                           "Vortran": "#/$defs/Vortran",
+                           "ams OSRAM": "#/$defs/AmsOsram"
+                        },
+                        "propertyName": "name"
+                     },
+                     "oneOf": [
+                        {
+                           "$ref": "#/$defs/AAOptoElectronic"
+                        },
+                        {
+                           "$ref": "#/$defs/Abcam"
+                        },
+                        {
+                           "$ref": "#/$defs/AilipuTechnologyCo"
+                        },
+                        {
+                           "$ref": "#/$defs/AllenInstitute"
+                        },
+                        {
+                           "$ref": "#/$defs/AllenInstituteForBrainScience"
+                        },
+                        {
+                           "$ref": "#/$defs/AllenInstituteForNeuralDynamics"
+                        },
+                        {
+                           "$ref": "#/$defs/Allied"
+                        },
+                        {
+                           "$ref": "#/$defs/AmsOsram"
+                        },
+                        {
+                           "$ref": "#/$defs/AppliedScientificInstrumentation"
+                        },
+                        {
+                           "$ref": "#/$defs/Asus"
+                        },
+                        {
+                           "$ref": "#/$defs/ArecontVisionCostar"
+                        },
+                        {
+                           "$ref": "#/$defs/Basler"
+                        },
+                        {
+                           "$ref": "#/$defs/CambridgeTechnology"
+                        },
+                        {
+                           "$ref": "#/$defs/ChampalimaudFoundation"
+                        },
+                        {
+                           "$ref": "#/$defs/Chroma"
+                        },
+                        {
+                           "$ref": "#/$defs/CoherentScientific"
+                        },
+                        {
+                           "$ref": "#/$defs/ColumbiaUniversity"
+                        },
+                        {
+                           "$ref": "#/$defs/Computar"
+                        },
+                        {
+                           "$ref": "#/$defs/Conoptics"
+                        },
+                        {
+                           "$ref": "#/$defs/Custom"
+                        },
+                        {
+                           "$ref": "#/$defs/Dodotronic"
+                        },
+                        {
+                           "$ref": "#/$defs/Doric"
+                        },
+                        {
+                           "$ref": "#/$defs/Ealing"
+                        },
+                        {
+                           "$ref": "#/$defs/EdmundOptics"
+                        },
+                        {
+                           "$ref": "#/$defs/Euresys"
+                        },
+                        {
+                           "$ref": "#/$defs/TeledyneFLIR"
+                        },
+                        {
+                           "$ref": "#/$defs/Fujinon"
+                        },
+                        {
+                           "$ref": "#/$defs/Hamamatsu"
+                        },
+                        {
+                           "$ref": "#/$defs/HuazhongUniversityOfScienceAndTechnology"
+                        },
+                        {
+                           "$ref": "#/$defs/TheImagingSource"
+                        },
+                        {
+                           "$ref": "#/$defs/InteruniversityMicroelectronicsCenter"
+                        },
+                        {
+                           "$ref": "#/$defs/InfinityPhotoOptical"
+                        },
+                        {
+                           "$ref": "#/$defs/ISLProductsInternational"
+                        },
+                        {
+                           "$ref": "#/$defs/JacksonLaboratory"
+                        },
+                        {
+                           "$ref": "#/$defs/Julabo"
+                        },
+                        {
+                           "$ref": "#/$defs/TheLeeCompany"
+                        },
+                        {
+                           "$ref": "#/$defs/Leica"
+                        },
+                        {
+                           "$ref": "#/$defs/Lg"
+                        },
+                        {
+                           "$ref": "#/$defs/LifeCanvas"
+                        },
+                        {
+                           "$ref": "#/$defs/MeadowlarkOptics"
+                        },
+                        {
+                           "$ref": "#/$defs/IRRobotCo"
+                        },
+                        {
+                           "$ref": "#/$defs/Mitutuyo"
+                        },
+                        {
+                           "$ref": "#/$defs/MKSNewport"
+                        },
+                        {
+                           "$ref": "#/$defs/Mpi"
+                        },
+                        {
+                           "$ref": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke"
+                        },
+                        {
+                           "$ref": "#/$defs/NationalInstruments"
+                        },
+                        {
+                           "$ref": "#/$defs/Navitar"
+                        },
+                        {
+                           "$ref": "#/$defs/Neurophotometrics"
+                        },
+                        {
+                           "$ref": "#/$defs/NewScaleTechnologies"
+                        },
+                        {
+                           "$ref": "#/$defs/NewYorkUniversity"
+                        },
+                        {
+                           "$ref": "#/$defs/Nikon"
+                        },
+                        {
+                           "$ref": "#/$defs/OpenEphysProductionSite"
+                        },
+                        {
+                           "$ref": "#/$defs/Olympus"
+                        },
+                        {
+                           "$ref": "#/$defs/Optotune"
+                        },
+                        {
+                           "$ref": "#/$defs/Oxxius"
+                        },
+                        {
+                           "$ref": "#/$defs/Prizmatix"
+                        },
+                        {
+                           "$ref": "#/$defs/Quantifi"
+                        },
+                        {
+                           "$ref": "#/$defs/RaspberryPi"
+                        },
+                        {
+                           "$ref": "#/$defs/SecondOrderEffects"
+                        },
+                        {
+                           "$ref": "#/$defs/Semrock"
+                        },
+                        {
+                           "$ref": "#/$defs/SchneiderKreuznach"
+                        },
+                        {
+                           "$ref": "#/$defs/SimonsFoundation"
+                        },
+                        {
+                           "$ref": "#/$defs/Spinnaker"
+                        },
+                        {
+                           "$ref": "#/$defs/Tamron"
+                        },
+                        {
+                           "$ref": "#/$defs/Thermofisher"
+                        },
+                        {
+                           "$ref": "#/$defs/Thorlabs"
+                        },
+                        {
+                           "$ref": "#/$defs/TMC"
+                        },
+                        {
+                           "$ref": "#/$defs/Tymphany"
+                        },
+                        {
+                           "$ref": "#/$defs/Vieworks"
+                        },
+                        {
+                           "$ref": "#/$defs/Vortran"
+                        },
+                        {
+                           "$ref": "#/$defs/CarlZeiss"
+                        },
+                        {
+                           "$ref": "#/$defs/Other"
+                        }
+                     ]
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Manufacturer"
+            },
+            "model": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Model"
+            },
+            "path_to_cad": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "For CUSTOM manufactured devices",
+               "title": "Path to CAD diagram"
+            },
+            "port_index": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Port index"
+            },
+            "additional_settings": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/AindGeneric"
+                  }
+               ],
+               "default": {},
+               "title": "Additional parameters"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Notes"
+            },
+            "surface_material": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Surface material"
+            },
+            "date_surface_replaced": {
+               "anyOf": [
+                  {
+                     "format": "date-time",
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Date surface replaced"
+            },
+            "treadmill_width": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  }
+               ],
+               "title": "Width of treadmill (mm)"
+            },
+            "width_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  }
+               ],
+               "default": "centimeter",
+               "title": "Width unit"
+            }
+         },
+         "required": [
+            "name",
+            "treadmill_width"
+         ],
+         "title": "Treadmill",
+         "type": "object"
+      },
       "aind_data_schema__models__harp_types__Behavior": {
          "description": "Behavior",
          "properties": {
@@ -14520,6 +14587,23 @@
          "title": "Olfactometer",
          "type": "object"
       },
+      "aind_data_schema__models__harp_types__Treadmill": {
+         "description": "Treadmill",
+         "properties": {
+            "name": {
+               "const": "Treadmill",
+               "default": "Treadmill",
+               "title": "Name"
+            },
+            "whoami": {
+               "const": 1402,
+               "default": 1402,
+               "title": "Whoami"
+            }
+         },
+         "title": "Treadmill",
+         "type": "object"
+      },
       "aind_data_schema__models__modalities__Behavior": {
          "additionalProperties": false,
          "description": "Behavior",
@@ -14549,8 +14633,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.2.19",
-         "default": "0.2.19",
+         "const": "0.2.20",
+         "default": "0.2.20",
          "title": "Schema Version"
       },
       "rig_id": {
@@ -14567,7 +14651,7 @@
          "discriminator": {
             "mapping": {
                "Disc": "#/$defs/Disc",
-               "Treadmill": "#/$defs/Treadmill",
+               "Treadmill": "#/$defs/aind_data_schema__models__devices__Treadmill",
                "Tube": "#/$defs/Tube",
                "Wheel": "#/$defs/Wheel"
             },
@@ -14584,7 +14668,7 @@
                "$ref": "#/$defs/Tube"
             },
             {
-               "$ref": "#/$defs/Treadmill"
+               "$ref": "#/$defs/aind_data_schema__models__devices__Treadmill"
             }
          ],
          "title": "Mouse Platform"
