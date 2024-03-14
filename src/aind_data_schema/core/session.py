@@ -342,7 +342,7 @@ class StimulusEpoch(AindModel):
         description="When a specific stimulus ends. This might be the same as the session end time.",
     )
     stimulus_name: str = Field(..., title="Stimulus name")
-    session_number: int = Field(..., title="Session number")
+    session_number: Optional[int] = Field(None, title="Session number")
     software: Optional[List[Software]] = Field(
         default=[],
         title="Software",
@@ -358,11 +358,11 @@ class StimulusEpoch(AindModel):
     stimulus_device_names: List[str] = Field(default=[], title="Stimulus devices")
     speaker_config: Optional[SpeakerConfig] = Field(None, title="Speaker Config")
     light_source_config: Optional[LIGHT_SOURCE_CONFIGS] = Field(None, title="Light source config")
-    olfactory_stimulus: Optional[OlfactoryStimulation] = Field(None, title="Olfactory stimulus")
-    visual_stimulus: Optional[VisualStimulation] = Field(None, title="Visual stimulus")
-    opto_stimulus: Optional[OptoStimulation] = Field(None, title="Opto stimulus")
-    photo_stimulus: Optional[PhotoStimulation] = Field(None, title="Photo stimulus")
-    auditory_stimulus: Optional[AuditoryStimulation] = Field(None, title="Auditory stimulus")
+    olfactory_stimuluation: Optional[OlfactoryStimulation] = Field(None, title="Olfactory stimulus")
+    visual_stimulation: Optional[VisualStimulation] = Field(None, title="Visual stimulus")
+    opto_stimulation: Optional[OptoStimulation] = Field(None, title="Opto stimulus")
+    photo_stimulation: Optional[PhotoStimulation] = Field(None, title="Photo stimulus")
+    auditory_stimulation: Optional[AuditoryStimulation] = Field(None, title="Auditory stimulus")
     output_parameters: Dict[str, Any] = Field(
         ...,
         title="Performance parameters",
