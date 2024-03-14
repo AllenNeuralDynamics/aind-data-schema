@@ -353,7 +353,7 @@ class StimulusEpoch(AindModel):
         title="Script",
         description="provide URL to the commit of the script and the parameters used",
     )
-    input_parameters: Dict[str, Any] = Field(..., title="Stimulus parameters")
+    spontaneous_activity: bool: Field(..., title="Spontaneous activity", description="Indicates the absense of external stimuli")
     stimulus_modalities: List[StimulusModality] = Field(..., title="Stimulus modalities")
     stimulus_device_names: List[str] = Field(default=[], title="Stimulus devices")
     speaker_config: Optional[SpeakerConfig] = Field(None, title="Speaker Config")
