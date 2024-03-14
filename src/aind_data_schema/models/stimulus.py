@@ -12,7 +12,6 @@ from aind_data_schema.models.units import (
     ConcentrationUnit,
     FrequencyUnit,
     PowerUnit,
-    SoundIntensityUnit,
     TimeUnit,
     VolumeUnit
 )
@@ -145,47 +144,4 @@ class AuditoryStimulation(AindModel):
     bandpass_high_frequency: Optional[Decimal] = Field(None, title="Bandpass high frequency")
     bandpass_filter_type: Optional[FilterType] = Field(None, title="Bandpass filter type")
     bandpass_order: Optional[int] = Field(None, title="Bandpass order")
-    notes: Optional[str] = Field(None, title="Notes")
-
-
-class StimulusEpoch(AindModel):
-    """Description of stimulus used during session"""
-
-    stimulus_start_time: datetime = Field(
-        ...,
-        title="Stimulus start time",
-        description="When a specific stimulus begins. This might be the same as the session start time.",
-    )
-    stimulus_end_time: datetime = Field(
-        ...,
-        title="Stimulus end time",
-        description="When a specific stimulus ends. This might be the same as the session end time.",
-    )
-    stimulus_name: str = Field(..., title="Stimulus name")
-    session_number: int = Field(..., title="Session number")
-    software: List[Software] = Field(
-        ...,
-        title="Software",
-        description="The software used to control the behavior/stimulus (e.g. Bonsai)",
-    )
-    script: Software = Field(
-        ...,
-        title="Script",
-        description="provide URL to the commit of the script and the parameters used",
-    )
-    stimulus_modalities: List[StimulusModality] = Field(..., title="Stimulus modalities")
-    olfactory_stimulus: Optional[OlfactoryStimulation] = Field(None, title="Olfactory stimulus")
-    visual_stimulus: Optional[VisualStimulation] = Field(None, title="Visual stimulus")
-    opto_stimulus: Optional[OptoStimulation] = Field(None, title="Optogenetic stimulus")
-    auditory_stimulus: Optional[AuditoryStimulation] = Field(None, title="Auditory stimulus")
-    output_parameters: Dict[str, Any] = Field(
-        ...,
-        title="Performance parameters",
-        description="Performance metrics from session",
-    )
-    reward_consumed_during_epoch: Decimal = Field(..., title="Reward consumed during training (uL)")
-    reward_consumed_unit: VolumeUnit = Field(VolumeUnit.UL, title="Reward consumed unit")
-    trials_total: Optional[int] = Field(None, title="Total trials")
-    trials_finished: Optional[int] = Field(None, title="Finished trials")
-    trials_rewarded: Optional[int] = Field(None, title="Rewarded trials")
     notes: Optional[str] = Field(None, title="Notes")
