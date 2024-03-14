@@ -312,7 +312,7 @@ class ProtectiveMaterialReplacement(AindModel):
 
     procedure_type: Literal["Ground wire"] = "Ground wire"
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
-    protective_material: ProtectiveMaterial = Field(..., title="Protective material")
+    protective_material: ProtectiveMaterial = Field(..., title="Protective material", description="New material being applied")
     ground_wire_hole: Optional[int] = Field(None, title="Ground wire hole")
     ground_wire_material: Optional[GroundWireMaterial] = Field(None, title="Ground wire material")
     ground_wire_diameter: Optional[Decimal] = Field(None, title="Ground wire diameter")

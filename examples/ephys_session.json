@@ -47,6 +47,7 @@
                   "z": "1000",
                   "unit": "micrometer"
                },
+               "implant_hole_number": null,
                "ephys_probes": [
                   {
                      "name": "Probe A",
@@ -88,7 +89,8 @@
                   "y": "1000",
                   "z": "1000",
                   "unit": "micrometer"
-               }
+               },
+               "implant_hole_number": null
             }
          ],
          "detectors": [],
