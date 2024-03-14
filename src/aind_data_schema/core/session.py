@@ -342,7 +342,6 @@ class Stream(AindModel):
 class ModalityParameters(AindModel):
     """Description of one stimulus modality"""
 
-    stimulus_name: str = Field(..., title="Stimulus name")
     modality: List[StimulusModality] = Field(..., title="Modalities")
     stimulus_parameters: Dict[str, Any] = Field(
         dict(),
