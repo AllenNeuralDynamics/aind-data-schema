@@ -2135,6 +2135,7 @@
                      "Ailipu Technology Co": "#/$defs/AilipuTechnologyCo",
                      "Allied": "#/$defs/Allied",
                      "Basler": "#/$defs/Basler",
+                     "Dodotronic": "#/$defs/Dodotronic",
                      "Edmund Optics": "#/$defs/EdmundOptics",
                      "Hamamatsu": "#/$defs/Hamamatsu",
                      "Other": "#/$defs/Other",
@@ -2155,6 +2156,9 @@
                   },
                   {
                      "$ref": "#/$defs/Basler"
+                  },
+                  {
+                     "$ref": "#/$defs/Dodotronic"
                   },
                   {
                      "$ref": "#/$defs/EdmundOptics"
@@ -4153,6 +4157,7 @@
                      "Ailipu Technology Co": "#/$defs/AilipuTechnologyCo",
                      "Allied": "#/$defs/Allied",
                      "Basler": "#/$defs/Basler",
+                     "Dodotronic": "#/$defs/Dodotronic",
                      "Edmund Optics": "#/$defs/EdmundOptics",
                      "Hamamatsu": "#/$defs/Hamamatsu",
                      "Other": "#/$defs/Other",
@@ -4173,6 +4178,9 @@
                   },
                   {
                      "$ref": "#/$defs/Basler"
+                  },
+                  {
+                     "$ref": "#/$defs/Dodotronic"
                   },
                   {
                      "$ref": "#/$defs/EdmundOptics"
@@ -10944,8 +10952,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.10.13",
-               "default": "0.10.13",
+               "const": "0.10.14",
+               "default": "0.10.14",
                "title": "Schema Version"
             },
             "instrument_id": {
@@ -21714,8 +21722,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.2.18",
-               "default": "0.2.18",
+               "const": "0.2.19",
+               "default": "0.2.19",
                "title": "Schema Version"
             },
             "rig_id": {
@@ -27833,8 +27841,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.1.36",
-         "default": "0.1.36",
+         "const": "0.1.37",
+         "default": "0.1.37",
          "title": "Schema Version"
       },
       "_id": {

@@ -1510,6 +1510,7 @@
                      "Ailipu Technology Co": "#/$defs/AilipuTechnologyCo",
                      "Allied": "#/$defs/Allied",
                      "Basler": "#/$defs/Basler",
+                     "Dodotronic": "#/$defs/Dodotronic",
                      "Edmund Optics": "#/$defs/EdmundOptics",
                      "Hamamatsu": "#/$defs/Hamamatsu",
                      "Other": "#/$defs/Other",
@@ -1530,6 +1531,9 @@
                   },
                   {
                      "$ref": "#/$defs/Basler"
+                  },
+                  {
+                     "$ref": "#/$defs/Dodotronic"
                   },
                   {
                      "$ref": "#/$defs/EdmundOptics"
@@ -7345,8 +7349,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.10.13",
-         "default": "0.10.13",
+         "const": "0.10.14",
+         "default": "0.10.14",
          "title": "Schema Version"
       },
       "instrument_id": {
