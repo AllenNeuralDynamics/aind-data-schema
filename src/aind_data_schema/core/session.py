@@ -358,11 +358,18 @@ class StimulusEpoch(AindModel):
     stimulus_device_names: List[str] = Field(default=[], title="Stimulus devices")
     speaker_config: Optional[SpeakerConfig] = Field(None, title="Speaker Config")
     light_source_config: Optional[LIGHT_SOURCE_CONFIGS] = Field(None, title="Light source config")
-    olfactory_stimuluation: Optional[OlfactoryStimulation] = Field(None, title="Olfactory stimulus")
-    visual_stimulation: Optional[VisualStimulation] = Field(None, title="Visual stimulus")
-    opto_stimulation: Optional[OptoStimulation] = Field(None, title="Opto stimulus")
-    photo_stimulation: Optional[PhotoStimulation] = Field(None, title="Photo stimulus")
-    auditory_stimulation: Optional[AuditoryStimulation] = Field(None, title="Auditory stimulus")
+    stimuli: List[
+        Annotated[
+            Union[
+                OlfactoryStimulation,
+                VisualStimulation,
+                AuditoryStimulation,
+                OptoStimulation,
+                PhotoStimulation
+            ],
+            Field(discriminator="stimulus_type"),
+        ]
+    ] = Field(title="Stimuli", min_length=1)
     output_parameters: Dict[str, Any] = Field(
         ...,
         title="Performance parameters",
