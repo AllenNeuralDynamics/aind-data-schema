@@ -89,6 +89,7 @@ class Side(str, Enum):
 class ProtectiveMaterial(str, Enum):
     """Name of material applied to craniotomy"""
 
+    AGAROSE = "Agarose"
     DURAGEL = "Duragel"
     KWIK_CAST = "Kwik-Cast"
     SORTA_CLEAR = "SORTA-clear"
@@ -119,6 +120,13 @@ class HeadframeMaterial(str, Enum):
     STEEL = "Steel"
     TITANIUM = "Titanium"
     WHITE_ZIRCONIA = "White Zirconia"
+
+
+class GroundWireMaterial(str, Enum):
+    """Ground wire material name"""
+
+    SILVER = "Silver"
+    PLATINUM_IRIDIUM = "Platinum iridium"
 
 
 class VirusPrepType(str, Enum):
@@ -295,6 +303,22 @@ class Headframe(AindModel):
     headframe_type: str = Field(..., title="Headframe type")
     headframe_part_number: str = Field(..., title="Headframe part number")
     headframe_material: Optional[HeadframeMaterial] = Field(None, title="Headframe material")
+    well_part_number: Optional[str] = Field(None, title="Well part number")
+    well_type: Optional[str] = Field(None, title="Well type")
+
+
+class ProtectiveMaterialReplacement(AindModel):
+    """Description of a protective material replacement procedure in preparation for ephys recording"""
+
+    procedure_type: Literal["Ground wire"] = "Ground wire"
+    protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
+    protective_material: ProtectiveMaterial = Field(
+        ..., title="Protective material", description="New material being applied"
+        )
+    ground_wire_hole: Optional[int] = Field(None, title="Ground wire hole")
+    ground_wire_material: Optional[GroundWireMaterial] = Field(None, title="Ground wire material")
+    ground_wire_diameter: Optional[Decimal] = Field(None, title="Ground wire diameter")
+    ground_wire_diameter_unit: SizeUnit = Field(SizeUnit.IN, title="Ground wire diameter unit")
     well_part_number: Optional[str] = Field(None, title="Well part number")
     well_type: Optional[str] = Field(None, title="Well type")
 
@@ -557,8 +581,9 @@ class Surgery(AindModel):
                 IntraperitonealInjection,
                 IontophoresisInjection,
                 NanojectInjection,
-                Perfusion,
                 OtherSubjectProcedure,
+                Perfusion,
+                ProtectiveMaterialReplacement,
                 RetroOrbitalInjection,
             ],
             Field(discriminator="procedure_type"),

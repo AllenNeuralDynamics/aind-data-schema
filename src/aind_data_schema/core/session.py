@@ -173,6 +173,7 @@ class ManipulatorModule(DomeModule):
         ...,
         title="Manipulator coordinates",
     )
+    implant_hole_number: Optional[int] = Field(None, title="Implant hole number")
 
 
 class EphysProbeConfig(AindModel):
