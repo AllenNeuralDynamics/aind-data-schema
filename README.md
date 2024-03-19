@@ -10,7 +10,7 @@ User documentation available on [readthedocs](https://aind-data-schema.readthedo
 
 ## Overview
 
-This repository contains the schemas needed to ingest and validate metadata that are essential to ensuring [AIND](https://alleninstitute.org/what-we-do/brain-science/research/allen-institute-neural-dynamics/) data collection is completely reproducible. Our general approach is to semantically version core schema classes and include those version numbers in serialized metadata so that we can flexibly evolve the schemas over time without requiring difficult data migrations. In the future, we will provide a browsable list of these classes rendered to [JSONschema](https://json-schema.org/), including all historic versions.
+This repository contains the schemas needed to ingest and validate metadata that are essential to ensuring [AIND](https://alleninstitute.org/what-we-do/brain-science/research/allen-institute-neural-dynamics/) data collection is completely reproducible. Our general approach is to semantically version core schema classes and include those version numbers in serialized metadata so that we can flexibly evolve the schemas over time without requiring difficult data migrations. In the future, we will provide a browsable list of these classes rendered to [JSON Schema](https://json-schema.org/), including all historic versions.
 
 Be aware that this package is still under heavy preliminary development. Expect breaking changes regularly, although we will communicate these through semantic versioning.
 
