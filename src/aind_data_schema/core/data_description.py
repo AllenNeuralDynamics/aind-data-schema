@@ -157,7 +157,6 @@ class DataDescription(AindCoreModel):
     )
     project_name: Optional[ProjectName] = Field(
         None,
-        pattern=DataRegex.NO_SPECIAL_CHARS_EXCEPT_SPACE.value,
         description="A name for a set of coordinated activities intended to achieve one or more objectives.",
         title="Project Name",
     )
@@ -351,7 +350,6 @@ class AnalysisDescription(DataDescription):
     )
     project_name: ProjectName = Field(
         ...,
-        # pattern=DataRegex.NO_SPECIAL_CHARS.value,
         description="Name of the project the analysis belongs to",
         title="Project name",
     )
