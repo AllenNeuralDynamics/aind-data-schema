@@ -23,7 +23,6 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
-    'aind_data_schema[docs]',
     'aind_data_schema[linters]'
 ]
 
