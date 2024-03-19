@@ -20,11 +20,7 @@ s = Session(
         Stream(
             stream_start_time=t,
             stream_end_time=t,
-            stream_modalities=[
-                Modality.POPHYS,
-                Modality.BEHAVIOR_VIDEOS,
-                Modality.CONFOCAL
-                ],
+            stream_modalities=[Modality.POPHYS, Modality.BEHAVIOR_VIDEOS, Modality.CONFOCAL],
             mouse_platform_name="disc",
             camera_names=[
                 "Mesoscope",
@@ -32,7 +28,7 @@ s = Session(
                 "Face",
                 "Behavior",
                 "Vasculature",
-                ],
+            ],
             active_mouse_platform=True,
             light_sources=[
                 LaserConfig(
@@ -199,6 +195,6 @@ s = Session(
                 ),
             ],
         )
-    ]
+    ],
 )
 s.write_standard_file(prefix="multiplane_ophys")

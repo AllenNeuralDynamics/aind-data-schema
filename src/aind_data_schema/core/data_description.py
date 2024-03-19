@@ -12,6 +12,7 @@ from aind_data_schema.models.modalities import Modality
 from aind_data_schema.models.organizations import Organization
 from aind_data_schema.models.pid_names import PIDName
 from aind_data_schema.models.platforms import Platform
+from aind_data_schema.models.project_names import ProjectName
 
 
 class RegexParts(str, Enum):
@@ -154,7 +155,7 @@ class DataDescription(AindCoreModel):
         title="Investigators",
         min_length=1,
     )
-    project_name: Optional[str] = Field(
+    project_name: Optional[ProjectName] = Field(
         None,
         pattern=DataRegex.NO_SPECIAL_CHARS_EXCEPT_SPACE.value,
         description="A name for a set of coordinated activities intended to achieve one or more objectives.",
@@ -348,9 +349,9 @@ class AnalysisDescription(DataDescription):
     data_level: Literal[DataLevel.DERIVED] = Field(
         DataLevel.DERIVED, description="Level of processing that data has undergone", title="Data Level"
     )
-    project_name: str = Field(
+    project_name: ProjectName = Field(
         ...,
-        pattern=DataRegex.NO_SPECIAL_CHARS.value,
+        # pattern=DataRegex.NO_SPECIAL_CHARS.value,
         description="Name of the project the analysis belongs to",
         title="Project name",
     )
@@ -364,7 +365,8 @@ class AnalysisDescription(DataDescription):
     @model_validator(mode="after")
     def build_name(self):
         """returns the label of the file"""
-        self.name = build_data_name(f"{self.project_name}_{self.analysis_name}", creation_datetime=self.creation_time)
+        project_name = self.project_name.replace(" ", "_")
+        self.name = build_data_name(f"{project_name}_{self.analysis_name}", creation_datetime=self.creation_time)
         return self
 
     @classmethod
