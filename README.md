@@ -19,7 +19,7 @@ A simple example:
 ```python
 import datetime
 
-from aind_data_schema.subject import Housing, Subject
+from aind_data_schema.core.subject import Housing, Subject
 
 t = datetime.datetime(2022, 11, 22, 8, 43, 00)
 
