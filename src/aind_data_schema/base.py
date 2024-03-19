@@ -2,9 +2,35 @@
 
 import re
 from pathlib import Path
-from typing import Generic, Optional, TypeVar
+from typing import Any, Generic, Optional, TypeVar
 
-from pydantic import BaseModel, ConfigDict, Field, PrivateAttr
+from pydantic import (
+    AwareDatetime,
+    BaseModel,
+    ConfigDict,
+    Field,
+    NaiveDatetime,
+    PrivateAttr,
+    ValidationError,
+    ValidationInfo,
+    ValidatorFunctionWrapHandler,
+    create_model,
+)
+from pydantic.functional_validators import WrapValidator
+from typing_extensions import Annotated
+
+
+def _coerce_naive_datetime(v: Any, handler: ValidatorFunctionWrapHandler, info: ValidationInfo) -> AwareDatetime:
+    try:
+        return handler(v)
+    except ValidationError:
+        # Try to parse the input as a naive datetime object and attach timezone info
+        return create_model("TempNaiveDatetimeModel", dt=(NaiveDatetime, ...)).model_validate({"dt": v}).dt.astimezone()
+    # Do no further validation
+    return v
+
+
+AwareDatetimeWithDefault = Annotated[AwareDatetime, WrapValidator(_coerce_naive_datetime)]
 
 
 class AindGeneric(BaseModel, extra="allow"):
