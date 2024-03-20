@@ -13,7 +13,6 @@ from aind_data_schema.models.units import (
     FrequencyUnit,
     PowerUnit,
     TimeUnit,
-    VolumeUnit
 )
 
 
