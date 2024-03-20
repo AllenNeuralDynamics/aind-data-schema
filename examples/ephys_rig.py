@@ -169,6 +169,9 @@ camassm2 = CameraAssembly(
     lens=lens,
 )
 
+# If a timezone isn't specified, the timezone of the computer running this
+# script will be used as default
+
 red_laser_calibration = Calibration(
     calibration_date=datetime(2023, 10, 2, 10, 22, 13, tzinfo=timezone.utc),
     device_name="Red Laser",

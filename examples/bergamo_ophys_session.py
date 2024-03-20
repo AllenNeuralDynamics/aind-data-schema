@@ -6,6 +6,8 @@ from aind_data_schema.core.session import DetectorConfig, FieldOfView, LaserConf
 from aind_data_schema.models.modalities import Modality
 from aind_data_schema.models.stimulus import PhotoStimulation, PhotoStimulationGroup, StimulusEpoch
 
+# If a timezone isn't specified, the timezone of the computer running this
+# script will be used as default
 t = datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc)
 
 s = Session(

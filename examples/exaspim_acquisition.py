@@ -12,6 +12,8 @@ from aind_data_schema.models.pid_names import PIDName
 from aind_data_schema.models.registry import Registry
 from aind_data_schema.models.units import PowerValue
 
+# If a timezone isn't specified, the timezone of the computer running this
+# script will be used as default
 t = datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc)
 
 

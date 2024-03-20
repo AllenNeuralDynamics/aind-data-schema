@@ -6,6 +6,8 @@ from aind_data_schema.core.subject import BreedingInfo, Housing, Sex, Subject
 from aind_data_schema.models.organizations import Organization
 from aind_data_schema.models.species import Species
 
+# If a timezone isn't specified, the timezone of the computer running this
+# script will be used as default
 t = datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc)
 
 s = Subject(

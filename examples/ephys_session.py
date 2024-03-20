@@ -38,6 +38,8 @@ ephys_module = EphysModule(
     ],
 )
 
+# If a timezone isn't specified, the timezone of the computer running this
+# script will be used as default
 stream = Stream(
     stream_start_time=datetime(2023, 1, 10, 8, 43, 00, tzinfo=timezone.utc),
     stream_end_time=datetime(2023, 1, 10, 9, 43, 00, tzinfo=timezone.utc),
@@ -57,6 +59,8 @@ stream = Stream(
     active_mouse_platform=False,
 )
 
+# If a timezone isn't specified, the timezone of the computer running this
+# script will be used as default
 session = Session(
     experimenter_full_name=["Jane Doe"],
     subject_id="100001",

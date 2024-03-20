@@ -12,6 +12,8 @@ from aind_data_schema.core.procedures import (
     ViralMaterial,
 )
 
+# If a timezone isn't specified, the timezone of the computer running this
+# script will be used as default
 t = datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc)
 t2 = datetime(2022, 9, 23, 10, 22, 00, tzinfo=timezone.utc)
 
