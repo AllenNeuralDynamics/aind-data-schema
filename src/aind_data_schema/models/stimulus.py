@@ -1,6 +1,5 @@
 """ schema for session stimulus """
 
-from datetime import datetime
 from decimal import Decimal
 from enum import Enum
 from typing import List, Literal, Optional, Union
