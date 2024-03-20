@@ -18,8 +18,8 @@
    "weight_unit": "gram",
    "data_streams": [
       {
-         "stream_start_time": "2022-07-12T07:00:00-07:00",
-         "stream_end_time": "2022-07-12T07:00:00-07:00",
+         "stream_start_time": "2022-07-12T07:00:00Z",
+         "stream_end_time": "2022-07-12T07:00:00Z",
          "daq_names": [],
          "camera_names": [],
          "light_sources": [
