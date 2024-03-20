@@ -12,7 +12,6 @@ from pydantic import (
     NaiveDatetime,
     PrivateAttr,
     ValidationError,
-    ValidationInfo,
     ValidatorFunctionWrapHandler,
     create_model,
 )
@@ -21,13 +20,12 @@ from typing_extensions import Annotated
 
 
 def _coerce_naive_datetime(v: Any, handler: ValidatorFunctionWrapHandler) -> AwareDatetime:
+    """Validator to wrap around AwareDatetime to set a default timezone as user's locale"""
     try:
         return handler(v)
     except ValidationError:
         # Try to parse the input as a naive datetime object and attach timezone info
         return create_model("TempNaiveDatetimeModel", dt=(NaiveDatetime, ...)).model_validate({"dt": v}).dt.astimezone()
-    # Do no further validation
-    # return v
 
 
 AwareDatetimeWithDefault = Annotated[AwareDatetime, WrapValidator(_coerce_naive_datetime)]

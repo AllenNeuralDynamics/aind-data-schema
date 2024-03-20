@@ -55,6 +55,5 @@ class BaseTests(unittest.TestCase):
         self.assertEqual(expected_json, model_instance.model_dump_json())
 
 
-
 if __name__ == "__main__":
     unittest.main()
