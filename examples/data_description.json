@@ -7,7 +7,7 @@
       "abbreviation": "ecephys"
    },
    "subject_id": "12345",
-   "creation_time": "2022-02-21T16:30:01",
+   "creation_time": "2022-02-21T16:30:01-08:00",
    "label": null,
    "name": "ecephys_12345_2022-02-21_16-30-01",
    "institution": {
