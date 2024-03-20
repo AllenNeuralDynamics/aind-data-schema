@@ -19,6 +19,8 @@ class ProjectName(str, Enum):
     DYNAMIC_ROUTING = "Dynamic Routing"
     SCBC = "Single-neuron computations within brain-wide circuits (SCBC)"
     LEARNING_MFISH_V1OMFISH = "Learning mFISH/V1omFISH"
+    LEARNING_MFISH = "Learning mFISH"
+    LEARNING_V1OMFISH = "Learning V1omFISH"
     OPENSCOPE = "OpenScope"
     BRAIN_COMPUTER_INTERFACE = "Brain Computer Interface"
     COGNITIVE_FLEXIBILITY = "Cognitive flexibility in patch foraging"
@@ -27,3 +29,4 @@ class ProjectName(str, Enum):
     DISCOVERY_NEUROMODULATOR = "Discovery-Neuromodulator circuit dynamics during foraging"
     FORCE_FORAGING = "Force Foraging"
     NEUROBIOLOGY_OF_ACTION = "Neurobiology of Action"
+    HIVE = "BRAIN Connects HIVE"
