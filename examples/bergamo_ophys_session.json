@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/session.py",
-   "schema_version": "0.1.7",
+   "schema_version": "0.1.11",
    "protocol_id": [],
    "experimenter_full_name": [
       "John Doe"
@@ -65,7 +65,13 @@
                "fov_scale_factor_unit": "um/pixel",
                "frame_rate": "20",
                "frame_rate_unit": "hertz",
-               "coupled_fov_index": null
+               "coupled_fov_index": null,
+               "power": null,
+               "power_unit": "percent",
+               "scanfield_z": null,
+               "scanfield_z_unit": "micrometer",
+               "scanimage_roi_index": null,
+               "notes": null
             }
          ],
          "slap_fovs": null,

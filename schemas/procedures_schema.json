@@ -97,6 +97,13 @@
          "title": "AilipuTechnologyCo",
          "type": "object"
       },
+      "AindGeneric": {
+         "additionalProperties": true,
+         "description": "Base class for generic types that can be used in AIND schema",
+         "properties": {},
+         "title": "AindGeneric",
+         "type": "object"
+      },
       "AllenInstitute": {
          "additionalProperties": false,
          "description": "AllenInstitute",
@@ -386,6 +393,7 @@
                      "Euresys": "#/$defs/Euresys",
                      "Fujinon": "#/$defs/Fujinon",
                      "Hamamatsu": "#/$defs/Hamamatsu",
+                     "Hamilton": "#/$defs/Hamilton",
                      "Huazhong University of Science and Technology": "#/$defs/HuazhongUniversityOfScienceAndTechnology",
                      "IR Robot Co": "#/$defs/IRRobotCo",
                      "ISL Products International": "#/$defs/ISLProductsInternational",
@@ -400,6 +408,7 @@
                      "MPI": "#/$defs/Mpi",
                      "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
                      "Mitutuyo": "#/$defs/Mitutuyo",
+                     "NResearch Inc": "#/$defs/NResearch",
                      "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                      "National Instruments": "#/$defs/NationalInstruments",
                      "Navitar": "#/$defs/Navitar",
@@ -418,6 +427,7 @@
                      "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                      "Second Order Effects": "#/$defs/SecondOrderEffects",
                      "Semrock": "#/$defs/Semrock",
+                     "Sigma-Aldritch": "#/$defs/SigmaAldritch",
                      "Simons Foundation": "#/$defs/SimonsFoundation",
                      "Spinnaker": "#/$defs/Spinnaker",
                      "Tamron": "#/$defs/Tamron",
@@ -520,6 +530,9 @@
                      "$ref": "#/$defs/Hamamatsu"
                   },
                   {
+                     "$ref": "#/$defs/Hamilton"
+                  },
+                  {
                      "$ref": "#/$defs/HuazhongUniversityOfScienceAndTechnology"
                   },
                   {
@@ -589,6 +602,9 @@
                      "$ref": "#/$defs/Nikon"
                   },
                   {
+                     "$ref": "#/$defs/NResearch"
+                  },
+                  {
                      "$ref": "#/$defs/OpenEphysProductionSite"
                   },
                   {
@@ -617,6 +633,9 @@
                   },
                   {
                      "$ref": "#/$defs/SchneiderKreuznach"
+                  },
+                  {
+                     "$ref": "#/$defs/SigmaAldritch"
                   },
                   {
                      "$ref": "#/$defs/SimonsFoundation"
@@ -1678,6 +1697,7 @@
                            "Euresys": "#/$defs/Euresys",
                            "Fujinon": "#/$defs/Fujinon",
                            "Hamamatsu": "#/$defs/Hamamatsu",
+                           "Hamilton": "#/$defs/Hamilton",
                            "Huazhong University of Science and Technology": "#/$defs/HuazhongUniversityOfScienceAndTechnology",
                            "IR Robot Co": "#/$defs/IRRobotCo",
                            "ISL Products International": "#/$defs/ISLProductsInternational",
@@ -1692,6 +1712,7 @@
                            "MPI": "#/$defs/Mpi",
                            "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
                            "Mitutuyo": "#/$defs/Mitutuyo",
+                           "NResearch Inc": "#/$defs/NResearch",
                            "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                            "National Instruments": "#/$defs/NationalInstruments",
                            "Navitar": "#/$defs/Navitar",
@@ -1710,6 +1731,7 @@
                            "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                            "Second Order Effects": "#/$defs/SecondOrderEffects",
                            "Semrock": "#/$defs/Semrock",
+                           "Sigma-Aldritch": "#/$defs/SigmaAldritch",
                            "Simons Foundation": "#/$defs/SimonsFoundation",
                            "Spinnaker": "#/$defs/Spinnaker",
                            "Tamron": "#/$defs/Tamron",
@@ -1812,6 +1834,9 @@
                            "$ref": "#/$defs/Hamamatsu"
                         },
                         {
+                           "$ref": "#/$defs/Hamilton"
+                        },
+                        {
                            "$ref": "#/$defs/HuazhongUniversityOfScienceAndTechnology"
                         },
                         {
@@ -1881,6 +1906,9 @@
                            "$ref": "#/$defs/Nikon"
                         },
                         {
+                           "$ref": "#/$defs/NResearch"
+                        },
+                        {
                            "$ref": "#/$defs/OpenEphysProductionSite"
                         },
                         {
@@ -1909,6 +1937,9 @@
                         },
                         {
                            "$ref": "#/$defs/SchneiderKreuznach"
+                        },
+                        {
+                           "$ref": "#/$defs/SigmaAldritch"
                         },
                         {
                            "$ref": "#/$defs/SimonsFoundation"
@@ -1990,12 +2021,9 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "anyOf": [
+               "allOf": [
                   {
-                     "type": "object"
-                  },
-                  {
-                     "type": "null"
+                     "$ref": "#/$defs/AindGeneric"
                   }
                ],
                "default": {},
@@ -2025,9 +2053,13 @@
                "title": "Core diameter (um)"
             },
             "core_diameter_unit": {
-               "default": "um",
-               "title": "Core diameter unit",
-               "type": "string"
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  }
+               ],
+               "default": "micrometer",
+               "title": "Core diameter unit"
             },
             "numerical_aperture": {
                "anyOf": [
@@ -2144,6 +2176,15 @@
          "title": "Fujinon",
          "type": "object"
       },
+      "GroundWireMaterial": {
+         "description": "Ground wire material name",
+         "enum": [
+            "Silver",
+            "Platinum iridium"
+         ],
+         "title": "GroundWireMaterial",
+         "type": "string"
+      },
       "HCRProbe": {
          "additionalProperties": false,
          "description": "Description of an oligo probe used for HCR",
@@ -2182,6 +2223,7 @@
                      "Euresys": "#/$defs/Euresys",
                      "Fujinon": "#/$defs/Fujinon",
                      "Hamamatsu": "#/$defs/Hamamatsu",
+                     "Hamilton": "#/$defs/Hamilton",
                      "Huazhong University of Science and Technology": "#/$defs/HuazhongUniversityOfScienceAndTechnology",
                      "IR Robot Co": "#/$defs/IRRobotCo",
                      "ISL Products International": "#/$defs/ISLProductsInternational",
@@ -2196,6 +2238,7 @@
                      "MPI": "#/$defs/Mpi",
                      "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
                      "Mitutuyo": "#/$defs/Mitutuyo",
+                     "NResearch Inc": "#/$defs/NResearch",
                      "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                      "National Instruments": "#/$defs/NationalInstruments",
                      "Navitar": "#/$defs/Navitar",
@@ -2214,6 +2257,7 @@
                      "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                      "Second Order Effects": "#/$defs/SecondOrderEffects",
                      "Semrock": "#/$defs/Semrock",
+                     "Sigma-Aldritch": "#/$defs/SigmaAldritch",
                      "Simons Foundation": "#/$defs/SimonsFoundation",
                      "Spinnaker": "#/$defs/Spinnaker",
                      "Tamron": "#/$defs/Tamron",
@@ -2316,6 +2360,9 @@
                      "$ref": "#/$defs/Hamamatsu"
                   },
                   {
+                     "$ref": "#/$defs/Hamilton"
+                  },
+                  {
                      "$ref": "#/$defs/HuazhongUniversityOfScienceAndTechnology"
                   },
                   {
@@ -2385,6 +2432,9 @@
                      "$ref": "#/$defs/Nikon"
                   },
                   {
+                     "$ref": "#/$defs/NResearch"
+                  },
+                  {
                      "$ref": "#/$defs/OpenEphysProductionSite"
                   },
                   {
@@ -2413,6 +2463,9 @@
                   },
                   {
                      "$ref": "#/$defs/SchneiderKreuznach"
+                  },
+                  {
+                     "$ref": "#/$defs/SigmaAldritch"
                   },
                   {
                      "$ref": "#/$defs/SimonsFoundation"
@@ -2588,6 +2641,7 @@
                      "Euresys": "#/$defs/Euresys",
                      "Fujinon": "#/$defs/Fujinon",
                      "Hamamatsu": "#/$defs/Hamamatsu",
+                     "Hamilton": "#/$defs/Hamilton",
                      "Huazhong University of Science and Technology": "#/$defs/HuazhongUniversityOfScienceAndTechnology",
                      "IR Robot Co": "#/$defs/IRRobotCo",
                      "ISL Products International": "#/$defs/ISLProductsInternational",
@@ -2602,6 +2656,7 @@
                      "MPI": "#/$defs/Mpi",
                      "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
                      "Mitutuyo": "#/$defs/Mitutuyo",
+                     "NResearch Inc": "#/$defs/NResearch",
                      "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                      "National Instruments": "#/$defs/NationalInstruments",
                      "Navitar": "#/$defs/Navitar",
@@ -2620,6 +2675,7 @@
                      "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                      "Second Order Effects": "#/$defs/SecondOrderEffects",
                      "Semrock": "#/$defs/Semrock",
+                     "Sigma-Aldritch": "#/$defs/SigmaAldritch",
                      "Simons Foundation": "#/$defs/SimonsFoundation",
                      "Spinnaker": "#/$defs/Spinnaker",
                      "Tamron": "#/$defs/Tamron",
@@ -2722,6 +2778,9 @@
                      "$ref": "#/$defs/Hamamatsu"
                   },
                   {
+                     "$ref": "#/$defs/Hamilton"
+                  },
+                  {
                      "$ref": "#/$defs/HuazhongUniversityOfScienceAndTechnology"
                   },
                   {
@@ -2791,6 +2850,9 @@
                      "$ref": "#/$defs/Nikon"
                   },
                   {
+                     "$ref": "#/$defs/NResearch"
+                  },
+                  {
                      "$ref": "#/$defs/OpenEphysProductionSite"
                   },
                   {
@@ -2819,6 +2881,9 @@
                   },
                   {
                      "$ref": "#/$defs/SchneiderKreuznach"
+                  },
+                  {
+                     "$ref": "#/$defs/SigmaAldritch"
                   },
                   {
                      "$ref": "#/$defs/SimonsFoundation"
@@ -2998,6 +3063,34 @@
             }
          },
          "title": "Hamamatsu",
+         "type": "object"
+      },
+      "Hamilton": {
+         "additionalProperties": false,
+         "description": "Hamilton",
+         "properties": {
+            "name": {
+               "const": "Hamilton",
+               "default": "Hamilton",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Hamilton",
          "type": "object"
       },
       "Headframe": {
@@ -3415,7 +3508,6 @@
          "description": "Description of an interacerebellar ventricle injection",
          "properties": {
             "injection_materials": {
-               "default": [],
                "items": {
                   "anyOf": [
                      {
@@ -3652,6 +3744,7 @@
             }
          },
          "required": [
+            "injection_materials",
             "protocol_id",
             "injection_coordinate_ml",
             "injection_coordinate_ap",
@@ -3667,7 +3760,6 @@
          "description": "Description of an interacisternal magna injection",
          "properties": {
             "injection_materials": {
-               "default": [],
                "items": {
                   "anyOf": [
                      {
@@ -3904,6 +3996,7 @@
             }
          },
          "required": [
+            "injection_materials",
             "protocol_id",
             "injection_coordinate_ml",
             "injection_coordinate_ap",
@@ -3919,7 +4012,6 @@
          "description": "Description of an intraperitoneal injection procedure",
          "properties": {
             "injection_materials": {
-               "default": [],
                "items": {
                   "anyOf": [
                      {
@@ -4026,6 +4118,7 @@
             }
          },
          "required": [
+            "injection_materials",
             "protocol_id",
             "injection_volume"
          ],
@@ -4037,7 +4130,6 @@
          "description": "Description of an iotophoresis injection procedure",
          "properties": {
             "injection_materials": {
-               "default": [],
                "items": {
                   "anyOf": [
                      {
@@ -4274,6 +4366,7 @@
             }
          },
          "required": [
+            "injection_materials",
             "protocol_id",
             "injection_coordinate_ml",
             "injection_coordinate_ap",
@@ -4697,12 +4790,39 @@
          "title": "MusMusculus",
          "type": "object"
       },
+      "NResearch": {
+         "additionalProperties": false,
+         "description": "NResearch",
+         "properties": {
+            "name": {
+               "const": "NResearch Inc",
+               "default": "NResearch Inc",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "NResearch",
+         "type": "object"
+      },
       "NanojectInjection": {
          "additionalProperties": false,
          "description": "Description of a nanoject injection procedure",
          "properties": {
             "injection_materials": {
-               "default": [],
                "items": {
                   "anyOf": [
                      {
@@ -4939,6 +5059,7 @@
             }
          },
          "required": [
+            "injection_materials",
             "protocol_id",
             "injection_coordinate_ml",
             "injection_coordinate_ap",
@@ -5253,6 +5374,7 @@
                      "Euresys": "#/$defs/Euresys",
                      "Fujinon": "#/$defs/Fujinon",
                      "Hamamatsu": "#/$defs/Hamamatsu",
+                     "Hamilton": "#/$defs/Hamilton",
                      "Huazhong University of Science and Technology": "#/$defs/HuazhongUniversityOfScienceAndTechnology",
                      "IR Robot Co": "#/$defs/IRRobotCo",
                      "ISL Products International": "#/$defs/ISLProductsInternational",
@@ -5267,6 +5389,7 @@
                      "MPI": "#/$defs/Mpi",
                      "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
                      "Mitutuyo": "#/$defs/Mitutuyo",
+                     "NResearch Inc": "#/$defs/NResearch",
                      "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                      "National Instruments": "#/$defs/NationalInstruments",
                      "Navitar": "#/$defs/Navitar",
@@ -5285,6 +5408,7 @@
                      "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                      "Second Order Effects": "#/$defs/SecondOrderEffects",
                      "Semrock": "#/$defs/Semrock",
+                     "Sigma-Aldritch": "#/$defs/SigmaAldritch",
                      "Simons Foundation": "#/$defs/SimonsFoundation",
                      "Spinnaker": "#/$defs/Spinnaker",
                      "Tamron": "#/$defs/Tamron",
@@ -5387,6 +5511,9 @@
                      "$ref": "#/$defs/Hamamatsu"
                   },
                   {
+                     "$ref": "#/$defs/Hamilton"
+                  },
+                  {
                      "$ref": "#/$defs/HuazhongUniversityOfScienceAndTechnology"
                   },
                   {
@@ -5456,6 +5583,9 @@
                      "$ref": "#/$defs/Nikon"
                   },
                   {
+                     "$ref": "#/$defs/NResearch"
+                  },
+                  {
                      "$ref": "#/$defs/OpenEphysProductionSite"
                   },
                   {
@@ -5484,6 +5614,9 @@
                   },
                   {
                      "$ref": "#/$defs/SchneiderKreuznach"
+                  },
+                  {
+                     "$ref": "#/$defs/SigmaAldritch"
                   },
                   {
                      "$ref": "#/$defs/SimonsFoundation"
@@ -5623,6 +5756,7 @@
                      "Euresys": "#/$defs/Euresys",
                      "Fujinon": "#/$defs/Fujinon",
                      "Hamamatsu": "#/$defs/Hamamatsu",
+                     "Hamilton": "#/$defs/Hamilton",
                      "Huazhong University of Science and Technology": "#/$defs/HuazhongUniversityOfScienceAndTechnology",
                      "IR Robot Co": "#/$defs/IRRobotCo",
                      "ISL Products International": "#/$defs/ISLProductsInternational",
@@ -5637,6 +5771,7 @@
                      "MPI": "#/$defs/Mpi",
                      "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
                      "Mitutuyo": "#/$defs/Mitutuyo",
+                     "NResearch Inc": "#/$defs/NResearch",
                      "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                      "National Instruments": "#/$defs/NationalInstruments",
                      "Navitar": "#/$defs/Navitar",
@@ -5655,6 +5790,7 @@
                      "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                      "Second Order Effects": "#/$defs/SecondOrderEffects",
                      "Semrock": "#/$defs/Semrock",
+                     "Sigma-Aldritch": "#/$defs/SigmaAldritch",
                      "Simons Foundation": "#/$defs/SimonsFoundation",
                      "Spinnaker": "#/$defs/Spinnaker",
                      "Tamron": "#/$defs/Tamron",
@@ -5757,6 +5893,9 @@
                      "$ref": "#/$defs/Hamamatsu"
                   },
                   {
+                     "$ref": "#/$defs/Hamilton"
+                  },
+                  {
                      "$ref": "#/$defs/HuazhongUniversityOfScienceAndTechnology"
                   },
                   {
@@ -5826,6 +5965,9 @@
                      "$ref": "#/$defs/Nikon"
                   },
                   {
+                     "$ref": "#/$defs/NResearch"
+                  },
+                  {
                      "$ref": "#/$defs/OpenEphysProductionSite"
                   },
                   {
@@ -5854,6 +5996,9 @@
                   },
                   {
                      "$ref": "#/$defs/SchneiderKreuznach"
+                  },
+                  {
+                     "$ref": "#/$defs/SigmaAldritch"
                   },
                   {
                      "$ref": "#/$defs/SimonsFoundation"
@@ -6444,6 +6589,7 @@
       "ProtectiveMaterial": {
          "description": "Name of material applied to craniotomy",
          "enum": [
+            "Agarose",
             "Duragel",
             "Kwik-Cast",
             "SORTA-clear",
@@ -6451,6 +6597,109 @@
          ],
          "title": "ProtectiveMaterial",
          "type": "string"
+      },
+      "ProtectiveMaterialReplacement": {
+         "additionalProperties": false,
+         "description": "Description of a protective material replacement procedure in preparation for ephys recording",
+         "properties": {
+            "procedure_type": {
+               "const": "Ground wire",
+               "default": "Ground wire",
+               "title": "Procedure Type"
+            },
+            "protocol_id": {
+               "description": "DOI for protocols.io",
+               "title": "Protocol ID",
+               "type": "string"
+            },
+            "protective_material": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/ProtectiveMaterial"
+                  }
+               ],
+               "description": "New material being applied",
+               "title": "Protective material"
+            },
+            "ground_wire_hole": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Ground wire hole"
+            },
+            "ground_wire_material": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/GroundWireMaterial"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Ground wire material"
+            },
+            "ground_wire_diameter": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Ground wire diameter"
+            },
+            "ground_wire_diameter_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  }
+               ],
+               "default": "inch",
+               "title": "Ground wire diameter unit"
+            },
+            "well_part_number": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Well part number"
+            },
+            "well_type": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Well type"
+            }
+         },
+         "required": [
+            "protocol_id",
+            "protective_material"
+         ],
+         "title": "ProtectiveMaterialReplacement",
+         "type": "object"
       },
       "Quantifi": {
          "additionalProperties": false,
@@ -6594,6 +6843,7 @@
                      "Euresys": "#/$defs/Euresys",
                      "Fujinon": "#/$defs/Fujinon",
                      "Hamamatsu": "#/$defs/Hamamatsu",
+                     "Hamilton": "#/$defs/Hamilton",
                      "Huazhong University of Science and Technology": "#/$defs/HuazhongUniversityOfScienceAndTechnology",
                      "IR Robot Co": "#/$defs/IRRobotCo",
                      "ISL Products International": "#/$defs/ISLProductsInternational",
@@ -6608,6 +6858,7 @@
                      "MPI": "#/$defs/Mpi",
                      "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
                      "Mitutuyo": "#/$defs/Mitutuyo",
+                     "NResearch Inc": "#/$defs/NResearch",
                      "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                      "National Instruments": "#/$defs/NationalInstruments",
                      "Navitar": "#/$defs/Navitar",
@@ -6626,6 +6877,7 @@
                      "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                      "Second Order Effects": "#/$defs/SecondOrderEffects",
                      "Semrock": "#/$defs/Semrock",
+                     "Sigma-Aldritch": "#/$defs/SigmaAldritch",
                      "Simons Foundation": "#/$defs/SimonsFoundation",
                      "Spinnaker": "#/$defs/Spinnaker",
                      "Tamron": "#/$defs/Tamron",
@@ -6728,6 +6980,9 @@
                      "$ref": "#/$defs/Hamamatsu"
                   },
                   {
+                     "$ref": "#/$defs/Hamilton"
+                  },
+                  {
                      "$ref": "#/$defs/HuazhongUniversityOfScienceAndTechnology"
                   },
                   {
@@ -6797,6 +7052,9 @@
                      "$ref": "#/$defs/Nikon"
                   },
                   {
+                     "$ref": "#/$defs/NResearch"
+                  },
+                  {
                      "$ref": "#/$defs/OpenEphysProductionSite"
                   },
                   {
@@ -6825,6 +7083,9 @@
                   },
                   {
                      "$ref": "#/$defs/SchneiderKreuznach"
+                  },
+                  {
+                     "$ref": "#/$defs/SigmaAldritch"
                   },
                   {
                      "$ref": "#/$defs/SimonsFoundation"
@@ -6965,6 +7226,7 @@
                      "Euresys": "#/$defs/Euresys",
                      "Fujinon": "#/$defs/Fujinon",
                      "Hamamatsu": "#/$defs/Hamamatsu",
+                     "Hamilton": "#/$defs/Hamilton",
                      "Huazhong University of Science and Technology": "#/$defs/HuazhongUniversityOfScienceAndTechnology",
                      "IR Robot Co": "#/$defs/IRRobotCo",
                      "ISL Products International": "#/$defs/ISLProductsInternational",
@@ -6979,6 +7241,7 @@
                      "MPI": "#/$defs/Mpi",
                      "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
                      "Mitutuyo": "#/$defs/Mitutuyo",
+                     "NResearch Inc": "#/$defs/NResearch",
                      "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                      "National Instruments": "#/$defs/NationalInstruments",
                      "Navitar": "#/$defs/Navitar",
@@ -6997,6 +7260,7 @@
                      "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                      "Second Order Effects": "#/$defs/SecondOrderEffects",
                      "Semrock": "#/$defs/Semrock",
+                     "Sigma-Aldritch": "#/$defs/SigmaAldritch",
                      "Simons Foundation": "#/$defs/SimonsFoundation",
                      "Spinnaker": "#/$defs/Spinnaker",
                      "Tamron": "#/$defs/Tamron",
@@ -7099,6 +7363,9 @@
                      "$ref": "#/$defs/Hamamatsu"
                   },
                   {
+                     "$ref": "#/$defs/Hamilton"
+                  },
+                  {
                      "$ref": "#/$defs/HuazhongUniversityOfScienceAndTechnology"
                   },
                   {
@@ -7168,6 +7435,9 @@
                      "$ref": "#/$defs/Nikon"
                   },
                   {
+                     "$ref": "#/$defs/NResearch"
+                  },
+                  {
                      "$ref": "#/$defs/OpenEphysProductionSite"
                   },
                   {
@@ -7196,6 +7466,9 @@
                   },
                   {
                      "$ref": "#/$defs/SchneiderKreuznach"
+                  },
+                  {
+                     "$ref": "#/$defs/SigmaAldritch"
                   },
                   {
                      "$ref": "#/$defs/SimonsFoundation"
@@ -7294,7 +7567,6 @@
          "description": "Description of a retro-orbital injection procedure",
          "properties": {
             "injection_materials": {
-               "default": [],
                "items": {
                   "anyOf": [
                      {
@@ -7409,6 +7681,7 @@
             }
          },
          "required": [
+            "injection_materials",
             "protocol_id",
             "injection_volume",
             "injection_eye"
@@ -7508,6 +7781,34 @@
          ],
          "title": "Side",
          "type": "string"
+      },
+      "SigmaAldritch": {
+         "additionalProperties": false,
+         "description": "Sigma-Aldritch",
+         "properties": {
+            "name": {
+               "const": "Sigma-Aldritch",
+               "default": "Sigma-Aldritch",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "SigmaAldritch",
+         "type": "object"
       },
       "SimonsFoundation": {
          "additionalProperties": false,
@@ -7758,6 +8059,7 @@
                      "Euresys": "#/$defs/Euresys",
                      "Fujinon": "#/$defs/Fujinon",
                      "Hamamatsu": "#/$defs/Hamamatsu",
+                     "Hamilton": "#/$defs/Hamilton",
                      "Huazhong University of Science and Technology": "#/$defs/HuazhongUniversityOfScienceAndTechnology",
                      "IR Robot Co": "#/$defs/IRRobotCo",
                      "ISL Products International": "#/$defs/ISLProductsInternational",
@@ -7772,6 +8074,7 @@
                      "MPI": "#/$defs/Mpi",
                      "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
                      "Mitutuyo": "#/$defs/Mitutuyo",
+                     "NResearch Inc": "#/$defs/NResearch",
                      "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                      "National Instruments": "#/$defs/NationalInstruments",
                      "Navitar": "#/$defs/Navitar",
@@ -7790,6 +8093,7 @@
                      "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                      "Second Order Effects": "#/$defs/SecondOrderEffects",
                      "Semrock": "#/$defs/Semrock",
+                     "Sigma-Aldritch": "#/$defs/SigmaAldritch",
                      "Simons Foundation": "#/$defs/SimonsFoundation",
                      "Spinnaker": "#/$defs/Spinnaker",
                      "Tamron": "#/$defs/Tamron",
@@ -7892,6 +8196,9 @@
                      "$ref": "#/$defs/Hamamatsu"
                   },
                   {
+                     "$ref": "#/$defs/Hamilton"
+                  },
+                  {
                      "$ref": "#/$defs/HuazhongUniversityOfScienceAndTechnology"
                   },
                   {
@@ -7961,6 +8268,9 @@
                      "$ref": "#/$defs/Nikon"
                   },
                   {
+                     "$ref": "#/$defs/NResearch"
+                  },
+                  {
                      "$ref": "#/$defs/OpenEphysProductionSite"
                   },
                   {
@@ -7989,6 +8299,9 @@
                   },
                   {
                      "$ref": "#/$defs/SchneiderKreuznach"
+                  },
+                  {
+                     "$ref": "#/$defs/SigmaAldritch"
                   },
                   {
                      "$ref": "#/$defs/SimonsFoundation"
@@ -8194,6 +8507,7 @@
                      "mapping": {
                         "Craniotomy": "#/$defs/Craniotomy",
                         "Fiber implant": "#/$defs/FiberImplant",
+                        "Ground wire": "#/$defs/ProtectiveMaterialReplacement",
                         "Headframe": "#/$defs/Headframe",
                         "ICM injection": "#/$defs/IntraCisternalMagnaInjection",
                         "ICV injection": "#/$defs/IntraCerebellarVentricleInjection",
@@ -8232,10 +8546,13 @@
                         "$ref": "#/$defs/NanojectInjection"
                      },
                      {
+                        "$ref": "#/$defs/OtherSubjectProcedure"
+                     },
+                     {
                         "$ref": "#/$defs/Perfusion"
                      },
                      {
-                        "$ref": "#/$defs/OtherSubjectProcedure"
+                        "$ref": "#/$defs/ProtectiveMaterialReplacement"
                      },
                      {
                         "$ref": "#/$defs/RetroOrbitalInjection"
@@ -8918,10 +9235,9 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.12.2",
-         "default": "0.12.2",
-         "description": "schema version",
-         "title": "Version"
+         "const": "0.12.8",
+         "default": "0.12.8",
+         "title": "Schema Version"
       },
       "subject_id": {
          "description": "Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",

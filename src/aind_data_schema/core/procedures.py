@@ -89,6 +89,7 @@ class Side(str, Enum):
 class ProtectiveMaterial(str, Enum):
     """Name of material applied to craniotomy"""
 
+    AGAROSE = "Agarose"
     DURAGEL = "Duragel"
     KWIK_CAST = "Kwik-Cast"
     SORTA_CLEAR = "SORTA-clear"
@@ -119,6 +120,13 @@ class HeadframeMaterial(str, Enum):
     STEEL = "Steel"
     TITANIUM = "Titanium"
     WHITE_ZIRCONIA = "White Zirconia"
+
+
+class GroundWireMaterial(str, Enum):
+    """Ground wire material name"""
+
+    SILVER = "Silver"
+    PLATINUM_IRIDIUM = "Platinum iridium"
 
 
 class VirusPrepType(str, Enum):
@@ -299,6 +307,22 @@ class Headframe(AindModel):
     well_type: Optional[str] = Field(None, title="Well type")
 
 
+class ProtectiveMaterialReplacement(AindModel):
+    """Description of a protective material replacement procedure in preparation for ephys recording"""
+
+    procedure_type: Literal["Ground wire"] = "Ground wire"
+    protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
+    protective_material: ProtectiveMaterial = Field(
+        ..., title="Protective material", description="New material being applied"
+        )
+    ground_wire_hole: Optional[int] = Field(None, title="Ground wire hole")
+    ground_wire_material: Optional[GroundWireMaterial] = Field(None, title="Ground wire material")
+    ground_wire_diameter: Optional[Decimal] = Field(None, title="Ground wire diameter")
+    ground_wire_diameter_unit: SizeUnit = Field(SizeUnit.IN, title="Ground wire diameter unit")
+    well_part_number: Optional[str] = Field(None, title="Well part number")
+    well_type: Optional[str] = Field(None, title="Well type")
+
+
 class TarsVirusIdentifiers(AindModel):
     """TARS data for a viral prep"""
 
@@ -353,7 +377,7 @@ class Injection(AindModel):
     injection_materials: Annotated[
         List[Union[ViralMaterial, NonViralMaterial]],
         Field(title="Injection material", min_length=1, discriminator="material_type"),
-    ] = []
+    ]
     recovery_time: Optional[Decimal] = Field(None, title="Recovery time")
     recovery_time_unit: TimeUnit = Field(TimeUnit.M, title="Recovery time unit")
     injection_duration: Optional[Decimal] = Field(None, title="Injection duration")
@@ -557,8 +581,9 @@ class Surgery(AindModel):
                 IntraperitonealInjection,
                 IontophoresisInjection,
                 NanojectInjection,
-                Perfusion,
                 OtherSubjectProcedure,
+                Perfusion,
+                ProtectiveMaterialReplacement,
                 RetroOrbitalInjection,
             ],
             Field(discriminator="procedure_type"),
@@ -573,7 +598,7 @@ class Procedures(AindCoreModel):
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/procedures.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
 
-    schema_version: Literal["0.12.2"] = Field("0.12.2", description="schema version", title="Version")
+    schema_version: Literal["0.12.8"] = Field("0.12.8")
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",

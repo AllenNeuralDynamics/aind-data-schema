@@ -2,12 +2,24 @@
 
 import re
 from pathlib import Path
-from typing import Optional
+from typing import Generic, Optional, TypeVar
 
 from pydantic import BaseModel, ConfigDict, Field, PrivateAttr
 
 
-class AindModel(BaseModel):
+class AindGeneric(BaseModel, extra="allow"):
+    """Base class for generic types that can be used in AIND schema"""
+
+    # extra="allow" is needed because BaseModel by default drops extra parameters.
+    # Alternatively, consider using 'SerializeAsAny' once this issue is resolved
+    # https://github.com/pydantic/pydantic/issues/6423
+    pass
+
+
+AindGenericType = TypeVar("AindGenericType", bound=AindGeneric)
+
+
+class AindModel(BaseModel, Generic[AindGenericType]):
     """BaseModel that disallows extra fields"""
 
     model_config = ConfigDict(extra="forbid", use_enum_values=True)

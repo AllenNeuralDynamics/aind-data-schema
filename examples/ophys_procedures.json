@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/procedures.py",
-   "schema_version": "0.12.2",
+   "schema_version": "0.12.8",
    "subject_id": "625100",
    "subject_procedures": [
       {
@@ -88,7 +88,7 @@
                         "additional_settings": {},
                         "notes": null,
                         "core_diameter": "200",
-                        "core_diameter_unit": "um",
+                        "core_diameter_unit": "micrometer",
                         "numerical_aperture": "0.37",
                         "ferrule_material": "Ceramic",
                         "active_length": null,

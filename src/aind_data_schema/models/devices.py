@@ -3,12 +3,12 @@
 from datetime import date, datetime
 from decimal import Decimal
 from enum import Enum
-from typing import Any, Dict, List, Literal, Optional, Union
+from typing import List, Literal, Optional, Union
 
 from pydantic import Field
 from typing_extensions import Annotated
 
-from aind_data_schema.base import AindModel
+from aind_data_schema.base import AindGeneric, AindGenericType, AindModel
 from aind_data_schema.models.coordinates import RelativePosition, Size3d
 from aind_data_schema.models.harp_types import HarpDeviceType
 from aind_data_schema.models.organizations import Organization
@@ -142,6 +142,9 @@ class ImmersionMedium(str, Enum):
     PBS = "PBS"
     WATER = "water"
     OTHER = "other"
+    EASYINDEX = "easy index"
+    ECI = "ethyl cinnimate"
+    ACB = "aqueous clearing buffer"
 
 
 class ObjectiveType(str, Enum):
@@ -193,6 +196,7 @@ class Cooling(str, Enum):
 
     AIR = "Air"
     WATER = "Water"
+    NONE = "None"
 
 
 class BinMode(str, Enum):
@@ -233,6 +237,13 @@ class MagneticStrength(int, Enum):
     MRI_14T = 14
 
 
+class LickSensorType(str, Enum):
+    """Type of lick sensor"""
+
+    CAPACITIVE = "Capacitive"
+    PIEZOELECTIC = "Piezoelectric"
+
+
 class Device(AindModel):
     """Generic device"""
 
@@ -243,7 +254,7 @@ class Device(AindModel):
     model: Optional[str] = Field(None, title="Model")
     path_to_cad: Optional[str] = Field(None, title="Path to CAD diagram", description="For CUSTOM manufactured devices")
     port_index: Optional[str] = Field(None, title="Port index")
-    additional_settings: Optional[Dict[str, Any]] = Field(dict(), title="Additional parameters")
+    additional_settings: AindGenericType = Field(AindGeneric(), title="Additional parameters")
     notes: Optional[str] = Field(None, title="Notes")
 
 
@@ -253,7 +264,7 @@ class Software(AindModel):
     name: str = Field(..., title="Software name")
     version: str = Field(..., title="Software version")
     url: Optional[str] = Field(None, title="URL to commit being used")
-    parameters: Dict[str, Any] = Field(dict(), title="Software parameters")
+    parameters: AindGenericType = Field(AindGeneric(), title="Software parameters")
 
 
 class Calibration(AindModel):
@@ -262,8 +273,8 @@ class Calibration(AindModel):
     calibration_date: datetime = Field(..., title="Date and time of calibration")
     device_name: str = Field(..., title="Device name", description="Must match a device name in rig/instrument")
     description: str = Field(..., title="Description", description="Brief description of what is being calibrated")
-    input: Dict[str, Any] = Field(dict(), description="Calibration input", title="inputs")
-    output: Dict[str, Any] = Field(dict(), description="Calibration output", title="outputs")
+    input: AindGenericType = Field(AindGeneric(), description="Calibration input", title="inputs")
+    output: AindGenericType = Field(AindGeneric(), description="Calibration output", title="outputs")
     notes: Optional[str] = Field(None, title="Notes")
 
 
@@ -285,7 +296,7 @@ class Detector(Device):
     detector_type: DetectorType = Field(..., title="Detector Type")
     manufacturer: Organization.DETECTOR_MANUFACTURERS
     data_interface: DataInterface = Field(..., title="Data interface")
-    cooling: Cooling = Field(None, title="Cooling")
+    cooling: Cooling = Field(Cooling.NONE, title="Cooling")
     computer_name: Optional[str] = Field(None, title="Name of computer receiving data from this camera")
     max_frame_rate: Optional[Decimal] = Field(None, title="Maximum frame rate (Hz)")
     frame_rate_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Frame rate unit")
@@ -564,7 +575,7 @@ class FiberProbe(Device):
     device_type: Literal["Fiber optic probe"] = "Fiber optic probe"
     core_diameter: Decimal = Field(..., title="Core diameter (um)")
     #  TODO: Check if this should be an enum?
-    core_diameter_unit: str = Field("um", title="Core diameter unit")
+    core_diameter_unit: SizeUnit = Field(SizeUnit.UM, title="Core diameter unit")
     numerical_aperture: Decimal = Field(..., title="Numerical aperture")
     ferrule_material: Optional[FerruleMaterial] = Field(None, title="Ferrule material")
     active_length: Optional[Decimal] = Field(None, title="Active length (mm)", description="Length of taper")
@@ -672,12 +683,12 @@ class Wheel(MousePlatform):
     width: Decimal = Field(..., title="Width (mm)")
     size_unit: SizeUnit = Field(SizeUnit.MM, title="Size unit")
     encoder: Device = Field(..., title="Encoder")
-    encoder_output: Optional[DaqChannelType] = Field(None, title="Encoder DAQ channel")
+    encoder_output: Optional[DAQChannel] = Field(None, title="Encoder DAQ channel")
     pulse_per_revolution: int = Field(..., title="Pulse per revolution")
     magnetic_brake: Device = Field(..., title="Magnetic brake")
-    brake_output: Optional[DaqChannelType] = Field(None, title="Brake DAQ channel")
+    brake_output: Optional[DAQChannel] = Field(None, title="Brake DAQ channel")
     torque_sensor: Device = Field(..., title="Torque sensor")
-    torque_output: Optional[DaqChannelType] = Field(None, title="Torque DAQ channel")
+    torque_output: Optional[DAQChannel] = Field(None, title="Torque DAQ channel")
 
 
 class Tube(MousePlatform):
@@ -733,6 +744,8 @@ class RewardSpout(Device):
     spout_diameter_unit: SizeUnit = Field(SizeUnit.MM, title="Spout diameter unit")
     spout_position: Optional[RelativePosition] = Field(None, title="Spout stage position")
     solenoid_valve: Device = Field(..., title="Solenoid valve")
+    lick_sensor: Optional[Union[Device, DAQChannel]] = Field(None, title="Lick sensor")
+    lick_sensor_type: Optional[LickSensorType] = Field(None, title="Lick sensor type")
     notes: Optional[str] = Field(None, title="Notes")
 
 

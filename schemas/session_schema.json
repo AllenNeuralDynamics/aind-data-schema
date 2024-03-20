@@ -97,6 +97,13 @@
          "title": "AilipuTechnologyCo",
          "type": "object"
       },
+      "AindGeneric": {
+         "additionalProperties": true,
+         "description": "Base class for generic types that can be used in AIND schema",
+         "properties": {},
+         "title": "AindGeneric",
+         "type": "object"
+      },
       "AllenInstitute": {
          "additionalProperties": false,
          "description": "AllenInstitute",
@@ -537,9 +544,13 @@
                "title": "Behavior script"
             },
             "output_parameters": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/AindGeneric"
+                  }
+               ],
                "description": "Performance metrics from session",
-               "title": "Performance parameters",
-               "type": "object"
+               "title": "Performance parameters"
             },
             "reward_consumed_during_epoch": {
                "anyOf": [
@@ -659,16 +670,24 @@
                "type": "string"
             },
             "input": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/AindGeneric"
+                  }
+               ],
                "default": {},
                "description": "Calibration input",
-               "title": "inputs",
-               "type": "object"
+               "title": "inputs"
             },
             "output": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/AindGeneric"
+                  }
+               ],
                "default": {},
                "description": "Calibration output",
-               "title": "outputs",
-               "type": "object"
+               "title": "outputs"
             },
             "notes": {
                "anyOf": [
@@ -1582,6 +1601,18 @@
                ],
                "title": "Manipulator coordinates"
             },
+            "implant_hole_number": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Implant hole number"
+            },
             "ephys_probes": {
                "items": {
                   "$ref": "#/$defs/EphysProbeConfig"
@@ -1823,6 +1854,18 @@
                ],
                "title": "Manipulator coordinates"
             },
+            "implant_hole_number": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Implant hole number"
+            },
             "fiber_connections": {
                "default": [],
                "items": {
@@ -1976,6 +2019,75 @@
                "default": null,
                "description": "Coupled planes for multiscope",
                "title": "Coupled FOV"
+            },
+            "power": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Power"
+            },
+            "power_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/PowerUnit"
+                  }
+               ],
+               "default": "percent",
+               "title": "Power unit"
+            },
+            "scanfield_z": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Z stage position of the fastz actuator for a given targeted depth"
+            },
+            "scanfield_z_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  }
+               ],
+               "default": "micrometer",
+               "title": "Z stage position unit"
+            },
+            "scanimage_roi_index": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "ScanImage ROI index"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Notes"
             }
          },
          "required": [
@@ -2088,6 +2200,34 @@
             }
          },
          "title": "Hamamatsu",
+         "type": "object"
+      },
+      "Hamilton": {
+         "additionalProperties": false,
+         "description": "Hamilton",
+         "properties": {
+            "name": {
+               "const": "Hamilton",
+               "default": "Hamilton",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Hamilton",
          "type": "object"
       },
       "HuazhongUniversityOfScienceAndTechnology": {
@@ -2773,6 +2913,18 @@
                   }
                ],
                "title": "Manipulator coordinates"
+            },
+            "implant_hole_number": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Implant hole number"
             }
          },
          "required": [
@@ -2928,6 +3080,34 @@
             }
          },
          "title": "Mri",
+         "type": "object"
+      },
+      "NResearch": {
+         "additionalProperties": false,
+         "description": "NResearch",
+         "properties": {
+            "name": {
+               "const": "NResearch Inc",
+               "default": "NResearch Inc",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "NResearch",
          "type": "object"
       },
       "NationalInstituteOfNeurologicalDisordersAndStroke": {
@@ -3446,9 +3626,13 @@
                "title": "Baseline duration unit"
             },
             "other_parameters": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/AindGeneric"
+                  }
+               ],
                "default": {},
-               "title": "Other Parameters",
-               "type": "object"
+               "title": "Other parameters"
             },
             "notes": {
                "anyOf": [
@@ -3674,9 +3858,13 @@
                "title": "Inter trial interval unit"
             },
             "other_parameters": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/AindGeneric"
+                  }
+               ],
                "default": {},
-               "title": "Other Parameters",
-               "type": "object"
+               "title": "Other parameters"
             },
             "notes": {
                "anyOf": [
@@ -3781,9 +3969,13 @@
                "title": "Inter trial interval unit"
             },
             "other_parameters": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/AindGeneric"
+                  }
+               ],
                "default": {},
-               "title": "Other Parameters",
-               "type": "object"
+               "title": "Other parameters"
             },
             "notes": {
                "anyOf": [
@@ -3952,6 +4144,7 @@
                      "Euresys": "#/$defs/Euresys",
                      "Fujinon": "#/$defs/Fujinon",
                      "Hamamatsu": "#/$defs/Hamamatsu",
+                     "Hamilton": "#/$defs/Hamilton",
                      "Huazhong University of Science and Technology": "#/$defs/HuazhongUniversityOfScienceAndTechnology",
                      "IR Robot Co": "#/$defs/IRRobotCo",
                      "ISL Products International": "#/$defs/ISLProductsInternational",
@@ -3966,6 +4159,7 @@
                      "MPI": "#/$defs/Mpi",
                      "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
                      "Mitutuyo": "#/$defs/Mitutuyo",
+                     "NResearch Inc": "#/$defs/NResearch",
                      "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                      "National Instruments": "#/$defs/NationalInstruments",
                      "Navitar": "#/$defs/Navitar",
@@ -3984,6 +4178,7 @@
                      "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                      "Second Order Effects": "#/$defs/SecondOrderEffects",
                      "Semrock": "#/$defs/Semrock",
+                     "Sigma-Aldritch": "#/$defs/SigmaAldritch",
                      "Simons Foundation": "#/$defs/SimonsFoundation",
                      "Spinnaker": "#/$defs/Spinnaker",
                      "Tamron": "#/$defs/Tamron",
@@ -4086,6 +4281,9 @@
                      "$ref": "#/$defs/Hamamatsu"
                   },
                   {
+                     "$ref": "#/$defs/Hamilton"
+                  },
+                  {
                      "$ref": "#/$defs/HuazhongUniversityOfScienceAndTechnology"
                   },
                   {
@@ -4155,6 +4353,9 @@
                      "$ref": "#/$defs/Nikon"
                   },
                   {
+                     "$ref": "#/$defs/NResearch"
+                  },
+                  {
                      "$ref": "#/$defs/OpenEphysProductionSite"
                   },
                   {
@@ -4183,6 +4384,9 @@
                   },
                   {
                      "$ref": "#/$defs/SchneiderKreuznach"
+                  },
+                  {
+                     "$ref": "#/$defs/SigmaAldritch"
                   },
                   {
                      "$ref": "#/$defs/SimonsFoundation"
@@ -4529,6 +4733,34 @@
          "title": "Semrock",
          "type": "object"
       },
+      "SigmaAldritch": {
+         "additionalProperties": false,
+         "description": "Sigma-Aldritch",
+         "properties": {
+            "name": {
+               "const": "Sigma-Aldritch",
+               "default": "Sigma-Aldritch",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "SigmaAldritch",
+         "type": "object"
+      },
       "SimonsFoundation": {
          "additionalProperties": false,
          "description": "SimonsFoundation",
@@ -4737,6 +4969,75 @@
                "description": "Coupled planes for multiscope",
                "title": "Coupled FOV"
             },
+            "power": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Power"
+            },
+            "power_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/PowerUnit"
+                  }
+               ],
+               "default": "percent",
+               "title": "Power unit"
+            },
+            "scanfield_z": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Z stage position of the fastz actuator for a given targeted depth"
+            },
+            "scanfield_z_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  }
+               ],
+               "default": "micrometer",
+               "title": "Z stage position unit"
+            },
+            "scanimage_roi_index": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "ScanImage ROI index"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Notes"
+            },
             "session_type": {
                "allOf": [
                   {
@@ -4844,9 +5145,13 @@
                "title": "URL to commit being used"
             },
             "parameters": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/AindGeneric"
+                  }
+               ],
                "default": {},
-               "title": "Software parameters",
-               "type": "object"
+               "title": "Software parameters"
             }
          },
          "required": [
@@ -5846,10 +6151,14 @@
                "type": "string"
             },
             "stimulus_parameters": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/AindGeneric"
+                  }
+               ],
                "default": {},
                "description": "Define and list the parameter values used (e.g. all TF or orientation values)",
-               "title": "Stimulus parameters",
-               "type": "object"
+               "title": "Stimulus parameters"
             },
             "stimulus_template_name": {
                "default": [],
@@ -5951,8 +6260,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.1.7",
-         "default": "0.1.7",
+         "const": "0.1.11",
+         "default": "0.1.11",
          "title": "Schema Version"
       },
       "protocol_id": {

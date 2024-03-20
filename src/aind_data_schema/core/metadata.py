@@ -46,7 +46,7 @@ class Metadata(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/metadata.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["0.1.28"] = Field("0.1.28")
+    schema_version: Literal["0.1.40"] = Field("0.1.40")
     id: UUID = Field(
         default_factory=uuid4,
         alias="_id",
@@ -192,12 +192,13 @@ class Metadata(AindCoreModel):
             raise ValueError(
                 "Missing some metadata for SmartSpim. Requires subject, procedures, acquisition, and instrument."
             )
+
         if (
             self.data_description
             and self.data_description.platform == SmartSpim
             and self.procedures
             and any(
-                isinstance(surgery, Injection) and getattr(surgery, "injection_materials", []) == []
+                isinstance(surgery, Injection) and getattr(surgery, "injection_materials", None) is None
                 for subject_procedure in self.procedures.subject_procedures
                 if isinstance(subject_procedure, Surgery)
                 for surgery in subject_procedure.procedures
@@ -223,7 +224,7 @@ class Metadata(AindCoreModel):
             and self.data_description.platform == Ecephys
             and self.procedures
             and any(
-                isinstance(surgery, Injection) and getattr(surgery, "injection_materials", []) == []
+                isinstance(surgery, Injection) and getattr(surgery, "injection_materials", None) is None
                 for subject_procedure in self.procedures.subject_procedures
                 if isinstance(subject_procedure, Surgery)
                 for surgery in subject_procedure.procedures
