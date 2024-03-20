@@ -20,7 +20,7 @@ class ProjectName(str, Enum):
     SCBC = "Single-neuron computations within brain-wide circuits (SCBC)"
     LEARNING_MFISH_V1OMFISH = "Learning mFISH/V1omFISH"
     LEARNING_MFISH = "Learning mFISH"
-    LEARNING_V1OMFISH = "Learning V1omFISH"
+    V1OMFISH = "V1omFISH"
     OPENSCOPE = "OpenScope"
     BRAIN_COMPUTER_INTERFACE = "Brain Computer Interface"
     COGNITIVE_FLEXIBILITY = "Cognitive flexibility in patch foraging"
