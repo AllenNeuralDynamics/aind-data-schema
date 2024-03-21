@@ -6,11 +6,13 @@ import unittest
 from pydantic import __version__ as pyd_version
 
 from aind_data_schema.models.devices import (
+    AdditionalImagingDevice,
     DataInterface,
     Detector,
     DetectorType,
     Device,
     HarpDevice,
+    ImagingDeviceType,
     ImmersionMedium,
     Objective,
     RewardSpout,
@@ -108,3 +110,16 @@ class DeviceTests(unittest.TestCase):
         )
 
         self.assertEqual(repr(e4.exception), expected_e4)
+
+        with self.assertRaises(ValueError) as e5:
+            AdditionalImagingDevice(name="test_additional_imaging", type=ImagingDeviceType.OTHER)
+
+        expected_e5 = (
+            "1 validation error for AdditionalImagingDevice\n"
+            "type\n"
+            "  Value error, Notes cannot be empty if type is Other. Describe the imaging type in the notes field."
+            " [type=value_error, input_value=<ImagingDeviceType.OTHER: 'Other'>, input_type=ImagingDeviceType]\n"
+            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/value_error"
+        )
+
+        self.assertEqual(repr(e5.exception), expected_e5)

@@ -856,6 +856,15 @@ class AdditionalImagingDevice(Device):
     device_type: Literal["Additional Imaging Device"] = "Additional Imaging Device"
     type: ImagingDeviceType = Field(..., title="Device type")
 
+    @field_validator("type", mode="after")
+    def validate_other(cls, value: Optional[str], info: ValidationInfo) -> Optional[str]:
+        """Validator for other/notes"""
+
+        if value == ImagingDeviceType.OTHER and not info.data.get("notes"):
+            raise ValueError("Notes cannot be empty if type is Other. Describe the imaging type in the notes field.")
+
+        return value
+
 
 class ScanningStage(MotorizedStage):
     """Description of a scanning motorized stages"""
