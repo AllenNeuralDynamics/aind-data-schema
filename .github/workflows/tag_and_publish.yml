@@ -60,11 +60,13 @@ jobs:
         with:
           python-version: 3.8
       - name: Install dependencies
-        run: python -m pip install -e .[dev] -e .[docs] --no-cache-dir
+        run: |
+          sudo apt install graphviz libgraphviz-dev -y
+          python -m pip install -e .[dev] -e .[docs] --no-cache-dir
       - name: Generate erdantic diagrams
         run: |
           mkdir docs/source/diagrams
-          python -m aind_data_schema.utils.diagrams docs/source/diagrams
+          python -m aind_data_schema.utils.diagrams $DIAGRAM_DIRECTORY
       - name: Generate new rst files
         run: |
           sphinx-apidoc -o docs/source/ src

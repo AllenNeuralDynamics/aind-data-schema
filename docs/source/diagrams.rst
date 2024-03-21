@@ -1,7 +1,7 @@
 Diagrams
 ==============
 
-.. figure:: diagrams/acquisition.svg
+.. figure:: _static/diagrams/acquisition.svg
     :scale: 50%
     :align: center
     :alt: acquisition
@@ -15,7 +15,7 @@ Diagrams
 |
 |
 
-.. figure:: diagrams/data_description.svg
+.. figure:: _static/diagrams/data_description.svg
     :scale: 50%
     :align: center
     :alt: data_description
@@ -29,7 +29,7 @@ Diagrams
 |
 |
 
-.. figure:: diagrams/instrument.svg
+.. figure:: _static/diagrams/instrument.svg
     :scale: 50%
     :align: center
     :alt: instrument
@@ -43,7 +43,7 @@ Diagrams
 |
 |
 
-.. figure:: diagrams/metadata.nd.svg
+.. figure:: _static/diagrams/metadata.nd.svg
     :scale: 50%
     :align: center
     :alt: metadata
@@ -57,7 +57,7 @@ Diagrams
 |
 |
 
-.. figure:: diagrams/mri_session.svg
+.. figure:: _static/diagrams/mri_session.svg
     :scale: 50%
     :align: center
     :alt: mri_session
@@ -71,7 +71,7 @@ Diagrams
 |
 |
 
-.. figure:: diagrams/procedures.svg
+.. figure:: _static/diagrams/procedures.svg
     :scale: 50%
     :align: center
     :alt: procedures
@@ -85,7 +85,7 @@ Diagrams
 |
 |
 
-.. figure:: diagrams/processing.svg
+.. figure:: _static/diagrams/processing.svg
     :scale: 50%
     :align: center
     :alt: processing
@@ -99,7 +99,7 @@ Diagrams
 |
 |
 
-.. figure:: diagrams/rig.svg
+.. figure:: _static/diagrams/rig.svg
     :scale: 50%
     :align: center
     :alt: rig
@@ -113,7 +113,7 @@ Diagrams
 |
 |
 
-.. figure:: diagrams/session.svg
+.. figure:: _static/diagrams/session.svg
     :scale: 50%
     :align: center
     :alt: session
@@ -127,7 +127,7 @@ Diagrams
 |
 |
 
-.. figure:: diagrams/subject.svg
+.. figure:: _static/diagrams/subject.svg
     :scale: 50%
     :align: center
     :alt: subject
