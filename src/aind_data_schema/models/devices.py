@@ -5,7 +5,7 @@ from decimal import Decimal
 from enum import Enum
 from typing import List, Literal, Optional, Union
 
-from pydantic import Field, ValidationInfo, field_validator
+from pydantic import Field, ValidationInfo, field_validator, model_validator
 from typing_extensions import Annotated
 
 from aind_data_schema.base import AindGeneric, AindGenericType, AindModel
@@ -320,25 +320,28 @@ class Detector(Device):
     driver: Optional[DeviceDriver] = Field(None, title="Driver")
     driver_version: Optional[str] = Field(None, title="Driver version")
 
-
-    @field_validator("notes", mode="after")
-    def validate_other(cls, value: Optional[str], info: ValidationInfo) -> Optional[str]:
+    @model_validator(mode="after")
+    def validate_other(self):
         """Validator for other/notes"""
 
-        validation_message = ""
+        validation_items = []
 
-        if info.data.get("immersion") == ImmersionMedium.OTHER and not value:
-            validation_message += "Notes cannot be empty if immersion is Other. Describe the immersion medium in the notes field."
+        if self.notes is None:
+            if self.immersion == ImmersionMedium.OTHER:
+                validation_items.append("immersion")
 
-        if info.data.get("detector_type") == DetectorType.OTHER and not value:
-            validation_message += "Notes cannot be empty if detector_type is Other. Describe the detector_type in the notes field."
+            if self.detector_type == DetectorType.OTHER:
+                validation_items.append("detector_type")
 
-        if info.data.get("data_interface") == DataInterface.OTHER and not value:
-            validation_message += "Notes cannot be empty if data_interface is Other. Describe the data interface in the notes field."
+            if self.data_interface == DataInterface.OTHER:
+                validation_items.append("data_interface")
 
-        if validation_message:
-            raise ValueError(validation_message)
-        return value
+        if len(validation_items) > 0:
+            raise ValueError(
+                f"Notes cannot be empty while any of the following fields are set to 'other': {validation_items}"
+            )
+
+        return self
 
 
 class Camera(Detector):
@@ -410,11 +413,11 @@ class Objective(Device):
     immersion: ImmersionMedium = Field(..., title="Immersion")
     objective_type: Optional[ObjectiveType] = Field(None, title="Objective type")
 
-    @field_validator("notes", mode="after")
+    @field_validator("immersion", mode="after")
     def validate_other(cls, value: Optional[str], info: ValidationInfo) -> Optional[str]:
         """Validator for other/notes"""
 
-        if info.data.get("immersion") == DataInterface.OTHER and not value:
+        if value == ImmersionMedium.OTHER and not info.data.get("notes"):
             raise ValueError("Notes cannot be empty if immersion is Other. Describe the immersion in the notes field.")
 
         return value
@@ -433,13 +436,13 @@ class CameraAssembly(AindModel):
     filter: Optional[Filter] = Field(None, title="Filter")
     position: Optional[RelativePosition] = Field(None, title="Relative position of this assembly")
 
-    def _validate_other(self, ) -> Optional[str]:
+    def _contains_other(self) -> Optional[str]:
         """Validator for other/notes"""
 
         if self.camera_target == CameraTarget.OTHER:
-            return {"camera_target": self.camera_assembly_name}
+            return True
 
-        return None
+        return False
 
 
 class DAQChannel(AindModel):
@@ -487,12 +490,14 @@ class HarpDevice(DAQDevice):
     data_interface: DataInterface = Field(DataInterface.USB, title="Data interface")
     is_clock_generator: bool = Field(..., title="Is Clock Generator")
 
-    @field_validator("notes", mode="after")
+    @field_validator("data_interface", mode="after")
     def validate_other(cls, value: Optional[str], info: ValidationInfo) -> Optional[str]:
         """Validator for other/notes"""
 
-        if info.data.get("data_interface") == DataInterface.OTHER and not value:
-            raise ValueError("Notes cannot be empty if data_interface is Other. Describe the data interface in the notes field.")
+        if value == DataInterface.OTHER and not info.data.get("notes"):
+            raise ValueError(
+                "Notes cannot be empty if data_interface is Other. Describe the data interface in the notes field."
+            )
 
         return value
 
@@ -794,14 +799,14 @@ class RewardSpout(Device):
     lick_sensor_type: Optional[LickSensorType] = Field(None, title="Lick sensor type")
     notes: Optional[str] = Field(None, title="Notes")
 
-    @field_validator("notes", mode="after")
-    def validate_other(cls, value: Optional[str], info: ValidationInfo) -> Optional[str]:
+    @model_validator(mode="after")
+    def validate_other(self):
         """Validator for other/notes"""
 
-        if info.data.get("side") == SpoutSide.OTHER and not value:
+        if self.side == SpoutSide.OTHER and self.notes is None:
             raise ValueError("Notes cannot be empty if side is Other. Describe the spout side in the notes field.")
 
-        return value
+        return self
 
 
 class RewardDelivery(AindModel):

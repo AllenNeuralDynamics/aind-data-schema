@@ -82,11 +82,19 @@ class Rig(AindCoreModel):
     modalities: Set[Modality.ONE_OF] = Field(..., title="Modalities")
     notes: Optional[str] = Field(None, title="Notes")
 
-
     @model_validator(mode="after")
-    def validate_other_internal(self):
-        if self.get("cameras"):
-            for camera in self.cameras:
+    def validate_cameras_other(self):
+        """check if any cameras contain an 'other' field"""
+
+        if self.notes is None:
+            for camera_assembly in self.cameras + self.stick_microscopes:
+                if camera_assembly._contains_other():
+                    raise ValueError(
+                        f"Notes cannot be empty if a camera contains an 'Other' field. "
+                        f"Describe the camera ({camera_assembly.camera_assembly_name}) in the notes field"
+                    )
+
+        return self
 
     @field_validator("daqs", mode="after")
     def validate_device_names(cls, value: List[DAQDevice], info: ValidationInfo) -> List[DAQDevice]:
