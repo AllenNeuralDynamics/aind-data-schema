@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/session.py",
-   "schema_version": "0.1.9",
+   "schema_version": "0.1.11",
    "protocol_id": [],
    "experimenter_full_name": [
       "Jane Doe"
@@ -47,6 +47,7 @@
                   "z": "1000",
                   "unit": "micrometer"
                },
+               "implant_hole_number": null,
                "ephys_probes": [
                   {
                      "name": "Probe A",
@@ -88,7 +89,8 @@
                   "y": "1000",
                   "z": "1000",
                   "unit": "micrometer"
-               }
+               },
+               "implant_hole_number": null
             }
          ],
          "detectors": [],
