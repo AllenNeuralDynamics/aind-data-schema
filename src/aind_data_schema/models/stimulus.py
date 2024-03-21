@@ -2,7 +2,7 @@
 
 from decimal import Decimal
 from enum import Enum
-from typing import Any, Dict, List, Literal, Optional
+from typing import List, Literal, Optional
 
 from pydantic import Field
 
@@ -63,7 +63,7 @@ class VisualStimulation(AindModel):
 
     stimulus_type: Literal["Visual Stimulation"] = "Visual Stimulation"
     stimulus_name: str = Field(..., title="Stimulus name")
-    stimulus_parameters: AindGenericType[str, Any] = Field(
+    stimulus_parameters: AindGenericType = Field(
         AindGeneric(),
         title="Stimulus parameters",
         description="Define and list the parameter values used (e.g. all TF or orientation values)",

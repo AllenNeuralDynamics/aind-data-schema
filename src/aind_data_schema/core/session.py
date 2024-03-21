@@ -3,13 +3,13 @@
 from datetime import datetime
 from decimal import Decimal
 from enum import Enum
-from typing import Any, Dict, List, Literal, Optional, Union
+from typing import List, Literal, Optional, Union
 
 from pydantic import Field, field_validator
 from pydantic_core.core_schema import ValidationInfo
 from typing_extensions import Annotated
 
-from aind_data_schema.base import AindCoreModel, AindModel
+from aind_data_schema.base import AindCoreModel, AindGeneric, AindGenericType, AindModel
 from aind_data_schema.imaging.tile import Channel
 from aind_data_schema.models.coordinates import CcfCoords, Coordinates3d
 from aind_data_schema.models.devices import Calibration, Maintenance, RelativePosition, Software, SpoutSide
@@ -408,11 +408,7 @@ class StimulusEpoch(AindModel):
     stimulus_device_names: List[str] = Field(default=[], title="Stimulus devices")
     speaker_config: Optional[SpeakerConfig] = Field(None, title="Speaker Config")
     light_source_config: Optional[LIGHT_SOURCE_CONFIGS] = Field(None, title="Light source config")
-    output_parameters: Dict[str, Any] = Field(
-        ...,
-        title="Performance parameters",
-        description="Performance metrics from session",
-    )
+    output_parameters: AindGenericType = Field(AindGeneric(), title="Performance metrics")
     reward_consumed_during_epoch: Decimal = Field(..., title="Reward consumed during training (uL)")
     reward_consumed_unit: VolumeUnit = Field(VolumeUnit.UL, title="Reward consumed unit")
     trials_total: Optional[int] = Field(None, title="Total trials")
