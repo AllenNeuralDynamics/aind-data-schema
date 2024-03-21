@@ -6,7 +6,7 @@ from typing import Any, Dict, List, Literal, Optional
 
 from pydantic import Field
 
-from aind_data_schema.base import AindModel
+from aind_data_schema.base import AindModel, AindGeneric, AindGenericType,
 from aind_data_schema.models.units import (
     ConcentrationUnit,
     FrequencyUnit,
@@ -54,7 +54,7 @@ class OptoStimulation(AindModel):
         description="Duration of baseline recording prior to first pulse train",
     )
     baseline_duration_unit: TimeUnit = Field(TimeUnit.S, title="Baseline duration unit")
-    other_parameters: Dict[str, Any] = Field(dict())
+    other_parameters: AindGenericType = Field(AindGeneric(), title="Other parameters")
     notes: Optional[str] = Field(None, title="Notes")
 
 
@@ -63,8 +63,8 @@ class VisualStimulation(AindModel):
 
     stimulus_type: Literal["Visual Stimulation"] = "Visual Stimulation"
     stimulus_name: str = Field(..., title="Stimulus name")
-    stimulus_parameters: Dict[str, Any] = Field(
-        dict(),
+    stimulus_parameters: AindGenericType[str, Any] = Field(
+        AindGeneric(),
         title="Stimulus parameters",
         description="Define and list the parameter values used (e.g. all TF or orientation values)",
     )
@@ -89,7 +89,7 @@ class PhotoStimulationGroup(AindModel):
     spiral_duration_unit: TimeUnit = Field(TimeUnit.S, title="Spiral duration unit")
     inter_spiral_interval: Decimal = Field(..., title="Inter trial interval (s)")
     inter_spiral_interval_unit: TimeUnit = Field(TimeUnit.S, title="Inter trial interval unit")
-    other_parameters: Dict[str, Any] = Field({})
+    other_parameters: AindGenericType = Field(AindGeneric(), title="Other parameters")
     notes: Optional[str] = Field(None, title="Notes")
 
 
@@ -102,7 +102,7 @@ class PhotoStimulation(AindModel):
     groups: List[PhotoStimulationGroup] = Field(..., title="Groups")
     inter_trial_interval: Decimal = Field(..., title="Inter trial interval (s)")
     inter_trial_interval_unit: TimeUnit = Field(TimeUnit.S, title="Inter trial interval unit")
-    other_parameters: Dict[str, Any] = Field(dict())
+    other_parameters: AindGenericType = Field(AindGeneric(), title="Other parameters")
     notes: Optional[str] = Field(None, title="Notes")
 
 
