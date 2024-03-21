@@ -1,9 +1,8 @@
 """ schema for session stimulus """
 
-from datetime import datetime
 from decimal import Decimal
 from enum import Enum
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Literal, Optional
 
 from pydantic import Field
 
@@ -14,18 +13,6 @@ from aind_data_schema.models.units import (
     PowerUnit,
     TimeUnit,
 )
-
-
-class StimulusModality(str, Enum):
-    """Types of stimulus modalities"""
-
-    AUDITORY = "Auditory"
-    OLFACTORY = "Olfactory"
-    OPTOGENETICS = "Optogenetics"
-    NONE = "None"
-    VIRTUAL_REALITY = "Virtual reality"
-    VISUAL = "Visual"
-    WHEEL_FRICTION = "Wheel friction"
 
 
 class PulseShape(str, Enum):
@@ -46,6 +33,7 @@ class FilterType(str, Enum):
 class OptoStimulation(AindModel):
     """Description of opto stimulation parameters"""
 
+    stimulus_type: Literal["Opto Stimulation"] = "Opto Stimulation"
     stimulus_name: str = Field(..., title="Stimulus name")
     pulse_shape: PulseShape = Field(..., title="Pulse shape")
     pulse_frequency: int = Field(..., title="Pulse frequency (Hz)")
@@ -66,16 +54,17 @@ class OptoStimulation(AindModel):
         description="Duration of baseline recording prior to first pulse train",
     )
     baseline_duration_unit: TimeUnit = Field(TimeUnit.S, title="Baseline duration unit")
-    other_parameters: AindGenericType = Field(AindGeneric(), title="Other parameters")
+    other_parameters: Dict[str, Any] = Field(dict())
     notes: Optional[str] = Field(None, title="Notes")
 
 
 class VisualStimulation(AindModel):
     """Description of visual stimulus parameters. Provides a high level description of stimulus."""
 
+    stimulus_type: Literal["Visual Stimulation"] = "Visual Stimulation"
     stimulus_name: str = Field(..., title="Stimulus name")
-    stimulus_parameters: AindGenericType = Field(
-        AindGeneric(),
+    stimulus_parameters: Dict[str, Any] = Field(
+        dict(),
         title="Stimulus parameters",
         description="Define and list the parameter values used (e.g. all TF or orientation values)",
     )
@@ -100,19 +89,20 @@ class PhotoStimulationGroup(AindModel):
     spiral_duration_unit: TimeUnit = Field(TimeUnit.S, title="Spiral duration unit")
     inter_spiral_interval: Decimal = Field(..., title="Inter trial interval (s)")
     inter_spiral_interval_unit: TimeUnit = Field(TimeUnit.S, title="Inter trial interval unit")
-    other_parameters: AindGenericType = Field(AindGeneric(), title="Other parameters")
+    other_parameters: Dict[str, Any] = Field({})
     notes: Optional[str] = Field(None, title="Notes")
 
 
 class PhotoStimulation(AindModel):
     """Description of a photostimulation session"""
 
+    stimulus_type: Literal["Photo Stimulation"] = "Photo Stimulation"
     stimulus_name: str = Field(..., title="Stimulus name")
     number_groups: int = Field(..., title="Number of groups")
     groups: List[PhotoStimulationGroup] = Field(..., title="Groups")
     inter_trial_interval: Decimal = Field(..., title="Inter trial interval (s)")
     inter_trial_interval_unit: TimeUnit = Field(TimeUnit.S, title="Inter trial interval unit")
-    other_parameters: AindGenericType = Field(AindGeneric(), title="Other parameters")
+    other_parameters: Dict[str, Any] = Field(dict())
     notes: Optional[str] = Field(None, title="Notes")
 
 
@@ -129,6 +119,8 @@ class OlfactometerChannelConfig(AindModel):
 class OlfactoryStimulation(AindModel):
     """Description of a olfactory stimulus"""
 
+    stimulus_type: Literal["Olfactory Stimulation"] = "Olfactory Stimulation"
+    stimulus_name: str = Field(..., title="Stimulus name")
     channels: List[OlfactometerChannelConfig]
     notes: Optional[str] = Field(None, title="Notes")
 
@@ -136,6 +128,8 @@ class OlfactoryStimulation(AindModel):
 class AuditoryStimulation(AindModel):
     """Description of an auditory stimulus"""
 
+    stimulus_type: Literal["Auditory Stimulation"] = "Auditory Stimulation"
+    sitmulus_name: str = Field(..., title="Stimulus name")
     sample_frequency: Decimal = Field(..., title="Sample frequency")
     amplitude_modulation_frequency: Optional[int] = Field(None, title="Amplitude modulation frequency")
     frequency_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Tone frequency unit")

@@ -14,6 +14,7 @@ from aind_data_schema.imaging.tile import Channel
 from aind_data_schema.models.coordinates import CcfCoords, Coordinates3d
 from aind_data_schema.models.devices import Calibration, Maintenance, RelativePosition, Software, SpoutSide
 from aind_data_schema.models.modalities import Modality
+from aind_data_schema.models.stimulus import AuditoryStimulation, OlfactoryStimulation, OptoStimulation, PhotoStimulation, VisualStimulation
 from aind_data_schema.models.units import AngleUnit, FrequencyUnit, MassUnit, PowerUnit, SizeUnit, SoundIntensityUnit, TimeUnit, VolumeUnit
 
 
@@ -365,23 +366,6 @@ class Stream(AindModel):
         return value
 
 
-class ModalityParameters(AindModel):
-    """Description of one stimulus modality"""
-
-    modality: List[StimulusModality] = Field(..., title="Modalities")
-    stimulus_parameters: Dict[str, Any] = Field(
-        dict(),
-        title="Stimulus parameters",
-        description="Define and list the parameter values used (e.g. all TF or orientation values)",
-    )
-    stimulus_template_name: List[str] = Field(
-        default=[],
-        title="Stimulus template name",
-        description="Name of image set or movie displayed",
-    )
-    notes: Optional[str] = Field(None, title="Notes")
-
-
 class StimulusEpoch(AindModel):
     """Description of stimulus used during session"""
 
@@ -408,7 +392,19 @@ class StimulusEpoch(AindModel):
         description="provide URL to the commit of the script and the parameters used",
     )
     stimulus_modalities: List[StimulusModality] = Field(..., title="Stimulus modalities")
-    modality_parameters: Optional[List[ModalityParameters]] = Field(default=[], title="Modality parameters")
+    stimulus_parameters: Optional[List[
+        Annotated[
+            Union[
+                AuditoryStimulation,
+                OptoStimulation,
+                OlfactoryStimulation,
+                PhotoStimulation,
+                VisualStimulation
+            ],
+            Field(discriminator='stimulus_type'),
+        ]
+    ]
+    ] = Field(None, title="Stimulus parameters")
     stimulus_device_names: List[str] = Field(default=[], title="Stimulus devices")
     speaker_config: Optional[SpeakerConfig] = Field(None, title="Speaker Config")
     light_source_config: Optional[LIGHT_SOURCE_CONFIGS] = Field(None, title="Light source config")
