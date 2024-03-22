@@ -24,6 +24,7 @@ from aind_data_schema.models.modalities import Modality
 from aind_data_schema.models.organizations import Organization
 from aind_data_schema.models.pid_names import PIDName
 from aind_data_schema.models.platforms import Platform
+from aind_data_schema.models.project_names import ProjectName
 
 DATA_DESCRIPTION_FILES_PATH = Path(__file__).parent / "resources" / "ephys_data_description"
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
@@ -131,7 +132,7 @@ class DataDescriptionTest(unittest.TestCase):
 
         ad = AnalysisDescription(
             analysis_name="analysis",
-            project_name="project",
+            project_name=ProjectName.MSMA_PLATFORM,
             creation_time=dt,
             subject_id="1234",
             modality=[Modality.SPIM],
@@ -140,7 +141,7 @@ class DataDescriptionTest(unittest.TestCase):
             funding_source=[f],
             investigators=[PIDName(name="Jane Smith")],
         )
-        self.assertEqual(ad.name, build_data_name("project_analysis", dt))
+        self.assertEqual(ad.name, build_data_name("MSMA_Platform_analysis", dt))
 
         with self.assertRaises(ValueError):
             AnalysisDescription(
@@ -202,7 +203,7 @@ class DataDescriptionTest(unittest.TestCase):
                 investigators=[PIDName(name="Jane Smith")],
             )
 
-    def test_pattern_errors(self):
+    def test_project_name_errors(self):
         """Tests that errors are raised if malformed strings are input"""
         with self.assertRaises(ValidationError) as e:
             DataDescription(
@@ -217,14 +218,8 @@ class DataDescriptionTest(unittest.TestCase):
                 funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
                 investigators=[PIDName(name="Jane Smith")],
             )
-        expected_exception = (
-            "1 validation error for DataDescription\n"
-            "project_name\n"
-            f"  String should match pattern '{DataRegex.NO_SPECIAL_CHARS_EXCEPT_SPACE.value}'"
-            " [type=string_pattern_mismatch, input_value='a_32r&!#R$&#', input_type=str]\n"
-            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/string_pattern_mismatch"
-        )
-        self.assertEqual(expected_exception, repr(e.exception))
+        expected_exception = "[type=enum, input_value='a_32r&!#R$&#', input_type=str]"
+        self.assertIn(expected_exception, repr(e.exception))
 
     def test_regex_patterns(self):
         """Tests that checks that the regex patterns are doing what's expected"""
