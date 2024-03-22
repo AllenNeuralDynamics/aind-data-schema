@@ -47,8 +47,6 @@ jobs:
     needs: bump_versions_and_update_schemas
     runs-on: ubuntu-latest
     continue-on-error: true
-    # env:
-    #   DIAGRAM_DIRECTORY: ./docs/source/_static/diagrams
     steps:
       - uses: actions/checkout@v3
         with:
@@ -60,11 +58,9 @@ jobs:
         with:
           python-version: 3.8
       - name: Install dependencies
-        run: python -m pip install -e .[dev] -e .[docs] --no-cache-dir
-      # - name: Generate erdantic diagrams
-      #   run: |
-      #     mkdir docs/source/diagrams
-      #     python -m aind_data_schema.utils.diagrams $DIAGRAM_DIRECTORY
+        run: |
+          sudo apt install graphviz libgraphviz-dev -y
+          python -m pip install -e .[dev] -e .[docs] --no-cache-dir
       - name: Generate new rst files
         run: |
           sphinx-apidoc -o docs/source/ src
