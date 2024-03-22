@@ -14,8 +14,23 @@ from aind_data_schema.imaging.tile import Channel
 from aind_data_schema.models.coordinates import CcfCoords, Coordinates3d
 from aind_data_schema.models.devices import Calibration, Maintenance, RelativePosition, Software, SpoutSide
 from aind_data_schema.models.modalities import Modality
-from aind_data_schema.models.stimulus import AuditoryStimulation, OlfactoryStimulation, OptoStimulation, PhotoStimulation, VisualStimulation
-from aind_data_schema.models.units import AngleUnit, FrequencyUnit, MassUnit, PowerUnit, SizeUnit, SoundIntensityUnit, TimeUnit, VolumeUnit
+from aind_data_schema.models.stimulus import (
+    AuditoryStimulation,
+    OlfactoryStimulation,
+    OptoStimulation,
+    PhotoStimulation,
+    VisualStimulation
+)
+from aind_data_schema.models.units import (
+    AngleUnit,
+    FrequencyUnit,
+    MassUnit,
+    PowerUnit,
+    SizeUnit,
+    SoundIntensityUnit,
+    TimeUnit,
+    VolumeUnit
+)
 
 
 class StimulusModality(str, Enum):
@@ -467,7 +482,7 @@ class Session(AindCoreModel):
     stimulus_epochs: List[StimulusEpoch] = Field(default=[], title="Stimulus")
     mouse_platform_name: str = Field(..., title="Mouse platform")
     active_mouse_platform: bool = Field(
-        ..., title="Active mouse platform", 
+        ..., title="Active mouse platform",
         description="Is the mouse platform being actively controlled"
         )
     reward_delivery: Optional[RewardDeliveryConfig] = Field(None, title="Reward delivery")
