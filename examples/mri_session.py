@@ -42,8 +42,8 @@ scans = [scan1, scan2]
 
 sess = MriSession(
     subject_id="",
-    session_start_time="2024-03-12T16:27:55.584892",
-    session_end_time="2024-03-12T16:27:55.584892",
+    session_start_time="2024-03-12T16:27:55.584892Z",
+    session_end_time="2024-03-12T16:27:55.584892Z",
     experimenter_full_name=["Allen Brain"],
     protocol_id="dx.doi.org/10.57824/protocols.io.bh7kl4n6",
     iacuc_protocol="12345",

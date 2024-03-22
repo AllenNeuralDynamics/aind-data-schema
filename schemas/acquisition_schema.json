@@ -75,7 +75,16 @@
          "properties": {
             "coordinate_transformations": {
                "items": {
-                  "anyOf": [
+                  "discriminator": {
+                     "mapping": {
+                        "affine": "#/$defs/Affine3dTransform",
+                        "rotation": "#/$defs/Rotation3dTransform",
+                        "scale": "#/$defs/Scale3dTransform",
+                        "translation": "#/$defs/Translation3dTransform"
+                     },
+                     "propertyName": "type"
+                  },
+                  "oneOf": [
                      {
                         "$ref": "#/$defs/Scale3dTransform"
                      },
@@ -3563,8 +3572,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.6.10",
-         "default": "0.6.10",
+         "const": "0.6.11",
+         "default": "0.6.11",
          "title": "Schema Version"
       },
       "protocol_id": {

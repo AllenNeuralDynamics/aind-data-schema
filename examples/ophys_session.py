@@ -1,11 +1,11 @@
 """ example fiber photometry session """
 
-import datetime
+from datetime import datetime, timezone
 
 from aind_data_schema.core.session import DetectorConfig, FiberConnectionConfig, LaserConfig, Session, Stream
 from aind_data_schema.models.modalities import Modality
 
-t = datetime.datetime(2022, 7, 12, 7, 00, 00)
+t = datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc)
 
 s = Session(
     experimenter_full_name=["John Doe"],

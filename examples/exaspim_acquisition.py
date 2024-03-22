@@ -1,6 +1,6 @@
 """ example ExaSPIM acquisition """
 
-from datetime import datetime
+from datetime import datetime, timezone
 
 from aind_data_schema.core import acquisition
 from aind_data_schema.core.procedures import Reagent
@@ -12,7 +12,10 @@ from aind_data_schema.models.pid_names import PIDName
 from aind_data_schema.models.registry import Registry
 from aind_data_schema.models.units import PowerValue
 
-t = datetime(2022, 11, 22, 8, 43, 00)
+# If a timezone isn't specified, the timezone of the computer running this
+# script will be used as default
+t = datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc)
+
 
 acq = acquisition.Acquisition(
     experimenter_full_name=["###"],

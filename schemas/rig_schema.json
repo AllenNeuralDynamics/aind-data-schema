@@ -11654,7 +11654,14 @@
          "properties": {
             "device_position_transformations": {
                "items": {
-                  "anyOf": [
+                  "discriminator": {
+                     "mapping": {
+                        "rotation": "#/$defs/Rotation3dTransform",
+                        "translation": "#/$defs/Translation3dTransform"
+                     },
+                     "propertyName": "type"
+                  },
+                  "oneOf": [
                      {
                         "$ref": "#/$defs/Translation3dTransform"
                      },
@@ -14921,8 +14928,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.2.21",
-         "default": "0.2.21",
+         "const": "0.2.22",
+         "default": "0.2.22",
          "title": "Schema Version"
       },
       "rig_id": {
