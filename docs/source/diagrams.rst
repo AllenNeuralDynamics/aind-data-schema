@@ -1,8 +1,7 @@
 Diagrams
 ==============
 
-.. figure:: _static/diagrams/acquisition.svg
-    :scale: 50%
+.. figure:: https://aind-data-schema-dev-u5u0i5.s3.us-west-2.amazonaws.com/diagrams/acquisition.svg
     :align: center
     :alt: acquisition
 
@@ -15,8 +14,7 @@ Diagrams
 |
 |
 
-.. figure:: _static/diagrams/data_description.svg
-    :scale: 50%
+.. figure:: https://aind-data-schema-dev-u5u0i5.s3.us-west-2.amazonaws.com/diagrams/data_description.svg
     :align: center
     :alt: data_description
 
@@ -29,8 +27,7 @@ Diagrams
 |
 |
 
-.. figure:: _static/diagrams/instrument.svg
-    :scale: 50%
+.. figure:: https://aind-data-schema-dev-u5u0i5.s3.us-west-2.amazonaws.com/diagrams/instrument.svg
     :align: center
     :alt: instrument
 
@@ -43,8 +40,7 @@ Diagrams
 |
 |
 
-.. figure:: _static/diagrams/metadata.nd.svg
-    :scale: 50%
+.. figure:: https://aind-data-schema-dev-u5u0i5.s3.us-west-2.amazonaws.com/diagrams/metadata.nd.svg
     :align: center
     :alt: metadata
 
@@ -57,8 +53,7 @@ Diagrams
 |
 |
 
-.. figure:: _static/diagrams/mri_session.svg
-    :scale: 50%
+.. figure:: https://aind-data-schema-dev-u5u0i5.s3.us-west-2.amazonaws.com/diagrams/mri_session.svg
     :align: center
     :alt: mri_session
 
@@ -71,8 +66,7 @@ Diagrams
 |
 |
 
-.. figure:: _static/diagrams/procedures.svg
-    :scale: 50%
+.. figure:: https://aind-data-schema-dev-u5u0i5.s3.us-west-2.amazonaws.com/diagrams/procedures.svg
     :align: center
     :alt: procedures
 
@@ -85,8 +79,7 @@ Diagrams
 |
 |
 
-.. figure:: _static/diagrams/processing.svg
-    :scale: 50%
+.. figure:: https://aind-data-schema-dev-u5u0i5.s3.us-west-2.amazonaws.com/diagrams/processing.svg
     :align: center
     :alt: processing
 
@@ -99,8 +92,7 @@ Diagrams
 |
 |
 
-.. figure:: _static/diagrams/rig.svg
-    :scale: 50%
+.. figure:: https://aind-data-schema-dev-u5u0i5.s3.us-west-2.amazonaws.com/diagrams/rig.svg
     :align: center
     :alt: rig
 
@@ -113,8 +105,7 @@ Diagrams
 |
 |
 
-.. figure:: _static/diagrams/session.svg
-    :scale: 50%
+.. figure:: https://aind-data-schema-dev-u5u0i5.s3.us-west-2.amazonaws.com/diagrams/session.svg
     :align: center
     :alt: session
 
@@ -127,8 +118,7 @@ Diagrams
 |
 |
 
-.. figure:: _static/diagrams/subject.svg
-    :scale: 50%
+.. figure:: https://aind-data-schema-dev-u5u0i5.s3.us-west-2.amazonaws.com/diagrams/subject.svg
     :align: center
     :alt: subject
 

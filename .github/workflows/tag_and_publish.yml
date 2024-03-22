@@ -47,8 +47,8 @@ jobs:
     needs: bump_versions_and_update_schemas
     runs-on: ubuntu-latest
     continue-on-error: true
-    env:
-      DIAGRAM_DIRECTORY: ./docs/source/_static/diagrams
+    # env:
+    #   DIAGRAM_DIRECTORY: ./docs/source/_static/diagrams
     steps:
       - uses: actions/checkout@v3
         with:
@@ -60,23 +60,20 @@ jobs:
         with:
           python-version: 3.8
       - name: Install dependencies
-        run: |
-          sudo apt install graphviz libgraphviz-dev -y
-          python -m pip install -e .[dev] -e .[docs] --no-cache-dir
-      - name: Generate erdantic diagrams
-        run: |
-          mkdir docs/source/diagrams
-          python -m aind_data_schema.utils.diagrams $DIAGRAM_DIRECTORY
+        run: python -m pip install -e .[dev] -e .[docs] --no-cache-dir
+      # - name: Generate erdantic diagrams
+      #   run: |
+      #     mkdir docs/source/diagrams
+      #     python -m aind_data_schema.utils.diagrams $DIAGRAM_DIRECTORY
       - name: Generate new rst files
         run: |
           sphinx-apidoc -o docs/source/ src
-          sphinx-build -b html docs/source/ docs/build/html
       - name: Commit changes
         uses: EndBug/add-and-commit@v9
         with:
           default_author: github_actions
           message: "updates diagrams [skip actions]"
-          add: '["*.png", "*.rst"]'
+          add: '["*.rst"]'
 
   tag:
     needs: update_docs
