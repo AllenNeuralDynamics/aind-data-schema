@@ -1,6 +1,6 @@
 """Generates an example JSON file for an ephys session"""
 
-from datetime import datetime, timezone, date
+from datetime import datetime, timezone
 
 from aind_data_schema.core.session import (
     CcfCoords,
