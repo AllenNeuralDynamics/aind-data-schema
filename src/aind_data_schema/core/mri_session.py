@@ -1,13 +1,12 @@
 """ schema for MRI Scan """
 
-from datetime import datetime
 from decimal import Decimal
 from enum import Enum
 from typing import List, Literal, Optional
 
 from pydantic import Field, ValidationInfo, field_validator, model_validator
 
-from aind_data_schema.base import AindCoreModel, AindGenericType, AindModel
+from aind_data_schema.base import AindCoreModel, AindGenericType, AindModel, AwareDatetimeWithDefault
 from aind_data_schema.core.procedures import Anaesthetic
 from aind_data_schema.models.coordinates import Rotation3dTransform, Scale3dTransform, Translation3dTransform
 from aind_data_schema.models.devices import Scanner
@@ -86,20 +85,22 @@ class MRIScan(AindModel):
             if not self.vc_orientation or not self.vc_position or not self.voxel_sizes:
                 raise ValueError("Primary scan must have vc_orientation, vc_position, and voxel_sizes fields")
 
+        return self
+
 
 class MriSession(AindCoreModel):
     """Description of an MRI scan"""
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/mri_session.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["0.3.4"] = Field("0.3.4")
+    schema_version: Literal["0.3.5"] = Field("0.3.5")
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
         title="Subject ID",
     )
-    session_start_time: datetime = Field(..., title="Session start time")
-    session_end_time: Optional[datetime] = Field(None, title="Session end time")
+    session_start_time: AwareDatetimeWithDefault = Field(..., title="Session start time")
+    session_end_time: Optional[AwareDatetimeWithDefault] = Field(None, title="Session end time")
     experimenter_full_name: List[str] = Field(
         ...,
         description="First and last name of the experimenter(s).",

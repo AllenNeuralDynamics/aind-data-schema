@@ -10,7 +10,7 @@ User documentation available on [readthedocs](https://aind-data-schema.readthedo
 
 ## Overview
 
-This repository contains the schemas needed to ingest and validate metadata that are essential to ensuring [AIND](https://alleninstitute.org/what-we-do/brain-science/research/allen-institute-neural-dynamics/) data collection is completely reproducible. Our general approach is to semantically version core schema classes and include those version numbers in serialized metadata so that we can flexibly evolve the schemas over time without requiring difficult data migrations. In the future, we will provide a browsable list of these classes rendered to [JSONschema](https://json-schema.org/), including all historic versions.
+This repository contains the schemas needed to ingest and validate metadata that are essential to ensuring [AIND](https://alleninstitute.org/what-we-do/brain-science/research/allen-institute-neural-dynamics/) data collection is completely reproducible. Our general approach is to semantically version core schema classes and include those version numbers in serialized metadata so that we can flexibly evolve the schemas over time without requiring difficult data migrations. In the future, we will provide a browsable list of these classes rendered to [JSON Schema](https://json-schema.org/), including all historic versions.
 
 Be aware that this package is still under heavy preliminary development. Expect breaking changes regularly, although we will communicate these through semantic versioning.
 
@@ -19,18 +19,28 @@ A simple example:
 ```python
 import datetime
 
-from aind_data_schema.subject import Housing, Subject
+from aind_data_schema.core.subject import BreedingInfo, Housing, Subject
+from aind_data_schema.models.organizations import Organization
+from aind_data_schema.models.species import Species
 
 t = datetime.datetime(2022, 11, 22, 8, 43, 00)
 
 s = Subject(
-    species="Mus musculus",
-    subject_id="12345",
-    sex="Male",
-    date_of_birth=t.date(),
-    genotype="Emx1-IRES-Cre;Camk2a-tTA;Ai93(TITL-GCaMP6f)",
-    housing=Housing(home_cage_enrichment=["Running wheel"], cage_id="123"),
-    background_strain="C57BL/6J",
+   species=Species.MUS_MUSCULUS,
+   subject_id="12345",
+   sex="Male",
+   date_of_birth=t.date(),
+   genotype="Emx1-IRES-Cre;Camk2a-tTA;Ai93(TITL-GCaMP6f)",
+   housing=Housing(home_cage_enrichment=["Running wheel"], cage_id="123"),
+   background_strain="C57BL/6J",
+   source=Organization.AI,
+   breeding_info=BreedingInfo(
+         breeding_group="Emx1-IRES-Cre(ND)",
+         maternal_id="546543",
+         maternal_genotype="Emx1-IRES-Cre/wt; Camk2a-tTa/Camk2a-tTA",
+         paternal_id="232323",
+         paternal_genotype="Ai93(TITL-GCaMP6f)/wt",
+   ),
 )
 
 s.write_standard_file() # writes subject.json
@@ -38,24 +48,42 @@ s.write_standard_file() # writes subject.json
 
 ```json
 {
-   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/subject.py",
-   "schema_version": "0.3.0",
-   "species": "Mus musculus",
+   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/subject.py",
+   "schema_version": "0.5.5",
    "subject_id": "12345",
    "sex": "Male",
    "date_of_birth": "2022-11-22",
    "genotype": "Emx1-IRES-Cre;Camk2a-tTA;Ai93(TITL-GCaMP6f)",
-   "mgi_allele_ids": null,
+   "species": {
+      "name": "Mus musculus",
+      "abbreviation": null,
+      "registry": {
+         "name": "National Center for Biotechnology Information",
+         "abbreviation": "NCBI"
+      },
+      "registry_identifier": "10090"
+   },
+   "alleles": [],
    "background_strain": "C57BL/6J",
-   "source": null,
+   "breeding_info": {
+      "breeding_group": "Emx1-IRES-Cre(ND)",
+      "maternal_id": "546543",
+      "maternal_genotype": "Emx1-IRES-Cre/wt; Camk2a-tTa/Camk2a-tTA",
+      "paternal_id": "232323",
+      "paternal_genotype": "Ai93(TITL-GCaMP6f)/wt"
+   },
+   "source": {
+      "name": "Allen Institute",
+      "abbreviation": "AI",
+      "registry": {
+         "name": "Research Organization Registry",
+         "abbreviation": "ROR"
+      },
+      "registry_identifier": "03cpe7c52"
+   },
    "rrid": null,
    "restrictions": null,
-   "breeding_group": null,
-   "maternal_id": null,
-   "maternal_genotype": null,
-   "paternal_id": null,
-   "paternal_genotype": null,
-   "wellness_reports": null,
+   "wellness_reports": [],
    "housing": {
       "cage_id": "123",
       "room_id": null,
@@ -63,7 +91,7 @@ s.write_standard_file() # writes subject.json
       "home_cage_enrichment": [
          "Running wheel"
       ],
-      "cohoused_subjects": null
+      "cohoused_subjects": []
    },
    "notes": null
 }
