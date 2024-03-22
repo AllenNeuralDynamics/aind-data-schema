@@ -34,7 +34,7 @@
                "angle_unit": "degrees",
                "rotation_angle": null,
                "coordinate_transform": "behavior/calibration_info_np2_2023_04_24.npy",
-               "calibration_date": "2023-04-25T00:00:00",
+               "calibration_date": "2023-04-25T00:00:00Z",
                "notes": "Moved Y to avoid blood vessel, X to avoid edge. Mouse made some noise during the recording with a sudden shift in signals. Lots of motion. Maybe some implant motion.",
                "primary_targeted_structure": "LGd",
                "targeted_ccf_coordinates": [
@@ -67,7 +67,7 @@
                "angle_unit": "degrees",
                "rotation_angle": "0",
                "coordinate_transform": "behavior/calibration_info_np2_2023_04_24.py",
-               "calibration_date": "2023-04-25T00:00:00",
+               "calibration_date": "2023-04-25T00:00:00Z",
                "notes": "Trouble penetrating. Lots of compression, needed to move probe. Small amount of surface bleeding/bruising. Initial Target: X;10070.3\tY:7476.6",
                "primary_targeted_structure": "LC",
                "targeted_ccf_coordinates": [
@@ -150,8 +150,8 @@
          "notes": null
       },
       {
-         "stream_start_time": "2023-04-25T02:35:00-07:00",
-         "stream_end_time": "2023-04-25T02:45:00-07:00",
+         "stream_start_time": "2023-04-25T02:35:00Z",
+         "stream_end_time": "2023-04-25T02:45:00Z",
          "daq_names": [
             "Basestation"
          ],
@@ -165,7 +165,7 @@
                "angle_unit": "degrees",
                "rotation_angle": "0",
                "coordinate_transform": "behavior/calibration_info_np2_2023_04_24.npy",
-               "calibration_date": "2023-04-25T00:00:00",
+               "calibration_date": "2023-04-25T00:00:00Z",
                "notes": "Moved Y to avoid blood vessel, X to avoid edge. Mouse made some noise during the recording with a sudden shift in signals. Lots of motion. Maybe some implant motion.",
                "primary_targeted_structure": "LGd",
                "targeted_ccf_coordinates": [
@@ -198,7 +198,7 @@
                "angle_unit": "degrees",
                "rotation_angle": "0",
                "coordinate_transform": "behavior/calibration_info_np2_2023_04_24.py",
-               "calibration_date": "2023-04-25T00:00:00",
+               "calibration_date": "2023-04-25T00:00:00Z",
                "notes": "Trouble penetrating. Lots of compression, needed to move probe. Small amount of surface bleeding/bruising. Initial Target: X;10070.3\tY:7476.6",
                "primary_targeted_structure": "LC",
                "targeted_ccf_coordinates": [

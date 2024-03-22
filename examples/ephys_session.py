@@ -1,6 +1,6 @@
 """Generates an example JSON file for an ephys session"""
 
-from datetime import datetime, timezone
+from datetime import datetime, timezone, date
 
 from aind_data_schema.core.session import (
     CcfCoords,
@@ -108,7 +108,7 @@ session = Session(
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.npy",
                     primary_targeted_structure="LGd",
                     manipulator_coordinates=Coordinates3d(x=8422, y=4205, z=11087.5),
-                    calibration_date=datetime(year=2023, month=4, day=25),
+                    calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
                     notes=(
                         "Moved Y to avoid blood vessel, X to avoid edge. Mouse made some noise during the recording"
                         " with a sudden shift in signals. Lots of motion. Maybe some implant motion."
@@ -124,7 +124,7 @@ session = Session(
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.py",
                     primary_targeted_structure="LC",
                     manipulator_coordinates=Coordinates3d(x=9015, y=7144, z=13262),
-                    calibration_date=datetime(year=2023, month=4, day=25),
+                    calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
                     notes=(
                         "Trouble penetrating. Lots of compression, needed to move probe. Small amount of surface"
                         " bleeding/bruising. Initial Target: X;10070.3\tY:7476.6"
@@ -133,8 +133,8 @@ session = Session(
             ],
         ),
         Stream(
-            stream_start_time=datetime(year=2023, month=4, day=25, hour=2, minute=35, second=0),
-            stream_end_time=datetime(year=2023, month=4, day=25, hour=2, minute=45, second=0),
+            stream_start_time=datetime(year=2023, month=4, day=25, hour=2, minute=35, second=0, tzinfo=timezone.utc),
+            stream_end_time=datetime(year=2023, month=4, day=25, hour=2, minute=45, second=0, tzinfo=timezone.utc),
             stream_modalities=[Modality.ECEPHYS],
             notes="664484_2023-04-24_20-06-37; Surface Finding",
             daq_names=["Basestation"],
@@ -181,7 +181,7 @@ session = Session(
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.npy",
                     primary_targeted_structure="LGd",
                     manipulator_coordinates=Coordinates3d(x=8422, y=4205, z=11087.5),
-                    calibration_date=datetime(year=2023, month=4, day=25),
+                    calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
                     notes=(
                         "Moved Y to avoid blood vessel, X to avoid edge. Mouse made some noise during the recording"
                         " with a sudden shift in signals. Lots of motion. Maybe some implant motion."
@@ -197,7 +197,7 @@ session = Session(
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.py",
                     primary_targeted_structure="LC",
                     manipulator_coordinates=Coordinates3d(x=9015, y=7144, z=13262),
-                    calibration_date=datetime(year=2023, month=4, day=25),
+                    calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
                     notes=(
                         "Trouble penetrating. Lots of compression, needed to move probe. Small amount of surface"
                         " bleeding/bruising. Initial Target: X;10070.3\tY:7476.6"
