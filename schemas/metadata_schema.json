@@ -80,8 +80,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.6.10",
-               "default": "0.6.10",
+               "const": "0.6.11",
+               "default": "0.6.11",
                "title": "Schema Version"
             },
             "protocol_id": {
@@ -275,7 +275,16 @@
          "properties": {
             "coordinate_transformations": {
                "items": {
-                  "anyOf": [
+                  "discriminator": {
+                     "mapping": {
+                        "affine": "#/$defs/Affine3dTransform",
+                        "rotation": "#/$defs/Rotation3dTransform",
+                        "scale": "#/$defs/Scale3dTransform",
+                        "translation": "#/$defs/Translation3dTransform"
+                     },
+                     "propertyName": "type"
+                  },
+                  "oneOf": [
                      {
                         "$ref": "#/$defs/Scale3dTransform"
                      },
@@ -21456,7 +21465,14 @@
          "properties": {
             "device_position_transformations": {
                "items": {
-                  "anyOf": [
+                  "discriminator": {
+                     "mapping": {
+                        "rotation": "#/$defs/Rotation3dTransform",
+                        "translation": "#/$defs/Translation3dTransform"
+                     },
+                     "propertyName": "type"
+                  },
+                  "oneOf": [
                      {
                         "$ref": "#/$defs/Translation3dTransform"
                      },
@@ -22265,8 +22281,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.2.21",
-               "default": "0.2.21",
+               "const": "0.2.22",
+               "default": "0.2.22",
                "title": "Schema Version"
             },
             "rig_id": {
@@ -23275,8 +23291,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.1.11",
-               "default": "0.1.11",
+               "const": "0.1.12",
+               "default": "0.1.12",
                "title": "Schema Version"
             },
             "protocol_id": {
@@ -28510,8 +28526,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.1.40",
-         "default": "0.1.40",
+         "const": "0.1.41",
+         "default": "0.1.41",
          "title": "Schema Version"
       },
       "_id": {
