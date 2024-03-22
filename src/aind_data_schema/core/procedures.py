@@ -1,6 +1,6 @@
 """ schema for various Procedures """
 
-from datetime import date, datetime
+from datetime import date
 from decimal import Decimal
 from enum import Enum
 from typing import List, Literal, Optional, Set, Union
@@ -9,7 +9,7 @@ from pydantic import Field, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
 from typing_extensions import Annotated
 
-from aind_data_schema.base import AindCoreModel, AindModel
+from aind_data_schema.base import AindCoreModel, AindModel, AwareDatetimeWithDefault
 from aind_data_schema.models.devices import FiberProbe
 from aind_data_schema.models.pid_names import PIDName
 from aind_data_schema.models.reagent import Reagent
@@ -181,8 +181,8 @@ class HybridizationChainReaction(AindModel):
     """Description of an HCR staining round"""
 
     round_index: int = Field(..., title="Round index")
-    start_time: datetime = Field(..., title="Round start time")
-    end_time: datetime = Field(..., title="Round end time")
+    start_time: AwareDatetimeWithDefault = Field(..., title="Round start time")
+    end_time: AwareDatetimeWithDefault = Field(..., title="Round end time")
     HCR_probes: List[HCRProbe] = Field(..., title="HCR probes")
     other_probes: List[OligoProbe] = Field(default=[], title="Other probes")
     probe_concentration: Decimal = Field(..., title="Probe concentration (M)")

@@ -9,7 +9,7 @@ from pydantic import Field, field_validator
 from pydantic_core.core_schema import ValidationInfo
 from typing_extensions import Annotated
 
-from aind_data_schema.base import AindCoreModel, AindModel
+from aind_data_schema.base import AindCoreModel, AindModel, AwareDatetimeWithDefault
 from aind_data_schema.imaging.tile import Channel
 from aind_data_schema.models.coordinates import CcfCoords, Coordinates3d
 from aind_data_schema.models.devices import Calibration, Maintenance, RelativePosition, SpoutSide
@@ -253,8 +253,8 @@ class RewardDeliveryConfig(AindModel):
 class Stream(AindModel):
     """Data streams with a start and stop time"""
 
-    stream_start_time: datetime = Field(..., title="Stream start time")
-    stream_end_time: datetime = Field(..., title="Stream stop time")
+    stream_start_time: AwareDatetimeWithDefault = Field(..., title="Stream start time")
+    stream_end_time: AwareDatetimeWithDefault = Field(..., title="Stream stop time")
     daq_names: List[str] = Field(default=[], title="DAQ devices")
     camera_names: List[str] = Field(default=[], title="Cameras")
     light_sources: List[LIGHT_SOURCE_CONFIGS] = Field(default=[], title="Light Sources")
@@ -372,8 +372,8 @@ class Session(AindCoreModel):
         description="First and last name of the experimenter(s).",
         title="Experimenter(s) full name",
     )
-    session_start_time: datetime = Field(..., title="Session start time")
-    session_end_time: Optional[datetime] = Field(None, title="Session end time")
+    session_start_time: AwareDatetimeWithDefault = Field(..., title="Session start time")
+    session_end_time: Optional[AwareDatetimeWithDefault] = Field(None, title="Session end time")
     session_type: str = Field(..., title="Session type")
     iacuc_protocol: Optional[str] = Field(None, title="IACUC protocol")
     rig_id: str = Field(..., title="Rig ID")

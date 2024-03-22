@@ -5,8 +5,8 @@
    "experimenter_full_name": [
       "John Doe"
    ],
-   "session_start_time": "2022-07-12T07:00:00",
-   "session_end_time": "2022-07-12T07:00:00",
+   "session_start_time": "2022-07-12T07:00:00Z",
+   "session_end_time": "2022-07-12T07:00:00Z",
    "session_type": "Mesoscope",
    "iacuc_protocol": "12345",
    "rig_id": "MESO.1",
@@ -18,8 +18,8 @@
    "weight_unit": "gram",
    "data_streams": [
       {
-         "stream_start_time": "2022-07-12T07:00:00",
-         "stream_end_time": "2022-07-12T07:00:00",
+         "stream_start_time": "2022-07-12T07:00:00Z",
+         "stream_end_time": "2022-07-12T07:00:00Z",
          "daq_names": [],
          "camera_names": [
             "Mesoscope",

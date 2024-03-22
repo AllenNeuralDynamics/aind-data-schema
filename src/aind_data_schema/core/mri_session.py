@@ -1,13 +1,12 @@
 """ schema for MRI Scan """
 
-from datetime import datetime
 from decimal import Decimal
 from enum import Enum
 from typing import List, Literal, Optional
 
 from pydantic import Field, ValidationInfo, field_validator, model_validator
 
-from aind_data_schema.base import AindCoreModel, AindGenericType, AindModel
+from aind_data_schema.base import AindCoreModel, AindGenericType, AindModel, AwareDatetimeWithDefault
 from aind_data_schema.core.procedures import Anaesthetic
 from aind_data_schema.models.coordinates import Rotation3dTransform, Scale3dTransform, Translation3dTransform
 from aind_data_schema.models.devices import Scanner
@@ -100,8 +99,8 @@ class MriSession(AindCoreModel):
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
         title="Subject ID",
     )
-    session_start_time: datetime = Field(..., title="Session start time")
-    session_end_time: Optional[datetime] = Field(None, title="Session end time")
+    session_start_time: AwareDatetimeWithDefault = Field(..., title="Session start time")
+    session_end_time: Optional[AwareDatetimeWithDefault] = Field(None, title="Session end time")
     experimenter_full_name: List[str] = Field(
         ...,
         description="First and last name of the experimenter(s).",

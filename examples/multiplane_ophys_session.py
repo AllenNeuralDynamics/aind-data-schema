@@ -1,12 +1,14 @@
 """ example fiber photometry session """
 
-import datetime
+from datetime import datetime, timezone
 
 from aind_data_schema.core.session import FieldOfView, LaserConfig, Session, Stream
 from aind_data_schema.models.modalities import Modality
 from aind_data_schema.models.units import PowerUnit, SizeUnit
 
-t = datetime.datetime(2022, 7, 12, 7, 00, 00)
+# If a timezone isn't specified, the timezone of the computer running this
+# script will be used as default
+t = datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc)
 
 s = Session(
     experimenter_full_name=["John Doe"],
@@ -20,11 +22,7 @@ s = Session(
         Stream(
             stream_start_time=t,
             stream_end_time=t,
-            stream_modalities=[
-                Modality.POPHYS,
-                Modality.BEHAVIOR_VIDEOS,
-                Modality.CONFOCAL
-                ],
+            stream_modalities=[Modality.POPHYS, Modality.BEHAVIOR_VIDEOS, Modality.CONFOCAL],
             mouse_platform_name="disc",
             camera_names=[
                 "Mesoscope",
@@ -32,7 +30,7 @@ s = Session(
                 "Face",
                 "Behavior",
                 "Vasculature",
-                ],
+            ],
             active_mouse_platform=True,
             light_sources=[
                 LaserConfig(
@@ -199,6 +197,6 @@ s = Session(
                 ),
             ],
         )
-    ]
+    ],
 )
 s.write_standard_file(prefix="multiplane_ophys")
