@@ -14,7 +14,6 @@
    "humidity_control": false,
    "optical_tables": [
       {
-         "class_type": "Device",
          "device_type": "Optical Table",
          "name": "Table",
          "serial_number": null,
@@ -38,7 +37,6 @@
    "enclosure": null,
    "objectives": [
       {
-         "class_type": "Device",
          "device_type": "Objective",
          "name": "TLX Objective",
          "serial_number": null,
@@ -64,7 +62,6 @@
    ],
    "detectors": [
       {
-         "class_type": "Device",
          "device_type": "Detector",
          "name": "Camera 1",
          "serial_number": "001107",
@@ -111,7 +108,6 @@
    ],
    "light_sources": [
       {
-         "class_type": "Device",
          "device_type": "Laser",
          "name": "Ex_488",
          "serial_number": "VL01222A11",
@@ -136,7 +132,6 @@
          "item_number": null
       },
       {
-         "class_type": "Device",
          "device_type": "Laser",
          "name": "Ex_561",
          "serial_number": "417927",
@@ -164,7 +159,6 @@
          "item_number": null
       },
       {
-         "class_type": "Device",
          "device_type": "Laser",
          "name": "Ex_647",
          "serial_number": "VL01222A10",
@@ -192,7 +186,6 @@
    "lenses": [],
    "fluorescence_filters": [
       {
-         "class_type": "Device",
          "device_type": "Filter",
          "name": "Em_525",
          "serial_number": null,
@@ -222,7 +215,6 @@
          "description": null
       },
       {
-         "class_type": "Device",
          "device_type": "Filter",
          "name": "Em_600",
          "serial_number": null,
@@ -252,7 +244,6 @@
          "description": null
       },
       {
-         "class_type": "Device",
          "device_type": "Filter",
          "name": "Em_690",
          "serial_number": null,
@@ -284,7 +275,6 @@
    ],
    "motorized_stages": [
       {
-         "class_type": "Device",
          "device_type": "Motorized stage",
          "name": "Focus stage",
          "serial_number": null,
@@ -304,7 +294,6 @@
          "firmware": null
       },
       {
-         "class_type": "Device",
          "device_type": "Motorized stage",
          "name": "Cylindrical lens #1",
          "serial_number": null,
@@ -324,7 +313,6 @@
          "firmware": null
       },
       {
-         "class_type": "Device",
          "device_type": "Motorized stage",
          "name": "Cylindrical lens #2",
          "serial_number": null,
@@ -344,7 +332,6 @@
          "firmware": null
       },
       {
-         "class_type": "Device",
          "device_type": "Motorized stage",
          "name": "Cylindrical lens #3",
          "serial_number": null,
@@ -364,7 +351,6 @@
          "firmware": null
       },
       {
-         "class_type": "Device",
          "device_type": "Motorized stage",
          "name": "Cylindrical lens #4",
          "serial_number": null,
@@ -386,7 +372,6 @@
    ],
    "scanning_stages": [
       {
-         "class_type": "Device",
          "device_type": "Motorized stage",
          "name": "Sample stage Z",
          "serial_number": null,
@@ -408,7 +393,6 @@
          "stage_axis_name": "Z"
       },
       {
-         "class_type": "Device",
          "device_type": "Motorized stage",
          "name": "Sample stage X",
          "serial_number": null,
@@ -430,7 +414,6 @@
          "stage_axis_name": "X"
       },
       {
-         "class_type": "Device",
          "device_type": "Motorized stage",
          "name": "Sample stage Y",
          "serial_number": null,
@@ -454,7 +437,6 @@
    ],
    "additional_devices": [
       {
-         "class_type": "Device",
          "device_type": "Additional Imaging Device",
          "name": "Lens 1",
          "serial_number": null,
@@ -472,7 +454,6 @@
          "type": "Tunable lens"
       },
       {
-         "class_type": "Device",
          "device_type": "Additional Imaging Device",
          "name": "Lens 2",
          "serial_number": null,
@@ -490,7 +471,6 @@
          "type": "Tunable lens"
       },
       {
-         "class_type": "Device",
          "device_type": "Additional Imaging Device",
          "name": "Sample chamber",
          "serial_number": null,

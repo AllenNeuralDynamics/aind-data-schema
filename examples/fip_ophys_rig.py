@@ -1,5 +1,5 @@
 """ example FIP ophys rig """
-import datetime
+from datetime import date, datetime, timezone
 
 import aind_data_schema.core.rig as r
 import aind_data_schema.models.devices as d
@@ -7,7 +7,7 @@ from aind_data_schema.models.modalities import Modality
 
 r = r.Rig(
     rig_id="428_FIP1_2",
-    modification_date=datetime.date(2023, 10, 3),
+    modification_date=date(2023, 10, 3),
     modalities=[Modality.FIB],
     cameras=[
         d.CameraAssembly(
@@ -271,7 +271,7 @@ r = r.Rig(
     additional_devices=[d.Device(device_type="Photometry Clock", name="Photometry Clock")],
     calibrations=[
         d.Calibration(
-            calibration_date=datetime.datetime(2023, 10, 2, 3, 15, 22),
+            calibration_date=datetime(2023, 10, 2, 3, 15, 22, tzinfo=timezone.utc),
             device_name="470nm LED",
             description="LED calibration",
             input={"Power setting": [1, 2, 3]},

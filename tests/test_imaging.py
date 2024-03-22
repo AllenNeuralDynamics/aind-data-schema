@@ -313,7 +313,7 @@ class ImagingTests(unittest.TestCase):
             "daqs\n"
             "  Value error, Device name validation error: 'LAS-08308' is connected to '3' on 'Dev2',"
             " but this device is not part of the rig. [type=value_error,"
-            " input_value=[DAQDevice(class_type='De... hardware_version=None)], input_type=list]\n"
+            " input_value=[DAQDevice(device_type='D... hardware_version=None)], input_type=list]\n"
             f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/value_error"
         )
         self.assertEqual(expected_exception, repr(e.exception))

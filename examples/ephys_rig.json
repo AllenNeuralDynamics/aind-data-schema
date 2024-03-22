@@ -4,7 +4,6 @@
    "rig_id": "323_EPHYS1",
    "modification_date": "2023-10-03",
    "mouse_platform": {
-      "class_type": "Device",
       "device_type": "Disc",
       "name": "Running Wheel",
       "serial_number": null,
@@ -29,7 +28,6 @@
          "camera_assembly_name": "Face Camera Assembly",
          "camera_target": "Face side",
          "camera": {
-            "class_type": "Device",
             "device_type": "Detector",
             "name": "Face Camera",
             "serial_number": null,
@@ -74,7 +72,6 @@
             "driver_version": null
          },
          "lens": {
-            "class_type": "Device",
             "device_type": "Lens",
             "name": "Camera lens",
             "serial_number": null,
@@ -101,7 +98,6 @@
             "max_aperture": "f/2"
          },
          "filter": {
-            "class_type": "Device",
             "device_type": "Filter",
             "name": "LP filter",
             "serial_number": null,
@@ -139,7 +135,6 @@
          "camera_assembly_name": "Body Camera Assembly",
          "camera_target": "Body",
          "camera": {
-            "class_type": "Device",
             "device_type": "Detector",
             "name": "Body Camera",
             "serial_number": null,
@@ -184,7 +179,6 @@
             "driver_version": null
          },
          "lens": {
-            "class_type": "Device",
             "device_type": "Lens",
             "name": "Camera lens",
             "serial_number": null,
@@ -211,7 +205,6 @@
             "max_aperture": "f/2"
          },
          "filter": {
-            "class_type": "Device",
             "device_type": "Filter",
             "name": "LP filter",
             "serial_number": null,
@@ -251,7 +244,6 @@
       {
          "ephys_assembly_name": "Ephys_assemblyA",
          "manipulator": {
-            "class_type": "Device",
             "device_type": "Manipulator",
             "name": "Manipulator 1",
             "serial_number": "SN2938",
@@ -269,7 +261,6 @@
          },
          "probes": [
             {
-               "class_type": "Device",
                "device_type": "Ephys probe",
                "name": "Probe A",
                "serial_number": "9291019",
@@ -288,7 +279,6 @@
       {
          "ephys_assembly_name": "Ephys_assemblyB",
          "manipulator": {
-            "class_type": "Device",
             "device_type": "Manipulator",
             "name": "Manipulator B",
             "serial_number": "SN2939",
@@ -306,7 +296,6 @@
          },
          "probes": [
             {
-               "class_type": "Device",
                "device_type": "Ephys probe",
                "name": "Probe B",
                "serial_number": "9291020",
@@ -329,7 +318,6 @@
          "camera_assembly_name": "Stick_assembly",
          "camera_target": "Brain surface",
          "camera": {
-            "class_type": "Device",
             "device_type": "Detector",
             "name": "Probe Camera",
             "serial_number": null,
@@ -374,7 +362,6 @@
             "driver_version": null
          },
          "lens": {
-            "class_type": "Device",
             "device_type": "Lens",
             "name": "Probe lens",
             "serial_number": null,
@@ -408,7 +395,6 @@
       {
          "laser_assembly_name": "Laser_assemblyA",
          "manipulator": {
-            "class_type": "Device",
             "device_type": "Manipulator",
             "name": "Manipulator A",
             "serial_number": "SN2937",
@@ -426,7 +412,6 @@
          },
          "lasers": [
             {
-               "class_type": "Device",
                "device_type": "Laser",
                "name": "Red Laser",
                "serial_number": null,
@@ -451,7 +436,6 @@
                "item_number": null
             },
             {
-               "class_type": "Device",
                "device_type": "Laser",
                "name": "Blue Laser",
                "serial_number": null,
@@ -490,7 +474,6 @@
    "additional_devices": [],
    "daqs": [
       {
-         "class_type": "Device",
          "device_type": "Neuropixels basestation",
          "name": "Basestation Slot 3",
          "serial_number": null,
@@ -532,7 +515,6 @@
          ]
       },
       {
-         "class_type": "Device",
          "device_type": "Harp device",
          "name": "Harp Behavior",
          "serial_number": null,
@@ -554,7 +536,6 @@
          "computer_name": "W10DT72941",
          "channels": [
             {
-               "class_type": "DAQChannel",
                "channel_name": "DO0",
                "device_name": "Face Camera",
                "channel_type": "Digital Output",
@@ -565,7 +546,6 @@
                "event_based_sampling": null
             },
             {
-               "class_type": "DAQChannel",
                "channel_name": "DO1",
                "device_name": "Body Camera",
                "channel_type": "Digital Output",
@@ -576,7 +556,6 @@
                "event_based_sampling": null
             },
             {
-               "class_type": "DAQChannel",
                "channel_name": "AI0",
                "device_name": "Running Wheel",
                "channel_type": "Analog Input",
