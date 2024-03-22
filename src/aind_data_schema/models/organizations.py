@@ -267,6 +267,15 @@ class Hamamatsu(_Organization):
     registry_identifier: Literal["03natb733"] = "03natb733"
 
 
+class Hamilton(_Organization):
+    """Hamilton"""
+
+    name: Literal["Hamilton"] = "Hamilton"
+    abbreviation: Literal[None] = Field(None)
+    registry: Literal[None] = Field(None)
+    registry_identifier: Literal[None] = Field(None)
+
+
 class HuazhongUniversityOfScienceAndTechnology(_Organization):
     """HuazhongUniversityOfScienceAndTechnology"""
 
@@ -414,9 +423,9 @@ class Mpi(_Organization):
 class NationalInstituteOfNeurologicalDisordersAndStroke(_Organization):
     """NationalInstituteOfNeurologicalDisordersAndStroke"""
 
-    name: Literal["National Institute of Neurological Disorders and Stroke"] = (
+    name: Literal[
         "National Institute of Neurological Disorders and Stroke"
-    )
+    ] = "National Institute of Neurological Disorders and Stroke"
     abbreviation: Literal["NINDS"] = "NINDS"
     registry: Annotated[Union[ResearchOrganizationRegistry], Field(default=Registry.ROR, discriminator="name")]
     registry_identifier: Literal["01s5ya894"] = "01s5ya894"
@@ -474,6 +483,15 @@ class Nikon(_Organization):
     abbreviation: Literal[None] = Field(None)
     registry: Annotated[Union[ResearchOrganizationRegistry], Field(default=Registry.ROR, discriminator="name")]
     registry_identifier: Literal["0280y9h11"] = "0280y9h11"
+
+
+class NResearch(_Organization):
+    """NResearch"""
+
+    name: Literal["NResearch Inc"] = "NResearch Inc"
+    abbreviation: Literal[None] = Field(None)
+    registry: Literal[None] = Field(None)
+    registry_identifier: Literal[None] = Field(None)
 
 
 class OpenEphysProductionSite(_Organization):
@@ -561,6 +579,15 @@ class SchneiderKreuznach(_Organization):
     """SchneiderKreuznach"""
 
     name: Literal["Schneider-Kreuznach"] = "Schneider-Kreuznach"
+    abbreviation: Literal[None] = Field(None)
+    registry: Literal[None] = Field(None)
+    registry_identifier: Literal[None] = Field(None)
+
+
+class SigmaAldritch(_Organization):
+    """Sigma-Aldritch"""
+
+    name: Literal["Sigma-Aldritch"] = "Sigma-Aldritch"
     abbreviation: Literal[None] = Field(None)
     registry: Literal[None] = Field(None)
     registry_identifier: Literal[None] = Field(None)
@@ -695,6 +722,7 @@ class Organization:
     FLIR = TeledyneFLIR()
     FUJINON = Fujinon()
     HAMAMATSU = Hamamatsu()
+    HAMILTON = Hamilton()
     HUST = HuazhongUniversityOfScienceAndTechnology()
     IMAGING_SOURCE = TheImagingSource()
     IMEC = InteruniversityMicroelectronicsCenter()
@@ -717,6 +745,7 @@ class Organization:
     NEUROPHOTOMETRICS = Neurophotometrics()
     NINDS = NationalInstituteOfNeurologicalDisordersAndStroke()
     NIKON = Nikon()
+    NRESEARCH = NResearch()
     NYU = NewYorkUniversity()
     OEPS = OpenEphysProductionSite()
     OLYMPUS = Olympus()
@@ -728,6 +757,7 @@ class Organization:
     RASPBERRYPI = RaspberryPi()
     SEMROCK = Semrock()
     SCHNEIDER_KREUZNACH = SchneiderKreuznach()
+    SIGMA = SigmaAldritch()
     SIMONS = SimonsFoundation()
     SPINNAKER = Spinnaker()
     TAMRON = Tamron()
@@ -766,6 +796,7 @@ class Organization:
             AilipuTechnologyCo,
             Allied,
             Basler,
+            Dodotronic,
             EdmundOptics,
             Hamamatsu,
             Spinnaker,

@@ -1,12 +1,11 @@
 """ schema for processing """
 
-from datetime import datetime
 from enum import Enum
 from typing import List, Literal, Optional
 
 from pydantic import Field, ValidationInfo, field_validator
 
-from aind_data_schema.base import AindCoreModel, AindGeneric, AindGenericType, AindModel
+from aind_data_schema.base import AindCoreModel, AindGeneric, AindGenericType, AindModel, AwareDatetimeWithDefault
 from aind_data_schema.imaging.tile import Tile
 from aind_data_schema.models.process_names import ProcessName
 
@@ -23,8 +22,8 @@ class DataProcess(AindModel):
 
     name: ProcessName = Field(..., title="Name")
     software_version: str = Field(..., description="Version of the software used", title="Version")
-    start_date_time: datetime = Field(..., title="Start date time")
-    end_date_time: datetime = Field(..., title="End date time")
+    start_date_time: AwareDatetimeWithDefault = Field(..., title="Start date time")
+    end_date_time: AwareDatetimeWithDefault = Field(..., title="End date time")
     input_location: str = Field(..., description="Path to data inputs", title="Input location")
     output_location: str = Field(..., description="Path to data outputs", title="Output location")
     code_url: str = Field(..., description="Path to code repository", title="Code URL")

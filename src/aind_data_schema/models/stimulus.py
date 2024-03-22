@@ -1,6 +1,5 @@
 """ schema for session stimulus """
 
-from datetime import datetime
 from decimal import Decimal
 from enum import Enum
 from typing import List, Literal, Optional, Union
@@ -8,7 +7,7 @@ from typing import List, Literal, Optional, Union
 from pydantic import Field
 from typing_extensions import Annotated
 
-from aind_data_schema.base import AindGeneric, AindGenericType, AindModel
+from aind_data_schema.base import AindGeneric, AindGenericType, AindModel, AwareDatetimeWithDefault
 from aind_data_schema.models.devices import Software
 from aind_data_schema.models.units import ConcentrationUnit, FrequencyUnit, PowerUnit, TimeUnit, VolumeUnit
 
@@ -161,12 +160,12 @@ class StimulusEpoch(AindModel):
         Union[OlfactoryStimulation, OptoStimulation, VisualStimulation, BehaviorStimulation, PhotoStimulation],
         Field(..., title="Stimulus", discriminator="stimulus_type"),
     ]
-    stimulus_start_time: datetime = Field(
+    stimulus_start_time: AwareDatetimeWithDefault = Field(
         ...,
         title="Stimulus start time",
         description="When a specific stimulus begins. This might be the same as the session start time.",
     )
-    stimulus_end_time: datetime = Field(
+    stimulus_end_time: AwareDatetimeWithDefault = Field(
         ...,
         title="Stimulus end time",
         description="When a specific stimulus ends. This might be the same as the session end time.",

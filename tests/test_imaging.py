@@ -1,8 +1,8 @@
 """ test Imaging """
 
-import datetime
 import re
 import unittest
+from datetime import date, datetime, timezone
 
 from pydantic import ValidationError
 from pydantic import __version__ as pyd_version
@@ -35,20 +35,20 @@ class ImagingTests(unittest.TestCase):
 
         a = acq.Acquisition(
             experimenter_full_name=["alice"],
-            session_start_time=datetime.datetime.now(),
+            session_start_time=datetime.now(tz=timezone.utc),
             specimen_id="12345",
             subject_id="1234",
             instrument_id="1234",
             calibrations=[
                 Calibration(
-                    calibration_date=datetime.datetime.now(),
+                    calibration_date=datetime.now(tz=timezone.utc),
                     description="Laser power calibration",
                     device_name="Laser 1",
                     input={"power_setting": PowerValue(value=100.0, unit="percent")},
                     output={"power_measurement": PowerValue(value=50.0, unit="milliwatt")},
                 ),
             ],
-            session_end_time=datetime.datetime.now(),
+            session_end_time=datetime.now(tz=timezone.utc),
             chamber_immersion=acq.Immersion(medium="PBS", refractive_index=1),
             tiles=[
                 tile.AcquisitionTile(
@@ -77,7 +77,7 @@ class ImagingTests(unittest.TestCase):
 
         i = inst.Instrument(
             instrument_type="diSPIM",
-            modification_date=datetime.datetime.now().date(),
+            modification_date=datetime.now().date(),
             manufacturer=Organization.LIFECANVAS,
             objectives=[],
             detectors=[],
@@ -89,7 +89,7 @@ class ImagingTests(unittest.TestCase):
         with self.assertRaises(ValidationError) as e1:
             inst.Instrument(
                 instrument_type="Other",
-                modification_date=datetime.datetime(2020, 10, 10, 0, 0, 0).date(),
+                modification_date=datetime(2020, 10, 10, 0, 0, 0).date(),
                 manufacturer=Organization.OTHER,
                 objectives=[],
                 detectors=[],
@@ -140,8 +140,8 @@ class ImagingTests(unittest.TestCase):
         mri = ms.MriSession(
             experimenter_full_name=["Frank Frankson"],
             subject_id="1234",
-            session_start_time=datetime.datetime.now(),
-            session_end_time=datetime.datetime.now(),
+            session_start_time=datetime.now(tz=timezone.utc),
+            session_end_time=datetime.now(tz=timezone.utc),
             protocol_id="doi_path",
             animal_weight_prior=22.1,
             animal_weight_post=21.9,
@@ -179,20 +179,20 @@ class ImagingTests(unittest.TestCase):
         for test_code in test_codes:
             a = acq.Acquisition(
                 experimenter_full_name=["alice"],
-                session_start_time=datetime.datetime.now(),
+                session_start_time=datetime.now(tz=timezone.utc),
                 specimen_id="12345",
                 subject_id="1234",
                 instrument_id="1234",
                 calibrations=[
                     Calibration(
-                        calibration_date=datetime.datetime.now(),
+                        calibration_date=datetime.now(tz=timezone.utc),
                         description="Laser power calibration",
                         device_name="Laser 1",
                         input={"power_setting": PowerValue(value=100.0, unit="percent")},
                         output={"power_measurement": PowerValue(value=50.0, unit="milliwatt")},
                     ),
                 ],
-                session_end_time=datetime.datetime.now(),
+                session_end_time=datetime.now(tz=timezone.utc),
                 chamber_immersion=acq.Immersion(medium="PBS", refractive_index=1),
                 tiles=[
                     tile.AcquisitionTile(
@@ -221,8 +221,8 @@ class ImagingTests(unittest.TestCase):
         t = Registration(
             name="Image tile alignment",
             software_version="2.3",
-            start_date_time=datetime.datetime.now(),
-            end_date_time=datetime.datetime.now(),
+            start_date_time=datetime.now(tz=timezone.utc),
+            end_date_time=datetime.now(tz=timezone.utc),
             input_location="/some/path",
             output_location="/some/path",
             code_url="http://foo",
@@ -253,7 +253,7 @@ class ImagingTests(unittest.TestCase):
             inst.Instrument(
                 instrument_id="exaSPIM1-1",
                 instrument_type="exaSPIM",
-                modification_date=datetime.date(2023, 10, 4),
+                modification_date=date(2023, 10, 4),
                 manufacturer=Organization.CUSTOM,
                 daqs=[
                     DAQDevice(
@@ -314,6 +314,29 @@ class ImagingTests(unittest.TestCase):
             "  Value error, Device name validation error: 'LAS-08308' is connected to '3' on 'Dev2',"
             " but this device is not part of the rig. [type=value_error,"
             " input_value=[DAQDevice(device_type='D... hardware_version=None)], input_type=list]\n"
+            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/value_error"
+        )
+        self.assertEqual(expected_exception, repr(e.exception))
+
+        with self.assertRaises(ValueError) as e:
+            ms.MRIScan(
+                scan_index=1,
+                scan_type="3D Scan",
+                scan_sequence_type="RARE",
+                rare_factor=4,
+                primary_scan=True,
+                subject_position="Supine",
+                voxel_sizes=Scale3dTransform(scale=[0.1, 0.1, 0.1]),
+                echo_time=2.2,
+                effective_echo_time=2.0,
+                repetition_time=1.2,
+                additional_scan_parameters={"number_averages": 3},
+            )
+
+        expected_exception = (
+            "1 validation error for MRIScan\n"
+            "  Value error, Primary scan must have vc_orientation, vc_position, and voxel_sizes fields "
+            "[type=value_error, input_value={'scan_index': 1, 'scan_t... {'number_averages': 3}}, input_type=dict]\n"
             f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/value_error"
         )
         self.assertEqual(expected_exception, repr(e.exception))

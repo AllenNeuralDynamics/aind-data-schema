@@ -1,6 +1,6 @@
 """Generates an example JSON file for an ephys session"""
 
-import datetime
+from datetime import datetime, timezone
 
 from aind_data_schema.core.session import (
     CcfCoords,
@@ -17,15 +17,15 @@ from aind_data_schema.models.stimulus import StimulusEpoch, VisualStimulation
 session = Session(
     experimenter_full_name=["Max Quibble", "Finn Tickle"],
     subject_id="664484",
-    session_start_time=datetime.datetime(year=2023, month=4, day=25, hour=2, minute=35, second=0),
-    session_end_time=datetime.datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0),
+    session_start_time=datetime(year=2023, month=4, day=25, hour=2, minute=35, second=0, tzinfo=timezone.utc),
+    session_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0, tzinfo=timezone.utc),
     session_type="Receptive field mapping",
     iacuc_protocol="2109",
     rig_id="323_EPHYS2-RF_2023-04-24_01",
     stimulus_epochs=[
         StimulusEpoch(
-            stimulus_start_time=datetime.datetime(year=2023, month=4, day=25, hour=2, minute=45, second=0),
-            stimulus_end_time=datetime.datetime(year=2023, month=4, day=25, hour=3, minute=10, second=0),
+            stimulus_start_time=datetime(year=2023, month=4, day=25, hour=2, minute=45, second=0, tzinfo=timezone.utc),
+            stimulus_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=10, second=0, tzinfo=timezone.utc),
             stimulus=VisualStimulation(
                 stimulus_name="Static Gratings",
                 stimulus_parameters={
@@ -41,8 +41,8 @@ session = Session(
             ),
         ),
         StimulusEpoch(
-            stimulus_start_time=datetime.datetime(year=2023, month=4, day=25, hour=3, minute=10, second=0),
-            stimulus_end_time=datetime.datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0),
+            stimulus_start_time=datetime(year=2023, month=4, day=25, hour=3, minute=10, second=0, tzinfo=timezone.utc),
+            stimulus_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0, tzinfo=timezone.utc),
             stimulus=VisualStimulation(
                 stimulus_name="Flashes",
                 stimulus_parameters={
@@ -60,8 +60,8 @@ session = Session(
     ],
     data_streams=[
         Stream(
-            stream_start_time=datetime.datetime(year=2023, month=4, day=25, hour=2, minute=45, second=0),
-            stream_end_time=datetime.datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0),
+            stream_start_time=datetime(year=2023, month=4, day=25, hour=2, minute=45, second=0, tzinfo=timezone.utc),
+            stream_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0, tzinfo=timezone.utc),
             stream_modalities=[Modality.ECEPHYS],
             daq_names=["Basestation"],
             mouse_platform_name="mouse platform",
@@ -108,7 +108,7 @@ session = Session(
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.npy",
                     primary_targeted_structure="LGd",
                     manipulator_coordinates=Coordinates3d(x=8422, y=4205, z=11087.5),
-                    calibration_date=datetime.datetime(year=2023, month=4, day=25),
+                    calibration_date=datetime(year=2023, month=4, day=25),
                     notes=(
                         "Moved Y to avoid blood vessel, X to avoid edge. Mouse made some noise during the recording"
                         " with a sudden shift in signals. Lots of motion. Maybe some implant motion."
@@ -124,7 +124,7 @@ session = Session(
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.py",
                     primary_targeted_structure="LC",
                     manipulator_coordinates=Coordinates3d(x=9015, y=7144, z=13262),
-                    calibration_date=datetime.datetime(year=2023, month=4, day=25),
+                    calibration_date=datetime(year=2023, month=4, day=25),
                     notes=(
                         "Trouble penetrating. Lots of compression, needed to move probe. Small amount of surface"
                         " bleeding/bruising. Initial Target: X;10070.3\tY:7476.6"
@@ -133,8 +133,8 @@ session = Session(
             ],
         ),
         Stream(
-            stream_start_time=datetime.datetime(year=2023, month=4, day=25, hour=2, minute=35, second=0),
-            stream_end_time=datetime.datetime(year=2023, month=4, day=25, hour=2, minute=45, second=0),
+            stream_start_time=datetime(year=2023, month=4, day=25, hour=2, minute=35, second=0),
+            stream_end_time=datetime(year=2023, month=4, day=25, hour=2, minute=45, second=0),
             stream_modalities=[Modality.ECEPHYS],
             notes="664484_2023-04-24_20-06-37; Surface Finding",
             daq_names=["Basestation"],
@@ -181,7 +181,7 @@ session = Session(
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.npy",
                     primary_targeted_structure="LGd",
                     manipulator_coordinates=Coordinates3d(x=8422, y=4205, z=11087.5),
-                    calibration_date=datetime.datetime(year=2023, month=4, day=25),
+                    calibration_date=datetime(year=2023, month=4, day=25),
                     notes=(
                         "Moved Y to avoid blood vessel, X to avoid edge. Mouse made some noise during the recording"
                         " with a sudden shift in signals. Lots of motion. Maybe some implant motion."
@@ -197,7 +197,7 @@ session = Session(
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.py",
                     primary_targeted_structure="LC",
                     manipulator_coordinates=Coordinates3d(x=9015, y=7144, z=13262),
-                    calibration_date=datetime.datetime(year=2023, month=4, day=25),
+                    calibration_date=datetime(year=2023, month=4, day=25),
                     notes=(
                         "Trouble penetrating. Lots of compression, needed to move probe. Small amount of surface"
                         " bleeding/bruising. Initial Target: X;10070.3\tY:7476.6"

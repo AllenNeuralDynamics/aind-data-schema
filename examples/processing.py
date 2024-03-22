@@ -1,10 +1,11 @@
 """ example processing """
-
-import datetime
+from datetime import datetime, timezone
 
 from aind_data_schema.core.processing import AnalysisProcess, DataProcess, PipelineProcess, Processing, ProcessName
 
-t = datetime.datetime(2022, 11, 22, 8, 43, 00)
+# If a timezone isn't specified, the timezone of the computer running this
+# script will be used as default
+t = datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc)
 
 p = Processing(
     processing_pipeline=PipelineProcess(

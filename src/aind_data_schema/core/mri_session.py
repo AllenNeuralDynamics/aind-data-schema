@@ -1,13 +1,12 @@
 """ schema for MRI Scan """
 
-from datetime import datetime
 from decimal import Decimal
 from enum import Enum
 from typing import List, Literal, Optional
 
-from pydantic import Field, ValidationInfo, field_validator
+from pydantic import Field, ValidationInfo, field_validator, model_validator
 
-from aind_data_schema.base import AindCoreModel, AindGenericType, AindModel
+from aind_data_schema.base import AindCoreModel, AindGenericType, AindModel, AwareDatetimeWithDefault
 from aind_data_schema.core.procedures import Anaesthetic
 from aind_data_schema.models.coordinates import Rotation3dTransform, Scale3dTransform, Translation3dTransform
 from aind_data_schema.models.devices import Scanner
@@ -47,16 +46,16 @@ class MRIScan(AindModel):
     scan_sequence_type: MriScanSequence = Field(..., title="Scan sequence")
     rare_factor: Optional[int] = Field(None, title="RARE factor")
     echo_time: Decimal = Field(..., title="Echo time (ms)")
-    effective_echo_time: Decimal = Field(..., title="Effective echo time (ms)")
+    effective_echo_time: Optional[Decimal] = Field(None, title="Effective echo time (ms)")
     echo_time_unit: TimeUnit = Field(TimeUnit.MS, title="Echo time unit")
     repetition_time: Decimal = Field(..., title="Repetition time (ms)")
     repetition_time_unit: TimeUnit = Field(TimeUnit.MS, title="Repetition time unit")
     # fields required to get correct orientation
-    vc_orientation: Rotation3dTransform = Field(..., title="Scan orientation")
-    vc_position: Translation3dTransform = Field(..., title="Scan position")
+    vc_orientation: Optional[Rotation3dTransform] = Field(None, title="Scan orientation")
+    vc_position: Optional[Translation3dTransform] = Field(None, title="Scan position")
     subject_position: SubjectPosition = Field(..., title="Subject position")
     # other fields
-    voxel_sizes: Scale3dTransform = Field(..., title="Voxel sizes", description="Resolution")
+    voxel_sizes: Optional[Scale3dTransform] = Field(None, title="Voxel sizes", description="Resolution")
     processing_steps: List[
         Literal[
             ProcessName.FIDUCIAL_SEGMENTATION,
@@ -78,20 +77,30 @@ class MRIScan(AindModel):
             )
         return value
 
+    @model_validator(mode="after")
+    def validate_primary_scan(self):
+        """Validate that primary scan has vc_orientation and vc_position fields"""
+
+        if self.primary_scan:
+            if not self.vc_orientation or not self.vc_position or not self.voxel_sizes:
+                raise ValueError("Primary scan must have vc_orientation, vc_position, and voxel_sizes fields")
+
+        return self
+
 
 class MriSession(AindCoreModel):
     """Description of an MRI scan"""
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/mri_session.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["0.3.2"] = Field("0.3.2")
+    schema_version: Literal["0.3.5"] = Field("0.3.5")
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
         title="Subject ID",
     )
-    session_start_time: datetime = Field(..., title="Session start time")
-    session_end_time: Optional[datetime] = Field(None, title="Session end time")
+    session_start_time: AwareDatetimeWithDefault = Field(..., title="Session start time")
+    session_end_time: Optional[AwareDatetimeWithDefault] = Field(None, title="Session end time")
     experimenter_full_name: List[str] = Field(
         ...,
         description="First and last name of the experimenter(s).",

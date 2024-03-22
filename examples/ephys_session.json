@@ -1,13 +1,13 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/session.py",
-   "schema_version": "0.1.8",
+   "schema_version": "0.1.12",
    "protocol_id": [],
    "experimenter_full_name": [
       "Max Quibble",
       "Finn Tickle"
    ],
-   "session_start_time": "2023-04-25T02:35:00",
-   "session_end_time": "2023-04-25T03:16:00",
+   "session_start_time": "2023-04-25T02:35:00Z",
+   "session_end_time": "2023-04-25T03:16:00Z",
    "session_type": "Receptive field mapping",
    "iacuc_protocol": "2109",
    "rig_id": "323_EPHYS2-RF_2023-04-24_01",
@@ -19,8 +19,8 @@
    "weight_unit": "gram",
    "data_streams": [
       {
-         "stream_start_time": "2023-04-25T02:45:00",
-         "stream_end_time": "2023-04-25T03:16:00",
+         "stream_start_time": "2023-04-25T02:45:00Z",
+         "stream_end_time": "2023-04-25T03:16:00Z",
          "daq_names": [
             "Basestation"
          ],
@@ -52,6 +52,7 @@
                   "z": "11087.5",
                   "unit": "micrometer"
                },
+               "implant_hole_number": null,
                "ephys_probes": [
                   {
                      "name": "Probe A",
@@ -84,6 +85,7 @@
                   "z": "13262",
                   "unit": "micrometer"
                },
+               "implant_hole_number": null,
                "ephys_probes": []
             }
          ],
@@ -148,8 +150,8 @@
          "notes": null
       },
       {
-         "stream_start_time": "2023-04-25T02:35:00",
-         "stream_end_time": "2023-04-25T02:45:00",
+         "stream_start_time": "2023-04-25T02:35:00-07:00",
+         "stream_end_time": "2023-04-25T02:45:00-07:00",
          "daq_names": [
             "Basestation"
          ],
@@ -181,6 +183,7 @@
                   "z": "11087.5",
                   "unit": "micrometer"
                },
+               "implant_hole_number": null,
                "ephys_probes": [
                   {
                      "name": "Probe A",
@@ -213,6 +216,7 @@
                   "z": "13262",
                   "unit": "micrometer"
                },
+               "implant_hole_number": null,
                "ephys_probes": []
             }
          ],
@@ -306,8 +310,8 @@
             "stimulus_script_version": "1.0",
             "notes": null
          },
-         "stimulus_start_time": "2023-04-25T02:45:00",
-         "stimulus_end_time": "2023-04-25T03:10:00"
+         "stimulus_start_time": "2023-04-25T02:45:00Z",
+         "stimulus_end_time": "2023-04-25T03:10:00Z"
       },
       {
          "stimulus": {
@@ -326,8 +330,8 @@
             "stimulus_script_version": "1.0",
             "notes": null
          },
-         "stimulus_start_time": "2023-04-25T03:10:00",
-         "stimulus_end_time": "2023-04-25T03:16:00"
+         "stimulus_start_time": "2023-04-25T03:10:00Z",
+         "stimulus_end_time": "2023-04-25T03:16:00Z"
       }
    ],
    "reward_delivery": null,

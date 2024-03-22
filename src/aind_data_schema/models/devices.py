@@ -8,7 +8,7 @@ from typing import List, Literal, Optional, Union
 from pydantic import Field
 from typing_extensions import Annotated
 
-from aind_data_schema.base import AindGeneric, AindGenericType, AindModel
+from aind_data_schema.base import AindGeneric, AindGenericType, AindModel, AwareDatetimeWithDefault
 from aind_data_schema.models.coordinates import RelativePosition, Size3d
 from aind_data_schema.models.harp_types import HarpDeviceType
 from aind_data_schema.models.organizations import Organization
@@ -142,6 +142,9 @@ class ImmersionMedium(str, Enum):
     PBS = "PBS"
     WATER = "water"
     OTHER = "other"
+    EASYINDEX = "easy index"
+    ECI = "ethyl cinnimate"
+    ACB = "aqueous clearing buffer"
 
 
 class ObjectiveType(str, Enum):
@@ -193,6 +196,7 @@ class Cooling(str, Enum):
 
     AIR = "Air"
     WATER = "Water"
+    NONE = "None"
 
 
 class BinMode(str, Enum):
@@ -266,7 +270,7 @@ class Software(AindModel):
 class Calibration(AindModel):
     """Generic calibration class"""
 
-    calibration_date: datetime = Field(..., title="Date and time of calibration")
+    calibration_date: AwareDatetimeWithDefault = Field(..., title="Date and time of calibration")
     device_name: str = Field(..., title="Device name", description="Must match a device name in rig/instrument")
     description: str = Field(..., title="Description", description="Brief description of what is being calibrated")
     input: AindGenericType = Field(AindGeneric(), description="Calibration input", title="inputs")
@@ -277,7 +281,7 @@ class Calibration(AindModel):
 class Maintenance(AindModel):
     """Generic maintenance class"""
 
-    maintenance_date: datetime = Field(..., title="Date and time of maintenance")
+    maintenance_date: AwareDatetimeWithDefault = Field(..., title="Date and time of maintenance")
     device_name: str = Field(..., title="Device name", description="Must match a device name in rig/instrument")
     description: str = Field(..., title="Description", description="Description on maintenance procedure")
     protocol_id: Optional[str] = Field(None, title="Protocol ID")
@@ -292,7 +296,7 @@ class Detector(Device):
     detector_type: DetectorType = Field(..., title="Detector Type")
     manufacturer: Organization.DETECTOR_MANUFACTURERS
     data_interface: DataInterface = Field(..., title="Data interface")
-    cooling: Cooling = Field(None, title="Cooling")
+    cooling: Cooling = Field(Cooling.NONE, title="Cooling")
     computer_name: Optional[str] = Field(None, title="Name of computer receiving data from this camera")
     max_frame_rate: Optional[Decimal] = Field(None, title="Maximum frame rate (Hz)")
     frame_rate_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Frame rate unit")

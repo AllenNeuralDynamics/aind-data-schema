@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/rig.py",
-   "schema_version": "0.2.16",
+   "schema_version": "0.2.22",
    "rig_id": "323_EPHYS1",
    "modification_date": "2023-10-03",
    "mouse_platform": {
@@ -47,7 +47,7 @@
             "notes": null,
             "detector_type": "Camera",
             "data_interface": "USB",
-            "cooling": null,
+            "cooling": "None",
             "computer_name": "W10DT72941",
             "max_frame_rate": "500",
             "frame_rate_unit": "hertz",
@@ -154,7 +154,7 @@
             "notes": null,
             "detector_type": "Camera",
             "data_interface": "USB",
-            "cooling": null,
+            "cooling": "None",
             "computer_name": "W10DT72941",
             "max_frame_rate": "500",
             "frame_rate_unit": "hertz",
@@ -337,7 +337,7 @@
             "notes": null,
             "detector_type": "Camera",
             "data_interface": "USB",
-            "cooling": null,
+            "cooling": "None",
             "computer_name": "W10DT72942",
             "max_frame_rate": "50",
             "frame_rate_unit": "hertz",
@@ -579,7 +579,7 @@
    ],
    "calibrations": [
       {
-         "calibration_date": "2023-10-02T10:22:13",
+         "calibration_date": "2023-10-02T10:22:13Z",
          "device_name": "Red Laser",
          "description": "Laser power calibration",
          "input": {
@@ -599,7 +599,7 @@
          "notes": null
       },
       {
-         "calibration_date": "2023-10-02T10:22:13",
+         "calibration_date": "2023-10-02T10:22:13Z",
          "device_name": "Blue Laser",
          "description": "Laser power calibration",
          "input": {
@@ -621,7 +621,7 @@
    ],
    "ccf_coordinate_transform": null,
    "origin": null,
-   "rig_axes": [],
+   "rig_axes": null,
    "modalities": [
       {
          "name": "Extracellular electrophysiology",
