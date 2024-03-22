@@ -19,8 +19,8 @@
    "weight_unit": "gram",
    "data_streams": [
       {
-         "stream_start_time": "2023-04-20T21:31:00",
-         "stream_end_time": "2023-04-20T22:03:00",
+         "stream_start_time": "2023-04-25T02:45:00",
+         "stream_end_time": "2023-04-25T03:16:00",
          "daq_names": [
             "Basestation"
          ],
@@ -67,7 +67,7 @@
                "rotation_angle": "0",
                "coordinate_transform": "behavior/calibration_info_np2_2023_04_24.py",
                "calibration_date": "2023-04-25T00:00:00",
-               "notes": "Trouble penitrating. Lots of compression, needed to move probe. Small amount of surface bleeding/bruising. Initial Target: X;10070.3\tY:7476.6",
+               "notes": "Trouble penetrating. Lots of compression, needed to move probe. Small amount of surface bleeding/bruising. Initial Target: X;10070.3\tY:7476.6",
                "primary_targeted_structure": "LC",
                "targeted_ccf_coordinates": [
                   {
@@ -148,8 +148,8 @@
          "notes": null
       },
       {
-         "stream_start_time": "2023-04-25T03:06:00",
-         "stream_end_time": "2023-04-25T03:16:00",
+         "stream_start_time": "2023-04-25T02:35:00",
+         "stream_end_time": "2023-04-25T02:45:00",
          "daq_names": [
             "Basestation"
          ],
@@ -196,7 +196,7 @@
                "rotation_angle": "0",
                "coordinate_transform": "behavior/calibration_info_np2_2023_04_24.py",
                "calibration_date": "2023-04-25T00:00:00",
-               "notes": "Trouble penitrating. Lots of compression, needed to move probe. Small amount of surface bleeding/bruising. Initial Target: X;10070.3\tY:7476.6",
+               "notes": "Trouble penetrating. Lots of compression, needed to move probe. Small amount of surface bleeding/bruising. Initial Target: X;10070.3\tY:7476.6",
                "primary_targeted_structure": "LC",
                "targeted_ccf_coordinates": [
                   {
@@ -297,7 +297,7 @@
                   0.16,
                   0.32
                ],
-               "grating_unit": "pixels/in"
+               "grating_spatial_frequency_unit": "cycles/degree"
             },
             "stimulus_template_name": [],
             "stimulus_software": "Bonsai",
@@ -306,8 +306,8 @@
             "stimulus_script_version": "1.0",
             "notes": null
          },
-         "stimulus_start_time": "2023-04-20T00:00:00",
-         "stimulus_end_time": "2023-04-20T00:14:00"
+         "stimulus_start_time": "2023-04-25T02:45:00",
+         "stimulus_end_time": "2023-04-25T03:10:00"
       },
       {
          "stimulus": {
@@ -326,8 +326,8 @@
             "stimulus_script_version": "1.0",
             "notes": null
          },
-         "stimulus_start_time": "2023-04-20T00:14:00",
-         "stimulus_end_time": "2023-04-20T00:28:00"
+         "stimulus_start_time": "2023-04-25T03:10:00",
+         "stimulus_end_time": "2023-04-25T03:16:00"
       }
    ],
    "reward_delivery": null,

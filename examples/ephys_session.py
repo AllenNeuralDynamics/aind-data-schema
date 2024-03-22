@@ -24,15 +24,15 @@ session = Session(
     rig_id="323_EPHYS2-RF_2023-04-24_01",
     stimulus_epochs=[
         StimulusEpoch(
-            stimulus_start_time=datetime.datetime(year=2023, month=4, day=20, hour=0, minute=0, second=0),
-            stimulus_end_time=datetime.datetime(year=2023, month=4, day=20, hour=0, minute=14, second=0),
+            stimulus_start_time=datetime.datetime(year=2023, month=4, day=25, hour=2, minute=45, second=0),
+            stimulus_end_time=datetime.datetime(year=2023, month=4, day=25, hour=3, minute=10, second=0),
             stimulus=VisualStimulation(
                 stimulus_name="Static Gratings",
                 stimulus_parameters={
                     "grating_orientations": [0, 45, 90, 135],
                     "grating_orientation_unit": "degrees",
                     "grating_spatial_frequencies": [0.02, 0.04, 0.08, 0.16, 0.32],
-                    "grating_unit": "pixels/in",
+                    "grating_spatial_frequency_unit": "cycles/degree",
                 },
                 stimulus_software="Bonsai",
                 stimulus_software_version="2.7",
@@ -41,8 +41,8 @@ session = Session(
             ),
         ),
         StimulusEpoch(
-            stimulus_start_time=datetime.datetime(year=2023, month=4, day=20, hour=0, minute=14, second=0),
-            stimulus_end_time=datetime.datetime(year=2023, month=4, day=20, hour=0, minute=28, second=0),
+            stimulus_start_time=datetime.datetime(year=2023, month=4, day=25, hour=3, minute=10, second=0),
+            stimulus_end_time=datetime.datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0),
             stimulus=VisualStimulation(
                 stimulus_name="Flashes",
                 stimulus_parameters={
@@ -60,8 +60,8 @@ session = Session(
     ],
     data_streams=[
         Stream(
-            stream_start_time=datetime.datetime(year=2023, month=4, day=20, hour=21, minute=31, second=0),
-            stream_end_time=datetime.datetime(year=2023, month=4, day=20, hour=22, minute=3, second=0),
+            stream_start_time=datetime.datetime(year=2023, month=4, day=25, hour=2, minute=45, second=0),
+            stream_end_time=datetime.datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0),
             stream_modalities=[Modality.ECEPHYS],
             daq_names=["Basestation"],
             mouse_platform_name="mouse platform",
@@ -126,15 +126,15 @@ session = Session(
                     manipulator_coordinates=Coordinates3d(x=9015, y=7144, z=13262),
                     calibration_date=datetime.datetime(year=2023, month=4, day=25),
                     notes=(
-                        "Trouble penitrating. Lots of compression, needed to move probe. Small amount of surface"
+                        "Trouble penetrating. Lots of compression, needed to move probe. Small amount of surface"
                         " bleeding/bruising. Initial Target: X;10070.3\tY:7476.6"
                     ),
                 ),
             ],
         ),
         Stream(
-            stream_start_time=datetime.datetime(year=2023, month=4, day=25, hour=3, minute=6, second=0),
-            stream_end_time=datetime.datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0),
+            stream_start_time=datetime.datetime(year=2023, month=4, day=25, hour=2, minute=35, second=0),
+            stream_end_time=datetime.datetime(year=2023, month=4, day=25, hour=2, minute=45, second=0),
             stream_modalities=[Modality.ECEPHYS],
             notes="664484_2023-04-24_20-06-37; Surface Finding",
             daq_names=["Basestation"],
@@ -199,7 +199,7 @@ session = Session(
                     manipulator_coordinates=Coordinates3d(x=9015, y=7144, z=13262),
                     calibration_date=datetime.datetime(year=2023, month=4, day=25),
                     notes=(
-                        "Trouble penitrating. Lots of compression, needed to move probe. Small amount of surface"
+                        "Trouble penetrating. Lots of compression, needed to move probe. Small amount of surface"
                         " bleeding/bruising. Initial Target: X;10070.3\tY:7476.6"
                     ),
                 ),
