@@ -436,14 +436,6 @@ class CameraAssembly(AindModel):
     filter: Optional[Filter] = Field(None, title="Filter")
     position: Optional[RelativePosition] = Field(None, title="Relative position of this assembly")
 
-    def _contains_other(self) -> Optional[str]:
-        """Validator for other/notes"""
-
-        if self.camera_target == CameraTarget.OTHER:
-            return True
-
-        return False
-
 
 class DAQChannel(AindModel):
     """Named input or output channel on a DAQ device"""

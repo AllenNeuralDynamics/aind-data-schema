@@ -34,6 +34,7 @@ from aind_data_schema.models.devices import (
     PolygonalScanner,
     RewardDelivery,
     Speaker,
+    CameraTarget
 )
 from aind_data_schema.models.modalities import Modality
 
@@ -88,7 +89,7 @@ class Rig(AindCoreModel):
 
         if self.notes is None:
             for camera_assembly in self.cameras + self.stick_microscopes:
-                if camera_assembly._contains_other():
+                if camera_assembly.camera_target == CameraTarget.OTHER:
                     raise ValueError(
                         f"Notes cannot be empty if a camera contains an 'Other' field. "
                         f"Describe the camera ({camera_assembly.camera_assembly_name}) in the notes field"
