@@ -95,7 +95,7 @@ p = Procedures(
             target_fraction_weight=25,
             minimum_water_per_day=1.5,
             baseline_weight=20.4,
-            end_date="2023-05-23"
+            end_date="2023-05-23",
         ),
         Surgery(
             start_date="2023-05-31",
