@@ -5,7 +5,7 @@ from pathlib import Path
 from unittest.mock import MagicMock, call, patch
 
 from aind_data_schema.core.subject import Subject
-from aind_data_schema.utils.diagrams import DiagramBuilder
+from aind_data_schema.utils.diagrams import save_diagram, save_all_core_model_diagrams
 
 
 class DiagramBuilderTests(unittest.TestCase):
@@ -14,28 +14,28 @@ class DiagramBuilderTests(unittest.TestCase):
     @patch("erdantic.erd.EntityRelationshipDiagram.draw")
     def test_save_diagram_default(self, mock_draw: MagicMock):
         """Tests save_diagram_default method"""
-        DiagramBuilder.save_diagram(Subject)
+        save_diagram(Subject)
 
         mock_draw.assert_called_once_with(Path("Subject.svg"))
 
     @patch("erdantic.erd.EntityRelationshipDiagram.draw")
     def test_save_diagram_dir(self, mock_draw: MagicMock):
         """Tests save_diagram_default method with output_directory"""
-        DiagramBuilder.save_diagram(model=Subject, output_directory=Path("some_dir"))
+        save_diagram(model=Subject, output_directory=Path("some_dir"))
 
         mock_draw.assert_called_once_with(Path("some_dir") / "Subject.svg")
 
     @patch("erdantic.erd.EntityRelationshipDiagram.draw")
     def test_save_diagram_dir_and_filename(self, mock_draw: MagicMock):
         """Tests save_diagram_default method with output_directory and filename"""
-        DiagramBuilder.save_diagram(model=Subject, output_directory=Path("some_dir"), filename="subject_a.svg")
+        save_diagram(model=Subject, output_directory=Path("some_dir"), filename="subject_a.svg")
 
         mock_draw.assert_called_once_with(Path("some_dir") / "subject_a.svg")
 
     @patch("erdantic.erd.EntityRelationshipDiagram.draw")
     def test_save_all_core_diagrams_default(self, mock_draw: MagicMock):
         """Tests save_all_core_diagrams_default method"""
-        DiagramBuilder.save_all_core_model_diagrams()
+        save_all_core_model_diagrams()
 
         mock_draw.assert_has_calls(
             [
@@ -56,7 +56,7 @@ class DiagramBuilderTests(unittest.TestCase):
     @patch("erdantic.erd.EntityRelationshipDiagram.draw")
     def test_save_all_core_diagrams_dir(self, mock_draw: MagicMock):
         """Tests save_all_core_diagrams_default method with output_directory"""
-        DiagramBuilder.save_all_core_model_diagrams(output_directory=Path("some_dir"))
+        save_all_core_model_diagrams(output_directory=Path("some_dir"))
 
         mock_draw.assert_has_calls(
             [
