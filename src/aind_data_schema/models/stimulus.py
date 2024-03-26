@@ -36,12 +36,12 @@ class OptoStimulation(AindModel):
     stimulus_type: Literal["Opto Stimulation"] = "Opto Stimulation"
     stimulus_name: str = Field(..., title="Stimulus name")
     pulse_shape: PulseShape = Field(..., title="Pulse shape")
-    pulse_frequency: int = Field(..., title="Pulse frequency (Hz)")
+    pulse_frequency: List[Decimal] = Field(..., title="Pulse frequency (Hz)")
     pulse_frequency_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Pulse frequency unit")
-    number_pulse_trains: int = Field(..., title="Number of pulse trains")
-    pulse_width: int = Field(..., title="Pulse width (ms)")
+    number_pulse_trains: List[int] = Field(..., title="Number of pulse trains")
+    pulse_width: List[int] = Field(..., title="Pulse width (ms)")
     pulse_width_unit: TimeUnit = Field(TimeUnit.MS, title="Pulse width unit")
-    pulse_train_duration: Decimal = Field(..., title="Pulse train duration (s)")
+    pulse_train_duration: List[Decimal] = Field(..., title="Pulse train duration (s)")
     pulse_train_duration_unit: TimeUnit = Field(TimeUnit.S, title="Pulse train duration unit")
     fixed_pulse_train_interval: bool = Field(..., title="Fixed pulse train interval")
     pulse_train_interval: Optional[Decimal] = Field(
