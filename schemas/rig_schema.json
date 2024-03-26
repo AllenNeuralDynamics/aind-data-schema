@@ -5921,6 +5921,7 @@
                      "Olfactometer": "#/$defs/aind_data_schema__models__harp_types__Olfactometer",
                      "Sniff Detector": "#/$defs/SniffDetector",
                      "Sound Card": "#/$defs/SoundCard",
+                     "Stepper Driver": "#/$defs/StepperDriver",
                      "Synchronizer": "#/$defs/Synchronizer",
                      "Timestamp Generator Gen 1": "#/$defs/TimestampGeneratorGen1",
                      "Timestamp Generator Gen 3": "#/$defs/TimestampGeneratorGen3",
@@ -5973,6 +5974,9 @@
                   },
                   {
                      "$ref": "#/$defs/Cuttlefish"
+                  },
+                  {
+                     "$ref": "#/$defs/StepperDriver"
                   }
                ],
                "title": "Type of Harp device"
@@ -12762,6 +12766,23 @@
          "title": "SpoutSide",
          "type": "string"
       },
+      "StepperDriver": {
+         "description": "Stepper Driver",
+         "properties": {
+            "name": {
+               "const": "Stepper Driver",
+               "default": "Stepper Driver",
+               "title": "Name"
+            },
+            "whoami": {
+               "const": 1130,
+               "default": 1130,
+               "title": "Whoami"
+            }
+         },
+         "title": "StepperDriver",
+         "type": "object"
+      },
       "Synchronizer": {
          "description": "Synchronizer",
          "properties": {
@@ -14928,8 +14949,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.2.22",
-         "default": "0.2.22",
+         "const": "0.2.23",
+         "default": "0.2.23",
          "title": "Schema Version"
       },
       "rig_id": {

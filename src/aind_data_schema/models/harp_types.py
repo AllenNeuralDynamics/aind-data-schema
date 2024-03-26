@@ -119,6 +119,13 @@ class Cuttlefish(_HarpDeviceType):
     whoami: Literal[1403] = 1403
 
 
+class StepperDriver(_HarpDeviceType):
+    """Stepper Driver"""
+
+    name: Literal["Stepper Driver"] = "Stepper Driver"
+    whoami: Literal[1130] = 1130
+
+
 class HarpDeviceType:
     """Harp device type definitions"""
 
@@ -137,6 +144,7 @@ class HarpDeviceType:
     SNIFF_DETECTOR = SniffDetector()
     TREADMILL = Treadmill()
     CUTTLEFISH = Cuttlefish()
+    STEPPER_DRIVER = StepperDriver()
 
     _ALL = tuple(_HarpDeviceType.__subclasses__())
     ONE_OF = Annotated[Union[_ALL], Field(discriminator="name")]
