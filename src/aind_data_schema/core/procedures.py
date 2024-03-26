@@ -22,6 +22,7 @@ from aind_data_schema.models.units import (
     SizeUnit,
     TimeUnit,
     VolumeUnit,
+    UnitlessUnit,
     create_unit_with_value,
 )
 
@@ -528,9 +529,9 @@ class WaterRestriction(AindModel):
     procedure_type: Literal["Water restriction"] = "Water restriction"
     iacuc_protocol: str = Field(..., title="IACUC protocol")
     target_fraction_weight: int = Field(..., title="Target fraction weight (%)")
-    target_fraction_weight_unit: Optional[str] = Field("%", title="Target fraction weight unit")
+    target_fraction_weight_unit: UnitlessUnit = Field(UnitlessUnit.PERCENT, title="Target fraction weight unit")
     minimum_water_per_day: Decimal = Field(..., title="Minimum water per day (mL)")
-    minimum_water_per_day_unit: Optional[VolumeUnit] = Field(VolumeUnit.ML, title="Minimum water per day unit")
+    minimum_water_per_day_unit: VolumeUnit = Field(VolumeUnit.ML, title="Minimum water per day unit")
     baseline_weight: Decimal = Field(
         ...,
         title="Baseline weight (g)",
