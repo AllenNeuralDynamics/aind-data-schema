@@ -20279,8 +20279,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.12.8",
-               "default": "0.12.8",
+               "const": "0.13.0",
+               "default": "0.13.0",
                "title": "Schema Version"
             },
             "subject_id": {
