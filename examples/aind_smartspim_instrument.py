@@ -1,4 +1,5 @@
 """ example SmartSPIM instrument """
+
 import datetime
 
 from aind_data_schema.core.instrument import Com, Detector, Instrument, Objective
