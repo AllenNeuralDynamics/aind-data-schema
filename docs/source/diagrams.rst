@@ -1,11 +1,9 @@
 Diagrams
 ==============
 
-.. figure:: https://aind-data-schema-dev-u5u0i5.s3.us-west-2.amazonaws.com/diagrams/acquisition.svg
-    :align: center
-    :alt: acquisition
+|acquisition|
 
-    acquisition
+acquisition
 
 .. raw:: html
 
@@ -14,11 +12,9 @@ Diagrams
 |
 |
 
-.. figure:: https://aind-data-schema-dev-u5u0i5.s3.us-west-2.amazonaws.com/diagrams/data_description.svg
-    :align: center
-    :alt: data_description
+|data_description|
 
-    data_description
+data_description
 
 .. raw:: html
 
@@ -27,11 +23,9 @@ Diagrams
 |
 |
 
-.. figure:: https://aind-data-schema-dev-u5u0i5.s3.us-west-2.amazonaws.com/diagrams/instrument.svg
-    :align: center
-    :alt: instrument
+|instrument|
 
-    instrument
+instrument
 
 .. raw:: html
 
@@ -40,11 +34,9 @@ Diagrams
 |
 |
 
-.. figure:: https://aind-data-schema-dev-u5u0i5.s3.us-west-2.amazonaws.com/diagrams/metadata.nd.svg
-    :align: center
-    :alt: metadata
+|metadata.nd|
 
-    metadata
+metadata
 
 .. raw:: html
 
@@ -53,11 +45,9 @@ Diagrams
 |
 |
 
-.. figure:: https://aind-data-schema-dev-u5u0i5.s3.us-west-2.amazonaws.com/diagrams/mri_session.svg
-    :align: center
-    :alt: mri_session
+|mri_session|
 
-    mri_session
+mri_session
 
 .. raw:: html
 
@@ -66,11 +56,9 @@ Diagrams
 |
 |
 
-.. figure:: https://aind-data-schema-dev-u5u0i5.s3.us-west-2.amazonaws.com/diagrams/procedures.svg
-    :align: center
-    :alt: procedures
+|procedures|
 
-    procedures
+procedures
 
 .. raw:: html
 
@@ -79,11 +67,9 @@ Diagrams
 |
 |
 
-.. figure:: https://aind-data-schema-dev-u5u0i5.s3.us-west-2.amazonaws.com/diagrams/processing.svg
-    :align: center
-    :alt: processing
+|processing|
 
-    processing
+processing
 
 .. raw:: html
 
@@ -92,11 +78,9 @@ Diagrams
 |
 |
 
-.. figure:: https://aind-data-schema-dev-u5u0i5.s3.us-west-2.amazonaws.com/diagrams/rig.svg
-    :align: center
-    :alt: rig
+|rig|
 
-    rig
+rig
 
 .. raw:: html
 
@@ -105,11 +89,9 @@ Diagrams
 |
 |
 
-.. figure:: https://aind-data-schema-dev-u5u0i5.s3.us-west-2.amazonaws.com/diagrams/session.svg
-    :align: center
-    :alt: session
+|session|
 
-    session
+session
 
 .. raw:: html
 
@@ -118,11 +100,9 @@ Diagrams
 |
 |
 
-.. figure:: https://aind-data-schema-dev-u5u0i5.s3.us-west-2.amazonaws.com/diagrams/subject.svg
-    :align: center
-    :alt: subject
+|subject|
 
-    subject
+subject
 
 .. raw:: html
 

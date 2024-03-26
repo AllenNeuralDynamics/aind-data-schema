@@ -19,7 +19,7 @@ for mod in core.__loader__.get_resource_reader().contents():
 
 def save_diagram(
     model: Type[BaseModel], output_directory: Optional[Path] = None, filename: Optional[str] = None
-) -> None:
+    ) -> None:
     """
     Save a BaseModel diagram to a directory.
     Parameters
