@@ -55,8 +55,6 @@ stream = Stream(
     manipulator_modules=[laser_module],
     daq_names=["Harp Behavior", "Basestation Slot 3"],
     camera_names=["Face Camera", "Body Camera"],
-    mouse_platform_name="Running Wheel",
-    active_mouse_platform=False,
 )
 
 # If a timezone isn't specified, the timezone of the computer running this
@@ -72,6 +70,8 @@ session = Session(
     animal_weight_prior=21.2,
     animal_weight_post=21.3,
     data_streams=[stream],
+    mouse_platform_name="Running Wheel",
+    active_mouse_platform=False,
 )
 
 session.write_standard_file(prefix="ephys")
