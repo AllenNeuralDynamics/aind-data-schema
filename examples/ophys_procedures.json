@@ -116,7 +116,7 @@
          "procedure_type": "Water restriction",
          "iacuc_protocol": "1234",
          "target_fraction_weight": 25,
-         "target_fraction_weight_unit": "%",
+         "target_fraction_weight_unit": "percent",
          "minimum_water_per_day": "1.5",
          "minimum_water_per_day_unit": "milliliter",
          "baseline_weight": "20.4",
