@@ -9,7 +9,7 @@ from pydantic import Field, field_validator
 from pydantic_core.core_schema import ValidationInfo
 from typing_extensions import Annotated
 
-from aind_data_schema.base import AindCoreModel, AindGeneric, AindGenericType, AindModel, AwareDateTimeWithDefault
+from aind_data_schema.base import AindCoreModel, AindGeneric, AindGenericType, AindModel, AwareDatetimeWithDefault
 from aind_data_schema.imaging.tile import Channel
 from aind_data_schema.models.coordinates import CcfCoords, Coordinates3d
 from aind_data_schema.models.devices import Calibration, Maintenance, RelativePosition, Software, SpoutSide
@@ -424,7 +424,7 @@ class StimulusEpoch(AindModel):
     speaker_config: Optional[SpeakerConfig] = Field(None, title="Speaker Config")
     light_source_config: Optional[LIGHT_SOURCE_CONFIGS] = Field(None, title="Light source config")
     output_parameters: AindGenericType = Field(AindGeneric(), title="Performance metrics")
-    reward_consumed_during_epoch: Decimal = Field(..., title="Reward consumed during training (uL)")
+    reward_consumed_during_epoch: Optional[Decimal] = Field(None, title="Reward consumed during training (uL)")
     reward_consumed_unit: VolumeUnit = Field(VolumeUnit.UL, title="Reward consumed unit")
     trials_total: Optional[int] = Field(None, title="Total trials")
     trials_finished: Optional[int] = Field(None, title="Finished trials")
