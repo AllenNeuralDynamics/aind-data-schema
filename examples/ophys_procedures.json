@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/procedures.py",
-   "schema_version": "0.12.8",
+   "schema_version": "0.13.0",
    "subject_id": "625100",
    "subject_procedures": [
       {
@@ -114,7 +114,11 @@
       },
       {
          "procedure_type": "Water restriction",
-         "protocol_id": null,
+         "iacuc_protocol": "1234",
+         "target_fraction_weight": 25,
+         "target_fraction_weight_unit": "percent",
+         "minimum_water_per_day": "1.5",
+         "minimum_water_per_day_unit": "milliliter",
          "baseline_weight": "20.4",
          "weight_unit": "gram",
          "start_date": "2023-05-15",

@@ -21,6 +21,7 @@ from aind_data_schema.models.units import (
     MassUnit,
     SizeUnit,
     TimeUnit,
+    UnitlessUnit,
     VolumeUnit,
     create_unit_with_value,
 )
@@ -526,7 +527,11 @@ class WaterRestriction(AindModel):
     """Description of a water restriction procedure"""
 
     procedure_type: Literal["Water restriction"] = "Water restriction"
-    protocol_id: Optional[str] = Field(None, title="Water restriction protocol number")
+    iacuc_protocol: str = Field(..., title="IACUC protocol")
+    target_fraction_weight: int = Field(..., title="Target fraction weight (%)")
+    target_fraction_weight_unit: UnitlessUnit = Field(UnitlessUnit.PERCENT, title="Target fraction weight unit")
+    minimum_water_per_day: Decimal = Field(..., title="Minimum water per day (mL)")
+    minimum_water_per_day_unit: VolumeUnit = Field(VolumeUnit.ML, title="Minimum water per day unit")
     baseline_weight: Decimal = Field(
         ...,
         title="Baseline weight (g)",
@@ -534,7 +539,7 @@ class WaterRestriction(AindModel):
     )
     weight_unit: MassUnit = Field(MassUnit.G, title="Weight unit")
     start_date: date = Field(..., title="Water restriction start date")
-    end_date: date = Field(..., title="Water restriction end date")
+    end_date: Optional[date] = Field(None, title="Water restriction end date")
 
 
 class Perfusion(AindModel):
@@ -598,7 +603,7 @@ class Procedures(AindCoreModel):
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/procedures.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
 
-    schema_version: Literal["0.12.8"] = Field("0.12.8")
+    schema_version: Literal["0.13.0"] = Field("0.13.0")
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",

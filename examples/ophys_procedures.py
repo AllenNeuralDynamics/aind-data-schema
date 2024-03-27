@@ -89,7 +89,14 @@ p = Procedures(
                 ),
             ],
         ),
-        WaterRestriction(start_date="2023-05-15", baseline_weight=20.4, end_date="2023-05-23"),
+        WaterRestriction(
+            start_date="2023-05-15",
+            iacuc_protocol="1234",
+            target_fraction_weight=25,
+            minimum_water_per_day=1.5,
+            baseline_weight=20.4,
+            end_date="2023-05-23",
+        ),
         Surgery(
             start_date="2023-05-31",
             experimenter_full_name="John Apple",
