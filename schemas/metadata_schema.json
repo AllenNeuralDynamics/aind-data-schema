@@ -20279,8 +20279,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.13.0",
-               "default": "0.13.0",
+               "const": "0.13.1",
+               "default": "0.13.1",
                "title": "Schema Version"
             },
             "subject_id": {
@@ -26957,17 +26957,42 @@
                "default": "Water restriction",
                "title": "Procedure Type"
             },
-            "protocol_id": {
-               "anyOf": [
+            "iacuc_protocol": {
+               "title": "IACUC protocol",
+               "type": "string"
+            },
+            "target_fraction_weight": {
+               "title": "Target fraction weight (%)",
+               "type": "integer"
+            },
+            "target_fraction_weight_unit": {
+               "allOf": [
                   {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
+                     "$ref": "#/$defs/UnitlessUnit"
                   }
                ],
-               "default": null,
-               "title": "Water restriction protocol number"
+               "default": "percent",
+               "title": "Target fraction weight unit"
+            },
+            "minimum_water_per_day": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  }
+               ],
+               "title": "Minimum water per day (mL)"
+            },
+            "minimum_water_per_day_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/VolumeUnit"
+                  }
+               ],
+               "default": "milliliter",
+               "title": "Minimum water per day unit"
             },
             "baseline_weight": {
                "anyOf": [
@@ -26996,15 +27021,25 @@
                "type": "string"
             },
             "end_date": {
-               "format": "date",
-               "title": "Water restriction end date",
-               "type": "string"
+               "anyOf": [
+                  {
+                     "format": "date",
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Water restriction end date"
             }
          },
          "required": [
+            "iacuc_protocol",
+            "target_fraction_weight",
+            "minimum_water_per_day",
             "baseline_weight",
-            "start_date",
-            "end_date"
+            "start_date"
          ],
          "title": "WaterRestriction",
          "type": "object"
@@ -28547,8 +28582,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.1.42",
-         "default": "0.1.42",
+         "const": "0.2.1",
+         "default": "0.2.1",
          "title": "Schema Version"
       },
       "_id": {
