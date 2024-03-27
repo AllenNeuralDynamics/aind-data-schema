@@ -4,18 +4,10 @@ aind\_data\_schema.utils package
 Submodules
 ----------
 
-aind\_data\_schema.utils.aind\_utils module
--------------------------------------------
+aind\_data\_schema.utils.diagrams module
+----------------------------------------
 
-.. automodule:: aind_data_schema.utils.aind_utils
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-aind\_data\_schema.utils.erd\_generator module
-----------------------------------------------
-
-.. automodule:: aind_data_schema.utils.erd_generator
+.. automodule:: aind_data_schema.utils.diagrams
    :members:
    :undoc-members:
    :show-inheritance:
@@ -28,10 +20,10 @@ aind\_data\_schema.utils.json\_writer module
    :undoc-members:
    :show-inheritance:
 
-aind\_data\_schema.utils.schema\_version\_check module
-------------------------------------------------------
+aind\_data\_schema.utils.schema\_version\_bump module
+-----------------------------------------------------
 
-.. automodule:: aind_data_schema.utils.schema_version_check
+.. automodule:: aind_data_schema.utils.schema_version_bump
    :members:
    :undoc-members:
    :show-inheritance:
