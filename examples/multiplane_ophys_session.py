@@ -18,12 +18,13 @@ s = Session(
     session_type="Mesoscope",
     iacuc_protocol="12345",
     rig_id="MESO.1",
+    mouse_platform_name="disc",
+    active_mouse_platform=True,
     data_streams=[
         Stream(
             stream_start_time=t,
             stream_end_time=t,
             stream_modalities=[Modality.POPHYS, Modality.BEHAVIOR_VIDEOS, Modality.CONFOCAL],
-            mouse_platform_name="disc",
             camera_names=[
                 "Mesoscope",
                 "Eye",
@@ -31,7 +32,6 @@ s = Session(
                 "Behavior",
                 "Vasculature",
             ],
-            active_mouse_platform=True,
             light_sources=[
                 LaserConfig(
                     name="Laser A",

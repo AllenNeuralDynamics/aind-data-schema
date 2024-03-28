@@ -100,6 +100,12 @@ class TemperatureUnit(str, Enum):
     K = "Kelvin"
 
 
+class SoundIntensityUnit(str, Enum):
+    """Sound intensity units"""
+
+    DB = "decibels"
+
+
 class UnitlessUnit(str, Enum):
     """Unitless options"""
 
