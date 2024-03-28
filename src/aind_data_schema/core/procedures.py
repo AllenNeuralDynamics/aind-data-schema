@@ -217,13 +217,6 @@ class Antibody(Reagent):
     concentration_unit: str = Field("ug/ml", title="Concentration unit")
 
 
-class Immunolabeling(AindModel):
-    """Description of an immunolabling step"""
-
-    procedure_type: Literal["Immunolabeling"] = "Immunolabeling"
-    antibody: List[Antibody] = Field(..., title="Antibody")
-
-
 class SpecimenProcedure(AindModel):
     """Description of surgical or other procedure performed on a specimen"""
 
@@ -242,7 +235,7 @@ class SpecimenProcedure(AindModel):
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     reagents: List[Reagent] = Field(default=[], title="Reagents")
     hcr_series: Optional[HCRSeries] = Field(None, title="HCR Series")
-    immunolabeling: Optional[Immunolabeling] = Field(None, title="Immunolabeling")
+    immunolabeling_antibodies: Optional[List[Antibody]] = Field(None, title="Immunolabeling")
     notes: Optional[str] = Field(None, title="Notes")
 
     @model_validator(mode="after")
@@ -255,7 +248,7 @@ class SpecimenProcedure(AindModel):
             )
         elif self.procedure_type == SpecimenProcedureType.HCR and not self.hcr_series:
             raise AssertionError("hcr_series cannot be empty if procedure_type is HCR.")
-        elif self.procedure_type == SpecimenProcedureType.IMMUNOLABELING and not self.immunolabeling:
+        elif self.procedure_type == SpecimenProcedureType.IMMUNOLABELING and not self.immunolabeling_antibodies:
             raise AssertionError("immunolabeling cannot be empty if procedure_type is Immunolabeling.")
         return self
 
