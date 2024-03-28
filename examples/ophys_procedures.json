@@ -164,36 +164,38 @@
          "hcr_series": null,
          "immunolabeling": {
             "procedure_type": "Immunolabeling",
-            "antibody": {
-               "name": "Chicken polyclonal",
-               "source": {
-                  "name": "Abcam",
-                  "abbreviation": null,
-                  "registry": {
-                     "name": "Research Organization Registry",
-                     "abbreviation": "ROR"
+            "antibody": [
+               {
+                  "name": "Chicken polyclonal",
+                  "source": {
+                     "name": "Abcam",
+                     "abbreviation": null,
+                     "registry": {
+                        "name": "Research Organization Registry",
+                        "abbreviation": "ROR"
+                     },
+                     "registry_identifier": "02e1wjw63"
                   },
-                  "registry_identifier": "02e1wjw63"
-               },
-               "rrid": {
-                  "name": "Chicken polyclonal to GFP",
-                  "abbreviation": null,
-                  "registry": {
-                     "name": "Research Resource Identifiers",
-                     "abbreviation": "RRID"
+                  "rrid": {
+                     "name": "Chicken polyclonal to GFP",
+                     "abbreviation": null,
+                     "registry": {
+                        "name": "Research Resource Identifiers",
+                        "abbreviation": "RRID"
+                     },
+                     "registry_identifier": "ab13970"
                   },
-                  "registry_identifier": "ab13970"
-               },
-               "lot_number": "GR3361051-16",
-               "expiration_date": null,
-               "immunolabel_class": "Primary",
-               "fluorophore": null,
-               "degree_of_labeling": null,
-               "degree_of_labeling_unit": "Fluorophore per antibody",
-               "conjugation_protocol": null
-            },
-            "concentration": "10",
-            "concentration_unit": "ug/ml"
+                  "lot_number": "GR3361051-16",
+                  "expiration_date": null,
+                  "immunolabel_class": "Primary",
+                  "fluorophore": null,
+                  "degree_of_labeling": null,
+                  "degree_of_labeling_unit": "Fluorophore per antibody",
+                  "conjugation_protocol": null,
+                  "concentration": "10",
+                  "concentration_unit": "ug/ml"
+               }
+            ]
          },
          "notes": "Primary dilution factor 1:1000 ---final concentration is 10ug/ml"
       },
@@ -209,36 +211,38 @@
          "hcr_series": null,
          "immunolabeling": {
             "procedure_type": "Immunolabeling",
-            "antibody": {
-               "name": "Alexa Fluor 488 goat anti-chicken IgY (H+L)",
-               "source": {
-                  "name": "Thermo Fisher",
-                  "abbreviation": null,
-                  "registry": {
-                     "name": "Research Organization Registry",
-                     "abbreviation": "ROR"
-                  },
-                  "registry_identifier": "03x1ewr52"
-               },
-               "rrid": {
+            "antibody": [
+               {
                   "name": "Alexa Fluor 488 goat anti-chicken IgY (H+L)",
-                  "abbreviation": null,
-                  "registry": {
-                     "name": "Research Resource Identifiers",
-                     "abbreviation": "RRID"
+                  "source": {
+                     "name": "Thermo Fisher",
+                     "abbreviation": null,
+                     "registry": {
+                        "name": "Research Organization Registry",
+                        "abbreviation": "ROR"
+                     },
+                     "registry_identifier": "03x1ewr52"
                   },
-                  "registry_identifier": "A11039"
-               },
-               "lot_number": "2420700",
-               "expiration_date": null,
-               "immunolabel_class": "Secondary",
-               "fluorophore": "Alexa Fluor 488",
-               "degree_of_labeling": null,
-               "degree_of_labeling_unit": "Fluorophore per antibody",
-               "conjugation_protocol": null
-            },
-            "concentration": "4",
-            "concentration_unit": "ug/ml"
+                  "rrid": {
+                     "name": "Alexa Fluor 488 goat anti-chicken IgY (H+L)",
+                     "abbreviation": null,
+                     "registry": {
+                        "name": "Research Resource Identifiers",
+                        "abbreviation": "RRID"
+                     },
+                     "registry_identifier": "A11039"
+                  },
+                  "lot_number": "2420700",
+                  "expiration_date": null,
+                  "immunolabel_class": "Secondary",
+                  "fluorophore": "Alexa Fluor 488",
+                  "degree_of_labeling": null,
+                  "degree_of_labeling_unit": "Fluorophore per antibody",
+                  "conjugation_protocol": null,
+                  "concentration": "4",
+                  "concentration_unit": "ug/ml"
+               }
+            ]
          },
          "notes": "Secondary dilution factor 1:500 - final concentration 4ug/ml"
       }

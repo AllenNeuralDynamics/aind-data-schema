@@ -118,17 +118,19 @@ p = Procedures(
             protocol_id="TO ENTER",
             reagents=[],
             immunolabeling=Immunolabeling(
-                antibody=Antibody(
-                    name="Chicken polyclonal",
-                    source=Organization.ABCAM,
-                    rrid=PIDName(
-                        name="Chicken polyclonal to GFP", registry=Registry.RRID, registry_identifier="ab13970"
+                antibody=[
+                    Antibody(
+                        name="Chicken polyclonal",
+                        source=Organization.ABCAM,
+                        rrid=PIDName(
+                            name="Chicken polyclonal to GFP", registry=Registry.RRID, registry_identifier="ab13970"
+                        ),
+                        lot_number="GR3361051-16",
+                        immunolabel_class="Primary",
+                        fluorophore=None,
+                        concentration=10,
                     ),
-                    lot_number="GR3361051-16",
-                    immunolabel_class="Primary",
-                    fluorophore=None,
-                ),
-                concentration=10,
+                ]
             ),
             notes="Primary dilution factor 1:1000 ---final concentration is 10ug/ml",
         ),
@@ -141,19 +143,21 @@ p = Procedures(
             protocol_id="TO ENTER",
             reagents=[],
             immunolabeling=Immunolabeling(
-                antibody=Antibody(
-                    name="Alexa Fluor 488 goat anti-chicken IgY (H+L)",
-                    source=Organization.THERMOFISHER,
-                    rrid=PIDName(
+                antibody=[
+                    Antibody(
                         name="Alexa Fluor 488 goat anti-chicken IgY (H+L)",
-                        registry=Registry.RRID,
-                        registry_identifier="A11039",
+                        source=Organization.THERMOFISHER,
+                        rrid=PIDName(
+                            name="Alexa Fluor 488 goat anti-chicken IgY (H+L)",
+                            registry=Registry.RRID,
+                            registry_identifier="A11039",
+                        ),
+                        lot_number="2420700",
+                        immunolabel_class="Secondary",
+                        fluorophore="Alexa Fluor 488",
+                        concentration=4
                     ),
-                    lot_number="2420700",
-                    immunolabel_class="Secondary",
-                    fluorophore="Alexa Fluor 488",
-                ),
-                concentration=4,
+                ]
             ),
             notes="Secondary dilution factor 1:500 - final concentration 4ug/ml",
         ),

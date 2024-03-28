@@ -213,15 +213,15 @@ class Antibody(Reagent):
     conjugation_protocol: Optional[str] = Field(
         None, title="Conjugation protocol", description="Only for conjugated anitbody"
     )
+    concentration: Decimal = Field(..., title="Concentration")
+    concentration_unit: str = Field("ug/ml", title="Concentration unit")
 
 
 class Immunolabeling(AindModel):
     """Description of an immunolabling step"""
 
     procedure_type: Literal["Immunolabeling"] = "Immunolabeling"
-    antibody: Antibody = Field(..., title="Antibody")
-    concentration: Decimal = Field(..., title="Concentration")
-    concentration_unit: str = Field("ug/ml", title="Concentration unit")
+    antibody: List[Antibody] = Field(..., title="Antibody")
 
 
 class SpecimenProcedure(AindModel):
