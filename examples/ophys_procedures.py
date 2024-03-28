@@ -151,7 +151,7 @@ p = Procedures(
                     lot_number="2420700",
                     immunolabel_class="Secondary",
                     fluorophore="Alexa Fluor 488",
-                    concentration=4
+                    concentration=4,
                 ),
             ],
             notes="Secondary dilution factor 1:500 - final concentration 4ug/ml",
