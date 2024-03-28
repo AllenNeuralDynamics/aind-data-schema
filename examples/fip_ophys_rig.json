@@ -88,11 +88,11 @@
    ],
    "cameras": [
       {
-         "camera_assembly_name": "BehaviorVideography_FaceSide",
+         "name": "BehaviorVideography_FaceSide",
          "camera_target": "Face side",
          "camera": {
             "device_type": "Detector",
-            "name": "ELP Camera USB 1080P Infrared Webcam 1",
+            "name": "Side face camera",
             "serial_number": "TBD",
             "manufacturer": {
                "name": "Ailipu Technology Co",
@@ -163,11 +163,11 @@
          "position": null
       },
       {
-         "camera_assembly_name": "BehaviorVideography_FaceBottom",
+         "name": "BehaviorVideography_FaceBottom",
          "camera_target": "Face bottom",
          "camera": {
             "device_type": "Detector",
-            "name": "ELP Camera USB 1080P Infrared Webcam 2",
+            "name": "Bottom face Camera",
             "serial_number": "TBD",
             "manufacturer": {
                "name": "Ailipu Technology Co",
@@ -335,7 +335,7 @@
    "detectors": [
       {
          "device_type": "Detector",
-         "name": "FLIR CMOS for Green Channel",
+         "name": "Green CMOS",
          "serial_number": "21396991",
          "manufacturer": {
             "name": "Teledyne FLIR",
@@ -379,7 +379,7 @@
       },
       {
          "device_type": "Detector",
-         "name": "FLIR CMOS for Red Channel",
+         "name": "Red CMOS",
          "serial_number": "21396991",
          "manufacturer": {
             "name": "Teledyne FLIR",
@@ -425,7 +425,7 @@
    "objectives": [
       {
          "device_type": "Objective",
-         "name": "Nikon 10x Objective",
+         "name": "Objective",
          "serial_number": "128022336",
          "manufacturer": {
             "name": "Nikon",
@@ -450,7 +450,7 @@
    "filters": [
       {
          "device_type": "Filter",
-         "name": "Green emission bandpass filter",
+         "name": "Green emission filter",
          "serial_number": null,
          "manufacturer": {
             "name": "Semrock",
@@ -479,7 +479,7 @@
       },
       {
          "device_type": "Filter",
-         "name": "Red emission bandpass filter",
+         "name": "Red emission filter",
          "serial_number": null,
          "manufacturer": {
             "name": "Semrock",
@@ -662,7 +662,7 @@
       },
       {
          "device_type": "Filter",
-         "name": "450nm, 25.2 x 35.6mm, Dichroic Longpass Filter",
+         "name": "450 Dichroic Longpass Filter",
          "serial_number": null,
          "manufacturer": {
             "name": "Edmund Optics",
@@ -694,7 +694,7 @@
       },
       {
          "device_type": "Filter",
-         "name": "500nm, 25.2 x 35.6mm, Dichroic Longpass Filter",
+         "name": "500 Dichroic Longpass Filter",
          "serial_number": null,
          "manufacturer": {
             "name": "Edmund Optics",
@@ -718,7 +718,7 @@
          "thickness": null,
          "thickness_unit": "millimeter",
          "filter_wheel_index": null,
-         "cut_off_wavelength": null,
+         "cut_off_wavelength": 500,
          "cut_on_wavelength": null,
          "center_wavelength": null,
          "wavelength_unit": "nanometer",

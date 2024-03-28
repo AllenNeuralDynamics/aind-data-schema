@@ -395,7 +395,7 @@ class CameraAssembly(AindModel):
     """Named assembly of a camera and lens (and optionally a filter)"""
 
     # required fields
-    camera_assembly_name: str = Field(..., title="Camera assembly name")
+    name: str = Field(..., title="Camera assembly name")
     camera_target: CameraTarget = Field(..., title="Camera target")
     camera: Camera = Field(..., title="Camera")
     lens: Lens = Field(..., title="Lens")
@@ -538,7 +538,7 @@ class Manipulator(Device):
 class LaserAssembly(AindModel):
     """Assembly for optogenetic stimulation"""
 
-    laser_assembly_name: str = Field(..., title="Laser assembly name")
+    name: str = Field(..., title="Laser assembly name")
     manipulator: Manipulator = Field(..., title="Manipulator")
     lasers: List[Laser] = Field(..., title="Lasers connected to this module")
 
@@ -564,7 +564,7 @@ class EphysProbe(Device):
 class EphysAssembly(AindModel):
     """Module for electrophysiological recording"""
 
-    ephys_assembly_name: str = Field(..., title="Ephys assembly name")
+    name: str = Field(..., title="Ephys assembly name")
     manipulator: Manipulator = Field(..., title="Manipulator")
     probes: List[EphysProbe] = Field(..., title="Probes that are held by this module")
 
@@ -595,7 +595,7 @@ class Patch(Device):
 class FiberAssembly(AindModel):
     """Module for inserted fiber photometry recording"""
 
-    fiber_assembly_name: str = Field(..., title="Ephys assembly name")
+    name: str = Field(..., title="Fiber assembly name")
     manipulator: Manipulator = Field(..., title="Manipulator")
     fibers: List[FiberProbe] = Field(..., title="Probes that are held by this module")
 
