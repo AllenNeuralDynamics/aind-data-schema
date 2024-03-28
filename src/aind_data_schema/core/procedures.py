@@ -87,6 +87,21 @@ class Side(str, Enum):
     RIGHT = "Right"
 
 
+class SectioningOrientation(str, Enum):
+    """Orientation of sectioning"""
+
+    CORONAL = "Coronal"
+    SAGITTAL = "Sagittal"
+    TRANSVERSE = "Transverse"
+
+
+class SliceStrategy(str, Enum):
+    """"""
+
+    WHOLE = "Whole Brain"
+    HEMI = "Hemi Brain"
+
+
 class ProtectiveMaterial(str, Enum):
     """Name of material applied to craniotomy"""
 
@@ -113,6 +128,7 @@ class CoordinateReferenceLocation(str, Enum):
 
     BREGMA = "Bregma"
     LAMBDA = "Lambda"
+    MIDLINE = "Midline"
 
 
 class HeadframeMaterial(str, Enum):
@@ -224,6 +240,22 @@ class Immunolabeling(AindModel):
     concentration_unit: str = Field("ug/ml", title="Concentration unit")
 
 
+class Sectioning(AindModel):
+    """Description of a sectioning procedure"""
+
+    procedure_type: Literal["Sectioning"] = "Sectioning"
+    number_of_slices: int = Field(..., title="Number of slices")
+    output_specimen_ids: List[str] = Field(..., title="Output specimen ids")
+    sectioning_orientation: SectioningOrientation = Field(..., title="Sectioning orientation")
+    section_thickness: Decimal = Field(..., title="Section thickness")
+    section_thickness_unit: SizeUnit = Field(SizeUnit.MM, title="Section thickness unit")
+    section_distance: Decimal = Field(..., title="Section distance from reference")
+    section_distance_unit: SizeUnit = Field(SizeUnit.MM, title="Distance unit")
+    distance_reference: CoordinateReferenceLocation = Field(..., title="Distance reference")
+    slice_strategy: SliceStrategy = Field(..., title="Slice strategy")
+    targeted_structure: str = Field(..., title="Targeted structure", description="Use Allen Brain Atlas Ontology")
+
+
 class SpecimenProcedure(AindModel):
     """Description of surgical or other procedure performed on a specimen"""
 
@@ -243,6 +275,7 @@ class SpecimenProcedure(AindModel):
     reagents: List[Reagent] = Field(default=[], title="Reagents")
     hcr_series: Optional[HCRSeries] = Field(None, title="HCR Series")
     immunolabeling: Optional[Immunolabeling] = Field(None, title="Immunolabeling")
+    sectioning: Optional[Sectioning] = Field(None, title="Sectioning")
     notes: Optional[str] = Field(None, title="Notes")
 
     @model_validator(mode="after")
