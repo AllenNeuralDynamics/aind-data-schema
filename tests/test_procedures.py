@@ -14,6 +14,7 @@ from aind_data_schema.core.procedures import (
     OphysProbe,
     Procedures,
     RetroOrbitalInjection,
+    Sectioning,
     SpecimenProcedure,
     Surgery,
     TarsVirusIdentifiers,
@@ -341,6 +342,21 @@ class ProceduresTests(unittest.TestCase):
                 injection_volume=[1, 2],
             )
 
+
+    def test_sectioning_output_ids(self):
+        """Test validator for list length on Sectioning"""
+
+        with self.assertRaises(ValidationError):
+            Sectioning(
+                number_of_slices=3,
+                output_specimen_ids=["123456_001","123456_002"],
+                sectioning_orientation="Coronal",
+                section_thickness=0.2,
+                section_distance=0.5,
+                distance_reference="Bregma",
+                slice_strategy="Whole Brain",
+                targeted_structure="MOp",
+            )
 
 if __name__ == "__main__":
     unittest.main()
