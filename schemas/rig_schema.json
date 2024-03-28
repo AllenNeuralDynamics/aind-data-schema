@@ -1006,7 +1006,7 @@
          "additionalProperties": false,
          "description": "Named assembly of a camera and lens (and optionally a filter)",
          "properties": {
-            "camera_assembly_name": {
+            "name": {
                "title": "Camera assembly name",
                "type": "string"
             },
@@ -1060,7 +1060,7 @@
             }
          },
          "required": [
-            "camera_assembly_name",
+            "name",
             "camera_target",
             "camera",
             "lens"
@@ -4264,7 +4264,7 @@
          "additionalProperties": false,
          "description": "Module for electrophysiological recording",
          "properties": {
-            "ephys_assembly_name": {
+            "name": {
                "title": "Ephys assembly name",
                "type": "string"
             },
@@ -4280,7 +4280,7 @@
             }
          },
          "required": [
-            "ephys_assembly_name",
+            "name",
             "manipulator",
             "probes"
          ],
@@ -4783,8 +4783,8 @@
          "additionalProperties": false,
          "description": "Module for inserted fiber photometry recording",
          "properties": {
-            "fiber_assembly_name": {
-               "title": "Ephys assembly name",
+            "name": {
+               "title": "Fiber assembly name",
                "type": "string"
             },
             "manipulator": {
@@ -4799,7 +4799,7 @@
             }
          },
          "required": [
-            "fiber_assembly_name",
+            "name",
             "manipulator",
             "fibers"
          ],
@@ -7404,7 +7404,7 @@
          "additionalProperties": false,
          "description": "Assembly for optogenetic stimulation",
          "properties": {
-            "laser_assembly_name": {
+            "name": {
                "title": "Laser assembly name",
                "type": "string"
             },
@@ -7420,7 +7420,7 @@
             }
          },
          "required": [
-            "laser_assembly_name",
+            "name",
             "manipulator",
             "lasers"
          ],
@@ -14949,8 +14949,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.2.23",
-         "default": "0.2.23",
+         "const": "0.3.1",
+         "default": "0.3.1",
          "title": "Schema Version"
       },
       "rig_id": {
