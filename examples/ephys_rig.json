@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/rig.py",
-   "schema_version": "0.2.23",
+   "schema_version": "0.3.0",
    "rig_id": "323_EPHYS1",
    "modification_date": "2023-10-03",
    "mouse_platform": {
@@ -25,7 +25,7 @@
    "stimulus_devices": [],
    "cameras": [
       {
-         "camera_assembly_name": "Face Camera Assembly",
+         "name": "Face Camera Assembly",
          "camera_target": "Face side",
          "camera": {
             "device_type": "Detector",
@@ -132,7 +132,7 @@
          "position": null
       },
       {
-         "camera_assembly_name": "Body Camera Assembly",
+         "name": "Body Camera Assembly",
          "camera_target": "Body",
          "camera": {
             "device_type": "Detector",
@@ -242,7 +242,7 @@
    "enclosure": null,
    "ephys_assemblies": [
       {
-         "ephys_assembly_name": "Ephys_assemblyA",
+         "name": "Ephys_assemblyA",
          "manipulator": {
             "device_type": "Manipulator",
             "name": "Manipulator 1",
@@ -277,7 +277,7 @@
          ]
       },
       {
-         "ephys_assembly_name": "Ephys_assemblyB",
+         "name": "Ephys_assemblyB",
          "manipulator": {
             "device_type": "Manipulator",
             "name": "Manipulator B",
@@ -315,7 +315,7 @@
    "fiber_assemblies": [],
    "stick_microscopes": [
       {
-         "camera_assembly_name": "Stick_assembly",
+         "name": "Stick_assembly",
          "camera_target": "Brain surface",
          "camera": {
             "device_type": "Detector",
@@ -393,7 +393,7 @@
    ],
    "laser_assemblies": [
       {
-         "laser_assembly_name": "Laser_assemblyA",
+         "name": "Laser_assemblyA",
          "manipulator": {
             "device_type": "Manipulator",
             "name": "Manipulator A",

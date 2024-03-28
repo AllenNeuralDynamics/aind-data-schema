@@ -82,7 +82,7 @@ class RigTests(unittest.TestCase):
                     manufacturer=Organization.NEW_SCALE_TECHNOLOGIES,
                     serial_number="4321",
                 ),
-                ephys_assembly_name="Ephys_assemblyA",
+                name="Ephys_assemblyA",
             )
         ]
 
@@ -101,7 +101,7 @@ class RigTests(unittest.TestCase):
                     manufacturer=Organization.NEW_SCALE_TECHNOLOGIES,
                     serial_number="1234",
                 ),
-                laser_assembly_name="Laser_assembly",
+                name="Laser_assembly",
             )
         ]
 
@@ -112,7 +112,7 @@ class RigTests(unittest.TestCase):
             daqs=daqs,
             cameras=[
                 CameraAssembly(
-                    camera_assembly_name="cam",
+                    name="cam",
                     camera_target="Face bottom",
                     lens=Lens(name="Camera lens", manufacturer=Organization.OTHER),
                     camera=Camera(
@@ -130,7 +130,7 @@ class RigTests(unittest.TestCase):
             ],
             stick_microscopes=[
                 CameraAssembly(
-                    camera_assembly_name="Assembly A",
+                    name="Assembly A",
                     camera=Camera(
                         name="Camera A",
                         detector_type=DetectorType.CAMERA,
