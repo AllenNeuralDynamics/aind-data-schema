@@ -14,7 +14,6 @@ from aind_data_schema.core.procedures import (
     OphysProbe,
     Procedures,
     RetroOrbitalInjection,
-    Sectioning,
     SpecimenProcedure,
     Surgery,
     TarsVirusIdentifiers,
