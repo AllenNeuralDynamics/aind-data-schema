@@ -239,7 +239,7 @@ class SpecimenProcedure(AindModel):
         description="First and last name of the experimenter.",
         title="Experimenter full name",
     )
-    protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
+    protocol_id: List[str] = Field(..., title="Protocol ID", description="DOI for protocols.io")
     reagents: List[Reagent] = Field(default=[], title="Reagents")
     hcr_series: Optional[HCRSeries] = Field(None, title="HCR Series")
     immunolabeling: Optional[Immunolabeling] = Field(None, title="Immunolabeling")
@@ -558,7 +558,7 @@ class Surgery(AindModel):
     """Description of subject procedures performed at one time"""
 
     procedure_type: Literal["Surgery"] = "Surgery"
-
+    protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     start_date: date = Field(..., title="Start date")
     experimenter_full_name: str = Field(
         ...,

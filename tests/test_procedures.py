@@ -135,6 +135,7 @@ class ProceduresTests(unittest.TestCase):
                     start_date=start_date,
                     experimenter_full_name="Chip Munk",
                     iacuc_protocol="234",
+                    protocol_id="123",
                     procedures=[
                         RetroOrbitalInjection(
                             protocol_id="134",
@@ -237,7 +238,7 @@ class ProceduresTests(unittest.TestCase):
                 start_date=date.fromisoformat("2020-10-10"),
                 end_date=date.fromisoformat("2020-10-11"),
                 experimenter_full_name="guy person",
-                protocol_id="10",
+                protocol_id=["10"],
                 reagents=[],
                 notes=None,
             )
@@ -257,7 +258,7 @@ class ProceduresTests(unittest.TestCase):
                 start_date=date.fromisoformat("2020-10-10"),
                 end_date=date.fromisoformat("2020-10-11"),
                 experimenter_full_name="guy person",
-                protocol_id="10",
+                protocol_id=["10"],
                 reagents=[],
                 notes=None,
             )
@@ -277,7 +278,7 @@ class ProceduresTests(unittest.TestCase):
                 start_date=date.fromisoformat("2020-10-10"),
                 end_date=date.fromisoformat("2020-10-11"),
                 experimenter_full_name="guy person",
-                protocol_id="10",
+                protocol_id=["10"],
                 reagents=[],
                 notes=None,
             )
@@ -298,7 +299,7 @@ class ProceduresTests(unittest.TestCase):
                 start_date=date.fromisoformat("2020-10-10"),
                 end_date=date.fromisoformat("2020-10-11"),
                 experimenter_full_name="guy person",
-                protocol_id="10",
+                protocol_id=["10"],
                 reagents=[],
                 notes="some extra information",
             )
