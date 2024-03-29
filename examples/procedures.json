@@ -18,6 +18,7 @@
             "level": "1.5"
          },
          "workstation_id": "SWS 3",
+         "protocol_id": "doi",
          "procedures": [
             {
                "procedure_type": "Craniotomy",
@@ -88,6 +89,7 @@
          "weight_unit": "gram",
          "anaesthesia": null,
          "workstation_id": null,
+         "protocol_id": "doi",
          "procedures": [
             {
                "procedure_type": "Perfusion",

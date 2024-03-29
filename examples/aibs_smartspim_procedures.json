@@ -13,10 +13,11 @@
          "weight_unit": "gram",
          "anaesthesia": null,
          "workstation_id": null,
+         "protocol_id": "doi_of_protocol_surgery",
          "procedures": [
             {
                "procedure_type": "Perfusion",
-               "protocol_id": "doi_of_protocol",
+               "protocol_id": "doi_of_protocol_perfusion",
                "output_specimen_ids": [
                   "651286"
                ]
@@ -33,7 +34,7 @@
          "start_date": "2023-01-13",
          "end_date": "2023-01-17",
          "experimenter_full_name": "John Smith",
-         "protocol_id": "unknown",
+         "protocol_id": ["unknown"],
          "reagents": [
             {
                "name": "SHIELD Buffer",
@@ -71,7 +72,7 @@
          "start_date": "2023-01-17",
          "end_date": "2023-01-18",
          "experimenter_full_name": "John Smith",
-         "protocol_id": "unknown",
+         "protocol_id": ["unknown"],
          "reagents": [
             {
                "name": "SHIELD On",
@@ -97,7 +98,7 @@
          "start_date": "2023-01-18",
          "end_date": "2023-01-19",
          "experimenter_full_name": "John Smith",
-         "protocol_id": "unknown",
+         "protocol_id": ["unknown"],
          "reagents": [
             {
                "name": "Delipidation Buffer",
@@ -123,7 +124,7 @@
          "start_date": "2023-01-19",
          "end_date": "2023-01-20",
          "experimenter_full_name": "John Smith",
-         "protocol_id": "unknown",
+         "protocol_id": ["unknown"],
          "reagents": [
             {
                "name": "Delipidation Buffer",
@@ -161,7 +162,7 @@
          "start_date": "2023-01-30",
          "end_date": "2023-01-31",
          "experimenter_full_name": "John Smith",
-         "protocol_id": "unknown",
+         "protocol_id": ["unknown"],
          "reagents": [
             {
                "name": "Easy Index",
@@ -199,7 +200,7 @@
          "start_date": "2023-01-31",
          "end_date": "2023-02-02",
          "experimenter_full_name": "John Smith",
-         "protocol_id": "unknown",
+         "protocol_id": ["unknown"],
          "reagents": [
             {
                "name": "Easy Index",
@@ -225,7 +226,7 @@
          "start_date": "2023-01-31",
          "end_date": "2023-02-02",
          "experimenter_full_name": "John Smith",
-         "protocol_id": "unknown",
+         "protocol_id": ["unknown"],
          "reagents": [
             {
                "name": "Easy Index",
