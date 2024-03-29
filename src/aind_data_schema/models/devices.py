@@ -11,6 +11,7 @@ from typing_extensions import Annotated
 from aind_data_schema.base import AindGeneric, AindGenericType, AindModel, AwareDatetimeWithDefault
 from aind_data_schema.models.coordinates import RelativePosition, Size3d
 from aind_data_schema.models.harp_types import HarpDeviceType
+from aind_data_schema.models.harp_types import Olfactometer as OlfactometerHarpType
 from aind_data_schema.models.organizations import Organization
 from aind_data_schema.models.reagent import Reagent
 from aind_data_schema.models.units import FrequencyUnit, PowerUnit, SizeUnit, SpeedUnit, TemperatureUnit, UnitlessUnit
@@ -513,7 +514,7 @@ class NeuropixelsBasestation(DAQDevice):
 
     # fixed values
     data_interface: Literal[DataInterface.PXI] = DataInterface.PXI
-    manufacturer: Literal[Organization.IMEC] = Organization.IMEC
+    manufacturer: Annotated[Union[Organization], Field(default=Organization.IMEC, discriminator="name")]
 
 
 class OpenEphysAcquisitionBoard(DAQDevice):
@@ -786,7 +787,9 @@ class Olfactometer(HarpDevice):
 
     device_type: Literal["Olfactometer"] = "Olfactometer"
     manufacturer: Organization.DAQ_DEVICE_MANUFACTURERS = Field(default=Organization.CHAMPALIMAUD)
-    harp_device_type: Literal[HarpDeviceType.OLFACTOMETER] = HarpDeviceType.OLFACTOMETER
+    harp_device_type: Annotated[
+        Union[OlfactometerHarpType], Field(default=HarpDeviceType.OLFACTOMETER, discriminator="name")
+    ]
     channels: List[OlfactometerChannel]
 
 
