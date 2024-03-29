@@ -1,10 +1,11 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/procedures.py",
-   "schema_version": "0.13.1",
+   "schema_version": "0.13.2",
    "subject_id": "651286",
    "subject_procedures": [
       {
          "procedure_type": "Surgery",
+         "protocol_id": "doi_of_protocol_surgery",
          "start_date": "2022-11-17",
          "experimenter_full_name": "LAS",
          "iacuc_protocol": "xxxx",
@@ -13,7 +14,6 @@
          "weight_unit": "gram",
          "anaesthesia": null,
          "workstation_id": null,
-         "protocol_id": "doi_of_protocol_surgery",
          "procedures": [
             {
                "procedure_type": "Perfusion",
@@ -34,7 +34,9 @@
          "start_date": "2023-01-13",
          "end_date": "2023-01-17",
          "experimenter_full_name": "John Smith",
-         "protocol_id": ["unknown"],
+         "protocol_id": [
+            "unknown"
+         ],
          "reagents": [
             {
                "name": "SHIELD Buffer",
@@ -72,7 +74,9 @@
          "start_date": "2023-01-17",
          "end_date": "2023-01-18",
          "experimenter_full_name": "John Smith",
-         "protocol_id": ["unknown"],
+         "protocol_id": [
+            "unknown"
+         ],
          "reagents": [
             {
                "name": "SHIELD On",
@@ -98,7 +102,9 @@
          "start_date": "2023-01-18",
          "end_date": "2023-01-19",
          "experimenter_full_name": "John Smith",
-         "protocol_id": ["unknown"],
+         "protocol_id": [
+            "unknown"
+         ],
          "reagents": [
             {
                "name": "Delipidation Buffer",
@@ -124,7 +130,9 @@
          "start_date": "2023-01-19",
          "end_date": "2023-01-20",
          "experimenter_full_name": "John Smith",
-         "protocol_id": ["unknown"],
+         "protocol_id": [
+            "unknown"
+         ],
          "reagents": [
             {
                "name": "Delipidation Buffer",
@@ -162,7 +170,9 @@
          "start_date": "2023-01-30",
          "end_date": "2023-01-31",
          "experimenter_full_name": "John Smith",
-         "protocol_id": ["unknown"],
+         "protocol_id": [
+            "unknown"
+         ],
          "reagents": [
             {
                "name": "Easy Index",
@@ -200,7 +210,9 @@
          "start_date": "2023-01-31",
          "end_date": "2023-02-02",
          "experimenter_full_name": "John Smith",
-         "protocol_id": ["unknown"],
+         "protocol_id": [
+            "unknown"
+         ],
          "reagents": [
             {
                "name": "Easy Index",
@@ -226,7 +238,9 @@
          "start_date": "2023-01-31",
          "end_date": "2023-02-02",
          "experimenter_full_name": "John Smith",
-         "protocol_id": ["unknown"],
+         "protocol_id": [
+            "unknown"
+         ],
          "reagents": [
             {
                "name": "Easy Index",

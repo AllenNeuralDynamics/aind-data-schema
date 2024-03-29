@@ -1,10 +1,11 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/procedures.py",
-   "schema_version": "0.13.1",
+   "schema_version": "0.13.2",
    "subject_id": "625100",
    "subject_procedures": [
       {
          "procedure_type": "Surgery",
+         "protocol_id": "doi",
          "start_date": "2022-07-12",
          "experimenter_full_name": "John Apple",
          "iacuc_protocol": "2109",
@@ -18,7 +19,6 @@
             "level": "1.5"
          },
          "workstation_id": "SWS 3",
-         "protocol_id": "doi",
          "procedures": [
             {
                "procedure_type": "Craniotomy",
@@ -81,6 +81,7 @@
       },
       {
          "procedure_type": "Surgery",
+         "protocol_id": "doi",
          "start_date": "2022-09-23",
          "experimenter_full_name": "Frank Lee",
          "iacuc_protocol": "2109",
@@ -89,7 +90,6 @@
          "weight_unit": "gram",
          "anaesthesia": null,
          "workstation_id": null,
-         "protocol_id": "doi",
          "procedures": [
             {
                "procedure_type": "Perfusion",

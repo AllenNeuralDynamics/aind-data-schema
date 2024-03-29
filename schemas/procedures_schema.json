@@ -7911,8 +7911,11 @@
             },
             "protocol_id": {
                "description": "DOI for protocols.io",
+               "items": {
+                  "type": "string"
+               },
                "title": "Protocol ID",
-               "type": "string"
+               "type": "array"
             },
             "reagents": {
                "default": [],
@@ -8414,6 +8417,11 @@
                "default": "Surgery",
                "title": "Procedure Type"
             },
+            "protocol_id": {
+               "description": "DOI for protocols.io",
+               "title": "Protocol ID",
+               "type": "string"
+            },
             "start_date": {
                "format": "date",
                "title": "Start date",
@@ -8577,6 +8585,7 @@
             }
          },
          "required": [
+            "protocol_id",
             "start_date",
             "experimenter_full_name",
             "procedures"
@@ -9279,8 +9288,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.13.1",
-         "default": "0.13.1",
+         "const": "0.13.2",
+         "default": "0.13.2",
          "title": "Schema Version"
       },
       "subject_id": {
