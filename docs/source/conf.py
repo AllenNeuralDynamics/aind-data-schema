@@ -27,7 +27,7 @@ release = package_version
 extensions = [
     "sphinx.ext.duration",
     "sphinx.ext.doctest",
-    "sphinx.ext.autodoc",
+    "sphinxcontrib.autodoc_pydantic",
     "sphinx.ext.napoleon",
     "sphinx_jinja",
 ]
