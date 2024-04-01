@@ -71,8 +71,36 @@ jobs:
           message: "updates diagrams [skip actions]"
           add: '["*.rst"]'
 
-  tag:
+  changelog:
     needs: update_docs
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        ref: ${{ inputs.default_branch }}
+        fetch-depth: 0
+        token: ${{ secrets.SERVICE_TOKEN }}
+    - name: Generate changelog
+      id: tag_version
+      uses: mathieudutour/github-tag-action@v6.1
+      with:
+        github_token: ${{ secrets.SERVICE_TOKEN }}
+        release_branches: ${{ inputs.default_branch }}
+        default_bump: patch
+        dry_run: true  # Perform dryrun first to calculate new version
+    - name:
+      run: |
+        echo "${{ steps.tag_version.outputs.changelog }}" >> CHANGELOGS.md
+    - name: Commit changes
+      uses: EndBug/add-and-commit@v9
+      with:
+        default_author: github_actions
+        message: "updates changelogs [skip actions]"
+        add: '["CHANGELOGS.md"]'
+
+  tag:
+    needs: changelog
     uses: AllenNeuralDynamics/aind-github-actions/.github/workflows/tag.yml@main
     secrets:
       SERVICE_TOKEN: ${{ secrets.SERVICE_TOKEN }} # required
