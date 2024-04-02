@@ -14,6 +14,7 @@ from aind_data_schema.core.procedures import (
     OphysProbe,
     Procedures,
     RetroOrbitalInjection,
+    Sectioning,
     SpecimenProcedure,
     Surgery,
     TarsVirusIdentifiers,
@@ -340,6 +341,35 @@ class ProceduresTests(unittest.TestCase):
                 injection_coordinate_depth=[0.1],
                 injection_volume=[1, 2],
             )
+    
+    def test_sectioning(self):
+        """Test sectioning"""
+
+        section = Sectioning(
+            number_of_slices=3,
+            output_specimen_ids=[123456_001, 123456_002, 123456_003],
+            sectioning_orientation="Coronal",
+            section_thickness=0.2,
+            section_distance=0.3, 
+            distance_reference="Bregma",
+            slice_strategy="Whole Brain",
+            targeted_structure="MOp",
+        )
+        self.assertEqual(number_of_slices, len(output_specimen_ids))
+
+        #Number of output ids does not match number of slices
+        with self.assertRaises(ValidationError):
+            Sectioning(
+                number_of_slices=2,
+                output_specimen_ids=[123456_001, 123456_002, 123456_003],
+                sectioning_orientation="Coronal",
+                section_thickness=0.2,
+                section_distance=0.3, 
+                distance_reference="Bregma",
+                slice_strategy="Whole Brain",
+                targeted_structure="MOp",
+            )
+    
 
 
 if __name__ == "__main__":
