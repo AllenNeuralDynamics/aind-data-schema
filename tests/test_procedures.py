@@ -263,7 +263,7 @@ class ProceduresTests(unittest.TestCase):
             )
         expected_exception = (
             "1 validation error for SpecimenProcedure\n"
-            "  Assertion failed, immunolabeling cannot be empty if procedure_type is Immunolabeling."
+            "  Assertion failed, antibodies cannot be empty if procedure_type is Immunolabeling."
             " [type=assertion_error, input_value={'specimen_id': '1000', '...nts': [], 'notes': None},"
             " input_type=dict]\n"
             f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/assertion_error"

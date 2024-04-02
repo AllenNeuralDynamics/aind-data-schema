@@ -249,7 +249,7 @@ class SpecimenProcedure(AindModel):
         elif self.procedure_type == SpecimenProcedureType.HCR and not self.hcr_series:
             raise AssertionError("hcr_series cannot be empty if procedure_type is HCR.")
         elif self.procedure_type == SpecimenProcedureType.IMMUNOLABELING and not self.antibodies:
-            raise AssertionError("immunolabeling cannot be empty if procedure_type is Immunolabeling.")
+            raise AssertionError("antibodies cannot be empty if procedure_type is Immunolabeling.")
         return self
 
 
