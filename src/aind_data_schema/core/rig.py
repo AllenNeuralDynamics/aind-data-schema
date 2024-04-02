@@ -91,8 +91,8 @@ class Rig(AindCoreModel):
             for camera_assembly in self.cameras + self.stick_microscopes:
                 if camera_assembly.camera_target == CameraTarget.OTHER:
                     raise ValueError(
-                        f"Notes cannot be empty if a camera contains an 'Other' field. "
-                        f"Describe the camera ({camera_assembly.camera_assembly_name}) in the notes field"
+                        f"Notes cannot be empty if a camera target contains an 'Other' field. "
+                        f"Describe the camera target from ({camera_assembly.camera_assembly_name}) in the notes field"
                     )
 
         return self
