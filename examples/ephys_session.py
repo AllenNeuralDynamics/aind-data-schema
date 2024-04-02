@@ -1,6 +1,6 @@
 """Generates an example JSON file for an ephys session"""
 
-from datetime import datetime
+from datetime import datetime, timezone
 
 from aind_data_schema.core.session import (
     DomeModule,
@@ -38,9 +38,11 @@ ephys_module = EphysModule(
     ],
 )
 
+# If a timezone isn't specified, the timezone of the computer running this
+# script will be used as default
 stream = Stream(
-    stream_start_time=datetime(2023, 1, 10, 8, 43, 00),
-    stream_end_time=datetime(2023, 1, 10, 9, 43, 00),
+    stream_start_time=datetime(2023, 1, 10, 8, 43, 00, tzinfo=timezone.utc),
+    stream_end_time=datetime(2023, 1, 10, 9, 43, 00, tzinfo=timezone.utc),
     stream_modalities=[Modality.ECEPHYS, Modality.BEHAVIOR_VIDEOS],
     stick_microscopes=[
         DomeModule(
@@ -53,21 +55,23 @@ stream = Stream(
     manipulator_modules=[laser_module],
     daq_names=["Harp Behavior", "Basestation Slot 3"],
     camera_names=["Face Camera", "Body Camera"],
-    mouse_platform_name="Running Wheel",
-    active_mouse_platform=False,
 )
 
+# If a timezone isn't specified, the timezone of the computer running this
+# script will be used as default
 session = Session(
     experimenter_full_name=["Jane Doe"],
     subject_id="100001",
-    session_start_time=datetime(2023, 1, 10, 8, 40, 00),
-    session_end_time=datetime(2023, 1, 10, 9, 46, 00),
+    session_start_time=datetime(2023, 1, 10, 8, 40, 00, tzinfo=timezone.utc),
+    session_end_time=datetime(2023, 1, 10, 9, 46, 00, tzinfo=timezone.utc),
     iacuc_protocol="1294",
     session_type="Test",
     rig_id="323_EPHYS1",
     animal_weight_prior=21.2,
     animal_weight_post=21.3,
     data_streams=[stream],
+    mouse_platform_name="Running Wheel",
+    active_mouse_platform=False,
 )
 
 session.write_standard_file(prefix="ephys")

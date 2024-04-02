@@ -1,6 +1,6 @@
 """ schema for various Procedures """
 
-from datetime import date, datetime
+from datetime import date
 from decimal import Decimal
 from enum import Enum
 from typing import List, Literal, Optional, Set, Union
@@ -9,7 +9,7 @@ from pydantic import Field, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
 from typing_extensions import Annotated
 
-from aind_data_schema.base import AindCoreModel, AindModel
+from aind_data_schema.base import AindCoreModel, AindModel, AwareDatetimeWithDefault
 from aind_data_schema.models.devices import FiberProbe
 from aind_data_schema.models.pid_names import PIDName
 from aind_data_schema.models.reagent import Reagent
@@ -21,6 +21,7 @@ from aind_data_schema.models.units import (
     MassUnit,
     SizeUnit,
     TimeUnit,
+    UnitlessUnit,
     VolumeUnit,
     create_unit_with_value,
 )
@@ -89,6 +90,7 @@ class Side(str, Enum):
 class ProtectiveMaterial(str, Enum):
     """Name of material applied to craniotomy"""
 
+    AGAROSE = "Agarose"
     DURAGEL = "Duragel"
     KWIK_CAST = "Kwik-Cast"
     SORTA_CLEAR = "SORTA-clear"
@@ -119,6 +121,13 @@ class HeadframeMaterial(str, Enum):
     STEEL = "Steel"
     TITANIUM = "Titanium"
     WHITE_ZIRCONIA = "White Zirconia"
+
+
+class GroundWireMaterial(str, Enum):
+    """Ground wire material name"""
+
+    SILVER = "Silver"
+    PLATINUM_IRIDIUM = "Platinum iridium"
 
 
 class VirusPrepType(str, Enum):
@@ -173,8 +182,8 @@ class HybridizationChainReaction(AindModel):
     """Description of an HCR staining round"""
 
     round_index: int = Field(..., title="Round index")
-    start_time: datetime = Field(..., title="Round start time")
-    end_time: datetime = Field(..., title="Round end time")
+    start_time: AwareDatetimeWithDefault = Field(..., title="Round start time")
+    end_time: AwareDatetimeWithDefault = Field(..., title="Round end time")
     HCR_probes: List[HCRProbe] = Field(..., title="HCR probes")
     other_probes: List[OligoProbe] = Field(default=[], title="Other probes")
     probe_concentration: Decimal = Field(..., title="Probe concentration (M)")
@@ -230,7 +239,7 @@ class SpecimenProcedure(AindModel):
         description="First and last name of the experimenter.",
         title="Experimenter full name",
     )
-    protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
+    protocol_id: List[str] = Field(..., title="Protocol ID", description="DOI for protocols.io")
     reagents: List[Reagent] = Field(default=[], title="Reagents")
     hcr_series: Optional[HCRSeries] = Field(None, title="HCR Series")
     immunolabeling: Optional[Immunolabeling] = Field(None, title="Immunolabeling")
@@ -295,6 +304,22 @@ class Headframe(AindModel):
     headframe_type: str = Field(..., title="Headframe type")
     headframe_part_number: str = Field(..., title="Headframe part number")
     headframe_material: Optional[HeadframeMaterial] = Field(None, title="Headframe material")
+    well_part_number: Optional[str] = Field(None, title="Well part number")
+    well_type: Optional[str] = Field(None, title="Well type")
+
+
+class ProtectiveMaterialReplacement(AindModel):
+    """Description of a protective material replacement procedure in preparation for ephys recording"""
+
+    procedure_type: Literal["Ground wire"] = "Ground wire"
+    protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
+    protective_material: ProtectiveMaterial = Field(
+        ..., title="Protective material", description="New material being applied"
+    )
+    ground_wire_hole: Optional[int] = Field(None, title="Ground wire hole")
+    ground_wire_material: Optional[GroundWireMaterial] = Field(None, title="Ground wire material")
+    ground_wire_diameter: Optional[Decimal] = Field(None, title="Ground wire diameter")
+    ground_wire_diameter_unit: SizeUnit = Field(SizeUnit.IN, title="Ground wire diameter unit")
     well_part_number: Optional[str] = Field(None, title="Well part number")
     well_type: Optional[str] = Field(None, title="Well type")
 
@@ -502,7 +527,11 @@ class WaterRestriction(AindModel):
     """Description of a water restriction procedure"""
 
     procedure_type: Literal["Water restriction"] = "Water restriction"
-    protocol_id: Optional[str] = Field(None, title="Water restriction protocol number")
+    iacuc_protocol: str = Field(..., title="IACUC protocol")
+    target_fraction_weight: int = Field(..., title="Target fraction weight (%)")
+    target_fraction_weight_unit: UnitlessUnit = Field(UnitlessUnit.PERCENT, title="Target fraction weight unit")
+    minimum_water_per_day: Decimal = Field(..., title="Minimum water per day (mL)")
+    minimum_water_per_day_unit: VolumeUnit = Field(VolumeUnit.ML, title="Minimum water per day unit")
     baseline_weight: Decimal = Field(
         ...,
         title="Baseline weight (g)",
@@ -510,7 +539,7 @@ class WaterRestriction(AindModel):
     )
     weight_unit: MassUnit = Field(MassUnit.G, title="Weight unit")
     start_date: date = Field(..., title="Water restriction start date")
-    end_date: date = Field(..., title="Water restriction end date")
+    end_date: Optional[date] = Field(None, title="Water restriction end date")
 
 
 class Perfusion(AindModel):
@@ -529,7 +558,7 @@ class Surgery(AindModel):
     """Description of subject procedures performed at one time"""
 
     procedure_type: Literal["Surgery"] = "Surgery"
-
+    protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     start_date: date = Field(..., title="Start date")
     experimenter_full_name: str = Field(
         ...,
@@ -557,8 +586,9 @@ class Surgery(AindModel):
                 IntraperitonealInjection,
                 IontophoresisInjection,
                 NanojectInjection,
-                Perfusion,
                 OtherSubjectProcedure,
+                Perfusion,
+                ProtectiveMaterialReplacement,
                 RetroOrbitalInjection,
             ],
             Field(discriminator="procedure_type"),
@@ -573,7 +603,7 @@ class Procedures(AindCoreModel):
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/procedures.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
 
-    schema_version: Literal["0.12.6"] = Field("0.12.6")
+    schema_version: Literal["0.13.2"] = Field("0.13.2")
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",

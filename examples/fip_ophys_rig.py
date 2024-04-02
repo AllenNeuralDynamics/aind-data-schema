@@ -1,5 +1,5 @@
 """ example FIP ophys rig """
-import datetime
+from datetime import date, datetime, timezone
 
 import aind_data_schema.core.rig as r
 import aind_data_schema.models.devices as d
@@ -7,14 +7,14 @@ from aind_data_schema.models.modalities import Modality
 
 r = r.Rig(
     rig_id="428_FIP1_2",
-    modification_date=datetime.date(2023, 10, 3),
+    modification_date=date(2023, 10, 3),
     modalities=[Modality.FIB],
     cameras=[
         d.CameraAssembly(
-            camera_assembly_name="BehaviorVideography_FaceSide",
+            name="BehaviorVideography_FaceSide",
             camera_target=d.CameraTarget.FACE_SIDE,
             camera=d.Camera(
-                name="ELP Camera USB 1080P Infrared Webcam 1",
+                name="Side face camera",
                 detector_type="Camera",
                 serial_number="TBD",
                 manufacturer=d.Organization.AILIPU,
@@ -40,10 +40,10 @@ r = r.Rig(
             ),
         ),
         d.CameraAssembly(
-            camera_assembly_name="BehaviorVideography_FaceBottom",
+            name="BehaviorVideography_FaceBottom",
             camera_target=d.CameraTarget.FACE_BOTTOM,
             camera=d.Camera(
-                name="ELP Camera USB 1080P Infrared Webcam 2",
+                name="Bottom face Camera",
                 detector_type="Camera",
                 serial_number="TBD",
                 manufacturer=d.Organization.AILIPU,
@@ -100,7 +100,7 @@ r = r.Rig(
     ],
     detectors=[
         d.Detector(
-            name="FLIR CMOS for Green Channel",
+            name="Green CMOS",
             serial_number="21396991",
             manufacturer=d.Organization.FLIR,
             model="BFS-U3-20S40M",
@@ -118,7 +118,7 @@ r = r.Rig(
             bit_depth=16,
         ),
         d.Detector(
-            name="FLIR CMOS for Red Channel",
+            name="Red CMOS",
             serial_number="21396991",
             manufacturer=d.Organization.FLIR,
             model="BFS-U3-20S40M",
@@ -138,7 +138,7 @@ r = r.Rig(
     ],
     objectives=[
         d.Objective(
-            name="Nikon 10x Objective",
+            name="Objective",
             serial_number="128022336",
             manufacturer=d.Organization.NIKON,
             model="CFI Plan Apochromat Lambda D 10x",
@@ -149,7 +149,7 @@ r = r.Rig(
     ],
     filters=[
         d.Filter(
-            name="Green emission bandpass filter",
+            name="Green emission filter",
             manufacturer=d.Organization.SEMROCK,
             model="FF01-520/35-25",
             filter_type="Band pass",
@@ -157,7 +157,7 @@ r = r.Rig(
             diameter=25,
         ),
         d.Filter(
-            name="Red emission bandpass filter",
+            name="Red emission filter",
             manufacturer=d.Organization.SEMROCK,
             model="FF01-600/37-25",
             filter_type="Band pass",
@@ -207,7 +207,7 @@ r = r.Rig(
             center_wavelength=560,
         ),
         d.Filter(
-            name="450nm, 25.2 x 35.6mm, Dichroic Longpass Filter",
+            name="450 Dichroic Longpass Filter",
             manufacturer=d.Organization.EDMUND_OPTICS,
             model="#69-898",
             filter_type="Dichroic",
@@ -216,10 +216,11 @@ r = r.Rig(
             height=25.2,
         ),
         d.Filter(
-            name="500nm, 25.2 x 35.6mm, Dichroic Longpass Filter",
+            name="500 Dichroic Longpass Filter",
             manufacturer=d.Organization.EDMUND_OPTICS,
             model="#69-899",
             filter_type="Dichroic",
+            cut_off_wavelength=500,
             width=35.6,
             height=23.2,
         ),
@@ -271,7 +272,7 @@ r = r.Rig(
     additional_devices=[d.Device(device_type="Photometry Clock", name="Photometry Clock")],
     calibrations=[
         d.Calibration(
-            calibration_date=datetime.datetime(2023, 10, 2, 3, 15, 22),
+            calibration_date=datetime(2023, 10, 2, 3, 15, 22, tzinfo=timezone.utc),
             device_name="470nm LED",
             description="LED calibration",
             input={"Power setting": [1, 2, 3]},

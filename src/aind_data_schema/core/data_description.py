@@ -7,7 +7,7 @@ from typing import Any, List, Literal, Optional
 
 from pydantic import Field, model_validator
 
-from aind_data_schema.base import AindCoreModel, AindModel
+from aind_data_schema.base import AindCoreModel, AindModel, AwareDatetimeWithDefault
 from aind_data_schema.models.modalities import Modality
 from aind_data_schema.models.organizations import Organization
 from aind_data_schema.models.pid_names import PIDName
@@ -110,7 +110,7 @@ class DataDescription(AindCoreModel):
         description="Unique identifier for the subject of data acquisition",
         title="Subject ID",
     )
-    creation_time: datetime = Field(
+    creation_time: AwareDatetimeWithDefault = Field(
         ...,
         description="Time that data files were created, used to uniquely identify the data",
         title="Creation Time",

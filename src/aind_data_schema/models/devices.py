@@ -8,7 +8,7 @@ from typing import List, Literal, Optional, Union
 from pydantic import Field, ValidationInfo, field_validator, model_validator
 from typing_extensions import Annotated
 
-from aind_data_schema.base import AindGeneric, AindGenericType, AindModel
+from aind_data_schema.base import AindGeneric, AindGenericType, AindModel, AwareDatetimeWithDefault
 from aind_data_schema.models.coordinates import RelativePosition, Size3d
 from aind_data_schema.models.harp_types import HarpDeviceType
 from aind_data_schema.models.organizations import Organization
@@ -270,7 +270,7 @@ class Software(AindModel):
 class Calibration(AindModel):
     """Generic calibration class"""
 
-    calibration_date: datetime = Field(..., title="Date and time of calibration")
+    calibration_date: AwareDatetimeWithDefault = Field(..., title="Date and time of calibration")
     device_name: str = Field(..., title="Device name", description="Must match a device name in rig/instrument")
     description: str = Field(..., title="Description", description="Brief description of what is being calibrated")
     input: AindGenericType = Field(AindGeneric(), description="Calibration input", title="inputs")
@@ -281,7 +281,7 @@ class Calibration(AindModel):
 class Maintenance(AindModel):
     """Generic maintenance class"""
 
-    maintenance_date: datetime = Field(..., title="Date and time of maintenance")
+    maintenance_date: AwareDatetimeWithDefault = Field(..., title="Date and time of maintenance")
     device_name: str = Field(..., title="Device name", description="Must match a device name in rig/instrument")
     description: str = Field(..., title="Description", description="Description on maintenance procedure")
     protocol_id: Optional[str] = Field(None, title="Protocol ID")
@@ -427,7 +427,7 @@ class CameraAssembly(AindModel):
     """Named assembly of a camera and lens (and optionally a filter)"""
 
     # required fields
-    camera_assembly_name: str = Field(..., title="Camera assembly name")
+    name: str = Field(..., title="Camera assembly name")
     camera_target: CameraTarget = Field(..., title="Camera target")
     camera: Camera = Field(..., title="Camera")
     lens: Lens = Field(..., title="Lens")
@@ -581,7 +581,7 @@ class Manipulator(Device):
 class LaserAssembly(AindModel):
     """Assembly for optogenetic stimulation"""
 
-    laser_assembly_name: str = Field(..., title="Laser assembly name")
+    name: str = Field(..., title="Laser assembly name")
     manipulator: Manipulator = Field(..., title="Manipulator")
     lasers: List[Laser] = Field(..., title="Lasers connected to this module")
 
@@ -607,7 +607,7 @@ class EphysProbe(Device):
 class EphysAssembly(AindModel):
     """Module for electrophysiological recording"""
 
-    ephys_assembly_name: str = Field(..., title="Ephys assembly name")
+    name: str = Field(..., title="Ephys assembly name")
     manipulator: Manipulator = Field(..., title="Manipulator")
     probes: List[EphysProbe] = Field(..., title="Probes that are held by this module")
 
@@ -638,7 +638,7 @@ class Patch(Device):
 class FiberAssembly(AindModel):
     """Module for inserted fiber photometry recording"""
 
-    fiber_assembly_name: str = Field(..., title="Ephys assembly name")
+    name: str = Field(..., title="Fiber assembly name")
     manipulator: Manipulator = Field(..., title="Manipulator")
     fibers: List[FiberProbe] = Field(..., title="Probes that are held by this module")
 

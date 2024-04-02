@@ -1,5 +1,5 @@
 """ ephys procedure mouse 625100 """
-import datetime
+from datetime import datetime, timezone
 
 from aind_data_schema.core.procedures import (
     Anaesthetic,
@@ -12,14 +12,17 @@ from aind_data_schema.core.procedures import (
     ViralMaterial,
 )
 
-t = datetime.datetime(2022, 7, 12, 7, 00, 00)
-t2 = datetime.datetime(2022, 9, 23, 10, 22, 00)
+# If a timezone isn't specified, the timezone of the computer running this
+# script will be used as default
+t = datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc)
+t2 = datetime(2022, 9, 23, 10, 22, 00, tzinfo=timezone.utc)
 
 p = Procedures(
     subject_id="625100",
     subject_procedures=[
         Surgery(
             start_date=t.date(),
+            protocol_id="doi",
             experimenter_full_name="John Apple",
             iacuc_protocol="2109",
             animal_weight_prior=22.6,
@@ -65,6 +68,7 @@ p = Procedures(
             start_date=t2.date(),
             experimenter_full_name="Frank Lee",
             iacuc_protocol="2109",
+            protocol_id="doi",
             procedures=[
                 Perfusion(
                     protocol_id="doi_of_protocol",

@@ -91,6 +91,41 @@ class TimestampGeneratorGen3(_HarpDeviceType):
     whoami: Literal[1158] = 1158
 
 
+class LicketySplit(_HarpDeviceType):
+    """Lickety Split"""
+
+    name: Literal["Lickety Split"] = "Lickety Split"
+    whoami: Literal[1400] = 1400
+
+
+class SniffDetector(_HarpDeviceType):
+    """Sniff Detector"""
+
+    name: Literal["Sniff Detector"] = "Sniff Detector"
+    whoami: Literal[1401] = 1401
+
+
+class Treadmill(_HarpDeviceType):
+    """Treadmill"""
+
+    name: Literal["Treadmill"] = "Treadmill"
+    whoami: Literal[1402] = 1402
+
+
+class Cuttlefish(_HarpDeviceType):
+    """Cuttlefish"""
+
+    name: Literal["Cuttlefish"] = "Cuttlefish"
+    whoami: Literal[1403] = 1403
+
+
+class StepperDriver(_HarpDeviceType):
+    """Stepper Driver"""
+
+    name: Literal["Stepper Driver"] = "Stepper Driver"
+    whoami: Literal[1130] = 1130
+
+
 class HarpDeviceType:
     """Harp device type definitions"""
 
@@ -105,6 +140,11 @@ class HarpDeviceType:
     SYNCHRONIZER = Synchronizer()
     TIMESTAMP_GENERATOR_1 = TimestampGeneratorGen1()
     TIMESTAMP_GENERATOR_3 = TimestampGeneratorGen3()
+    LICKETY_SPLIT = LicketySplit()
+    SNIFF_DETECTOR = SniffDetector()
+    TREADMILL = Treadmill()
+    CUTTLEFISH = Cuttlefish()
+    STEPPER_DRIVER = StepperDriver()
 
     _ALL = tuple(_HarpDeviceType.__subclasses__())
     ONE_OF = Annotated[Union[_ALL], Field(discriminator="name")]

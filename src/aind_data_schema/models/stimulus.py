@@ -1,16 +1,13 @@
 """ schema for session stimulus """
 
-from datetime import datetime
 from decimal import Decimal
 from enum import Enum
-from typing import List, Literal, Optional, Union
+from typing import List, Literal, Optional
 
 from pydantic import Field
-from typing_extensions import Annotated
 
 from aind_data_schema.base import AindGeneric, AindGenericType, AindModel
-from aind_data_schema.models.devices import Software
-from aind_data_schema.models.units import ConcentrationUnit, FrequencyUnit, PowerUnit, TimeUnit, VolumeUnit
+from aind_data_schema.models.units import ConcentrationUnit, FrequencyUnit, PowerUnit, TimeUnit
 
 
 class PulseShape(str, Enum):
@@ -21,18 +18,25 @@ class PulseShape(str, Enum):
     SINE = "Sinusoidal"
 
 
+class FilterType(str, Enum):
+    """Types of bandpass filters for auditory stim"""
+
+    BUTTERWORTH = "Butterworth"
+    OTHER = "Other"
+
+
 class OptoStimulation(AindModel):
     """Description of opto stimulation parameters"""
 
     stimulus_type: Literal["Opto Stimulation"] = "Opto Stimulation"
     stimulus_name: str = Field(..., title="Stimulus name")
     pulse_shape: PulseShape = Field(..., title="Pulse shape")
-    pulse_frequency: int = Field(..., title="Pulse frequency (Hz)")
+    pulse_frequency: List[Decimal] = Field(..., title="Pulse frequency (Hz)")
     pulse_frequency_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Pulse frequency unit")
-    number_pulse_trains: int = Field(..., title="Number of pulse trains")
-    pulse_width: int = Field(..., title="Pulse width (ms)")
+    number_pulse_trains: List[int] = Field(..., title="Number of pulse trains")
+    pulse_width: List[int] = Field(..., title="Pulse width (ms)")
     pulse_width_unit: TimeUnit = Field(TimeUnit.MS, title="Pulse width unit")
-    pulse_train_duration: Decimal = Field(..., title="Pulse train duration (s)")
+    pulse_train_duration: List[Decimal] = Field(..., title="Pulse train duration (s)")
     pulse_train_duration_unit: TimeUnit = Field(TimeUnit.S, title="Pulse train duration unit")
     fixed_pulse_train_interval: bool = Field(..., title="Fixed pulse train interval")
     pulse_train_interval: Optional[Decimal] = Field(
@@ -52,7 +56,7 @@ class OptoStimulation(AindModel):
 class VisualStimulation(AindModel):
     """Description of visual stimulus parameters. Provides a high level description of stimulus."""
 
-    stimulus_type: Literal["Visual"] = "Visual"
+    stimulus_type: Literal["Visual Stimulation"] = "Visual Stimulation"
     stimulus_name: str = Field(..., title="Stimulus name")
     stimulus_parameters: AindGenericType = Field(
         AindGeneric(),
@@ -64,47 +68,6 @@ class VisualStimulation(AindModel):
         title="Stimulus template name",
         description="Name of image set or movie displayed",
     )
-    stimulus_software: str = Field(
-        ...,
-        title="Stimulus software",
-        description="The software used to control the stimulus (e.g. Bonsai)",
-    )
-    stimulus_software_version: str = Field(..., title="Stimulus software version")
-    stimulus_script: str = Field(
-        ...,
-        title="Stimulus script",
-        description="The specific code for this stimulus instance",
-    )
-    stimulus_script_version: str = Field(..., title="Stimulus script version")
-    notes: Optional[str] = Field(None, title="Notes")
-
-
-class BehaviorStimulation(AindModel):
-    """Description of behavior parameters. Provides a high level description of stimulus."""
-
-    stimulus_type: Literal["Behavior"] = "Behavior"
-    behavior_name: str = Field(..., title="Behavior name")
-    session_number: int = Field(..., title="Session number")
-    behavior_software: List[Software] = Field(
-        ...,
-        title="Behavior software",
-        description="The software used to control the behavior (e.g. Bonsai)",
-    )
-    behavior_script: Software = Field(
-        ...,
-        title="Behavior script",
-        description="provide URL to the commit of the script and the parameters used",
-    )
-    output_parameters: AindGenericType = Field(
-        ...,
-        title="Performance parameters",
-        description="Performance metrics from session",
-    )
-    reward_consumed_during_epoch: Decimal = Field(..., title="Reward consumed during training (uL)")
-    reward_consumed_unit: VolumeUnit = Field(VolumeUnit.UL, title="Reward consumed unit")
-    trials_total: Optional[int] = Field(None, title="Total trials")
-    trials_finished: Optional[int] = Field(None, title="Finished trials")
-    trials_rewarded: Optional[int] = Field(None, title="Rewarded trials")
     notes: Optional[str] = Field(None, title="Notes")
 
 
@@ -145,29 +108,28 @@ class OlfactometerChannelConfig(AindModel):
     odorant: str = Field(..., title="Odorant")
     odorant_dilution: Decimal = Field(..., title="Odorant dilution")
     odorant_dilution_unit: ConcentrationUnit = Field(ConcentrationUnit.VOLUME_PERCENT, title="Dilution unit")
+    notes: Optional[str] = Field(None, title="Notes")
 
 
 class OlfactoryStimulation(AindModel):
     """Description of a olfactory stimulus"""
 
-    stimulus_type: Literal["Olfactory"] = "Olfactory"
+    stimulus_type: Literal["Olfactory Stimulation"] = "Olfactory Stimulation"
+    stimulus_name: str = Field(..., title="Stimulus name")
     channels: List[OlfactometerChannelConfig]
+    notes: Optional[str] = Field(None, title="Notes")
 
 
-class StimulusEpoch(AindModel):
-    """Description of stimulus used during session"""
+class AuditoryStimulation(AindModel):
+    """Description of an auditory stimulus"""
 
-    stimulus: Annotated[
-        Union[OlfactoryStimulation, OptoStimulation, VisualStimulation, BehaviorStimulation, PhotoStimulation],
-        Field(..., title="Stimulus", discriminator="stimulus_type"),
-    ]
-    stimulus_start_time: datetime = Field(
-        ...,
-        title="Stimulus start time",
-        description="When a specific stimulus begins. This might be the same as the session start time.",
-    )
-    stimulus_end_time: datetime = Field(
-        ...,
-        title="Stimulus end time",
-        description="When a specific stimulus ends. This might be the same as the session end time.",
-    )
+    stimulus_type: Literal["Auditory Stimulation"] = "Auditory Stimulation"
+    sitmulus_name: str = Field(..., title="Stimulus name")
+    sample_frequency: Decimal = Field(..., title="Sample frequency")
+    amplitude_modulation_frequency: Optional[int] = Field(None, title="Amplitude modulation frequency")
+    frequency_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Tone frequency unit")
+    bandpass_low_frequency: Optional[Decimal] = Field(None, title="Bandpass low frequency")
+    bandpass_high_frequency: Optional[Decimal] = Field(None, title="Bandpass high frequency")
+    bandpass_filter_type: Optional[FilterType] = Field(None, title="Bandpass filter type")
+    bandpass_order: Optional[int] = Field(None, title="Bandpass order")
+    notes: Optional[str] = Field(None, title="Notes")

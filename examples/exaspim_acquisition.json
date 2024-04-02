@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/acquisition.py",
-   "schema_version": "0.6.9",
+   "schema_version": "0.6.11",
    "protocol_id": [],
    "experimenter_full_name": [
       "###"
@@ -10,7 +10,7 @@
    "instrument_id": "###",
    "calibrations": [
       {
-         "calibration_date": "2022-11-22T08:43:00",
+         "calibration_date": "2022-11-22T08:43:00Z",
          "device_name": "Laser_1",
          "description": "Laser power calibration",
          "input": {
@@ -30,7 +30,7 @@
    ],
    "maintenance": [
       {
-         "maintenance_date": "2022-11-22T08:43:00",
+         "maintenance_date": "2022-11-22T08:43:00Z",
          "device_name": "Chamber",
          "description": "Clean chamber",
          "protocol_id": null,
@@ -59,8 +59,8 @@
          "notes": null
       }
    ],
-   "session_start_time": "2022-11-22T08:43:00",
-   "session_end_time": "2022-11-22T08:43:00",
+   "session_start_time": "2022-11-22T08:43:00Z",
+   "session_end_time": "2022-11-22T08:43:00Z",
    "session_type": null,
    "tiles": [
       {

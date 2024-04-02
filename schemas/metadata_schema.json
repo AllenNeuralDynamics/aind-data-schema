@@ -80,8 +80,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.6.9",
-               "default": "0.6.9",
+               "const": "0.6.11",
+               "default": "0.6.11",
                "title": "Schema Version"
             },
             "protocol_id": {
@@ -275,7 +275,16 @@
          "properties": {
             "coordinate_transformations": {
                "items": {
-                  "anyOf": [
+                  "discriminator": {
+                     "mapping": {
+                        "affine": "#/$defs/Affine3dTransform",
+                        "rotation": "#/$defs/Rotation3dTransform",
+                        "scale": "#/$defs/Scale3dTransform",
+                        "translation": "#/$defs/Translation3dTransform"
+                     },
+                     "propertyName": "type"
+                  },
+                  "oneOf": [
                      {
                         "$ref": "#/$defs/Scale3dTransform"
                      },
@@ -399,6 +408,7 @@
                            "Euresys": "#/$defs/Euresys",
                            "Fujinon": "#/$defs/Fujinon",
                            "Hamamatsu": "#/$defs/Hamamatsu",
+                           "Hamilton": "#/$defs/Hamilton",
                            "Huazhong University of Science and Technology": "#/$defs/HuazhongUniversityOfScienceAndTechnology",
                            "IR Robot Co": "#/$defs/IRRobotCo",
                            "ISL Products International": "#/$defs/ISLProductsInternational",
@@ -413,6 +423,7 @@
                            "MPI": "#/$defs/Mpi",
                            "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
                            "Mitutuyo": "#/$defs/Mitutuyo",
+                           "NResearch Inc": "#/$defs/NResearch",
                            "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                            "National Instruments": "#/$defs/NationalInstruments",
                            "Navitar": "#/$defs/Navitar",
@@ -431,6 +442,7 @@
                            "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                            "Second Order Effects": "#/$defs/SecondOrderEffects",
                            "Semrock": "#/$defs/Semrock",
+                           "Sigma-Aldritch": "#/$defs/SigmaAldritch",
                            "Simons Foundation": "#/$defs/SimonsFoundation",
                            "Spinnaker": "#/$defs/Spinnaker",
                            "Tamron": "#/$defs/Tamron",
@@ -533,6 +545,9 @@
                            "$ref": "#/$defs/Hamamatsu"
                         },
                         {
+                           "$ref": "#/$defs/Hamilton"
+                        },
+                        {
                            "$ref": "#/$defs/HuazhongUniversityOfScienceAndTechnology"
                         },
                         {
@@ -602,6 +617,9 @@
                            "$ref": "#/$defs/Nikon"
                         },
                         {
+                           "$ref": "#/$defs/NResearch"
+                        },
+                        {
                            "$ref": "#/$defs/OpenEphysProductionSite"
                         },
                         {
@@ -630,6 +648,9 @@
                         },
                         {
                            "$ref": "#/$defs/SchneiderKreuznach"
+                        },
+                        {
+                           "$ref": "#/$defs/SigmaAldritch"
                         },
                         {
                            "$ref": "#/$defs/SimonsFoundation"
@@ -1227,6 +1248,7 @@
                      "Euresys": "#/$defs/Euresys",
                      "Fujinon": "#/$defs/Fujinon",
                      "Hamamatsu": "#/$defs/Hamamatsu",
+                     "Hamilton": "#/$defs/Hamilton",
                      "Huazhong University of Science and Technology": "#/$defs/HuazhongUniversityOfScienceAndTechnology",
                      "IR Robot Co": "#/$defs/IRRobotCo",
                      "ISL Products International": "#/$defs/ISLProductsInternational",
@@ -1241,6 +1263,7 @@
                      "MPI": "#/$defs/Mpi",
                      "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
                      "Mitutuyo": "#/$defs/Mitutuyo",
+                     "NResearch Inc": "#/$defs/NResearch",
                      "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                      "National Instruments": "#/$defs/NationalInstruments",
                      "Navitar": "#/$defs/Navitar",
@@ -1259,6 +1282,7 @@
                      "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                      "Second Order Effects": "#/$defs/SecondOrderEffects",
                      "Semrock": "#/$defs/Semrock",
+                     "Sigma-Aldritch": "#/$defs/SigmaAldritch",
                      "Simons Foundation": "#/$defs/SimonsFoundation",
                      "Spinnaker": "#/$defs/Spinnaker",
                      "Tamron": "#/$defs/Tamron",
@@ -1361,6 +1385,9 @@
                      "$ref": "#/$defs/Hamamatsu"
                   },
                   {
+                     "$ref": "#/$defs/Hamilton"
+                  },
+                  {
                      "$ref": "#/$defs/HuazhongUniversityOfScienceAndTechnology"
                   },
                   {
@@ -1430,6 +1457,9 @@
                      "$ref": "#/$defs/Nikon"
                   },
                   {
+                     "$ref": "#/$defs/NResearch"
+                  },
+                  {
                      "$ref": "#/$defs/OpenEphysProductionSite"
                   },
                   {
@@ -1458,6 +1488,9 @@
                   },
                   {
                      "$ref": "#/$defs/SchneiderKreuznach"
+                  },
+                  {
+                     "$ref": "#/$defs/SigmaAldritch"
                   },
                   {
                      "$ref": "#/$defs/SimonsFoundation"
@@ -1684,6 +1717,125 @@
          "title": "Asus",
          "type": "object"
       },
+      "AuditoryStimulation": {
+         "additionalProperties": false,
+         "description": "Description of an auditory stimulus",
+         "properties": {
+            "stimulus_type": {
+               "const": "Auditory Stimulation",
+               "default": "Auditory Stimulation",
+               "title": "Stimulus Type"
+            },
+            "sitmulus_name": {
+               "title": "Stimulus name",
+               "type": "string"
+            },
+            "sample_frequency": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  }
+               ],
+               "title": "Sample frequency"
+            },
+            "amplitude_modulation_frequency": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Amplitude modulation frequency"
+            },
+            "frequency_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/FrequencyUnit"
+                  }
+               ],
+               "default": "hertz",
+               "title": "Tone frequency unit"
+            },
+            "bandpass_low_frequency": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Bandpass low frequency"
+            },
+            "bandpass_high_frequency": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Bandpass high frequency"
+            },
+            "bandpass_filter_type": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/aind_data_schema__models__stimulus__FilterType"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Bandpass filter type"
+            },
+            "bandpass_order": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Bandpass order"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Notes"
+            }
+         },
+         "required": [
+            "sitmulus_name",
+            "sample_frequency"
+         ],
+         "title": "AuditoryStimulation",
+         "type": "object"
+      },
       "Axis": {
          "additionalProperties": false,
          "description": "Description of an axis",
@@ -1780,129 +1932,6 @@
             }
          },
          "title": "Basler",
-         "type": "object"
-      },
-      "BehaviorStimulation": {
-         "additionalProperties": false,
-         "description": "Description of behavior parameters. Provides a high level description of stimulus.",
-         "properties": {
-            "stimulus_type": {
-               "const": "Behavior",
-               "default": "Behavior",
-               "title": "Stimulus Type"
-            },
-            "behavior_name": {
-               "title": "Behavior name",
-               "type": "string"
-            },
-            "session_number": {
-               "title": "Session number",
-               "type": "integer"
-            },
-            "behavior_software": {
-               "description": "The software used to control the behavior (e.g. Bonsai)",
-               "items": {
-                  "$ref": "#/$defs/Software"
-               },
-               "title": "Behavior software",
-               "type": "array"
-            },
-            "behavior_script": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/Software"
-                  }
-               ],
-               "description": "provide URL to the commit of the script and the parameters used",
-               "title": "Behavior script"
-            },
-            "output_parameters": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
-               "description": "Performance metrics from session",
-               "title": "Performance parameters"
-            },
-            "reward_consumed_during_epoch": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  }
-               ],
-               "title": "Reward consumed during training (uL)"
-            },
-            "reward_consumed_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/VolumeUnit"
-                  }
-               ],
-               "default": "microliter",
-               "title": "Reward consumed unit"
-            },
-            "trials_total": {
-               "anyOf": [
-                  {
-                     "type": "integer"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Total trials"
-            },
-            "trials_finished": {
-               "anyOf": [
-                  {
-                     "type": "integer"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Finished trials"
-            },
-            "trials_rewarded": {
-               "anyOf": [
-                  {
-                     "type": "integer"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Rewarded trials"
-            },
-            "notes": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Notes"
-            }
-         },
-         "required": [
-            "behavior_name",
-            "session_number",
-            "behavior_software",
-            "behavior_script",
-            "output_parameters",
-            "reward_consumed_during_epoch"
-         ],
-         "title": "BehaviorStimulation",
          "type": "object"
       },
       "BehaviorVideos": {
@@ -2135,6 +2164,7 @@
                      "Ailipu Technology Co": "#/$defs/AilipuTechnologyCo",
                      "Allied": "#/$defs/Allied",
                      "Basler": "#/$defs/Basler",
+                     "Dodotronic": "#/$defs/Dodotronic",
                      "Edmund Optics": "#/$defs/EdmundOptics",
                      "Hamamatsu": "#/$defs/Hamamatsu",
                      "Other": "#/$defs/Other",
@@ -2155,6 +2185,9 @@
                   },
                   {
                      "$ref": "#/$defs/Basler"
+                  },
+                  {
+                     "$ref": "#/$defs/Dodotronic"
                   },
                   {
                      "$ref": "#/$defs/EdmundOptics"
@@ -2535,7 +2568,7 @@
          "additionalProperties": false,
          "description": "Named assembly of a camera and lens (and optionally a filter)",
          "properties": {
-            "camera_assembly_name": {
+            "name": {
                "title": "Camera assembly name",
                "type": "string"
             },
@@ -2589,7 +2622,7 @@
             }
          },
          "required": [
-            "camera_assembly_name",
+            "name",
             "camera_target",
             "camera",
             "lens"
@@ -3388,6 +3421,23 @@
          "title": "Custom",
          "type": "object"
       },
+      "Cuttlefish": {
+         "description": "Cuttlefish",
+         "properties": {
+            "name": {
+               "const": "Cuttlefish",
+               "default": "Cuttlefish",
+               "title": "Name"
+            },
+            "whoami": {
+               "const": 1403,
+               "default": 1403,
+               "title": "Whoami"
+            }
+         },
+         "title": "Cuttlefish",
+         "type": "object"
+      },
       "DAQChannel": {
          "additionalProperties": false,
          "description": "Named input or output channel on a DAQ device",
@@ -4153,6 +4203,7 @@
                      "Ailipu Technology Co": "#/$defs/AilipuTechnologyCo",
                      "Allied": "#/$defs/Allied",
                      "Basler": "#/$defs/Basler",
+                     "Dodotronic": "#/$defs/Dodotronic",
                      "Edmund Optics": "#/$defs/EdmundOptics",
                      "Hamamatsu": "#/$defs/Hamamatsu",
                      "Other": "#/$defs/Other",
@@ -4173,6 +4224,9 @@
                   },
                   {
                      "$ref": "#/$defs/Basler"
+                  },
+                  {
+                     "$ref": "#/$defs/Dodotronic"
                   },
                   {
                      "$ref": "#/$defs/EdmundOptics"
@@ -4660,6 +4714,7 @@
                            "Euresys": "#/$defs/Euresys",
                            "Fujinon": "#/$defs/Fujinon",
                            "Hamamatsu": "#/$defs/Hamamatsu",
+                           "Hamilton": "#/$defs/Hamilton",
                            "Huazhong University of Science and Technology": "#/$defs/HuazhongUniversityOfScienceAndTechnology",
                            "IR Robot Co": "#/$defs/IRRobotCo",
                            "ISL Products International": "#/$defs/ISLProductsInternational",
@@ -4674,6 +4729,7 @@
                            "MPI": "#/$defs/Mpi",
                            "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
                            "Mitutuyo": "#/$defs/Mitutuyo",
+                           "NResearch Inc": "#/$defs/NResearch",
                            "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                            "National Instruments": "#/$defs/NationalInstruments",
                            "Navitar": "#/$defs/Navitar",
@@ -4692,6 +4748,7 @@
                            "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                            "Second Order Effects": "#/$defs/SecondOrderEffects",
                            "Semrock": "#/$defs/Semrock",
+                           "Sigma-Aldritch": "#/$defs/SigmaAldritch",
                            "Simons Foundation": "#/$defs/SimonsFoundation",
                            "Spinnaker": "#/$defs/Spinnaker",
                            "Tamron": "#/$defs/Tamron",
@@ -4794,6 +4851,9 @@
                            "$ref": "#/$defs/Hamamatsu"
                         },
                         {
+                           "$ref": "#/$defs/Hamilton"
+                        },
+                        {
                            "$ref": "#/$defs/HuazhongUniversityOfScienceAndTechnology"
                         },
                         {
@@ -4863,6 +4923,9 @@
                            "$ref": "#/$defs/Nikon"
                         },
                         {
+                           "$ref": "#/$defs/NResearch"
+                        },
+                        {
                            "$ref": "#/$defs/OpenEphysProductionSite"
                         },
                         {
@@ -4891,6 +4954,9 @@
                         },
                         {
                            "$ref": "#/$defs/SchneiderKreuznach"
+                        },
+                        {
+                           "$ref": "#/$defs/SigmaAldritch"
                         },
                         {
                            "$ref": "#/$defs/SimonsFoundation"
@@ -5067,6 +5133,7 @@
                            "Euresys": "#/$defs/Euresys",
                            "Fujinon": "#/$defs/Fujinon",
                            "Hamamatsu": "#/$defs/Hamamatsu",
+                           "Hamilton": "#/$defs/Hamilton",
                            "Huazhong University of Science and Technology": "#/$defs/HuazhongUniversityOfScienceAndTechnology",
                            "IR Robot Co": "#/$defs/IRRobotCo",
                            "ISL Products International": "#/$defs/ISLProductsInternational",
@@ -5081,6 +5148,7 @@
                            "MPI": "#/$defs/Mpi",
                            "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
                            "Mitutuyo": "#/$defs/Mitutuyo",
+                           "NResearch Inc": "#/$defs/NResearch",
                            "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                            "National Instruments": "#/$defs/NationalInstruments",
                            "Navitar": "#/$defs/Navitar",
@@ -5099,6 +5167,7 @@
                            "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                            "Second Order Effects": "#/$defs/SecondOrderEffects",
                            "Semrock": "#/$defs/Semrock",
+                           "Sigma-Aldritch": "#/$defs/SigmaAldritch",
                            "Simons Foundation": "#/$defs/SimonsFoundation",
                            "Spinnaker": "#/$defs/Spinnaker",
                            "Tamron": "#/$defs/Tamron",
@@ -5201,6 +5270,9 @@
                            "$ref": "#/$defs/Hamamatsu"
                         },
                         {
+                           "$ref": "#/$defs/Hamilton"
+                        },
+                        {
                            "$ref": "#/$defs/HuazhongUniversityOfScienceAndTechnology"
                         },
                         {
@@ -5270,6 +5342,9 @@
                            "$ref": "#/$defs/Nikon"
                         },
                         {
+                           "$ref": "#/$defs/NResearch"
+                        },
+                        {
                            "$ref": "#/$defs/OpenEphysProductionSite"
                         },
                         {
@@ -5298,6 +5373,9 @@
                         },
                         {
                            "$ref": "#/$defs/SchneiderKreuznach"
+                        },
+                        {
+                           "$ref": "#/$defs/SigmaAldritch"
                         },
                         {
                            "$ref": "#/$defs/SimonsFoundation"
@@ -5576,6 +5654,7 @@
                            "Euresys": "#/$defs/Euresys",
                            "Fujinon": "#/$defs/Fujinon",
                            "Hamamatsu": "#/$defs/Hamamatsu",
+                           "Hamilton": "#/$defs/Hamilton",
                            "Huazhong University of Science and Technology": "#/$defs/HuazhongUniversityOfScienceAndTechnology",
                            "IR Robot Co": "#/$defs/IRRobotCo",
                            "ISL Products International": "#/$defs/ISLProductsInternational",
@@ -5590,6 +5669,7 @@
                            "MPI": "#/$defs/Mpi",
                            "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
                            "Mitutuyo": "#/$defs/Mitutuyo",
+                           "NResearch Inc": "#/$defs/NResearch",
                            "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                            "National Instruments": "#/$defs/NationalInstruments",
                            "Navitar": "#/$defs/Navitar",
@@ -5608,6 +5688,7 @@
                            "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                            "Second Order Effects": "#/$defs/SecondOrderEffects",
                            "Semrock": "#/$defs/Semrock",
+                           "Sigma-Aldritch": "#/$defs/SigmaAldritch",
                            "Simons Foundation": "#/$defs/SimonsFoundation",
                            "Spinnaker": "#/$defs/Spinnaker",
                            "Tamron": "#/$defs/Tamron",
@@ -5710,6 +5791,9 @@
                            "$ref": "#/$defs/Hamamatsu"
                         },
                         {
+                           "$ref": "#/$defs/Hamilton"
+                        },
+                        {
                            "$ref": "#/$defs/HuazhongUniversityOfScienceAndTechnology"
                         },
                         {
@@ -5779,6 +5863,9 @@
                            "$ref": "#/$defs/Nikon"
                         },
                         {
+                           "$ref": "#/$defs/NResearch"
+                        },
+                        {
                            "$ref": "#/$defs/OpenEphysProductionSite"
                         },
                         {
@@ -5807,6 +5894,9 @@
                         },
                         {
                            "$ref": "#/$defs/SchneiderKreuznach"
+                        },
+                        {
+                           "$ref": "#/$defs/SigmaAldritch"
                         },
                         {
                            "$ref": "#/$defs/SimonsFoundation"
@@ -6327,6 +6417,7 @@
                            "Euresys": "#/$defs/Euresys",
                            "Fujinon": "#/$defs/Fujinon",
                            "Hamamatsu": "#/$defs/Hamamatsu",
+                           "Hamilton": "#/$defs/Hamilton",
                            "Huazhong University of Science and Technology": "#/$defs/HuazhongUniversityOfScienceAndTechnology",
                            "IR Robot Co": "#/$defs/IRRobotCo",
                            "ISL Products International": "#/$defs/ISLProductsInternational",
@@ -6341,6 +6432,7 @@
                            "MPI": "#/$defs/Mpi",
                            "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
                            "Mitutuyo": "#/$defs/Mitutuyo",
+                           "NResearch Inc": "#/$defs/NResearch",
                            "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                            "National Instruments": "#/$defs/NationalInstruments",
                            "Navitar": "#/$defs/Navitar",
@@ -6359,6 +6451,7 @@
                            "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                            "Second Order Effects": "#/$defs/SecondOrderEffects",
                            "Semrock": "#/$defs/Semrock",
+                           "Sigma-Aldritch": "#/$defs/SigmaAldritch",
                            "Simons Foundation": "#/$defs/SimonsFoundation",
                            "Spinnaker": "#/$defs/Spinnaker",
                            "Tamron": "#/$defs/Tamron",
@@ -6461,6 +6554,9 @@
                            "$ref": "#/$defs/Hamamatsu"
                         },
                         {
+                           "$ref": "#/$defs/Hamilton"
+                        },
+                        {
                            "$ref": "#/$defs/HuazhongUniversityOfScienceAndTechnology"
                         },
                         {
@@ -6530,6 +6626,9 @@
                            "$ref": "#/$defs/Nikon"
                         },
                         {
+                           "$ref": "#/$defs/NResearch"
+                        },
+                        {
                            "$ref": "#/$defs/OpenEphysProductionSite"
                         },
                         {
@@ -6558,6 +6657,9 @@
                         },
                         {
                            "$ref": "#/$defs/SchneiderKreuznach"
+                        },
+                        {
+                           "$ref": "#/$defs/SigmaAldritch"
                         },
                         {
                            "$ref": "#/$defs/SimonsFoundation"
@@ -6704,7 +6806,7 @@
          "additionalProperties": false,
          "description": "Module for electrophysiological recording",
          "properties": {
-            "ephys_assembly_name": {
+            "name": {
                "title": "Ephys assembly name",
                "type": "string"
             },
@@ -6720,7 +6822,7 @@
             }
          },
          "required": [
-            "ephys_assembly_name",
+            "name",
             "manipulator",
             "probes"
          ],
@@ -6839,6 +6941,18 @@
                ],
                "title": "Manipulator coordinates"
             },
+            "implant_hole_number": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Implant hole number"
+            },
             "ephys_probes": {
                "items": {
                   "$ref": "#/$defs/EphysProbeConfig"
@@ -6915,6 +7029,7 @@
                            "Euresys": "#/$defs/Euresys",
                            "Fujinon": "#/$defs/Fujinon",
                            "Hamamatsu": "#/$defs/Hamamatsu",
+                           "Hamilton": "#/$defs/Hamilton",
                            "Huazhong University of Science and Technology": "#/$defs/HuazhongUniversityOfScienceAndTechnology",
                            "IR Robot Co": "#/$defs/IRRobotCo",
                            "ISL Products International": "#/$defs/ISLProductsInternational",
@@ -6929,6 +7044,7 @@
                            "MPI": "#/$defs/Mpi",
                            "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
                            "Mitutuyo": "#/$defs/Mitutuyo",
+                           "NResearch Inc": "#/$defs/NResearch",
                            "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                            "National Instruments": "#/$defs/NationalInstruments",
                            "Navitar": "#/$defs/Navitar",
@@ -6947,6 +7063,7 @@
                            "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                            "Second Order Effects": "#/$defs/SecondOrderEffects",
                            "Semrock": "#/$defs/Semrock",
+                           "Sigma-Aldritch": "#/$defs/SigmaAldritch",
                            "Simons Foundation": "#/$defs/SimonsFoundation",
                            "Spinnaker": "#/$defs/Spinnaker",
                            "Tamron": "#/$defs/Tamron",
@@ -7049,6 +7166,9 @@
                            "$ref": "#/$defs/Hamamatsu"
                         },
                         {
+                           "$ref": "#/$defs/Hamilton"
+                        },
+                        {
                            "$ref": "#/$defs/HuazhongUniversityOfScienceAndTechnology"
                         },
                         {
@@ -7118,6 +7238,9 @@
                            "$ref": "#/$defs/Nikon"
                         },
                         {
+                           "$ref": "#/$defs/NResearch"
+                        },
+                        {
                            "$ref": "#/$defs/OpenEphysProductionSite"
                         },
                         {
@@ -7146,6 +7269,9 @@
                         },
                         {
                            "$ref": "#/$defs/SchneiderKreuznach"
+                        },
+                        {
+                           "$ref": "#/$defs/SigmaAldritch"
                         },
                         {
                            "$ref": "#/$defs/SimonsFoundation"
@@ -7383,8 +7509,8 @@
          "additionalProperties": false,
          "description": "Module for inserted fiber photometry recording",
          "properties": {
-            "fiber_assembly_name": {
-               "title": "Ephys assembly name",
+            "name": {
+               "title": "Fiber assembly name",
                "type": "string"
             },
             "manipulator": {
@@ -7399,7 +7525,7 @@
             }
          },
          "required": [
-            "fiber_assembly_name",
+            "name",
             "manipulator",
             "fibers"
          ],
@@ -7588,6 +7714,18 @@
                ],
                "title": "Manipulator coordinates"
             },
+            "implant_hole_number": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Implant hole number"
+            },
             "fiber_connections": {
                "default": [],
                "items": {
@@ -7664,6 +7802,7 @@
                            "Euresys": "#/$defs/Euresys",
                            "Fujinon": "#/$defs/Fujinon",
                            "Hamamatsu": "#/$defs/Hamamatsu",
+                           "Hamilton": "#/$defs/Hamilton",
                            "Huazhong University of Science and Technology": "#/$defs/HuazhongUniversityOfScienceAndTechnology",
                            "IR Robot Co": "#/$defs/IRRobotCo",
                            "ISL Products International": "#/$defs/ISLProductsInternational",
@@ -7678,6 +7817,7 @@
                            "MPI": "#/$defs/Mpi",
                            "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
                            "Mitutuyo": "#/$defs/Mitutuyo",
+                           "NResearch Inc": "#/$defs/NResearch",
                            "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                            "National Instruments": "#/$defs/NationalInstruments",
                            "Navitar": "#/$defs/Navitar",
@@ -7696,6 +7836,7 @@
                            "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                            "Second Order Effects": "#/$defs/SecondOrderEffects",
                            "Semrock": "#/$defs/Semrock",
+                           "Sigma-Aldritch": "#/$defs/SigmaAldritch",
                            "Simons Foundation": "#/$defs/SimonsFoundation",
                            "Spinnaker": "#/$defs/Spinnaker",
                            "Tamron": "#/$defs/Tamron",
@@ -7798,6 +7939,9 @@
                            "$ref": "#/$defs/Hamamatsu"
                         },
                         {
+                           "$ref": "#/$defs/Hamilton"
+                        },
+                        {
                            "$ref": "#/$defs/HuazhongUniversityOfScienceAndTechnology"
                         },
                         {
@@ -7867,6 +8011,9 @@
                            "$ref": "#/$defs/Nikon"
                         },
                         {
+                           "$ref": "#/$defs/NResearch"
+                        },
+                        {
                            "$ref": "#/$defs/OpenEphysProductionSite"
                         },
                         {
@@ -7895,6 +8042,9 @@
                         },
                         {
                            "$ref": "#/$defs/SchneiderKreuznach"
+                        },
+                        {
+                           "$ref": "#/$defs/SigmaAldritch"
                         },
                         {
                            "$ref": "#/$defs/SimonsFoundation"
@@ -8421,7 +8571,7 @@
             "filter_type": {
                "allOf": [
                   {
-                     "$ref": "#/$defs/FilterType"
+                     "$ref": "#/$defs/aind_data_schema__models__devices__FilterType"
                   }
                ],
                "title": "Type of filter"
@@ -8582,20 +8732,6 @@
          ],
          "title": "Filter",
          "type": "object"
-      },
-      "FilterType": {
-         "description": "Filter type",
-         "enum": [
-            "Band pass",
-            "Dichroic",
-            "Long pass",
-            "Multiband",
-            "Neutral density",
-            "Notch",
-            "Short pass"
-         ],
-         "title": "FilterType",
-         "type": "string"
       },
       "Fip": {
          "additionalProperties": false,
@@ -8766,6 +8902,15 @@
          "title": "GenericHarpDevice",
          "type": "object"
       },
+      "GroundWireMaterial": {
+         "description": "Ground wire material name",
+         "enum": [
+            "Silver",
+            "Platinum iridium"
+         ],
+         "title": "GroundWireMaterial",
+         "type": "string"
+      },
       "Group": {
          "description": "Data collection group name",
          "enum": [
@@ -8815,6 +8960,7 @@
                      "Euresys": "#/$defs/Euresys",
                      "Fujinon": "#/$defs/Fujinon",
                      "Hamamatsu": "#/$defs/Hamamatsu",
+                     "Hamilton": "#/$defs/Hamilton",
                      "Huazhong University of Science and Technology": "#/$defs/HuazhongUniversityOfScienceAndTechnology",
                      "IR Robot Co": "#/$defs/IRRobotCo",
                      "ISL Products International": "#/$defs/ISLProductsInternational",
@@ -8829,6 +8975,7 @@
                      "MPI": "#/$defs/Mpi",
                      "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
                      "Mitutuyo": "#/$defs/Mitutuyo",
+                     "NResearch Inc": "#/$defs/NResearch",
                      "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                      "National Instruments": "#/$defs/NationalInstruments",
                      "Navitar": "#/$defs/Navitar",
@@ -8847,6 +8994,7 @@
                      "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                      "Second Order Effects": "#/$defs/SecondOrderEffects",
                      "Semrock": "#/$defs/Semrock",
+                     "Sigma-Aldritch": "#/$defs/SigmaAldritch",
                      "Simons Foundation": "#/$defs/SimonsFoundation",
                      "Spinnaker": "#/$defs/Spinnaker",
                      "Tamron": "#/$defs/Tamron",
@@ -8949,6 +9097,9 @@
                      "$ref": "#/$defs/Hamamatsu"
                   },
                   {
+                     "$ref": "#/$defs/Hamilton"
+                  },
+                  {
                      "$ref": "#/$defs/HuazhongUniversityOfScienceAndTechnology"
                   },
                   {
@@ -9018,6 +9169,9 @@
                      "$ref": "#/$defs/Nikon"
                   },
                   {
+                     "$ref": "#/$defs/NResearch"
+                  },
+                  {
                      "$ref": "#/$defs/OpenEphysProductionSite"
                   },
                   {
@@ -9046,6 +9200,9 @@
                   },
                   {
                      "$ref": "#/$defs/SchneiderKreuznach"
+                  },
+                  {
+                     "$ref": "#/$defs/SigmaAldritch"
                   },
                   {
                      "$ref": "#/$defs/SimonsFoundation"
@@ -9221,6 +9378,7 @@
                      "Euresys": "#/$defs/Euresys",
                      "Fujinon": "#/$defs/Fujinon",
                      "Hamamatsu": "#/$defs/Hamamatsu",
+                     "Hamilton": "#/$defs/Hamilton",
                      "Huazhong University of Science and Technology": "#/$defs/HuazhongUniversityOfScienceAndTechnology",
                      "IR Robot Co": "#/$defs/IRRobotCo",
                      "ISL Products International": "#/$defs/ISLProductsInternational",
@@ -9235,6 +9393,7 @@
                      "MPI": "#/$defs/Mpi",
                      "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
                      "Mitutuyo": "#/$defs/Mitutuyo",
+                     "NResearch Inc": "#/$defs/NResearch",
                      "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                      "National Instruments": "#/$defs/NationalInstruments",
                      "Navitar": "#/$defs/Navitar",
@@ -9253,6 +9412,7 @@
                      "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                      "Second Order Effects": "#/$defs/SecondOrderEffects",
                      "Semrock": "#/$defs/Semrock",
+                     "Sigma-Aldritch": "#/$defs/SigmaAldritch",
                      "Simons Foundation": "#/$defs/SimonsFoundation",
                      "Spinnaker": "#/$defs/Spinnaker",
                      "Tamron": "#/$defs/Tamron",
@@ -9355,6 +9515,9 @@
                      "$ref": "#/$defs/Hamamatsu"
                   },
                   {
+                     "$ref": "#/$defs/Hamilton"
+                  },
+                  {
                      "$ref": "#/$defs/HuazhongUniversityOfScienceAndTechnology"
                   },
                   {
@@ -9424,6 +9587,9 @@
                      "$ref": "#/$defs/Nikon"
                   },
                   {
+                     "$ref": "#/$defs/NResearch"
+                  },
+                  {
                      "$ref": "#/$defs/OpenEphysProductionSite"
                   },
                   {
@@ -9452,6 +9618,9 @@
                   },
                   {
                      "$ref": "#/$defs/SchneiderKreuznach"
+                  },
+                  {
+                     "$ref": "#/$defs/SigmaAldritch"
                   },
                   {
                      "$ref": "#/$defs/SimonsFoundation"
@@ -9631,6 +9800,34 @@
             }
          },
          "title": "Hamamatsu",
+         "type": "object"
+      },
+      "Hamilton": {
+         "additionalProperties": false,
+         "description": "Hamilton",
+         "properties": {
+            "name": {
+               "const": "Hamilton",
+               "default": "Hamilton",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Hamilton",
          "type": "object"
       },
       "HarpDevice": {
@@ -9814,14 +10011,19 @@
                      "Behavior": "#/$defs/aind_data_schema__models__harp_types__Behavior",
                      "Camera Controller": "#/$defs/CameraController",
                      "Clock Synchronizer": "#/$defs/ClockSynchronizer",
+                     "Cuttlefish": "#/$defs/Cuttlefish",
                      "Generic Harp Device": "#/$defs/GenericHarpDevice",
                      "Input Expander": "#/$defs/InputExpander",
+                     "Lickety Split": "#/$defs/LicketySplit",
                      "Load Cells": "#/$defs/LoadCells",
                      "Olfactometer": "#/$defs/aind_data_schema__models__harp_types__Olfactometer",
+                     "Sniff Detector": "#/$defs/SniffDetector",
                      "Sound Card": "#/$defs/SoundCard",
+                     "Stepper Driver": "#/$defs/StepperDriver",
                      "Synchronizer": "#/$defs/Synchronizer",
                      "Timestamp Generator Gen 1": "#/$defs/TimestampGeneratorGen1",
-                     "Timestamp Generator Gen 3": "#/$defs/TimestampGeneratorGen3"
+                     "Timestamp Generator Gen 3": "#/$defs/TimestampGeneratorGen3",
+                     "Treadmill": "#/$defs/aind_data_schema__models__harp_types__Treadmill"
                   },
                   "propertyName": "name"
                },
@@ -9858,6 +10060,21 @@
                   },
                   {
                      "$ref": "#/$defs/TimestampGeneratorGen3"
+                  },
+                  {
+                     "$ref": "#/$defs/LicketySplit"
+                  },
+                  {
+                     "$ref": "#/$defs/SniffDetector"
+                  },
+                  {
+                     "$ref": "#/$defs/aind_data_schema__models__harp_types__Treadmill"
+                  },
+                  {
+                     "$ref": "#/$defs/Cuttlefish"
+                  },
+                  {
+                     "$ref": "#/$defs/StepperDriver"
                   }
                ],
                "title": "Type of Harp device"
@@ -10052,6 +10269,7 @@
                            "Euresys": "#/$defs/Euresys",
                            "Fujinon": "#/$defs/Fujinon",
                            "Hamamatsu": "#/$defs/Hamamatsu",
+                           "Hamilton": "#/$defs/Hamilton",
                            "Huazhong University of Science and Technology": "#/$defs/HuazhongUniversityOfScienceAndTechnology",
                            "IR Robot Co": "#/$defs/IRRobotCo",
                            "ISL Products International": "#/$defs/ISLProductsInternational",
@@ -10066,6 +10284,7 @@
                            "MPI": "#/$defs/Mpi",
                            "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
                            "Mitutuyo": "#/$defs/Mitutuyo",
+                           "NResearch Inc": "#/$defs/NResearch",
                            "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                            "National Instruments": "#/$defs/NationalInstruments",
                            "Navitar": "#/$defs/Navitar",
@@ -10084,6 +10303,7 @@
                            "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                            "Second Order Effects": "#/$defs/SecondOrderEffects",
                            "Semrock": "#/$defs/Semrock",
+                           "Sigma-Aldritch": "#/$defs/SigmaAldritch",
                            "Simons Foundation": "#/$defs/SimonsFoundation",
                            "Spinnaker": "#/$defs/Spinnaker",
                            "Tamron": "#/$defs/Tamron",
@@ -10186,6 +10406,9 @@
                            "$ref": "#/$defs/Hamamatsu"
                         },
                         {
+                           "$ref": "#/$defs/Hamilton"
+                        },
+                        {
                            "$ref": "#/$defs/HuazhongUniversityOfScienceAndTechnology"
                         },
                         {
@@ -10255,6 +10478,9 @@
                            "$ref": "#/$defs/Nikon"
                         },
                         {
+                           "$ref": "#/$defs/NResearch"
+                        },
+                        {
                            "$ref": "#/$defs/OpenEphysProductionSite"
                         },
                         {
@@ -10283,6 +10509,9 @@
                         },
                         {
                            "$ref": "#/$defs/SchneiderKreuznach"
+                        },
+                        {
+                           "$ref": "#/$defs/SigmaAldritch"
                         },
                         {
                            "$ref": "#/$defs/SimonsFoundation"
@@ -10944,8 +11173,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.10.13",
-               "default": "0.10.13",
+               "const": "0.10.15",
+               "default": "0.10.15",
                "title": "Schema Version"
             },
             "instrument_id": {
@@ -11004,6 +11233,7 @@
                      "Euresys": "#/$defs/Euresys",
                      "Fujinon": "#/$defs/Fujinon",
                      "Hamamatsu": "#/$defs/Hamamatsu",
+                     "Hamilton": "#/$defs/Hamilton",
                      "Huazhong University of Science and Technology": "#/$defs/HuazhongUniversityOfScienceAndTechnology",
                      "IR Robot Co": "#/$defs/IRRobotCo",
                      "ISL Products International": "#/$defs/ISLProductsInternational",
@@ -11018,6 +11248,7 @@
                      "MPI": "#/$defs/Mpi",
                      "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
                      "Mitutuyo": "#/$defs/Mitutuyo",
+                     "NResearch Inc": "#/$defs/NResearch",
                      "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                      "National Instruments": "#/$defs/NationalInstruments",
                      "Navitar": "#/$defs/Navitar",
@@ -11036,6 +11267,7 @@
                      "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                      "Second Order Effects": "#/$defs/SecondOrderEffects",
                      "Semrock": "#/$defs/Semrock",
+                     "Sigma-Aldritch": "#/$defs/SigmaAldritch",
                      "Simons Foundation": "#/$defs/SimonsFoundation",
                      "Spinnaker": "#/$defs/Spinnaker",
                      "Tamron": "#/$defs/Tamron",
@@ -11138,6 +11370,9 @@
                      "$ref": "#/$defs/Hamamatsu"
                   },
                   {
+                     "$ref": "#/$defs/Hamilton"
+                  },
+                  {
                      "$ref": "#/$defs/HuazhongUniversityOfScienceAndTechnology"
                   },
                   {
@@ -11207,6 +11442,9 @@
                      "$ref": "#/$defs/Nikon"
                   },
                   {
+                     "$ref": "#/$defs/NResearch"
+                  },
+                  {
                      "$ref": "#/$defs/OpenEphysProductionSite"
                   },
                   {
@@ -11235,6 +11473,9 @@
                   },
                   {
                      "$ref": "#/$defs/SchneiderKreuznach"
+                  },
+                  {
+                     "$ref": "#/$defs/SigmaAldritch"
                   },
                   {
                      "$ref": "#/$defs/SimonsFoundation"
@@ -12504,6 +12745,7 @@
                            "Euresys": "#/$defs/Euresys",
                            "Fujinon": "#/$defs/Fujinon",
                            "Hamamatsu": "#/$defs/Hamamatsu",
+                           "Hamilton": "#/$defs/Hamilton",
                            "Huazhong University of Science and Technology": "#/$defs/HuazhongUniversityOfScienceAndTechnology",
                            "IR Robot Co": "#/$defs/IRRobotCo",
                            "ISL Products International": "#/$defs/ISLProductsInternational",
@@ -12518,6 +12760,7 @@
                            "MPI": "#/$defs/Mpi",
                            "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
                            "Mitutuyo": "#/$defs/Mitutuyo",
+                           "NResearch Inc": "#/$defs/NResearch",
                            "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                            "National Instruments": "#/$defs/NationalInstruments",
                            "Navitar": "#/$defs/Navitar",
@@ -12536,6 +12779,7 @@
                            "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                            "Second Order Effects": "#/$defs/SecondOrderEffects",
                            "Semrock": "#/$defs/Semrock",
+                           "Sigma-Aldritch": "#/$defs/SigmaAldritch",
                            "Simons Foundation": "#/$defs/SimonsFoundation",
                            "Spinnaker": "#/$defs/Spinnaker",
                            "Tamron": "#/$defs/Tamron",
@@ -12638,6 +12882,9 @@
                            "$ref": "#/$defs/Hamamatsu"
                         },
                         {
+                           "$ref": "#/$defs/Hamilton"
+                        },
+                        {
                            "$ref": "#/$defs/HuazhongUniversityOfScienceAndTechnology"
                         },
                         {
@@ -12707,6 +12954,9 @@
                            "$ref": "#/$defs/Nikon"
                         },
                         {
+                           "$ref": "#/$defs/NResearch"
+                        },
+                        {
                            "$ref": "#/$defs/OpenEphysProductionSite"
                         },
                         {
@@ -12735,6 +12985,9 @@
                         },
                         {
                            "$ref": "#/$defs/SchneiderKreuznach"
+                        },
+                        {
+                           "$ref": "#/$defs/SigmaAldritch"
                         },
                         {
                            "$ref": "#/$defs/SimonsFoundation"
@@ -13108,7 +13361,7 @@
          "additionalProperties": false,
          "description": "Assembly for optogenetic stimulation",
          "properties": {
-            "laser_assembly_name": {
+            "name": {
                "title": "Laser assembly name",
                "type": "string"
             },
@@ -13124,7 +13377,7 @@
             }
          },
          "required": [
-            "laser_assembly_name",
+            "name",
             "manipulator",
             "lasers"
          ],
@@ -13507,6 +13760,23 @@
          ],
          "title": "LickSensorType",
          "type": "string"
+      },
+      "LicketySplit": {
+         "description": "Lickety Split",
+         "properties": {
+            "name": {
+               "const": "Lickety Split",
+               "default": "Lickety Split",
+               "title": "Name"
+            },
+            "whoami": {
+               "const": 1400,
+               "default": 1400,
+               "title": "Whoami"
+            }
+         },
+         "title": "LicketySplit",
+         "type": "object"
       },
       "LifeCanvas": {
          "additionalProperties": false,
@@ -14125,6 +14395,18 @@
                   }
                ],
                "title": "Manipulator coordinates"
+            },
+            "implant_hole_number": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Implant hole number"
             }
          },
          "required": [
@@ -14505,6 +14787,7 @@
                            "Euresys": "#/$defs/Euresys",
                            "Fujinon": "#/$defs/Fujinon",
                            "Hamamatsu": "#/$defs/Hamamatsu",
+                           "Hamilton": "#/$defs/Hamilton",
                            "Huazhong University of Science and Technology": "#/$defs/HuazhongUniversityOfScienceAndTechnology",
                            "IR Robot Co": "#/$defs/IRRobotCo",
                            "ISL Products International": "#/$defs/ISLProductsInternational",
@@ -14519,6 +14802,7 @@
                            "MPI": "#/$defs/Mpi",
                            "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
                            "Mitutuyo": "#/$defs/Mitutuyo",
+                           "NResearch Inc": "#/$defs/NResearch",
                            "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                            "National Instruments": "#/$defs/NationalInstruments",
                            "Navitar": "#/$defs/Navitar",
@@ -14537,6 +14821,7 @@
                            "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                            "Second Order Effects": "#/$defs/SecondOrderEffects",
                            "Semrock": "#/$defs/Semrock",
+                           "Sigma-Aldritch": "#/$defs/SigmaAldritch",
                            "Simons Foundation": "#/$defs/SimonsFoundation",
                            "Spinnaker": "#/$defs/Spinnaker",
                            "Tamron": "#/$defs/Tamron",
@@ -14639,6 +14924,9 @@
                            "$ref": "#/$defs/Hamamatsu"
                         },
                         {
+                           "$ref": "#/$defs/Hamilton"
+                        },
+                        {
                            "$ref": "#/$defs/HuazhongUniversityOfScienceAndTechnology"
                         },
                         {
@@ -14708,6 +14996,9 @@
                            "$ref": "#/$defs/Nikon"
                         },
                         {
+                           "$ref": "#/$defs/NResearch"
+                        },
+                        {
                            "$ref": "#/$defs/OpenEphysProductionSite"
                         },
                         {
@@ -14736,6 +15027,9 @@
                         },
                         {
                            "$ref": "#/$defs/SchneiderKreuznach"
+                        },
+                        {
+                           "$ref": "#/$defs/SigmaAldritch"
                         },
                         {
                            "$ref": "#/$defs/SimonsFoundation"
@@ -14969,6 +15263,34 @@
             }
          },
          "title": "MusMusculus",
+         "type": "object"
+      },
+      "NResearch": {
+         "additionalProperties": false,
+         "description": "NResearch",
+         "properties": {
+            "name": {
+               "const": "NResearch Inc",
+               "default": "NResearch Inc",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "NResearch",
          "type": "object"
       },
       "NanojectInjection": {
@@ -15703,6 +16025,7 @@
                      "Euresys": "#/$defs/Euresys",
                      "Fujinon": "#/$defs/Fujinon",
                      "Hamamatsu": "#/$defs/Hamamatsu",
+                     "Hamilton": "#/$defs/Hamilton",
                      "Huazhong University of Science and Technology": "#/$defs/HuazhongUniversityOfScienceAndTechnology",
                      "IR Robot Co": "#/$defs/IRRobotCo",
                      "ISL Products International": "#/$defs/ISLProductsInternational",
@@ -15717,6 +16040,7 @@
                      "MPI": "#/$defs/Mpi",
                      "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
                      "Mitutuyo": "#/$defs/Mitutuyo",
+                     "NResearch Inc": "#/$defs/NResearch",
                      "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                      "National Instruments": "#/$defs/NationalInstruments",
                      "Navitar": "#/$defs/Navitar",
@@ -15735,6 +16059,7 @@
                      "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                      "Second Order Effects": "#/$defs/SecondOrderEffects",
                      "Semrock": "#/$defs/Semrock",
+                     "Sigma-Aldritch": "#/$defs/SigmaAldritch",
                      "Simons Foundation": "#/$defs/SimonsFoundation",
                      "Spinnaker": "#/$defs/Spinnaker",
                      "Tamron": "#/$defs/Tamron",
@@ -15837,6 +16162,9 @@
                      "$ref": "#/$defs/Hamamatsu"
                   },
                   {
+                     "$ref": "#/$defs/Hamilton"
+                  },
+                  {
                      "$ref": "#/$defs/HuazhongUniversityOfScienceAndTechnology"
                   },
                   {
@@ -15906,6 +16234,9 @@
                      "$ref": "#/$defs/Nikon"
                   },
                   {
+                     "$ref": "#/$defs/NResearch"
+                  },
+                  {
                      "$ref": "#/$defs/OpenEphysProductionSite"
                   },
                   {
@@ -15934,6 +16265,9 @@
                   },
                   {
                      "$ref": "#/$defs/SchneiderKreuznach"
+                  },
+                  {
+                     "$ref": "#/$defs/SigmaAldritch"
                   },
                   {
                      "$ref": "#/$defs/SimonsFoundation"
@@ -16092,6 +16426,7 @@
                            "Euresys": "#/$defs/Euresys",
                            "Fujinon": "#/$defs/Fujinon",
                            "Hamamatsu": "#/$defs/Hamamatsu",
+                           "Hamilton": "#/$defs/Hamilton",
                            "Huazhong University of Science and Technology": "#/$defs/HuazhongUniversityOfScienceAndTechnology",
                            "IR Robot Co": "#/$defs/IRRobotCo",
                            "ISL Products International": "#/$defs/ISLProductsInternational",
@@ -16106,6 +16441,7 @@
                            "MPI": "#/$defs/Mpi",
                            "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
                            "Mitutuyo": "#/$defs/Mitutuyo",
+                           "NResearch Inc": "#/$defs/NResearch",
                            "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                            "National Instruments": "#/$defs/NationalInstruments",
                            "Navitar": "#/$defs/Navitar",
@@ -16124,6 +16460,7 @@
                            "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                            "Second Order Effects": "#/$defs/SecondOrderEffects",
                            "Semrock": "#/$defs/Semrock",
+                           "Sigma-Aldritch": "#/$defs/SigmaAldritch",
                            "Simons Foundation": "#/$defs/SimonsFoundation",
                            "Spinnaker": "#/$defs/Spinnaker",
                            "Tamron": "#/$defs/Tamron",
@@ -16226,6 +16563,9 @@
                            "$ref": "#/$defs/Hamamatsu"
                         },
                         {
+                           "$ref": "#/$defs/Hamilton"
+                        },
+                        {
                            "$ref": "#/$defs/HuazhongUniversityOfScienceAndTechnology"
                         },
                         {
@@ -16295,6 +16635,9 @@
                            "$ref": "#/$defs/Nikon"
                         },
                         {
+                           "$ref": "#/$defs/NResearch"
+                        },
+                        {
                            "$ref": "#/$defs/OpenEphysProductionSite"
                         },
                         {
@@ -16323,6 +16666,9 @@
                         },
                         {
                            "$ref": "#/$defs/SchneiderKreuznach"
+                        },
+                        {
+                           "$ref": "#/$defs/SigmaAldritch"
                         },
                         {
                            "$ref": "#/$defs/SimonsFoundation"
@@ -16554,6 +16900,18 @@
                ],
                "default": "% v/v",
                "title": "Dilution unit"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Notes"
             }
          },
          "required": [
@@ -16569,9 +16927,13 @@
          "description": "Description of a olfactory stimulus",
          "properties": {
             "stimulus_type": {
-               "const": "Olfactory",
-               "default": "Olfactory",
+               "const": "Olfactory Stimulation",
+               "default": "Olfactory Stimulation",
                "title": "Stimulus Type"
+            },
+            "stimulus_name": {
+               "title": "Stimulus name",
+               "type": "string"
             },
             "channels": {
                "items": {
@@ -16579,9 +16941,22 @@
                },
                "title": "Channels",
                "type": "array"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Notes"
             }
          },
          "required": [
+            "stimulus_name",
             "channels"
          ],
          "title": "OlfactoryStimulation",
@@ -16625,6 +17000,7 @@
                      "Euresys": "#/$defs/Euresys",
                      "Fujinon": "#/$defs/Fujinon",
                      "Hamamatsu": "#/$defs/Hamamatsu",
+                     "Hamilton": "#/$defs/Hamilton",
                      "Huazhong University of Science and Technology": "#/$defs/HuazhongUniversityOfScienceAndTechnology",
                      "IR Robot Co": "#/$defs/IRRobotCo",
                      "ISL Products International": "#/$defs/ISLProductsInternational",
@@ -16639,6 +17015,7 @@
                      "MPI": "#/$defs/Mpi",
                      "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
                      "Mitutuyo": "#/$defs/Mitutuyo",
+                     "NResearch Inc": "#/$defs/NResearch",
                      "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                      "National Instruments": "#/$defs/NationalInstruments",
                      "Navitar": "#/$defs/Navitar",
@@ -16657,6 +17034,7 @@
                      "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                      "Second Order Effects": "#/$defs/SecondOrderEffects",
                      "Semrock": "#/$defs/Semrock",
+                     "Sigma-Aldritch": "#/$defs/SigmaAldritch",
                      "Simons Foundation": "#/$defs/SimonsFoundation",
                      "Spinnaker": "#/$defs/Spinnaker",
                      "Tamron": "#/$defs/Tamron",
@@ -16759,6 +17137,9 @@
                      "$ref": "#/$defs/Hamamatsu"
                   },
                   {
+                     "$ref": "#/$defs/Hamilton"
+                  },
+                  {
                      "$ref": "#/$defs/HuazhongUniversityOfScienceAndTechnology"
                   },
                   {
@@ -16828,6 +17209,9 @@
                      "$ref": "#/$defs/Nikon"
                   },
                   {
+                     "$ref": "#/$defs/NResearch"
+                  },
+                  {
                      "$ref": "#/$defs/OpenEphysProductionSite"
                   },
                   {
@@ -16856,6 +17240,9 @@
                   },
                   {
                      "$ref": "#/$defs/SchneiderKreuznach"
+                  },
+                  {
+                     "$ref": "#/$defs/SigmaAldritch"
                   },
                   {
                      "$ref": "#/$defs/SimonsFoundation"
@@ -17448,6 +17835,7 @@
                            "Euresys": "#/$defs/Euresys",
                            "Fujinon": "#/$defs/Fujinon",
                            "Hamamatsu": "#/$defs/Hamamatsu",
+                           "Hamilton": "#/$defs/Hamilton",
                            "Huazhong University of Science and Technology": "#/$defs/HuazhongUniversityOfScienceAndTechnology",
                            "IR Robot Co": "#/$defs/IRRobotCo",
                            "ISL Products International": "#/$defs/ISLProductsInternational",
@@ -17462,6 +17850,7 @@
                            "MPI": "#/$defs/Mpi",
                            "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
                            "Mitutuyo": "#/$defs/Mitutuyo",
+                           "NResearch Inc": "#/$defs/NResearch",
                            "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                            "National Instruments": "#/$defs/NationalInstruments",
                            "Navitar": "#/$defs/Navitar",
@@ -17480,6 +17869,7 @@
                            "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                            "Second Order Effects": "#/$defs/SecondOrderEffects",
                            "Semrock": "#/$defs/Semrock",
+                           "Sigma-Aldritch": "#/$defs/SigmaAldritch",
                            "Simons Foundation": "#/$defs/SimonsFoundation",
                            "Spinnaker": "#/$defs/Spinnaker",
                            "Tamron": "#/$defs/Tamron",
@@ -17582,6 +17972,9 @@
                            "$ref": "#/$defs/Hamamatsu"
                         },
                         {
+                           "$ref": "#/$defs/Hamilton"
+                        },
+                        {
                            "$ref": "#/$defs/HuazhongUniversityOfScienceAndTechnology"
                         },
                         {
@@ -17651,6 +18044,9 @@
                            "$ref": "#/$defs/Nikon"
                         },
                         {
+                           "$ref": "#/$defs/NResearch"
+                        },
+                        {
                            "$ref": "#/$defs/OpenEphysProductionSite"
                         },
                         {
@@ -17679,6 +18075,9 @@
                         },
                         {
                            "$ref": "#/$defs/SchneiderKreuznach"
+                        },
+                        {
+                           "$ref": "#/$defs/SigmaAldritch"
                         },
                         {
                            "$ref": "#/$defs/SimonsFoundation"
@@ -17860,8 +18259,18 @@
                "title": "Pulse shape"
             },
             "pulse_frequency": {
+               "items": {
+                  "anyOf": [
+                     {
+                        "type": "number"
+                     },
+                     {
+                        "type": "string"
+                     }
+                  ]
+               },
                "title": "Pulse frequency (Hz)",
-               "type": "integer"
+               "type": "array"
             },
             "pulse_frequency_unit": {
                "allOf": [
@@ -17873,12 +18282,18 @@
                "title": "Pulse frequency unit"
             },
             "number_pulse_trains": {
+               "items": {
+                  "type": "integer"
+               },
                "title": "Number of pulse trains",
-               "type": "integer"
+               "type": "array"
             },
             "pulse_width": {
+               "items": {
+                  "type": "integer"
+               },
                "title": "Pulse width (ms)",
-               "type": "integer"
+               "type": "array"
             },
             "pulse_width_unit": {
                "allOf": [
@@ -17890,15 +18305,18 @@
                "title": "Pulse width unit"
             },
             "pulse_train_duration": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  }
-               ],
-               "title": "Pulse train duration (s)"
+               "items": {
+                  "anyOf": [
+                     {
+                        "type": "number"
+                     },
+                     {
+                        "type": "string"
+                     }
+                  ]
+               },
+               "title": "Pulse train duration (s)",
+               "type": "array"
             },
             "pulse_train_duration_unit": {
                "allOf": [
@@ -18259,6 +18677,7 @@
                            "Euresys": "#/$defs/Euresys",
                            "Fujinon": "#/$defs/Fujinon",
                            "Hamamatsu": "#/$defs/Hamamatsu",
+                           "Hamilton": "#/$defs/Hamilton",
                            "Huazhong University of Science and Technology": "#/$defs/HuazhongUniversityOfScienceAndTechnology",
                            "IR Robot Co": "#/$defs/IRRobotCo",
                            "ISL Products International": "#/$defs/ISLProductsInternational",
@@ -18273,6 +18692,7 @@
                            "MPI": "#/$defs/Mpi",
                            "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
                            "Mitutuyo": "#/$defs/Mitutuyo",
+                           "NResearch Inc": "#/$defs/NResearch",
                            "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                            "National Instruments": "#/$defs/NationalInstruments",
                            "Navitar": "#/$defs/Navitar",
@@ -18291,6 +18711,7 @@
                            "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                            "Second Order Effects": "#/$defs/SecondOrderEffects",
                            "Semrock": "#/$defs/Semrock",
+                           "Sigma-Aldritch": "#/$defs/SigmaAldritch",
                            "Simons Foundation": "#/$defs/SimonsFoundation",
                            "Spinnaker": "#/$defs/Spinnaker",
                            "Tamron": "#/$defs/Tamron",
@@ -18393,6 +18814,9 @@
                            "$ref": "#/$defs/Hamamatsu"
                         },
                         {
+                           "$ref": "#/$defs/Hamilton"
+                        },
+                        {
                            "$ref": "#/$defs/HuazhongUniversityOfScienceAndTechnology"
                         },
                         {
@@ -18462,6 +18886,9 @@
                            "$ref": "#/$defs/Nikon"
                         },
                         {
+                           "$ref": "#/$defs/NResearch"
+                        },
+                        {
                            "$ref": "#/$defs/OpenEphysProductionSite"
                         },
                         {
@@ -18490,6 +18917,9 @@
                         },
                         {
                            "$ref": "#/$defs/SchneiderKreuznach"
+                        },
+                        {
+                           "$ref": "#/$defs/SigmaAldritch"
                         },
                         {
                            "$ref": "#/$defs/SimonsFoundation"
@@ -18974,6 +19404,7 @@
                            "Euresys": "#/$defs/Euresys",
                            "Fujinon": "#/$defs/Fujinon",
                            "Hamamatsu": "#/$defs/Hamamatsu",
+                           "Hamilton": "#/$defs/Hamilton",
                            "Huazhong University of Science and Technology": "#/$defs/HuazhongUniversityOfScienceAndTechnology",
                            "IR Robot Co": "#/$defs/IRRobotCo",
                            "ISL Products International": "#/$defs/ISLProductsInternational",
@@ -18988,6 +19419,7 @@
                            "MPI": "#/$defs/Mpi",
                            "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
                            "Mitutuyo": "#/$defs/Mitutuyo",
+                           "NResearch Inc": "#/$defs/NResearch",
                            "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                            "National Instruments": "#/$defs/NationalInstruments",
                            "Navitar": "#/$defs/Navitar",
@@ -19006,6 +19438,7 @@
                            "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                            "Second Order Effects": "#/$defs/SecondOrderEffects",
                            "Semrock": "#/$defs/Semrock",
+                           "Sigma-Aldritch": "#/$defs/SigmaAldritch",
                            "Simons Foundation": "#/$defs/SimonsFoundation",
                            "Spinnaker": "#/$defs/Spinnaker",
                            "Tamron": "#/$defs/Tamron",
@@ -19108,6 +19541,9 @@
                            "$ref": "#/$defs/Hamamatsu"
                         },
                         {
+                           "$ref": "#/$defs/Hamilton"
+                        },
+                        {
                            "$ref": "#/$defs/HuazhongUniversityOfScienceAndTechnology"
                         },
                         {
@@ -19177,6 +19613,9 @@
                            "$ref": "#/$defs/Nikon"
                         },
                         {
+                           "$ref": "#/$defs/NResearch"
+                        },
+                        {
                            "$ref": "#/$defs/OpenEphysProductionSite"
                         },
                         {
@@ -19205,6 +19644,9 @@
                         },
                         {
                            "$ref": "#/$defs/SchneiderKreuznach"
+                        },
+                        {
+                           "$ref": "#/$defs/SigmaAldritch"
                         },
                         {
                            "$ref": "#/$defs/SimonsFoundation"
@@ -19409,6 +19851,7 @@
                            "Euresys": "#/$defs/Euresys",
                            "Fujinon": "#/$defs/Fujinon",
                            "Hamamatsu": "#/$defs/Hamamatsu",
+                           "Hamilton": "#/$defs/Hamilton",
                            "Huazhong University of Science and Technology": "#/$defs/HuazhongUniversityOfScienceAndTechnology",
                            "IR Robot Co": "#/$defs/IRRobotCo",
                            "ISL Products International": "#/$defs/ISLProductsInternational",
@@ -19423,6 +19866,7 @@
                            "MPI": "#/$defs/Mpi",
                            "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
                            "Mitutuyo": "#/$defs/Mitutuyo",
+                           "NResearch Inc": "#/$defs/NResearch",
                            "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                            "National Instruments": "#/$defs/NationalInstruments",
                            "Navitar": "#/$defs/Navitar",
@@ -19441,6 +19885,7 @@
                            "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                            "Second Order Effects": "#/$defs/SecondOrderEffects",
                            "Semrock": "#/$defs/Semrock",
+                           "Sigma-Aldritch": "#/$defs/SigmaAldritch",
                            "Simons Foundation": "#/$defs/SimonsFoundation",
                            "Spinnaker": "#/$defs/Spinnaker",
                            "Tamron": "#/$defs/Tamron",
@@ -19543,6 +19988,9 @@
                            "$ref": "#/$defs/Hamamatsu"
                         },
                         {
+                           "$ref": "#/$defs/Hamilton"
+                        },
+                        {
                            "$ref": "#/$defs/HuazhongUniversityOfScienceAndTechnology"
                         },
                         {
@@ -19612,6 +20060,9 @@
                            "$ref": "#/$defs/Nikon"
                         },
                         {
+                           "$ref": "#/$defs/NResearch"
+                        },
+                        {
                            "$ref": "#/$defs/OpenEphysProductionSite"
                         },
                         {
@@ -19640,6 +20091,9 @@
                         },
                         {
                            "$ref": "#/$defs/SchneiderKreuznach"
+                        },
+                        {
+                           "$ref": "#/$defs/SigmaAldritch"
                         },
                         {
                            "$ref": "#/$defs/SimonsFoundation"
@@ -19855,8 +20309,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.12.6",
-               "default": "0.12.6",
+               "const": "0.13.2",
+               "default": "0.13.2",
                "title": "Schema Version"
             },
             "subject_id": {
@@ -20053,6 +20507,7 @@
       "ProtectiveMaterial": {
          "description": "Name of material applied to craniotomy",
          "enum": [
+            "Agarose",
             "Duragel",
             "Kwik-Cast",
             "SORTA-clear",
@@ -20060,6 +20515,109 @@
          ],
          "title": "ProtectiveMaterial",
          "type": "string"
+      },
+      "ProtectiveMaterialReplacement": {
+         "additionalProperties": false,
+         "description": "Description of a protective material replacement procedure in preparation for ephys recording",
+         "properties": {
+            "procedure_type": {
+               "const": "Ground wire",
+               "default": "Ground wire",
+               "title": "Procedure Type"
+            },
+            "protocol_id": {
+               "description": "DOI for protocols.io",
+               "title": "Protocol ID",
+               "type": "string"
+            },
+            "protective_material": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/ProtectiveMaterial"
+                  }
+               ],
+               "description": "New material being applied",
+               "title": "Protective material"
+            },
+            "ground_wire_hole": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Ground wire hole"
+            },
+            "ground_wire_material": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/GroundWireMaterial"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Ground wire material"
+            },
+            "ground_wire_diameter": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Ground wire diameter"
+            },
+            "ground_wire_diameter_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  }
+               ],
+               "default": "inch",
+               "title": "Ground wire diameter unit"
+            },
+            "well_part_number": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Well part number"
+            },
+            "well_type": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Well type"
+            }
+         },
+         "required": [
+            "protocol_id",
+            "protective_material"
+         ],
+         "title": "ProtectiveMaterialReplacement",
+         "type": "object"
       },
       "PulseShape": {
          "description": "Types of Opto stim pulse shapes",
@@ -20213,6 +20771,7 @@
                      "Euresys": "#/$defs/Euresys",
                      "Fujinon": "#/$defs/Fujinon",
                      "Hamamatsu": "#/$defs/Hamamatsu",
+                     "Hamilton": "#/$defs/Hamilton",
                      "Huazhong University of Science and Technology": "#/$defs/HuazhongUniversityOfScienceAndTechnology",
                      "IR Robot Co": "#/$defs/IRRobotCo",
                      "ISL Products International": "#/$defs/ISLProductsInternational",
@@ -20227,6 +20786,7 @@
                      "MPI": "#/$defs/Mpi",
                      "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
                      "Mitutuyo": "#/$defs/Mitutuyo",
+                     "NResearch Inc": "#/$defs/NResearch",
                      "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                      "National Instruments": "#/$defs/NationalInstruments",
                      "Navitar": "#/$defs/Navitar",
@@ -20245,6 +20805,7 @@
                      "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                      "Second Order Effects": "#/$defs/SecondOrderEffects",
                      "Semrock": "#/$defs/Semrock",
+                     "Sigma-Aldritch": "#/$defs/SigmaAldritch",
                      "Simons Foundation": "#/$defs/SimonsFoundation",
                      "Spinnaker": "#/$defs/Spinnaker",
                      "Tamron": "#/$defs/Tamron",
@@ -20347,6 +20908,9 @@
                      "$ref": "#/$defs/Hamamatsu"
                   },
                   {
+                     "$ref": "#/$defs/Hamilton"
+                  },
+                  {
                      "$ref": "#/$defs/HuazhongUniversityOfScienceAndTechnology"
                   },
                   {
@@ -20416,6 +20980,9 @@
                      "$ref": "#/$defs/Nikon"
                   },
                   {
+                     "$ref": "#/$defs/NResearch"
+                  },
+                  {
                      "$ref": "#/$defs/OpenEphysProductionSite"
                   },
                   {
@@ -20444,6 +21011,9 @@
                   },
                   {
                      "$ref": "#/$defs/SchneiderKreuznach"
+                  },
+                  {
+                     "$ref": "#/$defs/SigmaAldritch"
                   },
                   {
                      "$ref": "#/$defs/SimonsFoundation"
@@ -20584,6 +21154,7 @@
                      "Euresys": "#/$defs/Euresys",
                      "Fujinon": "#/$defs/Fujinon",
                      "Hamamatsu": "#/$defs/Hamamatsu",
+                     "Hamilton": "#/$defs/Hamilton",
                      "Huazhong University of Science and Technology": "#/$defs/HuazhongUniversityOfScienceAndTechnology",
                      "IR Robot Co": "#/$defs/IRRobotCo",
                      "ISL Products International": "#/$defs/ISLProductsInternational",
@@ -20598,6 +21169,7 @@
                      "MPI": "#/$defs/Mpi",
                      "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
                      "Mitutuyo": "#/$defs/Mitutuyo",
+                     "NResearch Inc": "#/$defs/NResearch",
                      "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                      "National Instruments": "#/$defs/NationalInstruments",
                      "Navitar": "#/$defs/Navitar",
@@ -20616,6 +21188,7 @@
                      "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                      "Second Order Effects": "#/$defs/SecondOrderEffects",
                      "Semrock": "#/$defs/Semrock",
+                     "Sigma-Aldritch": "#/$defs/SigmaAldritch",
                      "Simons Foundation": "#/$defs/SimonsFoundation",
                      "Spinnaker": "#/$defs/Spinnaker",
                      "Tamron": "#/$defs/Tamron",
@@ -20718,6 +21291,9 @@
                      "$ref": "#/$defs/Hamamatsu"
                   },
                   {
+                     "$ref": "#/$defs/Hamilton"
+                  },
+                  {
                      "$ref": "#/$defs/HuazhongUniversityOfScienceAndTechnology"
                   },
                   {
@@ -20787,6 +21363,9 @@
                      "$ref": "#/$defs/Nikon"
                   },
                   {
+                     "$ref": "#/$defs/NResearch"
+                  },
+                  {
                      "$ref": "#/$defs/OpenEphysProductionSite"
                   },
                   {
@@ -20815,6 +21394,9 @@
                   },
                   {
                      "$ref": "#/$defs/SchneiderKreuznach"
+                  },
+                  {
+                     "$ref": "#/$defs/SigmaAldritch"
                   },
                   {
                      "$ref": "#/$defs/SimonsFoundation"
@@ -20917,7 +21499,14 @@
          "properties": {
             "device_position_transformations": {
                "items": {
-                  "anyOf": [
+                  "discriminator": {
+                     "mapping": {
+                        "rotation": "#/$defs/Rotation3dTransform",
+                        "translation": "#/$defs/Translation3dTransform"
+                     },
+                     "propertyName": "type"
+                  },
+                  "oneOf": [
                      {
                         "$ref": "#/$defs/Translation3dTransform"
                      },
@@ -21250,6 +21839,7 @@
                            "Euresys": "#/$defs/Euresys",
                            "Fujinon": "#/$defs/Fujinon",
                            "Hamamatsu": "#/$defs/Hamamatsu",
+                           "Hamilton": "#/$defs/Hamilton",
                            "Huazhong University of Science and Technology": "#/$defs/HuazhongUniversityOfScienceAndTechnology",
                            "IR Robot Co": "#/$defs/IRRobotCo",
                            "ISL Products International": "#/$defs/ISLProductsInternational",
@@ -21264,6 +21854,7 @@
                            "MPI": "#/$defs/Mpi",
                            "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
                            "Mitutuyo": "#/$defs/Mitutuyo",
+                           "NResearch Inc": "#/$defs/NResearch",
                            "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                            "National Instruments": "#/$defs/NationalInstruments",
                            "Navitar": "#/$defs/Navitar",
@@ -21282,6 +21873,7 @@
                            "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                            "Second Order Effects": "#/$defs/SecondOrderEffects",
                            "Semrock": "#/$defs/Semrock",
+                           "Sigma-Aldritch": "#/$defs/SigmaAldritch",
                            "Simons Foundation": "#/$defs/SimonsFoundation",
                            "Spinnaker": "#/$defs/Spinnaker",
                            "Tamron": "#/$defs/Tamron",
@@ -21384,6 +21976,9 @@
                            "$ref": "#/$defs/Hamamatsu"
                         },
                         {
+                           "$ref": "#/$defs/Hamilton"
+                        },
+                        {
                            "$ref": "#/$defs/HuazhongUniversityOfScienceAndTechnology"
                         },
                         {
@@ -21453,6 +22048,9 @@
                            "$ref": "#/$defs/Nikon"
                         },
                         {
+                           "$ref": "#/$defs/NResearch"
+                        },
+                        {
                            "$ref": "#/$defs/OpenEphysProductionSite"
                         },
                         {
@@ -21481,6 +22079,9 @@
                         },
                         {
                            "$ref": "#/$defs/SchneiderKreuznach"
+                        },
+                        {
+                           "$ref": "#/$defs/SigmaAldritch"
                         },
                         {
                            "$ref": "#/$defs/SimonsFoundation"
@@ -21714,8 +22315,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.2.18",
-               "default": "0.2.18",
+               "const": "0.3.1",
+               "default": "0.3.1",
                "title": "Schema Version"
             },
             "rig_id": {
@@ -21732,7 +22333,7 @@
                "discriminator": {
                   "mapping": {
                      "Disc": "#/$defs/Disc",
-                     "Treadmill": "#/$defs/Treadmill",
+                     "Treadmill": "#/$defs/aind_data_schema__models__devices__Treadmill",
                      "Tube": "#/$defs/Tube",
                      "Wheel": "#/$defs/Wheel"
                   },
@@ -21749,7 +22350,7 @@
                      "$ref": "#/$defs/Tube"
                   },
                   {
-                     "$ref": "#/$defs/Treadmill"
+                     "$ref": "#/$defs/aind_data_schema__models__devices__Treadmill"
                   }
                ],
                "title": "Mouse Platform"
@@ -22227,6 +22828,7 @@
                            "Euresys": "#/$defs/Euresys",
                            "Fujinon": "#/$defs/Fujinon",
                            "Hamamatsu": "#/$defs/Hamamatsu",
+                           "Hamilton": "#/$defs/Hamilton",
                            "Huazhong University of Science and Technology": "#/$defs/HuazhongUniversityOfScienceAndTechnology",
                            "IR Robot Co": "#/$defs/IRRobotCo",
                            "ISL Products International": "#/$defs/ISLProductsInternational",
@@ -22241,6 +22843,7 @@
                            "MPI": "#/$defs/Mpi",
                            "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
                            "Mitutuyo": "#/$defs/Mitutuyo",
+                           "NResearch Inc": "#/$defs/NResearch",
                            "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                            "National Instruments": "#/$defs/NationalInstruments",
                            "Navitar": "#/$defs/Navitar",
@@ -22259,6 +22862,7 @@
                            "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                            "Second Order Effects": "#/$defs/SecondOrderEffects",
                            "Semrock": "#/$defs/Semrock",
+                           "Sigma-Aldritch": "#/$defs/SigmaAldritch",
                            "Simons Foundation": "#/$defs/SimonsFoundation",
                            "Spinnaker": "#/$defs/Spinnaker",
                            "Tamron": "#/$defs/Tamron",
@@ -22361,6 +22965,9 @@
                            "$ref": "#/$defs/Hamamatsu"
                         },
                         {
+                           "$ref": "#/$defs/Hamilton"
+                        },
+                        {
                            "$ref": "#/$defs/HuazhongUniversityOfScienceAndTechnology"
                         },
                         {
@@ -22430,6 +23037,9 @@
                            "$ref": "#/$defs/Nikon"
                         },
                         {
+                           "$ref": "#/$defs/NResearch"
+                        },
+                        {
                            "$ref": "#/$defs/OpenEphysProductionSite"
                         },
                         {
@@ -22458,6 +23068,9 @@
                         },
                         {
                            "$ref": "#/$defs/SchneiderKreuznach"
+                        },
+                        {
+                           "$ref": "#/$defs/SigmaAldritch"
                         },
                         {
                            "$ref": "#/$defs/SimonsFoundation"
@@ -22712,8 +23325,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.1.9",
-               "default": "0.1.9",
+               "const": "0.2.1",
+               "default": "0.2.1",
                "title": "Schema Version"
             },
             "protocol_id": {
@@ -22850,6 +23463,15 @@
                "title": "Stimulus",
                "type": "array"
             },
+            "mouse_platform_name": {
+               "title": "Mouse platform",
+               "type": "string"
+            },
+            "active_mouse_platform": {
+               "description": "Is the mouse platform being actively controlled",
+               "title": "Active mouse platform",
+               "type": "boolean"
+            },
             "reward_delivery": {
                "anyOf": [
                   {
@@ -22905,7 +23527,9 @@
             "session_type",
             "rig_id",
             "subject_id",
-            "data_streams"
+            "data_streams",
+            "mouse_platform_name",
+            "active_mouse_platform"
          ],
          "title": "Session",
          "type": "object"
@@ -22927,6 +23551,34 @@
          ],
          "title": "Side",
          "type": "string"
+      },
+      "SigmaAldritch": {
+         "additionalProperties": false,
+         "description": "Sigma-Aldritch",
+         "properties": {
+            "name": {
+               "const": "Sigma-Aldritch",
+               "default": "Sigma-Aldritch",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "SigmaAldritch",
+         "type": "object"
       },
       "SimonsFoundation": {
          "additionalProperties": false,
@@ -23375,6 +24027,23 @@
          "title": "SmartSpim",
          "type": "object"
       },
+      "SniffDetector": {
+         "description": "Sniff Detector",
+         "properties": {
+            "name": {
+               "const": "Sniff Detector",
+               "default": "Sniff Detector",
+               "title": "Name"
+            },
+            "whoami": {
+               "const": 1401,
+               "default": 1401,
+               "title": "Whoami"
+            }
+         },
+         "title": "SniffDetector",
+         "type": "object"
+      },
       "Software": {
          "additionalProperties": false,
          "description": "Description of generic software",
@@ -23432,6 +24101,12 @@
          },
          "title": "SoundCard",
          "type": "object"
+      },
+      "SoundIntensityUnit": {
+         "const": "decibels",
+         "description": "Sound intensity units",
+         "title": "SoundIntensityUnit",
+         "type": "string"
       },
       "Speaker": {
          "additionalProperties": false,
@@ -23558,6 +24233,46 @@
          "title": "Speaker",
          "type": "object"
       },
+      "SpeakerConfig": {
+         "additionalProperties": false,
+         "description": "Description of auditory speaker configuration",
+         "properties": {
+            "name": {
+               "description": "Must match rig json",
+               "title": "Name",
+               "type": "string"
+            },
+            "volume": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Volume (dB)"
+            },
+            "volume_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/SoundIntensityUnit"
+                  }
+               ],
+               "default": "decibels",
+               "title": "Volume unit"
+            }
+         },
+         "required": [
+            "name"
+         ],
+         "title": "SpeakerConfig",
+         "type": "object"
+      },
       "SpecimenProcedure": {
          "additionalProperties": false,
          "description": "Description of surgical or other procedure performed on a specimen",
@@ -23604,8 +24319,11 @@
             },
             "protocol_id": {
                "description": "DOI for protocols.io",
+               "items": {
+                  "type": "string"
+               },
                "title": "Protocol ID",
-               "type": "string"
+               "type": "array"
             },
             "reagents": {
                "default": [],
@@ -24085,6 +24803,7 @@
                      "Euresys": "#/$defs/Euresys",
                      "Fujinon": "#/$defs/Fujinon",
                      "Hamamatsu": "#/$defs/Hamamatsu",
+                     "Hamilton": "#/$defs/Hamilton",
                      "Huazhong University of Science and Technology": "#/$defs/HuazhongUniversityOfScienceAndTechnology",
                      "IR Robot Co": "#/$defs/IRRobotCo",
                      "ISL Products International": "#/$defs/ISLProductsInternational",
@@ -24099,6 +24818,7 @@
                      "MPI": "#/$defs/Mpi",
                      "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
                      "Mitutuyo": "#/$defs/Mitutuyo",
+                     "NResearch Inc": "#/$defs/NResearch",
                      "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                      "National Instruments": "#/$defs/NationalInstruments",
                      "Navitar": "#/$defs/Navitar",
@@ -24117,6 +24837,7 @@
                      "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                      "Second Order Effects": "#/$defs/SecondOrderEffects",
                      "Semrock": "#/$defs/Semrock",
+                     "Sigma-Aldritch": "#/$defs/SigmaAldritch",
                      "Simons Foundation": "#/$defs/SimonsFoundation",
                      "Spinnaker": "#/$defs/Spinnaker",
                      "Tamron": "#/$defs/Tamron",
@@ -24219,6 +24940,9 @@
                      "$ref": "#/$defs/Hamamatsu"
                   },
                   {
+                     "$ref": "#/$defs/Hamilton"
+                  },
+                  {
                      "$ref": "#/$defs/HuazhongUniversityOfScienceAndTechnology"
                   },
                   {
@@ -24288,6 +25012,9 @@
                      "$ref": "#/$defs/Nikon"
                   },
                   {
+                     "$ref": "#/$defs/NResearch"
+                  },
+                  {
                      "$ref": "#/$defs/OpenEphysProductionSite"
                   },
                   {
@@ -24316,6 +25043,9 @@
                   },
                   {
                      "$ref": "#/$defs/SchneiderKreuznach"
+                  },
+                  {
+                     "$ref": "#/$defs/SigmaAldritch"
                   },
                   {
                      "$ref": "#/$defs/SimonsFoundation"
@@ -24419,40 +25149,27 @@
          "title": "StainType",
          "type": "string"
       },
+      "StepperDriver": {
+         "description": "Stepper Driver",
+         "properties": {
+            "name": {
+               "const": "Stepper Driver",
+               "default": "Stepper Driver",
+               "title": "Name"
+            },
+            "whoami": {
+               "const": 1130,
+               "default": 1130,
+               "title": "Whoami"
+            }
+         },
+         "title": "StepperDriver",
+         "type": "object"
+      },
       "StimulusEpoch": {
          "additionalProperties": false,
          "description": "Description of stimulus used during session",
          "properties": {
-            "stimulus": {
-               "discriminator": {
-                  "mapping": {
-                     "Behavior": "#/$defs/BehaviorStimulation",
-                     "Olfactory": "#/$defs/OlfactoryStimulation",
-                     "Opto Stimulation": "#/$defs/OptoStimulation",
-                     "Photo Stimulation": "#/$defs/PhotoStimulation",
-                     "Visual": "#/$defs/VisualStimulation"
-                  },
-                  "propertyName": "stimulus_type"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/OlfactoryStimulation"
-                  },
-                  {
-                     "$ref": "#/$defs/OptoStimulation"
-                  },
-                  {
-                     "$ref": "#/$defs/VisualStimulation"
-                  },
-                  {
-                     "$ref": "#/$defs/BehaviorStimulation"
-                  },
-                  {
-                     "$ref": "#/$defs/PhotoStimulation"
-                  }
-               ],
-               "title": "Stimulus"
-            },
             "stimulus_start_time": {
                "description": "When a specific stimulus begins. This might be the same as the session start time.",
                "format": "date-time",
@@ -24464,15 +25181,250 @@
                "format": "date-time",
                "title": "Stimulus end time",
                "type": "string"
+            },
+            "stimulus_name": {
+               "title": "Stimulus name",
+               "type": "string"
+            },
+            "session_number": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Session number"
+            },
+            "software": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "$ref": "#/$defs/Software"
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": [],
+               "description": "The software used to control the behavior/stimulus (e.g. Bonsai)",
+               "title": "Software"
+            },
+            "script": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Software"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "provide URL to the commit of the script and the parameters used",
+               "title": "Script"
+            },
+            "stimulus_modalities": {
+               "items": {
+                  "$ref": "#/$defs/StimulusModality"
+               },
+               "title": "Stimulus modalities",
+               "type": "array"
+            },
+            "stimulus_parameters": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "discriminator": {
+                           "mapping": {
+                              "Auditory Stimulation": "#/$defs/AuditoryStimulation",
+                              "Olfactory Stimulation": "#/$defs/OlfactoryStimulation",
+                              "Opto Stimulation": "#/$defs/OptoStimulation",
+                              "Photo Stimulation": "#/$defs/PhotoStimulation",
+                              "Visual Stimulation": "#/$defs/VisualStimulation"
+                           },
+                           "propertyName": "stimulus_type"
+                        },
+                        "oneOf": [
+                           {
+                              "$ref": "#/$defs/AuditoryStimulation"
+                           },
+                           {
+                              "$ref": "#/$defs/OptoStimulation"
+                           },
+                           {
+                              "$ref": "#/$defs/OlfactoryStimulation"
+                           },
+                           {
+                              "$ref": "#/$defs/PhotoStimulation"
+                           },
+                           {
+                              "$ref": "#/$defs/VisualStimulation"
+                           }
+                        ]
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Stimulus parameters"
+            },
+            "stimulus_device_names": {
+               "default": [],
+               "items": {
+                  "type": "string"
+               },
+               "title": "Stimulus devices",
+               "type": "array"
+            },
+            "speaker_config": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/SpeakerConfig"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Speaker Config"
+            },
+            "light_source_config": {
+               "anyOf": [
+                  {
+                     "discriminator": {
+                        "mapping": {
+                           "Laser": "#/$defs/LaserConfig",
+                           "LightEmittingDiode": "#/$defs/LightEmittingDiodeConfig"
+                        },
+                        "propertyName": "device_type"
+                     },
+                     "oneOf": [
+                        {
+                           "$ref": "#/$defs/LightEmittingDiodeConfig"
+                        },
+                        {
+                           "$ref": "#/$defs/LaserConfig"
+                        }
+                     ]
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Light source config"
+            },
+            "output_parameters": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/AindGeneric"
+                  }
+               ],
+               "default": {},
+               "title": "Performance metrics"
+            },
+            "reward_consumed_during_epoch": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Reward consumed during training (uL)"
+            },
+            "reward_consumed_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/VolumeUnit"
+                  }
+               ],
+               "default": "microliter",
+               "title": "Reward consumed unit"
+            },
+            "trials_total": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Total trials"
+            },
+            "trials_finished": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Finished trials"
+            },
+            "trials_rewarded": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Rewarded trials"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Notes"
             }
          },
          "required": [
-            "stimulus",
             "stimulus_start_time",
-            "stimulus_end_time"
+            "stimulus_end_time",
+            "stimulus_name",
+            "stimulus_modalities"
          ],
          "title": "StimulusEpoch",
          "type": "object"
+      },
+      "StimulusModality": {
+         "description": "Types of stimulus modalities",
+         "enum": [
+            "Auditory",
+            "Olfactory",
+            "Optogenetics",
+            "None",
+            "Virtual reality",
+            "Visual",
+            "Wheel friction"
+         ],
+         "title": "StimulusModality",
+         "type": "string"
       },
       "Stream": {
          "additionalProperties": false,
@@ -24607,22 +25559,6 @@
                "default": null,
                "title": "Stack parameters"
             },
-            "stimulus_device_names": {
-               "default": [],
-               "items": {
-                  "type": "string"
-               },
-               "title": "Stimulus devices",
-               "type": "array"
-            },
-            "mouse_platform_name": {
-               "title": "Mouse platform",
-               "type": "string"
-            },
-            "active_mouse_platform": {
-               "title": "Active mouse platform",
-               "type": "boolean"
-            },
             "stream_modalities": {
                "items": {
                   "discriminator": {
@@ -24708,8 +25644,6 @@
          "required": [
             "stream_start_time",
             "stream_end_time",
-            "mouse_platform_name",
-            "active_mouse_platform",
             "stream_modalities"
          ],
          "title": "Stream",
@@ -24932,6 +25866,11 @@
                "default": "Surgery",
                "title": "Procedure Type"
             },
+            "protocol_id": {
+               "description": "DOI for protocols.io",
+               "title": "Protocol ID",
+               "type": "string"
+            },
             "start_date": {
                "format": "date",
                "title": "Start date",
@@ -25025,6 +25964,7 @@
                      "mapping": {
                         "Craniotomy": "#/$defs/Craniotomy",
                         "Fiber implant": "#/$defs/FiberImplant",
+                        "Ground wire": "#/$defs/ProtectiveMaterialReplacement",
                         "Headframe": "#/$defs/Headframe",
                         "ICM injection": "#/$defs/IntraCisternalMagnaInjection",
                         "ICV injection": "#/$defs/IntraCerebellarVentricleInjection",
@@ -25063,10 +26003,13 @@
                         "$ref": "#/$defs/NanojectInjection"
                      },
                      {
+                        "$ref": "#/$defs/OtherSubjectProcedure"
+                     },
+                     {
                         "$ref": "#/$defs/Perfusion"
                      },
                      {
-                        "$ref": "#/$defs/OtherSubjectProcedure"
+                        "$ref": "#/$defs/ProtectiveMaterialReplacement"
                      },
                      {
                         "$ref": "#/$defs/RetroOrbitalInjection"
@@ -25091,6 +26034,7 @@
             }
          },
          "required": [
+            "protocol_id",
             "start_date",
             "experimenter_full_name",
             "procedures"
@@ -25572,448 +26516,6 @@
          "title": "Translation3dTransform",
          "type": "object"
       },
-      "Treadmill": {
-         "additionalProperties": false,
-         "description": "Description of treadmill platform",
-         "properties": {
-            "device_type": {
-               "const": "Treadmill",
-               "default": "Treadmill",
-               "title": "Device Type"
-            },
-            "name": {
-               "title": "Device name",
-               "type": "string"
-            },
-            "serial_number": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Serial number"
-            },
-            "manufacturer": {
-               "anyOf": [
-                  {
-                     "discriminator": {
-                        "mapping": {
-                           "AA Opto Electronic": "#/$defs/AAOptoElectronic",
-                           "ASUS": "#/$defs/Asus",
-                           "Abcam": "#/$defs/Abcam",
-                           "Ailipu Technology Co": "#/$defs/AilipuTechnologyCo",
-                           "Allen Institute": "#/$defs/AllenInstitute",
-                           "Allen Institute for Brain Science": "#/$defs/AllenInstituteForBrainScience",
-                           "Allen Institute for Neural Dynamics": "#/$defs/AllenInstituteForNeuralDynamics",
-                           "Allied": "#/$defs/Allied",
-                           "Applied Scientific Instrumentation": "#/$defs/AppliedScientificInstrumentation",
-                           "Arecont Vision Costar": "#/$defs/ArecontVisionCostar",
-                           "Basler": "#/$defs/Basler",
-                           "Cambridge Technology": "#/$defs/CambridgeTechnology",
-                           "Carl Zeiss": "#/$defs/CarlZeiss",
-                           "Champalimaud Foundation": "#/$defs/ChampalimaudFoundation",
-                           "Chroma": "#/$defs/Chroma",
-                           "Coherent Scientific": "#/$defs/CoherentScientific",
-                           "Columbia University": "#/$defs/ColumbiaUniversity",
-                           "Computar": "#/$defs/Computar",
-                           "Conoptics": "#/$defs/Conoptics",
-                           "Custom": "#/$defs/Custom",
-                           "Dodotronic": "#/$defs/Dodotronic",
-                           "Doric": "#/$defs/Doric",
-                           "Ealing": "#/$defs/Ealing",
-                           "Edmund Optics": "#/$defs/EdmundOptics",
-                           "Euresys": "#/$defs/Euresys",
-                           "Fujinon": "#/$defs/Fujinon",
-                           "Hamamatsu": "#/$defs/Hamamatsu",
-                           "Huazhong University of Science and Technology": "#/$defs/HuazhongUniversityOfScienceAndTechnology",
-                           "IR Robot Co": "#/$defs/IRRobotCo",
-                           "ISL Products International": "#/$defs/ISLProductsInternational",
-                           "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
-                           "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
-                           "Jackson Laboratory": "#/$defs/JacksonLaboratory",
-                           "Julabo": "#/$defs/Julabo",
-                           "LG": "#/$defs/Lg",
-                           "Leica": "#/$defs/Leica",
-                           "LifeCanvas": "#/$defs/LifeCanvas",
-                           "MKS Newport": "#/$defs/MKSNewport",
-                           "MPI": "#/$defs/Mpi",
-                           "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
-                           "Mitutuyo": "#/$defs/Mitutuyo",
-                           "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
-                           "National Instruments": "#/$defs/NationalInstruments",
-                           "Navitar": "#/$defs/Navitar",
-                           "Neurophotometrics": "#/$defs/Neurophotometrics",
-                           "New Scale Technologies": "#/$defs/NewScaleTechnologies",
-                           "New York University": "#/$defs/NewYorkUniversity",
-                           "Nikon": "#/$defs/Nikon",
-                           "Olympus": "#/$defs/Olympus",
-                           "Open Ephys Production Site": "#/$defs/OpenEphysProductionSite",
-                           "Optotune": "#/$defs/Optotune",
-                           "Other": "#/$defs/Other",
-                           "Oxxius": "#/$defs/Oxxius",
-                           "Prizmatix": "#/$defs/Prizmatix",
-                           "Quantifi": "#/$defs/Quantifi",
-                           "Raspberry Pi": "#/$defs/RaspberryPi",
-                           "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
-                           "Second Order Effects": "#/$defs/SecondOrderEffects",
-                           "Semrock": "#/$defs/Semrock",
-                           "Simons Foundation": "#/$defs/SimonsFoundation",
-                           "Spinnaker": "#/$defs/Spinnaker",
-                           "Tamron": "#/$defs/Tamron",
-                           "Technical Manufacturing Corporation": "#/$defs/TMC",
-                           "Teledyne FLIR": "#/$defs/TeledyneFLIR",
-                           "The Imaging Source": "#/$defs/TheImagingSource",
-                           "The Lee Company": "#/$defs/TheLeeCompany",
-                           "Thermo Fisher": "#/$defs/Thermofisher",
-                           "Thorlabs": "#/$defs/Thorlabs",
-                           "Tymphany": "#/$defs/Tymphany",
-                           "Vieworks": "#/$defs/Vieworks",
-                           "Vortran": "#/$defs/Vortran",
-                           "ams OSRAM": "#/$defs/AmsOsram"
-                        },
-                        "propertyName": "name"
-                     },
-                     "oneOf": [
-                        {
-                           "$ref": "#/$defs/AAOptoElectronic"
-                        },
-                        {
-                           "$ref": "#/$defs/Abcam"
-                        },
-                        {
-                           "$ref": "#/$defs/AilipuTechnologyCo"
-                        },
-                        {
-                           "$ref": "#/$defs/AllenInstitute"
-                        },
-                        {
-                           "$ref": "#/$defs/AllenInstituteForBrainScience"
-                        },
-                        {
-                           "$ref": "#/$defs/AllenInstituteForNeuralDynamics"
-                        },
-                        {
-                           "$ref": "#/$defs/Allied"
-                        },
-                        {
-                           "$ref": "#/$defs/AmsOsram"
-                        },
-                        {
-                           "$ref": "#/$defs/AppliedScientificInstrumentation"
-                        },
-                        {
-                           "$ref": "#/$defs/Asus"
-                        },
-                        {
-                           "$ref": "#/$defs/ArecontVisionCostar"
-                        },
-                        {
-                           "$ref": "#/$defs/Basler"
-                        },
-                        {
-                           "$ref": "#/$defs/CambridgeTechnology"
-                        },
-                        {
-                           "$ref": "#/$defs/ChampalimaudFoundation"
-                        },
-                        {
-                           "$ref": "#/$defs/Chroma"
-                        },
-                        {
-                           "$ref": "#/$defs/CoherentScientific"
-                        },
-                        {
-                           "$ref": "#/$defs/ColumbiaUniversity"
-                        },
-                        {
-                           "$ref": "#/$defs/Computar"
-                        },
-                        {
-                           "$ref": "#/$defs/Conoptics"
-                        },
-                        {
-                           "$ref": "#/$defs/Custom"
-                        },
-                        {
-                           "$ref": "#/$defs/Dodotronic"
-                        },
-                        {
-                           "$ref": "#/$defs/Doric"
-                        },
-                        {
-                           "$ref": "#/$defs/Ealing"
-                        },
-                        {
-                           "$ref": "#/$defs/EdmundOptics"
-                        },
-                        {
-                           "$ref": "#/$defs/Euresys"
-                        },
-                        {
-                           "$ref": "#/$defs/TeledyneFLIR"
-                        },
-                        {
-                           "$ref": "#/$defs/Fujinon"
-                        },
-                        {
-                           "$ref": "#/$defs/Hamamatsu"
-                        },
-                        {
-                           "$ref": "#/$defs/HuazhongUniversityOfScienceAndTechnology"
-                        },
-                        {
-                           "$ref": "#/$defs/TheImagingSource"
-                        },
-                        {
-                           "$ref": "#/$defs/InteruniversityMicroelectronicsCenter"
-                        },
-                        {
-                           "$ref": "#/$defs/InfinityPhotoOptical"
-                        },
-                        {
-                           "$ref": "#/$defs/ISLProductsInternational"
-                        },
-                        {
-                           "$ref": "#/$defs/JacksonLaboratory"
-                        },
-                        {
-                           "$ref": "#/$defs/Julabo"
-                        },
-                        {
-                           "$ref": "#/$defs/TheLeeCompany"
-                        },
-                        {
-                           "$ref": "#/$defs/Leica"
-                        },
-                        {
-                           "$ref": "#/$defs/Lg"
-                        },
-                        {
-                           "$ref": "#/$defs/LifeCanvas"
-                        },
-                        {
-                           "$ref": "#/$defs/MeadowlarkOptics"
-                        },
-                        {
-                           "$ref": "#/$defs/IRRobotCo"
-                        },
-                        {
-                           "$ref": "#/$defs/Mitutuyo"
-                        },
-                        {
-                           "$ref": "#/$defs/MKSNewport"
-                        },
-                        {
-                           "$ref": "#/$defs/Mpi"
-                        },
-                        {
-                           "$ref": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke"
-                        },
-                        {
-                           "$ref": "#/$defs/NationalInstruments"
-                        },
-                        {
-                           "$ref": "#/$defs/Navitar"
-                        },
-                        {
-                           "$ref": "#/$defs/Neurophotometrics"
-                        },
-                        {
-                           "$ref": "#/$defs/NewScaleTechnologies"
-                        },
-                        {
-                           "$ref": "#/$defs/NewYorkUniversity"
-                        },
-                        {
-                           "$ref": "#/$defs/Nikon"
-                        },
-                        {
-                           "$ref": "#/$defs/OpenEphysProductionSite"
-                        },
-                        {
-                           "$ref": "#/$defs/Olympus"
-                        },
-                        {
-                           "$ref": "#/$defs/Optotune"
-                        },
-                        {
-                           "$ref": "#/$defs/Oxxius"
-                        },
-                        {
-                           "$ref": "#/$defs/Prizmatix"
-                        },
-                        {
-                           "$ref": "#/$defs/Quantifi"
-                        },
-                        {
-                           "$ref": "#/$defs/RaspberryPi"
-                        },
-                        {
-                           "$ref": "#/$defs/SecondOrderEffects"
-                        },
-                        {
-                           "$ref": "#/$defs/Semrock"
-                        },
-                        {
-                           "$ref": "#/$defs/SchneiderKreuznach"
-                        },
-                        {
-                           "$ref": "#/$defs/SimonsFoundation"
-                        },
-                        {
-                           "$ref": "#/$defs/Spinnaker"
-                        },
-                        {
-                           "$ref": "#/$defs/Tamron"
-                        },
-                        {
-                           "$ref": "#/$defs/Thermofisher"
-                        },
-                        {
-                           "$ref": "#/$defs/Thorlabs"
-                        },
-                        {
-                           "$ref": "#/$defs/TMC"
-                        },
-                        {
-                           "$ref": "#/$defs/Tymphany"
-                        },
-                        {
-                           "$ref": "#/$defs/Vieworks"
-                        },
-                        {
-                           "$ref": "#/$defs/Vortran"
-                        },
-                        {
-                           "$ref": "#/$defs/CarlZeiss"
-                        },
-                        {
-                           "$ref": "#/$defs/Other"
-                        }
-                     ]
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Manufacturer"
-            },
-            "model": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Model"
-            },
-            "path_to_cad": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "For CUSTOM manufactured devices",
-               "title": "Path to CAD diagram"
-            },
-            "port_index": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Port index"
-            },
-            "additional_settings": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
-               "default": {},
-               "title": "Additional parameters"
-            },
-            "notes": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Notes"
-            },
-            "surface_material": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Surface material"
-            },
-            "date_surface_replaced": {
-               "anyOf": [
-                  {
-                     "format": "date-time",
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Date surface replaced"
-            },
-            "treadmill_width": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  }
-               ],
-               "title": "Width of treadmill (mm)"
-            },
-            "width_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
-               "default": "centimeter",
-               "title": "Width unit"
-            }
-         },
-         "required": [
-            "name",
-            "treadmill_width"
-         ],
-         "title": "Treadmill",
-         "type": "object"
-      },
       "TriggerType": {
          "description": "Types of detector triggers",
          "enum": [
@@ -26080,6 +26582,7 @@
                            "Euresys": "#/$defs/Euresys",
                            "Fujinon": "#/$defs/Fujinon",
                            "Hamamatsu": "#/$defs/Hamamatsu",
+                           "Hamilton": "#/$defs/Hamilton",
                            "Huazhong University of Science and Technology": "#/$defs/HuazhongUniversityOfScienceAndTechnology",
                            "IR Robot Co": "#/$defs/IRRobotCo",
                            "ISL Products International": "#/$defs/ISLProductsInternational",
@@ -26094,6 +26597,7 @@
                            "MPI": "#/$defs/Mpi",
                            "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
                            "Mitutuyo": "#/$defs/Mitutuyo",
+                           "NResearch Inc": "#/$defs/NResearch",
                            "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                            "National Instruments": "#/$defs/NationalInstruments",
                            "Navitar": "#/$defs/Navitar",
@@ -26112,6 +26616,7 @@
                            "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                            "Second Order Effects": "#/$defs/SecondOrderEffects",
                            "Semrock": "#/$defs/Semrock",
+                           "Sigma-Aldritch": "#/$defs/SigmaAldritch",
                            "Simons Foundation": "#/$defs/SimonsFoundation",
                            "Spinnaker": "#/$defs/Spinnaker",
                            "Tamron": "#/$defs/Tamron",
@@ -26214,6 +26719,9 @@
                            "$ref": "#/$defs/Hamamatsu"
                         },
                         {
+                           "$ref": "#/$defs/Hamilton"
+                        },
+                        {
                            "$ref": "#/$defs/HuazhongUniversityOfScienceAndTechnology"
                         },
                         {
@@ -26283,6 +26791,9 @@
                            "$ref": "#/$defs/Nikon"
                         },
                         {
+                           "$ref": "#/$defs/NResearch"
+                        },
+                        {
                            "$ref": "#/$defs/OpenEphysProductionSite"
                         },
                         {
@@ -26311,6 +26822,9 @@
                         },
                         {
                            "$ref": "#/$defs/SchneiderKreuznach"
+                        },
+                        {
+                           "$ref": "#/$defs/SigmaAldritch"
                         },
                         {
                            "$ref": "#/$defs/SimonsFoundation"
@@ -26610,8 +27124,8 @@
          "description": "Description of visual stimulus parameters. Provides a high level description of stimulus.",
          "properties": {
             "stimulus_type": {
-               "const": "Visual",
-               "default": "Visual",
+               "const": "Visual Stimulation",
+               "default": "Visual Stimulation",
                "title": "Stimulus Type"
             },
             "stimulus_name": {
@@ -26637,24 +27151,6 @@
                "title": "Stimulus template name",
                "type": "array"
             },
-            "stimulus_software": {
-               "description": "The software used to control the stimulus (e.g. Bonsai)",
-               "title": "Stimulus software",
-               "type": "string"
-            },
-            "stimulus_software_version": {
-               "title": "Stimulus software version",
-               "type": "string"
-            },
-            "stimulus_script": {
-               "description": "The specific code for this stimulus instance",
-               "title": "Stimulus script",
-               "type": "string"
-            },
-            "stimulus_script_version": {
-               "title": "Stimulus script version",
-               "type": "string"
-            },
             "notes": {
                "anyOf": [
                   {
@@ -26669,11 +27165,7 @@
             }
          },
          "required": [
-            "stimulus_name",
-            "stimulus_software",
-            "stimulus_software_version",
-            "stimulus_script",
-            "stimulus_script_version"
+            "stimulus_name"
          ],
          "title": "VisualStimulation",
          "type": "object"
@@ -26726,17 +27218,42 @@
                "default": "Water restriction",
                "title": "Procedure Type"
             },
-            "protocol_id": {
-               "anyOf": [
+            "iacuc_protocol": {
+               "title": "IACUC protocol",
+               "type": "string"
+            },
+            "target_fraction_weight": {
+               "title": "Target fraction weight (%)",
+               "type": "integer"
+            },
+            "target_fraction_weight_unit": {
+               "allOf": [
                   {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
+                     "$ref": "#/$defs/UnitlessUnit"
                   }
                ],
-               "default": null,
-               "title": "Water restriction protocol number"
+               "default": "percent",
+               "title": "Target fraction weight unit"
+            },
+            "minimum_water_per_day": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  }
+               ],
+               "title": "Minimum water per day (mL)"
+            },
+            "minimum_water_per_day_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/VolumeUnit"
+                  }
+               ],
+               "default": "milliliter",
+               "title": "Minimum water per day unit"
             },
             "baseline_weight": {
                "anyOf": [
@@ -26765,15 +27282,25 @@
                "type": "string"
             },
             "end_date": {
-               "format": "date",
-               "title": "Water restriction end date",
-               "type": "string"
+               "anyOf": [
+                  {
+                     "format": "date",
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Water restriction end date"
             }
          },
          "required": [
+            "iacuc_protocol",
+            "target_fraction_weight",
+            "minimum_water_per_day",
             "baseline_weight",
-            "start_date",
-            "end_date"
+            "start_date"
          ],
          "title": "WaterRestriction",
          "type": "object"
@@ -26856,6 +27383,7 @@
                            "Euresys": "#/$defs/Euresys",
                            "Fujinon": "#/$defs/Fujinon",
                            "Hamamatsu": "#/$defs/Hamamatsu",
+                           "Hamilton": "#/$defs/Hamilton",
                            "Huazhong University of Science and Technology": "#/$defs/HuazhongUniversityOfScienceAndTechnology",
                            "IR Robot Co": "#/$defs/IRRobotCo",
                            "ISL Products International": "#/$defs/ISLProductsInternational",
@@ -26870,6 +27398,7 @@
                            "MPI": "#/$defs/Mpi",
                            "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
                            "Mitutuyo": "#/$defs/Mitutuyo",
+                           "NResearch Inc": "#/$defs/NResearch",
                            "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                            "National Instruments": "#/$defs/NationalInstruments",
                            "Navitar": "#/$defs/Navitar",
@@ -26888,6 +27417,7 @@
                            "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                            "Second Order Effects": "#/$defs/SecondOrderEffects",
                            "Semrock": "#/$defs/Semrock",
+                           "Sigma-Aldritch": "#/$defs/SigmaAldritch",
                            "Simons Foundation": "#/$defs/SimonsFoundation",
                            "Spinnaker": "#/$defs/Spinnaker",
                            "Tamron": "#/$defs/Tamron",
@@ -26990,6 +27520,9 @@
                            "$ref": "#/$defs/Hamamatsu"
                         },
                         {
+                           "$ref": "#/$defs/Hamilton"
+                        },
+                        {
                            "$ref": "#/$defs/HuazhongUniversityOfScienceAndTechnology"
                         },
                         {
@@ -27059,6 +27592,9 @@
                            "$ref": "#/$defs/Nikon"
                         },
                         {
+                           "$ref": "#/$defs/NResearch"
+                        },
+                        {
                            "$ref": "#/$defs/OpenEphysProductionSite"
                         },
                         {
@@ -27087,6 +27623,9 @@
                         },
                         {
                            "$ref": "#/$defs/SchneiderKreuznach"
+                        },
+                        {
+                           "$ref": "#/$defs/SigmaAldritch"
                         },
                         {
                            "$ref": "#/$defs/SimonsFoundation"
@@ -27321,6 +27860,20 @@
          "title": "Wheel",
          "type": "object"
       },
+      "aind_data_schema__models__devices__FilterType": {
+         "description": "Filter type",
+         "enum": [
+            "Band pass",
+            "Dichroic",
+            "Long pass",
+            "Multiband",
+            "Neutral density",
+            "Notch",
+            "Short pass"
+         ],
+         "title": "FilterType",
+         "type": "string"
+      },
       "aind_data_schema__models__devices__Olfactometer": {
          "additionalProperties": false,
          "description": "Description of an olfactometer for odor stimuli",
@@ -27544,6 +28097,460 @@
          "title": "Olfactometer",
          "type": "object"
       },
+      "aind_data_schema__models__devices__Treadmill": {
+         "additionalProperties": false,
+         "description": "Description of treadmill platform",
+         "properties": {
+            "device_type": {
+               "const": "Treadmill",
+               "default": "Treadmill",
+               "title": "Device Type"
+            },
+            "name": {
+               "title": "Device name",
+               "type": "string"
+            },
+            "serial_number": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Serial number"
+            },
+            "manufacturer": {
+               "anyOf": [
+                  {
+                     "discriminator": {
+                        "mapping": {
+                           "AA Opto Electronic": "#/$defs/AAOptoElectronic",
+                           "ASUS": "#/$defs/Asus",
+                           "Abcam": "#/$defs/Abcam",
+                           "Ailipu Technology Co": "#/$defs/AilipuTechnologyCo",
+                           "Allen Institute": "#/$defs/AllenInstitute",
+                           "Allen Institute for Brain Science": "#/$defs/AllenInstituteForBrainScience",
+                           "Allen Institute for Neural Dynamics": "#/$defs/AllenInstituteForNeuralDynamics",
+                           "Allied": "#/$defs/Allied",
+                           "Applied Scientific Instrumentation": "#/$defs/AppliedScientificInstrumentation",
+                           "Arecont Vision Costar": "#/$defs/ArecontVisionCostar",
+                           "Basler": "#/$defs/Basler",
+                           "Cambridge Technology": "#/$defs/CambridgeTechnology",
+                           "Carl Zeiss": "#/$defs/CarlZeiss",
+                           "Champalimaud Foundation": "#/$defs/ChampalimaudFoundation",
+                           "Chroma": "#/$defs/Chroma",
+                           "Coherent Scientific": "#/$defs/CoherentScientific",
+                           "Columbia University": "#/$defs/ColumbiaUniversity",
+                           "Computar": "#/$defs/Computar",
+                           "Conoptics": "#/$defs/Conoptics",
+                           "Custom": "#/$defs/Custom",
+                           "Dodotronic": "#/$defs/Dodotronic",
+                           "Doric": "#/$defs/Doric",
+                           "Ealing": "#/$defs/Ealing",
+                           "Edmund Optics": "#/$defs/EdmundOptics",
+                           "Euresys": "#/$defs/Euresys",
+                           "Fujinon": "#/$defs/Fujinon",
+                           "Hamamatsu": "#/$defs/Hamamatsu",
+                           "Hamilton": "#/$defs/Hamilton",
+                           "Huazhong University of Science and Technology": "#/$defs/HuazhongUniversityOfScienceAndTechnology",
+                           "IR Robot Co": "#/$defs/IRRobotCo",
+                           "ISL Products International": "#/$defs/ISLProductsInternational",
+                           "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
+                           "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
+                           "Jackson Laboratory": "#/$defs/JacksonLaboratory",
+                           "Julabo": "#/$defs/Julabo",
+                           "LG": "#/$defs/Lg",
+                           "Leica": "#/$defs/Leica",
+                           "LifeCanvas": "#/$defs/LifeCanvas",
+                           "MKS Newport": "#/$defs/MKSNewport",
+                           "MPI": "#/$defs/Mpi",
+                           "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
+                           "Mitutuyo": "#/$defs/Mitutuyo",
+                           "NResearch Inc": "#/$defs/NResearch",
+                           "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
+                           "National Instruments": "#/$defs/NationalInstruments",
+                           "Navitar": "#/$defs/Navitar",
+                           "Neurophotometrics": "#/$defs/Neurophotometrics",
+                           "New Scale Technologies": "#/$defs/NewScaleTechnologies",
+                           "New York University": "#/$defs/NewYorkUniversity",
+                           "Nikon": "#/$defs/Nikon",
+                           "Olympus": "#/$defs/Olympus",
+                           "Open Ephys Production Site": "#/$defs/OpenEphysProductionSite",
+                           "Optotune": "#/$defs/Optotune",
+                           "Other": "#/$defs/Other",
+                           "Oxxius": "#/$defs/Oxxius",
+                           "Prizmatix": "#/$defs/Prizmatix",
+                           "Quantifi": "#/$defs/Quantifi",
+                           "Raspberry Pi": "#/$defs/RaspberryPi",
+                           "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
+                           "Second Order Effects": "#/$defs/SecondOrderEffects",
+                           "Semrock": "#/$defs/Semrock",
+                           "Sigma-Aldritch": "#/$defs/SigmaAldritch",
+                           "Simons Foundation": "#/$defs/SimonsFoundation",
+                           "Spinnaker": "#/$defs/Spinnaker",
+                           "Tamron": "#/$defs/Tamron",
+                           "Technical Manufacturing Corporation": "#/$defs/TMC",
+                           "Teledyne FLIR": "#/$defs/TeledyneFLIR",
+                           "The Imaging Source": "#/$defs/TheImagingSource",
+                           "The Lee Company": "#/$defs/TheLeeCompany",
+                           "Thermo Fisher": "#/$defs/Thermofisher",
+                           "Thorlabs": "#/$defs/Thorlabs",
+                           "Tymphany": "#/$defs/Tymphany",
+                           "Vieworks": "#/$defs/Vieworks",
+                           "Vortran": "#/$defs/Vortran",
+                           "ams OSRAM": "#/$defs/AmsOsram"
+                        },
+                        "propertyName": "name"
+                     },
+                     "oneOf": [
+                        {
+                           "$ref": "#/$defs/AAOptoElectronic"
+                        },
+                        {
+                           "$ref": "#/$defs/Abcam"
+                        },
+                        {
+                           "$ref": "#/$defs/AilipuTechnologyCo"
+                        },
+                        {
+                           "$ref": "#/$defs/AllenInstitute"
+                        },
+                        {
+                           "$ref": "#/$defs/AllenInstituteForBrainScience"
+                        },
+                        {
+                           "$ref": "#/$defs/AllenInstituteForNeuralDynamics"
+                        },
+                        {
+                           "$ref": "#/$defs/Allied"
+                        },
+                        {
+                           "$ref": "#/$defs/AmsOsram"
+                        },
+                        {
+                           "$ref": "#/$defs/AppliedScientificInstrumentation"
+                        },
+                        {
+                           "$ref": "#/$defs/Asus"
+                        },
+                        {
+                           "$ref": "#/$defs/ArecontVisionCostar"
+                        },
+                        {
+                           "$ref": "#/$defs/Basler"
+                        },
+                        {
+                           "$ref": "#/$defs/CambridgeTechnology"
+                        },
+                        {
+                           "$ref": "#/$defs/ChampalimaudFoundation"
+                        },
+                        {
+                           "$ref": "#/$defs/Chroma"
+                        },
+                        {
+                           "$ref": "#/$defs/CoherentScientific"
+                        },
+                        {
+                           "$ref": "#/$defs/ColumbiaUniversity"
+                        },
+                        {
+                           "$ref": "#/$defs/Computar"
+                        },
+                        {
+                           "$ref": "#/$defs/Conoptics"
+                        },
+                        {
+                           "$ref": "#/$defs/Custom"
+                        },
+                        {
+                           "$ref": "#/$defs/Dodotronic"
+                        },
+                        {
+                           "$ref": "#/$defs/Doric"
+                        },
+                        {
+                           "$ref": "#/$defs/Ealing"
+                        },
+                        {
+                           "$ref": "#/$defs/EdmundOptics"
+                        },
+                        {
+                           "$ref": "#/$defs/Euresys"
+                        },
+                        {
+                           "$ref": "#/$defs/TeledyneFLIR"
+                        },
+                        {
+                           "$ref": "#/$defs/Fujinon"
+                        },
+                        {
+                           "$ref": "#/$defs/Hamamatsu"
+                        },
+                        {
+                           "$ref": "#/$defs/Hamilton"
+                        },
+                        {
+                           "$ref": "#/$defs/HuazhongUniversityOfScienceAndTechnology"
+                        },
+                        {
+                           "$ref": "#/$defs/TheImagingSource"
+                        },
+                        {
+                           "$ref": "#/$defs/InteruniversityMicroelectronicsCenter"
+                        },
+                        {
+                           "$ref": "#/$defs/InfinityPhotoOptical"
+                        },
+                        {
+                           "$ref": "#/$defs/ISLProductsInternational"
+                        },
+                        {
+                           "$ref": "#/$defs/JacksonLaboratory"
+                        },
+                        {
+                           "$ref": "#/$defs/Julabo"
+                        },
+                        {
+                           "$ref": "#/$defs/TheLeeCompany"
+                        },
+                        {
+                           "$ref": "#/$defs/Leica"
+                        },
+                        {
+                           "$ref": "#/$defs/Lg"
+                        },
+                        {
+                           "$ref": "#/$defs/LifeCanvas"
+                        },
+                        {
+                           "$ref": "#/$defs/MeadowlarkOptics"
+                        },
+                        {
+                           "$ref": "#/$defs/IRRobotCo"
+                        },
+                        {
+                           "$ref": "#/$defs/Mitutuyo"
+                        },
+                        {
+                           "$ref": "#/$defs/MKSNewport"
+                        },
+                        {
+                           "$ref": "#/$defs/Mpi"
+                        },
+                        {
+                           "$ref": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke"
+                        },
+                        {
+                           "$ref": "#/$defs/NationalInstruments"
+                        },
+                        {
+                           "$ref": "#/$defs/Navitar"
+                        },
+                        {
+                           "$ref": "#/$defs/Neurophotometrics"
+                        },
+                        {
+                           "$ref": "#/$defs/NewScaleTechnologies"
+                        },
+                        {
+                           "$ref": "#/$defs/NewYorkUniversity"
+                        },
+                        {
+                           "$ref": "#/$defs/Nikon"
+                        },
+                        {
+                           "$ref": "#/$defs/NResearch"
+                        },
+                        {
+                           "$ref": "#/$defs/OpenEphysProductionSite"
+                        },
+                        {
+                           "$ref": "#/$defs/Olympus"
+                        },
+                        {
+                           "$ref": "#/$defs/Optotune"
+                        },
+                        {
+                           "$ref": "#/$defs/Oxxius"
+                        },
+                        {
+                           "$ref": "#/$defs/Prizmatix"
+                        },
+                        {
+                           "$ref": "#/$defs/Quantifi"
+                        },
+                        {
+                           "$ref": "#/$defs/RaspberryPi"
+                        },
+                        {
+                           "$ref": "#/$defs/SecondOrderEffects"
+                        },
+                        {
+                           "$ref": "#/$defs/Semrock"
+                        },
+                        {
+                           "$ref": "#/$defs/SchneiderKreuznach"
+                        },
+                        {
+                           "$ref": "#/$defs/SigmaAldritch"
+                        },
+                        {
+                           "$ref": "#/$defs/SimonsFoundation"
+                        },
+                        {
+                           "$ref": "#/$defs/Spinnaker"
+                        },
+                        {
+                           "$ref": "#/$defs/Tamron"
+                        },
+                        {
+                           "$ref": "#/$defs/Thermofisher"
+                        },
+                        {
+                           "$ref": "#/$defs/Thorlabs"
+                        },
+                        {
+                           "$ref": "#/$defs/TMC"
+                        },
+                        {
+                           "$ref": "#/$defs/Tymphany"
+                        },
+                        {
+                           "$ref": "#/$defs/Vieworks"
+                        },
+                        {
+                           "$ref": "#/$defs/Vortran"
+                        },
+                        {
+                           "$ref": "#/$defs/CarlZeiss"
+                        },
+                        {
+                           "$ref": "#/$defs/Other"
+                        }
+                     ]
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Manufacturer"
+            },
+            "model": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Model"
+            },
+            "path_to_cad": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "For CUSTOM manufactured devices",
+               "title": "Path to CAD diagram"
+            },
+            "port_index": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Port index"
+            },
+            "additional_settings": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/AindGeneric"
+                  }
+               ],
+               "default": {},
+               "title": "Additional parameters"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Notes"
+            },
+            "surface_material": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Surface material"
+            },
+            "date_surface_replaced": {
+               "anyOf": [
+                  {
+                     "format": "date-time",
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Date surface replaced"
+            },
+            "treadmill_width": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  }
+               ],
+               "title": "Width of treadmill (mm)"
+            },
+            "width_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  }
+               ],
+               "default": "centimeter",
+               "title": "Width unit"
+            }
+         },
+         "required": [
+            "name",
+            "treadmill_width"
+         ],
+         "title": "Treadmill",
+         "type": "object"
+      },
       "aind_data_schema__models__harp_types__Behavior": {
          "description": "Behavior",
          "properties": {
@@ -27576,6 +28583,23 @@
             }
          },
          "title": "Olfactometer",
+         "type": "object"
+      },
+      "aind_data_schema__models__harp_types__Treadmill": {
+         "description": "Treadmill",
+         "properties": {
+            "name": {
+               "const": "Treadmill",
+               "default": "Treadmill",
+               "title": "Name"
+            },
+            "whoami": {
+               "const": 1402,
+               "default": 1402,
+               "title": "Whoami"
+            }
+         },
+         "title": "Treadmill",
          "type": "object"
       },
       "aind_data_schema__models__modalities__Behavior": {
@@ -27794,6 +28818,15 @@
          "title": "Mri",
          "type": "object"
       },
+      "aind_data_schema__models__stimulus__FilterType": {
+         "description": "Types of bandpass filters for auditory stim",
+         "enum": [
+            "Butterworth",
+            "Other"
+         ],
+         "title": "FilterType",
+         "type": "string"
+      },
       "concentration": {
          "properties": {
             "value": {
@@ -27833,8 +28866,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.1.36",
-         "default": "0.1.36",
+         "const": "0.2.4",
+         "default": "0.2.4",
          "title": "Schema Version"
       },
       "_id": {

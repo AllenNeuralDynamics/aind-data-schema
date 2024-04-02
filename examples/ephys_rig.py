@@ -1,6 +1,6 @@
 """Generates an example JSON file for an ephys rig"""
 
-import datetime
+from datetime import date, datetime, timezone
 
 from aind_data_schema.core.rig import Rig
 from aind_data_schema.models.devices import (
@@ -66,7 +66,7 @@ red_laser = Laser(name="Red Laser", wavelength=473, manufacturer=Organization.OX
 blue_laser = Laser(name="Blue Laser", wavelength=638, manufacturer=Organization.OXXIUS)
 
 laser_assembly = LaserAssembly(
-    laser_assembly_name="Laser_assemblyA",
+    name="Laser_assemblyA",
     manipulator=Manipulator(
         name="Manipulator A", serial_number="SN2937", manufacturer=Organization.NEW_SCALE_TECHNOLOGIES
     ),
@@ -90,7 +90,7 @@ probe_camera = Camera(
 stick_lens = Lens(name="Probe lens", manufacturer=Organization.EDMUND_OPTICS)
 
 microscope = CameraAssembly(
-    camera_assembly_name="Stick_assembly",
+    name="Stick_assembly",
     camera_target=CameraTarget.BRAIN_SURFACE,  # NEEDS TO BE FILLED OUT
     camera=probe_camera,
     lens=stick_lens,
@@ -101,7 +101,7 @@ probeA = EphysProbe(name="Probe A", serial_number="9291019", probe_model="Neurop
 probeB = EphysProbe(name="Probe B", serial_number="9291020", probe_model="Neuropixels 1.0")
 
 ephys_assemblyA = EphysAssembly(
-    ephys_assembly_name="Ephys_assemblyA",
+    name="Ephys_assemblyA",
     manipulator=Manipulator(
         name="Manipulator 1", serial_number="SN2938", manufacturer=Organization.NEW_SCALE_TECHNOLOGIES
     ),
@@ -109,7 +109,7 @@ ephys_assemblyA = EphysAssembly(
 )
 
 ephys_assemblyB = EphysAssembly(
-    ephys_assembly_name="Ephys_assemblyB",
+    name="Ephys_assemblyB",
     manipulator=Manipulator(
         name="Manipulator B", serial_number="SN2939", manufacturer=Organization.NEW_SCALE_TECHNOLOGIES
     ),
@@ -140,7 +140,7 @@ face_camera = Camera(
 )
 
 camassm1 = CameraAssembly(
-    camera_assembly_name="Face Camera Assembly",
+    name="Face Camera Assembly",
     camera=face_camera,
     camera_target="Face side",
     filter=filt,
@@ -162,15 +162,18 @@ body_camera = Camera(
 )
 
 camassm2 = CameraAssembly(
-    camera_assembly_name="Body Camera Assembly",
+    name="Body Camera Assembly",
     camera=body_camera,
     camera_target="Body",
     filter=filt,
     lens=lens,
 )
 
+# If a timezone isn't specified, the timezone of the computer running this
+# script will be used as default
+
 red_laser_calibration = Calibration(
-    calibration_date=datetime.datetime(2023, 10, 2, 10, 22, 13),
+    calibration_date=datetime(2023, 10, 2, 10, 22, 13, tzinfo=timezone.utc),
     device_name="Red Laser",
     description="Laser power calibration",
     input={"power percent": [10, 20, 40]},
@@ -178,7 +181,7 @@ red_laser_calibration = Calibration(
 )
 
 blue_laser_calibration = Calibration(
-    calibration_date=datetime.datetime(2023, 10, 2, 10, 22, 13),
+    calibration_date=datetime(2023, 10, 2, 10, 22, 13, tzinfo=timezone.utc),
     device_name="Blue Laser",
     description="Laser power calibration",
     input={"power percent": [10, 20, 40]},
@@ -187,7 +190,7 @@ blue_laser_calibration = Calibration(
 
 rig = Rig(
     rig_id="323_EPHYS1",
-    modification_date=datetime.date(2023, 10, 3),
+    modification_date=date(2023, 10, 3),
     modalities=[Modality.ECEPHYS],
     ephys_assemblies=[ephys_assemblyA, ephys_assemblyB],
     cameras=[camassm1, camassm2],
