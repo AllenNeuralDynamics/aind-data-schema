@@ -348,11 +348,11 @@ class ProceduresTests(unittest.TestCase):
         section = Sectioning(
             number_of_slices=3,
             output_specimen_ids=["123456_001", "123456_002", "123456_003"],
-            sectioning_orientation="Coronal",
+            section_orientation="Coronal",
             section_thickness=0.2,
-            section_distance=0.3,
-            distance_reference="Bregma",
-            slice_strategy="Whole Brain",
+            section_distance_from_reference=0.3,
+            reference_location="Bregma",
+            section_strategy="Whole Brain",
             targeted_structure="MOp",
         )
         self.assertEqual(section.number_of_slices, len(section.output_specimen_ids))
@@ -362,11 +362,11 @@ class ProceduresTests(unittest.TestCase):
             Sectioning(
                 number_of_slices=2,
                 output_specimen_ids=["123456_001", "123456_002", "123456_003"],
-                sectioning_orientation="Coronal",
+                section_orientation="Coronal",
                 section_thickness=0.2,
-                section_distance=0.3,
-                distance_reference="Bregma",
-                slice_strategy="Whole Brain",
+                section_distance_from_reference=0.3,
+                reference_location="Bregma",
+                section_strategy="Whole Brain",
                 targeted_structure="MOp",
             )
 
