@@ -95,8 +95,8 @@ jobs:
       uses: EndBug/add-and-commit@v9
       with:
         default_author: github_actions
-        message: "updates changelogs [skip actions]"
-        add: '["CHANGELOGS.md"]'
+        message: "updates changelog [skip actions]"
+        add: '["CHANGELOG.md"]'
 
   tag:
     needs: changelog

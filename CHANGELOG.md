@@ -3,4 +3,4 @@
 
 ### Features
 
-* upgrades to pydantic v2 ([#608](https://github.com/AllenNeuralDynamics/aind-data-schema/pull/608)) ([a123e7e](https://github.com/AllenNeuralDynamics/aind-data-schema/commit/a123e7ee215f292f14ab712c38fa5c933f3fc172))
+* upgrades pydantic to v2 ([#608](https://github.com/AllenNeuralDynamics/aind-data-schema/pull/608)) ([a123e7e](https://github.com/AllenNeuralDynamics/aind-data-schema/commit/a123e7ee215f292f14ab712c38fa5c933f3fc172))
