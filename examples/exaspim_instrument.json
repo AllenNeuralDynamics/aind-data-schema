@@ -315,7 +315,7 @@
          "port_index": null,
          "additional_settings": {},
          "notes": null,
-         "type": "Tunable lens"
+         "imaging_device_type": "Tunable lens"
       },
       {
          "device_type": "Additional Imaging Device",
@@ -335,7 +335,7 @@
          "port_index": null,
          "additional_settings": {},
          "notes": null,
-         "type": "Rotation mount"
+         "imaging_device_type": "Rotation mount"
       },
       {
          "device_type": "Additional Imaging Device",
@@ -352,7 +352,7 @@
          "port_index": null,
          "additional_settings": {},
          "notes": null,
-         "type": "Laser combiner"
+         "imaging_device_type": "Laser combiner"
       }
    ],
    "calibration_date": null,
