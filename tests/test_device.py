@@ -43,7 +43,7 @@ class DeviceTests(unittest.TestCase):
 
         expected_e1 = (
             "1 validation error for RewardSpout\n"
-            "  Value error, Notes cannot be empty if side is Other."
+            "  Value error, Notes cannot be empty if spout side is Other."
             " Describe the spout side in the notes field."
             " [type=value_error, input_value={'name': 'test_reward_spo...outSide.OTHER: 'Other'>}, input_type=dict]\n"
             f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/value_error"
@@ -117,7 +117,7 @@ class DeviceTests(unittest.TestCase):
         expected_e5 = (
             "1 validation error for AdditionalImagingDevice\n"
             "type\n"
-            "  Value error, Notes cannot be empty if type is Other. Describe the imaging type in the notes field."
+            "  Value error, Notes cannot be empty if 'type' (ImagingDeviceType) is Other. Describe the imaging type in the notes field."
             " [type=value_error, input_value=<ImagingDeviceType.OTHER: 'Other'>, input_type=ImagingDeviceType]\n"
             f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/value_error"
         )
