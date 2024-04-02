@@ -260,7 +260,7 @@ class Sectioning(AindModel):
         """Validator for list of output specimen ids"""
 
         output_id_len = len(v)
-        expected_len = len(info.data["number_of_slices"])
+        expected_len = info.data["number_of_slices"]
 
         if output_id_len != expected_len:
             raise AssertionError("List of output specimen ids does not match the number of slices.")
