@@ -96,7 +96,7 @@ class SectioningOrientation(str, Enum):
 
 
 class SliceStrategy(str, Enum):
-    """"""
+    """Slice strategy"""
 
     WHOLE = "Whole Brain"
     HEMI = "Hemi Brain"
