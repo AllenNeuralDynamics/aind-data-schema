@@ -1,0 +1,6 @@
+### [0.19.0](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.19.0...v0.31.17) (2023-12-08)
+
+
+### Features
+
+* upgrades to pydantic v2 ([#608](https://github.com/AllenNeuralDynamics/aind-data-schema/pull/608)) ([a123e7e](https://github.com/AllenNeuralDynamics/aind-data-schema/commit/a123e7ee215f292f14ab712c38fa5c933f3fc172))
