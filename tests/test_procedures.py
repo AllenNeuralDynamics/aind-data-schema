@@ -347,7 +347,7 @@ class ProceduresTests(unittest.TestCase):
 
         section = Sectioning(
             number_of_slices=3,
-            output_specimen_ids=[123456_001, 123456_002, 123456_003],
+            output_specimen_ids=["123456_001", "123456_002", "123456_003"],
             sectioning_orientation="Coronal",
             section_thickness=0.2,
             section_distance=0.3,
@@ -361,7 +361,7 @@ class ProceduresTests(unittest.TestCase):
         with self.assertRaises(ValidationError):
             Sectioning(
                 number_of_slices=2,
-                output_specimen_ids=[123456_001, 123456_002, 123456_003],
+                output_specimen_ids=["123456_001", "123456_002", "123456_003"],
                 sectioning_orientation="Coronal",
                 section_thickness=0.2,
                 section_distance=0.3,
