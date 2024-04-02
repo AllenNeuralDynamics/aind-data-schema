@@ -92,7 +92,7 @@ class Rig(AindCoreModel):
                 if camera_assembly.camera_target == CameraTarget.OTHER:
                     raise ValueError(
                         f"Notes cannot be empty if a camera target contains an 'Other' field. "
-                        f"Describe the camera target from ({camera_assembly.camera_assembly_name}) in the notes field"
+                        f"Describe the camera target from ({camera_assembly.name}) in the notes field"
                     )
 
         return self
