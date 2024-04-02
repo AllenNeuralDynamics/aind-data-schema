@@ -341,7 +341,7 @@ class ProceduresTests(unittest.TestCase):
                 injection_coordinate_depth=[0.1],
                 injection_volume=[1, 2],
             )
-    
+
     def test_sectioning(self):
         """Test sectioning"""
 
@@ -355,7 +355,7 @@ class ProceduresTests(unittest.TestCase):
             slice_strategy="Whole Brain",
             targeted_structure="MOp",
         )
-        self.assertEqual(number_of_slices, len(output_specimen_ids))
+        self.assertEqual(section.number_of_slices, len(section.output_specimen_ids))
 
         #Number of output ids does not match number of slices
         with self.assertRaises(ValidationError):
@@ -369,7 +369,6 @@ class ProceduresTests(unittest.TestCase):
                 slice_strategy="Whole Brain",
                 targeted_structure="MOp",
             )
-    
 
 
 if __name__ == "__main__":
