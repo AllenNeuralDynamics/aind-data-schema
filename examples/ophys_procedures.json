@@ -195,6 +195,7 @@
             "concentration": "10",
             "concentration_unit": "ug/ml"
          },
+         "sectioning": null,
          "notes": "Primary dilution factor 1:1000 ---final concentration is 10ug/ml"
       },
       {
@@ -240,6 +241,7 @@
             "concentration": "4",
             "concentration_unit": "ug/ml"
          },
+         "sectioning": null,
          "notes": "Secondary dilution factor 1:500 - final concentration 4ug/ml"
       }
    ],
