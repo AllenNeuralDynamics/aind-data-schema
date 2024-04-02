@@ -162,7 +162,7 @@
          "protocol_id": "TO ENTER",
          "reagents": [],
          "hcr_series": null,
-         "immunolabeling_antibodies": [
+         "antibodies": [
             {
                "name": "Chicken polyclonal",
                "source": {
@@ -206,7 +206,7 @@
          "protocol_id": "TO ENTER",
          "reagents": [],
          "hcr_series": null,
-         "immunolabeling_antibodies": [
+         "antibodies": [
             {
                "name": "Alexa Fluor 488 goat anti-chicken IgY (H+L)",
                "source": {

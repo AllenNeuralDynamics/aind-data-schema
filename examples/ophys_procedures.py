@@ -116,7 +116,7 @@ p = Procedures(
             experimenter_full_name="John Apple",
             protocol_id="TO ENTER",
             reagents=[],
-            immunolabeling_antibodies=[
+            antibodies=[
                 Antibody(
                     name="Chicken polyclonal",
                     source=Organization.ABCAM,
@@ -139,7 +139,7 @@ p = Procedures(
             experimenter_full_name="John Apple",
             protocol_id="TO ENTER",
             reagents=[],
-            immunolabeling_antibodies=[
+            antibodies=[
                 Antibody(
                     name="Alexa Fluor 488 goat anti-chicken IgY (H+L)",
                     source=Organization.THERMOFISHER,

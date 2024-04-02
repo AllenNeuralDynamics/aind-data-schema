@@ -61,7 +61,7 @@
             }
          ],
          "hcr_series": null,
-         "immunolabeling_antibodies": null,
+         "antibodies": null,
          "notes": null
       },
       {
@@ -87,7 +87,7 @@
             }
          ],
          "hcr_series": null,
-         "immunolabeling_antibodies": null,
+         "antibodies": null,
          "notes": "40 deg. C"
       },
       {
@@ -113,7 +113,7 @@
             }
          ],
          "hcr_series": null,
-         "immunolabeling_antibodies": null,
+         "antibodies": null,
          "notes": null
       },
       {
@@ -151,7 +151,7 @@
             }
          ],
          "hcr_series": null,
-         "immunolabeling_antibodies": null,
+         "antibodies": null,
          "notes": null
       },
       {
@@ -189,7 +189,7 @@
             }
          ],
          "hcr_series": null,
-         "immunolabeling_antibodies": null,
+         "antibodies": null,
          "notes": null
       },
       {
@@ -215,7 +215,7 @@
             }
          ],
          "hcr_series": null,
-         "immunolabeling_antibodies": null,
+         "antibodies": null,
          "notes": null
       },
       {
@@ -253,7 +253,7 @@
             }
          ],
          "hcr_series": null,
-         "immunolabeling_antibodies": null,
+         "antibodies": null,
          "notes": null
       }
    ],
