@@ -796,7 +796,10 @@ class RewardSpout(Device):
         """Validator for other/notes"""
 
         if self.side == SpoutSide.OTHER and self.notes is None:
-            raise ValueError("Notes cannot be empty if spout side is Other. Describe the spout side in the notes field.")
+            raise ValueError(
+                "Notes cannot be empty if spout side is Other. "
+                "Describe the spout side in the notes field."
+            )
 
         return self
 
@@ -853,7 +856,10 @@ class AdditionalImagingDevice(Device):
         """Validator for other/notes"""
 
         if value == ImagingDeviceType.OTHER and not info.data.get("notes"):
-            raise ValueError("Notes cannot be empty if imaging_device_type is Other. Describe the imaging device type in the notes field.")
+            raise ValueError(
+                "Notes cannot be empty if imaging_device_type is Other. "
+                "Describe the imaging device type in the notes field."
+            )
 
         return value
 

@@ -117,11 +117,10 @@ class DeviceTests(unittest.TestCase):
         expected_e5 = (
             "1 validation error for AdditionalImagingDevice\n"
             "imaging_device_type\n"
-            "  Value error, Notes cannot be empty if imaging_device_type is Other. Describe the imaging device type in the notes field."
+            "  Value error, Notes cannot be empty if imaging_device_type is Other. "
+            "Describe the imaging device type in the notes field."
             " [type=value_error, input_value=<ImagingDeviceType.OTHER: 'Other'>, input_type=ImagingDeviceType]\n"
             f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/value_error"
         )
-        print(expected_e5)
-        print(repr(e5.exception))
 
         self.assertEqual(repr(e5.exception), expected_e5)

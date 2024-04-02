@@ -12,6 +12,7 @@ from aind_data_schema.models.devices import (
     LIGHT_SOURCES,
     Calibration,
     CameraAssembly,
+    CameraTarget,
     DAQDevice,
     Detector,
     Device,
@@ -34,7 +35,6 @@ from aind_data_schema.models.devices import (
     PolygonalScanner,
     RewardDelivery,
     Speaker,
-    CameraTarget
 )
 from aind_data_schema.models.modalities import Modality
 
