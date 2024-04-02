@@ -25,11 +25,12 @@ class ProcessingSteps(AindModel):
     channel_name: str = Field(..., title="Channel name")
     process_name: List[
         Literal[
-            ProcessName.IMAGE_IMPORTING,
+            ProcessName.IMAGE_ATLAS_ALIGNMENT,            
             ProcessName.IMAGE_BACKGROUND_SUBTRACTION,
             ProcessName.IMAGE_CELL_SEGMENTATION,
             ProcessName.IMAGE_DESTRIPING,
             ProcessName.IMAGE_FLATFIELD_CORRECTION,
+            ProcessName.IMAGE_IMPORTING,
             ProcessName.IMAGE_THRESHOLDING,
             ProcessName.IMAGE_TILE_ALIGNMENT,
             ProcessName.IMAGE_TILE_FUSING,
