@@ -15,7 +15,7 @@ from aind_data_schema.imaging.tile import Channel
 from aind_data_schema.models.coordinates import (
     CcfCoords,
     Coordinates3d,
-    Rotation3dTransform, 
+    Rotation3dTransform,
     Scale3dTransform,
     Translation3dTransform
 )
