@@ -57,12 +57,13 @@ sess = Session(
     session_start_time="2024-03-12T16:27:55.584892Z",
     session_end_time="2024-03-12T16:27:55.584892Z",
     experimenter_full_name=["Joe Schmoe"],
-    protocol_id="dx.doi.org/10.57824/protocols.io.bh7kl4n6",
+    protocol_id=["dx.doi.org/10.57824/protocols.io.bh7kl4n6"],
     iacuc_protocol="1234",
     session_type="3D MRI Volume",
     rig_id="NA",
     data_streams=[stream],
     mouse_platform_name="NA",
+    active_mouse_platform=False,
     notes="There was some information about this scan session",
 )
 
