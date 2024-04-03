@@ -87,6 +87,21 @@ class Side(str, Enum):
     RIGHT = "Right"
 
 
+class SectionOrientation(str, Enum):
+    """Orientation of sectioning"""
+
+    CORONAL = "Coronal"
+    SAGITTAL = "Sagittal"
+    TRANSVERSE = "Transverse"
+
+
+class SectionStrategy(str, Enum):
+    """Section strategy"""
+
+    WHOLE = "Whole Brain"
+    HEMI = "Hemi Brain"
+
+
 class ProtectiveMaterial(str, Enum):
     """Name of material applied to craniotomy"""
 
@@ -113,6 +128,7 @@ class CoordinateReferenceLocation(str, Enum):
 
     BREGMA = "Bregma"
     LAMBDA = "Lambda"
+    MIDLINE = "Midline"
 
 
 class HeadframeMaterial(str, Enum):
@@ -224,6 +240,33 @@ class Immunolabeling(AindModel):
     concentration_unit: str = Field("ug/ml", title="Concentration unit")
 
 
+class Sectioning(AindModel):
+    """Description of a sectioning procedure"""
+
+    procedure_type: Literal["Sectioning"] = "Sectioning"
+    number_of_slices: int = Field(..., title="Number of slices")
+    output_specimen_ids: List[str] = Field(..., title="Output specimen ids", min_length=1)
+    section_orientation: SectionOrientation = Field(..., title="Sectioning orientation")
+    section_thickness: Decimal = Field(..., title="Section thickness")
+    section_thickness_unit: SizeUnit = Field(SizeUnit.MM, title="Section thickness unit")
+    section_distance_from_reference: Decimal = Field(..., title="Section distance from reference")
+    section_distance_unit: SizeUnit = Field(SizeUnit.MM, title="Distance unit")
+    reference_location: CoordinateReferenceLocation = Field(..., title="Reference location for distance measurement")
+    section_strategy: SectionStrategy = Field(..., title="Slice strategy")
+    targeted_structure: str = Field(..., title="Targeted structure", description="Use Allen Brain Atlas Ontology")
+
+    @field_validator("output_specimen_ids")
+    def check_output_id_length(cls, v, info: ValidationInfo):
+        """Validator for list of output specimen ids"""
+
+        output_id_len = len(v)
+        expected_len = info.data["number_of_slices"]
+
+        if output_id_len != expected_len:
+            raise AssertionError("List of output specimen ids does not match the number of slices.")
+        return v
+
+
 class SpecimenProcedure(AindModel):
     """Description of surgical or other procedure performed on a specimen"""
 
@@ -243,6 +286,7 @@ class SpecimenProcedure(AindModel):
     reagents: List[Reagent] = Field(default=[], title="Reagents")
     hcr_series: Optional[HCRSeries] = Field(None, title="HCR Series")
     immunolabeling: Optional[Immunolabeling] = Field(None, title="Immunolabeling")
+    sectioning: Optional[Sectioning] = Field(None, title="Sectioning")
     notes: Optional[str] = Field(None, title="Notes")
 
     @model_validator(mode="after")

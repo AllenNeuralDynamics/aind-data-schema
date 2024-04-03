@@ -65,6 +65,7 @@
          ],
          "hcr_series": null,
          "immunolabeling": null,
+         "sectioning": null,
          "notes": null
       },
       {
@@ -93,6 +94,7 @@
          ],
          "hcr_series": null,
          "immunolabeling": null,
+         "sectioning": null,
          "notes": "40 deg. C"
       },
       {
@@ -121,6 +123,7 @@
          ],
          "hcr_series": null,
          "immunolabeling": null,
+         "sectioning": null,
          "notes": null
       },
       {
@@ -161,6 +164,7 @@
          ],
          "hcr_series": null,
          "immunolabeling": null,
+         "sectioning": null,
          "notes": null
       },
       {
@@ -201,6 +205,7 @@
          ],
          "hcr_series": null,
          "immunolabeling": null,
+         "sectioning": null,
          "notes": null
       },
       {
@@ -229,6 +234,7 @@
          ],
          "hcr_series": null,
          "immunolabeling": null,
+         "sectioning": null,
          "notes": null
       },
       {
@@ -269,6 +275,7 @@
          ],
          "hcr_series": null,
          "immunolabeling": null,
+         "sectioning": null,
          "notes": null
       }
    ],
