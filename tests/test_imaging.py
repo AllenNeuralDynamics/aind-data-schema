@@ -9,7 +9,6 @@ from pydantic import __version__ as pyd_version
 
 from aind_data_schema.core import acquisition as acq
 from aind_data_schema.core import instrument as inst
-from aind_data_schema.core import mri_session as ms
 from aind_data_schema.core.processing import Registration
 from aind_data_schema.imaging import tile
 from aind_data_schema.models.coordinates import (
@@ -128,7 +127,6 @@ class ImagingTests(unittest.TestCase):
             f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/value_error"
         )
         self.assertEqual(expected_exception2, repr(e2.exception))
-
 
     def test_axis(self):
         """test the axis class"""

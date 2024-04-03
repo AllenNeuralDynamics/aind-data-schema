@@ -77,8 +77,8 @@ class ExampleTest(unittest.TestCase):
                     scan_sequence_type="Other",
                 )
 
-            with self.assertRaises(ValidationError):
-                MRIScan(scan_sequence_type="Other", notes="")
+        with self.assertRaises(ValidationError):
+            MRIScan(scan_sequence_type="Other", notes="")
 
         stream = Stream(
             stream_start_time="2024-03-12T16:27:55.584892Z",
