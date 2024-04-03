@@ -1,4 +1,5 @@
 """ example ExaSPIM instrument """
+
 import datetime
 
 from aind_data_schema.core import instrument
