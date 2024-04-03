@@ -25,11 +25,12 @@ class ProcessingSteps(AindModel):
     channel_name: str = Field(..., title="Channel name")
     process_name: List[
         Literal[
-            ProcessName.IMAGE_IMPORTING,
+            ProcessName.IMAGE_ATLAS_ALIGNMENT,
             ProcessName.IMAGE_BACKGROUND_SUBTRACTION,
             ProcessName.IMAGE_CELL_SEGMENTATION,
             ProcessName.IMAGE_DESTRIPING,
             ProcessName.IMAGE_FLATFIELD_CORRECTION,
+            ProcessName.IMAGE_IMPORTING,
             ProcessName.IMAGE_THRESHOLDING,
             ProcessName.IMAGE_TILE_ALIGNMENT,
             ProcessName.IMAGE_TILE_FUSING,
@@ -44,7 +45,7 @@ class Acquisition(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/acquisition.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["0.6.11"] = Field("0.6.11")
+    schema_version: Literal["0.6.12"] = Field("0.6.12")
     protocol_id: List[str] = Field([], title="Protocol ID", description="DOI for protocols.io")
     experimenter_full_name: List[str] = Field(
         ...,

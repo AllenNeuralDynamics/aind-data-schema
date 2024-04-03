@@ -63,10 +63,15 @@ diagrams_list = [
     "processing",
     "rig",
     "session",
-    "subject"
-    ]
+    "subject",
+]
 rst_epilog = ""
 for diagram in diagrams_list:
-    rst_epilog = rst_epilog + """
+    rst_epilog = (
+        rst_epilog
+        + """
 .. |{diagram}| image:: {url_base}/{diagram}.svg
-""".format(diagram=diagram, url_base=DIAGRAM_URL)
+""".format(
+            diagram=diagram, url_base=DIAGRAM_URL
+        )
+    )

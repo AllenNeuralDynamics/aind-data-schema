@@ -87,6 +87,21 @@ class Side(str, Enum):
     RIGHT = "Right"
 
 
+class SectionOrientation(str, Enum):
+    """Orientation of sectioning"""
+
+    CORONAL = "Coronal"
+    SAGITTAL = "Sagittal"
+    TRANSVERSE = "Transverse"
+
+
+class SectionStrategy(str, Enum):
+    """Section strategy"""
+
+    WHOLE = "Whole Brain"
+    HEMI = "Hemi Brain"
+
+
 class ProtectiveMaterial(str, Enum):
     """Name of material applied to craniotomy"""
 
@@ -113,6 +128,7 @@ class CoordinateReferenceLocation(str, Enum):
 
     BREGMA = "Bregma"
     LAMBDA = "Lambda"
+    MIDLINE = "Midline"
 
 
 class HeadframeMaterial(str, Enum):
@@ -224,6 +240,33 @@ class Immunolabeling(AindModel):
     concentration_unit: str = Field("ug/ml", title="Concentration unit")
 
 
+class Sectioning(AindModel):
+    """Description of a sectioning procedure"""
+
+    procedure_type: Literal["Sectioning"] = "Sectioning"
+    number_of_slices: int = Field(..., title="Number of slices")
+    output_specimen_ids: List[str] = Field(..., title="Output specimen ids", min_length=1)
+    section_orientation: SectionOrientation = Field(..., title="Sectioning orientation")
+    section_thickness: Decimal = Field(..., title="Section thickness")
+    section_thickness_unit: SizeUnit = Field(SizeUnit.MM, title="Section thickness unit")
+    section_distance_from_reference: Decimal = Field(..., title="Section distance from reference")
+    section_distance_unit: SizeUnit = Field(SizeUnit.MM, title="Distance unit")
+    reference_location: CoordinateReferenceLocation = Field(..., title="Reference location for distance measurement")
+    section_strategy: SectionStrategy = Field(..., title="Slice strategy")
+    targeted_structure: str = Field(..., title="Targeted structure", description="Use Allen Brain Atlas Ontology")
+
+    @field_validator("output_specimen_ids")
+    def check_output_id_length(cls, v, info: ValidationInfo):
+        """Validator for list of output specimen ids"""
+
+        output_id_len = len(v)
+        expected_len = info.data["number_of_slices"]
+
+        if output_id_len != expected_len:
+            raise AssertionError("List of output specimen ids does not match the number of slices.")
+        return v
+
+
 class SpecimenProcedure(AindModel):
     """Description of surgical or other procedure performed on a specimen"""
 
@@ -239,10 +282,11 @@ class SpecimenProcedure(AindModel):
         description="First and last name of the experimenter.",
         title="Experimenter full name",
     )
-    protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
+    protocol_id: List[str] = Field(..., title="Protocol ID", description="DOI for protocols.io")
     reagents: List[Reagent] = Field(default=[], title="Reagents")
     hcr_series: Optional[HCRSeries] = Field(None, title="HCR Series")
     immunolabeling: Optional[Immunolabeling] = Field(None, title="Immunolabeling")
+    sectioning: Optional[Sectioning] = Field(None, title="Sectioning")
     notes: Optional[str] = Field(None, title="Notes")
 
     @model_validator(mode="after")
@@ -558,7 +602,7 @@ class Surgery(AindModel):
     """Description of subject procedures performed at one time"""
 
     procedure_type: Literal["Surgery"] = "Surgery"
-
+    protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     start_date: date = Field(..., title="Start date")
     experimenter_full_name: str = Field(
         ...,
@@ -603,7 +647,7 @@ class Procedures(AindCoreModel):
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/procedures.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
 
-    schema_version: Literal["0.13.1"] = Field("0.13.1")
+    schema_version: Literal["0.13.3"] = Field("0.13.3")
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",

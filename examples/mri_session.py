@@ -1,4 +1,5 @@
 """example MRISession and MRIScan"""
+
 from decimal import Decimal
 
 from aind_data_schema.core.mri_session import MRIScan, MriScanSequence, MriSession, ScanType, SubjectPosition
