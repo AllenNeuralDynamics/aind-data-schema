@@ -202,5 +202,6 @@ inst = instrument.Instrument(
     humidity_control=False,
     temperature_control=False,
 )
-
-inst.write_standard_file(prefix="exaspim")
+serialized = inst.model_dump_json()
+deserialized = instrument.Instrument.model_validate_json(serialized)
+deserialized.write_standard_file(prefix="exaspim")

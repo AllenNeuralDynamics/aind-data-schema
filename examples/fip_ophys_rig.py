@@ -6,7 +6,7 @@ import aind_data_schema.core.rig as r
 import aind_data_schema.models.devices as d
 from aind_data_schema.models.modalities import Modality
 
-r = r.Rig(
+rig = r.Rig(
     rig_id="428_FIP1_2",
     modification_date=date(2023, 10, 3),
     modalities=[Modality.FIB],
@@ -281,5 +281,6 @@ r = r.Rig(
         )
     ],
 )
-
-r.write_standard_file(prefix="fip_ophys")
+serialized = rig.model_dump_json()
+deserialized = r.Rig.model_validate_json(serialized)
+deserialized.write_standard_file(prefix="fip_ophys")

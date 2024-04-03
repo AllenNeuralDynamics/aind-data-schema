@@ -79,5 +79,6 @@ p = Procedures(
         ),
     ],
 )
-
-p.write_standard_file()
+serialized = p.model_dump_json()
+deserialized = Procedures.model_validate_json(serialized)
+deserialized.write_standard_file()

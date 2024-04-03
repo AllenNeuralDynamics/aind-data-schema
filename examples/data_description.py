@@ -18,4 +18,6 @@ d = RawDataDescription(
     funding_source=[Funding(funder=Organization.AI)],
 )
 
-d.write_standard_file()
+serialized = d.model_dump_json()
+deserialized = RawDataDescription.model_validate_json(serialized)
+deserialized.write_standard_file()
