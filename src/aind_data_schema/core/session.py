@@ -12,11 +12,11 @@ from typing_extensions import Annotated
 from aind_data_schema.base import AindCoreModel, AindGeneric, AindGenericType, AindModel, AwareDatetimeWithDefault
 from aind_data_schema.core.procedures import Anaesthetic
 from aind_data_schema.imaging.tile import Channel
-from aind_data_schema.models.coordinates import(
+from aind_data_schema.models.coordinates import (
     CcfCoords,
-    Coordinates3d, 
+    Coordinates3d,
     Rotation3dTransform, 
-    Scale3dTransform, 
+    Scale3dTransform,
     Translation3dTransform
 )
 from aind_data_schema.models.devices import Calibration, Maintenance, RelativePosition, Scanner, Software, SpoutSide
