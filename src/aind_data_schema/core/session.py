@@ -440,7 +440,7 @@ class Stream(AindModel):
     @staticmethod
     def _validate_mri_modality(value: List[Modality.ONE_OF], info: ValidationInfo) -> Optional[str]:
         """Validate MRI modality has scans"""
-        if Modality.MRI in value 
+        if Modality.MRI in value:
             scans = info.data["mri_scans"]
             scanner = info.data["mri_scanner"]
             if not scans or not scanner:
