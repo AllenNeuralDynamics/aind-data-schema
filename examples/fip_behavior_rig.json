@@ -38,7 +38,7 @@
             "notes": null,
             "travel": "15.0",
             "travel_unit": "millimeter",
-            "firmware": "https://github.com/AllenNeuralDynamics/python-newscale, branch: axes-on-target, commit #7c17497"
+            "firmware": "https://github.com/AllenNeuralDynamics/python-newscale,branch: axes-on-target,commit #7c17497"
          },
          "reward_spouts": [
             {

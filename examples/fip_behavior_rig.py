@@ -353,4 +353,4 @@ r = r.Rig(
     ],
 )
 
-r.write_standard_file(prefix="ForagingRig_")
+r.write_standard_file(prefix="fip_behavior")
