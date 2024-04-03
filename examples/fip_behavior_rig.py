@@ -118,10 +118,10 @@ r = r.Rig(
                     serial_number="xxxx",  # grabing from GUI/SettingFiles
                     manufacturer=d.Organization.NEW_SCALE_TECHNOLOGIES,
                     travel=15.0,  # unit is mm
-                    firmware=
+                    firmware=(
                         "https://github.com/AllenNeuralDynamics/python-newscale, branch: axes-on-target, commit #7c17497"
+                    ),
             ),
-            
         ),
     ],
 
@@ -294,23 +294,23 @@ r = r.Rig(
             size=1,
         )
     ],
-    
+
     additional_devices=[d.Device(device_type="Photometry Clock", name="Photometry Clock")],
-    
+
     # FIB Specific
 
     # Optogenetics Specific   # Xinxin to fill in
 
-    #light_sources=[
+    # light_sources=[
     #    d.LightEmittingDiode(
     #        name="LED for photostimulation",
     #        manufacturer=d.Organization.PRIZMATIX,
     #        model="xxx",
     #        wavelength=470,
     #    ),
-    #],
-    
-    #daqs=[
+    # ],
+
+    # daqs=[
     #    d.DAQDevice(
     #        name="NIDAQ for opto",
     #        device_type="DAQ Device",
@@ -320,7 +320,7 @@ r = r.Rig(
     #        channels=[
     #        ],
     #    )
-    #],
+    # ],
 
     # Optogenetics Specific
 
