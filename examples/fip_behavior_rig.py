@@ -119,7 +119,7 @@ r = r.Rig(
                     manufacturer=d.Organization.NEW_SCALE_TECHNOLOGIES,
                     travel=15.0,  # unit is mm
                     firmware=(
-                        "https://github.com/AllenNeuralDynamics/python-newscale, branch: axes-on-target, commit #7c17497"
+                        "https://github.com/AllenNeuralDynamics/python-newscale,branch: axes-on-target,commit #7c17497"
                     ),
             ),
         ),
