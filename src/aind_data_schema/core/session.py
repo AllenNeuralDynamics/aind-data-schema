@@ -5,15 +5,17 @@ from decimal import Decimal
 from enum import Enum
 from typing import List, Literal, Optional, Union
 
-from pydantic import Field, field_validator
+from pydantic import Field, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
 from typing_extensions import Annotated
 
 from aind_data_schema.base import AindCoreModel, AindGeneric, AindGenericType, AindModel, AwareDatetimeWithDefault
+from aind_data_schema.core.procedures import Anaesthetic
 from aind_data_schema.imaging.tile import Channel
-from aind_data_schema.models.coordinates import CcfCoords, Coordinates3d
-from aind_data_schema.models.devices import Calibration, Maintenance, RelativePosition, Software, SpoutSide
+from aind_data_schema.models.coordinates import CcfCoords, Coordinates3d, Rotation3dTransform, Scale3dTransform, Translation3dTransform
+from aind_data_schema.models.devices import Calibration, Maintenance, RelativePosition, Scanner, Software, SpoutSide
 from aind_data_schema.models.modalities import Modality
+from aind_data_schema.models.process_names import ProcessName
 from aind_data_schema.models.stimulus import (
     AuditoryStimulation,
     OlfactoryStimulation,
@@ -285,6 +287,81 @@ class SpeakerConfig(AindModel):
     volume_unit: SoundIntensityUnit = Field(SoundIntensityUnit.DB, title="Volume unit")
 
 
+# MRI components
+class MriScanSequence(str, Enum):
+    """MRI scan sequence"""
+
+    RARE = "RARE"
+    OTHER = "Other"
+
+
+class ScanType(str, Enum):
+    """Type of scan"""
+
+    SETUP = "Set Up"
+    SCAN_3D = "3D Scan"
+
+
+class SubjectPosition(str, Enum):
+    """Subject position"""
+
+    PRONE = "Prone"
+    SUPINE = "Supine"
+
+
+class MRIScan(AindModel):
+    """Description of a 3D scan"""
+
+    scan_index: int = Field(..., title="Scan index")
+    scan_type: ScanType = Field(..., title="Scan type")
+    primary_scan: bool = Field(
+        ..., title="Primary scan", description="Indicates the primary scan used for downstream analysis"
+    )
+    scan_sequence_type: MriScanSequence = Field(..., title="Scan sequence")
+    rare_factor: Optional[int] = Field(None, title="RARE factor")
+    echo_time: Decimal = Field(..., title="Echo time (ms)")
+    effective_echo_time: Optional[Decimal] = Field(None, title="Effective echo time (ms)")
+    echo_time_unit: TimeUnit = Field(TimeUnit.MS, title="Echo time unit")
+    repetition_time: Decimal = Field(..., title="Repetition time (ms)")
+    repetition_time_unit: TimeUnit = Field(TimeUnit.MS, title="Repetition time unit")
+    # fields required to get correct orientation
+    vc_orientation: Optional[Rotation3dTransform] = Field(None, title="Scan orientation")
+    vc_position: Optional[Translation3dTransform] = Field(None, title="Scan position")
+    subject_position: SubjectPosition = Field(..., title="Subject position")
+    # other fields
+    voxel_sizes: Optional[Scale3dTransform] = Field(None, title="Voxel sizes", description="Resolution")
+    processing_steps: List[
+        Literal[
+            ProcessName.FIDUCIAL_SEGMENTATION,
+            ProcessName.IMAGE_ATLAS_ALIGNMENT,
+            ProcessName.SKULL_STRIPPING,
+        ]
+    ] = Field([])
+    additional_scan_parameters: AindGenericType = Field(..., title="Parameters")
+    notes: Optional[str] = Field(None, title="Notes", validate_default=True)
+
+    @field_validator("notes", mode="after")
+    def validate_other(cls, value: Optional[str], info: ValidationInfo) -> Optional[str]:
+        """Validator for other/notes"""
+
+        if info.data.get("scan_sequence_type") == MriScanSequence.OTHER and not value:
+            raise ValueError(
+                "Notes cannot be empty if scan_sequence_type is Other."
+                " Describe the scan_sequence_type in the notes field."
+            )
+        return value
+
+    @model_validator(mode="after")
+    def validate_primary_scan(self):
+        """Validate that primary scan has vc_orientation and vc_position fields"""
+
+        if self.primary_scan:
+            if not self.vc_orientation or not self.vc_position or not self.voxel_sizes:
+                raise ValueError("Primary scan must have vc_orientation, vc_position, and voxel_sizes fields")
+
+        return self
+
+
 class Stream(AindModel):
     """Data streams with a start and stop time"""
 
@@ -306,6 +383,8 @@ class Stream(AindModel):
     ophys_fovs: List[FieldOfView] = Field(default=[], title="Fields of view")
     slap_fovs: Optional[SlapFieldOfView] = Field(None, title="Slap2 field of view")
     stack_parameters: Optional[Stack] = Field(None, title="Stack parameters")
+    mri_scanner: Optional[Scanner] = Field(None, title="MRI scanner")
+    mri_scans: List[MRIScan] = Field(default=[], title="MRI scans")
     stream_modalities: List[Modality.ONE_OF] = Field(..., title="Modalities")
     notes: Optional[str] = Field(None, title="Notes")
 
@@ -357,6 +436,17 @@ class Stream(AindModel):
             return "camera_names field must be utilized for Behavior Videos modality"
         else:
             return None
+    
+    @staticmethod
+    def _validate_mri_modality(value: List[Modality.ONE_OF], info: ValidationInfo) -> Optional[str]:
+        """Validate MRI modality has scans"""
+        if Modality.MRI in value 
+            scans = info.data["mri_scans"]
+            scanner = info.data["mri_scanner"]
+            if not scans or not scanner:
+                return "mri_scans and mri_scanner fields must be utilized for MRI modality"
+        else:
+            return None
 
     @field_validator("stream_modalities", mode="after")
     def validate_stream_modalities(cls, value: List[Modality.ONE_OF], info: ValidationInfo) -> List[Modality.ONE_OF]:
@@ -366,6 +456,7 @@ class Stream(AindModel):
         fib_errors = cls._validate_fib_modality(value, info)
         pophys_errors = cls._validate_pophys_modality(value, info)
         behavior_vids_errors = cls._validate_behavior_videos_modality(value, info)
+        mri_errors = cls._validate_mri_modality(value, info)
 
         if ephys_errors is not None:
             errors.append(ephys_errors)
@@ -375,6 +466,8 @@ class Stream(AindModel):
             errors.append(pophys_errors)
         if behavior_vids_errors is not None:
             errors.append(behavior_vids_errors)
+        if mri_errors is not None:
+            errors.append(mri_errors)
         if len(errors) > 0:
             message = "\n     ".join(errors)
             raise ValueError(message)
@@ -466,6 +559,7 @@ class Session(AindCoreModel):
         description="Animal weight after procedure",
     )
     weight_unit: MassUnit = Field(MassUnit.G, title="Weight unit")
+    anaesthesia: Optional[Anaesthetic] = Field(None, title="Anaesthesia")
     data_streams: List[Stream] = Field(
         ...,
         title="Data streams",
