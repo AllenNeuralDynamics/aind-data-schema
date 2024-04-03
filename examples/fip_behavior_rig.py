@@ -14,7 +14,7 @@ r = r.Rig(
     cameras=[
         d.CameraAssembly(
             name="BehaviorVideography_FaceSide",
-            #camera_assembly_name="BehaviorVideography_FaceBottom",
+            # camera_assembly_name="BehaviorVideography_FaceBottom",
             camera_target=d.CameraTarget.FACE_SIDE,
             camera=d.Camera(
                 name="Side face camera",
@@ -44,7 +44,7 @@ r = r.Rig(
         ),
         d.CameraAssembly(
             name="BehaviorVideography_FaceBottom",
-            #camera_assembly_name="BehaviorVideography_FaceBottom",
+            # camera_assembly_name="BehaviorVideography_FaceBottom",
             camera_target=d.CameraTarget.FACE_BOTTOM,
             camera=d.Camera(
                 name="Bottom face Camera",
@@ -73,7 +73,7 @@ r = r.Rig(
             ),
         ),
     ],
-    
+
     daqs=[
         d.HarpDevice(
             name="Harp Behavior",
@@ -85,13 +85,15 @@ r = r.Rig(
             channels=[
                 d.DAQChannel(channel_name="DO0", device_name="Solenoid Left", channel_type="Digital Output"),
                 d.DAQChannel(channel_name="DO1", device_name="Solenoid Right", channel_type="Digital Output"),
-                d.DAQChannel(channel_name="DI0", device_name="Janelia_Lick_Detector Left", channel_type="Digital Input"),
-                d.DAQChannel(channel_name="DI1", device_name="Janelia_Lick_Detector Right", channel_type="Digital Input"),
+                d.DAQChannel(channel_name="DI0", device_name="Janelia_Lick_Detector Left",
+                             channel_type="Digital Input"),
+                d.DAQChannel(channel_name="DI1", device_name="Janelia_Lick_Detector Right",
+                             channel_type="Digital Input"),
                 d.DAQChannel(channel_name="DI3", device_name="Photometry Clock", channel_type="Digital Input"),
             ],
         )
     ],
-    #mouse_platform=d.Disc(name="mouse_disc", radius=8.5),
+    # mouse_platform=d.Disc(name="mouse_disc", radius=8.5),
     mouse_platform=d.Tube(name="mouse_tube_foraging", diameter=4.0),
     stimulus_devices=[
         d.RewardDelivery(
@@ -113,20 +115,20 @@ r = r.Rig(
             ],
             stage_type=d.MotorizedStage(
                     name="NewScaleMotor for LickSpouts",
-                    serial_number="xxxx", #grabing from GUI/SettingFiles
+                    serial_number="xxxx",  # grabing from GUI/SettingFiles
                     manufacturer=d.Organization.NEW_SCALE_TECHNOLOGIES,
-                    travel=15.0,  #unit is mm
-                    firmware="https://github.com/AllenNeuralDynamics/python-newscale, branch: axes-on-target, commit #7c17497",
+                    travel=15.0,  # unit is mm
+                    firmware=
+                        "https://github.com/AllenNeuralDynamics/python-newscale, branch: axes-on-target, commit #7c17497"
             ),
             
         ),
     ],
-    
-    
-    ## Common
-    #######################################################################################################
-    ##FIB Specific
-    
+
+    # Common
+
+    # FIB Specific
+
     patch_cords=[
         d.Patch(
             name="Bundle Branching Fiber-optic Patch Cord",
@@ -295,10 +297,10 @@ r = r.Rig(
     
     additional_devices=[d.Device(device_type="Photometry Clock", name="Photometry Clock")],
     
-    ##FIB Specific
-    #######################################################################################################
-    ##Optogenetics Specific   ##Xinxin to fill in
-    
+    # FIB Specific
+
+    # Optogenetics Specific   # Xinxin to fill in
+
     #light_sources=[
     #    d.LightEmittingDiode(
     #        name="LED for photostimulation",
@@ -319,11 +321,11 @@ r = r.Rig(
     #        ],
     #    )
     #],
-    
-    ##Optogene"tics Specific
-    #######################################################################################################
 
-    ##Calibrations
+    # Optogenetics Specific
+
+
+    # Calibrations
     calibrations=[
         d.Calibration(
             calibration_date=datetime(2023, 10, 2, 3, 15, 22, tzinfo=timezone.utc),
@@ -347,7 +349,7 @@ r = r.Rig(
             output={"Power mW": [0.02]},
         ),
 
-        ##Water calibration comes here##
+        # Water calibration comes here#
     ],
 )
 
