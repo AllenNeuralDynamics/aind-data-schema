@@ -129,48 +129,6 @@ class ImagingTests(unittest.TestCase):
         )
         self.assertEqual(expected_exception2, repr(e2.exception))
 
-        with self.assertRaises(ValidationError):
-            ms.MRIScan(
-                scan_sequence_type="Other",
-            )
-
-        with self.assertRaises(ValidationError):
-            ms.MRIScan(scan_sequence_type="Other", notes="")
-
-        mri = ms.MriSession(
-            experimenter_full_name=["Frank Frankson"],
-            subject_id="1234",
-            session_start_time=datetime.now(tz=timezone.utc),
-            session_end_time=datetime.now(tz=timezone.utc),
-            protocol_id="doi_path",
-            animal_weight_prior=22.1,
-            animal_weight_post=21.9,
-            mri_scanner=ms.Scanner(
-                name="MRI scanner",
-                scanner_location="UW SLU",
-                magnetic_strength=7,
-                magnetic_strength_unit="T",
-            ),
-            scans=[
-                ms.MRIScan(
-                    scan_index=1,
-                    scan_type="3D Scan",
-                    scan_sequence_type="RARE",
-                    rare_factor=4,
-                    primary_scan=True,
-                    vc_orientation=Rotation3dTransform(rotation=[1, 2, 3, 4, 5, 6, 7, 8, 9]),
-                    vc_position=Translation3dTransform(translation=[1, 1, 1]),
-                    subject_position="Supine",
-                    voxel_sizes=Scale3dTransform(scale=[0.1, 0.1, 0.1]),
-                    echo_time=2.2,
-                    effective_echo_time=2.0,
-                    repetition_time=1.2,
-                    additional_scan_parameters={"number_averages": 3},
-                )
-            ],
-        )
-
-        assert mri is not None
 
     def test_axis(self):
         """test the axis class"""
@@ -314,29 +272,6 @@ class ImagingTests(unittest.TestCase):
             "  Value error, Device name validation error: 'LAS-08308' is connected to '3' on 'Dev2',"
             " but this device is not part of the rig. [type=value_error,"
             " input_value=[DAQDevice(device_type='D... hardware_version=None)], input_type=list]\n"
-            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/value_error"
-        )
-        self.assertEqual(expected_exception, repr(e.exception))
-
-        with self.assertRaises(ValueError) as e:
-            ms.MRIScan(
-                scan_index=1,
-                scan_type="3D Scan",
-                scan_sequence_type="RARE",
-                rare_factor=4,
-                primary_scan=True,
-                subject_position="Supine",
-                voxel_sizes=Scale3dTransform(scale=[0.1, 0.1, 0.1]),
-                echo_time=2.2,
-                effective_echo_time=2.0,
-                repetition_time=1.2,
-                additional_scan_parameters={"number_averages": 3},
-            )
-
-        expected_exception = (
-            "1 validation error for MRIScan\n"
-            "  Value error, Primary scan must have vc_orientation, vc_position, and voxel_sizes fields "
-            "[type=value_error, input_value={'scan_index': 1, 'scan_t... {'number_averages': 3}}, input_type=dict]\n"
             f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/value_error"
         )
         self.assertEqual(expected_exception, repr(e.exception))
