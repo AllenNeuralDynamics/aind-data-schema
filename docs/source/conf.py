@@ -9,6 +9,18 @@ from datetime import date
 from os.path import abspath, dirname
 from pathlib import Path
 
+from aind_data_schema.core import (
+    acquisition, 
+    data_description, 
+    instrument, 
+    metadata,
+    mri_session,
+    procedures,
+    processing,
+    rig,
+    session,
+    subject
+    )
 from aind_data_schema import __version__ as package_version
 
 INSTITUTE_NAME = "Allen Institute for Neural Dynamics"
@@ -27,6 +39,7 @@ release = package_version
 extensions = [
     "sphinx.ext.duration",
     "sphinx.ext.doctest",
+    "sphinx.ext.autodoc",
     "sphinxcontrib.autodoc_pydantic",
     "sphinx.ext.napoleon",
     "sphinx_jinja",
