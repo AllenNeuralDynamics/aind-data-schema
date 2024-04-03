@@ -59,7 +59,7 @@ class MRIScan(AindModel):
     processing_steps: List[
         Literal[
             ProcessName.FIDUCIAL_SEGMENTATION,
-            ProcessName.REGISTRATION_TO_TEMPLATE,
+            ProcessName.IMAGE_ATLAS_ALIGNMENT,
             ProcessName.SKULL_STRIPPING,
         ]
     ] = Field([])
