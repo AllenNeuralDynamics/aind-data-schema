@@ -12,7 +12,13 @@ from typing_extensions import Annotated
 from aind_data_schema.base import AindCoreModel, AindGeneric, AindGenericType, AindModel, AwareDatetimeWithDefault
 from aind_data_schema.core.procedures import Anaesthetic
 from aind_data_schema.imaging.tile import Channel
-from aind_data_schema.models.coordinates import CcfCoords, Coordinates3d, Rotation3dTransform, Scale3dTransform, Translation3dTransform
+from aind_data_schema.models.coordinates import(
+    CcfCoords,
+    Coordinates3d, 
+    Rotation3dTransform, 
+    Scale3dTransform, 
+    Translation3dTransform
+)
 from aind_data_schema.models.devices import Calibration, Maintenance, RelativePosition, Scanner, Software, SpoutSide
 from aind_data_schema.models.modalities import Modality
 from aind_data_schema.models.process_names import ProcessName
@@ -436,7 +442,7 @@ class Stream(AindModel):
             return "camera_names field must be utilized for Behavior Videos modality"
         else:
             return None
-    
+
     @staticmethod
     def _validate_mri_modality(value: List[Modality.ONE_OF], info: ValidationInfo) -> Optional[str]:
         """Validate MRI modality has scans"""

@@ -48,7 +48,7 @@ stream = Stream(
         scanner_location="Fred Hutch",
         magnetic_strength="7",
     ),
-    mri_scans = [scan1, scan2],
+    mri_scans=[scan1, scan2],
     stream_modalities=[Modality.MRI],
 )
 
