@@ -2,9 +2,10 @@
 
 from decimal import Decimal
 
-from aind_data_schema.core.mri_session import MRIScan, MriScanSequence, MriSession, ScanType, SubjectPosition
+from aind_data_schema.core.session import MRIScan, MriScanSequence, ScanType, Session, Stream, SubjectPosition
 from aind_data_schema.models.coordinates import Rotation3dTransform, Scale3dTransform, Translation3dTransform
 from aind_data_schema.models.devices import Scanner
+from aind_data_schema.models.modalities import Modality
 
 scan1 = MRIScan(
     scan_index="1",
@@ -39,22 +40,30 @@ scan2 = MRIScan(
     notes=None,
 )
 
-scans = [scan1, scan2]
-
-sess = MriSession(
-    subject_id="",
-    session_start_time="2024-03-12T16:27:55.584892Z",
-    session_end_time="2024-03-12T16:27:55.584892Z",
-    experimenter_full_name=["Allen Brain"],
-    protocol_id="dx.doi.org/10.57824/protocols.io.bh7kl4n6",
-    iacuc_protocol="12345",
+stream = Stream(
+    stream_start_time="2024-03-12T16:27:55.584892Z",
+    stream_end_time="2024-03-12T16:27:55.584892Z",
     mri_scanner=Scanner(
         name="Scanner 72",
         scanner_location="Fred Hutch",
         magnetic_strength="7",
     ),
-    scans=scans,
+    mri_scans = [scan1, scan2],
+    stream_modalities=Modality.MRI,
+)
+
+sess = MriSession(
+    subject_id="123456",
+    session_start_time="2024-03-12T16:27:55.584892Z",
+    session_end_time="2024-03-12T16:27:55.584892Z",
+    experimenter_full_name=["Joe Schmoe"],
+    protocol_id="dx.doi.org/10.57824/protocols.io.bh7kl4n6",
+    iacuc_protocol="1234",
+    session_type="3D MRI Volume",
+    rig_id="NA",
+    data_streams=[stream],
+    mouse_platform_name="NA",
     notes="There was some information about this scan session",
 )
 
-sess.write_standard_file()
+sess.write_standard_file(prefix='mri')
