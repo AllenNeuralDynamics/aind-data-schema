@@ -115,7 +115,7 @@ r = r.Rig(
             ],
             stage_type=d.MotorizedStage(
                     name="NewScaleMotor for LickSpouts",
-                    serial_number="xxxx",  # grabing from GUI/SettingFiles
+                    serial_number="xxxx",  # grabbing from GUI/SettingFiles
                     manufacturer=d.Organization.NEW_SCALE_TECHNOLOGIES,
                     travel=15.0,  # unit is mm
                     firmware=(
