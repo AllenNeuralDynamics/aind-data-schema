@@ -1,4 +1,4 @@
 """ imports for AindModel subclasses
 """
 
-__version__ = "0.31.17"
+__version__ = "0.32.0"
