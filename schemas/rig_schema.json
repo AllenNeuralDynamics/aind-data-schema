@@ -9059,15 +9059,6 @@
                "title": "Serial number"
             },
             "manufacturer": {
-               "const": {
-                  "abbreviation": "IMEC",
-                  "name": "Interuniversity Microelectronics Center",
-                  "registry": {
-                     "abbreviation": "ROR",
-                     "name": "Research Organization Registry"
-                  },
-                  "registry_identifier": "02kcbn207"
-               },
                "default": {
                   "name": "Interuniversity Microelectronics Center",
                   "abbreviation": "IMEC",
@@ -9077,6 +9068,17 @@
                   },
                   "registry_identifier": "02kcbn207"
                },
+               "discriminator": {
+                  "mapping": {
+                     "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/InteruniversityMicroelectronicsCenter"
+                  }
+               ],
                "title": "Manufacturer"
             },
             "model": {
@@ -14367,14 +14369,21 @@
                "title": "Hardware version"
             },
             "harp_device_type": {
-               "const": {
-                  "name": "Olfactometer",
-                  "whoami": 1140
-               },
                "default": {
                   "name": "Olfactometer",
                   "whoami": 1140
                },
+               "discriminator": {
+                  "mapping": {
+                     "Olfactometer": "#/$defs/aind_data_schema__models__harp_types__Olfactometer"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/aind_data_schema__models__harp_types__Olfactometer"
+                  }
+               ],
                "title": "Harp Device Type"
             },
             "core_version": {
@@ -14949,8 +14958,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.3.1",
-         "default": "0.3.1",
+         "const": "0.3.2",
+         "default": "0.3.2",
          "title": "Schema Version"
       },
       "rig_id": {
