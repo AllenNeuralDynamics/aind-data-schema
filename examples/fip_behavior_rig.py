@@ -8,13 +8,12 @@ import aind_data_schema.models.devices as d
 from aind_data_schema.models.modalities import Modality
 
 r = r.Rig(
-    rig_id="447_FIP/Behavior/Opt_FullModalityTemplate",
+    rig_id="447_FIP_Behavior_20000101",
     modification_date=date(2000, 1, 1),
     modalities=[Modality.FIB, Modality.BEHAVIOR],
     cameras=[
         d.CameraAssembly(
             name="BehaviorVideography_FaceSide",
-            # camera_assembly_name="BehaviorVideography_FaceBottom",
             camera_target=d.CameraTarget.FACE_SIDE,
             camera=d.Camera(
                 name="Side face camera",
@@ -44,7 +43,6 @@ r = r.Rig(
         ),
         d.CameraAssembly(
             name="BehaviorVideography_FaceBottom",
-            # camera_assembly_name="BehaviorVideography_FaceBottom",
             camera_target=d.CameraTarget.FACE_BOTTOM,
             camera=d.Camera(
                 name="Bottom face Camera",
@@ -93,7 +91,6 @@ r = r.Rig(
             ],
         )
     ],
-    # mouse_platform=d.Disc(name="mouse_disc", radius=8.5),
     mouse_platform=d.Tube(name="mouse_tube_foraging", diameter=4.0),
     stimulus_devices=[
         d.RewardDelivery(
