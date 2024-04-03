@@ -451,7 +451,7 @@
          "port_index": null,
          "additional_settings": {},
          "notes": null,
-         "type": "Tunable lens"
+         "imaging_device_type": "Tunable lens"
       },
       {
          "device_type": "Additional Imaging Device",
@@ -468,7 +468,7 @@
          "port_index": null,
          "additional_settings": {},
          "notes": null,
-         "type": "Tunable lens"
+         "imaging_device_type": "Tunable lens"
       },
       {
          "device_type": "Additional Imaging Device",
@@ -485,7 +485,7 @@
          "port_index": null,
          "additional_settings": {},
          "notes": null,
-         "type": "Sample Chamber"
+         "imaging_device_type": "Sample Chamber"
       }
    ],
    "calibration_date": null,

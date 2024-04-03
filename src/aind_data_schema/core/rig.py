@@ -3,7 +3,7 @@
 from datetime import date
 from typing import List, Literal, Optional, Set, Union
 
-from pydantic import Field, ValidationInfo, field_validator
+from pydantic import Field, ValidationInfo, field_validator, model_validator
 from typing_extensions import Annotated
 
 from aind_data_schema.base import AindCoreModel
@@ -12,6 +12,7 @@ from aind_data_schema.models.devices import (
     LIGHT_SOURCES,
     Calibration,
     CameraAssembly,
+    CameraTarget,
     DAQDevice,
     Detector,
     Device,
@@ -81,6 +82,20 @@ class Rig(AindCoreModel):
     rig_axes: Optional[List[Axis]] = Field(None, title="Rig axes", min_length=3, max_length=3)
     modalities: Set[Modality.ONE_OF] = Field(..., title="Modalities")
     notes: Optional[str] = Field(None, title="Notes")
+
+    @model_validator(mode="after")
+    def validate_cameras_other(self):
+        """check if any cameras contain an 'other' field"""
+
+        if self.notes is None:
+            for camera_assembly in self.cameras + self.stick_microscopes:
+                if camera_assembly.camera_target == CameraTarget.OTHER:
+                    raise ValueError(
+                        f"Notes cannot be empty if a camera target contains an 'Other' field. "
+                        f"Describe the camera target from ({camera_assembly.name}) in the notes field"
+                    )
+
+        return self
 
     @field_validator("daqs", mode="after")
     def validate_device_names(cls, value: List[DAQDevice], info: ValidationInfo) -> List[DAQDevice]:

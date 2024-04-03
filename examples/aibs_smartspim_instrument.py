@@ -189,19 +189,19 @@ inst = Instrument(
     additional_devices=[
         AdditionalImagingDevice(
             name="Lens 1",
-            type="Tunable lens",
+            imaging_device_type="Tunable lens",
             manufacturer=Organization.OPTOTUNE,
             model="EL-16-40-TC",
         ),
         AdditionalImagingDevice(
             name="Lens 2",
-            type="Tunable lens",
+            imaging_device_type="Tunable lens",
             manufacturer=Organization.OPTOTUNE,
             model="EL-16-40-TC",
         ),
         AdditionalImagingDevice(
             name="Sample chamber",
-            type="Sample Chamber",
+            imaging_device_type="Sample Chamber",
             manufacturer=Organization.LIFECANVAS,
             model="Large-uncoated-glass",
         ),
