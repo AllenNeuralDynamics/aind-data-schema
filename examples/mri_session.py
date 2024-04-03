@@ -49,7 +49,7 @@ stream = Stream(
         magnetic_strength="7",
     ),
     mri_scans = [scan1, scan2],
-    stream_modalities=Modality.MRI,
+    stream_modalities=[Modality.MRI],
 )
 
 sess = MriSession(
