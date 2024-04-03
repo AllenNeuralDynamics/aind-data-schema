@@ -279,7 +279,7 @@
       {
          "stimulus_start_time": "2023-04-25T02:45:00Z",
          "stimulus_end_time": "2023-04-25T03:10:00Z",
-         "stimulus_name": "Static Gratings",
+         "stimulus_name": "Visual Stimulation",
          "session_number": null,
          "software": [
             {
@@ -332,7 +332,7 @@
       {
          "stimulus_start_time": "2023-04-25T03:10:00Z",
          "stimulus_end_time": "2023-04-25T03:16:00Z",
-         "stimulus_name": "Flashes",
+         "stimulus_name": "Visual Stimulation",
          "session_number": null,
          "software": [
             {
