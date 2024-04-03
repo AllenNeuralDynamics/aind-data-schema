@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/session.py",
-   "schema_version": "0.1.12",
+   "schema_version": "0.2.1",
    "protocol_id": [],
    "experimenter_full_name": [
       "John Doe"
@@ -248,9 +248,6 @@
          ],
          "slap_fovs": null,
          "stack_parameters": null,
-         "stimulus_device_names": [],
-         "mouse_platform_name": "disc",
-         "active_mouse_platform": true,
          "stream_modalities": [
             {
                "name": "Planar optical physiology",
@@ -269,6 +266,8 @@
       }
    ],
    "stimulus_epochs": [],
+   "mouse_platform_name": "disc",
+   "active_mouse_platform": true,
    "reward_delivery": null,
    "reward_consumed_total": null,
    "reward_consumed_unit": "microliter",

@@ -15,6 +15,8 @@ s = Session(
     session_type="Parameter Testing",
     iacuc_protocol="2115",
     rig_id="ophys_rig",
+    mouse_platform_name="Disc",
+    active_mouse_platform=False,
     data_streams=[
         Stream(
             stream_start_time=t,
@@ -51,8 +53,6 @@ s = Session(
                     fiber_name="Fiber B",
                 ),
             ],
-            mouse_platform_name="Disc",
-            active_mouse_platform=False,
             notes="Internal trigger. GRAB-DA2m shows signal. Unclear about GRAB-rAC",
         )
     ],

@@ -1557,7 +1557,7 @@
                "items": {
                   "enum": [
                      "Fiducial segmentation",
-                     "Registration to template",
+                     "Image atlas alignment",
                      "Skull stripping"
                   ],
                   "type": "string"
@@ -3348,8 +3348,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.3.5",
-         "default": "0.3.5",
+         "const": "0.3.6",
+         "default": "0.3.6",
          "title": "Schema Version"
       },
       "subject_id": {

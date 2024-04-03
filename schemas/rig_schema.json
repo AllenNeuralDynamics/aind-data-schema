@@ -1006,7 +1006,7 @@
          "additionalProperties": false,
          "description": "Named assembly of a camera and lens (and optionally a filter)",
          "properties": {
-            "camera_assembly_name": {
+            "name": {
                "title": "Camera assembly name",
                "type": "string"
             },
@@ -1060,7 +1060,7 @@
             }
          },
          "required": [
-            "camera_assembly_name",
+            "name",
             "camera_target",
             "camera",
             "lens"
@@ -4264,7 +4264,7 @@
          "additionalProperties": false,
          "description": "Module for electrophysiological recording",
          "properties": {
-            "ephys_assembly_name": {
+            "name": {
                "title": "Ephys assembly name",
                "type": "string"
             },
@@ -4280,7 +4280,7 @@
             }
          },
          "required": [
-            "ephys_assembly_name",
+            "name",
             "manipulator",
             "probes"
          ],
@@ -4783,8 +4783,8 @@
          "additionalProperties": false,
          "description": "Module for inserted fiber photometry recording",
          "properties": {
-            "fiber_assembly_name": {
-               "title": "Ephys assembly name",
+            "name": {
+               "title": "Fiber assembly name",
                "type": "string"
             },
             "manipulator": {
@@ -4799,7 +4799,7 @@
             }
          },
          "required": [
-            "fiber_assembly_name",
+            "name",
             "manipulator",
             "fibers"
          ],
@@ -5921,6 +5921,7 @@
                      "Olfactometer": "#/$defs/aind_data_schema__models__harp_types__Olfactometer",
                      "Sniff Detector": "#/$defs/SniffDetector",
                      "Sound Card": "#/$defs/SoundCard",
+                     "Stepper Driver": "#/$defs/StepperDriver",
                      "Synchronizer": "#/$defs/Synchronizer",
                      "Timestamp Generator Gen 1": "#/$defs/TimestampGeneratorGen1",
                      "Timestamp Generator Gen 3": "#/$defs/TimestampGeneratorGen3",
@@ -5973,6 +5974,9 @@
                   },
                   {
                      "$ref": "#/$defs/Cuttlefish"
+                  },
+                  {
+                     "$ref": "#/$defs/StepperDriver"
                   }
                ],
                "title": "Type of Harp device"
@@ -7400,7 +7404,7 @@
          "additionalProperties": false,
          "description": "Assembly for optogenetic stimulation",
          "properties": {
-            "laser_assembly_name": {
+            "name": {
                "title": "Laser assembly name",
                "type": "string"
             },
@@ -7416,7 +7420,7 @@
             }
          },
          "required": [
-            "laser_assembly_name",
+            "name",
             "manipulator",
             "lasers"
          ],
@@ -9055,15 +9059,6 @@
                "title": "Serial number"
             },
             "manufacturer": {
-               "const": {
-                  "abbreviation": "IMEC",
-                  "name": "Interuniversity Microelectronics Center",
-                  "registry": {
-                     "abbreviation": "ROR",
-                     "name": "Research Organization Registry"
-                  },
-                  "registry_identifier": "02kcbn207"
-               },
                "default": {
                   "name": "Interuniversity Microelectronics Center",
                   "abbreviation": "IMEC",
@@ -9073,6 +9068,17 @@
                   },
                   "registry_identifier": "02kcbn207"
                },
+               "discriminator": {
+                  "mapping": {
+                     "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/InteruniversityMicroelectronicsCenter"
+                  }
+               ],
                "title": "Manufacturer"
             },
             "model": {
@@ -12762,6 +12768,23 @@
          "title": "SpoutSide",
          "type": "string"
       },
+      "StepperDriver": {
+         "description": "Stepper Driver",
+         "properties": {
+            "name": {
+               "const": "Stepper Driver",
+               "default": "Stepper Driver",
+               "title": "Name"
+            },
+            "whoami": {
+               "const": 1130,
+               "default": 1130,
+               "title": "Whoami"
+            }
+         },
+         "title": "StepperDriver",
+         "type": "object"
+      },
       "Synchronizer": {
          "description": "Synchronizer",
          "properties": {
@@ -14346,14 +14369,21 @@
                "title": "Hardware version"
             },
             "harp_device_type": {
-               "const": {
-                  "name": "Olfactometer",
-                  "whoami": 1140
-               },
                "default": {
                   "name": "Olfactometer",
                   "whoami": 1140
                },
+               "discriminator": {
+                  "mapping": {
+                     "Olfactometer": "#/$defs/aind_data_schema__models__harp_types__Olfactometer"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/aind_data_schema__models__harp_types__Olfactometer"
+                  }
+               ],
                "title": "Harp Device Type"
             },
             "core_version": {
@@ -14928,8 +14958,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.2.22",
-         "default": "0.2.22",
+         "const": "0.3.2",
+         "default": "0.3.2",
          "title": "Schema Version"
       },
       "rig_id": {

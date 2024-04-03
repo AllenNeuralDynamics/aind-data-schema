@@ -80,8 +80,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.6.11",
-               "default": "0.6.11",
+               "const": "0.6.12",
+               "default": "0.6.12",
                "title": "Schema Version"
             },
             "protocol_id": {
@@ -752,7 +752,7 @@
                "default": null,
                "title": "Notes"
             },
-            "type": {
+            "imaging_device_type": {
                "allOf": [
                   {
                      "$ref": "#/$defs/ImagingDeviceType"
@@ -763,7 +763,7 @@
          },
          "required": [
             "name",
-            "type"
+            "imaging_device_type"
          ],
          "title": "AdditionalImagingDevice",
          "type": "object"
@@ -1717,6 +1717,125 @@
          "title": "Asus",
          "type": "object"
       },
+      "AuditoryStimulation": {
+         "additionalProperties": false,
+         "description": "Description of an auditory stimulus",
+         "properties": {
+            "stimulus_type": {
+               "const": "Auditory Stimulation",
+               "default": "Auditory Stimulation",
+               "title": "Stimulus Type"
+            },
+            "sitmulus_name": {
+               "title": "Stimulus name",
+               "type": "string"
+            },
+            "sample_frequency": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  }
+               ],
+               "title": "Sample frequency"
+            },
+            "amplitude_modulation_frequency": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Amplitude modulation frequency"
+            },
+            "frequency_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/FrequencyUnit"
+                  }
+               ],
+               "default": "hertz",
+               "title": "Tone frequency unit"
+            },
+            "bandpass_low_frequency": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Bandpass low frequency"
+            },
+            "bandpass_high_frequency": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Bandpass high frequency"
+            },
+            "bandpass_filter_type": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/aind_data_schema__models__stimulus__FilterType"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Bandpass filter type"
+            },
+            "bandpass_order": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Bandpass order"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Notes"
+            }
+         },
+         "required": [
+            "sitmulus_name",
+            "sample_frequency"
+         ],
+         "title": "AuditoryStimulation",
+         "type": "object"
+      },
       "Axis": {
          "additionalProperties": false,
          "description": "Description of an axis",
@@ -1813,129 +1932,6 @@
             }
          },
          "title": "Basler",
-         "type": "object"
-      },
-      "BehaviorStimulation": {
-         "additionalProperties": false,
-         "description": "Description of behavior parameters. Provides a high level description of stimulus.",
-         "properties": {
-            "stimulus_type": {
-               "const": "Behavior",
-               "default": "Behavior",
-               "title": "Stimulus Type"
-            },
-            "behavior_name": {
-               "title": "Behavior name",
-               "type": "string"
-            },
-            "session_number": {
-               "title": "Session number",
-               "type": "integer"
-            },
-            "behavior_software": {
-               "description": "The software used to control the behavior (e.g. Bonsai)",
-               "items": {
-                  "$ref": "#/$defs/Software"
-               },
-               "title": "Behavior software",
-               "type": "array"
-            },
-            "behavior_script": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/Software"
-                  }
-               ],
-               "description": "provide URL to the commit of the script and the parameters used",
-               "title": "Behavior script"
-            },
-            "output_parameters": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
-               "description": "Performance metrics from session",
-               "title": "Performance parameters"
-            },
-            "reward_consumed_during_epoch": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  }
-               ],
-               "title": "Reward consumed during training (uL)"
-            },
-            "reward_consumed_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/VolumeUnit"
-                  }
-               ],
-               "default": "microliter",
-               "title": "Reward consumed unit"
-            },
-            "trials_total": {
-               "anyOf": [
-                  {
-                     "type": "integer"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Total trials"
-            },
-            "trials_finished": {
-               "anyOf": [
-                  {
-                     "type": "integer"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Finished trials"
-            },
-            "trials_rewarded": {
-               "anyOf": [
-                  {
-                     "type": "integer"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Rewarded trials"
-            },
-            "notes": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Notes"
-            }
-         },
-         "required": [
-            "behavior_name",
-            "session_number",
-            "behavior_software",
-            "behavior_script",
-            "output_parameters",
-            "reward_consumed_during_epoch"
-         ],
-         "title": "BehaviorStimulation",
          "type": "object"
       },
       "BehaviorVideos": {
@@ -2572,7 +2568,7 @@
          "additionalProperties": false,
          "description": "Named assembly of a camera and lens (and optionally a filter)",
          "properties": {
-            "camera_assembly_name": {
+            "name": {
                "title": "Camera assembly name",
                "type": "string"
             },
@@ -2626,7 +2622,7 @@
             }
          },
          "required": [
-            "camera_assembly_name",
+            "name",
             "camera_target",
             "camera",
             "lens"
@@ -3180,7 +3176,8 @@
          "description": "Name of reference point for Coordinates",
          "enum": [
             "Bregma",
-            "Lambda"
+            "Lambda",
+            "Midline"
          ],
          "title": "CoordinateReferenceLocation",
          "type": "string"
@@ -6810,7 +6807,7 @@
          "additionalProperties": false,
          "description": "Module for electrophysiological recording",
          "properties": {
-            "ephys_assembly_name": {
+            "name": {
                "title": "Ephys assembly name",
                "type": "string"
             },
@@ -6826,7 +6823,7 @@
             }
          },
          "required": [
-            "ephys_assembly_name",
+            "name",
             "manipulator",
             "probes"
          ],
@@ -7513,8 +7510,8 @@
          "additionalProperties": false,
          "description": "Module for inserted fiber photometry recording",
          "properties": {
-            "fiber_assembly_name": {
-               "title": "Ephys assembly name",
+            "name": {
+               "title": "Fiber assembly name",
                "type": "string"
             },
             "manipulator": {
@@ -7529,7 +7526,7 @@
             }
          },
          "required": [
-            "fiber_assembly_name",
+            "name",
             "manipulator",
             "fibers"
          ],
@@ -8575,7 +8572,7 @@
             "filter_type": {
                "allOf": [
                   {
-                     "$ref": "#/$defs/FilterType"
+                     "$ref": "#/$defs/aind_data_schema__models__devices__FilterType"
                   }
                ],
                "title": "Type of filter"
@@ -8736,20 +8733,6 @@
          ],
          "title": "Filter",
          "type": "object"
-      },
-      "FilterType": {
-         "description": "Filter type",
-         "enum": [
-            "Band pass",
-            "Dichroic",
-            "Long pass",
-            "Multiband",
-            "Neutral density",
-            "Notch",
-            "Short pass"
-         ],
-         "title": "FilterType",
-         "type": "string"
       },
       "Fip": {
          "additionalProperties": false,
@@ -10037,6 +10020,7 @@
                      "Olfactometer": "#/$defs/aind_data_schema__models__harp_types__Olfactometer",
                      "Sniff Detector": "#/$defs/SniffDetector",
                      "Sound Card": "#/$defs/SoundCard",
+                     "Stepper Driver": "#/$defs/StepperDriver",
                      "Synchronizer": "#/$defs/Synchronizer",
                      "Timestamp Generator Gen 1": "#/$defs/TimestampGeneratorGen1",
                      "Timestamp Generator Gen 3": "#/$defs/TimestampGeneratorGen3",
@@ -10089,6 +10073,9 @@
                   },
                   {
                      "$ref": "#/$defs/Cuttlefish"
+                  },
+                  {
+                     "$ref": "#/$defs/StepperDriver"
                   }
                ],
                "title": "Type of Harp device"
@@ -11187,8 +11174,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.10.15",
-               "default": "0.10.15",
+               "const": "0.10.16",
+               "default": "0.10.16",
                "title": "Schema Version"
             },
             "instrument_id": {
@@ -13375,7 +13362,7 @@
          "additionalProperties": false,
          "description": "Assembly for optogenetic stimulation",
          "properties": {
-            "laser_assembly_name": {
+            "name": {
                "title": "Laser assembly name",
                "type": "string"
             },
@@ -13391,7 +13378,7 @@
             }
          },
          "required": [
-            "laser_assembly_name",
+            "name",
             "manipulator",
             "lasers"
          ],
@@ -15741,15 +15728,6 @@
                "title": "Serial number"
             },
             "manufacturer": {
-               "const": {
-                  "abbreviation": "IMEC",
-                  "name": "Interuniversity Microelectronics Center",
-                  "registry": {
-                     "abbreviation": "ROR",
-                     "name": "Research Organization Registry"
-                  },
-                  "registry_identifier": "02kcbn207"
-               },
                "default": {
                   "name": "Interuniversity Microelectronics Center",
                   "abbreviation": "IMEC",
@@ -15759,6 +15737,17 @@
                   },
                   "registry_identifier": "02kcbn207"
                },
+               "discriminator": {
+                  "mapping": {
+                     "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/InteruniversityMicroelectronicsCenter"
+                  }
+               ],
                "title": "Manufacturer"
             },
             "model": {
@@ -16914,6 +16903,18 @@
                ],
                "default": "% v/v",
                "title": "Dilution unit"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Notes"
             }
          },
          "required": [
@@ -16929,9 +16930,13 @@
          "description": "Description of a olfactory stimulus",
          "properties": {
             "stimulus_type": {
-               "const": "Olfactory",
-               "default": "Olfactory",
+               "const": "Olfactory Stimulation",
+               "default": "Olfactory Stimulation",
                "title": "Stimulus Type"
+            },
+            "stimulus_name": {
+               "title": "Stimulus name",
+               "type": "string"
             },
             "channels": {
                "items": {
@@ -16939,9 +16944,22 @@
                },
                "title": "Channels",
                "type": "array"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Notes"
             }
          },
          "required": [
+            "stimulus_name",
             "channels"
          ],
          "title": "OlfactoryStimulation",
@@ -18244,8 +18262,18 @@
                "title": "Pulse shape"
             },
             "pulse_frequency": {
+               "items": {
+                  "anyOf": [
+                     {
+                        "type": "number"
+                     },
+                     {
+                        "type": "string"
+                     }
+                  ]
+               },
                "title": "Pulse frequency (Hz)",
-               "type": "integer"
+               "type": "array"
             },
             "pulse_frequency_unit": {
                "allOf": [
@@ -18257,12 +18285,18 @@
                "title": "Pulse frequency unit"
             },
             "number_pulse_trains": {
+               "items": {
+                  "type": "integer"
+               },
                "title": "Number of pulse trains",
-               "type": "integer"
+               "type": "array"
             },
             "pulse_width": {
+               "items": {
+                  "type": "integer"
+               },
                "title": "Pulse width (ms)",
-               "type": "integer"
+               "type": "array"
             },
             "pulse_width_unit": {
                "allOf": [
@@ -18274,15 +18308,18 @@
                "title": "Pulse width unit"
             },
             "pulse_train_duration": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  }
-               ],
-               "title": "Pulse train duration (s)"
+               "items": {
+                  "anyOf": [
+                     {
+                        "type": "number"
+                     },
+                     {
+                        "type": "string"
+                     }
+                  ]
+               },
+               "title": "Pulse train duration (s)",
+               "type": "array"
             },
             "pulse_train_duration_unit": {
                "allOf": [
@@ -20275,8 +20312,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.12.8",
-               "default": "0.12.8",
+               "const": "0.13.3",
+               "default": "0.13.3",
                "title": "Schema Version"
             },
             "subject_id": {
@@ -20370,7 +20407,6 @@
             "Neuropil subtraction",
             "Other",
             "Quality control and assessment",
-            "Registration to template",
             "Skull stripping",
             "Spike sorting",
             "Spatial timeseries demixing",
@@ -20394,8 +20430,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.4.4",
-               "default": "0.4.4",
+               "const": "0.4.5",
+               "default": "0.4.5",
                "title": "Schema Version"
             },
             "processing_pipeline": {
@@ -20446,11 +20482,12 @@
             "process_name": {
                "items": {
                   "enum": [
-                     "Image importing",
+                     "Image atlas alignment",
                      "Image background subtraction",
                      "Image cell segmentation",
                      "Image destriping",
                      "Image flat-field correction",
+                     "Image importing",
                      "Image thresholding",
                      "Image tile alignment",
                      "Image tile fusing",
@@ -22281,8 +22318,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.2.22",
-               "default": "0.2.22",
+               "const": "0.3.2",
+               "default": "0.3.2",
                "title": "Schema Version"
             },
             "rig_id": {
@@ -23252,6 +23289,129 @@
          "title": "SecondOrderEffects",
          "type": "object"
       },
+      "SectionOrientation": {
+         "description": "Orientation of sectioning",
+         "enum": [
+            "Coronal",
+            "Sagittal",
+            "Transverse"
+         ],
+         "title": "SectionOrientation",
+         "type": "string"
+      },
+      "SectionStrategy": {
+         "description": "Section strategy",
+         "enum": [
+            "Whole Brain",
+            "Hemi Brain"
+         ],
+         "title": "SectionStrategy",
+         "type": "string"
+      },
+      "Sectioning": {
+         "additionalProperties": false,
+         "description": "Description of a sectioning procedure",
+         "properties": {
+            "procedure_type": {
+               "const": "Sectioning",
+               "default": "Sectioning",
+               "title": "Procedure Type"
+            },
+            "number_of_slices": {
+               "title": "Number of slices",
+               "type": "integer"
+            },
+            "output_specimen_ids": {
+               "items": {
+                  "type": "string"
+               },
+               "minItems": 1,
+               "title": "Output specimen ids",
+               "type": "array"
+            },
+            "section_orientation": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/SectionOrientation"
+                  }
+               ],
+               "title": "Sectioning orientation"
+            },
+            "section_thickness": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  }
+               ],
+               "title": "Section thickness"
+            },
+            "section_thickness_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  }
+               ],
+               "default": "millimeter",
+               "title": "Section thickness unit"
+            },
+            "section_distance_from_reference": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  }
+               ],
+               "title": "Section distance from reference"
+            },
+            "section_distance_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  }
+               ],
+               "default": "millimeter",
+               "title": "Distance unit"
+            },
+            "reference_location": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/CoordinateReferenceLocation"
+                  }
+               ],
+               "title": "Reference location for distance measurement"
+            },
+            "section_strategy": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/SectionStrategy"
+                  }
+               ],
+               "title": "Slice strategy"
+            },
+            "targeted_structure": {
+               "description": "Use Allen Brain Atlas Ontology",
+               "title": "Targeted structure",
+               "type": "string"
+            }
+         },
+         "required": [
+            "number_of_slices",
+            "output_specimen_ids",
+            "section_orientation",
+            "section_thickness",
+            "section_distance_from_reference",
+            "reference_location",
+            "section_strategy",
+            "targeted_structure"
+         ],
+         "title": "Sectioning",
+         "type": "object"
+      },
       "Semrock": {
          "additionalProperties": false,
          "description": "Semrock",
@@ -23291,8 +23451,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.1.12",
-               "default": "0.1.12",
+               "const": "0.2.1",
+               "default": "0.2.1",
                "title": "Schema Version"
             },
             "protocol_id": {
@@ -23429,6 +23589,15 @@
                "title": "Stimulus",
                "type": "array"
             },
+            "mouse_platform_name": {
+               "title": "Mouse platform",
+               "type": "string"
+            },
+            "active_mouse_platform": {
+               "description": "Is the mouse platform being actively controlled",
+               "title": "Active mouse platform",
+               "type": "boolean"
+            },
             "reward_delivery": {
                "anyOf": [
                   {
@@ -23484,7 +23653,9 @@
             "session_type",
             "rig_id",
             "subject_id",
-            "data_streams"
+            "data_streams",
+            "mouse_platform_name",
+            "active_mouse_platform"
          ],
          "title": "Session",
          "type": "object"
@@ -24057,6 +24228,12 @@
          "title": "SoundCard",
          "type": "object"
       },
+      "SoundIntensityUnit": {
+         "const": "decibels",
+         "description": "Sound intensity units",
+         "title": "SoundIntensityUnit",
+         "type": "string"
+      },
       "Speaker": {
          "additionalProperties": false,
          "description": "Description of a speaker for auditory stimuli",
@@ -24182,6 +24359,46 @@
          "title": "Speaker",
          "type": "object"
       },
+      "SpeakerConfig": {
+         "additionalProperties": false,
+         "description": "Description of auditory speaker configuration",
+         "properties": {
+            "name": {
+               "description": "Must match rig json",
+               "title": "Name",
+               "type": "string"
+            },
+            "volume": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Volume (dB)"
+            },
+            "volume_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/SoundIntensityUnit"
+                  }
+               ],
+               "default": "decibels",
+               "title": "Volume unit"
+            }
+         },
+         "required": [
+            "name"
+         ],
+         "title": "SpeakerConfig",
+         "type": "object"
+      },
       "SpecimenProcedure": {
          "additionalProperties": false,
          "description": "Description of surgical or other procedure performed on a specimen",
@@ -24228,8 +24445,11 @@
             },
             "protocol_id": {
                "description": "DOI for protocols.io",
+               "items": {
+                  "type": "string"
+               },
                "title": "Protocol ID",
-               "type": "string"
+               "type": "array"
             },
             "reagents": {
                "default": [],
@@ -24262,6 +24482,18 @@
                ],
                "default": null,
                "title": "Immunolabeling"
+            },
+            "sectioning": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Sectioning"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Sectioning"
             },
             "notes": {
                "anyOf": [
@@ -25055,40 +25287,27 @@
          "title": "StainType",
          "type": "string"
       },
+      "StepperDriver": {
+         "description": "Stepper Driver",
+         "properties": {
+            "name": {
+               "const": "Stepper Driver",
+               "default": "Stepper Driver",
+               "title": "Name"
+            },
+            "whoami": {
+               "const": 1130,
+               "default": 1130,
+               "title": "Whoami"
+            }
+         },
+         "title": "StepperDriver",
+         "type": "object"
+      },
       "StimulusEpoch": {
          "additionalProperties": false,
          "description": "Description of stimulus used during session",
          "properties": {
-            "stimulus": {
-               "discriminator": {
-                  "mapping": {
-                     "Behavior": "#/$defs/BehaviorStimulation",
-                     "Olfactory": "#/$defs/OlfactoryStimulation",
-                     "Opto Stimulation": "#/$defs/OptoStimulation",
-                     "Photo Stimulation": "#/$defs/PhotoStimulation",
-                     "Visual": "#/$defs/VisualStimulation"
-                  },
-                  "propertyName": "stimulus_type"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/OlfactoryStimulation"
-                  },
-                  {
-                     "$ref": "#/$defs/OptoStimulation"
-                  },
-                  {
-                     "$ref": "#/$defs/VisualStimulation"
-                  },
-                  {
-                     "$ref": "#/$defs/BehaviorStimulation"
-                  },
-                  {
-                     "$ref": "#/$defs/PhotoStimulation"
-                  }
-               ],
-               "title": "Stimulus"
-            },
             "stimulus_start_time": {
                "description": "When a specific stimulus begins. This might be the same as the session start time.",
                "format": "date-time",
@@ -25100,15 +25319,250 @@
                "format": "date-time",
                "title": "Stimulus end time",
                "type": "string"
+            },
+            "stimulus_name": {
+               "title": "Stimulus name",
+               "type": "string"
+            },
+            "session_number": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Session number"
+            },
+            "software": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "$ref": "#/$defs/Software"
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": [],
+               "description": "The software used to control the behavior/stimulus (e.g. Bonsai)",
+               "title": "Software"
+            },
+            "script": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Software"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "provide URL to the commit of the script and the parameters used",
+               "title": "Script"
+            },
+            "stimulus_modalities": {
+               "items": {
+                  "$ref": "#/$defs/StimulusModality"
+               },
+               "title": "Stimulus modalities",
+               "type": "array"
+            },
+            "stimulus_parameters": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "discriminator": {
+                           "mapping": {
+                              "Auditory Stimulation": "#/$defs/AuditoryStimulation",
+                              "Olfactory Stimulation": "#/$defs/OlfactoryStimulation",
+                              "Opto Stimulation": "#/$defs/OptoStimulation",
+                              "Photo Stimulation": "#/$defs/PhotoStimulation",
+                              "Visual Stimulation": "#/$defs/VisualStimulation"
+                           },
+                           "propertyName": "stimulus_type"
+                        },
+                        "oneOf": [
+                           {
+                              "$ref": "#/$defs/AuditoryStimulation"
+                           },
+                           {
+                              "$ref": "#/$defs/OptoStimulation"
+                           },
+                           {
+                              "$ref": "#/$defs/OlfactoryStimulation"
+                           },
+                           {
+                              "$ref": "#/$defs/PhotoStimulation"
+                           },
+                           {
+                              "$ref": "#/$defs/VisualStimulation"
+                           }
+                        ]
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Stimulus parameters"
+            },
+            "stimulus_device_names": {
+               "default": [],
+               "items": {
+                  "type": "string"
+               },
+               "title": "Stimulus devices",
+               "type": "array"
+            },
+            "speaker_config": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/SpeakerConfig"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Speaker Config"
+            },
+            "light_source_config": {
+               "anyOf": [
+                  {
+                     "discriminator": {
+                        "mapping": {
+                           "Laser": "#/$defs/LaserConfig",
+                           "LightEmittingDiode": "#/$defs/LightEmittingDiodeConfig"
+                        },
+                        "propertyName": "device_type"
+                     },
+                     "oneOf": [
+                        {
+                           "$ref": "#/$defs/LightEmittingDiodeConfig"
+                        },
+                        {
+                           "$ref": "#/$defs/LaserConfig"
+                        }
+                     ]
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Light source config"
+            },
+            "output_parameters": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/AindGeneric"
+                  }
+               ],
+               "default": {},
+               "title": "Performance metrics"
+            },
+            "reward_consumed_during_epoch": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Reward consumed during training (uL)"
+            },
+            "reward_consumed_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/VolumeUnit"
+                  }
+               ],
+               "default": "microliter",
+               "title": "Reward consumed unit"
+            },
+            "trials_total": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Total trials"
+            },
+            "trials_finished": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Finished trials"
+            },
+            "trials_rewarded": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Rewarded trials"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Notes"
             }
          },
          "required": [
-            "stimulus",
             "stimulus_start_time",
-            "stimulus_end_time"
+            "stimulus_end_time",
+            "stimulus_name",
+            "stimulus_modalities"
          ],
          "title": "StimulusEpoch",
          "type": "object"
+      },
+      "StimulusModality": {
+         "description": "Types of stimulus modalities",
+         "enum": [
+            "Auditory",
+            "Olfactory",
+            "Optogenetics",
+            "None",
+            "Virtual reality",
+            "Visual",
+            "Wheel friction"
+         ],
+         "title": "StimulusModality",
+         "type": "string"
       },
       "Stream": {
          "additionalProperties": false,
@@ -25243,22 +25697,6 @@
                "default": null,
                "title": "Stack parameters"
             },
-            "stimulus_device_names": {
-               "default": [],
-               "items": {
-                  "type": "string"
-               },
-               "title": "Stimulus devices",
-               "type": "array"
-            },
-            "mouse_platform_name": {
-               "title": "Mouse platform",
-               "type": "string"
-            },
-            "active_mouse_platform": {
-               "title": "Active mouse platform",
-               "type": "boolean"
-            },
             "stream_modalities": {
                "items": {
                   "discriminator": {
@@ -25344,8 +25782,6 @@
          "required": [
             "stream_start_time",
             "stream_end_time",
-            "mouse_platform_name",
-            "active_mouse_platform",
             "stream_modalities"
          ],
          "title": "Stream",
@@ -25568,6 +26004,11 @@
                "default": "Surgery",
                "title": "Procedure Type"
             },
+            "protocol_id": {
+               "description": "DOI for protocols.io",
+               "title": "Protocol ID",
+               "type": "string"
+            },
             "start_date": {
                "format": "date",
                "title": "Start date",
@@ -25731,6 +26172,7 @@
             }
          },
          "required": [
+            "protocol_id",
             "start_date",
             "experimenter_full_name",
             "procedures"
@@ -26820,8 +27262,8 @@
          "description": "Description of visual stimulus parameters. Provides a high level description of stimulus.",
          "properties": {
             "stimulus_type": {
-               "const": "Visual",
-               "default": "Visual",
+               "const": "Visual Stimulation",
+               "default": "Visual Stimulation",
                "title": "Stimulus Type"
             },
             "stimulus_name": {
@@ -26847,24 +27289,6 @@
                "title": "Stimulus template name",
                "type": "array"
             },
-            "stimulus_software": {
-               "description": "The software used to control the stimulus (e.g. Bonsai)",
-               "title": "Stimulus software",
-               "type": "string"
-            },
-            "stimulus_software_version": {
-               "title": "Stimulus software version",
-               "type": "string"
-            },
-            "stimulus_script": {
-               "description": "The specific code for this stimulus instance",
-               "title": "Stimulus script",
-               "type": "string"
-            },
-            "stimulus_script_version": {
-               "title": "Stimulus script version",
-               "type": "string"
-            },
             "notes": {
                "anyOf": [
                   {
@@ -26879,11 +27303,7 @@
             }
          },
          "required": [
-            "stimulus_name",
-            "stimulus_software",
-            "stimulus_software_version",
-            "stimulus_script",
-            "stimulus_script_version"
+            "stimulus_name"
          ],
          "title": "VisualStimulation",
          "type": "object"
@@ -26936,17 +27356,42 @@
                "default": "Water restriction",
                "title": "Procedure Type"
             },
-            "protocol_id": {
-               "anyOf": [
+            "iacuc_protocol": {
+               "title": "IACUC protocol",
+               "type": "string"
+            },
+            "target_fraction_weight": {
+               "title": "Target fraction weight (%)",
+               "type": "integer"
+            },
+            "target_fraction_weight_unit": {
+               "allOf": [
                   {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
+                     "$ref": "#/$defs/UnitlessUnit"
                   }
                ],
-               "default": null,
-               "title": "Water restriction protocol number"
+               "default": "percent",
+               "title": "Target fraction weight unit"
+            },
+            "minimum_water_per_day": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  }
+               ],
+               "title": "Minimum water per day (mL)"
+            },
+            "minimum_water_per_day_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/VolumeUnit"
+                  }
+               ],
+               "default": "milliliter",
+               "title": "Minimum water per day unit"
             },
             "baseline_weight": {
                "anyOf": [
@@ -26975,15 +27420,25 @@
                "type": "string"
             },
             "end_date": {
-               "format": "date",
-               "title": "Water restriction end date",
-               "type": "string"
+               "anyOf": [
+                  {
+                     "format": "date",
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Water restriction end date"
             }
          },
          "required": [
+            "iacuc_protocol",
+            "target_fraction_weight",
+            "minimum_water_per_day",
             "baseline_weight",
-            "start_date",
-            "end_date"
+            "start_date"
          ],
          "title": "WaterRestriction",
          "type": "object"
@@ -27543,6 +27998,20 @@
          "title": "Wheel",
          "type": "object"
       },
+      "aind_data_schema__models__devices__FilterType": {
+         "description": "Filter type",
+         "enum": [
+            "Band pass",
+            "Dichroic",
+            "Long pass",
+            "Multiband",
+            "Neutral density",
+            "Notch",
+            "Short pass"
+         ],
+         "title": "FilterType",
+         "type": "string"
+      },
       "aind_data_schema__models__devices__Olfactometer": {
          "additionalProperties": false,
          "description": "Description of an olfactometer for odor stimuli",
@@ -27718,14 +28187,21 @@
                "title": "Hardware version"
             },
             "harp_device_type": {
-               "const": {
-                  "name": "Olfactometer",
-                  "whoami": 1140
-               },
                "default": {
                   "name": "Olfactometer",
                   "whoami": 1140
                },
+               "discriminator": {
+                  "mapping": {
+                     "Olfactometer": "#/$defs/aind_data_schema__models__harp_types__Olfactometer"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/aind_data_schema__models__harp_types__Olfactometer"
+                  }
+               ],
                "title": "Harp Device Type"
             },
             "core_version": {
@@ -28487,6 +28963,15 @@
          "title": "Mri",
          "type": "object"
       },
+      "aind_data_schema__models__stimulus__FilterType": {
+         "description": "Types of bandpass filters for auditory stim",
+         "enum": [
+            "Butterworth",
+            "Other"
+         ],
+         "title": "FilterType",
+         "type": "string"
+      },
       "concentration": {
          "properties": {
             "value": {
@@ -28526,8 +29011,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.1.41",
-         "default": "0.1.41",
+         "const": "0.2.7",
+         "default": "0.2.7",
          "title": "Schema Version"
       },
       "_id": {

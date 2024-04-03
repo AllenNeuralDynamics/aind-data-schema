@@ -9,10 +9,14 @@ from aind_data_schema.core.session import (
     EphysModule,
     EphysProbeConfig,
     Session,
+    StimulusEpoch,
+    StimulusModality,
     Stream,
+    VisualStimulation,
 )
+from aind_data_schema.models.devices import Software
+
 from aind_data_schema.models.modalities import Modality
-from aind_data_schema.models.stimulus import StimulusEpoch, VisualStimulation
 
 session = Session(
     experimenter_full_name=["Max Quibble", "Finn Tickle"],
@@ -22,40 +26,56 @@ session = Session(
     session_type="Receptive field mapping",
     iacuc_protocol="2109",
     rig_id="323_EPHYS2-RF_2023-04-24_01",
+    active_mouse_platform=False,
+    mouse_platform_name="mouse platform",
     stimulus_epochs=[
         StimulusEpoch(
+            stimulus_name="Visual Stimulation",
+            stimulus_modalities=[StimulusModality.VISUAL],
             stimulus_start_time=datetime(year=2023, month=4, day=25, hour=2, minute=45, second=0, tzinfo=timezone.utc),
             stimulus_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=10, second=0, tzinfo=timezone.utc),
-            stimulus=VisualStimulation(
-                stimulus_name="Static Gratings",
-                stimulus_parameters={
-                    "grating_orientations": [0, 45, 90, 135],
-                    "grating_orientation_unit": "degrees",
-                    "grating_spatial_frequencies": [0.02, 0.04, 0.08, 0.16, 0.32],
-                    "grating_spatial_frequency_unit": "cycles/degree",
-                },
-                stimulus_software="Bonsai",
-                stimulus_software_version="2.7",
-                stimulus_script="https://github.com/fakeorg/GratingAndFlashes/gratings_and_flashes.bonsai",
-                stimulus_script_version="1.0",
-            ),
+            software=[
+                Software(
+                    name="Bonsai",
+                    version="2.7",
+                    url="https://github.com/fakeorg/GratingAndFlashes/gratings_and_flashes.bonsai",
+                )
+            ],
+            stimulus_parameters=[
+                VisualStimulation(
+                    stimulus_name="Static Gratings",
+                    stimulus_parameters={
+                        "grating_orientations": [0, 45, 90, 135],
+                        "grating_orientation_unit": "degrees",
+                        "grating_spatial_frequencies": [0.02, 0.04, 0.08, 0.16, 0.32],
+                        "grating_spatial_frequency_unit": "cycles/degree",
+                    },
+                )
+            ],
         ),
         StimulusEpoch(
+            stimulus_name="Visual Stimulation",
+            stimulus_modalities=[StimulusModality.VISUAL],
             stimulus_start_time=datetime(year=2023, month=4, day=25, hour=3, minute=10, second=0, tzinfo=timezone.utc),
             stimulus_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0, tzinfo=timezone.utc),
-            stimulus=VisualStimulation(
-                stimulus_name="Flashes",
-                stimulus_parameters={
-                    "flash_interval": 5.0,
-                    "flash_interval_unit": "seconds",
-                    "flash_duration": 0.5,
-                    "flash_duration_unit": "seconds",
-                },
-                stimulus_software="Bonsai",
-                stimulus_software_version="2.7",
-                stimulus_script="https://github.com/fakeorg/GratingAndFlashes/gratings_and_flashes.bonsai",
-                stimulus_script_version="1.0",
-            ),
+            software=[
+                Software(
+                    name="Bonsai",
+                    version="2.7",
+                    url="https://github.com/fakeorg/GratingAndFlashes/gratings_and_flashes.bonsai",
+                )
+            ],
+            stimulus_parameters=[
+                VisualStimulation(
+                    stimulus_name="Flashes",
+                    stimulus_parameters={
+                        "flash_interval": 5.0,
+                        "flash_interval_unit": "seconds",
+                        "flash_duration": 0.5,
+                        "flash_duration_unit": "seconds",
+                    },
+                )
+            ],
         ),
     ],
     data_streams=[
@@ -64,8 +84,6 @@ session = Session(
             stream_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0, tzinfo=timezone.utc),
             stream_modalities=[Modality.ECEPHYS],
             daq_names=["Basestation"],
-            mouse_platform_name="mouse platform",
-            active_mouse_platform=True,
             stick_microscopes=[
                 DomeModule(
                     rotation_angle=0,
@@ -138,8 +156,6 @@ session = Session(
             stream_modalities=[Modality.ECEPHYS],
             notes="664484_2023-04-24_20-06-37; Surface Finding",
             daq_names=["Basestation"],
-            mouse_platform_name="mouse platform",
-            active_mouse_platform=True,
             stick_microscopes=[
                 DomeModule(
                     rotation_angle=0,

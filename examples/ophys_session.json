@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/session.py",
-   "schema_version": "0.1.12",
+   "schema_version": "0.2.1",
    "protocol_id": [],
    "experimenter_full_name": [
       "John Doe"
@@ -69,9 +69,6 @@
          "ophys_fovs": [],
          "slap_fovs": null,
          "stack_parameters": null,
-         "stimulus_device_names": [],
-         "mouse_platform_name": "Disc",
-         "active_mouse_platform": false,
          "stream_modalities": [
             {
                "name": "Fiber photometry",
@@ -82,6 +79,8 @@
       }
    ],
    "stimulus_epochs": [],
+   "mouse_platform_name": "Disc",
+   "active_mouse_platform": false,
    "reward_delivery": null,
    "reward_consumed_total": null,
    "reward_consumed_unit": "microliter",

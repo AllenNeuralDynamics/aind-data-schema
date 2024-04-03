@@ -470,7 +470,7 @@
                "default": null,
                "title": "Notes"
             },
-            "type": {
+            "imaging_device_type": {
                "allOf": [
                   {
                      "$ref": "#/$defs/ImagingDeviceType"
@@ -481,7 +481,7 @@
          },
          "required": [
             "name",
-            "type"
+            "imaging_device_type"
          ],
          "title": "AdditionalImagingDevice",
          "type": "object"
@@ -7517,8 +7517,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.10.15",
-         "default": "0.10.15",
+         "const": "0.10.16",
+         "default": "0.10.16",
          "title": "Schema Version"
       },
       "instrument_id": {

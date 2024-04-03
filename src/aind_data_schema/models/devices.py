@@ -5,13 +5,14 @@ from decimal import Decimal
 from enum import Enum
 from typing import List, Literal, Optional, Union
 
-from pydantic import Field
+from pydantic import Field, ValidationInfo, field_validator, model_validator
 from typing_extensions import Annotated
 
 from aind_data_schema.base import AindGeneric, AindGenericType, AindModel, AwareDatetimeWithDefault
 from aind_data_schema.models.coordinates import RelativePosition, Size3d
 from aind_data_schema.models.harp_types import HarpDeviceType
-from aind_data_schema.models.organizations import Organization
+from aind_data_schema.models.harp_types import Olfactometer as OlfactometerHarpType
+from aind_data_schema.models.organizations import InteruniversityMicroelectronicsCenter, Organization
 from aind_data_schema.models.reagent import Reagent
 from aind_data_schema.models.units import FrequencyUnit, PowerUnit, SizeUnit, SpeedUnit, TemperatureUnit, UnitlessUnit
 
@@ -320,6 +321,29 @@ class Detector(Device):
     driver: Optional[DeviceDriver] = Field(None, title="Driver")
     driver_version: Optional[str] = Field(None, title="Driver version")
 
+    @model_validator(mode="after")
+    def validate_other(self):
+        """Validator for other/notes"""
+
+        validation_items = []
+
+        if self.notes is None:
+            if self.immersion == ImmersionMedium.OTHER:
+                validation_items.append("immersion")
+
+            if self.detector_type == DetectorType.OTHER:
+                validation_items.append("detector_type")
+
+            if self.data_interface == DataInterface.OTHER:
+                validation_items.append("data_interface")
+
+        if len(validation_items) > 0:
+            raise ValueError(
+                f"Notes cannot be empty while any of the following fields are set to 'other': {validation_items}"
+            )
+
+        return self
+
 
 class Camera(Detector):
     """Camera Detector"""
@@ -390,12 +414,21 @@ class Objective(Device):
     immersion: ImmersionMedium = Field(..., title="Immersion")
     objective_type: Optional[ObjectiveType] = Field(None, title="Objective type")
 
+    @field_validator("immersion", mode="after")
+    def validate_other(cls, value: Optional[str], info: ValidationInfo) -> Optional[str]:
+        """Validator for other/notes"""
+
+        if value == ImmersionMedium.OTHER and not info.data.get("notes"):
+            raise ValueError("Notes cannot be empty if immersion is Other. Describe the immersion in the notes field.")
+
+        return value
+
 
 class CameraAssembly(AindModel):
     """Named assembly of a camera and lens (and optionally a filter)"""
 
     # required fields
-    camera_assembly_name: str = Field(..., title="Camera assembly name")
+    name: str = Field(..., title="Camera assembly name")
     camera_target: CameraTarget = Field(..., title="Camera target")
     camera: Camera = Field(..., title="Camera")
     lens: Lens = Field(..., title="Lens")
@@ -449,6 +482,17 @@ class HarpDevice(DAQDevice):
     tag_version: Optional[str] = Field(None, title="Tag version")
     data_interface: DataInterface = Field(DataInterface.USB, title="Data interface")
     is_clock_generator: bool = Field(..., title="Is Clock Generator")
+
+    @field_validator("data_interface", mode="after")
+    def validate_other(cls, value: Optional[str], info: ValidationInfo) -> Optional[str]:
+        """Validator for other/notes"""
+
+        if value == DataInterface.OTHER and not info.data.get("notes"):
+            raise ValueError(
+                "Notes cannot be empty if data_interface is Other. Describe the data interface in the notes field."
+            )
+
+        return value
 
 
 class Laser(Device):
@@ -513,7 +557,9 @@ class NeuropixelsBasestation(DAQDevice):
 
     # fixed values
     data_interface: Literal[DataInterface.PXI] = DataInterface.PXI
-    manufacturer: Literal[Organization.IMEC] = Organization.IMEC
+    manufacturer: Annotated[
+        Union[InteruniversityMicroelectronicsCenter], Field(default=Organization.IMEC, discriminator="name")
+    ]
 
 
 class OpenEphysAcquisitionBoard(DAQDevice):
@@ -538,7 +584,7 @@ class Manipulator(Device):
 class LaserAssembly(AindModel):
     """Assembly for optogenetic stimulation"""
 
-    laser_assembly_name: str = Field(..., title="Laser assembly name")
+    name: str = Field(..., title="Laser assembly name")
     manipulator: Manipulator = Field(..., title="Manipulator")
     lasers: List[Laser] = Field(..., title="Lasers connected to this module")
 
@@ -564,7 +610,7 @@ class EphysProbe(Device):
 class EphysAssembly(AindModel):
     """Module for electrophysiological recording"""
 
-    ephys_assembly_name: str = Field(..., title="Ephys assembly name")
+    name: str = Field(..., title="Ephys assembly name")
     manipulator: Manipulator = Field(..., title="Manipulator")
     probes: List[EphysProbe] = Field(..., title="Probes that are held by this module")
 
@@ -595,7 +641,7 @@ class Patch(Device):
 class FiberAssembly(AindModel):
     """Module for inserted fiber photometry recording"""
 
-    fiber_assembly_name: str = Field(..., title="Ephys assembly name")
+    name: str = Field(..., title="Fiber assembly name")
     manipulator: Manipulator = Field(..., title="Manipulator")
     fibers: List[FiberProbe] = Field(..., title="Probes that are held by this module")
 
@@ -748,6 +794,18 @@ class RewardSpout(Device):
     lick_sensor_type: Optional[LickSensorType] = Field(None, title="Lick sensor type")
     notes: Optional[str] = Field(None, title="Notes")
 
+    @model_validator(mode="after")
+    def validate_other(self):
+        """Validator for other/notes"""
+
+        if self.side == SpoutSide.OTHER and self.notes is None:
+            raise ValueError(
+                "Notes cannot be empty if spout side is Other. "
+                "Describe the spout side in the notes field."
+            )
+
+        return self
+
 
 class RewardDelivery(AindModel):
     """Description of reward delivery system"""
@@ -786,7 +844,9 @@ class Olfactometer(HarpDevice):
 
     device_type: Literal["Olfactometer"] = "Olfactometer"
     manufacturer: Organization.DAQ_DEVICE_MANUFACTURERS = Field(default=Organization.CHAMPALIMAUD)
-    harp_device_type: Literal[HarpDeviceType.OLFACTOMETER] = HarpDeviceType.OLFACTOMETER
+    harp_device_type: Annotated[
+        Union[OlfactometerHarpType], Field(default=HarpDeviceType.OLFACTOMETER, discriminator="name")
+    ]
     channels: List[OlfactometerChannel]
 
 
@@ -794,7 +854,19 @@ class AdditionalImagingDevice(Device):
     """Description of additional devices"""
 
     device_type: Literal["Additional Imaging Device"] = "Additional Imaging Device"
-    type: ImagingDeviceType = Field(..., title="Device type")
+    imaging_device_type: ImagingDeviceType = Field(..., title="Device type")
+
+    @field_validator("imaging_device_type", mode="after")
+    def validate_other(cls, value: Optional[str], info: ValidationInfo) -> Optional[str]:
+        """Validator for other/notes"""
+
+        if value == ImagingDeviceType.OTHER and not info.data.get("notes"):
+            raise ValueError(
+                "Notes cannot be empty if imaging_device_type is Other. "
+                "Describe the imaging device type in the notes field."
+            )
+
+        return value
 
 
 class ScanningStage(MotorizedStage):

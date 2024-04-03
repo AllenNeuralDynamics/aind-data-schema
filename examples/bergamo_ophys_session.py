@@ -2,9 +2,17 @@
 
 from datetime import datetime, timezone
 
-from aind_data_schema.core.session import DetectorConfig, FieldOfView, LaserConfig, Session, Stream
+from aind_data_schema.core.session import (
+    DetectorConfig,
+    FieldOfView,
+    LaserConfig,
+    Session,
+    StimulusEpoch,
+    StimulusModality,
+    Stream,
+)
 from aind_data_schema.models.modalities import Modality
-from aind_data_schema.models.stimulus import PhotoStimulation, PhotoStimulationGroup, StimulusEpoch
+from aind_data_schema.models.stimulus import PhotoStimulation, PhotoStimulationGroup
 
 # If a timezone isn't specified, the timezone of the computer running this
 # script will be used as default
@@ -18,6 +26,8 @@ s = Session(
     session_type="BCI Photometry",
     iacuc_protocol="2115",
     rig_id="ophys_rig",
+    mouse_platform_name="Mouse tube",
+    active_mouse_platform=False,
     data_streams=[
         Stream(
             stream_start_time=t,
@@ -40,8 +50,6 @@ s = Session(
                 ),
             ],
             camera_names=["Face Camera"],
-            mouse_platform_name="Mouse tube",
-            active_mouse_platform=False,
             ophys_fovs=[
                 FieldOfView(
                     index=0,
@@ -61,34 +69,38 @@ s = Session(
     ],
     stimulus_epochs=[
         StimulusEpoch(
-            stimulus=PhotoStimulation(
-                stimulus_name="PhotoStimulation",
-                number_groups=2,
-                groups=[
-                    PhotoStimulationGroup(
-                        group_index=0,
-                        number_of_neurons=12,
-                        stimulation_laser_power=10,
-                        number_trials=5,
-                        number_spirals=3,
-                        spiral_duration=2,
-                        inter_spiral_interval=1,
-                    ),
-                    PhotoStimulationGroup(
-                        group_index=2,
-                        number_of_neurons=20,
-                        stimulation_laser_power=10,
-                        number_trials=5,
-                        number_spirals=3,
-                        spiral_duration=2,
-                        inter_spiral_interval=1,
-                    ),
-                ],
-                inter_trial_interval=10,
-            ),
+            stimulus_name="PhotoStimulation",
+            stimulus_modalities=[StimulusModality.OPTOGENETICS],
+            stimulus_parameters=[
+                PhotoStimulation(
+                    stimulus_name="Two group stim",
+                    number_groups=2,
+                    groups=[
+                        PhotoStimulationGroup(
+                            group_index=0,
+                            number_of_neurons=12,
+                            stimulation_laser_power=10,
+                            number_trials=5,
+                            number_spirals=3,
+                            spiral_duration=2,
+                            inter_spiral_interval=1,
+                        ),
+                        PhotoStimulationGroup(
+                            group_index=2,
+                            number_of_neurons=20,
+                            stimulation_laser_power=10,
+                            number_trials=5,
+                            number_spirals=3,
+                            spiral_duration=2,
+                            inter_spiral_interval=1,
+                        ),
+                    ],
+                    inter_trial_interval=10,
+                ),
+            ],
             stimulus_start_time=t,
             stimulus_end_time=t,
-        )
+        ),
     ],
 )
 

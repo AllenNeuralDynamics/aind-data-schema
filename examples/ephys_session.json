@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/session.py",
-   "schema_version": "0.1.12",
+   "schema_version": "0.2.1",
    "protocol_id": [],
    "experimenter_full_name": [
       "Max Quibble",
@@ -138,9 +138,6 @@
          "ophys_fovs": [],
          "slap_fovs": null,
          "stack_parameters": null,
-         "stimulus_device_names": [],
-         "mouse_platform_name": "mouse platform",
-         "active_mouse_platform": true,
          "stream_modalities": [
             {
                "name": "Extracellular electrophysiology",
@@ -269,9 +266,6 @@
          "ophys_fovs": [],
          "slap_fovs": null,
          "stack_parameters": null,
-         "stimulus_device_names": [],
-         "mouse_platform_name": "mouse platform",
-         "active_mouse_platform": true,
          "stream_modalities": [
             {
                "name": "Extracellular electrophysiology",
@@ -283,57 +277,103 @@
    ],
    "stimulus_epochs": [
       {
-         "stimulus": {
-            "stimulus_type": "Visual",
-            "stimulus_name": "Static Gratings",
-            "stimulus_parameters": {
-               "grating_orientations": [
-                  0,
-                  45,
-                  90,
-                  135
-               ],
-               "grating_orientation_unit": "degrees",
-               "grating_spatial_frequencies": [
-                  0.02,
-                  0.04,
-                  0.08,
-                  0.16,
-                  0.32
-               ],
-               "grating_spatial_frequency_unit": "cycles/degree"
-            },
-            "stimulus_template_name": [],
-            "stimulus_software": "Bonsai",
-            "stimulus_software_version": "2.7",
-            "stimulus_script": "https://github.com/fakeorg/GratingAndFlashes/gratings_and_flashes.bonsai",
-            "stimulus_script_version": "1.0",
-            "notes": null
-         },
          "stimulus_start_time": "2023-04-25T02:45:00Z",
-         "stimulus_end_time": "2023-04-25T03:10:00Z"
+         "stimulus_end_time": "2023-04-25T03:10:00Z",
+         "stimulus_name": "Static Gratings",
+         "session_number": null,
+         "software": [
+            {
+               "name": "Bonsai",
+               "version": "2.7",
+               "url": "https://github.com/fakeorg/GratingAndFlashes/gratings_and_flashes.bonsai",
+               "parameters": {}
+            }
+         ],
+         "script": null,
+         "stimulus_modalities": [
+            "Visual"
+         ],
+         "stimulus_parameters": [
+            {
+               "stimulus_type": "Visual Stimulation",
+               "stimulus_name": "Static Gratings",
+               "stimulus_parameters": {
+                  "grating_orientations": [
+                     0,
+                     45,
+                     90,
+                     135
+                  ],
+                  "grating_orientation_unit": "degrees",
+                  "grating_spatial_frequencies": [
+                     0.02,
+                     0.04,
+                     0.08,
+                     0.16,
+                     0.32
+                  ],
+                  "grating_spatial_frequency_unit": "cycles/degree"
+               },
+               "stimulus_template_name": [],
+               "notes": null
+            }
+         ],
+         "stimulus_device_names": [],
+         "speaker_config": null,
+         "light_source_config": null,
+         "output_parameters": {},
+         "reward_consumed_during_epoch": null,
+         "reward_consumed_unit": "microliter",
+         "trials_total": null,
+         "trials_finished": null,
+         "trials_rewarded": null,
+         "notes": null
       },
       {
-         "stimulus": {
-            "stimulus_type": "Visual",
-            "stimulus_name": "Flashes",
-            "stimulus_parameters": {
-               "flash_interval": 5.0,
-               "flash_interval_unit": "seconds",
-               "flash_duration": 0.5,
-               "flash_duration_unit": "seconds"
-            },
-            "stimulus_template_name": [],
-            "stimulus_software": "Bonsai",
-            "stimulus_software_version": "2.7",
-            "stimulus_script": "https://github.com/fakeorg/GratingAndFlashes/gratings_and_flashes.bonsai",
-            "stimulus_script_version": "1.0",
-            "notes": null
-         },
          "stimulus_start_time": "2023-04-25T03:10:00Z",
-         "stimulus_end_time": "2023-04-25T03:16:00Z"
+         "stimulus_end_time": "2023-04-25T03:16:00Z",
+         "stimulus_name": "Flashes",
+         "session_number": null,
+         "software": [
+            {
+               "name": "Bonsai",
+               "version": "2.7",
+               "url": "https://github.com/fakeorg/GratingAndFlashes/gratings_and_flashes.bonsai",
+               "parameters": {}
+            }
+         ],
+         "script": null,
+         "stimulus_modalities": [
+            "Visual"
+         ],
+         "stimulus_parameters": [
+            {
+               "stimulus_type": "Visual Stimulation",
+               "stimulus_name": "Flashes",
+               "stimulus_parameters": {
+                  "flash_interval": 5.0,
+                  "flash_interval_unit": "seconds",
+                  "flash_duration": 0.5,
+                  "flash_duration_unit": "seconds"
+               },
+               "stimulus_template_name": [],
+               "notes": null
+            }
+         ],
+         "stimulus_device_names": [],
+         "speaker_config": null,
+         "light_source_config": null,
+         "output_parameters": {},
+         "reward_consumed_during_epoch": null,
+         "reward_consumed_unit": "microliter",
+         "trials_total": null,
+         "trials_finished": null,
+         "trials_rewarded": null,
+         "notes": null
       }
    ],
+   "mouse_platform_name": "mouse platform",
+   "active_mouse_platform": false,
    "reward_delivery": null,
    "reward_consumed_total": null,
    "reward_consumed_unit": "microliter",
