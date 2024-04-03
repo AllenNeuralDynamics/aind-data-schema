@@ -9,10 +9,11 @@ from datetime import date
 from os.path import abspath, dirname
 from pathlib import Path
 
+from aind_data_schema import __version__ as package_version
 from aind_data_schema.core import (
-    acquisition, 
-    data_description, 
-    instrument, 
+    acquisition,
+    data_description,
+    instrument,
     metadata,
     mri_session,
     procedures,
@@ -20,8 +21,20 @@ from aind_data_schema.core import (
     rig,
     session,
     subject
-    )
-from aind_data_schema import __version__ as package_version
+    )  # A temporary workaround to fix NameError when building Sphinx
+
+dummy_object = [
+    acquisition,
+    data_description,
+    instrument,
+    metadata,
+    mri_session,
+    procedures,
+    processing,
+    rig,
+    session,
+    subject
+    ]  # A temporary workaround to bypass "Imported but unused" error
 
 INSTITUTE_NAME = "Allen Institute for Neural Dynamics"
 
