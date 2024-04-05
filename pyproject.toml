@@ -39,7 +39,8 @@ docs = [
     'Sphinx',
     'sphinx-jinja',
     'furo',
-    'erdantic>=0.7.0'
+    'erdantic>=0.7.0',
+    'autodoc_pydantic'
 ]
 
 [tool.setuptools.packages.find]
