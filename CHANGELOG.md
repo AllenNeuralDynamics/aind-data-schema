@@ -1,3 +1,11 @@
+### [0.33.5](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.33.4...v0.33.5) (2024-04-05)
+
+
+### Documentation
+
+* add autodoc pydantic to readthdocs build ([#880](https://github.com/AllenNeuralDynamics/aind-data-schema/issues/880)) ([a93f4b9](https://github.com/AllenNeuralDynamics/aind-data-schema/commit/a93f4b9272d34ddf4518cdb266ac54e06527549a))
+
+
 ### [0.33.4](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.33.3...v0.33.4) (2024-04-05)
 
 
