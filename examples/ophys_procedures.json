@@ -192,9 +192,7 @@
                "expiration_date": null,
                "immunolabel_class": "Primary",
                "fluorophore": null,
-               "degree_of_labeling": null,
-               "degree_of_labeling_unit": "Fluorophore per antibody",
-               "conjugation_protocol": null
+               "notes": null
             },
             "concentration": "10",
             "concentration_unit": "ug/ml"
@@ -240,9 +238,7 @@
                "expiration_date": null,
                "immunolabel_class": "Secondary",
                "fluorophore": "Alexa Fluor 488",
-               "degree_of_labeling": null,
-               "degree_of_labeling_unit": "Fluorophore per antibody",
-               "conjugation_protocol": null
+               "notes": null
             },
             "concentration": "4",
             "concentration_unit": "ug/ml"
