@@ -78,4 +78,6 @@ p = Processing(
         ),
     ],
 )
+serialized = p.model_dump_json()
+deserialized = Processing.model_validate_json(serialized)
 p.write_standard_file()

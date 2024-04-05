@@ -56,5 +56,6 @@ sess = MriSession(
     scans=scans,
     notes="There was some information about this scan session",
 )
-
-sess.write_standard_file()
+serialized = sess.model_dump_json()
+deserialized = MriSession.model_validate_json(serialized)
+deserialized.write_standard_file()

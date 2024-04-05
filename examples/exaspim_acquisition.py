@@ -110,4 +110,6 @@ acq = acquisition.Acquisition(
     ],
 )
 
-acq.write_standard_file(prefix="exaspim")
+serialized = acq.model_dump_json()
+deserialized = acquisition.Acquisition.model_validate_json(serialized)
+deserialized.write_standard_file(prefix="exaspim")

@@ -200,5 +200,6 @@ rig = Rig(
     mouse_platform=running_wheel,
     calibrations=[red_laser_calibration, blue_laser_calibration],
 )
-
-rig.write_standard_file(prefix="ephys")
+serialized = rig.model_dump_json()
+deserialized = Rig.model_validate_json(serialized)
+deserialized.write_standard_file(prefix="ephys")

@@ -158,4 +158,6 @@ all_procedures = procedures.Procedures(
     ],
 )
 
-all_procedures.write_standard_file(prefix="aibs_smartspim")
+serialized = all_procedures.model_dump_json()
+deserialized = procedures.Procedures.model_validate_json(serialized)
+deserialized.write_standard_file(prefix="aibs_smartspim")

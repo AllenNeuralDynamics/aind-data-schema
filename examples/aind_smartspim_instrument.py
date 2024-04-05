@@ -252,4 +252,6 @@ inst = Instrument(
     temperature_control=False,
 )
 
-inst.write_standard_file(prefix="aind_smartspim")
+serialized = inst.model_dump_json()
+deserialized = Instrument.model_validate_json(serialized)
+deserialized.write_standard_file(prefix="aind_smartspim")
