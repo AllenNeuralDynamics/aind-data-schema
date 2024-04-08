@@ -1577,6 +1577,22 @@
                "default": null,
                "title": "Fluorophore"
             },
+            "concentration": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  }
+               ],
+               "title": "Concentration"
+            },
+            "concentration_unit": {
+               "default": "ug/ml",
+               "title": "Concentration unit",
+               "type": "string"
+            },
             "notes": {
                "anyOf": [
                   {
@@ -1594,7 +1610,8 @@
             "name",
             "source",
             "lot_number",
-            "immunolabel_class"
+            "immunolabel_class",
+            "concentration"
          ],
          "title": "Antibody",
          "type": "object"
@@ -11061,42 +11078,6 @@
          "title": "ImmunolabelClass",
          "type": "string"
       },
-      "Immunolabeling": {
-         "additionalProperties": false,
-         "description": "Description of an immunolabling step",
-         "properties": {
-            "procedure_type": {
-               "const": "Immunolabeling",
-               "default": "Immunolabeling",
-               "title": "Procedure Type"
-            },
-            "antibody": {
-               "$ref": "#/$defs/Antibody"
-            },
-            "concentration": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  }
-               ],
-               "title": "Concentration"
-            },
-            "concentration_unit": {
-               "default": "ug/ml",
-               "title": "Concentration unit",
-               "type": "string"
-            }
-         },
-         "required": [
-            "antibody",
-            "concentration"
-         ],
-         "title": "Immunolabeling",
-         "type": "object"
-      },
       "InfinityPhotoOptical": {
          "additionalProperties": false,
          "description": "InfinityPhotoOptical",
@@ -20291,8 +20272,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.13.4",
-               "default": "0.13.4",
+               "const": "0.13.5",
+               "default": "0.13.5",
                "title": "Schema Version"
             },
             "subject_id": {
@@ -24450,10 +24431,13 @@
                "default": null,
                "title": "HCR Series"
             },
-            "immunolabeling": {
+            "antibodies": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/Immunolabeling"
+                     "items": {
+                        "$ref": "#/$defs/Antibody"
+                     },
+                     "type": "array"
                   },
                   {
                      "type": "null"
@@ -28990,8 +28974,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.2.8",
-         "default": "0.2.8",
+         "const": "0.2.9",
+         "default": "0.2.9",
          "title": "Schema Version"
       },
       "_id": {
