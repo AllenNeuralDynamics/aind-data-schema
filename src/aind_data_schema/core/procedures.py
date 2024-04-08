@@ -279,6 +279,7 @@ class SpecimenProcedure(AindModel):
     reagents: List[Reagent] = Field(default=[], title="Reagents")
     hcr_series: Optional[HCRSeries] = Field(None, title="HCR Series")
     antibodies: Optional[List[Antibody]] = Field(None, title="Immunolabeling")
+    sectioning: Optional[Sectioning] = Field(None, title="Sectioning")
     notes: Optional[str] = Field(None, title="Notes")
 
     @model_validator(mode="after")
