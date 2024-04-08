@@ -104,4 +104,6 @@ s = Session(
     ],
 )
 
-s.write_standard_file(prefix="bergamo_ophys")
+serialized = s.model_dump_json()
+deserialized = Session.model_validate_json(serialized)
+deserialized.write_standard_file(prefix="bergamo_ophys")

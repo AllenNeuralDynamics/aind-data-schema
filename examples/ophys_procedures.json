@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/procedures.py",
-   "schema_version": "0.13.3",
+   "schema_version": "0.13.4",
    "subject_id": "625100",
    "subject_procedures": [
       {
@@ -191,11 +191,9 @@
                "expiration_date": null,
                "immunolabel_class": "Primary",
                "fluorophore": null,
-               "degree_of_labeling": null,
-               "degree_of_labeling_unit": "Fluorophore per antibody",
-               "conjugation_protocol": null,
                "concentration": "10",
-               "concentration_unit": "ug/ml"
+               "concentration_unit": "ug/ml",
+               "notes": null
             }
          ],
          "sectioning": null,
@@ -238,11 +236,9 @@
                "expiration_date": null,
                "immunolabel_class": "Secondary",
                "fluorophore": "Alexa Fluor 488",
-               "degree_of_labeling": null,
-               "degree_of_labeling_unit": "Fluorophore per antibody",
-               "conjugation_protocol": null,
                "concentration": "4",
-               "concentration_unit": "ug/ml"
+               "concentration_unit": "ug/ml",
+               "notes": null
             }
          ],
          "sectioning": null,

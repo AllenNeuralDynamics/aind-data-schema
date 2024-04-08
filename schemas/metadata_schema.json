@@ -1577,27 +1577,7 @@
                "default": null,
                "title": "Fluorophore"
             },
-            "degree_of_labeling": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Degree of labeling"
-            },
-            "degree_of_labeling_unit": {
-               "const": "Fluorophore per antibody",
-               "default": "Fluorophore per antibody",
-               "title": "Degree of labeling unit"
-            },
-            "conjugation_protocol": {
+            "notes": {
                "anyOf": [
                   {
                      "type": "string"
@@ -1607,8 +1587,7 @@
                   }
                ],
                "default": null,
-               "description": "Only for conjugated anitbody",
-               "title": "Conjugation protocol"
+               "title": "Notes"
             }
          },
          "required": [
@@ -20312,8 +20291,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.13.3",
-               "default": "0.13.3",
+               "const": "0.13.4",
+               "default": "0.13.4",
                "title": "Schema Version"
             },
             "subject_id": {
@@ -29011,8 +28990,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.2.7",
-         "default": "0.2.7",
+         "const": "0.2.8",
+         "default": "0.2.8",
          "title": "Schema Version"
       },
       "_id": {

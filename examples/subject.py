@@ -27,5 +27,6 @@ s = Subject(
     housing=Housing(home_cage_enrichment=["Running wheel"], cage_id="123"),
     background_strain="C57BL/6J",
 )
-
-s.write_standard_file()
+serialized = s.model_dump_json()
+deserialized = Subject.model_validate_json(serialized)
+deserialized.write_standard_file()

@@ -222,16 +222,10 @@ class Antibody(Reagent):
 
     immunolabel_class: ImmunolabelClass = Field(..., title="Immunolabel class")
     fluorophore: Optional[Fluorophore] = Field(None, title="Fluorophore")
-    degree_of_labeling: Optional[Decimal] = Field(None, title="Degree of labeling")
-    degree_of_labeling_unit: Literal["Fluorophore per antibody"] = Field(
-        "Fluorophore per antibody", title="Degree of labeling unit"
-    )
-    conjugation_protocol: Optional[str] = Field(
-        None, title="Conjugation protocol", description="Only for conjugated anitbody"
-    )
     concentration: Decimal = Field(..., title="Concentration")
     concentration_unit: str = Field("ug/ml", title="Concentration unit")
-
+    notes: Optional[str] = Field(None, title="Notes")
+    
 
 class Sectioning(AindModel):
     """Description of a sectioning procedure"""
@@ -640,7 +634,7 @@ class Procedures(AindCoreModel):
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/procedures.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
 
-    schema_version: Literal["0.13.3"] = Field("0.13.3")
+    schema_version: Literal["0.13.4"] = Field("0.13.4")
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
