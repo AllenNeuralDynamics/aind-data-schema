@@ -1,5 +1,4 @@
 """ ephys procedure mouse 625100 """
-
 from datetime import datetime, timezone
 
 from aind_data_schema.core.procedures import (
@@ -23,7 +22,6 @@ p = Procedures(
     subject_procedures=[
         Surgery(
             start_date=t.date(),
-            protocol_id="doi",
             experimenter_full_name="John Apple",
             iacuc_protocol="2109",
             animal_weight_prior=22.6,
@@ -69,7 +67,6 @@ p = Procedures(
             start_date=t2.date(),
             experimenter_full_name="Frank Lee",
             iacuc_protocol="2109",
-            protocol_id="doi",
             procedures=[
                 Perfusion(
                     protocol_id="doi_of_protocol",

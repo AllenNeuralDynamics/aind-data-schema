@@ -1,5 +1,4 @@
 """ example data description """
-
 from datetime import datetime, timezone
 
 from aind_data_schema.core.data_description import Funding, RawDataDescription

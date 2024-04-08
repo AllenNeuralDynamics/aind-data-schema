@@ -1,5 +1,4 @@
 """ 0phys procedure mouse 625100 """
-
 import datetime
 
 from aind_data_schema.core.procedures import (
@@ -35,7 +34,6 @@ p = Procedures(
             animal_weight_post=22.3,
             anaesthesia=Anaesthetic(type="Isoflurane", duration=180, level=1.5),
             workstation_id="SWS 3",
-            protocol_id="doi",
             procedures=[
                 Headframe(
                     protocol_id="2109",
@@ -104,7 +102,6 @@ p = Procedures(
             iacuc_protocol="2109",
             anaesthesia=Anaesthetic(type="Isoflurane", duration=30, level=3),
             workstation_id="SWS 3",
-            protocol_id="doi",
             procedures=[
                 Perfusion(protocol_id="dx.doi.org/10.17504/protocols.io.bg5vjy66", output_specimen_ids={"672640"})
             ],
@@ -117,7 +114,7 @@ p = Procedures(
             start_date="2023-06-09",
             end_date="2023-06-12",
             experimenter_full_name="John Apple",
-            protocol_id=["TO ENTER"],
+            protocol_id="TO ENTER",
             reagents=[],
             antibodies=[
                 Antibody(
@@ -140,7 +137,7 @@ p = Procedures(
             start_date="2023-06-12",
             end_date="2023-06-13",
             experimenter_full_name="John Apple",
-            protocol_id=["TO ENTER"],
+            protocol_id="TO ENTER",
             reagents=[],
             antibodies=[
                 Antibody(

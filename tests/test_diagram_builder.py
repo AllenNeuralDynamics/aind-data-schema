@@ -5,7 +5,7 @@ from pathlib import Path
 from unittest.mock import MagicMock, call, patch
 
 from aind_data_schema.core.subject import Subject
-from aind_data_schema.utils.diagrams import save_all_core_model_diagrams, save_diagram
+from aind_data_schema.utils.diagrams import save_diagram, save_all_core_model_diagrams
 
 
 class DiagramBuilderTests(unittest.TestCase):

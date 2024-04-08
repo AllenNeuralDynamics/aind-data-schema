@@ -14,7 +14,6 @@ from aind_data_schema.core.procedures import (
     OphysProbe,
     Procedures,
     RetroOrbitalInjection,
-    Sectioning,
     SpecimenProcedure,
     Surgery,
     TarsVirusIdentifiers,
@@ -136,7 +135,6 @@ class ProceduresTests(unittest.TestCase):
                     start_date=start_date,
                     experimenter_full_name="Chip Munk",
                     iacuc_protocol="234",
-                    protocol_id="123",
                     procedures=[
                         RetroOrbitalInjection(
                             protocol_id="134",
@@ -239,7 +237,7 @@ class ProceduresTests(unittest.TestCase):
                 start_date=date.fromisoformat("2020-10-10"),
                 end_date=date.fromisoformat("2020-10-11"),
                 experimenter_full_name="guy person",
-                protocol_id=["10"],
+                protocol_id="10",
                 reagents=[],
                 notes=None,
             )
@@ -259,7 +257,7 @@ class ProceduresTests(unittest.TestCase):
                 start_date=date.fromisoformat("2020-10-10"),
                 end_date=date.fromisoformat("2020-10-11"),
                 experimenter_full_name="guy person",
-                protocol_id=["10"],
+                protocol_id="10",
                 reagents=[],
                 notes=None,
             )
@@ -279,7 +277,7 @@ class ProceduresTests(unittest.TestCase):
                 start_date=date.fromisoformat("2020-10-10"),
                 end_date=date.fromisoformat("2020-10-11"),
                 experimenter_full_name="guy person",
-                protocol_id=["10"],
+                protocol_id="10",
                 reagents=[],
                 notes=None,
             )
@@ -300,7 +298,7 @@ class ProceduresTests(unittest.TestCase):
                 start_date=date.fromisoformat("2020-10-10"),
                 end_date=date.fromisoformat("2020-10-11"),
                 experimenter_full_name="guy person",
-                protocol_id=["10"],
+                protocol_id="10",
                 reagents=[],
                 notes="some extra information",
             )
@@ -341,34 +339,6 @@ class ProceduresTests(unittest.TestCase):
                 injection_angle=1,
                 injection_coordinate_depth=[0.1],
                 injection_volume=[1, 2],
-            )
-
-    def test_sectioning(self):
-        """Test sectioning"""
-
-        section = Sectioning(
-            number_of_slices=3,
-            output_specimen_ids=["123456_001", "123456_002", "123456_003"],
-            section_orientation="Coronal",
-            section_thickness=0.2,
-            section_distance_from_reference=0.3,
-            reference_location="Bregma",
-            section_strategy="Whole Brain",
-            targeted_structure="MOp",
-        )
-        self.assertEqual(section.number_of_slices, len(section.output_specimen_ids))
-
-        # Number of output ids does not match number of slices
-        with self.assertRaises(ValidationError):
-            Sectioning(
-                number_of_slices=2,
-                output_specimen_ids=["123456_001", "123456_002", "123456_003"],
-                section_orientation="Coronal",
-                section_thickness=0.2,
-                section_distance_from_reference=0.3,
-                reference_location="Bregma",
-                section_strategy="Whole Brain",
-                targeted_structure="MOp",
             )
 
 

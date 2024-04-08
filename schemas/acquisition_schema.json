@@ -2497,12 +2497,11 @@
             "process_name": {
                "items": {
                   "enum": [
-                     "Image atlas alignment",
+                     "Image importing",
                      "Image background subtraction",
                      "Image cell segmentation",
                      "Image destriping",
                      "Image flat-field correction",
-                     "Image importing",
                      "Image thresholding",
                      "Image tile alignment",
                      "Image tile fusing",
@@ -3573,8 +3572,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.6.12",
-         "default": "0.6.12",
+         "const": "0.6.11",
+         "default": "0.6.11",
          "title": "Schema Version"
       },
       "protocol_id": {

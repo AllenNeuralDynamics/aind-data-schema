@@ -80,8 +80,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.6.12",
-               "default": "0.6.12",
+               "const": "0.6.11",
+               "default": "0.6.11",
                "title": "Schema Version"
             },
             "protocol_id": {
@@ -752,7 +752,7 @@
                "default": null,
                "title": "Notes"
             },
-            "imaging_device_type": {
+            "type": {
                "allOf": [
                   {
                      "$ref": "#/$defs/ImagingDeviceType"
@@ -763,7 +763,7 @@
          },
          "required": [
             "name",
-            "imaging_device_type"
+            "type"
          ],
          "title": "AdditionalImagingDevice",
          "type": "object"
@@ -3176,8 +3176,7 @@
          "description": "Name of reference point for Coordinates",
          "enum": [
             "Bregma",
-            "Lambda",
-            "Midline"
+            "Lambda"
          ],
          "title": "CoordinateReferenceLocation",
          "type": "string"
@@ -11174,8 +11173,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.10.16",
-               "default": "0.10.16",
+               "const": "0.10.15",
+               "default": "0.10.15",
                "title": "Schema Version"
             },
             "instrument_id": {
@@ -15728,6 +15727,15 @@
                "title": "Serial number"
             },
             "manufacturer": {
+               "const": {
+                  "abbreviation": "IMEC",
+                  "name": "Interuniversity Microelectronics Center",
+                  "registry": {
+                     "abbreviation": "ROR",
+                     "name": "Research Organization Registry"
+                  },
+                  "registry_identifier": "02kcbn207"
+               },
                "default": {
                   "name": "Interuniversity Microelectronics Center",
                   "abbreviation": "IMEC",
@@ -15737,17 +15745,6 @@
                   },
                   "registry_identifier": "02kcbn207"
                },
-               "discriminator": {
-                  "mapping": {
-                     "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter"
-                  },
-                  "propertyName": "name"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/InteruniversityMicroelectronicsCenter"
-                  }
-               ],
                "title": "Manufacturer"
             },
             "model": {
@@ -20312,8 +20309,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.13.3",
-               "default": "0.13.3",
+               "const": "0.13.1",
+               "default": "0.13.1",
                "title": "Schema Version"
             },
             "subject_id": {
@@ -20407,6 +20404,7 @@
             "Neuropil subtraction",
             "Other",
             "Quality control and assessment",
+            "Registration to template",
             "Skull stripping",
             "Spike sorting",
             "Spatial timeseries demixing",
@@ -20430,8 +20428,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.4.5",
-               "default": "0.4.5",
+               "const": "0.4.4",
+               "default": "0.4.4",
                "title": "Schema Version"
             },
             "processing_pipeline": {
@@ -20482,12 +20480,11 @@
             "process_name": {
                "items": {
                   "enum": [
-                     "Image atlas alignment",
+                     "Image importing",
                      "Image background subtraction",
                      "Image cell segmentation",
                      "Image destriping",
                      "Image flat-field correction",
-                     "Image importing",
                      "Image thresholding",
                      "Image tile alignment",
                      "Image tile fusing",
@@ -22318,8 +22315,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.3.2",
-               "default": "0.3.2",
+               "const": "0.3.1",
+               "default": "0.3.1",
                "title": "Schema Version"
             },
             "rig_id": {
@@ -23287,129 +23284,6 @@
             }
          },
          "title": "SecondOrderEffects",
-         "type": "object"
-      },
-      "SectionOrientation": {
-         "description": "Orientation of sectioning",
-         "enum": [
-            "Coronal",
-            "Sagittal",
-            "Transverse"
-         ],
-         "title": "SectionOrientation",
-         "type": "string"
-      },
-      "SectionStrategy": {
-         "description": "Section strategy",
-         "enum": [
-            "Whole Brain",
-            "Hemi Brain"
-         ],
-         "title": "SectionStrategy",
-         "type": "string"
-      },
-      "Sectioning": {
-         "additionalProperties": false,
-         "description": "Description of a sectioning procedure",
-         "properties": {
-            "procedure_type": {
-               "const": "Sectioning",
-               "default": "Sectioning",
-               "title": "Procedure Type"
-            },
-            "number_of_slices": {
-               "title": "Number of slices",
-               "type": "integer"
-            },
-            "output_specimen_ids": {
-               "items": {
-                  "type": "string"
-               },
-               "minItems": 1,
-               "title": "Output specimen ids",
-               "type": "array"
-            },
-            "section_orientation": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SectionOrientation"
-                  }
-               ],
-               "title": "Sectioning orientation"
-            },
-            "section_thickness": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  }
-               ],
-               "title": "Section thickness"
-            },
-            "section_thickness_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
-               "default": "millimeter",
-               "title": "Section thickness unit"
-            },
-            "section_distance_from_reference": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  }
-               ],
-               "title": "Section distance from reference"
-            },
-            "section_distance_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
-               "default": "millimeter",
-               "title": "Distance unit"
-            },
-            "reference_location": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/CoordinateReferenceLocation"
-                  }
-               ],
-               "title": "Reference location for distance measurement"
-            },
-            "section_strategy": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SectionStrategy"
-                  }
-               ],
-               "title": "Slice strategy"
-            },
-            "targeted_structure": {
-               "description": "Use Allen Brain Atlas Ontology",
-               "title": "Targeted structure",
-               "type": "string"
-            }
-         },
-         "required": [
-            "number_of_slices",
-            "output_specimen_ids",
-            "section_orientation",
-            "section_thickness",
-            "section_distance_from_reference",
-            "reference_location",
-            "section_strategy",
-            "targeted_structure"
-         ],
-         "title": "Sectioning",
          "type": "object"
       },
       "Semrock": {
@@ -24445,11 +24319,8 @@
             },
             "protocol_id": {
                "description": "DOI for protocols.io",
-               "items": {
-                  "type": "string"
-               },
                "title": "Protocol ID",
-               "type": "array"
+               "type": "string"
             },
             "reagents": {
                "default": [],
@@ -24482,18 +24353,6 @@
                ],
                "default": null,
                "title": "Immunolabeling"
-            },
-            "sectioning": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/Sectioning"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Sectioning"
             },
             "notes": {
                "anyOf": [
@@ -26004,11 +25863,6 @@
                "default": "Surgery",
                "title": "Procedure Type"
             },
-            "protocol_id": {
-               "description": "DOI for protocols.io",
-               "title": "Protocol ID",
-               "type": "string"
-            },
             "start_date": {
                "format": "date",
                "title": "Start date",
@@ -26172,7 +26026,6 @@
             }
          },
          "required": [
-            "protocol_id",
             "start_date",
             "experimenter_full_name",
             "procedures"
@@ -28187,21 +28040,14 @@
                "title": "Hardware version"
             },
             "harp_device_type": {
+               "const": {
+                  "name": "Olfactometer",
+                  "whoami": 1140
+               },
                "default": {
                   "name": "Olfactometer",
                   "whoami": 1140
                },
-               "discriminator": {
-                  "mapping": {
-                     "Olfactometer": "#/$defs/aind_data_schema__models__harp_types__Olfactometer"
-                  },
-                  "propertyName": "name"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/aind_data_schema__models__harp_types__Olfactometer"
-                  }
-               ],
                "title": "Harp Device Type"
             },
             "core_version": {
@@ -29011,8 +28857,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.2.7",
-         "default": "0.2.7",
+         "const": "0.2.3",
+         "default": "0.2.3",
          "title": "Schema Version"
       },
       "_id": {

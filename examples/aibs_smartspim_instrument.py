@@ -1,5 +1,4 @@
 """ example SmartSPIM instrument """
-
 import datetime
 
 from aind_data_schema.core.instrument import Com, Instrument
@@ -190,19 +189,19 @@ inst = Instrument(
     additional_devices=[
         AdditionalImagingDevice(
             name="Lens 1",
-            imaging_device_type="Tunable lens",
+            type="Tunable lens",
             manufacturer=Organization.OPTOTUNE,
             model="EL-16-40-TC",
         ),
         AdditionalImagingDevice(
             name="Lens 2",
-            imaging_device_type="Tunable lens",
+            type="Tunable lens",
             manufacturer=Organization.OPTOTUNE,
             model="EL-16-40-TC",
         ),
         AdditionalImagingDevice(
             name="Sample chamber",
-            imaging_device_type="Sample Chamber",
+            type="Sample Chamber",
             manufacturer=Organization.LIFECANVAS,
             model="Large-uncoated-glass",
         ),

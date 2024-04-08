@@ -6,8 +6,13 @@ from typing import List, Literal, Optional
 
 from pydantic import Field
 
-from aind_data_schema.base import AindGeneric, AindGenericType, AindModel
-from aind_data_schema.models.units import ConcentrationUnit, FrequencyUnit, PowerUnit, TimeUnit
+from aind_data_schema.base import AindModel, AindGeneric, AindGenericType
+from aind_data_schema.models.units import (
+    ConcentrationUnit,
+    FrequencyUnit,
+    PowerUnit,
+    TimeUnit,
+)
 
 
 class PulseShape(str, Enum):

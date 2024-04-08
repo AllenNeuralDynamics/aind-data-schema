@@ -307,6 +307,7 @@
             "Neuropil subtraction",
             "Other",
             "Quality control and assessment",
+            "Registration to template",
             "Skull stripping",
             "Spike sorting",
             "Spatial timeseries demixing",
@@ -330,8 +331,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.4.5",
-         "default": "0.4.5",
+         "const": "0.4.4",
+         "default": "0.4.4",
          "title": "Schema Version"
       },
       "processing_pipeline": {

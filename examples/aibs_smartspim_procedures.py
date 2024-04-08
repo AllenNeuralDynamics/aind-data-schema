@@ -36,10 +36,9 @@ perfusion = procedures.Surgery(
     start_date=date(2022, 11, 17),
     experimenter_full_name="LAS",
     iacuc_protocol="xxxx",
-    protocol_id="doi_of_protocol_surgery",
     procedures=[
         procedures.Perfusion(
-            protocol_id="doi_of_protocol_perfusion",
+            protocol_id="doi_of_protocol",
             output_specimen_ids=[
                 specimen_id,
             ],
@@ -55,7 +54,7 @@ shield_off_procedure = procedures.SpecimenProcedure(
     start_date=date(2023, 1, 13),
     end_date=date(2023, 1, 17),
     experimenter_full_name=experimenter,
-    protocol_id=["unknown"],
+    protocol_id="unknown",
     reagents=[shield_buffer, shield_epoxy],
 )
 
@@ -67,7 +66,7 @@ shield_on_procedure = procedures.SpecimenProcedure(
     start_date=date(2023, 1, 17),
     end_date=date(2023, 1, 18),
     experimenter_full_name=experimenter,
-    protocol_id=["unknown"],
+    protocol_id="unknown",
     reagents=[
         shield_on,
     ],
@@ -81,7 +80,7 @@ delipidation_prep_procedure = procedures.SpecimenProcedure(
     start_date=date(2023, 1, 18),
     end_date=date(2023, 1, 19),
     experimenter_full_name=experimenter,
-    protocol_id=["unknown"],
+    protocol_id="unknown",
     reagents=[
         delipidation_buffer,
     ],
@@ -95,7 +94,7 @@ active_delipidation_procedure = procedures.SpecimenProcedure(
     start_date=date(2023, 1, 19),
     end_date=date(2023, 1, 20),
     experimenter_full_name=experimenter,
-    protocol_id=["unknown"],
+    protocol_id="unknown",
     reagents=[delipidation_buffer, conductivity_buffer],
 )
 
@@ -107,7 +106,7 @@ index1 = procedures.SpecimenProcedure(
     start_date=date(2023, 1, 30),
     end_date=date(2023, 1, 31),
     experimenter_full_name=experimenter,
-    protocol_id=["unknown"],
+    protocol_id="unknown",
     reagents=[
         easy_index,
         water,
@@ -122,7 +121,7 @@ index2 = procedures.SpecimenProcedure(
     start_date=date(2023, 1, 31),
     end_date=date(2023, 2, 2),
     experimenter_full_name=experimenter,
-    protocol_id=["unknown"],
+    protocol_id="unknown",
     reagents=[
         easy_index,
     ],
@@ -135,7 +134,7 @@ embedding = procedures.SpecimenProcedure(
     start_date=date(2023, 1, 31),
     end_date=date(2023, 2, 2),
     experimenter_full_name=experimenter,
-    protocol_id=["unknown"],
+    protocol_id="unknown",
     reagents=[
         easy_index,
         agarose,

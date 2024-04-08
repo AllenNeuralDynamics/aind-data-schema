@@ -1,5 +1,4 @@
 """ example FIP ophys rig """
-
 from datetime import date, datetime, timezone
 
 import aind_data_schema.core.rig as r

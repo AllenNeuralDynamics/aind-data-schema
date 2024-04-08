@@ -1,5 +1,4 @@
 """ example ExaSPIM instrument """
-
 import datetime
 
 from aind_data_schema.core import instrument
@@ -158,7 +157,7 @@ inst = instrument.Instrument(
     ],
     additional_devices=[
         instrument.AdditionalImagingDevice(
-            imaging_device_type="Tunable lens",
+            type="Tunable lens",
             name="TL-1",
             manufacturer=Organization.OPTOTUNE,
             model="EL-16-40-TC-VIS-20D-C",
@@ -166,14 +165,14 @@ inst = instrument.Instrument(
         ),
         instrument.AdditionalImagingDevice(
             name="RM-1",
-            imaging_device_type="Rotation mount",
+            type="Rotation mount",
             manufacturer=Organization.THORLABS,
             model="K10CR1",
             serial_number="01",
         ),
         instrument.AdditionalImagingDevice(
             name="LC-1",
-            imaging_device_type="Laser combiner",
+            type="Laser combiner",
             manufacturer=Organization.OXXIUS,
             model="L6Cc",
             serial_number="L6CC-00513",
