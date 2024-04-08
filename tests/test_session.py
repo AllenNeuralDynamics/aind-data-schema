@@ -1,6 +1,6 @@
 """ example unit test file """
 
-import datetime
+from datetime import datetime, timezone
 import unittest
 
 import pydantic
@@ -18,6 +18,13 @@ from aind_data_schema.core.session import (
 from aind_data_schema.models.coordinates import CcfCoords, Coordinates3d, Rotation3dTransform, Scale3dTransform, Translation3dTransform
 from aind_data_schema.models.modalities import Modality
 
+from pydantic import ValidationError
+
+import re
+
+from pydantic import __version__ as pyd_version
+PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
+
 
 class ExampleTest(unittest.TestCase):
     """an example test"""
@@ -30,8 +37,8 @@ class ExampleTest(unittest.TestCase):
 
         sess = Session(
             experimenter_full_name=["alice"],
-            session_start_time=datetime.datetime.now(),
-            session_end_time=datetime.datetime.now(),
+            session_start_time=datetime.now(),
+            session_end_time=datetime.now(),
             subject_id="1234",
             session_type="Test",
             rig_id="1234",
@@ -39,8 +46,8 @@ class ExampleTest(unittest.TestCase):
             active_mouse_platform=False,
             data_streams=[
                 Stream(
-                    stream_start_time=datetime.datetime.now(),
-                    stream_end_time=datetime.datetime.now(),
+                    stream_start_time=datetime.now(),
+                    stream_end_time=datetime.now(),
                     stream_modalities=[Modality.ECEPHYS],
                     stick_microscopes=[
                         DomeModule(
@@ -88,7 +95,8 @@ class ExampleTest(unittest.TestCase):
                 scanner_location="Fred Hutch",
                 magnetic_strength="7",
             ),
-            mri_scans=[MRIScan(
+            mri_scans=[
+                MRIScan(
                     scan_index=1,
                     scan_type="3D Scan",
                     scan_sequence_type="RARE",
@@ -118,12 +126,12 @@ class ExampleTest(unittest.TestCase):
             rig_id="NA",
             animal_weight_prior=22.1,
             animal_weight_post=21.9,
-            data_streams=stream,
+            data_streams=[stream],
             mouse_platform_name="NA",
             active_mouse_platform=False,
         )
     
-    assert mri is not None
+        assert mri is not None
       
 
     def test_validators(self):
@@ -131,8 +139,8 @@ class ExampleTest(unittest.TestCase):
 
         with self.assertRaises(pydantic.ValidationError) as e:
             Stream(
-                stream_start_time=datetime.datetime.now(),
-                stream_end_time=datetime.datetime.now(),
+                stream_start_time=datetime.now(),
+                stream_end_time=datetime.now(),
                 stream_modalities=[
                     Modality.ECEPHYS,
                     Modality.SLAP,
