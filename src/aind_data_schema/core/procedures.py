@@ -222,16 +222,9 @@ class Antibody(Reagent):
 
     immunolabel_class: ImmunolabelClass = Field(..., title="Immunolabel class")
     fluorophore: Optional[Fluorophore] = Field(None, title="Fluorophore")
-    notes: Optional[str] = Field(None, title="Notes")
-
-
-class Immunolabeling(AindModel):
-    """Description of an immunolabling step"""
-
-    procedure_type: Literal["Immunolabeling"] = "Immunolabeling"
-    antibody: Antibody = Field(..., title="Antibody")
     concentration: Decimal = Field(..., title="Concentration")
     concentration_unit: str = Field("ug/ml", title="Concentration unit")
+    notes: Optional[str] = Field(None, title="Notes")
 
 
 class Sectioning(AindModel):
@@ -279,7 +272,7 @@ class SpecimenProcedure(AindModel):
     protocol_id: List[str] = Field(..., title="Protocol ID", description="DOI for protocols.io")
     reagents: List[Reagent] = Field(default=[], title="Reagents")
     hcr_series: Optional[HCRSeries] = Field(None, title="HCR Series")
-    immunolabeling: Optional[Immunolabeling] = Field(None, title="Immunolabeling")
+    antibodies: Optional[List[Antibody]] = Field(None, title="Immunolabeling")
     sectioning: Optional[Sectioning] = Field(None, title="Sectioning")
     notes: Optional[str] = Field(None, title="Notes")
 
@@ -293,8 +286,8 @@ class SpecimenProcedure(AindModel):
             )
         elif self.procedure_type == SpecimenProcedureType.HCR and not self.hcr_series:
             raise AssertionError("hcr_series cannot be empty if procedure_type is HCR.")
-        elif self.procedure_type == SpecimenProcedureType.IMMUNOLABELING and not self.immunolabeling:
-            raise AssertionError("immunolabeling cannot be empty if procedure_type is Immunolabeling.")
+        elif self.procedure_type == SpecimenProcedureType.IMMUNOLABELING and not self.antibodies:
+            raise AssertionError("antibodies cannot be empty if procedure_type is Immunolabeling.")
         return self
 
 

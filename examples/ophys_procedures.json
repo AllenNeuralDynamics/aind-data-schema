@@ -166,9 +166,8 @@
          ],
          "reagents": [],
          "hcr_series": null,
-         "immunolabeling": {
-            "procedure_type": "Immunolabeling",
-            "antibody": {
+         "antibodies": [
+            {
                "name": "Chicken polyclonal",
                "source": {
                   "name": "Abcam",
@@ -192,11 +191,11 @@
                "expiration_date": null,
                "immunolabel_class": "Primary",
                "fluorophore": null,
+               "concentration": "10",
+               "concentration_unit": "ug/ml",
                "notes": null
-            },
-            "concentration": "10",
-            "concentration_unit": "ug/ml"
-         },
+            }
+         ],
          "sectioning": null,
          "notes": "Primary dilution factor 1:1000 ---final concentration is 10ug/ml"
       },
@@ -212,9 +211,8 @@
          ],
          "reagents": [],
          "hcr_series": null,
-         "immunolabeling": {
-            "procedure_type": "Immunolabeling",
-            "antibody": {
+         "antibodies": [
+            {
                "name": "Alexa Fluor 488 goat anti-chicken IgY (H+L)",
                "source": {
                   "name": "Thermo Fisher",
@@ -238,11 +236,11 @@
                "expiration_date": null,
                "immunolabel_class": "Secondary",
                "fluorophore": "Alexa Fluor 488",
+               "concentration": "4",
+               "concentration_unit": "ug/ml",
                "notes": null
-            },
-            "concentration": "4",
-            "concentration_unit": "ug/ml"
-         },
+            }
+         ],
          "sectioning": null,
          "notes": "Secondary dilution factor 1:500 - final concentration 4ug/ml"
       }

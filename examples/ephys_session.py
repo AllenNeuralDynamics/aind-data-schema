@@ -15,7 +15,6 @@ from aind_data_schema.core.session import (
     VisualStimulation,
 )
 from aind_data_schema.models.devices import Software
-
 from aind_data_schema.models.modalities import Modality
 
 session = Session(
