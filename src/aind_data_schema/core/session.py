@@ -19,7 +19,7 @@ from aind_data_schema.models.stimulus import (
     OlfactoryStimulation,
     OptoStimulation,
     PhotoStimulation,
-    VisualStimulation
+    VisualStimulation,
 )
 from aind_data_schema.models.units import (
     AngleUnit,
@@ -29,7 +29,7 @@ from aind_data_schema.models.units import (
     SizeUnit,
     SoundIntensityUnit,
     TimeUnit,
-    VolumeUnit
+    VolumeUnit,
 )
 
 
@@ -407,18 +407,13 @@ class StimulusEpoch(AindModel):
         description="provide URL to the commit of the script and the parameters used",
     )
     stimulus_modalities: List[StimulusModality] = Field(..., title="Stimulus modalities")
-    stimulus_parameters: Optional[List[
-        Annotated[
-            Union[
-                AuditoryStimulation,
-                OptoStimulation,
-                OlfactoryStimulation,
-                PhotoStimulation,
-                VisualStimulation
-            ],
-            Field(discriminator='stimulus_type'),
+    stimulus_parameters: Optional[
+        List[
+            Annotated[
+                Union[AuditoryStimulation, OptoStimulation, OlfactoryStimulation, PhotoStimulation, VisualStimulation],
+                Field(discriminator="stimulus_type"),
+            ]
         ]
-    ]
     ] = Field(None, title="Stimulus parameters")
     stimulus_device_names: List[str] = Field(default=[], title="Stimulus devices")
     speaker_config: Optional[SpeakerConfig] = Field(None, title="Speaker Config")
@@ -482,9 +477,8 @@ class Session(AindCoreModel):
     stimulus_epochs: List[StimulusEpoch] = Field(default=[], title="Stimulus")
     mouse_platform_name: str = Field(..., title="Mouse platform")
     active_mouse_platform: bool = Field(
-        ..., title="Active mouse platform",
-        description="Is the mouse platform being actively controlled"
-        )
+        ..., title="Active mouse platform", description="Is the mouse platform being actively controlled"
+    )
     reward_delivery: Optional[RewardDeliveryConfig] = Field(None, title="Reward delivery")
     reward_consumed_total: Optional[Decimal] = Field(None, title="Total reward consumed (uL)")
     reward_consumed_unit: VolumeUnit = Field(VolumeUnit.UL, title="Reward consumed unit")
