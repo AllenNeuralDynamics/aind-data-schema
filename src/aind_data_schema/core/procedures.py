@@ -225,7 +225,7 @@ class Antibody(Reagent):
     concentration: Decimal = Field(..., title="Concentration")
     concentration_unit: str = Field("ug/ml", title="Concentration unit")
     notes: Optional[str] = Field(None, title="Notes")
-    
+
 
 class Sectioning(AindModel):
     """Description of a sectioning procedure"""

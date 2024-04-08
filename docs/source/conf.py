@@ -10,7 +10,7 @@ from os.path import abspath, dirname
 from pathlib import Path
 
 from aind_data_schema import __version__ as package_version
-from aind_data_schema.core import (
+from aind_data_schema.core import (  # A temporary workaround to fix NameError when building Sphinx
     acquisition,
     data_description,
     instrument,
@@ -20,8 +20,8 @@ from aind_data_schema.core import (
     processing,
     rig,
     session,
-    subject
-    )  # A temporary workaround to fix NameError when building Sphinx
+    subject,
+)
 
 dummy_object = [
     acquisition,
@@ -33,8 +33,8 @@ dummy_object = [
     processing,
     rig,
     session,
-    subject
-    ]  # A temporary workaround to bypass "Imported but unused" error
+    subject,
+]  # A temporary workaround to bypass "Imported but unused" error
 
 INSTITUTE_NAME = "Allen Institute for Neural Dynamics"
 
