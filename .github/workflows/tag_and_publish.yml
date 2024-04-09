@@ -15,6 +15,8 @@ jobs:
           ref: ${{ env.DEFAULT_BRANCH }}
           fetch-depth: 0
           token: ${{ secrets.SERVICE_TOKEN }}
+      - name: Pull changes
+        run: git pull --rebase
       - name: Set up Python 3.8
         uses: actions/setup-python@v3
         with:
@@ -53,6 +55,8 @@ jobs:
           ref: ${{ env.DEFAULT_BRANCH }}
           fetch-depth: 0
           token: ${{ secrets.SERVICE_TOKEN }}
+      - name: Pull changes
+        run: git pull --rebase
       - name: Set up Python 3.8
         uses: actions/setup-python@v2
         with:
@@ -81,6 +85,8 @@ jobs:
         ref: ${{ inputs.default_branch }}
         fetch-depth: 0
         token: ${{ secrets.SERVICE_TOKEN }}
+    - name: Pull changes
+      run: git pull --rebase
     - name: Generate changelog
       id: tag_version
       uses: mathieudutour/github-tag-action@v6.1
