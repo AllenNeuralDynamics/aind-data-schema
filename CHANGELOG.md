@@ -1,3 +1,11 @@
+### [0.33.6](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.33.5...v0.33.6) (2024-04-09)
+
+
+### Continuous Integration
+
+* adds a step with git pull run in workflows ([#886](https://github.com/AllenNeuralDynamics/aind-data-schema/issues/886)) ([0b21921](https://github.com/AllenNeuralDynamics/aind-data-schema/commit/0b2192122d17144fffc35ad7f04dc63df060e7e4))
+
+
 ### [0.33.5](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.33.4...v0.33.5) (2024-04-05)
 
 
