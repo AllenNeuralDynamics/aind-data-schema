@@ -16,6 +16,7 @@
    "animal_weight_prior": null,
    "animal_weight_post": null,
    "weight_unit": "gram",
+   "anaesthesia": null,
    "data_streams": [
       {
          "stream_start_time": "2022-07-12T07:00:00Z",
@@ -69,6 +70,8 @@
          "ophys_fovs": [],
          "slap_fovs": null,
          "stack_parameters": null,
+         "mri_scanner": null,
+         "mri_scans": [],
          "stream_modalities": [
             {
                "name": "Fiber photometry",
