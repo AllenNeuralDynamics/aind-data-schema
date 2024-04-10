@@ -39,7 +39,7 @@ docs = [
     'Sphinx',
     'sphinx-jinja',
     'furo',
-    'erdantic>=0.7.0',
+    'erdantic>=0.7.0,<1.0',
     'autodoc_pydantic'
 ]
 
