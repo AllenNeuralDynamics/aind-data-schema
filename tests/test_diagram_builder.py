@@ -11,28 +11,28 @@ from aind_data_schema.utils.diagrams import save_all_core_model_diagrams, save_d
 class DiagramBuilderTests(unittest.TestCase):
     """Tests for DiagramBuilder methods"""
 
-    @patch("erdantic.EntityRelationshipDiagram.draw")
+    @patch("erdantic.erd.EntityRelationshipDiagram.draw")
     def test_save_diagram_default(self, mock_draw: MagicMock):
         """Tests save_diagram_default method"""
         save_diagram(Subject)
 
         mock_draw.assert_called_once_with(Path("Subject.svg"))
 
-    @patch("erdantic.EntityRelationshipDiagram.draw")
+    @patch("erdantic.erd.EntityRelationshipDiagram.draw")
     def test_save_diagram_dir(self, mock_draw: MagicMock):
         """Tests save_diagram_default method with output_directory"""
         save_diagram(model=Subject, output_directory=Path("some_dir"))
 
         mock_draw.assert_called_once_with(Path("some_dir") / "Subject.svg")
 
-    @patch("erdantic.EntityRelationshipDiagram.draw")
+    @patch("erdantic.erd.EntityRelationshipDiagram.draw")
     def test_save_diagram_dir_and_filename(self, mock_draw: MagicMock):
         """Tests save_diagram_default method with output_directory and filename"""
         save_diagram(model=Subject, output_directory=Path("some_dir"), filename="subject_a.svg")
 
         mock_draw.assert_called_once_with(Path("some_dir") / "subject_a.svg")
 
-    @patch("erdantic.EntityRelationshipDiagram.draw")
+    @patch("erdantic.erd.EntityRelationshipDiagram.draw")
     def test_save_all_core_diagrams_default(self, mock_draw: MagicMock):
         """Tests save_all_core_diagrams_default method"""
         save_all_core_model_diagrams()
@@ -52,7 +52,7 @@ class DiagramBuilderTests(unittest.TestCase):
             any_order=True,
         )
 
-    @patch("erdantic.EntityRelationshipDiagram.draw")
+    @patch("erdantic.erd.EntityRelationshipDiagram.draw")
     def test_save_all_core_diagrams_dir(self, mock_draw: MagicMock):
         """Tests save_all_core_diagrams_default method with output_directory"""
         save_all_core_model_diagrams(output_directory=Path("some_dir"))
