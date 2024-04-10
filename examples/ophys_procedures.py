@@ -8,7 +8,6 @@ from aind_data_schema.core.procedures import (
     FiberImplant,
     FiberProbe,
     Headframe,
-    Immunolabeling,
     NanojectInjection,
     OphysProbe,
     Perfusion,
@@ -120,8 +119,8 @@ p = Procedures(
             experimenter_full_name="John Apple",
             protocol_id=["TO ENTER"],
             reagents=[],
-            immunolabeling=Immunolabeling(
-                antibody=Antibody(
+            antibodies=[
+                Antibody(
                     name="Chicken polyclonal",
                     source=Organization.ABCAM,
                     rrid=PIDName(
@@ -130,9 +129,9 @@ p = Procedures(
                     lot_number="GR3361051-16",
                     immunolabel_class="Primary",
                     fluorophore=None,
+                    concentration=10,
                 ),
-                concentration=10,
-            ),
+            ],
             notes="Primary dilution factor 1:1000 ---final concentration is 10ug/ml",
         ),
         SpecimenProcedure(
@@ -143,8 +142,8 @@ p = Procedures(
             experimenter_full_name="John Apple",
             protocol_id=["TO ENTER"],
             reagents=[],
-            immunolabeling=Immunolabeling(
-                antibody=Antibody(
+            antibodies=[
+                Antibody(
                     name="Alexa Fluor 488 goat anti-chicken IgY (H+L)",
                     source=Organization.THERMOFISHER,
                     rrid=PIDName(
@@ -155,12 +154,13 @@ p = Procedures(
                     lot_number="2420700",
                     immunolabel_class="Secondary",
                     fluorophore="Alexa Fluor 488",
+                    concentration=4,
                 ),
-                concentration=4,
-            ),
+            ],
             notes="Secondary dilution factor 1:500 - final concentration 4ug/ml",
         ),
     ],
 )
-
-p.write_standard_file(prefix="ophys")
+serialized = p.model_dump_json()
+deserialized = Procedures.model_validate_json(serialized)
+deserialized.write_standard_file(prefix="ophys")

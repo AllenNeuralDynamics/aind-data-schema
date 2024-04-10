@@ -800,8 +800,7 @@ class RewardSpout(Device):
 
         if self.side == SpoutSide.OTHER and self.notes is None:
             raise ValueError(
-                "Notes cannot be empty if spout side is Other. "
-                "Describe the spout side in the notes field."
+                "Notes cannot be empty if spout side is Other. " "Describe the spout side in the notes field."
             )
 
         return self

@@ -15,7 +15,6 @@ from aind_data_schema.core.session import (
     VisualStimulation,
 )
 from aind_data_schema.models.devices import Software
-
 from aind_data_schema.models.modalities import Modality
 
 session = Session(
@@ -224,4 +223,6 @@ session = Session(
     ],
 )
 
-session.write_standard_file(prefix="ephys")
+serialized = session.model_dump_json()
+deserialized = Session.model_validate_json(serialized)
+deserialized.write_standard_file(prefix="ephys")

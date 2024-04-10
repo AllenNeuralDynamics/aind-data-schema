@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/procedures.py",
-   "schema_version": "0.13.3",
+   "schema_version": "0.13.5",
    "subject_id": "625100",
    "subject_procedures": [
       {
@@ -166,9 +166,8 @@
          ],
          "reagents": [],
          "hcr_series": null,
-         "immunolabeling": {
-            "procedure_type": "Immunolabeling",
-            "antibody": {
+         "antibodies": [
+            {
                "name": "Chicken polyclonal",
                "source": {
                   "name": "Abcam",
@@ -192,13 +191,11 @@
                "expiration_date": null,
                "immunolabel_class": "Primary",
                "fluorophore": null,
-               "degree_of_labeling": null,
-               "degree_of_labeling_unit": "Fluorophore per antibody",
-               "conjugation_protocol": null
-            },
-            "concentration": "10",
-            "concentration_unit": "ug/ml"
-         },
+               "concentration": "10",
+               "concentration_unit": "ug/ml",
+               "notes": null
+            }
+         ],
          "sectioning": null,
          "notes": "Primary dilution factor 1:1000 ---final concentration is 10ug/ml"
       },
@@ -214,9 +211,8 @@
          ],
          "reagents": [],
          "hcr_series": null,
-         "immunolabeling": {
-            "procedure_type": "Immunolabeling",
-            "antibody": {
+         "antibodies": [
+            {
                "name": "Alexa Fluor 488 goat anti-chicken IgY (H+L)",
                "source": {
                   "name": "Thermo Fisher",
@@ -240,13 +236,11 @@
                "expiration_date": null,
                "immunolabel_class": "Secondary",
                "fluorophore": "Alexa Fluor 488",
-               "degree_of_labeling": null,
-               "degree_of_labeling_unit": "Fluorophore per antibody",
-               "conjugation_protocol": null
-            },
-            "concentration": "4",
-            "concentration_unit": "ug/ml"
-         },
+               "concentration": "4",
+               "concentration_unit": "ug/ml",
+               "notes": null
+            }
+         ],
          "sectioning": null,
          "notes": "Secondary dilution factor 1:500 - final concentration 4ug/ml"
       }
