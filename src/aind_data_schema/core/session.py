@@ -17,7 +17,7 @@ from aind_data_schema.models.coordinates import (
     Coordinates3d,
     Rotation3dTransform,
     Scale3dTransform,
-    Translation3dTransform
+    Translation3dTransform,
 )
 from aind_data_schema.models.devices import Calibration, Maintenance, RelativePosition, Scanner, Software, SpoutSide
 from aind_data_schema.models.modalities import Modality

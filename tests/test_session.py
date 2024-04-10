@@ -1,9 +1,12 @@
 """ example unit test file """
 
-from datetime import datetime, timezone
+import re
 import unittest
+from datetime import datetime, timezone
 
 import pydantic
+from pydantic import ValidationError
+from pydantic import __version__ as pyd_version
 
 from aind_data_schema.core.session import (
     DomeModule,
@@ -15,14 +18,15 @@ from aind_data_schema.core.session import (
     Session,
     Stream,
 )
-from aind_data_schema.models.coordinates import CcfCoords, Coordinates3d, Rotation3dTransform, Scale3dTransform, Translation3dTransform
+from aind_data_schema.models.coordinates import (
+    CcfCoords,
+    Coordinates3d,
+    Rotation3dTransform,
+    Scale3dTransform,
+    Translation3dTransform,
+)
 from aind_data_schema.models.modalities import Modality
 
-from pydantic import ValidationError
-
-import re
-
-from pydantic import __version__ as pyd_version
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
 
 
@@ -80,9 +84,9 @@ class ExampleTest(unittest.TestCase):
             RewardDeliveryConfig(reward_solution="Other")
 
         with self.assertRaises(ValidationError):
-                MRIScan(
-                    scan_sequence_type="Other",
-                )
+            MRIScan(
+                scan_sequence_type="Other",
+            )
 
         with self.assertRaises(ValidationError):
             MRIScan(scan_sequence_type="Other", notes="")
@@ -130,9 +134,8 @@ class ExampleTest(unittest.TestCase):
             mouse_platform_name="NA",
             active_mouse_platform=False,
         )
-    
+
         assert mri is not None
-      
 
     def test_validators(self):
         """Test the session file validators"""
@@ -182,6 +185,7 @@ class ExampleTest(unittest.TestCase):
             f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/value_error"
         )
         self.assertEqual(expected_exception, repr(e.exception))
+
 
 if __name__ == "__main__":
     unittest.main()
