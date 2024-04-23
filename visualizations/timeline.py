@@ -4,7 +4,15 @@ import matplotlib.dates as mdates
 from datetime import datetime
 import json
 
-def plot_timeline(datapath, savepath):
+def plot_timeline(datapath, savepath, processing_flag=False):
+    """Creates a timeline of including date of birth, all subject and specimen procedures, and date of 
+    data acquisition. Optionally can include data processing as well.
+
+    Args:
+        datapath (str): path to folder containing all metadata files
+        savepath (str): path to location to save figure
+        processing_flag (Bool): Making this True adds the processing dates to the timeline. Defaults to False.
+    """
 
     # identify what metadata is present 
     session_flag = False
@@ -75,7 +83,7 @@ def plot_timeline(datapath, savepath):
     except:
         print("No acquisition date")
 
-    try:
+    if processing_flag:
         with open(processing_path) as json_data:
             d = json.load(json_data)
             json_data.close()
@@ -91,8 +99,6 @@ def plot_timeline(datapath, savepath):
             ax.hlines(1, start_date, end_date, linewidth=8, alpha=0.3)
             ax.scatter(start_date, [1], marker='|', color='red', s=120)
             ax.text(start_date, 1.1, proc["name"], rotation=90, ha='center', va='bottom')
-    except:
-        print("No processing")
 
     # Formatting x-axis
     ax.xaxis.set_major_locator(mdates.MonthLocator())
