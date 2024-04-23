@@ -222,7 +222,7 @@ class Antibody(Reagent):
 
     immunolabel_class: ImmunolabelClass = Field(..., title="Immunolabel class")
     fluorophore: Optional[Fluorophore] = Field(None, title="Fluorophore")
-    mass: Decimal = Field(..., title="Mass used per brain")
+    mass: Decimal = Field(..., title="Mass of antibody")
     mass_unit: MassUnit = Field(MassUnit.UG, title="Mass unit")
     notes: Optional[str] = Field(None, title="Notes")
 
