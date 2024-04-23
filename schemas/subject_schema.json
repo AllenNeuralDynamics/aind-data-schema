@@ -7,12 +7,20 @@
             "name": {
                "const": "Allen Institute",
                "default": "Allen Institute",
-               "title": "Name"
+               "enum": [
+                  "Allen Institute"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": "AI",
                "default": "AI",
-               "title": "Abbreviation"
+               "enum": [
+                  "AI"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
             },
             "registry": {
                "default": {
@@ -35,7 +43,11 @@
             "registry_identifier": {
                "const": "03cpe7c52",
                "default": "03cpe7c52",
-               "title": "Registry Identifier"
+               "enum": [
+                  "03cpe7c52"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
             }
          },
          "title": "AllenInstitute",
@@ -119,7 +131,11 @@
             "name": {
                "const": "Callithrix jacchus",
                "default": "Callithrix jacchus",
-               "title": "Name"
+               "enum": [
+                  "Callithrix jacchus"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "anyOf": [
@@ -154,7 +170,11 @@
             "registry_identifier": {
                "const": "9483",
                "default": "9483",
-               "title": "Registry Identifier"
+               "enum": [
+                  "9483"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
             }
          },
          "title": "CallithrixJacchus",
@@ -167,12 +187,20 @@
             "name": {
                "const": "Columbia University",
                "default": "Columbia University",
-               "title": "Name"
+               "enum": [
+                  "Columbia University"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": "Columbia",
                "default": "Columbia",
-               "title": "Abbreviation"
+               "enum": [
+                  "Columbia"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
             },
             "registry": {
                "default": {
@@ -195,7 +223,11 @@
             "registry_identifier": {
                "const": "00hj8s172",
                "default": "00hj8s172",
-               "title": "Registry Identifier"
+               "enum": [
+                  "00hj8s172"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
             }
          },
          "title": "ColumbiaUniversity",
@@ -220,7 +252,11 @@
             "name": {
                "const": "Homo sapiens",
                "default": "Homo sapiens",
-               "title": "Name"
+               "enum": [
+                  "Homo sapiens"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "anyOf": [
@@ -255,7 +291,11 @@
             "registry_identifier": {
                "const": "9606",
                "default": "9606",
-               "title": "Registry Identifier"
+               "enum": [
+                  "9606"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
             }
          },
          "title": "HomoSapiens",
@@ -329,12 +369,20 @@
             "name": {
                "const": "Huazhong University of Science and Technology",
                "default": "Huazhong University of Science and Technology",
-               "title": "Name"
+               "enum": [
+                  "Huazhong University of Science and Technology"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": "HUST",
                "default": "HUST",
-               "title": "Abbreviation"
+               "enum": [
+                  "HUST"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
             },
             "registry": {
                "default": {
@@ -357,7 +405,11 @@
             "registry_identifier": {
                "const": "00p991c53",
                "default": "00p991c53",
-               "title": "Registry Identifier"
+               "enum": [
+                  "00p991c53"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
             }
          },
          "title": "HuazhongUniversityOfScienceAndTechnology",
@@ -370,12 +422,20 @@
             "name": {
                "const": "Jackson Laboratory",
                "default": "Jackson Laboratory",
-               "title": "Name"
+               "enum": [
+                  "Jackson Laboratory"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": "JAX",
                "default": "JAX",
-               "title": "Abbreviation"
+               "enum": [
+                  "JAX"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
             },
             "registry": {
                "default": {
@@ -398,7 +458,11 @@
             "registry_identifier": {
                "const": "021sy4w91",
                "default": "021sy4w91",
-               "title": "Registry Identifier"
+               "enum": [
+                  "021sy4w91"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
             }
          },
          "title": "JacksonLaboratory",
@@ -435,7 +499,11 @@
             "name": {
                "const": "Macaca mulatta",
                "default": "Macaca mulatta",
-               "title": "Name"
+               "enum": [
+                  "Macaca mulatta"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "anyOf": [
@@ -470,7 +538,11 @@
             "registry_identifier": {
                "const": "9544",
                "default": "9544",
-               "title": "Registry Identifier"
+               "enum": [
+                  "9544"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
             }
          },
          "title": "MacacaMulatta",
@@ -483,7 +555,11 @@
             "name": {
                "const": "Mus musculus",
                "default": "Mus musculus",
-               "title": "Name"
+               "enum": [
+                  "Mus musculus"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "anyOf": [
@@ -518,7 +594,11 @@
             "registry_identifier": {
                "const": "10090",
                "default": "10090",
-               "title": "Registry Identifier"
+               "enum": [
+                  "10090"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
             }
          },
          "title": "MusMusculus",
@@ -531,12 +611,20 @@
             "name": {
                "const": "National Center for Biotechnology Information",
                "default": "National Center for Biotechnology Information",
-               "title": "Name"
+               "enum": [
+                  "National Center for Biotechnology Information"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": "NCBI",
                "default": "NCBI",
-               "title": "Abbreviation"
+               "enum": [
+                  "NCBI"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
             }
          },
          "title": "NationalCenterForBiotechnologyInformation",
@@ -549,12 +637,20 @@
             "name": {
                "const": "New York University",
                "default": "New York University",
-               "title": "Name"
+               "enum": [
+                  "New York University"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": "NYU",
                "default": "NYU",
-               "title": "Abbreviation"
+               "enum": [
+                  "NYU"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
             },
             "registry": {
                "default": {
@@ -577,7 +673,11 @@
             "registry_identifier": {
                "const": "0190ak572",
                "default": "0190ak572",
-               "title": "Registry Identifier"
+               "enum": [
+                  "0190ak572"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
             }
          },
          "title": "NewYorkUniversity",
@@ -590,22 +690,38 @@
             "name": {
                "const": "Other",
                "default": "Other",
-               "title": "Name"
+               "enum": [
+                  "Other"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "const": null,
                "default": null,
-               "title": "Registry"
+               "enum": [
+                  null
+               ],
+               "title": "Registry",
+               "type": "null"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "title": "Registry Identifier"
+               "enum": [
+                  null
+               ],
+               "title": "Registry Identifier",
+               "type": "null"
             }
          },
          "title": "Other",
@@ -669,7 +785,11 @@
             "name": {
                "const": "Rattus norvegicus",
                "default": "Rattus norvegicus",
-               "title": "Name"
+               "enum": [
+                  "Rattus norvegicus"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "anyOf": [
@@ -704,7 +824,11 @@
             "registry_identifier": {
                "const": "10116",
                "default": "10116",
-               "title": "Registry Identifier"
+               "enum": [
+                  "10116"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
             }
          },
          "title": "RattusNorvegicus",
@@ -717,12 +841,20 @@
             "name": {
                "const": "Research Organization Registry",
                "default": "Research Organization Registry",
-               "title": "Name"
+               "enum": [
+                  "Research Organization Registry"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": "ROR",
                "default": "ROR",
-               "title": "Abbreviation"
+               "enum": [
+                  "ROR"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
             }
          },
          "title": "ResearchOrganizationRegistry",
@@ -769,9 +901,13 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.5.5",
-         "default": "0.5.5",
-         "title": "Schema Version"
+         "const": "0.5.6",
+         "default": "0.5.6",
+         "enum": [
+            "0.5.6"
+         ],
+         "title": "Schema Version",
+         "type": "string"
       },
       "subject_id": {
          "description": "Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
