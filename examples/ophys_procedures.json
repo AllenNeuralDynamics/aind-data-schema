@@ -191,8 +191,8 @@
                "expiration_date": null,
                "immunolabel_class": "Primary",
                "fluorophore": null,
-               "concentration": "10",
-               "concentration_unit": "ug/ml",
+               "mass": "10",
+               "mass_unit": "microgram",
                "notes": null
             }
          ],
@@ -236,8 +236,8 @@
                "expiration_date": null,
                "immunolabel_class": "Secondary",
                "fluorophore": "Alexa Fluor 488",
-               "concentration": "4",
-               "concentration_unit": "ug/ml",
+               "mass": "4",
+               "mass_unit": "microgram",
                "notes": null
             }
          ],
