@@ -45,16 +45,6 @@ metadata
 |
 |
 
-|mri_session|
-
-mri_session
-
-.. raw:: html
-
-    <hr>
-
-|
-|
 
 |procedures|
 
