@@ -330,9 +330,13 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.4.5",
-         "default": "0.4.5",
-         "title": "Schema Version"
+         "const": "0.4.6",
+         "default": "0.4.6",
+         "enum": [
+            "0.4.6"
+         ],
+         "title": "Schema Version",
+         "type": "string"
       },
       "processing_pipeline": {
          "allOf": [

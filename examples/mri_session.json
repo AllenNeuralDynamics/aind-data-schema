@@ -82,7 +82,7 @@
                "primary_scan": true,
                "scan_sequence_type": "RARE",
                "rare_factor": 4,
-               "echo_time": "5.3333333333333303727386009995825588703155517578125",
+               "echo_time": "5.33333333333333",
                "effective_echo_time": "10.6666666666666998253276688046753406524658203125",
                "echo_time_unit": "millisecond",
                "repetition_time": "500",

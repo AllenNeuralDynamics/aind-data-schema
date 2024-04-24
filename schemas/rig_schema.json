@@ -7,22 +7,38 @@
             "name": {
                "const": "AA Opto Electronic",
                "default": "AA Opto Electronic",
-               "title": "Name"
+               "enum": [
+                  "AA Opto Electronic"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "const": null,
                "default": null,
-               "title": "Registry"
+               "enum": [
+                  null
+               ],
+               "title": "Registry",
+               "type": "null"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "title": "Registry Identifier"
+               "enum": [
+                  null
+               ],
+               "title": "Registry Identifier",
+               "type": "null"
             }
          },
          "title": "AAOptoElectronic",
@@ -35,12 +51,20 @@
             "name": {
                "const": "Abcam",
                "default": "Abcam",
-               "title": "Name"
+               "enum": [
+                  "Abcam"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "default": {
@@ -63,7 +87,11 @@
             "registry_identifier": {
                "const": "02e1wjw63",
                "default": "02e1wjw63",
-               "title": "Registry Identifier"
+               "enum": [
+                  "02e1wjw63"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
             }
          },
          "title": "Abcam",
@@ -76,22 +104,38 @@
             "name": {
                "const": "Ailipu Technology Co",
                "default": "Ailipu Technology Co",
-               "title": "Name"
+               "enum": [
+                  "Ailipu Technology Co"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "const": null,
                "default": null,
-               "title": "Registry"
+               "enum": [
+                  null
+               ],
+               "title": "Registry",
+               "type": "null"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "title": "Registry Identifier"
+               "enum": [
+                  null
+               ],
+               "title": "Registry Identifier",
+               "type": "null"
             }
          },
          "title": "AilipuTechnologyCo",
@@ -111,12 +155,20 @@
             "name": {
                "const": "Allen Institute",
                "default": "Allen Institute",
-               "title": "Name"
+               "enum": [
+                  "Allen Institute"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": "AI",
                "default": "AI",
-               "title": "Abbreviation"
+               "enum": [
+                  "AI"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
             },
             "registry": {
                "default": {
@@ -139,7 +191,11 @@
             "registry_identifier": {
                "const": "03cpe7c52",
                "default": "03cpe7c52",
-               "title": "Registry Identifier"
+               "enum": [
+                  "03cpe7c52"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
             }
          },
          "title": "AllenInstitute",
@@ -152,12 +208,20 @@
             "name": {
                "const": "Allen Institute for Brain Science",
                "default": "Allen Institute for Brain Science",
-               "title": "Name"
+               "enum": [
+                  "Allen Institute for Brain Science"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": "AIBS",
                "default": "AIBS",
-               "title": "Abbreviation"
+               "enum": [
+                  "AIBS"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
             },
             "registry": {
                "default": {
@@ -180,7 +244,11 @@
             "registry_identifier": {
                "const": "00dcv1019",
                "default": "00dcv1019",
-               "title": "Registry Identifier"
+               "enum": [
+                  "00dcv1019"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
             }
          },
          "title": "AllenInstituteForBrainScience",
@@ -193,12 +261,20 @@
             "name": {
                "const": "Allen Institute for Neural Dynamics",
                "default": "Allen Institute for Neural Dynamics",
-               "title": "Name"
+               "enum": [
+                  "Allen Institute for Neural Dynamics"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": "AIND",
                "default": "AIND",
-               "title": "Abbreviation"
+               "enum": [
+                  "AIND"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
             },
             "registry": {
                "default": {
@@ -221,7 +297,11 @@
             "registry_identifier": {
                "const": "04szwah67",
                "default": "04szwah67",
-               "title": "Registry Identifier"
+               "enum": [
+                  "04szwah67"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
             }
          },
          "title": "AllenInstituteForNeuralDynamics",
@@ -234,22 +314,38 @@
             "name": {
                "const": "Allied",
                "default": "Allied",
-               "title": "Name"
+               "enum": [
+                  "Allied"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "const": null,
                "default": null,
-               "title": "Registry"
+               "enum": [
+                  null
+               ],
+               "title": "Registry",
+               "type": "null"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "title": "Registry Identifier"
+               "enum": [
+                  null
+               ],
+               "title": "Registry Identifier",
+               "type": "null"
             }
          },
          "title": "Allied",
@@ -262,12 +358,20 @@
             "name": {
                "const": "ams OSRAM",
                "default": "ams OSRAM",
-               "title": "Name"
+               "enum": [
+                  "ams OSRAM"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "default": {
@@ -290,7 +394,11 @@
             "registry_identifier": {
                "const": "045d0h266",
                "default": "045d0h266",
-               "title": "Registry Identifier"
+               "enum": [
+                  "045d0h266"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
             }
          },
          "title": "AmsOsram",
@@ -303,22 +411,38 @@
             "name": {
                "const": "Applied Scientific Instrumentation",
                "default": "Applied Scientific Instrumentation",
-               "title": "Name"
+               "enum": [
+                  "Applied Scientific Instrumentation"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": "ASI",
                "default": "ASI",
-               "title": "Abbreviation"
+               "enum": [
+                  "ASI"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
             },
             "registry": {
                "const": null,
                "default": null,
-               "title": "Registry"
+               "enum": [
+                  null
+               ],
+               "title": "Registry",
+               "type": "null"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "title": "Registry Identifier"
+               "enum": [
+                  null
+               ],
+               "title": "Registry Identifier",
+               "type": "null"
             }
          },
          "title": "AppliedScientificInstrumentation",
@@ -331,22 +455,38 @@
             "name": {
                "const": "Arecont Vision Costar",
                "default": "Arecont Vision Costar",
-               "title": "Name"
+               "enum": [
+                  "Arecont Vision Costar"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "const": null,
                "default": null,
-               "title": "Registry"
+               "enum": [
+                  null
+               ],
+               "title": "Registry",
+               "type": "null"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "title": "Registry Identifier"
+               "enum": [
+                  null
+               ],
+               "title": "Registry Identifier",
+               "type": "null"
             }
          },
          "title": "ArecontVisionCostar",
@@ -359,12 +499,20 @@
             "name": {
                "const": "ASUS",
                "default": "ASUS",
-               "title": "Name"
+               "enum": [
+                  "ASUS"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "default": {
@@ -387,7 +535,11 @@
             "registry_identifier": {
                "const": "00bxkz165",
                "default": "00bxkz165",
-               "title": "Registry Identifier"
+               "enum": [
+                  "00bxkz165"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
             }
          },
          "title": "Asus",
@@ -434,22 +586,38 @@
             "name": {
                "const": "Basler",
                "default": "Basler",
-               "title": "Name"
+               "enum": [
+                  "Basler"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "const": null,
                "default": null,
-               "title": "Registry"
+               "enum": [
+                  null
+               ],
+               "title": "Registry",
+               "type": "null"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "title": "Registry Identifier"
+               "enum": [
+                  null
+               ],
+               "title": "Registry Identifier",
+               "type": "null"
             }
          },
          "title": "Basler",
@@ -462,12 +630,20 @@
             "name": {
                "const": "Behavior videos",
                "default": "Behavior videos",
-               "title": "Name"
+               "enum": [
+                  "Behavior videos"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": "behavior-videos",
                "default": "behavior-videos",
-               "title": "Abbreviation"
+               "enum": [
+                  "behavior-videos"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
             }
          },
          "title": "BehaviorVideos",
@@ -550,22 +726,38 @@
             "name": {
                "const": "Cambridge Technology",
                "default": "Cambridge Technology",
-               "title": "Name"
+               "enum": [
+                  "Cambridge Technology"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "const": null,
                "default": null,
-               "title": "Registry"
+               "enum": [
+                  null
+               ],
+               "title": "Registry",
+               "type": "null"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "title": "Registry Identifier"
+               "enum": [
+                  null
+               ],
+               "title": "Registry Identifier",
+               "type": "null"
             }
          },
          "title": "CambridgeTechnology",
@@ -578,7 +770,11 @@
             "device_type": {
                "const": "Detector",
                "default": "Detector",
-               "title": "Device Type"
+               "enum": [
+                  "Detector"
+               ],
+               "title": "Device Type",
+               "type": "string"
             },
             "name": {
                "title": "Device name",
@@ -1083,12 +1279,20 @@
             "name": {
                "const": "Camera Controller",
                "default": "Camera Controller",
-               "title": "Name"
+               "enum": [
+                  "Camera Controller"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "whoami": {
                "const": 1168,
                "default": 1168,
-               "title": "Whoami"
+               "enum": [
+                  1168
+               ],
+               "title": "Whoami",
+               "type": "integer"
             }
          },
          "title": "CameraController",
@@ -1118,12 +1322,20 @@
             "name": {
                "const": "Carl Zeiss",
                "default": "Carl Zeiss",
-               "title": "Name"
+               "enum": [
+                  "Carl Zeiss"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "default": {
@@ -1146,7 +1358,11 @@
             "registry_identifier": {
                "const": "01xk5xs43",
                "default": "01xk5xs43",
-               "title": "Registry Identifier"
+               "enum": [
+                  "01xk5xs43"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
             }
          },
          "title": "CarlZeiss",
@@ -1159,12 +1375,20 @@
             "name": {
                "const": "Champalimaud Foundation",
                "default": "Champalimaud Foundation",
-               "title": "Name"
+               "enum": [
+                  "Champalimaud Foundation"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "default": {
@@ -1187,7 +1411,11 @@
             "registry_identifier": {
                "const": "03g001n57",
                "default": "03g001n57",
-               "title": "Registry Identifier"
+               "enum": [
+                  "03g001n57"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
             }
          },
          "title": "ChampalimaudFoundation",
@@ -1209,22 +1437,38 @@
             "name": {
                "const": "Chroma",
                "default": "Chroma",
-               "title": "Name"
+               "enum": [
+                  "Chroma"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "const": null,
                "default": null,
-               "title": "Registry"
+               "enum": [
+                  null
+               ],
+               "title": "Registry",
+               "type": "null"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "title": "Registry Identifier"
+               "enum": [
+                  null
+               ],
+               "title": "Registry Identifier",
+               "type": "null"
             }
          },
          "title": "Chroma",
@@ -1236,12 +1480,20 @@
             "name": {
                "const": "Clock Synchronizer",
                "default": "Clock Synchronizer",
-               "title": "Name"
+               "enum": [
+                  "Clock Synchronizer"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "whoami": {
                "const": 1152,
                "default": 1152,
-               "title": "Whoami"
+               "enum": [
+                  1152
+               ],
+               "title": "Whoami",
+               "type": "integer"
             }
          },
          "title": "ClockSynchronizer",
@@ -1254,12 +1506,20 @@
             "name": {
                "const": "Coherent Scientific",
                "default": "Coherent Scientific",
-               "title": "Name"
+               "enum": [
+                  "Coherent Scientific"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "default": {
@@ -1282,7 +1542,11 @@
             "registry_identifier": {
                "const": "031tysd23",
                "default": "031tysd23",
-               "title": "Registry Identifier"
+               "enum": [
+                  "031tysd23"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
             }
          },
          "title": "CoherentScientific",
@@ -1295,12 +1559,20 @@
             "name": {
                "const": "Columbia University",
                "default": "Columbia University",
-               "title": "Name"
+               "enum": [
+                  "Columbia University"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": "Columbia",
                "default": "Columbia",
-               "title": "Abbreviation"
+               "enum": [
+                  "Columbia"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
             },
             "registry": {
                "default": {
@@ -1323,7 +1595,11 @@
             "registry_identifier": {
                "const": "00hj8s172",
                "default": "00hj8s172",
-               "title": "Registry Identifier"
+               "enum": [
+                  "00hj8s172"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
             }
          },
          "title": "ColumbiaUniversity",
@@ -1336,22 +1612,38 @@
             "name": {
                "const": "Computar",
                "default": "Computar",
-               "title": "Name"
+               "enum": [
+                  "Computar"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "const": null,
                "default": null,
-               "title": "Registry"
+               "enum": [
+                  null
+               ],
+               "title": "Registry",
+               "type": "null"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "title": "Registry Identifier"
+               "enum": [
+                  null
+               ],
+               "title": "Registry Identifier",
+               "type": "null"
             }
          },
          "title": "Computar",
@@ -1364,12 +1656,20 @@
             "name": {
                "const": "Confocal microscopy",
                "default": "Confocal microscopy",
-               "title": "Name"
+               "enum": [
+                  "Confocal microscopy"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": "confocal",
                "default": "confocal",
-               "title": "Abbreviation"
+               "enum": [
+                  "confocal"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
             }
          },
          "title": "Confocal",
@@ -1382,22 +1682,38 @@
             "name": {
                "const": "Conoptics",
                "default": "Conoptics",
-               "title": "Name"
+               "enum": [
+                  "Conoptics"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "const": null,
                "default": null,
-               "title": "Registry"
+               "enum": [
+                  null
+               ],
+               "title": "Registry",
+               "type": "null"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "title": "Registry Identifier"
+               "enum": [
+                  null
+               ],
+               "title": "Registry Identifier",
+               "type": "null"
             }
          },
          "title": "Conoptics",
@@ -1431,22 +1747,38 @@
             "name": {
                "const": "Custom",
                "default": "Custom",
-               "title": "Name"
+               "enum": [
+                  "Custom"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "const": null,
                "default": null,
-               "title": "Registry"
+               "enum": [
+                  null
+               ],
+               "title": "Registry",
+               "type": "null"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "title": "Registry Identifier"
+               "enum": [
+                  null
+               ],
+               "title": "Registry Identifier",
+               "type": "null"
             }
          },
          "title": "Custom",
@@ -1458,12 +1790,20 @@
             "name": {
                "const": "Cuttlefish",
                "default": "Cuttlefish",
-               "title": "Name"
+               "enum": [
+                  "Cuttlefish"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "whoami": {
                "const": 1403,
                "default": 1403,
-               "title": "Whoami"
+               "enum": [
+                  1403
+               ],
+               "title": "Whoami",
+               "type": "integer"
             }
          },
          "title": "Cuttlefish",
@@ -1565,7 +1905,11 @@
             "device_type": {
                "const": "DAQ Device",
                "default": "DAQ Device",
-               "title": "Device Type"
+               "enum": [
+                  "DAQ Device"
+               ],
+               "title": "Device Type",
+               "type": "string"
             },
             "name": {
                "title": "Device name",
@@ -1765,7 +2109,11 @@
             "device_type": {
                "const": "Detector",
                "default": "Detector",
-               "title": "Device Type"
+               "enum": [
+                  "Detector"
+               ],
+               "title": "Device Type",
+               "type": "string"
             },
             "name": {
                "title": "Device name",
@@ -2624,7 +2972,11 @@
             "device_type": {
                "const": "Digital Micromirror Device",
                "default": "Digital Micromirror Device",
-               "title": "Device Type"
+               "enum": [
+                  "Digital Micromirror Device"
+               ],
+               "title": "Device Type",
+               "type": "string"
             },
             "name": {
                "title": "Device name",
@@ -3145,7 +3497,11 @@
             "device_type": {
                "const": "Disc",
                "default": "Disc",
-               "title": "Device Type"
+               "enum": [
+                  "Disc"
+               ],
+               "title": "Device Type",
+               "type": "string"
             },
             "name": {
                "title": "Device name",
@@ -3651,22 +4007,38 @@
             "name": {
                "const": "Dodotronic",
                "default": "Dodotronic",
-               "title": "Name"
+               "enum": [
+                  "Dodotronic"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "const": null,
                "default": null,
-               "title": "Registry"
+               "enum": [
+                  null
+               ],
+               "title": "Registry",
+               "type": "null"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "title": "Registry Identifier"
+               "enum": [
+                  null
+               ],
+               "title": "Registry Identifier",
+               "type": "null"
             }
          },
          "title": "Dodotronic",
@@ -3679,12 +4051,20 @@
             "name": {
                "const": "Doric",
                "default": "Doric",
-               "title": "Name"
+               "enum": [
+                  "Doric"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "default": {
@@ -3707,7 +4087,11 @@
             "registry_identifier": {
                "const": "059n53q30",
                "default": "059n53q30",
-               "title": "Registry Identifier"
+               "enum": [
+                  "059n53q30"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
             }
          },
          "title": "Doric",
@@ -3720,22 +4104,38 @@
             "name": {
                "const": "Ealing",
                "default": "Ealing",
-               "title": "Name"
+               "enum": [
+                  "Ealing"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "const": null,
                "default": null,
-               "title": "Registry"
+               "enum": [
+                  null
+               ],
+               "title": "Registry",
+               "type": "null"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "title": "Registry Identifier"
+               "enum": [
+                  null
+               ],
+               "title": "Registry Identifier",
+               "type": "null"
             }
          },
          "title": "Ealing",
@@ -3748,12 +4148,20 @@
             "name": {
                "const": "Extracellular electrophysiology",
                "default": "Extracellular electrophysiology",
-               "title": "Name"
+               "enum": [
+                  "Extracellular electrophysiology"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": "ecephys",
                "default": "ecephys",
-               "title": "Abbreviation"
+               "enum": [
+                  "ecephys"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
             }
          },
          "title": "Ecephys",
@@ -3766,12 +4174,20 @@
             "name": {
                "const": "Edmund Optics",
                "default": "Edmund Optics",
-               "title": "Name"
+               "enum": [
+                  "Edmund Optics"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "default": {
@@ -3794,7 +4210,11 @@
             "registry_identifier": {
                "const": "01j1gwp17",
                "default": "01j1gwp17",
-               "title": "Registry Identifier"
+               "enum": [
+                  "01j1gwp17"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
             }
          },
          "title": "EdmundOptics",
@@ -3807,12 +4227,20 @@
             "name": {
                "const": "Electromyography",
                "default": "Electromyography",
-               "title": "Name"
+               "enum": [
+                  "Electromyography"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": "EMG",
                "default": "EMG",
-               "title": "Abbreviation"
+               "enum": [
+                  "EMG"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
             }
          },
          "title": "Electromyography",
@@ -3825,7 +4253,11 @@
             "device_type": {
                "const": "Enclosure",
                "default": "Enclosure",
-               "title": "Device Type"
+               "enum": [
+                  "Enclosure"
+               ],
+               "title": "Device Type",
+               "type": "string"
             },
             "name": {
                "title": "Device name",
@@ -4294,7 +4726,11 @@
             "device_type": {
                "const": "Ephys probe",
                "default": "Ephys probe",
-               "title": "Device Type"
+               "enum": [
+                  "Ephys probe"
+               ],
+               "title": "Device Type",
+               "type": "string"
             },
             "name": {
                "title": "Device name",
@@ -4731,22 +5167,38 @@
             "name": {
                "const": "Euresys",
                "default": "Euresys",
-               "title": "Name"
+               "enum": [
+                  "Euresys"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "const": null,
                "default": null,
-               "title": "Registry"
+               "enum": [
+                  null
+               ],
+               "title": "Registry",
+               "type": "null"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "title": "Registry Identifier"
+               "enum": [
+                  null
+               ],
+               "title": "Registry Identifier",
+               "type": "null"
             }
          },
          "title": "Euresys",
@@ -4768,12 +5220,20 @@
             "name": {
                "const": "Fiber photometry",
                "default": "Fiber photometry",
-               "title": "Name"
+               "enum": [
+                  "Fiber photometry"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": "fib",
                "default": "fib",
-               "title": "Abbreviation"
+               "enum": [
+                  "fib"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
             }
          },
          "title": "Fib",
@@ -4813,7 +5273,11 @@
             "device_type": {
                "const": "Fiber optic probe",
                "default": "Fiber optic probe",
-               "title": "Device Type"
+               "enum": [
+                  "Fiber optic probe"
+               ],
+               "title": "Device Type",
+               "type": "string"
             },
             "name": {
                "title": "Device name",
@@ -5303,7 +5767,11 @@
             "device_type": {
                "const": "Filter",
                "default": "Filter",
-               "title": "Device Type"
+               "enum": [
+                  "Filter"
+               ],
+               "title": "Device Type",
+               "type": "string"
             },
             "name": {
                "title": "Device name",
@@ -5595,12 +6063,20 @@
             "name": {
                "const": "Fluorescence micro-optical sectioning tomography",
                "default": "Fluorescence micro-optical sectioning tomography",
-               "title": "Name"
+               "enum": [
+                  "Fluorescence micro-optical sectioning tomography"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": "fMOST",
                "default": "fMOST",
-               "title": "Abbreviation"
+               "enum": [
+                  "fMOST"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
             }
          },
          "title": "Fmost",
@@ -5623,22 +6099,38 @@
             "name": {
                "const": "Fujinon",
                "default": "Fujinon",
-               "title": "Name"
+               "enum": [
+                  "Fujinon"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "const": null,
                "default": null,
-               "title": "Registry"
+               "enum": [
+                  null
+               ],
+               "title": "Registry",
+               "type": "null"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "title": "Registry Identifier"
+               "enum": [
+                  null
+               ],
+               "title": "Registry Identifier",
+               "type": "null"
             }
          },
          "title": "Fujinon",
@@ -5650,7 +6142,11 @@
             "name": {
                "const": "Generic Harp Device",
                "default": "Generic Harp Device",
-               "title": "Name"
+               "enum": [
+                  "Generic Harp Device"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "whoami": {
                "default": 0,
@@ -5670,12 +6166,20 @@
             "name": {
                "const": "Hamamatsu",
                "default": "Hamamatsu",
-               "title": "Name"
+               "enum": [
+                  "Hamamatsu"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "default": {
@@ -5698,7 +6202,11 @@
             "registry_identifier": {
                "const": "03natb733",
                "default": "03natb733",
-               "title": "Registry Identifier"
+               "enum": [
+                  "03natb733"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
             }
          },
          "title": "Hamamatsu",
@@ -5711,22 +6219,38 @@
             "name": {
                "const": "Hamilton",
                "default": "Hamilton",
-               "title": "Name"
+               "enum": [
+                  "Hamilton"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "const": null,
                "default": null,
-               "title": "Registry"
+               "enum": [
+                  null
+               ],
+               "title": "Registry",
+               "type": "null"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "title": "Registry Identifier"
+               "enum": [
+                  null
+               ],
+               "title": "Registry Identifier",
+               "type": "null"
             }
          },
          "title": "Hamilton",
@@ -5739,7 +6263,11 @@
             "device_type": {
                "const": "Harp device",
                "default": "Harp device",
-               "title": "Device Type"
+               "enum": [
+                  "Harp device"
+               ],
+               "title": "Device Type",
+               "type": "string"
             },
             "name": {
                "title": "Device name",
@@ -6026,7 +6554,11 @@
             "device_type": {
                "const": "Headstage",
                "default": "Headstage",
-               "title": "Device Type"
+               "enum": [
+                  "Headstage"
+               ],
+               "title": "Device Type",
+               "type": "string"
             },
             "name": {
                "title": "Device name",
@@ -6434,12 +6966,20 @@
             "name": {
                "const": "Huazhong University of Science and Technology",
                "default": "Huazhong University of Science and Technology",
-               "title": "Name"
+               "enum": [
+                  "Huazhong University of Science and Technology"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": "HUST",
                "default": "HUST",
-               "title": "Abbreviation"
+               "enum": [
+                  "HUST"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
             },
             "registry": {
                "default": {
@@ -6462,7 +7002,11 @@
             "registry_identifier": {
                "const": "00p991c53",
                "default": "00p991c53",
-               "title": "Registry Identifier"
+               "enum": [
+                  "00p991c53"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
             }
          },
          "title": "HuazhongUniversityOfScienceAndTechnology",
@@ -6475,22 +7019,38 @@
             "name": {
                "const": "IR Robot Co",
                "default": "IR Robot Co",
-               "title": "Name"
+               "enum": [
+                  "IR Robot Co"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "const": null,
                "default": null,
-               "title": "Registry"
+               "enum": [
+                  null
+               ],
+               "title": "Registry",
+               "type": "null"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "title": "Registry Identifier"
+               "enum": [
+                  null
+               ],
+               "title": "Registry Identifier",
+               "type": "null"
             }
          },
          "title": "IRRobotCo",
@@ -6503,22 +7063,38 @@
             "name": {
                "const": "ISL Products International",
                "default": "ISL Products International",
-               "title": "Name"
+               "enum": [
+                  "ISL Products International"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": "ISL",
                "default": "ISL",
-               "title": "Abbreviation"
+               "enum": [
+                  "ISL"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
             },
             "registry": {
                "const": null,
                "default": null,
-               "title": "Registry"
+               "enum": [
+                  null
+               ],
+               "title": "Registry",
+               "type": "null"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "title": "Registry Identifier"
+               "enum": [
+                  null
+               ],
+               "title": "Registry Identifier",
+               "type": "null"
             }
          },
          "title": "ISLProductsInternational",
@@ -6531,12 +7107,20 @@
             "name": {
                "const": "Intracellular electrophysiology",
                "default": "Intracellular electrophysiology",
-               "title": "Name"
+               "enum": [
+                  "Intracellular electrophysiology"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": "icephys",
                "default": "icephys",
-               "title": "Abbreviation"
+               "enum": [
+                  "icephys"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
             }
          },
          "title": "Icephys",
@@ -6565,22 +7149,38 @@
             "name": {
                "const": "Infinity Photo-Optical",
                "default": "Infinity Photo-Optical",
-               "title": "Name"
+               "enum": [
+                  "Infinity Photo-Optical"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "const": null,
                "default": null,
-               "title": "Registry"
+               "enum": [
+                  null
+               ],
+               "title": "Registry",
+               "type": "null"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "title": "Registry Identifier"
+               "enum": [
+                  null
+               ],
+               "title": "Registry Identifier",
+               "type": "null"
             }
          },
          "title": "InfinityPhotoOptical",
@@ -6592,12 +7192,20 @@
             "name": {
                "const": "Input Expander",
                "default": "Input Expander",
-               "title": "Name"
+               "enum": [
+                  "Input Expander"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "whoami": {
                "const": 1106,
                "default": 1106,
-               "title": "Whoami"
+               "enum": [
+                  1106
+               ],
+               "title": "Whoami",
+               "type": "integer"
             }
          },
          "title": "InputExpander",
@@ -6610,12 +7218,20 @@
             "name": {
                "const": "Interuniversity Microelectronics Center",
                "default": "Interuniversity Microelectronics Center",
-               "title": "Name"
+               "enum": [
+                  "Interuniversity Microelectronics Center"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": "IMEC",
                "default": "IMEC",
-               "title": "Abbreviation"
+               "enum": [
+                  "IMEC"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
             },
             "registry": {
                "default": {
@@ -6638,7 +7254,11 @@
             "registry_identifier": {
                "const": "02kcbn207",
                "default": "02kcbn207",
-               "title": "Registry Identifier"
+               "enum": [
+                  "02kcbn207"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
             }
          },
          "title": "InteruniversityMicroelectronicsCenter",
@@ -6651,12 +7271,20 @@
             "name": {
                "const": "Intrinsic signal imaging",
                "default": "Intrinsic signal imaging",
-               "title": "Name"
+               "enum": [
+                  "Intrinsic signal imaging"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": "ISI",
                "default": "ISI",
-               "title": "Abbreviation"
+               "enum": [
+                  "ISI"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
             }
          },
          "title": "Isi",
@@ -6669,12 +7297,20 @@
             "name": {
                "const": "Jackson Laboratory",
                "default": "Jackson Laboratory",
-               "title": "Name"
+               "enum": [
+                  "Jackson Laboratory"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": "JAX",
                "default": "JAX",
-               "title": "Abbreviation"
+               "enum": [
+                  "JAX"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
             },
             "registry": {
                "default": {
@@ -6697,7 +7333,11 @@
             "registry_identifier": {
                "const": "021sy4w91",
                "default": "021sy4w91",
-               "title": "Registry Identifier"
+               "enum": [
+                  "021sy4w91"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
             }
          },
          "title": "JacksonLaboratory",
@@ -6710,22 +7350,38 @@
             "name": {
                "const": "Julabo",
                "default": "Julabo",
-               "title": "Name"
+               "enum": [
+                  "Julabo"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "const": null,
                "default": null,
-               "title": "Registry"
+               "enum": [
+                  null
+               ],
+               "title": "Registry",
+               "type": "null"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "title": "Registry Identifier"
+               "enum": [
+                  null
+               ],
+               "title": "Registry Identifier",
+               "type": "null"
             }
          },
          "title": "Julabo",
@@ -6738,7 +7394,11 @@
             "device_type": {
                "const": "Lamp",
                "default": "Lamp",
-               "title": "Device Type"
+               "enum": [
+                  "Lamp"
+               ],
+               "title": "Device Type",
+               "type": "string"
             },
             "name": {
                "title": "Device name",
@@ -7200,7 +7860,11 @@
             "device_type": {
                "const": "Laser",
                "default": "Laser",
-               "title": "Device Type"
+               "enum": [
+                  "Laser"
+               ],
+               "title": "Device Type",
+               "type": "string"
             },
             "name": {
                "title": "Device name",
@@ -7377,7 +8041,11 @@
             "coupling_efficiency_unit": {
                "const": "percent",
                "default": "percent",
-               "title": "Coupling efficiency unit"
+               "enum": [
+                  "percent"
+               ],
+               "title": "Coupling efficiency unit",
+               "type": "string"
             },
             "item_number": {
                "anyOf": [
@@ -7434,22 +8102,38 @@
             "name": {
                "const": "Leica",
                "default": "Leica",
-               "title": "Name"
+               "enum": [
+                  "Leica"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "const": null,
                "default": null,
-               "title": "Registry"
+               "enum": [
+                  null
+               ],
+               "title": "Registry",
+               "type": "null"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "title": "Registry Identifier"
+               "enum": [
+                  null
+               ],
+               "title": "Registry Identifier",
+               "type": "null"
             }
          },
          "title": "Leica",
@@ -7462,7 +8146,11 @@
             "device_type": {
                "const": "Lens",
                "default": "Lens",
-               "title": "Device Type"
+               "enum": [
+                  "Lens"
+               ],
+               "title": "Device Type",
+               "type": "string"
             },
             "name": {
                "title": "Device name",
@@ -7702,12 +8390,20 @@
             "name": {
                "const": "LG",
                "default": "LG",
-               "title": "Name"
+               "enum": [
+                  "LG"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "default": {
@@ -7730,7 +8426,11 @@
             "registry_identifier": {
                "const": "02b948n83",
                "default": "02b948n83",
-               "title": "Registry Identifier"
+               "enum": [
+                  "02b948n83"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
             }
          },
          "title": "Lg",
@@ -7751,12 +8451,20 @@
             "name": {
                "const": "Lickety Split",
                "default": "Lickety Split",
-               "title": "Name"
+               "enum": [
+                  "Lickety Split"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "whoami": {
                "const": 1400,
                "default": 1400,
-               "title": "Whoami"
+               "enum": [
+                  1400
+               ],
+               "title": "Whoami",
+               "type": "integer"
             }
          },
          "title": "LicketySplit",
@@ -7769,22 +8477,38 @@
             "name": {
                "const": "LifeCanvas",
                "default": "LifeCanvas",
-               "title": "Name"
+               "enum": [
+                  "LifeCanvas"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "const": null,
                "default": null,
-               "title": "Registry"
+               "enum": [
+                  null
+               ],
+               "title": "Registry",
+               "type": "null"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "title": "Registry Identifier"
+               "enum": [
+                  null
+               ],
+               "title": "Registry Identifier",
+               "type": "null"
             }
          },
          "title": "LifeCanvas",
@@ -7797,7 +8521,11 @@
             "device_type": {
                "const": "Light emitting diode",
                "default": "Light emitting diode",
-               "title": "Device Type"
+               "enum": [
+                  "Light emitting diode"
+               ],
+               "title": "Device Type",
+               "type": "string"
             },
             "name": {
                "title": "Device name",
@@ -7931,12 +8659,20 @@
             "name": {
                "const": "Load Cells",
                "default": "Load Cells",
-               "title": "Name"
+               "enum": [
+                  "Load Cells"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "whoami": {
                "const": 1232,
                "default": 1232,
-               "title": "Whoami"
+               "enum": [
+                  1232
+               ],
+               "title": "Whoami",
+               "type": "integer"
             }
          },
          "title": "LoadCells",
@@ -7949,12 +8685,20 @@
             "name": {
                "const": "MKS Newport",
                "default": "MKS Newport",
-               "title": "Name"
+               "enum": [
+                  "MKS Newport"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "default": {
@@ -7977,7 +8721,11 @@
             "registry_identifier": {
                "const": "00k17f049",
                "default": "00k17f049",
-               "title": "Registry Identifier"
+               "enum": [
+                  "00k17f049"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
             }
          },
          "title": "MKSNewport",
@@ -7990,7 +8738,11 @@
             "device_type": {
                "const": "Manipulator",
                "default": "Manipulator",
-               "title": "Device Type"
+               "enum": [
+                  "Manipulator"
+               ],
+               "title": "Device Type",
+               "type": "string"
             },
             "name": {
                "title": "Device name",
@@ -8099,12 +8851,20 @@
             "name": {
                "const": "Meadowlark Optics",
                "default": "Meadowlark Optics",
-               "title": "Name"
+               "enum": [
+                  "Meadowlark Optics"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "default": {
@@ -8127,7 +8887,11 @@
             "registry_identifier": {
                "const": "00n8qbq54",
                "default": "00n8qbq54",
-               "title": "Registry Identifier"
+               "enum": [
+                  "00n8qbq54"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
             }
          },
          "title": "MeadowlarkOptics",
@@ -8140,12 +8904,20 @@
             "name": {
                "const": "Multiplexed error-robust fluorescence in situ hybridization",
                "default": "Multiplexed error-robust fluorescence in situ hybridization",
-               "title": "Name"
+               "enum": [
+                  "Multiplexed error-robust fluorescence in situ hybridization"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": "merfish",
                "default": "merfish",
-               "title": "Abbreviation"
+               "enum": [
+                  "merfish"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
             }
          },
          "title": "Merfish",
@@ -8158,22 +8930,38 @@
             "name": {
                "const": "Mitutuyo",
                "default": "Mitutuyo",
-               "title": "Name"
+               "enum": [
+                  "Mitutuyo"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "const": null,
                "default": null,
-               "title": "Registry"
+               "enum": [
+                  null
+               ],
+               "title": "Registry",
+               "type": "null"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "title": "Registry Identifier"
+               "enum": [
+                  null
+               ],
+               "title": "Registry Identifier",
+               "type": "null"
             }
          },
          "title": "Mitutuyo",
@@ -8186,7 +8974,11 @@
             "device_type": {
                "const": "Monitor",
                "default": "Monitor",
-               "title": "Device Type"
+               "enum": [
+                  "Monitor"
+               ],
+               "title": "Device Type",
+               "type": "string"
             },
             "name": {
                "title": "Device name",
@@ -8387,7 +9179,11 @@
             "device_type": {
                "const": "Motorized stage",
                "default": "Motorized stage",
-               "title": "Device Type"
+               "enum": [
+                  "Motorized stage"
+               ],
+               "title": "Device Type",
+               "type": "string"
             },
             "name": {
                "title": "Device name",
@@ -8828,22 +9624,38 @@
             "name": {
                "const": "MPI",
                "default": "MPI",
-               "title": "Name"
+               "enum": [
+                  "MPI"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": "MPI",
                "default": "MPI",
-               "title": "Abbreviation"
+               "enum": [
+                  "MPI"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
             },
             "registry": {
                "const": null,
                "default": null,
-               "title": "Registry"
+               "enum": [
+                  null
+               ],
+               "title": "Registry",
+               "type": "null"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "title": "Registry Identifier"
+               "enum": [
+                  null
+               ],
+               "title": "Registry Identifier",
+               "type": "null"
             }
          },
          "title": "Mpi",
@@ -8856,12 +9668,20 @@
             "name": {
                "const": "Magnetic resonance imaging",
                "default": "Magnetic resonance imaging",
-               "title": "Name"
+               "enum": [
+                  "Magnetic resonance imaging"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": "MRI",
                "default": "MRI",
-               "title": "Abbreviation"
+               "enum": [
+                  "MRI"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
             }
          },
          "title": "Mri",
@@ -8874,22 +9694,38 @@
             "name": {
                "const": "NResearch Inc",
                "default": "NResearch Inc",
-               "title": "Name"
+               "enum": [
+                  "NResearch Inc"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "const": null,
                "default": null,
-               "title": "Registry"
+               "enum": [
+                  null
+               ],
+               "title": "Registry",
+               "type": "null"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "title": "Registry Identifier"
+               "enum": [
+                  null
+               ],
+               "title": "Registry Identifier",
+               "type": "null"
             }
          },
          "title": "NResearch",
@@ -8902,12 +9738,20 @@
             "name": {
                "const": "National Institute of Neurological Disorders and Stroke",
                "default": "National Institute of Neurological Disorders and Stroke",
-               "title": "Name"
+               "enum": [
+                  "National Institute of Neurological Disorders and Stroke"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": "NINDS",
                "default": "NINDS",
-               "title": "Abbreviation"
+               "enum": [
+                  "NINDS"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
             },
             "registry": {
                "default": {
@@ -8930,7 +9774,11 @@
             "registry_identifier": {
                "const": "01s5ya894",
                "default": "01s5ya894",
-               "title": "Registry Identifier"
+               "enum": [
+                  "01s5ya894"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
             }
          },
          "title": "NationalInstituteOfNeurologicalDisordersAndStroke",
@@ -8943,12 +9791,20 @@
             "name": {
                "const": "National Instruments",
                "default": "National Instruments",
-               "title": "Name"
+               "enum": [
+                  "National Instruments"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "default": {
@@ -8971,7 +9827,11 @@
             "registry_identifier": {
                "const": "026exqw73",
                "default": "026exqw73",
-               "title": "Registry Identifier"
+               "enum": [
+                  "026exqw73"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
             }
          },
          "title": "NationalInstruments",
@@ -8984,22 +9844,38 @@
             "name": {
                "const": "Navitar",
                "default": "Navitar",
-               "title": "Name"
+               "enum": [
+                  "Navitar"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "const": null,
                "default": null,
-               "title": "Registry"
+               "enum": [
+                  null
+               ],
+               "title": "Registry",
+               "type": "null"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "title": "Registry Identifier"
+               "enum": [
+                  null
+               ],
+               "title": "Registry Identifier",
+               "type": "null"
             }
          },
          "title": "Navitar",
@@ -9012,22 +9888,38 @@
             "name": {
                "const": "Neurophotometrics",
                "default": "Neurophotometrics",
-               "title": "Name"
+               "enum": [
+                  "Neurophotometrics"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "const": null,
                "default": null,
-               "title": "Registry"
+               "enum": [
+                  null
+               ],
+               "title": "Registry",
+               "type": "null"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "title": "Registry Identifier"
+               "enum": [
+                  null
+               ],
+               "title": "Registry Identifier",
+               "type": "null"
             }
          },
          "title": "Neurophotometrics",
@@ -9040,7 +9932,11 @@
             "device_type": {
                "const": "Neuropixels basestation",
                "default": "Neuropixels basestation",
-               "title": "Device Type"
+               "enum": [
+                  "Neuropixels basestation"
+               ],
+               "title": "Device Type",
+               "type": "string"
             },
             "name": {
                "title": "Device name",
@@ -9142,7 +10038,11 @@
             "data_interface": {
                "const": "PXI",
                "default": "PXI",
-               "title": "Data Interface"
+               "enum": [
+                  "PXI"
+               ],
+               "title": "Data Interface",
+               "type": "string"
             },
             "computer_name": {
                "title": "Name of computer controlling this DAQ",
@@ -9218,22 +10118,38 @@
             "name": {
                "const": "New Scale Technologies",
                "default": "New Scale Technologies",
-               "title": "Name"
+               "enum": [
+                  "New Scale Technologies"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "const": null,
                "default": null,
-               "title": "Registry"
+               "enum": [
+                  null
+               ],
+               "title": "Registry",
+               "type": "null"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "title": "Registry Identifier"
+               "enum": [
+                  null
+               ],
+               "title": "Registry Identifier",
+               "type": "null"
             }
          },
          "title": "NewScaleTechnologies",
@@ -9246,12 +10162,20 @@
             "name": {
                "const": "New York University",
                "default": "New York University",
-               "title": "Name"
+               "enum": [
+                  "New York University"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": "NYU",
                "default": "NYU",
-               "title": "Abbreviation"
+               "enum": [
+                  "NYU"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
             },
             "registry": {
                "default": {
@@ -9274,7 +10198,11 @@
             "registry_identifier": {
                "const": "0190ak572",
                "default": "0190ak572",
-               "title": "Registry Identifier"
+               "enum": [
+                  "0190ak572"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
             }
          },
          "title": "NewYorkUniversity",
@@ -9287,12 +10215,20 @@
             "name": {
                "const": "Nikon",
                "default": "Nikon",
-               "title": "Name"
+               "enum": [
+                  "Nikon"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "default": {
@@ -9315,7 +10251,11 @@
             "registry_identifier": {
                "const": "0280y9h11",
                "default": "0280y9h11",
-               "title": "Registry Identifier"
+               "enum": [
+                  "0280y9h11"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
             }
          },
          "title": "Nikon",
@@ -9328,7 +10268,11 @@
             "device_type": {
                "const": "Objective",
                "default": "Objective",
-               "title": "Device Type"
+               "enum": [
+                  "Objective"
+               ],
+               "title": "Device Type",
+               "type": "string"
             },
             "name": {
                "title": "Device name",
@@ -9828,12 +10772,20 @@
             "name": {
                "const": "Olympus",
                "default": "Olympus",
-               "title": "Name"
+               "enum": [
+                  "Olympus"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "default": {
@@ -9856,7 +10808,11 @@
             "registry_identifier": {
                "const": "02vcdte90",
                "default": "02vcdte90",
-               "title": "Registry Identifier"
+               "enum": [
+                  "02vcdte90"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
             }
          },
          "title": "Olympus",
@@ -9869,7 +10825,11 @@
             "device_type": {
                "const": "Open Ephys Acquisition Board",
                "default": "Open Ephys Acquisition Board",
-               "title": "Device Type"
+               "enum": [
+                  "Open Ephys Acquisition Board"
+               ],
+               "title": "Device Type",
+               "type": "string"
             },
             "name": {
                "title": "Device name",
@@ -9995,7 +10955,11 @@
             "data_interface": {
                "const": "USB",
                "default": "USB",
-               "title": "Data Interface"
+               "enum": [
+                  "USB"
+               ],
+               "title": "Data Interface",
+               "type": "string"
             },
             "computer_name": {
                "title": "Name of computer controlling this DAQ",
@@ -10056,12 +11020,20 @@
             "name": {
                "const": "Open Ephys Production Site",
                "default": "Open Ephys Production Site",
-               "title": "Name"
+               "enum": [
+                  "Open Ephys Production Site"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": "OEPS",
                "default": "OEPS",
-               "title": "Abbreviation"
+               "enum": [
+                  "OEPS"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
             },
             "registry": {
                "default": {
@@ -10084,7 +11056,11 @@
             "registry_identifier": {
                "const": "007rkz355",
                "default": "007rkz355",
-               "title": "Registry Identifier"
+               "enum": [
+                  "007rkz355"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
             }
          },
          "title": "OpenEphysProductionSite",
@@ -10097,22 +11073,38 @@
             "name": {
                "const": "Optotune",
                "default": "Optotune",
-               "title": "Name"
+               "enum": [
+                  "Optotune"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "const": null,
                "default": null,
-               "title": "Registry"
+               "enum": [
+                  null
+               ],
+               "title": "Registry",
+               "type": "null"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "title": "Registry Identifier"
+               "enum": [
+                  null
+               ],
+               "title": "Registry Identifier",
+               "type": "null"
             }
          },
          "title": "Optotune",
@@ -10135,22 +11127,38 @@
             "name": {
                "const": "Other",
                "default": "Other",
-               "title": "Name"
+               "enum": [
+                  "Other"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "const": null,
                "default": null,
-               "title": "Registry"
+               "enum": [
+                  null
+               ],
+               "title": "Registry",
+               "type": "null"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "title": "Registry Identifier"
+               "enum": [
+                  null
+               ],
+               "title": "Registry Identifier",
+               "type": "null"
             }
          },
          "title": "Other",
@@ -10163,22 +11171,38 @@
             "name": {
                "const": "Oxxius",
                "default": "Oxxius",
-               "title": "Name"
+               "enum": [
+                  "Oxxius"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "const": null,
                "default": null,
-               "title": "Registry"
+               "enum": [
+                  null
+               ],
+               "title": "Registry",
+               "type": "null"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "title": "Registry Identifier"
+               "enum": [
+                  null
+               ],
+               "title": "Registry Identifier",
+               "type": "null"
             }
          },
          "title": "Oxxius",
@@ -10191,12 +11215,20 @@
             "name": {
                "const": "Planar optical physiology",
                "default": "Planar optical physiology",
-               "title": "Name"
+               "enum": [
+                  "Planar optical physiology"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": "ophys",
                "default": "ophys",
-               "title": "Abbreviation"
+               "enum": [
+                  "ophys"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
             }
          },
          "title": "POphys",
@@ -10209,7 +11241,11 @@
             "device_type": {
                "const": "Patch",
                "default": "Patch",
-               "title": "Device Type"
+               "enum": [
+                  "Patch"
+               ],
+               "title": "Device Type",
+               "type": "string"
             },
             "name": {
                "title": "Device name",
@@ -10654,7 +11690,11 @@
             "device_type": {
                "const": "Pockels Cell",
                "default": "Pockels Cell",
-               "title": "Device Type"
+               "enum": [
+                  "Pockels Cell"
+               ],
+               "title": "Device Type",
+               "type": "string"
             },
             "name": {
                "title": "Device name",
@@ -11101,7 +12141,11 @@
             "device_type": {
                "const": "Polygonal Scanner",
                "default": "Polygonal Scanner",
-               "title": "Device Type"
+               "enum": [
+                  "Polygonal Scanner"
+               ],
+               "title": "Device Type",
+               "type": "string"
             },
             "name": {
                "title": "Device name",
@@ -11538,22 +12582,38 @@
             "name": {
                "const": "Prizmatix",
                "default": "Prizmatix",
-               "title": "Name"
+               "enum": [
+                  "Prizmatix"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "const": null,
                "default": null,
-               "title": "Registry"
+               "enum": [
+                  null
+               ],
+               "title": "Registry",
+               "type": "null"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "title": "Registry Identifier"
+               "enum": [
+                  null
+               ],
+               "title": "Registry Identifier",
+               "type": "null"
             }
          },
          "title": "Prizmatix",
@@ -11605,22 +12665,38 @@
             "name": {
                "const": "Quantifi",
                "default": "Quantifi",
-               "title": "Name"
+               "enum": [
+                  "Quantifi"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "const": null,
                "default": null,
-               "title": "Registry"
+               "enum": [
+                  null
+               ],
+               "title": "Registry",
+               "type": "null"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "title": "Registry Identifier"
+               "enum": [
+                  null
+               ],
+               "title": "Registry Identifier",
+               "type": "null"
             }
          },
          "title": "Quantifi",
@@ -11633,22 +12709,38 @@
             "name": {
                "const": "Raspberry Pi",
                "default": "Raspberry Pi",
-               "title": "Name"
+               "enum": [
+                  "Raspberry Pi"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "const": null,
                "default": null,
-               "title": "Registry"
+               "enum": [
+                  null
+               ],
+               "title": "Registry",
+               "type": "null"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "title": "Registry Identifier"
+               "enum": [
+                  null
+               ],
+               "title": "Registry Identifier",
+               "type": "null"
             }
          },
          "title": "RaspberryPi",
@@ -11721,12 +12813,20 @@
             "name": {
                "const": "Research Organization Registry",
                "default": "Research Organization Registry",
-               "title": "Name"
+               "enum": [
+                  "Research Organization Registry"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": "ROR",
                "default": "ROR",
-               "title": "Abbreviation"
+               "enum": [
+                  "ROR"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
             }
          },
          "title": "ResearchOrganizationRegistry",
@@ -11739,7 +12839,11 @@
             "device_type": {
                "const": "Reward delivery",
                "default": "Reward delivery",
-               "title": "Device Type"
+               "enum": [
+                  "Reward delivery"
+               ],
+               "title": "Device Type",
+               "type": "string"
             },
             "stage_type": {
                "anyOf": [
@@ -11774,7 +12878,11 @@
             "device_type": {
                "const": "Reward spout",
                "default": "Reward spout",
-               "title": "Device Type"
+               "enum": [
+                  "Reward spout"
+               ],
+               "title": "Device Type",
+               "type": "string"
             },
             "name": {
                "title": "Device name",
@@ -12261,7 +13369,11 @@
             "type": {
                "const": "rotation",
                "default": "rotation",
-               "title": "Type"
+               "enum": [
+                  "rotation"
+               ],
+               "title": "Type",
+               "type": "string"
             },
             "rotation": {
                "items": {
@@ -12293,22 +13405,38 @@
             "name": {
                "const": "Schneider-Kreuznach",
                "default": "Schneider-Kreuznach",
-               "title": "Name"
+               "enum": [
+                  "Schneider-Kreuznach"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "const": null,
                "default": null,
-               "title": "Registry"
+               "enum": [
+                  null
+               ],
+               "title": "Registry",
+               "type": "null"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "title": "Registry Identifier"
+               "enum": [
+                  null
+               ],
+               "title": "Registry Identifier",
+               "type": "null"
             }
          },
          "title": "SchneiderKreuznach",
@@ -12321,22 +13449,38 @@
             "name": {
                "const": "Second Order Effects",
                "default": "Second Order Effects",
-               "title": "Name"
+               "enum": [
+                  "Second Order Effects"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "const": null,
                "default": null,
-               "title": "Registry"
+               "enum": [
+                  null
+               ],
+               "title": "Registry",
+               "type": "null"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "title": "Registry Identifier"
+               "enum": [
+                  null
+               ],
+               "title": "Registry Identifier",
+               "type": "null"
             }
          },
          "title": "SecondOrderEffects",
@@ -12349,22 +13493,38 @@
             "name": {
                "const": "Semrock",
                "default": "Semrock",
-               "title": "Name"
+               "enum": [
+                  "Semrock"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "const": null,
                "default": null,
-               "title": "Registry"
+               "enum": [
+                  null
+               ],
+               "title": "Registry",
+               "type": "null"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "title": "Registry Identifier"
+               "enum": [
+                  null
+               ],
+               "title": "Registry Identifier",
+               "type": "null"
             }
          },
          "title": "Semrock",
@@ -12377,22 +13537,38 @@
             "name": {
                "const": "Sigma-Aldritch",
                "default": "Sigma-Aldritch",
-               "title": "Name"
+               "enum": [
+                  "Sigma-Aldritch"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "const": null,
                "default": null,
-               "title": "Registry"
+               "enum": [
+                  null
+               ],
+               "title": "Registry",
+               "type": "null"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "title": "Registry Identifier"
+               "enum": [
+                  null
+               ],
+               "title": "Registry Identifier",
+               "type": "null"
             }
          },
          "title": "SigmaAldritch",
@@ -12405,12 +13581,20 @@
             "name": {
                "const": "Simons Foundation",
                "default": "Simons Foundation",
-               "title": "Name"
+               "enum": [
+                  "Simons Foundation"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "default": {
@@ -12433,7 +13617,11 @@
             "registry_identifier": {
                "const": "01cmst727",
                "default": "01cmst727",
-               "title": "Registry Identifier"
+               "enum": [
+                  "01cmst727"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
             }
          },
          "title": "SimonsFoundation",
@@ -12494,12 +13682,20 @@
             "name": {
                "const": "Scanned line projection imaging",
                "default": "Scanned line projection imaging",
-               "title": "Name"
+               "enum": [
+                  "Scanned line projection imaging"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": "slap",
                "default": "slap",
-               "title": "Abbreviation"
+               "enum": [
+                  "slap"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
             }
          },
          "title": "Slap",
@@ -12511,12 +13707,20 @@
             "name": {
                "const": "Sniff Detector",
                "default": "Sniff Detector",
-               "title": "Name"
+               "enum": [
+                  "Sniff Detector"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "whoami": {
                "const": 1401,
                "default": 1401,
-               "title": "Whoami"
+               "enum": [
+                  1401
+               ],
+               "title": "Whoami",
+               "type": "integer"
             }
          },
          "title": "SniffDetector",
@@ -12569,12 +13773,20 @@
             "name": {
                "const": "Sound Card",
                "default": "Sound Card",
-               "title": "Name"
+               "enum": [
+                  "Sound Card"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "whoami": {
                "const": 1280,
                "default": 1280,
-               "title": "Whoami"
+               "enum": [
+                  1280
+               ],
+               "title": "Whoami",
+               "type": "integer"
             }
          },
          "title": "SoundCard",
@@ -12587,7 +13799,11 @@
             "device_type": {
                "const": "Speaker",
                "default": "Speaker",
-               "title": "Device Type"
+               "enum": [
+                  "Speaker"
+               ],
+               "title": "Device Type",
+               "type": "string"
             },
             "name": {
                "title": "Device name",
@@ -12708,6 +13924,9 @@
       "SpeedUnit": {
          "const": "rotations per minute",
          "description": "Enumeration of Speed Measurements",
+         "enum": [
+            "rotations per minute"
+         ],
          "title": "SpeedUnit",
          "type": "string"
       },
@@ -12718,12 +13937,20 @@
             "name": {
                "const": "Selective plane illumination microscopy",
                "default": "Selective plane illumination microscopy",
-               "title": "Name"
+               "enum": [
+                  "Selective plane illumination microscopy"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": "SPIM",
                "default": "SPIM",
-               "title": "Abbreviation"
+               "enum": [
+                  "SPIM"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
             }
          },
          "title": "Spim",
@@ -12736,22 +13963,38 @@
             "name": {
                "const": "Spinnaker",
                "default": "Spinnaker",
-               "title": "Name"
+               "enum": [
+                  "Spinnaker"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "const": null,
                "default": null,
-               "title": "Registry"
+               "enum": [
+                  null
+               ],
+               "title": "Registry",
+               "type": "null"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "title": "Registry Identifier"
+               "enum": [
+                  null
+               ],
+               "title": "Registry Identifier",
+               "type": "null"
             }
          },
          "title": "Spinnaker",
@@ -12774,12 +14017,20 @@
             "name": {
                "const": "Stepper Driver",
                "default": "Stepper Driver",
-               "title": "Name"
+               "enum": [
+                  "Stepper Driver"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "whoami": {
                "const": 1130,
                "default": 1130,
-               "title": "Whoami"
+               "enum": [
+                  1130
+               ],
+               "title": "Whoami",
+               "type": "integer"
             }
          },
          "title": "StepperDriver",
@@ -12791,12 +14042,20 @@
             "name": {
                "const": "Synchronizer",
                "default": "Synchronizer",
-               "title": "Name"
+               "enum": [
+                  "Synchronizer"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "whoami": {
                "const": 1104,
                "default": 1104,
-               "title": "Whoami"
+               "enum": [
+                  1104
+               ],
+               "title": "Whoami",
+               "type": "integer"
             }
          },
          "title": "Synchronizer",
@@ -12809,22 +14068,38 @@
             "name": {
                "const": "Technical Manufacturing Corporation",
                "default": "Technical Manufacturing Corporation",
-               "title": "Name"
+               "enum": [
+                  "Technical Manufacturing Corporation"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": "TMC",
                "default": "TMC",
-               "title": "Abbreviation"
+               "enum": [
+                  "TMC"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
             },
             "registry": {
                "const": null,
                "default": null,
-               "title": "Registry"
+               "enum": [
+                  null
+               ],
+               "title": "Registry",
+               "type": "null"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "title": "Registry Identifier"
+               "enum": [
+                  null
+               ],
+               "title": "Registry Identifier",
+               "type": "null"
             }
          },
          "title": "TMC",
@@ -12837,22 +14112,38 @@
             "name": {
                "const": "Tamron",
                "default": "Tamron",
-               "title": "Name"
+               "enum": [
+                  "Tamron"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "const": null,
                "default": null,
-               "title": "Registry"
+               "enum": [
+                  null
+               ],
+               "title": "Registry",
+               "type": "null"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "title": "Registry Identifier"
+               "enum": [
+                  null
+               ],
+               "title": "Registry Identifier",
+               "type": "null"
             }
          },
          "title": "Tamron",
@@ -12865,12 +14156,20 @@
             "name": {
                "const": "Teledyne FLIR",
                "default": "Teledyne FLIR",
-               "title": "Name"
+               "enum": [
+                  "Teledyne FLIR"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": "FLIR",
                "default": "FLIR",
-               "title": "Abbreviation"
+               "enum": [
+                  "FLIR"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
             },
             "registry": {
                "default": {
@@ -12893,7 +14192,11 @@
             "registry_identifier": {
                "const": "01j1gwp17",
                "default": "01j1gwp17",
-               "title": "Registry Identifier"
+               "enum": [
+                  "01j1gwp17"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
             }
          },
          "title": "TeledyneFLIR",
@@ -12915,22 +14218,38 @@
             "name": {
                "const": "The Imaging Source",
                "default": "The Imaging Source",
-               "title": "Name"
+               "enum": [
+                  "The Imaging Source"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "const": null,
                "default": null,
-               "title": "Registry"
+               "enum": [
+                  null
+               ],
+               "title": "Registry",
+               "type": "null"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "title": "Registry Identifier"
+               "enum": [
+                  null
+               ],
+               "title": "Registry Identifier",
+               "type": "null"
             }
          },
          "title": "TheImagingSource",
@@ -12943,22 +14262,38 @@
             "name": {
                "const": "The Lee Company",
                "default": "The Lee Company",
-               "title": "Name"
+               "enum": [
+                  "The Lee Company"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "const": null,
                "default": null,
-               "title": "Registry"
+               "enum": [
+                  null
+               ],
+               "title": "Registry",
+               "type": "null"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "title": "Registry Identifier"
+               "enum": [
+                  null
+               ],
+               "title": "Registry Identifier",
+               "type": "null"
             }
          },
          "title": "TheLeeCompany",
@@ -12971,12 +14306,20 @@
             "name": {
                "const": "Thermo Fisher",
                "default": "Thermo Fisher",
-               "title": "Name"
+               "enum": [
+                  "Thermo Fisher"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "default": {
@@ -12999,7 +14342,11 @@
             "registry_identifier": {
                "const": "03x1ewr52",
                "default": "03x1ewr52",
-               "title": "Registry Identifier"
+               "enum": [
+                  "03x1ewr52"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
             }
          },
          "title": "Thermofisher",
@@ -13012,12 +14359,20 @@
             "name": {
                "const": "Thorlabs",
                "default": "Thorlabs",
-               "title": "Name"
+               "enum": [
+                  "Thorlabs"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "default": {
@@ -13040,7 +14395,11 @@
             "registry_identifier": {
                "const": "04gsnvb07",
                "default": "04gsnvb07",
-               "title": "Registry Identifier"
+               "enum": [
+                  "04gsnvb07"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
             }
          },
          "title": "Thorlabs",
@@ -13052,12 +14411,20 @@
             "name": {
                "const": "Timestamp Generator Gen 1",
                "default": "Timestamp Generator Gen 1",
-               "title": "Name"
+               "enum": [
+                  "Timestamp Generator Gen 1"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "whoami": {
                "const": 1154,
                "default": 1154,
-               "title": "Whoami"
+               "enum": [
+                  1154
+               ],
+               "title": "Whoami",
+               "type": "integer"
             }
          },
          "title": "TimestampGeneratorGen1",
@@ -13069,12 +14436,20 @@
             "name": {
                "const": "Timestamp Generator Gen 3",
                "default": "Timestamp Generator Gen 3",
-               "title": "Name"
+               "enum": [
+                  "Timestamp Generator Gen 3"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "whoami": {
                "const": 1158,
                "default": 1158,
-               "title": "Whoami"
+               "enum": [
+                  1158
+               ],
+               "title": "Whoami",
+               "type": "integer"
             }
          },
          "title": "TimestampGeneratorGen3",
@@ -13087,7 +14462,11 @@
             "type": {
                "const": "translation",
                "default": "translation",
-               "title": "Type"
+               "enum": [
+                  "translation"
+               ],
+               "title": "Type",
+               "type": "string"
             },
             "translation": {
                "items": {
@@ -13119,7 +14498,11 @@
             "device_type": {
                "const": "Tube",
                "default": "Tube",
-               "title": "Device Type"
+               "enum": [
+                  "Tube"
+               ],
+               "title": "Device Type",
+               "type": "string"
             },
             "name": {
                "title": "Device name",
@@ -13574,22 +14957,38 @@
             "name": {
                "const": "Tymphany",
                "default": "Tymphany",
-               "title": "Name"
+               "enum": [
+                  "Tymphany"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "const": null,
                "default": null,
-               "title": "Registry"
+               "enum": [
+                  null
+               ],
+               "title": "Registry",
+               "type": "null"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "title": "Registry Identifier"
+               "enum": [
+                  null
+               ],
+               "title": "Registry Identifier",
+               "type": "null"
             }
          },
          "title": "Tymphany",
@@ -13611,22 +15010,38 @@
             "name": {
                "const": "Vieworks",
                "default": "Vieworks",
-               "title": "Name"
+               "enum": [
+                  "Vieworks"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "const": null,
                "default": null,
-               "title": "Registry"
+               "enum": [
+                  null
+               ],
+               "title": "Registry",
+               "type": "null"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "title": "Registry Identifier"
+               "enum": [
+                  null
+               ],
+               "title": "Registry Identifier",
+               "type": "null"
             }
          },
          "title": "Vieworks",
@@ -13639,22 +15054,38 @@
             "name": {
                "const": "Vortran",
                "default": "Vortran",
-               "title": "Name"
+               "enum": [
+                  "Vortran"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "title": "Abbreviation"
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
             },
             "registry": {
                "const": null,
                "default": null,
-               "title": "Registry"
+               "enum": [
+                  null
+               ],
+               "title": "Registry",
+               "type": "null"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "title": "Registry Identifier"
+               "enum": [
+                  null
+               ],
+               "title": "Registry Identifier",
+               "type": "null"
             }
          },
          "title": "Vortran",
@@ -13667,7 +15098,11 @@
             "device_type": {
                "const": "Wheel",
                "default": "Wheel",
-               "title": "Device Type"
+               "enum": [
+                  "Wheel"
+               ],
+               "title": "Device Type",
+               "type": "string"
             },
             "name": {
                "title": "Device name",
@@ -14201,7 +15636,11 @@
             "device_type": {
                "const": "Olfactometer",
                "default": "Olfactometer",
-               "title": "Device Type"
+               "enum": [
+                  "Olfactometer"
+               ],
+               "title": "Device Type",
+               "type": "string"
             },
             "name": {
                "title": "Device name",
@@ -14431,7 +15870,11 @@
             "device_type": {
                "const": "Treadmill",
                "default": "Treadmill",
-               "title": "Device Type"
+               "enum": [
+                  "Treadmill"
+               ],
+               "title": "Device Type",
+               "type": "string"
             },
             "name": {
                "title": "Device name",
@@ -14884,12 +16327,20 @@
             "name": {
                "const": "Behavior",
                "default": "Behavior",
-               "title": "Name"
+               "enum": [
+                  "Behavior"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "whoami": {
                "const": 1216,
                "default": 1216,
-               "title": "Whoami"
+               "enum": [
+                  1216
+               ],
+               "title": "Whoami",
+               "type": "integer"
             }
          },
          "title": "Behavior",
@@ -14901,12 +16352,20 @@
             "name": {
                "const": "Olfactometer",
                "default": "Olfactometer",
-               "title": "Name"
+               "enum": [
+                  "Olfactometer"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "whoami": {
                "const": 1140,
                "default": 1140,
-               "title": "Whoami"
+               "enum": [
+                  1140
+               ],
+               "title": "Whoami",
+               "type": "integer"
             }
          },
          "title": "Olfactometer",
@@ -14918,12 +16377,20 @@
             "name": {
                "const": "Treadmill",
                "default": "Treadmill",
-               "title": "Name"
+               "enum": [
+                  "Treadmill"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "whoami": {
                "const": 1402,
                "default": 1402,
-               "title": "Whoami"
+               "enum": [
+                  1402
+               ],
+               "title": "Whoami",
+               "type": "integer"
             }
          },
          "title": "Treadmill",
@@ -14936,12 +16403,20 @@
             "name": {
                "const": "Behavior",
                "default": "Behavior",
-               "title": "Name"
+               "enum": [
+                  "Behavior"
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "abbreviation": {
                "const": "behavior",
                "default": "behavior",
-               "title": "Abbreviation"
+               "enum": [
+                  "behavior"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
             }
          },
          "title": "Behavior",
@@ -14958,9 +16433,13 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.3.2",
-         "default": "0.3.2",
-         "title": "Schema Version"
+         "const": "0.3.3",
+         "default": "0.3.3",
+         "enum": [
+            "0.3.3"
+         ],
+         "title": "Schema Version",
+         "type": "string"
       },
       "rig_id": {
          "description": "room_rig name_date modified",

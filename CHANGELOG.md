@@ -1,3 +1,14 @@
+### [0.33.8](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.33.7...v0.33.8) (2024-04-23)
+
+
+### [0.33.7](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.33.6...v0.33.7) (2024-04-10)
+
+
+### Bug Fixes
+
+* removes erd tests from local cov ([#887](https://github.com/AllenNeuralDynamics/aind-data-schema/issues/887)) ([feb4cf3](https://github.com/AllenNeuralDynamics/aind-data-schema/commit/feb4cf30486176d6dd34a5d4309252d46ddc5de4))
+
+
 ### [0.33.6](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.33.5...v0.33.6) (2024-04-09)
 
 
