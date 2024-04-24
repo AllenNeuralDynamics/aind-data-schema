@@ -1,3 +1,5 @@
+"""Generates an example rig JSON for a multiplane-ophys session"""
+
 from datetime import date
 from decimal import Decimal
 
