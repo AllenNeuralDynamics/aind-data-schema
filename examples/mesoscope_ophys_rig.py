@@ -35,7 +35,7 @@ from aind_data_schema.base import AindGeneric
 
 
 rig = Rig(
-    describedBy="https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/rig.py",
+    describedBy="https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/rig.py",# noqa
     schema_version="0.3.3",
     rig_id="MESO.2",
     modification_date=date(2024, 4, 2),
