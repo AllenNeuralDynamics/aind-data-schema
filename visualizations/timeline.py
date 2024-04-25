@@ -5,7 +5,7 @@ from datetime import datetime
 import json
 
 def plot_timeline(datapath, savepath, processing_flag=False):
-    """Creates a timeline of including date of birth, all subject and specimen procedures, and date of 
+    """Creates a timeline of including date of birth, all subject and specimen procedures, and date of
     data acquisition. Optionally can include data processing as well.
 
     Args:
@@ -14,7 +14,7 @@ def plot_timeline(datapath, savepath, processing_flag=False):
         processing_flag (Bool): Making this True adds the processing dates to the timeline. Defaults to False.
     """
 
-    # identify what metadata is present 
+    # identify what metadata is present
     session_flag = False
     acquisition_flag = False
     for f in os.listdir(datapath):
