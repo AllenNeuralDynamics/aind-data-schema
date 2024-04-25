@@ -47,6 +47,7 @@ class DataLevel(str, Enum):
 
     DERIVED = "derived"
     RAW = "raw"
+    SIMULATED = "simulated"
 
 
 class Group(str, Enum):
