@@ -4095,10 +4095,10 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.13.3",
-               "default": "0.13.3",
+               "const": "0.13.4",
+               "default": "0.13.4",
                "enum": [
-                  "0.13.3"
+                  "0.13.4"
                ],
                "title": "Schema Version",
                "type": "string"
@@ -4447,7 +4447,8 @@
          "description": "Data level name",
          "enum": [
             "derived",
-            "raw"
+            "raw",
+            "simulated"
          ],
          "title": "DataLevel",
          "type": "string"
@@ -21568,6 +21569,7 @@
             "Ephys preprocessing",
             "Ephys visualization",
             "Fiducial segmentation",
+            "File format conversion",
             "Fluorescence event detection",
             "Image atlas alignment",
             "Image background subtraction",
@@ -21580,11 +21582,11 @@
             "Image tile alignment",
             "Image tile fusing",
             "Image tile projection",
-            "File format conversion",
             "Manual annotation",
             "Neuropil subtraction",
             "Other",
             "Quality control and assessment",
+            "Simulation",
             "Skull stripping",
             "Spike sorting",
             "Spatial timeseries demixing",
@@ -21608,10 +21610,10 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.4.6",
-               "default": "0.4.6",
+               "const": "0.4.7",
+               "default": "0.4.7",
                "enum": [
-                  "0.4.6"
+                  "0.4.7"
                ],
                "title": "Schema Version",
                "type": "string"
@@ -30786,10 +30788,10 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.2.10",
-         "default": "0.2.10",
+         "const": "0.2.11",
+         "default": "0.2.11",
          "enum": [
-            "0.2.10"
+            "0.2.11"
          ],
          "title": "Schema Version",
          "type": "string"
