@@ -10,7 +10,7 @@ from aind_data_schema.models.modalities import Modality
 r = r.Rig(
     rig_id="447_FIP_Behavior_20000101",
     modification_date=date(2000, 1, 1),
-    modalities=[Modality.FIB, Modality.BEHAVIOR],
+    modalities=[Modality.BEHAVIOR, Modality.FIB],
     cameras=[
         d.CameraAssembly(
             name="BehaviorVideography_FaceSide",
