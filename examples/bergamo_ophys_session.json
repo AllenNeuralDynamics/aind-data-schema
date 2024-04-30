@@ -77,7 +77,6 @@
          ],
          "slap_fovs": null,
          "stack_parameters": null,
-         "mri_scanner": null,
          "mri_scans": [],
          "stream_modalities": [
             {

@@ -94,11 +94,6 @@ class ExampleTest(unittest.TestCase):
         stream = Stream(
             stream_start_time="2024-03-12T16:27:55.584892Z",
             stream_end_time="2024-03-12T16:27:55.584892Z",
-            mri_scanner=Scanner(
-                name="Scanner 72",
-                scanner_location="Fred Hutch",
-                magnetic_strength="7",
-            ),
             mri_scans=[
                 MRIScan(
                     scan_index=1,
@@ -114,6 +109,11 @@ class ExampleTest(unittest.TestCase):
                     effective_echo_time=2.0,
                     repetition_time=1.2,
                     additional_scan_parameters={"number_averages": 3},
+                    mri_scanner=Scanner(
+                        name="Scanner 72",
+                        scanner_location="Fred Hutch",
+                        magnetic_strength="7",
+                    ),
                 )
             ],
             stream_modalities=[Modality.MRI],
@@ -161,7 +161,7 @@ class ExampleTest(unittest.TestCase):
             "ophys_fovs field OR stack_parameters field must be utilized for Pophys modality" in repr(e.exception)
         )
         self.assertTrue("camera_names field must be utilized for Behavior Videos modality" in repr(e.exception))
-        self.assertTrue("mri_scans and mri_scanner fields must be utilized for MRI modality" in repr(e.exception))
+        self.assertTrue("mri_scans field must be utilized for MRI modality" in repr(e.exception))
 
         with self.assertRaises(ValueError) as e:
             MRIScan(

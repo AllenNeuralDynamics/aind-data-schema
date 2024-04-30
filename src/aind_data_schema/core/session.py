@@ -448,9 +448,8 @@ class Stream(AindModel):
         """Validate MRI modality has scans"""
         if Modality.MRI in value:
             scans = info.data["mri_scans"]
-            scanner = info.data["mri_scanner"]
-            if not scans or not scanner:
-                return "mri_scans and mri_scanner fields must be utilized for MRI modality"
+            if not scans:
+                return "mri_scans field must be utilized for MRI modality"
         else:
             return None
 

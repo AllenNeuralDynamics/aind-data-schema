@@ -9,6 +9,11 @@ from aind_data_schema.models.modalities import Modality
 
 scan1 = MRIScan(
     scan_index="1",
+    mri_scanner=Scanner(
+        name="Scanner 72",
+        scanner_location="Fred Hutch",
+        magnetic_strength="7",
+    ),
     scan_type=ScanType.SETUP,
     primary_scan=False,
     scan_sequence_type=MriScanSequence.RARE,
@@ -24,6 +29,11 @@ scan1 = MRIScan(
 
 scan2 = MRIScan(
     scan_index="2",
+    mri_scanner=Scanner(
+        name="Scanner 72",
+        scanner_location="Fred Hutch",
+        magnetic_strength="7",
+    ),
     scan_type=ScanType.SCAN_3D,
     primary_scan=True,
     scan_sequence_type=MriScanSequence.RARE,
@@ -43,11 +53,6 @@ scan2 = MRIScan(
 stream = Stream(
     stream_start_time="2024-03-12T16:27:55.584892Z",
     stream_end_time="2024-03-12T16:27:55.584892Z",
-    mri_scanner=Scanner(
-        name="Scanner 72",
-        scanner_location="Fred Hutch",
-        magnetic_strength="7",
-    ),
     mri_scans=[scan1, scan2],
     stream_modalities=[Modality.MRI],
 )
