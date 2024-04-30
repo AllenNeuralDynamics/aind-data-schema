@@ -323,6 +323,7 @@ class MRIScan(AindModel):
     primary_scan: bool = Field(
         ..., title="Primary scan", description="Indicates the primary scan used for downstream analysis"
     )
+    mri_scanner: Optional[Scanner] = Field(None, title="MRI scanner")
     scan_sequence_type: MriScanSequence = Field(..., title="Scan sequence")
     rare_factor: Optional[int] = Field(None, title="RARE factor")
     echo_time: Decimal = Field(..., title="Echo time (ms)")
@@ -389,7 +390,6 @@ class Stream(AindModel):
     ophys_fovs: List[FieldOfView] = Field(default=[], title="Fields of view")
     slap_fovs: Optional[SlapFieldOfView] = Field(None, title="Slap2 field of view")
     stack_parameters: Optional[Stack] = Field(None, title="Stack parameters")
-    mri_scanner: Optional[Scanner] = Field(None, title="MRI scanner")
     mri_scans: List[MRIScan] = Field(default=[], title="MRI scans")
     stream_modalities: List[Modality.ONE_OF] = Field(..., title="Modalities")
     notes: Optional[str] = Field(None, title="Notes")
