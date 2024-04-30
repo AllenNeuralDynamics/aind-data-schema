@@ -307,6 +307,7 @@ class Stream(AindModel):
     slap_fovs: Optional[SlapFieldOfView] = Field(None, title="Slap2 field of view")
     stack_parameters: Optional[Stack] = Field(None, title="Stack parameters")
     stream_modalities: List[Modality.ONE_OF] = Field(..., title="Modalities")
+    software: Optional[Software] = Field(None, title="Data stream software information")
     notes: Optional[str] = Field(None, title="Notes")
 
     @staticmethod

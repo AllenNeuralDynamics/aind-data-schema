@@ -75,6 +75,7 @@
                "abbreviation": "fib"
             }
          ],
+         "software": null,
          "notes": "Internal trigger. GRAB-DA2m shows signal. Unclear about GRAB-rAC"
       }
    ],
