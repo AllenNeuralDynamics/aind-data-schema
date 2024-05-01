@@ -78,7 +78,7 @@ class Acquisition(AindCoreModel):
         title="Processing steps",
         description="List of downstream processing steps planned for each channel",
     )
-    software: Optional[Software] = Field(None, title="Acquisition software version data")
+    software: Optional[List[Software]] = Field([], title="Acquisition software version data")
     notes: Optional[str] = Field(None, title="Notes")
 
     @field_validator("axes", mode="before")
