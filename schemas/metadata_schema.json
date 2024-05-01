@@ -108,10 +108,10 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.6.13",
-               "default": "0.6.13",
+               "const": "0.6.14",
+               "default": "0.6.14",
                "enum": [
-                  "0.6.13"
+                  "0.6.14"
                ],
                "title": "Schema Version",
                "type": "string"
@@ -274,6 +274,21 @@
                },
                "title": "Processing steps",
                "type": "array"
+            },
+            "software": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "$ref": "#/$defs/Software"
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": [],
+               "title": "Acquisition software version data"
             },
             "notes": {
                "anyOf": [
@@ -450,6 +465,7 @@
                            "ISL Products International": "#/$defs/ISLProductsInternational",
                            "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
                            "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
+                           "Invitrogen": "#/$defs/Invitrogen",
                            "Jackson Laboratory": "#/$defs/JacksonLaboratory",
                            "Julabo": "#/$defs/Julabo",
                            "LG": "#/$defs/Lg",
@@ -475,6 +491,7 @@
                            "Prizmatix": "#/$defs/Prizmatix",
                            "Quantifi": "#/$defs/Quantifi",
                            "Raspberry Pi": "#/$defs/RaspberryPi",
+                           "SICGEN": "#/$defs/Sicgen",
                            "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                            "Second Order Effects": "#/$defs/SecondOrderEffects",
                            "Semrock": "#/$defs/Semrock",
@@ -596,6 +613,9 @@
                            "$ref": "#/$defs/InfinityPhotoOptical"
                         },
                         {
+                           "$ref": "#/$defs/Invitrogen"
+                        },
+                        {
                            "$ref": "#/$defs/ISLProductsInternational"
                         },
                         {
@@ -684,6 +704,9 @@
                         },
                         {
                            "$ref": "#/$defs/SchneiderKreuznach"
+                        },
+                        {
+                           "$ref": "#/$defs/Sicgen"
                         },
                         {
                            "$ref": "#/$defs/SigmaAldritch"
@@ -1374,6 +1397,7 @@
                      "ISL Products International": "#/$defs/ISLProductsInternational",
                      "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
                      "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
+                     "Invitrogen": "#/$defs/Invitrogen",
                      "Jackson Laboratory": "#/$defs/JacksonLaboratory",
                      "Julabo": "#/$defs/Julabo",
                      "LG": "#/$defs/Lg",
@@ -1399,6 +1423,7 @@
                      "Prizmatix": "#/$defs/Prizmatix",
                      "Quantifi": "#/$defs/Quantifi",
                      "Raspberry Pi": "#/$defs/RaspberryPi",
+                     "SICGEN": "#/$defs/Sicgen",
                      "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                      "Second Order Effects": "#/$defs/SecondOrderEffects",
                      "Semrock": "#/$defs/Semrock",
@@ -1520,6 +1545,9 @@
                      "$ref": "#/$defs/InfinityPhotoOptical"
                   },
                   {
+                     "$ref": "#/$defs/Invitrogen"
+                  },
+                  {
                      "$ref": "#/$defs/ISLProductsInternational"
                   },
                   {
@@ -1608,6 +1636,9 @@
                   },
                   {
                      "$ref": "#/$defs/SchneiderKreuznach"
+                  },
+                  {
+                     "$ref": "#/$defs/Sicgen"
                   },
                   {
                      "$ref": "#/$defs/SigmaAldritch"
@@ -5104,6 +5135,7 @@
                            "ISL Products International": "#/$defs/ISLProductsInternational",
                            "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
                            "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
+                           "Invitrogen": "#/$defs/Invitrogen",
                            "Jackson Laboratory": "#/$defs/JacksonLaboratory",
                            "Julabo": "#/$defs/Julabo",
                            "LG": "#/$defs/Lg",
@@ -5129,6 +5161,7 @@
                            "Prizmatix": "#/$defs/Prizmatix",
                            "Quantifi": "#/$defs/Quantifi",
                            "Raspberry Pi": "#/$defs/RaspberryPi",
+                           "SICGEN": "#/$defs/Sicgen",
                            "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                            "Second Order Effects": "#/$defs/SecondOrderEffects",
                            "Semrock": "#/$defs/Semrock",
@@ -5250,6 +5283,9 @@
                            "$ref": "#/$defs/InfinityPhotoOptical"
                         },
                         {
+                           "$ref": "#/$defs/Invitrogen"
+                        },
+                        {
                            "$ref": "#/$defs/ISLProductsInternational"
                         },
                         {
@@ -5338,6 +5374,9 @@
                         },
                         {
                            "$ref": "#/$defs/SchneiderKreuznach"
+                        },
+                        {
+                           "$ref": "#/$defs/Sicgen"
                         },
                         {
                            "$ref": "#/$defs/SigmaAldritch"
@@ -5527,6 +5566,7 @@
                            "ISL Products International": "#/$defs/ISLProductsInternational",
                            "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
                            "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
+                           "Invitrogen": "#/$defs/Invitrogen",
                            "Jackson Laboratory": "#/$defs/JacksonLaboratory",
                            "Julabo": "#/$defs/Julabo",
                            "LG": "#/$defs/Lg",
@@ -5552,6 +5592,7 @@
                            "Prizmatix": "#/$defs/Prizmatix",
                            "Quantifi": "#/$defs/Quantifi",
                            "Raspberry Pi": "#/$defs/RaspberryPi",
+                           "SICGEN": "#/$defs/Sicgen",
                            "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                            "Second Order Effects": "#/$defs/SecondOrderEffects",
                            "Semrock": "#/$defs/Semrock",
@@ -5673,6 +5714,9 @@
                            "$ref": "#/$defs/InfinityPhotoOptical"
                         },
                         {
+                           "$ref": "#/$defs/Invitrogen"
+                        },
+                        {
                            "$ref": "#/$defs/ISLProductsInternational"
                         },
                         {
@@ -5761,6 +5805,9 @@
                         },
                         {
                            "$ref": "#/$defs/SchneiderKreuznach"
+                        },
+                        {
+                           "$ref": "#/$defs/Sicgen"
                         },
                         {
                            "$ref": "#/$defs/SigmaAldritch"
@@ -6052,6 +6099,7 @@
                            "ISL Products International": "#/$defs/ISLProductsInternational",
                            "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
                            "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
+                           "Invitrogen": "#/$defs/Invitrogen",
                            "Jackson Laboratory": "#/$defs/JacksonLaboratory",
                            "Julabo": "#/$defs/Julabo",
                            "LG": "#/$defs/Lg",
@@ -6077,6 +6125,7 @@
                            "Prizmatix": "#/$defs/Prizmatix",
                            "Quantifi": "#/$defs/Quantifi",
                            "Raspberry Pi": "#/$defs/RaspberryPi",
+                           "SICGEN": "#/$defs/Sicgen",
                            "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                            "Second Order Effects": "#/$defs/SecondOrderEffects",
                            "Semrock": "#/$defs/Semrock",
@@ -6198,6 +6247,9 @@
                            "$ref": "#/$defs/InfinityPhotoOptical"
                         },
                         {
+                           "$ref": "#/$defs/Invitrogen"
+                        },
+                        {
                            "$ref": "#/$defs/ISLProductsInternational"
                         },
                         {
@@ -6286,6 +6338,9 @@
                         },
                         {
                            "$ref": "#/$defs/SchneiderKreuznach"
+                        },
+                        {
+                           "$ref": "#/$defs/Sicgen"
                         },
                         {
                            "$ref": "#/$defs/SigmaAldritch"
@@ -6883,6 +6938,7 @@
                            "ISL Products International": "#/$defs/ISLProductsInternational",
                            "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
                            "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
+                           "Invitrogen": "#/$defs/Invitrogen",
                            "Jackson Laboratory": "#/$defs/JacksonLaboratory",
                            "Julabo": "#/$defs/Julabo",
                            "LG": "#/$defs/Lg",
@@ -6908,6 +6964,7 @@
                            "Prizmatix": "#/$defs/Prizmatix",
                            "Quantifi": "#/$defs/Quantifi",
                            "Raspberry Pi": "#/$defs/RaspberryPi",
+                           "SICGEN": "#/$defs/Sicgen",
                            "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                            "Second Order Effects": "#/$defs/SecondOrderEffects",
                            "Semrock": "#/$defs/Semrock",
@@ -7029,6 +7086,9 @@
                            "$ref": "#/$defs/InfinityPhotoOptical"
                         },
                         {
+                           "$ref": "#/$defs/Invitrogen"
+                        },
+                        {
                            "$ref": "#/$defs/ISLProductsInternational"
                         },
                         {
@@ -7117,6 +7177,9 @@
                         },
                         {
                            "$ref": "#/$defs/SchneiderKreuznach"
+                        },
+                        {
+                           "$ref": "#/$defs/Sicgen"
                         },
                         {
                            "$ref": "#/$defs/SigmaAldritch"
@@ -7499,6 +7562,7 @@
                            "ISL Products International": "#/$defs/ISLProductsInternational",
                            "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
                            "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
+                           "Invitrogen": "#/$defs/Invitrogen",
                            "Jackson Laboratory": "#/$defs/JacksonLaboratory",
                            "Julabo": "#/$defs/Julabo",
                            "LG": "#/$defs/Lg",
@@ -7524,6 +7588,7 @@
                            "Prizmatix": "#/$defs/Prizmatix",
                            "Quantifi": "#/$defs/Quantifi",
                            "Raspberry Pi": "#/$defs/RaspberryPi",
+                           "SICGEN": "#/$defs/Sicgen",
                            "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                            "Second Order Effects": "#/$defs/SecondOrderEffects",
                            "Semrock": "#/$defs/Semrock",
@@ -7645,6 +7710,9 @@
                            "$ref": "#/$defs/InfinityPhotoOptical"
                         },
                         {
+                           "$ref": "#/$defs/Invitrogen"
+                        },
+                        {
                            "$ref": "#/$defs/ISLProductsInternational"
                         },
                         {
@@ -7733,6 +7801,9 @@
                         },
                         {
                            "$ref": "#/$defs/SchneiderKreuznach"
+                        },
+                        {
+                           "$ref": "#/$defs/Sicgen"
                         },
                         {
                            "$ref": "#/$defs/SigmaAldritch"
@@ -8312,6 +8383,7 @@
                            "ISL Products International": "#/$defs/ISLProductsInternational",
                            "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
                            "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
+                           "Invitrogen": "#/$defs/Invitrogen",
                            "Jackson Laboratory": "#/$defs/JacksonLaboratory",
                            "Julabo": "#/$defs/Julabo",
                            "LG": "#/$defs/Lg",
@@ -8337,6 +8409,7 @@
                            "Prizmatix": "#/$defs/Prizmatix",
                            "Quantifi": "#/$defs/Quantifi",
                            "Raspberry Pi": "#/$defs/RaspberryPi",
+                           "SICGEN": "#/$defs/Sicgen",
                            "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                            "Second Order Effects": "#/$defs/SecondOrderEffects",
                            "Semrock": "#/$defs/Semrock",
@@ -8458,6 +8531,9 @@
                            "$ref": "#/$defs/InfinityPhotoOptical"
                         },
                         {
+                           "$ref": "#/$defs/Invitrogen"
+                        },
+                        {
                            "$ref": "#/$defs/ISLProductsInternational"
                         },
                         {
@@ -8546,6 +8622,9 @@
                         },
                         {
                            "$ref": "#/$defs/SchneiderKreuznach"
+                        },
+                        {
+                           "$ref": "#/$defs/Sicgen"
                         },
                         {
                            "$ref": "#/$defs/SigmaAldritch"
@@ -9510,6 +9589,7 @@
                      "ISL Products International": "#/$defs/ISLProductsInternational",
                      "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
                      "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
+                     "Invitrogen": "#/$defs/Invitrogen",
                      "Jackson Laboratory": "#/$defs/JacksonLaboratory",
                      "Julabo": "#/$defs/Julabo",
                      "LG": "#/$defs/Lg",
@@ -9535,6 +9615,7 @@
                      "Prizmatix": "#/$defs/Prizmatix",
                      "Quantifi": "#/$defs/Quantifi",
                      "Raspberry Pi": "#/$defs/RaspberryPi",
+                     "SICGEN": "#/$defs/Sicgen",
                      "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                      "Second Order Effects": "#/$defs/SecondOrderEffects",
                      "Semrock": "#/$defs/Semrock",
@@ -9656,6 +9737,9 @@
                      "$ref": "#/$defs/InfinityPhotoOptical"
                   },
                   {
+                     "$ref": "#/$defs/Invitrogen"
+                  },
+                  {
                      "$ref": "#/$defs/ISLProductsInternational"
                   },
                   {
@@ -9744,6 +9828,9 @@
                   },
                   {
                      "$ref": "#/$defs/SchneiderKreuznach"
+                  },
+                  {
+                     "$ref": "#/$defs/Sicgen"
                   },
                   {
                      "$ref": "#/$defs/SigmaAldritch"
@@ -9928,6 +10015,7 @@
                      "ISL Products International": "#/$defs/ISLProductsInternational",
                      "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
                      "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
+                     "Invitrogen": "#/$defs/Invitrogen",
                      "Jackson Laboratory": "#/$defs/JacksonLaboratory",
                      "Julabo": "#/$defs/Julabo",
                      "LG": "#/$defs/Lg",
@@ -9953,6 +10041,7 @@
                      "Prizmatix": "#/$defs/Prizmatix",
                      "Quantifi": "#/$defs/Quantifi",
                      "Raspberry Pi": "#/$defs/RaspberryPi",
+                     "SICGEN": "#/$defs/Sicgen",
                      "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                      "Second Order Effects": "#/$defs/SecondOrderEffects",
                      "Semrock": "#/$defs/Semrock",
@@ -10074,6 +10163,9 @@
                      "$ref": "#/$defs/InfinityPhotoOptical"
                   },
                   {
+                     "$ref": "#/$defs/Invitrogen"
+                  },
+                  {
                      "$ref": "#/$defs/ISLProductsInternational"
                   },
                   {
@@ -10162,6 +10254,9 @@
                   },
                   {
                      "$ref": "#/$defs/SchneiderKreuznach"
+                  },
+                  {
+                     "$ref": "#/$defs/Sicgen"
                   },
                   {
                      "$ref": "#/$defs/SigmaAldritch"
@@ -10867,6 +10962,7 @@
                            "ISL Products International": "#/$defs/ISLProductsInternational",
                            "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
                            "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
+                           "Invitrogen": "#/$defs/Invitrogen",
                            "Jackson Laboratory": "#/$defs/JacksonLaboratory",
                            "Julabo": "#/$defs/Julabo",
                            "LG": "#/$defs/Lg",
@@ -10892,6 +10988,7 @@
                            "Prizmatix": "#/$defs/Prizmatix",
                            "Quantifi": "#/$defs/Quantifi",
                            "Raspberry Pi": "#/$defs/RaspberryPi",
+                           "SICGEN": "#/$defs/Sicgen",
                            "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                            "Second Order Effects": "#/$defs/SecondOrderEffects",
                            "Semrock": "#/$defs/Semrock",
@@ -11013,6 +11110,9 @@
                            "$ref": "#/$defs/InfinityPhotoOptical"
                         },
                         {
+                           "$ref": "#/$defs/Invitrogen"
+                        },
+                        {
                            "$ref": "#/$defs/ISLProductsInternational"
                         },
                         {
@@ -11101,6 +11201,9 @@
                         },
                         {
                            "$ref": "#/$defs/SchneiderKreuznach"
+                        },
+                        {
+                           "$ref": "#/$defs/Sicgen"
                         },
                         {
                            "$ref": "#/$defs/SigmaAldritch"
@@ -11821,10 +11924,10 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.10.17",
-               "default": "0.10.17",
+               "const": "0.10.18",
+               "default": "0.10.18",
                "enum": [
-                  "0.10.17"
+                  "0.10.18"
                ],
                "title": "Schema Version",
                "type": "string"
@@ -11891,6 +11994,7 @@
                      "ISL Products International": "#/$defs/ISLProductsInternational",
                      "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
                      "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
+                     "Invitrogen": "#/$defs/Invitrogen",
                      "Jackson Laboratory": "#/$defs/JacksonLaboratory",
                      "Julabo": "#/$defs/Julabo",
                      "LG": "#/$defs/Lg",
@@ -11916,6 +12020,7 @@
                      "Prizmatix": "#/$defs/Prizmatix",
                      "Quantifi": "#/$defs/Quantifi",
                      "Raspberry Pi": "#/$defs/RaspberryPi",
+                     "SICGEN": "#/$defs/Sicgen",
                      "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                      "Second Order Effects": "#/$defs/SecondOrderEffects",
                      "Semrock": "#/$defs/Semrock",
@@ -12037,6 +12142,9 @@
                      "$ref": "#/$defs/InfinityPhotoOptical"
                   },
                   {
+                     "$ref": "#/$defs/Invitrogen"
+                  },
+                  {
                      "$ref": "#/$defs/ISLProductsInternational"
                   },
                   {
@@ -12125,6 +12233,9 @@
                   },
                   {
                      "$ref": "#/$defs/SchneiderKreuznach"
+                  },
+                  {
+                     "$ref": "#/$defs/Sicgen"
                   },
                   {
                      "$ref": "#/$defs/SigmaAldritch"
@@ -13042,6 +13153,59 @@
          "title": "IntraperitonealInjection",
          "type": "object"
       },
+      "Invitrogen": {
+         "additionalProperties": false,
+         "description": "Invitrogen",
+         "properties": {
+            "name": {
+               "const": "Invitrogen",
+               "default": "Invitrogen",
+               "enum": [
+                  "Invitrogen"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "03x1ewr52",
+               "default": "03x1ewr52",
+               "enum": [
+                  "03x1ewr52"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "Invitrogen",
+         "type": "object"
+      },
       "IontophoresisInjection": {
          "additionalProperties": false,
          "description": "Description of an iotophoresis injection procedure",
@@ -13463,6 +13627,7 @@
                            "ISL Products International": "#/$defs/ISLProductsInternational",
                            "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
                            "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
+                           "Invitrogen": "#/$defs/Invitrogen",
                            "Jackson Laboratory": "#/$defs/JacksonLaboratory",
                            "Julabo": "#/$defs/Julabo",
                            "LG": "#/$defs/Lg",
@@ -13488,6 +13653,7 @@
                            "Prizmatix": "#/$defs/Prizmatix",
                            "Quantifi": "#/$defs/Quantifi",
                            "Raspberry Pi": "#/$defs/RaspberryPi",
+                           "SICGEN": "#/$defs/Sicgen",
                            "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                            "Second Order Effects": "#/$defs/SecondOrderEffects",
                            "Semrock": "#/$defs/Semrock",
@@ -13609,6 +13775,9 @@
                            "$ref": "#/$defs/InfinityPhotoOptical"
                         },
                         {
+                           "$ref": "#/$defs/Invitrogen"
+                        },
+                        {
                            "$ref": "#/$defs/ISLProductsInternational"
                         },
                         {
@@ -13697,6 +13866,9 @@
                         },
                         {
                            "$ref": "#/$defs/SchneiderKreuznach"
+                        },
+                        {
+                           "$ref": "#/$defs/Sicgen"
                         },
                         {
                            "$ref": "#/$defs/SigmaAldritch"
@@ -15657,6 +15829,7 @@
                            "ISL Products International": "#/$defs/ISLProductsInternational",
                            "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
                            "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
+                           "Invitrogen": "#/$defs/Invitrogen",
                            "Jackson Laboratory": "#/$defs/JacksonLaboratory",
                            "Julabo": "#/$defs/Julabo",
                            "LG": "#/$defs/Lg",
@@ -15682,6 +15855,7 @@
                            "Prizmatix": "#/$defs/Prizmatix",
                            "Quantifi": "#/$defs/Quantifi",
                            "Raspberry Pi": "#/$defs/RaspberryPi",
+                           "SICGEN": "#/$defs/Sicgen",
                            "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                            "Second Order Effects": "#/$defs/SecondOrderEffects",
                            "Semrock": "#/$defs/Semrock",
@@ -15803,6 +15977,9 @@
                            "$ref": "#/$defs/InfinityPhotoOptical"
                         },
                         {
+                           "$ref": "#/$defs/Invitrogen"
+                        },
+                        {
                            "$ref": "#/$defs/ISLProductsInternational"
                         },
                         {
@@ -15891,6 +16068,9 @@
                         },
                         {
                            "$ref": "#/$defs/SchneiderKreuznach"
+                        },
+                        {
+                           "$ref": "#/$defs/Sicgen"
                         },
                         {
                            "$ref": "#/$defs/SigmaAldritch"
@@ -17061,6 +17241,7 @@
                      "ISL Products International": "#/$defs/ISLProductsInternational",
                      "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
                      "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
+                     "Invitrogen": "#/$defs/Invitrogen",
                      "Jackson Laboratory": "#/$defs/JacksonLaboratory",
                      "Julabo": "#/$defs/Julabo",
                      "LG": "#/$defs/Lg",
@@ -17086,6 +17267,7 @@
                      "Prizmatix": "#/$defs/Prizmatix",
                      "Quantifi": "#/$defs/Quantifi",
                      "Raspberry Pi": "#/$defs/RaspberryPi",
+                     "SICGEN": "#/$defs/Sicgen",
                      "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                      "Second Order Effects": "#/$defs/SecondOrderEffects",
                      "Semrock": "#/$defs/Semrock",
@@ -17207,6 +17389,9 @@
                      "$ref": "#/$defs/InfinityPhotoOptical"
                   },
                   {
+                     "$ref": "#/$defs/Invitrogen"
+                  },
+                  {
                      "$ref": "#/$defs/ISLProductsInternational"
                   },
                   {
@@ -17295,6 +17480,9 @@
                   },
                   {
                      "$ref": "#/$defs/SchneiderKreuznach"
+                  },
+                  {
+                     "$ref": "#/$defs/Sicgen"
                   },
                   {
                      "$ref": "#/$defs/SigmaAldritch"
@@ -17470,6 +17658,7 @@
                            "ISL Products International": "#/$defs/ISLProductsInternational",
                            "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
                            "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
+                           "Invitrogen": "#/$defs/Invitrogen",
                            "Jackson Laboratory": "#/$defs/JacksonLaboratory",
                            "Julabo": "#/$defs/Julabo",
                            "LG": "#/$defs/Lg",
@@ -17495,6 +17684,7 @@
                            "Prizmatix": "#/$defs/Prizmatix",
                            "Quantifi": "#/$defs/Quantifi",
                            "Raspberry Pi": "#/$defs/RaspberryPi",
+                           "SICGEN": "#/$defs/Sicgen",
                            "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                            "Second Order Effects": "#/$defs/SecondOrderEffects",
                            "Semrock": "#/$defs/Semrock",
@@ -17616,6 +17806,9 @@
                            "$ref": "#/$defs/InfinityPhotoOptical"
                         },
                         {
+                           "$ref": "#/$defs/Invitrogen"
+                        },
+                        {
                            "$ref": "#/$defs/ISLProductsInternational"
                         },
                         {
@@ -17704,6 +17897,9 @@
                         },
                         {
                            "$ref": "#/$defs/SchneiderKreuznach"
+                        },
+                        {
+                           "$ref": "#/$defs/Sicgen"
                         },
                         {
                            "$ref": "#/$defs/SigmaAldritch"
@@ -18048,6 +18244,7 @@
                      "ISL Products International": "#/$defs/ISLProductsInternational",
                      "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
                      "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
+                     "Invitrogen": "#/$defs/Invitrogen",
                      "Jackson Laboratory": "#/$defs/JacksonLaboratory",
                      "Julabo": "#/$defs/Julabo",
                      "LG": "#/$defs/Lg",
@@ -18073,6 +18270,7 @@
                      "Prizmatix": "#/$defs/Prizmatix",
                      "Quantifi": "#/$defs/Quantifi",
                      "Raspberry Pi": "#/$defs/RaspberryPi",
+                     "SICGEN": "#/$defs/Sicgen",
                      "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                      "Second Order Effects": "#/$defs/SecondOrderEffects",
                      "Semrock": "#/$defs/Semrock",
@@ -18194,6 +18392,9 @@
                      "$ref": "#/$defs/InfinityPhotoOptical"
                   },
                   {
+                     "$ref": "#/$defs/Invitrogen"
+                  },
+                  {
                      "$ref": "#/$defs/ISLProductsInternational"
                   },
                   {
@@ -18282,6 +18483,9 @@
                   },
                   {
                      "$ref": "#/$defs/SchneiderKreuznach"
+                  },
+                  {
+                     "$ref": "#/$defs/Sicgen"
                   },
                   {
                      "$ref": "#/$defs/SigmaAldritch"
@@ -18919,6 +19123,7 @@
                            "ISL Products International": "#/$defs/ISLProductsInternational",
                            "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
                            "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
+                           "Invitrogen": "#/$defs/Invitrogen",
                            "Jackson Laboratory": "#/$defs/JacksonLaboratory",
                            "Julabo": "#/$defs/Julabo",
                            "LG": "#/$defs/Lg",
@@ -18944,6 +19149,7 @@
                            "Prizmatix": "#/$defs/Prizmatix",
                            "Quantifi": "#/$defs/Quantifi",
                            "Raspberry Pi": "#/$defs/RaspberryPi",
+                           "SICGEN": "#/$defs/Sicgen",
                            "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                            "Second Order Effects": "#/$defs/SecondOrderEffects",
                            "Semrock": "#/$defs/Semrock",
@@ -19065,6 +19271,9 @@
                            "$ref": "#/$defs/InfinityPhotoOptical"
                         },
                         {
+                           "$ref": "#/$defs/Invitrogen"
+                        },
+                        {
                            "$ref": "#/$defs/ISLProductsInternational"
                         },
                         {
@@ -19153,6 +19362,9 @@
                         },
                         {
                            "$ref": "#/$defs/SchneiderKreuznach"
+                        },
+                        {
+                           "$ref": "#/$defs/Sicgen"
                         },
                         {
                            "$ref": "#/$defs/SigmaAldritch"
@@ -19829,6 +20041,7 @@
                            "ISL Products International": "#/$defs/ISLProductsInternational",
                            "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
                            "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
+                           "Invitrogen": "#/$defs/Invitrogen",
                            "Jackson Laboratory": "#/$defs/JacksonLaboratory",
                            "Julabo": "#/$defs/Julabo",
                            "LG": "#/$defs/Lg",
@@ -19854,6 +20067,7 @@
                            "Prizmatix": "#/$defs/Prizmatix",
                            "Quantifi": "#/$defs/Quantifi",
                            "Raspberry Pi": "#/$defs/RaspberryPi",
+                           "SICGEN": "#/$defs/Sicgen",
                            "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                            "Second Order Effects": "#/$defs/SecondOrderEffects",
                            "Semrock": "#/$defs/Semrock",
@@ -19975,6 +20189,9 @@
                            "$ref": "#/$defs/InfinityPhotoOptical"
                         },
                         {
+                           "$ref": "#/$defs/Invitrogen"
+                        },
+                        {
                            "$ref": "#/$defs/ISLProductsInternational"
                         },
                         {
@@ -20063,6 +20280,9 @@
                         },
                         {
                            "$ref": "#/$defs/SchneiderKreuznach"
+                        },
+                        {
+                           "$ref": "#/$defs/Sicgen"
                         },
                         {
                            "$ref": "#/$defs/SigmaAldritch"
@@ -20568,6 +20788,7 @@
                            "ISL Products International": "#/$defs/ISLProductsInternational",
                            "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
                            "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
+                           "Invitrogen": "#/$defs/Invitrogen",
                            "Jackson Laboratory": "#/$defs/JacksonLaboratory",
                            "Julabo": "#/$defs/Julabo",
                            "LG": "#/$defs/Lg",
@@ -20593,6 +20814,7 @@
                            "Prizmatix": "#/$defs/Prizmatix",
                            "Quantifi": "#/$defs/Quantifi",
                            "Raspberry Pi": "#/$defs/RaspberryPi",
+                           "SICGEN": "#/$defs/Sicgen",
                            "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                            "Second Order Effects": "#/$defs/SecondOrderEffects",
                            "Semrock": "#/$defs/Semrock",
@@ -20714,6 +20936,9 @@
                            "$ref": "#/$defs/InfinityPhotoOptical"
                         },
                         {
+                           "$ref": "#/$defs/Invitrogen"
+                        },
+                        {
                            "$ref": "#/$defs/ISLProductsInternational"
                         },
                         {
@@ -20802,6 +21027,9 @@
                         },
                         {
                            "$ref": "#/$defs/SchneiderKreuznach"
+                        },
+                        {
+                           "$ref": "#/$defs/Sicgen"
                         },
                         {
                            "$ref": "#/$defs/SigmaAldritch"
@@ -21019,6 +21247,7 @@
                            "ISL Products International": "#/$defs/ISLProductsInternational",
                            "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
                            "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
+                           "Invitrogen": "#/$defs/Invitrogen",
                            "Jackson Laboratory": "#/$defs/JacksonLaboratory",
                            "Julabo": "#/$defs/Julabo",
                            "LG": "#/$defs/Lg",
@@ -21044,6 +21273,7 @@
                            "Prizmatix": "#/$defs/Prizmatix",
                            "Quantifi": "#/$defs/Quantifi",
                            "Raspberry Pi": "#/$defs/RaspberryPi",
+                           "SICGEN": "#/$defs/Sicgen",
                            "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                            "Second Order Effects": "#/$defs/SecondOrderEffects",
                            "Semrock": "#/$defs/Semrock",
@@ -21165,6 +21395,9 @@
                            "$ref": "#/$defs/InfinityPhotoOptical"
                         },
                         {
+                           "$ref": "#/$defs/Invitrogen"
+                        },
+                        {
                            "$ref": "#/$defs/ISLProductsInternational"
                         },
                         {
@@ -21253,6 +21486,9 @@
                         },
                         {
                            "$ref": "#/$defs/SchneiderKreuznach"
+                        },
+                        {
+                           "$ref": "#/$defs/Sicgen"
                         },
                         {
                            "$ref": "#/$defs/SigmaAldritch"
@@ -21487,10 +21723,10 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.13.6",
-               "default": "0.13.6",
+               "const": "0.13.7",
+               "default": "0.13.7",
                "enum": [
-                  "0.13.6"
+                  "0.13.7"
                ],
                "title": "Schema Version",
                "type": "string"
@@ -22008,6 +22244,7 @@
                      "ISL Products International": "#/$defs/ISLProductsInternational",
                      "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
                      "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
+                     "Invitrogen": "#/$defs/Invitrogen",
                      "Jackson Laboratory": "#/$defs/JacksonLaboratory",
                      "Julabo": "#/$defs/Julabo",
                      "LG": "#/$defs/Lg",
@@ -22033,6 +22270,7 @@
                      "Prizmatix": "#/$defs/Prizmatix",
                      "Quantifi": "#/$defs/Quantifi",
                      "Raspberry Pi": "#/$defs/RaspberryPi",
+                     "SICGEN": "#/$defs/Sicgen",
                      "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                      "Second Order Effects": "#/$defs/SecondOrderEffects",
                      "Semrock": "#/$defs/Semrock",
@@ -22154,6 +22392,9 @@
                      "$ref": "#/$defs/InfinityPhotoOptical"
                   },
                   {
+                     "$ref": "#/$defs/Invitrogen"
+                  },
+                  {
                      "$ref": "#/$defs/ISLProductsInternational"
                   },
                   {
@@ -22242,6 +22483,9 @@
                   },
                   {
                      "$ref": "#/$defs/SchneiderKreuznach"
+                  },
+                  {
+                     "$ref": "#/$defs/Sicgen"
                   },
                   {
                      "$ref": "#/$defs/SigmaAldritch"
@@ -22391,6 +22635,7 @@
                      "ISL Products International": "#/$defs/ISLProductsInternational",
                      "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
                      "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
+                     "Invitrogen": "#/$defs/Invitrogen",
                      "Jackson Laboratory": "#/$defs/JacksonLaboratory",
                      "Julabo": "#/$defs/Julabo",
                      "LG": "#/$defs/Lg",
@@ -22416,6 +22661,7 @@
                      "Prizmatix": "#/$defs/Prizmatix",
                      "Quantifi": "#/$defs/Quantifi",
                      "Raspberry Pi": "#/$defs/RaspberryPi",
+                     "SICGEN": "#/$defs/Sicgen",
                      "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                      "Second Order Effects": "#/$defs/SecondOrderEffects",
                      "Semrock": "#/$defs/Semrock",
@@ -22537,6 +22783,9 @@
                      "$ref": "#/$defs/InfinityPhotoOptical"
                   },
                   {
+                     "$ref": "#/$defs/Invitrogen"
+                  },
+                  {
                      "$ref": "#/$defs/ISLProductsInternational"
                   },
                   {
@@ -22625,6 +22874,9 @@
                   },
                   {
                      "$ref": "#/$defs/SchneiderKreuznach"
+                  },
+                  {
+                     "$ref": "#/$defs/Sicgen"
                   },
                   {
                      "$ref": "#/$defs/SigmaAldritch"
@@ -23096,6 +23348,7 @@
                            "ISL Products International": "#/$defs/ISLProductsInternational",
                            "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
                            "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
+                           "Invitrogen": "#/$defs/Invitrogen",
                            "Jackson Laboratory": "#/$defs/JacksonLaboratory",
                            "Julabo": "#/$defs/Julabo",
                            "LG": "#/$defs/Lg",
@@ -23121,6 +23374,7 @@
                            "Prizmatix": "#/$defs/Prizmatix",
                            "Quantifi": "#/$defs/Quantifi",
                            "Raspberry Pi": "#/$defs/RaspberryPi",
+                           "SICGEN": "#/$defs/Sicgen",
                            "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                            "Second Order Effects": "#/$defs/SecondOrderEffects",
                            "Semrock": "#/$defs/Semrock",
@@ -23242,6 +23496,9 @@
                            "$ref": "#/$defs/InfinityPhotoOptical"
                         },
                         {
+                           "$ref": "#/$defs/Invitrogen"
+                        },
+                        {
                            "$ref": "#/$defs/ISLProductsInternational"
                         },
                         {
@@ -23330,6 +23587,9 @@
                         },
                         {
                            "$ref": "#/$defs/SchneiderKreuznach"
+                        },
+                        {
+                           "$ref": "#/$defs/Sicgen"
                         },
                         {
                            "$ref": "#/$defs/SigmaAldritch"
@@ -23566,10 +23826,10 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.3.3",
-               "default": "0.3.3",
+               "const": "0.3.4",
+               "default": "0.3.4",
                "enum": [
-                  "0.3.3"
+                  "0.3.4"
                ],
                "title": "Schema Version",
                "type": "string"
@@ -24101,6 +24361,7 @@
                            "ISL Products International": "#/$defs/ISLProductsInternational",
                            "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
                            "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
+                           "Invitrogen": "#/$defs/Invitrogen",
                            "Jackson Laboratory": "#/$defs/JacksonLaboratory",
                            "Julabo": "#/$defs/Julabo",
                            "LG": "#/$defs/Lg",
@@ -24126,6 +24387,7 @@
                            "Prizmatix": "#/$defs/Prizmatix",
                            "Quantifi": "#/$defs/Quantifi",
                            "Raspberry Pi": "#/$defs/RaspberryPi",
+                           "SICGEN": "#/$defs/Sicgen",
                            "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                            "Second Order Effects": "#/$defs/SecondOrderEffects",
                            "Semrock": "#/$defs/Semrock",
@@ -24247,6 +24509,9 @@
                            "$ref": "#/$defs/InfinityPhotoOptical"
                         },
                         {
+                           "$ref": "#/$defs/Invitrogen"
+                        },
+                        {
                            "$ref": "#/$defs/ISLProductsInternational"
                         },
                         {
@@ -24335,6 +24600,9 @@
                         },
                         {
                            "$ref": "#/$defs/SchneiderKreuznach"
+                        },
+                        {
+                           "$ref": "#/$defs/Sicgen"
                         },
                         {
                            "$ref": "#/$defs/SigmaAldritch"
@@ -24767,10 +25035,10 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.2.2",
-               "default": "0.2.2",
+               "const": "0.2.3",
+               "default": "0.2.3",
                "enum": [
-                  "0.2.2"
+                  "0.2.3"
                ],
                "title": "Schema Version",
                "type": "string"
@@ -24988,6 +25256,50 @@
          ],
          "title": "Sex",
          "type": "string"
+      },
+      "Sicgen": {
+         "additionalProperties": false,
+         "description": "SICGEN",
+         "properties": {
+            "name": {
+               "const": "SICGEN",
+               "default": "SICGEN",
+               "enum": [
+                  "SICGEN"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "enum": [
+                  null
+               ],
+               "title": "Registry",
+               "type": "null"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "enum": [
+                  null
+               ],
+               "title": "Registry Identifier",
+               "type": "null"
+            }
+         },
+         "title": "Sicgen",
+         "type": "object"
       },
       "Side": {
          "description": "Side of animal",
@@ -26380,6 +26692,7 @@
                      "ISL Products International": "#/$defs/ISLProductsInternational",
                      "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
                      "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
+                     "Invitrogen": "#/$defs/Invitrogen",
                      "Jackson Laboratory": "#/$defs/JacksonLaboratory",
                      "Julabo": "#/$defs/Julabo",
                      "LG": "#/$defs/Lg",
@@ -26405,6 +26718,7 @@
                      "Prizmatix": "#/$defs/Prizmatix",
                      "Quantifi": "#/$defs/Quantifi",
                      "Raspberry Pi": "#/$defs/RaspberryPi",
+                     "SICGEN": "#/$defs/Sicgen",
                      "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                      "Second Order Effects": "#/$defs/SecondOrderEffects",
                      "Semrock": "#/$defs/Semrock",
@@ -26526,6 +26840,9 @@
                      "$ref": "#/$defs/InfinityPhotoOptical"
                   },
                   {
+                     "$ref": "#/$defs/Invitrogen"
+                  },
+                  {
                      "$ref": "#/$defs/ISLProductsInternational"
                   },
                   {
@@ -26614,6 +26931,9 @@
                   },
                   {
                      "$ref": "#/$defs/SchneiderKreuznach"
+                  },
+                  {
+                     "$ref": "#/$defs/Sicgen"
                   },
                   {
                      "$ref": "#/$defs/SigmaAldritch"
@@ -27206,6 +27526,21 @@
                },
                "title": "Modalities",
                "type": "array"
+            },
+            "software": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "$ref": "#/$defs/Software"
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": [],
+               "title": "Data stream software information"
             },
             "notes": {
                "anyOf": [
@@ -28311,6 +28646,7 @@
                            "ISL Products International": "#/$defs/ISLProductsInternational",
                            "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
                            "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
+                           "Invitrogen": "#/$defs/Invitrogen",
                            "Jackson Laboratory": "#/$defs/JacksonLaboratory",
                            "Julabo": "#/$defs/Julabo",
                            "LG": "#/$defs/Lg",
@@ -28336,6 +28672,7 @@
                            "Prizmatix": "#/$defs/Prizmatix",
                            "Quantifi": "#/$defs/Quantifi",
                            "Raspberry Pi": "#/$defs/RaspberryPi",
+                           "SICGEN": "#/$defs/Sicgen",
                            "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                            "Second Order Effects": "#/$defs/SecondOrderEffects",
                            "Semrock": "#/$defs/Semrock",
@@ -28457,6 +28794,9 @@
                            "$ref": "#/$defs/InfinityPhotoOptical"
                         },
                         {
+                           "$ref": "#/$defs/Invitrogen"
+                        },
+                        {
                            "$ref": "#/$defs/ISLProductsInternational"
                         },
                         {
@@ -28545,6 +28885,9 @@
                         },
                         {
                            "$ref": "#/$defs/SchneiderKreuznach"
+                        },
+                        {
+                           "$ref": "#/$defs/Sicgen"
                         },
                         {
                            "$ref": "#/$defs/SigmaAldritch"
@@ -29176,6 +29519,7 @@
                            "ISL Products International": "#/$defs/ISLProductsInternational",
                            "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
                            "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
+                           "Invitrogen": "#/$defs/Invitrogen",
                            "Jackson Laboratory": "#/$defs/JacksonLaboratory",
                            "Julabo": "#/$defs/Julabo",
                            "LG": "#/$defs/Lg",
@@ -29201,6 +29545,7 @@
                            "Prizmatix": "#/$defs/Prizmatix",
                            "Quantifi": "#/$defs/Quantifi",
                            "Raspberry Pi": "#/$defs/RaspberryPi",
+                           "SICGEN": "#/$defs/Sicgen",
                            "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                            "Second Order Effects": "#/$defs/SecondOrderEffects",
                            "Semrock": "#/$defs/Semrock",
@@ -29322,6 +29667,9 @@
                            "$ref": "#/$defs/InfinityPhotoOptical"
                         },
                         {
+                           "$ref": "#/$defs/Invitrogen"
+                        },
+                        {
                            "$ref": "#/$defs/ISLProductsInternational"
                         },
                         {
@@ -29410,6 +29758,9 @@
                         },
                         {
                            "$ref": "#/$defs/SchneiderKreuznach"
+                        },
+                        {
+                           "$ref": "#/$defs/Sicgen"
                         },
                         {
                            "$ref": "#/$defs/SigmaAldritch"
@@ -29962,6 +30313,7 @@
                            "ISL Products International": "#/$defs/ISLProductsInternational",
                            "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
                            "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
+                           "Invitrogen": "#/$defs/Invitrogen",
                            "Jackson Laboratory": "#/$defs/JacksonLaboratory",
                            "Julabo": "#/$defs/Julabo",
                            "LG": "#/$defs/Lg",
@@ -29987,6 +30339,7 @@
                            "Prizmatix": "#/$defs/Prizmatix",
                            "Quantifi": "#/$defs/Quantifi",
                            "Raspberry Pi": "#/$defs/RaspberryPi",
+                           "SICGEN": "#/$defs/Sicgen",
                            "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                            "Second Order Effects": "#/$defs/SecondOrderEffects",
                            "Semrock": "#/$defs/Semrock",
@@ -30108,6 +30461,9 @@
                            "$ref": "#/$defs/InfinityPhotoOptical"
                         },
                         {
+                           "$ref": "#/$defs/Invitrogen"
+                        },
+                        {
                            "$ref": "#/$defs/ISLProductsInternational"
                         },
                         {
@@ -30196,6 +30552,9 @@
                         },
                         {
                            "$ref": "#/$defs/SchneiderKreuznach"
+                        },
+                        {
+                           "$ref": "#/$defs/Sicgen"
                         },
                         {
                            "$ref": "#/$defs/SigmaAldritch"
@@ -30788,10 +31147,10 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.2.11",
-         "default": "0.2.11",
+         "const": "0.2.12",
+         "default": "0.2.12",
          "enum": [
-            "0.2.11"
+            "0.2.12"
          ],
          "title": "Schema Version",
          "type": "string"
