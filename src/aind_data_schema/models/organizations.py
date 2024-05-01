@@ -315,7 +315,7 @@ class InfinityPhotoOptical(_Organization):
 class Invitrogen(_Organization):
     """Invitrogen"""
 
-    name: Literal["Invirogen"] = "Invirogen"
+    name: Literal["Invitrogen"] = "Invitrogen"
     abbreviation: Literal[None] = Field(None)
     registry: Annotated[Union[ResearchOrganizationRegistry], Field(default=Registry.ROR, discriminator="name")]
     registry_identifier: Literal["03x1ewr52"] = Field("03x1ewr52")
