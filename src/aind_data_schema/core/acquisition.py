@@ -8,7 +8,7 @@ from pydantic import Field, field_validator
 from aind_data_schema.base import AindCoreModel, AindModel, AwareDatetimeWithDefault
 from aind_data_schema.imaging.tile import AcquisitionTile
 from aind_data_schema.models.coordinates import AnatomicalDirection, AxisName, ImageAxis
-from aind_data_schema.models.devices import Calibration, ImmersionMedium, Maintenance
+from aind_data_schema.models.devices import Calibration, ImmersionMedium, Maintenance, Software
 from aind_data_schema.models.process_names import ProcessName
 
 
@@ -78,6 +78,7 @@ class Acquisition(AindCoreModel):
         title="Processing steps",
         description="List of downstream processing steps planned for each channel",
     )
+    software: Optional[List[Software]] = Field([], title="Acquisition software version data")
     notes: Optional[str] = Field(None, title="Notes")
 
     @field_validator("axes", mode="before")
