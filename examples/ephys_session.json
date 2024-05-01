@@ -144,7 +144,7 @@
                "abbreviation": "ecephys"
             }
          ],
-         "software": null,
+         "software": [],
          "notes": null
       },
       {
@@ -273,7 +273,7 @@
                "abbreviation": "ecephys"
             }
          ],
-         "software": null,
+         "software": [],
          "notes": "664484_2023-04-24_20-06-37; Surface Finding"
       }
    ],
