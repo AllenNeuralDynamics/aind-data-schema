@@ -1,3 +1,12 @@
+## [0.34.0](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.33.10...v0.34.0) (2024-05-01)
+
+
+### Features
+
+* added optional software list to stream ([#907](https://github.com/AllenNeuralDynamics/aind-data-schema/issues/907)) ([685579e](https://github.com/AllenNeuralDynamics/aind-data-schema/commit/685579e66737b2319ca1251058b886566f108efa))
+* added optiopnal list of Software to acquisition ([#906](https://github.com/AllenNeuralDynamics/aind-data-schema/issues/906)) ([8dd4e9c](https://github.com/AllenNeuralDynamics/aind-data-schema/commit/8dd4e9cb8850644894ff1ae7caf06f50d7a755b2))
+
+
 ### [0.33.10](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.33.9...v0.33.10) (2024-04-26)
 
 
