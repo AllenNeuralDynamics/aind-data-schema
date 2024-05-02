@@ -1307,7 +1307,8 @@
             "Eye",
             "Face bottom",
             "Face forward",
-            "Face side",
+            "Face side left",
+            "Face side right",
             "Side",
             "Tongue",
             "Other"
@@ -16666,10 +16667,10 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.3.4",
-         "default": "0.3.4",
+         "const": "0.3.5",
+         "default": "0.3.5",
          "enum": [
-            "0.3.4"
+            "0.3.5"
          ],
          "title": "Schema Version",
          "type": "string"
