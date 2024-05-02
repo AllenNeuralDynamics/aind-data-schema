@@ -392,6 +392,7 @@ class Stream(AindModel):
     stack_parameters: Optional[Stack] = Field(None, title="Stack parameters")
     mri_scans: List[MRIScan] = Field(default=[], title="MRI scans")
     stream_modalities: List[Modality.ONE_OF] = Field(..., title="Modalities")
+    software: Optional[List[Software]] = Field([], title="Data stream software information")
     notes: Optional[str] = Field(None, title="Notes")
 
     @staticmethod
@@ -399,10 +400,8 @@ class Stream(AindModel):
         """Validate ecephys modality has ephys_assemblies and stick_microscopes"""
         if Modality.ECEPHYS in value:
             ephys_modules = info.data["ephys_modules"]
-            stick_microscopes = info.data["stick_microscopes"]
             for k, v in {
                 "ephys_modules": ephys_modules,
-                "stick_microscopes": stick_microscopes,
             }.items():
                 if not v:
                     return f"{k} field must be utilized for Ecephys modality"
@@ -530,7 +529,7 @@ class Session(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/session.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["0.2.2"] = Field("0.2.2")
+    schema_version: Literal["0.2.3"] = Field("0.2.3")
     protocol_id: List[str] = Field([], title="Protocol ID", description="DOI for protocols.io")
     experimenter_full_name: List[str] = Field(
         ...,

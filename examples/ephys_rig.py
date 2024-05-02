@@ -142,7 +142,7 @@ face_camera = Camera(
 camassm1 = CameraAssembly(
     name="Face Camera Assembly",
     camera=face_camera,
-    camera_target="Face side",
+    camera_target="Face side left",
     filter=filt,
     lens=lens,
 )

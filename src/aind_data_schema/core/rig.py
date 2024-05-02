@@ -50,7 +50,7 @@ class Rig(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/rig.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["0.3.3"] = Field("0.3.3")
+    schema_version: Literal["0.3.5"] = Field("0.3.5")
     rig_id: str = Field(..., description="room_rig name_date modified", title="Rig ID")
     modification_date: date = Field(..., title="Date of modification")
     mouse_platform: MOUSE_PLATFORMS

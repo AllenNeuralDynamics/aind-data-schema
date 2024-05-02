@@ -269,7 +269,8 @@
          "description": "Data level name",
          "enum": [
             "derived",
-            "raw"
+            "raw",
+            "simulated"
          ],
          "title": "DataLevel",
          "type": "string"
@@ -1436,10 +1437,10 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.13.3",
-         "default": "0.13.3",
+         "const": "0.13.4",
+         "default": "0.13.4",
          "enum": [
-            "0.13.3"
+            "0.13.4"
          ],
          "title": "Schema Version",
          "type": "string"

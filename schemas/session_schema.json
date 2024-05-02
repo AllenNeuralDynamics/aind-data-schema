@@ -2974,6 +2974,59 @@
          "title": "InteruniversityMicroelectronicsCenter",
          "type": "object"
       },
+      "Invitrogen": {
+         "additionalProperties": false,
+         "description": "Invitrogen",
+         "properties": {
+            "name": {
+               "const": "Invitrogen",
+               "default": "Invitrogen",
+               "enum": [
+                  "Invitrogen"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "03x1ewr52",
+               "default": "03x1ewr52",
+               "enum": [
+                  "03x1ewr52"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "Invitrogen",
+         "type": "object"
+      },
       "Isi": {
          "additionalProperties": false,
          "description": "Intrinsic signal imaging",
@@ -5170,6 +5223,7 @@
                      "ISL Products International": "#/$defs/ISLProductsInternational",
                      "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
                      "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
+                     "Invitrogen": "#/$defs/Invitrogen",
                      "Jackson Laboratory": "#/$defs/JacksonLaboratory",
                      "Julabo": "#/$defs/Julabo",
                      "LG": "#/$defs/Lg",
@@ -5195,6 +5249,7 @@
                      "Prizmatix": "#/$defs/Prizmatix",
                      "Quantifi": "#/$defs/Quantifi",
                      "Raspberry Pi": "#/$defs/RaspberryPi",
+                     "SICGEN": "#/$defs/Sicgen",
                      "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                      "Second Order Effects": "#/$defs/SecondOrderEffects",
                      "Semrock": "#/$defs/Semrock",
@@ -5316,6 +5371,9 @@
                      "$ref": "#/$defs/InfinityPhotoOptical"
                   },
                   {
+                     "$ref": "#/$defs/Invitrogen"
+                  },
+                  {
                      "$ref": "#/$defs/ISLProductsInternational"
                   },
                   {
@@ -5404,6 +5462,9 @@
                   },
                   {
                      "$ref": "#/$defs/SchneiderKreuznach"
+                  },
+                  {
+                     "$ref": "#/$defs/Sicgen"
                   },
                   {
                      "$ref": "#/$defs/SigmaAldritch"
@@ -5818,6 +5879,50 @@
             }
          },
          "title": "Semrock",
+         "type": "object"
+      },
+      "Sicgen": {
+         "additionalProperties": false,
+         "description": "SICGEN",
+         "properties": {
+            "name": {
+               "const": "SICGEN",
+               "default": "SICGEN",
+               "enum": [
+                  "SICGEN"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "enum": [
+                  null
+               ],
+               "title": "Registry",
+               "type": "null"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "enum": [
+                  null
+               ],
+               "title": "Registry Identifier",
+               "type": "null"
+            }
+         },
+         "title": "Sicgen",
          "type": "object"
       },
       "SigmaAldritch": {
@@ -7154,6 +7259,21 @@
                "title": "Modalities",
                "type": "array"
             },
+            "software": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "$ref": "#/$defs/Software"
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": [],
+               "title": "Data stream software information"
+            },
             "notes": {
                "anyOf": [
                   {
@@ -7777,10 +7897,10 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.2.2",
-         "default": "0.2.2",
+         "const": "0.2.3",
+         "default": "0.2.3",
          "enum": [
-            "0.2.2"
+            "0.2.3"
          ],
          "title": "Schema Version",
          "type": "string"

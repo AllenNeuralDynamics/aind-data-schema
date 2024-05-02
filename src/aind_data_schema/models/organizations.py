@@ -312,6 +312,15 @@ class InfinityPhotoOptical(_Organization):
     registry_identifier: Literal[None] = Field(None)
 
 
+class Invitrogen(_Organization):
+    """Invitrogen"""
+
+    name: Literal["Invitrogen"] = "Invitrogen"
+    abbreviation: Literal[None] = Field(None)
+    registry: Annotated[Union[ResearchOrganizationRegistry], Field(default=Registry.ROR, discriminator="name")]
+    registry_identifier: Literal["03x1ewr52"] = Field("03x1ewr52")
+
+
 class ISLProductsInternational(_Organization):
     """ISLProductsInternational"""
 
@@ -584,6 +593,15 @@ class SchneiderKreuznach(_Organization):
     registry_identifier: Literal[None] = Field(None)
 
 
+class Sicgen(_Organization):
+    """SICGEN"""
+
+    name: Literal["SICGEN"] = "SICGEN"
+    abbreviation: Literal[None] = Field(None)
+    registry: Literal[None] = Field(None)
+    registry_identifier: Literal[None] = Field(None)
+
+
 class SigmaAldritch(_Organization):
     """Sigma-Aldritch"""
 
@@ -727,6 +745,7 @@ class Organization:
     IMAGING_SOURCE = TheImagingSource()
     IMEC = InteruniversityMicroelectronicsCenter()
     INFINITY_PHOTO_OPTICAL = InfinityPhotoOptical()
+    INVITROGEN = Invitrogen()
     ISL = ISLProductsInternational()
     JAX = JacksonLaboratory()
     JULABO = Julabo()
@@ -757,6 +776,7 @@ class Organization:
     RASPBERRYPI = RaspberryPi()
     SEMROCK = Semrock()
     SCHNEIDER_KREUZNACH = SchneiderKreuznach()
+    SICGEN = Sicgen()
     SIGMA = SigmaAldritch()
     SIMONS = SimonsFoundation()
     SPINNAKER = Spinnaker()
