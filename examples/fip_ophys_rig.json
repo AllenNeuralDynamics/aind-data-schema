@@ -89,7 +89,7 @@
    "cameras": [
       {
          "name": "BehaviorVideography_FaceSide",
-         "camera_target": "Face side",
+         "camera_target": "Face side left",
          "camera": {
             "device_type": "Detector",
             "name": "Side face camera",
