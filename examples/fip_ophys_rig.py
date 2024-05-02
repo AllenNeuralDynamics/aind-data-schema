@@ -13,7 +13,7 @@ rig = r.Rig(
     cameras=[
         d.CameraAssembly(
             name="BehaviorVideography_FaceSide",
-            camera_target=d.CameraTarget.FACE_SIDE,
+            camera_target=d.CameraTarget.FACE_SIDE_LEFT,
             camera=d.Camera(
                 name="Side face camera",
                 detector_type="Camera",
