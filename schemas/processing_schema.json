@@ -295,6 +295,8 @@
             "Image atlas alignment",
             "Image background subtraction",
             "Image cell segmentation",
+            "Image cell classification",
+            "Image mip visualization",
             "Image cell quantification",
             "Image destriping",
             "Image flat-field correction",
