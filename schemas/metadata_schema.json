@@ -15048,6 +15048,206 @@
          "title": "MKSNewport",
          "type": "object"
       },
+      "MRIScan": {
+         "additionalProperties": false,
+         "description": "Description of a 3D scan",
+         "properties": {
+            "scan_index": {
+               "title": "Scan index",
+               "type": "integer"
+            },
+            "scan_type": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/ScanType"
+                  }
+               ],
+               "title": "Scan type"
+            },
+            "primary_scan": {
+               "description": "Indicates the primary scan used for downstream analysis",
+               "title": "Primary scan",
+               "type": "boolean"
+            },
+            "mri_scanner": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Scanner"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "MRI scanner"
+            },
+            "scan_sequence_type": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/MriScanSequence"
+                  }
+               ],
+               "title": "Scan sequence"
+            },
+            "rare_factor": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "RARE factor"
+            },
+            "echo_time": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  }
+               ],
+               "title": "Echo time (ms)"
+            },
+            "effective_echo_time": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Effective echo time (ms)"
+            },
+            "echo_time_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  }
+               ],
+               "default": "millisecond",
+               "title": "Echo time unit"
+            },
+            "repetition_time": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  }
+               ],
+               "title": "Repetition time (ms)"
+            },
+            "repetition_time_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  }
+               ],
+               "default": "millisecond",
+               "title": "Repetition time unit"
+            },
+            "vc_orientation": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Rotation3dTransform"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Scan orientation"
+            },
+            "vc_position": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Translation3dTransform"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Scan position"
+            },
+            "subject_position": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/SubjectPosition"
+                  }
+               ],
+               "title": "Subject position"
+            },
+            "voxel_sizes": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Scale3dTransform"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Resolution",
+               "title": "Voxel sizes"
+            },
+            "processing_steps": {
+               "default": [],
+               "items": {
+                  "enum": [
+                     "Fiducial segmentation",
+                     "Image atlas alignment",
+                     "Skull stripping"
+                  ],
+                  "type": "string"
+               },
+               "title": "Processing Steps",
+               "type": "array"
+            },
+            "additional_scan_parameters": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/AindGeneric"
+                  }
+               ],
+               "title": "Parameters"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Notes"
+            }
+         },
+         "required": [
+            "scan_index",
+            "scan_type",
+            "primary_scan",
+            "scan_sequence_type",
+            "echo_time",
+            "repetition_time",
+            "subject_position",
+            "additional_scan_parameters"
+         ],
+         "title": "MRIScan",
+         "type": "object"
+      },
       "MacacaMulatta": {
          "additionalProperties": false,
          "description": "Macaca Mulatta",
@@ -15103,6 +15303,15 @@
          },
          "title": "MacacaMulatta",
          "type": "object"
+      },
+      "MagneticStrength": {
+         "description": "Strength of magnet",
+         "enum": [
+            7,
+            14
+         ],
+         "title": "MagneticStrength",
+         "type": "integer"
       },
       "Maintenance": {
          "additionalProperties": false,
@@ -16259,6 +16468,15 @@
          },
          "title": "Mpi",
          "type": "object"
+      },
+      "MriScanSequence": {
+         "description": "MRI scan sequence",
+         "enum": [
+            "RARE",
+            "Other"
+         ],
+         "title": "MriScanSequence",
+         "type": "string"
       },
       "MultiplaneOphys": {
          "additionalProperties": false,
@@ -24295,6 +24513,467 @@
          "title": "Scale3dTransform",
          "type": "object"
       },
+      "ScanType": {
+         "description": "Type of scan",
+         "enum": [
+            "Set Up",
+            "3D Scan"
+         ],
+         "title": "ScanType",
+         "type": "string"
+      },
+      "Scanner": {
+         "additionalProperties": false,
+         "description": "Description of a MRI Scanner",
+         "properties": {
+            "device_type": {
+               "const": "Scanner",
+               "default": "Scanner",
+               "enum": [
+                  "Scanner"
+               ],
+               "title": "Device Type",
+               "type": "string"
+            },
+            "name": {
+               "title": "Device name",
+               "type": "string"
+            },
+            "serial_number": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Serial number"
+            },
+            "manufacturer": {
+               "anyOf": [
+                  {
+                     "discriminator": {
+                        "mapping": {
+                           "AA Opto Electronic": "#/$defs/AAOptoElectronic",
+                           "ASUS": "#/$defs/Asus",
+                           "Abcam": "#/$defs/Abcam",
+                           "Ailipu Technology Co": "#/$defs/AilipuTechnologyCo",
+                           "Allen Institute": "#/$defs/AllenInstitute",
+                           "Allen Institute for Brain Science": "#/$defs/AllenInstituteForBrainScience",
+                           "Allen Institute for Neural Dynamics": "#/$defs/AllenInstituteForNeuralDynamics",
+                           "Allied": "#/$defs/Allied",
+                           "Applied Scientific Instrumentation": "#/$defs/AppliedScientificInstrumentation",
+                           "Arecont Vision Costar": "#/$defs/ArecontVisionCostar",
+                           "Basler": "#/$defs/Basler",
+                           "Cambridge Technology": "#/$defs/CambridgeTechnology",
+                           "Carl Zeiss": "#/$defs/CarlZeiss",
+                           "Champalimaud Foundation": "#/$defs/ChampalimaudFoundation",
+                           "Chroma": "#/$defs/Chroma",
+                           "Coherent Scientific": "#/$defs/CoherentScientific",
+                           "Columbia University": "#/$defs/ColumbiaUniversity",
+                           "Computar": "#/$defs/Computar",
+                           "Conoptics": "#/$defs/Conoptics",
+                           "Custom": "#/$defs/Custom",
+                           "Dodotronic": "#/$defs/Dodotronic",
+                           "Doric": "#/$defs/Doric",
+                           "Ealing": "#/$defs/Ealing",
+                           "Edmund Optics": "#/$defs/EdmundOptics",
+                           "Euresys": "#/$defs/Euresys",
+                           "Fujinon": "#/$defs/Fujinon",
+                           "Hamamatsu": "#/$defs/Hamamatsu",
+                           "Hamilton": "#/$defs/Hamilton",
+                           "Huazhong University of Science and Technology": "#/$defs/HuazhongUniversityOfScienceAndTechnology",
+                           "IR Robot Co": "#/$defs/IRRobotCo",
+                           "ISL Products International": "#/$defs/ISLProductsInternational",
+                           "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
+                           "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
+                           "Invitrogen": "#/$defs/Invitrogen",
+                           "Jackson Laboratory": "#/$defs/JacksonLaboratory",
+                           "Julabo": "#/$defs/Julabo",
+                           "LG": "#/$defs/Lg",
+                           "Leica": "#/$defs/Leica",
+                           "LifeCanvas": "#/$defs/LifeCanvas",
+                           "MKS Newport": "#/$defs/MKSNewport",
+                           "MPI": "#/$defs/Mpi",
+                           "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
+                           "Mitutuyo": "#/$defs/Mitutuyo",
+                           "NResearch Inc": "#/$defs/NResearch",
+                           "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
+                           "National Instruments": "#/$defs/NationalInstruments",
+                           "Navitar": "#/$defs/Navitar",
+                           "Neurophotometrics": "#/$defs/Neurophotometrics",
+                           "New Scale Technologies": "#/$defs/NewScaleTechnologies",
+                           "New York University": "#/$defs/NewYorkUniversity",
+                           "Nikon": "#/$defs/Nikon",
+                           "Olympus": "#/$defs/Olympus",
+                           "Open Ephys Production Site": "#/$defs/OpenEphysProductionSite",
+                           "Optotune": "#/$defs/Optotune",
+                           "Other": "#/$defs/Other",
+                           "Oxxius": "#/$defs/Oxxius",
+                           "Prizmatix": "#/$defs/Prizmatix",
+                           "Quantifi": "#/$defs/Quantifi",
+                           "Raspberry Pi": "#/$defs/RaspberryPi",
+                           "SICGEN": "#/$defs/Sicgen",
+                           "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
+                           "Second Order Effects": "#/$defs/SecondOrderEffects",
+                           "Semrock": "#/$defs/Semrock",
+                           "Sigma-Aldritch": "#/$defs/SigmaAldritch",
+                           "Simons Foundation": "#/$defs/SimonsFoundation",
+                           "Spinnaker": "#/$defs/Spinnaker",
+                           "Tamron": "#/$defs/Tamron",
+                           "Technical Manufacturing Corporation": "#/$defs/TMC",
+                           "Teledyne FLIR": "#/$defs/TeledyneFLIR",
+                           "The Imaging Source": "#/$defs/TheImagingSource",
+                           "The Lee Company": "#/$defs/TheLeeCompany",
+                           "Thermo Fisher": "#/$defs/Thermofisher",
+                           "Thorlabs": "#/$defs/Thorlabs",
+                           "Tymphany": "#/$defs/Tymphany",
+                           "Vieworks": "#/$defs/Vieworks",
+                           "Vortran": "#/$defs/Vortran",
+                           "ams OSRAM": "#/$defs/AmsOsram"
+                        },
+                        "propertyName": "name"
+                     },
+                     "oneOf": [
+                        {
+                           "$ref": "#/$defs/AAOptoElectronic"
+                        },
+                        {
+                           "$ref": "#/$defs/Abcam"
+                        },
+                        {
+                           "$ref": "#/$defs/AilipuTechnologyCo"
+                        },
+                        {
+                           "$ref": "#/$defs/AllenInstitute"
+                        },
+                        {
+                           "$ref": "#/$defs/AllenInstituteForBrainScience"
+                        },
+                        {
+                           "$ref": "#/$defs/AllenInstituteForNeuralDynamics"
+                        },
+                        {
+                           "$ref": "#/$defs/Allied"
+                        },
+                        {
+                           "$ref": "#/$defs/AmsOsram"
+                        },
+                        {
+                           "$ref": "#/$defs/AppliedScientificInstrumentation"
+                        },
+                        {
+                           "$ref": "#/$defs/Asus"
+                        },
+                        {
+                           "$ref": "#/$defs/ArecontVisionCostar"
+                        },
+                        {
+                           "$ref": "#/$defs/Basler"
+                        },
+                        {
+                           "$ref": "#/$defs/CambridgeTechnology"
+                        },
+                        {
+                           "$ref": "#/$defs/ChampalimaudFoundation"
+                        },
+                        {
+                           "$ref": "#/$defs/Chroma"
+                        },
+                        {
+                           "$ref": "#/$defs/CoherentScientific"
+                        },
+                        {
+                           "$ref": "#/$defs/ColumbiaUniversity"
+                        },
+                        {
+                           "$ref": "#/$defs/Computar"
+                        },
+                        {
+                           "$ref": "#/$defs/Conoptics"
+                        },
+                        {
+                           "$ref": "#/$defs/Custom"
+                        },
+                        {
+                           "$ref": "#/$defs/Dodotronic"
+                        },
+                        {
+                           "$ref": "#/$defs/Doric"
+                        },
+                        {
+                           "$ref": "#/$defs/Ealing"
+                        },
+                        {
+                           "$ref": "#/$defs/EdmundOptics"
+                        },
+                        {
+                           "$ref": "#/$defs/Euresys"
+                        },
+                        {
+                           "$ref": "#/$defs/TeledyneFLIR"
+                        },
+                        {
+                           "$ref": "#/$defs/Fujinon"
+                        },
+                        {
+                           "$ref": "#/$defs/Hamamatsu"
+                        },
+                        {
+                           "$ref": "#/$defs/Hamilton"
+                        },
+                        {
+                           "$ref": "#/$defs/HuazhongUniversityOfScienceAndTechnology"
+                        },
+                        {
+                           "$ref": "#/$defs/TheImagingSource"
+                        },
+                        {
+                           "$ref": "#/$defs/InteruniversityMicroelectronicsCenter"
+                        },
+                        {
+                           "$ref": "#/$defs/InfinityPhotoOptical"
+                        },
+                        {
+                           "$ref": "#/$defs/Invitrogen"
+                        },
+                        {
+                           "$ref": "#/$defs/ISLProductsInternational"
+                        },
+                        {
+                           "$ref": "#/$defs/JacksonLaboratory"
+                        },
+                        {
+                           "$ref": "#/$defs/Julabo"
+                        },
+                        {
+                           "$ref": "#/$defs/TheLeeCompany"
+                        },
+                        {
+                           "$ref": "#/$defs/Leica"
+                        },
+                        {
+                           "$ref": "#/$defs/Lg"
+                        },
+                        {
+                           "$ref": "#/$defs/LifeCanvas"
+                        },
+                        {
+                           "$ref": "#/$defs/MeadowlarkOptics"
+                        },
+                        {
+                           "$ref": "#/$defs/IRRobotCo"
+                        },
+                        {
+                           "$ref": "#/$defs/Mitutuyo"
+                        },
+                        {
+                           "$ref": "#/$defs/MKSNewport"
+                        },
+                        {
+                           "$ref": "#/$defs/Mpi"
+                        },
+                        {
+                           "$ref": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke"
+                        },
+                        {
+                           "$ref": "#/$defs/NationalInstruments"
+                        },
+                        {
+                           "$ref": "#/$defs/Navitar"
+                        },
+                        {
+                           "$ref": "#/$defs/Neurophotometrics"
+                        },
+                        {
+                           "$ref": "#/$defs/NewScaleTechnologies"
+                        },
+                        {
+                           "$ref": "#/$defs/NewYorkUniversity"
+                        },
+                        {
+                           "$ref": "#/$defs/Nikon"
+                        },
+                        {
+                           "$ref": "#/$defs/NResearch"
+                        },
+                        {
+                           "$ref": "#/$defs/OpenEphysProductionSite"
+                        },
+                        {
+                           "$ref": "#/$defs/Olympus"
+                        },
+                        {
+                           "$ref": "#/$defs/Optotune"
+                        },
+                        {
+                           "$ref": "#/$defs/Oxxius"
+                        },
+                        {
+                           "$ref": "#/$defs/Prizmatix"
+                        },
+                        {
+                           "$ref": "#/$defs/Quantifi"
+                        },
+                        {
+                           "$ref": "#/$defs/RaspberryPi"
+                        },
+                        {
+                           "$ref": "#/$defs/SecondOrderEffects"
+                        },
+                        {
+                           "$ref": "#/$defs/Semrock"
+                        },
+                        {
+                           "$ref": "#/$defs/SchneiderKreuznach"
+                        },
+                        {
+                           "$ref": "#/$defs/Sicgen"
+                        },
+                        {
+                           "$ref": "#/$defs/SigmaAldritch"
+                        },
+                        {
+                           "$ref": "#/$defs/SimonsFoundation"
+                        },
+                        {
+                           "$ref": "#/$defs/Spinnaker"
+                        },
+                        {
+                           "$ref": "#/$defs/Tamron"
+                        },
+                        {
+                           "$ref": "#/$defs/Thermofisher"
+                        },
+                        {
+                           "$ref": "#/$defs/Thorlabs"
+                        },
+                        {
+                           "$ref": "#/$defs/TMC"
+                        },
+                        {
+                           "$ref": "#/$defs/Tymphany"
+                        },
+                        {
+                           "$ref": "#/$defs/Vieworks"
+                        },
+                        {
+                           "$ref": "#/$defs/Vortran"
+                        },
+                        {
+                           "$ref": "#/$defs/CarlZeiss"
+                        },
+                        {
+                           "$ref": "#/$defs/Other"
+                        }
+                     ]
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Manufacturer"
+            },
+            "model": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Model"
+            },
+            "path_to_cad": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "For CUSTOM manufactured devices",
+               "title": "Path to CAD diagram"
+            },
+            "port_index": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Port index"
+            },
+            "additional_settings": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/AindGeneric"
+                  }
+               ],
+               "default": {},
+               "title": "Additional parameters"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Notes"
+            },
+            "scanner_location": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/ScannerLocation"
+                  }
+               ],
+               "title": "Scanner location"
+            },
+            "magnetic_strength": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/MagneticStrength"
+                  }
+               ],
+               "title": "Magnetic strength (T)"
+            },
+            "magnetic_strength_unit": {
+               "default": "T",
+               "title": "Magnetic strength unit",
+               "type": "string"
+            }
+         },
+         "required": [
+            "name",
+            "scanner_location",
+            "magnetic_strength"
+         ],
+         "title": "Scanner",
+         "type": "object"
+      },
+      "ScannerLocation": {
+         "description": "location of scanner",
+         "enum": [
+            "Fred Hutch",
+            "UW SLU"
+         ],
+         "title": "ScannerLocation",
+         "type": "string"
+      },
       "ScanningStage": {
          "additionalProperties": false,
          "description": "Description of a scanning motorized stages",
@@ -25036,10 +25715,10 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.2.3",
-               "default": "0.2.3",
+               "const": "0.2.4",
+               "default": "0.2.4",
                "enum": [
-                  "0.2.3"
+                  "0.2.4"
                ],
                "title": "Schema Version",
                "type": "string"
@@ -25161,6 +25840,18 @@
                ],
                "default": "gram",
                "title": "Weight unit"
+            },
+            "anaesthesia": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Anaesthetic"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Anaesthesia"
             },
             "data_streams": {
                "description": "A data stream is a collection of devices that are recorded simultaneously. Each session can include multiple streams (e.g., if the manipulators are moved to a new location)",
@@ -27459,6 +28150,14 @@
                "default": null,
                "title": "Stack parameters"
             },
+            "mri_scans": {
+               "default": [],
+               "items": {
+                  "$ref": "#/$defs/MRIScan"
+               },
+               "title": "MRI scans",
+               "type": "array"
+            },
             "stream_modalities": {
                "items": {
                   "discriminator": {
@@ -27775,6 +28474,15 @@
          ],
          "title": "Subject",
          "type": "object"
+      },
+      "SubjectPosition": {
+         "description": "Subject position",
+         "enum": [
+            "Prone",
+            "Supine"
+         ],
+         "title": "SubjectPosition",
+         "type": "string"
       },
       "Surgery": {
          "additionalProperties": false,
@@ -31148,10 +31856,10 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.2.13",
-         "default": "0.2.13",
+         "const": "0.2.14",
+         "default": "0.2.14",
          "enum": [
-            "0.2.13"
+            "0.2.14"
          ],
          "title": "Schema Version",
          "type": "string"
