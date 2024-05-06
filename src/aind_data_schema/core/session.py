@@ -10,8 +10,6 @@ from pydantic_core.core_schema import ValidationInfo
 from typing_extensions import Annotated
 
 from aind_data_schema.base import AindCoreModel, AindGeneric, AindGenericType, AindModel, AwareDatetimeWithDefault
-from aind_data_schema.core.procedures import Anaesthetic
-from aind_data_schema.core.tile import Channel
 from aind_data_schema.core.coordinates import (
     CcfCoords,
     Coordinates3d,
@@ -20,8 +18,7 @@ from aind_data_schema.core.coordinates import (
     Translation3dTransform,
 )
 from aind_data_schema.core.devices import Calibration, Maintenance, RelativePosition, Scanner, Software, SpoutSide
-from aind_data_schema.models.modalities import Modality
-from aind_data_schema.models.process_names import ProcessName
+from aind_data_schema.core.procedures import Anaesthetic
 from aind_data_schema.core.stimulus import (
     AuditoryStimulation,
     OlfactoryStimulation,
@@ -29,6 +26,9 @@ from aind_data_schema.core.stimulus import (
     PhotoStimulation,
     VisualStimulation,
 )
+from aind_data_schema.core.tile import Channel
+from aind_data_schema.models.modalities import Modality
+from aind_data_schema.models.process_names import ProcessName
 from aind_data_schema.models.units import (
     AngleUnit,
     FrequencyUnit,
