@@ -22029,7 +22029,9 @@
             "Image atlas alignment",
             "Image background subtraction",
             "Image cell segmentation",
+            "Image cell classification",
             "Image cell quantification",
+            "Image mip visualization",
             "Image destriping",
             "Image flat-field correction",
             "Image importing",
@@ -31856,10 +31858,10 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.2.15",
-         "default": "0.2.15",
+         "const": "0.2.16",
+         "default": "0.2.16",
          "enum": [
-            "0.2.15"
+            "0.2.16"
          ],
          "title": "Schema Version",
          "type": "string"
