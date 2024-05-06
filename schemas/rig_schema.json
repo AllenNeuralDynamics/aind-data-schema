@@ -15855,7 +15855,7 @@
          "title": "Wheel",
          "type": "object"
       },
-      "aind_data_schema__models__devices__Olfactometer": {
+      "aind_data_schema__components__devices__Olfactometer": {
          "additionalProperties": false,
          "description": "Description of an olfactometer for odor stimuli",
          "properties": {
@@ -16089,7 +16089,7 @@
          "title": "Olfactometer",
          "type": "object"
       },
-      "aind_data_schema__models__devices__Treadmill": {
+      "aind_data_schema__components__devices__Treadmill": {
          "additionalProperties": false,
          "description": "Description of treadmill platform",
          "properties": {
@@ -16667,10 +16667,10 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.3.5",
-         "default": "0.3.5",
+         "const": "0.3.6",
+         "default": "0.3.6",
          "enum": [
-            "0.3.5"
+            "0.3.6"
          ],
          "title": "Schema Version",
          "type": "string"
@@ -16689,7 +16689,7 @@
          "discriminator": {
             "mapping": {
                "Disc": "#/$defs/Disc",
-               "Treadmill": "#/$defs/aind_data_schema__models__devices__Treadmill",
+               "Treadmill": "#/$defs/aind_data_schema__components__devices__Treadmill",
                "Tube": "#/$defs/Tube",
                "Wheel": "#/$defs/Wheel"
             },
@@ -16706,7 +16706,7 @@
                "$ref": "#/$defs/Tube"
             },
             {
-               "$ref": "#/$defs/aind_data_schema__models__devices__Treadmill"
+               "$ref": "#/$defs/aind_data_schema__components__devices__Treadmill"
             }
          ],
          "title": "Mouse Platform"
@@ -16717,7 +16717,7 @@
             "discriminator": {
                "mapping": {
                   "Monitor": "#/$defs/Monitor",
-                  "Olfactometer": "#/$defs/aind_data_schema__models__devices__Olfactometer",
+                  "Olfactometer": "#/$defs/aind_data_schema__components__devices__Olfactometer",
                   "Reward delivery": "#/$defs/RewardDelivery",
                   "Speaker": "#/$defs/Speaker"
                },
@@ -16728,7 +16728,7 @@
                   "$ref": "#/$defs/Monitor"
                },
                {
-                  "$ref": "#/$defs/aind_data_schema__models__devices__Olfactometer"
+                  "$ref": "#/$defs/aind_data_schema__components__devices__Olfactometer"
                },
                {
                   "$ref": "#/$defs/RewardDelivery"
