@@ -10,9 +10,9 @@ from pydantic_core.core_schema import ValidationInfo
 from typing_extensions import Annotated
 
 from aind_data_schema.base import AindCoreModel, AindModel, AwareDatetimeWithDefault
-from aind_data_schema.models.devices import FiberProbe
+from aind_data_schema.components.devices import FiberProbe
+from aind_data_schema.components.reagent import Reagent
 from aind_data_schema.models.pid_names import PIDName
-from aind_data_schema.models.reagent import Reagent
 from aind_data_schema.models.species import Species
 from aind_data_schema.models.units import (
     AngleUnit,

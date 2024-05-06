@@ -6,7 +6,7 @@ from typing import List, Literal, Optional
 from pydantic import Field, ValidationInfo, field_validator
 
 from aind_data_schema.base import AindCoreModel, AindModel
-from aind_data_schema.models.devices import (
+from aind_data_schema.components.devices import (
     LIGHT_SOURCES,
     AdditionalImagingDevice,
     DAQDevice,

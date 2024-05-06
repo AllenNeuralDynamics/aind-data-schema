@@ -20,7 +20,7 @@ from aind_data_schema.core.procedures import (
     TarsVirusIdentifiers,
     ViralMaterial,
 )
-from aind_data_schema.models.devices import FiberProbe
+from aind_data_schema.components.devices import FiberProbe
 from aind_data_schema.models.organizations import Organization
 
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)

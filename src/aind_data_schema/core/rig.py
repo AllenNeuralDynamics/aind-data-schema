@@ -7,8 +7,8 @@ from pydantic import Field, ValidationInfo, field_validator, model_validator
 from typing_extensions import Annotated
 
 from aind_data_schema.base import AindCoreModel
-from aind_data_schema.models.coordinates import Axis, Origin
-from aind_data_schema.models.devices import (
+from aind_data_schema.components.coordinates import Axis, Origin
+from aind_data_schema.components.devices import (
     LIGHT_SOURCES,
     Calibration,
     CameraAssembly,
