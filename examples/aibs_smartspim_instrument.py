@@ -3,7 +3,7 @@
 import datetime
 
 from aind_data_schema.core.instrument import Com, Instrument
-from aind_data_schema.core.devices import (
+from aind_data_schema.components.devices import (
     AdditionalImagingDevice,
     Detector,
     Filter,

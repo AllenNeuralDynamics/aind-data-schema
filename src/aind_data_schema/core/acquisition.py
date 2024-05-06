@@ -6,9 +6,9 @@ from typing import List, Literal, Optional, Union
 from pydantic import Field, field_validator
 
 from aind_data_schema.base import AindCoreModel, AindModel, AwareDatetimeWithDefault
-from aind_data_schema.core.coordinates import AnatomicalDirection, AxisName, ImageAxis
-from aind_data_schema.core.devices import Calibration, ImmersionMedium, Maintenance, Software
-from aind_data_schema.core.tile import AcquisitionTile
+from aind_data_schema.components.coordinates import AnatomicalDirection, AxisName, ImageAxis
+from aind_data_schema.components.devices import Calibration, ImmersionMedium, Maintenance, Software
+from aind_data_schema.components.tile import AcquisitionTile
 from aind_data_schema.models.process_names import ProcessName
 
 

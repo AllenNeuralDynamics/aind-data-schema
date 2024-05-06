@@ -18,7 +18,7 @@ from aind_data_schema.core.session import (
     Session,
     Stream,
 )
-from aind_data_schema.core.coordinates import (
+from aind_data_schema.components.coordinates import (
     CcfCoords,
     Coordinates3d,
     Rotation3dTransform,

@@ -10,14 +10,14 @@ from pydantic import __version__ as pyd_version
 from aind_data_schema.core import acquisition as acq
 from aind_data_schema.core import instrument as inst
 from aind_data_schema.core.processing import Registration
-from aind_data_schema.core import tile
-from aind_data_schema.core.coordinates import (
+from aind_data_schema.components import tile
+from aind_data_schema.components.coordinates import (
     Affine3dTransform,
     Rotation3dTransform,
     Scale3dTransform,
     Translation3dTransform,
 )
-from aind_data_schema.core.devices import Calibration, DAQChannel, DAQDevice
+from aind_data_schema.components.devices import Calibration, DAQChannel, DAQDevice
 from aind_data_schema.models.organizations import Organization
 from aind_data_schema.models.units import PowerValue
 

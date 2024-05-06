@@ -3,7 +3,7 @@
 import datetime
 
 from aind_data_schema.core.instrument import Com, Detector, Instrument, Objective
-from aind_data_schema.core.devices import Filter, Laser, MotorizedStage, OpticalTable, ScanningStage
+from aind_data_schema.components.devices import Filter, Laser, MotorizedStage, OpticalTable, ScanningStage
 from aind_data_schema.models.organizations import Organization
 
 inst = Instrument(

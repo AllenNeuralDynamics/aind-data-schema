@@ -9,8 +9,8 @@ from pydantic import Field, ValidationInfo, field_validator, model_validator
 from typing_extensions import Annotated
 
 from aind_data_schema.base import AindGeneric, AindGenericType, AindModel, AwareDatetimeWithDefault
-from aind_data_schema.core.coordinates import RelativePosition, Size3d
-from aind_data_schema.core.reagent import Reagent
+from aind_data_schema.components.coordinates import RelativePosition, Size3d
+from aind_data_schema.components.reagent import Reagent
 from aind_data_schema.models.harp_types import HarpDeviceType
 from aind_data_schema.models.harp_types import Olfactometer as OlfactometerHarpType
 from aind_data_schema.models.organizations import InteruniversityMicroelectronicsCenter, Organization

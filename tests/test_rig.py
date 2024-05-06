@@ -6,7 +6,7 @@ from datetime import date, datetime
 from pydantic import ValidationError
 
 from aind_data_schema.core.rig import Rig
-from aind_data_schema.core.devices import (
+from aind_data_schema.components.devices import (
     Calibration,
     Camera,
     CameraAssembly,
