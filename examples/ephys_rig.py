@@ -3,7 +3,7 @@
 from datetime import date, datetime, timezone
 
 from aind_data_schema.core.rig import Rig
-from aind_data_schema.models.devices import (
+from aind_data_schema.core.devices import (
     Calibration,
     Camera,
     CameraAssembly,

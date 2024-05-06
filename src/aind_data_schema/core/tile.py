@@ -6,7 +6,7 @@ from pydantic import Field
 from typing_extensions import Annotated
 
 from aind_data_schema.base import AindModel
-from aind_data_schema.models.coordinates import (
+from aind_data_schema.core.coordinates import (
     Affine3dTransform,
     Rotation3dTransform,
     Scale3dTransform,

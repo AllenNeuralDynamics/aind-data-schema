@@ -12,7 +12,7 @@ from aind_data_schema.core.session import (
     Stream,
 )
 from aind_data_schema.models.modalities import Modality
-from aind_data_schema.models.stimulus import PhotoStimulation, PhotoStimulationGroup
+from aind_data_schema.core.stimulus import PhotoStimulation, PhotoStimulationGroup
 
 # If a timezone isn't specified, the timezone of the computer running this
 # script will be used as default

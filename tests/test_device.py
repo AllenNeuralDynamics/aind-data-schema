@@ -5,7 +5,7 @@ import unittest
 
 from pydantic import __version__ as pyd_version
 
-from aind_data_schema.models.devices import (
+from aind_data_schema.core.devices import (
     AdditionalImagingDevice,
     DataInterface,
     Detector,

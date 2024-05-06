@@ -3,8 +3,8 @@
 from decimal import Decimal
 
 from aind_data_schema.core.session import MRIScan, MriScanSequence, ScanType, Session, Stream, SubjectPosition
-from aind_data_schema.models.coordinates import Rotation3dTransform, Scale3dTransform, Translation3dTransform
-from aind_data_schema.models.devices import Scanner
+from aind_data_schema.core.coordinates import Rotation3dTransform, Scale3dTransform, Translation3dTransform
+from aind_data_schema.core.devices import Scanner
 from aind_data_schema.models.modalities import Modality
 
 scan1 = MRIScan(
