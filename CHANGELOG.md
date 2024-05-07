@@ -1,3 +1,11 @@
+## [0.35.0](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.34.4...v0.35.0) (2024-05-07)
+
+
+### Features
+
+* uses aind-data-schema-models package ([#919](https://github.com/AllenNeuralDynamics/aind-data-schema/issues/919)) ([fc56b0b](https://github.com/AllenNeuralDynamics/aind-data-schema/commit/fc56b0b17283cd6dd7ec83c2f589f779a080c5b4))
+
+
 ### [0.34.4](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.34.3...v0.34.4) (2024-05-06)
 
 
