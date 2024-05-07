@@ -111,9 +111,7 @@ pip install aind-data-schema --upgrade
 
 ## Controlled Vocabularies
 
-Controlled vocabularies and other enumerated lists are maintained in a separate repository: [aind-data-schema-models](https://github.com/AllenNeuralDynamics/aind-data-schema-models). This allows us to grow
-lists of manufacturers and other organizations without changing 
-aind-data-schema.
+Controlled vocabularies and other enumerated lists are maintained in a separate repository: [aind-data-schema-models](https://github.com/AllenNeuralDynamics/aind-data-schema-models). This allows us to specify these lists without changing aind-data-schema. Controlled vocabularies include lists of organizations, manufacturers, species, modalities, platforms, units, harp devices, and registries.
 
 To upgrade to the latest data models version:
 ```
