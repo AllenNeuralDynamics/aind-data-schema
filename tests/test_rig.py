@@ -3,9 +3,10 @@
 import unittest
 from datetime import date, datetime
 
+from aind_data_schema_models.modalities import Modality
+from aind_data_schema_models.organizations import Organization
 from pydantic import ValidationError
 
-from aind_data_schema.core.rig import Rig
 from aind_data_schema.components.devices import (
     Calibration,
     Camera,
@@ -27,8 +28,7 @@ from aind_data_schema.components.devices import (
     OlfactometerChannel,
     Patch,
 )
-from aind_data_schema.models.modalities import Modality
-from aind_data_schema.models.organizations import Organization
+from aind_data_schema.core.rig import Rig
 
 
 class RigTests(unittest.TestCase):

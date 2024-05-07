@@ -5,9 +5,17 @@ import unittest
 from datetime import datetime, timezone
 
 import pydantic
+from aind_data_schema_models.modalities import Modality
 from pydantic import ValidationError
 from pydantic import __version__ as pyd_version
 
+from aind_data_schema.components.coordinates import (
+    CcfCoords,
+    Coordinates3d,
+    Rotation3dTransform,
+    Scale3dTransform,
+    Translation3dTransform,
+)
 from aind_data_schema.core.session import (
     DomeModule,
     EphysModule,
@@ -18,14 +26,6 @@ from aind_data_schema.core.session import (
     Session,
     Stream,
 )
-from aind_data_schema.components.coordinates import (
-    CcfCoords,
-    Coordinates3d,
-    Rotation3dTransform,
-    Scale3dTransform,
-    Translation3dTransform,
-)
-from aind_data_schema.models.modalities import Modality
 
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
 

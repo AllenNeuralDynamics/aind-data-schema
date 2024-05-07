@@ -2,6 +2,7 @@
 
 from typing import List, Optional, Union
 
+from aind_data_schema_models.units import AngleUnit, PowerUnit, SizeUnit
 from pydantic import Field
 from typing_extensions import Annotated
 
@@ -12,7 +13,6 @@ from aind_data_schema.components.coordinates import (
     Scale3dTransform,
     Translation3dTransform,
 )
-from aind_data_schema.models.units import AngleUnit, PowerUnit, SizeUnit
 
 
 class Channel(AindModel):

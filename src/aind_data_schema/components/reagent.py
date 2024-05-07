@@ -3,11 +3,11 @@
 from datetime import date
 from typing import Optional
 
+from aind_data_schema_models.organizations import Organization
+from aind_data_schema_models.pid_names import PIDName
 from pydantic import Field
 
 from aind_data_schema.base import AindModel
-from aind_data_schema.models.organizations import Organization
-from aind_data_schema.models.pid_names import PIDName
 
 
 class Reagent(AindModel):
