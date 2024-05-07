@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/data_description.py",
-   "schema_version": "0.13.4",
+   "schema_version": "0.13.5",
    "license": "CC-BY-4.0",
    "platform": {
       "name": "Electrophysiology platform",

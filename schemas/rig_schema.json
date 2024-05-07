@@ -6487,7 +6487,7 @@
             "harp_device_type": {
                "discriminator": {
                   "mapping": {
-                     "Behavior": "#/$defs/aind_data_schema__models__harp_types__Behavior",
+                     "Behavior": "#/$defs/aind_data_schema_models__harp_types__Behavior",
                      "Camera Controller": "#/$defs/CameraController",
                      "Clock Synchronizer": "#/$defs/ClockSynchronizer",
                      "Cuttlefish": "#/$defs/Cuttlefish",
@@ -6495,20 +6495,20 @@
                      "Input Expander": "#/$defs/InputExpander",
                      "Lickety Split": "#/$defs/LicketySplit",
                      "Load Cells": "#/$defs/LoadCells",
-                     "Olfactometer": "#/$defs/aind_data_schema__models__harp_types__Olfactometer",
+                     "Olfactometer": "#/$defs/aind_data_schema_models__harp_types__Olfactometer",
                      "Sniff Detector": "#/$defs/SniffDetector",
                      "Sound Card": "#/$defs/SoundCard",
                      "Stepper Driver": "#/$defs/StepperDriver",
                      "Synchronizer": "#/$defs/Synchronizer",
                      "Timestamp Generator Gen 1": "#/$defs/TimestampGeneratorGen1",
                      "Timestamp Generator Gen 3": "#/$defs/TimestampGeneratorGen3",
-                     "Treadmill": "#/$defs/aind_data_schema__models__harp_types__Treadmill"
+                     "Treadmill": "#/$defs/aind_data_schema_models__harp_types__Treadmill"
                   },
                   "propertyName": "name"
                },
                "oneOf": [
                   {
-                     "$ref": "#/$defs/aind_data_schema__models__harp_types__Behavior"
+                     "$ref": "#/$defs/aind_data_schema_models__harp_types__Behavior"
                   },
                   {
                      "$ref": "#/$defs/CameraController"
@@ -6526,7 +6526,7 @@
                      "$ref": "#/$defs/LoadCells"
                   },
                   {
-                     "$ref": "#/$defs/aind_data_schema__models__harp_types__Olfactometer"
+                     "$ref": "#/$defs/aind_data_schema_models__harp_types__Olfactometer"
                   },
                   {
                      "$ref": "#/$defs/SoundCard"
@@ -6547,7 +6547,7 @@
                      "$ref": "#/$defs/SniffDetector"
                   },
                   {
-                     "$ref": "#/$defs/aind_data_schema__models__harp_types__Treadmill"
+                     "$ref": "#/$defs/aind_data_schema_models__harp_types__Treadmill"
                   },
                   {
                      "$ref": "#/$defs/Cuttlefish"
@@ -16040,13 +16040,13 @@
                },
                "discriminator": {
                   "mapping": {
-                     "Olfactometer": "#/$defs/aind_data_schema__models__harp_types__Olfactometer"
+                     "Olfactometer": "#/$defs/aind_data_schema_models__harp_types__Olfactometer"
                   },
                   "propertyName": "name"
                },
                "oneOf": [
                   {
-                     "$ref": "#/$defs/aind_data_schema__models__harp_types__Olfactometer"
+                     "$ref": "#/$defs/aind_data_schema_models__harp_types__Olfactometer"
                   }
                ],
                "title": "Harp Device Type"
@@ -16555,7 +16555,7 @@
          "title": "Treadmill",
          "type": "object"
       },
-      "aind_data_schema__models__harp_types__Behavior": {
+      "aind_data_schema_models__harp_types__Behavior": {
          "description": "Behavior",
          "properties": {
             "name": {
@@ -16580,7 +16580,7 @@
          "title": "Behavior",
          "type": "object"
       },
-      "aind_data_schema__models__harp_types__Olfactometer": {
+      "aind_data_schema_models__harp_types__Olfactometer": {
          "description": "Olfactometer",
          "properties": {
             "name": {
@@ -16605,7 +16605,7 @@
          "title": "Olfactometer",
          "type": "object"
       },
-      "aind_data_schema__models__harp_types__Treadmill": {
+      "aind_data_schema_models__harp_types__Treadmill": {
          "description": "Treadmill",
          "properties": {
             "name": {
@@ -16630,7 +16630,7 @@
          "title": "Treadmill",
          "type": "object"
       },
-      "aind_data_schema__models__modalities__Behavior": {
+      "aind_data_schema_models__modalities__Behavior": {
          "additionalProperties": false,
          "description": "Behavior",
          "properties": {
@@ -16667,10 +16667,10 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.3.6",
-         "default": "0.3.6",
+         "const": "0.3.7",
+         "default": "0.3.7",
          "enum": [
-            "0.3.6"
+            "0.3.7"
          ],
          "title": "Schema Version",
          "type": "string"
@@ -16974,7 +16974,7 @@
          "items": {
             "discriminator": {
                "mapping": {
-                  "Behavior": "#/$defs/aind_data_schema__models__modalities__Behavior",
+                  "Behavior": "#/$defs/aind_data_schema_models__modalities__Behavior",
                   "Behavior videos": "#/$defs/BehaviorVideos",
                   "Confocal microscopy": "#/$defs/Confocal",
                   "Electromyography": "#/$defs/Electromyography",
@@ -16993,7 +16993,7 @@
             },
             "oneOf": [
                {
-                  "$ref": "#/$defs/aind_data_schema__models__modalities__Behavior"
+                  "$ref": "#/$defs/aind_data_schema_models__modalities__Behavior"
                },
                {
                   "$ref": "#/$defs/BehaviorVideos"
