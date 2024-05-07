@@ -5,16 +5,9 @@ from decimal import Decimal
 from enum import Enum
 from typing import List, Literal, Optional, Set, Union
 
-from pydantic import Field, field_validator, model_validator
-from pydantic_core.core_schema import ValidationInfo
-from typing_extensions import Annotated
-
-from aind_data_schema.base import AindCoreModel, AindModel, AwareDatetimeWithDefault
-from aind_data_schema.components.devices import FiberProbe
-from aind_data_schema.components.reagent import Reagent
-from aind_data_schema.models.pid_names import PIDName
-from aind_data_schema.models.species import Species
-from aind_data_schema.models.units import (
+from aind_data_schema_models.pid_names import PIDName
+from aind_data_schema_models.species import Species
+from aind_data_schema_models.units import (
     AngleUnit,
     ConcentrationUnit,
     CurrentUnit,
@@ -25,6 +18,13 @@ from aind_data_schema.models.units import (
     VolumeUnit,
     create_unit_with_value,
 )
+from pydantic import Field, field_validator, model_validator
+from pydantic_core.core_schema import ValidationInfo
+from typing_extensions import Annotated
+
+from aind_data_schema.base import AindCoreModel, AindModel, AwareDatetimeWithDefault
+from aind_data_schema.components.devices import FiberProbe
+from aind_data_schema.components.reagent import Reagent
 
 
 class SpecimenProcedureType(str, Enum):

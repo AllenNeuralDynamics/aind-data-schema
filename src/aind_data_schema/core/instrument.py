@@ -3,6 +3,7 @@
 from datetime import date
 from typing import List, Literal, Optional
 
+from aind_data_schema_models.organizations import Organization
 from pydantic import Field, ValidationInfo, field_validator
 
 from aind_data_schema.base import AindCoreModel, AindModel
@@ -20,7 +21,6 @@ from aind_data_schema.components.devices import (
     OpticalTable,
     ScanningStage,
 )
-from aind_data_schema.models.organizations import Organization
 
 
 class Com(AindModel):

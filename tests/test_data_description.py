@@ -8,6 +8,10 @@ import unittest
 from pathlib import Path
 from typing import List
 
+from aind_data_schema_models.modalities import Modality
+from aind_data_schema_models.organizations import Organization
+from aind_data_schema_models.pid_names import PIDName
+from aind_data_schema_models.platforms import Platform
 from pydantic import ValidationError
 from pydantic import __version__ as pyd_version
 
@@ -20,10 +24,6 @@ from aind_data_schema.core.data_description import (
     RawDataDescription,
     build_data_name,
 )
-from aind_data_schema.models.modalities import Modality
-from aind_data_schema.models.organizations import Organization
-from aind_data_schema.models.pid_names import PIDName
-from aind_data_schema.models.platforms import Platform
 
 DATA_DESCRIPTION_FILES_PATH = Path(__file__).parent / "resources" / "ephys_data_description"
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)

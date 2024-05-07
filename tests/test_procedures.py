@@ -3,9 +3,11 @@ import re
 import unittest
 from datetime import date
 
+from aind_data_schema_models.organizations import Organization
 from pydantic import ValidationError
 from pydantic import __version__ as pyd_version
 
+from aind_data_schema.components.devices import FiberProbe
 from aind_data_schema.core.procedures import (
     FiberImplant,
     IntraperitonealInjection,
@@ -20,8 +22,6 @@ from aind_data_schema.core.procedures import (
     TarsVirusIdentifiers,
     ViralMaterial,
 )
-from aind_data_schema.components.devices import FiberProbe
-from aind_data_schema.models.organizations import Organization
 
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
 

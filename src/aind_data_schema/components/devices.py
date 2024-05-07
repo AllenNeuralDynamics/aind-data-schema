@@ -5,16 +5,16 @@ from decimal import Decimal
 from enum import Enum
 from typing import List, Literal, Optional, Union
 
+from aind_data_schema_models.harp_types import HarpDeviceType
+from aind_data_schema_models.harp_types import Olfactometer as OlfactometerHarpType
+from aind_data_schema_models.organizations import InteruniversityMicroelectronicsCenter, Organization
+from aind_data_schema_models.units import FrequencyUnit, PowerUnit, SizeUnit, SpeedUnit, TemperatureUnit, UnitlessUnit
 from pydantic import Field, ValidationInfo, field_validator, model_validator
 from typing_extensions import Annotated
 
 from aind_data_schema.base import AindGeneric, AindGenericType, AindModel, AwareDatetimeWithDefault
 from aind_data_schema.components.coordinates import RelativePosition, Size3d
 from aind_data_schema.components.reagent import Reagent
-from aind_data_schema.models.harp_types import HarpDeviceType
-from aind_data_schema.models.harp_types import Olfactometer as OlfactometerHarpType
-from aind_data_schema.models.organizations import InteruniversityMicroelectronicsCenter, Organization
-from aind_data_schema.models.units import FrequencyUnit, PowerUnit, SizeUnit, SpeedUnit, TemperatureUnit, UnitlessUnit
 
 
 class ImagingDeviceType(str, Enum):

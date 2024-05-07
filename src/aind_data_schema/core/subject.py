@@ -5,13 +5,13 @@ from datetime import time
 from enum import Enum
 from typing import List, Literal, Optional
 
+from aind_data_schema_models.organizations import Organization
+from aind_data_schema_models.pid_names import PIDName
+from aind_data_schema_models.species import Species
 from pydantic import Field, field_validator
 from pydantic_core.core_schema import ValidationInfo
 
 from aind_data_schema.base import AindCoreModel, AindModel
-from aind_data_schema.models.organizations import Organization
-from aind_data_schema.models.pid_names import PIDName
-from aind_data_schema.models.species import Species
 
 
 class Sex(str, Enum):

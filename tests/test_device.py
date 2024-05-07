@@ -3,6 +3,8 @@
 import re
 import unittest
 
+from aind_data_schema_models.harp_types import HarpDeviceType
+from aind_data_schema_models.organizations import Organization
 from pydantic import __version__ as pyd_version
 
 from aind_data_schema.components.devices import (
@@ -18,8 +20,6 @@ from aind_data_schema.components.devices import (
     RewardSpout,
     SpoutSide,
 )
-from aind_data_schema.models.harp_types import HarpDeviceType
-from aind_data_schema.models.organizations import Organization
 
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
 

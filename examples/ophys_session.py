@@ -2,8 +2,9 @@
 
 from datetime import datetime, timezone
 
+from aind_data_schema_models.modalities import Modality
+
 from aind_data_schema.core.session import DetectorConfig, FiberConnectionConfig, LaserConfig, Session, Stream
-from aind_data_schema.models.modalities import Modality
 
 t = datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc)
 

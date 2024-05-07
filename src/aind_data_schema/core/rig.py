@@ -3,6 +3,7 @@
 from datetime import date
 from typing import List, Literal, Optional, Set, Union
 
+from aind_data_schema_models.modalities import Modality
 from pydantic import Field, ValidationInfo, field_validator, model_validator
 from typing_extensions import Annotated
 
@@ -36,7 +37,6 @@ from aind_data_schema.components.devices import (
     RewardDelivery,
     Speaker,
 )
-from aind_data_schema.models.modalities import Modality
 
 MOUSE_PLATFORMS = Annotated[Union[tuple(MousePlatform.__subclasses__())], Field(discriminator="device_type")]
 STIMULUS_DEVICES = Annotated[Union[Monitor, Olfactometer, RewardDelivery, Speaker], Field(discriminator="device_type")]
