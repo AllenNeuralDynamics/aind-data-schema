@@ -405,7 +405,7 @@ class IRRobotCo(_Organization):
 class MidwestOpticalSystems(_Organization):
     """MidwestOpticalSystems"""
 
-    name: Literal["Midwest Optical Systems"] = "Midwest Optical Systems, Inc."
+    name: Literal["Midwest Optical Systems, Inc"] = "Midwest Optical Systems, Inc."
     abbreviation: Literal["MidOpt"] = "MidOpt"
     registry: Literal[None] = Field(None)
     registry_identifier: Literal[None] = Field(None)
