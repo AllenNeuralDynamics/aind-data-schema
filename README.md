@@ -109,18 +109,23 @@ Every merge to the `main` branch is automatically tagged with a new major/minor/
 pip install aind-data-schema --upgrade
 ```
 
-The data models are maintained in a separate repository: [aind-data-schema-models](https://github.com/AllenNeuralDynamics/aind-data-schema-models)
+## Controlled Vocabularies
+
+Controlled vocabularies and other enumerated lists are maintained in a separate repository: [aind-data-schema-models](https://github.com/AllenNeuralDynamics/aind-data-schema-models). This allows us to grow
+lists of manufacturers and other organizations without changing 
+aind-data-schema.
+
 To upgrade to the latest data models version:
 ```
 pip install aind-data-schema-models --upgrade
 ``
 
+## Contributing
+
 To develop the code, check out this repo and run the following in the cloned directory: 
 ```
 pip install -e .[dev]
 ```
-
-## Contributing
 
 If you've found a bug in the schemas or would like to make a minor change, open an [Issue](https://github.com/AllenNeuralDynamics/aind-data-schema/issues) on this repository. If you'd like to propose a large change or addition, or generally have a question about how things work, head start a new [Discussion](https://github.com/AllenNeuralDynamics/aind-data-schema/discussions)!
 
