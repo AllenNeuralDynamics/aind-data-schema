@@ -2,6 +2,7 @@
 
 from datetime import datetime, timezone
 
+from aind_data_schema.components.devices import Software
 from aind_data_schema.core.session import (
     CcfCoords,
     Coordinates3d,
@@ -14,7 +15,6 @@ from aind_data_schema.core.session import (
     Stream,
     VisualStimulation,
 )
-from aind_data_schema.components.devices import Software
 from aind_data_schema.models.modalities import Modality
 
 session = Session(

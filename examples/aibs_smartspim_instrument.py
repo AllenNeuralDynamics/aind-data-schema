@@ -2,7 +2,6 @@
 
 import datetime
 
-from aind_data_schema.core.instrument import Com, Instrument
 from aind_data_schema.components.devices import (
     AdditionalImagingDevice,
     Detector,
@@ -13,6 +12,7 @@ from aind_data_schema.components.devices import (
     OpticalTable,
     ScanningStage,
 )
+from aind_data_schema.core.instrument import Com, Instrument
 from aind_data_schema.models.organizations import Organization
 
 inst = Instrument(

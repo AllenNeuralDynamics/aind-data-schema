@@ -5,7 +5,6 @@ from datetime import date, datetime
 
 from pydantic import ValidationError
 
-from aind_data_schema.core.rig import Rig
 from aind_data_schema.components.devices import (
     Calibration,
     Camera,
@@ -15,6 +14,7 @@ from aind_data_schema.components.devices import (
     DAQChannel,
     Detector,
     DetectorType,
+    Device,
     Disc,
     EphysAssembly,
     EphysProbe,
@@ -27,6 +27,7 @@ from aind_data_schema.components.devices import (
     OlfactometerChannel,
     Patch,
 )
+from aind_data_schema.core.rig import Rig
 from aind_data_schema.models.modalities import Modality
 from aind_data_schema.models.organizations import Organization
 
@@ -102,14 +103,17 @@ class RigTests(unittest.TestCase):
                     serial_number="1234",
                 ),
                 name="Laser_assembly",
-                collimator="Collimator A",
+                collimator=Device(
+                    name="Collimator A",
+                    device_type="Collimator"
+                ),
                 fiber=Patch(
                     name="Bundle Branching Fiber-optic Patch Cord",
                     manufacturer=Organization.DORIC,
                     model="BBP(4)_200/220/900-0.37_Custom_FCM-4xMF1.25",
                     core_diameter=200,
                     numerical_aperture=0.37,
-                )
+                ),
             )
         ]
 
@@ -363,14 +367,17 @@ class RigTests(unittest.TestCase):
                         serial_number="1234",
                     ),
                     name="Laser_assembly",
-                    collimator="Collimator B",
+                    collimator=Device(
+                        name="Collimator B",
+                        device_type="Collimator"
+                    ),
                     fiber=Patch(
                         name="Bundle Branching Fiber-optic Patch Cord",
                         manufacturer=Organization.DORIC,
                         model="BBP(4)_200/220/900-0.37_Custom_FCM-4xMF1.25",
                         core_diameter=200,
                         numerical_aperture=0.37,
-                    )
+                    ),
                 )
             ]
 
