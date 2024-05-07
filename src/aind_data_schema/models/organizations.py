@@ -402,6 +402,15 @@ class IRRobotCo(_Organization):
     registry_identifier: Literal[None] = Field(None)
 
 
+class MidwestOpticalSystems(_Organization):
+    """MidwestOpticalSystems"""
+
+    name: Literal["Midwest Optical Systems"] = "Midwest Optical Systems, Inc."
+    abbreviation: Literal["MidOpt"] = "MidOpt"
+    registry: Literal[None] = Field(None)
+    registry_identifier: Literal[None] = Field(None)
+
+
 class Mitutuyo(_Organization):
     """Mitutuyo"""
 
@@ -754,6 +763,7 @@ class Organization:
     LG = Lg()
     LIFECANVAS = LifeCanvas()
     MEADOWLARK = MeadowlarkOptics()
+    MIDWEST_OPTICAL = MidwestOpticalSystems()
     MIGHTY_ZAP = IRRobotCo()
     MITUTUYO = Mitutuyo()
     MKS_NEWPORT = MKSNewport()
@@ -828,7 +838,9 @@ class Organization:
         ],
         Field(discriminator="name"),
     ]
-    FILTER_MANUFACTURERS = Annotated[Union[Chroma, EdmundOptics, Semrock, Thorlabs, Other], Field(discriminator="name")]
+    FILTER_MANUFACTURERS = Annotated[
+        Union[Chroma, EdmundOptics, MidwestOpticalSystems, Semrock, Thorlabs, Other], Field(discriminator="name")
+    ]
     LENS_MANUFACTURERS = Annotated[
         Union[
             Computar,
