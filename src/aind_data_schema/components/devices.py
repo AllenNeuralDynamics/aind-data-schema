@@ -582,12 +582,23 @@ class Manipulator(Device):
     manufacturer: Organization.MANIPULATOR_MANUFACTURERS
 
 
+class Patch(Device):
+    """Description of a patch cord"""
+
+    device_type: Literal["Patch"] = "Patch"
+    core_diameter: Decimal = Field(..., title="Core diameter (um)")
+    numerical_aperture: Decimal = Field(..., title="Numerical aperture")
+    photobleaching_date: Optional[date] = Field(None, title="Photobleaching date")
+
+
 class LaserAssembly(AindModel):
     """Assembly for optogenetic stimulation"""
 
     name: str = Field(..., title="Laser assembly name")
     manipulator: Manipulator = Field(..., title="Manipulator")
     lasers: List[Laser] = Field(..., title="Lasers connected to this module")
+    collimator: Device = Field(..., title="Collimator")
+    fiber: Patch = Field(..., title="Fiber patch")
 
 
 class Headstage(Device):
@@ -628,15 +639,6 @@ class FiberProbe(Device):
     active_length: Optional[Decimal] = Field(None, title="Active length (mm)", description="Length of taper")
     total_length: Decimal = Field(..., title="Total length (mm)")
     length_unit: SizeUnit = Field(SizeUnit.MM, title="Length unit")
-
-
-class Patch(Device):
-    """Description of a patch cord"""
-
-    device_type: Literal["Patch"] = "Patch"
-    core_diameter: Decimal = Field(..., title="Core diameter (um)")
-    numerical_aperture: Decimal = Field(..., title="Numerical aperture")
-    photobleaching_date: Optional[date] = Field(None, title="Photobleaching date")
 
 
 class FiberAssembly(AindModel):
