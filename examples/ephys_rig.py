@@ -2,7 +2,6 @@
 
 from datetime import date, datetime, timezone
 
-from aind_data_schema.core.rig import Rig
 from aind_data_schema.components.devices import (
     Calibration,
     Camera,
@@ -21,6 +20,7 @@ from aind_data_schema.components.devices import (
     NeuropixelsBasestation,
     ProbePort,
 )
+from aind_data_schema.core.rig import Rig
 from aind_data_schema.models.harp_types import HarpDeviceType
 from aind_data_schema.models.modalities import Modality
 from aind_data_schema.models.organizations import Organization

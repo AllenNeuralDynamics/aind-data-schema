@@ -2,8 +2,8 @@
 
 from datetime import date, datetime, timezone
 
-import aind_data_schema.core.rig as r
 import aind_data_schema.components.devices as d
+import aind_data_schema.core.rig as r
 from aind_data_schema.models.modalities import Modality
 
 rig = r.Rig(

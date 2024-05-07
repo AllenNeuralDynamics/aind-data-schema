@@ -2,8 +2,8 @@
 
 import datetime
 
-from aind_data_schema.core import instrument
 from aind_data_schema.components.devices import DAQChannel, DAQDevice, Detector, Filter, Laser
+from aind_data_schema.core import instrument
 from aind_data_schema.models.organizations import Organization
 
 inst = instrument.Instrument(

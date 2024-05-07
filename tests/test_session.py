@@ -8,6 +8,13 @@ import pydantic
 from pydantic import ValidationError
 from pydantic import __version__ as pyd_version
 
+from aind_data_schema.components.coordinates import (
+    CcfCoords,
+    Coordinates3d,
+    Rotation3dTransform,
+    Scale3dTransform,
+    Translation3dTransform,
+)
 from aind_data_schema.core.session import (
     DomeModule,
     EphysModule,
@@ -17,13 +24,6 @@ from aind_data_schema.core.session import (
     Scanner,
     Session,
     Stream,
-)
-from aind_data_schema.components.coordinates import (
-    CcfCoords,
-    Coordinates3d,
-    Rotation3dTransform,
-    Scale3dTransform,
-    Translation3dTransform,
 )
 from aind_data_schema.models.modalities import Modality
 
