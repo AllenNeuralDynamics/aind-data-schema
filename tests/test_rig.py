@@ -102,6 +102,14 @@ class RigTests(unittest.TestCase):
                     serial_number="1234",
                 ),
                 name="Laser_assembly",
+                collimator="Collimator A",
+                fiber=Patch(
+                    name="Bundle Branching Fiber-optic Patch Cord",
+                    manufacturer=Organization.DORIC,
+                    model="BBP(4)_200/220/900-0.37_Custom_FCM-4xMF1.25",
+                    core_diameter=200,
+                    numerical_aperture=0.37,
+                )
             )
         ]
 
@@ -355,6 +363,14 @@ class RigTests(unittest.TestCase):
                         serial_number="1234",
                     ),
                     name="Laser_assembly",
+                    collimator="Collimator B",
+                    fiber=Patch(
+                        name="Bundle Branching Fiber-optic Patch Cord",
+                        manufacturer=Organization.DORIC,
+                        model="BBP(4)_200/220/900-0.37_Custom_FCM-4xMF1.25",
+                        core_diameter=200,
+                        numerical_aperture=0.37,
+                    )
                 )
             ]
 
