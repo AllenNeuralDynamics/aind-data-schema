@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/session.py",
-   "schema_version": "0.2.5",
+   "schema_version": "0.2.6",
    "protocol_id": [],
    "experimenter_full_name": [
       "Max Quibble",
