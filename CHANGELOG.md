@@ -1,3 +1,11 @@
+## [0.36.0](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.35.2...v0.36.0) (2024-05-09)
+
+
+### Features
+
+* moves data description enums ([#930](https://github.com/AllenNeuralDynamics/aind-data-schema/issues/930)) ([20d315e](https://github.com/AllenNeuralDynamics/aind-data-schema/commit/20d315ead86d370604816fea9193716bd47ddb91))
+
+
 ### [0.35.2](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.35.1...v0.35.2) (2024-05-09)
 
 
