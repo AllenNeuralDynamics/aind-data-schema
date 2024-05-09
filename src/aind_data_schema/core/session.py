@@ -112,8 +112,10 @@ class FieldOfView(AindModel):
     frame_rate: Optional[Decimal] = Field(None, title="Frame rate (Hz)")
     frame_rate_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Frame rate unit")
     coupled_fov_index: Optional[int] = Field(None, title="Coupled FOV", description="Coupled planes for multiscope")
-    power: Optional[Decimal] = Field(None, title="Power")
+    power: Optional[Decimal] = Field(None, title="Power",
+                                     description="For coupled planes, this power is shared by both planes")
     power_unit: PowerUnit = Field(PowerUnit.PERCENT, title="Power unit")
+    power_ratio: Optional[Decimal] = Field(None, title="Power ratio for coupled planes")
     scanfield_z: Optional[int] = Field(
         None,
         title="Z stage position of the fastz actuator for a given targeted depth",
@@ -529,7 +531,7 @@ class Session(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/session.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["0.2.4"] = Field("0.2.4")
+    schema_version: Literal["0.2.6"] = Field("0.2.6")
     protocol_id: List[str] = Field([], title="Protocol ID", description="DOI for protocols.io")
     experimenter_full_name: List[str] = Field(
         ...,
