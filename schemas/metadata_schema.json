@@ -8967,6 +8967,7 @@
                   }
                ],
                "default": null,
+               "description": "For coupled planes, this power is shared by both planes",
                "title": "Power"
             },
             "power_unit": {
@@ -8977,6 +8978,21 @@
                ],
                "default": "percent",
                "title": "Power unit"
+            },
+            "power_ratio": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Power ratio for coupled planes"
             },
             "scanfield_z": {
                "anyOf": [
@@ -25717,10 +25733,10 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.2.4",
-               "default": "0.2.4",
+               "const": "0.2.5",
+               "default": "0.2.5",
                "enum": [
-                  "0.2.4"
+                  "0.2.5"
                ],
                "title": "Schema Version",
                "type": "string"
@@ -26375,6 +26391,7 @@
                   }
                ],
                "default": null,
+               "description": "For coupled planes, this power is shared by both planes",
                "title": "Power"
             },
             "power_unit": {
@@ -26385,6 +26402,21 @@
                ],
                "default": "percent",
                "title": "Power unit"
+            },
+            "power_ratio": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Power ratio for coupled planes"
             },
             "scanfield_z": {
                "anyOf": [
@@ -31858,10 +31890,10 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.2.17",
-         "default": "0.2.17",
+         "const": "0.2.18",
+         "default": "0.2.18",
          "enum": [
-            "0.2.17"
+            "0.2.18"
          ],
          "title": "Schema Version",
          "type": "string"
