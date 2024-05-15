@@ -567,7 +567,7 @@ class OpenEphysAcquisitionBoard(DAQDevice):
     """Multichannel electrophysiology DAQ"""
 
     # required fields
-    device_type: Literal["Open Ephys Acquisition Board"] = "Open Ephys Acquisition Board"
+    device_type: Literal["Open ephys acquisition board"] = "Open ephys acquisition board"
     ports: List[ProbePort] = Field(..., title="Acquisition board ports")
 
     # fixed values
@@ -650,7 +650,7 @@ class FiberAssembly(AindModel):
 class DigitalMicromirrorDevice(Device):
     """Description of a Digital Micromirror Device (DMD)"""
 
-    device_type: Literal["Digital Micromirror Device"] = "Digital Micromirror Device"
+    device_type: Literal["Digital micromirror device"] = "Digital micromirror device"
     max_dmd_patterns: int = Field(..., title="Max DMD patterns")
     double_bounce_design: bool = Field(..., title="Double bounce design")
     invert_pixel_values: bool = Field(..., title="Invert pixel values")
@@ -670,7 +670,7 @@ class DigitalMicromirrorDevice(Device):
 class PolygonalScanner(Device):
     """Description of a Polygonal scanner"""
 
-    device_type: Literal["Polygonal Scanner"] = "Polygonal Scanner"
+    device_type: Literal["Polygonal scanner"] = "Polygonal scanner"
     speed: int = Field(..., title="Speed (rpm)")
     speed_unit: SpeedUnit = Field(SpeedUnit.RPM, title="Speed unit")
     number_faces: int = Field(..., title="Number of faces")
@@ -679,7 +679,7 @@ class PolygonalScanner(Device):
 class PockelsCell(Device):
     """Description of a Pockels Cell"""
 
-    device_type: Literal["Pockels Cell"] = "Pockels Cell"
+    device_type: Literal["Pockels cell"] = "Pockels cell"
     polygonal_scanner: str = Field(..., title="Polygonal scanner", description="Must match name of Polygonal scanner")
     on_time: Decimal = Field(..., title="On time (fraction of cycle)")
     off_time: Decimal = Field(..., title="Off time (fraction of cycle)")
@@ -853,7 +853,7 @@ class Olfactometer(HarpDevice):
 class AdditionalImagingDevice(Device):
     """Description of additional devices"""
 
-    device_type: Literal["Additional Imaging Device"] = "Additional Imaging Device"
+    device_type: Literal["Additional imaging device"] = "Additional imaging device"
     imaging_device_type: ImagingDeviceType = Field(..., title="Device type")
 
     @field_validator("imaging_device_type", mode="after")
@@ -879,7 +879,7 @@ class ScanningStage(MotorizedStage):
 class OpticalTable(Device):
     """Description of Optical Table"""
 
-    device_type: Literal["Optical Table"] = "Optical Table"
+    device_type: Literal["Optical table"] = "Optical table"
     length: Optional[Decimal] = Field(None, title="Length (inches)", ge=0)
     width: Optional[Decimal] = Field(None, title="Width (inches)", ge=0)
     table_size_unit: SizeUnit = Field(SizeUnit.IN, title="Table size unit")
