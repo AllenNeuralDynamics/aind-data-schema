@@ -22773,8 +22773,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.3.9",
-               "default": "0.3.9",
+               "const": "0.3.10",
+               "default": "0.3.10",
                "title": "Schema Version"
             },
             "rig_id": {
@@ -25325,7 +25325,7 @@
                   }
                ],
                "default": null,
-               "title": "Relative position of the monitor"
+               "title": "Relative position of the speaker"
             }
          },
          "required": [
@@ -30055,8 +30055,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.2.20",
-         "default": "0.2.20",
+         "const": "0.2.21",
+         "default": "0.2.21",
          "title": "Schema Version"
       },
       "_id": {
