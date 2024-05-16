@@ -46,7 +46,7 @@ class Metadata(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/metadata.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["0.2.19"] = Field("0.2.19")
+    schema_version: Literal["0.2.20"] = Field("0.2.20")
     id: UUID = Field(
         default_factory=uuid4,
         alias="_id",

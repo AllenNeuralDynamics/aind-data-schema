@@ -4027,6 +4027,7 @@
                      "Carl Zeiss": "#/$defs/CarlZeiss",
                      "Computar": "#/$defs/Computar",
                      "Edmund Optics": "#/$defs/EdmundOptics",
+                     "Fujinon": "#/$defs/Fujinon",
                      "Hamamatsu": "#/$defs/Hamamatsu",
                      "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
                      "Leica": "#/$defs/Leica",
@@ -4046,6 +4047,9 @@
                   },
                   {
                      "$ref": "#/$defs/EdmundOptics"
+                  },
+                  {
+                     "$ref": "#/$defs/Fujinon"
                   },
                   {
                      "$ref": "#/$defs/Hamamatsu"
@@ -7642,8 +7646,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.10.19",
-         "default": "0.10.19",
+         "const": "0.10.20",
+         "default": "0.10.20",
          "title": "Schema Version"
       },
       "instrument_id": {

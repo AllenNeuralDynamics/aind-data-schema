@@ -11259,8 +11259,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.10.19",
-               "default": "0.10.19",
+               "const": "0.10.20",
+               "default": "0.10.20",
                "title": "Schema Version"
             },
             "instrument_id": {
@@ -13645,6 +13645,7 @@
                      "Carl Zeiss": "#/$defs/CarlZeiss",
                      "Computar": "#/$defs/Computar",
                      "Edmund Optics": "#/$defs/EdmundOptics",
+                     "Fujinon": "#/$defs/Fujinon",
                      "Hamamatsu": "#/$defs/Hamamatsu",
                      "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
                      "Leica": "#/$defs/Leica",
@@ -13664,6 +13665,9 @@
                   },
                   {
                      "$ref": "#/$defs/EdmundOptics"
+                  },
+                  {
+                     "$ref": "#/$defs/Fujinon"
                   },
                   {
                      "$ref": "#/$defs/Hamamatsu"
@@ -20736,8 +20740,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.13.8",
-               "default": "0.13.8",
+               "const": "0.13.9",
+               "default": "0.13.9",
                "title": "Schema Version"
             },
             "subject_id": {
@@ -22769,8 +22773,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.3.8",
-               "default": "0.3.8",
+               "const": "0.3.9",
+               "default": "0.3.9",
                "title": "Schema Version"
             },
             "rig_id": {
@@ -25507,11 +25511,12 @@
             "Hybridization Chain Reaction",
             "Immunolabeling",
             "Mounting",
+            "Refractive index matching",
             "Sectioning",
             "Soak",
             "Storage",
             "Stripping",
-            "Refractive index matching",
+            "Tamoxifen induction",
             "Other - see notes"
          ],
          "title": "SpecimenProcedureType",
@@ -30050,8 +30055,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.2.19",
-         "default": "0.2.19",
+         "const": "0.2.20",
+         "default": "0.2.20",
          "title": "Schema Version"
       },
       "_id": {

@@ -8222,11 +8222,12 @@
             "Hybridization Chain Reaction",
             "Immunolabeling",
             "Mounting",
+            "Refractive index matching",
             "Sectioning",
             "Soak",
             "Storage",
             "Stripping",
-            "Refractive index matching",
+            "Tamoxifen induction",
             "Other - see notes"
          ],
          "title": "SpecimenProcedureType",
@@ -9532,8 +9533,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.13.8",
-         "default": "0.13.8",
+         "const": "0.13.9",
+         "default": "0.13.9",
          "title": "Schema Version"
       },
       "subject_id": {
