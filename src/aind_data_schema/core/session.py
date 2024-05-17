@@ -82,7 +82,7 @@ class DetectorConfig(AindModel):
 class LightEmittingDiodeConfig(AindModel):
     """Description of LED settings"""
 
-    device_type: Literal["Light Emitting Diode"] = "Light Emitting Diode"
+    device_type: Literal["Light emitting diode"] = "Light emitting diode"
     name: str = Field(..., title="Name")
     excitation_power: Optional[Decimal] = Field(None, title="Excitation power (mW)")
     excitation_power_unit: PowerUnit = Field(PowerUnit.MW, title="Excitation power unit")
