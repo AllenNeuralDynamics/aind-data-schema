@@ -6,6 +6,7 @@ from enum import Enum
 from typing import Dict, List, Literal, Optional, get_args
 from uuid import UUID, uuid4
 
+from aind_data_schema_models.platforms import Ecephys, SmartSpim
 from pydantic import Field, PrivateAttr, ValidationError, ValidationInfo, field_validator, model_validator
 
 from aind_data_schema.base import AindCoreModel
@@ -17,7 +18,6 @@ from aind_data_schema.core.processing import Processing
 from aind_data_schema.core.rig import Rig
 from aind_data_schema.core.session import Session
 from aind_data_schema.core.subject import Subject
-from aind_data_schema.models.platforms import Ecephys, SmartSpim
 
 
 class MetadataStatus(Enum):
@@ -46,7 +46,7 @@ class Metadata(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/metadata.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["0.2.16"] = Field("0.2.16")
+    schema_version: Literal["0.2.21"] = Field("0.2.21")
     id: UUID = Field(
         default_factory=uuid4,
         alias="_id",

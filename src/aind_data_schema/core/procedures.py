@@ -5,16 +5,9 @@ from decimal import Decimal
 from enum import Enum
 from typing import List, Literal, Optional, Set, Union
 
-from pydantic import Field, field_validator, model_validator
-from pydantic_core.core_schema import ValidationInfo
-from typing_extensions import Annotated
-
-from aind_data_schema.base import AindCoreModel, AindModel, AwareDatetimeWithDefault
-from aind_data_schema.components.devices import FiberProbe
-from aind_data_schema.components.reagent import Reagent
-from aind_data_schema.models.pid_names import PIDName
-from aind_data_schema.models.species import Species
-from aind_data_schema.models.units import (
+from aind_data_schema_models.pid_names import PIDName
+from aind_data_schema_models.species import Species
+from aind_data_schema_models.units import (
     AngleUnit,
     ConcentrationUnit,
     CurrentUnit,
@@ -25,27 +18,15 @@ from aind_data_schema.models.units import (
     VolumeUnit,
     create_unit_with_value,
 )
+from aind_data_schema_models.specimen_procedure_types import SpecimenProcedureType
 
+from pydantic import Field, field_validator, model_validator
+from pydantic_core.core_schema import ValidationInfo
+from typing_extensions import Annotated
 
-class SpecimenProcedureType(str, Enum):
-    """Names for general specimen procedures"""
-
-    DELIPIDATION = "Delipidation"
-    CLEARING = "Clearing"
-    EMBEDDING = "Embedding"
-    FIXATION = "Fixation"
-    FIXATION_PERMEABILIZATION = "Fixation and permeabilization"
-    GELATION = "Gelation"
-    HYBRIDIZATION_AMPLIFICATION = "Hybridication and amplification"
-    HCR = "Hybridization Chain Reaction"
-    IMMUNOLABELING = "Immunolabeling"
-    MOUNTING = "Mounting"
-    SECTIONING = "Sectioning"
-    SOAK = "Soak"
-    STORAGE = "Storage"
-    STRIPPING = "Stripping"
-    REFRACTIVE_INDEX_MATCHING = "Refractive index matching"
-    OTHER = "Other - see notes"
+from aind_data_schema.base import AindCoreModel, AindModel, AwareDatetimeWithDefault
+from aind_data_schema.components.devices import FiberProbe
+from aind_data_schema.components.reagent import Reagent
 
 
 class ImmunolabelClass(str, Enum):
@@ -634,7 +615,7 @@ class Procedures(AindCoreModel):
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/procedures.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
 
-    schema_version: Literal["0.13.7"] = Field("0.13.7")
+    schema_version: Literal["0.13.9"] = Field("0.13.9")
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",

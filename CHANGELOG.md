@@ -1,3 +1,36 @@
+## [0.37.0](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.36.1...v0.37.0) (2024-05-16)
+
+
+### Features
+
+* changed moniter to speaker in title for Speaker ([#938](https://github.com/AllenNeuralDynamics/aind-data-schema/issues/938)) ([15a4b8e](https://github.com/AllenNeuralDynamics/aind-data-schema/commit/15a4b8e317e771f7a16648754f9c4f4cdaf56a5d))
+
+
+### [0.36.1](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.36.0...v0.36.1) (2024-05-16)
+
+
+## [0.36.0](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.35.2...v0.36.0) (2024-05-09)
+
+
+### Features
+
+* moves data description enums ([#930](https://github.com/AllenNeuralDynamics/aind-data-schema/issues/930)) ([20d315e](https://github.com/AllenNeuralDynamics/aind-data-schema/commit/20d315ead86d370604816fea9193716bd47ddb91))
+
+
+### [0.35.2](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.35.1...v0.35.2) (2024-05-09)
+
+
+### [0.35.1](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.35.0...v0.35.1) (2024-05-09)
+
+
+## [0.35.0](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.34.4...v0.35.0) (2024-05-07)
+
+
+### Features
+
+* uses aind-data-schema-models package ([#919](https://github.com/AllenNeuralDynamics/aind-data-schema/issues/919)) ([fc56b0b](https://github.com/AllenNeuralDynamics/aind-data-schema/commit/fc56b0b17283cd6dd7ec83c2f589f779a080c5b4))
+
+
 ### [0.34.4](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.34.3...v0.34.4) (2024-05-06)
 
 

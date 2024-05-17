@@ -3,13 +3,13 @@
 from decimal import Decimal
 from typing import List, Literal, Optional, Union
 
+from aind_data_schema_models.process_names import ProcessName
 from pydantic import Field, field_validator
 
 from aind_data_schema.base import AindCoreModel, AindModel, AwareDatetimeWithDefault
 from aind_data_schema.components.coordinates import AnatomicalDirection, AxisName, ImageAxis
 from aind_data_schema.components.devices import Calibration, ImmersionMedium, Maintenance, Software
 from aind_data_schema.components.tile import AcquisitionTile
-from aind_data_schema.models.process_names import ProcessName
 
 
 class Immersion(AindModel):
@@ -45,7 +45,7 @@ class Acquisition(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/acquisition.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["0.6.14"] = Field("0.6.14")
+    schema_version: Literal["0.6.15"] = Field("0.6.15")
     protocol_id: List[str] = Field([], title="Protocol ID", description="DOI for protocols.io")
     experimenter_full_name: List[str] = Field(
         ...,

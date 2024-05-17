@@ -2,9 +2,10 @@
 
 from datetime import date, datetime, timezone
 
+from aind_data_schema_models.modalities import Modality
+
 import aind_data_schema.components.devices as d
 import aind_data_schema.core.rig as r
-from aind_data_schema.models.modalities import Modality
 
 rig = r.Rig(
     rig_id="428_FIP1_2",

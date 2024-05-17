@@ -4,6 +4,8 @@ import re
 import unittest
 from datetime import date, datetime, timezone
 
+from aind_data_schema_models.organizations import Organization
+from aind_data_schema_models.units import PowerValue
 from pydantic import ValidationError
 from pydantic import __version__ as pyd_version
 
@@ -18,8 +20,6 @@ from aind_data_schema.components.devices import Calibration, DAQChannel, DAQDevi
 from aind_data_schema.core import acquisition as acq
 from aind_data_schema.core import instrument as inst
 from aind_data_schema.core.processing import Registration
-from aind_data_schema.models.organizations import Organization
-from aind_data_schema.models.units import PowerValue
 
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
 

@@ -2,6 +2,10 @@
 
 from datetime import date, datetime, timezone
 
+from aind_data_schema_models.harp_types import HarpDeviceType
+from aind_data_schema_models.modalities import Modality
+from aind_data_schema_models.organizations import Organization
+
 from aind_data_schema.components.devices import (
     Calibration,
     Camera,
@@ -23,9 +27,6 @@ from aind_data_schema.components.devices import (
     Patch
 )
 from aind_data_schema.core.rig import Rig
-from aind_data_schema.models.harp_types import HarpDeviceType
-from aind_data_schema.models.modalities import Modality
-from aind_data_schema.models.organizations import Organization
 
 # Describes a rig with running wheel, 2 behavior cameras, one Harp Behavior board,
 # one dual-color laser module, one stick microscope, and 2 Neuropixels probes

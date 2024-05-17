@@ -3,11 +3,11 @@
 from enum import Enum
 from typing import List, Literal, Optional
 
+from aind_data_schema_models.process_names import ProcessName
 from pydantic import Field, ValidationInfo, field_validator
 
 from aind_data_schema.base import AindCoreModel, AindGeneric, AindGenericType, AindModel, AwareDatetimeWithDefault
 from aind_data_schema.components.tile import Tile
-from aind_data_schema.models.process_names import ProcessName
 
 
 class RegistrationType(str, Enum):
@@ -85,7 +85,7 @@ class Processing(AindCoreModel):
 
     _DESCRIBED_BY_URL: str = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/processing.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["0.4.7"] = Field("0.4.7")
+    schema_version: Literal["0.4.8"] = Field("0.4.8")
 
     processing_pipeline: PipelineProcess = Field(
         ..., description="Pipeline used to process data", title="Processing Pipeline"

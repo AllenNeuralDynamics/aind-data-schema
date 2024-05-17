@@ -2,6 +2,8 @@
 
 from datetime import datetime, timezone
 
+from aind_data_schema_models.modalities import Modality
+
 from aind_data_schema.components.devices import Software
 from aind_data_schema.core.session import (
     CcfCoords,
@@ -15,7 +17,6 @@ from aind_data_schema.core.session import (
     Stream,
     VisualStimulation,
 )
-from aind_data_schema.models.modalities import Modality
 
 session = Session(
     experimenter_full_name=["Max Quibble", "Finn Tickle"],

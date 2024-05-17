@@ -4,10 +4,10 @@ from decimal import Decimal
 from enum import Enum
 from typing import List, Literal, Optional
 
+from aind_data_schema_models.units import ConcentrationUnit, FrequencyUnit, PowerUnit, TimeUnit
 from pydantic import Field
 
 from aind_data_schema.base import AindGeneric, AindGenericType, AindModel
-from aind_data_schema.models.units import ConcentrationUnit, FrequencyUnit, PowerUnit, TimeUnit
 
 
 class PulseShape(str, Enum):

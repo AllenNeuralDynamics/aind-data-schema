@@ -3,6 +3,7 @@
 from datetime import date
 from typing import List, Literal, Optional, Set, Union
 
+from aind_data_schema_models.modalities import Modality
 from pydantic import Field, ValidationInfo, field_validator, model_validator
 from typing_extensions import Annotated
 
@@ -36,7 +37,6 @@ from aind_data_schema.components.devices import (
     RewardDelivery,
     Speaker,
 )
-from aind_data_schema.models.modalities import Modality
 
 MOUSE_PLATFORMS = Annotated[Union[tuple(MousePlatform.__subclasses__())], Field(discriminator="device_type")]
 STIMULUS_DEVICES = Annotated[Union[Monitor, Olfactometer, RewardDelivery, Speaker], Field(discriminator="device_type")]
@@ -50,7 +50,7 @@ class Rig(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/rig.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["0.3.6"] = Field("0.3.6")
+    schema_version: Literal["0.3.10"] = Field("0.3.10")
     rig_id: str = Field(..., description="room_rig name_date modified", title="Rig ID")
     modification_date: date = Field(..., title="Date of modification")
     mouse_platform: MOUSE_PLATFORMS

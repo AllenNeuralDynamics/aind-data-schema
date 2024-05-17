@@ -2,79 +2,22 @@
 
 import re
 from datetime import datetime
-from enum import Enum
 from typing import Any, List, Literal, Optional
 
+from aind_data_schema_models.data_name_patterns import (
+    DataLevel,
+    DataRegex,
+    Group,
+    build_data_name,
+    datetime_from_name_string,
+)
+from aind_data_schema_models.modalities import Modality
+from aind_data_schema_models.organizations import Organization
+from aind_data_schema_models.pid_names import PIDName
+from aind_data_schema_models.platforms import Platform
 from pydantic import Field, model_validator
 
 from aind_data_schema.base import AindCoreModel, AindModel, AwareDatetimeWithDefault
-from aind_data_schema.models.modalities import Modality
-from aind_data_schema.models.organizations import Organization
-from aind_data_schema.models.pid_names import PIDName
-from aind_data_schema.models.platforms import Platform
-
-
-class RegexParts(str, Enum):
-    """regular expression components to be re-used elsewhere"""
-
-    DATE = r"\d{4}-\d{2}-\d{2}"
-    TIME = r"\d{2}-\d{2}-\d{2}"
-
-
-class DataRegex(str, Enum):
-    """regular expression patterns for different kinds of data and their properties"""
-
-    DATA = f"^(?P<label>.+?)_(?P<c_date>{RegexParts.DATE.value})_(?P<c_time>{RegexParts.TIME.value})$"
-    RAW = (
-        f"^(?P<platform_abbreviation>.+?)_(?P<subject_id>.+?)_(?P<c_date>{RegexParts.DATE.value})_(?P<c_time>"
-        f"{RegexParts.TIME.value})$"
-    )
-    DERIVED = (
-        f"^(?P<input>.+?_{RegexParts.DATE.value}_{RegexParts.TIME.value})_(?P<process_name>.+?)_(?P<c_date>"
-        f"{RegexParts.DATE.value})_(?P<c_time>{RegexParts.TIME.value})"
-    )
-    ANALYZED = (
-        f"^(?P<project_abbreviation>.+?)_(?P<analysis_name>.+?)_(?P<c_date>"
-        f"{RegexParts.DATE.value})_(?P<c_time>{RegexParts.TIME.value})$"
-    )
-    NO_UNDERSCORES = "^[^_]+$"
-    NO_SPECIAL_CHARS = '^[^<>:;"/|? \\_]+$'
-    NO_SPECIAL_CHARS_EXCEPT_SPACE = '^[^<>:;"/|?\\_]+$'
-
-
-class DataLevel(str, Enum):
-    """Data level name"""
-
-    DERIVED = "derived"
-    RAW = "raw"
-    SIMULATED = "simulated"
-
-
-class Group(str, Enum):
-    """Data collection group name"""
-
-    BEHAVIOR = "behavior"
-    EPHYS = "ephys"
-    MSMA = "MSMA"
-    OPHYS = "ophys"
-
-
-def datetime_to_name_string(dt):
-    """Take a date and time object, format it a as string"""
-    return dt.strftime("%Y-%m-%d_%H-%M-%S")
-
-
-def datetime_from_name_string(d, t):
-    """Take date and time strings, generate date and time objects"""
-    d = datetime.strptime(d, "%Y-%m-%d").date()
-    t = datetime.strptime(t, "%H-%M-%S").time()
-    return datetime.combine(d, t)
-
-
-def build_data_name(label, creation_datetime):
-    """Construct a valid data description name"""
-    dt_str = datetime_to_name_string(creation_datetime)
-    return f"{label}_{dt_str}"
 
 
 class Funding(AindModel):
@@ -97,7 +40,7 @@ class DataDescription(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/data_description.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["0.13.4"] = Field("0.13.4")
+    schema_version: Literal["0.13.6"] = Field("0.13.6")
     license: Literal["CC-BY-4.0"] = Field("CC-BY-4.0", title="License")
 
     platform: Platform.ONE_OF = Field(

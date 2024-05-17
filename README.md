@@ -20,8 +20,8 @@ A simple example:
 import datetime
 
 from aind_data_schema.core.subject import BreedingInfo, Housing, Subject
-from aind_data_schema.models.organizations import Organization
-from aind_data_schema.models.species import Species
+from aind_data_schema_models.organizations import Organization
+from aind_data_schema_models.species import Species
 
 t = datetime.datetime(2022, 11, 22, 8, 43, 00)
 
@@ -49,7 +49,7 @@ s.write_standard_file() # writes subject.json
 ```json
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/subject.py",
-   "schema_version": "0.5.5",
+   "schema_version": "0.5.6",
    "subject_id": "12345",
    "sex": "Male",
    "date_of_birth": "2022-11-22",
@@ -109,12 +109,21 @@ Every merge to the `main` branch is automatically tagged with a new major/minor/
 pip install aind-data-schema --upgrade
 ```
 
+## Controlled Vocabularies
+
+Controlled vocabularies and other enumerated lists are maintained in a separate repository: [aind-data-schema-models](https://github.com/AllenNeuralDynamics/aind-data-schema-models). This allows us to specify these lists without changing aind-data-schema. Controlled vocabularies include lists of organizations, manufacturers, species, modalities, platforms, units, harp devices, and registries.
+
+To upgrade to the latest data models version:
+```
+pip install aind-data-schema-models --upgrade
+``
+
+## Contributing
+
 To develop the code, check out this repo and run the following in the cloned directory: 
 ```
 pip install -e .[dev]
 ```
-
-## Contributing
 
 If you've found a bug in the schemas or would like to make a minor change, open an [Issue](https://github.com/AllenNeuralDynamics/aind-data-schema/issues) on this repository. If you'd like to propose a large change or addition, or generally have a question about how things work, head start a new [Discussion](https://github.com/AllenNeuralDynamics/aind-data-schema/discussions)!
 

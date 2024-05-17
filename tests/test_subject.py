@@ -4,12 +4,12 @@ import datetime
 import unittest
 
 import pydantic
+from aind_data_schema_models.organizations import Organization
+from aind_data_schema_models.pid_names import PIDName
+from aind_data_schema_models.registry import Registry
+from aind_data_schema_models.species import Species
 
 from aind_data_schema.core.subject import BreedingInfo, Housing, LightCycle, Subject
-from aind_data_schema.models.organizations import Organization
-from aind_data_schema.models.pid_names import PIDName
-from aind_data_schema.models.registry import Registry
-from aind_data_schema.models.species import Species
 
 
 class SubjectTests(unittest.TestCase):
