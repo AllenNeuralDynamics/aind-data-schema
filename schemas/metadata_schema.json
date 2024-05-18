@@ -13573,12 +13573,30 @@
                },
                "title": "Lasers connected to this module",
                "type": "array"
+            },
+            "collimator": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/Device"
+                  }
+               ],
+               "title": "Collimator"
+            },
+            "fiber": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/Patch"
+                  }
+               ],
+               "title": "Fiber patch"
             }
          },
          "required": [
             "name",
             "manipulator",
-            "lasers"
+            "lasers",
+            "collimator",
+            "fiber"
          ],
          "title": "LaserAssembly",
          "type": "object"
@@ -22922,8 +22940,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.3.11",
-               "default": "0.3.11",
+               "const": "0.4.1",
+               "default": "0.4.1",
                "title": "Schema Version"
             },
             "rig_id": {
@@ -30228,8 +30246,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.2.22",
-         "default": "0.2.22",
+         "const": "0.2.23",
+         "default": "0.2.23",
          "title": "Schema Version"
       },
       "_id": {
