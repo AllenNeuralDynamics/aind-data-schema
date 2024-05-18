@@ -287,7 +287,9 @@
          "additional_settings": {},
          "notes": null,
          "wavelength": 470,
-         "wavelength_unit": "nanometer"
+         "wavelength_unit": "nanometer",
+         "bandwidth": null,
+         "bandwidth_unit": "nanometer"
       },
       {
          "device_type": "Light emitting diode",
@@ -308,7 +310,9 @@
          "additional_settings": {},
          "notes": null,
          "wavelength": 415,
-         "wavelength_unit": "nanometer"
+         "wavelength_unit": "nanometer",
+         "bandwidth": null,
+         "bandwidth_unit": "nanometer"
       },
       {
          "device_type": "Light emitting diode",
@@ -329,7 +333,9 @@
          "additional_settings": {},
          "notes": null,
          "wavelength": 565,
-         "wavelength_unit": "nanometer"
+         "wavelength_unit": "nanometer",
+         "bandwidth": null,
+         "bandwidth_unit": "nanometer"
       }
    ],
    "detectors": [
