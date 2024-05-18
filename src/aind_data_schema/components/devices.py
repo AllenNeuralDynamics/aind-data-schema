@@ -526,6 +526,8 @@ class LightEmittingDiode(Device):
     manufacturer: Organization.LED_MANUFACTURERS
     wavelength: int = Field(..., title="Wavelength (nm)")
     wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Wavelength unit")
+    bandwidth: Optional[int] = Field(None, title="Bandwidth (FWHM)")
+    bandwidth_unit: SizeUnit = Field(SizeUnit.NM, title="Bandwidth unit")
 
 
 class Lamp(Device):
