@@ -23,12 +23,12 @@ from typing_extensions import Annotated
 
 from aind_data_schema.base import AindCoreModel, AindGeneric, AindGenericType, AindModel, AwareDatetimeWithDefault
 from aind_data_schema.components.coordinates import (
+    Affine3dTransform,
     CcfCoords,
     Coordinates3d,
     Rotation3dTransform,
     Scale3dTransform,
     Translation3dTransform,
-    Affine3dTransform
 )
 from aind_data_schema.components.devices import Calibration, Maintenance, RelativePosition, Scanner, Software, SpoutSide
 from aind_data_schema.components.stimulus import (
@@ -113,8 +113,9 @@ class FieldOfView(AindModel):
     frame_rate: Optional[Decimal] = Field(None, title="Frame rate (Hz)")
     frame_rate_unit: FrequencyUnit = Field(FrequencyUnit.HZ, title="Frame rate unit")
     coupled_fov_index: Optional[int] = Field(None, title="Coupled FOV", description="Coupled planes for multiscope")
-    power: Optional[Decimal] = Field(None, title="Power",
-                                     description="For coupled planes, this power is shared by both planes")
+    power: Optional[Decimal] = Field(
+        None, title="Power", description="For coupled planes, this power is shared by both planes"
+    )
     power_unit: PowerUnit = Field(PowerUnit.PERCENT, title="Power unit")
     power_ratio: Optional[Decimal] = Field(None, title="Power ratio for coupled planes")
     scanfield_z: Optional[int] = Field(
@@ -572,7 +573,9 @@ class Session(AindCoreModel):
     active_mouse_platform: bool = Field(
         ..., title="Active mouse platform", description="Is the mouse platform being actively controlled"
     )
-    headframe_registration: Optional[Affine3dTransform] = Field(None, title="Headframe registration", description="MRI transform matrix for headframe")
+    headframe_registration: Optional[Affine3dTransform] = Field(
+        None, title="Headframe registration", description="MRI transform matrix for headframe"
+    )
     reward_delivery: Optional[RewardDeliveryConfig] = Field(None, title="Reward delivery")
     reward_consumed_total: Optional[Decimal] = Field(None, title="Total reward consumed (uL)")
     reward_consumed_unit: VolumeUnit = Field(VolumeUnit.UL, title="Reward consumed unit")

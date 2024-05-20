@@ -61,7 +61,7 @@ class ExampleTest(unittest.TestCase):
                         )
                     ],
                     ephys_modules=[
-                        EphysModule(
+                        ManipulatorModule(
                             ephys_probes=[EphysProbeConfig(name="Probe A")],
                             assembly_name="Ephys_assemblyA",
                             arc_angle=0,
