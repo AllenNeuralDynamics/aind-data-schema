@@ -4,6 +4,7 @@ import matplotlib.dates as mdates
 from datetime import datetime
 import json
 import os
+import logger
 
 
 def plot_timeline(datapath, savepath, processing_flag=False):
@@ -64,7 +65,7 @@ def plot_timeline(datapath, savepath, processing_flag=False):
             ax.scatter(start_date, [1], marker='|', color='orange', s=120)
             ax.text(start_date, 1.1, proc["procedure_name"], rotation=90, ha='center', va='bottom')
     except:
-        print("Incomplete procedures")
+        logger.error("Incomplete procedures")
 
     # Date of data acquisition
     if session_flag:
@@ -83,7 +84,7 @@ def plot_timeline(datapath, savepath, processing_flag=False):
             age = (date_of_acquisition-date_of_birth).days
             ax.text(date_of_acquisition, 0.9, age, ha='center', va='top')
     except:
-        print("No acquisition date")
+        logger.error("No acquisition date")
 
     if processing_flag:
         with open(processing_path) as json_data:
