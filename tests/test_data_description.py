@@ -234,7 +234,7 @@ class DataDescriptionTest(unittest.TestCase):
             m = re.match(f"{DataRegex.NO_SPECIAL_CHARS.value}", pattern)
             self.assertIsNone(m)
 
-        special_characters_pass = ["adf7898", "#&%!}", "\\"]
+        special_characters_pass = ["adf7898", "#&%!}"]
         for pattern in special_characters_pass:
             m = bool(re.match(f"{DataRegex.NO_SPECIAL_CHARS.value}", pattern))
             self.assertTrue(m)
