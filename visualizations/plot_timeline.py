@@ -105,7 +105,7 @@ def plot_timeline(datapath, savepath, processing_flag=False):
     # Formatting x-axis
     ax.xaxis.set_major_locator(mdates.MonthLocator())
     ax.xaxis.set_major_formatter(DateFormatter("%Y-%m-%d"))
-    plt.xticks(rotation=45, ha='right') 
+    plt.xticks(rotation=45, ha='right')
 
     ax.text(date_of_birth, 0.9, "Age in days", va='top', ha='right')
 
