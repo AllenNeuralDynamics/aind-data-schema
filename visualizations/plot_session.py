@@ -36,7 +36,6 @@ def plot_session(datapath, savepath, ):
     #     ax.scatter(mdates.date2num(stimulus_start_time), [2], marker='|', color='red', s=100)
         ax.text(stimulus_start_time, 2.1, epoch["stimulus_name"], rotation=90, ha='center', va='bottom')
 
-
     ax.xaxis.set_major_locator(mdates.HourLocator())
     loc = mdates.MinuteLocator(byminute=[0, 15, 30, 45])
     ax.xaxis.set_major_locator(loc)
