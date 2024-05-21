@@ -1,3 +1,20 @@
+### [0.37.2](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.37.1...v0.37.2) (2024-05-18)
+
+
+### [0.37.1](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.37.0...v0.37.1) (2024-05-18)
+
+
+## [0.37.0](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.36.1...v0.37.0) (2024-05-16)
+
+
+### Features
+
+* changed moniter to speaker in title for Speaker ([#938](https://github.com/AllenNeuralDynamics/aind-data-schema/issues/938)) ([15a4b8e](https://github.com/AllenNeuralDynamics/aind-data-schema/commit/15a4b8e317e771f7a16648754f9c4f4cdaf56a5d))
+
+
+### [0.36.1](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.36.0...v0.36.1) (2024-05-16)
+
+
 ## [0.36.0](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.35.2...v0.36.0) (2024-05-09)
 
 

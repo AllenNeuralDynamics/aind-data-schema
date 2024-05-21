@@ -18,6 +18,8 @@ from aind_data_schema_models.units import (
     VolumeUnit,
     create_unit_with_value,
 )
+from aind_data_schema_models.specimen_procedure_types import SpecimenProcedureType
+
 from pydantic import Field, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
 from typing_extensions import Annotated
@@ -25,27 +27,6 @@ from typing_extensions import Annotated
 from aind_data_schema.base import AindCoreModel, AindModel, AwareDatetimeWithDefault
 from aind_data_schema.components.devices import FiberProbe
 from aind_data_schema.components.reagent import Reagent
-
-
-class SpecimenProcedureType(str, Enum):
-    """Names for general specimen procedures"""
-
-    DELIPIDATION = "Delipidation"
-    CLEARING = "Clearing"
-    EMBEDDING = "Embedding"
-    FIXATION = "Fixation"
-    FIXATION_PERMEABILIZATION = "Fixation and permeabilization"
-    GELATION = "Gelation"
-    HYBRIDIZATION_AMPLIFICATION = "Hybridication and amplification"
-    HCR = "Hybridization Chain Reaction"
-    IMMUNOLABELING = "Immunolabeling"
-    MOUNTING = "Mounting"
-    SECTIONING = "Sectioning"
-    SOAK = "Soak"
-    STORAGE = "Storage"
-    STRIPPING = "Stripping"
-    REFRACTIVE_INDEX_MATCHING = "Refractive index matching"
-    OTHER = "Other - see notes"
 
 
 class ImmunolabelClass(str, Enum):
@@ -634,7 +615,7 @@ class Procedures(AindCoreModel):
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/procedures.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
 
-    schema_version: Literal["0.13.8"] = Field("0.13.8")
+    schema_version: Literal["0.13.10"] = Field("0.13.10")
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
