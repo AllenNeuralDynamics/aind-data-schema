@@ -1,3 +1,11 @@
+### [0.37.3](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.37.2...v0.37.3) (2024-05-21)
+
+
+### Bug Fixes
+
+* removes old test ([#944](https://github.com/AllenNeuralDynamics/aind-data-schema/issues/944)) ([a7605e7](https://github.com/AllenNeuralDynamics/aind-data-schema/commit/a7605e77a1046ed1bfc16259cd2d90a78262e280))
+
+
 ### [0.37.2](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.37.1...v0.37.2) (2024-05-18)
 
 
