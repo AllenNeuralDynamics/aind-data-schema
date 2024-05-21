@@ -103,10 +103,7 @@ class RigTests(unittest.TestCase):
                     serial_number="1234",
                 ),
                 name="Laser_assembly",
-                collimator=Device(
-                    name="Collimator A",
-                    device_type="Collimator"
-                ),
+                collimator=Device(name="Collimator A", device_type="Collimator"),
                 fiber=Patch(
                     name="Bundle Branching Fiber-optic Patch Cord",
                     manufacturer=Organization.DORIC,
@@ -367,10 +364,7 @@ class RigTests(unittest.TestCase):
                         serial_number="1234",
                     ),
                     name="Laser_assembly",
-                    collimator=Device(
-                        name="Collimator B",
-                        device_type="Collimator"
-                    ),
+                    collimator=Device(name="Collimator B", device_type="Collimator"),
                     fiber=Patch(
                         name="Bundle Branching Fiber-optic Patch Cord",
                         manufacturer=Organization.DORIC,

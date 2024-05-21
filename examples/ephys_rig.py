@@ -23,8 +23,8 @@ from aind_data_schema.components.devices import (
     Lens,
     Manipulator,
     NeuropixelsBasestation,
+    Patch,
     ProbePort,
-    Patch
 )
 from aind_data_schema.core.rig import Rig
 
@@ -74,10 +74,7 @@ laser_assembly = LaserAssembly(
         name="Manipulator A", serial_number="SN2937", manufacturer=Organization.NEW_SCALE_TECHNOLOGIES
     ),
     lasers=[red_laser, blue_laser],
-    collimator=Device(
-        name="Collimator A",
-        device_type="Collimator"
-    ),
+    collimator=Device(name="Collimator A", device_type="Collimator"),
     fiber=Patch(
         name="Bundle Branching Fiber-optic Patch Cord",
         manufacturer=Organization.DORIC,
