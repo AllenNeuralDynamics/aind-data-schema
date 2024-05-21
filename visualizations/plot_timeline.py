@@ -3,6 +3,8 @@ from matplotlib.dates import DateFormatter
 import matplotlib.dates as mdates
 from datetime import datetime
 import json
+import os
+
 
 def plot_timeline(datapath, savepath, processing_flag=False):
     """Creates a timeline of including date of birth, all subject and specimen procedures, and date of
