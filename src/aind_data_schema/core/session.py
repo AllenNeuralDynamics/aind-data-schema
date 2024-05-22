@@ -111,9 +111,12 @@ class FieldOfView(AindModel):
     fov_scale_factor_unit: str = Field(default="um/pixel", title="FOV scale factor unit")
     frame_rate: Optional[Decimal] = Field(default=None, title="Frame rate (Hz)")
     frame_rate_unit: FrequencyUnit = Field(default=FrequencyUnit.HZ, title="Frame rate unit")
-    coupled_fov_index: Optional[int] = Field(default=None, title="Coupled FOV", description="Coupled planes for multiscope")
-    power: Optional[Decimal] = Field(default=None, title="Power",
-                                     description="For coupled planes, this power is shared by both planes")
+    coupled_fov_index: Optional[int] = Field(
+        default=None, title="Coupled FOV", description="Coupled planes for multiscope"
+    )
+    power: Optional[Decimal] = Field(
+        default=None, title="Power", description="For coupled planes, this power is shared by both planes"
+    )
     power_unit: PowerUnit = Field(default=PowerUnit.PERCENT, title="Power unit")
     power_ratio: Optional[Decimal] = Field(default=None, title="Power ratio for coupled planes")
     scanfield_z: Optional[int] = Field(
@@ -194,7 +197,9 @@ class DomeModule(AindModel):
         title="Transform from local manipulator axes to rig",
         description="Path to coordinate transform",
     )
-    calibration_date: Optional[datetime] = Field(default=None, title="Date on which coordinate transform was last calibrated")
+    calibration_date: Optional[datetime] = Field(
+        default=None, title="Date on which coordinate transform was last calibrated"
+    )
     notes: Optional[str] = Field(default=None, title="Notes")
 
 

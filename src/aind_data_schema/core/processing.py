@@ -48,7 +48,9 @@ class PipelineProcess(AindModel):
     processor_full_name: str = Field(
         ..., title="Processor Full Name", description="Name of person responsible for processing pipeline"
     )
-    pipeline_version: Optional[str] = Field(default=None, description="Version of the pipeline", title="Pipeline version")
+    pipeline_version: Optional[str] = Field(
+        default=None, description="Version of the pipeline", title="Pipeline version"
+    )
     pipeline_url: Optional[str] = Field(default=None, description="URL to the pipeline code", title="Pipeline URL")
     note: Optional[str] = Field(default=None, title="Notes")
 

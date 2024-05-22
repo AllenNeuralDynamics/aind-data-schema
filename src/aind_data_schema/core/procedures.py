@@ -380,7 +380,9 @@ class NonViralMaterial(Reagent):
     """Description of a non-viral injection material"""
 
     material_type: Literal["Reagent"] = Field(default="Reagent", title="Injection material type")
-    concentration: Optional[Decimal] = Field(default=None, title="Concentration", description="Must provide concentration unit")
+    concentration: Optional[Decimal] = Field(
+        default=None, title="Concentration", description="Must provide concentration unit"
+    )
     concentration_unit: str = Field(default="mg/mL", title="Concentration unit")
 
 

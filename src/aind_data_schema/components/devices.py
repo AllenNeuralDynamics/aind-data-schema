@@ -254,7 +254,9 @@ class Device(AindModel):
     serial_number: Optional[str] = Field(default=None, title="Serial number")
     manufacturer: Optional[Organization.ONE_OF] = Field(default=None, title="Manufacturer")
     model: Optional[str] = Field(default=None, title="Model")
-    path_to_cad: Optional[str] = Field(default=None, title="Path to CAD diagram", description="For CUSTOM manufactured devices")
+    path_to_cad: Optional[str] = Field(
+        default=None, title="Path to CAD diagram", description="For CUSTOM manufactured devices"
+    )
     port_index: Optional[str] = Field(default=None, title="Port index")
     additional_settings: AindGenericType = Field(AindGeneric(), title="Additional parameters")
     notes: Optional[str] = Field(default=None, title="Notes")
