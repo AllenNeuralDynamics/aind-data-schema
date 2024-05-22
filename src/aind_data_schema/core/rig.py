@@ -56,7 +56,7 @@ class Rig(AindCoreModel):
     mouse_platform: MOUSE_PLATFORMS
     stimulus_devices: List[STIMULUS_DEVICES] = Field(default=[], title="Stimulus devices")
     cameras: List[CameraAssembly] = Field(default=[], title="Camera assemblies")
-    enclosure: Optional[Enclosure] = Field(None, title="Enclosure")
+    enclosure: Optional[Enclosure] = Field(default=None, title="Enclosure")
     ephys_assemblies: List[EphysAssembly] = Field(default=[], title="Ephys probes")
     fiber_assemblies: List[FiberAssembly] = Field(default=[], title="Inserted fiber optics")
     stick_microscopes: List[CameraAssembly] = Field(default=[], title="Stick microscopes")
@@ -74,14 +74,14 @@ class Rig(AindCoreModel):
     daqs: List[RIG_DAQ_DEVICES] = Field(default=[], title="Data acquisition devices", discriminator="device_type")
     calibrations: List[Calibration] = Field(..., title="Full calibration of devices")
     ccf_coordinate_transform: Optional[str] = Field(
-        None,
+        default=None,
         title="CCF coordinate transform",
         description="Path to file that details the CCF-to-lab coordinate transform",
     )
-    origin: Optional[Origin] = Field(None, title="Origin point for rig position transforms")
-    rig_axes: Optional[List[Axis]] = Field(None, title="Rig axes", min_length=3, max_length=3)
+    origin: Optional[Origin] = Field(default=None, title="Origin point for rig position transforms")
+    rig_axes: Optional[List[Axis]] = Field(default=None, title="Rig axes", min_length=3, max_length=3)
     modalities: Set[Modality.ONE_OF] = Field(..., title="Modalities")
-    notes: Optional[str] = Field(None, title="Notes")
+    notes: Optional[str] = Field(default=None, title="Notes")
 
     @model_validator(mode="after")
     def validate_cameras_other(self):
