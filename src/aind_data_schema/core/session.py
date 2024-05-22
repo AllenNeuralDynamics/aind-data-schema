@@ -82,7 +82,7 @@ class DetectorConfig(AindModel):
 class LightEmittingDiodeConfig(AindModel):
     """Description of LED settings"""
 
-    device_type: Literal["LightEmittingDiode"] = "LightEmittingDiode"
+    device_type: Literal["Light emitting diode"] = "Light emitting diode"
     name: str = Field(..., title="Name")
     excitation_power: Optional[Decimal] = Field(default=None, title="Excitation power (mW)")
     excitation_power_unit: PowerUnit = Field(default=PowerUnit.MW, title="Excitation power unit")
@@ -536,7 +536,7 @@ class Session(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/session.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["0.2.7"] = Field("0.2.7")
+    schema_version: Literal["0.2.8"] = Field("0.2.8")
     protocol_id: List[str] = Field([], title="Protocol ID", description="DOI for protocols.io")
     experimenter_full_name: List[str] = Field(
         ...,
