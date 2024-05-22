@@ -14,7 +14,7 @@
    "humidity_control": false,
    "optical_tables": [
       {
-         "device_type": "Optical table",
+         "device_type": "Optical Table",
          "name": "Table",
          "serial_number": null,
          "manufacturer": {
