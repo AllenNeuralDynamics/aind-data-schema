@@ -3765,8 +3765,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.13.6",
-               "default": "0.13.6",
+               "const": "0.13.7",
+               "default": "0.13.7",
                "title": "Schema Version"
             },
             "license": {
@@ -3961,7 +3961,7 @@
             "project_name": {
                "anyOf": [
                   {
-                     "pattern": "^[^<>:;\"/|?\\_]+$",
+                     "pattern": "^[^<>:;\"/|?\\\\_]+$",
                      "type": "string"
                   },
                   {
@@ -30246,8 +30246,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.2.23",
-         "default": "0.2.23",
+         "const": "0.2.24",
+         "default": "0.2.24",
          "title": "Schema Version"
       },
       "_id": {
