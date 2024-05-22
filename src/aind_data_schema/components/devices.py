@@ -885,7 +885,7 @@ class ScanningStage(MotorizedStage):
 class OpticalTable(Device):
     """Description of Optical Table"""
 
-    device_type: Literal["Optical Table"] = "Optical Table"
+    device_type: Literal["Optical table"] = "Optical table"
     length: Optional[Decimal] = Field(default=None, title="Length (inches)", ge=0)
     width: Optional[Decimal] = Field(default=None, title="Width (inches)", ge=0)
     table_size_unit: SizeUnit = Field(default=SizeUnit.IN, title="Table size unit")
