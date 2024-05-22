@@ -74,8 +74,8 @@
          "description": "Description of additional devices",
          "properties": {
             "device_type": {
-               "const": "Additional Imaging Device",
-               "default": "Additional Imaging Device",
+               "const": "Additional imaging device",
+               "default": "Additional imaging device",
                "title": "Device Type"
             },
             "name": {
@@ -5937,8 +5937,8 @@
          "description": "Description of Optical Table",
          "properties": {
             "device_type": {
-               "const": "Optical Table",
-               "default": "Optical Table",
+               "const": "Optical table",
+               "default": "Optical table",
                "title": "Device Type"
             },
             "name": {
@@ -7727,8 +7727,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.10.21",
-         "default": "0.10.21",
+         "const": "0.10.22",
+         "default": "0.10.22",
          "title": "Schema Version"
       },
       "instrument_id": {
