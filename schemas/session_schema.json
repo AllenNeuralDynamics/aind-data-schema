@@ -2774,8 +2774,8 @@
          "description": "Description of LED settings",
          "properties": {
             "device_type": {
-               "const": "LightEmittingDiode",
-               "default": "LightEmittingDiode",
+               "const": "Light emitting diode",
+               "default": "Light emitting diode",
                "title": "Device Type"
             },
             "name": {
@@ -6639,7 +6639,7 @@
                      "discriminator": {
                         "mapping": {
                            "Laser": "#/$defs/LaserConfig",
-                           "LightEmittingDiode": "#/$defs/LightEmittingDiodeConfig"
+                           "Light emitting diode": "#/$defs/LightEmittingDiodeConfig"
                         },
                         "propertyName": "device_type"
                      },
@@ -6800,7 +6800,7 @@
                   "discriminator": {
                      "mapping": {
                         "Laser": "#/$defs/LaserConfig",
-                        "LightEmittingDiode": "#/$defs/LightEmittingDiodeConfig"
+                        "Light emitting diode": "#/$defs/LightEmittingDiodeConfig"
                      },
                      "propertyName": "device_type"
                   },
@@ -7465,8 +7465,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.2.7",
-         "default": "0.2.7",
+         "const": "0.2.8",
+         "default": "0.2.8",
          "title": "Schema Version"
       },
       "protocol_id": {

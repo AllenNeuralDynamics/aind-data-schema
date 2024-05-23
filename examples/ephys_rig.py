@@ -23,8 +23,8 @@ from aind_data_schema.components.devices import (
     Lens,
     Manipulator,
     NeuropixelsBasestation,
-    Patch,
     ProbePort,
+    Patch,
 )
 from aind_data_schema.core.rig import Rig
 
