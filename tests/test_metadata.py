@@ -144,7 +144,6 @@ class TestMetadata(unittest.TestCase):
                 procedures=Procedures.model_construct(subject_procedures=[surgery1]),
                 acquisition=Acquisition.model_construct(),
             )
-        # codespell:ignore assertIn
         self.assertIn(
             "Missing some metadata for SmartSpim. Requires subject, procedures, acquisition, and instrument.",
             str(context.exception),
@@ -164,7 +163,6 @@ class TestMetadata(unittest.TestCase):
                 acquisition=Acquisition.model_construct(),
                 instrument=Instrument.model_construct(),
             )
-        # codespell:ignore assertIn
         self.assertIn("Injection is missing injection_materials.", str(context.exception))
 
     def test_validate_ecephys_metadata(self):
@@ -185,7 +183,6 @@ class TestMetadata(unittest.TestCase):
                 procedures=Procedures.model_construct(subject_procedures=[surgery1]),
                 rig=Rig.model_construct(),
             )
-        # codespell:ignore assertIn
         self.assertIn(
             "Missing some metadata for Ecephys. Requires subject, procedures, session, rig, and processing.",
             str(context.exception),
@@ -206,7 +203,6 @@ class TestMetadata(unittest.TestCase):
                 processing=Processing.model_construct(),
                 session=Session.model_construct(),
             )
-        # codespell:ignore assertIn
         self.assertIn("Injection is missing injection_materials.", str(context.exception))
 
 
