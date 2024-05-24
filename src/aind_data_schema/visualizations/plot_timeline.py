@@ -6,7 +6,6 @@ import json
 import os
 
 
-
 def plot_date_of_birth(date_of_birth, ax):
     ax.scatter(date_of_birth, [1], marker="o", color="blue", s=100)
     ax.text(date_of_birth, 1.1, "Birth", rotation=90, ha="center", va="bottom")
@@ -77,14 +76,13 @@ def plot_timeline(datapath, savepath, processing_flag=False):
     if "procedures" in md:
         plot_procedures(md["procedures"], date_of_birth, ax)
 
-    # Date of data acquisition    
-    da = md.get("session", md.get("acquisition", None))    
+    # Date of data acquisition
+    da = md.get("session", md.get("acquisition", None))
     if da:
-        
         acq_start_date = datetime.fromisoformat(da["session_start_time"]).date()
         acq_end_date = datetime.fromisoformat(da["session_end_time"]).date()
         plot_date_of_acquisition(acq_start_date, date_of_birth, ax)
-        
+
         if processing_flag and "processing" in md:
             plot_processing(md["processing"], acq_start_date, acq_end_date, ax)
 
@@ -98,5 +96,7 @@ def plot_timeline(datapath, savepath, processing_flag=False):
     plt.savefig(savepath)
     plt.show()
 
+
 if __name__ == "__main__":
-    plot_timeline('.','.',True)
+    plot_timeline(".", ".", True)
+
