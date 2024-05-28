@@ -71,9 +71,7 @@ def plot_timeline(datapath):
     # Date of data acquisition
     da = md.get("session", md.get("acquisition", None))
     if da:
-
         acq_start_date = datetime.fromisoformat(da["session_start_time"]).date()
-        acq_end_date = datetime.fromisoformat(da["session_end_time"]).date()
         plot_date_of_acquisition(ax, acq_start_date, date_of_birth)
 
     # Formatting x-axis
@@ -85,7 +83,6 @@ def plot_timeline(datapath):
     plt.tight_layout()
 
     return fig, ax
-
 
 
 if __name__ == "__main__":
