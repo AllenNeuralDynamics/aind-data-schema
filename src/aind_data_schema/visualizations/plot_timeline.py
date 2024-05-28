@@ -1,3 +1,5 @@
+""" experimental methods for visualizing subject and procedure timelines """
+
 import matplotlib.pyplot as plt
 from matplotlib.dates import DateFormatter
 import matplotlib.dates as mdates

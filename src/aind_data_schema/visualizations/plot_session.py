@@ -1,3 +1,5 @@
+""" experimental methods for visualizing data streams and stimulus epochs in a session """
+
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 from datetime import datetime
