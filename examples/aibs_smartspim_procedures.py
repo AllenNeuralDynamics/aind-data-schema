@@ -2,8 +2,9 @@
 
 from datetime import date
 
+from aind_data_schema_models.organizations import Organization
+
 from aind_data_schema.core import procedures
-from aind_data_schema.models.organizations import Organization
 
 experimenter = "John Smith"
 # subject and specimen id can be the same?

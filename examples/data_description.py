@@ -2,11 +2,12 @@
 
 from datetime import datetime, timezone
 
+from aind_data_schema_models.modalities import Modality
+from aind_data_schema_models.organizations import Organization
+from aind_data_schema_models.pid_names import PIDName
+from aind_data_schema_models.platforms import Platform
+
 from aind_data_schema.core.data_description import Funding, RawDataDescription
-from aind_data_schema.models.modalities import Modality
-from aind_data_schema.models.organizations import Organization
-from aind_data_schema.models.pid_names import PIDName
-from aind_data_schema.models.platforms import Platform
 
 d = RawDataDescription(
     modality=[Modality.ECEPHYS, Modality.BEHAVIOR_VIDEOS],

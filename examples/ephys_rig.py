@@ -2,13 +2,17 @@
 
 from datetime import date, datetime, timezone
 
-from aind_data_schema.core.rig import Rig
-from aind_data_schema.models.devices import (
+from aind_data_schema_models.harp_types import HarpDeviceType
+from aind_data_schema_models.modalities import Modality
+from aind_data_schema_models.organizations import Organization
+
+from aind_data_schema.components.devices import (
     Calibration,
     Camera,
     CameraAssembly,
     CameraTarget,
     DAQChannel,
+    Device,
     Disc,
     EphysAssembly,
     EphysProbe,
@@ -20,10 +24,9 @@ from aind_data_schema.models.devices import (
     Manipulator,
     NeuropixelsBasestation,
     ProbePort,
+    Patch,
 )
-from aind_data_schema.models.harp_types import HarpDeviceType
-from aind_data_schema.models.modalities import Modality
-from aind_data_schema.models.organizations import Organization
+from aind_data_schema.core.rig import Rig
 
 # Describes a rig with running wheel, 2 behavior cameras, one Harp Behavior board,
 # one dual-color laser module, one stick microscope, and 2 Neuropixels probes
@@ -71,6 +74,14 @@ laser_assembly = LaserAssembly(
         name="Manipulator A", serial_number="SN2937", manufacturer=Organization.NEW_SCALE_TECHNOLOGIES
     ),
     lasers=[red_laser, blue_laser],
+    collimator=Device(name="Collimator A", device_type="Collimator"),
+    fiber=Patch(
+        name="Bundle Branching Fiber-optic Patch Cord",
+        manufacturer=Organization.DORIC,
+        model="BBP(4)_200/220/900-0.37_Custom_FCM-4xMF1.25",
+        core_diameter=200,
+        numerical_aperture=0.37,
+    ),
 )
 
 probe_camera = Camera(
@@ -142,7 +153,7 @@ face_camera = Camera(
 camassm1 = CameraAssembly(
     name="Face Camera Assembly",
     camera=face_camera,
-    camera_target="Face side",
+    camera_target="Face side left",
     filter=filt,
     lens=lens,
 )

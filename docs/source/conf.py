@@ -1,4 +1,5 @@
 """Configuration file for the Sphinx documentation builder."""
+
 #
 # For the full list of built-in configuration values, see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
@@ -15,7 +16,6 @@ from aind_data_schema.core import (  # A temporary workaround to fix NameError w
     data_description,
     instrument,
     metadata,
-    mri_session,
     procedures,
     processing,
     rig,
@@ -28,7 +28,6 @@ dummy_object = [
     data_description,
     instrument,
     metadata,
-    mri_session,
     procedures,
     processing,
     rig,
@@ -84,7 +83,6 @@ diagrams_list = [
     "data_description",
     "instrument",
     "metadata.nd",
-    "mri_session",
     "procedures",
     "processing",
     "rig",

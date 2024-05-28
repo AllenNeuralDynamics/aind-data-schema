@@ -74,8 +74,8 @@
          "description": "Description of additional devices",
          "properties": {
             "device_type": {
-               "const": "Additional Imaging Device",
-               "default": "Additional Imaging Device",
+               "const": "Additional imaging device",
+               "default": "Additional imaging device",
                "title": "Device Type"
             },
             "name": {
@@ -132,6 +132,7 @@
                            "ISL Products International": "#/$defs/ISLProductsInternational",
                            "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
                            "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
+                           "Invitrogen": "#/$defs/Invitrogen",
                            "Jackson Laboratory": "#/$defs/JacksonLaboratory",
                            "Julabo": "#/$defs/Julabo",
                            "LG": "#/$defs/Lg",
@@ -140,6 +141,7 @@
                            "MKS Newport": "#/$defs/MKSNewport",
                            "MPI": "#/$defs/Mpi",
                            "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
+                           "Midwest Optical Systems, Inc.": "#/$defs/MidwestOpticalSystems",
                            "Mitutuyo": "#/$defs/Mitutuyo",
                            "NResearch Inc": "#/$defs/NResearch",
                            "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
@@ -157,6 +159,7 @@
                            "Prizmatix": "#/$defs/Prizmatix",
                            "Quantifi": "#/$defs/Quantifi",
                            "Raspberry Pi": "#/$defs/RaspberryPi",
+                           "SICGEN": "#/$defs/Sicgen",
                            "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                            "Second Order Effects": "#/$defs/SecondOrderEffects",
                            "Semrock": "#/$defs/Semrock",
@@ -278,6 +281,9 @@
                            "$ref": "#/$defs/InfinityPhotoOptical"
                         },
                         {
+                           "$ref": "#/$defs/Invitrogen"
+                        },
+                        {
                            "$ref": "#/$defs/ISLProductsInternational"
                         },
                         {
@@ -303,6 +309,9 @@
                         },
                         {
                            "$ref": "#/$defs/IRRobotCo"
+                        },
+                        {
+                           "$ref": "#/$defs/MidwestOpticalSystems"
                         },
                         {
                            "$ref": "#/$defs/Mitutuyo"
@@ -366,6 +375,9 @@
                         },
                         {
                            "$ref": "#/$defs/SchneiderKreuznach"
+                        },
+                        {
+                           "$ref": "#/$defs/Sicgen"
                         },
                         {
                            "$ref": "#/$defs/SigmaAldritch"
@@ -2143,6 +2155,7 @@
                            "ISL Products International": "#/$defs/ISLProductsInternational",
                            "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
                            "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
+                           "Invitrogen": "#/$defs/Invitrogen",
                            "Jackson Laboratory": "#/$defs/JacksonLaboratory",
                            "Julabo": "#/$defs/Julabo",
                            "LG": "#/$defs/Lg",
@@ -2151,6 +2164,7 @@
                            "MKS Newport": "#/$defs/MKSNewport",
                            "MPI": "#/$defs/Mpi",
                            "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
+                           "Midwest Optical Systems, Inc.": "#/$defs/MidwestOpticalSystems",
                            "Mitutuyo": "#/$defs/Mitutuyo",
                            "NResearch Inc": "#/$defs/NResearch",
                            "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
@@ -2168,6 +2182,7 @@
                            "Prizmatix": "#/$defs/Prizmatix",
                            "Quantifi": "#/$defs/Quantifi",
                            "Raspberry Pi": "#/$defs/RaspberryPi",
+                           "SICGEN": "#/$defs/Sicgen",
                            "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                            "Second Order Effects": "#/$defs/SecondOrderEffects",
                            "Semrock": "#/$defs/Semrock",
@@ -2289,6 +2304,9 @@
                            "$ref": "#/$defs/InfinityPhotoOptical"
                         },
                         {
+                           "$ref": "#/$defs/Invitrogen"
+                        },
+                        {
                            "$ref": "#/$defs/ISLProductsInternational"
                         },
                         {
@@ -2314,6 +2332,9 @@
                         },
                         {
                            "$ref": "#/$defs/IRRobotCo"
+                        },
+                        {
+                           "$ref": "#/$defs/MidwestOpticalSystems"
                         },
                         {
                            "$ref": "#/$defs/Mitutuyo"
@@ -2377,6 +2398,9 @@
                         },
                         {
                            "$ref": "#/$defs/SchneiderKreuznach"
+                        },
+                        {
+                           "$ref": "#/$defs/Sicgen"
                         },
                         {
                            "$ref": "#/$defs/SigmaAldritch"
@@ -2580,6 +2604,7 @@
                   "mapping": {
                      "Chroma": "#/$defs/Chroma",
                      "Edmund Optics": "#/$defs/EdmundOptics",
+                     "Midwest Optical Systems, Inc.": "#/$defs/MidwestOpticalSystems",
                      "Other": "#/$defs/Other",
                      "Semrock": "#/$defs/Semrock",
                      "Thorlabs": "#/$defs/Thorlabs"
@@ -2592,6 +2617,9 @@
                   },
                   {
                      "$ref": "#/$defs/EdmundOptics"
+                  },
+                  {
+                     "$ref": "#/$defs/MidwestOpticalSystems"
                   },
                   {
                      "$ref": "#/$defs/Semrock"
@@ -3165,6 +3193,47 @@
          "title": "InteruniversityMicroelectronicsCenter",
          "type": "object"
       },
+      "Invitrogen": {
+         "additionalProperties": false,
+         "description": "Invitrogen",
+         "properties": {
+            "name": {
+               "const": "Invitrogen",
+               "default": "Invitrogen",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "03x1ewr52",
+               "default": "03x1ewr52",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Invitrogen",
+         "type": "object"
+      },
       "JacksonLaboratory": {
          "additionalProperties": false,
          "description": "JacksonLaboratory",
@@ -3297,6 +3366,7 @@
                            "ISL Products International": "#/$defs/ISLProductsInternational",
                            "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
                            "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
+                           "Invitrogen": "#/$defs/Invitrogen",
                            "Jackson Laboratory": "#/$defs/JacksonLaboratory",
                            "Julabo": "#/$defs/Julabo",
                            "LG": "#/$defs/Lg",
@@ -3305,6 +3375,7 @@
                            "MKS Newport": "#/$defs/MKSNewport",
                            "MPI": "#/$defs/Mpi",
                            "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
+                           "Midwest Optical Systems, Inc.": "#/$defs/MidwestOpticalSystems",
                            "Mitutuyo": "#/$defs/Mitutuyo",
                            "NResearch Inc": "#/$defs/NResearch",
                            "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
@@ -3322,6 +3393,7 @@
                            "Prizmatix": "#/$defs/Prizmatix",
                            "Quantifi": "#/$defs/Quantifi",
                            "Raspberry Pi": "#/$defs/RaspberryPi",
+                           "SICGEN": "#/$defs/Sicgen",
                            "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                            "Second Order Effects": "#/$defs/SecondOrderEffects",
                            "Semrock": "#/$defs/Semrock",
@@ -3443,6 +3515,9 @@
                            "$ref": "#/$defs/InfinityPhotoOptical"
                         },
                         {
+                           "$ref": "#/$defs/Invitrogen"
+                        },
+                        {
                            "$ref": "#/$defs/ISLProductsInternational"
                         },
                         {
@@ -3468,6 +3543,9 @@
                         },
                         {
                            "$ref": "#/$defs/IRRobotCo"
+                        },
+                        {
+                           "$ref": "#/$defs/MidwestOpticalSystems"
                         },
                         {
                            "$ref": "#/$defs/Mitutuyo"
@@ -3531,6 +3609,9 @@
                         },
                         {
                            "$ref": "#/$defs/SchneiderKreuznach"
+                        },
+                        {
+                           "$ref": "#/$defs/Sicgen"
                         },
                         {
                            "$ref": "#/$defs/SigmaAldritch"
@@ -3962,6 +4043,7 @@
                      "Carl Zeiss": "#/$defs/CarlZeiss",
                      "Computar": "#/$defs/Computar",
                      "Edmund Optics": "#/$defs/EdmundOptics",
+                     "Fujinon": "#/$defs/Fujinon",
                      "Hamamatsu": "#/$defs/Hamamatsu",
                      "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
                      "Leica": "#/$defs/Leica",
@@ -3981,6 +4063,9 @@
                   },
                   {
                      "$ref": "#/$defs/EdmundOptics"
+                  },
+                  {
+                     "$ref": "#/$defs/Fujinon"
                   },
                   {
                      "$ref": "#/$defs/Hamamatsu"
@@ -4365,6 +4450,27 @@
                ],
                "default": "nanometer",
                "title": "Wavelength unit"
+            },
+            "bandwidth": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Bandwidth (FWHM)"
+            },
+            "bandwidth_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  }
+               ],
+               "default": "nanometer",
+               "title": "Bandwidth unit"
             }
          },
          "required": [
@@ -4455,6 +4561,34 @@
             }
          },
          "title": "MeadowlarkOptics",
+         "type": "object"
+      },
+      "MidwestOpticalSystems": {
+         "additionalProperties": false,
+         "description": "MidwestOpticalSystems",
+         "properties": {
+            "name": {
+               "const": "Midwest Optical Systems, Inc.",
+               "default": "Midwest Optical Systems, Inc.",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "MidOpt",
+               "default": "MidOpt",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "MidwestOpticalSystems",
          "type": "object"
       },
       "Mitutuyo": {
@@ -4548,6 +4682,7 @@
                            "ISL Products International": "#/$defs/ISLProductsInternational",
                            "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
                            "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
+                           "Invitrogen": "#/$defs/Invitrogen",
                            "Jackson Laboratory": "#/$defs/JacksonLaboratory",
                            "Julabo": "#/$defs/Julabo",
                            "LG": "#/$defs/Lg",
@@ -4556,6 +4691,7 @@
                            "MKS Newport": "#/$defs/MKSNewport",
                            "MPI": "#/$defs/Mpi",
                            "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
+                           "Midwest Optical Systems, Inc.": "#/$defs/MidwestOpticalSystems",
                            "Mitutuyo": "#/$defs/Mitutuyo",
                            "NResearch Inc": "#/$defs/NResearch",
                            "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
@@ -4573,6 +4709,7 @@
                            "Prizmatix": "#/$defs/Prizmatix",
                            "Quantifi": "#/$defs/Quantifi",
                            "Raspberry Pi": "#/$defs/RaspberryPi",
+                           "SICGEN": "#/$defs/Sicgen",
                            "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                            "Second Order Effects": "#/$defs/SecondOrderEffects",
                            "Semrock": "#/$defs/Semrock",
@@ -4694,6 +4831,9 @@
                            "$ref": "#/$defs/InfinityPhotoOptical"
                         },
                         {
+                           "$ref": "#/$defs/Invitrogen"
+                        },
+                        {
                            "$ref": "#/$defs/ISLProductsInternational"
                         },
                         {
@@ -4719,6 +4859,9 @@
                         },
                         {
                            "$ref": "#/$defs/IRRobotCo"
+                        },
+                        {
+                           "$ref": "#/$defs/MidwestOpticalSystems"
                         },
                         {
                            "$ref": "#/$defs/Mitutuyo"
@@ -4782,6 +4925,9 @@
                         },
                         {
                            "$ref": "#/$defs/SchneiderKreuznach"
+                        },
+                        {
+                           "$ref": "#/$defs/Sicgen"
                         },
                         {
                            "$ref": "#/$defs/SigmaAldritch"
@@ -5293,6 +5439,7 @@
                            "ISL Products International": "#/$defs/ISLProductsInternational",
                            "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
                            "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
+                           "Invitrogen": "#/$defs/Invitrogen",
                            "Jackson Laboratory": "#/$defs/JacksonLaboratory",
                            "Julabo": "#/$defs/Julabo",
                            "LG": "#/$defs/Lg",
@@ -5301,6 +5448,7 @@
                            "MKS Newport": "#/$defs/MKSNewport",
                            "MPI": "#/$defs/Mpi",
                            "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
+                           "Midwest Optical Systems, Inc.": "#/$defs/MidwestOpticalSystems",
                            "Mitutuyo": "#/$defs/Mitutuyo",
                            "NResearch Inc": "#/$defs/NResearch",
                            "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
@@ -5318,6 +5466,7 @@
                            "Prizmatix": "#/$defs/Prizmatix",
                            "Quantifi": "#/$defs/Quantifi",
                            "Raspberry Pi": "#/$defs/RaspberryPi",
+                           "SICGEN": "#/$defs/Sicgen",
                            "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                            "Second Order Effects": "#/$defs/SecondOrderEffects",
                            "Semrock": "#/$defs/Semrock",
@@ -5439,6 +5588,9 @@
                            "$ref": "#/$defs/InfinityPhotoOptical"
                         },
                         {
+                           "$ref": "#/$defs/Invitrogen"
+                        },
+                        {
                            "$ref": "#/$defs/ISLProductsInternational"
                         },
                         {
@@ -5464,6 +5616,9 @@
                         },
                         {
                            "$ref": "#/$defs/IRRobotCo"
+                        },
+                        {
+                           "$ref": "#/$defs/MidwestOpticalSystems"
                         },
                         {
                            "$ref": "#/$defs/Mitutuyo"
@@ -5527,6 +5682,9 @@
                         },
                         {
                            "$ref": "#/$defs/SchneiderKreuznach"
+                        },
+                        {
+                           "$ref": "#/$defs/Sicgen"
                         },
                         {
                            "$ref": "#/$defs/SigmaAldritch"
@@ -5779,8 +5937,8 @@
          "description": "Description of Optical Table",
          "properties": {
             "device_type": {
-               "const": "Optical Table",
-               "default": "Optical Table",
+               "const": "Optical table",
+               "default": "Optical table",
                "title": "Device Type"
             },
             "name": {
@@ -5837,6 +5995,7 @@
                            "ISL Products International": "#/$defs/ISLProductsInternational",
                            "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
                            "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
+                           "Invitrogen": "#/$defs/Invitrogen",
                            "Jackson Laboratory": "#/$defs/JacksonLaboratory",
                            "Julabo": "#/$defs/Julabo",
                            "LG": "#/$defs/Lg",
@@ -5845,6 +6004,7 @@
                            "MKS Newport": "#/$defs/MKSNewport",
                            "MPI": "#/$defs/Mpi",
                            "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
+                           "Midwest Optical Systems, Inc.": "#/$defs/MidwestOpticalSystems",
                            "Mitutuyo": "#/$defs/Mitutuyo",
                            "NResearch Inc": "#/$defs/NResearch",
                            "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
@@ -5862,6 +6022,7 @@
                            "Prizmatix": "#/$defs/Prizmatix",
                            "Quantifi": "#/$defs/Quantifi",
                            "Raspberry Pi": "#/$defs/RaspberryPi",
+                           "SICGEN": "#/$defs/Sicgen",
                            "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                            "Second Order Effects": "#/$defs/SecondOrderEffects",
                            "Semrock": "#/$defs/Semrock",
@@ -5983,6 +6144,9 @@
                            "$ref": "#/$defs/InfinityPhotoOptical"
                         },
                         {
+                           "$ref": "#/$defs/Invitrogen"
+                        },
+                        {
                            "$ref": "#/$defs/ISLProductsInternational"
                         },
                         {
@@ -6008,6 +6172,9 @@
                         },
                         {
                            "$ref": "#/$defs/IRRobotCo"
+                        },
+                        {
+                           "$ref": "#/$defs/MidwestOpticalSystems"
                         },
                         {
                            "$ref": "#/$defs/Mitutuyo"
@@ -6071,6 +6238,9 @@
                         },
                         {
                            "$ref": "#/$defs/SchneiderKreuznach"
+                        },
+                        {
+                           "$ref": "#/$defs/Sicgen"
                         },
                         {
                            "$ref": "#/$defs/SigmaAldritch"
@@ -6492,6 +6662,7 @@
                            "ISL Products International": "#/$defs/ISLProductsInternational",
                            "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
                            "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
+                           "Invitrogen": "#/$defs/Invitrogen",
                            "Jackson Laboratory": "#/$defs/JacksonLaboratory",
                            "Julabo": "#/$defs/Julabo",
                            "LG": "#/$defs/Lg",
@@ -6500,6 +6671,7 @@
                            "MKS Newport": "#/$defs/MKSNewport",
                            "MPI": "#/$defs/Mpi",
                            "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
+                           "Midwest Optical Systems, Inc.": "#/$defs/MidwestOpticalSystems",
                            "Mitutuyo": "#/$defs/Mitutuyo",
                            "NResearch Inc": "#/$defs/NResearch",
                            "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
@@ -6517,6 +6689,7 @@
                            "Prizmatix": "#/$defs/Prizmatix",
                            "Quantifi": "#/$defs/Quantifi",
                            "Raspberry Pi": "#/$defs/RaspberryPi",
+                           "SICGEN": "#/$defs/Sicgen",
                            "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                            "Second Order Effects": "#/$defs/SecondOrderEffects",
                            "Semrock": "#/$defs/Semrock",
@@ -6638,6 +6811,9 @@
                            "$ref": "#/$defs/InfinityPhotoOptical"
                         },
                         {
+                           "$ref": "#/$defs/Invitrogen"
+                        },
+                        {
                            "$ref": "#/$defs/ISLProductsInternational"
                         },
                         {
@@ -6663,6 +6839,9 @@
                         },
                         {
                            "$ref": "#/$defs/IRRobotCo"
+                        },
+                        {
+                           "$ref": "#/$defs/MidwestOpticalSystems"
                         },
                         {
                            "$ref": "#/$defs/Mitutuyo"
@@ -6726,6 +6905,9 @@
                         },
                         {
                            "$ref": "#/$defs/SchneiderKreuznach"
+                        },
+                        {
+                           "$ref": "#/$defs/Sicgen"
                         },
                         {
                            "$ref": "#/$defs/SigmaAldritch"
@@ -6970,6 +7152,34 @@
             }
          },
          "title": "Semrock",
+         "type": "object"
+      },
+      "Sicgen": {
+         "additionalProperties": false,
+         "description": "SICGEN",
+         "properties": {
+            "name": {
+               "const": "SICGEN",
+               "default": "SICGEN",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Sicgen",
          "type": "object"
       },
       "SigmaAldritch": {
@@ -7517,8 +7727,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.10.16",
-         "default": "0.10.16",
+         "const": "0.10.22",
+         "default": "0.10.22",
          "title": "Schema Version"
       },
       "instrument_id": {
@@ -7583,6 +7793,7 @@
                "ISL Products International": "#/$defs/ISLProductsInternational",
                "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
                "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
+               "Invitrogen": "#/$defs/Invitrogen",
                "Jackson Laboratory": "#/$defs/JacksonLaboratory",
                "Julabo": "#/$defs/Julabo",
                "LG": "#/$defs/Lg",
@@ -7591,6 +7802,7 @@
                "MKS Newport": "#/$defs/MKSNewport",
                "MPI": "#/$defs/Mpi",
                "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
+               "Midwest Optical Systems, Inc.": "#/$defs/MidwestOpticalSystems",
                "Mitutuyo": "#/$defs/Mitutuyo",
                "NResearch Inc": "#/$defs/NResearch",
                "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
@@ -7608,6 +7820,7 @@
                "Prizmatix": "#/$defs/Prizmatix",
                "Quantifi": "#/$defs/Quantifi",
                "Raspberry Pi": "#/$defs/RaspberryPi",
+               "SICGEN": "#/$defs/Sicgen",
                "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                "Second Order Effects": "#/$defs/SecondOrderEffects",
                "Semrock": "#/$defs/Semrock",
@@ -7729,6 +7942,9 @@
                "$ref": "#/$defs/InfinityPhotoOptical"
             },
             {
+               "$ref": "#/$defs/Invitrogen"
+            },
+            {
                "$ref": "#/$defs/ISLProductsInternational"
             },
             {
@@ -7754,6 +7970,9 @@
             },
             {
                "$ref": "#/$defs/IRRobotCo"
+            },
+            {
+               "$ref": "#/$defs/MidwestOpticalSystems"
             },
             {
                "$ref": "#/$defs/Mitutuyo"
@@ -7817,6 +8036,9 @@
             },
             {
                "$ref": "#/$defs/SchneiderKreuznach"
+            },
+            {
+               "$ref": "#/$defs/Sicgen"
             },
             {
                "$ref": "#/$defs/SigmaAldritch"

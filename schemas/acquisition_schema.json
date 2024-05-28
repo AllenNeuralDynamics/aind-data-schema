@@ -1591,6 +1591,47 @@
          "title": "InteruniversityMicroelectronicsCenter",
          "type": "object"
       },
+      "Invitrogen": {
+         "additionalProperties": false,
+         "description": "Invitrogen",
+         "properties": {
+            "name": {
+               "const": "Invitrogen",
+               "default": "Invitrogen",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "03x1ewr52",
+               "default": "03x1ewr52",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Invitrogen",
+         "type": "object"
+      },
       "JacksonLaboratory": {
          "additionalProperties": false,
          "description": "JacksonLaboratory",
@@ -1897,6 +1938,34 @@
             }
          },
          "title": "MeadowlarkOptics",
+         "type": "object"
+      },
+      "MidwestOpticalSystems": {
+         "additionalProperties": false,
+         "description": "MidwestOpticalSystems",
+         "properties": {
+            "name": {
+               "const": "Midwest Optical Systems, Inc.",
+               "default": "Midwest Optical Systems, Inc.",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "MidOpt",
+               "default": "MidOpt",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "MidwestOpticalSystems",
          "type": "object"
       },
       "Mitutuyo": {
@@ -2622,6 +2691,7 @@
                      "ISL Products International": "#/$defs/ISLProductsInternational",
                      "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
                      "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
+                     "Invitrogen": "#/$defs/Invitrogen",
                      "Jackson Laboratory": "#/$defs/JacksonLaboratory",
                      "Julabo": "#/$defs/Julabo",
                      "LG": "#/$defs/Lg",
@@ -2630,6 +2700,7 @@
                      "MKS Newport": "#/$defs/MKSNewport",
                      "MPI": "#/$defs/Mpi",
                      "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
+                     "Midwest Optical Systems, Inc.": "#/$defs/MidwestOpticalSystems",
                      "Mitutuyo": "#/$defs/Mitutuyo",
                      "NResearch Inc": "#/$defs/NResearch",
                      "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
@@ -2647,6 +2718,7 @@
                      "Prizmatix": "#/$defs/Prizmatix",
                      "Quantifi": "#/$defs/Quantifi",
                      "Raspberry Pi": "#/$defs/RaspberryPi",
+                     "SICGEN": "#/$defs/Sicgen",
                      "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                      "Second Order Effects": "#/$defs/SecondOrderEffects",
                      "Semrock": "#/$defs/Semrock",
@@ -2768,6 +2840,9 @@
                      "$ref": "#/$defs/InfinityPhotoOptical"
                   },
                   {
+                     "$ref": "#/$defs/Invitrogen"
+                  },
+                  {
                      "$ref": "#/$defs/ISLProductsInternational"
                   },
                   {
@@ -2793,6 +2868,9 @@
                   },
                   {
                      "$ref": "#/$defs/IRRobotCo"
+                  },
+                  {
+                     "$ref": "#/$defs/MidwestOpticalSystems"
                   },
                   {
                      "$ref": "#/$defs/Mitutuyo"
@@ -2856,6 +2934,9 @@
                   },
                   {
                      "$ref": "#/$defs/SchneiderKreuznach"
+                  },
+                  {
+                     "$ref": "#/$defs/Sicgen"
                   },
                   {
                      "$ref": "#/$defs/SigmaAldritch"
@@ -3100,6 +3181,34 @@
          "title": "Semrock",
          "type": "object"
       },
+      "Sicgen": {
+         "additionalProperties": false,
+         "description": "SICGEN",
+         "properties": {
+            "name": {
+               "const": "SICGEN",
+               "default": "SICGEN",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Sicgen",
+         "type": "object"
+      },
       "SigmaAldritch": {
          "additionalProperties": false,
          "description": "Sigma-Aldritch",
@@ -3182,6 +3291,47 @@
          ],
          "title": "SizeUnit",
          "type": "string"
+      },
+      "Software": {
+         "additionalProperties": false,
+         "description": "Description of generic software",
+         "properties": {
+            "name": {
+               "title": "Software name",
+               "type": "string"
+            },
+            "version": {
+               "title": "Software version",
+               "type": "string"
+            },
+            "url": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "URL to commit being used"
+            },
+            "parameters": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/AindGeneric"
+                  }
+               ],
+               "default": {},
+               "title": "Software parameters"
+            }
+         },
+         "required": [
+            "name",
+            "version"
+         ],
+         "title": "Software",
+         "type": "object"
       },
       "Spinnaker": {
          "additionalProperties": false,
@@ -3573,8 +3723,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.6.12",
-         "default": "0.6.12",
+         "const": "0.6.16",
+         "default": "0.6.16",
          "title": "Schema Version"
       },
       "protocol_id": {
@@ -3735,6 +3885,21 @@
          },
          "title": "Processing steps",
          "type": "array"
+      },
+      "software": {
+         "anyOf": [
+            {
+               "items": {
+                  "$ref": "#/$defs/Software"
+               },
+               "type": "array"
+            },
+            {
+               "type": "null"
+            }
+         ],
+         "default": [],
+         "title": "Acquisition software version data"
       },
       "notes": {
          "anyOf": [

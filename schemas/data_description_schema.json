@@ -213,7 +213,8 @@
          "description": "Data level name",
          "enum": [
             "derived",
-            "raw"
+            "raw",
+            "simulated"
          ],
          "title": "DataLevel",
          "type": "string"
@@ -857,7 +858,7 @@
          "title": "Spim",
          "type": "object"
       },
-      "aind_data_schema__models__modalities__Behavior": {
+      "aind_data_schema_models__modalities__Behavior": {
          "additionalProperties": false,
          "description": "Behavior",
          "properties": {
@@ -875,7 +876,7 @@
          "title": "Behavior",
          "type": "object"
       },
-      "aind_data_schema__models__modalities__Confocal": {
+      "aind_data_schema_models__modalities__Confocal": {
          "additionalProperties": false,
          "description": "Confocal",
          "properties": {
@@ -893,7 +894,7 @@
          "title": "Confocal",
          "type": "object"
       },
-      "aind_data_schema__models__modalities__Ecephys": {
+      "aind_data_schema_models__modalities__Ecephys": {
          "additionalProperties": false,
          "description": "Ecephys",
          "properties": {
@@ -911,7 +912,7 @@
          "title": "Ecephys",
          "type": "object"
       },
-      "aind_data_schema__models__modalities__Isi": {
+      "aind_data_schema_models__modalities__Isi": {
          "additionalProperties": false,
          "description": "Intrinsic signal imaging",
          "properties": {
@@ -929,7 +930,7 @@
          "title": "Isi",
          "type": "object"
       },
-      "aind_data_schema__models__modalities__Merfish": {
+      "aind_data_schema_models__modalities__Merfish": {
          "additionalProperties": false,
          "description": "Merfish",
          "properties": {
@@ -947,7 +948,7 @@
          "title": "Merfish",
          "type": "object"
       },
-      "aind_data_schema__models__modalities__Mri": {
+      "aind_data_schema_models__modalities__Mri": {
          "additionalProperties": false,
          "description": "Mri",
          "properties": {
@@ -965,7 +966,7 @@
          "title": "Mri",
          "type": "object"
       },
-      "aind_data_schema__models__platforms__Behavior": {
+      "aind_data_schema_models__platforms__Behavior": {
          "additionalProperties": false,
          "description": "Behavior",
          "properties": {
@@ -983,7 +984,7 @@
          "title": "Behavior",
          "type": "object"
       },
-      "aind_data_schema__models__platforms__Confocal": {
+      "aind_data_schema_models__platforms__Confocal": {
          "additionalProperties": false,
          "description": "Confocal",
          "properties": {
@@ -1001,7 +1002,7 @@
          "title": "Confocal",
          "type": "object"
       },
-      "aind_data_schema__models__platforms__Ecephys": {
+      "aind_data_schema_models__platforms__Ecephys": {
          "additionalProperties": false,
          "description": "Ecephys",
          "properties": {
@@ -1019,7 +1020,7 @@
          "title": "Ecephys",
          "type": "object"
       },
-      "aind_data_schema__models__platforms__Isi": {
+      "aind_data_schema_models__platforms__Isi": {
          "additionalProperties": false,
          "description": "Isi",
          "properties": {
@@ -1037,7 +1038,7 @@
          "title": "Isi",
          "type": "object"
       },
-      "aind_data_schema__models__platforms__Merfish": {
+      "aind_data_schema_models__platforms__Merfish": {
          "additionalProperties": false,
          "description": "Merfish",
          "properties": {
@@ -1055,7 +1056,7 @@
          "title": "Merfish",
          "type": "object"
       },
-      "aind_data_schema__models__platforms__Mri": {
+      "aind_data_schema_models__platforms__Mri": {
          "additionalProperties": false,
          "description": "Mri",
          "properties": {
@@ -1084,8 +1085,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.13.2",
-         "default": "0.13.2",
+         "const": "0.13.7",
+         "default": "0.13.7",
          "title": "Schema Version"
       },
       "license": {
@@ -1097,16 +1098,16 @@
          "description": "Name for a standardized primary data collection system",
          "discriminator": {
             "mapping": {
-               "Behavior platform": "#/$defs/aind_data_schema__models__platforms__Behavior",
-               "Confocal microscopy platform": "#/$defs/aind_data_schema__models__platforms__Confocal",
-               "Electrophysiology platform": "#/$defs/aind_data_schema__models__platforms__Ecephys",
+               "Behavior platform": "#/$defs/aind_data_schema_models__platforms__Behavior",
+               "Confocal microscopy platform": "#/$defs/aind_data_schema_models__platforms__Confocal",
+               "Electrophysiology platform": "#/$defs/aind_data_schema_models__platforms__Ecephys",
                "ExaSPIM platform": "#/$defs/ExaSpim",
                "Frame-projected independent-fiber photometry platform": "#/$defs/Fip",
                "Hybridization chain reaction platform": "#/$defs/Hcr",
                "Hyperspectral fiber photometry platform": "#/$defs/Hsfp",
-               "Intrinsic signal imaging platform": "#/$defs/aind_data_schema__models__platforms__Isi",
-               "MERFISH platform": "#/$defs/aind_data_schema__models__platforms__Merfish",
-               "Magnetic resonance imaging platform": "#/$defs/aind_data_schema__models__platforms__Mri",
+               "Intrinsic signal imaging platform": "#/$defs/aind_data_schema_models__platforms__Isi",
+               "MERFISH platform": "#/$defs/aind_data_schema_models__platforms__Merfish",
+               "Magnetic resonance imaging platform": "#/$defs/aind_data_schema_models__platforms__Mri",
                "MesoSPIM platform": "#/$defs/MesoSpim",
                "Multiplane optical physiology platform": "#/$defs/MultiplaneOphys",
                "SLAP2 platform": "#/$defs/Slap2",
@@ -1117,13 +1118,13 @@
          },
          "oneOf": [
             {
-               "$ref": "#/$defs/aind_data_schema__models__platforms__Behavior"
+               "$ref": "#/$defs/aind_data_schema_models__platforms__Behavior"
             },
             {
-               "$ref": "#/$defs/aind_data_schema__models__platforms__Confocal"
+               "$ref": "#/$defs/aind_data_schema_models__platforms__Confocal"
             },
             {
-               "$ref": "#/$defs/aind_data_schema__models__platforms__Ecephys"
+               "$ref": "#/$defs/aind_data_schema_models__platforms__Ecephys"
             },
             {
                "$ref": "#/$defs/ExaSpim"
@@ -1138,16 +1139,16 @@
                "$ref": "#/$defs/Hsfp"
             },
             {
-               "$ref": "#/$defs/aind_data_schema__models__platforms__Isi"
+               "$ref": "#/$defs/aind_data_schema_models__platforms__Isi"
             },
             {
                "$ref": "#/$defs/MesoSpim"
             },
             {
-               "$ref": "#/$defs/aind_data_schema__models__platforms__Merfish"
+               "$ref": "#/$defs/aind_data_schema_models__platforms__Merfish"
             },
             {
-               "$ref": "#/$defs/aind_data_schema__models__platforms__Mri"
+               "$ref": "#/$defs/aind_data_schema_models__platforms__Mri"
             },
             {
                "$ref": "#/$defs/MultiplaneOphys"
@@ -1280,7 +1281,7 @@
       "project_name": {
          "anyOf": [
             {
-               "pattern": "^[^<>:;\"/|?\\_]+$",
+               "pattern": "^[^<>:;\"/|?\\\\_]+$",
                "type": "string"
             },
             {
@@ -1309,17 +1310,17 @@
          "items": {
             "discriminator": {
                "mapping": {
-                  "Behavior": "#/$defs/aind_data_schema__models__modalities__Behavior",
+                  "Behavior": "#/$defs/aind_data_schema_models__modalities__Behavior",
                   "Behavior videos": "#/$defs/BehaviorVideos",
-                  "Confocal microscopy": "#/$defs/aind_data_schema__models__modalities__Confocal",
+                  "Confocal microscopy": "#/$defs/aind_data_schema_models__modalities__Confocal",
                   "Electromyography": "#/$defs/Electromyography",
-                  "Extracellular electrophysiology": "#/$defs/aind_data_schema__models__modalities__Ecephys",
+                  "Extracellular electrophysiology": "#/$defs/aind_data_schema_models__modalities__Ecephys",
                   "Fiber photometry": "#/$defs/Fib",
                   "Fluorescence micro-optical sectioning tomography": "#/$defs/Fmost",
                   "Intracellular electrophysiology": "#/$defs/Icephys",
-                  "Intrinsic signal imaging": "#/$defs/aind_data_schema__models__modalities__Isi",
-                  "Magnetic resonance imaging": "#/$defs/aind_data_schema__models__modalities__Mri",
-                  "Multiplexed error-robust fluorescence in situ hybridization": "#/$defs/aind_data_schema__models__modalities__Merfish",
+                  "Intrinsic signal imaging": "#/$defs/aind_data_schema_models__modalities__Isi",
+                  "Magnetic resonance imaging": "#/$defs/aind_data_schema_models__modalities__Mri",
+                  "Multiplexed error-robust fluorescence in situ hybridization": "#/$defs/aind_data_schema_models__modalities__Merfish",
                   "Planar optical physiology": "#/$defs/POphys",
                   "Scanned line projection imaging": "#/$defs/Slap",
                   "Selective plane illumination microscopy": "#/$defs/Spim"
@@ -1328,16 +1329,16 @@
             },
             "oneOf": [
                {
-                  "$ref": "#/$defs/aind_data_schema__models__modalities__Behavior"
+                  "$ref": "#/$defs/aind_data_schema_models__modalities__Behavior"
                },
                {
                   "$ref": "#/$defs/BehaviorVideos"
                },
                {
-                  "$ref": "#/$defs/aind_data_schema__models__modalities__Confocal"
+                  "$ref": "#/$defs/aind_data_schema_models__modalities__Confocal"
                },
                {
-                  "$ref": "#/$defs/aind_data_schema__models__modalities__Ecephys"
+                  "$ref": "#/$defs/aind_data_schema_models__modalities__Ecephys"
                },
                {
                   "$ref": "#/$defs/Electromyography"
@@ -1349,16 +1350,16 @@
                   "$ref": "#/$defs/Icephys"
                },
                {
-                  "$ref": "#/$defs/aind_data_schema__models__modalities__Isi"
+                  "$ref": "#/$defs/aind_data_schema_models__modalities__Isi"
                },
                {
                   "$ref": "#/$defs/Fib"
                },
                {
-                  "$ref": "#/$defs/aind_data_schema__models__modalities__Merfish"
+                  "$ref": "#/$defs/aind_data_schema_models__modalities__Merfish"
                },
                {
-                  "$ref": "#/$defs/aind_data_schema__models__modalities__Mri"
+                  "$ref": "#/$defs/aind_data_schema_models__modalities__Mri"
                },
                {
                   "$ref": "#/$defs/POphys"

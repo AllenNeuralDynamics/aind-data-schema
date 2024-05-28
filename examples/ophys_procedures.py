@@ -2,6 +2,10 @@
 
 import datetime
 
+from aind_data_schema_models.organizations import Organization
+from aind_data_schema_models.pid_names import PIDName
+from aind_data_schema_models.registry import Registry
+
 from aind_data_schema.core.procedures import (
     Anaesthetic,
     Antibody,
@@ -17,9 +21,6 @@ from aind_data_schema.core.procedures import (
     ViralMaterial,
     WaterRestriction,
 )
-from aind_data_schema.models.organizations import Organization
-from aind_data_schema.models.pid_names import PIDName
-from aind_data_schema.models.registry import Registry
 
 t = datetime.datetime(2022, 7, 12, 7, 00, 00)
 t2 = datetime.datetime(2022, 9, 23, 10, 22, 00)
@@ -129,7 +130,7 @@ p = Procedures(
                     lot_number="GR3361051-16",
                     immunolabel_class="Primary",
                     fluorophore=None,
-                    concentration=10,
+                    mass=10,
                 ),
             ],
             notes="Primary dilution factor 1:1000 ---final concentration is 10ug/ml",
@@ -154,7 +155,7 @@ p = Procedures(
                     lot_number="2420700",
                     immunolabel_class="Secondary",
                     fluorophore="Alexa Fluor 488",
-                    concentration=4,
+                    mass=4,
                 ),
             ],
             notes="Secondary dilution factor 1:500 - final concentration 4ug/ml",

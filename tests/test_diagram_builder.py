@@ -48,7 +48,6 @@ class DiagramBuilderTests(unittest.TestCase):
                 call(Path("rig.svg")),
                 call(Path("session.svg")),
                 call(Path("metadata.nd.svg")),
-                call(Path("mri_session.svg")),
             ],
             any_order=True,
         )
@@ -69,7 +68,6 @@ class DiagramBuilderTests(unittest.TestCase):
                 call(Path("some_dir") / "rig.svg"),
                 call(Path("some_dir") / "session.svg"),
                 call(Path("some_dir") / "metadata.nd.svg"),
-                call(Path("some_dir") / "mri_session.svg"),
             ],
             any_order=True,
         )

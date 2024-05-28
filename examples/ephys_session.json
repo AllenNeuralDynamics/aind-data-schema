@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/session.py",
-   "schema_version": "0.2.1",
+   "schema_version": "0.2.8",
    "protocol_id": [],
    "experimenter_full_name": [
       "Max Quibble",
@@ -17,6 +17,7 @@
    "animal_weight_prior": null,
    "animal_weight_post": null,
    "weight_unit": "gram",
+   "anaesthesia": null,
    "data_streams": [
       {
          "stream_start_time": "2023-04-25T02:45:00Z",
@@ -138,12 +139,14 @@
          "ophys_fovs": [],
          "slap_fovs": null,
          "stack_parameters": null,
+         "mri_scans": [],
          "stream_modalities": [
             {
                "name": "Extracellular electrophysiology",
                "abbreviation": "ecephys"
             }
          ],
+         "software": [],
          "notes": null
       },
       {
@@ -266,12 +269,14 @@
          "ophys_fovs": [],
          "slap_fovs": null,
          "stack_parameters": null,
+         "mri_scans": [],
          "stream_modalities": [
             {
                "name": "Extracellular electrophysiology",
                "abbreviation": "ecephys"
             }
          ],
+         "software": [],
          "notes": "664484_2023-04-24_20-06-37; Surface Finding"
       }
    ],

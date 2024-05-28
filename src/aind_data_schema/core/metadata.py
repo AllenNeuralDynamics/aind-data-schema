@@ -6,6 +6,7 @@ from enum import Enum
 from typing import Dict, List, Literal, Optional, get_args
 from uuid import UUID, uuid4
 
+from aind_data_schema_models.platforms import Ecephys, SmartSpim
 from pydantic import Field, PrivateAttr, ValidationError, ValidationInfo, field_validator, model_validator
 
 from aind_data_schema.base import AindCoreModel
@@ -17,7 +18,6 @@ from aind_data_schema.core.processing import Processing
 from aind_data_schema.core.rig import Rig
 from aind_data_schema.core.session import Session
 from aind_data_schema.core.subject import Subject
-from aind_data_schema.models.platforms import Ecephys, SmartSpim
 
 
 class MetadataStatus(Enum):
@@ -46,7 +46,7 @@ class Metadata(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/metadata.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["0.2.9"] = Field("0.2.9")
+    schema_version: Literal["0.2.25"] = Field("0.2.25")
     id: UUID = Field(
         default_factory=uuid4,
         alias="_id",
@@ -86,22 +86,22 @@ class Metadata(AindCoreModel):
     # assets in S3 that don't have metadata attached. We'd still like to
     # index that data, but we can flag those instances as MISSING or UNKNOWN
     subject: Optional[Subject] = Field(
-        None,
+        default=None,
         title="Subject",
         description="Subject of data collection.",
     )
     data_description: Optional[DataDescription] = Field(
-        None, title="Data Description", description="A logical collection of data files."
+        default=None, title="Data Description", description="A logical collection of data files."
     )
     procedures: Optional[Procedures] = Field(
-        None, title="Procedures", description="All procedures performed on a subject."
+        default=None, title="Procedures", description="All procedures performed on a subject."
     )
     session: Optional[Session] = Field(None, title="Session", description="Description of a session.")
     rig: Optional[Rig] = Field(None, title="Rig", description="Rig.")
     processing: Optional[Processing] = Field(None, title="Processing", description="All processes run on data.")
     acquisition: Optional[Acquisition] = Field(None, title="Acquisition", description="Imaging acquisition session")
     instrument: Optional[Instrument] = Field(
-        None, title="Instrument", description="Instrument, which is a collection of devices"
+        default=None, title="Instrument", description="Instrument, which is a collection of devices"
     )
 
     @field_validator(

@@ -1,3 +1,86 @@
+### [0.37.5](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.37.4...v0.37.5) (2024-05-22)
+
+
+### [0.37.4](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.37.3...v0.37.4) (2024-05-22)
+
+
+### [0.37.3](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.37.2...v0.37.3) (2024-05-21)
+
+
+### Bug Fixes
+
+* removes old test ([#944](https://github.com/AllenNeuralDynamics/aind-data-schema/issues/944)) ([a7605e7](https://github.com/AllenNeuralDynamics/aind-data-schema/commit/a7605e77a1046ed1bfc16259cd2d90a78262e280))
+
+
+### [0.37.2](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.37.1...v0.37.2) (2024-05-18)
+
+
+### [0.37.1](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.37.0...v0.37.1) (2024-05-18)
+
+
+## [0.37.0](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.36.1...v0.37.0) (2024-05-16)
+
+
+### Features
+
+* changed moniter to speaker in title for Speaker ([#938](https://github.com/AllenNeuralDynamics/aind-data-schema/issues/938)) ([15a4b8e](https://github.com/AllenNeuralDynamics/aind-data-schema/commit/15a4b8e317e771f7a16648754f9c4f4cdaf56a5d))
+
+
+### [0.36.1](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.36.0...v0.36.1) (2024-05-16)
+
+
+## [0.36.0](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.35.2...v0.36.0) (2024-05-09)
+
+
+### Features
+
+* moves data description enums ([#930](https://github.com/AllenNeuralDynamics/aind-data-schema/issues/930)) ([20d315e](https://github.com/AllenNeuralDynamics/aind-data-schema/commit/20d315ead86d370604816fea9193716bd47ddb91))
+
+
+### [0.35.2](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.35.1...v0.35.2) (2024-05-09)
+
+
+### [0.35.1](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.35.0...v0.35.1) (2024-05-09)
+
+
+## [0.35.0](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.34.4...v0.35.0) (2024-05-07)
+
+
+### Features
+
+* uses aind-data-schema-models package ([#919](https://github.com/AllenNeuralDynamics/aind-data-schema/issues/919)) ([fc56b0b](https://github.com/AllenNeuralDynamics/aind-data-schema/commit/fc56b0b17283cd6dd7ec83c2f589f779a080c5b4))
+
+
+### [0.34.4](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.34.3...v0.34.4) (2024-05-06)
+
+
+### [0.34.3](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.34.2...v0.34.3) (2024-05-06)
+
+
+### [0.34.2](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.34.1...v0.34.2) (2024-05-03)
+
+
+### [0.34.1](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.34.0...v0.34.1) (2024-05-02)
+
+
+## [0.34.0](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.33.10...v0.34.0) (2024-05-01)
+
+
+### Features
+
+* added optional software list to stream ([#907](https://github.com/AllenNeuralDynamics/aind-data-schema/issues/907)) ([685579e](https://github.com/AllenNeuralDynamics/aind-data-schema/commit/685579e66737b2319ca1251058b886566f108efa))
+* added optiopnal list of Software to acquisition ([#906](https://github.com/AllenNeuralDynamics/aind-data-schema/issues/906)) ([8dd4e9c](https://github.com/AllenNeuralDynamics/aind-data-schema/commit/8dd4e9cb8850644894ff1ae7caf06f50d7a755b2))
+
+
+### [0.33.10](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.33.9...v0.33.10) (2024-04-26)
+
+
+### [0.33.9](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.33.8...v0.33.9) (2024-04-24)
+
+
+### [0.33.8](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.33.7...v0.33.8) (2024-04-23)
+
+
 ### [0.33.7](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.33.6...v0.33.7) (2024-04-10)
 
 

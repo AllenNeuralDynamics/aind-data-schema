@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/instrument.py",
-   "schema_version": "0.10.16",
+   "schema_version": "0.10.22",
    "instrument_id": "SmartSPIM2-2",
    "modification_date": "2023-10-04",
    "instrument_type": "SmartSPIM",
@@ -14,7 +14,7 @@
    "humidity_control": false,
    "optical_tables": [
       {
-         "device_type": "Optical Table",
+         "device_type": "Optical table",
          "name": "Table",
          "serial_number": null,
          "manufacturer": {
@@ -437,7 +437,7 @@
    ],
    "additional_devices": [
       {
-         "device_type": "Additional Imaging Device",
+         "device_type": "Additional imaging device",
          "name": "Lens 1",
          "serial_number": null,
          "manufacturer": {
@@ -454,7 +454,7 @@
          "imaging_device_type": "Tunable lens"
       },
       {
-         "device_type": "Additional Imaging Device",
+         "device_type": "Additional imaging device",
          "name": "Lens 2",
          "serial_number": null,
          "manufacturer": {
@@ -471,7 +471,7 @@
          "imaging_device_type": "Tunable lens"
       },
       {
-         "device_type": "Additional Imaging Device",
+         "device_type": "Additional imaging device",
          "name": "Sample chamber",
          "serial_number": null,
          "manufacturer": {
