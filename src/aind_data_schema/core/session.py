@@ -500,16 +500,6 @@ class StimulusEpoch(AindModel):
     )
     stimulus_name: str = Field(..., title="Stimulus name")
     session_number: Optional[int] = Field(default=None, title="Session number")
-    software: Optional[List[Software]] = Field(
-        default=[],
-        title="Software",
-        description="The software used to control the behavior/stimulus (e.g. Bonsai)",
-    )
-    script: Optional[Software] = Field(
-        default=None,
-        title="Script",
-        description="provide URL to the commit of the script and the parameters used",
-    )
     stimulus_modalities: List[StimulusModality] = Field(..., title="Stimulus modalities")
     stimulus_parameters: Optional[
         List[

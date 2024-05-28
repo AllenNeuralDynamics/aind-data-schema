@@ -320,7 +320,6 @@ class Detector(Device):
     crop_width: Optional[int] = Field(default=None, title="Crop width")
     crop_height: Optional[int] = Field(default=None, title="Crop width")
     crop_unit: SizeUnit = Field(default=SizeUnit.PX, title="Crop size unit")
-    recording_software: Optional[Software] = Field(default=None, title="Recording software")
     driver: Optional[DeviceDriver] = Field(default=None, title="Driver")
     driver_version: Optional[str] = Field(default=None, title="Driver version")
 
@@ -721,12 +720,6 @@ class Disc(MousePlatform):
     output: Optional[DaqChannelType] = Field(default=None, description="analog or digital electronics")
     encoder: Optional[str] = Field(default=None, title="Encoder", description="Encoder hardware type")
     decoder: Optional[str] = Field(default=None, title="Decoder", description="Decoder chip type")
-    encoder_firmware: Optional[Software] = Field(
-        default=None,
-        title="Encoder firmware",
-        description="Firmware to read from decoder chip counts",
-    )
-
 
 class Wheel(MousePlatform):
     """Description of a running wheel"""
