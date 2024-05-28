@@ -85,6 +85,7 @@ def plot_timeline(datapath):
     return fig, ax
 
 
+
 if __name__ == "__main__":
     plot_timeline(".")
     plt.show()
