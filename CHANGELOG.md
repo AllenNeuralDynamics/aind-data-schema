@@ -1,3 +1,11 @@
+### [0.37.6](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.37.5...v0.37.6) (2024-05-28)
+
+
+### Bug Fixes
+
+* Dictionary Key Access ([#947](https://github.com/AllenNeuralDynamics/aind-data-schema/issues/947)) ([cc631eb](https://github.com/AllenNeuralDynamics/aind-data-schema/commit/cc631eba24fb1dc3860575ffa487a17dbb3fdce9))
+
+
 ### [0.37.5](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.37.4...v0.37.5) (2024-05-22)
 
 
