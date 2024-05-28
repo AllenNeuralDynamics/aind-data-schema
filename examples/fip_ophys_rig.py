@@ -30,7 +30,6 @@ rig = r.Rig(
                 chroma="Color",
                 cooling="Air",
                 bin_mode="Additive",
-                recording_software=d.Software(name="Bonsai", version="2.5"),
             ),
             lens=d.Lens(
                 name="Xenocam 1",
@@ -59,7 +58,6 @@ rig = r.Rig(
                 chroma="Color",
                 cooling="Air",
                 bin_mode="Additive",
-                recording_software=d.Software(name="Bonsai", version="2.5"),
             ),
             lens=d.Lens(
                 name="Xenocam 2",

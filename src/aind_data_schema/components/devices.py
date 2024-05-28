@@ -721,6 +721,7 @@ class Disc(MousePlatform):
     encoder: Optional[str] = Field(default=None, title="Encoder", description="Encoder hardware type")
     decoder: Optional[str] = Field(default=None, title="Decoder", description="Decoder chip type")
 
+
 class Wheel(MousePlatform):
     """Description of a running wheel"""
 

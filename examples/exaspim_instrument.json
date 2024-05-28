@@ -98,7 +98,6 @@
          "crop_width": null,
          "crop_height": null,
          "crop_unit": "pixel",
-         "recording_software": null,
          "driver": null,
          "driver_version": null
       }

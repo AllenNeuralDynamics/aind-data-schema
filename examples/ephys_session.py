@@ -34,13 +34,6 @@ session = Session(
             stimulus_modalities=[StimulusModality.VISUAL],
             stimulus_start_time=datetime(year=2023, month=4, day=25, hour=2, minute=45, second=0, tzinfo=timezone.utc),
             stimulus_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=10, second=0, tzinfo=timezone.utc),
-            software=[
-                Software(
-                    name="Bonsai",
-                    version="2.7",
-                    url="https://github.com/fakeorg/GratingAndFlashes/gratings_and_flashes.bonsai",
-                )
-            ],
             stimulus_parameters=[
                 VisualStimulation(
                     stimulus_name="Static Gratings",
@@ -58,13 +51,6 @@ session = Session(
             stimulus_modalities=[StimulusModality.VISUAL],
             stimulus_start_time=datetime(year=2023, month=4, day=25, hour=3, minute=10, second=0, tzinfo=timezone.utc),
             stimulus_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0, tzinfo=timezone.utc),
-            software=[
-                Software(
-                    name="Bonsai",
-                    version="2.7",
-                    url="https://github.com/fakeorg/GratingAndFlashes/gratings_and_flashes.bonsai",
-                )
-            ],
             stimulus_parameters=[
                 VisualStimulation(
                     stimulus_name="Flashes",

@@ -99,8 +99,6 @@
          "stimulus_end_time": "2022-07-12T07:00:00Z",
          "stimulus_name": "PhotoStimulation",
          "session_number": null,
-         "software": [],
-         "script": null,
          "stimulus_modalities": [
             "Optogenetics"
          ],
