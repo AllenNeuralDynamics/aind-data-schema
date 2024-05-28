@@ -5,20 +5,15 @@ import json
 import os
 
 
-def plot_session(
-    datapath,
-    savepath,
-):
+def plot_session(datapath):
     """Creates a timeline of events during a session including Data Streams and Stimulus Epochs.
 
     Args:
         datapath (str): path to folder containing all metadata files
-        savepath (str): path to location to save figure
     """
 
-    for f in os.listdir(datapath):
-        if f.endswith("session.json"):
-            session_path = os.path.join(datapath, f)
+    # identify what metadata is present
+    session_path = os.path.join(datapath, "session.json")
     with open(session_path) as json_data:
         d = json.load(json_data)
         json_data.close()
@@ -47,4 +42,8 @@ def plot_session(
     ax.set_yticklabels(["Streams", "Stimuli"])
 
     plt.tight_layout()
+
+
+if __name__ == "__main__":
+    plot_session(".")
     plt.show()

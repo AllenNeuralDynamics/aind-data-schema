@@ -6,14 +6,15 @@ import json
 import os
 
 
-
-def plot_date_of_birth(date_of_birth, ax):
+def plot_date_of_birth(ax, date_of_birth):
+    """add date of birth marker to the timeline plot"""
     ax.scatter(date_of_birth, [1], marker="o", color="blue", s=100)
     ax.text(date_of_birth, 1.1, "Birth", rotation=90, ha="center", va="bottom")
     ax.text(date_of_birth, 0.9, "Age in days", va="top", ha="right")
 
 
-def plot_procedures(procedures, date_of_birth, ax):
+def plot_procedures(ax, procedures, date_of_birth):
+    """add subject and procedure start and end dates to the timeline plot"""
     for proc in procedures["subject_procedures"]:
         date = datetime.strptime(proc["start_date"], "%Y-%m-%d").date()
         ax.scatter(date, [1], marker="o", color="blue", s=100)
@@ -29,7 +30,8 @@ def plot_procedures(procedures, date_of_birth, ax):
         ax.text(start_date, 1.1, proc["procedure_name"], rotation=90, ha="center", va="bottom")
 
 
-def plot_date_of_acquisition(date_of_acquisition, date_of_birth, ax):
+def plot_date_of_acquisition(ax, date_of_acquisition, date_of_birth):
+    """add data of acquisition markers to the timeline plot"""
     ax.scatter(date_of_acquisition, [1], marker="o", color="blue", s=100)
     ax.text(date_of_acquisition, 1.1, "Acquisition", rotation=90, ha="center", va="bottom")
 
@@ -37,30 +39,17 @@ def plot_date_of_acquisition(date_of_acquisition, date_of_birth, ax):
     ax.text(date_of_acquisition, 0.9, age, ha="center", va="top")
 
 
-def plot_processing(processing, start_date, end_date, ax):
-    for proc in processing["processing_pipeline"]["data_processes"]:
-        ax.hlines(1, start_date, end_date, linewidth=8, alpha=0.3)
-        ax.scatter(start_date, [1], marker="|", color="red", s=120)
-        ax.text(start_date, 1.1, proc["name"], rotation=90, ha="center", va="bottom")
-    for proc in processing["processing_pipeline"]["data_processes"]:
-        ax.hlines(1, start_date, end_date, linewidth=8, alpha=0.3)
-        ax.scatter(start_date, [1], marker="|", color="red", s=120)
-        ax.text(start_date, 1.1, proc["name"], rotation=90, ha="center", va="bottom")
-
-
-def plot_timeline(datapath, savepath, processing_flag=False):
+def plot_timeline(datapath):
     """Creates a timeline of including date of birth, all subject and specimen procedures, and date of
-    data acquisition. Optionally can include data processing as well.
+    data acquisition.
 
     Args:
         datapath (str): path to folder containing all metadata files
-        savepath (str): path to location to save figure
-        processing_flag (Bool): Making this True adds the processing dates to the timeline. Defaults to False.
     """
 
     # identify what metadata is present
     md = {}
-    for k in ["subject", "procedures", "session", "acquisition", "processing"]:
+    for k in ["subject", "procedures", "session", "acquisition"]:
         path = os.path.join(datapath, f"{k}.json")
         if os.path.exists(path):
             with open(path, "r") as f:
@@ -71,22 +60,19 @@ def plot_timeline(datapath, savepath, processing_flag=False):
     # Date of birth
     if "subject" in md:
         date_of_birth = datetime.strptime(md["subject"]["date_of_birth"], "%Y-%m-%d").date()
-        plot_date_of_birth(date_of_birth, ax)
+        plot_date_of_birth(ax, date_of_birth)
 
     # Procedures
     if "procedures" in md:
-        plot_procedures(md["procedures"], date_of_birth, ax)
+        plot_procedures(ax, md["procedures"], date_of_birth)
 
-    # Date of data acquisition    
-    da = md.get("session", md.get("acquisition", None))    
+    # Date of data acquisition
+    da = md.get("session", md.get("acquisition", None))
     if da:
-        
+
         acq_start_date = datetime.fromisoformat(da["session_start_time"]).date()
         acq_end_date = datetime.fromisoformat(da["session_end_time"]).date()
-        plot_date_of_acquisition(acq_start_date, date_of_birth, ax)
-        
-        if processing_flag and "processing" in md:
-            plot_processing(md["processing"], acq_start_date, acq_end_date, ax)
+        plot_date_of_acquisition(ax, acq_start_date, date_of_birth)
 
     # Formatting x-axis
     ax.xaxis.set_major_locator(mdates.MonthLocator())
@@ -95,8 +81,10 @@ def plot_timeline(datapath, savepath, processing_flag=False):
 
     ax.yaxis.set_visible(False)
     plt.tight_layout()
-    plt.savefig(savepath)
-    plt.show()
+
+    return fig, ax
+
 
 if __name__ == "__main__":
-    plot_timeline('.','.',True)
+    plot_timeline(".")
+    plt.show()
