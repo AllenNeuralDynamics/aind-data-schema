@@ -63,7 +63,11 @@ def plot_timeline(subject=None, procedures=None, acquisition=None, session=None,
     data acquisition.
 
     Args:
-        metadata (dict): dictionary with separate keys for session, acquisition, subject, and procedures, etc
+        subject (dict): dictionary containing subject metadata
+        procedures (dict): dictionary containing procedures metadata
+        acquisition (dict): dictionary containing acquisition metadata
+        session (dict): dictionary containing session metadata
+        processing (dict): dictionary containing processing metadata
     """
 
     fig, ax = plt.subplots(figsize=(10, 5))
