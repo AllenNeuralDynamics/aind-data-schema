@@ -1,11 +1,28 @@
 """ experimental methods for visualizing subject and procedure timelines """
 
-import matplotlib.pyplot as plt
-from matplotlib.dates import DateFormatter
-import matplotlib.dates as mdates
-from datetime import datetime
 import json
 import os
+from datetime import datetime
+
+import matplotlib.dates as mdates
+import matplotlib.pyplot as plt
+from matplotlib.dates import DateFormatter
+
+
+def load_metadata_from_folder(folder, models=None):
+    """Load metadata from a folder containing JSON files."""
+
+    models = ["subject", "procedures", "session", "acquisition", "processing"] if models is None else models
+
+    # identify what metadata is present
+    md = {}
+    for k in models:
+        path = os.path.join(folder, f"{k}.json")
+        if os.path.exists(path):
+            with open(path, "r") as f:
+                md[k] = json.load(f)
+
+    return md
 
 
 def plot_date_of_birth(ax, date_of_birth):
@@ -41,35 +58,27 @@ def plot_date_of_acquisition(ax, date_of_acquisition, date_of_birth):
     ax.text(date_of_acquisition, 0.9, age, ha="center", va="top")
 
 
-def plot_timeline(datapath):
+def plot_timeline(subject=None, procedures=None, acquisition=None, session=None, processing=None):
     """Creates a timeline of including date of birth, all subject and specimen procedures, and date of
     data acquisition.
 
     Args:
-        datapath (str): path to folder containing all metadata files
+        metadata (dict): dictionary with separate keys for session, acquisition, subject, and procedures, etc
     """
-
-    # identify what metadata is present
-    md = {}
-    for k in ["subject", "procedures", "session", "acquisition"]:
-        path = os.path.join(datapath, f"{k}.json")
-        if os.path.exists(path):
-            with open(path, "r") as f:
-                md[k] = json.load(f)
 
     fig, ax = plt.subplots(figsize=(10, 5))
 
     # Date of birth
-    if "subject" in md:
-        date_of_birth = datetime.strptime(md["subject"]["date_of_birth"], "%Y-%m-%d").date()
+    if subject:
+        date_of_birth = datetime.strptime(subject["date_of_birth"], "%Y-%m-%d").date()
         plot_date_of_birth(ax, date_of_birth)
 
     # Procedures
-    if "procedures" in md:
-        plot_procedures(ax, md["procedures"], date_of_birth)
+    if procedures:
+        plot_procedures(ax, procedures, date_of_birth)
 
     # Date of data acquisition
-    da = md.get("session", md.get("acquisition", None))
+    da = session or acquisition
     if da:
         acq_start_date = datetime.fromisoformat(da["session_start_time"]).date()
         plot_date_of_acquisition(ax, acq_start_date, date_of_birth)
@@ -86,5 +95,6 @@ def plot_timeline(datapath):
 
 
 if __name__ == "__main__":
-    plot_timeline(".")
+    md = load_metadata_from_folder(".")
+    plot_timeline(**md)
     plt.show()

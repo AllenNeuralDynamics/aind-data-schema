@@ -1,27 +1,22 @@
 """ experimental methods for visualizing data streams and stimulus epochs in a session """
 
-import matplotlib.pyplot as plt
-import matplotlib.dates as mdates
 from datetime import datetime
-import json
-import os
+
+import matplotlib.dates as mdates
+import matplotlib.pyplot as plt
+
+from aind_data_schema.visualizations.plot_timeline import load_metadata_from_folder
 
 
-def plot_session(datapath):
+def plot_session(session):
     """Creates a timeline of events during a session including Data Streams and Stimulus Epochs.
 
     Args:
-        datapath (str): path to folder containing all metadata files
+        session (dict): dictionary containing session metadata
     """
 
-    # identify what metadata is present
-    session_path = os.path.join(datapath, "session.json")
-    with open(session_path) as json_data:
-        d = json.load(json_data)
-        json_data.close()
-
     fig, ax = plt.subplots(figsize=(10, 5))
-    for stream in d["data_streams"]:
+    for stream in session["data_streams"]:
         stream_start_time = datetime.fromisoformat(stream["stream_start_time"]).replace(tzinfo=None)
         stream_end_time = datetime.fromisoformat(stream["stream_end_time"]).replace(tzinfo=None)
         ax.hlines(
@@ -29,7 +24,7 @@ def plot_session(datapath):
         )
     #     ax.scatter(mdates.date2num(stream_start_time), [1], marker='|', color='blue', s=100)
 
-    for epoch in d["stimulus_epochs"]:
+    for epoch in session["stimulus_epochs"]:
         stimulus_start_time = datetime.fromisoformat(epoch["stimulus_start_time"]).replace(tzinfo=None)
         stimulus_end_time = datetime.fromisoformat(epoch["stimulus_end_time"]).replace(tzinfo=None)
         ax.hlines(2, mdates.date2num(stimulus_start_time), mdates.date2num(stimulus_end_time), linewidth=8, alpha=0.3)
@@ -47,5 +42,6 @@ def plot_session(datapath):
 
 
 if __name__ == "__main__":
-    plot_session(".")
+    md = load_metadata_from_folder(".")
+    plot_session(md["session"])
     plt.show()
