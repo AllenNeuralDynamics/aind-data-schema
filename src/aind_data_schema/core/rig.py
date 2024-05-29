@@ -53,7 +53,7 @@ class Rig(AindCoreModel):
     schema_version: Literal["0.4.2"] = Field("0.4.2")
     rig_id: str = Field(
         ...,
-        description="Unique identifier for a rig. Naming convention: <room>-<apparatus name>-<date modified YYYYMMDD>",
+        description="Unique rig identifier, name convention: <room>-<apparatus name>-<date modified YYYYMMDD>",
         title="Rig ID",
     )
     modification_date: date = Field(..., title="Date of modification")
