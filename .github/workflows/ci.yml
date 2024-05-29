@@ -38,4 +38,4 @@ jobs:
         sudo apt install graphviz libgraphviz-dev -y
         python -m pip install -e .[dev] -e .[docs] --no-cache-dir
     - name: Run tests and coverage
-      run: coverage run --omit "*__init__*" -m unittest discover && coverage report
+      run: coverage run -m unittest discover && coverage report
