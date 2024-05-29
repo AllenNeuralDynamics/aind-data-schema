@@ -3,13 +3,14 @@
 import json
 import os
 from datetime import datetime
+from typing import List, Tuple
 
 import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
 from matplotlib.dates import DateFormatter
 
 
-def load_metadata_from_folder(folder, models=None):
+def load_metadata_from_folder(folder: str, models: List[str] = None) -> dict:
     """Load metadata from a folder containing JSON files."""
 
     models = ["subject", "procedures", "session", "acquisition", "processing"] if models is None else models
@@ -25,14 +26,14 @@ def load_metadata_from_folder(folder, models=None):
     return md
 
 
-def plot_date_of_birth(ax, date_of_birth):
+def plot_date_of_birth(ax: plt.Axes, date_of_birth: datetime) -> None:
     """add date of birth marker to the timeline plot"""
     ax.scatter(date_of_birth, [1], marker="o", color="blue", s=100)
     ax.text(date_of_birth, 1.1, "Birth", rotation=90, ha="center", va="bottom")
     ax.text(date_of_birth, 0.9, "Age in days", va="top", ha="right")
 
 
-def plot_procedures(ax, procedures, date_of_birth):
+def plot_procedures(ax: plt.Axes, procedures: dict, date_of_birth: datetime) -> None:
     """add subject and procedure start and end dates to the timeline plot"""
     for proc in procedures["subject_procedures"]:
         date = datetime.strptime(proc["start_date"], "%Y-%m-%d").date()
@@ -49,7 +50,7 @@ def plot_procedures(ax, procedures, date_of_birth):
         ax.text(start_date, 1.1, proc["procedure_name"], rotation=90, ha="center", va="bottom")
 
 
-def plot_date_of_acquisition(ax, date_of_acquisition, date_of_birth):
+def plot_date_of_acquisition(ax: plt.Axes, date_of_acquisition: datetime, date_of_birth: datetime) -> None:
     """add data of acquisition markers to the timeline plot"""
     ax.scatter(date_of_acquisition, [1], marker="o", color="blue", s=100)
     ax.text(date_of_acquisition, 1.1, "Acquisition", rotation=90, ha="center", va="bottom")
@@ -58,7 +59,13 @@ def plot_date_of_acquisition(ax, date_of_acquisition, date_of_birth):
     ax.text(date_of_acquisition, 0.9, age, ha="center", va="top")
 
 
-def plot_timeline(subject=None, procedures=None, acquisition=None, session=None, processing=None):
+def plot_timeline(
+    subject: dict = None,
+    procedures: dict = None,
+    acquisition: dict = None,
+    session: dict = None,
+    processing: dict = None,
+) -> Tuple[plt.Figure, plt.Axes]:
     """Creates a timeline of including date of birth, all subject and specimen procedures, and date of
     data acquisition.
 

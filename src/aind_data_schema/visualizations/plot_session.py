@@ -1,6 +1,7 @@
 """ experimental methods for visualizing data streams and stimulus epochs in a session """
 
 from datetime import datetime
+from typing import Tuple
 
 import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
@@ -8,7 +9,7 @@ import matplotlib.pyplot as plt
 from aind_data_schema.visualizations.plot_timeline import load_metadata_from_folder
 
 
-def plot_session(session):
+def plot_session(session: dict) -> Tuple[plt.Figure, plt.Axes]:
     """Creates a timeline of events during a session including Data Streams and Stimulus Epochs.
 
     Args:
@@ -39,6 +40,8 @@ def plot_session(session):
     ax.set_yticklabels(["Streams", "Stimuli"])
 
     plt.tight_layout()
+
+    return fig, ax
 
 
 if __name__ == "__main__":
