@@ -18,13 +18,12 @@ from aind_data_schema.components.coordinates import (
 )
 from aind_data_schema.core.session import (
     DomeModule,
-    EphysModule,
-    EphysProbeConfig,
     MRIScan,
     RewardDeliveryConfig,
     Scanner,
     Session,
     Stream,
+    ManipulatorModule
 )
 
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
@@ -62,7 +61,6 @@ class ExampleTest(unittest.TestCase):
                     ],
                     ephys_modules=[
                         ManipulatorModule(
-                            ephys_probes=[EphysProbeConfig(name="Probe A")],
                             assembly_name="Ephys_assemblyA",
                             arc_angle=0,
                             module_angle=10,
