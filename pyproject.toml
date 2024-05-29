@@ -45,7 +45,7 @@ docs = [
 ]
 
 viz = [
-    matplotlib
+    'matplotlib'
 ]
 
 [tool.setuptools.packages.find]
