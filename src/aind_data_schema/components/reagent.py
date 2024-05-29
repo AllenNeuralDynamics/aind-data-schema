@@ -15,6 +15,6 @@ class Reagent(AindModel):
 
     name: str = Field(..., title="Name")
     source: Organization.ONE_OF = Field(..., title="Source")
-    rrid: Optional[PIDName] = Field(None, title="Research Resource ID")
+    rrid: Optional[PIDName] = Field(default=None, title="Research Resource ID")
     lot_number: str = Field(..., title="Lot number")
-    expiration_date: Optional[date] = Field(None, title="Lot expiration date")
+    expiration_date: Optional[date] = Field(default=None, title="Lot expiration date")

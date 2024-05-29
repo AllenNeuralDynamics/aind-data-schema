@@ -24,8 +24,8 @@ class Funding(AindModel):
     """Description of funding sources"""
 
     funder: Organization.FUNDERS = Field(..., title="Funder")
-    grant_number: Optional[str] = Field(None, title="Grant number")
-    fundee: Optional[str] = Field(None, title="Fundee", description="Person(s) funded by this mechanism")
+    grant_number: Optional[str] = Field(default=None, title="Grant number")
+    fundee: Optional[str] = Field(default=None, title="Fundee", description="Person(s) funded by this mechanism")
 
 
 class RelatedData(AindModel):
@@ -40,7 +40,7 @@ class DataDescription(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/data_description.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["0.13.6"] = Field("0.13.6")
+    schema_version: Literal["0.13.7"] = Field("0.13.7")
     license: Literal["CC-BY-4.0"] = Field("CC-BY-4.0", title="License")
 
     platform: Platform.ONE_OF = Field(
@@ -60,12 +60,12 @@ class DataDescription(AindCoreModel):
         title="Creation Time",
     )
     label: Optional[str] = Field(
-        None,
+        default=None,
         description="A short name for the data, used in file names and labels",
         title="Label",
     )
     name: Optional[str] = Field(
-        None,
+        default=None,
         description="Name of data, conventionally also the name of the directory containing all data and metadata",
         title="Name",
         validate_default=True,
@@ -88,7 +88,7 @@ class DataDescription(AindCoreModel):
         title="Data Level",
     )
     group: Optional[Group] = Field(
-        None,
+        default=None,
         description="A short name for the group of individuals that collected this data",
         title="Group",
     )
@@ -99,13 +99,13 @@ class DataDescription(AindCoreModel):
         min_length=1,
     )
     project_name: Optional[str] = Field(
-        None,
+        default=None,
         pattern=DataRegex.NO_SPECIAL_CHARS_EXCEPT_SPACE.value,
         description="A name for a set of coordinated activities intended to achieve one or more objectives.",
         title="Project Name",
     )
     restrictions: Optional[str] = Field(
-        None,
+        default=None,
         description="Detail any restrictions on publishing or sharing these data",
         title="Restrictions",
     )
@@ -152,10 +152,10 @@ class DerivedDataDescription(DataDescription):
 
     input_data_name: str
     data_level: Literal[DataLevel.DERIVED] = Field(
-        DataLevel.DERIVED, description="level of processing that data has undergone", title="Data Level"
+        default=DataLevel.DERIVED, description="level of processing that data has undergone", title="Data Level"
     )
     process_name: Optional[str] = Field(
-        None,
+        default=None,
         pattern=DataRegex.NO_SPECIAL_CHARS.value,
         description="Name of the process that created the data",
         title="Process name",
@@ -255,7 +255,7 @@ class RawDataDescription(DataDescription):
     """A logical collection of data files as acquired from a rig or instrument"""
 
     data_level: Literal[DataLevel.RAW] = Field(
-        DataLevel.RAW, description="level of processing that data has undergone", title="Data Level"
+        default=DataLevel.RAW, description="level of processing that data has undergone", title="Data Level"
     )
 
     @model_validator(mode="after")

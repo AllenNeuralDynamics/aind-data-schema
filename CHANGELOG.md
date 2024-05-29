@@ -1,3 +1,25 @@
+### [0.37.6](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.37.5...v0.37.6) (2024-05-28)
+
+
+### Bug Fixes
+
+* Dictionary Key Access ([#947](https://github.com/AllenNeuralDynamics/aind-data-schema/issues/947)) ([cc631eb](https://github.com/AllenNeuralDynamics/aind-data-schema/commit/cc631eba24fb1dc3860575ffa487a17dbb3fdce9))
+
+
+### [0.37.5](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.37.4...v0.37.5) (2024-05-22)
+
+
+### [0.37.4](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.37.3...v0.37.4) (2024-05-22)
+
+
+### [0.37.3](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.37.2...v0.37.3) (2024-05-21)
+
+
+### Bug Fixes
+
+* removes old test ([#944](https://github.com/AllenNeuralDynamics/aind-data-schema/issues/944)) ([a7605e7](https://github.com/AllenNeuralDynamics/aind-data-schema/commit/a7605e77a1046ed1bfc16259cd2d90a78262e280))
+
+
 ### [0.37.2](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.37.1...v0.37.2) (2024-05-18)
 
 

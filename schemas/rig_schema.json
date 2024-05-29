@@ -2635,8 +2635,8 @@
          "description": "Description of a Digital Micromirror Device (DMD)",
          "properties": {
             "device_type": {
-               "const": "Digital Micromirror Device",
-               "default": "Digital Micromirror Device",
+               "const": "Digital micromirror device",
+               "default": "Digital micromirror device",
                "title": "Device Type"
             },
             "name": {
@@ -10104,8 +10104,8 @@
          "description": "Multichannel electrophysiology DAQ",
          "properties": {
             "device_type": {
-               "const": "Open Ephys Acquisition Board",
-               "default": "Open Ephys Acquisition Board",
+               "const": "Open Ephys acquisition board",
+               "default": "Open Ephys acquisition board",
                "title": "Device Type"
             },
             "name": {
@@ -10901,8 +10901,8 @@
          "description": "Description of a Pockels Cell",
          "properties": {
             "device_type": {
-               "const": "Pockels Cell",
-               "default": "Pockels Cell",
+               "const": "Pockels cell",
+               "default": "Pockels cell",
                "title": "Device Type"
             },
             "name": {
@@ -11360,8 +11360,8 @@
          "description": "Description of a Polygonal scanner",
          "properties": {
             "device_type": {
-               "const": "Polygonal Scanner",
-               "default": "Polygonal Scanner",
+               "const": "Polygonal scanner",
+               "default": "Polygonal scanner",
                "title": "Device Type"
             },
             "name": {
@@ -15307,8 +15307,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.4.1",
-         "default": "0.4.1",
+         "const": "0.4.2",
+         "default": "0.4.2",
          "title": "Schema Version"
       },
       "rig_id": {
@@ -15535,7 +15535,7 @@
                   "DAQ Device": "#/$defs/DAQDevice",
                   "Harp device": "#/$defs/HarpDevice",
                   "Neuropixels basestation": "#/$defs/NeuropixelsBasestation",
-                  "Open Ephys Acquisition Board": "#/$defs/OpenEphysAcquisitionBoard"
+                  "Open Ephys acquisition board": "#/$defs/OpenEphysAcquisitionBoard"
                },
                "propertyName": "device_type"
             },
