@@ -39,7 +39,7 @@ class Instrument(AindCoreModel):
 
     instrument_id: Optional[str] = Field(
         None,
-        description="Unique identifier for this instrument. Naming convention: <room>-<apparatus name>-<date modified YYYYMMDD>",
+        description="Unique identifier for an instrument. Naming convention: <room>-<apparatus name>-<date modified YYYYMMDD>",
         title="Instrument ID",
     )
     modification_date: date = Field(..., title="Date of modification")
