@@ -14,8 +14,9 @@ readme = "README.md"
 dynamic = ["version"]
 
 dependencies = [
+    'aind-data-schema-models>=0.1.1',
     'dictdiffer',
-    'pydantic>2.0',
+    'pydantic>2.0,<2.7',
     'inflection',
     'jsonschema',
     'semver'
@@ -93,4 +94,4 @@ fail-under = 100
 
 [tool.codespell]
 skip = '.git,*.pdf,*.svg'
-ignore-words-list = 'nd'
+ignore-words-list = 'nd,assertIn'

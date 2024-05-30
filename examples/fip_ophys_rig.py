@@ -2,9 +2,10 @@
 
 from datetime import date, datetime, timezone
 
+from aind_data_schema_models.modalities import Modality
+
+import aind_data_schema.components.devices as d
 import aind_data_schema.core.rig as r
-import aind_data_schema.models.devices as d
-from aind_data_schema.models.modalities import Modality
 
 rig = r.Rig(
     rig_id="428_FIP1_2",
@@ -13,7 +14,7 @@ rig = r.Rig(
     cameras=[
         d.CameraAssembly(
             name="BehaviorVideography_FaceSide",
-            camera_target=d.CameraTarget.FACE_SIDE,
+            camera_target=d.CameraTarget.FACE_SIDE_LEFT,
             camera=d.Camera(
                 name="Side face camera",
                 detector_type="Camera",

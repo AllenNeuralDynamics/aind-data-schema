@@ -2,8 +2,9 @@
 
 import datetime
 
-from aind_data_schema.core.instrument import Com, Instrument
-from aind_data_schema.models.devices import (
+from aind_data_schema_models.organizations import Organization
+
+from aind_data_schema.components.devices import (
     AdditionalImagingDevice,
     Detector,
     Filter,
@@ -13,7 +14,7 @@ from aind_data_schema.models.devices import (
     OpticalTable,
     ScanningStage,
 )
-from aind_data_schema.models.organizations import Organization
+from aind_data_schema.core.instrument import Com, Instrument
 
 inst = Instrument(
     instrument_id="SmartSPIM2-2",

@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/rig.py",
-   "schema_version": "0.3.3",
+   "schema_version": "0.4.2",
    "rig_id": "323_EPHYS1",
    "modification_date": "2023-10-03",
    "mouse_platform": {
@@ -26,7 +26,7 @@
    "cameras": [
       {
          "name": "Face Camera Assembly",
-         "camera_target": "Face side",
+         "camera_target": "Face side left",
          "camera": {
             "device_type": "Detector",
             "name": "Face Camera",
@@ -459,7 +459,40 @@
                "coupling_efficiency_unit": "percent",
                "item_number": null
             }
-         ]
+         ],
+         "collimator": {
+            "device_type": "Collimator",
+            "name": "Collimator A",
+            "serial_number": null,
+            "manufacturer": null,
+            "model": null,
+            "path_to_cad": null,
+            "port_index": null,
+            "additional_settings": {},
+            "notes": null
+         },
+         "fiber": {
+            "device_type": "Patch",
+            "name": "Bundle Branching Fiber-optic Patch Cord",
+            "serial_number": null,
+            "manufacturer": {
+               "name": "Doric",
+               "abbreviation": null,
+               "registry": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "registry_identifier": "059n53q30"
+            },
+            "model": "BBP(4)_200/220/900-0.37_Custom_FCM-4xMF1.25",
+            "path_to_cad": null,
+            "port_index": null,
+            "additional_settings": {},
+            "notes": null,
+            "core_diameter": "200",
+            "numerical_aperture": "0.37",
+            "photobleaching_date": null
+         }
       }
    ],
    "patch_cords": [],

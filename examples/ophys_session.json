@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/session.py",
-   "schema_version": "0.2.2",
+   "schema_version": "0.2.8",
    "protocol_id": [],
    "experimenter_full_name": [
       "John Doe"
@@ -16,6 +16,7 @@
    "animal_weight_prior": null,
    "animal_weight_post": null,
    "weight_unit": "gram",
+   "anaesthesia": null,
    "data_streams": [
       {
          "stream_start_time": "2022-07-12T07:00:00Z",
@@ -69,12 +70,14 @@
          "ophys_fovs": [],
          "slap_fovs": null,
          "stack_parameters": null,
+         "mri_scans": [],
          "stream_modalities": [
             {
                "name": "Fiber photometry",
                "abbreviation": "fib"
             }
          ],
+         "software": [],
          "notes": "Internal trigger. GRAB-DA2m shows signal. Unclear about GRAB-rAC"
       }
    ],

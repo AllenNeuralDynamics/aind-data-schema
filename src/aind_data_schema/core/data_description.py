@@ -2,87 +2,30 @@
 
 import re
 from datetime import datetime
-from enum import Enum
 from typing import Any, List, Literal, Optional
 
+from aind_data_schema_models.data_name_patterns import (
+    DataLevel,
+    DataRegex,
+    Group,
+    build_data_name,
+    datetime_from_name_string,
+)
+from aind_data_schema_models.modalities import Modality
+from aind_data_schema_models.organizations import Organization
+from aind_data_schema_models.pid_names import PIDName
+from aind_data_schema_models.platforms import Platform
 from pydantic import Field, model_validator
 
 from aind_data_schema.base import AindCoreModel, AindModel, AwareDatetimeWithDefault
-from aind_data_schema.models.modalities import Modality
-from aind_data_schema.models.organizations import Organization
-from aind_data_schema.models.pid_names import PIDName
-from aind_data_schema.models.platforms import Platform
-
-
-class RegexParts(str, Enum):
-    """regular expression components to be re-used elsewhere"""
-
-    DATE = r"\d{4}-\d{2}-\d{2}"
-    TIME = r"\d{2}-\d{2}-\d{2}"
-
-
-class DataRegex(str, Enum):
-    """regular expression patterns for different kinds of data and their properties"""
-
-    DATA = f"^(?P<label>.+?)_(?P<c_date>{RegexParts.DATE.value})_(?P<c_time>{RegexParts.TIME.value})$"
-    RAW = (
-        f"^(?P<platform_abbreviation>.+?)_(?P<subject_id>.+?)_(?P<c_date>{RegexParts.DATE.value})_(?P<c_time>"
-        f"{RegexParts.TIME.value})$"
-    )
-    DERIVED = (
-        f"^(?P<input>.+?_{RegexParts.DATE.value}_{RegexParts.TIME.value})_(?P<process_name>.+?)_(?P<c_date>"
-        f"{RegexParts.DATE.value})_(?P<c_time>{RegexParts.TIME.value})"
-    )
-    ANALYZED = (
-        f"^(?P<project_abbreviation>.+?)_(?P<analysis_name>.+?)_(?P<c_date>"
-        f"{RegexParts.DATE.value})_(?P<c_time>{RegexParts.TIME.value})$"
-    )
-    NO_UNDERSCORES = "^[^_]+$"
-    NO_SPECIAL_CHARS = '^[^<>:;"/|? \\_]+$'
-    NO_SPECIAL_CHARS_EXCEPT_SPACE = '^[^<>:;"/|?\\_]+$'
-
-
-class DataLevel(str, Enum):
-    """Data level name"""
-
-    DERIVED = "derived"
-    RAW = "raw"
-    SIMULATED = "simulated"
-
-
-class Group(str, Enum):
-    """Data collection group name"""
-
-    BEHAVIOR = "behavior"
-    EPHYS = "ephys"
-    MSMA = "MSMA"
-    OPHYS = "ophys"
-
-
-def datetime_to_name_string(dt):
-    """Take a date and time object, format it a as string"""
-    return dt.strftime("%Y-%m-%d_%H-%M-%S")
-
-
-def datetime_from_name_string(d, t):
-    """Take date and time strings, generate date and time objects"""
-    d = datetime.strptime(d, "%Y-%m-%d").date()
-    t = datetime.strptime(t, "%H-%M-%S").time()
-    return datetime.combine(d, t)
-
-
-def build_data_name(label, creation_datetime):
-    """Construct a valid data description name"""
-    dt_str = datetime_to_name_string(creation_datetime)
-    return f"{label}_{dt_str}"
 
 
 class Funding(AindModel):
     """Description of funding sources"""
 
     funder: Organization.FUNDERS = Field(..., title="Funder")
-    grant_number: Optional[str] = Field(None, title="Grant number")
-    fundee: Optional[str] = Field(None, title="Fundee", description="Person(s) funded by this mechanism")
+    grant_number: Optional[str] = Field(default=None, title="Grant number")
+    fundee: Optional[str] = Field(default=None, title="Fundee", description="Person(s) funded by this mechanism")
 
 
 class RelatedData(AindModel):
@@ -97,7 +40,7 @@ class DataDescription(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/data_description.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["0.13.4"] = Field("0.13.4")
+    schema_version: Literal["0.13.7"] = Field("0.13.7")
     license: Literal["CC-BY-4.0"] = Field("CC-BY-4.0", title="License")
 
     platform: Platform.ONE_OF = Field(
@@ -117,12 +60,12 @@ class DataDescription(AindCoreModel):
         title="Creation Time",
     )
     label: Optional[str] = Field(
-        None,
+        default=None,
         description="A short name for the data, used in file names and labels",
         title="Label",
     )
     name: Optional[str] = Field(
-        None,
+        default=None,
         description="Name of data, conventionally also the name of the directory containing all data and metadata",
         title="Name",
         validate_default=True,
@@ -145,7 +88,7 @@ class DataDescription(AindCoreModel):
         title="Data Level",
     )
     group: Optional[Group] = Field(
-        None,
+        default=None,
         description="A short name for the group of individuals that collected this data",
         title="Group",
     )
@@ -156,13 +99,13 @@ class DataDescription(AindCoreModel):
         min_length=1,
     )
     project_name: Optional[str] = Field(
-        None,
+        default=None,
         pattern=DataRegex.NO_SPECIAL_CHARS_EXCEPT_SPACE.value,
         description="A name for a set of coordinated activities intended to achieve one or more objectives.",
         title="Project Name",
     )
     restrictions: Optional[str] = Field(
-        None,
+        default=None,
         description="Detail any restrictions on publishing or sharing these data",
         title="Restrictions",
     )
@@ -209,10 +152,10 @@ class DerivedDataDescription(DataDescription):
 
     input_data_name: str
     data_level: Literal[DataLevel.DERIVED] = Field(
-        DataLevel.DERIVED, description="level of processing that data has undergone", title="Data Level"
+        default=DataLevel.DERIVED, description="level of processing that data has undergone", title="Data Level"
     )
     process_name: Optional[str] = Field(
-        None,
+        default=None,
         pattern=DataRegex.NO_SPECIAL_CHARS.value,
         description="Name of the process that created the data",
         title="Process name",
@@ -312,7 +255,7 @@ class RawDataDescription(DataDescription):
     """A logical collection of data files as acquired from a rig or instrument"""
 
     data_level: Literal[DataLevel.RAW] = Field(
-        DataLevel.RAW, description="level of processing that data has undergone", title="Data Level"
+        default=DataLevel.RAW, description="level of processing that data has undergone", title="Data Level"
     )
 
     @model_validator(mode="after")
