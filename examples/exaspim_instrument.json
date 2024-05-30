@@ -80,7 +80,7 @@
          "data_interface": "Coax",
          "cooling": "Air",
          "computer_name": null,
-         "max_frame_rate": null,
+         "frame_rate": null,
          "frame_rate_unit": "hertz",
          "immersion": null,
          "chroma": null,
