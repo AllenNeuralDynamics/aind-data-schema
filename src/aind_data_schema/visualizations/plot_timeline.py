@@ -34,7 +34,7 @@ def plot_date_of_birth(ax: plt.Axes, date_of_birth: datetime) -> None:
 
 
 def plot_procedures(ax: plt.Axes, procedures: dict, date_of_birth: datetime) -> None:
-    """add subject and procedure start and end dates to the timeline plot"""
+    """add procedure start and end dates to the timeline plot"""
     for proc in procedures["subject_procedures"]:
         date = datetime.strptime(proc["start_date"], "%Y-%m-%d").date()
         ax.scatter(date, [1], marker="o", color="blue", s=100)
@@ -51,7 +51,7 @@ def plot_procedures(ax: plt.Axes, procedures: dict, date_of_birth: datetime) -> 
 
 
 def plot_date_of_acquisition(ax: plt.Axes, date_of_acquisition: datetime, date_of_birth: datetime) -> None:
-    """add data of acquisition markers to the timeline plot"""
+    """add data of acquisition marker to the timeline plot"""
     ax.scatter(date_of_acquisition, [1], marker="o", color="blue", s=100)
     ax.text(date_of_acquisition, 1.1, "Acquisition", rotation=90, ha="center", va="bottom")
 
@@ -64,7 +64,6 @@ def plot_timeline(
     procedures: dict = None,
     acquisition: dict = None,
     session: dict = None,
-    processing: dict = None,
 ) -> Tuple[plt.Figure, plt.Axes]:
     """Creates a timeline of including date of birth, all subject and specimen procedures, and date of
     data acquisition.
@@ -74,7 +73,6 @@ def plot_timeline(
         procedures (dict): dictionary containing procedures metadata
         acquisition (dict): dictionary containing acquisition metadata
         session (dict): dictionary containing session metadata
-        processing (dict): dictionary containing processing metadata
     """
 
     fig, ax = plt.subplots(figsize=(10, 5))
@@ -107,5 +105,10 @@ def plot_timeline(
 
 if __name__ == "__main__":
     md = load_metadata_from_folder(".")
-    plot_timeline(**md)
+    plot_timeline(
+        subject=md.get('subject'), 
+        procedures=md.get('procedures'),
+        session=md.get('session'), 
+        acquisition=md.get('acquisition')
+    )
     plt.show()
