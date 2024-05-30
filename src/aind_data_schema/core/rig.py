@@ -4,7 +4,7 @@ from datetime import date
 from typing import List, Literal, Optional, Set, Union
 
 from aind_data_schema_models.modalities import Modality
-from pydantic import Field, ValidationInfo, field_validator, model_validator
+from pydantic import Field, ValidationInfo, field_validator, model_validator, field_serializer
 from typing_extensions import Annotated
 
 from aind_data_schema.base import AindCoreModel
@@ -83,6 +83,11 @@ class Rig(AindCoreModel):
     modalities: Set[Modality.ONE_OF] = Field(..., title="Modalities")
     notes: Optional[str] = Field(default=None, title="Notes")
 
+    @field_serializer("modalities", when_used="json")
+    def serialize_modalities(modalities: Set[Modality.ONE_OF]):
+        """sort modalities by name when serializing to JSON"""
+        return sorted(modalities, key=lambda x: x.name)
+
     @model_validator(mode="after")
     def validate_cameras_other(self):
         """check if any cameras contain an 'other' field"""
@@ -104,30 +109,30 @@ class Rig(AindCoreModel):
         """
         daqs = value
         non_reward_delivery_stimulus_devices = [
-            d for d in info.data["stimulus_devices"] if not isinstance(d, RewardDelivery)
+            d for d in info.data.get("stimulus_devices", []) if not isinstance(d, RewardDelivery)
         ]
         standard_devices = (
             daqs
-            + info.data["light_sources"]
-            + info.data["patch_cords"]
-            + info.data["detectors"]
-            + info.data["digital_micromirror_devices"]
-            + info.data["polygonal_scanners"]
-            + info.data["pockels_cells"]
-            + info.data["additional_devices"]
+            + info.data.get("light_sources", [])
+            + info.data.get("patch_cords", [])
+            + info.data.get("detectors", [])
+            + info.data.get("digital_micromirror_devices", [])
+            + info.data.get("polygonal_scanners", [])
+            + info.data.get("pockels_cells", [])
+            + info.data.get("additional_devices", [])
             + non_reward_delivery_stimulus_devices
         )
-        camera_devices = info.data["cameras"] + info.data["stick_microscopes"]
+        camera_devices = info.data.get("cameras", []) + info.data.get("stick_microscopes", [])
         standard_device_names = [device.name for device in standard_devices]
         camera_names = [camera.camera.name for camera in camera_devices]
         ephys_assembly_names = [
-            probe.name for ephys_assembly in info.data["ephys_assemblies"] for probe in ephys_assembly.probes
+            probe.name for ephys_assembly in info.data.get("ephys_assemblies", []) for probe in ephys_assembly.probes
         ]
         laser_assembly_names = [
-            laser.name for laser_assembly in info.data["laser_assemblies"] for laser in laser_assembly.lasers
+            laser.name for laser_assembly in info.data.get("laser_assemblies", []) for laser in laser_assembly.lasers
         ]
         mouse_platform_names = [] if info.data.get("mouse_platform") is None else [info.data["mouse_platform"].name]
-        reward_deliveries = [d for d in info.data["stimulus_devices"] if isinstance(d, RewardDelivery)]
+        reward_deliveries = [d for d in info.data.get("stimulus_devices", []) if isinstance(d, RewardDelivery)]
         reward_delivery_device_names = []
         for rd in reward_deliveries:
             for rs in rd.reward_spouts:
@@ -158,7 +163,7 @@ class Rig(AindCoreModel):
         errors = []
         if Modality.ECEPHYS in value:
             for k, v in {
-                "ephys_assemblies": len(info.data["ephys_assemblies"]) > 0,
+                "ephys_assemblies": len(info.data.get("ephys_assemblies", [])) > 0,
             }.items():
                 if v is False:
                     errors.append(f"{k} field must be utilized for Ecephys modality")
@@ -170,9 +175,9 @@ class Rig(AindCoreModel):
         errors = []
         if Modality.FIB in value:
             for k, v in {
-                "light_sources": len(info.data["light_sources"]) > 0,
-                "detectors": len(info.data["detectors"]) > 0,
-                "patch_cords": len(info.data["patch_cords"]) > 0,
+                "light_sources": len(info.data.get("light_sources", [])) > 0,
+                "detectors": len(info.data.get("detectors", [])) > 0,
+                "patch_cords": len(info.data.get("patch_cords", [])) > 0,
             }.items():
                 if v is False:
                     errors.append(f"{k} field must be utilized for FIB modality")
@@ -184,9 +189,9 @@ class Rig(AindCoreModel):
         errors = []
         if Modality.POPHYS in value:
             for k, v in {
-                "light_sources": len(info.data["light_sources"]) > 0,
-                "detectors": len(info.data["detectors"]) > 0,
-                "objectives": len(info.data["objectives"]) > 0,
+                "light_sources": len(info.data.get("light_sources", [])) > 0,
+                "detectors": len(info.data.get("detectors", [])) > 0,
+                "objectives": len(info.data.get("objectives", [])) > 0,
             }.items():
                 if v is False:
                     errors.append(f"{k} field must be utilized for POPHYS modality")
@@ -198,9 +203,9 @@ class Rig(AindCoreModel):
         errors = []
         if Modality.SLAP in value:
             for k, v in {
-                "light_sources": len(info.data["light_sources"]) > 0,
-                "detectors": len(info.data["detectors"]) > 0,
-                "objectives": len(info.data["objectives"]) > 0,
+                "light_sources": len(info.data.get("light_sources", [])) > 0,
+                "detectors": len(info.data.get("detectors", [])) > 0,
+                "objectives": len(info.data.get("objectives", [])) > 0,
             }.items():
                 if v is False:
                     errors.append(f"{k} field must be utilized for SLAP modality")
@@ -211,7 +216,7 @@ class Rig(AindCoreModel):
         """Validate BEHAVIOR_VIDEOS modality has cameras"""
         errors = []
         if Modality.BEHAVIOR_VIDEOS in value:
-            if len(info.data["cameras"]) == 0:
+            if len(info.data.get("cameras", [])) == 0:
                 errors.append("cameras field must be utilized for Behavior Videos modality")
         return errors
 
@@ -220,7 +225,7 @@ class Rig(AindCoreModel):
         """Validate that BEHAVIOR modality has stimulus_devices"""
         errors = []
         if Modality.BEHAVIOR in value:
-            if len(info.data["stimulus_devices"]) == 0:
+            if len(info.data.get("stimulus_devices", [])) == 0:
                 errors.append("stimulus_devices field must be utilized for Behavior modality")
 
         return errors

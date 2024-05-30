@@ -95,7 +95,8 @@
                "procedure_type": "Perfusion",
                "protocol_id": "doi_of_protocol",
                "output_specimen_ids": [
-                  "1"
+                  "1",
+                  "2"
                ]
             }
          ],

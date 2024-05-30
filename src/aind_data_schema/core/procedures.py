@@ -19,7 +19,7 @@ from aind_data_schema_models.units import (
     VolumeUnit,
     create_unit_with_value,
 )
-from pydantic import Field, field_validator, model_validator
+from pydantic import Field, field_validator, model_validator, field_serializer
 from pydantic_core.core_schema import ValidationInfo
 from typing_extensions import Annotated
 
@@ -565,6 +565,11 @@ class Perfusion(AindModel):
         title="Specimen ID",
         description="IDs of specimens resulting from this procedure.",
     )
+
+    @field_serializer("output_specimen_ids", when_used="json")
+    def serialize_output_specimen_ids(values: Set[str]):
+        """sort specimen ids for JSON serialization"""
+        return sorted(values)
 
 
 class Surgery(AindModel):
