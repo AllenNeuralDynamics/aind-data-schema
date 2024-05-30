@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/rig.py",
-   "schema_version": "0.3.3",
+   "schema_version": "0.4.2",
    "rig_id": "447_FIP_Behavior_20000101",
    "modification_date": "2000-01-01",
    "mouse_platform": {
@@ -103,7 +103,7 @@
    "cameras": [
       {
          "name": "BehaviorVideography_FaceSide",
-         "camera_target": "Face side",
+         "camera_target": "Face side left",
          "camera": {
             "device_type": "Detector",
             "name": "Side face camera",
@@ -301,7 +301,9 @@
          "additional_settings": {},
          "notes": null,
          "wavelength": 470,
-         "wavelength_unit": "nanometer"
+         "wavelength_unit": "nanometer",
+         "bandwidth": null,
+         "bandwidth_unit": "nanometer"
       },
       {
          "device_type": "Light emitting diode",
@@ -322,7 +324,9 @@
          "additional_settings": {},
          "notes": null,
          "wavelength": 415,
-         "wavelength_unit": "nanometer"
+         "wavelength_unit": "nanometer",
+         "bandwidth": null,
+         "bandwidth_unit": "nanometer"
       },
       {
          "device_type": "Light emitting diode",
@@ -343,7 +347,9 @@
          "additional_settings": {},
          "notes": null,
          "wavelength": 565,
-         "wavelength_unit": "nanometer"
+         "wavelength_unit": "nanometer",
+         "bandwidth": null,
+         "bandwidth_unit": "nanometer"
       }
    ],
    "detectors": [
@@ -922,12 +928,12 @@
    "rig_axes": null,
    "modalities": [
       {
-         "name": "Behavior",
-         "abbreviation": "behavior"
-      },
-      {
          "name": "Fiber photometry",
          "abbreviation": "fib"
+      },
+      {
+         "name": "Behavior",
+         "abbreviation": "behavior"
       }
    ],
    "notes": null

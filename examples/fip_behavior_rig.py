@@ -3,9 +3,10 @@
 """ example FIP ophys rig """
 from datetime import date, datetime, timezone
 
+from aind_data_schema_models.modalities import Modality
+
+import aind_data_schema.components.devices as d
 import aind_data_schema.core.rig as r
-import aind_data_schema.models.devices as d
-from aind_data_schema.models.modalities import Modality
 
 r = r.Rig(
     rig_id="447_FIP_Behavior_20000101",
@@ -14,7 +15,7 @@ r = r.Rig(
     cameras=[
         d.CameraAssembly(
             name="BehaviorVideography_FaceSide",
-            camera_target=d.CameraTarget.FACE_SIDE,
+            camera_target=d.CameraTarget.FACE_SIDE_LEFT,
             camera=d.Camera(
                 name="Side face camera",
                 detector_type="Camera",
@@ -82,10 +83,12 @@ r = r.Rig(
             channels=[
                 d.DAQChannel(channel_name="DO0", device_name="Solenoid Left", channel_type="Digital Output"),
                 d.DAQChannel(channel_name="DO1", device_name="Solenoid Right", channel_type="Digital Output"),
-                d.DAQChannel(channel_name="DI0", device_name="Janelia_Lick_Detector Left",
-                             channel_type="Digital Input"),
-                d.DAQChannel(channel_name="DI1", device_name="Janelia_Lick_Detector Right",
-                             channel_type="Digital Input"),
+                d.DAQChannel(
+                    channel_name="DI0", device_name="Janelia_Lick_Detector Left", channel_type="Digital Input"
+                ),
+                d.DAQChannel(
+                    channel_name="DI1", device_name="Janelia_Lick_Detector Right", channel_type="Digital Input"
+                ),
                 d.DAQChannel(channel_name="DI3", device_name="Photometry Clock", channel_type="Digital Input"),
             ],
         )
@@ -99,32 +102,29 @@ r = r.Rig(
                     side=d.SpoutSide.LEFT,
                     spout_diameter=1.2,
                     solenoid_valve=d.Device(device_type="Solenoid", name="Solenoid Left"),
-                    lick_sensor_type=d.LickSensorType("Capacitive")
+                    lick_sensor_type=d.LickSensorType("Capacitive"),
                 ),
                 d.RewardSpout(
                     name="Janelia_Lick_Detector Right",
                     side=d.SpoutSide.RIGHT,
                     spout_diameter=1.2,
                     solenoid_valve=d.Device(device_type="Solenoid", name="Solenoid Right"),
-                    lick_sensor_type=d.LickSensorType("Capacitive")
+                    lick_sensor_type=d.LickSensorType("Capacitive"),
                 ),
             ],
             stage_type=d.MotorizedStage(
-                    name="NewScaleMotor for LickSpouts",
-                    serial_number="xxxx",  # grabbing from GUI/SettingFiles
-                    manufacturer=d.Organization.NEW_SCALE_TECHNOLOGIES,
-                    travel=15.0,  # unit is mm
-                    firmware=(
-                        "https://github.com/AllenNeuralDynamics/python-newscale,branch: axes-on-target,commit #7c17497"
-                    ),
+                name="NewScaleMotor for LickSpouts",
+                serial_number="xxxx",  # grabbing from GUI/SettingFiles
+                manufacturer=d.Organization.NEW_SCALE_TECHNOLOGIES,
+                travel=15.0,  # unit is mm
+                firmware=(
+                    "https://github.com/AllenNeuralDynamics/python-newscale,branch: axes-on-target,commit #7c17497"
+                ),
             ),
         ),
     ],
-
     # Common
-
     # FIB Specific
-
     patch_cords=[
         d.Patch(
             name="Bundle Branching Fiber-optic Patch Cord",
@@ -290,13 +290,9 @@ r = r.Rig(
             size=1,
         )
     ],
-
     additional_devices=[d.Device(device_type="Photometry Clock", name="Photometry Clock")],
-
     # FIB Specific
-
     # Optogenetics Specific   # Xinxin to fill in
-
     # light_sources=[
     #    d.LightEmittingDiode(
     #        name="LED for photostimulation",
@@ -305,7 +301,6 @@ r = r.Rig(
     #        wavelength=470,
     #    ),
     # ],
-
     # daqs=[
     #    d.DAQDevice(
     #        name="NIDAQ for opto",
@@ -317,10 +312,7 @@ r = r.Rig(
     #        ],
     #    )
     # ],
-
     # Optogenetics Specific
-
-
     # Calibrations
     calibrations=[
         d.Calibration(
@@ -344,7 +336,6 @@ r = r.Rig(
             input={"Power setting": [0]},
             output={"Power mW": [0.02]},
         ),
-
         # Water calibration comes here#
     ],
 )
