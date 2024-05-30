@@ -11307,8 +11307,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.10.22",
-               "default": "0.10.22",
+               "const": "0.10.23",
+               "default": "0.10.23",
                "title": "Schema Version"
             },
             "instrument_id": {
@@ -11321,7 +11321,7 @@
                   }
                ],
                "default": null,
-               "description": "Unique identifier for this instrument. Naming convention: <room>-<apparatus>-<date modified>",
+               "description": "Unique instrument identifier, name convention: <room>-<apparatus name>-<date modified YYYYMMDD>",
                "title": "Instrument ID"
             },
             "modification_date": {
@@ -22940,12 +22940,12 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.4.2",
-               "default": "0.4.2",
+               "const": "0.4.3",
+               "default": "0.4.3",
                "title": "Schema Version"
             },
             "rig_id": {
-               "description": "room_rig name_date modified",
+               "description": "Unique rig identifier, name convention: <room>-<apparatus name>-<date modified YYYYMMDD>",
                "title": "Rig ID",
                "type": "string"
             },
@@ -30246,8 +30246,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.2.25",
-         "default": "0.2.25",
+         "const": "0.2.26",
+         "default": "0.2.26",
          "title": "Schema Version"
       },
       "_id": {

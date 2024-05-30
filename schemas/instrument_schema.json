@@ -7727,8 +7727,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.10.22",
-         "default": "0.10.22",
+         "const": "0.10.23",
+         "default": "0.10.23",
          "title": "Schema Version"
       },
       "instrument_id": {
@@ -7741,7 +7741,7 @@
             }
          ],
          "default": null,
-         "description": "Unique identifier for this instrument. Naming convention: <room>-<apparatus>-<date modified>",
+         "description": "Unique instrument identifier, name convention: <room>-<apparatus name>-<date modified YYYYMMDD>",
          "title": "Instrument ID"
       },
       "modification_date": {

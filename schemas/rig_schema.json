@@ -15307,12 +15307,12 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.4.2",
-         "default": "0.4.2",
+         "const": "0.4.3",
+         "default": "0.4.3",
          "title": "Schema Version"
       },
       "rig_id": {
-         "description": "room_rig name_date modified",
+         "description": "Unique rig identifier, name convention: <room>-<apparatus name>-<date modified YYYYMMDD>",
          "title": "Rig ID",
          "type": "string"
       },
