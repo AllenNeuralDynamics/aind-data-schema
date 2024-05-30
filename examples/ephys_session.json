@@ -38,7 +38,7 @@
                "calibration_date": "2023-04-25T00:00:00Z",
                "notes": "Moved Y to avoid blood vessel, X to avoid edge. Mouse made some noise during the recording with a sudden shift in signals. Lots of motion. Maybe some implant motion.",
                "primary_targeted_structure": "LGd",
-               "other_targetted_structure": null,
+               "other_targeted_structure": null,
                "targeted_ccf_coordinates": [
                   {
                      "ml": "8150",
@@ -70,7 +70,7 @@
                "calibration_date": "2023-04-25T00:00:00Z",
                "notes": "Trouble penetrating. Lots of compression, needed to move probe. Small amount of surface bleeding/bruising. Initial Target: X;10070.3\tY:7476.6",
                "primary_targeted_structure": "LC",
-               "other_targetted_structure": null,
+               "other_targeted_structure": null,
                "targeted_ccf_coordinates": [
                   {
                      "ml": "6637.28",
@@ -171,7 +171,7 @@
                "calibration_date": "2023-04-25T00:00:00Z",
                "notes": "Moved Y to avoid blood vessel, X to avoid edge. Mouse made some noise during the recording with a sudden shift in signals. Lots of motion. Maybe some implant motion.",
                "primary_targeted_structure": "LGd",
-               "other_targetted_structure": null,
+               "other_targeted_structure": null,
                "targeted_ccf_coordinates": [
                   {
                      "ml": "8150",
@@ -203,7 +203,7 @@
                "calibration_date": "2023-04-25T00:00:00Z",
                "notes": "Trouble penetrating. Lots of compression, needed to move probe. Small amount of surface bleeding/bruising. Initial Target: X;10070.3\tY:7476.6",
                "primary_targeted_structure": "LC",
-               "other_targetted_structure": null,
+               "other_targeted_structure": null,
                "targeted_ccf_coordinates": [
                   {
                      "ml": "6637.28",
