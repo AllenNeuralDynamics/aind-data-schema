@@ -383,7 +383,8 @@ class Stream(AindModel):
     stream_end_time: AwareDatetimeWithDefault = Field(..., title="Stream stop time")
     daq_names: List[str] = Field(default=[], title="DAQ devices")
     camera_names: List[str] = Field(default=[], title="Cameras")
-    light_sources: List[LIGHT_SOURCE_CONFIGS] = Field(default=[], title="Light Sources")
+    light_sources: List[LIGHT_SOURCE_CONFIGS] = Field(default=[], title="Light Sources",
+                                                      description="Light sources for collecting data")
     ephys_modules: List[EphysModule] = Field(default=[], title="Ephys modules")
     stick_microscopes: List[DomeModule] = Field(
         default=[],
@@ -521,7 +522,8 @@ class StimulusEpoch(AindModel):
     ] = Field(None, title="Stimulus parameters")
     stimulus_device_names: List[str] = Field(default=[], title="Stimulus devices")
     speaker_config: Optional[SpeakerConfig] = Field(default=None, title="Speaker Config")
-    light_source_config: Optional[LIGHT_SOURCE_CONFIGS] = Field(default=None, title="Light source config")
+    light_source_config: Optional[List[LIGHT_SOURCE_CONFIGS]] = Field(default=[], title="Light source config",
+                                                                      description="Light sources for stimulation")
     output_parameters: AindGenericType = Field(AindGeneric(), title="Performance metrics")
     reward_consumed_during_epoch: Optional[Decimal] = Field(default=None, title="Reward consumed during training (uL)")
     reward_consumed_unit: VolumeUnit = Field(VolumeUnit.UL, title="Reward consumed unit")
