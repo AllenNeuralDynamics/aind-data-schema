@@ -4,7 +4,7 @@ from datetime import date
 from typing import List, Literal, Optional, Set, Union
 
 from aind_data_schema_models.modalities import Modality
-from pydantic import Field, ValidationInfo, field_validator, model_validator
+from pydantic import Field, ValidationInfo, field_validator, model_validator, field_serializer
 from typing_extensions import Annotated
 
 from aind_data_schema.base import AindCoreModel
@@ -82,6 +82,11 @@ class Rig(AindCoreModel):
     rig_axes: Optional[List[Axis]] = Field(default=None, title="Rig axes", min_length=3, max_length=3)
     modalities: Set[Modality.ONE_OF] = Field(..., title="Modalities")
     notes: Optional[str] = Field(default=None, title="Notes")
+
+    @field_serializer("modalities", when_used="json")
+    def serialize_modalities(modalities: Set[Modality.ONE_OF]):
+        """ sort modalities by name when serializing to JSON """
+        return sorted(modalities, key=lambda x: x.name)
 
     @model_validator(mode="after")
     def validate_cameras_other(self):

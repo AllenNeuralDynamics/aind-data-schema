@@ -928,12 +928,12 @@
    "rig_axes": null,
    "modalities": [
       {
-         "name": "Fiber photometry",
-         "abbreviation": "fib"
-      },
-      {
          "name": "Behavior",
          "abbreviation": "behavior"
+      },
+      {
+         "name": "Fiber photometry",
+         "abbreviation": "fib"
       }
    ],
    "notes": null
