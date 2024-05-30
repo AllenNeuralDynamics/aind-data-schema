@@ -404,6 +404,47 @@
          "title": "JacksonLaboratory",
          "type": "object"
       },
+      "JaneliaResearchCampus": {
+         "additionalProperties": false,
+         "description": "JaneliaResearchCampus",
+         "properties": {
+            "name": {
+               "const": "Janelia Research Campus",
+               "default": "Janelia Research Campus",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "Janelia",
+               "default": "Janelia",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "013sk6x84",
+               "default": "013sk6x84",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "JaneliaResearchCampus",
+         "type": "object"
+      },
       "LightCycle": {
          "additionalProperties": false,
          "description": "Description of vivarium light cycle times",
@@ -769,8 +810,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.5.7",
-         "default": "0.5.7",
+         "const": "0.5.8",
+         "default": "0.5.8",
          "title": "Schema Version"
       },
       "subject_id": {
@@ -870,6 +911,7 @@
                "Columbia University": "#/$defs/ColumbiaUniversity",
                "Huazhong University of Science and Technology": "#/$defs/HuazhongUniversityOfScienceAndTechnology",
                "Jackson Laboratory": "#/$defs/JacksonLaboratory",
+               "Janelia Research Campus": "#/$defs/JaneliaResearchCampus",
                "New York University": "#/$defs/NewYorkUniversity",
                "Other": "#/$defs/Other"
             },
@@ -884,6 +926,9 @@
             },
             {
                "$ref": "#/$defs/HuazhongUniversityOfScienceAndTechnology"
+            },
+            {
+               "$ref": "#/$defs/JaneliaResearchCampus"
             },
             {
                "$ref": "#/$defs/JacksonLaboratory"
