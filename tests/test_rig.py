@@ -490,6 +490,25 @@ class RigTests(unittest.TestCase):
                 ],
             )
 
+        # Tests that validators catch empty lists without KeyErrors
+        with self.assertRaises(ValidationError):
+            Rig(
+                rig_id="1234",
+                modification_date=date(2020, 10, 10),
+                modalities=[Modality.ECEPHYS, Modality.FIB],
+                daqs=daqs,
+                cameras=[],
+                stick_microscopes=[],
+                light_sources=[],
+                laser_assemblies=lms,
+                ephys_assemblies=ems,
+                detectors=[],
+                patch_cords=[],
+                stimulus_devices=[],
+                mouse_platform=Disc(name="Disc A", radius=1),
+                calibrations=[],
+            )
+
 
 if __name__ == "__main__":
     unittest.main()
