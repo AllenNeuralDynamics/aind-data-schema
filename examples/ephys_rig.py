@@ -200,7 +200,7 @@ blue_laser_calibration = Calibration(
 )
 
 rig = Rig(
-    rig_id="323_EPHYS1",
+    rig_id="323_EPHYS1_20231003",
     modification_date=date(2023, 10, 3),
     modalities=[Modality.ECEPHYS],
     ephys_assemblies=[ephys_assemblyA, ephys_assemblyB],
