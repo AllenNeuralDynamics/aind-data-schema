@@ -106,9 +106,9 @@ def plot_timeline(
 if __name__ == "__main__":
     md = load_metadata_from_folder(".")
     plot_timeline(
-        subject=md.get('subject'), 
-        procedures=md.get('procedures'),
-        session=md.get('session'), 
-        acquisition=md.get('acquisition')
+        subject=md.get("subject"),
+        procedures=md.get("procedures"),
+        session=md.get("session"),
+        acquisition=md.get("acquisition"),
     )
     plt.show()
