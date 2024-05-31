@@ -89,7 +89,7 @@ class Rig(AindCoreModel):
 
     @field_serializer("modalities", when_used="json")
     def serialize_modalities(modalities: Set[Modality.ONE_OF]):
-        """ sort modalities by name when serializing to JSON """
+        """sort modalities by name when serializing to JSON"""
         return sorted(modalities, key=lambda x: x.name)
 
     @model_validator(mode="after")
