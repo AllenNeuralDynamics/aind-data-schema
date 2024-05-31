@@ -1,10 +1,12 @@
 # Contributor Guidelines
-This repository defines the schemas needed to ingest and validate metadata. As a core service, it is used across multiple teams and services. Therefore, any contributions must follow certain rules to ensure stability and organization.
+This repository defines the schemas needed to validate and document metadata. As a core service, it is used across multiple teams and services. Therefore, any contributions must follow certain rules to ensure stability and organization.
 This document will go through best practices for contributing to this project
 
 ## Issues and Feature Requests
-Feature requests and bug reports are all welcome as [issues](https://github.com/AllenNeuralDynamics/aind-data-schema/issues). Please use the provided [templates](https://github.com/AllenNeuralDynamics/aind-metadata-mapper/issues/new/choose) to ensure we have enough information to work with.
-If you'd like to propose a large change or addition, or generally have a question about how things work, head start a new [Discussion](https://github.com/AllenNeuralDynamics/aind-data-schema/discussions)!
+Feature requests and bug reports are all welcome as [issues](https://github.com/AllenNeuralDynamics/aind-data-schema/issues). Create a ticket using the provided [templates](https://github.com/AllenNeuralDynamics/aind-metadata-mapper/issues/new/choose) to ensure we have enough information to work with.
+Our team will review, assign, and address the ticket. If the ticket is urgent, you may tag a dedicated engineer in the issue but please refrain from assigning it.
+
+If you have a broader suggestion or a question about how things work, start a new [Discussion](https://github.com/AllenNeuralDynamics/aind-data-schema/discussions)!
 
 NOTE: If your request requires upgrading pydantic, create a separate ticket and a dedicated engineer will handle the upgrade.
 
@@ -76,7 +78,12 @@ There are several libraries used to run linters and check documentation. We've i
   ```
   isort .
   ```
-  
+**NOTE**: Please note that these linters are automatically run in github actions when a PR is opened. These linters must pass for a PR to merge. 
+
+## Documentation and Style Guide
+Documentation is required for contributing to this project. We have settled on using Numpy's conventions as a default: [Numpy docstring standards](https://numpydoc.readthedocs.io/en/latest/format.html)
+
+
 ## Pull Requests
 For internal members, please create a branch. For external members, please fork the repo and open a pull request from the fork. We'll primarily use [Angular](https://github.com/angular/angular/blob/main/CONTRIBUTING.md#commit) style for commit messages. Roughly, they should follow the pattern:
 ```
