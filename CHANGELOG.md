@@ -1,3 +1,11 @@
+## [0.38.0](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.37.12...v0.38.0) (2024-05-31)
+
+
+### Features
+
+* contributor guidelines ([#942](https://github.com/AllenNeuralDynamics/aind-data-schema/issues/942)) ([114c454](https://github.com/AllenNeuralDynamics/aind-data-schema/commit/114c454a912984ab81824d9a3185a3ee4b86c454))
+
+
 ### [0.37.12](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.37.11...v0.37.12) (2024-05-31)
 
 
