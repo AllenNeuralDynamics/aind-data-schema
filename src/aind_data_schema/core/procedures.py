@@ -7,6 +7,7 @@ from typing import List, Literal, Optional, Set, Union
 
 from aind_data_schema_models.pid_names import PIDName
 from aind_data_schema_models.species import Species
+from aind_data_schema_models.specimen_procedure_types import SpecimenProcedureType
 from aind_data_schema_models.units import (
     AngleUnit,
     ConcentrationUnit,
@@ -18,9 +19,8 @@ from aind_data_schema_models.units import (
     VolumeUnit,
     create_unit_with_value,
 )
-from aind_data_schema_models.specimen_procedure_types import SpecimenProcedureType
-
 from pydantic import Field, field_validator, model_validator, field_serializer
+
 from pydantic_core.core_schema import ValidationInfo
 from typing_extensions import Annotated
 

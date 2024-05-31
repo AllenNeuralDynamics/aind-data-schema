@@ -23,6 +23,7 @@ from typing_extensions import Annotated
 
 from aind_data_schema.base import AindCoreModel, AindGeneric, AindGenericType, AindModel, AwareDatetimeWithDefault
 from aind_data_schema.components.coordinates import (
+    Affine3dTransform,
     CcfCoords,
     Coordinates3d,
     Rotation3dTransform,
@@ -207,6 +208,7 @@ class ManipulatorModule(DomeModule):
     """A dome module connected to a 3-axis manipulator"""
 
     primary_targeted_structure: str = Field(..., title="Targeted structure")
+    other_targeted_structure: Optional[List[str]] = Field(None, title="Other targeted structure")
     targeted_ccf_coordinates: List[CcfCoords] = Field(
         default=[],
         title="Targeted CCF coordinates",
@@ -215,20 +217,11 @@ class ManipulatorModule(DomeModule):
         ...,
         title="Manipulator coordinates",
     )
-    implant_hole_number: Optional[int] = Field(default=None, title="Implant hole number")
-
-
-class EphysProbeConfig(AindModel):
-    """Probes in a EphysProbeModule"""
-
-    name: str = Field(..., title="Ephys probe name (must match rig JSON)")
-    other_targeted_structures: List[str] = []
-
-
-class EphysModule(ManipulatorModule):
-    """Probe recorded in a Stream"""
-
-    ephys_probes: List[EphysProbeConfig] = Field(..., title="Ephys probes used in this module")
+    bregma_coordinates: Optional[Coordinates3d] = Field(None, title="Bregma coordinates")
+    surface_z: Optional[Decimal] = Field(None, title="Surface z")
+    surface_z_unit: SizeUnit = Field(SizeUnit.UM, title="Surface z unit")
+    dye: Optional[str] = Field(None, title="Dye")
+    implant_hole_number: Optional[int] = Field(None, title="Implant hole number")
 
 
 class FiberModule(ManipulatorModule):
@@ -383,9 +376,8 @@ class Stream(AindModel):
     stream_end_time: AwareDatetimeWithDefault = Field(..., title="Stream stop time")
     daq_names: List[str] = Field(default=[], title="DAQ devices")
     camera_names: List[str] = Field(default=[], title="Cameras")
-    light_sources: List[LIGHT_SOURCE_CONFIGS] = Field(default=[], title="Light Sources",
-                                                      description="Light sources for collecting data")
-    ephys_modules: List[EphysModule] = Field(default=[], title="Ephys modules")
+    light_sources: List[LIGHT_SOURCE_CONFIGS] = Field(default=[], title="Light Sources")
+    ephys_modules: List[ManipulatorModule] = Field(default=[], title="Ephys modules")
     stick_microscopes: List[DomeModule] = Field(
         default=[],
         title="Stick microscopes",
@@ -538,7 +530,7 @@ class Session(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/session.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["0.2.9"] = Field("0.2.9")
+    schema_version: Literal["0.3.0"] = Field("0.3.0")
     protocol_id: List[str] = Field([], title="Protocol ID", description="DOI for protocols.io")
     experimenter_full_name: List[str] = Field(
         ...,
@@ -586,7 +578,10 @@ class Session(AindCoreModel):
     active_mouse_platform: bool = Field(
         ..., title="Active mouse platform", description="Is the mouse platform being actively controlled"
     )
-    reward_delivery: Optional[RewardDeliveryConfig] = Field(default=None, title="Reward delivery")
-    reward_consumed_total: Optional[Decimal] = Field(default=None, title="Total reward consumed (uL)")
-    reward_consumed_unit: VolumeUnit = Field(default=VolumeUnit.UL, title="Reward consumed unit")
-    notes: Optional[str] = Field(default=None, title="Notes")
+    headframe_registration: Optional[Affine3dTransform] = Field(
+        None, title="Headframe registration", description="MRI transform matrix for headframe"
+    )
+    reward_delivery: Optional[RewardDeliveryConfig] = Field(None, title="Reward delivery")
+    reward_consumed_total: Optional[Decimal] = Field(None, title="Total reward consumed (uL)")
+    reward_consumed_unit: VolumeUnit = Field(VolumeUnit.UL, title="Reward consumed unit")
+    notes: Optional[str] = Field(None, title="Notes")

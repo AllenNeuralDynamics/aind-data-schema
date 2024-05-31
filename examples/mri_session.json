@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/session.py",
-   "schema_version": "0.2.9",
+   "schema_version": "0.3.0",
    "protocol_id": [
       "dx.doi.org/10.57824/protocols.io.bh7kl4n6"
    ],
@@ -150,6 +150,7 @@
    "stimulus_epochs": [],
    "mouse_platform_name": "NA",
    "active_mouse_platform": false,
+   "headframe_registration": null,
    "reward_delivery": null,
    "reward_consumed_total": null,
    "reward_consumed_unit": "microliter",
