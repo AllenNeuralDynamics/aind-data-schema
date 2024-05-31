@@ -7014,149 +7014,6 @@
          "title": "EphysAssembly",
          "type": "object"
       },
-      "EphysModule": {
-         "additionalProperties": false,
-         "description": "Probe recorded in a Stream",
-         "properties": {
-            "assembly_name": {
-               "title": "Assembly name",
-               "type": "string"
-            },
-            "arc_angle": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  }
-               ],
-               "title": "Arc Angle (deg)"
-            },
-            "module_angle": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  }
-               ],
-               "title": "Module Angle (deg)"
-            },
-            "angle_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AngleUnit"
-                  }
-               ],
-               "default": "degrees",
-               "title": "Angle unit"
-            },
-            "rotation_angle": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Rotation Angle (deg)"
-            },
-            "coordinate_transform": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "Path to coordinate transform",
-               "title": "Transform from local manipulator axes to rig"
-            },
-            "calibration_date": {
-               "anyOf": [
-                  {
-                     "format": "date-time",
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Date on which coordinate transform was last calibrated"
-            },
-            "notes": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Notes"
-            },
-            "primary_targeted_structure": {
-               "title": "Targeted structure",
-               "type": "string"
-            },
-            "targeted_ccf_coordinates": {
-               "default": [],
-               "items": {
-                  "$ref": "#/$defs/CcfCoords"
-               },
-               "title": "Targeted CCF coordinates",
-               "type": "array"
-            },
-            "manipulator_coordinates": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/Coordinates3d"
-                  }
-               ],
-               "title": "Manipulator coordinates"
-            },
-            "implant_hole_number": {
-               "anyOf": [
-                  {
-                     "type": "integer"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Implant hole number"
-            },
-            "ephys_probes": {
-               "items": {
-                  "$ref": "#/$defs/EphysProbeConfig"
-               },
-               "title": "Ephys probes used in this module",
-               "type": "array"
-            }
-         },
-         "required": [
-            "assembly_name",
-            "arc_angle",
-            "module_angle",
-            "primary_targeted_structure",
-            "manipulator_coordinates",
-            "ephys_probes"
-         ],
-         "title": "EphysModule",
-         "type": "object"
-      },
       "EphysProbe": {
          "additionalProperties": false,
          "description": "Named probe used in an ephys experiment",
@@ -7614,29 +7471,6 @@
          "title": "EphysProbe",
          "type": "object"
       },
-      "EphysProbeConfig": {
-         "additionalProperties": false,
-         "description": "Probes in a EphysProbeModule",
-         "properties": {
-            "name": {
-               "title": "Ephys probe name (must match rig JSON)",
-               "type": "string"
-            },
-            "other_targeted_structures": {
-               "default": [],
-               "items": {
-                  "type": "string"
-               },
-               "title": "Other Targeted Structures",
-               "type": "array"
-            }
-         },
-         "required": [
-            "name"
-         ],
-         "title": "EphysProbeConfig",
-         "type": "object"
-      },
       "Euresys": {
          "additionalProperties": false,
          "description": "Euresys",
@@ -7903,6 +7737,21 @@
                "title": "Targeted structure",
                "type": "string"
             },
+            "other_targeted_structure": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "type": "string"
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Other targeted structure"
+            },
             "targeted_ccf_coordinates": {
                "default": [],
                "items": {
@@ -7918,6 +7767,54 @@
                   }
                ],
                "title": "Manipulator coordinates"
+            },
+            "bregma_coordinates": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Coordinates3d"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Bregma coordinates"
+            },
+            "surface_z": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Surface z"
+            },
+            "surface_z_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  }
+               ],
+               "default": "micrometer",
+               "title": "Surface z unit"
+            },
+            "dye": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Dye"
             },
             "implant_hole_number": {
                "anyOf": [
@@ -15023,6 +14920,21 @@
                "title": "Targeted structure",
                "type": "string"
             },
+            "other_targeted_structure": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "type": "string"
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Other targeted structure"
+            },
             "targeted_ccf_coordinates": {
                "default": [],
                "items": {
@@ -15038,6 +14950,54 @@
                   }
                ],
                "title": "Manipulator coordinates"
+            },
+            "bregma_coordinates": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Coordinates3d"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Bregma coordinates"
+            },
+            "surface_z": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Surface z"
+            },
+            "surface_z_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  }
+               ],
+               "default": "micrometer",
+               "title": "Surface z unit"
+            },
+            "dye": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Dye"
             },
             "implant_hole_number": {
                "anyOf": [
@@ -24842,8 +24802,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.2.9",
-               "default": "0.2.9",
+               "const": "0.3.1",
+               "default": "0.3.1",
                "title": "Schema Version"
             },
             "protocol_id": {
@@ -25000,6 +24960,19 @@
                "description": "Is the mouse platform being actively controlled",
                "title": "Active mouse platform",
                "type": "boolean"
+            },
+            "headframe_registration": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Affine3dTransform"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "MRI transform matrix for headframe",
+               "title": "Headframe registration"
             },
             "reward_delivery": {
                "anyOf": [
@@ -27071,7 +27044,6 @@
             },
             "light_sources": {
                "default": [],
-               "description": "Light sources for collecting data",
                "items": {
                   "discriminator": {
                      "mapping": {
@@ -27095,7 +27067,7 @@
             "ephys_modules": {
                "default": [],
                "items": {
-                  "$ref": "#/$defs/EphysModule"
+                  "$ref": "#/$defs/ManipulatorModule"
                },
                "title": "Ephys modules",
                "type": "array"
@@ -30583,8 +30555,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.2.28",
-         "default": "0.2.28",
+         "const": "0.2.29",
+         "default": "0.2.29",
          "title": "Schema Version"
       },
       "_id": {
