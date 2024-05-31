@@ -1730,7 +1730,7 @@
                "default": null,
                "title": "Name of computer receiving data from this camera"
             },
-            "max_frame_rate": {
+            "frame_rate": {
                "anyOf": [
                   {
                      "type": "number"
@@ -1743,7 +1743,8 @@
                   }
                ],
                "default": null,
-               "title": "Maximum frame rate (Hz)"
+               "description": "Frame rate being used",
+               "title": "Frame rate (Hz)"
             },
             "frame_rate_unit": {
                "allOf": [
@@ -7865,8 +7866,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.10.24",
-         "default": "0.10.24",
+         "const": "0.10.25",
+         "default": "0.10.25",
          "title": "Schema Version"
       },
       "instrument_id": {
