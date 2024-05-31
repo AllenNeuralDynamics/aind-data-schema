@@ -151,6 +151,47 @@
          "title": "AcquisitionTile",
          "type": "object"
       },
+      "Addgene": {
+         "additionalProperties": false,
+         "description": "Addgene",
+         "properties": {
+            "name": {
+               "const": "Addgene",
+               "default": "Addgene",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "01nn1pw54",
+               "default": "01nn1pw54",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Addgene",
+         "type": "object"
+      },
       "Affine3dTransform": {
          "additionalProperties": false,
          "description": "Values to be vector-added to a 3D position. Often needed to specify a Tile's origin.",
@@ -1673,6 +1714,47 @@
          "title": "JacksonLaboratory",
          "type": "object"
       },
+      "JaneliaResearchCampus": {
+         "additionalProperties": false,
+         "description": "JaneliaResearchCampus",
+         "properties": {
+            "name": {
+               "const": "Janelia Research Campus",
+               "default": "Janelia Research Campus",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "Janelia",
+               "default": "Janelia",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "013sk6x84",
+               "default": "013sk6x84",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "JaneliaResearchCampus",
+         "type": "object"
+      },
       "Julabo": {
          "additionalProperties": false,
          "description": "Julabo",
@@ -2661,6 +2743,7 @@
                      "AA Opto Electronic": "#/$defs/AAOptoElectronic",
                      "ASUS": "#/$defs/Asus",
                      "Abcam": "#/$defs/Abcam",
+                     "Addgene": "#/$defs/Addgene",
                      "Ailipu Technology Co": "#/$defs/AilipuTechnologyCo",
                      "Allen Institute": "#/$defs/AllenInstitute",
                      "Allen Institute for Brain Science": "#/$defs/AllenInstituteForBrainScience",
@@ -2693,6 +2776,7 @@
                      "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
                      "Invitrogen": "#/$defs/Invitrogen",
                      "Jackson Laboratory": "#/$defs/JacksonLaboratory",
+                     "Janelia Research Campus": "#/$defs/JaneliaResearchCampus",
                      "Julabo": "#/$defs/Julabo",
                      "LG": "#/$defs/Lg",
                      "Leica": "#/$defs/Leica",
@@ -2745,6 +2829,9 @@
                   },
                   {
                      "$ref": "#/$defs/Abcam"
+                  },
+                  {
+                     "$ref": "#/$defs/Addgene"
                   },
                   {
                      "$ref": "#/$defs/AilipuTechnologyCo"
@@ -2847,6 +2934,9 @@
                   },
                   {
                      "$ref": "#/$defs/JacksonLaboratory"
+                  },
+                  {
+                     "$ref": "#/$defs/JaneliaResearchCampus"
                   },
                   {
                      "$ref": "#/$defs/Julabo"
@@ -3723,8 +3813,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.6.16",
-         "default": "0.6.16",
+         "const": "0.6.17",
+         "default": "0.6.17",
          "title": "Schema Version"
       },
       "protocol_id": {

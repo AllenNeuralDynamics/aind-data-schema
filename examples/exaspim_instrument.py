@@ -8,7 +8,7 @@ from aind_data_schema.components.devices import DAQChannel, DAQDevice, Detector,
 from aind_data_schema.core import instrument
 
 inst = instrument.Instrument(
-    instrument_id="exaSPIM1-1",
+    instrument_id="440_exaSPIM1-20231004",
     instrument_type="exaSPIM",
     modification_date=datetime.date(2023, 10, 4),
     manufacturer=Organization.CUSTOM,

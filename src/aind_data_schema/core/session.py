@@ -514,7 +514,8 @@ class StimulusEpoch(AindModel):
     ] = Field(None, title="Stimulus parameters")
     stimulus_device_names: List[str] = Field(default=[], title="Stimulus devices")
     speaker_config: Optional[SpeakerConfig] = Field(default=None, title="Speaker Config")
-    light_source_config: Optional[LIGHT_SOURCE_CONFIGS] = Field(default=None, title="Light source config")
+    light_source_config: Optional[List[LIGHT_SOURCE_CONFIGS]] = Field(default=[], title="Light source config",
+                                                                      description="Light sources for stimulation")
     output_parameters: AindGenericType = Field(AindGeneric(), title="Performance metrics")
     reward_consumed_during_epoch: Optional[Decimal] = Field(default=None, title="Reward consumed during training (uL)")
     reward_consumed_unit: VolumeUnit = Field(VolumeUnit.UL, title="Reward consumed unit")
