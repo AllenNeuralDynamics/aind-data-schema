@@ -35,47 +35,77 @@ An example subject file:
 
 .. code-block:: python
 
-   import datetime
+   from datetime import datetime, timezone
 
-   from aind_data_schema.subject import Housing, Subject
+   from aind_data_schema_models.organizations import Organization
+   from aind_data_schema_models.species import Species
 
-   t = datetime.datetime(2022, 11, 22, 8, 43, 00)
+   from aind_data_schema.core.subject import BreedingInfo, Housing, Sex, Subject
+
+   t = datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc)
 
    s = Subject(
-       species="Mus musculus",
+      species=Species.MUS_MUSCULUS,
       subject_id="12345",
-      sex="Male",
+      sex=Sex.MALE,
       date_of_birth=t.date(),
-      genotype="Emx1-IRES-Cre;Camk2a-tTA;Ai93(TITL-GCaMP6f)",
+      source=Organization.AI,
+      breeding_info=BreedingInfo(
+         breeding_group="Emx1-IRES-Cre(ND)",
+         maternal_id="546543",
+         maternal_genotype="Emx1-IRES-Cre/wt; Camk2a-tTa/Camk2a-tTA",
+         paternal_id="232323",
+         paternal_genotype="Ai93(TITL-GCaMP6f)/wt",
+      ),
+      genotype="Emx1-IRES-Cre/wt;Camk2a-tTA/wt;Ai93(TITL-GCaMP6f)/wt",
       housing=Housing(home_cage_enrichment=["Running wheel"], cage_id="123"),
       background_strain="C57BL/6J",
    )
-
-   s.write_standard_file() # writes subject.json
+   serialized = s.model_dump_json()
+   deserialized = Subject.model_validate_json(serialized)
+   deserialized.write_standard_file()`
 
 yields JSON:
 
 .. code-block:: json
 
    {
-      "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/subject.py",
-      "schema_version": "0.3.0",
-      "species": "Mus musculus",
+      "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/subject.py",
+      "schema_version": "0.5.8",
       "subject_id": "12345",
       "sex": "Male",
       "date_of_birth": "2022-11-22",
-      "genotype": "Emx1-IRES-Cre;Camk2a-tTA;Ai93(TITL-GCaMP6f)",
-      "mgi_allele_ids": null,
+      "genotype": "Emx1-IRES-Cre/wt;Camk2a-tTA/wt;Ai93(TITL-GCaMP6f)/wt",
+      "species": {
+         "name": "Mus musculus",
+         "abbreviation": null,
+         "registry": {
+            "name": "National Center for Biotechnology Information",
+            "abbreviation": "NCBI"
+         },
+         "registry_identifier": "10090"
+      },
+      "alleles": [],
       "background_strain": "C57BL/6J",
-      "source": null,
+      "breeding_info": {
+         "breeding_group": "Emx1-IRES-Cre(ND)",
+         "maternal_id": "546543",
+         "maternal_genotype": "Emx1-IRES-Cre/wt; Camk2a-tTa/Camk2a-tTA",
+         "paternal_id": "232323",
+         "paternal_genotype": "Ai93(TITL-GCaMP6f)/wt"
+      },
+      "source": {
+         "name": "Allen Institute",
+         "abbreviation": "AI",
+         "registry": {
+            "name": "Research Organization Registry",
+            "abbreviation": "ROR"
+         },
+         "registry_identifier": "03cpe7c52"
+      },
       "rrid": null,
       "restrictions": null,
-      "breeding_group": null,
-      "maternal_id": null,
-      "maternal_genotype": null,
-      "paternal_id": null,
-      "paternal_genotype": null,
-      "wellness_reports": null,
+      "wellness_reports": [],
       "housing": {
          "cage_id": "123",
          "room_id": null,
@@ -83,17 +113,28 @@ yields JSON:
          "home_cage_enrichment": [
             "Running wheel"
          ],
-         "cohoused_subjects": null
+         "cohoused_subjects": []
       },
       "notes": null
    }
 
+
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
    :caption: Contents:
    
    diagrams
    modules
+   faq
+      general
+      data description
+      subject
+      procedures
+      rig/instrument
+      session
+      acquisition
+      processing
+
 
 Indices and tables
 ==================
