@@ -15,4 +15,3 @@ if __name__ == '__main__':
     for example_file in glob(f"{EXAMPLES_DIR}/*.py"):
         print(f"Running {example_file}")
         runpy.run_path(path_name=example_file)
-
