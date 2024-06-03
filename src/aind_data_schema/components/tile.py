@@ -6,8 +6,6 @@ from aind_data_schema_models.units import AngleUnit, PowerUnit, SizeUnit
 from pydantic import Field
 from typing_extensions import Annotated
 
-
-
 from aind_data_schema.base import AindModel, AwareDatetimeWithDefault
 from aind_data_schema.components.coordinates import (
     Affine3dTransform,
