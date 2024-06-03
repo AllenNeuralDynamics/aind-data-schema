@@ -38,6 +38,3 @@ Q: Whom should I contact with questions or issues?
 A: Questions about the schema should be directed to Saskia de Vries. If you have github issues you can add them to the
     repo for the Data Infrastructure team to review and address. Questions about correcting errors in metadata that
     you've already attached to your data should be directed to David Feng.
-
-
-

@@ -30,3 +30,4 @@ A No. The funding for internally funded AIND or AIBS work is listed as “Allen 
 Q: I got a new grant! How do I make sure this grant information will get integrated into the metadata?
 A: The funding information is pulled from the Funding Smartsheet that Shelby maintains. Work with Shelby to make sure
     your grant is on that sheet.
+    
