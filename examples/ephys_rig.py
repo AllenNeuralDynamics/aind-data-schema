@@ -28,6 +28,8 @@ from aind_data_schema.components.devices import (
 )
 from aind_data_schema.core.rig import Rig
 
+OUTPUT_PATH = "examples/"
+
 # Describes a rig with running wheel, 2 behavior cameras, one Harp Behavior board,
 # one dual-color laser module, one stick microscope, and 2 Neuropixels probes
 
@@ -213,4 +215,4 @@ rig = Rig(
 )
 serialized = rig.model_dump_json()
 deserialized = Rig.model_validate_json(serialized)
-deserialized.write_standard_file(prefix="ephys")
+deserialized.write_standard_file(prefix="ephys", output_directory=OUTPUT_PATH)

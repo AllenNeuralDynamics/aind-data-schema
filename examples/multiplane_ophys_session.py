@@ -7,6 +7,8 @@ from aind_data_schema_models.units import PowerUnit, SizeUnit
 
 from aind_data_schema.core.session import FieldOfView, LaserConfig, Session, Stream
 
+OUTPUT_PATH = "examples/"
+
 # If a timezone isn't specified, the timezone of the computer running this
 # script will be used as default
 t = datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc)
@@ -202,4 +204,4 @@ s = Session(
 )
 serialized = s.model_dump_json()
 deserialized = Session.model_validate_json(serialized)
-deserialized.write_standard_file(prefix="multiplane_ophys")
+deserialized.write_standard_file(prefix="multiplane_ophys", output_directory=OUTPUT_PATH)

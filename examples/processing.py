@@ -4,6 +4,8 @@ from datetime import datetime, timezone
 
 from aind_data_schema.core.processing import AnalysisProcess, DataProcess, PipelineProcess, Processing, ProcessName
 
+OUTPUT_PATH = "examples/"
+
 # If a timezone isn't specified, the timezone of the computer running this
 # script will be used as default
 t = datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc)
@@ -80,4 +82,4 @@ p = Processing(
 )
 serialized = p.model_dump_json()
 deserialized = Processing.model_validate_json(serialized)
-p.write_standard_file()
+p.write_standard_file(output_directory=OUTPUT_PATH)
