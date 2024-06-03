@@ -60,5 +60,5 @@ class AcquisitionTile(Tile):
     notes: Optional[str] = Field(default=None, title="Notes")
     imaging_angle: int = Field(default=0, title="Imaging angle")
     imaging_angle_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Imaging angle unit")
-    acquisition_start_time: Optional[AwareDatetimeWithDefault] = Field(..., title="Acquisition start time")
-    acquisition_end_time: Optional[AwareDatetimeWithDefault] = Field(..., title="Acquisition end time")
+    acquisition_start_time: Optional[AwareDatetimeWithDefault] = Field(None, title="Acquisition start time")
+    acquisition_end_time: Optional[AwareDatetimeWithDefault] = Field(None, title="Acquisition end time")
