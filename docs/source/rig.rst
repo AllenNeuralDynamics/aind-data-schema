@@ -43,10 +43,44 @@ A: Yes! The device name is required and is the key point for linking specific de
     device channels, and session settings. Please add a name to each device. Please do not use the serial number of the
     device. Simple descriptive names are fine: “Red_laser” or “Laser_1” are fine examples. “LAS-442552OI93” is not
     ideal. Please don’t squeeze metadata into device names. If there is information that we need to know about the
-    device that isn’t in the schema, create an issue so we can add it. You can also use the `Notes` field to track 
+    device that isn’t in the schema, create an issue so we can add it. You can also use the `notes` field to track 
     additional details that might not warrant a schema update.
 
 Q: Do I need to provide serial numbers for all my devices?
 A: Serial number is not a required field. It is valuable to provide it, though, so please try to provide this
     information when possible. But if you cannot obtain the serial number of a device you can proceed without it.
 
+Q: What is an assembly?
+A: An assembly is a collection of devices that function together and share a single position. E.g. a camera and the
+    lens attached to it, or an ephys probe with its manipulator.
+
+Q: There are devices in my rig that don’t have specific classes in the schema. How do I add them?
+A: This depends on if you need to track more information than name/manufacturer/part number/serial number? 
+    <b>No:</b> This doesn't need a specific class and you can add it under `additional_devices` using the `Device`
+    class. Feel free to use the notes field to add a description of the device and how you are using it if needed. 
+    <b>Yes:</b> if this is a device that you need to specify more information about, we will need to add a specific
+    class for it. Open an issue on GitHub specifying what kind of information is needed to be tracked and we’ll be in 
+    touch about adding it shortly.
+
+Q: The Manufacturer for my device isn't in the list? What do I do?
+A: Check the `organizations.py` file in the `aind-data-schema-models` which contains the master list of organizations.
+    This list gets sublisted to specific manufacturers for specific device types to make it easier for you to find
+    relevant options. 
+    If your manufacturer is in the master list but isn't an option for the device you are trying to use it for, open a
+    GitHub issue for the `aind-data-schema-models` repo asking that your manufacturer be added to the options for your
+    device type.
+    If your manufacturer is not in the master list, open a GitHub issue for the `aind-data-schema-models` repo asking
+    that your manufacturer be added to the list. Also specify what device type(s) it is relevant to. Please try to
+    provide (1) the full name of the Manufacturer, (2) any common acronym or abbreviation they might use, and (3) if
+    possible identify the RORID for the company at ror.org. Not every company is in that registry, so you might not
+    find it (in which case let us know that you tried). You are more likely than we are to be able to disambiguate
+    between similarly named companies if there are other companies with similar names in the registry.
+
+Q: How do I specify the position of the devices in my rig? What is the coordinate system?
+A: The `RelativePosition` class enables you to specify the position of a device in the rig. This class includes both
+    position and rotation information of the device. For this to communicate anything, you must also specify the
+    reference point and axes of the device as well as the `origin` and `rig_axes` of the Rig. You get to define
+    these how it works best for you, but I recommend discussing it with your team and SIPE.
+    Some devices really should have position information in order for the data to be interpretable  (e.g. cameras or
+    visual monitors). Other devices are positioned wherever they fit and their position doesn’t impact what they do or
+    how the data is interpreted. These devices do not require position information. 
