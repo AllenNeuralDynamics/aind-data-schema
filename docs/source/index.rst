@@ -63,7 +63,7 @@ An example subject file:
    )
    serialized = s.model_dump_json()
    deserialized = Subject.model_validate_json(serialized)
-   deserialized.write_standard_file()`
+   deserialized.write_standard_file()
 
 yields JSON:
 
