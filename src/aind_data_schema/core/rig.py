@@ -4,7 +4,7 @@ from datetime import date
 from typing import List, Literal, Optional, Set, Union
 
 from aind_data_schema_models.modalities import Modality
-from pydantic import Field, ValidationInfo, field_validator, model_validator
+from pydantic import Field, ValidationInfo, field_validator, model_validator, field_serializer
 from typing_extensions import Annotated
 
 from aind_data_schema.base import AindCoreModel
@@ -50,8 +50,12 @@ class Rig(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/rig.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["0.4.2"] = Field("0.4.2")
-    rig_id: str = Field(..., description="room_rig name_date modified", title="Rig ID")
+    schema_version: Literal["0.5.1"] = Field("0.5.1")
+    rig_id: str = Field(
+        ...,
+        description="Unique rig identifier, name convention: <room>-<apparatus name>-<date modified YYYYMMDD>",
+        title="Rig ID",
+    )
     modification_date: date = Field(..., title="Date of modification")
     mouse_platform: MOUSE_PLATFORMS
     stimulus_devices: List[STIMULUS_DEVICES] = Field(default=[], title="Stimulus devices")
@@ -82,6 +86,11 @@ class Rig(AindCoreModel):
     rig_axes: Optional[List[Axis]] = Field(default=None, title="Rig axes", min_length=3, max_length=3)
     modalities: Set[Modality.ONE_OF] = Field(..., title="Modalities")
     notes: Optional[str] = Field(default=None, title="Notes")
+
+    @field_serializer("modalities", when_used="json")
+    def serialize_modalities(modalities: Set[Modality.ONE_OF]):
+        """sort modalities by name when serializing to JSON"""
+        return sorted(modalities, key=lambda x: x.name)
 
     @model_validator(mode="after")
     def validate_cameras_other(self):

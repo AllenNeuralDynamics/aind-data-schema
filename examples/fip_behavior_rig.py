@@ -1,5 +1,6 @@
-""" example FIP ophys rig """
+# -*- coding: utf-8 -*-
 
+""" example FIP ophys rig """
 from datetime import date, datetime, timezone
 
 from aind_data_schema_models.modalities import Modality
@@ -7,10 +8,10 @@ from aind_data_schema_models.modalities import Modality
 import aind_data_schema.components.devices as d
 import aind_data_schema.core.rig as r
 
-rig = r.Rig(
-    rig_id="428_FIP1_20231003",
-    modification_date=date(2023, 10, 3),
-    modalities=[Modality.FIB],
+r = r.Rig(
+    rig_id="447_FIP_Behavior_20000101",
+    modification_date=date(2000, 1, 1),
+    modalities=[Modality.BEHAVIOR, Modality.FIB],
     cameras=[
         d.CameraAssembly(
             name="BehaviorVideography_FaceSide",
@@ -71,6 +72,59 @@ rig = r.Rig(
             ),
         ),
     ],
+    daqs=[
+        d.HarpDevice(
+            name="Harp Behavior",
+            harp_device_type=d.HarpDeviceType.BEHAVIOR,
+            core_version="2.1",
+            firmware_version="FTDI version:",
+            computer_name="behavior_computer",
+            is_clock_generator=False,
+            channels=[
+                d.DAQChannel(channel_name="DO0", device_name="Solenoid Left", channel_type="Digital Output"),
+                d.DAQChannel(channel_name="DO1", device_name="Solenoid Right", channel_type="Digital Output"),
+                d.DAQChannel(
+                    channel_name="DI0", device_name="Janelia_Lick_Detector Left", channel_type="Digital Input"
+                ),
+                d.DAQChannel(
+                    channel_name="DI1", device_name="Janelia_Lick_Detector Right", channel_type="Digital Input"
+                ),
+                d.DAQChannel(channel_name="DI3", device_name="Photometry Clock", channel_type="Digital Input"),
+            ],
+        )
+    ],
+    mouse_platform=d.Tube(name="mouse_tube_foraging", diameter=4.0),
+    stimulus_devices=[
+        d.RewardDelivery(
+            reward_spouts=[
+                d.RewardSpout(
+                    name="Janelia_Lick_Detector Left",
+                    side=d.SpoutSide.LEFT,
+                    spout_diameter=1.2,
+                    solenoid_valve=d.Device(device_type="Solenoid", name="Solenoid Left"),
+                    lick_sensor_type=d.LickSensorType("Capacitive"),
+                ),
+                d.RewardSpout(
+                    name="Janelia_Lick_Detector Right",
+                    side=d.SpoutSide.RIGHT,
+                    spout_diameter=1.2,
+                    solenoid_valve=d.Device(device_type="Solenoid", name="Solenoid Right"),
+                    lick_sensor_type=d.LickSensorType("Capacitive"),
+                ),
+            ],
+            stage_type=d.MotorizedStage(
+                name="NewScaleMotor for LickSpouts",
+                serial_number="xxxx",  # grabbing from GUI/SettingFiles
+                manufacturer=d.Organization.NEW_SCALE_TECHNOLOGIES,
+                travel=15.0,  # unit is mm
+                firmware=(
+                    "https://github.com/AllenNeuralDynamics/python-newscale,branch: axes-on-target,commit #7c17497"
+                ),
+            ),
+        ),
+    ],
+    # Common
+    # FIB Specific
     patch_cords=[
         d.Patch(
             name="Bundle Branching Fiber-optic Patch Cord",
@@ -236,52 +290,54 @@ rig = r.Rig(
             size=1,
         )
     ],
-    daqs=[
-        d.HarpDevice(
-            name="Harp Behavior",
-            harp_device_type=d.HarpDeviceType.BEHAVIOR,
-            core_version="2.1",
-            computer_name="behavior_computer",
-            is_clock_generator=False,
-            channels=[
-                d.DAQChannel(channel_name="DO0", device_name="Solenoid Left", channel_type="Digital Output"),
-                d.DAQChannel(channel_name="DO1", device_name="Solenoid Right", channel_type="Digital Output"),
-                d.DAQChannel(channel_name="DI0", device_name="Lick-o-meter Left", channel_type="Digital Input"),
-                d.DAQChannel(channel_name="DI1", device_name="Lick-o-meter Right", channel_type="Digital Input"),
-                d.DAQChannel(channel_name="DI3", device_name="Photometry Clock", channel_type="Digital Input"),
-            ],
-        )
-    ],
-    mouse_platform=d.Disc(name="mouse_disc", radius=8.5),
-    stimulus_devices=[
-        d.RewardDelivery(
-            reward_spouts=[
-                d.RewardSpout(
-                    name="Lick-o-meter Left",
-                    side=d.SpoutSide.LEFT,
-                    spout_diameter=1.2,
-                    solenoid_valve=d.Device(device_type="Solenoid", name="Solenoid Left"),
-                ),
-                d.RewardSpout(
-                    name="Lick-o-meter Right",
-                    side=d.SpoutSide.RIGHT,
-                    spout_diameter=1.2,
-                    solenoid_valve=d.Device(device_type="Solenoid", name="Solenoid Right"),
-                ),
-            ]
-        )
-    ],
     additional_devices=[d.Device(device_type="Photometry Clock", name="Photometry Clock")],
+    # FIB Specific
+    # Optogenetics Specific   # Xinxin to fill in
+    # light_sources=[
+    #    d.LightEmittingDiode(
+    #        name="LED for photostimulation",
+    #        manufacturer=d.Organization.PRIZMATIX,
+    #        model="xxx",
+    #        wavelength=470,
+    #    ),
+    # ],
+    # daqs=[
+    #    d.DAQDevice(
+    #        name="NIDAQ for opto",
+    #        device_type="DAQ Device",
+    #        data_interface="USB2.0",
+    #        manufacturer=d.Organization.NATIONAL_INSTRUMENTS,
+    #        computer_name="behavior_computer",
+    #        channels=[
+    #        ],
+    #    )
+    # ],
+    # Optogenetics Specific
+    # Calibrations
     calibrations=[
         d.Calibration(
             calibration_date=datetime(2023, 10, 2, 3, 15, 22, tzinfo=timezone.utc),
             device_name="470nm LED",
             description="LED calibration",
-            input={"Power setting": [1, 2, 3]},
-            output={"Power mW": [5, 10, 13]},
-        )
+            input={"Power setting": [0]},
+            output={"Power mW": [0.02]},
+        ),
+        d.Calibration(
+            calibration_date=datetime(2023, 10, 2, 3, 15, 22, tzinfo=timezone.utc),
+            device_name="415nm LED",
+            description="LED calibration",
+            input={"Power setting": [0]},
+            output={"Power mW": [0.02]},
+        ),
+        d.Calibration(
+            calibration_date=datetime(2023, 10, 2, 3, 15, 22, tzinfo=timezone.utc),
+            device_name="560nm LED",
+            description="LED calibration",
+            input={"Power setting": [0]},
+            output={"Power mW": [0.02]},
+        ),
+        # Water calibration comes here#
     ],
 )
-serialized = rig.model_dump_json()
-deserialized = r.Rig.model_validate_json(serialized)
-deserialized.write_standard_file(prefix="fip_ophys")
+
+r.write_standard_file(prefix="fip_behavior")

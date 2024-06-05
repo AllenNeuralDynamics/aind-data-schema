@@ -1,11 +1,11 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/rig.py",
    "schema_version": "0.5.1",
-   "rig_id": "428_FIP1_20231003",
-   "modification_date": "2023-10-03",
+   "rig_id": "447_FIP_Behavior_20000101",
+   "modification_date": "2000-01-01",
    "mouse_platform": {
-      "device_type": "Disc",
-      "name": "mouse_disc",
+      "device_type": "Tube",
+      "name": "mouse_tube_foraging",
       "serial_number": null,
       "manufacturer": null,
       "model": null,
@@ -15,21 +15,35 @@
       "notes": null,
       "surface_material": null,
       "date_surface_replaced": null,
-      "radius": "8.5",
-      "radius_unit": "centimeter",
-      "output": null,
-      "encoder": null,
-      "decoder": null,
-      "encoder_firmware": null
+      "diameter": "4.0",
+      "diameter_unit": "centimeter"
    },
    "stimulus_devices": [
       {
          "device_type": "Reward delivery",
-         "stage_type": null,
+         "stage_type": {
+            "device_type": "Motorized stage",
+            "name": "NewScaleMotor for LickSpouts",
+            "serial_number": "xxxx",
+            "manufacturer": {
+               "name": "New Scale Technologies",
+               "abbreviation": null,
+               "registry": null,
+               "registry_identifier": null
+            },
+            "model": null,
+            "path_to_cad": null,
+            "port_index": null,
+            "additional_settings": {},
+            "notes": null,
+            "travel": "15.0",
+            "travel_unit": "millimeter",
+            "firmware": "https://github.com/AllenNeuralDynamics/python-newscale,branch: axes-on-target,commit #7c17497"
+         },
          "reward_spouts": [
             {
                "device_type": "Reward spout",
-               "name": "Lick-o-meter Left",
+               "name": "Janelia_Lick_Detector Left",
                "serial_number": null,
                "manufacturer": null,
                "model": null,
@@ -53,11 +67,11 @@
                   "notes": null
                },
                "lick_sensor": null,
-               "lick_sensor_type": null
+               "lick_sensor_type": "Capacitive"
             },
             {
                "device_type": "Reward spout",
-               "name": "Lick-o-meter Right",
+               "name": "Janelia_Lick_Detector Right",
                "serial_number": null,
                "manufacturer": null,
                "model": null,
@@ -81,7 +95,7 @@
                   "notes": null
                },
                "lick_sensor": null,
-               "lick_sensor_type": null
+               "lick_sensor_type": "Capacitive"
             }
          ]
       }
@@ -819,7 +833,7 @@
             },
             {
                "channel_name": "DI0",
-               "device_name": "Lick-o-meter Left",
+               "device_name": "Janelia_Lick_Detector Left",
                "channel_type": "Digital Input",
                "port": null,
                "channel_index": null,
@@ -829,7 +843,7 @@
             },
             {
                "channel_name": "DI1",
-               "device_name": "Lick-o-meter Right",
+               "device_name": "Janelia_Lick_Detector Right",
                "channel_type": "Digital Input",
                "port": null,
                "channel_index": null,
@@ -848,7 +862,7 @@
                "event_based_sampling": null
             }
          ],
-         "firmware_version": null,
+         "firmware_version": "FTDI version:",
          "hardware_version": null,
          "harp_device_type": {
             "name": "Behavior",
@@ -866,16 +880,44 @@
          "description": "LED calibration",
          "input": {
             "Power setting": [
-               1,
-               2,
-               3
+               0
             ]
          },
          "output": {
             "Power mW": [
-               5,
-               10,
-               13
+               0.02
+            ]
+         },
+         "notes": null
+      },
+      {
+         "calibration_date": "2023-10-02T03:15:22Z",
+         "device_name": "415nm LED",
+         "description": "LED calibration",
+         "input": {
+            "Power setting": [
+               0
+            ]
+         },
+         "output": {
+            "Power mW": [
+               0.02
+            ]
+         },
+         "notes": null
+      },
+      {
+         "calibration_date": "2023-10-02T03:15:22Z",
+         "device_name": "560nm LED",
+         "description": "LED calibration",
+         "input": {
+            "Power setting": [
+               0
+            ]
+         },
+         "output": {
+            "Power mW": [
+               0.02
             ]
          },
          "notes": null
@@ -885,6 +927,10 @@
    "origin": null,
    "rig_axes": null,
    "modalities": [
+      {
+         "name": "Behavior",
+         "abbreviation": "behavior"
+      },
       {
          "name": "Fiber photometry",
          "abbreviation": "fib"

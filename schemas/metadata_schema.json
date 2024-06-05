@@ -80,8 +80,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.6.16",
-               "default": "0.6.16",
+               "const": "0.6.17",
+               "default": "0.6.17",
                "title": "Schema Version"
             },
             "protocol_id": {
@@ -366,6 +366,47 @@
          "title": "AcquisitionTile",
          "type": "object"
       },
+      "Addgene": {
+         "additionalProperties": false,
+         "description": "Addgene",
+         "properties": {
+            "name": {
+               "const": "Addgene",
+               "default": "Addgene",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "01nn1pw54",
+               "default": "01nn1pw54",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Addgene",
+         "type": "object"
+      },
       "AdditionalImagingDevice": {
          "additionalProperties": false,
          "description": "Description of additional devices",
@@ -399,6 +440,7 @@
                            "AA Opto Electronic": "#/$defs/AAOptoElectronic",
                            "ASUS": "#/$defs/Asus",
                            "Abcam": "#/$defs/Abcam",
+                           "Addgene": "#/$defs/Addgene",
                            "Ailipu Technology Co": "#/$defs/AilipuTechnologyCo",
                            "Allen Institute": "#/$defs/AllenInstitute",
                            "Allen Institute for Brain Science": "#/$defs/AllenInstituteForBrainScience",
@@ -431,6 +473,7 @@
                            "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
                            "Invitrogen": "#/$defs/Invitrogen",
                            "Jackson Laboratory": "#/$defs/JacksonLaboratory",
+                           "Janelia Research Campus": "#/$defs/JaneliaResearchCampus",
                            "Julabo": "#/$defs/Julabo",
                            "LG": "#/$defs/Lg",
                            "Leica": "#/$defs/Leica",
@@ -483,6 +526,9 @@
                         },
                         {
                            "$ref": "#/$defs/Abcam"
+                        },
+                        {
+                           "$ref": "#/$defs/Addgene"
                         },
                         {
                            "$ref": "#/$defs/AilipuTechnologyCo"
@@ -585,6 +631,9 @@
                         },
                         {
                            "$ref": "#/$defs/JacksonLaboratory"
+                        },
+                        {
+                           "$ref": "#/$defs/JaneliaResearchCampus"
                         },
                         {
                            "$ref": "#/$defs/Julabo"
@@ -1251,6 +1300,7 @@
                      "AA Opto Electronic": "#/$defs/AAOptoElectronic",
                      "ASUS": "#/$defs/Asus",
                      "Abcam": "#/$defs/Abcam",
+                     "Addgene": "#/$defs/Addgene",
                      "Ailipu Technology Co": "#/$defs/AilipuTechnologyCo",
                      "Allen Institute": "#/$defs/AllenInstitute",
                      "Allen Institute for Brain Science": "#/$defs/AllenInstituteForBrainScience",
@@ -1283,6 +1333,7 @@
                      "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
                      "Invitrogen": "#/$defs/Invitrogen",
                      "Jackson Laboratory": "#/$defs/JacksonLaboratory",
+                     "Janelia Research Campus": "#/$defs/JaneliaResearchCampus",
                      "Julabo": "#/$defs/Julabo",
                      "LG": "#/$defs/Lg",
                      "Leica": "#/$defs/Leica",
@@ -1335,6 +1386,9 @@
                   },
                   {
                      "$ref": "#/$defs/Abcam"
+                  },
+                  {
+                     "$ref": "#/$defs/Addgene"
                   },
                   {
                      "$ref": "#/$defs/AilipuTechnologyCo"
@@ -1437,6 +1491,9 @@
                   },
                   {
                      "$ref": "#/$defs/JacksonLaboratory"
+                  },
+                  {
+                     "$ref": "#/$defs/JaneliaResearchCampus"
                   },
                   {
                      "$ref": "#/$defs/Julabo"
@@ -2350,7 +2407,7 @@
                "default": null,
                "title": "Name of computer receiving data from this camera"
             },
-            "max_frame_rate": {
+            "frame_rate": {
                "anyOf": [
                   {
                      "type": "number"
@@ -2363,7 +2420,8 @@
                   }
                ],
                "default": null,
-               "title": "Maximum frame rate (Hz)"
+               "description": "Frame rate being used",
+               "title": "Frame rate (Hz)"
             },
             "frame_rate_unit": {
                "allOf": [
@@ -3765,8 +3823,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.13.7",
-               "default": "0.13.7",
+               "const": "0.13.8",
+               "default": "0.13.8",
                "title": "Schema Version"
             },
             "license": {
@@ -3891,6 +3949,7 @@
                      "Allen Institute for Neural Dynamics": "#/$defs/AllenInstituteForNeuralDynamics",
                      "Columbia University": "#/$defs/ColumbiaUniversity",
                      "Huazhong University of Science and Technology": "#/$defs/HuazhongUniversityOfScienceAndTechnology",
+                     "Janelia Research Campus": "#/$defs/JaneliaResearchCampus",
                      "New York University": "#/$defs/NewYorkUniversity",
                      "Other": "#/$defs/Other"
                   },
@@ -3908,6 +3967,9 @@
                   },
                   {
                      "$ref": "#/$defs/HuazhongUniversityOfScienceAndTechnology"
+                  },
+                  {
+                     "$ref": "#/$defs/JaneliaResearchCampus"
                   },
                   {
                      "$ref": "#/$defs/NewYorkUniversity"
@@ -4392,7 +4454,7 @@
                "default": null,
                "title": "Name of computer receiving data from this camera"
             },
-            "max_frame_rate": {
+            "frame_rate": {
                "anyOf": [
                   {
                      "type": "number"
@@ -4405,7 +4467,8 @@
                   }
                ],
                "default": null,
-               "title": "Maximum frame rate (Hz)"
+               "description": "Frame rate being used",
+               "title": "Frame rate (Hz)"
             },
             "frame_rate_unit": {
                "allOf": [
@@ -4732,6 +4795,7 @@
                            "AA Opto Electronic": "#/$defs/AAOptoElectronic",
                            "ASUS": "#/$defs/Asus",
                            "Abcam": "#/$defs/Abcam",
+                           "Addgene": "#/$defs/Addgene",
                            "Ailipu Technology Co": "#/$defs/AilipuTechnologyCo",
                            "Allen Institute": "#/$defs/AllenInstitute",
                            "Allen Institute for Brain Science": "#/$defs/AllenInstituteForBrainScience",
@@ -4764,6 +4828,7 @@
                            "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
                            "Invitrogen": "#/$defs/Invitrogen",
                            "Jackson Laboratory": "#/$defs/JacksonLaboratory",
+                           "Janelia Research Campus": "#/$defs/JaneliaResearchCampus",
                            "Julabo": "#/$defs/Julabo",
                            "LG": "#/$defs/Lg",
                            "Leica": "#/$defs/Leica",
@@ -4816,6 +4881,9 @@
                         },
                         {
                            "$ref": "#/$defs/Abcam"
+                        },
+                        {
+                           "$ref": "#/$defs/Addgene"
                         },
                         {
                            "$ref": "#/$defs/AilipuTechnologyCo"
@@ -4918,6 +4986,9 @@
                         },
                         {
                            "$ref": "#/$defs/JacksonLaboratory"
+                        },
+                        {
+                           "$ref": "#/$defs/JaneliaResearchCampus"
                         },
                         {
                            "$ref": "#/$defs/Julabo"
@@ -5163,6 +5234,7 @@
                            "AA Opto Electronic": "#/$defs/AAOptoElectronic",
                            "ASUS": "#/$defs/Asus",
                            "Abcam": "#/$defs/Abcam",
+                           "Addgene": "#/$defs/Addgene",
                            "Ailipu Technology Co": "#/$defs/AilipuTechnologyCo",
                            "Allen Institute": "#/$defs/AllenInstitute",
                            "Allen Institute for Brain Science": "#/$defs/AllenInstituteForBrainScience",
@@ -5195,6 +5267,7 @@
                            "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
                            "Invitrogen": "#/$defs/Invitrogen",
                            "Jackson Laboratory": "#/$defs/JacksonLaboratory",
+                           "Janelia Research Campus": "#/$defs/JaneliaResearchCampus",
                            "Julabo": "#/$defs/Julabo",
                            "LG": "#/$defs/Lg",
                            "Leica": "#/$defs/Leica",
@@ -5247,6 +5320,9 @@
                         },
                         {
                            "$ref": "#/$defs/Abcam"
+                        },
+                        {
+                           "$ref": "#/$defs/Addgene"
                         },
                         {
                            "$ref": "#/$defs/AilipuTechnologyCo"
@@ -5349,6 +5425,9 @@
                         },
                         {
                            "$ref": "#/$defs/JacksonLaboratory"
+                        },
+                        {
+                           "$ref": "#/$defs/JaneliaResearchCampus"
                         },
                         {
                            "$ref": "#/$defs/Julabo"
@@ -5696,6 +5775,7 @@
                            "AA Opto Electronic": "#/$defs/AAOptoElectronic",
                            "ASUS": "#/$defs/Asus",
                            "Abcam": "#/$defs/Abcam",
+                           "Addgene": "#/$defs/Addgene",
                            "Ailipu Technology Co": "#/$defs/AilipuTechnologyCo",
                            "Allen Institute": "#/$defs/AllenInstitute",
                            "Allen Institute for Brain Science": "#/$defs/AllenInstituteForBrainScience",
@@ -5728,6 +5808,7 @@
                            "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
                            "Invitrogen": "#/$defs/Invitrogen",
                            "Jackson Laboratory": "#/$defs/JacksonLaboratory",
+                           "Janelia Research Campus": "#/$defs/JaneliaResearchCampus",
                            "Julabo": "#/$defs/Julabo",
                            "LG": "#/$defs/Lg",
                            "Leica": "#/$defs/Leica",
@@ -5780,6 +5861,9 @@
                         },
                         {
                            "$ref": "#/$defs/Abcam"
+                        },
+                        {
+                           "$ref": "#/$defs/Addgene"
                         },
                         {
                            "$ref": "#/$defs/AilipuTechnologyCo"
@@ -5882,6 +5966,9 @@
                         },
                         {
                            "$ref": "#/$defs/JacksonLaboratory"
+                        },
+                        {
+                           "$ref": "#/$defs/JaneliaResearchCampus"
                         },
                         {
                            "$ref": "#/$defs/Julabo"
@@ -6471,6 +6558,7 @@
                            "AA Opto Electronic": "#/$defs/AAOptoElectronic",
                            "ASUS": "#/$defs/Asus",
                            "Abcam": "#/$defs/Abcam",
+                           "Addgene": "#/$defs/Addgene",
                            "Ailipu Technology Co": "#/$defs/AilipuTechnologyCo",
                            "Allen Institute": "#/$defs/AllenInstitute",
                            "Allen Institute for Brain Science": "#/$defs/AllenInstituteForBrainScience",
@@ -6503,6 +6591,7 @@
                            "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
                            "Invitrogen": "#/$defs/Invitrogen",
                            "Jackson Laboratory": "#/$defs/JacksonLaboratory",
+                           "Janelia Research Campus": "#/$defs/JaneliaResearchCampus",
                            "Julabo": "#/$defs/Julabo",
                            "LG": "#/$defs/Lg",
                            "Leica": "#/$defs/Leica",
@@ -6555,6 +6644,9 @@
                         },
                         {
                            "$ref": "#/$defs/Abcam"
+                        },
+                        {
+                           "$ref": "#/$defs/Addgene"
                         },
                         {
                            "$ref": "#/$defs/AilipuTechnologyCo"
@@ -6657,6 +6749,9 @@
                         },
                         {
                            "$ref": "#/$defs/JacksonLaboratory"
+                        },
+                        {
+                           "$ref": "#/$defs/JaneliaResearchCampus"
                         },
                         {
                            "$ref": "#/$defs/Julabo"
@@ -6919,149 +7014,6 @@
          "title": "EphysAssembly",
          "type": "object"
       },
-      "EphysModule": {
-         "additionalProperties": false,
-         "description": "Probe recorded in a Stream",
-         "properties": {
-            "assembly_name": {
-               "title": "Assembly name",
-               "type": "string"
-            },
-            "arc_angle": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  }
-               ],
-               "title": "Arc Angle (deg)"
-            },
-            "module_angle": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  }
-               ],
-               "title": "Module Angle (deg)"
-            },
-            "angle_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AngleUnit"
-                  }
-               ],
-               "default": "degrees",
-               "title": "Angle unit"
-            },
-            "rotation_angle": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Rotation Angle (deg)"
-            },
-            "coordinate_transform": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "Path to coordinate transform",
-               "title": "Transform from local manipulator axes to rig"
-            },
-            "calibration_date": {
-               "anyOf": [
-                  {
-                     "format": "date-time",
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Date on which coordinate transform was last calibrated"
-            },
-            "notes": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Notes"
-            },
-            "primary_targeted_structure": {
-               "title": "Targeted structure",
-               "type": "string"
-            },
-            "targeted_ccf_coordinates": {
-               "default": [],
-               "items": {
-                  "$ref": "#/$defs/CcfCoords"
-               },
-               "title": "Targeted CCF coordinates",
-               "type": "array"
-            },
-            "manipulator_coordinates": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/Coordinates3d"
-                  }
-               ],
-               "title": "Manipulator coordinates"
-            },
-            "implant_hole_number": {
-               "anyOf": [
-                  {
-                     "type": "integer"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Implant hole number"
-            },
-            "ephys_probes": {
-               "items": {
-                  "$ref": "#/$defs/EphysProbeConfig"
-               },
-               "title": "Ephys probes used in this module",
-               "type": "array"
-            }
-         },
-         "required": [
-            "assembly_name",
-            "arc_angle",
-            "module_angle",
-            "primary_targeted_structure",
-            "manipulator_coordinates",
-            "ephys_probes"
-         ],
-         "title": "EphysModule",
-         "type": "object"
-      },
       "EphysProbe": {
          "additionalProperties": false,
          "description": "Named probe used in an ephys experiment",
@@ -7095,6 +7047,7 @@
                            "AA Opto Electronic": "#/$defs/AAOptoElectronic",
                            "ASUS": "#/$defs/Asus",
                            "Abcam": "#/$defs/Abcam",
+                           "Addgene": "#/$defs/Addgene",
                            "Ailipu Technology Co": "#/$defs/AilipuTechnologyCo",
                            "Allen Institute": "#/$defs/AllenInstitute",
                            "Allen Institute for Brain Science": "#/$defs/AllenInstituteForBrainScience",
@@ -7127,6 +7080,7 @@
                            "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
                            "Invitrogen": "#/$defs/Invitrogen",
                            "Jackson Laboratory": "#/$defs/JacksonLaboratory",
+                           "Janelia Research Campus": "#/$defs/JaneliaResearchCampus",
                            "Julabo": "#/$defs/Julabo",
                            "LG": "#/$defs/Lg",
                            "Leica": "#/$defs/Leica",
@@ -7179,6 +7133,9 @@
                         },
                         {
                            "$ref": "#/$defs/Abcam"
+                        },
+                        {
+                           "$ref": "#/$defs/Addgene"
                         },
                         {
                            "$ref": "#/$defs/AilipuTechnologyCo"
@@ -7281,6 +7238,9 @@
                         },
                         {
                            "$ref": "#/$defs/JacksonLaboratory"
+                        },
+                        {
+                           "$ref": "#/$defs/JaneliaResearchCampus"
                         },
                         {
                            "$ref": "#/$defs/Julabo"
@@ -7509,29 +7469,6 @@
             "probe_model"
          ],
          "title": "EphysProbe",
-         "type": "object"
-      },
-      "EphysProbeConfig": {
-         "additionalProperties": false,
-         "description": "Probes in a EphysProbeModule",
-         "properties": {
-            "name": {
-               "title": "Ephys probe name (must match rig JSON)",
-               "type": "string"
-            },
-            "other_targeted_structures": {
-               "default": [],
-               "items": {
-                  "type": "string"
-               },
-               "title": "Other Targeted Structures",
-               "type": "array"
-            }
-         },
-         "required": [
-            "name"
-         ],
-         "title": "EphysProbeConfig",
          "type": "object"
       },
       "Euresys": {
@@ -7800,6 +7737,21 @@
                "title": "Targeted structure",
                "type": "string"
             },
+            "other_targeted_structure": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "type": "string"
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Other targeted structure"
+            },
             "targeted_ccf_coordinates": {
                "default": [],
                "items": {
@@ -7815,6 +7767,54 @@
                   }
                ],
                "title": "Manipulator coordinates"
+            },
+            "bregma_coordinates": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Coordinates3d"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Bregma coordinates"
+            },
+            "surface_z": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Surface z"
+            },
+            "surface_z_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  }
+               ],
+               "default": "micrometer",
+               "title": "Surface z unit"
+            },
+            "dye": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Dye"
             },
             "implant_hole_number": {
                "anyOf": [
@@ -7880,6 +7880,7 @@
                            "AA Opto Electronic": "#/$defs/AAOptoElectronic",
                            "ASUS": "#/$defs/Asus",
                            "Abcam": "#/$defs/Abcam",
+                           "Addgene": "#/$defs/Addgene",
                            "Ailipu Technology Co": "#/$defs/AilipuTechnologyCo",
                            "Allen Institute": "#/$defs/AllenInstitute",
                            "Allen Institute for Brain Science": "#/$defs/AllenInstituteForBrainScience",
@@ -7912,6 +7913,7 @@
                            "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
                            "Invitrogen": "#/$defs/Invitrogen",
                            "Jackson Laboratory": "#/$defs/JacksonLaboratory",
+                           "Janelia Research Campus": "#/$defs/JaneliaResearchCampus",
                            "Julabo": "#/$defs/Julabo",
                            "LG": "#/$defs/Lg",
                            "Leica": "#/$defs/Leica",
@@ -7964,6 +7966,9 @@
                         },
                         {
                            "$ref": "#/$defs/Abcam"
+                        },
+                        {
+                           "$ref": "#/$defs/Addgene"
                         },
                         {
                            "$ref": "#/$defs/AilipuTechnologyCo"
@@ -8066,6 +8071,9 @@
                         },
                         {
                            "$ref": "#/$defs/JacksonLaboratory"
+                        },
+                        {
+                           "$ref": "#/$defs/JaneliaResearchCampus"
                         },
                         {
                            "$ref": "#/$defs/Julabo"
@@ -9070,6 +9078,7 @@
                      "AA Opto Electronic": "#/$defs/AAOptoElectronic",
                      "ASUS": "#/$defs/Asus",
                      "Abcam": "#/$defs/Abcam",
+                     "Addgene": "#/$defs/Addgene",
                      "Ailipu Technology Co": "#/$defs/AilipuTechnologyCo",
                      "Allen Institute": "#/$defs/AllenInstitute",
                      "Allen Institute for Brain Science": "#/$defs/AllenInstituteForBrainScience",
@@ -9102,6 +9111,7 @@
                      "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
                      "Invitrogen": "#/$defs/Invitrogen",
                      "Jackson Laboratory": "#/$defs/JacksonLaboratory",
+                     "Janelia Research Campus": "#/$defs/JaneliaResearchCampus",
                      "Julabo": "#/$defs/Julabo",
                      "LG": "#/$defs/Lg",
                      "Leica": "#/$defs/Leica",
@@ -9154,6 +9164,9 @@
                   },
                   {
                      "$ref": "#/$defs/Abcam"
+                  },
+                  {
+                     "$ref": "#/$defs/Addgene"
                   },
                   {
                      "$ref": "#/$defs/AilipuTechnologyCo"
@@ -9256,6 +9269,9 @@
                   },
                   {
                      "$ref": "#/$defs/JacksonLaboratory"
+                  },
+                  {
+                     "$ref": "#/$defs/JaneliaResearchCampus"
                   },
                   {
                      "$ref": "#/$defs/Julabo"
@@ -9500,6 +9516,7 @@
                      "AA Opto Electronic": "#/$defs/AAOptoElectronic",
                      "ASUS": "#/$defs/Asus",
                      "Abcam": "#/$defs/Abcam",
+                     "Addgene": "#/$defs/Addgene",
                      "Ailipu Technology Co": "#/$defs/AilipuTechnologyCo",
                      "Allen Institute": "#/$defs/AllenInstitute",
                      "Allen Institute for Brain Science": "#/$defs/AllenInstituteForBrainScience",
@@ -9532,6 +9549,7 @@
                      "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
                      "Invitrogen": "#/$defs/Invitrogen",
                      "Jackson Laboratory": "#/$defs/JacksonLaboratory",
+                     "Janelia Research Campus": "#/$defs/JaneliaResearchCampus",
                      "Julabo": "#/$defs/Julabo",
                      "LG": "#/$defs/Lg",
                      "Leica": "#/$defs/Leica",
@@ -9584,6 +9602,9 @@
                   },
                   {
                      "$ref": "#/$defs/Abcam"
+                  },
+                  {
+                     "$ref": "#/$defs/Addgene"
                   },
                   {
                      "$ref": "#/$defs/AilipuTechnologyCo"
@@ -9686,6 +9707,9 @@
                   },
                   {
                      "$ref": "#/$defs/JacksonLaboratory"
+                  },
+                  {
+                     "$ref": "#/$defs/JaneliaResearchCampus"
                   },
                   {
                      "$ref": "#/$defs/Julabo"
@@ -10403,6 +10427,7 @@
                            "AA Opto Electronic": "#/$defs/AAOptoElectronic",
                            "ASUS": "#/$defs/Asus",
                            "Abcam": "#/$defs/Abcam",
+                           "Addgene": "#/$defs/Addgene",
                            "Ailipu Technology Co": "#/$defs/AilipuTechnologyCo",
                            "Allen Institute": "#/$defs/AllenInstitute",
                            "Allen Institute for Brain Science": "#/$defs/AllenInstituteForBrainScience",
@@ -10435,6 +10460,7 @@
                            "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
                            "Invitrogen": "#/$defs/Invitrogen",
                            "Jackson Laboratory": "#/$defs/JacksonLaboratory",
+                           "Janelia Research Campus": "#/$defs/JaneliaResearchCampus",
                            "Julabo": "#/$defs/Julabo",
                            "LG": "#/$defs/Lg",
                            "Leica": "#/$defs/Leica",
@@ -10487,6 +10513,9 @@
                         },
                         {
                            "$ref": "#/$defs/Abcam"
+                        },
+                        {
+                           "$ref": "#/$defs/Addgene"
                         },
                         {
                            "$ref": "#/$defs/AilipuTechnologyCo"
@@ -10589,6 +10618,9 @@
                         },
                         {
                            "$ref": "#/$defs/JacksonLaboratory"
+                        },
+                        {
+                           "$ref": "#/$defs/JaneliaResearchCampus"
                         },
                         {
                            "$ref": "#/$defs/Julabo"
@@ -11307,8 +11339,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.10.22",
-               "default": "0.10.22",
+               "const": "0.10.25",
+               "default": "0.10.25",
                "title": "Schema Version"
             },
             "instrument_id": {
@@ -11321,7 +11353,7 @@
                   }
                ],
                "default": null,
-               "description": "Unique identifier for this instrument. Naming convention: <room>-<apparatus>-<date modified>",
+               "description": "Unique instrument identifier, name convention: <room>-<apparatus name>-<date modified YYYYMMDD>",
                "title": "Instrument ID"
             },
             "modification_date": {
@@ -11343,6 +11375,7 @@
                      "AA Opto Electronic": "#/$defs/AAOptoElectronic",
                      "ASUS": "#/$defs/Asus",
                      "Abcam": "#/$defs/Abcam",
+                     "Addgene": "#/$defs/Addgene",
                      "Ailipu Technology Co": "#/$defs/AilipuTechnologyCo",
                      "Allen Institute": "#/$defs/AllenInstitute",
                      "Allen Institute for Brain Science": "#/$defs/AllenInstituteForBrainScience",
@@ -11375,6 +11408,7 @@
                      "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
                      "Invitrogen": "#/$defs/Invitrogen",
                      "Jackson Laboratory": "#/$defs/JacksonLaboratory",
+                     "Janelia Research Campus": "#/$defs/JaneliaResearchCampus",
                      "Julabo": "#/$defs/Julabo",
                      "LG": "#/$defs/Lg",
                      "Leica": "#/$defs/Leica",
@@ -11427,6 +11461,9 @@
                   },
                   {
                      "$ref": "#/$defs/Abcam"
+                  },
+                  {
+                     "$ref": "#/$defs/Addgene"
                   },
                   {
                      "$ref": "#/$defs/AilipuTechnologyCo"
@@ -11529,6 +11566,9 @@
                   },
                   {
                      "$ref": "#/$defs/JacksonLaboratory"
+                  },
+                  {
+                     "$ref": "#/$defs/JaneliaResearchCampus"
                   },
                   {
                      "$ref": "#/$defs/Julabo"
@@ -12847,6 +12887,47 @@
          "title": "JacksonLaboratory",
          "type": "object"
       },
+      "JaneliaResearchCampus": {
+         "additionalProperties": false,
+         "description": "JaneliaResearchCampus",
+         "properties": {
+            "name": {
+               "const": "Janelia Research Campus",
+               "default": "Janelia Research Campus",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "Janelia",
+               "default": "Janelia",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "013sk6x84",
+               "default": "013sk6x84",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "JaneliaResearchCampus",
+         "type": "object"
+      },
       "Julabo": {
          "additionalProperties": false,
          "description": "Julabo",
@@ -12908,6 +12989,7 @@
                            "AA Opto Electronic": "#/$defs/AAOptoElectronic",
                            "ASUS": "#/$defs/Asus",
                            "Abcam": "#/$defs/Abcam",
+                           "Addgene": "#/$defs/Addgene",
                            "Ailipu Technology Co": "#/$defs/AilipuTechnologyCo",
                            "Allen Institute": "#/$defs/AllenInstitute",
                            "Allen Institute for Brain Science": "#/$defs/AllenInstituteForBrainScience",
@@ -12940,6 +13022,7 @@
                            "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
                            "Invitrogen": "#/$defs/Invitrogen",
                            "Jackson Laboratory": "#/$defs/JacksonLaboratory",
+                           "Janelia Research Campus": "#/$defs/JaneliaResearchCampus",
                            "Julabo": "#/$defs/Julabo",
                            "LG": "#/$defs/Lg",
                            "Leica": "#/$defs/Leica",
@@ -12992,6 +13075,9 @@
                         },
                         {
                            "$ref": "#/$defs/Abcam"
+                        },
+                        {
+                           "$ref": "#/$defs/Addgene"
                         },
                         {
                            "$ref": "#/$defs/AilipuTechnologyCo"
@@ -13094,6 +13180,9 @@
                         },
                         {
                            "$ref": "#/$defs/JacksonLaboratory"
+                        },
+                        {
+                           "$ref": "#/$defs/JaneliaResearchCampus"
                         },
                         {
                            "$ref": "#/$defs/Julabo"
@@ -14831,6 +14920,21 @@
                "title": "Targeted structure",
                "type": "string"
             },
+            "other_targeted_structure": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "type": "string"
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Other targeted structure"
+            },
             "targeted_ccf_coordinates": {
                "default": [],
                "items": {
@@ -14846,6 +14950,54 @@
                   }
                ],
                "title": "Manipulator coordinates"
+            },
+            "bregma_coordinates": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Coordinates3d"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Bregma coordinates"
+            },
+            "surface_z": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Surface z"
+            },
+            "surface_z_unit": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  }
+               ],
+               "default": "micrometer",
+               "title": "Surface z unit"
+            },
+            "dye": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Dye"
             },
             "implant_hole_number": {
                "anyOf": [
@@ -15242,6 +15394,7 @@
                            "AA Opto Electronic": "#/$defs/AAOptoElectronic",
                            "ASUS": "#/$defs/Asus",
                            "Abcam": "#/$defs/Abcam",
+                           "Addgene": "#/$defs/Addgene",
                            "Ailipu Technology Co": "#/$defs/AilipuTechnologyCo",
                            "Allen Institute": "#/$defs/AllenInstitute",
                            "Allen Institute for Brain Science": "#/$defs/AllenInstituteForBrainScience",
@@ -15274,6 +15427,7 @@
                            "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
                            "Invitrogen": "#/$defs/Invitrogen",
                            "Jackson Laboratory": "#/$defs/JacksonLaboratory",
+                           "Janelia Research Campus": "#/$defs/JaneliaResearchCampus",
                            "Julabo": "#/$defs/Julabo",
                            "LG": "#/$defs/Lg",
                            "Leica": "#/$defs/Leica",
@@ -15326,6 +15480,9 @@
                         },
                         {
                            "$ref": "#/$defs/Abcam"
+                        },
+                        {
+                           "$ref": "#/$defs/Addgene"
                         },
                         {
                            "$ref": "#/$defs/AilipuTechnologyCo"
@@ -15428,6 +15585,9 @@
                         },
                         {
                            "$ref": "#/$defs/JacksonLaboratory"
+                        },
+                        {
+                           "$ref": "#/$defs/JaneliaResearchCampus"
                         },
                         {
                            "$ref": "#/$defs/Julabo"
@@ -16503,6 +16663,7 @@
                      "AA Opto Electronic": "#/$defs/AAOptoElectronic",
                      "ASUS": "#/$defs/Asus",
                      "Abcam": "#/$defs/Abcam",
+                     "Addgene": "#/$defs/Addgene",
                      "Ailipu Technology Co": "#/$defs/AilipuTechnologyCo",
                      "Allen Institute": "#/$defs/AllenInstitute",
                      "Allen Institute for Brain Science": "#/$defs/AllenInstituteForBrainScience",
@@ -16535,6 +16696,7 @@
                      "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
                      "Invitrogen": "#/$defs/Invitrogen",
                      "Jackson Laboratory": "#/$defs/JacksonLaboratory",
+                     "Janelia Research Campus": "#/$defs/JaneliaResearchCampus",
                      "Julabo": "#/$defs/Julabo",
                      "LG": "#/$defs/Lg",
                      "Leica": "#/$defs/Leica",
@@ -16587,6 +16749,9 @@
                   },
                   {
                      "$ref": "#/$defs/Abcam"
+                  },
+                  {
+                     "$ref": "#/$defs/Addgene"
                   },
                   {
                      "$ref": "#/$defs/AilipuTechnologyCo"
@@ -16689,6 +16854,9 @@
                   },
                   {
                      "$ref": "#/$defs/JacksonLaboratory"
+                  },
+                  {
+                     "$ref": "#/$defs/JaneliaResearchCampus"
                   },
                   {
                      "$ref": "#/$defs/Julabo"
@@ -16916,6 +17084,7 @@
                            "AA Opto Electronic": "#/$defs/AAOptoElectronic",
                            "ASUS": "#/$defs/Asus",
                            "Abcam": "#/$defs/Abcam",
+                           "Addgene": "#/$defs/Addgene",
                            "Ailipu Technology Co": "#/$defs/AilipuTechnologyCo",
                            "Allen Institute": "#/$defs/AllenInstitute",
                            "Allen Institute for Brain Science": "#/$defs/AllenInstituteForBrainScience",
@@ -16948,6 +17117,7 @@
                            "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
                            "Invitrogen": "#/$defs/Invitrogen",
                            "Jackson Laboratory": "#/$defs/JacksonLaboratory",
+                           "Janelia Research Campus": "#/$defs/JaneliaResearchCampus",
                            "Julabo": "#/$defs/Julabo",
                            "LG": "#/$defs/Lg",
                            "Leica": "#/$defs/Leica",
@@ -17000,6 +17170,9 @@
                         },
                         {
                            "$ref": "#/$defs/Abcam"
+                        },
+                        {
+                           "$ref": "#/$defs/Addgene"
                         },
                         {
                            "$ref": "#/$defs/AilipuTechnologyCo"
@@ -17102,6 +17275,9 @@
                         },
                         {
                            "$ref": "#/$defs/JacksonLaboratory"
+                        },
+                        {
+                           "$ref": "#/$defs/JaneliaResearchCampus"
                         },
                         {
                            "$ref": "#/$defs/Julabo"
@@ -17502,6 +17678,7 @@
                      "AA Opto Electronic": "#/$defs/AAOptoElectronic",
                      "ASUS": "#/$defs/Asus",
                      "Abcam": "#/$defs/Abcam",
+                     "Addgene": "#/$defs/Addgene",
                      "Ailipu Technology Co": "#/$defs/AilipuTechnologyCo",
                      "Allen Institute": "#/$defs/AllenInstitute",
                      "Allen Institute for Brain Science": "#/$defs/AllenInstituteForBrainScience",
@@ -17534,6 +17711,7 @@
                      "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
                      "Invitrogen": "#/$defs/Invitrogen",
                      "Jackson Laboratory": "#/$defs/JacksonLaboratory",
+                     "Janelia Research Campus": "#/$defs/JaneliaResearchCampus",
                      "Julabo": "#/$defs/Julabo",
                      "LG": "#/$defs/Lg",
                      "Leica": "#/$defs/Leica",
@@ -17586,6 +17764,9 @@
                   },
                   {
                      "$ref": "#/$defs/Abcam"
+                  },
+                  {
+                     "$ref": "#/$defs/Addgene"
                   },
                   {
                      "$ref": "#/$defs/AilipuTechnologyCo"
@@ -17688,6 +17869,9 @@
                   },
                   {
                      "$ref": "#/$defs/JacksonLaboratory"
+                  },
+                  {
+                     "$ref": "#/$defs/JaneliaResearchCampus"
                   },
                   {
                      "$ref": "#/$defs/Julabo"
@@ -18349,6 +18533,7 @@
                            "AA Opto Electronic": "#/$defs/AAOptoElectronic",
                            "ASUS": "#/$defs/Asus",
                            "Abcam": "#/$defs/Abcam",
+                           "Addgene": "#/$defs/Addgene",
                            "Ailipu Technology Co": "#/$defs/AilipuTechnologyCo",
                            "Allen Institute": "#/$defs/AllenInstitute",
                            "Allen Institute for Brain Science": "#/$defs/AllenInstituteForBrainScience",
@@ -18381,6 +18566,7 @@
                            "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
                            "Invitrogen": "#/$defs/Invitrogen",
                            "Jackson Laboratory": "#/$defs/JacksonLaboratory",
+                           "Janelia Research Campus": "#/$defs/JaneliaResearchCampus",
                            "Julabo": "#/$defs/Julabo",
                            "LG": "#/$defs/Lg",
                            "Leica": "#/$defs/Leica",
@@ -18433,6 +18619,9 @@
                         },
                         {
                            "$ref": "#/$defs/Abcam"
+                        },
+                        {
+                           "$ref": "#/$defs/Addgene"
                         },
                         {
                            "$ref": "#/$defs/AilipuTechnologyCo"
@@ -18535,6 +18724,9 @@
                         },
                         {
                            "$ref": "#/$defs/JacksonLaboratory"
+                        },
+                        {
+                           "$ref": "#/$defs/JaneliaResearchCampus"
                         },
                         {
                            "$ref": "#/$defs/Julabo"
@@ -19203,6 +19395,7 @@
                            "AA Opto Electronic": "#/$defs/AAOptoElectronic",
                            "ASUS": "#/$defs/Asus",
                            "Abcam": "#/$defs/Abcam",
+                           "Addgene": "#/$defs/Addgene",
                            "Ailipu Technology Co": "#/$defs/AilipuTechnologyCo",
                            "Allen Institute": "#/$defs/AllenInstitute",
                            "Allen Institute for Brain Science": "#/$defs/AllenInstituteForBrainScience",
@@ -19235,6 +19428,7 @@
                            "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
                            "Invitrogen": "#/$defs/Invitrogen",
                            "Jackson Laboratory": "#/$defs/JacksonLaboratory",
+                           "Janelia Research Campus": "#/$defs/JaneliaResearchCampus",
                            "Julabo": "#/$defs/Julabo",
                            "LG": "#/$defs/Lg",
                            "Leica": "#/$defs/Leica",
@@ -19287,6 +19481,9 @@
                         },
                         {
                            "$ref": "#/$defs/Abcam"
+                        },
+                        {
+                           "$ref": "#/$defs/Addgene"
                         },
                         {
                            "$ref": "#/$defs/AilipuTechnologyCo"
@@ -19389,6 +19586,9 @@
                         },
                         {
                            "$ref": "#/$defs/JacksonLaboratory"
+                        },
+                        {
+                           "$ref": "#/$defs/JaneliaResearchCampus"
                         },
                         {
                            "$ref": "#/$defs/Julabo"
@@ -19942,6 +20142,7 @@
                            "AA Opto Electronic": "#/$defs/AAOptoElectronic",
                            "ASUS": "#/$defs/Asus",
                            "Abcam": "#/$defs/Abcam",
+                           "Addgene": "#/$defs/Addgene",
                            "Ailipu Technology Co": "#/$defs/AilipuTechnologyCo",
                            "Allen Institute": "#/$defs/AllenInstitute",
                            "Allen Institute for Brain Science": "#/$defs/AllenInstituteForBrainScience",
@@ -19974,6 +20175,7 @@
                            "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
                            "Invitrogen": "#/$defs/Invitrogen",
                            "Jackson Laboratory": "#/$defs/JacksonLaboratory",
+                           "Janelia Research Campus": "#/$defs/JaneliaResearchCampus",
                            "Julabo": "#/$defs/Julabo",
                            "LG": "#/$defs/Lg",
                            "Leica": "#/$defs/Leica",
@@ -20026,6 +20228,9 @@
                         },
                         {
                            "$ref": "#/$defs/Abcam"
+                        },
+                        {
+                           "$ref": "#/$defs/Addgene"
                         },
                         {
                            "$ref": "#/$defs/AilipuTechnologyCo"
@@ -20128,6 +20333,9 @@
                         },
                         {
                            "$ref": "#/$defs/JacksonLaboratory"
+                        },
+                        {
+                           "$ref": "#/$defs/JaneliaResearchCampus"
                         },
                         {
                            "$ref": "#/$defs/Julabo"
@@ -20401,6 +20609,7 @@
                            "AA Opto Electronic": "#/$defs/AAOptoElectronic",
                            "ASUS": "#/$defs/Asus",
                            "Abcam": "#/$defs/Abcam",
+                           "Addgene": "#/$defs/Addgene",
                            "Ailipu Technology Co": "#/$defs/AilipuTechnologyCo",
                            "Allen Institute": "#/$defs/AllenInstitute",
                            "Allen Institute for Brain Science": "#/$defs/AllenInstituteForBrainScience",
@@ -20433,6 +20642,7 @@
                            "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
                            "Invitrogen": "#/$defs/Invitrogen",
                            "Jackson Laboratory": "#/$defs/JacksonLaboratory",
+                           "Janelia Research Campus": "#/$defs/JaneliaResearchCampus",
                            "Julabo": "#/$defs/Julabo",
                            "LG": "#/$defs/Lg",
                            "Leica": "#/$defs/Leica",
@@ -20485,6 +20695,9 @@
                         },
                         {
                            "$ref": "#/$defs/Abcam"
+                        },
+                        {
+                           "$ref": "#/$defs/Addgene"
                         },
                         {
                            "$ref": "#/$defs/AilipuTechnologyCo"
@@ -20587,6 +20800,9 @@
                         },
                         {
                            "$ref": "#/$defs/JacksonLaboratory"
+                        },
+                        {
+                           "$ref": "#/$defs/JaneliaResearchCampus"
                         },
                         {
                            "$ref": "#/$defs/Julabo"
@@ -20895,8 +21111,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.13.10",
-               "default": "0.13.10",
+               "const": "0.13.11",
+               "default": "0.13.11",
                "title": "Schema Version"
             },
             "subject_id": {
@@ -21336,6 +21552,7 @@
                      "AA Opto Electronic": "#/$defs/AAOptoElectronic",
                      "ASUS": "#/$defs/Asus",
                      "Abcam": "#/$defs/Abcam",
+                     "Addgene": "#/$defs/Addgene",
                      "Ailipu Technology Co": "#/$defs/AilipuTechnologyCo",
                      "Allen Institute": "#/$defs/AllenInstitute",
                      "Allen Institute for Brain Science": "#/$defs/AllenInstituteForBrainScience",
@@ -21368,6 +21585,7 @@
                      "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
                      "Invitrogen": "#/$defs/Invitrogen",
                      "Jackson Laboratory": "#/$defs/JacksonLaboratory",
+                     "Janelia Research Campus": "#/$defs/JaneliaResearchCampus",
                      "Julabo": "#/$defs/Julabo",
                      "LG": "#/$defs/Lg",
                      "Leica": "#/$defs/Leica",
@@ -21420,6 +21638,9 @@
                   },
                   {
                      "$ref": "#/$defs/Abcam"
+                  },
+                  {
+                     "$ref": "#/$defs/Addgene"
                   },
                   {
                      "$ref": "#/$defs/AilipuTechnologyCo"
@@ -21522,6 +21743,9 @@
                   },
                   {
                      "$ref": "#/$defs/JacksonLaboratory"
+                  },
+                  {
+                     "$ref": "#/$defs/JaneliaResearchCampus"
                   },
                   {
                      "$ref": "#/$defs/Julabo"
@@ -21731,6 +21955,7 @@
                      "AA Opto Electronic": "#/$defs/AAOptoElectronic",
                      "ASUS": "#/$defs/Asus",
                      "Abcam": "#/$defs/Abcam",
+                     "Addgene": "#/$defs/Addgene",
                      "Ailipu Technology Co": "#/$defs/AilipuTechnologyCo",
                      "Allen Institute": "#/$defs/AllenInstitute",
                      "Allen Institute for Brain Science": "#/$defs/AllenInstituteForBrainScience",
@@ -21763,6 +21988,7 @@
                      "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
                      "Invitrogen": "#/$defs/Invitrogen",
                      "Jackson Laboratory": "#/$defs/JacksonLaboratory",
+                     "Janelia Research Campus": "#/$defs/JaneliaResearchCampus",
                      "Julabo": "#/$defs/Julabo",
                      "LG": "#/$defs/Lg",
                      "Leica": "#/$defs/Leica",
@@ -21815,6 +22041,9 @@
                   },
                   {
                      "$ref": "#/$defs/Abcam"
+                  },
+                  {
+                     "$ref": "#/$defs/Addgene"
                   },
                   {
                      "$ref": "#/$defs/AilipuTechnologyCo"
@@ -21917,6 +22146,9 @@
                   },
                   {
                      "$ref": "#/$defs/JacksonLaboratory"
+                  },
+                  {
+                     "$ref": "#/$defs/JaneliaResearchCampus"
                   },
                   {
                      "$ref": "#/$defs/Julabo"
@@ -22428,6 +22660,7 @@
                            "AA Opto Electronic": "#/$defs/AAOptoElectronic",
                            "ASUS": "#/$defs/Asus",
                            "Abcam": "#/$defs/Abcam",
+                           "Addgene": "#/$defs/Addgene",
                            "Ailipu Technology Co": "#/$defs/AilipuTechnologyCo",
                            "Allen Institute": "#/$defs/AllenInstitute",
                            "Allen Institute for Brain Science": "#/$defs/AllenInstituteForBrainScience",
@@ -22460,6 +22693,7 @@
                            "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
                            "Invitrogen": "#/$defs/Invitrogen",
                            "Jackson Laboratory": "#/$defs/JacksonLaboratory",
+                           "Janelia Research Campus": "#/$defs/JaneliaResearchCampus",
                            "Julabo": "#/$defs/Julabo",
                            "LG": "#/$defs/Lg",
                            "Leica": "#/$defs/Leica",
@@ -22512,6 +22746,9 @@
                         },
                         {
                            "$ref": "#/$defs/Abcam"
+                        },
+                        {
+                           "$ref": "#/$defs/Addgene"
                         },
                         {
                            "$ref": "#/$defs/AilipuTechnologyCo"
@@ -22614,6 +22851,9 @@
                         },
                         {
                            "$ref": "#/$defs/JacksonLaboratory"
+                        },
+                        {
+                           "$ref": "#/$defs/JaneliaResearchCampus"
                         },
                         {
                            "$ref": "#/$defs/Julabo"
@@ -22940,12 +23180,12 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.4.2",
-               "default": "0.4.2",
+               "const": "0.5.1",
+               "default": "0.5.1",
                "title": "Schema Version"
             },
             "rig_id": {
-               "description": "room_rig name_date modified",
+               "description": "Unique rig identifier, name convention: <room>-<apparatus name>-<date modified YYYYMMDD>",
                "title": "Rig ID",
                "type": "string"
             },
@@ -23438,6 +23678,7 @@
                            "AA Opto Electronic": "#/$defs/AAOptoElectronic",
                            "ASUS": "#/$defs/Asus",
                            "Abcam": "#/$defs/Abcam",
+                           "Addgene": "#/$defs/Addgene",
                            "Ailipu Technology Co": "#/$defs/AilipuTechnologyCo",
                            "Allen Institute": "#/$defs/AllenInstitute",
                            "Allen Institute for Brain Science": "#/$defs/AllenInstituteForBrainScience",
@@ -23470,6 +23711,7 @@
                            "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
                            "Invitrogen": "#/$defs/Invitrogen",
                            "Jackson Laboratory": "#/$defs/JacksonLaboratory",
+                           "Janelia Research Campus": "#/$defs/JaneliaResearchCampus",
                            "Julabo": "#/$defs/Julabo",
                            "LG": "#/$defs/Lg",
                            "Leica": "#/$defs/Leica",
@@ -23522,6 +23764,9 @@
                         },
                         {
                            "$ref": "#/$defs/Abcam"
+                        },
+                        {
+                           "$ref": "#/$defs/Addgene"
                         },
                         {
                            "$ref": "#/$defs/AilipuTechnologyCo"
@@ -23624,6 +23869,9 @@
                         },
                         {
                            "$ref": "#/$defs/JacksonLaboratory"
+                        },
+                        {
+                           "$ref": "#/$defs/JaneliaResearchCampus"
                         },
                         {
                            "$ref": "#/$defs/Julabo"
@@ -23890,6 +24138,7 @@
                            "AA Opto Electronic": "#/$defs/AAOptoElectronic",
                            "ASUS": "#/$defs/Asus",
                            "Abcam": "#/$defs/Abcam",
+                           "Addgene": "#/$defs/Addgene",
                            "Ailipu Technology Co": "#/$defs/AilipuTechnologyCo",
                            "Allen Institute": "#/$defs/AllenInstitute",
                            "Allen Institute for Brain Science": "#/$defs/AllenInstituteForBrainScience",
@@ -23922,6 +24171,7 @@
                            "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
                            "Invitrogen": "#/$defs/Invitrogen",
                            "Jackson Laboratory": "#/$defs/JacksonLaboratory",
+                           "Janelia Research Campus": "#/$defs/JaneliaResearchCampus",
                            "Julabo": "#/$defs/Julabo",
                            "LG": "#/$defs/Lg",
                            "Leica": "#/$defs/Leica",
@@ -23974,6 +24224,9 @@
                         },
                         {
                            "$ref": "#/$defs/Abcam"
+                        },
+                        {
+                           "$ref": "#/$defs/Addgene"
                         },
                         {
                            "$ref": "#/$defs/AilipuTechnologyCo"
@@ -24076,6 +24329,9 @@
                         },
                         {
                            "$ref": "#/$defs/JacksonLaboratory"
+                        },
+                        {
+                           "$ref": "#/$defs/JaneliaResearchCampus"
                         },
                         {
                            "$ref": "#/$defs/Julabo"
@@ -24546,8 +24802,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.2.8",
-               "default": "0.2.8",
+               "const": "0.3.1",
+               "default": "0.3.1",
                "title": "Schema Version"
             },
             "protocol_id": {
@@ -24704,6 +24960,19 @@
                "description": "Is the mouse platform being actively controlled",
                "title": "Active mouse platform",
                "type": "boolean"
+            },
+            "headframe_registration": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Affine3dTransform"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "MRI transform matrix for headframe",
+               "title": "Headframe registration"
             },
             "reward_delivery": {
                "anyOf": [
@@ -26072,6 +26341,7 @@
                      "AA Opto Electronic": "#/$defs/AAOptoElectronic",
                      "ASUS": "#/$defs/Asus",
                      "Abcam": "#/$defs/Abcam",
+                     "Addgene": "#/$defs/Addgene",
                      "Ailipu Technology Co": "#/$defs/AilipuTechnologyCo",
                      "Allen Institute": "#/$defs/AllenInstitute",
                      "Allen Institute for Brain Science": "#/$defs/AllenInstituteForBrainScience",
@@ -26104,6 +26374,7 @@
                      "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
                      "Invitrogen": "#/$defs/Invitrogen",
                      "Jackson Laboratory": "#/$defs/JacksonLaboratory",
+                     "Janelia Research Campus": "#/$defs/JaneliaResearchCampus",
                      "Julabo": "#/$defs/Julabo",
                      "LG": "#/$defs/Lg",
                      "Leica": "#/$defs/Leica",
@@ -26156,6 +26427,9 @@
                   },
                   {
                      "$ref": "#/$defs/Abcam"
+                  },
+                  {
+                     "$ref": "#/$defs/Addgene"
                   },
                   {
                      "$ref": "#/$defs/AilipuTechnologyCo"
@@ -26258,6 +26532,9 @@
                   },
                   {
                      "$ref": "#/$defs/JacksonLaboratory"
+                  },
+                  {
+                     "$ref": "#/$defs/JaneliaResearchCampus"
                   },
                   {
                      "$ref": "#/$defs/Julabo"
@@ -26603,27 +26880,31 @@
             "light_source_config": {
                "anyOf": [
                   {
-                     "discriminator": {
-                        "mapping": {
-                           "Laser": "#/$defs/LaserConfig",
-                           "Light emitting diode": "#/$defs/LightEmittingDiodeConfig"
+                     "items": {
+                        "discriminator": {
+                           "mapping": {
+                              "Laser": "#/$defs/LaserConfig",
+                              "Light emitting diode": "#/$defs/LightEmittingDiodeConfig"
+                           },
+                           "propertyName": "device_type"
                         },
-                        "propertyName": "device_type"
+                        "oneOf": [
+                           {
+                              "$ref": "#/$defs/LightEmittingDiodeConfig"
+                           },
+                           {
+                              "$ref": "#/$defs/LaserConfig"
+                           }
+                        ]
                      },
-                     "oneOf": [
-                        {
-                           "$ref": "#/$defs/LightEmittingDiodeConfig"
-                        },
-                        {
-                           "$ref": "#/$defs/LaserConfig"
-                        }
-                     ]
+                     "type": "array"
                   },
                   {
                      "type": "null"
                   }
                ],
-               "default": null,
+               "default": [],
+               "description": "Light sources for stimulation",
                "title": "Light source config"
             },
             "output_parameters": {
@@ -26786,7 +27067,7 @@
             "ephys_modules": {
                "default": [],
                "items": {
-                  "$ref": "#/$defs/EphysModule"
+                  "$ref": "#/$defs/ManipulatorModule"
                },
                "title": "Ephys modules",
                "type": "array"
@@ -26988,8 +27269,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.5.7",
-               "default": "0.5.7",
+               "const": "0.5.8",
+               "default": "0.5.8",
                "title": "Schema Version"
             },
             "subject_id": {
@@ -27089,6 +27370,7 @@
                      "Columbia University": "#/$defs/ColumbiaUniversity",
                      "Huazhong University of Science and Technology": "#/$defs/HuazhongUniversityOfScienceAndTechnology",
                      "Jackson Laboratory": "#/$defs/JacksonLaboratory",
+                     "Janelia Research Campus": "#/$defs/JaneliaResearchCampus",
                      "New York University": "#/$defs/NewYorkUniversity",
                      "Other": "#/$defs/Other"
                   },
@@ -27103,6 +27385,9 @@
                   },
                   {
                      "$ref": "#/$defs/HuazhongUniversityOfScienceAndTechnology"
+                  },
+                  {
+                     "$ref": "#/$defs/JaneliaResearchCampus"
                   },
                   {
                      "$ref": "#/$defs/JacksonLaboratory"
@@ -27895,6 +28180,7 @@
                            "AA Opto Electronic": "#/$defs/AAOptoElectronic",
                            "ASUS": "#/$defs/Asus",
                            "Abcam": "#/$defs/Abcam",
+                           "Addgene": "#/$defs/Addgene",
                            "Ailipu Technology Co": "#/$defs/AilipuTechnologyCo",
                            "Allen Institute": "#/$defs/AllenInstitute",
                            "Allen Institute for Brain Science": "#/$defs/AllenInstituteForBrainScience",
@@ -27927,6 +28213,7 @@
                            "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
                            "Invitrogen": "#/$defs/Invitrogen",
                            "Jackson Laboratory": "#/$defs/JacksonLaboratory",
+                           "Janelia Research Campus": "#/$defs/JaneliaResearchCampus",
                            "Julabo": "#/$defs/Julabo",
                            "LG": "#/$defs/Lg",
                            "Leica": "#/$defs/Leica",
@@ -27979,6 +28266,9 @@
                         },
                         {
                            "$ref": "#/$defs/Abcam"
+                        },
+                        {
+                           "$ref": "#/$defs/Addgene"
                         },
                         {
                            "$ref": "#/$defs/AilipuTechnologyCo"
@@ -28081,6 +28371,9 @@
                         },
                         {
                            "$ref": "#/$defs/JacksonLaboratory"
+                        },
+                        {
+                           "$ref": "#/$defs/JaneliaResearchCampus"
                         },
                         {
                            "$ref": "#/$defs/Julabo"
@@ -28708,6 +29001,7 @@
                            "AA Opto Electronic": "#/$defs/AAOptoElectronic",
                            "ASUS": "#/$defs/Asus",
                            "Abcam": "#/$defs/Abcam",
+                           "Addgene": "#/$defs/Addgene",
                            "Ailipu Technology Co": "#/$defs/AilipuTechnologyCo",
                            "Allen Institute": "#/$defs/AllenInstitute",
                            "Allen Institute for Brain Science": "#/$defs/AllenInstituteForBrainScience",
@@ -28740,6 +29034,7 @@
                            "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
                            "Invitrogen": "#/$defs/Invitrogen",
                            "Jackson Laboratory": "#/$defs/JacksonLaboratory",
+                           "Janelia Research Campus": "#/$defs/JaneliaResearchCampus",
                            "Julabo": "#/$defs/Julabo",
                            "LG": "#/$defs/Lg",
                            "Leica": "#/$defs/Leica",
@@ -28792,6 +29087,9 @@
                         },
                         {
                            "$ref": "#/$defs/Abcam"
+                        },
+                        {
+                           "$ref": "#/$defs/Addgene"
                         },
                         {
                            "$ref": "#/$defs/AilipuTechnologyCo"
@@ -28894,6 +29192,9 @@
                         },
                         {
                            "$ref": "#/$defs/JacksonLaboratory"
+                        },
+                        {
+                           "$ref": "#/$defs/JaneliaResearchCampus"
                         },
                         {
                            "$ref": "#/$defs/Julabo"
@@ -29498,6 +29799,7 @@
                            "AA Opto Electronic": "#/$defs/AAOptoElectronic",
                            "ASUS": "#/$defs/Asus",
                            "Abcam": "#/$defs/Abcam",
+                           "Addgene": "#/$defs/Addgene",
                            "Ailipu Technology Co": "#/$defs/AilipuTechnologyCo",
                            "Allen Institute": "#/$defs/AllenInstitute",
                            "Allen Institute for Brain Science": "#/$defs/AllenInstituteForBrainScience",
@@ -29530,6 +29832,7 @@
                            "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
                            "Invitrogen": "#/$defs/Invitrogen",
                            "Jackson Laboratory": "#/$defs/JacksonLaboratory",
+                           "Janelia Research Campus": "#/$defs/JaneliaResearchCampus",
                            "Julabo": "#/$defs/Julabo",
                            "LG": "#/$defs/Lg",
                            "Leica": "#/$defs/Leica",
@@ -29582,6 +29885,9 @@
                         },
                         {
                            "$ref": "#/$defs/Abcam"
+                        },
+                        {
+                           "$ref": "#/$defs/Addgene"
                         },
                         {
                            "$ref": "#/$defs/AilipuTechnologyCo"
@@ -29684,6 +29990,9 @@
                         },
                         {
                            "$ref": "#/$defs/JacksonLaboratory"
+                        },
+                        {
+                           "$ref": "#/$defs/JaneliaResearchCampus"
                         },
                         {
                            "$ref": "#/$defs/Julabo"
@@ -30246,8 +30555,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.2.25",
-         "default": "0.2.25",
+         "const": "0.2.29",
+         "default": "0.2.29",
          "title": "Schema Version"
       },
       "_id": {

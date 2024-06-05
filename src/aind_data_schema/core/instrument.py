@@ -35,11 +35,11 @@ class Instrument(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/instrument.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["0.10.22"] = Field("0.10.22")
+    schema_version: Literal["0.10.25"] = Field("0.10.25")
 
     instrument_id: Optional[str] = Field(
         None,
-        description="Unique identifier for this instrument. Naming convention: <room>-<apparatus>-<date modified>",
+        description="Unique instrument identifier, name convention: <room>-<apparatus name>-<date modified YYYYMMDD>",
         title="Instrument ID",
     )
     modification_date: date = Field(..., title="Date of modification")

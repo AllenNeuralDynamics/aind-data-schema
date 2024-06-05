@@ -23,8 +23,8 @@ from aind_data_schema.components.devices import (
     Lens,
     Manipulator,
     NeuropixelsBasestation,
-    ProbePort,
     Patch,
+    ProbePort,
 )
 from aind_data_schema.core.rig import Rig
 
@@ -90,7 +90,7 @@ probe_camera = Camera(
     data_interface="USB",
     manufacturer=Organization.FLIR,
     computer_name=ephys_computer,
-    max_frame_rate=50,
+    frame_rate=50,
     sensor_width=1080,
     sensor_height=570,
     sensor_format="1/2.9",
@@ -142,7 +142,7 @@ face_camera = Camera(
     data_interface="USB",
     manufacturer=Organization.FLIR,
     computer_name=behavior_computer,
-    max_frame_rate=500,
+    frame_rate=50,
     sensor_width=1080,
     sensor_height=570,
     sensor_format="1/2.9",
@@ -164,7 +164,7 @@ body_camera = Camera(
     data_interface="USB",
     manufacturer=Organization.FLIR,
     computer_name=behavior_computer,
-    max_frame_rate=500,
+    frame_rate=50,
     sensor_width=1080,
     sensor_height=570,
     sensor_format="1/2.9",
@@ -200,7 +200,7 @@ blue_laser_calibration = Calibration(
 )
 
 rig = Rig(
-    rig_id="323_EPHYS1",
+    rig_id="323_EPHYS1_20231003",
     modification_date=date(2023, 10, 3),
     modalities=[Modality.ECEPHYS],
     ephys_assemblies=[ephys_assemblyA, ephys_assemblyB],

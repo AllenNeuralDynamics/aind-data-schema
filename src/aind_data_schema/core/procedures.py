@@ -7,6 +7,7 @@ from typing import List, Literal, Optional, Set, Union
 
 from aind_data_schema_models.pid_names import PIDName
 from aind_data_schema_models.species import Species
+from aind_data_schema_models.specimen_procedure_types import SpecimenProcedureType
 from aind_data_schema_models.units import (
     AngleUnit,
     ConcentrationUnit,
@@ -18,9 +19,8 @@ from aind_data_schema_models.units import (
     VolumeUnit,
     create_unit_with_value,
 )
-from aind_data_schema_models.specimen_procedure_types import SpecimenProcedureType
+from pydantic import Field, field_validator, model_validator, field_serializer
 
-from pydantic import Field, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
 from typing_extensions import Annotated
 
@@ -567,6 +567,11 @@ class Perfusion(AindModel):
         description="IDs of specimens resulting from this procedure.",
     )
 
+    @field_serializer("output_specimen_ids", when_used="json")
+    def serialize_output_specimen_ids(values: Set[str]):
+        """sort specimen ids for JSON serialization"""
+        return sorted(values)
+
 
 class Surgery(AindModel):
     """Description of subject procedures performed at one time"""
@@ -617,7 +622,7 @@ class Procedures(AindCoreModel):
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/procedures.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
 
-    schema_version: Literal["0.13.10"] = Field("0.13.10")
+    schema_version: Literal["0.13.11"] = Field("0.13.11")
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",

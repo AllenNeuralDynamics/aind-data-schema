@@ -109,6 +109,10 @@ Every merge to the `main` branch is automatically tagged with a new major/minor/
 pip install aind-data-schema --upgrade
 ```
 
+## Issues and Discussions
+If you've found a bug in the schemas or would like to make a minor change, open an [issue](https://github.com/AllenNeuralDynamics/aind-data-schema/issues) and please use the provided [templates](https://github.com/AllenNeuralDynamics/aind-metadata-mapper/issues/new/choose).
+If you'd like to propose a large change or addition, or generally have a question about how things work, head start a new [Discussion](https://github.com/AllenNeuralDynamics/aind-data-schema/discussions)!
+
 ## Controlled Vocabularies
 
 Controlled vocabularies and other enumerated lists are maintained in a separate repository: [aind-data-schema-models](https://github.com/AllenNeuralDynamics/aind-data-schema-models). This allows us to specify these lists without changing aind-data-schema. Controlled vocabularies include lists of organizations, manufacturers, species, modalities, platforms, units, harp devices, and registries.
@@ -116,81 +120,11 @@ Controlled vocabularies and other enumerated lists are maintained in a separate 
 To upgrade to the latest data models version:
 ```
 pip install aind-data-schema-models --upgrade
-``
+```
 
 ## Contributing
+Contributions are more than welcome for this project! If you'd like to develop the code, please follow the standards outlined in the [contribution guide](https://github.com/AllenNeuralDynamics/aind-data-schema/blob/main/CONTRIBUTING.md).
 
-To develop the code, check out this repo and run the following in the cloned directory: 
-```
-pip install -e .[dev]
-```
-
-If you've found a bug in the schemas or would like to make a minor change, open an [Issue](https://github.com/AllenNeuralDynamics/aind-data-schema/issues) on this repository. If you'd like to propose a large change or addition, or generally have a question about how things work, head start a new [Discussion](https://github.com/AllenNeuralDynamics/aind-data-schema/discussions)!
-
-
-### Linters and testing
-
-There are several libraries used to run linters, check documentation, and run tests.
-
-- To run tests locally, navigate to AIND-DATA-SCHEMA directory in terminal and run (this will not run any on-line only tests):
-
-```
-python -m unittest
-```
-
-- Please test your changes using the **coverage** library, which will run the tests and log a coverage report:
-
-```
-coverage run -m unittest discover && coverage report
-```
-
-- To test any of the following modules, conda/pip install the relevant package (interrogate, flake8, black, isort), navigate to relevant directory, and run any of the following commands in place of [command]:
-
-```
-[command] -v . 
-```
-
-- Use **interrogate** to check that modules, methods, etc. have been documented thoroughly:
-
-```
-interrogate .
-```
-
-- Use **flake8** to check that code is up to standards (no unused imports, etc.):
-
-```
-flake8 .
-```
-
-- Use **black** to automatically format the code into PEP standards:
-
-```
-black .
-```
-
-- Use **isort** to automatically sort import statements:
-
-```
-isort .
-```
-
-### Pull requests
-
-For internal members, please create a branch. For external members, please fork the repo and open a pull request from the fork. We'll primarily use [Angular](https://github.com/angular/angular/blob/main/CONTRIBUTING.md#commit) style for commit messages. Roughly, they should follow the pattern:
-```
-<type>(<scope>): <short summary>
-```
-
-where scope (optional) describes the packages affected by the code changes and type (mandatory) is one of:
-
-- **build**: Changes that affect the build system or external dependencies (example scopes: pyproject.toml, setup.py)
-- **ci**: Changes to our CI configuration files and scripts (examples: .github/workflows/ci.yml)
-- **docs**: Documentation only changes
-- **feat**: A new feature
-- **fix**: A bug fix
-- **perf**: A code change that improves performance
-- **refactor**: A code change that neither fixes a bug nor adds a feature
-- **test**: Adding missing tests or correcting existing tests
 
 ### Documentation
 

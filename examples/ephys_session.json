@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/session.py",
-   "schema_version": "0.2.8",
+   "schema_version": "0.3.1",
    "protocol_id": [],
    "experimenter_full_name": [
       "Max Quibble",
@@ -38,6 +38,7 @@
                "calibration_date": "2023-04-25T00:00:00Z",
                "notes": "Moved Y to avoid blood vessel, X to avoid edge. Mouse made some noise during the recording with a sudden shift in signals. Lots of motion. Maybe some implant motion.",
                "primary_targeted_structure": "LGd",
+               "other_targeted_structure": null,
                "targeted_ccf_coordinates": [
                   {
                      "ml": "8150",
@@ -53,13 +54,11 @@
                   "z": "11087.5",
                   "unit": "micrometer"
                },
-               "implant_hole_number": null,
-               "ephys_probes": [
-                  {
-                     "name": "Probe A",
-                     "other_targeted_structures": []
-                  }
-               ]
+               "bregma_coordinates": null,
+               "surface_z": null,
+               "surface_z_unit": "micrometer",
+               "dye": null,
+               "implant_hole_number": null
             },
             {
                "assembly_name": "ephys module 2",
@@ -71,6 +70,7 @@
                "calibration_date": "2023-04-25T00:00:00Z",
                "notes": "Trouble penetrating. Lots of compression, needed to move probe. Small amount of surface bleeding/bruising. Initial Target: X;10070.3\tY:7476.6",
                "primary_targeted_structure": "LC",
+               "other_targeted_structure": null,
                "targeted_ccf_coordinates": [
                   {
                      "ml": "6637.28",
@@ -86,8 +86,11 @@
                   "z": "13262",
                   "unit": "micrometer"
                },
-               "implant_hole_number": null,
-               "ephys_probes": []
+               "bregma_coordinates": null,
+               "surface_z": null,
+               "surface_z_unit": "micrometer",
+               "dye": null,
+               "implant_hole_number": null
             }
          ],
          "stick_microscopes": [
@@ -168,6 +171,7 @@
                "calibration_date": "2023-04-25T00:00:00Z",
                "notes": "Moved Y to avoid blood vessel, X to avoid edge. Mouse made some noise during the recording with a sudden shift in signals. Lots of motion. Maybe some implant motion.",
                "primary_targeted_structure": "LGd",
+               "other_targeted_structure": null,
                "targeted_ccf_coordinates": [
                   {
                      "ml": "8150",
@@ -183,13 +187,11 @@
                   "z": "11087.5",
                   "unit": "micrometer"
                },
-               "implant_hole_number": null,
-               "ephys_probes": [
-                  {
-                     "name": "Probe A",
-                     "other_targeted_structures": []
-                  }
-               ]
+               "bregma_coordinates": null,
+               "surface_z": null,
+               "surface_z_unit": "micrometer",
+               "dye": null,
+               "implant_hole_number": null
             },
             {
                "assembly_name": "ephys module 2",
@@ -201,6 +203,7 @@
                "calibration_date": "2023-04-25T00:00:00Z",
                "notes": "Trouble penetrating. Lots of compression, needed to move probe. Small amount of surface bleeding/bruising. Initial Target: X;10070.3\tY:7476.6",
                "primary_targeted_structure": "LC",
+               "other_targeted_structure": null,
                "targeted_ccf_coordinates": [
                   {
                      "ml": "6637.28",
@@ -216,8 +219,11 @@
                   "z": "13262",
                   "unit": "micrometer"
                },
-               "implant_hole_number": null,
-               "ephys_probes": []
+               "bregma_coordinates": null,
+               "surface_z": null,
+               "surface_z_unit": "micrometer",
+               "dye": null,
+               "implant_hole_number": null
             }
          ],
          "stick_microscopes": [
@@ -325,7 +331,7 @@
          ],
          "stimulus_device_names": [],
          "speaker_config": null,
-         "light_source_config": null,
+         "light_source_config": [],
          "output_parameters": {},
          "reward_consumed_during_epoch": null,
          "reward_consumed_unit": "microliter",
@@ -367,7 +373,7 @@
          ],
          "stimulus_device_names": [],
          "speaker_config": null,
-         "light_source_config": null,
+         "light_source_config": [],
          "output_parameters": {},
          "reward_consumed_during_epoch": null,
          "reward_consumed_unit": "microliter",
@@ -379,6 +385,7 @@
    ],
    "mouse_platform_name": "mouse platform",
    "active_mouse_platform": false,
+   "headframe_registration": null,
    "reward_delivery": null,
    "reward_consumed_total": null,
    "reward_consumed_unit": "microliter",
