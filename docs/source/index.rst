@@ -120,20 +120,12 @@ yields JSON:
 
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Contents:
    
    diagrams
    modules
    faq
-      general
-      data description
-      subject
-      procedures
-      rig/instrument
-      session
-      acquisition
-      processing
 
 
 Indices and tables
