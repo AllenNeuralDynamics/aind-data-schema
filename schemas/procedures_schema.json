@@ -422,6 +422,7 @@
                      "Cambridge Technology": "#/$defs/CambridgeTechnology",
                      "Carl Zeiss": "#/$defs/CarlZeiss",
                      "Champalimaud Foundation": "#/$defs/ChampalimaudFoundation",
+                     "Chan Zuckerberg Initiative": "#/$defs/ChanZuckerbergInitiative",
                      "Chroma": "#/$defs/Chroma",
                      "Coherent Scientific": "#/$defs/CoherentScientific",
                      "Columbia University": "#/$defs/ColumbiaUniversity",
@@ -448,12 +449,15 @@
                      "LG": "#/$defs/Lg",
                      "Leica": "#/$defs/Leica",
                      "LifeCanvas": "#/$defs/LifeCanvas",
+                     "MBF Bioscience": "#/$defs/MBFBioscience",
                      "MKS Newport": "#/$defs/MKSNewport",
                      "MPI": "#/$defs/Mpi",
                      "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
+                     "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/MichaelJFoxFoundationForParkinsonsResearch",
                      "Midwest Optical Systems, Inc.": "#/$defs/MidwestOpticalSystems",
                      "Mitutuyo": "#/$defs/Mitutuyo",
                      "NResearch Inc": "#/$defs/NResearch",
+                     "National Center for Complementary and Integrative Health": "#/$defs/NationalCenterForComplementaryAndIntegrativeHealth",
                      "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                      "National Instruments": "#/$defs/NationalInstruments",
                      "Navitar": "#/$defs/Navitar",
@@ -479,6 +483,7 @@
                      "Tamron": "#/$defs/Tamron",
                      "Technical Manufacturing Corporation": "#/$defs/TMC",
                      "Teledyne FLIR": "#/$defs/TeledyneFLIR",
+                     "Templeton World Charity Foundation": "#/$defs/TempletonWorldCharityFoundation",
                      "The Imaging Source": "#/$defs/TheImagingSource",
                      "The Lee Company": "#/$defs/TheLeeCompany",
                      "Thermo Fisher": "#/$defs/Thermofisher",
@@ -537,6 +542,9 @@
                      "$ref": "#/$defs/ChampalimaudFoundation"
                   },
                   {
+                     "$ref": "#/$defs/ChanZuckerbergInitiative"
+                  },
+                  {
                      "$ref": "#/$defs/Chroma"
                   },
                   {
@@ -568,9 +576,6 @@
                   },
                   {
                      "$ref": "#/$defs/Euresys"
-                  },
-                  {
-                     "$ref": "#/$defs/TeledyneFLIR"
                   },
                   {
                      "$ref": "#/$defs/Fujinon"
@@ -627,6 +632,12 @@
                      "$ref": "#/$defs/IRRobotCo"
                   },
                   {
+                     "$ref": "#/$defs/MBFBioscience"
+                  },
+                  {
+                     "$ref": "#/$defs/MichaelJFoxFoundationForParkinsonsResearch"
+                  },
+                  {
                      "$ref": "#/$defs/MidwestOpticalSystems"
                   },
                   {
@@ -637,6 +648,9 @@
                   },
                   {
                      "$ref": "#/$defs/Mpi"
+                  },
+                  {
+                     "$ref": "#/$defs/NationalCenterForComplementaryAndIntegrativeHealth"
                   },
                   {
                      "$ref": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke"
@@ -706,6 +720,12 @@
                   },
                   {
                      "$ref": "#/$defs/Tamron"
+                  },
+                  {
+                     "$ref": "#/$defs/TempletonWorldCharityFoundation"
+                  },
+                  {
+                     "$ref": "#/$defs/TeledyneFLIR"
                   },
                   {
                      "$ref": "#/$defs/Thermofisher"
@@ -1018,8 +1038,8 @@
                "title": "Registry"
             },
             "registry_identifier": {
-               "const": "9483",
-               "default": "9483",
+               "const": "NCBI:txid9483",
+               "default": "NCBI:txid9483",
                "title": "Registry Identifier"
             }
          },
@@ -1134,6 +1154,47 @@
             }
          },
          "title": "ChampalimaudFoundation",
+         "type": "object"
+      },
+      "ChanZuckerbergInitiative": {
+         "additionalProperties": false,
+         "description": "ChanZuckerbergInitiative",
+         "properties": {
+            "name": {
+               "const": "Chan Zuckerberg Initiative",
+               "default": "Chan Zuckerberg Initiative",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "CZI",
+               "default": "CZI",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "02qenvm24",
+               "default": "02qenvm24",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "ChanZuckerbergInitiative",
          "type": "object"
       },
       "Chroma": {
@@ -1747,6 +1808,7 @@
                            "Cambridge Technology": "#/$defs/CambridgeTechnology",
                            "Carl Zeiss": "#/$defs/CarlZeiss",
                            "Champalimaud Foundation": "#/$defs/ChampalimaudFoundation",
+                           "Chan Zuckerberg Initiative": "#/$defs/ChanZuckerbergInitiative",
                            "Chroma": "#/$defs/Chroma",
                            "Coherent Scientific": "#/$defs/CoherentScientific",
                            "Columbia University": "#/$defs/ColumbiaUniversity",
@@ -1773,12 +1835,15 @@
                            "LG": "#/$defs/Lg",
                            "Leica": "#/$defs/Leica",
                            "LifeCanvas": "#/$defs/LifeCanvas",
+                           "MBF Bioscience": "#/$defs/MBFBioscience",
                            "MKS Newport": "#/$defs/MKSNewport",
                            "MPI": "#/$defs/Mpi",
                            "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
+                           "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/MichaelJFoxFoundationForParkinsonsResearch",
                            "Midwest Optical Systems, Inc.": "#/$defs/MidwestOpticalSystems",
                            "Mitutuyo": "#/$defs/Mitutuyo",
                            "NResearch Inc": "#/$defs/NResearch",
+                           "National Center for Complementary and Integrative Health": "#/$defs/NationalCenterForComplementaryAndIntegrativeHealth",
                            "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                            "National Instruments": "#/$defs/NationalInstruments",
                            "Navitar": "#/$defs/Navitar",
@@ -1804,6 +1869,7 @@
                            "Tamron": "#/$defs/Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/TMC",
                            "Teledyne FLIR": "#/$defs/TeledyneFLIR",
+                           "Templeton World Charity Foundation": "#/$defs/TempletonWorldCharityFoundation",
                            "The Imaging Source": "#/$defs/TheImagingSource",
                            "The Lee Company": "#/$defs/TheLeeCompany",
                            "Thermo Fisher": "#/$defs/Thermofisher",
@@ -1862,6 +1928,9 @@
                            "$ref": "#/$defs/ChampalimaudFoundation"
                         },
                         {
+                           "$ref": "#/$defs/ChanZuckerbergInitiative"
+                        },
+                        {
                            "$ref": "#/$defs/Chroma"
                         },
                         {
@@ -1893,9 +1962,6 @@
                         },
                         {
                            "$ref": "#/$defs/Euresys"
-                        },
-                        {
-                           "$ref": "#/$defs/TeledyneFLIR"
                         },
                         {
                            "$ref": "#/$defs/Fujinon"
@@ -1952,6 +2018,12 @@
                            "$ref": "#/$defs/IRRobotCo"
                         },
                         {
+                           "$ref": "#/$defs/MBFBioscience"
+                        },
+                        {
+                           "$ref": "#/$defs/MichaelJFoxFoundationForParkinsonsResearch"
+                        },
+                        {
                            "$ref": "#/$defs/MidwestOpticalSystems"
                         },
                         {
@@ -1962,6 +2034,9 @@
                         },
                         {
                            "$ref": "#/$defs/Mpi"
+                        },
+                        {
+                           "$ref": "#/$defs/NationalCenterForComplementaryAndIntegrativeHealth"
                         },
                         {
                            "$ref": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke"
@@ -2031,6 +2106,12 @@
                         },
                         {
                            "$ref": "#/$defs/Tamron"
+                        },
+                        {
+                           "$ref": "#/$defs/TempletonWorldCharityFoundation"
+                        },
+                        {
+                           "$ref": "#/$defs/TeledyneFLIR"
                         },
                         {
                            "$ref": "#/$defs/Thermofisher"
@@ -2293,6 +2374,7 @@
                      "Cambridge Technology": "#/$defs/CambridgeTechnology",
                      "Carl Zeiss": "#/$defs/CarlZeiss",
                      "Champalimaud Foundation": "#/$defs/ChampalimaudFoundation",
+                     "Chan Zuckerberg Initiative": "#/$defs/ChanZuckerbergInitiative",
                      "Chroma": "#/$defs/Chroma",
                      "Coherent Scientific": "#/$defs/CoherentScientific",
                      "Columbia University": "#/$defs/ColumbiaUniversity",
@@ -2319,12 +2401,15 @@
                      "LG": "#/$defs/Lg",
                      "Leica": "#/$defs/Leica",
                      "LifeCanvas": "#/$defs/LifeCanvas",
+                     "MBF Bioscience": "#/$defs/MBFBioscience",
                      "MKS Newport": "#/$defs/MKSNewport",
                      "MPI": "#/$defs/Mpi",
                      "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
+                     "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/MichaelJFoxFoundationForParkinsonsResearch",
                      "Midwest Optical Systems, Inc.": "#/$defs/MidwestOpticalSystems",
                      "Mitutuyo": "#/$defs/Mitutuyo",
                      "NResearch Inc": "#/$defs/NResearch",
+                     "National Center for Complementary and Integrative Health": "#/$defs/NationalCenterForComplementaryAndIntegrativeHealth",
                      "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                      "National Instruments": "#/$defs/NationalInstruments",
                      "Navitar": "#/$defs/Navitar",
@@ -2350,6 +2435,7 @@
                      "Tamron": "#/$defs/Tamron",
                      "Technical Manufacturing Corporation": "#/$defs/TMC",
                      "Teledyne FLIR": "#/$defs/TeledyneFLIR",
+                     "Templeton World Charity Foundation": "#/$defs/TempletonWorldCharityFoundation",
                      "The Imaging Source": "#/$defs/TheImagingSource",
                      "The Lee Company": "#/$defs/TheLeeCompany",
                      "Thermo Fisher": "#/$defs/Thermofisher",
@@ -2408,6 +2494,9 @@
                      "$ref": "#/$defs/ChampalimaudFoundation"
                   },
                   {
+                     "$ref": "#/$defs/ChanZuckerbergInitiative"
+                  },
+                  {
                      "$ref": "#/$defs/Chroma"
                   },
                   {
@@ -2439,9 +2528,6 @@
                   },
                   {
                      "$ref": "#/$defs/Euresys"
-                  },
-                  {
-                     "$ref": "#/$defs/TeledyneFLIR"
                   },
                   {
                      "$ref": "#/$defs/Fujinon"
@@ -2498,6 +2584,12 @@
                      "$ref": "#/$defs/IRRobotCo"
                   },
                   {
+                     "$ref": "#/$defs/MBFBioscience"
+                  },
+                  {
+                     "$ref": "#/$defs/MichaelJFoxFoundationForParkinsonsResearch"
+                  },
+                  {
                      "$ref": "#/$defs/MidwestOpticalSystems"
                   },
                   {
@@ -2508,6 +2600,9 @@
                   },
                   {
                      "$ref": "#/$defs/Mpi"
+                  },
+                  {
+                     "$ref": "#/$defs/NationalCenterForComplementaryAndIntegrativeHealth"
                   },
                   {
                      "$ref": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke"
@@ -2577,6 +2672,12 @@
                   },
                   {
                      "$ref": "#/$defs/Tamron"
+                  },
+                  {
+                     "$ref": "#/$defs/TempletonWorldCharityFoundation"
+                  },
+                  {
+                     "$ref": "#/$defs/TeledyneFLIR"
                   },
                   {
                      "$ref": "#/$defs/Thermofisher"
@@ -2731,6 +2832,7 @@
                      "Cambridge Technology": "#/$defs/CambridgeTechnology",
                      "Carl Zeiss": "#/$defs/CarlZeiss",
                      "Champalimaud Foundation": "#/$defs/ChampalimaudFoundation",
+                     "Chan Zuckerberg Initiative": "#/$defs/ChanZuckerbergInitiative",
                      "Chroma": "#/$defs/Chroma",
                      "Coherent Scientific": "#/$defs/CoherentScientific",
                      "Columbia University": "#/$defs/ColumbiaUniversity",
@@ -2757,12 +2859,15 @@
                      "LG": "#/$defs/Lg",
                      "Leica": "#/$defs/Leica",
                      "LifeCanvas": "#/$defs/LifeCanvas",
+                     "MBF Bioscience": "#/$defs/MBFBioscience",
                      "MKS Newport": "#/$defs/MKSNewport",
                      "MPI": "#/$defs/Mpi",
                      "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
+                     "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/MichaelJFoxFoundationForParkinsonsResearch",
                      "Midwest Optical Systems, Inc.": "#/$defs/MidwestOpticalSystems",
                      "Mitutuyo": "#/$defs/Mitutuyo",
                      "NResearch Inc": "#/$defs/NResearch",
+                     "National Center for Complementary and Integrative Health": "#/$defs/NationalCenterForComplementaryAndIntegrativeHealth",
                      "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                      "National Instruments": "#/$defs/NationalInstruments",
                      "Navitar": "#/$defs/Navitar",
@@ -2788,6 +2893,7 @@
                      "Tamron": "#/$defs/Tamron",
                      "Technical Manufacturing Corporation": "#/$defs/TMC",
                      "Teledyne FLIR": "#/$defs/TeledyneFLIR",
+                     "Templeton World Charity Foundation": "#/$defs/TempletonWorldCharityFoundation",
                      "The Imaging Source": "#/$defs/TheImagingSource",
                      "The Lee Company": "#/$defs/TheLeeCompany",
                      "Thermo Fisher": "#/$defs/Thermofisher",
@@ -2846,6 +2952,9 @@
                      "$ref": "#/$defs/ChampalimaudFoundation"
                   },
                   {
+                     "$ref": "#/$defs/ChanZuckerbergInitiative"
+                  },
+                  {
                      "$ref": "#/$defs/Chroma"
                   },
                   {
@@ -2877,9 +2986,6 @@
                   },
                   {
                      "$ref": "#/$defs/Euresys"
-                  },
-                  {
-                     "$ref": "#/$defs/TeledyneFLIR"
                   },
                   {
                      "$ref": "#/$defs/Fujinon"
@@ -2936,6 +3042,12 @@
                      "$ref": "#/$defs/IRRobotCo"
                   },
                   {
+                     "$ref": "#/$defs/MBFBioscience"
+                  },
+                  {
+                     "$ref": "#/$defs/MichaelJFoxFoundationForParkinsonsResearch"
+                  },
+                  {
                      "$ref": "#/$defs/MidwestOpticalSystems"
                   },
                   {
@@ -2946,6 +3058,9 @@
                   },
                   {
                      "$ref": "#/$defs/Mpi"
+                  },
+                  {
+                     "$ref": "#/$defs/NationalCenterForComplementaryAndIntegrativeHealth"
                   },
                   {
                      "$ref": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke"
@@ -3015,6 +3130,12 @@
                   },
                   {
                      "$ref": "#/$defs/Tamron"
+                  },
+                  {
+                     "$ref": "#/$defs/TempletonWorldCharityFoundation"
+                  },
+                  {
+                     "$ref": "#/$defs/TeledyneFLIR"
                   },
                   {
                      "$ref": "#/$defs/Thermofisher"
@@ -3332,8 +3453,8 @@
                "title": "Registry"
             },
             "registry_identifier": {
-               "const": "9606",
-               "default": "9606",
+               "const": "NCBI:txid9606",
+               "default": "NCBI:txid9606",
                "title": "Registry Identifier"
             }
          },
@@ -4712,6 +4833,47 @@
          "title": "LifeCanvas",
          "type": "object"
       },
+      "MBFBioscience": {
+         "additionalProperties": false,
+         "description": "MBFBioscience",
+         "properties": {
+            "name": {
+               "const": "MBF Bioscience",
+               "default": "MBF Bioscience",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "MBF",
+               "default": "MBF",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "02zynam48",
+               "default": "02zynam48",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "MBFBioscience",
+         "type": "object"
+      },
       "MKSNewport": {
          "additionalProperties": false,
          "description": "MKSNewport",
@@ -4793,8 +4955,8 @@
                "title": "Registry"
             },
             "registry_identifier": {
-               "const": "9544",
-               "default": "9544",
+               "const": "NCBI:txid9544",
+               "default": "NCBI:txid9544",
                "title": "Registry Identifier"
             }
          },
@@ -4852,6 +5014,47 @@
             }
          },
          "title": "MeadowlarkOptics",
+         "type": "object"
+      },
+      "MichaelJFoxFoundationForParkinsonsResearch": {
+         "additionalProperties": false,
+         "description": "MichaelJFoxFoundationForParkinsonsResearch",
+         "properties": {
+            "name": {
+               "const": "Michael J. Fox Foundation for Parkinson's Research",
+               "default": "Michael J. Fox Foundation for Parkinson's Research",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "MJFF",
+               "default": "MJFF",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "03arq3225",
+               "default": "03arq3225",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "MichaelJFoxFoundationForParkinsonsResearch",
          "type": "object"
       },
       "MidwestOpticalSystems": {
@@ -4978,8 +5181,8 @@
                "title": "Registry"
             },
             "registry_identifier": {
-               "const": "10090",
-               "default": "10090",
+               "const": "NCBI:txid10090",
+               "default": "NCBI:txid10090",
                "title": "Registry Identifier"
             }
          },
@@ -5284,6 +5487,47 @@
          "title": "NationalCenterForBiotechnologyInformation",
          "type": "object"
       },
+      "NationalCenterForComplementaryAndIntegrativeHealth": {
+         "additionalProperties": false,
+         "description": "NationalCenterForComplementaryAndIntegrativeHealth",
+         "properties": {
+            "name": {
+               "const": "National Center for Complementary and Integrative Health",
+               "default": "National Center for Complementary and Integrative Health",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "NCCIH",
+               "default": "NCCIH",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "00190t495",
+               "default": "00190t495",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "NationalCenterForComplementaryAndIntegrativeHealth",
+         "type": "object"
+      },
       "NationalInstituteOfNeurologicalDisordersAndStroke": {
          "additionalProperties": false,
          "description": "NationalInstituteOfNeurologicalDisordersAndStroke",
@@ -5558,6 +5802,7 @@
                      "Cambridge Technology": "#/$defs/CambridgeTechnology",
                      "Carl Zeiss": "#/$defs/CarlZeiss",
                      "Champalimaud Foundation": "#/$defs/ChampalimaudFoundation",
+                     "Chan Zuckerberg Initiative": "#/$defs/ChanZuckerbergInitiative",
                      "Chroma": "#/$defs/Chroma",
                      "Coherent Scientific": "#/$defs/CoherentScientific",
                      "Columbia University": "#/$defs/ColumbiaUniversity",
@@ -5584,12 +5829,15 @@
                      "LG": "#/$defs/Lg",
                      "Leica": "#/$defs/Leica",
                      "LifeCanvas": "#/$defs/LifeCanvas",
+                     "MBF Bioscience": "#/$defs/MBFBioscience",
                      "MKS Newport": "#/$defs/MKSNewport",
                      "MPI": "#/$defs/Mpi",
                      "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
+                     "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/MichaelJFoxFoundationForParkinsonsResearch",
                      "Midwest Optical Systems, Inc.": "#/$defs/MidwestOpticalSystems",
                      "Mitutuyo": "#/$defs/Mitutuyo",
                      "NResearch Inc": "#/$defs/NResearch",
+                     "National Center for Complementary and Integrative Health": "#/$defs/NationalCenterForComplementaryAndIntegrativeHealth",
                      "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                      "National Instruments": "#/$defs/NationalInstruments",
                      "Navitar": "#/$defs/Navitar",
@@ -5615,6 +5863,7 @@
                      "Tamron": "#/$defs/Tamron",
                      "Technical Manufacturing Corporation": "#/$defs/TMC",
                      "Teledyne FLIR": "#/$defs/TeledyneFLIR",
+                     "Templeton World Charity Foundation": "#/$defs/TempletonWorldCharityFoundation",
                      "The Imaging Source": "#/$defs/TheImagingSource",
                      "The Lee Company": "#/$defs/TheLeeCompany",
                      "Thermo Fisher": "#/$defs/Thermofisher",
@@ -5673,6 +5922,9 @@
                      "$ref": "#/$defs/ChampalimaudFoundation"
                   },
                   {
+                     "$ref": "#/$defs/ChanZuckerbergInitiative"
+                  },
+                  {
                      "$ref": "#/$defs/Chroma"
                   },
                   {
@@ -5704,9 +5956,6 @@
                   },
                   {
                      "$ref": "#/$defs/Euresys"
-                  },
-                  {
-                     "$ref": "#/$defs/TeledyneFLIR"
                   },
                   {
                      "$ref": "#/$defs/Fujinon"
@@ -5763,6 +6012,12 @@
                      "$ref": "#/$defs/IRRobotCo"
                   },
                   {
+                     "$ref": "#/$defs/MBFBioscience"
+                  },
+                  {
+                     "$ref": "#/$defs/MichaelJFoxFoundationForParkinsonsResearch"
+                  },
+                  {
                      "$ref": "#/$defs/MidwestOpticalSystems"
                   },
                   {
@@ -5773,6 +6028,9 @@
                   },
                   {
                      "$ref": "#/$defs/Mpi"
+                  },
+                  {
+                     "$ref": "#/$defs/NationalCenterForComplementaryAndIntegrativeHealth"
                   },
                   {
                      "$ref": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke"
@@ -5842,6 +6100,12 @@
                   },
                   {
                      "$ref": "#/$defs/Tamron"
+                  },
+                  {
+                     "$ref": "#/$defs/TempletonWorldCharityFoundation"
+                  },
+                  {
+                     "$ref": "#/$defs/TeledyneFLIR"
                   },
                   {
                      "$ref": "#/$defs/Thermofisher"
@@ -5960,6 +6224,7 @@
                      "Cambridge Technology": "#/$defs/CambridgeTechnology",
                      "Carl Zeiss": "#/$defs/CarlZeiss",
                      "Champalimaud Foundation": "#/$defs/ChampalimaudFoundation",
+                     "Chan Zuckerberg Initiative": "#/$defs/ChanZuckerbergInitiative",
                      "Chroma": "#/$defs/Chroma",
                      "Coherent Scientific": "#/$defs/CoherentScientific",
                      "Columbia University": "#/$defs/ColumbiaUniversity",
@@ -5986,12 +6251,15 @@
                      "LG": "#/$defs/Lg",
                      "Leica": "#/$defs/Leica",
                      "LifeCanvas": "#/$defs/LifeCanvas",
+                     "MBF Bioscience": "#/$defs/MBFBioscience",
                      "MKS Newport": "#/$defs/MKSNewport",
                      "MPI": "#/$defs/Mpi",
                      "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
+                     "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/MichaelJFoxFoundationForParkinsonsResearch",
                      "Midwest Optical Systems, Inc.": "#/$defs/MidwestOpticalSystems",
                      "Mitutuyo": "#/$defs/Mitutuyo",
                      "NResearch Inc": "#/$defs/NResearch",
+                     "National Center for Complementary and Integrative Health": "#/$defs/NationalCenterForComplementaryAndIntegrativeHealth",
                      "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                      "National Instruments": "#/$defs/NationalInstruments",
                      "Navitar": "#/$defs/Navitar",
@@ -6017,6 +6285,7 @@
                      "Tamron": "#/$defs/Tamron",
                      "Technical Manufacturing Corporation": "#/$defs/TMC",
                      "Teledyne FLIR": "#/$defs/TeledyneFLIR",
+                     "Templeton World Charity Foundation": "#/$defs/TempletonWorldCharityFoundation",
                      "The Imaging Source": "#/$defs/TheImagingSource",
                      "The Lee Company": "#/$defs/TheLeeCompany",
                      "Thermo Fisher": "#/$defs/Thermofisher",
@@ -6075,6 +6344,9 @@
                      "$ref": "#/$defs/ChampalimaudFoundation"
                   },
                   {
+                     "$ref": "#/$defs/ChanZuckerbergInitiative"
+                  },
+                  {
                      "$ref": "#/$defs/Chroma"
                   },
                   {
@@ -6106,9 +6378,6 @@
                   },
                   {
                      "$ref": "#/$defs/Euresys"
-                  },
-                  {
-                     "$ref": "#/$defs/TeledyneFLIR"
                   },
                   {
                      "$ref": "#/$defs/Fujinon"
@@ -6165,6 +6434,12 @@
                      "$ref": "#/$defs/IRRobotCo"
                   },
                   {
+                     "$ref": "#/$defs/MBFBioscience"
+                  },
+                  {
+                     "$ref": "#/$defs/MichaelJFoxFoundationForParkinsonsResearch"
+                  },
+                  {
                      "$ref": "#/$defs/MidwestOpticalSystems"
                   },
                   {
@@ -6175,6 +6450,9 @@
                   },
                   {
                      "$ref": "#/$defs/Mpi"
+                  },
+                  {
+                     "$ref": "#/$defs/NationalCenterForComplementaryAndIntegrativeHealth"
                   },
                   {
                      "$ref": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke"
@@ -6244,6 +6522,12 @@
                   },
                   {
                      "$ref": "#/$defs/Tamron"
+                  },
+                  {
+                     "$ref": "#/$defs/TempletonWorldCharityFoundation"
+                  },
+                  {
+                     "$ref": "#/$defs/TeledyneFLIR"
                   },
                   {
                      "$ref": "#/$defs/Thermofisher"
@@ -7033,8 +7317,8 @@
                "title": "Registry"
             },
             "registry_identifier": {
-               "const": "10116",
-               "default": "10116",
+               "const": "NCBI:txid10116",
+               "default": "NCBI:txid10116",
                "title": "Registry Identifier"
             }
          },
@@ -7067,6 +7351,7 @@
                      "Cambridge Technology": "#/$defs/CambridgeTechnology",
                      "Carl Zeiss": "#/$defs/CarlZeiss",
                      "Champalimaud Foundation": "#/$defs/ChampalimaudFoundation",
+                     "Chan Zuckerberg Initiative": "#/$defs/ChanZuckerbergInitiative",
                      "Chroma": "#/$defs/Chroma",
                      "Coherent Scientific": "#/$defs/CoherentScientific",
                      "Columbia University": "#/$defs/ColumbiaUniversity",
@@ -7093,12 +7378,15 @@
                      "LG": "#/$defs/Lg",
                      "Leica": "#/$defs/Leica",
                      "LifeCanvas": "#/$defs/LifeCanvas",
+                     "MBF Bioscience": "#/$defs/MBFBioscience",
                      "MKS Newport": "#/$defs/MKSNewport",
                      "MPI": "#/$defs/Mpi",
                      "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
+                     "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/MichaelJFoxFoundationForParkinsonsResearch",
                      "Midwest Optical Systems, Inc.": "#/$defs/MidwestOpticalSystems",
                      "Mitutuyo": "#/$defs/Mitutuyo",
                      "NResearch Inc": "#/$defs/NResearch",
+                     "National Center for Complementary and Integrative Health": "#/$defs/NationalCenterForComplementaryAndIntegrativeHealth",
                      "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                      "National Instruments": "#/$defs/NationalInstruments",
                      "Navitar": "#/$defs/Navitar",
@@ -7124,6 +7412,7 @@
                      "Tamron": "#/$defs/Tamron",
                      "Technical Manufacturing Corporation": "#/$defs/TMC",
                      "Teledyne FLIR": "#/$defs/TeledyneFLIR",
+                     "Templeton World Charity Foundation": "#/$defs/TempletonWorldCharityFoundation",
                      "The Imaging Source": "#/$defs/TheImagingSource",
                      "The Lee Company": "#/$defs/TheLeeCompany",
                      "Thermo Fisher": "#/$defs/Thermofisher",
@@ -7182,6 +7471,9 @@
                      "$ref": "#/$defs/ChampalimaudFoundation"
                   },
                   {
+                     "$ref": "#/$defs/ChanZuckerbergInitiative"
+                  },
+                  {
                      "$ref": "#/$defs/Chroma"
                   },
                   {
@@ -7213,9 +7505,6 @@
                   },
                   {
                      "$ref": "#/$defs/Euresys"
-                  },
-                  {
-                     "$ref": "#/$defs/TeledyneFLIR"
                   },
                   {
                      "$ref": "#/$defs/Fujinon"
@@ -7272,6 +7561,12 @@
                      "$ref": "#/$defs/IRRobotCo"
                   },
                   {
+                     "$ref": "#/$defs/MBFBioscience"
+                  },
+                  {
+                     "$ref": "#/$defs/MichaelJFoxFoundationForParkinsonsResearch"
+                  },
+                  {
                      "$ref": "#/$defs/MidwestOpticalSystems"
                   },
                   {
@@ -7282,6 +7577,9 @@
                   },
                   {
                      "$ref": "#/$defs/Mpi"
+                  },
+                  {
+                     "$ref": "#/$defs/NationalCenterForComplementaryAndIntegrativeHealth"
                   },
                   {
                      "$ref": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke"
@@ -7351,6 +7649,12 @@
                   },
                   {
                      "$ref": "#/$defs/Tamron"
+                  },
+                  {
+                     "$ref": "#/$defs/TempletonWorldCharityFoundation"
+                  },
+                  {
+                     "$ref": "#/$defs/TeledyneFLIR"
                   },
                   {
                      "$ref": "#/$defs/Thermofisher"
@@ -7470,6 +7774,7 @@
                      "Cambridge Technology": "#/$defs/CambridgeTechnology",
                      "Carl Zeiss": "#/$defs/CarlZeiss",
                      "Champalimaud Foundation": "#/$defs/ChampalimaudFoundation",
+                     "Chan Zuckerberg Initiative": "#/$defs/ChanZuckerbergInitiative",
                      "Chroma": "#/$defs/Chroma",
                      "Coherent Scientific": "#/$defs/CoherentScientific",
                      "Columbia University": "#/$defs/ColumbiaUniversity",
@@ -7496,12 +7801,15 @@
                      "LG": "#/$defs/Lg",
                      "Leica": "#/$defs/Leica",
                      "LifeCanvas": "#/$defs/LifeCanvas",
+                     "MBF Bioscience": "#/$defs/MBFBioscience",
                      "MKS Newport": "#/$defs/MKSNewport",
                      "MPI": "#/$defs/Mpi",
                      "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
+                     "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/MichaelJFoxFoundationForParkinsonsResearch",
                      "Midwest Optical Systems, Inc.": "#/$defs/MidwestOpticalSystems",
                      "Mitutuyo": "#/$defs/Mitutuyo",
                      "NResearch Inc": "#/$defs/NResearch",
+                     "National Center for Complementary and Integrative Health": "#/$defs/NationalCenterForComplementaryAndIntegrativeHealth",
                      "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                      "National Instruments": "#/$defs/NationalInstruments",
                      "Navitar": "#/$defs/Navitar",
@@ -7527,6 +7835,7 @@
                      "Tamron": "#/$defs/Tamron",
                      "Technical Manufacturing Corporation": "#/$defs/TMC",
                      "Teledyne FLIR": "#/$defs/TeledyneFLIR",
+                     "Templeton World Charity Foundation": "#/$defs/TempletonWorldCharityFoundation",
                      "The Imaging Source": "#/$defs/TheImagingSource",
                      "The Lee Company": "#/$defs/TheLeeCompany",
                      "Thermo Fisher": "#/$defs/Thermofisher",
@@ -7585,6 +7894,9 @@
                      "$ref": "#/$defs/ChampalimaudFoundation"
                   },
                   {
+                     "$ref": "#/$defs/ChanZuckerbergInitiative"
+                  },
+                  {
                      "$ref": "#/$defs/Chroma"
                   },
                   {
@@ -7616,9 +7928,6 @@
                   },
                   {
                      "$ref": "#/$defs/Euresys"
-                  },
-                  {
-                     "$ref": "#/$defs/TeledyneFLIR"
                   },
                   {
                      "$ref": "#/$defs/Fujinon"
@@ -7675,6 +7984,12 @@
                      "$ref": "#/$defs/IRRobotCo"
                   },
                   {
+                     "$ref": "#/$defs/MBFBioscience"
+                  },
+                  {
+                     "$ref": "#/$defs/MichaelJFoxFoundationForParkinsonsResearch"
+                  },
+                  {
                      "$ref": "#/$defs/MidwestOpticalSystems"
                   },
                   {
@@ -7685,6 +8000,9 @@
                   },
                   {
                      "$ref": "#/$defs/Mpi"
+                  },
+                  {
+                     "$ref": "#/$defs/NationalCenterForComplementaryAndIntegrativeHealth"
                   },
                   {
                      "$ref": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke"
@@ -7754,6 +8072,12 @@
                   },
                   {
                      "$ref": "#/$defs/Tamron"
+                  },
+                  {
+                     "$ref": "#/$defs/TempletonWorldCharityFoundation"
+                  },
+                  {
+                     "$ref": "#/$defs/TeledyneFLIR"
                   },
                   {
                      "$ref": "#/$defs/Thermofisher"
@@ -8421,6 +8745,7 @@
             "Delipidation",
             "Clearing",
             "Embedding",
+            "Expansion",
             "Fixation",
             "Fixation and permeabilization",
             "Gelation",
@@ -8493,6 +8818,7 @@
                      "Cambridge Technology": "#/$defs/CambridgeTechnology",
                      "Carl Zeiss": "#/$defs/CarlZeiss",
                      "Champalimaud Foundation": "#/$defs/ChampalimaudFoundation",
+                     "Chan Zuckerberg Initiative": "#/$defs/ChanZuckerbergInitiative",
                      "Chroma": "#/$defs/Chroma",
                      "Coherent Scientific": "#/$defs/CoherentScientific",
                      "Columbia University": "#/$defs/ColumbiaUniversity",
@@ -8519,12 +8845,15 @@
                      "LG": "#/$defs/Lg",
                      "Leica": "#/$defs/Leica",
                      "LifeCanvas": "#/$defs/LifeCanvas",
+                     "MBF Bioscience": "#/$defs/MBFBioscience",
                      "MKS Newport": "#/$defs/MKSNewport",
                      "MPI": "#/$defs/Mpi",
                      "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
+                     "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/MichaelJFoxFoundationForParkinsonsResearch",
                      "Midwest Optical Systems, Inc.": "#/$defs/MidwestOpticalSystems",
                      "Mitutuyo": "#/$defs/Mitutuyo",
                      "NResearch Inc": "#/$defs/NResearch",
+                     "National Center for Complementary and Integrative Health": "#/$defs/NationalCenterForComplementaryAndIntegrativeHealth",
                      "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                      "National Instruments": "#/$defs/NationalInstruments",
                      "Navitar": "#/$defs/Navitar",
@@ -8550,6 +8879,7 @@
                      "Tamron": "#/$defs/Tamron",
                      "Technical Manufacturing Corporation": "#/$defs/TMC",
                      "Teledyne FLIR": "#/$defs/TeledyneFLIR",
+                     "Templeton World Charity Foundation": "#/$defs/TempletonWorldCharityFoundation",
                      "The Imaging Source": "#/$defs/TheImagingSource",
                      "The Lee Company": "#/$defs/TheLeeCompany",
                      "Thermo Fisher": "#/$defs/Thermofisher",
@@ -8608,6 +8938,9 @@
                      "$ref": "#/$defs/ChampalimaudFoundation"
                   },
                   {
+                     "$ref": "#/$defs/ChanZuckerbergInitiative"
+                  },
+                  {
                      "$ref": "#/$defs/Chroma"
                   },
                   {
@@ -8639,9 +8972,6 @@
                   },
                   {
                      "$ref": "#/$defs/Euresys"
-                  },
-                  {
-                     "$ref": "#/$defs/TeledyneFLIR"
                   },
                   {
                      "$ref": "#/$defs/Fujinon"
@@ -8698,6 +9028,12 @@
                      "$ref": "#/$defs/IRRobotCo"
                   },
                   {
+                     "$ref": "#/$defs/MBFBioscience"
+                  },
+                  {
+                     "$ref": "#/$defs/MichaelJFoxFoundationForParkinsonsResearch"
+                  },
+                  {
                      "$ref": "#/$defs/MidwestOpticalSystems"
                   },
                   {
@@ -8708,6 +9044,9 @@
                   },
                   {
                      "$ref": "#/$defs/Mpi"
+                  },
+                  {
+                     "$ref": "#/$defs/NationalCenterForComplementaryAndIntegrativeHealth"
                   },
                   {
                      "$ref": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke"
@@ -8777,6 +9116,12 @@
                   },
                   {
                      "$ref": "#/$defs/Tamron"
+                  },
+                  {
+                     "$ref": "#/$defs/TempletonWorldCharityFoundation"
+                  },
+                  {
+                     "$ref": "#/$defs/TeledyneFLIR"
                   },
                   {
                      "$ref": "#/$defs/Thermofisher"
@@ -9229,6 +9574,47 @@
             }
          },
          "title": "TeledyneFLIR",
+         "type": "object"
+      },
+      "TempletonWorldCharityFoundation": {
+         "additionalProperties": false,
+         "description": "TempletonWorldCharityFoundation",
+         "properties": {
+            "name": {
+               "const": "Templeton World Charity Foundation",
+               "default": "Templeton World Charity Foundation",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "TWCF",
+               "default": "TWCF",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "00x0z1472",
+               "default": "00x0z1472",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "TempletonWorldCharityFoundation",
          "type": "object"
       },
       "TheImagingSource": {
@@ -9751,8 +10137,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.13.11",
-         "default": "0.13.11",
+         "const": "0.13.12",
+         "default": "0.13.12",
          "title": "Schema Version"
       },
       "subject_id": {

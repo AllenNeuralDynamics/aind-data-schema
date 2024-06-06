@@ -152,8 +152,8 @@
                "title": "Registry"
             },
             "registry_identifier": {
-               "const": "9483",
-               "default": "9483",
+               "const": "NCBI:txid9483",
+               "default": "NCBI:txid9483",
                "title": "Registry Identifier"
             }
          },
@@ -253,8 +253,8 @@
                "title": "Registry"
             },
             "registry_identifier": {
-               "const": "9606",
-               "default": "9606",
+               "const": "NCBI:txid9606",
+               "default": "NCBI:txid9606",
                "title": "Registry Identifier"
             }
          },
@@ -509,8 +509,8 @@
                "title": "Registry"
             },
             "registry_identifier": {
-               "const": "9544",
-               "default": "9544",
+               "const": "NCBI:txid9544",
+               "default": "NCBI:txid9544",
                "title": "Registry Identifier"
             }
          },
@@ -557,8 +557,8 @@
                "title": "Registry"
             },
             "registry_identifier": {
-               "const": "10090",
-               "default": "10090",
+               "const": "NCBI:txid10090",
+               "default": "NCBI:txid10090",
                "title": "Registry Identifier"
             }
          },
@@ -743,8 +743,8 @@
                "title": "Registry"
             },
             "registry_identifier": {
-               "const": "10116",
-               "default": "10116",
+               "const": "NCBI:txid10116",
+               "default": "NCBI:txid10116",
                "title": "Registry Identifier"
             }
          },
@@ -810,8 +810,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.5.8",
-         "default": "0.5.8",
+         "const": "0.5.9",
+         "default": "0.5.9",
          "title": "Schema Version"
       },
       "subject_id": {
