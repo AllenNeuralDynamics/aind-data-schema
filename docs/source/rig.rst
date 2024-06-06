@@ -8,6 +8,9 @@ A: The rig or instrument is the collection of devices that are used to collect d
     ophys) and behavior data, while instrument is used for light sheet or confocal imaging. The naming difference is
     largely due to how these different subfields describe things.
 
+Q: What are devices?
+A: Devices are pieces of hardware that are used for experiments - the components of the rig/instrument. 
+
 Q: What’s the difference between rig and session? They both have a lot of device information – what lives where?
 A: The intention is to use the rig schema to describe the static state of the rig to reduce the amount of redundant
     information that must be created for each session. The rig/instrument schema describe the devices that are used to

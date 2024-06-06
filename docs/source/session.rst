@@ -62,3 +62,19 @@ Q: How do I create the session file?
 A: We are working with scientific teams to create metadata mappers to ingest this metadata using both acquisition
     software and SLIMS. Until this is fully functional, these files must be created manually.
 
+Q: How do I know if my mouse platform is "active"?
+A: There are experiments in which the mouse platform is actively controlled by the stimulus/behavior software - i.e.
+    the resistance of the wheel is adjusted based on the subjects activity. This is an "active" mouse platform. Most
+    platforms we use are not active.
+
+Q: How do I use the Calibration field?
+A: This is to track any device calibrations that are performed, such as gamma correction for monitors, reward valve
+    delivery calibration, laser power calibration, etc. For calibrations that are done less frequently (e.g. gamma
+    correction) this can be documented in the Rig schema. For calibrations that are done frequently, they can do
+    documented in the Session schema. Both places use the same class. This class identifies which device is calibrated
+    (using the device's name), a description of the calibration (e.g. "Laser power calibration"), and then an input
+    dictionary and an output dictionary. You can use this as makes most sense for your needs, but we envision the input
+    dictionary having input values (say laser power percentage settings) and the output dictionary having output values
+    (say the measured wattage out of the laser). You define the key and provide a list of the values. We recommed that
+    you use the same dictionary structures when you do the same calibrations (when possible).
+    
