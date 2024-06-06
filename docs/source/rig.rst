@@ -25,9 +25,10 @@ A: Currently, these are created manually. This can either be done using the GUI
 
 Q: Do I need to create a new rig/instrument file for each data asset?
 A: Ideally no. The rig/instrument file should be relatively stable and hopefully won’t change much from one day to the
-    next. However, when the devices in a rig do change, the rig/instrument file must be updated. For instance,
-    replacing a broken Neuropixels probe requires an updated file, as does adding or moving a camera to a rig. The
-    `rig_id` and the `date_of_modification` should make it clear when the file was last updated.
+    next, so you can reuse the same file for multiple data assets. However, when the devices in a rig do change, the
+    rig/instrument file must be updated. For instance, replacing a broken Neuropixels probe requires an updated file,
+    as does adding or moving a camera to a rig. The `rig_id` and the `date_of_modification` should make it clear when
+    the file was last updated.
 
 Q: How is the `rig_id` defined?
 A: The `rig_id` consists of the room number, the rig description, and the date it was modified. So an ephys rig in room
