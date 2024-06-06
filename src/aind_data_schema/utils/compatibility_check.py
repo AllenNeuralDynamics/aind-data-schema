@@ -1,36 +1,33 @@
 """Utility methods to check compatibility"""
 from aind_data_schema.core.rig import Rig
 from aind_data_schema.core.session import Session
-import json
+from typing import Dict, Optional
 
 
 class RigSessionCompatibility:
     """Class of methods to check compatibility between rig and session"""
 
-    def __init__(self, rig_filepath, session_filepath):
-        """Initiate class"""
-        rig_file = json.loads(rig_filepath)
-        session_file = json.loads(session_filepath)
-        self.rig = Rig(**rig_file)
-        self.session = Session(**session_file)
+    def __init__(self, rig: Rig, session: Session) -> None:
+        """Initiate RigSessionCompatibility class"""
+        self.rig = rig
+        self.session = session
 
-    def check_rig_id(self):
-        """"""
+    def compare_rig_id(self) -> bool:
+        """Compares rig_id"""
         return self.session.rig_id == self.rig.rig_id
 
-    def check_mouse_platform_name(self):
-        """"""
+    def compare_mouse_platform_name(self) -> bool:
+        """Compares mouse_platform_name"""
         return self.session.mouse_platform_name == self.rig.mouse_platform.name
 
-    def check_stream(self):
-        """
-
-        """
-        data_streams = self.session.data_streams
-        for daq in self.rig.daqs:
-
-        for stream in data_streams:
-            stream.daq_names
-
-
-
+    def run_compatibility_check(self) -> Optional[Dict]:
+        """Runs compatibility check.Creates a dictionary of fields and whether it matches in rig and session."""
+        if self.compare_rig_id() is False:
+            raise ValueError(
+                f"Rig ID in session {self.session.rig_id} does not match the rig {self.rig.rig_id}.")
+        else:
+            comparison_data = {
+                "rig_id": self.compare_rig_id(),
+                "mouse_platform_name": self.compare_mouse_platform_name(),
+            }
+            return comparison_data

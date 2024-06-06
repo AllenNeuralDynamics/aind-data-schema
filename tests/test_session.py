@@ -23,7 +23,7 @@ from aind_data_schema.core.session import (
     Scanner,
     Session,
     Stream,
-    ManipulatorModule
+    ManipulatorModule,
 )
 
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
