@@ -23,19 +23,16 @@ class TestRigSessionCompatibility(unittest.TestCase):
 
     def test_compare_rig_id(self):
         """Tests compare rig_id"""
-        self.assertTrue(self.checker.compare_rig_id())
-        self.assertFalse(self.noncompatible_checker.compare_rig_id())
+        self.assertIsNone(self.checker._compare_rig_id())
+        self.assertIsInstance(self.noncompatible_checker._compare_rig_id(), ValueError)
 
     def test_compare_mouse_platform_name(self):
         """Tests compare mouse platform"""
-        self.assertTrue(self.checker.compare_mouse_platform_name())
-        self.assertFalse(self.noncompatible_checker.compare_mouse_platform_name())
+        self.assertIsNone(self.checker._compare_mouse_platform_name())
+        self.assertIsInstance(self.noncompatible_checker._compare_mouse_platform_name(), ValueError)
 
     def test_run_compatibility_check(self):
         """Tests compatibility check"""
-        comparison_dict = self.checker.run_compatibility_check()
-        self.assertTrue(comparison_dict["rig_id"])
-        self.assertTrue(comparison_dict["mouse_platform_name"])
-
+        self.assertIsNone(self.checker.run_compatibility_check())
         with self.assertRaises(ValueError):
             self.noncompatible_checker.run_compatibility_check()
