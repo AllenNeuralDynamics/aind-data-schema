@@ -19,8 +19,7 @@ from aind_data_schema_models.units import (
     VolumeUnit,
     create_unit_with_value,
 )
-from pydantic import Field, field_validator, model_validator, field_serializer
-
+from pydantic import Field, field_serializer, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
 from typing_extensions import Annotated
 

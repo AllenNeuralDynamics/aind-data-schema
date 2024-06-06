@@ -1,8 +1,9 @@
 """Tests rig session compatibility check"""
 import unittest
+
+from aind_data_schema.components.devices import MousePlatform
 from aind_data_schema.core.rig import Rig
 from aind_data_schema.core.session import Session
-from aind_data_schema.components.devices import MousePlatform
 from aind_data_schema.utils.compatibility_check import RigSessionCompatibility
 
 

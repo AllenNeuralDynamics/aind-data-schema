@@ -1,7 +1,8 @@
 """Utility methods to check compatibility"""
+from typing import Dict, Optional
+
 from aind_data_schema.core.rig import Rig
 from aind_data_schema.core.session import Session
-from typing import Dict, Optional
 
 
 class RigSessionCompatibility:
