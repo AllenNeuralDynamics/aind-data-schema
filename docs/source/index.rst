@@ -21,12 +21,12 @@ will continue to evolve in order to capture the full range of our work.
 
 A given data asset will have the following JSON files:
 
-* **data_description**: Administrative metadata about the source of the data, relevant licenses, and restrictions on use.
+* **data_description**: Administrative metadata about the source of the data, funding, relevant licenses, and restrictions on use.
 * **subject**: Metadata about the subject used in the experiments, including genotype, age, sex, and source.
-* **procedures**: Metadata about any procedures performed prior to data acquisition, including surgeries, behavior training, and tissue preparation.
+* **procedures**: Metadata about any procedures performed prior to data acquisition, including subject procedures (surgeries, behavior training, etc.) and specimen procedures (tissue preparation, staining, etc.).
 * **rig** or **instrument**: Metadata describing the equipment used to acquire data, including part names, serial numbers, and configuration details.
 * **session** or **acquisition**: Metadata describing how the data was acquired
-* **processing**: Metadata describing how data has been processed into derived data assets, including information on what software was used.
+* **processing**: Metadata describing how data has been processed and analyzed into derived data assets, including information on the software and parameters used for processing and analysis.
 
 Example
 =======
@@ -125,7 +125,14 @@ yields JSON:
    
    diagrams
    modules
-   faq
+   general
+   data_description
+   subject
+   procedures
+   rig
+   session
+   acquisition
+   processing
 
 
 Indices and tables
