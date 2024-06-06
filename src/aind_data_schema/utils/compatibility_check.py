@@ -23,8 +23,7 @@ class RigSessionCompatibility:
     def run_compatibility_check(self) -> Optional[Dict]:
         """Runs compatibility check.Creates a dictionary of fields and whether it matches in rig and session."""
         if self.compare_rig_id() is False:
-            raise ValueError(
-                f"Rig ID in session {self.session.rig_id} does not match the rig {self.rig.rig_id}.")
+            raise ValueError(f"Rig ID in session {self.session.rig_id} does not match the rig {self.rig.rig_id}.")
         else:
             comparison_data = {
                 "rig_id": self.compare_rig_id(),
