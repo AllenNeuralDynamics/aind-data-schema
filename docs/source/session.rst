@@ -10,7 +10,7 @@ behavior data and `acquisition` in reference to light sheet imaging.
 
 This schema returns information about the data acquisition. It details what instrument devices were active, any session 
 specific device parameters (e.g. laser power), and what the subject was doing during the session. A session consists of 
-parallel `Streams`` and `Stimulus Epochs`, described below.
+parallel `Streams` and `Stimulus Epochs`, described below.
 
 **Q: What are Streams? **
 
@@ -28,6 +28,7 @@ the streams and the stimulus epochs may or may not be aligned.
 **Q: Hunh? I’m confused.**
 
 Perhaps these diagrams can help?
+
 .. image:: session_image_1.png
 Example session with single stream and epoch
 
