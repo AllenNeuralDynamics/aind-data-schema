@@ -6,7 +6,7 @@ from aind_data_schema_models.units import AngleUnit, PowerUnit, SizeUnit
 from pydantic import Field
 from typing_extensions import Annotated
 
-from aind_data_schema.base import AindModel
+from aind_data_schema.base import AindModel, AwareDatetimeWithDefault
 from aind_data_schema.components.coordinates import (
     Affine3dTransform,
     Rotation3dTransform,
@@ -60,3 +60,5 @@ class AcquisitionTile(Tile):
     notes: Optional[str] = Field(default=None, title="Notes")
     imaging_angle: int = Field(default=0, title="Imaging angle")
     imaging_angle_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Imaging angle unit")
+    acquisition_start_time: Optional[AwareDatetimeWithDefault] = Field(None, title="Acquisition start time")
+    acquisition_end_time: Optional[AwareDatetimeWithDefault] = Field(None, title="Acquisition end time")
