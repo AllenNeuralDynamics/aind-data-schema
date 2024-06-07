@@ -3,8 +3,8 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to aind-data-schema: 
-============================
+Welcome to aind-data-schema 
+===========================
 
 This repository contains the schema used to define metadata for Allen 
 Institute for Neural Dynamics (AIND) data. All data is accompanied by 
@@ -21,12 +21,12 @@ will continue to evolve in order to capture the full range of our work.
 
 A given data asset will have the following JSON files:
 
-* **data_description**: Administrative metadata about the source of the data, funding, relevant licenses, and restrictions on use.
-* **subject**: Metadata about the subject used in the experiments, including genotype, age, sex, and source.
-* **procedures**: Metadata about any procedures performed prior to data acquisition, including subject procedures (surgeries, behavior training, etc.) and specimen procedures (tissue preparation, staining, etc.).
-* **rig** or **instrument**: Metadata describing the equipment used to acquire data, including part names, serial numbers, and configuration details.
-* **session** or **acquisition**: Metadata describing how the data was acquired
-* **processing**: Metadata describing how data has been processed and analyzed into derived data assets, including information on the software and parameters used for processing and analysis.
+* **`data_description <data_description>`_**: Administrative metadata about the source of the data, funding, relevant licenses, and restrictions on use.
+* **`subject <subject>`_**: Metadata about the subject used in the experiments, including genotype, age, sex, and source.
+* **`procedures <procedures>`_**: Metadata about any procedures performed prior to data acquisition, including subject procedures (surgeries, behavior training, etc.) and specimen procedures (tissue preparation, staining, etc.).
+* **`rig <rig>`_** or **`instrument <rig>`_**: Metadata describing the equipment used to acquire data, including part names, serial numbers, and configuration details.
+* **`session <session>`_** or **`acquisition <acquisition>`_**: Metadata describing how the data was acquired
+* **`processing <processing>`_**: Metadata describing how data has been processed and analyzed into derived data assets, including information on the software and parameters used for processing and analysis.
 
 Example
 =======
