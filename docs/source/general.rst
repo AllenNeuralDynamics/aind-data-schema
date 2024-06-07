@@ -1,5 +1,5 @@
-FAQ: General
-============
+General Metadata
+================
 
 **Q: What is metadata?**
 

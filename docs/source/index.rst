@@ -121,10 +121,8 @@ yields JSON:
 
 .. toctree::
    :maxdepth: 1
-   :caption: Contents:
    
-   diagrams
-   modules
+   :caption: FAQ
    general
    data_description
    subject
@@ -133,6 +131,10 @@ yields JSON:
    session
    acquisition
    processing
+
+   :caption: API Reference
+   diagrams
+   modules
 
 
 Indices and tables

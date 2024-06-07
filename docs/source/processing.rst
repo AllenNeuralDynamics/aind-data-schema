@@ -1,5 +1,5 @@
-FAQ: Processing
-===============
+Processing Schema
+=================
 
 **Q: What is processing?**
 

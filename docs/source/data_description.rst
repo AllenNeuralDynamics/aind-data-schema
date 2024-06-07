@@ -1,5 +1,5 @@
-FAQ: Data description
-=====================
+Data description schema
+=======================
 
 **Q: What is the data description file?**
 

@@ -1,5 +1,5 @@
-FAQ: Procedures
-===============
+Procedures Schema
+=================
 
 **Q: What are procedures?**
 

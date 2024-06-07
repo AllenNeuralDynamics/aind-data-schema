@@ -1,5 +1,5 @@
-FAQ: Subject
-============
+Subject Schema
+==============
 
 **Q: What is a subject?**
 
