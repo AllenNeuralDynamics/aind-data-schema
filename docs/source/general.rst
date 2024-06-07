@@ -18,6 +18,7 @@ Each data asset needs:
 * Instrument or Rig
 * Acqusition or Session
 * Processing
+
 The contents of these will get compiled into a metadata.nd.json file by the data transfer service.
 
 **Q: Which fields do I have to provide within these?**
