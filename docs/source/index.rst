@@ -140,7 +140,7 @@ yields JSON:
    :maxdepth: 1
 
    diagrams
-   modindex
+   modules
 
 Indices and tables
 ==================

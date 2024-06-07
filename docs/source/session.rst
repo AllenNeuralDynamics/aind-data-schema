@@ -30,13 +30,16 @@ the streams and the stimulus epochs may or may not be aligned.
 Perhaps these diagrams can help?
 
 .. image:: session_image_1.png
+
 Example session with single stream and epoch
 
 .. image:: session_image_2.png
+
 Example where the animal is engaged with a single behavior, and there are two distinct data streams. E.g. repositioned 
 probes to target different structures. 
 
 .. image:: session_image_3.png
+
 Example where there is one data stream during the session, but multiple stimulus epochs. E.g. active behavior, passive 
 behavior replay, and optotagging.
 
