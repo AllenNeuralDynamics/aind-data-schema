@@ -47,7 +47,7 @@ The Stream describes the data being collected. A light source involved in data a
 during the session. A light source involved in a stimulus (e.g. the laser used for optotagging or photostim) should be 
 in the Stimulus Epoch.
 
-**Q: How do I create a stimulus table? **
+**Q: How do I create a stimulus table?**
 
 A stimulus table is not part of the metadata but is part of the data itself. We track high level stimulus parameters in 
 the Stimulus Class, but the trial-by-trial stimulus information belongs in the NWB file itself.
