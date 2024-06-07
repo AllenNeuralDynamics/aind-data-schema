@@ -28,16 +28,19 @@ must happen under an IACUC protocol. Typically, the same IACUC protocol covers a
 used for a given project/set of projects. The protocol_id is a doi to a protocol published on protocols.io, which 
 contains the step-by-step protocol for a specific procedure.
 
+Questions for AIND users
+------------------------
+
 **Q: Where do I find the protocol_id for my procedure?**
 
-You can find AIND's protocols on protocols.io (https://www.protocols.io/workspaces/allen-institute-for-neural-dynamics) 
-or in this list of our [published protocols](https://app.smartsheet.com/sheets/3XQgWWrXW3mh46xmXCw5Q9GfqQmmP4xwF9Cjfqg1?view=grid).
+You can find AIND's protocols on our `protocols.io workspace <https://www.protocols.io/workspaces/allen-institute-for-neural-dynamics>`_
+or in this list of our `published protocols <https://app.smartsheet.com/sheets/3XQgWWrXW3mh46xmXCw5Q9GfqQmmP4xwF9Cjfqg1?view=grid>`_.
 
 **Q: How do I create a procedure file?**
 
-You can create a procedure file using our [metadata entry web application](https://metadata-entry.allenneuraldynamics.org). 
-
-*AIND users*: you can use the Allen-internal metadata service (http://aind-metadata-service/), which automatically pulls subject 
+You can create a procedure file using our `metadata entry web application <https://metadata-entry.allenneuraldynamics.org>`_. You can also use 
+the Allen-internal `metadata service <http://aind-metadata-service/>`_, which automatically pulls subject 
 procedure information from our Neurosurgery and Behavior database and Lab Animal Services database, capturing most surgeries, injections
 and perfusions. As our SLIMS system continues to develop, this service will be able to pull more procedure information from SLIMS,
-but presently any additional surgeries must be documented manually.
+but presently any additional surgeries must be documented manually. Note that this service is automatically used to pull procedure metadata
+any time data is uploaded with the `data transfer service <http://aind-data-transfer-service>`_.

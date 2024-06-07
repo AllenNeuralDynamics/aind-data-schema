@@ -24,8 +24,8 @@ for others the rigs are in greater state of flux and the files are updated more 
 
 **Q: How do I create a rig or instrument file?**
 
-Currently, these are created manually. This can either be done using the GUI (https://metadata-entry.allenneuraldynamics.org/) 
-or by writing python code that imports aind-data-schema.
+Currently, these are created manually. This can either be done using the `metadata entry web application <https://metadata-entry.allenneuraldynamics.org/>`_
+or by writing python code that imports `aind-data-schema <https://github.com/allenNeuralDynamics/aind-data-schema>`_.
 
 **Q: Do I need to create a new rig/instrument file for each data asset?**
 
