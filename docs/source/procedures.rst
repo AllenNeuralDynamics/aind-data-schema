@@ -37,7 +37,7 @@ or in this list of our [published protocols](https://app.smartsheet.com/sheets/3
 
 You can create a procedure file using our [metadata entry web application](https://metadata-entry.allenneuraldynamics.org). 
 
-**AIND users**: you can use the Allen-internal metadata service (http://aind-metadata-service/), which automatically pulls subject 
+*AIND users*: you can use the Allen-internal metadata service (http://aind-metadata-service/), which automatically pulls subject 
 procedure information from our Neurosurgery and Behavior database and Lab Animal Services database, capturing most surgeries, injections
 and perfusions. As our SLIMS system continues to develop, this service will be able to pull more procedure information from SLIMS,
 but presently any additional surgeries must be documented manually.
