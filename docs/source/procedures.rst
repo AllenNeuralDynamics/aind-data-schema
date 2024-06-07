@@ -1,4 +1,4 @@
-Procedures Schema
+Procedures schema
 =================
 
 **Q: What are procedures?**

@@ -1,5 +1,5 @@
-FAQ: Acquisition
-================
+Acquisition schema
+==================
 
 **Q: What is Acquisition?**
 

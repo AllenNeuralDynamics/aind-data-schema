@@ -1,4 +1,4 @@
-General Metadata
+General metadata
 ================
 
 **Q: What is metadata?**

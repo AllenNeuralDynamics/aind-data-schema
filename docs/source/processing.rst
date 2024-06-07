@@ -1,4 +1,4 @@
-Processing Schema
+Processing schema
 =================
 
 **Q: What is processing?**

@@ -1,5 +1,5 @@
-FAQ: Rig/Instrument
-===================
+Rig/Instrument Schema
+=====================
 
 **Q: What is a rig? What is an instrument?**
 
