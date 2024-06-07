@@ -10,7 +10,9 @@ quality control, and data analysis. This file should be appended with each subse
 
 **Q: How do I create a processing file?**
 
-The data transfer service (http://aind-data-transfer-service) creates a processing.json file when it performs data 
-compression prior to upload. When derived data assets are created, they should have a processing.json files that has 
-appended new processing steps to that original file. This needs to be done using python code that imports 
-aind-data-schema.
+You can create a procedure file using our [metadata entry web application](https://metadata-entry.allenneuraldynamics.org). 
+
+**AIND users**: The internal [data transfer service](http://aind-data-transfer-service) creates a processing.json file when
+it performs data compression or other preprocessing prior to upload. When derived data assets are created, they should have 
+a processing.json files that has appended new processing steps to that original file. This needs to be done using python code
+ that imports [aind-data-schema](https://github.com/allenNeuralDynamics/aind-data-schema).

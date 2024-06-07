@@ -25,8 +25,8 @@ and reliably process data with centrally managed data pipelines.
 
 **Q: What platform should I use?**
 
-There is a controlled vocabulary in aind-data-schema-models. Pick the one that most closely aligns with how you have
-collected data. If none exists, talk to Saskia de Vries or David Feng.
+There is a controlled vocabulary in [aind-data-schema-models](https://github.com/AllenNeuralDynamics/aind-data-schema-models). 
+Pick the one that most closely aligns with how you have collected data. If none exists, talk to Saskia de Vries or David Feng.
 
 **Q: This data is for a AIND project and not part of a grant. Shouldn’t the funder be AIND?**
 

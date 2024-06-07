@@ -30,11 +30,14 @@ contains the step-by-step protocol for a specific procedure.
 
 **Q: Where do I find the protocol_id for my procedure?**
 
-You can find it on the protocol on protocols.io (https://www.protocols.io/workspaces/allen-institute-for-neural-dynamics) 
-or in this list of our published protocols: https://app.smartsheet.com/sheets/3XQgWWrXW3mh46xmXCw5Q9GfqQmmP4xwF9Cjfqg1?view=grid
+You can find AIND's protocols on protocols.io (https://www.protocols.io/workspaces/allen-institute-for-neural-dynamics) 
+or in this list of our [published protocols](https://app.smartsheet.com/sheets/3XQgWWrXW3mh46xmXCw5Q9GfqQmmP4xwF9Cjfqg1?view=grid).
 
 **Q: How do I create a procedure file?**
 
-The metadata service (http://aind-metadata-service/) pulls subject procedure information from NSB and LAS databases, 
-capturing most surgeries, injections and perfusions. As SLIMS continues to develop, this service will be able to pull 
-more procedure information from SLIMS, but presently this must be ingested manually.
+You can create a procedure file using our [metadata entry web application](https://metadata-entry.allenneuraldynamics.org). 
+
+**AIND users**: you can use the Allen-internal metadata service (http://aind-metadata-service/), which automatically pulls subject 
+procedure information from our Neurosurgery and Behavior database and Lab Animal Services database, capturing most surgeries, injections
+and perfusions. As our SLIMS system continues to develop, this service will be able to pull more procedure information from SLIMS,
+but presently any additional surgeries must be documented manually.
