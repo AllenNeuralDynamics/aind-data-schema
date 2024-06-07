@@ -12,7 +12,7 @@ This schema returns information about the data acquisition. It details what inst
 specific device parameters (e.g. laser power), and what the subject was doing during the session. A session consists of 
 parallel `Streams` and `Stimulus Epochs`, described below.
 
-**Q: What are Streams? **
+**Q: What are Streams?**
 
 A stream is the data that is being acquired at one time. A stream can contain multiple modalities, for instance: ecephys, 
 behavior videos, and behavior. They are part of one stream if they are being acquired simultaneously and their start and 
