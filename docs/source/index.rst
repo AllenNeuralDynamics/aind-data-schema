@@ -123,6 +123,7 @@ yields JSON:
    :maxdepth: 1
    
    :caption: FAQ
+
    general
    data_description
    subject
@@ -133,6 +134,7 @@ yields JSON:
    processing
 
    :caption: API Reference
+   
    diagrams
    modules
 
