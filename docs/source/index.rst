@@ -120,9 +120,9 @@ yields JSON:
 
 
 .. toctree::
-   :maxdepth: 1
-   
    :caption: FAQ
+   :hidden:
+   :maxdepth: 1
 
    general
    data_description
@@ -133,8 +133,12 @@ yields JSON:
    acquisition
    processing
 
+
+.. toctree::
    :caption: API Reference
-   
+   :hidden:
+   :maxdepth: 1
+
    diagrams
    modules
 
