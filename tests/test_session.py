@@ -18,12 +18,12 @@ from aind_data_schema.components.coordinates import (
 )
 from aind_data_schema.core.session import (
     DomeModule,
+    ManipulatorModule,
     MRIScan,
     RewardDeliveryConfig,
     Scanner,
     Session,
     Stream,
-    ManipulatorModule
 )
 
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
