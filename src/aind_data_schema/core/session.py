@@ -481,12 +481,12 @@ class Stream(AindModel):
 class StimulusEpoch(AindModel):
     """Description of stimulus used during session"""
 
-    stimulus_start_time: datetime = Field(
+    stimulus_start_time: AwareDatetimeWithDefault = Field(
         ...,
         title="Stimulus start time",
         description="When a specific stimulus begins. This might be the same as the session start time.",
     )
-    stimulus_end_time: datetime = Field(
+    stimulus_end_time: AwareDatetimeWithDefault = Field(
         ...,
         title="Stimulus end time",
         description="When a specific stimulus ends. This might be the same as the session end time.",
