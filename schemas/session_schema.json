@@ -3706,6 +3706,47 @@
          "title": "NationalCenterForComplementaryAndIntegrativeHealth",
          "type": "object"
       },
+      "NationalInstituteOfMentalHealth": {
+         "additionalProperties": false,
+         "description": "NationalInstituteofMentalHealth",
+         "properties": {
+            "name": {
+               "const": "National Institute of Mental Health",
+               "default": "National Institute of Mental Health",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "NIMH",
+               "default": "NIMH",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "04xeg9z08",
+               "default": "04xeg9z08",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "NationalInstituteOfMentalHealth",
+         "type": "object"
+      },
       "NationalInstituteOfNeurologicalDisordersAndStroke": {
          "additionalProperties": false,
          "description": "NationalInstituteOfNeurologicalDisordersAndStroke",
@@ -4812,6 +4853,7 @@
                      "Mitutuyo": "#/$defs/Mitutuyo",
                      "NResearch Inc": "#/$defs/NResearch",
                      "National Center for Complementary and Integrative Health": "#/$defs/NationalCenterForComplementaryAndIntegrativeHealth",
+                     "National Institute of Mental Health": "#/$defs/NationalInstituteOfMentalHealth",
                      "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                      "National Instruments": "#/$defs/NationalInstruments",
                      "Navitar": "#/$defs/Navitar",
@@ -5005,6 +5047,9 @@
                   },
                   {
                      "$ref": "#/$defs/NationalCenterForComplementaryAndIntegrativeHealth"
+                  },
+                  {
+                     "$ref": "#/$defs/NationalInstituteOfMentalHealth"
                   },
                   {
                      "$ref": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke"
@@ -5462,6 +5507,7 @@
                            "Mitutuyo": "#/$defs/Mitutuyo",
                            "NResearch Inc": "#/$defs/NResearch",
                            "National Center for Complementary and Integrative Health": "#/$defs/NationalCenterForComplementaryAndIntegrativeHealth",
+                           "National Institute of Mental Health": "#/$defs/NationalInstituteOfMentalHealth",
                            "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                            "National Instruments": "#/$defs/NationalInstruments",
                            "Navitar": "#/$defs/Navitar",
@@ -5655,6 +5701,9 @@
                         },
                         {
                            "$ref": "#/$defs/NationalCenterForComplementaryAndIntegrativeHealth"
+                        },
+                        {
+                           "$ref": "#/$defs/NationalInstituteOfMentalHealth"
                         },
                         {
                            "$ref": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke"
@@ -7804,8 +7853,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.3.2",
-         "default": "0.3.2",
+         "const": "0.3.3",
+         "default": "0.3.3",
          "title": "Schema Version"
       },
       "protocol_id": {
