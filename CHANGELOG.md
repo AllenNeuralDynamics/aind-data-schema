@@ -1,3 +1,11 @@
+### [0.38.5](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.38.4...v0.38.5) (2024-06-10)
+
+
+### Continuous Integration
+
+* removes pydantic upper bound ([#972](https://github.com/AllenNeuralDynamics/aind-data-schema/issues/972)) ([648f6c6](https://github.com/AllenNeuralDynamics/aind-data-schema/commit/648f6c6fabf8d6c9ac7cc24e76e70245771c059c))
+
+
 ### [0.38.4](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.38.3...v0.38.4) (2024-06-10)
 
 
