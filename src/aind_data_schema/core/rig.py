@@ -166,7 +166,7 @@ class Rig(AindCoreModel):
         """Validate ecephys modality has ephys_assemblies and stick_microscopes"""
         errors = []
         if Modality.ECEPHYS in value:
-            for k, v in {"ephys_assemblies": len(info.data.get("ephys_assemblies", [])) > 0,}.items():
+            for k, v in {"ephys_assemblies": len(info.data.get("ephys_assemblies", [])) > 0, }.items():
                 if v is False:
                     errors.append(f"{k} field must be utilized for Ecephys modality")
         return errors

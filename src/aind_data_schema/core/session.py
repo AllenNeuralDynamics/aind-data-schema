@@ -382,7 +382,7 @@ class Stream(AindModel):
         """Validate ecephys modality has ephys_assemblies and stick_microscopes"""
         if Modality.ECEPHYS in value:
             ephys_modules = info.data["ephys_modules"]
-            for k, v in {"ephys_modules": ephys_modules,}.items():
+            for k, v in {"ephys_modules": ephys_modules, }.items():
                 if not v:
                     return f"{k} field must be utilized for Ecephys modality"
         return None
