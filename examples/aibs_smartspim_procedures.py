@@ -23,11 +23,7 @@ conductivity_buffer = procedures.Reagent(name="Conductivity Buffer", lot_number=
 
 easy_index = procedures.Reagent(name="Easy Index", lot_number="1234", source=Organization.LIFECANVAS)
 
-water = procedures.Reagent(
-    name="Deionized water",
-    lot_number="DDI/Filtered in house",
-    source=Organization.OTHER,
-)
+water = procedures.Reagent(name="Deionized water", lot_number="DDI/Filtered in house", source=Organization.OTHER,)
 
 agarose = procedures.Reagent(name="Agarose", lot_number="1234", source=Organization.OTHER)
 
@@ -38,14 +34,7 @@ perfusion = procedures.Surgery(
     experimenter_full_name="LAS",
     iacuc_protocol="xxxx",
     protocol_id="doi_of_protocol_surgery",
-    procedures=[
-        procedures.Perfusion(
-            protocol_id="doi_of_protocol_perfusion",
-            output_specimen_ids=[
-                specimen_id,
-            ],
-        )
-    ],
+    procedures=[procedures.Perfusion(protocol_id="doi_of_protocol_perfusion", output_specimen_ids=[specimen_id,],)],
 )
 
 # perfused brain goes into SHIELD OFF solution
@@ -69,9 +58,7 @@ shield_on_procedure = procedures.SpecimenProcedure(
     end_date=date(2023, 1, 18),
     experimenter_full_name=experimenter,
     protocol_id=["unknown"],
-    reagents=[
-        shield_on,
-    ],
+    reagents=[shield_on,],
     notes="40 deg. C",
 )
 
@@ -83,9 +70,7 @@ delipidation_prep_procedure = procedures.SpecimenProcedure(
     end_date=date(2023, 1, 19),
     experimenter_full_name=experimenter,
     protocol_id=["unknown"],
-    reagents=[
-        delipidation_buffer,
-    ],
+    reagents=[delipidation_buffer,],
 )
 
 # specimen goes into active delipidation box
@@ -109,10 +94,7 @@ index1 = procedures.SpecimenProcedure(
     end_date=date(2023, 1, 31),
     experimenter_full_name=experimenter,
     protocol_id=["unknown"],
-    reagents=[
-        easy_index,
-        water,
-    ],
+    reagents=[easy_index, water,],
 )
 
 # Now to 100% EasyIndex
@@ -124,9 +106,7 @@ index2 = procedures.SpecimenProcedure(
     end_date=date(2023, 2, 2),
     experimenter_full_name=experimenter,
     protocol_id=["unknown"],
-    reagents=[
-        easy_index,
-    ],
+    reagents=[easy_index,],
 )
 
 # Specimen embedded into 2% agarose, prepared with EasyIndex
@@ -137,17 +117,12 @@ embedding = procedures.SpecimenProcedure(
     end_date=date(2023, 2, 2),
     experimenter_full_name=experimenter,
     protocol_id=["unknown"],
-    reagents=[
-        easy_index,
-        agarose,
-    ],
+    reagents=[easy_index, agarose,],
 )
 
 all_procedures = procedures.Procedures(
     subject_id=specimen_id,
-    subject_procedures=[
-        perfusion,
-    ],
+    subject_procedures=[perfusion,],
     specimen_procedures=[
         shield_off_procedure,
         shield_on_procedure,

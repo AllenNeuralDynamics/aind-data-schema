@@ -79,36 +79,11 @@ inst = Instrument(
         ),
     ],
     motorized_stages=[
-        MotorizedStage(
-            name="Focus stage",
-            model="LS-100",
-            manufacturer=Organization.ASI,
-            travel=100,
-        ),
-        MotorizedStage(
-            name="Cylindrical lens #1",
-            model="L12-20F-4",
-            manufacturer=Organization.MIGHTY_ZAP,
-            travel=41,
-        ),
-        MotorizedStage(
-            name="Cylindrical lens #2",
-            model="L12-20F-4",
-            manufacturer=Organization.MIGHTY_ZAP,
-            travel=41,
-        ),
-        MotorizedStage(
-            name="Cylindrical lens #3",
-            model="L12-20F-4",
-            manufacturer=Organization.MIGHTY_ZAP,
-            travel=41,
-        ),
-        MotorizedStage(
-            name="Cylindrical lens #4",
-            model="L12-20F-4",
-            manufacturer=Organization.MIGHTY_ZAP,
-            travel=41,
-        ),
+        MotorizedStage(name="Focus stage", model="LS-100", manufacturer=Organization.ASI, travel=100,),
+        MotorizedStage(name="Cylindrical lens #1", model="L12-20F-4", manufacturer=Organization.MIGHTY_ZAP, travel=41,),
+        MotorizedStage(name="Cylindrical lens #2", model="L12-20F-4", manufacturer=Organization.MIGHTY_ZAP, travel=41,),
+        MotorizedStage(name="Cylindrical lens #3", model="L12-20F-4", manufacturer=Organization.MIGHTY_ZAP, travel=41,),
+        MotorizedStage(name="Cylindrical lens #4", model="L12-20F-4", manufacturer=Organization.MIGHTY_ZAP, travel=41,),
     ],
     scanning_stages=[
         ScanningStage(
@@ -149,14 +124,8 @@ inst = Instrument(
     humidity_control=False,
     temperature_control=False,
     com_ports=[
-        Com(
-            hardware_name="Laser Launch",
-            com_port="COM3",
-        ),
-        Com(
-            hardware_name="ASI Tiger",
-            com_port="COM5",
-        ),
+        Com(hardware_name="Laser Launch", com_port="COM3",),
+        Com(hardware_name="ASI Tiger", com_port="COM5",),
         Com(hardware_name="MightyZap", com_port="COM4"),
     ],
     fluorescence_filters=[
@@ -190,16 +159,10 @@ inst = Instrument(
     ],
     additional_devices=[
         AdditionalImagingDevice(
-            name="Lens 1",
-            imaging_device_type="Tunable lens",
-            manufacturer=Organization.OPTOTUNE,
-            model="EL-16-40-TC",
+            name="Lens 1", imaging_device_type="Tunable lens", manufacturer=Organization.OPTOTUNE, model="EL-16-40-TC",
         ),
         AdditionalImagingDevice(
-            name="Lens 2",
-            imaging_device_type="Tunable lens",
-            manufacturer=Organization.OPTOTUNE,
-            model="EL-16-40-TC",
+            name="Lens 2", imaging_device_type="Tunable lens", manufacturer=Organization.OPTOTUNE, model="EL-16-40-TC",
         ),
         AdditionalImagingDevice(
             name="Sample chamber",

@@ -48,17 +48,13 @@ class Acquisition(AindCoreModel):
     schema_version: Literal["0.6.16"] = Field("0.6.16")
     protocol_id: List[str] = Field(default=[], title="Protocol ID", description="DOI for protocols.io")
     experimenter_full_name: List[str] = Field(
-        ...,
-        description="First and last name of the experimenter(s).",
-        title="Experimenter(s) full name",
+        ..., description="First and last name of the experimenter(s).", title="Experimenter(s) full name",
     )
     specimen_id: str = Field(..., title="Specimen ID")
     subject_id: Optional[str] = Field(default=None, title="Subject ID")
     instrument_id: str = Field(..., title="Instrument ID")
     calibrations: List[Calibration] = Field(
-        default=[],
-        title="Calibrations",
-        description="List of calibration measurements taken prior to acquisition.",
+        default=[], title="Calibrations", description="List of calibration measurements taken prior to acquisition.",
     )
     maintenance: List[Maintenance] = Field(
         default=[], title="Maintenance", description="List of maintenance on rig prior to acquisition."

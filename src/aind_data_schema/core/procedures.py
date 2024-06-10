@@ -245,9 +245,7 @@ class SpecimenProcedure(AindModel):
     start_date: date = Field(..., title="Start date")
     end_date: date = Field(..., title="End date")
     experimenter_full_name: str = Field(
-        ...,
-        description="First and last name of the experimenter.",
-        title="Experimenter full name",
+        ..., description="First and last name of the experimenter.", title="Experimenter full name",
     )
     protocol_id: List[str] = Field(..., title="Protocol ID", description="DOI for protocols.io")
     reagents: List[Reagent] = Field(default=[], title="Reagents")
@@ -340,15 +338,11 @@ class TarsVirusIdentifiers(AindModel):
 
     virus_tars_id: Optional[str] = Field(default=None, title="Virus ID, usually begins 'AiV'")
     plasmid_tars_alias: Optional[str] = Field(
-        default=None,
-        title="Plasmid alias",
-        description="Alias used to reference the plasmid, usually begins 'AiP'",
+        default=None, title="Plasmid alias", description="Alias used to reference the plasmid, usually begins 'AiP'",
     )
     prep_lot_number: str = Field(..., title="Preparation lot number")
     prep_date: Optional[date] = Field(
-        default=None,
-        title="Preparation lot date",
-        description="Date this prep lot was titered",
+        default=None, title="Preparation lot date", description="Date this prep lot was titered",
     )
     prep_type: Optional[VirusPrepType] = Field(default=None, title="Viral prep type")
     prep_protocol: Optional[str] = Field(default=None, title="Prep protocol")
@@ -359,9 +353,7 @@ class ViralMaterial(AindModel):
 
     material_type: Literal["Virus"] = Field(default="Virus", title="Injection material type")
     name: str = Field(
-        ...,
-        title="Full genome name",
-        description="Full genome for virus construct",
+        ..., title="Full genome name", description="Full genome for virus construct",
     )
     tars_identifiers: Optional[TarsVirusIdentifiers] = Field(
         default=None, title="TARS IDs", description="TARS database identifiers"
@@ -442,9 +434,7 @@ class NanojectInjection(BrainInjection):
 
     procedure_type: Literal["Nanoject injection"] = "Nanoject injection"
     injection_volume: List[Decimal] = Field(
-        ...,
-        title="Injection volume (nL)",
-        description="Injection volume, one value per location",
+        ..., title="Injection volume (nL)", description="Injection volume, one value per location",
     )
     injection_volume_unit: VolumeUnit = Field(VolumeUnit.NL, title="Injection volume unit")
 
@@ -474,9 +464,7 @@ class IntraCerebellarVentricleInjection(BrainInjection):
 
     procedure_type: Literal["ICV injection"] = "ICV injection"
     injection_volume: List[Decimal] = Field(
-        ...,
-        title="Injection volume (nL)",
-        description="Injection volume, one value per location",
+        ..., title="Injection volume (nL)", description="Injection volume, one value per location",
     )
     injection_volume_unit: VolumeUnit = Field(VolumeUnit.NL, title="Injection volume unit")
 
@@ -486,9 +474,7 @@ class IntraCisternalMagnaInjection(BrainInjection):
 
     procedure_type: Literal["ICM injection"] = "ICM injection"
     injection_volume: List[Decimal] = Field(
-        ...,
-        title="Injection volume (nL)",
-        description="Injection volume, one value per location",
+        ..., title="Injection volume (nL)", description="Injection volume, one value per location",
     )
     injection_volume_unit: VolumeUnit = Field(VolumeUnit.NL, title="Injection volume unit")
 
@@ -512,8 +498,7 @@ class OphysProbe(AindModel):
     stereotactic_coordinate_ap: Decimal = Field(..., title="Stereotactic coordinate A/P (mm)")
     stereotactic_coordinate_ml: Decimal = Field(..., title="Stereotactic coordinate M/L (mm)")
     stereotactic_coordinate_dv: Decimal = Field(
-        ...,
-        title="Stereotactic coordinate D/V (mm)",
+        ..., title="Stereotactic coordinate D/V (mm)",
     )
     stereotactic_coordinate_unit: SizeUnit = Field(default=SizeUnit.MM, title="Sterotactic coordinate unit")
     stereotactic_coordinate_reference: Optional[CoordinateReferenceLocation] = Field(
@@ -546,9 +531,7 @@ class WaterRestriction(AindModel):
     minimum_water_per_day: Decimal = Field(..., title="Minimum water per day (mL)")
     minimum_water_per_day_unit: VolumeUnit = Field(default=VolumeUnit.ML, title="Minimum water per day unit")
     baseline_weight: Decimal = Field(
-        ...,
-        title="Baseline weight (g)",
-        description="Weight at start of water restriction",
+        ..., title="Baseline weight (g)", description="Weight at start of water restriction",
     )
     weight_unit: MassUnit = Field(default=MassUnit.G, title="Weight unit")
     start_date: date = Field(..., title="Water restriction start date")
@@ -561,9 +544,7 @@ class Perfusion(AindModel):
     procedure_type: Literal["Perfusion"] = "Perfusion"
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     output_specimen_ids: Set[str] = Field(
-        ...,
-        title="Specimen ID",
-        description="IDs of specimens resulting from this procedure.",
+        ..., title="Specimen ID", description="IDs of specimens resulting from this procedure.",
     )
 
 
@@ -574,9 +555,7 @@ class Surgery(AindModel):
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     start_date: date = Field(..., title="Start date")
     experimenter_full_name: str = Field(
-        ...,
-        description="First and last name of the experimenter.",
-        title="Experimenter full name",
+        ..., description="First and last name of the experimenter.", title="Experimenter full name",
     )
     iacuc_protocol: Optional[str] = Field(None, title="IACUC protocol")
     animal_weight_prior: Optional[Decimal] = Field(

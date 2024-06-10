@@ -58,14 +58,10 @@ class Instrument(AindCoreModel):
     scanning_stages: List[ScanningStage] = Field(default=[], title="Scanning motorized stages")
     additional_devices: List[AdditionalImagingDevice] = Field(default=[], title="Additional devices")
     calibration_date: Optional[date] = Field(
-        None,
-        description="Date of most recent calibration",
-        title="Calibration date",
+        None, description="Date of most recent calibration", title="Calibration date",
     )
     calibration_data: Optional[str] = Field(
-        None,
-        description="Path to calibration data from most recent calibration",
-        title="Calibration data",
+        None, description="Path to calibration data from most recent calibration", title="Calibration data",
     )
     com_ports: List[Com] = Field(default=[], title="COM ports")
     daqs: List[DAQDevice] = Field(default=[], title="DAQ")

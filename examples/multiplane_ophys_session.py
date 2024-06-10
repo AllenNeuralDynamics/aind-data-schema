@@ -26,13 +26,7 @@ s = Session(
             stream_start_time=t,
             stream_end_time=t,
             stream_modalities=[Modality.POPHYS, Modality.BEHAVIOR_VIDEOS, Modality.CONFOCAL],
-            camera_names=[
-                "Mesoscope",
-                "Eye",
-                "Face",
-                "Behavior",
-                "Vasculature",
-            ],
+            camera_names=["Mesoscope", "Eye", "Face", "Behavior", "Vasculature",],
             light_sources=[
                 LaserConfig(
                     name="Laser A",

@@ -44,9 +44,7 @@ class DataDescription(AindCoreModel):
     license: Literal["CC-BY-4.0"] = Field("CC-BY-4.0", title="License")
 
     platform: Platform.ONE_OF = Field(
-        ...,
-        description="Name for a standardized primary data collection system",
-        title="Platform",
+        ..., description="Name for a standardized primary data collection system", title="Platform",
     )
     subject_id: str = Field(
         ...,
@@ -55,14 +53,10 @@ class DataDescription(AindCoreModel):
         title="Subject ID",
     )
     creation_time: AwareDatetimeWithDefault = Field(
-        ...,
-        description="Time that data files were created, used to uniquely identify the data",
-        title="Creation Time",
+        ..., description="Time that data files were created, used to uniquely identify the data", title="Creation Time",
     )
     label: Optional[str] = Field(
-        default=None,
-        description="A short name for the data, used in file names and labels",
-        title="Label",
+        default=None, description="A short name for the data, used in file names and labels", title="Label",
     )
     name: Optional[str] = Field(
         default=None,
@@ -83,14 +77,10 @@ class DataDescription(AindCoreModel):
         min_length=1,
     )
     data_level: DataLevel = Field(
-        ...,
-        description="level of processing that data has undergone",
-        title="Data Level",
+        ..., description="level of processing that data has undergone", title="Data Level",
     )
     group: Optional[Group] = Field(
-        default=None,
-        description="A short name for the group of individuals that collected this data",
-        title="Group",
+        default=None, description="A short name for the group of individuals that collected this data", title="Group",
     )
     investigators: List[PIDName] = Field(
         ...,
@@ -105,9 +95,7 @@ class DataDescription(AindCoreModel):
         title="Project Name",
     )
     restrictions: Optional[str] = Field(
-        default=None,
-        description="Detail any restrictions on publishing or sharing these data",
-        title="Restrictions",
+        default=None, description="Detail any restrictions on publishing or sharing these data", title="Restrictions",
     )
     modality: List[Modality.ONE_OF] = Field(
         ...,
@@ -132,10 +120,7 @@ class DataDescription(AindCoreModel):
 
         creation_time = datetime_from_name_string(m.group("c_date"), m.group("c_time"))
 
-        return dict(
-            label=m.group("label"),
-            creation_time=creation_time,
-        )
+        return dict(label=m.group("label"), creation_time=creation_time,)
 
     @model_validator(mode="after")
     def build_name(self):
@@ -174,9 +159,7 @@ class DerivedDataDescription(DataDescription):
         creation_time = datetime_from_name_string(m.group("c_date"), m.group("c_time"))
 
         return dict(
-            process_name=m.group("process_name"),
-            creation_time=creation_time,
-            input_data_name=m.group("input"),
+            process_name=m.group("process_name"), creation_time=creation_time, input_data_name=m.group("input"),
         )
 
     @model_validator(mode="after")
@@ -279,11 +262,7 @@ class RawDataDescription(DataDescription):
         platform_abbreviation = m.group("platform_abbreviation")
         platform = Platform.from_abbreviation(platform_abbreviation)
 
-        return dict(
-            platform=platform,
-            subject_id=m.group("subject_id"),
-            creation_time=creation_time,
-        )
+        return dict(platform=platform, subject_id=m.group("subject_id"), creation_time=creation_time,)
 
 
 class AnalysisDescription(DataDescription):

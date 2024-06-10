@@ -163,11 +163,7 @@ inst = Instrument(
     ],
     motorized_stages=[
         MotorizedStage(
-            model="LS-100",
-            manufacturer=Organization.ASI,
-            serial_number="Unknown-1",
-            travel=100,
-            name="Focus stage",
+            model="LS-100", manufacturer=Organization.ASI, serial_number="Unknown-1", travel=100, name="Focus stage",
         ),
         MotorizedStage(
             model="L12-20F-4",
@@ -240,14 +236,8 @@ inst = Instrument(
     ],
     com_ports=[
         Com(hardware_name="Laser Launch", com_port="COM4"),
-        Com(
-            hardware_name="ASI Tiger",
-            com_port="COM3",
-        ),
-        Com(
-            hardware_name="MightyZap",
-            com_port="COM9",
-        ),
+        Com(hardware_name="ASI Tiger", com_port="COM3",),
+        Com(hardware_name="MightyZap", com_port="COM9",),
     ],
     humidity_control=False,
     temperature_control=False,

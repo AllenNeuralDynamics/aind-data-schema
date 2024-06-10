@@ -44,9 +44,7 @@ class OptoStimulation(AindModel):
     )
     pulse_train_interval_unit: TimeUnit = Field(default=TimeUnit.S, title="Pulse train interval unit")
     baseline_duration: Decimal = Field(
-        ...,
-        title="Baseline duration (s)",
-        description="Duration of baseline recording prior to first pulse train",
+        ..., title="Baseline duration (s)", description="Duration of baseline recording prior to first pulse train",
     )
     baseline_duration_unit: TimeUnit = Field(default=TimeUnit.S, title="Baseline duration unit")
     other_parameters: AindGenericType = Field(AindGeneric(), title="Other parameters")
@@ -64,9 +62,7 @@ class VisualStimulation(AindModel):
         description="Define and list the parameter values used (e.g. all TF or orientation values)",
     )
     stimulus_template_name: List[str] = Field(
-        default=[],
-        title="Stimulus template name",
-        description="Name of image set or movie displayed",
+        default=[], title="Stimulus template name", description="Name of image set or movie displayed",
     )
     notes: Optional[str] = Field(default=None, title="Notes")
 

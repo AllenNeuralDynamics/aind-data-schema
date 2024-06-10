@@ -101,8 +101,7 @@ class SchemaWriterTests(unittest.TestCase):
             open_calls.append(call(path, "w"))
             write_calls.append(call(schema_json_str))
         mock_mkdir.assert_has_calls(
-            calls=mkdir_calls,
-            any_order=True,
+            calls=mkdir_calls, any_order=True,
         )
         mock_file.assert_has_calls(open_calls, any_order=True)
         file_handle.write.assert_has_calls(write_calls, any_order=True)

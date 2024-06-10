@@ -79,24 +79,9 @@ rig = r.Rig(
         )
     ],
     light_sources=[
-        d.LightEmittingDiode(
-            name="470nm LED",
-            manufacturer=d.Organization.THORLABS,
-            model="M470F3",
-            wavelength=470,
-        ),
-        d.LightEmittingDiode(
-            name="415nm LED",
-            manufacturer=d.Organization.THORLABS,
-            model="M415F3",
-            wavelength=415,
-        ),
-        d.LightEmittingDiode(
-            name="565nm LED",
-            manufacturer=d.Organization.THORLABS,
-            model="M565F3",
-            wavelength=565,
-        ),
+        d.LightEmittingDiode(name="470nm LED", manufacturer=d.Organization.THORLABS, model="M470F3", wavelength=470,),
+        d.LightEmittingDiode(name="415nm LED", manufacturer=d.Organization.THORLABS, model="M415F3", wavelength=415,),
+        d.LightEmittingDiode(name="565nm LED", manufacturer=d.Organization.THORLABS, model="M565F3", wavelength=565,),
     ],
     detectors=[
         d.Detector(

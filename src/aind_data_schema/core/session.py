@@ -99,9 +99,7 @@ class FieldOfView(AindModel):
     fov_coordinate_ap: Decimal = Field(..., title="FOV coordinate AP")
     fov_coordinate_unit: SizeUnit = Field(default=SizeUnit.UM, title="FOV coordinate unit")
     fov_reference: str = Field(
-        ...,
-        title="FOV reference",
-        description="Reference for ML/AP coordinates",
+        ..., title="FOV reference", description="Reference for ML/AP coordinates",
     )
     fov_width: int = Field(..., title="FOV width (pixels)")
     fov_height: int = Field(..., title="FOV height (pixels)")
@@ -120,8 +118,7 @@ class FieldOfView(AindModel):
     power_unit: PowerUnit = Field(default=PowerUnit.PERCENT, title="Power unit")
     power_ratio: Optional[Decimal] = Field(default=None, title="Power ratio for coupled planes")
     scanfield_z: Optional[int] = Field(
-        default=None,
-        title="Z stage position of the fastz actuator for a given targeted depth",
+        default=None, title="Z stage position of the fastz actuator for a given targeted depth",
     )
     scanfield_z_unit: SizeUnit = Field(default=SizeUnit.UM, title="Z stage position unit")
     scanimage_roi_index: Optional[int] = Field(default=None, title="ScanImage ROI index")
@@ -149,9 +146,7 @@ class Stack(AindModel):
     fov_coordinate_ap: float = Field(..., title="FOV coordinate AP")
     fov_coordinate_unit: SizeUnit = Field(default=SizeUnit.UM, title="FOV coordinate unit")
     fov_reference: str = Field(
-        ...,
-        title="FOV reference",
-        description="Reference for ML/AP coordinates",
+        ..., title="FOV reference", description="Reference for ML/AP coordinates",
     )
     fov_width: int = Field(..., title="FOV width (pixels)")
     fov_height: int = Field(..., title="FOV height (pixels)")
@@ -193,9 +188,7 @@ class DomeModule(AindModel):
     angle_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Angle unit")
     rotation_angle: Optional[Decimal] = Field(default=None, title="Rotation Angle (deg)")
     coordinate_transform: Optional[str] = Field(
-        default=None,
-        title="Transform from local manipulator axes to rig",
-        description="Path to coordinate transform",
+        default=None, title="Transform from local manipulator axes to rig", description="Path to coordinate transform",
     )
     calibration_date: Optional[datetime] = Field(
         default=None, title="Date on which coordinate transform was last calibrated"
@@ -208,12 +201,10 @@ class ManipulatorModule(DomeModule):
 
     primary_targeted_structure: str = Field(..., title="Targeted structure")
     targeted_ccf_coordinates: List[CcfCoords] = Field(
-        default=[],
-        title="Targeted CCF coordinates",
+        default=[], title="Targeted CCF coordinates",
     )
     manipulator_coordinates: Coordinates3d = Field(
-        ...,
-        title="Manipulator coordinates",
+        ..., title="Manipulator coordinates",
     )
     implant_hole_number: Optional[int] = Field(default=None, title="Implant hole number")
 
@@ -249,8 +240,7 @@ class LaserConfig(AindModel):
 
 
 LIGHT_SOURCE_CONFIGS = Annotated[
-    Union[LightEmittingDiodeConfig, LaserConfig],
-    Field(discriminator="device_type"),
+    Union[LightEmittingDiodeConfig, LaserConfig], Field(discriminator="device_type"),
 ]
 
 
@@ -268,9 +258,7 @@ class RewardSpoutConfig(AindModel):
     side: SpoutSide = Field(..., title="Spout side", description="Must match rig")
     starting_position: RelativePosition = Field(..., title="Starting position")
     variable_position: bool = Field(
-        ...,
-        title="Variable position",
-        description="True if spout position changes during session as tracked in data",
+        ..., title="Variable position", description="True if spout position changes during session as tracked in data",
     )
 
 
@@ -345,11 +333,7 @@ class MRIScan(AindModel):
     # other fields
     voxel_sizes: Optional[Scale3dTransform] = Field(default=None, title="Voxel sizes", description="Resolution")
     processing_steps: List[
-        Literal[
-            ProcessName.FIDUCIAL_SEGMENTATION,
-            ProcessName.IMAGE_ATLAS_ALIGNMENT,
-            ProcessName.SKULL_STRIPPING,
-        ]
+        Literal[ProcessName.FIDUCIAL_SEGMENTATION, ProcessName.IMAGE_ATLAS_ALIGNMENT, ProcessName.SKULL_STRIPPING,]
     ] = Field([])
     additional_scan_parameters: AindGenericType = Field(..., title="Parameters")
     notes: Optional[str] = Field(default=None, title="Notes", validate_default=True)
@@ -386,9 +370,7 @@ class Stream(AindModel):
     light_sources: List[LIGHT_SOURCE_CONFIGS] = Field(default=[], title="Light Sources")
     ephys_modules: List[EphysModule] = Field(default=[], title="Ephys modules")
     stick_microscopes: List[DomeModule] = Field(
-        default=[],
-        title="Stick microscopes",
-        description="Must match stick microscope assemblies in rig file",
+        default=[], title="Stick microscopes", description="Must match stick microscope assemblies in rig file",
     )
     manipulator_modules: List[ManipulatorModule] = Field(default=[], title="Manipulator modules")
     detectors: List[DetectorConfig] = Field(default=[], title="Detectors")
@@ -407,9 +389,7 @@ class Stream(AindModel):
         """Validate ecephys modality has ephys_assemblies and stick_microscopes"""
         if Modality.ECEPHYS in value:
             ephys_modules = info.data["ephys_modules"]
-            for k, v in {
-                "ephys_modules": ephys_modules,
-            }.items():
+            for k, v in {"ephys_modules": ephys_modules,}.items():
                 if not v:
                     return f"{k} field must be utilized for Ecephys modality"
         return None
@@ -500,6 +480,12 @@ class StimulusEpoch(AindModel):
     )
     stimulus_name: str = Field(..., title="Stimulus name")
     session_number: Optional[int] = Field(default=None, title="Session number")
+    software: Optional[List[Software]] = Field(
+        default=[], title="Software", description="The software used to control the behavior/stimulus (e.g. Bonsai)",
+    )
+    script: Optional[Software] = Field(
+        default=None, title="Script", description="provide URL to the commit of the script and the parameters used",
+    )
     stimulus_modalities: List[StimulusModality] = Field(..., title="Stimulus modalities")
     stimulus_parameters: Optional[
         List[
@@ -529,9 +515,7 @@ class Session(AindCoreModel):
     schema_version: Literal["0.2.8"] = Field("0.2.8")
     protocol_id: List[str] = Field([], title="Protocol ID", description="DOI for protocols.io")
     experimenter_full_name: List[str] = Field(
-        ...,
-        description="First and last name of the experimenter(s).",
-        title="Experimenter(s) full name",
+        ..., description="First and last name of the experimenter(s).", title="Experimenter(s) full name",
     )
     session_start_time: AwareDatetimeWithDefault = Field(..., title="Session start time")
     session_end_time: Optional[AwareDatetimeWithDefault] = Field(default=None, title="Session end time")
@@ -539,25 +523,17 @@ class Session(AindCoreModel):
     iacuc_protocol: Optional[str] = Field(default=None, title="IACUC protocol")
     rig_id: str = Field(..., title="Rig ID")
     calibrations: List[Calibration] = Field(
-        default=[],
-        title="Calibrations",
-        description="Calibrations of rig devices prior to session",
+        default=[], title="Calibrations", description="Calibrations of rig devices prior to session",
     )
     maintenance: List[Maintenance] = Field(
-        default=[],
-        title="Maintenance",
-        description="Maintenance of rig devices prior to session",
+        default=[], title="Maintenance", description="Maintenance of rig devices prior to session",
     )
     subject_id: str = Field(..., title="Subject ID")
     animal_weight_prior: Optional[Decimal] = Field(
-        default=None,
-        title="Animal weight (g)",
-        description="Animal weight before procedure",
+        default=None, title="Animal weight (g)", description="Animal weight before procedure",
     )
     animal_weight_post: Optional[Decimal] = Field(
-        default=None,
-        title="Animal weight (g)",
-        description="Animal weight after procedure",
+        default=None, title="Animal weight (g)", description="Animal weight after procedure",
     )
     weight_unit: MassUnit = Field(default=MassUnit.G, title="Weight unit")
     anaesthesia: Optional[Anaesthetic] = Field(default=None, title="Anaesthesia")

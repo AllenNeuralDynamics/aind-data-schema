@@ -41,12 +41,7 @@ class Tile(AindModel):
 
     coordinate_transformations: List[
         Annotated[
-            Union[
-                Scale3dTransform,
-                Translation3dTransform,
-                Rotation3dTransform,
-                Affine3dTransform,
-            ],
+            Union[Scale3dTransform, Translation3dTransform, Rotation3dTransform, Affine3dTransform,],
             Field(discriminator="type"),
         ]
     ] = Field(..., title="Tile coordinate transformations")

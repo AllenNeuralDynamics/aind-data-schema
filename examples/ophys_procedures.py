@@ -51,9 +51,7 @@ p = Procedures(
                             material_type="Virus",
                             name="AAV2/1-Syn-Flex-ChrimsonR-tdT",
                             addgene_id=PIDName(
-                                registry=Registry.ADDGENE,
-                                name="62723-AAV5",
-                                registry_identifier="v122159",
+                                registry=Registry.ADDGENE, name="62723-AAV5", registry_identifier="v122159",
                             ),
                             titer=20000000000000,
                         )

@@ -511,10 +511,7 @@ class Laser(Device):
     power_unit: PowerUnit = Field(default=PowerUnit.MW, title="Power unit")
     coupling: Optional[Coupling] = Field(default=None, title="Coupling")
     coupling_efficiency: Optional[Decimal] = Field(
-        None,
-        title="Coupling efficiency (percent)",
-        ge=0,
-        le=100,
+        None, title="Coupling efficiency (percent)", ge=0, le=100,
     )
     coupling_efficiency_unit: Literal["percent"] = Field(default="percent", title="Coupling efficiency unit")
     item_number: Optional[str] = Field(default=None, title="Item number")
@@ -767,18 +764,10 @@ class Monitor(Device):
     viewing_distance_unit: SizeUnit = Field(default=SizeUnit.CM, title="Viewing distance unit")
     position: Optional[RelativePosition] = Field(default=None, title="Relative position of the monitor")
     contrast: Optional[int] = Field(
-        default=None,
-        description="Monitor's contrast setting",
-        title="Contrast",
-        ge=0,
-        le=100,
+        default=None, description="Monitor's contrast setting", title="Contrast", ge=0, le=100,
     )
     brightness: Optional[int] = Field(
-        default=None,
-        description="Monitor's brightness setting",
-        title="Brightness",
-        ge=0,
-        le=100,
+        default=None, description="Monitor's brightness setting", title="Brightness", ge=0, le=100,
     )
 
 

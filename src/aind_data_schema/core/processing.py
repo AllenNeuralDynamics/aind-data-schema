@@ -70,14 +70,10 @@ class Registration(DataProcess):
     """Description of tile alignment coordinate transformations"""
 
     registration_type: RegistrationType = Field(
-        ...,
-        title="Registration type",
-        description="Either inter channel across different channels or intra channel",
+        ..., title="Registration type", description="Either inter channel across different channels or intra channel",
     )
     registration_channel: Optional[int] = Field(
-        default=None,
-        title="Registration channel",
-        description="Channel registered to when inter channel",
+        default=None, title="Registration channel", description="Channel registered to when inter channel",
     )
     tiles: List[Tile] = Field(..., title="Data tiles")
 

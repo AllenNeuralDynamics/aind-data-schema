@@ -34,10 +34,7 @@ class DeviceTests(unittest.TestCase):
             RewardSpout(
                 name="test_reward_spout",
                 spout_diameter=0.5,
-                solenoid_valve=Device(
-                    device_type="solenoid",
-                    name="test_solenoid",
-                ),
+                solenoid_valve=Device(device_type="solenoid", name="test_solenoid",),
                 side=SpoutSide.OTHER,
             )
 

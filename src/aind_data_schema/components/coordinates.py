@@ -157,13 +157,10 @@ class ImageAxis(Axis):
 
     name: AxisName = Field(..., title="Name")
     dimension: int = Field(
-        ...,
-        description="Reference axis number for stitching",
-        title="Dimension",
+        ..., description="Reference axis number for stitching", title="Dimension",
     )
     direction: AnatomicalDirection = Field(
-        ...,
-        description="Tissue direction as the value of axis increases. If Other describe in notes.",
+        ..., description="Tissue direction as the value of axis increases. If Other describe in notes.",
     )
     unit: SizeUnit = Field(SizeUnit.UM, title="Axis physical units")
 

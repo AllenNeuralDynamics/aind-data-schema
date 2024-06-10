@@ -35,17 +35,11 @@ class SchemaWriter:
         parser = argparse.ArgumentParser()
 
         parser.add_argument(
-            "-o",
-            "--output",
-            required=False,
-            default=self.DEFAULT_FILE_PATH,
-            help=help_message,
+            "-o", "--output", required=False, default=self.DEFAULT_FILE_PATH, help=help_message,
         )
 
         parser.add_argument(
-            "--attach-version",
-            action="store_true",
-            help="Add extra directory with schema version number",
+            "--attach-version", action="store_true", help="Add extra directory with schema version number",
         )
         parser.set_defaults(attach_version=False)
 

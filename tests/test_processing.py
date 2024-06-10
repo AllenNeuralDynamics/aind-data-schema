@@ -19,9 +19,7 @@ class ProcessingTest(unittest.TestCase):
         with self.assertRaises(pydantic.ValidationError):
             Processing()
 
-        p = Processing(
-            processing_pipeline=PipelineProcess(processor_full_name="Processor", data_processes=[]),
-        )
+        p = Processing(processing_pipeline=PipelineProcess(processor_full_name="Processor", data_processes=[]),)
 
         with self.assertRaises(pydantic.ValidationError) as e:
             DataProcess(name="Other", notes="")

@@ -52,26 +52,11 @@ acq = acquisition.Acquisition(
     session_end_time=t,
     local_storage_directory="D:",
     external_storage_directory="Z:",
-    chamber_immersion=acquisition.Immersion(
-        medium="PBS",
-        refractive_index=1.33,
-    ),
+    chamber_immersion=acquisition.Immersion(medium="PBS", refractive_index=1.33,),
     axes=[
-        ImageAxis(
-            name="X",
-            dimension=2,
-            direction="Left_to_right",
-        ),
-        ImageAxis(
-            name="Y",
-            dimension=1,
-            direction="Anterior_to_posterior",
-        ),
-        ImageAxis(
-            name="Z",
-            dimension=0,
-            direction="Inferior_to_superior",
-        ),
+        ImageAxis(name="X", dimension=2, direction="Left_to_right",),
+        ImageAxis(name="Y", dimension=1, direction="Anterior_to_posterior",),
+        ImageAxis(name="Z", dimension=0, direction="Inferior_to_superior",),
     ],
     tiles=[
         tile.AcquisitionTile(

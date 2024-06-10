@@ -44,9 +44,7 @@ p = Procedures(
                             material_type="Virus",
                             name="AAV2-Flex-ChrimsonR",
                             tars_identifiers=TarsVirusIdentifiers(
-                                virus_tars_id="AiV222",
-                                plasmid_tars_alias="AiP222",
-                                prep_lot_number="VT222",
+                                virus_tars_id="AiV222", plasmid_tars_alias="AiP222", prep_lot_number="VT222",
                             ),
                             titer=2300000000,
                         )
@@ -70,12 +68,7 @@ p = Procedures(
             experimenter_full_name="Frank Lee",
             iacuc_protocol="2109",
             protocol_id="doi",
-            procedures=[
-                Perfusion(
-                    protocol_id="doi_of_protocol",
-                    output_specimen_ids=["1"],
-                )
-            ],
+            procedures=[Perfusion(protocol_id="doi_of_protocol", output_specimen_ids=["1"],)],
         ),
     ],
 )

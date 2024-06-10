@@ -43,13 +43,7 @@ s = Session(
                     excitation_power_unit="milliwatt",
                 ),
             ],
-            detectors=[
-                DetectorConfig(
-                    name="PMT A",
-                    exposure_time=0.1,
-                    trigger_type="Internal",
-                ),
-            ],
+            detectors=[DetectorConfig(name="PMT A", exposure_time=0.1, trigger_type="Internal",),],
             camera_names=["Face Camera"],
             ophys_fovs=[
                 FieldOfView(

@@ -48,22 +48,15 @@ class Metadata(AindCoreModel):
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
     schema_version: Literal["0.2.25"] = Field("0.2.25")
     id: UUID = Field(
-        default_factory=uuid4,
-        alias="_id",
-        title="Data Asset ID",
-        description="The unique id of the data asset.",
+        default_factory=uuid4, alias="_id", title="Data Asset ID", description="The unique id of the data asset.",
     )
     name: str = Field(
-        ...,
-        description="Name of the data asset.",
-        title="Data Asset Name",
+        ..., description="Name of the data asset.", title="Data Asset Name",
     )
     # We'll set created and last_modified defaults using the root_validator
     # to ensure they're synced on creation
     created: datetime = Field(
-        default_factory=datetime.utcnow,
-        title="Created",
-        description="The utc date and time the data asset created.",
+        default_factory=datetime.utcnow, title="Created", description="The utc date and time the data asset created.",
     )
     last_modified: datetime = Field(
         default_factory=datetime.utcnow,
@@ -71,9 +64,7 @@ class Metadata(AindCoreModel):
         description="The utc date and time that the data asset was last modified.",
     )
     location: str = Field(
-        ...,
-        title="Location",
-        description="Current location of the data asset.",
+        ..., title="Location", description="Current location of the data asset.",
     )
     metadata_status: MetadataStatus = Field(
         default=MetadataStatus.UNKNOWN, title=" Metadata Status", description="The status of the metadata."
@@ -86,9 +77,7 @@ class Metadata(AindCoreModel):
     # assets in S3 that don't have metadata attached. We'd still like to
     # index that data, but we can flag those instances as MISSING or UNKNOWN
     subject: Optional[Subject] = Field(
-        default=None,
-        title="Subject",
-        description="Subject of data collection.",
+        default=None, title="Subject", description="Subject of data collection.",
     )
     data_description: Optional[DataDescription] = Field(
         default=None, title="Data Description", description="A logical collection of data files."

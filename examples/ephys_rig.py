@@ -128,10 +128,7 @@ ephys_assemblyB = EphysAssembly(
 )
 
 filt = Filter(
-    name="LP filter",
-    filter_type="Long pass",
-    manufacturer=Organization.THORLABS,
-    description="850 nm longpass filter",
+    name="LP filter", filter_type="Long pass", manufacturer=Organization.THORLABS, description="850 nm longpass filter",
 )
 
 lens = Lens(name="Camera lens", focal_length=15, manufacturer=Organization.EDMUND_OPTICS, max_aperture="f/2")
@@ -151,11 +148,7 @@ face_camera = Camera(
 )
 
 camassm1 = CameraAssembly(
-    name="Face Camera Assembly",
-    camera=face_camera,
-    camera_target="Face side left",
-    filter=filt,
-    lens=lens,
+    name="Face Camera Assembly", camera=face_camera, camera_target="Face side left", filter=filt, lens=lens,
 )
 
 body_camera = Camera(
@@ -173,11 +166,7 @@ body_camera = Camera(
 )
 
 camassm2 = CameraAssembly(
-    name="Body Camera Assembly",
-    camera=body_camera,
-    camera_target="Body",
-    filter=filt,
-    lens=lens,
+    name="Body Camera Assembly", camera=body_camera, camera_target="Body", filter=filt, lens=lens,
 )
 
 # If a timezone isn't specified, the timezone of the computer running this

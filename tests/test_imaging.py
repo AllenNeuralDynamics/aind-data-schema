@@ -227,10 +227,7 @@ class ImagingTests(unittest.TestCase):
                                 sample_rate=10000,
                             ),
                             DAQChannel(
-                                channel_name="5",
-                                channel_type="Analog Output",
-                                device_name="539251",
-                                sample_rate=10000,
+                                channel_name="5", channel_type="Analog Output", device_name="539251", sample_rate=10000,
                             ),
                             DAQChannel(
                                 channel_name="4",
@@ -245,10 +242,7 @@ class ImagingTests(unittest.TestCase):
                                 sample_rate=10000,
                             ),
                             DAQChannel(
-                                channel_name="0",
-                                channel_type="Analog Output",
-                                device_name="TL-1",
-                                sample_rate=10000,
+                                channel_name="0", channel_type="Analog Output", device_name="TL-1", sample_rate=10000,
                             ),
                             DAQChannel(
                                 channel_name="6",

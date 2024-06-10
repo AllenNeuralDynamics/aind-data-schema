@@ -42,14 +42,10 @@ class LightCycle(AindModel):
     """Description of vivarium light cycle times"""
 
     lights_on_time: time = Field(
-        ...,
-        description="Time in UTC that lights were turned on",
-        title="Lights on time",
+        ..., description="Time in UTC that lights were turned on", title="Lights on time",
     )
     lights_off_time: time = Field(
-        ...,
-        description="Time in UTC that lights were turned off",
-        title="Lights off time",
+        ..., description="Time in UTC that lights were turned off", title="Lights off time",
     )
 
 
@@ -68,9 +64,7 @@ class Housing(AindModel):
     light_cycle: Optional[LightCycle] = Field(None, title="Light cycle")
     home_cage_enrichment: List[HomeCageEnrichment] = Field(default=[], title="Home cage enrichment")
     cohoused_subjects: List[str] = Field(
-        default=[],
-        title="Co-housed subjects",
-        description="List of IDs of other subjects housed in same cage",
+        default=[], title="Co-housed subjects", description="List of IDs of other subjects housed in same cage",
     )
 
 
@@ -98,28 +92,20 @@ class Subject(AindCoreModel):
     sex: Sex = Field(..., title="Sex")
     date_of_birth: date_type = Field(..., title="Date of birth")
     genotype: Optional[str] = Field(
-        None,
-        description="Genotype of the animal providing both alleles",
-        title="Genotype",
+        None, description="Genotype of the animal providing both alleles", title="Genotype",
     )
     species: Species.ONE_OF = Field(..., title="Species")
     alleles: List[PIDName] = Field(default=[], title="Alleles", description="Allele names and persistent IDs")
     background_strain: Optional[BackgroundStrain] = Field(None, title="Background strain")
     breeding_info: Optional[BreedingInfo] = Field(None, title="Breeding Info")
     source: Organization.SUBJECT_SOURCES = Field(
-        ...,
-        description="Where the subject was acquired from. If bred in-house, use Allen Institute.",
-        title="Source",
+        ..., description="Where the subject was acquired from. If bred in-house, use Allen Institute.", title="Source",
     )
     rrid: Optional[PIDName] = Field(
-        None,
-        description="RRID of mouse if acquired from supplier",
-        title="RRID",
+        None, description="RRID of mouse if acquired from supplier", title="RRID",
     )
     restrictions: Optional[str] = Field(
-        None,
-        description="Any restrictions on use or publishing based on subject source",
-        title="Restrictions",
+        None, description="Any restrictions on use or publishing based on subject source", title="Restrictions",
     )
     wellness_reports: List[WellnessReport] = Field(default=[], title="Wellness Report")
     housing: Optional[Housing] = Field(None, title="Housing")
