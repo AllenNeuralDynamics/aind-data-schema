@@ -5,7 +5,7 @@ from decimal import Decimal
 
 from aind_data_schema.core.rig import Rig, Monitor
 from aind_data_schema.core.instrument import DAQDevice
-from aind_data_schema.models.organizations import (
+from aind_data_schema_models.organizations import (
     AllenInstitute,
     Asus,
     Allied,
@@ -14,8 +14,12 @@ from aind_data_schema.models.organizations import (
     InfinityPhotoOptical,
     EdmundOptics,
     NationalInstruments,
+    Hamamatsu,
+    Conoptics
+    LumenDynamics,
+    Chameleon
 )
-from aind_data_schema.models.devices import (
+from aind_data_schema.components.devices import (
     Camera,
     CameraAssembly,
     Disc,
@@ -24,15 +28,21 @@ from aind_data_schema.models.devices import (
     Filter,
     Cooling,
     BinMode,
+    DetectorType,
+    Detector,
+    PockelsCell,
+    Laser,
+    DataInterface,
+    Lamp
 )
-from aind_data_schema.models.coordinates import (
+from aind_data_schema.components.coordinates import (
     RelativePosition,
     Rotation3dTransform,
     Translation3dTransform,
     Axis,
 )
-from aind_data_schema.models.units import SizeUnit, FrequencyUnit
-from aind_data_schema.models.registry import ResearchOrganizationRegistry
+from aind_data_schema_models.units import SizeUnit, FrequencyUnit
+from aind_data_schema_models.registry import ResearchOrganizationRegistry
 from aind_data_schema.base import AindGeneric
 
 
@@ -72,6 +82,16 @@ rig = Rig(
             parameters=AindGeneric(),
         ),
     ),
+    detectors=[
+        Detector(
+            device_type="Detector",
+            detector_type=DetectorType.PMT,
+            name="PMT",
+            manufacturer=Hamamatsu(
+                name="Hamamatsu"
+            )
+        )
+    ],
     stimulus_devices=[
         Monitor(
             device_type="Monitor",
@@ -562,14 +582,51 @@ rig = Rig(
     stick_microscopes=[],
     laser_assemblies=[],
     patch_cords=[],
-    light_sources=[],
-    detectors=[],
+    light_sources=[
+        Laser(
+            device_type="Laser",
+            name=CHAMELEON,
+            wavelength=920,
+            wavelength_unit="nanometer",
+            excitation_power=10,
+            excitation_power_unit="milliwatt",
+            serial_number="GDP.100H.1332",
+            manufacturer="Chameleon"
+        ),
+        Lamp(
+            name="Epi lamp",
+            manufacturer="Lumen Dynamics (Excelitas Technologies)",
+            wavelength_max=600,
+            wavelength_min=350,
+            wavelength_unit=SizeUnit.NM
+        )
+    ],
+    detectors=[
+        Detector(
+            name="PMT",
+            manufacturer=Hamamatsu,
+            data_interface=DataInterface.PCIE
+        )
+    ],
     objectives=[],
     filters=[],
     lenses=[],
     digital_micromirror_devices=[],
     polygonal_scanners=[],
-    pockels_cells=[],
+    pockels_cells=[
+        PockelsCell(
+            name="Pockels Cell 1",
+            manufacturer=Conoptics,
+            model="530-80",
+            serial_number="354699BK"
+        ),
+        PockelsCell(
+            name="Pockels Cell 2",
+            manufacturer=Conoptics,
+            model="530-80",
+            serial_number="353414BK"
+        )
+    ],
     additional_devices=[],
     daqs=[
         DAQDevice(
