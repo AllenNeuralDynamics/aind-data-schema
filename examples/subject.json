@@ -12,7 +12,7 @@
          "name": "National Center for Biotechnology Information",
          "abbreviation": "NCBI"
       },
-      "registry_identifier": "10090"
+      "registry_identifier": "NCBI:txid10090"
    },
    "alleles": [],
    "background_strain": "C57BL/6J",
