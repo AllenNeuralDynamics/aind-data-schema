@@ -2,7 +2,7 @@
 
 from datetime import datetime, timezone
 
-from aind_data_schema.core.session import FieldOfView, LaserConfig, Session, Stream
+from aind_data_schema.core.session import FieldOfView, LaserConfig, Session, Stream, DetectorConfig
 from aind_data_schema.models.modalities import Modality
 from aind_data_schema.models.units import PowerUnit, SizeUnit
 
@@ -34,7 +34,7 @@ s = Session(
             ],
             light_sources=[
                 LaserConfig(
-                    name="Laser A",
+                    name="Chameleon laser",
                     wavelength=920,
                     wavelength_unit="nanometer",
                     excitation_power=10,
