@@ -1,3 +1,6 @@
+### [0.38.4](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.38.3...v0.38.4) (2024-06-10)
+
+
 ### [0.38.3](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.38.2...v0.38.3) (2024-06-08)
 
 
