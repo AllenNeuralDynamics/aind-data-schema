@@ -8,9 +8,9 @@ Subpackages
    :maxdepth: 4
 
    aind_data_schema.core
-   aind_data_schema.imaging
-   aind_data_schema.models
+   aind_data_schema.components
    aind_data_schema.utils
+   aind_data_schema.visualizations
 
 Submodules
 ----------

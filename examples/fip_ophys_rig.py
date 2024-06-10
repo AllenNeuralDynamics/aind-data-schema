@@ -8,7 +8,7 @@ import aind_data_schema.components.devices as d
 import aind_data_schema.core.rig as r
 
 rig = r.Rig(
-    rig_id="428_FIP1_2",
+    rig_id="428_FIP1_20231003",
     modification_date=date(2023, 10, 3),
     modalities=[Modality.FIB],
     cameras=[
@@ -24,7 +24,7 @@ rig = r.Rig(
                 notes="The light intensity sensor was removed; IR illumination is constantly on",
                 data_interface="USB",
                 computer_name="W10DTJK7N0M3",
-                max_frame_rate=120,
+                frame_rate=120,
                 sensor_width=640,
                 sensor_height=480,
                 chroma="Color",
@@ -52,7 +52,7 @@ rig = r.Rig(
                 notes="The light intensity sensor was removed; IR illumination is constantly on",
                 data_interface="USB",
                 computer_name="W10DTJK7N0M3",
-                max_frame_rate=120,
+                frame_rate=120,
                 sensor_width=640,
                 sensor_height=480,
                 chroma="Color",

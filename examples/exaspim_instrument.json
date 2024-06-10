@@ -1,7 +1,7 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/instrument.py",
-   "schema_version": "0.10.22",
-   "instrument_id": "exaSPIM1-1",
+   "schema_version": "0.10.26",
+   "instrument_id": "440_exaSPIM1-20231004",
    "modification_date": "2023-10-04",
    "instrument_type": "exaSPIM",
    "manufacturer": {
@@ -80,7 +80,7 @@
          "data_interface": "Coax",
          "cooling": "Air",
          "computer_name": null,
-         "max_frame_rate": null,
+         "frame_rate": null,
          "frame_rate_unit": "hertz",
          "immersion": null,
          "chroma": null,

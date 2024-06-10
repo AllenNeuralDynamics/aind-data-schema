@@ -4,14 +4,13 @@ from datetime import datetime, timezone
 
 from aind_data_schema_models.modalities import Modality
 
+from aind_data_schema.components.devices import Software
 from aind_data_schema.core.session import (
     CcfCoords,
     Coordinates3d,
     DomeModule,
-    EphysModule,
-    EphysProbeConfig,
+    ManipulatorModule,
     Session,
-    Software,
     StimulusEpoch,
     StimulusModality,
     Stream,
@@ -115,9 +114,10 @@ session = Session(
                 ),
             ],
             ephys_modules=[
-                EphysModule(
-                    targeted_ccf_coordinates=[CcfCoords(ml=8150, ap=3250, dv=7800),],
-                    ephys_probes=[EphysProbeConfig(name="Probe A")],
+                ManipulatorModule(
+                    targeted_ccf_coordinates=[
+                        CcfCoords(ml=8150, ap=3250, dv=7800),
+                    ],
                     assembly_name="ephys module 1",
                     arc_angle=5.2,
                     module_angle=8,
@@ -130,12 +130,11 @@ session = Session(
                         " with a sudden shift in signals. Lots of motion. Maybe some implant motion."
                     ),
                 ),
-                EphysModule(
+                ManipulatorModule(
                     rotation_angle=0,
                     arc_angle=25,
                     module_angle=-22,
                     targeted_ccf_coordinates=[CcfCoords(ml=6637.28, ap=4265.02, dv=10707.35)],
-                    ephys_probes=[],
                     assembly_name="ephys module 2",
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.py",
                     primary_targeted_structure="LC",
@@ -185,12 +184,11 @@ session = Session(
                 ),
             ],
             ephys_modules=[
-                EphysModule(
+                ManipulatorModule(
                     rotation_angle=0,
                     arc_angle=5.2,
                     module_angle=8,
                     targeted_ccf_coordinates=[CcfCoords(ml=8150, ap=3250, dv=7800)],
-                    ephys_probes=[EphysProbeConfig(name="Probe A")],
                     assembly_name="ephys module 1",
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.npy",
                     primary_targeted_structure="LGd",
@@ -201,12 +199,11 @@ session = Session(
                         " with a sudden shift in signals. Lots of motion. Maybe some implant motion."
                     ),
                 ),
-                EphysModule(
+                ManipulatorModule(
                     rotation_angle=0,
                     arc_angle=25,
                     module_angle=-22,
                     targeted_ccf_coordinates=[CcfCoords(ml=6637.28, ap=4265.02, dv=10707.35)],
-                    ephys_probes=[],
                     assembly_name="ephys module 2",
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.py",
                     primary_targeted_structure="LC",

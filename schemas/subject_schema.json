@@ -152,8 +152,8 @@
                "title": "Registry"
             },
             "registry_identifier": {
-               "const": "9483",
-               "default": "9483",
+               "const": "NCBI:txid9483",
+               "default": "NCBI:txid9483",
                "title": "Registry Identifier"
             }
          },
@@ -253,8 +253,8 @@
                "title": "Registry"
             },
             "registry_identifier": {
-               "const": "9606",
-               "default": "9606",
+               "const": "NCBI:txid9606",
+               "default": "NCBI:txid9606",
                "title": "Registry Identifier"
             }
          },
@@ -404,6 +404,47 @@
          "title": "JacksonLaboratory",
          "type": "object"
       },
+      "JaneliaResearchCampus": {
+         "additionalProperties": false,
+         "description": "JaneliaResearchCampus",
+         "properties": {
+            "name": {
+               "const": "Janelia Research Campus",
+               "default": "Janelia Research Campus",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "Janelia",
+               "default": "Janelia",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "013sk6x84",
+               "default": "013sk6x84",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "JaneliaResearchCampus",
+         "type": "object"
+      },
       "LightCycle": {
          "additionalProperties": false,
          "description": "Description of vivarium light cycle times",
@@ -468,8 +509,8 @@
                "title": "Registry"
             },
             "registry_identifier": {
-               "const": "9544",
-               "default": "9544",
+               "const": "NCBI:txid9544",
+               "default": "NCBI:txid9544",
                "title": "Registry Identifier"
             }
          },
@@ -516,8 +557,8 @@
                "title": "Registry"
             },
             "registry_identifier": {
-               "const": "10090",
-               "default": "10090",
+               "const": "NCBI:txid10090",
+               "default": "NCBI:txid10090",
                "title": "Registry Identifier"
             }
          },
@@ -702,8 +743,8 @@
                "title": "Registry"
             },
             "registry_identifier": {
-               "const": "10116",
-               "default": "10116",
+               "const": "NCBI:txid10116",
+               "default": "NCBI:txid10116",
                "title": "Registry Identifier"
             }
          },
@@ -769,8 +810,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.5.7",
-         "default": "0.5.7",
+         "const": "0.5.9",
+         "default": "0.5.9",
          "title": "Schema Version"
       },
       "subject_id": {
@@ -870,6 +911,7 @@
                "Columbia University": "#/$defs/ColumbiaUniversity",
                "Huazhong University of Science and Technology": "#/$defs/HuazhongUniversityOfScienceAndTechnology",
                "Jackson Laboratory": "#/$defs/JacksonLaboratory",
+               "Janelia Research Campus": "#/$defs/JaneliaResearchCampus",
                "New York University": "#/$defs/NewYorkUniversity",
                "Other": "#/$defs/Other"
             },
@@ -884,6 +926,9 @@
             },
             {
                "$ref": "#/$defs/HuazhongUniversityOfScienceAndTechnology"
+            },
+            {
+               "$ref": "#/$defs/JaneliaResearchCampus"
             },
             {
                "$ref": "#/$defs/JacksonLaboratory"

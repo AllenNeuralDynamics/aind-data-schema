@@ -17,7 +17,7 @@ from aind_data_schema.components.devices import (
 from aind_data_schema.core.instrument import Com, Instrument
 
 inst = Instrument(
-    instrument_id="SmartSPIM2-2",
+    instrument_id="440_SmartSPIM2_20231004",
     modification_date=datetime.date(2023, 10, 4),
     instrument_type="SmartSPIM",
     manufacturer=Organization.LIFECANVAS,

@@ -1,3 +1,38 @@
+### [0.38.3](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.38.2...v0.38.3) (2024-06-08)
+
+
+### [0.38.2](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.38.1...v0.38.2) (2024-06-07)
+
+
+### [0.38.1](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.38.0...v0.38.1) (2024-06-06)
+
+
+## [0.38.0](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.37.12...v0.38.0) (2024-05-31)
+
+
+### Features
+
+* contributor guidelines ([#942](https://github.com/AllenNeuralDynamics/aind-data-schema/issues/942)) ([114c454](https://github.com/AllenNeuralDynamics/aind-data-schema/commit/114c454a912984ab81824d9a3185a3ee4b86c454))
+
+
+### [0.37.12](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.37.11...v0.37.12) (2024-05-31)
+
+
+### [0.37.11](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.37.10...v0.37.11) (2024-05-31)
+
+
+### [0.37.10](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.37.9...v0.37.10) (2024-05-30)
+
+
+### [0.37.9](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.37.8...v0.37.9) (2024-05-30)
+
+
+### [0.37.8](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.37.7...v0.37.8) (2024-05-30)
+
+
+### [0.37.7](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.37.6...v0.37.7) (2024-05-30)
+
+
 ### [0.37.6](https://github.com/AllenNeuralDynamics/aind-data-schema/compare/v0.37.5...v0.37.6) (2024-05-28)
 
 

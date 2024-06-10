@@ -168,6 +168,47 @@
          "title": "BehaviorVideos",
          "type": "object"
       },
+      "ChanZuckerbergInitiative": {
+         "additionalProperties": false,
+         "description": "ChanZuckerbergInitiative",
+         "properties": {
+            "name": {
+               "const": "Chan Zuckerberg Initiative",
+               "default": "Chan Zuckerberg Initiative",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "CZI",
+               "default": "CZI",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "02qenvm24",
+               "default": "02qenvm24",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "ChanZuckerbergInitiative",
+         "type": "object"
+      },
       "ColumbiaUniversity": {
          "additionalProperties": false,
          "description": "ColumbiaUniversity",
@@ -317,8 +358,13 @@
                "discriminator": {
                   "mapping": {
                      "Allen Institute": "#/$defs/AllenInstitute",
+                     "Chan Zuckerberg Initiative": "#/$defs/ChanZuckerbergInitiative",
+                     "MBF Bioscience": "#/$defs/MBFBioscience",
+                     "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/MichaelJFoxFoundationForParkinsonsResearch",
+                     "National Center for Complementary and Integrative Health": "#/$defs/NationalCenterForComplementaryAndIntegrativeHealth",
                      "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
-                     "Simons Foundation": "#/$defs/SimonsFoundation"
+                     "Simons Foundation": "#/$defs/SimonsFoundation",
+                     "Templeton World Charity Foundation": "#/$defs/TempletonWorldCharityFoundation"
                   },
                   "propertyName": "name"
                },
@@ -327,10 +373,25 @@
                      "$ref": "#/$defs/AllenInstitute"
                   },
                   {
+                     "$ref": "#/$defs/ChanZuckerbergInitiative"
+                  },
+                  {
+                     "$ref": "#/$defs/MBFBioscience"
+                  },
+                  {
+                     "$ref": "#/$defs/MichaelJFoxFoundationForParkinsonsResearch"
+                  },
+                  {
+                     "$ref": "#/$defs/NationalCenterForComplementaryAndIntegrativeHealth"
+                  },
+                  {
                      "$ref": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke"
                   },
                   {
                      "$ref": "#/$defs/SimonsFoundation"
+                  },
+                  {
+                     "$ref": "#/$defs/TempletonWorldCharityFoundation"
                   }
                ],
                "title": "Funder"
@@ -473,6 +534,88 @@
          "title": "Icephys",
          "type": "object"
       },
+      "JaneliaResearchCampus": {
+         "additionalProperties": false,
+         "description": "JaneliaResearchCampus",
+         "properties": {
+            "name": {
+               "const": "Janelia Research Campus",
+               "default": "Janelia Research Campus",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "Janelia",
+               "default": "Janelia",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "013sk6x84",
+               "default": "013sk6x84",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "JaneliaResearchCampus",
+         "type": "object"
+      },
+      "MBFBioscience": {
+         "additionalProperties": false,
+         "description": "MBFBioscience",
+         "properties": {
+            "name": {
+               "const": "MBF Bioscience",
+               "default": "MBF Bioscience",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "MBF",
+               "default": "MBF",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "02zynam48",
+               "default": "02zynam48",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "MBFBioscience",
+         "type": "object"
+      },
       "MesoSpim": {
          "additionalProperties": false,
          "description": "MesoSpim",
@@ -491,6 +634,47 @@
          "title": "MesoSpim",
          "type": "object"
       },
+      "MichaelJFoxFoundationForParkinsonsResearch": {
+         "additionalProperties": false,
+         "description": "MichaelJFoxFoundationForParkinsonsResearch",
+         "properties": {
+            "name": {
+               "const": "Michael J. Fox Foundation for Parkinson's Research",
+               "default": "Michael J. Fox Foundation for Parkinson's Research",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "MJFF",
+               "default": "MJFF",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "03arq3225",
+               "default": "03arq3225",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "MichaelJFoxFoundationForParkinsonsResearch",
+         "type": "object"
+      },
       "MultiplaneOphys": {
          "additionalProperties": false,
          "description": "MulitplaneOphys",
@@ -507,6 +691,47 @@
             }
          },
          "title": "MultiplaneOphys",
+         "type": "object"
+      },
+      "NationalCenterForComplementaryAndIntegrativeHealth": {
+         "additionalProperties": false,
+         "description": "NationalCenterForComplementaryAndIntegrativeHealth",
+         "properties": {
+            "name": {
+               "const": "National Center for Complementary and Integrative Health",
+               "default": "National Center for Complementary and Integrative Health",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "NCCIH",
+               "default": "NCCIH",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "00190t495",
+               "default": "00190t495",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "NationalCenterForComplementaryAndIntegrativeHealth",
          "type": "object"
       },
       "NationalInstituteOfNeurologicalDisordersAndStroke": {
@@ -858,6 +1083,47 @@
          "title": "Spim",
          "type": "object"
       },
+      "TempletonWorldCharityFoundation": {
+         "additionalProperties": false,
+         "description": "TempletonWorldCharityFoundation",
+         "properties": {
+            "name": {
+               "const": "Templeton World Charity Foundation",
+               "default": "Templeton World Charity Foundation",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "TWCF",
+               "default": "TWCF",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "00x0z1472",
+               "default": "00x0z1472",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "TempletonWorldCharityFoundation",
+         "type": "object"
+      },
       "aind_data_schema_models__modalities__Behavior": {
          "additionalProperties": false,
          "description": "Behavior",
@@ -1085,8 +1351,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.13.7",
-         "default": "0.13.7",
+         "const": "0.13.9",
+         "default": "0.13.9",
          "title": "Schema Version"
       },
       "license": {
@@ -1211,6 +1477,7 @@
                "Allen Institute for Neural Dynamics": "#/$defs/AllenInstituteForNeuralDynamics",
                "Columbia University": "#/$defs/ColumbiaUniversity",
                "Huazhong University of Science and Technology": "#/$defs/HuazhongUniversityOfScienceAndTechnology",
+               "Janelia Research Campus": "#/$defs/JaneliaResearchCampus",
                "New York University": "#/$defs/NewYorkUniversity",
                "Other": "#/$defs/Other"
             },
@@ -1228,6 +1495,9 @@
             },
             {
                "$ref": "#/$defs/HuazhongUniversityOfScienceAndTechnology"
+            },
+            {
+               "$ref": "#/$defs/JaneliaResearchCampus"
             },
             {
                "$ref": "#/$defs/NewYorkUniversity"

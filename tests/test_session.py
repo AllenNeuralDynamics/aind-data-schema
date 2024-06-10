@@ -18,8 +18,7 @@ from aind_data_schema.components.coordinates import (
 )
 from aind_data_schema.core.session import (
     DomeModule,
-    EphysModule,
-    EphysProbeConfig,
+    ManipulatorModule,
     MRIScan,
     RewardDeliveryConfig,
     Scanner,
@@ -55,8 +54,7 @@ class ExampleTest(unittest.TestCase):
                     stream_modalities=[Modality.ECEPHYS],
                     stick_microscopes=[DomeModule(assembly_name="Stick_assembly", arc_angle=24, module_angle=10,)],
                     ephys_modules=[
-                        EphysModule(
-                            ephys_probes=[EphysProbeConfig(name="Probe A")],
+                        ManipulatorModule(
                             assembly_name="Ephys_assemblyA",
                             arc_angle=0,
                             module_angle=10,
