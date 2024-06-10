@@ -2,13 +2,17 @@
 
 from datetime import date, datetime, timezone
 
-from aind_data_schema.core.rig import Rig
-from aind_data_schema.models.devices import (
+from aind_data_schema_models.harp_types import HarpDeviceType
+from aind_data_schema_models.modalities import Modality
+from aind_data_schema_models.organizations import Organization
+
+from aind_data_schema.components.devices import (
     Calibration,
     Camera,
     CameraAssembly,
     CameraTarget,
     DAQChannel,
+    Device,
     Disc,
     EphysAssembly,
     EphysProbe,
@@ -19,11 +23,10 @@ from aind_data_schema.models.devices import (
     Lens,
     Manipulator,
     NeuropixelsBasestation,
+    Patch,
     ProbePort,
 )
-from aind_data_schema.models.harp_types import HarpDeviceType
-from aind_data_schema.models.modalities import Modality
-from aind_data_schema.models.organizations import Organization
+from aind_data_schema.core.rig import Rig
 
 # Describes a rig with running wheel, 2 behavior cameras, one Harp Behavior board,
 # one dual-color laser module, one stick microscope, and 2 Neuropixels probes
@@ -71,6 +74,14 @@ laser_assembly = LaserAssembly(
         name="Manipulator A", serial_number="SN2937", manufacturer=Organization.NEW_SCALE_TECHNOLOGIES
     ),
     lasers=[red_laser, blue_laser],
+    collimator=Device(name="Collimator A", device_type="Collimator"),
+    fiber=Patch(
+        name="Bundle Branching Fiber-optic Patch Cord",
+        manufacturer=Organization.DORIC,
+        model="BBP(4)_200/220/900-0.37_Custom_FCM-4xMF1.25",
+        core_diameter=200,
+        numerical_aperture=0.37,
+    ),
 )
 
 probe_camera = Camera(
@@ -79,7 +90,7 @@ probe_camera = Camera(
     data_interface="USB",
     manufacturer=Organization.FLIR,
     computer_name=ephys_computer,
-    max_frame_rate=50,
+    frame_rate=50,
     sensor_width=1080,
     sensor_height=570,
     sensor_format="1/2.9",
@@ -131,7 +142,7 @@ face_camera = Camera(
     data_interface="USB",
     manufacturer=Organization.FLIR,
     computer_name=behavior_computer,
-    max_frame_rate=500,
+    frame_rate=50,
     sensor_width=1080,
     sensor_height=570,
     sensor_format="1/2.9",
@@ -142,7 +153,7 @@ face_camera = Camera(
 camassm1 = CameraAssembly(
     name="Face Camera Assembly",
     camera=face_camera,
-    camera_target="Face side",
+    camera_target="Face side left",
     filter=filt,
     lens=lens,
 )
@@ -153,7 +164,7 @@ body_camera = Camera(
     data_interface="USB",
     manufacturer=Organization.FLIR,
     computer_name=behavior_computer,
-    max_frame_rate=500,
+    frame_rate=50,
     sensor_width=1080,
     sensor_height=570,
     sensor_format="1/2.9",
@@ -189,7 +200,7 @@ blue_laser_calibration = Calibration(
 )
 
 rig = Rig(
-    rig_id="323_EPHYS1",
+    rig_id="323_EPHYS1_20231003",
     modification_date=date(2023, 10, 3),
     modalities=[Modality.ECEPHYS],
     ephys_assemblies=[ephys_assemblyA, ephys_assemblyB],

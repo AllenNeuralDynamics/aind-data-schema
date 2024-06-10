@@ -3,10 +3,11 @@
 from datetime import date
 from typing import List, Literal, Optional
 
+from aind_data_schema_models.organizations import Organization
 from pydantic import Field, ValidationInfo, field_validator
 
 from aind_data_schema.base import AindCoreModel, AindModel
-from aind_data_schema.models.devices import (
+from aind_data_schema.components.devices import (
     LIGHT_SOURCES,
     AdditionalImagingDevice,
     DAQDevice,
@@ -20,7 +21,6 @@ from aind_data_schema.models.devices import (
     OpticalTable,
     ScanningStage,
 )
-from aind_data_schema.models.organizations import Organization
 
 
 class Com(AindModel):
@@ -35,11 +35,11 @@ class Instrument(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/instrument.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["0.10.17"] = Field("0.10.17")
+    schema_version: Literal["0.10.27"] = Field("0.10.27")
 
     instrument_id: Optional[str] = Field(
         None,
-        description="Unique identifier for this instrument. Naming convention: <room>-<apparatus>-<date modified>",
+        description="Unique instrument identifier, name convention: <room>-<apparatus name>-<date modified YYYYMMDD>",
         title="Instrument ID",
     )
     modification_date: date = Field(..., title="Date of modification")

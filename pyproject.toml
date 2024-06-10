@@ -14,6 +14,7 @@ readme = "README.md"
 dynamic = ["version"]
 
 dependencies = [
+    'aind-data-schema-models>=0.1.7',
     'dictdiffer',
     'pydantic>2.0',
     'inflection',
@@ -41,6 +42,10 @@ docs = [
     'furo',
     'erdantic>=0.7.0,<1.0',
     'autodoc_pydantic'
+]
+
+viz = [
+    'matplotlib'
 ]
 
 [tool.setuptools.packages.find]
@@ -75,6 +80,7 @@ exclude = '''
 omit = [
     "*__init__*",
     "*/aind_data_schema/utils/diagrams.py",
+    "*/aind_data_schema/visualizations/*",
     "*/tests/test_diagram_builder.py"
 ]
 source = ["aind_data_schema", "tests"]
@@ -93,4 +99,4 @@ fail-under = 100
 
 [tool.codespell]
 skip = '.git,*.pdf,*.svg'
-ignore-words-list = 'nd'
+ignore-words-list = 'nd,assertIn'

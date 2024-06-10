@@ -2,17 +2,17 @@
 
 from typing import List, Optional, Union
 
+from aind_data_schema_models.units import AngleUnit, PowerUnit, SizeUnit
 from pydantic import Field
 from typing_extensions import Annotated
 
-from aind_data_schema.base import AindModel
-from aind_data_schema.models.coordinates import (
+from aind_data_schema.base import AindModel, AwareDatetimeWithDefault
+from aind_data_schema.components.coordinates import (
     Affine3dTransform,
     Rotation3dTransform,
     Scale3dTransform,
     Translation3dTransform,
 )
-from aind_data_schema.models.units import AngleUnit, PowerUnit, SizeUnit
 
 
 class Channel(AindModel):
@@ -25,15 +25,15 @@ class Channel(AindModel):
     additional_device_names: List[str] = Field(default=[], title="Additional device names")
     # excitation
     excitation_wavelength: int = Field(..., title="Wavelength", ge=300, le=1000)
-    excitation_wavelength_unit: SizeUnit = Field(SizeUnit.NM, title="Laser wavelength unit")
+    excitation_wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Laser wavelength unit")
     excitation_power: float = Field(..., title="Laser power", le=2000)
-    excitation_power_unit: PowerUnit = Field(PowerUnit.MW, title="Laser power unit")
+    excitation_power_unit: PowerUnit = Field(default=PowerUnit.MW, title="Laser power unit")
     # emission
     filter_wheel_index: int = Field(..., title="Filter wheel index")
     # dilation
-    dilation: Optional[int] = Field(None, title="Dilation (pixels)")
-    dilation_unit: SizeUnit = Field(SizeUnit.PX, title="Dilation unit")
-    description: Optional[str] = Field(None, title="Description")
+    dilation: Optional[int] = Field(default=None, title="Dilation (pixels)")
+    dilation_unit: SizeUnit = Field(default=SizeUnit.PX, title="Dilation unit")
+    description: Optional[str] = Field(default=None, title="Description")
 
 
 class Tile(AindModel):
@@ -50,13 +50,15 @@ class Tile(AindModel):
             Field(discriminator="type"),
         ]
     ] = Field(..., title="Tile coordinate transformations")
-    file_name: Optional[str] = Field(None, title="File name")
+    file_name: Optional[str] = Field(default=None, title="File name")
 
 
 class AcquisitionTile(Tile):
     """Description of acquisition tile"""
 
     channel: Channel = Field(..., title="Channel")
-    notes: Optional[str] = Field(None, title="Notes")
-    imaging_angle: int = Field(0, title="Imaging angle")
-    imaging_angle_unit: AngleUnit = Field(AngleUnit.DEG, title="Imaging angle unit")
+    notes: Optional[str] = Field(default=None, title="Notes")
+    imaging_angle: int = Field(default=0, title="Imaging angle")
+    imaging_angle_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Imaging angle unit")
+    acquisition_start_time: Optional[AwareDatetimeWithDefault] = Field(None, title="Acquisition start time")
+    acquisition_end_time: Optional[AwareDatetimeWithDefault] = Field(None, title="Acquisition end time")

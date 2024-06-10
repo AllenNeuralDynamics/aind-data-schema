@@ -7,38 +7,22 @@
             "name": {
                "const": "AA Opto Electronic",
                "default": "AA Opto Electronic",
-               "enum": [
-                  "AA Opto Electronic"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry",
-               "type": "null"
+               "title": "Registry"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry Identifier",
-               "type": "null"
+               "title": "Registry Identifier"
             }
          },
          "title": "AAOptoElectronic",
@@ -51,20 +35,12 @@
             "name": {
                "const": "Abcam",
                "default": "Abcam",
-               "enum": [
-                  "Abcam"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "default": {
@@ -87,14 +63,51 @@
             "registry_identifier": {
                "const": "02e1wjw63",
                "default": "02e1wjw63",
-               "enum": [
-                  "02e1wjw63"
-               ],
-               "title": "Registry Identifier",
-               "type": "string"
+               "title": "Registry Identifier"
             }
          },
          "title": "Abcam",
+         "type": "object"
+      },
+      "Addgene": {
+         "additionalProperties": false,
+         "description": "Addgene",
+         "properties": {
+            "name": {
+               "const": "Addgene",
+               "default": "Addgene",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "01nn1pw54",
+               "default": "01nn1pw54",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Addgene",
          "type": "object"
       },
       "AilipuTechnologyCo": {
@@ -104,38 +117,22 @@
             "name": {
                "const": "Ailipu Technology Co",
                "default": "Ailipu Technology Co",
-               "enum": [
-                  "Ailipu Technology Co"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry",
-               "type": "null"
+               "title": "Registry"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry Identifier",
-               "type": "null"
+               "title": "Registry Identifier"
             }
          },
          "title": "AilipuTechnologyCo",
@@ -155,20 +152,12 @@
             "name": {
                "const": "Allen Institute",
                "default": "Allen Institute",
-               "enum": [
-                  "Allen Institute"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": "AI",
                "default": "AI",
-               "enum": [
-                  "AI"
-               ],
-               "title": "Abbreviation",
-               "type": "string"
+               "title": "Abbreviation"
             },
             "registry": {
                "default": {
@@ -191,11 +180,7 @@
             "registry_identifier": {
                "const": "03cpe7c52",
                "default": "03cpe7c52",
-               "enum": [
-                  "03cpe7c52"
-               ],
-               "title": "Registry Identifier",
-               "type": "string"
+               "title": "Registry Identifier"
             }
          },
          "title": "AllenInstitute",
@@ -208,20 +193,12 @@
             "name": {
                "const": "Allen Institute for Brain Science",
                "default": "Allen Institute for Brain Science",
-               "enum": [
-                  "Allen Institute for Brain Science"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": "AIBS",
                "default": "AIBS",
-               "enum": [
-                  "AIBS"
-               ],
-               "title": "Abbreviation",
-               "type": "string"
+               "title": "Abbreviation"
             },
             "registry": {
                "default": {
@@ -244,11 +221,7 @@
             "registry_identifier": {
                "const": "00dcv1019",
                "default": "00dcv1019",
-               "enum": [
-                  "00dcv1019"
-               ],
-               "title": "Registry Identifier",
-               "type": "string"
+               "title": "Registry Identifier"
             }
          },
          "title": "AllenInstituteForBrainScience",
@@ -261,20 +234,12 @@
             "name": {
                "const": "Allen Institute for Neural Dynamics",
                "default": "Allen Institute for Neural Dynamics",
-               "enum": [
-                  "Allen Institute for Neural Dynamics"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": "AIND",
                "default": "AIND",
-               "enum": [
-                  "AIND"
-               ],
-               "title": "Abbreviation",
-               "type": "string"
+               "title": "Abbreviation"
             },
             "registry": {
                "default": {
@@ -297,11 +262,7 @@
             "registry_identifier": {
                "const": "04szwah67",
                "default": "04szwah67",
-               "enum": [
-                  "04szwah67"
-               ],
-               "title": "Registry Identifier",
-               "type": "string"
+               "title": "Registry Identifier"
             }
          },
          "title": "AllenInstituteForNeuralDynamics",
@@ -314,38 +275,22 @@
             "name": {
                "const": "Allied",
                "default": "Allied",
-               "enum": [
-                  "Allied"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry",
-               "type": "null"
+               "title": "Registry"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry Identifier",
-               "type": "null"
+               "title": "Registry Identifier"
             }
          },
          "title": "Allied",
@@ -358,20 +303,12 @@
             "name": {
                "const": "ams OSRAM",
                "default": "ams OSRAM",
-               "enum": [
-                  "ams OSRAM"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "default": {
@@ -394,11 +331,7 @@
             "registry_identifier": {
                "const": "045d0h266",
                "default": "045d0h266",
-               "enum": [
-                  "045d0h266"
-               ],
-               "title": "Registry Identifier",
-               "type": "string"
+               "title": "Registry Identifier"
             }
          },
          "title": "AmsOsram",
@@ -477,6 +410,7 @@
                      "AA Opto Electronic": "#/$defs/AAOptoElectronic",
                      "ASUS": "#/$defs/Asus",
                      "Abcam": "#/$defs/Abcam",
+                     "Addgene": "#/$defs/Addgene",
                      "Ailipu Technology Co": "#/$defs/AilipuTechnologyCo",
                      "Allen Institute": "#/$defs/AllenInstitute",
                      "Allen Institute for Brain Science": "#/$defs/AllenInstituteForBrainScience",
@@ -488,6 +422,7 @@
                      "Cambridge Technology": "#/$defs/CambridgeTechnology",
                      "Carl Zeiss": "#/$defs/CarlZeiss",
                      "Champalimaud Foundation": "#/$defs/ChampalimaudFoundation",
+                     "Chan Zuckerberg Initiative": "#/$defs/ChanZuckerbergInitiative",
                      "Chroma": "#/$defs/Chroma",
                      "Coherent Scientific": "#/$defs/CoherentScientific",
                      "Columbia University": "#/$defs/ColumbiaUniversity",
@@ -507,16 +442,23 @@
                      "ISL Products International": "#/$defs/ISLProductsInternational",
                      "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
                      "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
+                     "Invitrogen": "#/$defs/Invitrogen",
                      "Jackson Laboratory": "#/$defs/JacksonLaboratory",
+                     "Janelia Research Campus": "#/$defs/JaneliaResearchCampus",
                      "Julabo": "#/$defs/Julabo",
                      "LG": "#/$defs/Lg",
                      "Leica": "#/$defs/Leica",
                      "LifeCanvas": "#/$defs/LifeCanvas",
+                     "MBF Bioscience": "#/$defs/MBFBioscience",
                      "MKS Newport": "#/$defs/MKSNewport",
                      "MPI": "#/$defs/Mpi",
                      "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
+                     "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/MichaelJFoxFoundationForParkinsonsResearch",
+                     "Midwest Optical Systems, Inc.": "#/$defs/MidwestOpticalSystems",
                      "Mitutuyo": "#/$defs/Mitutuyo",
                      "NResearch Inc": "#/$defs/NResearch",
+                     "National Center for Complementary and Integrative Health": "#/$defs/NationalCenterForComplementaryAndIntegrativeHealth",
+                     "National Institute of Mental Health": "#/$defs/NationalInstituteOfMentalHealth",
                      "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                      "National Instruments": "#/$defs/NationalInstruments",
                      "Navitar": "#/$defs/Navitar",
@@ -532,6 +474,7 @@
                      "Prizmatix": "#/$defs/Prizmatix",
                      "Quantifi": "#/$defs/Quantifi",
                      "Raspberry Pi": "#/$defs/RaspberryPi",
+                     "SICGEN": "#/$defs/Sicgen",
                      "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                      "Second Order Effects": "#/$defs/SecondOrderEffects",
                      "Semrock": "#/$defs/Semrock",
@@ -541,6 +484,7 @@
                      "Tamron": "#/$defs/Tamron",
                      "Technical Manufacturing Corporation": "#/$defs/TMC",
                      "Teledyne FLIR": "#/$defs/TeledyneFLIR",
+                     "Templeton World Charity Foundation": "#/$defs/TempletonWorldCharityFoundation",
                      "The Imaging Source": "#/$defs/TheImagingSource",
                      "The Lee Company": "#/$defs/TheLeeCompany",
                      "Thermo Fisher": "#/$defs/Thermofisher",
@@ -558,6 +502,9 @@
                   },
                   {
                      "$ref": "#/$defs/Abcam"
+                  },
+                  {
+                     "$ref": "#/$defs/Addgene"
                   },
                   {
                      "$ref": "#/$defs/AilipuTechnologyCo"
@@ -596,6 +543,9 @@
                      "$ref": "#/$defs/ChampalimaudFoundation"
                   },
                   {
+                     "$ref": "#/$defs/ChanZuckerbergInitiative"
+                  },
+                  {
                      "$ref": "#/$defs/Chroma"
                   },
                   {
@@ -629,9 +579,6 @@
                      "$ref": "#/$defs/Euresys"
                   },
                   {
-                     "$ref": "#/$defs/TeledyneFLIR"
-                  },
-                  {
                      "$ref": "#/$defs/Fujinon"
                   },
                   {
@@ -653,10 +600,16 @@
                      "$ref": "#/$defs/InfinityPhotoOptical"
                   },
                   {
+                     "$ref": "#/$defs/Invitrogen"
+                  },
+                  {
                      "$ref": "#/$defs/ISLProductsInternational"
                   },
                   {
                      "$ref": "#/$defs/JacksonLaboratory"
+                  },
+                  {
+                     "$ref": "#/$defs/JaneliaResearchCampus"
                   },
                   {
                      "$ref": "#/$defs/Julabo"
@@ -680,6 +633,15 @@
                      "$ref": "#/$defs/IRRobotCo"
                   },
                   {
+                     "$ref": "#/$defs/MBFBioscience"
+                  },
+                  {
+                     "$ref": "#/$defs/MichaelJFoxFoundationForParkinsonsResearch"
+                  },
+                  {
+                     "$ref": "#/$defs/MidwestOpticalSystems"
+                  },
+                  {
                      "$ref": "#/$defs/Mitutuyo"
                   },
                   {
@@ -687,6 +649,12 @@
                   },
                   {
                      "$ref": "#/$defs/Mpi"
+                  },
+                  {
+                     "$ref": "#/$defs/NationalCenterForComplementaryAndIntegrativeHealth"
+                  },
+                  {
+                     "$ref": "#/$defs/NationalInstituteOfMentalHealth"
                   },
                   {
                      "$ref": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke"
@@ -743,6 +711,9 @@
                      "$ref": "#/$defs/SchneiderKreuznach"
                   },
                   {
+                     "$ref": "#/$defs/Sicgen"
+                  },
+                  {
                      "$ref": "#/$defs/SigmaAldritch"
                   },
                   {
@@ -753,6 +724,12 @@
                   },
                   {
                      "$ref": "#/$defs/Tamron"
+                  },
+                  {
+                     "$ref": "#/$defs/TempletonWorldCharityFoundation"
+                  },
+                  {
+                     "$ref": "#/$defs/TeledyneFLIR"
                   },
                   {
                      "$ref": "#/$defs/Thermofisher"
@@ -880,38 +857,22 @@
             "name": {
                "const": "Applied Scientific Instrumentation",
                "default": "Applied Scientific Instrumentation",
-               "enum": [
-                  "Applied Scientific Instrumentation"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": "ASI",
                "default": "ASI",
-               "enum": [
-                  "ASI"
-               ],
-               "title": "Abbreviation",
-               "type": "string"
+               "title": "Abbreviation"
             },
             "registry": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry",
-               "type": "null"
+               "title": "Registry"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry Identifier",
-               "type": "null"
+               "title": "Registry Identifier"
             }
          },
          "title": "AppliedScientificInstrumentation",
@@ -924,38 +885,22 @@
             "name": {
                "const": "Arecont Vision Costar",
                "default": "Arecont Vision Costar",
-               "enum": [
-                  "Arecont Vision Costar"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry",
-               "type": "null"
+               "title": "Registry"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry Identifier",
-               "type": "null"
+               "title": "Registry Identifier"
             }
          },
          "title": "ArecontVisionCostar",
@@ -968,20 +913,12 @@
             "name": {
                "const": "ASUS",
                "default": "ASUS",
-               "enum": [
-                  "ASUS"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "default": {
@@ -1004,11 +941,7 @@
             "registry_identifier": {
                "const": "00bxkz165",
                "default": "00bxkz165",
-               "enum": [
-                  "00bxkz165"
-               ],
-               "title": "Registry Identifier",
-               "type": "string"
+               "title": "Registry Identifier"
             }
          },
          "title": "Asus",
@@ -1048,38 +981,22 @@
             "name": {
                "const": "Basler",
                "default": "Basler",
-               "enum": [
-                  "Basler"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry",
-               "type": "null"
+               "title": "Registry"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry Identifier",
-               "type": "null"
+               "title": "Registry Identifier"
             }
          },
          "title": "Basler",
@@ -1092,11 +1009,7 @@
             "name": {
                "const": "Callithrix jacchus",
                "default": "Callithrix jacchus",
-               "enum": [
-                  "Callithrix jacchus"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "anyOf": [
@@ -1129,13 +1042,9 @@
                "title": "Registry"
             },
             "registry_identifier": {
-               "const": "9483",
-               "default": "9483",
-               "enum": [
-                  "9483"
-               ],
-               "title": "Registry Identifier",
-               "type": "string"
+               "const": "NCBI:txid9483",
+               "default": "NCBI:txid9483",
+               "title": "Registry Identifier"
             }
          },
          "title": "CallithrixJacchus",
@@ -1148,38 +1057,22 @@
             "name": {
                "const": "Cambridge Technology",
                "default": "Cambridge Technology",
-               "enum": [
-                  "Cambridge Technology"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry",
-               "type": "null"
+               "title": "Registry"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry Identifier",
-               "type": "null"
+               "title": "Registry Identifier"
             }
          },
          "title": "CambridgeTechnology",
@@ -1192,20 +1085,12 @@
             "name": {
                "const": "Carl Zeiss",
                "default": "Carl Zeiss",
-               "enum": [
-                  "Carl Zeiss"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "default": {
@@ -1228,11 +1113,7 @@
             "registry_identifier": {
                "const": "01xk5xs43",
                "default": "01xk5xs43",
-               "enum": [
-                  "01xk5xs43"
-               ],
-               "title": "Registry Identifier",
-               "type": "string"
+               "title": "Registry Identifier"
             }
          },
          "title": "CarlZeiss",
@@ -1245,20 +1126,12 @@
             "name": {
                "const": "Champalimaud Foundation",
                "default": "Champalimaud Foundation",
-               "enum": [
-                  "Champalimaud Foundation"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "default": {
@@ -1281,14 +1154,51 @@
             "registry_identifier": {
                "const": "03g001n57",
                "default": "03g001n57",
-               "enum": [
-                  "03g001n57"
-               ],
-               "title": "Registry Identifier",
-               "type": "string"
+               "title": "Registry Identifier"
             }
          },
          "title": "ChampalimaudFoundation",
+         "type": "object"
+      },
+      "ChanZuckerbergInitiative": {
+         "additionalProperties": false,
+         "description": "ChanZuckerbergInitiative",
+         "properties": {
+            "name": {
+               "const": "Chan Zuckerberg Initiative",
+               "default": "Chan Zuckerberg Initiative",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "CZI",
+               "default": "CZI",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "02qenvm24",
+               "default": "02qenvm24",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "ChanZuckerbergInitiative",
          "type": "object"
       },
       "Chroma": {
@@ -1298,38 +1208,22 @@
             "name": {
                "const": "Chroma",
                "default": "Chroma",
-               "enum": [
-                  "Chroma"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry",
-               "type": "null"
+               "title": "Registry"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry Identifier",
-               "type": "null"
+               "title": "Registry Identifier"
             }
          },
          "title": "Chroma",
@@ -1342,20 +1236,12 @@
             "name": {
                "const": "Coherent Scientific",
                "default": "Coherent Scientific",
-               "enum": [
-                  "Coherent Scientific"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "default": {
@@ -1378,11 +1264,7 @@
             "registry_identifier": {
                "const": "031tysd23",
                "default": "031tysd23",
-               "enum": [
-                  "031tysd23"
-               ],
-               "title": "Registry Identifier",
-               "type": "string"
+               "title": "Registry Identifier"
             }
          },
          "title": "CoherentScientific",
@@ -1395,20 +1277,12 @@
             "name": {
                "const": "Columbia University",
                "default": "Columbia University",
-               "enum": [
-                  "Columbia University"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": "Columbia",
                "default": "Columbia",
-               "enum": [
-                  "Columbia"
-               ],
-               "title": "Abbreviation",
-               "type": "string"
+               "title": "Abbreviation"
             },
             "registry": {
                "default": {
@@ -1431,11 +1305,7 @@
             "registry_identifier": {
                "const": "00hj8s172",
                "default": "00hj8s172",
-               "enum": [
-                  "00hj8s172"
-               ],
-               "title": "Registry Identifier",
-               "type": "string"
+               "title": "Registry Identifier"
             }
          },
          "title": "ColumbiaUniversity",
@@ -1448,38 +1318,22 @@
             "name": {
                "const": "Computar",
                "default": "Computar",
-               "enum": [
-                  "Computar"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry",
-               "type": "null"
+               "title": "Registry"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry Identifier",
-               "type": "null"
+               "title": "Registry Identifier"
             }
          },
          "title": "Computar",
@@ -1504,38 +1358,22 @@
             "name": {
                "const": "Conoptics",
                "default": "Conoptics",
-               "enum": [
-                  "Conoptics"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry",
-               "type": "null"
+               "title": "Registry"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry Identifier",
-               "type": "null"
+               "title": "Registry Identifier"
             }
          },
          "title": "Conoptics",
@@ -1558,11 +1396,7 @@
             "procedure_type": {
                "const": "Craniotomy",
                "default": "Craniotomy",
-               "enum": [
-                  "Craniotomy"
-               ],
-               "title": "Procedure Type",
-               "type": "string"
+               "title": "Procedure Type"
             },
             "protocol_id": {
                "description": "DOI for protocols.io",
@@ -1698,9 +1532,6 @@
       "CurrentUnit": {
          "const": "microamps",
          "description": "Current units",
-         "enum": [
-            "microamps"
-         ],
          "title": "CurrentUnit",
          "type": "string"
       },
@@ -1711,38 +1542,22 @@
             "name": {
                "const": "Custom",
                "default": "Custom",
-               "enum": [
-                  "Custom"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry",
-               "type": "null"
+               "title": "Registry"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry Identifier",
-               "type": "null"
+               "title": "Registry Identifier"
             }
          },
          "title": "Custom",
@@ -1755,38 +1570,22 @@
             "name": {
                "const": "Dodotronic",
                "default": "Dodotronic",
-               "enum": [
-                  "Dodotronic"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry",
-               "type": "null"
+               "title": "Registry"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry Identifier",
-               "type": "null"
+               "title": "Registry Identifier"
             }
          },
          "title": "Dodotronic",
@@ -1799,20 +1598,12 @@
             "name": {
                "const": "Doric",
                "default": "Doric",
-               "enum": [
-                  "Doric"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "default": {
@@ -1835,11 +1626,7 @@
             "registry_identifier": {
                "const": "059n53q30",
                "default": "059n53q30",
-               "enum": [
-                  "059n53q30"
-               ],
-               "title": "Registry Identifier",
-               "type": "string"
+               "title": "Registry Identifier"
             }
          },
          "title": "Doric",
@@ -1852,38 +1639,22 @@
             "name": {
                "const": "Ealing",
                "default": "Ealing",
-               "enum": [
-                  "Ealing"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry",
-               "type": "null"
+               "title": "Registry"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry Identifier",
-               "type": "null"
+               "title": "Registry Identifier"
             }
          },
          "title": "Ealing",
@@ -1896,20 +1667,12 @@
             "name": {
                "const": "Edmund Optics",
                "default": "Edmund Optics",
-               "enum": [
-                  "Edmund Optics"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "default": {
@@ -1932,11 +1695,7 @@
             "registry_identifier": {
                "const": "01j1gwp17",
                "default": "01j1gwp17",
-               "enum": [
-                  "01j1gwp17"
-               ],
-               "title": "Registry Identifier",
-               "type": "string"
+               "title": "Registry Identifier"
             }
          },
          "title": "EdmundOptics",
@@ -1949,38 +1708,22 @@
             "name": {
                "const": "Euresys",
                "default": "Euresys",
-               "enum": [
-                  "Euresys"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry",
-               "type": "null"
+               "title": "Registry"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry Identifier",
-               "type": "null"
+               "title": "Registry Identifier"
             }
          },
          "title": "Euresys",
@@ -2002,11 +1745,7 @@
             "procedure_type": {
                "const": "Fiber implant",
                "default": "Fiber implant",
-               "enum": [
-                  "Fiber implant"
-               ],
-               "title": "Procedure Type",
-               "type": "string"
+               "title": "Procedure Type"
             },
             "protocol_id": {
                "description": "DOI for protocols.io",
@@ -2035,11 +1774,7 @@
             "device_type": {
                "const": "Fiber optic probe",
                "default": "Fiber optic probe",
-               "enum": [
-                  "Fiber optic probe"
-               ],
-               "title": "Device Type",
-               "type": "string"
+               "title": "Device Type"
             },
             "name": {
                "title": "Device name",
@@ -2065,6 +1800,7 @@
                            "AA Opto Electronic": "#/$defs/AAOptoElectronic",
                            "ASUS": "#/$defs/Asus",
                            "Abcam": "#/$defs/Abcam",
+                           "Addgene": "#/$defs/Addgene",
                            "Ailipu Technology Co": "#/$defs/AilipuTechnologyCo",
                            "Allen Institute": "#/$defs/AllenInstitute",
                            "Allen Institute for Brain Science": "#/$defs/AllenInstituteForBrainScience",
@@ -2076,6 +1812,7 @@
                            "Cambridge Technology": "#/$defs/CambridgeTechnology",
                            "Carl Zeiss": "#/$defs/CarlZeiss",
                            "Champalimaud Foundation": "#/$defs/ChampalimaudFoundation",
+                           "Chan Zuckerberg Initiative": "#/$defs/ChanZuckerbergInitiative",
                            "Chroma": "#/$defs/Chroma",
                            "Coherent Scientific": "#/$defs/CoherentScientific",
                            "Columbia University": "#/$defs/ColumbiaUniversity",
@@ -2095,16 +1832,23 @@
                            "ISL Products International": "#/$defs/ISLProductsInternational",
                            "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
                            "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
+                           "Invitrogen": "#/$defs/Invitrogen",
                            "Jackson Laboratory": "#/$defs/JacksonLaboratory",
+                           "Janelia Research Campus": "#/$defs/JaneliaResearchCampus",
                            "Julabo": "#/$defs/Julabo",
                            "LG": "#/$defs/Lg",
                            "Leica": "#/$defs/Leica",
                            "LifeCanvas": "#/$defs/LifeCanvas",
+                           "MBF Bioscience": "#/$defs/MBFBioscience",
                            "MKS Newport": "#/$defs/MKSNewport",
                            "MPI": "#/$defs/Mpi",
                            "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
+                           "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/MichaelJFoxFoundationForParkinsonsResearch",
+                           "Midwest Optical Systems, Inc.": "#/$defs/MidwestOpticalSystems",
                            "Mitutuyo": "#/$defs/Mitutuyo",
                            "NResearch Inc": "#/$defs/NResearch",
+                           "National Center for Complementary and Integrative Health": "#/$defs/NationalCenterForComplementaryAndIntegrativeHealth",
+                           "National Institute of Mental Health": "#/$defs/NationalInstituteOfMentalHealth",
                            "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                            "National Instruments": "#/$defs/NationalInstruments",
                            "Navitar": "#/$defs/Navitar",
@@ -2120,6 +1864,7 @@
                            "Prizmatix": "#/$defs/Prizmatix",
                            "Quantifi": "#/$defs/Quantifi",
                            "Raspberry Pi": "#/$defs/RaspberryPi",
+                           "SICGEN": "#/$defs/Sicgen",
                            "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                            "Second Order Effects": "#/$defs/SecondOrderEffects",
                            "Semrock": "#/$defs/Semrock",
@@ -2129,6 +1874,7 @@
                            "Tamron": "#/$defs/Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/TMC",
                            "Teledyne FLIR": "#/$defs/TeledyneFLIR",
+                           "Templeton World Charity Foundation": "#/$defs/TempletonWorldCharityFoundation",
                            "The Imaging Source": "#/$defs/TheImagingSource",
                            "The Lee Company": "#/$defs/TheLeeCompany",
                            "Thermo Fisher": "#/$defs/Thermofisher",
@@ -2146,6 +1892,9 @@
                         },
                         {
                            "$ref": "#/$defs/Abcam"
+                        },
+                        {
+                           "$ref": "#/$defs/Addgene"
                         },
                         {
                            "$ref": "#/$defs/AilipuTechnologyCo"
@@ -2184,6 +1933,9 @@
                            "$ref": "#/$defs/ChampalimaudFoundation"
                         },
                         {
+                           "$ref": "#/$defs/ChanZuckerbergInitiative"
+                        },
+                        {
                            "$ref": "#/$defs/Chroma"
                         },
                         {
@@ -2217,9 +1969,6 @@
                            "$ref": "#/$defs/Euresys"
                         },
                         {
-                           "$ref": "#/$defs/TeledyneFLIR"
-                        },
-                        {
                            "$ref": "#/$defs/Fujinon"
                         },
                         {
@@ -2241,10 +1990,16 @@
                            "$ref": "#/$defs/InfinityPhotoOptical"
                         },
                         {
+                           "$ref": "#/$defs/Invitrogen"
+                        },
+                        {
                            "$ref": "#/$defs/ISLProductsInternational"
                         },
                         {
                            "$ref": "#/$defs/JacksonLaboratory"
+                        },
+                        {
+                           "$ref": "#/$defs/JaneliaResearchCampus"
                         },
                         {
                            "$ref": "#/$defs/Julabo"
@@ -2268,6 +2023,15 @@
                            "$ref": "#/$defs/IRRobotCo"
                         },
                         {
+                           "$ref": "#/$defs/MBFBioscience"
+                        },
+                        {
+                           "$ref": "#/$defs/MichaelJFoxFoundationForParkinsonsResearch"
+                        },
+                        {
+                           "$ref": "#/$defs/MidwestOpticalSystems"
+                        },
+                        {
                            "$ref": "#/$defs/Mitutuyo"
                         },
                         {
@@ -2275,6 +2039,12 @@
                         },
                         {
                            "$ref": "#/$defs/Mpi"
+                        },
+                        {
+                           "$ref": "#/$defs/NationalCenterForComplementaryAndIntegrativeHealth"
+                        },
+                        {
+                           "$ref": "#/$defs/NationalInstituteOfMentalHealth"
                         },
                         {
                            "$ref": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke"
@@ -2331,6 +2101,9 @@
                            "$ref": "#/$defs/SchneiderKreuznach"
                         },
                         {
+                           "$ref": "#/$defs/Sicgen"
+                        },
+                        {
                            "$ref": "#/$defs/SigmaAldritch"
                         },
                         {
@@ -2341,6 +2114,12 @@
                         },
                         {
                            "$ref": "#/$defs/Tamron"
+                        },
+                        {
+                           "$ref": "#/$defs/TempletonWorldCharityFoundation"
+                        },
+                        {
+                           "$ref": "#/$defs/TeledyneFLIR"
                         },
                         {
                            "$ref": "#/$defs/Thermofisher"
@@ -2547,38 +2326,22 @@
             "name": {
                "const": "Fujinon",
                "default": "Fujinon",
-               "enum": [
-                  "Fujinon"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry",
-               "type": "null"
+               "title": "Registry"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry Identifier",
-               "type": "null"
+               "title": "Registry Identifier"
             }
          },
          "title": "Fujinon",
@@ -2607,6 +2370,7 @@
                      "AA Opto Electronic": "#/$defs/AAOptoElectronic",
                      "ASUS": "#/$defs/Asus",
                      "Abcam": "#/$defs/Abcam",
+                     "Addgene": "#/$defs/Addgene",
                      "Ailipu Technology Co": "#/$defs/AilipuTechnologyCo",
                      "Allen Institute": "#/$defs/AllenInstitute",
                      "Allen Institute for Brain Science": "#/$defs/AllenInstituteForBrainScience",
@@ -2618,6 +2382,7 @@
                      "Cambridge Technology": "#/$defs/CambridgeTechnology",
                      "Carl Zeiss": "#/$defs/CarlZeiss",
                      "Champalimaud Foundation": "#/$defs/ChampalimaudFoundation",
+                     "Chan Zuckerberg Initiative": "#/$defs/ChanZuckerbergInitiative",
                      "Chroma": "#/$defs/Chroma",
                      "Coherent Scientific": "#/$defs/CoherentScientific",
                      "Columbia University": "#/$defs/ColumbiaUniversity",
@@ -2637,16 +2402,23 @@
                      "ISL Products International": "#/$defs/ISLProductsInternational",
                      "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
                      "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
+                     "Invitrogen": "#/$defs/Invitrogen",
                      "Jackson Laboratory": "#/$defs/JacksonLaboratory",
+                     "Janelia Research Campus": "#/$defs/JaneliaResearchCampus",
                      "Julabo": "#/$defs/Julabo",
                      "LG": "#/$defs/Lg",
                      "Leica": "#/$defs/Leica",
                      "LifeCanvas": "#/$defs/LifeCanvas",
+                     "MBF Bioscience": "#/$defs/MBFBioscience",
                      "MKS Newport": "#/$defs/MKSNewport",
                      "MPI": "#/$defs/Mpi",
                      "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
+                     "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/MichaelJFoxFoundationForParkinsonsResearch",
+                     "Midwest Optical Systems, Inc.": "#/$defs/MidwestOpticalSystems",
                      "Mitutuyo": "#/$defs/Mitutuyo",
                      "NResearch Inc": "#/$defs/NResearch",
+                     "National Center for Complementary and Integrative Health": "#/$defs/NationalCenterForComplementaryAndIntegrativeHealth",
+                     "National Institute of Mental Health": "#/$defs/NationalInstituteOfMentalHealth",
                      "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                      "National Instruments": "#/$defs/NationalInstruments",
                      "Navitar": "#/$defs/Navitar",
@@ -2662,6 +2434,7 @@
                      "Prizmatix": "#/$defs/Prizmatix",
                      "Quantifi": "#/$defs/Quantifi",
                      "Raspberry Pi": "#/$defs/RaspberryPi",
+                     "SICGEN": "#/$defs/Sicgen",
                      "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                      "Second Order Effects": "#/$defs/SecondOrderEffects",
                      "Semrock": "#/$defs/Semrock",
@@ -2671,6 +2444,7 @@
                      "Tamron": "#/$defs/Tamron",
                      "Technical Manufacturing Corporation": "#/$defs/TMC",
                      "Teledyne FLIR": "#/$defs/TeledyneFLIR",
+                     "Templeton World Charity Foundation": "#/$defs/TempletonWorldCharityFoundation",
                      "The Imaging Source": "#/$defs/TheImagingSource",
                      "The Lee Company": "#/$defs/TheLeeCompany",
                      "Thermo Fisher": "#/$defs/Thermofisher",
@@ -2688,6 +2462,9 @@
                   },
                   {
                      "$ref": "#/$defs/Abcam"
+                  },
+                  {
+                     "$ref": "#/$defs/Addgene"
                   },
                   {
                      "$ref": "#/$defs/AilipuTechnologyCo"
@@ -2726,6 +2503,9 @@
                      "$ref": "#/$defs/ChampalimaudFoundation"
                   },
                   {
+                     "$ref": "#/$defs/ChanZuckerbergInitiative"
+                  },
+                  {
                      "$ref": "#/$defs/Chroma"
                   },
                   {
@@ -2759,9 +2539,6 @@
                      "$ref": "#/$defs/Euresys"
                   },
                   {
-                     "$ref": "#/$defs/TeledyneFLIR"
-                  },
-                  {
                      "$ref": "#/$defs/Fujinon"
                   },
                   {
@@ -2783,10 +2560,16 @@
                      "$ref": "#/$defs/InfinityPhotoOptical"
                   },
                   {
+                     "$ref": "#/$defs/Invitrogen"
+                  },
+                  {
                      "$ref": "#/$defs/ISLProductsInternational"
                   },
                   {
                      "$ref": "#/$defs/JacksonLaboratory"
+                  },
+                  {
+                     "$ref": "#/$defs/JaneliaResearchCampus"
                   },
                   {
                      "$ref": "#/$defs/Julabo"
@@ -2810,6 +2593,15 @@
                      "$ref": "#/$defs/IRRobotCo"
                   },
                   {
+                     "$ref": "#/$defs/MBFBioscience"
+                  },
+                  {
+                     "$ref": "#/$defs/MichaelJFoxFoundationForParkinsonsResearch"
+                  },
+                  {
+                     "$ref": "#/$defs/MidwestOpticalSystems"
+                  },
+                  {
                      "$ref": "#/$defs/Mitutuyo"
                   },
                   {
@@ -2817,6 +2609,12 @@
                   },
                   {
                      "$ref": "#/$defs/Mpi"
+                  },
+                  {
+                     "$ref": "#/$defs/NationalCenterForComplementaryAndIntegrativeHealth"
+                  },
+                  {
+                     "$ref": "#/$defs/NationalInstituteOfMentalHealth"
                   },
                   {
                      "$ref": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke"
@@ -2873,6 +2671,9 @@
                      "$ref": "#/$defs/SchneiderKreuznach"
                   },
                   {
+                     "$ref": "#/$defs/Sicgen"
+                  },
+                  {
                      "$ref": "#/$defs/SigmaAldritch"
                   },
                   {
@@ -2883,6 +2684,12 @@
                   },
                   {
                      "$ref": "#/$defs/Tamron"
+                  },
+                  {
+                     "$ref": "#/$defs/TempletonWorldCharityFoundation"
+                  },
+                  {
+                     "$ref": "#/$defs/TeledyneFLIR"
                   },
                   {
                      "$ref": "#/$defs/Thermofisher"
@@ -3025,6 +2832,7 @@
                      "AA Opto Electronic": "#/$defs/AAOptoElectronic",
                      "ASUS": "#/$defs/Asus",
                      "Abcam": "#/$defs/Abcam",
+                     "Addgene": "#/$defs/Addgene",
                      "Ailipu Technology Co": "#/$defs/AilipuTechnologyCo",
                      "Allen Institute": "#/$defs/AllenInstitute",
                      "Allen Institute for Brain Science": "#/$defs/AllenInstituteForBrainScience",
@@ -3036,6 +2844,7 @@
                      "Cambridge Technology": "#/$defs/CambridgeTechnology",
                      "Carl Zeiss": "#/$defs/CarlZeiss",
                      "Champalimaud Foundation": "#/$defs/ChampalimaudFoundation",
+                     "Chan Zuckerberg Initiative": "#/$defs/ChanZuckerbergInitiative",
                      "Chroma": "#/$defs/Chroma",
                      "Coherent Scientific": "#/$defs/CoherentScientific",
                      "Columbia University": "#/$defs/ColumbiaUniversity",
@@ -3055,16 +2864,23 @@
                      "ISL Products International": "#/$defs/ISLProductsInternational",
                      "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
                      "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
+                     "Invitrogen": "#/$defs/Invitrogen",
                      "Jackson Laboratory": "#/$defs/JacksonLaboratory",
+                     "Janelia Research Campus": "#/$defs/JaneliaResearchCampus",
                      "Julabo": "#/$defs/Julabo",
                      "LG": "#/$defs/Lg",
                      "Leica": "#/$defs/Leica",
                      "LifeCanvas": "#/$defs/LifeCanvas",
+                     "MBF Bioscience": "#/$defs/MBFBioscience",
                      "MKS Newport": "#/$defs/MKSNewport",
                      "MPI": "#/$defs/Mpi",
                      "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
+                     "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/MichaelJFoxFoundationForParkinsonsResearch",
+                     "Midwest Optical Systems, Inc.": "#/$defs/MidwestOpticalSystems",
                      "Mitutuyo": "#/$defs/Mitutuyo",
                      "NResearch Inc": "#/$defs/NResearch",
+                     "National Center for Complementary and Integrative Health": "#/$defs/NationalCenterForComplementaryAndIntegrativeHealth",
+                     "National Institute of Mental Health": "#/$defs/NationalInstituteOfMentalHealth",
                      "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                      "National Instruments": "#/$defs/NationalInstruments",
                      "Navitar": "#/$defs/Navitar",
@@ -3080,6 +2896,7 @@
                      "Prizmatix": "#/$defs/Prizmatix",
                      "Quantifi": "#/$defs/Quantifi",
                      "Raspberry Pi": "#/$defs/RaspberryPi",
+                     "SICGEN": "#/$defs/Sicgen",
                      "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                      "Second Order Effects": "#/$defs/SecondOrderEffects",
                      "Semrock": "#/$defs/Semrock",
@@ -3089,6 +2906,7 @@
                      "Tamron": "#/$defs/Tamron",
                      "Technical Manufacturing Corporation": "#/$defs/TMC",
                      "Teledyne FLIR": "#/$defs/TeledyneFLIR",
+                     "Templeton World Charity Foundation": "#/$defs/TempletonWorldCharityFoundation",
                      "The Imaging Source": "#/$defs/TheImagingSource",
                      "The Lee Company": "#/$defs/TheLeeCompany",
                      "Thermo Fisher": "#/$defs/Thermofisher",
@@ -3106,6 +2924,9 @@
                   },
                   {
                      "$ref": "#/$defs/Abcam"
+                  },
+                  {
+                     "$ref": "#/$defs/Addgene"
                   },
                   {
                      "$ref": "#/$defs/AilipuTechnologyCo"
@@ -3144,6 +2965,9 @@
                      "$ref": "#/$defs/ChampalimaudFoundation"
                   },
                   {
+                     "$ref": "#/$defs/ChanZuckerbergInitiative"
+                  },
+                  {
                      "$ref": "#/$defs/Chroma"
                   },
                   {
@@ -3177,9 +3001,6 @@
                      "$ref": "#/$defs/Euresys"
                   },
                   {
-                     "$ref": "#/$defs/TeledyneFLIR"
-                  },
-                  {
                      "$ref": "#/$defs/Fujinon"
                   },
                   {
@@ -3201,10 +3022,16 @@
                      "$ref": "#/$defs/InfinityPhotoOptical"
                   },
                   {
+                     "$ref": "#/$defs/Invitrogen"
+                  },
+                  {
                      "$ref": "#/$defs/ISLProductsInternational"
                   },
                   {
                      "$ref": "#/$defs/JacksonLaboratory"
+                  },
+                  {
+                     "$ref": "#/$defs/JaneliaResearchCampus"
                   },
                   {
                      "$ref": "#/$defs/Julabo"
@@ -3228,6 +3055,15 @@
                      "$ref": "#/$defs/IRRobotCo"
                   },
                   {
+                     "$ref": "#/$defs/MBFBioscience"
+                  },
+                  {
+                     "$ref": "#/$defs/MichaelJFoxFoundationForParkinsonsResearch"
+                  },
+                  {
+                     "$ref": "#/$defs/MidwestOpticalSystems"
+                  },
+                  {
                      "$ref": "#/$defs/Mitutuyo"
                   },
                   {
@@ -3235,6 +3071,12 @@
                   },
                   {
                      "$ref": "#/$defs/Mpi"
+                  },
+                  {
+                     "$ref": "#/$defs/NationalCenterForComplementaryAndIntegrativeHealth"
+                  },
+                  {
+                     "$ref": "#/$defs/NationalInstituteOfMentalHealth"
                   },
                   {
                      "$ref": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke"
@@ -3291,6 +3133,9 @@
                      "$ref": "#/$defs/SchneiderKreuznach"
                   },
                   {
+                     "$ref": "#/$defs/Sicgen"
+                  },
+                  {
                      "$ref": "#/$defs/SigmaAldritch"
                   },
                   {
@@ -3301,6 +3146,12 @@
                   },
                   {
                      "$ref": "#/$defs/Tamron"
+                  },
+                  {
+                     "$ref": "#/$defs/TempletonWorldCharityFoundation"
+                  },
+                  {
+                     "$ref": "#/$defs/TeledyneFLIR"
                   },
                   {
                      "$ref": "#/$defs/Thermofisher"
@@ -3439,20 +3290,12 @@
             "name": {
                "const": "Hamamatsu",
                "default": "Hamamatsu",
-               "enum": [
-                  "Hamamatsu"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "default": {
@@ -3475,11 +3318,7 @@
             "registry_identifier": {
                "const": "03natb733",
                "default": "03natb733",
-               "enum": [
-                  "03natb733"
-               ],
-               "title": "Registry Identifier",
-               "type": "string"
+               "title": "Registry Identifier"
             }
          },
          "title": "Hamamatsu",
@@ -3492,38 +3331,22 @@
             "name": {
                "const": "Hamilton",
                "default": "Hamilton",
-               "enum": [
-                  "Hamilton"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry",
-               "type": "null"
+               "title": "Registry"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry Identifier",
-               "type": "null"
+               "title": "Registry Identifier"
             }
          },
          "title": "Hamilton",
@@ -3536,11 +3359,7 @@
             "procedure_type": {
                "const": "Headframe",
                "default": "Headframe",
-               "enum": [
-                  "Headframe"
-               ],
-               "title": "Procedure Type",
-               "type": "string"
+               "title": "Procedure Type"
             },
             "protocol_id": {
                "description": "DOI for protocols.io",
@@ -3617,11 +3436,7 @@
             "name": {
                "const": "Homo sapiens",
                "default": "Homo sapiens",
-               "enum": [
-                  "Homo sapiens"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "anyOf": [
@@ -3654,13 +3469,9 @@
                "title": "Registry"
             },
             "registry_identifier": {
-               "const": "9606",
-               "default": "9606",
-               "enum": [
-                  "9606"
-               ],
-               "title": "Registry Identifier",
-               "type": "string"
+               "const": "NCBI:txid9606",
+               "default": "NCBI:txid9606",
+               "title": "Registry Identifier"
             }
          },
          "title": "HomoSapiens",
@@ -3673,20 +3484,12 @@
             "name": {
                "const": "Huazhong University of Science and Technology",
                "default": "Huazhong University of Science and Technology",
-               "enum": [
-                  "Huazhong University of Science and Technology"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": "HUST",
                "default": "HUST",
-               "enum": [
-                  "HUST"
-               ],
-               "title": "Abbreviation",
-               "type": "string"
+               "title": "Abbreviation"
             },
             "registry": {
                "default": {
@@ -3709,11 +3512,7 @@
             "registry_identifier": {
                "const": "00p991c53",
                "default": "00p991c53",
-               "enum": [
-                  "00p991c53"
-               ],
-               "title": "Registry Identifier",
-               "type": "string"
+               "title": "Registry Identifier"
             }
          },
          "title": "HuazhongUniversityOfScienceAndTechnology",
@@ -3799,38 +3598,22 @@
             "name": {
                "const": "IR Robot Co",
                "default": "IR Robot Co",
-               "enum": [
-                  "IR Robot Co"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry",
-               "type": "null"
+               "title": "Registry"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry Identifier",
-               "type": "null"
+               "title": "Registry Identifier"
             }
          },
          "title": "IRRobotCo",
@@ -3843,38 +3626,22 @@
             "name": {
                "const": "ISL Products International",
                "default": "ISL Products International",
-               "enum": [
-                  "ISL Products International"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": "ISL",
                "default": "ISL",
-               "enum": [
-                  "ISL"
-               ],
-               "title": "Abbreviation",
-               "type": "string"
+               "title": "Abbreviation"
             },
             "registry": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry",
-               "type": "null"
+               "title": "Registry"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry Identifier",
-               "type": "null"
+               "title": "Registry Identifier"
             }
          },
          "title": "ISLProductsInternational",
@@ -3897,38 +3664,22 @@
             "name": {
                "const": "Infinity Photo-Optical",
                "default": "Infinity Photo-Optical",
-               "enum": [
-                  "Infinity Photo-Optical"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry",
-               "type": "null"
+               "title": "Registry"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry Identifier",
-               "type": "null"
+               "title": "Registry Identifier"
             }
          },
          "title": "InfinityPhotoOptical",
@@ -3941,20 +3692,12 @@
             "name": {
                "const": "Interuniversity Microelectronics Center",
                "default": "Interuniversity Microelectronics Center",
-               "enum": [
-                  "Interuniversity Microelectronics Center"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": "IMEC",
                "default": "IMEC",
-               "enum": [
-                  "IMEC"
-               ],
-               "title": "Abbreviation",
-               "type": "string"
+               "title": "Abbreviation"
             },
             "registry": {
                "default": {
@@ -3977,11 +3720,7 @@
             "registry_identifier": {
                "const": "02kcbn207",
                "default": "02kcbn207",
-               "enum": [
-                  "02kcbn207"
-               ],
-               "title": "Registry Identifier",
-               "type": "string"
+               "title": "Registry Identifier"
             }
          },
          "title": "InteruniversityMicroelectronicsCenter",
@@ -4200,11 +3939,7 @@
             "procedure_type": {
                "const": "ICV injection",
                "default": "ICV injection",
-               "enum": [
-                  "ICV injection"
-               ],
-               "title": "Procedure Type",
-               "type": "string"
+               "title": "Procedure Type"
             },
             "injection_volume": {
                "description": "Injection volume, one value per location",
@@ -4456,11 +4191,7 @@
             "procedure_type": {
                "const": "ICM injection",
                "default": "ICM injection",
-               "enum": [
-                  "ICM injection"
-               ],
-               "title": "Procedure Type",
-               "type": "string"
+               "title": "Procedure Type"
             },
             "injection_volume": {
                "description": "Injection volume, one value per location",
@@ -4586,11 +4317,7 @@
             "procedure_type": {
                "const": "Intraperitoneal injection",
                "default": "Intraperitoneal injection",
-               "enum": [
-                  "Intraperitoneal injection"
-               ],
-               "title": "Procedure Type",
-               "type": "string"
+               "title": "Procedure Type"
             },
             "injection_volume": {
                "anyOf": [
@@ -4619,6 +4346,47 @@
             "injection_volume"
          ],
          "title": "IntraperitonealInjection",
+         "type": "object"
+      },
+      "Invitrogen": {
+         "additionalProperties": false,
+         "description": "Invitrogen",
+         "properties": {
+            "name": {
+               "const": "Invitrogen",
+               "default": "Invitrogen",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "03x1ewr52",
+               "default": "03x1ewr52",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Invitrogen",
          "type": "object"
       },
       "IontophoresisInjection": {
@@ -4834,11 +4602,7 @@
             "procedure_type": {
                "const": "Iontophoresis injection",
                "default": "Iontophoresis injection",
-               "enum": [
-                  "Iontophoresis injection"
-               ],
-               "title": "Procedure Type",
-               "type": "string"
+               "title": "Procedure Type"
             },
             "injection_current": {
                "anyOf": [
@@ -4885,20 +4649,12 @@
             "name": {
                "const": "Jackson Laboratory",
                "default": "Jackson Laboratory",
-               "enum": [
-                  "Jackson Laboratory"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": "JAX",
                "default": "JAX",
-               "enum": [
-                  "JAX"
-               ],
-               "title": "Abbreviation",
-               "type": "string"
+               "title": "Abbreviation"
             },
             "registry": {
                "default": {
@@ -4921,14 +4677,51 @@
             "registry_identifier": {
                "const": "021sy4w91",
                "default": "021sy4w91",
-               "enum": [
-                  "021sy4w91"
-               ],
-               "title": "Registry Identifier",
-               "type": "string"
+               "title": "Registry Identifier"
             }
          },
          "title": "JacksonLaboratory",
+         "type": "object"
+      },
+      "JaneliaResearchCampus": {
+         "additionalProperties": false,
+         "description": "JaneliaResearchCampus",
+         "properties": {
+            "name": {
+               "const": "Janelia Research Campus",
+               "default": "Janelia Research Campus",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "Janelia",
+               "default": "Janelia",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "013sk6x84",
+               "default": "013sk6x84",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "JaneliaResearchCampus",
          "type": "object"
       },
       "Julabo": {
@@ -4938,38 +4731,22 @@
             "name": {
                "const": "Julabo",
                "default": "Julabo",
-               "enum": [
-                  "Julabo"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry",
-               "type": "null"
+               "title": "Registry"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry Identifier",
-               "type": "null"
+               "title": "Registry Identifier"
             }
          },
          "title": "Julabo",
@@ -4982,38 +4759,22 @@
             "name": {
                "const": "Leica",
                "default": "Leica",
-               "enum": [
-                  "Leica"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry",
-               "type": "null"
+               "title": "Registry"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry Identifier",
-               "type": "null"
+               "title": "Registry Identifier"
             }
          },
          "title": "Leica",
@@ -5026,20 +4787,12 @@
             "name": {
                "const": "LG",
                "default": "LG",
-               "enum": [
-                  "LG"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "default": {
@@ -5062,11 +4815,7 @@
             "registry_identifier": {
                "const": "02b948n83",
                "default": "02b948n83",
-               "enum": [
-                  "02b948n83"
-               ],
-               "title": "Registry Identifier",
-               "type": "string"
+               "title": "Registry Identifier"
             }
          },
          "title": "Lg",
@@ -5079,41 +4828,66 @@
             "name": {
                "const": "LifeCanvas",
                "default": "LifeCanvas",
-               "enum": [
-                  "LifeCanvas"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry",
-               "type": "null"
+               "title": "Registry"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry Identifier",
-               "type": "null"
+               "title": "Registry Identifier"
             }
          },
          "title": "LifeCanvas",
+         "type": "object"
+      },
+      "MBFBioscience": {
+         "additionalProperties": false,
+         "description": "MBFBioscience",
+         "properties": {
+            "name": {
+               "const": "MBF Bioscience",
+               "default": "MBF Bioscience",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "MBF",
+               "default": "MBF",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "02zynam48",
+               "default": "02zynam48",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "MBFBioscience",
          "type": "object"
       },
       "MKSNewport": {
@@ -5123,20 +4897,12 @@
             "name": {
                "const": "MKS Newport",
                "default": "MKS Newport",
-               "enum": [
-                  "MKS Newport"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "default": {
@@ -5159,11 +4925,7 @@
             "registry_identifier": {
                "const": "00k17f049",
                "default": "00k17f049",
-               "enum": [
-                  "00k17f049"
-               ],
-               "title": "Registry Identifier",
-               "type": "string"
+               "title": "Registry Identifier"
             }
          },
          "title": "MKSNewport",
@@ -5176,11 +4938,7 @@
             "name": {
                "const": "Macaca mulatta",
                "default": "Macaca mulatta",
-               "enum": [
-                  "Macaca mulatta"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "anyOf": [
@@ -5213,13 +4971,9 @@
                "title": "Registry"
             },
             "registry_identifier": {
-               "const": "9544",
-               "default": "9544",
-               "enum": [
-                  "9544"
-               ],
-               "title": "Registry Identifier",
-               "type": "string"
+               "const": "NCBI:txid9544",
+               "default": "NCBI:txid9544",
+               "title": "Registry Identifier"
             }
          },
          "title": "MacacaMulatta",
@@ -5244,20 +4998,12 @@
             "name": {
                "const": "Meadowlark Optics",
                "default": "Meadowlark Optics",
-               "enum": [
-                  "Meadowlark Optics"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "default": {
@@ -5280,14 +5026,79 @@
             "registry_identifier": {
                "const": "00n8qbq54",
                "default": "00n8qbq54",
-               "enum": [
-                  "00n8qbq54"
-               ],
-               "title": "Registry Identifier",
-               "type": "string"
+               "title": "Registry Identifier"
             }
          },
          "title": "MeadowlarkOptics",
+         "type": "object"
+      },
+      "MichaelJFoxFoundationForParkinsonsResearch": {
+         "additionalProperties": false,
+         "description": "MichaelJFoxFoundationForParkinsonsResearch",
+         "properties": {
+            "name": {
+               "const": "Michael J. Fox Foundation for Parkinson's Research",
+               "default": "Michael J. Fox Foundation for Parkinson's Research",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "MJFF",
+               "default": "MJFF",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "03arq3225",
+               "default": "03arq3225",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "MichaelJFoxFoundationForParkinsonsResearch",
+         "type": "object"
+      },
+      "MidwestOpticalSystems": {
+         "additionalProperties": false,
+         "description": "MidwestOpticalSystems",
+         "properties": {
+            "name": {
+               "const": "Midwest Optical Systems, Inc.",
+               "default": "Midwest Optical Systems, Inc.",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "MidOpt",
+               "default": "MidOpt",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "MidwestOpticalSystems",
          "type": "object"
       },
       "Mitutuyo": {
@@ -5297,38 +5108,22 @@
             "name": {
                "const": "Mitutuyo",
                "default": "Mitutuyo",
-               "enum": [
-                  "Mitutuyo"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry",
-               "type": "null"
+               "title": "Registry"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry Identifier",
-               "type": "null"
+               "title": "Registry Identifier"
             }
          },
          "title": "Mitutuyo",
@@ -5341,38 +5136,22 @@
             "name": {
                "const": "MPI",
                "default": "MPI",
-               "enum": [
-                  "MPI"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": "MPI",
                "default": "MPI",
-               "enum": [
-                  "MPI"
-               ],
-               "title": "Abbreviation",
-               "type": "string"
+               "title": "Abbreviation"
             },
             "registry": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry",
-               "type": "null"
+               "title": "Registry"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry Identifier",
-               "type": "null"
+               "title": "Registry Identifier"
             }
          },
          "title": "Mpi",
@@ -5385,11 +5164,7 @@
             "name": {
                "const": "Mus musculus",
                "default": "Mus musculus",
-               "enum": [
-                  "Mus musculus"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "anyOf": [
@@ -5422,13 +5197,9 @@
                "title": "Registry"
             },
             "registry_identifier": {
-               "const": "10090",
-               "default": "10090",
-               "enum": [
-                  "10090"
-               ],
-               "title": "Registry Identifier",
-               "type": "string"
+               "const": "NCBI:txid10090",
+               "default": "NCBI:txid10090",
+               "title": "Registry Identifier"
             }
          },
          "title": "MusMusculus",
@@ -5441,38 +5212,22 @@
             "name": {
                "const": "NResearch Inc",
                "default": "NResearch Inc",
-               "enum": [
-                  "NResearch Inc"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry",
-               "type": "null"
+               "title": "Registry"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry Identifier",
-               "type": "null"
+               "title": "Registry Identifier"
             }
          },
          "title": "NResearch",
@@ -5691,11 +5446,7 @@
             "procedure_type": {
                "const": "Nanoject injection",
                "default": "Nanoject injection",
-               "enum": [
-                  "Nanoject injection"
-               ],
-               "title": "Procedure Type",
-               "type": "string"
+               "title": "Procedure Type"
             },
             "injection_volume": {
                "description": "Injection volume, one value per location",
@@ -5741,23 +5492,97 @@
             "name": {
                "const": "National Center for Biotechnology Information",
                "default": "National Center for Biotechnology Information",
-               "enum": [
-                  "National Center for Biotechnology Information"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": "NCBI",
                "default": "NCBI",
-               "enum": [
-                  "NCBI"
-               ],
-               "title": "Abbreviation",
-               "type": "string"
+               "title": "Abbreviation"
             }
          },
          "title": "NationalCenterForBiotechnologyInformation",
+         "type": "object"
+      },
+      "NationalCenterForComplementaryAndIntegrativeHealth": {
+         "additionalProperties": false,
+         "description": "NationalCenterForComplementaryAndIntegrativeHealth",
+         "properties": {
+            "name": {
+               "const": "National Center for Complementary and Integrative Health",
+               "default": "National Center for Complementary and Integrative Health",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "NCCIH",
+               "default": "NCCIH",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "00190t495",
+               "default": "00190t495",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "NationalCenterForComplementaryAndIntegrativeHealth",
+         "type": "object"
+      },
+      "NationalInstituteOfMentalHealth": {
+         "additionalProperties": false,
+         "description": "NationalInstituteofMentalHealth",
+         "properties": {
+            "name": {
+               "const": "National Institute of Mental Health",
+               "default": "National Institute of Mental Health",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "NIMH",
+               "default": "NIMH",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "04xeg9z08",
+               "default": "04xeg9z08",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "NationalInstituteOfMentalHealth",
          "type": "object"
       },
       "NationalInstituteOfNeurologicalDisordersAndStroke": {
@@ -5767,20 +5592,12 @@
             "name": {
                "const": "National Institute of Neurological Disorders and Stroke",
                "default": "National Institute of Neurological Disorders and Stroke",
-               "enum": [
-                  "National Institute of Neurological Disorders and Stroke"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": "NINDS",
                "default": "NINDS",
-               "enum": [
-                  "NINDS"
-               ],
-               "title": "Abbreviation",
-               "type": "string"
+               "title": "Abbreviation"
             },
             "registry": {
                "default": {
@@ -5803,11 +5620,7 @@
             "registry_identifier": {
                "const": "01s5ya894",
                "default": "01s5ya894",
-               "enum": [
-                  "01s5ya894"
-               ],
-               "title": "Registry Identifier",
-               "type": "string"
+               "title": "Registry Identifier"
             }
          },
          "title": "NationalInstituteOfNeurologicalDisordersAndStroke",
@@ -5820,20 +5633,12 @@
             "name": {
                "const": "National Instruments",
                "default": "National Instruments",
-               "enum": [
-                  "National Instruments"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "default": {
@@ -5856,11 +5661,7 @@
             "registry_identifier": {
                "const": "026exqw73",
                "default": "026exqw73",
-               "enum": [
-                  "026exqw73"
-               ],
-               "title": "Registry Identifier",
-               "type": "string"
+               "title": "Registry Identifier"
             }
          },
          "title": "NationalInstruments",
@@ -5873,38 +5674,22 @@
             "name": {
                "const": "Navitar",
                "default": "Navitar",
-               "enum": [
-                  "Navitar"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry",
-               "type": "null"
+               "title": "Registry"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry Identifier",
-               "type": "null"
+               "title": "Registry Identifier"
             }
          },
          "title": "Navitar",
@@ -5917,38 +5702,22 @@
             "name": {
                "const": "Neurophotometrics",
                "default": "Neurophotometrics",
-               "enum": [
-                  "Neurophotometrics"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry",
-               "type": "null"
+               "title": "Registry"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry Identifier",
-               "type": "null"
+               "title": "Registry Identifier"
             }
          },
          "title": "Neurophotometrics",
@@ -5961,38 +5730,22 @@
             "name": {
                "const": "New Scale Technologies",
                "default": "New Scale Technologies",
-               "enum": [
-                  "New Scale Technologies"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry",
-               "type": "null"
+               "title": "Registry"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry Identifier",
-               "type": "null"
+               "title": "Registry Identifier"
             }
          },
          "title": "NewScaleTechnologies",
@@ -6005,20 +5758,12 @@
             "name": {
                "const": "New York University",
                "default": "New York University",
-               "enum": [
-                  "New York University"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": "NYU",
                "default": "NYU",
-               "enum": [
-                  "NYU"
-               ],
-               "title": "Abbreviation",
-               "type": "string"
+               "title": "Abbreviation"
             },
             "registry": {
                "default": {
@@ -6041,11 +5786,7 @@
             "registry_identifier": {
                "const": "0190ak572",
                "default": "0190ak572",
-               "enum": [
-                  "0190ak572"
-               ],
-               "title": "Registry Identifier",
-               "type": "string"
+               "title": "Registry Identifier"
             }
          },
          "title": "NewYorkUniversity",
@@ -6058,20 +5799,12 @@
             "name": {
                "const": "Nikon",
                "default": "Nikon",
-               "enum": [
-                  "Nikon"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "default": {
@@ -6094,11 +5827,7 @@
             "registry_identifier": {
                "const": "0280y9h11",
                "default": "0280y9h11",
-               "enum": [
-                  "0280y9h11"
-               ],
-               "title": "Registry Identifier",
-               "type": "string"
+               "title": "Registry Identifier"
             }
          },
          "title": "Nikon",
@@ -6118,6 +5847,7 @@
                      "AA Opto Electronic": "#/$defs/AAOptoElectronic",
                      "ASUS": "#/$defs/Asus",
                      "Abcam": "#/$defs/Abcam",
+                     "Addgene": "#/$defs/Addgene",
                      "Ailipu Technology Co": "#/$defs/AilipuTechnologyCo",
                      "Allen Institute": "#/$defs/AllenInstitute",
                      "Allen Institute for Brain Science": "#/$defs/AllenInstituteForBrainScience",
@@ -6129,6 +5859,7 @@
                      "Cambridge Technology": "#/$defs/CambridgeTechnology",
                      "Carl Zeiss": "#/$defs/CarlZeiss",
                      "Champalimaud Foundation": "#/$defs/ChampalimaudFoundation",
+                     "Chan Zuckerberg Initiative": "#/$defs/ChanZuckerbergInitiative",
                      "Chroma": "#/$defs/Chroma",
                      "Coherent Scientific": "#/$defs/CoherentScientific",
                      "Columbia University": "#/$defs/ColumbiaUniversity",
@@ -6148,16 +5879,23 @@
                      "ISL Products International": "#/$defs/ISLProductsInternational",
                      "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
                      "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
+                     "Invitrogen": "#/$defs/Invitrogen",
                      "Jackson Laboratory": "#/$defs/JacksonLaboratory",
+                     "Janelia Research Campus": "#/$defs/JaneliaResearchCampus",
                      "Julabo": "#/$defs/Julabo",
                      "LG": "#/$defs/Lg",
                      "Leica": "#/$defs/Leica",
                      "LifeCanvas": "#/$defs/LifeCanvas",
+                     "MBF Bioscience": "#/$defs/MBFBioscience",
                      "MKS Newport": "#/$defs/MKSNewport",
                      "MPI": "#/$defs/Mpi",
                      "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
+                     "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/MichaelJFoxFoundationForParkinsonsResearch",
+                     "Midwest Optical Systems, Inc.": "#/$defs/MidwestOpticalSystems",
                      "Mitutuyo": "#/$defs/Mitutuyo",
                      "NResearch Inc": "#/$defs/NResearch",
+                     "National Center for Complementary and Integrative Health": "#/$defs/NationalCenterForComplementaryAndIntegrativeHealth",
+                     "National Institute of Mental Health": "#/$defs/NationalInstituteOfMentalHealth",
                      "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                      "National Instruments": "#/$defs/NationalInstruments",
                      "Navitar": "#/$defs/Navitar",
@@ -6173,6 +5911,7 @@
                      "Prizmatix": "#/$defs/Prizmatix",
                      "Quantifi": "#/$defs/Quantifi",
                      "Raspberry Pi": "#/$defs/RaspberryPi",
+                     "SICGEN": "#/$defs/Sicgen",
                      "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                      "Second Order Effects": "#/$defs/SecondOrderEffects",
                      "Semrock": "#/$defs/Semrock",
@@ -6182,6 +5921,7 @@
                      "Tamron": "#/$defs/Tamron",
                      "Technical Manufacturing Corporation": "#/$defs/TMC",
                      "Teledyne FLIR": "#/$defs/TeledyneFLIR",
+                     "Templeton World Charity Foundation": "#/$defs/TempletonWorldCharityFoundation",
                      "The Imaging Source": "#/$defs/TheImagingSource",
                      "The Lee Company": "#/$defs/TheLeeCompany",
                      "Thermo Fisher": "#/$defs/Thermofisher",
@@ -6199,6 +5939,9 @@
                   },
                   {
                      "$ref": "#/$defs/Abcam"
+                  },
+                  {
+                     "$ref": "#/$defs/Addgene"
                   },
                   {
                      "$ref": "#/$defs/AilipuTechnologyCo"
@@ -6237,6 +5980,9 @@
                      "$ref": "#/$defs/ChampalimaudFoundation"
                   },
                   {
+                     "$ref": "#/$defs/ChanZuckerbergInitiative"
+                  },
+                  {
                      "$ref": "#/$defs/Chroma"
                   },
                   {
@@ -6270,9 +6016,6 @@
                      "$ref": "#/$defs/Euresys"
                   },
                   {
-                     "$ref": "#/$defs/TeledyneFLIR"
-                  },
-                  {
                      "$ref": "#/$defs/Fujinon"
                   },
                   {
@@ -6294,10 +6037,16 @@
                      "$ref": "#/$defs/InfinityPhotoOptical"
                   },
                   {
+                     "$ref": "#/$defs/Invitrogen"
+                  },
+                  {
                      "$ref": "#/$defs/ISLProductsInternational"
                   },
                   {
                      "$ref": "#/$defs/JacksonLaboratory"
+                  },
+                  {
+                     "$ref": "#/$defs/JaneliaResearchCampus"
                   },
                   {
                      "$ref": "#/$defs/Julabo"
@@ -6321,6 +6070,15 @@
                      "$ref": "#/$defs/IRRobotCo"
                   },
                   {
+                     "$ref": "#/$defs/MBFBioscience"
+                  },
+                  {
+                     "$ref": "#/$defs/MichaelJFoxFoundationForParkinsonsResearch"
+                  },
+                  {
+                     "$ref": "#/$defs/MidwestOpticalSystems"
+                  },
+                  {
                      "$ref": "#/$defs/Mitutuyo"
                   },
                   {
@@ -6328,6 +6086,12 @@
                   },
                   {
                      "$ref": "#/$defs/Mpi"
+                  },
+                  {
+                     "$ref": "#/$defs/NationalCenterForComplementaryAndIntegrativeHealth"
+                  },
+                  {
+                     "$ref": "#/$defs/NationalInstituteOfMentalHealth"
                   },
                   {
                      "$ref": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke"
@@ -6384,6 +6148,9 @@
                      "$ref": "#/$defs/SchneiderKreuznach"
                   },
                   {
+                     "$ref": "#/$defs/Sicgen"
+                  },
+                  {
                      "$ref": "#/$defs/SigmaAldritch"
                   },
                   {
@@ -6394,6 +6161,12 @@
                   },
                   {
                      "$ref": "#/$defs/Tamron"
+                  },
+                  {
+                     "$ref": "#/$defs/TempletonWorldCharityFoundation"
+                  },
+                  {
+                     "$ref": "#/$defs/TeledyneFLIR"
                   },
                   {
                      "$ref": "#/$defs/Thermofisher"
@@ -6454,11 +6227,7 @@
             "material_type": {
                "const": "Reagent",
                "default": "Reagent",
-               "enum": [
-                  "Reagent"
-               ],
-               "title": "Injection material type",
-               "type": "string"
+               "title": "Injection material type"
             },
             "concentration": {
                "anyOf": [
@@ -6504,6 +6273,7 @@
                      "AA Opto Electronic": "#/$defs/AAOptoElectronic",
                      "ASUS": "#/$defs/Asus",
                      "Abcam": "#/$defs/Abcam",
+                     "Addgene": "#/$defs/Addgene",
                      "Ailipu Technology Co": "#/$defs/AilipuTechnologyCo",
                      "Allen Institute": "#/$defs/AllenInstitute",
                      "Allen Institute for Brain Science": "#/$defs/AllenInstituteForBrainScience",
@@ -6515,6 +6285,7 @@
                      "Cambridge Technology": "#/$defs/CambridgeTechnology",
                      "Carl Zeiss": "#/$defs/CarlZeiss",
                      "Champalimaud Foundation": "#/$defs/ChampalimaudFoundation",
+                     "Chan Zuckerberg Initiative": "#/$defs/ChanZuckerbergInitiative",
                      "Chroma": "#/$defs/Chroma",
                      "Coherent Scientific": "#/$defs/CoherentScientific",
                      "Columbia University": "#/$defs/ColumbiaUniversity",
@@ -6534,16 +6305,23 @@
                      "ISL Products International": "#/$defs/ISLProductsInternational",
                      "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
                      "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
+                     "Invitrogen": "#/$defs/Invitrogen",
                      "Jackson Laboratory": "#/$defs/JacksonLaboratory",
+                     "Janelia Research Campus": "#/$defs/JaneliaResearchCampus",
                      "Julabo": "#/$defs/Julabo",
                      "LG": "#/$defs/Lg",
                      "Leica": "#/$defs/Leica",
                      "LifeCanvas": "#/$defs/LifeCanvas",
+                     "MBF Bioscience": "#/$defs/MBFBioscience",
                      "MKS Newport": "#/$defs/MKSNewport",
                      "MPI": "#/$defs/Mpi",
                      "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
+                     "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/MichaelJFoxFoundationForParkinsonsResearch",
+                     "Midwest Optical Systems, Inc.": "#/$defs/MidwestOpticalSystems",
                      "Mitutuyo": "#/$defs/Mitutuyo",
                      "NResearch Inc": "#/$defs/NResearch",
+                     "National Center for Complementary and Integrative Health": "#/$defs/NationalCenterForComplementaryAndIntegrativeHealth",
+                     "National Institute of Mental Health": "#/$defs/NationalInstituteOfMentalHealth",
                      "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                      "National Instruments": "#/$defs/NationalInstruments",
                      "Navitar": "#/$defs/Navitar",
@@ -6559,6 +6337,7 @@
                      "Prizmatix": "#/$defs/Prizmatix",
                      "Quantifi": "#/$defs/Quantifi",
                      "Raspberry Pi": "#/$defs/RaspberryPi",
+                     "SICGEN": "#/$defs/Sicgen",
                      "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                      "Second Order Effects": "#/$defs/SecondOrderEffects",
                      "Semrock": "#/$defs/Semrock",
@@ -6568,6 +6347,7 @@
                      "Tamron": "#/$defs/Tamron",
                      "Technical Manufacturing Corporation": "#/$defs/TMC",
                      "Teledyne FLIR": "#/$defs/TeledyneFLIR",
+                     "Templeton World Charity Foundation": "#/$defs/TempletonWorldCharityFoundation",
                      "The Imaging Source": "#/$defs/TheImagingSource",
                      "The Lee Company": "#/$defs/TheLeeCompany",
                      "Thermo Fisher": "#/$defs/Thermofisher",
@@ -6585,6 +6365,9 @@
                   },
                   {
                      "$ref": "#/$defs/Abcam"
+                  },
+                  {
+                     "$ref": "#/$defs/Addgene"
                   },
                   {
                      "$ref": "#/$defs/AilipuTechnologyCo"
@@ -6623,6 +6406,9 @@
                      "$ref": "#/$defs/ChampalimaudFoundation"
                   },
                   {
+                     "$ref": "#/$defs/ChanZuckerbergInitiative"
+                  },
+                  {
                      "$ref": "#/$defs/Chroma"
                   },
                   {
@@ -6656,9 +6442,6 @@
                      "$ref": "#/$defs/Euresys"
                   },
                   {
-                     "$ref": "#/$defs/TeledyneFLIR"
-                  },
-                  {
                      "$ref": "#/$defs/Fujinon"
                   },
                   {
@@ -6680,10 +6463,16 @@
                      "$ref": "#/$defs/InfinityPhotoOptical"
                   },
                   {
+                     "$ref": "#/$defs/Invitrogen"
+                  },
+                  {
                      "$ref": "#/$defs/ISLProductsInternational"
                   },
                   {
                      "$ref": "#/$defs/JacksonLaboratory"
+                  },
+                  {
+                     "$ref": "#/$defs/JaneliaResearchCampus"
                   },
                   {
                      "$ref": "#/$defs/Julabo"
@@ -6707,6 +6496,15 @@
                      "$ref": "#/$defs/IRRobotCo"
                   },
                   {
+                     "$ref": "#/$defs/MBFBioscience"
+                  },
+                  {
+                     "$ref": "#/$defs/MichaelJFoxFoundationForParkinsonsResearch"
+                  },
+                  {
+                     "$ref": "#/$defs/MidwestOpticalSystems"
+                  },
+                  {
                      "$ref": "#/$defs/Mitutuyo"
                   },
                   {
@@ -6714,6 +6512,12 @@
                   },
                   {
                      "$ref": "#/$defs/Mpi"
+                  },
+                  {
+                     "$ref": "#/$defs/NationalCenterForComplementaryAndIntegrativeHealth"
+                  },
+                  {
+                     "$ref": "#/$defs/NationalInstituteOfMentalHealth"
                   },
                   {
                      "$ref": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke"
@@ -6770,6 +6574,9 @@
                      "$ref": "#/$defs/SchneiderKreuznach"
                   },
                   {
+                     "$ref": "#/$defs/Sicgen"
+                  },
+                  {
                      "$ref": "#/$defs/SigmaAldritch"
                   },
                   {
@@ -6780,6 +6587,12 @@
                   },
                   {
                      "$ref": "#/$defs/Tamron"
+                  },
+                  {
+                     "$ref": "#/$defs/TempletonWorldCharityFoundation"
+                  },
+                  {
+                     "$ref": "#/$defs/TeledyneFLIR"
                   },
                   {
                      "$ref": "#/$defs/Thermofisher"
@@ -6905,20 +6718,12 @@
             "name": {
                "const": "Olympus",
                "default": "Olympus",
-               "enum": [
-                  "Olympus"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "default": {
@@ -6941,11 +6746,7 @@
             "registry_identifier": {
                "const": "02vcdte90",
                "default": "02vcdte90",
-               "enum": [
-                  "02vcdte90"
-               ],
-               "title": "Registry Identifier",
-               "type": "string"
+               "title": "Registry Identifier"
             }
          },
          "title": "Olympus",
@@ -6958,20 +6759,12 @@
             "name": {
                "const": "Open Ephys Production Site",
                "default": "Open Ephys Production Site",
-               "enum": [
-                  "Open Ephys Production Site"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": "OEPS",
                "default": "OEPS",
-               "enum": [
-                  "OEPS"
-               ],
-               "title": "Abbreviation",
-               "type": "string"
+               "title": "Abbreviation"
             },
             "registry": {
                "default": {
@@ -6994,11 +6787,7 @@
             "registry_identifier": {
                "const": "007rkz355",
                "default": "007rkz355",
-               "enum": [
-                  "007rkz355"
-               ],
-               "title": "Registry Identifier",
-               "type": "string"
+               "title": "Registry Identifier"
             }
          },
          "title": "OpenEphysProductionSite",
@@ -7150,38 +6939,22 @@
             "name": {
                "const": "Optotune",
                "default": "Optotune",
-               "enum": [
-                  "Optotune"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry",
-               "type": "null"
+               "title": "Registry"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry Identifier",
-               "type": "null"
+               "title": "Registry Identifier"
             }
          },
          "title": "Optotune",
@@ -7194,38 +6967,22 @@
             "name": {
                "const": "Other",
                "default": "Other",
-               "enum": [
-                  "Other"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry",
-               "type": "null"
+               "title": "Registry"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry Identifier",
-               "type": "null"
+               "title": "Registry Identifier"
             }
          },
          "title": "Other",
@@ -7238,11 +6995,7 @@
             "procedure_type": {
                "const": "Other Subject Procedure",
                "default": "Other Subject Procedure",
-               "enum": [
-                  "Other Subject Procedure"
-               ],
-               "title": "Procedure Type",
-               "type": "string"
+               "title": "Procedure Type"
             },
             "protocol_id": {
                "anyOf": [
@@ -7287,38 +7040,22 @@
             "name": {
                "const": "Oxxius",
                "default": "Oxxius",
-               "enum": [
-                  "Oxxius"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry",
-               "type": "null"
+               "title": "Registry"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry Identifier",
-               "type": "null"
+               "title": "Registry Identifier"
             }
          },
          "title": "Oxxius",
@@ -7382,11 +7119,7 @@
             "procedure_type": {
                "const": "Perfusion",
                "default": "Perfusion",
-               "enum": [
-                  "Perfusion"
-               ],
-               "title": "Procedure Type",
-               "type": "string"
+               "title": "Procedure Type"
             },
             "protocol_id": {
                "description": "DOI for protocols.io",
@@ -7417,38 +7150,22 @@
             "name": {
                "const": "Prizmatix",
                "default": "Prizmatix",
-               "enum": [
-                  "Prizmatix"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry",
-               "type": "null"
+               "title": "Registry"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry Identifier",
-               "type": "null"
+               "title": "Registry Identifier"
             }
          },
          "title": "Prizmatix",
@@ -7473,11 +7190,7 @@
             "procedure_type": {
                "const": "Ground wire",
                "default": "Ground wire",
-               "enum": [
-                  "Ground wire"
-               ],
-               "title": "Procedure Type",
-               "type": "string"
+               "title": "Procedure Type"
             },
             "protocol_id": {
                "description": "DOI for protocols.io",
@@ -7580,38 +7293,22 @@
             "name": {
                "const": "Quantifi",
                "default": "Quantifi",
-               "enum": [
-                  "Quantifi"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry",
-               "type": "null"
+               "title": "Registry"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry Identifier",
-               "type": "null"
+               "title": "Registry Identifier"
             }
          },
          "title": "Quantifi",
@@ -7624,38 +7321,22 @@
             "name": {
                "const": "Raspberry Pi",
                "default": "Raspberry Pi",
-               "enum": [
-                  "Raspberry Pi"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry",
-               "type": "null"
+               "title": "Registry"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry Identifier",
-               "type": "null"
+               "title": "Registry Identifier"
             }
          },
          "title": "RaspberryPi",
@@ -7668,11 +7349,7 @@
             "name": {
                "const": "Rattus norvegicus",
                "default": "Rattus norvegicus",
-               "enum": [
-                  "Rattus norvegicus"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "anyOf": [
@@ -7705,13 +7382,9 @@
                "title": "Registry"
             },
             "registry_identifier": {
-               "const": "10116",
-               "default": "10116",
-               "enum": [
-                  "10116"
-               ],
-               "title": "Registry Identifier",
-               "type": "string"
+               "const": "NCBI:txid10116",
+               "default": "NCBI:txid10116",
+               "title": "Registry Identifier"
             }
          },
          "title": "RattusNorvegicus",
@@ -7731,6 +7404,7 @@
                      "AA Opto Electronic": "#/$defs/AAOptoElectronic",
                      "ASUS": "#/$defs/Asus",
                      "Abcam": "#/$defs/Abcam",
+                     "Addgene": "#/$defs/Addgene",
                      "Ailipu Technology Co": "#/$defs/AilipuTechnologyCo",
                      "Allen Institute": "#/$defs/AllenInstitute",
                      "Allen Institute for Brain Science": "#/$defs/AllenInstituteForBrainScience",
@@ -7742,6 +7416,7 @@
                      "Cambridge Technology": "#/$defs/CambridgeTechnology",
                      "Carl Zeiss": "#/$defs/CarlZeiss",
                      "Champalimaud Foundation": "#/$defs/ChampalimaudFoundation",
+                     "Chan Zuckerberg Initiative": "#/$defs/ChanZuckerbergInitiative",
                      "Chroma": "#/$defs/Chroma",
                      "Coherent Scientific": "#/$defs/CoherentScientific",
                      "Columbia University": "#/$defs/ColumbiaUniversity",
@@ -7761,16 +7436,23 @@
                      "ISL Products International": "#/$defs/ISLProductsInternational",
                      "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
                      "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
+                     "Invitrogen": "#/$defs/Invitrogen",
                      "Jackson Laboratory": "#/$defs/JacksonLaboratory",
+                     "Janelia Research Campus": "#/$defs/JaneliaResearchCampus",
                      "Julabo": "#/$defs/Julabo",
                      "LG": "#/$defs/Lg",
                      "Leica": "#/$defs/Leica",
                      "LifeCanvas": "#/$defs/LifeCanvas",
+                     "MBF Bioscience": "#/$defs/MBFBioscience",
                      "MKS Newport": "#/$defs/MKSNewport",
                      "MPI": "#/$defs/Mpi",
                      "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
+                     "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/MichaelJFoxFoundationForParkinsonsResearch",
+                     "Midwest Optical Systems, Inc.": "#/$defs/MidwestOpticalSystems",
                      "Mitutuyo": "#/$defs/Mitutuyo",
                      "NResearch Inc": "#/$defs/NResearch",
+                     "National Center for Complementary and Integrative Health": "#/$defs/NationalCenterForComplementaryAndIntegrativeHealth",
+                     "National Institute of Mental Health": "#/$defs/NationalInstituteOfMentalHealth",
                      "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                      "National Instruments": "#/$defs/NationalInstruments",
                      "Navitar": "#/$defs/Navitar",
@@ -7786,6 +7468,7 @@
                      "Prizmatix": "#/$defs/Prizmatix",
                      "Quantifi": "#/$defs/Quantifi",
                      "Raspberry Pi": "#/$defs/RaspberryPi",
+                     "SICGEN": "#/$defs/Sicgen",
                      "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                      "Second Order Effects": "#/$defs/SecondOrderEffects",
                      "Semrock": "#/$defs/Semrock",
@@ -7795,6 +7478,7 @@
                      "Tamron": "#/$defs/Tamron",
                      "Technical Manufacturing Corporation": "#/$defs/TMC",
                      "Teledyne FLIR": "#/$defs/TeledyneFLIR",
+                     "Templeton World Charity Foundation": "#/$defs/TempletonWorldCharityFoundation",
                      "The Imaging Source": "#/$defs/TheImagingSource",
                      "The Lee Company": "#/$defs/TheLeeCompany",
                      "Thermo Fisher": "#/$defs/Thermofisher",
@@ -7812,6 +7496,9 @@
                   },
                   {
                      "$ref": "#/$defs/Abcam"
+                  },
+                  {
+                     "$ref": "#/$defs/Addgene"
                   },
                   {
                      "$ref": "#/$defs/AilipuTechnologyCo"
@@ -7850,6 +7537,9 @@
                      "$ref": "#/$defs/ChampalimaudFoundation"
                   },
                   {
+                     "$ref": "#/$defs/ChanZuckerbergInitiative"
+                  },
+                  {
                      "$ref": "#/$defs/Chroma"
                   },
                   {
@@ -7883,9 +7573,6 @@
                      "$ref": "#/$defs/Euresys"
                   },
                   {
-                     "$ref": "#/$defs/TeledyneFLIR"
-                  },
-                  {
                      "$ref": "#/$defs/Fujinon"
                   },
                   {
@@ -7907,10 +7594,16 @@
                      "$ref": "#/$defs/InfinityPhotoOptical"
                   },
                   {
+                     "$ref": "#/$defs/Invitrogen"
+                  },
+                  {
                      "$ref": "#/$defs/ISLProductsInternational"
                   },
                   {
                      "$ref": "#/$defs/JacksonLaboratory"
+                  },
+                  {
+                     "$ref": "#/$defs/JaneliaResearchCampus"
                   },
                   {
                      "$ref": "#/$defs/Julabo"
@@ -7934,6 +7627,15 @@
                      "$ref": "#/$defs/IRRobotCo"
                   },
                   {
+                     "$ref": "#/$defs/MBFBioscience"
+                  },
+                  {
+                     "$ref": "#/$defs/MichaelJFoxFoundationForParkinsonsResearch"
+                  },
+                  {
+                     "$ref": "#/$defs/MidwestOpticalSystems"
+                  },
+                  {
                      "$ref": "#/$defs/Mitutuyo"
                   },
                   {
@@ -7941,6 +7643,12 @@
                   },
                   {
                      "$ref": "#/$defs/Mpi"
+                  },
+                  {
+                     "$ref": "#/$defs/NationalCenterForComplementaryAndIntegrativeHealth"
+                  },
+                  {
+                     "$ref": "#/$defs/NationalInstituteOfMentalHealth"
                   },
                   {
                      "$ref": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke"
@@ -7997,6 +7705,9 @@
                      "$ref": "#/$defs/SchneiderKreuznach"
                   },
                   {
+                     "$ref": "#/$defs/Sicgen"
+                  },
+                  {
                      "$ref": "#/$defs/SigmaAldritch"
                   },
                   {
@@ -8007,6 +7718,12 @@
                   },
                   {
                      "$ref": "#/$defs/Tamron"
+                  },
+                  {
+                     "$ref": "#/$defs/TempletonWorldCharityFoundation"
+                  },
+                  {
+                     "$ref": "#/$defs/TeledyneFLIR"
                   },
                   {
                      "$ref": "#/$defs/Thermofisher"
@@ -8114,6 +7831,7 @@
                      "AA Opto Electronic": "#/$defs/AAOptoElectronic",
                      "ASUS": "#/$defs/Asus",
                      "Abcam": "#/$defs/Abcam",
+                     "Addgene": "#/$defs/Addgene",
                      "Ailipu Technology Co": "#/$defs/AilipuTechnologyCo",
                      "Allen Institute": "#/$defs/AllenInstitute",
                      "Allen Institute for Brain Science": "#/$defs/AllenInstituteForBrainScience",
@@ -8125,6 +7843,7 @@
                      "Cambridge Technology": "#/$defs/CambridgeTechnology",
                      "Carl Zeiss": "#/$defs/CarlZeiss",
                      "Champalimaud Foundation": "#/$defs/ChampalimaudFoundation",
+                     "Chan Zuckerberg Initiative": "#/$defs/ChanZuckerbergInitiative",
                      "Chroma": "#/$defs/Chroma",
                      "Coherent Scientific": "#/$defs/CoherentScientific",
                      "Columbia University": "#/$defs/ColumbiaUniversity",
@@ -8144,16 +7863,23 @@
                      "ISL Products International": "#/$defs/ISLProductsInternational",
                      "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
                      "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
+                     "Invitrogen": "#/$defs/Invitrogen",
                      "Jackson Laboratory": "#/$defs/JacksonLaboratory",
+                     "Janelia Research Campus": "#/$defs/JaneliaResearchCampus",
                      "Julabo": "#/$defs/Julabo",
                      "LG": "#/$defs/Lg",
                      "Leica": "#/$defs/Leica",
                      "LifeCanvas": "#/$defs/LifeCanvas",
+                     "MBF Bioscience": "#/$defs/MBFBioscience",
                      "MKS Newport": "#/$defs/MKSNewport",
                      "MPI": "#/$defs/Mpi",
                      "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
+                     "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/MichaelJFoxFoundationForParkinsonsResearch",
+                     "Midwest Optical Systems, Inc.": "#/$defs/MidwestOpticalSystems",
                      "Mitutuyo": "#/$defs/Mitutuyo",
                      "NResearch Inc": "#/$defs/NResearch",
+                     "National Center for Complementary and Integrative Health": "#/$defs/NationalCenterForComplementaryAndIntegrativeHealth",
+                     "National Institute of Mental Health": "#/$defs/NationalInstituteOfMentalHealth",
                      "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                      "National Instruments": "#/$defs/NationalInstruments",
                      "Navitar": "#/$defs/Navitar",
@@ -8169,6 +7895,7 @@
                      "Prizmatix": "#/$defs/Prizmatix",
                      "Quantifi": "#/$defs/Quantifi",
                      "Raspberry Pi": "#/$defs/RaspberryPi",
+                     "SICGEN": "#/$defs/Sicgen",
                      "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                      "Second Order Effects": "#/$defs/SecondOrderEffects",
                      "Semrock": "#/$defs/Semrock",
@@ -8178,6 +7905,7 @@
                      "Tamron": "#/$defs/Tamron",
                      "Technical Manufacturing Corporation": "#/$defs/TMC",
                      "Teledyne FLIR": "#/$defs/TeledyneFLIR",
+                     "Templeton World Charity Foundation": "#/$defs/TempletonWorldCharityFoundation",
                      "The Imaging Source": "#/$defs/TheImagingSource",
                      "The Lee Company": "#/$defs/TheLeeCompany",
                      "Thermo Fisher": "#/$defs/Thermofisher",
@@ -8195,6 +7923,9 @@
                   },
                   {
                      "$ref": "#/$defs/Abcam"
+                  },
+                  {
+                     "$ref": "#/$defs/Addgene"
                   },
                   {
                      "$ref": "#/$defs/AilipuTechnologyCo"
@@ -8233,6 +7964,9 @@
                      "$ref": "#/$defs/ChampalimaudFoundation"
                   },
                   {
+                     "$ref": "#/$defs/ChanZuckerbergInitiative"
+                  },
+                  {
                      "$ref": "#/$defs/Chroma"
                   },
                   {
@@ -8266,9 +8000,6 @@
                      "$ref": "#/$defs/Euresys"
                   },
                   {
-                     "$ref": "#/$defs/TeledyneFLIR"
-                  },
-                  {
                      "$ref": "#/$defs/Fujinon"
                   },
                   {
@@ -8290,10 +8021,16 @@
                      "$ref": "#/$defs/InfinityPhotoOptical"
                   },
                   {
+                     "$ref": "#/$defs/Invitrogen"
+                  },
+                  {
                      "$ref": "#/$defs/ISLProductsInternational"
                   },
                   {
                      "$ref": "#/$defs/JacksonLaboratory"
+                  },
+                  {
+                     "$ref": "#/$defs/JaneliaResearchCampus"
                   },
                   {
                      "$ref": "#/$defs/Julabo"
@@ -8317,6 +8054,15 @@
                      "$ref": "#/$defs/IRRobotCo"
                   },
                   {
+                     "$ref": "#/$defs/MBFBioscience"
+                  },
+                  {
+                     "$ref": "#/$defs/MichaelJFoxFoundationForParkinsonsResearch"
+                  },
+                  {
+                     "$ref": "#/$defs/MidwestOpticalSystems"
+                  },
+                  {
                      "$ref": "#/$defs/Mitutuyo"
                   },
                   {
@@ -8324,6 +8070,12 @@
                   },
                   {
                      "$ref": "#/$defs/Mpi"
+                  },
+                  {
+                     "$ref": "#/$defs/NationalCenterForComplementaryAndIntegrativeHealth"
+                  },
+                  {
+                     "$ref": "#/$defs/NationalInstituteOfMentalHealth"
                   },
                   {
                      "$ref": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke"
@@ -8380,6 +8132,9 @@
                      "$ref": "#/$defs/SchneiderKreuznach"
                   },
                   {
+                     "$ref": "#/$defs/Sicgen"
+                  },
+                  {
                      "$ref": "#/$defs/SigmaAldritch"
                   },
                   {
@@ -8390,6 +8145,12 @@
                   },
                   {
                      "$ref": "#/$defs/Tamron"
+                  },
+                  {
+                     "$ref": "#/$defs/TempletonWorldCharityFoundation"
+                  },
+                  {
+                     "$ref": "#/$defs/TeledyneFLIR"
                   },
                   {
                      "$ref": "#/$defs/Thermofisher"
@@ -8463,20 +8224,12 @@
             "name": {
                "const": "Research Organization Registry",
                "default": "Research Organization Registry",
-               "enum": [
-                  "Research Organization Registry"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": "ROR",
                "default": "ROR",
-               "enum": [
-                  "ROR"
-               ],
-               "title": "Abbreviation",
-               "type": "string"
+               "title": "Abbreviation"
             }
          },
          "title": "ResearchOrganizationRegistry",
@@ -8569,11 +8322,7 @@
             "procedure_type": {
                "const": "Retro-orbital injection",
                "default": "Retro-orbital injection",
-               "enum": [
-                  "Retro-orbital injection"
-               ],
-               "title": "Procedure Type",
-               "type": "string"
+               "title": "Procedure Type"
             },
             "injection_volume": {
                "anyOf": [
@@ -8620,38 +8369,22 @@
             "name": {
                "const": "Schneider-Kreuznach",
                "default": "Schneider-Kreuznach",
-               "enum": [
-                  "Schneider-Kreuznach"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry",
-               "type": "null"
+               "title": "Registry"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry Identifier",
-               "type": "null"
+               "title": "Registry Identifier"
             }
          },
          "title": "SchneiderKreuznach",
@@ -8664,38 +8397,22 @@
             "name": {
                "const": "Second Order Effects",
                "default": "Second Order Effects",
-               "enum": [
-                  "Second Order Effects"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry",
-               "type": "null"
+               "title": "Registry"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry Identifier",
-               "type": "null"
+               "title": "Registry Identifier"
             }
          },
          "title": "SecondOrderEffects",
@@ -8727,11 +8444,7 @@
             "procedure_type": {
                "const": "Sectioning",
                "default": "Sectioning",
-               "enum": [
-                  "Sectioning"
-               ],
-               "title": "Procedure Type",
-               "type": "string"
+               "title": "Procedure Type"
             },
             "number_of_slices": {
                "title": "Number of slices",
@@ -8835,41 +8548,53 @@
             "name": {
                "const": "Semrock",
                "default": "Semrock",
-               "enum": [
-                  "Semrock"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry",
-               "type": "null"
+               "title": "Registry"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry Identifier",
-               "type": "null"
+               "title": "Registry Identifier"
             }
          },
          "title": "Semrock",
+         "type": "object"
+      },
+      "Sicgen": {
+         "additionalProperties": false,
+         "description": "SICGEN",
+         "properties": {
+            "name": {
+               "const": "SICGEN",
+               "default": "SICGEN",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "Sicgen",
          "type": "object"
       },
       "Side": {
@@ -8888,38 +8613,22 @@
             "name": {
                "const": "Sigma-Aldritch",
                "default": "Sigma-Aldritch",
-               "enum": [
-                  "Sigma-Aldritch"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry",
-               "type": "null"
+               "title": "Registry"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry Identifier",
-               "type": "null"
+               "title": "Registry Identifier"
             }
          },
          "title": "SigmaAldritch",
@@ -8932,20 +8641,12 @@
             "name": {
                "const": "Simons Foundation",
                "default": "Simons Foundation",
-               "enum": [
-                  "Simons Foundation"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "default": {
@@ -8968,11 +8669,7 @@
             "registry_identifier": {
                "const": "01cmst727",
                "default": "01cmst727",
-               "enum": [
-                  "01cmst727"
-               ],
-               "title": "Registry Identifier",
-               "type": "string"
+               "title": "Registry Identifier"
             }
          },
          "title": "SimonsFoundation",
@@ -9121,6 +8818,7 @@
             "Delipidation",
             "Clearing",
             "Embedding",
+            "Expansion",
             "Fixation",
             "Fixation and permeabilization",
             "Gelation",
@@ -9128,11 +8826,12 @@
             "Hybridization Chain Reaction",
             "Immunolabeling",
             "Mounting",
+            "Refractive index matching",
             "Sectioning",
             "Soak",
             "Storage",
             "Stripping",
-            "Refractive index matching",
+            "Tamoxifen induction",
             "Other - see notes"
          ],
          "title": "SpecimenProcedureType",
@@ -9145,38 +8844,22 @@
             "name": {
                "const": "Spinnaker",
                "default": "Spinnaker",
-               "enum": [
-                  "Spinnaker"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry",
-               "type": "null"
+               "title": "Registry"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry Identifier",
-               "type": "null"
+               "title": "Registry Identifier"
             }
          },
          "title": "Spinnaker",
@@ -9196,6 +8879,7 @@
                      "AA Opto Electronic": "#/$defs/AAOptoElectronic",
                      "ASUS": "#/$defs/Asus",
                      "Abcam": "#/$defs/Abcam",
+                     "Addgene": "#/$defs/Addgene",
                      "Ailipu Technology Co": "#/$defs/AilipuTechnologyCo",
                      "Allen Institute": "#/$defs/AllenInstitute",
                      "Allen Institute for Brain Science": "#/$defs/AllenInstituteForBrainScience",
@@ -9207,6 +8891,7 @@
                      "Cambridge Technology": "#/$defs/CambridgeTechnology",
                      "Carl Zeiss": "#/$defs/CarlZeiss",
                      "Champalimaud Foundation": "#/$defs/ChampalimaudFoundation",
+                     "Chan Zuckerberg Initiative": "#/$defs/ChanZuckerbergInitiative",
                      "Chroma": "#/$defs/Chroma",
                      "Coherent Scientific": "#/$defs/CoherentScientific",
                      "Columbia University": "#/$defs/ColumbiaUniversity",
@@ -9226,16 +8911,23 @@
                      "ISL Products International": "#/$defs/ISLProductsInternational",
                      "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
                      "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
+                     "Invitrogen": "#/$defs/Invitrogen",
                      "Jackson Laboratory": "#/$defs/JacksonLaboratory",
+                     "Janelia Research Campus": "#/$defs/JaneliaResearchCampus",
                      "Julabo": "#/$defs/Julabo",
                      "LG": "#/$defs/Lg",
                      "Leica": "#/$defs/Leica",
                      "LifeCanvas": "#/$defs/LifeCanvas",
+                     "MBF Bioscience": "#/$defs/MBFBioscience",
                      "MKS Newport": "#/$defs/MKSNewport",
                      "MPI": "#/$defs/Mpi",
                      "Meadowlark Optics": "#/$defs/MeadowlarkOptics",
+                     "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/MichaelJFoxFoundationForParkinsonsResearch",
+                     "Midwest Optical Systems, Inc.": "#/$defs/MidwestOpticalSystems",
                      "Mitutuyo": "#/$defs/Mitutuyo",
                      "NResearch Inc": "#/$defs/NResearch",
+                     "National Center for Complementary and Integrative Health": "#/$defs/NationalCenterForComplementaryAndIntegrativeHealth",
+                     "National Institute of Mental Health": "#/$defs/NationalInstituteOfMentalHealth",
                      "National Institute of Neurological Disorders and Stroke": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke",
                      "National Instruments": "#/$defs/NationalInstruments",
                      "Navitar": "#/$defs/Navitar",
@@ -9251,6 +8943,7 @@
                      "Prizmatix": "#/$defs/Prizmatix",
                      "Quantifi": "#/$defs/Quantifi",
                      "Raspberry Pi": "#/$defs/RaspberryPi",
+                     "SICGEN": "#/$defs/Sicgen",
                      "Schneider-Kreuznach": "#/$defs/SchneiderKreuznach",
                      "Second Order Effects": "#/$defs/SecondOrderEffects",
                      "Semrock": "#/$defs/Semrock",
@@ -9260,6 +8953,7 @@
                      "Tamron": "#/$defs/Tamron",
                      "Technical Manufacturing Corporation": "#/$defs/TMC",
                      "Teledyne FLIR": "#/$defs/TeledyneFLIR",
+                     "Templeton World Charity Foundation": "#/$defs/TempletonWorldCharityFoundation",
                      "The Imaging Source": "#/$defs/TheImagingSource",
                      "The Lee Company": "#/$defs/TheLeeCompany",
                      "Thermo Fisher": "#/$defs/Thermofisher",
@@ -9277,6 +8971,9 @@
                   },
                   {
                      "$ref": "#/$defs/Abcam"
+                  },
+                  {
+                     "$ref": "#/$defs/Addgene"
                   },
                   {
                      "$ref": "#/$defs/AilipuTechnologyCo"
@@ -9315,6 +9012,9 @@
                      "$ref": "#/$defs/ChampalimaudFoundation"
                   },
                   {
+                     "$ref": "#/$defs/ChanZuckerbergInitiative"
+                  },
+                  {
                      "$ref": "#/$defs/Chroma"
                   },
                   {
@@ -9348,9 +9048,6 @@
                      "$ref": "#/$defs/Euresys"
                   },
                   {
-                     "$ref": "#/$defs/TeledyneFLIR"
-                  },
-                  {
                      "$ref": "#/$defs/Fujinon"
                   },
                   {
@@ -9372,10 +9069,16 @@
                      "$ref": "#/$defs/InfinityPhotoOptical"
                   },
                   {
+                     "$ref": "#/$defs/Invitrogen"
+                  },
+                  {
                      "$ref": "#/$defs/ISLProductsInternational"
                   },
                   {
                      "$ref": "#/$defs/JacksonLaboratory"
+                  },
+                  {
+                     "$ref": "#/$defs/JaneliaResearchCampus"
                   },
                   {
                      "$ref": "#/$defs/Julabo"
@@ -9399,6 +9102,15 @@
                      "$ref": "#/$defs/IRRobotCo"
                   },
                   {
+                     "$ref": "#/$defs/MBFBioscience"
+                  },
+                  {
+                     "$ref": "#/$defs/MichaelJFoxFoundationForParkinsonsResearch"
+                  },
+                  {
+                     "$ref": "#/$defs/MidwestOpticalSystems"
+                  },
+                  {
                      "$ref": "#/$defs/Mitutuyo"
                   },
                   {
@@ -9406,6 +9118,12 @@
                   },
                   {
                      "$ref": "#/$defs/Mpi"
+                  },
+                  {
+                     "$ref": "#/$defs/NationalCenterForComplementaryAndIntegrativeHealth"
+                  },
+                  {
+                     "$ref": "#/$defs/NationalInstituteOfMentalHealth"
                   },
                   {
                      "$ref": "#/$defs/NationalInstituteOfNeurologicalDisordersAndStroke"
@@ -9462,6 +9180,9 @@
                      "$ref": "#/$defs/SchneiderKreuznach"
                   },
                   {
+                     "$ref": "#/$defs/Sicgen"
+                  },
+                  {
                      "$ref": "#/$defs/SigmaAldritch"
                   },
                   {
@@ -9472,6 +9193,12 @@
                   },
                   {
                      "$ref": "#/$defs/Tamron"
+                  },
+                  {
+                     "$ref": "#/$defs/TempletonWorldCharityFoundation"
+                  },
+                  {
+                     "$ref": "#/$defs/TeledyneFLIR"
                   },
                   {
                      "$ref": "#/$defs/Thermofisher"
@@ -9573,11 +9300,7 @@
             "procedure_type": {
                "const": "Surgery",
                "default": "Surgery",
-               "enum": [
-                  "Surgery"
-               ],
-               "title": "Procedure Type",
-               "type": "string"
+               "title": "Procedure Type"
             },
             "protocol_id": {
                "description": "DOI for protocols.io",
@@ -9762,38 +9485,22 @@
             "name": {
                "const": "Technical Manufacturing Corporation",
                "default": "Technical Manufacturing Corporation",
-               "enum": [
-                  "Technical Manufacturing Corporation"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": "TMC",
                "default": "TMC",
-               "enum": [
-                  "TMC"
-               ],
-               "title": "Abbreviation",
-               "type": "string"
+               "title": "Abbreviation"
             },
             "registry": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry",
-               "type": "null"
+               "title": "Registry"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry Identifier",
-               "type": "null"
+               "title": "Registry Identifier"
             }
          },
          "title": "TMC",
@@ -9806,38 +9513,22 @@
             "name": {
                "const": "Tamron",
                "default": "Tamron",
-               "enum": [
-                  "Tamron"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry",
-               "type": "null"
+               "title": "Registry"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry Identifier",
-               "type": "null"
+               "title": "Registry Identifier"
             }
          },
          "title": "Tamron",
@@ -9928,20 +9619,12 @@
             "name": {
                "const": "Teledyne FLIR",
                "default": "Teledyne FLIR",
-               "enum": [
-                  "Teledyne FLIR"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": "FLIR",
                "default": "FLIR",
-               "enum": [
-                  "FLIR"
-               ],
-               "title": "Abbreviation",
-               "type": "string"
+               "title": "Abbreviation"
             },
             "registry": {
                "default": {
@@ -9964,14 +9647,51 @@
             "registry_identifier": {
                "const": "01j1gwp17",
                "default": "01j1gwp17",
-               "enum": [
-                  "01j1gwp17"
-               ],
-               "title": "Registry Identifier",
-               "type": "string"
+               "title": "Registry Identifier"
             }
          },
          "title": "TeledyneFLIR",
+         "type": "object"
+      },
+      "TempletonWorldCharityFoundation": {
+         "additionalProperties": false,
+         "description": "TempletonWorldCharityFoundation",
+         "properties": {
+            "name": {
+               "const": "Templeton World Charity Foundation",
+               "default": "Templeton World Charity Foundation",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "TWCF",
+               "default": "TWCF",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "00x0z1472",
+               "default": "00x0z1472",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "TempletonWorldCharityFoundation",
          "type": "object"
       },
       "TheImagingSource": {
@@ -9981,38 +9701,22 @@
             "name": {
                "const": "The Imaging Source",
                "default": "The Imaging Source",
-               "enum": [
-                  "The Imaging Source"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry",
-               "type": "null"
+               "title": "Registry"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry Identifier",
-               "type": "null"
+               "title": "Registry Identifier"
             }
          },
          "title": "TheImagingSource",
@@ -10025,38 +9729,22 @@
             "name": {
                "const": "The Lee Company",
                "default": "The Lee Company",
-               "enum": [
-                  "The Lee Company"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry",
-               "type": "null"
+               "title": "Registry"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry Identifier",
-               "type": "null"
+               "title": "Registry Identifier"
             }
          },
          "title": "TheLeeCompany",
@@ -10069,20 +9757,12 @@
             "name": {
                "const": "Thermo Fisher",
                "default": "Thermo Fisher",
-               "enum": [
-                  "Thermo Fisher"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "default": {
@@ -10105,11 +9785,7 @@
             "registry_identifier": {
                "const": "03x1ewr52",
                "default": "03x1ewr52",
-               "enum": [
-                  "03x1ewr52"
-               ],
-               "title": "Registry Identifier",
-               "type": "string"
+               "title": "Registry Identifier"
             }
          },
          "title": "Thermofisher",
@@ -10122,20 +9798,12 @@
             "name": {
                "const": "Thorlabs",
                "default": "Thorlabs",
-               "enum": [
-                  "Thorlabs"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "default": {
@@ -10158,11 +9826,7 @@
             "registry_identifier": {
                "const": "04gsnvb07",
                "default": "04gsnvb07",
-               "enum": [
-                  "04gsnvb07"
-               ],
-               "title": "Registry Identifier",
-               "type": "string"
+               "title": "Registry Identifier"
             }
          },
          "title": "Thorlabs",
@@ -10188,11 +9852,7 @@
             "procedure_type": {
                "const": "Training",
                "default": "Training",
-               "enum": [
-                  "Training"
-               ],
-               "title": "Procedure Type",
-               "type": "string"
+               "title": "Procedure Type"
             },
             "training_name": {
                "title": "Training protocol name",
@@ -10248,38 +9908,22 @@
             "name": {
                "const": "Tymphany",
                "default": "Tymphany",
-               "enum": [
-                  "Tymphany"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry",
-               "type": "null"
+               "title": "Registry"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry Identifier",
-               "type": "null"
+               "title": "Registry Identifier"
             }
          },
          "title": "Tymphany",
@@ -10301,38 +9945,22 @@
             "name": {
                "const": "Vieworks",
                "default": "Vieworks",
-               "enum": [
-                  "Vieworks"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry",
-               "type": "null"
+               "title": "Registry"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry Identifier",
-               "type": "null"
+               "title": "Registry Identifier"
             }
          },
          "title": "Vieworks",
@@ -10345,11 +9973,7 @@
             "material_type": {
                "const": "Virus",
                "default": "Virus",
-               "enum": [
-                  "Virus"
-               ],
-               "title": "Injection material type",
-               "type": "string"
+               "title": "Injection material type"
             },
             "name": {
                "description": "Full genome for virus construct",
@@ -10434,38 +10058,22 @@
             "name": {
                "const": "Vortran",
                "default": "Vortran",
-               "enum": [
-                  "Vortran"
-               ],
-               "title": "Name",
-               "type": "string"
+               "title": "Name"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
+               "title": "Abbreviation"
             },
             "registry": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry",
-               "type": "null"
+               "title": "Registry"
             },
             "registry_identifier": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry Identifier",
-               "type": "null"
+               "title": "Registry Identifier"
             }
          },
          "title": "Vortran",
@@ -10478,11 +10086,7 @@
             "procedure_type": {
                "const": "Water restriction",
                "default": "Water restriction",
-               "enum": [
-                  "Water restriction"
-               ],
-               "title": "Procedure Type",
-               "type": "string"
+               "title": "Procedure Type"
             },
             "iacuc_protocol": {
                "title": "IACUC protocol",
@@ -10610,13 +10214,9 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.13.6",
-         "default": "0.13.6",
-         "enum": [
-            "0.13.6"
-         ],
-         "title": "Schema Version",
-         "type": "string"
+         "const": "0.13.13",
+         "default": "0.13.13",
+         "title": "Schema Version"
       },
       "subject_id": {
          "description": "Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",

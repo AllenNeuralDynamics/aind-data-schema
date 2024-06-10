@@ -3,10 +3,11 @@
 import unittest
 from datetime import date, datetime
 
+from aind_data_schema_models.modalities import Modality
+from aind_data_schema_models.organizations import Organization
 from pydantic import ValidationError
 
-from aind_data_schema.core.rig import Rig
-from aind_data_schema.models.devices import (
+from aind_data_schema.components.devices import (
     Calibration,
     Camera,
     CameraAssembly,
@@ -15,6 +16,7 @@ from aind_data_schema.models.devices import (
     DAQChannel,
     Detector,
     DetectorType,
+    Device,
     Disc,
     EphysAssembly,
     EphysProbe,
@@ -27,8 +29,7 @@ from aind_data_schema.models.devices import (
     OlfactometerChannel,
     Patch,
 )
-from aind_data_schema.models.modalities import Modality
-from aind_data_schema.models.organizations import Organization
+from aind_data_schema.core.rig import Rig
 
 
 class RigTests(unittest.TestCase):
@@ -102,6 +103,14 @@ class RigTests(unittest.TestCase):
                     serial_number="1234",
                 ),
                 name="Laser_assembly",
+                collimator=Device(name="Collimator A", device_type="Collimator"),
+                fiber=Patch(
+                    name="Bundle Branching Fiber-optic Patch Cord",
+                    manufacturer=Organization.DORIC,
+                    model="BBP(4)_200/220/900-0.37_Custom_FCM-4xMF1.25",
+                    core_diameter=200,
+                    numerical_aperture=0.37,
+                ),
             )
         ]
 
@@ -121,7 +130,7 @@ class RigTests(unittest.TestCase):
                         manufacturer=Organization.OTHER,
                         data_interface="USB",
                         computer_name="ASDF",
-                        max_frame_rate=144,
+                        frame_rate=144,
                         sensor_width=1,
                         sensor_height=1,
                         chroma="Color",
@@ -137,7 +146,7 @@ class RigTests(unittest.TestCase):
                         manufacturer=Organization.OTHER,
                         data_interface="USB",
                         computer_name="ASDF",
-                        max_frame_rate=144,
+                        frame_rate=144,
                         sensor_width=1,
                         sensor_height=1,
                         chroma="Color",
@@ -355,6 +364,14 @@ class RigTests(unittest.TestCase):
                         serial_number="1234",
                     ),
                     name="Laser_assembly",
+                    collimator=Device(name="Collimator B", device_type="Collimator"),
+                    fiber=Patch(
+                        name="Bundle Branching Fiber-optic Patch Cord",
+                        manufacturer=Organization.DORIC,
+                        model="BBP(4)_200/220/900-0.37_Custom_FCM-4xMF1.25",
+                        core_diameter=200,
+                        numerical_aperture=0.37,
+                    ),
                 )
             ]
 
@@ -374,7 +391,7 @@ class RigTests(unittest.TestCase):
                             manufacturer=Organization.OTHER,
                             data_interface="USB",
                             computer_name="ASDF",
-                            max_frame_rate=144,
+                            frame_rate=144,
                             sensor_width=1,
                             sensor_height=1,
                             chroma="Color",
@@ -390,7 +407,7 @@ class RigTests(unittest.TestCase):
                             manufacturer=Organization.OTHER,
                             data_interface="USB",
                             computer_name="ASDF",
-                            max_frame_rate=144,
+                            frame_rate=144,
                             sensor_width=1,
                             sensor_height=1,
                             chroma="Color",
@@ -471,6 +488,25 @@ class RigTests(unittest.TestCase):
                         output={"power mW": [2, 6, 10]},
                     )
                 ],
+            )
+
+        # Tests that validators catch empty lists without KeyErrors
+        with self.assertRaises(ValidationError):
+            Rig(
+                rig_id="1234",
+                modification_date=date(2020, 10, 10),
+                modalities=[Modality.ECEPHYS, Modality.FIB],
+                daqs=daqs,
+                cameras=[],
+                stick_microscopes=[],
+                light_sources=[],
+                laser_assemblies=lms,
+                ephys_assemblies=ems,
+                detectors=[],
+                patch_cords=[],
+                stimulus_devices=[],
+                mouse_platform=Disc(name="Disc A", radius=1),
+                calibrations=[],
             )
 
 

@@ -2,6 +2,10 @@
 
 import datetime
 
+from aind_data_schema_models.organizations import Organization
+from aind_data_schema_models.pid_names import PIDName
+from aind_data_schema_models.registry import Registry
+
 from aind_data_schema.core.procedures import (
     Anaesthetic,
     Antibody,
@@ -17,9 +21,6 @@ from aind_data_schema.core.procedures import (
     ViralMaterial,
     WaterRestriction,
 )
-from aind_data_schema.models.organizations import Organization
-from aind_data_schema.models.pid_names import PIDName
-from aind_data_schema.models.registry import Registry
 
 t = datetime.datetime(2022, 7, 12, 7, 00, 00)
 t2 = datetime.datetime(2022, 9, 23, 10, 22, 00)

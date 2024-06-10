@@ -2,12 +2,13 @@
 
 import datetime
 
+from aind_data_schema_models.organizations import Organization
+
+from aind_data_schema.components.devices import DAQChannel, DAQDevice, Detector, Filter, Laser
 from aind_data_schema.core import instrument
-from aind_data_schema.models.devices import DAQChannel, DAQDevice, Detector, Filter, Laser
-from aind_data_schema.models.organizations import Organization
 
 inst = instrument.Instrument(
-    instrument_id="exaSPIM1-1",
+    instrument_id="440_exaSPIM1-20231004",
     instrument_type="exaSPIM",
     modification_date=datetime.date(2023, 10, 4),
     manufacturer=Organization.CUSTOM,

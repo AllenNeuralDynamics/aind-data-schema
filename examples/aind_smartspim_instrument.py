@@ -2,12 +2,13 @@
 
 import datetime
 
+from aind_data_schema_models.organizations import Organization
+
+from aind_data_schema.components.devices import Filter, Laser, MotorizedStage, OpticalTable, ScanningStage
 from aind_data_schema.core.instrument import Com, Detector, Instrument, Objective
-from aind_data_schema.models.devices import Filter, Laser, MotorizedStage, OpticalTable, ScanningStage
-from aind_data_schema.models.organizations import Organization
 
 inst = Instrument(
-    instrument_id="SmartSPIM2-1",
+    instrument_id="440_SmartSPIM1_20231004",
     instrument_type="SmartSPIM",
     manufacturer=Organization.LIFECANVAS,
     modification_date=datetime.date(2023, 10, 4),

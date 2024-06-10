@@ -8,6 +8,10 @@ import unittest
 from pathlib import Path
 from typing import List
 
+from aind_data_schema_models.modalities import Modality
+from aind_data_schema_models.organizations import Organization
+from aind_data_schema_models.pid_names import PIDName
+from aind_data_schema_models.platforms import Platform
 from pydantic import ValidationError
 from pydantic import __version__ as pyd_version
 
@@ -20,10 +24,6 @@ from aind_data_schema.core.data_description import (
     RawDataDescription,
     build_data_name,
 )
-from aind_data_schema.models.modalities import Modality
-from aind_data_schema.models.organizations import Organization
-from aind_data_schema.models.pid_names import PIDName
-from aind_data_schema.models.platforms import Platform
 
 DATA_DESCRIPTION_FILES_PATH = Path(__file__).parent / "resources" / "ephys_data_description"
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
@@ -225,39 +225,6 @@ class DataDescriptionTest(unittest.TestCase):
             f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/string_pattern_mismatch"
         )
         self.assertEqual(expected_exception, repr(e.exception))
-
-    def test_regex_patterns(self):
-        """Tests that checks that the regex patterns are doing what's expected"""
-
-        special_characters_fails = [" ", "_", "<", ">", ":", ";", '"', "/", "|", "?"]
-        for pattern in special_characters_fails:
-            m = re.match(f"{DataRegex.NO_SPECIAL_CHARS.value}", pattern)
-            self.assertIsNone(m)
-
-        special_characters_pass = ["adf7898", "#&%!}", "\\"]
-        for pattern in special_characters_pass:
-            m = bool(re.match(f"{DataRegex.NO_SPECIAL_CHARS.value}", pattern))
-            self.assertTrue(m)
-
-        underscores_fails = ["_"]
-        for pattern in underscores_fails:
-            m = re.match(f"{DataRegex.NO_UNDERSCORES.value}", pattern)
-            self.assertIsNone(m)
-
-        underscores_pass = ["adf7898", " ", "#&%!}"]
-        for pattern in underscores_pass:
-            m = bool(re.match(f"{DataRegex.NO_UNDERSCORES.value}", pattern))
-            self.assertTrue(m)
-
-        special_characters_space_fails = ["_", "<", ">", ":", ";", '"', "/", "|", "?"]
-        for pattern in special_characters_space_fails:
-            m = re.match(f"{DataRegex.NO_SPECIAL_CHARS_EXCEPT_SPACE.value}", pattern)
-            self.assertIsNone(m)
-
-        special_characters_space_pass = ["ad f78 98", " ", "#&%!}", "adf7898"]
-        for pattern in special_characters_space_pass:
-            m = bool(re.match(f"{DataRegex.NO_SPECIAL_CHARS_EXCEPT_SPACE.value}", pattern))
-            self.assertTrue(m)
 
     def test_model_constructors(self):
         """test static methods for constructing models"""

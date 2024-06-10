@@ -290,11 +290,14 @@
             "Ephys preprocessing",
             "Ephys visualization",
             "Fiducial segmentation",
+            "File format conversion",
             "Fluorescence event detection",
             "Image atlas alignment",
             "Image background subtraction",
             "Image cell segmentation",
+            "Image cell classification",
             "Image cell quantification",
+            "Image mip visualization",
             "Image destriping",
             "Image flat-field correction",
             "Image importing",
@@ -302,11 +305,11 @@
             "Image tile alignment",
             "Image tile fusing",
             "Image tile projection",
-            "File format conversion",
             "Manual annotation",
             "Neuropil subtraction",
             "Other",
             "Quality control and assessment",
+            "Simulation",
             "Skull stripping",
             "Spike sorting",
             "Spatial timeseries demixing",
@@ -330,13 +333,9 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.4.6",
-         "default": "0.4.6",
-         "enum": [
-            "0.4.6"
-         ],
-         "title": "Schema Version",
-         "type": "string"
+         "const": "0.4.8",
+         "default": "0.4.8",
+         "title": "Schema Version"
       },
       "processing_pipeline": {
          "allOf": [

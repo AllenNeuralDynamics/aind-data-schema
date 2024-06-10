@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/acquisition.py",
-   "schema_version": "0.6.13",
+   "schema_version": "0.6.19",
    "protocol_id": [],
    "experimenter_full_name": [
       "###"
@@ -102,7 +102,9 @@
          },
          "notes": "these are my notes",
          "imaging_angle": 0,
-         "imaging_angle_unit": "degrees"
+         "imaging_angle_unit": "degrees",
+         "acquisition_start_time": null,
+         "acquisition_end_time": null
       },
       {
          "coordinate_transformations": [
@@ -143,7 +145,9 @@
          },
          "notes": "these are my notes",
          "imaging_angle": 0,
-         "imaging_angle_unit": "degrees"
+         "imaging_angle_unit": "degrees",
+         "acquisition_start_time": null,
+         "acquisition_end_time": null
       }
    ],
    "axes": [
@@ -175,5 +179,6 @@
    "local_storage_directory": "D:",
    "external_storage_directory": "Z:",
    "processing_steps": [],
+   "software": [],
    "notes": null
 }
