@@ -3,52 +3,47 @@
 from datetime import date
 from decimal import Decimal
 
-from aind_data_schema.core.rig import Rig, Monitor
-from aind_data_schema.core.instrument import DAQDevice
 from aind_data_schema_models.organizations import (
     AllenInstitute,
-    Asus,
     Allied,
-    Thorlabs,
-    Semrock,
-    InfinityPhotoOptical,
+    Asus,
+    Chameleon,
+    Conoptics,
     EdmundOptics,
-    NationalInstruments,
     Hamamatsu,
-    Conoptics
+    InfinityPhotoOptical,
     LumenDynamics,
-    Chameleon
+    NationalInstruments,
+    Semrock,
+    Thorlabs,
 )
+from aind_data_schema_models.registry import ResearchOrganizationRegistry
+from aind_data_schema_models.units import FrequencyUnit, SizeUnit
+
+from aind_data_schema.base import AindGeneric
+from aind_data_schema.components.coordinates import Axis, RelativePosition, Rotation3dTransform, Translation3dTransform
 from aind_data_schema.components.devices import (
+    BinMode,
     Camera,
     CameraAssembly,
-    Disc,
-    Software,
-    Lens,
-    Filter,
     Cooling,
-    BinMode,
-    DetectorType,
-    Detector,
-    PockelsCell,
-    Laser,
     DataInterface,
-    Lamp
+    Detector,
+    DetectorType,
+    Disc,
+    Filter,
+    Lamp,
+    Laser,
+    Lens,
+    PockelsCell,
+    Software,
 )
-from aind_data_schema.components.coordinates import (
-    RelativePosition,
-    Rotation3dTransform,
-    Translation3dTransform,
-    Axis,
-)
-from aind_data_schema_models.units import SizeUnit, FrequencyUnit
-from aind_data_schema_models.registry import ResearchOrganizationRegistry
-from aind_data_schema.base import AindGeneric
-
+from aind_data_schema.core.instrument import DAQDevice
+from aind_data_schema.core.rig import Monitor, Rig
 
 rig = Rig(
-    describedBy="https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/rig.py",# noqa
-    schema_version="0.3.3",
+    describedBy="https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/rig.py",  # noqa
+    schema_version="0.5.3",
     rig_id="MESO.2",
     modification_date=date(2024, 4, 2),
     mouse_platform=Disc(
@@ -82,16 +77,6 @@ rig = Rig(
             parameters=AindGeneric(),
         ),
     ),
-    detectors=[
-        Detector(
-            device_type="Detector",
-            detector_type=DetectorType.PMT,
-            name="PMT",
-            manufacturer=Hamamatsu(
-                name="Hamamatsu"
-            )
-        )
-    ],
     stimulus_devices=[
         Monitor(
             device_type="Monitor",
@@ -179,7 +164,7 @@ rig = Rig(
                 data_interface="Ethernet",
                 cooling=Cooling.NONE,
                 computer_name="Video Monitor",
-                max_frame_rate=Decimal("60"),
+                frame_rate=Decimal("60"),
                 frame_rate_unit=FrequencyUnit.HZ,
                 immersion=None,
                 chroma="Monochrome",
@@ -319,7 +304,7 @@ rig = Rig(
                 data_interface="Ethernet",
                 cooling=Cooling.NONE,
                 computer_name="Video Monitor",
-                max_frame_rate=Decimal("60"),
+                frame_rate=Decimal("60"),
                 frame_rate_unit=FrequencyUnit.HZ,
                 immersion=None,
                 chroma="Monochrome",
@@ -457,7 +442,7 @@ rig = Rig(
                 data_interface="Ethernet",
                 cooling=Cooling.NONE,
                 computer_name="Video Monitor",
-                max_frame_rate=Decimal("60"),
+                frame_rate=Decimal("60"),
                 frame_rate_unit=FrequencyUnit.HZ,
                 immersion=None,
                 chroma="Monochrome",
@@ -585,27 +570,26 @@ rig = Rig(
     light_sources=[
         Laser(
             device_type="Laser",
-            name=CHAMELEON,
+            name="Laser",
             wavelength=920,
-            wavelength_unit="nanometer",
-            excitation_power=10,
-            excitation_power_unit="milliwatt",
+            wavelength_unit=SizeUnit.NM,
             serial_number="GDP.100H.1332",
-            manufacturer="Chameleon"
+            manufacturer=Chameleon(name="Chameleon"),
         ),
         Lamp(
             name="Epi lamp",
-            manufacturer="Lumen Dynamics (Excelitas Technologies)",
             wavelength_max=600,
             wavelength_min=350,
-            wavelength_unit=SizeUnit.NM
-        )
+            wavelength_unit=SizeUnit.NM,
+            manufacturer=LumenDynamics(name="Lumen Dynamics"),
+        ),
     ],
     detectors=[
         Detector(
             name="PMT",
-            manufacturer=Hamamatsu,
-            data_interface=DataInterface.PCIE
+            detector_type="Photomultiplier Tube",
+            manufacturer=Hamamatsu(name="Hamamatsu"),
+            data_interface=DataInterface.PCIE,
         )
     ],
     objectives=[],
@@ -616,16 +600,22 @@ rig = Rig(
     pockels_cells=[
         PockelsCell(
             name="Pockels Cell 1",
-            manufacturer=Conoptics,
+            polygonal_scanner="something",
+            on_time=12.0,
+            off_time=13.0,
+            manufacturer=Conoptics(name="Conoptics"),
             model="530-80",
-            serial_number="354699BK"
+            serial_number="354699BK",
         ),
         PockelsCell(
             name="Pockels Cell 2",
-            manufacturer=Conoptics,
+            manufacturer=Conoptics(name="Conoptics"),
+            polygonal_scanner="something",
+            on_time=12.0,
+            off_time=13.0,
             model="530-80",
-            serial_number="353414BK"
-        )
+            serial_number="353414BK",
+        ),
     ],
     additional_devices=[],
     daqs=[
