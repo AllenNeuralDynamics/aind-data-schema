@@ -13,7 +13,7 @@ from matplotlib.dates import DateFormatter
 def load_metadata_from_folder(folder: str, models: List[str] = None) -> dict:
     """Load metadata from a folder containing JSON files."""
 
-    models = ["subject", "procedures", "session", "acquisition", "processing"] if models is None else models
+    models = ["subject", "procedures", "session", "acquisition"] if models is None else models
 
     # identify what metadata is present
     md = {}
