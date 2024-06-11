@@ -7,6 +7,8 @@ from aind_data_schema_models.organizations import Organization
 from aind_data_schema.components.devices import Filter, Laser, MotorizedStage, OpticalTable, ScanningStage
 from aind_data_schema.core.instrument import Com, Detector, Instrument, Objective
 
+OUTPUT_PATH = "examples/"
+
 inst = Instrument(
     instrument_id="440_SmartSPIM1_20231004",
     instrument_type="SmartSPIM",
@@ -255,4 +257,4 @@ inst = Instrument(
 
 serialized = inst.model_dump_json()
 deserialized = Instrument.model_validate_json(serialized)
-deserialized.write_standard_file(prefix="aind_smartspim")
+deserialized.write_standard_file(prefix="aind_smartspim", output_directory=OUTPUT_PATH)

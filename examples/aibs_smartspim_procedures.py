@@ -6,6 +6,8 @@ from aind_data_schema_models.organizations import Organization
 
 from aind_data_schema.core import procedures
 
+OUTPUT_PATH = "examples/"
+
 experimenter = "John Smith"
 # subject and specimen id can be the same?
 specimen_id = "651286"
@@ -161,4 +163,4 @@ all_procedures = procedures.Procedures(
 
 serialized = all_procedures.model_dump_json()
 deserialized = procedures.Procedures.model_validate_json(serialized)
-deserialized.write_standard_file(prefix="aibs_smartspim")
+deserialized.write_standard_file(prefix="aibs_smartspim", output_directory=OUTPUT_PATH)

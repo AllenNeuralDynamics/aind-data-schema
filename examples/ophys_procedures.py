@@ -22,6 +22,8 @@ from aind_data_schema.core.procedures import (
     WaterRestriction,
 )
 
+OUTPUT_PATH = "examples/"
+
 t = datetime.datetime(2022, 7, 12, 7, 00, 00)
 t2 = datetime.datetime(2022, 9, 23, 10, 22, 00)
 
@@ -164,4 +166,4 @@ p = Procedures(
 )
 serialized = p.model_dump_json()
 deserialized = Procedures.model_validate_json(serialized)
-deserialized.write_standard_file(prefix="ophys")
+deserialized.write_standard_file(prefix="ophys", output_directory=OUTPUT_PATH)

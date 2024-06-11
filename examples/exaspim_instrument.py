@@ -7,6 +7,8 @@ from aind_data_schema_models.organizations import Organization
 from aind_data_schema.components.devices import DAQChannel, DAQDevice, Detector, Filter, Laser
 from aind_data_schema.core import instrument
 
+OUTPUT_PATH = "examples/"
+
 inst = instrument.Instrument(
     instrument_id="440_exaSPIM1-20231004",
     instrument_type="exaSPIM",
@@ -205,4 +207,4 @@ inst = instrument.Instrument(
 )
 serialized = inst.model_dump_json()
 deserialized = instrument.Instrument.model_validate_json(serialized)
-deserialized.write_standard_file(prefix="exaspim")
+deserialized.write_standard_file(prefix="exaspim", output_directory=OUTPUT_PATH)

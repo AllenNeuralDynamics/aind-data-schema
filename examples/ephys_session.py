@@ -17,6 +17,8 @@ from aind_data_schema.core.session import (
     VisualStimulation,
 )
 
+OUTPUT_PATH = "examples/"
+
 session = Session(
     experimenter_full_name=["Max Quibble", "Finn Tickle"],
     subject_id="664484",
@@ -221,4 +223,4 @@ session = Session(
 
 serialized = session.model_dump_json()
 deserialized = Session.model_validate_json(serialized)
-deserialized.write_standard_file(prefix="ephys")
+deserialized.write_standard_file(prefix="ephys", output_directory=OUTPUT_PATH)

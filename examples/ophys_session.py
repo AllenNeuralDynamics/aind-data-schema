@@ -6,6 +6,8 @@ from aind_data_schema_models.modalities import Modality
 
 from aind_data_schema.core.session import DetectorConfig, FiberConnectionConfig, LaserConfig, Session, Stream
 
+OUTPUT_PATH = "examples/"
+
 t = datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc)
 
 s = Session(
@@ -60,4 +62,4 @@ s = Session(
 )
 serialized = s.model_dump_json()
 deserialized = Session.model_validate_json(serialized)
-deserialized.write_standard_file(prefix="ophys")
+deserialized.write_standard_file(prefix="ophys", output_directory=OUTPUT_PATH)
