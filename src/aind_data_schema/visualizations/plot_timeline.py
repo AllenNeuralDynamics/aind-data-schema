@@ -38,7 +38,7 @@ def plot_procedures(ax: plt.Axes, procedures: dict, date_of_birth: datetime) -> 
     for proc in procedures["subject_procedures"]:
         date = datetime.strptime(proc["start_date"], "%Y-%m-%d").date()
         ax.scatter(date, [1], marker="o", color="blue", s=100)
-        ax.text(date, 1.1, proc["procedure_type"], rotation=90, ha="center", va="bottom")
+        ax.text(date, 1.1, proc['procedures'][0]['procedure_type'], rotation=90, ha="center", va="bottom")
         age = (date - date_of_birth).days
         ax.text(date, 0.9, age, ha="center", va="top")
 
