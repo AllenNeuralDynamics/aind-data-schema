@@ -698,9 +698,9 @@ class PockelsCell(Device):
                                              description="Must match name of Polygonal scanner")
     on_time: Optional[Decimal] = Field(default=None, title="On time (fraction of cycle)")
     off_time: Optional[Decimal] = Field(default=None, title="Off time (fraction of cycle)")
-    time_setting_unit: UnitlessUnit = Field(default=UnitlessUnit.FC, title="time setting unit")
-    voltage: Optional[Decimal] = Field(default=None, title="Voltage setting (V)")
-    voltage_unit: VoltageUnit = Field(default=VoltageUnit.V, title="Voltage unit")
+    time_setting_unit: UnitlessUnit = Field(default=UnitlessUnit.FC, title="Time setting unit")
+    beam_modulation: Optional[Decimal] = Field(default=None, title="Beam modulation (V)")
+    beam_modulation_unit: VoltageUnit = Field(default=VoltageUnit.V, title="Beam modulation unit")
 
 
 class Enclosure(Device):
