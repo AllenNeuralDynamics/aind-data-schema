@@ -277,7 +277,7 @@ class Anaesthetic(AindModel):
     type: str = Field(..., title="Type")
     duration: Decimal = Field(..., title="Duration")
     duration_unit: TimeUnit = Field(default=TimeUnit.M, title="Duration unit")
-    level: Decimal = Field(..., title="Level (percent)", ge=1, le=5)
+    level: Optional[Decimal] = Field(..., title="Level (percent)", ge=1, le=5)
 
 
 class OtherSubjectProcedure(AindModel):
