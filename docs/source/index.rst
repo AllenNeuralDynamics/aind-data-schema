@@ -145,8 +145,9 @@ yields JSON:
 .. toctree::
    :caption: Getting Started
    :hidden:
+   :maxdepth: 1
    
-   getting_started
+   example_workflow
 
 
 .. toctree::

@@ -16,6 +16,22 @@ the data assets and to communicate the embodied context of those data.
 - :doc:`session <session>` or :doc:`acquisition <acquisition>`: Metadata describing how the data was acquired
 - :doc:`processing <processing>`: Metadata describing how data has been processed and analyzed into derived data assets, including information on the software and parameters used for processing and analysis.
 
+Flexibility, versioning, and upgrading
+--------------------------------------
+
+`aind-data-schema` is versioned using [Semantic Versioning](https://semver.org/). The core schemas listed above 
+also have their own version numbers, which are documented in the ``schema_version`` field of any JSON file 
+they are used to generate. Documenting the schema version in this way allows users to know
+how to parse to interpret and programmatically access the files. 
+
+Schema versioning in this way is essential for flexibility. As science evolves, new concepts and nomenclature
+will emerge or replace existing terms. By versioning the schema, we can ensure that data assets are always
+tagged with the appropriate metadata at the time they were acquired. 
+
+When a new version of a schema is released, data collectors can decide if they want to update the metadata
+from their existing data assets to the new schema. As needed we add metadata upgrading capabilities to 
+[aind-metadata-upgrader](https://github.com/allenneuraldynamics/aind-metadata-upgrader). This python library
+is not comprehensive - it contains only the upgrade functions that have been needed to date.
 
 Controlled vocabularies
 -----------------------
@@ -23,8 +39,8 @@ Controlled vocabularies
 more to come
 
 
-aind-data-schema and NWB/OME/BIDS
----------------------------------
+Related metadata standards
+--------------------------
 
 more to come
 
