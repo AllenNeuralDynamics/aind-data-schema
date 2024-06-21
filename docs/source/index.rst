@@ -124,8 +124,9 @@ yields JSON:
    :hidden:
    :maxdepth: 1
 
-   data_organization
    general
+   data_organization
+   
 
 
 .. toctree::

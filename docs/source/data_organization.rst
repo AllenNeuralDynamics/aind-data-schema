@@ -2,22 +2,21 @@
 Data organization
 =================
 
+``aind-data-schema`` validates and write JSON files containing metadata. We store those
+JSON files in a particular directory structure to support our ability to rapidly and openly
+share data. 
+ 
 Core principles
 ===============
 
-The following priniciples are intended to facilitate rapid, open sharing
-of primary and processed data with our community. 
-
-Immutability 
-------------
+**Immutability**
 
 Derived data cannot affect input data. This is essential for reproducibility.
 All data, once produced, should be treated as “read only”. Derived processes 
 cannot change input data. This means no appending information to input files, 
 and no adding files to existing directories. 
 
-Acquisition sessions first
---------------------------
+**Acquisition sessions first**
 
 The fundamental logical unit for primary data is the acquisition session (time).  
 
@@ -37,8 +36,7 @@ data. For example, waiting to release data that all meet the quality control
 criteria defined by a particular project assumes that those criteria apply to all
 potential uses of the data.  
 
-Flat structure 
---------------
+**Flat structure**
 
 We avoid using hierarchies to encode metadata. Grouping data into hierarchies via 
 directories - or implied hierarchies with complex ordered file naming conventions - is
@@ -50,8 +48,7 @@ A flat structure organized by time is unopinionated about what metadata will be 
 useful. We will instead rely on flexible database queries to facilitate data discovery 
 along any dimension, rather than biasing in favor of one field or another. 
 
-Processing is a session
------------------------
+**Processing is a session**
 
 Processing sessions are analogous to primary data acquisition sessions.  Processed data 
 files should therefore be logically grouped together, separate from primary data. 
@@ -63,8 +60,7 @@ We could consider separate data assets for different processing pipeline steps (
 asset for stitching transforms, one asset for fused results, one asset for segmented neurons, 
 etc). However, at this point that seems like unnecessary complexity. 
 
-Standard processing, flexible analysis  
---------------------------------------
+**Standard processing, flexible analysis**
 
 We define processing as basic feature extraction - spike sorting for electrophysiology, 
 limb positions extracted from behavior videos, cell positions from light microscopy.  
