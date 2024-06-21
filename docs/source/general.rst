@@ -19,7 +19,7 @@ the data assets and to communicate the embodied context of those data.
 Flexibility, versioning, and upgrading
 --------------------------------------
 
-``aind-data-schema`` is versioned using [Semantic Versioning](https://semver.org/). The core schemas listed above 
+``aind-data-schema`` is versioned using `Semantic Versioning <https://semver.org/>`_. The core schemas listed above 
 also have their own version numbers, which are documented in the ``schema_version`` field of any JSON file 
 they are used to generate. Documenting the schema version in this way allows users to know
 how to interpret the files. 
@@ -30,7 +30,7 @@ tagged with the appropriate metadata at the time they were acquired.
 
 When a new version of a schema is released, data collectors can decide if they want to update the metadata
 from their existing data assets to the new schema. As needed we add metadata upgrading capabilities to 
-[aind-metadata-upgrader](https://github.com/allenneuraldynamics/aind-metadata-upgrader). This python library
+`aind-metadata-upgrader <https://github.com/allenneuraldynamics/aind-metadata-upgrader>`_. This python library
 is not comprehensive - it contains only the upgrade functions that have been needed to date.
 
 Controlled vocabularies
@@ -38,7 +38,7 @@ Controlled vocabularies
 
 ``aind-data-schema`` relies heavily on controlled vocabularies to validate metadata. Because these grow over time,
 we don't want adding e.g. a manufacturer to constitute a new revision of the schema. We therefore store many 
-controlled vocabularies in a separate repository: [aind-data-schema-models](https://github.com/AllenNeuralDynamics/aind-data-schema-models).
+controlled vocabularies in a separate repository: `aind-data-schema-models <https://github.com/AllenNeuralDynamics/aind-data-schema-models>`_.
 
 Related metadata standards
 --------------------------

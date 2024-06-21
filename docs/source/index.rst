@@ -129,7 +129,7 @@ yields JSON:
 
 
 .. toctree::
-   :caption: Subschemas
+   :caption: Core Schemas
    :hidden:
    :maxdepth: 1
 
