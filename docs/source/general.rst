@@ -49,6 +49,30 @@ more to come
 FAQ
 ---
 
+**Q: My data files already contain some of this metadata. Why store this in additional JSON files?**
+
+How acquisition formats represent metadata evolves over time and often does not capture 
+everything we need to know to interpret data. These JSON files represent our ground truth 
+viewpoint on what is essential to know about our data in a single location. 
+
+Additionally, JSON files are trivially both human- and machine-readable. They are viewable on 
+any system without additional software to be installed (a text editor is fine). They are easy 
+to parse from code without any heavy dependencies (IGOR, H5PY, pynwb, etc). 
+
+**Why put metadata in JSON that we want to query in DataJoint or some other database?**
+
+Databases are very important for reliable and performant querying, however they are 
+also barriers to external interpretability and reproducibility. They have complex schema with 
+extraneous information that make them difficult to interpret. They have query languages 
+(e.g. SQL) that require training to use properly. Information becomes distributed across 
+different locations and platforms. They may have security policies that make them difficult 
+to share with the public.  
+
+Files, particularly in cloud storage, are reliable and more persistent. By storing metadata 
+essential to interpreting an acquisition session alongside the acquisition in a human- and machine-readable 
+format, there will always be an interpretable record of what happened even if e.g. the 
+database stops working. 
+
 **Q: Which fields do I have to provide within these?**
 
 All required (non-optional) fields must be completed to create a “valid model”. 

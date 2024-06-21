@@ -39,4 +39,21 @@ No. The funding for internally funded AIND or AIBS work is listed as “Allen In
 
 Congratulations! The funding information is pulled from the Funding Smartsheet that Shelby maintains. Work with Shelby 
 to make sure your grant is on that sheet.
+
+**What are “Institution” and “Group” doing in data_description.json?**
+
+In the future we may need to tag cloud resources based on the originating 
+group, which may or may not be in AIND, in order to track usage and spending. 
+
+
+**Q: What happened to the “experiment type” asset label? Why are we using platform names instead?**
+
+Formerly we used a short label called “experiment type” in asset names instead of platform 
+names. This concept was confusing because it was difficult to distinguish from a “modality”. 
+Most of our data contains multiple modalities. A recording session may contain trained behavior
+event data (e.g. lick times), behavior videos (e.g. face camera), neuropixels recordings, and 
+fiber photometry recordings.  
+
+Anchoring browsing on data collection platforms is clearer. We will tag sessions in our metadata 
+database to indicate which modalities are present in which sessions.  
     
