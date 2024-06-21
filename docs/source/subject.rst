@@ -1,5 +1,5 @@
-Subject schema
-==============
+Subject
+=======
 
 **Q: What is a subject?**
 

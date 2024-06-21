@@ -1,25 +1,36 @@
-General metadata
-================
+===================
+Metadata in general
+===================
 
-**Q: What is metadata?**
-
-Metadata is data about data. This documents the information about the data that enables us to be able to analyze and 
+Metadata is data about data. This documents information about acquired data that enables us to be able to analyze and 
 interpret it well. We use our metadata to document the entire process of creating data, the provenance of that data as 
 it moves through processing and analysis workflows, and the quality of the data. We use this metadata to keep track of 
 the data assets and to communicate the embodied context of those data.
 
-**Q: What metadata files are needed for each data asset?**
+``aind-data-schema`` contains the following core subschemas:
 
-Each data asset needs:
+- :doc:`data_description <data_description>`: Administrative metadata about the source of the data, funding, relevant licenses, and restrictions on use.
+- :doc:`subject <subject>`: Metadata about the subject used in the experiments, including genotype, age, sex, and source.
+- :doc:`procedures <procedures>`: Metadata about any procedures performed prior to data acquisition, including subject procedures (surgeries, behavior training, etc.) and specimen procedures (tissue preparation, staining, etc.).
+- :doc:`rig <rig>` or :doc:`instrument <rig>`: Metadata describing the equipment used to acquire data, including part names, serial numbers, and configuration details.
+- :doc:`session <session>` or :doc:`acquisition <acquisition>`: Metadata describing how the data was acquired
+- :doc:`processing <processing>`: Metadata describing how data has been processed and analyzed into derived data assets, including information on the software and parameters used for processing and analysis.
 
-* Data description
-* Subject
-* Procedures
-* Instrument or Rig
-* Acqusition or Session
-* Processing
 
-The contents of these will get compiled into a metadata.nd.json file by the data transfer service.
+Controlled vocabularies
+-----------------------
+
+more to come
+
+
+aind-data-schema and NWB/OME/BIDS
+---------------------------------
+
+more to come
+
+
+FAQ
+---
 
 **Q: Which fields do I have to provide within these?**
 
