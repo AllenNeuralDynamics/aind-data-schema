@@ -19,10 +19,10 @@ the data assets and to communicate the embodied context of those data.
 Flexibility, versioning, and upgrading
 --------------------------------------
 
-`aind-data-schema` is versioned using [Semantic Versioning](https://semver.org/). The core schemas listed above 
+``aind-data-schema`` is versioned using [Semantic Versioning](https://semver.org/). The core schemas listed above 
 also have their own version numbers, which are documented in the ``schema_version`` field of any JSON file 
 they are used to generate. Documenting the schema version in this way allows users to know
-how to parse to interpret and programmatically access the files. 
+how to interpret the files. 
 
 Schema versioning in this way is essential for flexibility. As science evolves, new concepts and nomenclature
 will emerge or replace existing terms. By versioning the schema, we can ensure that data assets are always
@@ -36,8 +36,9 @@ is not comprehensive - it contains only the upgrade functions that have been nee
 Controlled vocabularies
 -----------------------
 
-more to come
-
+``aind-data-schema`` relies heavily on controlled vocabularies to validate metadata. Because these grow over time,
+we don't want adding e.g. a manufacturer to constitute a new revision of the schema. We therefore store many 
+controlled vocabularies in a separate repository: [aind-data-schema-models](https://github.com/AllenNeuralDynamics/aind-data-schema-models).
 
 Related metadata standards
 --------------------------
