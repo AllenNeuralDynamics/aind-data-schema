@@ -60,10 +60,7 @@ class TestMetadata(unittest.TestCase):
         """Marks the metadata status as MISSING if a Subject model is not
         present"""
 
-        d1 = Metadata(
-            name="ecephys_655019_2023-04-03_18-17-09",
-            location="bucket",
-        )
+        d1 = Metadata(name="ecephys_655019_2023-04-03_18-17-09", location="bucket",)
         self.assertEqual(MetadataStatus.MISSING, d1.metadata_status)
         self.assertEqual("ecephys_655019_2023-04-03_18-17-09", d1.name)
         self.assertEqual("bucket", d1.location)

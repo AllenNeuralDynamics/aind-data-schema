@@ -51,26 +51,10 @@ class RigTests(unittest.TestCase):
                 ports=[],
                 computer_name="foo",
                 channels=[
-                    DAQChannel(
-                        channel_name="123",
-                        device_name="Laser A",
-                        channel_type="Analog Output",
-                    ),
-                    DAQChannel(
-                        channel_name="321",
-                        device_name="Probe A",
-                        channel_type="Analog Output",
-                    ),
-                    DAQChannel(
-                        channel_name="234",
-                        device_name="Camera A",
-                        channel_type="Digital Output",
-                    ),
-                    DAQChannel(
-                        channel_name="2354",
-                        device_name="Disc A",
-                        channel_type="Digital Output",
-                    ),
+                    DAQChannel(channel_name="123", device_name="Laser A", channel_type="Analog Output",),
+                    DAQChannel(channel_name="321", device_name="Probe A", channel_type="Analog Output",),
+                    DAQChannel(channel_name="234", device_name="Camera A", channel_type="Digital Output",),
+                    DAQChannel(channel_name="2354", device_name="Disc A", channel_type="Digital Output",),
                 ],
             )
         ]
@@ -79,9 +63,7 @@ class RigTests(unittest.TestCase):
             EphysAssembly(
                 probes=[EphysProbe(probe_model="Neuropixels 1.0", name="Probe A")],
                 manipulator=Manipulator(
-                    name="Probe manipulator",
-                    manufacturer=Organization.NEW_SCALE_TECHNOLOGIES,
-                    serial_number="4321",
+                    name="Probe manipulator", manufacturer=Organization.NEW_SCALE_TECHNOLOGIES, serial_number="4321",
                 ),
                 name="Ephys_assemblyA",
             )
@@ -90,17 +72,10 @@ class RigTests(unittest.TestCase):
         lms = [
             LaserAssembly(
                 lasers=[
-                    Laser(
-                        manufacturer=Organization.HAMAMATSU,
-                        serial_number="1234",
-                        name="Laser A",
-                        wavelength=488,
-                    ),
+                    Laser(manufacturer=Organization.HAMAMATSU, serial_number="1234", name="Laser A", wavelength=488,),
                 ],
                 manipulator=Manipulator(
-                    name="Laser manipulator",
-                    manufacturer=Organization.NEW_SCALE_TECHNOLOGIES,
-                    serial_number="1234",
+                    name="Laser manipulator", manufacturer=Organization.NEW_SCALE_TECHNOLOGIES, serial_number="1234",
                 ),
                 name="Laser_assembly",
                 collimator=Device(name="Collimator A", device_type="Collimator"),
@@ -156,12 +131,7 @@ class RigTests(unittest.TestCase):
                 )
             ],
             light_sources=[
-                Laser(
-                    manufacturer=Organization.HAMAMATSU,
-                    serial_number="1234",
-                    name="Laser A",
-                    wavelength=488,
-                )
+                Laser(manufacturer=Organization.HAMAMATSU, serial_number="1234", name="Laser A", wavelength=488,)
             ],
             laser_assemblies=lms,
             ephys_assemblies=ems,
@@ -204,16 +174,8 @@ class RigTests(unittest.TestCase):
                     is_clock_generator=False,
                     computer_name="W10XXX000",
                     channels=[
-                        OlfactometerChannel(
-                            channel_index=0,
-                            channel_type=ChannelType.CARRIER,
-                            flow_capacity=100,
-                        ),
-                        OlfactometerChannel(
-                            channel_index=1,
-                            channel_type=ChannelType.ODOR,
-                            flow_capacity=100,
-                        ),
+                        OlfactometerChannel(channel_index=0, channel_type=ChannelType.CARRIER, flow_capacity=100,),
+                        OlfactometerChannel(channel_index=1, channel_type=ChannelType.ODOR, flow_capacity=100,),
                     ],
                 )
             ],
@@ -258,26 +220,10 @@ class RigTests(unittest.TestCase):
                         ports=[],
                         computer_name="foo",
                         channels=[
-                            DAQChannel(
-                                channel_name="123",
-                                device_name="Laser A",
-                                channel_type="Analog Output",
-                            ),
-                            DAQChannel(
-                                channel_name="321",
-                                device_name="Probe A",
-                                channel_type="Analog Output",
-                            ),
-                            DAQChannel(
-                                channel_name="234",
-                                device_name="Camera A",
-                                channel_type="Digital Output",
-                            ),
-                            DAQChannel(
-                                channel_name="2354",
-                                device_name="Disc A",
-                                channel_type="Digital Output",
-                            ),
+                            DAQChannel(channel_name="123", device_name="Laser A", channel_type="Analog Output",),
+                            DAQChannel(channel_name="321", device_name="Probe A", channel_type="Analog Output",),
+                            DAQChannel(channel_name="234", device_name="Camera A", channel_type="Digital Output",),
+                            DAQChannel(channel_name="2354", device_name="Disc A", channel_type="Digital Output",),
                         ],
                     )
                 ],
@@ -304,35 +250,16 @@ class RigTests(unittest.TestCase):
                     ports=[],
                     computer_name="foo",
                     channels=[
-                        DAQChannel(
-                            channel_name="123",
-                            device_name="Laser A",
-                            channel_type="Analog Output",
-                        ),
-                        DAQChannel(
-                            channel_name="321",
-                            device_name="Probe A",
-                            channel_type="Analog Output",
-                        ),
-                        DAQChannel(
-                            channel_name="234",
-                            device_name="Camera A",
-                            channel_type="Digital Output",
-                        ),
-                        DAQChannel(
-                            channel_name="2354",
-                            device_name="Disc A",
-                            channel_type="Digital Output",
-                        ),
+                        DAQChannel(channel_name="123", device_name="Laser A", channel_type="Analog Output",),
+                        DAQChannel(channel_name="321", device_name="Probe A", channel_type="Analog Output",),
+                        DAQChannel(channel_name="234", device_name="Camera A", channel_type="Digital Output",),
+                        DAQChannel(channel_name="2354", device_name="Disc A", channel_type="Digital Output",),
                     ],
                 )
             ]
 
             Rig(
-                rig_id="1234",
-                modification_date=datetime.now(),
-                modalities=[Modality.ECEPHYS, Modality.FIB],
-                daqs=daqs,
+                rig_id="1234", modification_date=datetime.now(), modalities=[Modality.ECEPHYS, Modality.FIB], daqs=daqs,
             )
 
         with self.assertRaises(ValueError):
@@ -352,10 +279,7 @@ class RigTests(unittest.TestCase):
                 LaserAssembly(
                     lasers=[
                         Laser(
-                            manufacturer=Organization.HAMAMATSU,
-                            serial_number="1234",
-                            name="Laser A",
-                            wavelength=488,
+                            manufacturer=Organization.HAMAMATSU, serial_number="1234", name="Laser A", wavelength=488,
                         ),
                     ],
                     manipulator=Manipulator(
@@ -417,12 +341,7 @@ class RigTests(unittest.TestCase):
                     )
                 ],
                 light_sources=[
-                    Laser(
-                        manufacturer=Organization.HAMAMATSU,
-                        serial_number="1234",
-                        name="Laser A",
-                        wavelength=488,
-                    )
+                    Laser(manufacturer=Organization.HAMAMATSU, serial_number="1234", name="Laser A", wavelength=488,)
                 ],
                 laser_assemblies=lms,
                 ephys_assemblies=ems,
@@ -465,16 +384,8 @@ class RigTests(unittest.TestCase):
                         is_clock_generator=False,
                         computer_name="W10XXX000",
                         channels=[
-                            OlfactometerChannel(
-                                channel_index=0,
-                                channel_type=ChannelType.CARRIER,
-                                flow_capacity=100,
-                            ),
-                            OlfactometerChannel(
-                                channel_index=1,
-                                channel_type=ChannelType.ODOR,
-                                flow_capacity=100,
-                            ),
+                            OlfactometerChannel(channel_index=0, channel_type=ChannelType.CARRIER, flow_capacity=100,),
+                            OlfactometerChannel(channel_index=1, channel_type=ChannelType.ODOR, flow_capacity=100,),
                         ],
                     )
                 ],

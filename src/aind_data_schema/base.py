@@ -77,10 +77,7 @@ class AindCoreModel(AindModel):
         return re.sub(r"(?<!^)(?=[A-Z])", "_", name).lower() + cls._FILE_EXTENSION.default
 
     def write_standard_file(
-        self,
-        output_directory: Optional[Path] = None,
-        prefix: Optional[str] = None,
-        suffix: Optional[str] = None,
+        self, output_directory: Optional[Path] = None, prefix: Optional[str] = None, suffix: Optional[str] = None,
     ):
         """
         Writes schema to standard json file

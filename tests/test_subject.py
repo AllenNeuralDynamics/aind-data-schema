@@ -31,11 +31,7 @@ class SubjectTests(unittest.TestCase):
             genotype="wt",
             source=Organization.AI,
             housing=Housing(
-                light_cycle=LightCycle(
-                    lights_on_time=now.time(),
-                    lights_off_time=now.time(),
-                ),
-                cage_id="543",
+                light_cycle=LightCycle(lights_on_time=now.time(), lights_off_time=now.time(),), cage_id="543",
             ),
             breeding_info=BreedingInfo(
                 breeding_group="Emx1-IRES-Cre(ND)",
@@ -66,11 +62,7 @@ class SubjectTests(unittest.TestCase):
                 genotype="wt",
                 source=Organization.AI,
                 housing=Housing(
-                    light_cycle=LightCycle(
-                        lights_on_time=now.time(),
-                        lights_off_time=now.time(),
-                    ),
-                    cage_id="543",
+                    light_cycle=LightCycle(lights_on_time=now.time(), lights_off_time=now.time(),), cage_id="543",
                 ),
                 alleles=[PIDName(registry_identifier="12345", name="adsf", registry=Registry.MGI)],
             )
@@ -83,11 +75,7 @@ class SubjectTests(unittest.TestCase):
                 date_of_birth=now.date(),
                 source=Organization.AI,
                 housing=Housing(
-                    light_cycle=LightCycle(
-                        lights_on_time=now.time(),
-                        lights_off_time=now.time(),
-                    ),
-                    cage_id="543",
+                    light_cycle=LightCycle(lights_on_time=now.time(), lights_off_time=now.time(),), cage_id="543",
                 ),
                 alleles=[PIDName(registry_identifier="12345", name="adsf", registry=Registry.MGI)],
             )

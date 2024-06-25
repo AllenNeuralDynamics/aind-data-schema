@@ -19,8 +19,7 @@
       "radius_unit": "centimeter",
       "output": null,
       "encoder": null,
-      "decoder": null,
-      "encoder_firmware": null
+      "decoder": null
    },
    "stimulus_devices": [
       {
@@ -127,12 +126,6 @@
             "crop_width": null,
             "crop_height": null,
             "crop_unit": "pixel",
-            "recording_software": {
-               "name": "Bonsai",
-               "version": "2.5",
-               "url": null,
-               "parameters": {}
-            },
             "driver": null,
             "driver_version": null
          },
@@ -202,12 +195,6 @@
             "crop_width": null,
             "crop_height": null,
             "crop_unit": "pixel",
-            "recording_software": {
-               "name": "Bonsai",
-               "version": "2.5",
-               "url": null,
-               "parameters": {}
-            },
             "driver": null,
             "driver_version": null
          },
@@ -379,7 +366,6 @@
          "crop_width": 200,
          "crop_height": 200,
          "crop_unit": "pixel",
-         "recording_software": null,
          "driver": null,
          "driver_version": null
       },
@@ -423,7 +409,6 @@
          "crop_width": 200,
          "crop_height": 200,
          "crop_unit": "pixel",
-         "recording_software": null,
          "driver": null,
          "driver_version": null
       }

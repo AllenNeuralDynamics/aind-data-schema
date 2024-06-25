@@ -52,13 +52,7 @@ class ExampleTest(unittest.TestCase):
                     stream_start_time=datetime.now(),
                     stream_end_time=datetime.now(),
                     stream_modalities=[Modality.ECEPHYS],
-                    stick_microscopes=[
-                        DomeModule(
-                            assembly_name="Stick_assembly",
-                            arc_angle=24,
-                            module_angle=10,
-                        )
-                    ],
+                    stick_microscopes=[DomeModule(assembly_name="Stick_assembly", arc_angle=24, module_angle=10,)],
                     ephys_modules=[
                         ManipulatorModule(
                             assembly_name="Ephys_assemblyA",
@@ -82,9 +76,7 @@ class ExampleTest(unittest.TestCase):
             RewardDeliveryConfig(reward_solution="Other")
 
         with self.assertRaises(ValidationError):
-            MRIScan(
-                scan_sequence_type="Other",
-            )
+            MRIScan(scan_sequence_type="Other",)
 
         with self.assertRaises(ValidationError):
             MRIScan(scan_sequence_type="Other", notes="")
@@ -107,11 +99,7 @@ class ExampleTest(unittest.TestCase):
                     effective_echo_time=2.0,
                     repetition_time=1.2,
                     additional_scan_parameters={"number_averages": 3},
-                    mri_scanner=Scanner(
-                        name="Scanner 72",
-                        scanner_location="Fred Hutch",
-                        magnetic_strength="7",
-                    ),
+                    mri_scanner=Scanner(name="Scanner 72", scanner_location="Fred Hutch", magnetic_strength="7",),
                 )
             ],
             stream_modalities=[Modality.MRI],
