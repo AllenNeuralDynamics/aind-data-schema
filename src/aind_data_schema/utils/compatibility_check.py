@@ -34,10 +34,10 @@ class RigSessionCompatibility:
             daq for stream in getattr(self.session, "data_streams", []) for daq in getattr(stream, "daq_names", [])
         ]
         rig_daqs = [getattr(daq, "name", None) for daq in getattr(self.rig, "daqs", [])]
-        if set(session_daqs) != set(rig_daqs):
+        if not set(session_daqs).issubset(set(rig_daqs)):
             return ValueError(
                 f"daq names in session do not match daq names in rig. "
-                f"session_daqs: {session_daqs} rig_daqs: {rig_daqs}"
+                f"session_daqs: {set(session_daqs)} rig_daqs: {set(rig_daqs)}"
             )
 
     def run_compatibility_check(self) -> None:

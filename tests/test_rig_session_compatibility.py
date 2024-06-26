@@ -16,13 +16,13 @@ class TestRigSessionCompatibility(unittest.TestCase):
     stream2 = Stream.model_construct(daq_names=["daq3", "daq4"])
     daq1 = DAQDevice.model_construct(name="daq1")
     daq2 = DAQDevice.model_construct(name="daq2")
-    rig = Rig.model_construct(rig_id="some_rig_id", mouse_platform=mouse_platform, daqs=[daq1, daq2])
+    daq3 = DAQDevice.model_construct(name="daq3")
+    rig = Rig.model_construct(rig_id="some_rig_id", mouse_platform=mouse_platform, daqs=[daq1, daq2, daq3])
     compatible_session = Session.model_construct(
         rig_id="some_rig_id", mouse_platform_name="some_mouse_platform", data_streams=[stream1, stream1]
     )
     noncompatible_session = Session.model_construct(
-        rig_id="some_other_rig_id",
-        mouse_platform_name="some_other_mouse_platform",
+        rig_id="some_other_rig_id", mouse_platform_name="some_other_mouse_platform", data_streams=[stream1, stream2]
     )
     checker = RigSessionCompatibility(rig=rig, session=compatible_session)
     noncompatible_checker = RigSessionCompatibility(rig=rig, session=noncompatible_session)
