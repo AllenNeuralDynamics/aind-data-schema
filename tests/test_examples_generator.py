@@ -23,6 +23,4 @@ class ExamplesGeneratorTest(unittest.TestCase):
             "C:/Users/mae.moninghoff/Documents/GitHub/aind-data-schema/examples/subject.py"
         )
 
-        ExamplesGenerator().generate_example(
-            "fake/path/to/example.py"
-        )
+        ExamplesGenerator().generate_example("fake/path/to/example.py")

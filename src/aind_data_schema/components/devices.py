@@ -15,7 +15,7 @@ from aind_data_schema_models.units import (
     SpeedUnit,
     TemperatureUnit,
     UnitlessUnit,
-    VoltageUnit
+    VoltageUnit,
 )
 from pydantic import Field, ValidationInfo, field_validator, model_validator
 from typing_extensions import Annotated
@@ -694,8 +694,9 @@ class PockelsCell(Device):
     """Description of a Pockels Cell"""
 
     device_type: Literal["Pockels cell"] = "Pockels cell"
-    polygonal_scanner: Optional[str] = Field(default=None, title="Polygonal scanner",
-                                             description="Must match name of Polygonal scanner")
+    polygonal_scanner: Optional[str] = Field(
+        default=None, title="Polygonal scanner", description="Must match name of Polygonal scanner"
+    )
     on_time: Optional[Decimal] = Field(default=None, title="On time (fraction of cycle)")
     off_time: Optional[Decimal] = Field(default=None, title="Off time (fraction of cycle)")
     time_setting_unit: UnitlessUnit = Field(default=UnitlessUnit.FC, title="Time setting unit")
