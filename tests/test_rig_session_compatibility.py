@@ -5,6 +5,10 @@ from aind_data_schema.components.devices import MousePlatform, DAQDevice
 from aind_data_schema.core.rig import Rig
 from aind_data_schema.core.session import Session, Stream
 from aind_data_schema.utils.compatibility_check import RigSessionCompatibility
+from tests.resources.rig_session_compatibility.ephys_rig import rig as ephys_rig
+from tests.resources.rig_session_compatibility.ephys_session import session as ephys_session
+from examples.ephys_session import session as example_ephys_session
+from examples.ephys_rig import rig as example_ephys_rig
 
 
 class TestRigSessionCompatibility(unittest.TestCase):
@@ -26,6 +30,7 @@ class TestRigSessionCompatibility(unittest.TestCase):
     )
     checker = RigSessionCompatibility(rig=rig, session=compatible_session)
     noncompatible_checker = RigSessionCompatibility(rig=rig, session=noncompatible_session)
+    ephys_check = RigSessionCompatibility(rig=ephys_rig, session=ephys_session)
 
     def test_compare_rig_id(self):
         """Tests compare rig_id"""
@@ -45,5 +50,12 @@ class TestRigSessionCompatibility(unittest.TestCase):
     def test_run_compatibility_check(self):
         """Tests compatibility check"""
         self.assertIsNone(self.checker.run_compatibility_check())
-        with self.assertRaises(ValueError):
-            self.noncompatible_checker.run_compatibility_check()
+        expected_error = "Rig ID in session 323_EPHYS2-RF_2023-04-24_01 does not match the rig's 323_EPHYS1_20231003."
+        with self.assertRaises(ValueError) as context:
+            self.ephys_check.run_compatibility_check()
+        self.assertIn(expected_error, str(context.exception))
+
+    def test_check_examples_compatibility(self):
+        """Tests that examples are compatible"""
+        example_ephys_check = RigSessionCompatibility(rig=example_ephys_rig, session=example_ephys_session)
+        self.assertIsNone(example_ephys_check.run_compatibility_check())
