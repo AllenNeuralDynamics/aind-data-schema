@@ -583,6 +583,6 @@ class Session(AindCoreModel):
         None, title="Headframe registration", description="MRI transform matrix for headframe"
     )
     reward_delivery: Optional[RewardDeliveryConfig] = Field(None, title="Reward delivery")
-    reward_consumed_total: Optional[Decimal] = Field(None, title="Total reward consumed (uL)")
-    reward_consumed_unit: VolumeUnit = Field(VolumeUnit.UL, title="Reward consumed unit")
+    reward_consumed_total: Optional[Decimal] = Field(None, title="Total reward consumed (mL)")
+    reward_consumed_unit: VolumeUnit = Field(VolumeUnit.ML, title="Reward consumed unit")
     notes: Optional[str] = Field(None, title="Notes")
