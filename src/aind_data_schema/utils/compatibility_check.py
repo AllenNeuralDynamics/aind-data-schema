@@ -150,7 +150,7 @@ class RigSessionCompatibility:
         """Compares fiber names"""
         session_fiber_names = [
             fiber_connection.fiber_name
-            for stream in getattr(self.session, "data_steams", [])
+            for stream in getattr(self.session, "data_streams", [])
             for fiber_connection in getattr(stream, "fiber_connections", [])
         ]
         rig_fiber_names = [
@@ -167,7 +167,7 @@ class RigSessionCompatibility:
     def _compare_fiber_modules(self) -> Optional[ValueError]:
         """Compares fiber assembly names"""
         session_fiber_modules = [
-            fiber_module.name
+            fiber_module.assembly_name
             for stream in getattr(self.session, "data_streams", [])
             for fiber_module in getattr(stream, "fiber_modules", [])
         ]
@@ -217,6 +217,7 @@ class RigSessionCompatibility:
             self._compare_fiber_modules(),
             self._compare_fiber_names(),
             self._compare_stimulus_devices(),
+            self._compare_patch_cords(),
         ]
         error_messages = [str(error) for error in comparisons if error]
         if error_messages:

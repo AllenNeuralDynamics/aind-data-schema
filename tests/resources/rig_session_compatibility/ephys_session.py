@@ -83,6 +83,7 @@ session = Session(
             stream_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0, tzinfo=timezone.utc),
             stream_modalities=[Modality.ECEPHYS],
             daq_names=["Basestation"],
+            camera_names=["some_camera_name"],
             stick_microscopes=[
                 DomeModule(
                     rotation_angle=0,
@@ -181,6 +182,23 @@ session = Session(
                     arc_angle=-180,
                     module_angle=-180,
                     notes="Did not record angles, did not calibrate",
+                ),
+            ],
+            manipulator_modules=[
+                ManipulatorModule(
+                    rotation_angle=0,
+                    arc_angle=5.2,
+                    module_angle=8,
+                    targeted_ccf_coordinates=[CcfCoords(ml=8150, ap=3250, dv=7800)],
+                    assembly_name="ephys module 1",
+                    coordinate_transform="behavior/calibration_info_np2_2023_04_24.npy",
+                    primary_targeted_structure="LGd",
+                    manipulator_coordinates=Coordinates3d(x=8422, y=4205, z=11087.5),
+                    calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
+                    notes=(
+                        "Moved Y to avoid blood vessel, X to avoid edge. Mouse made some noise during the recording"
+                        " with a sudden shift in signals. Lots of motion. Maybe some implant motion."
+                    ),
                 ),
             ],
             ephys_modules=[
