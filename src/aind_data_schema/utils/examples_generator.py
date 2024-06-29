@@ -1,10 +1,10 @@
 """script for re-generating all examples"""
 
+import logging
 import os
 import runpy
 from glob import glob
 from pathlib import Path
-import logging
 
 CURRENT_DIR = Path(os.path.dirname(os.path.realpath(__file__)))
 ROOT_DIR = CURRENT_DIR.parents[2]
