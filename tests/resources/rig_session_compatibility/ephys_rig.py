@@ -28,7 +28,6 @@ from aind_data_schema.components.devices import (
 )
 from aind_data_schema.core.rig import Rig
 
-
 # Describes a rig with running wheel, 2 behavior cameras, one Harp Behavior board,
 # one dual-color laser module, one stick microscope, and 2 Neuropixels probes
 

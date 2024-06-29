@@ -7,7 +7,6 @@ from aind_data_schema_models.modalities import Modality
 import aind_data_schema.components.devices as d
 import aind_data_schema.core.rig as r
 
-
 rig = r.Rig(
     rig_id="428_FIP1_20231003",
     modification_date=date(2023, 10, 3),

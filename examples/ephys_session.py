@@ -1,6 +1,8 @@
 """Generates an example JSON file for an ephys session"""
 
+import os
 from datetime import datetime, timezone
+from pathlib import Path
 
 from aind_data_schema_models.modalities import Modality
 
@@ -16,8 +18,6 @@ from aind_data_schema.core.session import (
     Stream,
     VisualStimulation,
 )
-from pathlib import Path
-import os
 
 OUTPUT_PATH = Path(os.path.dirname(os.path.realpath(__file__)))
 

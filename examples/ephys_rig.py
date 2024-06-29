@@ -1,6 +1,8 @@
 """Generates an example JSON file for an ephys rig"""
 
+import os
 from datetime import date, datetime, timezone
+from pathlib import Path
 
 from aind_data_schema_models.harp_types import HarpDeviceType
 from aind_data_schema_models.modalities import Modality
@@ -27,9 +29,6 @@ from aind_data_schema.components.devices import (
     ProbePort,
 )
 from aind_data_schema.core.rig import Rig
-
-from pathlib import Path
-import os
 
 OUTPUT_PATH = Path(os.path.dirname(os.path.realpath(__file__)))
 

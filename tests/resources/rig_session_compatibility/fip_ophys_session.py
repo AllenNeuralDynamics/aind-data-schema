@@ -3,8 +3,18 @@
 from datetime import datetime, timezone
 
 from aind_data_schema_models.modalities import Modality
+
 from aind_data_schema.components.coordinates import Coordinates3d
-from aind_data_schema.core.session import DetectorConfig, FiberConnectionConfig, LaserConfig, Session, Stream, FiberModule, StimulusEpoch, StimulusModality
+from aind_data_schema.core.session import (
+    DetectorConfig,
+    FiberConnectionConfig,
+    FiberModule,
+    LaserConfig,
+    Session,
+    StimulusEpoch,
+    StimulusModality,
+    Stream,
+)
 
 t = datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc)
 
@@ -14,7 +24,7 @@ stimulus_epoch = StimulusEpoch(
     stimulus_end_time=t,
     stimulus_name="Some Stimulus Name",
     stimulus_modalities=[StimulusModality.AUDITORY],
-    stimulus_device_names=["Stimulus Device A", "Stimulus Device B"]
+    stimulus_device_names=["Stimulus Device A", "Stimulus Device B"],
 )
 
 s = Session(
@@ -75,5 +85,5 @@ s = Session(
             notes="Internal trigger. GRAB-DA2m shows signal. Unclear about GRAB-rAC",
         )
     ],
-    stimulus_epochs=[stimulus_epoch]
+    stimulus_epochs=[stimulus_epoch],
 )
