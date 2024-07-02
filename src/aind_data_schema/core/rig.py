@@ -2,7 +2,7 @@
 
 from datetime import date
 from typing import List, Literal, Optional, Set, Union
-
+import re
 from aind_data_schema_models.modalities import Modality
 from pydantic import Field, ValidationInfo, field_serializer, field_validator, model_validator
 from typing_extensions import Annotated
@@ -43,6 +43,7 @@ STIMULUS_DEVICES = Annotated[Union[Monitor, Olfactometer, RewardDelivery, Speake
 RIG_DAQ_DEVICES = Annotated[
     Union[HarpDevice, NeuropixelsBasestation, OpenEphysAcquisitionBoard, DAQDevice], Field(discriminator="device_type")
 ]
+RIG_ID_PATTERN = r"^\d{3}_[a-zA-Z0-9-]+_\d{8}$"
 
 
 class Rig(AindCoreModel):
@@ -105,6 +106,22 @@ class Rig(AindCoreModel):
                     )
 
         return self
+
+    @field_validator("rig_id", mode="after")
+    def validate_rig_id(cls, value: str):
+        """Validates rig_id matches expected format."""
+        if not re.match(RIG_ID_PATTERN, value):
+            raise ValueError(
+                "rig_id must be in the format {room_number}_description_{modification_date}.")
+
+        room_number, description, modification_date = value.split('_')
+        if len(room_number) != 3 or not re.match(r"\d{3}", room_number):
+            raise ValueError(f"{room_number} is not a valid room. Expecting a 3 digit number.")
+
+        if not re.match(r"\d{8}", modification_date):
+            raise ValueError(f"{modification_date} is not correct format. Expecting YYYYMMDD format.")
+
+        return value
 
     @field_validator("daqs", mode="after")
     def validate_device_names(cls, value: List[DAQDevice], info: ValidationInfo) -> List[DAQDevice]:
