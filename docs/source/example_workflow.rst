@@ -15,7 +15,8 @@ these metadata JSON files reveals that some important data were not being
 tracked in the original metadata sources. This is common and are usually information that a
 single person keeps track of implicitly in their head. This information must be entered
 somewhere, either by updating the data sources or hard-coding values in the 
-generation script - this is not avised but what what we do here in this example.
+generation script. The latter is not avised but what we do here in this example
+to demonstrate the issue.
 
 
 Identify metadata sources
