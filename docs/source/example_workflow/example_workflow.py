@@ -32,7 +32,7 @@ for session_idx, session in sessions_df.iterrows():
         platform=Platform.BEHAVIOR,
         subject_id=str(session['subject_id']),
         creation_time=session['end_time'].to_pydatetime(),
-        institution=Organization.AIND,
+        institution=Organization.OTHER,
         investigators=[PIDName(name='Some Investigator')],
         funding_source=[Funding(funder=Organization.NIMH)],
     )
@@ -75,7 +75,7 @@ for session_idx, session in sessions_df.iterrows():
     # we stored the injection coordinates as a comma-delimited string: AP,ML,DV,angle
     coords = proc_row.injection_coord.split(',')
     
-    # in this example, we will use a single iacuc protocol that covers all types of surgical procedures
+    # in this example, a single iacuc protocol that covers all surgical procedures
     protocol = str(proc_row['protocol'])
 
     p = Procedures(
@@ -96,12 +96,13 @@ for session_idx, session in sessions_df.iterrows():
                                 titer=proc_row['virus_titer'],
                             )
                         ],
+                        targeted_structure=proc_row['brain_area'],
                         injection_coordinate_ml=float(coords[1]),
                         injection_coordinate_ap=float(coords[0]),
                         injection_angle=float(coords[3]),
+                        # multiple injection volumes at different depths are allowed, but that's not happening here
                         injection_coordinate_depth=[float(coords[2])],                        
-                        injection_volume=[float(proc_row['injection_volume'])],
-                        targeted_structure=proc_row['brain_area'],
+                        injection_volume=[float(proc_row['injection_volume'])],                         
                     )
                 ]
             ),
