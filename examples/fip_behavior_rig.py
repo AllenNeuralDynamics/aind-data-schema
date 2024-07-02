@@ -11,7 +11,7 @@ import aind_data_schema.core.rig as r
 OUTPUT_PATH = "examples/"
 
 r = r.Rig(
-    rig_id="447_FIP_Behavior_20000101",
+    rig_id="447_FIP-Behavior_20000101",
     modification_date=date(2000, 1, 1),
     modalities=[Modality.BEHAVIOR, Modality.FIB],
     cameras=[
