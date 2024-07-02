@@ -584,89 +584,89 @@ class RigTests(unittest.TestCase):
             )
         ]
         camera = CameraAssembly(
-                        name="cam",
-                        camera_target="Face bottom",
-                        lens=Lens(name="Camera lens", manufacturer=Organization.OTHER),
-                        camera=Camera(
-                            name="Camera A",
-                            detector_type=DetectorType.CAMERA,
-                            manufacturer=Organization.OTHER,
-                            data_interface="USB",
-                            computer_name="ASDF",
-                            frame_rate=144,
-                            sensor_width=1,
-                            sensor_height=1,
-                            chroma="Color",
-                        ),
-                    )
+            name="cam",
+            camera_target="Face bottom",
+            lens=Lens(name="Camera lens", manufacturer=Organization.OTHER),
+            camera=Camera(
+                name="Camera A",
+                detector_type=DetectorType.CAMERA,
+                manufacturer=Organization.OTHER,
+                data_interface="USB",
+                computer_name="ASDF",
+                frame_rate=144,
+                sensor_width=1,
+                sensor_height=1,
+                chroma="Color",
+            ),
+        )
 
         stick_microscope = CameraAssembly(
-                        name="Assembly A",
-                        camera=Camera(
-                            name="Camera A",
-                            detector_type=DetectorType.CAMERA,
-                            manufacturer=Organization.OTHER,
-                            data_interface="USB",
-                            computer_name="ASDF",
-                            frame_rate=144,
-                            sensor_width=1,
-                            sensor_height=1,
-                            chroma="Color",
-                        ),
-                        camera_target=CameraTarget.BRAIN_SURFACE,  # NEEDS A VALUE
-                        lens=Lens(name="Lens A", manufacturer=Organization.OTHER),
-                    )
+            name="Assembly A",
+            camera=Camera(
+                name="Camera A",
+                detector_type=DetectorType.CAMERA,
+                manufacturer=Organization.OTHER,
+                data_interface="USB",
+                computer_name="ASDF",
+                frame_rate=144,
+                sensor_width=1,
+                sensor_height=1,
+                chroma="Color",
+            ),
+            camera_target=CameraTarget.BRAIN_SURFACE,  # NEEDS A VALUE
+            lens=Lens(name="Lens A", manufacturer=Organization.OTHER),
+        )
         light_source = Laser(
-                        manufacturer=Organization.HAMAMATSU,
-                        serial_number="1234",
-                        name="Laser A",
-                        wavelength=488,
-                    )
+            manufacturer=Organization.HAMAMATSU,
+            serial_number="1234",
+            name="Laser A",
+            wavelength=488,
+        )
         detector = Detector(
-                        name="FLIR CMOS for Green Channel",
-                        serial_number="21396991",
-                        manufacturer=Organization.FLIR,
-                        model="BFS-U3-20S40M",
-                        detector_type=DetectorType.CAMERA,
-                        data_interface="USB",
-                        cooling="Air",
-                        immersion="air",
-                        bin_width=4,
-                        bin_height=4,
-                        bin_mode="Additive",
-                        crop_width=200,
-                        crop_height=200,
-                        gain=2,
-                        chroma="Monochrome",
-                        bit_depth=16,
-                    )
+            name="FLIR CMOS for Green Channel",
+            serial_number="21396991",
+            manufacturer=Organization.FLIR,
+            model="BFS-U3-20S40M",
+            detector_type=DetectorType.CAMERA,
+            data_interface="USB",
+            cooling="Air",
+            immersion="air",
+            bin_width=4,
+            bin_height=4,
+            bin_mode="Additive",
+            crop_width=200,
+            crop_height=200,
+            gain=2,
+            chroma="Monochrome",
+            bit_depth=16,
+        )
         patch_cord = Patch(
-                        name="Bundle Branching Fiber-optic Patch Cord",
-                        manufacturer=Organization.DORIC,
-                        model="BBP(4)_200/220/900-0.37_Custom_FCM-4xMF1.25",
-                        core_diameter=200,
-                        numerical_aperture=0.37,
-                    )
+            name="Bundle Branching Fiber-optic Patch Cord",
+            manufacturer=Organization.DORIC,
+            model="BBP(4)_200/220/900-0.37_Custom_FCM-4xMF1.25",
+            core_diameter=200,
+            numerical_aperture=0.37,
+        )
         stimulus_device = Olfactometer(
-                        name="Olfactometer",
-                        manufacturer=Organization.CHAMPALIMAUD,
-                        model="1234",
-                        serial_number="213456",
-                        hardware_version="1",
-                        is_clock_generator=False,
-                        computer_name="W10XXX000",
-                        channels=[
-                            OlfactometerChannel(
-                                channel_index=0,
-                                channel_type=ChannelType.CARRIER,
-                                flow_capacity=100,
-                            ),
-                            OlfactometerChannel(
-                                channel_index=1,
-                                channel_type=ChannelType.ODOR,
-                                flow_capacity=100,
-                            )
-            ]
+            name="Olfactometer",
+            manufacturer=Organization.CHAMPALIMAUD,
+            model="1234",
+            serial_number="213456",
+            hardware_version="1",
+            is_clock_generator=False,
+            computer_name="W10XXX000",
+            channels=[
+                OlfactometerChannel(
+                    channel_index=0,
+                    channel_type=ChannelType.CARRIER,
+                    flow_capacity=100,
+                ),
+                OlfactometerChannel(
+                    channel_index=1,
+                    channel_type=ChannelType.ODOR,
+                    flow_capacity=100,
+                ),
+            ],
         )
         calibration = Calibration(
             calibration_date=date(2020, 10, 10),
@@ -691,7 +691,7 @@ class RigTests(unittest.TestCase):
                 patch_cords=[patch_cord],
                 stimulus_devices=[stimulus_device],
                 mouse_platform=Disc(name="Disc A", radius=1),
-                calibrations=[calibration]
+                calibrations=[calibration],
             )
 
         with self.assertRaises(ValidationError):
@@ -709,7 +709,7 @@ class RigTests(unittest.TestCase):
                 patch_cords=[patch_cord],
                 stimulus_devices=[stimulus_device],
                 mouse_platform=Disc(name="Disc A", radius=1),
-                calibrations=[calibration]
+                calibrations=[calibration],
             )
 
         with self.assertRaises(ValidationError):
@@ -727,7 +727,7 @@ class RigTests(unittest.TestCase):
                 patch_cords=[patch_cord],
                 stimulus_devices=[stimulus_device],
                 mouse_platform=Disc(name="Disc A", radius=1),
-                calibrations=[calibration]
+                calibrations=[calibration],
             )
 
 
