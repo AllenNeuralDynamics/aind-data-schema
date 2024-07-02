@@ -116,6 +116,7 @@ class Rig(AindCoreModel):
                 "rig_id must be in the format {room_number}_description_{modification_date} "
                 "where room number is expected to be 3 digits and the date must be in ISO format (YYYYMMDD). "
             )
+        return value
 
     @field_validator("daqs", mode="after")
     def validate_device_names(cls, value: List[DAQDevice], info: ValidationInfo) -> List[DAQDevice]:
