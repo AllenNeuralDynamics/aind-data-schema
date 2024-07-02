@@ -41,7 +41,7 @@ Let's say they look like this:
 ``procedures``::
 
     mouse_id    injection_date  protocol  brain_area  virus_name           virus_titer  injection_volume  injection_coord     perfusion_date
-    3	        7/12/2022 7:00  2109      VISp        AAV2-Flex-ChrimsonR  2300000000   200               03.8,-0.87,-3.3,10  9/23/2022 10:22
+    3	        7/12/2022 7:00  2109      VISp        AAV2-Flex-ChrimsonR  2300000000   200               03.8,-0.87,-3.3,10  9/23/2022  10:22:00 AM
 
 
 ``sessions``::
