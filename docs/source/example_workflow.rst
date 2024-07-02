@@ -33,9 +33,9 @@ Let's say they look like this:
 ``mice``::
 
     id  dam_id  sire_id  genotype                                               dob         sex
-	1                    Emx1-IRES-Cre/wt;Camk2a-tTA/wt;Ai93(TITL-GCaMP6f)/wt   5/1/2024    F
-	2                    Emx1-IRES-Cre/wt; Camk2a-tTa/Camk2a-tTA                1/1/2024    M
-	3   1       2        Ai93(TITL-GCaMP6f)/wt                                  1/4/2024    F
+    1                    Emx1-IRES-Cre/wt;Camk2a-tTA/wt;Ai93(TITL-GCaMP6f)/wt   5/1/2024    F
+    2                    Emx1-IRES-Cre/wt; Camk2a-tTa/Camk2a-tTA                1/1/2024    M
+    3   1       2        Ai93(TITL-GCaMP6f)/wt                                  1/4/2024    F
 
 
 ``procedures``::
