@@ -63,7 +63,7 @@ The data description schema contains basic administrative metadata. Who collecte
 how was it funded, etc.
 
 .. literalinclude:: example_workflow/example_workflow.py
-    :lines: 1-51
+    :lines: 1-49
 
 
 Make subject
@@ -74,7 +74,7 @@ are required but we simply didn't keep track. As a best practice, we acknowledge
 that this information is unavailable by saying it is ``unknown``.
 
 .. literalinclude:: example_workflow/example_workflow.py
-    :lines: 81-
+    :lines: 51-77
 
 
 Make procedures
@@ -88,7 +88,7 @@ one injection at one depth followed by a perfusion at a later date - we can
 get away with this simplification.
 
 .. literalinclude:: example_workflow/example_workflow.py
-    :lines: 73-
+    :lines: 79-
 
 And there you have it. More metadata to come!
 

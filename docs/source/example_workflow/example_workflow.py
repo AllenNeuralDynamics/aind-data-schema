@@ -9,8 +9,6 @@ from aind_data_schema_models.platforms import Platform
 from aind_data_schema.core.data_description import Funding, RawDataDescription
 from aind_data_schema.core.subject import Subject, Species, BreedingInfo, Housing
 from aind_data_schema.core.procedures import (
-    Anaesthetic,
-    Craniotomy,
     NanojectInjection,
     Procedures,
     Surgery,
