@@ -1,5 +1,5 @@
-Processing schema
-=================
+Processing
+==========
 
 **Q: What is processing?**
 

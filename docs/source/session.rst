@@ -1,5 +1,5 @@
-Session schema
-==============
+Session
+=======
 
 **Q: What is a session?** 
 

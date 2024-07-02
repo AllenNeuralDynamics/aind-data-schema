@@ -1,5 +1,5 @@
-Acquisition schema
-==================
+Acquisition
+===========
 
 **Q: What is Acquisition?**
 

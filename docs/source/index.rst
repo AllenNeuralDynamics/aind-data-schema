@@ -120,11 +120,20 @@ yields JSON:
 
 
 .. toctree::
-   :caption: FAQ
+   :caption: Data and Metadata
    :hidden:
    :maxdepth: 1
 
    general
+   data_organization
+   
+
+
+.. toctree::
+   :caption: Core Schemas
+   :hidden:
+   :maxdepth: 1
+
    data_description
    subject
    procedures
@@ -132,6 +141,14 @@ yields JSON:
    session
    acquisition
    processing
+
+
+.. toctree::
+   :caption: Getting Started
+   :hidden:
+   :maxdepth: 1
+   
+   example_workflow
 
 
 .. toctree::
