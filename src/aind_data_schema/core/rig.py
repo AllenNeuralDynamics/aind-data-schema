@@ -114,13 +114,6 @@ class Rig(AindCoreModel):
         if not re.match(RIG_ID_PATTERN, value):
             raise ValueError("rig_id must be in the format {room_number}_description_{modification_date}.")
 
-        room_number, description, modification_date = value.split("_")
-        if len(room_number) != 3 or not re.match(r"\d{3}", room_number):
-            raise ValueError(f"{room_number} is not a valid room. Expecting a 3 digit number.")
-
-        if not re.match(r"\d{8}", modification_date):
-            raise ValueError(f"{modification_date} is not correct format. Expecting YYYYMMDD format.")
-
         return value
 
     @field_validator("daqs", mode="after")
