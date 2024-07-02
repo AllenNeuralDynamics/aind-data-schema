@@ -11,8 +11,8 @@ perfectly align with ``aind-data-schema`` so as to show examples of mapping from
 local conventions to the schema. 
 
 You will see through this example that creating
-these metadata JSON files reveals that some important data that were not being
-tracked in the original metadata sources. This is common and usually things that a
+these metadata JSON files reveals that some important data were not being
+tracked in the original metadata sources. This is common and are usually information that a
 single person keeps track of implicitly in their head. This information must be entered
 somewhere, either by updating the data sources or hard-coding values in the 
 generation script - this is not avised but what what we do here in this example.
