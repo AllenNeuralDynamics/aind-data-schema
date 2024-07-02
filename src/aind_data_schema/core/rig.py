@@ -112,9 +112,10 @@ class Rig(AindCoreModel):
     def validate_rig_id(cls, value: str):
         """Validates rig_id matches expected format."""
         if not re.match(RIG_ID_PATTERN, value):
-            raise ValueError("rig_id must be in the format {room_number}_description_{modification_date}.")
-
-        return value
+            raise ValueError(
+                "rig_id must be in the format {room_number}_description_{modification_date} "
+                "where room number is expected to be 3 digits and the date must be in ISO format (YYYYMMDD). "
+            )
 
     @field_validator("daqs", mode="after")
     def validate_device_names(cls, value: List[DAQDevice], info: ValidationInfo) -> List[DAQDevice]:
