@@ -44,7 +44,7 @@ STIMULUS_DEVICES = Annotated[Union[Monitor, Olfactometer, RewardDelivery, Speake
 RIG_DAQ_DEVICES = Annotated[
     Union[HarpDevice, NeuropixelsBasestation, OpenEphysAcquisitionBoard, DAQDevice], Field(discriminator="device_type")
 ]
-RIG_ID_PATTERN = r"^\d{3}_[a-zA-Z0-9-]+_\d{8}$"
+RIG_ID_PATTERN = r"^[a-zA-Z0-9]+_[a-zA-Z0-9-]+_\d{8}$"
 
 
 class Rig(AindCoreModel):

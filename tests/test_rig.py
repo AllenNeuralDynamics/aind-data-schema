@@ -803,25 +803,6 @@ class RigTests(unittest.TestCase):
                 mouse_platform=Disc(name="Disc A", radius=1),
                 calibrations=[calibration],
             )
-
-        with self.assertRaises(ValidationError):
-            Rig(
-                rig_id="abc_EPHYS-OPTO_20200101",
-                modification_date=date(2020, 10, 10),
-                modalities=[Modality.ECEPHYS, Modality.FIB],
-                daqs=daqs,
-                cameras=[camera],
-                stick_microscopes=[stick_microscope],
-                light_sources=[light_source],
-                laser_assemblies=lms,
-                ephys_assemblies=ems,
-                detectors=[detector],
-                patch_cords=[patch_cord],
-                stimulus_devices=[stimulus_device],
-                mouse_platform=Disc(name="Disc A", radius=1),
-                calibrations=[calibration],
-            )
-
         with self.assertRaises(ValidationError):
             Rig(
                 rig_id="123_EPHYS-OPTO_2020-01-01",
