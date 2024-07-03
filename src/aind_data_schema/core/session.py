@@ -582,7 +582,7 @@ class Session(AindCoreModel):
     headframe_registration: Optional[Affine3dTransform] = Field(
         None, title="Headframe registration", description="MRI transform matrix for headframe"
     )
-    reward_delivery: Optional[RewardDeliveryConfig] = Field(None, title="Reward delivery")
-    reward_consumed_total: Optional[Decimal] = Field(None, title="Total reward consumed (mL)")
+    reward_delivery: Optional[RewardDeliveryConfig] = Field(default=None, title="Reward delivery")
+    reward_consumed_total: Optional[Decimal] = Field(default=None, title="Total reward consumed (mL)")
     reward_consumed_unit: VolumeUnit = Field(VolumeUnit.ML, title="Reward consumed unit")
-    notes: Optional[str] = Field(None, title="Notes")
+    notes: Optional[str] = Field(default=None, title="Notes")
