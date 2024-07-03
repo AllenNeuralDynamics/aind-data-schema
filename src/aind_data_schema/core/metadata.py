@@ -78,7 +78,7 @@ class Metadata(AindCoreModel):
     metadata_status: MetadataStatus = Field(
         default=MetadataStatus.UNKNOWN, title=" Metadata Status", description="The status of the metadata."
     )
-    external_links: List[Dict[ExternalPlatforms, str]] = Field(
+    external_links: Dict[ExternalPlatforms, Dict[str]] = Field(
         default=[], title="External Links", description="Links to the data asset on different platforms."
     )
     # We can make the AindCoreModel fields optional for now and do more
