@@ -48,7 +48,7 @@ class RigSessionCompatibility:
             for camera in getattr(stream, "camera_names", [])
         ]
         camera_devices = getattr(self.rig, "cameras", []) + getattr(self.rig, "stick_microscopes", [])
-        rig_cameras = [camera_device.camera.name for camera_device in camera_devices]
+        rig_cameras = [name for camera_device in camera_devices for name in (camera_device.camera.name, camera_device.name)]
         if not set(session_cameras).issubset(set(rig_cameras)):
             return ValueError(
                 f"camera names in session do not match camera names in rig. "
