@@ -57,6 +57,7 @@ class Rig(AindCoreModel):
         ...,
         description="Unique rig identifier, name convention: <room>-<apparatus name>-<date modified YYYYMMDD>",
         title="Rig ID",
+        pattern=RIG_ID_PATTERN,
     )
     modification_date: date = Field(..., title="Date of modification")
     mouse_platform: MOUSE_PLATFORMS
@@ -107,16 +108,6 @@ class Rig(AindCoreModel):
                     )
 
         return self
-
-    @field_validator("rig_id", mode="after")
-    def validate_rig_id(cls, value: str):
-        """Validates rig_id matches expected format."""
-        if not re.match(RIG_ID_PATTERN, value):
-            raise ValueError(
-                "rig_id must be in the format {room_number}_description_{modification_date} "
-                "where room number is expected to be alphanumeric and the date must be in ISO format (YYYYMMDD). "
-            )
-        return value
 
     @field_validator("daqs", mode="after")
     def validate_device_names(cls, value: List[DAQDevice], info: ValidationInfo) -> List[DAQDevice]:
