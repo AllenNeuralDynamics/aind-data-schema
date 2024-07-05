@@ -208,7 +208,7 @@ class ManipulatorModule(DomeModule):
     """A dome module connected to a 3-axis manipulator"""
 
     primary_targeted_structure: str = Field(..., title="Targeted structure")
-    other_targeted_structure: Optional[List[str]] = Field(None, title="Other targeted structure")
+    other_targeted_structure: Optional[List[str]] = Field(default=None, title="Other targeted structure")
     targeted_ccf_coordinates: List[CcfCoords] = Field(
         default=[],
         title="Targeted CCF coordinates",
@@ -217,11 +217,11 @@ class ManipulatorModule(DomeModule):
         ...,
         title="Manipulator coordinates",
     )
-    bregma_coordinates: Optional[Coordinates3d] = Field(None, title="Bregma coordinates")
-    surface_z: Optional[Decimal] = Field(None, title="Surface z")
+    bregma_coordinates: Optional[Coordinates3d] = Field(default=None, title="Bregma coordinates")
+    surface_z: Optional[Decimal] = Field(default=None, title="Surface z")
     surface_z_unit: SizeUnit = Field(SizeUnit.UM, title="Surface z unit")
-    dye: Optional[str] = Field(None, title="Dye")
-    implant_hole_number: Optional[int] = Field(None, title="Implant hole number")
+    dye: Optional[str] = Field(default=None, title="Dye")
+    implant_hole_number: Optional[int] = Field(default=None, title="Implant hole number")
 
 
 class FiberModule(ManipulatorModule):
@@ -511,7 +511,7 @@ class StimulusEpoch(AindModel):
                 Field(discriminator="stimulus_type"),
             ]
         ]
-    ] = Field(None, title="Stimulus parameters")
+    ] = Field(default=None, title="Stimulus parameters")
     stimulus_device_names: List[str] = Field(default=[], title="Stimulus devices")
     speaker_config: Optional[SpeakerConfig] = Field(default=None, title="Speaker Config")
     light_source_config: Optional[List[LIGHT_SOURCE_CONFIGS]] = Field(
