@@ -1,6 +1,5 @@
 """Core Rig model"""
 
-import re
 from datetime import date
 from typing import List, Literal, Optional, Set, Union
 
