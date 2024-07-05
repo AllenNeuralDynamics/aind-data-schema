@@ -59,7 +59,7 @@ for session_idx, session in sessions_df.iterrows():
     # construct the subject
     s = Subject(
         subject_id=str(mouse["id"]),
-        species=Species.MUS_MUSCULUS, # all subjects are mice
+        species=Species.MUS_MUSCULUS,  # all subjects are mice
         sex=subject_sex_lookup.get(mouse["sex"]),
         date_of_birth=mouse["dob"],
         genotype=mouse["genotype"],
@@ -71,11 +71,11 @@ for session_idx, session in sessions_df.iterrows():
             breeding_group="unknown",  # not in spreadsheet
         ),
         housing=Housing(
-            home_cage_enrichment=["Running wheel"], # all subjects had a running wheel in their cage
+            home_cage_enrichment=["Running wheel"],  # all subjects had a running wheel in their cage
             cage_id="unknown",  # not in spreadsheet
         ),
-        background_strain="C57BL/6J",  
-        source=Organization.OTHER, 
+        background_strain="C57BL/6J",
+        source=Organization.OTHER,
     )
     s.write_standard_file(output_directory=d.name)
 
