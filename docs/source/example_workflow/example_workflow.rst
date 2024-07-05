@@ -47,9 +47,9 @@ Let's say they look like this:
 ``sessions``::
 
     mouse_id  start_time      end_time
-    3         3/13/2024 3:00  1/26/2024 3:30:00 AM
-    3         3/14/2024 3:00  1/27/2024 3:30:00 AM
-    3         3/15/2024 3:00  1/28/2024 3:30:00 AM
+    3         1/26/2024 3:00  1/26/2024 3:30:00 AM
+    3         1/27/2024 3:00  1/27/2024 3:30:00 AM
+    3         1/28/2024 3:00  1/28/2024 3:30:00 AM
     
 
 In this example you can see that we recorded three sessions from one mouse, 
