@@ -15,7 +15,7 @@ these metadata JSON files reveals that some important data were not being
 tracked in the original metadata sources. This is common and are usually information that a
 single person keeps track of implicitly in their head. This information must be entered
 somewhere, either by updating the data sources or hard-coding values in the 
-generation script. The latter is not avised but what we do here in this example
+generation script. The latter is not advised but what we do here in this example
 to demonstrate the issue.
 
 
@@ -33,23 +33,23 @@ Let's say they look like this:
 ``mice``::
 
     id  dam_id  sire_id  genotype                                               dob         sex
-    1                    Vip-IRES-Cre/wt                                        5/1/2024    F
-    2                    Ai32(RCL-ChR2(H134R)_EYFP)/Ai32(RCL-ChR2(H134R)_EYFP)  1/1/2024    M
-    3   1       2        Vip-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt          1/4/2024    F
+    1                    Vip-IRES-Cre/wt                                        9/22/2023   F
+    2                    Ai32(RCL-ChR2(H134R)_EYFP)/Ai32(RCL-ChR2(H134R)_EYFP)  9/15/2023   M
+    3   1       2        Vip-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt          12/1/2023   F
 
 
 ``procedures``::
 
-    mouse_id    injection_date  protocol  brain_area  virus_name           virus_titer  injection_volume  injection_coord     perfusion_date
-    3	        7/12/2022 7:00  2109      VISp        AAV2-Flex-ChrimsonR  2300000000   200               03.8,-0.87,-3.3,10  9/23/2022  10:22:00 AM
+    mouse_id    injection_date        protocol                brain_area  virus_name           virus_titer  injection_volume  injection_coord     perfusion_date
+    3	        1/2/2024 7:00:00 AM   injection-perfusion-v1  VISp        AAV2-Flex-ChrimsonR  2300000000   200               03.8,-0.87,-3.3,10  1/31/2024 10:22:00 AM
 
 
 ``sessions``::
 
     mouse_id  start_time      end_time
-    3         3/13/2024 3:00  3/13/2024 3:30
-    3         3/14/2024 3:00  3/14/2024 3:30
-    3         3/15/2024 3:00  3/15/2024 3:30
+    3         3/13/2024 3:00  1/26/2024 3:30:00 AM
+    3         3/14/2024 3:00  1/27/2024 3:30:00 AM
+    3         3/15/2024 3:00  1/28/2024 3:30:00 AM
     
 
 In this example you can see that we recorded three sessions from one mouse, 
