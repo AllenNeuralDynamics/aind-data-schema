@@ -358,6 +358,6 @@
    "headframe_registration": null,
    "reward_delivery": null,
    "reward_consumed_total": null,
-   "reward_consumed_unit": "microliter",
+   "reward_consumed_unit": "milliliter",
    "notes": null
 }

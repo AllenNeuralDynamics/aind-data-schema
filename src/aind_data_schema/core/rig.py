@@ -43,6 +43,7 @@ STIMULUS_DEVICES = Annotated[Union[Monitor, Olfactometer, RewardDelivery, Speake
 RIG_DAQ_DEVICES = Annotated[
     Union[HarpDevice, NeuropixelsBasestation, OpenEphysAcquisitionBoard, DAQDevice], Field(discriminator="device_type")
 ]
+RIG_ID_PATTERN = r"^[a-zA-Z0-9]+_[a-zA-Z0-9-]+_\d{8}$"
 
 
 class Rig(AindCoreModel):
@@ -55,6 +56,7 @@ class Rig(AindCoreModel):
         ...,
         description="Unique rig identifier, name convention: <room>-<apparatus name>-<date modified YYYYMMDD>",
         title="Rig ID",
+        pattern=RIG_ID_PATTERN,
     )
     modification_date: date = Field(..., title="Date of modification")
     mouse_platform: MOUSE_PLATFORMS
