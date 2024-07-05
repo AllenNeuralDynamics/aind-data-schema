@@ -25,7 +25,7 @@ Identify metadata sources
 In practice, key metadata is usually distributed into many data sources. They
 could be spreadsheets, databases, TIFF file headers, or even file names. 
 
-In this example, let's assume that our basic subject and surgical procedure 
+In this example, let's say that our basic subject and surgical procedure 
 metadata are stored in and excel workbook with three sheets: ``mice``, ``sessions``, and ``procedures``. 
 
 Let's say they look like this:
@@ -54,7 +54,9 @@ Let's say they look like this:
 
 In this example you can see that we recorded three sessions from one mouse, 
 which has a viral injection and a perfusion procedure. All mice are C57BL/6J, 
-were bred locally, and were housed with a running wheel in their cage.
+were bred locally, and were housed with a running wheel in their cage. Download 
+:download:`example_workflow.xlsx <example_workflow.xlsx>` and 
+:download:`example_workflow.py <example_workflow.py>` to follow along.
 
 
 Make data description
