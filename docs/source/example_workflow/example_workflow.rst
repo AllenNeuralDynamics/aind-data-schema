@@ -40,16 +40,16 @@ Let's say they look like this:
 
 ``procedures``::
 
-    mouse_id    injection_date        protocol                brain_area  virus_name           virus_titer  injection_volume  injection_coord     perfusion_date
-    3	        1/2/2024 7:00:00 AM   injection-perfusion-v1  VISp        AAV2-Flex-ChrimsonR  2300000000   200               03.8,-0.87,-3.3,10  1/31/2024 10:22:00 AM
+    mouse_id    injection_date  protocol                brain_area  virus_name           virus_titer  injection_volume  injection_coord     perfusion_date
+    3	        1/2/2024 7:00   injection-perfusion-v1  VISp        AAV2-Flex-ChrimsonR  2300000000   200               03.8,-0.87,-3.3,10  1/31/2024 10:22
 
 
 ``sessions``::
 
-    mouse_id  start_time      end_time
-    3         1/26/2024 3:00  1/26/2024 3:30:00 AM
-    3         1/27/2024 3:00  1/27/2024 3:30:00 AM
-    3         1/28/2024 3:00  1/28/2024 3:30:00 AM
+    mouse_id  start_time       end_time
+    3         1/26/2024 15:00  1/26/2024 15:30
+    3         1/27/2024 15:00  1/27/2024 15:30
+    3         1/28/2024 15:00  1/28/2024 15:30
     
 
 In this example you can see that we recorded three sessions from one mouse, 
