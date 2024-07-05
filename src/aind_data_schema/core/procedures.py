@@ -277,7 +277,7 @@ class Anaesthetic(AindModel):
     type: str = Field(..., title="Type")
     duration: Decimal = Field(..., title="Duration")
     duration_unit: TimeUnit = Field(default=TimeUnit.M, title="Duration unit")
-    level: Decimal = Field(..., title="Level (percent)", ge=1, le=5)
+    level: Optional[Decimal] = Field(default=None, title="Level (percent)", ge=1, le=5)
 
 
 class OtherSubjectProcedure(AindModel):
@@ -583,7 +583,7 @@ class Surgery(AindModel):
         description="First and last name of the experimenter.",
         title="Experimenter full name",
     )
-    iacuc_protocol: Optional[str] = Field(None, title="IACUC protocol")
+    iacuc_protocol: Optional[str] = Field(default=None, title="IACUC protocol")
     animal_weight_prior: Optional[Decimal] = Field(
         default=None, title="Animal weight (g)", description="Animal weight before procedure"
     )
