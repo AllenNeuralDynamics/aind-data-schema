@@ -97,7 +97,9 @@ class RigSessionCompatibility:
             for stick_microscope in getattr(stream, "stick_microscopes", [])
         ]
         rig_stick_microscopes = [
-            stick_microscope.camera.name for stick_microscope in getattr(self.rig, "stick_microscopes", [])
+            name
+            for camera_device in getattr(self.rig, "stick_microscopes", [])
+            for name in (camera_device.camera.name, camera_device.name)
         ]
         if not set(session_stick_microscopes).issubset(set(rig_stick_microscopes)):
             return ValueError(
@@ -147,24 +149,6 @@ class RigSessionCompatibility:
             return ValueError(
                 f"patch cord names in session do not match patch cord names in rig. "
                 f"session_patch_cords: {set(session_patch_cords)} rig_patch_cords: {set(rig_patch_cords)}"
-            )
-
-    def _compare_fiber_names(self) -> Optional[ValueError]:
-        """Compares fiber names"""
-        session_fiber_names = [
-            fiber_connection.fiber_name
-            for stream in getattr(self.session, "data_streams", [])
-            for fiber_connection in getattr(stream, "fiber_connections", [])
-        ]
-        rig_fiber_names = [
-            fiber.name
-            for fiber_assembly in getattr(self.rig, "fiber_assemblies", [])
-            for fiber in getattr(fiber_assembly, "fibers", [])
-        ]
-        if not set(session_fiber_names).issubset(set(rig_fiber_names)):
-            return ValueError(
-                f"fiber names in session do not match fiber names in rig. "
-                f"session_fiber_names: {set(session_fiber_names)} rig_fiber_names: {set(rig_fiber_names)}"
             )
 
     def _compare_fiber_modules(self) -> Optional[ValueError]:
@@ -218,7 +202,6 @@ class RigSessionCompatibility:
             self._compare_stick_microscopes(),
             self._compare_detectors(),
             self._compare_fiber_modules(),
-            self._compare_fiber_names(),
             self._compare_stimulus_devices(),
             self._compare_patch_cords(),
         ]

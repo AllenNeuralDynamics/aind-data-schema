@@ -315,7 +315,7 @@
    "fiber_assemblies": [],
    "stick_microscopes": [
       {
-         "name": "Stick_assembly",
+         "name": "Stick_assembly_1",
          "camera_target": "Brain surface",
          "camera": {
             "device_type": "Detector",
@@ -391,7 +391,7 @@
          "position": null
       },
       {
-         "name": "Stick_assembly",
+         "name": "Stick_assembly_2",
          "camera_target": "Brain surface",
          "camera": {
             "device_type": "Detector",
@@ -467,7 +467,7 @@
          "position": null
       },
       {
-         "name": "Stick_assembly",
+         "name": "Stick_assembly_3",
          "camera_target": "Brain surface",
          "camera": {
             "device_type": "Detector",
@@ -543,7 +543,7 @@
          "position": null
       },
       {
-         "name": "Stick_assembly",
+         "name": "Stick_assembly_4",
          "camera_target": "Brain surface",
          "camera": {
             "device_type": "Detector",
