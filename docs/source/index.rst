@@ -148,7 +148,7 @@ yields JSON:
    :hidden:
    :maxdepth: 1
    
-   example_workflow
+   example_workflow/example_workflow
 
 
 .. toctree::

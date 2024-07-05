@@ -33,9 +33,9 @@ Let's say they look like this:
 ``mice``::
 
     id  dam_id  sire_id  genotype                                               dob         sex
-    1                    Emx1-IRES-Cre/wt;Camk2a-tTA/wt;Ai93(TITL-GCaMP6f)/wt   5/1/2024    F
-    2                    Emx1-IRES-Cre/wt; Camk2a-tTa/Camk2a-tTA                1/1/2024    M
-    3   1       2        Ai93(TITL-GCaMP6f)/wt                                  1/4/2024    F
+    1                    Vip-IRES-Cre/wt                                        5/1/2024    F
+    2                    Ai32(RCL-ChR2(H134R)_EYFP)/Ai32(RCL-ChR2(H134R)_EYFP)  1/1/2024    M
+    3   1       2        Vip-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt          1/4/2024    F
 
 
 ``procedures``::
@@ -53,7 +53,8 @@ Let's say they look like this:
     
 
 In this example you can see that we recorded three sessions from one mouse, 
-which has a viral injection and a perfusion procedure.
+which has a viral injection and a perfusion procedure. All mice are C57BL/6J, 
+were bred locally, and were housed with a running wheel in their cage.
 
 
 Make data description
@@ -62,8 +63,8 @@ Make data description
 The data description schema contains basic administrative metadata. Who collected the data, 
 how was it funded, etc.
 
-.. literalinclude:: example_workflow/example_workflow.py
-    :lines: 1-49
+.. literalinclude:: example_workflow.py
+    :lines: 1-52
 
 
 Make subject
@@ -73,8 +74,8 @@ The subject metadata is a bit more complex. In this case, certain fields
 are required but we simply didn't keep track. As a best practice, we acknowledge
 that this information is unavailable by saying it is ``unknown``.
 
-.. literalinclude:: example_workflow/example_workflow.py
-    :lines: 51-77
+.. literalinclude:: example_workflow.py
+    :lines: 54-80
 
 
 Make procedures
@@ -87,8 +88,8 @@ procedures, but because our hypothetical protocol is always the same -
 one injection at one depth followed by a perfusion at a later date - we can
 get away with this simplification.
 
-.. literalinclude:: example_workflow/example_workflow.py
-    :lines: 79-
+.. literalinclude:: example_workflow.py
+    :lines: 82-
 
 And there you have it. More metadata to come!
 
