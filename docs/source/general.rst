@@ -11,7 +11,7 @@ the data assets and to communicate the embodied context of those data.
 
 **Q: My data files already contain some of this metadata. Why store this in additional JSON files?**
 
-How acquisition software represent metadata evolves over time and often does not capture 
+How acquisition software represents metadata evolves over time and often does not capture 
 everything we need to know to interpret data. These JSON files represent our ground truth 
 viewpoint on what is essential to know about our data in a single location. 
 
