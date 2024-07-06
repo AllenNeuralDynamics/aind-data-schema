@@ -19,7 +19,12 @@ Additionally, JSON files are trivially both human- and machine-readable. They ar
 any system without additional software to be installed (a text editor is fine). They are easy 
 to parse from code without any heavy dependencies (IGOR, H5PY, pynwb, etc). 
 
-**Q: Why put metadata in JSON rather than directly in a database?**
+**Q: Why JSON rather than CSV, YAML, or a SQL database?**
+
+There are many ways to store metadata. JSON is a common format, as are CSV, YAML, and others.
+CSV is ubiquitous but its tabular structure makes it difficult to represent complex biological
+data with many relationships. YAML is perhaps more human-readable than JSON, but the tooling
+around YAML is a bit less mature than JSON. 
 
 Databases are very important for reliable and performant querying, however they are 
 also barriers to external interpretability and reproducibility. They have complex schema with 
@@ -33,7 +38,7 @@ essential to interpreting an acquisition session alongside the acquisition in a 
 format, there will always be an interpretable record of what happened even if e.g. the 
 database stops working. 
 
-**Q: Which fields do I have to provide within these?**
+**Q: Which fields do I have to provide within these core schemas?**
 
 All required (non-optional) fields must be completed to create a “valid model”. 
 
