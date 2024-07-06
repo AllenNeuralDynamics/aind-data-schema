@@ -2,56 +2,16 @@
 Metadata in general
 ===================
 
+**Q: What is metadata?**
+
 Metadata is data about data. This documents information about acquired data that enables us to be able to analyze and 
 interpret it well. We use our metadata to document the entire process of creating data, the provenance of that data as 
 it moves through processing and analysis workflows, and the quality of the data. We use this metadata to keep track of 
 the data assets and to communicate the embodied context of those data.
 
-``aind-data-schema`` contains the following core subschemas:
-
-- :doc:`data_description <data_description>`: Administrative metadata about the source of the data, funding, relevant licenses, and restrictions on use.
-- :doc:`subject <subject>`: Metadata about the subject used in the experiments, including genotype, age, sex, and source.
-- :doc:`procedures <procedures>`: Metadata about any procedures performed prior to data acquisition, including subject procedures (surgeries, behavior training, etc.) and specimen procedures (tissue preparation, staining, etc.).
-- :doc:`rig <rig>` or :doc:`instrument <rig>`: Metadata describing the equipment used to acquire data, including part names, serial numbers, and configuration details.
-- :doc:`session <session>` or :doc:`acquisition <acquisition>`: Metadata describing how the data was acquired
-- :doc:`processing <processing>`: Metadata describing how data has been processed and analyzed into derived data assets, including information on the software and parameters used for processing and analysis.
-
-Flexibility, versioning, and upgrading
---------------------------------------
-
-``aind-data-schema`` is versioned using `Semantic Versioning <https://semver.org/>`_. The core schemas listed above 
-also have their own version numbers, which are documented in the ``schema_version`` field of any JSON file 
-they are used to generate. Documenting the schema version in this way allows users to know
-how to interpret the files. 
-
-Schema versioning in this way is essential for flexibility. As science evolves, new concepts and nomenclature
-will emerge or replace existing terms. By versioning the schema, we can ensure that data assets are always
-tagged with the appropriate metadata at the time they were acquired. 
-
-When a new version of a schema is released, data collectors can decide if they want to update the metadata
-from their existing data assets to the new schema. As needed we add metadata upgrading capabilities to 
-`aind-metadata-upgrader <https://github.com/allenneuraldynamics/aind-metadata-upgrader>`_. This python library
-is not comprehensive - it contains only the upgrade functions that have been needed to date.
-
-Controlled vocabularies
------------------------
-
-``aind-data-schema`` relies heavily on controlled vocabularies to validate metadata. Because these grow over time,
-we don't want adding e.g. a manufacturer to constitute a new revision of the schema. We therefore store many 
-controlled vocabularies in a separate repository: `aind-data-schema-models <https://github.com/AllenNeuralDynamics/aind-data-schema-models>`_.
-
-Related metadata standards
---------------------------
-
-more to come
-
-
-FAQ
----
-
 **Q: My data files already contain some of this metadata. Why store this in additional JSON files?**
 
-How acquisition formats represent metadata evolves over time and often does not capture 
+How acquisition software represent metadata evolves over time and often does not capture 
 everything we need to know to interpret data. These JSON files represent our ground truth 
 viewpoint on what is essential to know about our data in a single location. 
 
@@ -59,7 +19,7 @@ Additionally, JSON files are trivially both human- and machine-readable. They ar
 any system without additional software to be installed (a text editor is fine). They are easy 
 to parse from code without any heavy dependencies (IGOR, H5PY, pynwb, etc). 
 
-**Why put metadata in JSON that we want to query in DataJoint or some other database?**
+**Q: Why put metadata in JSON rather than directly in a database?**
 
 Databases are very important for reliable and performant querying, however they are 
 also barriers to external interpretability and reproducibility. They have complex schema with 

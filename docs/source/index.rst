@@ -119,6 +119,40 @@ yields JSON:
    }
 
 
+Flexibility, versioning, and upgrading
+--------------------------------------
+
+``aind-data-schema`` is versioned using `Semantic Versioning <https://semver.org/>`_. The core schemas listed above 
+also have their own version numbers, which are documented in the ``schema_version`` field of any JSON file 
+they are used to generate. Documenting the schema version in this way allows users to know
+how to interpret the files. 
+
+Schema versioning in this way is essential for flexibility. As science evolves, new concepts and nomenclature
+will emerge or replace existing terms. By versioning the schema, we can ensure that data assets are always
+tagged with the appropriate metadata at the time they were acquired. 
+
+When a new version of a schema is released, data collectors can decide if they want to update the metadata
+from their existing data assets to the new schema. As needed we add metadata upgrading capabilities to 
+`aind-metadata-upgrader <https://github.com/allenneuraldynamics/aind-metadata-upgrader>`_. This python library
+is not comprehensive - it contains only the upgrade functions that have been needed to date.
+
+Controlled vocabularies
+-----------------------
+
+``aind-data-schema`` relies heavily on controlled vocabularies to validate metadata. Because these grow over time,
+we don't want adding e.g. a manufacturer to constitute a new revision of the schema. We therefore store many 
+controlled vocabularies in a separate repository: `aind-data-schema-models <https://github.com/AllenNeuralDynamics/aind-data-schema-models>`_.
+
+Related metadata standards
+--------------------------
+
+Community standards like NWB, OME, and BIDS are essential. ``aind-data-schema`` intends to complement these standards,
+adding new concepts or detail as needed to support AIND's discovery science. 
+
+As ``aind-data-schema`` stabilizes we will build dedicated integrations with community standards. For example, we would 
+build NWB extension that easily embeds metadata not covered by the core NWB schema. 
+
+
 .. toctree::
    :caption: Data and Metadata
    :hidden:
