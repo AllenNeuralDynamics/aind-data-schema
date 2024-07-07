@@ -10,7 +10,7 @@
    "session_end_time": "2023-04-25T03:16:00Z",
    "session_type": "Receptive field mapping",
    "iacuc_protocol": "2109",
-   "rig_id": "323_EPHYS2-RF_2023-04-24_01",
+   "rig_id": "323_EPHYS1_20231003",
    "calibrations": [],
    "maintenance": [],
    "subject_id": "664484",
@@ -23,13 +23,13 @@
          "stream_start_time": "2023-04-25T02:45:00Z",
          "stream_end_time": "2023-04-25T03:16:00Z",
          "daq_names": [
-            "Basestation"
+            "Basestation Slot 3"
          ],
          "camera_names": [],
          "light_sources": [],
          "ephys_modules": [
             {
-               "assembly_name": "ephys module 1",
+               "assembly_name": "Ephys_assemblyA",
                "arc_angle": "5.2",
                "module_angle": "8",
                "angle_unit": "degrees",
@@ -61,7 +61,7 @@
                "implant_hole_number": null
             },
             {
-               "assembly_name": "ephys module 2",
+               "assembly_name": "Ephys_assemblyB",
                "arc_angle": "25",
                "module_angle": "-22",
                "angle_unit": "degrees",
@@ -156,13 +156,13 @@
          "stream_start_time": "2023-04-25T02:35:00Z",
          "stream_end_time": "2023-04-25T02:45:00Z",
          "daq_names": [
-            "Basestation"
+            "Basestation Slot 3"
          ],
          "camera_names": [],
          "light_sources": [],
          "ephys_modules": [
             {
-               "assembly_name": "ephys module 1",
+               "assembly_name": "Ephys_assemblyA",
                "arc_angle": "5.2",
                "module_angle": "8",
                "angle_unit": "degrees",
@@ -194,7 +194,7 @@
                "implant_hole_number": null
             },
             {
-               "assembly_name": "ephys module 2",
+               "assembly_name": "Ephys_assemblyB",
                "arc_angle": "25",
                "module_angle": "-22",
                "angle_unit": "degrees",
@@ -236,36 +236,6 @@
                "coordinate_transform": null,
                "calibration_date": null,
                "notes": "did not record angles, did not calibrate."
-            },
-            {
-               "assembly_name": "stick microscope 2",
-               "arc_angle": "-180",
-               "module_angle": "-180",
-               "angle_unit": "degrees",
-               "rotation_angle": "0",
-               "coordinate_transform": null,
-               "calibration_date": null,
-               "notes": "Did not record angles, did not calibrate"
-            },
-            {
-               "assembly_name": "stick microscope 3",
-               "arc_angle": "-180",
-               "module_angle": "-180",
-               "angle_unit": "degrees",
-               "rotation_angle": "0",
-               "coordinate_transform": null,
-               "calibration_date": null,
-               "notes": "Did not record angles, did not calibrate"
-            },
-            {
-               "assembly_name": "stick microscope 4",
-               "arc_angle": "-180",
-               "module_angle": "-180",
-               "angle_unit": "degrees",
-               "rotation_angle": "0",
-               "coordinate_transform": null,
-               "calibration_date": null,
-               "notes": "Did not record angles, did not calibrate"
             }
          ],
          "manipulator_modules": [],
@@ -383,7 +353,7 @@
          "notes": null
       }
    ],
-   "mouse_platform_name": "mouse platform",
+   "mouse_platform_name": "Running Wheel",
    "active_mouse_platform": false,
    "headframe_registration": null,
    "reward_delivery": null,
