@@ -25,6 +25,7 @@ from aind_data_schema.core.processing import Processing
 from aind_data_schema.core.rig import Rig
 from aind_data_schema.core.session import Session
 from aind_data_schema.core.subject import BreedingInfo, Sex, Species, Subject
+from aind_data_schema.components.devices import MousePlatform
 
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
 
@@ -204,6 +205,26 @@ class TestMetadata(unittest.TestCase):
                 session=Session.model_construct(),
             )
         self.assertIn("Injection is missing injection_materials.", str(context.exception))
+
+    def test_validate_rig_session_compatibility(self):
+        """Tests that rig/session compatibility validator works as expected"""
+        mouse_platform = MousePlatform.model_construct(name="platform1")
+        rig = Rig.model_construct(rig_id="123_EPHYS1_20220101", mouse_platform=mouse_platform)
+        session = Session.model_construct(rig_id="123_EPHYS2_20230101", mouse_platform_name="platform2")
+        with self.assertRaises(ValueError) as context:
+            Metadata(
+                name="ecephys_655019_2023-04-03_18-17-09",
+                location="bucket",
+                data_description=DataDescription.model_construct(
+                    label="some label", platform=Ecephys, creation_time=time(12, 12, 12)
+                ),
+                subject=Subject.model_construct(),
+                procedures=Procedures.model_construct(),
+                rig=rig,
+                processing=Processing.model_construct(),
+                session=session,
+            )
+        self.assertIn("Rig ID in session 123_EPHYS2_20230101 does not match the rig's 123_EPHYS1_20220101.", str(context.exception))
 
 
 if __name__ == "__main__":
