@@ -10,6 +10,7 @@ from aind_data_schema_models.platforms import Ecephys, SmartSpim
 from pydantic import ValidationError
 from pydantic import __version__ as pyd_version
 
+from aind_data_schema.components.devices import MousePlatform
 from aind_data_schema.core.acquisition import Acquisition
 from aind_data_schema.core.data_description import DataDescription
 from aind_data_schema.core.instrument import Instrument
@@ -25,7 +26,6 @@ from aind_data_schema.core.processing import Processing
 from aind_data_schema.core.rig import Rig
 from aind_data_schema.core.session import Session
 from aind_data_schema.core.subject import BreedingInfo, Sex, Species, Subject
-from aind_data_schema.components.devices import MousePlatform
 
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
 
@@ -224,7 +224,10 @@ class TestMetadata(unittest.TestCase):
                 processing=Processing.model_construct(),
                 session=session,
             )
-        self.assertIn("Rig ID in session 123_EPHYS2_20230101 does not match the rig's 123_EPHYS1_20220101.", str(context.exception))
+        self.assertIn(
+            "Rig ID in session 123_EPHYS2_20230101 does not match the rig's 123_EPHYS1_20220101.",
+            str(context.exception),
+        )
 
 
 if __name__ == "__main__":
