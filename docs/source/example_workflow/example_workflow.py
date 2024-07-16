@@ -1,20 +1,14 @@
-import pandas as pd
 import os
 
+import pandas as pd
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.pid_names import PIDName
 from aind_data_schema_models.platforms import Platform
 
 from aind_data_schema.core.data_description import Funding, RawDataDescription
-from aind_data_schema.core.subject import Subject, Species, BreedingInfo, Housing
-from aind_data_schema.core.procedures import (
-    NanojectInjection,
-    Procedures,
-    Surgery,
-    ViralMaterial,
-    Perfusion,
-)
+from aind_data_schema.core.procedures import NanojectInjection, Perfusion, Procedures, Surgery, ViralMaterial
+from aind_data_schema.core.subject import BreedingInfo, Housing, Species, Subject
 
 sessions_df = pd.read_excel("example_workflow.xlsx", sheet_name="sessions")
 mice_df = pd.read_excel("example_workflow.xlsx", sheet_name="mice")
@@ -34,7 +28,6 @@ iacuc_protocol = "2109"
 
 # loop through all of the sessions
 for session_idx, session in sessions_df.iterrows():
-
     # our data always contains planar optical physiology and behavior videos
     d = RawDataDescription(
         modality=[Modality.POPHYS, Modality.BEHAVIOR_VIDEOS],

@@ -18,6 +18,7 @@ from aind_data_schema.core.processing import Processing
 from aind_data_schema.core.rig import Rig
 from aind_data_schema.core.session import Session
 from aind_data_schema.core.subject import Subject
+from aind_data_schema.utils.compatibility_check import RigSessionCompatibility
 
 
 class MetadataStatus(Enum):
@@ -231,4 +232,12 @@ class Metadata(AindCoreModel):
             )
         ):
             raise ValueError("Injection is missing injection_materials.")
+        return self
+
+    @model_validator(mode="after")
+    def validate_rig_session_compatibility(self):
+        """Validator for metadata"""
+        if self.rig and self.session:
+            check = RigSessionCompatibility(self.rig, self.session)
+            check.run_compatibility_check()
         return self
