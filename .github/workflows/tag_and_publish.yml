@@ -99,7 +99,7 @@ jobs:
         release_branches: ${{ inputs.default_branch }}
         default_bump: patch
         dry_run: true  # Perform dryrun first to calculate new version
-    - name:
+    - name: Update changelog
       run: echo "${{ steps.tag_version.outputs.changelog }}" | cat - CHANGELOG.md > temp && mv temp CHANGELOG.md
     - name: Commit changes
       uses: EndBug/add-and-commit@v9
