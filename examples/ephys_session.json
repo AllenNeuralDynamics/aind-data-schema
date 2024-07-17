@@ -140,7 +140,7 @@
          "fiber_connections": [],
          "fiber_modules": [],
          "ophys_fovs": [],
-         "slap_fovs": null,
+         "slap_fovs": [],
          "stack_parameters": null,
          "mri_scans": [],
          "stream_modalities": [
@@ -243,7 +243,7 @@
          "fiber_connections": [],
          "fiber_modules": [],
          "ophys_fovs": [],
-         "slap_fovs": null,
+         "slap_fovs": [],
          "stack_parameters": null,
          "mri_scans": [],
          "stream_modalities": [

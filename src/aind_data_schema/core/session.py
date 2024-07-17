@@ -388,7 +388,7 @@ class Stream(AindModel):
     fiber_connections: List[FiberConnectionConfig] = Field(default=[], title="Implanted fiber photometry devices")
     fiber_modules: List[FiberModule] = Field(default=[], title="Inserted fiber modules")
     ophys_fovs: List[FieldOfView] = Field(default=[], title="Fields of view")
-    slap_fovs: Optional[SlapFieldOfView] = Field(default=None, title="Slap2 field of view")
+    slap_fovs: List[SlapFieldOfView] = Field(default=[], title="Slap2 fields of view")
     stack_parameters: Optional[Stack] = Field(default=None, title="Stack parameters")
     mri_scans: List[MRIScan] = Field(default=[], title="MRI scans")
     stream_modalities: List[Modality.ONE_OF] = Field(..., title="Modalities")
