@@ -1,9 +1,11 @@
-name: CI
+name: Run checks in main and release
 
 on:
   pull_request:
     branches:
-      - dev
+      - '*release*'
+      - main
+
 
 jobs:
   linters:
