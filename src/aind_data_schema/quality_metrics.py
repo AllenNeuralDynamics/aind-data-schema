@@ -8,7 +8,7 @@ from typing import Any, Dict, List, Optional
 
 from pydantic import Field
 
-from aind_data_schema.base import AindCoreModel, AindModel
+from aind_data_schema.base import AindCoreModel, AindGeneric, AindGenericType, AindModel
 from aind_data_schema.data_description import Modality
 
 
@@ -27,7 +27,7 @@ class QCEvaluation(AindModel):
     evaluation_stage: str = Field(..., title="Evaluation stage")
     evaluator_full_name: str = Field(..., title="Evaluator full name")
     evaluation_date: date = Field(..., title="Evaluation date")
-    qc_metrics: Dict[str, Any] = Field(..., title="QC metrics",)
+    qc_metrics: AindGenericType = Field(AindGeneric(), title="QC metrics")
     stage_status: Status = Field(..., title="Stage status")
     notes: Optional[str] = Field(None, title="Notes")
 
