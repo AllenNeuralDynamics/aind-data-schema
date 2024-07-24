@@ -809,7 +809,7 @@ class RewardSpout(Device):
     spout_diameter_unit: SizeUnit = Field(default=SizeUnit.MM, title="Spout diameter unit")
     spout_position: Optional[RelativePosition] = Field(default=None, title="Spout stage position")
     solenoid_valve: Device = Field(..., title="Solenoid valve")
-    lick_sensor: Optional[Union[Device, DAQChannel]] = Field(default=None, title="Lick sensor")
+    lick_sensor: Optional[Device] = Field(default=None, title="Lick sensor")
     lick_sensor_type: Optional[LickSensorType] = Field(default=None, title="Lick sensor type")
     notes: Optional[str] = Field(default=None, title="Notes")
 
