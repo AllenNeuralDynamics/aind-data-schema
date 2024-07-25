@@ -35,6 +35,8 @@ class QCEvaluation(AindModel):
 class QualityMetrics(AindCoreModel):
     """Description of quality metrics for a data asset"""
 
+    _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/quality_metrics.py"
+    describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
     schema_version: str = Field(
         "0.0.1",
         description="schema version",
