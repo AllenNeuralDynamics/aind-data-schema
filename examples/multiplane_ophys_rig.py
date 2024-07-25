@@ -7,7 +7,7 @@ from aind_data_schema_models.organizations import (
     AllenInstitute,
     Allied,
     Asus,
-    Chameleon,
+    CoherentScientific,
     Conoptics,
     EdmundOptics,
     Hamamatsu,
@@ -29,10 +29,9 @@ from aind_data_schema.components.devices import (
     Cooling,
     DataInterface,
     Detector,
-    DetectorType,
     Disc,
     Filter,
-    Lamp,
+    LightEmittingDiode,
     Laser,
     Lens,
     PockelsCell,
@@ -44,8 +43,8 @@ from aind_data_schema.core.rig import Monitor, Rig
 rig = Rig(
     describedBy="https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/rig.py",  # noqa
     schema_version="0.5.3",
-    rig_id="MESO.2",
-    modification_date=date(2024, 4, 2),
+    rig_id="429-mesoscope-2022321",
+    modification_date=date(2022, 3, 21),
     mouse_platform=Disc(
         device_type="Disc",
         name="MindScope Running Disk",
@@ -574,9 +573,9 @@ rig = Rig(
             wavelength=920,
             wavelength_unit=SizeUnit.NM,
             serial_number="GDP.100H.1332",
-            manufacturer=Chameleon(name="Chameleon"),
+            manufacturer=CoherentScientific(name="Coherent Scientific"),
         ),
-        Lamp(
+        LightEmittingDiode(
             name="Epi lamp",
             wavelength_max=600,
             wavelength_min=350,
@@ -703,7 +702,7 @@ rig = Rig(
         ),
         Axis(name="Y", direction="defined by the right hand rule and the other two axis"),
     ],
-    modalities=set(),
+    modalities=set("ophys"),
     notes=None,
 )
 
