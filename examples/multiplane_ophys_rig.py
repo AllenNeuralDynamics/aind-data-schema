@@ -599,7 +599,7 @@ rig = Rig(
     pockels_cells=[
         PockelsCell(
             name="Pockels Cell 1",
-            polygonal_scanner="something",
+            polygonal_scanner="no polygon scanner",
             on_time=12.0,
             off_time=13.0,
             manufacturer=Conoptics(name="Conoptics"),
@@ -609,7 +609,7 @@ rig = Rig(
         PockelsCell(
             name="Pockels Cell 2",
             manufacturer=Conoptics(name="Conoptics"),
-            polygonal_scanner="something",
+            polygonal_scanner="no polygon scanner",
             on_time=12.0,
             off_time=13.0,
             model="530-80",
