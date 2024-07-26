@@ -772,6 +772,14 @@ class Treadmill(MousePlatform):
     width_unit: SizeUnit = Field(default=SizeUnit.CM, title="Width unit")
 
 
+class Arena(MousePlatform):
+    """Description of a rectangular arena"""
+
+    device_type: Literal["Arena"] = "Arena"
+    size: Size3d = Field(..., title="3D Size")
+    objects_in_arena: List[Device = Field(default=[], title="Objects in arena")]
+
+
 class Monitor(Device):
     """Description of visual display for visual stimuli"""
 
