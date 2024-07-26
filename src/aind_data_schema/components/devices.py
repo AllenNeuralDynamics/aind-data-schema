@@ -777,7 +777,7 @@ class Arena(MousePlatform):
 
     device_type: Literal["Arena"] = "Arena"
     size: Size3d = Field(..., title="3D Size")
-    objects_in_arena: List[Device = Field(default=[], title="Objects in arena")]
+    objects_in_arena: List[Device] = Field(default=[], title="Objects in arena")
 
 
 class Monitor(Device):
