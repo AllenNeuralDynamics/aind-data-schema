@@ -38,7 +38,7 @@ class AindGenericTests(unittest.TestCase):
             contains_dict={"foodict": 1, "bardict": "bar"},
         )
         deserialized = SubGenericContainer.model_validate_json(sub_generic_container.model_dump_json())
-        self.assertTrue(sub_generic_container == deserialized)
+        self.assertEqual(sub_generic_container, deserialized)
 
     def test_sub_generic_container_from_parent_round_trip(self):
         """tests a round trip (de)serialization of the SubGenericContainer from the parent"""
@@ -48,7 +48,7 @@ class AindGenericTests(unittest.TestCase):
         )
         deserialized_parent = GenericContainer.model_validate_json(sub_generic_container.model_dump_json())
         deserialized = SubGenericContainer.model_validate_json(deserialized_parent.model_dump_json())
-        self.assertTrue(sub_generic_container == deserialized)
+        self.assertEqual(sub_generic_container, deserialized)
 
     def test_sub_container_from_container(self):
         """tests if a model created directly from GenericContainer can be deserialized from the SubGenericContainer"""
@@ -62,4 +62,4 @@ class AindGenericTests(unittest.TestCase):
             contains_dict={"foodict": 1, "bardict": "bar"},
         )
         deserialized = SubGenericContainer.model_validate_json(parent_container.model_dump_json())
-        self.assertTrue(sub_generic_container == deserialized)
+        self.assertEqual(sub_generic_container, deserialized)
