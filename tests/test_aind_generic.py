@@ -1,4 +1,4 @@
-""" test Device models"""
+""" test round trip (de)serialization behavior of AindGeneric models"""
 
 import unittest
 
