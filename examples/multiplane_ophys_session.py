@@ -2,9 +2,12 @@
 
 from datetime import datetime, timezone
 
-from aind_data_schema_models.modalities import Modality
-from aind_data_schema_models.units import PowerUnit, SizeUnit
-
+from aind_data_schema.core.session import FieldOfView, LaserConfig, Session, Stream
+from aind_data_schema.models.units import PowerUnit, SizeUnit
+from aind_data_schema.models.modalities import Modality
+from aind_data_schema.models.units import PowerUnit, SizeUnit
+from aind_data_schema.models.devices import Detector, DetectorType
+from aind_data_schema.models.organizations import Hamamatsu
 from aind_data_schema.core.session import FieldOfView, LaserConfig, Session, Stream
 
 OUTPUT_PATH = "examples/"
@@ -20,7 +23,7 @@ s = Session(
     subject_id="12345",
     session_type="Mesoscope",
     iacuc_protocol="12345",
-    rig_id="MESO.1",
+    rig_id="429-mesoscope-2022321",
     mouse_platform_name="disc",
     active_mouse_platform=True,
     data_streams=[
@@ -37,7 +40,7 @@ s = Session(
             ],
             light_sources=[
                 LaserConfig(
-                    name="Laser A",
+                    name="Chameleon laser",
                     wavelength=920,
                     wavelength_unit="nanometer",
                     excitation_power=10,
