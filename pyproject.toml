@@ -14,7 +14,7 @@ readme = "README.md"
 dynamic = ["version"]
 
 dependencies = [
-    'aind-data-schema-models>=0.1.7',
+    'aind-data-schema-models>=0.1.7<=0.2.3',
     'dictdiffer',
     'pydantic>2.0',
     'inflection',
