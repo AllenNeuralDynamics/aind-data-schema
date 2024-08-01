@@ -6,9 +6,9 @@
    "instrument_type": "SmartSPIM",
    "manufacturer": {
       "name": "LifeCanvas",
-      "abbreviation": "",
+      "abbreviation": null,
       "registry": null,
-      "registry_identifier": ""
+      "registry_identifier": null
    },
    "temperature_control": false,
    "humidity_control": false,
@@ -21,7 +21,7 @@
             "name": "Technical Manufacturing Corporation",
             "abbreviation": "TMC",
             "registry": null,
-            "registry_identifier": ""
+            "registry_identifier": null
          },
          "model": "CleanTop",
          "path_to_cad": null,
@@ -42,7 +42,7 @@
          "serial_number": null,
          "manufacturer": {
             "name": "Thorlabs",
-            "abbreviation": "",
+            "abbreviation": null,
             "registry": {
                "name": "Research Organization Registry",
                "abbreviation": "ROR"
@@ -67,7 +67,7 @@
          "serial_number": "001107",
          "manufacturer": {
             "name": "Hamamatsu",
-            "abbreviation": "",
+            "abbreviation": null,
             "registry": {
                "name": "Research Organization Registry",
                "abbreviation": "ROR"
@@ -113,9 +113,9 @@
          "serial_number": "VL01222A11",
          "manufacturer": {
             "name": "Vortran",
-            "abbreviation": "",
+            "abbreviation": null,
             "registry": null,
-            "registry_identifier": ""
+            "registry_identifier": null
          },
          "model": "Stradus",
          "path_to_cad": null,
@@ -137,7 +137,7 @@
          "serial_number": "417927",
          "manufacturer": {
             "name": "Coherent Scientific",
-            "abbreviation": "",
+            "abbreviation": null,
             "registry": {
                "name": "Research Organization Registry",
                "abbreviation": "ROR"
@@ -164,9 +164,9 @@
          "serial_number": "VL01222A10",
          "manufacturer": {
             "name": "Vortran",
-            "abbreviation": "",
+            "abbreviation": null,
             "registry": null,
-            "registry_identifier": ""
+            "registry_identifier": null
          },
          "model": "Stradus",
          "path_to_cad": null,
@@ -191,9 +191,9 @@
          "serial_number": null,
          "manufacturer": {
             "name": "Semrock",
-            "abbreviation": "",
+            "abbreviation": null,
             "registry": null,
-            "registry_identifier": ""
+            "registry_identifier": null
          },
          "model": "FF03-525/50-25",
          "path_to_cad": null,
@@ -220,9 +220,9 @@
          "serial_number": null,
          "manufacturer": {
             "name": "Semrock",
-            "abbreviation": "",
+            "abbreviation": null,
             "registry": null,
-            "registry_identifier": ""
+            "registry_identifier": null
          },
          "model": "FF01-600/52-25",
          "path_to_cad": null,
@@ -249,9 +249,9 @@
          "serial_number": null,
          "manufacturer": {
             "name": "Chroma",
-            "abbreviation": "",
+            "abbreviation": null,
             "registry": null,
-            "registry_identifier": ""
+            "registry_identifier": null
          },
          "model": "ET690/50m",
          "path_to_cad": null,
@@ -282,7 +282,7 @@
             "name": "Applied Scientific Instrumentation",
             "abbreviation": "ASI",
             "registry": null,
-            "registry_identifier": ""
+            "registry_identifier": null
          },
          "model": "LS-100",
          "path_to_cad": null,
@@ -299,9 +299,9 @@
          "serial_number": null,
          "manufacturer": {
             "name": "IR Robot Co",
-            "abbreviation": "",
+            "abbreviation": null,
             "registry": null,
-            "registry_identifier": ""
+            "registry_identifier": null
          },
          "model": "L12-20F-4",
          "path_to_cad": null,
@@ -318,9 +318,9 @@
          "serial_number": null,
          "manufacturer": {
             "name": "IR Robot Co",
-            "abbreviation": "",
+            "abbreviation": null,
             "registry": null,
-            "registry_identifier": ""
+            "registry_identifier": null
          },
          "model": "L12-20F-4",
          "path_to_cad": null,
@@ -337,9 +337,9 @@
          "serial_number": null,
          "manufacturer": {
             "name": "IR Robot Co",
-            "abbreviation": "",
+            "abbreviation": null,
             "registry": null,
-            "registry_identifier": ""
+            "registry_identifier": null
          },
          "model": "L12-20F-4",
          "path_to_cad": null,
@@ -356,9 +356,9 @@
          "serial_number": null,
          "manufacturer": {
             "name": "IR Robot Co",
-            "abbreviation": "",
+            "abbreviation": null,
             "registry": null,
-            "registry_identifier": ""
+            "registry_identifier": null
          },
          "model": "L12-20F-4",
          "path_to_cad": null,
@@ -379,7 +379,7 @@
             "name": "Applied Scientific Instrumentation",
             "abbreviation": "ASI",
             "registry": null,
-            "registry_identifier": ""
+            "registry_identifier": null
          },
          "model": "LS-50",
          "path_to_cad": null,
@@ -400,7 +400,7 @@
             "name": "Applied Scientific Instrumentation",
             "abbreviation": "ASI",
             "registry": null,
-            "registry_identifier": ""
+            "registry_identifier": null
          },
          "model": "LS-50",
          "path_to_cad": null,
@@ -421,7 +421,7 @@
             "name": "Applied Scientific Instrumentation",
             "abbreviation": "ASI",
             "registry": null,
-            "registry_identifier": ""
+            "registry_identifier": null
          },
          "model": "LS-50",
          "path_to_cad": null,
@@ -442,9 +442,9 @@
          "serial_number": null,
          "manufacturer": {
             "name": "Optotune",
-            "abbreviation": "",
+            "abbreviation": null,
             "registry": null,
-            "registry_identifier": ""
+            "registry_identifier": null
          },
          "model": "EL-16-40-TC",
          "path_to_cad": null,
@@ -459,9 +459,9 @@
          "serial_number": null,
          "manufacturer": {
             "name": "Optotune",
-            "abbreviation": "",
+            "abbreviation": null,
             "registry": null,
-            "registry_identifier": ""
+            "registry_identifier": null
          },
          "model": "EL-16-40-TC",
          "path_to_cad": null,
@@ -476,9 +476,9 @@
          "serial_number": null,
          "manufacturer": {
             "name": "LifeCanvas",
-            "abbreviation": "",
+            "abbreviation": null,
             "registry": null,
-            "registry_identifier": ""
+            "registry_identifier": null
          },
          "model": "Large-uncoated-glass",
          "path_to_cad": null,

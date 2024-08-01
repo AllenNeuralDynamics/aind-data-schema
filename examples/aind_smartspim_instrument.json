@@ -6,9 +6,9 @@
    "instrument_type": "SmartSPIM",
    "manufacturer": {
       "name": "LifeCanvas",
-      "abbreviation": "",
+      "abbreviation": null,
       "registry": null,
-      "registry_identifier": ""
+      "registry_identifier": null
    },
    "temperature_control": false,
    "humidity_control": false,
@@ -19,7 +19,7 @@
          "serial_number": "Unknown",
          "manufacturer": {
             "name": "MKS Newport",
-            "abbreviation": "",
+            "abbreviation": null,
             "registry": {
                "name": "Research Organization Registry",
                "abbreviation": "ROR"
@@ -45,9 +45,9 @@
          "serial_number": "Unknown-1",
          "manufacturer": {
             "name": "LifeCanvas",
-            "abbreviation": "",
+            "abbreviation": null,
             "registry": null,
-            "registry_identifier": ""
+            "registry_identifier": null
          },
          "model": null,
          "path_to_cad": null,
@@ -65,9 +65,9 @@
          "serial_number": "Unknown-2",
          "manufacturer": {
             "name": "LifeCanvas",
-            "abbreviation": "",
+            "abbreviation": null,
             "registry": null,
-            "registry_identifier": ""
+            "registry_identifier": null
          },
          "model": null,
          "path_to_cad": null,
@@ -87,7 +87,7 @@
          "serial_number": "001284",
          "manufacturer": {
             "name": "Hamamatsu",
-            "abbreviation": "",
+            "abbreviation": null,
             "registry": {
                "name": "Research Organization Registry",
                "abbreviation": "ROR"
@@ -133,9 +133,9 @@
          "serial_number": "VL08223M03",
          "manufacturer": {
             "name": "Vortran",
-            "abbreviation": "",
+            "abbreviation": null,
             "registry": null,
-            "registry_identifier": ""
+            "registry_identifier": null
          },
          "model": null,
          "path_to_cad": null,
@@ -157,9 +157,9 @@
          "serial_number": "VL08223M03",
          "manufacturer": {
             "name": "Vortran",
-            "abbreviation": "",
+            "abbreviation": null,
             "registry": null,
-            "registry_identifier": ""
+            "registry_identifier": null
          },
          "model": null,
          "path_to_cad": null,
@@ -181,9 +181,9 @@
          "serial_number": "VL08223M03",
          "manufacturer": {
             "name": "Vortran",
-            "abbreviation": "",
+            "abbreviation": null,
             "registry": null,
-            "registry_identifier": ""
+            "registry_identifier": null
          },
          "model": null,
          "path_to_cad": null,
@@ -205,9 +205,9 @@
          "serial_number": "VL08223M03",
          "manufacturer": {
             "name": "Vortran",
-            "abbreviation": "",
+            "abbreviation": null,
             "registry": null,
-            "registry_identifier": ""
+            "registry_identifier": null
          },
          "model": null,
          "path_to_cad": null,
@@ -229,9 +229,9 @@
          "serial_number": "VL08223M03",
          "manufacturer": {
             "name": "Vortran",
-            "abbreviation": "",
+            "abbreviation": null,
             "registry": null,
-            "registry_identifier": ""
+            "registry_identifier": null
          },
          "model": null,
          "path_to_cad": null,
@@ -253,9 +253,9 @@
          "serial_number": "VL08223M03",
          "manufacturer": {
             "name": "Vortran",
-            "abbreviation": "",
+            "abbreviation": null,
             "registry": null,
-            "registry_identifier": ""
+            "registry_identifier": null
          },
          "model": null,
          "path_to_cad": null,
@@ -280,9 +280,9 @@
          "serial_number": "Unknown-0",
          "manufacturer": {
             "name": "Semrock",
-            "abbreviation": "",
+            "abbreviation": null,
             "registry": null,
-            "registry_identifier": ""
+            "registry_identifier": null
          },
          "model": "FF01-469/35-25",
          "path_to_cad": null,
@@ -309,9 +309,9 @@
          "serial_number": "Unknown-1",
          "manufacturer": {
             "name": "Semrock",
-            "abbreviation": "",
+            "abbreviation": null,
             "registry": null,
-            "registry_identifier": ""
+            "registry_identifier": null
          },
          "model": "FF01-525/45-25",
          "path_to_cad": null,
@@ -338,9 +338,9 @@
          "serial_number": "Unknown-2",
          "manufacturer": {
             "name": "Semrock",
-            "abbreviation": "",
+            "abbreviation": null,
             "registry": null,
-            "registry_identifier": ""
+            "registry_identifier": null
          },
          "model": "FF01-593/40-25",
          "path_to_cad": null,
@@ -367,9 +367,9 @@
          "serial_number": "Unknown-3",
          "manufacturer": {
             "name": "Semrock",
-            "abbreviation": "",
+            "abbreviation": null,
             "registry": null,
-            "registry_identifier": ""
+            "registry_identifier": null
          },
          "model": "FF01-624/40-25",
          "path_to_cad": null,
@@ -396,9 +396,9 @@
          "serial_number": "Unknown-4",
          "manufacturer": {
             "name": "Chroma",
-            "abbreviation": "",
+            "abbreviation": null,
             "registry": null,
-            "registry_identifier": ""
+            "registry_identifier": null
          },
          "model": "ET667/30m",
          "path_to_cad": null,
@@ -425,7 +425,7 @@
          "serial_number": "Unknown-5",
          "manufacturer": {
             "name": "Thorlabs",
-            "abbreviation": "",
+            "abbreviation": null,
             "registry": {
                "name": "Research Organization Registry",
                "abbreviation": "ROR"
@@ -461,7 +461,7 @@
             "name": "Applied Scientific Instrumentation",
             "abbreviation": "ASI",
             "registry": null,
-            "registry_identifier": ""
+            "registry_identifier": null
          },
          "model": "LS-100",
          "path_to_cad": null,
@@ -478,9 +478,9 @@
          "serial_number": "Unknown-5",
          "manufacturer": {
             "name": "IR Robot Co",
-            "abbreviation": "",
+            "abbreviation": null,
             "registry": null,
-            "registry_identifier": ""
+            "registry_identifier": null
          },
          "model": "L12-20F-4",
          "path_to_cad": null,
@@ -497,9 +497,9 @@
          "serial_number": "Unknown-6",
          "manufacturer": {
             "name": "IR Robot Co",
-            "abbreviation": "",
+            "abbreviation": null,
             "registry": null,
-            "registry_identifier": ""
+            "registry_identifier": null
          },
          "model": "L12-20F-4",
          "path_to_cad": null,
@@ -516,9 +516,9 @@
          "serial_number": "Unknown-7",
          "manufacturer": {
             "name": "IR Robot Co",
-            "abbreviation": "",
+            "abbreviation": null,
             "registry": null,
-            "registry_identifier": ""
+            "registry_identifier": null
          },
          "model": "L12-20F-4",
          "path_to_cad": null,
@@ -535,9 +535,9 @@
          "serial_number": "Unknown-8",
          "manufacturer": {
             "name": "IR Robot Co",
-            "abbreviation": "",
+            "abbreviation": null,
             "registry": null,
-            "registry_identifier": ""
+            "registry_identifier": null
          },
          "model": "L12-20F-4",
          "path_to_cad": null,
@@ -558,7 +558,7 @@
             "name": "Applied Scientific Instrumentation",
             "abbreviation": "ASI",
             "registry": null,
-            "registry_identifier": ""
+            "registry_identifier": null
          },
          "model": "LS-50",
          "path_to_cad": null,
@@ -579,7 +579,7 @@
             "name": "Applied Scientific Instrumentation",
             "abbreviation": "ASI",
             "registry": null,
-            "registry_identifier": ""
+            "registry_identifier": null
          },
          "model": "LS-50",
          "path_to_cad": null,
@@ -600,7 +600,7 @@
             "name": "Applied Scientific Instrumentation",
             "abbreviation": "ASI",
             "registry": null,
-            "registry_identifier": ""
+            "registry_identifier": null
          },
          "model": "LS-50",
          "path_to_cad": null,

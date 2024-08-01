@@ -171,7 +171,7 @@
                "name": "Chicken polyclonal",
                "source": {
                   "name": "Abcam",
-                  "abbreviation": "",
+                  "abbreviation": null,
                   "registry": {
                      "name": "Research Organization Registry",
                      "abbreviation": "ROR"
@@ -216,7 +216,7 @@
                "name": "Alexa Fluor 488 goat anti-chicken IgY (H+L)",
                "source": {
                   "name": "Thermo Fisher Scientific",
-                  "abbreviation": "",
+                  "abbreviation": null,
                   "registry": {
                      "name": "Research Organization Registry",
                      "abbreviation": "ROR"

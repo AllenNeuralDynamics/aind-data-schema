@@ -39,9 +39,9 @@
                "name": "reagent1",
                "source": {
                   "name": "Other",
-                  "abbreviation": "",
+                  "abbreviation": null,
                   "registry": null,
-                  "registry_identifier": ""
+                  "registry_identifier": null
                },
                "rrid": {
                   "name": "xxx",

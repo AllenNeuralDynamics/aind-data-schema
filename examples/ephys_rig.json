@@ -77,7 +77,7 @@
             "serial_number": null,
             "manufacturer": {
                "name": "Edmund Optics",
-               "abbreviation": "",
+               "abbreviation": null,
                "registry": {
                   "name": "Research Organization Registry",
                   "abbreviation": "ROR"
@@ -103,7 +103,7 @@
             "serial_number": null,
             "manufacturer": {
                "name": "Thorlabs",
-               "abbreviation": "",
+               "abbreviation": null,
                "registry": {
                   "name": "Research Organization Registry",
                   "abbreviation": "ROR"
@@ -184,7 +184,7 @@
             "serial_number": null,
             "manufacturer": {
                "name": "Edmund Optics",
-               "abbreviation": "",
+               "abbreviation": null,
                "registry": {
                   "name": "Research Organization Registry",
                   "abbreviation": "ROR"
@@ -210,7 +210,7 @@
             "serial_number": null,
             "manufacturer": {
                "name": "Thorlabs",
-               "abbreviation": "",
+               "abbreviation": null,
                "registry": {
                   "name": "Research Organization Registry",
                   "abbreviation": "ROR"
@@ -249,9 +249,9 @@
             "serial_number": "SN2938",
             "manufacturer": {
                "name": "New Scale Technologies",
-               "abbreviation": "",
+               "abbreviation": null,
                "registry": null,
-               "registry_identifier": ""
+               "registry_identifier": null
             },
             "model": null,
             "path_to_cad": null,
@@ -284,9 +284,9 @@
             "serial_number": "SN2939",
             "manufacturer": {
                "name": "New Scale Technologies",
-               "abbreviation": "",
+               "abbreviation": null,
                "registry": null,
-               "registry_identifier": ""
+               "registry_identifier": null
             },
             "model": null,
             "path_to_cad": null,
@@ -367,7 +367,7 @@
             "serial_number": null,
             "manufacturer": {
                "name": "Edmund Optics",
-               "abbreviation": "",
+               "abbreviation": null,
                "registry": {
                   "name": "Research Organization Registry",
                   "abbreviation": "ROR"
@@ -443,7 +443,7 @@
             "serial_number": null,
             "manufacturer": {
                "name": "Edmund Optics",
-               "abbreviation": "",
+               "abbreviation": null,
                "registry": {
                   "name": "Research Organization Registry",
                   "abbreviation": "ROR"
@@ -519,7 +519,7 @@
             "serial_number": null,
             "manufacturer": {
                "name": "Edmund Optics",
-               "abbreviation": "",
+               "abbreviation": null,
                "registry": {
                   "name": "Research Organization Registry",
                   "abbreviation": "ROR"
@@ -595,7 +595,7 @@
             "serial_number": null,
             "manufacturer": {
                "name": "Edmund Optics",
-               "abbreviation": "",
+               "abbreviation": null,
                "registry": {
                   "name": "Research Organization Registry",
                   "abbreviation": "ROR"
@@ -628,9 +628,9 @@
             "serial_number": "SN2937",
             "manufacturer": {
                "name": "New Scale Technologies",
-               "abbreviation": "",
+               "abbreviation": null,
                "registry": null,
-               "registry_identifier": ""
+               "registry_identifier": null
             },
             "model": null,
             "path_to_cad": null,
@@ -645,9 +645,9 @@
                "serial_number": null,
                "manufacturer": {
                   "name": "Oxxius",
-                  "abbreviation": "",
+                  "abbreviation": null,
                   "registry": null,
-                  "registry_identifier": ""
+                  "registry_identifier": null
                },
                "model": null,
                "path_to_cad": null,
@@ -669,9 +669,9 @@
                "serial_number": null,
                "manufacturer": {
                   "name": "Oxxius",
-                  "abbreviation": "",
+                  "abbreviation": null,
                   "registry": null,
-                  "registry_identifier": ""
+                  "registry_identifier": null
                },
                "model": null,
                "path_to_cad": null,
@@ -705,7 +705,7 @@
             "serial_number": null,
             "manufacturer": {
                "name": "Doric",
-               "abbreviation": "",
+               "abbreviation": null,
                "registry": {
                   "name": "Research Organization Registry",
                   "abbreviation": "ROR"
