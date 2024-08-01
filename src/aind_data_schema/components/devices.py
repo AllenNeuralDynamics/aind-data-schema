@@ -569,9 +569,7 @@ class NeuropixelsBasestation(DAQDevice):
 
     # fixed values
     data_interface: Literal[DataInterface.PXI] = DataInterface.PXI
-    manufacturer: Annotated[
-        Union[Organization.IMEC.__class__], Field(default=Organization.IMEC, discriminator="name")
-    ]
+    manufacturer: Annotated[Union[Organization.IMEC.__class__], Field(default=Organization.IMEC, discriminator="name")]
 
 
 class OpenEphysAcquisitionBoard(DAQDevice):

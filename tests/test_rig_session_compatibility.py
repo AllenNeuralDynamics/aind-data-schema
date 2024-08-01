@@ -1,4 +1,5 @@
 """Tests rig session compatibility check"""
+
 import unittest
 
 from aind_data_schema.utils.compatibility_check import RigSessionCompatibility

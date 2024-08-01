@@ -1,4 +1,5 @@
 """Utility methods to check compatibility"""
+
 from typing import Optional
 
 from aind_data_schema.core.rig import RewardDelivery, Rig
