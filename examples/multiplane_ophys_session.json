@@ -261,7 +261,7 @@
          "stream_modalities": [
             {
                "name": "Planar optical physiology",
-               "abbreviation": "ophys"
+               "abbreviation": "pophys"
             },
             {
                "name": "Behavior videos",

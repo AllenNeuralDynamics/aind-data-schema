@@ -42,9 +42,9 @@
                "name": "SHIELD Buffer",
                "source": {
                   "name": "LifeCanvas",
-                  "abbreviation": null,
+                  "abbreviation": "",
                   "registry": null,
-                  "registry_identifier": null
+                  "registry_identifier": ""
                },
                "rrid": null,
                "lot_number": "1234",
@@ -54,9 +54,9 @@
                "name": "SHIELD Epoxy",
                "source": {
                   "name": "LifeCanvas",
-                  "abbreviation": null,
+                  "abbreviation": "",
                   "registry": null,
-                  "registry_identifier": null
+                  "registry_identifier": ""
                },
                "rrid": null,
                "lot_number": "1234",
@@ -83,9 +83,9 @@
                "name": "SHIELD On",
                "source": {
                   "name": "LifeCanvas",
-                  "abbreviation": null,
+                  "abbreviation": "",
                   "registry": null,
-                  "registry_identifier": null
+                  "registry_identifier": ""
                },
                "rrid": null,
                "lot_number": "1234",
@@ -112,9 +112,9 @@
                "name": "Delipidation Buffer",
                "source": {
                   "name": "Other",
-                  "abbreviation": null,
+                  "abbreviation": "",
                   "registry": null,
-                  "registry_identifier": null
+                  "registry_identifier": ""
                },
                "rrid": null,
                "lot_number": "1234",
@@ -141,9 +141,9 @@
                "name": "Delipidation Buffer",
                "source": {
                   "name": "Other",
-                  "abbreviation": null,
+                  "abbreviation": "",
                   "registry": null,
-                  "registry_identifier": null
+                  "registry_identifier": ""
                },
                "rrid": null,
                "lot_number": "1234",
@@ -153,9 +153,9 @@
                "name": "Conductivity Buffer",
                "source": {
                   "name": "Other",
-                  "abbreviation": null,
+                  "abbreviation": "",
                   "registry": null,
-                  "registry_identifier": null
+                  "registry_identifier": ""
                },
                "rrid": null,
                "lot_number": "1234",
@@ -182,9 +182,9 @@
                "name": "Easy Index",
                "source": {
                   "name": "LifeCanvas",
-                  "abbreviation": null,
+                  "abbreviation": "",
                   "registry": null,
-                  "registry_identifier": null
+                  "registry_identifier": ""
                },
                "rrid": null,
                "lot_number": "1234",
@@ -194,9 +194,9 @@
                "name": "Deionized water",
                "source": {
                   "name": "Other",
-                  "abbreviation": null,
+                  "abbreviation": "",
                   "registry": null,
-                  "registry_identifier": null
+                  "registry_identifier": ""
                },
                "rrid": null,
                "lot_number": "DDI/Filtered in house",
@@ -223,9 +223,9 @@
                "name": "Easy Index",
                "source": {
                   "name": "LifeCanvas",
-                  "abbreviation": null,
+                  "abbreviation": "",
                   "registry": null,
-                  "registry_identifier": null
+                  "registry_identifier": ""
                },
                "rrid": null,
                "lot_number": "1234",
@@ -252,9 +252,9 @@
                "name": "Easy Index",
                "source": {
                   "name": "LifeCanvas",
-                  "abbreviation": null,
+                  "abbreviation": "",
                   "registry": null,
-                  "registry_identifier": null
+                  "registry_identifier": ""
                },
                "rrid": null,
                "lot_number": "1234",
@@ -264,9 +264,9 @@
                "name": "Agarose",
                "source": {
                   "name": "Other",
-                  "abbreviation": null,
+                  "abbreviation": "",
                   "registry": null,
-                  "registry_identifier": null
+                  "registry_identifier": ""
                },
                "rrid": null,
                "lot_number": "1234",

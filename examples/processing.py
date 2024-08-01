@@ -28,7 +28,7 @@ p = Processing(
                 parameters={"size": 7},
             ),
             DataProcess(
-                name=ProcessName.FILE_CONVERSION,
+                name=ProcessName.FILE_FORMAT_CONVERSION,
                 software_version="0.0.1",
                 start_date_time=t,
                 end_date_time=t,

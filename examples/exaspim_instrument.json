@@ -6,9 +6,9 @@
    "instrument_type": "exaSPIM",
    "manufacturer": {
       "name": "Custom",
-      "abbreviation": null,
+      "abbreviation": "",
       "registry": null,
-      "registry_identifier": null
+      "registry_identifier": ""
    },
    "temperature_control": false,
    "humidity_control": false,
@@ -19,7 +19,7 @@
          "serial_number": null,
          "manufacturer": {
             "name": "MKS Newport",
-            "abbreviation": null,
+            "abbreviation": "",
             "registry": {
                "name": "Research Organization Registry",
                "abbreviation": "ROR"
@@ -45,9 +45,9 @@
          "serial_number": null,
          "manufacturer": {
             "name": "Other",
-            "abbreviation": null,
+            "abbreviation": "",
             "registry": null,
-            "registry_identifier": null
+            "registry_identifier": ""
          },
          "model": "JM_DIAMOND 5.0X/1.3",
          "path_to_cad": null,
@@ -67,9 +67,9 @@
          "serial_number": "MB151BAY001",
          "manufacturer": {
             "name": "Vieworks",
-            "abbreviation": null,
+            "abbreviation": "",
             "registry": null,
-            "registry_identifier": null
+            "registry_identifier": ""
          },
          "model": "VNP-604MX",
          "path_to_cad": null,
@@ -110,9 +110,9 @@
          "serial_number": "LAS-08307",
          "manufacturer": {
             "name": "Oxxius",
-            "abbreviation": null,
+            "abbreviation": "",
             "registry": null,
-            "registry_identifier": null
+            "registry_identifier": ""
          },
          "model": null,
          "path_to_cad": null,
@@ -134,9 +134,9 @@
          "serial_number": "LAS-08308",
          "manufacturer": {
             "name": "Oxxius",
-            "abbreviation": null,
+            "abbreviation": "",
             "registry": null,
-            "registry_identifier": null
+            "registry_identifier": ""
          },
          "model": null,
          "path_to_cad": null,
@@ -158,9 +158,9 @@
          "serial_number": "539251",
          "manufacturer": {
             "name": "Oxxius",
-            "abbreviation": null,
+            "abbreviation": "",
             "registry": null,
-            "registry_identifier": null
+            "registry_identifier": ""
          },
          "model": null,
          "path_to_cad": null,
@@ -182,9 +182,9 @@
          "serial_number": "LAS-08309",
          "manufacturer": {
             "name": "Oxxius",
-            "abbreviation": null,
+            "abbreviation": "",
             "registry": null,
-            "registry_identifier": null
+            "registry_identifier": ""
          },
          "model": null,
          "path_to_cad": null,
@@ -209,9 +209,9 @@
          "serial_number": null,
          "manufacturer": {
             "name": "Chroma",
-            "abbreviation": null,
+            "abbreviation": "",
             "registry": null,
-            "registry_identifier": null
+            "registry_identifier": ""
          },
          "model": "ZET405/488/561/640mv2",
          "path_to_cad": null,
@@ -243,7 +243,7 @@
             "name": "Applied Scientific Instrumentation",
             "abbreviation": "ASI",
             "registry": null,
-            "registry_identifier": null
+            "registry_identifier": ""
          },
          "model": "MS-8000",
          "path_to_cad": null,
@@ -264,7 +264,7 @@
             "name": "Applied Scientific Instrumentation",
             "abbreviation": "ASI",
             "registry": null,
-            "registry_identifier": null
+            "registry_identifier": ""
          },
          "model": "MS-8000",
          "path_to_cad": null,
@@ -285,7 +285,7 @@
             "name": "Applied Scientific Instrumentation",
             "abbreviation": "ASI",
             "registry": null,
-            "registry_identifier": null
+            "registry_identifier": ""
          },
          "model": "LS-100",
          "path_to_cad": null,
@@ -306,9 +306,9 @@
          "serial_number": "01",
          "manufacturer": {
             "name": "Optotune",
-            "abbreviation": null,
+            "abbreviation": "",
             "registry": null,
-            "registry_identifier": null
+            "registry_identifier": ""
          },
          "model": "EL-16-40-TC-VIS-20D-C",
          "path_to_cad": null,
@@ -323,7 +323,7 @@
          "serial_number": "01",
          "manufacturer": {
             "name": "Thorlabs",
-            "abbreviation": null,
+            "abbreviation": "",
             "registry": {
                "name": "Research Organization Registry",
                "abbreviation": "ROR"
@@ -343,9 +343,9 @@
          "serial_number": "L6CC-00513",
          "manufacturer": {
             "name": "Oxxius",
-            "abbreviation": null,
+            "abbreviation": "",
             "registry": null,
-            "registry_identifier": null
+            "registry_identifier": ""
          },
          "model": "L6Cc",
          "path_to_cad": null,
@@ -374,7 +374,7 @@
          "serial_number": null,
          "manufacturer": {
             "name": "National Instruments",
-            "abbreviation": null,
+            "abbreviation": "",
             "registry": {
                "name": "Research Organization Registry",
                "abbreviation": "ROR"

@@ -6,8 +6,7 @@ from enum import Enum
 from typing import List, Literal, Optional, Union
 
 from aind_data_schema_models.harp_types import HarpDeviceType
-from aind_data_schema_models.harp_types import Olfactometer as OlfactometerHarpType
-from aind_data_schema_models.organizations import InteruniversityMicroelectronicsCenter, Organization
+from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.units import (
     FrequencyUnit,
     PowerUnit,
@@ -571,7 +570,7 @@ class NeuropixelsBasestation(DAQDevice):
     # fixed values
     data_interface: Literal[DataInterface.PXI] = DataInterface.PXI
     manufacturer: Annotated[
-        Union[InteruniversityMicroelectronicsCenter], Field(default=Organization.IMEC, discriminator="name")
+        Union[Organization.IMEC.__class__], Field(default=Organization.IMEC, discriminator="name")
     ]
 
 
@@ -871,7 +870,7 @@ class Olfactometer(HarpDevice):
     device_type: Literal["Olfactometer"] = "Olfactometer"
     manufacturer: Organization.DAQ_DEVICE_MANUFACTURERS = Field(default=Organization.CHAMPALIMAUD)
     harp_device_type: Annotated[
-        Union[OlfactometerHarpType], Field(default=HarpDeviceType.OLFACTOMETER, discriminator="name")
+        Union[HarpDeviceType.OLFACTOMETER.__class__], Field(default=HarpDeviceType.OLFACTOMETER, discriminator="name")
     ]
     channels: List[OlfactometerChannel]
 

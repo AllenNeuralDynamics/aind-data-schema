@@ -27,9 +27,9 @@
             "serial_number": "xxxx",
             "manufacturer": {
                "name": "New Scale Technologies",
-               "abbreviation": null,
+               "abbreviation": "",
                "registry": null,
-               "registry_identifier": null
+               "registry_identifier": ""
             },
             "model": null,
             "path_to_cad": null,
@@ -110,9 +110,9 @@
             "serial_number": "TBD",
             "manufacturer": {
                "name": "Ailipu Technology Co",
-               "abbreviation": null,
+               "abbreviation": "Ailipu",
                "registry": null,
-               "registry_identifier": null
+               "registry_identifier": ""
             },
             "model": "ELP-USBFHD05MT-KL170IR",
             "path_to_cad": null,
@@ -156,9 +156,9 @@
             "serial_number": "unknown",
             "manufacturer": {
                "name": "Other",
-               "abbreviation": null,
+               "abbreviation": "",
                "registry": null,
-               "registry_identifier": null
+               "registry_identifier": ""
             },
             "model": "XC0922LENS",
             "path_to_cad": null,
@@ -185,9 +185,9 @@
             "serial_number": "TBD",
             "manufacturer": {
                "name": "Ailipu Technology Co",
-               "abbreviation": null,
+               "abbreviation": "Ailipu",
                "registry": null,
-               "registry_identifier": null
+               "registry_identifier": ""
             },
             "model": "ELP-USBFHD05MT-KL170IR",
             "path_to_cad": null,
@@ -231,9 +231,9 @@
             "serial_number": "unknown",
             "manufacturer": {
                "name": "Other",
-               "abbreviation": null,
+               "abbreviation": "",
                "registry": null,
-               "registry_identifier": null
+               "registry_identifier": ""
             },
             "model": "XC0922LENS",
             "path_to_cad": null,
@@ -264,7 +264,7 @@
          "serial_number": null,
          "manufacturer": {
             "name": "Doric",
-            "abbreviation": null,
+            "abbreviation": "",
             "registry": {
                "name": "Research Organization Registry",
                "abbreviation": "ROR"
@@ -288,7 +288,7 @@
          "serial_number": null,
          "manufacturer": {
             "name": "Thorlabs",
-            "abbreviation": null,
+            "abbreviation": "",
             "registry": {
                "name": "Research Organization Registry",
                "abbreviation": "ROR"
@@ -311,7 +311,7 @@
          "serial_number": null,
          "manufacturer": {
             "name": "Thorlabs",
-            "abbreviation": null,
+            "abbreviation": "",
             "registry": {
                "name": "Research Organization Registry",
                "abbreviation": "ROR"
@@ -334,7 +334,7 @@
          "serial_number": null,
          "manufacturer": {
             "name": "Thorlabs",
-            "abbreviation": null,
+            "abbreviation": "",
             "registry": {
                "name": "Research Organization Registry",
                "abbreviation": "ROR"
@@ -449,7 +449,7 @@
          "serial_number": "128022336",
          "manufacturer": {
             "name": "Nikon",
-            "abbreviation": null,
+            "abbreviation": "",
             "registry": {
                "name": "Research Organization Registry",
                "abbreviation": "ROR"
@@ -474,9 +474,9 @@
          "serial_number": null,
          "manufacturer": {
             "name": "Semrock",
-            "abbreviation": null,
+            "abbreviation": "",
             "registry": null,
-            "registry_identifier": null
+            "registry_identifier": ""
          },
          "model": "FF01-520/35-25",
          "path_to_cad": null,
@@ -503,9 +503,9 @@
          "serial_number": null,
          "manufacturer": {
             "name": "Semrock",
-            "abbreviation": null,
+            "abbreviation": "",
             "registry": null,
-            "registry_identifier": null
+            "registry_identifier": ""
          },
          "model": "FF01-600/37-25",
          "path_to_cad": null,
@@ -532,9 +532,9 @@
          "serial_number": null,
          "manufacturer": {
             "name": "Semrock",
-            "abbreviation": null,
+            "abbreviation": "",
             "registry": null,
-            "registry_identifier": null
+            "registry_identifier": ""
          },
          "model": "FF562-Di03-25x36",
          "path_to_cad": null,
@@ -561,9 +561,9 @@
          "serial_number": null,
          "manufacturer": {
             "name": "Semrock",
-            "abbreviation": null,
+            "abbreviation": "",
             "registry": null,
-            "registry_identifier": null
+            "registry_identifier": ""
          },
          "model": "FF493/574-Di01-25x36",
          "path_to_cad": null,
@@ -590,7 +590,7 @@
          "serial_number": null,
          "manufacturer": {
             "name": "Thorlabs",
-            "abbreviation": null,
+            "abbreviation": "",
             "registry": {
                "name": "Research Organization Registry",
                "abbreviation": "ROR"
@@ -622,7 +622,7 @@
          "serial_number": null,
          "manufacturer": {
             "name": "Thorlabs",
-            "abbreviation": null,
+            "abbreviation": "",
             "registry": {
                "name": "Research Organization Registry",
                "abbreviation": "ROR"
@@ -654,7 +654,7 @@
          "serial_number": null,
          "manufacturer": {
             "name": "Thorlabs",
-            "abbreviation": null,
+            "abbreviation": "",
             "registry": {
                "name": "Research Organization Registry",
                "abbreviation": "ROR"
@@ -686,7 +686,7 @@
          "serial_number": null,
          "manufacturer": {
             "name": "Edmund Optics",
-            "abbreviation": null,
+            "abbreviation": "",
             "registry": {
                "name": "Research Organization Registry",
                "abbreviation": "ROR"
@@ -718,7 +718,7 @@
          "serial_number": null,
          "manufacturer": {
             "name": "Edmund Optics",
-            "abbreviation": null,
+            "abbreviation": "",
             "registry": {
                "name": "Research Organization Registry",
                "abbreviation": "ROR"
@@ -752,7 +752,7 @@
          "serial_number": null,
          "manufacturer": {
             "name": "Thorlabs",
-            "abbreviation": null,
+            "abbreviation": "",
             "registry": {
                "name": "Research Organization Registry",
                "abbreviation": "ROR"
@@ -866,7 +866,7 @@
          "hardware_version": null,
          "harp_device_type": {
             "name": "Behavior",
-            "whoami": 1216
+            "whoami": "1216"
          },
          "core_version": "2.1",
          "tag_version": null,
