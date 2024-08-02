@@ -23,7 +23,7 @@ class Status(Enum):
 class QCEvaluation(AindModel):
     """Description of one evaluation stage"""
 
-    evaluation_modality: Modality = Field(..., title="Modality")
+    evaluation_modality: Modality.ONE_OF = Field(..., title="Modality")
     evaluation_stage: str = Field(..., title="Evaluation stage")
     evaluator_full_name: str = Field(..., title="Evaluator full name")
     evaluation_date: date = Field(..., title="Evaluation date")
