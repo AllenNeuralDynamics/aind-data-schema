@@ -16,8 +16,6 @@ from aind_data_schema.components.devices import (
 )
 from aind_data_schema.core.instrument import Com, Instrument
 
-OUTPUT_PATH = "examples/"
-
 inst = Instrument(
     instrument_id="440_SmartSPIM2_20231004",
     modification_date=datetime.date(2023, 10, 4),
@@ -213,4 +211,4 @@ inst = Instrument(
 )
 serialized = inst.model_dump_json()
 deserialized = Instrument.model_validate_json(serialized)
-deserialized.write_standard_file(prefix="aibs_smartspim", output_directory=OUTPUT_PATH)
+deserialized.write_standard_file(prefix="aibs_smartspim")

@@ -8,8 +8,6 @@ from aind_data_schema_models.modalities import Modality
 import aind_data_schema.components.devices as d
 import aind_data_schema.core.rig as r
 
-OUTPUT_PATH = "examples/"
-
 r = r.Rig(
     rig_id="447_FIP-Behavior_20000101",
     modification_date=date(2000, 1, 1),
@@ -342,4 +340,4 @@ r = r.Rig(
     ],
 )
 
-r.write_standard_file(prefix="fip_behavior", output_directory=OUTPUT_PATH)
+r.write_standard_file(prefix="fip_behavior")

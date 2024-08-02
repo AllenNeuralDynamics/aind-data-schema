@@ -1,8 +1,6 @@
 """Generates an example JSON file for an ephys session"""
 
-import os
 from datetime import datetime, timezone
-from pathlib import Path
 
 from aind_data_schema_models.modalities import Modality
 
@@ -18,8 +16,6 @@ from aind_data_schema.core.session import (
     Stream,
     VisualStimulation,
 )
-
-OUTPUT_PATH = Path(os.path.dirname(os.path.realpath(__file__)))
 
 session = Session(
     experimenter_full_name=["Max Quibble", "Finn Tickle"],
@@ -204,4 +200,4 @@ session = Session(
 
 serialized = session.model_dump_json()
 deserialized = Session.model_validate_json(serialized)
-deserialized.write_standard_file(prefix="ephys", output_directory=OUTPUT_PATH)
+deserialized.write_standard_file(prefix="ephys")

@@ -7,8 +7,6 @@ from aind_data_schema_models.species import Species
 
 from aind_data_schema.core.subject import BreedingInfo, Housing, Sex, Subject
 
-OUTPUT_PATH = "examples/"
-
 # If a timezone isn't specified, the timezone of the computer running this
 # script will be used as default
 t = datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc)
@@ -32,4 +30,4 @@ s = Subject(
 )
 serialized = s.model_dump_json()
 deserialized = Subject.model_validate_json(serialized)
-deserialized.write_standard_file(output_directory=OUTPUT_PATH)
+deserialized.write_standard_file()
