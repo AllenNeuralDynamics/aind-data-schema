@@ -368,21 +368,22 @@
             "level": {
                "anyOf": [
                   {
-                     "maximum": 5.0,
-                     "minimum": 1.0,
                      "type": "number"
                   },
                   {
                      "type": "string"
+                  },
+                  {
+                     "type": "null"
                   }
                ],
+               "default": null,
                "title": "Level (percent)"
             }
          },
          "required": [
             "type",
-            "duration",
-            "level"
+            "duration"
          ],
          "title": "Anaesthetic",
          "type": "object"
@@ -433,6 +434,7 @@
                      "Doric": "#/$defs/Doric",
                      "Ealing": "#/$defs/Ealing",
                      "Edmund Optics": "#/$defs/EdmundOptics",
+                     "Emory University": "#/$defs/EmoryUniversity",
                      "Euresys": "#/$defs/Euresys",
                      "Fujinon": "#/$defs/Fujinon",
                      "Hamamatsu": "#/$defs/Hamamatsu",
@@ -441,6 +443,7 @@
                      "IR Robot Co": "#/$defs/IRRobotCo",
                      "ISL Products International": "#/$defs/ISLProductsInternational",
                      "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
+                     "Integrated DNA Technologies": "#/$defs/IntegratedDNATechnologies",
                      "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
                      "Invitrogen": "#/$defs/Invitrogen",
                      "Jackson Laboratory": "#/$defs/JacksonLaboratory",
@@ -449,6 +452,7 @@
                      "LG": "#/$defs/Lg",
                      "Leica": "#/$defs/Leica",
                      "LifeCanvas": "#/$defs/LifeCanvas",
+                     "Lumen Dynamics": "#/$defs/LumenDynamics",
                      "MBF Bioscience": "#/$defs/MBFBioscience",
                      "MKS Newport": "#/$defs/MKSNewport",
                      "MPI": "#/$defs/Mpi",
@@ -576,6 +580,9 @@
                      "$ref": "#/$defs/EdmundOptics"
                   },
                   {
+                     "$ref": "#/$defs/EmoryUniversity"
+                  },
+                  {
                      "$ref": "#/$defs/Euresys"
                   },
                   {
@@ -592,6 +599,9 @@
                   },
                   {
                      "$ref": "#/$defs/TheImagingSource"
+                  },
+                  {
+                     "$ref": "#/$defs/IntegratedDNATechnologies"
                   },
                   {
                      "$ref": "#/$defs/InteruniversityMicroelectronicsCenter"
@@ -751,6 +761,9 @@
                   },
                   {
                      "$ref": "#/$defs/CarlZeiss"
+                  },
+                  {
+                     "$ref": "#/$defs/LumenDynamics"
                   },
                   {
                      "$ref": "#/$defs/Other"
@@ -1701,6 +1714,47 @@
          "title": "EdmundOptics",
          "type": "object"
       },
+      "EmoryUniversity": {
+         "additionalProperties": false,
+         "description": "EmoryUniversity",
+         "properties": {
+            "name": {
+               "const": "Emory University",
+               "default": "Emory University",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "Emory",
+               "default": "Emory",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "03czfpz43",
+               "default": "03czfpz43",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "EmoryUniversity",
+         "type": "object"
+      },
       "Euresys": {
          "additionalProperties": false,
          "description": "Euresys",
@@ -1823,6 +1877,7 @@
                            "Doric": "#/$defs/Doric",
                            "Ealing": "#/$defs/Ealing",
                            "Edmund Optics": "#/$defs/EdmundOptics",
+                           "Emory University": "#/$defs/EmoryUniversity",
                            "Euresys": "#/$defs/Euresys",
                            "Fujinon": "#/$defs/Fujinon",
                            "Hamamatsu": "#/$defs/Hamamatsu",
@@ -1831,6 +1886,7 @@
                            "IR Robot Co": "#/$defs/IRRobotCo",
                            "ISL Products International": "#/$defs/ISLProductsInternational",
                            "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
+                           "Integrated DNA Technologies": "#/$defs/IntegratedDNATechnologies",
                            "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
                            "Invitrogen": "#/$defs/Invitrogen",
                            "Jackson Laboratory": "#/$defs/JacksonLaboratory",
@@ -1839,6 +1895,7 @@
                            "LG": "#/$defs/Lg",
                            "Leica": "#/$defs/Leica",
                            "LifeCanvas": "#/$defs/LifeCanvas",
+                           "Lumen Dynamics": "#/$defs/LumenDynamics",
                            "MBF Bioscience": "#/$defs/MBFBioscience",
                            "MKS Newport": "#/$defs/MKSNewport",
                            "MPI": "#/$defs/Mpi",
@@ -1966,6 +2023,9 @@
                            "$ref": "#/$defs/EdmundOptics"
                         },
                         {
+                           "$ref": "#/$defs/EmoryUniversity"
+                        },
+                        {
                            "$ref": "#/$defs/Euresys"
                         },
                         {
@@ -1982,6 +2042,9 @@
                         },
                         {
                            "$ref": "#/$defs/TheImagingSource"
+                        },
+                        {
+                           "$ref": "#/$defs/IntegratedDNATechnologies"
                         },
                         {
                            "$ref": "#/$defs/InteruniversityMicroelectronicsCenter"
@@ -2141,6 +2204,9 @@
                         },
                         {
                            "$ref": "#/$defs/CarlZeiss"
+                        },
+                        {
+                           "$ref": "#/$defs/LumenDynamics"
                         },
                         {
                            "$ref": "#/$defs/Other"
@@ -2393,6 +2459,7 @@
                      "Doric": "#/$defs/Doric",
                      "Ealing": "#/$defs/Ealing",
                      "Edmund Optics": "#/$defs/EdmundOptics",
+                     "Emory University": "#/$defs/EmoryUniversity",
                      "Euresys": "#/$defs/Euresys",
                      "Fujinon": "#/$defs/Fujinon",
                      "Hamamatsu": "#/$defs/Hamamatsu",
@@ -2401,6 +2468,7 @@
                      "IR Robot Co": "#/$defs/IRRobotCo",
                      "ISL Products International": "#/$defs/ISLProductsInternational",
                      "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
+                     "Integrated DNA Technologies": "#/$defs/IntegratedDNATechnologies",
                      "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
                      "Invitrogen": "#/$defs/Invitrogen",
                      "Jackson Laboratory": "#/$defs/JacksonLaboratory",
@@ -2409,6 +2477,7 @@
                      "LG": "#/$defs/Lg",
                      "Leica": "#/$defs/Leica",
                      "LifeCanvas": "#/$defs/LifeCanvas",
+                     "Lumen Dynamics": "#/$defs/LumenDynamics",
                      "MBF Bioscience": "#/$defs/MBFBioscience",
                      "MKS Newport": "#/$defs/MKSNewport",
                      "MPI": "#/$defs/Mpi",
@@ -2536,6 +2605,9 @@
                      "$ref": "#/$defs/EdmundOptics"
                   },
                   {
+                     "$ref": "#/$defs/EmoryUniversity"
+                  },
+                  {
                      "$ref": "#/$defs/Euresys"
                   },
                   {
@@ -2552,6 +2624,9 @@
                   },
                   {
                      "$ref": "#/$defs/TheImagingSource"
+                  },
+                  {
+                     "$ref": "#/$defs/IntegratedDNATechnologies"
                   },
                   {
                      "$ref": "#/$defs/InteruniversityMicroelectronicsCenter"
@@ -2711,6 +2786,9 @@
                   },
                   {
                      "$ref": "#/$defs/CarlZeiss"
+                  },
+                  {
+                     "$ref": "#/$defs/LumenDynamics"
                   },
                   {
                      "$ref": "#/$defs/Other"
@@ -2855,6 +2933,7 @@
                      "Doric": "#/$defs/Doric",
                      "Ealing": "#/$defs/Ealing",
                      "Edmund Optics": "#/$defs/EdmundOptics",
+                     "Emory University": "#/$defs/EmoryUniversity",
                      "Euresys": "#/$defs/Euresys",
                      "Fujinon": "#/$defs/Fujinon",
                      "Hamamatsu": "#/$defs/Hamamatsu",
@@ -2863,6 +2942,7 @@
                      "IR Robot Co": "#/$defs/IRRobotCo",
                      "ISL Products International": "#/$defs/ISLProductsInternational",
                      "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
+                     "Integrated DNA Technologies": "#/$defs/IntegratedDNATechnologies",
                      "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
                      "Invitrogen": "#/$defs/Invitrogen",
                      "Jackson Laboratory": "#/$defs/JacksonLaboratory",
@@ -2871,6 +2951,7 @@
                      "LG": "#/$defs/Lg",
                      "Leica": "#/$defs/Leica",
                      "LifeCanvas": "#/$defs/LifeCanvas",
+                     "Lumen Dynamics": "#/$defs/LumenDynamics",
                      "MBF Bioscience": "#/$defs/MBFBioscience",
                      "MKS Newport": "#/$defs/MKSNewport",
                      "MPI": "#/$defs/Mpi",
@@ -2998,6 +3079,9 @@
                      "$ref": "#/$defs/EdmundOptics"
                   },
                   {
+                     "$ref": "#/$defs/EmoryUniversity"
+                  },
+                  {
                      "$ref": "#/$defs/Euresys"
                   },
                   {
@@ -3014,6 +3098,9 @@
                   },
                   {
                      "$ref": "#/$defs/TheImagingSource"
+                  },
+                  {
+                     "$ref": "#/$defs/IntegratedDNATechnologies"
                   },
                   {
                      "$ref": "#/$defs/InteruniversityMicroelectronicsCenter"
@@ -3173,6 +3260,9 @@
                   },
                   {
                      "$ref": "#/$defs/CarlZeiss"
+                  },
+                  {
+                     "$ref": "#/$defs/LumenDynamics"
                   },
                   {
                      "$ref": "#/$defs/Other"
@@ -3683,6 +3773,47 @@
             }
          },
          "title": "InfinityPhotoOptical",
+         "type": "object"
+      },
+      "IntegratedDNATechnologies": {
+         "additionalProperties": false,
+         "description": "IntegratedDNATechnologies",
+         "properties": {
+            "name": {
+               "const": "Integrated DNA Technologies",
+               "default": "Integrated DNA Technologies",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "IDT",
+               "default": "IDT",
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/ResearchOrganizationRegistry"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "009jvpf03",
+               "default": "009jvpf03",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "IntegratedDNATechnologies",
          "type": "object"
       },
       "InteruniversityMicroelectronicsCenter": {
@@ -4849,6 +4980,34 @@
          "title": "LifeCanvas",
          "type": "object"
       },
+      "LumenDynamics": {
+         "additionalProperties": false,
+         "description": "Lumen Dynamics",
+         "properties": {
+            "name": {
+               "const": "Lumen Dynamics",
+               "default": "Lumen Dynamics",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "const": null,
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": null,
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "LumenDynamics",
+         "type": "object"
+      },
       "MBFBioscience": {
          "additionalProperties": false,
          "description": "MBFBioscience",
@@ -5870,6 +6029,7 @@
                      "Doric": "#/$defs/Doric",
                      "Ealing": "#/$defs/Ealing",
                      "Edmund Optics": "#/$defs/EdmundOptics",
+                     "Emory University": "#/$defs/EmoryUniversity",
                      "Euresys": "#/$defs/Euresys",
                      "Fujinon": "#/$defs/Fujinon",
                      "Hamamatsu": "#/$defs/Hamamatsu",
@@ -5878,6 +6038,7 @@
                      "IR Robot Co": "#/$defs/IRRobotCo",
                      "ISL Products International": "#/$defs/ISLProductsInternational",
                      "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
+                     "Integrated DNA Technologies": "#/$defs/IntegratedDNATechnologies",
                      "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
                      "Invitrogen": "#/$defs/Invitrogen",
                      "Jackson Laboratory": "#/$defs/JacksonLaboratory",
@@ -5886,6 +6047,7 @@
                      "LG": "#/$defs/Lg",
                      "Leica": "#/$defs/Leica",
                      "LifeCanvas": "#/$defs/LifeCanvas",
+                     "Lumen Dynamics": "#/$defs/LumenDynamics",
                      "MBF Bioscience": "#/$defs/MBFBioscience",
                      "MKS Newport": "#/$defs/MKSNewport",
                      "MPI": "#/$defs/Mpi",
@@ -6013,6 +6175,9 @@
                      "$ref": "#/$defs/EdmundOptics"
                   },
                   {
+                     "$ref": "#/$defs/EmoryUniversity"
+                  },
+                  {
                      "$ref": "#/$defs/Euresys"
                   },
                   {
@@ -6029,6 +6194,9 @@
                   },
                   {
                      "$ref": "#/$defs/TheImagingSource"
+                  },
+                  {
+                     "$ref": "#/$defs/IntegratedDNATechnologies"
                   },
                   {
                      "$ref": "#/$defs/InteruniversityMicroelectronicsCenter"
@@ -6188,6 +6356,9 @@
                   },
                   {
                      "$ref": "#/$defs/CarlZeiss"
+                  },
+                  {
+                     "$ref": "#/$defs/LumenDynamics"
                   },
                   {
                      "$ref": "#/$defs/Other"
@@ -6296,6 +6467,7 @@
                      "Doric": "#/$defs/Doric",
                      "Ealing": "#/$defs/Ealing",
                      "Edmund Optics": "#/$defs/EdmundOptics",
+                     "Emory University": "#/$defs/EmoryUniversity",
                      "Euresys": "#/$defs/Euresys",
                      "Fujinon": "#/$defs/Fujinon",
                      "Hamamatsu": "#/$defs/Hamamatsu",
@@ -6304,6 +6476,7 @@
                      "IR Robot Co": "#/$defs/IRRobotCo",
                      "ISL Products International": "#/$defs/ISLProductsInternational",
                      "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
+                     "Integrated DNA Technologies": "#/$defs/IntegratedDNATechnologies",
                      "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
                      "Invitrogen": "#/$defs/Invitrogen",
                      "Jackson Laboratory": "#/$defs/JacksonLaboratory",
@@ -6312,6 +6485,7 @@
                      "LG": "#/$defs/Lg",
                      "Leica": "#/$defs/Leica",
                      "LifeCanvas": "#/$defs/LifeCanvas",
+                     "Lumen Dynamics": "#/$defs/LumenDynamics",
                      "MBF Bioscience": "#/$defs/MBFBioscience",
                      "MKS Newport": "#/$defs/MKSNewport",
                      "MPI": "#/$defs/Mpi",
@@ -6439,6 +6613,9 @@
                      "$ref": "#/$defs/EdmundOptics"
                   },
                   {
+                     "$ref": "#/$defs/EmoryUniversity"
+                  },
+                  {
                      "$ref": "#/$defs/Euresys"
                   },
                   {
@@ -6455,6 +6632,9 @@
                   },
                   {
                      "$ref": "#/$defs/TheImagingSource"
+                  },
+                  {
+                     "$ref": "#/$defs/IntegratedDNATechnologies"
                   },
                   {
                      "$ref": "#/$defs/InteruniversityMicroelectronicsCenter"
@@ -6614,6 +6794,9 @@
                   },
                   {
                      "$ref": "#/$defs/CarlZeiss"
+                  },
+                  {
+                     "$ref": "#/$defs/LumenDynamics"
                   },
                   {
                      "$ref": "#/$defs/Other"
@@ -7427,6 +7610,7 @@
                      "Doric": "#/$defs/Doric",
                      "Ealing": "#/$defs/Ealing",
                      "Edmund Optics": "#/$defs/EdmundOptics",
+                     "Emory University": "#/$defs/EmoryUniversity",
                      "Euresys": "#/$defs/Euresys",
                      "Fujinon": "#/$defs/Fujinon",
                      "Hamamatsu": "#/$defs/Hamamatsu",
@@ -7435,6 +7619,7 @@
                      "IR Robot Co": "#/$defs/IRRobotCo",
                      "ISL Products International": "#/$defs/ISLProductsInternational",
                      "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
+                     "Integrated DNA Technologies": "#/$defs/IntegratedDNATechnologies",
                      "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
                      "Invitrogen": "#/$defs/Invitrogen",
                      "Jackson Laboratory": "#/$defs/JacksonLaboratory",
@@ -7443,6 +7628,7 @@
                      "LG": "#/$defs/Lg",
                      "Leica": "#/$defs/Leica",
                      "LifeCanvas": "#/$defs/LifeCanvas",
+                     "Lumen Dynamics": "#/$defs/LumenDynamics",
                      "MBF Bioscience": "#/$defs/MBFBioscience",
                      "MKS Newport": "#/$defs/MKSNewport",
                      "MPI": "#/$defs/Mpi",
@@ -7570,6 +7756,9 @@
                      "$ref": "#/$defs/EdmundOptics"
                   },
                   {
+                     "$ref": "#/$defs/EmoryUniversity"
+                  },
+                  {
                      "$ref": "#/$defs/Euresys"
                   },
                   {
@@ -7586,6 +7775,9 @@
                   },
                   {
                      "$ref": "#/$defs/TheImagingSource"
+                  },
+                  {
+                     "$ref": "#/$defs/IntegratedDNATechnologies"
                   },
                   {
                      "$ref": "#/$defs/InteruniversityMicroelectronicsCenter"
@@ -7745,6 +7937,9 @@
                   },
                   {
                      "$ref": "#/$defs/CarlZeiss"
+                  },
+                  {
+                     "$ref": "#/$defs/LumenDynamics"
                   },
                   {
                      "$ref": "#/$defs/Other"
@@ -7854,6 +8049,7 @@
                      "Doric": "#/$defs/Doric",
                      "Ealing": "#/$defs/Ealing",
                      "Edmund Optics": "#/$defs/EdmundOptics",
+                     "Emory University": "#/$defs/EmoryUniversity",
                      "Euresys": "#/$defs/Euresys",
                      "Fujinon": "#/$defs/Fujinon",
                      "Hamamatsu": "#/$defs/Hamamatsu",
@@ -7862,6 +8058,7 @@
                      "IR Robot Co": "#/$defs/IRRobotCo",
                      "ISL Products International": "#/$defs/ISLProductsInternational",
                      "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
+                     "Integrated DNA Technologies": "#/$defs/IntegratedDNATechnologies",
                      "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
                      "Invitrogen": "#/$defs/Invitrogen",
                      "Jackson Laboratory": "#/$defs/JacksonLaboratory",
@@ -7870,6 +8067,7 @@
                      "LG": "#/$defs/Lg",
                      "Leica": "#/$defs/Leica",
                      "LifeCanvas": "#/$defs/LifeCanvas",
+                     "Lumen Dynamics": "#/$defs/LumenDynamics",
                      "MBF Bioscience": "#/$defs/MBFBioscience",
                      "MKS Newport": "#/$defs/MKSNewport",
                      "MPI": "#/$defs/Mpi",
@@ -7997,6 +8195,9 @@
                      "$ref": "#/$defs/EdmundOptics"
                   },
                   {
+                     "$ref": "#/$defs/EmoryUniversity"
+                  },
+                  {
                      "$ref": "#/$defs/Euresys"
                   },
                   {
@@ -8013,6 +8214,9 @@
                   },
                   {
                      "$ref": "#/$defs/TheImagingSource"
+                  },
+                  {
+                     "$ref": "#/$defs/IntegratedDNATechnologies"
                   },
                   {
                      "$ref": "#/$defs/InteruniversityMicroelectronicsCenter"
@@ -8172,6 +8376,9 @@
                   },
                   {
                      "$ref": "#/$defs/CarlZeiss"
+                  },
+                  {
+                     "$ref": "#/$defs/LumenDynamics"
                   },
                   {
                      "$ref": "#/$defs/Other"
@@ -8902,6 +9109,7 @@
                      "Doric": "#/$defs/Doric",
                      "Ealing": "#/$defs/Ealing",
                      "Edmund Optics": "#/$defs/EdmundOptics",
+                     "Emory University": "#/$defs/EmoryUniversity",
                      "Euresys": "#/$defs/Euresys",
                      "Fujinon": "#/$defs/Fujinon",
                      "Hamamatsu": "#/$defs/Hamamatsu",
@@ -8910,6 +9118,7 @@
                      "IR Robot Co": "#/$defs/IRRobotCo",
                      "ISL Products International": "#/$defs/ISLProductsInternational",
                      "Infinity Photo-Optical": "#/$defs/InfinityPhotoOptical",
+                     "Integrated DNA Technologies": "#/$defs/IntegratedDNATechnologies",
                      "Interuniversity Microelectronics Center": "#/$defs/InteruniversityMicroelectronicsCenter",
                      "Invitrogen": "#/$defs/Invitrogen",
                      "Jackson Laboratory": "#/$defs/JacksonLaboratory",
@@ -8918,6 +9127,7 @@
                      "LG": "#/$defs/Lg",
                      "Leica": "#/$defs/Leica",
                      "LifeCanvas": "#/$defs/LifeCanvas",
+                     "Lumen Dynamics": "#/$defs/LumenDynamics",
                      "MBF Bioscience": "#/$defs/MBFBioscience",
                      "MKS Newport": "#/$defs/MKSNewport",
                      "MPI": "#/$defs/Mpi",
@@ -9045,6 +9255,9 @@
                      "$ref": "#/$defs/EdmundOptics"
                   },
                   {
+                     "$ref": "#/$defs/EmoryUniversity"
+                  },
+                  {
                      "$ref": "#/$defs/Euresys"
                   },
                   {
@@ -9061,6 +9274,9 @@
                   },
                   {
                      "$ref": "#/$defs/TheImagingSource"
+                  },
+                  {
+                     "$ref": "#/$defs/IntegratedDNATechnologies"
                   },
                   {
                      "$ref": "#/$defs/InteruniversityMicroelectronicsCenter"
@@ -9220,6 +9436,9 @@
                   },
                   {
                      "$ref": "#/$defs/CarlZeiss"
+                  },
+                  {
+                     "$ref": "#/$defs/LumenDynamics"
                   },
                   {
                      "$ref": "#/$defs/Other"
@@ -10214,8 +10433,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.13.13",
-         "default": "0.13.13",
+         "const": "0.13.14",
+         "default": "0.13.14",
          "title": "Schema Version"
       },
       "subject_id": {
