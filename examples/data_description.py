@@ -9,8 +9,6 @@ from aind_data_schema_models.platforms import Platform
 
 from aind_data_schema.core.data_description import Funding, RawDataDescription
 
-OUTPUT_PATH = "examples/"
-
 d = RawDataDescription(
     modality=[Modality.ECEPHYS, Modality.BEHAVIOR_VIDEOS],
     platform=Platform.ECEPHYS,
@@ -23,4 +21,4 @@ d = RawDataDescription(
 
 serialized = d.model_dump_json()
 deserialized = RawDataDescription.model_validate_json(serialized)
-deserialized.write_standard_file(output_directory=OUTPUT_PATH)
+deserialized.write_standard_file()

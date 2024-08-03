@@ -679,6 +679,24 @@
          "title": "MichaelJFoxFoundationForParkinsonsResearch",
          "type": "object"
       },
+      "MotorObservatory": {
+         "additionalProperties": false,
+         "description": "MotorObservatory",
+         "properties": {
+            "name": {
+               "const": "Motor observatory platform",
+               "default": "Motor observatory platform",
+               "title": "Name"
+            },
+            "abbreviation": {
+               "const": "motor-observatory",
+               "default": "motor-observatory",
+               "title": "Abbreviation"
+            }
+         },
+         "title": "MotorObservatory",
+         "type": "object"
+      },
       "MultiplaneOphys": {
          "additionalProperties": false,
          "description": "MulitplaneOphys",
@@ -1396,8 +1414,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.13.10",
-         "default": "0.13.10",
+         "const": "0.13.11",
+         "default": "0.13.11",
          "title": "Schema Version"
       },
       "license": {
@@ -1420,6 +1438,7 @@
                "MERFISH platform": "#/$defs/aind_data_schema_models__platforms__Merfish",
                "Magnetic resonance imaging platform": "#/$defs/aind_data_schema_models__platforms__Mri",
                "MesoSPIM platform": "#/$defs/MesoSpim",
+               "Motor observatory platform": "#/$defs/MotorObservatory",
                "Multiplane optical physiology platform": "#/$defs/MultiplaneOphys",
                "SLAP2 platform": "#/$defs/Slap2",
                "Single-plane optical physiology platform": "#/$defs/SingleplaneOphys",
@@ -1472,6 +1491,9 @@
             },
             {
                "$ref": "#/$defs/SmartSpim"
+            },
+            {
+               "$ref": "#/$defs/MotorObservatory"
             }
          ],
          "title": "Platform"
