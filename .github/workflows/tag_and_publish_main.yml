@@ -5,106 +5,37 @@ on:
       - main
 
 jobs:
-  bump_versions_and_update_schemas:
+  tag_and_publish:
+    name: Parse version
     runs-on: ubuntu-latest
-    env:
-      OUTPUT_DIR: 'schemas'
+    outputs:
+      pkg_version: ${{ steps.output_version.outputs.pkg_version }}
     steps:
-      - uses: actions/checkout@v3
-        with:
-          ref: ${{ env.DEFAULT_BRANCH }}
-          fetch-depth: 0
-          token: ${{ secrets.SERVICE_TOKEN }}
-      - name: Pull changes
-        run: git pull --rebase
-      - name: Set up Python 3.8
-        uses: actions/setup-python@v3
-        with:
-          python-version: 3.8
-      - name: Install dependencies
-        run: |
-          python -m pip install -e .[dev] --no-cache-dir
-          python -m pip install pydantic==2.6.4
-      - name: Bump schema versions
-        run: |
-          python -m aind_data_schema.utils.schema_version_bump
-          echo "Finished schema version bump"
-      - name: Update schemas
-        run: |
-          rm -rf $OUTPUT_DIR
-          python -m pip install -e .
-          python -m pip install pydantic==2.6.4
-          python -m aind_data_schema.utils.json_writer --output $OUTPUT_DIR
-      - name: Create example schemas
-        run: |
-          cd examples
-          for script in ./*.py; do
-              python "$script"
-          done
-      - name: Commit changes
-        uses: EndBug/add-and-commit@v9
-        with:
-          default_author: github_actions
-          message: "bump schema version [skip actions]"
-          add: '["src", "schemas", "examples"]'
-
-  update_docs:
-    needs: bump_versions_and_update_schemas
-    runs-on: ubuntu-latest
-    continue-on-error: true
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          ref: ${{ env.DEFAULT_BRANCH }}
-          fetch-depth: 0
-          token: ${{ secrets.SERVICE_TOKEN }}
-      - name: Pull changes
-        run: git pull --rebase
-      - name: Set up Python 3.8
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
-      - name: Install dependencies
-        run: |
-          sudo apt install graphviz libgraphviz-dev -y
-          python -m pip install -e .[dev] -e .[docs] --no-cache-dir
-          python -m pip install pydantic==2.6.4
-      - name: Generate new rst files
-        run: |
-          sphinx-apidoc -o docs/source/ src
-      - name: Commit changes
-        uses: EndBug/add-and-commit@v9
-        with:
-          default_author: github_actions
-          message: "updates diagrams [skip actions]"
-          add: '["*.rst"]'
-
-  tag:
-    needs: update_docs
-    uses: AllenNeuralDynamics/aind-github-actions/.github/workflows/tag.yml@main
-    secrets:
-      SERVICE_TOKEN: ${{ secrets.SERVICE_TOKEN }} # required
-
-  publish:
-    needs: tag
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Pull latest changes
-        run: git pull origin main
-      - name: Set up Python 3.8
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
-      - name: Install dependencies
-        run: |
-          pip install --upgrade setuptools wheel twine build
-          python -m build
-          twine check dist/*
-      - name: Publish on PyPI
-        uses: pypa/gh-action-pypi-publish@release/v1.5
-        with:
-          password: ${{ secrets.AIND_PYPI_TOKEN }}
+    - uses: actions/checkout@v3
+    - name: Get version from file
+      run: |
+        pkg_name=$(grep -P 'version = \{attr = .*\}' pyproject.toml | grep -oP '\w+.__version__')
+        init_file="./src/${pkg_name//.__version__}/__init__.py"
+        pkg_version=$(grep -Po '[0-9]+\.[0-9]+\.[0-9]+' "$init_file")
+        echo "tag=$pkg_version" >> "$GITHUB_ENV"
+    - name: Create git tag
+      run: |
+        git tag "v${{ env.tag }}"
+    - name: Push git tag
+      run: git push origin "v${{ env.tag }}"
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.10'
+    - name: Install dependencies
+      run: |
+        pip install --upgrade setuptools wheel twine build
+        python -m build
+        twine check dist/*
+    - name: Publish on PyPI
+      uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        password: ${{ secrets.AIND_PYPI_TOKEN }}
 
   upload_schemas_prod:
     needs: publish
