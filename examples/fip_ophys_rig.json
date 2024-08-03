@@ -852,7 +852,7 @@
          "hardware_version": null,
          "harp_device_type": {
             "name": "Behavior",
-            "whoami": "1216"
+            "whoami": 1216
          },
          "core_version": "2.1",
          "tag_version": null,
