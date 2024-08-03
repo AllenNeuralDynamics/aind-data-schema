@@ -13,8 +13,6 @@ from aind_data_schema.components.devices import Calibration, Maintenance
 from aind_data_schema.core import acquisition
 from aind_data_schema.core.procedures import Reagent
 
-OUTPUT_PATH = "examples/"
-
 # If a timezone isn't specified, the timezone of the computer running this
 # script will be used as default
 t = datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc)
@@ -115,4 +113,4 @@ acq = acquisition.Acquisition(
 
 serialized = acq.model_dump_json()
 deserialized = acquisition.Acquisition.model_validate_json(serialized)
-deserialized.write_standard_file(prefix="exaspim", output_directory=OUTPUT_PATH)
+deserialized.write_standard_file(prefix="exaspim")

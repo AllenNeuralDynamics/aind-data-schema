@@ -8,8 +8,6 @@ from aind_data_schema.components.coordinates import Rotation3dTransform, Scale3d
 from aind_data_schema.components.devices import Scanner
 from aind_data_schema.core.session import MRIScan, MriScanSequence, ScanType, Session, Stream, SubjectPosition
 
-OUTPUT_PATH = "examples/"
-
 scan1 = MRIScan(
     scan_index="1",
     mri_scanner=Scanner(
@@ -76,4 +74,4 @@ sess = Session(
 )
 serialized = sess.model_dump_json()
 deserialized = Session.model_validate_json(serialized)
-deserialized.write_standard_file(prefix="mri", output_directory=OUTPUT_PATH)
+deserialized.write_standard_file(prefix="mri")
