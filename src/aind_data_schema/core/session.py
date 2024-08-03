@@ -39,7 +39,7 @@ from aind_data_schema.components.stimulus import (
     VisualStimulation,
 )
 from aind_data_schema.components.tile import Channel
-from aind_data_schema.core.procedures import Anaesthetic
+from aind_data_schema.core.procedures import Anaesthetic, CoordinateReferenceLocation
 
 
 class StimulusModality(str, Enum):
@@ -208,7 +208,7 @@ class ManipulatorModule(DomeModule):
     """A dome module connected to a 3-axis manipulator"""
 
     primary_targeted_structure: str = Field(..., title="Targeted structure")
-    other_targeted_structure: Optional[List[str]] = Field(default=None, title="Other targeted structure")
+    other_targeted_structure: Optional[List[str]] = Field(None, title="Other targeted structure")
     targeted_ccf_coordinates: List[CcfCoords] = Field(
         default=[],
         title="Targeted CCF coordinates",
@@ -217,11 +217,14 @@ class ManipulatorModule(DomeModule):
         ...,
         title="Manipulator coordinates",
     )
-    bregma_coordinates: Optional[Coordinates3d] = Field(default=None, title="Bregma coordinates")
-    surface_z: Optional[Decimal] = Field(default=None, title="Surface z")
+    anatomical_coordinates: Optional[Coordinates3d] = Field(None, title="Anatomical coordinates relative to reference")
+    anatomical_reference: Optional[
+        Union[CoordinateReferenceLocation.BREGMA, CoordinateReferenceLocation.LAMBDA]
+                                   ] = Field(None, title="Anatomical coordinate reference")
+    surface_z: Optional[Decimal] = Field(None, title="Surface z")
     surface_z_unit: SizeUnit = Field(SizeUnit.UM, title="Surface z unit")
-    dye: Optional[str] = Field(default=None, title="Dye")
-    implant_hole_number: Optional[int] = Field(default=None, title="Implant hole number")
+    dye: Optional[str] = Field(None, title="Dye")
+    implant_hole_number: Optional[int] = Field(None, title="Implant hole number")
 
 
 class FiberModule(ManipulatorModule):
@@ -388,7 +391,7 @@ class Stream(AindModel):
     fiber_connections: List[FiberConnectionConfig] = Field(default=[], title="Implanted fiber photometry devices")
     fiber_modules: List[FiberModule] = Field(default=[], title="Inserted fiber modules")
     ophys_fovs: List[FieldOfView] = Field(default=[], title="Fields of view")
-    slap_fovs: List[SlapFieldOfView] = Field(default=[], title="Slap2 fields of view")
+    slap_fovs: Optional[SlapFieldOfView] = Field(default=None, title="Slap2 field of view")
     stack_parameters: Optional[Stack] = Field(default=None, title="Stack parameters")
     mri_scans: List[MRIScan] = Field(default=[], title="MRI scans")
     stream_modalities: List[Modality.ONE_OF] = Field(..., title="Modalities")
@@ -481,12 +484,12 @@ class Stream(AindModel):
 class StimulusEpoch(AindModel):
     """Description of stimulus used during session"""
 
-    stimulus_start_time: AwareDatetimeWithDefault = Field(
+    stimulus_start_time: datetime = Field(
         ...,
         title="Stimulus start time",
         description="When a specific stimulus begins. This might be the same as the session start time.",
     )
-    stimulus_end_time: AwareDatetimeWithDefault = Field(
+    stimulus_end_time: datetime = Field(
         ...,
         title="Stimulus end time",
         description="When a specific stimulus ends. This might be the same as the session end time.",
@@ -511,12 +514,11 @@ class StimulusEpoch(AindModel):
                 Field(discriminator="stimulus_type"),
             ]
         ]
-    ] = Field(default=None, title="Stimulus parameters")
+    ] = Field(None, title="Stimulus parameters")
     stimulus_device_names: List[str] = Field(default=[], title="Stimulus devices")
     speaker_config: Optional[SpeakerConfig] = Field(default=None, title="Speaker Config")
-    light_source_config: Optional[List[LIGHT_SOURCE_CONFIGS]] = Field(
-        default=[], title="Light source config", description="Light sources for stimulation"
-    )
+    light_source_config: Optional[List[LIGHT_SOURCE_CONFIGS]] = Field(default=[], title="Light source config",
+                                                                      description="Light sources for stimulation")
     output_parameters: AindGenericType = Field(AindGeneric(), title="Performance metrics")
     reward_consumed_during_epoch: Optional[Decimal] = Field(default=None, title="Reward consumed during training (uL)")
     reward_consumed_unit: VolumeUnit = Field(VolumeUnit.UL, title="Reward consumed unit")
@@ -531,7 +533,7 @@ class Session(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/session.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["0.3.3"] = Field("0.3.3")
+    schema_version: Literal["0.3.2"] = Field("0.3.2")
     protocol_id: List[str] = Field([], title="Protocol ID", description="DOI for protocols.io")
     experimenter_full_name: List[str] = Field(
         ...,
@@ -582,7 +584,7 @@ class Session(AindCoreModel):
     headframe_registration: Optional[Affine3dTransform] = Field(
         None, title="Headframe registration", description="MRI transform matrix for headframe"
     )
-    reward_delivery: Optional[RewardDeliveryConfig] = Field(default=None, title="Reward delivery")
-    reward_consumed_total: Optional[Decimal] = Field(default=None, title="Total reward consumed (mL)")
-    reward_consumed_unit: VolumeUnit = Field(VolumeUnit.ML, title="Reward consumed unit")
-    notes: Optional[str] = Field(default=None, title="Notes")
+    reward_delivery: Optional[RewardDeliveryConfig] = Field(None, title="Reward delivery")
+    reward_consumed_total: Optional[Decimal] = Field(None, title="Total reward consumed (uL)")
+    reward_consumed_unit: VolumeUnit = Field(VolumeUnit.UL, title="Reward consumed unit")
+    notes: Optional[str] = Field(None, title="Notes")
