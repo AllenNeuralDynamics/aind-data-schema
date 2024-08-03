@@ -1,0 +1,108 @@
+{
+   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/procedures.py",
+   "schema_version": "0.13.14",
+   "subject_id": "625100",
+   "subject_procedures": [
+      {
+         "procedure_type": "Surgery",
+         "protocol_id": "doi",
+         "start_date": "2022-07-12",
+         "experimenter_full_name": "John Apple",
+         "iacuc_protocol": "2109",
+         "animal_weight_prior": "22.6",
+         "animal_weight_post": "22.3",
+         "weight_unit": "gram",
+         "anaesthesia": {
+            "type": "Isoflurane",
+            "duration": "1",
+            "duration_unit": "minute",
+            "level": "1.5"
+         },
+         "workstation_id": "SWS 3",
+         "procedures": [
+            {
+               "procedure_type": "Craniotomy",
+               "protocol_id": "1234",
+               "craniotomy_type": "Visual Cortex",
+               "craniotomy_hemisphere": "Left",
+               "bregma_to_lambda_distance": "4.1",
+               "bregma_to_lambda_unit": "millimeter",
+               "implant_part_number": null,
+               "dura_removed": null,
+               "protective_material": null,
+               "recovery_time": null,
+               "recovery_time_unit": "minute"
+            },
+            {
+               "injection_materials": [
+                  {
+                     "material_type": "Virus",
+                     "name": "AAV2-Flex-ChrimsonR",
+                     "tars_identifiers": {
+                        "virus_tars_id": "AiV222",
+                        "plasmid_tars_alias": "AiP222",
+                        "prep_lot_number": "VT222",
+                        "prep_date": null,
+                        "prep_type": null,
+                        "prep_protocol": null
+                     },
+                     "addgene_id": null,
+                     "titer": 2300000000,
+                     "titer_unit": "gc/mL"
+                  }
+               ],
+               "recovery_time": "0",
+               "recovery_time_unit": "minute",
+               "injection_duration": null,
+               "injection_duration_unit": "minute",
+               "instrument_id": null,
+               "protocol_id": "5678",
+               "injection_coordinate_ml": "-0.87",
+               "injection_coordinate_ap": "-3.8",
+               "injection_coordinate_depth": [
+                  "-3.3"
+               ],
+               "injection_coordinate_unit": "millimeter",
+               "injection_coordinate_reference": "Lambda",
+               "bregma_to_lambda_distance": "4.1",
+               "bregma_to_lambda_unit": "millimeter",
+               "injection_angle": "10",
+               "injection_angle_unit": "degrees",
+               "targeted_structure": "VISp",
+               "injection_hemisphere": "Left",
+               "procedure_type": "Nanoject injection",
+               "injection_volume": [
+                  "200"
+               ],
+               "injection_volume_unit": "nanoliter"
+            }
+         ],
+         "notes": null
+      },
+      {
+         "procedure_type": "Surgery",
+         "protocol_id": "doi",
+         "start_date": "2022-09-23",
+         "experimenter_full_name": "Frank Lee",
+         "iacuc_protocol": "2109",
+         "animal_weight_prior": null,
+         "animal_weight_post": null,
+         "weight_unit": "gram",
+         "anaesthesia": null,
+         "workstation_id": null,
+         "procedures": [
+            {
+               "procedure_type": "Perfusion",
+               "protocol_id": "doi_of_protocol",
+               "output_specimen_ids": [
+                  "1",
+                  "2"
+               ]
+            }
+         ],
+         "notes": null
+      }
+   ],
+   "specimen_procedures": [],
+   "notes": null
+}
