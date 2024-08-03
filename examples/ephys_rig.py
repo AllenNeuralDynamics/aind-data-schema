@@ -1,8 +1,6 @@
 """Generates an example JSON file for an ephys rig"""
 
-import os
 from datetime import date, datetime, timezone
-from pathlib import Path
 
 from aind_data_schema_models.harp_types import HarpDeviceType
 from aind_data_schema_models.modalities import Modality
@@ -29,8 +27,6 @@ from aind_data_schema.components.devices import (
     ProbePort,
 )
 from aind_data_schema.core.rig import Rig
-
-OUTPUT_PATH = Path(os.path.dirname(os.path.realpath(__file__)))
 
 # Describes a rig with running wheel, 2 behavior cameras, one Harp Behavior board,
 # one dual-color laser module, one stick microscope, and 2 Neuropixels probes
@@ -280,4 +276,4 @@ rig = Rig(
 )
 serialized = rig.model_dump_json()
 deserialized = Rig.model_validate_json(serialized)
-deserialized.write_standard_file(prefix="ephys", output_directory=OUTPUT_PATH)
+deserialized.write_standard_file(prefix="ephys")
