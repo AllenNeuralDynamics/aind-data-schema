@@ -219,7 +219,7 @@ class ManipulatorModule(DomeModule):
     )
     anatomical_coordinates: Optional[Coordinates3d] = Field(None, title="Anatomical coordinates relative to reference")
     anatomical_reference: Optional[
-        Union[CoordinateReferenceLocation.BREGMA, CoordinateReferenceLocation.LAMBDA]
+        Literal[CoordinateReferenceLocation.BREGMA, CoordinateReferenceLocation.LAMBDA]
                                    ] = Field(None, title="Anatomical coordinate reference")
     surface_z: Optional[Decimal] = Field(None, title="Surface z")
     surface_z_unit: SizeUnit = Field(SizeUnit.UM, title="Surface z unit")
