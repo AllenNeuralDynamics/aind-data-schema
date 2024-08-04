@@ -278,7 +278,6 @@ class RewardDeliveryConfig(AindModel):
     notes: Optional[str] = Field(default=None, title="Notes", validate_default=True)
 
     @field_validator("notes", mode="after")
-    @classmethod
     def validate_other(cls, value: Optional[str], info: ValidationInfo) -> Optional[str]:
         """Validator for other/notes"""
 
@@ -352,7 +351,6 @@ class MRIScan(AindModel):
     notes: Optional[str] = Field(default=None, title="Notes", validate_default=True)
 
     @field_validator("notes", mode="after")
-    @classmethod
     def validate_other(cls, value: Optional[str], info: ValidationInfo) -> Optional[str]:
         """Validator for other/notes"""
 
@@ -458,7 +456,6 @@ class Stream(AindModel):
             return None
 
     @field_validator("stream_modalities", mode="after")
-    @classmethod
     def validate_stream_modalities(cls, value: List[Modality.ONE_OF], info: ValidationInfo) -> List[Modality.ONE_OF]:
         """Validate each modality in stream_modalities field has associated data"""
         errors = []
