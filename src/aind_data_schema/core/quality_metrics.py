@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from datetime import date
 from enum import Enum
-from typing import List, Optional
+from typing import List, Literal, Optional
 
 from pydantic import Field
 
@@ -37,12 +37,7 @@ class QualityMetrics(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/quality_metrics.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: str = Field(
-        "0.0.1",
-        description="schema version",
-        title="Schema Version",
-        const=True,
-    )
+    schema_version: Literal["0.0.1"] = Field("0.0.1")
     overall_status: Status = Field(..., title="Overall status")
     overall_status_date: date = Field(..., title="Date of status")
     evaluations: List[QCEvaluation] = Field(..., title="Evaluations")
