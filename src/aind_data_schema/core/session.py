@@ -219,9 +219,9 @@ class ManipulatorModule(DomeModule):
     )
     anatomical_coordinates: Optional[Coordinates3d] = Field(default=None, title="Anatomical coordinates")
     anatomical_reference: Optional[Literal[CoordinateReferenceLocation.BREGMA,
-                                         CoordinateReferenceLocation.LAMBDA]] = Field(
-                                             default=None, title="Anatomical coordinate reference"
-                                         )
+                                           CoordinateReferenceLocation.LAMBDA]] = Field(
+                                               default=None, title="Anatomical coordinate reference"
+                                               )
     surface_z: Optional[Decimal] = Field(default=None, title="Surface z")
     surface_z_unit: SizeUnit = Field(SizeUnit.UM, title="Surface z unit")
     dye: Optional[str] = Field(default=None, title="Dye")
