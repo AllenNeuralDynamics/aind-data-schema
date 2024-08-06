@@ -17,7 +17,6 @@ class Status(Enum):
 
     FAIL = "Fail"
     PASS = "Pass"
-    UNKNOWN = "Unknown"
 
 
 class QCEvaluation(AindModel):
@@ -32,7 +31,7 @@ class QCEvaluation(AindModel):
     notes: Optional[str] = Field(None, title="Notes")
 
 
-class QualityMetrics(AindCoreModel):
+class QualityControl(AindCoreModel):
     """Description of quality metrics for a data asset"""
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/quality_metrics.py"
