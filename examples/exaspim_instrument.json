@@ -95,6 +95,8 @@
          "bin_height": null,
          "bin_unit": "pixel",
          "gain": null,
+         "crop_offset_x": null,
+         "crop_offset_y": null,
          "crop_width": null,
          "crop_height": null,
          "crop_unit": "pixel",

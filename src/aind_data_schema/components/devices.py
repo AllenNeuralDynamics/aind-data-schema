@@ -325,6 +325,8 @@ class Detector(Device):
     bin_height: Optional[int] = Field(default=None, title="Bin height")
     bin_unit: SizeUnit = Field(default=SizeUnit.PX, title="Bin size unit")
     gain: Optional[Decimal] = Field(default=None, title="Gain")
+    crop_offset_x: Optional[int] = Field(default=None, title="Crop offset x")
+    crop_offset_y: Optional[int] = Field(default=None, title="Crop offset y")
     crop_width: Optional[int] = Field(default=None, title="Crop width")
     crop_height: Optional[int] = Field(default=None, title="Crop width")
     crop_unit: SizeUnit = Field(default=SizeUnit.PX, title="Crop size unit")
