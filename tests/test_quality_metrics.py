@@ -16,11 +16,11 @@ class QualityMetricsTests(unittest.TestCase):
         """testing constructors"""
 
         with self.assertRaises(ValidationError):
-            q = QualityMetrics()
+            q = QualityControl()
 
         now = datetime.datetime.now()
 
-        q = QualityMetrics(
+        q = QualityControl(
             overall_status_date=now.date(),
             overall_status="Pass",
             evaluations=[QCEvaluation(
