@@ -39,7 +39,7 @@ from aind_data_schema.components.stimulus import (
     VisualStimulation,
 )
 from aind_data_schema.components.tile import Channel
-from aind_data_schema.core.procedures import Anaesthetic
+from aind_data_schema.core.procedures import Anaesthetic, CoordinateReferenceLocation
 
 
 class StimulusModality(str, Enum):
@@ -217,7 +217,11 @@ class ManipulatorModule(DomeModule):
         ...,
         title="Manipulator coordinates",
     )
-    bregma_coordinates: Optional[Coordinates3d] = Field(default=None, title="Bregma coordinates")
+    anatomical_coordinates: Optional[Coordinates3d] = Field(default=None, title="Anatomical coordinates")
+    anatomical_reference: Optional[Literal[CoordinateReferenceLocation.BREGMA,
+                                           CoordinateReferenceLocation.LAMBDA]] = Field(
+                                               default=None, title="Anatomical coordinate reference"
+                                               )
     surface_z: Optional[Decimal] = Field(default=None, title="Surface z")
     surface_z_unit: SizeUnit = Field(SizeUnit.UM, title="Surface z unit")
     dye: Optional[str] = Field(default=None, title="Dye")

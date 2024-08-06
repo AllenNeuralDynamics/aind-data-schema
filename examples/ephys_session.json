@@ -54,7 +54,8 @@
                   "z": "11087.5",
                   "unit": "micrometer"
                },
-               "bregma_coordinates": null,
+               "anatomical_coordinates": null,
+               "anatomical_reference": null,
                "surface_z": null,
                "surface_z_unit": "micrometer",
                "dye": null,
@@ -86,7 +87,8 @@
                   "z": "13262",
                   "unit": "micrometer"
                },
-               "bregma_coordinates": null,
+               "anatomical_coordinates": null,
+               "anatomical_reference": null,
                "surface_z": null,
                "surface_z_unit": "micrometer",
                "dye": null,
@@ -187,7 +189,8 @@
                   "z": "11087.5",
                   "unit": "micrometer"
                },
-               "bregma_coordinates": null,
+               "anatomical_coordinates": null,
+               "anatomical_reference": null,
                "surface_z": null,
                "surface_z_unit": "micrometer",
                "dye": null,
@@ -219,7 +222,8 @@
                   "z": "13262",
                   "unit": "micrometer"
                },
-               "bregma_coordinates": null,
+               "anatomical_coordinates": null,
+               "anatomical_reference": null,
                "surface_z": null,
                "surface_z_unit": "micrometer",
                "dye": null,
