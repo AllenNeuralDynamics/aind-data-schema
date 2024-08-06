@@ -218,7 +218,7 @@ class ManipulatorModule(DomeModule):
         title="Manipulator coordinates",
     )
     anatomical_coordinates: Optional[Coordinates3d] = Field(default=None, title="Anatomical coordinates")
-    anatomical_reference: Optional[Union[CoordinateReferenceLocation.BREGMA, 
+    anatomical_reference: Optional[Union[CoordinateReferenceLocation.BREGMA,
                                          CoordinateReferenceLocation.LAMBDA]] = Field(
                                              default=None, title="Anatomical coordinate reference"
                                          )
