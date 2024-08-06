@@ -6,10 +6,10 @@ import unittest
 from pydantic import ValidationError
 
 from aind_data_schema_models.modalities import Modality
-from aind_data_schema.core.quality_metrics import QualityMetrics, QCEvaluation
+from aind_data_schema.core.quality_metrics import QualityControl, QCEvaluation
 
 
-class QualityMetricsTests(unittest.TestCase):
+class QualityControlTests(unittest.TestCase):
     """test quality metrics schema"""
 
     def test_constructors(self):
