@@ -264,7 +264,7 @@ class SpecimenProcedure(AindModel):
             raise AssertionError(
                 "notes cannot be empty if procedure_type is Other. Describe the procedure in the notes field."
             )
-        elif self.procedure_type == SpecimenProcedureType.HCR and not self.hcr_series:
+        elif self.procedure_type == SpecimenProcedureType.HYBRIDIZATION_CHAIN_REACTION and not self.hcr_series:
             raise AssertionError("hcr_series cannot be empty if procedure_type is HCR.")
         elif self.procedure_type == SpecimenProcedureType.IMMUNOLABELING and not self.antibodies:
             raise AssertionError("antibodies cannot be empty if procedure_type is Immunolabeling.")

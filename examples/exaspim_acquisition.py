@@ -4,7 +4,7 @@ from datetime import datetime, timezone
 
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.pid_names import PIDName
-from aind_data_schema_models.registry import Registry
+from aind_data_schema_models.registries import Registry
 from aind_data_schema_models.units import PowerValue
 
 from aind_data_schema.components import tile

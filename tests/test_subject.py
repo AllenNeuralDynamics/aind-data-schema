@@ -6,7 +6,7 @@ import unittest
 import pydantic
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.pid_names import PIDName
-from aind_data_schema_models.registry import Registry
+from aind_data_schema_models.registries import Registry
 from aind_data_schema_models.species import Species
 
 from aind_data_schema.core.subject import BreedingInfo, Housing, LightCycle, Subject

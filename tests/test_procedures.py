@@ -236,7 +236,7 @@ class ProceduresTests(unittest.TestCase):
         with self.assertRaises(ValidationError) as e:
             SpecimenProcedure(
                 specimen_id="1000",
-                procedure_type="Other - see notes",
+                procedure_type="Other",
                 start_date=date.fromisoformat("2020-10-10"),
                 end_date=date.fromisoformat("2020-10-11"),
                 experimenter_full_name="guy person",
@@ -297,7 +297,7 @@ class ProceduresTests(unittest.TestCase):
         self.assertIsNotNone(
             SpecimenProcedure(
                 specimen_id="1000",
-                procedure_type="Other - see notes",
+                procedure_type="Other",
                 start_date=date.fromisoformat("2020-10-10"),
                 end_date=date.fromisoformat("2020-10-11"),
                 experimenter_full_name="guy person",

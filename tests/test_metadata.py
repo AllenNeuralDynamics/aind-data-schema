@@ -6,7 +6,7 @@ import unittest
 from datetime import time
 
 from aind_data_schema_models.organizations import Organization
-from aind_data_schema_models.platforms import Ecephys, SmartSpim
+from aind_data_schema_models.platforms import Platform
 from pydantic import ValidationError
 from pydantic import __version__ as pyd_version
 
@@ -140,7 +140,7 @@ class TestMetadata(unittest.TestCase):
                 name="ecephys_655019_2023-04-03_18-17-09",
                 location="bucket",
                 data_description=DataDescription.model_construct(
-                    label="some label", platform=SmartSpim, creation_time=time(12, 12, 12)
+                    label="some label", platform=Platform.SMARTSPIM, creation_time=time(12, 12, 12)
                 ),
                 procedures=Procedures.model_construct(subject_procedures=[surgery1]),
                 acquisition=Acquisition.model_construct(),
@@ -157,7 +157,7 @@ class TestMetadata(unittest.TestCase):
                 name="ecephys_655019_2023-04-03_18-17-09",
                 location="bucket",
                 data_description=DataDescription.model_construct(
-                    label="some label", platform=SmartSpim, creation_time=time(12, 12, 12)
+                    label="some label", platform=Platform.SMARTSPIM, creation_time=time(12, 12, 12)
                 ),
                 subject=Subject.model_construct(),
                 procedures=Procedures.model_construct(subject_procedures=[surgery2]),
@@ -179,7 +179,7 @@ class TestMetadata(unittest.TestCase):
                 name="ecephys_655019_2023-04-03_18-17-09",
                 location="bucket",
                 data_description=DataDescription.model_construct(
-                    label="some label", platform=Ecephys, creation_time=time(12, 12, 12)
+                    label="some label", platform=Platform.ECEPHYS, creation_time=time(12, 12, 12)
                 ),
                 procedures=Procedures.model_construct(subject_procedures=[surgery1]),
                 rig=Rig.model_construct(),
@@ -196,7 +196,7 @@ class TestMetadata(unittest.TestCase):
                 name="ecephys_655019_2023-04-03_18-17-09",
                 location="bucket",
                 data_description=DataDescription.model_construct(
-                    label="some label", platform=Ecephys, creation_time=time(12, 12, 12)
+                    label="some label", platform=Platform.ECEPHYS, creation_time=time(12, 12, 12)
                 ),
                 subject=Subject.model_construct(),
                 procedures=Procedures.model_construct(subject_procedures=[surgery2]),
@@ -216,7 +216,7 @@ class TestMetadata(unittest.TestCase):
                 name="ecephys_655019_2023-04-03_18-17-09",
                 location="bucket",
                 data_description=DataDescription.model_construct(
-                    label="some label", platform=Ecephys, creation_time=time(12, 12, 12)
+                    label="some label", platform=Platform.ECEPHYS, creation_time=time(12, 12, 12)
                 ),
                 subject=Subject.model_construct(),
                 procedures=Procedures.model_construct(),
