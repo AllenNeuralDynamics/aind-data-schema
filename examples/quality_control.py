@@ -8,8 +8,8 @@ t = date(2022, 11, 22)
 
 q = QualityControl(
     overall_status="Pass",
-    overall_status_date = t,
-    evaluations = [
+    overall_status_date=t,
+    evaluations=[
         QCEvaluation(
             evaluation_modality=Modality.BEHAVIOR_VIDEOS,
             evaluation_stage="Data acquisition",
