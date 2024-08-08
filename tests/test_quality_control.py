@@ -18,14 +18,12 @@ class QualityControlTests(unittest.TestCase):
         with self.assertRaises(ValidationError):
             q = QualityControl()
 
-        date = date.fromisoformat("2020-10-10")
-
         q = QualityControl(
-            overall_status_date=date,
+            overall_status_date=date.fromisoformat("2020-10-10"),
             overall_status="Pass",
             evaluations=[QCEvaluation(
                 evaluator_full_name="Bob",
-                evaluation_date=date,
+                evaluation_date=date.fromisoformat("2020-10-10"),
                 evaluation_modality=Modality.ECEPHYS,
                 evaluation_stage="Spike sorting",
                 qc_metrics={"number_good_units": [622]},
