@@ -1,6 +1,6 @@
 """test quality metrics """
 
-import datetime
+import datetime import date
 import unittest
 
 from pydantic import ValidationError
@@ -18,14 +18,14 @@ class QualityControlTests(unittest.TestCase):
         with self.assertRaises(ValidationError):
             q = QualityControl()
 
-        now = datetime.datetime.now()
+        date = date.fromisoformat("2020-10-10")
 
         q = QualityControl(
-            overall_status_date=now.date(),
+            overall_status_date=date,
             overall_status="Pass",
             evaluations=[QCEvaluation(
                 evaluator_full_name="Bob",
-                evaluation_date=now.date(),
+                evaluation_date=date,
                 evaluation_modality=Modality.ECEPHYS,
                 evaluation_stage="Spike sorting",
                 qc_metrics={"number_good_units": [622]},

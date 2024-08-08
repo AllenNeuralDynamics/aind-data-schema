@@ -12,7 +12,7 @@ from aind_data_schema_models.modalities import Modality
 from aind_data_schema.base import AindCoreModel, AindGeneric, AindGenericType, AindModel
 
 
-class Status(Enum):
+class Status(str, Enum):
     """QC Status"""
 
     FAIL = "Fail"
