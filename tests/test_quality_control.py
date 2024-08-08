@@ -1,6 +1,6 @@
 """test quality metrics """
 
-import datetime import date
+from datetime import date
 import unittest
 
 from pydantic import ValidationError
