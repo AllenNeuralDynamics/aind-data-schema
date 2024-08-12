@@ -26,7 +26,7 @@ q = QualityControl(
         ),
         QCEvaluation(
             evaluation_modality=Modality.ECEPHYS,
-            evaluation_stage="Data acqusition",
+            evaluation_stage="Data acquisition",
             evaluator_full_name="Fred Flinstone",
             evaluation_date=t,
             qc_metrics={

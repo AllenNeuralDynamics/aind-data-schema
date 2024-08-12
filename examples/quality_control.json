@@ -25,7 +25,7 @@
             "name": "Extracellular electrophysiology",
             "abbreviation": "ecephys"
          },
-         "evaluation_stage": "Data acqusition",
+         "evaluation_stage": "Data acquisition",
          "evaluator_full_name": "Fred Flinstone",
          "evaluation_date": "2022-11-22",
          "qc_metrics": {
