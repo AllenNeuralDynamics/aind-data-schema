@@ -6,9 +6,9 @@ from datetime import date
 from enum import Enum
 from typing import List, Literal, Optional
 
+from aind_data_schema_models.modalities import Modality
 from pydantic import Field
 
-from aind_data_schema_models.modalities import Modality
 from aind_data_schema.base import AindCoreModel, AindGeneric, AindGenericType, AindModel
 
 

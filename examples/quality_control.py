@@ -1,8 +1,10 @@
+"""Example quality control processing"""
+
 from datetime import date
 
 from aind_data_schema_models.modalities import Modality
 
-from aind_data_schema.core.quality_control import QualityControl, QCEvaluation
+from aind_data_schema.core.quality_control import QCEvaluation, QualityControl
 
 t = date(2022, 11, 22)
 
@@ -33,8 +35,8 @@ q = QualityControl(
                 "ProbeC_success": False,
             },
             stage_status="Pass",
-        )
-    ]
+        ),
+    ],
 )
 
 serialized = q.model_dump_json()
