@@ -15,6 +15,7 @@ from aind_data_schema.core.data_description import DataDescription
 from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.core.procedures import Injection, Procedures, Surgery
 from aind_data_schema.core.processing import Processing
+from aind_data_schema.core.quality_control import QualityControl
 from aind_data_schema.core.rig import Rig
 from aind_data_schema.core.session import Session
 from aind_data_schema.core.subject import Subject
@@ -104,6 +105,9 @@ class Metadata(AindCoreModel):
     instrument: Optional[Instrument] = Field(
         default=None, title="Instrument", description="Instrument, which is a collection of devices"
     )
+    quality_control: Optional[QualityControl] = Field(
+        default=None, title="Quality Control", description="Description of quality metrics for a data asset"
+    )
 
     @field_validator(
         "subject",
@@ -114,6 +118,7 @@ class Metadata(AindCoreModel):
         "processing",
         "acquisition",
         "instrument",
+        "quality_control",
         mode="before",
     )
     def validate_core_fields(cls, value, info: ValidationInfo):
