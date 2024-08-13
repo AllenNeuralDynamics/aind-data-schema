@@ -569,7 +569,7 @@ class NeuropixelsBasestation(DAQDevice):
 
     # fixed values
     data_interface: Literal[DataInterface.PXI] = DataInterface.PXI
-    manufacturer: Annotated[Union[Organization.IMEC.__class__], Field(default=Organization.IMEC, discriminator="name")]
+    manufacturer: Annotated[Union[type(Organization.IMEC)], Field(default=Organization.IMEC, discriminator="name")]
 
 
 class OpenEphysAcquisitionBoard(DAQDevice):
@@ -868,7 +868,7 @@ class Olfactometer(HarpDevice):
     device_type: Literal["Olfactometer"] = "Olfactometer"
     manufacturer: Organization.DAQ_DEVICE_MANUFACTURERS = Field(default=Organization.CHAMPALIMAUD)
     harp_device_type: Annotated[
-        Union[HarpDeviceType.OLFACTOMETER.__class__], Field(default=HarpDeviceType.OLFACTOMETER, discriminator="name")
+        Union[type(HarpDeviceType.OLFACTOMETER)], Field(default=HarpDeviceType.OLFACTOMETER, discriminator="name")
     ]
     channels: List[OlfactometerChannel]
 
