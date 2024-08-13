@@ -7,7 +7,6 @@
    "genotype": "Emx1-IRES-Cre/wt;Camk2a-tTA/wt;Ai93(TITL-GCaMP6f)/wt",
    "species": {
       "name": "Mus musculus",
-      "abbreviation": null,
       "registry": {
          "name": "National Center for Biotechnology Information",
          "abbreviation": "NCBI"

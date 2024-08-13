@@ -6,7 +6,7 @@ from enum import Enum
 from typing import Dict, List, Literal, Optional, get_args
 from uuid import UUID, uuid4
 
-from aind_data_schema_models.platforms import Ecephys, SmartSpim
+from aind_data_schema_models.platforms import Platform
 from pydantic import Field, PrivateAttr, ValidationError, ValidationInfo, field_validator, model_validator
 
 from aind_data_schema.base import AindCoreModel
@@ -192,7 +192,7 @@ class Metadata(AindCoreModel):
         """Validator for smartspim metadata"""
         if (
             self.data_description
-            and self.data_description.platform == SmartSpim
+            and self.data_description.platform == Platform.SMARTSPIM
             and not (self.subject and self.procedures and self.acquisition and self.instrument)
         ):
             raise ValueError(
@@ -201,7 +201,7 @@ class Metadata(AindCoreModel):
 
         if (
             self.data_description
-            and self.data_description.platform == SmartSpim
+            and self.data_description.platform == Platform.SMARTSPIM
             and self.procedures
             and any(
                 isinstance(surgery, Injection) and getattr(surgery, "injection_materials", None) is None
@@ -219,7 +219,7 @@ class Metadata(AindCoreModel):
         """Validator for metadata"""
         if (
             self.data_description
-            and self.data_description.platform == Ecephys
+            and self.data_description.platform == Platform.ECEPHYS
             and not (self.subject and self.procedures and self.session and self.rig and self.processing)
         ):
             raise ValueError(
@@ -227,7 +227,7 @@ class Metadata(AindCoreModel):
             )
         if (
             self.data_description
-            and self.data_description.platform == Ecephys
+            and self.data_description.platform == Platform.ECEPHYS
             and self.procedures
             and any(
                 isinstance(surgery, Injection) and getattr(surgery, "injection_materials", None) is None
