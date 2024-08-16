@@ -66,7 +66,6 @@ jobs:
       - name: Create and upload schemas
         run: |
           python -m pip install -e .
-          python -m pip install pydantic==2.6.4
           python -m aind_data_schema.utils.json_writer --output $TEMP_DIR --attach-version
           python -m pip install awscli
           aws s3 sync $TEMP_DIR s3://${AWS_DATA_SCHEMA_BUCKET}/$S3_PREFIX
@@ -94,7 +93,6 @@ jobs:
         run: |
           sudo apt install graphviz libgraphviz-dev -y
           python -m pip install -e .[docs] --no-cache-dir
-          python -m pip install pydantic==2.6.4
           python -m pip install awscli
       - name: Generate erdantic diagrams
         run: |
