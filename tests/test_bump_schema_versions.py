@@ -28,9 +28,11 @@ class SchemaVersionTests(unittest.TestCase):
 
     @patch("builtins.open")
     @patch("json.load")
-    def test_get_list_of_models_that_changed(self, mock_json_load: MagicMock, _: MagicMock):
+    @patch("pathlib.Path.exists")
+    def test_get_list_of_models_that_changed(self, mock_exists: MagicMock, mock_json_load: MagicMock, _: MagicMock):
         """Tests get_list_of_models_that_changed method."""
         mock_json_load.side_effect = self.mock_open_values
+        mock_exists.return_value = True
 
         handler = SchemaVersionHandler(json_schemas_location=Path("."))
         models_that_changed = handler._get_list_of_models_that_changed()
