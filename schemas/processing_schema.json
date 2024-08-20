@@ -304,10 +304,8 @@
             "Image tile alignment",
             "Image tile fusing",
             "Image tile projection",
-            "Manual annotation",
             "Neuropil subtraction",
             "Other",
-            "Quality control and assessment",
             "Simulation",
             "Skull stripping",
             "Spatial timeseries demixing",
@@ -332,10 +330,10 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "1.0.0",
-         "default": "1.0.0",
+         "const": "1.0.1",
+         "default": "1.0.1",
          "enum": [
-            "1.0.0"
+            "1.0.1"
          ],
          "title": "Schema Version",
          "type": "string"
