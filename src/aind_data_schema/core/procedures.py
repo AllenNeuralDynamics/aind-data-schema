@@ -5,6 +5,7 @@ from decimal import Decimal
 from enum import Enum
 from typing import List, Literal, Optional, Set, Union
 
+from aind_data_schema_models.mouse_anatomy import MouseAnatomicalStructure
 from aind_data_schema_models.pid_names import PIDName
 from aind_data_schema_models.species import Species
 from aind_data_schema_models.specimen_procedure_types import SpecimenProcedureType
@@ -24,7 +25,7 @@ from pydantic_core.core_schema import ValidationInfo
 from typing_extensions import Annotated
 
 from aind_data_schema.base import AindCoreModel, AindModel, AwareDatetimeWithDefault
-from aind_data_schema.components.devices import FiberProbe
+from aind_data_schema.components.devices import FiberProbe, MyomatrixArray
 from aind_data_schema.components.reagent import Reagent
 
 
@@ -555,6 +556,31 @@ class WaterRestriction(AindModel):
     end_date: Optional[date] = Field(default=None, title="Water restriction end date")
 
 
+class MyomatrixContact(AindModel):
+    """"Description of a contact on a myomatrix thread"""
+
+    body_part: MouseAnatomicalStructure.BODY_PARTS._ONE_OF = Field(..., title="Body part of contact insertion")
+    muscle: MouseAnatomicalStructure.EMG_MUSCLES._ONE_OF = Field(..., title="Muscle of contact insertion")
+    in_muscle: bool = Field(..., title="In muscle")
+    notes: Optional[str] = Field(default=None, title="Notes")
+
+
+class MyomatrixThread(AindModel):
+    """Description of a thread of a myomatrix array"""
+
+    ground_electrode_location: MouseAnatomicalStructure.BODY_PARTS._ONE_OF = Field(..., title="Location of ground electrode")
+    contacts: List[MyomatrixContact] = Field(..., title="Contacts")
+
+
+class EMGInsertion(AindModel):
+    """Description of a Myomatrix array insertion for EMG"""
+
+    procedure_type: Literal["EMG_Insertion"] = "EMG_Insertion"
+    protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
+    myomatrix_array: MyomatrixArray = Field(..., title="Myomatrix array")
+    threads: List[MyomatrixThread] = Field(..., title="Array threads")
+
+
 class Perfusion(AindModel):
     """Description of a perfusion procedure that creates a specimen"""
 
@@ -597,6 +623,7 @@ class Surgery(AindModel):
         Annotated[
             Union[
                 Craniotomy,
+                EMGInsertion,
                 FiberImplant,
                 Headframe,
                 IntraCerebellarVentricleInjection,
