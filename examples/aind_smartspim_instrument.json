@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/instrument.py",
-   "schema_version": "0.10.28",
+   "schema_version": "0.10.29",
    "instrument_id": "440_SmartSPIM1_20231004",
    "modification_date": "2023-10-04",
    "instrument_type": "SmartSPIM",
@@ -118,6 +118,8 @@
          "bin_height": null,
          "bin_unit": "pixel",
          "gain": null,
+         "crop_offset_x": null,
+         "crop_offset_y": null,
          "crop_width": null,
          "crop_height": null,
          "crop_unit": "pixel",

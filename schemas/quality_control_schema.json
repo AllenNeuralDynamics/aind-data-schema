@@ -1,0 +1,551 @@
+{
+   "$defs": {
+      "AindGeneric": {
+         "additionalProperties": true,
+         "description": "Base class for generic types that can be used in AIND schema",
+         "properties": {},
+         "title": "AindGeneric",
+         "type": "object"
+      },
+      "BEHAVIOR": {
+         "additionalProperties": false,
+         "properties": {
+            "name": {
+               "const": "Behavior",
+               "default": "Behavior",
+               "enum": [
+                  "Behavior"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "behavior",
+               "default": "behavior",
+               "enum": [
+                  "behavior"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "BEHAVIOR",
+         "type": "object"
+      },
+      "BEHAVIOR_VIDEOS": {
+         "additionalProperties": false,
+         "properties": {
+            "name": {
+               "const": "Behavior videos",
+               "default": "Behavior videos",
+               "enum": [
+                  "Behavior videos"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "behavior-videos",
+               "default": "behavior-videos",
+               "enum": [
+                  "behavior-videos"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "BEHAVIOR_VIDEOS",
+         "type": "object"
+      },
+      "CONFOCAL": {
+         "additionalProperties": false,
+         "properties": {
+            "name": {
+               "const": "Confocal microscopy",
+               "default": "Confocal microscopy",
+               "enum": [
+                  "Confocal microscopy"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "confocal",
+               "default": "confocal",
+               "enum": [
+                  "confocal"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "CONFOCAL",
+         "type": "object"
+      },
+      "ECEPHYS": {
+         "additionalProperties": false,
+         "properties": {
+            "name": {
+               "const": "Extracellular electrophysiology",
+               "default": "Extracellular electrophysiology",
+               "enum": [
+                  "Extracellular electrophysiology"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "ecephys",
+               "default": "ecephys",
+               "enum": [
+                  "ecephys"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "ECEPHYS",
+         "type": "object"
+      },
+      "EMG": {
+         "additionalProperties": false,
+         "properties": {
+            "name": {
+               "const": "Electromyography",
+               "default": "Electromyography",
+               "enum": [
+                  "Electromyography"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "EMG",
+               "default": "EMG",
+               "enum": [
+                  "EMG"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "EMG",
+         "type": "object"
+      },
+      "FIB": {
+         "additionalProperties": false,
+         "properties": {
+            "name": {
+               "const": "Fiber photometry",
+               "default": "Fiber photometry",
+               "enum": [
+                  "Fiber photometry"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "fib",
+               "default": "fib",
+               "enum": [
+                  "fib"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "FIB",
+         "type": "object"
+      },
+      "FMOST": {
+         "additionalProperties": false,
+         "properties": {
+            "name": {
+               "const": "Fluorescence micro-optical sectioning tomography",
+               "default": "Fluorescence micro-optical sectioning tomography",
+               "enum": [
+                  "Fluorescence micro-optical sectioning tomography"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "fMOST",
+               "default": "fMOST",
+               "enum": [
+                  "fMOST"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "FMOST",
+         "type": "object"
+      },
+      "ICEPHYS": {
+         "additionalProperties": false,
+         "properties": {
+            "name": {
+               "const": "Intracellular electrophysiology",
+               "default": "Intracellular electrophysiology",
+               "enum": [
+                  "Intracellular electrophysiology"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "icephys",
+               "default": "icephys",
+               "enum": [
+                  "icephys"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "ICEPHYS",
+         "type": "object"
+      },
+      "ISI": {
+         "additionalProperties": false,
+         "properties": {
+            "name": {
+               "const": "Intrinsic signal imaging",
+               "default": "Intrinsic signal imaging",
+               "enum": [
+                  "Intrinsic signal imaging"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "ISI",
+               "default": "ISI",
+               "enum": [
+                  "ISI"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "ISI",
+         "type": "object"
+      },
+      "MERFISH": {
+         "additionalProperties": false,
+         "properties": {
+            "name": {
+               "const": "Multiplexed error-robust fluorescence in situ hybridization",
+               "default": "Multiplexed error-robust fluorescence in situ hybridization",
+               "enum": [
+                  "Multiplexed error-robust fluorescence in situ hybridization"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "merfish",
+               "default": "merfish",
+               "enum": [
+                  "merfish"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "MERFISH",
+         "type": "object"
+      },
+      "MRI": {
+         "additionalProperties": false,
+         "properties": {
+            "name": {
+               "const": "Magnetic resonance imaging",
+               "default": "Magnetic resonance imaging",
+               "enum": [
+                  "Magnetic resonance imaging"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "MRI",
+               "default": "MRI",
+               "enum": [
+                  "MRI"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "MRI",
+         "type": "object"
+      },
+      "POPHYS": {
+         "additionalProperties": false,
+         "properties": {
+            "name": {
+               "const": "Planar optical physiology",
+               "default": "Planar optical physiology",
+               "enum": [
+                  "Planar optical physiology"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "pophys",
+               "default": "pophys",
+               "enum": [
+                  "pophys"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "POPHYS",
+         "type": "object"
+      },
+      "QCEvaluation": {
+         "additionalProperties": false,
+         "description": "Description of one evaluation stage",
+         "properties": {
+            "evaluation_modality": {
+               "discriminator": {
+                  "mapping": {
+                     "EMG": "#/$defs/EMG",
+                     "ISI": "#/$defs/ISI",
+                     "MRI": "#/$defs/MRI",
+                     "SPIM": "#/$defs/SPIM",
+                     "behavior": "#/$defs/BEHAVIOR",
+                     "behavior-videos": "#/$defs/BEHAVIOR_VIDEOS",
+                     "confocal": "#/$defs/CONFOCAL",
+                     "ecephys": "#/$defs/ECEPHYS",
+                     "fMOST": "#/$defs/FMOST",
+                     "fib": "#/$defs/FIB",
+                     "icephys": "#/$defs/ICEPHYS",
+                     "merfish": "#/$defs/MERFISH",
+                     "pophys": "#/$defs/POPHYS",
+                     "slap": "#/$defs/SLAP"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/BEHAVIOR"
+                  },
+                  {
+                     "$ref": "#/$defs/BEHAVIOR_VIDEOS"
+                  },
+                  {
+                     "$ref": "#/$defs/CONFOCAL"
+                  },
+                  {
+                     "$ref": "#/$defs/EMG"
+                  },
+                  {
+                     "$ref": "#/$defs/ECEPHYS"
+                  },
+                  {
+                     "$ref": "#/$defs/FIB"
+                  },
+                  {
+                     "$ref": "#/$defs/FMOST"
+                  },
+                  {
+                     "$ref": "#/$defs/ICEPHYS"
+                  },
+                  {
+                     "$ref": "#/$defs/ISI"
+                  },
+                  {
+                     "$ref": "#/$defs/MRI"
+                  },
+                  {
+                     "$ref": "#/$defs/MERFISH"
+                  },
+                  {
+                     "$ref": "#/$defs/POPHYS"
+                  },
+                  {
+                     "$ref": "#/$defs/SLAP"
+                  },
+                  {
+                     "$ref": "#/$defs/SPIM"
+                  }
+               ],
+               "title": "Modality"
+            },
+            "evaluation_stage": {
+               "title": "Evaluation stage",
+               "type": "string"
+            },
+            "evaluator_full_name": {
+               "title": "Evaluator full name",
+               "type": "string"
+            },
+            "evaluation_date": {
+               "format": "date",
+               "title": "Evaluation date",
+               "type": "string"
+            },
+            "qc_metrics": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/AindGeneric"
+                  }
+               ],
+               "default": {},
+               "title": "QC metrics"
+            },
+            "stage_status": {
+               "allOf": [
+                  {
+                     "$ref": "#/$defs/Status"
+                  }
+               ],
+               "title": "Stage status"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Notes"
+            }
+         },
+         "required": [
+            "evaluation_modality",
+            "evaluation_stage",
+            "evaluator_full_name",
+            "evaluation_date",
+            "stage_status"
+         ],
+         "title": "QCEvaluation",
+         "type": "object"
+      },
+      "SLAP": {
+         "additionalProperties": false,
+         "properties": {
+            "name": {
+               "const": "Scanned line projection imaging",
+               "default": "Scanned line projection imaging",
+               "enum": [
+                  "Scanned line projection imaging"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "slap",
+               "default": "slap",
+               "enum": [
+                  "slap"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "SLAP",
+         "type": "object"
+      },
+      "SPIM": {
+         "additionalProperties": false,
+         "properties": {
+            "name": {
+               "const": "Selective plane illumination microscopy",
+               "default": "Selective plane illumination microscopy",
+               "enum": [
+                  "Selective plane illumination microscopy"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "SPIM",
+               "default": "SPIM",
+               "enum": [
+                  "SPIM"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "SPIM",
+         "type": "object"
+      },
+      "Status": {
+         "description": "QC Status",
+         "enum": [
+            "Fail",
+            "Pass"
+         ],
+         "title": "Status",
+         "type": "string"
+      }
+   },
+   "additionalProperties": false,
+   "description": "Description of quality metrics for a data asset",
+   "properties": {
+      "describedBy": {
+         "const": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/quality_metrics.py",
+         "default": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/quality_metrics.py",
+         "title": "Describedby",
+         "type": "string"
+      },
+      "schema_version": {
+         "const": "0.0.1",
+         "default": "0.0.1",
+         "enum": [
+            "0.0.1"
+         ],
+         "title": "Schema Version",
+         "type": "string"
+      },
+      "overall_status": {
+         "allOf": [
+            {
+               "$ref": "#/$defs/Status"
+            }
+         ],
+         "title": "Overall status"
+      },
+      "overall_status_date": {
+         "format": "date",
+         "title": "Date of status",
+         "type": "string"
+      },
+      "evaluations": {
+         "items": {
+            "$ref": "#/$defs/QCEvaluation"
+         },
+         "title": "Evaluations",
+         "type": "array"
+      },
+      "notes": {
+         "anyOf": [
+            {
+               "type": "string"
+            },
+            {
+               "type": "null"
+            }
+         ],
+         "default": null,
+         "title": "Notes"
+      }
+   },
+   "required": [
+      "overall_status",
+      "overall_status_date",
+      "evaluations"
+   ],
+   "title": "QualityControl",
+   "type": "object"
+}

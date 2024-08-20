@@ -1,8 +1,9 @@
-name: CI
+name: Run checks in main and release
 
 on:
   pull_request:
     branches:
+      - '*release*'
       - main
 
 jobs:
@@ -39,3 +40,19 @@ jobs:
         python -m pip install -e .[dev] -e .[docs] --no-cache-dir
     - name: Run tests and coverage
       run: coverage run -m unittest discover && coverage report
+  verify_version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Check version incremented
+        run: |
+          pkg_name=$(grep -P 'version = \{attr = .*\}' pyproject.toml | grep -oP '\w+.__version__')
+          init_file="./src/${pkg_name//.__version__}/__init__.py"
+          pkg_version=$(grep -Po '[0-9]+\.[0-9]+\.[0-9]+' "$init_file")
+          latest_tag=$(git ls-remote --tags --refs --sort="v:refname" | tail -n1 | sed 's/.*\///')
+          echo "Checking pkg_version v$pkg_version and latest_tag $latest_tag"
+          if [ "$latest_tag" == "v$pkg_version" ]
+          then
+            exit 1
+          fi
+          echo "Versions are different"

@@ -264,7 +264,7 @@ class SpecimenProcedure(AindModel):
             raise AssertionError(
                 "notes cannot be empty if procedure_type is Other. Describe the procedure in the notes field."
             )
-        elif self.procedure_type == SpecimenProcedureType.HCR and not self.hcr_series:
+        elif self.procedure_type == SpecimenProcedureType.HYBRIDIZATION_CHAIN_REACTION and not self.hcr_series:
             raise AssertionError("hcr_series cannot be empty if procedure_type is HCR.")
         elif self.procedure_type == SpecimenProcedureType.IMMUNOLABELING and not self.antibodies:
             raise AssertionError("antibodies cannot be empty if procedure_type is Immunolabeling.")
@@ -621,7 +621,7 @@ class Procedures(AindCoreModel):
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/procedures.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
 
-    schema_version: Literal["0.13.14"] = Field("0.13.14")
+    schema_version: Literal["0.13.15"] = Field("0.13.15")
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",

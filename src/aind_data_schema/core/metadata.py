@@ -6,7 +6,7 @@ from enum import Enum
 from typing import Dict, List, Literal, Optional, get_args
 from uuid import UUID, uuid4
 
-from aind_data_schema_models.platforms import Ecephys, SmartSpim
+from aind_data_schema_models.platforms import Platform
 from pydantic import Field, PrivateAttr, ValidationError, ValidationInfo, field_validator, model_validator
 
 from aind_data_schema.base import AindCoreModel
@@ -15,6 +15,7 @@ from aind_data_schema.core.data_description import DataDescription
 from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.core.procedures import Injection, Procedures, Surgery
 from aind_data_schema.core.processing import Processing
+from aind_data_schema.core.quality_control import QualityControl
 from aind_data_schema.core.rig import Rig
 from aind_data_schema.core.session import Session
 from aind_data_schema.core.subject import Subject
@@ -47,7 +48,7 @@ class Metadata(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/metadata.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["0.2.32"] = Field("0.2.32")
+    schema_version: Literal["0.2.33"] = Field("0.2.33")
     id: UUID = Field(
         default_factory=uuid4,
         alias="_id",
@@ -104,6 +105,9 @@ class Metadata(AindCoreModel):
     instrument: Optional[Instrument] = Field(
         default=None, title="Instrument", description="Instrument, which is a collection of devices"
     )
+    quality_control: Optional[QualityControl] = Field(
+        default=None, title="Quality Control", description="Description of quality metrics for a data asset"
+    )
 
     @field_validator(
         "subject",
@@ -114,6 +118,7 @@ class Metadata(AindCoreModel):
         "processing",
         "acquisition",
         "instrument",
+        "quality_control",
         mode="before",
     )
     def validate_core_fields(cls, value, info: ValidationInfo):
@@ -187,7 +192,7 @@ class Metadata(AindCoreModel):
         """Validator for smartspim metadata"""
         if (
             self.data_description
-            and self.data_description.platform == SmartSpim
+            and self.data_description.platform == Platform.SMARTSPIM
             and not (self.subject and self.procedures and self.acquisition and self.instrument)
         ):
             raise ValueError(
@@ -196,7 +201,7 @@ class Metadata(AindCoreModel):
 
         if (
             self.data_description
-            and self.data_description.platform == SmartSpim
+            and self.data_description.platform == Platform.SMARTSPIM
             and self.procedures
             and any(
                 isinstance(surgery, Injection) and getattr(surgery, "injection_materials", None) is None
@@ -214,7 +219,7 @@ class Metadata(AindCoreModel):
         """Validator for metadata"""
         if (
             self.data_description
-            and self.data_description.platform == Ecephys
+            and self.data_description.platform == Platform.ECEPHYS
             and not (self.subject and self.procedures and self.session and self.rig and self.processing)
         ):
             raise ValueError(
@@ -222,7 +227,7 @@ class Metadata(AindCoreModel):
             )
         if (
             self.data_description
-            and self.data_description.platform == Ecephys
+            and self.data_description.platform == Platform.ECEPHYS
             and self.procedures
             and any(
                 isinstance(surgery, Injection) and getattr(surgery, "injection_materials", None) is None

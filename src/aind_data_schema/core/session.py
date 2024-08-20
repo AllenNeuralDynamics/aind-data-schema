@@ -39,7 +39,7 @@ from aind_data_schema.components.stimulus import (
     VisualStimulation,
 )
 from aind_data_schema.components.tile import Channel
-from aind_data_schema.core.procedures import Anaesthetic
+from aind_data_schema.core.procedures import Anaesthetic, CoordinateReferenceLocation
 
 
 class StimulusModality(str, Enum):
@@ -217,7 +217,10 @@ class ManipulatorModule(DomeModule):
         ...,
         title="Manipulator coordinates",
     )
-    bregma_coordinates: Optional[Coordinates3d] = Field(default=None, title="Bregma coordinates")
+    anatomical_coordinates: Optional[Coordinates3d] = Field(default=None, title="Anatomical coordinates")
+    anatomical_reference: Optional[Literal[CoordinateReferenceLocation.BREGMA, CoordinateReferenceLocation.LAMBDA]] = (
+        Field(default=None, title="Anatomical coordinate reference")
+    )
     surface_z: Optional[Decimal] = Field(default=None, title="Surface z")
     surface_z_unit: SizeUnit = Field(SizeUnit.UM, title="Surface z unit")
     dye: Optional[str] = Field(default=None, title="Dye")
@@ -531,7 +534,7 @@ class Session(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/session.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["0.3.4"] = Field("0.3.4")
+    schema_version: Literal["0.3.5"] = Field("0.3.5")
     protocol_id: List[str] = Field([], title="Protocol ID", description="DOI for protocols.io")
     experimenter_full_name: List[str] = Field(
         ...,

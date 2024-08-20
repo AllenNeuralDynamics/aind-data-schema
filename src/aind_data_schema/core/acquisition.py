@@ -29,13 +29,13 @@ class ProcessingSteps(AindModel):
             ProcessName.IMAGE_BACKGROUND_SUBTRACTION,
             ProcessName.IMAGE_CELL_SEGMENTATION,
             ProcessName.IMAGE_DESTRIPING,
-            ProcessName.IMAGE_FLATFIELD_CORRECTION,
+            ProcessName.IMAGE_FLAT_FIELD_CORRECTION,
             ProcessName.IMAGE_IMPORTING,
             ProcessName.IMAGE_THRESHOLDING,
             ProcessName.IMAGE_TILE_ALIGNMENT,
             ProcessName.IMAGE_TILE_FUSING,
             ProcessName.IMAGE_TILE_PROJECTION,
-            ProcessName.FILE_CONVERSION,
+            ProcessName.FILE_FORMAT_CONVERSION,
         ]
     ] = Field(...)
 
@@ -45,7 +45,7 @@ class Acquisition(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/acquisition.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["0.6.20"] = Field("0.6.20")
+    schema_version: Literal["0.6.21"] = Field("0.6.21")
     protocol_id: List[str] = Field(default=[], title="Protocol ID", description="DOI for protocols.io")
     experimenter_full_name: List[str] = Field(
         ...,

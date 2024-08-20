@@ -1,0 +1,38 @@
+name: Publish - dev 
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  upload_schemas_dev:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    env:
+      AWS_DATA_SCHEMA_ROLE: ${{ secrets.AWS_DATA_SCHEMA_ROLE_DEV }}
+      AWS_DATA_SCHEMA_BUCKET: ${{ vars.AWS_DATA_SCHEMA_BUCKET_DEV }}
+      AWS_REGION : ${{ vars.AWS_REGION_DEV }}
+      TEMP_DIR: 'temp_schemas'
+      S3_PREFIX: 'schemas'
+    steps:
+      - uses: actions/checkout@master
+      - name: Pull latest changes
+        run: git pull origin dev
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.8
+      - name: Configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ env.AWS_DATA_SCHEMA_ROLE }}
+          role-session-name: github-schema-upload-session
+          aws-region: ${{ env.AWS_REGION }}
+      - name: Create and upload schemas
+        run: | 
+          python -m pip install -e .
+          python -m aind_data_schema.utils.json_writer --output $TEMP_DIR --attach-version
+          python -m pip install awscli
+          aws s3 sync $TEMP_DIR s3://${AWS_DATA_SCHEMA_BUCKET}/$S3_PREFIX

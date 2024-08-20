@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/rig.py",
-   "schema_version": "0.5.4",
+   "schema_version": "0.5.5",
    "rig_id": "428_FIP1_20231003",
    "modification_date": "2023-10-03",
    "mouse_platform": {
@@ -96,7 +96,7 @@
             "serial_number": "TBD",
             "manufacturer": {
                "name": "Ailipu Technology Co",
-               "abbreviation": null,
+               "abbreviation": "Ailipu",
                "registry": null,
                "registry_identifier": null
             },
@@ -124,6 +124,8 @@
             "bin_height": null,
             "bin_unit": "pixel",
             "gain": null,
+            "crop_offset_x": null,
+            "crop_offset_y": null,
             "crop_width": null,
             "crop_height": null,
             "crop_unit": "pixel",
@@ -171,7 +173,7 @@
             "serial_number": "TBD",
             "manufacturer": {
                "name": "Ailipu Technology Co",
-               "abbreviation": null,
+               "abbreviation": "Ailipu",
                "registry": null,
                "registry_identifier": null
             },
@@ -199,6 +201,8 @@
             "bin_height": null,
             "bin_unit": "pixel",
             "gain": null,
+            "crop_offset_x": null,
+            "crop_offset_y": null,
             "crop_width": null,
             "crop_height": null,
             "crop_unit": "pixel",
@@ -376,6 +380,8 @@
          "bin_height": 4,
          "bin_unit": "pixel",
          "gain": "2",
+         "crop_offset_x": 0,
+         "crop_offset_y": 0,
          "crop_width": 200,
          "crop_height": 200,
          "crop_unit": "pixel",
@@ -420,6 +426,8 @@
          "bin_height": 4,
          "bin_unit": "pixel",
          "gain": "2",
+         "crop_offset_x": 0,
+         "crop_offset_y": 0,
          "crop_width": 200,
          "crop_height": 200,
          "crop_unit": "pixel",

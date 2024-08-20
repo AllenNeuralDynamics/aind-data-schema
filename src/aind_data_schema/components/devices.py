@@ -6,8 +6,7 @@ from enum import Enum
 from typing import List, Literal, Optional, Union
 
 from aind_data_schema_models.harp_types import HarpDeviceType
-from aind_data_schema_models.harp_types import Olfactometer as OlfactometerHarpType
-from aind_data_schema_models.organizations import InteruniversityMicroelectronicsCenter, Organization
+from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.units import (
     FrequencyUnit,
     PowerUnit,
@@ -325,6 +324,8 @@ class Detector(Device):
     bin_height: Optional[int] = Field(default=None, title="Bin height")
     bin_unit: SizeUnit = Field(default=SizeUnit.PX, title="Bin size unit")
     gain: Optional[Decimal] = Field(default=None, title="Gain")
+    crop_offset_x: Optional[int] = Field(default=None, title="Crop offset x")
+    crop_offset_y: Optional[int] = Field(default=None, title="Crop offset y")
     crop_width: Optional[int] = Field(default=None, title="Crop width")
     crop_height: Optional[int] = Field(default=None, title="Crop width")
     crop_unit: SizeUnit = Field(default=SizeUnit.PX, title="Crop size unit")
@@ -570,9 +571,7 @@ class NeuropixelsBasestation(DAQDevice):
 
     # fixed values
     data_interface: Literal[DataInterface.PXI] = DataInterface.PXI
-    manufacturer: Annotated[
-        Union[InteruniversityMicroelectronicsCenter], Field(default=Organization.IMEC, discriminator="name")
-    ]
+    manufacturer: Annotated[Union[type(Organization.IMEC)], Field(default=Organization.IMEC, discriminator="name")]
 
 
 class OpenEphysAcquisitionBoard(DAQDevice):
@@ -871,7 +870,7 @@ class Olfactometer(HarpDevice):
     device_type: Literal["Olfactometer"] = "Olfactometer"
     manufacturer: Organization.DAQ_DEVICE_MANUFACTURERS = Field(default=Organization.CHAMPALIMAUD)
     harp_device_type: Annotated[
-        Union[OlfactometerHarpType], Field(default=HarpDeviceType.OLFACTOMETER, discriminator="name")
+        Union[type(HarpDeviceType.OLFACTOMETER)], Field(default=HarpDeviceType.OLFACTOMETER, discriminator="name")
     ]
     channels: List[OlfactometerChannel]
 
