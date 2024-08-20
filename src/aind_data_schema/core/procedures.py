@@ -557,7 +557,7 @@ class WaterRestriction(AindModel):
 
 
 class MyomatrixContact(AindModel):
-    """"Description of a contact on a myomatrix thread"""
+    """ "Description of a contact on a myomatrix thread"""
 
     body_part: MouseAnatomicalStructure.BODY_PARTS.ONE_OF = Field(..., title="Body part of contact insertion")
     muscle: MouseAnatomicalStructure.EMG_MUSCLES.ONE_OF = Field(..., title="Muscle of contact insertion")
@@ -570,7 +570,7 @@ class MyomatrixThread(AindModel):
 
     ground_electrode_location: MouseAnatomicalStructure.BODY_PARTS.ONE_OF = Field(
         ..., title="Location of ground electrode"
-        )
+    )
     contacts: List[MyomatrixContact] = Field(..., title="Contacts")
 
 
