@@ -38,7 +38,7 @@ jobs:
         password: ${{ secrets.AIND_PYPI_TOKEN }}
 
   upload_schemas_prod:
-    needs: publish
+    needs: tag_and_publish
     runs-on: ubuntu-latest
     permissions:
       id-token: write
@@ -71,7 +71,7 @@ jobs:
           aws s3 sync $TEMP_DIR s3://${AWS_DATA_SCHEMA_BUCKET}/$S3_PREFIX
 
   upload_diagrams:
-    needs: publish
+    needs: tag_and_publish
     runs-on: ubuntu-latest
     permissions:
       id-token: write
