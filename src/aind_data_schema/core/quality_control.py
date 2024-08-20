@@ -7,7 +7,8 @@ from enum import Enum
 from typing import List, Literal, Optional
 
 from aind_data_schema_models.modalities import Modality
-from pydantic import Field
+from aind_data_schema_models.units import 
+from pydantic import Field, BaseModel
 
 from aind_data_schema.base import AindCoreModel, AindGeneric, AindGenericType, AindModel
 
@@ -19,14 +20,22 @@ class Status(str, Enum):
     PASS = "Pass"
 
 
+class QCMetric(BaseModel):
+    """Description of a single quality control metric"""
+    name: Optional[str] = Field(None, title="Metric name")
+    value: AindGenericType = Field(AindGeneric(), title="Metric value")
+    description: Optional[str] = Field(None, title="Metric description")
+    references: List[str] = Field(title="Metric reference URLs")
+
+
 class QCEvaluation(AindModel):
-    """Description of one evaluation stage"""
+    """Description of one evaluation stage, with one or more metrics"""
 
     evaluation_modality: Modality.ONE_OF = Field(..., title="Modality")
     evaluation_stage: str = Field(..., title="Evaluation stage")
     evaluator_full_name: str = Field(..., title="Evaluator full name")
     evaluation_date: date = Field(..., title="Evaluation date")
-    qc_metrics: AindGenericType = Field(AindGeneric(), title="QC metrics")
+    qc_metrics: List[QCMetric] = Field(title="QC metrics")
     stage_status: Status = Field(..., title="Stage status")
     notes: Optional[str] = Field(None, title="Notes")
 
