@@ -332,10 +332,10 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.4.9",
-         "default": "0.4.9",
+         "const": "1.0.0",
+         "default": "1.0.0",
          "enum": [
-            "0.4.9"
+            "1.0.0"
          ],
          "title": "Schema Version",
          "type": "string"

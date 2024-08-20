@@ -1775,10 +1775,10 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.13.12",
-         "default": "0.13.12",
+         "const": "1.0.0",
+         "default": "1.0.0",
          "enum": [
-            "0.13.12"
+            "1.0.0"
          ],
          "title": "Schema Version",
          "type": "string"

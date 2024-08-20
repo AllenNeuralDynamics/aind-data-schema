@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/quality_metrics.py",
-   "schema_version": "0.0.1",
+   "schema_version": "1.0.0",
    "overall_status": "Pass",
    "overall_status_date": "2022-11-22",
    "evaluations": [
