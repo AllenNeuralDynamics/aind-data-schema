@@ -279,7 +279,6 @@
          "type": "object"
       },
       "ProcessName": {
-         "description": "Data processing type labels",
          "enum": [
             "Analysis",
             "Compression",
@@ -294,13 +293,13 @@
             "Fluorescence event detection",
             "Image atlas alignment",
             "Image background subtraction",
-            "Image cell segmentation",
             "Image cell classification",
             "Image cell quantification",
-            "Image mip visualization",
+            "Image cell segmentation",
             "Image destriping",
             "Image flat-field correction",
             "Image importing",
+            "Image mip visualization",
             "Image thresholding",
             "Image tile alignment",
             "Image tile fusing",
@@ -311,8 +310,8 @@
             "Quality control and assessment",
             "Simulation",
             "Skull stripping",
-            "Spike sorting",
             "Spatial timeseries demixing",
+            "Spike sorting",
             "Video motion correction",
             "Video plane decrosstalk",
             "Video ROI classification",
@@ -333,9 +332,13 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.4.8",
-         "default": "0.4.8",
-         "title": "Schema Version"
+         "const": "0.4.9",
+         "default": "0.4.9",
+         "enum": [
+            "0.4.9"
+         ],
+         "title": "Schema Version",
+         "type": "string"
       },
       "processing_pipeline": {
          "allOf": [

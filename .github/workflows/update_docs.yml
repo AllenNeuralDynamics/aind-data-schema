@@ -12,6 +12,8 @@ jobs:
       OUTPUT_DIR: 'schemas'
     steps:
       - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.SERVICE_TOKEN }}
       - name: Set up Python 3.8
         uses: actions/setup-python@v3
         with:
@@ -47,6 +49,8 @@ jobs:
     continue-on-error: true
     steps:
       - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.SERVICE_TOKEN }}
       - name: Set up Python 3.8
         uses: actions/setup-python@v2
         with:

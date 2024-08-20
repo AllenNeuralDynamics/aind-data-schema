@@ -1,4 +1,5 @@
 """Tests rig session compatibility check"""
+
 import json
 import unittest
 from datetime import date, datetime, timezone

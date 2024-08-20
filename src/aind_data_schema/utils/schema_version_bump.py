@@ -50,11 +50,12 @@ class SchemaVersionHandler:
             if default_filename.find(".") != -1:
                 schema_filename = default_filename[: default_filename.find(".")] + "_schema.json"
             main_branch_schema_path = self.json_schemas_location / schema_filename
-            with open(main_branch_schema_path, "r") as f:
-                main_branch_schema_contents = json.load(f)
-            diff = dictdiffer.diff(main_branch_schema_contents, core_model_json)
-            if len(list(diff)) > 0:
-                schemas_that_need_updating.append(core_model)
+            if main_branch_schema_path.exists():
+                with open(main_branch_schema_path, "r") as f:
+                    main_branch_schema_contents = json.load(f)
+                diff = dictdiffer.diff(main_branch_schema_contents, core_model_json)
+                if len(list(diff)) > 0:
+                    schemas_that_need_updating.append(core_model)
         return schemas_that_need_updating
 
     @staticmethod
