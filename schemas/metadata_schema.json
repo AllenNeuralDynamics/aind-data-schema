@@ -558,10 +558,10 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.6.21",
-               "default": "0.6.21",
+               "const": "1.0.0",
+               "default": "1.0.0",
                "enum": [
-                  "0.6.21"
+                  "1.0.0"
                ],
                "title": "Schema Version",
                "type": "string"
@@ -4872,10 +4872,10 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.13.12",
-               "default": "0.13.12",
+               "const": "1.0.0",
+               "default": "1.0.0",
                "enum": [
-                  "0.13.12"
+                  "1.0.0"
                ],
                "title": "Schema Version",
                "type": "string"
@@ -13176,10 +13176,10 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.10.29",
-               "default": "0.10.29",
+               "const": "1.0.0",
+               "default": "1.0.0",
                "enum": [
-                  "0.10.29"
+                  "1.0.0"
                ],
                "title": "Schema Version",
                "type": "string"
@@ -24205,10 +24205,10 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.13.15",
-               "default": "0.13.15",
+               "const": "1.0.0",
+               "default": "1.0.0",
                "enum": [
-                  "0.13.15"
+                  "1.0.0"
                ],
                "title": "Schema Version",
                "type": "string"
@@ -24329,10 +24329,10 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.4.9",
-               "default": "0.4.9",
+               "const": "1.0.0",
+               "default": "1.0.0",
                "enum": [
-                  "0.4.9"
+                  "1.0.0"
                ],
                "title": "Schema Version",
                "type": "string"
@@ -24711,10 +24711,10 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.0.1",
-               "default": "0.0.1",
+               "const": "1.0.0",
+               "default": "1.0.0",
                "enum": [
-                  "0.0.1"
+                  "1.0.0"
                ],
                "title": "Schema Version",
                "type": "string"
@@ -26606,10 +26606,10 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.5.5",
-               "default": "0.5.5",
+               "const": "1.0.0",
+               "default": "1.0.0",
                "enum": [
-                  "0.5.5"
+                  "1.0.0"
                ],
                "title": "Schema Version",
                "type": "string"
@@ -28742,10 +28742,10 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.3.5",
-               "default": "0.3.5",
+               "const": "1.0.0",
+               "default": "1.0.0",
                "enum": [
-                  "0.3.5"
+                  "1.0.0"
                ],
                "title": "Schema Version",
                "type": "string"
@@ -30998,10 +30998,10 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "0.5.10",
-               "default": "0.5.10",
+               "const": "1.0.0",
+               "default": "1.0.0",
                "enum": [
-                  "0.5.10"
+                  "1.0.0"
                ],
                "title": "Schema Version",
                "type": "string"
@@ -34383,10 +34383,10 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.2.33",
-         "default": "0.2.33",
+         "const": "1.0.0",
+         "default": "1.0.0",
          "enum": [
-            "0.2.33"
+            "1.0.0"
          ],
          "title": "Schema Version",
          "type": "string"
