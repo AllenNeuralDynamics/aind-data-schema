@@ -253,6 +253,13 @@ class LickSensorType(str, Enum):
     PIEZOELECTIC = "Piezoelectric"
 
 
+class MyomatrixArrayType(str, Enum):
+    """Type of Myomatrix array"""
+
+    INJECTED = "Injected"
+    SUTURED = "Sutured"
+
+
 class Device(AindModel):
     """Generic device"""
 
@@ -919,6 +926,13 @@ class Scanner(Device):
     magnetic_strength: MagneticStrength = Field(..., title="Magnetic strength (T)")
     #  TODO: Check if this should go into the units module.
     magnetic_strength_unit: str = Field(default="T", title="Magnetic strength unit")
+
+
+class MyomatrixArray(Device):
+    """Description of a Myomatrix array"""
+
+    device_type: Literal["Myomatrix Array"] = "Myomatrix Array"
+    array_type: MyomatrixArrayType = Field(..., title="Array type")
 
 
 LIGHT_SOURCES = Annotated[Union[Laser, LightEmittingDiode, Lamp], Field(discriminator="device_type")]
