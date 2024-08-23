@@ -102,7 +102,7 @@ r = r.Rig(
                     side=d.SpoutSide.LEFT,
                     spout_diameter=1.2,
                     solenoid_valve=d.Device(device_type="Solenoid", name="Solenoid Left"),
-                    lick_sensor = d.Device(
+                    lick_sensor=d.Device(
                         name="Janelia_Lick_Detector Left",
                         device_type="Lick detector",
                         manufacturer=d.Organization.JANELIA,
@@ -114,7 +114,7 @@ r = r.Rig(
                     side=d.SpoutSide.RIGHT,
                     spout_diameter=1.2,
                     solenoid_valve=d.Device(device_type="Solenoid", name="Solenoid Right"),
-                    lick_sensor = d.Device(
+                    lick_sensor=d.Device(
                         name="Janelia_Lick_Detector Right",
                         device_type="Lick detector",
                         manufacturer=d.Organization.JANELIA,
