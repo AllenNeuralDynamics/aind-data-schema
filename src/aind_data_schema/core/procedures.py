@@ -574,10 +574,10 @@ class MyomatrixThread(AindModel):
     contacts: List[MyomatrixContact] = Field(..., title="Contacts")
 
 
-class EMGInsertion(AindModel):
+class MyomatrixInsertion(AindModel):
     """Description of a Myomatrix array insertion for EMG"""
 
-    procedure_type: Literal["EMG_Insertion"] = "EMG_Insertion"
+    procedure_type: Literal["Myomatrix_Insertion"] = "Myomatrix_Insertion"
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     myomatrix_array: MyomatrixArray = Field(..., title="Myomatrix array")
     threads: List[MyomatrixThread] = Field(..., title="Array threads")
@@ -625,13 +625,13 @@ class Surgery(AindModel):
         Annotated[
             Union[
                 Craniotomy,
-                EMGInsertion,
                 FiberImplant,
                 Headframe,
                 IntraCerebellarVentricleInjection,
                 IntraCisternalMagnaInjection,
                 IntraperitonealInjection,
                 IontophoresisInjection,
+                MyomatrixInsertion,
                 NanojectInjection,
                 OtherSubjectProcedure,
                 Perfusion,
