@@ -4,13 +4,12 @@ from __future__ import annotations
 
 from datetime import date
 from enum import Enum
-from typing import List, Literal, Optional
+from typing import List, Literal, Optional, Any
 
 from aind_data_schema_models.modalities import Modality
-from aind_data_schema_models.units import 
 from pydantic import Field, BaseModel
 
-from aind_data_schema.base import AindCoreModel, AindGeneric, AindGenericType, AindModel
+from aind_data_schema.base import AindCoreModel, AindModel
 
 
 class Status(str, Enum):
@@ -23,7 +22,7 @@ class Status(str, Enum):
 class QCMetric(BaseModel):
     """Description of a single quality control metric"""
     name: Optional[str] = Field(None, title="Metric name")
-    value: AindGenericType = Field(AindGeneric(), title="Metric value")
+    value: Any = Field(..., title="Metric value")
     description: Optional[str] = Field(None, title="Metric description")
     references: List[str] = Field(title="Metric reference URLs")
 
