@@ -66,6 +66,7 @@ class Side(str, Enum):
 
     LEFT = "Left"
     RIGHT = "Right"
+    MIDLINE = "Midline"
 
 
 class SectionOrientation(str, Enum):
