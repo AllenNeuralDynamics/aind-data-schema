@@ -21,10 +21,10 @@ class Status(str, Enum):
 
 class QCMetric(BaseModel):
     """Description of a single quality control metric"""
-    name: Optional[str] = Field(None, title="Metric name")
+    name: str = Field(..., title="Metric name")
     value: Any = Field(..., title="Metric value")
     description: Optional[str] = Field(None, title="Metric description")
-    references: List[str] = Field(title="Metric reference URLs")
+    references: Optional[List[str]] = Field(None, title="Metric reference URLs")
 
 
 class QCEvaluation(AindModel):
@@ -42,7 +42,7 @@ class QCEvaluation(AindModel):
 class QualityControl(AindCoreModel):
     """Description of quality metrics for a data asset"""
 
-    _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/quality_metrics.py"
+    _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/quality_control.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
     schema_version: Literal["1.0.0"] = Field("1.0.0")
     overall_status: Status = Field(..., title="Overall status")

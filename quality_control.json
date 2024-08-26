@@ -1,0 +1,63 @@
+{
+   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/quality_control.py",
+   "schema_version": "1.0.0",
+   "overall_status": "Pass",
+   "overall_status_date": "2022-11-22",
+   "evaluations": [
+      {
+         "evaluation_modality": {
+            "name": "Behavior videos",
+            "abbreviation": "behavior-videos"
+         },
+         "evaluation_stage": "Data acquisition",
+         "evaluator_full_name": "Fred Flinstone",
+         "evaluation_date": "2022-11-22",
+         "qc_metrics": [
+            {
+               "name": "Video_frame_match",
+               "value": {
+                  "Video_1_num_frames": 662,
+                  "Video_2_num_frames": 662,
+                  "Frame_match": true
+               },
+               "description": null,
+               "references": null
+            }
+         ],
+         "stage_status": "Pass",
+         "notes": null
+      },
+      {
+         "evaluation_modality": {
+            "name": "Extracellular electrophysiology",
+            "abbreviation": "ecephys"
+         },
+         "evaluation_stage": "Data acquisition",
+         "evaluator_full_name": "Fred Flinstone",
+         "evaluation_date": "2022-11-22",
+         "qc_metrics": [
+            {
+               "name": "ProbeA_success",
+               "value": true,
+               "description": null,
+               "references": null
+            },
+            {
+               "name": "ProbeB_success",
+               "value": true,
+               "description": null,
+               "references": null
+            },
+            {
+               "name": "ProbeC_success",
+               "value": true,
+               "description": null,
+               "references": null
+            }
+         ],
+         "stage_status": "Pass",
+         "notes": null
+      }
+   ],
+   "notes": null
+}

@@ -4,7 +4,7 @@ from datetime import date
 
 from aind_data_schema_models.modalities import Modality
 
-from aind_data_schema.core.quality_control import QCEvaluation, QualityControl
+from aind_data_schema.core.quality_control import QCEvaluation, QualityControl, QCMetric
 
 t = date(2022, 11, 22)
 
@@ -17,11 +17,16 @@ q = QualityControl(
             evaluation_stage="Data acquisition",
             evaluator_full_name="Fred Flinstone",
             evaluation_date=t,
-            qc_metrics={
-                "Video_1_num_frames": 662,
-                "Video_2_num_frames": 662,
-                "Frame_match": True,
-            },
+            qc_metrics=[
+                QCMetric(
+                    name="Video_frame_match",
+                    value={
+                        "Video_1_num_frames": 662,
+                        "Video_2_num_frames": 662,
+                        "Frame_match": True,
+                    }
+                )
+            ],
             stage_status="Pass",
         ),
         QCEvaluation(
@@ -29,11 +34,20 @@ q = QualityControl(
             evaluation_stage="Data acquisition",
             evaluator_full_name="Fred Flinstone",
             evaluation_date=t,
-            qc_metrics={
-                "ProbeA_success": True,
-                "ProbeB_success": True,
-                "ProbeC_success": False,
-            },
+            qc_metrics=[
+                QCMetric(
+                    name="ProbeA_success",
+                    value=True
+                ),
+                QCMetric(
+                    name="ProbeB_success",
+                    value=True
+                ),
+                QCMetric(
+                    name="ProbeC_success",
+                    value=True
+                )
+            ],
             stage_status="Pass",
         ),
     ],
