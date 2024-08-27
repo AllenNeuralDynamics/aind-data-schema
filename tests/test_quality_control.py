@@ -29,13 +29,14 @@ class QualityControlTests(unittest.TestCase):
                     evaluation_stage="Spike sorting",
                     qc_metrics=[
                         QCMetric(
+                            name="Multiple values example",
                             value={"stuff": "in_a_dict"}
                         ),
                         QCMetric(
                             name="Drift map pass/fail",
                             value=False,
                             description="Manual evaluation of whether the drift map looks good",
-                            references="s3://some-data-somewhere"
+                            references=["s3://some-data-somewhere"]
                         )
                     ],
                     stage_status="Pass",
