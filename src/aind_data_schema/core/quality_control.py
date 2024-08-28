@@ -23,8 +23,8 @@ class QCMetric(BaseModel):
     """Description of a single quality control metric"""
     name: str = Field(..., title="Metric name")
     value: Any = Field(..., title="Metric value")
-    description: Optional[str] = Field(None, title="Metric description")
-    references: Optional[List[str]] = Field(None, title="Metric reference URLs")
+    description: Optional[str] = Field(default=None, title="Metric description")
+    references: Optional[List[str]] = Field(default=None, title="Metric reference URLs")
 
 
 class QCEvaluation(AindModel):
@@ -36,7 +36,7 @@ class QCEvaluation(AindModel):
     evaluation_date: date = Field(..., title="Evaluation date")
     qc_metrics: List[QCMetric] = Field(title="QC metrics")
     stage_status: Status = Field(..., title="Stage status")
-    notes: Optional[str] = Field(None, title="Notes")
+    notes: Optional[str] = Field(default=None, title="Notes")
 
 
 class QualityControl(AindCoreModel):
@@ -48,4 +48,4 @@ class QualityControl(AindCoreModel):
     overall_status: Status = Field(..., title="Overall status")
     overall_status_date: date = Field(..., title="Date of status")
     evaluations: List[QCEvaluation] = Field(..., title="Evaluations")
-    notes: Optional[str] = Field(None, title="Notes")
+    notes: Optional[str] = Field(default=None, title="Notes")
