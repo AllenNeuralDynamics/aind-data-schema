@@ -9,31 +9,33 @@
             "name": "Behavior videos",
             "abbreviation": "behavior-videos"
          },
-         "evaluation_stage": "Data acquisition",
+         "evaluation_stage": "Data acquisition: video frame count check",
          "evaluator_full_name": "Fred Flinstone",
          "evaluation_date": "2022-11-22",
          "qc_metrics": [
             {
-               "name": "Video_frame_match",
-               "value": {
-                  "Video_1_num_frames": 662,
-                  "Video_2_num_frames": 662,
-                  "Frame_match": true
-               },
+               "name": "video_1_num_frames",
+               "value": 662,
+               "description": null,
+               "references": null
+            },
+            {
+               "name": "video_2_num_frames",
+               "value": 662,
                "description": null,
                "references": null
             }
          ],
          "stage_status": "Pass",
-         "notes": null
+         "notes": "Pass when video_1_num_frames==video_2_num_frames"
       },
       {
          "evaluation_modality": {
             "name": "Extracellular electrophysiology",
             "abbreviation": "ecephys"
          },
-         "evaluation_stage": "Data acquisition",
-         "evaluator_full_name": "Fred Flinstone",
+         "evaluation_stage": "Data acquisition: probes present",
+         "evaluator_full_name": "Automated",
          "evaluation_date": "2022-11-22",
          "qc_metrics": [
             {

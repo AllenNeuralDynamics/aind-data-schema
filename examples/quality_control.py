@@ -14,25 +14,26 @@ q = QualityControl(
     evaluations=[
         QCEvaluation(
             evaluation_modality=Modality.BEHAVIOR_VIDEOS,
-            evaluation_stage="Data acquisition",
+            evaluation_stage="Data acquisition: video frame count check",
             evaluator_full_name="Fred Flinstone",
             evaluation_date=t,
             qc_metrics=[
                 QCMetric(
-                    name="Video_frame_match",
-                    value={
-                        "Video_1_num_frames": 662,
-                        "Video_2_num_frames": 662,
-                        "Frame_match": True,
-                    }
+                    name="video_1_num_frames",
+                    value=662
+                ),
+                QCMetric(
+                    name="video_2_num_frames",
+                    value=662
                 )
             ],
             stage_status="Pass",
+            notes="Pass when video_1_num_frames==video_2_num_frames"
         ),
         QCEvaluation(
             evaluation_modality=Modality.ECEPHYS,
-            evaluation_stage="Data acquisition",
-            evaluator_full_name="Fred Flinstone",
+            evaluation_stage="Data acquisition: probes present",
+            evaluator_full_name="Automated",
             evaluation_date=t,
             qc_metrics=[
                 QCMetric(
