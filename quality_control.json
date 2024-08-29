@@ -6,34 +6,73 @@
    "evaluations": [
       {
          "evaluation_modality": {
-            "name": "Behavior videos",
-            "abbreviation": "behavior-videos"
+            "name": "Extracellular electrophysiology",
+            "abbreviation": "ecephys"
          },
-         "evaluation_stage": "Data acquisition",
-         "evaluator_full_name": "Fred Flinstone",
+         "evaluation_stage": "Preprocessing",
+         "evaluation_name": "Drift map",
+         "evaluation_desc": "Qualitative check that drift map shows minimal movement",
+         "evaluator": "Fred Flintstone",
          "evaluation_date": "2022-11-22",
          "qc_metrics": [
             {
-               "name": "Video_frame_match",
-               "value": {
-                  "Video_1_num_frames": 662,
-                  "Video_2_num_frames": 662,
-                  "Frame_match": true
-               },
+               "name": "Probe A drift",
+               "value": "High",
+               "description": null,
+               "references": null
+            },
+            {
+               "name": "Probe B drift",
+               "value": "Low",
+               "description": null,
+               "references": null
+            },
+            {
+               "name": "Probe C drift",
+               "value": "Low",
+               "description": null,
+               "references": null
+            }
+         ],
+         "stage_status": "Fail",
+         "notes": "Manually annotated: failed due to high drift on probe A"
+      },
+      {
+         "evaluation_modality": {
+            "name": "Behavior videos",
+            "abbreviation": "behavior-videos"
+         },
+         "evaluation_stage": "Raw data",
+         "evaluation_name": "Video frame count check",
+         "evaluation_desc": null,
+         "evaluator": "Fred Flinstone",
+         "evaluation_date": "2022-11-22",
+         "qc_metrics": [
+            {
+               "name": "video_1_num_frames",
+               "value": 662,
+               "description": null,
+               "references": null
+            },
+            {
+               "name": "video_2_num_frames",
+               "value": 662,
                "description": null,
                "references": null
             }
          ],
          "stage_status": "Pass",
-         "notes": null
+         "notes": "Pass when video_1_num_frames==video_2_num_frames"
       },
       {
          "evaluation_modality": {
             "name": "Extracellular electrophysiology",
             "abbreviation": "ecephys"
          },
-         "evaluation_stage": "Data acquisition",
-         "evaluator_full_name": "Fred Flinstone",
+         "evaluation_stage": "Raw data",
+         "evaluation_name": "Probes present",
+         "evaluation_desc": null,
+         "evaluator": "Automated",
          "evaluation_date": "2022-11-22",
          "qc_metrics": [
             {

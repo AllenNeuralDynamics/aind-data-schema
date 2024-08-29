@@ -19,6 +19,17 @@ class Status(str, Enum):
     PASS = "Pass"
 
 
+class Stage(str, Enum):
+    """QCEvaluation Stage
+
+    When during data processing the QC metrics were derived.
+    """
+
+    RAW = "Raw data"
+    PREPROCESSING = "Preprocessing"
+    ANALYSIS = "Analysis"
+
+
 class QCMetric(BaseModel):
     """Description of a single quality control metric"""
     name: str = Field(..., title="Metric name")
@@ -31,8 +42,10 @@ class QCEvaluation(AindModel):
     """Description of one evaluation stage, with one or more metrics"""
 
     evaluation_modality: Modality.ONE_OF = Field(..., title="Modality")
-    evaluation_stage: str = Field(..., title="Evaluation stage")
-    evaluator_full_name: str = Field(..., title="Evaluator full name")
+    evaluation_stage: Stage = Field(..., title="Evaluation stage")
+    evaluation_name: str = Field(..., title="Evaluation name")
+    evaluation_desc: Optional[str] = Field(default=None, title="Evaluation description")
+    evaluator: str = Field(..., title="Evaluator full name")
     evaluation_date: date = Field(..., title="Evaluation date")
     qc_metrics: List[QCMetric] = Field(title="QC metrics")
     stage_status: Status = Field(..., title="Stage status")
