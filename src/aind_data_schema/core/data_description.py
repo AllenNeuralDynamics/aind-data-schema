@@ -120,7 +120,7 @@ class DataDescription(AindCoreModel):
         title="Related data",
         description="Path and description of data assets associated with this asset (eg. reference images)",
     )
-    data_summary: Optional[str] = Field(None, title="Data summary", description="Semantic summary of experimental goal")
+    data_summary: Optional[str] = Field(default=None, title="Data summary", description="Semantic summary of experimental goal")
 
     @classmethod
     def parse_name(cls, name):

@@ -98,10 +98,10 @@ class Metadata(AindCoreModel):
     procedures: Optional[Procedures] = Field(
         default=None, title="Procedures", description="All procedures performed on a subject."
     )
-    session: Optional[Session] = Field(None, title="Session", description="Description of a session.")
-    rig: Optional[Rig] = Field(None, title="Rig", description="Rig.")
-    processing: Optional[Processing] = Field(None, title="Processing", description="All processes run on data.")
-    acquisition: Optional[Acquisition] = Field(None, title="Acquisition", description="Imaging acquisition session")
+    session: Optional[Session] = Field(default=None, title="Session", description="Description of a session.")
+    rig: Optional[Rig] = Field(default=None, title="Rig", description="Rig.")
+    processing: Optional[Processing] = Field(default=None, title="Processing", description="All processes run on data.")
+    acquisition: Optional[Acquisition] = Field(default=None, title="Acquisition", description="Imaging acquisition session")
     instrument: Optional[Instrument] = Field(
         default=None, title="Instrument", description="Instrument, which is a collection of devices"
     )

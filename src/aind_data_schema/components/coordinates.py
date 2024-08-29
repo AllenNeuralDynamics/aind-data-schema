@@ -178,4 +178,4 @@ class RelativePosition(AindModel):
         ..., title="Device origin", description="Reference point on device for position information"
     )
     device_axes: List[Axis] = Field(..., title="Device axes", min_length=3, max_length=3)
-    notes: Optional[str] = Field(None, title="Notes")
+    notes: Optional[str] = Field(default=None, title="Notes")
