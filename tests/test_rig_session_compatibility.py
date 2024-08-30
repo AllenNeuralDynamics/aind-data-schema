@@ -710,7 +710,9 @@ class TestRigSessionCompatibility(unittest.TestCase):
                     channels=[
                         d.DAQChannel(channel_name="DO0", device_name="Solenoid Left", channel_type="Digital Output"),
                         d.DAQChannel(channel_name="DO1", device_name="Solenoid Right", channel_type="Digital Output"),
-                        d.DAQChannel(channel_name="DI0", device_name="Janelia_Lick_Detector Left", channel_type="Digital Input"),
+                        d.DAQChannel(
+                            channel_name="DI0", device_name="Janelia_Lick_Detector Left", channel_type="Digital Input"
+                        ),
                         d.DAQChannel(
                             channel_name="DI1", device_name="Janelia_Lick_Detector Right", channel_type="Digital Input"
                         ),
