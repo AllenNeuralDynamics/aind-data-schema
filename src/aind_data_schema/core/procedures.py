@@ -568,9 +568,7 @@ class MyomatrixContact(AindModel):
 class MyomatrixThread(AindModel):
     """Description of a thread of a myomatrix array"""
 
-    ground_electrode_location: MouseAnatomicalStructure.BODY_PARTS = Field(
-        ..., title="Location of ground electrode"
-    )
+    ground_electrode_location: MouseAnatomicalStructure.BODY_PARTS = Field(..., title="Location of ground electrode")
     contacts: List[MyomatrixContact] = Field(..., title="Contacts")
 
 
