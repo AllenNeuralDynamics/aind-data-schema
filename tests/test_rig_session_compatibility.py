@@ -723,19 +723,31 @@ class TestRigSessionCompatibility(unittest.TestCase):
                 d.RewardDelivery(
                     reward_spouts=[
                         d.RewardSpout(
-                            name="Lick-o-meter Left",
+                            name="Left spout",
                             side=d.SpoutSide.LEFT,
                             spout_diameter=1.2,
                             solenoid_valve=d.Device(device_type="Solenoid", name="Solenoid Left"),
+                            lick_sensor=d.Device(
+                                name="Janelia_Lick_Detector Left",
+                                device_type="Lick detector",
+                                manufacturer=d.Organization.JANELIA,
+                            ),
+                            lick_sensor_type=d.LickSensorType("Capacitive"),
                         ),
                         d.RewardSpout(
-                            name="Lick-o-meter Right",
+                            name="Right spout",
                             side=d.SpoutSide.RIGHT,
                             spout_diameter=1.2,
                             solenoid_valve=d.Device(device_type="Solenoid", name="Solenoid Right"),
+                            lick_sensor=d.Device(
+                                name="Janelia_Lick_Detector Right",
+                                device_type="Lick detector",
+                                manufacturer=d.Organization.JANELIA,
+                            ),
+                            lick_sensor_type=d.LickSensorType("Capacitive"),
                         ),
-                    ]
-                )
+                    ],
+                ),
             ],
             additional_devices=[d.Device(device_type="Photometry Clock", name="Photometry Clock")],
             calibrations=[
