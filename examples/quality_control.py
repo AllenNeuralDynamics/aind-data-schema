@@ -10,7 +10,7 @@ t = date(2022, 11, 22)
 
 eval0 = QCEvaluation(
     evaluation_name="Drift map",
-    evaluation_desc="Qualitative check that drift map shows minimal movement",
+    evaluation_description="Qualitative check that drift map shows minimal movement",
     evaluation_modality=Modality.ECEPHYS,
     evaluation_stage=Stage.PREPROCESSING,
     evaluator="Fred Flintstone",
