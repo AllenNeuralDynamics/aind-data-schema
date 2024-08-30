@@ -261,16 +261,24 @@ rig = r.Rig(
         d.RewardDelivery(
             reward_spouts=[
                 d.RewardSpout(
-                    name="Lick-o-meter Left",
+                    name="Left spout",
                     side=d.SpoutSide.LEFT,
                     spout_diameter=1.2,
                     solenoid_valve=d.Device(device_type="Solenoid", name="Solenoid Left"),
+                    lick_sensor=d.Device(
+                        name="Lick-o-meter Left",
+                        device_type="Lick detector",
+                    ),
                 ),
                 d.RewardSpout(
-                    name="Lick-o-meter Right",
+                    name="Right spout",
                     side=d.SpoutSide.RIGHT,
                     spout_diameter=1.2,
                     solenoid_valve=d.Device(device_type="Solenoid", name="Solenoid Right"),
+                    lick_sensor=d.Device(
+                        name="Lick-o-meter Right",
+                        device_type="Lick detector",
+                    ),
                 ),
             ]
         )
