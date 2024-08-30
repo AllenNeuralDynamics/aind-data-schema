@@ -11,7 +11,7 @@
          },
          "evaluation_stage": "Preprocessing",
          "evaluation_name": "Drift map",
-         "evaluation_description": "Qualitative check that drift map shows minimal movement",
+         "evaluation_desc": "Qualitative check that drift map shows minimal movement",
          "evaluator": "Fred Flintstone",
          "evaluation_date": "2022-11-22",
          "qc_metrics": [
@@ -44,7 +44,7 @@
          },
          "evaluation_stage": "Raw data",
          "evaluation_name": "Video frame count check",
-         "evaluation_description": null,
+         "evaluation_desc": null,
          "evaluator": "Fred Flinstone",
          "evaluation_date": "2022-11-22",
          "qc_metrics": [
@@ -71,7 +71,7 @@
          },
          "evaluation_stage": "Raw data",
          "evaluation_name": "Probes present",
-         "evaluation_description": null,
+         "evaluation_desc": null,
          "evaluator": "Automated",
          "evaluation_date": "2022-11-22",
          "qc_metrics": [
