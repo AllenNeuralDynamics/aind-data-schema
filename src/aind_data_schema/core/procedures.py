@@ -66,6 +66,7 @@ class Side(str, Enum):
 
     LEFT = "Left"
     RIGHT = "Right"
+    MIDLINE = "Midline"
 
 
 class SectionOrientation(str, Enum):
@@ -560,6 +561,7 @@ class MyomatrixContact(AindModel):
     """ "Description of a contact on a myomatrix thread"""
 
     body_part: MouseAnatomicalStructure.BODY_PARTS = Field(..., title="Body part of contact insertion")
+    side: Side = Field(..., title="Body side")
     muscle: MouseAnatomicalStructure.EMG_MUSCLES = Field(..., title="Muscle of contact insertion")
     in_muscle: bool = Field(..., title="In muscle")
     notes: Optional[str] = Field(default=None, title="Notes")
