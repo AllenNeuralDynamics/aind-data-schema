@@ -44,10 +44,10 @@ class QCEvaluation(AindModel):
     evaluation_modality: Modality.ONE_OF = Field(..., title="Modality")
     evaluation_stage: Stage = Field(..., title="Evaluation stage")
     evaluation_name: str = Field(..., title="Evaluation name")
-    evaluation_desc: Optional[str] = Field(default=None, title="Evaluation description")
+    evaluation_description: Optional[str] = Field(default=None, title="Evaluation description")
     evaluator: str = Field(..., title="Evaluator full name")
     evaluation_date: date = Field(..., title="Evaluation date")
-    qc_metrics: List[QCMetric] = Field(title="QC metrics")
+    qc_metrics: List[QCMetric] = Field(..., title="QC metrics")
     stage_status: Status = Field(..., title="Stage status")
     notes: Optional[str] = Field(default=None, title="Notes")
 
