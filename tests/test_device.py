@@ -38,6 +38,10 @@ class DeviceTests(unittest.TestCase):
                     device_type="solenoid",
                     name="test_solenoid",
                 ),
+                lick_sensor=Device(
+                    device_type="Lick sensor",
+                    name="Sensor_test",
+                ),
                 side=SpoutSide.OTHER,
             )
 
