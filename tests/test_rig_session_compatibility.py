@@ -710,9 +710,11 @@ class TestRigSessionCompatibility(unittest.TestCase):
                     channels=[
                         d.DAQChannel(channel_name="DO0", device_name="Solenoid Left", channel_type="Digital Output"),
                         d.DAQChannel(channel_name="DO1", device_name="Solenoid Right", channel_type="Digital Output"),
-                        d.DAQChannel(channel_name="DI0", device_name="Lick-o-meter Left", channel_type="Digital Input"),
                         d.DAQChannel(
-                            channel_name="DI1", device_name="Lick-o-meter Right", channel_type="Digital Input"
+                            channel_name="DI0", device_name="Janelia_Lick_Detector Left", channel_type="Digital Input"
+                        ),
+                        d.DAQChannel(
+                            channel_name="DI1", device_name="Janelia_Lick_Detector Right", channel_type="Digital Input"
                         ),
                         d.DAQChannel(channel_name="DI3", device_name="Photometry Clock", channel_type="Digital Input"),
                     ],
@@ -723,19 +725,31 @@ class TestRigSessionCompatibility(unittest.TestCase):
                 d.RewardDelivery(
                     reward_spouts=[
                         d.RewardSpout(
-                            name="Lick-o-meter Left",
+                            name="Left spout",
                             side=d.SpoutSide.LEFT,
                             spout_diameter=1.2,
                             solenoid_valve=d.Device(device_type="Solenoid", name="Solenoid Left"),
+                            lick_sensor=d.Device(
+                                name="Janelia_Lick_Detector Left",
+                                device_type="Lick detector",
+                                manufacturer=d.Organization.JANELIA,
+                            ),
+                            lick_sensor_type=d.LickSensorType("Capacitive"),
                         ),
                         d.RewardSpout(
-                            name="Lick-o-meter Right",
+                            name="Right spout",
                             side=d.SpoutSide.RIGHT,
                             spout_diameter=1.2,
                             solenoid_valve=d.Device(device_type="Solenoid", name="Solenoid Right"),
+                            lick_sensor=d.Device(
+                                name="Janelia_Lick_Detector Right",
+                                device_type="Lick detector",
+                                manufacturer=d.Organization.JANELIA,
+                            ),
+                            lick_sensor_type=d.LickSensorType("Capacitive"),
                         ),
-                    ]
-                )
+                    ],
+                ),
             ],
             additional_devices=[d.Device(device_type="Photometry Clock", name="Photometry Clock")],
             calibrations=[

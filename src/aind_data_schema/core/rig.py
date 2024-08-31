@@ -142,7 +142,7 @@ class Rig(AindCoreModel):
         reward_delivery_device_names = []
         for rd in reward_deliveries:
             for rs in rd.reward_spouts:
-                reward_delivery_device_names += [rs.name, rs.solenoid_valve.name]
+                reward_delivery_device_names += [rs.name, rs.solenoid_valve.name, rs.lick_sensor.name]
 
         all_device_names = (
             standard_device_names
