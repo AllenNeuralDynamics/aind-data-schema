@@ -17,6 +17,7 @@ class Status(str, Enum):
 
     FAIL = "Fail"
     PASS = "Pass"
+    PENDING = "Pending"
 
 
 class Stage(str, Enum):
