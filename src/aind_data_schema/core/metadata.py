@@ -22,7 +22,7 @@ from aind_data_schema.core.subject import Subject
 from aind_data_schema.utils.compatibility_check import RigSessionCompatibility
 
 
-class MetadataStatus(Enum):
+class MetadataStatus(str, Enum):
     """Status of Metadata"""
 
     VALID = "Valid"
@@ -31,7 +31,7 @@ class MetadataStatus(Enum):
     UNKNOWN = "Unknown"
 
 
-class ExternalPlatforms(Enum):
+class ExternalPlatforms(str, Enum):
     """External Platforms of Data Assets."""
 
     CODEOCEAN = "Code Ocean"
@@ -81,7 +81,7 @@ class Metadata(AindCoreModel):
         default=MetadataStatus.UNKNOWN, title=" Metadata Status", description="The status of the metadata."
     )
     external_links: Dict[ExternalPlatforms, List[str]] = Field(
-        default=[], title="External Links", description="Links to the data asset on different platforms."
+        default=dict(), title="External Links", description="Links to the data asset on different platforms."
     )
     # We can make the AindCoreModel fields optional for now and do more
     # granular validations using validators. We may have some older data
