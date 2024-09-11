@@ -16,7 +16,7 @@ dynamic = ["version"]
 dependencies = [
     'aind-data-schema-models>=0.3.2',
     'dictdiffer',
-    'pydantic>=2.7,<2.9',
+    'pydantic>=2.7',
     'inflection',
     'jsonschema',
     'semver'
