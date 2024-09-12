@@ -23,7 +23,7 @@ class QualityControlTests(unittest.TestCase):
                 evaluator="Bob",
                 evaluation_date=date.fromisoformat("2020-10-10"),
                 evaluation_modality=Modality.ECEPHYS,
-                evaluation_stage=Stage.PREPROCESSING,
+                evaluation_stage=Stage.PROCESSING,
                 qc_metrics=[
                     QCMetric(
                         name="Multiple values example",
