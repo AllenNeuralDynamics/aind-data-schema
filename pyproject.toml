@@ -24,8 +24,7 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
-    'aind_data_schema[linters]',
-    'aind-flake8-extensions'
+    'aind_data_schema[linters]'
 ]
 
 linters = [
@@ -34,7 +33,8 @@ linters = [
     'coverage',
     'flake8',
     'interrogate',
-    'isort'
+    'isort',
+    'aind-flake8-extensions'
 ]
 
 docs = [
