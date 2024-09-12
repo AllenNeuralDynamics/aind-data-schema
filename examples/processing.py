@@ -2,8 +2,7 @@
 
 from datetime import datetime, timezone
 
-from aind_data_schema.core.processing import AnalysisProcess, DataProcess, PipelineProcess, Processing, ProcessName, ResourceUsage
-from aind_data_schema_models.units import MemoryUnit, MemoryValue, TimeUnit
+from aind_data_schema.core.processing import AnalysisProcess, DataProcess, PipelineProcess, Processing, ProcessName
 
 # If a timezone isn't specified, the timezone of the computer running this
 # script will be used as default
@@ -25,22 +24,6 @@ p = Processing(
                 code_version="0.1",
                 code_url="https://github.com/abcd",
                 parameters={"size": 7},
-                resources=ResourceUsage(
-                    os="Ubuntu 20.04",
-                    architecture="x86_64",
-                    cpu="Intel i7-9700K",
-                    cpu_cores=8,
-                    gpu="NVIDIA GTX 1080",
-                    memory=MemoryValue(value=1, unit=MemoryUnit.TB),
-                    ram=MemoryValue(value=32, unit=MemoryUnit.GB),
-                    timestamps=[0, 60, 120, 180],
-                    timestamp_unit=TimeUnit.S,
-                    cpu_usage=[0.0, 0.5, 0.75, 1.0],
-                    gpu_usage=[0.0, 0.0, 0.0, 0.0],
-                    ram_usage=[0.25, 0.30, 0.45, 0.45],
-                    file_io_usage=[100.0, 200.0, 150.0],
-                    file_io_unit=MemoryUnit.MB
-                )
             ),
             DataProcess(
                 name=ProcessName.FILE_FORMAT_CONVERSION,
