@@ -9,7 +9,7 @@ from pydantic import Field, ValidationInfo, field_validator
 
 from aind_data_schema.base import AindCoreModel, AindGeneric, AindGenericType, AindModel, AwareDatetimeWithDefault
 from aind_data_schema.components.tile import Tile
-from aind_data_schema_models.units import MemoryUnit, MemoryValue, TimeUnit
+from aind_data_schema_models.units import MemoryUnit, MemoryValue
 
 
 class RegistrationType(str, Enum):
