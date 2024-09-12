@@ -29,7 +29,7 @@
          "reward_spouts": [
             {
                "device_type": "Reward spout",
-               "name": "Lick-o-meter Left",
+               "name": "Left spout",
                "serial_number": null,
                "manufacturer": null,
                "model": null,
@@ -52,12 +52,22 @@
                   "additional_settings": {},
                   "notes": null
                },
-               "lick_sensor": null,
+               "lick_sensor": {
+                  "device_type": "Lick detector",
+                  "name": "Lick-o-meter Left",
+                  "serial_number": null,
+                  "manufacturer": null,
+                  "model": null,
+                  "path_to_cad": null,
+                  "port_index": null,
+                  "additional_settings": {},
+                  "notes": null
+               },
                "lick_sensor_type": null
             },
             {
                "device_type": "Reward spout",
-               "name": "Lick-o-meter Right",
+               "name": "Right spout",
                "serial_number": null,
                "manufacturer": null,
                "model": null,
@@ -80,7 +90,17 @@
                   "additional_settings": {},
                   "notes": null
                },
-               "lick_sensor": null,
+               "lick_sensor": {
+                  "device_type": "Lick detector",
+                  "name": "Lick-o-meter Right",
+                  "serial_number": null,
+                  "manufacturer": null,
+                  "model": null,
+                  "path_to_cad": null,
+                  "port_index": null,
+                  "additional_settings": {},
+                  "notes": null
+               },
                "lick_sensor_type": null
             }
          ]

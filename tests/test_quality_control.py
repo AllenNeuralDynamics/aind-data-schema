@@ -6,7 +6,7 @@ from datetime import date
 from aind_data_schema_models.modalities import Modality
 from pydantic import ValidationError
 
-from aind_data_schema.core.quality_control import QCEvaluation, QualityControl
+from aind_data_schema.core.quality_control import QCEvaluation, QualityControl, QCMetric, Stage, Status
 
 
 class QualityControlTests(unittest.TestCase):
@@ -18,18 +18,32 @@ class QualityControlTests(unittest.TestCase):
         with self.assertRaises(ValidationError):
             q = QualityControl()
 
+        test_eval = QCEvaluation(
+                evaluation_name="Drift map",
+                evaluator="Bob",
+                evaluation_date=date.fromisoformat("2020-10-10"),
+                evaluation_modality=Modality.ECEPHYS,
+                evaluation_stage=Stage.PROCESSING,
+                qc_metrics=[
+                    QCMetric(
+                        name="Multiple values example",
+                        value={"stuff": "in_a_dict"}
+                    ),
+                    QCMetric(
+                        name="Drift map pass/fail",
+                        value=False,
+                        description="Manual evaluation of whether the drift map looks good",
+                        references=["s3://some-data-somewhere"]
+                    )
+                ],
+                stage_status=Status.PASS,
+            )
+
         q = QualityControl(
             overall_status_date=date.fromisoformat("2020-10-10"),
-            overall_status="Pass",
+            overall_status=Status.PASS,
             evaluations=[
-                QCEvaluation(
-                    evaluator_full_name="Bob",
-                    evaluation_date=date.fromisoformat("2020-10-10"),
-                    evaluation_modality=Modality.ECEPHYS,
-                    evaluation_stage="Spike sorting",
-                    qc_metrics={"number_good_units": [622]},
-                    stage_status="Pass",
-                ),
+                test_eval
             ],
         )
 
