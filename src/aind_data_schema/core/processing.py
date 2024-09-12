@@ -8,6 +8,7 @@ from pydantic import Field, ValidationInfo, field_validator
 
 from aind_data_schema.base import AindCoreModel, AindGeneric, AindGenericType, AindModel, AwareDatetimeWithDefault
 from aind_data_schema.components.tile import Tile
+from aind_data_schema_models.units import MemoryUnit, MemoryValue
 
 
 class RegistrationType(str, Enum):
@@ -15,6 +16,25 @@ class RegistrationType(str, Enum):
 
     INTER = "Inter-channel"
     INTRA = "Intra-channel"
+
+
+class ResourceUsage(AindModel):
+    """Description of resources used by a process"""
+
+    os: str = Field(..., title="Operating system")
+    architecture: str = Field(..., title="Architecture")
+    cpu: Optional[str] = Field(default=None, title="CPU name")
+    cpu_cores: Optional[int] = Field(default=None, title="CPU cores")
+    gpu: Optional[str] = Field(default=None, title="GPU name")
+    memory: Optional[MemoryValue] = Field(default=None, title="System memory")
+    ram: Optional[MemoryValue] = Field(default=None, title="System RAM")
+
+    timestamps: List[float] = Field(..., title="Usage timestamps")
+    cpu_usage: List[float] = Field(..., title="CPU %")
+    gpu_usage: Optional[List[float]] = Field(default=None, title="GPU %")
+    ram_usage: Optional[List[float]] = Field(default=None, title="RAM %")
+    file_io_usage: Optional[List[float]] = Field(default=None, title="File I/O rate")
+    file_io_unit: Optional[MemoryUnit] = Field(default=None, title="File I/O unit")
 
 
 class DataProcess(AindModel):
@@ -31,6 +51,7 @@ class DataProcess(AindModel):
     parameters: AindGenericType = Field(..., title="Parameters")
     outputs: AindGenericType = Field(AindGeneric(), description="Output parameters", title="Outputs")
     notes: Optional[str] = Field(default=None, title="Notes", validate_default=True)
+    resources: Optional[ResourceUsage] = Field(default=None, title="Process resource usage")
 
     @field_validator("notes", mode="after")
     def validate_other(cls, value: Optional[str], info: ValidationInfo) -> Optional[str]:
