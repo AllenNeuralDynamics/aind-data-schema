@@ -8,7 +8,7 @@ from pydantic import Field, ValidationInfo, field_validator
 
 from aind_data_schema.base import AindCoreModel, AindGeneric, AindGenericType, AindModel, AwareDatetimeWithDefault
 from aind_data_schema.components.tile import Tile
-from aind_data_schema_models.units import MemoryUnit, MemoryValue
+from aind_data_schema_models.units import MemoryUnit, MemoryValue, TimeUnit
 
 
 class RegistrationType(str, Enum):
@@ -30,6 +30,7 @@ class ResourceUsage(AindModel):
     ram: Optional[MemoryValue] = Field(default=None, title="System RAM")
 
     timestamps: List[float] = Field(..., title="Usage timestamps")
+    timestamp_unit: TimeUnit = Field(..., title="Timestamp unit")
     cpu_usage: List[float] = Field(..., title="CPU %")
     gpu_usage: Optional[List[float]] = Field(default=None, title="GPU %")
     ram_usage: Optional[List[float]] = Field(default=None, title="RAM %")
