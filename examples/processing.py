@@ -1,12 +1,35 @@
 """ example processing """
 
-from datetime import datetime, timezone
+from datetime import datetime, timezone, date
 
-from aind_data_schema.core.processing import AnalysisProcess, DataProcess, PipelineProcess, Processing, ProcessName
+from aind_data_schema.core.processing import AnalysisProcess, DataProcess, PipelineProcess, Processing, ProcessName, ResourceTimestamped, ResourceUsage
+from aind_data_schema_models.units import MemoryUnit, MemoryValue
+from aind_data_schema_models.system_architecture import OperatingSystem, CPUArchitecture
 
 # If a timezone isn't specified, the timezone of the computer running this
 # script will be used as default
 t = datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc)
+
+
+timestamped_cpu_usage = [
+    ResourceTimestamped(timestamp=date(2024, 9, 13), usage=75.5),
+    ResourceTimestamped(timestamp=date(2024, 9, 13), usage=80.0)
+]
+
+timestamped_gpu_usage = [
+    ResourceTimestamped(timestamp=date(2024, 9, 13), usage=60.0),
+    ResourceTimestamped(timestamp=date(2024, 9, 13), usage=65.5)
+]
+
+timestamped_ram_usage = [
+    ResourceTimestamped(timestamp=date(2024, 9, 13), usage=70.0),
+    ResourceTimestamped(timestamp=date(2024, 9, 13), usage=72.5)
+]
+
+timestamped_file_io_usage = [
+    ResourceTimestamped(timestamp=date(2024, 9, 13), usage=5.5),
+    ResourceTimestamped(timestamp=date(2024, 9, 13), usage=6.0)
+]
 
 p = Processing(
     processing_pipeline=PipelineProcess(
@@ -24,6 +47,20 @@ p = Processing(
                 code_version="0.1",
                 code_url="https://github.com/abcd",
                 parameters={"size": 7},
+                resources=ResourceUsage(
+                    os=OperatingSystem.UBUNTU_20_04,
+                    architecture=CPUArchitecture.X86_64,
+                    cpu="Intel Core i7",
+                    cpu_cores=8,
+                    gpu="NVIDIA GeForce RTX 3080",
+                    memory=MemoryValue(value=32.0, unit=MemoryUnit.GB),
+                    ram=MemoryValue(value=16.0, unit=MemoryUnit.GB),
+                    cpu_usage=timestamped_cpu_usage,
+                    gpu_usage=timestamped_gpu_usage,
+                    ram_usage=timestamped_ram_usage,
+                    file_io_usage=timestamped_file_io_usage,
+                    file_io_unit=MemoryUnit.MB
+                )
             ),
             DataProcess(
                 name=ProcessName.FILE_FORMAT_CONVERSION,

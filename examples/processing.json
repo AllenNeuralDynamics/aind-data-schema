@@ -16,7 +16,63 @@
                "size": 7
             },
             "outputs": {},
-            "notes": null
+            "notes": null,
+            "resources": {
+               "os": "Ubuntu 20.04",
+               "architecture": "x86-64",
+               "cpu": "Intel Core i7",
+               "cpu_cores": 8,
+               "gpu": "NVIDIA GeForce RTX 3080",
+               "memory": {
+                  "value": "32.0",
+                  "unit": "Gigabyte"
+               },
+               "ram": {
+                  "value": "16.0",
+                  "unit": "Gigabyte"
+               },
+               "cpu_usage": [
+                  {
+                     "timestamp": "2024-09-13",
+                     "usage": 75.5
+                  },
+                  {
+                     "timestamp": "2024-09-13",
+                     "usage": 80.0
+                  }
+               ],
+               "gpu_usage": [
+                  {
+                     "timestamp": "2024-09-13",
+                     "usage": 60.0
+                  },
+                  {
+                     "timestamp": "2024-09-13",
+                     "usage": 65.5
+                  }
+               ],
+               "ram_usage": [
+                  {
+                     "timestamp": "2024-09-13",
+                     "usage": 70.0
+                  },
+                  {
+                     "timestamp": "2024-09-13",
+                     "usage": 72.5
+                  }
+               ],
+               "file_io_usage": [
+                  {
+                     "timestamp": "2024-09-13",
+                     "usage": 5.5
+                  },
+                  {
+                     "timestamp": "2024-09-13",
+                     "usage": 6.0
+                  }
+               ],
+               "file_io_unit": "Megabyte"
+            }
          },
          {
             "name": "File format conversion",
@@ -32,7 +88,8 @@
                "z": true
             },
             "outputs": {},
-            "notes": null
+            "notes": null,
+            "resources": null
          },
          {
             "name": "Image destriping",
@@ -48,7 +105,8 @@
                "b": -2
             },
             "outputs": {},
-            "notes": null
+            "notes": null,
+            "resources": null
          }
       ],
       "processor_full_name": "Some Processor",
@@ -71,6 +129,7 @@
          },
          "outputs": {},
          "notes": null,
+         "resources": null,
          "analyst_full_name": "Some Analyzer",
          "description": "some description"
       },
@@ -89,6 +148,7 @@
          },
          "outputs": {},
          "notes": null,
+         "resources": null,
          "analyst_full_name": "Some Analyzer",
          "description": "some description"
       }
