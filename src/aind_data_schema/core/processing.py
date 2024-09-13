@@ -41,7 +41,7 @@ class ResourceUsage(AindModel):
     gpu_usage: Optional[List[ResourceTimestamped]] = Field(default=None, title="GPU usage (%)")
     ram_usage: Optional[List[ResourceTimestamped]] = Field(default=None, title="RAM usage (%)")
     file_io_usage: Optional[List[ResourceTimestamped]] = Field(default=None, title="File I/O usage")
-    file_io_unit: Optional[MemoryUnit]
+    file_io_unit: Optional[MemoryUnit] = Field(default=None, title="File I/O unit")
 
 
 class DataProcess(AindModel):
