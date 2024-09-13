@@ -33,7 +33,8 @@ linters = [
     'coverage',
     'flake8',
     'interrogate',
-    'isort'
+    'isort',
+    'aind-flake8-extensions'
 ]
 
 docs = [

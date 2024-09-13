@@ -98,7 +98,7 @@ class Subject(AindCoreModel):
     sex: Sex = Field(..., title="Sex")
     date_of_birth: date_type = Field(..., title="Date of birth")
     genotype: Optional[str] = Field(
-        None,
+        default=None,
         description="Genotype of the animal providing both alleles",
         title="Genotype",
     )
@@ -112,12 +112,12 @@ class Subject(AindCoreModel):
         title="Source",
     )
     rrid: Optional[PIDName] = Field(
-        None,
+        default=None,
         description="RRID of mouse if acquired from supplier",
         title="RRID",
     )
     restrictions: Optional[str] = Field(
-        None,
+        default=None,
         description="Any restrictions on use or publishing based on subject source",
         title="Restrictions",
     )
