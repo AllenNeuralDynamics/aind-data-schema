@@ -528,7 +528,7 @@ class Laser(Device):
     power_unit: PowerUnit = Field(default=PowerUnit.MW, title="Power unit")
     coupling: Optional[Coupling] = Field(default=None, title="Coupling")
     coupling_efficiency: Optional[Decimal] = Field(
-        None,
+        default=None,
         title="Coupling efficiency (percent)",
         ge=0,
         le=100,

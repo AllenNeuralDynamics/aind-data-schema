@@ -27,7 +27,7 @@ class Stage(str, Enum):
     """
 
     RAW = "Raw data"
-    PREPROCESSING = "Preprocessing"
+    PROCESSING = "Processing"
     ANALYSIS = "Analysis"
 
 
