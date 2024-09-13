@@ -36,7 +36,7 @@ class QCMetric(BaseModel):
     name: str = Field(..., title="Metric name")
     value: Any = Field(..., title="Metric value")
     description: Optional[str] = Field(default=None, title="Metric description")
-    references: Optional[List[str]] = Field(default=None, title="Metric reference URLs")
+    reference: Optional[str] = Field(default=None, title="Metric reference image URL or plot type")
 
 
 class QCEvaluation(AindModel):

@@ -18,15 +18,18 @@ eval0 = QCEvaluation(
     qc_metrics=[
         QCMetric(
             name="Probe A drift",
-            value="High"
+            value="High",
+            reference="ecephys-drift-map"
         ),
         QCMetric(
             name="Probe B drift",
-            value="Low"
+            value="Low",
+            reference="ecephys-drift-map"
         ),
         QCMetric(
             name="Probe C drift",
-            value="Low"
+            value="Low",
+            reference="ecephys-drift-map"
         )
     ],
     stage_status=Status.FAIL,
