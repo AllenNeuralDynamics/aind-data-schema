@@ -33,6 +33,7 @@ class Stage(str, Enum):
 
 class QCMetric(BaseModel):
     """Description of a single quality control metric"""
+
     name: str = Field(..., title="Metric name")
     value: Any = Field(..., title="Metric value")
     description: Optional[str] = Field(default=None, title="Metric description")
