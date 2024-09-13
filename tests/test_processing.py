@@ -7,7 +7,13 @@ import pydantic
 
 from datetime import datetime
 
-from aind_data_schema.core.processing import DataProcess, PipelineProcess, Processing, ResourceUsage, ResourceTimestamped
+from aind_data_schema.core.processing import (
+    DataProcess,
+    PipelineProcess,
+    Processing,
+    ResourceUsage,
+    ResourceTimestamped,
+)
 from aind_data_schema_models.system_architecture import OperatingSystem, CPUArchitecture
 
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pydantic.__version__).group(1)
@@ -67,12 +73,7 @@ class ProcessingTest(unittest.TestCase):
         resources = ResourceUsage(
             os=OperatingSystem.MACOS_SONOMA,
             architecture=CPUArchitecture.X86_64,
-            cpu_usage=[
-                ResourceTimestamped(
-                    timestamp=datetime.fromisoformat('2024-09-13'),
-                    usage=0.5
-                )
-            ]
+            cpu_usage=[ResourceTimestamped(timestamp=datetime.fromisoformat("2024-09-13"), usage=0.5)],
         )
 
         self.assertIsNotNone(resources)

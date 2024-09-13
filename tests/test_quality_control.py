@@ -19,32 +19,27 @@ class QualityControlTests(unittest.TestCase):
             q = QualityControl()
 
         test_eval = QCEvaluation(
-                evaluation_name="Drift map",
-                evaluator="Bob",
-                evaluation_date=date.fromisoformat("2020-10-10"),
-                evaluation_modality=Modality.ECEPHYS,
-                evaluation_stage=Stage.PREPROCESSING,
-                qc_metrics=[
-                    QCMetric(
-                        name="Multiple values example",
-                        value={"stuff": "in_a_dict"}
-                    ),
-                    QCMetric(
-                        name="Drift map pass/fail",
-                        value=False,
-                        description="Manual evaluation of whether the drift map looks good",
-                        references=["s3://some-data-somewhere"]
-                    )
-                ],
-                stage_status=Status.PASS,
-            )
+            evaluation_name="Drift map",
+            evaluator="Bob",
+            evaluation_date=date.fromisoformat("2020-10-10"),
+            evaluation_modality=Modality.ECEPHYS,
+            evaluation_stage=Stage.PREPROCESSING,
+            qc_metrics=[
+                QCMetric(name="Multiple values example", value={"stuff": "in_a_dict"}),
+                QCMetric(
+                    name="Drift map pass/fail",
+                    value=False,
+                    description="Manual evaluation of whether the drift map looks good",
+                    references=["s3://some-data-somewhere"],
+                ),
+            ],
+            stage_status=Status.PASS,
+        )
 
         q = QualityControl(
             overall_status_date=date.fromisoformat("2020-10-10"),
             overall_status=Status.PASS,
-            evaluations=[
-                test_eval
-            ],
+            evaluations=[test_eval],
         )
 
         assert q is not None
