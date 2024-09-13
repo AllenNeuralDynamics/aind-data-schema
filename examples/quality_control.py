@@ -16,21 +16,12 @@ eval0 = QCEvaluation(
     evaluator="Fred Flintstone",
     evaluation_date=t,
     qc_metrics=[
-        QCMetric(
-            name="Probe A drift",
-            value="High"
-        ),
-        QCMetric(
-            name="Probe B drift",
-            value="Low"
-        ),
-        QCMetric(
-            name="Probe C drift",
-            value="Low"
-        )
+        QCMetric(name="Probe A drift", value="High"),
+        QCMetric(name="Probe B drift", value="Low"),
+        QCMetric(name="Probe C drift", value="Low"),
     ],
     stage_status=Status.FAIL,
-    notes="Manually annotated: failed due to high drift on probe A"
+    notes="Manually annotated: failed due to high drift on probe A",
 )
 
 eval1 = QCEvaluation(
@@ -39,18 +30,9 @@ eval1 = QCEvaluation(
     evaluation_stage=Stage.RAW,
     evaluator="Fred Flinstone",
     evaluation_date=t,
-    qc_metrics=[
-        QCMetric(
-            name="video_1_num_frames",
-            value=662
-        ),
-        QCMetric(
-            name="video_2_num_frames",
-            value=662
-        )
-    ],
+    qc_metrics=[QCMetric(name="video_1_num_frames", value=662), QCMetric(name="video_2_num_frames", value=662)],
     stage_status=Status.PASS,
-    notes="Pass when video_1_num_frames==video_2_num_frames"
+    notes="Pass when video_1_num_frames==video_2_num_frames",
 )
 
 eval2 = QCEvaluation(
@@ -60,27 +42,14 @@ eval2 = QCEvaluation(
     evaluator="Automated",
     evaluation_date=t,
     qc_metrics=[
-        QCMetric(
-            name="ProbeA_success",
-            value=True
-        ),
-        QCMetric(
-            name="ProbeB_success",
-            value=True
-        ),
-        QCMetric(
-            name="ProbeC_success",
-            value=True
-        )
+        QCMetric(name="ProbeA_success", value=True),
+        QCMetric(name="ProbeB_success", value=True),
+        QCMetric(name="ProbeC_success", value=True),
     ],
     stage_status=Status.PASS,
 )
 
-q = QualityControl(
-    overall_status="Pass",
-    overall_status_date=t,
-    evaluations=[eval0, eval1, eval2]
-)
+q = QualityControl(overall_status="Pass", overall_status_date=t, evaluations=[eval0, eval1, eval2])
 
 serialized = q.model_dump_json()
 deserialized = QualityControl.model_validate_json(serialized)
