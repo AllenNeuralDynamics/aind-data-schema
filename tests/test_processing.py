@@ -5,7 +5,10 @@ import unittest
 
 import pydantic
 
-from aind_data_schema.core.processing import DataProcess, PipelineProcess, Processing
+from datetime import datetime
+
+from aind_data_schema.core.processing import DataProcess, PipelineProcess, Processing, ResourceUsage, ResourceTimestamped
+from aind_data_schema_models.system_architecture import OperatingSystem, CPUArchitecture
 
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pydantic.__version__).group(1)
 
@@ -57,6 +60,25 @@ class ProcessingTest(unittest.TestCase):
 
         self.assertIsNotNone(p)
         self.assertEqual(expected_exception, repr(e.exception))
+
+    def test_resource_usage(self):
+        """Test the ResourceUsage class"""
+
+        resources = ResourceUsage(
+            os=OperatingSystem.MACOS_SONOMA,
+            architecture=CPUArchitecture.X86_64,
+            cpu_usage=[
+                ResourceTimestamped(
+                    timestamp=datetime.fromisoformat('2024-09-13'),
+                    usage=0.5
+                )
+            ]
+        )
+
+        self.assertIsNotNone(resources)
+
+        with self.assertRaises(pydantic.ValidationError):
+            ResourceUsage()
 
 
 if __name__ == "__main__":
