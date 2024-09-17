@@ -33,6 +33,7 @@ class Stage(str, Enum):
 
 class QCStatus(BaseModel):
     """Description of a QC status, set by an evaluator"""
+
     evaluator: str = Field(..., title="Status evaluator full name")
     status: Status = Field(..., title="Status")
     timestamp: date = Field(..., "Status date")
@@ -40,6 +41,7 @@ class QCStatus(BaseModel):
 
 class QCMetric(BaseModel):
     """Description of a single quality control metric"""
+
     name: str = Field(..., title="Metric name")
     value: Any = Field(..., title="Metric value")
     description: Optional[str] = Field(default=None, title="Metric description")
