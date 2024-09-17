@@ -60,6 +60,7 @@ class QualityControl(AindCoreModel):
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
     schema_version: Literal["1.0.0"] = Field("1.0.0")
     overall_status: Status = Field(..., title="Overall status")
+    overall_evaluator: str = Field(.., title="Overall status evaluator full name")
     overall_status_date: date = Field(..., title="Date of status")
     evaluations: List[QCEvaluation] = Field(..., title="Evaluations")
     notes: Optional[str] = Field(default=None, title="Notes")
