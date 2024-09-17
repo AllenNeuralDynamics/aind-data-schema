@@ -36,7 +36,7 @@ class QCStatus(BaseModel):
 
     evaluator: str = Field(..., title="Status evaluator full name")
     status: Status = Field(..., title="Status")
-    timestamp: date = Field(..., "Status date")
+    timestamp: date = Field(..., title="Status date")
 
 
 class QCMetric(BaseModel):
