@@ -241,7 +241,7 @@ class SpecimenProcedure(AindModel):
 
     procedure_type: SpecimenProcedureType = Field(..., title="Procedure type")
     procedure_name: Optional[str] = Field(
-        None, title="Procedure name", description="Name to clarify specific procedure used as needed"
+        default=None, title="Procedure name", description="Name to clarify specific procedure used as needed"
     )
     specimen_id: str = Field(..., title="Specimen ID")
     start_date: date = Field(..., title="Start date")
