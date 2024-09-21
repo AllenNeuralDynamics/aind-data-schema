@@ -2,12 +2,12 @@
 
 from __future__ import annotations
 
-from datetime import date
+from datetime import datetime
 from enum import Enum
 from typing import List, Literal, Optional, Any
 
 from aind_data_schema_models.modalities import Modality
-from pydantic import Field, BaseModel
+from pydantic import Field, BaseModel, PrivateAttr
 
 from aind_data_schema.base import AindCoreModel, AindModel
 
@@ -36,7 +36,7 @@ class QCStatus(BaseModel):
 
     evaluator: str = Field(..., title="Status evaluator full name")
     status: Status = Field(..., title="Status")
-    timestamp: date = Field(..., title="Status date")
+    timestamp: datetime = Field(..., title="Status date")
 
 
 class QCMetric(BaseModel):
@@ -46,7 +46,8 @@ class QCMetric(BaseModel):
     value: Any = Field(..., title="Metric value")
     description: Optional[str] = Field(default=None, title="Metric description")
     reference: Optional[str] = Field(default=None, title="Metric reference image URL or plot type")
-    status: List[QCStatus] = Field(..., title="Metric status")
+    metric_status: List[QCStatus] = Field(..., title="Metric status")
+
 
 class QCEvaluation(AindModel):
     """Description of one evaluation stage, with one or more metrics"""
@@ -56,8 +57,24 @@ class QCEvaluation(AindModel):
     evaluation_name: str = Field(..., title="Evaluation name")
     evaluation_description: Optional[str] = Field(default=None, title="Evaluation description")
     qc_metrics: List[QCMetric] = Field(..., title="QC metrics")
-    evaluation_status: List[QCStatus] = Field(..., title="Evaluation status")
     notes: Optional[str] = Field(default=None, title="Notes")
+    _evaluation_status: List[QCStatus] = PrivateAttr(default=[])
+
+    @property
+    def evaluation_status(self) -> List[QCStatus]:
+        return self._evaluation_status
+
+    def _evaluate_status(self):
+        new_status = QCStatus(evaluator="Automated", status=Status.PASS, timestamp=datetime.now())
+
+        latest_metric_statuses = [metric.metric_status[-1].status for metric in self.qc_metrics]
+
+        if any(status == Status.FAIL for status in latest_metric_statuses):
+            new_status.status = Status.FAIL
+        elif any(status == Status.PENDING for status in latest_metric_statuses):
+            new_status.status = Status.PENDING
+
+        self._evaluation_status.append(new_status)
 
 
 class QualityControl(AindCoreModel):
@@ -66,6 +83,22 @@ class QualityControl(AindCoreModel):
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/quality_control.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
     schema_version: Literal["1.0.0"] = Field("1.0.0")
-    overall_status: List[QCStatus] = Field(..., title="Overall status")
     evaluations: List[QCEvaluation] = Field(..., title="Evaluations")
     notes: Optional[str] = Field(default=None, title="Notes")
+    _overall_status: List[QCStatus] = PrivateAttr(default=[])
+
+    @property
+    def overall_status(self) -> List[QCStatus]:
+        return self._overall_status
+
+    def _evaluate_status(self):
+        new_status = QCStatus(evaluator="Automated", status=Status.PASS, timestamp=datetime.now())
+
+        latest_eval_statuses = [evaluation.evaluation_status[-1].status for metric in self.evaluations]
+
+        if any(status == Status.FAIL for status in latest_eval_statuses):
+            new_status.status = Status.FAIL
+        elif any(status == Status.PENDING for status in latest_eval_statuses):
+            new_status.status = Status.PENDING
+
+        self._overall_status.append(new_status)
