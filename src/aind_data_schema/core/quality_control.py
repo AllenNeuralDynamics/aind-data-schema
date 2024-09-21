@@ -46,7 +46,11 @@ class QCMetric(BaseModel):
     value: Any = Field(..., title="Metric value")
     description: Optional[str] = Field(default=None, title="Metric description")
     reference: Optional[str] = Field(default=None, title="Metric reference image URL or plot type")
-    metric_status: List[QCStatus] = Field(..., title="Metric status")
+    metric_status_history: List[QCStatus] = Field(..., title="Metric status history")
+
+    @property
+    def metric_status(self) -> QCStatus:
+        return self.metric_status_history[-1]
 
 
 class QCEvaluation(AindModel):
@@ -61,13 +65,17 @@ class QCEvaluation(AindModel):
     _evaluation_status: List[QCStatus] = PrivateAttr(default=[])
 
     @property
-    def evaluation_status(self) -> List[QCStatus]:
+    def evaluation_status(self) -> QCStatus:
+        return self._evaluation_status[-1]
+
+    @property
+    def evaluation_status_history(self) -> List[QCStatus]:
         return self._evaluation_status
 
-    def _evaluate_status(self):
+    def evaluate_status(self):
         new_status = QCStatus(evaluator="Automated", status=Status.PASS, timestamp=datetime.now())
 
-        latest_metric_statuses = [metric.metric_status[-1].status for metric in self.qc_metrics]
+        latest_metric_statuses = [metric.metric_status.status for metric in self.qc_metrics]
 
         if any(status == Status.FAIL for status in latest_metric_statuses):
             new_status.status = Status.FAIL
@@ -88,13 +96,22 @@ class QualityControl(AindCoreModel):
     _overall_status: List[QCStatus] = PrivateAttr(default=[])
 
     @property
-    def overall_status(self) -> List[QCStatus]:
+    def overall_status(self) -> QCStatus:
+        return self._overall_status[-1]
+
+    @property
+    def overall_status_history(self) -> List[QCStatus]:
         return self._overall_status
 
-    def _evaluate_status(self):
+    def evaluate_status(self):
+        """Evaluate the status of all evaluations, then evaluate the status of the overall QC
+        """
+        for evaluation in self.evaluations:
+            evaluation.evaluate_status()
+
         new_status = QCStatus(evaluator="Automated", status=Status.PASS, timestamp=datetime.now())
 
-        latest_eval_statuses = [evaluation.evaluation_status[-1].status for metric in self.evaluations]
+        latest_eval_statuses = [evaluation.evaluation_status.status for evaluation in self.evaluations]
 
         if any(status == Status.FAIL for status in latest_eval_statuses):
             new_status.status = Status.FAIL
