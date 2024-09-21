@@ -46,7 +46,7 @@ class QCMetric(BaseModel):
     value: Any = Field(..., title="Metric value")
     description: Optional[str] = Field(default=None, title="Metric description")
     reference: Optional[str] = Field(default=None, title="Metric reference image URL or plot type")
-
+    status: List[QCStatus] = Field(..., title="Metric status")
 
 class QCEvaluation(AindModel):
     """Description of one evaluation stage, with one or more metrics"""
