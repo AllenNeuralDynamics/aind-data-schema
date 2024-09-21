@@ -54,6 +54,45 @@ class QualityControlTests(unittest.TestCase):
 
         assert q is not None
 
+    def test_properties(self):
+
+        test_eval = QCEvaluation(
+                evaluation_name="Drift map",
+                evaluation_modality=Modality.ECEPHYS,
+                evaluation_stage=Stage.PROCESSING,
+                qc_metrics=[
+                    QCMetric(
+                        name="Multiple values example",
+                        value={"stuff": "in_a_dict"},
+                        metric_status_history=[QCStatus(
+                            evaluator="Bob",
+                            timestamp=date.fromisoformat("2020-10-10"),
+                            status=Status.PASS
+                        )]
+                    ),
+                    QCMetric(
+                        name="Drift map pass/fail",
+                        value=False,
+                        description="Manual evaluation of whether the drift map looks good",
+                        references=["s3://some-data-somewhere"],
+                        metric_status_history=[QCStatus(
+                            evaluator="Bob",
+                            timestamp=date.fromisoformat("2020-10-10"),
+                            status=Status.PASS
+                        )]
+                    )
+                ],
+            )
+
+        q = QualityControl(
+            evaluations=[
+                test_eval
+            ],
+        )
+
+        self.assertEqual(test_eval.evaluation_status_history, test_eval._evaluation_status)
+        self.assertEqual(q.overall_status_history, q._overall_status)
+
     def test_overall_status(self):
         """test that overall status goes to pass/pending/fail correctly"""
 
