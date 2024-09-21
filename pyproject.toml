@@ -16,7 +16,7 @@ dynamic = ["version"]
 dependencies = [
     'aind-data-schema-models>=0.3.2',
     'dictdiffer',
-    'pydantic>=2.7, !=2.9.0, !=2.9.1',
+    'pydantic>=2.7',
     'inflection',
     'jsonschema',
     'semver'
@@ -24,7 +24,8 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
-    'aind_data_schema[linters]'
+    'aind_data_schema[linters]',
+    'pydantic>=2.7, !=2.9.0, !=2.9.1'
 ]
 
 linters = [
