@@ -7,7 +7,7 @@ from enum import Enum
 from typing import List, Literal, Optional, Any
 
 from aind_data_schema_models.modalities import Modality
-from pydantic import Field, BaseModel, PrivateAttr
+from pydantic import Field, BaseModel
 
 from aind_data_schema.base import AindCoreModel, AindModel
 

@@ -1,8 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/quality_control.py",
    "schema_version": "1.0.0",
-   "overall_status": "Pass",
-   "overall_status_date": "2022-11-22",
    "evaluations": [
       {
          "evaluation_modality": {
@@ -11,31 +9,56 @@
          },
          "evaluation_stage": "Processing",
          "evaluation_name": "Drift map",
-         "evaluation_desc": "Qualitative check that drift map shows minimal movement",
-         "evaluator": "Fred Flintstone",
-         "evaluation_date": "2022-11-22",
+         "evaluation_description": "Qualitative check that drift map shows minimal movement",
          "qc_metrics": [
             {
                "name": "Probe A drift",
                "value": "High",
                "description": null,
-               "references": null
+               "reference": "ecephys-drift-map",
+               "metric_status_history": [
+                  {
+                     "evaluator": "Bob",
+                     "status": "Pass",
+                     "timestamp": "2022-11-22T00:00:00"
+                  }
+               ]
             },
             {
                "name": "Probe B drift",
                "value": "Low",
                "description": null,
-               "references": null
+               "reference": "ecephys-drift-map",
+               "metric_status_history": [
+                  {
+                     "evaluator": "Bob",
+                     "status": "Pass",
+                     "timestamp": "2022-11-22T00:00:00"
+                  }
+               ]
             },
             {
                "name": "Probe C drift",
                "value": "Low",
                "description": null,
-               "references": null
+               "reference": "ecephys-drift-map",
+               "metric_status_history": [
+                  {
+                     "evaluator": "Bob",
+                     "status": "Pass",
+                     "timestamp": "2022-11-22T00:00:00"
+                  }
+               ]
             }
          ],
-         "stage_status": "Fail",
-         "notes": "Manually annotated: failed due to high drift on probe A"
+         "notes": "Manually annotated: failed due to high drift on probe A",
+         "evaluation_status_history": [
+            {
+               "evaluator": "Automated",
+               "status": "Pass",
+               "timestamp": "2024-09-23T14:04:03.094512"
+            }
+         ]
       },
       {
          "evaluation_modality": {
@@ -44,25 +67,43 @@
          },
          "evaluation_stage": "Raw data",
          "evaluation_name": "Video frame count check",
-         "evaluation_desc": null,
-         "evaluator": "Fred Flinstone",
-         "evaluation_date": "2022-11-22",
+         "evaluation_description": null,
          "qc_metrics": [
             {
                "name": "video_1_num_frames",
                "value": 662,
                "description": null,
-               "references": null
+               "reference": null,
+               "metric_status_history": [
+                  {
+                     "evaluator": "Bob",
+                     "status": "Pass",
+                     "timestamp": "2022-11-22T00:00:00"
+                  }
+               ]
             },
             {
                "name": "video_2_num_frames",
                "value": 662,
                "description": null,
-               "references": null
+               "reference": null,
+               "metric_status_history": [
+                  {
+                     "evaluator": "Bob",
+                     "status": "Pass",
+                     "timestamp": "2022-11-22T00:00:00"
+                  }
+               ]
             }
          ],
-         "stage_status": "Pass",
-         "notes": "Pass when video_1_num_frames==video_2_num_frames"
+         "notes": "Pass when video_1_num_frames==video_2_num_frames",
+         "evaluation_status_history": [
+            {
+               "evaluator": "Automated",
+               "status": "Pass",
+               "timestamp": "2024-09-23T14:04:03.094519"
+            }
+         ]
       },
       {
          "evaluation_modality": {
@@ -71,32 +112,64 @@
          },
          "evaluation_stage": "Raw data",
          "evaluation_name": "Probes present",
-         "evaluation_desc": null,
-         "evaluator": "Automated",
-         "evaluation_date": "2022-11-22",
+         "evaluation_description": null,
          "qc_metrics": [
             {
                "name": "ProbeA_success",
                "value": true,
                "description": null,
-               "references": null
+               "reference": null,
+               "metric_status_history": [
+                  {
+                     "evaluator": "Bob",
+                     "status": "Pass",
+                     "timestamp": "2022-11-22T00:00:00"
+                  }
+               ]
             },
             {
                "name": "ProbeB_success",
                "value": true,
                "description": null,
-               "references": null
+               "reference": null,
+               "metric_status_history": [
+                  {
+                     "evaluator": "Bob",
+                     "status": "Pass",
+                     "timestamp": "2022-11-22T00:00:00"
+                  }
+               ]
             },
             {
                "name": "ProbeC_success",
                "value": true,
                "description": null,
-               "references": null
+               "reference": null,
+               "metric_status_history": [
+                  {
+                     "evaluator": "Bob",
+                     "status": "Pass",
+                     "timestamp": "2022-11-22T00:00:00"
+                  }
+               ]
             }
          ],
-         "stage_status": "Pass",
-         "notes": null
+         "notes": null,
+         "evaluation_status_history": [
+            {
+               "evaluator": "Automated",
+               "status": "Pass",
+               "timestamp": "2024-09-23T14:04:03.094522"
+            }
+         ]
       }
    ],
-   "notes": null
+   "notes": null,
+   "overall_status_history": [
+      {
+         "evaluator": "Automated",
+         "status": "Pass",
+         "timestamp": "2024-09-23T14:04:03.094524"
+      }
+   ]
 }
