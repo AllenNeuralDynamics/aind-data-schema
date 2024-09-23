@@ -51,7 +51,14 @@
                ]
             }
          ],
-         "notes": "Manually annotated: failed due to high drift on probe A"
+         "notes": "Manually annotated: failed due to high drift on probe A",
+         "evaluation_status_history": [
+            {
+               "evaluator": "Automated",
+               "status": "Pass",
+               "timestamp": "2022-11-22T00:00:00"
+            }
+         ]
       },
       {
          "evaluation_modality": {
@@ -89,7 +96,14 @@
                ]
             }
          ],
-         "notes": "Pass when video_1_num_frames==video_2_num_frames"
+         "notes": "Pass when video_1_num_frames==video_2_num_frames",
+         "evaluation_status_history": [
+            {
+               "evaluator": "Automated",
+               "status": "Pass",
+               "timestamp": "2022-11-22T00:00:00"
+            }
+         ]
       },
       {
          "evaluation_modality": {
@@ -140,8 +154,22 @@
                ]
             }
          ],
-         "notes": null
+         "notes": null,
+         "evaluation_status_history": [
+            {
+               "evaluator": "Automated",
+               "status": "Pass",
+               "timestamp": "2022-11-22T00:00:00"
+            }
+         ]
       }
    ],
-   "notes": null
+   "notes": null,
+   "overall_status_history": [
+      {
+         "evaluator": "Automated",
+         "status": "Pass",
+         "timestamp": "2022-11-22T00:00:00"
+      }
+   ]
 }

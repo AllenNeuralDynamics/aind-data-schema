@@ -6,7 +6,7 @@ from aind_data_schema_models.modalities import Modality
 
 from aind_data_schema.core.quality_control import QCEvaluation, QualityControl, QCMetric, Stage, Status, QCStatus
 
-t = datetime(2022, 11, 22)
+t = datetime(2022, 11, 22, 0, 0, 0)
 
 s = QCStatus(evaluator="Bob", status=Status.PASS, timestamp=t)
 
@@ -48,7 +48,8 @@ eval2 = QCEvaluation(
 q = QualityControl(evaluations=[eval0, eval1, eval2])
 
 # This is a special call that needs to be made to populate the .overall_status and .evaluation_status properties
-q.evaluate_status()
+# Note that the timestamp is set here because of how examples testing works, in general you should not set the timestamp manually
+q.evaluate_status(timestamp=t)
 
 serialized = q.model_dump_json()
 deserialized = QualityControl.model_validate_json(serialized)

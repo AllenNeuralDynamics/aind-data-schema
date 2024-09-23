@@ -134,7 +134,7 @@ class QualityControl(AindCoreModel):
         All PASS -> PASS
         """
         for evaluation in self.evaluations:
-            evaluation.evaluate_status()
+            evaluation.evaluate_status(timestamp=timestamp)
 
         new_status = QCStatus(evaluator="Automated", status=Status.PASS, timestamp=timestamp)
 
