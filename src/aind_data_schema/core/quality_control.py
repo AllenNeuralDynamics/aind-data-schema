@@ -50,6 +50,13 @@ class QCMetric(BaseModel):
 
     @property
     def metric_status(self) -> QCStatus:
+        """Get the latest status object for this metric
+
+        Returns
+        -------
+        QCStatus
+            Most recent status object
+        """
         return self.metric_status_history[-1]
 
 
@@ -66,13 +73,21 @@ class QCEvaluation(AindModel):
 
     @property
     def evaluation_status(self) -> QCStatus:
+        """Get the latest status object for this evaluation
+
+        Returns
+        -------
+        QCStatus
+            Most recent status object
+        """
         return self._evaluation_status[-1]
 
-    @property
-    def evaluation_status_history(self) -> List[QCStatus]:
-        return self._evaluation_status
-
     def evaluate_status(self):
+        """Loop through all metrics and evaluate the status of the evaluation
+        Any fail -> FAIL
+        If no fails, then any pending -> PENDING
+        All PASS -> PASS
+        """
         new_status = QCStatus(evaluator="Automated", status=Status.PASS, timestamp=datetime.now())
 
         latest_metric_statuses = [metric.metric_status.status for metric in self.qc_metrics]
@@ -97,14 +112,21 @@ class QualityControl(AindCoreModel):
 
     @property
     def overall_status(self) -> QCStatus:
+        """Get the latest status object for the overall QC
+
+        Returns
+        -------
+        QCStatus
+            Most recent status object
+        """
         return self._overall_status[-1]
 
-    @property
-    def overall_status_history(self) -> List[QCStatus]:
-        return self._overall_status
-
     def evaluate_status(self):
-        """Evaluate the status of all evaluations, then evaluate the status of the overall QC"""
+        """Evaluate the status of all evaluations, then evaluate the status of the overall QC
+        Any FAIL -> FAIL
+        If no fails, then any PENDING -> PENDING
+        All PASS -> PASS
+        """
         for evaluation in self.evaluations:
             evaluation.evaluate_status()
 
