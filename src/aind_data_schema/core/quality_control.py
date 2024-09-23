@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import date
+from datetime import datetime
 from enum import Enum
 from typing import List, Literal, Optional, Any
 
@@ -36,7 +36,7 @@ class QCStatus(BaseModel):
 
     evaluator: str = Field(..., title="Status evaluator full name")
     status: Status = Field(..., title="Status")
-    timestamp: date = Field(..., title="Status date")
+    timestamp: datetime = Field(..., title="Status date")
 
 
 class QCMetric(BaseModel):
