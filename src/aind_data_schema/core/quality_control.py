@@ -69,7 +69,7 @@ class QCEvaluation(AindModel):
     evaluation_description: Optional[str] = Field(default=None, title="Evaluation description")
     qc_metrics: List[QCMetric] = Field(..., title="QC metrics")
     notes: Optional[str] = Field(default=None, title="Notes")
-    _evaluation_status: List[QCStatus] = PrivateAttr(default=[])
+    evaluation_status_history: List[QCStatus] = Field(default=[], title="Evaluation status history")
 
     @property
     def evaluation_status(self) -> QCStatus:
@@ -80,10 +80,10 @@ class QCEvaluation(AindModel):
         QCStatus
             Most recent status object
         """
-        if len(self._evaluation_status) == 0:
+        if len(self.evaluation_status_history) == 0:
             self.evaluate_status()
 
-        return self._evaluation_status[-1]
+        return self.evaluation_status_history[-1]
 
     def evaluate_status(self):
         """Loop through all metrics and evaluate the status of the evaluation
@@ -100,7 +100,7 @@ class QCEvaluation(AindModel):
         elif any(status == Status.PENDING for status in latest_metric_statuses):
             new_status.status = Status.PENDING
 
-        self._evaluation_status.append(new_status)
+        self.evaluation_status_history.append(new_status)
 
 
 class QualityControl(AindCoreModel):
@@ -111,7 +111,7 @@ class QualityControl(AindCoreModel):
     schema_version: Literal["1.0.0"] = Field("1.0.0")
     evaluations: List[QCEvaluation] = Field(..., title="Evaluations")
     notes: Optional[str] = Field(default=None, title="Notes")
-    _overall_status: List[QCStatus] = PrivateAttr(default=[])
+    overall_status_history: List[QCStatus] = Field(default=[], title="Overall status history")
 
     @property
     def overall_status(self) -> QCStatus:
@@ -122,10 +122,10 @@ class QualityControl(AindCoreModel):
         QCStatus
             Most recent status object
         """
-        if len(self._overall_status) == 0:
+        if len(self.overall_status_history) == 0:
             self.evaluate_status()
 
-        return self._overall_status[-1]
+        return self.overall_status_history[-1]
 
     def evaluate_status(self):
         """Evaluate the status of all evaluations, then evaluate the status of the overall QC
@@ -145,4 +145,4 @@ class QualityControl(AindCoreModel):
         elif any(status == Status.PENDING for status in latest_eval_statuses):
             new_status.status = Status.PENDING
 
-        self._overall_status.append(new_status)
+        self.overall_status_history.append(new_status)
