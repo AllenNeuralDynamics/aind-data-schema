@@ -8,11 +8,7 @@ from aind_data_schema.core.quality_control import QCEvaluation, QualityControl, 
 
 t = datetime(2022, 11, 22)
 
-s = QCStatus(
-    evaluator="Bob",
-    status=Status.PASS,
-    timestamp=t
-)
+s = QCStatus(evaluator="Bob", status=Status.PASS, timestamp=t)
 
 eval0 = QCEvaluation(
     evaluation_name="Drift map",
@@ -20,26 +16,11 @@ eval0 = QCEvaluation(
     evaluation_modality=Modality.ECEPHYS,
     evaluation_stage=Stage.PROCESSING,
     qc_metrics=[
-        QCMetric(
-            name="Probe A drift",
-            value="High",
-            reference="ecephys-drift-map",
-            metric_status_history=[s]
-        ),
-        QCMetric(
-            name="Probe B drift",
-            value="Low",
-            reference="ecephys-drift-map",
-            metric_status_history=[s]
-        ),
-        QCMetric(
-            name="Probe C drift",
-            value="Low",
-            reference="ecephys-drift-map",
-            metric_status_history=[s]
-        )
+        QCMetric(name="Probe A drift", value="High", reference="ecephys-drift-map", metric_status_history=[s]),
+        QCMetric(name="Probe B drift", value="Low", reference="ecephys-drift-map", metric_status_history=[s]),
+        QCMetric(name="Probe C drift", value="Low", reference="ecephys-drift-map", metric_status_history=[s]),
     ],
-    notes="Manually annotated: failed due to high drift on probe A"
+    notes="Manually annotated: failed due to high drift on probe A",
 )
 
 eval1 = QCEvaluation(
@@ -47,18 +28,10 @@ eval1 = QCEvaluation(
     evaluation_modality=Modality.BEHAVIOR_VIDEOS,
     evaluation_stage=Stage.RAW,
     qc_metrics=[
-        QCMetric(
-            name="video_1_num_frames",
-            value=662,
-            metric_status_history=[s]
-        ),
-        QCMetric(
-            name="video_2_num_frames",
-            value=662,
-            metric_status_history=[s]
-        )
+        QCMetric(name="video_1_num_frames", value=662, metric_status_history=[s]),
+        QCMetric(name="video_2_num_frames", value=662, metric_status_history=[s]),
     ],
-    notes="Pass when video_1_num_frames==video_2_num_frames"
+    notes="Pass when video_1_num_frames==video_2_num_frames",
 )
 
 eval2 = QCEvaluation(
@@ -66,27 +39,13 @@ eval2 = QCEvaluation(
     evaluation_modality=Modality.ECEPHYS,
     evaluation_stage=Stage.RAW,
     qc_metrics=[
-        QCMetric(
-            name="ProbeA_success",
-            value=True,
-            metric_status_history=[s]
-        ),
-        QCMetric(
-            name="ProbeB_success",
-            value=True,
-            metric_status_history=[s]
-        ),
-        QCMetric(
-            name="ProbeC_success",
-            value=True,
-            metric_status_history=[s]
-        )
+        QCMetric(name="ProbeA_success", value=True, metric_status_history=[s]),
+        QCMetric(name="ProbeB_success", value=True, metric_status_history=[s]),
+        QCMetric(name="ProbeC_success", value=True, metric_status_history=[s]),
     ],
 )
 
-q = QualityControl(
-    evaluations=[eval0, eval1, eval2]
-)
+q = QualityControl(evaluations=[eval0, eval1, eval2])
 
 # This is a special call that needs to be made to populate the .overall_status and .evaluation_status properties
 q.evaluate_status()

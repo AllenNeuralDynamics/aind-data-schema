@@ -104,8 +104,7 @@ class QualityControl(AindCoreModel):
         return self._overall_status
 
     def evaluate_status(self):
-        """Evaluate the status of all evaluations, then evaluate the status of the overall QC
-        """
+        """Evaluate the status of all evaluations, then evaluate the status of the overall QC"""
         for evaluation in self.evaluations:
             evaluation.evaluate_status()
 
