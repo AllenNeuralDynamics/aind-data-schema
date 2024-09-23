@@ -31,13 +31,21 @@ class Stage(str, Enum):
     ANALYSIS = "Analysis"
 
 
+class QCStatus(BaseModel):
+    """Description of a QC status, set by an evaluator"""
+
+    evaluator: str = Field(..., title="Status evaluator full name")
+    status: Status = Field(..., title="Status")
+    timestamp: date = Field(..., title="Status date")
+
+
 class QCMetric(BaseModel):
     """Description of a single quality control metric"""
 
     name: str = Field(..., title="Metric name")
     value: Any = Field(..., title="Metric value")
     description: Optional[str] = Field(default=None, title="Metric description")
-    references: Optional[List[str]] = Field(default=None, title="Metric reference URLs")
+    reference: Optional[str] = Field(default=None, title="Metric reference image URL or plot type")
 
 
 class QCEvaluation(AindModel):
@@ -47,10 +55,8 @@ class QCEvaluation(AindModel):
     evaluation_stage: Stage = Field(..., title="Evaluation stage")
     evaluation_name: str = Field(..., title="Evaluation name")
     evaluation_description: Optional[str] = Field(default=None, title="Evaluation description")
-    evaluator: str = Field(..., title="Evaluator full name")
-    evaluation_date: date = Field(..., title="Evaluation date")
     qc_metrics: List[QCMetric] = Field(..., title="QC metrics")
-    stage_status: Status = Field(..., title="Stage status")
+    evaluation_status: List[QCStatus] = Field(..., title="Evaluation status")
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
@@ -60,7 +66,6 @@ class QualityControl(AindCoreModel):
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/quality_control.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
     schema_version: Literal["1.0.0"] = Field("1.0.0")
-    overall_status: Status = Field(..., title="Overall status")
-    overall_status_date: date = Field(..., title="Date of status")
+    overall_status: List[QCStatus] = Field(..., title="Overall status")
     evaluations: List[QCEvaluation] = Field(..., title="Evaluations")
     notes: Optional[str] = Field(default=None, title="Notes")
