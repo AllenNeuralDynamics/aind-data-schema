@@ -75,13 +75,14 @@ class QualityControlTests(unittest.TestCase):
             ],
         )
 
-        test_eval.evaluate_status()
+        # check that evaluation status gets auto-set if it has never been set before
+        self.assertEqual(test_eval.evaluation_status.status, Status.PASS)
 
         q = QualityControl(
             evaluations=[test_eval, test_eval],
         )
 
-        q.evaluate_status()
+        # check that overall status gets auto-set if it has never been set before
         self.assertEqual(q.overall_status.status, Status.PASS)
 
         # Add a pending metric to the first evaluation

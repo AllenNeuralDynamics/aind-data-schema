@@ -80,6 +80,9 @@ class QCEvaluation(AindModel):
         QCStatus
             Most recent status object
         """
+        if len(self._evaluation_status) == 0:
+            self.evaluate_status()
+
         return self._evaluation_status[-1]
 
     def evaluate_status(self):
@@ -119,6 +122,9 @@ class QualityControl(AindCoreModel):
         QCStatus
             Most recent status object
         """
+        if len(self._overall_status) == 0:
+            self.evaluate_status()
+
         return self._overall_status[-1]
 
     def evaluate_status(self):
