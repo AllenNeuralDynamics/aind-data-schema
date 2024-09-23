@@ -2,14 +2,14 @@
 
 from enum import Enum
 from typing import List, Literal, Optional
-from datetime import date
+from datetime import datetime
 
 from aind_data_schema_models.process_names import ProcessName
 from pydantic import Field, ValidationInfo, field_validator
 
 from aind_data_schema.base import AindCoreModel, AindGeneric, AindGenericType, AindModel, AwareDatetimeWithDefault
 from aind_data_schema.components.tile import Tile
-from aind_data_schema_models.units import MemoryUnit, MemoryValue
+from aind_data_schema_models.units import MemoryUnit, MemoryValue, UnitlessUnit
 
 
 class RegistrationType(str, Enum):
@@ -22,7 +22,7 @@ class RegistrationType(str, Enum):
 class ResourceTimestamped(AindModel):
     """Description of resource usage at a moment in time"""
 
-    timestamp: date = Field(..., title="Timestamp")
+    timestamp: datetime = Field(..., title="Timestamp", default_factory=datetime.now)
     usage: float = Field(..., title="Usage")
 
 
@@ -37,9 +37,10 @@ class ResourceUsage(AindModel):
     memory: Optional[MemoryValue] = Field(default=None, title="System memory")
     ram: Optional[MemoryValue] = Field(default=None, title="System RAM")
 
-    cpu_usage: Optional[List[ResourceTimestamped]] = Field(default=None, title="CPU usage (%)")
-    gpu_usage: Optional[List[ResourceTimestamped]] = Field(default=None, title="GPU usage (%)")
-    ram_usage: Optional[List[ResourceTimestamped]] = Field(default=None, title="RAM usage (%)")
+    cpu_usage: Optional[List[ResourceTimestamped]] = Field(default=None, title="CPU usage")
+    gpu_usage: Optional[List[ResourceTimestamped]] = Field(default=None, title="GPU usage")
+    ram_usage: Optional[List[ResourceTimestamped]] = Field(default=None, title="RAM usage")
+    usage_unit: str = Field(default=UnitlessUnit.PERCENT, title="Usage unit")
     file_io_usage: Optional[List[ResourceTimestamped]] = Field(default=None, title="File I/O usage")
     file_io_unit: Optional[MemoryUnit] = Field(default=None, title="File I/O unit")
 
