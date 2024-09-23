@@ -46,7 +46,7 @@ class QCMetric(BaseModel):
     value: Any = Field(..., title="Metric value")
     description: Optional[str] = Field(default=None, title="Metric description")
     reference: Optional[str] = Field(default=None, title="Metric reference image URL or plot type")
-    metric_status_history: List[QCStatus] = Field(..., title="Metric status history", default_factory=list)
+    metric_status_history: List[QCStatus] = Field(default=[], title="Metric status history")
 
     @property
     def metric_status(self) -> QCStatus:
@@ -85,13 +85,13 @@ class QCEvaluation(AindModel):
 
         return self.evaluation_status_history[-1]
 
-    def evaluate_status(self):
+    def evaluate_status(self, timestamp=datetime.now()):
         """Loop through all metrics and evaluate the status of the evaluation
         Any fail -> FAIL
         If no fails, then any pending -> PENDING
         All PASS -> PASS
         """
-        new_status = QCStatus(evaluator="Automated", status=Status.PASS, timestamp=datetime.now())
+        new_status = QCStatus(evaluator="Automated", status=Status.PASS, timestamp=timestamp)
 
         latest_metric_statuses = [metric.metric_status.status for metric in self.qc_metrics]
 
@@ -127,7 +127,7 @@ class QualityControl(AindCoreModel):
 
         return self.overall_status_history[-1]
 
-    def evaluate_status(self):
+    def evaluate_status(self, timestamp=datetime.now()):
         """Evaluate the status of all evaluations, then evaluate the status of the overall QC
         Any FAIL -> FAIL
         If no fails, then any PENDING -> PENDING
@@ -136,7 +136,7 @@ class QualityControl(AindCoreModel):
         for evaluation in self.evaluations:
             evaluation.evaluate_status()
 
-        new_status = QCStatus(evaluator="Automated", status=Status.PASS, timestamp=datetime.now())
+        new_status = QCStatus(evaluator="Automated", status=Status.PASS, timestamp=timestamp)
 
         latest_eval_statuses = [evaluation.evaluation_status.status for evaluation in self.evaluations]
 
