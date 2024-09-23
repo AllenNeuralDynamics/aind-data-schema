@@ -9,7 +9,7 @@
             "name": "Extracellular electrophysiology",
             "abbreviation": "ecephys"
          },
-         "evaluation_stage": "Preprocessing",
+         "evaluation_stage": "Processing",
          "evaluation_name": "Drift map",
          "evaluation_desc": "Qualitative check that drift map shows minimal movement",
          "evaluator": "Fred Flintstone",

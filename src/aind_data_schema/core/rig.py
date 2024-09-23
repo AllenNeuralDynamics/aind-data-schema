@@ -77,7 +77,7 @@ class Rig(AindCoreModel):
     polygonal_scanners: List[PolygonalScanner] = Field(default=[], title="Polygonal scanners")
     pockels_cells: List[PockelsCell] = Field(default=[], title="Pockels cells")
     additional_devices: List[Device] = Field(default=[], title="Additional devices")
-    daqs: List[RIG_DAQ_DEVICES] = Field(default=[], title="Data acquisition devices", discriminator="device_type")
+    daqs: List[RIG_DAQ_DEVICES] = Field(default=[], title="Data acquisition devices")
     calibrations: List[Calibration] = Field(..., title="Full calibration of devices")
     ccf_coordinate_transform: Optional[str] = Field(
         default=None,

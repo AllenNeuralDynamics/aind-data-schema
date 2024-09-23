@@ -241,7 +241,7 @@ class SpecimenProcedure(AindModel):
 
     procedure_type: SpecimenProcedureType = Field(..., title="Procedure type")
     procedure_name: Optional[str] = Field(
-        None, title="Procedure name", description="Name to clarify specific procedure used as needed"
+        default=None, title="Procedure name", description="Name to clarify specific procedure used as needed"
     )
     specimen_id: str = Field(..., title="Specimen ID")
     start_date: date = Field(..., title="Start date")
@@ -390,10 +390,9 @@ class NonViralMaterial(Reagent):
 class Injection(AindModel):
     """Description of an injection procedure"""
 
-    injection_materials: Annotated[
-        List[Union[ViralMaterial, NonViralMaterial]],
-        Field(title="Injection material", min_length=1, discriminator="material_type"),
-    ]
+    injection_materials: List[
+        Annotated[Union[ViralMaterial, NonViralMaterial], Field(..., discriminator="material_type")]
+    ] = Field(..., title="Injection material", min_length=1)
     recovery_time: Optional[Decimal] = Field(default=None, title="Recovery time")
     recovery_time_unit: TimeUnit = Field(default=TimeUnit.M, title="Recovery time unit")
     injection_duration: Optional[Decimal] = Field(default=None, title="Injection duration")

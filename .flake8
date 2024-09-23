@@ -5,3 +5,7 @@ exclude =
     build
 max-complexity = 10
 max-line-length = 120
+
+[flake8:local-plugins]
+extension =
+    PF = aind_flake8_extensions.plugin:run_ast_checks

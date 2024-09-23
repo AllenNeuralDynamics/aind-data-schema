@@ -38,7 +38,7 @@ class Instrument(AindCoreModel):
     schema_version: Literal["1.0.0"] = Field("1.0.0")
 
     instrument_id: Optional[str] = Field(
-        None,
+        default=None,
         description="Unique instrument identifier, name convention: <room>-<apparatus name>-<date modified YYYYMMDD>",
         title="Instrument ID",
     )
@@ -58,12 +58,12 @@ class Instrument(AindCoreModel):
     scanning_stages: List[ScanningStage] = Field(default=[], title="Scanning motorized stages")
     additional_devices: List[AdditionalImagingDevice] = Field(default=[], title="Additional devices")
     calibration_date: Optional[date] = Field(
-        None,
+        default=None,
         description="Date of most recent calibration",
         title="Calibration date",
     )
     calibration_data: Optional[str] = Field(
-        None,
+        default=None,
         description="Path to calibration data from most recent calibration",
         title="Calibration data",
     )

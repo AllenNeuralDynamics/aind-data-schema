@@ -1,40 +1,49 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/quality_control.py",
    "schema_version": "1.0.0",
-   "overall_status": "Pass",
-   "overall_status_date": "2022-11-22",
+   "overall_status": [
+      {
+         "evaluator": "Automated",
+         "status": "Pass",
+         "timestamp": "2022-11-22"
+      }
+   ],
    "evaluations": [
       {
          "evaluation_modality": {
             "name": "Extracellular electrophysiology",
             "abbreviation": "ecephys"
          },
-         "evaluation_stage": "Preprocessing",
+         "evaluation_stage": "Processing",
          "evaluation_name": "Drift map",
          "evaluation_description": "Qualitative check that drift map shows minimal movement",
-         "evaluator": "Fred Flintstone",
-         "evaluation_date": "2022-11-22",
          "qc_metrics": [
             {
                "name": "Probe A drift",
                "value": "High",
                "description": null,
-               "references": null
+               "reference": "ecephys-drift-map"
             },
             {
                "name": "Probe B drift",
                "value": "Low",
                "description": null,
-               "references": null
+               "reference": "ecephys-drift-map"
             },
             {
                "name": "Probe C drift",
                "value": "Low",
                "description": null,
-               "references": null
+               "reference": "ecephys-drift-map"
             }
          ],
-         "stage_status": "Fail",
+         "evaluation_status": [
+            {
+               "evaluator": "Fred Flintstone",
+               "status": "Fail",
+               "timestamp": "2022-11-22"
+            }
+         ],
          "notes": "Manually annotated: failed due to high drift on probe A"
       },
       {
@@ -45,23 +54,27 @@
          "evaluation_stage": "Raw data",
          "evaluation_name": "Video frame count check",
          "evaluation_description": null,
-         "evaluator": "Fred Flinstone",
-         "evaluation_date": "2022-11-22",
          "qc_metrics": [
             {
                "name": "video_1_num_frames",
                "value": 662,
                "description": null,
-               "references": null
+               "reference": null
             },
             {
                "name": "video_2_num_frames",
                "value": 662,
                "description": null,
-               "references": null
+               "reference": null
             }
          ],
-         "stage_status": "Pass",
+         "evaluation_status": [
+            {
+               "evaluator": "Fred Flintstone",
+               "status": "Fail",
+               "timestamp": "2022-11-22"
+            }
+         ],
          "notes": "Pass when video_1_num_frames==video_2_num_frames"
       },
       {
@@ -72,29 +85,33 @@
          "evaluation_stage": "Raw data",
          "evaluation_name": "Probes present",
          "evaluation_description": null,
-         "evaluator": "Automated",
-         "evaluation_date": "2022-11-22",
          "qc_metrics": [
             {
                "name": "ProbeA_success",
                "value": true,
                "description": null,
-               "references": null
+               "reference": null
             },
             {
                "name": "ProbeB_success",
                "value": true,
                "description": null,
-               "references": null
+               "reference": null
             },
             {
                "name": "ProbeC_success",
                "value": true,
                "description": null,
-               "references": null
+               "reference": null
             }
          ],
-         "stage_status": "Pass",
+         "evaluation_status": [
+            {
+               "evaluator": "Automated",
+               "status": "Pass",
+               "timestamp": "2022-11-22"
+            }
+         ],
          "notes": null
       }
    ],
