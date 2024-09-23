@@ -1,6 +1,6 @@
 """ example processing """
 
-from datetime import datetime, timezone, date
+from datetime import datetime, timezone
 
 from aind_data_schema.core.processing import (
     AnalysisProcess,
