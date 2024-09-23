@@ -42,7 +42,8 @@ docs = [
     'sphinx-jinja',
     'furo',
     'erdantic>=0.7.0,<1.0',
-    'autodoc_pydantic'
+    'autodoc_pydantic',
+    'myst-parser'
 ]
 
 viz = [
