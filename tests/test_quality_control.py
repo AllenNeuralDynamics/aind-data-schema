@@ -1,7 +1,7 @@
 """test quality metrics """
 
 import unittest
-from datetime import date
+from datetime import datetime
 
 from aind_data_schema_models.modalities import Modality
 from pydantic import ValidationError
@@ -28,7 +28,7 @@ class QualityControlTests(unittest.TestCase):
                         value={"stuff": "in_a_dict"},
                         metric_status_history=[QCStatus(
                             evaluator="Bob",
-                            timestamp=date.fromisoformat("2020-10-10"),
+                            timestamp=datetime.fromisoformat("2020-10-10"),
                             status=Status.PASS
                         )]
                     ),
@@ -36,10 +36,10 @@ class QualityControlTests(unittest.TestCase):
                         name="Drift map pass/fail",
                         value=False,
                         description="Manual evaluation of whether the drift map looks good",
-                        references=["s3://some-data-somewhere"],
+                        reference="s3://some-data-somewhere",
                         metric_status_history=[QCStatus(
                             evaluator="Bob",
-                            timestamp=date.fromisoformat("2020-10-10"),
+                            timestamp=datetime.fromisoformat("2020-10-10"),
                             status=Status.PASS
                         )]
                     )
@@ -66,7 +66,7 @@ class QualityControlTests(unittest.TestCase):
                         value={"stuff": "in_a_dict"},
                         metric_status_history=[QCStatus(
                             evaluator="Bob",
-                            timestamp=date.fromisoformat("2020-10-10"),
+                            timestamp=datetime.fromisoformat("2020-10-10"),
                             status=Status.PASS
                         )]
                     ),
@@ -74,10 +74,10 @@ class QualityControlTests(unittest.TestCase):
                         name="Drift map pass/fail",
                         value=False,
                         description="Manual evaluation of whether the drift map looks good",
-                        references=["s3://some-data-somewhere"],
+                        reference="s3://some-data-somewhere",
                         metric_status_history=[QCStatus(
                             evaluator="Bob",
-                            timestamp=date.fromisoformat("2020-10-10"),
+                            timestamp=datetime.fromisoformat("2020-10-10"),
                             status=Status.PASS
                         )]
                     )
@@ -106,7 +106,7 @@ class QualityControlTests(unittest.TestCase):
                         value={"stuff": "in_a_dict"},
                         metric_status_history=[QCStatus(
                             evaluator="Bob",
-                            timestamp=date.fromisoformat("2020-10-10"),
+                            timestamp=datetime.fromisoformat("2020-10-10"),
                             status=Status.PASS
                         )]
                     ),
@@ -114,10 +114,10 @@ class QualityControlTests(unittest.TestCase):
                         name="Drift map pass/fail",
                         value=False,
                         description="Manual evaluation of whether the drift map looks good",
-                        references=["s3://some-data-somewhere"],
+                        reference="s3://some-data-somewhere",
                         metric_status_history=[QCStatus(
                             evaluator="Bob",
-                            timestamp=date.fromisoformat("2020-10-10"),
+                            timestamp=datetime.fromisoformat("2020-10-10"),
                             status=Status.PASS
                         )]
                     )
@@ -141,10 +141,10 @@ class QualityControlTests(unittest.TestCase):
             name="Drift map pass/fail",
             value=False,
             description="Manual evaluation of whether the drift map looks good",
-            references=["s3://some-data-somewhere"],
+            reference="s3://some-data-somewhere",
             metric_status_history=[QCStatus(
                 evaluator="Automated",
-                timestamp=date.fromisoformat("2020-10-10"),
+                timestamp=datetime.fromisoformat("2020-10-10"),
                 status=Status.PENDING
             )]
         ))
@@ -157,10 +157,10 @@ class QualityControlTests(unittest.TestCase):
             name="Drift map pass/fail",
             value=False,
             description="Manual evaluation of whether the drift map looks good",
-            references=["s3://some-data-somewhere"],
+            reference="s3://some-data-somewhere",
             metric_status_history=[QCStatus(
                 evaluator="Automated",
-                timestamp=date.fromisoformat("2020-10-10"),
+                timestamp=datetime.fromisoformat("2020-10-10"),
                 status=Status.FAIL
             )]
         ))
@@ -180,7 +180,7 @@ class QualityControlTests(unittest.TestCase):
                         value={"stuff": "in_a_dict"},
                         metric_status_history=[QCStatus(
                             evaluator="Automated",
-                            timestamp=date.fromisoformat("2020-10-10"),
+                            timestamp=datetime.fromisoformat("2020-10-10"),
                             status=Status.PASS
                         )]
                     ),
@@ -188,10 +188,10 @@ class QualityControlTests(unittest.TestCase):
                         name="Drift map pass/fail",
                         value=False,
                         description="Manual evaluation of whether the drift map looks good",
-                        references=["s3://some-data-somewhere"],
+                        reference="s3://some-data-somewhere",
                         metric_status_history=[QCStatus(
                             evaluator="Automated",
-                            timestamp=date.fromisoformat("2020-10-10"),
+                            timestamp=datetime.fromisoformat("2020-10-10"),
                             status=Status.PASS
                         )]
                     )
@@ -207,10 +207,10 @@ class QualityControlTests(unittest.TestCase):
             name="Drift map pass/fail",
             value=False,
             description="Manual evaluation of whether the drift map looks good",
-            references=["s3://some-data-somewhere"],
+            reference="s3://some-data-somewhere",
             metric_status_history=[QCStatus(
                 evaluator="Automated",
-                timestamp=date.fromisoformat("2020-10-10"),
+                timestamp=datetime.fromisoformat("2020-10-10"),
                 status=Status.PENDING
             )]
         ))
@@ -224,10 +224,10 @@ class QualityControlTests(unittest.TestCase):
             name="Drift map pass/fail",
             value=False,
             description="Manual evaluation of whether the drift map looks good",
-            references=["s3://some-data-somewhere"],
+            reference="s3://some-data-somewhere",
             metric_status_history=[QCStatus(
                 evaluator="Automated",
-                timestamp=date.fromisoformat("2020-10-10"),
+                timestamp=datetime.fromisoformat("2020-10-10"),
                 status=Status.FAIL
             )]
         ))

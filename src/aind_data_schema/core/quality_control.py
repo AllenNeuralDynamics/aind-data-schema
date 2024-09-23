@@ -36,7 +36,7 @@ class QCStatus(BaseModel):
 
     evaluator: str = Field(..., title="Status evaluator full name")
     status: Status = Field(..., title="Status")
-    timestamp: datetime = Field(..., title="Status date")
+    timestamp: datetime = Field(..., title="Status date", default_factory=datetime.now)
 
 
 class QCMetric(BaseModel):
@@ -46,7 +46,7 @@ class QCMetric(BaseModel):
     value: Any = Field(..., title="Metric value")
     description: Optional[str] = Field(default=None, title="Metric description")
     reference: Optional[str] = Field(default=None, title="Metric reference image URL or plot type")
-    metric_status_history: List[QCStatus] = Field(..., title="Metric status history")
+    metric_status_history: List[QCStatus] = Field(..., title="Metric status history", default_factory=list)
 
     @property
     def metric_status(self) -> QCStatus:
