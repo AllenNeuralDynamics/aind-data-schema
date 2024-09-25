@@ -20,19 +20,21 @@ In our QC metadata status is always PASS, PENDING, or FAIL. When passing or fail
 
 We enforce this minimal set of states to prevent ambiguity and to make it easier to build tools that can interpret the status of a data asset.
 
+## Questions for AIND users
+
+### QC Portal
+
+The QC Portal is a web application that allows users to view and interact with the QC metadata and to annotate ``PENDING`` metadata with qualitative evaluations. The portal is in testing, please get in touch with Dan to work on getting your data into the new format.
+
+The portal works by pulling the metadata object from the Document Database (DocDB). Updates to the metadata are pushed up to DocDB when users submit their changes, along with a call to ``.evaluate_status()``.
+
 **Q: When does the state get set for the QualityControl and QCEvaluation objects?**
 
 Call the ``QualityControl.evaluate_status()`` function to append a new status to the object. The status will be timestamped with the current time and reflect the worst status of the attached evaluations or metrics. It's best practice to evaluate the status anytime you add or update evaluations and/or metrics.
 
 Note that while you can evaluate the status of ``QCEvaluation`` objects manually, this could lead to inconsistencies in the overall status of the ``QualityControl`` object.
 
-## QC Portal
-
-The QC Portal is a web application that allows users to view and interact with the QC metadata and to annotate ``PENDING`` metadata with qualitative evaluations. The portal is in testing, please get in touch with Dan to work on getting your data into the new format.
-
-The portal works by pulling the metadata object from the Document Database (DocDB). Updates to the metadata are pushed up to DocDB when users submit their changes, along with a call to ``.evaluate_status()``.
-
-**Q: How do reference URLs get pulled into the QC Portal**
+**Q: How do reference URLs get pulled into the QC Portal?**
 
 Each metric can be associated with a single reference URL, pointing to an image file (ideally SVG or PNG) or to the name of an interactive plot.
 
