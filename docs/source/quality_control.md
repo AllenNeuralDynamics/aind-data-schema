@@ -30,4 +30,16 @@ Note that while you can evaluate the status of ``QCEvaluation`` objects manually
 
 The QC Portal is a web application that allows users to view and interact with the QC metadata and to annotate ``PENDING`` metadata with qualitative evaluations. The portal is in testing, please get in touch with Dan to work on getting your data into the new format.
 
-The portal works by pulling the metadata object from the Document Database (DocDB). Updates to the metadata are pushed up to DocDB when users submit their changes, along with a call to ``.evaluate_status()``. 
+The portal works by pulling the metadata object from the Document Database (DocDB). Updates to the metadata are pushed up to DocDB when users submit their changes, along with a call to ``.evaluate_status()``.
+
+**Q: How do reference URLs get pulled into the QC Portal**
+
+Each metric can be associated with a single reference URL, pointing to an image file (ideally SVG or PNG) or to the name of an interactive plot.
+
+For URLs you can provide the path in three ways:
+
+- You can provide the relative path in the results folder and we can have the qc app look up the file path from the rest of the metadata
+- The full path to the S3 bucket with the image S3://...etc...
+- The path to an external image http://...etc...
+
+For interactive plots you simply provide the plot name, e.g. "ecephys-drift-map". Please see the repository for the full list of interactive plots (src/aind-qc-portal/interactive-plots/)
