@@ -9,7 +9,7 @@ from typing import List, Literal, Optional, Any
 from aind_data_schema_models.modalities import Modality
 from pydantic import Field, BaseModel
 
-from aind_data_schema.base import AindCoreModel, AindModel
+from aind_data_schema.base import AindCoreModel, AindModel, AwareDatetimeWithDefault
 
 
 class Status(str, Enum):
@@ -36,7 +36,7 @@ class QCStatus(BaseModel):
 
     evaluator: str = Field(..., title="Status evaluator full name")
     status: Status = Field(..., title="Status")
-    timestamp: datetime = Field(..., title="Status date", default_factory=datetime.now)
+    timestamp: AwareDatetimeWithDefault = Field(..., title="Status date")
 
 
 class QCMetric(BaseModel):
