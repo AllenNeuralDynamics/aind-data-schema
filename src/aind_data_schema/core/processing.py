@@ -33,7 +33,7 @@ class ResourceUsage(AindModel):
     cpu: Optional[str] = Field(default=None, title="CPU name")
     cpu_cores: Optional[int] = Field(default=None, title="CPU cores")
     gpu: Optional[str] = Field(default=None, title="GPU name")
-    memory: Optional[MemoryValue] = Field(default=None, title="System memory")
+    system_memory: Optional[MemoryValue] = Field(default=None, title="System memory")
     ram: Optional[MemoryValue] = Field(default=None, title="System RAM")
 
     cpu_usage: Optional[List[ResourceTimestamped]] = Field(default=None, title="CPU usage")

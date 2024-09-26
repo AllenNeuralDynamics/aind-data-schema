@@ -23,7 +23,7 @@
                "cpu": "Intel Core i7",
                "cpu_cores": 8,
                "gpu": "NVIDIA GeForce RTX 3080",
-               "memory": {
+               "system_memory": {
                   "value": "32.0",
                   "unit": "Gigabyte"
                },
@@ -33,42 +33,42 @@
                },
                "cpu_usage": [
                   {
-                     "timestamp": "2024-09-13T00:00:00",
+                     "timestamp": "2024-09-13T00:00:00-07:00",
                      "usage": 75.5
                   },
                   {
-                     "timestamp": "2024-09-13T00:00:00",
+                     "timestamp": "2024-09-13T00:00:00-07:00",
                      "usage": 80.0
                   }
                ],
                "gpu_usage": [
                   {
-                     "timestamp": "2024-09-13T00:00:00",
+                     "timestamp": "2024-09-13T00:00:00-07:00",
                      "usage": 60.0
                   },
                   {
-                     "timestamp": "2024-09-13T00:00:00",
+                     "timestamp": "2024-09-13T00:00:00-07:00",
                      "usage": 65.5
                   }
                ],
                "ram_usage": [
                   {
-                     "timestamp": "2024-09-13T00:00:00",
+                     "timestamp": "2024-09-13T00:00:00-07:00",
                      "usage": 70.0
                   },
                   {
-                     "timestamp": "2024-09-13T00:00:00",
+                     "timestamp": "2024-09-13T00:00:00-07:00",
                      "usage": 72.5
                   }
                ],
                "usage_unit": "percent",
                "file_io_usage": [
                   {
-                     "timestamp": "2024-09-13T00:00:00",
+                     "timestamp": "2024-09-13T00:00:00-07:00",
                      "usage": 5.5
                   },
                   {
-                     "timestamp": "2024-09-13T00:00:00",
+                     "timestamp": "2024-09-13T00:00:00-07:00",
                      "usage": 6.0
                   }
                ],

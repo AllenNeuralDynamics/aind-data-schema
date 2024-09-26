@@ -61,7 +61,7 @@ p = Processing(
                     cpu="Intel Core i7",
                     cpu_cores=8,
                     gpu="NVIDIA GeForce RTX 3080",
-                    memory=MemoryValue(value=32.0, unit=MemoryUnit.GB),
+                    system_memory=MemoryValue(value=32.0, unit=MemoryUnit.GB),
                     ram=MemoryValue(value=16.0, unit=MemoryUnit.GB),
                     cpu_usage=timestamped_cpu_usage,
                     gpu_usage=timestamped_gpu_usage,
