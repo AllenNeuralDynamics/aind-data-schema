@@ -154,6 +154,28 @@ class TestMetadata(unittest.TestCase):
             str(context.exception),
         )
 
+        # Tests excluded metadata getting included
+        surgery1 = Surgery.model_construct(procedures=[nano_inj, ionto_inj])
+        with self.assertRaises(ValueError) as context:
+            Metadata(
+                name="ecephys_655019_2023-04-03_18-17-09",
+                location="bucket",
+                data_description=DataDescription.model_construct(
+                    label="some label",
+                    platform=Platform.SMARTSPIM,
+                    creation_time=time(12, 12, 12),
+                    modality=[Modality.SPIM],
+                ),
+                subject=Subject.model_construct(),
+                session=Session.model_construct(),
+                procedures=Procedures.model_construct(subject_procedures=[surgery1]),
+                acquisition=Acquisition.model_construct(),
+            )
+        self.assertIn(
+            "SPIM metadata includes excluded file: session",
+            str(context.exception),
+        )
+
         # Tests missing injection materials
         surgery2 = Surgery.model_construct(procedures=[nano_inj])
         with self.assertRaises(ValueError) as context:
