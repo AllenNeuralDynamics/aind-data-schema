@@ -2,7 +2,6 @@
 
 from enum import Enum
 from typing import List, Literal, Optional
-from datetime import datetime
 
 from aind_data_schema_models.process_names import ProcessName
 from pydantic import Field, ValidationInfo, field_validator
@@ -22,7 +21,7 @@ class RegistrationType(str, Enum):
 class ResourceTimestamped(AindModel):
     """Description of resource usage at a moment in time"""
 
-    timestamp: datetime = Field(..., title="Timestamp", default_factory=datetime.now)
+    timestamp: AwareDatetimeWithDefault = Field(..., title="Timestamp")
     usage: float = Field(..., title="Usage")
 
 
