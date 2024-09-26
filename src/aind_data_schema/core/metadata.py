@@ -198,23 +198,24 @@ class Metadata(AindCoreModel):
     def validate_expected_files_by_modality(self):
         """Validator checks that all required/excluded files match the metadata model"""
         if self.data_description:
-            modality = self.data_description.modality
+            modalities = self.data_description.modality
 
-            for file in CORE_FILES:
-                #  For each field, check if this is a required/excluded file
-                file_requirement = getattr(getattr(ExpectedFiles, str(modality.abbreviation).upper()), file)
-                
-                # Check required case
-                if file_requirement == FileRequirement.REQUIRED and not getattr(self, file):
-                    raise ValueError(
-                        f"{modality.abbreviation} metadata missing required file: {file}"
-                    )
+            for modality in modalities:
+                for file in CORE_FILES:
+                    #  For each field, check if this is a required/excluded file
+                    file_requirement = getattr(getattr(ExpectedFiles, str(modality.abbreviation).upper()), file)
+                    
+                    # Check required case
+                    if file_requirement == FileRequirement.REQUIRED and not getattr(self, file):
+                        raise ValueError(
+                            f"{modality.abbreviation} metadata missing required file: {file}"
+                        )
 
-                # Check excluded case
-                if file_requirement == FileRequirement.EXCLUDED and getattr(self, file):
-                    raise ValueError(
-                        f"{modality.abbreviation} metadata includes excluded file: {file}"
-                    )
+                    # Check excluded case
+                    if file_requirement == FileRequirement.EXCLUDED and getattr(self, file):
+                        raise ValueError(
+                            f"{modality.abbreviation} metadata includes excluded file: {file}"
+                        )
 
         return self
 

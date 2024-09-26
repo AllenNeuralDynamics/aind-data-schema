@@ -7,6 +7,7 @@ from datetime import time
 
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.platforms import Platform
+from aind_data_schema_models.modalities import Modality
 from pydantic import ValidationError
 from pydantic import __version__ as pyd_version
 
@@ -140,13 +141,16 @@ class TestMetadata(unittest.TestCase):
                 name="ecephys_655019_2023-04-03_18-17-09",
                 location="bucket",
                 data_description=DataDescription.model_construct(
-                    label="some label", platform=Platform.SMARTSPIM, creation_time=time(12, 12, 12)
+                    label="some label",
+                    platform=Platform.SMARTSPIM, 
+                    creation_time=time(12, 12, 12),
+                    modality=[Modality.SPIM],
                 ),
                 procedures=Procedures.model_construct(subject_procedures=[surgery1]),
                 acquisition=Acquisition.model_construct(),
             )
         self.assertIn(
-            "Missing some metadata for SmartSpim. Requires subject, procedures, acquisition, and instrument.",
+            "SPIM metadata missing required file: subject",
             str(context.exception),
         )
 
@@ -157,12 +161,14 @@ class TestMetadata(unittest.TestCase):
                 name="ecephys_655019_2023-04-03_18-17-09",
                 location="bucket",
                 data_description=DataDescription.model_construct(
-                    label="some label", platform=Platform.SMARTSPIM, creation_time=time(12, 12, 12)
+                    label="some label", platform=Platform.SMARTSPIM, creation_time=time(12, 12, 12),
+                    modality=[Modality.SPIM]
                 ),
                 subject=Subject.model_construct(),
                 procedures=Procedures.model_construct(subject_procedures=[surgery2]),
                 acquisition=Acquisition.model_construct(),
                 instrument=Instrument.model_construct(),
+                processing=Processing.model_construct()
             )
         self.assertIn("Injection is missing injection_materials.", str(context.exception))
 
@@ -179,13 +185,14 @@ class TestMetadata(unittest.TestCase):
                 name="ecephys_655019_2023-04-03_18-17-09",
                 location="bucket",
                 data_description=DataDescription.model_construct(
-                    label="some label", platform=Platform.ECEPHYS, creation_time=time(12, 12, 12)
+                    label="some label", platform=Platform.ECEPHYS, creation_time=time(12, 12, 12),
+                    modality=[Modality.ECEPHYS],
                 ),
                 procedures=Procedures.model_construct(subject_procedures=[surgery1]),
                 rig=Rig.model_construct(),
             )
         self.assertIn(
-            "Missing some metadata for Ecephys. Requires subject, procedures, session, rig, and processing.",
+            "ecephys metadata missing required file: subject",
             str(context.exception),
         )
 
@@ -196,7 +203,8 @@ class TestMetadata(unittest.TestCase):
                 name="ecephys_655019_2023-04-03_18-17-09",
                 location="bucket",
                 data_description=DataDescription.model_construct(
-                    label="some label", platform=Platform.ECEPHYS, creation_time=time(12, 12, 12)
+                    label="some label", platform=Platform.ECEPHYS, creation_time=time(12, 12, 12),
+                    modality=[Modality.ECEPHYS],
                 ),
                 subject=Subject.model_construct(),
                 procedures=Procedures.model_construct(subject_procedures=[surgery2]),
@@ -216,7 +224,8 @@ class TestMetadata(unittest.TestCase):
                 name="ecephys_655019_2023-04-03_18-17-09",
                 location="bucket",
                 data_description=DataDescription.model_construct(
-                    label="some label", platform=Platform.ECEPHYS, creation_time=time(12, 12, 12)
+                    label="some label", platform=Platform.ECEPHYS, creation_time=time(12, 12, 12),
+                    modality=[Modality.ECEPHYS]
                 ),
                 subject=Subject.model_construct(),
                 procedures=Procedures.model_construct(),
