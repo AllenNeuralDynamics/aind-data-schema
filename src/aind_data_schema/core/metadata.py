@@ -7,6 +7,7 @@ from typing import Dict, List, Literal, Optional, get_args
 from uuid import UUID, uuid4
 
 from aind_data_schema_models.platforms import Platform
+from aind_data_schema_models.modalities import ExpectedFiles, FileRequirement
 from pydantic import Field, PrivateAttr, ValidationError, ValidationInfo, field_validator, model_validator
 
 from aind_data_schema.base import AindCoreModel
@@ -20,6 +21,19 @@ from aind_data_schema.core.rig import Rig
 from aind_data_schema.core.session import Session
 from aind_data_schema.core.subject import Subject
 from aind_data_schema.utils.compatibility_check import RigSessionCompatibility
+
+
+CORE_FILES = [
+        "subject",
+        "data_description",
+        "procedures",
+        "session",
+        "rig",
+        "processing",
+        "acquisition",
+        "instrument",
+        "quality_control"
+        ]
 
 
 class MetadataStatus(str, Enum):
@@ -111,16 +125,7 @@ class Metadata(AindCoreModel):
         default=None, title="Quality Control", description="Description of quality metrics for a data asset"
     )
 
-    @field_validator(
-        "subject",
-        "data_description",
-        "procedures",
-        "session",
-        "rig",
-        "processing",
-        "acquisition",
-        "instrument",
-        "quality_control",
+    @field_validator(*CORE_FILES,
         mode="before",
     )
     def validate_core_fields(cls, value, info: ValidationInfo):
@@ -187,6 +192,30 @@ class Metadata(AindCoreModel):
             metadata_status = MetadataStatus.MISSING
         self.metadata_status = metadata_status
         # return values
+        return self
+
+    @model_validator(mode="after")
+    def validate_expected_files_by_modality(self):
+        """Validator checks that all required/excluded files match the metadata model"""
+        if self.data_description:
+            modality = self.data_description.modality
+
+            for file in CORE_FILES:
+                #  For each field, check if this is a required/excluded file
+                file_requirement = getattr(getattr(ExpectedFiles, str(modality.abbreviation).upper()), file)
+                
+                # Check required case
+                if file_requirement == FileRequirement.REQUIRED and not getattr(self, file):
+                    raise ValueError(
+                        f"{modality.abbreviation} metadata missing required file: {file}"
+                    )
+
+                # Check excluded case
+                if file_requirement == FileRequirement.EXCLUDED and getattr(self, file):
+                    raise ValueError(
+                        f"{modality.abbreviation} metadata includes excluded file: {file}"
+                    )
+
         return self
 
     @model_validator(mode="after")
