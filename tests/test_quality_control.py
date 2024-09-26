@@ -189,6 +189,46 @@ class QualityControlTests(unittest.TestCase):
 
         self.assertEqual(evaluation.evaluation_status.status, Status.FAIL)
 
+    def test_metric_history_order(self):
+        """Test that the order of the metric status history list is preserved when dumping"""
+        t0 = datetime.fromisoformat("2020-10-10")
+        t1 = datetime.fromisoformat("2020-10-11")
+        t2 = datetime.fromisoformat("2020-10-12")
+
+        evaluation = QCEvaluation(
+            evaluation_name="Drift map",
+            evaluation_modality=Modality.ECEPHYS,
+            evaluation_stage=Stage.PROCESSING,
+            qc_metrics=[
+                QCMetric(
+                    name="Multiple values example",
+                    value={"stuff": "in_a_dict"},
+                    metric_status_history=[
+                        QCStatus(evaluator="Automated", timestamp=t0, status=Status.PASS),
+                        QCStatus(evaluator="Automated", timestamp=t1, status=Status.PASS),
+                        QCStatus(evaluator="Automated", timestamp=t2, status=Status.PASS),
+                    ],
+                ),
+            ],
+        )
+
+        #  roundtrip to json to check that metric order is preserved
+        json = evaluation.model_dump_json()
+        evaluation_rebuild = QCEvaluation.model_validate_json(json)
+
+        # because the actual model uses AwareDatetime objects we have to strip the timezone
+        roundtrip_t0 = evaluation_rebuild.qc_metrics[0].metric_status_history[0].timestamp
+        roundtrip_t1 = evaluation_rebuild.qc_metrics[0].metric_status_history[1].timestamp
+        roundtrip_t2 = evaluation_rebuild.qc_metrics[0].metric_status_history[2].timestamp
+
+        roundtrip_t0 = roundtrip_t0.replace(tzinfo=None)
+        roundtrip_t1 = roundtrip_t1.replace(tzinfo=None)
+        roundtrip_t2 = roundtrip_t2.replace(tzinfo=None)
+
+        self.assertEqual(roundtrip_t0, t0)
+        self.assertEqual(roundtrip_t1, t1)
+        self.assertEqual(roundtrip_t2, t2)
+
 
 if __name__ == "__main__":
     unittest.main()
