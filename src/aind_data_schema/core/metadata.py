@@ -221,14 +221,6 @@ class Metadata(AindCoreModel):
     @model_validator(mode="after")
     def validate_smartspim_metadata(self):
         """Validator for smartspim metadata"""
-        if (
-            self.data_description
-            and self.data_description.platform == Platform.SMARTSPIM
-            and not (self.subject and self.procedures and self.acquisition and self.instrument)
-        ):
-            raise ValueError(
-                "Missing some metadata for SmartSpim. Requires subject, procedures, acquisition, and instrument."
-            )
 
         if (
             self.data_description
@@ -248,14 +240,6 @@ class Metadata(AindCoreModel):
     @model_validator(mode="after")
     def validate_ecephys_metadata(self):
         """Validator for metadata"""
-        if (
-            self.data_description
-            and self.data_description.platform == Platform.ECEPHYS
-            and not (self.subject and self.procedures and self.session and self.rig and self.processing)
-        ):
-            raise ValueError(
-                "Missing some metadata for Ecephys. Requires subject, procedures, session, rig, and processing."
-            )
         if (
             self.data_description
             and self.data_description.platform == Platform.ECEPHYS
