@@ -1,12 +1,12 @@
 """Example quality control processing"""
 
-from datetime import datetime
+from datetime import datetime, timezone
 
 from aind_data_schema_models.modalities import Modality
 
 from aind_data_schema.core.quality_control import QCEvaluation, QualityControl, QCMetric, Stage, Status, QCStatus
 
-t = datetime(2022, 11, 22, 0, 0, 0)
+t = datetime(2022, 11, 22, 0, 0, 0, tzinfo=timezone.utc)
 
 s = QCStatus(evaluator="Bob", status=Status.PASS, timestamp=t)
 
