@@ -19,22 +19,22 @@ from aind_data_schema_models.system_architecture import OperatingSystem, CPUArch
 t = datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc)
 
 
-timestamped_cpu_usage = [
+cpu_usage_list = [
     ResourceTimestamped(timestamp=datetime(2024, 9, 13, tzinfo=timezone.utc), usage=75.5),
     ResourceTimestamped(timestamp=datetime(2024, 9, 13, tzinfo=timezone.utc), usage=80.0),
 ]
 
-timestamped_gpu_usage = [
+gpu_usage_list = [
     ResourceTimestamped(timestamp=datetime(2024, 9, 13, tzinfo=timezone.utc), usage=60.0),
     ResourceTimestamped(timestamp=datetime(2024, 9, 13, tzinfo=timezone.utc), usage=65.5),
 ]
 
-timestamped_ram_usage = [
+ram_usage_list = [
     ResourceTimestamped(timestamp=datetime(2024, 9, 13, tzinfo=timezone.utc), usage=70.0),
     ResourceTimestamped(timestamp=datetime(2024, 9, 13, tzinfo=timezone.utc), usage=72.5),
 ]
 
-timestamped_file_io_usage = [
+file_io_usage_list = [
     ResourceTimestamped(timestamp=datetime(2024, 9, 13, tzinfo=timezone.utc), usage=5.5),
     ResourceTimestamped(timestamp=datetime(2024, 9, 13, tzinfo=timezone.utc), usage=6.0),
 ]
@@ -63,10 +63,10 @@ p = Processing(
                     gpu="NVIDIA GeForce RTX 3080",
                     system_memory=MemoryValue(value=32.0, unit=MemoryUnit.GB),
                     ram=MemoryValue(value=16.0, unit=MemoryUnit.GB),
-                    cpu_usage=timestamped_cpu_usage,
-                    gpu_usage=timestamped_gpu_usage,
-                    ram_usage=timestamped_ram_usage,
-                    file_io_usage=timestamped_file_io_usage,
+                    cpu_usage=cpu_usage_list,
+                    gpu_usage=gpu_usage_list,
+                    ram_usage=ram_usage_list,
+                    file_io_usage=file_io_usage_list,
                     file_io_unit=MemoryUnit.MB,
                 ),
             ),
