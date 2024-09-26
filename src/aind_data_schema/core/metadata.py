@@ -201,18 +201,30 @@ class Metadata(AindCoreModel):
         if self.data_description:
             modalities = self.data_description.modality
 
+            requirement_dict = {}
+
             for modality in modalities:
                 for file in CORE_FILES:
                     #  For each field, check if this is a required/excluded file
                     file_requirement = getattr(getattr(ExpectedFiles, str(modality.abbreviation).upper()), file)
 
-                    # Check required case
-                    if file_requirement == FileRequirement.REQUIRED and not getattr(self, file):
-                        raise ValueError(f"{modality.abbreviation} metadata missing required file: {file}")
+                    if file not in requirement_dict:
+                        requirement_dict[file] = file_requirement
+                    elif (file_requirement == FileRequirement.REQUIRED) or (
+                        file_requirement == FileRequirement.OPTIONAL
+                        and requirement_dict[file] == FileRequirement.EXCLUDED
+                    ):
+                        # override, required wins over all else, and optional wins over excluded
+                        requirement_dict[file] = file_requirement
 
-                    # Check excluded case
-                    if file_requirement == FileRequirement.EXCLUDED and getattr(self, file):
-                        raise ValueError(f"{modality.abbreviation} metadata includes excluded file: {file}")
+            for file in CORE_FILES:
+                # Check required case
+                if requirement_dict[file] == FileRequirement.REQUIRED and not getattr(self, file):
+                    raise ValueError(f"{modality.abbreviation} metadata missing required file: {file}")
+
+                # Check excluded case
+                if requirement_dict[file] == FileRequirement.EXCLUDED and getattr(self, file):
+                    raise ValueError(f"{modality.abbreviation} metadata includes excluded file: {file}")
 
         return self
 

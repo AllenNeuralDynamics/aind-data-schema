@@ -196,6 +196,37 @@ class TestMetadata(unittest.TestCase):
             )
         self.assertIn("Injection is missing injection_materials.", str(context.exception))
 
+    def test_multi_modal_metadata(self):
+        """Test that metadata with multiple modalities correctly prioritizes REQUIRED > OPTIONAL > EXCLUDED"""
+        # Tests excluded metadata getting included
+        viral_material = ViralMaterial.model_construct()
+        nano_inj = NanojectInjection.model_construct(injection_materials=[viral_material])
+        ionto_inj = IontophoresisInjection.model_construct(injection_materials=[viral_material])
+        surgery1 = Surgery.model_construct(procedures=[nano_inj, ionto_inj])
+
+        mouse_platform = MousePlatform.model_construct(name="platform1")
+        rig = Rig.model_construct(rig_id="123_EPHYS1_20220101", mouse_platform=mouse_platform)
+        session = Session.model_construct(rig_id="123_EPHYS1_20220101", mouse_platform_name="platform1")
+
+        m = Metadata(
+            name="ecephys_655019_2023-04-03_18-17-09",
+            location="bucket",
+            data_description=DataDescription.model_construct(
+                label="some label",
+                platform=Platform.SMARTSPIM,
+                creation_time=time(12, 12, 12),
+                modality=[Modality.BEHAVIOR, Modality.SPIM],  # technically this is impossible, but we need to test it
+            ),
+            subject=Subject.model_construct(),
+            session=session,  # SPIM excludes session, but BEHAVIOR requires it
+            procedures=Procedures.model_construct(subject_procedures=[surgery1]),
+            acquisition=Acquisition.model_construct(),
+            rig=rig,
+            processing=Processing.model_construct(),
+            instrument=Instrument.model_construct(),
+        )
+        self.assertIsNotNone(m)
+
     def test_validate_ecephys_metadata(self):
         """Tests that ecephys validator works as expected"""
         viral_material = ViralMaterial.model_construct()
