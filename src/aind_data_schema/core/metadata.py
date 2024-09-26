@@ -24,16 +24,16 @@ from aind_data_schema.utils.compatibility_check import RigSessionCompatibility
 
 
 CORE_FILES = [
-        "subject",
-        "data_description",
-        "procedures",
-        "session",
-        "rig",
-        "processing",
-        "acquisition",
-        "instrument",
-        "quality_control"
-        ]
+    "subject",
+    "data_description",
+    "procedures",
+    "session",
+    "rig",
+    "processing",
+    "acquisition",
+    "instrument",
+    "quality_control",
+]
 
 
 class MetadataStatus(str, Enum):
@@ -125,7 +125,8 @@ class Metadata(AindCoreModel):
         default=None, title="Quality Control", description="Description of quality metrics for a data asset"
     )
 
-    @field_validator(*CORE_FILES,
+    @field_validator(
+        *CORE_FILES,
         mode="before",
     )
     def validate_core_fields(cls, value, info: ValidationInfo):
@@ -204,18 +205,14 @@ class Metadata(AindCoreModel):
                 for file in CORE_FILES:
                     #  For each field, check if this is a required/excluded file
                     file_requirement = getattr(getattr(ExpectedFiles, str(modality.abbreviation).upper()), file)
-                    
+
                     # Check required case
                     if file_requirement == FileRequirement.REQUIRED and not getattr(self, file):
-                        raise ValueError(
-                            f"{modality.abbreviation} metadata missing required file: {file}"
-                        )
+                        raise ValueError(f"{modality.abbreviation} metadata missing required file: {file}")
 
                     # Check excluded case
                     if file_requirement == FileRequirement.EXCLUDED and getattr(self, file):
-                        raise ValueError(
-                            f"{modality.abbreviation} metadata includes excluded file: {file}"
-                        )
+                        raise ValueError(f"{modality.abbreviation} metadata includes excluded file: {file}")
 
         return self
 

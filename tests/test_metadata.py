@@ -142,7 +142,7 @@ class TestMetadata(unittest.TestCase):
                 location="bucket",
                 data_description=DataDescription.model_construct(
                     label="some label",
-                    platform=Platform.SMARTSPIM, 
+                    platform=Platform.SMARTSPIM,
                     creation_time=time(12, 12, 12),
                     modality=[Modality.SPIM],
                 ),
@@ -161,14 +161,16 @@ class TestMetadata(unittest.TestCase):
                 name="ecephys_655019_2023-04-03_18-17-09",
                 location="bucket",
                 data_description=DataDescription.model_construct(
-                    label="some label", platform=Platform.SMARTSPIM, creation_time=time(12, 12, 12),
-                    modality=[Modality.SPIM]
+                    label="some label",
+                    platform=Platform.SMARTSPIM,
+                    creation_time=time(12, 12, 12),
+                    modality=[Modality.SPIM],
                 ),
                 subject=Subject.model_construct(),
                 procedures=Procedures.model_construct(subject_procedures=[surgery2]),
                 acquisition=Acquisition.model_construct(),
                 instrument=Instrument.model_construct(),
-                processing=Processing.model_construct()
+                processing=Processing.model_construct(),
             )
         self.assertIn("Injection is missing injection_materials.", str(context.exception))
 
@@ -185,7 +187,9 @@ class TestMetadata(unittest.TestCase):
                 name="ecephys_655019_2023-04-03_18-17-09",
                 location="bucket",
                 data_description=DataDescription.model_construct(
-                    label="some label", platform=Platform.ECEPHYS, creation_time=time(12, 12, 12),
+                    label="some label",
+                    platform=Platform.ECEPHYS,
+                    creation_time=time(12, 12, 12),
                     modality=[Modality.ECEPHYS],
                 ),
                 procedures=Procedures.model_construct(subject_procedures=[surgery1]),
@@ -203,7 +207,9 @@ class TestMetadata(unittest.TestCase):
                 name="ecephys_655019_2023-04-03_18-17-09",
                 location="bucket",
                 data_description=DataDescription.model_construct(
-                    label="some label", platform=Platform.ECEPHYS, creation_time=time(12, 12, 12),
+                    label="some label",
+                    platform=Platform.ECEPHYS,
+                    creation_time=time(12, 12, 12),
                     modality=[Modality.ECEPHYS],
                 ),
                 subject=Subject.model_construct(),
@@ -224,8 +230,10 @@ class TestMetadata(unittest.TestCase):
                 name="ecephys_655019_2023-04-03_18-17-09",
                 location="bucket",
                 data_description=DataDescription.model_construct(
-                    label="some label", platform=Platform.ECEPHYS, creation_time=time(12, 12, 12),
-                    modality=[Modality.ECEPHYS]
+                    label="some label",
+                    platform=Platform.ECEPHYS,
+                    creation_time=time(12, 12, 12),
+                    modality=[Modality.ECEPHYS],
                 ),
                 subject=Subject.model_construct(),
                 procedures=Procedures.model_construct(),
