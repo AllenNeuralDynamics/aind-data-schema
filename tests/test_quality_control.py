@@ -189,6 +189,52 @@ class QualityControlTests(unittest.TestCase):
 
         self.assertEqual(evaluation.evaluation_status.status, Status.FAIL)
 
+    def test_allowed_failed_metrics(self):
+        """Test that if you set the flag to allow failures that evaluations pass"""
+
+        # First check that a pending evaluation still evaluates properly
+        evaluation = QCEvaluation(
+            evaluation_name="Drift map",
+            evaluation_modality=Modality.ECEPHYS,
+            evaluation_stage=Stage.PROCESSING,
+            allow_failed_metrics=True,
+            qc_metrics=[
+                QCMetric(
+                    name="Multiple values example",
+                    value={"stuff": "in_a_dict"},
+                    metric_status_history=[
+                        QCStatus(
+                            evaluator="Automated", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PASS
+                        )
+                    ],
+                ),
+                QCMetric(
+                    name="Drift map pass/fail",
+                    value=False,
+                    description="Manual evaluation of whether the drift map looks good",
+                    reference="s3://some-data-somewhere",
+                    metric_status_history=[
+                        QCStatus(
+                            evaluator="Automated", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PENDING
+                        )
+                    ],
+                ),
+            ],
+        )
+
+        evaluation.evaluate_status()
+
+        self.assertEqual(evaluation.evaluation_status.status, Status.PENDING)
+
+        # Replace the pending evaluation with a fail, evaluation should not evaluate to pass
+        evaluation.qc_metrics[1].metric_status_history[0].status = Status.FAIL
+
+        evaluation.evaluate_status()
+
+        self.assertEqual(evaluation.evaluation_status.status, Status.PASS)
+
+
+
     def test_metric_history_order(self):
         """Test that the order of the metric status history list is preserved when dumping"""
         t0 = datetime.fromisoformat("2020-10-10")

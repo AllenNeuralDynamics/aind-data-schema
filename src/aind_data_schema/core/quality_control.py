@@ -70,6 +70,7 @@ class QCEvaluation(AindModel):
     qc_metrics: List[QCMetric] = Field(..., title="QC metrics")
     notes: Optional[str] = Field(default=None, title="Notes")
     evaluation_status_history: List[QCStatus] = Field(default=[], title="Evaluation status history")
+    allow_failed_metrics: bool = Field(default=False, title="Allow metrics to fail")
 
     @property
     def evaluation_status(self) -> QCStatus:
@@ -95,7 +96,7 @@ class QCEvaluation(AindModel):
 
         latest_metric_statuses = [metric.metric_status.status for metric in self.qc_metrics]
 
-        if any(status == Status.FAIL for status in latest_metric_statuses):
+        if (not self.allow_failed_metrics) and any(status == Status.FAIL for status in latest_metric_statuses):
             new_status.status = Status.FAIL
         elif any(status == Status.PENDING for status in latest_metric_statuses):
             new_status.status = Status.PENDING
