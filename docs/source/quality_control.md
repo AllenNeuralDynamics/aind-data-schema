@@ -12,7 +12,7 @@ The state of an evaluation is set automatically to the lowest of its metric's st
 
 **Q: What is an evaluation?**
 
-Each `QCEvaluation` should be thought of as a single aspect of the data asset that can be evaluated. For example, the brain might moves a small amount during both electrophysiology and optical recordings. This drift can be measured by various automated quantiative metrics, as well as qualititative metrics evaluated by a human observer. The state of an evaluation depends on the state of its metrics according to these rules:
+Each `QCEvaluation` should be thought of as a single aspect of the data asset that can be evaluated. For example, the brain moves a small amount during both electrophysiology and optical recordings. This drift can be measured by various automated quantiative metrics, as well as qualititative metrics evaluated by a human observer. The state of an evaluation depends on the state of its metrics according to these rules:
 
 - If all metrics pass the evaluation passes
 - If any metric fails the evaluation fails (unless the `allow_failed_metrics` flag is set)
@@ -26,12 +26,7 @@ A metric is any single value or set of values that can be computed, or observed,
 
 Metrics also have a status which is set by a rule, usually some function of the metric value. The rule should be encoded in the metric description. The metric status should also include both the evaluator (``"automated"`` or the evaluator's full name) and be timestamped. Metrics can be evaluated multiple times or have their status overridden by ressearchers, in which case the new status will be appended the `QCMetric.metric_status_history`. The latest status can be retrived by using `QCMetric.metric_status`.
 
-Each metric should also include a `QCMetric.reference`. References are intended to be images, figures, or videos that support the metric or provide information necessary for manual annotation of a metric's status. There are four ways to set the reference field:
-
-- Provide a relative path to a file in an S3 bucket
-- Provide a full path to a file in an S3 bucket (starting with "s3://")
-- Provide a url to a file (starting with "http://" or "https://")
-- Provide the name of one of the interactive plots, e.g. "ecephys-drift-map"
+Each metric should also include a `QCMetric.reference`. References are intended to be publicly accessible images, figures, combined figures with multiple panels, or videos that support the metric or provide information necessary for manual annotation of a metric's status.
 
 **Q: What are the status options for metrics?**
 
@@ -49,16 +44,23 @@ The portal works by pulling the metadata object from the Document Database (DocD
 
 **Q: How do reference URLs get pulled into the QC Portal?**
 
-Each metric can be associated with a single reference URL, pointing to an image file (ideally SVG or PNG) or to the name of an interactive plot.
+The QC portal can interpret four ways of setting the reference field:
 
-For URLs you can provide the path in three ways:
+- Provide a relative path to a file in an S3 bucket
+- Provide a full path to a file in an S3 bucket (starting with "s3://")
+- Provide a url to a file (starting with "http://" or "https://")
+- Provide the name of one of the interactive plots, e.g. "ecephys-drift-map"
 
-- You can provide the relative path in the results folder and we can have the qc app look up the file path from the rest of the metadata
-- The full path to the S3 bucket with the image S3://...etc...
-- The path to an external image http://...etc...
-
-For interactive plots you simply provide the plot name, e.g. "ecephys-drift-map". Please see the repository for the full list of interactive plots (src/aind-qc-portal/interactive-plots/)
+There are many situations where it's helpful to be able to "swipe" between two images. If you have two identical images separated by a ';' the portal will allow users to swipe between them. For example, you might show snippets of the raw electrophysiology raster with detected spikes overlaid on the swipe.
 
 **Q: When does the state get set for the QualityControl and QCEvaluation objects?**
 
 The QC portal automatically calls ``QualityControl.evaluate_status()`` whenever you submit changes to the metrics. Note that while it's possible to evaluate the status of ``QCEvaluation`` objects directly, this could lead to inconsistencies in the overall status of the ``QualityControl`` object.
+
+**Q: I saw fancy things like dropdowns in the QC Portal, how do I do that?**
+
+By default the QC portal displays dictionaries as tables where the values can be edited. We also support a few special cases to allow a bit more flexibility or to constrain the actions that manual annotators can take:
+
+1. Dictionaries which include a `value` and `_option#` fields will be displayed as dropdowns.
+2. Dictionaries which include a `value`, `_min`, and `_max` fields will be displayed as range sliders.
+3. Dictionaries which include a `value` and `_multi_option#` fields will be displayed as a multi-selector.
