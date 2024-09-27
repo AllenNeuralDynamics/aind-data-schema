@@ -192,12 +192,22 @@ class QualityControlTests(unittest.TestCase):
     def test_allowed_failed_metrics(self):
         """Test that if you set the flag to allow failures that evaluations pass"""
 
+        metric2 = QCMetric(
+            name="Drift map pass/fail",
+            value=False,
+            description="Manual evaluation of whether the drift map looks good",
+            reference="s3://some-data-somewhere",
+            metric_status_history=[
+                QCStatus(evaluator="Automated", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PENDING)
+            ],
+        )
+
         # First check that a pending evaluation still evaluates properly
         evaluation = QCEvaluation(
             evaluation_name="Drift map",
             evaluation_modality=Modality.ECEPHYS,
             evaluation_stage=Stage.PROCESSING,
-            allow_failed_metrics=True,
+            allow_failed_metrics=False,
             qc_metrics=[
                 QCMetric(
                     name="Multiple values example",
@@ -208,20 +218,13 @@ class QualityControlTests(unittest.TestCase):
                         )
                     ],
                 ),
-                QCMetric(
-                    name="Drift map pass/fail",
-                    value=False,
-                    description="Manual evaluation of whether the drift map looks good",
-                    reference="s3://some-data-somewhere",
-                    metric_status_history=[
-                        QCStatus(
-                            evaluator="Automated", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PENDING
-                        )
-                    ],
-                ),
+                metric2,
             ],
         )
 
+        self.assertIsNone(evaluation.failed_metrics)
+
+        evaluation.allow_failed_metrics = True
         evaluation.evaluate_status()
 
         self.assertEqual(evaluation.evaluation_status.status, Status.PENDING)
@@ -233,7 +236,8 @@ class QualityControlTests(unittest.TestCase):
 
         self.assertEqual(evaluation.evaluation_status.status, Status.PASS)
 
-
+        metric2.metric_status_history[0].status = Status.FAIL
+        self.assertEqual(evaluation.failed_metrics, [metric2])
 
     def test_metric_history_order(self):
         """Test that the order of the metric status history list is preserved when dumping"""

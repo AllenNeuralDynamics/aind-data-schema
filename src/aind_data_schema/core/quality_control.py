@@ -86,6 +86,27 @@ class QCEvaluation(AindModel):
 
         return self.evaluation_status_history[-1]
 
+    @property
+    def failed_metrics(self) -> list[QCMetric]:
+        """Return any metrics that are failing
+
+        Returns none if allow_failed_metrics is False
+
+        Returns
+        -------
+        list[QCMetric]
+            Metrics that fail
+        """
+        if not self.allow_failed_metrics:
+            return None
+        else:
+            failing_metrics = []
+            for metric in self.qc_metrics:
+                if metric.metric_status.status == Status.FAIL:
+                    failing_metrics.append(metric)
+
+            return failing_metrics
+
     def evaluate_status(self, timestamp=datetime.now()):
         """Loop through all metrics and evaluate the status of the evaluation
         Any fail -> FAIL
