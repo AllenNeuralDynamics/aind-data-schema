@@ -45,6 +45,7 @@ class ResourceUsage(AindModel):
 
     @model_validator(mode="after")
     def check_value_and_unit(cls, values):
+        """Ensure that all valued fields have units"""
         if values.system_memory and not values.system_memory_unit:
             raise ValueError("System memory unit is required if system memory is provided.")
         if values.ram and not values.ram_unit:
