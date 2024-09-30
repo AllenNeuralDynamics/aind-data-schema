@@ -23,14 +23,10 @@
                "cpu": "Intel Core i7",
                "cpu_cores": 8,
                "gpu": "NVIDIA GeForce RTX 3080",
-               "system_memory": {
-                  "value": "32.0",
-                  "unit": "Gigabyte"
-               },
-               "ram": {
-                  "value": "16.0",
-                  "unit": "Gigabyte"
-               },
+               "system_memory": 32.0,
+               "system_memory_unit": "Gigabyte",
+               "ram": 16.0,
+               "ram_unit": "Gigabyte",
                "cpu_usage": [
                   {
                      "timestamp": "2024-09-13T00:00:00Z",
@@ -61,18 +57,7 @@
                      "usage": 72.5
                   }
                ],
-               "usage_unit": "percent",
-               "file_io_usage": [
-                  {
-                     "timestamp": "2024-09-13T00:00:00Z",
-                     "usage": 5.5
-                  },
-                  {
-                     "timestamp": "2024-09-13T00:00:00Z",
-                     "usage": 6.0
-                  }
-               ],
-               "file_io_unit": "Megabyte"
+               "usage_unit": "percent"
             }
          },
          {
