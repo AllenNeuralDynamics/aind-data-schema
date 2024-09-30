@@ -117,7 +117,7 @@ class ProcessingTest(unittest.TestCase):
             )
 
         expected_exception = "System memory unit is required if system memory is provided"
-        
+
         self.assertTrue(expected_exception in repr(e.exception))
 
 

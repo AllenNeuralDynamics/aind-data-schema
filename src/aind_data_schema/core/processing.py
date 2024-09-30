@@ -60,7 +60,7 @@ class ResourceUsage(AindModel):
         if value and not info.data.get("ram_unit"):
             raise ValueError("RAM unit is required if RAM is provided.")
         return value
-    
+
     @field_validator("file_io_usage", mode="after")
     def validate_file_io_unit(cls, value: Optional[MemoryUnit], info: ValidationInfo) -> Optional[MemoryUnit]:
         """Validator for file_io_unit"""
