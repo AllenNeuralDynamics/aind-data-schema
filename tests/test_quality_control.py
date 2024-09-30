@@ -279,6 +279,20 @@ class QualityControlTests(unittest.TestCase):
         self.assertEqual(roundtrip_t1, t1)
         self.assertEqual(roundtrip_t2, t2)
 
+    def test_metric_status(self):
+        """Ensure that at least one status object exists for metric_status_history"""
+
+        with self.assertRaises(ValueError) as context:
+            QCMetric(
+                    name="Multiple values example",
+                    value={"stuff": "in_a_dict"},
+                    metric_status_history=[],
+                )
+
+        expected_exception = "At least one QCStatus object must be provided"
+
+        self.assertTrue(expected_exception in repr(context.exception))
+
 
 if __name__ == "__main__":
     unittest.main()

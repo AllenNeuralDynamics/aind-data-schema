@@ -7,7 +7,7 @@ from enum import Enum
 from typing import List, Literal, Optional, Any
 
 from aind_data_schema_models.modalities import Modality
-from pydantic import Field, BaseModel
+from pydantic import Field, BaseModel, field_validator
 
 from aind_data_schema.base import AindCoreModel, AindModel, AwareDatetimeWithDefault
 
@@ -58,6 +58,12 @@ class QCMetric(BaseModel):
             Most recent status object
         """
         return self.metric_status_history[-1]
+
+    @field_validator("metric_status_history")
+    def validate_metric_status_history(cls, v):
+        if len(v) == 0:
+            raise ValueError("At least one QCStatus object must be provided")
+        return v
 
 
 class QCEvaluation(AindModel):
