@@ -42,8 +42,6 @@ class ResourceUsage(AindModel):
     gpu_usage: Optional[List[ResourceTimestamped]] = Field(default=None, title="GPU usage")
     ram_usage: Optional[List[ResourceTimestamped]] = Field(default=None, title="RAM usage")
     usage_unit: str = Field(default=UnitlessUnit.PERCENT, title="Usage unit")
-    file_io_usage: Optional[List[ResourceTimestamped]] = Field(default=None, title="File I/O usage")
-    file_io_unit: Optional[MemoryUnit] = Field(default=None, title="File I/O unit")
 
     @field_validator("system_memory", mode="after")
     def validate_system_memory_unit(cls, value: Optional[MemoryUnit], info: ValidationInfo) -> Optional[MemoryUnit]:
@@ -59,14 +57,6 @@ class ResourceUsage(AindModel):
 
         if value and not info.data.get("ram_unit"):
             raise ValueError("RAM unit is required if RAM is provided.")
-        return value
-
-    @field_validator("file_io_usage", mode="after")
-    def validate_file_io_unit(cls, value: Optional[MemoryUnit], info: ValidationInfo) -> Optional[MemoryUnit]:
-        """Validator for file_io_unit"""
-
-        if value and not info.data.get("file_io_unit"):
-            raise ValueError("File I/O unit is required if file I/O usage is provided.")
         return value
 
 
