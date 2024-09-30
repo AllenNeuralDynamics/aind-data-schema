@@ -4,7 +4,7 @@ from enum import Enum
 from typing import List, Literal, Optional
 
 from aind_data_schema_models.process_names import ProcessName
-from pydantic import Field, ValidationInfo, field_validator
+from pydantic import Field, ValidationInfo, model_validator, field_validator
 
 from aind_data_schema.base import AindCoreModel, AindGeneric, AindGenericType, AindModel, AwareDatetimeWithDefault
 from aind_data_schema.components.tile import Tile
@@ -43,21 +43,13 @@ class ResourceUsage(AindModel):
     ram_usage: Optional[List[ResourceTimestamped]] = Field(default=None, title="RAM usage")
     usage_unit: str = Field(default=UnitlessUnit.PERCENT, title="Usage unit")
 
-    @field_validator("system_memory", mode="after")
-    def validate_system_memory_unit(cls, value: Optional[MemoryUnit], info: ValidationInfo) -> Optional[MemoryUnit]:
-        """Validator for system_memory_unit"""
-
-        if value and not info.data.get("system_memory_unit"):
+    @model_validator(mode="after")
+    def check_value_and_unit(cls, values):
+        if values.system_memory and not values.system_memory_unit:
             raise ValueError("System memory unit is required if system memory is provided.")
-        return value
-
-    @field_validator("ram", mode="after")
-    def validate_ram_unit(cls, value: Optional[MemoryUnit], info: ValidationInfo) -> Optional[MemoryUnit]:
-        """Validator for ram_unit"""
-
-        if value and not info.data.get("ram_unit"):
+        if values.ram and not values.ram_unit:
             raise ValueError("RAM unit is required if RAM is provided.")
-        return value
+        return values
 
 
 class DataProcess(AindModel):

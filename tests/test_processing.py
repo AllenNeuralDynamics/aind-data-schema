@@ -94,7 +94,7 @@ class ProcessingTest(unittest.TestCase):
                 ram=1,
             )
 
-        expected_exception = "Value error, RAM unit is required if RAM is provided"
+        expected_exception = "RAM unit is required if RAM is provided"
 
         self.assertTrue(expected_exception in repr(e.exception))
 
