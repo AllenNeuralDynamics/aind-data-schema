@@ -61,6 +61,7 @@ class QCMetric(BaseModel):
 
     @field_validator("metric_status_history")
     def validate_metric_status_history(cls, v):
+        """Ensure that at least one QCStatus object is provided"""
         if len(v) == 0:
             raise ValueError("At least one QCStatus object must be provided")
         return v
