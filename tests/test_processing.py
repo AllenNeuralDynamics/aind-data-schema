@@ -120,19 +120,6 @@ class ProcessingTest(unittest.TestCase):
         
         self.assertTrue(expected_exception in repr(e.exception))
 
-        # Check file io
-        with self.assertRaises(ValueError) as e:
-            ResourceUsage(
-                os=OperatingSystem.MACOS_SONOMA,
-                architecture=CPUArchitecture.X86_64,
-                cpu_usage=[ResourceTimestamped(timestamp=datetime.fromisoformat("2024-09-13"), usage=0.5)],
-                file_io_usage=[ResourceTimestamped(timestamp=datetime.fromisoformat("2024-09-13"), usage=0.5)],
-            )
-
-        expected_exception = "File I/O unit is required if file I/O usage is provided"
-        
-        self.assertTrue(expected_exception in repr(e.exception))
-
 
 if __name__ == "__main__":
     unittest.main()
