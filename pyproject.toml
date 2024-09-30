@@ -35,7 +35,7 @@ linters = [
     'flake8',
     'interrogate',
     'isort',
-    'aind-flake8-extensions==0.5.2'
+    'aind-flake8-extensions>=0.6,<0.7'
 ]
 
 docs = [
