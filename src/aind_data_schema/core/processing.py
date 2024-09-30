@@ -4,7 +4,7 @@ from enum import Enum
 from typing import List, Literal, Optional
 
 from aind_data_schema_models.process_names import ProcessName
-from pydantic import Field, ValidationInfo, field_validator, ValidationError
+from pydantic import Field, ValidationInfo, field_validator
 
 from aind_data_schema.base import AindCoreModel, AindGeneric, AindGenericType, AindModel, AwareDatetimeWithDefault
 from aind_data_schema.components.tile import Tile
