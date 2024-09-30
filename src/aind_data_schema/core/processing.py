@@ -4,11 +4,11 @@ from enum import Enum
 from typing import List, Literal, Optional
 
 from aind_data_schema_models.process_names import ProcessName
-from pydantic import Field, ValidationInfo, field_validator
+from pydantic import Field, ValidationInfo, field_validator, ValidationError
 
 from aind_data_schema.base import AindCoreModel, AindGeneric, AindGenericType, AindModel, AwareDatetimeWithDefault
 from aind_data_schema.components.tile import Tile
-from aind_data_schema_models.units import MemoryUnit, MemoryValue, UnitlessUnit
+from aind_data_schema_models.units import MemoryUnit, UnitlessUnit
 
 
 class RegistrationType(str, Enum):
@@ -33,8 +33,10 @@ class ResourceUsage(AindModel):
     cpu: Optional[str] = Field(default=None, title="CPU name")
     cpu_cores: Optional[int] = Field(default=None, title="CPU cores")
     gpu: Optional[str] = Field(default=None, title="GPU name")
-    system_memory: Optional[MemoryValue] = Field(default=None, title="System memory")
-    ram: Optional[MemoryValue] = Field(default=None, title="System RAM")
+    system_memory: Optional[int] = Field(default=None, title="System memory")
+    system_memory_unit: Optional[MemoryUnit] = Field(default=None, title="System memory unit")
+    ram: Optional[int] = Field(default=None, title="System RAM")
+    ram_unit: Optional[MemoryUnit] = Field(default=None, title="Ram unit")
 
     cpu_usage: Optional[List[ResourceTimestamped]] = Field(default=None, title="CPU usage")
     gpu_usage: Optional[List[ResourceTimestamped]] = Field(default=None, title="GPU usage")
@@ -42,6 +44,30 @@ class ResourceUsage(AindModel):
     usage_unit: str = Field(default=UnitlessUnit.PERCENT, title="Usage unit")
     file_io_usage: Optional[List[ResourceTimestamped]] = Field(default=None, title="File I/O usage")
     file_io_unit: Optional[MemoryUnit] = Field(default=None, title="File I/O unit")
+
+    @field_validator("system_memory", mode="after")
+    def validate_system_memory_unit(cls, value: Optional[MemoryUnit], info: ValidationInfo) -> Optional[MemoryUnit]:
+        """Validator for system_memory_unit"""
+
+        if value and not info.data.get("system_memory_unit"):
+            raise ValueError("System memory unit is required if system memory is provided.")
+        return value
+
+    @field_validator("ram", mode="after")
+    def validate_ram_unit(cls, value: Optional[MemoryUnit], info: ValidationInfo) -> Optional[MemoryUnit]:
+        """Validator for ram_unit"""
+
+        if value and not info.data.get("ram_unit"):
+            raise ValueError("RAM unit is required if RAM is provided.")
+        return value
+    
+    @field_validator("file_io_usage", mode="after")
+    def validate_file_io_unit(cls, value: Optional[MemoryUnit], info: ValidationInfo) -> Optional[MemoryUnit]:
+        """Validator for file_io_unit"""
+
+        if value and not info.data.get("file_io_unit"):
+            raise ValueError("File I/O unit is required if file I/O usage is provided.")
+        return value
 
 
 class DataProcess(AindModel):

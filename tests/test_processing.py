@@ -15,6 +15,7 @@ from aind_data_schema.core.processing import (
     ResourceTimestamped,
 )
 from aind_data_schema_models.system_architecture import OperatingSystem, CPUArchitecture
+from aind_data_schema_models.units import MemoryUnit
 
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pydantic.__version__).group(1)
 
@@ -80,6 +81,57 @@ class ProcessingTest(unittest.TestCase):
 
         with self.assertRaises(pydantic.ValidationError):
             ResourceUsage()
+
+    def test_resource_usage_unit_validators(self):
+        """Test that unit validators work"""
+
+        # Check ram
+        with self.assertRaises(ValueError) as e:
+            ResourceUsage(
+                os=OperatingSystem.MACOS_SONOMA,
+                architecture=CPUArchitecture.X86_64,
+                cpu_usage=[ResourceTimestamped(timestamp=datetime.fromisoformat("2024-09-13"), usage=0.5)],
+                ram=1,
+            )
+
+        expected_exception = "Value error, RAM unit is required if RAM is provided"
+
+        self.assertTrue(expected_exception in repr(e.exception))
+
+        resources = ResourceUsage(
+            os=OperatingSystem.MACOS_SONOMA,
+            architecture=CPUArchitecture.X86_64,
+            cpu_usage=[ResourceTimestamped(timestamp=datetime.fromisoformat("2024-09-13"), usage=0.5)],
+            ram=1,
+            ram_unit=MemoryUnit.GB,
+        )
+        self.assertIsNotNone(resources)
+
+        # Check system memory
+        with self.assertRaises(ValueError) as e:
+            ResourceUsage(
+                os=OperatingSystem.MACOS_SONOMA,
+                architecture=CPUArchitecture.X86_64,
+                cpu_usage=[ResourceTimestamped(timestamp=datetime.fromisoformat("2024-09-13"), usage=0.5)],
+                system_memory=1,
+            )
+
+        expected_exception = "System memory unit is required if system memory is provided"
+        
+        self.assertTrue(expected_exception in repr(e.exception))
+
+        # Check file io
+        with self.assertRaises(ValueError) as e:
+            ResourceUsage(
+                os=OperatingSystem.MACOS_SONOMA,
+                architecture=CPUArchitecture.X86_64,
+                cpu_usage=[ResourceTimestamped(timestamp=datetime.fromisoformat("2024-09-13"), usage=0.5)],
+                file_io_usage=[ResourceTimestamped(timestamp=datetime.fromisoformat("2024-09-13"), usage=0.5)],
+            )
+
+        expected_exception = "File I/O unit is required if file I/O usage is provided"
+        
+        self.assertTrue(expected_exception in repr(e.exception))
 
 
 if __name__ == "__main__":
