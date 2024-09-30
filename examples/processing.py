@@ -11,7 +11,7 @@ from aind_data_schema.core.processing import (
     ResourceTimestamped,
     ResourceUsage,
 )
-from aind_data_schema_models.units import MemoryUnit, MemoryValue
+from aind_data_schema_models.units import MemoryUnit
 from aind_data_schema_models.system_architecture import OperatingSystem, CPUArchitecture
 
 # If a timezone isn't specified, the timezone of the computer running this
