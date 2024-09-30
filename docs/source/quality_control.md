@@ -2,7 +2,7 @@
 
 ## Overview
 
-Quality control is a collection of **evaluations** based on sets of **metrics** about the data. As a user, you build a `QualityControl` object and append `QCEvaluation`s to it, each of which contains one or more `QCMetric`s
+Quality control is a collection of **evaluations** based on sets of **metrics** about the data. When a raw data asset is first indexed an empty `QualityControl` is created. As a user, you then construct `QCEvaluation` objects which contain one or more `QCMetric`s and append these to the `QualityControl`. Adding your `QCEvaluation`s is done through the `aind-data-access-api`.
 
 Each `QualityControl`, `QCEvaluation`, and `QCMetric` includes a `aind_data_schema.quality_control.State` which is a timestamped object indicating that the QC/Evaluation/Metric passes, fails, or is in a pending state waiting for manual annotation.
 
@@ -18,7 +18,7 @@ Each `QCEvaluation` should be thought of as a single aspect of the data asset th
 - If any metric fails the evaluation fails (unless the `allow_failed_metrics` flag is set)
 - If any metric is pending (and the rest pass) the evaluation is pending
 
-Make sure to annotate `QCEvaluation`s with the `Stage` and `Modality` they are related to. In the quality control apps we separate metrics by these attributes.
+Make sure to annotate `QCEvaluation`s with the `Stage` and `Modality` they are related to.
 
 **Q: What is a metric?**
 
@@ -36,15 +36,25 @@ We enforce this minimal set of states to prevent ambiguity and make it easier to
 
 ## Details for AIND users
 
+### Uploading QC
+
+The `QualityControl` object is automatically created either when your raw data is uploaded or the first time you use the `aind-data-access-api` to send a new `QCEvaluation`. AIND Code Ocean capsules all have a user role that allows them to upload evaluations.
+
+Make sure you annotate your evaluation correctly! It should include a modality (matching one of the `data_description.modality` types) as well as the stage. Evaluations uploaded with the data transfer service should be marked as raw, evaluations done as part of automated pipelines should be marked as processing, and evaluations done in your own analysis code should be marked as analysis. 
+
 ### QC Portal
 
-The QC Portal is a web application that allows users to view and interact with the QC metadata and to annotate ``PENDING`` metrics with qualitative evaluations. The portal is in testing, please get in touch with Dan to work on getting your data into the appropriate format.
+The QC Portal is a web application that allows users to view and interact with the QC metadata and to annotate ``PENDING`` metrics with qualitative evaluations. The portal is maintained by scientific computing, reach out to us with any questions or concerns.
 
-The portal works by pulling the metadata object from the Document Database (DocDB). Updates to the metadata are pushed up to DocDB when users submit their changes.
+The portal works by pulling the metadata object from the Document Database (DocDB). When you make changes to metrics or add notes the **submit** button will be enabled, submitting pushes your updates to the DocDB along with a timestamp and your name.
+
+**Q: When does the state get set for the QualityControl and QCEvaluation objects?**
+
+The QC portal automatically calls ``QualityControl.evaluate_status()`` whenever you submit changes to the metrics. Note that while it's possible to evaluate the status of ``QCEvaluation`` objects directly, this could lead to inconsistencies in the overall status of the ``QualityControl`` object.
 
 **Q: How do reference URLs get pulled into the QC Portal?**
 
-The QC portal can interpret four ways of setting the reference field:
+Each metric is associated with a reference figure, image, or video. The QC portal can interpret four ways of setting the reference field:
 
 - Provide a relative path to a file in an S3 bucket
 - Provide a full path to a file in an S3 bucket (starting with "s3://")
@@ -52,10 +62,6 @@ The QC portal can interpret four ways of setting the reference field:
 - Provide the name of one of the interactive plots, e.g. "ecephys-drift-map"
 
 There are many situations where it's helpful to be able to "swipe" between two images. If you have two identical images separated by a ';' the portal will allow users to swipe between them. For example, you might show snippets of the raw electrophysiology raster with detected spikes overlaid on the swipe.
-
-**Q: When does the state get set for the QualityControl and QCEvaluation objects?**
-
-The QC portal automatically calls ``QualityControl.evaluate_status()`` whenever you submit changes to the metrics. Note that while it's possible to evaluate the status of ``QCEvaluation`` objects directly, this could lead to inconsistencies in the overall status of the ``QualityControl`` object.
 
 **Q: I saw fancy things like dropdowns in the QC Portal, how do I do that?**
 
