@@ -77,6 +77,7 @@
                ]
             }
          ],
+         "asset_id": null,
          "notes": "",
          "evaluation_status_history": [
             {
@@ -123,6 +124,7 @@
                ]
             }
          ],
+         "asset_id": null,
          "notes": "Pass when video_1_num_frames==video_2_num_frames",
          "evaluation_status_history": [
             {
@@ -182,6 +184,7 @@
                ]
             }
          ],
+         "asset_id": null,
          "notes": null,
          "evaluation_status_history": [
             {
