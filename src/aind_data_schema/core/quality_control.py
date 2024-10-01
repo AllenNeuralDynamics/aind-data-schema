@@ -57,6 +57,7 @@ class QCEvaluation(AindModel):
     evaluation_description: Optional[str] = Field(default=None, title="Evaluation description")
     qc_metrics: List[QCMetric] = Field(..., title="QC metrics")
     evaluation_status: List[QCStatus] = Field(..., title="Evaluation status")
+    asset_id: Optional[str] = Field(default=None, title="DocDB asset ID that this evaluation is associated with")
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
