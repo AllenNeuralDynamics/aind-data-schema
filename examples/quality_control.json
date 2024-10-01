@@ -7,32 +7,58 @@
             "name": "Extracellular electrophysiology",
             "abbreviation": "ecephys"
          },
-         "evaluation_stage": "Processing",
+         "evaluation_stage": "Raw data",
          "evaluation_name": "Drift map",
          "evaluation_description": "Qualitative check that drift map shows minimal movement",
          "qc_metrics": [
             {
                "name": "Probe A drift",
-               "value": "High",
+               "value": {
+                  "value": "",
+                  "options": [
+                     "Low",
+                     "Medium",
+                     "High"
+                  ],
+                  "status": [
+                     "Pass",
+                     "Fail",
+                     "Fail"
+                  ],
+                  "type": "dropdown"
+               },
                "description": null,
                "reference": "ecephys-drift-map",
                "metric_status_history": [
                   {
-                     "evaluator": "Bob",
-                     "status": "Pass",
+                     "evaluator": "",
+                     "status": "Pending",
                      "timestamp": "2022-11-22T00:00:00Z"
                   }
                ]
             },
             {
                "name": "Probe B drift",
-               "value": "Low",
+               "value": {
+                  "value": "",
+                  "options": [
+                     "Drift visible in entire session",
+                     "Drift visible in part of session",
+                     "Sudden movement event"
+                  ],
+                  "status": [
+                     "Fail",
+                     "Pass",
+                     "Fail"
+                  ],
+                  "type": "checkbox"
+               },
                "description": null,
                "reference": "ecephys-drift-map",
                "metric_status_history": [
                   {
-                     "evaluator": "Bob",
-                     "status": "Pass",
+                     "evaluator": "",
+                     "status": "Pending",
                      "timestamp": "2022-11-22T00:00:00Z"
                   }
                ]
@@ -44,18 +70,18 @@
                "reference": "ecephys-drift-map",
                "metric_status_history": [
                   {
-                     "evaluator": "Bob",
+                     "evaluator": "Automated",
                      "status": "Pass",
                      "timestamp": "2022-11-22T00:00:00Z"
                   }
                ]
             }
          ],
-         "notes": "Manually annotated: failed due to high drift on probe A",
+         "notes": "",
          "evaluation_status_history": [
             {
                "evaluator": "Automated",
-               "status": "Pass",
+               "status": "Pending",
                "timestamp": "2022-11-22T00:00:00Z"
             }
          ],
@@ -77,7 +103,7 @@
                "reference": null,
                "metric_status_history": [
                   {
-                     "evaluator": "Bob",
+                     "evaluator": "Automated",
                      "status": "Pass",
                      "timestamp": "2022-11-22T00:00:00Z"
                   }
@@ -90,7 +116,7 @@
                "reference": null,
                "metric_status_history": [
                   {
-                     "evaluator": "Bob",
+                     "evaluator": "Automated",
                      "status": "Pass",
                      "timestamp": "2022-11-22T00:00:00Z"
                   }
@@ -123,7 +149,7 @@
                "reference": null,
                "metric_status_history": [
                   {
-                     "evaluator": "Bob",
+                     "evaluator": "Automated",
                      "status": "Pass",
                      "timestamp": "2022-11-22T00:00:00Z"
                   }
@@ -136,7 +162,7 @@
                "reference": null,
                "metric_status_history": [
                   {
-                     "evaluator": "Bob",
+                     "evaluator": "Automated",
                      "status": "Pass",
                      "timestamp": "2022-11-22T00:00:00Z"
                   }
@@ -149,7 +175,7 @@
                "reference": null,
                "metric_status_history": [
                   {
-                     "evaluator": "Bob",
+                     "evaluator": "Automated",
                      "status": "Pass",
                      "timestamp": "2022-11-22T00:00:00Z"
                   }
@@ -171,7 +197,7 @@
    "overall_status_history": [
       {
          "evaluator": "Automated",
-         "status": "Pass",
+         "status": "Pending",
          "timestamp": "2022-11-22T00:00:00Z"
       }
    ]

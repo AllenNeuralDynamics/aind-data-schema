@@ -8,19 +8,42 @@ from aind_data_schema.core.quality_control import QCEvaluation, QualityControl, 
 
 t = datetime(2022, 11, 22, 0, 0, 0, tzinfo=timezone.utc)
 
-s = QCStatus(evaluator="Bob", status=Status.PASS, timestamp=t)
+s = QCStatus(evaluator="Automated", status=Status.PASS, timestamp=t)
+sp = QCStatus(evaluator="", status=Status.PENDING, timestamp=t)
+
+# Example of how to use a dictionary to provide options a metric
+drift_value_with_options = {
+    "value": "",
+    "options": ["Low", "Medium", "High"],
+    "status": ["Pass", "Fail", "Fail"],  # when set, this field will be used to automatically parse the status, blank forces manual update
+    "type": "dropdown",  # other type options: "checkbox"
+}
+
+# Example of how to use a dictionary to provide multiple checkable flags, some of which will fail the metric
+drift_value_with_flags = {
+    "value": "",
+    "options": ["Drift visible in entire session", "Drift visible in part of session", "Sudden movement event"],
+    "status": ["Fail", "Pass", "Fail"],
+    "type": "checkbox",
+}
 
 eval0 = QCEvaluation(
     evaluation_name="Drift map",
     evaluation_description="Qualitative check that drift map shows minimal movement",
     evaluation_modality=Modality.ECEPHYS,
-    evaluation_stage=Stage.PROCESSING,
+    evaluation_stage=Stage.RAW,
     qc_metrics=[
-        QCMetric(name="Probe A drift", value="High", reference="ecephys-drift-map", metric_status_history=[s]),
-        QCMetric(name="Probe B drift", value="Low", reference="ecephys-drift-map", metric_status_history=[s]),
+        QCMetric(name="Probe A drift",
+                 value=drift_value_with_options,
+                 reference="ecephys-drift-map",
+                 metric_status_history=[sp]),
+        QCMetric(name="Probe B drift",
+                 value=drift_value_with_flags,
+                 reference="ecephys-drift-map",
+                 metric_status_history=[sp]),
         QCMetric(name="Probe C drift", value="Low", reference="ecephys-drift-map", metric_status_history=[s]),
     ],
-    notes="Manually annotated: failed due to high drift on probe A",
+    notes="",
 )
 
 eval1 = QCEvaluation(
