@@ -15,7 +15,11 @@ sp = QCStatus(evaluator="", status=Status.PENDING, timestamp=t)
 drift_value_with_options = {
     "value": "",
     "options": ["Low", "Medium", "High"],
-    "status": ["Pass", "Fail", "Fail"],  # when set, this field will be used to automatically parse the status, blank forces manual update
+    "status": [
+        "Pass",
+        "Fail",
+        "Fail",
+    ],  # when set, this field will be used to automatically parse the status, blank forces manual update
     "type": "dropdown",  # other type options: "checkbox"
 }
 
@@ -33,14 +37,18 @@ eval0 = QCEvaluation(
     evaluation_modality=Modality.ECEPHYS,
     evaluation_stage=Stage.RAW,
     qc_metrics=[
-        QCMetric(name="Probe A drift",
-                 value=drift_value_with_options,
-                 reference="ecephys-drift-map",
-                 metric_status_history=[sp]),
-        QCMetric(name="Probe B drift",
-                 value=drift_value_with_flags,
-                 reference="ecephys-drift-map",
-                 metric_status_history=[sp]),
+        QCMetric(
+            name="Probe A drift",
+            value=drift_value_with_options,
+            reference="ecephys-drift-map",
+            metric_status_history=[sp],
+        ),
+        QCMetric(
+            name="Probe B drift",
+            value=drift_value_with_flags,
+            reference="ecephys-drift-map",
+            metric_status_history=[sp],
+        ),
         QCMetric(name="Probe C drift", value="Low", reference="ecephys-drift-map", metric_status_history=[s]),
     ],
     notes="",

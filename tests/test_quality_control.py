@@ -284,10 +284,10 @@ class QualityControlTests(unittest.TestCase):
 
         with self.assertRaises(ValueError) as context:
             QCMetric(
-                    name="Multiple values example",
-                    value={"stuff": "in_a_dict"},
-                    metric_status_history=[],
-                )
+                name="Multiple values example",
+                value={"stuff": "in_a_dict"},
+                metric_status_history=[],
+            )
 
         expected_exception = "At least one QCStatus object must be provided"
 
