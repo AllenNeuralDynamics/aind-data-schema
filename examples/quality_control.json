@@ -44,6 +44,7 @@
                "timestamp": "2022-11-22"
             }
          ],
+         "asset_id": null,
          "notes": "Manually annotated: failed due to high drift on probe A"
       },
       {
@@ -75,6 +76,7 @@
                "timestamp": "2022-11-22"
             }
          ],
+         "asset_id": null,
          "notes": "Pass when video_1_num_frames==video_2_num_frames"
       },
       {
@@ -112,6 +114,7 @@
                "timestamp": "2022-11-22"
             }
          ],
+         "asset_id": null,
          "notes": null
       }
    ],
