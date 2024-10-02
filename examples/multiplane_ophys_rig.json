@@ -1,0 +1,657 @@
+{
+   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/rig.py",
+   "schema_version": "0.3.3",
+   "rig_id": "MESO.2",
+   "modification_date": "2024-04-02",
+   "mouse_platform": {
+      "device_type": "Disc",
+      "name": "MindScope Running Disk",
+      "serial_number": null,
+      "manufacturer": {
+         "name": "Allen Institute",
+         "abbreviation": "AI",
+         "registry": {
+            "name": "Research Organization Registry",
+            "abbreviation": "ROR"
+         },
+         "registry_identifier": "03cpe7c52"
+      },
+      "model": null,
+      "path_to_cad": null,
+      "port_index": null,
+      "additional_settings": {},
+      "notes": null,
+      "surface_material": "Kittrich Magic Cover Solid Grip Liner",
+      "date_surface_replaced": null,
+      "radius": "8.255",
+      "radius_unit": "centimeter",
+      "output": "Digital Output",
+      "encoder": "CUI Devices AMT102-V 0000 Dip Switch 2048 ppr",
+      "decoder": "LS7366R",
+      "encoder_firmware": {
+         "name": "ls7366r_quadrature_counter",
+         "version": "0.1.6",
+         "url": "https://eng-gitlab/hardware/ls7366r_quadrature_counter",
+         "parameters": {}
+      }
+   },
+   "stimulus_devices": [
+      {
+         "device_type": "Monitor",
+         "name": "Stimulus Screen",
+         "serial_number": null,
+         "manufacturer": {
+            "name": "ASUS",
+            "abbreviation": null,
+            "registry": {
+               "name": "Research Organization Registry",
+               "abbreviation": "ROR"
+            },
+            "registry_identifier": "00bxkz165"
+         },
+         "model": "PA248Q",
+         "path_to_cad": null,
+         "port_index": null,
+         "additional_settings": {},
+         "notes": "viewing distance is from screen normal to bregma",
+         "refresh_rate": 60,
+         "width": 1920,
+         "height": 1200,
+         "size_unit": "pixel",
+         "viewing_distance": "15.5",
+         "viewing_distance_unit": "centimeter",
+         "position": {
+            "device_position_transformations": [
+               {
+                  "type": "rotation",
+                  "rotation": [
+                     "-0.80914",
+                     "-0.58761",
+                     "0",
+                     "-0.12391",
+                     "0.17063",
+                     "0.97751",
+                     "-0.5744",
+                     "0.79095",
+                     "-0.21087"
+                  ]
+               },
+               {
+                  "type": "translation",
+                  "translation": [
+                     "0.08751",
+                     "-0.12079",
+                     "0.02298"
+                  ]
+               }
+            ],
+            "device_origin": "Center of Screen on Face",
+            "device_axes": [
+               {
+                  "name": "Z",
+                  "direction": "Away from screen"
+               },
+               {
+                  "name": "Y",
+                  "direction": "Pointing to the top of the screen"
+               },
+               {
+                  "name": "X",
+                  "direction": "Oriented parallel to the long edge of the screen"
+               }
+            ],
+            "notes": null
+         },
+         "contrast": null,
+         "brightness": null
+      }
+   ],
+   "cameras": [
+      {
+         "name": "Behavior Camera",
+         "camera_target": "Body",
+         "camera": {
+            "device_type": "Detector",
+            "name": "Behavior Camera",
+            "serial_number": null,
+            "manufacturer": {
+               "name": "Allied",
+               "abbreviation": null,
+               "registry": null,
+               "registry_identifier": null
+            },
+            "model": "Mako G-32B",
+            "path_to_cad": null,
+            "port_index": null,
+            "additional_settings": {},
+            "notes": null,
+            "detector_type": "Camera",
+            "data_interface": "Ethernet",
+            "cooling": "None",
+            "computer_name": "Video Monitor",
+            "max_frame_rate": "60",
+            "frame_rate_unit": "hertz",
+            "immersion": null,
+            "chroma": "Monochrome",
+            "sensor_width": 658,
+            "sensor_height": 492,
+            "size_unit": "inch",
+            "sensor_format": "1/3",
+            "sensor_format_unit": "inch",
+            "bit_depth": 8,
+            "bin_mode": "None",
+            "bin_width": null,
+            "bin_height": null,
+            "bin_unit": "pixel",
+            "gain": "4",
+            "crop_width": null,
+            "crop_height": null,
+            "crop_unit": "pixel",
+            "recording_software": {
+               "name": "MultiVideoRecorder",
+               "version": "1.1.7",
+               "url": null,
+               "parameters": {}
+            },
+            "driver": "Vimba",
+            "driver_version": "Vimba GigE Transport Layer 1.6.0"
+         },
+         "lens": {
+            "device_type": "Lens",
+            "name": "Behavior Camera Lens",
+            "serial_number": null,
+            "manufacturer": {
+               "name": "Thorlabs",
+               "abbreviation": null,
+               "registry": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "registry_identifier": "04gsnvb07"
+            },
+            "model": "MVL6WA",
+            "path_to_cad": null,
+            "port_index": null,
+            "additional_settings": {},
+            "notes": null,
+            "focal_length": "6",
+            "focal_length_unit": "millimeter",
+            "size": null,
+            "lens_size_unit": "inch",
+            "optimized_wavelength_range": null,
+            "wavelength_unit": "nanometer",
+            "max_aperture": "f/1.4"
+         },
+         "filter": {
+            "device_type": "Filter",
+            "name": "Behavior Camera Filter",
+            "serial_number": null,
+            "manufacturer": {
+               "name": "Semrock",
+               "abbreviation": null,
+               "registry": null,
+               "registry_identifier": null
+            },
+            "model": "FF01-747/33-25",
+            "path_to_cad": null,
+            "port_index": null,
+            "additional_settings": {},
+            "notes": null,
+            "filter_type": "Band pass",
+            "diameter": null,
+            "width": null,
+            "height": null,
+            "size_unit": "millimeter",
+            "thickness": null,
+            "thickness_unit": "millimeter",
+            "filter_wheel_index": null,
+            "cut_off_wavelength": 780,
+            "cut_on_wavelength": 714,
+            "center_wavelength": 747,
+            "wavelength_unit": "nanometer",
+            "description": null
+         },
+         "position": {
+            "device_position_transformations": [
+               {
+                  "type": "rotation",
+                  "rotation": [
+                     "-1",
+                     "0",
+                     "0",
+                     "0",
+                     "0",
+                     "-1",
+                     "0",
+                     "-3",
+                     "0"
+                  ]
+               },
+               {
+                  "type": "translation",
+                  "translation": [
+                     "-0.03617",
+                     "0.23887",
+                     "-0.02535"
+                  ]
+               }
+            ],
+            "device_origin": "Located on face of the lens mounting surface in its center",
+            "device_axes": [
+               {
+                  "name": "Z",
+                  "direction": "moving away from the sensor towards the object"
+               },
+               {
+                  "name": "Y",
+                  "direction": "pointing to the bottom edge of the sensor"
+               },
+               {
+                  "name": "X",
+                  "direction": "parallel to the bottom edge of the sensor"
+               }
+            ],
+            "notes": null
+         }
+      },
+      {
+         "name": "Eye Camera",
+         "camera_target": "Eye",
+         "camera": {
+            "device_type": "Detector",
+            "name": "Eye Camera",
+            "serial_number": null,
+            "manufacturer": {
+               "name": "Allied",
+               "abbreviation": null,
+               "registry": null,
+               "registry_identifier": null
+            },
+            "model": "Mako G-32B",
+            "path_to_cad": null,
+            "port_index": null,
+            "additional_settings": {},
+            "notes": null,
+            "detector_type": "Camera",
+            "data_interface": "Ethernet",
+            "cooling": "None",
+            "computer_name": "Video Monitor",
+            "max_frame_rate": "60",
+            "frame_rate_unit": "hertz",
+            "immersion": null,
+            "chroma": "Monochrome",
+            "sensor_width": 658,
+            "sensor_height": 492,
+            "size_unit": "inch",
+            "sensor_format": "1/3",
+            "sensor_format_unit": "inch",
+            "bit_depth": 8,
+            "bin_mode": "None",
+            "bin_width": null,
+            "bin_height": null,
+            "bin_unit": "pixel",
+            "gain": "4",
+            "crop_width": null,
+            "crop_height": null,
+            "crop_unit": "pixel",
+            "recording_software": {
+               "name": "MultiVideoRecorder",
+               "version": "1.1.7",
+               "url": null,
+               "parameters": {}
+            },
+            "driver": "Vimba",
+            "driver_version": "Vimba GigE Transport Layer 1.6.0"
+         },
+         "lens": {
+            "device_type": "Lens",
+            "name": "Eye Camera Lens",
+            "serial_number": null,
+            "manufacturer": {
+               "name": "Infinity Photo-Optical",
+               "abbreviation": null,
+               "registry": null,
+               "registry_identifier": null
+            },
+            "model": "213073",
+            "path_to_cad": null,
+            "port_index": null,
+            "additional_settings": {},
+            "notes": null,
+            "focal_length": null,
+            "focal_length_unit": "millimeter",
+            "size": null,
+            "lens_size_unit": "inch",
+            "optimized_wavelength_range": null,
+            "wavelength_unit": "nanometer",
+            "max_aperture": null
+         },
+         "filter": {
+            "device_type": "Filter",
+            "name": "Eye Camera Filter",
+            "serial_number": null,
+            "manufacturer": {
+               "name": "Semrock",
+               "abbreviation": null,
+               "registry": null,
+               "registry_identifier": null
+            },
+            "model": "FF01-850/10-25",
+            "path_to_cad": null,
+            "port_index": null,
+            "additional_settings": {},
+            "notes": null,
+            "filter_type": "Band pass",
+            "diameter": null,
+            "width": null,
+            "height": null,
+            "size_unit": "millimeter",
+            "thickness": null,
+            "thickness_unit": "millimeter",
+            "filter_wheel_index": null,
+            "cut_off_wavelength": 860,
+            "cut_on_wavelength": 840,
+            "center_wavelength": 850,
+            "wavelength_unit": "nanometer",
+            "description": null
+         },
+         "position": {
+            "device_position_transformations": [
+               {
+                  "type": "rotation",
+                  "rotation": [
+                     "-0.5",
+                     "-0.86603",
+                     "0",
+                     "-0.366",
+                     "0.21131",
+                     "-0.90631",
+                     "0.78489",
+                     "-0.45315",
+                     "-0.42262"
+                  ]
+               },
+               {
+                  "type": "translation",
+                  "translation": [
+                     "-0.14259",
+                     "0.06209",
+                     "-0.09576"
+                  ]
+               }
+            ],
+            "device_origin": "Located on face of the lens mounting surface in its center",
+            "device_axes": [
+               {
+                  "name": "Z",
+                  "direction": "moving away from the sensor towards the object"
+               },
+               {
+                  "name": "Y",
+                  "direction": "pointing to the bottom edge of the sensor"
+               },
+               {
+                  "name": "X",
+                  "direction": "parallel to the bottom edge of the sensor"
+               }
+            ],
+            "notes": null
+         }
+      },
+      {
+         "name": "Face Camera",
+         "camera_target": "Face forward",
+         "camera": {
+            "device_type": "Detector",
+            "name": "Face Camera",
+            "serial_number": null,
+            "manufacturer": {
+               "name": "Allied",
+               "abbreviation": null,
+               "registry": null,
+               "registry_identifier": null
+            },
+            "model": "Mako G-32B",
+            "path_to_cad": null,
+            "port_index": null,
+            "additional_settings": {},
+            "notes": null,
+            "detector_type": "Camera",
+            "data_interface": "Ethernet",
+            "cooling": "None",
+            "computer_name": "Video Monitor",
+            "max_frame_rate": "60",
+            "frame_rate_unit": "hertz",
+            "immersion": null,
+            "chroma": "Monochrome",
+            "sensor_width": 658,
+            "sensor_height": 492,
+            "size_unit": "inch",
+            "sensor_format": "1/3",
+            "sensor_format_unit": "inch",
+            "bit_depth": 8,
+            "bin_mode": "None",
+            "bin_width": null,
+            "bin_height": null,
+            "bin_unit": "pixel",
+            "gain": "4",
+            "crop_width": null,
+            "crop_height": null,
+            "crop_unit": "pixel",
+            "recording_software": {
+               "name": "MultiVideoRecorder",
+               "version": "1.1.7",
+               "url": null,
+               "parameters": {}
+            },
+            "driver": "Vimba",
+            "driver_version": "Vimba GigE Transport Layer 1.6.0"
+         },
+         "lens": {
+            "device_type": "Lens",
+            "name": "Face Camera Lens",
+            "serial_number": null,
+            "manufacturer": {
+               "name": "Edmund Optics",
+               "abbreviation": null,
+               "registry": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "registry_identifier": "01j1gwp17"
+            },
+            "model": "86-604",
+            "path_to_cad": null,
+            "port_index": null,
+            "additional_settings": {},
+            "notes": null,
+            "focal_length": "8.5",
+            "focal_length_unit": "millimeter",
+            "size": null,
+            "lens_size_unit": "inch",
+            "optimized_wavelength_range": null,
+            "wavelength_unit": "nanometer",
+            "max_aperture": "f/8"
+         },
+         "filter": {
+            "device_type": "Filter",
+            "name": "Face Camera Filter",
+            "serial_number": null,
+            "manufacturer": {
+               "name": "Semrock",
+               "abbreviation": null,
+               "registry": null,
+               "registry_identifier": null
+            },
+            "model": "FF01-715/LP-25",
+            "path_to_cad": null,
+            "port_index": null,
+            "additional_settings": {},
+            "notes": null,
+            "filter_type": "Long pass",
+            "diameter": null,
+            "width": null,
+            "height": null,
+            "size_unit": "millimeter",
+            "thickness": null,
+            "thickness_unit": "millimeter",
+            "filter_wheel_index": null,
+            "cut_off_wavelength": null,
+            "cut_on_wavelength": 715,
+            "center_wavelength": null,
+            "wavelength_unit": "nanometer",
+            "description": null
+         },
+         "position": {
+            "device_position_transformations": [
+               {
+                  "type": "rotation",
+                  "rotation": [
+                     "-0.17365",
+                     "0.98481",
+                     "0",
+                     "0.44709",
+                     "0.07883",
+                     "-0.89101",
+                     "-0.87747",
+                     "-0.15472",
+                     "-0.45399"
+                  ]
+               },
+               {
+                  "type": "translation",
+                  "translation": [
+                     "0.154",
+                     "0.03078",
+                     "0.06346"
+                  ]
+               }
+            ],
+            "device_origin": "Located on face of the lens mounting surface in its center",
+            "device_axes": [
+               {
+                  "name": "Z",
+                  "direction": "moving away from the sensor towards the object"
+               },
+               {
+                  "name": "Y",
+                  "direction": "pointing to the bottom edge of the sensor"
+               },
+               {
+                  "name": "X",
+                  "direction": "parallel to the bottom edge of the sensor"
+               }
+            ],
+            "notes": null
+         }
+      }
+   ],
+   "enclosure": null,
+   "ephys_assemblies": [],
+   "fiber_assemblies": [],
+   "stick_microscopes": [],
+   "laser_assemblies": [],
+   "patch_cords": [],
+   "light_sources": [],
+   "detectors": [],
+   "objectives": [],
+   "filters": [],
+   "lenses": [],
+   "digital_micromirror_devices": [],
+   "polygonal_scanners": [],
+   "pockels_cells": [],
+   "additional_devices": [],
+   "daqs": [
+      {
+         "device_type": "DAQ Device",
+         "name": "VBEB DAQ",
+         "serial_number": null,
+         "manufacturer": {
+            "name": "National Instruments",
+            "abbreviation": null,
+            "registry": {
+               "name": "Research Organization Registry",
+               "abbreviation": "ROR"
+            },
+            "registry_identifier": "026exqw73"
+         },
+         "model": "USB-6001",
+         "path_to_cad": null,
+         "port_index": null,
+         "additional_settings": {},
+         "notes": null,
+         "data_interface": "USB",
+         "computer_name": "STIM",
+         "channels": [],
+         "firmware_version": null,
+         "hardware_version": null
+      },
+      {
+         "device_type": "DAQ Device",
+         "name": "SYNC DAQ",
+         "serial_number": null,
+         "manufacturer": {
+            "name": "National Instruments",
+            "abbreviation": null,
+            "registry": {
+               "name": "Research Organization Registry",
+               "abbreviation": "ROR"
+            },
+            "registry_identifier": "026exqw73"
+         },
+         "model": "PCIe-6612",
+         "path_to_cad": null,
+         "port_index": null,
+         "additional_settings": {},
+         "notes": null,
+         "data_interface": "PCIe",
+         "computer_name": "SYNC",
+         "channels": [],
+         "firmware_version": null,
+         "hardware_version": null
+      },
+      {
+         "device_type": "DAQ Device",
+         "name": "STIM DAQ",
+         "serial_number": null,
+         "manufacturer": {
+            "name": "National Instruments",
+            "abbreviation": null,
+            "registry": {
+               "name": "Research Organization Registry",
+               "abbreviation": "ROR"
+            },
+            "registry_identifier": "026exqw73"
+         },
+         "model": "PCIe-6321",
+         "path_to_cad": null,
+         "port_index": null,
+         "additional_settings": {},
+         "notes": null,
+         "data_interface": "PCIe",
+         "computer_name": "STIM",
+         "channels": [],
+         "firmware_version": null,
+         "hardware_version": null
+      }
+   ],
+   "calibrations": [],
+   "ccf_coordinate_transform": null,
+   "origin": "Bregma",
+   "rig_axes": [
+      {
+         "name": "X",
+         "direction": "lays on the Mouse Sagittal Plane, Positive direction is towards the nose of the mouse"
+      },
+      {
+         "name": "Z",
+         "direction": "positive pointing UP opposite the direction from the force of gravity"
+      },
+      {
+         "name": "Y",
+         "direction": "defined by the right hand rule and the other two axis"
+      }
+   ],
+   "modalities": [],
+   "notes": null
+}
