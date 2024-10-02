@@ -42,6 +42,7 @@ class QCStatus(BaseModel):
 class QCMetric(BaseModel):
     """Description of a single quality control metric"""
 
+    _id: int = Field(default_factory=uuid.uuid4())
     name: str = Field(..., title="Metric name")
     value: Any = Field(..., title="Metric value")
     description: Optional[str] = Field(default=None, title="Metric description")
@@ -74,7 +75,7 @@ class QCEvaluation(AindModel):
     evaluation_stage: Stage = Field(..., title="Evaluation stage")
     evaluation_name: str = Field(..., title="Evaluation name")
     evaluation_description: Optional[str] = Field(default=None, title="Evaluation description")
-    qc_metrics: List[QCMetric] = Field(..., title="QC metrics")
+    qc_metrics: List[int] = Field(..., title="QC metrics _ids")
     asset_id: Optional[str] = Field(default=None, title="DocDB asset ID that this evaluation is associated with")
     notes: Optional[str] = Field(default=None, title="Notes")
     evaluation_status_history: List[QCStatus] = Field(default=[], title="Evaluation status history")
@@ -139,6 +140,7 @@ class QualityControl(AindCoreModel):
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/quality_control.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
     schema_version: Literal["1.0.0"] = Field("1.0.0")
+    metrics: List[QCMetric] = Field(..., title="Metrics")
     evaluations: List[QCEvaluation] = Field(..., title="Evaluations")
     notes: Optional[str] = Field(default=None, title="Notes")
     overall_status_history: List[QCStatus] = Field(default=[], title="Overall status history")
