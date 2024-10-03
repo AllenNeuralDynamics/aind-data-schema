@@ -86,7 +86,7 @@ class QualityControlTests(unittest.TestCase):
         self.assertEqual(q.overall_status.status, Status.PASS)
 
         # Add a pending metric to the first evaluation
-        q.evaluations[0].qc_metrics.append(
+        q.evaluations[0].metrics.append(
             QCMetric(
                 name="Drift map pass/fail",
                 value=False,
@@ -104,7 +104,7 @@ class QualityControlTests(unittest.TestCase):
         self.assertEqual(q.overall_status.status, Status.PENDING)
 
         # Add a failing metric to the first evaluation
-        q.evaluations[0].qc_metrics.append(
+        q.evaluations[0].metrics.append(
             QCMetric(
                 name="Drift map pass/fail",
                 value=False,
@@ -154,7 +154,7 @@ class QualityControlTests(unittest.TestCase):
         self.assertEqual(evaluation.evaluation_status.status, Status.PASS)
 
         # Add a pending metric, evaluation should now evaluate to pending
-        evaluation.qc_metrics.append(
+        evaluation.metrics.append(
             QCMetric(
                 name="Drift map pass/fail",
                 value=False,
@@ -173,7 +173,7 @@ class QualityControlTests(unittest.TestCase):
         self.assertEqual(evaluation.evaluation_status.status, Status.PENDING)
 
         # Add a failing metric, evaluation should now evaluate to fail
-        evaluation.qc_metrics.append(
+        evaluation.metrics.append(
             QCMetric(
                 name="Drift map pass/fail",
                 value=False,
@@ -230,13 +230,13 @@ class QualityControlTests(unittest.TestCase):
         self.assertEqual(evaluation.evaluation_status.status, Status.PENDING)
 
         # Replace the pending evaluation with a fail, evaluation should not evaluate to pass
-        evaluation.qc_metrics[1].metric_status_history[0].status = Status.FAIL
+        evaluation.metrics[1].annotations[0].status = Status.FAIL
 
         evaluation.evaluate_status()
 
         self.assertEqual(evaluation.evaluation_status.status, Status.PASS)
 
-        metric2.metric_status_history[0].status = Status.FAIL
+        metric2.annotations[0].status = Status.FAIL
         self.assertEqual(evaluation.failed_metrics, [metric2])
 
     def test_metric_history_order(self):

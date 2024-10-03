@@ -46,7 +46,7 @@ class QCMetric(BaseModel):
     value: Any = Field(..., title="Metric value")
     description: Optional[str] = Field(default=None, title="Metric description")
     reference: Optional[str] = Field(default=None, title="Metric reference image URL or plot type")
-    metric_status_history: List[QCStatus] = Field(default=[], title="Metric status history")
+    status_history: List[QCStatus] = Field(default=[], title="Metric status history")
 
     @property
     def metric_status(self) -> QCStatus:
@@ -57,10 +57,10 @@ class QCMetric(BaseModel):
         QCStatus
             Most recent status object
         """
-        return self.metric_status_history[-1]
+        return self.status_history[-1]
 
-    @field_validator("metric_status_history")
-    def validate_metric_status_history(cls, v):
+    @field_validator("status_history")
+    def validate_status_history(cls, v):
         """Ensure that at least one QCStatus object is provided"""
         if len(v) == 0:
             raise ValueError("At least one QCStatus object must be provided")
@@ -70,18 +70,18 @@ class QCMetric(BaseModel):
 class QCEvaluation(AindModel):
     """Description of one evaluation stage, with one or more metrics"""
 
-    evaluation_modality: Modality.ONE_OF = Field(..., title="Modality")
-    evaluation_stage: Stage = Field(..., title="Evaluation stage")
-    evaluation_name: str = Field(..., title="Evaluation name")
-    evaluation_description: Optional[str] = Field(default=None, title="Evaluation description")
-    qc_metrics: List[QCMetric] = Field(..., title="QC metrics")
+    modality: Modality.ONE_OF = Field(..., title="Modality")
+    stage: Stage = Field(..., title="Evaluation stage")
+    name: str = Field(..., title="Evaluation name")
+    description: Optional[str] = Field(default=None, title="Evaluation description")
+    metrics: List[QCMetric] = Field(..., title="QC metrics")
     asset_id: Optional[str] = Field(default=None, title="DocDB asset ID that this evaluation is associated with")
     notes: Optional[str] = Field(default=None, title="Notes")
     evaluation_status_history: List[QCStatus] = Field(default=[], title="Evaluation status history")
     allow_failed_metrics: bool = Field(
         default=False,
         title="Allow metrics to fail",
-        description="When evaluations are not critical to the overall state of QC for a data asset, you can choose to allow individual metrics to fail while still passing the evaluation."
+        description="Set to true for evaluations that are not critical to the overall state of QC for a data asset, you can choose to allow individual metrics to fail while still passing the evaluation."
     )
 
     @property
@@ -113,7 +113,7 @@ class QCEvaluation(AindModel):
             return None
         else:
             failing_metrics = []
-            for metric in self.qc_metrics:
+            for metric in self.metrics:
                 if metric.metric_status.status == Status.FAIL:
                     failing_metrics.append(metric)
 
@@ -127,7 +127,7 @@ class QCEvaluation(AindModel):
         """
         new_status = QCStatus(evaluator="Automated", status=Status.PASS, timestamp=timestamp)
 
-        latest_metric_statuses = [metric.metric_status.status for metric in self.qc_metrics]
+        latest_metric_statuses = [metric.metric_status.status for metric in self.metrics]
 
         if (not self.allow_failed_metrics) and any(status == Status.FAIL for status in latest_metric_statuses):
             new_status.status = Status.FAIL
