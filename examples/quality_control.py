@@ -32,47 +32,47 @@ drift_value_with_flags = {
 }
 
 eval0 = QCEvaluation(
-    evaluation_name="Drift map",
-    evaluation_description="Qualitative check that drift map shows minimal movement",
-    evaluation_modality=Modality.ECEPHYS,
-    evaluation_stage=Stage.RAW,
-    qc_metrics=[
+    name="Drift map",
+    description="Qualitative check that drift map shows minimal movement",
+    modality=Modality.ECEPHYS,
+    stage=Stage.RAW,
+    metrics=[
         QCMetric(
             name="Probe A drift",
             value=drift_value_with_options,
             reference="ecephys-drift-map",
-            metric_status_history=[sp],
+            status_history=[sp],
         ),
         QCMetric(
             name="Probe B drift",
             value=drift_value_with_flags,
             reference="ecephys-drift-map",
-            metric_status_history=[sp],
+            status_history=[sp],
         ),
-        QCMetric(name="Probe C drift", value="Low", reference="ecephys-drift-map", metric_status_history=[s]),
+        QCMetric(name="Probe C drift", value="Low", reference="ecephys-drift-map", status_history=[s]),
     ],
     notes="",
 )
 
 eval1 = QCEvaluation(
-    evaluation_name="Video frame count check",
-    evaluation_modality=Modality.BEHAVIOR_VIDEOS,
-    evaluation_stage=Stage.RAW,
-    qc_metrics=[
-        QCMetric(name="video_1_num_frames", value=662, metric_status_history=[s]),
-        QCMetric(name="video_2_num_frames", value=662, metric_status_history=[s]),
+    name="Video frame count check",
+    modality=Modality.BEHAVIOR_VIDEOS,
+    stage=Stage.RAW,
+    metrics=[
+        QCMetric(name="video_1_num_frames", value=662, status_history=[s]),
+        QCMetric(name="video_2_num_frames", value=662, status_history=[s]),
     ],
     notes="Pass when video_1_num_frames==video_2_num_frames",
 )
 
 eval2 = QCEvaluation(
-    evaluation_name="Probes present",
-    evaluation_modality=Modality.ECEPHYS,
-    evaluation_stage=Stage.RAW,
-    qc_metrics=[
-        QCMetric(name="ProbeA_success", value=True, metric_status_history=[s]),
-        QCMetric(name="ProbeB_success", value=True, metric_status_history=[s]),
-        QCMetric(name="ProbeC_success", value=True, metric_status_history=[s]),
+    name="Probes present",
+    modality=Modality.ECEPHYS,
+    stage=Stage.RAW,
+    metrics=[
+        QCMetric(name="ProbeA_success", value=True, status_history=[s]),
+        QCMetric(name="ProbeB_success", value=True, status_history=[s]),
+        QCMetric(name="ProbeC_success", value=True, status_history=[s]),
     ],
 )
 
