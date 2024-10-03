@@ -1,5 +1,5 @@
 """ Schemas for Quality Metrics """
-from datetime import datetime
+
 from enum import Enum
 from typing import List, Literal, Optional, Any
 
@@ -84,18 +84,26 @@ class QCEvaluation(AindModel):
     )
 
     @property
-    def status(self) -> QCStatus:
-        """Get the latest status object for this evaluation
+    def status(self) -> Status:
+        """Loop through all metrics and return the evaluation's status
+
+        Any fail -> FAIL
+        If no fails, then any pending -> PENDING
+        All PASS -> PASS
 
         Returns
         -------
-        QCStatus
-            Most recent status object
+        Status
+            Current status of the evaluation
         """
-        if len(self.status_history) == 0:
-            self.evaluate_status()
+        latest_metric_statuses = [metric.status.status for metric in self.metrics]
 
-        return self.status_history[-1]
+        if (not self.allow_failed_metrics) and any(status == Status.FAIL for status in latest_metric_statuses):
+            return Status.FAIL
+        elif any(status == Status.PENDING for status in latest_metric_statuses):
+            return Status.PENDING
+
+        return Status.PASS
 
     @property
     def failed_metrics(self) -> Optional[List[QCMetric]]:
@@ -118,23 +126,6 @@ class QCEvaluation(AindModel):
 
             return failing_metrics
 
-    def evaluate_status(self, timestamp=datetime.now()):
-        """Loop through all metrics and evaluate the status of the evaluation
-        Any fail -> FAIL
-        If no fails, then any pending -> PENDING
-        All PASS -> PASS
-        """
-        new_status = QCStatus(evaluator="", status=Status.PASS, timestamp=timestamp)
-
-        latest_metric_statuses = [metric.status.status for metric in self.metrics]
-
-        if (not self.allow_failed_metrics) and any(status == Status.FAIL for status in latest_metric_statuses):
-            new_status.status = Status.FAIL
-        elif any(status == Status.PENDING for status in latest_metric_statuses):
-            new_status.status = Status.PENDING
-
-        self.status_history.append(new_status)
-
 
 class QualityControl(AindCoreModel):
     """Description of quality metrics for a data asset"""
@@ -147,35 +138,18 @@ class QualityControl(AindCoreModel):
     status_history: List[QCStatus] = Field(default=[], title="Overall status history")
 
     @property
-    def status(self) -> QCStatus:
-        """Get the latest status object for the overall QC
+    def status(self) -> Status:
+        """Loop through all evaluations and return the overall status
 
-        Returns
-        -------
-        QCStatus
-            Most recent status object
-        """
-        if len(self.status_history) == 0:
-            self.evaluate_status()
-
-        return self.status_history[-1]
-
-    def evaluate_status(self, timestamp=datetime.now()):
-        """Evaluate the status of all evaluations, then evaluate the status of the overall QC
         Any FAIL -> FAIL
         If no fails, then any PENDING -> PENDING
         All PASS -> PASS
         """
-        for evaluation in self.evaluations:
-            evaluation.evaluate_status(timestamp=timestamp)
+        eval_statuses = [evaluation.status for evaluation in self.evaluations]
 
-        new_status = QCStatus(evaluator="", status=Status.PASS, timestamp=timestamp)
+        if any(status == Status.FAIL for status in eval_statuses):
+            return Status.FAIL
+        elif any(status == Status.PENDING for status in eval_statuses):
+            return Status.PENDING
 
-        latest_eval_statuses = [evaluation.status.status for evaluation in self.evaluations]
-
-        if any(status == Status.FAIL for status in latest_eval_statuses):
-            new_status.status = Status.FAIL
-        elif any(status == Status.PENDING for status in latest_eval_statuses):
-            new_status.status = Status.PENDING
-
-        self.status_history.append(new_status)
+        return Status.PASS

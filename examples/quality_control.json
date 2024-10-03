@@ -78,13 +78,7 @@
             }
          ],
          "notes": "",
-         "status_history": [
-            {
-               "evaluator": "",
-               "status": "Pending",
-               "timestamp": "2022-11-22T00:00:00Z"
-            }
-         ],
+         "status_history": [],
          "allow_failed_metrics": false
       },
       {
@@ -124,13 +118,7 @@
             }
          ],
          "notes": "Pass when video_1_num_frames==video_2_num_frames",
-         "status_history": [
-            {
-               "evaluator": "",
-               "status": "Pass",
-               "timestamp": "2022-11-22T00:00:00Z"
-            }
-         ],
+         "status_history": [],
          "allow_failed_metrics": false
       },
       {
@@ -183,22 +171,10 @@
             }
          ],
          "notes": null,
-         "status_history": [
-            {
-               "evaluator": "",
-               "status": "Pass",
-               "timestamp": "2022-11-22T00:00:00Z"
-            }
-         ],
+         "status_history": [],
          "allow_failed_metrics": false
       }
    ],
    "notes": null,
-   "status_history": [
-      {
-         "evaluator": "",
-         "status": "Pending",
-         "timestamp": "2022-11-22T00:00:00Z"
-      }
-   ]
+   "status_history": []
 }

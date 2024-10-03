@@ -81,7 +81,6 @@ q = QualityControl(evaluations=[eval0, eval1, eval2])
 # This is a special call that needs to be made to populate the .overall_status and .evaluation_status properties
 # Note that the timestamp is set here because of how examples testing works, in general you should not set the
 # timestamp manually
-q.evaluate_status(timestamp=t)
 
 serialized = q.model_dump_json()
 deserialized = QualityControl.model_validate_json(serialized)
