@@ -81,8 +81,8 @@ class QCEvaluation(AindModel):
         default=False,
         title="Allow metrics to fail",
         description=(
-            "Set to true for evaluations that are not critical to the overall state of QC for a data asset, you"
-            " can choose to allow individual metrics to fail while still passing the evaluation."
+            "Set to true for evaluations that are not critical to the overall state of QC for a data asset, this"
+            " will allow individual metrics to fail while still passing the evaluation."
         ),
     )
 
