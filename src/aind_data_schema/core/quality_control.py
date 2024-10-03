@@ -98,7 +98,7 @@ class QCEvaluation(AindModel):
         return self.status_history[-1]
 
     @property
-    def failed_metrics(self) -> list[QCMetric] | None:
+    def failed_metrics(self) -> Optional[List[QCMetric]]:
         """Return any metrics that are failing
 
         Returns none if allow_failed_metrics is False
