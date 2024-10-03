@@ -78,7 +78,6 @@
             }
          ],
          "notes": "",
-         "status_history": [],
          "allow_failed_metrics": false
       },
       {
@@ -118,7 +117,6 @@
             }
          ],
          "notes": "Pass when video_1_num_frames==video_2_num_frames",
-         "status_history": [],
          "allow_failed_metrics": false
       },
       {
@@ -171,10 +169,8 @@
             }
          ],
          "notes": null,
-         "status_history": [],
          "allow_failed_metrics": false
       }
    ],
-   "notes": null,
-   "status_history": []
+   "notes": null
 }
