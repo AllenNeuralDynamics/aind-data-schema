@@ -73,7 +73,6 @@ class QCEvaluation(AindModel):
     description: Optional[str] = Field(default=None, title="Evaluation description")
     metrics: List[QCMetric] = Field(..., title="QC metrics")
     notes: Optional[str] = Field(default=None, title="Notes")
-    status_history: List[QCStatus] = Field(default=[], title="Evaluation status history")
     allow_failed_metrics: bool = Field(
         default=False,
         title="Allow metrics to fail",
@@ -135,7 +134,6 @@ class QualityControl(AindCoreModel):
     schema_version: Literal["1.0.0"] = Field("1.0.0")
     evaluations: List[QCEvaluation] = Field(..., title="Evaluations")
     notes: Optional[str] = Field(default=None, title="Notes")
-    status_history: List[QCStatus] = Field(default=[], title="Overall status history")
 
     @property
     def status(self) -> Status:
