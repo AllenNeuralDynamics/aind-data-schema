@@ -76,14 +76,14 @@ class QualityControlTests(unittest.TestCase):
         )
 
         # check that evaluation status gets auto-set if it has never been set before
-        self.assertEqual(test_eval.evaluation_status.status, Status.PASS)
+        self.assertEqual(test_eval.status.status, Status.PASS)
 
         q = QualityControl(
             evaluations=[test_eval, test_eval],
         )
 
         # check that overall status gets auto-set if it has never been set before
-        self.assertEqual(q.overall_status.status, Status.PASS)
+        self.assertEqual(q.status.status, Status.PASS)
 
         # Add a pending metric to the first evaluation
         q.evaluations[0].metrics.append(
@@ -100,8 +100,8 @@ class QualityControlTests(unittest.TestCase):
             )
         )
 
-        q.evaluate_status()
-        self.assertEqual(q.overall_status.status, Status.PENDING)
+        q.status()
+        self.assertEqual(q.status.status, Status.PENDING)
 
         # Add a failing metric to the first evaluation
         q.evaluations[0].metrics.append(
@@ -116,8 +116,8 @@ class QualityControlTests(unittest.TestCase):
             )
         )
 
-        q.evaluate_status()
-        self.assertEqual(q.overall_status.status, Status.FAIL)
+        q.status()
+        self.assertEqual(q.status.status, Status.FAIL)
 
     def test_evaluation_status(self):
         """test that evaluation status goes to pass/pending/fail correctly"""
@@ -151,7 +151,7 @@ class QualityControlTests(unittest.TestCase):
 
         evaluation.evaluate_status()
 
-        self.assertEqual(evaluation.evaluation_status.status, Status.PASS)
+        self.assertEqual(evaluation.status.status, Status.PASS)
 
         # Add a pending metric, evaluation should now evaluate to pending
         evaluation.metrics.append(
@@ -170,7 +170,7 @@ class QualityControlTests(unittest.TestCase):
 
         evaluation.evaluate_status()
 
-        self.assertEqual(evaluation.evaluation_status.status, Status.PENDING)
+        self.assertEqual(evaluation.status.status, Status.PENDING)
 
         # Add a failing metric, evaluation should now evaluate to fail
         evaluation.metrics.append(
@@ -187,7 +187,7 @@ class QualityControlTests(unittest.TestCase):
 
         evaluation.evaluate_status()
 
-        self.assertEqual(evaluation.evaluation_status.status, Status.FAIL)
+        self.assertEqual(evaluation.status.status, Status.FAIL)
 
     def test_allowed_failed_metrics(self):
         """Test that if you set the flag to allow failures that evaluations pass"""
@@ -227,14 +227,14 @@ class QualityControlTests(unittest.TestCase):
         evaluation.allow_failed_metrics = True
         evaluation.evaluate_status()
 
-        self.assertEqual(evaluation.evaluation_status.status, Status.PENDING)
+        self.assertEqual(evaluation.status.status, Status.PENDING)
 
         # Replace the pending evaluation with a fail, evaluation should not evaluate to pass
         evaluation.metrics[1].annotations[0].status = Status.FAIL
 
         evaluation.evaluate_status()
 
-        self.assertEqual(evaluation.evaluation_status.status, Status.PASS)
+        self.assertEqual(evaluation.status.status, Status.PASS)
 
         metric2.annotations[0].status = Status.FAIL
         self.assertEqual(evaluation.failed_metrics, [metric2])

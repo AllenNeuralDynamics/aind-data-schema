@@ -49,7 +49,7 @@ class QCMetric(BaseModel):
     status_history: List[QCStatus] = Field(default=[], title="Metric status history")
 
     @property
-    def metric_status(self) -> QCStatus:
+    def status(self) -> QCStatus:
         """Get the latest status object for this metric
 
         Returns
@@ -75,9 +75,8 @@ class QCEvaluation(AindModel):
     name: str = Field(..., title="Evaluation name")
     description: Optional[str] = Field(default=None, title="Evaluation description")
     metrics: List[QCMetric] = Field(..., title="QC metrics")
-    asset_id: Optional[str] = Field(default=None, title="DocDB asset ID that this evaluation is associated with")
     notes: Optional[str] = Field(default=None, title="Notes")
-    evaluation_status_history: List[QCStatus] = Field(default=[], title="Evaluation status history")
+    status_history: List[QCStatus] = Field(default=[], title="Evaluation status history")
     allow_failed_metrics: bool = Field(
         default=False,
         title="Allow metrics to fail",
@@ -85,7 +84,7 @@ class QCEvaluation(AindModel):
     )
 
     @property
-    def evaluation_status(self) -> QCStatus:
+    def status(self) -> QCStatus:
         """Get the latest status object for this evaluation
 
         Returns
@@ -93,10 +92,10 @@ class QCEvaluation(AindModel):
         QCStatus
             Most recent status object
         """
-        if len(self.evaluation_status_history) == 0:
+        if len(self.status_history) == 0:
             self.evaluate_status()
 
-        return self.evaluation_status_history[-1]
+        return self.status_history[-1]
 
     @property
     def failed_metrics(self) -> list[QCMetric]:
@@ -114,7 +113,7 @@ class QCEvaluation(AindModel):
         else:
             failing_metrics = []
             for metric in self.metrics:
-                if metric.metric_status.status == Status.FAIL:
+                if metric.status.status == Status.FAIL:
                     failing_metrics.append(metric)
 
             return failing_metrics
@@ -127,14 +126,14 @@ class QCEvaluation(AindModel):
         """
         new_status = QCStatus(evaluator="Automated", status=Status.PASS, timestamp=timestamp)
 
-        latest_metric_statuses = [metric.metric_status.status for metric in self.metrics]
+        latest_metric_statuses = [metric.status.status for metric in self.metrics]
 
         if (not self.allow_failed_metrics) and any(status == Status.FAIL for status in latest_metric_statuses):
             new_status.status = Status.FAIL
         elif any(status == Status.PENDING for status in latest_metric_statuses):
             new_status.status = Status.PENDING
 
-        self.evaluation_status_history.append(new_status)
+        self.status_history.append(new_status)
 
 
 class QualityControl(AindCoreModel):
@@ -145,10 +144,10 @@ class QualityControl(AindCoreModel):
     schema_version: Literal["1.0.0"] = Field("1.0.0")
     evaluations: List[QCEvaluation] = Field(..., title="Evaluations")
     notes: Optional[str] = Field(default=None, title="Notes")
-    overall_status_history: List[QCStatus] = Field(default=[], title="Overall status history")
+    status_history: List[QCStatus] = Field(default=[], title="Overall status history")
 
     @property
-    def overall_status(self) -> QCStatus:
+    def status(self) -> QCStatus:
         """Get the latest status object for the overall QC
 
         Returns
@@ -156,10 +155,10 @@ class QualityControl(AindCoreModel):
         QCStatus
             Most recent status object
         """
-        if len(self.overall_status_history) == 0:
+        if len(self.status_history) == 0:
             self.evaluate_status()
 
-        return self.overall_status_history[-1]
+        return self.status_history[-1]
 
     def evaluate_status(self, timestamp=datetime.now()):
         """Evaluate the status of all evaluations, then evaluate the status of the overall QC
@@ -172,11 +171,11 @@ class QualityControl(AindCoreModel):
 
         new_status = QCStatus(evaluator="Automated", status=Status.PASS, timestamp=timestamp)
 
-        latest_eval_statuses = [evaluation.evaluation_status.status for evaluation in self.evaluations]
+        latest_eval_statuses = [evaluation.status.status for evaluation in self.evaluations]
 
         if any(status == Status.FAIL for status in latest_eval_statuses):
             new_status.status = Status.FAIL
         elif any(status == Status.PENDING for status in latest_eval_statuses):
             new_status.status = Status.PENDING
 
-        self.overall_status_history.append(new_status)
+        self.status_history.append(new_status)
