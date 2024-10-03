@@ -19,14 +19,14 @@ class QualityControlTests(unittest.TestCase):
             q = QualityControl()
 
         test_eval = QCEvaluation(
-            evaluation_name="Drift map",
-            evaluation_modality=Modality.ECEPHYS,
-            evaluation_stage=Stage.PROCESSING,
-            qc_metrics=[
+            name="Drift map",
+            modality=Modality.ECEPHYS,
+            stage=Stage.PROCESSING,
+            metrics=[
                 QCMetric(
                     name="Multiple values example",
                     value={"stuff": "in_a_dict"},
-                    metric_status_history=[
+                    status_history=[
                         QCStatus(evaluator="Bob", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PASS)
                     ],
                 ),
@@ -35,7 +35,7 @@ class QualityControlTests(unittest.TestCase):
                     value=False,
                     description="Manual evaluation of whether the drift map looks good",
                     reference="s3://some-data-somewhere",
-                    metric_status_history=[
+                    status_history=[
                         QCStatus(evaluator="Bob", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PASS)
                     ],
                 ),
@@ -52,14 +52,14 @@ class QualityControlTests(unittest.TestCase):
         """test that overall status goes to pass/pending/fail correctly"""
 
         test_eval = QCEvaluation(
-            evaluation_name="Drift map",
-            evaluation_modality=Modality.ECEPHYS,
-            evaluation_stage=Stage.PROCESSING,
-            qc_metrics=[
+            name="Drift map",
+            modality=Modality.ECEPHYS,
+            stage=Stage.PROCESSING,
+            metrics=[
                 QCMetric(
                     name="Multiple values example",
                     value={"stuff": "in_a_dict"},
-                    metric_status_history=[
+                    status_history=[
                         QCStatus(evaluator="Bob", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PASS)
                     ],
                 ),
@@ -68,7 +68,7 @@ class QualityControlTests(unittest.TestCase):
                     value=False,
                     description="Manual evaluation of whether the drift map looks good",
                     reference="s3://some-data-somewhere",
-                    metric_status_history=[
+                    status_history=[
                         QCStatus(evaluator="Bob", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PASS)
                     ],
                 ),
@@ -92,7 +92,7 @@ class QualityControlTests(unittest.TestCase):
                 value=False,
                 description="Manual evaluation of whether the drift map looks good",
                 reference="s3://some-data-somewhere",
-                metric_status_history=[
+                status_history=[
                     QCStatus(
                         evaluator="Automated", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PENDING
                     )
@@ -100,7 +100,7 @@ class QualityControlTests(unittest.TestCase):
             )
         )
 
-        q.status()
+        q.evaluate_status()
         self.assertEqual(q.status.status, Status.PENDING)
 
         # Add a failing metric to the first evaluation
@@ -110,26 +110,26 @@ class QualityControlTests(unittest.TestCase):
                 value=False,
                 description="Manual evaluation of whether the drift map looks good",
                 reference="s3://some-data-somewhere",
-                metric_status_history=[
+                status_history=[
                     QCStatus(evaluator="Automated", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.FAIL)
                 ],
             )
         )
 
-        q.status()
+        q.evaluate_status()
         self.assertEqual(q.status.status, Status.FAIL)
 
     def test_evaluation_status(self):
         """test that evaluation status goes to pass/pending/fail correctly"""
         evaluation = QCEvaluation(
-            evaluation_name="Drift map",
-            evaluation_modality=Modality.ECEPHYS,
-            evaluation_stage=Stage.PROCESSING,
-            qc_metrics=[
+            name="Drift map",
+            modality=Modality.ECEPHYS,
+            stage=Stage.PROCESSING,
+            metrics=[
                 QCMetric(
                     name="Multiple values example",
                     value={"stuff": "in_a_dict"},
-                    metric_status_history=[
+                    status_history=[
                         QCStatus(
                             evaluator="Automated", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PASS
                         )
@@ -140,7 +140,7 @@ class QualityControlTests(unittest.TestCase):
                     value=False,
                     description="Manual evaluation of whether the drift map looks good",
                     reference="s3://some-data-somewhere",
-                    metric_status_history=[
+                    status_history=[
                         QCStatus(
                             evaluator="Automated", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PASS
                         )
@@ -160,7 +160,7 @@ class QualityControlTests(unittest.TestCase):
                 value=False,
                 description="Manual evaluation of whether the drift map looks good",
                 reference="s3://some-data-somewhere",
-                metric_status_history=[
+                status_history=[
                     QCStatus(
                         evaluator="Automated", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PENDING
                     )
@@ -179,7 +179,7 @@ class QualityControlTests(unittest.TestCase):
                 value=False,
                 description="Manual evaluation of whether the drift map looks good",
                 reference="s3://some-data-somewhere",
-                metric_status_history=[
+                status_history=[
                     QCStatus(evaluator="Automated", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.FAIL)
                 ],
             )
@@ -197,22 +197,22 @@ class QualityControlTests(unittest.TestCase):
             value=False,
             description="Manual evaluation of whether the drift map looks good",
             reference="s3://some-data-somewhere",
-            metric_status_history=[
+            status_history=[
                 QCStatus(evaluator="Automated", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PENDING)
             ],
         )
 
         # First check that a pending evaluation still evaluates properly
         evaluation = QCEvaluation(
-            evaluation_name="Drift map",
-            evaluation_modality=Modality.ECEPHYS,
-            evaluation_stage=Stage.PROCESSING,
+            name="Drift map",
+            modality=Modality.ECEPHYS,
+            stage=Stage.PROCESSING,
             allow_failed_metrics=False,
-            qc_metrics=[
+            metrics=[
                 QCMetric(
                     name="Multiple values example",
                     value={"stuff": "in_a_dict"},
-                    metric_status_history=[
+                    status_history=[
                         QCStatus(
                             evaluator="Automated", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PASS
                         )
@@ -230,13 +230,13 @@ class QualityControlTests(unittest.TestCase):
         self.assertEqual(evaluation.status.status, Status.PENDING)
 
         # Replace the pending evaluation with a fail, evaluation should not evaluate to pass
-        evaluation.metrics[1].annotations[0].status = Status.FAIL
+        evaluation.metrics[1].status_history[0].status = Status.FAIL
 
         evaluation.evaluate_status()
 
         self.assertEqual(evaluation.status.status, Status.PASS)
 
-        metric2.annotations[0].status = Status.FAIL
+        metric2.status_history[0].status = Status.FAIL
         self.assertEqual(evaluation.failed_metrics, [metric2])
 
     def test_metric_history_order(self):
@@ -246,14 +246,14 @@ class QualityControlTests(unittest.TestCase):
         t2 = datetime.fromisoformat("2020-10-12")
 
         evaluation = QCEvaluation(
-            evaluation_name="Drift map",
-            evaluation_modality=Modality.ECEPHYS,
-            evaluation_stage=Stage.PROCESSING,
-            qc_metrics=[
+            name="Drift map",
+            modality=Modality.ECEPHYS,
+            stage=Stage.PROCESSING,
+            metrics=[
                 QCMetric(
                     name="Multiple values example",
                     value={"stuff": "in_a_dict"},
-                    metric_status_history=[
+                    status_history=[
                         QCStatus(evaluator="Automated", timestamp=t0, status=Status.PASS),
                         QCStatus(evaluator="Automated", timestamp=t1, status=Status.PASS),
                         QCStatus(evaluator="Automated", timestamp=t2, status=Status.PASS),
@@ -267,9 +267,9 @@ class QualityControlTests(unittest.TestCase):
         evaluation_rebuild = QCEvaluation.model_validate_json(json)
 
         # because the actual model uses AwareDatetime objects we have to strip the timezone
-        roundtrip_t0 = evaluation_rebuild.qc_metrics[0].metric_status_history[0].timestamp
-        roundtrip_t1 = evaluation_rebuild.qc_metrics[0].metric_status_history[1].timestamp
-        roundtrip_t2 = evaluation_rebuild.qc_metrics[0].metric_status_history[2].timestamp
+        roundtrip_t0 = evaluation_rebuild.metrics[0].status_history[0].timestamp
+        roundtrip_t1 = evaluation_rebuild.metrics[0].status_history[1].timestamp
+        roundtrip_t2 = evaluation_rebuild.metrics[0].status_history[2].timestamp
 
         roundtrip_t0 = roundtrip_t0.replace(tzinfo=None)
         roundtrip_t1 = roundtrip_t1.replace(tzinfo=None)
@@ -286,7 +286,7 @@ class QualityControlTests(unittest.TestCase):
             QCMetric(
                 name="Multiple values example",
                 value={"stuff": "in_a_dict"},
-                metric_status_history=[],
+                status_history=[],
             )
 
         expected_exception = "At least one QCStatus object must be provided"
