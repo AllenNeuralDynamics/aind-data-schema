@@ -78,7 +78,11 @@ class QCEvaluation(AindModel):
     asset_id: Optional[str] = Field(default=None, title="DocDB asset ID that this evaluation is associated with")
     notes: Optional[str] = Field(default=None, title="Notes")
     evaluation_status_history: List[QCStatus] = Field(default=[], title="Evaluation status history")
-    allow_failed_metrics: bool = Field(default=False, title="Allow metrics to fail")
+    allow_failed_metrics: bool = Field(
+        default=False,
+        title="Allow metrics to fail",
+        description="When evaluations are not critical to the overall state of QC for a data asset, you can choose to allow individual metrics to fail while still passing the evaluation."
+    )
 
     @property
     def evaluation_status(self) -> QCStatus:
