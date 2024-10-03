@@ -27,6 +27,7 @@ A given data asset will have the following JSON files:
 - :doc:`rig <rig>` or :doc:`instrument <rig>`: Metadata describing the equipment used to acquire data, including part names, serial numbers, and configuration details.
 - :doc:`session <session>` or :doc:`acquisition <acquisition>`: Metadata describing how the data was acquired
 - :doc:`processing <processing>`: Metadata describing how data has been processed and analyzed into derived data assets, including information on the software and parameters used for processing and analysis.
+- :doc:`quality_control <quality_control>`: Metadata describing how the data has been evaluated for quality control.
 
 Example
 =======
@@ -175,6 +176,7 @@ build NWB extension that easily embeds metadata not covered by the core NWB sche
    session
    acquisition
    processing
+   quality_control
 
 
 .. toctree::
