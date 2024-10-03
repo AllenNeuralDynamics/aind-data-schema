@@ -124,7 +124,7 @@ class QCEvaluation(AindModel):
         If no fails, then any pending -> PENDING
         All PASS -> PASS
         """
-        new_status = QCStatus(evaluator="Automated", status=Status.PASS, timestamp=timestamp)
+        new_status = QCStatus(evaluator="", status=Status.PASS, timestamp=timestamp)
 
         latest_metric_statuses = [metric.status.status for metric in self.metrics]
 
@@ -169,7 +169,7 @@ class QualityControl(AindCoreModel):
         for evaluation in self.evaluations:
             evaluation.evaluate_status(timestamp=timestamp)
 
-        new_status = QCStatus(evaluator="Automated", status=Status.PASS, timestamp=timestamp)
+        new_status = QCStatus(evaluator="", status=Status.PASS, timestamp=timestamp)
 
         latest_eval_statuses = [evaluation.status.status for evaluation in self.evaluations]
 
