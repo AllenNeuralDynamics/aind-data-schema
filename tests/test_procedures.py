@@ -5,6 +5,7 @@ import unittest
 from datetime import date
 
 from aind_data_schema_models.organizations import Organization
+from aind_data_schema_models.brain_atlas import CCFStructure
 from pydantic import ValidationError
 from pydantic import __version__ as pyd_version
 

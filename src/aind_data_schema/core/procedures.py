@@ -20,6 +20,7 @@ from aind_data_schema_models.units import (
     VolumeUnit,
     create_unit_with_value,
 )
+from aind_data_schema_models.brain_atlas import CCFStructure
 from pydantic import Field, field_serializer, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
 from typing_extensions import Annotated
@@ -222,7 +223,7 @@ class Sectioning(AindModel):
     section_distance_unit: SizeUnit = Field(default=SizeUnit.MM, title="Distance unit")
     reference_location: CoordinateReferenceLocation = Field(..., title="Reference location for distance measurement")
     section_strategy: SectionStrategy = Field(..., title="Slice strategy")
-    targeted_structure: str = Field(..., title="Targeted structure", description="Use Allen Brain Atlas Ontology")
+    targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
 
     @field_validator("output_specimen_ids")
     def check_output_id_length(cls, v, info: ValidationInfo):
@@ -434,7 +435,7 @@ class BrainInjection(Injection):
     bregma_to_lambda_unit: SizeUnit = Field(default=SizeUnit.MM, title="Bregma to lambda unit")
     injection_angle: Decimal = Field(..., title="Injection angle (deg)")
     injection_angle_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Injection angle unit")
-    targeted_structure: Optional[str] = Field(default=None, title="Injection targeted brain structure")
+    targeted_structure: Optional[CCFStructure.ONE_OF] = Field(default=None, title="Injection targeted brain structure")
     injection_hemisphere: Optional[Side] = Field(default=None, title="Injection hemisphere")
 
 
@@ -509,7 +510,7 @@ class OphysProbe(AindModel):
     """Description of an implanted ophys probe"""
 
     ophys_probe: FiberProbe = Field(..., title="Fiber probe")
-    targeted_structure: str = Field(..., title="Targeted structure")
+    targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
     stereotactic_coordinate_ap: Decimal = Field(..., title="Stereotactic coordinate A/P (mm)")
     stereotactic_coordinate_ml: Decimal = Field(..., title="Stereotactic coordinate M/L (mm)")
     stereotactic_coordinate_dv: Decimal = Field(
