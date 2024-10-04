@@ -16,6 +16,7 @@ from pydantic import (
     create_model,
 )
 from pydantic.functional_validators import WrapValidator
+from pydantic import model_validator
 from typing_extensions import Annotated
 
 
@@ -47,6 +48,26 @@ class AindModel(BaseModel, Generic[AindGenericType]):
     """BaseModel that disallows extra fields"""
 
     model_config = ConfigDict(extra="forbid", use_enum_values=True)
+
+    @model_validator(mode="after")
+    def unit_validator(cls, values):
+        """Ensure that all fields with the suffix _unit have a matching value
+        and if the value is set (!= None) then the unit is also set
+        """
+        value_fields = {}
+        for (unit_field, unit_value) in values:
+            if "_unit" in unit_field:
+                field = unit_field.rsplit("_unit", 1)[0]
+                value_fields[field] = (unit_field, unit_value)
+
+        for (field, value) in values:
+            if field in value_fields.keys():
+                # matching value for a unit that we have
+                if value and not value_fields[field][1]:
+                    # validation error
+                    raise ValueError(f"{field}_unit is required if {field} is provided.")
+
+        return values
 
 
 class AindCoreModel(AindModel):
