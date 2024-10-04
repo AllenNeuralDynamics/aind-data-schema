@@ -1,12 +1,5 @@
 {
    "$defs": {
-      "AindGeneric": {
-         "additionalProperties": true,
-         "description": "Base class for generic types that can be used in AIND schema",
-         "properties": {},
-         "title": "AindGeneric",
-         "type": "object"
-      },
       "BEHAVIOR": {
          "additionalProperties": false,
          "properties": {
@@ -309,9 +302,9 @@
       },
       "QCEvaluation": {
          "additionalProperties": false,
-         "description": "Description of one evaluation stage",
+         "description": "Description of one evaluation stage, with one or more metrics",
          "properties": {
-            "evaluation_modality": {
+            "modality": {
                "discriminator": {
                   "mapping": {
                      "EMG": "#/$defs/EMG",
@@ -377,35 +370,32 @@
                ],
                "title": "Modality"
             },
-            "evaluation_stage": {
-               "title": "Evaluation stage",
+            "stage": {
+               "$ref": "#/$defs/Stage",
+               "title": "Evaluation stage"
+            },
+            "name": {
+               "title": "Evaluation name",
                "type": "string"
             },
-            "evaluator_full_name": {
-               "title": "Evaluator full name",
-               "type": "string"
-            },
-            "evaluation_date": {
-               "format": "date",
-               "title": "Evaluation date",
-               "type": "string"
-            },
-            "qc_metrics": {
-               "allOf": [
+            "description": {
+               "anyOf": [
                   {
-                     "$ref": "#/$defs/AindGeneric"
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
                   }
                ],
-               "default": {},
-               "title": "QC metrics"
+               "default": null,
+               "title": "Evaluation description"
             },
-            "stage_status": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/Status"
-                  }
-               ],
-               "title": "Stage status"
+            "metrics": {
+               "items": {
+                  "$ref": "#/$defs/QCMetric"
+               },
+               "title": "QC metrics",
+               "type": "array"
             },
             "notes": {
                "anyOf": [
@@ -418,16 +408,95 @@
                ],
                "default": null,
                "title": "Notes"
+            },
+            "allow_failed_metrics": {
+               "default": false,
+               "description": "Set to true for evaluations that are not critical to the overall state of QC for a data asset, this will allow individual metrics to fail while still passing the evaluation.",
+               "title": "Allow metrics to fail",
+               "type": "boolean"
             }
          },
          "required": [
-            "evaluation_modality",
-            "evaluation_stage",
-            "evaluator_full_name",
-            "evaluation_date",
-            "stage_status"
+            "modality",
+            "stage",
+            "name",
+            "metrics"
          ],
          "title": "QCEvaluation",
+         "type": "object"
+      },
+      "QCMetric": {
+         "description": "Description of a single quality control metric",
+         "properties": {
+            "name": {
+               "title": "Metric name",
+               "type": "string"
+            },
+            "value": {
+               "title": "Metric value"
+            },
+            "description": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Metric description"
+            },
+            "reference": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Metric reference image URL or plot type"
+            },
+            "status_history": {
+               "default": [],
+               "items": {
+                  "$ref": "#/$defs/QCStatus"
+               },
+               "title": "Metric status history",
+               "type": "array"
+            }
+         },
+         "required": [
+            "name",
+            "value"
+         ],
+         "title": "QCMetric",
+         "type": "object"
+      },
+      "QCStatus": {
+         "description": "Description of a QC status, set by an evaluator",
+         "properties": {
+            "evaluator": {
+               "title": "Status evaluator full name",
+               "type": "string"
+            },
+            "status": {
+               "$ref": "#/$defs/Status"
+            },
+            "timestamp": {
+               "format": "date-time",
+               "title": "Status date",
+               "type": "string"
+            }
+         },
+         "required": [
+            "evaluator",
+            "status",
+            "timestamp"
+         ],
+         "title": "QCStatus",
          "type": "object"
       },
       "SLAP": {
@@ -480,11 +549,22 @@
          "title": "SPIM",
          "type": "object"
       },
+      "Stage": {
+         "description": "QCEvaluation Stage\n\nWhen during data processing the QC metrics were derived.",
+         "enum": [
+            "Raw data",
+            "Processing",
+            "Analysis"
+         ],
+         "title": "Stage",
+         "type": "string"
+      },
       "Status": {
          "description": "QC Status",
          "enum": [
             "Fail",
-            "Pass"
+            "Pass",
+            "Pending"
          ],
          "title": "Status",
          "type": "string"
@@ -494,31 +574,18 @@
    "description": "Description of quality metrics for a data asset",
    "properties": {
       "describedBy": {
-         "const": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/quality_metrics.py",
-         "default": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/quality_metrics.py",
+         "const": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/quality_control.py",
+         "default": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/quality_control.py",
          "title": "Describedby",
          "type": "string"
       },
       "schema_version": {
-         "const": "1.0.0",
-         "default": "1.0.0",
+         "const": "1.0.1",
+         "default": "1.0.1",
          "enum": [
-            "1.0.0"
+            "1.0.1"
          ],
          "title": "Schema Version",
-         "type": "string"
-      },
-      "overall_status": {
-         "allOf": [
-            {
-               "$ref": "#/$defs/Status"
-            }
-         ],
-         "title": "Overall status"
-      },
-      "overall_status_date": {
-         "format": "date",
-         "title": "Date of status",
          "type": "string"
       },
       "evaluations": {
@@ -542,8 +609,6 @@
       }
    },
    "required": [
-      "overall_status",
-      "overall_status_date",
       "evaluations"
    ],
    "title": "QualityControl",
