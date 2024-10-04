@@ -2,11 +2,42 @@
 
 from datetime import datetime, timezone
 
-from aind_data_schema.core.processing import AnalysisProcess, DataProcess, PipelineProcess, Processing, ProcessName
+from aind_data_schema.core.processing import (
+    AnalysisProcess,
+    DataProcess,
+    PipelineProcess,
+    Processing,
+    ProcessName,
+    ResourceTimestamped,
+    ResourceUsage,
+)
+from aind_data_schema_models.units import MemoryUnit
+from aind_data_schema_models.system_architecture import OperatingSystem, CPUArchitecture
 
 # If a timezone isn't specified, the timezone of the computer running this
 # script will be used as default
 t = datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc)
+
+
+cpu_usage_list = [
+    ResourceTimestamped(timestamp=datetime(2024, 9, 13, tzinfo=timezone.utc), usage=75.5),
+    ResourceTimestamped(timestamp=datetime(2024, 9, 13, tzinfo=timezone.utc), usage=80.0),
+]
+
+gpu_usage_list = [
+    ResourceTimestamped(timestamp=datetime(2024, 9, 13, tzinfo=timezone.utc), usage=60.0),
+    ResourceTimestamped(timestamp=datetime(2024, 9, 13, tzinfo=timezone.utc), usage=65.5),
+]
+
+ram_usage_list = [
+    ResourceTimestamped(timestamp=datetime(2024, 9, 13, tzinfo=timezone.utc), usage=70.0),
+    ResourceTimestamped(timestamp=datetime(2024, 9, 13, tzinfo=timezone.utc), usage=72.5),
+]
+
+file_io_usage_list = [
+    ResourceTimestamped(timestamp=datetime(2024, 9, 13, tzinfo=timezone.utc), usage=5.5),
+    ResourceTimestamped(timestamp=datetime(2024, 9, 13, tzinfo=timezone.utc), usage=6.0),
+]
 
 p = Processing(
     processing_pipeline=PipelineProcess(
@@ -24,6 +55,20 @@ p = Processing(
                 code_version="0.1",
                 code_url="https://github.com/abcd",
                 parameters={"size": 7},
+                resources=ResourceUsage(
+                    os=OperatingSystem.UBUNTU_20_04,
+                    architecture=CPUArchitecture.X86_64,
+                    cpu="Intel Core i7",
+                    cpu_cores=8,
+                    gpu="NVIDIA GeForce RTX 3080",
+                    system_memory=32.0,
+                    system_memory_unit=MemoryUnit.GB,
+                    ram=16.0,
+                    ram_unit=MemoryUnit.GB,
+                    cpu_usage=cpu_usage_list,
+                    gpu_usage=gpu_usage_list,
+                    ram_usage=ram_usage_list,
+                ),
             ),
             DataProcess(
                 name=ProcessName.FILE_FORMAT_CONVERSION,

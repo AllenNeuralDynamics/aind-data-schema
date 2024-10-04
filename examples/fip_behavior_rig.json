@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/rig.py",
-   "schema_version": "1.0.0",
+   "schema_version": "1.0.1",
    "rig_id": "447_FIP-Behavior_20000101",
    "modification_date": "2000-01-01",
    "mouse_platform": {
@@ -43,7 +43,7 @@
          "reward_spouts": [
             {
                "device_type": "Reward spout",
-               "name": "Janelia_Lick_Detector Left",
+               "name": "Left spout",
                "serial_number": null,
                "manufacturer": null,
                "model": null,
@@ -66,12 +66,30 @@
                   "additional_settings": {},
                   "notes": null
                },
-               "lick_sensor": null,
+               "lick_sensor": {
+                  "device_type": "Lick detector",
+                  "name": "Janelia_Lick_Detector Left",
+                  "serial_number": null,
+                  "manufacturer": {
+                     "name": "Janelia Research Campus",
+                     "abbreviation": "Janelia",
+                     "registry": {
+                        "name": "Research Organization Registry",
+                        "abbreviation": "ROR"
+                     },
+                     "registry_identifier": "013sk6x84"
+                  },
+                  "model": null,
+                  "path_to_cad": null,
+                  "port_index": null,
+                  "additional_settings": {},
+                  "notes": null
+               },
                "lick_sensor_type": "Capacitive"
             },
             {
                "device_type": "Reward spout",
-               "name": "Janelia_Lick_Detector Right",
+               "name": "Right spout",
                "serial_number": null,
                "manufacturer": null,
                "model": null,
@@ -94,7 +112,25 @@
                   "additional_settings": {},
                   "notes": null
                },
-               "lick_sensor": null,
+               "lick_sensor": {
+                  "device_type": "Lick detector",
+                  "name": "Janelia_Lick_Detector Right",
+                  "serial_number": null,
+                  "manufacturer": {
+                     "name": "Janelia Research Campus",
+                     "abbreviation": "Janelia",
+                     "registry": {
+                        "name": "Research Organization Registry",
+                        "abbreviation": "ROR"
+                     },
+                     "registry_identifier": "013sk6x84"
+                  },
+                  "model": null,
+                  "path_to_cad": null,
+                  "port_index": null,
+                  "additional_settings": {},
+                  "notes": null
+               },
                "lick_sensor_type": "Capacitive"
             }
          ]

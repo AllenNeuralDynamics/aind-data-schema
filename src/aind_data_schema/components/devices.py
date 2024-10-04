@@ -253,6 +253,13 @@ class LickSensorType(str, Enum):
     PIEZOELECTIC = "Piezoelectric"
 
 
+class MyomatrixArrayType(str, Enum):
+    """Type of Myomatrix array"""
+
+    INJECTED = "Injected"
+    SUTURED = "Sutured"
+
+
 class Device(AindModel):
     """Generic device"""
 
@@ -521,7 +528,7 @@ class Laser(Device):
     power_unit: PowerUnit = Field(default=PowerUnit.MW, title="Power unit")
     coupling: Optional[Coupling] = Field(default=None, title="Coupling")
     coupling_efficiency: Optional[Decimal] = Field(
-        None,
+        default=None,
         title="Coupling efficiency (percent)",
         ge=0,
         le=100,
@@ -816,7 +823,7 @@ class RewardSpout(Device):
     spout_diameter_unit: SizeUnit = Field(default=SizeUnit.MM, title="Spout diameter unit")
     spout_position: Optional[RelativePosition] = Field(default=None, title="Spout stage position")
     solenoid_valve: Device = Field(..., title="Solenoid valve")
-    lick_sensor: Optional[Device] = Field(default=None, title="Lick sensor")
+    lick_sensor: Device = Field(..., title="Lick sensor")
     lick_sensor_type: Optional[LickSensorType] = Field(default=None, title="Lick sensor type")
     notes: Optional[str] = Field(default=None, title="Notes")
 
@@ -919,6 +926,13 @@ class Scanner(Device):
     magnetic_strength: MagneticStrength = Field(..., title="Magnetic strength (T)")
     #  TODO: Check if this should go into the units module.
     magnetic_strength_unit: str = Field(default="T", title="Magnetic strength unit")
+
+
+class MyomatrixArray(Device):
+    """Description of a Myomatrix array"""
+
+    device_type: Literal["Myomatrix Array"] = "Myomatrix Array"
+    array_type: MyomatrixArrayType = Field(..., title="Array type")
 
 
 LIGHT_SOURCES = Annotated[Union[Laser, LightEmittingDiode, Lamp], Field(discriminator="device_type")]

@@ -178,7 +178,7 @@ class SlapFieldOfView(FieldOfView):
     session_type: SlapSessionType = Field(..., title="Session type")
     dmd_dilation_x: int = Field(..., title="DMD Dilation X (pixels)")
     dmd_dilation_y: int = Field(..., title="DMD Dilation Y (pixels)")
-    dilation_unit: SizeUnit = Field(SizeUnit.PX, title="Dilation unit")
+    dilation_unit: SizeUnit = Field(default=SizeUnit.PX, title="Dilation unit")
     target_neuron: Optional[str] = Field(default=None, title="Target neuron")
     target_branch: Optional[str] = Field(default=None, title="Target branch")
     path_to_array_of_frame_rates: str = Field(..., title="Array of frame rates")
@@ -222,7 +222,7 @@ class ManipulatorModule(DomeModule):
         Field(default=None, title="Anatomical coordinate reference")
     )
     surface_z: Optional[Decimal] = Field(default=None, title="Surface z")
-    surface_z_unit: SizeUnit = Field(SizeUnit.UM, title="Surface z unit")
+    surface_z_unit: SizeUnit = Field(default=SizeUnit.UM, title="Surface z unit")
     dye: Optional[str] = Field(default=None, title="Dye")
     implant_hole_number: Optional[int] = Field(default=None, title="Implant hole number")
 
@@ -520,9 +520,9 @@ class StimulusEpoch(AindModel):
     light_source_config: Optional[List[LIGHT_SOURCE_CONFIGS]] = Field(
         default=[], title="Light source config", description="Light sources for stimulation"
     )
-    output_parameters: AindGenericType = Field(AindGeneric(), title="Performance metrics")
+    output_parameters: AindGenericType = Field(default=AindGeneric(), title="Performance metrics")
     reward_consumed_during_epoch: Optional[Decimal] = Field(default=None, title="Reward consumed during training (uL)")
-    reward_consumed_unit: VolumeUnit = Field(VolumeUnit.UL, title="Reward consumed unit")
+    reward_consumed_unit: VolumeUnit = Field(default=VolumeUnit.UL, title="Reward consumed unit")
     trials_total: Optional[int] = Field(default=None, title="Total trials")
     trials_finished: Optional[int] = Field(default=None, title="Finished trials")
     trials_rewarded: Optional[int] = Field(default=None, title="Rewarded trials")
@@ -534,8 +534,8 @@ class Session(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/session.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["1.0.0"] = Field("1.0.0")
-    protocol_id: List[str] = Field([], title="Protocol ID", description="DOI for protocols.io")
+    schema_version: Literal["1.0.1"] = Field("1.0.1")
+    protocol_id: List[str] = Field(default=[], title="Protocol ID", description="DOI for protocols.io")
     experimenter_full_name: List[str] = Field(
         ...,
         description="First and last name of the experimenter(s).",
@@ -583,9 +583,9 @@ class Session(AindCoreModel):
         ..., title="Active mouse platform", description="Is the mouse platform being actively controlled"
     )
     headframe_registration: Optional[Affine3dTransform] = Field(
-        None, title="Headframe registration", description="MRI transform matrix for headframe"
+        default=None, title="Headframe registration", description="MRI transform matrix for headframe"
     )
     reward_delivery: Optional[RewardDeliveryConfig] = Field(default=None, title="Reward delivery")
     reward_consumed_total: Optional[Decimal] = Field(default=None, title="Total reward consumed (mL)")
-    reward_consumed_unit: VolumeUnit = Field(VolumeUnit.ML, title="Reward consumed unit")
+    reward_consumed_unit: VolumeUnit = Field(default=VolumeUnit.ML, title="Reward consumed unit")
     notes: Optional[str] = Field(default=None, title="Notes")

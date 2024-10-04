@@ -22,7 +22,7 @@ from aind_data_schema.core.subject import Subject
 from aind_data_schema.utils.compatibility_check import RigSessionCompatibility
 
 
-class MetadataStatus(Enum):
+class MetadataStatus(str, Enum):
     """Status of Metadata"""
 
     VALID = "Valid"
@@ -31,7 +31,7 @@ class MetadataStatus(Enum):
     UNKNOWN = "Unknown"
 
 
-class ExternalPlatforms(Enum):
+class ExternalPlatforms(str, Enum):
     """External Platforms of Data Assets."""
 
     CODEOCEAN = "Code Ocean"
@@ -48,7 +48,7 @@ class Metadata(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/metadata.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["1.0.0"] = Field("1.0.0")
+    schema_version: Literal["1.0.2"] = Field("1.0.2")
     id: UUID = Field(
         default_factory=uuid4,
         alias="_id",
@@ -81,7 +81,7 @@ class Metadata(AindCoreModel):
         default=MetadataStatus.UNKNOWN, title=" Metadata Status", description="The status of the metadata."
     )
     external_links: Dict[ExternalPlatforms, List[str]] = Field(
-        default=[], title="External Links", description="Links to the data asset on different platforms."
+        default=dict(), title="External Links", description="Links to the data asset on different platforms."
     )
     # We can make the AindCoreModel fields optional for now and do more
     # granular validations using validators. We may have some older data
@@ -98,10 +98,12 @@ class Metadata(AindCoreModel):
     procedures: Optional[Procedures] = Field(
         default=None, title="Procedures", description="All procedures performed on a subject."
     )
-    session: Optional[Session] = Field(None, title="Session", description="Description of a session.")
-    rig: Optional[Rig] = Field(None, title="Rig", description="Rig.")
-    processing: Optional[Processing] = Field(None, title="Processing", description="All processes run on data.")
-    acquisition: Optional[Acquisition] = Field(None, title="Acquisition", description="Imaging acquisition session")
+    session: Optional[Session] = Field(default=None, title="Session", description="Description of a session.")
+    rig: Optional[Rig] = Field(default=None, title="Rig", description="Rig.")
+    processing: Optional[Processing] = Field(default=None, title="Processing", description="All processes run on data.")
+    acquisition: Optional[Acquisition] = Field(
+        default=None, title="Acquisition", description="Imaging acquisition session"
+    )
     instrument: Optional[Instrument] = Field(
         default=None, title="Instrument", description="Instrument, which is a collection of devices"
     )

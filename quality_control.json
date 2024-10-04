@@ -1,0 +1,175 @@
+{
+   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/quality_control.py",
+   "schema_version": "1.0.0",
+   "evaluations": [
+      {
+         "evaluation_modality": {
+            "name": "Extracellular electrophysiology",
+            "abbreviation": "ecephys"
+         },
+         "evaluation_stage": "Processing",
+         "evaluation_name": "Drift map",
+         "evaluation_description": "Qualitative check that drift map shows minimal movement",
+         "qc_metrics": [
+            {
+               "name": "Probe A drift",
+               "value": "High",
+               "description": null,
+               "reference": "ecephys-drift-map",
+               "metric_status_history": [
+                  {
+                     "evaluator": "Bob",
+                     "status": "Pass",
+                     "timestamp": "2022-11-22T00:00:00"
+                  }
+               ]
+            },
+            {
+               "name": "Probe B drift",
+               "value": "Low",
+               "description": null,
+               "reference": "ecephys-drift-map",
+               "metric_status_history": [
+                  {
+                     "evaluator": "Bob",
+                     "status": "Pass",
+                     "timestamp": "2022-11-22T00:00:00"
+                  }
+               ]
+            },
+            {
+               "name": "Probe C drift",
+               "value": "Low",
+               "description": null,
+               "reference": "ecephys-drift-map",
+               "metric_status_history": [
+                  {
+                     "evaluator": "Bob",
+                     "status": "Pass",
+                     "timestamp": "2022-11-22T00:00:00"
+                  }
+               ]
+            }
+         ],
+         "notes": "Manually annotated: failed due to high drift on probe A",
+         "evaluation_status_history": [
+            {
+               "evaluator": "Automated",
+               "status": "Pass",
+               "timestamp": "2024-09-23T14:04:03.094512"
+            }
+         ]
+      },
+      {
+         "evaluation_modality": {
+            "name": "Behavior videos",
+            "abbreviation": "behavior-videos"
+         },
+         "evaluation_stage": "Raw data",
+         "evaluation_name": "Video frame count check",
+         "evaluation_description": null,
+         "qc_metrics": [
+            {
+               "name": "video_1_num_frames",
+               "value": 662,
+               "description": null,
+               "reference": null,
+               "metric_status_history": [
+                  {
+                     "evaluator": "Bob",
+                     "status": "Pass",
+                     "timestamp": "2022-11-22T00:00:00"
+                  }
+               ]
+            },
+            {
+               "name": "video_2_num_frames",
+               "value": 662,
+               "description": null,
+               "reference": null,
+               "metric_status_history": [
+                  {
+                     "evaluator": "Bob",
+                     "status": "Pass",
+                     "timestamp": "2022-11-22T00:00:00"
+                  }
+               ]
+            }
+         ],
+         "notes": "Pass when video_1_num_frames==video_2_num_frames",
+         "evaluation_status_history": [
+            {
+               "evaluator": "Automated",
+               "status": "Pass",
+               "timestamp": "2024-09-23T14:04:03.094519"
+            }
+         ]
+      },
+      {
+         "evaluation_modality": {
+            "name": "Extracellular electrophysiology",
+            "abbreviation": "ecephys"
+         },
+         "evaluation_stage": "Raw data",
+         "evaluation_name": "Probes present",
+         "evaluation_description": null,
+         "qc_metrics": [
+            {
+               "name": "ProbeA_success",
+               "value": true,
+               "description": null,
+               "reference": null,
+               "metric_status_history": [
+                  {
+                     "evaluator": "Bob",
+                     "status": "Pass",
+                     "timestamp": "2022-11-22T00:00:00"
+                  }
+               ]
+            },
+            {
+               "name": "ProbeB_success",
+               "value": true,
+               "description": null,
+               "reference": null,
+               "metric_status_history": [
+                  {
+                     "evaluator": "Bob",
+                     "status": "Pass",
+                     "timestamp": "2022-11-22T00:00:00"
+                  }
+               ]
+            },
+            {
+               "name": "ProbeC_success",
+               "value": true,
+               "description": null,
+               "reference": null,
+               "metric_status_history": [
+                  {
+                     "evaluator": "Bob",
+                     "status": "Pass",
+                     "timestamp": "2022-11-22T00:00:00"
+                  }
+               ]
+            }
+         ],
+         "notes": null,
+         "evaluation_status_history": [
+            {
+               "evaluator": "Automated",
+               "status": "Pass",
+               "timestamp": "2024-09-23T14:04:03.094522"
+            }
+         ]
+      }
+   ],
+   "notes": null,
+   "overall_status_history": [
+      {
+         "evaluator": "Automated",
+         "status": "Pass",
+         "timestamp": "2024-09-23T14:04:03.094524"
+      }
+   ]
+}

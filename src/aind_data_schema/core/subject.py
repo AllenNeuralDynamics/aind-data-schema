@@ -63,9 +63,9 @@ class WellnessReport(AindModel):
 class Housing(AindModel):
     """Description of subject housing"""
 
-    cage_id: Optional[str] = Field(None, title="Cage ID")
-    room_id: Optional[str] = Field(None, title="Room ID")
-    light_cycle: Optional[LightCycle] = Field(None, title="Light cycle")
+    cage_id: Optional[str] = Field(default=None, title="Cage ID")
+    room_id: Optional[str] = Field(default=None, title="Room ID")
+    light_cycle: Optional[LightCycle] = Field(default=None, title="Light cycle")
     home_cage_enrichment: List[HomeCageEnrichment] = Field(default=[], title="Home cage enrichment")
     cohoused_subjects: List[str] = Field(
         default=[],
@@ -98,32 +98,32 @@ class Subject(AindCoreModel):
     sex: Sex = Field(..., title="Sex")
     date_of_birth: date_type = Field(..., title="Date of birth")
     genotype: Optional[str] = Field(
-        None,
+        default=None,
         description="Genotype of the animal providing both alleles",
         title="Genotype",
     )
     species: Species.ONE_OF = Field(..., title="Species")
     alleles: List[PIDName] = Field(default=[], title="Alleles", description="Allele names and persistent IDs")
-    background_strain: Optional[BackgroundStrain] = Field(None, title="Background strain")
-    breeding_info: Optional[BreedingInfo] = Field(None, title="Breeding Info")
+    background_strain: Optional[BackgroundStrain] = Field(default=None, title="Background strain")
+    breeding_info: Optional[BreedingInfo] = Field(default=None, title="Breeding Info")
     source: Organization.SUBJECT_SOURCES = Field(
         ...,
         description="Where the subject was acquired from. If bred in-house, use Allen Institute.",
         title="Source",
     )
     rrid: Optional[PIDName] = Field(
-        None,
+        default=None,
         description="RRID of mouse if acquired from supplier",
         title="RRID",
     )
     restrictions: Optional[str] = Field(
-        None,
+        default=None,
         description="Any restrictions on use or publishing based on subject source",
         title="Restrictions",
     )
     wellness_reports: List[WellnessReport] = Field(default=[], title="Wellness Report")
-    housing: Optional[Housing] = Field(None, title="Housing")
-    notes: Optional[str] = Field(None, title="Notes")
+    housing: Optional[Housing] = Field(default=None, title="Housing")
+    notes: Optional[str] = Field(default=None, title="Notes")
 
     @field_validator("source", mode="after")
     def validate_inhouse_breeding_info(cls, v: Organization.ONE_OF, info: ValidationInfo):

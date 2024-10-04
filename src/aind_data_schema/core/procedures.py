@@ -5,6 +5,7 @@ from decimal import Decimal
 from enum import Enum
 from typing import List, Literal, Optional, Set, Union
 
+from aind_data_schema_models.mouse_anatomy import MouseAnatomicalStructure
 from aind_data_schema_models.pid_names import PIDName
 from aind_data_schema_models.species import Species
 from aind_data_schema_models.specimen_procedure_types import SpecimenProcedureType
@@ -24,7 +25,7 @@ from pydantic_core.core_schema import ValidationInfo
 from typing_extensions import Annotated
 
 from aind_data_schema.base import AindCoreModel, AindModel, AwareDatetimeWithDefault
-from aind_data_schema.components.devices import FiberProbe
+from aind_data_schema.components.devices import FiberProbe, MyomatrixArray
 from aind_data_schema.components.reagent import Reagent
 
 
@@ -65,6 +66,7 @@ class Side(str, Enum):
 
     LEFT = "Left"
     RIGHT = "Right"
+    MIDLINE = "Midline"
 
 
 class SectionOrientation(str, Enum):
@@ -239,7 +241,7 @@ class SpecimenProcedure(AindModel):
 
     procedure_type: SpecimenProcedureType = Field(..., title="Procedure type")
     procedure_name: Optional[str] = Field(
-        None, title="Procedure name", description="Name to clarify specific procedure used as needed"
+        default=None, title="Procedure name", description="Name to clarify specific procedure used as needed"
     )
     specimen_id: str = Field(..., title="Specimen ID")
     start_date: date = Field(..., title="Start date")
@@ -388,10 +390,9 @@ class NonViralMaterial(Reagent):
 class Injection(AindModel):
     """Description of an injection procedure"""
 
-    injection_materials: Annotated[
-        List[Union[ViralMaterial, NonViralMaterial]],
-        Field(title="Injection material", min_length=1, discriminator="material_type"),
-    ]
+    injection_materials: List[
+        Annotated[Union[ViralMaterial, NonViralMaterial], Field(..., discriminator="material_type")]
+    ] = Field(..., title="Injection material", min_length=1)
     recovery_time: Optional[Decimal] = Field(default=None, title="Recovery time")
     recovery_time_unit: TimeUnit = Field(default=TimeUnit.M, title="Recovery time unit")
     injection_duration: Optional[Decimal] = Field(default=None, title="Injection duration")
@@ -555,6 +556,32 @@ class WaterRestriction(AindModel):
     end_date: Optional[date] = Field(default=None, title="Water restriction end date")
 
 
+class MyomatrixContact(AindModel):
+    """ "Description of a contact on a myomatrix thread"""
+
+    body_part: MouseAnatomicalStructure.BODY_PARTS = Field(..., title="Body part of contact insertion")
+    side: Side = Field(..., title="Body side")
+    muscle: MouseAnatomicalStructure.EMG_MUSCLES = Field(..., title="Muscle of contact insertion")
+    in_muscle: bool = Field(..., title="In muscle")
+    notes: Optional[str] = Field(default=None, title="Notes")
+
+
+class MyomatrixThread(AindModel):
+    """Description of a thread of a myomatrix array"""
+
+    ground_electrode_location: MouseAnatomicalStructure.BODY_PARTS = Field(..., title="Location of ground electrode")
+    contacts: List[MyomatrixContact] = Field(..., title="Contacts")
+
+
+class MyomatrixInsertion(AindModel):
+    """Description of a Myomatrix array insertion for EMG"""
+
+    procedure_type: Literal["Myomatrix_Insertion"] = "Myomatrix_Insertion"
+    protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
+    myomatrix_array: MyomatrixArray = Field(..., title="Myomatrix array")
+    threads: List[MyomatrixThread] = Field(..., title="Array threads")
+
+
 class Perfusion(AindModel):
     """Description of a perfusion procedure that creates a specimen"""
 
@@ -603,6 +630,7 @@ class Surgery(AindModel):
                 IntraCisternalMagnaInjection,
                 IntraperitonealInjection,
                 IontophoresisInjection,
+                MyomatrixInsertion,
                 NanojectInjection,
                 OtherSubjectProcedure,
                 Perfusion,
@@ -621,7 +649,7 @@ class Procedures(AindCoreModel):
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/procedures.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
 
-    schema_version: Literal["1.0.0"] = Field("1.0.0")
+    schema_version: Literal["1.1.1"] = Field("1.1.1")
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",

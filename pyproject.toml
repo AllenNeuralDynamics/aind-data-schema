@@ -24,7 +24,8 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
-    'aind_data_schema[linters]'
+    'aind_data_schema[linters]',
+    'pydantic>=2.7, !=2.9.0, !=2.9.1'
 ]
 
 linters = [
@@ -33,7 +34,8 @@ linters = [
     'coverage',
     'flake8',
     'interrogate',
-    'isort'
+    'isort',
+    'aind-flake8-extensions==0.5.2'
 ]
 
 docs = [
@@ -41,7 +43,8 @@ docs = [
     'sphinx-jinja',
     'furo',
     'erdantic>=0.7.0,<1.0',
-    'autodoc_pydantic'
+    'autodoc_pydantic',
+    'myst-parser'
 ]
 
 viz = [

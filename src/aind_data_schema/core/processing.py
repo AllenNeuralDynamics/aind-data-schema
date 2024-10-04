@@ -4,10 +4,11 @@ from enum import Enum
 from typing import List, Literal, Optional
 
 from aind_data_schema_models.process_names import ProcessName
-from pydantic import Field, ValidationInfo, field_validator
+from pydantic import Field, ValidationInfo, model_validator, field_validator
 
 from aind_data_schema.base import AindCoreModel, AindGeneric, AindGenericType, AindModel, AwareDatetimeWithDefault
 from aind_data_schema.components.tile import Tile
+from aind_data_schema_models.units import MemoryUnit, UnitlessUnit
 
 
 class RegistrationType(str, Enum):
@@ -15,6 +16,41 @@ class RegistrationType(str, Enum):
 
     INTER = "Inter-channel"
     INTRA = "Intra-channel"
+
+
+class ResourceTimestamped(AindModel):
+    """Description of resource usage at a moment in time"""
+
+    timestamp: AwareDatetimeWithDefault = Field(..., title="Timestamp")
+    usage: float = Field(..., title="Usage")
+
+
+class ResourceUsage(AindModel):
+    """Description of resources used by a process"""
+
+    os: str = Field(..., title="Operating system")
+    architecture: str = Field(..., title="Architecture")
+    cpu: Optional[str] = Field(default=None, title="CPU name")
+    cpu_cores: Optional[int] = Field(default=None, title="CPU cores")
+    gpu: Optional[str] = Field(default=None, title="GPU name")
+    system_memory: Optional[float] = Field(default=None, title="System memory")
+    system_memory_unit: Optional[MemoryUnit] = Field(default=None, title="System memory unit")
+    ram: Optional[float] = Field(default=None, title="System RAM")
+    ram_unit: Optional[MemoryUnit] = Field(default=None, title="Ram unit")
+
+    cpu_usage: Optional[List[ResourceTimestamped]] = Field(default=None, title="CPU usage")
+    gpu_usage: Optional[List[ResourceTimestamped]] = Field(default=None, title="GPU usage")
+    ram_usage: Optional[List[ResourceTimestamped]] = Field(default=None, title="RAM usage")
+    usage_unit: str = Field(default=UnitlessUnit.PERCENT, title="Usage unit")
+
+    @model_validator(mode="after")
+    def check_value_and_unit(cls, values):
+        """Ensure that all valued fields have units"""
+        if values.system_memory and not values.system_memory_unit:
+            raise ValueError("System memory unit is required if system memory is provided.")
+        if values.ram and not values.ram_unit:
+            raise ValueError("RAM unit is required if RAM is provided.")
+        return values
 
 
 class DataProcess(AindModel):
@@ -31,6 +67,7 @@ class DataProcess(AindModel):
     parameters: AindGenericType = Field(..., title="Parameters")
     outputs: AindGenericType = Field(AindGeneric(), description="Output parameters", title="Outputs")
     notes: Optional[str] = Field(default=None, title="Notes", validate_default=True)
+    resources: Optional[ResourceUsage] = Field(default=None, title="Process resource usage")
 
     @field_validator("notes", mode="after")
     def validate_other(cls, value: Optional[str], info: ValidationInfo) -> Optional[str]:
@@ -87,7 +124,7 @@ class Processing(AindCoreModel):
 
     _DESCRIBED_BY_URL: str = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/processing.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["1.0.0"] = Field("1.0.0")
+    schema_version: Literal["1.1.1"] = Field("1.1.1")
 
     processing_pipeline: PipelineProcess = Field(
         ..., description="Pipeline used to process data", title="Processing Pipeline"
