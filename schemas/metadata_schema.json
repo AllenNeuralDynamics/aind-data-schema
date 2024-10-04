@@ -24819,10 +24819,10 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "1.0.1",
-               "default": "1.0.1",
+               "const": "1.1.1",
+               "default": "1.1.1",
                "enum": [
-                  "1.0.1"
+                  "1.1.1"
                ],
                "title": "Schema Version",
                "type": "string"
@@ -24942,10 +24942,10 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "1.0.1",
-               "default": "1.0.1",
+               "const": "1.1.1",
+               "default": "1.1.1",
                "enum": [
-                  "1.0.1"
+                  "1.1.1"
                ],
                "title": "Schema Version",
                "type": "string"
@@ -25388,10 +25388,10 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "1.0.1",
-               "default": "1.0.1",
+               "const": "1.1.1",
+               "default": "1.1.1",
                "enum": [
-                  "1.0.1"
+                  "1.1.1"
                ],
                "title": "Schema Version",
                "type": "string"
@@ -35143,10 +35143,10 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "1.0.1",
-         "default": "1.0.1",
+         "const": "1.0.2",
+         "default": "1.0.2",
          "enum": [
-            "1.0.1"
+            "1.0.2"
          ],
          "title": "Schema Version",
          "type": "string"
