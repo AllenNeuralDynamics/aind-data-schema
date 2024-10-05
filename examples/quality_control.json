@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/quality_control.py",
-   "schema_version": "1.0.0",
+   "schema_version": "1.1.1",
    "evaluations": [
       {
          "modality": {
