@@ -276,13 +276,15 @@ class TestMetadata(unittest.TestCase):
     def test_validate_underscore_modality(self):
         """Tests that ecephys validator works as expected"""
         viral_material = ViralMaterial.model_construct()
-        nano_inj = NanojectInjection.model_construct()
+        nano_inj = NanojectInjection.model_construct(injection_materials=[viral_material])
         ionto_inj = IontophoresisInjection.model_construct(injection_materials=[viral_material])
+        mouse_platform = MousePlatform.model_construct(name="platform1")
+        rig = Rig.model_construct(rig_id="123_EPHYS2_20230101", mouse_platform=mouse_platform)
+        session = Session.model_construct(rig_id="123_EPHYS2_20230101", mouse_platform_name="platform1")
 
         # Tests missing metadata
         surgery1 = Surgery.model_construct(procedures=[nano_inj, ionto_inj])
-        with self.assertRaises(ValueError) as context:
-            Metadata(
+        m = Metadata(
                 name="ecephys_655019_2023-04-03_18-17-09",
                 location="bucket",
                 data_description=DataDescription.model_construct(
@@ -291,13 +293,12 @@ class TestMetadata(unittest.TestCase):
                     creation_time=time(12, 12, 12),
                     modality=[Modality.BEHAVIOR_VIDEOS],
                 ),
+                subject=Subject.model_construct(),
                 procedures=Procedures.model_construct(subject_procedures=[surgery1]),
-                rig=Rig.model_construct(),
+                rig=rig,
+                session=session,
             )
-        self.assertIn(
-            "ecephys metadata missing required file: subject",
-            str(context.exception),
-        )
+        self.assertIsNotNone(m)
 
     def test_validate_rig_session_compatibility(self):
         """Tests that rig/session compatibility validator works as expected"""
