@@ -273,8 +273,6 @@ class TestMetadata(unittest.TestCase):
             )
         self.assertIn("Injection is missing injection_materials.", str(context.exception))
 
-
-
     def test_validate_underscore_modality(self):
         """Tests that ecephys validator works as expected"""
         viral_material = ViralMaterial.model_construct()
