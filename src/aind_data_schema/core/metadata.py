@@ -206,7 +206,8 @@ class Metadata(AindCoreModel):
             for modality in modalities:
                 for file in CORE_FILES:
                     #  For each field, check if this is a required/excluded file
-                    file_requirement = getattr(getattr(ExpectedFiles, str(modality.abbreviation).upper()), file)
+                    abbreviation = modality["abbreviation"].replace("-", "_").upper()
+                    file_requirement = getattr(getattr(ExpectedFiles, abbreviation), file)
 
                     if file not in requirement_dict:
                         requirement_dict[file] = file_requirement
