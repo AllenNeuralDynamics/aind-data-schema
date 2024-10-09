@@ -205,27 +205,34 @@ class Metadata(AindCoreModel):
 
             for modality in modalities:
                 abbreviation = modality.abbreviation.replace("-", "_").upper()
+                
                 for file in CORE_FILES:
                     #  For each field, check if this is a required/excluded file
                     file_requirement = getattr(getattr(ExpectedFiles, abbreviation), file)
 
                     if file not in requirement_dict:
-                        requirement_dict[file] = file_requirement
-                    elif (file_requirement == FileRequirement.REQUIRED) or (
-                        file_requirement == FileRequirement.OPTIONAL
-                        and requirement_dict[file] == FileRequirement.EXCLUDED
-                    ):
-                        # override, required wins over all else, and optional wins over excluded
-                        requirement_dict[file] = file_requirement
+                        requirement_dict[file] = (abbreviation, file_requirement)
+                    else:
+                        (prev_modality, prev_requirement) = requirement_dict[file]
+
+                        if (file_requirement == FileRequirement.REQUIRED) or (
+                            file_requirement == FileRequirement.OPTIONAL
+                            and prev_requirement == FileRequirement.EXCLUDED
+                        ):
+                            # override, required wins over all else, and optional wins over excluded
+                            requirement_dict[file] = (abbreviation, file_requirement)
 
             for file in CORE_FILES:
+                # Unpack modality
+                (requirement_modality, file_requirement) = requirement_dict[file]
+
                 # Check required case
-                if requirement_dict[file] == FileRequirement.REQUIRED and not getattr(self, file):
-                    raise ValueError(f"{modality.abbreviation} metadata missing required file: {file}")
+                if file_requirement == FileRequirement.REQUIRED and not getattr(self, file):
+                    raise ValueError(f"{requirement_modality} metadata missing required file: {file}")
 
                 # Check excluded case
-                if requirement_dict[file] == FileRequirement.EXCLUDED and getattr(self, file):
-                    raise ValueError(f"{modality.abbreviation} metadata includes excluded file: {file}")
+                if file_requirement == FileRequirement.EXCLUDED and getattr(self, file):
+                    raise ValueError(f"{requirement_modality} metadata includes excluded file: {file}")
 
         return self
 

@@ -249,7 +249,7 @@ class TestMetadata(unittest.TestCase):
                 rig=Rig.model_construct(),
             )
         self.assertIn(
-            "ecephys metadata missing required file: subject",
+            "ECEPHYS metadata missing required file: subject",
             str(context.exception),
         )
 
