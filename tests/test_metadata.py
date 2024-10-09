@@ -136,7 +136,7 @@ class TestMetadata(unittest.TestCase):
 
         # Tests missing metadata
         surgery1 = Surgery.model_construct(procedures=[nano_inj, ionto_inj])
-        with self.assertRaises(ValueError) as context:
+        with self.assertRaises(ValidationError) as context:
             Metadata(
                 name="ecephys_655019_2023-04-03_18-17-09",
                 location="bucket",
@@ -156,7 +156,7 @@ class TestMetadata(unittest.TestCase):
 
         # Tests excluded metadata getting included
         surgery1 = Surgery.model_construct(procedures=[nano_inj, ionto_inj])
-        with self.assertRaises(ValueError) as context:
+        with self.assertRaises(ValidationError) as context:
             Metadata(
                 name="ecephys_655019_2023-04-03_18-17-09",
                 location="bucket",
@@ -178,7 +178,7 @@ class TestMetadata(unittest.TestCase):
 
         # Tests missing injection materials
         surgery2 = Surgery.model_construct(procedures=[nano_inj])
-        with self.assertRaises(ValueError) as context:
+        with self.assertRaises(ValidationError) as context:
             Metadata(
                 name="ecephys_655019_2023-04-03_18-17-09",
                 location="bucket",
@@ -235,7 +235,7 @@ class TestMetadata(unittest.TestCase):
 
         # Tests missing metadata
         surgery1 = Surgery.model_construct(procedures=[nano_inj, ionto_inj])
-        with self.assertRaises(ValueError) as context:
+        with self.assertRaises(ValidationError) as context:
             Metadata(
                 name="ecephys_655019_2023-04-03_18-17-09",
                 location="bucket",
@@ -255,7 +255,7 @@ class TestMetadata(unittest.TestCase):
 
         # Tests missing injection materials
         surgery2 = Surgery.model_construct(procedures=[nano_inj])
-        with self.assertRaises(ValueError) as context:
+        with self.assertRaises(ValidationError) as context:
             Metadata(
                 name="ecephys_655019_2023-04-03_18-17-09",
                 location="bucket",
@@ -305,7 +305,7 @@ class TestMetadata(unittest.TestCase):
         mouse_platform = MousePlatform.model_construct(name="platform1")
         rig = Rig.model_construct(rig_id="123_EPHYS1_20220101", mouse_platform=mouse_platform)
         session = Session.model_construct(rig_id="123_EPHYS2_20230101", mouse_platform_name="platform2")
-        with self.assertRaises(ValueError) as context:
+        with self.assertRaises(ValidationError) as context:
             Metadata(
                 name="ecephys_655019_2023-04-03_18-17-09",
                 location="bucket",
