@@ -205,7 +205,7 @@ class Metadata(AindCoreModel):
 
             for modality in modalities:
                 abbreviation = modality.abbreviation.replace("-", "_").upper()
-                
+
                 for file in CORE_FILES:
                     #  For each field, check if this is a required/excluded file
                     file_requirement = getattr(getattr(ExpectedFiles, abbreviation), file)
