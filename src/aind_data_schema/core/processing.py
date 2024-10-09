@@ -4,11 +4,11 @@ from enum import Enum
 from typing import List, Literal, Optional
 
 from aind_data_schema_models.process_names import ProcessName
-from pydantic import Field, ValidationInfo, model_validator, field_validator
+from aind_data_schema_models.units import MemoryUnit, UnitlessUnit
+from pydantic import Field, ValidationInfo, field_validator, model_validator
 
 from aind_data_schema.base import AindCoreModel, AindGeneric, AindGenericType, AindModel, AwareDatetimeWithDefault
 from aind_data_schema.components.tile import Tile
-from aind_data_schema_models.units import MemoryUnit, UnitlessUnit
 
 
 class RegistrationType(str, Enum):

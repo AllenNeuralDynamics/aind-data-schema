@@ -1,10 +1,10 @@
 """ Schemas for Quality Metrics """
 
 from enum import Enum
-from typing import List, Literal, Optional, Any
+from typing import Any, List, Literal, Optional
 
 from aind_data_schema_models.modalities import Modality
-from pydantic import Field, BaseModel, field_validator
+from pydantic import BaseModel, Field, field_validator
 
 from aind_data_schema.base import AindCoreModel, AindModel, AwareDatetimeWithDefault
 
