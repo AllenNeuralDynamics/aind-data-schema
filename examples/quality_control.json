@@ -27,15 +27,16 @@
                   ],
                   "type": "dropdown"
                },
-               "description": null,
-               "reference": "ecephys-drift-map",
                "status_history": [
                   {
                      "evaluator": "",
                      "status": "Pending",
                      "timestamp": "2022-11-22T00:00:00Z"
                   }
-               ]
+               ],
+               "description": null,
+               "reference": "ecephys-drift-map",
+               "provenance": null
             },
             {
                "name": "Probe B drift",
@@ -53,28 +54,30 @@
                   ],
                   "type": "checkbox"
                },
-               "description": null,
-               "reference": "ecephys-drift-map",
                "status_history": [
                   {
                      "evaluator": "",
                      "status": "Pending",
                      "timestamp": "2022-11-22T00:00:00Z"
                   }
-               ]
+               ],
+               "description": null,
+               "reference": "ecephys-drift-map",
+               "provenance": null
             },
             {
                "name": "Probe C drift",
                "value": "Low",
-               "description": null,
-               "reference": "ecephys-drift-map",
                "status_history": [
                   {
                      "evaluator": "Automated",
                      "status": "Pass",
                      "timestamp": "2022-11-22T00:00:00Z"
                   }
-               ]
+               ],
+               "description": null,
+               "reference": "ecephys-drift-map",
+               "provenance": null
             }
          ],
          "notes": "",
@@ -92,28 +95,30 @@
             {
                "name": "video_1_num_frames",
                "value": 662,
-               "description": null,
-               "reference": null,
                "status_history": [
                   {
                      "evaluator": "Automated",
                      "status": "Pass",
                      "timestamp": "2022-11-22T00:00:00Z"
                   }
-               ]
+               ],
+               "description": null,
+               "reference": null,
+               "provenance": null
             },
             {
                "name": "video_2_num_frames",
                "value": 662,
-               "description": null,
-               "reference": null,
                "status_history": [
                   {
                      "evaluator": "Automated",
                      "status": "Pass",
                      "timestamp": "2022-11-22T00:00:00Z"
                   }
-               ]
+               ],
+               "description": null,
+               "reference": null,
+               "provenance": null
             }
          ],
          "notes": "Pass when video_1_num_frames==video_2_num_frames",
@@ -131,41 +136,44 @@
             {
                "name": "ProbeA_success",
                "value": true,
-               "description": null,
-               "reference": null,
                "status_history": [
                   {
                      "evaluator": "Automated",
                      "status": "Pass",
                      "timestamp": "2022-11-22T00:00:00Z"
                   }
-               ]
+               ],
+               "description": null,
+               "reference": null,
+               "provenance": null
             },
             {
                "name": "ProbeB_success",
                "value": true,
-               "description": null,
-               "reference": null,
                "status_history": [
                   {
                      "evaluator": "Automated",
                      "status": "Pass",
                      "timestamp": "2022-11-22T00:00:00Z"
                   }
-               ]
+               ],
+               "description": null,
+               "reference": null,
+               "provenance": null
             },
             {
                "name": "ProbeC_success",
                "value": true,
-               "description": null,
-               "reference": null,
                "status_history": [
                   {
                      "evaluator": "Automated",
                      "status": "Pass",
                      "timestamp": "2022-11-22T00:00:00Z"
                   }
-               ]
+               ],
+               "description": null,
+               "reference": null,
+               "provenance": null
             }
          ],
          "notes": null,
