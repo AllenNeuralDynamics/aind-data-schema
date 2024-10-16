@@ -26,6 +26,7 @@ class Stage(str, Enum):
     RAW = "Raw data"
     PROCESSING = "Processing"
     ANALYSIS = "Analysis"
+    MULTI_ASSET = "Multi-asset"
 
 
 class QCStatus(BaseModel):
@@ -47,7 +48,7 @@ class QCMetric(BaseModel):
     provenance: Optional[List[str]] = Field(
         default=None,
         title="List of asset names that this metric depends on",
-        description="Set to None except when a metric is calculated relative data coming from a different data asset.",
+        description="Set to None except when a metric's calculation required data coming from a different data asset.",
     )
 
     @property
