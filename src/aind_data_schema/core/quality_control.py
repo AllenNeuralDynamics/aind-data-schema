@@ -41,9 +41,14 @@ class QCMetric(BaseModel):
 
     name: str = Field(..., title="Metric name")
     value: Any = Field(..., title="Metric value")
+    status_history: List[QCStatus] = Field(default=[], title="Metric status history")
     description: Optional[str] = Field(default=None, title="Metric description")
     reference: Optional[str] = Field(default=None, title="Metric reference image URL or plot type")
-    status_history: List[QCStatus] = Field(default=[], title="Metric status history")
+    provenance: Optional[List[str]] = Field(
+        default=None,
+        title="List of asset names that this metric depends on",
+        description="Set to None except when a metric is calculated relative data coming from a different data asset."
+    )
 
     @property
     def status(self) -> QCStatus:
