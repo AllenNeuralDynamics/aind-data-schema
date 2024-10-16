@@ -66,6 +66,14 @@ class ModelEvaluation(AindModel):
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
+class CumulativeEvaluation(AindModel):
+    """Description of cumulative evaluation performances"""
+
+    evaluation_date: AwareDatetimeWithDefault = Field(..., title="Date trained") #not sure we need datetime
+    performance: PerformanceScore = Field(..., title="Evaluation performance")
+    notes: Optional[str] = Field(default=None, title="Notes")
+
+
 class Model(AindCoreModel):
     """Description of an analysis model"""
 
@@ -75,7 +83,7 @@ class Model(AindCoreModel):
 
     name: str = Field(..., title="Name")
     developer_full_name: Optional[str] = Field(default=None, title="Name of developer")
-    developer_institution: Organization.ONE_OF = Field(default=None, title="Institute where developed")
+    developer_institution: Optional[Organization.ONE_OF] = Field(default=None, title="Institute where developed")
     modality: Modality.ONE_OF = Field(..., title="Modality")
     model_architecture: ModelArchitecture = Field(..., title="Model architecture")
     software: Software = Field(..., title="software")
@@ -83,4 +91,5 @@ class Model(AindCoreModel):
     limitations: Optional[str] = Field(default=None, title="Model limitations")
     training: List[ModelTraining] = Field(..., title="Training")
     evaluations: Optional[List[ModelEvaluation]] = Field(default=[], title="Evaluations")
+    cumulative_performance: Optional[List[CumulativeEvaluation]] = Field(default=[], title="Cumulative performance")
     notes: Optional[str] = Field(default=None, title="Notes")
