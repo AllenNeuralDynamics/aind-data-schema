@@ -3,21 +3,9 @@
 from datetime import date
 from decimal import Decimal
 
-from aind_data_schema_models.organizations import (
-    AIND,
-    ALLIED,
-    ASUS,
-    COHERENT_SCIENTIFIC,
-    CONOPTICS,
-    EDMUMD_OPTICS,
-    HAMAMATSU,
-    INFINITY_PHOTO_OPTICAL,
-    NATIONAL_INSTRUMENTS,
-    SEMROCK,
-    THORLABS
-)
-from aind_data_schema_models.registry import ResearchOrganizationRegistry
+from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.units import FrequencyUnit, SizeUnit
+from aind_data_schema_models.modalities import Modality
 
 from aind_data_schema.base import AindGeneric
 from aind_data_schema.components.coordinates import Axis, RelativePosition, Rotation3dTransform, Translation3dTransform
@@ -41,21 +29,14 @@ from aind_data_schema.core.instrument import Objective
 
 rig = Rig(
     describedBy="https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/rig.py",  # noqa
-    schema_version="0.5.3",
-    rig_id="429-mesoscope-2022321",
+    schema_version="1.0.1",
+    rig_id="429_mesoscope_20220321",
     modification_date=date(2024, 10, 16),
     mouse_platform=Disc(
         device_type="Disc",
         name="MindScope Running Disk",
         serial_number=None,
-        manufacturer=AIND(
-            name="Allen Institute",
-            abbreviation="AI",
-            registry=ResearchOrganizationRegistry(
-                name="Research Organization Registry", abbreviation="ROR"
-            ),
-            registry_identifier="03cpe7c52",
-        ),
+        manufacturer=Organization.AIND,
         model=None,
         path_to_cad=None,
         port_index=None,
@@ -80,14 +61,7 @@ rig = Rig(
             device_type="Monitor",
             name="Stimulus Screen",
             serial_number=None,
-            manufacturer=ASUS(
-                name="ASUS",
-                abbreviation=None,
-                registry=ResearchOrganizationRegistry(
-                    name="Research Organization Registry", abbreviation="ROR"
-                ),
-                registry_identifier="00bxkz165",
-            ),
+            manufacturer=Organization.ASUS,
             model="PA248Q",
             path_to_cad=None,
             port_index=None,
@@ -147,12 +121,7 @@ rig = Rig(
                 device_type="Detector",
                 name="Behavior Camera",
                 serial_number=None,
-                manufacturer=ALLIED(
-                    name="Allied",
-                    abbreviation=None,
-                    registry=None,
-                    registry_identifier=None,
-                ),
+                manufacturer=Organization.ALLIED,
                 model="Mako G-32B",
                 path_to_cad=None,
                 port_index=None,
@@ -193,14 +162,7 @@ rig = Rig(
                 device_type="Lens",
                 name="Behavior Camera Lens",
                 serial_number=None,
-                manufacturer=THORLABS(
-                    name="Thorlabs",
-                    abbreviation=None,
-                    registry=ResearchOrganizationRegistry(
-                        name="Research Organization Registry", abbreviation="ROR"
-                    ),
-                    registry_identifier="04gsnvb07",
-                ),
+                manufacturer=Organization.THORLABS,
                 model="MVL6WA",
                 path_to_cad=None,
                 port_index=None,
@@ -218,12 +180,7 @@ rig = Rig(
                 device_type="Filter",
                 name="Behavior Camera Filter",
                 serial_number=None,
-                manufacturer=SEMROCK(
-                    name="Semrock",
-                    abbreviation=None,
-                    registry=None,
-                    registry_identifier=None,
-                ),
+                manufacturer=Organization.SEMROCK,
                 model="FF01-747/33-25",
                 path_to_cad=None,
                 port_index=None,
@@ -287,12 +244,7 @@ rig = Rig(
                 device_type="Detector",
                 name="Eye Camera",
                 serial_number=None,
-                manufacturer=ALLIED(
-                    name="Allied",
-                    abbreviation=None,
-                    registry=None,
-                    registry_identifier=None,
-                ),
+                manufacturer=Organization.ALLIED,
                 model="Mako G-32B",
                 path_to_cad=None,
                 port_index=None,
@@ -333,12 +285,7 @@ rig = Rig(
                 device_type="Lens",
                 name="Eye Camera Lens",
                 serial_number=None,
-                manufacturer=INFINITY_PHOTO_OPTICAL(
-                    name="Infinity Photo-Optical",
-                    abbreviation=None,
-                    registry=None,
-                    registry_identifier=None,
-                ),
+                manufacturer=Organization.INFINITY_PHOTO_OPTICAL,
                 model="213073",
                 path_to_cad=None,
                 port_index=None,
@@ -356,12 +303,7 @@ rig = Rig(
                 device_type="Filter",
                 name="Eye Camera Filter",
                 serial_number=None,
-                manufacturer=SEMROCK(
-                    name="Semrock",
-                    abbreviation=None,
-                    registry=None,
-                    registry_identifier=None,
-                ),
+                manufacturer=Organization.SEMROCK,
                 model="FF01-850/10-25",
                 path_to_cad=None,
                 port_index=None,
@@ -425,12 +367,7 @@ rig = Rig(
                 device_type="Detector",
                 name="Face Camera",
                 serial_number=None,
-                manufacturer=ALLIED(
-                    name="Allied",
-                    abbreviation=None,
-                    registry=None,
-                    registry_identifier=None,
-                ),
+                manufacturer=Organization.ALLIED,
                 model="Mako G-32B",
                 path_to_cad=None,
                 port_index=None,
@@ -471,14 +408,7 @@ rig = Rig(
                 device_type="Lens",
                 name="Face Camera Lens",
                 serial_number=None,
-                manufacturer=EDMUMD_OPTICS(
-                    name="Edmund Optics",
-                    abbreviation=None,
-                    registry=ResearchOrganizationRegistry(
-                        name="Research Organization Registry", abbreviation="ROR"
-                    ),
-                    registry_identifier="01j1gwp17",
-                ),
+                manufacturer=Organization.EDMUND_OPTICS,
                 model="86-604",
                 path_to_cad=None,
                 port_index=None,
@@ -496,12 +426,7 @@ rig = Rig(
                 device_type="Filter",
                 name="Face Camera Filter",
                 serial_number=None,
-                manufacturer=SEMROCK(
-                    name="Semrock",
-                    abbreviation=None,
-                    registry=None,
-                    registry_identifier=None,
-                ),
+                manufacturer=Organization.SEMROCK,
                 model="FF01-715/LP-25",
                 path_to_cad=None,
                 port_index=None,
@@ -572,14 +497,14 @@ rig = Rig(
             wavelength=920,
             wavelength_unit=SizeUnit.NM,
             serial_number="GDP.1007S.3490",
-            manufacturer=COHERENT_SCIENTIFIC(name="Coherent Scientific"),
+            manufacturer=Organization.COHERENT_SCIENTIFIC,
         ),
     ],
     detectors=[
         Detector(
             name="H11706-40",
             detector_type="Photomultiplier Tube",
-            manufacturer=HAMAMATSU(name="Hamamatsu"),
+            manufacturer=Organization.HAMAMATSU,
             data_interface=DataInterface.PCIE,
         )
     ],
@@ -588,14 +513,7 @@ rig = Rig(
             name="Mesoscope JenOptik Objective",
             numerical_aperture=0.8,
             magnification=3.6,
-            manufacturer=THORLABS(
-                    name="Thorlabs",
-                    abbreviation=None,
-                    registry=ResearchOrganizationRegistry(
-                        name="Research Organization Registry", abbreviation="ROR"
-                    ),
-                    registry_identifier="04gsnvb07",
-                ),
+            manufacturer=Organization.THORLABS,
             immersion="water",
             notes="Part from JenOptik: 14163000",
             serial_number="110",
@@ -611,7 +529,7 @@ rig = Rig(
             polygonal_scanner="no polygon scanner",
             on_time=12.0,
             off_time=13.0,
-            manufacturer=CONOPTICS(name="Conoptics"),
+            manufacturer=Organization.CONOPTICS,
             model="350-80",
             serial_number="354683BK",
         )
@@ -622,14 +540,7 @@ rig = Rig(
             device_type="DAQ Device",
             name="VBEB DAQ",
             serial_number=None,
-            manufacturer=NATIONAL_INSTRUMENTS(
-                name="National Instruments",
-                abbreviation=None,
-                registry=ResearchOrganizationRegistry(
-                    name="Research Organization Registry", abbreviation="ROR"
-                ),
-                registry_identifier="026exqw73",
-            ),
+            manufacturer=Organization.NATIONAL_INSTRUMENTS,
             model="USB-6001",
             path_to_cad=None,
             port_index=None,
@@ -645,14 +556,7 @@ rig = Rig(
             device_type="DAQ Device",
             name="SYNC DAQ",
             serial_number=None,
-            manufacturer=NATIONAL_INSTRUMENTS(
-                name="National Instruments",
-                abbreviation=None,
-                registry=ResearchOrganizationRegistry(
-                    name="Research Organization Registry", abbreviation="ROR"
-                ),
-                registry_identifier="026exqw73",
-            ),
+            manufacturer=Organization.NATIONAL_INSTRUMENTS,
             model="PCIe-6612",
             path_to_cad=None,
             port_index=None,
@@ -668,14 +572,7 @@ rig = Rig(
             device_type="DAQ Device",
             name="STIM DAQ",
             serial_number=None,
-            manufacturer=NATIONAL_INSTRUMENTS(
-                name="National Instruments",
-                abbreviation=None,
-                registry=ResearchOrganizationRegistry(
-                    name="Research Organization Registry", abbreviation="ROR"
-                ),
-                registry_identifier="026exqw73",
-            ),
+            manufacturer=Organization.NATIONAL_INSTRUMENTS,
             model="PCIe-6321",
             path_to_cad=None,
             port_index=None,
@@ -702,9 +599,7 @@ rig = Rig(
         ),
         Axis(name="Y", direction="defined by the right hand rule and the other two axis"),
     ],
-    modalities=[
-        {"name": "Planar optical physiology"}
-    ],
+    modalities=[Modality.POPHYS],
     notes=None,
 )
 
