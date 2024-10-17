@@ -4,17 +4,17 @@ from datetime import date
 from decimal import Decimal
 
 from aind_data_schema_models.organizations import (
-    AllenInstitute,
-    Allied,
-    Asus,
-    CoherentScientific,
-    Conoptics,
-    EdmundOptics,
-    Hamamatsu,
-    InfinityPhotoOptical,
-    NationalInstruments,
-    Semrock,
-    Thorlabs,
+    AIND,
+    ALLIED,
+    ASUS,
+    COHERENT_SCIENTIFIC,
+    CONOPTICS,
+    EDMUMD_OPTICS,
+    HAMAMATSU,
+    INFINITY_PHOTO_OPTICAL,
+    NATIONAL_INSTRUMENTS,
+    SEMROCK,
+    THORLABS
 )
 from aind_data_schema_models.registry import ResearchOrganizationRegistry
 from aind_data_schema_models.units import FrequencyUnit, SizeUnit
@@ -48,7 +48,7 @@ rig = Rig(
         device_type="Disc",
         name="MindScope Running Disk",
         serial_number=None,
-        manufacturer=AllenInstitute(
+        manufacturer=AIND(
             name="Allen Institute",
             abbreviation="AI",
             registry=ResearchOrganizationRegistry(
@@ -80,7 +80,7 @@ rig = Rig(
             device_type="Monitor",
             name="Stimulus Screen",
             serial_number=None,
-            manufacturer=Asus(
+            manufacturer=ASUS(
                 name="ASUS",
                 abbreviation=None,
                 registry=ResearchOrganizationRegistry(
@@ -147,7 +147,7 @@ rig = Rig(
                 device_type="Detector",
                 name="Behavior Camera",
                 serial_number=None,
-                manufacturer=Allied(
+                manufacturer=ALLIED(
                     name="Allied",
                     abbreviation=None,
                     registry=None,
@@ -193,7 +193,7 @@ rig = Rig(
                 device_type="Lens",
                 name="Behavior Camera Lens",
                 serial_number=None,
-                manufacturer=Thorlabs(
+                manufacturer=THORLABS(
                     name="Thorlabs",
                     abbreviation=None,
                     registry=ResearchOrganizationRegistry(
@@ -218,7 +218,7 @@ rig = Rig(
                 device_type="Filter",
                 name="Behavior Camera Filter",
                 serial_number=None,
-                manufacturer=Semrock(
+                manufacturer=SEMROCK(
                     name="Semrock",
                     abbreviation=None,
                     registry=None,
@@ -287,7 +287,7 @@ rig = Rig(
                 device_type="Detector",
                 name="Eye Camera",
                 serial_number=None,
-                manufacturer=Allied(
+                manufacturer=ALLIED(
                     name="Allied",
                     abbreviation=None,
                     registry=None,
@@ -333,7 +333,7 @@ rig = Rig(
                 device_type="Lens",
                 name="Eye Camera Lens",
                 serial_number=None,
-                manufacturer=InfinityPhotoOptical(
+                manufacturer=INFINITY_PHOTO_OPTICAL(
                     name="Infinity Photo-Optical",
                     abbreviation=None,
                     registry=None,
@@ -356,7 +356,7 @@ rig = Rig(
                 device_type="Filter",
                 name="Eye Camera Filter",
                 serial_number=None,
-                manufacturer=Semrock(
+                manufacturer=SEMROCK(
                     name="Semrock",
                     abbreviation=None,
                     registry=None,
@@ -425,7 +425,7 @@ rig = Rig(
                 device_type="Detector",
                 name="Face Camera",
                 serial_number=None,
-                manufacturer=Allied(
+                manufacturer=ALLIED(
                     name="Allied",
                     abbreviation=None,
                     registry=None,
@@ -471,7 +471,7 @@ rig = Rig(
                 device_type="Lens",
                 name="Face Camera Lens",
                 serial_number=None,
-                manufacturer=EdmundOptics(
+                manufacturer=EDMUMD_OPTICS(
                     name="Edmund Optics",
                     abbreviation=None,
                     registry=ResearchOrganizationRegistry(
@@ -496,7 +496,7 @@ rig = Rig(
                 device_type="Filter",
                 name="Face Camera Filter",
                 serial_number=None,
-                manufacturer=Semrock(
+                manufacturer=SEMROCK(
                     name="Semrock",
                     abbreviation=None,
                     registry=None,
@@ -572,14 +572,14 @@ rig = Rig(
             wavelength=920,
             wavelength_unit=SizeUnit.NM,
             serial_number="GDP.1007S.3490",
-            manufacturer=CoherentScientific(name="Coherent Scientific"),
+            manufacturer=COHERENT_SCIENTIFIC(name="Coherent Scientific"),
         ),
     ],
     detectors=[
         Detector(
             name="H11706-40",
             detector_type="Photomultiplier Tube",
-            manufacturer=Hamamatsu(name="Hamamatsu"),
+            manufacturer=HAMAMATSU(name="Hamamatsu"),
             data_interface=DataInterface.PCIE,
         )
     ],
@@ -588,7 +588,7 @@ rig = Rig(
             name="Mesoscope JenOptik Objective",
             numerical_aperture=0.8,
             magnification=3.6,
-            manufacturer=Thorlabs(
+            manufacturer=THORLABS(
                     name="Thorlabs",
                     abbreviation=None,
                     registry=ResearchOrganizationRegistry(
@@ -611,7 +611,7 @@ rig = Rig(
             polygonal_scanner="no polygon scanner",
             on_time=12.0,
             off_time=13.0,
-            manufacturer=Conoptics(name="Conoptics"),
+            manufacturer=CONOPTICS(name="Conoptics"),
             model="350-80",
             serial_number="354683BK",
         )
@@ -622,7 +622,7 @@ rig = Rig(
             device_type="DAQ Device",
             name="VBEB DAQ",
             serial_number=None,
-            manufacturer=NationalInstruments(
+            manufacturer=NATIONAL_INSTRUMENTS(
                 name="National Instruments",
                 abbreviation=None,
                 registry=ResearchOrganizationRegistry(
@@ -645,7 +645,7 @@ rig = Rig(
             device_type="DAQ Device",
             name="SYNC DAQ",
             serial_number=None,
-            manufacturer=NationalInstruments(
+            manufacturer=NATIONAL_INSTRUMENTS(
                 name="National Instruments",
                 abbreviation=None,
                 registry=ResearchOrganizationRegistry(
@@ -668,7 +668,7 @@ rig = Rig(
             device_type="DAQ Device",
             name="STIM DAQ",
             serial_number=None,
-            manufacturer=NationalInstruments(
+            manufacturer=NATIONAL_INSTRUMENTS(
                 name="National Instruments",
                 abbreviation=None,
                 registry=ResearchOrganizationRegistry(
