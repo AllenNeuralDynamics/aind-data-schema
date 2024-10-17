@@ -51,7 +51,7 @@ class ModelTraining(AindModel):
     training_data: str = Field(..., title="Path to training data")
     training_data_description: Optional[str] = Field(default=None, title="Description of training data") 
     training_date: AwareDatetimeWithDefault = Field(..., title="Date trained") #not sure we need datetime
-    validation_folds: int = Field(..., title="Validation folds") #is the validation methods x-fold? or are there other validations? Enum?
+    validation_folds: int = Field(..., title="Validation folds") #is the validation methods always x-fold? or Enum?
     performance: PerformanceScore = Field(..., title="Training performance")
     notes: Optional[str] = Field(default=None, title="Notes")
 
