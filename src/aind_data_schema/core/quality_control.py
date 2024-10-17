@@ -133,8 +133,9 @@ class QCEvaluation(AindModel):
 
     @model_validator(mode="after")
     def validate_multi_session(cls, v):
-        stage = v.get('stage')
-        metrics = v.get('metrics')
+        """Ensure that the evaluated_assets field in any attached metrics is set correctly"""
+        stage = v.stage
+        metrics = v.metrics
 
         if stage == Stage.MULTI_SESSION:
             for metric in metrics:
@@ -147,7 +148,8 @@ class QCEvaluation(AindModel):
             for metric in metrics:
                 if metric.evaluated_assets:
                     raise ValueError(
-                        f"Metric '{metric.name}' is in a single-session QCEvaluation and should not have evaluated_assets"
+                        f"Metric '{metric.name}' is in a single-session ",
+                        "QCEvaluation and should not have evaluated_assets",
                     )
         return v
 

@@ -282,12 +282,90 @@ class QualityControlTests(unittest.TestCase):
 
         self.assertTrue(expected_exception in repr(context.exception))
 
-    def test_multi_session(self)
-    """Ensure that the multi-session QCEvaluation validator checks for evaluated_assets"""
+    def test_multi_session(self):
+        """Ensure that the multi-session QCEvaluation validator checks for evaluated_assets"""
+        # Check for non-multi-session that all evaluated_assets are None
+        t0 = datetime.fromisoformat("2020-10-10")
 
-    # Check for non-multi-session that all evaluated_assets are None
+        evaluation = QCEvaluation(
+            name="Drift map",
+            modality=Modality.ECEPHYS,
+            stage=Stage.PROCESSING,
+            metrics=[
+                QCMetric(
+                    name="Multiple values example",
+                    value={"stuff": "in_a_dict"},
+                    status_history=[
+                        QCStatus(evaluator="Automated", timestamp=t0, status=Status.PASS),
+                    ],
+                ),
+            ],
+        )
 
-    # Check that for multi-session all evaluated_assets have at least one value
+        self.assertTrue(evaluation.stage != Stage.MULTI_SESSION)
+        self.assertIsNone(evaluation.metrics[0].evaluated_assets)
+
+        # Check that single-session QC with evaluated_assets throws a validation error
+        with self.assertRaises(ValidationError) as context:
+            QCEvaluation(
+                name="Drift map",
+                modality=Modality.ECEPHYS,
+                stage=Stage.PROCESSING,
+                metrics=[
+                    QCMetric(
+                        name="Multiple values example",
+                        value={"stuff": "in_a_dict"},
+                        status_history=[
+                            QCStatus(evaluator="Automated", timestamp=t0, status=Status.PASS),
+                        ],
+                        evaluated_assets=["asset0", "asset1"],
+                    ),
+                ],
+            )
+
+        self.assertTrue(
+            "is in a single-session QCEvaluation and should not have evaluated_assets" in repr(context.exception)
+        )
+
+        # Check that multi-session with empty evaluated_assets raises a validation error
+        with self.assertRaises(ValidationError) as context:
+            QCEvaluation(
+                name="Drift map",
+                modality=Modality.ECEPHYS,
+                stage=Stage.MULTI_SESSION,
+                metrics=[
+                    QCMetric(
+                        name="Multiple values example",
+                        value={"stuff": "in_a_dict"},
+                        status_history=[
+                            QCStatus(evaluator="Automated", timestamp=t0, status=Status.PASS),
+                        ],
+                        evaluated_assets=[],
+                    ),
+                ],
+            )
+
+        self.assertTrue("is in a multi-session QCEvaluation and must have evaluated_assets" in repr(context.exception))
+
+        # Check that multi-session with missing evaluated_assets raises a validation error
+        with self.assertRaises(ValidationError) as context:
+            QCEvaluation(
+                name="Drift map",
+                modality=Modality.ECEPHYS,
+                stage=Stage.MULTI_SESSION,
+                metrics=[
+                    QCMetric(
+                        name="Multiple values example",
+                        value={"stuff": "in_a_dict"},
+                        status_history=[
+                            QCStatus(evaluator="Automated", timestamp=t0, status=Status.PASS),
+                        ],
+                    ),
+                ],
+            )
+
+        self.assertTrue("is in a multi-session QCEvaluation and must have evaluated_assets" in repr(context.exception))
+
 
 if __name__ == "__main__":
     unittest.main()
