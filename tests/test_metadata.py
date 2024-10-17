@@ -285,19 +285,19 @@ class TestMetadata(unittest.TestCase):
         # Tests missing metadata
         surgery1 = Surgery.model_construct(procedures=[nano_inj, ionto_inj])
         m = Metadata(
-                name="ecephys_655019_2023-04-03_18-17-09",
-                location="bucket",
-                data_description=DataDescription.model_construct(
-                    label="some label",
-                    platform=Platform.ECEPHYS,
-                    creation_time=time(12, 12, 12),
-                    modality=[Modality.BEHAVIOR_VIDEOS],
-                ),
-                subject=Subject.model_construct(),
-                procedures=Procedures.model_construct(subject_procedures=[surgery1]),
-                rig=rig,
-                session=session,
-            )
+            name="ecephys_655019_2023-04-03_18-17-09",
+            location="bucket",
+            data_description=DataDescription.model_construct(
+                label="some label",
+                platform=Platform.ECEPHYS,
+                creation_time=time(12, 12, 12),
+                modality=[Modality.BEHAVIOR_VIDEOS],
+            ),
+            subject=Subject.model_construct(),
+            procedures=Procedures.model_construct(subject_procedures=[surgery1]),
+            rig=rig,
+            session=session,
+        )
         self.assertIsNotNone(m)
 
     def test_validate_rig_session_compatibility(self):
