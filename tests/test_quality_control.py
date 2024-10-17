@@ -282,6 +282,12 @@ class QualityControlTests(unittest.TestCase):
 
         self.assertTrue(expected_exception in repr(context.exception))
 
+    def test_multi_session(self)
+    """Ensure that the multi-session QCEvaluation validator checks for evaluated_assets"""
+
+    # Check for non-multi-session that all evaluated_assets are None
+
+    # Check that for multi-session all evaluated_assets have at least one value
 
 if __name__ == "__main__":
     unittest.main()
