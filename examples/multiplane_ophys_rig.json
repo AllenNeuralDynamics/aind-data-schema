@@ -1,20 +1,20 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/rig.py",
-   "schema_version": "0.5.3",
-   "rig_id": "429-mesoscope-2022321",
+   "schema_version": "1.0.1",
+   "rig_id": "429_mesoscope_20220321",
    "modification_date": "2024-10-16",
    "mouse_platform": {
       "device_type": "Disc",
       "name": "MindScope Running Disk",
       "serial_number": null,
       "manufacturer": {
-         "name": "Allen Institute",
-         "abbreviation": "AI",
+         "name": "Allen Institute for Neural Dynamics",
+         "abbreviation": "AIND",
          "registry": {
             "name": "Research Organization Registry",
             "abbreviation": "ROR"
          },
-         "registry_identifier": "03cpe7c52"
+         "registry_identifier": "04szwah67"
       },
       "model": null,
       "path_to_cad": null,
@@ -144,6 +144,8 @@
             "bin_height": null,
             "bin_unit": "pixel",
             "gain": "4",
+            "crop_offset_x": null,
+            "crop_offset_y": null,
             "crop_width": null,
             "crop_height": null,
             "crop_unit": "pixel",
@@ -291,6 +293,8 @@
             "bin_height": null,
             "bin_unit": "pixel",
             "gain": "4",
+            "crop_offset_x": null,
+            "crop_offset_y": null,
             "crop_width": null,
             "crop_height": null,
             "crop_unit": "pixel",
@@ -435,6 +439,8 @@
             "bin_height": null,
             "bin_unit": "pixel",
             "gain": "4",
+            "crop_offset_x": null,
+            "crop_offset_y": null,
             "crop_width": null,
             "crop_height": null,
             "crop_unit": "pixel",
@@ -619,6 +625,8 @@
          "bin_height": null,
          "bin_unit": "pixel",
          "gain": null,
+         "crop_offset_x": null,
+         "crop_offset_y": null,
          "crop_width": null,
          "crop_height": null,
          "crop_unit": "pixel",
@@ -675,7 +683,9 @@
          "polygonal_scanner": "no polygon scanner",
          "on_time": "12.0",
          "off_time": "13.0",
-         "time_setting_unit": "fraction of cycle"
+         "time_setting_unit": "fraction of cycle",
+         "beam_modulation": null,
+         "beam_modulation_unit": "Volts"
       }
    ],
    "additional_devices": [],
@@ -773,7 +783,7 @@
    "modalities": [
       {
          "name": "Planar optical physiology",
-         "abbreviation": "ophys"
+         "abbreviation": "pophys"
       }
    ],
    "notes": null

@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/session.py",
-   "schema_version": "0.3.3",
+   "schema_version": "1.0.1",
    "protocol_id": [],
    "experimenter_full_name": [
       "John Doe"
@@ -9,7 +9,7 @@
    "session_end_time": "2022-07-12T07:00:00Z",
    "session_type": "Mesoscope",
    "iacuc_protocol": "12345",
-   "rig_id": "MESO.1",
+   "rig_id": "429_mesoscope_20220321",
    "calibrations": [],
    "maintenance": [],
    "subject_id": "12345",
@@ -32,7 +32,7 @@
          "light_sources": [
             {
                "device_type": "Laser",
-               "name": "Laser A",
+               "name": "Axon 920-2 TPC",
                "wavelength": 920,
                "wavelength_unit": "nanometer",
                "excitation_power": "10",
@@ -255,13 +255,13 @@
                "notes": null
             }
          ],
-         "slap_fovs": null,
+         "slap_fovs": [],
          "stack_parameters": null,
          "mri_scans": [],
          "stream_modalities": [
             {
                "name": "Planar optical physiology",
-               "abbreviation": "ophys"
+               "abbreviation": "pophys"
             },
             {
                "name": "Behavior videos",
@@ -282,6 +282,6 @@
    "headframe_registration": null,
    "reward_delivery": null,
    "reward_consumed_total": null,
-   "reward_consumed_unit": "microliter",
+   "reward_consumed_unit": "milliliter",
    "notes": null
 }

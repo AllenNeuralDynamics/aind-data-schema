@@ -34,7 +34,7 @@ s = Session(
             ],
             light_sources=[
                 LaserConfig(
-                    name="Chameleon laser",
+                    name="Axon 920-2 TPC",
                     wavelength=920,
                     wavelength_unit="nanometer",
                     excitation_power=10,
