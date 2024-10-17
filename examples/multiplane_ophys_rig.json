@@ -1,8 +1,8 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/rig.py",
-   "schema_version": "0.3.3",
-   "rig_id": "MESO.2",
-   "modification_date": "2024-04-02",
+   "schema_version": "0.5.3",
+   "rig_id": "429-mesoscope-2022321",
+   "modification_date": "2024-10-16",
    "mouse_platform": {
       "device_type": "Disc",
       "name": "MindScope Running Disk",
@@ -129,7 +129,7 @@
             "data_interface": "Ethernet",
             "cooling": "None",
             "computer_name": "Video Monitor",
-            "max_frame_rate": "60",
+            "frame_rate": "60",
             "frame_rate_unit": "hertz",
             "immersion": null,
             "chroma": "Monochrome",
@@ -276,7 +276,7 @@
             "data_interface": "Ethernet",
             "cooling": "None",
             "computer_name": "Video Monitor",
-            "max_frame_rate": "60",
+            "frame_rate": "60",
             "frame_rate_unit": "hertz",
             "immersion": null,
             "chroma": "Monochrome",
@@ -420,7 +420,7 @@
             "data_interface": "Ethernet",
             "cooling": "None",
             "computer_name": "Video Monitor",
-            "max_frame_rate": "60",
+            "frame_rate": "60",
             "frame_rate_unit": "hertz",
             "immersion": null,
             "chroma": "Monochrome",
@@ -552,14 +552,132 @@
    "stick_microscopes": [],
    "laser_assemblies": [],
    "patch_cords": [],
-   "light_sources": [],
-   "detectors": [],
-   "objectives": [],
+   "light_sources": [
+      {
+         "device_type": "Laser",
+         "name": "Axon 920-2 TPC",
+         "serial_number": "GDP.1007S.3490",
+         "manufacturer": {
+            "name": "Coherent Scientific",
+            "abbreviation": null,
+            "registry": {
+               "name": "Research Organization Registry",
+               "abbreviation": "ROR"
+            },
+            "registry_identifier": "031tysd23"
+         },
+         "model": null,
+         "path_to_cad": null,
+         "port_index": null,
+         "additional_settings": {},
+         "notes": null,
+         "wavelength": 920,
+         "wavelength_unit": "nanometer",
+         "maximum_power": null,
+         "power_unit": "milliwatt",
+         "coupling": null,
+         "coupling_efficiency": null,
+         "coupling_efficiency_unit": "percent",
+         "item_number": null
+      }
+   ],
+   "detectors": [
+      {
+         "device_type": "Detector",
+         "name": "H11706-40",
+         "serial_number": null,
+         "manufacturer": {
+            "name": "Hamamatsu",
+            "abbreviation": null,
+            "registry": {
+               "name": "Research Organization Registry",
+               "abbreviation": "ROR"
+            },
+            "registry_identifier": "03natb733"
+         },
+         "model": null,
+         "path_to_cad": null,
+         "port_index": null,
+         "additional_settings": {},
+         "notes": null,
+         "detector_type": "Photomultiplier Tube",
+         "data_interface": "PCIe",
+         "cooling": "None",
+         "computer_name": null,
+         "frame_rate": null,
+         "frame_rate_unit": "hertz",
+         "immersion": null,
+         "chroma": null,
+         "sensor_width": null,
+         "sensor_height": null,
+         "size_unit": "pixel",
+         "sensor_format": null,
+         "sensor_format_unit": null,
+         "bit_depth": null,
+         "bin_mode": "None",
+         "bin_width": null,
+         "bin_height": null,
+         "bin_unit": "pixel",
+         "gain": null,
+         "crop_width": null,
+         "crop_height": null,
+         "crop_unit": "pixel",
+         "recording_software": null,
+         "driver": null,
+         "driver_version": null
+      }
+   ],
+   "objectives": [
+      {
+         "device_type": "Objective",
+         "name": "Mesoscope JenOptik Objective",
+         "serial_number": "110",
+         "manufacturer": {
+            "name": "Thorlabs",
+            "abbreviation": null,
+            "registry": {
+               "name": "Research Organization Registry",
+               "abbreviation": "ROR"
+            },
+            "registry_identifier": "04gsnvb07"
+         },
+         "model": null,
+         "path_to_cad": null,
+         "port_index": null,
+         "additional_settings": {},
+         "notes": "Part from JenOptik: 14163000",
+         "numerical_aperture": "0.8",
+         "magnification": "3.6",
+         "immersion": "water",
+         "objective_type": null
+      }
+   ],
    "filters": [],
    "lenses": [],
    "digital_micromirror_devices": [],
    "polygonal_scanners": [],
-   "pockels_cells": [],
+   "pockels_cells": [
+      {
+         "device_type": "Pockels cell",
+         "name": "Pockels Cell 1",
+         "serial_number": "354683BK",
+         "manufacturer": {
+            "name": "Conoptics",
+            "abbreviation": null,
+            "registry": null,
+            "registry_identifier": null
+         },
+         "model": "350-80",
+         "path_to_cad": null,
+         "port_index": null,
+         "additional_settings": {},
+         "notes": null,
+         "polygonal_scanner": "no polygon scanner",
+         "on_time": "12.0",
+         "off_time": "13.0",
+         "time_setting_unit": "fraction of cycle"
+      }
+   ],
    "additional_devices": [],
    "daqs": [
       {
@@ -652,6 +770,11 @@
          "direction": "defined by the right hand rule and the other two axis"
       }
    ],
-   "modalities": [],
+   "modalities": [
+      {
+         "name": "Planar optical physiology",
+         "abbreviation": "ophys"
+      }
+   ],
    "notes": null
 }

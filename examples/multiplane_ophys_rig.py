@@ -12,7 +12,6 @@ from aind_data_schema_models.organizations import (
     EdmundOptics,
     Hamamatsu,
     InfinityPhotoOptical,
-    LumenDynamics,
     NationalInstruments,
     Semrock,
     Thorlabs,
@@ -39,12 +38,13 @@ from aind_data_schema.components.devices import (
 )
 from aind_data_schema.core.instrument import DAQDevice
 from aind_data_schema.core.rig import Monitor, Rig
+from aind_data_schema.core.instrument import Objective
 
 rig = Rig(
     describedBy="https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/rig.py",  # noqa
     schema_version="0.5.3",
     rig_id="429-mesoscope-2022321",
-    modification_date=date(2022, 3, 21),
+    modification_date=date(2024, 10, 16),
     mouse_platform=Disc(
         device_type="Disc",
         name="MindScope Running Disk",
@@ -569,29 +569,39 @@ rig = Rig(
     light_sources=[
         Laser(
             device_type="Laser",
-            name="Laser",
+            name="Axon 920-2 TPC",
             wavelength=920,
             wavelength_unit=SizeUnit.NM,
-            serial_number="GDP.100H.1332",
+            serial_number="GDP.1007S.3490",
             manufacturer=CoherentScientific(name="Coherent Scientific"),
-        ),
-        LightEmittingDiode(
-            name="Epi lamp",
-            wavelength_max=600,
-            wavelength_min=350,
-            wavelength_unit=SizeUnit.NM,
-            manufacturer=LumenDynamics(name="Lumen Dynamics"),
         ),
     ],
     detectors=[
         Detector(
-            name="PMT",
+            name="H11706-40",
             detector_type="Photomultiplier Tube",
             manufacturer=Hamamatsu(name="Hamamatsu"),
             data_interface=DataInterface.PCIE,
         )
     ],
-    objectives=[],
+    objectives=[
+        Objective(
+            name="Mesoscope JenOptik Objective",
+            numerical_aperture=0.8,
+            magnification=3.6,
+            manufacturer=Thorlabs(
+                    name="Thorlabs",
+                    abbreviation=None,
+                    registry=ResearchOrganizationRegistry(
+                        name="Research Organization Registry", abbreviation="ROR"
+                    ),
+                    registry_identifier="04gsnvb07",
+                ),
+            immersion="water",
+            notes="Part from JenOptik: 14163000", 
+            serial_number="110",
+        )
+    ],
     filters=[],
     lenses=[],
     digital_micromirror_devices=[],
@@ -603,18 +613,9 @@ rig = Rig(
             on_time=12.0,
             off_time=13.0,
             manufacturer=Conoptics(name="Conoptics"),
-            model="530-80",
-            serial_number="354699BK",
-        ),
-        PockelsCell(
-            name="Pockels Cell 2",
-            manufacturer=Conoptics(name="Conoptics"),
-            polygonal_scanner="no polygon scanner",
-            on_time=12.0,
-            off_time=13.0,
-            model="530-80",
-            serial_number="353414BK",
-        ),
+            model="350-80",
+            serial_number="354683BK",
+        )
     ],
     additional_devices=[],
     daqs=[
@@ -702,10 +703,12 @@ rig = Rig(
         ),
         Axis(name="Y", direction="defined by the right hand rule and the other two axis"),
     ],
-    modalities=set("ophys"),
+    modalities=[
+        {"name": "Planar optical physiology"}
+    ],
     notes=None,
 )
 
 serialized = rig.model_dump_json()
 deserialized = Rig.model_validate_json(serialized)
-deserialized.write_standard_file(prefix="mesoscope_ophys")
+deserialized.write_standard_file(prefix="multiplane_ophys")
