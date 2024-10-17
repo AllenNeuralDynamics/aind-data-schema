@@ -2,10 +2,9 @@
 
 from datetime import datetime, timezone
 
-from aind_data_schema_models.modalities import Modality
-from aind_data_schema_models.units import PowerUnit, SizeUnit
-
 from aind_data_schema.core.session import FieldOfView, LaserConfig, Session, Stream
+from aind_data_schema_models.units import PowerUnit, SizeUnit
+from aind_data_schema_models.modalities import Modality
 
 # If a timezone isn't specified, the timezone of the computer running this
 # script will be used as default
@@ -18,7 +17,7 @@ s = Session(
     subject_id="12345",
     session_type="Mesoscope",
     iacuc_protocol="12345",
-    rig_id="MESO.1",
+    rig_id="429_mesoscope_20220321",
     mouse_platform_name="disc",
     active_mouse_platform=True,
     data_streams=[
@@ -35,7 +34,7 @@ s = Session(
             ],
             light_sources=[
                 LaserConfig(
-                    name="Laser A",
+                    name="Axon 920-2 TPC",
                     wavelength=920,
                     wavelength_unit="nanometer",
                     excitation_power=10,
