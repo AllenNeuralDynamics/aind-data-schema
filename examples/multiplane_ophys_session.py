@@ -3,8 +3,8 @@
 from datetime import datetime, timezone
 
 from aind_data_schema.core.session import FieldOfView, LaserConfig, Session, Stream
-from aind_data_schema.models.units import PowerUnit, SizeUnit
-from aind_data_schema.models.modalities import Modality
+from aind_data_schema_models.units import PowerUnit, SizeUnit
+from aind_data_schema_models.modalities import Modality
 
 # If a timezone isn't specified, the timezone of the computer running this
 # script will be used as default
