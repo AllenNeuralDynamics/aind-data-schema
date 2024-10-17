@@ -30,7 +30,6 @@ from aind_data_schema.components.devices import (
     Detector,
     Disc,
     Filter,
-    LightEmittingDiode,
     Laser,
     Lens,
     PockelsCell,
@@ -598,7 +597,7 @@ rig = Rig(
                     registry_identifier="04gsnvb07",
                 ),
             immersion="water",
-            notes="Part from JenOptik: 14163000", 
+            notes="Part from JenOptik: 14163000",
             serial_number="110",
         )
     ],
