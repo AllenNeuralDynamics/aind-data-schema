@@ -323,6 +323,7 @@ class QualityControlTests(unittest.TestCase):
                 ],
             )
 
+        print(context.exception)
         self.assertTrue(
             "is in a single-session QCEvaluation and should not have evaluated_assets" in repr(context.exception)
         )

@@ -148,8 +148,10 @@ class QCEvaluation(AindModel):
             for metric in metrics:
                 if metric.evaluated_assets:
                     raise ValueError(
-                        f"Metric '{metric.name}' is in a single-session ",
-                        "QCEvaluation and should not have evaluated_assets",
+                        (
+                            f"Metric '{metric.name}' is in a single-session QCEvaluation"
+                            " and should not have evaluated_assets"
+                        )
                     )
         return v
 

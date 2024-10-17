@@ -36,7 +36,7 @@
                ],
                "description": null,
                "reference": "ecephys-drift-map",
-               "provenance": null
+               "evaluated_assets": null
             },
             {
                "name": "Probe B drift",
@@ -63,7 +63,7 @@
                ],
                "description": null,
                "reference": "ecephys-drift-map",
-               "provenance": null
+               "evaluated_assets": null
             },
             {
                "name": "Probe C drift",
@@ -77,7 +77,7 @@
                ],
                "description": null,
                "reference": "ecephys-drift-map",
-               "provenance": null
+               "evaluated_assets": null
             }
          ],
          "notes": "",
@@ -104,7 +104,7 @@
                ],
                "description": null,
                "reference": null,
-               "provenance": null
+               "evaluated_assets": null
             },
             {
                "name": "video_2_num_frames",
@@ -118,7 +118,7 @@
                ],
                "description": null,
                "reference": null,
-               "provenance": null
+               "evaluated_assets": null
             }
          ],
          "notes": "Pass when video_1_num_frames==video_2_num_frames",
@@ -145,7 +145,7 @@
                ],
                "description": null,
                "reference": null,
-               "provenance": null
+               "evaluated_assets": null
             },
             {
                "name": "ProbeB_success",
@@ -159,7 +159,7 @@
                ],
                "description": null,
                "reference": null,
-               "provenance": null
+               "evaluated_assets": null
             },
             {
                "name": "ProbeC_success",
@@ -173,7 +173,7 @@
                ],
                "description": null,
                "reference": null,
-               "provenance": null
+               "evaluated_assets": null
             }
          ],
          "notes": null,
