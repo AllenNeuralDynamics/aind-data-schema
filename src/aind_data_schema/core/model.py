@@ -2,75 +2,42 @@
 
 from decimal import Decimal
 from enum import Enum
-from typing import List, Literal, Optional, Union
+from typing import Any, Optional, List, Literal
 
 from pydantic import Field
 
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
+from aind_data_schema_models.system_architecture import ModelBackbone
 
 from aind_data_schema.base import AindCoreModel, AindGenericType, AindModel, AwareDatetimeWithDefault
 from aind_data_schema.components.devices import Software
 
 
-class Backbone(str, Enum):
-    """Types of network backbones"""
-
-    ALEXNET = "AlexNet"
-    RESNET = "ResNet"
-    VGGNET = "VGGNet"
-
-
 class ModelArchitecture(AindModel):
     """Description of model architecture"""
 
-    backbone: Backbone = Field(..., title="Backbone")
+    backbone: ModelBackbone = Field(..., title="Backbone")
     layers: int = Field(..., title="Layers")
     parameters: AindGenericType = Field(..., title="Parameters")
-    #notes?
-
-
-class ScoreStatistics(AindModel):
-    """Statistics for x-fold validation scores"""
-
-    mean: Decimal = Field(..., title="Mean")
-    std: Decimal = Field(..., title="Standard deviation")
-
-
-class PerformanceScore(AindModel):
-    """Description of performance metrics"""
-
-    precision: Union[Decimal, ScoreStatistics] = Field(..., title="Precision")
-    recall: Union[Decimal, ScoreStatistics] = Field(..., title="Recall")
-    f1_score: Union[Decimal, ScoreStatistics] = Field(..., title="F1 score")
-
-
-class ModelTraining(AindModel):
-    """Description of model training"""
-
-    training_data: str = Field(..., title="Path to training data")
-    training_data_description: Optional[str] = Field(default=None, title="Description of training data") 
-    training_date: AwareDatetimeWithDefault = Field(..., title="Date trained") #not sure we need datetime
-    validation_folds: int = Field(..., title="Validation folds") #is the validation methods always x-fold? or Enum?
-    performance: PerformanceScore = Field(..., title="Training performance")
     notes: Optional[str] = Field(default=None, title="Notes")
+
+
+class PerformanceMetric(AindModel):
+    """Description of a performance metric"""
+
+    name: str = Field(..., title="Metric name")
+    value: Any = Field(..., title="Metric value")
 
 
 class ModelEvaluation(AindModel):
-    """Description of model evaluation"""
+    """Description of model training"""
 
-    evaluation_data: str = Field(..., title="Path to evaluation data")
-    evaluation_data_description: Optional[str] = Field(default=None, title="Description of evaluation data")
-    evaluation_date: AwareDatetimeWithDefault = Field(..., title="Date trained") #not sure we need datetime
-    performance: PerformanceScore = Field(..., title="Evaluation performance")
-    notes: Optional[str] = Field(default=None, title="Notes")
-
-
-class CumulativeEvaluation(AindModel):
-    """Description of cumulative evaluation performances"""
-
-    evaluation_date: AwareDatetimeWithDefault = Field(..., title="Date trained") #not sure we need datetime
-    performance: PerformanceScore = Field(..., title="Evaluation performance")
+    data: str = Field(..., title="Path to training data")
+    data_description: Optional[str] = Field(default=None, title="Description of training data") 
+    date: AwareDatetimeWithDefault = Field(..., title="Date trained") #not sure we need datetime
+    validation_folds: Optional[int] = Field(default=None, title="Validation folds")
+    performance: List[PerformanceMetric] = Field(..., title="Training performance")
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
@@ -82,14 +49,14 @@ class Model(AindCoreModel):
     schema_version: Literal["0.0.1"] = Field("0.0.1")
 
     name: str = Field(..., title="Name")
-    developer_full_name: Optional[str] = Field(default=None, title="Name of developer")
+    license: str = Field(..., title="License")
+    developer_full_name: Optional[List[str]] = Field(default=None, title="Name of developer")
     developer_institution: Optional[Organization.ONE_OF] = Field(default=None, title="Institute where developed")
     modality: Modality.ONE_OF = Field(..., title="Modality")
     model_architecture: ModelArchitecture = Field(..., title="Model architecture")
-    software: Software = Field(..., title="software")
+    software: List[Software] = Field(..., title="software")
     direct_use: str = Field(..., title="Intended model use", description="Semantic description of intended use")
     limitations: Optional[str] = Field(default=None, title="Model limitations")
-    training: List[ModelTraining] = Field(..., title="Training")
+    training: List[ModelEvaluation] = Field(..., title="Training")
     evaluations: Optional[List[ModelEvaluation]] = Field(default=[], title="Evaluations")
-    cumulative_performance: Optional[List[CumulativeEvaluation]] = Field(default=[], title="Cumulative performance")
     notes: Optional[str] = Field(default=None, title="Notes")
