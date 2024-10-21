@@ -60,8 +60,8 @@ class Metadata(AindCoreModel):
     _FILE_EXTENSION = PrivateAttr(default=".nd.json")
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/metadata.py"
-    describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["1.0.2"] = Field("1.0.2")
+    describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
+    schema_version: Literal["1.0.2"] = Field(default="1.0.2")
     id: UUID = Field(
         default_factory=uuid4,
         alias="_id",
