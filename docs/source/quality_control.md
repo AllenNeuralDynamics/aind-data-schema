@@ -106,7 +106,9 @@ By default the QC portal displays dictionaries as tables where the values can be
 
 During analysis there are many situations where multiple data assets need to be pulled together, often for comparison. For example, FOVs across imaging sessions or recording sessions from a chronic probe might need to get matched up across days. When a `QCEvaluation` is being calculated from multiple assets it should be tagged with `Stage:MULTI_ASSET` and each of its `QCMetric` objects needs to track the assets that were used to generate that metric in the `evaluated_assets` list.
 
-Note that the intention is that independent data assets (i.e. data from one session in one modality) get quality control at `Stage:RAW` and `Stage:PROCESSING`. It's only after data assets have passed these single-asset checks that `Stage:MULTI_ASSET` quality control should be run. 
+**Q: Where do I store multi-asset QC?**
+
+You should follow the preferred/alternate workflows described above. If your multi-asset analysis pipeline generates a new data asset, put the QC there. If your pipeline does not generate an asset, push a copy of each `QCEvaluation` back to **each** individual data asset.
 
 **Q: I want to be able to store data about each of the evaluated assets in this metric**
 
