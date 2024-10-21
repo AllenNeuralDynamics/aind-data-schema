@@ -26,7 +26,7 @@ class Stage(str, Enum):
     RAW = "Raw data"
     PROCESSING = "Processing"
     ANALYSIS = "Analysis"
-    MULTI_ASSET = "Multi-session"
+    MULTI_ASSET = "Multi-asset"
 
 
 class QCStatus(BaseModel):
