@@ -302,7 +302,7 @@ class QualityControlTests(unittest.TestCase):
             ],
         )
 
-        self.assertTrue(evaluation.stage != Stage.MULTI_SESSION)
+        self.assertTrue(evaluation.stage != Stage.MULTI_ASSET)
         self.assertIsNone(evaluation.metrics[0].evaluated_assets)
 
         # Check that single-session QC with evaluated_assets throws a validation error
@@ -333,7 +333,7 @@ class QualityControlTests(unittest.TestCase):
             QCEvaluation(
                 name="Drift map",
                 modality=Modality.ECEPHYS,
-                stage=Stage.MULTI_SESSION,
+                stage=Stage.MULTI_ASSET,
                 metrics=[
                     QCMetric(
                         name="Multiple values example",
@@ -353,7 +353,7 @@ class QualityControlTests(unittest.TestCase):
             QCEvaluation(
                 name="Drift map",
                 modality=Modality.ECEPHYS,
-                stage=Stage.MULTI_SESSION,
+                stage=Stage.MULTI_ASSET,
                 metrics=[
                     QCMetric(
                         name="Multiple values example",

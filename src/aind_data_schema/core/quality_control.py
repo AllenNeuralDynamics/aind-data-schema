@@ -26,7 +26,7 @@ class Stage(str, Enum):
     RAW = "Raw data"
     PROCESSING = "Processing"
     ANALYSIS = "Analysis"
-    MULTI_SESSION = "Multi-session"
+    MULTI_ASSET = "Multi-session"
 
 
 class QCStatus(BaseModel):
@@ -137,7 +137,7 @@ class QCEvaluation(AindModel):
         stage = v.stage
         metrics = v.metrics
 
-        if stage == Stage.MULTI_SESSION:
+        if stage == Stage.MULTI_ASSET:
             for metric in metrics:
                 if not metric.evaluated_assets or len(metric.evaluated_assets) == 0:
                     raise ValueError(
