@@ -327,7 +327,9 @@ class TestMetadata(unittest.TestCase):
         )
 
     def test_validate_old_schema_version(self):
-        """Tests that old schema versions are ignored during validation and that post-validation the schema version is current"""
+        """Tests that old schema versions are ignored during validation
+           and that post-validation the schema version is current
+        """
         with open("tests/resources/metadata_1.0.0.json", "r") as f:
             json_data = f.read()
 
