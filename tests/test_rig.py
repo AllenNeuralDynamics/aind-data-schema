@@ -3,9 +3,6 @@
 import unittest
 import json
 from datetime import date, datetime
-from pathlib import Path
-import os
-
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
 from pydantic import ValidationError
