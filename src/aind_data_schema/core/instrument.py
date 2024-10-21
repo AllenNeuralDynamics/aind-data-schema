@@ -4,7 +4,7 @@ from datetime import date
 from typing import List, Literal, Optional
 
 from aind_data_schema_models.organizations import Organization
-from pydantic import Field, ValidationInfo, field_validator
+from pydantic import Field, SkipValidation, ValidationInfo, field_validator
 
 from aind_data_schema.base import AindCoreModel, AindModel
 from aind_data_schema.components.devices import (
@@ -35,7 +35,7 @@ class Instrument(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/instrument.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["1.0.1"] = Field(default="1.0.1")
+    schema_version: SkipValidation[Literal["1.0.1"]] = Field(default="1.0.1")
 
     instrument_id: Optional[str] = Field(
         default=None,

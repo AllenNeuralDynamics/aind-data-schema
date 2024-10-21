@@ -8,7 +8,7 @@ from uuid import UUID, uuid4
 
 from aind_data_schema_models.modalities import ExpectedFiles, FileRequirement
 from aind_data_schema_models.platforms import Platform
-from pydantic import Field, PrivateAttr, ValidationError, ValidationInfo, field_validator, model_validator
+from pydantic import Field, PrivateAttr, SkipValidation, ValidationError, ValidationInfo, field_validator, model_validator
 
 from aind_data_schema.base import AindCoreModel
 from aind_data_schema.core.acquisition import Acquisition
@@ -61,7 +61,7 @@ class Metadata(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/metadata.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["1.0.2"] = Field(default="1.0.2")
+    schema_version: SkipValidation[Literal["1.0.2"]] = Field(default="1.0.2")
     id: UUID = Field(
         default_factory=uuid4,
         alias="_id",
