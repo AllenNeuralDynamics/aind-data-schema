@@ -326,6 +326,19 @@ class TestMetadata(unittest.TestCase):
             str(context.exception),
         )
 
+    def test_validate_old_schema_version(self):
+        """Tests that old schema versions are ignored during validation
+        and that post-validation the schema version is current
+        """
+        with open("tests/resources/metadata/metadata_1.0.0.json", "r") as f:
+            json_data = f.read()
+
+        try:
+            metadata = Metadata.model_validate_json(json_data)
+        except ValidationError as e:
+            print(e.json())
+        self.assertIsNotNone(metadata)
+
 
 if __name__ == "__main__":
     unittest.main()

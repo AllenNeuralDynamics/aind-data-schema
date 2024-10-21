@@ -8,7 +8,15 @@ from uuid import UUID, uuid4
 
 from aind_data_schema_models.modalities import ExpectedFiles, FileRequirement
 from aind_data_schema_models.platforms import Platform
-from pydantic import Field, PrivateAttr, SkipValidation, ValidationError, ValidationInfo, field_validator, model_validator
+from pydantic import (
+    Field,
+    PrivateAttr,
+    SkipValidation,
+    ValidationError,
+    ValidationInfo,
+    field_validator,
+    model_validator,
+)
 
 from aind_data_schema.base import AindCoreModel
 from aind_data_schema.core.acquisition import Acquisition

@@ -1,0 +1,4232 @@
+{
+    "_id": "a61f285e-c79b-46cd-b554-991d711b6e53",
+    "acquisition": null,
+    "created": "2024-10-02T19:00:10.861703",
+    "data_description": {
+      "creation_time": "2024-05-21T08:40:35-07:00",
+      "data_level": "raw",
+      "data_summary": null,
+      "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/data_description.py",
+      "funding_source": [
+        {
+          "fundee": "Marina Garrett, Peter Groblewski, Shawn Olsen",
+          "funder": {
+            "abbreviation": "AI",
+            "name": "Allen Institute",
+            "registry": {
+              "abbreviation": "ROR",
+              "name": "Research Organization Registry"
+            },
+            "registry_identifier": "03cpe7c52"
+          },
+          "grant_number": null
+        },
+        {
+          "fundee": "Marina Garrett",
+          "funder": {
+            "abbreviation": "NIMH",
+            "name": "National Institute of Mental Health",
+            "registry": {
+              "abbreviation": "ROR",
+              "name": "Research Organization Registry"
+            },
+            "registry_identifier": "04xeg9z08"
+          },
+          "grant_number": "U01MH130907"
+        }
+      ],
+      "group": null,
+      "institution": {
+        "abbreviation": "AIND",
+        "name": "Allen Institute for Neural Dynamics",
+        "registry": {
+          "abbreviation": "ROR",
+          "name": "Research Organization Registry"
+        },
+        "registry_identifier": "04szwah67"
+      },
+      "investigators": [
+        {
+          "abbreviation": null,
+          "name": "Marina Garrett",
+          "registry": null,
+          "registry_identifier": null
+        },
+        {
+          "abbreviation": null,
+          "name": "Peter Groblewski",
+          "registry": null,
+          "registry_identifier": null
+        },
+        {
+          "abbreviation": null,
+          "name": "Shawn Olsen",
+          "registry": null,
+          "registry_identifier": null
+        }
+      ],
+      "label": null,
+      "license": "CC-BY-4.0",
+      "modality": [
+        {
+          "abbreviation": "pophys",
+          "name": "Planar optical physiology"
+        },
+        {
+          "abbreviation": "behavior-videos",
+          "name": "Behavior videos"
+        },
+        {
+          "abbreviation": "behavior",
+          "name": "Behavior"
+        }
+      ],
+      "name": "multiplane-ophys_721291_2024-05-21_08-40-35",
+      "platform": {
+        "abbreviation": "multiplane-ophys",
+        "name": "Multiplane optical physiology platform"
+      },
+      "project_name": null,
+      "related_data": [],
+      "restrictions": null,
+      "schema_version": "1.0.0",
+      "subject_id": "721291"
+    },
+    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/metadata.py",
+    "external_links": {
+      "Code Ocean": []
+    },
+    "instrument": null,
+    "last_modified": "2024-10-04T19:02:55.860208",
+    "location": "s3://aind-private-data-dev-u5u0i5/multiplane-ophys_721291_2024-05-21_08-40-35",
+    "metadata_status": "Invalid",
+    "name": "multiplane-ophys_721291_2024-05-21_08-40-35",
+    "procedures": {
+      "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/procedures.py",
+      "notes": null,
+      "schema_version": "1.0.0",
+      "specimen_procedures": [],
+      "subject_id": "721291",
+      "subject_procedures": [
+        {
+          "anaesthesia": null,
+          "animal_weight_post": null,
+          "animal_weight_prior": null,
+          "experimenter_full_name": "14394",
+          "iacuc_protocol": "2402",
+          "notes": null,
+          "procedure_type": "Surgery",
+          "procedures": [
+            {
+              "output_specimen_ids": [
+                "721291"
+              ],
+              "procedure_type": "Perfusion",
+              "protocol_id": "dx.doi.org/10.17504/protocols.io.8epv51bejl1b/v6"
+            }
+          ],
+          "start_date": "2024-05-31",
+          "weight_unit": "gram",
+          "workstation_id": null
+        },
+        {
+          "anaesthesia": {
+            "duration": "120.0",
+            "duration_unit": "minute",
+            "level": "1.5",
+            "type": "isoflurane"
+          },
+          "animal_weight_post": "24.5",
+          "animal_weight_prior": "21.8",
+          "experimenter_full_name": "NSB-187",
+          "iacuc_protocol": "2103",
+          "notes": null,
+          "procedure_type": "Surgery",
+          "procedures": [
+            {
+              "bregma_to_lambda_distance": "3.824",
+              "bregma_to_lambda_unit": "millimeter",
+              "craniotomy_hemisphere": null,
+              "craniotomy_type": "5 mm",
+              "dura_removed": null,
+              "implant_part_number": "5mm stacked coverslip",
+              "procedure_type": "Craniotomy",
+              "protective_material": null,
+              "protocol_id": null,
+              "recovery_time": "10.0",
+              "recovery_time_unit": "minute"
+            },
+            {
+              "headframe_material": null,
+              "headframe_part_number": "0160-100-10",
+              "headframe_type": "Visual Ctx",
+              "procedure_type": "Headframe",
+              "protocol_id": null,
+              "well_part_number": "0160-200-20",
+              "well_type": "Mesoscope"
+            }
+          ],
+          "protocol_id": "dx.doi.org/10.17504/protocols.io.kqdg392o7g25/v2",
+          "start_date": "2024-02-27",
+          "weight_unit": "gram",
+          "workstation_id": "SWS 1"
+        },
+        {
+          "anaesthesia": null,
+          "animal_weight_post": null,
+          "animal_weight_prior": null,
+          "experimenter_full_name": "LAS-256",
+          "iacuc_protocol": "2402",
+          "notes": null,
+          "procedure_type": "Surgery",
+          "procedures": [],
+          "start_date": "2024-05-31",
+          "weight_unit": "gram",
+          "workstation_id": null
+        }
+      ]
+    },
+    "processing": {
+      "analyses": [],
+      "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/processing.py",
+      "notes": null,
+      "processing_pipeline": {
+        "data_processes": [],
+        "note": null,
+        "pipeline_url": null,
+        "pipeline_version": null,
+        "processor_full_name": "AIND Scientific Computing"
+      },
+      "schema_version": "1.0.0"
+    },
+    "quality_control": {
+      "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/quality_control.py",
+      "schema_version": "1.1.1",
+      "evaluations": [
+        {
+          "modality": {
+            "name": "Behavior videos",
+            "abbreviation": "behavior-videos"
+          },
+          "stage": "Raw data",
+          "name": "Face Tracking Video Quality",
+          "description": "This evaluation ensures the quality of the face tracking video",
+          "metrics": [
+            {
+              "name": "video_metadata",
+              "value": {
+                "video_mean": 18.02742775821942,
+                "filepath": "s3://aind-private-data-prod-o5171v/multiplane-ophys_721291_2024-05-21_08-40-35/behavior-videos/1367877720_Face_20240521T083855.mp4",
+                "shape": [
+                  285200,
+                  492,
+                  658,
+                  3
+                ],
+                "Duration": "01:19:13",
+                "FramesRecorded": 285199,
+                "FramesLostCount": 0,
+                "CameraInputCount": 0,
+                "LostFrames": [],
+                "FilenameOnRig": "C:\\ProgramData\\AIBS_MPE\\mvr\\data\\.\\1367877720_Face_20240521T083855.mp4"
+              },
+              "description": "Metadata of the video",
+              "reference": null,
+              "status_history": [
+                {
+                  "evaluator": "aind-ophys-qc-metrics",
+                  "status": "Pass",
+                  "timestamp": "2024-10-10 16:13:02.416431+00:00"
+                }
+              ]
+            },
+            {
+              "name": "video_mean",
+              "value": "{\"value\": \"No problems detected\", \"options\": [\"No problems detected\", \"Eye covered by objective shroud\", \"Video too dim\", \"Other Issue with Face Tracking Video\"], \"status\": [\"Pass\", \"Fail\", \"Fail\", \"Pass\"], \"type\": \"dropdown\"}",
+              "description": "Mean of the video",
+              "reference": "/face_tracking_video/face_tracking_global_mean.png",
+              "status_history": [
+                {
+                  "evaluator": "aind-ophys-qc-metrics",
+                  "status": "Pending",
+                  "timestamp": "2024-10-10 16:13:02.416959+00:00"
+                },
+                {
+                  "evaluator": "[TODO]",
+                  "status": "Pass",
+                  "timestamp": "2024-10-10 12:18:03.178284-07:00"
+                }
+              ]
+            }
+          ],
+          "notes": "",
+          "allow_failed_metrics": false
+        }
+      ],
+      "notes": null
+    },
+    "rig": {
+      "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/rig.py",
+      "schema_version": "1.0.1",
+      "rig_id": "323_EPHYS1_20231003",
+      "modification_date": "2023-10-03",
+      "mouse_platform": {
+         "device_type": "Disc",
+         "name": "Running Wheel",
+         "serial_number": null,
+         "manufacturer": null,
+         "model": null,
+         "path_to_cad": null,
+         "port_index": null,
+         "additional_settings": {},
+         "notes": null,
+         "surface_material": null,
+         "date_surface_replaced": null,
+         "radius": "15",
+         "radius_unit": "centimeter",
+         "output": null,
+         "encoder": null,
+         "decoder": null,
+         "encoder_firmware": null
+      },
+      "stimulus_devices": [],
+      "cameras": [
+         {
+            "name": "Face Camera Assembly",
+            "camera_target": "Face side left",
+            "camera": {
+               "device_type": "Detector",
+               "name": "Face Camera",
+               "serial_number": null,
+               "manufacturer": {
+                  "name": "Teledyne FLIR",
+                  "abbreviation": "FLIR",
+                  "registry": {
+                     "name": "Research Organization Registry",
+                     "abbreviation": "ROR"
+                  },
+                  "registry_identifier": "01j1gwp17"
+               },
+               "model": null,
+               "path_to_cad": null,
+               "port_index": null,
+               "additional_settings": {},
+               "notes": null,
+               "detector_type": "Camera",
+               "data_interface": "USB",
+               "cooling": "None",
+               "computer_name": "W10DT72941",
+               "frame_rate": "50",
+               "frame_rate_unit": "hertz",
+               "immersion": null,
+               "chroma": "Monochrome",
+               "sensor_width": 1080,
+               "sensor_height": 570,
+               "size_unit": "pixel",
+               "sensor_format": "1/2.9",
+               "sensor_format_unit": "inches",
+               "bit_depth": null,
+               "bin_mode": "None",
+               "bin_width": null,
+               "bin_height": null,
+               "bin_unit": "pixel",
+               "gain": null,
+               "crop_offset_x": null,
+               "crop_offset_y": null,
+               "crop_width": null,
+               "crop_height": null,
+               "crop_unit": "pixel",
+               "recording_software": null,
+               "driver": null,
+               "driver_version": null
+            },
+            "lens": {
+               "device_type": "Lens",
+               "name": "Camera lens",
+               "serial_number": null,
+               "manufacturer": {
+                  "name": "Edmund Optics",
+                  "abbreviation": null,
+                  "registry": {
+                     "name": "Research Organization Registry",
+                     "abbreviation": "ROR"
+                  },
+                  "registry_identifier": "01j1gwp17"
+               },
+               "model": null,
+               "path_to_cad": null,
+               "port_index": null,
+               "additional_settings": {},
+               "notes": null,
+               "focal_length": "15",
+               "focal_length_unit": "millimeter",
+               "size": null,
+               "lens_size_unit": "inch",
+               "optimized_wavelength_range": null,
+               "wavelength_unit": "nanometer",
+               "max_aperture": "f/2"
+            },
+            "filter": {
+               "device_type": "Filter",
+               "name": "LP filter",
+               "serial_number": null,
+               "manufacturer": {
+                  "name": "Thorlabs",
+                  "abbreviation": null,
+                  "registry": {
+                     "name": "Research Organization Registry",
+                     "abbreviation": "ROR"
+                  },
+                  "registry_identifier": "04gsnvb07"
+               },
+               "model": null,
+               "path_to_cad": null,
+               "port_index": null,
+               "additional_settings": {},
+               "notes": null,
+               "filter_type": "Long pass",
+               "diameter": null,
+               "width": null,
+               "height": null,
+               "size_unit": "millimeter",
+               "thickness": null,
+               "thickness_unit": "millimeter",
+               "filter_wheel_index": null,
+               "cut_off_wavelength": null,
+               "cut_on_wavelength": null,
+               "center_wavelength": null,
+               "wavelength_unit": "nanometer",
+               "description": "850 nm longpass filter"
+            },
+            "position": null
+         },
+         {
+            "name": "Body Camera Assembly",
+            "camera_target": "Body",
+            "camera": {
+               "device_type": "Detector",
+               "name": "Body Camera",
+               "serial_number": null,
+               "manufacturer": {
+                  "name": "Teledyne FLIR",
+                  "abbreviation": "FLIR",
+                  "registry": {
+                     "name": "Research Organization Registry",
+                     "abbreviation": "ROR"
+                  },
+                  "registry_identifier": "01j1gwp17"
+               },
+               "model": null,
+               "path_to_cad": null,
+               "port_index": null,
+               "additional_settings": {},
+               "notes": null,
+               "detector_type": "Camera",
+               "data_interface": "USB",
+               "cooling": "None",
+               "computer_name": "W10DT72941",
+               "frame_rate": "50",
+               "frame_rate_unit": "hertz",
+               "immersion": null,
+               "chroma": "Monochrome",
+               "sensor_width": 1080,
+               "sensor_height": 570,
+               "size_unit": "pixel",
+               "sensor_format": "1/2.9",
+               "sensor_format_unit": "inches",
+               "bit_depth": null,
+               "bin_mode": "None",
+               "bin_width": null,
+               "bin_height": null,
+               "bin_unit": "pixel",
+               "gain": null,
+               "crop_offset_x": null,
+               "crop_offset_y": null,
+               "crop_width": null,
+               "crop_height": null,
+               "crop_unit": "pixel",
+               "recording_software": null,
+               "driver": null,
+               "driver_version": null
+            },
+            "lens": {
+               "device_type": "Lens",
+               "name": "Camera lens",
+               "serial_number": null,
+               "manufacturer": {
+                  "name": "Edmund Optics",
+                  "abbreviation": null,
+                  "registry": {
+                     "name": "Research Organization Registry",
+                     "abbreviation": "ROR"
+                  },
+                  "registry_identifier": "01j1gwp17"
+               },
+               "model": null,
+               "path_to_cad": null,
+               "port_index": null,
+               "additional_settings": {},
+               "notes": null,
+               "focal_length": "15",
+               "focal_length_unit": "millimeter",
+               "size": null,
+               "lens_size_unit": "inch",
+               "optimized_wavelength_range": null,
+               "wavelength_unit": "nanometer",
+               "max_aperture": "f/2"
+            },
+            "filter": {
+               "device_type": "Filter",
+               "name": "LP filter",
+               "serial_number": null,
+               "manufacturer": {
+                  "name": "Thorlabs",
+                  "abbreviation": null,
+                  "registry": {
+                     "name": "Research Organization Registry",
+                     "abbreviation": "ROR"
+                  },
+                  "registry_identifier": "04gsnvb07"
+               },
+               "model": null,
+               "path_to_cad": null,
+               "port_index": null,
+               "additional_settings": {},
+               "notes": null,
+               "filter_type": "Long pass",
+               "diameter": null,
+               "width": null,
+               "height": null,
+               "size_unit": "millimeter",
+               "thickness": null,
+               "thickness_unit": "millimeter",
+               "filter_wheel_index": null,
+               "cut_off_wavelength": null,
+               "cut_on_wavelength": null,
+               "center_wavelength": null,
+               "wavelength_unit": "nanometer",
+               "description": "850 nm longpass filter"
+            },
+            "position": null
+         }
+      ],
+      "enclosure": null,
+      "ephys_assemblies": [
+         {
+            "name": "Ephys_assemblyA",
+            "manipulator": {
+               "device_type": "Manipulator",
+               "name": "Manipulator 1",
+               "serial_number": "SN2938",
+               "manufacturer": {
+                  "name": "New Scale Technologies",
+                  "abbreviation": null,
+                  "registry": null,
+                  "registry_identifier": null
+               },
+               "model": null,
+               "path_to_cad": null,
+               "port_index": null,
+               "additional_settings": {},
+               "notes": null
+            },
+            "probes": [
+               {
+                  "device_type": "Ephys probe",
+                  "name": "Probe A",
+                  "serial_number": "9291019",
+                  "manufacturer": null,
+                  "model": null,
+                  "path_to_cad": null,
+                  "port_index": null,
+                  "additional_settings": {},
+                  "notes": null,
+                  "probe_model": "Neuropixels 1.0",
+                  "lasers": [],
+                  "headstage": null
+               }
+            ]
+         },
+         {
+            "name": "Ephys_assemblyB",
+            "manipulator": {
+               "device_type": "Manipulator",
+               "name": "Manipulator B",
+               "serial_number": "SN2939",
+               "manufacturer": {
+                  "name": "New Scale Technologies",
+                  "abbreviation": null,
+                  "registry": null,
+                  "registry_identifier": null
+               },
+               "model": null,
+               "path_to_cad": null,
+               "port_index": null,
+               "additional_settings": {},
+               "notes": null
+            },
+            "probes": [
+               {
+                  "device_type": "Ephys probe",
+                  "name": "Probe B",
+                  "serial_number": "9291020",
+                  "manufacturer": null,
+                  "model": null,
+                  "path_to_cad": null,
+                  "port_index": null,
+                  "additional_settings": {},
+                  "notes": null,
+                  "probe_model": "Neuropixels 1.0",
+                  "lasers": [],
+                  "headstage": null
+               }
+            ]
+         }
+      ],
+      "fiber_assemblies": [],
+      "stick_microscopes": [
+         {
+            "name": "Stick_assembly_1",
+            "camera_target": "Brain surface",
+            "camera": {
+               "device_type": "Detector",
+               "name": "stick microscope 1",
+               "serial_number": null,
+               "manufacturer": {
+                  "name": "Teledyne FLIR",
+                  "abbreviation": "FLIR",
+                  "registry": {
+                     "name": "Research Organization Registry",
+                     "abbreviation": "ROR"
+                  },
+                  "registry_identifier": "01j1gwp17"
+               },
+               "model": null,
+               "path_to_cad": null,
+               "port_index": null,
+               "additional_settings": {},
+               "notes": null,
+               "detector_type": "Camera",
+               "data_interface": "USB",
+               "cooling": "None",
+               "computer_name": "W10DT72942",
+               "frame_rate": "50",
+               "frame_rate_unit": "hertz",
+               "immersion": null,
+               "chroma": "Color",
+               "sensor_width": 1080,
+               "sensor_height": 570,
+               "size_unit": "pixel",
+               "sensor_format": "1/2.9",
+               "sensor_format_unit": "inches",
+               "bit_depth": null,
+               "bin_mode": "None",
+               "bin_width": null,
+               "bin_height": null,
+               "bin_unit": "pixel",
+               "gain": null,
+               "crop_offset_x": null,
+               "crop_offset_y": null,
+               "crop_width": null,
+               "crop_height": null,
+               "crop_unit": "pixel",
+               "recording_software": null,
+               "driver": null,
+               "driver_version": null
+            },
+            "lens": {
+               "device_type": "Lens",
+               "name": "Probe lens",
+               "serial_number": null,
+               "manufacturer": {
+                  "name": "Edmund Optics",
+                  "abbreviation": null,
+                  "registry": {
+                     "name": "Research Organization Registry",
+                     "abbreviation": "ROR"
+                  },
+                  "registry_identifier": "01j1gwp17"
+               },
+               "model": null,
+               "path_to_cad": null,
+               "port_index": null,
+               "additional_settings": {},
+               "notes": null,
+               "focal_length": null,
+               "focal_length_unit": "millimeter",
+               "size": null,
+               "lens_size_unit": "inch",
+               "optimized_wavelength_range": null,
+               "wavelength_unit": "nanometer",
+               "max_aperture": null
+            },
+            "filter": null,
+            "position": null
+         },
+         {
+            "name": "Stick_assembly_2",
+            "camera_target": "Brain surface",
+            "camera": {
+               "device_type": "Detector",
+               "name": "stick microscope 2",
+               "serial_number": null,
+               "manufacturer": {
+                  "name": "Teledyne FLIR",
+                  "abbreviation": "FLIR",
+                  "registry": {
+                     "name": "Research Organization Registry",
+                     "abbreviation": "ROR"
+                  },
+                  "registry_identifier": "01j1gwp17"
+               },
+               "model": null,
+               "path_to_cad": null,
+               "port_index": null,
+               "additional_settings": {},
+               "notes": null,
+               "detector_type": "Camera",
+               "data_interface": "USB",
+               "cooling": "None",
+               "computer_name": "W10DT72942",
+               "frame_rate": "50",
+               "frame_rate_unit": "hertz",
+               "immersion": null,
+               "chroma": "Color",
+               "sensor_width": 1080,
+               "sensor_height": 570,
+               "size_unit": "pixel",
+               "sensor_format": "1/2.9",
+               "sensor_format_unit": "inches",
+               "bit_depth": null,
+               "bin_mode": "None",
+               "bin_width": null,
+               "bin_height": null,
+               "bin_unit": "pixel",
+               "gain": null,
+               "crop_offset_x": null,
+               "crop_offset_y": null,
+               "crop_width": null,
+               "crop_height": null,
+               "crop_unit": "pixel",
+               "recording_software": null,
+               "driver": null,
+               "driver_version": null
+            },
+            "lens": {
+               "device_type": "Lens",
+               "name": "Probe lens",
+               "serial_number": null,
+               "manufacturer": {
+                  "name": "Edmund Optics",
+                  "abbreviation": null,
+                  "registry": {
+                     "name": "Research Organization Registry",
+                     "abbreviation": "ROR"
+                  },
+                  "registry_identifier": "01j1gwp17"
+               },
+               "model": null,
+               "path_to_cad": null,
+               "port_index": null,
+               "additional_settings": {},
+               "notes": null,
+               "focal_length": null,
+               "focal_length_unit": "millimeter",
+               "size": null,
+               "lens_size_unit": "inch",
+               "optimized_wavelength_range": null,
+               "wavelength_unit": "nanometer",
+               "max_aperture": null
+            },
+            "filter": null,
+            "position": null
+         },
+         {
+            "name": "Stick_assembly_3",
+            "camera_target": "Brain surface",
+            "camera": {
+               "device_type": "Detector",
+               "name": "stick microscope 3",
+               "serial_number": null,
+               "manufacturer": {
+                  "name": "Teledyne FLIR",
+                  "abbreviation": "FLIR",
+                  "registry": {
+                     "name": "Research Organization Registry",
+                     "abbreviation": "ROR"
+                  },
+                  "registry_identifier": "01j1gwp17"
+               },
+               "model": null,
+               "path_to_cad": null,
+               "port_index": null,
+               "additional_settings": {},
+               "notes": null,
+               "detector_type": "Camera",
+               "data_interface": "USB",
+               "cooling": "None",
+               "computer_name": "W10DT72942",
+               "frame_rate": "50",
+               "frame_rate_unit": "hertz",
+               "immersion": null,
+               "chroma": "Color",
+               "sensor_width": 1080,
+               "sensor_height": 570,
+               "size_unit": "pixel",
+               "sensor_format": "1/2.9",
+               "sensor_format_unit": "inches",
+               "bit_depth": null,
+               "bin_mode": "None",
+               "bin_width": null,
+               "bin_height": null,
+               "bin_unit": "pixel",
+               "gain": null,
+               "crop_offset_x": null,
+               "crop_offset_y": null,
+               "crop_width": null,
+               "crop_height": null,
+               "crop_unit": "pixel",
+               "recording_software": null,
+               "driver": null,
+               "driver_version": null
+            },
+            "lens": {
+               "device_type": "Lens",
+               "name": "Probe lens",
+               "serial_number": null,
+               "manufacturer": {
+                  "name": "Edmund Optics",
+                  "abbreviation": null,
+                  "registry": {
+                     "name": "Research Organization Registry",
+                     "abbreviation": "ROR"
+                  },
+                  "registry_identifier": "01j1gwp17"
+               },
+               "model": null,
+               "path_to_cad": null,
+               "port_index": null,
+               "additional_settings": {},
+               "notes": null,
+               "focal_length": null,
+               "focal_length_unit": "millimeter",
+               "size": null,
+               "lens_size_unit": "inch",
+               "optimized_wavelength_range": null,
+               "wavelength_unit": "nanometer",
+               "max_aperture": null
+            },
+            "filter": null,
+            "position": null
+         },
+         {
+            "name": "Stick_assembly_4",
+            "camera_target": "Brain surface",
+            "camera": {
+               "device_type": "Detector",
+               "name": "stick microscope 4",
+               "serial_number": null,
+               "manufacturer": {
+                  "name": "Teledyne FLIR",
+                  "abbreviation": "FLIR",
+                  "registry": {
+                     "name": "Research Organization Registry",
+                     "abbreviation": "ROR"
+                  },
+                  "registry_identifier": "01j1gwp17"
+               },
+               "model": null,
+               "path_to_cad": null,
+               "port_index": null,
+               "additional_settings": {},
+               "notes": null,
+               "detector_type": "Camera",
+               "data_interface": "USB",
+               "cooling": "None",
+               "computer_name": "W10DT72942",
+               "frame_rate": "50",
+               "frame_rate_unit": "hertz",
+               "immersion": null,
+               "chroma": "Color",
+               "sensor_width": 1080,
+               "sensor_height": 570,
+               "size_unit": "pixel",
+               "sensor_format": "1/2.9",
+               "sensor_format_unit": "inches",
+               "bit_depth": null,
+               "bin_mode": "None",
+               "bin_width": null,
+               "bin_height": null,
+               "bin_unit": "pixel",
+               "gain": null,
+               "crop_offset_x": null,
+               "crop_offset_y": null,
+               "crop_width": null,
+               "crop_height": null,
+               "crop_unit": "pixel",
+               "recording_software": null,
+               "driver": null,
+               "driver_version": null
+            },
+            "lens": {
+               "device_type": "Lens",
+               "name": "Probe lens",
+               "serial_number": null,
+               "manufacturer": {
+                  "name": "Edmund Optics",
+                  "abbreviation": null,
+                  "registry": {
+                     "name": "Research Organization Registry",
+                     "abbreviation": "ROR"
+                  },
+                  "registry_identifier": "01j1gwp17"
+               },
+               "model": null,
+               "path_to_cad": null,
+               "port_index": null,
+               "additional_settings": {},
+               "notes": null,
+               "focal_length": null,
+               "focal_length_unit": "millimeter",
+               "size": null,
+               "lens_size_unit": "inch",
+               "optimized_wavelength_range": null,
+               "wavelength_unit": "nanometer",
+               "max_aperture": null
+            },
+            "filter": null,
+            "position": null
+         }
+      ],
+      "laser_assemblies": [
+         {
+            "name": "Laser_assemblyA",
+            "manipulator": {
+               "device_type": "Manipulator",
+               "name": "Manipulator A",
+               "serial_number": "SN2937",
+               "manufacturer": {
+                  "name": "New Scale Technologies",
+                  "abbreviation": null,
+                  "registry": null,
+                  "registry_identifier": null
+               },
+               "model": null,
+               "path_to_cad": null,
+               "port_index": null,
+               "additional_settings": {},
+               "notes": null
+            },
+            "lasers": [
+               {
+                  "device_type": "Laser",
+                  "name": "Red Laser",
+                  "serial_number": null,
+                  "manufacturer": {
+                     "name": "Oxxius",
+                     "abbreviation": null,
+                     "registry": null,
+                     "registry_identifier": null
+                  },
+                  "model": null,
+                  "path_to_cad": null,
+                  "port_index": null,
+                  "additional_settings": {},
+                  "notes": null,
+                  "wavelength": 473,
+                  "wavelength_unit": "nanometer",
+                  "maximum_power": null,
+                  "power_unit": "milliwatt",
+                  "coupling": null,
+                  "coupling_efficiency": null,
+                  "coupling_efficiency_unit": "percent",
+                  "item_number": null
+               },
+               {
+                  "device_type": "Laser",
+                  "name": "Blue Laser",
+                  "serial_number": null,
+                  "manufacturer": {
+                     "name": "Oxxius",
+                     "abbreviation": null,
+                     "registry": null,
+                     "registry_identifier": null
+                  },
+                  "model": null,
+                  "path_to_cad": null,
+                  "port_index": null,
+                  "additional_settings": {},
+                  "notes": null,
+                  "wavelength": 638,
+                  "wavelength_unit": "nanometer",
+                  "maximum_power": null,
+                  "power_unit": "milliwatt",
+                  "coupling": null,
+                  "coupling_efficiency": null,
+                  "coupling_efficiency_unit": "percent",
+                  "item_number": null
+               }
+            ],
+            "collimator": {
+               "device_type": "Collimator",
+               "name": "Collimator A",
+               "serial_number": null,
+               "manufacturer": null,
+               "model": null,
+               "path_to_cad": null,
+               "port_index": null,
+               "additional_settings": {},
+               "notes": null
+            },
+            "fiber": {
+               "device_type": "Patch",
+               "name": "Bundle Branching Fiber-optic Patch Cord",
+               "serial_number": null,
+               "manufacturer": {
+                  "name": "Doric",
+                  "abbreviation": null,
+                  "registry": {
+                     "name": "Research Organization Registry",
+                     "abbreviation": "ROR"
+                  },
+                  "registry_identifier": "059n53q30"
+               },
+               "model": "BBP(4)_200/220/900-0.37_Custom_FCM-4xMF1.25",
+               "path_to_cad": null,
+               "port_index": null,
+               "additional_settings": {},
+               "notes": null,
+               "core_diameter": "200",
+               "numerical_aperture": "0.37",
+               "photobleaching_date": null
+            }
+         }
+      ],
+      "patch_cords": [],
+      "light_sources": [],
+      "detectors": [],
+      "objectives": [],
+      "filters": [],
+      "lenses": [],
+      "digital_micromirror_devices": [],
+      "polygonal_scanners": [],
+      "pockels_cells": [],
+      "additional_devices": [],
+      "daqs": [
+         {
+            "device_type": "Neuropixels basestation",
+            "name": "Basestation Slot 3",
+            "serial_number": null,
+            "manufacturer": {
+               "name": "Interuniversity Microelectronics Center",
+               "abbreviation": "IMEC",
+               "registry": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "registry_identifier": "02kcbn207"
+            },
+            "model": null,
+            "path_to_cad": null,
+            "port_index": null,
+            "additional_settings": {},
+            "notes": null,
+            "data_interface": "PXI",
+            "computer_name": "W10DT72942",
+            "channels": [],
+            "firmware_version": null,
+            "hardware_version": null,
+            "basestation_firmware_version": "2.019",
+            "bsc_firmware_version": "2.199",
+            "slot": 3,
+            "ports": [
+               {
+                  "index": 1,
+                  "probes": [
+                     "Probe A"
+                  ]
+               },
+               {
+                  "index": 2,
+                  "probes": [
+                     "Probe B"
+                  ]
+               }
+            ]
+         },
+         {
+            "device_type": "Harp device",
+            "name": "Harp Behavior",
+            "serial_number": null,
+            "manufacturer": {
+               "name": "Open Ephys Production Site",
+               "abbreviation": "OEPS",
+               "registry": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "registry_identifier": "007rkz355"
+            },
+            "model": null,
+            "path_to_cad": null,
+            "port_index": null,
+            "additional_settings": {},
+            "notes": null,
+            "data_interface": "USB",
+            "computer_name": "W10DT72941",
+            "channels": [
+               {
+                  "channel_name": "DO0",
+                  "device_name": "Face Camera",
+                  "channel_type": "Digital Output",
+                  "port": null,
+                  "channel_index": null,
+                  "sample_rate": null,
+                  "sample_rate_unit": "hertz",
+                  "event_based_sampling": null
+               },
+               {
+                  "channel_name": "DO1",
+                  "device_name": "Body Camera",
+                  "channel_type": "Digital Output",
+                  "port": null,
+                  "channel_index": null,
+                  "sample_rate": null,
+                  "sample_rate_unit": "hertz",
+                  "event_based_sampling": null
+               },
+               {
+                  "channel_name": "AI0",
+                  "device_name": "Running Wheel",
+                  "channel_type": "Analog Input",
+                  "port": null,
+                  "channel_index": null,
+                  "sample_rate": null,
+                  "sample_rate_unit": "hertz",
+                  "event_based_sampling": null
+               }
+            ],
+            "firmware_version": null,
+            "hardware_version": null,
+            "harp_device_type": {
+               "name": "Behavior",
+               "whoami": 1216
+            },
+            "core_version": "2.1",
+            "tag_version": null,
+            "is_clock_generator": false
+         }
+      ],
+      "calibrations": [
+         {
+            "calibration_date": "2023-10-02T10:22:13Z",
+            "device_name": "Red Laser",
+            "description": "Laser power calibration",
+            "input": {
+               "power percent": [
+                  10,
+                  20,
+                  40
+               ]
+            },
+            "output": {
+               "power mW": [
+                  1,
+                  3,
+                  6
+               ]
+            },
+            "notes": null
+         },
+         {
+            "calibration_date": "2023-10-02T10:22:13Z",
+            "device_name": "Blue Laser",
+            "description": "Laser power calibration",
+            "input": {
+               "power percent": [
+                  10,
+                  20,
+                  40
+               ]
+            },
+            "output": {
+               "power mW": [
+                  1,
+                  2,
+                  7
+               ]
+            },
+            "notes": null
+         }
+      ],
+      "ccf_coordinate_transform": null,
+      "origin": null,
+      "rig_axes": null,
+      "modalities": [
+         {
+            "name": "Extracellular electrophysiology",
+            "abbreviation": "ecephys"
+         }
+      ],
+      "notes": null
+   },
+    "schema_version": "1.0.0",
+    "session": {
+      "active_mouse_platform": true,
+      "anaesthesia": null,
+      "animal_weight_post": null,
+      "animal_weight_prior": null,
+      "calibrations": [],
+      "data_streams": [
+        {
+          "camera_names": [
+            "Mesoscope",
+            "Behavior",
+            "Eye",
+            "Face"
+          ],
+          "daq_names": [],
+          "detectors": [],
+          "ephys_modules": [],
+          "fiber_connections": [],
+          "fiber_modules": [],
+          "light_sources": [
+            {
+              "device_type": "Laser",
+              "excitation_power": null,
+              "excitation_power_unit": "milliwatt",
+              "name": "Laser",
+              "wavelength": 920,
+              "wavelength_unit": "nanometer"
+            }
+          ],
+          "manipulator_modules": [],
+          "mri_scans": [],
+          "notes": null,
+          "ophys_fovs": [
+            {
+              "coupled_fov_index": 0,
+              "fov_coordinate_ap": "1.5",
+              "fov_coordinate_ml": "1.5",
+              "fov_coordinate_unit": "micrometer",
+              "fov_height": 512,
+              "fov_reference": "Bregma",
+              "fov_scale_factor": "0.78",
+              "fov_scale_factor_unit": "um/pixel",
+              "fov_size_unit": "pixel",
+              "fov_width": 512,
+              "frame_rate": "10.63",
+              "frame_rate_unit": "hertz",
+              "imaging_depth": 156,
+              "imaging_depth_unit": "micrometer",
+              "index": 0,
+              "magnification": "16x",
+              "notes": "1368230891",
+              "power": "55.0",
+              "power_ratio": null,
+              "power_unit": "percent",
+              "scanfield_z": 179,
+              "scanfield_z_unit": "micrometer",
+              "scanimage_roi_index": 0,
+              "targeted_structure": "VISp"
+            },
+            {
+              "coupled_fov_index": 0,
+              "fov_coordinate_ap": "1.5",
+              "fov_coordinate_ml": "1.5",
+              "fov_coordinate_unit": "micrometer",
+              "fov_height": 512,
+              "fov_reference": "Bregma",
+              "fov_scale_factor": "0.78",
+              "fov_scale_factor_unit": "um/pixel",
+              "fov_size_unit": "pixel",
+              "fov_width": 512,
+              "frame_rate": "10.63",
+              "frame_rate_unit": "hertz",
+              "imaging_depth": 198,
+              "imaging_depth_unit": "micrometer",
+              "index": 1,
+              "magnification": "16x",
+              "notes": "1368230891",
+              "power": "55.0",
+              "power_ratio": null,
+              "power_unit": "percent",
+              "scanfield_z": 231,
+              "scanfield_z_unit": "micrometer",
+              "scanimage_roi_index": 0,
+              "targeted_structure": "VISp"
+            },
+            {
+              "coupled_fov_index": 1,
+              "fov_coordinate_ap": "1.5",
+              "fov_coordinate_ml": "1.5",
+              "fov_coordinate_unit": "micrometer",
+              "fov_height": 512,
+              "fov_reference": "Bregma",
+              "fov_scale_factor": "0.78",
+              "fov_scale_factor_unit": "um/pixel",
+              "fov_size_unit": "pixel",
+              "fov_width": 512,
+              "frame_rate": "10.63",
+              "frame_rate_unit": "hertz",
+              "imaging_depth": 114,
+              "imaging_depth_unit": "micrometer",
+              "index": 2,
+              "magnification": "16x",
+              "notes": "1368230891",
+              "power": "45.0",
+              "power_ratio": null,
+              "power_unit": "percent",
+              "scanfield_z": 137,
+              "scanfield_z_unit": "micrometer",
+              "scanimage_roi_index": 0,
+              "targeted_structure": "VISp"
+            },
+            {
+              "coupled_fov_index": 1,
+              "fov_coordinate_ap": "1.5",
+              "fov_coordinate_ml": "1.5",
+              "fov_coordinate_unit": "micrometer",
+              "fov_height": 512,
+              "fov_reference": "Bregma",
+              "fov_scale_factor": "0.78",
+              "fov_scale_factor_unit": "um/pixel",
+              "fov_size_unit": "pixel",
+              "fov_width": 512,
+              "frame_rate": "10.63",
+              "frame_rate_unit": "hertz",
+              "imaging_depth": 228,
+              "imaging_depth_unit": "micrometer",
+              "index": 3,
+              "magnification": "16x",
+              "notes": "1368230891",
+              "power": "45.0",
+              "power_ratio": null,
+              "power_unit": "percent",
+              "scanfield_z": 261,
+              "scanfield_z_unit": "micrometer",
+              "scanimage_roi_index": 0,
+              "targeted_structure": "VISp"
+            },
+            {
+              "coupled_fov_index": 2,
+              "fov_coordinate_ap": "1.5",
+              "fov_coordinate_ml": "1.5",
+              "fov_coordinate_unit": "micrometer",
+              "fov_height": 512,
+              "fov_reference": "Bregma",
+              "fov_scale_factor": "0.78",
+              "fov_scale_factor_unit": "um/pixel",
+              "fov_size_unit": "pixel",
+              "fov_width": 512,
+              "frame_rate": "10.63",
+              "frame_rate_unit": "hertz",
+              "imaging_depth": 74,
+              "imaging_depth_unit": "micrometer",
+              "index": 4,
+              "magnification": "16x",
+              "notes": "1368230891",
+              "power": "35.0",
+              "power_ratio": null,
+              "power_unit": "percent",
+              "scanfield_z": 97,
+              "scanfield_z_unit": "micrometer",
+              "scanimage_roi_index": 0,
+              "targeted_structure": "VISp"
+            },
+            {
+              "coupled_fov_index": 2,
+              "fov_coordinate_ap": "1.5",
+              "fov_coordinate_ml": "1.5",
+              "fov_coordinate_unit": "micrometer",
+              "fov_height": 512,
+              "fov_reference": "Bregma",
+              "fov_scale_factor": "0.78",
+              "fov_scale_factor_unit": "um/pixel",
+              "fov_size_unit": "pixel",
+              "fov_width": 512,
+              "frame_rate": "10.63",
+              "frame_rate_unit": "hertz",
+              "imaging_depth": 270,
+              "imaging_depth_unit": "micrometer",
+              "index": 5,
+              "magnification": "16x",
+              "notes": "1368230891",
+              "power": "35.0",
+              "power_ratio": null,
+              "power_unit": "percent",
+              "scanfield_z": 303,
+              "scanfield_z_unit": "micrometer",
+              "scanimage_roi_index": 0,
+              "targeted_structure": "VISp"
+            },
+            {
+              "coupled_fov_index": 3,
+              "fov_coordinate_ap": "1.5",
+              "fov_coordinate_ml": "1.5",
+              "fov_coordinate_unit": "micrometer",
+              "fov_height": 512,
+              "fov_reference": "Bregma",
+              "fov_scale_factor": "0.78",
+              "fov_scale_factor_unit": "um/pixel",
+              "fov_size_unit": "pixel",
+              "fov_width": 512,
+              "frame_rate": "10.63",
+              "frame_rate_unit": "hertz",
+              "imaging_depth": 36,
+              "imaging_depth_unit": "micrometer",
+              "index": 6,
+              "magnification": "16x",
+              "notes": "1368230891",
+              "power": "28.0",
+              "power_ratio": null,
+              "power_unit": "percent",
+              "scanfield_z": 59,
+              "scanfield_z_unit": "micrometer",
+              "scanimage_roi_index": 0,
+              "targeted_structure": "VISp"
+            },
+            {
+              "coupled_fov_index": 3,
+              "fov_coordinate_ap": "1.5",
+              "fov_coordinate_ml": "1.5",
+              "fov_coordinate_unit": "micrometer",
+              "fov_height": 512,
+              "fov_reference": "Bregma",
+              "fov_scale_factor": "0.78",
+              "fov_scale_factor_unit": "um/pixel",
+              "fov_size_unit": "pixel",
+              "fov_width": 512,
+              "frame_rate": "10.63",
+              "frame_rate_unit": "hertz",
+              "imaging_depth": 304,
+              "imaging_depth_unit": "micrometer",
+              "index": 7,
+              "magnification": "16x",
+              "notes": "1368230891",
+              "power": "28.0",
+              "power_ratio": null,
+              "power_unit": "percent",
+              "scanfield_z": 337,
+              "scanfield_z_unit": "micrometer",
+              "scanimage_roi_index": 0,
+              "targeted_structure": "VISp"
+            }
+          ],
+          "slap_fovs": [],
+          "software": [],
+          "stack_parameters": null,
+          "stick_microscopes": [],
+          "stream_end_time": "2024-05-21T09:57:13.124728-07:00",
+          "stream_modalities": [
+            {
+              "abbreviation": "pophys",
+              "name": "Planar optical physiology"
+            }
+          ],
+          "stream_start_time": "2024-05-21T08:40:35.310058-07:00"
+        }
+      ],
+      "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/session.py",
+      "experimenter_full_name": [
+        "unknown user"
+      ],
+      "headframe_registration": null,
+      "iacuc_protocol": "2115",
+      "maintenance": [],
+      "mouse_platform_name": "disc",
+      "notes": null,
+      "protocol_id": [],
+      "reward_consumed_total": null,
+      "reward_consumed_unit": "milliliter",
+      "reward_delivery": null,
+      "rig_id": "MESO.2",
+      "schema_version": "1.0.0",
+      "session_end_time": "2024-05-21T09:57:13.124728-07:00",
+      "session_start_time": "2024-05-21T08:40:35.310058-07:00",
+      "session_type": "STAGE_0",
+      "stimulus_epochs": [
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T08:40:42.868425-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "spontaneous",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "spontaneous",
+              "stimulus_parameters": {
+                "stim_block": [],
+                "stim_index": []
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T08:38:44.554488-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        },
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T08:41:35.912370-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "Session_0_00",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "Session_0_00",
+              "stimulus_parameters": {
+                "stim_block": [
+                  0
+                ],
+                "stim_index": [
+                  0
+                ]
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T08:40:42.868425-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        },
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T08:42:20.949765-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "Session_0_01",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "Session_0_01",
+              "stimulus_parameters": {
+                "stim_block": [
+                  1
+                ],
+                "stim_index": [
+                  1
+                ]
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T08:41:35.912370-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        },
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T08:43:12.992905-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "Session_0_02",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "Session_0_02",
+              "stimulus_parameters": {
+                "stim_block": [
+                  2
+                ],
+                "stim_index": [
+                  2
+                ]
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T08:42:20.949765-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        },
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T08:44:01.032685-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "Session_0_03",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "Session_0_03",
+              "stimulus_parameters": {
+                "stim_block": [
+                  3
+                ],
+                "stim_index": [
+                  3
+                ]
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T08:43:12.992905-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        },
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T08:45:13.092565-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "Session_0_04",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "Session_0_04",
+              "stimulus_parameters": {
+                "stim_block": [
+                  4
+                ],
+                "stim_index": [
+                  4
+                ]
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T08:44:01.032685-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        },
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T08:46:02.133280-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "Session_0_05",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "Session_0_05",
+              "stimulus_parameters": {
+                "stim_block": [
+                  5
+                ],
+                "stim_index": [
+                  5
+                ]
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T08:45:13.092565-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        },
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T08:46:38.163280-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "Session_0_06",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "Session_0_06",
+              "stimulus_parameters": {
+                "stim_block": [
+                  6
+                ],
+                "stim_index": [
+                  6
+                ]
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T08:46:02.133280-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        },
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T08:47:32.208040-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "Session_0_07",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "Session_0_07",
+              "stimulus_parameters": {
+                "stim_block": [
+                  7
+                ],
+                "stim_index": [
+                  7
+                ]
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T08:46:38.163280-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        },
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T08:48:21.248695-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "Session_0_08",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "Session_0_08",
+              "stimulus_parameters": {
+                "stim_block": [
+                  8
+                ],
+                "stim_index": [
+                  8
+                ]
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T08:47:32.208040-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        },
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T08:48:58.279510-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "Session_0_09",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "Session_0_09",
+              "stimulus_parameters": {
+                "stim_block": [
+                  9
+                ],
+                "stim_index": [
+                  9
+                ]
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T08:48:21.248695-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        },
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T08:49:56.327650-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "Session_0_10",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "Session_0_10",
+              "stimulus_parameters": {
+                "stim_block": [
+                  10
+                ],
+                "stim_index": [
+                  10
+                ]
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T08:48:58.279510-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        },
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T08:51:08.387380-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "Session_0_11",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "Session_0_11",
+              "stimulus_parameters": {
+                "stim_block": [
+                  11
+                ],
+                "stim_index": [
+                  11
+                ]
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T08:49:56.327650-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        },
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T08:52:06.435560-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "Session_0_12",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "Session_0_12",
+              "stimulus_parameters": {
+                "stim_block": [
+                  12
+                ],
+                "stim_index": [
+                  12
+                ]
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T08:51:08.387380-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        },
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T08:53:09.487925-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "Session_0_13",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "Session_0_13",
+              "stimulus_parameters": {
+                "stim_block": [
+                  13
+                ],
+                "stim_index": [
+                  13
+                ]
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T08:52:06.435560-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        },
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T08:53:59.529435-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "Session_0_14",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "Session_0_14",
+              "stimulus_parameters": {
+                "stim_block": [
+                  14
+                ],
+                "stim_index": [
+                  14
+                ]
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T08:53:09.487925-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        },
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T08:54:52.573480-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "Session_0_15",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "Session_0_15",
+              "stimulus_parameters": {
+                "stim_block": [
+                  15
+                ],
+                "stim_index": [
+                  15
+                ]
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T08:53:59.529435-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        },
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T08:56:02.631570-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "Session_0_16",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "Session_0_16",
+              "stimulus_parameters": {
+                "stim_block": [
+                  16
+                ],
+                "stim_index": [
+                  16
+                ]
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T08:54:52.573480-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        },
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T08:56:59.678865-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "Session_0_17",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "Session_0_17",
+              "stimulus_parameters": {
+                "stim_block": [
+                  17
+                ],
+                "stim_index": [
+                  17
+                ]
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T08:56:02.631570-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        },
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T08:57:46.717980-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "Session_0_18",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "Session_0_18",
+              "stimulus_parameters": {
+                "stim_block": [
+                  18
+                ],
+                "stim_index": [
+                  18
+                ]
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T08:56:59.678865-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        },
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T08:58:35.758675-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "Session_0_19",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "Session_0_19",
+              "stimulus_parameters": {
+                "stim_block": [
+                  19
+                ],
+                "stim_index": [
+                  19
+                ]
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T08:57:46.717980-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        },
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T08:59:17.793555-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "Session_0_20",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "Session_0_20",
+              "stimulus_parameters": {
+                "stim_block": [
+                  20
+                ],
+                "stim_index": [
+                  20
+                ]
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T08:58:35.758675-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        },
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T09:00:16.842520-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "Session_0_21",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "Session_0_21",
+              "stimulus_parameters": {
+                "stim_block": [
+                  21
+                ],
+                "stim_index": [
+                  21
+                ]
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T08:59:17.793555-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        },
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T09:01:28.902310-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "Session_0_22",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "Session_0_22",
+              "stimulus_parameters": {
+                "stim_block": [
+                  22
+                ],
+                "stim_index": [
+                  22
+                ]
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T09:00:16.842520-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        },
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T09:02:25.949635-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "Session_0_23",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "Session_0_23",
+              "stimulus_parameters": {
+                "stim_block": [
+                  23
+                ],
+                "stim_index": [
+                  23
+                ]
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T09:01:28.902310-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        },
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T09:03:20.995320-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "Session_0_24",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "Session_0_24",
+              "stimulus_parameters": {
+                "stim_block": [
+                  24
+                ],
+                "stim_index": [
+                  24
+                ]
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T09:02:25.949635-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        },
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T09:04:28.050995-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "Session_0_25",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "Session_0_25",
+              "stimulus_parameters": {
+                "stim_block": [
+                  25
+                ],
+                "stim_index": [
+                  25
+                ]
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T09:03:20.995320-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        },
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T09:05:25.098300-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "Session_0_26",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "Session_0_26",
+              "stimulus_parameters": {
+                "stim_block": [
+                  26
+                ],
+                "stim_index": [
+                  26
+                ]
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T09:04:28.050995-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        },
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T09:06:22.145565-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "Session_0_27",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "Session_0_27",
+              "stimulus_parameters": {
+                "stim_block": [
+                  27
+                ],
+                "stim_index": [
+                  27
+                ]
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T09:05:25.098300-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        },
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T09:33:23.491015-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "Session_test_0_0",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "Session_test_0_0",
+              "stimulus_parameters": {
+                "stim_block": [
+                  28
+                ],
+                "stim_index": [
+                  55
+                ]
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T09:06:22.145565-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        },
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T09:34:21.539195-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "Session_0_28",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "Session_0_28",
+              "stimulus_parameters": {
+                "stim_block": [
+                  29
+                ],
+                "stim_index": [
+                  28
+                ]
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T09:33:23.491015-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        },
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T09:35:24.591470-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "Session_0_29",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "Session_0_29",
+              "stimulus_parameters": {
+                "stim_block": [
+                  30
+                ],
+                "stim_index": [
+                  29
+                ]
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T09:34:21.539195-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        },
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T09:36:09.628865-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "Session_0_30",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "Session_0_30",
+              "stimulus_parameters": {
+                "stim_block": [
+                  31
+                ],
+                "stim_index": [
+                  30
+                ]
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T09:35:24.591470-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        },
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T09:36:57.668715-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "Session_0_31",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "Session_0_31",
+              "stimulus_parameters": {
+                "stim_block": [
+                  32
+                ],
+                "stim_index": [
+                  31
+                ]
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T09:36:09.628865-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        },
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T09:37:41.705225-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "Session_0_32",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "Session_0_32",
+              "stimulus_parameters": {
+                "stim_block": [
+                  33
+                ],
+                "stim_index": [
+                  32
+                ]
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T09:36:57.668715-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        },
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T09:38:52.764260-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "Session_0_33",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "Session_0_33",
+              "stimulus_parameters": {
+                "stim_block": [
+                  34
+                ],
+                "stim_index": [
+                  33
+                ]
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T09:37:41.705225-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        },
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T09:39:34.799090-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "Session_0_34",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "Session_0_34",
+              "stimulus_parameters": {
+                "stim_block": [
+                  35
+                ],
+                "stim_index": [
+                  34
+                ]
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T09:38:52.764260-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        },
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T09:40:29.844775-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "Session_0_35",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "Session_0_35",
+              "stimulus_parameters": {
+                "stim_block": [
+                  36
+                ],
+                "stim_index": [
+                  35
+                ]
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T09:39:34.799090-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        },
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T09:41:35.899575-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "Session_0_36",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "Session_0_36",
+              "stimulus_parameters": {
+                "stim_block": [
+                  37
+                ],
+                "stim_index": [
+                  36
+                ]
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T09:40:29.844775-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        },
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T09:42:19.936135-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "Session_0_37",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "Session_0_37",
+              "stimulus_parameters": {
+                "stim_block": [
+                  38
+                ],
+                "stim_index": [
+                  37
+                ]
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T09:41:35.899575-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        },
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T09:43:07.975995-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "Session_0_38",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "Session_0_38",
+              "stimulus_parameters": {
+                "stim_block": [
+                  39
+                ],
+                "stim_index": [
+                  38
+                ]
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T09:42:19.936135-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        },
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T09:44:05.023310-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "Session_0_39",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "Session_0_39",
+              "stimulus_parameters": {
+                "stim_block": [
+                  40
+                ],
+                "stim_index": [
+                  39
+                ]
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T09:43:07.975995-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        },
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T09:45:04.072285-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "Session_0_40",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "Session_0_40",
+              "stimulus_parameters": {
+                "stim_block": [
+                  41
+                ],
+                "stim_index": [
+                  40
+                ]
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T09:44:05.023310-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        },
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T09:46:06.123795-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "Session_0_41",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "Session_0_41",
+              "stimulus_parameters": {
+                "stim_block": [
+                  42
+                ],
+                "stim_index": [
+                  41
+                ]
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T09:45:04.072285-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        },
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T09:47:13.179420-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "Session_0_42",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "Session_0_42",
+              "stimulus_parameters": {
+                "stim_block": [
+                  43
+                ],
+                "stim_index": [
+                  42
+                ]
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T09:46:06.123795-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        },
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T09:48:02.220115-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "Session_0_43",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "Session_0_43",
+              "stimulus_parameters": {
+                "stim_block": [
+                  44
+                ],
+                "stim_index": [
+                  43
+                ]
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T09:47:13.179420-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        },
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T09:48:44.255025-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "Session_0_44",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "Session_0_44",
+              "stimulus_parameters": {
+                "stim_block": [
+                  45
+                ],
+                "stim_index": [
+                  44
+                ]
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T09:48:02.220115-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        },
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T09:49:21.285770-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "Session_0_45",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "Session_0_45",
+              "stimulus_parameters": {
+                "stim_block": [
+                  46
+                ],
+                "stim_index": [
+                  45
+                ]
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T09:48:44.255025-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        },
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T09:50:14.329755-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "Session_0_46",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "Session_0_46",
+              "stimulus_parameters": {
+                "stim_block": [
+                  47
+                ],
+                "stim_index": [
+                  46
+                ]
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T09:49:21.285770-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        },
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T09:51:21.385380-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "Session_0_47",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "Session_0_47",
+              "stimulus_parameters": {
+                "stim_block": [
+                  48
+                ],
+                "stim_index": [
+                  47
+                ]
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T09:50:14.329755-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        },
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T09:52:09.425230-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "Session_0_48",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "Session_0_48",
+              "stimulus_parameters": {
+                "stim_block": [
+                  49
+                ],
+                "stim_index": [
+                  48
+                ]
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T09:51:21.385380-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        },
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T09:53:01.468430-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "Session_0_49",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "Session_0_49",
+              "stimulus_parameters": {
+                "stim_block": [
+                  50
+                ],
+                "stim_index": [
+                  49
+                ]
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T09:52:09.425230-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        },
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T09:54:08.524035-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "Session_0_50",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "Session_0_50",
+              "stimulus_parameters": {
+                "stim_block": [
+                  51
+                ],
+                "stim_index": [
+                  50
+                ]
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T09:53:01.468430-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        },
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T09:54:53.561430-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "Session_0_51",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "Session_0_51",
+              "stimulus_parameters": {
+                "stim_block": [
+                  52
+                ],
+                "stim_index": [
+                  51
+                ]
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T09:54:08.524035-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        },
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T09:55:59.616260-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "Session_0_52",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "Session_0_52",
+              "stimulus_parameters": {
+                "stim_block": [
+                  53
+                ],
+                "stim_index": [
+                  52
+                ]
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T09:54:53.561430-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        },
+        {
+          "light_source_config": [],
+          "notes": null,
+          "output_parameters": {},
+          "reward_consumed_during_epoch": null,
+          "reward_consumed_unit": "microliter",
+          "script": {
+            "name": "test",
+            "parameters": {},
+            "url": "test",
+            "version": "1.0"
+          },
+          "session_number": null,
+          "software": [
+            {
+              "name": "camstim",
+              "parameters": {},
+              "url": "https://eng-gitlab.corp.alleninstitute.org/braintv/camstim",
+              "version": "1.0"
+            }
+          ],
+          "speaker_config": null,
+          "stimulus_device_names": [],
+          "stimulus_end_time": "2024-05-21T09:56:54.661915-07:00",
+          "stimulus_modalities": [
+            "Visual"
+          ],
+          "stimulus_name": "Session_0_53",
+          "stimulus_parameters": [
+            {
+              "notes": null,
+              "stimulus_name": "Session_0_53",
+              "stimulus_parameters": {
+                "stim_block": [
+                  54
+                ],
+                "stim_index": [
+                  53
+                ]
+              },
+              "stimulus_template_name": [],
+              "stimulus_type": "Visual Stimulation"
+            }
+          ],
+          "stimulus_start_time": "2024-05-21T09:55:59.616260-07:00",
+          "trials_finished": null,
+          "trials_rewarded": null,
+          "trials_total": null
+        }
+      ],
+      "subject_id": "721291",
+      "weight_unit": "gram"
+    },
+    "subject": {
+      "alleles": [],
+      "background_strain": null,
+      "breeding_info": {
+        "breeding_group": "Slc32a1-IRES-Cre;Oi1(ND)",
+        "maternal_genotype": "Oi1(TIT2L-jGCaMP8s-WPRE-ICL-IRES-tTA2)/wt",
+        "maternal_id": "686864",
+        "paternal_genotype": "Slc32a1-IRES-Cre/wt",
+        "paternal_id": "688473"
+      },
+      "date_of_birth": "2024-01-15",
+      "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/subject.py",
+      "genotype": "Slc32a1-IRES-Cre/wt;Oi1(TIT2L-jGCaMP8s-WPRE-ICL-IRES-tTA2)/wt",
+      "housing": null,
+      "notes": null,
+      "restrictions": null,
+      "rrid": null,
+      "schema_version": "1.0.0",
+      "sex": "Male",
+      "source": {
+        "abbreviation": "AI",
+        "name": "Allen Institute",
+        "registry": {
+          "abbreviation": "ROR",
+          "name": "Research Organization Registry"
+        },
+        "registry_identifier": "03cpe7c52"
+      },
+      "species": {
+        "name": "Mus musculus",
+        "registry": {
+          "abbreviation": "NCBI",
+          "name": "National Center for Biotechnology Information"
+        },
+        "registry_identifier": "NCBI:txid10090"
+      },
+      "subject_id": "721291",
+      "wellness_reports": []
+    }
+  }
