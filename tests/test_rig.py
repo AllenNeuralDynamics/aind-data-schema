@@ -1,7 +1,10 @@
 """ test Rig """
 
 import unittest
+import json
 from datetime import date, datetime
+from pathlib import Path
+import os
 
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
@@ -820,6 +823,30 @@ class RigTests(unittest.TestCase):
                 mouse_platform=Disc(name="Disc A", radius=1),
                 calibrations=[calibration],
             )
+
+    def test_serialize_modalities(self):
+        """Tests that modalities serializer can handle different types"""
+        expected_modalities = [{"name": "Extracellular electrophysiology", "abbreviation": "ecephys"}]
+        # Case 1: Modality is a class instance
+        rig_instance_modality = Rig.model_construct(
+            modalities=[Modality.ECEPHYS]  # Example with a valid Modality instance
+        )
+        rig_json = rig_instance_modality.model_dump_json()
+        rig_data = json.loads(rig_json)
+        self.assertEqual(rig_data["modalities"], expected_modalities)
+
+        # Case 2: Modality is a dictionary when Rig is constructed from JSON
+        rig_dict_modality = Rig.model_construct(**rig_data)
+        rig_dict_json = rig_dict_modality.model_dump_json()
+        rig_dict_data = json.loads(rig_dict_json)
+        self.assertEqual(rig_dict_data["modalities"], expected_modalities)
+
+        # Case 3: Modality is an unknown type
+        with self.assertRaises(ValueError) as context:
+            rig_unknown_modality = Rig.model_construct(modalities={"UnknownModality"})
+
+            rig_unknown_modality.model_dump_json()
+        self.assertIn("Unsupported modality type", str(context.exception))
 
 
 if __name__ == "__main__":
