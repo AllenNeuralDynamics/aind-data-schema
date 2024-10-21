@@ -77,18 +77,18 @@ class SchemaVersionTests(unittest.TestCase):
         handler._update_files({Subject: new_subject_version, Session: new_session_version})
 
         expected_line_change0 = (
-            f'    schema_version: Literal["{new_subject_version}"] = Field("{new_subject_version}")\n'
+            f'schema_version: SkipValidation[Literal["{new_subject_version}"]] = Field("{new_subject_version}")'
         )
         expected_line_change1 = (
-            f'    schema_version: Literal["{new_session_version}"] = Field("{new_session_version}")\n'
+            f'schema_version: SkipValidation[Literal["{new_session_version}"]] = Field("{new_session_version}")'
         )
 
         mock_write_args0 = mock_write.mock_calls[0].args
         mock_write_args1 = mock_write.mock_calls[1].args
         self.assertTrue("subject.py" in str(mock_write_args0[1]))
-        self.assertTrue(expected_line_change0.encode() in mock_write_args0[0])
+        self.assertTrue(expected_line_change0 in str(mock_write_args0[0]))
         self.assertTrue("session.py" in str(mock_write_args1[1]))
-        self.assertTrue(expected_line_change1.encode() in mock_write_args1[0])
+        self.assertTrue(expected_line_change1 in str(mock_write_args1[0]))
 
     @patch("aind_data_schema.utils.schema_version_bump.SchemaVersionHandler._get_list_of_models_that_changed")
     @patch("aind_data_schema.utils.schema_version_bump.SchemaVersionHandler._update_files")
