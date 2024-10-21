@@ -132,7 +132,7 @@ class QCEvaluation(AindModel):
             return failing_metrics
 
     @model_validator(mode="after")
-    def validate_multi_session(cls, v):
+    def validate_multi_asset(cls, v):
         """Ensure that the evaluated_assets field in any attached metrics is set correctly"""
         stage = v.stage
         metrics = v.metrics
@@ -141,7 +141,7 @@ class QCEvaluation(AindModel):
             for metric in metrics:
                 if not metric.evaluated_assets or len(metric.evaluated_assets) == 0:
                     raise ValueError(
-                        f"Metric '{metric.name}' is in a multi-session QCEvaluation and must have evaluated_assets set."
+                        f"Metric '{metric.name}' is in a multi-asset QCEvaluation and must have evaluated_assets set."
                     )
         else:
             # make sure all evaluated assets are None
@@ -149,7 +149,7 @@ class QCEvaluation(AindModel):
                 if metric.evaluated_assets:
                     raise ValueError(
                         (
-                            f"Metric '{metric.name}' is in a single-session QCEvaluation"
+                            f"Metric '{metric.name}' is in a single-asset QCEvaluation"
                             " and should not have evaluated_assets"
                         )
                     )
