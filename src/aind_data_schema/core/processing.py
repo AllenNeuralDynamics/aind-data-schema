@@ -5,7 +5,7 @@ from typing import List, Literal, Optional
 
 from aind_data_schema_models.process_names import ProcessName
 from aind_data_schema_models.units import MemoryUnit, UnitlessUnit
-from pydantic import Field, ValidationInfo, field_validator, model_validator
+from pydantic import Field, SkipValidation, ValidationInfo, field_validator, model_validator
 
 from aind_data_schema.base import AindCoreModel, AindGeneric, AindGenericType, AindModel, AwareDatetimeWithDefault
 from aind_data_schema.components.tile import Tile
@@ -124,7 +124,7 @@ class Processing(AindCoreModel):
 
     _DESCRIBED_BY_URL: str = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/processing.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["1.1.1"] = Field("1.1.1")
+    schema_version: SkipValidation[Literal["1.1.1"]] = Field("1.1.1")
 
     processing_pipeline: PipelineProcess = Field(
         ..., description="Pipeline used to process data", title="Processing Pipeline"

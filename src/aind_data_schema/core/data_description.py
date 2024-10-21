@@ -15,7 +15,7 @@ from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.pid_names import PIDName
 from aind_data_schema_models.platforms import Platform
-from pydantic import Field, model_validator
+from pydantic import Field, SkipValidation, model_validator
 
 from aind_data_schema.base import AindCoreModel, AindModel, AwareDatetimeWithDefault
 
@@ -40,7 +40,7 @@ class DataDescription(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/data_description.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["1.0.1"] = Field("1.0.1")
+    schema_version: SkipValidation[Literal["1.0.1"]] = Field("1.0.1")
     license: Literal["CC-BY-4.0"] = Field("CC-BY-4.0", title="License")
 
     platform: Platform.ONE_OF = Field(
