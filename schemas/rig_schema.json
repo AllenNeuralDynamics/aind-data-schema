@@ -995,11 +995,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
+               "$ref": "#/$defs/AindGeneric",
                "default": {},
                "title": "Additional parameters"
             },
@@ -1041,11 +1037,7 @@
                "title": "Date surface replaced"
             },
             "size": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/Size3d"
-                  }
-               ],
+               "$ref": "#/$defs/Size3d",
                "title": "3D Size"
             },
             "objects_in_arena": {
@@ -1069,11 +1061,7 @@
          "description": "Description of an axis",
          "properties": {
             "name": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AxisName"
-                  }
-               ],
+               "$ref": "#/$defs/AxisName",
                "title": "Axis"
             },
             "direction": {
@@ -1733,21 +1721,13 @@
                "type": "string"
             },
             "input": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
+               "$ref": "#/$defs/AindGeneric",
                "default": {},
                "description": "Calibration input",
                "title": "inputs"
             },
             "output": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
+               "$ref": "#/$defs/AindGeneric",
                "default": {},
                "description": "Calibration output",
                "title": "outputs"
@@ -1898,11 +1878,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
+               "$ref": "#/$defs/AindGeneric",
                "default": {},
                "title": "Additional parameters"
             },
@@ -1919,29 +1895,16 @@
                "title": "Notes"
             },
             "detector_type": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/DetectorType"
-                  }
-               ],
+               "$ref": "#/$defs/DetectorType",
                "title": "Detector Type"
             },
             "data_interface": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/DataInterface"
-                  }
-               ],
+               "$ref": "#/$defs/DataInterface",
                "title": "Data interface"
             },
             "cooling": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/Cooling"
-                  }
-               ],
-               "default": "None",
-               "title": "Cooling"
+               "$ref": "#/$defs/Cooling",
+               "default": "None"
             },
             "computer_name": {
                "anyOf": [
@@ -1972,11 +1935,7 @@
                "title": "Frame rate (Hz)"
             },
             "frame_rate_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/FrequencyUnit"
-                  }
-               ],
+               "$ref": "#/$defs/FrequencyUnit",
                "default": "hertz",
                "title": "Frame rate unit"
             },
@@ -2029,11 +1988,7 @@
                "title": "Height of the sensor (pixels)"
             },
             "size_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "pixel",
                "title": "Size unit"
             },
@@ -2074,11 +2029,7 @@
                "title": "Bit depth"
             },
             "bin_mode": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/BinMode"
-                  }
-               ],
+               "$ref": "#/$defs/BinMode",
                "default": "None",
                "title": "Detector binning mode"
             },
@@ -2107,11 +2058,7 @@
                "title": "Bin height"
             },
             "bin_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "pixel",
                "title": "Bin size unit"
             },
@@ -2179,11 +2126,7 @@
                "title": "Crop width"
             },
             "crop_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "pixel",
                "title": "Crop size unit"
             },
@@ -2242,27 +2185,15 @@
                "type": "string"
             },
             "camera_target": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/CameraTarget"
-                  }
-               ],
+               "$ref": "#/$defs/CameraTarget",
                "title": "Camera target"
             },
             "camera": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/Camera"
-                  }
-               ],
+               "$ref": "#/$defs/Camera",
                "title": "Camera"
             },
             "lens": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/Lens"
-                  }
-               ],
+               "$ref": "#/$defs/Lens",
                "title": "Lens"
             },
             "filter": {
@@ -2369,11 +2300,7 @@
                "type": "string"
             },
             "channel_type": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/DaqChannelType"
-                  }
-               ],
+               "$ref": "#/$defs/DaqChannelType",
                "title": "DAQ channel type"
             },
             "port": {
@@ -2416,11 +2343,7 @@
                "title": "DAQ channel sample rate (Hz)"
             },
             "sample_rate_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/FrequencyUnit"
-                  }
-               ],
+               "$ref": "#/$defs/FrequencyUnit",
                "default": "hertz",
                "title": "Sample rate unit"
             },
@@ -2550,11 +2473,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
+               "$ref": "#/$defs/AindGeneric",
                "default": {},
                "title": "Additional parameters"
             },
@@ -2571,11 +2490,7 @@
                "title": "Notes"
             },
             "data_interface": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/DataInterface"
-                  }
-               ],
+               "$ref": "#/$defs/DataInterface",
                "title": "Type of connection to PC"
             },
             "computer_name": {
@@ -2863,11 +2778,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
+               "$ref": "#/$defs/AindGeneric",
                "default": {},
                "title": "Additional parameters"
             },
@@ -2884,29 +2795,16 @@
                "title": "Notes"
             },
             "detector_type": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/DetectorType"
-                  }
-               ],
+               "$ref": "#/$defs/DetectorType",
                "title": "Detector Type"
             },
             "data_interface": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/DataInterface"
-                  }
-               ],
+               "$ref": "#/$defs/DataInterface",
                "title": "Data interface"
             },
             "cooling": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/Cooling"
-                  }
-               ],
-               "default": "None",
-               "title": "Cooling"
+               "$ref": "#/$defs/Cooling",
+               "default": "None"
             },
             "computer_name": {
                "anyOf": [
@@ -2937,11 +2835,7 @@
                "title": "Frame rate (Hz)"
             },
             "frame_rate_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/FrequencyUnit"
-                  }
-               ],
+               "$ref": "#/$defs/FrequencyUnit",
                "default": "hertz",
                "title": "Frame rate unit"
             },
@@ -2994,11 +2888,7 @@
                "title": "Height of the sensor (pixels)"
             },
             "size_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "pixel",
                "title": "Size unit"
             },
@@ -3039,11 +2929,7 @@
                "title": "Bit depth"
             },
             "bin_mode": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/BinMode"
-                  }
-               ],
+               "$ref": "#/$defs/BinMode",
                "default": "None",
                "title": "Detector binning mode"
             },
@@ -3072,11 +2958,7 @@
                "title": "Bin height"
             },
             "bin_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "pixel",
                "title": "Bin size unit"
             },
@@ -3144,11 +3026,7 @@
                "title": "Crop width"
             },
             "crop_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "pixel",
                "title": "Crop size unit"
             },
@@ -3644,11 +3522,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
+               "$ref": "#/$defs/AindGeneric",
                "default": {},
                "title": "Additional parameters"
             },
@@ -4123,11 +3997,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
+               "$ref": "#/$defs/AindGeneric",
                "default": {},
                "title": "Additional parameters"
             },
@@ -4164,11 +4034,7 @@
                "type": "integer"
             },
             "padding_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "pixel",
                "title": "Padding unit"
             },
@@ -4184,11 +4050,7 @@
                "title": "DMD Pixel size"
             },
             "pixel_size_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "micrometer",
                "title": "Pixel size unit"
             },
@@ -4222,11 +4084,7 @@
                "type": "array"
             },
             "dmd_curtain_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "pixel",
                "title": "dmd_curtain_unit"
             },
@@ -4238,11 +4096,7 @@
                "type": "array"
             },
             "line_shear_units": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "pixel",
                "title": "Line shear units"
             }
@@ -4704,11 +4558,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
+               "$ref": "#/$defs/AindGeneric",
                "default": {},
                "title": "Additional parameters"
             },
@@ -4762,11 +4612,7 @@
                "title": "Radius (cm)"
             },
             "radius_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "centimeter",
                "title": "radius unit"
             },
@@ -5498,11 +5344,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
+               "$ref": "#/$defs/AindGeneric",
                "default": {},
                "title": "Additional parameters"
             },
@@ -5519,11 +5361,7 @@
                "title": "Notes"
             },
             "size": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/Size3d"
-                  }
-               ],
+               "$ref": "#/$defs/Size3d",
                "title": "Size"
             },
             "internal_material": {
@@ -6027,11 +5865,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
+               "$ref": "#/$defs/AindGeneric",
                "default": {},
                "title": "Additional parameters"
             },
@@ -6048,11 +5882,7 @@
                "title": "Notes"
             },
             "probe_model": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/ProbeModel"
-                  }
-               ],
+               "$ref": "#/$defs/ProbeModel",
                "title": "Probe model"
             },
             "lasers": {
@@ -6699,11 +6529,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
+               "$ref": "#/$defs/AindGeneric",
                "default": {},
                "title": "Additional parameters"
             },
@@ -6731,11 +6557,7 @@
                "title": "Core diameter (um)"
             },
             "core_diameter_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "micrometer",
                "title": "Core diameter unit"
             },
@@ -6790,11 +6612,7 @@
                "title": "Total length (mm)"
             },
             "length_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "millimeter",
                "title": "Length unit"
             }
@@ -6909,11 +6727,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
+               "$ref": "#/$defs/AindGeneric",
                "default": {},
                "title": "Additional parameters"
             },
@@ -6930,11 +6744,7 @@
                "title": "Notes"
             },
             "filter_type": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/FilterType"
-                  }
-               ],
+               "$ref": "#/$defs/FilterType",
                "title": "Type of filter"
             },
             "diameter": {
@@ -6983,17 +6793,14 @@
                "title": "Height (mm)"
             },
             "size_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "millimeter",
                "title": "Size unit"
             },
             "thickness": {
                "anyOf": [
                   {
+                     "minimum": 0.0,
                      "type": "number"
                   },
                   {
@@ -7007,11 +6814,7 @@
                "title": "Thickness (mm)"
             },
             "thickness_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "millimeter",
                "title": "Thickness unit"
             },
@@ -7064,11 +6867,7 @@
                "title": "Center wavelength (nm)"
             },
             "wavelength_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "nanometer",
                "title": "Wavelength unit"
             },
@@ -7396,11 +7195,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
+               "$ref": "#/$defs/AindGeneric",
                "default": {},
                "title": "Additional parameters"
             },
@@ -7417,11 +7212,7 @@
                "title": "Notes"
             },
             "data_interface": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/DataInterface"
-                  }
-               ],
+               "$ref": "#/$defs/DataInterface",
                "default": "USB",
                "title": "Data interface"
             },
@@ -8014,11 +7805,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
+               "$ref": "#/$defs/AindGeneric",
                "default": {},
                "title": "Additional parameters"
             },
@@ -9192,11 +8979,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
+               "$ref": "#/$defs/AindGeneric",
                "default": {},
                "title": "Additional parameters"
             },
@@ -9237,11 +9020,7 @@
                "title": "Wavelength maximum (nm)"
             },
             "wavelength_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "nanometer",
                "title": "Wavelength unit"
             },
@@ -9258,11 +9037,7 @@
                "title": "Temperature (K)"
             },
             "temperature_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/TemperatureUnit"
-                  }
-               ],
+               "$ref": "#/$defs/TemperatureUnit",
                "default": "Kelvin",
                "title": "Temperature unit"
             }
@@ -9374,11 +9149,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
+               "$ref": "#/$defs/AindGeneric",
                "default": {},
                "title": "Additional parameters"
             },
@@ -9399,11 +9170,7 @@
                "type": "integer"
             },
             "wavelength_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "nanometer",
                "title": "Wavelength unit"
             },
@@ -9423,11 +9190,7 @@
                "title": "Maximum power (mW)"
             },
             "power_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/PowerUnit"
-                  }
-               ],
+               "$ref": "#/$defs/PowerUnit",
                "default": "milliwatt",
                "title": "Power unit"
             },
@@ -9446,6 +9209,8 @@
             "coupling_efficiency": {
                "anyOf": [
                   {
+                     "maximum": 100.0,
+                     "minimum": 0.0,
                      "type": "number"
                   },
                   {
@@ -9507,19 +9272,11 @@
                "type": "array"
             },
             "collimator": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/Device"
-                  }
-               ],
+               "$ref": "#/$defs/Device",
                "title": "Collimator"
             },
             "fiber": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/Patch"
-                  }
-               ],
+               "$ref": "#/$defs/Patch",
                "title": "Fiber patch"
             }
          },
@@ -9666,11 +9423,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
+               "$ref": "#/$defs/AindGeneric",
                "default": {},
                "title": "Additional parameters"
             },
@@ -9702,11 +9455,7 @@
                "title": "Focal length of the lens (mm)"
             },
             "focal_length_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "millimeter",
                "title": "Focal length unit"
             },
@@ -9723,11 +9472,7 @@
                "title": "Size (inches)"
             },
             "lens_size_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "inch",
                "title": "Lens size unit"
             },
@@ -9744,11 +9489,7 @@
                "title": "Optimized wavelength range (nm)"
             },
             "wavelength_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "nanometer",
                "title": "Wavelength unit"
             },
@@ -9887,11 +9628,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
+               "$ref": "#/$defs/AindGeneric",
                "default": {},
                "title": "Additional parameters"
             },
@@ -9912,11 +9649,7 @@
                "type": "integer"
             },
             "wavelength_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "nanometer",
                "title": "Wavelength unit"
             },
@@ -9933,11 +9666,7 @@
                "title": "Bandwidth (FWHM)"
             },
             "bandwidth_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "nanometer",
                "title": "Bandwidth unit"
             }
@@ -10403,11 +10132,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
+               "$ref": "#/$defs/AindGeneric",
                "default": {},
                "title": "Additional parameters"
             },
@@ -10520,11 +10245,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
+               "$ref": "#/$defs/AindGeneric",
                "default": {},
                "title": "Additional parameters"
             },
@@ -10554,11 +10275,7 @@
                "type": "integer"
             },
             "size_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "pixel",
                "title": "Size unit"
             },
@@ -10574,11 +10291,7 @@
                "title": "Viewing distance (cm)"
             },
             "viewing_distance_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "centimeter",
                "title": "Viewing distance unit"
             },
@@ -11077,11 +10790,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
+               "$ref": "#/$defs/AindGeneric",
                "default": {},
                "title": "Additional parameters"
             },
@@ -11109,11 +10818,7 @@
                "title": "Travel of device (mm)"
             },
             "travel_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "millimeter",
                "title": "Travel unit"
             },
@@ -11685,11 +11390,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
+               "$ref": "#/$defs/AindGeneric",
                "default": {},
                "title": "Additional parameters"
             },
@@ -12462,11 +12163,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
+               "$ref": "#/$defs/AindGeneric",
                "default": {},
                "title": "Additional parameters"
             },
@@ -12505,11 +12202,7 @@
                "title": "Magnification"
             },
             "immersion": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/ImmersionMedium"
-                  }
-               ],
+               "$ref": "#/$defs/ImmersionMedium",
                "title": "Immersion"
             },
             "objective_type": {
@@ -12657,11 +12350,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
+               "$ref": "#/$defs/AindGeneric",
                "default": {},
                "title": "Additional parameters"
             },
@@ -12678,11 +12367,7 @@
                "title": "Notes"
             },
             "data_interface": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/DataInterface"
-                  }
-               ],
+               "$ref": "#/$defs/DataInterface",
                "default": "USB",
                "title": "Data interface"
             },
@@ -12786,11 +12471,7 @@
                "type": "integer"
             },
             "channel_type": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/ChannelType"
-                  }
-               ],
+               "$ref": "#/$defs/ChannelType",
                "default": "Odor",
                "title": "Channel type"
             },
@@ -12929,11 +12610,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
+               "$ref": "#/$defs/AindGeneric",
                "default": {},
                "title": "Additional parameters"
             },
@@ -13524,11 +13201,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
+               "$ref": "#/$defs/AindGeneric",
                "default": {},
                "title": "Additional parameters"
             },
@@ -14029,11 +13702,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
+               "$ref": "#/$defs/AindGeneric",
                "default": {},
                "title": "Additional parameters"
             },
@@ -14093,11 +13762,7 @@
                "title": "Off time (fraction of cycle)"
             },
             "time_setting_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/UnitlessUnit"
-                  }
-               ],
+               "$ref": "#/$defs/UnitlessUnit",
                "default": "fraction of cycle",
                "title": "Time setting unit"
             },
@@ -14117,11 +13782,7 @@
                "title": "Beam modulation (V)"
             },
             "beam_modulation_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/VoltageUnit"
-                  }
-               ],
+               "$ref": "#/$defs/VoltageUnit",
                "default": "Volts",
                "title": "Beam modulation unit"
             }
@@ -14573,11 +14234,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
+               "$ref": "#/$defs/AindGeneric",
                "default": {},
                "title": "Additional parameters"
             },
@@ -14598,11 +14255,7 @@
                "type": "integer"
             },
             "speed_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SpeedUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SpeedUnit",
                "default": "rotations per minute",
                "title": "Speed unit"
             },
@@ -15309,11 +14962,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
+               "$ref": "#/$defs/AindGeneric",
                "default": {},
                "title": "Additional parameters"
             },
@@ -15330,11 +14979,7 @@
                "title": "Notes"
             },
             "side": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SpoutSide"
-                  }
-               ],
+               "$ref": "#/$defs/SpoutSide",
                "description": "If Other use notes",
                "title": "Spout side"
             },
@@ -15350,11 +14995,7 @@
                "title": "Spout diameter (mm)"
             },
             "spout_diameter_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "millimeter",
                "title": "Spout diameter unit"
             },
@@ -15371,23 +15012,11 @@
                "title": "Spout stage position"
             },
             "solenoid_valve": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/Device"
-                  }
-               ],
+               "$ref": "#/$defs/Device",
                "title": "Solenoid valve"
             },
             "lick_sensor": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/Device"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
+               "$ref": "#/$defs/Device",
                "title": "Lick sensor"
             },
             "lick_sensor_type": {
@@ -15407,7 +15036,8 @@
             "name",
             "side",
             "spout_diameter",
-            "solenoid_valve"
+            "solenoid_valve",
+            "lick_sensor"
          ],
          "title": "RewardSpout",
          "type": "object"
@@ -15890,11 +15520,7 @@
                "type": "integer"
             },
             "unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "meter",
                "title": "Size unit"
             }
@@ -15946,11 +15572,7 @@
                "title": "URL to commit being used"
             },
             "parameters": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
+               "$ref": "#/$defs/AindGeneric",
                "default": {},
                "title": "Software parameters"
             }
@@ -16051,11 +15673,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
+               "$ref": "#/$defs/AindGeneric",
                "default": {},
                "title": "Additional parameters"
             },
@@ -17012,11 +16630,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
+               "$ref": "#/$defs/AindGeneric",
                "default": {},
                "title": "Additional parameters"
             },
@@ -17069,11 +16683,7 @@
                "title": "Width of treadmill (mm)"
             },
             "width_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "centimeter",
                "title": "Width unit"
             }
@@ -17526,11 +17136,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
+               "$ref": "#/$defs/AindGeneric",
                "default": {},
                "title": "Additional parameters"
             },
@@ -17584,11 +17190,7 @@
                "title": "Diameter"
             },
             "diameter_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "centimeter",
                "title": "Diameter unit"
             }
@@ -18135,11 +17737,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
+               "$ref": "#/$defs/AindGeneric",
                "default": {},
                "title": "Additional parameters"
             },
@@ -18203,20 +17801,12 @@
                "title": "Width (mm)"
             },
             "size_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "millimeter",
                "title": "Size unit"
             },
             "encoder": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/Device"
-                  }
-               ],
+               "$ref": "#/$defs/Device",
                "title": "Encoder"
             },
             "encoder_output": {
@@ -18236,11 +17826,7 @@
                "type": "integer"
             },
             "magnetic_brake": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/Device"
-                  }
-               ],
+               "$ref": "#/$defs/Device",
                "title": "Magnetic brake"
             },
             "brake_output": {
@@ -18256,11 +17842,7 @@
                "title": "Brake DAQ channel"
             },
             "torque_sensor": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/Device"
-                  }
-               ],
+               "$ref": "#/$defs/Device",
                "title": "Torque sensor"
             },
             "torque_output": {
@@ -18348,10 +17930,10 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "1.0.0",
-         "default": "1.0.0",
+         "const": "1.0.1",
+         "default": "1.0.1",
          "enum": [
-            "1.0.0"
+            "1.0.1"
          ],
          "title": "Schema Version",
          "type": "string"

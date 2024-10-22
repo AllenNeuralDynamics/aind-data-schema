@@ -84,6 +84,14 @@ aind\_data\_schema.core.subject module
    :undoc-members:
    :show-inheritance:
 
+aind\_data\_schema.core.quality_control module
+--------------------------------------
+
+.. automodule:: aind_data_schema.core.quality_control
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Module contents
 ---------------
 

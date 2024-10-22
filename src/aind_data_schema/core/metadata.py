@@ -6,6 +6,7 @@ from enum import Enum
 from typing import Dict, List, Literal, Optional, get_args
 from uuid import UUID, uuid4
 
+from aind_data_schema_models.modalities import ExpectedFiles, FileRequirement
 from aind_data_schema_models.platforms import Platform
 from pydantic import Field, PrivateAttr, ValidationError, ValidationInfo, field_validator, model_validator
 
@@ -20,6 +21,18 @@ from aind_data_schema.core.rig import Rig
 from aind_data_schema.core.session import Session
 from aind_data_schema.core.subject import Subject
 from aind_data_schema.utils.compatibility_check import RigSessionCompatibility
+
+CORE_FILES = [
+    "subject",
+    "data_description",
+    "procedures",
+    "session",
+    "rig",
+    "processing",
+    "acquisition",
+    "instrument",
+    "quality_control",
+]
 
 
 class MetadataStatus(str, Enum):
@@ -47,8 +60,8 @@ class Metadata(AindCoreModel):
     _FILE_EXTENSION = PrivateAttr(default=".nd.json")
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/metadata.py"
-    describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["1.0.0"] = Field("1.0.0")
+    describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
+    schema_version: Literal["1.0.2"] = Field(default="1.0.2")
     id: UUID = Field(
         default_factory=uuid4,
         alias="_id",
@@ -112,15 +125,7 @@ class Metadata(AindCoreModel):
     )
 
     @field_validator(
-        "subject",
-        "data_description",
-        "procedures",
-        "session",
-        "rig",
-        "processing",
-        "acquisition",
-        "instrument",
-        "quality_control",
+        *CORE_FILES,
         mode="before",
     )
     def validate_core_fields(cls, value, info: ValidationInfo):
@@ -190,16 +195,49 @@ class Metadata(AindCoreModel):
         return self
 
     @model_validator(mode="after")
+    def validate_expected_files_by_modality(self):
+        """Validator checks that all required/excluded files match the metadata model"""
+        if self.data_description:
+            modalities = self.data_description.modality
+
+            requirement_dict = {}
+
+            for modality in modalities:
+                abbreviation = modality.abbreviation.replace("-", "_").upper()
+
+                for file in CORE_FILES:
+                    #  For each field, check if this is a required/excluded file
+                    file_requirement = getattr(getattr(ExpectedFiles, abbreviation), file)
+
+                    if file not in requirement_dict:
+                        requirement_dict[file] = (abbreviation, file_requirement)
+                    else:
+                        (prev_modality, prev_requirement) = requirement_dict[file]
+
+                        if (file_requirement == FileRequirement.REQUIRED) or (
+                            file_requirement == FileRequirement.OPTIONAL
+                            and prev_requirement == FileRequirement.EXCLUDED
+                        ):
+                            # override, required wins over all else, and optional wins over excluded
+                            requirement_dict[file] = (abbreviation, file_requirement)
+
+            for file in CORE_FILES:
+                # Unpack modality
+                (requirement_modality, file_requirement) = requirement_dict[file]
+
+                # Check required case
+                if file_requirement == FileRequirement.REQUIRED and not getattr(self, file):
+                    raise ValueError(f"{requirement_modality} metadata missing required file: {file}")
+
+                # Check excluded case
+                if file_requirement == FileRequirement.EXCLUDED and getattr(self, file):
+                    raise ValueError(f"{requirement_modality} metadata includes excluded file: {file}")
+
+        return self
+
+    @model_validator(mode="after")
     def validate_smartspim_metadata(self):
         """Validator for smartspim metadata"""
-        if (
-            self.data_description
-            and self.data_description.platform == Platform.SMARTSPIM
-            and not (self.subject and self.procedures and self.acquisition and self.instrument)
-        ):
-            raise ValueError(
-                "Missing some metadata for SmartSpim. Requires subject, procedures, acquisition, and instrument."
-            )
 
         if (
             self.data_description
@@ -219,14 +257,6 @@ class Metadata(AindCoreModel):
     @model_validator(mode="after")
     def validate_ecephys_metadata(self):
         """Validator for metadata"""
-        if (
-            self.data_description
-            and self.data_description.platform == Platform.ECEPHYS
-            and not (self.subject and self.procedures and self.session and self.rig and self.processing)
-        ):
-            raise ValueError(
-                "Missing some metadata for Ecephys. Requires subject, procedures, session, rig, and processing."
-            )
         if (
             self.data_description
             and self.data_description.platform == Platform.ECEPHYS
