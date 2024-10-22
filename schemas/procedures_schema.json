@@ -574,17 +574,15 @@
                "title": "Duration"
             },
             "duration_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/TimeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/TimeUnit",
                "default": "minute",
                "title": "Duration unit"
             },
             "level": {
                "anyOf": [
                   {
+                     "maximum": 5.0,
+                     "minimum": 1.0,
                      "type": "number"
                   },
                   {
@@ -1018,11 +1016,7 @@
                "title": "Lot expiration date"
             },
             "immunolabel_class": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/ImmunolabelClass"
-                  }
-               ],
+               "$ref": "#/$defs/ImmunolabelClass",
                "title": "Immunolabel class"
             },
             "fluorophore": {
@@ -1049,11 +1043,7 @@
                "title": "Mass of antibody"
             },
             "mass_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/MassUnit"
-                  }
-               ],
+               "$ref": "#/$defs/MassUnit",
                "default": "microgram",
                "title": "Mass unit"
             },
@@ -1116,6 +1106,37 @@
             }
          },
          "title": "BASLER",
+         "type": "object"
+      },
+      "BICEPS_BRACHII": {
+         "properties": {
+            "name": {
+               "const": "biceps brachii",
+               "default": "biceps brachii",
+               "enum": [
+                  "biceps brachii"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "registry": {
+               "$ref": "#/$defs/RegistryModel",
+               "default": {
+                  "name": "Edinburgh Mouse Atlas Project",
+                  "abbreviation": "EMAPA"
+               }
+            },
+            "registry_identifier": {
+               "const": "EMAPA_19108",
+               "default": "EMAPA_19108",
+               "enum": [
+                  "EMAPA_19108"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "BICEPS_BRACHII",
          "type": "object"
       },
       "BaseName": {
@@ -1673,11 +1694,7 @@
                "type": "string"
             },
             "craniotomy_type": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/CraniotomyType"
-                  }
-               ],
+               "$ref": "#/$defs/CraniotomyType",
                "title": "Craniotomy type"
             },
             "craniotomy_hemisphere": {
@@ -1709,11 +1726,7 @@
                "title": "Bregma to lambda (mm)"
             },
             "bregma_to_lambda_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "millimeter",
                "title": "Bregma to lambda unit"
             },
@@ -1769,11 +1782,7 @@
                "title": "Recovery time"
             },
             "recovery_time_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/TimeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/TimeUnit",
                "default": "minute",
                "title": "Recovery time unit"
             }
@@ -1806,6 +1815,37 @@
          ],
          "title": "CurrentUnit",
          "type": "string"
+      },
+      "DELTOID": {
+         "properties": {
+            "name": {
+               "const": "deltoid",
+               "default": "deltoid",
+               "enum": [
+                  "deltoid"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "registry": {
+               "$ref": "#/$defs/RegistryModel",
+               "default": {
+                  "name": "Edinburgh Mouse Atlas Project",
+                  "abbreviation": "EMAPA"
+               }
+            },
+            "registry_identifier": {
+               "const": "EMAPA_18177",
+               "default": "EMAPA_18177",
+               "enum": [
+                  "EMAPA_18177"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "DELTOID",
+         "type": "object"
       },
       "DODOTRONIC": {
          "properties": {
@@ -2074,6 +2114,223 @@
          "title": "EURESYS",
          "type": "object"
       },
+      "EXTENSOR_CARPI_RADIALIS_LONGUS": {
+         "properties": {
+            "name": {
+               "const": "extensor carpi radialis longus",
+               "default": "extensor carpi radialis longus",
+               "enum": [
+                  "extensor carpi radialis longus"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "registry": {
+               "$ref": "#/$defs/RegistryModel",
+               "default": {
+                  "name": "Edinburgh Mouse Atlas Project",
+                  "abbreviation": "EMAPA"
+               }
+            },
+            "registry_identifier": {
+               "const": "EMAPA_36189",
+               "default": "EMAPA_36189",
+               "enum": [
+                  "EMAPA_36189"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "EXTENSOR_CARPI_RADIALIS_LONGUS",
+         "type": "object"
+      },
+      "EXTENSOR_CARPI_ULNARIS": {
+         "properties": {
+            "name": {
+               "const": "extensor carpi ulnaris",
+               "default": "extensor carpi ulnaris",
+               "enum": [
+                  "extensor carpi ulnaris"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "registry": {
+               "$ref": "#/$defs/RegistryModel",
+               "default": {
+                  "name": "Edinburgh Mouse Atlas Project",
+                  "abbreviation": "EMAPA"
+               }
+            },
+            "registry_identifier": {
+               "const": "EMAPA_36190",
+               "default": "EMAPA_36190",
+               "enum": [
+                  "EMAPA_36190"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "EXTENSOR_CARPI_ULNARIS",
+         "type": "object"
+      },
+      "EXTENSOR_DIGITORUM_COMMUNIS": {
+         "properties": {
+            "name": {
+               "const": "extensor digitorum communis",
+               "default": "extensor digitorum communis",
+               "enum": [
+                  "extensor digitorum communis"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "registry": {
+               "$ref": "#/$defs/RegistryModel",
+               "default": {
+                  "name": "Edinburgh Mouse Atlas Project",
+                  "abbreviation": "EMAPA"
+               }
+            },
+            "registry_identifier": {
+               "const": "EMAPA_36191",
+               "default": "EMAPA_36191",
+               "enum": [
+                  "EMAPA_36191"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "EXTENSOR_DIGITORUM_COMMUNIS",
+         "type": "object"
+      },
+      "EXTENSOR_DIGITORUM_LATERALIS": {
+         "properties": {
+            "name": {
+               "const": "extensor digitorum lateralis",
+               "default": "extensor digitorum lateralis",
+               "enum": [
+                  "extensor digitorum lateralis"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "registry": {
+               "$ref": "#/$defs/RegistryModel",
+               "default": {
+                  "name": "Edinburgh Mouse Atlas Project",
+                  "abbreviation": "EMAPA"
+               }
+            },
+            "registry_identifier": {
+               "const": "EMAPA_36192",
+               "default": "EMAPA_36192",
+               "enum": [
+                  "EMAPA_36192"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "EXTENSOR_DIGITORUM_LATERALIS",
+         "type": "object"
+      },
+      "FLEXOR_CARPI_RADIALIS": {
+         "properties": {
+            "name": {
+               "const": "flexor carpi radialis",
+               "default": "flexor carpi radialis",
+               "enum": [
+                  "flexor carpi radialis"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "registry": {
+               "$ref": "#/$defs/RegistryModel",
+               "default": {
+                  "name": "Edinburgh Mouse Atlas Project",
+                  "abbreviation": "EMAPA"
+               }
+            },
+            "registry_identifier": {
+               "const": "EMAPA_36197",
+               "default": "EMAPA_36197",
+               "enum": [
+                  "EMAPA_36197"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "FLEXOR_CARPI_RADIALIS",
+         "type": "object"
+      },
+      "FLEXOR_CARPI_ULNARIS": {
+         "properties": {
+            "name": {
+               "const": "flexor carpi ulnaris",
+               "default": "flexor carpi ulnaris",
+               "enum": [
+                  "flexor carpi ulnaris"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "registry": {
+               "$ref": "#/$defs/RegistryModel",
+               "default": {
+                  "name": "Edinburgh Mouse Atlas Project",
+                  "abbreviation": "EMAPA"
+               }
+            },
+            "registry_identifier": {
+               "const": "EMAPA_36198",
+               "default": "EMAPA_36198",
+               "enum": [
+                  "EMAPA_36198"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "FLEXOR_CARPI_ULNARIS",
+         "type": "object"
+      },
+      "FLEXOR_DIGITORUM_PROFUNDUS": {
+         "properties": {
+            "name": {
+               "const": "flexor digitorum profundus",
+               "default": "flexor digitorum profundus",
+               "enum": [
+                  "flexor digitorum profundus"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "registry": {
+               "$ref": "#/$defs/RegistryModel",
+               "default": {
+                  "name": "Edinburgh Mouse Atlas Project",
+                  "abbreviation": "EMAPA"
+               }
+            },
+            "registry_identifier": {
+               "const": "EMAPA_19319",
+               "default": "EMAPA_19319",
+               "enum": [
+                  "EMAPA_19319"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "FLEXOR_DIGITORUM_PROFUNDUS",
+         "type": "object"
+      },
       "FLIR": {
          "properties": {
             "name": {
@@ -2123,6 +2380,37 @@
             }
          },
          "title": "FLIR",
+         "type": "object"
+      },
+      "FORELIMB": {
+         "properties": {
+            "name": {
+               "const": "forelimb",
+               "default": "forelimb",
+               "enum": [
+                  "forelimb"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "registry": {
+               "$ref": "#/$defs/RegistryModel",
+               "default": {
+                  "name": "Edinburgh Mouse Atlas Project",
+                  "abbreviation": "EMAPA"
+               }
+            },
+            "registry_identifier": {
+               "const": "EMAPA_17412",
+               "default": "EMAPA_17412",
+               "enum": [
+                  "EMAPA_17412"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "FORELIMB",
          "type": "object"
       },
       "FUJINON": {
@@ -2646,11 +2934,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
+               "$ref": "#/$defs/AindGeneric",
                "default": {},
                "title": "Additional parameters"
             },
@@ -2678,11 +2962,7 @@
                "title": "Core diameter (um)"
             },
             "core_diameter_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "micrometer",
                "title": "Core diameter unit"
             },
@@ -2737,11 +3017,7 @@
                "title": "Total length (mm)"
             },
             "length_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "millimeter",
                "title": "Length unit"
             }
@@ -3305,11 +3581,7 @@
                "title": "Species"
             },
             "gene": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/PIDName"
-                  }
-               ],
+               "$ref": "#/$defs/PIDName",
                "title": "Gene name, accession number, and registry"
             },
             "probe_sequences": {
@@ -3320,11 +3592,7 @@
                "type": "array"
             },
             "readout": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/HCRReadout"
-                  }
-               ],
+               "$ref": "#/$defs/HCRReadout",
                "title": "Readout"
             },
             "initiator_name": {
@@ -3756,20 +4024,12 @@
                "type": "integer"
             },
             "excitation_wavelength_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "nanometer",
                "title": "Excitation wavelength unit"
             },
             "stain_type": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/StainType"
-                  }
-               ],
+               "$ref": "#/$defs/StainType",
                "title": "Stain type"
             },
             "initiator_name": {
@@ -3820,6 +4080,68 @@
             "strip_qc_compatible"
          ],
          "title": "HCRSeries",
+         "type": "object"
+      },
+      "HEAD": {
+         "properties": {
+            "name": {
+               "const": "head",
+               "default": "head",
+               "enum": [
+                  "head"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "registry": {
+               "$ref": "#/$defs/RegistryModel",
+               "default": {
+                  "name": "Edinburgh Mouse Atlas Project",
+                  "abbreviation": "EMAPA"
+               }
+            },
+            "registry_identifier": {
+               "const": "EMAPA_31858",
+               "default": "EMAPA_31858",
+               "enum": [
+                  "EMAPA_31858"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "HEAD",
+         "type": "object"
+      },
+      "HINDLIMB": {
+         "properties": {
+            "name": {
+               "const": "hindlimb",
+               "default": "hindlimb",
+               "enum": [
+                  "hindlimb"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "registry": {
+               "$ref": "#/$defs/RegistryModel",
+               "default": {
+                  "name": "Edinburgh Mouse Atlas Project",
+                  "abbreviation": "EMAPA"
+               }
+            },
+            "registry_identifier": {
+               "const": "EMAPA_17458",
+               "default": "EMAPA_17458",
+               "enum": [
+                  "EMAPA_17458"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "HINDLIMB",
          "type": "object"
       },
       "HOMO_SAPIENS": {
@@ -4352,7 +4674,14 @@
          "properties": {
             "injection_materials": {
                "items": {
-                  "anyOf": [
+                  "discriminator": {
+                     "mapping": {
+                        "Reagent": "#/$defs/NonViralMaterial",
+                        "Virus": "#/$defs/ViralMaterial"
+                     },
+                     "propertyName": "material_type"
+                  },
+                  "oneOf": [
                      {
                         "$ref": "#/$defs/ViralMaterial"
                      },
@@ -4381,11 +4710,7 @@
                "title": "Recovery time"
             },
             "recovery_time_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/TimeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/TimeUnit",
                "default": "minute",
                "title": "Recovery time unit"
             },
@@ -4405,11 +4730,7 @@
                "title": "Injection duration"
             },
             "injection_duration_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/TimeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/TimeUnit",
                "default": "minute",
                "title": "Injection duration unit"
             },
@@ -4467,11 +4788,7 @@
                "type": "array"
             },
             "injection_coordinate_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "millimeter",
                "title": "Injection coordinate unit"
             },
@@ -4504,11 +4821,7 @@
                "title": "Bregma to lambda (mm)"
             },
             "bregma_to_lambda_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "millimeter",
                "title": "Bregma to lambda unit"
             },
@@ -4524,11 +4837,7 @@
                "title": "Injection angle (deg)"
             },
             "injection_angle_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AngleUnit"
-                  }
-               ],
+               "$ref": "#/$defs/AngleUnit",
                "default": "degrees",
                "title": "Injection angle unit"
             },
@@ -4581,11 +4890,7 @@
                "type": "array"
             },
             "injection_volume_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/VolumeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/VolumeUnit",
                "default": "nanoliter",
                "title": "Injection volume unit"
             }
@@ -4608,7 +4913,14 @@
          "properties": {
             "injection_materials": {
                "items": {
-                  "anyOf": [
+                  "discriminator": {
+                     "mapping": {
+                        "Reagent": "#/$defs/NonViralMaterial",
+                        "Virus": "#/$defs/ViralMaterial"
+                     },
+                     "propertyName": "material_type"
+                  },
+                  "oneOf": [
                      {
                         "$ref": "#/$defs/ViralMaterial"
                      },
@@ -4637,11 +4949,7 @@
                "title": "Recovery time"
             },
             "recovery_time_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/TimeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/TimeUnit",
                "default": "minute",
                "title": "Recovery time unit"
             },
@@ -4661,11 +4969,7 @@
                "title": "Injection duration"
             },
             "injection_duration_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/TimeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/TimeUnit",
                "default": "minute",
                "title": "Injection duration unit"
             },
@@ -4723,11 +5027,7 @@
                "type": "array"
             },
             "injection_coordinate_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "millimeter",
                "title": "Injection coordinate unit"
             },
@@ -4760,11 +5060,7 @@
                "title": "Bregma to lambda (mm)"
             },
             "bregma_to_lambda_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "millimeter",
                "title": "Bregma to lambda unit"
             },
@@ -4780,11 +5076,7 @@
                "title": "Injection angle (deg)"
             },
             "injection_angle_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AngleUnit"
-                  }
-               ],
+               "$ref": "#/$defs/AngleUnit",
                "default": "degrees",
                "title": "Injection angle unit"
             },
@@ -4837,11 +5129,7 @@
                "type": "array"
             },
             "injection_volume_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/VolumeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/VolumeUnit",
                "default": "nanoliter",
                "title": "Injection volume unit"
             }
@@ -4864,7 +5152,14 @@
          "properties": {
             "injection_materials": {
                "items": {
-                  "anyOf": [
+                  "discriminator": {
+                     "mapping": {
+                        "Reagent": "#/$defs/NonViralMaterial",
+                        "Virus": "#/$defs/ViralMaterial"
+                     },
+                     "propertyName": "material_type"
+                  },
+                  "oneOf": [
                      {
                         "$ref": "#/$defs/ViralMaterial"
                      },
@@ -4893,11 +5188,7 @@
                "title": "Recovery time"
             },
             "recovery_time_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/TimeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/TimeUnit",
                "default": "minute",
                "title": "Recovery time unit"
             },
@@ -4917,11 +5208,7 @@
                "title": "Injection duration"
             },
             "injection_duration_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/TimeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/TimeUnit",
                "default": "minute",
                "title": "Injection duration unit"
             },
@@ -4963,11 +5250,7 @@
                "title": "Injection volume (uL)"
             },
             "injection_volume_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/VolumeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/VolumeUnit",
                "default": "microliter",
                "title": "Injection volume unit"
             }
@@ -4986,7 +5269,14 @@
          "properties": {
             "injection_materials": {
                "items": {
-                  "anyOf": [
+                  "discriminator": {
+                     "mapping": {
+                        "Reagent": "#/$defs/NonViralMaterial",
+                        "Virus": "#/$defs/ViralMaterial"
+                     },
+                     "propertyName": "material_type"
+                  },
+                  "oneOf": [
                      {
                         "$ref": "#/$defs/ViralMaterial"
                      },
@@ -5015,11 +5305,7 @@
                "title": "Recovery time"
             },
             "recovery_time_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/TimeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/TimeUnit",
                "default": "minute",
                "title": "Recovery time unit"
             },
@@ -5039,11 +5325,7 @@
                "title": "Injection duration"
             },
             "injection_duration_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/TimeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/TimeUnit",
                "default": "minute",
                "title": "Injection duration unit"
             },
@@ -5101,11 +5383,7 @@
                "type": "array"
             },
             "injection_coordinate_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "millimeter",
                "title": "Injection coordinate unit"
             },
@@ -5138,11 +5416,7 @@
                "title": "Bregma to lambda (mm)"
             },
             "bregma_to_lambda_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "millimeter",
                "title": "Bregma to lambda unit"
             },
@@ -5158,11 +5432,7 @@
                "title": "Injection angle (deg)"
             },
             "injection_angle_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AngleUnit"
-                  }
-               ],
+               "$ref": "#/$defs/AngleUnit",
                "default": "degrees",
                "title": "Injection angle unit"
             },
@@ -5211,11 +5481,7 @@
                "title": "Injection current (uA)"
             },
             "injection_current_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/CurrentUnit"
-                  }
-               ],
+               "$ref": "#/$defs/CurrentUnit",
                "default": "microamps",
                "title": "Injection current unit"
             },
@@ -5377,6 +5643,37 @@
          "title": "JULABO",
          "type": "object"
       },
+      "LATERAL_HEAD_OF_TRICEPS_BRACHII": {
+         "properties": {
+            "name": {
+               "const": "lateral head of triceps brachii",
+               "default": "lateral head of triceps brachii",
+               "enum": [
+                  "lateral head of triceps brachii"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "registry": {
+               "$ref": "#/$defs/RegistryModel",
+               "default": {
+                  "name": "Edinburgh Mouse Atlas Project",
+                  "abbreviation": "EMAPA"
+               }
+            },
+            "registry_identifier": {
+               "const": "EMAPA_36184",
+               "default": "EMAPA_36184",
+               "enum": [
+                  "EMAPA_36184"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "LATERAL_HEAD_OF_TRICEPS_BRACHII",
+         "type": "object"
+      },
       "LEICA": {
          "properties": {
             "name": {
@@ -5502,6 +5799,68 @@
             }
          },
          "title": "LIFECANVAS",
+         "type": "object"
+      },
+      "LONG_HEAD_OF_BICEPS_BRACHII": {
+         "properties": {
+            "name": {
+               "const": "long head of biceps brachii",
+               "default": "long head of biceps brachii",
+               "enum": [
+                  "long head of biceps brachii"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "registry": {
+               "$ref": "#/$defs/RegistryModel",
+               "default": {
+                  "name": "Edinburgh Mouse Atlas Project",
+                  "abbreviation": "EMAPA"
+               }
+            },
+            "registry_identifier": {
+               "const": "EMAPA_25054",
+               "default": "EMAPA_25054",
+               "enum": [
+                  "EMAPA_25054"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "LONG_HEAD_OF_BICEPS_BRACHII",
+         "type": "object"
+      },
+      "LONG_HEAD_OF_TRICEPS_BRACHII": {
+         "properties": {
+            "name": {
+               "const": "long head of triceps brachii",
+               "default": "long head of triceps brachii",
+               "enum": [
+                  "long head of triceps brachii"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "registry": {
+               "$ref": "#/$defs/RegistryModel",
+               "default": {
+                  "name": "Edinburgh Mouse Atlas Project",
+                  "abbreviation": "EMAPA"
+               }
+            },
+            "registry_identifier": {
+               "const": "EMAPA_36185",
+               "default": "EMAPA_36185",
+               "enum": [
+                  "EMAPA_36185"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "LONG_HEAD_OF_TRICEPS_BRACHII",
          "type": "object"
       },
       "LUMEN_DYNAMICS": {
@@ -5684,6 +6043,37 @@
             }
          },
          "title": "MEADOWLARK_OPTICS",
+         "type": "object"
+      },
+      "MEDIAL_HEAD_OF_TRICEPS_BRACHII": {
+         "properties": {
+            "name": {
+               "const": "medial head of triceps brachii",
+               "default": "medial head of triceps brachii",
+               "enum": [
+                  "medial head of triceps brachii"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "registry": {
+               "$ref": "#/$defs/RegistryModel",
+               "default": {
+                  "name": "Edinburgh Mouse Atlas Project",
+                  "abbreviation": "EMAPA"
+               }
+            },
+            "registry_identifier": {
+               "const": "EMAPA_36186",
+               "default": "EMAPA_36186",
+               "enum": [
+                  "EMAPA_36186"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "MEDIAL_HEAD_OF_TRICEPS_BRACHII",
          "type": "object"
       },
       "MIDOPT": {
@@ -5956,6 +6346,725 @@
          "title": "MassUnit",
          "type": "string"
       },
+      "MyomatrixArray": {
+         "additionalProperties": false,
+         "description": "Description of a Myomatrix array",
+         "properties": {
+            "device_type": {
+               "const": "Myomatrix Array",
+               "default": "Myomatrix Array",
+               "enum": [
+                  "Myomatrix Array"
+               ],
+               "title": "Device Type",
+               "type": "string"
+            },
+            "name": {
+               "title": "Device name",
+               "type": "string"
+            },
+            "serial_number": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Serial number"
+            },
+            "manufacturer": {
+               "anyOf": [
+                  {
+                     "discriminator": {
+                        "mapping": {
+                           "AA Opto Electronic": "#/$defs/AA_OPTO_ELECTRONIC",
+                           "ASUS": "#/$defs/ASUS",
+                           "Abcam": "#/$defs/ABCAM",
+                           "Addgene": "#/$defs/ADDGENE",
+                           "Ailipu Technology Co": "#/$defs/AILIPU",
+                           "Allen Institute": "#/$defs/AI",
+                           "Allen Institute for Brain Science": "#/$defs/AIBS",
+                           "Allen Institute for Neural Dynamics": "#/$defs/AIND",
+                           "Allied": "#/$defs/ALLIED",
+                           "Applied Scientific Instrumentation": "#/$defs/ASI",
+                           "Arecont Vision Costar": "#/$defs/ARECONT_VISION_COSTAR",
+                           "Basler": "#/$defs/BASLER",
+                           "Cambridge Technology": "#/$defs/CAMBRIDGE_TECHNOLOGY",
+                           "Carl Zeiss": "#/$defs/CARL_ZEISS",
+                           "Champalimaud Foundation": "#/$defs/CHAMPALIMAUD",
+                           "Chan Zuckerberg Initiative": "#/$defs/CZI",
+                           "Chroma": "#/$defs/CHROMA",
+                           "Coherent Scientific": "#/$defs/COHERENT_SCIENTIFIC",
+                           "Columbia University": "#/$defs/COLUMBIA",
+                           "Computar": "#/$defs/COMPUTAR",
+                           "Conoptics": "#/$defs/CONOPTICS",
+                           "Custom": "#/$defs/CUSTOM",
+                           "Dodotronic": "#/$defs/DODOTRONIC",
+                           "Doric": "#/$defs/DORIC",
+                           "Ealing": "#/$defs/EALING",
+                           "Edmund Optics": "#/$defs/EDMUND_OPTICS",
+                           "Emory University": "#/$defs/EMORY",
+                           "Euresys": "#/$defs/EURESYS",
+                           "Fujinon": "#/$defs/FUJINON",
+                           "Hamamatsu": "#/$defs/HAMAMATSU",
+                           "Hamilton": "#/$defs/HAMILTON",
+                           "Huazhong University of Science and Technology": "#/$defs/HUST",
+                           "IR Robot Co": "#/$defs/IR_ROBOT_CO",
+                           "ISL Products International": "#/$defs/ISL",
+                           "Infinity Photo-Optical": "#/$defs/INFINITY_PHOTO_OPTICAL",
+                           "Integrated DNA Technologies": "#/$defs/IDT",
+                           "Interuniversity Microelectronics Center": "#/$defs/IMEC",
+                           "Invitrogen": "#/$defs/INVITROGEN",
+                           "Jackson Laboratory": "#/$defs/JAX",
+                           "Janelia Research Campus": "#/$defs/JANELIA",
+                           "Julabo": "#/$defs/JULABO",
+                           "LG": "#/$defs/LG",
+                           "Leica": "#/$defs/LEICA",
+                           "LifeCanvas": "#/$defs/LIFECANVAS",
+                           "Lumen Dynamics": "#/$defs/LUMEN_DYNAMICS",
+                           "MBF Bioscience": "#/$defs/MBF",
+                           "MKS Newport": "#/$defs/MKS_NEWPORT",
+                           "MPI": "#/$defs/MPI",
+                           "Meadowlark Optics": "#/$defs/MEADOWLARK_OPTICS",
+                           "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/MJFF",
+                           "Midwest Optical Systems, Inc.": "#/$defs/MIDOPT",
+                           "Mitutuyo": "#/$defs/MITUTUYO",
+                           "NResearch Inc": "#/$defs/NRESEARCH_INC",
+                           "National Center for Complementary and Integrative Health": "#/$defs/NCCIH",
+                           "National Institute of Mental Health": "#/$defs/NIMH",
+                           "National Institute of Neurological Disorders and Stroke": "#/$defs/NINDS",
+                           "National Instruments": "#/$defs/NATIONAL_INSTRUMENTS",
+                           "Navitar": "#/$defs/NAVITAR",
+                           "Neurophotometrics": "#/$defs/NEUROPHOTOMETRICS",
+                           "New Scale Technologies": "#/$defs/NEW_SCALE_TECHNOLOGIES",
+                           "New York University": "#/$defs/NYU",
+                           "Nikon": "#/$defs/NIKON",
+                           "Olympus": "#/$defs/OLYMPUS",
+                           "Open Ephys Production Site": "#/$defs/OEPS",
+                           "Optotune": "#/$defs/OPTOTUNE",
+                           "Other": "#/$defs/OTHER",
+                           "Oxxius": "#/$defs/OXXIUS",
+                           "Prizmatix": "#/$defs/PRIZMATIX",
+                           "Quantifi": "#/$defs/QUANTIFI",
+                           "Raspberry Pi": "#/$defs/RASPBERRY_PI",
+                           "SICGEN": "#/$defs/SICGEN",
+                           "Schneider-Kreuznach": "#/$defs/SCHNEIDER_KREUZNACH",
+                           "Second Order Effects": "#/$defs/SECOND_ORDER_EFFECTS",
+                           "Semrock": "#/$defs/SEMROCK",
+                           "Sigma-Aldritch": "#/$defs/SIGMA_ALDRITCH",
+                           "Simons Foundation": "#/$defs/SIMONS_FOUNDATION",
+                           "Spinnaker": "#/$defs/SPINNAKER",
+                           "Tamron": "#/$defs/TAMRON",
+                           "Technical Manufacturing Corporation": "#/$defs/TMC",
+                           "Teledyne FLIR": "#/$defs/FLIR",
+                           "Templeton World Charity Foundation": "#/$defs/TWCF",
+                           "The Imaging Source": "#/$defs/THE_IMAGING_SOURCE",
+                           "The Lee Company": "#/$defs/THE_LEE_COMPANY",
+                           "Thermo Fisher Scientific": "#/$defs/THERMO_FISHER_SCIENTIFIC",
+                           "Thorlabs": "#/$defs/THORLABS",
+                           "Tymphany": "#/$defs/TYMPHANY",
+                           "Vieworks": "#/$defs/VIEWORKS",
+                           "Vortran": "#/$defs/VORTRAN",
+                           "ams OSRAM": "#/$defs/AMS_OSRAM"
+                        },
+                        "propertyName": "name"
+                     },
+                     "oneOf": [
+                        {
+                           "$ref": "#/$defs/AA_OPTO_ELECTRONIC"
+                        },
+                        {
+                           "$ref": "#/$defs/ASUS"
+                        },
+                        {
+                           "$ref": "#/$defs/ABCAM"
+                        },
+                        {
+                           "$ref": "#/$defs/ADDGENE"
+                        },
+                        {
+                           "$ref": "#/$defs/AILIPU"
+                        },
+                        {
+                           "$ref": "#/$defs/AI"
+                        },
+                        {
+                           "$ref": "#/$defs/AIBS"
+                        },
+                        {
+                           "$ref": "#/$defs/AIND"
+                        },
+                        {
+                           "$ref": "#/$defs/ALLIED"
+                        },
+                        {
+                           "$ref": "#/$defs/ASI"
+                        },
+                        {
+                           "$ref": "#/$defs/ARECONT_VISION_COSTAR"
+                        },
+                        {
+                           "$ref": "#/$defs/BASLER"
+                        },
+                        {
+                           "$ref": "#/$defs/CAMBRIDGE_TECHNOLOGY"
+                        },
+                        {
+                           "$ref": "#/$defs/CARL_ZEISS"
+                        },
+                        {
+                           "$ref": "#/$defs/CHAMPALIMAUD"
+                        },
+                        {
+                           "$ref": "#/$defs/CZI"
+                        },
+                        {
+                           "$ref": "#/$defs/CHROMA"
+                        },
+                        {
+                           "$ref": "#/$defs/COHERENT_SCIENTIFIC"
+                        },
+                        {
+                           "$ref": "#/$defs/COLUMBIA"
+                        },
+                        {
+                           "$ref": "#/$defs/COMPUTAR"
+                        },
+                        {
+                           "$ref": "#/$defs/CONOPTICS"
+                        },
+                        {
+                           "$ref": "#/$defs/CUSTOM"
+                        },
+                        {
+                           "$ref": "#/$defs/DODOTRONIC"
+                        },
+                        {
+                           "$ref": "#/$defs/DORIC"
+                        },
+                        {
+                           "$ref": "#/$defs/EALING"
+                        },
+                        {
+                           "$ref": "#/$defs/EDMUND_OPTICS"
+                        },
+                        {
+                           "$ref": "#/$defs/EMORY"
+                        },
+                        {
+                           "$ref": "#/$defs/EURESYS"
+                        },
+                        {
+                           "$ref": "#/$defs/FUJINON"
+                        },
+                        {
+                           "$ref": "#/$defs/HAMAMATSU"
+                        },
+                        {
+                           "$ref": "#/$defs/HAMILTON"
+                        },
+                        {
+                           "$ref": "#/$defs/HUST"
+                        },
+                        {
+                           "$ref": "#/$defs/IR_ROBOT_CO"
+                        },
+                        {
+                           "$ref": "#/$defs/ISL"
+                        },
+                        {
+                           "$ref": "#/$defs/INFINITY_PHOTO_OPTICAL"
+                        },
+                        {
+                           "$ref": "#/$defs/IDT"
+                        },
+                        {
+                           "$ref": "#/$defs/IMEC"
+                        },
+                        {
+                           "$ref": "#/$defs/INVITROGEN"
+                        },
+                        {
+                           "$ref": "#/$defs/JAX"
+                        },
+                        {
+                           "$ref": "#/$defs/JANELIA"
+                        },
+                        {
+                           "$ref": "#/$defs/JULABO"
+                        },
+                        {
+                           "$ref": "#/$defs/LG"
+                        },
+                        {
+                           "$ref": "#/$defs/LEICA"
+                        },
+                        {
+                           "$ref": "#/$defs/LUMEN_DYNAMICS"
+                        },
+                        {
+                           "$ref": "#/$defs/LIFECANVAS"
+                        },
+                        {
+                           "$ref": "#/$defs/MBF"
+                        },
+                        {
+                           "$ref": "#/$defs/MKS_NEWPORT"
+                        },
+                        {
+                           "$ref": "#/$defs/MPI"
+                        },
+                        {
+                           "$ref": "#/$defs/MEADOWLARK_OPTICS"
+                        },
+                        {
+                           "$ref": "#/$defs/MJFF"
+                        },
+                        {
+                           "$ref": "#/$defs/MIDOPT"
+                        },
+                        {
+                           "$ref": "#/$defs/MITUTUYO"
+                        },
+                        {
+                           "$ref": "#/$defs/NRESEARCH_INC"
+                        },
+                        {
+                           "$ref": "#/$defs/NCCIH"
+                        },
+                        {
+                           "$ref": "#/$defs/NIMH"
+                        },
+                        {
+                           "$ref": "#/$defs/NINDS"
+                        },
+                        {
+                           "$ref": "#/$defs/NATIONAL_INSTRUMENTS"
+                        },
+                        {
+                           "$ref": "#/$defs/NAVITAR"
+                        },
+                        {
+                           "$ref": "#/$defs/NEUROPHOTOMETRICS"
+                        },
+                        {
+                           "$ref": "#/$defs/NEW_SCALE_TECHNOLOGIES"
+                        },
+                        {
+                           "$ref": "#/$defs/NYU"
+                        },
+                        {
+                           "$ref": "#/$defs/NIKON"
+                        },
+                        {
+                           "$ref": "#/$defs/OLYMPUS"
+                        },
+                        {
+                           "$ref": "#/$defs/OEPS"
+                        },
+                        {
+                           "$ref": "#/$defs/OPTOTUNE"
+                        },
+                        {
+                           "$ref": "#/$defs/OTHER"
+                        },
+                        {
+                           "$ref": "#/$defs/OXXIUS"
+                        },
+                        {
+                           "$ref": "#/$defs/PRIZMATIX"
+                        },
+                        {
+                           "$ref": "#/$defs/QUANTIFI"
+                        },
+                        {
+                           "$ref": "#/$defs/RASPBERRY_PI"
+                        },
+                        {
+                           "$ref": "#/$defs/SICGEN"
+                        },
+                        {
+                           "$ref": "#/$defs/SCHNEIDER_KREUZNACH"
+                        },
+                        {
+                           "$ref": "#/$defs/SECOND_ORDER_EFFECTS"
+                        },
+                        {
+                           "$ref": "#/$defs/SEMROCK"
+                        },
+                        {
+                           "$ref": "#/$defs/SIGMA_ALDRITCH"
+                        },
+                        {
+                           "$ref": "#/$defs/SIMONS_FOUNDATION"
+                        },
+                        {
+                           "$ref": "#/$defs/SPINNAKER"
+                        },
+                        {
+                           "$ref": "#/$defs/TAMRON"
+                        },
+                        {
+                           "$ref": "#/$defs/TMC"
+                        },
+                        {
+                           "$ref": "#/$defs/FLIR"
+                        },
+                        {
+                           "$ref": "#/$defs/TWCF"
+                        },
+                        {
+                           "$ref": "#/$defs/THE_IMAGING_SOURCE"
+                        },
+                        {
+                           "$ref": "#/$defs/THE_LEE_COMPANY"
+                        },
+                        {
+                           "$ref": "#/$defs/THERMO_FISHER_SCIENTIFIC"
+                        },
+                        {
+                           "$ref": "#/$defs/THORLABS"
+                        },
+                        {
+                           "$ref": "#/$defs/TYMPHANY"
+                        },
+                        {
+                           "$ref": "#/$defs/VIEWORKS"
+                        },
+                        {
+                           "$ref": "#/$defs/VORTRAN"
+                        },
+                        {
+                           "$ref": "#/$defs/AMS_OSRAM"
+                        }
+                     ]
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Manufacturer"
+            },
+            "model": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Model"
+            },
+            "path_to_cad": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "For CUSTOM manufactured devices",
+               "title": "Path to CAD diagram"
+            },
+            "port_index": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Port index"
+            },
+            "additional_settings": {
+               "$ref": "#/$defs/AindGeneric",
+               "default": {},
+               "title": "Additional parameters"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Notes"
+            },
+            "array_type": {
+               "$ref": "#/$defs/MyomatrixArrayType",
+               "title": "Array type"
+            }
+         },
+         "required": [
+            "name",
+            "array_type"
+         ],
+         "title": "MyomatrixArray",
+         "type": "object"
+      },
+      "MyomatrixArrayType": {
+         "description": "Type of Myomatrix array",
+         "enum": [
+            "Injected",
+            "Sutured"
+         ],
+         "title": "MyomatrixArrayType",
+         "type": "string"
+      },
+      "MyomatrixContact": {
+         "additionalProperties": false,
+         "description": "\"Description of a contact on a myomatrix thread",
+         "properties": {
+            "body_part": {
+               "discriminator": {
+                  "mapping": {
+                     "forelimb": "#/$defs/FORELIMB",
+                     "head": "#/$defs/HEAD",
+                     "hindlimb": "#/$defs/HINDLIMB",
+                     "neck": "#/$defs/NECK",
+                     "tail": "#/$defs/TAIL",
+                     "trunk": "#/$defs/TRUNK"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/FORELIMB"
+                  },
+                  {
+                     "$ref": "#/$defs/HEAD"
+                  },
+                  {
+                     "$ref": "#/$defs/HINDLIMB"
+                  },
+                  {
+                     "$ref": "#/$defs/NECK"
+                  },
+                  {
+                     "$ref": "#/$defs/TAIL"
+                  },
+                  {
+                     "$ref": "#/$defs/TRUNK"
+                  }
+               ],
+               "title": "Body part of contact insertion"
+            },
+            "side": {
+               "$ref": "#/$defs/Side",
+               "title": "Body side"
+            },
+            "muscle": {
+               "discriminator": {
+                  "mapping": {
+                     "biceps brachii": "#/$defs/BICEPS_BRACHII",
+                     "deltoid": "#/$defs/DELTOID",
+                     "extensor carpi radialis longus": "#/$defs/EXTENSOR_CARPI_RADIALIS_LONGUS",
+                     "extensor carpi ulnaris": "#/$defs/EXTENSOR_CARPI_ULNARIS",
+                     "extensor digitorum communis": "#/$defs/EXTENSOR_DIGITORUM_COMMUNIS",
+                     "extensor digitorum lateralis": "#/$defs/EXTENSOR_DIGITORUM_LATERALIS",
+                     "flexor carpi radialis": "#/$defs/FLEXOR_CARPI_RADIALIS",
+                     "flexor carpi ulnaris": "#/$defs/FLEXOR_CARPI_ULNARIS",
+                     "flexor digitorum profundus": "#/$defs/FLEXOR_DIGITORUM_PROFUNDUS",
+                     "lateral head of triceps brachii": "#/$defs/LATERAL_HEAD_OF_TRICEPS_BRACHII",
+                     "long head of biceps brachii": "#/$defs/LONG_HEAD_OF_BICEPS_BRACHII",
+                     "long head of triceps brachii": "#/$defs/LONG_HEAD_OF_TRICEPS_BRACHII",
+                     "medial head of triceps brachii": "#/$defs/MEDIAL_HEAD_OF_TRICEPS_BRACHII",
+                     "pars scapularis of deltoid": "#/$defs/PARS_SCAPULARIS_OF_DELTOID",
+                     "pectoralis major": "#/$defs/PECTORALIS_MAJOR",
+                     "short head of biceps brachii": "#/$defs/SHORT_HEAD_OF_BICEPS_BRACHII",
+                     "tendon of biceps brachii": "#/$defs/TENDON_OF_BICEPS_BRACHII",
+                     "triceps brachii": "#/$defs/TRICEPS_BRACHII"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/DELTOID"
+                  },
+                  {
+                     "$ref": "#/$defs/PECTORALIS_MAJOR"
+                  },
+                  {
+                     "$ref": "#/$defs/TRICEPS_BRACHII"
+                  },
+                  {
+                     "$ref": "#/$defs/LATERAL_HEAD_OF_TRICEPS_BRACHII"
+                  },
+                  {
+                     "$ref": "#/$defs/LONG_HEAD_OF_TRICEPS_BRACHII"
+                  },
+                  {
+                     "$ref": "#/$defs/MEDIAL_HEAD_OF_TRICEPS_BRACHII"
+                  },
+                  {
+                     "$ref": "#/$defs/BICEPS_BRACHII"
+                  },
+                  {
+                     "$ref": "#/$defs/LONG_HEAD_OF_BICEPS_BRACHII"
+                  },
+                  {
+                     "$ref": "#/$defs/SHORT_HEAD_OF_BICEPS_BRACHII"
+                  },
+                  {
+                     "$ref": "#/$defs/TENDON_OF_BICEPS_BRACHII"
+                  },
+                  {
+                     "$ref": "#/$defs/PARS_SCAPULARIS_OF_DELTOID"
+                  },
+                  {
+                     "$ref": "#/$defs/EXTENSOR_CARPI_RADIALIS_LONGUS"
+                  },
+                  {
+                     "$ref": "#/$defs/EXTENSOR_DIGITORUM_COMMUNIS"
+                  },
+                  {
+                     "$ref": "#/$defs/EXTENSOR_DIGITORUM_LATERALIS"
+                  },
+                  {
+                     "$ref": "#/$defs/EXTENSOR_CARPI_ULNARIS"
+                  },
+                  {
+                     "$ref": "#/$defs/FLEXOR_CARPI_RADIALIS"
+                  },
+                  {
+                     "$ref": "#/$defs/FLEXOR_CARPI_ULNARIS"
+                  },
+                  {
+                     "$ref": "#/$defs/FLEXOR_DIGITORUM_PROFUNDUS"
+                  }
+               ],
+               "title": "Muscle of contact insertion"
+            },
+            "in_muscle": {
+               "title": "In muscle",
+               "type": "boolean"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Notes"
+            }
+         },
+         "required": [
+            "body_part",
+            "side",
+            "muscle",
+            "in_muscle"
+         ],
+         "title": "MyomatrixContact",
+         "type": "object"
+      },
+      "MyomatrixInsertion": {
+         "additionalProperties": false,
+         "description": "Description of a Myomatrix array insertion for EMG",
+         "properties": {
+            "procedure_type": {
+               "const": "Myomatrix_Insertion",
+               "default": "Myomatrix_Insertion",
+               "enum": [
+                  "Myomatrix_Insertion"
+               ],
+               "title": "Procedure Type",
+               "type": "string"
+            },
+            "protocol_id": {
+               "description": "DOI for protocols.io",
+               "title": "Protocol ID",
+               "type": "string"
+            },
+            "myomatrix_array": {
+               "$ref": "#/$defs/MyomatrixArray",
+               "title": "Myomatrix array"
+            },
+            "threads": {
+               "items": {
+                  "$ref": "#/$defs/MyomatrixThread"
+               },
+               "title": "Array threads",
+               "type": "array"
+            }
+         },
+         "required": [
+            "protocol_id",
+            "myomatrix_array",
+            "threads"
+         ],
+         "title": "MyomatrixInsertion",
+         "type": "object"
+      },
+      "MyomatrixThread": {
+         "additionalProperties": false,
+         "description": "Description of a thread of a myomatrix array",
+         "properties": {
+            "ground_electrode_location": {
+               "discriminator": {
+                  "mapping": {
+                     "forelimb": "#/$defs/FORELIMB",
+                     "head": "#/$defs/HEAD",
+                     "hindlimb": "#/$defs/HINDLIMB",
+                     "neck": "#/$defs/NECK",
+                     "tail": "#/$defs/TAIL",
+                     "trunk": "#/$defs/TRUNK"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/FORELIMB"
+                  },
+                  {
+                     "$ref": "#/$defs/HEAD"
+                  },
+                  {
+                     "$ref": "#/$defs/HINDLIMB"
+                  },
+                  {
+                     "$ref": "#/$defs/NECK"
+                  },
+                  {
+                     "$ref": "#/$defs/TAIL"
+                  },
+                  {
+                     "$ref": "#/$defs/TRUNK"
+                  }
+               ],
+               "title": "Location of ground electrode"
+            },
+            "contacts": {
+               "items": {
+                  "$ref": "#/$defs/MyomatrixContact"
+               },
+               "title": "Contacts",
+               "type": "array"
+            }
+         },
+         "required": [
+            "ground_electrode_location",
+            "contacts"
+         ],
+         "title": "MyomatrixThread",
+         "type": "object"
+      },
       "NATIONAL_INSTRUMENTS": {
          "properties": {
             "name": {
@@ -6119,6 +7228,37 @@
             }
          },
          "title": "NCCIH",
+         "type": "object"
+      },
+      "NECK": {
+         "properties": {
+            "name": {
+               "const": "neck",
+               "default": "neck",
+               "enum": [
+                  "neck"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "registry": {
+               "$ref": "#/$defs/RegistryModel",
+               "default": {
+                  "name": "Edinburgh Mouse Atlas Project",
+                  "abbreviation": "EMAPA"
+               }
+            },
+            "registry_identifier": {
+               "const": "EMAPA_35587",
+               "default": "EMAPA_35587",
+               "enum": [
+                  "EMAPA_35587"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "NECK",
          "type": "object"
       },
       "NEUROPHOTOMETRICS": {
@@ -6445,7 +7585,14 @@
          "properties": {
             "injection_materials": {
                "items": {
-                  "anyOf": [
+                  "discriminator": {
+                     "mapping": {
+                        "Reagent": "#/$defs/NonViralMaterial",
+                        "Virus": "#/$defs/ViralMaterial"
+                     },
+                     "propertyName": "material_type"
+                  },
+                  "oneOf": [
                      {
                         "$ref": "#/$defs/ViralMaterial"
                      },
@@ -6474,11 +7621,7 @@
                "title": "Recovery time"
             },
             "recovery_time_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/TimeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/TimeUnit",
                "default": "minute",
                "title": "Recovery time unit"
             },
@@ -6498,11 +7641,7 @@
                "title": "Injection duration"
             },
             "injection_duration_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/TimeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/TimeUnit",
                "default": "minute",
                "title": "Injection duration unit"
             },
@@ -6560,11 +7699,7 @@
                "type": "array"
             },
             "injection_coordinate_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "millimeter",
                "title": "Injection coordinate unit"
             },
@@ -6597,11 +7732,7 @@
                "title": "Bregma to lambda (mm)"
             },
             "bregma_to_lambda_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "millimeter",
                "title": "Bregma to lambda unit"
             },
@@ -6617,11 +7748,7 @@
                "title": "Injection angle (deg)"
             },
             "injection_angle_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AngleUnit"
-                  }
-               ],
+               "$ref": "#/$defs/AngleUnit",
                "default": "degrees",
                "title": "Injection angle unit"
             },
@@ -6674,11 +7801,7 @@
                "type": "array"
             },
             "injection_volume_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/VolumeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/VolumeUnit",
                "default": "nanoliter",
                "title": "Injection volume unit"
             }
@@ -7787,11 +8910,7 @@
                "title": "Species"
             },
             "gene": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/PIDName"
-                  }
-               ],
+               "$ref": "#/$defs/PIDName",
                "title": "Gene name, accession number, and registry"
             },
             "probe_sequences": {
@@ -7822,11 +8941,7 @@
          "description": "Description of an implanted ophys probe",
          "properties": {
             "ophys_probe": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/FiberProbe"
-                  }
-               ],
+               "$ref": "#/$defs/FiberProbe",
                "title": "Fiber probe"
             },
             "targeted_structure": {
@@ -7867,11 +8982,7 @@
                "title": "Stereotactic coordinate D/V (mm)"
             },
             "stereotactic_coordinate_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "millimeter",
                "title": "Sterotactic coordinate unit"
             },
@@ -7904,11 +9015,7 @@
                "title": "Bregma to lambda (mm)"
             },
             "bregma_to_lambda_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "millimeter",
                "title": "Bregma to lambda unit"
             },
@@ -7924,11 +9031,7 @@
                "title": "Angle (deg)"
             },
             "angle_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AngleUnit"
-                  }
-               ],
+               "$ref": "#/$defs/AngleUnit",
                "default": "degrees",
                "title": "Angle unit"
             },
@@ -8003,6 +9106,68 @@
             "description"
          ],
          "title": "OtherSubjectProcedure",
+         "type": "object"
+      },
+      "PARS_SCAPULARIS_OF_DELTOID": {
+         "properties": {
+            "name": {
+               "const": "pars scapularis of deltoid",
+               "default": "pars scapularis of deltoid",
+               "enum": [
+                  "pars scapularis of deltoid"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "registry": {
+               "$ref": "#/$defs/RegistryModel",
+               "default": {
+                  "name": "Edinburgh Mouse Atlas Project",
+                  "abbreviation": "EMAPA"
+               }
+            },
+            "registry_identifier": {
+               "const": "EMAPA_36163",
+               "default": "EMAPA_36163",
+               "enum": [
+                  "EMAPA_36163"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "PARS_SCAPULARIS_OF_DELTOID",
+         "type": "object"
+      },
+      "PECTORALIS_MAJOR": {
+         "properties": {
+            "name": {
+               "const": "pectoralis major",
+               "default": "pectoralis major",
+               "enum": [
+                  "pectoralis major"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "registry": {
+               "$ref": "#/$defs/RegistryModel",
+               "default": {
+                  "name": "Edinburgh Mouse Atlas Project",
+                  "abbreviation": "EMAPA"
+               }
+            },
+            "registry_identifier": {
+               "const": "EMAPA_18179",
+               "default": "EMAPA_18179",
+               "enum": [
+                  "EMAPA_18179"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "PECTORALIS_MAJOR",
          "type": "object"
       },
       "PIDName": {
@@ -8160,11 +9325,7 @@
                "type": "string"
             },
             "protective_material": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/ProtectiveMaterial"
-                  }
-               ],
+               "$ref": "#/$defs/ProtectiveMaterial",
                "description": "New material being applied",
                "title": "Protective material"
             },
@@ -8208,11 +9369,7 @@
                "title": "Ground wire diameter"
             },
             "ground_wire_diameter_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "inch",
                "title": "Ground wire diameter unit"
             },
@@ -8802,20 +9959,12 @@
                "type": "integer"
             },
             "excitation_wavelength_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "nanometer",
                "title": "Excitation wavelength unit"
             },
             "stain_type": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/StainType"
-                  }
-               ],
+               "$ref": "#/$defs/StainType",
                "title": "Stain type"
             }
          },
@@ -9242,13 +10391,40 @@
          "title": "Reagent",
          "type": "object"
       },
+      "RegistryModel": {
+         "additionalProperties": false,
+         "description": "Base model config",
+         "properties": {
+            "name": {
+               "title": "Registry name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "title": "Registry abbreviation",
+               "type": "string"
+            }
+         },
+         "required": [
+            "name",
+            "abbreviation"
+         ],
+         "title": "RegistryModel",
+         "type": "object"
+      },
       "RetroOrbitalInjection": {
          "additionalProperties": false,
          "description": "Description of a retro-orbital injection procedure",
          "properties": {
             "injection_materials": {
                "items": {
-                  "anyOf": [
+                  "discriminator": {
+                     "mapping": {
+                        "Reagent": "#/$defs/NonViralMaterial",
+                        "Virus": "#/$defs/ViralMaterial"
+                     },
+                     "propertyName": "material_type"
+                  },
+                  "oneOf": [
                      {
                         "$ref": "#/$defs/ViralMaterial"
                      },
@@ -9277,11 +10453,7 @@
                "title": "Recovery time"
             },
             "recovery_time_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/TimeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/TimeUnit",
                "default": "minute",
                "title": "Recovery time unit"
             },
@@ -9301,11 +10473,7 @@
                "title": "Injection duration"
             },
             "injection_duration_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/TimeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/TimeUnit",
                "default": "minute",
                "title": "Injection duration unit"
             },
@@ -9347,20 +10515,12 @@
                "title": "Injection volume (uL)"
             },
             "injection_volume_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/VolumeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/VolumeUnit",
                "default": "microliter",
                "title": "Injection volume unit"
             },
             "injection_eye": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/Side"
-                  }
-               ],
+               "$ref": "#/$defs/Side",
                "title": "Injection eye"
             }
          },
@@ -9485,6 +10645,37 @@
             }
          },
          "title": "SEMROCK",
+         "type": "object"
+      },
+      "SHORT_HEAD_OF_BICEPS_BRACHII": {
+         "properties": {
+            "name": {
+               "const": "short head of biceps brachii",
+               "default": "short head of biceps brachii",
+               "enum": [
+                  "short head of biceps brachii"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "registry": {
+               "$ref": "#/$defs/RegistryModel",
+               "default": {
+                  "name": "Edinburgh Mouse Atlas Project",
+                  "abbreviation": "EMAPA"
+               }
+            },
+            "registry_identifier": {
+               "const": "EMAPA_25055",
+               "default": "EMAPA_25055",
+               "enum": [
+                  "EMAPA_25055"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "SHORT_HEAD_OF_BICEPS_BRACHII",
          "type": "object"
       },
       "SICGEN": {
@@ -9697,11 +10888,7 @@
                "type": "array"
             },
             "section_orientation": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SectionOrientation"
-                  }
-               ],
+               "$ref": "#/$defs/SectionOrientation",
                "title": "Sectioning orientation"
             },
             "section_thickness": {
@@ -9716,11 +10903,7 @@
                "title": "Section thickness"
             },
             "section_thickness_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "millimeter",
                "title": "Section thickness unit"
             },
@@ -9736,28 +10919,16 @@
                "title": "Section distance from reference"
             },
             "section_distance_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "millimeter",
                "title": "Distance unit"
             },
             "reference_location": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/CoordinateReferenceLocation"
-                  }
-               ],
+               "$ref": "#/$defs/CoordinateReferenceLocation",
                "title": "Reference location for distance measurement"
             },
             "section_strategy": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SectionStrategy"
-                  }
-               ],
+               "$ref": "#/$defs/SectionStrategy",
                "title": "Slice strategy"
             },
             "targeted_structure": {
@@ -9783,7 +10954,8 @@
          "description": "Side of animal",
          "enum": [
             "Left",
-            "Right"
+            "Right",
+            "Midline"
          ],
          "title": "Side",
          "type": "string"
@@ -9807,11 +10979,7 @@
          "description": "Description of surgical or other procedure performed on a specimen",
          "properties": {
             "procedure_type": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SpecimenProcedureType"
-                  }
-               ],
+               "$ref": "#/$defs/SpecimenProcedureType",
                "title": "Procedure type"
             },
             "procedure_name": {
@@ -10353,19 +11521,11 @@
                "title": "Lot expiration date"
             },
             "stain_type": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/StainType"
-                  }
-               ],
+               "$ref": "#/$defs/StainType",
                "title": "Stain type"
             },
             "concentration": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/concentration"
-                  }
-               ],
+               "$ref": "#/$defs/concentration",
                "title": "Concentration (uM)"
             }
          },
@@ -10462,11 +11622,7 @@
                "title": "Animal weight (g)"
             },
             "weight_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/MassUnit"
-                  }
-               ],
+               "$ref": "#/$defs/MassUnit",
                "default": "gram",
                "title": "Weight unit"
             },
@@ -10506,6 +11662,7 @@
                         "ICV injection": "#/$defs/IntraCerebellarVentricleInjection",
                         "Intraperitoneal injection": "#/$defs/IntraperitonealInjection",
                         "Iontophoresis injection": "#/$defs/IontophoresisInjection",
+                        "Myomatrix_Insertion": "#/$defs/MyomatrixInsertion",
                         "Nanoject injection": "#/$defs/NanojectInjection",
                         "Other Subject Procedure": "#/$defs/OtherSubjectProcedure",
                         "Perfusion": "#/$defs/Perfusion",
@@ -10534,6 +11691,9 @@
                      },
                      {
                         "$ref": "#/$defs/IontophoresisInjection"
+                     },
+                     {
+                        "$ref": "#/$defs/MyomatrixInsertion"
                      },
                      {
                         "$ref": "#/$defs/NanojectInjection"
@@ -10578,6 +11738,37 @@
          "title": "Surgery",
          "type": "object"
       },
+      "TAIL": {
+         "properties": {
+            "name": {
+               "const": "tail",
+               "default": "tail",
+               "enum": [
+                  "tail"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "registry": {
+               "$ref": "#/$defs/RegistryModel",
+               "default": {
+                  "name": "Edinburgh Mouse Atlas Project",
+                  "abbreviation": "EMAPA"
+               }
+            },
+            "registry_identifier": {
+               "const": "EMAPA_16748",
+               "default": "EMAPA_16748",
+               "enum": [
+                  "EMAPA_16748"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "TAIL",
+         "type": "object"
+      },
       "TAMRON": {
          "properties": {
             "name": {
@@ -10614,6 +11805,37 @@
             }
          },
          "title": "TAMRON",
+         "type": "object"
+      },
+      "TENDON_OF_BICEPS_BRACHII": {
+         "properties": {
+            "name": {
+               "const": "tendon of biceps brachii",
+               "default": "tendon of biceps brachii",
+               "enum": [
+                  "tendon of biceps brachii"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "registry": {
+               "$ref": "#/$defs/RegistryModel",
+               "default": {
+                  "name": "Edinburgh Mouse Atlas Project",
+                  "abbreviation": "EMAPA"
+               }
+            },
+            "registry_identifier": {
+               "const": "EMAPA_25053",
+               "default": "EMAPA_25053",
+               "enum": [
+                  "EMAPA_25053"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "TENDON_OF_BICEPS_BRACHII",
          "type": "object"
       },
       "THERMO_FISHER_SCIENTIFIC": {
@@ -10830,6 +12052,68 @@
             }
          },
          "title": "TMC",
+         "type": "object"
+      },
+      "TRICEPS_BRACHII": {
+         "properties": {
+            "name": {
+               "const": "triceps brachii",
+               "default": "triceps brachii",
+               "enum": [
+                  "triceps brachii"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "registry": {
+               "$ref": "#/$defs/RegistryModel",
+               "default": {
+                  "name": "Edinburgh Mouse Atlas Project",
+                  "abbreviation": "EMAPA"
+               }
+            },
+            "registry_identifier": {
+               "const": "EMAPA_19111",
+               "default": "EMAPA_19111",
+               "enum": [
+                  "EMAPA_19111"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "TRICEPS_BRACHII",
+         "type": "object"
+      },
+      "TRUNK": {
+         "properties": {
+            "name": {
+               "const": "trunk",
+               "default": "trunk",
+               "enum": [
+                  "trunk"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "registry": {
+               "$ref": "#/$defs/RegistryModel",
+               "default": {
+                  "name": "Edinburgh Mouse Atlas Project",
+                  "abbreviation": "EMAPA"
+               }
+            },
+            "registry_identifier": {
+               "const": "EMAPA_31857",
+               "default": "EMAPA_31857",
+               "enum": [
+                  "EMAPA_31857"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "TRUNK",
          "type": "object"
       },
       "TWCF": {
@@ -11268,11 +12552,7 @@
                "type": "integer"
             },
             "target_fraction_weight_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/UnitlessUnit"
-                  }
-               ],
+               "$ref": "#/$defs/UnitlessUnit",
                "default": "percent",
                "title": "Target fraction weight unit"
             },
@@ -11288,11 +12568,7 @@
                "title": "Minimum water per day (mL)"
             },
             "minimum_water_per_day_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/VolumeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/VolumeUnit",
                "default": "milliliter",
                "title": "Minimum water per day unit"
             },
@@ -11309,11 +12585,7 @@
                "title": "Baseline weight (g)"
             },
             "weight_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/MassUnit"
-                  }
-               ],
+               "$ref": "#/$defs/MassUnit",
                "default": "gram",
                "title": "Weight unit"
             },
@@ -11360,11 +12632,7 @@
                "title": "Value"
             },
             "unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/ConcentrationUnit"
-                  }
-               ],
+               "$ref": "#/$defs/ConcentrationUnit",
                "default": "micromolar"
             }
          },
@@ -11385,10 +12653,10 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "1.0.0",
-         "default": "1.0.0",
+         "const": "1.1.1",
+         "default": "1.1.1",
          "enum": [
-            "1.0.0"
+            "1.1.1"
          ],
          "title": "Schema Version",
          "type": "string"

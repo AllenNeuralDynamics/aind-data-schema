@@ -1,10 +1,10 @@
 """ Schemas for Quality Metrics """
 
 from enum import Enum
-from typing import List, Literal, Optional, Any
+from typing import Any, List, Literal, Optional
 
 from aind_data_schema_models.modalities import Modality
-from pydantic import Field, BaseModel, field_validator
+from pydantic import BaseModel, Field, field_validator, model_validator
 
 from aind_data_schema.base import AindCoreModel, AindModel, AwareDatetimeWithDefault
 
@@ -26,6 +26,7 @@ class Stage(str, Enum):
     RAW = "Raw data"
     PROCESSING = "Processing"
     ANALYSIS = "Analysis"
+    MULTI_ASSET = "Multi-asset"
 
 
 class QCStatus(BaseModel):
@@ -41,9 +42,14 @@ class QCMetric(BaseModel):
 
     name: str = Field(..., title="Metric name")
     value: Any = Field(..., title="Metric value")
+    status_history: List[QCStatus] = Field(default=[], title="Metric status history")
     description: Optional[str] = Field(default=None, title="Metric description")
     reference: Optional[str] = Field(default=None, title="Metric reference image URL or plot type")
-    status_history: List[QCStatus] = Field(default=[], title="Metric status history")
+    evaluated_assets: Optional[List[str]] = Field(
+        default=None,
+        title="List of asset names that this metric depends on",
+        description="Set to None except when a metric's calculation required data coming from a different data asset.",
+    )
 
     @property
     def status(self) -> QCStatus:
@@ -125,13 +131,37 @@ class QCEvaluation(AindModel):
 
             return failing_metrics
 
+    @model_validator(mode="after")
+    def validate_multi_asset(cls, v):
+        """Ensure that the evaluated_assets field in any attached metrics is set correctly"""
+        stage = v.stage
+        metrics = v.metrics
+
+        if stage == Stage.MULTI_ASSET:
+            for metric in metrics:
+                if not metric.evaluated_assets or len(metric.evaluated_assets) == 0:
+                    raise ValueError(
+                        f"Metric '{metric.name}' is in a multi-asset QCEvaluation and must have evaluated_assets set."
+                    )
+        else:
+            # make sure all evaluated assets are None
+            for metric in metrics:
+                if metric.evaluated_assets:
+                    raise ValueError(
+                        (
+                            f"Metric '{metric.name}' is in a single-asset QCEvaluation"
+                            " and should not have evaluated_assets"
+                        )
+                    )
+        return v
+
 
 class QualityControl(AindCoreModel):
     """Description of quality metrics for a data asset"""
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/quality_control.py"
-    describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["1.0.0"] = Field("1.0.0")
+    describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
+    schema_version: Literal["1.1.1"] = Field(default="1.1.1")
     evaluations: List[QCEvaluation] = Field(..., title="Evaluations")
     notes: Optional[str] = Field(default=None, title="Notes")
 
