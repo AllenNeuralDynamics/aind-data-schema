@@ -90,9 +90,9 @@ class Rig(AindCoreModel):
     notes: Optional[str] = Field(default=None, title="Notes")
 
     @field_serializer("modalities", when_used="json")
-    def serialize_modalities(modalities: Set[Modality.ONE_OF]):
-        """sort modalities by name when serializing to JSON"""
-        return sorted(modalities, key=lambda x: x.name)
+    def serialize_modalities(self, modalities: Set[Modality.ONE_OF]):
+        """Dynamically serialize modalities based on their type."""
+        return sorted(modalities, key=lambda x: x.get("name") if isinstance(x, dict) else x.name)
 
     @model_validator(mode="after")
     def validate_cameras_other(self):
