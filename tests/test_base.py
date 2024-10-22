@@ -5,9 +5,10 @@ from datetime import datetime, timezone
 from pathlib import Path
 from unittest.mock import MagicMock, call, mock_open, patch
 
-from pydantic import create_model
+from pydantic import create_model, ValidationError, Field
+from typing import Optional
 
-from aind_data_schema.base import AwareDatetimeWithDefault
+from aind_data_schema.base import AwareDatetimeWithDefault, AindModel
 from aind_data_schema.core.subject import Subject
 
 
@@ -54,6 +55,50 @@ class BaseTests(unittest.TestCase):
 
         expected_json = '{"dt":"2020-10-10T01:02:03Z"}'
         self.assertEqual(expected_json, model_instance.model_dump_json())
+
+    def test_units(self):
+        """Test that models with value/value_unit pairs throw errors properly"""
+
+        class TestModel(AindModel):
+            value: Optional[str] = Field(default=None)
+            value_unit: Optional[str] = Field(default=None)
+
+        self.assertRaises(ValidationError, lambda: TestModel(
+            value="value"
+        ))
+
+        test0 = TestModel(
+            value="value",
+            value_unit="unit"
+        )
+        self.assertIsNotNone(test0)
+
+        # it's fine if units are set and the value isn't
+        test1 = TestModel(
+            value_unit="unit"
+        )
+        self.assertIsNotNone(test1)
+
+        # Multi-unit condition
+        class MultiModel(AindModel):
+            value_one: Optional[str] = Field(default=None)
+            value_two: Optional[str] = Field(default=None)
+            value_unit: Optional[str] = Field(default=None)
+
+        self.assertRaises(ValidationError, lambda: MultiModel(
+            value_one="value"
+        ))
+
+        test2 = MultiModel(
+            value_one="value1",
+            value_unit="unit"
+        )
+        self.assertIsNotNone(test2)
+
+        test3 = MultiModel(
+            value_unit="unit"
+        )
+        self.assertIsNotNone(test3)
 
 
 if __name__ == "__main__":

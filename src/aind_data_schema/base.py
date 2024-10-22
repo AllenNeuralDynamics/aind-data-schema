@@ -51,21 +51,36 @@ class AindModel(BaseModel, Generic[AindGenericType]):
 
     @model_validator(mode="after")
     def unit_validator(cls, values):
-        """Ensure that all fields with the suffix _unit have a matching value
-        and if the value is set (!= None) then the unit is also set
-        """
-        value_fields = {}
-        for (unit_field, unit_value) in values:
-            if "_unit" in unit_field:
-                field = unit_field.rsplit("_unit", 1)[0]
-                value_fields[field] = (unit_field, unit_value)
+        """Ensure that all fields matching the pattern variable_unit are set if
+        they have a matching variable that is set (!= None)
 
-        for (field, value) in values:
-            if field in value_fields.keys():
-                # matching value for a unit that we have
-                if value and not value_fields[field][1]:
-                    # validation error
-                    raise ValueError(f"{field}_unit is required if {field} is provided.")
+        This also checks the multi-variable condition, i.e. variable_unit is set
+        if any of variable_* are set
+        """
+        # Accumulate a dictionary mapping variable : unit/unit_value
+        for (unit_name, unit_value) in values:
+            if "_unit" in unit_name and not unit_value:
+                var_name = unit_name.rsplit('_unit', 1)[0]
+
+                # Go through all the values again, if any value matches the variable name
+                # and is set, then the unit needs to be set as well
+                for (variable_name, variable_value) in values:
+                    if variable_name == var_name:
+                        if variable_value:
+                            raise ValueError(
+                                f"Unit {unit_name} is required when {variable_name} is set."
+                            )
+                        # if we found our variable and it was None, we can move on
+                        continue
+
+                # One more time, now looking for the multi-variable condition
+                for (variable_name, variable_value) in values:
+                    # skip the unit itself
+                    if variable_name is not unit_name:
+                        if var_name in variable_name and variable_value:
+                            raise ValueError(
+                                f"Unit {unit_name} is required when {variable_name} is set."
+                            )
 
         return values
 
