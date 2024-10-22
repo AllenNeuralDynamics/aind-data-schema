@@ -81,16 +81,16 @@ class BaseTests(unittest.TestCase):
 
         # Multi-unit condition
         class MultiModel(AindModel):
-            value_one: Optional[str] = Field(default=None)
-            value_two: Optional[str] = Field(default=None)
+            value_one_with_depth: Optional[str] = Field(default=None)
+            value_two_with_depth: Optional[str] = Field(default=None)
             value_unit: Optional[str] = Field(default=None)
 
         self.assertRaises(ValidationError, lambda: MultiModel(
-            value_one="value"
+            value_one_with_depth="value"
         ))
 
         test2 = MultiModel(
-            value_one="value1",
+            value_one_with_depth="value1",
             value_unit="unit"
         )
         self.assertIsNotNone(test2)
