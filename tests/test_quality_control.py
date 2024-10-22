@@ -83,7 +83,7 @@ class QualityControlTests(unittest.TestCase):
         )
 
         # check that overall status gets auto-set if it has never been set before
-        self.assertEqual(q.status, Status.PASS)
+        self.assertEqual(q.status(), Status.PASS)
 
         # Add a pending metric to the first evaluation
         q.evaluations[0].metrics.append(
@@ -100,7 +100,7 @@ class QualityControlTests(unittest.TestCase):
             )
         )
 
-        self.assertEqual(q.status, Status.PENDING)
+        self.assertEqual(q.status(), Status.PENDING)
 
         # Add a failing metric to the first evaluation
         q.evaluations[0].metrics.append(
@@ -115,7 +115,7 @@ class QualityControlTests(unittest.TestCase):
             )
         )
 
-        self.assertEqual(q.status, Status.FAIL)
+        self.assertEqual(q.status(), Status.FAIL)
 
     def test_evaluation_status(self):
         """test that evaluation status goes to pass/pending/fail correctly"""
@@ -323,7 +323,6 @@ class QualityControlTests(unittest.TestCase):
                 ],
             )
 
-        print(context.exception)
         self.assertTrue(
             "is in a single-asset QCEvaluation and should not have evaluated_assets" in repr(context.exception)
         )
@@ -366,6 +365,67 @@ class QualityControlTests(unittest.TestCase):
             )
 
         self.assertTrue("is in a multi-asset QCEvaluation and must have evaluated_assets" in repr(context.exception))
+
+    def test_status_filters(self):
+        """Test that QualityControl.status(modality, stage) filters correctly"""
+
+        test_eval = QCEvaluation(
+            name="Drift map",
+            modality=Modality.ECEPHYS,
+            stage=Stage.PROCESSING,
+            metrics=[
+                QCMetric(
+                    name="Multiple values example",
+                    value={"stuff": "in_a_dict"},
+                    status_history=[
+                        QCStatus(evaluator="Bob", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PASS)
+                    ],
+                ),
+                QCMetric(
+                    name="Drift map pass/fail",
+                    value=False,
+                    description="Manual evaluation of whether the drift map looks good",
+                    reference="s3://some-data-somewhere",
+                    status_history=[
+                        QCStatus(evaluator="Bob", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PASS)
+                    ],
+                ),
+            ],
+        )
+        test_eval2 = QCEvaluation(
+            name="Drift map",
+            modality=Modality.BEHAVIOR,
+            stage=Stage.RAW,
+            metrics=[
+                QCMetric(
+                    name="Multiple values example",
+                    value={"stuff": "in_a_dict"},
+                    status_history=[
+                        QCStatus(evaluator="Bob", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.FAIL)
+                    ],
+                ),
+                QCMetric(
+                    name="Drift map pass/fail",
+                    value=False,
+                    description="Manual evaluation of whether the drift map looks good",
+                    reference="s3://some-data-somewhere",
+                    status_history=[
+                        QCStatus(evaluator="Bob", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PASS)
+                    ],
+                ),
+            ],
+        )
+
+        # Confirm that the status filters work
+        q = QualityControl(
+            evaluations=[test_eval, test_eval2],
+        )
+
+        self.assertEqual(q.status(), Status.FAIL)
+        self.assertEqual(q.status(modality=Modality.BEHAVIOR), Status.FAIL)
+        self.assertEqual(q.status(modality=Modality.ECEPHYS), Status.PASS)
+        self.assertEqual(q.status(stage=Stage.RAW), Status.FAIL)
+        self.assertEqual(q.status(stage=Stage.PROCESSING), Status.PASS)
 
 
 if __name__ == "__main__":

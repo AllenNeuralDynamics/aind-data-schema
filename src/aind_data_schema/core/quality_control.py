@@ -165,15 +165,29 @@ class QualityControl(AindCoreModel):
     evaluations: List[QCEvaluation] = Field(..., title="Evaluations")
     notes: Optional[str] = Field(default=None, title="Notes")
 
-    @property
-    def status(self) -> Status:
+    def status(self, modality: str = None, stage: Stage = None) -> Status:
         """Loop through all evaluations and return the overall status
 
         Any FAIL -> FAIL
         If no fails, then any PENDING -> PENDING
         All PASS -> PASS
+
+        Parameters
+        ----------
+        modality : str, optional
+            Modality.ONE_OF to filter by, by default None
+        stage : Stage, optional
+            Stage to filter by, by default None
+
+        Returns
+        -------
+        Status
         """
-        eval_statuses = [evaluation.status for evaluation in self.evaluations]
+        eval_statuses = [
+            evaluation.status
+            for evaluation in self.evaluations
+            if (not modality or evaluation.modality == modality) and (not stage or evaluation.stage == stage)
+        ]
 
         if any(status == Status.FAIL for status in eval_statuses):
             return Status.FAIL
