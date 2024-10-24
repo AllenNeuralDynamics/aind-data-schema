@@ -101,8 +101,8 @@ class SchemaVersionHandler:
         with open(python_file_path, "rb") as f:
             file_lines = f.readlines()
         for line in file_lines:
-            if "schema_version: Literal[" in str(line):
-                new_line_str = f'    schema_version: Literal["{new_ver}"] = Field("{new_ver}")\n'
+            if "schema_version: SkipValidation[Literal[" in str(line):
+                new_line_str = f'    schema_version: SkipValidation[Literal["{new_ver}"]] = Field("{new_ver}")\n'
                 new_line = new_line_str.encode()
             else:
                 new_line = line

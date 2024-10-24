@@ -326,6 +326,24 @@ class TestMetadata(unittest.TestCase):
             str(context.exception),
         )
 
+    def test_validate_old_schema_version(self):
+        """Tests that old schema versions are ignored during validation
+        """
+        m = Metadata.model_construct(
+            name="name",
+            location="location",
+            id="1",
+        )
+
+        m_dict = m.model_dump()
+
+        m_dict["schema_version"] = "0.0.0"
+        m_dict.pop("id")
+
+        m2 = Metadata(**m_dict)
+
+        self.assertIsNotNone(m2)
+
 
 if __name__ == "__main__":
     unittest.main()

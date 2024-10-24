@@ -4,7 +4,7 @@ from enum import Enum
 from typing import Any, List, Literal, Optional
 
 from aind_data_schema_models.modalities import Modality
-from pydantic import BaseModel, Field, field_validator, model_validator
+from pydantic import BaseModel, Field, SkipValidation, field_validator, model_validator
 
 from aind_data_schema.base import AindCoreModel, AindModel, AwareDatetimeWithDefault
 
@@ -161,7 +161,7 @@ class QualityControl(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/quality_control.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["1.1.1"] = Field(default="1.1.1")
+    schema_version: SkipValidation[Literal["1.1.1"]] = Field(default="1.1.1")
     evaluations: List[QCEvaluation] = Field(..., title="Evaluations")
     notes: Optional[str] = Field(default=None, title="Notes")
 

@@ -8,7 +8,7 @@ from typing import List, Literal, Optional
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.pid_names import PIDName
 from aind_data_schema_models.species import Species
-from pydantic import Field, field_validator
+from pydantic import Field, SkipValidation, field_validator
 from pydantic_core.core_schema import ValidationInfo
 
 from aind_data_schema.base import AindCoreModel, AindModel
@@ -89,7 +89,7 @@ class Subject(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/subject.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["1.0.0"] = Field(default="1.0.0")
+    schema_version: SkipValidation[Literal["1.0.0"]] = Field(default="1.0.0")
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
