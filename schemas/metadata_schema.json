@@ -13181,10 +13181,10 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "1.0.1",
-               "default": "1.0.1",
+               "const": "1.0.2",
+               "default": "1.0.2",
                "enum": [
-                  "1.0.1"
+                  "1.0.2"
                ],
                "title": "Schema Version",
                "type": "string"
@@ -15900,6 +15900,7 @@
                      "Olympus": "#/$defs/OLYMPUS",
                      "Other": "#/$defs/OTHER",
                      "Schneider-Kreuznach": "#/$defs/SCHNEIDER_KREUZNACH",
+                     "Tamron": "#/$defs/TAMRON",
                      "Thorlabs": "#/$defs/THORLABS"
                   },
                   "propertyName": "name"
@@ -15937,6 +15938,9 @@
                   },
                   {
                      "$ref": "#/$defs/SCHNEIDER_KREUZNACH"
+                  },
+                  {
+                     "$ref": "#/$defs/TAMRON"
                   },
                   {
                      "$ref": "#/$defs/THORLABS"
@@ -25275,6 +25279,14 @@
             "value": {
                "title": "Metric value"
             },
+            "status_history": {
+               "default": [],
+               "items": {
+                  "$ref": "#/$defs/QCStatus"
+               },
+               "title": "Metric status history",
+               "type": "array"
+            },
             "description": {
                "anyOf": [
                   {
@@ -25299,13 +25311,21 @@
                "default": null,
                "title": "Metric reference image URL or plot type"
             },
-            "status_history": {
-               "default": [],
-               "items": {
-                  "$ref": "#/$defs/QCStatus"
-               },
-               "title": "Metric status history",
-               "type": "array"
+            "evaluated_assets": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "type": "string"
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Set to None except when a metric's calculation required data coming from a different data asset.",
+               "title": "List of asset names that this metric depends on"
             }
          },
          "required": [
@@ -25388,10 +25408,10 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "1.1.1",
-               "default": "1.1.1",
+               "const": "1.1.2",
+               "default": "1.1.2",
                "enum": [
-                  "1.1.1"
+                  "1.1.2"
                ],
                "title": "Schema Version",
                "type": "string"
@@ -27411,10 +27431,10 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "1.0.1",
-               "default": "1.0.1",
+               "const": "1.0.2",
+               "default": "1.0.2",
                "enum": [
-                  "1.0.1"
+                  "1.0.2"
                ],
                "title": "Schema Version",
                "type": "string"
@@ -30714,7 +30734,8 @@
          "enum": [
             "Raw data",
             "Processing",
-            "Analysis"
+            "Analysis",
+            "Multi-asset"
          ],
          "title": "Stage",
          "type": "string"
@@ -35143,10 +35164,10 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "1.0.2",
-         "default": "1.0.2",
+         "const": "1.0.3",
+         "default": "1.0.3",
          "enum": [
-            "1.0.2"
+            "1.0.3"
          ],
          "title": "Schema Version",
          "type": "string"

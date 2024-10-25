@@ -9335,6 +9335,7 @@
                      "Olympus": "#/$defs/OLYMPUS",
                      "Other": "#/$defs/OTHER",
                      "Schneider-Kreuznach": "#/$defs/SCHNEIDER_KREUZNACH",
+                     "Tamron": "#/$defs/TAMRON",
                      "Thorlabs": "#/$defs/THORLABS"
                   },
                   "propertyName": "name"
@@ -9372,6 +9373,9 @@
                   },
                   {
                      "$ref": "#/$defs/SCHNEIDER_KREUZNACH"
+                  },
+                  {
+                     "$ref": "#/$defs/TAMRON"
                   },
                   {
                      "$ref": "#/$defs/THORLABS"
@@ -17930,10 +17934,10 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "1.0.1",
-         "default": "1.0.1",
+         "const": "1.0.2",
+         "default": "1.0.2",
          "enum": [
-            "1.0.1"
+            "1.0.2"
          ],
          "title": "Schema Version",
          "type": "string"
