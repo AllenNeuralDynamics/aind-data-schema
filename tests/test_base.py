@@ -63,20 +63,13 @@ class BaseTests(unittest.TestCase):
             value: Optional[str] = Field(default=None)
             value_unit: Optional[str] = Field(default=None)
 
-        self.assertRaises(ValidationError, lambda: TestModel(
-            value="value"
-        ))
+        self.assertRaises(ValidationError, lambda: TestModel(value="value"))
 
-        test0 = TestModel(
-            value="value",
-            value_unit="unit"
-        )
+        test0 = TestModel(value="value", value_unit="unit")
         self.assertIsNotNone(test0)
 
         # it's fine if units are set and the value isn't
-        test1 = TestModel(
-            value_unit="unit"
-        )
+        test1 = TestModel(value_unit="unit")
         self.assertIsNotNone(test1)
 
         # Multi-unit condition
@@ -85,19 +78,12 @@ class BaseTests(unittest.TestCase):
             value_two_with_depth: Optional[str] = Field(default=None)
             value_unit: Optional[str] = Field(default=None)
 
-        self.assertRaises(ValidationError, lambda: MultiModel(
-            value_one_with_depth="value"
-        ))
+        self.assertRaises(ValidationError, lambda: MultiModel(value_one_with_depth="value"))
 
-        test2 = MultiModel(
-            value_one_with_depth="value1",
-            value_unit="unit"
-        )
+        test2 = MultiModel(value_one_with_depth="value1", value_unit="unit")
         self.assertIsNotNone(test2)
 
-        test3 = MultiModel(
-            value_unit="unit"
-        )
+        test3 = MultiModel(value_unit="unit")
         self.assertIsNotNone(test3)
 
 

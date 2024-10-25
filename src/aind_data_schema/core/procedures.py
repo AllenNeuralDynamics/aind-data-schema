@@ -384,7 +384,9 @@ class NonViralMaterial(Reagent):
     concentration: Optional[Decimal] = Field(
         default=None, title="Concentration", description="Must provide concentration unit"
     )
-    concentration_unit: Optional[str] = Field(default=None, title="Concentration unit", description="For example, mg/mL")
+    concentration_unit: Optional[str] = Field(
+        default=None, title="Concentration unit", description="For example, mg/mL"
+    )
 
 
 class Injection(AindModel):

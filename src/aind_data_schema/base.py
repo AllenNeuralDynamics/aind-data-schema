@@ -58,30 +58,26 @@ class AindModel(BaseModel, Generic[AindGenericType]):
         if any of variable_* are set
         """
         # Accumulate a dictionary mapping variable : unit/unit_value
-        for (unit_name, unit_value) in values:
+        for unit_name, unit_value in values:
             if "_unit" in unit_name and not unit_value:
-                var_name = unit_name.rsplit('_unit', 1)[0]
-                root_name = unit_name.split('_')[0]
+                var_name = unit_name.rsplit("_unit", 1)[0]
+                root_name = unit_name.split("_")[0]
 
                 # Go through all the values again, if any value matches the variable name
                 # and is set, then the unit needs to be set as well
-                for (variable_name, variable_value) in values:
+                for variable_name, variable_value in values:
                     if variable_name == var_name:
                         if variable_value:
-                            raise ValueError(
-                                f"Unit {unit_name} is required when {variable_name} is set."
-                            )
+                            raise ValueError(f"Unit {unit_name} is required when {variable_name} is set.")
                         # if we found our variable and it was None, we can move on
                         continue
 
                 # One more time, now looking for the multi-variable condition
-                for (variable_name, variable_value) in values:
+                for variable_name, variable_value in values:
                     # skip the unit itself
                     if variable_name is not unit_name:
                         if root_name in variable_name and variable_value:
-                            raise ValueError(
-                                f"Unit {unit_name} is required when {variable_name} is set."
-                            )
+                            raise ValueError(f"Unit {unit_name} is required when {variable_name} is set.")
 
         return values
 
