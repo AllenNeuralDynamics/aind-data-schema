@@ -1,4 +1,4 @@
-""" tests for Subject """
+""" tests for base """
 
 import unittest
 from datetime import datetime, timezone
@@ -60,6 +60,7 @@ class BaseTests(unittest.TestCase):
         """Test that models with value/value_unit pairs throw errors properly"""
 
         class TestModel(AindModel):
+            """temporary test model"""
             value: Optional[str] = Field(default=None)
             value_unit: Optional[str] = Field(default=None)
 
@@ -74,9 +75,10 @@ class BaseTests(unittest.TestCase):
 
         # Multi-unit condition
         class MultiModel(AindModel):
-            value_one_with_depth: Optional[str] = Field(default=None)
-            value_two_with_depth: Optional[str] = Field(default=None)
-            value_unit: Optional[str] = Field(default=None)
+            """temporary test model with multiple variables"""
+            value_multi_one_with_depth: Optional[str] = Field(default=None)
+            value_multi_two_with_depth: Optional[str] = Field(default=None)
+            value_multi_unit: Optional[str] = Field(default=None)
 
         self.assertRaises(ValidationError, lambda: MultiModel(value_one_with_depth="value"))
 
