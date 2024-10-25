@@ -306,7 +306,7 @@ class Craniotomy(AindModel):
     dura_removed: Optional[bool] = Field(default=None, title="Dura removed")
     protective_material: Optional[ProtectiveMaterial] = Field(default=None, title="Protective material")
     recovery_time: Optional[Decimal] = Field(default=None, title="Recovery time")
-    recovery_time_unit: TimeUnit = Field(default=TimeUnit.M, title="Recovery time unit")
+    recovery_time_unit: Optional[TimeUnit] = Field(default=None, title="Recovery time unit")
 
 
 class Headframe(AindModel):
@@ -332,7 +332,7 @@ class ProtectiveMaterialReplacement(AindModel):
     ground_wire_hole: Optional[int] = Field(default=None, title="Ground wire hole")
     ground_wire_material: Optional[GroundWireMaterial] = Field(default=None, title="Ground wire material")
     ground_wire_diameter: Optional[Decimal] = Field(default=None, title="Ground wire diameter")
-    ground_wire_diameter_unit: SizeUnit = Field(default=SizeUnit.IN, title="Ground wire diameter unit")
+    ground_wire_diameter_unit: Optional[SizeUnit] = Field(default=None, title="Ground wire diameter unit")
     well_part_number: Optional[str] = Field(default=None, title="Well part number")
     well_type: Optional[str] = Field(default=None, title="Well type")
 
@@ -384,7 +384,7 @@ class NonViralMaterial(Reagent):
     concentration: Optional[Decimal] = Field(
         default=None, title="Concentration", description="Must provide concentration unit"
     )
-    concentration_unit: str = Field(default="mg/mL", title="Concentration unit")
+    concentration_unit: Optional[str] = Field(default=None, title="Concentration unit", description="For example, mg/mL")
 
 
 class Injection(AindModel):
@@ -394,9 +394,9 @@ class Injection(AindModel):
         Annotated[Union[ViralMaterial, NonViralMaterial], Field(..., discriminator="material_type")]
     ] = Field(..., title="Injection material", min_length=1)
     recovery_time: Optional[Decimal] = Field(default=None, title="Recovery time")
-    recovery_time_unit: TimeUnit = Field(default=TimeUnit.M, title="Recovery time unit")
+    recovery_time_unit: Optional[TimeUnit] = Field(default=None, title="Recovery time unit")
     injection_duration: Optional[Decimal] = Field(default=None, title="Injection duration")
-    injection_duration_unit: TimeUnit = Field(default=TimeUnit.M, title="Injection duration unit")
+    injection_duration_unit: Optional[TimeUnit] = Field(default=None, title="Injection duration unit")
     instrument_id: Optional[str] = Field(default=None, title="Instrument ID")
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
 

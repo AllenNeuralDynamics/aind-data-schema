@@ -86,7 +86,7 @@ class LightEmittingDiodeConfig(AindModel):
     device_type: Literal["Light emitting diode"] = "Light emitting diode"
     name: str = Field(..., title="Name")
     excitation_power: Optional[Decimal] = Field(default=None, title="Excitation power (mW)")
-    excitation_power_unit: PowerUnit = Field(default=PowerUnit.MW, title="Excitation power unit")
+    excitation_power_unit: Optional[PowerUnit] = Field(default=None, title="Excitation power unit")
 
 
 class FieldOfView(AindModel):
@@ -111,20 +111,20 @@ class FieldOfView(AindModel):
     fov_scale_factor: Decimal = Field(..., title="FOV scale factor (um/pixel)")
     fov_scale_factor_unit: str = Field(default="um/pixel", title="FOV scale factor unit")
     frame_rate: Optional[Decimal] = Field(default=None, title="Frame rate (Hz)")
-    frame_rate_unit: FrequencyUnit = Field(default=FrequencyUnit.HZ, title="Frame rate unit")
+    frame_rate_unit: Optional[FrequencyUnit] = Field(default=None, title="Frame rate unit")
     coupled_fov_index: Optional[int] = Field(
         default=None, title="Coupled FOV", description="Coupled planes for multiscope"
     )
     power: Optional[Decimal] = Field(
         default=None, title="Power", description="For coupled planes, this power is shared by both planes"
     )
-    power_unit: PowerUnit = Field(default=PowerUnit.PERCENT, title="Power unit")
+    power_unit: Optional[PowerUnit] = Field(default=None, title="Power unit")
     power_ratio: Optional[Decimal] = Field(default=None, title="Power ratio for coupled planes")
     scanfield_z: Optional[int] = Field(
         default=None,
         title="Z stage position of the fastz actuator for a given targeted depth",
     )
-    scanfield_z_unit: SizeUnit = Field(default=SizeUnit.UM, title="Z stage position unit")
+    scanfield_z_unit: Optional[SizeUnit] = Field(default=None, title="Z stage position unit")
     scanimage_roi_index: Optional[int] = Field(default=None, title="ScanImage ROI index")
     notes: Optional[str] = Field(default=None, title="Notes")
 
@@ -222,7 +222,7 @@ class ManipulatorModule(DomeModule):
         Field(default=None, title="Anatomical coordinate reference")
     )
     surface_z: Optional[Decimal] = Field(default=None, title="Surface z")
-    surface_z_unit: SizeUnit = Field(default=SizeUnit.UM, title="Surface z unit")
+    surface_z_unit: Optional[SizeUnit] = Field(default=None, title="Surface z unit")
     dye: Optional[str] = Field(default=None, title="Dye")
     implant_hole_number: Optional[int] = Field(default=None, title="Implant hole number")
 
@@ -241,7 +241,7 @@ class LaserConfig(AindModel):
     wavelength: int = Field(..., title="Wavelength (nm)")
     wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Wavelength unit")
     excitation_power: Optional[Decimal] = Field(default=None, title="Excitation power (mW)")
-    excitation_power_unit: PowerUnit = Field(default=PowerUnit.MW, title="Excitation power unit")
+    excitation_power_unit: Optional[PowerUnit] = Field(default=None, title="Excitation power unit")
 
 
 LIGHT_SOURCE_CONFIGS = Annotated[
@@ -293,7 +293,7 @@ class SpeakerConfig(AindModel):
 
     name: str = Field(..., title="Name", description="Must match rig json")
     volume: Optional[Decimal] = Field(default=None, title="Volume (dB)")
-    volume_unit: SoundIntensityUnit = Field(default=SoundIntensityUnit.DB, title="Volume unit")
+    volume_unit: Optional[SoundIntensityUnit] = Field(default=None, title="Volume unit")
 
 
 # MRI components

@@ -32,7 +32,7 @@ class Channel(AindModel):
     filter_wheel_index: int = Field(..., title="Filter wheel index")
     # dilation
     dilation: Optional[int] = Field(default=None, title="Dilation (pixels)")
-    dilation_unit: SizeUnit = Field(default=SizeUnit.PX, title="Dilation unit")
+    dilation_unit: Optional[SizeUnit] = Field(default=None, title="Dilation unit")
     description: Optional[str] = Field(default=None, title="Description")
 
 

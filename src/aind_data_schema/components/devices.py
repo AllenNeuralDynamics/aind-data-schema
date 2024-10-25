@@ -317,7 +317,7 @@ class Detector(Device):
     cooling: Cooling = Field(default=Cooling.NONE, title="Cooling")
     computer_name: Optional[str] = Field(default=None, title="Name of computer receiving data from this camera")
     frame_rate: Optional[Decimal] = Field(default=None, title="Frame rate (Hz)", description="Frame rate being used")
-    frame_rate_unit: FrequencyUnit = Field(default=FrequencyUnit.HZ, title="Frame rate unit")
+    frame_rate_unit: Optional[FrequencyUnit] = Field(default=None, title="Frame rate unit")
     immersion: Optional[ImmersionMedium] = Field(default=None, title="Immersion")
     chroma: Optional[CameraChroma] = Field(default=None, title="Camera chroma")
     sensor_width: Optional[int] = Field(default=None, title="Width of the sensor (pixels)")
@@ -382,7 +382,7 @@ class Filter(Device):
     height: Optional[Decimal] = Field(default=None, title="Height (mm)")
     size_unit: SizeUnit = Field(default=SizeUnit.MM, title="Size unit")
     thickness: Optional[Decimal] = Field(default=None, title="Thickness (mm)", ge=0)
-    thickness_unit: SizeUnit = Field(default=SizeUnit.MM, title="Thickness unit")
+    thickness_unit: Optional[SizeUnit] = Field(default=None, title="Thickness unit")
     filter_wheel_index: Optional[int] = Field(default=None, title="Filter wheel index")
     cut_off_wavelength: Optional[int] = Field(default=None, title="Cut-off wavelength (nm)")
     cut_on_wavelength: Optional[int] = Field(default=None, title="Cut-on wavelength (nm)")
@@ -405,7 +405,7 @@ class Lens(Device):
 
     # optional fields
     focal_length: Optional[Decimal] = Field(default=None, title="Focal length of the lens (mm)")
-    focal_length_unit: SizeUnit = Field(default=SizeUnit.MM, title="Focal length unit")
+    focal_length_unit: Optional[SizeUnit] = Field(default=None, title="Focal length unit")
     size: Optional[LensSize] = Field(default=None, title="Size (inches)")
     lens_size_unit: SizeUnit = Field(default=SizeUnit.IN, title="Lens size unit")
     optimized_wavelength_range: Optional[str] = Field(default=None, title="Optimized wavelength range (nm)")
@@ -469,7 +469,7 @@ class DAQChannel(AindModel):
     port: Optional[int] = Field(default=None, title="DAQ port")
     channel_index: Optional[int] = Field(default=None, title="DAQ channel index")
     sample_rate: Optional[Decimal] = Field(default=None, title="DAQ channel sample rate (Hz)")
-    sample_rate_unit: FrequencyUnit = Field(default=FrequencyUnit.HZ, title="Sample rate unit")
+    sample_rate_unit: Optional[FrequencyUnit] = Field(default=None, title="Sample rate unit")
     event_based_sampling: Optional[bool] = Field(
         default=None, title="Set to true if DAQ channel is sampled at irregular intervals"
     )
@@ -545,7 +545,7 @@ class LightEmittingDiode(Device):
     wavelength: int = Field(..., title="Wavelength (nm)")
     wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Wavelength unit")
     bandwidth: Optional[int] = Field(default=None, title="Bandwidth (FWHM)")
-    bandwidth_unit: SizeUnit = Field(default=SizeUnit.NM, title="Bandwidth unit")
+    bandwidth_unit: Optional[SizeUnit] = Field(default=None, title="Bandwidth unit")
 
 
 class Lamp(Device):
@@ -556,7 +556,7 @@ class Lamp(Device):
     wavelength_max: Optional[int] = Field(default=None, title="Wavelength maximum (nm)")
     wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Wavelength unit")
     temperature: Optional[int] = Field(default=None, title="Temperature (K)")
-    temperature_unit: TemperatureUnit = Field(default=TemperatureUnit.K, title="Temperature unit")
+    temperature_unit: Optional[TemperatureUnit] = Field(default=None, title="Temperature unit")
 
 
 class ProbePort(AindModel):
@@ -650,7 +650,6 @@ class FiberProbe(Device):
 
     device_type: Literal["Fiber optic probe"] = "Fiber optic probe"
     core_diameter: Decimal = Field(..., title="Core diameter (um)")
-    #  TODO: Check if this should be an enum?
     core_diameter_unit: SizeUnit = Field(default=SizeUnit.UM, title="Core diameter unit")
     numerical_aperture: Decimal = Field(..., title="Numerical aperture")
     ferrule_material: Optional[FerruleMaterial] = Field(default=None, title="Ferrule material")
@@ -707,7 +706,7 @@ class PockelsCell(Device):
     off_time: Optional[Decimal] = Field(default=None, title="Off time (fraction of cycle)")
     time_setting_unit: UnitlessUnit = Field(default=UnitlessUnit.FC, title="Time setting unit")
     beam_modulation: Optional[Decimal] = Field(default=None, title="Beam modulation (V)")
-    beam_modulation_unit: VoltageUnit = Field(default=VoltageUnit.V, title="Beam modulation unit")
+    beam_modulation_unit: Optional[VoltageUnit] = Field(default=None, title="Beam modulation unit")
 
 
 class Enclosure(Device):
