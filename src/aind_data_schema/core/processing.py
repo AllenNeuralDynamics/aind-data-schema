@@ -5,7 +5,7 @@ from typing import List, Literal, Optional
 
 from aind_data_schema_models.process_names import ProcessName
 from aind_data_schema_models.units import MemoryUnit, UnitlessUnit
-from pydantic import Field, ValidationInfo, field_validator
+from pydantic import Field, SkipValidation, ValidationInfo, field_validator, model_validator
 
 from aind_data_schema.base import AindCoreModel, AindGeneric, AindGenericType, AindModel, AwareDatetimeWithDefault
 from aind_data_schema.components.tile import Tile
@@ -42,6 +42,15 @@ class ResourceUsage(AindModel):
     gpu_usage: Optional[List[ResourceTimestamped]] = Field(default=None, title="GPU usage")
     ram_usage: Optional[List[ResourceTimestamped]] = Field(default=None, title="RAM usage")
     usage_unit: str = Field(default=UnitlessUnit.PERCENT, title="Usage unit")
+
+    @model_validator(mode="after")
+    def check_value_and_unit(cls, values):
+        """Ensure that all valued fields have units"""
+        if values.system_memory and not values.system_memory_unit:
+            raise ValueError("System memory unit is required if system memory is provided.")
+        if values.ram and not values.ram_unit:
+            raise ValueError("RAM unit is required if RAM is provided.")
+        return values
 
 
 class DataProcess(AindModel):
@@ -115,7 +124,7 @@ class Processing(AindCoreModel):
 
     _DESCRIBED_BY_URL: str = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/processing.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["1.1.1"] = Field(default="1.1.1")
+    schema_version: SkipValidation[Literal["1.1.1"]] = Field(default="1.1.1")
 
     processing_pipeline: PipelineProcess = Field(
         ..., description="Pipeline used to process data", title="Processing Pipeline"
