@@ -79,7 +79,7 @@ class QCEvaluation(AindModel):
     description: Optional[str] = Field(default=None, title="Evaluation description")
     metrics: List[QCMetric] = Field(..., title="QC metrics")
     tags: Optional[List[str]] = Field(
-        default=None, title="Tags", description="Tags can be used to group QCEvaluation objects into functional groups"
+        default=None, title="Tags", description="Tags can be used to group QCEvaluation objects into groups"
     )
     notes: Optional[str] = Field(default=None, title="Notes")
     allow_failed_metrics: bool = Field(
