@@ -1,5 +1,6 @@
 """ generic base class with supporting validators and fields for basic AIND schema """
 
+import json
 import re
 from pathlib import Path
 from typing import Any, Generic, Optional, TypeVar
@@ -14,9 +15,12 @@ from pydantic import (
     ValidationError,
     ValidatorFunctionWrapHandler,
     create_model,
+    model_validator,
 )
 from pydantic.functional_validators import WrapValidator
 from typing_extensions import Annotated
+
+from aind_data_schema.utils.docdb import is_dict_corrupt
 
 
 def _coerce_naive_datetime(v: Any, handler: ValidatorFunctionWrapHandler) -> AwareDatetime:
@@ -37,7 +41,14 @@ class AindGeneric(BaseModel, extra="allow"):
     # extra="allow" is needed because BaseModel by default drops extra parameters.
     # Alternatively, consider using 'SerializeAsAny' once this issue is resolved
     # https://github.com/pydantic/pydantic/issues/6423
-    pass
+
+    @model_validator(mode="after")
+    def validate_fieldnames(self):
+        """Ensure that field names do not contain forbidden characters"""
+        model_dict = json.loads(self.model_dump_json(by_alias=True))
+        if is_dict_corrupt(model_dict):
+            raise ValueError("Field names cannot contain '.' or '$'")
+        return self
 
 
 AindGenericType = TypeVar("AindGenericType", bound=AindGeneric)
