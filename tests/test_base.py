@@ -1,5 +1,6 @@
 """ tests for Subject """
 
+import json
 import unittest
 from datetime import datetime, timezone
 from pathlib import Path
@@ -7,7 +8,7 @@ from unittest.mock import MagicMock, call, mock_open, patch
 
 from pydantic import create_model
 
-from aind_data_schema.base import AindGeneric, AwareDatetimeWithDefault
+from aind_data_schema.base import AindGeneric, AwareDatetimeWithDefault, is_dict_corrupt
 from aind_data_schema.core.subject import Subject
 
 
@@ -54,6 +55,38 @@ class BaseTests(unittest.TestCase):
 
         expected_json = '{"dt":"2020-10-10T01:02:03Z"}'
         self.assertEqual(expected_json, model_instance.model_dump_json())
+
+    def test_is_dict_corrupt(self):
+        """Tests is_dict_corrupt method"""
+        good_contents = [
+            {"a": 1, "b": {"c": 2, "d": 3}},
+            {"a": 1, "b": {"c": 2, "d": 3}, "e": ["f", "g"]},
+            {"a": 1, "b": {"c": 2, "d": 3}, "e": ["f.valid", "g"]},
+            {"a": 1, "b": {"c": {"d": 2}, "e": 3}},
+            {"a": 1, "b": [{"c": 2}, {"d": 3}], "e": 4},
+        ]
+        bad_contents = [
+            {"a.1": 1, "b": {"c": 2, "d": 3}},
+            {"a": 1, "b": {"c": 2, "$d": 3}},
+            {"a": 1, "b": {"c": {"d": 2}, "$e": 3}},
+            {"a": 1, "b": {"c": 2, "d": 3, "e.csv": 4}},
+            {"a": 1, "b": [{"c": 2}, {"d.csv": 3}], "e": 4},
+        ]
+        invalid_types = [
+            json.dumps({"a": 1, "b": {"c": 2, "d": 3}}),
+            [{"a": 1}, {"b": {"c": 2, "d": 3}}],
+            1,
+            None,
+        ]
+        for contents in good_contents:
+            with self.subTest(contents=contents):
+                self.assertFalse(is_dict_corrupt(contents))
+        for contents in bad_contents:
+            with self.subTest(contents=contents):
+                self.assertTrue(is_dict_corrupt(contents))
+        for contents in invalid_types:
+            with self.subTest(contents=contents):
+                self.assertTrue(is_dict_corrupt(contents))
 
     def test_aind_generic_constructor(self):
         """Tests default constructor for AindGeneric"""

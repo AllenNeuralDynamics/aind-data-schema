@@ -20,8 +20,6 @@ from pydantic import (
 from pydantic.functional_validators import WrapValidator
 from typing_extensions import Annotated
 
-from aind_data_schema.utils.docdb import is_dict_corrupt
-
 
 def _coerce_naive_datetime(v: Any, handler: ValidatorFunctionWrapHandler) -> AwareDatetime:
     """Validator to wrap around AwareDatetime to set a default timezone as user's locale"""
@@ -33,6 +31,43 @@ def _coerce_naive_datetime(v: Any, handler: ValidatorFunctionWrapHandler) -> Awa
 
 
 AwareDatetimeWithDefault = Annotated[AwareDatetime, WrapValidator(_coerce_naive_datetime)]
+
+
+def is_dict_corrupt(input_dict: dict) -> bool:
+    """
+    Checks that dictionary keys, included nested keys, do not contain
+    forbidden characters ("$" and ".").
+
+    Parameters
+    ----------
+    input_dict : dict
+
+    Returns
+    -------
+    bool
+        True if input_dict is not a dict, or if any keys contain
+        forbidden characters. False otherwise.
+
+    """
+
+    def has_corrupt_keys(input) -> bool:
+        """Recursively checks nested dictionaries and lists"""
+        if isinstance(input, dict):
+            for key, value in input.items():
+                if "$" in key or "." in key:
+                    return True
+                elif has_corrupt_keys(value):
+                    return True
+        elif isinstance(input, list):
+            for item in input:
+                if has_corrupt_keys(item):
+                    return True
+        return False
+
+    # Top-level input must be a dictionary
+    if not isinstance(input_dict, dict):
+        return True
+    return has_corrupt_keys(input_dict)
 
 
 class AindGeneric(BaseModel, extra="allow"):
