@@ -1,6 +1,8 @@
 """Generic metadata class for Data Asset Records."""
 
 import inspect
+import json
+import logging
 from datetime import datetime
 from enum import Enum
 from typing import Dict, List, Literal, Optional, get_args
@@ -286,3 +288,38 @@ class Metadata(AindCoreModel):
             check = RigSessionCompatibility(self.rig, self.session)
             check.run_compatibility_check()
         return self
+
+    @classmethod
+    def create_from_core_jsons(
+        cls,
+        name: str,
+        location: str,
+        core_jsons: Dict[str, Optional[dict]],
+        optional_created: Optional[datetime] = None,
+        optional_external_links: Optional[dict] = None,
+    ) -> dict:
+        """Creates a Metadata dict from dictionary of core schema fields."""
+        # Extract basic parameters and core schema fields
+        params = {
+            "name": name,
+            "location": location,
+        }
+        if optional_created is not None:
+            params["created"] = optional_created
+        if optional_external_links is not None:
+            params["external_links"] = optional_external_links
+        core_fields = {key: value for key, value in core_jsons.items() if key in CORE_FILES}
+        # Create Metadata object and convert to JSON
+        # If there are any validation errors, still create it
+        # but set MetadataStatus as Invalid
+        try:
+            metadata = Metadata.model_validate({**params, **core_fields})
+            metadata_json = json.loads(metadata.model_dump_json(by_alias=True))
+        except Exception as e:
+            logging.warning(f"Issue with metadata construction! {e.args}")
+            metadata = Metadata.model_validate(params)
+            metadata_json = json.loads(metadata.model_dump_json(by_alias=True))
+            for key, value in core_fields.items():
+                metadata_json[key] = value
+            metadata_json["metadata_status"] = MetadataStatus.INVALID.value
+        return metadata_json
