@@ -6,7 +6,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from unittest.mock import MagicMock, call, mock_open, patch
 
-from pydantic import create_model
+from pydantic import ValidationError, create_model
 
 from aind_data_schema.base import AindGeneric, AwareDatetimeWithDefault, is_dict_corrupt
 from aind_data_schema.core.subject import Subject
@@ -108,10 +108,10 @@ class BaseTests(unittest.TestCase):
             {"foo": {"foo.name": "bar"}},
         ]
         for params in invalid_params:
-            with self.assertRaises(ValueError) as e:
+            with self.assertRaises(ValidationError) as e:
                 AindGeneric(**params)
             self.assertIn(expected_error, repr(e.exception))
-            with self.assertRaises(ValueError) as e:
+            with self.assertRaises(ValidationError) as e:
                 AindGeneric.model_validate(params)
             self.assertIn(expected_error, repr(e.exception))
 
