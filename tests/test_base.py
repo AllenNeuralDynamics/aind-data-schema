@@ -1,14 +1,15 @@
 """ tests for base """
 
+import json
 import unittest
 from datetime import datetime, timezone
 from pathlib import Path
+from typing import Optional
 from unittest.mock import MagicMock, call, mock_open, patch
 
-from pydantic import create_model, ValidationError, Field
-from typing import Optional
+from pydantic import Field, ValidationError, create_model
 
-from aind_data_schema.base import AwareDatetimeWithDefault, AindModel
+from aind_data_schema.base import AindGeneric, AindModel, AwareDatetimeWithDefault, is_dict_corrupt
 from aind_data_schema.core.subject import Subject
 
 
@@ -61,6 +62,7 @@ class BaseTests(unittest.TestCase):
 
         class TestModel(AindModel):
             """temporary test model"""
+
             value: Optional[str] = Field(default=None)
             value_unit: Optional[str] = Field(default=None)
 
@@ -76,6 +78,7 @@ class BaseTests(unittest.TestCase):
         # Multi-unit condition
         class MultiModel(AindModel):
             """temporary test model with multiple variables"""
+
             value_multi_one_with_depth: Optional[str] = Field(default=None)
             value_multi_two_with_depth: Optional[str] = Field(default=None)
             value_multi_unit: Optional[str] = Field(default=None)
@@ -87,6 +90,62 @@ class BaseTests(unittest.TestCase):
 
         test3 = MultiModel(value_unit="unit")
         self.assertIsNotNone(test3)
+
+    def test_is_dict_corrupt(self):
+        """Tests is_dict_corrupt method"""
+        good_contents = [
+            {"a": 1, "b": {"c": 2, "d": 3}},
+            {"a": 1, "b": {"c": 2, "d": 3}, "e": ["f", "g"]},
+            {"a": 1, "b": {"c": 2, "d": 3}, "e": ["f.valid", "g"]},
+            {"a": 1, "b": {"c": {"d": 2}, "e": 3}},
+            {"a": 1, "b": [{"c": 2}, {"d": 3}], "e": 4},
+        ]
+        bad_contents = [
+            {"a.1": 1, "b": {"c": 2, "d": 3}},
+            {"a": 1, "b": {"c": 2, "$d": 3}},
+            {"a": 1, "b": {"c": {"d": 2}, "$e": 3}},
+            {"a": 1, "b": {"c": 2, "d": 3, "e.csv": 4}},
+            {"a": 1, "b": [{"c": 2}, {"d.csv": 3}], "e": 4},
+        ]
+        invalid_types = [
+            json.dumps({"a": 1, "b": {"c": 2, "d": 3}}),
+            [{"a": 1}, {"b": {"c": 2, "d": 3}}],
+            1,
+            None,
+        ]
+        for contents in good_contents:
+            with self.subTest(contents=contents):
+                self.assertFalse(is_dict_corrupt(contents))
+        for contents in bad_contents:
+            with self.subTest(contents=contents):
+                self.assertTrue(is_dict_corrupt(contents))
+        for contents in invalid_types:
+            with self.subTest(contents=contents):
+                self.assertTrue(is_dict_corrupt(contents))
+
+    def test_aind_generic_constructor(self):
+        """Tests default constructor for AindGeneric"""
+        model = AindGeneric()
+        self.assertEqual("{}", model.model_dump_json())
+
+        params = {"foo": "bar"}
+        model = AindGeneric(**params)
+        self.assertEqual('{"foo":"bar"}', model.model_dump_json())
+
+    def test_aind_generic_validate_fieldnames(self):
+        """Tests that fieldnames are validated in AindGeneric"""
+        expected_error = "1 validation error for AindGeneric\n" "  Value error, Field names cannot contain '.' or '$' "
+        invalid_params = [
+            {"$foo": "bar"},
+            {"foo": {"foo.name": "bar"}},
+        ]
+        for params in invalid_params:
+            with self.assertRaises(ValidationError) as e:
+                AindGeneric(**params)
+            self.assertIn(expected_error, repr(e.exception))
+            with self.assertRaises(ValidationError) as e:
+                AindGeneric.model_validate(params)
+            self.assertIn(expected_error, repr(e.exception))
 
 
 if __name__ == "__main__":
