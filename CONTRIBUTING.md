@@ -92,12 +92,12 @@ variable_unit: XUnit = Field(...)
 
 If the variable is `Optional[]` the unit should also be marked as optional.
 
-If you have multiple variables that map onto a single unit type, start each `variable` with the same prefix, i.e. The prefix should be unique within the class and any class that is inherited. 
+If you have multiple variables that map onto a single unit type, start each `variable` with the same prefix. The prefix should be unique within the class (watch out for inherited fields). 
 
 ```python
-variable_first_example: type = Field(...)
-variable_second_example: type = Field(...)
-variable_unit: type = Field(...)
+fov_width: type = Field(...)
+fov_height: type = Field(...)
+fov_unit: XUnit = Field(...)
 ```
 
 ## Documentation and Style Guide
