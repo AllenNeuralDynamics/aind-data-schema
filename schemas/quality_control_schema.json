@@ -435,6 +435,14 @@
             "value": {
                "title": "Metric value"
             },
+            "status_history": {
+               "default": [],
+               "items": {
+                  "$ref": "#/$defs/QCStatus"
+               },
+               "title": "Metric status history",
+               "type": "array"
+            },
             "description": {
                "anyOf": [
                   {
@@ -459,13 +467,21 @@
                "default": null,
                "title": "Metric reference image URL or plot type"
             },
-            "status_history": {
-               "default": [],
-               "items": {
-                  "$ref": "#/$defs/QCStatus"
-               },
-               "title": "Metric status history",
-               "type": "array"
+            "evaluated_assets": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "type": "string"
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Set to None except when a metric's calculation required data coming from a different data asset.",
+               "title": "List of asset names that this metric depends on"
             }
          },
          "required": [
@@ -554,7 +570,8 @@
          "enum": [
             "Raw data",
             "Processing",
-            "Analysis"
+            "Analysis",
+            "Multi-asset"
          ],
          "title": "Stage",
          "type": "string"
@@ -580,10 +597,10 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "1.1.1",
-         "default": "1.1.1",
+         "const": "1.1.2",
+         "default": "1.1.2",
          "enum": [
-            "1.1.1"
+            "1.1.2"
          ],
          "title": "Schema Version",
          "type": "string"

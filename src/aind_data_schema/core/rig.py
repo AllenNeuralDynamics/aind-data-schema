@@ -4,7 +4,7 @@ from datetime import date
 from typing import List, Literal, Optional, Set, Union
 
 from aind_data_schema_models.modalities import Modality
-from pydantic import Field, SkipValidation, ValidationInfo, field_serializer, field_validator, model_validator
+from pydantic import Field, ValidationInfo, field_serializer, field_validator, model_validator
 from typing_extensions import Annotated
 
 from aind_data_schema.base import AindCoreModel
@@ -51,7 +51,7 @@ class Rig(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/rig.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["1.0.1"]] = Field(default="1.0.1")
+    schema_version: Literal["1.0.2"] = Field("1.0.2")
     rig_id: str = Field(
         ...,
         description="Unique rig identifier, name convention: <room>-<apparatus name>-<date modified YYYYMMDD>",
@@ -90,9 +90,9 @@ class Rig(AindCoreModel):
     notes: Optional[str] = Field(default=None, title="Notes")
 
     @field_serializer("modalities", when_used="json")
-    def serialize_modalities(self, modalities: Set[Modality.ONE_OF]):
-        """Dynamically serialize modalities based on their type."""
-        return sorted(modalities, key=lambda x: x.get("name") if isinstance(x, dict) else x.name)
+    def serialize_modalities(modalities: Set[Modality.ONE_OF]):
+        """sort modalities by name when serializing to JSON"""
+        return sorted(modalities, key=lambda x: x.name)
 
     @model_validator(mode="after")
     def validate_cameras_other(self):
