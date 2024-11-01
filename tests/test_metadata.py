@@ -4,7 +4,7 @@ import json
 import re
 import unittest
 from datetime import datetime, time, timezone
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock, call, patch
 
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
@@ -462,7 +462,7 @@ class TestMetadata(unittest.TestCase):
         self.assertEqual(external_links, result["external_links"])
 
     @patch("logging.warning")
-    def test_create_from_core_jsons_invalid(self, mock_warning):
+    def test_create_from_core_jsons_invalid(self, mock_warning: MagicMock):
         """Tests that metadata json is marked invalid if there are errors"""
         # data_description triggers cross-validation of other fields to fail
         core_jsons = {
@@ -496,10 +496,18 @@ class TestMetadata(unittest.TestCase):
         mock_warning.assert_called_once()
         self.assertIn("Issue with metadata construction!", mock_warning.call_args_list[0].args[0])
 
+    @patch("logging.warning")
     @patch("aind_data_schema.core.metadata.is_dict_corrupt")
-    def test_create_from_core_jsons_corrupt(self, mock_is_dict_corrupt: MagicMock):
-        """Tests metadata json creation raises error when output is corrupt"""
-        mock_is_dict_corrupt.return_value = True
+    def test_create_from_core_jsons_corrupt(
+        self,
+        mock_is_dict_corrupt: MagicMock,
+        mock_warning: MagicMock
+    ):
+        """Tests metadata json creation ignores corrupt core jsons"""
+        # mock corrupt procedures and processing
+        mock_is_dict_corrupt.side_effect = lambda x: (
+            x == self.procedures_json or x == self.processing_json
+        )
         core_jsons = {
             "subject": self.subject_json,
             "data_description": None,
@@ -511,16 +519,29 @@ class TestMetadata(unittest.TestCase):
             "instrument": None,
             "quality_control": None,
         }
-        with self.assertRaises(ValueError) as e:
-            # there are some userwarnings when creating Subject from json
-            with self.assertWarns(UserWarning):
-                Metadata.create_from_core_jsons(
-                    name=self.sample_name,
-                    location=self.sample_location,
-                    core_jsons=core_jsons,
-                )
-        mock_is_dict_corrupt.assert_called_once()
-        self.assertEquals("Metadata JSON is corrupt!", str(e.exception))
+        # there are some userwarnings when creating Subject from json
+        with self.assertWarns(UserWarning):
+            result = Metadata.create_from_core_jsons(
+                name=self.sample_name,
+                location=self.sample_location,
+                core_jsons=core_jsons,
+            )
+        # check that metadata was still created
+        self.assertEqual(self.sample_name, result["name"])
+        self.assertEqual(self.sample_location, result["location"])
+        self.assertEqual(self.subject_json, result["subject"])
+        self.assertIsNone(result["acquisition"])
+        self.assertEqual(MetadataStatus.VALID.value, result["metadata_status"])
+        # check that corrupt core jsons were ignored
+        self.assertIsNone(result["procedures"])
+        self.assertIsNone(result["processing"])
+        mock_warning.assert_has_calls(
+            [
+                call("Provided processing is corrupt! It will be ignored."),
+                call("Provided procedures is corrupt! It will be ignored."),
+            ],
+            any_order=True,
+        )
 
 
 if __name__ == "__main__":

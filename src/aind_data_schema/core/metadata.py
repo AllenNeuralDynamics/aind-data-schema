@@ -299,7 +299,7 @@ class Metadata(AindCoreModel):
         optional_external_links: Optional[dict] = None,
     ) -> dict:
         """Creates a Metadata dict from dictionary of core schema fields."""
-        # Extract basic parameters and core schema fields
+        # Extract basic parameters and non-corrupt core schema fields
         params = {
             "name": name,
             "location": location,
@@ -308,7 +308,13 @@ class Metadata(AindCoreModel):
             params["created"] = optional_created
         if optional_external_links is not None:
             params["external_links"] = optional_external_links
-        core_fields = {key: value for key, value in core_jsons.items() if key in CORE_FILES}
+        core_fields = dict()
+        for key, value in core_jsons.items():
+            if key in CORE_FILES and value is not None:
+                if is_dict_corrupt(value):
+                    logging.warning(f"Provided {key} is corrupt! It will be ignored.")
+                else:
+                    core_fields[key] = value
         # Create Metadata object and convert to JSON
         # If there are any validation errors, still create it
         # but set MetadataStatus as Invalid
@@ -322,7 +328,4 @@ class Metadata(AindCoreModel):
             for key, value in core_fields.items():
                 metadata_json[key] = value
             metadata_json["metadata_status"] = MetadataStatus.INVALID.value
-        # check output is not corrupt
-        if is_dict_corrupt(metadata_json):
-            raise ValueError("Metadata JSON is corrupt!")
         return metadata_json
