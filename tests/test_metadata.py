@@ -17,7 +17,7 @@ from aind_data_schema.components.devices import MousePlatform
 from aind_data_schema.core.acquisition import Acquisition
 from aind_data_schema.core.data_description import DataDescription, Funding
 from aind_data_schema.core.instrument import Instrument
-from aind_data_schema.core.metadata import ExternalPlatforms, Metadata, MetadataStatus
+from aind_data_schema.core.metadata import ExternalPlatforms, Metadata, MetadataStatus, create_metadata_json
 from aind_data_schema.core.procedures import (
     IontophoresisInjection,
     NanojectInjection,
@@ -419,7 +419,7 @@ class TestMetadata(unittest.TestCase):
         expected_result = json.loads(expected_md.model_dump_json(by_alias=True))
         # there are some userwarnings when creating Subject from json
         with self.assertWarns(UserWarning):
-            result = Metadata.create_from_core_jsons(
+            result = create_metadata_json(
                 name=self.sample_name,
                 location=self.sample_location,
                 core_jsons=core_jsons,
@@ -447,7 +447,7 @@ class TestMetadata(unittest.TestCase):
         }
         # there are some userwarnings when creating from json
         with self.assertWarns(UserWarning):
-            result = Metadata.create_from_core_jsons(
+            result = create_metadata_json(
                 name=self.sample_name,
                 location=self.sample_location,
                 core_jsons={
@@ -478,7 +478,7 @@ class TestMetadata(unittest.TestCase):
         }
         # there are some userwarnings when creating Subject from json
         with self.assertWarns(UserWarning):
-            result = Metadata.create_from_core_jsons(
+            result = create_metadata_json(
                 name=self.sample_name,
                 location=self.sample_location,
                 core_jsons=core_jsons,
@@ -521,7 +521,7 @@ class TestMetadata(unittest.TestCase):
         }
         # there are some userwarnings when creating Subject from json
         with self.assertWarns(UserWarning):
-            result = Metadata.create_from_core_jsons(
+            result = create_metadata_json(
                 name=self.sample_name,
                 location=self.sample_location,
                 core_jsons=core_jsons,
