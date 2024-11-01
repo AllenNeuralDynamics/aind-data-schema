@@ -85,10 +85,10 @@ class BaseTests(unittest.TestCase):
 
         self.assertRaises(ValidationError, lambda: MultiModel(value_one_with_depth="value"))
 
-        test2 = MultiModel(value_one_with_depth="value1", value_unit="unit")
+        test2 = MultiModel(value_multi_one_with_depth="value1", value_multi_unit="unit")
         self.assertIsNotNone(test2)
 
-        test3 = MultiModel(value_unit="unit")
+        test3 = MultiModel(value_multi_unit="unit")
         self.assertIsNotNone(test3)
 
     def test_is_dict_corrupt(self):
