@@ -327,8 +327,7 @@ class TestMetadata(unittest.TestCase):
         )
 
     def test_validate_old_schema_version(self):
-        """Tests that old schema versions are ignored during validation
-        """
+        """Tests that old schema versions are ignored during validation"""
         m = Metadata.model_construct(
             name="name",
             location="location",
