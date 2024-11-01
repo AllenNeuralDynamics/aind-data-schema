@@ -1,7 +1,7 @@
 """ test Rig """
 
-import unittest
 import json
+import unittest
 from datetime import date, datetime
 
 from aind_data_schema_models.modalities import Modality

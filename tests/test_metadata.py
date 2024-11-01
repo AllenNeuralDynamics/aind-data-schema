@@ -5,9 +5,9 @@ import re
 import unittest
 from datetime import time
 
+from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.platforms import Platform
-from aind_data_schema_models.modalities import Modality
 from pydantic import ValidationError
 from pydantic import __version__ as pyd_version
 
@@ -327,8 +327,7 @@ class TestMetadata(unittest.TestCase):
         )
 
     def test_validate_old_schema_version(self):
-        """Tests that old schema versions are ignored during validation
-        """
+        """Tests that old schema versions are ignored during validation"""
         m = Metadata.model_construct(
             name="name",
             location="location",

@@ -2,20 +2,19 @@
 
 import re
 import unittest
+from datetime import datetime
 
 import pydantic
-
-from datetime import datetime
+from aind_data_schema_models.system_architecture import CPUArchitecture, OperatingSystem
+from aind_data_schema_models.units import MemoryUnit
 
 from aind_data_schema.core.processing import (
     DataProcess,
     PipelineProcess,
     Processing,
-    ResourceUsage,
     ResourceTimestamped,
+    ResourceUsage,
 )
-from aind_data_schema_models.system_architecture import OperatingSystem, CPUArchitecture
-from aind_data_schema_models.units import MemoryUnit
 
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pydantic.__version__).group(1)
 
