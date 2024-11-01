@@ -1,9 +1,10 @@
 """ Schemas for Quality Metrics """
 
+from datetime import datetime
 from enum import Enum
 from typing import Any, List, Literal, Optional
 
-from aind_data_schema_models.modalities import Modality
+from aind_data_schema_models.modalities import Modality, ModalityModel
 from pydantic import BaseModel, Field, SkipValidation, field_validator, model_validator
 
 from aind_data_schema.base import AindCoreModel, AindModel, AwareDatetimeWithDefault
@@ -91,24 +92,37 @@ class QCEvaluation(AindModel):
         ),
     )
 
-    @property
-    def status(self) -> Status:
+    def status(self, date: datetime = datetime.now()) -> Status:
         """Loop through all metrics and return the evaluation's status
 
         Any fail -> FAIL
         If no fails, then any pending -> PENDING
         All PASS -> PASS
 
+        Parameters
+        ----------
+        date : datetime
+            Date to evaluate the status on
+
         Returns
         -------
         Status
             Current status of the evaluation
         """
-        latest_metric_statuses = [metric.status.status for metric in self.metrics]
+        metric_statuses = []
+        for metric in self.metrics:
+            if len(metric.status_history) == 1:
+                metric_statuses.append(metric.status_history[0].status)
+            else:
+                # Go through the status_history backwards to find the most recent status before the date
+                for status in reversed(metric.status_history):
+                    if status.timestamp <= date:
+                        metric_statuses.append(status.status)
+                        break
 
-        if (not self.allow_failed_metrics) and any(status == Status.FAIL for status in latest_metric_statuses):
+        if (not self.allow_failed_metrics) and any(status == Status.FAIL for status in metric_statuses):
             return Status.FAIL
-        elif any(status == Status.PENDING for status in latest_metric_statuses):
+        elif any(status == Status.PENDING for status in metric_statuses):
             return Status.PENDING
 
         return Status.PASS
@@ -168,7 +182,13 @@ class QualityControl(AindCoreModel):
     evaluations: List[QCEvaluation] = Field(..., title="Evaluations")
     notes: Optional[str] = Field(default=None, title="Notes")
 
-    def status(self, modality: str = None, stage: Stage = None) -> Status:
+    def status(
+        self,
+        modality: ModalityModel | List[ModalityModel] | None = None,
+        stage: Stage | List[Stage] | None = None,
+        tag: str | List[str] | None = None,
+        date: datetime = datetime.now(),
+    ) -> Status:
         """Loop through all evaluations and return the overall status
 
         Any FAIL -> FAIL
@@ -177,24 +197,47 @@ class QualityControl(AindCoreModel):
 
         Parameters
         ----------
-        modality : str, optional
+        modality : str | List[str], optional
             Modality.ONE_OF to filter by, by default None
-        stage : Stage, optional
+        stage : Stage | List[Stage], optional
             Stage to filter by, by default None
+        stage : str | List[str], optional, optional
+            Tag to filter by, by default None
+        date : datetime, optional
+            Status on a specific date, by default now
 
         Returns
         -------
         Status
         """
-        eval_statuses = [
-            evaluation.status
-            for evaluation in self.evaluations
-            if (not modality or evaluation.modality == modality) and (not stage or evaluation.stage == stage)
-        ]
+        if not modality and not stage and not tag:
+            eval_statuses = [evaluation.status(date) for evaluation in self.evaluations]
+        else:
+            if modality and not isinstance(modality, list):
+                modality = [modality]
+            if stage and not isinstance(stage, list):
+                stage = [stage]
+            if tag and not isinstance(tag, list):
+                tag = [tag]
+
+            eval_statuses = [
+                evaluation.status
+                for evaluation in self.evaluations
+                if (not modality or any([evaluation.modality == mod for mod in modality]))
+                and (not stage or any([evaluation.stage == sta for sta in stage]))
+                and (not tag or (evaluation.tags and any([t in evaluation.tags for t in tag])))
+            ]
+        
+        print(eval_statuses)
 
         if any(status == Status.FAIL for status in eval_statuses):
             return Status.FAIL
         elif any(status == Status.PENDING for status in eval_statuses):
             return Status.PENDING
 
-        return Status.PASS
+        if all(status == Status.PASS for status in eval_statuses):
+            return Status.PASS
+
+        else:
+            # If no evaluations match, error
+            raise ValueError(f"No evaluations match the provided filters: {modality}, {stage}, {tag}")

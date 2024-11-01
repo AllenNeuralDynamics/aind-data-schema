@@ -218,6 +218,7 @@ class QualityControlTests(unittest.TestCase):
 
         evaluation.allow_failed_metrics = True
 
+        print(evaluation.status)
         self.assertEqual(evaluation.status, Status.PENDING)
 
         # Replace the pending evaluation with a fail, evaluation should not evaluate to pass
@@ -415,17 +416,47 @@ class QualityControlTests(unittest.TestCase):
                 ),
             ],
         )
+        test_eval3 = QCEvaluation(
+            name="Drift map",
+            modality=Modality.BEHAVIOR_VIDEOS,
+            tags=["tag1"],
+            stage=Stage.RAW,
+            metrics=[
+                QCMetric(
+                    name="Multiple values example",
+                    value={"stuff": "in_a_dict"},
+                    status_history=[
+                        QCStatus(evaluator="Bob", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PENDING)
+                    ],
+                ),
+                QCMetric(
+                    name="Drift map pass/fail",
+                    value=False,
+                    description="Manual evaluation of whether the drift map looks good",
+                    reference="s3://some-data-somewhere",
+                    status_history=[
+                        QCStatus(evaluator="Bob", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PASS)
+                    ],
+                ),
+            ],
+        )
 
         # Confirm that the status filters work
         q = QualityControl(
-            evaluations=[test_eval, test_eval2],
+            evaluations=[test_eval, test_eval2, test_eval3],
         )
 
         self.assertEqual(q.status(), Status.FAIL)
         self.assertEqual(q.status(modality=Modality.BEHAVIOR), Status.FAIL)
         self.assertEqual(q.status(modality=Modality.ECEPHYS), Status.PASS)
+        self.assertEqual(q.status(modality=[Modality.ECEPHYS, Modality.BEHAVIOR]), Status.FAIL)
         self.assertEqual(q.status(stage=Stage.RAW), Status.FAIL)
         self.assertEqual(q.status(stage=Stage.PROCESSING), Status.PASS)
+        self.assertEqual(q.status(tag="tag1"), Status.PENDING)
+
+    def test_status_date(self):
+        """QualityControl.status(date=) should return the correct status for the given date"""
+        pass
 
 
 if __name__ == "__main__":
