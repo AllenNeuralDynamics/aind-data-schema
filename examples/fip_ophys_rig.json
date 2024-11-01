@@ -174,7 +174,7 @@
             "additional_settings": {},
             "notes": "Focal Length 9-22mm 1/3\" IR F1.4",
             "focal_length": null,
-            "focal_length_unit": "millimeter",
+            "focal_length_unit": null,
             "size": null,
             "lens_size_unit": "inch",
             "optimized_wavelength_range": null,
@@ -251,7 +251,7 @@
             "additional_settings": {},
             "notes": "Focal Length 9-22mm 1/3\" IR F1.4",
             "focal_length": null,
-            "focal_length_unit": "millimeter",
+            "focal_length_unit": null,
             "size": null,
             "lens_size_unit": "inch",
             "optimized_wavelength_range": null,
@@ -313,7 +313,7 @@
          "wavelength": 470,
          "wavelength_unit": "nanometer",
          "bandwidth": null,
-         "bandwidth_unit": "nanometer"
+         "bandwidth_unit": null
       },
       {
          "device_type": "Light emitting diode",
@@ -336,7 +336,7 @@
          "wavelength": 415,
          "wavelength_unit": "nanometer",
          "bandwidth": null,
-         "bandwidth_unit": "nanometer"
+         "bandwidth_unit": null
       },
       {
          "device_type": "Light emitting diode",
@@ -359,7 +359,7 @@
          "wavelength": 565,
          "wavelength_unit": "nanometer",
          "bandwidth": null,
-         "bandwidth_unit": "nanometer"
+         "bandwidth_unit": null
       }
    ],
    "detectors": [
@@ -386,7 +386,7 @@
          "cooling": "Air",
          "computer_name": null,
          "frame_rate": null,
-         "frame_rate_unit": "hertz",
+         "frame_rate_unit": null,
          "immersion": "air",
          "chroma": "Monochrome",
          "sensor_width": null,
@@ -432,7 +432,7 @@
          "cooling": "Air",
          "computer_name": null,
          "frame_rate": null,
-         "frame_rate_unit": "hertz",
+         "frame_rate_unit": null,
          "immersion": "air",
          "chroma": "Monochrome",
          "sensor_width": null,
@@ -503,7 +503,7 @@
          "height": null,
          "size_unit": "millimeter",
          "thickness": null,
-         "thickness_unit": "millimeter",
+         "thickness_unit": null,
          "filter_wheel_index": null,
          "cut_off_wavelength": null,
          "cut_on_wavelength": null,
@@ -532,7 +532,7 @@
          "height": null,
          "size_unit": "millimeter",
          "thickness": null,
-         "thickness_unit": "millimeter",
+         "thickness_unit": null,
          "filter_wheel_index": null,
          "cut_off_wavelength": null,
          "cut_on_wavelength": null,
@@ -561,7 +561,7 @@
          "height": "25",
          "size_unit": "millimeter",
          "thickness": null,
-         "thickness_unit": "millimeter",
+         "thickness_unit": null,
          "filter_wheel_index": null,
          "cut_off_wavelength": 562,
          "cut_on_wavelength": null,
@@ -590,7 +590,7 @@
          "height": "24",
          "size_unit": "millimeter",
          "thickness": null,
-         "thickness_unit": "millimeter",
+         "thickness_unit": null,
          "filter_wheel_index": null,
          "cut_off_wavelength": null,
          "cut_on_wavelength": null,
@@ -622,7 +622,7 @@
          "height": null,
          "size_unit": "millimeter",
          "thickness": null,
-         "thickness_unit": "millimeter",
+         "thickness_unit": null,
          "filter_wheel_index": null,
          "cut_off_wavelength": null,
          "cut_on_wavelength": null,
@@ -654,7 +654,7 @@
          "height": null,
          "size_unit": "millimeter",
          "thickness": null,
-         "thickness_unit": "millimeter",
+         "thickness_unit": null,
          "filter_wheel_index": null,
          "cut_off_wavelength": null,
          "cut_on_wavelength": null,
@@ -686,7 +686,7 @@
          "height": null,
          "size_unit": "millimeter",
          "thickness": null,
-         "thickness_unit": "millimeter",
+         "thickness_unit": null,
          "filter_wheel_index": null,
          "cut_off_wavelength": null,
          "cut_on_wavelength": null,
@@ -718,7 +718,7 @@
          "height": "25.2",
          "size_unit": "millimeter",
          "thickness": null,
-         "thickness_unit": "millimeter",
+         "thickness_unit": null,
          "filter_wheel_index": null,
          "cut_off_wavelength": 450,
          "cut_on_wavelength": null,
@@ -750,7 +750,7 @@
          "height": "23.2",
          "size_unit": "millimeter",
          "thickness": null,
-         "thickness_unit": "millimeter",
+         "thickness_unit": null,
          "filter_wheel_index": null,
          "cut_off_wavelength": 500,
          "cut_on_wavelength": null,
@@ -832,7 +832,7 @@
                "port": null,
                "channel_index": null,
                "sample_rate": null,
-               "sample_rate_unit": "hertz",
+               "sample_rate_unit": null,
                "event_based_sampling": null
             },
             {
@@ -842,7 +842,7 @@
                "port": null,
                "channel_index": null,
                "sample_rate": null,
-               "sample_rate_unit": "hertz",
+               "sample_rate_unit": null,
                "event_based_sampling": null
             },
             {
@@ -852,7 +852,7 @@
                "port": null,
                "channel_index": null,
                "sample_rate": null,
-               "sample_rate_unit": "hertz",
+               "sample_rate_unit": null,
                "event_based_sampling": null
             },
             {
@@ -862,7 +862,7 @@
                "port": null,
                "channel_index": null,
                "sample_rate": null,
-               "sample_rate_unit": "hertz",
+               "sample_rate_unit": null,
                "event_based_sampling": null
             },
             {
@@ -872,7 +872,7 @@
                "port": null,
                "channel_index": null,
                "sample_rate": null,
-               "sample_rate_unit": "hertz",
+               "sample_rate_unit": null,
                "event_based_sampling": null
             }
          ],

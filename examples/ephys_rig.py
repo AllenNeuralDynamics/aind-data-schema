@@ -5,6 +5,7 @@ from datetime import date, datetime, timezone
 from aind_data_schema_models.harp_types import HarpDeviceType
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
+from aind_data_schema_models.units import FrequencyUnit, SizeUnit
 
 from aind_data_schema.components.devices import (
     Calibration,
@@ -91,6 +92,7 @@ probe_camera_1 = Camera(
     manufacturer=Organization.FLIR,
     computer_name=ephys_computer,
     frame_rate=50,
+    frame_rate_unit=FrequencyUnit.HZ,
     sensor_width=1080,
     sensor_height=570,
     sensor_format="1/2.9",
@@ -105,6 +107,7 @@ probe_camera_2 = Camera(
     manufacturer=Organization.FLIR,
     computer_name=ephys_computer,
     frame_rate=50,
+    frame_rate_unit=FrequencyUnit.HZ,
     sensor_width=1080,
     sensor_height=570,
     sensor_format="1/2.9",
@@ -119,6 +122,7 @@ probe_camera_3 = Camera(
     manufacturer=Organization.FLIR,
     computer_name=ephys_computer,
     frame_rate=50,
+    frame_rate_unit=FrequencyUnit.HZ,
     sensor_width=1080,
     sensor_height=570,
     sensor_format="1/2.9",
@@ -133,6 +137,7 @@ probe_camera_4 = Camera(
     manufacturer=Organization.FLIR,
     computer_name=ephys_computer,
     frame_rate=50,
+    frame_rate_unit=FrequencyUnit.HZ,
     sensor_width=1080,
     sensor_height=570,
     sensor_format="1/2.9",
@@ -197,7 +202,7 @@ filt = Filter(
     description="850 nm longpass filter",
 )
 
-lens = Lens(name="Camera lens", focal_length=15, manufacturer=Organization.EDMUND_OPTICS, max_aperture="f/2")
+lens = Lens(name="Camera lens", focal_length=15, focal_length_unit=SizeUnit.MM, manufacturer=Organization.EDMUND_OPTICS, max_aperture="f/2")
 
 face_camera = Camera(
     name="Face Camera",
@@ -206,6 +211,7 @@ face_camera = Camera(
     manufacturer=Organization.FLIR,
     computer_name=behavior_computer,
     frame_rate=50,
+    frame_rate_unit=FrequencyUnit.HZ,
     sensor_width=1080,
     sensor_height=570,
     sensor_format="1/2.9",
@@ -228,6 +234,7 @@ body_camera = Camera(
     manufacturer=Organization.FLIR,
     computer_name=behavior_computer,
     frame_rate=50,
+    frame_rate_unit=FrequencyUnit.HZ,
     sensor_width=1080,
     sensor_height=570,
     sensor_format="1/2.9",

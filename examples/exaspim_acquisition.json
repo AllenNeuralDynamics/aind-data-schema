@@ -97,7 +97,7 @@
             "excitation_power_unit": "milliwatt",
             "filter_wheel_index": 0,
             "dilation": null,
-            "dilation_unit": "pixel",
+            "dilation_unit": null,
             "description": null
          },
          "notes": "these are my notes",
@@ -140,7 +140,7 @@
             "excitation_power_unit": "milliwatt",
             "filter_wheel_index": 0,
             "dilation": null,
-            "dilation_unit": "pixel",
+            "dilation_unit": null,
             "description": null
          },
          "notes": "these are my notes",

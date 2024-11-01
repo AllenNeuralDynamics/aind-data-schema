@@ -3,6 +3,7 @@
 from datetime import datetime, timezone
 
 from aind_data_schema_models.modalities import Modality
+from aind_data_schema_models.units import FrequencyUnit
 
 from aind_data_schema.components.stimulus import PhotoStimulation, PhotoStimulationGroup
 from aind_data_schema.core.session import (
@@ -64,6 +65,7 @@ s = Session(
                     magnification="1x",
                     fov_scale_factor=1.5,
                     frame_rate=20,
+                    frame_rate_unit=FrequencyUnit.HZ
                 ),
             ],
         ),
