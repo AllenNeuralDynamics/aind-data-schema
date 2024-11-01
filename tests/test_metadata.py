@@ -4,7 +4,7 @@ import json
 import re
 import unittest
 from datetime import datetime, time, timezone
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
@@ -495,6 +495,32 @@ class TestMetadata(unittest.TestCase):
         self.assertEqual(MetadataStatus.INVALID.value, result["metadata_status"])
         mock_warning.assert_called_once()
         self.assertIn("Issue with metadata construction!", mock_warning.call_args_list[0].args[0])
+
+    @patch("aind_data_schema.core.metadata.is_dict_corrupt")
+    def test_create_from_core_jsons_corrupt(self, mock_is_dict_corrupt: MagicMock):
+        """Tests metadata json creation raises error when output is corrupt"""
+        mock_is_dict_corrupt.return_value = True
+        core_jsons = {
+            "subject": self.subject_json,
+            "data_description": None,
+            "procedures": self.procedures_json,
+            "session": None,
+            "rig": None,
+            "processing": self.processing_json,
+            "acquisition": None,
+            "instrument": None,
+            "quality_control": None,
+        }
+        with self.assertRaises(ValueError) as e:
+            # there are some userwarnings when creating Subject from json
+            with self.assertWarns(UserWarning):
+                Metadata.create_from_core_jsons(
+                    name=self.sample_name,
+                    location=self.sample_location,
+                    core_jsons=core_jsons,
+                )
+        mock_is_dict_corrupt.assert_called_once()
+        self.assertEquals("Metadata JSON is corrupt!", str(e.exception))
 
 
 if __name__ == "__main__":

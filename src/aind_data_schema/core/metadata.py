@@ -20,7 +20,7 @@ from pydantic import (
     model_validator,
 )
 
-from aind_data_schema.base import AindCoreModel
+from aind_data_schema.base import AindCoreModel, is_dict_corrupt
 from aind_data_schema.core.acquisition import Acquisition
 from aind_data_schema.core.data_description import DataDescription
 from aind_data_schema.core.instrument import Instrument
@@ -322,4 +322,7 @@ class Metadata(AindCoreModel):
             for key, value in core_fields.items():
                 metadata_json[key] = value
             metadata_json["metadata_status"] = MetadataStatus.INVALID.value
+        # check output is not corrupt
+        if is_dict_corrupt(metadata_json):
+            raise ValueError("Metadata JSON is corrupt!")
         return metadata_json
