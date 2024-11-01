@@ -21,7 +21,7 @@ from aind_data_schema.core import (  # A temporary workaround to fix NameError w
     rig,
     session,
     subject,
-    quality_control
+    quality_control,
 )
 
 dummy_object = [
@@ -34,7 +34,7 @@ dummy_object = [
     rig,
     session,
     subject,
-    quality_control
+    quality_control,
 ]  # A temporary workaround to bypass "Imported but unused" error
 
 INSTITUTE_NAME = "Allen Institute for Neural Dynamics"

@@ -1,13 +1,14 @@
 """ tests for Subject """
 
+import json
 import unittest
 from datetime import datetime, timezone
 from pathlib import Path
 from unittest.mock import MagicMock, call, mock_open, patch
 
-from pydantic import create_model
+from pydantic import ValidationError, create_model
 
-from aind_data_schema.base import AwareDatetimeWithDefault
+from aind_data_schema.base import AindGeneric, AwareDatetimeWithDefault, is_dict_corrupt
 from aind_data_schema.core.subject import Subject
 
 
@@ -54,6 +55,65 @@ class BaseTests(unittest.TestCase):
 
         expected_json = '{"dt":"2020-10-10T01:02:03Z"}'
         self.assertEqual(expected_json, model_instance.model_dump_json())
+
+    def test_is_dict_corrupt(self):
+        """Tests is_dict_corrupt method"""
+        good_contents = [
+            {"a": 1, "b": {"c": 2, "d": 3}},
+            {"a": 1, "b": {"c": 2, "d": 3}, "e": ["f", "g"]},
+            {"a": 1, "b": {"c": 2, "d": 3}, "e": ["f.valid", "g"]},
+            {"a": 1, "b": {"c": {"d": 2}, "e": 3}},
+            {"a": 1, "b": [{"c": 2}, {"d": 3}], "e": 4},
+        ]
+        bad_contents = [
+            {"a.1": 1, "b": {"c": 2, "d": 3}},
+            {"a": 1, "b": {"c": 2, "$d": 3}},
+            {"a": 1, "b": {"c": {"d": 2}, "$e": 3}},
+            {"a": 1, "b": {"c": 2, "d": 3, "e.csv": 4}},
+            {"a": 1, "b": [{"c": 2}, {"d.csv": 3}], "e": 4},
+        ]
+        invalid_types = [
+            json.dumps({"a": 1, "b": {"c": 2, "d": 3}}),
+            [{"a": 1}, {"b": {"c": 2, "d": 3}}],
+            1,
+            None,
+        ]
+        for contents in good_contents:
+            with self.subTest(contents=contents):
+                self.assertFalse(is_dict_corrupt(contents))
+        for contents in bad_contents:
+            with self.subTest(contents=contents):
+                self.assertTrue(is_dict_corrupt(contents))
+        for contents in invalid_types:
+            with self.subTest(contents=contents):
+                self.assertTrue(is_dict_corrupt(contents))
+
+    def test_aind_generic_constructor(self):
+        """Tests default constructor for AindGeneric"""
+        model = AindGeneric()
+        self.assertEqual("{}", model.model_dump_json())
+
+        params = {"foo": "bar"}
+        model = AindGeneric(**params)
+        self.assertEqual('{"foo":"bar"}', model.model_dump_json())
+
+    def test_aind_generic_validate_fieldnames(self):
+        """Tests that fieldnames are validated in AindGeneric"""
+        expected_error = (
+            "1 validation error for AindGeneric\n"
+            "  Value error, Field names cannot contain '.' or '$' "
+        )
+        invalid_params = [
+            {"$foo": "bar"},
+            {"foo": {"foo.name": "bar"}},
+        ]
+        for params in invalid_params:
+            with self.assertRaises(ValidationError) as e:
+                AindGeneric(**params)
+            self.assertIn(expected_error, repr(e.exception))
+            with self.assertRaises(ValidationError) as e:
+                AindGeneric.model_validate(params)
+            self.assertIn(expected_error, repr(e.exception))
 
 
 if __name__ == "__main__":
