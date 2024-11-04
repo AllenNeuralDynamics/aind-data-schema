@@ -78,8 +78,8 @@ and SLIMS. Until this is fully functional, these files must be created manually.
 **Q: How do I know if my mouse platform is "active"?**
 
 There are experiments in which the mouse platform is actively controlled by the stimulus/behavior software - i.e. the 
-resistance of the wheel is adjusted based on the subjects activity. This is an "active" mouse platform. Most platforms 
-we use are not active in this way.
+resistance of the wheel is adjusted based on the subject's activity. This is an "active" mouse platform. Most platforms 
+we use are currently not active in this way.
 
 **Q: How do I use the Calibration field?**
 
