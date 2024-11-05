@@ -6,6 +6,7 @@ from datetime import date, datetime
 
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
+from aind_data_schema_models.units import FrequencyUnit
 from pydantic import ValidationError
 from pydantic_core import PydanticSerializationError
 
@@ -133,6 +134,7 @@ class RigTests(unittest.TestCase):
                         data_interface="USB",
                         computer_name="ASDF",
                         frame_rate=144,
+                        frame_rate_unit=FrequencyUnit.HZ,
                         sensor_width=1,
                         sensor_height=1,
                         chroma="Color",
@@ -149,6 +151,7 @@ class RigTests(unittest.TestCase):
                         data_interface="USB",
                         computer_name="ASDF",
                         frame_rate=144,
+                        frame_rate_unit=FrequencyUnit.HZ,
                         sensor_width=1,
                         sensor_height=1,
                         chroma="Color",
@@ -394,6 +397,7 @@ class RigTests(unittest.TestCase):
                             data_interface="USB",
                             computer_name="ASDF",
                             frame_rate=144,
+                            frame_rate_unit=FrequencyUnit.HZ,
                             sensor_width=1,
                             sensor_height=1,
                             chroma="Color",
@@ -410,6 +414,7 @@ class RigTests(unittest.TestCase):
                             data_interface="USB",
                             computer_name="ASDF",
                             frame_rate=144,
+                            frame_rate_unit=FrequencyUnit.HZ,
                             sensor_width=1,
                             sensor_height=1,
                             chroma="Color",
@@ -523,6 +528,7 @@ class RigTests(unittest.TestCase):
                     data_interface="USB",
                     computer_name="ASDF",
                     frame_rate=144,
+                    frame_rate_unit=FrequencyUnit.HZ,
                     sensor_width=1,
                     sensor_height=1,
                     chroma="Color",
@@ -544,6 +550,7 @@ class RigTests(unittest.TestCase):
                             data_interface="USB",
                             computer_name="ASDF",
                             frame_rate=144,
+                            frame_rate_unit=FrequencyUnit.HZ,
                             sensor_width=1,
                             sensor_height=1,
                             chroma="Color",

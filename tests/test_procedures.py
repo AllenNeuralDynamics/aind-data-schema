@@ -5,6 +5,7 @@ import unittest
 from datetime import date
 
 from aind_data_schema_models.organizations import Organization
+from aind_data_schema_models.units import TimeUnit
 from pydantic import ValidationError
 from pydantic import __version__ as pyd_version
 
@@ -60,6 +61,7 @@ class ProceduresTests(unittest.TestCase):
                                 injection_eye="Left",
                                 injection_duration=1,
                                 recovery_time=10,
+                                recovery_time_unit=TimeUnit.M,
                             ),
                         ],
                     )
@@ -82,6 +84,7 @@ class ProceduresTests(unittest.TestCase):
                                 injection_eye="Left",
                                 injection_duration=1,
                                 recovery_time=10,
+                                recovery_time_unit=TimeUnit.M,
                             ),
                         ],
                     )
@@ -113,6 +116,7 @@ class ProceduresTests(unittest.TestCase):
                                 injection_eye="Left",
                                 injection_duration=1,
                                 recovery_time=10,
+                                recovery_time_unit=TimeUnit.M,
                             ),
                         ],
                     )
@@ -157,6 +161,7 @@ class ProceduresTests(unittest.TestCase):
                             injection_eye="Left",
                             injection_duration=1,
                             recovery_time=10,
+                            recovery_time_unit=TimeUnit.M,
                         ),
                         IntraperitonealInjection(
                             protocol_id="234",
@@ -194,6 +199,7 @@ class ProceduresTests(unittest.TestCase):
                             injection_angle=1,
                             injection_volume=[1],
                             recovery_time=10,
+                            recovery_time_unit=TimeUnit.M,
                             targeted_structure="VISp6",
                         ),
                         FiberImplant(
