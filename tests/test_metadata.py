@@ -497,16 +497,10 @@ class TestMetadata(unittest.TestCase):
 
     @patch("logging.warning")
     @patch("aind_data_schema.core.metadata.is_dict_corrupt")
-    def test_create_from_core_jsons_corrupt(
-        self,
-        mock_is_dict_corrupt: MagicMock,
-        mock_warning: MagicMock
-    ):
+    def test_create_from_core_jsons_corrupt(self, mock_is_dict_corrupt: MagicMock, mock_warning: MagicMock):
         """Tests metadata json creation ignores corrupt core jsons"""
         # mock corrupt procedures and processing
-        mock_is_dict_corrupt.side_effect = lambda x: (
-            x == self.procedures_json or x == self.processing_json
-        )
+        mock_is_dict_corrupt.side_effect = lambda x: (x == self.procedures_json or x == self.processing_json)
         core_jsons = {
             "subject": self.subject_json,
             "data_description": None,

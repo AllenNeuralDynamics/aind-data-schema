@@ -455,7 +455,9 @@ class QualityControlTests(unittest.TestCase):
         self.assertEqual(q.status(tag="tag1"), Status.PENDING)
 
     def test_status_date(self):
-        """QualityControl.status(date=) / QCEvaluation.status(date=) should return the correct status for the given date"""
+        """QualityControl.status(date=) / QCEvaluation.status(date=)
+        should return the correct status for the given date
+        """
 
         t0_5 = datetime.fromisoformat("0500-01-01 00:00:00+00:00")
         t1 = datetime.fromisoformat("1000-01-01 00:00:00+00:00")
