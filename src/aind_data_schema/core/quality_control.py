@@ -107,7 +107,7 @@ class QCEvaluation(AindModel):
         latest_metric_statuses = [metric.status.status for metric in self.metrics if metric.status.timestamp <= date]
 
         if not latest_metric_statuses:
-            raise ValueError("No status existed prior to the provided date {date.isoformat()}")
+            raise ValueError(f"No status existed prior to the provided date {date.isoformat()}")
 
         if (not self.allow_failed_metrics) and any(status == Status.FAIL for status in latest_metric_statuses):
             return Status.FAIL
