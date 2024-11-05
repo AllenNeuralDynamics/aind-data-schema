@@ -482,7 +482,7 @@ class QualityControlTests(unittest.TestCase):
             metrics=[metric],
         )
 
-        self.assertRaises(ValueError, test_eval.status(), date=t0_5)
+        self.assertRaises(ValueError, test_eval.status, date=t0_5)
 
         self.assertEqual(test_eval.status(date=t1_5), Status.FAIL)
         self.assertEqual(test_eval.status(date=t2_5), Status.PENDING)
@@ -490,7 +490,7 @@ class QualityControlTests(unittest.TestCase):
 
         qc = QualityControl(evaluations=[test_eval])
 
-        self.assertRaises(ValueError, qc.status(), date=t0_5)
+        self.assertRaises(ValueError, qc.status, date=t0_5)
         self.assertEqual(qc.status(date=t1_5), Status.FAIL)
         self.assertEqual(qc.status(date=t2_5), Status.PENDING)
         self.assertEqual(qc.status(date=t3_5), Status.PASS)
