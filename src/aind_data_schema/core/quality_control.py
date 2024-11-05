@@ -104,7 +104,14 @@ class QCEvaluation(AindModel):
         Status
             Current status of the evaluation
         """
-        latest_metric_statuses = [metric.status.status for metric in self.metrics if metric.status.timestamp <= date]
+        latest_metric_statuses = []
+
+        for metric in self.metrics:
+            # loop backwards through metric statuses until you find one that is before the provided date
+            for status in reversed(metric.status_history):
+                if status.timestamp <= date:
+                    latest_metric_statuses.append(status.status)
+                    break
 
         if not latest_metric_statuses:
             raise ValueError(f"No status existed prior to the provided date {date.isoformat()}")

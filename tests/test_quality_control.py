@@ -483,7 +483,6 @@ class QualityControlTests(unittest.TestCase):
         )
 
         self.assertRaises(ValueError, test_eval.status, date=t0_5)
-
         self.assertEqual(test_eval.status(date=t1_5), Status.FAIL)
         self.assertEqual(test_eval.status(date=t2_5), Status.PENDING)
         self.assertEqual(test_eval.status(date=t3_5), Status.PASS)
