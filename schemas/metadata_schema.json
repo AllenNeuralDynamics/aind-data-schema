@@ -558,10 +558,10 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "1.0.1",
-               "default": "1.0.1",
+               "const": "1.0.2",
+               "default": "1.0.2",
                "enum": [
-                  "1.0.1"
+                  "1.0.2"
                ],
                "title": "Schema Version",
                "type": "string"
@@ -974,7 +974,7 @@
                            "Schneider-Kreuznach": "#/$defs/SCHNEIDER_KREUZNACH",
                            "Second Order Effects": "#/$defs/SECOND_ORDER_EFFECTS",
                            "Semrock": "#/$defs/SEMROCK",
-                           "Sigma-Aldritch": "#/$defs/SIGMA_ALDRITCH",
+                           "Sigma-Aldrich": "#/$defs/SIGMA_ALDRICH",
                            "Simons Foundation": "#/$defs/SIMONS_FOUNDATION",
                            "Spinnaker": "#/$defs/SPINNAKER",
                            "Tamron": "#/$defs/TAMRON",
@@ -1216,7 +1216,7 @@
                            "$ref": "#/$defs/SEMROCK"
                         },
                         {
-                           "$ref": "#/$defs/SIGMA_ALDRITCH"
+                           "$ref": "#/$defs/SIGMA_ALDRICH"
                         },
                         {
                            "$ref": "#/$defs/SIMONS_FOUNDATION"
@@ -1645,7 +1645,7 @@
                      "Schneider-Kreuznach": "#/$defs/SCHNEIDER_KREUZNACH",
                      "Second Order Effects": "#/$defs/SECOND_ORDER_EFFECTS",
                      "Semrock": "#/$defs/SEMROCK",
-                     "Sigma-Aldritch": "#/$defs/SIGMA_ALDRITCH",
+                     "Sigma-Aldrich": "#/$defs/SIGMA_ALDRICH",
                      "Simons Foundation": "#/$defs/SIMONS_FOUNDATION",
                      "Spinnaker": "#/$defs/SPINNAKER",
                      "Tamron": "#/$defs/TAMRON",
@@ -1887,7 +1887,7 @@
                      "$ref": "#/$defs/SEMROCK"
                   },
                   {
-                     "$ref": "#/$defs/SIGMA_ALDRITCH"
+                     "$ref": "#/$defs/SIGMA_ALDRICH"
                   },
                   {
                      "$ref": "#/$defs/SIMONS_FOUNDATION"
@@ -2126,7 +2126,7 @@
                            "Schneider-Kreuznach": "#/$defs/SCHNEIDER_KREUZNACH",
                            "Second Order Effects": "#/$defs/SECOND_ORDER_EFFECTS",
                            "Semrock": "#/$defs/SEMROCK",
-                           "Sigma-Aldritch": "#/$defs/SIGMA_ALDRITCH",
+                           "Sigma-Aldrich": "#/$defs/SIGMA_ALDRICH",
                            "Simons Foundation": "#/$defs/SIMONS_FOUNDATION",
                            "Spinnaker": "#/$defs/SPINNAKER",
                            "Tamron": "#/$defs/TAMRON",
@@ -2368,7 +2368,7 @@
                            "$ref": "#/$defs/SEMROCK"
                         },
                         {
-                           "$ref": "#/$defs/SIGMA_ALDRITCH"
+                           "$ref": "#/$defs/SIGMA_ALDRICH"
                         },
                         {
                            "$ref": "#/$defs/SIMONS_FOUNDATION"
@@ -4783,10 +4783,10 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "1.0.1",
-               "default": "1.0.1",
+               "const": "1.0.2",
+               "default": "1.0.2",
                "enum": [
-                  "1.0.1"
+                  "1.0.2"
                ],
                "title": "Schema Version",
                "type": "string"
@@ -5817,7 +5817,7 @@
                            "Schneider-Kreuznach": "#/$defs/SCHNEIDER_KREUZNACH",
                            "Second Order Effects": "#/$defs/SECOND_ORDER_EFFECTS",
                            "Semrock": "#/$defs/SEMROCK",
-                           "Sigma-Aldritch": "#/$defs/SIGMA_ALDRITCH",
+                           "Sigma-Aldrich": "#/$defs/SIGMA_ALDRICH",
                            "Simons Foundation": "#/$defs/SIMONS_FOUNDATION",
                            "Spinnaker": "#/$defs/SPINNAKER",
                            "Tamron": "#/$defs/TAMRON",
@@ -6059,7 +6059,7 @@
                            "$ref": "#/$defs/SEMROCK"
                         },
                         {
-                           "$ref": "#/$defs/SIGMA_ALDRITCH"
+                           "$ref": "#/$defs/SIGMA_ALDRICH"
                         },
                         {
                            "$ref": "#/$defs/SIMONS_FOUNDATION"
@@ -6292,7 +6292,7 @@
                            "Schneider-Kreuznach": "#/$defs/SCHNEIDER_KREUZNACH",
                            "Second Order Effects": "#/$defs/SECOND_ORDER_EFFECTS",
                            "Semrock": "#/$defs/SEMROCK",
-                           "Sigma-Aldritch": "#/$defs/SIGMA_ALDRITCH",
+                           "Sigma-Aldrich": "#/$defs/SIGMA_ALDRICH",
                            "Simons Foundation": "#/$defs/SIMONS_FOUNDATION",
                            "Spinnaker": "#/$defs/SPINNAKER",
                            "Tamron": "#/$defs/TAMRON",
@@ -6534,7 +6534,7 @@
                            "$ref": "#/$defs/SEMROCK"
                         },
                         {
-                           "$ref": "#/$defs/SIGMA_ALDRITCH"
+                           "$ref": "#/$defs/SIGMA_ALDRICH"
                         },
                         {
                            "$ref": "#/$defs/SIMONS_FOUNDATION"
@@ -6853,7 +6853,7 @@
                            "Schneider-Kreuznach": "#/$defs/SCHNEIDER_KREUZNACH",
                            "Second Order Effects": "#/$defs/SECOND_ORDER_EFFECTS",
                            "Semrock": "#/$defs/SEMROCK",
-                           "Sigma-Aldritch": "#/$defs/SIGMA_ALDRITCH",
+                           "Sigma-Aldrich": "#/$defs/SIGMA_ALDRICH",
                            "Simons Foundation": "#/$defs/SIMONS_FOUNDATION",
                            "Spinnaker": "#/$defs/SPINNAKER",
                            "Tamron": "#/$defs/TAMRON",
@@ -7095,7 +7095,7 @@
                            "$ref": "#/$defs/SEMROCK"
                         },
                         {
-                           "$ref": "#/$defs/SIGMA_ALDRITCH"
+                           "$ref": "#/$defs/SIGMA_ALDRICH"
                         },
                         {
                            "$ref": "#/$defs/SIMONS_FOUNDATION"
@@ -7859,7 +7859,7 @@
                            "Schneider-Kreuznach": "#/$defs/SCHNEIDER_KREUZNACH",
                            "Second Order Effects": "#/$defs/SECOND_ORDER_EFFECTS",
                            "Semrock": "#/$defs/SEMROCK",
-                           "Sigma-Aldritch": "#/$defs/SIGMA_ALDRITCH",
+                           "Sigma-Aldrich": "#/$defs/SIGMA_ALDRICH",
                            "Simons Foundation": "#/$defs/SIMONS_FOUNDATION",
                            "Spinnaker": "#/$defs/SPINNAKER",
                            "Tamron": "#/$defs/TAMRON",
@@ -8101,7 +8101,7 @@
                            "$ref": "#/$defs/SEMROCK"
                         },
                         {
-                           "$ref": "#/$defs/SIGMA_ALDRITCH"
+                           "$ref": "#/$defs/SIGMA_ALDRICH"
                         },
                         {
                            "$ref": "#/$defs/SIMONS_FOUNDATION"
@@ -8380,7 +8380,7 @@
                            "Schneider-Kreuznach": "#/$defs/SCHNEIDER_KREUZNACH",
                            "Second Order Effects": "#/$defs/SECOND_ORDER_EFFECTS",
                            "Semrock": "#/$defs/SEMROCK",
-                           "Sigma-Aldritch": "#/$defs/SIGMA_ALDRITCH",
+                           "Sigma-Aldrich": "#/$defs/SIGMA_ALDRICH",
                            "Simons Foundation": "#/$defs/SIMONS_FOUNDATION",
                            "Spinnaker": "#/$defs/SPINNAKER",
                            "Tamron": "#/$defs/TAMRON",
@@ -8622,7 +8622,7 @@
                            "$ref": "#/$defs/SEMROCK"
                         },
                         {
-                           "$ref": "#/$defs/SIGMA_ALDRITCH"
+                           "$ref": "#/$defs/SIGMA_ALDRICH"
                         },
                         {
                            "$ref": "#/$defs/SIMONS_FOUNDATION"
@@ -9472,7 +9472,7 @@
                            "Schneider-Kreuznach": "#/$defs/SCHNEIDER_KREUZNACH",
                            "Second Order Effects": "#/$defs/SECOND_ORDER_EFFECTS",
                            "Semrock": "#/$defs/SEMROCK",
-                           "Sigma-Aldritch": "#/$defs/SIGMA_ALDRITCH",
+                           "Sigma-Aldrich": "#/$defs/SIGMA_ALDRICH",
                            "Simons Foundation": "#/$defs/SIMONS_FOUNDATION",
                            "Spinnaker": "#/$defs/SPINNAKER",
                            "Tamron": "#/$defs/TAMRON",
@@ -9714,7 +9714,7 @@
                            "$ref": "#/$defs/SEMROCK"
                         },
                         {
-                           "$ref": "#/$defs/SIGMA_ALDRITCH"
+                           "$ref": "#/$defs/SIGMA_ALDRICH"
                         },
                         {
                            "$ref": "#/$defs/SIMONS_FOUNDATION"
@@ -10530,7 +10530,8 @@
             "behavior",
             "ephys",
             "MSMA",
-            "ophys"
+            "ophys",
+            "NBA"
          ],
          "title": "Group",
          "type": "string"
@@ -10733,7 +10734,7 @@
                      "Schneider-Kreuznach": "#/$defs/SCHNEIDER_KREUZNACH",
                      "Second Order Effects": "#/$defs/SECOND_ORDER_EFFECTS",
                      "Semrock": "#/$defs/SEMROCK",
-                     "Sigma-Aldritch": "#/$defs/SIGMA_ALDRITCH",
+                     "Sigma-Aldrich": "#/$defs/SIGMA_ALDRICH",
                      "Simons Foundation": "#/$defs/SIMONS_FOUNDATION",
                      "Spinnaker": "#/$defs/SPINNAKER",
                      "Tamron": "#/$defs/TAMRON",
@@ -10975,7 +10976,7 @@
                      "$ref": "#/$defs/SEMROCK"
                   },
                   {
-                     "$ref": "#/$defs/SIGMA_ALDRITCH"
+                     "$ref": "#/$defs/SIGMA_ALDRICH"
                   },
                   {
                      "$ref": "#/$defs/SIMONS_FOUNDATION"
@@ -11199,7 +11200,7 @@
                      "Schneider-Kreuznach": "#/$defs/SCHNEIDER_KREUZNACH",
                      "Second Order Effects": "#/$defs/SECOND_ORDER_EFFECTS",
                      "Semrock": "#/$defs/SEMROCK",
-                     "Sigma-Aldritch": "#/$defs/SIGMA_ALDRITCH",
+                     "Sigma-Aldrich": "#/$defs/SIGMA_ALDRICH",
                      "Simons Foundation": "#/$defs/SIMONS_FOUNDATION",
                      "Spinnaker": "#/$defs/SPINNAKER",
                      "Tamron": "#/$defs/TAMRON",
@@ -11441,7 +11442,7 @@
                      "$ref": "#/$defs/SEMROCK"
                   },
                   {
-                     "$ref": "#/$defs/SIGMA_ALDRITCH"
+                     "$ref": "#/$defs/SIGMA_ALDRICH"
                   },
                   {
                      "$ref": "#/$defs/SIMONS_FOUNDATION"
@@ -12234,7 +12235,7 @@
                            "Schneider-Kreuznach": "#/$defs/SCHNEIDER_KREUZNACH",
                            "Second Order Effects": "#/$defs/SECOND_ORDER_EFFECTS",
                            "Semrock": "#/$defs/SEMROCK",
-                           "Sigma-Aldritch": "#/$defs/SIGMA_ALDRITCH",
+                           "Sigma-Aldrich": "#/$defs/SIGMA_ALDRICH",
                            "Simons Foundation": "#/$defs/SIMONS_FOUNDATION",
                            "Spinnaker": "#/$defs/SPINNAKER",
                            "Tamron": "#/$defs/TAMRON",
@@ -12476,7 +12477,7 @@
                            "$ref": "#/$defs/SEMROCK"
                         },
                         {
-                           "$ref": "#/$defs/SIGMA_ALDRITCH"
+                           "$ref": "#/$defs/SIGMA_ALDRICH"
                         },
                         {
                            "$ref": "#/$defs/SIMONS_FOUNDATION"
@@ -13288,7 +13289,7 @@
                      "Schneider-Kreuznach": "#/$defs/SCHNEIDER_KREUZNACH",
                      "Second Order Effects": "#/$defs/SECOND_ORDER_EFFECTS",
                      "Semrock": "#/$defs/SEMROCK",
-                     "Sigma-Aldritch": "#/$defs/SIGMA_ALDRITCH",
+                     "Sigma-Aldrich": "#/$defs/SIGMA_ALDRICH",
                      "Simons Foundation": "#/$defs/SIMONS_FOUNDATION",
                      "Spinnaker": "#/$defs/SPINNAKER",
                      "Tamron": "#/$defs/TAMRON",
@@ -13530,7 +13531,7 @@
                      "$ref": "#/$defs/SEMROCK"
                   },
                   {
-                     "$ref": "#/$defs/SIGMA_ALDRITCH"
+                     "$ref": "#/$defs/SIGMA_ALDRICH"
                   },
                   {
                      "$ref": "#/$defs/SIMONS_FOUNDATION"
@@ -15156,7 +15157,7 @@
                            "Schneider-Kreuznach": "#/$defs/SCHNEIDER_KREUZNACH",
                            "Second Order Effects": "#/$defs/SECOND_ORDER_EFFECTS",
                            "Semrock": "#/$defs/SEMROCK",
-                           "Sigma-Aldritch": "#/$defs/SIGMA_ALDRITCH",
+                           "Sigma-Aldrich": "#/$defs/SIGMA_ALDRICH",
                            "Simons Foundation": "#/$defs/SIMONS_FOUNDATION",
                            "Spinnaker": "#/$defs/SPINNAKER",
                            "Tamron": "#/$defs/TAMRON",
@@ -15398,7 +15399,7 @@
                            "$ref": "#/$defs/SEMROCK"
                         },
                         {
-                           "$ref": "#/$defs/SIGMA_ALDRITCH"
+                           "$ref": "#/$defs/SIGMA_ALDRICH"
                         },
                         {
                            "$ref": "#/$defs/SIMONS_FOUNDATION"
@@ -17715,7 +17716,7 @@
                            "Schneider-Kreuznach": "#/$defs/SCHNEIDER_KREUZNACH",
                            "Second Order Effects": "#/$defs/SECOND_ORDER_EFFECTS",
                            "Semrock": "#/$defs/SEMROCK",
-                           "Sigma-Aldritch": "#/$defs/SIGMA_ALDRITCH",
+                           "Sigma-Aldrich": "#/$defs/SIGMA_ALDRICH",
                            "Simons Foundation": "#/$defs/SIMONS_FOUNDATION",
                            "Spinnaker": "#/$defs/SPINNAKER",
                            "Tamron": "#/$defs/TAMRON",
@@ -17957,7 +17958,7 @@
                            "$ref": "#/$defs/SEMROCK"
                         },
                         {
-                           "$ref": "#/$defs/SIGMA_ALDRITCH"
+                           "$ref": "#/$defs/SIGMA_ALDRICH"
                         },
                         {
                            "$ref": "#/$defs/SIMONS_FOUNDATION"
@@ -18217,7 +18218,7 @@
                            "Schneider-Kreuznach": "#/$defs/SCHNEIDER_KREUZNACH",
                            "Second Order Effects": "#/$defs/SECOND_ORDER_EFFECTS",
                            "Semrock": "#/$defs/SEMROCK",
-                           "Sigma-Aldritch": "#/$defs/SIGMA_ALDRITCH",
+                           "Sigma-Aldrich": "#/$defs/SIGMA_ALDRICH",
                            "Simons Foundation": "#/$defs/SIMONS_FOUNDATION",
                            "Spinnaker": "#/$defs/SPINNAKER",
                            "Tamron": "#/$defs/TAMRON",
@@ -18459,7 +18460,7 @@
                            "$ref": "#/$defs/SEMROCK"
                         },
                         {
-                           "$ref": "#/$defs/SIGMA_ALDRITCH"
+                           "$ref": "#/$defs/SIGMA_ALDRICH"
                         },
                         {
                            "$ref": "#/$defs/SIMONS_FOUNDATION"
@@ -19848,7 +19849,7 @@
                      "Schneider-Kreuznach": "#/$defs/SCHNEIDER_KREUZNACH",
                      "Second Order Effects": "#/$defs/SECOND_ORDER_EFFECTS",
                      "Semrock": "#/$defs/SEMROCK",
-                     "Sigma-Aldritch": "#/$defs/SIGMA_ALDRITCH",
+                     "Sigma-Aldrich": "#/$defs/SIGMA_ALDRICH",
                      "Simons Foundation": "#/$defs/SIMONS_FOUNDATION",
                      "Spinnaker": "#/$defs/SPINNAKER",
                      "Tamron": "#/$defs/TAMRON",
@@ -20090,7 +20091,7 @@
                      "$ref": "#/$defs/SEMROCK"
                   },
                   {
-                     "$ref": "#/$defs/SIGMA_ALDRITCH"
+                     "$ref": "#/$defs/SIGMA_ALDRICH"
                   },
                   {
                      "$ref": "#/$defs/SIMONS_FOUNDATION"
@@ -20553,7 +20554,7 @@
                            "Schneider-Kreuznach": "#/$defs/SCHNEIDER_KREUZNACH",
                            "Second Order Effects": "#/$defs/SECOND_ORDER_EFFECTS",
                            "Semrock": "#/$defs/SEMROCK",
-                           "Sigma-Aldritch": "#/$defs/SIGMA_ALDRITCH",
+                           "Sigma-Aldrich": "#/$defs/SIGMA_ALDRICH",
                            "Simons Foundation": "#/$defs/SIMONS_FOUNDATION",
                            "Spinnaker": "#/$defs/SPINNAKER",
                            "Tamron": "#/$defs/TAMRON",
@@ -20795,7 +20796,7 @@
                            "$ref": "#/$defs/SEMROCK"
                         },
                         {
-                           "$ref": "#/$defs/SIGMA_ALDRITCH"
+                           "$ref": "#/$defs/SIGMA_ALDRICH"
                         },
                         {
                            "$ref": "#/$defs/SIMONS_FOUNDATION"
@@ -21397,7 +21398,7 @@
                      "Schneider-Kreuznach": "#/$defs/SCHNEIDER_KREUZNACH",
                      "Second Order Effects": "#/$defs/SECOND_ORDER_EFFECTS",
                      "Semrock": "#/$defs/SEMROCK",
-                     "Sigma-Aldritch": "#/$defs/SIGMA_ALDRITCH",
+                     "Sigma-Aldrich": "#/$defs/SIGMA_ALDRICH",
                      "Simons Foundation": "#/$defs/SIMONS_FOUNDATION",
                      "Spinnaker": "#/$defs/SPINNAKER",
                      "Tamron": "#/$defs/TAMRON",
@@ -21639,7 +21640,7 @@
                      "$ref": "#/$defs/SEMROCK"
                   },
                   {
-                     "$ref": "#/$defs/SIGMA_ALDRITCH"
+                     "$ref": "#/$defs/SIGMA_ALDRICH"
                   },
                   {
                      "$ref": "#/$defs/SIMONS_FOUNDATION"
@@ -22194,7 +22195,7 @@
                            "Schneider-Kreuznach": "#/$defs/SCHNEIDER_KREUZNACH",
                            "Second Order Effects": "#/$defs/SECOND_ORDER_EFFECTS",
                            "Semrock": "#/$defs/SEMROCK",
-                           "Sigma-Aldritch": "#/$defs/SIGMA_ALDRITCH",
+                           "Sigma-Aldrich": "#/$defs/SIGMA_ALDRICH",
                            "Simons Foundation": "#/$defs/SIMONS_FOUNDATION",
                            "Spinnaker": "#/$defs/SPINNAKER",
                            "Tamron": "#/$defs/TAMRON",
@@ -22436,7 +22437,7 @@
                            "$ref": "#/$defs/SEMROCK"
                         },
                         {
-                           "$ref": "#/$defs/SIGMA_ALDRITCH"
+                           "$ref": "#/$defs/SIGMA_ALDRICH"
                         },
                         {
                            "$ref": "#/$defs/SIMONS_FOUNDATION"
@@ -23093,7 +23094,7 @@
                            "Schneider-Kreuznach": "#/$defs/SCHNEIDER_KREUZNACH",
                            "Second Order Effects": "#/$defs/SECOND_ORDER_EFFECTS",
                            "Semrock": "#/$defs/SEMROCK",
-                           "Sigma-Aldritch": "#/$defs/SIGMA_ALDRITCH",
+                           "Sigma-Aldrich": "#/$defs/SIGMA_ALDRICH",
                            "Simons Foundation": "#/$defs/SIMONS_FOUNDATION",
                            "Spinnaker": "#/$defs/SPINNAKER",
                            "Tamron": "#/$defs/TAMRON",
@@ -23335,7 +23336,7 @@
                            "$ref": "#/$defs/SEMROCK"
                         },
                         {
-                           "$ref": "#/$defs/SIGMA_ALDRITCH"
+                           "$ref": "#/$defs/SIGMA_ALDRICH"
                         },
                         {
                            "$ref": "#/$defs/SIMONS_FOUNDATION"
@@ -23860,7 +23861,7 @@
                            "Schneider-Kreuznach": "#/$defs/SCHNEIDER_KREUZNACH",
                            "Second Order Effects": "#/$defs/SECOND_ORDER_EFFECTS",
                            "Semrock": "#/$defs/SEMROCK",
-                           "Sigma-Aldritch": "#/$defs/SIGMA_ALDRITCH",
+                           "Sigma-Aldrich": "#/$defs/SIGMA_ALDRICH",
                            "Simons Foundation": "#/$defs/SIMONS_FOUNDATION",
                            "Spinnaker": "#/$defs/SPINNAKER",
                            "Tamron": "#/$defs/TAMRON",
@@ -24102,7 +24103,7 @@
                            "$ref": "#/$defs/SEMROCK"
                         },
                         {
-                           "$ref": "#/$defs/SIGMA_ALDRITCH"
+                           "$ref": "#/$defs/SIGMA_ALDRICH"
                         },
                         {
                            "$ref": "#/$defs/SIMONS_FOUNDATION"
@@ -24392,7 +24393,7 @@
                            "Schneider-Kreuznach": "#/$defs/SCHNEIDER_KREUZNACH",
                            "Second Order Effects": "#/$defs/SECOND_ORDER_EFFECTS",
                            "Semrock": "#/$defs/SEMROCK",
-                           "Sigma-Aldritch": "#/$defs/SIGMA_ALDRITCH",
+                           "Sigma-Aldrich": "#/$defs/SIGMA_ALDRICH",
                            "Simons Foundation": "#/$defs/SIMONS_FOUNDATION",
                            "Spinnaker": "#/$defs/SPINNAKER",
                            "Tamron": "#/$defs/TAMRON",
@@ -24634,7 +24635,7 @@
                            "$ref": "#/$defs/SEMROCK"
                         },
                         {
-                           "$ref": "#/$defs/SIGMA_ALDRITCH"
+                           "$ref": "#/$defs/SIGMA_ALDRICH"
                         },
                         {
                            "$ref": "#/$defs/SIMONS_FOUNDATION"
@@ -24823,10 +24824,10 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "1.1.1",
-               "default": "1.1.1",
+               "const": "1.1.2",
+               "default": "1.1.2",
                "enum": [
-                  "1.1.1"
+                  "1.1.2"
                ],
                "title": "Schema Version",
                "type": "string"
@@ -25241,6 +25242,22 @@
                "title": "QC metrics",
                "type": "array"
             },
+            "tags": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "type": "string"
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Tags can be used to group QCEvaluation objects into groups",
+               "title": "Tags"
+            },
             "notes": {
                "anyOf": [
                   {
@@ -25632,7 +25649,7 @@
                      "Schneider-Kreuznach": "#/$defs/SCHNEIDER_KREUZNACH",
                      "Second Order Effects": "#/$defs/SECOND_ORDER_EFFECTS",
                      "Semrock": "#/$defs/SEMROCK",
-                     "Sigma-Aldritch": "#/$defs/SIGMA_ALDRITCH",
+                     "Sigma-Aldrich": "#/$defs/SIGMA_ALDRICH",
                      "Simons Foundation": "#/$defs/SIMONS_FOUNDATION",
                      "Spinnaker": "#/$defs/SPINNAKER",
                      "Tamron": "#/$defs/TAMRON",
@@ -25874,7 +25891,7 @@
                      "$ref": "#/$defs/SEMROCK"
                   },
                   {
-                     "$ref": "#/$defs/SIGMA_ALDRITCH"
+                     "$ref": "#/$defs/SIGMA_ALDRICH"
                   },
                   {
                      "$ref": "#/$defs/SIMONS_FOUNDATION"
@@ -26063,7 +26080,7 @@
                      "Schneider-Kreuznach": "#/$defs/SCHNEIDER_KREUZNACH",
                      "Second Order Effects": "#/$defs/SECOND_ORDER_EFFECTS",
                      "Semrock": "#/$defs/SEMROCK",
-                     "Sigma-Aldritch": "#/$defs/SIGMA_ALDRITCH",
+                     "Sigma-Aldrich": "#/$defs/SIGMA_ALDRICH",
                      "Simons Foundation": "#/$defs/SIMONS_FOUNDATION",
                      "Spinnaker": "#/$defs/SPINNAKER",
                      "Tamron": "#/$defs/TAMRON",
@@ -26305,7 +26322,7 @@
                      "$ref": "#/$defs/SEMROCK"
                   },
                   {
-                     "$ref": "#/$defs/SIGMA_ALDRITCH"
+                     "$ref": "#/$defs/SIGMA_ALDRICH"
                   },
                   {
                      "$ref": "#/$defs/SIMONS_FOUNDATION"
@@ -26980,7 +26997,7 @@
                            "Schneider-Kreuznach": "#/$defs/SCHNEIDER_KREUZNACH",
                            "Second Order Effects": "#/$defs/SECOND_ORDER_EFFECTS",
                            "Semrock": "#/$defs/SEMROCK",
-                           "Sigma-Aldritch": "#/$defs/SIGMA_ALDRITCH",
+                           "Sigma-Aldrich": "#/$defs/SIGMA_ALDRICH",
                            "Simons Foundation": "#/$defs/SIMONS_FOUNDATION",
                            "Spinnaker": "#/$defs/SPINNAKER",
                            "Tamron": "#/$defs/TAMRON",
@@ -27222,7 +27239,7 @@
                            "$ref": "#/$defs/SEMROCK"
                         },
                         {
-                           "$ref": "#/$defs/SIGMA_ALDRITCH"
+                           "$ref": "#/$defs/SIGMA_ALDRICH"
                         },
                         {
                            "$ref": "#/$defs/SIMONS_FOUNDATION"
@@ -28051,13 +28068,13 @@
          "title": "SICGEN",
          "type": "object"
       },
-      "SIGMA_ALDRITCH": {
+      "SIGMA_ALDRICH": {
          "properties": {
             "name": {
-               "const": "Sigma-Aldritch",
-               "default": "Sigma-Aldritch",
+               "const": "Sigma-Aldrich",
+               "default": "Sigma-Aldrich",
                "enum": [
-                  "Sigma-Aldritch"
+                  "Sigma-Aldrich"
                ],
                "title": "Name",
                "type": "string"
@@ -28086,7 +28103,7 @@
                "type": "null"
             }
          },
-         "title": "SIGMA_ALDRITCH",
+         "title": "SIGMA_ALDRICH",
          "type": "object"
       },
       "SIMONS_FOUNDATION": {
@@ -28549,7 +28566,7 @@
                            "Schneider-Kreuznach": "#/$defs/SCHNEIDER_KREUZNACH",
                            "Second Order Effects": "#/$defs/SECOND_ORDER_EFFECTS",
                            "Semrock": "#/$defs/SEMROCK",
-                           "Sigma-Aldritch": "#/$defs/SIGMA_ALDRITCH",
+                           "Sigma-Aldrich": "#/$defs/SIGMA_ALDRICH",
                            "Simons Foundation": "#/$defs/SIMONS_FOUNDATION",
                            "Spinnaker": "#/$defs/SPINNAKER",
                            "Tamron": "#/$defs/TAMRON",
@@ -28791,7 +28808,7 @@
                            "$ref": "#/$defs/SEMROCK"
                         },
                         {
-                           "$ref": "#/$defs/SIGMA_ALDRITCH"
+                           "$ref": "#/$defs/SIGMA_ALDRICH"
                         },
                         {
                            "$ref": "#/$defs/SIMONS_FOUNDATION"
@@ -29037,7 +29054,7 @@
                            "Schneider-Kreuznach": "#/$defs/SCHNEIDER_KREUZNACH",
                            "Second Order Effects": "#/$defs/SECOND_ORDER_EFFECTS",
                            "Semrock": "#/$defs/SEMROCK",
-                           "Sigma-Aldritch": "#/$defs/SIGMA_ALDRITCH",
+                           "Sigma-Aldrich": "#/$defs/SIGMA_ALDRICH",
                            "Simons Foundation": "#/$defs/SIMONS_FOUNDATION",
                            "Spinnaker": "#/$defs/SPINNAKER",
                            "Tamron": "#/$defs/TAMRON",
@@ -29279,7 +29296,7 @@
                            "$ref": "#/$defs/SEMROCK"
                         },
                         {
-                           "$ref": "#/$defs/SIGMA_ALDRITCH"
+                           "$ref": "#/$defs/SIGMA_ALDRICH"
                         },
                         {
                            "$ref": "#/$defs/SIMONS_FOUNDATION"
@@ -29550,10 +29567,10 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "1.0.1",
-               "default": "1.0.1",
+               "const": "1.0.2",
+               "default": "1.0.2",
                "enum": [
-                  "1.0.1"
+                  "1.0.2"
                ],
                "title": "Schema Version",
                "type": "string"
@@ -30845,7 +30862,7 @@
                      "Schneider-Kreuznach": "#/$defs/SCHNEIDER_KREUZNACH",
                      "Second Order Effects": "#/$defs/SECOND_ORDER_EFFECTS",
                      "Semrock": "#/$defs/SEMROCK",
-                     "Sigma-Aldritch": "#/$defs/SIGMA_ALDRITCH",
+                     "Sigma-Aldrich": "#/$defs/SIGMA_ALDRICH",
                      "Simons Foundation": "#/$defs/SIMONS_FOUNDATION",
                      "Spinnaker": "#/$defs/SPINNAKER",
                      "Tamron": "#/$defs/TAMRON",
@@ -31087,7 +31104,7 @@
                      "$ref": "#/$defs/SEMROCK"
                   },
                   {
-                     "$ref": "#/$defs/SIGMA_ALDRITCH"
+                     "$ref": "#/$defs/SIGMA_ALDRICH"
                   },
                   {
                      "$ref": "#/$defs/SIMONS_FOUNDATION"
@@ -32957,7 +32974,7 @@
                            "Schneider-Kreuznach": "#/$defs/SCHNEIDER_KREUZNACH",
                            "Second Order Effects": "#/$defs/SECOND_ORDER_EFFECTS",
                            "Semrock": "#/$defs/SEMROCK",
-                           "Sigma-Aldritch": "#/$defs/SIGMA_ALDRITCH",
+                           "Sigma-Aldrich": "#/$defs/SIGMA_ALDRICH",
                            "Simons Foundation": "#/$defs/SIMONS_FOUNDATION",
                            "Spinnaker": "#/$defs/SPINNAKER",
                            "Tamron": "#/$defs/TAMRON",
@@ -33199,7 +33216,7 @@
                            "$ref": "#/$defs/SEMROCK"
                         },
                         {
-                           "$ref": "#/$defs/SIGMA_ALDRITCH"
+                           "$ref": "#/$defs/SIGMA_ALDRICH"
                         },
                         {
                            "$ref": "#/$defs/SIMONS_FOUNDATION"
@@ -33472,7 +33489,7 @@
                            "Schneider-Kreuznach": "#/$defs/SCHNEIDER_KREUZNACH",
                            "Second Order Effects": "#/$defs/SECOND_ORDER_EFFECTS",
                            "Semrock": "#/$defs/SEMROCK",
-                           "Sigma-Aldritch": "#/$defs/SIGMA_ALDRITCH",
+                           "Sigma-Aldrich": "#/$defs/SIGMA_ALDRICH",
                            "Simons Foundation": "#/$defs/SIMONS_FOUNDATION",
                            "Spinnaker": "#/$defs/SPINNAKER",
                            "Tamron": "#/$defs/TAMRON",
@@ -33714,7 +33731,7 @@
                            "$ref": "#/$defs/SEMROCK"
                         },
                         {
-                           "$ref": "#/$defs/SIGMA_ALDRITCH"
+                           "$ref": "#/$defs/SIGMA_ALDRICH"
                         },
                         {
                            "$ref": "#/$defs/SIMONS_FOUNDATION"
@@ -34322,7 +34339,7 @@
                            "Schneider-Kreuznach": "#/$defs/SCHNEIDER_KREUZNACH",
                            "Second Order Effects": "#/$defs/SECOND_ORDER_EFFECTS",
                            "Semrock": "#/$defs/SEMROCK",
-                           "Sigma-Aldritch": "#/$defs/SIGMA_ALDRITCH",
+                           "Sigma-Aldrich": "#/$defs/SIGMA_ALDRICH",
                            "Simons Foundation": "#/$defs/SIMONS_FOUNDATION",
                            "Spinnaker": "#/$defs/SPINNAKER",
                            "Tamron": "#/$defs/TAMRON",
@@ -34564,7 +34581,7 @@
                            "$ref": "#/$defs/SEMROCK"
                         },
                         {
-                           "$ref": "#/$defs/SIGMA_ALDRITCH"
+                           "$ref": "#/$defs/SIGMA_ALDRICH"
                         },
                         {
                            "$ref": "#/$defs/SIMONS_FOUNDATION"
