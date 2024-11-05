@@ -397,6 +397,22 @@
                "title": "QC metrics",
                "type": "array"
             },
+            "tags": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "type": "string"
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Tags can be used to group QCEvaluation objects into groups",
+               "title": "Tags"
+            },
             "notes": {
                "anyOf": [
                   {
