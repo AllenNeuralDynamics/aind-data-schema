@@ -837,8 +837,7 @@ class RigTests(unittest.TestCase):
         expected_modalities = [{"name": "Extracellular electrophysiology", "abbreviation": "ecephys"}]
         # Case 1: Modality is a class instance
         rig_instance_modality = Rig.model_construct(
-            rig_id="123_EPHYS1-OPTO_20220101",
-            modalities={Modality.ECEPHYS}  # Example with a valid Modality instance
+            rig_id="123_EPHYS1-OPTO_20220101", modalities={Modality.ECEPHYS}  # Example with a valid Modality instance
         )
         rig_json = rig_instance_modality.model_dump_json()
         rig_data = json.loads(rig_json)
