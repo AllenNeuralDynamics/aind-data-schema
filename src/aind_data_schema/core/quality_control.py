@@ -2,7 +2,7 @@
 
 from datetime import datetime, timezone
 from enum import Enum
-from typing import Any, List, Literal, Optional
+from typing import Any, List, Literal, Optional, Union
 
 from aind_data_schema_models.modalities import Modality, ModalityModel
 from pydantic import BaseModel, Field, SkipValidation, field_validator, model_validator
@@ -180,9 +180,9 @@ class QualityControl(AindCoreModel):
 
     def status(
         self,
-        modality: ModalityModel | List[ModalityModel] | None = None,
-        stage: Stage | List[Stage] | None = None,
-        tag: str | List[str] | None = None,
+        modality: Union[ModalityModel, List[ModalityModel], None] = None,
+        stage: Union[Stage, List[Stage], None] = None,
+        tag: Union[str, List[str], None] = None,
         date: datetime = datetime.now(tz=timezone.utc),
     ) -> Status:
         """Loop through all evaluations and return the overall status
