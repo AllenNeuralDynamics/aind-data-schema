@@ -80,6 +80,7 @@
                "evaluated_assets": null
             }
          ],
+         "tags": null,
          "notes": "",
          "allow_failed_metrics": false
       },
@@ -121,6 +122,7 @@
                "evaluated_assets": null
             }
          ],
+         "tags": null,
          "notes": "Pass when video_1_num_frames==video_2_num_frames",
          "allow_failed_metrics": false
       },
@@ -176,6 +178,7 @@
                "evaluated_assets": null
             }
          ],
+         "tags": null,
          "notes": null,
          "allow_failed_metrics": false
       }
