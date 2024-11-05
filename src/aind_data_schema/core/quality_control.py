@@ -1,11 +1,11 @@
 """ Schemas for Quality Metrics """
 
-from datetime import datetime
+from datetime import datetime, timezone
 from enum import Enum
 from typing import Any, List, Literal, Optional
 
 from aind_data_schema_models.modalities import Modality, ModalityModel
-from pydantic import BaseModel, Field, SkipValidation, field_validator, model_validator
+from pydantic import BaseModel, Field, field_validator, model_validator
 
 from aind_data_schema.base import AindCoreModel, AindModel, AwareDatetimeWithDefault
 
@@ -79,9 +79,6 @@ class QCEvaluation(AindModel):
     name: str = Field(..., title="Evaluation name")
     description: Optional[str] = Field(default=None, title="Evaluation description")
     metrics: List[QCMetric] = Field(..., title="QC metrics")
-    tags: Optional[List[str]] = Field(
-        default=None, title="Tags", description="Tags can be used to group QCEvaluation objects into groups"
-    )
     notes: Optional[str] = Field(default=None, title="Notes")
     allow_failed_metrics: bool = Field(
         default=False,
@@ -92,37 +89,26 @@ class QCEvaluation(AindModel):
         ),
     )
 
-    def status(self, date: datetime = datetime.now()) -> Status:
+    def status(self, date: datetime = datetime.now(tz=timezone.utc)) -> Status:
         """Loop through all metrics and return the evaluation's status
 
         Any fail -> FAIL
         If no fails, then any pending -> PENDING
         All PASS -> PASS
 
-        Parameters
-        ----------
-        date : datetime
-            Date to evaluate the status on
-
         Returns
         -------
         Status
             Current status of the evaluation
         """
-        metric_statuses = []
-        for metric in self.metrics:
-            if len(metric.status_history) == 1:
-                metric_statuses.append(metric.status_history[0].status)
-            else:
-                # Go through the status_history backwards to find the most recent status before the date
-                for status in reversed(metric.status_history):
-                    if status.timestamp <= date:
-                        metric_statuses.append(status.status)
-                        break
+        latest_metric_statuses = [metric.status.status for metric in self.metrics if metric.status.timestamp <= date]
 
-        if (not self.allow_failed_metrics) and any(status == Status.FAIL for status in metric_statuses):
+        if not latest_metric_statuses:
+            raise ValueError("No status existed prior to the provided date {date.isoformat()}")
+
+        if (not self.allow_failed_metrics) and any(status == Status.FAIL for status in latest_metric_statuses):
             return Status.FAIL
-        elif any(status == Status.PENDING for status in metric_statuses):
+        elif any(status == Status.PENDING for status in latest_metric_statuses):
             return Status.PENDING
 
         return Status.PASS
@@ -178,7 +164,7 @@ class QualityControl(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/quality_control.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["1.1.1"]] = Field(default="1.1.1")
+    schema_version: Literal["1.1.2"] = Field("1.1.2")
     evaluations: List[QCEvaluation] = Field(..., title="Evaluations")
     notes: Optional[str] = Field(default=None, title="Notes")
 
@@ -187,31 +173,16 @@ class QualityControl(AindCoreModel):
         modality: ModalityModel | List[ModalityModel] | None = None,
         stage: Stage | List[Stage] | None = None,
         tag: str | List[str] | None = None,
-        date: datetime = datetime.now(),
+        date: datetime = datetime.now(tz=timezone.utc),
     ) -> Status:
         """Loop through all evaluations and return the overall status
 
         Any FAIL -> FAIL
         If no fails, then any PENDING -> PENDING
         All PASS -> PASS
-
-        Parameters
-        ----------
-        modality : str | List[str], optional
-            Modality.ONE_OF to filter by, by default None
-        stage : Stage | List[Stage], optional
-            Stage to filter by, by default None
-        stage : str | List[str], optional, optional
-            Tag to filter by, by default None
-        date : datetime, optional
-            Status on a specific date, by default now
-
-        Returns
-        -------
-        Status
         """
         if not modality and not stage and not tag:
-            eval_statuses = [evaluation.status(date) for evaluation in self.evaluations]
+            eval_statuses = [evaluation.status(date=date) for evaluation in self.evaluations]
         else:
             if modality and not isinstance(modality, list):
                 modality = [modality]
@@ -221,23 +192,16 @@ class QualityControl(AindCoreModel):
                 tag = [tag]
 
             eval_statuses = [
-                evaluation.status
+                evaluation.status(date=date)
                 for evaluation in self.evaluations
-                if (not modality or any([evaluation.modality == mod for mod in modality]))
-                and (not stage or any([evaluation.stage == sta for sta in stage]))
-                and (not tag or (evaluation.tags and any([t in evaluation.tags for t in tag])))
+                if (not modality or any(evaluation.modality == mod for mod in modality))
+                and (not stage or any(evaluation.stage == sta for sta in stage))
+                and (not tag or (evaluation.tags and any(t in evaluation.tags for t in tag)))
             ]
-        
-        print(eval_statuses)
 
         if any(status == Status.FAIL for status in eval_statuses):
             return Status.FAIL
         elif any(status == Status.PENDING for status in eval_statuses):
             return Status.PENDING
 
-        if all(status == Status.PASS for status in eval_statuses):
-            return Status.PASS
-
-        else:
-            # If no evaluations match, error
-            raise ValueError(f"No evaluations match the provided filters: {modality}, {stage}, {tag}")
+        return Status.PASS

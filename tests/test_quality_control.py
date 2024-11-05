@@ -6,7 +6,7 @@ from datetime import datetime
 from aind_data_schema_models.modalities import Modality
 from pydantic import ValidationError
 
-from aind_data_schema.core.quality_control import QCEvaluation, QualityControl, QCMetric, Stage, Status, QCStatus
+from aind_data_schema.core.quality_control import QCEvaluation, QCMetric, QCStatus, QualityControl, Stage, Status
 
 
 class QualityControlTests(unittest.TestCase):
@@ -76,7 +76,7 @@ class QualityControlTests(unittest.TestCase):
         )
 
         # check that evaluation status gets auto-set if it has never been set before
-        self.assertEqual(test_eval.status, Status.PASS)
+        self.assertEqual(test_eval.status(), Status.PASS)
 
         q = QualityControl(
             evaluations=[test_eval, test_eval],
@@ -147,7 +147,7 @@ class QualityControlTests(unittest.TestCase):
             ],
         )
 
-        self.assertEqual(evaluation.status, Status.PASS)
+        self.assertEqual(evaluation.status(), Status.PASS)
 
         # Add a pending metric, evaluation should now evaluate to pending
         evaluation.metrics.append(
@@ -164,7 +164,7 @@ class QualityControlTests(unittest.TestCase):
             )
         )
 
-        self.assertEqual(evaluation.status, Status.PENDING)
+        self.assertEqual(evaluation.status(), Status.PENDING)
 
         # Add a failing metric, evaluation should now evaluate to fail
         evaluation.metrics.append(
@@ -179,7 +179,7 @@ class QualityControlTests(unittest.TestCase):
             )
         )
 
-        self.assertEqual(evaluation.status, Status.FAIL)
+        self.assertEqual(evaluation.status(), Status.FAIL)
 
     def test_allowed_failed_metrics(self):
         """Test that if you set the flag to allow failures that evaluations pass"""
@@ -218,13 +218,12 @@ class QualityControlTests(unittest.TestCase):
 
         evaluation.allow_failed_metrics = True
 
-        print(evaluation.status)
-        self.assertEqual(evaluation.status, Status.PENDING)
+        self.assertEqual(evaluation.status(), Status.PENDING)
 
         # Replace the pending evaluation with a fail, evaluation should not evaluate to pass
         evaluation.metrics[1].status_history[0].status = Status.FAIL
 
-        self.assertEqual(evaluation.status, Status.PASS)
+        self.assertEqual(evaluation.status(), Status.PASS)
 
         metric2.status_history[0].status = Status.FAIL
         self.assertEqual(evaluation.failed_metrics, [metric2])
@@ -324,6 +323,7 @@ class QualityControlTests(unittest.TestCase):
                 ],
             )
 
+        print(context.exception)
         self.assertTrue(
             "is in a single-asset QCEvaluation and should not have evaluated_assets" in repr(context.exception)
         )
@@ -455,8 +455,45 @@ class QualityControlTests(unittest.TestCase):
         self.assertEqual(q.status(tag="tag1"), Status.PENDING)
 
     def test_status_date(self):
-        """QualityControl.status(date=) should return the correct status for the given date"""
-        pass
+        """QualityControl.status(date=) / QCEvaluation.status(date=) should return the correct status for the given date"""
+
+        t0_5 = datetime.fromisoformat("0500-01-01 00:00:00+00:00")
+        t1 = datetime.fromisoformat("1000-01-01 00:00:00+00:00")
+        t1_5 = datetime.fromisoformat("1500-01-01 00:00:00+00:00")
+        t2 = datetime.fromisoformat("2000-01-01 00:00:00+00:00")
+        t2_5 = datetime.fromisoformat("2500-01-01 00:00:00+00:00")
+        t3 = datetime.fromisoformat("3000-01-01 00:00:00+00:00")
+        t3_5 = datetime.fromisoformat("3500-01-01 00:00:00+00:00")
+
+        metric = QCMetric(
+            name="Drift map pass/fail",
+            value=False,
+            status_history=[
+                QCStatus(evaluator="Bob", timestamp=t1, status=Status.FAIL),
+                QCStatus(evaluator="Bob", timestamp=t2, status=Status.PENDING),
+                QCStatus(evaluator="Bob", timestamp=t3, status=Status.PASS),
+            ],
+        )
+
+        test_eval = QCEvaluation(
+            name="Drift map",
+            modality=Modality.ECEPHYS,
+            stage=Stage.PROCESSING,
+            metrics=[metric],
+        )
+
+        self.assertRaises(ValueError, test_eval.status(), date=t0_5)
+
+        self.assertEqual(test_eval.status(date=t1_5), Status.FAIL)
+        self.assertEqual(test_eval.status(date=t2_5), Status.PENDING)
+        self.assertEqual(test_eval.status(date=t3_5), Status.PASS)
+
+        qc = QualityControl(evaluations=[test_eval])
+
+        self.assertRaises(ValueError, qc.status(), date=t0_5)
+        self.assertEqual(qc.status(date=t1_5), Status.FAIL)
+        self.assertEqual(qc.status(date=t2_5), Status.PENDING)
+        self.assertEqual(qc.status(date=t3_5), Status.PASS)
 
 
 if __name__ == "__main__":
