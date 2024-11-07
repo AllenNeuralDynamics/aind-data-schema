@@ -136,6 +136,7 @@ class AuditoryStimulation(AindModel):
 
     @field_validator("stimulus_name", mode="before")
     def correct_sitmulus_typo(cls, values):
+        """Correct the sitmulus typo"""
         if "sitmulus_name" in values:
             values["stimulus_name"] = values.pop("sitmulus_name")
         return values
