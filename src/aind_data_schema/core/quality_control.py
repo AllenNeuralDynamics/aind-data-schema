@@ -4,7 +4,7 @@ from datetime import datetime, timezone
 from enum import Enum
 from typing import Any, List, Literal, Optional, Union
 
-from aind_data_schema_models.modalities import Modality, ModalityModel
+from aind_data_schema_models.modalities import Modality
 from pydantic import BaseModel, Field, SkipValidation, field_validator, model_validator
 
 from aind_data_schema.base import AindCoreModel, AindModel, AwareDatetimeWithDefault
@@ -180,7 +180,7 @@ class QualityControl(AindCoreModel):
 
     def status(
         self,
-        modality: Union[ModalityModel, List[ModalityModel], None] = None,
+        modality: Union[Modality.ONE_OF, List[Modality.ONE_OF], None] = None,
         stage: Union[Stage, List[Stage], None] = None,
         tag: Union[str, List[str], None] = None,
         date: datetime = datetime.now(tz=timezone.utc),
