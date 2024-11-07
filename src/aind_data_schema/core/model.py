@@ -12,13 +12,14 @@ from aind_data_schema_models.system_architecture import ModelBackbone
 
 from aind_data_schema.base import AindCoreModel, AindGenericType, AindModel, AwareDatetimeWithDefault
 from aind_data_schema.components.devices import Software
+from aind_data_schema.core.processing import DataProcess
 
 
 class ModelArchitecture(AindModel):
     """Description of model architecture"""
 
     backbone: ModelBackbone = Field(..., title="Backbone")
-    layers: int = Field(..., title="Layers")
+    layers: Optional[int] = Field(default=None, title="Layers")
     parameters: AindGenericType = Field(..., title="Parameters")
     notes: Optional[str] = Field(default=None, title="Notes")
 
@@ -33,11 +34,11 @@ class PerformanceMetric(AindModel):
 class ModelEvaluation(AindModel):
     """Description of model training"""
 
-    data: str = Field(..., title="Path to training data")
-    data_description: Optional[str] = Field(default=None, title="Description of training data") 
-    date: AwareDatetimeWithDefault = Field(..., title="Date trained") #not sure we need datetime
+    data: str = Field(..., title="Path to evaluation data")
+    data_description: Optional[str] = Field(default=None, title="Description of evaluation data") 
+    date: AwareDatetimeWithDefault = Field(..., title="Date") #not sure we need datetime
     validation_folds: Optional[int] = Field(default=None, title="Validation folds")
-    performance: List[PerformanceMetric] = Field(..., title="Training performance")
+    performance: List[PerformanceMetric] = Field(..., title="Evaluation performance")
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
@@ -54,9 +55,9 @@ class Model(AindCoreModel):
     developer_institution: Optional[Organization.ONE_OF] = Field(default=None, title="Institute where developed")
     modality: Modality.ONE_OF = Field(..., title="Modality")
     model_architecture: ModelArchitecture = Field(..., title="Model architecture")
-    software: List[Software] = Field(..., title="software")
+    software: List[Software] = Field(..., title="Software")
     direct_use: str = Field(..., title="Intended model use", description="Semantic description of intended use")
     limitations: Optional[str] = Field(default=None, title="Model limitations")
-    training: List[ModelEvaluation] = Field(..., title="Training")
+    training: Optional[List[ModelEvaluation]] = Field(default=[], title="Training")
     evaluations: Optional[List[ModelEvaluation]] = Field(default=[], title="Evaluations")
     notes: Optional[str] = Field(default=None, title="Notes")
