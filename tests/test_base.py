@@ -99,10 +99,7 @@ class BaseTests(unittest.TestCase):
 
     def test_aind_generic_validate_fieldnames(self):
         """Tests that fieldnames are validated in AindGeneric"""
-        expected_error = (
-            "1 validation error for AindGeneric\n"
-            "  Value error, Field names cannot contain '.' or '$' "
-        )
+        expected_error = "1 validation error for AindGeneric\n" "  Value error, Field names cannot contain '.' or '$' "
         invalid_params = [
             {"$foo": "bar"},
             {"foo": {"foo.name": "bar"}},

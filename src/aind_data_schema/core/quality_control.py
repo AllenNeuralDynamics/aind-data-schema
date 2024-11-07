@@ -1,9 +1,10 @@
 """ Schemas for Quality Metrics """
 
+from datetime import datetime, timezone
 from enum import Enum
-from typing import Any, List, Literal, Optional
+from typing import Any, List, Literal, Optional, Union
 
-from aind_data_schema_models.modalities import Modality
+from aind_data_schema_models.modalities import Modality, ModalityModel
 from pydantic import BaseModel, Field, SkipValidation, field_validator, model_validator
 
 from aind_data_schema.base import AindCoreModel, AindModel, AwareDatetimeWithDefault
@@ -91,8 +92,7 @@ class QCEvaluation(AindModel):
         ),
     )
 
-    @property
-    def status(self) -> Status:
+    def status(self, date: datetime = datetime.now(tz=timezone.utc)) -> Status:
         """Loop through all metrics and return the evaluation's status
 
         Any fail -> FAIL
@@ -104,7 +104,17 @@ class QCEvaluation(AindModel):
         Status
             Current status of the evaluation
         """
-        latest_metric_statuses = [metric.status.status for metric in self.metrics]
+        latest_metric_statuses = []
+
+        for metric in self.metrics:
+            # loop backwards through metric statuses until you find one that is before the provided date
+            for status in reversed(metric.status_history):
+                if status.timestamp <= date:
+                    latest_metric_statuses.append(status.status)
+                    break
+
+        if not latest_metric_statuses:
+            raise ValueError(f"No status existed prior to the provided date {date.isoformat()}")
 
         if (not self.allow_failed_metrics) and any(status == Status.FAIL for status in latest_metric_statuses):
             return Status.FAIL
@@ -168,15 +178,36 @@ class QualityControl(AindCoreModel):
     evaluations: List[QCEvaluation] = Field(..., title="Evaluations")
     notes: Optional[str] = Field(default=None, title="Notes")
 
-    @property
-    def status(self) -> Status:
+    def status(
+        self,
+        modality: Union[ModalityModel, List[ModalityModel], None] = None,
+        stage: Union[Stage, List[Stage], None] = None,
+        tag: Union[str, List[str], None] = None,
+        date: datetime = datetime.now(tz=timezone.utc),
+    ) -> Status:
         """Loop through all evaluations and return the overall status
 
         Any FAIL -> FAIL
         If no fails, then any PENDING -> PENDING
         All PASS -> PASS
         """
-        eval_statuses = [evaluation.status for evaluation in self.evaluations]
+        if not modality and not stage and not tag:
+            eval_statuses = [evaluation.status(date=date) for evaluation in self.evaluations]
+        else:
+            if modality and not isinstance(modality, list):
+                modality = [modality]
+            if stage and not isinstance(stage, list):
+                stage = [stage]
+            if tag and not isinstance(tag, list):
+                tag = [tag]
+
+            eval_statuses = [
+                evaluation.status(date=date)
+                for evaluation in self.evaluations
+                if (not modality or any(evaluation.modality == mod for mod in modality))
+                and (not stage or any(evaluation.stage == sta for sta in stage))
+                and (not tag or (evaluation.tags and any(t in evaluation.tags for t in tag)))
+            ]
 
         if any(status == Status.FAIL for status in eval_statuses):
             return Status.FAIL
