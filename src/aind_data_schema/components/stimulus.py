@@ -5,7 +5,7 @@ from enum import Enum
 from typing import List, Literal, Optional
 
 from aind_data_schema_models.units import ConcentrationUnit, FrequencyUnit, PowerUnit, TimeUnit
-from pydantic import Field, field_validator
+from pydantic import Field, model_validator
 
 from aind_data_schema.base import AindGeneric, AindGenericType, AindModel
 
@@ -134,9 +134,9 @@ class AuditoryStimulation(AindModel):
     bandpass_order: Optional[int] = Field(default=None, title="Bandpass order")
     notes: Optional[str] = Field(default=None, title="Notes")
 
-    @field_validator("stimulus_name", mode="before")
-    def correct_sitmulus_typo(cls, values):
-        """Correct the sitmulus typo"""
+    @model_validator(mode="before")
+    def correct_typo(cls, values):
+        """Correct 'sitmulus_name' typo."""
         if "sitmulus_name" in values:
             values["stimulus_name"] = values.pop("sitmulus_name")
         return values

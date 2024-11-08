@@ -5,13 +5,13 @@ from aind_data_schema.components.stimulus import AuditoryStimulation
 
 
 class StimulusTests(unittest.TestCase):
-    """tests device schemas"""
+    """tests components.stimulus"""
 
     def test_typo(self):
         """tests that the sitmulus typo is corrected"""
         a = AuditoryStimulation(
             stimulus_type="Auditory Stimulation",
-            sitmulus_name="test",
+            stimulus_name="test",
             sample_frequency=0.5,
         )
 
