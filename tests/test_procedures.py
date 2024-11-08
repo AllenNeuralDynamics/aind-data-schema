@@ -195,7 +195,7 @@ class ProceduresTests(unittest.TestCase):
                             injection_angle=1,
                             injection_volume=[1],
                             recovery_time=10,
-                            targeted_structure="VISp6",
+                            targeted_structure="VISpl6a",
                         ),
                         FiberImplant(
                             protocol_id="dx.doi.org/120.123/fkjd",
