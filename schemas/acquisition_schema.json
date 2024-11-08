@@ -613,11 +613,7 @@
                "type": "integer"
             },
             "imaging_angle_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AngleUnit"
-                  }
-               ],
+               "$ref": "#/$defs/AngleUnit",
                "default": "degrees",
                "title": "Imaging angle unit"
             },
@@ -1261,21 +1257,13 @@
                "type": "string"
             },
             "input": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
+               "$ref": "#/$defs/AindGeneric",
                "default": {},
                "description": "Calibration input",
                "title": "inputs"
             },
             "output": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
+               "$ref": "#/$defs/AindGeneric",
                "default": {},
                "description": "Calibration output",
                "title": "outputs"
@@ -1342,11 +1330,7 @@
                "type": "integer"
             },
             "excitation_wavelength_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "nanometer",
                "title": "Laser wavelength unit"
             },
@@ -1356,11 +1340,7 @@
                "type": "number"
             },
             "excitation_power_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/PowerUnit"
-                  }
-               ],
+               "$ref": "#/$defs/PowerUnit",
                "default": "milliwatt",
                "title": "Laser power unit"
             },
@@ -1381,11 +1361,7 @@
                "title": "Dilation (pixels)"
             },
             "dilation_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "pixel",
                "title": "Dilation unit"
             },
@@ -2182,19 +2158,11 @@
          "description": "Description of an image axis",
          "properties": {
             "name": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AxisName"
-                  }
-               ],
+               "$ref": "#/$defs/AxisName",
                "title": "Name"
             },
             "direction": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AnatomicalDirection"
-                  }
-               ],
+               "$ref": "#/$defs/AnatomicalDirection",
                "description": "Tissue direction as the value of axis increases. If Other describe in notes."
             },
             "dimension": {
@@ -2203,11 +2171,7 @@
                "type": "integer"
             },
             "unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "micrometer",
                "title": "Axis physical units"
             }
@@ -2225,11 +2189,7 @@
          "description": "Description of immersion medium",
          "properties": {
             "medium": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/ImmersionMedium"
-                  }
-               ],
+               "$ref": "#/$defs/ImmersionMedium",
                "title": "Immersion medium"
             },
             "refractive_index": {
@@ -4662,11 +4622,7 @@
                "title": "URL to commit being used"
             },
             "parameters": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
+               "$ref": "#/$defs/AindGeneric",
                "default": {},
                "title": "Software parameters"
             }
@@ -5144,10 +5100,10 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "1.0.0",
-         "default": "1.0.0",
+         "const": "1.0.1",
+         "default": "1.0.1",
          "enum": [
-            "1.0.0"
+            "1.0.1"
          ],
          "title": "Schema Version",
          "type": "string"
@@ -5244,11 +5200,7 @@
          "type": "array"
       },
       "chamber_immersion": {
-         "allOf": [
-            {
-               "$ref": "#/$defs/Immersion"
-            }
-         ],
+         "$ref": "#/$defs/Immersion",
          "title": "Acquisition chamber immersion data"
       },
       "sample_immersion": {

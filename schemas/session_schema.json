@@ -610,17 +610,15 @@
                "title": "Duration"
             },
             "duration_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/TimeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/TimeUnit",
                "default": "minute",
                "title": "Duration unit"
             },
             "level": {
                "anyOf": [
                   {
+                     "maximum": 5.0,
+                     "minimum": 1.0,
                      "type": "number"
                   },
                   {
@@ -691,11 +689,7 @@
                "title": "Amplitude modulation frequency"
             },
             "frequency_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/FrequencyUnit"
-                  }
-               ],
+               "$ref": "#/$defs/FrequencyUnit",
                "default": "hertz",
                "title": "Tone frequency unit"
             },
@@ -778,11 +772,7 @@
          "description": "Description of an axis",
          "properties": {
             "name": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AxisName"
-                  }
-               ],
+               "$ref": "#/$defs/AxisName",
                "title": "Axis"
             },
             "direction": {
@@ -1412,21 +1402,13 @@
                "type": "string"
             },
             "input": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
+               "$ref": "#/$defs/AindGeneric",
                "default": {},
                "description": "Calibration input",
                "title": "inputs"
             },
             "output": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
+               "$ref": "#/$defs/AindGeneric",
                "default": {},
                "description": "Calibration output",
                "title": "outputs"
@@ -1490,20 +1472,12 @@
                "title": "DV"
             },
             "unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "micrometer",
                "title": "Coordinate unit"
             },
             "ccf_version": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/CcfVersion"
-                  }
-               ],
+               "$ref": "#/$defs/CcfVersion",
                "default": "CCFv3",
                "title": "CCF version"
             }
@@ -1575,11 +1549,7 @@
                "title": "Position Z"
             },
             "unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "micrometer",
                "title": "Position unit"
             }
@@ -1701,20 +1671,12 @@
                "title": "Exposure time (ms)"
             },
             "exposure_time_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/TimeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/TimeUnit",
                "default": "millisecond",
                "title": "Exposure time unit"
             },
             "trigger_type": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/TriggerType"
-                  }
-               ],
+               "$ref": "#/$defs/TriggerType",
                "title": "Trigger type"
             }
          },
@@ -1757,11 +1719,7 @@
                "title": "Module Angle (deg)"
             },
             "angle_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AngleUnit"
-                  }
-               ],
+               "$ref": "#/$defs/AngleUnit",
                "default": "degrees",
                "title": "Angle unit"
             },
@@ -2214,11 +2172,7 @@
                "title": "Output power (uW)"
             },
             "output_power_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/PowerUnit"
-                  }
-               ],
+               "$ref": "#/$defs/PowerUnit",
                "default": "microwatt",
                "title": "Output power unit"
             },
@@ -2266,11 +2220,7 @@
                "title": "Module Angle (deg)"
             },
             "angle_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AngleUnit"
-                  }
-               ],
+               "$ref": "#/$defs/AngleUnit",
                "default": "degrees",
                "title": "Angle unit"
             },
@@ -2355,11 +2305,7 @@
                "type": "array"
             },
             "manipulator_coordinates": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/Coordinates3d"
-                  }
-               ],
+               "$ref": "#/$defs/Coordinates3d",
                "title": "Manipulator coordinates"
             },
             "anatomical_coordinates": {
@@ -2406,11 +2352,7 @@
                "title": "Surface z"
             },
             "surface_z_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "micrometer",
                "title": "Surface z unit"
             },
@@ -2470,11 +2412,7 @@
                "type": "integer"
             },
             "imaging_depth_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "micrometer",
                "title": "Imaging depth unit"
             },
@@ -2505,11 +2443,7 @@
                "title": "FOV coordinate AP"
             },
             "fov_coordinate_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "micrometer",
                "title": "FOV coordinate unit"
             },
@@ -2527,11 +2461,7 @@
                "type": "integer"
             },
             "fov_size_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "pixel",
                "title": "FOV size unit"
             },
@@ -2571,11 +2501,7 @@
                "title": "Frame rate (Hz)"
             },
             "frame_rate_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/FrequencyUnit"
-                  }
-               ],
+               "$ref": "#/$defs/FrequencyUnit",
                "default": "hertz",
                "title": "Frame rate unit"
             },
@@ -2609,11 +2535,7 @@
                "title": "Power"
             },
             "power_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/PowerUnit"
-                  }
-               ],
+               "$ref": "#/$defs/PowerUnit",
                "default": "percent",
                "title": "Power unit"
             },
@@ -2645,11 +2567,7 @@
                "title": "Z stage position of the fastz actuator for a given targeted depth"
             },
             "scanfield_z_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "micrometer",
                "title": "Z stage position unit"
             },
@@ -3497,11 +3415,7 @@
                "type": "integer"
             },
             "wavelength_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "nanometer",
                "title": "Wavelength unit"
             },
@@ -3521,11 +3435,7 @@
                "title": "Excitation power (mW)"
             },
             "excitation_power_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/PowerUnit"
-                  }
-               ],
+               "$ref": "#/$defs/PowerUnit",
                "default": "milliwatt",
                "title": "Excitation power unit"
             }
@@ -3570,11 +3480,7 @@
                "title": "Excitation power (mW)"
             },
             "excitation_power_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/PowerUnit"
-                  }
-               ],
+               "$ref": "#/$defs/PowerUnit",
                "default": "milliwatt",
                "title": "Excitation power unit"
             }
@@ -3962,11 +3868,7 @@
                "type": "integer"
             },
             "scan_type": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/ScanType"
-                  }
-               ],
+               "$ref": "#/$defs/ScanType",
                "title": "Scan type"
             },
             "primary_scan": {
@@ -3987,11 +3889,7 @@
                "title": "MRI scanner"
             },
             "scan_sequence_type": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/MriScanSequence"
-                  }
-               ],
+               "$ref": "#/$defs/MriScanSequence",
                "title": "Scan sequence"
             },
             "rare_factor": {
@@ -4033,11 +3931,7 @@
                "title": "Effective echo time (ms)"
             },
             "echo_time_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/TimeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/TimeUnit",
                "default": "millisecond",
                "title": "Echo time unit"
             },
@@ -4053,11 +3947,7 @@
                "title": "Repetition time (ms)"
             },
             "repetition_time_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/TimeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/TimeUnit",
                "default": "millisecond",
                "title": "Repetition time unit"
             },
@@ -4086,11 +3976,7 @@
                "title": "Scan position"
             },
             "subject_position": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SubjectPosition"
-                  }
-               ],
+               "$ref": "#/$defs/SubjectPosition",
                "title": "Subject position"
             },
             "voxel_sizes": {
@@ -4120,11 +4006,7 @@
                "type": "array"
             },
             "additional_scan_parameters": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
+               "$ref": "#/$defs/AindGeneric",
                "title": "Parameters"
             },
             "notes": {
@@ -4253,11 +4135,7 @@
                "title": "Module Angle (deg)"
             },
             "angle_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AngleUnit"
-                  }
-               ],
+               "$ref": "#/$defs/AngleUnit",
                "default": "degrees",
                "title": "Angle unit"
             },
@@ -4342,11 +4220,7 @@
                "type": "array"
             },
             "manipulator_coordinates": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/Coordinates3d"
-                  }
-               ],
+               "$ref": "#/$defs/Coordinates3d",
                "title": "Manipulator coordinates"
             },
             "anatomical_coordinates": {
@@ -4393,11 +4267,7 @@
                "title": "Surface z"
             },
             "surface_z_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "micrometer",
                "title": "Surface z unit"
             },
@@ -5155,11 +5025,7 @@
                "title": "Odorant dilution"
             },
             "odorant_dilution_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/ConcentrationUnit"
-                  }
-               ],
+               "$ref": "#/$defs/ConcentrationUnit",
                "default": "% v/v",
                "title": "Dilution unit"
             },
@@ -5246,11 +5112,7 @@
                "type": "string"
             },
             "pulse_shape": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/PulseShape"
-                  }
-               ],
+               "$ref": "#/$defs/PulseShape",
                "title": "Pulse shape"
             },
             "pulse_frequency": {
@@ -5268,11 +5130,7 @@
                "type": "array"
             },
             "pulse_frequency_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/FrequencyUnit"
-                  }
-               ],
+               "$ref": "#/$defs/FrequencyUnit",
                "default": "hertz",
                "title": "Pulse frequency unit"
             },
@@ -5291,11 +5149,7 @@
                "type": "array"
             },
             "pulse_width_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/TimeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/TimeUnit",
                "default": "millisecond",
                "title": "Pulse width unit"
             },
@@ -5314,11 +5168,7 @@
                "type": "array"
             },
             "pulse_train_duration_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/TimeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/TimeUnit",
                "default": "second",
                "title": "Pulse train duration unit"
             },
@@ -5343,11 +5193,7 @@
                "title": "Pulse train interval (s)"
             },
             "pulse_train_interval_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/TimeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/TimeUnit",
                "default": "second",
                "title": "Pulse train interval unit"
             },
@@ -5364,20 +5210,12 @@
                "title": "Baseline duration (s)"
             },
             "baseline_duration_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/TimeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/TimeUnit",
                "default": "second",
                "title": "Baseline duration unit"
             },
             "other_parameters": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
+               "$ref": "#/$defs/AindGeneric",
                "default": {},
                "title": "Other parameters"
             },
@@ -5561,20 +5399,12 @@
                "title": "Inter trial interval (s)"
             },
             "inter_trial_interval_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/TimeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/TimeUnit",
                "default": "second",
                "title": "Inter trial interval unit"
             },
             "other_parameters": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
+               "$ref": "#/$defs/AindGeneric",
                "default": {},
                "title": "Other parameters"
             },
@@ -5624,11 +5454,7 @@
                "title": "Stimulation laser power (mW)"
             },
             "stimulation_laser_power_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/PowerUnit"
-                  }
-               ],
+               "$ref": "#/$defs/PowerUnit",
                "default": "milliwatt",
                "title": "Stimulation laser power unit"
             },
@@ -5652,11 +5478,7 @@
                "title": "Spiral duration (s)"
             },
             "spiral_duration_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/TimeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/TimeUnit",
                "default": "second",
                "title": "Spiral duration unit"
             },
@@ -5672,20 +5494,12 @@
                "title": "Inter trial interval (s)"
             },
             "inter_spiral_interval_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/TimeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/TimeUnit",
                "default": "second",
                "title": "Inter trial interval unit"
             },
             "other_parameters": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
+               "$ref": "#/$defs/AindGeneric",
                "default": {},
                "title": "Other parameters"
             },
@@ -6312,11 +6126,7 @@
          "description": "Description of reward delivery configuration",
          "properties": {
             "reward_solution": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/RewardSolution"
-                  }
-               ],
+               "$ref": "#/$defs/RewardSolution",
                "description": "If Other use notes",
                "title": "Reward solution"
             },
@@ -6361,20 +6171,12 @@
          "description": "Reward spout session information",
          "properties": {
             "side": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SpoutSide"
-                  }
-               ],
+               "$ref": "#/$defs/SpoutSide",
                "description": "Must match rig",
                "title": "Spout side"
             },
             "starting_position": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/RelativePosition"
-                  }
-               ],
+               "$ref": "#/$defs/RelativePosition",
                "title": "Starting position"
             },
             "variable_position": {
@@ -7242,11 +7044,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
+               "$ref": "#/$defs/AindGeneric",
                "default": {},
                "title": "Additional parameters"
             },
@@ -7263,19 +7061,11 @@
                "title": "Notes"
             },
             "scanner_location": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/ScannerLocation"
-                  }
-               ],
+               "$ref": "#/$defs/ScannerLocation",
                "title": "Scanner location"
             },
             "magnetic_strength": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/MagneticStrength"
-                  }
-               ],
+               "$ref": "#/$defs/MagneticStrength",
                "title": "Magnetic strength (T)"
             },
             "magnetic_strength_unit": {
@@ -7328,11 +7118,7 @@
                "type": "integer"
             },
             "imaging_depth_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "micrometer",
                "title": "Imaging depth unit"
             },
@@ -7363,11 +7149,7 @@
                "title": "FOV coordinate AP"
             },
             "fov_coordinate_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "micrometer",
                "title": "FOV coordinate unit"
             },
@@ -7385,11 +7167,7 @@
                "type": "integer"
             },
             "fov_size_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "pixel",
                "title": "FOV size unit"
             },
@@ -7429,11 +7207,7 @@
                "title": "Frame rate (Hz)"
             },
             "frame_rate_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/FrequencyUnit"
-                  }
-               ],
+               "$ref": "#/$defs/FrequencyUnit",
                "default": "hertz",
                "title": "Frame rate unit"
             },
@@ -7467,11 +7241,7 @@
                "title": "Power"
             },
             "power_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/PowerUnit"
-                  }
-               ],
+               "$ref": "#/$defs/PowerUnit",
                "default": "percent",
                "title": "Power unit"
             },
@@ -7503,11 +7273,7 @@
                "title": "Z stage position of the fastz actuator for a given targeted depth"
             },
             "scanfield_z_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "micrometer",
                "title": "Z stage position unit"
             },
@@ -7536,11 +7302,7 @@
                "title": "Notes"
             },
             "session_type": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SlapSessionType"
-                  }
-               ],
+               "$ref": "#/$defs/SlapSessionType",
                "title": "Session type"
             },
             "dmd_dilation_x": {
@@ -7552,11 +7314,7 @@
                "type": "integer"
             },
             "dilation_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "pixel",
                "title": "Dilation unit"
             },
@@ -7642,11 +7400,7 @@
                "title": "URL to commit being used"
             },
             "parameters": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
+               "$ref": "#/$defs/AindGeneric",
                "default": {},
                "title": "Software parameters"
             }
@@ -7692,11 +7446,7 @@
                "title": "Volume (dB)"
             },
             "volume_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SoundIntensityUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SoundIntensityUnit",
                "default": "decibels",
                "title": "Volume unit"
             }
@@ -7738,11 +7488,7 @@
                "type": "number"
             },
             "step_size_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "micrometer",
                "title": "Step size unit"
             },
@@ -7763,11 +7509,7 @@
                "type": "number"
             },
             "fov_coordinate_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "micrometer",
                "title": "FOV coordinate unit"
             },
@@ -7785,11 +7527,7 @@
                "type": "integer"
             },
             "fov_size_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "pixel",
                "title": "FOV size unit"
             },
@@ -7826,11 +7564,7 @@
                "title": "Frame rate (Hz)"
             },
             "frame_rate_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/FrequencyUnit"
-                  }
-               ],
+               "$ref": "#/$defs/FrequencyUnit",
                "default": "hertz",
                "title": "Frame rate unit"
             },
@@ -7905,11 +7639,7 @@
                "type": "integer"
             },
             "excitation_wavelength_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "nanometer",
                "title": "Laser wavelength unit"
             },
@@ -7919,11 +7649,7 @@
                "type": "number"
             },
             "excitation_power_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/PowerUnit"
-                  }
-               ],
+               "$ref": "#/$defs/PowerUnit",
                "default": "milliwatt",
                "title": "Laser power unit"
             },
@@ -7944,11 +7670,7 @@
                "title": "Dilation (pixels)"
             },
             "dilation_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "pixel",
                "title": "Dilation unit"
             },
@@ -7973,11 +7695,7 @@
                "type": "integer"
             },
             "depth_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/SizeUnit",
                "default": "micrometer",
                "title": "Depth unit"
             }
@@ -8156,11 +7874,7 @@
                "title": "Light source config"
             },
             "output_parameters": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
+               "$ref": "#/$defs/AindGeneric",
                "default": {},
                "title": "Performance metrics"
             },
@@ -8180,11 +7894,7 @@
                "title": "Reward consumed during training (uL)"
             },
             "reward_consumed_unit": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/VolumeUnit"
-                  }
-               ],
+               "$ref": "#/$defs/VolumeUnit",
                "default": "microliter",
                "title": "Reward consumed unit"
             },
@@ -9006,11 +8716,7 @@
                "type": "string"
             },
             "stimulus_parameters": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
+               "$ref": "#/$defs/AindGeneric",
                "default": {},
                "description": "Define and list the parameter values used (e.g. all TF or orientation values)",
                "title": "Stimulus parameters"
@@ -9065,10 +8771,10 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "1.0.0",
-         "default": "1.0.0",
+         "const": "1.0.1",
+         "default": "1.0.1",
          "enum": [
-            "1.0.0"
+            "1.0.1"
          ],
          "title": "Schema Version",
          "type": "string"
@@ -9183,11 +8889,7 @@
          "title": "Animal weight (g)"
       },
       "weight_unit": {
-         "allOf": [
-            {
-               "$ref": "#/$defs/MassUnit"
-            }
-         ],
+         "$ref": "#/$defs/MassUnit",
          "default": "gram",
          "title": "Weight unit"
       },
@@ -9269,11 +8971,7 @@
          "title": "Total reward consumed (mL)"
       },
       "reward_consumed_unit": {
-         "allOf": [
-            {
-               "$ref": "#/$defs/VolumeUnit"
-            }
-         ],
+         "$ref": "#/$defs/VolumeUnit",
          "default": "milliliter",
          "title": "Reward consumed unit"
       },
