@@ -19,6 +19,7 @@ from pydantic import (
 )
 from pydantic.functional_validators import WrapValidator
 from typing_extensions import Annotated
+from aind_data_schema_models.brain_atlas import CCFStructure
 
 
 def _coerce_naive_datetime(v: Any, handler: ValidatorFunctionWrapHandler) -> AwareDatetime:
@@ -93,6 +94,13 @@ class AindModel(BaseModel, Generic[AindGenericType]):
     """BaseModel that disallows extra fields"""
 
     model_config = ConfigDict(extra="forbid", use_enum_values=True)
+
+    @model_validator(mode="before")
+    def coerce_targeted_structures(cls, values):
+        for field_name, value in values.items():
+            if "targeted_structure" in field_name and isinstance(value, str):
+                values[field_name] = getattr(CCFStructure, value.upper())
+        return values
 
 
 class AindCoreModel(AindModel):

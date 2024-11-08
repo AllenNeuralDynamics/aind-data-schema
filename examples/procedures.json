@@ -68,7 +68,12 @@
                "bregma_to_lambda_unit": "millimeter",
                "injection_angle": "10",
                "injection_angle_unit": "degrees",
-               "targeted_structure": "VISp",
+               "targeted_structure": {
+                  "atlas": "CCFv3",
+                  "name": "Primary visual area",
+                  "acronym": "VISp",
+                  "id": "385"
+               },
                "injection_hemisphere": "Left",
                "procedure_type": "Nanoject injection",
                "injection_volume": [
