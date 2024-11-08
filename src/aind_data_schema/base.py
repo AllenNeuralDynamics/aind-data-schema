@@ -91,12 +91,16 @@ AindGenericType = TypeVar("AindGenericType", bound=AindGeneric)
 
 
 class AindModel(BaseModel, Generic[AindGenericType]):
-    """BaseModel that disallows extra fields"""
+    """BaseModel that disallows extra fields
+    
+    Also performs validation checks / coercion / upgrades where necessary
+    """
 
     model_config = ConfigDict(extra="forbid", use_enum_values=True)
 
     @model_validator(mode="before")
     def coerce_targeted_structures(cls, values):
+        """If a user passes a targeted_structure as a str, convert to CCFStructure"""
         for field_name, value in values.items():
             if "targeted_structure" in field_name and isinstance(value, str):
                 values[field_name] = getattr(CCFStructure, value.upper())
