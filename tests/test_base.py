@@ -8,8 +8,9 @@ from unittest.mock import MagicMock, call, mock_open, patch
 
 from pydantic import ValidationError, create_model
 
-from aind_data_schema.base import AindGeneric, AwareDatetimeWithDefault, is_dict_corrupt
+from aind_data_schema.base import AindGeneric, AwareDatetimeWithDefault, is_dict_corrupt, AindModel
 from aind_data_schema.core.subject import Subject
+from aind_data_schema_models.brain_atlas import CCFStructure
 
 
 class BaseTests(unittest.TestCase):
@@ -111,6 +112,14 @@ class BaseTests(unittest.TestCase):
             with self.assertRaises(ValidationError) as e:
                 AindGeneric.model_validate(params)
             self.assertIn(expected_error, repr(e.exception))
+
+    def test_ccf_validator(self):
+        """Tests that CCFStructure validator works"""
+
+        class StructureModel(AindModel):
+            targeted_structure: CCFStructure.ONE_OF
+
+        self.assertRaises(ValueError, StructureModel, targeted_structure="invalid")
 
 
 if __name__ == "__main__":
