@@ -92,7 +92,7 @@ AindGenericType = TypeVar("AindGenericType", bound=AindGeneric)
 
 class AindModel(BaseModel, Generic[AindGenericType]):
     """BaseModel that disallows extra fields
-    
+
     Also performs validation checks / coercion / upgrades where necessary
     """
 

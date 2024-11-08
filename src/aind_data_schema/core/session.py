@@ -209,7 +209,9 @@ class ManipulatorModule(DomeModule):
     """A dome module connected to a 3-axis manipulator"""
 
     primary_targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
-    other_targeted_structure: Optional[List[CCFStructure.ONE_OF]] = Field(default=None, title="Other targeted structure")
+    other_targeted_structure: Optional[List[CCFStructure.ONE_OF]] = Field(
+        default=None, title="Other targeted structure"
+    )
     targeted_ccf_coordinates: List[CcfCoords] = Field(
         default=[],
         title="Targeted CCF coordinates",
