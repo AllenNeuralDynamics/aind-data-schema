@@ -544,8 +544,7 @@ class TestMetadata(unittest.TestCase):
             location="location",
             id=uuid.uuid4(),
         )
-        m_dict = m.model_dump()
-        m_dict["_id"] = m_dict.pop("id")
+        m_dict = m.model_dump(by_alias=True)
 
         # Test that naive datetime is coerced to timezone-aware datetime
         date = "2022-11-22T08:43:00"
@@ -571,6 +570,17 @@ class TestMetadata(unittest.TestCase):
         m4 = Metadata(**m_dict)
         self.assertIsNotNone(m4)
         self.assertEqual(m4.last_modified, datetime.fromisoformat(date_utc))
+
+        def roundtrip_lm(model):
+            model_json = model.model_dump_json(by_alias=True)
+            model_dict = json.loads(model_json)
+            return model_dict["last_modified"]
+
+        # Test that the output looks right
+        self.assertEqual(m.last_modified.isoformat().replace("+00:00", "Z"), roundtrip_lm(m))
+        self.assertEqual("2022-11-22T16:43:00Z", roundtrip_lm(m2))
+        self.assertEqual("2022-11-22T15:43:00Z", roundtrip_lm(m3))
+        self.assertEqual("2022-11-22T08:43:00Z", roundtrip_lm(m4))
 
 
 if __name__ == "__main__":
