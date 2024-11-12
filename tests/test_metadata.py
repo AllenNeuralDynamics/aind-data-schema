@@ -555,6 +555,9 @@ class TestMetadata(unittest.TestCase):
         self.assertIsNotNone(m2)
         self.assertEqual(m2.last_modified, date_with_timezone)
 
+        # Also check that last_modified is now in UTC
+        self.assertEqual(m2.last_modified.tzinfo, timezone.utc)
+
         # Test that timezone-aware datetime is not coerced
         date_minus = "2022-11-22T08:43:00-07:00"
         m_dict["last_modified"] = date_minus

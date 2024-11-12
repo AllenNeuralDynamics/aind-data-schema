@@ -155,6 +155,13 @@ class Metadata(AindCoreModel):
             core_model = value
         return core_model
 
+    @field_validator("last_modified", mode="after")
+    def validate_last_modified(cls, value, info: ValidationInfo):
+        """Convert last_modified field to UTC from other timezones"""
+        if value.tzinfo is not None and value.tzinfo.utcoffset(value) is not None:
+            return value.astimezone(timezone.utc)
+        return value
+
     @model_validator(mode="after")
     def validate_metadata(self):
         """Validator for metadata"""
