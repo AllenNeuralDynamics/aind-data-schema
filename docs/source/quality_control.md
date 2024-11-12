@@ -72,7 +72,7 @@ We recommend that you write PNG files for images and static multi-panel figures,
 
 **Metadata**
 
-We'll post documentation on how to append `QCEvaluations` to pre-existing quality_control.json files, via DocDB using the `aind-data-access-api`, in the future.
+We'll post documentation on how to append `QCEvaluations` to pre-existing quality_control.json files, via DocDB using the `aind-data-access-api`, in the future. For now, you can refer to the code snippet in the [`aind-qc-capsule-example`](https://github.com/AllenNeuralDynamics/aind-qc-capsule-example/).
 
 **References**
 
@@ -90,18 +90,24 @@ The QC portal automatically calls ``QualityControl.evaluate_status()`` whenever 
 
 **Q: How do reference URLs get pulled into the QC Portal?**
 
-Each metric is associated with a reference figure, image, or video. The QC portal can interpret four ways of setting the reference field:
+Each metric is associated with a reference figure (PDF preferred), image (png preferred), or video (mp4 preferred). The QC portal can interpret four ways of setting the reference field:
 
-- Provide a relative path to a file in this data asset's S3 bucket
+- Provide a relative path to a file in this data asset's S3 bucket, i.e. "figures/my_figure.png". The mount/asset name should not be included.
 - Provide a url to a FigURL figure
 - Provide the name of one of the interactive plots, e.g. "ecephys-drift-map"
 
-<!-- There are many situations where it's helpful to be able to "swipe" between two images. If you have two identical images separated by a ';' the portal will allow users to swipe between them. For example, you might show snippets of the raw electrophysiology raster with detected spikes overlaid on the swipe. -->
-
 **Q: I saw fancy things like dropdowns in the QC Portal, how do I do that?**
 
-By default the QC portal displays dictionaries as tables where the values can be edited. We also support a few special cases to allow a bit more flexibility or to constrain the actions that manual annotators can take. Install the `aind-qcportal-schema` package and set the `value` field to the corresponding pydantic object to use these. 
+By default the QC portal displays dictionaries as tables where the values can be edited. We also support a few special cases to allow a bit more flexibility or to constrain the actions that manual annotators can take. Install the [`aind-qcportal-schema`](https://github.com/AllenNeuralDynamics/aind-qcportal-schema/blob/dev/src/aind_qcportal_schema/metric_value.py) package and set the `value` field to the corresponding pydantic object to use these. 
 
-### Multi-session QC
+### Multi-asset QC
 
-[Details coming soon, this is under discussion]
+During analysis there are many situations where multiple data assets need to be pulled together, often for comparison. For example, FOVs across imaging sessions or recording sessions from a chronic probe might need to get matched up across days. When a `QCEvaluation` is being calculated from multiple assets it should be tagged with `Stage:MULTI_ASSET` and each of its `QCMetric` objects needs to track the assets that were used to generate that metric in the `evaluated_assets` list.
+
+**Q: Where do I store multi-asset QC?**
+
+You should follow the preferred/alternate workflows described above. If your multi-asset analysis pipeline generates a new data asset, put the QC there. If your pipeline does not generate an asset, push a copy of each `QCEvaluation` back to **each** individual data asset.
+
+**Q: I want to be able to store data about each of the evaluated assets in this metric**
+
+Take a look at the `MultiAssetMetric` class in `aind-qc-portal-schema`. It allows you to pass a list of values which will be matched up with the `evaluated_assets` names. You can also include options which will appear as dropdowns or checkboxes. 

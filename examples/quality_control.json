@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/quality_control.py",
-   "schema_version": "1.1.1",
+   "schema_version": "1.2.1",
    "evaluations": [
       {
          "modality": {
@@ -27,15 +27,16 @@
                   ],
                   "type": "dropdown"
                },
-               "description": null,
-               "reference": "ecephys-drift-map",
                "status_history": [
                   {
                      "evaluator": "",
                      "status": "Pending",
                      "timestamp": "2022-11-22T00:00:00Z"
                   }
-               ]
+               ],
+               "description": null,
+               "reference": "ecephys-drift-map",
+               "evaluated_assets": null
             },
             {
                "name": "Probe B drift",
@@ -53,30 +54,33 @@
                   ],
                   "type": "checkbox"
                },
-               "description": null,
-               "reference": "ecephys-drift-map",
                "status_history": [
                   {
                      "evaluator": "",
                      "status": "Pending",
                      "timestamp": "2022-11-22T00:00:00Z"
                   }
-               ]
+               ],
+               "description": null,
+               "reference": "ecephys-drift-map",
+               "evaluated_assets": null
             },
             {
                "name": "Probe C drift",
                "value": "Low",
-               "description": null,
-               "reference": "ecephys-drift-map",
                "status_history": [
                   {
                      "evaluator": "Automated",
                      "status": "Pass",
                      "timestamp": "2022-11-22T00:00:00Z"
                   }
-               ]
+               ],
+               "description": null,
+               "reference": "ecephys-drift-map",
+               "evaluated_assets": null
             }
          ],
+         "tags": null,
          "notes": "",
          "allow_failed_metrics": false
       },
@@ -92,30 +96,33 @@
             {
                "name": "video_1_num_frames",
                "value": 662,
-               "description": null,
-               "reference": null,
                "status_history": [
                   {
                      "evaluator": "Automated",
                      "status": "Pass",
                      "timestamp": "2022-11-22T00:00:00Z"
                   }
-               ]
+               ],
+               "description": null,
+               "reference": null,
+               "evaluated_assets": null
             },
             {
                "name": "video_2_num_frames",
                "value": 662,
-               "description": null,
-               "reference": null,
                "status_history": [
                   {
                      "evaluator": "Automated",
                      "status": "Pass",
                      "timestamp": "2022-11-22T00:00:00Z"
                   }
-               ]
+               ],
+               "description": null,
+               "reference": null,
+               "evaluated_assets": null
             }
          ],
+         "tags": null,
          "notes": "Pass when video_1_num_frames==video_2_num_frames",
          "allow_failed_metrics": false
       },
@@ -131,43 +138,47 @@
             {
                "name": "ProbeA_success",
                "value": true,
-               "description": null,
-               "reference": null,
                "status_history": [
                   {
                      "evaluator": "Automated",
                      "status": "Pass",
                      "timestamp": "2022-11-22T00:00:00Z"
                   }
-               ]
+               ],
+               "description": null,
+               "reference": null,
+               "evaluated_assets": null
             },
             {
                "name": "ProbeB_success",
                "value": true,
-               "description": null,
-               "reference": null,
                "status_history": [
                   {
                      "evaluator": "Automated",
                      "status": "Pass",
                      "timestamp": "2022-11-22T00:00:00Z"
                   }
-               ]
+               ],
+               "description": null,
+               "reference": null,
+               "evaluated_assets": null
             },
             {
                "name": "ProbeC_success",
                "value": true,
-               "description": null,
-               "reference": null,
                "status_history": [
                   {
                      "evaluator": "Automated",
                      "status": "Pass",
                      "timestamp": "2022-11-22T00:00:00Z"
                   }
-               ]
+               ],
+               "description": null,
+               "reference": null,
+               "evaluated_assets": null
             }
          ],
+         "tags": null,
          "notes": null,
          "allow_failed_metrics": false
       }

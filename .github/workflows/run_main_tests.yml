@@ -5,6 +5,10 @@ on:
     branches:
       - '*release*'
       - main
+  merge_group:
+    branches:
+      - '*release*'
+      - main
 
 jobs:
   linters:
