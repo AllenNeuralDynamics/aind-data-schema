@@ -5,6 +5,7 @@ import re
 import unittest
 from datetime import datetime, time, timezone
 from unittest.mock import MagicMock, call, patch
+import uuid
 
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
@@ -13,6 +14,7 @@ from aind_data_schema_models.platforms import Platform
 from pydantic import ValidationError
 from pydantic import __version__ as pyd_version
 
+from aind_data_schema.base import _coerce_naive_datetime
 from aind_data_schema.components.devices import MousePlatform
 from aind_data_schema.core.acquisition import Acquisition
 from aind_data_schema.core.data_description import DataDescription, Funding
@@ -535,6 +537,31 @@ class TestMetadata(unittest.TestCase):
             ],
             any_order=True,
         )
+
+    def test_last_modified(self):
+        """Test that the last_modified field enforces timezones"""
+        m = Metadata.model_construct(
+            name="name",
+            location="location",
+            id=uuid.uuid4(),
+        )
+        m_dict = m.model_dump()
+        m_dict["_id"] = m_dict.pop("id")
+
+        # Test that naive datetime is coerced to timezone-aware datetime
+        date = "2022-11-22T08:43:00"
+        date_with_timezone = datetime.fromisoformat(date).astimezone()
+        m_dict["last_modified"] = "2022-11-22T08:43:00"
+        m2 = Metadata(**m_dict)
+        self.assertIsNotNone(m2)
+        self.assertEqual(m2.last_modified, date_with_timezone)
+
+        # Test that timezone-aware datetime is not coerced
+        date_minus = "2022-11-22T08:43:00-07:00"
+        m_dict["last_modified"] = date_minus
+        m3 = Metadata(**m_dict)
+        self.assertIsNotNone(m3)
+        self.assertEqual(m3.last_modified, datetime.fromisoformat(date_minus))
 
 
 if __name__ == "__main__":

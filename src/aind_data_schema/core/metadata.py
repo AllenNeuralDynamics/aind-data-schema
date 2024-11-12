@@ -3,7 +3,7 @@
 import inspect
 import json
 import logging
-from datetime import datetime
+from datetime import datetime, timezone
 from enum import Enum
 from typing import Dict, List, Literal, Optional, get_args
 from uuid import UUID, uuid4
@@ -20,7 +20,7 @@ from pydantic import (
     model_validator,
 )
 
-from aind_data_schema.base import AindCoreModel, is_dict_corrupt
+from aind_data_schema.base import AindCoreModel, is_dict_corrupt, AwareDatetimeWithDefault
 from aind_data_schema.core.acquisition import Acquisition
 from aind_data_schema.core.data_description import DataDescription
 from aind_data_schema.core.instrument import Instrument
@@ -83,15 +83,13 @@ class Metadata(AindCoreModel):
         description="Name of the data asset.",
         title="Data Asset Name",
     )
-    # We'll set created and last_modified defaults using the root_validator
-    # to ensure they're synced on creation
-    created: datetime = Field(
-        default_factory=datetime.utcnow,
+    created: AwareDatetimeWithDefault = Field(
+        default_factory=lambda: datetime.now(tz=timezone.utc),
         title="Created",
         description="The utc date and time the data asset created.",
     )
-    last_modified: datetime = Field(
-        default_factory=datetime.utcnow,
+    last_modified: AwareDatetimeWithDefault = Field(
+        default_factory=lambda: datetime.now(tz=timezone.utc),
         title="Last Modified",
         description="The utc date and time that the data asset was last modified.",
     )
