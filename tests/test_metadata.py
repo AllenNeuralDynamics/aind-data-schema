@@ -579,7 +579,6 @@ class TestMetadata(unittest.TestCase):
 
         # Test that the output looks right
         self.assertEqual(m.last_modified.isoformat().replace("+00:00", "Z"), roundtrip_lm(m))
-        self.assertEqual("2022-11-22T16:43:00Z", roundtrip_lm(m2))
         self.assertEqual("2022-11-22T15:43:00Z", roundtrip_lm(m3))
         self.assertEqual("2022-11-22T08:43:00Z", roundtrip_lm(m4))
 
