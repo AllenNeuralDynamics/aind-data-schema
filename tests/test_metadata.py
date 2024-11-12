@@ -565,6 +565,13 @@ class TestMetadata(unittest.TestCase):
         self.assertIsNotNone(m3)
         self.assertEqual(m3.last_modified, datetime.fromisoformat(date_minus))
 
+        # Test that UTC datetime is not coerced
+        date_utc = "2022-11-22T08:43:00+00:00"
+        m_dict["last_modified"] = date_utc
+        m4 = Metadata(**m_dict)
+        self.assertIsNotNone(m4)
+        self.assertEqual(m4.last_modified, datetime.fromisoformat(date_utc))
+
 
 if __name__ == "__main__":
     unittest.main()
