@@ -14,7 +14,6 @@ from aind_data_schema_models.platforms import Platform
 from pydantic import ValidationError
 from pydantic import __version__ as pyd_version
 
-from aind_data_schema.base import _coerce_naive_datetime
 from aind_data_schema.components.devices import MousePlatform
 from aind_data_schema.core.acquisition import Acquisition
 from aind_data_schema.core.data_description import DataDescription, Funding
