@@ -534,7 +534,7 @@ class Session(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/session.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["1.0.1"]] = Field(default="1.0.1")
+    schema_version: SkipValidation[Literal["1.0.3"]] = Field("1.0.3")
     protocol_id: List[str] = Field(default=[], title="Protocol ID", description="DOI for protocols.io")
     experimenter_full_name: List[str] = Field(
         ...,

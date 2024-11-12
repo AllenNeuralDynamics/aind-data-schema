@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/rig.py",
-   "schema_version": "1.0.1",
+   "schema_version": "1.0.3",
    "rig_id": "447_FIP-Behavior_20000101",
    "modification_date": "2000-01-01",
    "mouse_platform": {
@@ -909,8 +909,8 @@
          "firmware_version": "FTDI version:",
          "hardware_version": null,
          "harp_device_type": {
-            "name": "Behavior",
-            "whoami": 1216
+            "whoami": 1216,
+            "name": "Behavior"
          },
          "core_version": "2.1",
          "tag_version": null,
