@@ -572,6 +572,7 @@ class TestMetadata(unittest.TestCase):
         self.assertEqual(m4.last_modified, datetime.fromisoformat(date_utc))
 
         def roundtrip_lm(model):
+            """Helper function to roundtrip last_modified field"""
             model_json = model.model_dump_json(by_alias=True)
             model_dict = json.loads(model_json)
             return model_dict["last_modified"]
