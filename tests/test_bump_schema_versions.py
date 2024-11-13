@@ -77,10 +77,10 @@ class SchemaVersionTests(unittest.TestCase):
         handler._update_files({Subject: new_subject_version, Session: new_session_version})
 
         expected_line_change0 = (
-            f'schema_version: SkipValidation[Literal["{new_subject_version}"]] = Field("{new_subject_version}")'
+            f'schema_version: SkipValidation[Literal["{new_subject_version}"]] = Field(default="{new_subject_version}")'
         )
         expected_line_change1 = (
-            f'schema_version: SkipValidation[Literal["{new_session_version}"]] = Field("{new_session_version}")'
+            f'schema_version: SkipValidation[Literal["{new_session_version}"]] = Field(default="{new_session_version}")'
         )
 
         mock_write_args0 = mock_write.mock_calls[0].args
