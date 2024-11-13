@@ -30,7 +30,11 @@ Each `QCMetric` is a single value or set of values that can be computed, or obse
 
 `QCMetric`s have a `Status`. The `Status` should depend directly on the `QCMetric.value`, either by a simple function: "value>5", or by a qualitative rule: "Field of view includes visual areas". The `QCMetric.description` field should be used to describe the rule used to set the status. Metrics can be evaluated multiple times, in which case the new status should be appended the `QCMetric.status_history`.
 
+**Q: What is a metric reference?**
+
 Metrics should include a `QCMetric.reference`. References are intended to be publicly accessible images, figures, combined figures with multiple panels, or videos that support the metric or provide information necessary for manual annotation of a metric's status.
+
+See the AIND section for specifics about how references are rendered in the QC Portal.
 
 **Q: What are the status options for metrics?**
 
@@ -90,15 +94,35 @@ The QC portal automatically calls ``QualityControl.evaluate_status()`` whenever 
 
 **Q: How do reference URLs get pulled into the QC Portal?**
 
-Each metric is associated with a reference figure (PDF preferred), image (png preferred), or video (mp4 preferred). The QC portal can interpret four ways of setting the reference field:
+Each metric is associated with a reference figure. We support:
 
-- Provide a relative path to a file in this data asset's S3 bucket, i.e. "figures/my_figure.png". The mount/asset name should not be included.
-- Provide a url to a FigURL figure
-- Provide the name of one of the interactive plots, e.g. "ecephys-drift-map"
+- Vector files (svg, pdf)
+- Images (png, jpg, etc)
+- Videos (mp4)
+- Neuroglancer links (url)
+- Rerun files (rrd)
+
+Figures, images, and videos can be any size, but they will fit best on the screen if they are landscape and shaped roughly like a computer screen (1280×800 or 1900×1200 px both work well).
+
+You can link to your references in one of three ways:
+
+- Provide a relative path to a file in the data asset's S3 bucket, i.e. "figures/my_figure.png". The mount/asset name should not be included.
+- Provide a url to a publicly accessible file, i.e. "https://mywebsite.com/myfile.png"
+- Provide a path to any public S3 bucket, i.e. "s3://bucket/key"
 
 **Q: I saw fancy things like dropdowns in the QC Portal, how do I do that?**
 
-By default the QC portal displays dictionaries as tables where the values can be edited. We also support a few special cases to allow a bit more flexibility or to constrain the actions that manual annotators can take. Install the [`aind-qcportal-schema`](https://github.com/AllenNeuralDynamics/aind-qcportal-schema/blob/dev/src/aind_qcportal_schema/metric_value.py) package and set the `value` field to the corresponding pydantic object to use these. 
+By default the QC portal displays dictionaries as tables where the values can be edited. We also support a few special cases to allow a bit more flexibility or to constrain the actions that manual annotators can take. Install the [`aind-qcportal-schema`](https://github.com/AllenNeuralDynamics/aind-qcportal-schema/blob/dev/src/aind_qcportal_schema/metric_value.py) package and set the `value` field to the corresponding pydantic object to use these. Current options include:
+
+- Dropdowns (optionally the options can auto-set the value)
+- Checkboxes (again options can auto-set the value)
+- Rule-based metrics (the rule is automatically run to set the value)
+- Multi-asset metrics where each asset is assigned it's own value
+
+There are also some custom rules for the value field. If you provide:
+
+- Two strings separated by a semicolon `;` they will be displayed in a "Swipe" pane that lets you swipe back and forth between the two things. Mostly useful for overlay images.
+- A dictionary where every value is a list of equal length, it will be displayed as a table where the keys are column headers and the values are rows. If a key "index" is included the values will be used to name the rows.
 
 ### Multi-asset QC
 
@@ -110,4 +134,4 @@ You should follow the preferred/alternate workflows described above. If your mul
 
 **Q: I want to be able to store data about each of the evaluated assets in this metric**
 
-Take a look at the `MultiAssetMetric` class in `aind-qc-portal-schema`. It allows you to pass a list of values which will be matched up with the `evaluated_assets` names. You can also include options which will appear as dropdowns or checkboxes. 
+Take a look at the `MultiAssetMetric` class in `aind-qc-portal-schema`. It allows you to pass a list of values which will be matched up with the `evaluated_assets` names. You can also include options which will appear as dropdowns or checkboxes.
