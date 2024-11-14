@@ -16,6 +16,7 @@ from pydantic import (
     SkipValidation,
     ValidationError,
     ValidationInfo,
+    field_serializer,
     field_validator,
     model_validator,
 )
@@ -159,6 +160,11 @@ class Metadata(AindCoreModel):
     def validate_last_modified(cls, value, info: ValidationInfo):
         """Convert last_modified field to UTC from other timezones"""
         return value.astimezone(timezone.utc)
+
+    @field_serializer("last_modified")
+    def serialize_last_modified(value) -> str:
+        """Serialize last_modified field"""
+        return value.isoformat().replace("+00:00", "Z")
 
     @model_validator(mode="after")
     def validate_metadata(self):
