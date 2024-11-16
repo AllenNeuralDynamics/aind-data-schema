@@ -110,11 +110,8 @@ class AindModel(BaseModel, Generic[AindGenericType]):
                 # Go through all the values again, if any value matches the variable name
                 # and is set, then the unit needs to be set as well
                 for variable_name, variable_value in values:
-                    if variable_name == var_name:
-                        if variable_value:
-                            raise ValueError(f"Unit {unit_name} is required when {variable_name} is set.")
-                        # if we found our variable and it was None, we can move on
-                        continue
+                    if variable_name == var_name and variable_value:
+                        raise ValueError(f"Unit {unit_name} is required when {variable_name} is set.")
 
                 # One more time, now looking for the multi-variable condition
                 for variable_name, variable_value in values:
