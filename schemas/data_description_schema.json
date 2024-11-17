@@ -1,183 +1,5 @@
 {
    "$defs": {
-      "AI": {
-         "properties": {
-            "name": {
-               "const": "Allen Institute",
-               "default": "Allen Institute",
-               "enum": [
-                  "Allen Institute"
-               ],
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "AI",
-               "default": "AI",
-               "enum": [
-                  "AI"
-               ],
-               "title": "Abbreviation",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Research Organization Registry",
-                  "abbreviation": "ROR"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "Research Organization Registry": "#/$defs/ROR"
-                  },
-                  "propertyName": "name"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/ROR"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "03cpe7c52",
-               "default": "03cpe7c52",
-               "enum": [
-                  "03cpe7c52"
-               ],
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "AI",
-         "type": "object"
-      },
-      "AIBS": {
-         "properties": {
-            "name": {
-               "const": "Allen Institute for Brain Science",
-               "default": "Allen Institute for Brain Science",
-               "enum": [
-                  "Allen Institute for Brain Science"
-               ],
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "AIBS",
-               "default": "AIBS",
-               "enum": [
-                  "AIBS"
-               ],
-               "title": "Abbreviation",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Research Organization Registry",
-                  "abbreviation": "ROR"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "Research Organization Registry": "#/$defs/ROR"
-                  },
-                  "propertyName": "name"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/ROR"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "00dcv1019",
-               "default": "00dcv1019",
-               "enum": [
-                  "00dcv1019"
-               ],
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "AIBS",
-         "type": "object"
-      },
-      "AIND": {
-         "properties": {
-            "name": {
-               "const": "Allen Institute for Neural Dynamics",
-               "default": "Allen Institute for Neural Dynamics",
-               "enum": [
-                  "Allen Institute for Neural Dynamics"
-               ],
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "AIND",
-               "default": "AIND",
-               "enum": [
-                  "AIND"
-               ],
-               "title": "Abbreviation",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Research Organization Registry",
-                  "abbreviation": "ROR"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "Research Organization Registry": "#/$defs/ROR"
-                  },
-                  "propertyName": "name"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/ROR"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "04szwah67",
-               "default": "04szwah67",
-               "enum": [
-                  "04szwah67"
-               ],
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "AIND",
-         "type": "object"
-      },
-      "BEHAVIOR_VIDEOS": {
-         "additionalProperties": false,
-         "properties": {
-            "name": {
-               "const": "Behavior videos",
-               "default": "Behavior videos",
-               "enum": [
-                  "Behavior videos"
-               ],
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "behavior-videos",
-               "default": "behavior-videos",
-               "enum": [
-                  "behavior-videos"
-               ],
-               "title": "Abbreviation",
-               "type": "string"
-            }
-         },
-         "title": "BEHAVIOR_VIDEOS",
-         "type": "object"
-      },
       "BaseName": {
          "additionalProperties": false,
          "description": "A simple model associating a name with an abbreviation",
@@ -205,108 +27,6 @@
          "title": "BaseName",
          "type": "object"
       },
-      "COLUMBIA": {
-         "properties": {
-            "name": {
-               "const": "Columbia University",
-               "default": "Columbia University",
-               "enum": [
-                  "Columbia University"
-               ],
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "Columbia",
-               "default": "Columbia",
-               "enum": [
-                  "Columbia"
-               ],
-               "title": "Abbreviation",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Research Organization Registry",
-                  "abbreviation": "ROR"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "Research Organization Registry": "#/$defs/ROR"
-                  },
-                  "propertyName": "name"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/ROR"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "00hj8s172",
-               "default": "00hj8s172",
-               "enum": [
-                  "00hj8s172"
-               ],
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "COLUMBIA",
-         "type": "object"
-      },
-      "CZI": {
-         "properties": {
-            "name": {
-               "const": "Chan Zuckerberg Initiative",
-               "default": "Chan Zuckerberg Initiative",
-               "enum": [
-                  "Chan Zuckerberg Initiative"
-               ],
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "CZI",
-               "default": "CZI",
-               "enum": [
-                  "CZI"
-               ],
-               "title": "Abbreviation",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Research Organization Registry",
-                  "abbreviation": "ROR"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "Research Organization Registry": "#/$defs/ROR"
-                  },
-                  "propertyName": "name"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/ROR"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "02qenvm24",
-               "default": "02qenvm24",
-               "enum": [
-                  "02qenvm24"
-               ],
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "CZI",
-         "type": "object"
-      },
       "DataLevel": {
          "description": "Data level name",
          "enum": [
@@ -317,129 +37,6 @@
          "title": "DataLevel",
          "type": "string"
       },
-      "EMG": {
-         "additionalProperties": false,
-         "properties": {
-            "name": {
-               "const": "Electromyography",
-               "default": "Electromyography",
-               "enum": [
-                  "Electromyography"
-               ],
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "EMG",
-               "default": "EMG",
-               "enum": [
-                  "EMG"
-               ],
-               "title": "Abbreviation",
-               "type": "string"
-            }
-         },
-         "title": "EMG",
-         "type": "object"
-      },
-      "EXASPIM": {
-         "properties": {
-            "name": {
-               "const": "ExaSPIM platform",
-               "default": "ExaSPIM platform",
-               "enum": [
-                  "ExaSPIM platform"
-               ],
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "exaSPIM",
-               "default": "exaSPIM",
-               "enum": [
-                  "exaSPIM"
-               ],
-               "title": "Abbreviation",
-               "type": "string"
-            }
-         },
-         "title": "EXASPIM",
-         "type": "object"
-      },
-      "FIB": {
-         "additionalProperties": false,
-         "properties": {
-            "name": {
-               "const": "Fiber photometry",
-               "default": "Fiber photometry",
-               "enum": [
-                  "Fiber photometry"
-               ],
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "fib",
-               "default": "fib",
-               "enum": [
-                  "fib"
-               ],
-               "title": "Abbreviation",
-               "type": "string"
-            }
-         },
-         "title": "FIB",
-         "type": "object"
-      },
-      "FIP": {
-         "properties": {
-            "name": {
-               "const": "Frame-projected independent-fiber photometry platform",
-               "default": "Frame-projected independent-fiber photometry platform",
-               "enum": [
-                  "Frame-projected independent-fiber photometry platform"
-               ],
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "FIP",
-               "default": "FIP",
-               "enum": [
-                  "FIP"
-               ],
-               "title": "Abbreviation",
-               "type": "string"
-            }
-         },
-         "title": "FIP",
-         "type": "object"
-      },
-      "FMOST": {
-         "additionalProperties": false,
-         "properties": {
-            "name": {
-               "const": "Fluorescence micro-optical sectioning tomography",
-               "default": "Fluorescence micro-optical sectioning tomography",
-               "enum": [
-                  "Fluorescence micro-optical sectioning tomography"
-               ],
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "fMOST",
-               "default": "fMOST",
-               "enum": [
-                  "fMOST"
-               ],
-               "title": "Abbreviation",
-               "type": "string"
-            }
-         },
-         "title": "FMOST",
-         "type": "object"
-      },
       "Funding": {
          "additionalProperties": false,
          "description": "Description of funding sources",
@@ -447,45 +44,45 @@
             "funder": {
                "discriminator": {
                   "mapping": {
-                     "Allen Institute": "#/$defs/AI",
-                     "Chan Zuckerberg Initiative": "#/$defs/CZI",
-                     "MBF Bioscience": "#/$defs/MBF",
-                     "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/MJFF",
-                     "National Center for Complementary and Integrative Health": "#/$defs/NCCIH",
-                     "National Institute of Mental Health": "#/$defs/NIMH",
-                     "National Institute of Neurological Disorders and Stroke": "#/$defs/NINDS",
-                     "Simons Foundation": "#/$defs/SIMONS_FOUNDATION",
-                     "Templeton World Charity Foundation": "#/$defs/TWCF"
+                     "Allen Institute": "#/$defs/_Allen_Institute",
+                     "Chan Zuckerberg Initiative": "#/$defs/_Chan_Zuckerberg_Initiative",
+                     "MBF Bioscience": "#/$defs/_Mbf_Bioscience",
+                     "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/_Michael_J_Fox_Foundation_For_Parkinson_S_Research",
+                     "National Center for Complementary and Integrative Health": "#/$defs/_National_Center_For_Complementary_And_Integrative_Health",
+                     "National Institute of Mental Health": "#/$defs/_National_Institute_Of_Mental_Health",
+                     "National Institute of Neurological Disorders and Stroke": "#/$defs/_National_Institute_Of_Neurological_Disorders_And_Stroke",
+                     "Simons Foundation": "#/$defs/_Simons_Foundation",
+                     "Templeton World Charity Foundation": "#/$defs/_Templeton_World_Charity_Foundation"
                   },
                   "propertyName": "name"
                },
                "oneOf": [
                   {
-                     "$ref": "#/$defs/AI"
+                     "$ref": "#/$defs/_Allen_Institute"
                   },
                   {
-                     "$ref": "#/$defs/CZI"
+                     "$ref": "#/$defs/_Chan_Zuckerberg_Initiative"
                   },
                   {
-                     "$ref": "#/$defs/MBF"
+                     "$ref": "#/$defs/_Mbf_Bioscience"
                   },
                   {
-                     "$ref": "#/$defs/MJFF"
+                     "$ref": "#/$defs/_Michael_J_Fox_Foundation_For_Parkinson_S_Research"
                   },
                   {
-                     "$ref": "#/$defs/NCCIH"
+                     "$ref": "#/$defs/_National_Center_For_Complementary_And_Integrative_Health"
                   },
                   {
-                     "$ref": "#/$defs/NIMH"
+                     "$ref": "#/$defs/_National_Institute_Of_Mental_Health"
                   },
                   {
-                     "$ref": "#/$defs/NINDS"
+                     "$ref": "#/$defs/_National_Institute_Of_Neurological_Disorders_And_Stroke"
                   },
                   {
-                     "$ref": "#/$defs/SIMONS_FOUNDATION"
+                     "$ref": "#/$defs/_Simons_Foundation"
                   },
                   {
-                     "$ref": "#/$defs/TWCF"
+                     "$ref": "#/$defs/_Templeton_World_Charity_Foundation"
                   }
                ],
                "title": "Funder"
@@ -528,601 +125,11 @@
             "behavior",
             "ephys",
             "MSMA",
-            "ophys"
+            "ophys",
+            "NBA"
          ],
          "title": "Group",
          "type": "string"
-      },
-      "HCR": {
-         "properties": {
-            "name": {
-               "const": "Hybridization chain reaction platform",
-               "default": "Hybridization chain reaction platform",
-               "enum": [
-                  "Hybridization chain reaction platform"
-               ],
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "HCR",
-               "default": "HCR",
-               "enum": [
-                  "HCR"
-               ],
-               "title": "Abbreviation",
-               "type": "string"
-            }
-         },
-         "title": "HCR",
-         "type": "object"
-      },
-      "HSFP": {
-         "properties": {
-            "name": {
-               "const": "Hyperspectral fiber photometry platform",
-               "default": "Hyperspectral fiber photometry platform",
-               "enum": [
-                  "Hyperspectral fiber photometry platform"
-               ],
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "HSFP",
-               "default": "HSFP",
-               "enum": [
-                  "HSFP"
-               ],
-               "title": "Abbreviation",
-               "type": "string"
-            }
-         },
-         "title": "HSFP",
-         "type": "object"
-      },
-      "HUST": {
-         "properties": {
-            "name": {
-               "const": "Huazhong University of Science and Technology",
-               "default": "Huazhong University of Science and Technology",
-               "enum": [
-                  "Huazhong University of Science and Technology"
-               ],
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "HUST",
-               "default": "HUST",
-               "enum": [
-                  "HUST"
-               ],
-               "title": "Abbreviation",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Research Organization Registry",
-                  "abbreviation": "ROR"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "Research Organization Registry": "#/$defs/ROR"
-                  },
-                  "propertyName": "name"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/ROR"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "00p991c53",
-               "default": "00p991c53",
-               "enum": [
-                  "00p991c53"
-               ],
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "HUST",
-         "type": "object"
-      },
-      "ICEPHYS": {
-         "additionalProperties": false,
-         "properties": {
-            "name": {
-               "const": "Intracellular electrophysiology",
-               "default": "Intracellular electrophysiology",
-               "enum": [
-                  "Intracellular electrophysiology"
-               ],
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "icephys",
-               "default": "icephys",
-               "enum": [
-                  "icephys"
-               ],
-               "title": "Abbreviation",
-               "type": "string"
-            }
-         },
-         "title": "ICEPHYS",
-         "type": "object"
-      },
-      "JANELIA": {
-         "properties": {
-            "name": {
-               "const": "Janelia Research Campus",
-               "default": "Janelia Research Campus",
-               "enum": [
-                  "Janelia Research Campus"
-               ],
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "Janelia",
-               "default": "Janelia",
-               "enum": [
-                  "Janelia"
-               ],
-               "title": "Abbreviation",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Research Organization Registry",
-                  "abbreviation": "ROR"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "Research Organization Registry": "#/$defs/ROR"
-                  },
-                  "propertyName": "name"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/ROR"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "013sk6x84",
-               "default": "013sk6x84",
-               "enum": [
-                  "013sk6x84"
-               ],
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "JANELIA",
-         "type": "object"
-      },
-      "MBF": {
-         "properties": {
-            "name": {
-               "const": "MBF Bioscience",
-               "default": "MBF Bioscience",
-               "enum": [
-                  "MBF Bioscience"
-               ],
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "MBF",
-               "default": "MBF",
-               "enum": [
-                  "MBF"
-               ],
-               "title": "Abbreviation",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Research Organization Registry",
-                  "abbreviation": "ROR"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "Research Organization Registry": "#/$defs/ROR"
-                  },
-                  "propertyName": "name"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/ROR"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "02zynam48",
-               "default": "02zynam48",
-               "enum": [
-                  "02zynam48"
-               ],
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "MBF",
-         "type": "object"
-      },
-      "MESOSPIM": {
-         "properties": {
-            "name": {
-               "const": "MesoSPIM platform",
-               "default": "MesoSPIM platform",
-               "enum": [
-                  "MesoSPIM platform"
-               ],
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "mesoSPIM",
-               "default": "mesoSPIM",
-               "enum": [
-                  "mesoSPIM"
-               ],
-               "title": "Abbreviation",
-               "type": "string"
-            }
-         },
-         "title": "MESOSPIM",
-         "type": "object"
-      },
-      "MJFF": {
-         "properties": {
-            "name": {
-               "const": "Michael J. Fox Foundation for Parkinson's Research",
-               "default": "Michael J. Fox Foundation for Parkinson's Research",
-               "enum": [
-                  "Michael J. Fox Foundation for Parkinson's Research"
-               ],
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "MJFF",
-               "default": "MJFF",
-               "enum": [
-                  "MJFF"
-               ],
-               "title": "Abbreviation",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Research Organization Registry",
-                  "abbreviation": "ROR"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "Research Organization Registry": "#/$defs/ROR"
-                  },
-                  "propertyName": "name"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/ROR"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "03arq3225",
-               "default": "03arq3225",
-               "enum": [
-                  "03arq3225"
-               ],
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "MJFF",
-         "type": "object"
-      },
-      "MOTOR_OBSERVATORY": {
-         "properties": {
-            "name": {
-               "const": "Motor observatory platform",
-               "default": "Motor observatory platform",
-               "enum": [
-                  "Motor observatory platform"
-               ],
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "motor-observatory",
-               "default": "motor-observatory",
-               "enum": [
-                  "motor-observatory"
-               ],
-               "title": "Abbreviation",
-               "type": "string"
-            }
-         },
-         "title": "MOTOR_OBSERVATORY",
-         "type": "object"
-      },
-      "MULTIPLANE_OPHYS": {
-         "properties": {
-            "name": {
-               "const": "Multiplane optical physiology platform",
-               "default": "Multiplane optical physiology platform",
-               "enum": [
-                  "Multiplane optical physiology platform"
-               ],
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "multiplane-ophys",
-               "default": "multiplane-ophys",
-               "enum": [
-                  "multiplane-ophys"
-               ],
-               "title": "Abbreviation",
-               "type": "string"
-            }
-         },
-         "title": "MULTIPLANE_OPHYS",
-         "type": "object"
-      },
-      "NCCIH": {
-         "properties": {
-            "name": {
-               "const": "National Center for Complementary and Integrative Health",
-               "default": "National Center for Complementary and Integrative Health",
-               "enum": [
-                  "National Center for Complementary and Integrative Health"
-               ],
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "NCCIH",
-               "default": "NCCIH",
-               "enum": [
-                  "NCCIH"
-               ],
-               "title": "Abbreviation",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Research Organization Registry",
-                  "abbreviation": "ROR"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "Research Organization Registry": "#/$defs/ROR"
-                  },
-                  "propertyName": "name"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/ROR"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "00190t495",
-               "default": "00190t495",
-               "enum": [
-                  "00190t495"
-               ],
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "NCCIH",
-         "type": "object"
-      },
-      "NIMH": {
-         "properties": {
-            "name": {
-               "const": "National Institute of Mental Health",
-               "default": "National Institute of Mental Health",
-               "enum": [
-                  "National Institute of Mental Health"
-               ],
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "NIMH",
-               "default": "NIMH",
-               "enum": [
-                  "NIMH"
-               ],
-               "title": "Abbreviation",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Research Organization Registry",
-                  "abbreviation": "ROR"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "Research Organization Registry": "#/$defs/ROR"
-                  },
-                  "propertyName": "name"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/ROR"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "04xeg9z08",
-               "default": "04xeg9z08",
-               "enum": [
-                  "04xeg9z08"
-               ],
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "NIMH",
-         "type": "object"
-      },
-      "NINDS": {
-         "properties": {
-            "name": {
-               "const": "National Institute of Neurological Disorders and Stroke",
-               "default": "National Institute of Neurological Disorders and Stroke",
-               "enum": [
-                  "National Institute of Neurological Disorders and Stroke"
-               ],
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "NINDS",
-               "default": "NINDS",
-               "enum": [
-                  "NINDS"
-               ],
-               "title": "Abbreviation",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Research Organization Registry",
-                  "abbreviation": "ROR"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "Research Organization Registry": "#/$defs/ROR"
-                  },
-                  "propertyName": "name"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/ROR"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "01s5ya894",
-               "default": "01s5ya894",
-               "enum": [
-                  "01s5ya894"
-               ],
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "NINDS",
-         "type": "object"
-      },
-      "NYU": {
-         "properties": {
-            "name": {
-               "const": "New York University",
-               "default": "New York University",
-               "enum": [
-                  "New York University"
-               ],
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "NYU",
-               "default": "NYU",
-               "enum": [
-                  "NYU"
-               ],
-               "title": "Abbreviation",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Research Organization Registry",
-                  "abbreviation": "ROR"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "Research Organization Registry": "#/$defs/ROR"
-                  },
-                  "propertyName": "name"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/ROR"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "0190ak572",
-               "default": "0190ak572",
-               "enum": [
-                  "0190ak572"
-               ],
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "NYU",
-         "type": "object"
-      },
-      "OTHER": {
-         "properties": {
-            "name": {
-               "const": "Other",
-               "default": "Other",
-               "enum": [
-                  "Other"
-               ],
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": null,
-               "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Abbreviation",
-               "type": "null"
-            },
-            "registry": {
-               "default": null,
-               "title": "Registry",
-               "type": "null"
-            },
-            "registry_identifier": {
-               "const": null,
-               "default": null,
-               "enum": [
-                  null
-               ],
-               "title": "Registry Identifier",
-               "type": "null"
-            }
-         },
-         "title": "OTHER",
-         "type": "object"
       },
       "PIDName": {
          "additionalProperties": false,
@@ -1175,56 +182,6 @@
          "title": "PIDName",
          "type": "object"
       },
-      "POPHYS": {
-         "additionalProperties": false,
-         "properties": {
-            "name": {
-               "const": "Planar optical physiology",
-               "default": "Planar optical physiology",
-               "enum": [
-                  "Planar optical physiology"
-               ],
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "pophys",
-               "default": "pophys",
-               "enum": [
-                  "pophys"
-               ],
-               "title": "Abbreviation",
-               "type": "string"
-            }
-         },
-         "title": "POPHYS",
-         "type": "object"
-      },
-      "ROR": {
-         "additionalProperties": false,
-         "properties": {
-            "name": {
-               "const": "Research Organization Registry",
-               "default": "Research Organization Registry",
-               "enum": [
-                  "Research Organization Registry"
-               ],
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "ROR",
-               "default": "ROR",
-               "enum": [
-                  "ROR"
-               ],
-               "title": "Abbreviation",
-               "type": "string"
-            }
-         },
-         "title": "ROR",
-         "type": "object"
-      },
       "RelatedData": {
          "additionalProperties": false,
          "description": "Description of related data asset",
@@ -1246,7 +203,1544 @@
          "title": "RelatedData",
          "type": "object"
       },
-      "SIMONS_FOUNDATION": {
+      "_Addgene": {
+         "additionalProperties": false,
+         "description": "Model ADDGENE",
+         "properties": {
+            "name": {
+               "const": "Addgene",
+               "default": "Addgene",
+               "enum": [
+                  "Addgene"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "ADDGENE",
+               "default": "ADDGENE",
+               "enum": [
+                  "ADDGENE"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Addgene",
+         "type": "object"
+      },
+      "_Allen_Institute": {
+         "description": "Model Allen Institute",
+         "properties": {
+            "name": {
+               "const": "Allen Institute",
+               "default": "Allen Institute",
+               "enum": [
+                  "Allen Institute"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "AI",
+               "default": "AI",
+               "enum": [
+                  "AI"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/_Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "03cpe7c52",
+               "default": "03cpe7c52",
+               "enum": [
+                  "03cpe7c52"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_Allen_Institute",
+         "type": "object"
+      },
+      "_Allen_Institute_For_Brain_Science": {
+         "description": "Model Allen Institute for Brain Science",
+         "properties": {
+            "name": {
+               "const": "Allen Institute for Brain Science",
+               "default": "Allen Institute for Brain Science",
+               "enum": [
+                  "Allen Institute for Brain Science"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "AIBS",
+               "default": "AIBS",
+               "enum": [
+                  "AIBS"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/_Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "00dcv1019",
+               "default": "00dcv1019",
+               "enum": [
+                  "00dcv1019"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_Allen_Institute_For_Brain_Science",
+         "type": "object"
+      },
+      "_Allen_Institute_For_Neural_Dynamics": {
+         "description": "Model Allen Institute for Neural Dynamics",
+         "properties": {
+            "name": {
+               "const": "Allen Institute for Neural Dynamics",
+               "default": "Allen Institute for Neural Dynamics",
+               "enum": [
+                  "Allen Institute for Neural Dynamics"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "AIND",
+               "default": "AIND",
+               "enum": [
+                  "AIND"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/_Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "04szwah67",
+               "default": "04szwah67",
+               "enum": [
+                  "04szwah67"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_Allen_Institute_For_Neural_Dynamics",
+         "type": "object"
+      },
+      "_Behavior_Videos": {
+         "additionalProperties": false,
+         "description": "Model behavior-videos",
+         "properties": {
+            "name": {
+               "const": "Behavior videos",
+               "default": "Behavior videos",
+               "enum": [
+                  "Behavior videos"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "behavior-videos",
+               "default": "behavior-videos",
+               "enum": [
+                  "behavior-videos"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Behavior_Videos",
+         "type": "object"
+      },
+      "_Chan_Zuckerberg_Initiative": {
+         "description": "Model Chan Zuckerberg Initiative",
+         "properties": {
+            "name": {
+               "const": "Chan Zuckerberg Initiative",
+               "default": "Chan Zuckerberg Initiative",
+               "enum": [
+                  "Chan Zuckerberg Initiative"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "CZI",
+               "default": "CZI",
+               "enum": [
+                  "CZI"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/_Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "02qenvm24",
+               "default": "02qenvm24",
+               "enum": [
+                  "02qenvm24"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_Chan_Zuckerberg_Initiative",
+         "type": "object"
+      },
+      "_Columbia_University": {
+         "description": "Model Columbia University",
+         "properties": {
+            "name": {
+               "const": "Columbia University",
+               "default": "Columbia University",
+               "enum": [
+                  "Columbia University"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "Columbia",
+               "default": "Columbia",
+               "enum": [
+                  "Columbia"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/_Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "00hj8s172",
+               "default": "00hj8s172",
+               "enum": [
+                  "00hj8s172"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_Columbia_University",
+         "type": "object"
+      },
+      "_Emapa": {
+         "additionalProperties": false,
+         "description": "Model EMAPA",
+         "properties": {
+            "name": {
+               "const": "Edinburgh Mouse Atlas Project",
+               "default": "Edinburgh Mouse Atlas Project",
+               "enum": [
+                  "Edinburgh Mouse Atlas Project"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "EMAPA",
+               "default": "EMAPA",
+               "enum": [
+                  "EMAPA"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Emapa",
+         "type": "object"
+      },
+      "_Emg": {
+         "additionalProperties": false,
+         "description": "Model EMG",
+         "properties": {
+            "name": {
+               "const": "Electromyography",
+               "default": "Electromyography",
+               "enum": [
+                  "Electromyography"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "EMG",
+               "default": "EMG",
+               "enum": [
+                  "EMG"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Emg",
+         "type": "object"
+      },
+      "_Exaspim": {
+         "description": "Model exaSPIM",
+         "properties": {
+            "name": {
+               "const": "ExaSPIM platform",
+               "default": "ExaSPIM platform",
+               "enum": [
+                  "ExaSPIM platform"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "exaSPIM",
+               "default": "exaSPIM",
+               "enum": [
+                  "exaSPIM"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Exaspim",
+         "type": "object"
+      },
+      "_Fib": {
+         "additionalProperties": false,
+         "description": "Model fib",
+         "properties": {
+            "name": {
+               "const": "Fiber photometry",
+               "default": "Fiber photometry",
+               "enum": [
+                  "Fiber photometry"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "fib",
+               "default": "fib",
+               "enum": [
+                  "fib"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Fib",
+         "type": "object"
+      },
+      "_Fip": {
+         "description": "Model FIP",
+         "properties": {
+            "name": {
+               "const": "Frame-projected independent-fiber photometry platform",
+               "default": "Frame-projected independent-fiber photometry platform",
+               "enum": [
+                  "Frame-projected independent-fiber photometry platform"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "FIP",
+               "default": "FIP",
+               "enum": [
+                  "FIP"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Fip",
+         "type": "object"
+      },
+      "_Fmost": {
+         "additionalProperties": false,
+         "description": "Model fMOST",
+         "properties": {
+            "name": {
+               "const": "Fluorescence micro-optical sectioning tomography",
+               "default": "Fluorescence micro-optical sectioning tomography",
+               "enum": [
+                  "Fluorescence micro-optical sectioning tomography"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "fMOST",
+               "default": "fMOST",
+               "enum": [
+                  "fMOST"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Fmost",
+         "type": "object"
+      },
+      "_Hcr": {
+         "description": "Model HCR",
+         "properties": {
+            "name": {
+               "const": "Hybridization chain reaction platform",
+               "default": "Hybridization chain reaction platform",
+               "enum": [
+                  "Hybridization chain reaction platform"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "HCR",
+               "default": "HCR",
+               "enum": [
+                  "HCR"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Hcr",
+         "type": "object"
+      },
+      "_Hsfp": {
+         "description": "Model HSFP",
+         "properties": {
+            "name": {
+               "const": "Hyperspectral fiber photometry platform",
+               "default": "Hyperspectral fiber photometry platform",
+               "enum": [
+                  "Hyperspectral fiber photometry platform"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "HSFP",
+               "default": "HSFP",
+               "enum": [
+                  "HSFP"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Hsfp",
+         "type": "object"
+      },
+      "_Huazhong_University_Of_Science_And_Technology": {
+         "description": "Model Huazhong University of Science and Technology",
+         "properties": {
+            "name": {
+               "const": "Huazhong University of Science and Technology",
+               "default": "Huazhong University of Science and Technology",
+               "enum": [
+                  "Huazhong University of Science and Technology"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "HUST",
+               "default": "HUST",
+               "enum": [
+                  "HUST"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/_Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "00p991c53",
+               "default": "00p991c53",
+               "enum": [
+                  "00p991c53"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_Huazhong_University_Of_Science_And_Technology",
+         "type": "object"
+      },
+      "_Icephys": {
+         "additionalProperties": false,
+         "description": "Model icephys",
+         "properties": {
+            "name": {
+               "const": "Intracellular electrophysiology",
+               "default": "Intracellular electrophysiology",
+               "enum": [
+                  "Intracellular electrophysiology"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "icephys",
+               "default": "icephys",
+               "enum": [
+                  "icephys"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Icephys",
+         "type": "object"
+      },
+      "_Janelia_Research_Campus": {
+         "description": "Model Janelia Research Campus",
+         "properties": {
+            "name": {
+               "const": "Janelia Research Campus",
+               "default": "Janelia Research Campus",
+               "enum": [
+                  "Janelia Research Campus"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "Janelia",
+               "default": "Janelia",
+               "enum": [
+                  "Janelia"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/_Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "013sk6x84",
+               "default": "013sk6x84",
+               "enum": [
+                  "013sk6x84"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_Janelia_Research_Campus",
+         "type": "object"
+      },
+      "_Mbf_Bioscience": {
+         "description": "Model MBF Bioscience",
+         "properties": {
+            "name": {
+               "const": "MBF Bioscience",
+               "default": "MBF Bioscience",
+               "enum": [
+                  "MBF Bioscience"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "MBF",
+               "default": "MBF",
+               "enum": [
+                  "MBF"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/_Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "02zynam48",
+               "default": "02zynam48",
+               "enum": [
+                  "02zynam48"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_Mbf_Bioscience",
+         "type": "object"
+      },
+      "_Mesospim": {
+         "description": "Model mesoSPIM",
+         "properties": {
+            "name": {
+               "const": "MesoSPIM platform",
+               "default": "MesoSPIM platform",
+               "enum": [
+                  "MesoSPIM platform"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "mesoSPIM",
+               "default": "mesoSPIM",
+               "enum": [
+                  "mesoSPIM"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Mesospim",
+         "type": "object"
+      },
+      "_Mgi": {
+         "additionalProperties": false,
+         "description": "Model MGI",
+         "properties": {
+            "name": {
+               "const": "Mouse Genome Informatics",
+               "default": "Mouse Genome Informatics",
+               "enum": [
+                  "Mouse Genome Informatics"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "MGI",
+               "default": "MGI",
+               "enum": [
+                  "MGI"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Mgi",
+         "type": "object"
+      },
+      "_Michael_J_Fox_Foundation_For_Parkinson_S_Research": {
+         "description": "Model Michael J. Fox Foundation for Parkinson's Research",
+         "properties": {
+            "name": {
+               "const": "Michael J. Fox Foundation for Parkinson's Research",
+               "default": "Michael J. Fox Foundation for Parkinson's Research",
+               "enum": [
+                  "Michael J. Fox Foundation for Parkinson's Research"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "MJFF",
+               "default": "MJFF",
+               "enum": [
+                  "MJFF"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/_Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "03arq3225",
+               "default": "03arq3225",
+               "enum": [
+                  "03arq3225"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_Michael_J_Fox_Foundation_For_Parkinson_S_Research",
+         "type": "object"
+      },
+      "_Motor_Observatory": {
+         "description": "Model motor-observatory",
+         "properties": {
+            "name": {
+               "const": "Motor observatory platform",
+               "default": "Motor observatory platform",
+               "enum": [
+                  "Motor observatory platform"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "motor-observatory",
+               "default": "motor-observatory",
+               "enum": [
+                  "motor-observatory"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Motor_Observatory",
+         "type": "object"
+      },
+      "_Multiplane_Ophys": {
+         "description": "Model multiplane-ophys",
+         "properties": {
+            "name": {
+               "const": "Multiplane optical physiology platform",
+               "default": "Multiplane optical physiology platform",
+               "enum": [
+                  "Multiplane optical physiology platform"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "multiplane-ophys",
+               "default": "multiplane-ophys",
+               "enum": [
+                  "multiplane-ophys"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Multiplane_Ophys",
+         "type": "object"
+      },
+      "_National_Center_For_Complementary_And_Integrative_Health": {
+         "description": "Model National Center for Complementary and Integrative Health",
+         "properties": {
+            "name": {
+               "const": "National Center for Complementary and Integrative Health",
+               "default": "National Center for Complementary and Integrative Health",
+               "enum": [
+                  "National Center for Complementary and Integrative Health"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "NCCIH",
+               "default": "NCCIH",
+               "enum": [
+                  "NCCIH"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/_Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "00190t495",
+               "default": "00190t495",
+               "enum": [
+                  "00190t495"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_National_Center_For_Complementary_And_Integrative_Health",
+         "type": "object"
+      },
+      "_National_Institute_Of_Mental_Health": {
+         "description": "Model National Institute of Mental Health",
+         "properties": {
+            "name": {
+               "const": "National Institute of Mental Health",
+               "default": "National Institute of Mental Health",
+               "enum": [
+                  "National Institute of Mental Health"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "NIMH",
+               "default": "NIMH",
+               "enum": [
+                  "NIMH"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/_Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "04xeg9z08",
+               "default": "04xeg9z08",
+               "enum": [
+                  "04xeg9z08"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_National_Institute_Of_Mental_Health",
+         "type": "object"
+      },
+      "_National_Institute_Of_Neurological_Disorders_And_Stroke": {
+         "description": "Model National Institute of Neurological Disorders and Stroke",
+         "properties": {
+            "name": {
+               "const": "National Institute of Neurological Disorders and Stroke",
+               "default": "National Institute of Neurological Disorders and Stroke",
+               "enum": [
+                  "National Institute of Neurological Disorders and Stroke"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "NINDS",
+               "default": "NINDS",
+               "enum": [
+                  "NINDS"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/_Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "01s5ya894",
+               "default": "01s5ya894",
+               "enum": [
+                  "01s5ya894"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_National_Institute_Of_Neurological_Disorders_And_Stroke",
+         "type": "object"
+      },
+      "_Ncbi": {
+         "additionalProperties": false,
+         "description": "Model NCBI",
+         "properties": {
+            "name": {
+               "const": "National Center for Biotechnology Information",
+               "default": "National Center for Biotechnology Information",
+               "enum": [
+                  "National Center for Biotechnology Information"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "NCBI",
+               "default": "NCBI",
+               "enum": [
+                  "NCBI"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Ncbi",
+         "type": "object"
+      },
+      "_New_York_University": {
+         "description": "Model New York University",
+         "properties": {
+            "name": {
+               "const": "New York University",
+               "default": "New York University",
+               "enum": [
+                  "New York University"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "NYU",
+               "default": "NYU",
+               "enum": [
+                  "NYU"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/_Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "0190ak572",
+               "default": "0190ak572",
+               "enum": [
+                  "0190ak572"
+               ],
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_New_York_University",
+         "type": "object"
+      },
+      "_Orcid": {
+         "additionalProperties": false,
+         "description": "Model ORCID",
+         "properties": {
+            "name": {
+               "const": "Open Researcher and Contributor ID",
+               "default": "Open Researcher and Contributor ID",
+               "enum": [
+                  "Open Researcher and Contributor ID"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "ORCID",
+               "default": "ORCID",
+               "enum": [
+                  "ORCID"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Orcid",
+         "type": "object"
+      },
+      "_Other": {
+         "description": "Model Other",
+         "properties": {
+            "name": {
+               "const": "Other",
+               "default": "Other",
+               "enum": [
+                  "Other"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "enum": [
+                  null
+               ],
+               "title": "Abbreviation",
+               "type": "null"
+            },
+            "registry": {
+               "default": null,
+               "title": "Registry",
+               "type": "null"
+            },
+            "registry_identifier": {
+               "default": null,
+               "title": "Registry Identifier",
+               "type": "null"
+            }
+         },
+         "title": "_Other",
+         "type": "object"
+      },
+      "_Pophys": {
+         "additionalProperties": false,
+         "description": "Model pophys",
+         "properties": {
+            "name": {
+               "const": "Planar optical physiology",
+               "default": "Planar optical physiology",
+               "enum": [
+                  "Planar optical physiology"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "pophys",
+               "default": "pophys",
+               "enum": [
+                  "pophys"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Pophys",
+         "type": "object"
+      },
+      "_Ror": {
+         "additionalProperties": false,
+         "description": "Model ROR",
+         "properties": {
+            "name": {
+               "const": "Research Organization Registry",
+               "default": "Research Organization Registry",
+               "enum": [
+                  "Research Organization Registry"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "ROR",
+               "default": "ROR",
+               "enum": [
+                  "ROR"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Ror",
+         "type": "object"
+      },
+      "_Rrid": {
+         "additionalProperties": false,
+         "description": "Model RRID",
+         "properties": {
+            "name": {
+               "const": "Research Resource Identifiers",
+               "default": "Research Resource Identifiers",
+               "enum": [
+                  "Research Resource Identifiers"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "RRID",
+               "default": "RRID",
+               "enum": [
+                  "RRID"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Rrid",
+         "type": "object"
+      },
+      "_Simons_Foundation": {
+         "description": "Model Simons Foundation",
          "properties": {
             "name": {
                "const": "Simons Foundation",
@@ -1273,13 +1767,37 @@
                },
                "discriminator": {
                   "mapping": {
-                     "Research Organization Registry": "#/$defs/ROR"
+                     "ADDGENE": "#/$defs/_Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid"
                   },
-                  "propertyName": "name"
+                  "propertyName": "abbreviation"
                },
                "oneOf": [
                   {
-                     "$ref": "#/$defs/ROR"
+                     "$ref": "#/$defs/_Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
                   }
                ],
                "title": "Registry"
@@ -1294,10 +1812,11 @@
                "type": "string"
             }
          },
-         "title": "SIMONS_FOUNDATION",
+         "title": "_Simons_Foundation",
          "type": "object"
       },
-      "SINGLE_PLANE_OPHYS": {
+      "_Single_Plane_Ophys": {
+         "description": "Model single-plane-ophys",
          "properties": {
             "name": {
                "const": "Single-plane optical physiology platform",
@@ -1318,11 +1837,12 @@
                "type": "string"
             }
          },
-         "title": "SINGLE_PLANE_OPHYS",
+         "title": "_Single_Plane_Ophys",
          "type": "object"
       },
-      "SLAP": {
+      "_Slap": {
          "additionalProperties": false,
+         "description": "Model slap",
          "properties": {
             "name": {
                "const": "Scanned line projection imaging",
@@ -1343,10 +1863,11 @@
                "type": "string"
             }
          },
-         "title": "SLAP",
+         "title": "_Slap",
          "type": "object"
       },
-      "SLAP2": {
+      "_Slap2": {
+         "description": "Model SLAP2",
          "properties": {
             "name": {
                "const": "SLAP2 platform",
@@ -1367,10 +1888,11 @@
                "type": "string"
             }
          },
-         "title": "SLAP2",
+         "title": "_Slap2",
          "type": "object"
       },
-      "SMARTSPIM": {
+      "_Smartspim": {
+         "description": "Model SmartSPIM",
          "properties": {
             "name": {
                "const": "SmartSPIM platform",
@@ -1391,11 +1913,12 @@
                "type": "string"
             }
          },
-         "title": "SMARTSPIM",
+         "title": "_Smartspim",
          "type": "object"
       },
-      "SPIM": {
+      "_Spim": {
          "additionalProperties": false,
+         "description": "Model SPIM",
          "properties": {
             "name": {
                "const": "Selective plane illumination microscopy",
@@ -1416,10 +1939,11 @@
                "type": "string"
             }
          },
-         "title": "SPIM",
+         "title": "_Spim",
          "type": "object"
       },
-      "TWCF": {
+      "_Templeton_World_Charity_Foundation": {
+         "description": "Model Templeton World Charity Foundation",
          "properties": {
             "name": {
                "const": "Templeton World Charity Foundation",
@@ -1446,13 +1970,37 @@
                },
                "discriminator": {
                   "mapping": {
-                     "Research Organization Registry": "#/$defs/ROR"
+                     "ADDGENE": "#/$defs/_Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid"
                   },
-                  "propertyName": "name"
+                  "propertyName": "abbreviation"
                },
                "oneOf": [
                   {
-                     "$ref": "#/$defs/ROR"
+                     "$ref": "#/$defs/_Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
                   }
                ],
                "title": "Registry"
@@ -1467,35 +2015,12 @@
                "type": "string"
             }
          },
-         "title": "TWCF",
+         "title": "_Templeton_World_Charity_Foundation",
          "type": "object"
       },
-      "aind_data_schema_models__utils__BEHAVIOR__1": {
-         "properties": {
-            "name": {
-               "const": "Behavior platform",
-               "default": "Behavior platform",
-               "enum": [
-                  "Behavior platform"
-               ],
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "behavior",
-               "default": "behavior",
-               "enum": [
-                  "behavior"
-               ],
-               "title": "Abbreviation",
-               "type": "string"
-            }
-         },
-         "title": "BEHAVIOR",
-         "type": "object"
-      },
-      "aind_data_schema_models__utils__BEHAVIOR__2": {
+      "aind_data_schema_models__modalities___Behavior": {
          "additionalProperties": false,
+         "description": "Model behavior",
          "properties": {
             "name": {
                "const": "Behavior",
@@ -1516,35 +2041,12 @@
                "type": "string"
             }
          },
-         "title": "BEHAVIOR",
+         "title": "_Behavior",
          "type": "object"
       },
-      "aind_data_schema_models__utils__CONFOCAL__1": {
-         "properties": {
-            "name": {
-               "const": "Confocal microscopy platform",
-               "default": "Confocal microscopy platform",
-               "enum": [
-                  "Confocal microscopy platform"
-               ],
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "confocal",
-               "default": "confocal",
-               "enum": [
-                  "confocal"
-               ],
-               "title": "Abbreviation",
-               "type": "string"
-            }
-         },
-         "title": "CONFOCAL",
-         "type": "object"
-      },
-      "aind_data_schema_models__utils__CONFOCAL__2": {
+      "aind_data_schema_models__modalities___Confocal": {
          "additionalProperties": false,
+         "description": "Model confocal",
          "properties": {
             "name": {
                "const": "Confocal microscopy",
@@ -1565,35 +2067,12 @@
                "type": "string"
             }
          },
-         "title": "CONFOCAL",
+         "title": "_Confocal",
          "type": "object"
       },
-      "aind_data_schema_models__utils__ECEPHYS__1": {
-         "properties": {
-            "name": {
-               "const": "Electrophysiology platform",
-               "default": "Electrophysiology platform",
-               "enum": [
-                  "Electrophysiology platform"
-               ],
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "ecephys",
-               "default": "ecephys",
-               "enum": [
-                  "ecephys"
-               ],
-               "title": "Abbreviation",
-               "type": "string"
-            }
-         },
-         "title": "ECEPHYS",
-         "type": "object"
-      },
-      "aind_data_schema_models__utils__ECEPHYS__2": {
+      "aind_data_schema_models__modalities___Ecephys": {
          "additionalProperties": false,
+         "description": "Model ecephys",
          "properties": {
             "name": {
                "const": "Extracellular electrophysiology",
@@ -1614,35 +2093,12 @@
                "type": "string"
             }
          },
-         "title": "ECEPHYS",
+         "title": "_Ecephys",
          "type": "object"
       },
-      "aind_data_schema_models__utils__ISI__1": {
-         "properties": {
-            "name": {
-               "const": "Intrinsic signal imaging platform",
-               "default": "Intrinsic signal imaging platform",
-               "enum": [
-                  "Intrinsic signal imaging platform"
-               ],
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "ISI",
-               "default": "ISI",
-               "enum": [
-                  "ISI"
-               ],
-               "title": "Abbreviation",
-               "type": "string"
-            }
-         },
-         "title": "ISI",
-         "type": "object"
-      },
-      "aind_data_schema_models__utils__ISI__2": {
+      "aind_data_schema_models__modalities___Isi": {
          "additionalProperties": false,
+         "description": "Model ISI",
          "properties": {
             "name": {
                "const": "Intrinsic signal imaging",
@@ -1663,35 +2119,12 @@
                "type": "string"
             }
          },
-         "title": "ISI",
+         "title": "_Isi",
          "type": "object"
       },
-      "aind_data_schema_models__utils__MERFISH__1": {
-         "properties": {
-            "name": {
-               "const": "MERFISH platform",
-               "default": "MERFISH platform",
-               "enum": [
-                  "MERFISH platform"
-               ],
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "MERFISH",
-               "default": "MERFISH",
-               "enum": [
-                  "MERFISH"
-               ],
-               "title": "Abbreviation",
-               "type": "string"
-            }
-         },
-         "title": "MERFISH",
-         "type": "object"
-      },
-      "aind_data_schema_models__utils__MERFISH__2": {
+      "aind_data_schema_models__modalities___Merfish": {
          "additionalProperties": false,
+         "description": "Model merfish",
          "properties": {
             "name": {
                "const": "Multiplexed error-robust fluorescence in situ hybridization",
@@ -1712,35 +2145,12 @@
                "type": "string"
             }
          },
-         "title": "MERFISH",
+         "title": "_Merfish",
          "type": "object"
       },
-      "aind_data_schema_models__utils__MRI__1": {
-         "properties": {
-            "name": {
-               "const": "Magnetic resonance imaging platform",
-               "default": "Magnetic resonance imaging platform",
-               "enum": [
-                  "Magnetic resonance imaging platform"
-               ],
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "MRI",
-               "default": "MRI",
-               "enum": [
-                  "MRI"
-               ],
-               "title": "Abbreviation",
-               "type": "string"
-            }
-         },
-         "title": "MRI",
-         "type": "object"
-      },
-      "aind_data_schema_models__utils__MRI__2": {
+      "aind_data_schema_models__modalities___Mri": {
          "additionalProperties": false,
+         "description": "Model MRI",
          "properties": {
             "name": {
                "const": "Magnetic resonance imaging",
@@ -1761,7 +2171,157 @@
                "type": "string"
             }
          },
-         "title": "MRI",
+         "title": "_Mri",
+         "type": "object"
+      },
+      "aind_data_schema_models__platforms___Behavior": {
+         "description": "Model behavior",
+         "properties": {
+            "name": {
+               "const": "Behavior platform",
+               "default": "Behavior platform",
+               "enum": [
+                  "Behavior platform"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "behavior",
+               "default": "behavior",
+               "enum": [
+                  "behavior"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Behavior",
+         "type": "object"
+      },
+      "aind_data_schema_models__platforms___Confocal": {
+         "description": "Model confocal",
+         "properties": {
+            "name": {
+               "const": "Confocal microscopy platform",
+               "default": "Confocal microscopy platform",
+               "enum": [
+                  "Confocal microscopy platform"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "confocal",
+               "default": "confocal",
+               "enum": [
+                  "confocal"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Confocal",
+         "type": "object"
+      },
+      "aind_data_schema_models__platforms___Ecephys": {
+         "description": "Model ecephys",
+         "properties": {
+            "name": {
+               "const": "Electrophysiology platform",
+               "default": "Electrophysiology platform",
+               "enum": [
+                  "Electrophysiology platform"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "ecephys",
+               "default": "ecephys",
+               "enum": [
+                  "ecephys"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Ecephys",
+         "type": "object"
+      },
+      "aind_data_schema_models__platforms___Isi": {
+         "description": "Model ISI",
+         "properties": {
+            "name": {
+               "const": "Intrinsic signal imaging platform",
+               "default": "Intrinsic signal imaging platform",
+               "enum": [
+                  "Intrinsic signal imaging platform"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "ISI",
+               "default": "ISI",
+               "enum": [
+                  "ISI"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Isi",
+         "type": "object"
+      },
+      "aind_data_schema_models__platforms___Merfish": {
+         "description": "Model MERFISH",
+         "properties": {
+            "name": {
+               "const": "MERFISH platform",
+               "default": "MERFISH platform",
+               "enum": [
+                  "MERFISH platform"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "MERFISH",
+               "default": "MERFISH",
+               "enum": [
+                  "MERFISH"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Merfish",
+         "type": "object"
+      },
+      "aind_data_schema_models__platforms___Mri": {
+         "description": "Model MRI",
+         "properties": {
+            "name": {
+               "const": "Magnetic resonance imaging platform",
+               "default": "Magnetic resonance imaging platform",
+               "enum": [
+                  "Magnetic resonance imaging platform"
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "MRI",
+               "default": "MRI",
+               "enum": [
+                  "MRI"
+               ],
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Mri",
          "type": "object"
       }
    },
@@ -1775,10 +2335,10 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "1.0.1",
-         "default": "1.0.1",
+         "const": "1.0.3",
+         "default": "1.0.3",
          "enum": [
-            "1.0.1"
+            "1.0.3"
          ],
          "title": "Schema Version",
          "type": "string"
@@ -1796,73 +2356,73 @@
          "description": "Name for a standardized primary data collection system",
          "discriminator": {
             "mapping": {
-               "Behavior platform": "#/$defs/aind_data_schema_models__utils__BEHAVIOR__1",
-               "Confocal microscopy platform": "#/$defs/aind_data_schema_models__utils__CONFOCAL__1",
-               "Electrophysiology platform": "#/$defs/aind_data_schema_models__utils__ECEPHYS__1",
-               "ExaSPIM platform": "#/$defs/EXASPIM",
-               "Frame-projected independent-fiber photometry platform": "#/$defs/FIP",
-               "Hybridization chain reaction platform": "#/$defs/HCR",
-               "Hyperspectral fiber photometry platform": "#/$defs/HSFP",
-               "Intrinsic signal imaging platform": "#/$defs/aind_data_schema_models__utils__ISI__1",
-               "MERFISH platform": "#/$defs/aind_data_schema_models__utils__MERFISH__1",
-               "Magnetic resonance imaging platform": "#/$defs/aind_data_schema_models__utils__MRI__1",
-               "MesoSPIM platform": "#/$defs/MESOSPIM",
-               "Motor observatory platform": "#/$defs/MOTOR_OBSERVATORY",
-               "Multiplane optical physiology platform": "#/$defs/MULTIPLANE_OPHYS",
-               "SLAP2 platform": "#/$defs/SLAP2",
-               "Single-plane optical physiology platform": "#/$defs/SINGLE_PLANE_OPHYS",
-               "SmartSPIM platform": "#/$defs/SMARTSPIM"
+               "Behavior platform": "#/$defs/aind_data_schema_models__platforms___Behavior",
+               "Confocal microscopy platform": "#/$defs/aind_data_schema_models__platforms___Confocal",
+               "Electrophysiology platform": "#/$defs/aind_data_schema_models__platforms___Ecephys",
+               "ExaSPIM platform": "#/$defs/_Exaspim",
+               "Frame-projected independent-fiber photometry platform": "#/$defs/_Fip",
+               "Hybridization chain reaction platform": "#/$defs/_Hcr",
+               "Hyperspectral fiber photometry platform": "#/$defs/_Hsfp",
+               "Intrinsic signal imaging platform": "#/$defs/aind_data_schema_models__platforms___Isi",
+               "MERFISH platform": "#/$defs/aind_data_schema_models__platforms___Merfish",
+               "Magnetic resonance imaging platform": "#/$defs/aind_data_schema_models__platforms___Mri",
+               "MesoSPIM platform": "#/$defs/_Mesospim",
+               "Motor observatory platform": "#/$defs/_Motor_Observatory",
+               "Multiplane optical physiology platform": "#/$defs/_Multiplane_Ophys",
+               "SLAP2 platform": "#/$defs/_Slap2",
+               "Single-plane optical physiology platform": "#/$defs/_Single_Plane_Ophys",
+               "SmartSPIM platform": "#/$defs/_Smartspim"
             },
             "propertyName": "name"
          },
          "oneOf": [
             {
-               "$ref": "#/$defs/aind_data_schema_models__utils__BEHAVIOR__1"
+               "$ref": "#/$defs/aind_data_schema_models__platforms___Behavior"
             },
             {
-               "$ref": "#/$defs/aind_data_schema_models__utils__CONFOCAL__1"
+               "$ref": "#/$defs/aind_data_schema_models__platforms___Confocal"
             },
             {
-               "$ref": "#/$defs/aind_data_schema_models__utils__ECEPHYS__1"
+               "$ref": "#/$defs/aind_data_schema_models__platforms___Ecephys"
             },
             {
-               "$ref": "#/$defs/EXASPIM"
+               "$ref": "#/$defs/_Exaspim"
             },
             {
-               "$ref": "#/$defs/FIP"
+               "$ref": "#/$defs/_Fip"
             },
             {
-               "$ref": "#/$defs/HCR"
+               "$ref": "#/$defs/_Hcr"
             },
             {
-               "$ref": "#/$defs/HSFP"
+               "$ref": "#/$defs/_Hsfp"
             },
             {
-               "$ref": "#/$defs/aind_data_schema_models__utils__ISI__1"
+               "$ref": "#/$defs/aind_data_schema_models__platforms___Isi"
             },
             {
-               "$ref": "#/$defs/aind_data_schema_models__utils__MERFISH__1"
+               "$ref": "#/$defs/aind_data_schema_models__platforms___Merfish"
             },
             {
-               "$ref": "#/$defs/aind_data_schema_models__utils__MRI__1"
+               "$ref": "#/$defs/aind_data_schema_models__platforms___Mri"
             },
             {
-               "$ref": "#/$defs/MESOSPIM"
+               "$ref": "#/$defs/_Mesospim"
             },
             {
-               "$ref": "#/$defs/MOTOR_OBSERVATORY"
+               "$ref": "#/$defs/_Motor_Observatory"
             },
             {
-               "$ref": "#/$defs/MULTIPLANE_OPHYS"
+               "$ref": "#/$defs/_Multiplane_Ophys"
             },
             {
-               "$ref": "#/$defs/SLAP2"
+               "$ref": "#/$defs/_Slap2"
             },
             {
-               "$ref": "#/$defs/SINGLE_PLANE_OPHYS"
+               "$ref": "#/$defs/_Single_Plane_Ophys"
             },
             {
-               "$ref": "#/$defs/SMARTSPIM"
+               "$ref": "#/$defs/_Smartspim"
             }
          ],
          "title": "Platform"
@@ -1909,37 +2469,37 @@
          "description": "An established society, corporation, foundation or other organization that collected this data",
          "discriminator": {
             "mapping": {
-               "Allen Institute for Brain Science": "#/$defs/AIBS",
-               "Allen Institute for Neural Dynamics": "#/$defs/AIND",
-               "Columbia University": "#/$defs/COLUMBIA",
-               "Huazhong University of Science and Technology": "#/$defs/HUST",
-               "Janelia Research Campus": "#/$defs/JANELIA",
-               "New York University": "#/$defs/NYU",
-               "Other": "#/$defs/OTHER"
+               "Allen Institute for Brain Science": "#/$defs/_Allen_Institute_For_Brain_Science",
+               "Allen Institute for Neural Dynamics": "#/$defs/_Allen_Institute_For_Neural_Dynamics",
+               "Columbia University": "#/$defs/_Columbia_University",
+               "Huazhong University of Science and Technology": "#/$defs/_Huazhong_University_Of_Science_And_Technology",
+               "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
+               "New York University": "#/$defs/_New_York_University",
+               "Other": "#/$defs/_Other"
             },
             "propertyName": "name"
          },
          "oneOf": [
             {
-               "$ref": "#/$defs/AIBS"
+               "$ref": "#/$defs/_Allen_Institute_For_Brain_Science"
             },
             {
-               "$ref": "#/$defs/AIND"
+               "$ref": "#/$defs/_Allen_Institute_For_Neural_Dynamics"
             },
             {
-               "$ref": "#/$defs/COLUMBIA"
+               "$ref": "#/$defs/_Columbia_University"
             },
             {
-               "$ref": "#/$defs/HUST"
+               "$ref": "#/$defs/_Huazhong_University_Of_Science_And_Technology"
             },
             {
-               "$ref": "#/$defs/JANELIA"
+               "$ref": "#/$defs/_Janelia_Research_Campus"
             },
             {
-               "$ref": "#/$defs/NYU"
+               "$ref": "#/$defs/_New_York_University"
             },
             {
-               "$ref": "#/$defs/OTHER"
+               "$ref": "#/$defs/_Other"
             }
          ],
          "title": "Institution"
@@ -2012,65 +2572,65 @@
          "items": {
             "discriminator": {
                "mapping": {
-                  "EMG": "#/$defs/EMG",
-                  "ISI": "#/$defs/aind_data_schema_models__utils__ISI__2",
-                  "MRI": "#/$defs/aind_data_schema_models__utils__MRI__2",
-                  "SPIM": "#/$defs/SPIM",
-                  "behavior": "#/$defs/aind_data_schema_models__utils__BEHAVIOR__2",
-                  "behavior-videos": "#/$defs/BEHAVIOR_VIDEOS",
-                  "confocal": "#/$defs/aind_data_schema_models__utils__CONFOCAL__2",
-                  "ecephys": "#/$defs/aind_data_schema_models__utils__ECEPHYS__2",
-                  "fMOST": "#/$defs/FMOST",
-                  "fib": "#/$defs/FIB",
-                  "icephys": "#/$defs/ICEPHYS",
-                  "merfish": "#/$defs/aind_data_schema_models__utils__MERFISH__2",
-                  "pophys": "#/$defs/POPHYS",
-                  "slap": "#/$defs/SLAP"
+                  "EMG": "#/$defs/_Emg",
+                  "ISI": "#/$defs/aind_data_schema_models__modalities___Isi",
+                  "MRI": "#/$defs/aind_data_schema_models__modalities___Mri",
+                  "SPIM": "#/$defs/_Spim",
+                  "behavior": "#/$defs/aind_data_schema_models__modalities___Behavior",
+                  "behavior-videos": "#/$defs/_Behavior_Videos",
+                  "confocal": "#/$defs/aind_data_schema_models__modalities___Confocal",
+                  "ecephys": "#/$defs/aind_data_schema_models__modalities___Ecephys",
+                  "fMOST": "#/$defs/_Fmost",
+                  "fib": "#/$defs/_Fib",
+                  "icephys": "#/$defs/_Icephys",
+                  "merfish": "#/$defs/aind_data_schema_models__modalities___Merfish",
+                  "pophys": "#/$defs/_Pophys",
+                  "slap": "#/$defs/_Slap"
                },
                "propertyName": "abbreviation"
             },
             "oneOf": [
                {
-                  "$ref": "#/$defs/aind_data_schema_models__utils__BEHAVIOR__2"
+                  "$ref": "#/$defs/aind_data_schema_models__modalities___Behavior"
                },
                {
-                  "$ref": "#/$defs/BEHAVIOR_VIDEOS"
+                  "$ref": "#/$defs/_Behavior_Videos"
                },
                {
-                  "$ref": "#/$defs/aind_data_schema_models__utils__CONFOCAL__2"
+                  "$ref": "#/$defs/aind_data_schema_models__modalities___Confocal"
                },
                {
-                  "$ref": "#/$defs/EMG"
+                  "$ref": "#/$defs/_Emg"
                },
                {
-                  "$ref": "#/$defs/aind_data_schema_models__utils__ECEPHYS__2"
+                  "$ref": "#/$defs/aind_data_schema_models__modalities___Ecephys"
                },
                {
-                  "$ref": "#/$defs/FIB"
+                  "$ref": "#/$defs/_Fib"
                },
                {
-                  "$ref": "#/$defs/FMOST"
+                  "$ref": "#/$defs/_Fmost"
                },
                {
-                  "$ref": "#/$defs/ICEPHYS"
+                  "$ref": "#/$defs/_Icephys"
                },
                {
-                  "$ref": "#/$defs/aind_data_schema_models__utils__ISI__2"
+                  "$ref": "#/$defs/aind_data_schema_models__modalities___Isi"
                },
                {
-                  "$ref": "#/$defs/aind_data_schema_models__utils__MRI__2"
+                  "$ref": "#/$defs/aind_data_schema_models__modalities___Mri"
                },
                {
-                  "$ref": "#/$defs/aind_data_schema_models__utils__MERFISH__2"
+                  "$ref": "#/$defs/aind_data_schema_models__modalities___Merfish"
                },
                {
-                  "$ref": "#/$defs/POPHYS"
+                  "$ref": "#/$defs/_Pophys"
                },
                {
-                  "$ref": "#/$defs/SLAP"
+                  "$ref": "#/$defs/_Slap"
                },
                {
-                  "$ref": "#/$defs/SPIM"
+                  "$ref": "#/$defs/_Spim"
                }
             ]
          },

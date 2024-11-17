@@ -59,10 +59,11 @@ the Stimulus Class, but the trial-by-trial stimulus information belongs in the N
 
 Great question! We began defining specific classes for different stimulus and behavior modalities, but quickly found 
 that this won't be scalable. You can currently use these classes if they work for you. However, in the long run we 
-would like this to move into the `script` field. This field uses the Software class, which has a field for stimulus 
-parameters, where users can define their own dictionary of parameters used in the script to control the stimulus/
-behavior. We recommend that you use software to define these and be consistent within your projects. Please reach out 
-with questions and we can help you with this.
+would like this to move into the `script` field. This field uses the Software class, which has a field for 
+`parameters`. Users should use this to document the parameters used to control the stimulus or behavior. parameters
+should have unambiguous names (e.g. "trial_duration" rather than "duration") and units must be provided as a separate
+field (e.g. "trial_duration_unit"). We recommend that you use software to define these and be consistent within your 
+projects. Please reach out with questions and we can help you with this.
 
 **Q: What should I put for the `session_type`?**
 
@@ -77,8 +78,8 @@ and SLIMS. Until this is fully functional, these files must be created manually.
 **Q: How do I know if my mouse platform is "active"?**
 
 There are experiments in which the mouse platform is actively controlled by the stimulus/behavior software - i.e. the 
-resistance of the wheel is adjusted based on the subjects activity. This is an "active" mouse platform. Most platforms 
-we use are not active in this way.
+resistance of the wheel is adjusted based on the subject's activity. This is an "active" mouse platform. Most platforms 
+we use are currently not active in this way.
 
 **Q: How do I use the Calibration field?**
 

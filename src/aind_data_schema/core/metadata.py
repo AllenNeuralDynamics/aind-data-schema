@@ -1,6 +1,8 @@
 """Generic metadata class for Data Asset Records."""
 
 import inspect
+import json
+import logging
 from datetime import datetime
 from enum import Enum
 from typing import Dict, List, Literal, Optional, get_args
@@ -8,9 +10,17 @@ from uuid import UUID, uuid4
 
 from aind_data_schema_models.modalities import ExpectedFiles, FileRequirement
 from aind_data_schema_models.platforms import Platform
-from pydantic import Field, PrivateAttr, ValidationError, ValidationInfo, field_validator, model_validator
+from pydantic import (
+    Field,
+    PrivateAttr,
+    SkipValidation,
+    ValidationError,
+    ValidationInfo,
+    field_validator,
+    model_validator,
+)
 
-from aind_data_schema.base import AindCoreModel
+from aind_data_schema.base import AindCoreModel, is_dict_corrupt
 from aind_data_schema.core.acquisition import Acquisition
 from aind_data_schema.core.data_description import DataDescription
 from aind_data_schema.core.instrument import Instrument
@@ -60,8 +70,8 @@ class Metadata(AindCoreModel):
     _FILE_EXTENSION = PrivateAttr(default=".nd.json")
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/metadata.py"
-    describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["1.0.2"] = Field("1.0.2")
+    describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
+    schema_version: SkipValidation[Literal["1.1.1"]] = Field(default="1.1.1")
     id: UUID = Field(
         default_factory=uuid4,
         alias="_id",
@@ -278,3 +288,43 @@ class Metadata(AindCoreModel):
             check = RigSessionCompatibility(self.rig, self.session)
             check.run_compatibility_check()
         return self
+
+
+def create_metadata_json(
+    name: str,
+    location: str,
+    core_jsons: Dict[str, Optional[dict]],
+    optional_created: Optional[datetime] = None,
+    optional_external_links: Optional[dict] = None,
+) -> dict:
+    """Creates a Metadata dict from dictionary of core schema fields."""
+    # Extract basic parameters and non-corrupt core schema fields
+    params = {
+        "name": name,
+        "location": location,
+    }
+    if optional_created is not None:
+        params["created"] = optional_created
+    if optional_external_links is not None:
+        params["external_links"] = optional_external_links
+    core_fields = dict()
+    for key, value in core_jsons.items():
+        if key in CORE_FILES and value is not None:
+            if is_dict_corrupt(value):
+                logging.warning(f"Provided {key} is corrupt! It will be ignored.")
+            else:
+                core_fields[key] = value
+    # Create Metadata object and convert to JSON
+    # If there are any validation errors, still create it
+    # but set MetadataStatus as Invalid
+    try:
+        metadata = Metadata.model_validate({**params, **core_fields})
+        metadata_json = json.loads(metadata.model_dump_json(by_alias=True))
+    except Exception as e:
+        logging.warning(f"Issue with metadata construction! {e.args}")
+        metadata = Metadata.model_validate(params)
+        metadata_json = json.loads(metadata.model_dump_json(by_alias=True))
+        for key, value in core_fields.items():
+            metadata_json[key] = value
+        metadata_json["metadata_status"] = MetadataStatus.INVALID.value
+    return metadata_json

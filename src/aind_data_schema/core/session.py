@@ -17,7 +17,7 @@ from aind_data_schema_models.units import (
     TimeUnit,
     VolumeUnit,
 )
-from pydantic import Field, field_validator, model_validator
+from pydantic import Field, SkipValidation, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
 from typing_extensions import Annotated
 
@@ -533,8 +533,8 @@ class Session(AindCoreModel):
     """Description of a physiology and/or behavior session"""
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/session.py"
-    describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["1.0.1"] = Field("1.0.1")
+    describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
+    schema_version: SkipValidation[Literal["1.0.3"]] = Field(default="1.0.3")
     protocol_id: List[str] = Field(default=[], title="Protocol ID", description="DOI for protocols.io")
     experimenter_full_name: List[str] = Field(
         ...,
