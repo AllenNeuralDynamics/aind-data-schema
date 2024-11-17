@@ -1,7 +1,5 @@
 """ schema describing an analysis model """
 
-from decimal import Decimal
-from enum import Enum
 from typing import Any, Optional, List, Literal
 
 from pydantic import Field
@@ -10,7 +8,7 @@ from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.system_architecture import ModelBackbone
 
-from aind_data_schema.base import AindCoreModel, AindGenericType, AindModel, AwareDatetimeWithDefault
+from aind_data_schema.base import AindCoreModel, AindGenericType, AindModel
 from aind_data_schema.components.devices import Software
 from aind_data_schema.core.processing import DataProcess
 
@@ -34,7 +32,7 @@ class PerformanceMetric(AindModel):
 class ModelEvaluation(DataProcess):
     """Description of model evaluation"""
 
-    data_description: Optional[str] = Field(default=None, title="Description of evaluation data") 
+    data_description: Optional[str] = Field(default=None, title="Description of evaluation data")
     performance: List[PerformanceMetric] = Field(..., title="Evaluation performance")
 
 
