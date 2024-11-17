@@ -7,11 +7,11 @@ import pydantic
 
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
-from aind_data_schema_models.process_names import ProcessName
 from aind_data_schema_models.system_architecture import ModelBackbone
 
 from aind_data_schema.core.model import Model, ModelArchitecture, ModelEvaluation, ModelTraining, PerformanceMetric
 from aind_data_schema.components.devices import Software
+
 
 class ModelTests(unittest.TestCase):
     """tests for model"""
@@ -36,9 +36,9 @@ class ModelTests(unittest.TestCase):
                 parameters={
                     "downsample": 1,
                     "input_shape": [
-                    14,
-                    14,
-                    26
+                        14,
+                        14,
+                        26
                     ],
                     "learning_rate": 0.0001,
                     "train_test_split": 0.8,
@@ -86,7 +86,7 @@ class ModelTests(unittest.TestCase):
                 )
             ]
         )
-    
+
         Model.model_validate_json(m.model_dump_json())
 
         self.assertIsNotNone(m)
@@ -94,3 +94,4 @@ class ModelTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+    

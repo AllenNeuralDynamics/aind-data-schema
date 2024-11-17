@@ -32,7 +32,7 @@ class ModelEvaluation(AindModel):
     """Description of model evaluation"""
 
     data: Optional[str] = Field(default=None, title="Path to evaluation data")
-    data_description: Optional[str] = Field(default=None, title="Description of evaluation data") 
+    data_description: Optional[str] = Field(default=None, title="Description of evaluation data")
     date: AwareDatetimeWithDefault = Field(..., title="Date")
     performance: List[PerformanceMetric] = Field(..., title="Evaluation performance")
     notes: Optional[str] = Field(default=None, title="Notes")
