@@ -8,9 +8,8 @@ from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.system_architecture import ModelBackbone
 
-from aind_data_schema.base import AindCoreModel, AindGenericType, AindModel
+from aind_data_schema.base import AindCoreModel, AindGenericType, AindModel, AwareDatetimeWithDefault
 from aind_data_schema.components.devices import Software
-from aind_data_schema.core.processing import DataProcess
 
 
 class ModelArchitecture(AindModel):
@@ -29,11 +28,14 @@ class PerformanceMetric(AindModel):
     value: Any = Field(..., title="Metric value")
 
 
-class ModelEvaluation(DataProcess):
+class ModelEvaluation(AindModel):
     """Description of model evaluation"""
 
-    data_description: Optional[str] = Field(default=None, title="Description of evaluation data")
+    data: Optional[str] = Field(default=None, title="Path to evaluation data")
+    data_description: Optional[str] = Field(default=None, title="Description of evaluation data") 
+    date: AwareDatetimeWithDefault = Field(..., title="Date")
     performance: List[PerformanceMetric] = Field(..., title="Evaluation performance")
+    notes: Optional[str] = Field(default=None, title="Notes")
 
 
 class ModelTraining(ModelEvaluation):
