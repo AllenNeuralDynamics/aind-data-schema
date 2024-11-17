@@ -32,14 +32,19 @@ class PerformanceMetric(AindModel):
 
 
 class ModelEvaluation(AindModel):
-    """Description of model training"""
+    """Description of model evaluation"""
 
-    data: str = Field(..., title="Path to evaluation data")
+    data: Optional[str] = Field(default=None, title="Path to evaluation data")
     data_description: Optional[str] = Field(default=None, title="Description of evaluation data") 
-    date: AwareDatetimeWithDefault = Field(..., title="Date") #not sure we need datetime
-    validation_folds: Optional[int] = Field(default=None, title="Validation folds")
+    date: AwareDatetimeWithDefault = Field(..., title="Date")
     performance: List[PerformanceMetric] = Field(..., title="Evaluation performance")
     notes: Optional[str] = Field(default=None, title="Notes")
+
+
+class ModelTraining(ModelEvaluation):
+    """Description of model training"""
+
+    cross_validation_method: str = Field(..., title="Cross validation method")
 
 
 class Model(AindCoreModel):
@@ -56,8 +61,8 @@ class Model(AindCoreModel):
     modality: Modality.ONE_OF = Field(..., title="Modality")
     model_architecture: ModelArchitecture = Field(..., title="Model architecture")
     software: List[Software] = Field(..., title="Software")
-    direct_use: str = Field(..., title="Intended model use", description="Semantic description of intended use")
+    intended_use: str = Field(..., title="Intended model use", description="Semantic description of intended use")
     limitations: Optional[str] = Field(default=None, title="Model limitations")
-    training: Optional[List[ModelEvaluation]] = Field(default=[], title="Training")
+    training: Optional[List[ModelTraining]] = Field(default=[], title="Training")
     evaluations: Optional[List[ModelEvaluation]] = Field(default=[], title="Evaluations")
     notes: Optional[str] = Field(default=None, title="Notes")
