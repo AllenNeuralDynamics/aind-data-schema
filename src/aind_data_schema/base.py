@@ -1,5 +1,6 @@
 """ generic base class with supporting validators and fields for basic AIND schema """
 
+import json
 import re
 from pathlib import Path
 from typing import Any, Generic, Optional, TypeVar
@@ -14,6 +15,7 @@ from pydantic import (
     ValidationError,
     ValidatorFunctionWrapHandler,
     create_model,
+    model_validator,
 )
 from pydantic.functional_validators import WrapValidator
 from typing_extensions import Annotated
@@ -31,13 +33,57 @@ def _coerce_naive_datetime(v: Any, handler: ValidatorFunctionWrapHandler) -> Awa
 AwareDatetimeWithDefault = Annotated[AwareDatetime, WrapValidator(_coerce_naive_datetime)]
 
 
+def is_dict_corrupt(input_dict: dict) -> bool:
+    """
+    Checks that dictionary keys, included nested keys, do not contain
+    forbidden characters ("$" and ".").
+
+    Parameters
+    ----------
+    input_dict : dict
+
+    Returns
+    -------
+    bool
+        True if input_dict is not a dict, or if any keys contain
+        forbidden characters. False otherwise.
+
+    """
+
+    def has_corrupt_keys(input) -> bool:
+        """Recursively checks nested dictionaries and lists"""
+        if isinstance(input, dict):
+            for key, value in input.items():
+                if "$" in key or "." in key:
+                    return True
+                elif has_corrupt_keys(value):
+                    return True
+        elif isinstance(input, list):
+            for item in input:
+                if has_corrupt_keys(item):
+                    return True
+        return False
+
+    # Top-level input must be a dictionary
+    if not isinstance(input_dict, dict):
+        return True
+    return has_corrupt_keys(input_dict)
+
+
 class AindGeneric(BaseModel, extra="allow"):
     """Base class for generic types that can be used in AIND schema"""
 
     # extra="allow" is needed because BaseModel by default drops extra parameters.
     # Alternatively, consider using 'SerializeAsAny' once this issue is resolved
     # https://github.com/pydantic/pydantic/issues/6423
-    pass
+
+    @model_validator(mode="after")
+    def validate_fieldnames(self):
+        """Ensure that field names do not contain forbidden characters"""
+        model_dict = json.loads(self.model_dump_json(by_alias=True))
+        if is_dict_corrupt(model_dict):
+            raise ValueError("Field names cannot contain '.' or '$'")
+        return self
 
 
 AindGenericType = TypeVar("AindGenericType", bound=AindGeneric)
