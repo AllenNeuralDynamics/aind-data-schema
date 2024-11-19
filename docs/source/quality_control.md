@@ -72,15 +72,56 @@ Each `QCMetric` you build should have an attached reference. Our preference is t
 
 We recommend that you write PNG files for images and static multi-panel figures, MP4 files for videos, and Altair charts for interactive figures.
 
-#### Alternate workflows
+#### Alternate workflow
+
+In the event that you aren't generating a data asset, for example when running a QC capsule for an existing raw data asset, you will need to push your QCEValuation objects to DocDB directly and push your figures to kachery-cloud (aka FigURL).
 
 **Metadata**
 
-We'll post documentation on how to append `QCEvaluations` to pre-existing quality_control.json files, via DocDB using the `aind-data-access-api`, in the future. For now, you can refer to the code snippet in the [`aind-qc-capsule-example`](https://github.com/AllenNeuralDynamics/aind-qc-capsule-example/).
+For now, you can refer to the code snippet in the [`aind-qc-capsule-example`](https://github.com/AllenNeuralDynamics/aind-qc-capsule-example/). You'll need your DocDB asset ID. To get this you can run this snippet of code using the name of your data asset:
+
+```{python}
+from aind_data_access_api.document_db import MetadataDbClient
+
+API_GATEWAY_HOST = "api.allenneuraldynamics.org"
+DATABASE = "metadata_index"
+COLLECTION = "data_assets"
+
+docdb_api_client = MetadataDbClient(
+  host=API_GATEWAY_HOST,
+  database=DATABASE,
+  collection=COLLECTION,
+)
+
+ASSET_NAME = "behavior_711042_2024-08-07_12-20-41"
+
+filter_query = {"name": ASSET_NAME}
+projection = {"_id": 1}
+response = docdb_api_client.retrieve_docdb_records(
+  filter_query=filter_query,
+  projection=projection,
+)
+
+id = response[0]["_id"]
+```
+
+We'll post documentation on how to append `QCEvaluations` to pre-existing quality_control.json files, via DocDB using the `aind-data-access-api`, in the future.
 
 **References**
 
-You can also place the references in the data asset itself, to do this include the relative path "qc_images/your_image.png" to that asset inside of the results folder.
+In the alternate workflow you won't generate a data asset. This means you need to upload your figures to an external server. We use `kachery-cloud` for this purpose. `pip install kachery-cloud`
+
+When running in a Code Ocean capsule you will need kachery credentials. You can temporarily attach personal credentials by running `kachery-cloud-init` in a terminal and logging into Github or using a personal access token. For pipeline runs you need to ask Dan to attach the AIND credentials to your capsule. Once you have credentials:
+
+```{python}
+import kachery_cloud as kcl
+from pathlib import Path
+
+filename = '/path/to/filename.dat'
+uri = kcl.store_file(filename)
+
+QCMetric.reference = uri + Path(filename).suffix
+```
 
 ### QC Portal
 
@@ -102,13 +143,14 @@ Each metric is associated with a reference figure. We support:
 - Neuroglancer links (url)
 - Rerun files (rrd)
 
-Figures, images, and videos can be any size, but they will fit best on the screen if they are landscape and shaped roughly like a computer screen (1280×800 or 1900×1200 px both work well).
+Figures, images, and videos can be any size, but they will fit best on the screen if they are landscape and shaped roughly like a computer screen (for example, 1280×800 or 1900×1200 px).
 
-You can link to your references in one of three ways:
+You can link to your references in one of four ways:
 
 - Provide a relative path to a file in the data asset's S3 bucket, i.e. "figures/my_figure.png". The mount/asset name should not be included.
 - Provide a url to a publicly accessible file, i.e. "https://mywebsite.com/myfile.png"
-- Provide a path to any public S3 bucket, i.e. "s3://bucket/key"
+- Provide a path to any public S3 bucket, i.e. "s3://bucket/myfile.png"
+- Provide a FigURL/kachery-cloud hash, i.e. "sha1://uuid.ext", note that only for FigURL hashes you **must append the filetype**. The hash only doesn't tell us what type of file will be returned.
 
 **Q: I saw fancy things like dropdowns in the QC Portal, how do I do that?**
 
