@@ -6,9 +6,9 @@ Quality control is a collection of **evaluations** based on sets of **metrics** 
 
 `QCEvaluation`s should be generated during pipelines: before raw data upload, during processing, and during analysis by researchers.
 
-Each `QualityControl`, `QCEvaluation`, and `QCMetric` includes a `aind_data_schema.quality_control.State` which is a timestamped object indicating that the Overall QC/Evaluation/Metric passes, fails, or is in a pending state waiting for manual annotation.
+The overall `QualityControl`, each `QCEvaluation`, and each `QCMetric` can be evaluated to get a `aind_data_schema.quality_control.State` which indicates whether the Overall QC/Evaluation/Metric passes, fails, or is in a pending state waiting for manual annotation.
 
-The state of an evaluation is set automatically to the lowest of its metric's states. A single failed metric sets an entire evaluation to fail. While a single pending metric (with all other metrics passing) sets an entire evaluation to pending. An optional setting `QCEvaluation.allow_failed_metrics` allows you to ignore failures, which can be useful in situations where an evaluation is not critical for quality control.
+The state of an evaluation is set automatically to the lowest of its metric's states. A single failed metric sets an entire evaluation to fail. A single pending metric (with all other metrics passing) sets an entire evaluation to pending. An optional setting `QCEvaluation.allow_failed_metrics` allows you to ignore failures, which can be useful in situations where an evaluation is not critical for quality control.
 
 ## Details
 
@@ -38,7 +38,7 @@ See the AIND section for specifics about how references are rendered in the QC P
 
 **Q: What are the status options for metrics?**
 
-In our quality control a metric's status is always `PASS`, `PENDING` (waiting for manual annotation), or `FAIL`. `PENDING` should be used when a user must manually annotated the metric's state.
+In our quality control a metric's status is always `PASS`, `PENDING` (waiting for manual annotation), or `FAIL`.
 
 We enforce this minimal set of states to prevent ambiguity and make it easier to build tools that can interpret the status of a data asset.
 
@@ -46,14 +46,14 @@ We enforce this minimal set of states to prevent ambiguity and make it easier to
 
 ### Uploading QC
 
-#### Preferred workflow 
+#### Preferred workflow
 
 **Metadata**
 
-If you are building `QCEvaluation` and `QCMetric` objects prior to raw data upload or in a capsule alongside your processing or analysis, your workflow is: 
+If you are building `QCEvaluation` and `QCMetric` objects prior to raw data upload or in a capsule that will generate a new derived data asset, your workflow is: 
 
 ```
-from aind_data_schema.core.quality_control import QualityControl
+from aind_data_schema.core.quality_control import QualityControl, QCEvaluation, ...
 
 # Build your QCEvaluations and metrics
 evaluations = [QCEvaluation(), ...]
@@ -64,21 +64,21 @@ qc = QualityControl(evaluations=evaluations)
 qc.write_standard_file()
 ```
 
-The indexer will pick up this file alongside the other metadata files and handle it appropriately.
+The indexer will pick up this file alongside your other metadata files and handle it appropriately. Note that for derived assets you still need to manually copy the original metadata and update the `data_description` file to be in the derived state.
 
 **References**
 
-Each `QCMetric` you build should have an attached reference. Our preference is that you post these images to [FigURL](https://github.com/flatironinstitute/figurl/blob/main/doc/intro.md) and put the generated URL into the reference.
+Each `QCMetric` you build should have an attached reference. You can put these into your data asset in a folder (e.g. "figures/") and provide the relative path to each file. Do not prepend the asset name to the path.
 
-We recommend that you write PNG files for images and static multi-panel figures, MP4 files for videos, and Altair charts for interactive figures.
+We recommend that you write PNG files or PDFs for images and static multi-panel figures, MP4 files for videos, and Altair charts for interactive figures. Neuroglancer links and Rerun .rrd files are also supported.
 
 #### Alternate workflow
 
-In the event that you aren't generating a data asset, for example when running a QC capsule for an existing raw data asset, you will need to push your QCEValuation objects to DocDB directly and push your figures to kachery-cloud (aka FigURL).
+If your capsule does not generate a data asset, for example when running a QC capsule for an existing raw data asset, you will need to push your `QCEValuation` objects to DocDB directly and push your figures to kachery-cloud (aka FigURL).
 
 **Metadata**
 
-For now, you can refer to the code snippet in the [`aind-qc-capsule-example`](https://github.com/AllenNeuralDynamics/aind-qc-capsule-example/). You'll need your DocDB asset ID. To get this you can run this snippet of code using the name of your data asset:
+For now, you can refer to the code snippet in the [`aind-qc-capsule-example`](https://github.com/AllenNeuralDynamics/aind-qc-capsule-example/) that demonstrates how to push to DocDB directly. You'll need to assign the AWS role `aind-codeocean-user` to your capsule. You'll also need your DocDB asset ID. To get this you can run this snippet of code using the name of your data asset:
 
 ```{python}
 from aind_data_access_api.document_db import MetadataDbClient
@@ -105,13 +105,13 @@ response = docdb_api_client.retrieve_docdb_records(
 id = response[0]["_id"]
 ```
 
-We'll post documentation on how to append `QCEvaluations` to pre-existing quality_control.json files, via DocDB using the `aind-data-access-api`, in the future.
+We'll post documentation on how to append `QCEvaluations` via DocDB using the `aind-data-access-api`, in the future.
 
 **References**
 
 In the alternate workflow you won't generate a data asset. This means you need to upload your figures to an external server. We use `kachery-cloud` for this purpose. `pip install kachery-cloud`
 
-When running in a Code Ocean capsule you will need kachery credentials. You can temporarily attach personal credentials by running `kachery-cloud-init` in a terminal and logging into Github or using a personal access token. For pipeline runs you need to ask Dan to attach the AIND credentials to your capsule. Once you have credentials:
+When running in a Code Ocean capsule you will need kachery-cloud credentials. You can temporarily attach personal credentials by running `kachery-cloud-init` in a terminal in your capsule and logging into Github (or using a personal access token). For pipeline runs you need to ask Dan to attach the AIND credentials to your capsule. Once you have credentials:
 
 ```{python}
 import kachery_cloud as kcl
@@ -123,15 +123,13 @@ uri = kcl.store_file(filename)
 QCMetric.reference = uri + Path(filename).suffix
 ```
 
+Make sure to append the file extension, the hash alone does not tell us what kind of file you are uploading!
+
 ### QC Portal
 
-The QC Portal is a browser application that allows users to view and interact with the AIND QC metadata and to annotate ``PENDING`` metrics with qualitative evaluations. The portal is maintained by scientific computing, reach out to us with any questions or concerns.
+The [QC Portal](https://qc.allenneuraldynamics.org/qc_portal_app) is a browser application that allows users to view and interact with the AIND QC metadata and to annotate ``PENDING`` metrics with qualitative evaluations. The portal is maintained by scientific computing, reach out to us with any questions or concerns.
 
-The portal works by pulling the metadata object from the Document Database (DocDB). When you make changes to metrics or add notes the **submit** button will be enabled, submitting pushes your updates to the DocDB along with a timestamp and your name.
-
-**Q: When does the state get set for the QCEvaluation and QualityControl objects?**
-
-The QC portal automatically calls ``QualityControl.evaluate_status()`` whenever you submit changes to the metrics. This first evaluates the individual `QCEvaluation` objects, and then evaluates the overall status.
+The portal works by pulling the metadata from the Document Database (DocDB). When you make changes to metrics or add notes the **submit** button is enabled, submitting pushes your updates to DocDB along with a timestamp and your name.
 
 **Q: How do reference URLs get pulled into the QC Portal?**
 
