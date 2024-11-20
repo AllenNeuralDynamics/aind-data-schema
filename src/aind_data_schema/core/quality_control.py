@@ -177,6 +177,7 @@ class QualityControl(AindCoreModel):
     schema_version: SkipValidation[Literal["1.2.1"]] = Field(default="1.2.1")
     evaluations: List[QCEvaluation] = Field(..., title="Evaluations")
     notes: Optional[str] = Field(default=None, title="Notes")
+    extensions: BaseModel = Field(default=None, title="Extensions")
 
     def status(
         self,
