@@ -3,6 +3,7 @@
 from datetime import datetime, timezone
 from enum import Enum
 from typing import Any, List, Literal, Optional, Union
+import warnings
 
 from aind_data_schema_models.modalities import Modality
 from pydantic import BaseModel, Field, SkipValidation, field_validator, model_validator
@@ -91,7 +92,18 @@ class QCEvaluation(AindModel):
             " will allow individual metrics to fail while still passing the evaluation."
         ),
     )
-    status: Status = Field(default=None, title="Evaluation status", exclude=True)
+    latest_status: Status = Field(default=None, title="Evaluation status", exclude=True)
+
+    def status(self, date: datetime = datetime.now(tz=timezone.utc)) -> Status:
+        """DEPRECATED
+
+        Replace with QCEvaluation.status or QCEvaluation.evaluate_status()
+        """
+        warnings.warn(
+            "The status method is deprecated. Please use QCEvaluation.status or QCEvaluation.evaluate_status()",
+            DeprecationWarning,
+        )
+        return self.evaluate_status(date)
 
     @property
     def failed_metrics(self) -> Optional[List[QCMetric]]:
@@ -115,9 +127,9 @@ class QCEvaluation(AindModel):
             return failing_metrics
 
     @model_validator(mode="after")
-    def compute_status(self):
+    def compute_latest_status(self):
         """Compute the status of the evaluation based on the status of its metrics"""
-        self.status = self.evaluate_status()
+        self.latest_status = self.evaluate_status()
         return self
 
     def evaluate_status(self, date: datetime = datetime.now(tz=timezone.utc)) -> Status:
