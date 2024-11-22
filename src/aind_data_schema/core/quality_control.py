@@ -92,7 +92,7 @@ class QCEvaluation(AindModel):
             " will allow individual metrics to fail while still passing the evaluation."
         ),
     )
-    latest_status: Status = Field(default=None, title="Evaluation status", exclude=True)
+    latest_status: Status = Field(default=None, title="Evaluation status")
 
     def status(self, date: datetime = datetime.now(tz=timezone.utc)) -> Status:
         """DEPRECATED
