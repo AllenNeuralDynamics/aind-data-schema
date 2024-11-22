@@ -181,6 +181,7 @@ class QualityControlTests(unittest.TestCase):
         evaluation.latest_status = evaluation.evaluate_status()
 
         self.assertEqual(evaluation.latest_status, Status.FAIL)
+        self.assertEqual(evaluation.status(), evaluation.latest_status)
 
     def test_allowed_failed_metrics(self):
         """Test that if you set the flag to allow failures that evaluations pass"""
