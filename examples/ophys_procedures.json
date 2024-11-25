@@ -65,7 +65,12 @@
                "bregma_to_lambda_unit": "millimeter",
                "injection_angle": "0",
                "injection_angle_unit": "degrees",
-               "targeted_structure": "VTA",
+               "targeted_structure": {
+                  "atlas": "CCFv3",
+                  "name": "Ventral tegmental area",
+                  "acronym": "VTA",
+                  "id": "749"
+               },
                "injection_hemisphere": "Left",
                "procedure_type": "Nanoject injection",
                "injection_volume": [
@@ -96,7 +101,12 @@
                         "total_length": "0.5",
                         "length_unit": "millimeter"
                      },
-                     "targeted_structure": "VTA",
+                     "targeted_structure": {
+                        "atlas": "CCFv3",
+                        "name": "Ventral tegmental area",
+                        "acronym": "VTA",
+                        "id": "749"
+                     },
                      "stereotactic_coordinate_ap": "-3.05",
                      "stereotactic_coordinate_ml": "-0.6",
                      "stereotactic_coordinate_dv": "-4",
