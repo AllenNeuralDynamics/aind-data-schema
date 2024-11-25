@@ -1,14 +1,13 @@
 """ schema describing an analysis model """
 
-from typing import Any, Optional, List, Literal
-
-from pydantic import Field
+from typing import Any, List, Literal, Optional
 
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.system_architecture import ModelBackbone
+from pydantic import Field
 
-from aind_data_schema.base import AindCoreModel, AindGenericType, AindModel, AindGeneric
+from aind_data_schema.base import AindCoreModel, AindGeneric, AindGenericType, AindModel
 from aind_data_schema.components.devices import Software
 from aind_data_schema.core.processing import DataProcess, ProcessName
 
@@ -41,7 +40,9 @@ class ModelTraining(DataProcess):
     """Description of model training"""
 
     name: ProcessName = Field(ProcessName.MODEL_TRAINING, title="Process name")
-    train_performance: List[PerformanceMetric] = Field(..., title="Training performance", description="Performance on training set")
+    train_performance: List[PerformanceMetric] = Field(
+        ..., title="Training performance", description="Performance on training set"
+    )
     test_performance: Optional[List[PerformanceMetric]] = Field(
         default=None, title="Test performance", description="Performance on untrained data, evaluated during training"
     )
