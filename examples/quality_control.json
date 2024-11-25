@@ -82,7 +82,8 @@
          ],
          "tags": null,
          "notes": "",
-         "allow_failed_metrics": false
+         "allow_failed_metrics": false,
+         "latest_status": "Pending"
       },
       {
          "modality": {
@@ -124,7 +125,8 @@
          ],
          "tags": null,
          "notes": "Pass when video_1_num_frames==video_2_num_frames",
-         "allow_failed_metrics": false
+         "allow_failed_metrics": false,
+         "latest_status": "Pass"
       },
       {
          "modality": {
@@ -180,7 +182,8 @@
          ],
          "tags": null,
          "notes": null,
-         "allow_failed_metrics": false
+         "allow_failed_metrics": false,
+         "latest_status": "Pass"
       }
    ],
    "notes": null
