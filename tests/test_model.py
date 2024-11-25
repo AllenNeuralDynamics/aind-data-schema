@@ -27,10 +27,11 @@ class ModelTests(unittest.TestCase):
         m = Model(
             name="2024_01_01_ResNet18_SmartSPIM.h5",
             license="CC-BY-4.0",
-            developer_full_name="Joe Schmoe",
+            developer_full_name=["Joe Schmoe"],
             developer_institution=Organization.AIND,
             modality=Modality.SPIM,
-            model_architecture=ModelArchitecture(
+            pretrained_source_url="url pretrained weights are from",
+            architecture=ModelArchitecture(
                 backbone=ModelBackbone.RESNET,
                 layers=18,
                 parameters={
@@ -40,26 +41,23 @@ class ModelTests(unittest.TestCase):
                         14,
                         26
                     ],
-                    "learning_rate": 0.0001,
-                    "train_test_split": 0.8,
-                    "batch_size": 32,
-                    "augmentation": True,
-                    "finetuning": True
                 },
+                software=[Software(
+                    name="tensorflow",
+                    version="2.11.0",
+                    )
+                ],
             ),
-            software=[Software(
-                name="tensorflow",
-                version="2.11.0",
-                )
-            ],
             intended_use="Cell counting for 488 channel of SmartSPIM data",
             limitations="Only trained on 488 channel",
             training=[
                 ModelTraining(
-                    data="path to training set",
-                    data_description="description of training set",
-                    date=now,
-                    performance=[
+                    input_location=["s3 path to eval 1", "s3 path to eval 2"],
+                    output_location="s3 path to trained model asset",
+                    code_url="url for training code repo",
+                    start_date_time=now,
+                    end_date_time=now,
+                    train_performance=[
                         PerformanceMetric(
                             name="precision",
                             value=0.9
@@ -69,18 +67,36 @@ class ModelTests(unittest.TestCase):
                             value=0.85
                         )
                     ],
-                    cross_validation_method="5-fold"
+                    test_performance=[
+                        PerformanceMetric(
+                            name="precision",
+                            value=0.8
+                        ),
+                        PerformanceMetric(
+                            name="recall",
+                            value=0.8
+                        )
+                    ],
+                    test_data="4:1 train/test split",
+                    parameters={
+                        "learning_rate": 0.0001,
+                        "batch_size": 32,
+                        "augmentation": True,
+                    },
+                    notes="note on training data selection"
                 )
             ],
             evaluations=[
                 ModelEvaluation(
-                    data="path to evaluation data",
-                    data_description="description of evaluation set",
-                    date=now,
+                    input_location=["s3 path to eval 1", "s3 path to eval 2"],
+                    output_location="s3 path (output asset or trained model asset if no output)",
+                    code_url="url for evaluation code repo (or capsule?)",
+                    start_date_time=now,
+                    end_date_time=now,
                     performance=[
                         PerformanceMetric(
                             name="precision",
-                            value="0.8"
+                            value=0.8
                         )
                     ]
                 )

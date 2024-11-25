@@ -8,16 +8,18 @@ from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.system_architecture import ModelBackbone
 
-from aind_data_schema.base import AindCoreModel, AindGenericType, AindModel, AwareDatetimeWithDefault
+from aind_data_schema.base import AindCoreModel, AindGenericType, AindModel, AindGeneric
 from aind_data_schema.components.devices import Software
+from aind_data_schema.core.processing import DataProcess, ProcessName
 
 
 class ModelArchitecture(AindModel):
     """Description of model architecture"""
 
-    backbone: ModelBackbone = Field(..., title="Backbone")
+    backbone: ModelBackbone = Field(..., title="Backbone", description="Core network architecture")
+    software: List[Software] = Field(default=[], title="Software frameworks")
     layers: Optional[int] = Field(default=None, title="Layers")
-    parameters: AindGenericType = Field(..., title="Parameters")
+    parameters: AindGenericType = Field(default=AindGeneric(), title="Parameters")
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
@@ -28,20 +30,24 @@ class PerformanceMetric(AindModel):
     value: Any = Field(..., title="Metric value")
 
 
-class ModelEvaluation(AindModel):
+class ModelEvaluation(DataProcess):
     """Description of model evaluation"""
 
-    data: Optional[str] = Field(default=None, title="Path to evaluation data")
-    data_description: Optional[str] = Field(default=None, title="Description of evaluation data")
-    date: AwareDatetimeWithDefault = Field(..., title="Date")
+    name: ProcessName = Field(ProcessName.MODEL_EVALUATION, title="Process name")
     performance: List[PerformanceMetric] = Field(..., title="Evaluation performance")
-    notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class ModelTraining(ModelEvaluation):
+class ModelTraining(DataProcess):
     """Description of model training"""
 
-    cross_validation_method: str = Field(..., title="Cross validation method")
+    name: ProcessName = Field(ProcessName.MODEL_TRAINING, title="Process name")
+    train_performance: List[PerformanceMetric] = Field(..., title="Training performance", description="Performance on training set")
+    test_performance: Optional[List[PerformanceMetric]] = Field(
+        default=None, title="Test performance", description="Performance on untrained data, evaluated during training"
+    )
+    test_data: Optional[str] = Field(
+        default=None, title="Test data", description="Path or cross-validation/split approach"
+    )
 
 
 class Model(AindCoreModel):
@@ -56,10 +62,10 @@ class Model(AindCoreModel):
     developer_full_name: Optional[List[str]] = Field(default=None, title="Name of developer")
     developer_institution: Optional[Organization.ONE_OF] = Field(default=None, title="Institute where developed")
     modality: Modality.ONE_OF = Field(..., title="Modality")
-    model_architecture: ModelArchitecture = Field(..., title="Model architecture")
-    software: List[Software] = Field(..., title="Software")
+    architecture: ModelArchitecture = Field(..., title="Model architecture")
     intended_use: str = Field(..., title="Intended model use", description="Semantic description of intended use")
     limitations: Optional[str] = Field(default=None, title="Model limitations")
+    pretrained_source_url: Optional[str] = Field(default=None, title="Pretrained source URL")
     training: Optional[List[ModelTraining]] = Field(default=[], title="Training")
     evaluations: Optional[List[ModelEvaluation]] = Field(default=[], title="Evaluations")
     notes: Optional[str] = Field(default=None, title="Notes")
