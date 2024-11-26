@@ -3,6 +3,7 @@
 from datetime import datetime, timezone
 from enum import Enum
 from typing import Any, List, Literal, Optional, Union
+import warnings
 
 from aind_data_schema_models.modalities import Modality
 from pydantic import BaseModel, Field, SkipValidation, field_validator, model_validator
@@ -91,8 +92,47 @@ class QCEvaluation(AindModel):
             " will allow individual metrics to fail while still passing the evaluation."
         ),
     )
+    latest_status: Status = Field(default=None, title="Evaluation status")
 
     def status(self, date: datetime = datetime.now(tz=timezone.utc)) -> Status:
+        """DEPRECATED
+
+        Replace with QCEvaluation.status or QCEvaluation.evaluate_status()
+        """
+        warnings.warn(
+            "The status method is deprecated. Please use QCEvaluation.status or QCEvaluation.evaluate_status()",
+            DeprecationWarning,
+        )
+        return self.evaluate_status(date)
+
+    @property
+    def failed_metrics(self) -> Optional[List[QCMetric]]:
+        """Return any metrics that are failing
+
+        Returns none if allow_failed_metrics is False
+
+        Returns
+        -------
+        list[QCMetric]
+            Metrics that fail
+        """
+        if not self.allow_failed_metrics:
+            return None
+        else:
+            failing_metrics = []
+            for metric in self.metrics:
+                if metric.status.status == Status.FAIL:
+                    failing_metrics.append(metric)
+
+            return failing_metrics
+
+    @model_validator(mode="after")
+    def compute_latest_status(self):
+        """Compute the status of the evaluation based on the status of its metrics"""
+        self.latest_status = self.evaluate_status()
+        return self
+
+    def evaluate_status(self, date: datetime = datetime.now(tz=timezone.utc)) -> Status:
         """Loop through all metrics and return the evaluation's status
 
         Any fail -> FAIL
@@ -122,27 +162,6 @@ class QCEvaluation(AindModel):
             return Status.PENDING
 
         return Status.PASS
-
-    @property
-    def failed_metrics(self) -> Optional[List[QCMetric]]:
-        """Return any metrics that are failing
-
-        Returns none if allow_failed_metrics is False
-
-        Returns
-        -------
-        list[QCMetric]
-            Metrics that fail
-        """
-        if not self.allow_failed_metrics:
-            return None
-        else:
-            failing_metrics = []
-            for metric in self.metrics:
-                if metric.status.status == Status.FAIL:
-                    failing_metrics.append(metric)
-
-            return failing_metrics
 
     @model_validator(mode="after")
     def validate_multi_asset(cls, v):
@@ -192,7 +211,7 @@ class QualityControl(AindCoreModel):
         All PASS -> PASS
         """
         if not modality and not stage and not tag:
-            eval_statuses = [evaluation.status(date=date) for evaluation in self.evaluations]
+            eval_statuses = [evaluation.evaluate_status(date=date) for evaluation in self.evaluations]
         else:
             if modality and not isinstance(modality, list):
                 modality = [modality]
@@ -202,7 +221,7 @@ class QualityControl(AindCoreModel):
                 tag = [tag]
 
             eval_statuses = [
-                evaluation.status(date=date)
+                evaluation.evaluate_status(date=date)
                 for evaluation in self.evaluations
                 if (not modality or any(evaluation.modality == mod for mod in modality))
                 and (not stage or any(evaluation.stage == sta for sta in stage))
