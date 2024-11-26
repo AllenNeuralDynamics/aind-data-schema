@@ -6,6 +6,7 @@ from enum import Enum
 from typing import List, Literal, Optional, Set, Union
 
 from aind_data_schema_models.mouse_anatomy import MouseAnatomicalStructure
+from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.pid_names import PIDName
 from aind_data_schema_models.species import Species
 from aind_data_schema_models.specimen_procedure_types import SpecimenProcedureType
@@ -134,6 +135,29 @@ class VirusPrepType(str, Enum):
 
     CRUDE = "Crude"
     PURIFIED = "Purified"
+
+
+class CatheterMaterial(str, Enum):
+    """Type of catheter material"""
+
+    NAKED = "Naked"
+    SILICONE = "VAB silicone"
+    MESH = "VAB mesh"
+
+
+class CatheterDesign(str, Enum):
+    """Type of catheter design"""
+
+    MAGNETIC = "Magnetic"
+    NONMAGNETIC = "Non-magnetic"
+    NA = "N/A"
+
+
+class CatheterPort(str, Enum):
+    """Type of catheter port"""
+
+    SINGLE = "Single"
+    DOUBLE = "Double"
 
 
 class Readout(Reagent):
@@ -290,6 +314,27 @@ class OtherSubjectProcedure(AindModel):
     protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
     description: str = Field(..., title="Description")
     notes: Optional[str] = Field(default=None, title="Notes")
+
+
+class CatheterImplant(AindModel):
+    """Description of a catheter implant procedure"""
+
+    procedure_type: Literal["Catheter implant"] = "Catheter implant"
+    protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
+    iacuc_protocol: Optional[str] = Field(default=None, title="IACUC protocol")
+    start_date: date = Field(..., title="Start date")
+    experimenter_full_name: str = Field(
+        ...,
+        description="First and last name of the experimenter.",
+        title="Experimenter full name",
+    )
+    where_performed: Annotated[Union[Organization.AIND, Organization.JAX],
+                               Field(..., title="Where performed", discriminator="name")]
+    catheter_material: CatheterMaterial = Field(..., title="Catheter material")
+    catheter_design: CatheterDesign = Field(..., title="Catheter design")
+    catheter_port: CatheterPort = Field(..., title="Catheter port")
+    targeted_vessel: Annotated[Union[MouseAnatomicalStructure.JUGULAR_VEIN, MouseAnatomicalStructure.CAROTID_ARTERY],
+                               Field(..., title="Targeted blood vessel", discriminator="name")]
 
 
 class Craniotomy(AindModel):
