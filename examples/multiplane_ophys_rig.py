@@ -526,7 +526,7 @@ rig = Rig(
     pockels_cells=[
         PockelsCell(
             name="Pockels Cell 1",
-            polygonal_scanner="no polygon scanner",
+            polygonal_scanner="",
             on_time=12.0,
             off_time=13.0,
             manufacturer=Organization.CONOPTICS,
