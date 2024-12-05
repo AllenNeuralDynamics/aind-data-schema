@@ -3,17 +3,12 @@
 from datetime import date
 from decimal import Decimal
 
+from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.units import FrequencyUnit, SizeUnit
-from aind_data_schema_models.modalities import Modality
 
 from aind_data_schema.base import AindGeneric
-from aind_data_schema.components.coordinates import (
-    Axis,
-    RelativePosition,
-    Rotation3dTransform,
-    Translation3dTransform,
-)
+from aind_data_schema.components.coordinates import Axis, RelativePosition, Rotation3dTransform, Translation3dTransform
 from aind_data_schema.components.devices import (
     BinMode,
     Camera,
@@ -28,9 +23,8 @@ from aind_data_schema.components.devices import (
     PockelsCell,
     Software,
 )
-from aind_data_schema.core.instrument import DAQDevice
+from aind_data_schema.core.instrument import DAQDevice, Objective
 from aind_data_schema.core.rig import Monitor, Rig
-from aind_data_schema.core.instrument import Objective
 
 rig = Rig(
     describedBy="https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/rig.py",  # noqa
