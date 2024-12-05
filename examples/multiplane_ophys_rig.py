@@ -8,7 +8,12 @@ from aind_data_schema_models.units import FrequencyUnit, SizeUnit
 from aind_data_schema_models.modalities import Modality
 
 from aind_data_schema.base import AindGeneric
-from aind_data_schema.components.coordinates import Axis, RelativePosition, Rotation3dTransform, Translation3dTransform
+from aind_data_schema.components.coordinates import (
+    Axis,
+    RelativePosition,
+    Rotation3dTransform,
+    Translation3dTransform,
+)
 from aind_data_schema.components.devices import (
     BinMode,
     Camera,
