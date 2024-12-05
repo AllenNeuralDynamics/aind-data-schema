@@ -29,7 +29,7 @@ from aind_data_schema.core.rig import Monitor, Rig
 rig = Rig(
     describedBy="https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/rig.py",  # noqa
     schema_version="1.0.1",
-    rig_id="429_mesoscope_20220321",
+    rig_id="429-mesoscope-20220321",
     modification_date=date(2024, 10, 16),
     mouse_platform=Disc(
         device_type="Disc",
