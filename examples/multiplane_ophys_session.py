@@ -18,7 +18,7 @@ s = Session(
     session_type="Mesoscope",
     iacuc_protocol="12345",
     rig_id="429_mesoscope_20220321",
-    mouse_platform_name="disc",
+    mouse_platform_name="MindScope Running Disc",
     active_mouse_platform=True,
     data_streams=[
         Stream(
