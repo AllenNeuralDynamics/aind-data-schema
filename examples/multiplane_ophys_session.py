@@ -24,13 +24,12 @@ s = Session(
         Stream(
             stream_start_time=t,
             stream_end_time=t,
-            stream_modalities=[Modality.POPHYS, Modality.BEHAVIOR_VIDEOS, Modality.CONFOCAL],
-            daq_names = [
-                "NI PCIe-6612",
-                "NI PCIe-6321",
-                "NI USB-6001",
-                "NI OEM-6001"
+            stream_modalities=[
+                Modality.POPHYS,
+                Modality.BEHAVIOR_VIDEOS,
+                Modality.CONFOCAL,
             ],
+            daq_names=["NI PCIe-6612", "NI PCIe-6321", "NI USB-6001", "NI OEM-6001"],
             camera_names=[
                 "Behavior Camera",
                 "Eye Camera",
