@@ -44,7 +44,7 @@ class ModelTraining(DataProcess):
         ..., title="Training performance", description="Performance on training set"
     )
     test_performance: Optional[List[PerformanceMetric]] = Field(
-        default=None, title="Test performance", description="Performance on untrained data, evaluated during training"
+        default=None, title="Test performance", description="Performance on test data, evaluated during training"
     )
     test_data: Optional[str] = Field(
         default=None, title="Test data", description="Path or cross-validation/split approach"
