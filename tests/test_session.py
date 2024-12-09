@@ -64,7 +64,7 @@ class ExampleTest(unittest.TestCase):
                             assembly_name="Ephys_assemblyA",
                             arc_angle=0,
                             module_angle=10,
-                            primary_targeted_structure="VISlm",
+                            primary_targeted_structure="VISl",
                             targeted_ccf_coordinates=[CcfCoords(ml="1", ap="1", dv="1")],
                             manipulator_coordinates=Coordinates3d(x="1", y="1", z="1"),
                         ),
