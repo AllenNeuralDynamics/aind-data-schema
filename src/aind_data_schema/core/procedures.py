@@ -357,27 +357,6 @@ class CatheterMaintenance(AindModel):
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class BloodCollection(AindModel):
-    """Description of a blood collection procedure"""
-
-    procedure_type: Literal["Blood collection"] = "Blood collection"
-    protocol_id = Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
-    iacuc_protcol: str = Field(..., title="IACUC protocol")
-    start_date: date = Field(..., title="Start date")
-    experimenter_full_name: str = Field(
-        ...,
-        description="First and last name of the experimenter.",
-        title="Experimenter full name",
-    )
-    injection: IntraperitonealInjection = Field(..., title="IP injection")
-    injection_time:
-    collection_time:
-    collection_volume: Decimal = Field(..., title="Collection volume")
-    collection_volume_unit: VolumeUnit = Field(..., title="Collection volume unit")
-    collection_method: Optional[str] = Field(default=None, title="Collection method for terminal collection")
-    notes: Optional[str] = Field(default=None, title="Notes"
-
-
 class Craniotomy(AindModel):
     """Description of craniotomy procedure"""
 
@@ -579,6 +558,28 @@ class IntraCisternalMagnaInjection(BrainInjection):
         description="Injection volume, one value per location",
     )
     injection_volume_unit: VolumeUnit = Field(VolumeUnit.NL, title="Injection volume unit")
+
+
+class BloodCollection(AindModel):
+    """Description of a blood collection procedure"""
+
+    procedure_type: Literal["Blood collection"] = "Blood collection"
+    protocol_id = Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
+    iacuc_protcol: str = Field(..., title="IACUC protocol")
+    start_date: date = Field(..., title="Start date")
+    experimenter_full_name: str = Field(
+        ...,
+        description="First and last name of the experimenter.",
+        title="Experimenter full name",
+    )
+    injection: IntraperitonealInjection = Field(..., title="IP injection")
+    injection_time: int = Field(..., title="Relative injection time")
+    collection_time: int = Field(..., title="Relative collection time")
+    time_unit: TimeUnit = Field(default=TimeUnit.M, title="Time unit")
+    collection_volume: Decimal = Field(..., title="Collection volume")
+    collection_volume_unit: VolumeUnit = Field(..., title="Collection volume unit")
+    collection_method: Optional[str] = Field(default=None, title="Collection method for terminal collection")
+    notes: Optional[str] = Field(default=None, title="Notes"
 
 
 class TrainingProtocol(AindModel):
