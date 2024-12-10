@@ -333,7 +333,7 @@ class CatheterImplant(AindModel):
     catheter_material: CatheterMaterial = Field(..., title="Catheter material")
     catheter_design: CatheterDesign = Field(..., title="Catheter design")
     catheter_port: CatheterPort = Field(..., title="Catheter port")
-    targeted_vessel: MouseAnatomicalStructure.BODY_PARTS = Field(..., title="Targeted blood vessel")
+    targeted_vessel: MouseAnatomicalStructure.BLOOD_VESSELS = Field(..., title="Targeted blood vessel")
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
@@ -572,7 +572,7 @@ class BloodCollection(AindModel):
         description="First and last name of the experimenter.",
         title="Experimenter full name",
     )
-    injection: IntraperitonealInjection = Field(..., title="IP injection")
+    injection: List[IntraperitonealInjection] = Field(..., title="IP injections")
     injection_time: int = Field(..., title="Relative injection time")
     collection_time: int = Field(..., title="Relative collection time")
     time_unit: TimeUnit = Field(default=TimeUnit.M, title="Time unit")
