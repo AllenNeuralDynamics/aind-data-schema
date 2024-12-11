@@ -3,7 +3,7 @@
 import json
 import re
 from pathlib import Path
-from typing import Any, Generic, Optional, TypeVar
+from typing import Any, Generic, Optional, TypeVar, get_args
 
 from pydantic import (
     AwareDatetime,
@@ -16,6 +16,7 @@ from pydantic import (
     ValidatorFunctionWrapHandler,
     create_model,
     model_validator,
+    field_validator,
 )
 from pydantic.functional_validators import WrapValidator
 from typing_extensions import Annotated
@@ -121,6 +122,13 @@ class AindCoreModel(AindModel):
     schema_version: str = Field(
         ..., pattern=r"^\d+.\d+.\d+$", description="schema version", title="Version", frozen=True
     )
+
+    @field_validator("schema_version", mode="before")
+    @classmethod
+    def coerce_version(cls, v: str) -> str:
+        """Update the schema version to the latest version
+        """
+        return get_args(cls.model_fields["schema_version"].annotation)[0]
 
     @classmethod
     def default_filename(cls):

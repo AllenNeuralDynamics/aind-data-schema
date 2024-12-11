@@ -6,9 +6,10 @@ from datetime import datetime, timezone
 from pathlib import Path
 from unittest.mock import MagicMock, call, mock_open, patch
 
-from pydantic import ValidationError, create_model
+from pydantic import ValidationError, create_model, SkipValidation, field_validator
+from typing import Literal
 
-from aind_data_schema.base import AindGeneric, AwareDatetimeWithDefault, is_dict_corrupt, AindModel
+from aind_data_schema.base import AindGeneric, AwareDatetimeWithDefault, is_dict_corrupt, AindModel, AindCoreModel
 from aind_data_schema.core.subject import Subject
 from aind_data_schema_models.brain_atlas import CCFStructure
 
@@ -121,6 +122,30 @@ class BaseTests(unittest.TestCase):
             targeted_structure: CCFStructure.ONE_OF
 
         self.assertRaises(ValueError, StructureModel, targeted_structure="invalid")
+
+    def test_schema_bump(self):
+        """Test that schema version are bumped successfully
+        and that validation errors prevent bumping"""
+        class Modelv1(AindCoreModel):
+            describedBy: str = "modelv1"
+            schema_version: SkipValidation[Literal["1.0.0"]] = "1.0.0"
+
+        class Modelv2(AindCoreModel):
+            describedBy: str = "modelv2"
+            schema_version: SkipValidation[Literal["1.0.1"]] = "1.0.1"
+            extra_field: str = "extra_field"
+
+        v1_init = Modelv1()
+        self.assertEqual("1.0.0", v1_init.schema_version)
+
+        v2_from_v1 = Modelv2(
+            **v1_init.model_dump()
+        )
+        self.assertEqual("1.0.1", v2_from_v1.schema_version)
+
+        # Check that adding additional fields still fails validation
+        # this is to ensure you can't get a bumped schema_version without passing validation
+        self.assertRaises(ValidationError, lambda: Modelv1(**v2_from_v1.model_dump()))
 
 
 if __name__ == "__main__":
