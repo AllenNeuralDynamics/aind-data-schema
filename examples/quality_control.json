@@ -83,7 +83,8 @@
          "tags": null,
          "notes": "",
          "allow_failed_metrics": false,
-         "latest_status": "Pending"
+         "latest_status": "Pending",
+         "created": "2022-11-22T00:00:00Z"
       },
       {
          "modality": {
@@ -126,7 +127,8 @@
          "tags": null,
          "notes": "Pass when video_1_num_frames==video_2_num_frames",
          "allow_failed_metrics": false,
-         "latest_status": "Pass"
+         "latest_status": "Pass",
+         "created": "2022-11-22T00:00:00Z"
       },
       {
          "modality": {
@@ -183,7 +185,8 @@
          "tags": null,
          "notes": null,
          "allow_failed_metrics": false,
-         "latest_status": "Pass"
+         "latest_status": "Pass",
+         "created": "2022-11-22T00:00:00Z"
       }
    ],
    "notes": null

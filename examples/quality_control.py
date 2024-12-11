@@ -52,6 +52,7 @@ eval0 = QCEvaluation(
         QCMetric(name="Probe C drift", value="Low", reference="ecephys-drift-map", status_history=[s]),
     ],
     notes="",
+    created=t,
 )
 
 eval1 = QCEvaluation(
@@ -63,6 +64,7 @@ eval1 = QCEvaluation(
         QCMetric(name="video_2_num_frames", value=662, status_history=[s]),
     ],
     notes="Pass when video_1_num_frames==video_2_num_frames",
+    created=t,
 )
 
 eval2 = QCEvaluation(
@@ -74,6 +76,7 @@ eval2 = QCEvaluation(
         QCMetric(name="ProbeB_success", value=True, status_history=[s]),
         QCMetric(name="ProbeC_success", value=True, status_history=[s]),
     ],
+    created=t,
 )
 
 q = QualityControl(evaluations=[eval0, eval1, eval2])
