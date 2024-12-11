@@ -6,7 +6,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from unittest.mock import MagicMock, call, mock_open, patch
 
-from pydantic import ValidationError, create_model, SkipValidation, field_validator
+from pydantic import ValidationError, create_model, SkipValidation
 from typing import Literal
 
 from aind_data_schema.base import AindGeneric, AwareDatetimeWithDefault, is_dict_corrupt, AindModel, AindCoreModel
