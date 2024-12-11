@@ -126,8 +126,7 @@ class AindCoreModel(AindModel):
     @field_validator("schema_version", mode="before")
     @classmethod
     def coerce_version(cls, v: str) -> str:
-        """Update the schema version to the latest version
-        """
+        """Update the schema version to the latest version"""
         return get_args(cls.model_fields["schema_version"].annotation)[0]
 
     @classmethod

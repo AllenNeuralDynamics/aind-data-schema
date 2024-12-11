@@ -119,6 +119,7 @@ class BaseTests(unittest.TestCase):
 
         class StructureModel(AindModel):
             """Test model with a targeted_structure"""
+
             targeted_structure: CCFStructure.ONE_OF
 
         self.assertRaises(ValueError, StructureModel, targeted_structure="invalid")
@@ -126,6 +127,7 @@ class BaseTests(unittest.TestCase):
     def test_schema_bump(self):
         """Test that schema version are bumped successfully
         and that validation errors prevent bumping"""
+
         class Modelv1(AindCoreModel):
             describedBy: str = "modelv1"
             schema_version: SkipValidation[Literal["1.0.0"]] = "1.0.0"
@@ -138,9 +140,7 @@ class BaseTests(unittest.TestCase):
         v1_init = Modelv1()
         self.assertEqual("1.0.0", v1_init.schema_version)
 
-        v2_from_v1 = Modelv2(
-            **v1_init.model_dump()
-        )
+        v2_from_v1 = Modelv2(**v1_init.model_dump())
         self.assertEqual("1.0.1", v2_from_v1.schema_version)
 
         # Check that adding additional fields still fails validation
