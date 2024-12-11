@@ -93,7 +93,9 @@ class QCEvaluation(AindModel):
         ),
     )
     latest_status: Status = Field(default=None, title="Evaluation status")
-    created: AwareDatetimeWithDefault = Field(default_factory=lambda: datetime.now(tz=timezone.utc), title="Evaluation creation date")
+    created: AwareDatetimeWithDefault = Field(
+        default_factory=lambda: datetime.now(tz=timezone.utc), title="Evaluation creation date"
+    )
 
     def status(self, date: datetime = datetime.now(tz=timezone.utc)) -> Status:
         """DEPRECATED

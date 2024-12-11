@@ -118,6 +118,7 @@ class BaseTests(unittest.TestCase):
 
         class StructureModel(AindModel):
             """Test model with a targeted_structure"""
+
             targeted_structure: CCFStructure.ONE_OF
 
         self.assertRaises(ValueError, StructureModel, targeted_structure="invalid")
