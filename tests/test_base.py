@@ -129,10 +129,12 @@ class BaseTests(unittest.TestCase):
         and that validation errors prevent bumping"""
 
         class Modelv1(AindCoreModel):
+            """test class"""
             describedBy: str = "modelv1"
             schema_version: SkipValidation[Literal["1.0.0"]] = "1.0.0"
 
         class Modelv2(AindCoreModel):
+            """test class"""
             describedBy: str = "modelv2"
             schema_version: SkipValidation[Literal["1.0.1"]] = "1.0.1"
             extra_field: str = "extra_field"
