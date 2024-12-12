@@ -3,6 +3,7 @@
 import datetime
 
 from aind_data_schema_models.organizations import Organization
+from aind_data_schema_models.units import SizeUnit
 
 from aind_data_schema.components.devices import (
     AdditionalImagingDevice,
@@ -166,6 +167,7 @@ inst = Instrument(
             manufacturer=Organization.SEMROCK,
             diameter=25,
             thickness=2.0,
+            thickness_unit=SizeUnit.MM,
             model="FF03-525/50-25",
             filter_wheel_index=0,
         ),
@@ -175,6 +177,7 @@ inst = Instrument(
             manufacturer=Organization.SEMROCK,
             diameter=25,
             thickness=2.0,
+            thickness_unit=SizeUnit.MM,
             model="FF01-600/52-25",
             filter_wheel_index=1,
         ),
@@ -184,6 +187,7 @@ inst = Instrument(
             manufacturer=Organization.CHROMA,
             diameter=25,
             thickness=2.0,
+            thickness_unit=SizeUnit.MM,
             model="ET690/50m",
             filter_wheel_index=2,
         ),

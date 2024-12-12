@@ -5,6 +5,7 @@ import unittest
 from datetime import date
 
 from aind_data_schema_models.organizations import Organization
+from aind_data_schema_models.units import TimeUnit, ConcentrationUnit
 from pydantic import ValidationError
 from pydantic import __version__ as pyd_version
 
@@ -59,7 +60,9 @@ class ProceduresTests(unittest.TestCase):
                                 injection_volume=1,
                                 injection_eye="Left",
                                 injection_duration=1,
+                                injection_duration_unit=TimeUnit.S,
                                 recovery_time=10,
+                                recovery_time_unit=TimeUnit.M,
                             ),
                         ],
                     )
@@ -81,7 +84,9 @@ class ProceduresTests(unittest.TestCase):
                                 injection_volume=1,
                                 injection_eye="Left",
                                 injection_duration=1,
+                                injection_duration_unit=TimeUnit.S,
                                 recovery_time=10,
+                                recovery_time_unit=TimeUnit.M,
                             ),
                         ],
                     )
@@ -112,7 +117,9 @@ class ProceduresTests(unittest.TestCase):
                                 injection_volume=1,
                                 injection_eye="Left",
                                 injection_duration=1,
+                                injection_duration_unit=TimeUnit.S,
                                 recovery_time=10,
+                                recovery_time_unit=TimeUnit.M,
                             ),
                         ],
                     )
@@ -156,7 +163,9 @@ class ProceduresTests(unittest.TestCase):
                             injection_volume=1,
                             injection_eye="Left",
                             injection_duration=1,
+                            injection_duration_unit=TimeUnit.S,
                             recovery_time=10,
+                            recovery_time_unit=TimeUnit.M,
                         ),
                         IntraperitonealInjection(
                             protocol_id="234",
@@ -167,6 +176,7 @@ class ProceduresTests(unittest.TestCase):
                                     source=Organization.AI,
                                     lot_number="12345",
                                     concentration=1,
+                                    concentration_unit=ConcentrationUnit.UM,
                                 )
                             ],
                             injection_volume=1,
@@ -186,6 +196,7 @@ class ProceduresTests(unittest.TestCase):
                                 )
                             ],
                             injection_duration=1,
+                            injection_duration_unit=TimeUnit.S,
                             injection_coordinate_ml=1,
                             injection_coordinate_ap=1,
                             injection_coordinate_depth=[1],
@@ -194,6 +205,7 @@ class ProceduresTests(unittest.TestCase):
                             injection_angle=1,
                             injection_volume=[1],
                             recovery_time=10,
+                            recovery_time_unit=TimeUnit.M,
                             targeted_structure="VISp6",
                         ),
                         FiberImplant(

@@ -6,7 +6,7 @@ from datetime import datetime
 from aind_data_schema_models.modalities import Modality
 from pydantic import ValidationError
 
-from aind_data_schema.core.quality_control import QCEvaluation, QualityControl, QCMetric, Stage, Status, QCStatus
+from aind_data_schema.core.quality_control import QCEvaluation, QCMetric, QCStatus, QualityControl, Stage, Status
 
 
 class QualityControlTests(unittest.TestCase):

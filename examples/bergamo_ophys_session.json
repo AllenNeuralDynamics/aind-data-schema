@@ -68,10 +68,10 @@
                "frame_rate_unit": "hertz",
                "coupled_fov_index": null,
                "power": null,
-               "power_unit": "percent",
+               "power_unit": null,
                "power_ratio": null,
                "scanfield_z": null,
-               "scanfield_z_unit": "micrometer",
+               "scanfield_z_unit": null,
                "scanimage_roi_index": null,
                "notes": null
             }

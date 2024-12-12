@@ -31,7 +31,7 @@
                "dura_removed": null,
                "protective_material": null,
                "recovery_time": null,
-               "recovery_time_unit": "minute"
+               "recovery_time_unit": null
             },
             {
                "injection_materials": [
@@ -52,9 +52,9 @@
                   }
                ],
                "recovery_time": "0",
-               "recovery_time_unit": "minute",
+               "recovery_time_unit": null,
                "injection_duration": null,
-               "injection_duration_unit": "minute",
+               "injection_duration_unit": null,
                "instrument_id": null,
                "protocol_id": "5678",
                "injection_coordinate_ml": "-0.87",

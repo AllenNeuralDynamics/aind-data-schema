@@ -3,6 +3,7 @@
 import datetime
 
 from aind_data_schema_models.organizations import Organization
+from aind_data_schema_models.units import SizeUnit, FrequencyUnit
 
 from aind_data_schema.components.devices import DAQChannel, DAQDevice, Detector, Filter, Laser
 from aind_data_schema.core import instrument
@@ -79,6 +80,7 @@ inst = instrument.Instrument(
             manufacturer=Organization.CHROMA,
             diameter=44.05,
             thickness=1,
+            thickness_unit=SizeUnit.MM,
             model="ZET405/488/561/640mv2",
             notes="Custom made filter",
             filter_wheel_index=0,
@@ -97,36 +99,42 @@ inst = instrument.Instrument(
                     channel_type="Analog Output",
                     device_name="LAS-08308",
                     sample_rate=10000,
+                    sample_rate_unit=FrequencyUnit.HZ,
                 ),
                 DAQChannel(
                     channel_name="5",
                     channel_type="Analog Output",
                     device_name="539251",
                     sample_rate=10000,
+                    sample_rate_unit=FrequencyUnit.HZ,
                 ),
                 DAQChannel(
                     channel_name="4",
                     channel_type="Analog Output",
                     device_name="LAS-08309",
                     sample_rate=10000,
+                    sample_rate_unit=FrequencyUnit.HZ,
                 ),
                 DAQChannel(
                     channel_name="2",
                     channel_type="Analog Output",
                     device_name="stage-x",
                     sample_rate=10000,
+                    sample_rate_unit=FrequencyUnit.HZ,
                 ),
                 DAQChannel(
                     channel_name="0",
                     channel_type="Analog Output",
                     device_name="TL-1",
                     sample_rate=10000,
+                    sample_rate_unit=FrequencyUnit.HZ,
                 ),
                 DAQChannel(
                     channel_name="6",
                     channel_type="Analog Output",
                     device_name="LAS-08307",
                     sample_rate=10000,
+                    sample_rate_unit=FrequencyUnit.HZ,
                 ),
             ],
         )

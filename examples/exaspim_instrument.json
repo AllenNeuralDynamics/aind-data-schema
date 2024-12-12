@@ -81,7 +81,7 @@
          "cooling": "Air",
          "computer_name": null,
          "frame_rate": null,
-         "frame_rate_unit": "hertz",
+         "frame_rate_unit": null,
          "immersion": null,
          "chroma": null,
          "sensor_width": null,

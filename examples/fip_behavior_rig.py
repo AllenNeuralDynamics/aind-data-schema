@@ -4,6 +4,7 @@
 from datetime import date, datetime, timezone
 
 from aind_data_schema_models.modalities import Modality
+from aind_data_schema_models.units import FrequencyUnit, SizeUnit
 
 import aind_data_schema.components.devices as d
 import aind_data_schema.core.rig as r
@@ -26,6 +27,7 @@ r = r.Rig(
                 data_interface="USB",
                 computer_name="W10DTJK7N0M3",
                 frame_rate=120,
+                frame_rate_unit=FrequencyUnit.HZ,
                 sensor_width=640,
                 sensor_height=480,
                 chroma="Color",
@@ -55,6 +57,7 @@ r = r.Rig(
                 data_interface="USB",
                 computer_name="W10DTJK7N0M3",
                 frame_rate=120,
+                frame_rate_unit=FrequencyUnit.HZ,
                 sensor_width=640,
                 sensor_height=480,
                 chroma="Color",
@@ -301,6 +304,7 @@ r = r.Rig(
             model="AC254-080-A-ML",
             name="Image focusing lens",
             focal_length=80,
+            focal_length_unit=SizeUnit.MM,
             size=1,
         )
     ],

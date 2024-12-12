@@ -1,11 +1,12 @@
 """ test Rig """
 
-import unittest
 import json
+import unittest
 from datetime import date, datetime
 
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
+from aind_data_schema_models.units import FrequencyUnit
 from pydantic import ValidationError
 from pydantic_core import PydanticSerializationError
 
@@ -133,6 +134,7 @@ class RigTests(unittest.TestCase):
                         data_interface="USB",
                         computer_name="ASDF",
                         frame_rate=144,
+                        frame_rate_unit=FrequencyUnit.HZ,
                         sensor_width=1,
                         sensor_height=1,
                         chroma="Color",
@@ -149,6 +151,7 @@ class RigTests(unittest.TestCase):
                         data_interface="USB",
                         computer_name="ASDF",
                         frame_rate=144,
+                        frame_rate_unit=FrequencyUnit.HZ,
                         sensor_width=1,
                         sensor_height=1,
                         chroma="Color",
@@ -394,6 +397,7 @@ class RigTests(unittest.TestCase):
                             data_interface="USB",
                             computer_name="ASDF",
                             frame_rate=144,
+                            frame_rate_unit=FrequencyUnit.HZ,
                             sensor_width=1,
                             sensor_height=1,
                             chroma="Color",
@@ -410,6 +414,7 @@ class RigTests(unittest.TestCase):
                             data_interface="USB",
                             computer_name="ASDF",
                             frame_rate=144,
+                            frame_rate_unit=FrequencyUnit.HZ,
                             sensor_width=1,
                             sensor_height=1,
                             chroma="Color",
@@ -523,6 +528,7 @@ class RigTests(unittest.TestCase):
                     data_interface="USB",
                     computer_name="ASDF",
                     frame_rate=144,
+                    frame_rate_unit=FrequencyUnit.HZ,
                     sensor_width=1,
                     sensor_height=1,
                     chroma="Color",
@@ -544,6 +550,7 @@ class RigTests(unittest.TestCase):
                             data_interface="USB",
                             computer_name="ASDF",
                             frame_rate=144,
+                            frame_rate_unit=FrequencyUnit.HZ,
                             sensor_width=1,
                             sensor_height=1,
                             chroma="Color",
@@ -706,6 +713,7 @@ class RigTests(unittest.TestCase):
                 data_interface="USB",
                 computer_name="ASDF",
                 frame_rate=144,
+                frame_rate_unit=FrequencyUnit.HZ,
                 sensor_width=1,
                 sensor_height=1,
                 chroma="Color",
@@ -721,6 +729,7 @@ class RigTests(unittest.TestCase):
                 data_interface="USB",
                 computer_name="ASDF",
                 frame_rate=144,
+                frame_rate_unit=FrequencyUnit.HZ,
                 sensor_width=1,
                 sensor_height=1,
                 chroma="Color",
@@ -828,7 +837,7 @@ class RigTests(unittest.TestCase):
         expected_modalities = [{"name": "Extracellular electrophysiology", "abbreviation": "ecephys"}]
         # Case 1: Modality is a class instance
         rig_instance_modality = Rig.model_construct(
-            modalities=[Modality.ECEPHYS]  # Example with a valid Modality instance
+            rig_id="123_EPHYS1-OPTO_20220101", modalities={Modality.ECEPHYS}  # Example with a valid Modality instance
         )
         rig_json = rig_instance_modality.model_dump_json()
         rig_data = json.loads(rig_json)

@@ -5,7 +5,7 @@ import unittest
 from datetime import date, datetime, timezone
 
 from aind_data_schema_models.organizations import Organization
-from aind_data_schema_models.units import PowerValue
+from aind_data_schema_models.units import PowerValue, FrequencyUnit
 from pydantic import ValidationError
 from pydantic import __version__ as pyd_version
 
@@ -225,36 +225,42 @@ class ImagingTests(unittest.TestCase):
                                 channel_type="Analog Output",
                                 device_name="LAS-08308",
                                 sample_rate=10000,
+                                sample_rate_unit=FrequencyUnit.HZ,
                             ),
                             DAQChannel(
                                 channel_name="5",
                                 channel_type="Analog Output",
                                 device_name="539251",
                                 sample_rate=10000,
+                                sample_rate_unit=FrequencyUnit.HZ,
                             ),
                             DAQChannel(
                                 channel_name="4",
                                 channel_type="Analog Output",
                                 device_name="LAS-08309",
                                 sample_rate=10000,
+                                sample_rate_unit=FrequencyUnit.HZ,
                             ),
                             DAQChannel(
                                 channel_name="2",
                                 channel_type="Analog Output",
                                 device_name="stage-x",
                                 sample_rate=10000,
+                                sample_rate_unit=FrequencyUnit.HZ,
                             ),
                             DAQChannel(
                                 channel_name="0",
                                 channel_type="Analog Output",
                                 device_name="TL-1",
                                 sample_rate=10000,
+                                sample_rate_unit=FrequencyUnit.HZ,
                             ),
                             DAQChannel(
                                 channel_name="6",
                                 channel_type="Analog Output",
                                 device_name="LAS-08307",
                                 sample_rate=10000,
+                                sample_rate_unit=FrequencyUnit.HZ,
                             ),
                         ],
                     )
@@ -272,6 +278,7 @@ class ImagingTests(unittest.TestCase):
             " input_value=[DAQDevice(device_type='D... hardware_version=None)], input_type=list]\n"
             f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/value_error"
         )
+        print(repr(e.exception))
         self.assertEqual(expected_exception, repr(e.exception))
 
 

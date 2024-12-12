@@ -1,14 +1,15 @@
-""" tests for Subject """
+""" tests for base """
 
 import json
 import unittest
 from datetime import datetime, timezone
 from pathlib import Path
+from typing import Optional
 from unittest.mock import MagicMock, call, mock_open, patch
 
-from pydantic import ValidationError, create_model
+from pydantic import Field, ValidationError, create_model
 
-from aind_data_schema.base import AindGeneric, AwareDatetimeWithDefault, is_dict_corrupt
+from aind_data_schema.base import AindGeneric, AindModel, AwareDatetimeWithDefault, is_dict_corrupt
 from aind_data_schema.core.subject import Subject
 
 
@@ -56,6 +57,40 @@ class BaseTests(unittest.TestCase):
         expected_json = '{"dt":"2020-10-10T01:02:03Z"}'
         self.assertEqual(expected_json, model_instance.model_dump_json())
 
+    def test_units(self):
+        """Test that models with value/value_unit pairs throw errors properly"""
+
+        class TestModel(AindModel):
+            """temporary test model"""
+
+            value: Optional[str] = Field(default=None)
+            value_unit: Optional[str] = Field(default=None)
+
+        self.assertRaises(ValidationError, lambda: TestModel(value="value"))
+
+        test0 = TestModel(value="value", value_unit="unit")
+        self.assertIsNotNone(test0)
+
+        # it's fine if units are set and the value isn't
+        test1 = TestModel(value_unit="unit")
+        self.assertIsNotNone(test1)
+
+        # Multi-unit condition
+        class MultiModel(AindModel):
+            """temporary test model with multiple variables"""
+
+            value_multi_one_with_depth: Optional[str] = Field(default=None)
+            value_multi_two_with_depth: Optional[str] = Field(default=None)
+            value_multi_unit: Optional[str] = Field(default=None)
+
+        self.assertRaises(ValidationError, lambda: MultiModel(value_multi_one_with_depth="value"))
+
+        test2 = MultiModel(value_multi_one_with_depth="value1", value_multi_unit="unit")
+        self.assertIsNotNone(test2)
+
+        test3 = MultiModel(value_multi_unit="unit")
+        self.assertIsNotNone(test3)
+
     def test_is_dict_corrupt(self):
         """Tests is_dict_corrupt method"""
         good_contents = [
@@ -99,10 +134,7 @@ class BaseTests(unittest.TestCase):
 
     def test_aind_generic_validate_fieldnames(self):
         """Tests that fieldnames are validated in AindGeneric"""
-        expected_error = (
-            "1 validation error for AindGeneric\n"
-            "  Value error, Field names cannot contain '.' or '$' "
-        )
+        expected_error = "1 validation error for AindGeneric\n" "  Value error, Field names cannot contain '.' or '$' "
         invalid_params = [
             {"$foo": "bar"},
             {"foo": {"foo.name": "bar"}},

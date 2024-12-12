@@ -57,7 +57,7 @@
                "anatomical_coordinates": null,
                "anatomical_reference": null,
                "surface_z": null,
-               "surface_z_unit": "micrometer",
+               "surface_z_unit": null,
                "dye": null,
                "implant_hole_number": null
             },
@@ -90,7 +90,7 @@
                "anatomical_coordinates": null,
                "anatomical_reference": null,
                "surface_z": null,
-               "surface_z_unit": "micrometer",
+               "surface_z_unit": null,
                "dye": null,
                "implant_hole_number": null
             }
@@ -192,7 +192,7 @@
                "anatomical_coordinates": null,
                "anatomical_reference": null,
                "surface_z": null,
-               "surface_z_unit": "micrometer",
+               "surface_z_unit": null,
                "dye": null,
                "implant_hole_number": null
             },
@@ -225,7 +225,7 @@
                "anatomical_coordinates": null,
                "anatomical_reference": null,
                "surface_z": null,
-               "surface_z_unit": "micrometer",
+               "surface_z_unit": null,
                "dye": null,
                "implant_hole_number": null
             }

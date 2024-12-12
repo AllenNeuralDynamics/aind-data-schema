@@ -3,6 +3,7 @@
 import datetime
 
 from aind_data_schema_models.organizations import Organization
+from aind_data_schema_models.units import SizeUnit
 
 from aind_data_schema.components.devices import Filter, Laser, MotorizedStage, OpticalTable, ScanningStage
 from aind_data_schema.core.instrument import Com, Detector, Instrument, Objective
@@ -106,6 +107,7 @@ inst = Instrument(
             manufacturer=Organization.SEMROCK,
             diameter=25,
             thickness=2.0,
+            thickness_unit=SizeUnit.MM,
             model="FF01-469/35-25",
             filter_wheel_index=0,
             serial_number="Unknown-0",
@@ -116,6 +118,7 @@ inst = Instrument(
             manufacturer=Organization.SEMROCK,
             diameter=25,
             thickness=2.0,
+            thickness_unit=SizeUnit.MM,
             model="FF01-525/45-25",
             filter_wheel_index=1,
             serial_number="Unknown-1",
@@ -126,6 +129,7 @@ inst = Instrument(
             manufacturer=Organization.SEMROCK,
             diameter=25,
             thickness=2.0,
+            thickness_unit=SizeUnit.MM,
             model="FF01-593/40-25",
             filter_wheel_index=2,
             serial_number="Unknown-2",
@@ -136,6 +140,7 @@ inst = Instrument(
             manufacturer=Organization.SEMROCK,
             diameter=25,
             thickness=2.0,
+            thickness_unit=SizeUnit.MM,
             model="FF01-624/40-25",
             filter_wheel_index=3,
             serial_number="Unknown-3",
@@ -146,6 +151,7 @@ inst = Instrument(
             manufacturer=Organization.CHROMA,
             diameter=25,
             thickness=2.0,
+            thickness_unit=SizeUnit.MM,
             model="ET667/30m",
             filter_wheel_index=4,
             serial_number="Unknown-4",
@@ -156,6 +162,7 @@ inst = Instrument(
             manufacturer=Organization.THORLABS,
             diameter=25,
             thickness=2.0,
+            thickness_unit=SizeUnit.MM,
             model="FELH0700",
             filter_wheel_index=5,
             serial_number="Unknown-5",

@@ -2,20 +2,19 @@
 
 import re
 import unittest
+from datetime import datetime
 
 import pydantic
-
-from datetime import datetime
+from aind_data_schema_models.system_architecture import CPUArchitecture, OperatingSystem
+from aind_data_schema_models.units import MemoryUnit
 
 from aind_data_schema.core.processing import (
     DataProcess,
     PipelineProcess,
     Processing,
-    ResourceUsage,
     ResourceTimestamped,
+    ResourceUsage,
 )
-from aind_data_schema_models.system_architecture import OperatingSystem, CPUArchitecture
-from aind_data_schema_models.units import MemoryUnit
 
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pydantic.__version__).group(1)
 
@@ -94,7 +93,7 @@ class ProcessingTest(unittest.TestCase):
                 ram=1,
             )
 
-        expected_exception = "RAM unit is required if RAM is provided"
+        expected_exception = "Unit ram_unit is required when ram is set"
 
         self.assertTrue(expected_exception in repr(e.exception))
 
@@ -116,7 +115,7 @@ class ProcessingTest(unittest.TestCase):
                 system_memory=1,
             )
 
-        expected_exception = "System memory unit is required if system memory is provided"
+        expected_exception = "Unit system_memory_unit is required when system_memory is set"
 
         self.assertTrue(expected_exception in repr(e.exception))
 
