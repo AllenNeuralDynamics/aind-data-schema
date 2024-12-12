@@ -293,6 +293,7 @@
          "type": "object"
       },
       "ProcessName": {
+         "description": "Process names",
          "enum": [
             "Analysis",
             "Compression",
@@ -310,6 +311,7 @@
             "Image cell classification",
             "Image cell quantification",
             "Image cell segmentation",
+            "Image cross-image alignment",
             "Image destriping",
             "Image flat-field correction",
             "Image importing",
@@ -318,6 +320,10 @@
             "Image tile alignment",
             "Image tile fusing",
             "Image tile projection",
+            "Image spot detection",
+            "Image spot spectral unmixing",
+            "Model evaluation",
+            "Model training",
             "Neuropil subtraction",
             "Other",
             "Simulation",
@@ -520,11 +526,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "1.1.1",
-         "default": "1.1.1",
-         "enum": [
-            "1.1.1"
-         ],
+         "const": "1.1.2",
+         "default": "1.1.2",
          "title": "Schema Version",
          "type": "string"
       },
