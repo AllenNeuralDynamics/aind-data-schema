@@ -26,7 +26,12 @@ drift_value_with_options = {
 # Example of how to use a dictionary to provide multiple checkable flags, some of which will fail the metric
 drift_value_with_flags = {
     "value": "",
-    "options": ["No Drift", "Drift visible in part of session", "Drift visible in entire session", "Sudden movement event"],
+    "options": [
+        "No Drift",
+        "Drift visible in part of session",
+        "Drift visible in entire session",
+        "Sudden movement event",
+    ],
     "status": ["Pass", "Pass", "Fail", "Fail"],
     "type": "checkbox",
 }
@@ -65,19 +70,20 @@ eval1 = QCEvaluation(
             name="Expected frame count",
             description="Expected frame count from experiment length, always pass",
             value=662,
-            status_history=[s]
+            status_history=[s],
         ),
         QCMetric(
             name="Video 1 frame count",
             description="Pass when frame count matches expected",
             value=662,
-            status_history=[s]
+            status_history=[s],
         ),
         QCMetric(
             name="Video 2 num frames",
             description="Pass when frame count matches expected",
-            value=662, 
-            status_history=[s]),
+            value=662,
+            status_history=[s],
+        ),
     ],
 )
 
