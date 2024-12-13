@@ -5,6 +5,7 @@ import re
 import unittest
 from datetime import datetime, time, timezone
 from unittest.mock import MagicMock, call, patch
+import uuid
 
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
@@ -535,6 +536,51 @@ class TestMetadata(unittest.TestCase):
             ],
             any_order=True,
         )
+
+    def test_last_modified(self):
+        """Test that the last_modified field enforces timezones"""
+        m = Metadata.model_construct(
+            name="name",
+            location="location",
+            id=uuid.uuid4(),
+        )
+        m_dict = m.model_dump(by_alias=True)
+
+        # Test that naive datetime is coerced to timezone-aware datetime
+        date = "2022-11-22T08:43:00"
+        date_with_timezone = datetime.fromisoformat(date).astimezone()
+        m_dict["last_modified"] = "2022-11-22T08:43:00"
+        m2 = Metadata(**m_dict)
+        self.assertIsNotNone(m2)
+        self.assertEqual(m2.last_modified, date_with_timezone)
+
+        # Also check that last_modified is now in UTC
+        self.assertEqual(m2.last_modified.tzinfo, timezone.utc)
+
+        # Test that timezone-aware datetime is not coerced
+        date_minus = "2022-11-22T08:43:00-07:00"
+        m_dict["last_modified"] = date_minus
+        m3 = Metadata(**m_dict)
+        self.assertIsNotNone(m3)
+        self.assertEqual(m3.last_modified, datetime.fromisoformat(date_minus))
+
+        # Test that UTC datetime is not coerced
+        date_utc = "2022-11-22T08:43:00+00:00"
+        m_dict["last_modified"] = date_utc
+        m4 = Metadata(**m_dict)
+        self.assertIsNotNone(m4)
+        self.assertEqual(m4.last_modified, datetime.fromisoformat(date_utc))
+
+        def roundtrip_lm(model):
+            """Helper function to roundtrip last_modified field"""
+            model_json = model.model_dump_json(by_alias=True)
+            model_dict = json.loads(model_json)
+            return model_dict["last_modified"]
+
+        # Test that the output looks right
+        self.assertEqual(m.last_modified.isoformat().replace("+00:00", "Z"), roundtrip_lm(m))
+        self.assertEqual("2022-11-22T15:43:00Z", roundtrip_lm(m3))
+        self.assertEqual("2022-11-22T08:43:00Z", roundtrip_lm(m4))
 
 
 if __name__ == "__main__":
