@@ -28,7 +28,7 @@ class ModelTests(unittest.TestCase):
             license="CC-BY-4.0",
             developer_full_name=["Joe Schmoe"],
             developer_institution=Organization.AIND,
-            modality=Modality.SPIM,
+            modality=[Modality.SPIM],
             pretrained_source_url="url pretrained weights are from",
             architecture=ModelArchitecture(
                 backbone=ModelBackbone.RESNET,
