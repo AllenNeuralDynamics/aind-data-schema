@@ -489,6 +489,7 @@ class IntraperitonealInjection(Injection):
     """Description of an intraperitoneal injection procedure"""
 
     procedure_type: Literal["Intraperitoneal injection"] = "Intraperitoneal injection"
+    procedure_time: Optional[AwareDatetimeWithDefault] = Field(default=None, title="Collection time")
     injection_volume: Decimal = Field(..., title="Injection volume (uL)")
     injection_volume_unit: VolumeUnit = Field(default=VolumeUnit.UL, title="Injection volume unit")
 
@@ -570,7 +571,15 @@ class IntraCisternalMagnaInjection(BrainInjection):
 
 
 class BloodCollection(AindModel):
-    """Description of a blood collection procedure"""
+    """Description of a single blood collection"""
+
+    collection_time: AwareDatetimeWithDefault = Field(..., title="Collection time")
+    collection_volume: Decimal = Field(..., title="Collection volume")
+    collection_volume_unit: VolumeUnit = Field(..., title="Collection volume unit")
+
+
+class BloodCollectionProcedure(AindModel):
+    """Description of a series of blood collection procedures"""
 
     procedure_type: Literal["Blood collection"] = "Blood collection"
     protocol_id = Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
@@ -581,10 +590,7 @@ class BloodCollection(AindModel):
         description="First and last name of the experimenter.",
         title="Experimenter full name",
     )
-    collection_time: int = Field(..., title="Relative collection time")
-    time_unit: TimeUnit = Field(default=TimeUnit.M, title="Time unit")
-    collection_volume: Decimal = Field(..., title="Collection volume")
-    collection_volume_unit: VolumeUnit = Field(..., title="Collection volume unit")
+    blood_collections: List[BloodCollection] = Field(..., title="Blood collections")
     collection_method: Optional[str] = Field(default=None, title="Collection method for terminal collection")
     notes: Optional[str] = Field(default=None, title="Notes")
 
@@ -753,9 +759,10 @@ class Procedures(AindCoreModel):
     subject_procedures: List[
         Annotated[
             Union[
-                BloodCollection,
+                BloodCollectionProcedure,
                 CatheterImplant,
                 CatheterMaintenance,
+                IntraperitonealInjection,
                 Surgery,
                 TrainingProtocol,
                 WaterRestriction,
