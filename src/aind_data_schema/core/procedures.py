@@ -160,6 +160,15 @@ class CatheterPort(str, Enum):
     DOUBLE = "Double"
 
 
+class CatheterPatency(str, Enum):
+    """Patency of catheter"""
+
+    NOT_PATENT = "Not patent"
+    PATENT = "Patent"
+    ONLY_PUSH = "Only push"
+    ONLY_PULL = "Only pull"
+
+
 class Readout(Reagent):
     """Description of a readout"""
 
@@ -328,7 +337,7 @@ class CatheterImplant(AindModel):
         description="First and last name of the experimenter.",
         title="Experimenter full name",
     )
-    where_performed: Annotated[Union[Organization.AIND, Organization.JAX],
+    where_performed: Annotated[Union[Organization.AIND, Organization.CHARLES_RIVER, Organization.JAX],
                                Field(..., title="Where performed", discriminator="name")]
     catheter_material: CatheterMaterial = Field(..., title="Catheter material")
     catheter_design: CatheterDesign = Field(..., title="Catheter design")
@@ -353,7 +362,7 @@ class CatheterMaintenance(AindModel):
         ..., title="Animal weight (g)", description="Animal weight before procedure"
     )
     health_assessment: Optional[str] = Field(default=None, title="Health assessment")
-    pantent: bool = Field(default=True, title="Catheter patent")
+    patent: CatheterPatency = Field(..., title="Catheter patent")
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
@@ -572,14 +581,12 @@ class BloodCollection(AindModel):
         description="First and last name of the experimenter.",
         title="Experimenter full name",
     )
-    injection: List[IntraperitonealInjection] = Field(..., title="IP injections")
-    injection_time: int = Field(..., title="Relative injection time")
     collection_time: int = Field(..., title="Relative collection time")
     time_unit: TimeUnit = Field(default=TimeUnit.M, title="Time unit")
     collection_volume: Decimal = Field(..., title="Collection volume")
     collection_volume_unit: VolumeUnit = Field(..., title="Collection volume unit")
     collection_method: Optional[str] = Field(default=None, title="Collection method for terminal collection")
-    notes: Optional[str] = Field(default=None, title="Notes"
+    notes: Optional[str] = Field(default=None, title="Notes")
 
 
 class TrainingProtocol(AindModel):
