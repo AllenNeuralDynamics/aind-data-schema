@@ -3,7 +3,7 @@
 import inspect
 import json
 import logging
-from datetime import datetime
+from datetime import datetime, timezone
 from enum import Enum
 from typing import Dict, List, Literal, Optional, get_args
 from uuid import UUID, uuid4
@@ -16,11 +16,12 @@ from pydantic import (
     SkipValidation,
     ValidationError,
     ValidationInfo,
+    field_serializer,
     field_validator,
     model_validator,
 )
 
-from aind_data_schema.base import AindCoreModel, is_dict_corrupt
+from aind_data_schema.base import AindCoreModel, is_dict_corrupt, AwareDatetimeWithDefault
 from aind_data_schema.core.acquisition import Acquisition
 from aind_data_schema.core.data_description import DataDescription
 from aind_data_schema.core.instrument import Instrument
@@ -83,15 +84,13 @@ class Metadata(AindCoreModel):
         description="Name of the data asset.",
         title="Data Asset Name",
     )
-    # We'll set created and last_modified defaults using the root_validator
-    # to ensure they're synced on creation
-    created: datetime = Field(
-        default_factory=datetime.utcnow,
+    created: AwareDatetimeWithDefault = Field(
+        default_factory=lambda: datetime.now(tz=timezone.utc),
         title="Created",
         description="The utc date and time the data asset created.",
     )
-    last_modified: datetime = Field(
-        default_factory=datetime.utcnow,
+    last_modified: AwareDatetimeWithDefault = Field(
+        default_factory=lambda: datetime.now(tz=timezone.utc),
         title="Last Modified",
         description="The utc date and time that the data asset was last modified.",
     )
@@ -156,6 +155,16 @@ class Metadata(AindCoreModel):
         else:
             core_model = value
         return core_model
+
+    @field_validator("last_modified", mode="after")
+    def validate_last_modified(cls, value, info: ValidationInfo):
+        """Convert last_modified field to UTC from other timezones"""
+        return value.astimezone(timezone.utc)
+
+    @field_serializer("last_modified")
+    def serialize_last_modified(value) -> str:
+        """Serialize last_modified field"""
+        return value.isoformat().replace("+00:00", "Z")
 
     @model_validator(mode="after")
     def validate_metadata(self):

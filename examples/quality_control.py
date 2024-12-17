@@ -26,25 +26,32 @@ drift_value_with_options = {
 # Example of how to use a dictionary to provide multiple checkable flags, some of which will fail the metric
 drift_value_with_flags = {
     "value": "",
-    "options": ["Drift visible in entire session", "Drift visible in part of session", "Sudden movement event"],
-    "status": ["Fail", "Pass", "Fail"],
+    "options": [
+        "No Drift",
+        "Drift visible in part of session",
+        "Drift visible in entire session",
+        "Sudden movement event",
+    ],
+    "status": ["Pass", "Pass", "Fail", "Fail"],
     "type": "checkbox",
 }
 
 eval0 = QCEvaluation(
     name="Drift map",
-    description="Qualitative check that drift map shows minimal movement",
+    description="Check that all probes show minimal drift",
     modality=Modality.ECEPHYS,
     stage=Stage.RAW,
     metrics=[
         QCMetric(
             name="Probe A drift",
+            description="Qualitative check that drift map shows minimal movement",
             value=drift_value_with_options,
             reference="ecephys-drift-map",
             status_history=[sp],
         ),
         QCMetric(
             name="Probe B drift",
+            description="Qualitative check that drift map shows minimal movement",
             value=drift_value_with_flags,
             reference="ecephys-drift-map",
             status_history=[sp],
@@ -60,8 +67,24 @@ eval1 = QCEvaluation(
     modality=Modality.BEHAVIOR_VIDEOS,
     stage=Stage.RAW,
     metrics=[
-        QCMetric(name="video_1_num_frames", value=662, status_history=[s]),
-        QCMetric(name="video_2_num_frames", value=662, status_history=[s]),
+        QCMetric(
+            name="Expected frame count",
+            description="Expected frame count from experiment length, always pass",
+            value=662,
+            status_history=[s],
+        ),
+        QCMetric(
+            name="Video 1 frame count",
+            description="Pass when frame count matches expected",
+            value=662,
+            status_history=[s],
+        ),
+        QCMetric(
+            name="Video 2 num frames",
+            description="Pass when frame count matches expected",
+            value=662,
+            status_history=[s],
+        ),
     ],
     notes="Pass when video_1_num_frames==video_2_num_frames",
     created=t,
@@ -69,12 +92,13 @@ eval1 = QCEvaluation(
 
 eval2 = QCEvaluation(
     name="Probes present",
+    description="Pass when data from a probe is present",
     modality=Modality.ECEPHYS,
     stage=Stage.RAW,
     metrics=[
-        QCMetric(name="ProbeA_success", value=True, status_history=[s]),
-        QCMetric(name="ProbeB_success", value=True, status_history=[s]),
-        QCMetric(name="ProbeC_success", value=True, status_history=[s]),
+        QCMetric(name="ProbeA", value=True, status_history=[s]),
+        QCMetric(name="ProbeB", value=True, status_history=[s]),
+        QCMetric(name="ProbeC", value=True, status_history=[s]),
     ],
     created=t,
 )

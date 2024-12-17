@@ -9,7 +9,7 @@
          },
          "stage": "Raw data",
          "name": "Drift map",
-         "description": "Qualitative check that drift map shows minimal movement",
+         "description": "Check that all probes show minimal drift",
          "metrics": [
             {
                "name": "Probe A drift",
@@ -34,7 +34,7 @@
                      "timestamp": "2022-11-22T00:00:00Z"
                   }
                ],
-               "description": null,
+               "description": "Qualitative check that drift map shows minimal movement",
                "reference": "ecephys-drift-map",
                "evaluated_assets": null
             },
@@ -43,13 +43,15 @@
                "value": {
                   "value": "",
                   "options": [
-                     "Drift visible in entire session",
+                     "No Drift",
                      "Drift visible in part of session",
+                     "Drift visible in entire session",
                      "Sudden movement event"
                   ],
                   "status": [
-                     "Fail",
                      "Pass",
+                     "Pass",
+                     "Fail",
                      "Fail"
                   ],
                   "type": "checkbox"
@@ -61,7 +63,7 @@
                      "timestamp": "2022-11-22T00:00:00Z"
                   }
                ],
-               "description": null,
+               "description": "Qualitative check that drift map shows minimal movement",
                "reference": "ecephys-drift-map",
                "evaluated_assets": null
             },
@@ -96,7 +98,7 @@
          "description": null,
          "metrics": [
             {
-               "name": "video_1_num_frames",
+               "name": "Expected frame count",
                "value": 662,
                "status_history": [
                   {
@@ -105,12 +107,12 @@
                      "timestamp": "2022-11-22T00:00:00Z"
                   }
                ],
-               "description": null,
+               "description": "Expected frame count from experiment length, always pass",
                "reference": null,
                "evaluated_assets": null
             },
             {
-               "name": "video_2_num_frames",
+               "name": "Video 1 frame count",
                "value": 662,
                "status_history": [
                   {
@@ -119,13 +121,27 @@
                      "timestamp": "2022-11-22T00:00:00Z"
                   }
                ],
-               "description": null,
+               "description": "Pass when frame count matches expected",
+               "reference": null,
+               "evaluated_assets": null
+            },
+            {
+               "name": "Video 2 num frames",
+               "value": 662,
+               "status_history": [
+                  {
+                     "evaluator": "Automated",
+                     "status": "Pass",
+                     "timestamp": "2022-11-22T00:00:00Z"
+                  }
+               ],
+               "description": "Pass when frame count matches expected",
                "reference": null,
                "evaluated_assets": null
             }
          ],
          "tags": null,
-         "notes": "Pass when video_1_num_frames==video_2_num_frames",
+         "notes": null,
          "allow_failed_metrics": false,
          "latest_status": "Pass",
          "created": "2022-11-22T00:00:00Z"
@@ -137,10 +153,10 @@
          },
          "stage": "Raw data",
          "name": "Probes present",
-         "description": null,
+         "description": "Pass when data from a probe is present",
          "metrics": [
             {
-               "name": "ProbeA_success",
+               "name": "ProbeA",
                "value": true,
                "status_history": [
                   {
@@ -154,7 +170,7 @@
                "evaluated_assets": null
             },
             {
-               "name": "ProbeB_success",
+               "name": "ProbeB",
                "value": true,
                "status_history": [
                   {
@@ -168,7 +184,7 @@
                "evaluated_assets": null
             },
             {
-               "name": "ProbeC_success",
+               "name": "ProbeC",
                "value": true,
                "status_history": [
                   {

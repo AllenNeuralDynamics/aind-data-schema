@@ -62,7 +62,7 @@ class Model(AindCoreModel):
     license: str = Field(..., title="License")
     developer_full_name: Optional[List[str]] = Field(default=None, title="Name of developer")
     developer_institution: Optional[Organization.ONE_OF] = Field(default=None, title="Institute where developed")
-    modality: Modality.ONE_OF = Field(..., title="Modality")
+    modality: List[Modality.ONE_OF] = Field(..., title="Modality")
     architecture: ModelArchitecture = Field(..., title="Model architecture")
     intended_use: str = Field(..., title="Intended model use", description="Semantic description of intended use")
     limitations: Optional[str] = Field(default=None, title="Model limitations")
