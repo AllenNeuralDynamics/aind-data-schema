@@ -581,7 +581,7 @@ class BloodCollectionProcedure(AindModel):
     """Description of a series of blood collection procedures"""
 
     procedure_type: Literal["Blood collection"] = "Blood collection"
-    protocol_id = Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
+    protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
     iacuc_protcol: str = Field(..., title="IACUC protocol")
     start_date: date = Field(..., title="Start date")
     experimenter_full_name: str = Field(
