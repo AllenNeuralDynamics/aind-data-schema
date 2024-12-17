@@ -337,8 +337,7 @@ class CatheterImplant(AindModel):
         description="First and last name of the experimenter.",
         title="Experimenter full name",
     )
-    where_performed: Annotated[Union[Organization.AIND, Organization.CRL, Organization.JAX],
-                               Field(..., title="Where performed", discriminator="name")]
+    where_performed: Organization.CATHETER_IMPLANT_ORGANIZATIONS = Field(..., title="Where performed")
     catheter_material: CatheterMaterial = Field(..., title="Catheter material")
     catheter_design: CatheterDesign = Field(..., title="Catheter design")
     catheter_port: CatheterPort = Field(..., title="Catheter port")
