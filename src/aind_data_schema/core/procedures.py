@@ -328,29 +328,16 @@ class OtherSubjectProcedure(AindModel):
 class CatheterImplant(AindModel):
     """Description of a catheter implant procedure"""
 
-    procedure_type: Literal["Catheter implant"] = "Catheter implant"
-    protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
-    iacuc_protocol: str = Field(..., title="IACUC protocol")
-    start_date: date = Field(..., title="Start date")
-    experimenter_full_name: str = Field(
-        ...,
-        description="First and last name of the experimenter.",
-        title="Experimenter full name",
-    )
     where_performed: Organization.CATHETER_IMPLANT_INSTITUTIONS = Field(..., title="Where performed")
     catheter_material: CatheterMaterial = Field(..., title="Catheter material")
     catheter_design: CatheterDesign = Field(..., title="Catheter design")
     catheter_port: CatheterPort = Field(..., title="Catheter port")
     targeted_vessel: MouseAnatomicalStructure.BLOOD_VESSELS = Field(..., title="Targeted blood vessel")
-    notes: Optional[str] = Field(default=None, title="Notes")
 
 
 class CatheterMaintenance(AindModel):
-    """Description of a catheter maintenance procedure"""
+    """Description of a single catheter maintenance procedure"""
 
-    procedure_type: Literal["Catheter maintenance"] = "Catheter maintenance"
-    protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
-    iacuc_protocol: str = Field(..., title="IACUC protocol")
     start_date: date = Field(..., title="Start date")
     experimenter_full_name: str = Field(
         ...,
@@ -360,9 +347,19 @@ class CatheterMaintenance(AindModel):
     animal_weight_prior: Decimal = Field(
         ..., title="Animal weight (g)", description="Animal weight before procedure"
     )
+    weight_unit: MassUnit = Field(default=MassUnit.G, title="Weight unit")
     health_assessment: Optional[str] = Field(default=None, title="Health assessment")
     patent: CatheterPatency = Field(..., title="Catheter patent")
     notes: Optional[str] = Field(default=None, title="Notes")
+
+
+class CatheterMaintenanceRecord(AindModel):
+    """Description of catheter maintenance record"""
+
+    procedure_type: Literal["Catheter maintenance"] = "Catheter maintenance"
+    protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
+    iacuc_protocol: str = Field(..., title="IACUC protocol")
+    catheter_maintenance: List[CatheterMaintenance] = Field(..., title="Cathether maintenance")
 
 
 class Craniotomy(AindModel):
@@ -488,7 +485,7 @@ class IntraperitonealInjection(Injection):
     """Description of an intraperitoneal injection procedure"""
 
     procedure_type: Literal["Intraperitoneal injection"] = "Intraperitoneal injection"
-    procedure_time: Optional[AwareDatetimeWithDefault] = Field(default=None, title="Collection time")
+    time: Optional[AwareDatetimeWithDefault] = Field(default=None, title="Injection time")
     injection_volume: Decimal = Field(..., title="Injection volume (uL)")
     injection_volume_unit: VolumeUnit = Field(default=VolumeUnit.UL, title="Injection volume unit")
 
@@ -572,26 +569,11 @@ class IntraCisternalMagnaInjection(BrainInjection):
 class BloodCollection(AindModel):
     """Description of a single blood collection"""
 
-    collection_time: AwareDatetimeWithDefault = Field(..., title="Collection time")
+    procedure_type: Literal["Blood collection"] = "Blood collection"
+    time: AwareDatetimeWithDefault = Field(..., title="Collection time")
     collection_volume: Decimal = Field(..., title="Collection volume")
     collection_volume_unit: VolumeUnit = Field(..., title="Collection volume unit")
-
-
-class BloodCollectionProcedure(AindModel):
-    """Description of a series of blood collection procedures"""
-
-    procedure_type: Literal["Blood collection"] = "Blood collection"
-    protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
-    iacuc_protcol: str = Field(..., title="IACUC protocol")
-    start_date: date = Field(..., title="Start date")
-    experimenter_full_name: str = Field(
-        ...,
-        description="First and last name of the experimenter.",
-        title="Experimenter full name",
-    )
-    blood_collections: List[BloodCollection] = Field(..., title="Blood collections")
     collection_method: Optional[str] = Field(default=None, title="Collection method for terminal collection")
-    notes: Optional[str] = Field(default=None, title="Notes")
 
 
 class TrainingProtocol(AindModel):
@@ -723,6 +705,8 @@ class Surgery(AindModel):
     procedures: List[
         Annotated[
             Union[
+                BloodCollection,
+                CatheterImplant,
                 Craniotomy,
                 FiberImplant,
                 Headframe,
@@ -758,10 +742,7 @@ class Procedures(AindCoreModel):
     subject_procedures: List[
         Annotated[
             Union[
-                BloodCollectionProcedure,
-                CatheterImplant,
                 CatheterMaintenance,
-                IntraperitonealInjection,
                 Surgery,
                 TrainingProtocol,
                 WaterRestriction,
