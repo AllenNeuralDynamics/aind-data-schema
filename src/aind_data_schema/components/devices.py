@@ -250,6 +250,7 @@ class LickSensorType(str, Enum):
     """Type of lick sensor"""
 
     CAPACITIVE = "Capacitive"
+    CONDUCTIVE = "Conductive"
     PIEZOELECTIC = "Piezoelectric"
 
 
