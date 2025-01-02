@@ -32,7 +32,7 @@ class ExampleTests(unittest.TestCase):
             module = importlib.util.module_from_spec(spec)
             sys.modules["test_module"] = module
 
-            with patch("builtins.open", new_callable=mock_open) as mocked_file:
+            with patch("os.path.getsize", return_value=0), patch("builtins.open", new_callable=mock_open) as mocked_file:
                 spec.loader.exec_module(module)
                 h = mocked_file.return_value.__enter__()
                 call_args_list = h.write.call_args_list
