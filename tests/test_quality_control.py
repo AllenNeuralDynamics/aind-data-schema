@@ -327,9 +327,10 @@ class QualityControlTests(unittest.TestCase):
                     ),
                 ],
             )
-            self.assertTrue(
-                "is in a single-asset QCEvaluation and should not have evaluated_assets" in repr(context.exception)
-            )
+
+        self.assertTrue(
+            "is in a single-asset QCEvaluation and should not have evaluated_assets" in repr(context.exception)
+        )
 
         # Check that multi-asset with empty evaluated_assets raises a validation error
         with self.assertRaises(ValidationError) as context:
@@ -348,7 +349,8 @@ class QualityControlTests(unittest.TestCase):
                     ),
                 ],
             )
-            self.assertTrue("is in a multi-asset QCEvaluation and must have evaluated_assets" in repr(context.exception))
+
+        self.assertTrue("is in a multi-asset QCEvaluation and must have evaluated_assets" in repr(context.exception))
 
         # Check that multi-asset with missing evaluated_assets raises a validation error
         with self.assertRaises(ValidationError) as context:
@@ -366,7 +368,8 @@ class QualityControlTests(unittest.TestCase):
                     ),
                 ],
             )
-            self.assertTrue("is in a multi-asset QCEvaluation and must have evaluated_assets" in repr(context.exception))
+
+        self.assertTrue("is in a multi-asset QCEvaluation and must have evaluated_assets" in repr(context.exception))
 
     def test_status_filters(self):
         """Test that QualityControl.status(modality, stage) filters correctly"""
