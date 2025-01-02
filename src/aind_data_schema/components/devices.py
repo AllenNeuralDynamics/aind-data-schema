@@ -723,7 +723,13 @@ class Enclosure(Device):
     air_filtration: bool = Field(..., title="Air filtration")
 
 
-class MousePlatform(Device):
+class Platform(Device):
+    """Parent class for all platforms"""
+
+    device_type: Literal["Platform"] = "Platform"
+
+
+class MousePlatform(Platform):
     """Description of a mouse platform"""
 
     device_type: Literal["Mouse platform"] = "Mouse platform"

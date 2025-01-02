@@ -26,7 +26,7 @@ from aind_data_schema.components.devices import (
     LaserAssembly,
     Lens,
     Monitor,
-    MousePlatform,
+    Platform,
     NeuropixelsBasestation,
     Objective,
     Olfactometer,
@@ -38,7 +38,7 @@ from aind_data_schema.components.devices import (
     Speaker,
 )
 
-MOUSE_PLATFORMS = Annotated[Union[tuple(MousePlatform.__subclasses__())], Field(discriminator="device_type")]
+PLATFORMS = Annotated[Union[tuple(Platform.__subclasses__())], Field(discriminator="device_type")]
 STIMULUS_DEVICES = Annotated[Union[Monitor, Olfactometer, RewardDelivery, Speaker], Field(discriminator="device_type")]
 RIG_DAQ_DEVICES = Annotated[
     Union[HarpDevice, NeuropixelsBasestation, OpenEphysAcquisitionBoard, DAQDevice], Field(discriminator="device_type")
@@ -59,25 +59,27 @@ class Rig(AindCoreModel):
         pattern=RIG_ID_PATTERN,
     )
     modification_date: date = Field(..., title="Date of modification")
-    mouse_platform: MOUSE_PLATFORMS
-    stimulus_devices: List[STIMULUS_DEVICES] = Field(default=[], title="Stimulus devices")
-    cameras: List[CameraAssembly] = Field(default=[], title="Camera assemblies")
-    enclosure: Optional[Enclosure] = Field(default=None, title="Enclosure")
-    ephys_assemblies: List[EphysAssembly] = Field(default=[], title="Ephys probes")
-    fiber_assemblies: List[FiberAssembly] = Field(default=[], title="Inserted fiber optics")
-    stick_microscopes: List[CameraAssembly] = Field(default=[], title="Stick microscopes")
-    laser_assemblies: List[LaserAssembly] = Field(default=[], title="Laser modules")
-    patch_cords: List[Patch] = Field(default=[], title="Patch cords")
-    light_sources: List[LIGHT_SOURCES] = Field(default=[], title="Light sources")
-    detectors: List[Detector] = Field(default=[], title="Detectors")
-    objectives: List[Objective] = Field(default=[], title="Objectives")
-    filters: List[Filter] = Field(default=[], title="Filters")
-    lenses: List[Lens] = Field(default=[], title="Lenses")
-    digital_micromirror_devices: List[DigitalMicromirrorDevice] = Field(default=[], title="DMDs")
-    polygonal_scanners: List[PolygonalScanner] = Field(default=[], title="Polygonal scanners")
-    pockels_cells: List[PockelsCell] = Field(default=[], title="Pockels cells")
-    additional_devices: List[Device] = Field(default=[], title="Additional devices")
-    daqs: List[RIG_DAQ_DEVICES] = Field(default=[], title="Data acquisition devices")
+    mouse_platform: PLATFORMS = Field(default=None, title="Platform")
+    devices: List[Union[
+        STIMULUS_DEVICES,
+        CameraAssembly,
+        Enclosure,
+        EphysAssembly,
+        FiberAssembly,
+        CameraAssembly,
+        LaserAssembly,
+        Patch,
+        LIGHT_SOURCES,
+        Detector,
+        Objective,
+        Filter,
+        Lens,
+        DigitalMicromirrorDevice,
+        PolygonalScanner,
+        PockelsCell,
+        Device,
+        RIG_DAQ_DEVICES,
+    ]] = Field(default=[], title="Rig devices")
     calibrations: List[Calibration] = Field(..., title="Full calibration of devices")
     ccf_coordinate_transform: Optional[str] = Field(
         default=None,
