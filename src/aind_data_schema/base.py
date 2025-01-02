@@ -2,6 +2,8 @@
 
 import json
 import re
+import os
+import logging
 from pathlib import Path
 from typing import Any, Generic, Optional, TypeVar, get_args
 
@@ -21,6 +23,9 @@ from pydantic import (
 from pydantic.functional_validators import WrapValidator
 from typing_extensions import Annotated
 from aind_data_schema_models.brain_atlas import CCFStructure
+
+
+MAX_FILE_SIZE = 500 * 1024  # 500KB
 
 
 def _coerce_naive_datetime(v: Any, handler: ValidatorFunctionWrapHandler) -> AwareDatetime:
@@ -178,3 +183,6 @@ class AindCoreModel(AindModel):
 
         with open(filename, "w") as f:
             f.write(self.model_dump_json(indent=3))
+
+        if os.path.getsize(filename) > MAX_FILE_SIZE:
+            logging.warning(f"File size exceeds {MAX_FILE_SIZE / 1024} KB: {filename}")
