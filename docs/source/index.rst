@@ -190,10 +190,9 @@ build NWB extension that easily embeds metadata not covered by the core NWB sche
 .. toctree::
    :caption: API Reference
    :hidden:
-   :maxdepth: 1
+   :maxdepth: 4
 
-   diagrams
-   modules
+   aind_data_schema
 
 Indices and tables
 ==================
