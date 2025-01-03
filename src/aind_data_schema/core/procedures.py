@@ -328,6 +328,7 @@ class OtherSubjectProcedure(AindModel):
 class CatheterImplant(AindModel):
     """Description of a catheter implant procedure"""
 
+    procedure_type: Literal["Catheter Implant"] = "Catheter implant"
     where_performed: Organization.CATHETER_IMPLANT_INSTITUTIONS = Field(..., title="Where performed")
     catheter_material: CatheterMaterial = Field(..., title="Catheter material")
     catheter_design: CatheterDesign = Field(..., title="Catheter design")
