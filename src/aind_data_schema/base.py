@@ -2,7 +2,6 @@
 
 import json
 import re
-import os
 import logging
 from pathlib import Path
 from typing import Any, Generic, Optional, TypeVar, get_args
