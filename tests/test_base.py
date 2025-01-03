@@ -165,7 +165,7 @@ class BaseTests(unittest.TestCase):
         """Tests that a warning is logged if the file size exceeds MAX_FILE_SIZE"""
 
         s = Subject.model_construct()
-        s.subject_id = "s"*(MAX_FILE_SIZE + 1000)
+        s.subject_id = "s" * (MAX_FILE_SIZE + 1000)
         s.write_standard_file(output_directory=Path("dir"), suffix=".foo.bar")
 
         mock_open.assert_has_calls([call(Path("dir/subject.foo.bar"), "w")])
