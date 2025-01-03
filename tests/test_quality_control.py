@@ -23,7 +23,7 @@ class QualityControlTests(unittest.TestCase):
             stage=Stage.PROCESSING,
             metrics=[
                 QCMetric(
-                    name="Multiple values example",
+                    name="Dict example",
                     value={"stuff": "in_a_dict"},
                     status_history=[
                         QCStatus(evaluator="Bob", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PASS)
@@ -56,7 +56,7 @@ class QualityControlTests(unittest.TestCase):
             stage=Stage.PROCESSING,
             metrics=[
                 QCMetric(
-                    name="Multiple values example",
+                    name="Dict example",
                     value={"stuff": "in_a_dict"},
                     status_history=[
                         QCStatus(evaluator="Bob", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PASS)
@@ -298,7 +298,7 @@ class QualityControlTests(unittest.TestCase):
             stage=Stage.PROCESSING,
             metrics=[
                 QCMetric(
-                    name="Multiple values example",
+                    name="Dict example",
                     value={"stuff": "in_a_dict"},
                     status_history=[
                         QCStatus(evaluator="Automated", timestamp=t0, status=Status.PASS),
@@ -318,7 +318,7 @@ class QualityControlTests(unittest.TestCase):
                 stage=Stage.PROCESSING,
                 metrics=[
                     QCMetric(
-                        name="Multiple values example",
+                        name="Dict with evaluated assets list",
                         value={"stuff": "in_a_dict"},
                         status_history=[
                             QCStatus(evaluator="Automated", timestamp=t0, status=Status.PASS),
@@ -328,7 +328,6 @@ class QualityControlTests(unittest.TestCase):
                 ],
             )
 
-        print(context.exception)
         self.assertTrue(
             "is in a single-asset QCEvaluation and should not have evaluated_assets" in repr(context.exception)
         )
@@ -341,7 +340,7 @@ class QualityControlTests(unittest.TestCase):
                 stage=Stage.MULTI_ASSET,
                 metrics=[
                     QCMetric(
-                        name="Multiple values example",
+                        name="Missing evaluated assets",
                         value={"stuff": "in_a_dict"},
                         status_history=[
                             QCStatus(evaluator="Automated", timestamp=t0, status=Status.PASS),
