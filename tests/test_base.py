@@ -159,17 +159,13 @@ class BaseTests(unittest.TestCase):
         # this is to ensure you can't get a bumped schema_version without passing validation
         self.assertRaises(ValidationError, lambda: Modelv1(**v2_from_v1.model_dump()))
 
-    @patch("os.path.getsize")
     @patch("builtins.open", new_callable=mock_open)
     @patch("logging.warning")
-    def test_write_standard_file_size_warning(
-        self, mock_logging_warning: MagicMock, mock_open: MagicMock, mock_getsize: MagicMock
-    ):
+    def test_write_standard_file_size_warning(self, mock_logging_warning: MagicMock, mock_open: MagicMock):
         """Tests that a warning is logged if the file size exceeds MAX_FILE_SIZE"""
 
-        mock_getsize.return_value = MAX_FILE_SIZE + 1  # Simulate file size exceeding the limit
-
         s = Subject.model_construct()
+        s.subject_id = "s"*(MAX_FILE_SIZE + 1000)
         s.write_standard_file(output_directory=Path("dir"), suffix=".foo.bar")
 
         mock_open.assert_has_calls([call(Path("dir/subject.foo.bar"), "w")])

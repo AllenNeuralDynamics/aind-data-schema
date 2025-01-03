@@ -184,5 +184,6 @@ class AindCoreModel(AindModel):
         with open(filename, "w") as f:
             f.write(self.model_dump_json(indent=3))
 
-        if os.path.getsize(filename) > MAX_FILE_SIZE:
+        # Check that size doesn't exceed the maximum
+        if len(self.model_dump_json(indent=3)) > MAX_FILE_SIZE:
             logging.warning(f"File size exceeds {MAX_FILE_SIZE / 1024} KB: {filename}")
