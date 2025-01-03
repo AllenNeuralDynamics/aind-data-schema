@@ -339,6 +339,7 @@ class CatheterImplant(AindModel):
 class CatheterMaintenance(AindModel):
     """Description of a single catheter maintenance procedure"""
 
+    procedure_type: Literal["Catheter maintenance"] = "Catheter maintenance"
     start_date: date = Field(..., title="Start date")
     experimenter_full_name: str = Field(
         ...,
