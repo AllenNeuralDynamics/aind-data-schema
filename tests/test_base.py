@@ -40,8 +40,7 @@ class BaseTests(unittest.TestCase):
         """Tests writer with suffix and output directory defined"""
 
         s = Subject.model_construct()
-        with patch("os.path.getsize", return_value=1):
-            s.write_standard_file(output_directory=Path("dir"), suffix=".foo.bar")
+        s.write_standard_file(output_directory=Path("dir"), suffix=".foo.bar")
         mock_open.assert_has_calls([call(Path("dir/subject.foo.bar"), "w")])
         self.assertEqual(1, 1)
 
