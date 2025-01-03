@@ -11,9 +11,5 @@ immunolabeleing, sectioning, etc.). Sectioned specimens will have unique IDs (`s
 
 **IACUC Protocol vs Protocol ID**
 
-`iacuc_protocol` all experimental work with animals must follow an IACUC (Institute Animal Care Use Committee) protocol.
-
-`protocol_id` DOI for a published protocol, found in either the 
-`AIND protocols.io workspace <https://www.protocols.io/workspaces/allen-institute-for-neural-dynamics>`_ 
-or this list of 
-`AIND published protocols <https://app.smartsheet.com/sheets/3XQgWWrXW3mh46xmXCw5Q9GfqQmmP4xwF9Cjfqg1?view=grid>`_.
+`iacuc_protocol` all experimental work with animals must follow an IACUC (Institute Animal Care Use Committee) protocol. The protocol ID refers to the DOI for a published protocol, for example those stored in the 
+`AIND protocols.io workspace <https://www.protocols.io/workspaces/allen-institute-for-neural-dynamics>`_.
