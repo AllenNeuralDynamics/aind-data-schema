@@ -12,7 +12,7 @@ The state of an evaluation is set automatically to the lowest of its metric's st
 
 ## Details
 
-**Q: What is an evaluation?**
+### Evaluations
 
 Each `QCEvaluation` should be thought of as a single aspect of the data asset, from one `Modality`, that is evaluated for quality at a specific `Stage` in data acquisition or analysis. For example, the brain moves a small amount during electrophysiology. This evaluation would be marked with `Stage:RAW` and `Modality:ECEPHYS`. Evaluations will often consist of multiple metrics, some of which can be measured and evaluated automatically, as well as qualititative metrics that need to be evaluated by a human observer.
 
@@ -24,7 +24,7 @@ The state of an evaluation depends on the state of its metrics according to thes
 
 There are many situations where quality control is evaluated on an aspect of the data that isn't critical to the overall experimental goals. For example, you may have a `QCEvaluation` that checks whether the temperature and humidity sensors on the rig were functional, but the overall analysis can proceed with or without the these data. In these situations set `QCEvaluation.allow_failed_metrics=True` to allow the evaluation to pass even if these sensors actually failed. This ensures that the overall `QualityControl` for the data asset can also pass, without regard to these optional elements of the data. 
 
-**Q: What is a metric?**
+### Metrics
 
 Each `QCMetric` is a single value or set of values that can be computed, or observed, about a set of data as part of an evaluation. These can have any type. See the AIND section for special rules for annotating metrics with options.
 
@@ -42,11 +42,7 @@ In our quality control a metric's status is always `PASS`, `PENDING` (waiting fo
 
 We enforce this minimal set of states to prevent ambiguity and make it easier to build tools that can interpret the status of a data asset.
 
-## Details for AIND users
-
-Instructions for uploading QC for viewing in the QC portal can be found [here](https://github.com/AllenNeuralDynamics/aind-qc-portal).
-
-### Multi-asset QC
+## Multi-asset QC
 
 During analysis there are many situations where multiple data assets need to be pulled together, often for comparison. For example, FOVs across imaging sessions or recording sessions from a chronic probe might need to get matched up across days. When a `QCEvaluation` is being calculated from multiple assets it should be tagged with `Stage:MULTI_ASSET` and each of its `QCMetric` objects needs to track the assets that were used to generate that metric in the `evaluated_assets` list.
 
