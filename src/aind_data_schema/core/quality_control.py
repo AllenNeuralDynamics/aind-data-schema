@@ -93,6 +93,9 @@ class QCEvaluation(AindModel):
         ),
     )
     latest_status: Status = Field(default=None, title="Evaluation status")
+    created: AwareDatetimeWithDefault = Field(
+        default_factory=lambda: datetime.now(tz=timezone.utc), title="Evaluation creation date"
+    )
 
     def status(self, date: datetime = datetime.now(tz=timezone.utc)) -> Status:
         """DEPRECATED
@@ -132,7 +135,7 @@ class QCEvaluation(AindModel):
         self.latest_status = self.evaluate_status()
         return self
 
-    def evaluate_status(self, date: datetime = datetime.now(tz=timezone.utc)) -> Status:
+    def evaluate_status(self, date: Optional[datetime] = None) -> Status:
         """Loop through all metrics and return the evaluation's status
 
         Any fail -> FAIL
@@ -144,6 +147,9 @@ class QCEvaluation(AindModel):
         Status
             Current status of the evaluation
         """
+        if not date:
+            date = datetime.now(tz=timezone.utc)
+
         latest_metric_statuses = []
 
         for metric in self.metrics:
@@ -202,7 +208,7 @@ class QualityControl(AindCoreModel):
         modality: Union[Modality.ONE_OF, List[Modality.ONE_OF], None] = None,
         stage: Union[Stage, List[Stage], None] = None,
         tag: Union[str, List[str], None] = None,
-        date: datetime = datetime.now(tz=timezone.utc),
+        date: Optional[datetime] = None,
     ) -> Status:
         """Loop through all evaluations and return the overall status
 
@@ -210,6 +216,9 @@ class QualityControl(AindCoreModel):
         If no fails, then any PENDING -> PENDING
         All PASS -> PASS
         """
+        if not date:
+            date = datetime.now(tz=timezone.utc)
+
         if not modality and not stage and not tag:
             eval_statuses = [evaluation.evaluate_status(date=date) for evaluation in self.evaluations]
         else:
