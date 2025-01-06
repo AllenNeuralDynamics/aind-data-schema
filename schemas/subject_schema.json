@@ -256,12 +256,18 @@
             "name": {
                "const": "Addgene",
                "default": "Addgene",
+               "enum": [
+                  "Addgene"
+               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "ADDGENE",
                "default": "ADDGENE",
+               "enum": [
+                  "ADDGENE"
+               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -275,12 +281,18 @@
             "name": {
                "const": "Allen Institute",
                "default": "Allen Institute",
+               "enum": [
+                  "Allen Institute"
+               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "AI",
                "default": "AI",
+               "enum": [
+                  "AI"
+               ],
                "title": "Abbreviation",
                "type": "string"
             },
@@ -329,6 +341,9 @@
             "registry_identifier": {
                "const": "03cpe7c52",
                "default": "03cpe7c52",
+               "enum": [
+                  "03cpe7c52"
+               ],
                "title": "Registry Identifier",
                "type": "string"
             }
@@ -342,6 +357,9 @@
             "name": {
                "const": "Callithrix jacchus",
                "default": "Callithrix jacchus",
+               "enum": [
+                  "Callithrix jacchus"
+               ],
                "title": "Name",
                "type": "string"
             },
@@ -390,6 +408,9 @@
             "registry_identifier": {
                "const": "NCBI:txid9483",
                "default": "NCBI:txid9483",
+               "enum": [
+                  "NCBI:txid9483"
+               ],
                "title": "Registry Identifier",
                "type": "string"
             }
@@ -403,12 +424,18 @@
             "name": {
                "const": "Columbia University",
                "default": "Columbia University",
+               "enum": [
+                  "Columbia University"
+               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "Columbia",
                "default": "Columbia",
+               "enum": [
+                  "Columbia"
+               ],
                "title": "Abbreviation",
                "type": "string"
             },
@@ -457,6 +484,9 @@
             "registry_identifier": {
                "const": "00hj8s172",
                "default": "00hj8s172",
+               "enum": [
+                  "00hj8s172"
+               ],
                "title": "Registry Identifier",
                "type": "string"
             }
@@ -471,12 +501,18 @@
             "name": {
                "const": "Edinburgh Mouse Atlas Project",
                "default": "Edinburgh Mouse Atlas Project",
+               "enum": [
+                  "Edinburgh Mouse Atlas Project"
+               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "EMAPA",
                "default": "EMAPA",
+               "enum": [
+                  "EMAPA"
+               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -490,6 +526,9 @@
             "name": {
                "const": "Homo sapiens",
                "default": "Homo sapiens",
+               "enum": [
+                  "Homo sapiens"
+               ],
                "title": "Name",
                "type": "string"
             },
@@ -538,6 +577,9 @@
             "registry_identifier": {
                "const": "NCBI:txid9606",
                "default": "NCBI:txid9606",
+               "enum": [
+                  "NCBI:txid9606"
+               ],
                "title": "Registry Identifier",
                "type": "string"
             }
@@ -551,12 +593,18 @@
             "name": {
                "const": "Huazhong University of Science and Technology",
                "default": "Huazhong University of Science and Technology",
+               "enum": [
+                  "Huazhong University of Science and Technology"
+               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "HUST",
                "default": "HUST",
+               "enum": [
+                  "HUST"
+               ],
                "title": "Abbreviation",
                "type": "string"
             },
@@ -605,6 +653,9 @@
             "registry_identifier": {
                "const": "00p991c53",
                "default": "00p991c53",
+               "enum": [
+                  "00p991c53"
+               ],
                "title": "Registry Identifier",
                "type": "string"
             }
@@ -618,12 +669,18 @@
             "name": {
                "const": "Jackson Laboratory",
                "default": "Jackson Laboratory",
+               "enum": [
+                  "Jackson Laboratory"
+               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "JAX",
                "default": "JAX",
+               "enum": [
+                  "JAX"
+               ],
                "title": "Abbreviation",
                "type": "string"
             },
@@ -672,6 +729,9 @@
             "registry_identifier": {
                "const": "021sy4w91",
                "default": "021sy4w91",
+               "enum": [
+                  "021sy4w91"
+               ],
                "title": "Registry Identifier",
                "type": "string"
             }
@@ -685,12 +745,18 @@
             "name": {
                "const": "Janelia Research Campus",
                "default": "Janelia Research Campus",
+               "enum": [
+                  "Janelia Research Campus"
+               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "Janelia",
                "default": "Janelia",
+               "enum": [
+                  "Janelia"
+               ],
                "title": "Abbreviation",
                "type": "string"
             },
@@ -739,6 +805,9 @@
             "registry_identifier": {
                "const": "013sk6x84",
                "default": "013sk6x84",
+               "enum": [
+                  "013sk6x84"
+               ],
                "title": "Registry Identifier",
                "type": "string"
             }
@@ -752,6 +821,9 @@
             "name": {
                "const": "Macaca mulatta",
                "default": "Macaca mulatta",
+               "enum": [
+                  "Macaca mulatta"
+               ],
                "title": "Name",
                "type": "string"
             },
@@ -800,6 +872,9 @@
             "registry_identifier": {
                "const": "NCBI:txid9544",
                "default": "NCBI:txid9544",
+               "enum": [
+                  "NCBI:txid9544"
+               ],
                "title": "Registry Identifier",
                "type": "string"
             }
@@ -814,12 +889,18 @@
             "name": {
                "const": "Mouse Genome Informatics",
                "default": "Mouse Genome Informatics",
+               "enum": [
+                  "Mouse Genome Informatics"
+               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "MGI",
                "default": "MGI",
+               "enum": [
+                  "MGI"
+               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -833,6 +914,9 @@
             "name": {
                "const": "Mus musculus",
                "default": "Mus musculus",
+               "enum": [
+                  "Mus musculus"
+               ],
                "title": "Name",
                "type": "string"
             },
@@ -881,6 +965,9 @@
             "registry_identifier": {
                "const": "NCBI:txid10090",
                "default": "NCBI:txid10090",
+               "enum": [
+                  "NCBI:txid10090"
+               ],
                "title": "Registry Identifier",
                "type": "string"
             }
@@ -895,12 +982,18 @@
             "name": {
                "const": "National Center for Biotechnology Information",
                "default": "National Center for Biotechnology Information",
+               "enum": [
+                  "National Center for Biotechnology Information"
+               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "NCBI",
                "default": "NCBI",
+               "enum": [
+                  "NCBI"
+               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -914,12 +1007,18 @@
             "name": {
                "const": "New York University",
                "default": "New York University",
+               "enum": [
+                  "New York University"
+               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "NYU",
                "default": "NYU",
+               "enum": [
+                  "NYU"
+               ],
                "title": "Abbreviation",
                "type": "string"
             },
@@ -968,6 +1067,9 @@
             "registry_identifier": {
                "const": "0190ak572",
                "default": "0190ak572",
+               "enum": [
+                  "0190ak572"
+               ],
                "title": "Registry Identifier",
                "type": "string"
             }
@@ -982,12 +1084,18 @@
             "name": {
                "const": "Open Researcher and Contributor ID",
                "default": "Open Researcher and Contributor ID",
+               "enum": [
+                  "Open Researcher and Contributor ID"
+               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "ORCID",
                "default": "ORCID",
+               "enum": [
+                  "ORCID"
+               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -1001,12 +1109,18 @@
             "name": {
                "const": "Other",
                "default": "Other",
+               "enum": [
+                  "Other"
+               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
+               "enum": [
+                  null
+               ],
                "title": "Abbreviation",
                "type": "null"
             },
@@ -1030,6 +1144,9 @@
             "name": {
                "const": "Rattus norvegicus",
                "default": "Rattus norvegicus",
+               "enum": [
+                  "Rattus norvegicus"
+               ],
                "title": "Name",
                "type": "string"
             },
@@ -1078,6 +1195,9 @@
             "registry_identifier": {
                "const": "NCBI:txid10116",
                "default": "NCBI:txid10116",
+               "enum": [
+                  "NCBI:txid10116"
+               ],
                "title": "Registry Identifier",
                "type": "string"
             }
@@ -1092,12 +1212,18 @@
             "name": {
                "const": "Research Organization Registry",
                "default": "Research Organization Registry",
+               "enum": [
+                  "Research Organization Registry"
+               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "ROR",
                "default": "ROR",
+               "enum": [
+                  "ROR"
+               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -1112,12 +1238,18 @@
             "name": {
                "const": "Research Resource Identifiers",
                "default": "Research Resource Identifiers",
+               "enum": [
+                  "Research Resource Identifiers"
+               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "RRID",
                "default": "RRID",
+               "enum": [
+                  "RRID"
+               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -1136,8 +1268,11 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "1.0.3",
-         "default": "1.0.3",
+         "const": "1.0.2",
+         "default": "1.0.2",
+         "enum": [
+            "1.0.2"
+         ],
          "title": "Schema Version",
          "type": "string"
       },

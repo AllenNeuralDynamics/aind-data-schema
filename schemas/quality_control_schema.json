@@ -130,16 +130,6 @@
                "description": "Set to true for evaluations that are not critical to the overall state of QC for a data asset, this will allow individual metrics to fail while still passing the evaluation.",
                "title": "Allow metrics to fail",
                "type": "boolean"
-            },
-            "latest_status": {
-               "$ref": "#/$defs/Status",
-               "default": null,
-               "title": "Evaluation status"
-            },
-            "created": {
-               "format": "date-time",
-               "title": "Evaluation creation date",
-               "type": "string"
             }
          },
          "required": [
@@ -269,12 +259,18 @@
             "name": {
                "const": "Behavior",
                "default": "Behavior",
+               "enum": [
+                  "Behavior"
+               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "behavior",
                "default": "behavior",
+               "enum": [
+                  "behavior"
+               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -289,12 +285,18 @@
             "name": {
                "const": "Behavior videos",
                "default": "Behavior videos",
+               "enum": [
+                  "Behavior videos"
+               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "behavior-videos",
                "default": "behavior-videos",
+               "enum": [
+                  "behavior-videos"
+               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -309,12 +311,18 @@
             "name": {
                "const": "Confocal microscopy",
                "default": "Confocal microscopy",
+               "enum": [
+                  "Confocal microscopy"
+               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "confocal",
                "default": "confocal",
+               "enum": [
+                  "confocal"
+               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -329,12 +337,18 @@
             "name": {
                "const": "Extracellular electrophysiology",
                "default": "Extracellular electrophysiology",
+               "enum": [
+                  "Extracellular electrophysiology"
+               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "ecephys",
                "default": "ecephys",
+               "enum": [
+                  "ecephys"
+               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -349,12 +363,18 @@
             "name": {
                "const": "Electromyography",
                "default": "Electromyography",
+               "enum": [
+                  "Electromyography"
+               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "EMG",
                "default": "EMG",
+               "enum": [
+                  "EMG"
+               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -369,12 +389,18 @@
             "name": {
                "const": "Fiber photometry",
                "default": "Fiber photometry",
+               "enum": [
+                  "Fiber photometry"
+               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "fib",
                "default": "fib",
+               "enum": [
+                  "fib"
+               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -389,12 +415,18 @@
             "name": {
                "const": "Fluorescence micro-optical sectioning tomography",
                "default": "Fluorescence micro-optical sectioning tomography",
+               "enum": [
+                  "Fluorescence micro-optical sectioning tomography"
+               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "fMOST",
                "default": "fMOST",
+               "enum": [
+                  "fMOST"
+               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -409,12 +441,18 @@
             "name": {
                "const": "Intracellular electrophysiology",
                "default": "Intracellular electrophysiology",
+               "enum": [
+                  "Intracellular electrophysiology"
+               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "icephys",
                "default": "icephys",
+               "enum": [
+                  "icephys"
+               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -429,12 +467,18 @@
             "name": {
                "const": "Intrinsic signal imaging",
                "default": "Intrinsic signal imaging",
+               "enum": [
+                  "Intrinsic signal imaging"
+               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "ISI",
                "default": "ISI",
+               "enum": [
+                  "ISI"
+               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -449,12 +493,18 @@
             "name": {
                "const": "Multiplexed error-robust fluorescence in situ hybridization",
                "default": "Multiplexed error-robust fluorescence in situ hybridization",
+               "enum": [
+                  "Multiplexed error-robust fluorescence in situ hybridization"
+               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "merfish",
                "default": "merfish",
+               "enum": [
+                  "merfish"
+               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -469,12 +519,18 @@
             "name": {
                "const": "Magnetic resonance imaging",
                "default": "Magnetic resonance imaging",
+               "enum": [
+                  "Magnetic resonance imaging"
+               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "MRI",
                "default": "MRI",
+               "enum": [
+                  "MRI"
+               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -489,12 +545,18 @@
             "name": {
                "const": "Planar optical physiology",
                "default": "Planar optical physiology",
+               "enum": [
+                  "Planar optical physiology"
+               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "pophys",
                "default": "pophys",
+               "enum": [
+                  "pophys"
+               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -509,12 +571,18 @@
             "name": {
                "const": "Scanned line projection imaging",
                "default": "Scanned line projection imaging",
+               "enum": [
+                  "Scanned line projection imaging"
+               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "slap",
                "default": "slap",
+               "enum": [
+                  "slap"
+               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -529,12 +597,18 @@
             "name": {
                "const": "Selective plane illumination microscopy",
                "default": "Selective plane illumination microscopy",
+               "enum": [
+                  "Selective plane illumination microscopy"
+               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "SPIM",
                "default": "SPIM",
+               "enum": [
+                  "SPIM"
+               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -553,8 +627,11 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "1.2.2",
-         "default": "1.2.2",
+         "const": "1.2.1",
+         "default": "1.2.1",
+         "enum": [
+            "1.2.1"
+         ],
          "title": "Schema Version",
          "type": "string"
       },
