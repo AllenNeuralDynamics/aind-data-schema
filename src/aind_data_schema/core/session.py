@@ -17,7 +17,8 @@ from aind_data_schema_models.units import (
     TimeUnit,
     VolumeUnit,
 )
-from pydantic import Field, field_validator, model_validator
+from aind_data_schema_models.brain_atlas import CCFStructure
+from pydantic import Field, SkipValidation, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
 from typing_extensions import Annotated
 
@@ -95,7 +96,7 @@ class FieldOfView(AindModel):
     index: int = Field(..., title="Index")
     imaging_depth: int = Field(..., title="Imaging depth (um)")
     imaging_depth_unit: SizeUnit = Field(default=SizeUnit.UM, title="Imaging depth unit")
-    targeted_structure: str = Field(..., title="Targeted structure")
+    targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
     fov_coordinate_ml: Decimal = Field(..., title="FOV coordinate ML")
     fov_coordinate_ap: Decimal = Field(..., title="FOV coordinate AP")
     fov_coordinate_unit: SizeUnit = Field(default=SizeUnit.UM, title="FOV coordinate unit")
@@ -162,7 +163,7 @@ class Stack(AindModel):
     fov_scale_factor_unit: str = Field(default="um/pixel", title="FOV scale factor unit")
     frame_rate: Decimal = Field(..., title="Frame rate (Hz)")
     frame_rate_unit: FrequencyUnit = Field(default=FrequencyUnit.HZ, title="Frame rate unit")
-    targeted_structure: Optional[str] = Field(default=None, title="Targeted structure")
+    targeted_structure: Optional[CCFStructure.ONE_OF] = Field(default=None, title="Targeted structure")
 
 
 class SlapSessionType(str, Enum):
@@ -207,8 +208,10 @@ class DomeModule(AindModel):
 class ManipulatorModule(DomeModule):
     """A dome module connected to a 3-axis manipulator"""
 
-    primary_targeted_structure: str = Field(..., title="Targeted structure")
-    other_targeted_structure: Optional[List[str]] = Field(default=None, title="Other targeted structure")
+    primary_targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
+    other_targeted_structure: Optional[List[CCFStructure.ONE_OF]] = Field(
+        default=None, title="Other targeted structure"
+    )
     targeted_ccf_coordinates: List[CcfCoords] = Field(
         default=[],
         title="Targeted CCF coordinates",
@@ -533,8 +536,8 @@ class Session(AindCoreModel):
     """Description of a physiology and/or behavior session"""
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/session.py"
-    describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["1.0.0"] = Field("1.0.0")
+    describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
+    schema_version: SkipValidation[Literal["1.0.3"]] = Field(default="1.0.3")
     protocol_id: List[str] = Field(default=[], title="Protocol ID", description="DOI for protocols.io")
     experimenter_full_name: List[str] = Field(
         ...,

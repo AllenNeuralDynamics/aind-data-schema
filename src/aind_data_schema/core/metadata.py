@@ -1,15 +1,27 @@
 """Generic metadata class for Data Asset Records."""
 
 import inspect
-from datetime import datetime
+import json
+import logging
+from datetime import datetime, timezone
 from enum import Enum
 from typing import Dict, List, Literal, Optional, get_args
 from uuid import UUID, uuid4
 
+from aind_data_schema_models.modalities import ExpectedFiles, FileRequirement
 from aind_data_schema_models.platforms import Platform
-from pydantic import Field, PrivateAttr, ValidationError, ValidationInfo, field_validator, model_validator
+from pydantic import (
+    Field,
+    PrivateAttr,
+    SkipValidation,
+    ValidationError,
+    ValidationInfo,
+    field_serializer,
+    field_validator,
+    model_validator,
+)
 
-from aind_data_schema.base import AindCoreModel
+from aind_data_schema.base import AindCoreModel, is_dict_corrupt, AwareDatetimeWithDefault
 from aind_data_schema.core.acquisition import Acquisition
 from aind_data_schema.core.data_description import DataDescription
 from aind_data_schema.core.instrument import Instrument
@@ -20,6 +32,18 @@ from aind_data_schema.core.rig import Rig
 from aind_data_schema.core.session import Session
 from aind_data_schema.core.subject import Subject
 from aind_data_schema.utils.compatibility_check import RigSessionCompatibility
+
+CORE_FILES = [
+    "subject",
+    "data_description",
+    "procedures",
+    "session",
+    "rig",
+    "processing",
+    "acquisition",
+    "instrument",
+    "quality_control",
+]
 
 
 class MetadataStatus(str, Enum):
@@ -47,8 +71,8 @@ class Metadata(AindCoreModel):
     _FILE_EXTENSION = PrivateAttr(default=".nd.json")
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/metadata.py"
-    describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["1.0.0"] = Field("1.0.0")
+    describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
+    schema_version: SkipValidation[Literal["1.1.1"]] = Field(default="1.1.1")
     id: UUID = Field(
         default_factory=uuid4,
         alias="_id",
@@ -60,15 +84,13 @@ class Metadata(AindCoreModel):
         description="Name of the data asset.",
         title="Data Asset Name",
     )
-    # We'll set created and last_modified defaults using the root_validator
-    # to ensure they're synced on creation
-    created: datetime = Field(
-        default_factory=datetime.utcnow,
+    created: AwareDatetimeWithDefault = Field(
+        default_factory=lambda: datetime.now(tz=timezone.utc),
         title="Created",
         description="The utc date and time the data asset created.",
     )
-    last_modified: datetime = Field(
-        default_factory=datetime.utcnow,
+    last_modified: AwareDatetimeWithDefault = Field(
+        default_factory=lambda: datetime.now(tz=timezone.utc),
         title="Last Modified",
         description="The utc date and time that the data asset was last modified.",
     )
@@ -112,15 +134,7 @@ class Metadata(AindCoreModel):
     )
 
     @field_validator(
-        "subject",
-        "data_description",
-        "procedures",
-        "session",
-        "rig",
-        "processing",
-        "acquisition",
-        "instrument",
-        "quality_control",
+        *CORE_FILES,
         mode="before",
     )
     def validate_core_fields(cls, value, info: ValidationInfo):
@@ -141,6 +155,16 @@ class Metadata(AindCoreModel):
         else:
             core_model = value
         return core_model
+
+    @field_validator("last_modified", mode="after")
+    def validate_last_modified(cls, value, info: ValidationInfo):
+        """Convert last_modified field to UTC from other timezones"""
+        return value.astimezone(timezone.utc)
+
+    @field_serializer("last_modified")
+    def serialize_last_modified(value) -> str:
+        """Serialize last_modified field"""
+        return value.isoformat().replace("+00:00", "Z")
 
     @model_validator(mode="after")
     def validate_metadata(self):
@@ -190,16 +214,49 @@ class Metadata(AindCoreModel):
         return self
 
     @model_validator(mode="after")
+    def validate_expected_files_by_modality(self):
+        """Validator checks that all required/excluded files match the metadata model"""
+        if self.data_description:
+            modalities = self.data_description.modality
+
+            requirement_dict = {}
+
+            for modality in modalities:
+                abbreviation = modality.abbreviation.replace("-", "_").upper()
+
+                for file in CORE_FILES:
+                    #  For each field, check if this is a required/excluded file
+                    file_requirement = getattr(getattr(ExpectedFiles, abbreviation), file)
+
+                    if file not in requirement_dict:
+                        requirement_dict[file] = (abbreviation, file_requirement)
+                    else:
+                        (prev_modality, prev_requirement) = requirement_dict[file]
+
+                        if (file_requirement == FileRequirement.REQUIRED) or (
+                            file_requirement == FileRequirement.OPTIONAL
+                            and prev_requirement == FileRequirement.EXCLUDED
+                        ):
+                            # override, required wins over all else, and optional wins over excluded
+                            requirement_dict[file] = (abbreviation, file_requirement)
+
+            for file in CORE_FILES:
+                # Unpack modality
+                (requirement_modality, file_requirement) = requirement_dict[file]
+
+                # Check required case
+                if file_requirement == FileRequirement.REQUIRED and not getattr(self, file):
+                    raise ValueError(f"{requirement_modality} metadata missing required file: {file}")
+
+                # Check excluded case
+                if file_requirement == FileRequirement.EXCLUDED and getattr(self, file):
+                    raise ValueError(f"{requirement_modality} metadata includes excluded file: {file}")
+
+        return self
+
+    @model_validator(mode="after")
     def validate_smartspim_metadata(self):
         """Validator for smartspim metadata"""
-        if (
-            self.data_description
-            and self.data_description.platform == Platform.SMARTSPIM
-            and not (self.subject and self.procedures and self.acquisition and self.instrument)
-        ):
-            raise ValueError(
-                "Missing some metadata for SmartSpim. Requires subject, procedures, acquisition, and instrument."
-            )
 
         if (
             self.data_description
@@ -222,14 +279,6 @@ class Metadata(AindCoreModel):
         if (
             self.data_description
             and self.data_description.platform == Platform.ECEPHYS
-            and not (self.subject and self.procedures and self.session and self.rig and self.processing)
-        ):
-            raise ValueError(
-                "Missing some metadata for Ecephys. Requires subject, procedures, session, rig, and processing."
-            )
-        if (
-            self.data_description
-            and self.data_description.platform == Platform.ECEPHYS
             and self.procedures
             and any(
                 isinstance(surgery, Injection) and getattr(surgery, "injection_materials", None) is None
@@ -248,3 +297,43 @@ class Metadata(AindCoreModel):
             check = RigSessionCompatibility(self.rig, self.session)
             check.run_compatibility_check()
         return self
+
+
+def create_metadata_json(
+    name: str,
+    location: str,
+    core_jsons: Dict[str, Optional[dict]],
+    optional_created: Optional[datetime] = None,
+    optional_external_links: Optional[dict] = None,
+) -> dict:
+    """Creates a Metadata dict from dictionary of core schema fields."""
+    # Extract basic parameters and non-corrupt core schema fields
+    params = {
+        "name": name,
+        "location": location,
+    }
+    if optional_created is not None:
+        params["created"] = optional_created
+    if optional_external_links is not None:
+        params["external_links"] = optional_external_links
+    core_fields = dict()
+    for key, value in core_jsons.items():
+        if key in CORE_FILES and value is not None:
+            if is_dict_corrupt(value):
+                logging.warning(f"Provided {key} is corrupt! It will be ignored.")
+            else:
+                core_fields[key] = value
+    # Create Metadata object and convert to JSON
+    # If there are any validation errors, still create it
+    # but set MetadataStatus as Invalid
+    try:
+        metadata = Metadata.model_validate({**params, **core_fields})
+        metadata_json = json.loads(metadata.model_dump_json(by_alias=True))
+    except Exception as e:
+        logging.warning(f"Issue with metadata construction! {e.args}")
+        metadata = Metadata.model_validate(params)
+        metadata_json = json.loads(metadata.model_dump_json(by_alias=True))
+        for key, value in core_fields.items():
+            metadata_json[key] = value
+        metadata_json["metadata_status"] = MetadataStatus.INVALID.value
+    return metadata_json

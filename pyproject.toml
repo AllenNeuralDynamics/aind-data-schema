@@ -14,7 +14,7 @@ readme = "README.md"
 dynamic = ["version"]
 
 dependencies = [
-    'aind-data-schema-models>=0.3.2',
+    'aind-data-schema-models>=0.5.4, <1.0.0',
     'dictdiffer',
     'pydantic>=2.7',
     'inflection',
@@ -43,7 +43,8 @@ docs = [
     'sphinx-jinja',
     'furo',
     'erdantic>=0.7.0,<1.0',
-    'autodoc_pydantic'
+    'autodoc_pydantic',
+    'myst-parser'
 ]
 
 viz = [
