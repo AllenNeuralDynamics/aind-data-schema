@@ -160,13 +160,11 @@ class CatheterPort(str, Enum):
     DOUBLE = "Double"
 
 
-class CatheterPatency(str, Enum):
-    """Patency of catheter"""
+class SampleType(str, Enum):
+    """Sample type"""
 
-    NOT_PATENT = "Not patent"
-    PATENT = "Patent"
-    ONLY_PUSH = "Only push"
-    ONLY_PULL = "Only pull"
+    BLOOD = "Blood"
+    OTHER = "Other"
 
 
 class Readout(Reagent):
@@ -333,35 +331,7 @@ class CatheterImplant(AindModel):
     catheter_material: CatheterMaterial = Field(..., title="Catheter material")
     catheter_design: CatheterDesign = Field(..., title="Catheter design")
     catheter_port: CatheterPort = Field(..., title="Catheter port")
-    targeted_vessel: MouseAnatomicalStructure.BLOOD_VESSELS = Field(..., title="Targeted blood vessel")
-
-
-class CatheterMaintenance(AindModel):
-    """Description of a single catheter maintenance procedure"""
-
-    procedure_type: Literal["Catheter maintenance"] = "Catheter maintenance"
-    start_date: date = Field(..., title="Start date")
-    experimenter_full_name: str = Field(
-        ...,
-        description="First and last name of the experimenter.",
-        title="Experimenter full name",
-    )
-    animal_weight_prior: Decimal = Field(
-        ..., title="Animal weight (g)", description="Animal weight before procedure"
-    )
-    weight_unit: MassUnit = Field(default=MassUnit.G, title="Weight unit")
-    health_assessment: Optional[str] = Field(default=None, title="Health assessment")
-    patent: CatheterPatency = Field(..., title="Catheter patent")
-    notes: Optional[str] = Field(default=None, title="Notes")
-
-
-class CatheterMaintenanceRecord(AindModel):
-    """Description of catheter maintenance record"""
-
-    procedure_type: Literal["Catheter maintenance"] = "Catheter maintenance"
-    protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
-    iacuc_protocol: str = Field(..., title="IACUC protocol")
-    catheter_maintenance: List[CatheterMaintenance] = Field(..., title="Cathether maintenance")
+    targeted_structure: MouseAnatomicalStructure.BLOOD_VESSELS = Field(..., title="Targeted blood vessel")
 
 
 class Craniotomy(AindModel):
@@ -568,10 +538,11 @@ class IntraCisternalMagnaInjection(BrainInjection):
     injection_volume_unit: VolumeUnit = Field(VolumeUnit.NL, title="Injection volume unit")
 
 
-class BloodCollection(AindModel):
-    """Description of a single blood collection"""
+class SampleCollection(AindModel):
+    """Description of a single sample collection"""
 
-    procedure_type: Literal["Blood collection"] = "Blood collection"
+    procedure_type: Literal["Sample collection"] = "Sample collection"
+    sample_type: SampleType = Field(..., title="Sample type")
     time: AwareDatetimeWithDefault = Field(..., title="Collection time")
     collection_volume: Decimal = Field(..., title="Collection volume")
     collection_volume_unit: VolumeUnit = Field(..., title="Collection volume unit")
@@ -707,7 +678,6 @@ class Surgery(AindModel):
     procedures: List[
         Annotated[
             Union[
-                BloodCollection,
                 CatheterImplant,
                 Craniotomy,
                 FiberImplant,
@@ -722,6 +692,7 @@ class Surgery(AindModel):
                 Perfusion,
                 ProtectiveMaterialReplacement,
                 RetroOrbitalInjection,
+                SampleCollection,
             ],
             Field(discriminator="procedure_type"),
         ]
@@ -744,7 +715,6 @@ class Procedures(AindCoreModel):
     subject_procedures: List[
         Annotated[
             Union[
-                CatheterMaintenance,
                 Surgery,
                 TrainingProtocol,
                 WaterRestriction,
