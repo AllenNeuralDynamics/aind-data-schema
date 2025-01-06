@@ -113,4 +113,4 @@ When you are ready to open a pull request, please link any relevant issues and r
 - After this push, any last minute changes to the release-vX.Y.Z will have to done to via a PR
 - After review, use a merge commit to merge into main
 - Open a PR from main back into dev so they're synced again
-- Create a Github release with the corresponding tag, modify the auto-generated release notes to focus on the major changes that occurred.
+- Create a Github release with the corresponding tag, modify the auto-generated release notes to focus on the major changes that occurred
