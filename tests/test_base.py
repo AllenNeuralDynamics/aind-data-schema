@@ -9,7 +9,14 @@ from unittest.mock import MagicMock, call, mock_open, patch
 from pydantic import ValidationError, create_model, SkipValidation
 from typing import Literal
 
-from aind_data_schema.base import AindGeneric, AwareDatetimeWithDefault, is_dict_corrupt, AindModel, AindCoreModel
+from aind_data_schema.base import (
+    AindGeneric,
+    AwareDatetimeWithDefault,
+    is_dict_corrupt,
+    AindModel,
+    AindCoreModel,
+    MAX_FILE_SIZE,
+)
 from aind_data_schema.core.subject import Subject
 from aind_data_schema_models.brain_atlas import CCFStructure
 
@@ -150,6 +157,20 @@ class BaseTests(unittest.TestCase):
         # Check that adding additional fields still fails validation
         # this is to ensure you can't get a bumped schema_version without passing validation
         self.assertRaises(ValidationError, lambda: Modelv1(**v2_from_v1.model_dump()))
+
+    @patch("builtins.open", new_callable=mock_open)
+    @patch("logging.warning")
+    def test_write_standard_file_size_warning(self, mock_logging_warning: MagicMock, mock_open: MagicMock):
+        """Tests that a warning is logged if the file size exceeds MAX_FILE_SIZE"""
+
+        s = Subject.model_construct()
+        s.subject_id = "s" * (MAX_FILE_SIZE + 1000)
+        s.write_standard_file(output_directory=Path("dir"), suffix=".foo.bar")
+
+        mock_open.assert_has_calls([call(Path("dir/subject.foo.bar"), "w")])
+        mock_logging_warning.assert_called_once_with(
+            f"File size exceeds {MAX_FILE_SIZE / 1024} KB: dir/subject.foo.bar"
+        )
 
 
 if __name__ == "__main__":
