@@ -103,3 +103,14 @@ where scope (optional) describes the packages affected by the code changes and t
 to set up your environment.
 
 When you are ready to open a pull request, please link any relevant issues and request a review. Thanks for contributing!
+
+## Release
+
+- From dev, create a branch called release-vX.Y.Z
+- Manually increment the version number in the aind_data_schema/__init__.py file to match
+- Manually increment the major/minor/patch versions of the core files as needed
+- Push the branch and open a PR into main
+- After this push, any last minute changes to the release-vX.Y.Z will have to done to via a PR
+- After review, use a merge commit to merge into main
+- Open a PR from main back into dev so they're synced again
+- Create a Github release with the corresponding tag, modify the auto-generated release notes to focus on the major changes that occurred
