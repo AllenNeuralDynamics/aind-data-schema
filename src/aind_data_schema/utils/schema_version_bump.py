@@ -54,6 +54,7 @@ class SchemaVersionHandler:
                 with open(main_branch_schema_path, "r") as f:
                     main_branch_schema_contents = json.load(f)
                 diff = dictdiffer.diff(main_branch_schema_contents, core_model_json)
+                print(f"Diff for {core_model.__name__}: {list(diff)}")
                 if len(list(diff)) > 0:
                     schemas_that_need_updating.append(core_model)
         return schemas_that_need_updating
@@ -74,11 +75,24 @@ class SchemaVersionHandler:
 
         """
         version_bump_map = {}
-        # TODO: Use commit message to determine version number to bump?
         for model in models_that_changed:
+            # We only want to bump the patch if the major or minor versions didn't already change
+            # Load the current version of the model
+            default_filename = model.default_filename()
+            if default_filename.find(".") != -1:
+                schema_filename = default_filename[: default_filename.find(".")] + "_schema.json"
+            main_branch_schema_path = Path(OLD_SCHEMA_DIR) / schema_filename
+            if main_branch_schema_path.exists():
+                with open(main_branch_schema_path, "r") as f:
+                    main_branch_schema_contents = json.load(f)
+                    orig_ver = semver.Version.parse(main_branch_schema_contents.get("schema_version", model.model_fields["schema_version"].default))
+
             old_v = semver.Version.parse(model.model_fields["schema_version"].default)
-            new_v = old_v.bump_patch()
-            version_bump_map[model] = str(new_v)
+            if orig_ver.major == old_v.major and orig_ver.minor == old_v.minor:
+                new_ver = old_v.bump_patch()
+            else:
+                new_ver = old_v
+            version_bump_map[model] = str(new_ver)
         return version_bump_map
 
     @staticmethod
