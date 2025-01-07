@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/session.py",
-   "schema_version": "1.0.3",
+   "schema_version": "1.1.1",
    "protocol_id": [],
    "experimenter_full_name": [
       "Max Quibble",
@@ -37,7 +37,12 @@
                "coordinate_transform": "behavior/calibration_info_np2_2023_04_24.npy",
                "calibration_date": "2023-04-25T00:00:00Z",
                "notes": "Moved Y to avoid blood vessel, X to avoid edge. Mouse made some noise during the recording with a sudden shift in signals. Lots of motion. Maybe some implant motion.",
-               "primary_targeted_structure": "LGd",
+               "primary_targeted_structure": {
+                  "atlas": "CCFv3",
+                  "name": "Dorsal part of the lateral geniculate complex",
+                  "acronym": "LGd",
+                  "id": "170"
+               },
                "other_targeted_structure": null,
                "targeted_ccf_coordinates": [
                   {
@@ -70,7 +75,12 @@
                "coordinate_transform": "behavior/calibration_info_np2_2023_04_24.py",
                "calibration_date": "2023-04-25T00:00:00Z",
                "notes": "Trouble penetrating. Lots of compression, needed to move probe. Small amount of surface bleeding/bruising. Initial Target: X;10070.3\tY:7476.6",
-               "primary_targeted_structure": "LC",
+               "primary_targeted_structure": {
+                  "atlas": "CCFv3",
+                  "name": "Locus ceruleus",
+                  "acronym": "LC",
+                  "id": "147"
+               },
                "other_targeted_structure": null,
                "targeted_ccf_coordinates": [
                   {
@@ -172,7 +182,12 @@
                "coordinate_transform": "behavior/calibration_info_np2_2023_04_24.npy",
                "calibration_date": "2023-04-25T00:00:00Z",
                "notes": "Moved Y to avoid blood vessel, X to avoid edge. Mouse made some noise during the recording with a sudden shift in signals. Lots of motion. Maybe some implant motion.",
-               "primary_targeted_structure": "LGd",
+               "primary_targeted_structure": {
+                  "atlas": "CCFv3",
+                  "name": "Dorsal part of the lateral geniculate complex",
+                  "acronym": "LGd",
+                  "id": "170"
+               },
                "other_targeted_structure": null,
                "targeted_ccf_coordinates": [
                   {
@@ -205,7 +220,12 @@
                "coordinate_transform": "behavior/calibration_info_np2_2023_04_24.py",
                "calibration_date": "2023-04-25T00:00:00Z",
                "notes": "Trouble penetrating. Lots of compression, needed to move probe. Small amount of surface bleeding/bruising. Initial Target: X;10070.3\tY:7476.6",
-               "primary_targeted_structure": "LC",
+               "primary_targeted_structure": {
+                  "atlas": "CCFv3",
+                  "name": "Locus ceruleus",
+                  "acronym": "LC",
+                  "id": "147"
+               },
                "other_targeted_structure": null,
                "targeted_ccf_coordinates": [
                   {

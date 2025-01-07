@@ -799,7 +799,7 @@ class TestRigSessionCompatibility(unittest.TestCase):
                             assembly_name="Fiber Module A",
                             arc_angle=30,
                             module_angle=180,
-                            primary_targeted_structure="Structure A",
+                            primary_targeted_structure="VISp",
                             manipulator_coordinates=Coordinates3d(x=30.5, y=70, z=180),
                         )
                     ],

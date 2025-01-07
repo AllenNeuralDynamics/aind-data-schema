@@ -15,8 +15,7 @@ class QualityControlTests(unittest.TestCase):
     def test_constructors(self):
         """testing constructors"""
 
-        with self.assertRaises(ValidationError):
-            q = QualityControl()
+        self.assertRaises(ValidationError, QualityControl)
 
         test_eval = QCEvaluation(
             name="Drift map",
@@ -24,7 +23,7 @@ class QualityControlTests(unittest.TestCase):
             stage=Stage.PROCESSING,
             metrics=[
                 QCMetric(
-                    name="Multiple values example",
+                    name="Dict example",
                     value={"stuff": "in_a_dict"},
                     status_history=[
                         QCStatus(evaluator="Bob", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PASS)
@@ -57,7 +56,7 @@ class QualityControlTests(unittest.TestCase):
             stage=Stage.PROCESSING,
             metrics=[
                 QCMetric(
-                    name="Multiple values example",
+                    name="Dict example",
                     value={"stuff": "in_a_dict"},
                     status_history=[
                         QCStatus(evaluator="Bob", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PASS)
@@ -76,7 +75,7 @@ class QualityControlTests(unittest.TestCase):
         )
 
         # check that evaluation status gets auto-set if it has never been set before
-        self.assertEqual(test_eval.status(), Status.PASS)
+        self.assertEqual(test_eval.latest_status, Status.PASS)
 
         q = QualityControl(
             evaluations=[test_eval, test_eval],
@@ -147,7 +146,7 @@ class QualityControlTests(unittest.TestCase):
             ],
         )
 
-        self.assertEqual(evaluation.status(), Status.PASS)
+        self.assertEqual(evaluation.latest_status, Status.PASS)
 
         # Add a pending metric, evaluation should now evaluate to pending
         evaluation.metrics.append(
@@ -163,8 +162,9 @@ class QualityControlTests(unittest.TestCase):
                 ],
             )
         )
+        evaluation.latest_status = evaluation.evaluate_status()
 
-        self.assertEqual(evaluation.status(), Status.PENDING)
+        self.assertEqual(evaluation.latest_status, Status.PENDING)
 
         # Add a failing metric, evaluation should now evaluate to fail
         evaluation.metrics.append(
@@ -178,8 +178,10 @@ class QualityControlTests(unittest.TestCase):
                 ],
             )
         )
+        evaluation.latest_status = evaluation.evaluate_status()
 
-        self.assertEqual(evaluation.status(), Status.FAIL)
+        self.assertEqual(evaluation.latest_status, Status.FAIL)
+        self.assertEqual(evaluation.status(), evaluation.latest_status)
 
     def test_allowed_failed_metrics(self):
         """Test that if you set the flag to allow failures that evaluations pass"""
@@ -218,14 +220,17 @@ class QualityControlTests(unittest.TestCase):
 
         evaluation.allow_failed_metrics = True
 
-        self.assertEqual(evaluation.status(), Status.PENDING)
+        self.assertEqual(evaluation.latest_status, Status.PENDING)
 
         # Replace the pending evaluation with a fail, evaluation should not evaluate to pass
         evaluation.metrics[1].status_history[0].status = Status.FAIL
+        evaluation.latest_status = evaluation.evaluate_status()
 
-        self.assertEqual(evaluation.status(), Status.PASS)
+        self.assertEqual(evaluation.latest_status, Status.PASS)
 
         metric2.status_history[0].status = Status.FAIL
+        evaluation.latest_status = evaluation.evaluate_status()
+
         self.assertEqual(evaluation.failed_metrics, [metric2])
 
     def test_metric_history_order(self):
@@ -293,7 +298,7 @@ class QualityControlTests(unittest.TestCase):
             stage=Stage.PROCESSING,
             metrics=[
                 QCMetric(
-                    name="Multiple values example",
+                    name="Dict example",
                     value={"stuff": "in_a_dict"},
                     status_history=[
                         QCStatus(evaluator="Automated", timestamp=t0, status=Status.PASS),
@@ -313,7 +318,7 @@ class QualityControlTests(unittest.TestCase):
                 stage=Stage.PROCESSING,
                 metrics=[
                     QCMetric(
-                        name="Multiple values example",
+                        name="Dict with evaluated assets list",
                         value={"stuff": "in_a_dict"},
                         status_history=[
                             QCStatus(evaluator="Automated", timestamp=t0, status=Status.PASS),
@@ -323,7 +328,6 @@ class QualityControlTests(unittest.TestCase):
                 ],
             )
 
-        print(context.exception)
         self.assertTrue(
             "is in a single-asset QCEvaluation and should not have evaluated_assets" in repr(context.exception)
         )
@@ -336,7 +340,7 @@ class QualityControlTests(unittest.TestCase):
                 stage=Stage.MULTI_ASSET,
                 metrics=[
                     QCMetric(
-                        name="Multiple values example",
+                        name="Missing evaluated assets",
                         value={"stuff": "in_a_dict"},
                         status_history=[
                             QCStatus(evaluator="Automated", timestamp=t0, status=Status.PASS),
@@ -484,10 +488,10 @@ class QualityControlTests(unittest.TestCase):
             metrics=[metric],
         )
 
-        self.assertRaises(ValueError, test_eval.status, date=t0_5)
-        self.assertEqual(test_eval.status(date=t1_5), Status.FAIL)
-        self.assertEqual(test_eval.status(date=t2_5), Status.PENDING)
-        self.assertEqual(test_eval.status(date=t3_5), Status.PASS)
+        self.assertRaises(ValueError, test_eval.evaluate_status, date=t0_5)
+        self.assertEqual(test_eval.evaluate_status(date=t1_5), Status.FAIL)
+        self.assertEqual(test_eval.evaluate_status(date=t2_5), Status.PENDING)
+        self.assertEqual(test_eval.evaluate_status(date=t3_5), Status.PASS)
 
         qc = QualityControl(evaluations=[test_eval])
 

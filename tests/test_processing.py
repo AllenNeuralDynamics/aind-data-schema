@@ -37,10 +37,7 @@ class ProcessingTest(unittest.TestCase):
             DataProcess(name="Other", notes="")
 
         expected_exception = (
-            "8 validation errors for DataProcess\n"
-            "software_version\n"
-            "  Field required [type=missing, input_value={'name': 'Other', 'notes': ''}, input_type=dict]\n"
-            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/missing\n"
+            "6 validation errors for DataProcess\n"
             "start_date_time\n"
             "  Field required [type=missing, input_value={'name': 'Other', 'notes': ''}, input_type=dict]\n"
             f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/missing\n"
@@ -54,9 +51,6 @@ class ProcessingTest(unittest.TestCase):
             "  Field required [type=missing, input_value={'name': 'Other', 'notes': ''}, input_type=dict]\n"
             f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/missing\n"
             "code_url\n"
-            "  Field required [type=missing, input_value={'name': 'Other', 'notes': ''}, input_type=dict]\n"
-            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/missing\n"
-            "parameters\n"
             "  Field required [type=missing, input_value={'name': 'Other', 'notes': ''}, input_type=dict]\n"
             f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/missing\n"
             "notes\n"

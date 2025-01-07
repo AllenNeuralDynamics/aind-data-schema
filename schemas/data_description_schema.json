@@ -210,18 +210,12 @@
             "name": {
                "const": "Addgene",
                "default": "Addgene",
-               "enum": [
-                  "Addgene"
-               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "ADDGENE",
                "default": "ADDGENE",
-               "enum": [
-                  "ADDGENE"
-               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -235,18 +229,12 @@
             "name": {
                "const": "Allen Institute",
                "default": "Allen Institute",
-               "enum": [
-                  "Allen Institute"
-               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "AI",
                "default": "AI",
-               "enum": [
-                  "AI"
-               ],
                "title": "Abbreviation",
                "type": "string"
             },
@@ -295,9 +283,6 @@
             "registry_identifier": {
                "const": "03cpe7c52",
                "default": "03cpe7c52",
-               "enum": [
-                  "03cpe7c52"
-               ],
                "title": "Registry Identifier",
                "type": "string"
             }
@@ -311,18 +296,12 @@
             "name": {
                "const": "Allen Institute for Brain Science",
                "default": "Allen Institute for Brain Science",
-               "enum": [
-                  "Allen Institute for Brain Science"
-               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "AIBS",
                "default": "AIBS",
-               "enum": [
-                  "AIBS"
-               ],
                "title": "Abbreviation",
                "type": "string"
             },
@@ -371,9 +350,6 @@
             "registry_identifier": {
                "const": "00dcv1019",
                "default": "00dcv1019",
-               "enum": [
-                  "00dcv1019"
-               ],
                "title": "Registry Identifier",
                "type": "string"
             }
@@ -387,18 +363,12 @@
             "name": {
                "const": "Allen Institute for Neural Dynamics",
                "default": "Allen Institute for Neural Dynamics",
-               "enum": [
-                  "Allen Institute for Neural Dynamics"
-               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "AIND",
                "default": "AIND",
-               "enum": [
-                  "AIND"
-               ],
                "title": "Abbreviation",
                "type": "string"
             },
@@ -447,9 +417,6 @@
             "registry_identifier": {
                "const": "04szwah67",
                "default": "04szwah67",
-               "enum": [
-                  "04szwah67"
-               ],
                "title": "Registry Identifier",
                "type": "string"
             }
@@ -464,18 +431,12 @@
             "name": {
                "const": "Behavior videos",
                "default": "Behavior videos",
-               "enum": [
-                  "Behavior videos"
-               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "behavior-videos",
                "default": "behavior-videos",
-               "enum": [
-                  "behavior-videos"
-               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -489,18 +450,12 @@
             "name": {
                "const": "Chan Zuckerberg Initiative",
                "default": "Chan Zuckerberg Initiative",
-               "enum": [
-                  "Chan Zuckerberg Initiative"
-               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "CZI",
                "default": "CZI",
-               "enum": [
-                  "CZI"
-               ],
                "title": "Abbreviation",
                "type": "string"
             },
@@ -549,9 +504,6 @@
             "registry_identifier": {
                "const": "02qenvm24",
                "default": "02qenvm24",
-               "enum": [
-                  "02qenvm24"
-               ],
                "title": "Registry Identifier",
                "type": "string"
             }
@@ -565,18 +517,12 @@
             "name": {
                "const": "Columbia University",
                "default": "Columbia University",
-               "enum": [
-                  "Columbia University"
-               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "Columbia",
                "default": "Columbia",
-               "enum": [
-                  "Columbia"
-               ],
                "title": "Abbreviation",
                "type": "string"
             },
@@ -625,9 +571,6 @@
             "registry_identifier": {
                "const": "00hj8s172",
                "default": "00hj8s172",
-               "enum": [
-                  "00hj8s172"
-               ],
                "title": "Registry Identifier",
                "type": "string"
             }
@@ -642,18 +585,12 @@
             "name": {
                "const": "Edinburgh Mouse Atlas Project",
                "default": "Edinburgh Mouse Atlas Project",
-               "enum": [
-                  "Edinburgh Mouse Atlas Project"
-               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "EMAPA",
                "default": "EMAPA",
-               "enum": [
-                  "EMAPA"
-               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -668,18 +605,12 @@
             "name": {
                "const": "Electromyography",
                "default": "Electromyography",
-               "enum": [
-                  "Electromyography"
-               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "EMG",
                "default": "EMG",
-               "enum": [
-                  "EMG"
-               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -693,18 +624,12 @@
             "name": {
                "const": "ExaSPIM platform",
                "default": "ExaSPIM platform",
-               "enum": [
-                  "ExaSPIM platform"
-               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "exaSPIM",
                "default": "exaSPIM",
-               "enum": [
-                  "exaSPIM"
-               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -719,18 +644,12 @@
             "name": {
                "const": "Fiber photometry",
                "default": "Fiber photometry",
-               "enum": [
-                  "Fiber photometry"
-               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "fib",
                "default": "fib",
-               "enum": [
-                  "fib"
-               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -744,18 +663,12 @@
             "name": {
                "const": "Frame-projected independent-fiber photometry platform",
                "default": "Frame-projected independent-fiber photometry platform",
-               "enum": [
-                  "Frame-projected independent-fiber photometry platform"
-               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "FIP",
                "default": "FIP",
-               "enum": [
-                  "FIP"
-               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -770,18 +683,12 @@
             "name": {
                "const": "Fluorescence micro-optical sectioning tomography",
                "default": "Fluorescence micro-optical sectioning tomography",
-               "enum": [
-                  "Fluorescence micro-optical sectioning tomography"
-               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "fMOST",
                "default": "fMOST",
-               "enum": [
-                  "fMOST"
-               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -795,18 +702,12 @@
             "name": {
                "const": "Hybridization chain reaction platform",
                "default": "Hybridization chain reaction platform",
-               "enum": [
-                  "Hybridization chain reaction platform"
-               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "HCR",
                "default": "HCR",
-               "enum": [
-                  "HCR"
-               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -820,18 +721,12 @@
             "name": {
                "const": "Hyperspectral fiber photometry platform",
                "default": "Hyperspectral fiber photometry platform",
-               "enum": [
-                  "Hyperspectral fiber photometry platform"
-               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "HSFP",
                "default": "HSFP",
-               "enum": [
-                  "HSFP"
-               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -845,18 +740,12 @@
             "name": {
                "const": "Huazhong University of Science and Technology",
                "default": "Huazhong University of Science and Technology",
-               "enum": [
-                  "Huazhong University of Science and Technology"
-               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "HUST",
                "default": "HUST",
-               "enum": [
-                  "HUST"
-               ],
                "title": "Abbreviation",
                "type": "string"
             },
@@ -905,9 +794,6 @@
             "registry_identifier": {
                "const": "00p991c53",
                "default": "00p991c53",
-               "enum": [
-                  "00p991c53"
-               ],
                "title": "Registry Identifier",
                "type": "string"
             }
@@ -922,18 +808,12 @@
             "name": {
                "const": "Intracellular electrophysiology",
                "default": "Intracellular electrophysiology",
-               "enum": [
-                  "Intracellular electrophysiology"
-               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "icephys",
                "default": "icephys",
-               "enum": [
-                  "icephys"
-               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -947,18 +827,12 @@
             "name": {
                "const": "Janelia Research Campus",
                "default": "Janelia Research Campus",
-               "enum": [
-                  "Janelia Research Campus"
-               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "Janelia",
                "default": "Janelia",
-               "enum": [
-                  "Janelia"
-               ],
                "title": "Abbreviation",
                "type": "string"
             },
@@ -1007,9 +881,6 @@
             "registry_identifier": {
                "const": "013sk6x84",
                "default": "013sk6x84",
-               "enum": [
-                  "013sk6x84"
-               ],
                "title": "Registry Identifier",
                "type": "string"
             }
@@ -1023,18 +894,12 @@
             "name": {
                "const": "MBF Bioscience",
                "default": "MBF Bioscience",
-               "enum": [
-                  "MBF Bioscience"
-               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "MBF",
                "default": "MBF",
-               "enum": [
-                  "MBF"
-               ],
                "title": "Abbreviation",
                "type": "string"
             },
@@ -1083,9 +948,6 @@
             "registry_identifier": {
                "const": "02zynam48",
                "default": "02zynam48",
-               "enum": [
-                  "02zynam48"
-               ],
                "title": "Registry Identifier",
                "type": "string"
             }
@@ -1099,18 +961,12 @@
             "name": {
                "const": "MesoSPIM platform",
                "default": "MesoSPIM platform",
-               "enum": [
-                  "MesoSPIM platform"
-               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "mesoSPIM",
                "default": "mesoSPIM",
-               "enum": [
-                  "mesoSPIM"
-               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -1125,18 +981,12 @@
             "name": {
                "const": "Mouse Genome Informatics",
                "default": "Mouse Genome Informatics",
-               "enum": [
-                  "Mouse Genome Informatics"
-               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "MGI",
                "default": "MGI",
-               "enum": [
-                  "MGI"
-               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -1150,18 +1000,12 @@
             "name": {
                "const": "Michael J. Fox Foundation for Parkinson's Research",
                "default": "Michael J. Fox Foundation for Parkinson's Research",
-               "enum": [
-                  "Michael J. Fox Foundation for Parkinson's Research"
-               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "MJFF",
                "default": "MJFF",
-               "enum": [
-                  "MJFF"
-               ],
                "title": "Abbreviation",
                "type": "string"
             },
@@ -1210,9 +1054,6 @@
             "registry_identifier": {
                "const": "03arq3225",
                "default": "03arq3225",
-               "enum": [
-                  "03arq3225"
-               ],
                "title": "Registry Identifier",
                "type": "string"
             }
@@ -1226,18 +1067,12 @@
             "name": {
                "const": "Motor observatory platform",
                "default": "Motor observatory platform",
-               "enum": [
-                  "Motor observatory platform"
-               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "motor-observatory",
                "default": "motor-observatory",
-               "enum": [
-                  "motor-observatory"
-               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -1251,18 +1086,12 @@
             "name": {
                "const": "Multiplane optical physiology platform",
                "default": "Multiplane optical physiology platform",
-               "enum": [
-                  "Multiplane optical physiology platform"
-               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "multiplane-ophys",
                "default": "multiplane-ophys",
-               "enum": [
-                  "multiplane-ophys"
-               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -1276,18 +1105,12 @@
             "name": {
                "const": "National Center for Complementary and Integrative Health",
                "default": "National Center for Complementary and Integrative Health",
-               "enum": [
-                  "National Center for Complementary and Integrative Health"
-               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "NCCIH",
                "default": "NCCIH",
-               "enum": [
-                  "NCCIH"
-               ],
                "title": "Abbreviation",
                "type": "string"
             },
@@ -1336,9 +1159,6 @@
             "registry_identifier": {
                "const": "00190t495",
                "default": "00190t495",
-               "enum": [
-                  "00190t495"
-               ],
                "title": "Registry Identifier",
                "type": "string"
             }
@@ -1352,18 +1172,12 @@
             "name": {
                "const": "National Institute of Mental Health",
                "default": "National Institute of Mental Health",
-               "enum": [
-                  "National Institute of Mental Health"
-               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "NIMH",
                "default": "NIMH",
-               "enum": [
-                  "NIMH"
-               ],
                "title": "Abbreviation",
                "type": "string"
             },
@@ -1412,9 +1226,6 @@
             "registry_identifier": {
                "const": "04xeg9z08",
                "default": "04xeg9z08",
-               "enum": [
-                  "04xeg9z08"
-               ],
                "title": "Registry Identifier",
                "type": "string"
             }
@@ -1428,18 +1239,12 @@
             "name": {
                "const": "National Institute of Neurological Disorders and Stroke",
                "default": "National Institute of Neurological Disorders and Stroke",
-               "enum": [
-                  "National Institute of Neurological Disorders and Stroke"
-               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "NINDS",
                "default": "NINDS",
-               "enum": [
-                  "NINDS"
-               ],
                "title": "Abbreviation",
                "type": "string"
             },
@@ -1488,9 +1293,6 @@
             "registry_identifier": {
                "const": "01s5ya894",
                "default": "01s5ya894",
-               "enum": [
-                  "01s5ya894"
-               ],
                "title": "Registry Identifier",
                "type": "string"
             }
@@ -1505,18 +1307,12 @@
             "name": {
                "const": "National Center for Biotechnology Information",
                "default": "National Center for Biotechnology Information",
-               "enum": [
-                  "National Center for Biotechnology Information"
-               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "NCBI",
                "default": "NCBI",
-               "enum": [
-                  "NCBI"
-               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -1530,18 +1326,12 @@
             "name": {
                "const": "New York University",
                "default": "New York University",
-               "enum": [
-                  "New York University"
-               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "NYU",
                "default": "NYU",
-               "enum": [
-                  "NYU"
-               ],
                "title": "Abbreviation",
                "type": "string"
             },
@@ -1590,9 +1380,6 @@
             "registry_identifier": {
                "const": "0190ak572",
                "default": "0190ak572",
-               "enum": [
-                  "0190ak572"
-               ],
                "title": "Registry Identifier",
                "type": "string"
             }
@@ -1607,18 +1394,12 @@
             "name": {
                "const": "Open Researcher and Contributor ID",
                "default": "Open Researcher and Contributor ID",
-               "enum": [
-                  "Open Researcher and Contributor ID"
-               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "ORCID",
                "default": "ORCID",
-               "enum": [
-                  "ORCID"
-               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -1632,18 +1413,12 @@
             "name": {
                "const": "Other",
                "default": "Other",
-               "enum": [
-                  "Other"
-               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
                "title": "Abbreviation",
                "type": "null"
             },
@@ -1668,18 +1443,12 @@
             "name": {
                "const": "Planar optical physiology",
                "default": "Planar optical physiology",
-               "enum": [
-                  "Planar optical physiology"
-               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "pophys",
                "default": "pophys",
-               "enum": [
-                  "pophys"
-               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -1694,18 +1463,12 @@
             "name": {
                "const": "Research Organization Registry",
                "default": "Research Organization Registry",
-               "enum": [
-                  "Research Organization Registry"
-               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "ROR",
                "default": "ROR",
-               "enum": [
-                  "ROR"
-               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -1720,18 +1483,12 @@
             "name": {
                "const": "Research Resource Identifiers",
                "default": "Research Resource Identifiers",
-               "enum": [
-                  "Research Resource Identifiers"
-               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "RRID",
                "default": "RRID",
-               "enum": [
-                  "RRID"
-               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -1745,18 +1502,12 @@
             "name": {
                "const": "Simons Foundation",
                "default": "Simons Foundation",
-               "enum": [
-                  "Simons Foundation"
-               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": null,
                "default": null,
-               "enum": [
-                  null
-               ],
                "title": "Abbreviation",
                "type": "null"
             },
@@ -1805,9 +1556,6 @@
             "registry_identifier": {
                "const": "01cmst727",
                "default": "01cmst727",
-               "enum": [
-                  "01cmst727"
-               ],
                "title": "Registry Identifier",
                "type": "string"
             }
@@ -1821,18 +1569,12 @@
             "name": {
                "const": "Single-plane optical physiology platform",
                "default": "Single-plane optical physiology platform",
-               "enum": [
-                  "Single-plane optical physiology platform"
-               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "single-plane-ophys",
                "default": "single-plane-ophys",
-               "enum": [
-                  "single-plane-ophys"
-               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -1847,18 +1589,12 @@
             "name": {
                "const": "Scanned line projection imaging",
                "default": "Scanned line projection imaging",
-               "enum": [
-                  "Scanned line projection imaging"
-               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "slap",
                "default": "slap",
-               "enum": [
-                  "slap"
-               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -1872,18 +1608,12 @@
             "name": {
                "const": "SLAP2 platform",
                "default": "SLAP2 platform",
-               "enum": [
-                  "SLAP2 platform"
-               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "SLAP2",
                "default": "SLAP2",
-               "enum": [
-                  "SLAP2"
-               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -1897,18 +1627,12 @@
             "name": {
                "const": "SmartSPIM platform",
                "default": "SmartSPIM platform",
-               "enum": [
-                  "SmartSPIM platform"
-               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "SmartSPIM",
                "default": "SmartSPIM",
-               "enum": [
-                  "SmartSPIM"
-               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -1923,18 +1647,12 @@
             "name": {
                "const": "Selective plane illumination microscopy",
                "default": "Selective plane illumination microscopy",
-               "enum": [
-                  "Selective plane illumination microscopy"
-               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "SPIM",
                "default": "SPIM",
-               "enum": [
-                  "SPIM"
-               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -1948,18 +1666,12 @@
             "name": {
                "const": "Templeton World Charity Foundation",
                "default": "Templeton World Charity Foundation",
-               "enum": [
-                  "Templeton World Charity Foundation"
-               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "TWCF",
                "default": "TWCF",
-               "enum": [
-                  "TWCF"
-               ],
                "title": "Abbreviation",
                "type": "string"
             },
@@ -2008,9 +1720,6 @@
             "registry_identifier": {
                "const": "00x0z1472",
                "default": "00x0z1472",
-               "enum": [
-                  "00x0z1472"
-               ],
                "title": "Registry Identifier",
                "type": "string"
             }
@@ -2025,18 +1734,12 @@
             "name": {
                "const": "Behavior",
                "default": "Behavior",
-               "enum": [
-                  "Behavior"
-               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "behavior",
                "default": "behavior",
-               "enum": [
-                  "behavior"
-               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -2051,18 +1754,12 @@
             "name": {
                "const": "Confocal microscopy",
                "default": "Confocal microscopy",
-               "enum": [
-                  "Confocal microscopy"
-               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "confocal",
                "default": "confocal",
-               "enum": [
-                  "confocal"
-               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -2077,18 +1774,12 @@
             "name": {
                "const": "Extracellular electrophysiology",
                "default": "Extracellular electrophysiology",
-               "enum": [
-                  "Extracellular electrophysiology"
-               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "ecephys",
                "default": "ecephys",
-               "enum": [
-                  "ecephys"
-               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -2103,18 +1794,12 @@
             "name": {
                "const": "Intrinsic signal imaging",
                "default": "Intrinsic signal imaging",
-               "enum": [
-                  "Intrinsic signal imaging"
-               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "ISI",
                "default": "ISI",
-               "enum": [
-                  "ISI"
-               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -2129,18 +1814,12 @@
             "name": {
                "const": "Multiplexed error-robust fluorescence in situ hybridization",
                "default": "Multiplexed error-robust fluorescence in situ hybridization",
-               "enum": [
-                  "Multiplexed error-robust fluorescence in situ hybridization"
-               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "merfish",
                "default": "merfish",
-               "enum": [
-                  "merfish"
-               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -2155,18 +1834,12 @@
             "name": {
                "const": "Magnetic resonance imaging",
                "default": "Magnetic resonance imaging",
-               "enum": [
-                  "Magnetic resonance imaging"
-               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "MRI",
                "default": "MRI",
-               "enum": [
-                  "MRI"
-               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -2180,18 +1853,12 @@
             "name": {
                "const": "Behavior platform",
                "default": "Behavior platform",
-               "enum": [
-                  "Behavior platform"
-               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "behavior",
                "default": "behavior",
-               "enum": [
-                  "behavior"
-               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -2205,18 +1872,12 @@
             "name": {
                "const": "Confocal microscopy platform",
                "default": "Confocal microscopy platform",
-               "enum": [
-                  "Confocal microscopy platform"
-               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "confocal",
                "default": "confocal",
-               "enum": [
-                  "confocal"
-               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -2230,18 +1891,12 @@
             "name": {
                "const": "Electrophysiology platform",
                "default": "Electrophysiology platform",
-               "enum": [
-                  "Electrophysiology platform"
-               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "ecephys",
                "default": "ecephys",
-               "enum": [
-                  "ecephys"
-               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -2255,18 +1910,12 @@
             "name": {
                "const": "Intrinsic signal imaging platform",
                "default": "Intrinsic signal imaging platform",
-               "enum": [
-                  "Intrinsic signal imaging platform"
-               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "ISI",
                "default": "ISI",
-               "enum": [
-                  "ISI"
-               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -2280,18 +1929,12 @@
             "name": {
                "const": "MERFISH platform",
                "default": "MERFISH platform",
-               "enum": [
-                  "MERFISH platform"
-               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "MERFISH",
                "default": "MERFISH",
-               "enum": [
-                  "MERFISH"
-               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -2305,18 +1948,12 @@
             "name": {
                "const": "Magnetic resonance imaging platform",
                "default": "Magnetic resonance imaging platform",
-               "enum": [
-                  "Magnetic resonance imaging platform"
-               ],
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
                "const": "MRI",
                "default": "MRI",
-               "enum": [
-                  "MRI"
-               ],
                "title": "Abbreviation",
                "type": "string"
             }
@@ -2335,20 +1972,14 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "1.0.3",
-         "default": "1.0.3",
-         "enum": [
-            "1.0.3"
-         ],
+         "const": "1.0.4",
+         "default": "1.0.4",
          "title": "Schema Version",
          "type": "string"
       },
       "license": {
          "const": "CC-BY-4.0",
          "default": "CC-BY-4.0",
-         "enum": [
-            "CC-BY-4.0"
-         ],
          "title": "License",
          "type": "string"
       },
