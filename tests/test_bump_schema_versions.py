@@ -51,6 +51,7 @@ class SchemaVersionTests(unittest.TestCase):
         new_session_version = str(Version.parse(old_session_version).bump_patch())
 
         def side_effect(model):
+            """Side effect for mock_get_schema"""
             if model == Subject:
                 return {"properties": {"schema_version": {"default": old_subject_version}}}
             elif model == Session:
@@ -151,6 +152,7 @@ class SchemaVersionTests(unittest.TestCase):
         mock_get_list_of_models.return_value = [Subject, Session]
 
         def side_effect(model):
+            """Return values for get_schema_json"""
             if model == Subject:
                 return {"properties": {"schema_version": {"default": old_subject_version}}}
             elif model == Session:
