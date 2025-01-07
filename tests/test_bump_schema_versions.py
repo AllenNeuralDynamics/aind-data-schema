@@ -74,6 +74,7 @@ class SchemaVersionTests(unittest.TestCase):
         mock_open.return_value.__enter__().write.assert_has_calls([call(file_contents[0]), call(file_contents[1])])
 
     """Tests get_schema_json method"""
+
     @patch("builtins.open")
     @patch("json.load")
     @patch("pathlib.Path.exists")
@@ -137,7 +138,9 @@ class SchemaVersionTests(unittest.TestCase):
     @patch("aind_data_schema.utils.schema_version_bump.SchemaVersionHandler._get_schema_json")
     @patch("aind_data_schema.utils.schema_version_bump.SchemaVersionHandler._get_list_of_models_that_changed")
     @patch("aind_data_schema.utils.schema_version_bump.SchemaVersionHandler._update_files")
-    def test_run_job(self, mock_update_files: MagicMock, mock_get_list_of_models: MagicMock, mock_get_schema: MagicMock):
+    def test_run_job(
+        self, mock_update_files: MagicMock, mock_get_list_of_models: MagicMock, mock_get_schema: MagicMock
+    ):
         """Tests run_job method"""
 
         old_subject_version = Subject.model_fields["schema_version"].default
