@@ -54,6 +54,8 @@ class SchemaVersionHandler:
         if main_branch_schema_path.exists():
             with open(main_branch_schema_path, "r") as f:
                 main_branch_schema_contents = json.load(f)
+        else:
+            raise FileNotFoundError(f"Schema file not found: {main_branch_schema_path}")
         return main_branch_schema_contents
 
     def _get_list_of_models_that_changed(self) -> List[AindCoreModel]:
@@ -108,10 +110,10 @@ class SchemaVersionHandler:
             if orig_ver.major == old_v.major and orig_ver.minor == old_v.minor:
                 print(f"Updating {model.__name__} from {old_v} to {old_v.bump_patch()}")
                 new_ver = old_v.bump_patch()
+                version_bump_map[model] = str(new_ver)
             else:
                 print(f"Skipping {model.__name__}, major or minor version already updated")
                 new_ver = old_v
-            version_bump_map[model] = str(new_ver)
         return version_bump_map
 
     @staticmethod
