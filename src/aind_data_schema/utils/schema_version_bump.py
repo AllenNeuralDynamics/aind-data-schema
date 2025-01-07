@@ -100,11 +100,11 @@ class SchemaVersionHandler:
             # We only want to bump the patch if the major or minor versions didn't already change
             # Load the current version of the model
             original_schema = self._get_schema_json(model)
-            schema_version = original_schema.get("properties", {}).get("schema_version").get("default")
+            schema_version = original_schema.get("properties", {}).get("schema_version", {}).get("default")
             if schema_version:
                 orig_ver = semver.Version.parse(schema_version)
             else:
-                raise Exception("Schema version not found in the schema file")
+                raise ValueError("Schema version not found in the schema file")
 
             old_v = semver.Version.parse(model.model_fields["schema_version"].default)
             if orig_ver.major == old_v.major and orig_ver.minor == old_v.minor:

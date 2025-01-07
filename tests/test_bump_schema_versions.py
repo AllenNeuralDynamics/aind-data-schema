@@ -74,8 +74,6 @@ class SchemaVersionTests(unittest.TestCase):
         mock_open.assert_called_once_with(file_path, "wb")
         mock_open.return_value.__enter__().write.assert_has_calls([call(file_contents[0]), call(file_contents[1])])
 
-    """Tests get_schema_json method"""
-
     @patch("builtins.open")
     @patch("json.load")
     @patch("pathlib.Path.exists")
@@ -107,6 +105,26 @@ class SchemaVersionTests(unittest.TestCase):
 
         with self.assertRaises(FileNotFoundError):
             handler._get_schema_json(model)
+
+    @patch("aind_data_schema.utils.schema_version_bump.SchemaVersionHandler._get_schema_json")
+    def test_get_incremented_versions_map_exception(self, mock_get_schema: MagicMock):
+        """Test that missing schema_version field raises an error"""
+        handler = SchemaVersionHandler(json_schemas_location=Path("."))
+
+        mock_get_schema.return_value = {}
+
+        with self.assertRaises(ValueError):
+            handler._get_incremented_versions_map([Subject])
+
+    @patch("aind_data_schema.utils.schema_version_bump.SchemaVersionHandler._get_schema_json")
+    def test_get_incremented_versions_map_skip(self, mock_get_schema: MagicMock):
+        """Test that missing schema_version field raises an error"""
+        handler = SchemaVersionHandler(json_schemas_location=Path("."))
+
+        mock_get_schema.return_value = {"properties": {"schema_version": {"default": "0.0.0"}}}
+
+        empty_map = handler._get_incremented_versions_map([Subject])
+        self.assertEqual(empty_map, {})
 
     @patch("aind_data_schema.utils.schema_version_bump.SchemaVersionHandler._write_new_file")
     def test_update_files(self, mock_write: MagicMock):
