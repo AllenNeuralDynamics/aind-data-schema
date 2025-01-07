@@ -94,10 +94,6 @@ jobs:
           sudo apt install graphviz libgraphviz-dev -y
           python -m pip install -e .[docs] --no-cache-dir
           python -m pip install awscli
-      - name: Generate erdantic diagrams
-        run: |
-          mkdir $DIAGRAM_DIRECTORY
-          python -m aind_data_schema.utils.diagrams $DIAGRAM_DIRECTORY
       - name: Configure aws credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
