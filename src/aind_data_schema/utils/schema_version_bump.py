@@ -34,6 +34,28 @@ class SchemaVersionHandler:
         self.commit_message = commit_message
         self.json_schemas_location = json_schemas_location
 
+    def _get_schema_json(self, model: AindCoreModel) -> dict:
+        """
+        Get the json schema of a model
+        Parameters
+        ----------
+        model : AindCoreModel
+          The model to get the json schema of
+
+        Returns
+        -------
+        dict
+          The json schema of the model
+        """
+        default_filename = model.default_filename()
+        if default_filename.find(".") != -1:
+            schema_filename = default_filename[: default_filename.find(".")] + "_schema.json"
+        main_branch_schema_path = self.json_schemas_location / schema_filename
+        if main_branch_schema_path.exists():
+            with open(main_branch_schema_path, "r") as f:
+                main_branch_schema_contents = json.load(f)
+        return main_branch_schema_contents
+
     def _get_list_of_models_that_changed(self) -> List[AindCoreModel]:
         """
         Get a list of core models that have been updated by comparing the json
@@ -46,21 +68,18 @@ class SchemaVersionHandler:
         schemas_that_need_updating = []
         for core_model in SchemaWriter.get_schemas():
             core_model_json = core_model.model_json_schema()
-            default_filename = core_model.default_filename()
-            if default_filename.find(".") != -1:
-                schema_filename = default_filename[: default_filename.find(".")] + "_schema.json"
-            main_branch_schema_path = self.json_schemas_location / schema_filename
-            if main_branch_schema_path.exists():
-                with open(main_branch_schema_path, "r") as f:
-                    main_branch_schema_contents = json.load(f)
-                diff = dictdiffer.diff(main_branch_schema_contents, core_model_json)
-                print(f"Diff for {core_model.__name__}: {list(diff)}")
-                if len(list(diff)) > 0:
-                    schemas_that_need_updating.append(core_model)
+            original_schema = self._get_schema_json(core_model)
+
+            diff_list = list(dictdiffer.diff(original_schema, core_model_json))
+
+            print(f"Diff for {core_model.__name__}: {diff_list}")
+            if len(diff_list) > 0:
+                schemas_that_need_updating.append(core_model)
+
+        print(f"Schemas that need updating: {[model.__name__ for model in schemas_that_need_updating]}")
         return schemas_that_need_updating
 
-    @staticmethod
-    def _get_incremented_versions_map(models_that_changed: List[AindCoreModel]) -> Dict[AindCoreModel, str]:
+    def _get_incremented_versions_map(self, models_that_changed: List[AindCoreModel]) -> Dict[AindCoreModel, str]:
         """
 
         Parameters
@@ -78,19 +97,19 @@ class SchemaVersionHandler:
         for model in models_that_changed:
             # We only want to bump the patch if the major or minor versions didn't already change
             # Load the current version of the model
-            default_filename = model.default_filename()
-            if default_filename.find(".") != -1:
-                schema_filename = default_filename[: default_filename.find(".")] + "_schema.json"
-            main_branch_schema_path = Path(OLD_SCHEMA_DIR) / schema_filename
-            if main_branch_schema_path.exists():
-                with open(main_branch_schema_path, "r") as f:
-                    main_branch_schema_contents = json.load(f)
-                    orig_ver = semver.Version.parse(main_branch_schema_contents.get("schema_version", model.model_fields["schema_version"].default))
+            original_schema = self._get_schema_json(model)
+            schema_version = original_schema.get("properties", {}).get("schema_version").get("default")
+            if schema_version:
+                orig_ver = semver.Version.parse(schema_version)
+            else:
+                raise Exception("Schema version not found in the schema file")
 
             old_v = semver.Version.parse(model.model_fields["schema_version"].default)
             if orig_ver.major == old_v.major and orig_ver.minor == old_v.minor:
+                print(f"Updating {model.__name__} from {old_v} to {old_v.bump_patch()}")
                 new_ver = old_v.bump_patch()
             else:
+                print(f"Skipping {model.__name__}, major or minor version already updated")
                 new_ver = old_v
             version_bump_map[model] = str(new_ver)
         return version_bump_map
@@ -112,6 +131,7 @@ class SchemaVersionHandler:
 
         """
         new_file_contents = []
+        print(f"Updating {python_file_path} to version {new_ver}")
         with open(python_file_path, "rb") as f:
             file_lines = f.readlines()
         for line in file_lines:
