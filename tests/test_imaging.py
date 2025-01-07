@@ -5,7 +5,7 @@ import unittest
 from datetime import date, datetime, timezone
 
 from aind_data_schema_models.organizations import Organization
-from aind_data_schema_models.units import PowerValue, FrequencyUnit
+from aind_data_schema_models.units import PowerUnit, FrequencyUnit
 from pydantic import ValidationError
 from pydantic import __version__ as pyd_version
 
@@ -43,8 +43,14 @@ class ImagingTests(unittest.TestCase):
                     calibration_date=datetime.now(tz=timezone.utc),
                     description="Laser power calibration",
                     device_name="Laser 1",
-                    input={"power_setting": PowerValue(value=100.0, unit="percent")},
-                    output={"power_measurement": PowerValue(value=50.0, unit="milliwatt")},
+                    input={
+                        "power_setting": 100.0,
+                        "power_unit": PowerUnit.PERCENT
+                    },
+                    output={
+                        "power_measurement": 50.0,
+                        "power_unit": PowerUnit.MW,
+                    },
                 ),
             ],
             session_end_time=datetime.now(tz=timezone.utc),
@@ -144,8 +150,14 @@ class ImagingTests(unittest.TestCase):
                         calibration_date=datetime.now(tz=timezone.utc),
                         description="Laser power calibration",
                         device_name="Laser 1",
-                        input={"power_setting": PowerValue(value=100.0, unit="percent")},
-                        output={"power_measurement": PowerValue(value=50.0, unit="milliwatt")},
+                        input={
+                            "power_setting": 100.0,
+                            "power_unit": PowerUnit.PERCENT
+                        },
+                        output={
+                            "power_measurement": 50.0,
+                            "power_unit": PowerUnit.MW,
+                        },
                     ),
                 ],
                 session_end_time=datetime.now(tz=timezone.utc),
