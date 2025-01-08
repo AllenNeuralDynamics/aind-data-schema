@@ -47,6 +47,7 @@ class StimulusModality(str, Enum):
     """Types of stimulus modalities"""
 
     AUDITORY = "Auditory"
+    FREE_MOVING = "Free moving"
     OLFACTORY = "Olfactory"
     OPTOGENETICS = "Optogenetics"
     NONE = "None"
@@ -63,6 +64,7 @@ class FiberConnectionConfig(AindModel):
     patch_cord_output_power: Decimal = Field(..., title="Output power (uW)")
     output_power_unit: PowerUnit = Field(default=PowerUnit.UW, title="Output power unit")
     fiber_name: str = Field(..., title="Fiber name (must match procedure)")
+    channels: Optional[List[Channel]] = Field(default=None, title="Channels")
 
 
 class TriggerType(str, Enum):
@@ -523,6 +525,7 @@ class StimulusEpoch(AindModel):
     light_source_config: Optional[List[LIGHT_SOURCE_CONFIGS]] = Field(
         default=[], title="Light source config", description="Light sources for stimulation"
     )
+    objects_in_arena: Optional[List[str]] = Field(default=None, title="Objects in arena")
     output_parameters: AindGenericType = Field(default=AindGeneric(), title="Performance metrics")
     reward_consumed_during_epoch: Optional[Decimal] = Field(default=None, title="Reward consumed during training (uL)")
     reward_consumed_unit: VolumeUnit = Field(default=VolumeUnit.UL, title="Reward consumed unit")
@@ -537,7 +540,7 @@ class Session(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/session.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["1.1.1"]] = Field(default="1.1.1")
+    schema_version: SkipValidation[Literal["1.0.3"]] = Field(default="1.0.3")
     protocol_id: List[str] = Field(default=[], title="Protocol ID", description="DOI for protocols.io")
     experimenter_full_name: List[str] = Field(
         ...,
