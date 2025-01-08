@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/session.py",
-   "schema_version": "1.1.1",
+   "schema_version": "1.0.3",
    "protocol_id": [],
    "experimenter_full_name": [
       "John Doe"
@@ -57,13 +57,15 @@
                "patch_cord_name": "Patch Cord A",
                "patch_cord_output_power": "40",
                "output_power_unit": "microwatt",
-               "fiber_name": "Fiber A"
+               "fiber_name": "Fiber A",
+               "channels": null
             },
             {
                "patch_cord_name": "Patch Cord B",
                "patch_cord_output_power": "43",
                "output_power_unit": "microwatt",
-               "fiber_name": "Fiber B"
+               "fiber_name": "Fiber B",
+               "channels": null
             }
          ],
          "fiber_modules": [],
