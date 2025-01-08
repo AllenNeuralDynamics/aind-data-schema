@@ -153,6 +153,7 @@
          "stimulus_device_names": [],
          "speaker_config": null,
          "light_source_config": [],
+         "objects_in_arena": null,
          "output_parameters": {},
          "reward_consumed_during_epoch": null,
          "reward_consumed_unit": "microliter",

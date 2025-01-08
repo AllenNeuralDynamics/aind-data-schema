@@ -47,6 +47,7 @@ class StimulusModality(str, Enum):
     """Types of stimulus modalities"""
 
     AUDITORY = "Auditory"
+    FREE_MOVING = "Free moving"
     OLFACTORY = "Olfactory"
     OPTOGENETICS = "Optogenetics"
     NONE = "None"
@@ -523,6 +524,7 @@ class StimulusEpoch(AindModel):
     light_source_config: Optional[List[LIGHT_SOURCE_CONFIGS]] = Field(
         default=[], title="Light source config", description="Light sources for stimulation"
     )
+    objects_in_arena: Optional[List[str]] = Field(default=None, title="Objects in arena")
     output_parameters: AindGenericType = Field(default=AindGeneric(), title="Performance metrics")
     reward_consumed_during_epoch: Optional[Decimal] = Field(default=None, title="Reward consumed during training (uL)")
     reward_consumed_unit: VolumeUnit = Field(default=VolumeUnit.UL, title="Reward consumed unit")
