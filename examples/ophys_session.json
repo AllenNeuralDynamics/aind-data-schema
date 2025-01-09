@@ -69,7 +69,7 @@
                   "additional_device_names": [],
                   "excitation_wavelength": 410,
                   "excitation_wavelength_unit": "nanometer",
-                  "excitation_power": 20.0,
+                  "excitation_power": 10.0,
                   "excitation_power_unit": "milliwatt",
                   "filter_wheel_index": null,
                   "emission_wavelength": 600,
@@ -89,13 +89,13 @@
                   "intended_measurement": "Dopamine",
                   "light_source_name": "Laser B",
                   "filter_names": [
-                     "Excitation filter 520nm"
+                     "Excitation filter 560nm"
                   ],
                   "detector_name": "Red CMOS",
                   "additional_device_names": [],
-                  "excitation_wavelength": 520,
+                  "excitation_wavelength": 560,
                   "excitation_wavelength_unit": "nanometer",
-                  "excitation_power": 50.0,
+                  "excitation_power": 7.0,
                   "excitation_power_unit": "milliwatt",
                   "filter_wheel_index": null,
                   "emission_wavelength": 700,

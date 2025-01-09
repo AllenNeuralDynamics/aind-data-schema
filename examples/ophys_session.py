@@ -54,7 +54,7 @@ s = Session(
                         filter_names=["Excitation filter 410nm"],
                         detector_name="Green CMOS",
                         excitation_wavelength=410,
-                        excitation_power=20,
+                        excitation_power=10,
                         emission_wavelength=600,
                     )
                 ),
@@ -67,10 +67,10 @@ s = Session(
                         channel_name="Channel B",
                         intended_measurement="Dopamine",
                         light_source_name="Laser B",
-                        filter_names=["Excitation filter 520nm"],
+                        filter_names=["Excitation filter 560nm"],
                         detector_name="Red CMOS",
-                        excitation_wavelength=520,
-                        excitation_power=50,
+                        excitation_wavelength=560,
+                        excitation_power=7,
                         emission_wavelength=700,
                     )
                 ),
