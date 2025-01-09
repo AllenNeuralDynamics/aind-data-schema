@@ -18,7 +18,6 @@ from aind_data_schema_models.units import (
     TimeUnit,
     UnitlessUnit,
     VolumeUnit,
-    create_unit_with_value,
 )
 from pydantic import Field, SkipValidation, field_serializer, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
@@ -170,10 +169,8 @@ class Stain(Reagent):
     """Description of a non-oligo probe stain"""
 
     stain_type: StainType = Field(..., title="Stain type")
-    # TODO: It might be easier to maintain to avoid dynamic model creation
-    concentration: create_unit_with_value("concentration", Decimal, ConcentrationUnit, ConcentrationUnit.UM) = Field(
-        ..., title="Concentration (uM)"
-    )
+    concentration: Decimal = Field(..., title="Concentration")
+    concentration_unit: ConcentrationUnit = Field(default=ConcentrationUnit.UM, title="Concentration unit")
 
 
 class HybridizationChainReaction(AindModel):
