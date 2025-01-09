@@ -46,7 +46,6 @@ class Instrument(AindCoreModel):
     instrument_type: ImagingInstrumentType = Field(..., title="Instrument type")
     manufacturer: Organization.ONE_OF = Field(..., title="Instrument manufacturer")
     temperature_control: Optional[bool] = Field(default=None, title="Temperature control")
-    humidity_control: Optional[bool] = Field(default=None, title="Humidity control")
     optical_tables: List[OpticalTable] = Field(default=[], title="Optical table")
     enclosure: Optional[Enclosure] = Field(default=None, title="Enclosure")
     objectives: List[Objective] = Field(..., title="Objectives")

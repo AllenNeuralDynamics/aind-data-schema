@@ -147,7 +147,6 @@ inst = Instrument(
             manufacturer=Organization.TMC,
         )
     ],
-    humidity_control=False,
     temperature_control=False,
     com_ports=[
         Com(

@@ -208,7 +208,6 @@ inst = instrument.Instrument(
             com_port="COM5",
         ),
     ],
-    humidity_control=False,
     temperature_control=False,
 )
 serialized = inst.model_dump_json()
