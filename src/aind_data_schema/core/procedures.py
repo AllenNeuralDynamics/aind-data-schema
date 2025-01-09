@@ -26,6 +26,7 @@ from typing_extensions import Annotated
 
 from aind_data_schema.base import AindCoreModel, AindModel, AwareDatetimeWithDefault
 from aind_data_schema.components.devices import FiberProbe, MyomatrixArray
+from aind_data_schema.components.identifiers import Experimenter
 from aind_data_schema.components.reagent import Reagent
 
 
@@ -246,10 +247,9 @@ class SpecimenProcedure(AindModel):
     specimen_id: str = Field(..., title="Specimen ID")
     start_date: date = Field(..., title="Start date")
     end_date: date = Field(..., title="End date")
-    experimenter_full_name: str = Field(
-        ...,
-        description="First and last name of the experimenter.",
-        title="Experimenter full name",
+    experimenters: List[Experimenter] = Field(
+        default=[],
+        title="Experimenter(s)",
     )
     protocol_id: List[str] = Field(..., title="Protocol ID", description="DOI for protocols.io")
     reagents: List[Reagent] = Field(default=[], title="Reagents")
@@ -607,10 +607,9 @@ class Surgery(AindModel):
     procedure_type: Literal["Surgery"] = "Surgery"
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     start_date: date = Field(..., title="Start date")
-    experimenter_full_name: str = Field(
-        ...,
-        description="First and last name of the experimenter.",
-        title="Experimenter full name",
+    experimenters: List[Experimenter] = Field(
+        default=[],
+        title="Experimenter(s)",
     )
     iacuc_protocol: Optional[str] = Field(default=None, title="IACUC protocol")
     animal_weight_prior: Optional[Decimal] = Field(

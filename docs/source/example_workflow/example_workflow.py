@@ -6,6 +6,7 @@ from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.pid_names import PIDName
 from aind_data_schema_models.platforms import Platform
 
+from aind_data_schema.components.identifiers import Experimenter
 from aind_data_schema.core.data_description import Funding, RawDataDescription
 from aind_data_schema.core.procedures import NanojectInjection, Perfusion, Procedures, Surgery, ViralMaterial
 from aind_data_schema.core.subject import BreedingInfo, Housing, Species, Subject
@@ -15,7 +16,7 @@ mice_df = pd.read_excel("example_workflow.xlsx", sheet_name="mice")
 procedures_df = pd.read_excel("example_workflow.xlsx", sheet_name="procedures")
 
 # everything was done by one person, so it's not in the spreadsheet
-experimenter = "Sam Student"
+experimenter = [Experimenter(first_name="Some", last_name="Investigator")]
 
 # in our spreadsheet, we stored sex as M/F instead of Male/Female
 subject_sex_lookup = {
@@ -88,7 +89,7 @@ for session_idx, session in sessions_df.iterrows():
                 start_date=proc_row["injection_date"].to_pydatetime().date(),
                 protocol_id=protocol,
                 iacuc_protocol=iacuc_protocol,
-                experimenter_full_name=experimenter,
+                experimenters=experimenter,
                 procedures=[
                     NanojectInjection(
                         protocol_id=protocol,
@@ -111,7 +112,7 @@ for session_idx, session in sessions_df.iterrows():
             ),
             Surgery(
                 start_date=proc_row["perfusion_date"].to_pydatetime().date(),
-                experimenter_full_name=experimenter,
+                experimenters=experimenter,
                 iacuc_protocol=iacuc_protocol,
                 protocol_id=protocol,
                 procedures=[Perfusion(protocol_id=protocol, output_specimen_ids=["1"])],
