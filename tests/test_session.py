@@ -16,6 +16,7 @@ from aind_data_schema.components.coordinates import (
     Scale3dTransform,
     Translation3dTransform,
 )
+from aind_data_schema.components.identifiers import Experimenter
 from aind_data_schema.core.session import (
     DomeModule,
     ManipulatorModule,

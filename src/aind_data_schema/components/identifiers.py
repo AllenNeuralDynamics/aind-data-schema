@@ -2,7 +2,7 @@
 
 from typing import Optional
 from pydantic import BaseModel, Field, model_validator
-from aind_data_schema_models.registries import Registry, _RegistryModel
+from aind_data_schema_models.registries import Registry
 
 
 class Experimenter(BaseModel):
@@ -10,7 +10,7 @@ class Experimenter(BaseModel):
 
     first_name: Optional[str] = Field(default=None, title="Experimenter first name")
     last_name: Optional[str] = Field(default=None, title="Experimenter last name")
-    registry: _RegistryModel = Field(default=Registry.ORCID, title="Registry")
+    registry: Registry.ORCID = Field(default=Registry.ORCID, title="Registry")
     registry_identifier: Optional[str] = Field(default=None, title="ORCID ID")
     anonymous_id: Optional[str] = Field(default=None, title="Anonymous ID")
 
