@@ -6,7 +6,11 @@
       {
          "first_name": "John",
          "last_name": "Smith",
-         "orcid_id": null,
+         "registry": {
+            "name": "Open Researcher and Contributor ID",
+            "abbreviation": "ORCID"
+         },
+         "registry_identifier": null,
          "anonymous_id": null
       }
    ],
