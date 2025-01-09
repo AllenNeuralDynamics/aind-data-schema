@@ -11,8 +11,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "1.0.3",
-               "default": "1.0.3",
+               "const": "1.0.4",
+               "default": "1.0.4",
                "title": "Schema Version",
                "type": "string"
             },
@@ -363,12 +363,14 @@
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                            "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
                            "Chan Zuckerberg Initiative": "#/$defs/_Chan_Zuckerberg_Initiative",
+                           "Charles River Laboratories": "#/$defs/_Charles_River_Laboratories",
                            "Chroma": "#/$defs/_Chroma",
                            "Coherent Scientific": "#/$defs/_Coherent_Scientific",
                            "Columbia University": "#/$defs/_Columbia_University",
                            "Computar": "#/$defs/_Computar",
                            "Conoptics": "#/$defs/_Conoptics",
                            "Custom": "#/$defs/_Custom",
+                           "DigiKey": "#/$defs/_Digikey",
                            "Dodotronic": "#/$defs/_Dodotronic",
                            "Doric": "#/$defs/_Doric",
                            "Ealing": "#/$defs/_Ealing",
@@ -385,9 +387,11 @@
                            "Integrated DNA Technologies": "#/$defs/_Integrated_Dna_Technologies",
                            "Interuniversity Microelectronics Center": "#/$defs/_Interuniversity_Microelectronics_Center",
                            "Invitrogen": "#/$defs/_Invitrogen",
+                           "Item": "#/$defs/_Item",
                            "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
                            "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
                            "Julabo": "#/$defs/_Julabo",
+                           "Kowa": "#/$defs/_Kowa",
                            "LG": "#/$defs/_Lg",
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -414,10 +418,12 @@
                            "Optotune": "#/$defs/_Optotune",
                            "Other": "#/$defs/_Other",
                            "Oxxius": "#/$defs/_Oxxius",
+                           "Placid Industries": "#/$defs/_Placid_Industries",
                            "Prizmatix": "#/$defs/_Prizmatix",
                            "Quantifi": "#/$defs/_Quantifi",
                            "Raspberry Pi": "#/$defs/_Raspberry_Pi",
                            "SICGEN": "#/$defs/_Sicgen",
+                           "Same Sky": "#/$defs/_Same_Sky",
                            "Schneider-Kreuznach": "#/$defs/_Schneider_Kreuznach",
                            "Second Order Effects": "#/$defs/_Second_Order_Effects",
                            "Semrock": "#/$defs/_Semrock",
@@ -432,6 +438,7 @@
                            "The Lee Company": "#/$defs/_The_Lee_Company",
                            "Thermo Fisher Scientific": "#/$defs/_Thermo_Fisher_Scientific",
                            "Thorlabs": "#/$defs/_Thorlabs",
+                           "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                            "Tymphany": "#/$defs/_Tymphany",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
@@ -489,6 +496,9 @@
                            "$ref": "#/$defs/_Chan_Zuckerberg_Initiative"
                         },
                         {
+                           "$ref": "#/$defs/_Charles_River_Laboratories"
+                        },
+                        {
                            "$ref": "#/$defs/_Chroma"
                         },
                         {
@@ -505,6 +515,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Custom"
+                        },
+                        {
+                           "$ref": "#/$defs/_Digikey"
                         },
                         {
                            "$ref": "#/$defs/_Dodotronic"
@@ -555,6 +568,9 @@
                            "$ref": "#/$defs/_Invitrogen"
                         },
                         {
+                           "$ref": "#/$defs/_Item"
+                        },
+                        {
                            "$ref": "#/$defs/_Jackson_Laboratory"
                         },
                         {
@@ -562,6 +578,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Julabo"
+                        },
+                        {
+                           "$ref": "#/$defs/_Kowa"
                         },
                         {
                            "$ref": "#/$defs/_Lg"
@@ -642,6 +661,9 @@
                            "$ref": "#/$defs/_Oxxius"
                         },
                         {
+                           "$ref": "#/$defs/_Placid_Industries"
+                        },
+                        {
                            "$ref": "#/$defs/_Prizmatix"
                         },
                         {
@@ -649,6 +671,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Raspberry_Pi"
+                        },
+                        {
+                           "$ref": "#/$defs/_Same_Sky"
                         },
                         {
                            "$ref": "#/$defs/_Sicgen"
@@ -694,6 +719,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Thorlabs"
+                        },
+                        {
+                           "$ref": "#/$defs/_Transducer_Techniques"
                         },
                         {
                            "$ref": "#/$defs/_Tymphany"
@@ -1031,12 +1059,14 @@
                      "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                      "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
                      "Chan Zuckerberg Initiative": "#/$defs/_Chan_Zuckerberg_Initiative",
+                     "Charles River Laboratories": "#/$defs/_Charles_River_Laboratories",
                      "Chroma": "#/$defs/_Chroma",
                      "Coherent Scientific": "#/$defs/_Coherent_Scientific",
                      "Columbia University": "#/$defs/_Columbia_University",
                      "Computar": "#/$defs/_Computar",
                      "Conoptics": "#/$defs/_Conoptics",
                      "Custom": "#/$defs/_Custom",
+                     "DigiKey": "#/$defs/_Digikey",
                      "Dodotronic": "#/$defs/_Dodotronic",
                      "Doric": "#/$defs/_Doric",
                      "Ealing": "#/$defs/_Ealing",
@@ -1053,9 +1083,11 @@
                      "Integrated DNA Technologies": "#/$defs/_Integrated_Dna_Technologies",
                      "Interuniversity Microelectronics Center": "#/$defs/_Interuniversity_Microelectronics_Center",
                      "Invitrogen": "#/$defs/_Invitrogen",
+                     "Item": "#/$defs/_Item",
                      "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
                      "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
                      "Julabo": "#/$defs/_Julabo",
+                     "Kowa": "#/$defs/_Kowa",
                      "LG": "#/$defs/_Lg",
                      "Leica": "#/$defs/_Leica",
                      "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -1082,10 +1114,12 @@
                      "Optotune": "#/$defs/_Optotune",
                      "Other": "#/$defs/_Other",
                      "Oxxius": "#/$defs/_Oxxius",
+                     "Placid Industries": "#/$defs/_Placid_Industries",
                      "Prizmatix": "#/$defs/_Prizmatix",
                      "Quantifi": "#/$defs/_Quantifi",
                      "Raspberry Pi": "#/$defs/_Raspberry_Pi",
                      "SICGEN": "#/$defs/_Sicgen",
+                     "Same Sky": "#/$defs/_Same_Sky",
                      "Schneider-Kreuznach": "#/$defs/_Schneider_Kreuznach",
                      "Second Order Effects": "#/$defs/_Second_Order_Effects",
                      "Semrock": "#/$defs/_Semrock",
@@ -1100,6 +1134,7 @@
                      "The Lee Company": "#/$defs/_The_Lee_Company",
                      "Thermo Fisher Scientific": "#/$defs/_Thermo_Fisher_Scientific",
                      "Thorlabs": "#/$defs/_Thorlabs",
+                     "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                      "Tymphany": "#/$defs/_Tymphany",
                      "Vieworks": "#/$defs/_Vieworks",
                      "Vortran": "#/$defs/_Vortran",
@@ -1157,6 +1192,9 @@
                      "$ref": "#/$defs/_Chan_Zuckerberg_Initiative"
                   },
                   {
+                     "$ref": "#/$defs/_Charles_River_Laboratories"
+                  },
+                  {
                      "$ref": "#/$defs/_Chroma"
                   },
                   {
@@ -1173,6 +1211,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Custom"
+                  },
+                  {
+                     "$ref": "#/$defs/_Digikey"
                   },
                   {
                      "$ref": "#/$defs/_Dodotronic"
@@ -1223,6 +1264,9 @@
                      "$ref": "#/$defs/_Invitrogen"
                   },
                   {
+                     "$ref": "#/$defs/_Item"
+                  },
+                  {
                      "$ref": "#/$defs/_Jackson_Laboratory"
                   },
                   {
@@ -1230,6 +1274,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Julabo"
+                  },
+                  {
+                     "$ref": "#/$defs/_Kowa"
                   },
                   {
                      "$ref": "#/$defs/_Lg"
@@ -1310,6 +1357,9 @@
                      "$ref": "#/$defs/_Oxxius"
                   },
                   {
+                     "$ref": "#/$defs/_Placid_Industries"
+                  },
+                  {
                      "$ref": "#/$defs/_Prizmatix"
                   },
                   {
@@ -1317,6 +1367,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Raspberry_Pi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Same_Sky"
                   },
                   {
                      "$ref": "#/$defs/_Sicgen"
@@ -1362,6 +1415,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Thorlabs"
+                  },
+                  {
+                     "$ref": "#/$defs/_Transducer_Techniques"
                   },
                   {
                      "$ref": "#/$defs/_Tymphany"
@@ -1509,12 +1565,14 @@
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                            "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
                            "Chan Zuckerberg Initiative": "#/$defs/_Chan_Zuckerberg_Initiative",
+                           "Charles River Laboratories": "#/$defs/_Charles_River_Laboratories",
                            "Chroma": "#/$defs/_Chroma",
                            "Coherent Scientific": "#/$defs/_Coherent_Scientific",
                            "Columbia University": "#/$defs/_Columbia_University",
                            "Computar": "#/$defs/_Computar",
                            "Conoptics": "#/$defs/_Conoptics",
                            "Custom": "#/$defs/_Custom",
+                           "DigiKey": "#/$defs/_Digikey",
                            "Dodotronic": "#/$defs/_Dodotronic",
                            "Doric": "#/$defs/_Doric",
                            "Ealing": "#/$defs/_Ealing",
@@ -1531,9 +1589,11 @@
                            "Integrated DNA Technologies": "#/$defs/_Integrated_Dna_Technologies",
                            "Interuniversity Microelectronics Center": "#/$defs/_Interuniversity_Microelectronics_Center",
                            "Invitrogen": "#/$defs/_Invitrogen",
+                           "Item": "#/$defs/_Item",
                            "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
                            "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
                            "Julabo": "#/$defs/_Julabo",
+                           "Kowa": "#/$defs/_Kowa",
                            "LG": "#/$defs/_Lg",
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -1560,10 +1620,12 @@
                            "Optotune": "#/$defs/_Optotune",
                            "Other": "#/$defs/_Other",
                            "Oxxius": "#/$defs/_Oxxius",
+                           "Placid Industries": "#/$defs/_Placid_Industries",
                            "Prizmatix": "#/$defs/_Prizmatix",
                            "Quantifi": "#/$defs/_Quantifi",
                            "Raspberry Pi": "#/$defs/_Raspberry_Pi",
                            "SICGEN": "#/$defs/_Sicgen",
+                           "Same Sky": "#/$defs/_Same_Sky",
                            "Schneider-Kreuznach": "#/$defs/_Schneider_Kreuznach",
                            "Second Order Effects": "#/$defs/_Second_Order_Effects",
                            "Semrock": "#/$defs/_Semrock",
@@ -1578,6 +1640,7 @@
                            "The Lee Company": "#/$defs/_The_Lee_Company",
                            "Thermo Fisher Scientific": "#/$defs/_Thermo_Fisher_Scientific",
                            "Thorlabs": "#/$defs/_Thorlabs",
+                           "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                            "Tymphany": "#/$defs/_Tymphany",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
@@ -1635,6 +1698,9 @@
                            "$ref": "#/$defs/_Chan_Zuckerberg_Initiative"
                         },
                         {
+                           "$ref": "#/$defs/_Charles_River_Laboratories"
+                        },
+                        {
                            "$ref": "#/$defs/_Chroma"
                         },
                         {
@@ -1651,6 +1717,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Custom"
+                        },
+                        {
+                           "$ref": "#/$defs/_Digikey"
                         },
                         {
                            "$ref": "#/$defs/_Dodotronic"
@@ -1701,6 +1770,9 @@
                            "$ref": "#/$defs/_Invitrogen"
                         },
                         {
+                           "$ref": "#/$defs/_Item"
+                        },
+                        {
                            "$ref": "#/$defs/_Jackson_Laboratory"
                         },
                         {
@@ -1708,6 +1780,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Julabo"
+                        },
+                        {
+                           "$ref": "#/$defs/_Kowa"
                         },
                         {
                            "$ref": "#/$defs/_Lg"
@@ -1788,6 +1863,9 @@
                            "$ref": "#/$defs/_Oxxius"
                         },
                         {
+                           "$ref": "#/$defs/_Placid_Industries"
+                        },
+                        {
                            "$ref": "#/$defs/_Prizmatix"
                         },
                         {
@@ -1795,6 +1873,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Raspberry_Pi"
+                        },
+                        {
+                           "$ref": "#/$defs/_Same_Sky"
                         },
                         {
                            "$ref": "#/$defs/_Sicgen"
@@ -1840,6 +1921,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Thorlabs"
+                        },
+                        {
+                           "$ref": "#/$defs/_Transducer_Techniques"
                         },
                         {
                            "$ref": "#/$defs/_Tymphany"
@@ -4437,12 +4521,14 @@
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                            "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
                            "Chan Zuckerberg Initiative": "#/$defs/_Chan_Zuckerberg_Initiative",
+                           "Charles River Laboratories": "#/$defs/_Charles_River_Laboratories",
                            "Chroma": "#/$defs/_Chroma",
                            "Coherent Scientific": "#/$defs/_Coherent_Scientific",
                            "Columbia University": "#/$defs/_Columbia_University",
                            "Computar": "#/$defs/_Computar",
                            "Conoptics": "#/$defs/_Conoptics",
                            "Custom": "#/$defs/_Custom",
+                           "DigiKey": "#/$defs/_Digikey",
                            "Dodotronic": "#/$defs/_Dodotronic",
                            "Doric": "#/$defs/_Doric",
                            "Ealing": "#/$defs/_Ealing",
@@ -4459,9 +4545,11 @@
                            "Integrated DNA Technologies": "#/$defs/_Integrated_Dna_Technologies",
                            "Interuniversity Microelectronics Center": "#/$defs/_Interuniversity_Microelectronics_Center",
                            "Invitrogen": "#/$defs/_Invitrogen",
+                           "Item": "#/$defs/_Item",
                            "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
                            "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
                            "Julabo": "#/$defs/_Julabo",
+                           "Kowa": "#/$defs/_Kowa",
                            "LG": "#/$defs/_Lg",
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -4488,10 +4576,12 @@
                            "Optotune": "#/$defs/_Optotune",
                            "Other": "#/$defs/_Other",
                            "Oxxius": "#/$defs/_Oxxius",
+                           "Placid Industries": "#/$defs/_Placid_Industries",
                            "Prizmatix": "#/$defs/_Prizmatix",
                            "Quantifi": "#/$defs/_Quantifi",
                            "Raspberry Pi": "#/$defs/_Raspberry_Pi",
                            "SICGEN": "#/$defs/_Sicgen",
+                           "Same Sky": "#/$defs/_Same_Sky",
                            "Schneider-Kreuznach": "#/$defs/_Schneider_Kreuznach",
                            "Second Order Effects": "#/$defs/_Second_Order_Effects",
                            "Semrock": "#/$defs/_Semrock",
@@ -4506,6 +4596,7 @@
                            "The Lee Company": "#/$defs/_The_Lee_Company",
                            "Thermo Fisher Scientific": "#/$defs/_Thermo_Fisher_Scientific",
                            "Thorlabs": "#/$defs/_Thorlabs",
+                           "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                            "Tymphany": "#/$defs/_Tymphany",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
@@ -4563,6 +4654,9 @@
                            "$ref": "#/$defs/_Chan_Zuckerberg_Initiative"
                         },
                         {
+                           "$ref": "#/$defs/_Charles_River_Laboratories"
+                        },
+                        {
                            "$ref": "#/$defs/_Chroma"
                         },
                         {
@@ -4579,6 +4673,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Custom"
+                        },
+                        {
+                           "$ref": "#/$defs/_Digikey"
                         },
                         {
                            "$ref": "#/$defs/_Dodotronic"
@@ -4629,6 +4726,9 @@
                            "$ref": "#/$defs/_Invitrogen"
                         },
                         {
+                           "$ref": "#/$defs/_Item"
+                        },
+                        {
                            "$ref": "#/$defs/_Jackson_Laboratory"
                         },
                         {
@@ -4636,6 +4736,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Julabo"
+                        },
+                        {
+                           "$ref": "#/$defs/_Kowa"
                         },
                         {
                            "$ref": "#/$defs/_Lg"
@@ -4716,6 +4819,9 @@
                            "$ref": "#/$defs/_Oxxius"
                         },
                         {
+                           "$ref": "#/$defs/_Placid_Industries"
+                        },
+                        {
                            "$ref": "#/$defs/_Prizmatix"
                         },
                         {
@@ -4723,6 +4829,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Raspberry_Pi"
+                        },
+                        {
+                           "$ref": "#/$defs/_Same_Sky"
                         },
                         {
                            "$ref": "#/$defs/_Sicgen"
@@ -4768,6 +4877,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Thorlabs"
+                        },
+                        {
+                           "$ref": "#/$defs/_Transducer_Techniques"
                         },
                         {
                            "$ref": "#/$defs/_Tymphany"
@@ -4909,12 +5021,14 @@
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                            "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
                            "Chan Zuckerberg Initiative": "#/$defs/_Chan_Zuckerberg_Initiative",
+                           "Charles River Laboratories": "#/$defs/_Charles_River_Laboratories",
                            "Chroma": "#/$defs/_Chroma",
                            "Coherent Scientific": "#/$defs/_Coherent_Scientific",
                            "Columbia University": "#/$defs/_Columbia_University",
                            "Computar": "#/$defs/_Computar",
                            "Conoptics": "#/$defs/_Conoptics",
                            "Custom": "#/$defs/_Custom",
+                           "DigiKey": "#/$defs/_Digikey",
                            "Dodotronic": "#/$defs/_Dodotronic",
                            "Doric": "#/$defs/_Doric",
                            "Ealing": "#/$defs/_Ealing",
@@ -4931,9 +5045,11 @@
                            "Integrated DNA Technologies": "#/$defs/_Integrated_Dna_Technologies",
                            "Interuniversity Microelectronics Center": "#/$defs/_Interuniversity_Microelectronics_Center",
                            "Invitrogen": "#/$defs/_Invitrogen",
+                           "Item": "#/$defs/_Item",
                            "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
                            "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
                            "Julabo": "#/$defs/_Julabo",
+                           "Kowa": "#/$defs/_Kowa",
                            "LG": "#/$defs/_Lg",
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -4960,10 +5076,12 @@
                            "Optotune": "#/$defs/_Optotune",
                            "Other": "#/$defs/_Other",
                            "Oxxius": "#/$defs/_Oxxius",
+                           "Placid Industries": "#/$defs/_Placid_Industries",
                            "Prizmatix": "#/$defs/_Prizmatix",
                            "Quantifi": "#/$defs/_Quantifi",
                            "Raspberry Pi": "#/$defs/_Raspberry_Pi",
                            "SICGEN": "#/$defs/_Sicgen",
+                           "Same Sky": "#/$defs/_Same_Sky",
                            "Schneider-Kreuznach": "#/$defs/_Schneider_Kreuznach",
                            "Second Order Effects": "#/$defs/_Second_Order_Effects",
                            "Semrock": "#/$defs/_Semrock",
@@ -4978,6 +5096,7 @@
                            "The Lee Company": "#/$defs/_The_Lee_Company",
                            "Thermo Fisher Scientific": "#/$defs/_Thermo_Fisher_Scientific",
                            "Thorlabs": "#/$defs/_Thorlabs",
+                           "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                            "Tymphany": "#/$defs/_Tymphany",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
@@ -5035,6 +5154,9 @@
                            "$ref": "#/$defs/_Chan_Zuckerberg_Initiative"
                         },
                         {
+                           "$ref": "#/$defs/_Charles_River_Laboratories"
+                        },
+                        {
                            "$ref": "#/$defs/_Chroma"
                         },
                         {
@@ -5051,6 +5173,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Custom"
+                        },
+                        {
+                           "$ref": "#/$defs/_Digikey"
                         },
                         {
                            "$ref": "#/$defs/_Dodotronic"
@@ -5101,6 +5226,9 @@
                            "$ref": "#/$defs/_Invitrogen"
                         },
                         {
+                           "$ref": "#/$defs/_Item"
+                        },
+                        {
                            "$ref": "#/$defs/_Jackson_Laboratory"
                         },
                         {
@@ -5108,6 +5236,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Julabo"
+                        },
+                        {
+                           "$ref": "#/$defs/_Kowa"
                         },
                         {
                            "$ref": "#/$defs/_Lg"
@@ -5188,6 +5319,9 @@
                            "$ref": "#/$defs/_Oxxius"
                         },
                         {
+                           "$ref": "#/$defs/_Placid_Industries"
+                        },
+                        {
                            "$ref": "#/$defs/_Prizmatix"
                         },
                         {
@@ -5195,6 +5329,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Raspberry_Pi"
+                        },
+                        {
+                           "$ref": "#/$defs/_Same_Sky"
                         },
                         {
                            "$ref": "#/$defs/_Sicgen"
@@ -5240,6 +5377,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Thorlabs"
+                        },
+                        {
+                           "$ref": "#/$defs/_Transducer_Techniques"
                         },
                         {
                            "$ref": "#/$defs/_Tymphany"
@@ -5467,12 +5607,14 @@
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                            "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
                            "Chan Zuckerberg Initiative": "#/$defs/_Chan_Zuckerberg_Initiative",
+                           "Charles River Laboratories": "#/$defs/_Charles_River_Laboratories",
                            "Chroma": "#/$defs/_Chroma",
                            "Coherent Scientific": "#/$defs/_Coherent_Scientific",
                            "Columbia University": "#/$defs/_Columbia_University",
                            "Computar": "#/$defs/_Computar",
                            "Conoptics": "#/$defs/_Conoptics",
                            "Custom": "#/$defs/_Custom",
+                           "DigiKey": "#/$defs/_Digikey",
                            "Dodotronic": "#/$defs/_Dodotronic",
                            "Doric": "#/$defs/_Doric",
                            "Ealing": "#/$defs/_Ealing",
@@ -5489,9 +5631,11 @@
                            "Integrated DNA Technologies": "#/$defs/_Integrated_Dna_Technologies",
                            "Interuniversity Microelectronics Center": "#/$defs/_Interuniversity_Microelectronics_Center",
                            "Invitrogen": "#/$defs/_Invitrogen",
+                           "Item": "#/$defs/_Item",
                            "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
                            "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
                            "Julabo": "#/$defs/_Julabo",
+                           "Kowa": "#/$defs/_Kowa",
                            "LG": "#/$defs/_Lg",
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -5518,10 +5662,12 @@
                            "Optotune": "#/$defs/_Optotune",
                            "Other": "#/$defs/_Other",
                            "Oxxius": "#/$defs/_Oxxius",
+                           "Placid Industries": "#/$defs/_Placid_Industries",
                            "Prizmatix": "#/$defs/_Prizmatix",
                            "Quantifi": "#/$defs/_Quantifi",
                            "Raspberry Pi": "#/$defs/_Raspberry_Pi",
                            "SICGEN": "#/$defs/_Sicgen",
+                           "Same Sky": "#/$defs/_Same_Sky",
                            "Schneider-Kreuznach": "#/$defs/_Schneider_Kreuznach",
                            "Second Order Effects": "#/$defs/_Second_Order_Effects",
                            "Semrock": "#/$defs/_Semrock",
@@ -5536,6 +5682,7 @@
                            "The Lee Company": "#/$defs/_The_Lee_Company",
                            "Thermo Fisher Scientific": "#/$defs/_Thermo_Fisher_Scientific",
                            "Thorlabs": "#/$defs/_Thorlabs",
+                           "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                            "Tymphany": "#/$defs/_Tymphany",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
@@ -5593,6 +5740,9 @@
                            "$ref": "#/$defs/_Chan_Zuckerberg_Initiative"
                         },
                         {
+                           "$ref": "#/$defs/_Charles_River_Laboratories"
+                        },
+                        {
                            "$ref": "#/$defs/_Chroma"
                         },
                         {
@@ -5609,6 +5759,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Custom"
+                        },
+                        {
+                           "$ref": "#/$defs/_Digikey"
                         },
                         {
                            "$ref": "#/$defs/_Dodotronic"
@@ -5659,6 +5812,9 @@
                            "$ref": "#/$defs/_Invitrogen"
                         },
                         {
+                           "$ref": "#/$defs/_Item"
+                        },
+                        {
                            "$ref": "#/$defs/_Jackson_Laboratory"
                         },
                         {
@@ -5666,6 +5822,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Julabo"
+                        },
+                        {
+                           "$ref": "#/$defs/_Kowa"
                         },
                         {
                            "$ref": "#/$defs/_Lg"
@@ -5746,6 +5905,9 @@
                            "$ref": "#/$defs/_Oxxius"
                         },
                         {
+                           "$ref": "#/$defs/_Placid_Industries"
+                        },
+                        {
                            "$ref": "#/$defs/_Prizmatix"
                         },
                         {
@@ -5753,6 +5915,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Raspberry_Pi"
+                        },
+                        {
+                           "$ref": "#/$defs/_Same_Sky"
                         },
                         {
                            "$ref": "#/$defs/_Sicgen"
@@ -5798,6 +5963,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Thorlabs"
+                        },
+                        {
+                           "$ref": "#/$defs/_Transducer_Techniques"
                         },
                         {
                            "$ref": "#/$defs/_Tymphany"
@@ -6119,12 +6287,14 @@
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                            "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
                            "Chan Zuckerberg Initiative": "#/$defs/_Chan_Zuckerberg_Initiative",
+                           "Charles River Laboratories": "#/$defs/_Charles_River_Laboratories",
                            "Chroma": "#/$defs/_Chroma",
                            "Coherent Scientific": "#/$defs/_Coherent_Scientific",
                            "Columbia University": "#/$defs/_Columbia_University",
                            "Computar": "#/$defs/_Computar",
                            "Conoptics": "#/$defs/_Conoptics",
                            "Custom": "#/$defs/_Custom",
+                           "DigiKey": "#/$defs/_Digikey",
                            "Dodotronic": "#/$defs/_Dodotronic",
                            "Doric": "#/$defs/_Doric",
                            "Ealing": "#/$defs/_Ealing",
@@ -6141,9 +6311,11 @@
                            "Integrated DNA Technologies": "#/$defs/_Integrated_Dna_Technologies",
                            "Interuniversity Microelectronics Center": "#/$defs/_Interuniversity_Microelectronics_Center",
                            "Invitrogen": "#/$defs/_Invitrogen",
+                           "Item": "#/$defs/_Item",
                            "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
                            "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
                            "Julabo": "#/$defs/_Julabo",
+                           "Kowa": "#/$defs/_Kowa",
                            "LG": "#/$defs/_Lg",
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -6170,10 +6342,12 @@
                            "Optotune": "#/$defs/_Optotune",
                            "Other": "#/$defs/_Other",
                            "Oxxius": "#/$defs/_Oxxius",
+                           "Placid Industries": "#/$defs/_Placid_Industries",
                            "Prizmatix": "#/$defs/_Prizmatix",
                            "Quantifi": "#/$defs/_Quantifi",
                            "Raspberry Pi": "#/$defs/_Raspberry_Pi",
                            "SICGEN": "#/$defs/_Sicgen",
+                           "Same Sky": "#/$defs/_Same_Sky",
                            "Schneider-Kreuznach": "#/$defs/_Schneider_Kreuznach",
                            "Second Order Effects": "#/$defs/_Second_Order_Effects",
                            "Semrock": "#/$defs/_Semrock",
@@ -6188,6 +6362,7 @@
                            "The Lee Company": "#/$defs/_The_Lee_Company",
                            "Thermo Fisher Scientific": "#/$defs/_Thermo_Fisher_Scientific",
                            "Thorlabs": "#/$defs/_Thorlabs",
+                           "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                            "Tymphany": "#/$defs/_Tymphany",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
@@ -6245,6 +6420,9 @@
                            "$ref": "#/$defs/_Chan_Zuckerberg_Initiative"
                         },
                         {
+                           "$ref": "#/$defs/_Charles_River_Laboratories"
+                        },
+                        {
                            "$ref": "#/$defs/_Chroma"
                         },
                         {
@@ -6261,6 +6439,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Custom"
+                        },
+                        {
+                           "$ref": "#/$defs/_Digikey"
                         },
                         {
                            "$ref": "#/$defs/_Dodotronic"
@@ -6311,6 +6492,9 @@
                            "$ref": "#/$defs/_Invitrogen"
                         },
                         {
+                           "$ref": "#/$defs/_Item"
+                        },
+                        {
                            "$ref": "#/$defs/_Jackson_Laboratory"
                         },
                         {
@@ -6318,6 +6502,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Julabo"
+                        },
+                        {
+                           "$ref": "#/$defs/_Kowa"
                         },
                         {
                            "$ref": "#/$defs/_Lg"
@@ -6398,6 +6585,9 @@
                            "$ref": "#/$defs/_Oxxius"
                         },
                         {
+                           "$ref": "#/$defs/_Placid_Industries"
+                        },
+                        {
                            "$ref": "#/$defs/_Prizmatix"
                         },
                         {
@@ -6405,6 +6595,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Raspberry_Pi"
+                        },
+                        {
+                           "$ref": "#/$defs/_Same_Sky"
                         },
                         {
                            "$ref": "#/$defs/_Sicgen"
@@ -6450,6 +6643,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Thorlabs"
+                        },
+                        {
+                           "$ref": "#/$defs/_Transducer_Techniques"
                         },
                         {
                            "$ref": "#/$defs/_Tymphany"
@@ -6637,12 +6833,14 @@
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                            "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
                            "Chan Zuckerberg Initiative": "#/$defs/_Chan_Zuckerberg_Initiative",
+                           "Charles River Laboratories": "#/$defs/_Charles_River_Laboratories",
                            "Chroma": "#/$defs/_Chroma",
                            "Coherent Scientific": "#/$defs/_Coherent_Scientific",
                            "Columbia University": "#/$defs/_Columbia_University",
                            "Computar": "#/$defs/_Computar",
                            "Conoptics": "#/$defs/_Conoptics",
                            "Custom": "#/$defs/_Custom",
+                           "DigiKey": "#/$defs/_Digikey",
                            "Dodotronic": "#/$defs/_Dodotronic",
                            "Doric": "#/$defs/_Doric",
                            "Ealing": "#/$defs/_Ealing",
@@ -6659,9 +6857,11 @@
                            "Integrated DNA Technologies": "#/$defs/_Integrated_Dna_Technologies",
                            "Interuniversity Microelectronics Center": "#/$defs/_Interuniversity_Microelectronics_Center",
                            "Invitrogen": "#/$defs/_Invitrogen",
+                           "Item": "#/$defs/_Item",
                            "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
                            "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
                            "Julabo": "#/$defs/_Julabo",
+                           "Kowa": "#/$defs/_Kowa",
                            "LG": "#/$defs/_Lg",
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -6688,10 +6888,12 @@
                            "Optotune": "#/$defs/_Optotune",
                            "Other": "#/$defs/_Other",
                            "Oxxius": "#/$defs/_Oxxius",
+                           "Placid Industries": "#/$defs/_Placid_Industries",
                            "Prizmatix": "#/$defs/_Prizmatix",
                            "Quantifi": "#/$defs/_Quantifi",
                            "Raspberry Pi": "#/$defs/_Raspberry_Pi",
                            "SICGEN": "#/$defs/_Sicgen",
+                           "Same Sky": "#/$defs/_Same_Sky",
                            "Schneider-Kreuznach": "#/$defs/_Schneider_Kreuznach",
                            "Second Order Effects": "#/$defs/_Second_Order_Effects",
                            "Semrock": "#/$defs/_Semrock",
@@ -6706,6 +6908,7 @@
                            "The Lee Company": "#/$defs/_The_Lee_Company",
                            "Thermo Fisher Scientific": "#/$defs/_Thermo_Fisher_Scientific",
                            "Thorlabs": "#/$defs/_Thorlabs",
+                           "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                            "Tymphany": "#/$defs/_Tymphany",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
@@ -6763,6 +6966,9 @@
                            "$ref": "#/$defs/_Chan_Zuckerberg_Initiative"
                         },
                         {
+                           "$ref": "#/$defs/_Charles_River_Laboratories"
+                        },
+                        {
                            "$ref": "#/$defs/_Chroma"
                         },
                         {
@@ -6779,6 +6985,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Custom"
+                        },
+                        {
+                           "$ref": "#/$defs/_Digikey"
                         },
                         {
                            "$ref": "#/$defs/_Dodotronic"
@@ -6829,6 +7038,9 @@
                            "$ref": "#/$defs/_Invitrogen"
                         },
                         {
+                           "$ref": "#/$defs/_Item"
+                        },
+                        {
                            "$ref": "#/$defs/_Jackson_Laboratory"
                         },
                         {
@@ -6836,6 +7048,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Julabo"
+                        },
+                        {
+                           "$ref": "#/$defs/_Kowa"
                         },
                         {
                            "$ref": "#/$defs/_Lg"
@@ -6916,6 +7131,9 @@
                            "$ref": "#/$defs/_Oxxius"
                         },
                         {
+                           "$ref": "#/$defs/_Placid_Industries"
+                        },
+                        {
                            "$ref": "#/$defs/_Prizmatix"
                         },
                         {
@@ -6923,6 +7141,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Raspberry_Pi"
+                        },
+                        {
+                           "$ref": "#/$defs/_Same_Sky"
                         },
                         {
                            "$ref": "#/$defs/_Sicgen"
@@ -6968,6 +7189,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Thorlabs"
+                        },
+                        {
+                           "$ref": "#/$defs/_Transducer_Techniques"
                         },
                         {
                            "$ref": "#/$defs/_Tymphany"
@@ -7451,12 +7675,14 @@
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                            "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
                            "Chan Zuckerberg Initiative": "#/$defs/_Chan_Zuckerberg_Initiative",
+                           "Charles River Laboratories": "#/$defs/_Charles_River_Laboratories",
                            "Chroma": "#/$defs/_Chroma",
                            "Coherent Scientific": "#/$defs/_Coherent_Scientific",
                            "Columbia University": "#/$defs/_Columbia_University",
                            "Computar": "#/$defs/_Computar",
                            "Conoptics": "#/$defs/_Conoptics",
                            "Custom": "#/$defs/_Custom",
+                           "DigiKey": "#/$defs/_Digikey",
                            "Dodotronic": "#/$defs/_Dodotronic",
                            "Doric": "#/$defs/_Doric",
                            "Ealing": "#/$defs/_Ealing",
@@ -7473,9 +7699,11 @@
                            "Integrated DNA Technologies": "#/$defs/_Integrated_Dna_Technologies",
                            "Interuniversity Microelectronics Center": "#/$defs/_Interuniversity_Microelectronics_Center",
                            "Invitrogen": "#/$defs/_Invitrogen",
+                           "Item": "#/$defs/_Item",
                            "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
                            "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
                            "Julabo": "#/$defs/_Julabo",
+                           "Kowa": "#/$defs/_Kowa",
                            "LG": "#/$defs/_Lg",
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -7502,10 +7730,12 @@
                            "Optotune": "#/$defs/_Optotune",
                            "Other": "#/$defs/_Other",
                            "Oxxius": "#/$defs/_Oxxius",
+                           "Placid Industries": "#/$defs/_Placid_Industries",
                            "Prizmatix": "#/$defs/_Prizmatix",
                            "Quantifi": "#/$defs/_Quantifi",
                            "Raspberry Pi": "#/$defs/_Raspberry_Pi",
                            "SICGEN": "#/$defs/_Sicgen",
+                           "Same Sky": "#/$defs/_Same_Sky",
                            "Schneider-Kreuznach": "#/$defs/_Schneider_Kreuznach",
                            "Second Order Effects": "#/$defs/_Second_Order_Effects",
                            "Semrock": "#/$defs/_Semrock",
@@ -7520,6 +7750,7 @@
                            "The Lee Company": "#/$defs/_The_Lee_Company",
                            "Thermo Fisher Scientific": "#/$defs/_Thermo_Fisher_Scientific",
                            "Thorlabs": "#/$defs/_Thorlabs",
+                           "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                            "Tymphany": "#/$defs/_Tymphany",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
@@ -7577,6 +7808,9 @@
                            "$ref": "#/$defs/_Chan_Zuckerberg_Initiative"
                         },
                         {
+                           "$ref": "#/$defs/_Charles_River_Laboratories"
+                        },
+                        {
                            "$ref": "#/$defs/_Chroma"
                         },
                         {
@@ -7593,6 +7827,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Custom"
+                        },
+                        {
+                           "$ref": "#/$defs/_Digikey"
                         },
                         {
                            "$ref": "#/$defs/_Dodotronic"
@@ -7643,6 +7880,9 @@
                            "$ref": "#/$defs/_Invitrogen"
                         },
                         {
+                           "$ref": "#/$defs/_Item"
+                        },
+                        {
                            "$ref": "#/$defs/_Jackson_Laboratory"
                         },
                         {
@@ -7650,6 +7890,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Julabo"
+                        },
+                        {
+                           "$ref": "#/$defs/_Kowa"
                         },
                         {
                            "$ref": "#/$defs/_Lg"
@@ -7730,6 +7973,9 @@
                            "$ref": "#/$defs/_Oxxius"
                         },
                         {
+                           "$ref": "#/$defs/_Placid_Industries"
+                        },
+                        {
                            "$ref": "#/$defs/_Prizmatix"
                         },
                         {
@@ -7737,6 +7983,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Raspberry_Pi"
+                        },
+                        {
+                           "$ref": "#/$defs/_Same_Sky"
                         },
                         {
                            "$ref": "#/$defs/_Sicgen"
@@ -7782,6 +8031,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Thorlabs"
+                        },
+                        {
+                           "$ref": "#/$defs/_Transducer_Techniques"
                         },
                         {
                            "$ref": "#/$defs/_Tymphany"
@@ -8601,12 +8853,14 @@
                      "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                      "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
                      "Chan Zuckerberg Initiative": "#/$defs/_Chan_Zuckerberg_Initiative",
+                     "Charles River Laboratories": "#/$defs/_Charles_River_Laboratories",
                      "Chroma": "#/$defs/_Chroma",
                      "Coherent Scientific": "#/$defs/_Coherent_Scientific",
                      "Columbia University": "#/$defs/_Columbia_University",
                      "Computar": "#/$defs/_Computar",
                      "Conoptics": "#/$defs/_Conoptics",
                      "Custom": "#/$defs/_Custom",
+                     "DigiKey": "#/$defs/_Digikey",
                      "Dodotronic": "#/$defs/_Dodotronic",
                      "Doric": "#/$defs/_Doric",
                      "Ealing": "#/$defs/_Ealing",
@@ -8623,9 +8877,11 @@
                      "Integrated DNA Technologies": "#/$defs/_Integrated_Dna_Technologies",
                      "Interuniversity Microelectronics Center": "#/$defs/_Interuniversity_Microelectronics_Center",
                      "Invitrogen": "#/$defs/_Invitrogen",
+                     "Item": "#/$defs/_Item",
                      "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
                      "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
                      "Julabo": "#/$defs/_Julabo",
+                     "Kowa": "#/$defs/_Kowa",
                      "LG": "#/$defs/_Lg",
                      "Leica": "#/$defs/_Leica",
                      "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -8652,10 +8908,12 @@
                      "Optotune": "#/$defs/_Optotune",
                      "Other": "#/$defs/_Other",
                      "Oxxius": "#/$defs/_Oxxius",
+                     "Placid Industries": "#/$defs/_Placid_Industries",
                      "Prizmatix": "#/$defs/_Prizmatix",
                      "Quantifi": "#/$defs/_Quantifi",
                      "Raspberry Pi": "#/$defs/_Raspberry_Pi",
                      "SICGEN": "#/$defs/_Sicgen",
+                     "Same Sky": "#/$defs/_Same_Sky",
                      "Schneider-Kreuznach": "#/$defs/_Schneider_Kreuznach",
                      "Second Order Effects": "#/$defs/_Second_Order_Effects",
                      "Semrock": "#/$defs/_Semrock",
@@ -8670,6 +8928,7 @@
                      "The Lee Company": "#/$defs/_The_Lee_Company",
                      "Thermo Fisher Scientific": "#/$defs/_Thermo_Fisher_Scientific",
                      "Thorlabs": "#/$defs/_Thorlabs",
+                     "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                      "Tymphany": "#/$defs/_Tymphany",
                      "Vieworks": "#/$defs/_Vieworks",
                      "Vortran": "#/$defs/_Vortran",
@@ -8727,6 +8986,9 @@
                      "$ref": "#/$defs/_Chan_Zuckerberg_Initiative"
                   },
                   {
+                     "$ref": "#/$defs/_Charles_River_Laboratories"
+                  },
+                  {
                      "$ref": "#/$defs/_Chroma"
                   },
                   {
@@ -8743,6 +9005,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Custom"
+                  },
+                  {
+                     "$ref": "#/$defs/_Digikey"
                   },
                   {
                      "$ref": "#/$defs/_Dodotronic"
@@ -8793,6 +9058,9 @@
                      "$ref": "#/$defs/_Invitrogen"
                   },
                   {
+                     "$ref": "#/$defs/_Item"
+                  },
+                  {
                      "$ref": "#/$defs/_Jackson_Laboratory"
                   },
                   {
@@ -8800,6 +9068,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Julabo"
+                  },
+                  {
+                     "$ref": "#/$defs/_Kowa"
                   },
                   {
                      "$ref": "#/$defs/_Lg"
@@ -8880,6 +9151,9 @@
                      "$ref": "#/$defs/_Oxxius"
                   },
                   {
+                     "$ref": "#/$defs/_Placid_Industries"
+                  },
+                  {
                      "$ref": "#/$defs/_Prizmatix"
                   },
                   {
@@ -8887,6 +9161,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Raspberry_Pi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Same_Sky"
                   },
                   {
                      "$ref": "#/$defs/_Sicgen"
@@ -8932,6 +9209,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Thorlabs"
+                  },
+                  {
+                     "$ref": "#/$defs/_Transducer_Techniques"
                   },
                   {
                      "$ref": "#/$defs/_Tymphany"
@@ -9067,12 +9347,14 @@
                      "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                      "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
                      "Chan Zuckerberg Initiative": "#/$defs/_Chan_Zuckerberg_Initiative",
+                     "Charles River Laboratories": "#/$defs/_Charles_River_Laboratories",
                      "Chroma": "#/$defs/_Chroma",
                      "Coherent Scientific": "#/$defs/_Coherent_Scientific",
                      "Columbia University": "#/$defs/_Columbia_University",
                      "Computar": "#/$defs/_Computar",
                      "Conoptics": "#/$defs/_Conoptics",
                      "Custom": "#/$defs/_Custom",
+                     "DigiKey": "#/$defs/_Digikey",
                      "Dodotronic": "#/$defs/_Dodotronic",
                      "Doric": "#/$defs/_Doric",
                      "Ealing": "#/$defs/_Ealing",
@@ -9089,9 +9371,11 @@
                      "Integrated DNA Technologies": "#/$defs/_Integrated_Dna_Technologies",
                      "Interuniversity Microelectronics Center": "#/$defs/_Interuniversity_Microelectronics_Center",
                      "Invitrogen": "#/$defs/_Invitrogen",
+                     "Item": "#/$defs/_Item",
                      "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
                      "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
                      "Julabo": "#/$defs/_Julabo",
+                     "Kowa": "#/$defs/_Kowa",
                      "LG": "#/$defs/_Lg",
                      "Leica": "#/$defs/_Leica",
                      "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -9118,10 +9402,12 @@
                      "Optotune": "#/$defs/_Optotune",
                      "Other": "#/$defs/_Other",
                      "Oxxius": "#/$defs/_Oxxius",
+                     "Placid Industries": "#/$defs/_Placid_Industries",
                      "Prizmatix": "#/$defs/_Prizmatix",
                      "Quantifi": "#/$defs/_Quantifi",
                      "Raspberry Pi": "#/$defs/_Raspberry_Pi",
                      "SICGEN": "#/$defs/_Sicgen",
+                     "Same Sky": "#/$defs/_Same_Sky",
                      "Schneider-Kreuznach": "#/$defs/_Schneider_Kreuznach",
                      "Second Order Effects": "#/$defs/_Second_Order_Effects",
                      "Semrock": "#/$defs/_Semrock",
@@ -9136,6 +9422,7 @@
                      "The Lee Company": "#/$defs/_The_Lee_Company",
                      "Thermo Fisher Scientific": "#/$defs/_Thermo_Fisher_Scientific",
                      "Thorlabs": "#/$defs/_Thorlabs",
+                     "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                      "Tymphany": "#/$defs/_Tymphany",
                      "Vieworks": "#/$defs/_Vieworks",
                      "Vortran": "#/$defs/_Vortran",
@@ -9193,6 +9480,9 @@
                      "$ref": "#/$defs/_Chan_Zuckerberg_Initiative"
                   },
                   {
+                     "$ref": "#/$defs/_Charles_River_Laboratories"
+                  },
+                  {
                      "$ref": "#/$defs/_Chroma"
                   },
                   {
@@ -9209,6 +9499,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Custom"
+                  },
+                  {
+                     "$ref": "#/$defs/_Digikey"
                   },
                   {
                      "$ref": "#/$defs/_Dodotronic"
@@ -9259,6 +9552,9 @@
                      "$ref": "#/$defs/_Invitrogen"
                   },
                   {
+                     "$ref": "#/$defs/_Item"
+                  },
+                  {
                      "$ref": "#/$defs/_Jackson_Laboratory"
                   },
                   {
@@ -9266,6 +9562,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Julabo"
+                  },
+                  {
+                     "$ref": "#/$defs/_Kowa"
                   },
                   {
                      "$ref": "#/$defs/_Lg"
@@ -9346,6 +9645,9 @@
                      "$ref": "#/$defs/_Oxxius"
                   },
                   {
+                     "$ref": "#/$defs/_Placid_Industries"
+                  },
+                  {
                      "$ref": "#/$defs/_Prizmatix"
                   },
                   {
@@ -9353,6 +9655,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Raspberry_Pi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Same_Sky"
                   },
                   {
                      "$ref": "#/$defs/_Sicgen"
@@ -9398,6 +9703,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Thorlabs"
+                  },
+                  {
+                     "$ref": "#/$defs/_Transducer_Techniques"
                   },
                   {
                      "$ref": "#/$defs/_Tymphany"
@@ -9914,12 +10222,14 @@
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                            "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
                            "Chan Zuckerberg Initiative": "#/$defs/_Chan_Zuckerberg_Initiative",
+                           "Charles River Laboratories": "#/$defs/_Charles_River_Laboratories",
                            "Chroma": "#/$defs/_Chroma",
                            "Coherent Scientific": "#/$defs/_Coherent_Scientific",
                            "Columbia University": "#/$defs/_Columbia_University",
                            "Computar": "#/$defs/_Computar",
                            "Conoptics": "#/$defs/_Conoptics",
                            "Custom": "#/$defs/_Custom",
+                           "DigiKey": "#/$defs/_Digikey",
                            "Dodotronic": "#/$defs/_Dodotronic",
                            "Doric": "#/$defs/_Doric",
                            "Ealing": "#/$defs/_Ealing",
@@ -9936,9 +10246,11 @@
                            "Integrated DNA Technologies": "#/$defs/_Integrated_Dna_Technologies",
                            "Interuniversity Microelectronics Center": "#/$defs/_Interuniversity_Microelectronics_Center",
                            "Invitrogen": "#/$defs/_Invitrogen",
+                           "Item": "#/$defs/_Item",
                            "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
                            "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
                            "Julabo": "#/$defs/_Julabo",
+                           "Kowa": "#/$defs/_Kowa",
                            "LG": "#/$defs/_Lg",
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -9965,10 +10277,12 @@
                            "Optotune": "#/$defs/_Optotune",
                            "Other": "#/$defs/_Other",
                            "Oxxius": "#/$defs/_Oxxius",
+                           "Placid Industries": "#/$defs/_Placid_Industries",
                            "Prizmatix": "#/$defs/_Prizmatix",
                            "Quantifi": "#/$defs/_Quantifi",
                            "Raspberry Pi": "#/$defs/_Raspberry_Pi",
                            "SICGEN": "#/$defs/_Sicgen",
+                           "Same Sky": "#/$defs/_Same_Sky",
                            "Schneider-Kreuznach": "#/$defs/_Schneider_Kreuznach",
                            "Second Order Effects": "#/$defs/_Second_Order_Effects",
                            "Semrock": "#/$defs/_Semrock",
@@ -9983,6 +10297,7 @@
                            "The Lee Company": "#/$defs/_The_Lee_Company",
                            "Thermo Fisher Scientific": "#/$defs/_Thermo_Fisher_Scientific",
                            "Thorlabs": "#/$defs/_Thorlabs",
+                           "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                            "Tymphany": "#/$defs/_Tymphany",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
@@ -10040,6 +10355,9 @@
                            "$ref": "#/$defs/_Chan_Zuckerberg_Initiative"
                         },
                         {
+                           "$ref": "#/$defs/_Charles_River_Laboratories"
+                        },
+                        {
                            "$ref": "#/$defs/_Chroma"
                         },
                         {
@@ -10056,6 +10374,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Custom"
+                        },
+                        {
+                           "$ref": "#/$defs/_Digikey"
                         },
                         {
                            "$ref": "#/$defs/_Dodotronic"
@@ -10106,6 +10427,9 @@
                            "$ref": "#/$defs/_Invitrogen"
                         },
                         {
+                           "$ref": "#/$defs/_Item"
+                        },
+                        {
                            "$ref": "#/$defs/_Jackson_Laboratory"
                         },
                         {
@@ -10113,6 +10437,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Julabo"
+                        },
+                        {
+                           "$ref": "#/$defs/_Kowa"
                         },
                         {
                            "$ref": "#/$defs/_Lg"
@@ -10193,6 +10520,9 @@
                            "$ref": "#/$defs/_Oxxius"
                         },
                         {
+                           "$ref": "#/$defs/_Placid_Industries"
+                        },
+                        {
                            "$ref": "#/$defs/_Prizmatix"
                         },
                         {
@@ -10200,6 +10530,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Raspberry_Pi"
+                        },
+                        {
+                           "$ref": "#/$defs/_Same_Sky"
                         },
                         {
                            "$ref": "#/$defs/_Sicgen"
@@ -10245,6 +10578,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Thorlabs"
+                        },
+                        {
+                           "$ref": "#/$defs/_Transducer_Techniques"
                         },
                         {
                            "$ref": "#/$defs/_Tymphany"
@@ -10603,8 +10939,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "1.0.3",
-               "default": "1.0.3",
+               "const": "1.0.4",
+               "default": "1.0.4",
                "title": "Schema Version",
                "type": "string"
             },
@@ -10649,12 +10985,14 @@
                      "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                      "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
                      "Chan Zuckerberg Initiative": "#/$defs/_Chan_Zuckerberg_Initiative",
+                     "Charles River Laboratories": "#/$defs/_Charles_River_Laboratories",
                      "Chroma": "#/$defs/_Chroma",
                      "Coherent Scientific": "#/$defs/_Coherent_Scientific",
                      "Columbia University": "#/$defs/_Columbia_University",
                      "Computar": "#/$defs/_Computar",
                      "Conoptics": "#/$defs/_Conoptics",
                      "Custom": "#/$defs/_Custom",
+                     "DigiKey": "#/$defs/_Digikey",
                      "Dodotronic": "#/$defs/_Dodotronic",
                      "Doric": "#/$defs/_Doric",
                      "Ealing": "#/$defs/_Ealing",
@@ -10671,9 +11009,11 @@
                      "Integrated DNA Technologies": "#/$defs/_Integrated_Dna_Technologies",
                      "Interuniversity Microelectronics Center": "#/$defs/_Interuniversity_Microelectronics_Center",
                      "Invitrogen": "#/$defs/_Invitrogen",
+                     "Item": "#/$defs/_Item",
                      "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
                      "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
                      "Julabo": "#/$defs/_Julabo",
+                     "Kowa": "#/$defs/_Kowa",
                      "LG": "#/$defs/_Lg",
                      "Leica": "#/$defs/_Leica",
                      "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -10700,10 +11040,12 @@
                      "Optotune": "#/$defs/_Optotune",
                      "Other": "#/$defs/_Other",
                      "Oxxius": "#/$defs/_Oxxius",
+                     "Placid Industries": "#/$defs/_Placid_Industries",
                      "Prizmatix": "#/$defs/_Prizmatix",
                      "Quantifi": "#/$defs/_Quantifi",
                      "Raspberry Pi": "#/$defs/_Raspberry_Pi",
                      "SICGEN": "#/$defs/_Sicgen",
+                     "Same Sky": "#/$defs/_Same_Sky",
                      "Schneider-Kreuznach": "#/$defs/_Schneider_Kreuznach",
                      "Second Order Effects": "#/$defs/_Second_Order_Effects",
                      "Semrock": "#/$defs/_Semrock",
@@ -10718,6 +11060,7 @@
                      "The Lee Company": "#/$defs/_The_Lee_Company",
                      "Thermo Fisher Scientific": "#/$defs/_Thermo_Fisher_Scientific",
                      "Thorlabs": "#/$defs/_Thorlabs",
+                     "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                      "Tymphany": "#/$defs/_Tymphany",
                      "Vieworks": "#/$defs/_Vieworks",
                      "Vortran": "#/$defs/_Vortran",
@@ -10775,6 +11118,9 @@
                      "$ref": "#/$defs/_Chan_Zuckerberg_Initiative"
                   },
                   {
+                     "$ref": "#/$defs/_Charles_River_Laboratories"
+                  },
+                  {
                      "$ref": "#/$defs/_Chroma"
                   },
                   {
@@ -10791,6 +11137,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Custom"
+                  },
+                  {
+                     "$ref": "#/$defs/_Digikey"
                   },
                   {
                      "$ref": "#/$defs/_Dodotronic"
@@ -10841,6 +11190,9 @@
                      "$ref": "#/$defs/_Invitrogen"
                   },
                   {
+                     "$ref": "#/$defs/_Item"
+                  },
+                  {
                      "$ref": "#/$defs/_Jackson_Laboratory"
                   },
                   {
@@ -10848,6 +11200,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Julabo"
+                  },
+                  {
+                     "$ref": "#/$defs/_Kowa"
                   },
                   {
                      "$ref": "#/$defs/_Lg"
@@ -10928,6 +11283,9 @@
                      "$ref": "#/$defs/_Oxxius"
                   },
                   {
+                     "$ref": "#/$defs/_Placid_Industries"
+                  },
+                  {
                      "$ref": "#/$defs/_Prizmatix"
                   },
                   {
@@ -10935,6 +11293,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Raspberry_Pi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Same_Sky"
                   },
                   {
                      "$ref": "#/$defs/_Sicgen"
@@ -10982,6 +11343,9 @@
                      "$ref": "#/$defs/_Thorlabs"
                   },
                   {
+                     "$ref": "#/$defs/_Transducer_Techniques"
+                  },
+                  {
                      "$ref": "#/$defs/_Tymphany"
                   },
                   {
@@ -11007,18 +11371,6 @@
                ],
                "default": null,
                "title": "Temperature control"
-            },
-            "humidity_control": {
-               "anyOf": [
-                  {
-                     "type": "boolean"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Humidity control"
             },
             "optical_tables": {
                "default": [],
@@ -12112,12 +12464,14 @@
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                            "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
                            "Chan Zuckerberg Initiative": "#/$defs/_Chan_Zuckerberg_Initiative",
+                           "Charles River Laboratories": "#/$defs/_Charles_River_Laboratories",
                            "Chroma": "#/$defs/_Chroma",
                            "Coherent Scientific": "#/$defs/_Coherent_Scientific",
                            "Columbia University": "#/$defs/_Columbia_University",
                            "Computar": "#/$defs/_Computar",
                            "Conoptics": "#/$defs/_Conoptics",
                            "Custom": "#/$defs/_Custom",
+                           "DigiKey": "#/$defs/_Digikey",
                            "Dodotronic": "#/$defs/_Dodotronic",
                            "Doric": "#/$defs/_Doric",
                            "Ealing": "#/$defs/_Ealing",
@@ -12134,9 +12488,11 @@
                            "Integrated DNA Technologies": "#/$defs/_Integrated_Dna_Technologies",
                            "Interuniversity Microelectronics Center": "#/$defs/_Interuniversity_Microelectronics_Center",
                            "Invitrogen": "#/$defs/_Invitrogen",
+                           "Item": "#/$defs/_Item",
                            "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
                            "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
                            "Julabo": "#/$defs/_Julabo",
+                           "Kowa": "#/$defs/_Kowa",
                            "LG": "#/$defs/_Lg",
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -12163,10 +12519,12 @@
                            "Optotune": "#/$defs/_Optotune",
                            "Other": "#/$defs/_Other",
                            "Oxxius": "#/$defs/_Oxxius",
+                           "Placid Industries": "#/$defs/_Placid_Industries",
                            "Prizmatix": "#/$defs/_Prizmatix",
                            "Quantifi": "#/$defs/_Quantifi",
                            "Raspberry Pi": "#/$defs/_Raspberry_Pi",
                            "SICGEN": "#/$defs/_Sicgen",
+                           "Same Sky": "#/$defs/_Same_Sky",
                            "Schneider-Kreuznach": "#/$defs/_Schneider_Kreuznach",
                            "Second Order Effects": "#/$defs/_Second_Order_Effects",
                            "Semrock": "#/$defs/_Semrock",
@@ -12181,6 +12539,7 @@
                            "The Lee Company": "#/$defs/_The_Lee_Company",
                            "Thermo Fisher Scientific": "#/$defs/_Thermo_Fisher_Scientific",
                            "Thorlabs": "#/$defs/_Thorlabs",
+                           "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                            "Tymphany": "#/$defs/_Tymphany",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
@@ -12238,6 +12597,9 @@
                            "$ref": "#/$defs/_Chan_Zuckerberg_Initiative"
                         },
                         {
+                           "$ref": "#/$defs/_Charles_River_Laboratories"
+                        },
+                        {
                            "$ref": "#/$defs/_Chroma"
                         },
                         {
@@ -12254,6 +12616,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Custom"
+                        },
+                        {
+                           "$ref": "#/$defs/_Digikey"
                         },
                         {
                            "$ref": "#/$defs/_Dodotronic"
@@ -12304,6 +12669,9 @@
                            "$ref": "#/$defs/_Invitrogen"
                         },
                         {
+                           "$ref": "#/$defs/_Item"
+                        },
+                        {
                            "$ref": "#/$defs/_Jackson_Laboratory"
                         },
                         {
@@ -12311,6 +12679,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Julabo"
+                        },
+                        {
+                           "$ref": "#/$defs/_Kowa"
                         },
                         {
                            "$ref": "#/$defs/_Lg"
@@ -12391,6 +12762,9 @@
                            "$ref": "#/$defs/_Oxxius"
                         },
                         {
+                           "$ref": "#/$defs/_Placid_Industries"
+                        },
+                        {
                            "$ref": "#/$defs/_Prizmatix"
                         },
                         {
@@ -12398,6 +12772,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Raspberry_Pi"
+                        },
+                        {
+                           "$ref": "#/$defs/_Same_Sky"
                         },
                         {
                            "$ref": "#/$defs/_Sicgen"
@@ -12443,6 +12820,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Thorlabs"
+                        },
+                        {
+                           "$ref": "#/$defs/_Transducer_Techniques"
                         },
                         {
                            "$ref": "#/$defs/_Tymphany"
@@ -12909,6 +13289,7 @@
                      "Fujinon": "#/$defs/_Fujinon",
                      "Hamamatsu": "#/$defs/_Hamamatsu",
                      "Infinity Photo-Optical": "#/$defs/_Infinity_Photo_Optical",
+                     "Kowa": "#/$defs/_Kowa",
                      "Leica": "#/$defs/_Leica",
                      "Mitutuyo": "#/$defs/_Mitutuyo",
                      "Navitar": "#/$defs/_Navitar",
@@ -12936,6 +13317,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Infinity_Photo_Optical"
+                  },
+                  {
+                     "$ref": "#/$defs/_Kowa"
                   },
                   {
                      "$ref": "#/$defs/_Leica"
@@ -14181,12 +14565,14 @@
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                            "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
                            "Chan Zuckerberg Initiative": "#/$defs/_Chan_Zuckerberg_Initiative",
+                           "Charles River Laboratories": "#/$defs/_Charles_River_Laboratories",
                            "Chroma": "#/$defs/_Chroma",
                            "Coherent Scientific": "#/$defs/_Coherent_Scientific",
                            "Columbia University": "#/$defs/_Columbia_University",
                            "Computar": "#/$defs/_Computar",
                            "Conoptics": "#/$defs/_Conoptics",
                            "Custom": "#/$defs/_Custom",
+                           "DigiKey": "#/$defs/_Digikey",
                            "Dodotronic": "#/$defs/_Dodotronic",
                            "Doric": "#/$defs/_Doric",
                            "Ealing": "#/$defs/_Ealing",
@@ -14203,9 +14589,11 @@
                            "Integrated DNA Technologies": "#/$defs/_Integrated_Dna_Technologies",
                            "Interuniversity Microelectronics Center": "#/$defs/_Interuniversity_Microelectronics_Center",
                            "Invitrogen": "#/$defs/_Invitrogen",
+                           "Item": "#/$defs/_Item",
                            "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
                            "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
                            "Julabo": "#/$defs/_Julabo",
+                           "Kowa": "#/$defs/_Kowa",
                            "LG": "#/$defs/_Lg",
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -14232,10 +14620,12 @@
                            "Optotune": "#/$defs/_Optotune",
                            "Other": "#/$defs/_Other",
                            "Oxxius": "#/$defs/_Oxxius",
+                           "Placid Industries": "#/$defs/_Placid_Industries",
                            "Prizmatix": "#/$defs/_Prizmatix",
                            "Quantifi": "#/$defs/_Quantifi",
                            "Raspberry Pi": "#/$defs/_Raspberry_Pi",
                            "SICGEN": "#/$defs/_Sicgen",
+                           "Same Sky": "#/$defs/_Same_Sky",
                            "Schneider-Kreuznach": "#/$defs/_Schneider_Kreuznach",
                            "Second Order Effects": "#/$defs/_Second_Order_Effects",
                            "Semrock": "#/$defs/_Semrock",
@@ -14250,6 +14640,7 @@
                            "The Lee Company": "#/$defs/_The_Lee_Company",
                            "Thermo Fisher Scientific": "#/$defs/_Thermo_Fisher_Scientific",
                            "Thorlabs": "#/$defs/_Thorlabs",
+                           "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                            "Tymphany": "#/$defs/_Tymphany",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
@@ -14307,6 +14698,9 @@
                            "$ref": "#/$defs/_Chan_Zuckerberg_Initiative"
                         },
                         {
+                           "$ref": "#/$defs/_Charles_River_Laboratories"
+                        },
+                        {
                            "$ref": "#/$defs/_Chroma"
                         },
                         {
@@ -14323,6 +14717,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Custom"
+                        },
+                        {
+                           "$ref": "#/$defs/_Digikey"
                         },
                         {
                            "$ref": "#/$defs/_Dodotronic"
@@ -14373,6 +14770,9 @@
                            "$ref": "#/$defs/_Invitrogen"
                         },
                         {
+                           "$ref": "#/$defs/_Item"
+                        },
+                        {
                            "$ref": "#/$defs/_Jackson_Laboratory"
                         },
                         {
@@ -14380,6 +14780,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Julabo"
+                        },
+                        {
+                           "$ref": "#/$defs/_Kowa"
                         },
                         {
                            "$ref": "#/$defs/_Lg"
@@ -14460,6 +14863,9 @@
                            "$ref": "#/$defs/_Oxxius"
                         },
                         {
+                           "$ref": "#/$defs/_Placid_Industries"
+                        },
+                        {
                            "$ref": "#/$defs/_Prizmatix"
                         },
                         {
@@ -14467,6 +14873,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Raspberry_Pi"
+                        },
+                        {
+                           "$ref": "#/$defs/_Same_Sky"
                         },
                         {
                            "$ref": "#/$defs/_Sicgen"
@@ -14512,6 +14921,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Thorlabs"
+                        },
+                        {
+                           "$ref": "#/$defs/_Transducer_Techniques"
                         },
                         {
                            "$ref": "#/$defs/_Tymphany"
@@ -14680,12 +15092,14 @@
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                            "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
                            "Chan Zuckerberg Initiative": "#/$defs/_Chan_Zuckerberg_Initiative",
+                           "Charles River Laboratories": "#/$defs/_Charles_River_Laboratories",
                            "Chroma": "#/$defs/_Chroma",
                            "Coherent Scientific": "#/$defs/_Coherent_Scientific",
                            "Columbia University": "#/$defs/_Columbia_University",
                            "Computar": "#/$defs/_Computar",
                            "Conoptics": "#/$defs/_Conoptics",
                            "Custom": "#/$defs/_Custom",
+                           "DigiKey": "#/$defs/_Digikey",
                            "Dodotronic": "#/$defs/_Dodotronic",
                            "Doric": "#/$defs/_Doric",
                            "Ealing": "#/$defs/_Ealing",
@@ -14702,9 +15116,11 @@
                            "Integrated DNA Technologies": "#/$defs/_Integrated_Dna_Technologies",
                            "Interuniversity Microelectronics Center": "#/$defs/_Interuniversity_Microelectronics_Center",
                            "Invitrogen": "#/$defs/_Invitrogen",
+                           "Item": "#/$defs/_Item",
                            "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
                            "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
                            "Julabo": "#/$defs/_Julabo",
+                           "Kowa": "#/$defs/_Kowa",
                            "LG": "#/$defs/_Lg",
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -14731,10 +15147,12 @@
                            "Optotune": "#/$defs/_Optotune",
                            "Other": "#/$defs/_Other",
                            "Oxxius": "#/$defs/_Oxxius",
+                           "Placid Industries": "#/$defs/_Placid_Industries",
                            "Prizmatix": "#/$defs/_Prizmatix",
                            "Quantifi": "#/$defs/_Quantifi",
                            "Raspberry Pi": "#/$defs/_Raspberry_Pi",
                            "SICGEN": "#/$defs/_Sicgen",
+                           "Same Sky": "#/$defs/_Same_Sky",
                            "Schneider-Kreuznach": "#/$defs/_Schneider_Kreuznach",
                            "Second Order Effects": "#/$defs/_Second_Order_Effects",
                            "Semrock": "#/$defs/_Semrock",
@@ -14749,6 +15167,7 @@
                            "The Lee Company": "#/$defs/_The_Lee_Company",
                            "Thermo Fisher Scientific": "#/$defs/_Thermo_Fisher_Scientific",
                            "Thorlabs": "#/$defs/_Thorlabs",
+                           "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                            "Tymphany": "#/$defs/_Tymphany",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
@@ -14806,6 +15225,9 @@
                            "$ref": "#/$defs/_Chan_Zuckerberg_Initiative"
                         },
                         {
+                           "$ref": "#/$defs/_Charles_River_Laboratories"
+                        },
+                        {
                            "$ref": "#/$defs/_Chroma"
                         },
                         {
@@ -14822,6 +15244,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Custom"
+                        },
+                        {
+                           "$ref": "#/$defs/_Digikey"
                         },
                         {
                            "$ref": "#/$defs/_Dodotronic"
@@ -14872,6 +15297,9 @@
                            "$ref": "#/$defs/_Invitrogen"
                         },
                         {
+                           "$ref": "#/$defs/_Item"
+                        },
+                        {
                            "$ref": "#/$defs/_Jackson_Laboratory"
                         },
                         {
@@ -14879,6 +15307,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Julabo"
+                        },
+                        {
+                           "$ref": "#/$defs/_Kowa"
                         },
                         {
                            "$ref": "#/$defs/_Lg"
@@ -14959,6 +15390,9 @@
                            "$ref": "#/$defs/_Oxxius"
                         },
                         {
+                           "$ref": "#/$defs/_Placid_Industries"
+                        },
+                        {
                            "$ref": "#/$defs/_Prizmatix"
                         },
                         {
@@ -14966,6 +15400,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Raspberry_Pi"
+                        },
+                        {
+                           "$ref": "#/$defs/_Same_Sky"
                         },
                         {
                            "$ref": "#/$defs/_Sicgen"
@@ -15011,6 +15448,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Thorlabs"
+                        },
+                        {
+                           "$ref": "#/$defs/_Transducer_Techniques"
                         },
                         {
                            "$ref": "#/$defs/_Tymphany"
@@ -15799,12 +16239,14 @@
                      "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                      "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
                      "Chan Zuckerberg Initiative": "#/$defs/_Chan_Zuckerberg_Initiative",
+                     "Charles River Laboratories": "#/$defs/_Charles_River_Laboratories",
                      "Chroma": "#/$defs/_Chroma",
                      "Coherent Scientific": "#/$defs/_Coherent_Scientific",
                      "Columbia University": "#/$defs/_Columbia_University",
                      "Computar": "#/$defs/_Computar",
                      "Conoptics": "#/$defs/_Conoptics",
                      "Custom": "#/$defs/_Custom",
+                     "DigiKey": "#/$defs/_Digikey",
                      "Dodotronic": "#/$defs/_Dodotronic",
                      "Doric": "#/$defs/_Doric",
                      "Ealing": "#/$defs/_Ealing",
@@ -15821,9 +16263,11 @@
                      "Integrated DNA Technologies": "#/$defs/_Integrated_Dna_Technologies",
                      "Interuniversity Microelectronics Center": "#/$defs/_Interuniversity_Microelectronics_Center",
                      "Invitrogen": "#/$defs/_Invitrogen",
+                     "Item": "#/$defs/_Item",
                      "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
                      "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
                      "Julabo": "#/$defs/_Julabo",
+                     "Kowa": "#/$defs/_Kowa",
                      "LG": "#/$defs/_Lg",
                      "Leica": "#/$defs/_Leica",
                      "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -15850,10 +16294,12 @@
                      "Optotune": "#/$defs/_Optotune",
                      "Other": "#/$defs/_Other",
                      "Oxxius": "#/$defs/_Oxxius",
+                     "Placid Industries": "#/$defs/_Placid_Industries",
                      "Prizmatix": "#/$defs/_Prizmatix",
                      "Quantifi": "#/$defs/_Quantifi",
                      "Raspberry Pi": "#/$defs/_Raspberry_Pi",
                      "SICGEN": "#/$defs/_Sicgen",
+                     "Same Sky": "#/$defs/_Same_Sky",
                      "Schneider-Kreuznach": "#/$defs/_Schneider_Kreuznach",
                      "Second Order Effects": "#/$defs/_Second_Order_Effects",
                      "Semrock": "#/$defs/_Semrock",
@@ -15868,6 +16314,7 @@
                      "The Lee Company": "#/$defs/_The_Lee_Company",
                      "Thermo Fisher Scientific": "#/$defs/_Thermo_Fisher_Scientific",
                      "Thorlabs": "#/$defs/_Thorlabs",
+                     "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                      "Tymphany": "#/$defs/_Tymphany",
                      "Vieworks": "#/$defs/_Vieworks",
                      "Vortran": "#/$defs/_Vortran",
@@ -15925,6 +16372,9 @@
                      "$ref": "#/$defs/_Chan_Zuckerberg_Initiative"
                   },
                   {
+                     "$ref": "#/$defs/_Charles_River_Laboratories"
+                  },
+                  {
                      "$ref": "#/$defs/_Chroma"
                   },
                   {
@@ -15941,6 +16391,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Custom"
+                  },
+                  {
+                     "$ref": "#/$defs/_Digikey"
                   },
                   {
                      "$ref": "#/$defs/_Dodotronic"
@@ -15991,6 +16444,9 @@
                      "$ref": "#/$defs/_Invitrogen"
                   },
                   {
+                     "$ref": "#/$defs/_Item"
+                  },
+                  {
                      "$ref": "#/$defs/_Jackson_Laboratory"
                   },
                   {
@@ -15998,6 +16454,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Julabo"
+                  },
+                  {
+                     "$ref": "#/$defs/_Kowa"
                   },
                   {
                      "$ref": "#/$defs/_Lg"
@@ -16078,6 +16537,9 @@
                      "$ref": "#/$defs/_Oxxius"
                   },
                   {
+                     "$ref": "#/$defs/_Placid_Industries"
+                  },
+                  {
                      "$ref": "#/$defs/_Prizmatix"
                   },
                   {
@@ -16085,6 +16547,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Raspberry_Pi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Same_Sky"
                   },
                   {
                      "$ref": "#/$defs/_Sicgen"
@@ -16130,6 +16595,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Thorlabs"
+                  },
+                  {
+                     "$ref": "#/$defs/_Transducer_Techniques"
                   },
                   {
                      "$ref": "#/$defs/_Tymphany"
@@ -16266,12 +16734,14 @@
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                            "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
                            "Chan Zuckerberg Initiative": "#/$defs/_Chan_Zuckerberg_Initiative",
+                           "Charles River Laboratories": "#/$defs/_Charles_River_Laboratories",
                            "Chroma": "#/$defs/_Chroma",
                            "Coherent Scientific": "#/$defs/_Coherent_Scientific",
                            "Columbia University": "#/$defs/_Columbia_University",
                            "Computar": "#/$defs/_Computar",
                            "Conoptics": "#/$defs/_Conoptics",
                            "Custom": "#/$defs/_Custom",
+                           "DigiKey": "#/$defs/_Digikey",
                            "Dodotronic": "#/$defs/_Dodotronic",
                            "Doric": "#/$defs/_Doric",
                            "Ealing": "#/$defs/_Ealing",
@@ -16288,9 +16758,11 @@
                            "Integrated DNA Technologies": "#/$defs/_Integrated_Dna_Technologies",
                            "Interuniversity Microelectronics Center": "#/$defs/_Interuniversity_Microelectronics_Center",
                            "Invitrogen": "#/$defs/_Invitrogen",
+                           "Item": "#/$defs/_Item",
                            "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
                            "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
                            "Julabo": "#/$defs/_Julabo",
+                           "Kowa": "#/$defs/_Kowa",
                            "LG": "#/$defs/_Lg",
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -16317,10 +16789,12 @@
                            "Optotune": "#/$defs/_Optotune",
                            "Other": "#/$defs/_Other",
                            "Oxxius": "#/$defs/_Oxxius",
+                           "Placid Industries": "#/$defs/_Placid_Industries",
                            "Prizmatix": "#/$defs/_Prizmatix",
                            "Quantifi": "#/$defs/_Quantifi",
                            "Raspberry Pi": "#/$defs/_Raspberry_Pi",
                            "SICGEN": "#/$defs/_Sicgen",
+                           "Same Sky": "#/$defs/_Same_Sky",
                            "Schneider-Kreuznach": "#/$defs/_Schneider_Kreuznach",
                            "Second Order Effects": "#/$defs/_Second_Order_Effects",
                            "Semrock": "#/$defs/_Semrock",
@@ -16335,6 +16809,7 @@
                            "The Lee Company": "#/$defs/_The_Lee_Company",
                            "Thermo Fisher Scientific": "#/$defs/_Thermo_Fisher_Scientific",
                            "Thorlabs": "#/$defs/_Thorlabs",
+                           "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                            "Tymphany": "#/$defs/_Tymphany",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
@@ -16392,6 +16867,9 @@
                            "$ref": "#/$defs/_Chan_Zuckerberg_Initiative"
                         },
                         {
+                           "$ref": "#/$defs/_Charles_River_Laboratories"
+                        },
+                        {
                            "$ref": "#/$defs/_Chroma"
                         },
                         {
@@ -16408,6 +16886,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Custom"
+                        },
+                        {
+                           "$ref": "#/$defs/_Digikey"
                         },
                         {
                            "$ref": "#/$defs/_Dodotronic"
@@ -16458,6 +16939,9 @@
                            "$ref": "#/$defs/_Invitrogen"
                         },
                         {
+                           "$ref": "#/$defs/_Item"
+                        },
+                        {
                            "$ref": "#/$defs/_Jackson_Laboratory"
                         },
                         {
@@ -16465,6 +16949,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Julabo"
+                        },
+                        {
+                           "$ref": "#/$defs/_Kowa"
                         },
                         {
                            "$ref": "#/$defs/_Lg"
@@ -16545,6 +17032,9 @@
                            "$ref": "#/$defs/_Oxxius"
                         },
                         {
+                           "$ref": "#/$defs/_Placid_Industries"
+                        },
+                        {
                            "$ref": "#/$defs/_Prizmatix"
                         },
                         {
@@ -16552,6 +17042,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Raspberry_Pi"
+                        },
+                        {
+                           "$ref": "#/$defs/_Same_Sky"
                         },
                         {
                            "$ref": "#/$defs/_Sicgen"
@@ -16597,6 +17090,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Thorlabs"
+                        },
+                        {
+                           "$ref": "#/$defs/_Transducer_Techniques"
                         },
                         {
                            "$ref": "#/$defs/_Tymphany"
@@ -17104,12 +17600,14 @@
                      "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                      "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
                      "Chan Zuckerberg Initiative": "#/$defs/_Chan_Zuckerberg_Initiative",
+                     "Charles River Laboratories": "#/$defs/_Charles_River_Laboratories",
                      "Chroma": "#/$defs/_Chroma",
                      "Coherent Scientific": "#/$defs/_Coherent_Scientific",
                      "Columbia University": "#/$defs/_Columbia_University",
                      "Computar": "#/$defs/_Computar",
                      "Conoptics": "#/$defs/_Conoptics",
                      "Custom": "#/$defs/_Custom",
+                     "DigiKey": "#/$defs/_Digikey",
                      "Dodotronic": "#/$defs/_Dodotronic",
                      "Doric": "#/$defs/_Doric",
                      "Ealing": "#/$defs/_Ealing",
@@ -17126,9 +17624,11 @@
                      "Integrated DNA Technologies": "#/$defs/_Integrated_Dna_Technologies",
                      "Interuniversity Microelectronics Center": "#/$defs/_Interuniversity_Microelectronics_Center",
                      "Invitrogen": "#/$defs/_Invitrogen",
+                     "Item": "#/$defs/_Item",
                      "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
                      "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
                      "Julabo": "#/$defs/_Julabo",
+                     "Kowa": "#/$defs/_Kowa",
                      "LG": "#/$defs/_Lg",
                      "Leica": "#/$defs/_Leica",
                      "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -17155,10 +17655,12 @@
                      "Optotune": "#/$defs/_Optotune",
                      "Other": "#/$defs/_Other",
                      "Oxxius": "#/$defs/_Oxxius",
+                     "Placid Industries": "#/$defs/_Placid_Industries",
                      "Prizmatix": "#/$defs/_Prizmatix",
                      "Quantifi": "#/$defs/_Quantifi",
                      "Raspberry Pi": "#/$defs/_Raspberry_Pi",
                      "SICGEN": "#/$defs/_Sicgen",
+                     "Same Sky": "#/$defs/_Same_Sky",
                      "Schneider-Kreuznach": "#/$defs/_Schneider_Kreuznach",
                      "Second Order Effects": "#/$defs/_Second_Order_Effects",
                      "Semrock": "#/$defs/_Semrock",
@@ -17173,6 +17675,7 @@
                      "The Lee Company": "#/$defs/_The_Lee_Company",
                      "Thermo Fisher Scientific": "#/$defs/_Thermo_Fisher_Scientific",
                      "Thorlabs": "#/$defs/_Thorlabs",
+                     "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                      "Tymphany": "#/$defs/_Tymphany",
                      "Vieworks": "#/$defs/_Vieworks",
                      "Vortran": "#/$defs/_Vortran",
@@ -17230,6 +17733,9 @@
                      "$ref": "#/$defs/_Chan_Zuckerberg_Initiative"
                   },
                   {
+                     "$ref": "#/$defs/_Charles_River_Laboratories"
+                  },
+                  {
                      "$ref": "#/$defs/_Chroma"
                   },
                   {
@@ -17246,6 +17752,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Custom"
+                  },
+                  {
+                     "$ref": "#/$defs/_Digikey"
                   },
                   {
                      "$ref": "#/$defs/_Dodotronic"
@@ -17296,6 +17805,9 @@
                      "$ref": "#/$defs/_Invitrogen"
                   },
                   {
+                     "$ref": "#/$defs/_Item"
+                  },
+                  {
                      "$ref": "#/$defs/_Jackson_Laboratory"
                   },
                   {
@@ -17303,6 +17815,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Julabo"
+                  },
+                  {
+                     "$ref": "#/$defs/_Kowa"
                   },
                   {
                      "$ref": "#/$defs/_Lg"
@@ -17383,6 +17898,9 @@
                      "$ref": "#/$defs/_Oxxius"
                   },
                   {
+                     "$ref": "#/$defs/_Placid_Industries"
+                  },
+                  {
                      "$ref": "#/$defs/_Prizmatix"
                   },
                   {
@@ -17390,6 +17908,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Raspberry_Pi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Same_Sky"
                   },
                   {
                      "$ref": "#/$defs/_Sicgen"
@@ -17435,6 +17956,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Thorlabs"
+                  },
+                  {
+                     "$ref": "#/$defs/_Transducer_Techniques"
                   },
                   {
                      "$ref": "#/$defs/_Tymphany"
@@ -17892,12 +18416,14 @@
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                            "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
                            "Chan Zuckerberg Initiative": "#/$defs/_Chan_Zuckerberg_Initiative",
+                           "Charles River Laboratories": "#/$defs/_Charles_River_Laboratories",
                            "Chroma": "#/$defs/_Chroma",
                            "Coherent Scientific": "#/$defs/_Coherent_Scientific",
                            "Columbia University": "#/$defs/_Columbia_University",
                            "Computar": "#/$defs/_Computar",
                            "Conoptics": "#/$defs/_Conoptics",
                            "Custom": "#/$defs/_Custom",
+                           "DigiKey": "#/$defs/_Digikey",
                            "Dodotronic": "#/$defs/_Dodotronic",
                            "Doric": "#/$defs/_Doric",
                            "Ealing": "#/$defs/_Ealing",
@@ -17914,9 +18440,11 @@
                            "Integrated DNA Technologies": "#/$defs/_Integrated_Dna_Technologies",
                            "Interuniversity Microelectronics Center": "#/$defs/_Interuniversity_Microelectronics_Center",
                            "Invitrogen": "#/$defs/_Invitrogen",
+                           "Item": "#/$defs/_Item",
                            "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
                            "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
                            "Julabo": "#/$defs/_Julabo",
+                           "Kowa": "#/$defs/_Kowa",
                            "LG": "#/$defs/_Lg",
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -17943,10 +18471,12 @@
                            "Optotune": "#/$defs/_Optotune",
                            "Other": "#/$defs/_Other",
                            "Oxxius": "#/$defs/_Oxxius",
+                           "Placid Industries": "#/$defs/_Placid_Industries",
                            "Prizmatix": "#/$defs/_Prizmatix",
                            "Quantifi": "#/$defs/_Quantifi",
                            "Raspberry Pi": "#/$defs/_Raspberry_Pi",
                            "SICGEN": "#/$defs/_Sicgen",
+                           "Same Sky": "#/$defs/_Same_Sky",
                            "Schneider-Kreuznach": "#/$defs/_Schneider_Kreuznach",
                            "Second Order Effects": "#/$defs/_Second_Order_Effects",
                            "Semrock": "#/$defs/_Semrock",
@@ -17961,6 +18491,7 @@
                            "The Lee Company": "#/$defs/_The_Lee_Company",
                            "Thermo Fisher Scientific": "#/$defs/_Thermo_Fisher_Scientific",
                            "Thorlabs": "#/$defs/_Thorlabs",
+                           "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                            "Tymphany": "#/$defs/_Tymphany",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
@@ -18018,6 +18549,9 @@
                            "$ref": "#/$defs/_Chan_Zuckerberg_Initiative"
                         },
                         {
+                           "$ref": "#/$defs/_Charles_River_Laboratories"
+                        },
+                        {
                            "$ref": "#/$defs/_Chroma"
                         },
                         {
@@ -18034,6 +18568,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Custom"
+                        },
+                        {
+                           "$ref": "#/$defs/_Digikey"
                         },
                         {
                            "$ref": "#/$defs/_Dodotronic"
@@ -18084,6 +18621,9 @@
                            "$ref": "#/$defs/_Invitrogen"
                         },
                         {
+                           "$ref": "#/$defs/_Item"
+                        },
+                        {
                            "$ref": "#/$defs/_Jackson_Laboratory"
                         },
                         {
@@ -18091,6 +18631,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Julabo"
+                        },
+                        {
+                           "$ref": "#/$defs/_Kowa"
                         },
                         {
                            "$ref": "#/$defs/_Lg"
@@ -18171,6 +18714,9 @@
                            "$ref": "#/$defs/_Oxxius"
                         },
                         {
+                           "$ref": "#/$defs/_Placid_Industries"
+                        },
+                        {
                            "$ref": "#/$defs/_Prizmatix"
                         },
                         {
@@ -18178,6 +18724,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Raspberry_Pi"
+                        },
+                        {
+                           "$ref": "#/$defs/_Same_Sky"
                         },
                         {
                            "$ref": "#/$defs/_Sicgen"
@@ -18223,6 +18772,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Thorlabs"
+                        },
+                        {
+                           "$ref": "#/$defs/_Transducer_Techniques"
                         },
                         {
                            "$ref": "#/$defs/_Tymphany"
@@ -18657,12 +19209,14 @@
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                            "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
                            "Chan Zuckerberg Initiative": "#/$defs/_Chan_Zuckerberg_Initiative",
+                           "Charles River Laboratories": "#/$defs/_Charles_River_Laboratories",
                            "Chroma": "#/$defs/_Chroma",
                            "Coherent Scientific": "#/$defs/_Coherent_Scientific",
                            "Columbia University": "#/$defs/_Columbia_University",
                            "Computar": "#/$defs/_Computar",
                            "Conoptics": "#/$defs/_Conoptics",
                            "Custom": "#/$defs/_Custom",
+                           "DigiKey": "#/$defs/_Digikey",
                            "Dodotronic": "#/$defs/_Dodotronic",
                            "Doric": "#/$defs/_Doric",
                            "Ealing": "#/$defs/_Ealing",
@@ -18679,9 +19233,11 @@
                            "Integrated DNA Technologies": "#/$defs/_Integrated_Dna_Technologies",
                            "Interuniversity Microelectronics Center": "#/$defs/_Interuniversity_Microelectronics_Center",
                            "Invitrogen": "#/$defs/_Invitrogen",
+                           "Item": "#/$defs/_Item",
                            "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
                            "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
                            "Julabo": "#/$defs/_Julabo",
+                           "Kowa": "#/$defs/_Kowa",
                            "LG": "#/$defs/_Lg",
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -18708,10 +19264,12 @@
                            "Optotune": "#/$defs/_Optotune",
                            "Other": "#/$defs/_Other",
                            "Oxxius": "#/$defs/_Oxxius",
+                           "Placid Industries": "#/$defs/_Placid_Industries",
                            "Prizmatix": "#/$defs/_Prizmatix",
                            "Quantifi": "#/$defs/_Quantifi",
                            "Raspberry Pi": "#/$defs/_Raspberry_Pi",
                            "SICGEN": "#/$defs/_Sicgen",
+                           "Same Sky": "#/$defs/_Same_Sky",
                            "Schneider-Kreuznach": "#/$defs/_Schneider_Kreuznach",
                            "Second Order Effects": "#/$defs/_Second_Order_Effects",
                            "Semrock": "#/$defs/_Semrock",
@@ -18726,6 +19284,7 @@
                            "The Lee Company": "#/$defs/_The_Lee_Company",
                            "Thermo Fisher Scientific": "#/$defs/_Thermo_Fisher_Scientific",
                            "Thorlabs": "#/$defs/_Thorlabs",
+                           "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                            "Tymphany": "#/$defs/_Tymphany",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
@@ -18783,6 +19342,9 @@
                            "$ref": "#/$defs/_Chan_Zuckerberg_Initiative"
                         },
                         {
+                           "$ref": "#/$defs/_Charles_River_Laboratories"
+                        },
+                        {
                            "$ref": "#/$defs/_Chroma"
                         },
                         {
@@ -18799,6 +19361,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Custom"
+                        },
+                        {
+                           "$ref": "#/$defs/_Digikey"
                         },
                         {
                            "$ref": "#/$defs/_Dodotronic"
@@ -18849,6 +19414,9 @@
                            "$ref": "#/$defs/_Invitrogen"
                         },
                         {
+                           "$ref": "#/$defs/_Item"
+                        },
+                        {
                            "$ref": "#/$defs/_Jackson_Laboratory"
                         },
                         {
@@ -18856,6 +19424,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Julabo"
+                        },
+                        {
+                           "$ref": "#/$defs/_Kowa"
                         },
                         {
                            "$ref": "#/$defs/_Lg"
@@ -18936,6 +19507,9 @@
                            "$ref": "#/$defs/_Oxxius"
                         },
                         {
+                           "$ref": "#/$defs/_Placid_Industries"
+                        },
+                        {
                            "$ref": "#/$defs/_Prizmatix"
                         },
                         {
@@ -18943,6 +19517,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Raspberry_Pi"
+                        },
+                        {
+                           "$ref": "#/$defs/_Same_Sky"
                         },
                         {
                            "$ref": "#/$defs/_Sicgen"
@@ -18988,6 +19565,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Thorlabs"
+                        },
+                        {
+                           "$ref": "#/$defs/_Transducer_Techniques"
                         },
                         {
                            "$ref": "#/$defs/_Tymphany"
@@ -19415,12 +19995,14 @@
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                            "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
                            "Chan Zuckerberg Initiative": "#/$defs/_Chan_Zuckerberg_Initiative",
+                           "Charles River Laboratories": "#/$defs/_Charles_River_Laboratories",
                            "Chroma": "#/$defs/_Chroma",
                            "Coherent Scientific": "#/$defs/_Coherent_Scientific",
                            "Columbia University": "#/$defs/_Columbia_University",
                            "Computar": "#/$defs/_Computar",
                            "Conoptics": "#/$defs/_Conoptics",
                            "Custom": "#/$defs/_Custom",
+                           "DigiKey": "#/$defs/_Digikey",
                            "Dodotronic": "#/$defs/_Dodotronic",
                            "Doric": "#/$defs/_Doric",
                            "Ealing": "#/$defs/_Ealing",
@@ -19437,9 +20019,11 @@
                            "Integrated DNA Technologies": "#/$defs/_Integrated_Dna_Technologies",
                            "Interuniversity Microelectronics Center": "#/$defs/_Interuniversity_Microelectronics_Center",
                            "Invitrogen": "#/$defs/_Invitrogen",
+                           "Item": "#/$defs/_Item",
                            "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
                            "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
                            "Julabo": "#/$defs/_Julabo",
+                           "Kowa": "#/$defs/_Kowa",
                            "LG": "#/$defs/_Lg",
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -19466,10 +20050,12 @@
                            "Optotune": "#/$defs/_Optotune",
                            "Other": "#/$defs/_Other",
                            "Oxxius": "#/$defs/_Oxxius",
+                           "Placid Industries": "#/$defs/_Placid_Industries",
                            "Prizmatix": "#/$defs/_Prizmatix",
                            "Quantifi": "#/$defs/_Quantifi",
                            "Raspberry Pi": "#/$defs/_Raspberry_Pi",
                            "SICGEN": "#/$defs/_Sicgen",
+                           "Same Sky": "#/$defs/_Same_Sky",
                            "Schneider-Kreuznach": "#/$defs/_Schneider_Kreuznach",
                            "Second Order Effects": "#/$defs/_Second_Order_Effects",
                            "Semrock": "#/$defs/_Semrock",
@@ -19484,6 +20070,7 @@
                            "The Lee Company": "#/$defs/_The_Lee_Company",
                            "Thermo Fisher Scientific": "#/$defs/_Thermo_Fisher_Scientific",
                            "Thorlabs": "#/$defs/_Thorlabs",
+                           "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                            "Tymphany": "#/$defs/_Tymphany",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
@@ -19541,6 +20128,9 @@
                            "$ref": "#/$defs/_Chan_Zuckerberg_Initiative"
                         },
                         {
+                           "$ref": "#/$defs/_Charles_River_Laboratories"
+                        },
+                        {
                            "$ref": "#/$defs/_Chroma"
                         },
                         {
@@ -19557,6 +20147,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Custom"
+                        },
+                        {
+                           "$ref": "#/$defs/_Digikey"
                         },
                         {
                            "$ref": "#/$defs/_Dodotronic"
@@ -19607,6 +20200,9 @@
                            "$ref": "#/$defs/_Invitrogen"
                         },
                         {
+                           "$ref": "#/$defs/_Item"
+                        },
+                        {
                            "$ref": "#/$defs/_Jackson_Laboratory"
                         },
                         {
@@ -19614,6 +20210,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Julabo"
+                        },
+                        {
+                           "$ref": "#/$defs/_Kowa"
                         },
                         {
                            "$ref": "#/$defs/_Lg"
@@ -19694,6 +20293,9 @@
                            "$ref": "#/$defs/_Oxxius"
                         },
                         {
+                           "$ref": "#/$defs/_Placid_Industries"
+                        },
+                        {
                            "$ref": "#/$defs/_Prizmatix"
                         },
                         {
@@ -19701,6 +20303,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Raspberry_Pi"
+                        },
+                        {
+                           "$ref": "#/$defs/_Same_Sky"
                         },
                         {
                            "$ref": "#/$defs/_Sicgen"
@@ -19746,6 +20351,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Thorlabs"
+                        },
+                        {
+                           "$ref": "#/$defs/_Transducer_Techniques"
                         },
                         {
                            "$ref": "#/$defs/_Tymphany"
@@ -19951,12 +20559,14 @@
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                            "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
                            "Chan Zuckerberg Initiative": "#/$defs/_Chan_Zuckerberg_Initiative",
+                           "Charles River Laboratories": "#/$defs/_Charles_River_Laboratories",
                            "Chroma": "#/$defs/_Chroma",
                            "Coherent Scientific": "#/$defs/_Coherent_Scientific",
                            "Columbia University": "#/$defs/_Columbia_University",
                            "Computar": "#/$defs/_Computar",
                            "Conoptics": "#/$defs/_Conoptics",
                            "Custom": "#/$defs/_Custom",
+                           "DigiKey": "#/$defs/_Digikey",
                            "Dodotronic": "#/$defs/_Dodotronic",
                            "Doric": "#/$defs/_Doric",
                            "Ealing": "#/$defs/_Ealing",
@@ -19973,9 +20583,11 @@
                            "Integrated DNA Technologies": "#/$defs/_Integrated_Dna_Technologies",
                            "Interuniversity Microelectronics Center": "#/$defs/_Interuniversity_Microelectronics_Center",
                            "Invitrogen": "#/$defs/_Invitrogen",
+                           "Item": "#/$defs/_Item",
                            "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
                            "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
                            "Julabo": "#/$defs/_Julabo",
+                           "Kowa": "#/$defs/_Kowa",
                            "LG": "#/$defs/_Lg",
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -20002,10 +20614,12 @@
                            "Optotune": "#/$defs/_Optotune",
                            "Other": "#/$defs/_Other",
                            "Oxxius": "#/$defs/_Oxxius",
+                           "Placid Industries": "#/$defs/_Placid_Industries",
                            "Prizmatix": "#/$defs/_Prizmatix",
                            "Quantifi": "#/$defs/_Quantifi",
                            "Raspberry Pi": "#/$defs/_Raspberry_Pi",
                            "SICGEN": "#/$defs/_Sicgen",
+                           "Same Sky": "#/$defs/_Same_Sky",
                            "Schneider-Kreuznach": "#/$defs/_Schneider_Kreuznach",
                            "Second Order Effects": "#/$defs/_Second_Order_Effects",
                            "Semrock": "#/$defs/_Semrock",
@@ -20020,6 +20634,7 @@
                            "The Lee Company": "#/$defs/_The_Lee_Company",
                            "Thermo Fisher Scientific": "#/$defs/_Thermo_Fisher_Scientific",
                            "Thorlabs": "#/$defs/_Thorlabs",
+                           "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                            "Tymphany": "#/$defs/_Tymphany",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
@@ -20077,6 +20692,9 @@
                            "$ref": "#/$defs/_Chan_Zuckerberg_Initiative"
                         },
                         {
+                           "$ref": "#/$defs/_Charles_River_Laboratories"
+                        },
+                        {
                            "$ref": "#/$defs/_Chroma"
                         },
                         {
@@ -20093,6 +20711,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Custom"
+                        },
+                        {
+                           "$ref": "#/$defs/_Digikey"
                         },
                         {
                            "$ref": "#/$defs/_Dodotronic"
@@ -20143,6 +20764,9 @@
                            "$ref": "#/$defs/_Invitrogen"
                         },
                         {
+                           "$ref": "#/$defs/_Item"
+                        },
+                        {
                            "$ref": "#/$defs/_Jackson_Laboratory"
                         },
                         {
@@ -20150,6 +20774,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Julabo"
+                        },
+                        {
+                           "$ref": "#/$defs/_Kowa"
                         },
                         {
                            "$ref": "#/$defs/_Lg"
@@ -20230,6 +20857,9 @@
                            "$ref": "#/$defs/_Oxxius"
                         },
                         {
+                           "$ref": "#/$defs/_Placid_Industries"
+                        },
+                        {
                            "$ref": "#/$defs/_Prizmatix"
                         },
                         {
@@ -20237,6 +20867,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Raspberry_Pi"
+                        },
+                        {
+                           "$ref": "#/$defs/_Same_Sky"
                         },
                         {
                            "$ref": "#/$defs/_Sicgen"
@@ -20282,6 +20915,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Thorlabs"
+                        },
+                        {
+                           "$ref": "#/$defs/_Transducer_Techniques"
                         },
                         {
                            "$ref": "#/$defs/_Tymphany"
@@ -20440,8 +21076,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "1.1.3",
-               "default": "1.1.3",
+               "const": "1.1.4",
+               "default": "1.1.4",
                "title": "Schema Version",
                "type": "string"
             },
@@ -21065,12 +21701,14 @@
                      "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                      "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
                      "Chan Zuckerberg Initiative": "#/$defs/_Chan_Zuckerberg_Initiative",
+                     "Charles River Laboratories": "#/$defs/_Charles_River_Laboratories",
                      "Chroma": "#/$defs/_Chroma",
                      "Coherent Scientific": "#/$defs/_Coherent_Scientific",
                      "Columbia University": "#/$defs/_Columbia_University",
                      "Computar": "#/$defs/_Computar",
                      "Conoptics": "#/$defs/_Conoptics",
                      "Custom": "#/$defs/_Custom",
+                     "DigiKey": "#/$defs/_Digikey",
                      "Dodotronic": "#/$defs/_Dodotronic",
                      "Doric": "#/$defs/_Doric",
                      "Ealing": "#/$defs/_Ealing",
@@ -21087,9 +21725,11 @@
                      "Integrated DNA Technologies": "#/$defs/_Integrated_Dna_Technologies",
                      "Interuniversity Microelectronics Center": "#/$defs/_Interuniversity_Microelectronics_Center",
                      "Invitrogen": "#/$defs/_Invitrogen",
+                     "Item": "#/$defs/_Item",
                      "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
                      "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
                      "Julabo": "#/$defs/_Julabo",
+                     "Kowa": "#/$defs/_Kowa",
                      "LG": "#/$defs/_Lg",
                      "Leica": "#/$defs/_Leica",
                      "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -21116,10 +21756,12 @@
                      "Optotune": "#/$defs/_Optotune",
                      "Other": "#/$defs/_Other",
                      "Oxxius": "#/$defs/_Oxxius",
+                     "Placid Industries": "#/$defs/_Placid_Industries",
                      "Prizmatix": "#/$defs/_Prizmatix",
                      "Quantifi": "#/$defs/_Quantifi",
                      "Raspberry Pi": "#/$defs/_Raspberry_Pi",
                      "SICGEN": "#/$defs/_Sicgen",
+                     "Same Sky": "#/$defs/_Same_Sky",
                      "Schneider-Kreuznach": "#/$defs/_Schneider_Kreuznach",
                      "Second Order Effects": "#/$defs/_Second_Order_Effects",
                      "Semrock": "#/$defs/_Semrock",
@@ -21134,6 +21776,7 @@
                      "The Lee Company": "#/$defs/_The_Lee_Company",
                      "Thermo Fisher Scientific": "#/$defs/_Thermo_Fisher_Scientific",
                      "Thorlabs": "#/$defs/_Thorlabs",
+                     "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                      "Tymphany": "#/$defs/_Tymphany",
                      "Vieworks": "#/$defs/_Vieworks",
                      "Vortran": "#/$defs/_Vortran",
@@ -21191,6 +21834,9 @@
                      "$ref": "#/$defs/_Chan_Zuckerberg_Initiative"
                   },
                   {
+                     "$ref": "#/$defs/_Charles_River_Laboratories"
+                  },
+                  {
                      "$ref": "#/$defs/_Chroma"
                   },
                   {
@@ -21207,6 +21853,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Custom"
+                  },
+                  {
+                     "$ref": "#/$defs/_Digikey"
                   },
                   {
                      "$ref": "#/$defs/_Dodotronic"
@@ -21257,6 +21906,9 @@
                      "$ref": "#/$defs/_Invitrogen"
                   },
                   {
+                     "$ref": "#/$defs/_Item"
+                  },
+                  {
                      "$ref": "#/$defs/_Jackson_Laboratory"
                   },
                   {
@@ -21264,6 +21916,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Julabo"
+                  },
+                  {
+                     "$ref": "#/$defs/_Kowa"
                   },
                   {
                      "$ref": "#/$defs/_Lg"
@@ -21344,6 +21999,9 @@
                      "$ref": "#/$defs/_Oxxius"
                   },
                   {
+                     "$ref": "#/$defs/_Placid_Industries"
+                  },
+                  {
                      "$ref": "#/$defs/_Prizmatix"
                   },
                   {
@@ -21351,6 +22009,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Raspberry_Pi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Same_Sky"
                   },
                   {
                      "$ref": "#/$defs/_Sicgen"
@@ -21396,6 +22057,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Thorlabs"
+                  },
+                  {
+                     "$ref": "#/$defs/_Transducer_Techniques"
                   },
                   {
                      "$ref": "#/$defs/_Tymphany"
@@ -21496,12 +22160,14 @@
                      "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                      "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
                      "Chan Zuckerberg Initiative": "#/$defs/_Chan_Zuckerberg_Initiative",
+                     "Charles River Laboratories": "#/$defs/_Charles_River_Laboratories",
                      "Chroma": "#/$defs/_Chroma",
                      "Coherent Scientific": "#/$defs/_Coherent_Scientific",
                      "Columbia University": "#/$defs/_Columbia_University",
                      "Computar": "#/$defs/_Computar",
                      "Conoptics": "#/$defs/_Conoptics",
                      "Custom": "#/$defs/_Custom",
+                     "DigiKey": "#/$defs/_Digikey",
                      "Dodotronic": "#/$defs/_Dodotronic",
                      "Doric": "#/$defs/_Doric",
                      "Ealing": "#/$defs/_Ealing",
@@ -21518,9 +22184,11 @@
                      "Integrated DNA Technologies": "#/$defs/_Integrated_Dna_Technologies",
                      "Interuniversity Microelectronics Center": "#/$defs/_Interuniversity_Microelectronics_Center",
                      "Invitrogen": "#/$defs/_Invitrogen",
+                     "Item": "#/$defs/_Item",
                      "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
                      "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
                      "Julabo": "#/$defs/_Julabo",
+                     "Kowa": "#/$defs/_Kowa",
                      "LG": "#/$defs/_Lg",
                      "Leica": "#/$defs/_Leica",
                      "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -21547,10 +22215,12 @@
                      "Optotune": "#/$defs/_Optotune",
                      "Other": "#/$defs/_Other",
                      "Oxxius": "#/$defs/_Oxxius",
+                     "Placid Industries": "#/$defs/_Placid_Industries",
                      "Prizmatix": "#/$defs/_Prizmatix",
                      "Quantifi": "#/$defs/_Quantifi",
                      "Raspberry Pi": "#/$defs/_Raspberry_Pi",
                      "SICGEN": "#/$defs/_Sicgen",
+                     "Same Sky": "#/$defs/_Same_Sky",
                      "Schneider-Kreuznach": "#/$defs/_Schneider_Kreuznach",
                      "Second Order Effects": "#/$defs/_Second_Order_Effects",
                      "Semrock": "#/$defs/_Semrock",
@@ -21565,6 +22235,7 @@
                      "The Lee Company": "#/$defs/_The_Lee_Company",
                      "Thermo Fisher Scientific": "#/$defs/_Thermo_Fisher_Scientific",
                      "Thorlabs": "#/$defs/_Thorlabs",
+                     "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                      "Tymphany": "#/$defs/_Tymphany",
                      "Vieworks": "#/$defs/_Vieworks",
                      "Vortran": "#/$defs/_Vortran",
@@ -21622,6 +22293,9 @@
                      "$ref": "#/$defs/_Chan_Zuckerberg_Initiative"
                   },
                   {
+                     "$ref": "#/$defs/_Charles_River_Laboratories"
+                  },
+                  {
                      "$ref": "#/$defs/_Chroma"
                   },
                   {
@@ -21638,6 +22312,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Custom"
+                  },
+                  {
+                     "$ref": "#/$defs/_Digikey"
                   },
                   {
                      "$ref": "#/$defs/_Dodotronic"
@@ -21688,6 +22365,9 @@
                      "$ref": "#/$defs/_Invitrogen"
                   },
                   {
+                     "$ref": "#/$defs/_Item"
+                  },
+                  {
                      "$ref": "#/$defs/_Jackson_Laboratory"
                   },
                   {
@@ -21695,6 +22375,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Julabo"
+                  },
+                  {
+                     "$ref": "#/$defs/_Kowa"
                   },
                   {
                      "$ref": "#/$defs/_Lg"
@@ -21775,6 +22458,9 @@
                      "$ref": "#/$defs/_Oxxius"
                   },
                   {
+                     "$ref": "#/$defs/_Placid_Industries"
+                  },
+                  {
                      "$ref": "#/$defs/_Prizmatix"
                   },
                   {
@@ -21782,6 +22468,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Raspberry_Pi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Same_Sky"
                   },
                   {
                      "$ref": "#/$defs/_Sicgen"
@@ -21827,6 +22516,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Thorlabs"
+                  },
+                  {
+                     "$ref": "#/$defs/_Transducer_Techniques"
                   },
                   {
                      "$ref": "#/$defs/_Tymphany"
@@ -22398,12 +23090,14 @@
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                            "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
                            "Chan Zuckerberg Initiative": "#/$defs/_Chan_Zuckerberg_Initiative",
+                           "Charles River Laboratories": "#/$defs/_Charles_River_Laboratories",
                            "Chroma": "#/$defs/_Chroma",
                            "Coherent Scientific": "#/$defs/_Coherent_Scientific",
                            "Columbia University": "#/$defs/_Columbia_University",
                            "Computar": "#/$defs/_Computar",
                            "Conoptics": "#/$defs/_Conoptics",
                            "Custom": "#/$defs/_Custom",
+                           "DigiKey": "#/$defs/_Digikey",
                            "Dodotronic": "#/$defs/_Dodotronic",
                            "Doric": "#/$defs/_Doric",
                            "Ealing": "#/$defs/_Ealing",
@@ -22420,9 +23114,11 @@
                            "Integrated DNA Technologies": "#/$defs/_Integrated_Dna_Technologies",
                            "Interuniversity Microelectronics Center": "#/$defs/_Interuniversity_Microelectronics_Center",
                            "Invitrogen": "#/$defs/_Invitrogen",
+                           "Item": "#/$defs/_Item",
                            "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
                            "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
                            "Julabo": "#/$defs/_Julabo",
+                           "Kowa": "#/$defs/_Kowa",
                            "LG": "#/$defs/_Lg",
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -22449,10 +23145,12 @@
                            "Optotune": "#/$defs/_Optotune",
                            "Other": "#/$defs/_Other",
                            "Oxxius": "#/$defs/_Oxxius",
+                           "Placid Industries": "#/$defs/_Placid_Industries",
                            "Prizmatix": "#/$defs/_Prizmatix",
                            "Quantifi": "#/$defs/_Quantifi",
                            "Raspberry Pi": "#/$defs/_Raspberry_Pi",
                            "SICGEN": "#/$defs/_Sicgen",
+                           "Same Sky": "#/$defs/_Same_Sky",
                            "Schneider-Kreuznach": "#/$defs/_Schneider_Kreuznach",
                            "Second Order Effects": "#/$defs/_Second_Order_Effects",
                            "Semrock": "#/$defs/_Semrock",
@@ -22467,6 +23165,7 @@
                            "The Lee Company": "#/$defs/_The_Lee_Company",
                            "Thermo Fisher Scientific": "#/$defs/_Thermo_Fisher_Scientific",
                            "Thorlabs": "#/$defs/_Thorlabs",
+                           "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                            "Tymphany": "#/$defs/_Tymphany",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
@@ -22524,6 +23223,9 @@
                            "$ref": "#/$defs/_Chan_Zuckerberg_Initiative"
                         },
                         {
+                           "$ref": "#/$defs/_Charles_River_Laboratories"
+                        },
+                        {
                            "$ref": "#/$defs/_Chroma"
                         },
                         {
@@ -22540,6 +23242,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Custom"
+                        },
+                        {
+                           "$ref": "#/$defs/_Digikey"
                         },
                         {
                            "$ref": "#/$defs/_Dodotronic"
@@ -22590,6 +23295,9 @@
                            "$ref": "#/$defs/_Invitrogen"
                         },
                         {
+                           "$ref": "#/$defs/_Item"
+                        },
+                        {
                            "$ref": "#/$defs/_Jackson_Laboratory"
                         },
                         {
@@ -22597,6 +23305,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Julabo"
+                        },
+                        {
+                           "$ref": "#/$defs/_Kowa"
                         },
                         {
                            "$ref": "#/$defs/_Lg"
@@ -22677,6 +23388,9 @@
                            "$ref": "#/$defs/_Oxxius"
                         },
                         {
+                           "$ref": "#/$defs/_Placid_Industries"
+                        },
+                        {
                            "$ref": "#/$defs/_Prizmatix"
                         },
                         {
@@ -22684,6 +23398,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Raspberry_Pi"
+                        },
+                        {
+                           "$ref": "#/$defs/_Same_Sky"
                         },
                         {
                            "$ref": "#/$defs/_Sicgen"
@@ -22729,6 +23446,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Thorlabs"
+                        },
+                        {
+                           "$ref": "#/$defs/_Transducer_Techniques"
                         },
                         {
                            "$ref": "#/$defs/_Tymphany"
@@ -22907,8 +23627,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "1.0.3",
-               "default": "1.0.3",
+               "const": "1.0.4",
+               "default": "1.0.4",
                "title": "Schema Version",
                "type": "string"
             },
@@ -23427,12 +24147,14 @@
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                            "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
                            "Chan Zuckerberg Initiative": "#/$defs/_Chan_Zuckerberg_Initiative",
+                           "Charles River Laboratories": "#/$defs/_Charles_River_Laboratories",
                            "Chroma": "#/$defs/_Chroma",
                            "Coherent Scientific": "#/$defs/_Coherent_Scientific",
                            "Columbia University": "#/$defs/_Columbia_University",
                            "Computar": "#/$defs/_Computar",
                            "Conoptics": "#/$defs/_Conoptics",
                            "Custom": "#/$defs/_Custom",
+                           "DigiKey": "#/$defs/_Digikey",
                            "Dodotronic": "#/$defs/_Dodotronic",
                            "Doric": "#/$defs/_Doric",
                            "Ealing": "#/$defs/_Ealing",
@@ -23449,9 +24171,11 @@
                            "Integrated DNA Technologies": "#/$defs/_Integrated_Dna_Technologies",
                            "Interuniversity Microelectronics Center": "#/$defs/_Interuniversity_Microelectronics_Center",
                            "Invitrogen": "#/$defs/_Invitrogen",
+                           "Item": "#/$defs/_Item",
                            "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
                            "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
                            "Julabo": "#/$defs/_Julabo",
+                           "Kowa": "#/$defs/_Kowa",
                            "LG": "#/$defs/_Lg",
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -23478,10 +24202,12 @@
                            "Optotune": "#/$defs/_Optotune",
                            "Other": "#/$defs/_Other",
                            "Oxxius": "#/$defs/_Oxxius",
+                           "Placid Industries": "#/$defs/_Placid_Industries",
                            "Prizmatix": "#/$defs/_Prizmatix",
                            "Quantifi": "#/$defs/_Quantifi",
                            "Raspberry Pi": "#/$defs/_Raspberry_Pi",
                            "SICGEN": "#/$defs/_Sicgen",
+                           "Same Sky": "#/$defs/_Same_Sky",
                            "Schneider-Kreuznach": "#/$defs/_Schneider_Kreuznach",
                            "Second Order Effects": "#/$defs/_Second_Order_Effects",
                            "Semrock": "#/$defs/_Semrock",
@@ -23496,6 +24222,7 @@
                            "The Lee Company": "#/$defs/_The_Lee_Company",
                            "Thermo Fisher Scientific": "#/$defs/_Thermo_Fisher_Scientific",
                            "Thorlabs": "#/$defs/_Thorlabs",
+                           "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                            "Tymphany": "#/$defs/_Tymphany",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
@@ -23553,6 +24280,9 @@
                            "$ref": "#/$defs/_Chan_Zuckerberg_Initiative"
                         },
                         {
+                           "$ref": "#/$defs/_Charles_River_Laboratories"
+                        },
+                        {
                            "$ref": "#/$defs/_Chroma"
                         },
                         {
@@ -23569,6 +24299,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Custom"
+                        },
+                        {
+                           "$ref": "#/$defs/_Digikey"
                         },
                         {
                            "$ref": "#/$defs/_Dodotronic"
@@ -23619,6 +24352,9 @@
                            "$ref": "#/$defs/_Invitrogen"
                         },
                         {
+                           "$ref": "#/$defs/_Item"
+                        },
+                        {
                            "$ref": "#/$defs/_Jackson_Laboratory"
                         },
                         {
@@ -23626,6 +24362,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Julabo"
+                        },
+                        {
+                           "$ref": "#/$defs/_Kowa"
                         },
                         {
                            "$ref": "#/$defs/_Lg"
@@ -23706,6 +24445,9 @@
                            "$ref": "#/$defs/_Oxxius"
                         },
                         {
+                           "$ref": "#/$defs/_Placid_Industries"
+                        },
+                        {
                            "$ref": "#/$defs/_Prizmatix"
                         },
                         {
@@ -23713,6 +24455,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Raspberry_Pi"
+                        },
+                        {
+                           "$ref": "#/$defs/_Same_Sky"
                         },
                         {
                            "$ref": "#/$defs/_Sicgen"
@@ -23758,6 +24503,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Thorlabs"
+                        },
+                        {
+                           "$ref": "#/$defs/_Transducer_Techniques"
                         },
                         {
                            "$ref": "#/$defs/_Tymphany"
@@ -23912,12 +24660,14 @@
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                            "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
                            "Chan Zuckerberg Initiative": "#/$defs/_Chan_Zuckerberg_Initiative",
+                           "Charles River Laboratories": "#/$defs/_Charles_River_Laboratories",
                            "Chroma": "#/$defs/_Chroma",
                            "Coherent Scientific": "#/$defs/_Coherent_Scientific",
                            "Columbia University": "#/$defs/_Columbia_University",
                            "Computar": "#/$defs/_Computar",
                            "Conoptics": "#/$defs/_Conoptics",
                            "Custom": "#/$defs/_Custom",
+                           "DigiKey": "#/$defs/_Digikey",
                            "Dodotronic": "#/$defs/_Dodotronic",
                            "Doric": "#/$defs/_Doric",
                            "Ealing": "#/$defs/_Ealing",
@@ -23934,9 +24684,11 @@
                            "Integrated DNA Technologies": "#/$defs/_Integrated_Dna_Technologies",
                            "Interuniversity Microelectronics Center": "#/$defs/_Interuniversity_Microelectronics_Center",
                            "Invitrogen": "#/$defs/_Invitrogen",
+                           "Item": "#/$defs/_Item",
                            "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
                            "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
                            "Julabo": "#/$defs/_Julabo",
+                           "Kowa": "#/$defs/_Kowa",
                            "LG": "#/$defs/_Lg",
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -23963,10 +24715,12 @@
                            "Optotune": "#/$defs/_Optotune",
                            "Other": "#/$defs/_Other",
                            "Oxxius": "#/$defs/_Oxxius",
+                           "Placid Industries": "#/$defs/_Placid_Industries",
                            "Prizmatix": "#/$defs/_Prizmatix",
                            "Quantifi": "#/$defs/_Quantifi",
                            "Raspberry Pi": "#/$defs/_Raspberry_Pi",
                            "SICGEN": "#/$defs/_Sicgen",
+                           "Same Sky": "#/$defs/_Same_Sky",
                            "Schneider-Kreuznach": "#/$defs/_Schneider_Kreuznach",
                            "Second Order Effects": "#/$defs/_Second_Order_Effects",
                            "Semrock": "#/$defs/_Semrock",
@@ -23981,6 +24735,7 @@
                            "The Lee Company": "#/$defs/_The_Lee_Company",
                            "Thermo Fisher Scientific": "#/$defs/_Thermo_Fisher_Scientific",
                            "Thorlabs": "#/$defs/_Thorlabs",
+                           "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                            "Tymphany": "#/$defs/_Tymphany",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
@@ -24038,6 +24793,9 @@
                            "$ref": "#/$defs/_Chan_Zuckerberg_Initiative"
                         },
                         {
+                           "$ref": "#/$defs/_Charles_River_Laboratories"
+                        },
+                        {
                            "$ref": "#/$defs/_Chroma"
                         },
                         {
@@ -24054,6 +24812,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Custom"
+                        },
+                        {
+                           "$ref": "#/$defs/_Digikey"
                         },
                         {
                            "$ref": "#/$defs/_Dodotronic"
@@ -24104,6 +24865,9 @@
                            "$ref": "#/$defs/_Invitrogen"
                         },
                         {
+                           "$ref": "#/$defs/_Item"
+                        },
+                        {
                            "$ref": "#/$defs/_Jackson_Laboratory"
                         },
                         {
@@ -24111,6 +24875,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Julabo"
+                        },
+                        {
+                           "$ref": "#/$defs/_Kowa"
                         },
                         {
                            "$ref": "#/$defs/_Lg"
@@ -24191,6 +24958,9 @@
                            "$ref": "#/$defs/_Oxxius"
                         },
                         {
+                           "$ref": "#/$defs/_Placid_Industries"
+                        },
+                        {
                            "$ref": "#/$defs/_Prizmatix"
                         },
                         {
@@ -24198,6 +24968,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Raspberry_Pi"
+                        },
+                        {
+                           "$ref": "#/$defs/_Same_Sky"
                         },
                         {
                            "$ref": "#/$defs/_Sicgen"
@@ -24243,6 +25016,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Thorlabs"
+                        },
+                        {
+                           "$ref": "#/$defs/_Transducer_Techniques"
                         },
                         {
                            "$ref": "#/$defs/_Tymphany"
@@ -24480,8 +25256,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "1.0.3",
-               "default": "1.0.3",
+               "const": "1.0.4",
+               "default": "1.0.4",
                "title": "Schema Version",
                "type": "string"
             },
@@ -25135,6 +25911,7 @@
             "manufacturer": {
                "discriminator": {
                   "mapping": {
+                     "DigiKey": "#/$defs/_Digikey",
                      "ISL Products International": "#/$defs/_Isl_Products_International",
                      "Other": "#/$defs/_Other",
                      "Tymphany": "#/$defs/_Tymphany"
@@ -25142,6 +25919,9 @@
                   "propertyName": "name"
                },
                "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Digikey"
+                  },
                   {
                      "$ref": "#/$defs/_Tymphany"
                   },
@@ -25745,12 +26525,14 @@
                      "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                      "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
                      "Chan Zuckerberg Initiative": "#/$defs/_Chan_Zuckerberg_Initiative",
+                     "Charles River Laboratories": "#/$defs/_Charles_River_Laboratories",
                      "Chroma": "#/$defs/_Chroma",
                      "Coherent Scientific": "#/$defs/_Coherent_Scientific",
                      "Columbia University": "#/$defs/_Columbia_University",
                      "Computar": "#/$defs/_Computar",
                      "Conoptics": "#/$defs/_Conoptics",
                      "Custom": "#/$defs/_Custom",
+                     "DigiKey": "#/$defs/_Digikey",
                      "Dodotronic": "#/$defs/_Dodotronic",
                      "Doric": "#/$defs/_Doric",
                      "Ealing": "#/$defs/_Ealing",
@@ -25767,9 +26549,11 @@
                      "Integrated DNA Technologies": "#/$defs/_Integrated_Dna_Technologies",
                      "Interuniversity Microelectronics Center": "#/$defs/_Interuniversity_Microelectronics_Center",
                      "Invitrogen": "#/$defs/_Invitrogen",
+                     "Item": "#/$defs/_Item",
                      "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
                      "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
                      "Julabo": "#/$defs/_Julabo",
+                     "Kowa": "#/$defs/_Kowa",
                      "LG": "#/$defs/_Lg",
                      "Leica": "#/$defs/_Leica",
                      "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -25796,10 +26580,12 @@
                      "Optotune": "#/$defs/_Optotune",
                      "Other": "#/$defs/_Other",
                      "Oxxius": "#/$defs/_Oxxius",
+                     "Placid Industries": "#/$defs/_Placid_Industries",
                      "Prizmatix": "#/$defs/_Prizmatix",
                      "Quantifi": "#/$defs/_Quantifi",
                      "Raspberry Pi": "#/$defs/_Raspberry_Pi",
                      "SICGEN": "#/$defs/_Sicgen",
+                     "Same Sky": "#/$defs/_Same_Sky",
                      "Schneider-Kreuznach": "#/$defs/_Schneider_Kreuznach",
                      "Second Order Effects": "#/$defs/_Second_Order_Effects",
                      "Semrock": "#/$defs/_Semrock",
@@ -25814,6 +26600,7 @@
                      "The Lee Company": "#/$defs/_The_Lee_Company",
                      "Thermo Fisher Scientific": "#/$defs/_Thermo_Fisher_Scientific",
                      "Thorlabs": "#/$defs/_Thorlabs",
+                     "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                      "Tymphany": "#/$defs/_Tymphany",
                      "Vieworks": "#/$defs/_Vieworks",
                      "Vortran": "#/$defs/_Vortran",
@@ -25871,6 +26658,9 @@
                      "$ref": "#/$defs/_Chan_Zuckerberg_Initiative"
                   },
                   {
+                     "$ref": "#/$defs/_Charles_River_Laboratories"
+                  },
+                  {
                      "$ref": "#/$defs/_Chroma"
                   },
                   {
@@ -25887,6 +26677,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Custom"
+                  },
+                  {
+                     "$ref": "#/$defs/_Digikey"
                   },
                   {
                      "$ref": "#/$defs/_Dodotronic"
@@ -25937,6 +26730,9 @@
                      "$ref": "#/$defs/_Invitrogen"
                   },
                   {
+                     "$ref": "#/$defs/_Item"
+                  },
+                  {
                      "$ref": "#/$defs/_Jackson_Laboratory"
                   },
                   {
@@ -25944,6 +26740,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Julabo"
+                  },
+                  {
+                     "$ref": "#/$defs/_Kowa"
                   },
                   {
                      "$ref": "#/$defs/_Lg"
@@ -26024,6 +26823,9 @@
                      "$ref": "#/$defs/_Oxxius"
                   },
                   {
+                     "$ref": "#/$defs/_Placid_Industries"
+                  },
+                  {
                      "$ref": "#/$defs/_Prizmatix"
                   },
                   {
@@ -26031,6 +26833,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Raspberry_Pi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Same_Sky"
                   },
                   {
                      "$ref": "#/$defs/_Sicgen"
@@ -26076,6 +26881,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Thorlabs"
+                  },
+                  {
+                     "$ref": "#/$defs/_Transducer_Techniques"
                   },
                   {
                      "$ref": "#/$defs/_Tymphany"
@@ -27303,12 +28111,14 @@
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                            "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
                            "Chan Zuckerberg Initiative": "#/$defs/_Chan_Zuckerberg_Initiative",
+                           "Charles River Laboratories": "#/$defs/_Charles_River_Laboratories",
                            "Chroma": "#/$defs/_Chroma",
                            "Coherent Scientific": "#/$defs/_Coherent_Scientific",
                            "Columbia University": "#/$defs/_Columbia_University",
                            "Computar": "#/$defs/_Computar",
                            "Conoptics": "#/$defs/_Conoptics",
                            "Custom": "#/$defs/_Custom",
+                           "DigiKey": "#/$defs/_Digikey",
                            "Dodotronic": "#/$defs/_Dodotronic",
                            "Doric": "#/$defs/_Doric",
                            "Ealing": "#/$defs/_Ealing",
@@ -27325,9 +28135,11 @@
                            "Integrated DNA Technologies": "#/$defs/_Integrated_Dna_Technologies",
                            "Interuniversity Microelectronics Center": "#/$defs/_Interuniversity_Microelectronics_Center",
                            "Invitrogen": "#/$defs/_Invitrogen",
+                           "Item": "#/$defs/_Item",
                            "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
                            "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
                            "Julabo": "#/$defs/_Julabo",
+                           "Kowa": "#/$defs/_Kowa",
                            "LG": "#/$defs/_Lg",
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -27354,10 +28166,12 @@
                            "Optotune": "#/$defs/_Optotune",
                            "Other": "#/$defs/_Other",
                            "Oxxius": "#/$defs/_Oxxius",
+                           "Placid Industries": "#/$defs/_Placid_Industries",
                            "Prizmatix": "#/$defs/_Prizmatix",
                            "Quantifi": "#/$defs/_Quantifi",
                            "Raspberry Pi": "#/$defs/_Raspberry_Pi",
                            "SICGEN": "#/$defs/_Sicgen",
+                           "Same Sky": "#/$defs/_Same_Sky",
                            "Schneider-Kreuznach": "#/$defs/_Schneider_Kreuznach",
                            "Second Order Effects": "#/$defs/_Second_Order_Effects",
                            "Semrock": "#/$defs/_Semrock",
@@ -27372,6 +28186,7 @@
                            "The Lee Company": "#/$defs/_The_Lee_Company",
                            "Thermo Fisher Scientific": "#/$defs/_Thermo_Fisher_Scientific",
                            "Thorlabs": "#/$defs/_Thorlabs",
+                           "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                            "Tymphany": "#/$defs/_Tymphany",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
@@ -27429,6 +28244,9 @@
                            "$ref": "#/$defs/_Chan_Zuckerberg_Initiative"
                         },
                         {
+                           "$ref": "#/$defs/_Charles_River_Laboratories"
+                        },
+                        {
                            "$ref": "#/$defs/_Chroma"
                         },
                         {
@@ -27445,6 +28263,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Custom"
+                        },
+                        {
+                           "$ref": "#/$defs/_Digikey"
                         },
                         {
                            "$ref": "#/$defs/_Dodotronic"
@@ -27495,6 +28316,9 @@
                            "$ref": "#/$defs/_Invitrogen"
                         },
                         {
+                           "$ref": "#/$defs/_Item"
+                        },
+                        {
                            "$ref": "#/$defs/_Jackson_Laboratory"
                         },
                         {
@@ -27502,6 +28326,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Julabo"
+                        },
+                        {
+                           "$ref": "#/$defs/_Kowa"
                         },
                         {
                            "$ref": "#/$defs/_Lg"
@@ -27582,6 +28409,9 @@
                            "$ref": "#/$defs/_Oxxius"
                         },
                         {
+                           "$ref": "#/$defs/_Placid_Industries"
+                        },
+                        {
                            "$ref": "#/$defs/_Prizmatix"
                         },
                         {
@@ -27589,6 +28419,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Raspberry_Pi"
+                        },
+                        {
+                           "$ref": "#/$defs/_Same_Sky"
                         },
                         {
                            "$ref": "#/$defs/_Sicgen"
@@ -27634,6 +28467,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Thorlabs"
+                        },
+                        {
+                           "$ref": "#/$defs/_Transducer_Techniques"
                         },
                         {
                            "$ref": "#/$defs/_Tymphany"
@@ -27815,12 +28651,14 @@
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                            "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
                            "Chan Zuckerberg Initiative": "#/$defs/_Chan_Zuckerberg_Initiative",
+                           "Charles River Laboratories": "#/$defs/_Charles_River_Laboratories",
                            "Chroma": "#/$defs/_Chroma",
                            "Coherent Scientific": "#/$defs/_Coherent_Scientific",
                            "Columbia University": "#/$defs/_Columbia_University",
                            "Computar": "#/$defs/_Computar",
                            "Conoptics": "#/$defs/_Conoptics",
                            "Custom": "#/$defs/_Custom",
+                           "DigiKey": "#/$defs/_Digikey",
                            "Dodotronic": "#/$defs/_Dodotronic",
                            "Doric": "#/$defs/_Doric",
                            "Ealing": "#/$defs/_Ealing",
@@ -27837,9 +28675,11 @@
                            "Integrated DNA Technologies": "#/$defs/_Integrated_Dna_Technologies",
                            "Interuniversity Microelectronics Center": "#/$defs/_Interuniversity_Microelectronics_Center",
                            "Invitrogen": "#/$defs/_Invitrogen",
+                           "Item": "#/$defs/_Item",
                            "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
                            "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
                            "Julabo": "#/$defs/_Julabo",
+                           "Kowa": "#/$defs/_Kowa",
                            "LG": "#/$defs/_Lg",
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -27866,10 +28706,12 @@
                            "Optotune": "#/$defs/_Optotune",
                            "Other": "#/$defs/_Other",
                            "Oxxius": "#/$defs/_Oxxius",
+                           "Placid Industries": "#/$defs/_Placid_Industries",
                            "Prizmatix": "#/$defs/_Prizmatix",
                            "Quantifi": "#/$defs/_Quantifi",
                            "Raspberry Pi": "#/$defs/_Raspberry_Pi",
                            "SICGEN": "#/$defs/_Sicgen",
+                           "Same Sky": "#/$defs/_Same_Sky",
                            "Schneider-Kreuznach": "#/$defs/_Schneider_Kreuznach",
                            "Second Order Effects": "#/$defs/_Second_Order_Effects",
                            "Semrock": "#/$defs/_Semrock",
@@ -27884,6 +28726,7 @@
                            "The Lee Company": "#/$defs/_The_Lee_Company",
                            "Thermo Fisher Scientific": "#/$defs/_Thermo_Fisher_Scientific",
                            "Thorlabs": "#/$defs/_Thorlabs",
+                           "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                            "Tymphany": "#/$defs/_Tymphany",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
@@ -27941,6 +28784,9 @@
                            "$ref": "#/$defs/_Chan_Zuckerberg_Initiative"
                         },
                         {
+                           "$ref": "#/$defs/_Charles_River_Laboratories"
+                        },
+                        {
                            "$ref": "#/$defs/_Chroma"
                         },
                         {
@@ -27957,6 +28803,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Custom"
+                        },
+                        {
+                           "$ref": "#/$defs/_Digikey"
                         },
                         {
                            "$ref": "#/$defs/_Dodotronic"
@@ -28007,6 +28856,9 @@
                            "$ref": "#/$defs/_Invitrogen"
                         },
                         {
+                           "$ref": "#/$defs/_Item"
+                        },
+                        {
                            "$ref": "#/$defs/_Jackson_Laboratory"
                         },
                         {
@@ -28014,6 +28866,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Julabo"
+                        },
+                        {
+                           "$ref": "#/$defs/_Kowa"
                         },
                         {
                            "$ref": "#/$defs/_Lg"
@@ -28094,6 +28949,9 @@
                            "$ref": "#/$defs/_Oxxius"
                         },
                         {
+                           "$ref": "#/$defs/_Placid_Industries"
+                        },
+                        {
                            "$ref": "#/$defs/_Prizmatix"
                         },
                         {
@@ -28101,6 +28959,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Raspberry_Pi"
+                        },
+                        {
+                           "$ref": "#/$defs/_Same_Sky"
                         },
                         {
                            "$ref": "#/$defs/_Sicgen"
@@ -28146,6 +29007,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Thorlabs"
+                        },
+                        {
+                           "$ref": "#/$defs/_Transducer_Techniques"
                         },
                         {
                            "$ref": "#/$defs/_Tymphany"
@@ -28576,12 +29440,14 @@
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                            "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
                            "Chan Zuckerberg Initiative": "#/$defs/_Chan_Zuckerberg_Initiative",
+                           "Charles River Laboratories": "#/$defs/_Charles_River_Laboratories",
                            "Chroma": "#/$defs/_Chroma",
                            "Coherent Scientific": "#/$defs/_Coherent_Scientific",
                            "Columbia University": "#/$defs/_Columbia_University",
                            "Computar": "#/$defs/_Computar",
                            "Conoptics": "#/$defs/_Conoptics",
                            "Custom": "#/$defs/_Custom",
+                           "DigiKey": "#/$defs/_Digikey",
                            "Dodotronic": "#/$defs/_Dodotronic",
                            "Doric": "#/$defs/_Doric",
                            "Ealing": "#/$defs/_Ealing",
@@ -28598,9 +29464,11 @@
                            "Integrated DNA Technologies": "#/$defs/_Integrated_Dna_Technologies",
                            "Interuniversity Microelectronics Center": "#/$defs/_Interuniversity_Microelectronics_Center",
                            "Invitrogen": "#/$defs/_Invitrogen",
+                           "Item": "#/$defs/_Item",
                            "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
                            "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
                            "Julabo": "#/$defs/_Julabo",
+                           "Kowa": "#/$defs/_Kowa",
                            "LG": "#/$defs/_Lg",
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -28627,10 +29495,12 @@
                            "Optotune": "#/$defs/_Optotune",
                            "Other": "#/$defs/_Other",
                            "Oxxius": "#/$defs/_Oxxius",
+                           "Placid Industries": "#/$defs/_Placid_Industries",
                            "Prizmatix": "#/$defs/_Prizmatix",
                            "Quantifi": "#/$defs/_Quantifi",
                            "Raspberry Pi": "#/$defs/_Raspberry_Pi",
                            "SICGEN": "#/$defs/_Sicgen",
+                           "Same Sky": "#/$defs/_Same_Sky",
                            "Schneider-Kreuznach": "#/$defs/_Schneider_Kreuznach",
                            "Second Order Effects": "#/$defs/_Second_Order_Effects",
                            "Semrock": "#/$defs/_Semrock",
@@ -28645,6 +29515,7 @@
                            "The Lee Company": "#/$defs/_The_Lee_Company",
                            "Thermo Fisher Scientific": "#/$defs/_Thermo_Fisher_Scientific",
                            "Thorlabs": "#/$defs/_Thorlabs",
+                           "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                            "Tymphany": "#/$defs/_Tymphany",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
@@ -28702,6 +29573,9 @@
                            "$ref": "#/$defs/_Chan_Zuckerberg_Initiative"
                         },
                         {
+                           "$ref": "#/$defs/_Charles_River_Laboratories"
+                        },
+                        {
                            "$ref": "#/$defs/_Chroma"
                         },
                         {
@@ -28718,6 +29592,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Custom"
+                        },
+                        {
+                           "$ref": "#/$defs/_Digikey"
                         },
                         {
                            "$ref": "#/$defs/_Dodotronic"
@@ -28768,6 +29645,9 @@
                            "$ref": "#/$defs/_Invitrogen"
                         },
                         {
+                           "$ref": "#/$defs/_Item"
+                        },
+                        {
                            "$ref": "#/$defs/_Jackson_Laboratory"
                         },
                         {
@@ -28775,6 +29655,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Julabo"
+                        },
+                        {
+                           "$ref": "#/$defs/_Kowa"
                         },
                         {
                            "$ref": "#/$defs/_Lg"
@@ -28855,6 +29738,9 @@
                            "$ref": "#/$defs/_Oxxius"
                         },
                         {
+                           "$ref": "#/$defs/_Placid_Industries"
+                        },
+                        {
                            "$ref": "#/$defs/_Prizmatix"
                         },
                         {
@@ -28862,6 +29748,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Raspberry_Pi"
+                        },
+                        {
+                           "$ref": "#/$defs/_Same_Sky"
                         },
                         {
                            "$ref": "#/$defs/_Sicgen"
@@ -28907,6 +29796,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Thorlabs"
+                        },
+                        {
+                           "$ref": "#/$defs/_Transducer_Techniques"
                         },
                         {
                            "$ref": "#/$defs/_Tymphany"
@@ -30067,6 +30959,73 @@
          "title": "_Chan_Zuckerberg_Initiative",
          "type": "object"
       },
+      "_Charles_River_Laboratories": {
+         "description": "Model Charles River Laboratories",
+         "properties": {
+            "name": {
+               "const": "Charles River Laboratories",
+               "default": "Charles River Laboratories",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "CRL",
+               "default": "CRL",
+               "title": "Abbreviation",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "03ndmsg87",
+               "default": "03ndmsg87",
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_Charles_River_Laboratories",
+         "type": "object"
+      },
       "_Chroma": {
          "description": "Model Chroma",
          "properties": {
@@ -30414,6 +31373,35 @@
             }
          },
          "title": "_Deltoid",
+         "type": "object"
+      },
+      "_Digikey": {
+         "description": "Model DigiKey",
+         "properties": {
+            "name": {
+               "const": "DigiKey",
+               "default": "DigiKey",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation",
+               "type": "null"
+            },
+            "registry": {
+               "default": null,
+               "title": "Registry",
+               "type": "null"
+            },
+            "registry_identifier": {
+               "default": null,
+               "title": "Registry Identifier",
+               "type": "null"
+            }
+         },
+         "title": "_Digikey",
          "type": "object"
       },
       "_Dodotronic": {
@@ -32069,6 +33057,35 @@
          "title": "_Isl_Products_International",
          "type": "object"
       },
+      "_Item": {
+         "description": "Model Item",
+         "properties": {
+            "name": {
+               "const": "Item",
+               "default": "Item",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation",
+               "type": "null"
+            },
+            "registry": {
+               "default": null,
+               "title": "Registry",
+               "type": "null"
+            },
+            "registry_identifier": {
+               "default": null,
+               "title": "Registry Identifier",
+               "type": "null"
+            }
+         },
+         "title": "_Item",
+         "type": "object"
+      },
       "_Jackson_Laboratory": {
          "description": "Model Jackson Laboratory",
          "properties": {
@@ -32230,6 +33247,73 @@
             }
          },
          "title": "_Julabo",
+         "type": "object"
+      },
+      "_Kowa": {
+         "description": "Model Kowa",
+         "properties": {
+            "name": {
+               "const": "Kowa",
+               "default": "Kowa",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation",
+               "type": "null"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "03zbwg482",
+               "default": "03zbwg482",
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_Kowa",
          "type": "object"
       },
       "_Lateral_Head_Of_Triceps_Brachii": {
@@ -34203,6 +35287,35 @@
          "title": "_Pectoralis_Major",
          "type": "object"
       },
+      "_Placid_Industries": {
+         "description": "Model Placid Industries",
+         "properties": {
+            "name": {
+               "const": "Placid Industries",
+               "default": "Placid Industries",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation",
+               "type": "null"
+            },
+            "registry": {
+               "default": null,
+               "title": "Registry",
+               "type": "null"
+            },
+            "registry_identifier": {
+               "default": null,
+               "title": "Registry Identifier",
+               "type": "null"
+            }
+         },
+         "title": "_Placid_Industries",
+         "type": "object"
+      },
       "_Pophys": {
          "additionalProperties": false,
          "description": "Model pophys",
@@ -34409,6 +35522,35 @@
             }
          },
          "title": "_Rrid",
+         "type": "object"
+      },
+      "_Same_Sky": {
+         "description": "Model Same Sky",
+         "properties": {
+            "name": {
+               "const": "Same Sky",
+               "default": "Same Sky",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation",
+               "type": "null"
+            },
+            "registry": {
+               "default": null,
+               "title": "Registry",
+               "type": "null"
+            },
+            "registry_identifier": {
+               "default": null,
+               "title": "Registry Identifier",
+               "type": "null"
+            }
+         },
+         "title": "_Same_Sky",
          "type": "object"
       },
       "_Schneider_Kreuznach": {
@@ -35430,6 +36572,35 @@
          "title": "_Timestamp_Generator_Gen_3",
          "type": "object"
       },
+      "_Transducer_Techniques": {
+         "description": "Model Transducer Techniques",
+         "properties": {
+            "name": {
+               "const": "Transducer Techniques",
+               "default": "Transducer Techniques",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation",
+               "type": "null"
+            },
+            "registry": {
+               "default": null,
+               "title": "Registry",
+               "type": "null"
+            },
+            "registry_identifier": {
+               "default": null,
+               "title": "Registry Identifier",
+               "type": "null"
+            }
+         },
+         "title": "_Transducer_Techniques",
+         "type": "object"
+      },
       "_Treadmill": {
          "description": "Model Treadmill",
          "properties": {
@@ -36056,8 +37227,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "1.0.4",
-         "default": "1.0.4",
+         "const": "1.0.5",
+         "default": "1.0.5",
          "title": "Schema Version",
          "type": "string"
       },
