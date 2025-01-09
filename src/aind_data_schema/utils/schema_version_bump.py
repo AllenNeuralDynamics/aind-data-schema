@@ -8,7 +8,7 @@ from typing import Dict, List
 import dictdiffer
 import semver
 
-from aind_data_schema.base import AindCoreModel
+from aind_data_schema.base import MetadataCoreModel
 from aind_data_schema.utils.json_writer import SchemaWriter
 
 CURRENT_DIR = Path(os.path.dirname(os.path.realpath(__file__)))
@@ -34,7 +34,7 @@ class SchemaVersionHandler:
         self.commit_message = commit_message
         self.json_schemas_location = json_schemas_location
 
-    def _get_list_of_models_that_changed(self) -> List[AindCoreModel]:
+    def _get_list_of_models_that_changed(self) -> List[MetadataCoreModel]:
         """
         Get a list of core models that have been updated by comparing the json
         schema of the models to the json schema in the schemas folder.
@@ -59,7 +59,7 @@ class SchemaVersionHandler:
         return schemas_that_need_updating
 
     @staticmethod
-    def _get_incremented_versions_map(models_that_changed: List[AindCoreModel]) -> Dict[AindCoreModel, str]:
+    def _get_incremented_versions_map(models_that_changed: List[MetadataCoreModel]) -> Dict[MetadataCoreModel, str]:
         """
 
         Parameters
@@ -131,7 +131,7 @@ class SchemaVersionHandler:
             for line in new_file_contents:
                 f.write(line)
 
-    def _update_files(self, version_bump_map: Dict[AindCoreModel, str]) -> None:
+    def _update_files(self, version_bump_map: Dict[MetadataCoreModel, str]) -> None:
         """
         Using the information in the version_bump_map, will update the python
         files in the core directory.

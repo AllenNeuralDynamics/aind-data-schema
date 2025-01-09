@@ -6,7 +6,7 @@ from aind_data_schema_models.units import AngleUnit, PowerUnit, SizeUnit
 from pydantic import Field
 from typing_extensions import Annotated
 
-from aind_data_schema.base import AindModel, AwareDatetimeWithDefault
+from aind_data_schema.base import MetadataModel, AwareDatetimeWithDefault
 from aind_data_schema.components.coordinates import (
     Affine3dTransform,
     Rotation3dTransform,
@@ -15,7 +15,7 @@ from aind_data_schema.components.coordinates import (
 )
 
 
-class Channel(AindModel):
+class Channel(MetadataModel):
     """Description of a channel"""
 
     channel_name: str = Field(..., title="Channel")
@@ -36,7 +36,7 @@ class Channel(AindModel):
     description: Optional[str] = Field(default=None, title="Description")
 
 
-class Tile(AindModel):
+class Tile(MetadataModel):
     """Description of an image tile"""
 
     coordinate_transformations: List[

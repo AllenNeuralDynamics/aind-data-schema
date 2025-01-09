@@ -70,7 +70,7 @@ def is_dict_corrupt(input_dict: dict) -> bool:
     return has_corrupt_keys(input_dict)
 
 
-class AindGeneric(BaseModel, extra="allow"):
+class GenericModel(BaseModel, extra="allow"):
     """Base class for generic types that can be used in AIND schema"""
 
     # extra="allow" is needed because BaseModel by default drops extra parameters.
@@ -86,10 +86,10 @@ class AindGeneric(BaseModel, extra="allow"):
         return self
 
 
-AindGenericType = TypeVar("AindGenericType", bound=AindGeneric)
+GenericModelType = TypeVar("GenericModelType", bound=GenericModel)
 
 
-class AindModel(BaseModel, Generic[AindGenericType]):
+class MetadataModel(BaseModel, Generic[GenericModelType]):
     """BaseModel that disallows extra fields"""
 
     model_config = ConfigDict(extra="forbid", use_enum_values=True)
@@ -123,7 +123,7 @@ class AindModel(BaseModel, Generic[AindGenericType]):
         return values
 
 
-class AindCoreModel(AindModel):
+class MetadataCoreModel(MetadataModel):
     """Generic base class to hold common fields/validators/etc for all basic AIND schema"""
 
     _FILE_EXTENSION = PrivateAttr(default=".json")
@@ -141,7 +141,7 @@ class AindCoreModel(AindModel):
         """
         Returns standard filename in snakecase
         """
-        parent_classes = [base_class for base_class in cls.__bases__ if base_class.__name__ != AindCoreModel.__name__]
+        parent_classes = [base_class for base_class in cls.__bases__ if base_class.__name__ != MetadataCoreModel.__name__]
 
         name = cls.__name__
 

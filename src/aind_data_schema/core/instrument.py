@@ -6,7 +6,7 @@ from typing import List, Literal, Optional
 from aind_data_schema_models.organizations import Organization
 from pydantic import Field, SkipValidation, ValidationInfo, field_validator
 
-from aind_data_schema.base import AindCoreModel, AindModel
+from aind_data_schema.base import MetadataCoreModel, MetadataModel
 from aind_data_schema.components.devices import (
     LIGHT_SOURCES,
     AdditionalImagingDevice,
@@ -23,17 +23,17 @@ from aind_data_schema.components.devices import (
 )
 
 
-class Com(AindModel):
+class Com(MetadataModel):
     """Description of a communication system"""
 
     hardware_name: str = Field(..., title="Controlled hardware device")
     com_port: str = Field(..., title="COM port")
 
 
-class Instrument(AindCoreModel):
+class Instrument(MetadataCoreModel):
     """Description of an instrument, which is a collection of devices"""
 
-    _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/instrument.py"
+    _DESCRIBED_BY_URL = MetadataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/instrument.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
     schema_version: SkipValidation[Literal["1.0.4"]] = Field("1.0.4")
 

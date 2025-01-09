@@ -7,10 +7,10 @@ from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.pid_names import PIDName
 from pydantic import Field
 
-from aind_data_schema.base import AindModel
+from aind_data_schema.base import MetadataModel
 
 
-class Reagent(AindModel):
+class Reagent(MetadataModel):
     """Description of reagent used in procedure"""
 
     name: str = Field(..., title="Name")
