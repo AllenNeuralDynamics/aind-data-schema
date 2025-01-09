@@ -2,9 +2,13 @@
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/session.py",
    "schema_version": "1.0.3",
    "protocol_id": [],
-   "experimenter_full_name": [
-      "Max Quibble",
-      "Finn Tickle"
+   "experimenters": [
+      {
+         "first_name": "John",
+         "last_name": "Smith",
+         "orcid_id": null,
+         "anonymous_id": null
+      }
    ],
    "session_start_time": "2023-04-25T02:35:00Z",
    "session_end_time": "2023-04-25T03:16:00Z",

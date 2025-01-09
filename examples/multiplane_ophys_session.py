@@ -5,6 +5,7 @@ from datetime import datetime, timezone
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.units import PowerUnit, SizeUnit, FrequencyUnit
 
+from aind_data_schema.components.identifiers import Experimenter
 from aind_data_schema.core.session import FieldOfView, LaserConfig, Session, Stream
 
 # If a timezone isn't specified, the timezone of the computer running this
@@ -12,7 +13,7 @@ from aind_data_schema.core.session import FieldOfView, LaserConfig, Session, Str
 t = datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc)
 
 s = Session(
-    experimenter_full_name=["John Doe"],
+    experimenters=[Experimenter(first_name="John", last_name="Smith")],
     session_start_time=t,
     session_end_time=t,
     subject_id="12345",

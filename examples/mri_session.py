@@ -6,6 +6,7 @@ from aind_data_schema_models.modalities import Modality
 
 from aind_data_schema.components.coordinates import Rotation3dTransform, Scale3dTransform, Translation3dTransform
 from aind_data_schema.components.devices import Scanner
+from aind_data_schema.components.identifiers import Experimenter
 from aind_data_schema.core.session import MRIScan, MriScanSequence, ScanType, Session, Stream, SubjectPosition
 
 scan1 = MRIScan(
@@ -62,7 +63,7 @@ sess = Session(
     subject_id="123456",
     session_start_time="2024-03-12T16:27:55.584892Z",
     session_end_time="2024-03-12T16:27:55.584892Z",
-    experimenter_full_name=["Joe Schmoe"],
+    experimenters=[Experimenter(first_name="John", last_name="Smith")],
     protocol_id=["dx.doi.org/10.57824/protocols.io.bh7kl4n6"],
     iacuc_protocol="1234",
     session_type="3D MRI Volume",

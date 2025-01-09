@@ -7,7 +7,14 @@
          "procedure_type": "Surgery",
          "protocol_id": "doi",
          "start_date": "2022-07-12",
-         "experimenter_full_name": "John Apple",
+         "experimenters": [
+            {
+               "first_name": "Scientist",
+               "last_name": "Smith",
+               "orcid_id": null,
+               "anonymous_id": null
+            }
+         ],
          "iacuc_protocol": "2109",
          "animal_weight_prior": "22.6",
          "animal_weight_post": "22.3",
@@ -129,7 +136,14 @@
          "procedure_type": "Surgery",
          "protocol_id": "doi",
          "start_date": "2023-05-31",
-         "experimenter_full_name": "John Apple",
+         "experimenters": [
+            {
+               "first_name": "Scientist",
+               "last_name": "Smith",
+               "orcid_id": null,
+               "anonymous_id": null
+            }
+         ],
          "iacuc_protocol": "2109",
          "animal_weight_prior": null,
          "animal_weight_post": null,
@@ -160,7 +174,14 @@
          "specimen_id": "672640",
          "start_date": "2023-06-09",
          "end_date": "2023-06-12",
-         "experimenter_full_name": "John Apple",
+         "experimenters": [
+            {
+               "first_name": "Scientist",
+               "last_name": "Smith",
+               "orcid_id": null,
+               "anonymous_id": null
+            }
+         ],
          "protocol_id": [
             "TO ENTER"
          ],
@@ -205,7 +226,14 @@
          "specimen_id": "672640",
          "start_date": "2023-06-12",
          "end_date": "2023-06-13",
-         "experimenter_full_name": "John Apple",
+         "experimenters": [
+            {
+               "first_name": "Scientist",
+               "last_name": "Smith",
+               "orcid_id": null,
+               "anonymous_id": null
+            }
+         ],
          "protocol_id": [
             "TO ENTER"
          ],

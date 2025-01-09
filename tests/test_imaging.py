@@ -20,6 +20,7 @@ from aind_data_schema.components.devices import Calibration, DAQChannel, DAQDevi
 from aind_data_schema.core import acquisition as acq
 from aind_data_schema.core import instrument as inst
 from aind_data_schema.core.processing import Registration
+from aind_data_schema.components.identifiers import Experimenter
 
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
 
@@ -33,7 +34,7 @@ class ImagingTests(unittest.TestCase):
             acq.Acquisition()
 
         a = acq.Acquisition(
-            experimenter_full_name=["alice"],
+            experimenters=[Experimenter(first_name="alice", last_name="bob")],
             session_start_time=datetime.now(tz=timezone.utc),
             specimen_id="12345",
             subject_id="1234",
@@ -134,7 +135,7 @@ class ImagingTests(unittest.TestCase):
         test_codes = ["RAS", "LSP", "RAI", "PAR"]
         for test_code in test_codes:
             a = acq.Acquisition(
-                experimenter_full_name=["alice"],
+                experimenters=[Experimenter(first_name="alice", last_name="bob")],
                 session_start_time=datetime.now(tz=timezone.utc),
                 specimen_id="12345",
                 subject_id="1234",
