@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.pid_names import PIDName
 from aind_data_schema_models.registries import Registry
-from aind_data_schema_models.units import PowerValue
+from aind_data_schema_models.units import PowerUnit
 
 from aind_data_schema.components import tile
 from aind_data_schema.components.coordinates import ImageAxis, Scale3dTransform, Translation3dTransform
@@ -44,8 +44,14 @@ acq = acquisition.Acquisition(
             calibration_date=t,
             device_name="Laser_1",
             description="Laser power calibration",
-            input={"power_setting": PowerValue(value=100.0, unit="percent")},
-            output={"power_measurement": PowerValue(value=50.0, unit="milliwatt")},
+            input={
+                "power_setting": 100.0,
+                "power_unit": PowerUnit.PERCENT
+            },
+            output={
+                "power_measurement": 50.0,
+                "power_unit": PowerUnit.MW,
+            },
         )
     ],
     session_start_time=t,
