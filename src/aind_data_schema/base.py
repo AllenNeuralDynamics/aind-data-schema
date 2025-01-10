@@ -21,7 +21,6 @@ from pydantic import (
 )
 from pydantic.functional_validators import WrapValidator
 from typing_extensions import Annotated
-from aind_data_schema_models.brain_atlas import CCFStructure
 
 
 MAX_FILE_SIZE = 500 * 1024  # 500KB
