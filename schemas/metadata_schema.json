@@ -2520,8 +2520,15 @@
                "title": "Frame rate (Hz)"
             },
             "frame_rate_unit": {
-               "$ref": "#/$defs/FrequencyUnit",
-               "default": "hertz",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/FrequencyUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Frame rate unit"
             },
             "immersion": {
@@ -2774,12 +2781,10 @@
                "title": "Camera target"
             },
             "camera": {
-               "$ref": "#/$defs/Camera",
-               "title": "Camera"
+               "$ref": "#/$defs/Camera"
             },
             "lens": {
-               "$ref": "#/$defs/Lens",
-               "title": "Lens"
+               "$ref": "#/$defs/Lens"
             },
             "filter": {
                "anyOf": [
@@ -3084,8 +3089,15 @@
                "title": "Dilation (pixels)"
             },
             "dilation_unit": {
-               "$ref": "#/$defs/SizeUnit",
-               "default": "pixel",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Dilation unit"
             },
             "description": {
@@ -3340,8 +3352,15 @@
                "title": "Recovery time"
             },
             "recovery_time_unit": {
-               "$ref": "#/$defs/TimeUnit",
-               "default": "minute",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Recovery time unit"
             }
          },
@@ -3429,8 +3448,15 @@
                "title": "DAQ channel sample rate (Hz)"
             },
             "sample_rate_unit": {
-               "$ref": "#/$defs/FrequencyUnit",
-               "default": "hertz",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/FrequencyUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Sample rate unit"
             },
             "event_based_sampling": {
@@ -4295,8 +4321,15 @@
                "title": "Frame rate (Hz)"
             },
             "frame_rate_unit": {
-               "$ref": "#/$defs/FrequencyUnit",
-               "default": "hertz",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/FrequencyUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Frame rate unit"
             },
             "immersion": {
@@ -14413,8 +14446,15 @@
                "title": "Surface z"
             },
             "surface_z_unit": {
-               "$ref": "#/$defs/SizeUnit",
-               "default": "micrometer",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Surface z unit"
             },
             "dye": {
@@ -18491,8 +18531,15 @@
                "title": "Frame rate (Hz)"
             },
             "frame_rate_unit": {
-               "$ref": "#/$defs/FrequencyUnit",
-               "default": "hertz",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/FrequencyUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Frame rate unit"
             },
             "coupled_fov_index": {
@@ -18525,8 +18572,15 @@
                "title": "Power"
             },
             "power_unit": {
-               "$ref": "#/$defs/PowerUnit",
-               "default": "percent",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/PowerUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Power unit"
             },
             "power_ratio": {
@@ -18557,8 +18611,15 @@
                "title": "Z stage position of the fastz actuator for a given targeted depth"
             },
             "scanfield_z_unit": {
-               "$ref": "#/$defs/SizeUnit",
-               "default": "micrometer",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Z stage position unit"
             },
             "scanimage_roi_index": {
@@ -18786,8 +18847,15 @@
                "title": "Thickness (mm)"
             },
             "thickness_unit": {
-               "$ref": "#/$defs/SizeUnit",
-               "default": "millimeter",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Thickness unit"
             },
             "filter_wheel_index": {
@@ -21542,18 +21610,6 @@
                "default": null,
                "title": "Temperature control"
             },
-            "humidity_control": {
-               "anyOf": [
-                  {
-                     "type": "boolean"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Humidity control"
-            },
             "optical_tables": {
                "default": [],
                "items": {
@@ -21762,8 +21818,15 @@
                "title": "Recovery time"
             },
             "recovery_time_unit": {
-               "$ref": "#/$defs/TimeUnit",
-               "default": "minute",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Recovery time unit"
             },
             "injection_duration": {
@@ -21782,8 +21845,15 @@
                "title": "Injection duration"
             },
             "injection_duration_unit": {
-               "$ref": "#/$defs/TimeUnit",
-               "default": "minute",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Injection duration unit"
             },
             "instrument_id": {
@@ -25364,8 +25434,15 @@
                "title": "Recovery time"
             },
             "recovery_time_unit": {
-               "$ref": "#/$defs/TimeUnit",
-               "default": "minute",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Recovery time unit"
             },
             "injection_duration": {
@@ -25384,8 +25461,15 @@
                "title": "Injection duration"
             },
             "injection_duration_unit": {
-               "$ref": "#/$defs/TimeUnit",
-               "default": "minute",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Injection duration unit"
             },
             "instrument_id": {
@@ -28966,8 +29050,15 @@
                "title": "Recovery time"
             },
             "recovery_time_unit": {
-               "$ref": "#/$defs/TimeUnit",
-               "default": "minute",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Recovery time unit"
             },
             "injection_duration": {
@@ -28986,8 +29077,15 @@
                "title": "Injection duration"
             },
             "injection_duration_unit": {
-               "$ref": "#/$defs/TimeUnit",
-               "default": "minute",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Injection duration unit"
             },
             "instrument_id": {
@@ -29093,8 +29191,15 @@
                "title": "Recovery time"
             },
             "recovery_time_unit": {
-               "$ref": "#/$defs/TimeUnit",
-               "default": "minute",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Recovery time unit"
             },
             "injection_duration": {
@@ -29113,8 +29218,15 @@
                "title": "Injection duration"
             },
             "injection_duration_unit": {
-               "$ref": "#/$defs/TimeUnit",
-               "default": "minute",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Injection duration unit"
             },
             "instrument_id": {
@@ -33178,8 +33290,15 @@
                "title": "Temperature (K)"
             },
             "temperature_unit": {
-               "$ref": "#/$defs/TemperatureUnit",
-               "default": "Kelvin",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/TemperatureUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Temperature unit"
             }
          },
@@ -33465,8 +33584,15 @@
                "title": "Excitation power (mW)"
             },
             "excitation_power_unit": {
-               "$ref": "#/$defs/PowerUnit",
-               "default": "milliwatt",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/PowerUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Excitation power unit"
             }
          },
@@ -33647,8 +33773,15 @@
                "title": "Focal length of the lens (mm)"
             },
             "focal_length_unit": {
-               "$ref": "#/$defs/SizeUnit",
-               "default": "millimeter",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Focal length unit"
             },
             "size": {
@@ -33880,8 +34013,15 @@
                "title": "Bandwidth (FWHM)"
             },
             "bandwidth_unit": {
-               "$ref": "#/$defs/SizeUnit",
-               "default": "nanometer",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Bandwidth unit"
             }
          },
@@ -33923,8 +34063,15 @@
                "title": "Excitation power (mW)"
             },
             "excitation_power_unit": {
-               "$ref": "#/$defs/PowerUnit",
-               "default": "milliwatt",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/PowerUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Excitation power unit"
             }
          },
@@ -41180,8 +41327,15 @@
                "title": "Surface z"
             },
             "surface_z_unit": {
-               "$ref": "#/$defs/SizeUnit",
-               "default": "micrometer",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Surface z unit"
             },
             "dye": {
@@ -42756,8 +42910,15 @@
                "title": "Recovery time"
             },
             "recovery_time_unit": {
-               "$ref": "#/$defs/TimeUnit",
-               "default": "minute",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Recovery time unit"
             },
             "injection_duration": {
@@ -42776,8 +42937,15 @@
                "title": "Injection duration"
             },
             "injection_duration_unit": {
-               "$ref": "#/$defs/TimeUnit",
-               "default": "minute",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Injection duration unit"
             },
             "instrument_id": {
@@ -46946,9 +47114,17 @@
                "title": "Concentration"
             },
             "concentration_unit": {
-               "default": "mg/mL",
-               "title": "Concentration unit",
-               "type": "string"
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "For example, mg/mL",
+               "title": "Concentration unit"
             }
          },
          "required": [
@@ -54132,8 +54308,15 @@
                "title": "Beam modulation (V)"
             },
             "beam_modulation_unit": {
-               "$ref": "#/$defs/VoltageUnit",
-               "default": "Volts",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/VoltageUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Beam modulation unit"
             }
          },
@@ -54707,8 +54890,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "1.2.1",
-               "default": "1.2.1",
+               "const": "1.2.2",
+               "default": "1.2.2",
                "title": "Schema Version",
                "type": "string"
             },
@@ -54979,8 +55162,15 @@
                "title": "Ground wire diameter"
             },
             "ground_wire_diameter_unit": {
-               "$ref": "#/$defs/SizeUnit",
-               "default": "inch",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Ground wire diameter unit"
             },
             "well_part_number": {
@@ -56505,8 +56695,15 @@
                "title": "Recovery time"
             },
             "recovery_time_unit": {
-               "$ref": "#/$defs/TimeUnit",
-               "default": "minute",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Recovery time unit"
             },
             "injection_duration": {
@@ -56525,8 +56722,15 @@
                "title": "Injection duration"
             },
             "injection_duration_unit": {
-               "$ref": "#/$defs/TimeUnit",
-               "default": "minute",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Injection duration unit"
             },
             "instrument_id": {
@@ -62306,8 +62510,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "1.1.1",
-               "default": "1.1.1",
+               "const": "1.1.2",
+               "default": "1.1.2",
                "title": "Schema Version",
                "type": "string"
             },
@@ -66064,8 +66268,15 @@
                "title": "Frame rate (Hz)"
             },
             "frame_rate_unit": {
-               "$ref": "#/$defs/FrequencyUnit",
-               "default": "hertz",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/FrequencyUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Frame rate unit"
             },
             "coupled_fov_index": {
@@ -66098,8 +66309,15 @@
                "title": "Power"
             },
             "power_unit": {
-               "$ref": "#/$defs/PowerUnit",
-               "default": "percent",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/PowerUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Power unit"
             },
             "power_ratio": {
@@ -66130,8 +66348,15 @@
                "title": "Z stage position of the fastz actuator for a given targeted depth"
             },
             "scanfield_z_unit": {
-               "$ref": "#/$defs/SizeUnit",
-               "default": "micrometer",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Z stage position unit"
             },
             "scanimage_roi_index": {
@@ -66428,8 +66653,15 @@
                "title": "Volume (dB)"
             },
             "volume_unit": {
-               "$ref": "#/$defs/SoundIntensityUnit",
-               "default": "decibels",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/SoundIntensityUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Volume unit"
             }
          },
@@ -70170,8 +70402,15 @@
                "title": "Dilation (pixels)"
             },
             "dilation_unit": {
-               "$ref": "#/$defs/SizeUnit",
-               "default": "pixel",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Dilation unit"
             },
             "description": {
@@ -70874,6 +71113,21 @@
                "description": "Light sources for stimulation",
                "title": "Light source config"
             },
+            "objects_in_arena": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "type": "string"
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Objects in arena"
+            },
             "output_parameters": {
                "$ref": "#/$defs/AindGeneric",
                "default": {},
@@ -70961,6 +71215,7 @@
          "description": "Types of stimulus modalities",
          "enum": [
             "Auditory",
+            "Free moving",
             "Olfactory",
             "Optogenetics",
             "None",
@@ -107144,8 +107399,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "1.1.2",
-         "default": "1.1.2",
+         "const": "1.1.3",
+         "default": "1.1.3",
          "title": "Schema Version",
          "type": "string"
       },

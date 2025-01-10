@@ -810,8 +810,15 @@
                "title": "Recovery time"
             },
             "recovery_time_unit": {
-               "$ref": "#/$defs/TimeUnit",
-               "default": "minute",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Recovery time unit"
             }
          },
@@ -2666,8 +2673,15 @@
                "title": "Recovery time"
             },
             "recovery_time_unit": {
-               "$ref": "#/$defs/TimeUnit",
-               "default": "minute",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Recovery time unit"
             },
             "injection_duration": {
@@ -2686,8 +2700,15 @@
                "title": "Injection duration"
             },
             "injection_duration_unit": {
-               "$ref": "#/$defs/TimeUnit",
-               "default": "minute",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Injection duration unit"
             },
             "instrument_id": {
@@ -6268,8 +6289,15 @@
                "title": "Recovery time"
             },
             "recovery_time_unit": {
-               "$ref": "#/$defs/TimeUnit",
-               "default": "minute",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Recovery time unit"
             },
             "injection_duration": {
@@ -6288,8 +6316,15 @@
                "title": "Injection duration"
             },
             "injection_duration_unit": {
-               "$ref": "#/$defs/TimeUnit",
-               "default": "minute",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Injection duration unit"
             },
             "instrument_id": {
@@ -9870,8 +9905,15 @@
                "title": "Recovery time"
             },
             "recovery_time_unit": {
-               "$ref": "#/$defs/TimeUnit",
-               "default": "minute",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Recovery time unit"
             },
             "injection_duration": {
@@ -9890,8 +9932,15 @@
                "title": "Injection duration"
             },
             "injection_duration_unit": {
-               "$ref": "#/$defs/TimeUnit",
-               "default": "minute",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Injection duration unit"
             },
             "instrument_id": {
@@ -9997,8 +10046,15 @@
                "title": "Recovery time"
             },
             "recovery_time_unit": {
-               "$ref": "#/$defs/TimeUnit",
-               "default": "minute",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Recovery time unit"
             },
             "injection_duration": {
@@ -10017,8 +10073,15 @@
                "title": "Injection duration"
             },
             "injection_duration_unit": {
-               "$ref": "#/$defs/TimeUnit",
-               "default": "minute",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Injection duration unit"
             },
             "instrument_id": {
@@ -14353,8 +14416,15 @@
                "title": "Recovery time"
             },
             "recovery_time_unit": {
-               "$ref": "#/$defs/TimeUnit",
-               "default": "minute",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Recovery time unit"
             },
             "injection_duration": {
@@ -14373,8 +14443,15 @@
                "title": "Injection duration"
             },
             "injection_duration_unit": {
-               "$ref": "#/$defs/TimeUnit",
-               "default": "minute",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Injection duration unit"
             },
             "instrument_id": {
@@ -18367,9 +18444,17 @@
                "title": "Concentration"
             },
             "concentration_unit": {
-               "default": "mg/mL",
-               "title": "Concentration unit",
-               "type": "string"
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "For example, mg/mL",
+               "title": "Concentration unit"
             }
          },
          "required": [
@@ -22558,8 +22643,15 @@
                "title": "Ground wire diameter"
             },
             "ground_wire_diameter_unit": {
-               "$ref": "#/$defs/SizeUnit",
-               "default": "inch",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Ground wire diameter unit"
             },
             "well_part_number": {
@@ -23535,8 +23627,15 @@
                "title": "Recovery time"
             },
             "recovery_time_unit": {
-               "$ref": "#/$defs/TimeUnit",
-               "default": "minute",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Recovery time unit"
             },
             "injection_duration": {
@@ -23555,8 +23654,15 @@
                "title": "Injection duration"
             },
             "injection_duration_unit": {
-               "$ref": "#/$defs/TimeUnit",
-               "default": "minute",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Injection duration unit"
             },
             "instrument_id": {
@@ -60782,8 +60888,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "1.2.1",
-         "default": "1.2.1",
+         "const": "1.2.2",
+         "default": "1.2.2",
          "title": "Schema Version",
          "type": "string"
       },

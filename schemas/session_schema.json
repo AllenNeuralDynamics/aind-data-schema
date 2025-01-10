@@ -7516,8 +7516,15 @@
                "title": "Surface z"
             },
             "surface_z_unit": {
-               "$ref": "#/$defs/SizeUnit",
-               "default": "micrometer",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Surface z unit"
             },
             "dye": {
@@ -11031,8 +11038,15 @@
                "title": "Frame rate (Hz)"
             },
             "frame_rate_unit": {
-               "$ref": "#/$defs/FrequencyUnit",
-               "default": "hertz",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/FrequencyUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Frame rate unit"
             },
             "coupled_fov_index": {
@@ -11065,8 +11079,15 @@
                "title": "Power"
             },
             "power_unit": {
-               "$ref": "#/$defs/PowerUnit",
-               "default": "percent",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/PowerUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Power unit"
             },
             "power_ratio": {
@@ -11097,8 +11118,15 @@
                "title": "Z stage position of the fastz actuator for a given targeted depth"
             },
             "scanfield_z_unit": {
-               "$ref": "#/$defs/SizeUnit",
-               "default": "micrometer",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Z stage position unit"
             },
             "scanimage_roi_index": {
@@ -11200,8 +11228,15 @@
                "title": "Excitation power (mW)"
             },
             "excitation_power_unit": {
-               "$ref": "#/$defs/PowerUnit",
-               "default": "milliwatt",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/PowerUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Excitation power unit"
             }
          },
@@ -11242,8 +11277,15 @@
                "title": "Excitation power (mW)"
             },
             "excitation_power_unit": {
-               "$ref": "#/$defs/PowerUnit",
-               "default": "milliwatt",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/PowerUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Excitation power unit"
             }
          },
@@ -18393,8 +18435,15 @@
                "title": "Surface z"
             },
             "surface_z_unit": {
-               "$ref": "#/$defs/SizeUnit",
-               "default": "micrometer",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Surface z unit"
             },
             "dye": {
@@ -23570,8 +23619,15 @@
                "title": "Frame rate (Hz)"
             },
             "frame_rate_unit": {
-               "$ref": "#/$defs/FrequencyUnit",
-               "default": "hertz",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/FrequencyUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Frame rate unit"
             },
             "coupled_fov_index": {
@@ -23604,8 +23660,15 @@
                "title": "Power"
             },
             "power_unit": {
-               "$ref": "#/$defs/PowerUnit",
-               "default": "percent",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/PowerUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Power unit"
             },
             "power_ratio": {
@@ -23636,8 +23699,15 @@
                "title": "Z stage position of the fastz actuator for a given targeted depth"
             },
             "scanfield_z_unit": {
-               "$ref": "#/$defs/SizeUnit",
-               "default": "micrometer",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Z stage position unit"
             },
             "scanimage_roi_index": {
@@ -23808,8 +23878,15 @@
                "title": "Volume (dB)"
             },
             "volume_unit": {
-               "$ref": "#/$defs/SoundIntensityUnit",
-               "default": "decibels",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/SoundIntensityUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Volume unit"
             }
          },
@@ -27398,8 +27475,15 @@
                "title": "Dilation (pixels)"
             },
             "dilation_unit": {
-               "$ref": "#/$defs/SizeUnit",
-               "default": "pixel",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Dilation unit"
             },
             "description": {
@@ -27601,6 +27685,21 @@
                "description": "Light sources for stimulation",
                "title": "Light source config"
             },
+            "objects_in_arena": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "type": "string"
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Objects in arena"
+            },
             "output_parameters": {
                "$ref": "#/$defs/AindGeneric",
                "default": {},
@@ -27688,6 +27787,7 @@
          "description": "Types of stimulus modalities",
          "enum": [
             "Auditory",
+            "Free moving",
             "Olfactory",
             "Optogenetics",
             "None",
@@ -58914,8 +59014,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "1.1.1",
-         "default": "1.1.1",
+         "const": "1.1.2",
+         "default": "1.1.2",
          "title": "Schema Version",
          "type": "string"
       },
