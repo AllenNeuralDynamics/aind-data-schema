@@ -24,6 +24,7 @@ from aind_data_schema.core.procedures import (
     TarsVirusIdentifiers,
     ViralMaterial,
 )
+from aind_data_schema_models.brain_atlas import CCFStructure
 
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
 
@@ -206,7 +207,7 @@ class ProceduresTests(unittest.TestCase):
                             injection_volume=[1],
                             recovery_time=10,
                             recovery_time_unit=TimeUnit.M,
-                            targeted_structure="VISp6",
+                            targeted_structure=CCFStructure.VISP6,
                         ),
                         FiberImplant(
                             protocol_id="dx.doi.org/120.123/fkjd",
@@ -222,7 +223,7 @@ class ProceduresTests(unittest.TestCase):
                                         ferrule_material="Ceramic",
                                         total_length=10,
                                     ),
-                                    targeted_structure="MOp",
+                                    targeted_structure=CCFStructure.MOP,
                                     stereotactic_coordinate_ap=1,
                                     stereotactic_coordinate_dv=2,
                                     stereotactic_coordinate_ml=3,
@@ -367,7 +368,7 @@ class ProceduresTests(unittest.TestCase):
             section_distance_from_reference=0.3,
             reference_location="Bregma",
             section_strategy="Whole Brain",
-            targeted_structure="MOp",
+            targeted_structure=CCFStructure.MOP,
         )
         self.assertEqual(section.number_of_slices, len(section.output_specimen_ids))
 
@@ -381,7 +382,7 @@ class ProceduresTests(unittest.TestCase):
                 section_distance_from_reference=0.3,
                 reference_location="Bregma",
                 section_strategy="Whole Brain",
-                targeted_structure="MOp",
+                targeted_structure=CCFStructure.MOP,
             )
 
 

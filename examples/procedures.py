@@ -12,6 +12,7 @@ from aind_data_schema.core.procedures import (
     TarsVirusIdentifiers,
     ViralMaterial,
 )
+from aind_data_schema_models.brain_atlas import CCFStructure
 
 # If a timezone isn't specified, the timezone of the computer running this
 # script will be used as default
@@ -61,7 +62,7 @@ p = Procedures(
                     bregma_to_lambda_distance=4.1,
                     injection_angle=10,
                     injection_volume=[200],
-                    targeted_structure="VISp",
+                    targeted_structure=CCFStructure.VISP,
                 ),
             ],
         ),

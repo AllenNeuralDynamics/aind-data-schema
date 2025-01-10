@@ -6,6 +6,7 @@ from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.units import PowerUnit, SizeUnit, FrequencyUnit
 
 from aind_data_schema.core.session import FieldOfView, LaserConfig, Session, Stream
+from aind_data_schema_models.brain_atlas import CCFStructure
 
 # If a timezone isn't specified, the timezone of the computer running this
 # script will be used as default
@@ -60,7 +61,7 @@ s = Session(
                     power_unit=PowerUnit.PERCENT,
                     scanimage_roi_index=0,
                     imaging_depth=190,
-                    targeted_structure="VISp",
+                    targeted_structure=CCFStructure.VISP,
                     scanfield_z=230,
                     scanfield_z_unit=SizeUnit.UM,
                     coupled_fov_index=1,
@@ -82,7 +83,7 @@ s = Session(
                     power_unit=PowerUnit.PERCENT,
                     scanimage_roi_index=0,
                     imaging_depth=232,
-                    targeted_structure="VISp",
+                    targeted_structure=CCFStructure.VISP,
                     scanfield_z=257,
                     scanfield_z_unit=SizeUnit.UM,
                     coupled_fov_index=0,
@@ -104,7 +105,7 @@ s = Session(
                     power_unit=PowerUnit.PERCENT,
                     scanimage_roi_index=0,
                     imaging_depth=136,
-                    targeted_structure="VISp",
+                    targeted_structure=CCFStructure.VISP,
                     scanfield_z=176,
                     scanfield_z_unit=SizeUnit.UM,
                     coupled_fov_index=3,
@@ -126,7 +127,7 @@ s = Session(
                     power_unit=PowerUnit.PERCENT,
                     scanimage_roi_index=0,
                     imaging_depth=282,
-                    targeted_structure="VISp",
+                    targeted_structure=CCFStructure.VISP,
                     scanfield_z=307,
                     scanfield_z_unit=SizeUnit.UM,
                     coupled_fov_index=2,
@@ -148,7 +149,7 @@ s = Session(
                     power_unit=PowerUnit.PERCENT,
                     scanimage_roi_index=0,
                     imaging_depth=72,
-                    targeted_structure="VISp",
+                    targeted_structure=CCFStructure.VISP,
                     scanfield_z=112,
                     scanfield_z_unit=SizeUnit.UM,
                     coupled_fov_index=5,
@@ -170,7 +171,7 @@ s = Session(
                     power_unit=PowerUnit.PERCENT,
                     scanimage_roi_index=0,
                     imaging_depth=326,
-                    targeted_structure="VISp",
+                    targeted_structure=CCFStructure.VISP,
                     scanfield_z=351,
                     scanfield_z_unit=SizeUnit.UM,
                     coupled_fov_index=4,
@@ -192,7 +193,7 @@ s = Session(
                     power_unit=PowerUnit.PERCENT,
                     scanimage_roi_index=0,
                     imaging_depth=30,
-                    targeted_structure="VISp",
+                    targeted_structure=CCFStructure.VISP,
                     scanfield_z=70,
                     scanfield_z_unit=SizeUnit.UM,
                     coupled_fov_index=7,
@@ -214,7 +215,7 @@ s = Session(
                     power_unit=PowerUnit.PERCENT,
                     scanimage_roi_index=0,
                     imaging_depth=364,
-                    targeted_structure="VISp",
+                    targeted_structure=CCFStructure.VISP,
                     scanfield_z=389,
                     scanfield_z_unit=SizeUnit.UM,
                     coupled_fov_index=6,

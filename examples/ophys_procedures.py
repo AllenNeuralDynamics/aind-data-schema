@@ -21,6 +21,7 @@ from aind_data_schema.core.procedures import (
     ViralMaterial,
     WaterRestriction,
 )
+from aind_data_schema_models.brain_atlas import CCFStructure
 
 t = datetime.datetime(2022, 7, 12, 7, 00, 00)
 t2 = datetime.datetime(2022, 9, 23, 10, 22, 00)
@@ -67,7 +68,7 @@ p = Procedures(
                     injection_coordinate_reference="Bregma",
                     injection_angle=0,
                     injection_volume=[400],
-                    targeted_structure="VTA",
+                    targeted_structure=CCFStructure.VTA,
                 ),
                 FiberImplant(
                     protocol_id="TO ENTER",
@@ -80,7 +81,7 @@ p = Procedures(
                                 ferrule_material="Ceramic",
                                 total_length=0.5,
                             ),
-                            targeted_structure="VTA",
+                            targeted_structure=CCFStructure.VTA,
                             angle=0,
                             stereotactic_coordinate_ap=-3.05,
                             stereotactic_coordinate_ml=-0.6,
