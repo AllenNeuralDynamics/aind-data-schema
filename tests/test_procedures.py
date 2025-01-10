@@ -207,7 +207,7 @@ class ProceduresTests(unittest.TestCase):
                             injection_volume=[1],
                             recovery_time=10,
                             recovery_time_unit=TimeUnit.M,
-                            targeted_structure=CCFStructure.VISP6,
+                            targeted_structure=CCFStructure.VISP6A,
                         ),
                         FiberImplant(
                             protocol_id="dx.doi.org/120.123/fkjd",

@@ -25,6 +25,7 @@ from aind_data_schema.core.session import (
     Session,
     Stream,
 )
+from aind_data_schema_models.brain_atlas import CCFStructure
 
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
 

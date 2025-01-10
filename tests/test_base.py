@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import Optional
 from unittest.mock import MagicMock, call, mock_open, patch
 
-from pydantic import ValidationError, create_model, SkipValidation
+from pydantic import ValidationError, create_model, SkipValidation, Field
 from typing import Literal
 
 from aind_data_schema.base import (
