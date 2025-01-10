@@ -129,17 +129,6 @@ class AindModel(BaseModel, Generic[AindGenericType]):
                         if var_name in variable_name and variable_value:
                             raise ValueError(f"Unit {unit_name} is required when {variable_name} is set.")
         return values
-        
-
-    @model_validator(mode="before")
-    def coerce_targeted_structures(cls, values):
-        """If a user passes a targeted_structure as a str, convert to CCFStructure"""
-        for field_name, value in values.items():
-            if "targeted_structure" in field_name and isinstance(value, str):
-                if not hasattr(CCFStructure, value.upper()):
-                    raise ValueError(f"{value} is not a valid CCF structure")
-                values[field_name] = getattr(CCFStructure, value.upper())
-        return values
 
 
 class AindCoreModel(AindModel):
