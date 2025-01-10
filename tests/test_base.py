@@ -9,7 +9,7 @@ from unittest.mock import MagicMock, call, mock_open, patch
 
 from pydantic import Field, ValidationError, create_model
 
-from aind_data_schema.base import AindGeneric, AindModel, AwareDatetimeWithDefault, is_dict_corrupt
+from aind_data_schema.base import GenericModel, MetadataModel, AwareDatetimeWithDefault, is_dict_corrupt
 from aind_data_schema.core.subject import Subject
 
 
@@ -60,7 +60,7 @@ class BaseTests(unittest.TestCase):
     def test_units(self):
         """Test that models with value/value_unit pairs throw errors properly"""
 
-        class TestModel(AindModel):
+        class TestModel(MetadataModel):
             """temporary test model"""
 
             value: Optional[str] = Field(default=None)
@@ -76,7 +76,7 @@ class BaseTests(unittest.TestCase):
         self.assertIsNotNone(test1)
 
         # Multi-unit condition
-        class MultiModel(AindModel):
+        class MultiModel(MetadataModel):
             """temporary test model with multiple variables"""
 
             value_multi_one_with_depth: Optional[str] = Field(default=None)
@@ -123,28 +123,28 @@ class BaseTests(unittest.TestCase):
             with self.subTest(contents=contents):
                 self.assertTrue(is_dict_corrupt(contents))
 
-    def test_aind_generic_constructor(self):
-        """Tests default constructor for AindGeneric"""
-        model = AindGeneric()
+    def test_generic_model_constructor(self):
+        """Tests default constructor for GenericModel"""
+        model = GenericModel()
         self.assertEqual("{}", model.model_dump_json())
 
         params = {"foo": "bar"}
-        model = AindGeneric(**params)
+        model = GenericModel(**params)
         self.assertEqual('{"foo":"bar"}', model.model_dump_json())
 
-    def test_aind_generic_validate_fieldnames(self):
-        """Tests that fieldnames are validated in AindGeneric"""
-        expected_error = "1 validation error for AindGeneric\n" "  Value error, Field names cannot contain '.' or '$' "
+    def test_generic_model_validate_fieldnames(self):
+        """Tests that fieldnames are validated in GenericModel"""
+        expected_error = "1 validation error for GenericModel\n" "  Value error, Field names cannot contain '.' or '$' "
         invalid_params = [
             {"$foo": "bar"},
             {"foo": {"foo.name": "bar"}},
         ]
         for params in invalid_params:
             with self.assertRaises(ValidationError) as e:
-                AindGeneric(**params)
+                GenericModel(**params)
             self.assertIn(expected_error, repr(e.exception))
             with self.assertRaises(ValidationError) as e:
-                AindGeneric.model_validate(params)
+                GenericModel.model_validate(params)
             self.assertIn(expected_error, repr(e.exception))
 
 

@@ -9,7 +9,7 @@ import erdantic as erd
 from pydantic import BaseModel
 
 from aind_data_schema import core
-from aind_data_schema.base import AindCoreModel
+from aind_data_schema.base import MetadataCoreModel
 
 # Import all modules in core package
 for mod in core.__loader__.get_resource_reader().contents():
@@ -69,7 +69,7 @@ def save_all_core_model_diagrams(output_directory: Optional[Path] = None) -> Non
     else:
         output_path = output_directory
 
-    for model in AindCoreModel.__subclasses__():
+    for model in MetadataCoreModel.__subclasses__():
         filename = model.default_filename().replace(".json", ".svg")
         diagram = erd.create(model)
         diagram.draw(output_path / filename)

@@ -24,7 +24,7 @@ from pydantic import Field, SkipValidation, field_serializer, field_validator, m
 from pydantic_core.core_schema import ValidationInfo
 from typing_extensions import Annotated
 
-from aind_data_schema.base import AindCoreModel, AindModel, AwareDatetimeWithDefault
+from aind_data_schema.base import MetadataCoreModel, MetadataModel, AwareDatetimeWithDefault
 from aind_data_schema.components.devices import FiberProbe, MyomatrixArray
 from aind_data_schema.components.reagent import Reagent
 
@@ -176,7 +176,7 @@ class Stain(Reagent):
     )
 
 
-class HybridizationChainReaction(AindModel):
+class HybridizationChainReaction(MetadataModel):
     """Description of an HCR staining round"""
 
     round_index: int = Field(..., title="Round index")
@@ -190,7 +190,7 @@ class HybridizationChainReaction(AindModel):
     instrument_id: str = Field(..., title="Instrument ID")
 
 
-class HCRSeries(AindModel):
+class HCRSeries(MetadataModel):
     """Description of series of HCR staining rounds for mFISH"""
 
     codebook_name: str = Field(..., title="Codebook name")
@@ -209,7 +209,7 @@ class Antibody(Reagent):
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class Sectioning(AindModel):
+class Sectioning(MetadataModel):
     """Description of a sectioning procedure"""
 
     procedure_type: Literal["Sectioning"] = "Sectioning"
@@ -236,7 +236,7 @@ class Sectioning(AindModel):
         return v
 
 
-class SpecimenProcedure(AindModel):
+class SpecimenProcedure(MetadataModel):
     """Description of surgical or other procedure performed on a specimen"""
 
     procedure_type: SpecimenProcedureType = Field(..., title="Procedure type")
@@ -273,7 +273,7 @@ class SpecimenProcedure(AindModel):
         return self
 
 
-class Anaesthetic(AindModel):
+class Anaesthetic(MetadataModel):
     """Description of an anaesthetic"""
 
     type: str = Field(..., title="Type")
@@ -282,7 +282,7 @@ class Anaesthetic(AindModel):
     level: Optional[Decimal] = Field(default=None, title="Level (percent)", ge=1, le=5)
 
 
-class OtherSubjectProcedure(AindModel):
+class OtherSubjectProcedure(MetadataModel):
     """Description of non-surgical procedure performed on a subject"""
 
     procedure_type: Literal["Other Subject Procedure"] = "Other Subject Procedure"
@@ -291,7 +291,7 @@ class OtherSubjectProcedure(AindModel):
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class Craniotomy(AindModel):
+class Craniotomy(MetadataModel):
     """Description of craniotomy procedure"""
 
     procedure_type: Literal["Craniotomy"] = "Craniotomy"
@@ -309,7 +309,7 @@ class Craniotomy(AindModel):
     recovery_time_unit: Optional[TimeUnit] = Field(default=None, title="Recovery time unit")
 
 
-class Headframe(AindModel):
+class Headframe(MetadataModel):
     """Description of headframe procedure"""
 
     procedure_type: Literal["Headframe"] = "Headframe"
@@ -321,7 +321,7 @@ class Headframe(AindModel):
     well_type: Optional[str] = Field(default=None, title="Well type")
 
 
-class ProtectiveMaterialReplacement(AindModel):
+class ProtectiveMaterialReplacement(MetadataModel):
     """Description of a protective material replacement procedure in preparation for ephys recording"""
 
     procedure_type: Literal["Ground wire"] = "Ground wire"
@@ -337,7 +337,7 @@ class ProtectiveMaterialReplacement(AindModel):
     well_type: Optional[str] = Field(default=None, title="Well type")
 
 
-class TarsVirusIdentifiers(AindModel):
+class TarsVirusIdentifiers(MetadataModel):
     """TARS data for a viral prep"""
 
     virus_tars_id: Optional[str] = Field(default=None, title="Virus ID, usually begins 'AiV'")
@@ -356,7 +356,7 @@ class TarsVirusIdentifiers(AindModel):
     prep_protocol: Optional[str] = Field(default=None, title="Prep protocol")
 
 
-class ViralMaterial(AindModel):
+class ViralMaterial(MetadataModel):
     """Description of viral material for injections"""
 
     material_type: Literal["Virus"] = Field(default="Virus", title="Injection material type")
@@ -389,7 +389,7 @@ class NonViralMaterial(Reagent):
     )
 
 
-class Injection(AindModel):
+class Injection(MetadataModel):
     """Description of an injection procedure"""
 
     injection_materials: List[
@@ -496,7 +496,7 @@ class IntraCisternalMagnaInjection(BrainInjection):
     injection_volume_unit: VolumeUnit = Field(VolumeUnit.NL, title="Injection volume unit")
 
 
-class TrainingProtocol(AindModel):
+class TrainingProtocol(MetadataModel):
     """Description of an animal training protocol"""
 
     procedure_type: Literal["Training"] = "Training"
@@ -507,7 +507,7 @@ class TrainingProtocol(AindModel):
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class OphysProbe(AindModel):
+class OphysProbe(MetadataModel):
     """Description of an implanted ophys probe"""
 
     ophys_probe: FiberProbe = Field(..., title="Fiber probe")
@@ -531,7 +531,7 @@ class OphysProbe(AindModel):
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class FiberImplant(AindModel):
+class FiberImplant(MetadataModel):
     """Description of an implant procedure"""
 
     procedure_type: Literal["Fiber implant"] = "Fiber implant"
@@ -539,7 +539,7 @@ class FiberImplant(AindModel):
     probes: List[OphysProbe] = Field(..., title="Ophys Probes")
 
 
-class WaterRestriction(AindModel):
+class WaterRestriction(MetadataModel):
     """Description of a water restriction procedure"""
 
     procedure_type: Literal["Water restriction"] = "Water restriction"
@@ -558,7 +558,7 @@ class WaterRestriction(AindModel):
     end_date: Optional[date] = Field(default=None, title="Water restriction end date")
 
 
-class MyomatrixContact(AindModel):
+class MyomatrixContact(MetadataModel):
     """ "Description of a contact on a myomatrix thread"""
 
     body_part: MouseAnatomicalStructure.BODY_PARTS = Field(..., title="Body part of contact insertion")
@@ -568,14 +568,14 @@ class MyomatrixContact(AindModel):
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class MyomatrixThread(AindModel):
+class MyomatrixThread(MetadataModel):
     """Description of a thread of a myomatrix array"""
 
     ground_electrode_location: MouseAnatomicalStructure.BODY_PARTS = Field(..., title="Location of ground electrode")
     contacts: List[MyomatrixContact] = Field(..., title="Contacts")
 
 
-class MyomatrixInsertion(AindModel):
+class MyomatrixInsertion(MetadataModel):
     """Description of a Myomatrix array insertion for EMG"""
 
     procedure_type: Literal["Myomatrix_Insertion"] = "Myomatrix_Insertion"
@@ -584,7 +584,7 @@ class MyomatrixInsertion(AindModel):
     threads: List[MyomatrixThread] = Field(..., title="Array threads")
 
 
-class Perfusion(AindModel):
+class Perfusion(MetadataModel):
     """Description of a perfusion procedure that creates a specimen"""
 
     procedure_type: Literal["Perfusion"] = "Perfusion"
@@ -601,7 +601,7 @@ class Perfusion(AindModel):
         return sorted(values)
 
 
-class Surgery(AindModel):
+class Surgery(MetadataModel):
     """Description of subject procedures performed at one time"""
 
     procedure_type: Literal["Surgery"] = "Surgery"
@@ -645,10 +645,10 @@ class Surgery(AindModel):
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class Procedures(AindCoreModel):
+class Procedures(MetadataCoreModel):
     """Description of all procedures performed on a subject"""
 
-    _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/procedures.py"
+    _DESCRIBED_BY_URL = MetadataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/procedures.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
 
     schema_version: SkipValidation[Literal["1.1.4"]] = Field("1.1.4")
