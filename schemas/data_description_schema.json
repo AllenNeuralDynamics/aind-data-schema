@@ -1972,8 +1972,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "1.0.3",
-         "default": "1.0.3",
+         "const": "1.0.4",
+         "default": "1.0.4",
          "title": "Schema Version",
          "type": "string"
       },

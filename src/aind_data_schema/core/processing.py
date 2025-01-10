@@ -1,7 +1,7 @@
 """ schema for processing """
 
 from enum import Enum
-from typing import List, Literal, Optional
+from typing import List, Literal, Optional, Union
 
 from aind_data_schema_models.process_names import ProcessName
 from aind_data_schema_models.units import MemoryUnit, UnitlessUnit
@@ -48,15 +48,16 @@ class DataProcess(AindModel):
     """Description of a single processing step"""
 
     name: ProcessName = Field(..., title="Name")
-    software_version: str = Field(..., description="Version of the software used", title="Version")
+    software_version: Optional[str] = Field(default=None, description="Version of the software used", title="Version")
     start_date_time: AwareDatetimeWithDefault = Field(..., title="Start date time")
     end_date_time: AwareDatetimeWithDefault = Field(..., title="End date time")
-    input_location: str = Field(..., description="Path to data inputs", title="Input location")
+    # allowing multiple input locations, to be replaced by CompositeData object in future
+    input_location: Union[str, List[str]] = Field(..., description="Path(s) to data inputs", title="Input location")
     output_location: str = Field(..., description="Path to data outputs", title="Output location")
     code_url: str = Field(..., description="Path to code repository", title="Code URL")
     code_version: Optional[str] = Field(default=None, description="Version of the code", title="Code version")
-    parameters: AindGenericType = Field(..., title="Parameters")
-    outputs: AindGenericType = Field(AindGeneric(), description="Output parameters", title="Outputs")
+    parameters: AindGenericType = Field(default=AindGeneric(), title="Parameters")
+    outputs: AindGenericType = Field(default=AindGeneric(), description="Output parameters", title="Outputs")
     notes: Optional[str] = Field(default=None, title="Notes", validate_default=True)
     resources: Optional[ResourceUsage] = Field(default=None, title="Process resource usage")
 
@@ -115,7 +116,7 @@ class Processing(AindCoreModel):
 
     _DESCRIBED_BY_URL: str = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/processing.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["1.1.2"]] = Field("1.1.2")
+    schema_version: SkipValidation[Literal["1.1.4"]] = Field(default="1.1.4")
 
     processing_pipeline: PipelineProcess = Field(
         ..., description="Pipeline used to process data", title="Processing Pipeline"

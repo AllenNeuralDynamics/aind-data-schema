@@ -6,6 +6,7 @@ from enum import Enum
 from typing import List, Literal, Optional, Set, Union
 
 from aind_data_schema_models.mouse_anatomy import MouseAnatomicalStructure
+from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.pid_names import PIDName
 from aind_data_schema_models.species import Species
 from aind_data_schema_models.specimen_procedure_types import SpecimenProcedureType
@@ -20,6 +21,7 @@ from aind_data_schema_models.units import (
     VolumeUnit,
     create_unit_with_value,
 )
+from aind_data_schema_models.brain_atlas import CCFStructure
 from pydantic import Field, SkipValidation, field_serializer, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
 from typing_extensions import Annotated
@@ -135,6 +137,36 @@ class VirusPrepType(str, Enum):
     PURIFIED = "Purified"
 
 
+class CatheterMaterial(str, Enum):
+    """Type of catheter material"""
+
+    NAKED = "Naked"
+    SILICONE = "VAB silicone"
+    MESH = "VAB mesh"
+
+
+class CatheterDesign(str, Enum):
+    """Type of catheter design"""
+
+    MAGNETIC = "Magnetic"
+    NONMAGNETIC = "Non-magnetic"
+    NA = "N/A"
+
+
+class CatheterPort(str, Enum):
+    """Type of catheter port"""
+
+    SINGLE = "Single"
+    DOUBLE = "Double"
+
+
+class SampleType(str, Enum):
+    """Sample type"""
+
+    BLOOD = "Blood"
+    OTHER = "Other"
+
+
 class Readout(Reagent):
     """Description of a readout"""
 
@@ -222,7 +254,7 @@ class Sectioning(AindModel):
     section_distance_unit: SizeUnit = Field(default=SizeUnit.MM, title="Distance unit")
     reference_location: CoordinateReferenceLocation = Field(..., title="Reference location for distance measurement")
     section_strategy: SectionStrategy = Field(..., title="Slice strategy")
-    targeted_structure: str = Field(..., title="Targeted structure", description="Use Allen Brain Atlas Ontology")
+    targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
 
     @field_validator("output_specimen_ids")
     def check_output_id_length(cls, v, info: ValidationInfo):
@@ -289,6 +321,17 @@ class OtherSubjectProcedure(AindModel):
     protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
     description: str = Field(..., title="Description")
     notes: Optional[str] = Field(default=None, title="Notes")
+
+
+class CatheterImplant(AindModel):
+    """Description of a catheter implant procedure"""
+
+    procedure_type: Literal["Catheter Implant"] = "Catheter implant"
+    where_performed: Organization.CATHETER_IMPLANT_INSTITUTIONS = Field(..., title="Where performed")
+    catheter_material: CatheterMaterial = Field(..., title="Catheter material")
+    catheter_design: CatheterDesign = Field(..., title="Catheter design")
+    catheter_port: CatheterPort = Field(..., title="Catheter port")
+    targeted_structure: MouseAnatomicalStructure.BLOOD_VESSELS = Field(..., title="Targeted blood vessel")
 
 
 class Craniotomy(AindModel):
@@ -416,6 +459,7 @@ class IntraperitonealInjection(Injection):
     """Description of an intraperitoneal injection procedure"""
 
     procedure_type: Literal["Intraperitoneal injection"] = "Intraperitoneal injection"
+    time: Optional[AwareDatetimeWithDefault] = Field(default=None, title="Injection time")
     injection_volume: Decimal = Field(..., title="Injection volume (uL)")
     injection_volume_unit: VolumeUnit = Field(default=VolumeUnit.UL, title="Injection volume unit")
 
@@ -436,7 +480,7 @@ class BrainInjection(Injection):
     bregma_to_lambda_unit: SizeUnit = Field(default=SizeUnit.MM, title="Bregma to lambda unit")
     injection_angle: Decimal = Field(..., title="Injection angle (deg)")
     injection_angle_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Injection angle unit")
-    targeted_structure: Optional[str] = Field(default=None, title="Injection targeted brain structure")
+    targeted_structure: Optional[CCFStructure.ONE_OF] = Field(default=None, title="Injection targeted brain structure")
     injection_hemisphere: Optional[Side] = Field(default=None, title="Injection hemisphere")
 
 
@@ -496,6 +540,17 @@ class IntraCisternalMagnaInjection(BrainInjection):
     injection_volume_unit: VolumeUnit = Field(VolumeUnit.NL, title="Injection volume unit")
 
 
+class SampleCollection(AindModel):
+    """Description of a single sample collection"""
+
+    procedure_type: Literal["Sample collection"] = "Sample collection"
+    sample_type: SampleType = Field(..., title="Sample type")
+    time: AwareDatetimeWithDefault = Field(..., title="Collection time")
+    collection_volume: Decimal = Field(..., title="Collection volume")
+    collection_volume_unit: VolumeUnit = Field(..., title="Collection volume unit")
+    collection_method: Optional[str] = Field(default=None, title="Collection method for terminal collection")
+
+
 class TrainingProtocol(AindModel):
     """Description of an animal training protocol"""
 
@@ -511,7 +566,7 @@ class OphysProbe(AindModel):
     """Description of an implanted ophys probe"""
 
     ophys_probe: FiberProbe = Field(..., title="Fiber probe")
-    targeted_structure: str = Field(..., title="Targeted structure")
+    targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
     stereotactic_coordinate_ap: Decimal = Field(..., title="Stereotactic coordinate A/P (mm)")
     stereotactic_coordinate_ml: Decimal = Field(..., title="Stereotactic coordinate M/L (mm)")
     stereotactic_coordinate_dv: Decimal = Field(
@@ -625,6 +680,7 @@ class Surgery(AindModel):
     procedures: List[
         Annotated[
             Union[
+                CatheterImplant,
                 Craniotomy,
                 FiberImplant,
                 Headframe,
@@ -638,6 +694,7 @@ class Surgery(AindModel):
                 Perfusion,
                 ProtectiveMaterialReplacement,
                 RetroOrbitalInjection,
+                SampleCollection,
             ],
             Field(discriminator="procedure_type"),
         ]
@@ -651,7 +708,7 @@ class Procedures(AindCoreModel):
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/procedures.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
 
-    schema_version: SkipValidation[Literal["1.1.4"]] = Field("1.1.4")
+    schema_version: SkipValidation[Literal["1.2.1"]] = Field(default="1.2.1")
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
@@ -659,7 +716,12 @@ class Procedures(AindCoreModel):
     )
     subject_procedures: List[
         Annotated[
-            Union[Surgery, TrainingProtocol, WaterRestriction, OtherSubjectProcedure],
+            Union[
+                Surgery,
+                TrainingProtocol,
+                WaterRestriction,
+                OtherSubjectProcedure
+            ],
             Field(discriminator="procedure_type"),
         ]
     ] = Field(default=[], title="Subject Procedures")

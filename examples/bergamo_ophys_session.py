@@ -56,7 +56,7 @@ s = Session(
                 FieldOfView(
                     index=0,
                     imaging_depth=150,
-                    targeted_structure="M1",
+                    targeted_structure="MOp",
                     fov_coordinate_ml=1.5,
                     fov_coordinate_ap=1.5,
                     fov_reference="Bregma",
