@@ -466,7 +466,6 @@ class Connection(MetadataModel):
     output_channels: List[int]
 
 
-
 class DAQChannel(MetadataModel):
     """Named input or output channel on a DAQ device"""
 

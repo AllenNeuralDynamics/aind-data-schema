@@ -21,7 +21,13 @@ from pydantic import Field, SkipValidation, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
 from typing_extensions import Annotated
 
-from aind_data_schema.base import MetadataCoreModel, GenericModel, GenericModelType, MetadataModel, AwareDatetimeWithDefault
+from aind_data_schema.base import (
+    MetadataCoreModel,
+    GenericModel,
+    GenericModelType,
+    MetadataModel,
+    AwareDatetimeWithDefault,
+)
 from aind_data_schema.components.coordinates import (
     Affine3dTransform,
     CcfCoords,

@@ -7,7 +7,13 @@ from aind_data_schema_models.process_names import ProcessName
 from aind_data_schema_models.units import MemoryUnit, UnitlessUnit
 from pydantic import Field, SkipValidation, ValidationInfo, field_validator
 
-from aind_data_schema.base import MetadataCoreModel, GenericModel, GenericModelType, MetadataModel, AwareDatetimeWithDefault
+from aind_data_schema.base import (
+    MetadataCoreModel,
+    GenericModel,
+    GenericModelType,
+    MetadataModel,
+    AwareDatetimeWithDefault,
+)
 from aind_data_schema.components.tile import Tile
 
 

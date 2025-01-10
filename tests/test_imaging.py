@@ -43,10 +43,7 @@ class ImagingTests(unittest.TestCase):
                     calibration_date=datetime.now(tz=timezone.utc),
                     description="Laser power calibration",
                     device_name="Laser 1",
-                    input={
-                        "power_setting": 100.0,
-                        "power_unit": PowerUnit.PERCENT
-                    },
+                    input={"power_setting": 100.0, "power_unit": PowerUnit.PERCENT},
                     output={
                         "power_measurement": 50.0,
                         "power_unit": PowerUnit.MW,
@@ -150,10 +147,7 @@ class ImagingTests(unittest.TestCase):
                         calibration_date=datetime.now(tz=timezone.utc),
                         description="Laser power calibration",
                         device_name="Laser 1",
-                        input={
-                            "power_setting": 100.0,
-                            "power_unit": PowerUnit.PERCENT
-                        },
+                        input={"power_setting": 100.0, "power_unit": PowerUnit.PERCENT},
                         output={
                             "power_measurement": 50.0,
                             "power_unit": PowerUnit.MW,
