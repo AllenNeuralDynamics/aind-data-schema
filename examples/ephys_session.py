@@ -16,6 +16,7 @@ from aind_data_schema.core.session import (
     Stream,
     VisualStimulation,
 )
+from aind_data_schema_models.brain_atlas import CCFStructure
 
 session = Session(
     experimenter_full_name=["Max Quibble", "Finn Tickle"],
@@ -122,7 +123,7 @@ session = Session(
                     arc_angle=5.2,
                     module_angle=8,
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.npy",
-                    primary_targeted_structure="LGd",
+                    primary_targeted_structure=CCFStructure.LGD,
                     manipulator_coordinates=Coordinates3d(x=8422, y=4205, z=11087.5),
                     calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
                     notes=(
@@ -137,7 +138,7 @@ session = Session(
                     targeted_ccf_coordinates=[CcfCoords(ml=6637.28, ap=4265.02, dv=10707.35)],
                     assembly_name="Ephys_assemblyB",
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.py",
-                    primary_targeted_structure="LC",
+                    primary_targeted_structure=CCFStructure.LC,
                     manipulator_coordinates=Coordinates3d(x=9015, y=7144, z=13262),
                     calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
                     notes=(
@@ -170,7 +171,7 @@ session = Session(
                     targeted_ccf_coordinates=[CcfCoords(ml=8150, ap=3250, dv=7800)],
                     assembly_name="Ephys_assemblyA",
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.npy",
-                    primary_targeted_structure="LGd",
+                    primary_targeted_structure=CCFStructure.LGD,
                     manipulator_coordinates=Coordinates3d(x=8422, y=4205, z=11087.5),
                     calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
                     notes=(
@@ -185,7 +186,7 @@ session = Session(
                     targeted_ccf_coordinates=[CcfCoords(ml=6637.28, ap=4265.02, dv=10707.35)],
                     assembly_name="Ephys_assemblyB",
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.py",
-                    primary_targeted_structure="LC",
+                    primary_targeted_structure=CCFStructure.LC,
                     manipulator_coordinates=Coordinates3d(x=9015, y=7144, z=13262),
                     calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
                     notes=(

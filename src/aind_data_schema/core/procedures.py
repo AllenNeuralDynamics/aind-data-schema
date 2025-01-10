@@ -716,12 +716,7 @@ class Procedures(AindCoreModel):
     )
     subject_procedures: List[
         Annotated[
-            Union[
-                Surgery,
-                TrainingProtocol,
-                WaterRestriction,
-                OtherSubjectProcedure
-            ],
+            Union[Surgery, TrainingProtocol, WaterRestriction, OtherSubjectProcedure],
             Field(discriminator="procedure_type"),
         ]
     ] = Field(default=[], title="Subject Procedures")
