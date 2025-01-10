@@ -457,15 +457,6 @@ class CameraAssembly(MetadataModel):
     position: Optional[RelativePosition] = Field(default=None, title="Relative position of this assembly")
 
 
-class Connection(MetadataModel):
-
-    devices: List[str]
-    inputs: List[str]
-    input_channels: List[int]
-    outputs: List[str]
-    output_channels: List[int]
-
-
 class DAQChannel(MetadataModel):
     """Named input or output channel on a DAQ device"""
 
