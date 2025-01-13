@@ -54890,8 +54890,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "1.2.2",
-               "default": "1.2.2",
+               "const": "1.2.3",
+               "default": "1.2.3",
                "title": "Schema Version",
                "type": "string"
             },
@@ -70920,8 +70920,20 @@
                "title": "Stain type"
             },
             "concentration": {
-               "$ref": "#/$defs/concentration",
-               "title": "Concentration (uM)"
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  }
+               ],
+               "title": "Concentration"
+            },
+            "concentration_unit": {
+               "$ref": "#/$defs/ConcentrationUnit",
+               "default": "micromolar",
+               "title": "Concentration unit"
             }
          },
          "required": [
@@ -107363,30 +107375,6 @@
          },
          "title": "_Addgene",
          "type": "object"
-      },
-      "concentration": {
-         "properties": {
-            "value": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  }
-               ],
-               "title": "Value"
-            },
-            "unit": {
-               "$ref": "#/$defs/ConcentrationUnit",
-               "default": "micromolar"
-            }
-         },
-         "required": [
-            "value"
-         ],
-         "title": "concentration",
-         "type": "object"
       }
    },
    "additionalProperties": false,
@@ -107399,8 +107387,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "1.1.3",
-         "default": "1.1.3",
+         "const": "1.1.4",
+         "default": "1.1.4",
          "title": "Schema Version",
          "type": "string"
       },
