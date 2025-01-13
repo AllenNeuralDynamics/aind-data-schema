@@ -40,8 +40,8 @@ class SchemaVersionHandler:
         schema of the models to the json schema in the schemas folder.
         Returns
         -------
-        List[AindCoreModel]
-          A list of AindCoreModels that changed.
+        List[MetadataCoreModel]
+          A list of MetadataCoreModels that changed.
         """
         schemas_that_need_updating = []
         for core_model in SchemaWriter.get_schemas():
@@ -64,13 +64,13 @@ class SchemaVersionHandler:
 
         Parameters
         ----------
-        models_that_changed : List[AindCoreModel]
+        models_that_changed : List[MetadataCoreModel]
           A list of models that have been updated and need to have their version numbers incremented.
 
         Returns
         -------
-        Dict[AindCoreModel, str]
-          A mapping of the AindCoreModel to its new version number.
+        Dict[MetadataCoreModel, str]
+          A mapping of the MetadataCoreModel to its new version number.
 
         """
         version_bump_map = {}
@@ -139,7 +139,7 @@ class SchemaVersionHandler:
         files in the core directory.
         Parameters
         ----------
-        version_bump_map : Dict[AindCoreModel, str]
+        version_bump_map : Dict[MetadataCoreModel, str]
           The models that need updating are in the dictionary keys and the
           new version number is the dictionary value.
 

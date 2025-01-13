@@ -56,7 +56,7 @@ class SchemaWriter:
     @staticmethod
     def get_schemas() -> Iterator[MetadataCoreModel]:
         """
-        Returns Iterator of AindCoreModel classes
+        Returns Iterator of MetadataCoreModel classes
         """
 
         for model in MetadataCoreModel.__subclasses__():
