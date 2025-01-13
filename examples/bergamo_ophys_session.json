@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/session.py",
-   "schema_version": "1.0.4",
+   "schema_version": "1.1.2",
    "protocol_id": [],
    "experimenter_full_name": [
       "John Doe"
@@ -53,7 +53,12 @@
                "index": 0,
                "imaging_depth": 150,
                "imaging_depth_unit": "micrometer",
-               "targeted_structure": "M1",
+               "targeted_structure": {
+                  "atlas": "CCFv3",
+                  "name": "Primary motor area",
+                  "acronym": "MOp",
+                  "id": "985"
+               },
                "fov_coordinate_ml": "1.5",
                "fov_coordinate_ap": "1.5",
                "fov_coordinate_unit": "micrometer",
@@ -148,6 +153,7 @@
          "stimulus_device_names": [],
          "speaker_config": null,
          "light_source_config": [],
+         "objects_in_arena": null,
          "output_parameters": {},
          "reward_consumed_during_epoch": null,
          "reward_consumed_unit": "microliter",

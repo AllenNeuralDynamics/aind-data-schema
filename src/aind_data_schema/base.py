@@ -2,8 +2,9 @@
 
 import json
 import re
+import logging
 from pathlib import Path
-from typing import Any, Generic, Optional, TypeVar
+from typing import Any, Generic, Optional, TypeVar, get_args
 
 from pydantic import (
     AwareDatetime,
@@ -16,9 +17,13 @@ from pydantic import (
     ValidatorFunctionWrapHandler,
     create_model,
     model_validator,
+    field_validator,
 )
 from pydantic.functional_validators import WrapValidator
 from typing_extensions import Annotated
+
+
+MAX_FILE_SIZE = 500 * 1024  # 500KB
 
 
 def _coerce_naive_datetime(v: Any, handler: ValidatorFunctionWrapHandler) -> AwareDatetime:
@@ -90,7 +95,10 @@ GenericModelType = TypeVar("GenericModelType", bound=GenericModel)
 
 
 class MetadataModel(BaseModel, Generic[GenericModelType]):
-    """BaseModel that disallows extra fields"""
+    """BaseModel that disallows extra fields
+
+    Also performs validation checks / coercion / upgrades where necessary
+    """
 
     model_config = ConfigDict(extra="forbid", use_enum_values=True)
 
@@ -119,7 +127,6 @@ class MetadataModel(BaseModel, Generic[GenericModelType]):
                     if var_name is not unit_name:
                         if var_name in variable_name and variable_value:
                             raise ValueError(f"Unit {unit_name} is required when {variable_name} is set.")
-
         return values
 
 
@@ -135,6 +142,12 @@ class MetadataCoreModel(MetadataModel):
     schema_version: str = Field(
         ..., pattern=r"^\d+.\d+.\d+$", description="schema version", title="Version", frozen=True
     )
+
+    @field_validator("schema_version", mode="before")
+    @classmethod
+    def coerce_version(cls, v: str) -> str:
+        """Update the schema version to the latest version"""
+        return get_args(cls.model_fields["schema_version"].annotation)[0]
 
     @classmethod
     def default_filename(cls):
@@ -187,3 +200,7 @@ class MetadataCoreModel(MetadataModel):
 
         with open(filename, "w") as f:
             f.write(self.model_dump_json(indent=3))
+
+        # Check that size doesn't exceed the maximum
+        if len(self.model_dump_json(indent=3)) > MAX_FILE_SIZE:
+            logging.warning(f"File size exceeds {MAX_FILE_SIZE / 1024} KB: {filename}")

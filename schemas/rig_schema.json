@@ -7312,6 +7312,7 @@
          "description": "Type of lick sensor",
          "enum": [
             "Capacitive",
+            "Conductive",
             "Piezoelectric"
          ],
          "title": "LickSensorType",

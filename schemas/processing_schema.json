@@ -17,9 +17,17 @@
                "title": "Process name"
             },
             "software_version": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "description": "Version of the software used",
-               "title": "Version",
-               "type": "string"
+               "title": "Version"
             },
             "start_date_time": {
                "format": "date-time",
@@ -32,9 +40,19 @@
                "type": "string"
             },
             "input_location": {
-               "description": "Path to data inputs",
-               "title": "Input location",
-               "type": "string"
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "items": {
+                        "type": "string"
+                     },
+                     "type": "array"
+                  }
+               ],
+               "description": "Path(s) to data inputs",
+               "title": "Input location"
             },
             "output_location": {
                "description": "Path to data outputs",
@@ -61,6 +79,7 @@
             },
             "parameters": {
                "$ref": "#/$defs/AindGeneric",
+               "default": {},
                "title": "Parameters"
             },
             "outputs": {
@@ -104,13 +123,11 @@
             }
          },
          "required": [
-            "software_version",
             "start_date_time",
             "end_date_time",
             "input_location",
             "output_location",
             "code_url",
-            "parameters",
             "analyst_full_name",
             "description"
          ],
@@ -126,9 +143,17 @@
                "title": "Name"
             },
             "software_version": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "description": "Version of the software used",
-               "title": "Version",
-               "type": "string"
+               "title": "Version"
             },
             "start_date_time": {
                "format": "date-time",
@@ -141,9 +166,19 @@
                "type": "string"
             },
             "input_location": {
-               "description": "Path to data inputs",
-               "title": "Input location",
-               "type": "string"
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "items": {
+                        "type": "string"
+                     },
+                     "type": "array"
+                  }
+               ],
+               "description": "Path(s) to data inputs",
+               "title": "Input location"
             },
             "output_location": {
                "description": "Path to data outputs",
@@ -170,6 +205,7 @@
             },
             "parameters": {
                "$ref": "#/$defs/AindGeneric",
+               "default": {},
                "title": "Parameters"
             },
             "outputs": {
@@ -205,13 +241,11 @@
          },
          "required": [
             "name",
-            "software_version",
             "start_date_time",
             "end_date_time",
             "input_location",
             "output_location",
-            "code_url",
-            "parameters"
+            "code_url"
          ],
          "title": "DataProcess",
          "type": "object"
@@ -526,8 +560,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "1.1.2",
-         "default": "1.1.2",
+         "const": "1.1.4",
+         "default": "1.1.4",
          "title": "Schema Version",
          "type": "string"
       },
