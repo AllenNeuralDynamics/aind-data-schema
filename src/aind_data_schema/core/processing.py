@@ -8,10 +8,10 @@ from aind_data_schema_models.units import MemoryUnit, UnitlessUnit
 from pydantic import Field, SkipValidation, ValidationInfo, field_validator
 
 from aind_data_schema.base import (
-    MetadataCoreModel,
+    DataCoreModel,
     GenericModel,
     GenericModelType,
-    MetadataModel,
+    DataModel,
     AwareDatetimeWithDefault,
 )
 from aind_data_schema.components.tile import Tile
@@ -24,14 +24,14 @@ class RegistrationType(str, Enum):
     INTRA = "Intra-channel"
 
 
-class ResourceTimestamped(MetadataModel):
+class ResourceTimestamped(DataModel):
     """Description of resource usage at a moment in time"""
 
     timestamp: AwareDatetimeWithDefault = Field(..., title="Timestamp")
     usage: float = Field(..., title="Usage")
 
 
-class ResourceUsage(MetadataModel):
+class ResourceUsage(DataModel):
     """Description of resources used by a process"""
 
     os: str = Field(..., title="Operating system")
@@ -50,7 +50,7 @@ class ResourceUsage(MetadataModel):
     usage_unit: str = Field(default=UnitlessUnit.PERCENT, title="Usage unit")
 
 
-class DataProcess(MetadataModel):
+class DataProcess(DataModel):
     """Description of a single processing step"""
 
     name: ProcessName = Field(..., title="Name")
@@ -76,7 +76,7 @@ class DataProcess(MetadataModel):
         return value
 
 
-class PipelineProcess(MetadataModel):
+class PipelineProcess(DataModel):
     """Description of a Processing Pipeline"""
 
     data_processes: List[DataProcess] = Field(..., title="Data processing")
@@ -117,10 +117,10 @@ class Registration(DataProcess):
     tiles: List[Tile] = Field(..., title="Data tiles")
 
 
-class Processing(MetadataCoreModel):
+class Processing(DataCoreModel):
     """Description of all processes run on data"""
 
-    _DESCRIBED_BY_URL: str = MetadataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/processing.py"
+    _DESCRIBED_BY_URL: str = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/processing.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
     schema_version: SkipValidation[Literal["1.1.4"]] = Field(default="1.1.4")
 

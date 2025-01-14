@@ -94,7 +94,7 @@ class GenericModel(BaseModel, extra="allow"):
 GenericModelType = TypeVar("GenericModelType", bound=GenericModel)
 
 
-class MetadataModel(BaseModel, Generic[GenericModelType]):
+class DataModel(BaseModel, Generic[GenericModelType]):
     """BaseModel that disallows extra fields
 
     Also performs validation checks / coercion / upgrades where necessary
@@ -130,7 +130,7 @@ class MetadataModel(BaseModel, Generic[GenericModelType]):
         return values
 
 
-class MetadataCoreModel(MetadataModel):
+class DataCoreModel(DataModel):
     """Generic base class to hold common fields/validators/etc for all basic AIND schema"""
 
     _FILE_EXTENSION = PrivateAttr(default=".json")
@@ -155,7 +155,7 @@ class MetadataCoreModel(MetadataModel):
         Returns standard filename in snakecase
         """
         parent_classes = [
-            base_class for base_class in cls.__bases__ if base_class.__name__ != MetadataCoreModel.__name__
+            base_class for base_class in cls.__bases__ if base_class.__name__ != DataCoreModel.__name__
         ]
 
         name = cls.__name__

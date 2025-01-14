@@ -23,10 +23,10 @@ from pydantic_core.core_schema import ValidationInfo
 from typing_extensions import Annotated
 
 from aind_data_schema.base import (
-    MetadataCoreModel,
+    DataCoreModel,
     GenericModel,
     GenericModelType,
-    MetadataModel,
+    DataModel,
     AwareDatetimeWithDefault,
 )
 from aind_data_schema.components.coordinates import (
@@ -63,7 +63,7 @@ class StimulusModality(str, Enum):
 
 
 # Ophys components
-class FiberConnectionConfig(MetadataModel):
+class FiberConnectionConfig(DataModel):
     """Description for a fiber photometry configuration"""
 
     patch_cord_name: str = Field(..., title="Patch cord name (must match rig)")
@@ -79,7 +79,7 @@ class TriggerType(str, Enum):
     EXTERNAL = "External"
 
 
-class DetectorConfig(MetadataModel):
+class DetectorConfig(DataModel):
     """Description of detector settings"""
 
     name: str = Field(..., title="Name")
@@ -88,7 +88,7 @@ class DetectorConfig(MetadataModel):
     trigger_type: TriggerType = Field(..., title="Trigger type")
 
 
-class LightEmittingDiodeConfig(MetadataModel):
+class LightEmittingDiodeConfig(DataModel):
     """Description of LED settings"""
 
     device_type: Literal["Light emitting diode"] = "Light emitting diode"
@@ -97,7 +97,7 @@ class LightEmittingDiodeConfig(MetadataModel):
     excitation_power_unit: Optional[PowerUnit] = Field(default=None, title="Excitation power unit")
 
 
-class FieldOfView(MetadataModel):
+class FieldOfView(DataModel):
     """Description of an imaging field of view"""
 
     index: int = Field(..., title="Index")
@@ -145,7 +145,7 @@ class StackChannel(Channel):
     depth_unit: SizeUnit = Field(default=SizeUnit.UM, title="Depth unit")
 
 
-class Stack(MetadataModel):
+class Stack(DataModel):
     """Description of a two photon stack"""
 
     channels: List[StackChannel] = Field(..., title="Channels")
@@ -193,7 +193,7 @@ class SlapFieldOfView(FieldOfView):
 
 
 # Ephys Components
-class DomeModule(MetadataModel):
+class DomeModule(DataModel):
     """Movable module that is mounted on the ephys dome insertion system"""
 
     assembly_name: str = Field(..., title="Assembly name")
@@ -243,7 +243,7 @@ class FiberModule(ManipulatorModule):
     fiber_connections: List[FiberConnectionConfig] = Field(default=[], title="Fiber photometry devices")
 
 
-class LaserConfig(MetadataModel):
+class LaserConfig(DataModel):
     """Description of laser settings in a session"""
 
     device_type: Literal["Laser"] = "Laser"
@@ -268,7 +268,7 @@ class RewardSolution(str, Enum):
     OTHER = "Other"
 
 
-class RewardSpoutConfig(MetadataModel):
+class RewardSpoutConfig(DataModel):
     """Reward spout session information"""
 
     side: SpoutSide = Field(..., title="Spout side", description="Must match rig")
@@ -280,7 +280,7 @@ class RewardSpoutConfig(MetadataModel):
     )
 
 
-class RewardDeliveryConfig(MetadataModel):
+class RewardDeliveryConfig(DataModel):
     """Description of reward delivery configuration"""
 
     reward_solution: RewardSolution = Field(..., title="Reward solution", description="If Other use notes")
@@ -298,7 +298,7 @@ class RewardDeliveryConfig(MetadataModel):
         return value
 
 
-class SpeakerConfig(MetadataModel):
+class SpeakerConfig(DataModel):
     """Description of auditory speaker configuration"""
 
     name: str = Field(..., title="Name", description="Must match rig json")
@@ -328,7 +328,7 @@ class SubjectPosition(str, Enum):
     SUPINE = "Supine"
 
 
-class MRIScan(MetadataModel):
+class MRIScan(DataModel):
     """Description of a 3D scan"""
 
     scan_index: int = Field(..., title="Scan index")
@@ -382,7 +382,7 @@ class MRIScan(MetadataModel):
         return self
 
 
-class Stream(MetadataModel):
+class Stream(DataModel):
     """Data streams with a start and stop time"""
 
     stream_start_time: AwareDatetimeWithDefault = Field(..., title="Stream start time")
@@ -491,7 +491,7 @@ class Stream(MetadataModel):
         return value
 
 
-class StimulusEpoch(MetadataModel):
+class StimulusEpoch(DataModel):
     """Description of stimulus used during session"""
 
     stimulus_start_time: AwareDatetimeWithDefault = Field(
@@ -540,10 +540,10 @@ class StimulusEpoch(MetadataModel):
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class Session(MetadataCoreModel):
+class Session(DataCoreModel):
     """Description of a physiology and/or behavior session"""
 
-    _DESCRIBED_BY_URL = MetadataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/session.py"
+    _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/session.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
     schema_version: SkipValidation[Literal["1.1.2"]] = Field(default="1.1.2")
     protocol_id: List[str] = Field(default=[], title="Protocol ID", description="DOI for protocols.io")

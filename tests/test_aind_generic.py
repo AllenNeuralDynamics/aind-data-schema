@@ -4,10 +4,10 @@ import unittest
 
 from pydantic import BaseModel, Field
 
-from aind_data_schema.base import GenericModel, MetadataModel
+from aind_data_schema.base import GenericModel, DataModel
 
 
-class GenericContainer(MetadataModel):
+class GenericContainer(DataModel):
     """Represents a generic container"""
 
     contains_model: GenericModel

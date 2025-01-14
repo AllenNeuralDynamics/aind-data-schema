@@ -7,7 +7,7 @@ from typing import List, Literal, Optional
 from aind_data_schema_models.units import ConcentrationUnit, FrequencyUnit, PowerUnit, TimeUnit
 from pydantic import Field, model_validator
 
-from aind_data_schema.base import GenericModel, GenericModelType, MetadataModel
+from aind_data_schema.base import GenericModel, GenericModelType, DataModel
 
 
 class PulseShape(str, Enum):
@@ -25,7 +25,7 @@ class FilterType(str, Enum):
     OTHER = "Other"
 
 
-class OptoStimulation(MetadataModel):
+class OptoStimulation(DataModel):
     """Description of opto stimulation parameters"""
 
     stimulus_type: Literal["Opto Stimulation"] = "Opto Stimulation"
@@ -53,7 +53,7 @@ class OptoStimulation(MetadataModel):
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class VisualStimulation(MetadataModel):
+class VisualStimulation(DataModel):
     """Description of visual stimulus parameters. Provides a high level description of stimulus."""
 
     stimulus_type: Literal["Visual Stimulation"] = "Visual Stimulation"
@@ -71,7 +71,7 @@ class VisualStimulation(MetadataModel):
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class PhotoStimulationGroup(MetadataModel):
+class PhotoStimulationGroup(DataModel):
     """Description of a photostimulation group"""
 
     group_index: int = Field(..., title="Group index")
@@ -88,7 +88,7 @@ class PhotoStimulationGroup(MetadataModel):
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class PhotoStimulation(MetadataModel):
+class PhotoStimulation(DataModel):
     """Description of a photostimulation session"""
 
     stimulus_type: Literal["Photo Stimulation"] = "Photo Stimulation"
@@ -101,7 +101,7 @@ class PhotoStimulation(MetadataModel):
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class OlfactometerChannelConfig(MetadataModel):
+class OlfactometerChannelConfig(DataModel):
     """Description of olfactometer channel configurations"""
 
     channel_index: int = Field(..., title="Channel index")
@@ -111,7 +111,7 @@ class OlfactometerChannelConfig(MetadataModel):
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class OlfactoryStimulation(MetadataModel):
+class OlfactoryStimulation(DataModel):
     """Description of a olfactory stimulus"""
 
     stimulus_type: Literal["Olfactory Stimulation"] = "Olfactory Stimulation"
@@ -120,7 +120,7 @@ class OlfactoryStimulation(MetadataModel):
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class AuditoryStimulation(MetadataModel):
+class AuditoryStimulation(DataModel):
     """Description of an auditory stimulus"""
 
     stimulus_type: Literal["Auditory Stimulation"] = "Auditory Stimulation"

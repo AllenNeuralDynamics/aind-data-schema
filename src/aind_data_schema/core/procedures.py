@@ -25,7 +25,7 @@ from pydantic import Field, SkipValidation, field_serializer, field_validator, m
 from pydantic_core.core_schema import ValidationInfo
 from typing_extensions import Annotated
 
-from aind_data_schema.base import MetadataCoreModel, MetadataModel, AwareDatetimeWithDefault
+from aind_data_schema.base import DataCoreModel, DataModel, AwareDatetimeWithDefault
 from aind_data_schema.components.devices import FiberProbe, MyomatrixArray
 from aind_data_schema.components.reagent import Reagent
 
@@ -205,7 +205,7 @@ class Stain(Reagent):
     concentration_unit: ConcentrationUnit = Field(default=ConcentrationUnit.UM, title="Concentration unit")
 
 
-class HybridizationChainReaction(MetadataModel):
+class HybridizationChainReaction(DataModel):
     """Description of an HCR staining round"""
 
     round_index: int = Field(..., title="Round index")
@@ -219,7 +219,7 @@ class HybridizationChainReaction(MetadataModel):
     instrument_id: str = Field(..., title="Instrument ID")
 
 
-class HCRSeries(MetadataModel):
+class HCRSeries(DataModel):
     """Description of series of HCR staining rounds for mFISH"""
 
     codebook_name: str = Field(..., title="Codebook name")
@@ -238,7 +238,7 @@ class Antibody(Reagent):
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class Sectioning(MetadataModel):
+class Sectioning(DataModel):
     """Description of a sectioning procedure"""
 
     procedure_type: Literal["Sectioning"] = "Sectioning"
@@ -265,7 +265,7 @@ class Sectioning(MetadataModel):
         return v
 
 
-class SpecimenProcedure(MetadataModel):
+class SpecimenProcedure(DataModel):
     """Description of surgical or other procedure performed on a specimen"""
 
     procedure_type: SpecimenProcedureType = Field(..., title="Procedure type")
@@ -302,7 +302,7 @@ class SpecimenProcedure(MetadataModel):
         return self
 
 
-class Anaesthetic(MetadataModel):
+class Anaesthetic(DataModel):
     """Description of an anaesthetic"""
 
     type: str = Field(..., title="Type")
@@ -311,7 +311,7 @@ class Anaesthetic(MetadataModel):
     level: Optional[Decimal] = Field(default=None, title="Level (percent)", ge=1, le=5)
 
 
-class OtherSubjectProcedure(MetadataModel):
+class OtherSubjectProcedure(DataModel):
     """Description of non-surgical procedure performed on a subject"""
 
     procedure_type: Literal["Other Subject Procedure"] = "Other Subject Procedure"
@@ -320,7 +320,7 @@ class OtherSubjectProcedure(MetadataModel):
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class CatheterImplant(MetadataModel):
+class CatheterImplant(DataModel):
     """Description of a catheter implant procedure"""
 
     procedure_type: Literal["Catheter Implant"] = "Catheter implant"
@@ -331,7 +331,7 @@ class CatheterImplant(MetadataModel):
     targeted_structure: MouseAnatomicalStructure.BLOOD_VESSELS = Field(..., title="Targeted blood vessel")
 
 
-class Craniotomy(MetadataModel):
+class Craniotomy(DataModel):
     """Description of craniotomy procedure"""
 
     procedure_type: Literal["Craniotomy"] = "Craniotomy"
@@ -349,7 +349,7 @@ class Craniotomy(MetadataModel):
     recovery_time_unit: Optional[TimeUnit] = Field(default=None, title="Recovery time unit")
 
 
-class Headframe(MetadataModel):
+class Headframe(DataModel):
     """Description of headframe procedure"""
 
     procedure_type: Literal["Headframe"] = "Headframe"
@@ -361,7 +361,7 @@ class Headframe(MetadataModel):
     well_type: Optional[str] = Field(default=None, title="Well type")
 
 
-class ProtectiveMaterialReplacement(MetadataModel):
+class ProtectiveMaterialReplacement(DataModel):
     """Description of a protective material replacement procedure in preparation for ephys recording"""
 
     procedure_type: Literal["Ground wire"] = "Ground wire"
@@ -377,7 +377,7 @@ class ProtectiveMaterialReplacement(MetadataModel):
     well_type: Optional[str] = Field(default=None, title="Well type")
 
 
-class TarsVirusIdentifiers(MetadataModel):
+class TarsVirusIdentifiers(DataModel):
     """TARS data for a viral prep"""
 
     virus_tars_id: Optional[str] = Field(default=None, title="Virus ID, usually begins 'AiV'")
@@ -396,7 +396,7 @@ class TarsVirusIdentifiers(MetadataModel):
     prep_protocol: Optional[str] = Field(default=None, title="Prep protocol")
 
 
-class ViralMaterial(MetadataModel):
+class ViralMaterial(DataModel):
     """Description of viral material for injections"""
 
     material_type: Literal["Virus"] = Field(default="Virus", title="Injection material type")
@@ -429,7 +429,7 @@ class NonViralMaterial(Reagent):
     )
 
 
-class Injection(MetadataModel):
+class Injection(DataModel):
     """Description of an injection procedure"""
 
     injection_materials: List[
@@ -537,7 +537,7 @@ class IntraCisternalMagnaInjection(BrainInjection):
     injection_volume_unit: VolumeUnit = Field(VolumeUnit.NL, title="Injection volume unit")
 
 
-class SampleCollection(MetadataModel):
+class SampleCollection(DataModel):
     """Description of a single sample collection"""
 
     procedure_type: Literal["Sample collection"] = "Sample collection"
@@ -548,7 +548,7 @@ class SampleCollection(MetadataModel):
     collection_method: Optional[str] = Field(default=None, title="Collection method for terminal collection")
 
 
-class TrainingProtocol(MetadataModel):
+class TrainingProtocol(DataModel):
     """Description of an animal training protocol"""
 
     procedure_type: Literal["Training"] = "Training"
@@ -559,7 +559,7 @@ class TrainingProtocol(MetadataModel):
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class OphysProbe(MetadataModel):
+class OphysProbe(DataModel):
     """Description of an implanted ophys probe"""
 
     ophys_probe: FiberProbe = Field(..., title="Fiber probe")
@@ -583,7 +583,7 @@ class OphysProbe(MetadataModel):
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class FiberImplant(MetadataModel):
+class FiberImplant(DataModel):
     """Description of an implant procedure"""
 
     procedure_type: Literal["Fiber implant"] = "Fiber implant"
@@ -591,7 +591,7 @@ class FiberImplant(MetadataModel):
     probes: List[OphysProbe] = Field(..., title="Ophys Probes")
 
 
-class WaterRestriction(MetadataModel):
+class WaterRestriction(DataModel):
     """Description of a water restriction procedure"""
 
     procedure_type: Literal["Water restriction"] = "Water restriction"
@@ -610,7 +610,7 @@ class WaterRestriction(MetadataModel):
     end_date: Optional[date] = Field(default=None, title="Water restriction end date")
 
 
-class MyomatrixContact(MetadataModel):
+class MyomatrixContact(DataModel):
     """ "Description of a contact on a myomatrix thread"""
 
     body_part: MouseAnatomicalStructure.BODY_PARTS = Field(..., title="Body part of contact insertion")
@@ -620,14 +620,14 @@ class MyomatrixContact(MetadataModel):
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class MyomatrixThread(MetadataModel):
+class MyomatrixThread(DataModel):
     """Description of a thread of a myomatrix array"""
 
     ground_electrode_location: MouseAnatomicalStructure.BODY_PARTS = Field(..., title="Location of ground electrode")
     contacts: List[MyomatrixContact] = Field(..., title="Contacts")
 
 
-class MyomatrixInsertion(MetadataModel):
+class MyomatrixInsertion(DataModel):
     """Description of a Myomatrix array insertion for EMG"""
 
     procedure_type: Literal["Myomatrix_Insertion"] = "Myomatrix_Insertion"
@@ -636,7 +636,7 @@ class MyomatrixInsertion(MetadataModel):
     threads: List[MyomatrixThread] = Field(..., title="Array threads")
 
 
-class Perfusion(MetadataModel):
+class Perfusion(DataModel):
     """Description of a perfusion procedure that creates a specimen"""
 
     procedure_type: Literal["Perfusion"] = "Perfusion"
@@ -653,7 +653,7 @@ class Perfusion(MetadataModel):
         return sorted(values)
 
 
-class Surgery(MetadataModel):
+class Surgery(DataModel):
     """Description of subject procedures performed at one time"""
 
     procedure_type: Literal["Surgery"] = "Surgery"
@@ -699,10 +699,10 @@ class Surgery(MetadataModel):
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class Procedures(MetadataCoreModel):
+class Procedures(DataCoreModel):
     """Description of all procedures performed on a subject"""
 
-    _DESCRIBED_BY_URL = MetadataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/procedures.py"
+    _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/procedures.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
 
     schema_version: SkipValidation[Literal["1.2.3"]] = Field(default="1.2.3")

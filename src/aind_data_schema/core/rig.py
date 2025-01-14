@@ -7,7 +7,7 @@ from aind_data_schema_models.modalities import Modality
 from pydantic import Field, SkipValidation, ValidationInfo, field_serializer, field_validator, model_validator
 from typing_extensions import Annotated
 
-from aind_data_schema.base import MetadataCoreModel
+from aind_data_schema.base import DataCoreModel
 from aind_data_schema.components.coordinates import Axis, Origin
 from aind_data_schema.components.devices import (
     LIGHT_SOURCES,
@@ -46,10 +46,10 @@ RIG_DAQ_DEVICES = Annotated[
 RIG_ID_PATTERN = r"^[a-zA-Z0-9]+_[a-zA-Z0-9-]+_\d{8}$"
 
 
-class Rig(MetadataCoreModel):
+class Rig(DataCoreModel):
     """Description of a rig"""
 
-    _DESCRIBED_BY_URL = MetadataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/rig.py"
+    _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/rig.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
     schema_version: SkipValidation[Literal["1.0.4"]] = Field(default="1.0.4")
     rig_id: str = Field(

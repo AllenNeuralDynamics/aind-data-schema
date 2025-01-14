@@ -14,8 +14,8 @@ from aind_data_schema.base import (
     GenericModel,
     AwareDatetimeWithDefault,
     is_dict_corrupt,
-    MetadataModel,
-    MetadataCoreModel,
+    DataModel,
+    DataCoreModel,
     MAX_FILE_SIZE,
 )
 from aind_data_schema.core.subject import Subject
@@ -69,7 +69,7 @@ class BaseTests(unittest.TestCase):
     def test_units(self):
         """Test that models with value/value_unit pairs throw errors properly"""
 
-        class TestModel(MetadataModel):
+        class TestModel(DataModel):
             """temporary test model"""
 
             value: Optional[str] = Field(default=None)
@@ -85,7 +85,7 @@ class BaseTests(unittest.TestCase):
         self.assertIsNotNone(test1)
 
         # Multi-unit condition
-        class MultiModel(MetadataModel):
+        class MultiModel(DataModel):
             """temporary test model with multiple variables"""
 
             value_multi_one_with_depth: Optional[str] = Field(default=None)
@@ -159,7 +159,7 @@ class BaseTests(unittest.TestCase):
     def test_ccf_validator(self):
         """Tests that CCFStructure validator works"""
 
-        class StructureModel(MetadataModel):
+        class StructureModel(DataModel):
             """Test model with a targeted_structure"""
 
             targeted_structure: CCFStructure.ONE_OF
@@ -170,13 +170,13 @@ class BaseTests(unittest.TestCase):
         """Test that schema version are bumped successfully
         and that validation errors prevent bumping"""
 
-        class Modelv1(MetadataCoreModel):
+        class Modelv1(DataCoreModel):
             """test class"""
 
             describedBy: str = "modelv1"
             schema_version: SkipValidation[Literal["1.0.0"]] = "1.0.0"
 
-        class Modelv2(MetadataCoreModel):
+        class Modelv2(DataCoreModel):
             """test class"""
 
             describedBy: str = "modelv2"

@@ -17,10 +17,10 @@ from aind_data_schema_models.pid_names import PIDName
 from aind_data_schema_models.platforms import Platform
 from pydantic import Field, SkipValidation, model_validator
 
-from aind_data_schema.base import MetadataCoreModel, MetadataModel, AwareDatetimeWithDefault
+from aind_data_schema.base import DataCoreModel, DataModel, AwareDatetimeWithDefault
 
 
-class Funding(MetadataModel):
+class Funding(DataModel):
     """Description of funding sources"""
 
     funder: Organization.FUNDERS = Field(..., title="Funder")
@@ -28,17 +28,17 @@ class Funding(MetadataModel):
     fundee: Optional[str] = Field(default=None, title="Fundee", description="Person(s) funded by this mechanism")
 
 
-class RelatedData(MetadataModel):
+class RelatedData(DataModel):
     """Description of related data asset"""
 
     related_data_path: str = Field(..., title="Related data path")
     relation: str = Field(..., title="Relation", description="Relation of data to this asset")
 
 
-class DataDescription(MetadataCoreModel):
+class DataDescription(DataCoreModel):
     """Description of a logical collection of data files"""
 
-    _DESCRIBED_BY_URL = MetadataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/data_description.py"
+    _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/data_description.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
     schema_version: SkipValidation[Literal["1.0.4"]] = Field(default="1.0.4")
     license: Literal["CC-BY-4.0"] = Field("CC-BY-4.0", title="License")

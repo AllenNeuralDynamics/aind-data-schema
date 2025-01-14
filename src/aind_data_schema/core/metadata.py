@@ -21,7 +21,7 @@ from pydantic import (
     model_validator,
 )
 
-from aind_data_schema.base import MetadataCoreModel, is_dict_corrupt, AwareDatetimeWithDefault
+from aind_data_schema.base import DataCoreModel, is_dict_corrupt, AwareDatetimeWithDefault
 from aind_data_schema.core.acquisition import Acquisition
 from aind_data_schema.core.data_description import DataDescription
 from aind_data_schema.core.instrument import Instrument
@@ -61,7 +61,7 @@ class ExternalPlatforms(str, Enum):
     CODEOCEAN = "Code Ocean"
 
 
-class Metadata(MetadataCoreModel):
+class Metadata(DataCoreModel):
     """The records in the Data Asset Collection needs to contain certain fields
     to easily query and index the data."""
 
@@ -70,7 +70,7 @@ class Metadata(MetadataCoreModel):
     # default
     _FILE_EXTENSION = PrivateAttr(default=".nd.json")
 
-    _DESCRIBED_BY_URL = MetadataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/metadata.py"
+    _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/metadata.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
     schema_version: SkipValidation[Literal["1.1.4"]] = Field(default="1.1.4")
     id: UUID = Field(
@@ -105,7 +105,7 @@ class Metadata(MetadataCoreModel):
     external_links: Dict[ExternalPlatforms, List[str]] = Field(
         default=dict(), title="External Links", description="Links to the data asset on different platforms."
     )
-    # We can make the MetadataCoreModel fields optional for now and do more
+    # We can make the DataCoreModel fields optional for now and do more
     # granular validations using validators. We may have some older data
     # assets in S3 that don't have metadata attached. We'd still like to
     # index that data, but we can flag those instances as MISSING or UNKNOWN
@@ -182,14 +182,14 @@ class Metadata(MetadataCoreModel):
                     [
                         f
                         for f in get_args(self.model_fields[field_name].annotation)
-                        if inspect.isclass(f) and issubclass(f, MetadataCoreModel)
+                        if inspect.isclass(f) and issubclass(f, DataCoreModel)
                     ]
                 )
             )
             if (
                 optional_classes
                 and inspect.isclass(optional_classes[0])
-                and issubclass(optional_classes[0], MetadataCoreModel)
+                and issubclass(optional_classes[0], DataCoreModel)
             ):
                 all_model_fields[field_name] = optional_classes[0]
 
