@@ -4,14 +4,12 @@
    "protocol_id": [],
    "experimenters": [
       {
-         "first_name": "John",
-         "last_name": "Smith",
+         "name": "John Smith",
          "registry": {
             "name": "Open Researcher and Contributor ID",
             "abbreviation": "ORCID"
          },
-         "registry_identifier": null,
-         "anonymous_id": null
+         "registry_identifier": null
       }
    ],
    "session_start_time": "2023-04-25T02:35:00Z",

@@ -9,14 +9,12 @@
          "start_date": "2022-07-12",
          "experimenters": [
             {
-               "first_name": "Scientist",
-               "last_name": "Smith",
+               "name": "Scientist Smith",
                "registry": {
                   "name": "Open Researcher and Contributor ID",
                   "abbreviation": "ORCID"
                },
-               "registry_identifier": null,
-               "anonymous_id": null
+               "registry_identifier": null
             }
          ],
          "iacuc_protocol": "2109",
@@ -142,14 +140,12 @@
          "start_date": "2023-05-31",
          "experimenters": [
             {
-               "first_name": "Scientist",
-               "last_name": "Smith",
+               "name": "Scientist Smith",
                "registry": {
                   "name": "Open Researcher and Contributor ID",
                   "abbreviation": "ORCID"
                },
-               "registry_identifier": null,
-               "anonymous_id": null
+               "registry_identifier": null
             }
          ],
          "iacuc_protocol": "2109",
@@ -184,14 +180,12 @@
          "end_date": "2023-06-12",
          "experimenters": [
             {
-               "first_name": "Scientist",
-               "last_name": "Smith",
+               "name": "Scientist Smith",
                "registry": {
                   "name": "Open Researcher and Contributor ID",
                   "abbreviation": "ORCID"
                },
-               "registry_identifier": null,
-               "anonymous_id": null
+               "registry_identifier": null
             }
          ],
          "protocol_id": [
@@ -240,14 +234,12 @@
          "end_date": "2023-06-13",
          "experimenters": [
             {
-               "first_name": "Scientist",
-               "last_name": "Smith",
+               "name": "Scientist Smith",
                "registry": {
                   "name": "Open Researcher and Contributor ID",
                   "abbreviation": "ORCID"
                },
-               "registry_identifier": null,
-               "anonymous_id": null
+               "registry_identifier": null
             }
          ],
          "protocol_id": [
