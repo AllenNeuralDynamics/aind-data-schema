@@ -8,7 +8,7 @@ from typing import Dict, List
 import dictdiffer
 import semver
 
-from aind_data_schema.base import AindCoreModel
+from aind_data_schema.base import DataCoreModel
 from aind_data_schema.utils.json_writer import SchemaWriter
 
 CURRENT_DIR = Path(os.path.dirname(os.path.realpath(__file__)))
@@ -34,14 +34,14 @@ class SchemaVersionHandler:
         self.commit_message = commit_message
         self.json_schemas_location = json_schemas_location
 
-    def _get_list_of_models_that_changed(self) -> List[AindCoreModel]:
+    def _get_list_of_models_that_changed(self) -> List[DataCoreModel]:
         """
         Get a list of core models that have been updated by comparing the json
         schema of the models to the json schema in the schemas folder.
         Returns
         -------
-        List[AindCoreModel]
-          A list of AindCoreModels that changed.
+        List[DataCoreModel]
+          A list of DataCoreModels that changed.
         """
         schemas_that_need_updating = []
         for core_model in SchemaWriter.get_schemas():
@@ -59,18 +59,18 @@ class SchemaVersionHandler:
         return schemas_that_need_updating
 
     @staticmethod
-    def _get_incremented_versions_map(models_that_changed: List[AindCoreModel]) -> Dict[AindCoreModel, str]:
+    def _get_incremented_versions_map(models_that_changed: List[DataCoreModel]) -> Dict[DataCoreModel, str]:
         """
 
         Parameters
         ----------
-        models_that_changed : List[AindCoreModel]
+        models_that_changed : List[DataCoreModel]
           A list of models that have been updated and need to have their version numbers incremented.
 
         Returns
         -------
-        Dict[AindCoreModel, str]
-          A mapping of the AindCoreModel to its new version number.
+        Dict[DataCoreModel, str]
+          A mapping of the DataCoreModel to its new version number.
 
         """
         version_bump_map = {}
@@ -133,13 +133,13 @@ class SchemaVersionHandler:
             for line in new_file_contents:
                 f.write(line)
 
-    def _update_files(self, version_bump_map: Dict[AindCoreModel, str]) -> None:
+    def _update_files(self, version_bump_map: Dict[DataCoreModel, str]) -> None:
         """
         Using the information in the version_bump_map, will update the python
         files in the core directory.
         Parameters
         ----------
-        version_bump_map : Dict[AindCoreModel, str]
+        version_bump_map : Dict[DataCoreModel, str]
           The models that need updating are in the dictionary keys and the
           new version number is the dictionary value.
 

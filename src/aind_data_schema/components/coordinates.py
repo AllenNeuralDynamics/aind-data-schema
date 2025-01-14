@@ -8,7 +8,7 @@ from aind_data_schema_models.units import AngleUnit, SizeUnit
 from pydantic import Field
 from typing_extensions import Annotated
 
-from aind_data_schema.base import AindModel
+from aind_data_schema.base import DataModel
 
 
 class CcfVersion(str, Enum):
@@ -45,7 +45,7 @@ class AnatomicalDirection(str, Enum):
     OTHER = "Other"
 
 
-class CoordinateTransform(AindModel):
+class CoordinateTransform(DataModel):
     """Generic base class for coordinate transform subtypes"""
 
     type: str = Field(..., title="transformation type")
@@ -83,7 +83,7 @@ class Affine3dTransform(CoordinateTransform):
     )
 
 
-class Size2d(AindModel):
+class Size2d(DataModel):
     """2D size of an object"""
 
     width: int = Field(..., title="Width")
@@ -91,7 +91,7 @@ class Size2d(AindModel):
     unit: SizeUnit = Field(SizeUnit.PX, title="Size unit")
 
 
-class Size3d(AindModel):
+class Size3d(DataModel):
     """3D size of an object"""
 
     width: int = Field(..., title="Width")
@@ -100,7 +100,7 @@ class Size3d(AindModel):
     unit: SizeUnit = Field(SizeUnit.M, title="Size unit")
 
 
-class Orientation3d(AindModel):
+class Orientation3d(DataModel):
     """3D orientation of an object"""
 
     pitch: Decimal = Field(..., title="Angle pitch", ge=0, le=360)
@@ -109,7 +109,7 @@ class Orientation3d(AindModel):
     unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
 
 
-class ModuleOrientation2d(AindModel):
+class ModuleOrientation2d(DataModel):
     """2D module orientation of an object"""
 
     arc_angle: Decimal = Field(..., title="Arc angle")
@@ -117,7 +117,7 @@ class ModuleOrientation2d(AindModel):
     unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
 
 
-class ModuleOrientation3d(AindModel):
+class ModuleOrientation3d(DataModel):
     """3D module orientation of an object"""
 
     arc_angle: Decimal = Field(..., title="Arc angle")
@@ -126,7 +126,7 @@ class ModuleOrientation3d(AindModel):
     unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
 
 
-class Coordinates3d(AindModel):
+class Coordinates3d(DataModel):
     """Coordinates in a 3D grid"""
 
     x: Decimal = Field(..., title="Position X")
@@ -135,7 +135,7 @@ class Coordinates3d(AindModel):
     unit: SizeUnit = Field(SizeUnit.UM, title="Position unit")
 
 
-class CcfCoords(AindModel):
+class CcfCoords(DataModel):
     """Coordinates in CCF template space"""
 
     ml: Decimal = Field(..., title="ML")
@@ -145,7 +145,7 @@ class CcfCoords(AindModel):
     ccf_version: CcfVersion = Field(CcfVersion.CCFv3, title="CCF version")
 
 
-class Axis(AindModel):
+class Axis(DataModel):
     """Description of an axis"""
 
     name: AxisName = Field(..., title="Axis")
@@ -168,7 +168,7 @@ class ImageAxis(Axis):
     unit: SizeUnit = Field(SizeUnit.UM, title="Axis physical units")
 
 
-class RelativePosition(AindModel):
+class RelativePosition(DataModel):
     """Position and rotation of a device in a rig or instrument"""
 
     device_position_transformations: List[

@@ -8,7 +8,7 @@ import warnings
 from aind_data_schema_models.modalities import Modality
 from pydantic import BaseModel, Field, SkipValidation, field_validator, model_validator
 
-from aind_data_schema.base import AindCoreModel, AindModel, AwareDatetimeWithDefault
+from aind_data_schema.base import DataCoreModel, DataModel, AwareDatetimeWithDefault
 
 
 class Status(str, Enum):
@@ -72,7 +72,7 @@ class QCMetric(BaseModel):
         return v
 
 
-class QCEvaluation(AindModel):
+class QCEvaluation(DataModel):
     """Description of one evaluation stage, with one or more metrics"""
 
     modality: Modality.ONE_OF = Field(..., title="Modality")
@@ -194,10 +194,10 @@ class QCEvaluation(AindModel):
         return v
 
 
-class QualityControl(AindCoreModel):
+class QualityControl(DataCoreModel):
     """Description of quality metrics for a data asset"""
 
-    _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/quality_control.py"
+    _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/quality_control.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
     schema_version: SkipValidation[Literal["1.2.2"]] = Field(default="1.2.2")
     evaluations: List[QCEvaluation] = Field(..., title="Evaluations")

@@ -11,7 +11,7 @@ from aind_data_schema_models.species import Species
 from pydantic import Field, SkipValidation, field_validator
 from pydantic_core.core_schema import ValidationInfo
 
-from aind_data_schema.base import AindCoreModel, AindModel
+from aind_data_schema.base import DataCoreModel, DataModel
 
 
 class Sex(str, Enum):
@@ -38,7 +38,7 @@ class HomeCageEnrichment(str, Enum):
     OTHER = "Other"
 
 
-class LightCycle(AindModel):
+class LightCycle(DataModel):
     """Description of vivarium light cycle times"""
 
     lights_on_time: time = Field(
@@ -53,14 +53,14 @@ class LightCycle(AindModel):
     )
 
 
-class WellnessReport(AindModel):
+class WellnessReport(DataModel):
     """Wellness report on animal health"""
 
     date: date_type = Field(..., title="Date")
     report: str = Field(..., title="Report")
 
 
-class Housing(AindModel):
+class Housing(DataModel):
     """Description of subject housing"""
 
     cage_id: Optional[str] = Field(default=None, title="Cage ID")
@@ -74,7 +74,7 @@ class Housing(AindModel):
     )
 
 
-class BreedingInfo(AindModel):
+class BreedingInfo(DataModel):
     """Description of breeding info for subject"""
 
     breeding_group: str = Field(..., title="Breeding Group")
@@ -84,10 +84,10 @@ class BreedingInfo(AindModel):
     paternal_genotype: str = Field(..., title="Paternal genotype")
 
 
-class Subject(AindCoreModel):
+class Subject(DataCoreModel):
     """Description of a subject of data collection"""
 
-    _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/subject.py"
+    _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/subject.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
     schema_version: SkipValidation[Literal["1.0.3"]] = Field(default="1.0.3")
     subject_id: str = Field(

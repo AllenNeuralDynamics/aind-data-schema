@@ -7,22 +7,22 @@ from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.system_architecture import ModelBackbone
 from pydantic import Field
 
-from aind_data_schema.base import AindCoreModel, AindGeneric, AindGenericType, AindModel
+from aind_data_schema.base import DataModel, DataCoreModel, GenericModel, GenericModelType
 from aind_data_schema.components.devices import Software
 from aind_data_schema.core.processing import DataProcess, ProcessName
 
 
-class ModelArchitecture(AindModel):
+class ModelArchitecture(DataModel):
     """Description of model architecture"""
 
     backbone: ModelBackbone = Field(..., title="Backbone", description="Core network architecture")
     software: List[Software] = Field(default=[], title="Software frameworks")
     layers: Optional[int] = Field(default=None, title="Layers")
-    parameters: AindGenericType = Field(default=AindGeneric(), title="Parameters")
+    parameters: GenericModelType = Field(default=GenericModel(), title="Parameters")
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class PerformanceMetric(AindModel):
+class PerformanceMetric(DataModel):
     """Description of a performance metric"""
 
     name: str = Field(..., title="Metric name")
@@ -51,10 +51,10 @@ class ModelTraining(DataProcess):
     )
 
 
-class Model(AindCoreModel):
+class Model(DataCoreModel):
     """Description of an analysis model"""
 
-    _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/model.py"
+    _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/model.py"
     describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
     schema_version: Literal["0.0.1"] = Field("0.0.1")
 

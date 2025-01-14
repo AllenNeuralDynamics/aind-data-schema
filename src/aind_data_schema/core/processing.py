@@ -7,7 +7,13 @@ from aind_data_schema_models.process_names import ProcessName
 from aind_data_schema_models.units import MemoryUnit, UnitlessUnit
 from pydantic import Field, SkipValidation, ValidationInfo, field_validator
 
-from aind_data_schema.base import AindCoreModel, AindGeneric, AindGenericType, AindModel, AwareDatetimeWithDefault
+from aind_data_schema.base import (
+    DataCoreModel,
+    GenericModel,
+    GenericModelType,
+    DataModel,
+    AwareDatetimeWithDefault,
+)
 from aind_data_schema.components.tile import Tile
 
 
@@ -18,14 +24,14 @@ class RegistrationType(str, Enum):
     INTRA = "Intra-channel"
 
 
-class ResourceTimestamped(AindModel):
+class ResourceTimestamped(DataModel):
     """Description of resource usage at a moment in time"""
 
     timestamp: AwareDatetimeWithDefault = Field(..., title="Timestamp")
     usage: float = Field(..., title="Usage")
 
 
-class ResourceUsage(AindModel):
+class ResourceUsage(DataModel):
     """Description of resources used by a process"""
 
     os: str = Field(..., title="Operating system")
@@ -44,7 +50,7 @@ class ResourceUsage(AindModel):
     usage_unit: str = Field(default=UnitlessUnit.PERCENT, title="Usage unit")
 
 
-class DataProcess(AindModel):
+class DataProcess(DataModel):
     """Description of a single processing step"""
 
     name: ProcessName = Field(..., title="Name")
@@ -56,8 +62,8 @@ class DataProcess(AindModel):
     output_location: str = Field(..., description="Path to data outputs", title="Output location")
     code_url: str = Field(..., description="Path to code repository", title="Code URL")
     code_version: Optional[str] = Field(default=None, description="Version of the code", title="Code version")
-    parameters: AindGenericType = Field(default=AindGeneric(), title="Parameters")
-    outputs: AindGenericType = Field(default=AindGeneric(), description="Output parameters", title="Outputs")
+    parameters: GenericModelType = Field(default=GenericModel(), title="Parameters")
+    outputs: GenericModelType = Field(default=GenericModel(), description="Output parameters", title="Outputs")
     notes: Optional[str] = Field(default=None, title="Notes", validate_default=True)
     resources: Optional[ResourceUsage] = Field(default=None, title="Process resource usage")
 
@@ -70,7 +76,7 @@ class DataProcess(AindModel):
         return value
 
 
-class PipelineProcess(AindModel):
+class PipelineProcess(DataModel):
     """Description of a Processing Pipeline"""
 
     data_processes: List[DataProcess] = Field(..., title="Data processing")
@@ -111,10 +117,10 @@ class Registration(DataProcess):
     tiles: List[Tile] = Field(..., title="Data tiles")
 
 
-class Processing(AindCoreModel):
+class Processing(DataCoreModel):
     """Description of all processes run on data"""
 
-    _DESCRIBED_BY_URL: str = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/processing.py"
+    _DESCRIBED_BY_URL: str = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/processing.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
     schema_version: SkipValidation[Literal["1.1.4"]] = Field(default="1.1.4")
 

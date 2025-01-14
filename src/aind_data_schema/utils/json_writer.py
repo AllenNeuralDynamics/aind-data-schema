@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Iterator
 
 from aind_data_schema import core
-from aind_data_schema.base import AindCoreModel
+from aind_data_schema.base import DataCoreModel
 
 # Import all modules in core package
 for mod in core.__loader__.get_resource_reader().contents():
@@ -54,12 +54,12 @@ class SchemaWriter:
         return optional_args
 
     @staticmethod
-    def get_schemas() -> Iterator[AindCoreModel]:
+    def get_schemas() -> Iterator[DataCoreModel]:
         """
-        Returns Iterator of AindCoreModel classes
+        Returns Iterator of DataCoreModel classes
         """
 
-        for model in AindCoreModel.__subclasses__():
+        for model in DataCoreModel.__subclasses__():
             yield model
 
     def write_to_json(self) -> None:
