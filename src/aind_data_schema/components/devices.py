@@ -273,7 +273,7 @@ class Device(DataModel):
         default=None, title="Path to CAD diagram", description="For CUSTOM manufactured devices"
     )
     port_index: Optional[str] = Field(default=None, title="Port index")
-    additional_settings: GenericModelType = Field(GenericModel(), title="Additional parameters")
+    additional_settings: Optional[GenericModelType] = Field(default=None, title="Additional parameters")
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
@@ -933,6 +933,3 @@ class MyomatrixArray(Device):
 
     device_type: Literal["Myomatrix Array"] = "Myomatrix Array"
     array_type: MyomatrixArrayType = Field(..., title="Array type")
-
-
-LIGHT_SOURCES = Annotated[Union[Laser, LightEmittingDiode, Lamp], Field(discriminator="device_type")]
