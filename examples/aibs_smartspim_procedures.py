@@ -7,7 +7,7 @@ from aind_data_schema_models.organizations import Organization
 from aind_data_schema.components.identifiers import Experimenter
 from aind_data_schema.core import procedures
 
-experimenters = [Experimenter(first_name="John", last_name="Smith")]
+experimenters = [Experimenter(name="John Smith")]
 # subject and specimen id can be the same?
 specimen_id = "651286"
 
@@ -36,7 +36,7 @@ agarose = procedures.Reagent(name="Agarose", lot_number="1234", source=Organizat
 
 perfusion = procedures.Surgery(
     start_date=date(2022, 11, 17),
-    experimenters=[Experimenter(anonymous_id="LAS")],
+    experimenters=[Experimenter(name="LAS")],
     iacuc_protocol="xxxx",
     protocol_id="doi_of_protocol_surgery",
     procedures=[

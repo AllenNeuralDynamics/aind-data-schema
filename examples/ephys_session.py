@@ -19,7 +19,7 @@ from aind_data_schema.core.session import (
 )
 
 session = Session(
-    experimenters=[Experimenter(first_name="John", last_name="Smith")],
+    experimenters=[Experimenter(name="John Smith")],
     subject_id="664484",
     session_start_time=datetime(year=2023, month=4, day=25, hour=2, minute=35, second=0, tzinfo=timezone.utc),
     session_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0, tzinfo=timezone.utc),

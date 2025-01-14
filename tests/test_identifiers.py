@@ -10,12 +10,10 @@ class TestExperimenter(unittest.TestCase):
     def test_experimenter_with_full_name(self):
         """Test Experimenter with first and last name"""
         experimenter = Experimenter(
-            first_name="John",
-            last_name="Doe",
+            name="John Doe",
             registry_identifier="0000-0001-2345-6789"
         )
-        self.assertEqual(experimenter.first_name, "John")
-        self.assertEqual(experimenter.last_name, "Doe")
+        self.assertEqual(experimenter.name, "John Doe")
         self.assertEqual(experimenter.registry_identifier, "0000-0001-2345-6789")
 
     def test_experimenter_with_anonymous_id(self):
@@ -29,20 +27,6 @@ class TestExperimenter(unittest.TestCase):
         """Test Experimenter missing required fields"""
         with self.assertRaises(ValidationError):
             Experimenter()
-
-    def test_experimenter_missing_last_name(self):
-        """Test Experimenter missing last name"""
-        with self.assertRaises(ValidationError):
-            Experimenter(
-                first_name="John"
-            )
-
-    def test_experimenter_missing_first_name(self):
-        """Test Experimenter missing first name"""
-        with self.assertRaises(ValidationError):
-            Experimenter(
-                last_name="Doe"
-            )
 
 
 if __name__ == '__main__':

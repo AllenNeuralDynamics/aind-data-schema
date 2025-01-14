@@ -25,7 +25,7 @@ p = Procedures(
         Surgery(
             start_date=t.date(),
             protocol_id="doi",
-            experimenters=[Experimenter(first_name="Scientist", last_name="Smith")],
+            experimenters=[Experimenter(name="Scientist Smith")],
             iacuc_protocol="2109",
             animal_weight_prior=22.6,
             animal_weight_post=22.3,
@@ -68,7 +68,7 @@ p = Procedures(
         ),
         Surgery(
             start_date=t2.date(),
-            experimenters=[Experimenter(first_name="Scientist", last_name="Smith")],
+            experimenters=[Experimenter(name="Scientist Smith")],
             iacuc_protocol="2109",
             protocol_id="doi",
             procedures=[

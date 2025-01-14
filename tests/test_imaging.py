@@ -34,7 +34,7 @@ class ImagingTests(unittest.TestCase):
             acq.Acquisition()
 
         a = acq.Acquisition(
-            experimenters=[Experimenter(first_name="alice", last_name="bob")],
+            experimenters=[Experimenter(name="alice bob")],
             session_start_time=datetime.now(tz=timezone.utc),
             specimen_id="12345",
             subject_id="1234",
@@ -135,7 +135,7 @@ class ImagingTests(unittest.TestCase):
         test_codes = ["RAS", "LSP", "RAI", "PAR"]
         for test_code in test_codes:
             a = acq.Acquisition(
-                experimenters=[Experimenter(first_name="alice", last_name="bob")],
+                experimenters=[Experimenter(name="alice bob")],
                 session_start_time=datetime.now(tz=timezone.utc),
                 specimen_id="12345",
                 subject_id="1234",

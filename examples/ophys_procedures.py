@@ -31,7 +31,7 @@ p = Procedures(
     subject_procedures=[
         Surgery(
             start_date=t.date(),
-            experimenters=[Experimenter(first_name="Scientist", last_name="Smith")],
+            experimenters=[Experimenter(name="Scientist Smith")],
             iacuc_protocol="2109",
             animal_weight_prior=22.6,
             animal_weight_post=22.3,
@@ -102,7 +102,7 @@ p = Procedures(
         ),
         Surgery(
             start_date="2023-05-31",
-            experimenters=[Experimenter(first_name="Scientist", last_name="Smith")],
+            experimenters=[Experimenter(name="Scientist Smith")],
             iacuc_protocol="2109",
             anaesthesia=Anaesthetic(type="Isoflurane", duration=30, level=3),
             workstation_id="SWS 3",
@@ -118,7 +118,7 @@ p = Procedures(
             specimen_id="672640",
             start_date="2023-06-09",
             end_date="2023-06-12",
-            experimenters=[Experimenter(first_name="Scientist", last_name="Smith")],
+            experimenters=[Experimenter(name="Scientist Smith")],
             protocol_id=["TO ENTER"],
             reagents=[],
             antibodies=[
@@ -141,7 +141,7 @@ p = Procedures(
             specimen_id="672640",
             start_date="2023-06-12",
             end_date="2023-06-13",
-            experimenters=[Experimenter(first_name="Scientist", last_name="Smith")],
+            experimenters=[Experimenter(name="Scientist Smith")],
             protocol_id=["TO ENTER"],
             reagents=[],
             antibodies=[

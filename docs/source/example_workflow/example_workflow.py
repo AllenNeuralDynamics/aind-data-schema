@@ -16,7 +16,7 @@ mice_df = pd.read_excel("example_workflow.xlsx", sheet_name="mice")
 procedures_df = pd.read_excel("example_workflow.xlsx", sheet_name="procedures")
 
 # everything was done by one person, so it's not in the spreadsheet
-experimenter = [Experimenter(first_name="Some", last_name="Investigator")]
+experimenter = [Experimenter(name="Some Investigator")]
 
 # in our spreadsheet, we stored sex as M/F instead of Male/Female
 subject_sex_lookup = {

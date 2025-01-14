@@ -40,7 +40,7 @@ class ExampleTest(unittest.TestCase):
             sess = Session()
 
         sess = Session(
-            experimenters=[Experimenter(first_name="Mam", last_name="Moth")],
+            experimenters=[Experimenter(name="Mam Moth")],
             session_start_time=datetime.now(),
             session_end_time=datetime.now(),
             subject_id="1234",
@@ -119,7 +119,7 @@ class ExampleTest(unittest.TestCase):
         )
 
         mri = Session(
-            experimenters=[Experimenter(first_name="Mam", last_name="Moth")],
+            experimenters=[Experimenter(name="Mam Moth")],
             subject_id="123456",
             session_start_time=datetime.now(tz=timezone.utc),
             session_end_time=datetime.now(tz=timezone.utc),

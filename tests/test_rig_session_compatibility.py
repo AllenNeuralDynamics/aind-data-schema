@@ -247,7 +247,7 @@ ephys_rig = Rig(
 )
 
 ephys_session = Session(
-    experimenters=[Experimenter(first_name="Mam", last_name="Moth")],
+    experimenters=[Experimenter(name="Mam Moth")],
     subject_id="664484",
     session_start_time=datetime(year=2023, month=4, day=25, hour=2, minute=35, second=0, tzinfo=timezone.utc),
     session_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0, tzinfo=timezone.utc),
@@ -777,7 +777,7 @@ class TestRigSessionCompatibility(unittest.TestCase):
             ],
         )
         cls.ophys_session = Session(
-            experimenters=[Experimenter(first_name="Mam", last_name="Moth")],
+            experimenters=[Experimenter(name="Mam Moth")],
             session_start_time=datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc),
             session_end_time=datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc),
             subject_id="652567",

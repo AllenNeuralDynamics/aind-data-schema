@@ -20,7 +20,7 @@ t = datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc)
 
 
 acq = acquisition.Acquisition(
-    experimenters=[Experimenter(first_name="John", last_name="Smith")],
+    experimenters=[Experimenter(name="John Smith")],
     specimen_id="###",
     subject_id="###",
     instrument_id="###",
