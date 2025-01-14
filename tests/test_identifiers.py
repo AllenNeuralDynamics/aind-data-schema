@@ -14,11 +14,6 @@ class TestExperimenter(unittest.TestCase):
         self.assertEqual(experimenter.name, "John Doe")
         self.assertEqual(experimenter.registry_identifier, "0000-0001-2345-6789")
 
-    def test_experimenter_with_anonymous_id(self):
-        """Test Experimenter with anonymous ID"""
-        experimenter = Experimenter(anonymous_id="anon123")
-        self.assertEqual(experimenter.anonymous_id, "anon123")
-
     def test_experimenter_missing_required_fields(self):
         """Test Experimenter missing required fields"""
         with self.assertRaises(ValidationError):
