@@ -11,8 +11,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "1.0.4",
-               "default": "1.0.4",
+               "const": "1.0.5",
+               "default": "1.0.5",
                "title": "Schema Version",
                "type": "string"
             },
@@ -782,7 +782,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Additional parameters"
             },
@@ -841,13 +841,6 @@
             "affine_transform"
          ],
          "title": "Affine3dTransform",
-         "type": "object"
-      },
-      "AindGeneric": {
-         "additionalProperties": true,
-         "description": "Base class for generic types that can be used in AIND schema",
-         "properties": {},
-         "title": "AindGeneric",
          "type": "object"
       },
       "Anaesthetic": {
@@ -970,12 +963,12 @@
                "title": "Code version"
             },
             "parameters": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Parameters"
             },
             "outputs": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "description": "Output parameters",
                "title": "Outputs"
@@ -2001,7 +1994,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Additional parameters"
             },
@@ -2309,13 +2302,13 @@
                "type": "string"
             },
             "input": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "description": "Calibration input",
                "title": "inputs"
             },
             "output": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "description": "Calibration output",
                "title": "outputs"
@@ -2463,7 +2456,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Additional parameters"
             },
@@ -3582,7 +3575,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Additional parameters"
             },
@@ -4096,12 +4089,12 @@
                "title": "Code version"
             },
             "parameters": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Parameters"
             },
             "outputs": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "description": "Output parameters",
                "title": "Outputs"
@@ -4264,7 +4257,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Additional parameters"
             },
@@ -5080,7 +5073,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Additional parameters"
             },
@@ -5580,7 +5573,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Additional parameters"
             },
@@ -6166,7 +6159,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Additional parameters"
             },
@@ -6846,7 +6839,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Additional parameters"
             },
@@ -7392,7 +7385,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Additional parameters"
             },
@@ -14966,7 +14959,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Additional parameters"
             },
@@ -18760,7 +18753,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Additional parameters"
             },
@@ -19041,6 +19034,13 @@
             "funder"
          ],
          "title": "Funding",
+         "type": "object"
+      },
+      "GenericModel": {
+         "additionalProperties": true,
+         "description": "Base class for generic types that can be used in AIND schema",
+         "properties": {},
+         "title": "GenericModel",
          "type": "object"
       },
       "GroundWireMaterial": {
@@ -20166,7 +20166,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Additional parameters"
             },
@@ -20879,7 +20879,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Additional parameters"
             },
@@ -21177,8 +21177,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "1.0.4",
-               "default": "1.0.4",
+               "const": "1.0.5",
+               "default": "1.0.5",
                "title": "Schema Version",
                "type": "string"
             },
@@ -33232,7 +33232,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Additional parameters"
             },
@@ -33406,7 +33406,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Additional parameters"
             },
@@ -33741,7 +33741,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Additional parameters"
             },
@@ -33975,7 +33975,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Additional parameters"
             },
@@ -34228,7 +34228,7 @@
                "type": "array"
             },
             "additional_scan_parameters": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "title": "Parameters"
             },
             "notes": {
@@ -34408,7 +34408,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Additional parameters"
             },
@@ -41496,7 +41496,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Additional parameters"
             },
@@ -42066,7 +42066,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Additional parameters"
             },
@@ -42593,7 +42593,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Additional parameters"
             },
@@ -46571,7 +46571,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Additional parameters"
             },
@@ -47601,7 +47601,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Additional parameters"
             },
@@ -47785,7 +47785,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Additional parameters"
             },
@@ -48620,7 +48620,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Additional parameters"
             },
@@ -52649,7 +52649,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Additional parameters"
             },
@@ -52839,7 +52839,7 @@
                "title": "Baseline duration unit"
             },
             "other_parameters": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Other parameters"
             },
@@ -53442,7 +53442,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Additional parameters"
             },
@@ -53576,7 +53576,7 @@
                "title": "Inter trial interval unit"
             },
             "other_parameters": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Other parameters"
             },
@@ -53671,7 +53671,7 @@
                "title": "Inter trial interval unit"
             },
             "other_parameters": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Other parameters"
             },
@@ -54228,7 +54228,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Additional parameters"
             },
@@ -54792,7 +54792,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Additional parameters"
             },
@@ -54890,8 +54890,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "1.2.3",
-               "default": "1.2.3",
+               "const": "1.2.4",
+               "default": "1.2.4",
                "title": "Schema Version",
                "type": "string"
             },
@@ -55016,8 +55016,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "1.1.4",
-               "default": "1.1.4",
+               "const": "1.1.5",
+               "default": "1.1.5",
                "title": "Schema Version",
                "type": "string"
             },
@@ -57333,7 +57333,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Additional parameters"
             },
@@ -57451,8 +57451,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "1.0.4",
-               "default": "1.0.4",
+               "const": "1.0.5",
+               "default": "1.0.5",
                "title": "Schema Version",
                "type": "string"
             },
@@ -58455,7 +58455,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Additional parameters"
             },
@@ -58968,7 +58968,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Additional parameters"
             },
@@ -62510,8 +62510,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "1.1.2",
-               "default": "1.1.2",
+               "const": "1.1.3",
+               "default": "1.1.3",
                "title": "Schema Version",
                "type": "string"
             },
@@ -66482,7 +66482,7 @@
                "title": "URL to commit being used"
             },
             "parameters": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Software parameters"
             }
@@ -66592,7 +66592,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Additional parameters"
             },
@@ -71125,6 +71125,11 @@
                "description": "Light sources for stimulation",
                "title": "Light source config"
             },
+            "output_parameters": {
+               "$ref": "#/$defs/GenericModel",
+               "default": {},
+               "title": "Performance metrics"
+            },
             "objects_in_arena": {
                "anyOf": [
                   {
@@ -71139,11 +71144,6 @@
                ],
                "default": null,
                "title": "Objects in arena"
-            },
-            "output_parameters": {
-               "$ref": "#/$defs/AindGeneric",
-               "default": {},
-               "title": "Performance metrics"
             },
             "reward_consumed_during_epoch": {
                "anyOf": [
@@ -72552,7 +72552,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Additional parameters"
             },
@@ -73092,7 +73092,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Additional parameters"
             },
@@ -73257,7 +73257,7 @@
                "type": "string"
             },
             "stimulus_parameters": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "description": "Define and list the parameter values used (e.g. all TF or orientation values)",
                "title": "Stimulus parameters"
@@ -73881,7 +73881,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Additional parameters"
             },
@@ -107387,8 +107387,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "1.1.4",
-         "default": "1.1.4",
+         "const": "1.1.5",
+         "default": "1.1.5",
          "title": "Schema Version",
          "type": "string"
       },

@@ -1,12 +1,5 @@
 {
    "$defs": {
-      "AindGeneric": {
-         "additionalProperties": true,
-         "description": "Base class for generic types that can be used in AIND schema",
-         "properties": {},
-         "title": "AindGeneric",
-         "type": "object"
-      },
       "AnalysisProcess": {
          "additionalProperties": false,
          "description": "Description of an Analysis",
@@ -78,12 +71,12 @@
                "title": "Code version"
             },
             "parameters": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Parameters"
             },
             "outputs": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "description": "Output parameters",
                "title": "Outputs"
@@ -204,12 +197,12 @@
                "title": "Code version"
             },
             "parameters": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Parameters"
             },
             "outputs": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "description": "Output parameters",
                "title": "Outputs"
@@ -248,6 +241,13 @@
             "code_url"
          ],
          "title": "DataProcess",
+         "type": "object"
+      },
+      "GenericModel": {
+         "additionalProperties": true,
+         "description": "Base class for generic types that can be used in AIND schema",
+         "properties": {},
+         "title": "GenericModel",
          "type": "object"
       },
       "MemoryUnit": {
@@ -560,8 +560,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "1.1.4",
-         "default": "1.1.4",
+         "const": "1.1.5",
+         "default": "1.1.5",
          "title": "Schema Version",
          "type": "string"
       },

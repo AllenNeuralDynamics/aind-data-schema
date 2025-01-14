@@ -1,12 +1,5 @@
 {
    "$defs": {
-      "AindGeneric": {
-         "additionalProperties": true,
-         "description": "Base class for generic types that can be used in AIND schema",
-         "properties": {},
-         "title": "AindGeneric",
-         "type": "object"
-      },
       "Anaesthetic": {
          "additionalProperties": false,
          "description": "Description of an anaesthetic",
@@ -1355,7 +1348,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Additional parameters"
             },
@@ -1469,6 +1462,13 @@
          ],
          "title": "Fluorophore",
          "type": "string"
+      },
+      "GenericModel": {
+         "additionalProperties": true,
+         "description": "Base class for generic types that can be used in AIND schema",
+         "properties": {},
+         "title": "GenericModel",
+         "type": "object"
       },
       "GroundWireMaterial": {
          "description": "Ground wire material name",
@@ -14099,7 +14099,7 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Additional parameters"
             },
@@ -60876,8 +60876,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "1.2.3",
-         "default": "1.2.3",
+         "const": "1.2.4",
+         "default": "1.2.4",
          "title": "Schema Version",
          "type": "string"
       },
