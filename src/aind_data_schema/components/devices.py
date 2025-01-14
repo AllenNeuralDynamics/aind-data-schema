@@ -264,7 +264,7 @@ class MyomatrixArrayType(str, Enum):
 class Device(DataModel):
     """Generic device"""
 
-    device_type: str = Field(..., title="Device type")  # Needs to be set by child classes that inherits
+    device_type: Literal["device"] = "device"
     name: str = Field(..., title="Device name")
     serial_number: Optional[str] = Field(default=None, title="Serial number")
     manufacturer: Optional[Organization.ONE_OF] = Field(default=None, title="Manufacturer")
@@ -449,6 +449,7 @@ class CameraAssembly(DataModel):
 
     # required fields
     name: str = Field(..., title="Camera assembly name")
+    device_type: Literal["Camera assembly"] = "Camera assembly"
     camera_target: CameraTarget = Field(..., title="Camera target")
     camera: Camera = Field(..., title="Camera")
     lens: Lens = Field(..., title="Lens")
@@ -614,6 +615,7 @@ class LaserAssembly(DataModel):
     """Assembly for optogenetic stimulation"""
 
     name: str = Field(..., title="Laser assembly name")
+    device_type: Literal["Laser assembly"] = "Laser assembly"
     manipulator: Manipulator = Field(..., title="Manipulator")
     lasers: List[Laser] = Field(..., title="Lasers connected to this module")
     collimator: Device = Field(..., title="Collimator")
@@ -642,6 +644,7 @@ class EphysAssembly(DataModel):
     """Module for electrophysiological recording"""
 
     name: str = Field(..., title="Ephys assembly name")
+    device_type: Literal["Ephys assembly"] = "Ephys assembly"
     manipulator: Manipulator = Field(..., title="Manipulator")
     probes: List[EphysProbe] = Field(..., title="Probes that are held by this module")
 
@@ -663,6 +666,7 @@ class FiberAssembly(DataModel):
     """Module for inserted fiber photometry recording"""
 
     name: str = Field(..., title="Fiber assembly name")
+    device_type: Literal["Fiber assembly"] = "Fiber assembly"
     manipulator: Manipulator = Field(..., title="Manipulator")
     fibers: List[FiberProbe] = Field(..., title="Probes that are held by this module")
 
@@ -904,6 +908,7 @@ class AdditionalImagingDevice(Device):
 class ScanningStage(MotorizedStage):
     """Description of a scanning motorized stages"""
 
+    device_type: Literal["Scanning stage"] = "Scanning stage"
     stage_axis_direction: StageAxisDirection = Field(..., title="Direction of stage axis")
     stage_axis_name: StageAxisName = Field(..., title="Name of stage axis")
 

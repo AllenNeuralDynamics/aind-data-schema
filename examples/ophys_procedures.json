@@ -91,7 +91,7 @@
                         "model": null,
                         "path_to_cad": null,
                         "port_index": null,
-                        "additional_settings": {},
+                        "additional_settings": null,
                         "notes": null,
                         "core_diameter": "200",
                         "core_diameter_unit": "micrometer",

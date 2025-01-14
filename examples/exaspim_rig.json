@@ -1,8 +1,29 @@
 {
-   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/instrument.py",
+   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/rig.py",
    "schema_version": "1.0.5",
-   "instrument_id": "440_exaSPIM1-20231004",
+   "rig_id": "440_exaSPIM1_20231004",
+   "mouse_platform": null,
    "modification_date": "2023-10-04",
+   "calibrations": null,
+   "ccf_coordinate_transform": null,
+   "origin": null,
+   "rig_axes": null,
+   "modalities": [
+      {
+         "name": "Selective plane illumination microscopy",
+         "abbreviation": "SPIM"
+      }
+   ],
+   "com_ports": [
+      {
+         "hardware_name": "Laser Launch",
+         "com_port": "COM2"
+      },
+      {
+         "hardware_name": "ASI Tiger",
+         "com_port": "COM5"
+      }
+   ],
    "instrument_type": "exaSPIM",
    "manufacturer": {
       "name": "Custom",
@@ -11,33 +32,9 @@
       "registry_identifier": null
    },
    "temperature_control": false,
-   "optical_tables": [
-      {
-         "device_type": "Optical table",
-         "name": "Table",
-         "serial_number": null,
-         "manufacturer": {
-            "name": "MKS Newport",
-            "abbreviation": null,
-            "registry": {
-               "name": "Research Organization Registry",
-               "abbreviation": "ROR"
-            },
-            "registry_identifier": "00k17f049"
-         },
-         "model": "VIS3648-PG2-325A",
-         "path_to_cad": null,
-         "port_index": null,
-         "additional_settings": {},
-         "notes": null,
-         "length": "36",
-         "width": "48",
-         "table_size_unit": "inch",
-         "vibration_control": true
-      }
-   ],
-   "enclosure": null,
-   "objectives": [
+   "notes": null,
+   "connections": [],
+   "components": [
       {
          "device_type": "Objective",
          "name": "Custom Objective",
@@ -51,15 +48,13 @@
          "model": "JM_DIAMOND 5.0X/1.3",
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": "manufacturer collaboration between Schneider-Kreuznach and Vieworks",
          "numerical_aperture": "0.305",
          "magnification": "5",
          "immersion": "air",
          "objective_type": null
-      }
-   ],
-   "detectors": [
+      },
       {
          "device_type": "Detector",
          "name": "Camera 1",
@@ -73,7 +68,7 @@
          "model": "VNP-604MX",
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": null,
          "detector_type": "Camera",
          "data_interface": "Coax",
@@ -102,9 +97,7 @@
          "recording_software": null,
          "driver": null,
          "driver_version": null
-      }
-   ],
-   "light_sources": [
+      },
       {
          "device_type": "Laser",
          "name": "LAS-08307",
@@ -118,7 +111,7 @@
          "model": null,
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": "Housed in commercial laser combiner",
          "wavelength": 405,
          "wavelength_unit": "nanometer",
@@ -142,7 +135,7 @@
          "model": null,
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": "Housed in commercial laser combiner",
          "wavelength": 488,
          "wavelength_unit": "nanometer",
@@ -166,7 +159,7 @@
          "model": null,
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": "Housed in commercial laser combiner",
          "wavelength": 561,
          "wavelength_unit": "nanometer",
@@ -190,7 +183,7 @@
          "model": null,
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": "Housed in commercial laser combiner",
          "wavelength": 638,
          "wavelength_unit": "nanometer",
@@ -200,10 +193,7 @@
          "coupling_efficiency": null,
          "coupling_efficiency_unit": "percent",
          "item_number": null
-      }
-   ],
-   "lenses": [],
-   "fluorescence_filters": [
+      },
       {
          "device_type": "Filter",
          "name": "Multiband filter",
@@ -217,7 +207,7 @@
          "model": "ZET405/488/561/640mv2",
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": "Custom made filter",
          "filter_type": "Multiband",
          "diameter": "44.05",
@@ -232,143 +222,7 @@
          "center_wavelength": null,
          "wavelength_unit": "nanometer",
          "description": null
-      }
-   ],
-   "motorized_stages": [],
-   "scanning_stages": [
-      {
-         "device_type": "Motorized stage",
-         "name": "stage-x",
-         "serial_number": null,
-         "manufacturer": {
-            "name": "Applied Scientific Instrumentation",
-            "abbreviation": "ASI",
-            "registry": null,
-            "registry_identifier": null
-         },
-         "model": "MS-8000",
-         "path_to_cad": null,
-         "port_index": null,
-         "additional_settings": {},
-         "notes": null,
-         "travel": "1000",
-         "travel_unit": "millimeter",
-         "firmware": null,
-         "stage_axis_direction": "Detection axis",
-         "stage_axis_name": "X"
       },
-      {
-         "device_type": "Motorized stage",
-         "name": "stage-y",
-         "serial_number": null,
-         "manufacturer": {
-            "name": "Applied Scientific Instrumentation",
-            "abbreviation": "ASI",
-            "registry": null,
-            "registry_identifier": null
-         },
-         "model": "MS-8000",
-         "path_to_cad": null,
-         "port_index": null,
-         "additional_settings": {},
-         "notes": null,
-         "travel": "1000",
-         "travel_unit": "millimeter",
-         "firmware": null,
-         "stage_axis_direction": "Perpendicular axis",
-         "stage_axis_name": "Y"
-      },
-      {
-         "device_type": "Motorized stage",
-         "name": "stage-z",
-         "serial_number": null,
-         "manufacturer": {
-            "name": "Applied Scientific Instrumentation",
-            "abbreviation": "ASI",
-            "registry": null,
-            "registry_identifier": null
-         },
-         "model": "LS-100",
-         "path_to_cad": null,
-         "port_index": null,
-         "additional_settings": {},
-         "notes": null,
-         "travel": "100",
-         "travel_unit": "millimeter",
-         "firmware": null,
-         "stage_axis_direction": "Illumination axis",
-         "stage_axis_name": "Z"
-      }
-   ],
-   "additional_devices": [
-      {
-         "device_type": "Additional imaging device",
-         "name": "TL-1",
-         "serial_number": "01",
-         "manufacturer": {
-            "name": "Optotune",
-            "abbreviation": null,
-            "registry": null,
-            "registry_identifier": null
-         },
-         "model": "EL-16-40-TC-VIS-20D-C",
-         "path_to_cad": null,
-         "port_index": null,
-         "additional_settings": {},
-         "notes": null,
-         "imaging_device_type": "Tunable lens"
-      },
-      {
-         "device_type": "Additional imaging device",
-         "name": "RM-1",
-         "serial_number": "01",
-         "manufacturer": {
-            "name": "Thorlabs",
-            "abbreviation": null,
-            "registry": {
-               "name": "Research Organization Registry",
-               "abbreviation": "ROR"
-            },
-            "registry_identifier": "04gsnvb07"
-         },
-         "model": "K10CR1",
-         "path_to_cad": null,
-         "port_index": null,
-         "additional_settings": {},
-         "notes": null,
-         "imaging_device_type": "Rotation mount"
-      },
-      {
-         "device_type": "Additional imaging device",
-         "name": "LC-1",
-         "serial_number": "L6CC-00513",
-         "manufacturer": {
-            "name": "Oxxius",
-            "abbreviation": null,
-            "registry": null,
-            "registry_identifier": null
-         },
-         "model": "L6Cc",
-         "path_to_cad": null,
-         "port_index": null,
-         "additional_settings": {},
-         "notes": null,
-         "imaging_device_type": "Laser combiner"
-      }
-   ],
-   "calibration_date": null,
-   "calibration_data": null,
-   "com_ports": [
-      {
-         "hardware_name": "Laser Launch",
-         "com_port": "COM2"
-      },
-      {
-         "hardware_name": "ASI Tiger",
-         "com_port": "COM5"
-      }
-   ],
-   "daqs": [
       {
          "device_type": "DAQ Device",
          "name": "Dev2",
@@ -385,7 +239,7 @@
          "model": "PCIe-6738",
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": null,
          "data_interface": "USB",
          "computer_name": "Dev2",
@@ -453,7 +307,146 @@
          ],
          "firmware_version": null,
          "hardware_version": null
+      },
+      {
+         "device_type": "Scanning stage",
+         "name": "stage-x",
+         "serial_number": null,
+         "manufacturer": {
+            "name": "Applied Scientific Instrumentation",
+            "abbreviation": "ASI",
+            "registry": null,
+            "registry_identifier": null
+         },
+         "model": "MS-8000",
+         "path_to_cad": null,
+         "port_index": null,
+         "additional_settings": null,
+         "notes": null,
+         "travel": "1000",
+         "travel_unit": "millimeter",
+         "firmware": null,
+         "stage_axis_direction": "Detection axis",
+         "stage_axis_name": "X"
+      },
+      {
+         "device_type": "Scanning stage",
+         "name": "stage-y",
+         "serial_number": null,
+         "manufacturer": {
+            "name": "Applied Scientific Instrumentation",
+            "abbreviation": "ASI",
+            "registry": null,
+            "registry_identifier": null
+         },
+         "model": "MS-8000",
+         "path_to_cad": null,
+         "port_index": null,
+         "additional_settings": null,
+         "notes": null,
+         "travel": "1000",
+         "travel_unit": "millimeter",
+         "firmware": null,
+         "stage_axis_direction": "Perpendicular axis",
+         "stage_axis_name": "Y"
+      },
+      {
+         "device_type": "Scanning stage",
+         "name": "stage-z",
+         "serial_number": null,
+         "manufacturer": {
+            "name": "Applied Scientific Instrumentation",
+            "abbreviation": "ASI",
+            "registry": null,
+            "registry_identifier": null
+         },
+         "model": "LS-100",
+         "path_to_cad": null,
+         "port_index": null,
+         "additional_settings": null,
+         "notes": null,
+         "travel": "100",
+         "travel_unit": "millimeter",
+         "firmware": null,
+         "stage_axis_direction": "Illumination axis",
+         "stage_axis_name": "Z"
+      },
+      {
+         "device_type": "Additional imaging device",
+         "name": "TL-1",
+         "serial_number": "01",
+         "manufacturer": {
+            "name": "Optotune",
+            "abbreviation": null,
+            "registry": null,
+            "registry_identifier": null
+         },
+         "model": "EL-16-40-TC-VIS-20D-C",
+         "path_to_cad": null,
+         "port_index": null,
+         "additional_settings": null,
+         "notes": null,
+         "imaging_device_type": "Tunable lens"
+      },
+      {
+         "device_type": "Additional imaging device",
+         "name": "RM-1",
+         "serial_number": "01",
+         "manufacturer": {
+            "name": "Thorlabs",
+            "abbreviation": null,
+            "registry": {
+               "name": "Research Organization Registry",
+               "abbreviation": "ROR"
+            },
+            "registry_identifier": "04gsnvb07"
+         },
+         "model": "K10CR1",
+         "path_to_cad": null,
+         "port_index": null,
+         "additional_settings": null,
+         "notes": null,
+         "imaging_device_type": "Rotation mount"
+      },
+      {
+         "device_type": "Additional imaging device",
+         "name": "LC-1",
+         "serial_number": "L6CC-00513",
+         "manufacturer": {
+            "name": "Oxxius",
+            "abbreviation": null,
+            "registry": null,
+            "registry_identifier": null
+         },
+         "model": "L6Cc",
+         "path_to_cad": null,
+         "port_index": null,
+         "additional_settings": null,
+         "notes": null,
+         "imaging_device_type": "Laser combiner"
+      },
+      {
+         "device_type": "Optical table",
+         "name": "Table",
+         "serial_number": null,
+         "manufacturer": {
+            "name": "MKS Newport",
+            "abbreviation": null,
+            "registry": {
+               "name": "Research Organization Registry",
+               "abbreviation": "ROR"
+            },
+            "registry_identifier": "00k17f049"
+         },
+         "model": "VIS3648-PG2-325A",
+         "path_to_cad": null,
+         "port_index": null,
+         "additional_settings": null,
+         "notes": null,
+         "length": "36",
+         "width": "48",
+         "table_size_unit": "inch",
+         "vibration_control": true
       }
-   ],
-   "notes": null
+   ]
 }

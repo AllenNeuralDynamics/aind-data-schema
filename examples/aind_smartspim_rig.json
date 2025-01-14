@@ -1,8 +1,33 @@
 {
-   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/instrument.py",
+   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/rig.py",
    "schema_version": "1.0.5",
-   "instrument_id": "440_SmartSPIM1_20231004",
+   "rig_id": "440_SmartSPIM1_20231004",
+   "mouse_platform": null,
    "modification_date": "2023-10-04",
+   "calibrations": null,
+   "ccf_coordinate_transform": null,
+   "origin": null,
+   "rig_axes": null,
+   "modalities": [
+      {
+         "name": "Selective plane illumination microscopy",
+         "abbreviation": "SPIM"
+      }
+   ],
+   "com_ports": [
+      {
+         "hardware_name": "Laser Launch",
+         "com_port": "COM4"
+      },
+      {
+         "hardware_name": "ASI Tiger",
+         "com_port": "COM3"
+      },
+      {
+         "hardware_name": "MightyZap",
+         "com_port": "COM9"
+      }
+   ],
    "instrument_type": "SmartSPIM",
    "manufacturer": {
       "name": "LifeCanvas",
@@ -11,33 +36,9 @@
       "registry_identifier": null
    },
    "temperature_control": false,
-   "optical_tables": [
-      {
-         "device_type": "Optical table",
-         "name": "Main optical table",
-         "serial_number": "Unknown",
-         "manufacturer": {
-            "name": "MKS Newport",
-            "abbreviation": null,
-            "registry": {
-               "name": "Research Organization Registry",
-               "abbreviation": "ROR"
-            },
-            "registry_identifier": "00k17f049"
-         },
-         "model": "VIS2424-IG2-125A",
-         "path_to_cad": null,
-         "port_index": null,
-         "additional_settings": {},
-         "notes": null,
-         "length": "36",
-         "width": "48",
-         "table_size_unit": "inch",
-         "vibration_control": false
-      }
-   ],
-   "enclosure": null,
-   "objectives": [
+   "notes": null,
+   "connections": [],
+   "components": [
       {
          "device_type": "Objective",
          "name": "TLX Objective 1",
@@ -51,7 +52,7 @@
          "model": null,
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": "Thorlabs TL4X-SAP with LifeCanvas dipping cap and correction optics.",
          "numerical_aperture": "0.2",
          "magnification": "3.6",
@@ -71,15 +72,13 @@
          "model": null,
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": "Thorlabs TL2X-SAP with LifeCanvas dipping cap and correction optics.",
          "numerical_aperture": "0.12",
          "magnification": "1.625",
          "immersion": "multi",
          "objective_type": null
-      }
-   ],
-   "detectors": [
+      },
       {
          "device_type": "Detector",
          "name": "Camera 1",
@@ -96,7 +95,7 @@
          "model": "C14440-20UP",
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": null,
          "detector_type": "Camera",
          "data_interface": "USB",
@@ -125,9 +124,7 @@
          "recording_software": null,
          "driver": null,
          "driver_version": null
-      }
-   ],
-   "light_sources": [
+      },
       {
          "device_type": "Laser",
          "name": "Ex_445",
@@ -141,7 +138,7 @@
          "model": null,
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": null,
          "wavelength": 445,
          "wavelength_unit": "nanometer",
@@ -165,7 +162,7 @@
          "model": null,
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": null,
          "wavelength": 488,
          "wavelength_unit": "nanometer",
@@ -189,7 +186,7 @@
          "model": null,
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": null,
          "wavelength": 561,
          "wavelength_unit": "nanometer",
@@ -213,7 +210,7 @@
          "model": null,
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": null,
          "wavelength": 594,
          "wavelength_unit": "nanometer",
@@ -237,7 +234,7 @@
          "model": null,
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": null,
          "wavelength": 639,
          "wavelength_unit": "nanometer",
@@ -261,7 +258,7 @@
          "model": null,
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": null,
          "wavelength": 690,
          "wavelength_unit": "nanometer",
@@ -271,10 +268,7 @@
          "coupling_efficiency": null,
          "coupling_efficiency_unit": "percent",
          "item_number": null
-      }
-   ],
-   "lenses": [],
-   "fluorescence_filters": [
+      },
       {
          "device_type": "Filter",
          "name": "Em_469",
@@ -288,7 +282,7 @@
          "model": "FF01-469/35-25",
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": null,
          "filter_type": "Band pass",
          "diameter": "25",
@@ -317,7 +311,7 @@
          "model": "FF01-525/45-25",
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": null,
          "filter_type": "Band pass",
          "diameter": "25",
@@ -346,7 +340,7 @@
          "model": "FF01-593/40-25",
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": null,
          "filter_type": "Band pass",
          "diameter": "25",
@@ -375,7 +369,7 @@
          "model": "FF01-624/40-25",
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": null,
          "filter_type": "Band pass",
          "diameter": "25",
@@ -404,7 +398,7 @@
          "model": "ET667/30m",
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": null,
          "filter_type": "Band pass",
          "diameter": "25",
@@ -436,7 +430,7 @@
          "model": "FELH0700",
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": null,
          "filter_type": "Long pass",
          "diameter": "25",
@@ -451,9 +445,7 @@
          "center_wavelength": null,
          "wavelength_unit": "nanometer",
          "description": null
-      }
-   ],
-   "motorized_stages": [
+      },
       {
          "device_type": "Motorized stage",
          "name": "Focus stage",
@@ -467,7 +459,7 @@
          "model": "LS-100",
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": null,
          "travel": "100",
          "travel_unit": "millimeter",
@@ -486,7 +478,7 @@
          "model": "L12-20F-4",
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": null,
          "travel": "41",
          "travel_unit": "millimeter",
@@ -505,7 +497,7 @@
          "model": "L12-20F-4",
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": null,
          "travel": "41",
          "travel_unit": "millimeter",
@@ -524,7 +516,7 @@
          "model": "L12-20F-4",
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": null,
          "travel": "41",
          "travel_unit": "millimeter",
@@ -543,16 +535,14 @@
          "model": "L12-20F-4",
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": null,
          "travel": "41",
          "travel_unit": "millimeter",
          "firmware": null
-      }
-   ],
-   "scanning_stages": [
+      },
       {
-         "device_type": "Motorized stage",
+         "device_type": "Scanning stage",
          "name": "Sample stage Z",
          "serial_number": "Unknown-2",
          "manufacturer": {
@@ -564,7 +554,7 @@
          "model": "LS-50",
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": null,
          "travel": "50",
          "travel_unit": "millimeter",
@@ -573,7 +563,7 @@
          "stage_axis_name": "Z"
       },
       {
-         "device_type": "Motorized stage",
+         "device_type": "Scanning stage",
          "name": "Sample stage X",
          "serial_number": "Unknown-3",
          "manufacturer": {
@@ -585,7 +575,7 @@
          "model": "LS-50",
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": null,
          "travel": "50",
          "travel_unit": "millimeter",
@@ -594,7 +584,7 @@
          "stage_axis_name": "X"
       },
       {
-         "device_type": "Motorized stage",
+         "device_type": "Scanning stage",
          "name": "Sample stage Y",
          "serial_number": "Unknown-4",
          "manufacturer": {
@@ -606,32 +596,36 @@
          "model": "LS-50",
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": null,
          "travel": "50",
          "travel_unit": "millimeter",
          "firmware": null,
          "stage_axis_direction": "Perpendicular axis",
          "stage_axis_name": "Y"
-      }
-   ],
-   "additional_devices": [],
-   "calibration_date": null,
-   "calibration_data": null,
-   "com_ports": [
-      {
-         "hardware_name": "Laser Launch",
-         "com_port": "COM4"
       },
       {
-         "hardware_name": "ASI Tiger",
-         "com_port": "COM3"
-      },
-      {
-         "hardware_name": "MightyZap",
-         "com_port": "COM9"
+         "device_type": "Optical table",
+         "name": "Main optical table",
+         "serial_number": "Unknown",
+         "manufacturer": {
+            "name": "MKS Newport",
+            "abbreviation": null,
+            "registry": {
+               "name": "Research Organization Registry",
+               "abbreviation": "ROR"
+            },
+            "registry_identifier": "00k17f049"
+         },
+         "model": "VIS2424-IG2-125A",
+         "path_to_cad": null,
+         "port_index": null,
+         "additional_settings": null,
+         "notes": null,
+         "length": "36",
+         "width": "48",
+         "table_size_unit": "inch",
+         "vibration_control": false
       }
-   ],
-   "daqs": [],
-   "notes": null
+   ]
 }

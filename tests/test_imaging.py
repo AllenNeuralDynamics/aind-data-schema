@@ -18,8 +18,9 @@ from aind_data_schema.components.coordinates import (
 )
 from aind_data_schema.components.devices import Calibration, DAQChannel, DAQDevice
 from aind_data_schema.core import acquisition as acq
-from aind_data_schema.core import instrument as inst
 from aind_data_schema.core.processing import Registration
+from aind_data_schema.core.rig import Rig
+from aind_data_schema_models.modalities import Modality
 
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
 
@@ -75,27 +76,25 @@ class ImagingTests(unittest.TestCase):
         self.assertIsNotNone(a)
 
         with self.assertRaises(ValidationError):
-            inst.Instrument()
+            Rig()
 
-        i = inst.Instrument(
+        i = Rig(
+            rig_id="exaSPIM1-1",
+            modalities=[Modality.SMARTSPIM],
             instrument_type="diSPIM",
             modification_date=datetime.now().date(),
             manufacturer=Organization.LIFECANVAS,
-            objectives=[],
-            detectors=[],
-            light_sources=[],
         )
 
         self.assertIsNotNone(i)
 
         with self.assertRaises(ValidationError) as e1:
-            inst.Instrument(
+            Rig(
+                rig_id="exaSPIM1-1",
+                modalities=[Modality.SMARTSPIM],
                 instrument_type="Other",
                 modification_date=datetime(2020, 10, 10, 0, 0, 0).date(),
                 manufacturer=Organization.OTHER,
-                objectives=[],
-                detectors=[],
-                light_sources=[],
             )
 
         expected_exception1 = (
@@ -109,12 +108,12 @@ class ImagingTests(unittest.TestCase):
         self.assertEqual(expected_exception1, repr(e1.exception))
 
         with self.assertRaises(ValidationError) as e2:
-            inst.Instrument(
+            Rig(
+                rig_id="exaSPIM1-1",
+                modalities=[Modality.SMARTSPIM],
+                modification_date=datetime(2020, 10, 10, 0, 0, 0).date(),
                 instrument_type="diSPIM",
                 manufacturer=Organization.OTHER,
-                objectives=[],
-                detectors=[],
-                light_sources=[],
             )
 
         expected_exception2 = (
@@ -212,13 +211,7 @@ class ImagingTests(unittest.TestCase):
         """test the validators"""
 
         with self.assertRaises(ValidationError) as e:
-            inst.Instrument(
-                instrument_id="exaSPIM1-1",
-                instrument_type="exaSPIM",
-                modification_date=date(2023, 10, 4),
-                manufacturer=Organization.CUSTOM,
-                daqs=[
-                    DAQDevice(
+            daq = DAQDevice(
                         model="PCIe-6738",
                         data_interface="USB",
                         computer_name="Dev2",
@@ -270,6 +263,15 @@ class ImagingTests(unittest.TestCase):
                             ),
                         ],
                     )
+
+            Rig(
+                rig_id="exaSPIM1-1",
+                modalities=[Modality.SMARTSPIM],
+                instrument_type="exaSPIM",
+                modification_date=date(2023, 10, 4),
+                manufacturer=Organization.CUSTOM,
+                components=[
+                    daq
                 ],
             )
         expected_exception = (

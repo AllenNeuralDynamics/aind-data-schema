@@ -75,7 +75,7 @@ laser_assembly = LaserAssembly(
         name="Manipulator A", serial_number="SN2937", manufacturer=Organization.NEW_SCALE_TECHNOLOGIES
     ),
     lasers=[red_laser, blue_laser],
-    collimator=Device(name="Collimator A", device_type="Collimator"),
+    collimator=Device(name="Collimator A"),
     fiber=Patch(
         name="Bundle Branching Fiber-optic Patch Cord",
         manufacturer=Organization.DORIC,
@@ -279,11 +279,19 @@ rig = Rig(
     rig_id="323_EPHYS1_20231003",
     modification_date=date(2023, 10, 3),
     modalities=[Modality.ECEPHYS],
-    ephys_assemblies=[ephys_assemblyA, ephys_assemblyB],
-    cameras=[camassm1, camassm2],
-    laser_assemblies=[laser_assembly],
-    daqs=[basestation, harp],
-    stick_microscopes=[microscope_1, microscope_2, microscope_3, microscope_4],
+    components=[
+        ephys_assemblyA,
+        ephys_assemblyB,
+        camassm1,
+        camassm2,
+        laser_assembly,
+        basestation,
+        harp,
+        microscope_1,
+        microscope_2,
+        microscope_3,
+        microscope_4,
+    ],
     mouse_platform=running_wheel,
     calibrations=[red_laser_calibration, blue_laser_calibration],
 )

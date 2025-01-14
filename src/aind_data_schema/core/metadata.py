@@ -24,7 +24,6 @@ from pydantic import (
 from aind_data_schema.base import DataCoreModel, is_dict_corrupt, AwareDatetimeWithDefault
 from aind_data_schema.core.acquisition import Acquisition
 from aind_data_schema.core.data_description import DataDescription
-from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.core.procedures import Injection, Procedures, Surgery
 from aind_data_schema.core.processing import Processing
 from aind_data_schema.core.quality_control import QualityControl
@@ -41,7 +40,6 @@ CORE_FILES = [
     "rig",
     "processing",
     "acquisition",
-    "instrument",
     "quality_control",
 ]
 
@@ -125,9 +123,6 @@ class Metadata(DataCoreModel):
     processing: Optional[Processing] = Field(default=None, title="Processing", description="All processes run on data.")
     acquisition: Optional[Acquisition] = Field(
         default=None, title="Acquisition", description="Imaging acquisition session"
-    )
-    instrument: Optional[Instrument] = Field(
-        default=None, title="Instrument", description="Instrument, which is a collection of devices"
     )
     quality_control: Optional[QualityControl] = Field(
         default=None, title="Quality Control", description="Description of quality metrics for a data asset"

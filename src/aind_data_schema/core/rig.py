@@ -166,16 +166,13 @@ class Rig(DataCoreModel):
 
     @field_validator("connections", mode="after")
     def validate_device_names(cls, value: List[Connection], info: ValidationInfo) -> List[Connection]:
-        """validate that all connections map between devices that actually exist
-        """
+        """validate that all connections map between devices that actually exist"""
         device_names = [device.name for device in info.data.get("components", [])]
 
         for connection in value:
             for device_name in connection.device_names:
                 if device_name not in device_names:
-                    raise ValueError(
-                        f"Device name validation error: '{device_name}' is not part of the rig."
-                    )
+                    raise ValueError(f"Device name validation error: '{device_name}' is not part of the rig.")
 
         return value
 
@@ -193,43 +190,60 @@ class Rig(DataCoreModel):
             )
         return value
 
-    @field_validator("modalities", mode="after")
-    def validate_modalities(cls, value: Set[Modality.ONE_OF], info: ValidationInfo) -> Set[Modality.ONE_OF]:
-        """Validate that devices exist for the modalities specified"""
+    @model_validator(mode="after")
+    def validate_modalities(cls, value):
+        """
+        Validate that devices exist for the modalities specified.
 
+        Args:
+            cls: The class being validated.
+            value: The set of modalities to validate.
+            info: Validation information, including other fields.
+
+        Returns:
+            The validated set of modalities.
+
+        Raises:
+            ValueError: If a required device type is missing for any modality.
+        """
+        # Define the mapping of modalities to their required device types
         type_mapping = {
             Modality.ECEPHYS.abbreviation: [EphysAssembly],
-            Modality.FIB.abbreviation: [
-                [Laser, LightEmittingDiode, Lamp],
-                [Detector],
-                [Patch]
-            ],
-            Modality.POPHYS.abbreviation: [
-                [Laser, LightEmittingDiode, Lamp],
-                [Detector],
-                [Objective]
-            ],
-            Modality.SLAP.abbreviation: [
-                [Laser, LightEmittingDiode, Lamp],
-                [Detector],
-                [Objective]
-            ],
+            Modality.FIB.abbreviation: [[Laser, LightEmittingDiode, Lamp], [Detector], [Patch]],
+            Modality.POPHYS.abbreviation: [[Laser, LightEmittingDiode, Lamp], [Detector], [Objective]],
+            Modality.SLAP.abbreviation: [[Laser, LightEmittingDiode, Lamp], [Detector], [Objective]],
             Modality.BEHAVIOR_VIDEOS.abbreviation: [CameraAssembly],
-            Modality.BEHAVIOR.abbreviation: [Olfactometer, RewardDelivery, Speaker, Monitor],
+            Modality.BEHAVIOR.abbreviation: [[Olfactometer, RewardDelivery, Speaker, Monitor]],
         }
 
+        # Retrieve the components from the validation info
+        components = value.components
         errors = []
 
-        for modality in value:
-            if modality.abbreviation in type_mapping:
-                for device_type in type_mapping[modality.abbreviation]:
-                    if not any(isinstance(component, device) for device in device_type for component in info.data.get("components", [])):
-                        errors.append(
-                            f"Device type validation error: No device of type {device_type} is part of the rig."
-                        )
+        # Validate each modality
+        for modality in value.modalities:
+            required_device_groups = type_mapping.get(modality.abbreviation)
+            if not required_device_groups:
+                # Skip modalities that don't require validation
+                continue
 
-        if len(errors) > 0:
-            message = "\n     ".join(errors)
-            raise ValueError(message)
+            # Check each group of required devices
+            for required_group in required_device_groups:
+                if not isinstance(required_group, list):
+                    required_group = [required_group]
+
+                # Check if at least one required device is present
+                if not any(
+                    any(isinstance(component, device_type) for device_type in required_group)
+                    for component in components
+                ):
+                    errors.append(
+                        f"Device type validation error: modality '{modality.abbreviation}' requires at least one device of type(s) "
+                        f"{', '.join(device.__name__ for device in required_group)} in the rig components."
+                    )
+
+        # Raise an error if there are validation issues
+        if errors:
+            raise ValueError("\n".join(errors))
 
         return value
