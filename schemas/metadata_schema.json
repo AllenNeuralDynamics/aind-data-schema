@@ -54890,8 +54890,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "1.2.4",
-               "default": "1.2.4",
+               "const": "1.2.5",
+               "default": "1.2.5",
                "title": "Schema Version",
                "type": "string"
             },
@@ -62510,8 +62510,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "1.1.3",
-               "default": "1.1.3",
+               "const": "1.1.4",
+               "default": "1.1.4",
                "title": "Schema Version",
                "type": "string"
             },
@@ -62554,7 +62554,7 @@
                "title": "Session type",
                "type": "string"
             },
-            "iacuc_protocol": {
+            "ethics_review_id": {
                "anyOf": [
                   {
                      "type": "string"
@@ -62564,7 +62564,7 @@
                   }
                ],
                "default": null,
-               "title": "IACUC protocol"
+               "title": "Ethics review ID"
             },
             "rig_id": {
                "title": "Rig ID",
@@ -71727,7 +71727,7 @@
                "title": "Experimenter full name",
                "type": "string"
             },
-            "iacuc_protocol": {
+            "ethics_review_id": {
                "anyOf": [
                   {
                      "type": "string"
@@ -71737,7 +71737,7 @@
                   }
                ],
                "default": null,
-               "title": "IACUC protocol"
+               "title": "Ethics review ID"
             },
             "animal_weight_prior": {
                "anyOf": [
@@ -73319,8 +73319,8 @@
                "title": "Procedure Type",
                "type": "string"
             },
-            "iacuc_protocol": {
-               "title": "IACUC protocol",
+            "ethics_review_id": {
+               "title": "Ethics review ID",
                "type": "string"
             },
             "target_fraction_weight": {
@@ -73385,7 +73385,7 @@
             }
          },
          "required": [
-            "iacuc_protocol",
+            "ethics_review_id",
             "target_fraction_weight",
             "minimum_water_per_day",
             "baseline_weight",
@@ -107387,8 +107387,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "1.1.5",
-         "default": "1.1.5",
+         "const": "1.1.6",
+         "default": "1.1.6",
          "title": "Schema Version",
          "type": "string"
       },
