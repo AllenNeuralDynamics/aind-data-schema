@@ -13,7 +13,7 @@ from aind_data_schema.components.devices import (
     OpticalTable,
     ScanningStage,
 )
-from aind_data_schema.core.rig import Com, Detector, Rig, Objective
+from aind_data_schema.core.instrument import Com, Detector, Rig, Objective
 from aind_data_schema_models.modalities import Modality
 
 objective_1 = Objective(
@@ -260,8 +260,8 @@ motorized_stages = [motorized_stage_1, motorized_stage_2, motorized_stage_3, mot
 scanning_stages = [scanning_stage_1, scanning_stage_2, scanning_stage_3]
 optical_tables = [optical_table_1]
 
-inst = Rig(
-    rig_id="440_SmartSPIM1_20231004",
+inst = Instrument(
+    instrument_id="440_SmartSPIM1_20231004",
     instrument_type=ImagingInstrumentType.SMARTSPIM,
     manufacturer=Organization.LIFECANVAS,
     modification_date=datetime.date(2023, 10, 4),
@@ -290,5 +290,5 @@ inst = Rig(
 )
 
 serialized = inst.model_dump_json()
-deserialized = Rig.model_validate_json(serialized)
+deserialized = Instrument.model_validate_json(serialized)
 deserialized.write_standard_file(prefix="aind_smartspim")

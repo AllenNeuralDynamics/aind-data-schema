@@ -47,7 +47,7 @@ from aind_data_schema.components.devices import (
 )
 
 MOUSE_PLATFORMS = Annotated[Union[tuple(MousePlatform.__subclasses__())], Field(discriminator="device_type")]
-RIG_ID_PATTERN = r"^[a-zA-Z0-9]+_[a-zA-Z0-9-]+_\d{8}$"
+instrument_id_PATTERN = r"^[a-zA-Z0-9]+_[a-zA-Z0-9-]+_\d{8}$"
 
 
 class Com(DataModel):
@@ -66,20 +66,20 @@ class Connection(DataModel):
     channels: Optional[List[int]] = Field(default=None, title="Connection channels")
 
 
-class Rig(DataCoreModel):
-    """Description of a rig"""
+class Instrument(DataCoreModel):
+    """Description of an instrument"""
 
     # metametadata
-    _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/rig.py"
+    _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/inst.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
     schema_version: SkipValidation[Literal["1.0.5"]] = Field(default="1.0.5")
 
-    # rig definition
-    rig_id: str = Field(
+    # instrument definition
+    instrument_id: str = Field(
         ...,
-        description="Unique rig identifier, name convention: <room>-<apparatus name>-<date modified YYYYMMDD>",
-        title="Rig ID",
-        pattern=RIG_ID_PATTERN,
+        description="Unique instrument identifier, name convention: <room>_<apparatus name>_<date modified YYYYMMDD>",
+        title="Insturment ID",
+        pattern=instrument_id_PATTERN,
     )
     mouse_platform: Optional[MOUSE_PLATFORMS] = Field(default=None, title="Mouse platform")
     modification_date: date = Field(..., title="Date of modification")
@@ -89,8 +89,8 @@ class Rig(DataCoreModel):
         title="CCF coordinate transform",
         description="Path to file that details the CCF-to-lab coordinate transform",
     )
-    origin: Optional[Origin] = Field(default=None, title="Origin point for rig position transforms")
-    rig_axes: Optional[List[Axis]] = Field(default=None, title="Rig axes", min_length=3, max_length=3)
+    origin: Optional[Origin] = Field(default=None, title="Origin point for instrument position transforms")
+    instrument_axes: Optional[List[Axis]] = Field(default=None, title="Instrument axes", min_length=3, max_length=3)
     modalities: Set[Modality.ONE_OF] = Field(..., title="Modalities")
     com_ports: List[Com] = Field(default=[], title="COM ports")
     instrument_type: Optional[ImagingInstrumentType] = Field(default=None, title="Instrument type")
@@ -101,7 +101,7 @@ class Rig(DataCoreModel):
     connections: List[Connection] = Field(
         default=[],
         title="Connections",
-        description="List of all connections between devices in the rig",
+        description="List of all connections between devices in the instrument",
     )
 
     components: List[
@@ -172,7 +172,7 @@ class Rig(DataCoreModel):
         for connection in value:
             for device_name in connection.device_names:
                 if device_name not in device_names:
-                    raise ValueError(f"Device name validation error: '{device_name}' is not part of the rig.")
+                    raise ValueError(f"Device name validation error: '{device_name}' is not part of the inst.")
 
         return value
 
@@ -207,13 +207,16 @@ class Rig(DataCoreModel):
             ValueError: If a required device type is missing for any modality.
         """
         # Define the mapping of modalities to their required device types
+        # The list of list pattern is used to allow for multiple options within a group, so e.g.
+        # FIB requires a light (one of the options) plus a detector and a patch cord
         type_mapping = {
-            Modality.ECEPHYS.abbreviation: [EphysAssembly],
-            Modality.FIB.abbreviation: [[Laser, LightEmittingDiode, Lamp], [Detector], [Patch]],
-            Modality.POPHYS.abbreviation: [[Laser, LightEmittingDiode, Lamp], [Detector], [Objective]],
-            Modality.SLAP.abbreviation: [[Laser, LightEmittingDiode, Lamp], [Detector], [Objective]],
-            Modality.BEHAVIOR_VIDEOS.abbreviation: [CameraAssembly],
-            Modality.BEHAVIOR.abbreviation: [[Olfactometer, RewardDelivery, Speaker, Monitor]],
+            Modality.ECEPHYS: [EphysAssembly],
+            Modality.FIB: [[Laser, LightEmittingDiode, Lamp], [Detector], [Patch]],
+            Modality.POPHYS: [[Laser, LightEmittingDiode, Lamp], [Detector], [Objective]],
+            Modality.SLAP: [[Laser, LightEmittingDiode, Lamp], [Detector], [Objective]],
+            Modality.BEHAVIOR_VIDEOS: [CameraAssembly],
+            Modality.BEHAVIOR: [[Olfactometer, RewardDelivery, Speaker, Monitor]],
+            Modality.SPIM: [[Objective], [Detector], [ScanningStage], [MotorizedStage]],
         }
 
         # Retrieve the components from the validation info

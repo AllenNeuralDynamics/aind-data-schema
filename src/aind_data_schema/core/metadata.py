@@ -27,10 +27,10 @@ from aind_data_schema.core.data_description import DataDescription
 from aind_data_schema.core.procedures import Injection, Procedures, Surgery
 from aind_data_schema.core.processing import Processing
 from aind_data_schema.core.quality_control import QualityControl
-from aind_data_schema.core.rig import Rig
+from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.core.session import Session
 from aind_data_schema.core.subject import Subject
-from aind_data_schema.utils.compatibility_check import RigSessionCompatibility
+from aind_data_schema.utils.compatibility_check import InstrumentSessionCompatibility
 
 CORE_FILES = [
     "subject",
@@ -119,7 +119,7 @@ class Metadata(DataCoreModel):
         default=None, title="Procedures", description="All procedures performed on a subject."
     )
     session: Optional[Session] = Field(default=None, title="Session", description="Description of a session.")
-    rig: Optional[Rig] = Field(default=None, title="Rig", description="Rig.")
+    rig: Optional[Rig] = Field(default=None, title="Rig", description="Instrument.")
     processing: Optional[Processing] = Field(default=None, title="Processing", description="All processes run on data.")
     acquisition: Optional[Acquisition] = Field(
         default=None, title="Acquisition", description="Imaging acquisition session"
@@ -286,7 +286,7 @@ class Metadata(DataCoreModel):
         return self
 
     @model_validator(mode="after")
-    def validate_rig_session_compatibility(self):
+    def validate_instrument_session_compatibility(self):
         """Validator for metadata"""
         if self.rig and self.session:
             check = RigSessionCompatibility(self.rig, self.session)

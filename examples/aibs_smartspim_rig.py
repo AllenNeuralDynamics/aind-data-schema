@@ -17,7 +17,7 @@ from aind_data_schema.components.devices import (
     ScanningStage,
 )
 from aind_data_schema_models.modalities import Modality
-from aind_data_schema.core.rig import Com, Rig
+from aind_data_schema.core.instrument import Com, Rig
 
 objective = Objective(
     name="TLX Objective",
@@ -181,8 +181,8 @@ lens3 = AdditionalImagingDevice(
     model="Large-uncoated-glass",
 )
 
-inst = Rig(
-    rig_id="440_SmartSPIM2_20231004",
+inst = Instrument(
+    instrument_id="440_SmartSPIM2_20231004",
     modification_date=datetime.date(2023, 10, 4),
     instrument_type=ImagingInstrumentType.SMARTSPIM,
     modalities=[Modality.SPIM],
@@ -223,5 +223,5 @@ inst = Rig(
     ],
 )
 serialized = inst.model_dump_json()
-deserialized = Rig.model_validate_json(serialized)
+deserialized = Instrument.model_validate_json(serialized)
 deserialized.write_standard_file(prefix="aibs_smartspim")

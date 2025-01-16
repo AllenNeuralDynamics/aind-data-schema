@@ -142,7 +142,6 @@ class DataDescription(DataCoreModel):
     @model_validator(mode="after")
     def build_name(self):
         """sets the name of the file"""
-        print(self)
         if self.label is not None and self.name is None:
             self.name = build_data_name(self.label, creation_datetime=self.creation_time)
         elif self.name is None:

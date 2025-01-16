@@ -11,7 +11,7 @@ from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.units import FrequencyUnit, SizeUnit
 
 import aind_data_schema.components.devices as d
-import aind_data_schema.core.rig as r
+import aind_data_schema.core.instrument as r
 from aind_data_schema.components.devices import (
     Calibration,
     Camera,
@@ -33,7 +33,7 @@ from aind_data_schema.components.devices import (
     ProbePort,
     Software,
 )
-from aind_data_schema.core.rig import Rig
+from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.core.session import (
     CcfCoords,
     Coordinates3d,
@@ -49,11 +49,11 @@ from aind_data_schema.core.session import (
     Stream,
     VisualStimulation,
 )
-from aind_data_schema.utils.compatibility_check import RigSessionCompatibility
+from aind_data_schema.utils.compatibility_check import InstrumentSessionCompatibility
 from aind_data_schema_models.brain_atlas import CCFStructure
 
 EXAMPLES_DIR = Path(__file__).parents[1] / "examples"
-EPHYS_RIG_JSON = EXAMPLES_DIR / "ephys_rig.json"
+EPHYS_RIG_JSON = EXAMPLES_DIR / "ephys_inst.json"
 EPHYS_SESSION_JSON = EXAMPLES_DIR / "ephys_session.json"
 
 behavior_computer = "W10DT72941"
@@ -99,7 +99,7 @@ laser_assembly = LaserAssembly(
         name="Manipulator A", serial_number="SN2937", manufacturer=Organization.NEW_SCALE_TECHNOLOGIES
     ),
     lasers=[red_laser, blue_laser],
-    collimator=Device(name="Collimator A", device_type="Collimator"),
+    collimator=Device(name="Collimator A"),
     fiber=Patch(
         name="Bundle Branching Fiber-optic Patch Cord",
         manufacturer=Organization.DORIC,
@@ -233,8 +233,8 @@ blue_laser_calibration = Calibration(
     output={"power mW": [1, 2, 7]},
 )
 
-ephys_rig = Rig(
-    rig_id="323_EPHYS1_20231003",
+ephys_inst = Instrument(
+    instrument_id="323_EPHYS1_20231003",
     modification_date=date(2023, 10, 3),
     modalities=[Modality.ECEPHYS],
     ephys_assemblies=[ephys_assemblyA, ephys_assemblyB],
@@ -253,7 +253,7 @@ ephys_session = Session(
     session_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0, tzinfo=timezone.utc),
     session_type="Receptive field mapping",
     iacuc_protocol="2109",
-    rig_id="323_EPHYS2-RF_2023-04-24_01",
+    instrument_id="323_EPHYS2-RF_2023-04-24_01",
     active_mouse_platform=False,
     mouse_platform_name="mouse platform",
     stimulus_epochs=[
@@ -480,10 +480,10 @@ class TestRigSessionCompatibility(unittest.TestCase):
                 contents = json.load(f)
             return contents
 
-        cls.example_ephys_rig = Rig.model_validate_json(json.dumps(read_json(EPHYS_RIG_JSON)))
+        cls.example_ephys_inst = Instrument.model_validate_json(json.dumps(read_json(EPHYS_RIG_JSON)))
         cls.example_ephys_session = Session.model_validate_json(json.dumps(read_json(EPHYS_SESSION_JSON)))
-        cls.ophys_rig = r.Rig(
-            rig_id="428_FIP1_20231003",
+        cls.ophys_instrument = r.Instrument(
+            instrument_id="428_FIP1_20231003",
             modification_date=date(2023, 10, 3),
             modalities=[Modality.FIB],
             cameras=[
@@ -783,7 +783,7 @@ class TestRigSessionCompatibility(unittest.TestCase):
             subject_id="652567",
             session_type="Parameter Testing",
             iacuc_protocol="2115",
-            rig_id="ophys_rig",
+            instrument_id="ophys_inst",
             mouse_platform_name="Disc",
             active_mouse_platform=False,
             data_streams=[
@@ -847,18 +847,20 @@ class TestRigSessionCompatibility(unittest.TestCase):
 
     def test_run_compatibility_check(self):
         """Tests compatibility check"""
-        expected_error = "Rig ID in session 323_EPHYS2-RF_2023-04-24_01 does not match the rig's 323_EPHYS1_20231003."
+        expected_error = (
+            "Insturment ID in session 323_EPHYS2-RF_2023-04-24_01 does not match the rig's 323_EPHYS1_20231003."
+        )
         with self.assertRaises(ValueError) as context:
-            RigSessionCompatibility(rig=ephys_rig, session=ephys_session).run_compatibility_check()
+            RigSessionCompatibility(rig=ephys_inst, session=ephys_session).run_compatibility_check()
         self.assertIn(expected_error, str(context.exception))
 
         with self.assertRaises(ValueError):
-            RigSessionCompatibility(rig=self.ophys_rig, session=self.ophys_session).run_compatibility_check()
+            RigSessionCompatibility(rig=self.ophys_inst, session=self.ophys_session).run_compatibility_check()
 
     def test_check_examples_compatibility(self):
         """Tests that examples are compatible"""
         # check that ephys session and rig are synced
-        example_ephys_check = RigSessionCompatibility(rig=self.example_ephys_rig, session=self.example_ephys_session)
+        example_ephys_check = RigSessionCompatibility(rig=self.example_ephys_inst, session=self.example_ephys_session)
         self.assertIsNone(example_ephys_check.run_compatibility_check())
 
 

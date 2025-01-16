@@ -6,7 +6,7 @@ from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.units import FrequencyUnit, SizeUnit
 
 import aind_data_schema.components.devices as d
-import aind_data_schema.core.rig as r
+import aind_data_schema.core.instrument as r
 
 camera_assembly_1 = d.CameraAssembly(
     name="BehaviorVideography_FaceSide",
@@ -295,8 +295,8 @@ calibration = d.Calibration(
     output={"Power mW": [5, 10, 13]},
 )
 
-rig = r.Rig(
-    rig_id="428_FIP1_20231003",
+instrument = r.Instrument(
+    instrument_id="428_FIP1_20231003",
     modification_date=date(2023, 10, 3),
     modalities=[Modality.FIB],
     components=[
@@ -327,6 +327,6 @@ rig = r.Rig(
     calibrations=[calibration],
 )
 
-serialized = rig.model_dump_json()
-deserialized = r.Rig.model_validate_json(serialized)
+serialized = inst.model_dump_json()
+deserialized = r.Instrument.model_validate_json(serialized)
 deserialized.write_standard_file(prefix="fip_ophys")

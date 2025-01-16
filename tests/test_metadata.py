@@ -17,7 +17,6 @@ from pydantic import __version__ as pyd_version
 from aind_data_schema.components.devices import MousePlatform
 from aind_data_schema.core.acquisition import Acquisition
 from aind_data_schema.core.data_description import DataDescription, Funding
-from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.core.metadata import ExternalPlatforms, Metadata, MetadataStatus, create_metadata_json
 from aind_data_schema.core.procedures import (
     IontophoresisInjection,
@@ -27,7 +26,7 @@ from aind_data_schema.core.procedures import (
     ViralMaterial,
 )
 from aind_data_schema.core.processing import PipelineProcess, Processing
-from aind_data_schema.core.rig import Rig
+from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.core.session import Session
 from aind_data_schema.core.subject import BreedingInfo, Housing, Sex, Species, Subject
 
@@ -244,7 +243,7 @@ class TestMetadata(unittest.TestCase):
                 subject=Subject.model_construct(),
                 procedures=Procedures.model_construct(subject_procedures=[surgery2]),
                 acquisition=Acquisition.model_construct(),
-                instrument=Instrument.model_construct(),
+                rig=Instrument.model_construct(),
                 processing=Processing.model_construct(),
             )
         self.assertIn("Injection is missing injection_materials.", str(context.exception))
@@ -258,8 +257,12 @@ class TestMetadata(unittest.TestCase):
         surgery1 = Surgery.model_construct(procedures=[nano_inj, ionto_inj])
 
         mouse_platform = MousePlatform.model_construct(name="platform1")
-        rig = Rig.model_construct(rig_id="123_EPHYS1_20220101", mouse_platform=mouse_platform)
-        session = Session.model_construct(rig_id="123_EPHYS1_20220101", mouse_platform_name="platform1")
+        inst = Instrument.model_construct(
+            instrument_id="123_EPHYS1_20220101",
+            mouse_platform=mouse_platform,
+            modalities=[Modality.BEHAVIOR, Modality.SPIM],
+        )
+        session = Session.model_construct(instrument_id="123_EPHYS1_20220101", mouse_platform_name="platform1")
 
         m = Metadata(
             name="ecephys_655019_2023-04-03_18-17-09",
@@ -276,7 +279,6 @@ class TestMetadata(unittest.TestCase):
             acquisition=Acquisition.model_construct(),
             rig=rig,
             processing=Processing.model_construct(),
-            instrument=Instrument.model_construct(),
         )
         self.assertIsNotNone(m)
 
@@ -299,7 +301,7 @@ class TestMetadata(unittest.TestCase):
                     modality=[Modality.ECEPHYS],
                 ),
                 procedures=Procedures.model_construct(subject_procedures=[surgery1]),
-                rig=Rig.model_construct(),
+                rig=Instrument.model_construct(),
             )
         self.assertIn(
             "ECEPHYS metadata missing required file: subject",
@@ -320,7 +322,7 @@ class TestMetadata(unittest.TestCase):
                 ),
                 subject=Subject.model_construct(),
                 procedures=Procedures.model_construct(subject_procedures=[surgery2]),
-                rig=Rig.model_construct(),
+                rig=Instrument.model_construct(),
                 processing=Processing.model_construct(),
                 session=Session.model_construct(),
             )
@@ -332,8 +334,8 @@ class TestMetadata(unittest.TestCase):
         nano_inj = NanojectInjection.model_construct(injection_materials=[viral_material])
         ionto_inj = IontophoresisInjection.model_construct(injection_materials=[viral_material])
         mouse_platform = MousePlatform.model_construct(name="platform1")
-        rig = Rig.model_construct(rig_id="123_EPHYS2_20230101", mouse_platform=mouse_platform)
-        session = Session.model_construct(rig_id="123_EPHYS2_20230101", mouse_platform_name="platform1")
+        inst = Instrument.model_construct(instrument_id="123_EPHYS2_20230101", mouse_platform=mouse_platform)
+        session = Session.model_construct(instrument_id="123_EPHYS2_20230101", mouse_platform_name="platform1")
 
         # Tests missing metadata
         surgery1 = Surgery.model_construct(procedures=[nano_inj, ionto_inj])
@@ -353,11 +355,11 @@ class TestMetadata(unittest.TestCase):
         )
         self.assertIsNotNone(m)
 
-    def test_validate_rig_session_compatibility(self):
+    def test_validate_instrument_session_compatibility(self):
         """Tests that rig/session compatibility validator works as expected"""
         mouse_platform = MousePlatform.model_construct(name="platform1")
-        rig = Rig.model_construct(rig_id="123_EPHYS1_20220101", mouse_platform=mouse_platform)
-        session = Session.model_construct(rig_id="123_EPHYS2_20230101", mouse_platform_name="platform2")
+        inst = Instrument.model_construct(instrument_id="123_EPHYS1_20220101", mouse_platform=mouse_platform)
+        session = Session.model_construct(instrument_id="123_EPHYS2_20230101", mouse_platform_name="platform2")
         with self.assertRaises(ValidationError) as context:
             Metadata(
                 name="ecephys_655019_2023-04-03_18-17-09",
@@ -375,7 +377,7 @@ class TestMetadata(unittest.TestCase):
                 session=session,
             )
         self.assertIn(
-            "Rig ID in session 123_EPHYS2_20230101 does not match the rig's 123_EPHYS1_20220101.",
+            "Insturment ID in session 123_EPHYS2_20230101 does not match the rig's 123_EPHYS1_20220101.",
             str(context.exception),
         )
 
@@ -406,7 +408,6 @@ class TestMetadata(unittest.TestCase):
             "rig": None,
             "processing": self.processing_json,
             "acquisition": None,
-            "instrument": None,
             "quality_control": None,
         }
         expected_md = Metadata(
@@ -473,7 +474,6 @@ class TestMetadata(unittest.TestCase):
             "rig": None,
             "processing": self.processing_json,
             "acquisition": None,
-            "instrument": None,
             "quality_control": None,
         }
         # there are some userwarnings when creating Subject from json
@@ -510,7 +510,6 @@ class TestMetadata(unittest.TestCase):
             "rig": None,
             "processing": self.processing_json,
             "acquisition": None,
-            "instrument": None,
             "quality_control": None,
         }
         # there are some userwarnings when creating Subject from json

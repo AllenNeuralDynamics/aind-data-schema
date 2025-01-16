@@ -45,7 +45,7 @@ class ExampleTest(unittest.TestCase):
             session_end_time=datetime.now(),
             subject_id="1234",
             session_type="Test",
-            rig_id="1234",
+            instrument_id="1234",
             mouse_platform_name="Running wheel",
             active_mouse_platform=False,
             data_streams=[
@@ -126,7 +126,7 @@ class ExampleTest(unittest.TestCase):
             protocol_id=["doi_path"],
             iacuc_protocol="1234",
             session_type="3D MRI Volume",
-            rig_id="NA",
+            instrument_id="NA",
             animal_weight_prior=22.1,
             animal_weight_post=21.9,
             data_streams=[stream],

@@ -5,8 +5,18 @@ import datetime
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.units import SizeUnit, FrequencyUnit
 
-from aind_data_schema.components.devices import AdditionalImagingDevice, DAQChannel, DAQDevice, Detector, Filter, Laser, Objective, OpticalTable, ScanningStage
-from aind_data_schema.core.rig import Rig, Com
+from aind_data_schema.components.devices import (
+    AdditionalImagingDevice,
+    DAQChannel,
+    DAQDevice,
+    Detector,
+    Filter,
+    Laser,
+    Objective,
+    OpticalTable,
+    ScanningStage,
+)
+from aind_data_schema.core.instrument import Instrument, Com
 from aind_data_schema_models.modalities import Modality
 
 objectives = [
@@ -202,8 +212,8 @@ optical_tables = [
     )
 ]
 
-inst = Rig(
-    rig_id="440_exaSPIM1_20231004",
+inst = Instrument(
+    instrument_id="440_exaSPIM1_20231004",
     modalities=[Modality.SPIM],
     instrument_type="exaSPIM",
     modification_date=datetime.date(2023, 10, 4),
@@ -232,5 +242,5 @@ inst = Rig(
 )
 
 serialized = inst.model_dump_json()
-deserialized = Rig.model_validate_json(serialized)
+deserialized = Instrument.model_validate_json(serialized)
 deserialized.write_standard_file(prefix="exaspim")

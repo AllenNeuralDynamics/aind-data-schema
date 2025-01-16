@@ -30,7 +30,7 @@ from aind_data_schema.components.devices import (
     Filter,
     Tube,
 )
-from aind_data_schema.core.rig import Rig
+from aind_data_schema.core.instrument import Instrument
 
 camera1 = CameraAssembly(
     name="BehaviorVideography_FaceSide",
@@ -341,8 +341,8 @@ calibrations = [
     # Water calibration comes here#
 ]
 
-rig = Rig(
-    rig_id="447_FIP-Behavior_20000101",
+inst = Instrument(
+    instrument_id="447_FIP-Behavior_20000101",
     modification_date=date(2000, 1, 1),
     modalities=[Modality.BEHAVIOR, Modality.FIB],
     mouse_platform=Tube(name="mouse_tube_foraging", diameter=4.0),
@@ -362,4 +362,4 @@ rig = Rig(
     calibrations=calibrations,
 )
 
-rig.write_standard_file(prefix="fip_behavior")
+inst.write_standard_file(prefix="fip_behavior")
