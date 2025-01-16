@@ -9,7 +9,7 @@
    "session_start_time": "2023-04-25T02:35:00Z",
    "session_end_time": "2023-04-25T03:16:00Z",
    "session_type": "Receptive field mapping",
-   "iacuc_protocol": "2109",
+   "ethics_review_id": "2109",
    "rig_id": "323_EPHYS1_20231003",
    "calibrations": [],
    "maintenance": [],

@@ -8,7 +8,7 @@
          "protocol_id": "doi_of_protocol_surgery",
          "start_date": "2022-11-17",
          "experimenter_full_name": "LAS",
-         "iacuc_protocol": "xxxx",
+         "ethics_review_id": "xxxx",
          "animal_weight_prior": null,
          "animal_weight_post": null,
          "weight_unit": "gram",

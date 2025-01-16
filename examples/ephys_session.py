@@ -24,7 +24,7 @@ session = Session(
     session_start_time=datetime(year=2023, month=4, day=25, hour=2, minute=35, second=0, tzinfo=timezone.utc),
     session_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0, tzinfo=timezone.utc),
     session_type="Receptive field mapping",
-    iacuc_protocol="2109",
+    ethics_review_id="2109",
     rig_id="323_EPHYS1_20231003",
     active_mouse_platform=False,
     mouse_platform_name="Running Wheel",

@@ -555,7 +555,7 @@ class Session(DataCoreModel):
     session_start_time: AwareDatetimeWithDefault = Field(..., title="Session start time")
     session_end_time: Optional[AwareDatetimeWithDefault] = Field(default=None, title="Session end time")
     session_type: str = Field(..., title="Session type")
-    iacuc_protocol: Optional[str] = Field(default=None, title="IACUC protocol")
+    ethics_review_id: Optional[str] = Field(default=None, title="Ethics review ID")
     rig_id: str = Field(..., title="Rig ID")
     calibrations: List[Calibration] = Field(
         default=[],
