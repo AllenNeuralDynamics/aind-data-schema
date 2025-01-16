@@ -560,6 +560,17 @@ class Lamp(Device):
     temperature_unit: Optional[TemperatureUnit] = Field(default=None, title="Temperature unit")
 
 
+class LightAssembly(DataModel):
+    """Named assembly of a light source and lens"""
+
+    device_type: Literal["Light assembly"] = "Light assembly"
+
+    # required fields
+    name: str = Field(..., title="Light assembly name")
+    light: Annotated[Union[Laser, LightEmittingDiode, Lamp], Field(discriminator="device_type")]
+    lens: Lens = Field(..., title="Lens")
+
+
 class ProbePort(DataModel):
     """Port for a probe connection"""
 
