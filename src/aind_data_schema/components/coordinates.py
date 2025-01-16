@@ -20,6 +20,7 @@ class CcfVersion(str, Enum):
 class Origin(str, Enum):
     """Coordinate reference origin point"""
 
+    ORIGIN = "Origin"
     BREGMA = "Bregma"
     LAMBDA = "Lambda"
     OTHER = "Other (see Notes)"
@@ -98,6 +99,45 @@ class Size3d(DataModel):
     length: int = Field(..., title="Length")
     height: int = Field(..., title="Height")
     unit: SizeUnit = Field(SizeUnit.M, title="Size unit")
+
+
+class AtlasSpace(DataModel):
+    """Atlas definition"""
+
+    name: str = Field(..., title="Atlas name")
+    version: str = Field(..., title="Atlas version")
+    dimensions: Size3d = Field(..., title="Atlas size")
+    reference_coordinate: Origin = Field(..., title="Reference coordinate origin")
+
+
+class AtlasTransformed(DataModel):
+    """Transformation from one atlas to another"""
+
+    atlas: AtlasSpace = Field(..., title="Source atlas name")
+    transforms: List[
+        Annotated[Union[Translation3dTransform, Rotation3dTransform, Scale3dTransform], Field(discriminator="type")]
+    ] = Field(..., title="Transformations to target space")
+
+
+CCFAtlas = AtlasSpace(
+    name="CCF",
+    version="CCFv3",
+    dimensions=Size3d(
+        width=13.2,
+        length=11.4,
+        height=8.0, unit=SizeUnit.MM
+    ),
+)
+
+
+class AtlasCoordinate(DataModel):
+    """Parent class for defining a specific point in an atlas space"""
+
+    atlas: AtlasSpace = Field(..., title="Atlas name")
+    coordinates: Coordinates3d = Field(..., title="Coordinates in atlas space")
+    angles: Optional[Orientation3d] = Field(default=None, title="Orientation in atlas space")
+    reference_coordinate: Optional[Origin] = Field(default=None, title="Reference coordinate origin")
+
 
 
 class Orientation3d(DataModel):
