@@ -124,7 +124,7 @@ class ExampleTest(unittest.TestCase):
             session_start_time=datetime.now(tz=timezone.utc),
             session_end_time=datetime.now(tz=timezone.utc),
             protocol_id=["doi_path"],
-            iacuc_protocol="1234",
+            ethics_review_id="1234",
             session_type="3D MRI Volume",
             rig_id="NA",
             animal_weight_prior=22.1,

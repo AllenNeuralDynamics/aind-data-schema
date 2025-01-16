@@ -32,7 +32,7 @@ p = Procedures(
         Surgery(
             start_date=t.date(),
             experimenter_full_name="John Apple",
-            iacuc_protocol="2109",
+            ethics_review_id="2109",
             animal_weight_prior=22.6,
             animal_weight_post=22.3,
             anaesthesia=Anaesthetic(type="Isoflurane", duration=180, level=1.5),
@@ -94,7 +94,7 @@ p = Procedures(
         ),
         WaterRestriction(
             start_date="2023-05-15",
-            iacuc_protocol="1234",
+            ethics_review_id="1234",
             target_fraction_weight=25,
             minimum_water_per_day=1.5,
             baseline_weight=20.4,
@@ -103,7 +103,7 @@ p = Procedures(
         Surgery(
             start_date="2023-05-31",
             experimenter_full_name="John Apple",
-            iacuc_protocol="2109",
+            ethics_review_id="2109",
             anaesthesia=Anaesthetic(type="Isoflurane", duration=30, level=3),
             workstation_id="SWS 3",
             protocol_id="doi",

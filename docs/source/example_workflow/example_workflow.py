@@ -24,7 +24,7 @@ subject_sex_lookup = {
 }
 
 # everything is covered by the same IACUC protocol
-iacuc_protocol = "2109"
+ethics_review_id = "2109"
 
 # loop through all of the sessions
 for session_idx, session in sessions_df.iterrows():
@@ -87,7 +87,7 @@ for session_idx, session in sessions_df.iterrows():
             Surgery(
                 start_date=proc_row["injection_date"].to_pydatetime().date(),
                 protocol_id=protocol,
-                iacuc_protocol=iacuc_protocol,
+                ethics_review_id=ethics_review_id,
                 experimenter_full_name=experimenter,
                 procedures=[
                     NanojectInjection(
@@ -112,7 +112,7 @@ for session_idx, session in sessions_df.iterrows():
             Surgery(
                 start_date=proc_row["perfusion_date"].to_pydatetime().date(),
                 experimenter_full_name=experimenter,
-                iacuc_protocol=iacuc_protocol,
+                ethics_review_id=ethics_review_id,
                 protocol_id=protocol,
                 procedures=[Perfusion(protocol_id=protocol, output_specimen_ids=["1"])],
             ),

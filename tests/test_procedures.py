@@ -144,7 +144,7 @@ class ProceduresTests(unittest.TestCase):
                 Surgery(
                     start_date=start_date,
                     experimenter_full_name="Chip Munk",
-                    iacuc_protocol="234",
+                    ethics_review_id="234",
                     protocol_id="123",
                     procedures=[
                         RetroOrbitalInjection(

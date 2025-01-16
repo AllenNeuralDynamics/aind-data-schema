@@ -36,7 +36,7 @@ agarose = procedures.Reagent(name="Agarose", lot_number="1234", source=Organizat
 perfusion = procedures.Surgery(
     start_date=date(2022, 11, 17),
     experimenter_full_name="LAS",
-    iacuc_protocol="xxxx",
+    ethics_review_id="xxxx",
     protocol_id="doi_of_protocol_surgery",
     procedures=[
         procedures.Perfusion(

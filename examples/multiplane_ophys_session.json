@@ -8,7 +8,7 @@
    "session_start_time": "2022-07-12T07:00:00Z",
    "session_end_time": "2022-07-12T07:00:00Z",
    "session_type": "Mesoscope",
-   "iacuc_protocol": "12345",
+   "ethics_review_id": "12345",
    "rig_id": "MESO.1",
    "calibrations": [],
    "maintenance": [],

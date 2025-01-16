@@ -26,7 +26,7 @@ p = Procedures(
             start_date=t.date(),
             protocol_id="doi",
             experimenter_full_name="John Apple",
-            iacuc_protocol="2109",
+            ethics_review_id="2109",
             animal_weight_prior=22.6,
             animal_weight_post=22.3,
             anaesthesia=Anaesthetic(type="Isoflurane", duration=1, level=1.5),
@@ -69,7 +69,7 @@ p = Procedures(
         Surgery(
             start_date=t2.date(),
             experimenter_full_name="Frank Lee",
-            iacuc_protocol="2109",
+            ethics_review_id="2109",
             protocol_id="doi",
             procedures=[
                 Perfusion(
