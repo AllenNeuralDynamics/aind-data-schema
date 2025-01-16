@@ -631,7 +631,9 @@ class MyomatrixContact(DataModel):
 class MyomatrixThread(DataModel):
     """Description of a thread of a myomatrix array"""
 
-    ground_electrode_location: MouseAnatomicalStructure.BODY_PARTS = Field(..., title="Location of ground electrode")
+    ground_electrode: bool = Field(
+        ..., title="Connected to a ground electrode", description="Ground electrode implant is in a separate procedure"
+    )
     contacts: List[MyomatrixContact] = Field(..., title="Contacts")
 
 
