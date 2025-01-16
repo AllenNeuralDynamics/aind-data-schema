@@ -13,7 +13,7 @@ from aind_data_schema.components.devices import (
     OpticalTable,
     ScanningStage,
 )
-from aind_data_schema.core.instrument import Com, Detector, Rig, Objective
+from aind_data_schema.core.instrument import Com, Detector, Instrument, Objective
 from aind_data_schema_models.modalities import Modality
 
 objective_1 = Objective(

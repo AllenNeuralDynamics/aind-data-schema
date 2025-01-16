@@ -851,16 +851,18 @@ class TestRigSessionCompatibility(unittest.TestCase):
             "Insturment ID in session 323_EPHYS2-RF_2023-04-24_01 does not match the rig's 323_EPHYS1_20231003."
         )
         with self.assertRaises(ValueError) as context:
-            RigSessionCompatibility(rig=ephys_inst, session=ephys_session).run_compatibility_check()
+            RigSessionCompatibility(instrument=ephys_inst, session=ephys_session).run_compatibility_check()
         self.assertIn(expected_error, str(context.exception))
 
         with self.assertRaises(ValueError):
-            RigSessionCompatibility(rig=self.ophys_inst, session=self.ophys_session).run_compatibility_check()
+            RigSessionCompatibility(instrument=self.ophys_inst, session=self.ophys_session).run_compatibility_check()
 
     def test_check_examples_compatibility(self):
         """Tests that examples are compatible"""
         # check that ephys session and rig are synced
-        example_ephys_check = RigSessionCompatibility(rig=self.example_ephys_inst, session=self.example_ephys_session)
+        example_ephys_check = RigSessionCompatibility(
+            instrument=self.example_ephys_inst, session=self.example_ephys_session
+        )
         self.assertIsNone(example_ephys_check.run_compatibility_check())
 
 

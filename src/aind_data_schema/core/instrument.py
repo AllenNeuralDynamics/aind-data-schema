@@ -1,4 +1,4 @@
-"""Core Rig model"""
+"""Core Instrument model"""
 
 from datetime import date
 from typing import List, Literal, Optional, Set, Union

@@ -119,7 +119,9 @@ class Metadata(DataCoreModel):
         default=None, title="Procedures", description="All procedures performed on a subject."
     )
     session: Optional[Session] = Field(default=None, title="Session", description="Description of a session.")
-    rig: Optional[Rig] = Field(default=None, title="Rig", description="Instrument.")
+    instrument: Optional[Instrument] = Field(
+        default=None, title="Instrument", description="Devices used to acquire data."
+    )
     processing: Optional[Processing] = Field(default=None, title="Processing", description="All processes run on data.")
     acquisition: Optional[Acquisition] = Field(
         default=None, title="Acquisition", description="Imaging acquisition session"

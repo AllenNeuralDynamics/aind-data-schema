@@ -243,7 +243,7 @@ class TestMetadata(unittest.TestCase):
                 subject=Subject.model_construct(),
                 procedures=Procedures.model_construct(subject_procedures=[surgery2]),
                 acquisition=Acquisition.model_construct(),
-                rig=Instrument.model_construct(),
+                instrument=Instrument.model_construct(),
                 processing=Processing.model_construct(),
             )
         self.assertIn("Injection is missing injection_materials.", str(context.exception))
@@ -277,7 +277,7 @@ class TestMetadata(unittest.TestCase):
             session=session,  # SPIM excludes session, but BEHAVIOR requires it
             procedures=Procedures.model_construct(subject_procedures=[surgery1]),
             acquisition=Acquisition.model_construct(),
-            rig=rig,
+            instrument=rig,
             processing=Processing.model_construct(),
         )
         self.assertIsNotNone(m)
@@ -301,7 +301,7 @@ class TestMetadata(unittest.TestCase):
                     modality=[Modality.ECEPHYS],
                 ),
                 procedures=Procedures.model_construct(subject_procedures=[surgery1]),
-                rig=Instrument.model_construct(),
+                instrument=Instrument.model_construct(),
             )
         self.assertIn(
             "ECEPHYS metadata missing required file: subject",
@@ -322,7 +322,7 @@ class TestMetadata(unittest.TestCase):
                 ),
                 subject=Subject.model_construct(),
                 procedures=Procedures.model_construct(subject_procedures=[surgery2]),
-                rig=Instrument.model_construct(),
+                instrument=Instrument.model_construct(),
                 processing=Processing.model_construct(),
                 session=Session.model_construct(),
             )
@@ -350,7 +350,7 @@ class TestMetadata(unittest.TestCase):
             ),
             subject=Subject.model_construct(),
             procedures=Procedures.model_construct(subject_procedures=[surgery1]),
-            rig=rig,
+            instrument=rig,
             session=session,
         )
         self.assertIsNotNone(m)
@@ -372,7 +372,7 @@ class TestMetadata(unittest.TestCase):
                 ),
                 subject=Subject.model_construct(),
                 procedures=Procedures.model_construct(),
-                rig=rig,
+                instrument=rig,
                 processing=Processing.model_construct(),
                 session=session,
             )

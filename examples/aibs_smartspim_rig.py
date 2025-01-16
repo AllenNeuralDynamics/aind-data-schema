@@ -17,7 +17,7 @@ from aind_data_schema.components.devices import (
     ScanningStage,
 )
 from aind_data_schema_models.modalities import Modality
-from aind_data_schema.core.instrument import Com, Rig
+from aind_data_schema.core.instrument import Com, Instrument
 
 objective = Objective(
     name="TLX Objective",

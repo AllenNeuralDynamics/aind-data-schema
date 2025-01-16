@@ -2,16 +2,16 @@
 
 from typing import Optional
 
-from aind_data_schema.core.instrument import RewardDelivery, Rig
+from aind_data_schema.core.instrument import RewardDelivery, Instrument
 from aind_data_schema.core.session import Session
 
 
-class RigSessionCompatibility:
+class InstrumentSessionCompatibility:
     """Class of methods to check compatibility between rig and session"""
 
-    def __init__(self, rig: Rig, session: Session) -> None:
+    def __init__(self, instrument: Instrument, session: Session) -> None:
         """Initiate RigSessionCompatibility class"""
-        self.instrument = rig
+        self.inst = instrument
         self.session = session
 
     def _compare_instrument_id(self) -> Optional[ValueError]:
@@ -36,7 +36,7 @@ class RigSessionCompatibility:
         session_daqs = [
             daq for stream in getattr(self.session, "data_streams", []) for daq in getattr(stream, "daq_names", [])
         ]
-        instrument_daqs = [getattr(daq, "name", None) for daq in getattr(self.rig, "daqs", [])]
+        instrument_daqs = [getattr(daq, "name", None) for daq in getattr(self.inst, "daqs", [])]
         if not set(session_daqs).issubset(set(instrument_daqs)):
             return ValueError(
                 f"daq names in session do not match daq names in inst. "
@@ -52,7 +52,7 @@ class RigSessionCompatibility:
         ]
         instrument_cameras = [
             name
-            for camera_device in getattr(self.rig, "cameras", [])
+            for camera_device in getattr(self.inst, "cameras", [])
             for name in (camera_device.camera.name, camera_device.name)
         ]
         if not set(session_cameras).issubset(set(instrument_cameras)):
@@ -69,7 +69,7 @@ class RigSessionCompatibility:
             for light_source in getattr(stream, "light_sources", [])
         ]
         instrument_light_sources = [
-            getattr(light_source, "name", None) for light_source in getattr(self.rig, "light_sources", [])
+            getattr(light_source, "name", None) for light_source in getattr(self.inst, "light_sources", [])
         ]
         if not set(session_light_sources).issubset(set(instrument_light_sources)):
             return ValueError(
@@ -85,7 +85,7 @@ class RigSessionCompatibility:
             for ephys_module in getattr(stream, "ephys_modules")
         ]
         instrument_ephys_assemblies = [
-            ephys_assembly.name for ephys_assembly in getattr(self.rig, "ephys_assemblies", [])
+            ephys_assembly.name for ephys_assembly in getattr(self.inst, "ephys_assemblies", [])
         ]
         if not set(session_ephys_assemblies).issubset(set(instrument_ephys_assemblies)):
             return ValueError(
@@ -103,7 +103,7 @@ class RigSessionCompatibility:
         ]
         instrument_stick_microscopes = [
             name
-            for camera_device in getattr(self.rig, "stick_microscopes", [])
+            for camera_device in getattr(self.inst, "stick_microscopes", [])
             for name in (camera_device.camera.name, camera_device.name)
         ]
         if not set(session_stick_microscopes).issubset(set(instrument_stick_microscopes)):
@@ -121,7 +121,7 @@ class RigSessionCompatibility:
             for manipulator_module in getattr(stream, "manipulator_modules", [])
         ]
         instrument_manipulator_modules = [
-            laser_assembly.name for laser_assembly in getattr(self.rig, "laser_assemblies", [])
+            laser_assembly.name for laser_assembly in getattr(self.inst, "laser_assemblies", [])
         ]
         if not set(session_manipulator_modules).issubset(set(instrument_manipulator_modules)):
             return ValueError(
@@ -137,7 +137,7 @@ class RigSessionCompatibility:
             for stream in getattr(self.session, "data_streams", [])
             for detector in getattr(stream, "detectors", [])
         ]
-        instrument_detectors = [detector.name for detector in getattr(self.rig, "detectors", [])]
+        instrument_detectors = [detector.name for detector in getattr(self.inst, "detectors", [])]
         if not set(session_detectors).issubset(set(instrument_detectors)):
             return ValueError(
                 f"detector names in session do not match detector names in inst. "
@@ -151,7 +151,7 @@ class RigSessionCompatibility:
             for stream in getattr(self.session, "data_streams", [])
             for fiber_connection in getattr(stream, "fiber_connections", [])
         ]
-        instrument_patch_cords = [patch_cord.name for patch_cord in getattr(self.rig, "patch_cords", [])]
+        instrument_patch_cords = [patch_cord.name for patch_cord in getattr(self.inst, "patch_cords", [])]
         if not set(session_patch_cords).issubset(set(instrument_patch_cords)):
             return ValueError(
                 f"patch cord names in session do not match patch cord names in inst. "
@@ -165,7 +165,9 @@ class RigSessionCompatibility:
             for stream in getattr(self.session, "data_streams", [])
             for fiber_module in getattr(stream, "fiber_modules", [])
         ]
-        instrument_fiber_modules = [fiber_assembly.name for fiber_assembly in getattr(self.rig, "fiber_assemblies", [])]
+        instrument_fiber_modules = [
+            fiber_assembly.name for fiber_assembly in getattr(self.inst, "fiber_assemblies", [])
+        ]
         if not set(session_fiber_modules).issubset(set(instrument_fiber_modules)):
             return ValueError(
                 f"fiber module names in session do not match fiber assembly names in inst. "
@@ -181,11 +183,11 @@ class RigSessionCompatibility:
         ]
         instrument_stimulus_devices = [
             stimulus_device.name
-            for stimulus_device in getattr(self.rig, "stimulus_devices", [])
+            for stimulus_device in getattr(self.inst, "stimulus_devices", [])
             if not isinstance(stimulus_device, RewardDelivery)
         ] + [
             reward_spout.name
-            for stimulus_device in getattr(self.rig, "stimulus_devices", [])
+            for stimulus_device in getattr(self.inst, "stimulus_devices", [])
             if isinstance(stimulus_device, RewardDelivery)
             for reward_spout in getattr(stimulus_device, "reward_spouts", [])
         ]
