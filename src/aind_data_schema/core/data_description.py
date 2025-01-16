@@ -254,7 +254,7 @@ class DerivedDataDescription(DataDescription):
 
 
 class RawDataDescription(DataDescription):
-    """A logical collection of data files as acquired from a rig or instrument"""
+    """A logical collection of data files as acquired from an instrument"""
 
     data_level: Literal[DataLevel.RAW] = Field(
         default=DataLevel.RAW, description="level of processing that data has undergone", title="Data Level"

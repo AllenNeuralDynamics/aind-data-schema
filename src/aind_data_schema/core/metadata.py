@@ -37,7 +37,7 @@ CORE_FILES = [
     "data_description",
     "procedures",
     "session",
-    "rig",
+    "instrument",
     "processing",
     "acquisition",
     "quality_control",
@@ -290,8 +290,8 @@ class Metadata(DataCoreModel):
     @model_validator(mode="after")
     def validate_instrument_session_compatibility(self):
         """Validator for metadata"""
-        if self.rig and self.session:
-            check = RigSessionCompatibility(self.rig, self.session)
+        if self.instrument and self.session:
+            check = InstrumentSessionCompatibility(self.instrument, self.session)
             check.run_compatibility_check()
         return self
 

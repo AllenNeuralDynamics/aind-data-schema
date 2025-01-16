@@ -7,10 +7,10 @@ from aind_data_schema.core.session import Session
 
 
 class InstrumentSessionCompatibility:
-    """Class of methods to check compatibility between rig and session"""
+    """Class of methods to check compatibility between instrument and session"""
 
     def __init__(self, instrument: Instrument, session: Session) -> None:
-        """Initiate RigSessionCompatibility class"""
+        """Initiate InstrumentSessionCompatibility class"""
         self.inst = instrument
         self.session = session
 
@@ -18,7 +18,7 @@ class InstrumentSessionCompatibility:
         """Compares instrument_id"""
         if self.session.instrument_id != self.inst.instrument_id:
             return ValueError(
-                f"Insturment ID in session {self.session.instrument_id} does not match the rig's {self.inst.instrument_id}."
+                f"Insturment ID in session {self.session.instrument_id} does not match the instrument's {self.inst.instrument_id}."
             )
         else:
             return None
@@ -28,7 +28,7 @@ class InstrumentSessionCompatibility:
         if self.session.mouse_platform_name != self.inst.mouse_platform.name:
             return ValueError(
                 f"Mouse platform name in session {self.session.mouse_platform_name} "
-                f"does not match the rig's {self.inst.mouse_platform.name}"
+                f"does not match the instrument's {self.inst.mouse_platform.name}"
             )
 
     def _compare_daq_names(self) -> Optional[ValueError]:
@@ -199,7 +199,7 @@ class InstrumentSessionCompatibility:
             )
 
     def run_compatibility_check(self) -> None:
-        """Runs compatibility check.Creates a dictionary of fields and whether it matches in rig and session."""
+        """Runs compatibility check.Creates a dictionary of fields and whether it matches in instrument and session."""
         comparisons = [
             self._compare_instrument_id(),
             self._compare_mouse_platform_name(),

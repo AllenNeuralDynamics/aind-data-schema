@@ -206,6 +206,11 @@ class Instrument(DataCoreModel):
         Raises:
             ValueError: If a required device type is missing for any modality.
         """
+
+        # Return if there are no modalities listed, this is largely for testing
+        if len(value.modalities) == 0:
+            return value
+
         # Define the mapping of modalities to their required device types
         # The list of list pattern is used to allow for multiple options within a group, so e.g.
         # FIB requires a light (one of the options) plus a detector and a patch cord
