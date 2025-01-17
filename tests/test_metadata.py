@@ -14,7 +14,7 @@ from aind_data_schema_models.platforms import Platform
 from pydantic import ValidationError
 from pydantic import __version__ as pyd_version
 
-from aind_data_schema.components.devices import MousePlatform
+from aind_data_schema.components.devices import EphysAssembly, EphysProbe, Manipulator, MousePlatform
 from aind_data_schema.core.acquisition import Acquisition
 from aind_data_schema.core.data_description import DataDescription, Funding
 from aind_data_schema.core.metadata import ExternalPlatforms, Metadata, MetadataStatus, create_metadata_json
@@ -243,7 +243,7 @@ class TestMetadata(unittest.TestCase):
                 subject=Subject.model_construct(),
                 procedures=Procedures.model_construct(subject_procedures=[surgery2]),
                 acquisition=Acquisition.model_construct(),
-                instrument=Instrument.model_construct(),
+                instrument=Instrument.model_construct(modalities=[Modality.SPIM]),
                 processing=Processing.model_construct(),
             )
         self.assertIn("Injection is missing injection_materials.", str(context.exception))
@@ -330,8 +330,18 @@ class TestMetadata(unittest.TestCase):
 
     def test_validate_instrument_session_compatibility(self):
         """Tests that rig/session compatibility validator works as expected"""
+        ephys_assembly = EphysAssembly(
+            probes=[EphysProbe(probe_model="Neuropixels 1.0", name="Probe A")],
+            manipulator=Manipulator(
+                name="Probe manipulator",
+                manufacturer=Organization.NEW_SCALE_TECHNOLOGIES,
+                serial_number="4321",
+            ),
+            name="Ephys_assemblyA",
+        )
+
         mouse_platform = MousePlatform.model_construct(name="platform1")
-        inst = Instrument.model_construct(instrument_id="123_EPHYS1_20220101", mouse_platform=mouse_platform)
+        inst = Instrument.model_construct(instrument_id="123_EPHYS1_20220101", mouse_platform=mouse_platform, modalities=[Modality.ECEPHYS], components=[ephys_assembly])
         session = Session.model_construct(instrument_id="123_EPHYS2_20230101", mouse_platform_name="platform2")
         with self.assertRaises(ValidationError) as context:
             Metadata(
@@ -349,8 +359,9 @@ class TestMetadata(unittest.TestCase):
                 processing=Processing.model_construct(),
                 session=session,
             )
+        print(str(context.exception))
         self.assertIn(
-            "Insturment ID in session 123_EPHYS2_20230101 does not match the rig's 123_EPHYS1_20220101.",
+            "Instrument ID in session 123_EPHYS2_20230101 does not match the rig's 123_EPHYS1_20220101.",
             str(context.exception),
         )
 

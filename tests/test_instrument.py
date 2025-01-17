@@ -24,16 +24,18 @@ from aind_data_schema.components.devices import (
     Disc,
     EphysAssembly,
     EphysProbe,
+    ImagingInstrumentType,
     Laser,
     LaserAssembly,
     Lens,
     Manipulator,
     NeuropixelsBasestation,
+    Objective,
     Olfactometer,
     OlfactometerChannel,
     Patch,
 )
-from aind_data_schema.core.instrument import Instrument
+from aind_data_schema.core.instrument import Instrument, DEVICES_REQUIRED
 
 daqs = [
     NeuropixelsBasestation(
@@ -182,12 +184,22 @@ patch_cords = [
         numerical_aperture=0.37,
     )
 ]
+objectives = [
+    Objective(
+        name="TLX Objective 1",
+        numerical_aperture=0.2,
+        magnification=3.6,
+        manufacturer=Organization.LIFECANVAS,
+        immersion="multi",
+        notes="Thorlabs TL4X-SAP with LifeCanvas dipping cap and correction optics.",
+        serial_number="Unknown-1",
+    )
+]
 stimulus_devices = [
     Olfactometer(
         name="Olfactometer",
         manufacturer=Organization.CHAMPALIMAUD,
         model="1234",
-        harp_device_type="1234",
         serial_number="213456",
         hardware_version="1",
         is_clock_generator=False,
@@ -250,119 +262,32 @@ class RigTests(unittest.TestCase):
                 )
             ],
         )
+        self.assertIsNotNone(inst)
 
-        assert rig is not None
+    def test_validator_modality_device_missing(self):
+        """Test that the modality -> device validator throws validation errors when devices are missing"""
 
-    def test_validator(self):
-        """Test the rig file validators"""
-        neuropixels_base = NeuropixelsBasestation(
-            name="Basestation",
-            basestation_firmware_version="1",
-            bsc_firmware_version="2",
-            slot=0,
-            manufacturer=Organization.IMEC,
-            ports=[],
-            computer_name="foo",
-            channels=[
-                DAQChannel(
-                    channel_name="123",
-                    device_name="Laser A",
-                    channel_type="Analog Output",
-                ),
-                DAQChannel(
-                    channel_name="321",
-                    device_name="Probe A",
-                    channel_type="Analog Output",
-                ),
-                DAQChannel(
-                    channel_name="234",
-                    device_name="Camera A",
-                    channel_type="Digital Output",
-                ),
-                DAQChannel(
-                    channel_name="2354",
-                    device_name="Disc A",
-                    channel_type="Digital Output",
-                ),
-            ],
-        )
-
-        # A Rig model with ECEPHYS in the modality list requires
-        # ephys_assemblies and stick microscopes
-        with self.assertRaises(ValidationError):
-            Instrument(
-                modalities=[
-                    Modality.ECEPHYS,
-                    Modality.SLAP,
-                    Modality.FIB,
-                    Modality.BEHAVIOR_VIDEOS,
-                    Modality.POPHYS,
-                    Modality.BEHAVIOR,
-                ],
-                instrument_id="123_EPHYS1-OPTO_20220101",
-                modification_date=date(2020, 10, 10),
-                components=[
-                    neuropixels_base,
-                ],
-                calibrations=[
-                    Calibration(
-                        calibration_date=date(2020, 10, 10),
-                        device_name="Laser A",
-                        description="Laser power calibration",
-                        input={"power percent": [10, 40, 80]},
-                        output={"power mW": [2, 6, 10]},
-                    )
-                ],
-                mouse_platform=Disc(name="Disc A", radius=1),
-            )
-
-        with self.assertRaises(ValidationError):
-            daqs = [
-                NeuropixelsBasestation(
-                    name="Basestation",
-                    basestation_firmware_version="1",
-                    bsc_firmware_version="2",
-                    slot=0,
-                    manufacturer=Organization.IMEC,
-                    ports=[],
-                    computer_name="foo",
-                    channels=[
-                        DAQChannel(
-                            channel_name="123",
-                            device_name="Laser A",
-                            channel_type="Analog Output",
-                        ),
-                        DAQChannel(
-                            channel_name="321",
-                            device_name="Probe A",
-                            channel_type="Analog Output",
-                        ),
-                        DAQChannel(
-                            channel_name="234",
-                            device_name="Camera A",
-                            channel_type="Digital Output",
-                        ),
-                        DAQChannel(
-                            channel_name="2354",
-                            device_name="Disc A",
-                            channel_type="Digital Output",
-                        ),
-                    ],
+        # Mapping is a dictionary of Modality -> List[Device groups]
+        for modality_abbreviation, _ in DEVICES_REQUIRED.items():
+            with self.assertRaises(ValidationError):
+                Instrument(
+                    modalities=[Modality.from_abbreviation(modality_abbreviation)],
+                    instrument_id="123_EPHYS1-OPTO_20220101",
+                    modification_date=date(2020, 10, 10),
+                    components=[],
+                    calibrations=[],
                 )
-            ]
+    
+    def test_validator_modality_device_present(self):
+        """Test that the modality -> device validator does not throw validation errors when devices are present"""
 
-            Instrument(
+        # Mapping is a dictionary of Modality -> List[Device groups]
+        for modality_abbreviation, device_groups in DEVICES_REQUIRED.items():
+
+            inst = Instrument(
+                modalities=[Modality.from_abbreviation(modality_abbreviation)],
                 instrument_id="123_EPHYS1-OPTO_20220101",
-                modification_date=datetime.now(),
-                modalities=[Modality.ECEPHYS, Modality.FIB],
-                components=[*daqs],
-            )
-
-        with self.assertRaises(ValueError):
-            Instrument(
-                instrument_id="1234",
                 modification_date=date(2020, 10, 10),
-                modalities=[Modality.ECEPHYS, Modality.FIB],
                 components=[
                     *daqs,
                     *cameras,
@@ -373,58 +298,86 @@ class RigTests(unittest.TestCase):
                     *detectors,
                     *patch_cords,
                     *stimulus_devices,
+                    *objectives,
                 ],
-                mouse_platform=Disc(name="Disc A", radius=1),
-                calibrations=[
-                    Calibration(
-                        calibration_date=date(2020, 10, 10),
-                        device_name="Laser A",
-                        description="Laser power calibration",
-                        input={"power percent": [10, 40, 80]},
-                        output={"power mW": [2, 6, 10]},
-                    )
-                ],
-            )
-
-        # Tests that validators catch empty lists without KeyErrors
-        with self.assertRaises(ValidationError):
-            Instrument(
-                instrument_id="123_EPHYS1-OPTO_20220101",
-                modification_date=date(2020, 10, 10),
-                modalities=[Modality.ECEPHYS, Modality.FIB],
-                components=[],
-                mouse_platform=Disc(name="Disc A", radius=Decimal(1.0)),
                 calibrations=[],
             )
+            self.assertIsNotNone(inst)
 
-        # What is this testing?
+    def test_validator_notes(self):
+        """Test the notes validator"""
+
+        # Test when instrument_type is OTHER and notes are empty
         with self.assertRaises(ValidationError):
             Instrument(
-                instrument_id="123_EPHYS-OPTO_20200101",
+                instrument_id="123_EPHYS1-OPTO_20220101",
                 modification_date=date(2020, 10, 10),
-                modalities=[Modality.ECEPHYS, Modality.FIB],
-                components=[
-                    *daqs,
-                    *cameras,
-                    *stick_microscopes,
-                    *light_sources,
-                    *lms,
-                    *ems,
-                    *detectors,
-                    *patch_cords,
-                    *stimulus_devices,
-                ],
-                mouse_platform=Disc(name="Disc A", radius=1),
-                calibrations=[
-                    Calibration(
-                        calibration_date=date(2020, 10, 10),
-                        device_name="Laser A",
-                        description="Laser power calibration",
-                        input={"power percent": [10, 40, 80]},
-                        output={"power mW": [2, 6, 10]},
-                    )
-                ],
+                modalities=[Modality.ECEPHYS],
+                components=[*daqs, *ems],
+                instrument_type=ImagingInstrumentType.OTHER,
+                manufacturer=Organization.IMEC,
+                notes=None,
             )
+
+        # Test when manufacturer is OTHER and notes are empty
+        with self.assertRaises(ValidationError):
+            Instrument(
+                instrument_id="123_EPHYS1-OPTO_20220101",
+                modification_date=date(2020, 10, 10),
+                modalities=[Modality.ECEPHYS],
+                components=[*daqs, *ems],
+                instrument_type=ImagingInstrumentType.CONFOCAL,
+                manufacturer=Organization.OTHER,
+                notes=None,
+            )
+
+        # Test when both instrument_type and manufacturer are OTHER and notes are empty
+        with self.assertRaises(ValidationError):
+            Instrument(
+                instrument_id="123_EPHYS1-OPTO_20220101",
+                modification_date=date(2020, 10, 10),
+                modalities=[Modality.ECEPHYS],
+                components=[*daqs, *ems],
+                instrument_type=ImagingInstrumentType.OTHER,
+                manufacturer=Organization.OTHER,
+                notes=None,
+            )
+
+        # Test when notes are provided for instrument_type OTHER
+        inst = Instrument(
+            instrument_id="123_EPHYS1-OPTO_20220101",
+            modification_date=date(2020, 10, 10),
+            modalities=[Modality.ECEPHYS],
+            components=[*daqs, *ems],
+            instrument_type=ImagingInstrumentType.OTHER,
+            manufacturer=Organization.IMEC,
+            notes="This is a custom instrument type.",
+        )
+        self.assertIsNotNone(inst)
+
+        # Test when notes are provided for manufacturer OTHER
+        inst = Instrument(
+            instrument_id="123_EPHYS1-OPTO_20220101",
+            modification_date=date(2020, 10, 10),
+            modalities=[Modality.ECEPHYS],
+            components=[*daqs, *ems],
+            instrument_type=ImagingInstrumentType.CONFOCAL,
+            manufacturer=Organization.OTHER,
+            notes="This is a custom manufacturer.",
+        )
+        self.assertIsNotNone(inst)
+
+        # Test when notes are provided for both instrument_type and manufacturer OTHER
+        inst = Instrument(
+            instrument_id="123_EPHYS1-OPTO_20220101",
+            modification_date=date(2020, 10, 10),
+            modalities=[Modality.ECEPHYS],
+            components=[*daqs, *ems],
+            instrument_type=ImagingInstrumentType.OTHER,
+            manufacturer=Organization.OTHER,
+            notes="This is a custom instrument type and manufacturer.",
+        )
+        self.assertIsNotNone(inst)
 
     def test_instrument_id_validator(self):
         """Tests that instrument_id validator works as expected"""

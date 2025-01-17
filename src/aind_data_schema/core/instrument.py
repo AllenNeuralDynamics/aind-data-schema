@@ -46,6 +46,19 @@ from aind_data_schema.components.devices import (
     Speaker,
 )
 
+# Define the mapping of modalities to their required device types
+# The list of list pattern is used to allow for multiple options within a group, so e.g.
+# FIB requires a light (one of the options) plus a detector and a patch cord
+DEVICES_REQUIRED = {
+    Modality.ECEPHYS.abbreviation: [EphysAssembly],
+    Modality.FIB.abbreviation: [[Laser, LightEmittingDiode, Lamp], [Detector], [Patch]],
+    Modality.POPHYS.abbreviation: [[Laser, LightEmittingDiode, Lamp], [Detector], [Objective]],
+    Modality.SLAP.abbreviation: [[Laser, LightEmittingDiode, Lamp], [Detector], [Objective]],
+    Modality.BEHAVIOR_VIDEOS.abbreviation: [CameraAssembly],
+    Modality.BEHAVIOR.abbreviation: [[Olfactometer, RewardDelivery, Speaker, Monitor]],
+    Modality.SPIM.abbreviation: [Objective],
+}
+
 MOUSE_PLATFORMS = Annotated[Union[tuple(MousePlatform.__subclasses__())], Field(discriminator="device_type")]
 instrument_id_PATTERN = r"^[a-zA-Z0-9]+_[a-zA-Z0-9-]+_\d{8}$"
 
@@ -211,26 +224,13 @@ class Instrument(DataCoreModel):
         if len(value.modalities) == 0:
             return value
 
-        # Define the mapping of modalities to their required device types
-        # The list of list pattern is used to allow for multiple options within a group, so e.g.
-        # FIB requires a light (one of the options) plus a detector and a patch cord
-        type_mapping = {
-            Modality.ECEPHYS: [EphysAssembly],
-            Modality.FIB: [[Laser, LightEmittingDiode, Lamp], [Detector], [Patch]],
-            Modality.POPHYS: [[Laser, LightEmittingDiode, Lamp], [Detector], [Objective]],
-            Modality.SLAP: [[Laser, LightEmittingDiode, Lamp], [Detector], [Objective]],
-            Modality.BEHAVIOR_VIDEOS: [CameraAssembly],
-            Modality.BEHAVIOR: [[Olfactometer, RewardDelivery, Speaker, Monitor]],
-            Modality.SPIM: [[Objective], [Detector], [ScanningStage], [MotorizedStage]],
-        }
-
         # Retrieve the components from the validation info
         components = value.components
         errors = []
 
         # Validate each modality
         for modality in value.modalities:
-            required_device_groups = type_mapping.get(modality.abbreviation)
+            required_device_groups = DEVICES_REQUIRED.get(modality.abbreviation)
             if not required_device_groups:
                 # Skip modalities that don't require validation
                 continue

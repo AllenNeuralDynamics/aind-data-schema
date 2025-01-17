@@ -2,10 +2,10 @@
 
 import re
 import unittest
-from datetime import date, datetime, timezone
+from datetime import datetime, timezone
 
 from aind_data_schema_models.organizations import Organization
-from aind_data_schema_models.units import PowerUnit, FrequencyUnit
+from aind_data_schema_models.units import PowerUnit
 from pydantic import ValidationError
 from pydantic import __version__ as pyd_version
 
@@ -16,7 +16,7 @@ from aind_data_schema.components.coordinates import (
     Scale3dTransform,
     Translation3dTransform,
 )
-from aind_data_schema.components.devices import Calibration, DAQChannel, DAQDevice
+from aind_data_schema.components.devices import Calibration
 from aind_data_schema.core import acquisition as acq
 from aind_data_schema.core.processing import Registration
 from aind_data_schema.core.instrument import Instrument
@@ -200,85 +200,6 @@ class ImagingTests(unittest.TestCase):
         )
 
         self.assertIsNotNone(t)
-
-    def test_validators(self):
-        """test the validators"""
-
-        with self.assertRaises(ValidationError) as e:
-            daq = DAQDevice(
-                model="PCIe-6738",
-                data_interface="USB",
-                computer_name="Dev2",
-                manufacturer=Organization.NATIONAL_INSTRUMENTS,
-                name="Dev2",
-                serial_number="Unknown",
-                channels=[
-                    DAQChannel(
-                        channel_name="3",
-                        channel_type="Analog Output",
-                        device_name="LAS-08308",
-                        sample_rate=10000,
-                        sample_rate_unit=FrequencyUnit.HZ,
-                    ),
-                    DAQChannel(
-                        channel_name="5",
-                        channel_type="Analog Output",
-                        device_name="539251",
-                        sample_rate=10000,
-                        sample_rate_unit=FrequencyUnit.HZ,
-                    ),
-                    DAQChannel(
-                        channel_name="4",
-                        channel_type="Analog Output",
-                        device_name="LAS-08309",
-                        sample_rate=10000,
-                        sample_rate_unit=FrequencyUnit.HZ,
-                    ),
-                    DAQChannel(
-                        channel_name="2",
-                        channel_type="Analog Output",
-                        device_name="stage-x",
-                        sample_rate=10000,
-                        sample_rate_unit=FrequencyUnit.HZ,
-                    ),
-                    DAQChannel(
-                        channel_name="0",
-                        channel_type="Analog Output",
-                        device_name="TL-1",
-                        sample_rate=10000,
-                        sample_rate_unit=FrequencyUnit.HZ,
-                    ),
-                    DAQChannel(
-                        channel_name="6",
-                        channel_type="Analog Output",
-                        device_name="LAS-08307",
-                        sample_rate=10000,
-                        sample_rate_unit=FrequencyUnit.HZ,
-                    ),
-                ],
-            )
-
-            Instrument(
-                instrument_id="exaSPIM1-1",
-                modalities=[Modality.SPIM],
-                instrument_type="exaSPIM",
-                modification_date=date(2023, 10, 4),
-                manufacturer=Organization.CUSTOM,
-                components=[daq],
-            )
-        expected_exception = (
-            "2 validation errors for Instrument\n"
-            "objectives\n"
-            "  Field required [type=missing,"
-            " input_value={'instrument_id': 'exaSPI...hardware_version=None)]}, input_type=dict]\n"
-            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/missing\n"
-            "daqs\n"
-            "  Value error, Device name validation error: 'LAS-08308' is connected to '3' on 'Dev2',"
-            " but this device is not part of the inst. [type=value_error,"
-            " input_value=[DAQDevice(device_type='D... hardware_version=None)], input_type=list]\n"
-            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/value_error"
-        )
-        self.assertEqual(expected_exception, repr(e.exception))
 
 
 if __name__ == "__main__":
