@@ -99,8 +99,15 @@ class DataModel(BaseModel, Generic[GenericModelType]):
 
     Also performs validation checks / coercion / upgrades where necessary
     """
-
     model_config = ConfigDict(extra="forbid", use_enum_values=True)
+
+    data_type: str = Field(..., title="Data type", description="Unique. For use as a model discriminator")
+
+    @model_validator(mode="before")
+    def generate_data_type(cls, values):
+        """Generate the data_type field based on the class name"""
+        values["data_type"] = re.sub(r'(?<!^)(?=[A-Z])', '_', cls.__name__).lower()
+        return values
 
     @model_validator(mode="after")
     def unit_validator(cls, values):

@@ -208,5 +208,26 @@ class BaseTests(unittest.TestCase):
         )
 
 
+class DataModelTests(unittest.TestCase):
+    """Tests for DataModel"""
+
+    def test_generate_data_type(self):
+        """Test that generate_data_type correctly sets the data_type field"""
+
+        class TestModel(DataModel):
+            """Temporary test model"""
+            pass
+
+        model_instance = TestModel.model_construct()
+        self.assertEqual(model_instance.data_type, "test_model")
+
+        class AnotherTestModel(DataModel):
+            """Another temporary test model"""
+            pass
+
+        another_model_instance = AnotherTestModel.model_construct()
+        self.assertEqual(another_model_instance.data_type, "another_test_model")
+
+
 if __name__ == "__main__":
     unittest.main()
