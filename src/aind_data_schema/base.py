@@ -104,10 +104,11 @@ class DataModel(BaseModel, Generic[GenericModelType]):
     data_type: str = Field(..., title="Data type", description="Unique. For use as a model discriminator")
 
     @model_validator(mode="before")
-    def generate_data_type(cls, values):
+    @classmethod
+    def generate_data_type(cls, data):
         """Generate the data_type field based on the class name"""
-        values["data_type"] = re.sub(r'(?<!^)(?=[A-Z])', '_', cls.__name__).lower()
-        return values
+        data["data_type"] = re.sub(r'(?<!^)(?=[A-Z])', '_', cls.__name__).lower()
+        return data
 
     @model_validator(mode="after")
     def unit_validator(cls, values):

@@ -216,16 +216,17 @@ class DataModelTests(unittest.TestCase):
 
         class TestModel(DataModel):
             """Temporary test model"""
-            pass
+            value: str
 
-        model_instance = TestModel.model_construct()
+        model_instance = TestModel(value="test")
+        print(model_instance)
         self.assertEqual(model_instance.data_type, "test_model")
 
         class AnotherTestModel(DataModel):
             """Another temporary test model"""
-            pass
+            value: str
 
-        another_model_instance = AnotherTestModel.model_construct()
+        another_model_instance = AnotherTestModel(value="test")
         self.assertEqual(another_model_instance.data_type, "another_test_model")
 
 
