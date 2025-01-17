@@ -10,7 +10,7 @@
    "session_end_time": "2023-04-25T03:16:00Z",
    "session_type": "Receptive field mapping",
    "iacuc_protocol": "2109",
-   "rig_id": "323_EPHYS1_20231003",
+   "instrument_id": "323_EPHYS1_20231003",
    "calibrations": [],
    "maintenance": [],
    "subject_id": "664484",

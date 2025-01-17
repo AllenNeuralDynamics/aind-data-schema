@@ -14,7 +14,7 @@ from aind_data_schema_models.platforms import Platform
 from pydantic import ValidationError
 from pydantic import __version__ as pyd_version
 
-from aind_data_schema.components.devices import EphysAssembly, EphysProbe, Manipulator, MousePlatform
+from aind_data_schema.components.devices import EphysAssembly, EphysProbe, Manipulator, MousePlatform, Objective
 from aind_data_schema.core.acquisition import Acquisition
 from aind_data_schema.core.data_description import DataDescription, Funding
 from aind_data_schema.core.metadata import ExternalPlatforms, Metadata, MetadataStatus, create_metadata_json
@@ -243,7 +243,7 @@ class TestMetadata(unittest.TestCase):
                 subject=Subject.model_construct(),
                 procedures=Procedures.model_construct(subject_procedures=[surgery2]),
                 acquisition=Acquisition.model_construct(),
-                instrument=Instrument.model_construct(modalities=[Modality.SPIM]),
+                instrument=Instrument.model_construct(modalities=[Modality.SPIM], components=[Objective.model_construct()]),
                 processing=Processing.model_construct(),
             )
         self.assertIn("Injection is missing injection_materials.", str(context.exception))

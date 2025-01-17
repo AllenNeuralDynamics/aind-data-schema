@@ -9,7 +9,7 @@
    "session_end_time": "2022-07-12T07:00:00Z",
    "session_type": "Parameter Testing",
    "iacuc_protocol": "2115",
-   "rig_id": "ophys_rig",
+   "instrument_id": "ophys_inst",
    "calibrations": [],
    "maintenance": [],
    "subject_id": "652567",
