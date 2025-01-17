@@ -5,7 +5,7 @@ from decimal import Decimal
 from enum import Enum
 from typing import List, Literal, Optional, Set, Union
 
-from aind_data_schema_models.mouse_anatomy import MouseAnatomicalStructure
+from aind_data_schema_models.mouse_anatomy import MouseAnatomyModel
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.pid_names import PIDName
 from aind_data_schema_models.species import Species
@@ -328,7 +328,7 @@ class CatheterImplant(DataModel):
     catheter_material: CatheterMaterial = Field(..., title="Catheter material")
     catheter_design: CatheterDesign = Field(..., title="Catheter design")
     catheter_port: CatheterPort = Field(..., title="Catheter port")
-    targeted_structure: MouseAnatomicalStructure.BLOOD_VESSELS = Field(..., title="Targeted blood vessel")
+    targeted_structure: MouseAnatomyModel = Field(..., title="Targeted blood vessel", description="Use options from MouseBloodVessels")
 
 
 class Craniotomy(DataModel):
@@ -613,9 +613,9 @@ class WaterRestriction(DataModel):
 class MyomatrixContact(DataModel):
     """ "Description of a contact on a myomatrix thread"""
 
-    body_part: MouseAnatomicalStructure.BODY_PARTS = Field(..., title="Body part of contact insertion")
+    body_part: MouseAnatomyModel = Field(..., title="Body part of contact insertion", description="Use MouseBodyParts")
     side: Side = Field(..., title="Body side")
-    muscle: MouseAnatomicalStructure.EMG_MUSCLES = Field(..., title="Muscle of contact insertion")
+    muscle: MouseAnatomyModel = Field(..., title="Muscle of contact insertion", description="Use MouseEmgMuscles")
     in_muscle: bool = Field(..., title="In muscle")
     notes: Optional[str] = Field(default=None, title="Notes")
 
@@ -623,7 +623,7 @@ class MyomatrixContact(DataModel):
 class MyomatrixThread(DataModel):
     """Description of a thread of a myomatrix array"""
 
-    ground_electrode_location: MouseAnatomicalStructure.BODY_PARTS = Field(..., title="Location of ground electrode")
+    ground_electrode_location: MouseAnatomyModel = Field(..., title="Location of ground electrode", description="Use MouseBodyParts")
     contacts: List[MyomatrixContact] = Field(..., title="Contacts")
 
 
