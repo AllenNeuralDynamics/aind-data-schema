@@ -14,6 +14,9 @@ from aind_data_schema.components.devices import (
     Camera,
     CameraAssembly,
     Cooling,
+    DAQChannel,
+    DaqChannelType,
+    DAQDevice,
     DataInterface,
     Detector,
     Disc,
@@ -22,9 +25,6 @@ from aind_data_schema.components.devices import (
     Lens,
     PockelsCell,
     Software,
-    DAQChannel,
-    DAQDevice,
-    DaqChannelType
 )
 from aind_data_schema.core.instrument import Objective
 from aind_data_schema.core.rig import Monitor, Rig
