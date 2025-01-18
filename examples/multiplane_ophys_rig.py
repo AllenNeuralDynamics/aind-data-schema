@@ -19,6 +19,7 @@ from aind_data_schema.components.devices import (
     DAQDevice,
     DataInterface,
     Detector,
+    Device,
     Disc,
     Filter,
     Laser,
@@ -536,13 +537,17 @@ rig = Rig(
             serial_number="354683BK",
         )
     ],
-    additional_devices=[],
+    additional_devices=[
+        Device(device_type="Computer", name="MESO1STIM"),
+        Device(device_type="Computer", name="MESO1SYNC"),
+    ],
     daqs=[
         DAQDevice(
             device_type="DAQ Device",
             name="VBEB DAQ",
             serial_number=None,
             manufacturer=Organization.NATIONAL_INSTRUMENTS,
+            channels=[],
             model="USB-6001",
             path_to_cad=None,
             port_index=None,
@@ -550,7 +555,6 @@ rig = Rig(
             notes=None,
             data_interface="USB",
             computer_name="STIM",
-            channels=[],
             firmware_version=None,
             hardware_version=None,
         ),
@@ -566,7 +570,17 @@ rig = Rig(
             notes=None,
             data_interface="PCIe",
             computer_name="SYNC",
-            channels=[],
+            channels=[
+                DAQChannel(
+                    channel_name="P0.3",
+                    device_name="MESO1STIM",
+                    channel_type=DaqChannelType.DI,
+                    port=0,
+                    channel_index=3,
+                    sample_rate=100.0,
+                    sample_rate_unit=FrequencyUnit.KHZ,
+                )
+            ],
             firmware_version=None,
             hardware_version=None,
         ),
