@@ -13,6 +13,7 @@ from aind_data_schema.core.procedures import (
     TarsVirusIdentifiers,
     ViralMaterial,
 )
+from aind_data_schema_models.brain_atlas import CCFStructure
 
 # If a timezone isn't specified, the timezone of the computer running this
 # script will be used as default
@@ -26,7 +27,7 @@ p = Procedures(
             start_date=t.date(),
             protocol_id="doi",
             experimenters=[Experimenter(name="Scientist Smith")],
-            iacuc_protocol="2109",
+            ethics_review_id="2109",
             animal_weight_prior=22.6,
             animal_weight_post=22.3,
             anaesthesia=Anaesthetic(type="Isoflurane", duration=1, level=1.5),
@@ -62,14 +63,14 @@ p = Procedures(
                     bregma_to_lambda_distance=4.1,
                     injection_angle=10,
                     injection_volume=[200],
-                    targeted_structure="VISp",
+                    targeted_structure=CCFStructure.VISP,
                 ),
             ],
         ),
         Surgery(
             start_date=t2.date(),
             experimenters=[Experimenter(name="Scientist Smith")],
-            iacuc_protocol="2109",
+            ethics_review_id="2109",
             protocol_id="doi",
             procedures=[
                 Perfusion(

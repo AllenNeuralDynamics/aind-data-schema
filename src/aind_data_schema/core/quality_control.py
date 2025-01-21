@@ -1,12 +1,14 @@
 """ Schemas for Quality Metrics """
 
+from datetime import datetime, timezone
 from enum import Enum
-from typing import Any, List, Literal, Optional
+from typing import Any, List, Literal, Optional, Union
+import warnings
 
 from aind_data_schema_models.modalities import Modality
 from pydantic import BaseModel, Field, SkipValidation, field_validator, model_validator
 
-from aind_data_schema.base import AindCoreModel, AindModel, AwareDatetimeWithDefault
+from aind_data_schema.base import DataCoreModel, DataModel, AwareDatetimeWithDefault
 
 
 class Status(str, Enum):
@@ -70,7 +72,7 @@ class QCMetric(BaseModel):
         return v
 
 
-class QCEvaluation(AindModel):
+class QCEvaluation(DataModel):
     """Description of one evaluation stage, with one or more metrics"""
 
     modality: Modality.ONE_OF = Field(..., title="Modality")
@@ -90,28 +92,21 @@ class QCEvaluation(AindModel):
             " will allow individual metrics to fail while still passing the evaluation."
         ),
     )
+    latest_status: Status = Field(default=None, title="Evaluation status")
+    created: AwareDatetimeWithDefault = Field(
+        default_factory=lambda: datetime.now(tz=timezone.utc), title="Evaluation creation date"
+    )
 
-    @property
-    def status(self) -> Status:
-        """Loop through all metrics and return the evaluation's status
+    def status(self, date: datetime = datetime.now(tz=timezone.utc)) -> Status:
+        """DEPRECATED
 
-        Any fail -> FAIL
-        If no fails, then any pending -> PENDING
-        All PASS -> PASS
-
-        Returns
-        -------
-        Status
-            Current status of the evaluation
+        Replace with QCEvaluation.status or QCEvaluation.evaluate_status()
         """
-        latest_metric_statuses = [metric.status.status for metric in self.metrics]
-
-        if (not self.allow_failed_metrics) and any(status == Status.FAIL for status in latest_metric_statuses):
-            return Status.FAIL
-        elif any(status == Status.PENDING for status in latest_metric_statuses):
-            return Status.PENDING
-
-        return Status.PASS
+        warnings.warn(
+            "The status method is deprecated. Please use QCEvaluation.status or QCEvaluation.evaluate_status()",
+            DeprecationWarning,
+        )
+        return self.evaluate_status(date)
 
     @property
     def failed_metrics(self) -> Optional[List[QCMetric]]:
@@ -133,6 +128,46 @@ class QCEvaluation(AindModel):
                     failing_metrics.append(metric)
 
             return failing_metrics
+
+    @model_validator(mode="after")
+    def compute_latest_status(self):
+        """Compute the status of the evaluation based on the status of its metrics"""
+        self.latest_status = self.evaluate_status()
+        return self
+
+    def evaluate_status(self, date: Optional[datetime] = None) -> Status:
+        """Loop through all metrics and return the evaluation's status
+
+        Any fail -> FAIL
+        If no fails, then any pending -> PENDING
+        All PASS -> PASS
+
+        Returns
+        -------
+        Status
+            Current status of the evaluation
+        """
+        if not date:
+            date = datetime.now(tz=timezone.utc)
+
+        latest_metric_statuses = []
+
+        for metric in self.metrics:
+            # loop backwards through metric statuses until you find one that is before the provided date
+            for status in reversed(metric.status_history):
+                if status.timestamp <= date:
+                    latest_metric_statuses.append(status.status)
+                    break
+
+        if not latest_metric_statuses:
+            raise ValueError(f"No status existed prior to the provided date {date.isoformat()}")
+
+        if (not self.allow_failed_metrics) and any(status == Status.FAIL for status in latest_metric_statuses):
+            return Status.FAIL
+        elif any(status == Status.PENDING for status in latest_metric_statuses):
+            return Status.PENDING
+
+        return Status.PASS
 
     @model_validator(mode="after")
     def validate_multi_asset(cls, v):
@@ -159,24 +194,48 @@ class QCEvaluation(AindModel):
         return v
 
 
-class QualityControl(AindCoreModel):
+class QualityControl(DataCoreModel):
     """Description of quality metrics for a data asset"""
 
-    _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/quality_control.py"
+    _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/quality_control.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["1.1.3"]] = Field("1.1.3")
+    schema_version: SkipValidation[Literal["1.2.2"]] = Field(default="1.2.2")
     evaluations: List[QCEvaluation] = Field(..., title="Evaluations")
     notes: Optional[str] = Field(default=None, title="Notes")
 
-    @property
-    def status(self) -> Status:
+    def status(
+        self,
+        modality: Union[Modality.ONE_OF, List[Modality.ONE_OF], None] = None,
+        stage: Union[Stage, List[Stage], None] = None,
+        tag: Union[str, List[str], None] = None,
+        date: Optional[datetime] = None,
+    ) -> Status:
         """Loop through all evaluations and return the overall status
 
         Any FAIL -> FAIL
         If no fails, then any PENDING -> PENDING
         All PASS -> PASS
         """
-        eval_statuses = [evaluation.status for evaluation in self.evaluations]
+        if not date:
+            date = datetime.now(tz=timezone.utc)
+
+        if not modality and not stage and not tag:
+            eval_statuses = [evaluation.evaluate_status(date=date) for evaluation in self.evaluations]
+        else:
+            if modality and not isinstance(modality, list):
+                modality = [modality]
+            if stage and not isinstance(stage, list):
+                stage = [stage]
+            if tag and not isinstance(tag, list):
+                tag = [tag]
+
+            eval_statuses = [
+                evaluation.evaluate_status(date=date)
+                for evaluation in self.evaluations
+                if (not modality or any(evaluation.modality == mod for mod in modality))
+                and (not stage or any(evaluation.stage == sta for sta in stage))
+                and (not tag or (evaluation.tags and any(t in evaluation.tags for t in tag)))
+            ]
 
         if any(status == Status.FAIL for status in eval_statuses):
             return Status.FAIL

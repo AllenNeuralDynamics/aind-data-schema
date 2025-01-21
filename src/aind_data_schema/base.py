@@ -2,8 +2,9 @@
 
 import json
 import re
+import logging
 from pathlib import Path
-from typing import Any, Generic, Optional, TypeVar
+from typing import Any, Generic, Optional, TypeVar, get_args
 
 from pydantic import (
     AwareDatetime,
@@ -16,9 +17,13 @@ from pydantic import (
     ValidatorFunctionWrapHandler,
     create_model,
     model_validator,
+    field_validator,
 )
 from pydantic.functional_validators import WrapValidator
 from typing_extensions import Annotated
+
+
+MAX_FILE_SIZE = 500 * 1024  # 500KB
 
 
 def _coerce_naive_datetime(v: Any, handler: ValidatorFunctionWrapHandler) -> AwareDatetime:
@@ -70,7 +75,7 @@ def is_dict_corrupt(input_dict: dict) -> bool:
     return has_corrupt_keys(input_dict)
 
 
-class AindGeneric(BaseModel, extra="allow"):
+class GenericModel(BaseModel, extra="allow"):
     """Base class for generic types that can be used in AIND schema"""
 
     # extra="allow" is needed because BaseModel by default drops extra parameters.
@@ -86,11 +91,14 @@ class AindGeneric(BaseModel, extra="allow"):
         return self
 
 
-AindGenericType = TypeVar("AindGenericType", bound=AindGeneric)
+GenericModelType = TypeVar("GenericModelType", bound=GenericModel)
 
 
-class AindModel(BaseModel, Generic[AindGenericType]):
-    """BaseModel that disallows extra fields"""
+class DataModel(BaseModel, Generic[GenericModelType]):
+    """BaseModel that disallows extra fields
+
+    Also performs validation checks / coercion / upgrades where necessary
+    """
 
     model_config = ConfigDict(extra="forbid", use_enum_values=True)
 
@@ -119,11 +127,10 @@ class AindModel(BaseModel, Generic[AindGenericType]):
                     if var_name is not unit_name:
                         if var_name in variable_name and variable_value:
                             raise ValueError(f"Unit {unit_name} is required when {variable_name} is set.")
-
         return values
 
 
-class AindCoreModel(AindModel):
+class DataCoreModel(DataModel):
     """Generic base class to hold common fields/validators/etc for all basic AIND schema"""
 
     _FILE_EXTENSION = PrivateAttr(default=".json")
@@ -136,12 +143,20 @@ class AindCoreModel(AindModel):
         ..., pattern=r"^\d+.\d+.\d+$", description="schema version", title="Version", frozen=True
     )
 
+    @field_validator("schema_version", mode="before")
+    @classmethod
+    def coerce_version(cls, v: str) -> str:
+        """Update the schema version to the latest version"""
+        return get_args(cls.model_fields["schema_version"].annotation)[0]
+
     @classmethod
     def default_filename(cls):
         """
         Returns standard filename in snakecase
         """
-        parent_classes = [base_class for base_class in cls.__bases__ if base_class.__name__ != AindCoreModel.__name__]
+        parent_classes = [
+            base_class for base_class in cls.__bases__ if base_class.__name__ != DataCoreModel.__name__
+        ]
 
         name = cls.__name__
 
@@ -185,3 +200,7 @@ class AindCoreModel(AindModel):
 
         with open(filename, "w") as f:
             f.write(self.model_dump_json(indent=3))
+
+        # Check that size doesn't exceed the maximum
+        if len(self.model_dump_json(indent=3)) > MAX_FILE_SIZE:
+            logging.warning(f"File size exceeds {MAX_FILE_SIZE / 1024} KB: {filename}")

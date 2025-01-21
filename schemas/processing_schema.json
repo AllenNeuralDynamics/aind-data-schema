@@ -1,12 +1,5 @@
 {
    "$defs": {
-      "AindGeneric": {
-         "additionalProperties": true,
-         "description": "Base class for generic types that can be used in AIND schema",
-         "properties": {},
-         "title": "AindGeneric",
-         "type": "object"
-      },
       "AnalysisProcess": {
          "additionalProperties": false,
          "description": "Description of an Analysis",
@@ -17,9 +10,17 @@
                "title": "Process name"
             },
             "software_version": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "description": "Version of the software used",
-               "title": "Version",
-               "type": "string"
+               "title": "Version"
             },
             "start_date_time": {
                "format": "date-time",
@@ -32,9 +33,19 @@
                "type": "string"
             },
             "input_location": {
-               "description": "Path to data inputs",
-               "title": "Input location",
-               "type": "string"
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "items": {
+                        "type": "string"
+                     },
+                     "type": "array"
+                  }
+               ],
+               "description": "Path(s) to data inputs",
+               "title": "Input location"
             },
             "output_location": {
                "description": "Path to data outputs",
@@ -60,11 +71,12 @@
                "title": "Code version"
             },
             "parameters": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
+               "default": {},
                "title": "Parameters"
             },
             "outputs": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "description": "Output parameters",
                "title": "Outputs"
@@ -104,13 +116,11 @@
             }
          },
          "required": [
-            "software_version",
             "start_date_time",
             "end_date_time",
             "input_location",
             "output_location",
             "code_url",
-            "parameters",
             "analyst_full_name",
             "description"
          ],
@@ -126,9 +136,17 @@
                "title": "Name"
             },
             "software_version": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "description": "Version of the software used",
-               "title": "Version",
-               "type": "string"
+               "title": "Version"
             },
             "start_date_time": {
                "format": "date-time",
@@ -141,9 +159,19 @@
                "type": "string"
             },
             "input_location": {
-               "description": "Path to data inputs",
-               "title": "Input location",
-               "type": "string"
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "items": {
+                        "type": "string"
+                     },
+                     "type": "array"
+                  }
+               ],
+               "description": "Path(s) to data inputs",
+               "title": "Input location"
             },
             "output_location": {
                "description": "Path to data outputs",
@@ -169,11 +197,12 @@
                "title": "Code version"
             },
             "parameters": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
+               "default": {},
                "title": "Parameters"
             },
             "outputs": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "description": "Output parameters",
                "title": "Outputs"
@@ -205,15 +234,20 @@
          },
          "required": [
             "name",
-            "software_version",
             "start_date_time",
             "end_date_time",
             "input_location",
             "output_location",
-            "code_url",
-            "parameters"
+            "code_url"
          ],
          "title": "DataProcess",
+         "type": "object"
+      },
+      "GenericModel": {
+         "additionalProperties": true,
+         "description": "Base class for generic types that can be used in AIND schema",
+         "properties": {},
+         "title": "GenericModel",
          "type": "object"
       },
       "MemoryUnit": {
@@ -526,8 +560,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "1.1.2",
-         "default": "1.1.2",
+         "const": "1.1.5",
+         "default": "1.1.5",
          "title": "Schema Version",
          "type": "string"
       },

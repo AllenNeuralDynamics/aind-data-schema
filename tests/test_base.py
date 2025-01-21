@@ -7,10 +7,19 @@ from pathlib import Path
 from typing import Optional
 from unittest.mock import MagicMock, call, mock_open, patch
 
-from pydantic import Field, ValidationError, create_model
+from pydantic import ValidationError, create_model, SkipValidation, Field
+from typing import Literal
 
-from aind_data_schema.base import AindGeneric, AindModel, AwareDatetimeWithDefault, is_dict_corrupt
+from aind_data_schema.base import (
+    GenericModel,
+    AwareDatetimeWithDefault,
+    is_dict_corrupt,
+    DataModel,
+    DataCoreModel,
+    MAX_FILE_SIZE,
+)
 from aind_data_schema.core.subject import Subject
+from aind_data_schema_models.brain_atlas import CCFStructure
 
 
 class BaseTests(unittest.TestCase):
@@ -60,7 +69,7 @@ class BaseTests(unittest.TestCase):
     def test_units(self):
         """Test that models with value/value_unit pairs throw errors properly"""
 
-        class TestModel(AindModel):
+        class TestModel(DataModel):
             """temporary test model"""
 
             value: Optional[str] = Field(default=None)
@@ -76,7 +85,7 @@ class BaseTests(unittest.TestCase):
         self.assertIsNotNone(test1)
 
         # Multi-unit condition
-        class MultiModel(AindModel):
+        class MultiModel(DataModel):
             """temporary test model with multiple variables"""
 
             value_multi_one_with_depth: Optional[str] = Field(default=None)
@@ -123,29 +132,80 @@ class BaseTests(unittest.TestCase):
             with self.subTest(contents=contents):
                 self.assertTrue(is_dict_corrupt(contents))
 
-    def test_aind_generic_constructor(self):
-        """Tests default constructor for AindGeneric"""
-        model = AindGeneric()
+    def test_generic_model_constructor(self):
+        """Tests default constructor for GenericModel"""
+        model = GenericModel()
         self.assertEqual("{}", model.model_dump_json())
 
         params = {"foo": "bar"}
-        model = AindGeneric(**params)
+        model = GenericModel(**params)
         self.assertEqual('{"foo":"bar"}', model.model_dump_json())
 
-    def test_aind_generic_validate_fieldnames(self):
-        """Tests that fieldnames are validated in AindGeneric"""
-        expected_error = "1 validation error for AindGeneric\n" "  Value error, Field names cannot contain '.' or '$' "
+    def test_generic_model_validate_fieldnames(self):
+        """Tests that fieldnames are validated in GenericModel"""
+        expected_error = "1 validation error for GenericModel\n" "  Value error, Field names cannot contain '.' or '$' "
         invalid_params = [
             {"$foo": "bar"},
             {"foo": {"foo.name": "bar"}},
         ]
         for params in invalid_params:
             with self.assertRaises(ValidationError) as e:
-                AindGeneric(**params)
+                GenericModel(**params)
             self.assertIn(expected_error, repr(e.exception))
             with self.assertRaises(ValidationError) as e:
-                AindGeneric.model_validate(params)
+                GenericModel.model_validate(params)
             self.assertIn(expected_error, repr(e.exception))
+
+    def test_ccf_validator(self):
+        """Tests that CCFStructure validator works"""
+
+        class StructureModel(DataModel):
+            """Test model with a targeted_structure"""
+
+            targeted_structure: CCFStructure.ONE_OF
+
+        self.assertRaises(ValueError, StructureModel, targeted_structure="invalid")
+
+    def test_schema_bump(self):
+        """Test that schema version are bumped successfully
+        and that validation errors prevent bumping"""
+
+        class Modelv1(DataCoreModel):
+            """test class"""
+
+            describedBy: str = "modelv1"
+            schema_version: SkipValidation[Literal["1.0.0"]] = "1.0.0"
+
+        class Modelv2(DataCoreModel):
+            """test class"""
+
+            describedBy: str = "modelv2"
+            schema_version: SkipValidation[Literal["1.0.1"]] = "1.0.1"
+            extra_field: str = "extra_field"
+
+        v1_init = Modelv1()
+        self.assertEqual("1.0.0", v1_init.schema_version)
+
+        v2_from_v1 = Modelv2(**v1_init.model_dump())
+        self.assertEqual("1.0.1", v2_from_v1.schema_version)
+
+        # Check that adding additional fields still fails validation
+        # this is to ensure you can't get a bumped schema_version without passing validation
+        self.assertRaises(ValidationError, lambda: Modelv1(**v2_from_v1.model_dump()))
+
+    @patch("builtins.open", new_callable=mock_open)
+    @patch("logging.warning")
+    def test_write_standard_file_size_warning(self, mock_logging_warning: MagicMock, mock_open: MagicMock):
+        """Tests that a warning is logged if the file size exceeds MAX_FILE_SIZE"""
+
+        s = Subject.model_construct()
+        s.subject_id = "s" * (MAX_FILE_SIZE + 1000)
+        s.write_standard_file(output_directory=Path("dir"), suffix=".foo.bar")
+
+        mock_open.assert_has_calls([call(Path("dir/subject.foo.bar"), "w")])
+        mock_logging_warning.assert_called_once_with(
+            f"File size exceeds {MAX_FILE_SIZE / 1024} KB: dir/subject.foo.bar"
+        )
 
 
 if __name__ == "__main__":

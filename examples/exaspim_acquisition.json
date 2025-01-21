@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/acquisition.py",
-   "schema_version": "1.0.3",
+   "schema_version": "1.0.5",
    "protocol_id": [],
    "experimenters": [
       {
@@ -21,16 +21,12 @@
          "device_name": "Laser_1",
          "description": "Laser power calibration",
          "input": {
-            "power_setting": {
-               "value": "100.0",
-               "unit": "percent"
-            }
+            "power_setting": 100.0,
+            "power_unit": "percent"
          },
          "output": {
-            "power_measurement": {
-               "value": "50.0",
-               "unit": "milliwatt"
-            }
+            "power_measurement": 50.0,
+            "power_unit": "milliwatt"
          },
          "notes": null
       }

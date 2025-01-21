@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/session.py",
-   "schema_version": "1.0.3",
+   "schema_version": "1.1.4",
    "protocol_id": [],
    "experimenters": [
       {
@@ -15,7 +15,7 @@
    "session_start_time": "2022-07-12T07:00:00Z",
    "session_end_time": "2022-07-12T07:00:00Z",
    "session_type": "Mesoscope",
-   "iacuc_protocol": "12345",
+   "ethics_review_id": "12345",
    "rig_id": "MESO.1",
    "calibrations": [],
    "maintenance": [],
@@ -57,7 +57,12 @@
                "index": 0,
                "imaging_depth": 190,
                "imaging_depth_unit": "micrometer",
-               "targeted_structure": "VISp",
+               "targeted_structure": {
+                  "atlas": "CCFv3",
+                  "name": "Primary visual area",
+                  "acronym": "VISp",
+                  "id": "385"
+               },
                "fov_coordinate_ml": "1.5",
                "fov_coordinate_ap": "1.5",
                "fov_coordinate_unit": "micrometer",
@@ -83,7 +88,12 @@
                "index": 1,
                "imaging_depth": 232,
                "imaging_depth_unit": "micrometer",
-               "targeted_structure": "VISp",
+               "targeted_structure": {
+                  "atlas": "CCFv3",
+                  "name": "Primary visual area",
+                  "acronym": "VISp",
+                  "id": "385"
+               },
                "fov_coordinate_ml": "1.5",
                "fov_coordinate_ap": "1.5",
                "fov_coordinate_unit": "micrometer",
@@ -109,7 +119,12 @@
                "index": 2,
                "imaging_depth": 136,
                "imaging_depth_unit": "micrometer",
-               "targeted_structure": "VISp",
+               "targeted_structure": {
+                  "atlas": "CCFv3",
+                  "name": "Primary visual area",
+                  "acronym": "VISp",
+                  "id": "385"
+               },
                "fov_coordinate_ml": "1.5",
                "fov_coordinate_ap": "1.5",
                "fov_coordinate_unit": "micrometer",
@@ -135,7 +150,12 @@
                "index": 3,
                "imaging_depth": 282,
                "imaging_depth_unit": "micrometer",
-               "targeted_structure": "VISp",
+               "targeted_structure": {
+                  "atlas": "CCFv3",
+                  "name": "Primary visual area",
+                  "acronym": "VISp",
+                  "id": "385"
+               },
                "fov_coordinate_ml": "1.5",
                "fov_coordinate_ap": "1.5",
                "fov_coordinate_unit": "micrometer",
@@ -161,7 +181,12 @@
                "index": 4,
                "imaging_depth": 72,
                "imaging_depth_unit": "micrometer",
-               "targeted_structure": "VISp",
+               "targeted_structure": {
+                  "atlas": "CCFv3",
+                  "name": "Primary visual area",
+                  "acronym": "VISp",
+                  "id": "385"
+               },
                "fov_coordinate_ml": "1.5",
                "fov_coordinate_ap": "1.5",
                "fov_coordinate_unit": "micrometer",
@@ -187,7 +212,12 @@
                "index": 5,
                "imaging_depth": 326,
                "imaging_depth_unit": "micrometer",
-               "targeted_structure": "VISp",
+               "targeted_structure": {
+                  "atlas": "CCFv3",
+                  "name": "Primary visual area",
+                  "acronym": "VISp",
+                  "id": "385"
+               },
                "fov_coordinate_ml": "1.5",
                "fov_coordinate_ap": "1.5",
                "fov_coordinate_unit": "micrometer",
@@ -213,7 +243,12 @@
                "index": 6,
                "imaging_depth": 30,
                "imaging_depth_unit": "micrometer",
-               "targeted_structure": "VISp",
+               "targeted_structure": {
+                  "atlas": "CCFv3",
+                  "name": "Primary visual area",
+                  "acronym": "VISp",
+                  "id": "385"
+               },
                "fov_coordinate_ml": "1.5",
                "fov_coordinate_ap": "1.5",
                "fov_coordinate_unit": "micrometer",
@@ -239,7 +274,12 @@
                "index": 7,
                "imaging_depth": 364,
                "imaging_depth_unit": "micrometer",
-               "targeted_structure": "VISp",
+               "targeted_structure": {
+                  "atlas": "CCFv3",
+                  "name": "Primary visual area",
+                  "acronym": "VISp",
+                  "id": "385"
+               },
                "fov_coordinate_ml": "1.5",
                "fov_coordinate_ap": "1.5",
                "fov_coordinate_unit": "micrometer",

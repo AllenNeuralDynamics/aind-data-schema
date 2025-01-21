@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/session.py",
-   "schema_version": "1.0.3",
+   "schema_version": "1.1.4",
    "protocol_id": [],
    "experimenters": [
       {
@@ -15,7 +15,7 @@
    "session_start_time": "2022-07-12T07:00:00Z",
    "session_end_time": "2022-07-12T07:00:00Z",
    "session_type": "BCI Photometry",
-   "iacuc_protocol": "2115",
+   "ethics_review_id": "2115",
    "rig_id": "ophys_rig",
    "calibrations": [],
    "maintenance": [],
@@ -60,7 +60,12 @@
                "index": 0,
                "imaging_depth": 150,
                "imaging_depth_unit": "micrometer",
-               "targeted_structure": "M1",
+               "targeted_structure": {
+                  "atlas": "CCFv3",
+                  "name": "Primary motor area",
+                  "acronym": "MOp",
+                  "id": "985"
+               },
                "fov_coordinate_ml": "1.5",
                "fov_coordinate_ap": "1.5",
                "fov_coordinate_unit": "micrometer",
@@ -156,6 +161,7 @@
          "speaker_config": null,
          "light_source_config": [],
          "output_parameters": {},
+         "objects_in_arena": null,
          "reward_consumed_during_epoch": null,
          "reward_consumed_unit": "microliter",
          "trials_total": null,

@@ -16,6 +16,7 @@ from aind_data_schema.core.session import (
     StimulusModality,
     Stream,
 )
+from aind_data_schema_models.brain_atlas import CCFStructure
 
 # If a timezone isn't specified, the timezone of the computer running this
 # script will be used as default
@@ -27,7 +28,7 @@ s = Session(
     session_end_time=t,
     subject_id="652567",
     session_type="BCI Photometry",
-    iacuc_protocol="2115",
+    ethics_review_id="2115",
     rig_id="ophys_rig",
     mouse_platform_name="Mouse tube",
     active_mouse_platform=False,
@@ -57,7 +58,7 @@ s = Session(
                 FieldOfView(
                     index=0,
                     imaging_depth=150,
-                    targeted_structure="M1",
+                    targeted_structure=CCFStructure.MOP,
                     fov_coordinate_ml=1.5,
                     fov_coordinate_ap=1.5,
                     fov_reference="Bregma",

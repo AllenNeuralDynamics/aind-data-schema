@@ -22,6 +22,7 @@ from aind_data_schema.core.procedures import (
     ViralMaterial,
     WaterRestriction,
 )
+from aind_data_schema_models.brain_atlas import CCFStructure
 
 t = datetime.datetime(2022, 7, 12, 7, 00, 00)
 t2 = datetime.datetime(2022, 9, 23, 10, 22, 00)
@@ -32,7 +33,7 @@ p = Procedures(
         Surgery(
             start_date=t.date(),
             experimenters=[Experimenter(name="Scientist Smith")],
-            iacuc_protocol="2109",
+            ethics_review_id="2109",
             animal_weight_prior=22.6,
             animal_weight_post=22.3,
             anaesthesia=Anaesthetic(type="Isoflurane", duration=180, level=1.5),
@@ -68,7 +69,7 @@ p = Procedures(
                     injection_coordinate_reference="Bregma",
                     injection_angle=0,
                     injection_volume=[400],
-                    targeted_structure="VTA",
+                    targeted_structure=CCFStructure.VTA,
                 ),
                 FiberImplant(
                     protocol_id="TO ENTER",
@@ -81,7 +82,7 @@ p = Procedures(
                                 ferrule_material="Ceramic",
                                 total_length=0.5,
                             ),
-                            targeted_structure="VTA",
+                            targeted_structure=CCFStructure.VTA,
                             angle=0,
                             stereotactic_coordinate_ap=-3.05,
                             stereotactic_coordinate_ml=-0.6,
@@ -94,7 +95,7 @@ p = Procedures(
         ),
         WaterRestriction(
             start_date="2023-05-15",
-            iacuc_protocol="1234",
+            ethics_review_id="1234",
             target_fraction_weight=25,
             minimum_water_per_day=1.5,
             baseline_weight=20.4,
@@ -103,7 +104,7 @@ p = Procedures(
         Surgery(
             start_date="2023-05-31",
             experimenters=[Experimenter(name="Scientist Smith")],
-            iacuc_protocol="2109",
+            ethics_review_id="2109",
             anaesthesia=Anaesthetic(type="Isoflurane", duration=30, level=3),
             workstation_id="SWS 3",
             protocol_id="doi",

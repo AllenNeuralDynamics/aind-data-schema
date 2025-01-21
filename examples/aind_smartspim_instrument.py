@@ -256,7 +256,6 @@ inst = Instrument(
             com_port="COM9",
         ),
     ],
-    humidity_control=False,
     temperature_control=False,
 )
 

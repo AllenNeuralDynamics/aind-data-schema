@@ -3,7 +3,7 @@
 import inspect
 import json
 import logging
-from datetime import datetime
+from datetime import datetime, timezone
 from enum import Enum
 from typing import Dict, List, Literal, Optional, get_args
 from uuid import UUID, uuid4
@@ -16,11 +16,12 @@ from pydantic import (
     SkipValidation,
     ValidationError,
     ValidationInfo,
+    field_serializer,
     field_validator,
     model_validator,
 )
 
-from aind_data_schema.base import AindCoreModel, is_dict_corrupt
+from aind_data_schema.base import DataCoreModel, is_dict_corrupt, AwareDatetimeWithDefault
 from aind_data_schema.core.acquisition import Acquisition
 from aind_data_schema.core.data_description import DataDescription
 from aind_data_schema.core.instrument import Instrument
@@ -60,7 +61,7 @@ class ExternalPlatforms(str, Enum):
     CODEOCEAN = "Code Ocean"
 
 
-class Metadata(AindCoreModel):
+class Metadata(DataCoreModel):
     """The records in the Data Asset Collection needs to contain certain fields
     to easily query and index the data."""
 
@@ -69,9 +70,9 @@ class Metadata(AindCoreModel):
     # default
     _FILE_EXTENSION = PrivateAttr(default=".nd.json")
 
-    _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/metadata.py"
+    _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/metadata.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["1.0.4"]] = Field("1.0.4")
+    schema_version: SkipValidation[Literal["1.1.6"]] = Field(default="1.1.6")
     id: UUID = Field(
         default_factory=uuid4,
         alias="_id",
@@ -83,15 +84,13 @@ class Metadata(AindCoreModel):
         description="Name of the data asset.",
         title="Data Asset Name",
     )
-    # We'll set created and last_modified defaults using the root_validator
-    # to ensure they're synced on creation
-    created: datetime = Field(
-        default_factory=datetime.utcnow,
+    created: AwareDatetimeWithDefault = Field(
+        default_factory=lambda: datetime.now(tz=timezone.utc),
         title="Created",
         description="The utc date and time the data asset created.",
     )
-    last_modified: datetime = Field(
-        default_factory=datetime.utcnow,
+    last_modified: AwareDatetimeWithDefault = Field(
+        default_factory=lambda: datetime.now(tz=timezone.utc),
         title="Last Modified",
         description="The utc date and time that the data asset was last modified.",
     )
@@ -106,7 +105,7 @@ class Metadata(AindCoreModel):
     external_links: Dict[ExternalPlatforms, List[str]] = Field(
         default=dict(), title="External Links", description="Links to the data asset on different platforms."
     )
-    # We can make the AindCoreModel fields optional for now and do more
+    # We can make the DataCoreModel fields optional for now and do more
     # granular validations using validators. We may have some older data
     # assets in S3 that don't have metadata attached. We'd still like to
     # index that data, but we can flag those instances as MISSING or UNKNOWN
@@ -157,6 +156,16 @@ class Metadata(AindCoreModel):
             core_model = value
         return core_model
 
+    @field_validator("last_modified", mode="after")
+    def validate_last_modified(cls, value, info: ValidationInfo):
+        """Convert last_modified field to UTC from other timezones"""
+        return value.astimezone(timezone.utc)
+
+    @field_serializer("last_modified")
+    def serialize_last_modified(value) -> str:
+        """Serialize last_modified field"""
+        return value.isoformat().replace("+00:00", "Z")
+
     @model_validator(mode="after")
     def validate_metadata(self):
         """Validator for metadata"""
@@ -173,14 +182,14 @@ class Metadata(AindCoreModel):
                     [
                         f
                         for f in get_args(self.model_fields[field_name].annotation)
-                        if inspect.isclass(f) and issubclass(f, AindCoreModel)
+                        if inspect.isclass(f) and issubclass(f, DataCoreModel)
                     ]
                 )
             )
             if (
                 optional_classes
                 and inspect.isclass(optional_classes[0])
-                and issubclass(optional_classes[0], AindCoreModel)
+                and issubclass(optional_classes[0], DataCoreModel)
             ):
                 all_model_fields[field_name] = optional_classes[0]
 

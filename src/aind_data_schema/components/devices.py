@@ -19,7 +19,7 @@ from aind_data_schema_models.units import (
 from pydantic import Field, ValidationInfo, field_validator, model_validator
 from typing_extensions import Annotated
 
-from aind_data_schema.base import AindGeneric, AindGenericType, AindModel, AwareDatetimeWithDefault
+from aind_data_schema.base import GenericModel, GenericModelType, DataModel, AwareDatetimeWithDefault
 from aind_data_schema.components.coordinates import RelativePosition, Size3d
 from aind_data_schema.components.reagent import Reagent
 
@@ -250,6 +250,7 @@ class LickSensorType(str, Enum):
     """Type of lick sensor"""
 
     CAPACITIVE = "Capacitive"
+    CONDUCTIVE = "Conductive"
     PIEZOELECTIC = "Piezoelectric"
 
 
@@ -260,7 +261,7 @@ class MyomatrixArrayType(str, Enum):
     SUTURED = "Sutured"
 
 
-class Device(AindModel):
+class Device(DataModel):
     """Generic device"""
 
     device_type: str = Field(..., title="Device type")  # Needs to be set by child classes that inherits
@@ -272,31 +273,31 @@ class Device(AindModel):
         default=None, title="Path to CAD diagram", description="For CUSTOM manufactured devices"
     )
     port_index: Optional[str] = Field(default=None, title="Port index")
-    additional_settings: AindGenericType = Field(AindGeneric(), title="Additional parameters")
+    additional_settings: GenericModelType = Field(GenericModel(), title="Additional parameters")
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class Software(AindModel):
+class Software(DataModel):
     """Description of generic software"""
 
     name: str = Field(..., title="Software name")
     version: str = Field(..., title="Software version")
     url: Optional[str] = Field(default=None, title="URL to commit being used")
-    parameters: AindGenericType = Field(AindGeneric(), title="Software parameters")
+    parameters: GenericModelType = Field(GenericModel(), title="Software parameters")
 
 
-class Calibration(AindModel):
+class Calibration(DataModel):
     """Generic calibration class"""
 
     calibration_date: AwareDatetimeWithDefault = Field(..., title="Date and time of calibration")
     device_name: str = Field(..., title="Device name", description="Must match a device name in rig/instrument")
     description: str = Field(..., title="Description", description="Brief description of what is being calibrated")
-    input: AindGenericType = Field(AindGeneric(), description="Calibration input", title="inputs")
-    output: AindGenericType = Field(AindGeneric(), description="Calibration output", title="outputs")
+    input: GenericModelType = Field(GenericModel(), description="Calibration input", title="inputs")
+    output: GenericModelType = Field(GenericModel(), description="Calibration output", title="outputs")
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class Maintenance(AindModel):
+class Maintenance(DataModel):
     """Generic maintenance class"""
 
     maintenance_date: AwareDatetimeWithDefault = Field(..., title="Date and time of maintenance")
@@ -443,7 +444,7 @@ class Objective(Device):
         return value
 
 
-class CameraAssembly(AindModel):
+class CameraAssembly(DataModel):
     """Named assembly of a camera and lens (and optionally a filter)"""
 
     # required fields
@@ -457,7 +458,7 @@ class CameraAssembly(AindModel):
     position: Optional[RelativePosition] = Field(default=None, title="Relative position of this assembly")
 
 
-class DAQChannel(AindModel):
+class DAQChannel(DataModel):
     """Named input or output channel on a DAQ device"""
 
     # required fields
@@ -559,7 +560,7 @@ class Lamp(Device):
     temperature_unit: Optional[TemperatureUnit] = Field(default=None, title="Temperature unit")
 
 
-class ProbePort(AindModel):
+class ProbePort(DataModel):
     """Port for a probe connection"""
 
     index: int = Field(..., title="One-based port index")
@@ -609,7 +610,7 @@ class Patch(Device):
     photobleaching_date: Optional[date] = Field(default=None, title="Photobleaching date")
 
 
-class LaserAssembly(AindModel):
+class LaserAssembly(DataModel):
     """Assembly for optogenetic stimulation"""
 
     name: str = Field(..., title="Laser assembly name")
@@ -637,7 +638,7 @@ class EphysProbe(Device):
     headstage: Optional[Headstage] = Field(default=None, title="Headstage for this probe")
 
 
-class EphysAssembly(AindModel):
+class EphysAssembly(DataModel):
     """Module for electrophysiological recording"""
 
     name: str = Field(..., title="Ephys assembly name")
@@ -658,7 +659,7 @@ class FiberProbe(Device):
     length_unit: SizeUnit = Field(default=SizeUnit.MM, title="Length unit")
 
 
-class FiberAssembly(AindModel):
+class FiberAssembly(DataModel):
     """Module for inserted fiber photometry recording"""
 
     name: str = Field(..., title="Fiber assembly name")
@@ -838,7 +839,7 @@ class RewardSpout(Device):
         return self
 
 
-class RewardDelivery(AindModel):
+class RewardDelivery(DataModel):
     """Description of reward delivery system"""
 
     device_type: Literal["Reward delivery"] = "Reward delivery"
@@ -861,7 +862,7 @@ class ChannelType(Enum):
     CARRIER = "Carrier"
 
 
-class OlfactometerChannel(AindModel):
+class OlfactometerChannel(DataModel):
     """description of a Olfactometer channel"""
 
     channel_index: int = Field(..., title="Channel index")

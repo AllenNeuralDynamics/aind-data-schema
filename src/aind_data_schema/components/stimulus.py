@@ -5,9 +5,9 @@ from enum import Enum
 from typing import List, Literal, Optional
 
 from aind_data_schema_models.units import ConcentrationUnit, FrequencyUnit, PowerUnit, TimeUnit
-from pydantic import Field
+from pydantic import Field, model_validator
 
-from aind_data_schema.base import AindGeneric, AindGenericType, AindModel
+from aind_data_schema.base import GenericModel, GenericModelType, DataModel
 
 
 class PulseShape(str, Enum):
@@ -25,7 +25,7 @@ class FilterType(str, Enum):
     OTHER = "Other"
 
 
-class OptoStimulation(AindModel):
+class OptoStimulation(DataModel):
     """Description of opto stimulation parameters"""
 
     stimulus_type: Literal["Opto Stimulation"] = "Opto Stimulation"
@@ -49,17 +49,17 @@ class OptoStimulation(AindModel):
         description="Duration of baseline recording prior to first pulse train",
     )
     baseline_duration_unit: TimeUnit = Field(default=TimeUnit.S, title="Baseline duration unit")
-    other_parameters: AindGenericType = Field(AindGeneric(), title="Other parameters")
+    other_parameters: GenericModelType = Field(GenericModel(), title="Other parameters")
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class VisualStimulation(AindModel):
+class VisualStimulation(DataModel):
     """Description of visual stimulus parameters. Provides a high level description of stimulus."""
 
     stimulus_type: Literal["Visual Stimulation"] = "Visual Stimulation"
     stimulus_name: str = Field(..., title="Stimulus name")
-    stimulus_parameters: AindGenericType = Field(
-        AindGeneric(),
+    stimulus_parameters: GenericModelType = Field(
+        GenericModel(),
         title="Stimulus parameters",
         description="Define and list the parameter values used (e.g. all TF or orientation values)",
     )
@@ -71,7 +71,7 @@ class VisualStimulation(AindModel):
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class PhotoStimulationGroup(AindModel):
+class PhotoStimulationGroup(DataModel):
     """Description of a photostimulation group"""
 
     group_index: int = Field(..., title="Group index")
@@ -84,11 +84,11 @@ class PhotoStimulationGroup(AindModel):
     spiral_duration_unit: TimeUnit = Field(default=TimeUnit.S, title="Spiral duration unit")
     inter_spiral_interval: Decimal = Field(..., title="Inter trial interval (s)")
     inter_spiral_interval_unit: TimeUnit = Field(default=TimeUnit.S, title="Inter trial interval unit")
-    other_parameters: AindGenericType = Field(AindGeneric(), title="Other parameters")
+    other_parameters: GenericModelType = Field(GenericModel(), title="Other parameters")
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class PhotoStimulation(AindModel):
+class PhotoStimulation(DataModel):
     """Description of a photostimulation session"""
 
     stimulus_type: Literal["Photo Stimulation"] = "Photo Stimulation"
@@ -97,11 +97,11 @@ class PhotoStimulation(AindModel):
     groups: List[PhotoStimulationGroup] = Field(..., title="Groups")
     inter_trial_interval: Decimal = Field(..., title="Inter trial interval (s)")
     inter_trial_interval_unit: TimeUnit = Field(default=TimeUnit.S, title="Inter trial interval unit")
-    other_parameters: AindGenericType = Field(AindGeneric(), title="Other parameters")
+    other_parameters: GenericModelType = Field(GenericModel(), title="Other parameters")
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class OlfactometerChannelConfig(AindModel):
+class OlfactometerChannelConfig(DataModel):
     """Description of olfactometer channel configurations"""
 
     channel_index: int = Field(..., title="Channel index")
@@ -111,7 +111,7 @@ class OlfactometerChannelConfig(AindModel):
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class OlfactoryStimulation(AindModel):
+class OlfactoryStimulation(DataModel):
     """Description of a olfactory stimulus"""
 
     stimulus_type: Literal["Olfactory Stimulation"] = "Olfactory Stimulation"
@@ -120,11 +120,11 @@ class OlfactoryStimulation(AindModel):
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class AuditoryStimulation(AindModel):
+class AuditoryStimulation(DataModel):
     """Description of an auditory stimulus"""
 
     stimulus_type: Literal["Auditory Stimulation"] = "Auditory Stimulation"
-    sitmulus_name: str = Field(..., title="Stimulus name")
+    stimulus_name: str = Field(..., title="Stimulus name")
     sample_frequency: Decimal = Field(..., title="Sample frequency")
     amplitude_modulation_frequency: Optional[int] = Field(default=None, title="Amplitude modulation frequency")
     frequency_unit: FrequencyUnit = Field(default=FrequencyUnit.HZ, title="Tone frequency unit")
@@ -133,3 +133,10 @@ class AuditoryStimulation(AindModel):
     bandpass_filter_type: Optional[FilterType] = Field(default=None, title="Bandpass filter type")
     bandpass_order: Optional[int] = Field(default=None, title="Bandpass order")
     notes: Optional[str] = Field(default=None, title="Notes")
+
+    @model_validator(mode="before")
+    def correct_typo(cls, values):
+        """Correct 'sitmulus_name' typo."""
+        if "sitmulus_name" in values:
+            values["stimulus_name"] = values.pop("sitmulus_name")
+        return values
