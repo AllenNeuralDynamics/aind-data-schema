@@ -160,7 +160,7 @@ class Angles(DataModel):
 
 class AtlasCoordinate(DataModel):
     """A coordinate in an atlas, can be relative to the atlas origin or a standard reference coordinate
-    
+
     Angles can be optionally provided
     """
 
@@ -181,7 +181,8 @@ class InVivoCoordinate(DataModel):
 
 
 class InVivoSurfaceCoordinate(DataModel):
-    """A coordinate in a brain relative to a point on the brain surface, which is itself relative to a reference coordinate on the skull"""
+    """A coordinate in a brain relative to a point on the brain surface, which is itself relative to a reference
+    coordinate on the skull"""
 
     atlas: Annotated[Union[AtlasSpace, AtlasTransformed], Field(title="Atlas definition", discriminator="data_type")]
     surface_coordinates: Vector2 = Field(..., title="Surface coordinates (AP/ML)")
