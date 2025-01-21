@@ -26,7 +26,7 @@ class ModelTests(unittest.TestCase):
         m = Model(
             name="2024_01_01_ResNet18_SmartSPIM.h5",
             license="CC-BY-4.0",
-            developer_full_name=["Joe Schmoe"],
+            investigators=["Joe Schmoe"],
             developer_institution=Organization.AIND,
             modality=[Modality.SPIM],
             pretrained_source_url="url pretrained weights are from",

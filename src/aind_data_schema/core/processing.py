@@ -14,6 +14,7 @@ from aind_data_schema.base import (
     DataModel,
     AwareDatetimeWithDefault,
 )
+from aind_data_schema.components.identifiers import Investigator
 from aind_data_schema.components.tile import Tile
 
 
@@ -80,8 +81,8 @@ class PipelineProcess(DataModel):
     """Description of a Processing Pipeline"""
 
     data_processes: List[DataProcess] = Field(..., title="Data processing")
-    processor_full_name: str = Field(
-        ..., title="Processor Full Name", description="Name of person responsible for processing pipeline"
+    investigators: List[Investigator] = Field(
+        ..., title="Investigators", description="Investigators responsible for processing pipeline"
     )
     pipeline_version: Optional[str] = Field(
         default=None, description="Version of the pipeline", title="Pipeline version"
@@ -94,8 +95,8 @@ class AnalysisProcess(DataProcess):
     """Description of an Analysis"""
 
     name: ProcessName = Field(ProcessName.ANALYSIS, title="Process name")
-    analyst_full_name: str = Field(
-        ..., title="Analyst Full Name", description="Name of person responsible for running analysis"
+    investigators: List[Investigator] = Field(
+        ..., title="Investigators", description="Investigators responsible for analysis"
     )
     description: str = Field(..., title="Analysis Description")
 

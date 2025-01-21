@@ -38,7 +38,7 @@ from aind_data_schema.components.coordinates import (
     Translation3dTransform,
 )
 from aind_data_schema.components.devices import Calibration, Maintenance, RelativePosition, Scanner, Software, SpoutSide
-from aind_data_schema.components.identifiers import Experimenter
+from aind_data_schema.components.identifiers import Investigator
 from aind_data_schema.components.stimulus import (
     AuditoryStimulation,
     OlfactoryStimulation,
@@ -548,9 +548,9 @@ class Session(DataCoreModel):
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
     schema_version: SkipValidation[Literal["1.1.4"]] = Field(default="1.1.4")
     protocol_id: List[str] = Field(default=[], title="Protocol ID", description="DOI for protocols.io")
-    experimenters: List[Experimenter] = Field(
+    investigators: List[Investigator] = Field(
         default=[],
-        title="Experimenter(s)",
+        title="Investigator(s)",
     )
     session_start_time: AwareDatetimeWithDefault = Field(..., title="Session start time")
     session_end_time: Optional[AwareDatetimeWithDefault] = Field(default=None, title="Session end time")

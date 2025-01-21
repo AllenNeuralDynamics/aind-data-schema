@@ -90,7 +90,7 @@ for session_idx, session in sessions_df.iterrows():
                 start_date=proc_row["injection_date"].to_pydatetime().date(),
                 protocol_id=protocol,
                 ethics_review_id=ethics_review_id,
-                experimenters=[experimenter],
+                investigators=[investigator],
                 procedures=[
                     NanojectInjection(
                         protocol_id=protocol,
@@ -113,7 +113,7 @@ for session_idx, session in sessions_df.iterrows():
             ),
             Surgery(
                 start_date=proc_row["perfusion_date"].to_pydatetime().date(),
-                experimenter_full_name=experimenter,
+                investigators=[investigator],
                 ethics_review_id=ethics_review_id,
                 protocol_id=protocol,
                 procedures=[Perfusion(protocol_id=protocol, output_specimen_ids=["1"])],

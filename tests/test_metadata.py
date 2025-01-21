@@ -72,7 +72,7 @@ class TestMetadata(unittest.TestCase):
             subject_id="12345",
         )
         processing = Processing(
-            processing_pipeline=PipelineProcess(processor_full_name="Processor", data_processes=[]),
+            processing_pipeline=PipelineProcess(investigators="Processor", data_processes=[]),
         )
 
         cls.sample_name = "ecephys_655019_2023-04-03_18-17-09"

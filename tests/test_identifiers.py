@@ -2,22 +2,23 @@
 
 import unittest
 from pydantic import ValidationError
-from aind_data_schema.components.identifiers import Experimenter
+from aind_data_schema.components.identifiers import Investigator
 
 
-class TestExperimenter(unittest.TestCase):
-    """Test Experimenter class"""
+class TestInvestigator(unittest.TestCase):
+    """Test Investigator class"""
 
-    def test_experimenter_with_full_name(self):
-        """Test Experimenter with first and last name"""
-        experimenter = Experimenter(name="John Doe", registry_identifier="0000-0001-2345-6789")
-        self.assertEqual(experimenter.name, "John Doe")
-        self.assertEqual(experimenter.registry_identifier, "0000-0001-2345-6789")
+    def test_investigator_with_full_name(self):
+        """Test Investigator with first and last name"""
+        investigator = Investigator(name="John Doe", registry_identifier="0000-0001-2345-6789")
+        self.assertIsNotNone(investigator)
+        self.assertEqual(investigator.name, "John Doe")
+        self.assertEqual(investigator.registry_identifier, "0000-0001-2345-6789")
 
-    def test_experimenter_missing_required_fields(self):
-        """Test Experimenter missing required fields"""
+    def test_investigator_missing_fields(self):
+        """Test Investigator missing required fields"""
         with self.assertRaises(ValidationError):
-            Experimenter()
+            Investigator()
 
 
 if __name__ == "__main__":

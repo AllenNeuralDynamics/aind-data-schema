@@ -16,7 +16,7 @@ from aind_data_schema.components.coordinates import (
     Scale3dTransform,
     Translation3dTransform,
 )
-from aind_data_schema.components.identifiers import Experimenter
+from aind_data_schema.components.identifiers import Investigator
 from aind_data_schema.core.session import (
     DomeModule,
     ManipulatorModule,
@@ -41,7 +41,7 @@ class ExampleTest(unittest.TestCase):
             sess = Session()
 
         sess = Session(
-            experimenters=[Experimenter(name="Mam Moth")],
+            investigators=[Investigator(name="Mam Moth")],
             session_start_time=datetime.now(),
             session_end_time=datetime.now(),
             subject_id="1234",
@@ -120,7 +120,7 @@ class ExampleTest(unittest.TestCase):
         )
 
         mri = Session(
-            experimenters=[Experimenter(name="Mam Moth")],
+            investigators=[Investigator(name="Mam Moth")],
             subject_id="123456",
             session_start_time=datetime.now(tz=timezone.utc),
             session_end_time=datetime.now(tz=timezone.utc),

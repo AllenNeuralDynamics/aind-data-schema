@@ -10,7 +10,7 @@ from aind_data_schema.base import DataCoreModel, DataModel, AwareDatetimeWithDef
 from aind_data_schema.components.coordinates import AnatomicalDirection, AxisName, ImageAxis
 from aind_data_schema.components.devices import Calibration, ImmersionMedium, Maintenance, Software
 from aind_data_schema.components.tile import AcquisitionTile
-from aind_data_schema.components.identifiers import Experimenter
+from aind_data_schema.components.identifiers import Investigator
 
 
 class Immersion(DataModel):
@@ -48,9 +48,9 @@ class Acquisition(DataCoreModel):
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
     schema_version: SkipValidation[Literal["1.0.5"]] = Field(default="1.0.5")
     protocol_id: List[str] = Field(default=[], title="Protocol ID", description="DOI for protocols.io")
-    experimenters: List[Experimenter] = Field(
+    investigators: List[Investigator] = Field(
         default=[],
-        title="Experimenter(s)",
+        title="Investigator(s)",
     )
     specimen_id: str = Field(..., title="Specimen ID")
     subject_id: Optional[str] = Field(default=None, title="Subject ID")

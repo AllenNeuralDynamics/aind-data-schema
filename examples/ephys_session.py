@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 from aind_data_schema_models.modalities import Modality
 
 from aind_data_schema.components.devices import Software
-from aind_data_schema.components.identifiers import Experimenter
+from aind_data_schema.components.identifiers import Investigator
 from aind_data_schema.core.session import (
     CcfCoords,
     Coordinates3d,
@@ -20,7 +20,7 @@ from aind_data_schema.core.session import (
 from aind_data_schema_models.brain_atlas import CCFStructure
 
 session = Session(
-    experimenters=[Experimenter(name="John Smith")],
+    investigators=[Investigator(name="John Smith")],
     subject_id="664484",
     session_start_time=datetime(year=2023, month=4, day=25, hour=2, minute=35, second=0, tzinfo=timezone.utc),
     session_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0, tzinfo=timezone.utc),

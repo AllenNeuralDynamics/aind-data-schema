@@ -29,7 +29,7 @@ class ProcessingTest(unittest.TestCase):
             Processing()
 
         p = Processing(
-            processing_pipeline=PipelineProcess(processor_full_name="Processor", data_processes=[]),
+            processing_pipeline=PipelineProcess(investigators="Processor", data_processes=[]),
         )
 
         with self.assertRaises(pydantic.ValidationError) as e:

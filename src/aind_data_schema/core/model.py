@@ -9,6 +9,7 @@ from pydantic import Field
 
 from aind_data_schema.base import DataModel, DataCoreModel, GenericModel, GenericModelType
 from aind_data_schema.components.devices import Software
+from aind_data_schema.components.identifiers import Investigator
 from aind_data_schema.core.processing import DataProcess, ProcessName
 
 
@@ -60,7 +61,7 @@ class Model(DataCoreModel):
 
     name: str = Field(..., title="Name")
     license: str = Field(..., title="License")
-    developer_full_name: Optional[List[str]] = Field(default=None, title="Name of developer")
+    investigators: Optional[List[Investigator]] = Field(default=None, title="Name of investigator(s)")
     developer_institution: Optional[Organization.ONE_OF] = Field(default=None, title="Institute where developed")
     modality: List[Modality.ONE_OF] = Field(..., title="Modality")
     architecture: ModelArchitecture = Field(..., title="Model architecture")
