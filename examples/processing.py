@@ -42,7 +42,7 @@ file_io_usage_list = [
 
 p = Processing(
     processing_pipeline=PipelineProcess(
-        investigators="Some Processor",
+        investigators=[Investigator(name="Dr. Dan")],
         pipeline_url="https://url/for/pipeline",
         pipeline_version="0.1.1",
         data_processes=[

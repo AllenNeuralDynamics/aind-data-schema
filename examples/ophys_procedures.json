@@ -7,7 +7,7 @@
          "procedure_type": "Surgery",
          "protocol_id": "doi",
          "start_date": "2022-07-12",
-         "experimenters": [
+         "investigators": [
             {
                "name": "Scientist Smith",
                "registry": {
@@ -148,7 +148,7 @@
          "procedure_type": "Surgery",
          "protocol_id": "doi",
          "start_date": "2023-05-31",
-         "experimenters": [
+         "investigators": [
             {
                "name": "Scientist Smith",
                "registry": {
@@ -188,7 +188,7 @@
          "specimen_id": "672640",
          "start_date": "2023-06-09",
          "end_date": "2023-06-12",
-         "experimenters": [
+         "investigators": [
             {
                "name": "Scientist Smith",
                "registry": {
@@ -242,7 +242,7 @@
          "specimen_id": "672640",
          "start_date": "2023-06-12",
          "end_date": "2023-06-13",
-         "experimenters": [
+         "investigators": [
             {
                "name": "Scientist Smith",
                "registry": {

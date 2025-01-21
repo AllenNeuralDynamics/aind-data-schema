@@ -39,8 +39,10 @@
    "investigators": [
       {
          "name": "Jane Smith",
-         "abbreviation": null,
-         "registry": null,
+         "registry": {
+            "name": "Open Researcher and Contributor ID",
+            "abbreviation": "ORCID"
+         },
          "registry_identifier": null
       }
    ],

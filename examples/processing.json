@@ -95,7 +95,16 @@
             "resources": null
          }
       ],
-      "processor_full_name": "Some Processor",
+      "investigators": [
+         {
+            "name": "Dr. Dan",
+            "registry": {
+               "name": "Open Researcher and Contributor ID",
+               "abbreviation": "ORCID"
+            },
+            "registry_identifier": null
+         }
+      ],
       "pipeline_version": "0.1.1",
       "pipeline_url": "https://url/for/pipeline",
       "note": null
@@ -116,7 +125,16 @@
          "outputs": {},
          "notes": null,
          "resources": null,
-         "analyst_full_name": "Some Analyzer",
+         "investigators": [
+            {
+               "name": "Some Analyzer",
+               "registry": {
+                  "name": "Open Researcher and Contributor ID",
+                  "abbreviation": "ORCID"
+               },
+               "registry_identifier": null
+            }
+         ],
          "description": "some description"
       },
       {
@@ -135,7 +153,16 @@
          "outputs": {},
          "notes": null,
          "resources": null,
-         "analyst_full_name": "Some Analyzer",
+         "investigators": [
+            {
+               "name": "Some Analyzer",
+               "registry": {
+                  "name": "Open Researcher and Contributor ID",
+                  "abbreviation": "ORCID"
+               },
+               "registry_identifier": null
+            }
+         ],
          "description": "some description"
       }
    ],
