@@ -4,9 +4,9 @@ from datetime import datetime, timezone
 
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
-from aind_data_schema_models.pid_names import PIDName
 from aind_data_schema_models.platforms import Platform
 
+from aind_data_schema.components.identifiers import Investigator
 from aind_data_schema.core.data_description import Funding, RawDataDescription
 
 d = RawDataDescription(
@@ -15,7 +15,7 @@ d = RawDataDescription(
     subject_id="12345",
     creation_time=datetime(2022, 2, 21, 16, 30, 1, tzinfo=timezone.utc),
     institution=Organization.AIND,
-    investigators=[PIDName(name="Jane Smith")],
+    investigators=[Investigator(name="Jane Smith")],
     funding_source=[Funding(funder=Organization.AI)],
 )
 
