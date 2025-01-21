@@ -9,12 +9,12 @@ import uuid
 
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
-from aind_data_schema_models.pid_names import PIDName
 from aind_data_schema_models.platforms import Platform
 from pydantic import ValidationError
 from pydantic import __version__ as pyd_version
 
 from aind_data_schema.components.devices import MousePlatform
+from aind_data_schema.components.identifiers import Investigator
 from aind_data_schema.core.acquisition import Acquisition
 from aind_data_schema.core.data_description import DataDescription, Funding
 from aind_data_schema.core.instrument import Instrument
@@ -72,7 +72,7 @@ class TestMetadata(unittest.TestCase):
             subject_id="12345",
         )
         processing = Processing(
-            processing_pipeline=PipelineProcess(investigators="Processor", data_processes=[]),
+            processing_pipeline=PipelineProcess(investigators=[Investigator(name="Dan Processor")], data_processes=[]),
         )
 
         cls.sample_name = "ecephys_655019_2023-04-03_18-17-09"

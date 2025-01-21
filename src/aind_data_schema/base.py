@@ -154,9 +154,7 @@ class DataCoreModel(DataModel):
         """
         Returns standard filename in snakecase
         """
-        parent_classes = [
-            base_class for base_class in cls.__bases__ if base_class.__name__ != DataCoreModel.__name__
-        ]
+        parent_classes = [base_class for base_class in cls.__bases__ if base_class.__name__ != DataCoreModel.__name__]
 
         name = cls.__name__
 

@@ -27,7 +27,7 @@ from typing_extensions import Annotated
 
 from aind_data_schema.base import DataCoreModel, DataModel, AwareDatetimeWithDefault
 from aind_data_schema.components.devices import FiberProbe, MyomatrixArray
-from aind_data_schema.components.identifiers import Investigator, Investigator
+from aind_data_schema.components.identifiers import Investigator
 from aind_data_schema.components.reagent import Reagent
 
 
@@ -276,7 +276,7 @@ class SpecimenProcedure(DataModel):
     specimen_id: str = Field(..., title="Specimen ID")
     start_date: date = Field(..., title="Start date")
     end_date: date = Field(..., title="End date")
-    experimenters: List[Investigator] = Field(
+    investigators: List[Investigator] = Field(
         default=[],
         title="Investigator(s)",
     )
