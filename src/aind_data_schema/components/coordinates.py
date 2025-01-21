@@ -105,7 +105,22 @@ class Vector3(DataModel):
     unit: SizeUnit = Field(..., title="Vector unit")
 
 
-class AtlasSpace(DataModel):
+class Space(DataModel):
+    """3D space definition
+    """
+
+    data_type: Literal["space"] = "space"
+    name: str = Field(..., title="Space name")
+    dimensions: Vector3 = Field(..., title="Dimensions")
+    resolution: Vector3 = Field(..., title="Resolution")
+    reference_coordinate: Vector3 = Field(default_factory=lambda: Vector3(x=0, y=0, z=0, unit=SizeUnit.PX),
+                                          title="Reference coordinate")
+    orientation: List[AnatomicalDirection] = Field(
+        default=[AnatomicalDirection.AP, AnatomicalDirection.SI, AnatomicalDirection.LR], title="Atlas orientation"
+    )
+
+
+class AtlasSpace(Space):
     """Atlas definition
 
     The default Origin of an atlas is the anterior, left, superior corner
@@ -116,14 +131,6 @@ class AtlasSpace(DataModel):
     data_type: Literal["atlas_space"] = "atlas_space"
     name: AtlasName = Field(..., title="Atlas name")
     version: str = Field(..., title="Atlas version")
-    dimensions: Vector3 = Field(..., title="Atlas size")
-    resolution: Vector3 = Field(..., title="Atlas resolution")
-    reference_coordinate: Vector3 = Field(default_factory=lambda: Vector3(x=0, y=0, z=0, unit=SizeUnit.PX),
-                                          title="Reference coordinate")
-
-    orientation: List[AnatomicalDirection] = Field(
-        default=[AnatomicalDirection.AP, AnatomicalDirection.SI, AnatomicalDirection.LR], title="Atlas orientation"
-    )
 
 
 class AtlasTransformed(AtlasSpace):
