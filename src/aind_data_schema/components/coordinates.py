@@ -11,10 +11,11 @@ from typing_extensions import Annotated
 from aind_data_schema.base import DataModel
 
 
-class CcfVersion(str, Enum):
-    """CCF version"""
+class AtlasName(str, Enum):
+    """Atlas name"""
 
-    CCFv3 = "CCFv3"
+    CCF = "CCF"
+    CUSTOM = "Custom"
 
 
 class Origin(str, Enum):
@@ -23,7 +24,6 @@ class Origin(str, Enum):
     ORIGIN = "Origin"
     BREGMA = "Bregma"
     LAMBDA = "Lambda"
-    OTHER = "Other (see Notes)"
 
 
 class AxisName(str, Enum):
@@ -32,6 +32,10 @@ class AxisName(str, Enum):
     X = "X"
     Y = "Y"
     Z = "Z"
+    AP = "AP"
+    ML = "ML"
+    SI = "SI"
+    DEPTH = "Depth"
 
 
 class AnatomicalDirection(str, Enum):
@@ -46,176 +50,138 @@ class AnatomicalDirection(str, Enum):
     OTHER = "Other"
 
 
-class CoordinateTransform(DataModel):
-    """Generic base class for coordinate transform subtypes"""
+class RotationDirection(str, Enum):
+    """Rotation direction"""
 
-    type: str = Field(..., title="transformation type")
+    CW = "Clockwise"
+    CCW = "Counter-clockwise"
 
 
-class Scale3dTransform(CoordinateTransform):
+class Scale3dTransform(DataModel):
     """Values to be vector-multiplied with a 3D position, equivalent to the diagonals of a 3x3 transform matrix.
     Represents voxel spacing if used as the first applied coordinate transform.
     """
 
-    type: Literal["scale"] = "scale"
+    data_type: Literal["scale"] = "scale"
     scale: List[Decimal] = Field(..., title="3D scale parameters", min_length=3, max_length=3)
 
 
-class Translation3dTransform(CoordinateTransform):
+class Translation3dTransform(DataModel):
     """Values to be vector-added to a 3D position. Often needed to specify a device or tile's origin."""
 
-    type: Literal["translation"] = "translation"
+    data_type: Literal["translation"] = "translation"
     translation: List[Decimal] = Field(..., title="3D translation parameters", min_length=3, max_length=3)
 
 
-class Rotation3dTransform(CoordinateTransform):
+class Rotation3dTransform(DataModel):
     """Values to be vector-added to a 3D position. Often needed to specify a device or tile's origin."""
 
-    type: Literal["rotation"] = "rotation"
+    data_type: Literal["rotation"] = "rotation"
     rotation: List[Decimal] = Field(..., title="3D rotation matrix values (3x3) ", min_length=9, max_length=9)
 
 
-class Affine3dTransform(CoordinateTransform):
+class Affine3dTransform(DataModel):
     """Values to be vector-added to a 3D position. Often needed to specify a Tile's origin."""
 
-    type: Literal["affine"] = "affine"
+    data_type: Literal["affine"] = "affine"
     affine_transform: List[Decimal] = Field(
         ..., title="Affine transform matrix values (top 3x4 matrix)", min_length=12, max_length=12
     )
 
 
-class Size2d(DataModel):
-    """2D size of an object"""
+class Vector2(DataModel):
+    """XY vector"""
 
-    width: int = Field(..., title="Width")
-    height: int = Field(..., title="Height")
-    unit: SizeUnit = Field(SizeUnit.PX, title="Size unit")
+    x: Decimal = Field(..., title="X")
+    y: Decimal = Field(..., title="Y")
+    unit: SizeUnit = Field(..., title="Vector unit")
 
 
-class Size3d(DataModel):
-    """3D size of an object"""
+class Vector3(DataModel):
+    """XYZ vector"""
 
-    width: int = Field(..., title="Width")
-    length: int = Field(..., title="Length")
-    height: int = Field(..., title="Height")
-    unit: SizeUnit = Field(SizeUnit.M, title="Size unit")
+    x: Decimal = Field(..., title="X")
+    y: Decimal = Field(..., title="Y")
+    z: Decimal = Field(..., title="Z")
+    unit: SizeUnit = Field(..., title="Vector unit")
 
 
 class AtlasSpace(DataModel):
-    """Atlas definition"""
+    """Atlas definition
 
-    name: str = Field(..., title="Atlas name")
+    The default Origin of an atlas is the anterior, left, superior corner
+
+    The default orientation follows the right hand rule for AP/SI/LR
+    """
+
+    data_type: Literal["atlas_space"] = "atlas_space"
+    name: AtlasName = Field(..., title="Atlas name")
     version: str = Field(..., title="Atlas version")
-    dimensions: Size3d = Field(..., title="Atlas size")
-    reference_coordinate: Origin = Field(..., title="Reference coordinate origin")
+    dimensions: Vector3 = Field(..., title="Atlas size")
+    resolution: Vector3 = Field(..., title="Atlas resolution")
+    reference_coordinate: Origin = Field(..., title="Reference coordinate")
+
+    orientation: List[AnatomicalDirection] = Field(
+        default=[AnatomicalDirection.AP, AnatomicalDirection.SI, AnatomicalDirection.LR], title="Atlas orientation"
+    )
 
 
-class AtlasTransformed(DataModel):
+class AtlasTransformed(AtlasSpace):
     """Transformation from one atlas to another"""
 
-    atlas: AtlasSpace = Field(..., title="Source atlas name")
+    data_type: Literal["atlas_transformed"] = "atlas_transformed"
     transforms: List[
-        Annotated[Union[Translation3dTransform, Rotation3dTransform, Scale3dTransform], Field(discriminator="type")]
-    ] = Field(..., title="Transformations to target space")
+        Annotated[
+            Union[Translation3dTransform, Rotation3dTransform, Scale3dTransform, str], Field(discriminator="type")
+        ]
+    ] = Field(
+        ...,
+        title="Transformations from in vivo to atlas space",
+        description="Non-linear transformations should be stored in a relative file path",
+    )
 
 
-CCFAtlas = AtlasSpace(
-    name="CCF",
-    version="CCFv3",
-    dimensions=Size3d(
-        width=13.2,
-        length=11.4,
-        height=8.0, unit=SizeUnit.MM
-    ),
-)
+class Angles(DataModel):
+    """Set of rotations in 3D space
+
+    By default, angles are defined by two rotations:
+        1. The AP angle, rotating clockwise around ML
+        2. The ML angle, rotating clockwise around AP
+        3. The rotation angle, rotating clockwise around the object's depth axis
+    """
+
+    angles: Vector3 = Field(..., title="Angles in 3D space")
+    rotation_axes: List[AxisName] = Field(default=[AxisName.ML, AxisName.AP, AxisName.DEPTH], title="Rotation axes")
+    rotation_direction: List[RotationDirection] = Field(
+        default=[RotationDirection.CW, RotationDirection.CW, RotationDirection.CW], title="Rotation directions"
+    )
+    angles_unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
 
 
 class AtlasCoordinate(DataModel):
-    """Parent class for defining a specific point in an atlas space"""
+    """Class for defining a specific point in an atlas or stereotaxic space"""
 
-    atlas: AtlasSpace = Field(..., title="Atlas name")
-    coordinates: Coordinates3d = Field(..., title="Coordinates in atlas space")
-    angles: Optional[Orientation3d] = Field(default=None, title="Orientation in atlas space")
-    reference_coordinate: Optional[Origin] = Field(default=None, title="Reference coordinate origin")
-
-
-
-class Orientation3d(DataModel):
-    """3D orientation of an object"""
-
-    pitch: Decimal = Field(..., title="Angle pitch", ge=0, le=360)
-    yaw: Decimal = Field(..., title="Angle yaw", ge=0, le=360)
-    roll: Decimal = Field(..., title="Angle roll", ge=0, le=360)
-    unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
+    atlas: Annotated[Union[AtlasSpace, AtlasTransformed], Field(title="Atlas definition", discriminator="data_type")]
+    coordinates: Vector3 = Field(..., title="Coordinates in stereotaxic space")
+    reference_coordinate: Annotated[
+        Union[Origin, Vector3], Field(title="Reference coordinate", discriminator="data_type")
+    ]
+    angles: Optional[Angles] = Field(default=None, title="Orientation in stereotaxic space")
 
 
-class ModuleOrientation2d(DataModel):
-    """2D module orientation of an object"""
+class InVivoCoordinate(DataModel):
+    """Class for defining a specific point in an in vivo space"""
 
-    arc_angle: Decimal = Field(..., title="Arc angle")
-    module_angle: Decimal = Field(..., title="Module angle")
-    unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
-
-
-class ModuleOrientation3d(DataModel):
-    """3D module orientation of an object"""
-
-    arc_angle: Decimal = Field(..., title="Arc angle")
-    module_angle: Decimal = Field(..., title="Module angle")
-    rotation_angle: Decimal = Field(..., title="Rotation angle")
-    unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
+    coordinates: Vector3 = Field(..., title="Coordinates in in vivo space")
+    reference_coordinate: Origin = Field(..., title="Reference coordinate")
+    angles: Optional[Angles] = Field(default=None, title="Orientation in in vivo space")
 
 
-class Coordinates3d(DataModel):
-    """Coordinates in a 3D grid"""
+class InVivoSurfaceCoordinate(DataModel):
+    """Class for defining an insertion coordinate in a brain"""
 
-    x: Decimal = Field(..., title="Position X")
-    y: Decimal = Field(..., title="Position Y")
-    z: Decimal = Field(..., title="Position Z")
-    unit: SizeUnit = Field(SizeUnit.UM, title="Position unit")
-
-
-class CcfCoords(DataModel):
-    """Coordinates in CCF template space"""
-
-    ml: Decimal = Field(..., title="ML")
-    ap: Decimal = Field(..., title="AP")
-    dv: Decimal = Field(..., title="DV")
-    unit: SizeUnit = Field(SizeUnit.UM, title="Coordinate unit")
-    ccf_version: CcfVersion = Field(CcfVersion.CCFv3, title="CCF version")
-
-
-class Axis(DataModel):
-    """Description of an axis"""
-
-    name: AxisName = Field(..., title="Axis")
-    direction: str = Field(..., title="Direction as the value of axis increases.")
-
-
-class ImageAxis(Axis):
-    """Description of an image axis"""
-
-    name: AxisName = Field(..., title="Name")
-    dimension: int = Field(
-        ...,
-        description="Reference axis number for stitching",
-        title="Dimension",
-    )
-    direction: AnatomicalDirection = Field(
-        ...,
-        description="Tissue direction as the value of axis increases. If Other describe in notes.",
-    )
-    unit: SizeUnit = Field(SizeUnit.UM, title="Axis physical units")
-
-
-class RelativePosition(DataModel):
-    """Position and rotation of a device in a rig or instrument"""
-
-    device_position_transformations: List[
-        Annotated[Union[Translation3dTransform, Rotation3dTransform], Field(discriminator="type")]
-    ] = Field(..., title="Device position transforms")
-    device_origin: str = Field(
-        ..., title="Device origin", description="Reference point on device for position information"
-    )
-    device_axes: List[Axis] = Field(..., title="Device axes", min_length=3, max_length=3)
-    notes: Optional[str] = Field(default=None, title="Notes")
+    atlas: Annotated[Union[AtlasSpace, AtlasTransformed], Field(title="Atlas definition", discriminator="data_type")]
+    surface_coordinates: Vector2 = Field(..., title="Surface coordinates (AP/ML)")
+    depth: Decimal = Field(..., title="Depth from surface")
+    projection_axis: AxisName = Field(AxisName.SI, title="Axis used to project AP/ML coordinate onto surface")
+    angles: Optional[Angles] = Field(default=None, title="Orientation in stereotaxic space")
