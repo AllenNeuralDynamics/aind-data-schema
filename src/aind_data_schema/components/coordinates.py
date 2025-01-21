@@ -159,18 +159,21 @@ class Angles(DataModel):
 
 
 class AtlasCoordinate(DataModel):
-    """Class for defining a specific point in an atlas or stereotaxic space"""
+    """A coordinate in an atlas, can be relative to the atlas origin or a standard reference coordinate
+    
+    Angles can be optionally provided
+    """
 
     atlas: Annotated[Union[AtlasSpace, AtlasTransformed], Field(title="Atlas definition", discriminator="data_type")]
-    coordinates: Vector3 = Field(..., title="Coordinates in stereotaxic space")
+    coordinates: Vector3 = Field(..., title="Coordinate in atlas space")
     reference_coordinate: Annotated[
-        Union[Origin, Vector3], Field(title="Reference coordinate", discriminator="data_type")
+        Union[Origin, Vector3], Field(default=Origin.ORIGIN, title="Reference coordinate", discriminator="data_type")
     ]
-    angles: Optional[Angles] = Field(default=None, title="Orientation in stereotaxic space")
+    angles: Optional[Angles] = Field(default=None, title="Orientation in atlas space")
 
 
 class InVivoCoordinate(DataModel):
-    """Class for defining a specific point in an in vivo space"""
+    """A coordinate in a brain relative to a reference coordinate on the skull"""
 
     coordinates: Vector3 = Field(..., title="Coordinates in in vivo space")
     reference_coordinate: Origin = Field(..., title="Reference coordinate")
@@ -178,10 +181,11 @@ class InVivoCoordinate(DataModel):
 
 
 class InVivoSurfaceCoordinate(DataModel):
-    """Class for defining an insertion coordinate in a brain"""
+    """A coordinate in a brain relative to a point on the brain surface, which is itself relative to a reference coordinate on the skull"""
 
     atlas: Annotated[Union[AtlasSpace, AtlasTransformed], Field(title="Atlas definition", discriminator="data_type")]
     surface_coordinates: Vector2 = Field(..., title="Surface coordinates (AP/ML)")
     depth: Decimal = Field(..., title="Depth from surface")
     projection_axis: AxisName = Field(AxisName.SI, title="Axis used to project AP/ML coordinate onto surface")
-    angles: Optional[Angles] = Field(default=None, title="Orientation in stereotaxic space")
+    reference_coordinate: Origin = Field(..., title="Reference coordinate")
+    angles: Optional[Angles] = Field(default=None, title="Orientation in in vivo space")
