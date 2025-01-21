@@ -18,10 +18,9 @@ class AtlasName(str, Enum):
     CUSTOM = "Custom"
 
 
-class Origin(str, Enum):
-    """Coordinate reference origin point"""
+class ReferenceCoordinate(str, Enum):
+    """Reference coordinate position"""
 
-    ORIGIN = "Origin"
     BREGMA = "Bregma"
     LAMBDA = "Lambda"
 
@@ -119,7 +118,8 @@ class AtlasSpace(DataModel):
     version: str = Field(..., title="Atlas version")
     dimensions: Vector3 = Field(..., title="Atlas size")
     resolution: Vector3 = Field(..., title="Atlas resolution")
-    reference_coordinate: Origin = Field(..., title="Reference coordinate")
+    reference_coordinate: Vector3 = Field(default_factory=lambda: Vector3(x=0, y=0, z=0, unit=SizeUnit.PX),
+                                          title="Reference coordinate")
 
     orientation: List[AnatomicalDirection] = Field(
         default=[AnatomicalDirection.AP, AnatomicalDirection.SI, AnatomicalDirection.LR], title="Atlas orientation"
@@ -166,9 +166,8 @@ class AtlasCoordinate(DataModel):
 
     atlas: Annotated[Union[AtlasSpace, AtlasTransformed], Field(title="Atlas definition", discriminator="data_type")]
     coordinates: Vector3 = Field(..., title="Coordinate in atlas space")
-    reference_coordinate: Annotated[
-        Union[Origin, Vector3], Field(default=Origin.ORIGIN, title="Reference coordinate", discriminator="data_type")
-    ]
+    reference_coordinate: Vector3 = Field(default_factory=lambda: Vector3(x=0, y=0, z=0, unit=SizeUnit.PX),
+                                          title="Reference coordinate")
     angles: Optional[Angles] = Field(default=None, title="Orientation in atlas space")
 
 
@@ -176,7 +175,7 @@ class InVivoCoordinate(DataModel):
     """A coordinate in a brain relative to a reference coordinate on the skull"""
 
     coordinates: Vector3 = Field(..., title="Coordinates in in vivo space")
-    reference_coordinate: Origin = Field(..., title="Reference coordinate")
+    reference_coordinate: ReferenceCoordinate = Field(..., title="Reference coordinate")
     angles: Optional[Angles] = Field(default=None, title="Orientation in in vivo space")
 
 
@@ -188,5 +187,5 @@ class InVivoSurfaceCoordinate(DataModel):
     surface_coordinates: Vector2 = Field(..., title="Surface coordinates (AP/ML)")
     depth: Decimal = Field(..., title="Depth from surface")
     projection_axis: AxisName = Field(AxisName.SI, title="Axis used to project AP/ML coordinate onto surface")
-    reference_coordinate: Origin = Field(..., title="Reference coordinate")
+    reference_coordinate: ReferenceCoordinate = Field(..., title="Reference coordinate")
     angles: Optional[Angles] = Field(default=None, title="Orientation in in vivo space")
