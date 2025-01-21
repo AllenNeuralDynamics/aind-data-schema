@@ -144,7 +144,7 @@ class AtlasTransformed(AtlasSpace):
 class Angles(DataModel):
     """Set of rotations in 3D space
 
-    By default, angles are defined by two rotations:
+    By default, angles are defined by three rotations:
         1. The AP angle, rotating clockwise around ML
         2. The ML angle, rotating clockwise around AP
         3. The rotation angle, rotating clockwise around the object's depth axis
