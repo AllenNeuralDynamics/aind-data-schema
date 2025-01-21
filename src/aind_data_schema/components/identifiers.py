@@ -5,10 +5,10 @@ from pydantic import BaseModel, Field
 from aind_data_schema_models.registries import Registry, _Orcid
 
 
-class Experimenter(BaseModel):
-    """Experimenter identifier"""
+class Investigator(BaseModel):
+    """Investigator identifier"""
 
-    name: str = Field(..., title="Experimenter name", description="Experimenter first/last name or anonmyous ID")
+    name: str = Field(..., title="Investigator name", description="Investigator first and last name OR anonmyous ID")
 
     registry: _Orcid = Field(default_factory=lambda: Registry.ORCID, title="Registry")
     registry_identifier: Optional[str] = Field(default=None, title="ORCID ID")

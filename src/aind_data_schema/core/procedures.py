@@ -27,7 +27,7 @@ from typing_extensions import Annotated
 
 from aind_data_schema.base import DataCoreModel, DataModel, AwareDatetimeWithDefault
 from aind_data_schema.components.devices import FiberProbe, MyomatrixArray
-from aind_data_schema.components.identifiers import Experimenter
+from aind_data_schema.components.identifiers import Experimenter, Investigator
 from aind_data_schema.components.reagent import Reagent
 
 
@@ -659,9 +659,9 @@ class Surgery(DataModel):
     procedure_type: Literal["Surgery"] = "Surgery"
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     start_date: date = Field(..., title="Start date")
-    experimenters: List[Experimenter] = Field(
-        default=[],
-        title="Experimenter(s)",
+    investigators: Optional[List[Investigator]] = Field(
+        default=None,
+        title="Investigator(s)",
     )
     ethics_review_id: Optional[str] = Field(default=None, title="Ethics review ID")
     animal_weight_prior: Optional[Decimal] = Field(

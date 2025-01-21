@@ -13,11 +13,11 @@ from aind_data_schema_models.data_name_patterns import (
 )
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
-from aind_data_schema_models.pid_names import PIDName
 from aind_data_schema_models.platforms import Platform
 from pydantic import Field, SkipValidation, model_validator
 
 from aind_data_schema.base import DataCoreModel, DataModel, AwareDatetimeWithDefault
+from aind_data_schema.components.identifiers import Investigator
 
 
 class Funding(DataModel):
@@ -92,7 +92,7 @@ class DataDescription(DataCoreModel):
         description="A short name for the group of individuals that collected this data",
         title="Group",
     )
-    investigators: List[PIDName] = Field(
+    investigators: List[Investigator] = Field(
         ...,
         description="Full name(s) of key investigators (e.g. PI, lead scientist, contact person)",
         title="Investigators",
