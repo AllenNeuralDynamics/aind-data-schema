@@ -155,7 +155,7 @@ class AindCoreModel(AindModel):
         ..., pattern=r"^\d+.\d+.\d+$", description="schema version", title="Version", frozen=True
     )
 
-    extensions: AindGenericType = Field(default=None, description="Extensions to the schema", title="Extensions")
+    extensions: Optional[AindGenericType] = Field(default=None, description="Extensions to the schema", title="Extensions")
 
     @field_validator("schema_version", mode="before")
     @classmethod
