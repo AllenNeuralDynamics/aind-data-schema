@@ -142,6 +142,8 @@ class DataCoreModel(DataModel):
     schema_version: str = Field(
         ..., pattern=r"^\d+.\d+.\d+$", description="schema version", title="Version", frozen=True
     )
+    
+    extensions: Optional[GenericModelType] = Field(default=None, title="Extensions")
 
     @field_validator("schema_version", mode="before")
     @classmethod

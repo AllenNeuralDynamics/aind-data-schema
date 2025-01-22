@@ -1,6 +1,7 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/rig.py",
    "schema_version": "1.0.5",
+   "extensions": null,
    "rig_id": "447_FIP-Behavior_20000101",
    "modification_date": "2000-01-01",
    "mouse_platform": {
