@@ -142,7 +142,7 @@ class DataCoreModel(DataModel):
     schema_version: str = Field(
         ..., pattern=r"^\d+.\d+.\d+$", description="schema version", title="Version", frozen=True
     )
-    
+
     extensions: Optional[GenericModelType] = Field(default=None, title="Extensions")
 
     @field_validator("schema_version", mode="before")
@@ -156,9 +156,7 @@ class DataCoreModel(DataModel):
         """
         Returns standard filename in snakecase
         """
-        parent_classes = [
-            base_class for base_class in cls.__bases__ if base_class.__name__ != DataCoreModel.__name__
-        ]
+        parent_classes = [base_class for base_class in cls.__bases__ if base_class.__name__ != DataCoreModel.__name__]
 
         name = cls.__name__
 
