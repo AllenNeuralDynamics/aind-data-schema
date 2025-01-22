@@ -105,7 +105,7 @@ class Vector3(DataModel):
     unit: SizeUnit = Field(..., title="Vector unit")
 
 
-class Space(DataModel):
+class CoordinateSpace(DataModel):
     """3D space definition
     """
 
@@ -120,7 +120,7 @@ class Space(DataModel):
     )
 
 
-class AtlasSpace(Space):
+class AtlasSpace(CoordinateSpace):
     """Atlas definition
 
     The default Origin of an atlas is the anterior, left, superior corner
@@ -190,7 +190,6 @@ class InVivoSurfaceCoordinate(DataModel):
     """A coordinate in a brain relative to a point on the brain surface, which is itself relative to a reference
     coordinate on the skull"""
 
-    atlas: Annotated[Union[AtlasSpace, AtlasTransformed], Field(title="Atlas definition", discriminator="data_type")]
     surface_coordinates: Vector2 = Field(..., title="Surface coordinates (AP/ML)")
     depth: Decimal = Field(..., title="Depth from surface")
     projection_axis: AxisName = Field(AxisName.SI, title="Axis used to project AP/ML coordinate onto surface")
