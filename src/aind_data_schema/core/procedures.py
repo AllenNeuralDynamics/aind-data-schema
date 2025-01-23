@@ -686,7 +686,6 @@ class Surgery(DataModel):
                 NanojectInjection,
                 OtherSubjectProcedure,
                 Perfusion,
-                ProtectiveMaterialReplacement,
                 RetroOrbitalInjection,
                 SampleCollection,
             ],
