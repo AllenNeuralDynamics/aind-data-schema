@@ -29,7 +29,7 @@ s = Session(
                 Modality.POPHYS,
                 Modality.BEHAVIOR_VIDEOS,
             ],
-            daq_names=["NI PCIe-6612", "NI PCIe-6321", "NI USB-6001", "NI OEM-6001"],
+            daq_names=["SYNC DAQ", "STIM DAQ", "VBEB DAQ"],
             camera_names=[
                 "Behavior Camera",
                 "Eye Camera",
