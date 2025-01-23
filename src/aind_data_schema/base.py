@@ -4,7 +4,7 @@ import json
 import re
 import logging
 from pathlib import Path
-from typing import Any, Generic, Optional, TypeVar, get_args
+from typing import Any, Generic, List, Optional, TypeVar, get_args
 
 from pydantic import (
     AwareDatetime,
@@ -91,7 +91,14 @@ class GenericModel(BaseModel, extra="allow"):
         return self
 
 
+class ExtensionModel(GenericModel):
+    """Base class for generic types that require a name field"""
+
+    name: Optional[str] = Field(default=None, title="Named object that this data extends")
+
+
 GenericModelType = TypeVar("GenericModelType", bound=GenericModel)
+ExtensionModelType = TypeVar("ExtensionModelType", bound=ExtensionModel)
 
 
 class DataModel(BaseModel, Generic[GenericModelType]):
@@ -143,7 +150,7 @@ class DataCoreModel(DataModel):
         ..., pattern=r"^\d+.\d+.\d+$", description="schema version", title="Version", frozen=True
     )
 
-    extensions: Optional[GenericModelType] = Field(default=None, title="Extensions")
+    extensions: Optional[List[ExtensionModelType]] = Field(default=None, title="Extensions")
 
     @field_validator("schema_version", mode="before")
     @classmethod
