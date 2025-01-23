@@ -375,18 +375,6 @@ class GroundWireImplant(DataModel):
     ground_wire_diameter_unit: Optional[SizeUnit] = Field(default=None, title="Ground wire diameter unit")
 
 
-class ProtectiveMaterialReplacement(DataModel):
-    """Description of a protective material replacement procedure in preparation for ephys recording"""
-
-    procedure_type: Literal["Protective material"] = "Protective material"
-    protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
-    protective_material: ProtectiveMaterial = Field(
-        ..., title="Protective material", description="New material being applied"
-    )
-    well_part_number: Optional[str] = Field(default=None, title="Well part number")
-    well_type: Optional[str] = Field(default=None, title="Well type")
-
-
 class TarsVirusIdentifiers(DataModel):
     """TARS data for a viral prep"""
 
