@@ -1,6 +1,7 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/procedures.py",
    "schema_version": "1.2.5",
+   "extensions": null,
    "subject_id": "625100",
    "subject_procedures": [
       {
