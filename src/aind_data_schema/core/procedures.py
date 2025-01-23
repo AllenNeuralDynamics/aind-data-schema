@@ -367,7 +367,9 @@ class GroundWireImplant(DataModel):
     procedure_type: Literal["Ground wire implant"] = "Ground wire implant"
     ground_electrode_location: MouseAnatomicalStructure.ONE_OF = Field(..., title="Location of ground electrode")
 
-    ground_wire_hole: Optional[int] = Field(default=None, title="Ground wire hole")
+    ground_wire_hole: Optional[int] = Field(
+        default=None, title="Ground wire hole", description="For SHIELD implants, the hole number for the ground wire"
+    )
     ground_wire_material: Optional[GroundWireMaterial] = Field(default=None, title="Ground wire material")
     ground_wire_diameter: Optional[Decimal] = Field(default=None, title="Ground wire diameter")
     ground_wire_diameter_unit: Optional[SizeUnit] = Field(default=None, title="Ground wire diameter unit")
@@ -630,10 +632,6 @@ class MyomatrixContact(DataModel):
 
 class MyomatrixThread(DataModel):
     """Description of a thread of a myomatrix array"""
-
-    ground_electrode: bool = Field(
-        ..., title="Connected to a ground electrode", description="Ground electrode implant is in a separate procedure"
-    )
     contacts: List[MyomatrixContact] = Field(..., title="Contacts")
 
 
@@ -641,6 +639,7 @@ class MyomatrixInsertion(DataModel):
     """Description of a Myomatrix array insertion for EMG"""
 
     procedure_type: Literal["Myomatrix_Insertion"] = "Myomatrix_Insertion"
+    ground_electrode: GroundWireImplant = Field(..., title="Ground electrode")
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     myomatrix_array: MyomatrixArray = Field(..., title="Myomatrix array")
     threads: List[MyomatrixThread] = Field(..., title="Array threads")
