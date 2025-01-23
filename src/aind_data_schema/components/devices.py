@@ -570,6 +570,9 @@ class LightAssembly(DataModel):
     light: Annotated[Union[Laser, LightEmittingDiode, Lamp], Field(discriminator="device_type")]
     lens: Lens = Field(..., title="Lens")
 
+    # optional fields
+    filter: Optional[Filter] = Field(default=None, title="Filter")
+
 
 class ProbePort(DataModel):
     """Port for a probe connection"""
