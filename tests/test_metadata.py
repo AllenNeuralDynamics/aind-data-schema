@@ -66,7 +66,7 @@ class TestMetadata(unittest.TestCase):
             creation_time=datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc),
             institution=Organization.AIND,
             funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
-            experimenters=[Person(name="Jane Smith")],
+            investigators=[Person(name="Jane Smith")],
         )
         procedures = Procedures(
             subject_id="12345",
