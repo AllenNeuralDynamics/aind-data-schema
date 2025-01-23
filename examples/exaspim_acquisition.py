@@ -10,7 +10,7 @@ from aind_data_schema_models.units import PowerUnit
 from aind_data_schema.components import tile
 from aind_data_schema.components.coordinates import ImageAxis, Scale3dTransform, Translation3dTransform
 from aind_data_schema.components.devices import Calibration, Maintenance
-from aind_data_schema.components.identifiers import Investigator
+from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core import acquisition
 from aind_data_schema.core.procedures import Reagent
 
@@ -20,7 +20,7 @@ t = datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc)
 
 
 acq = acquisition.Acquisition(
-    investigators=[Investigator(name="John Smith")],
+    experimenters=[Person(name="John Smith")],
     specimen_id="###",
     subject_id="###",
     instrument_id="###",

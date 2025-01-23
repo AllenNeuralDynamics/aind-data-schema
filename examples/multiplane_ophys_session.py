@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.units import PowerUnit, SizeUnit, FrequencyUnit
 
-from aind_data_schema.components.identifiers import Investigator
+from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.session import FieldOfView, LaserConfig, Session, Stream
 from aind_data_schema_models.brain_atlas import CCFStructure
 
@@ -14,7 +14,7 @@ from aind_data_schema_models.brain_atlas import CCFStructure
 t = datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc)
 
 s = Session(
-    investigators=[Investigator(name="John Smith")],
+    experimenters=[Person(name="John Smith")],
     session_start_time=t,
     session_end_time=t,
     subject_id="12345",

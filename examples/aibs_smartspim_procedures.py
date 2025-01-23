@@ -4,10 +4,10 @@ from datetime import date
 
 from aind_data_schema_models.organizations import Organization
 
-from aind_data_schema.components.identifiers import Investigator
+from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core import procedures
 
-investigators = [Investigator(name="John Smith")]
+experimenters = [Person(name="John Smith")]
 # subject and specimen id can be the same?
 specimen_id = "651286"
 
@@ -36,7 +36,7 @@ agarose = procedures.Reagent(name="Agarose", lot_number="1234", source=Organizat
 
 perfusion = procedures.Surgery(
     start_date=date(2022, 11, 17),
-    investigators=[Investigator(name="LAS")],
+    experimenters=[Person(name="LAS")],
     ethics_review_id="xxxx",
     protocol_id="doi_of_protocol_surgery",
     procedures=[
@@ -56,7 +56,7 @@ shield_off_procedure = procedures.SpecimenProcedure(
     procedure_type="Fixation",
     start_date=date(2023, 1, 13),
     end_date=date(2023, 1, 17),
-    investigators=investigators,
+    experimenters=experimenters,
     protocol_id=["unknown"],
     reagents=[shield_buffer, shield_epoxy],
 )
@@ -68,7 +68,7 @@ shield_on_procedure = procedures.SpecimenProcedure(
     procedure_type="Fixation",
     start_date=date(2023, 1, 17),
     end_date=date(2023, 1, 18),
-    investigators=investigators,
+    experimenters=experimenters,
     protocol_id=["unknown"],
     reagents=[
         shield_on,
@@ -82,7 +82,7 @@ delipidation_prep_procedure = procedures.SpecimenProcedure(
     procedure_type="Soak",
     start_date=date(2023, 1, 18),
     end_date=date(2023, 1, 19),
-    investigators=investigators,
+    experimenters=experimenters,
     protocol_id=["unknown"],
     reagents=[
         delipidation_buffer,
@@ -96,7 +96,7 @@ active_delipidation_procedure = procedures.SpecimenProcedure(
     procedure_name="Active Delipidation",
     start_date=date(2023, 1, 19),
     end_date=date(2023, 1, 20),
-    investigators=investigators,
+    experimenters=experimenters,
     protocol_id=["unknown"],
     reagents=[delipidation_buffer, conductivity_buffer],
 )
@@ -108,7 +108,7 @@ index1 = procedures.SpecimenProcedure(
     procedure_name="EasyIndex 50%",
     start_date=date(2023, 1, 30),
     end_date=date(2023, 1, 31),
-    investigators=investigators,
+    experimenters=experimenters,
     protocol_id=["unknown"],
     reagents=[
         easy_index,
@@ -123,7 +123,7 @@ index2 = procedures.SpecimenProcedure(
     procedure_name="EasyIndex 100%",
     start_date=date(2023, 1, 31),
     end_date=date(2023, 2, 2),
-    investigators=investigators,
+    experimenters=experimenters,
     protocol_id=["unknown"],
     reagents=[
         easy_index,
@@ -136,7 +136,7 @@ embedding = procedures.SpecimenProcedure(
     procedure_type="Embedding",
     start_date=date(2023, 1, 31),
     end_date=date(2023, 2, 2),
-    investigators=investigators,
+    experimenters=experimenters,
     protocol_id=["unknown"],
     reagents=[
         easy_index,

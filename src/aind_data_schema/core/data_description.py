@@ -17,7 +17,7 @@ from aind_data_schema_models.platforms import Platform
 from pydantic import Field, SkipValidation, model_validator
 
 from aind_data_schema.base import DataCoreModel, DataModel, AwareDatetimeWithDefault
-from aind_data_schema.components.identifiers import Investigator
+from aind_data_schema.components.identifiers import Person
 
 
 class Funding(DataModel):
@@ -92,7 +92,7 @@ class DataDescription(DataCoreModel):
         description="A short name for the group of individuals that collected this data",
         title="Group",
     )
-    investigators: List[Investigator] = Field(
+    investigators: List[Person] = Field(
         ...,
         description="Full name(s) of key investigators (e.g. PI, lead scientist, contact person)",
         title="Investigators",

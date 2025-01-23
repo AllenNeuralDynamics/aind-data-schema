@@ -36,7 +36,7 @@
    ],
    "data_level": "raw",
    "group": null,
-   "investigators": [
+   "experimenters": [
       {
          "name": "Jane Smith",
          "registry": {

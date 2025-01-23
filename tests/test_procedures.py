@@ -10,7 +10,7 @@ from pydantic import ValidationError
 from pydantic import __version__ as pyd_version
 
 from aind_data_schema.components.devices import FiberProbe
-from aind_data_schema.components.identifiers import Investigator
+from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.procedures import (
     FiberImplant,
     IntraperitonealInjection,
@@ -52,11 +52,11 @@ class ProceduresTests(unittest.TestCase):
                 subject_procedures=[
                     Surgery(
                         start_date=start_date,
-                        investigators=[Investigator(name="Mam Moth")],
+                        experimenters=[Person(name="Mam Moth")],
                         procedures=[
                             RetroOrbitalInjection(
                                 start_date=start_date,
-                                investigators=[Investigator(name="Mam Moth")],
+                                experimenters=[Person(name="Mam Moth")],
                                 protocol_id="134",
                                 injection_materials=[],  # An empty list is invalid
                                 injection_volume=1,
@@ -78,7 +78,7 @@ class ProceduresTests(unittest.TestCase):
                 subject_procedures=[
                     Surgery(
                         start_date=start_date,
-                        investigators=[Investigator(name="Mam Moth")],
+                        experimenters=[Person(name="Mam Moth")],
                         procedures=[
                             RetroOrbitalInjection(
                                 protocol_id="134",
@@ -111,7 +111,7 @@ class ProceduresTests(unittest.TestCase):
                 subject_procedures=[
                     Surgery(
                         start_date=start_date,
-                        investigators=[Investigator(name="Mam Moth")],
+                        experimenters=[Person(name="Mam Moth")],
                         procedures=[
                             RetroOrbitalInjection(
                                 protocol_id="134",
@@ -144,7 +144,7 @@ class ProceduresTests(unittest.TestCase):
             subject_procedures=[
                 Surgery(
                     start_date=start_date,
-                    investigators=[Investigator(name="Mam Moth")],
+                    experimenters=[Person(name="Mam Moth")],
                     ethics_review_id="234",
                     protocol_id="123",
                     procedures=[
@@ -253,7 +253,7 @@ class ProceduresTests(unittest.TestCase):
                 procedure_type="Other",
                 start_date=date.fromisoformat("2020-10-10"),
                 end_date=date.fromisoformat("2020-10-11"),
-                investigators=[Investigator(name="Mam Moth")],
+                experimenters=[Person(name="Mam Moth")],
                 protocol_id=["10"],
                 reagents=[],
                 notes=None,
@@ -273,7 +273,7 @@ class ProceduresTests(unittest.TestCase):
                 procedure_type="Immunolabeling",
                 start_date=date.fromisoformat("2020-10-10"),
                 end_date=date.fromisoformat("2020-10-11"),
-                investigators=[Investigator(name="Mam Moth")],
+                experimenters=[Person(name="Mam Moth")],
                 protocol_id=["10"],
                 reagents=[],
                 notes=None,
@@ -293,7 +293,7 @@ class ProceduresTests(unittest.TestCase):
                 procedure_type="Hybridization Chain Reaction",
                 start_date=date.fromisoformat("2020-10-10"),
                 end_date=date.fromisoformat("2020-10-11"),
-                investigators=[Investigator(name="Mam Moth")],
+                experimenters=[Person(name="Mam Moth")],
                 protocol_id=["10"],
                 reagents=[],
                 notes=None,
@@ -314,7 +314,7 @@ class ProceduresTests(unittest.TestCase):
                 procedure_type="Other",
                 start_date=date.fromisoformat("2020-10-10"),
                 end_date=date.fromisoformat("2020-10-11"),
-                investigators=[Investigator(name="Mam Moth")],
+                experimenters=[Person(name="Mam Moth")],
                 protocol_id=["10"],
                 reagents=[],
                 notes="some extra information",

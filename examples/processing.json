@@ -95,7 +95,7 @@
             "resources": null
          }
       ],
-      "investigators": [
+      "experimenters": [
          {
             "name": "Dr. Dan",
             "registry": {
@@ -125,7 +125,7 @@
          "outputs": {},
          "notes": null,
          "resources": null,
-         "investigators": [
+         "experimenters": [
             {
                "name": "Some Analyzer",
                "registry": {
@@ -153,7 +153,7 @@
          "outputs": {},
          "notes": null,
          "resources": null,
-         "investigators": [
+         "experimenters": [
             {
                "name": "Some Analyzer",
                "registry": {

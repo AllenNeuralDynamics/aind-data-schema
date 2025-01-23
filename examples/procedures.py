@@ -2,7 +2,7 @@
 
 from datetime import datetime, timezone
 
-from aind_data_schema.components.identifiers import Investigator
+from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.procedures import (
     Anaesthetic,
     Craniotomy,
@@ -26,7 +26,7 @@ p = Procedures(
         Surgery(
             start_date=t.date(),
             protocol_id="doi",
-            investigators=[Investigator(name="Scientist Smith")],
+            experimenters=[Person(name="Scientist Smith")],
             ethics_review_id="2109",
             animal_weight_prior=22.6,
             animal_weight_post=22.3,
@@ -69,7 +69,7 @@ p = Procedures(
         ),
         Surgery(
             start_date=t2.date(),
-            investigators=[Investigator(name="Scientist Smith")],
+            experimenters=[Person(name="Scientist Smith")],
             ethics_review_id="2109",
             protocol_id="doi",
             procedures=[
