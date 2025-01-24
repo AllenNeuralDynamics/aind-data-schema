@@ -18,7 +18,8 @@ class InstrumentSessionCompatibility:
         """Compares instrument_id"""
         if self.session.instrument_id != self.inst.instrument_id:
             return ValueError(
-                f"Insturment ID in session {self.session.instrument_id} does not match the instrument's {self.inst.instrument_id}."
+                f"Insturment ID in session {self.session.instrument_id} does",
+                " not match the instrument's {self.inst.instrument_id}.",
             )
         else:
             return None
@@ -74,7 +75,8 @@ class InstrumentSessionCompatibility:
         if not set(session_light_sources).issubset(set(instrument_light_sources)):
             return ValueError(
                 f"light source names in session do not match light source names in inst. "
-                f"session_light_sources: {set(session_light_sources)} instrument_light_sources: {set(instrument_light_sources)}"
+                f"session_light_sources: {set(session_light_sources)} "
+                f"instrument_light_sources: {set(instrument_light_sources)}"
             )
 
     def _compare_ephys_assemblies(self) -> Optional[ValueError]:
@@ -171,7 +173,8 @@ class InstrumentSessionCompatibility:
         if not set(session_fiber_modules).issubset(set(instrument_fiber_modules)):
             return ValueError(
                 f"fiber module names in session do not match fiber assembly names in inst. "
-                f"session_fiber_modules: {set(session_fiber_modules)} instrument_fiber_assemblies: {set(instrument_fiber_modules)}"
+                f"session_fiber_modules: {set(session_fiber_modules)} "
+                f"instrument_fiber_assemblies: {set(instrument_fiber_modules)}"
             )
 
     def _compare_stimulus_devices(self) -> Optional[ValueError]:

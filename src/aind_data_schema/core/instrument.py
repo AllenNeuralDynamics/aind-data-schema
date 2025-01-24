@@ -246,9 +246,10 @@ class Instrument(DataCoreModel):
                     for component in components
                 ):
                     errors.append(
-                        f"Device type validation error: modality '{modality.abbreviation}' requires at least one device of type(s) "
-                        f"{', '.join(device.__name__ for device in required_group)} in the rig components."
+                        f"Device type validation error: modality '{modality.abbreviation}' "
+                        "requires at least one device of type(s) "
                     )
+                    errors.append(f"{', '.join(device.__name__ for device in required_group)} in the rig components.")
 
         # Raise an error if there are validation issues
         if errors:

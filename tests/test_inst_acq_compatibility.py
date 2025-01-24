@@ -762,7 +762,7 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
 
         cls.example_ephys_inst = Instrument.model_validate_json(json.dumps(read_json(EPHYS_INST_JSON)))
         cls.example_ephys_session = Session.model_validate_json(json.dumps(read_json(EPHYS_SESSION_JSON)))
-        cls.ophys_instrument = r.Instrument(
+        cls.ophys_instrument = Instrument(
             instrument_id="428_FIP1_20231003",
             modification_date=date(2023, 10, 3),
             modalities=[Modality.FIB],

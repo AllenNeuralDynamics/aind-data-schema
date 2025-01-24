@@ -1,9 +1,8 @@
 """ test Rig """
 
-from decimal import Decimal
 import json
 import unittest
-from datetime import date, datetime
+from datetime import date
 
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
