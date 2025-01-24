@@ -8,8 +8,7 @@ from enum import Enum
 from typing import Dict, List, Literal, Optional, get_args
 from uuid import UUID, uuid4
 
-from aind_data_schema_models.modalities import ExpectedFiles, FileRequirement
-from aind_data_schema_models.platforms import Platform
+from aind_data_schema_models.modalities import ExpectedFiles, FileRequirement, Modality
 from pydantic import (
     Field,
     PrivateAttr,
@@ -24,24 +23,22 @@ from pydantic import (
 from aind_data_schema.base import DataCoreModel, is_dict_corrupt, AwareDatetimeWithDefault
 from aind_data_schema.core.acquisition import Acquisition
 from aind_data_schema.core.data_description import DataDescription
-from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.core.procedures import Injection, Procedures, Surgery
 from aind_data_schema.core.processing import Processing
 from aind_data_schema.core.quality_control import QualityControl
-from aind_data_schema.core.rig import Rig
+from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.core.session import Session
 from aind_data_schema.core.subject import Subject
-from aind_data_schema.utils.compatibility_check import RigSessionCompatibility
+from aind_data_schema.utils.compatibility_check import InstrumentSessionCompatibility
 
 CORE_FILES = [
     "subject",
     "data_description",
     "procedures",
     "session",
-    "rig",
+    "instrument",
     "processing",
     "acquisition",
-    "instrument",
     "quality_control",
 ]
 
@@ -121,13 +118,12 @@ class Metadata(DataCoreModel):
         default=None, title="Procedures", description="All procedures performed on a subject."
     )
     session: Optional[Session] = Field(default=None, title="Session", description="Description of a session.")
-    rig: Optional[Rig] = Field(default=None, title="Rig", description="Rig.")
+    instrument: Optional[Instrument] = Field(
+        default=None, title="Instrument", description="Devices used to acquire data."
+    )
     processing: Optional[Processing] = Field(default=None, title="Processing", description="All processes run on data.")
     acquisition: Optional[Acquisition] = Field(
         default=None, title="Acquisition", description="Imaging acquisition session"
-    )
-    instrument: Optional[Instrument] = Field(
-        default=None, title="Instrument", description="Instrument, which is a collection of devices"
     )
     quality_control: Optional[QualityControl] = Field(
         default=None, title="Quality Control", description="Description of quality metrics for a data asset"
@@ -217,7 +213,7 @@ class Metadata(DataCoreModel):
     def validate_expected_files_by_modality(self):
         """Validator checks that all required/excluded files match the metadata model"""
         if self.data_description:
-            modalities = self.data_description.modality
+            modalities = self.data_description.modalities
 
             requirement_dict = {}
 
@@ -260,7 +256,7 @@ class Metadata(DataCoreModel):
 
         if (
             self.data_description
-            and self.data_description.platform == Platform.SMARTSPIM
+            and any([modality == Modality.SPIM for modality in self.data_description.modalities])
             and self.procedures
             and any(
                 isinstance(surgery, Injection) and getattr(surgery, "injection_materials", None) is None
@@ -278,7 +274,7 @@ class Metadata(DataCoreModel):
         """Validator for metadata"""
         if (
             self.data_description
-            and self.data_description.platform == Platform.ECEPHYS
+            and any([modality == Modality.ECEPHYS for modality in self.data_description.modalities])
             and self.procedures
             and any(
                 isinstance(surgery, Injection) and getattr(surgery, "injection_materials", None) is None
@@ -291,10 +287,10 @@ class Metadata(DataCoreModel):
         return self
 
     @model_validator(mode="after")
-    def validate_rig_session_compatibility(self):
+    def validate_instrument_session_compatibility(self):
         """Validator for metadata"""
-        if self.rig and self.session:
-            check = RigSessionCompatibility(self.rig, self.session)
+        if self.instrument and self.session:
+            check = InstrumentSessionCompatibility(self.instrument, self.session)
             check.run_compatibility_check()
         return self
 

@@ -63,7 +63,7 @@ class Model(DataCoreModel):
     license: str = Field(..., title="License")
     developers: Optional[List[Person]] = Field(default=None, title="Name of developer(s)")
     developer_institution: Optional[Organization.ONE_OF] = Field(default=None, title="Institute where developed")
-    modality: List[Modality.ONE_OF] = Field(..., title="Modality")
+    modalities: List[Modality.ONE_OF] = Field(..., title="Modalities")
     architecture: ModelArchitecture = Field(..., title="Model architecture")
     intended_use: str = Field(..., title="Intended model use", description="Semantic description of intended use")
     limitations: Optional[str] = Field(default=None, title="Model limitations")

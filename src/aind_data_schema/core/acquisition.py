@@ -61,7 +61,7 @@ class Acquisition(DataCoreModel):
         description="List of calibration measurements taken prior to acquisition.",
     )
     maintenance: List[Maintenance] = Field(
-        default=[], title="Maintenance", description="List of maintenance on rig prior to acquisition."
+        default=[], title="Maintenance", description="List of maintenance on instrument prior to acquisition."
     )
     session_start_time: AwareDatetimeWithDefault = Field(..., title="Session start time")
     session_end_time: AwareDatetimeWithDefault = Field(..., title="Session end time")

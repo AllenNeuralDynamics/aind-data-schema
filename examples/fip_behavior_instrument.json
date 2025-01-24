@@ -1,7 +1,7 @@
 {
-   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/rig.py",
+   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/inst.py",
    "schema_version": "1.0.5",
-   "rig_id": "447_FIP-Behavior_20000101",
+   "instrument_id": "447_FIP-Behavior_20000101",
    "mouse_platform": {
       "device_type": "Tube",
       "name": "mouse_tube_foraging",
@@ -70,7 +70,7 @@
    ],
    "ccf_coordinate_transform": null,
    "origin": null,
-   "rig_axes": null,
+   "instrument_axes": null,
    "modalities": [
       {
          "name": "Behavior",

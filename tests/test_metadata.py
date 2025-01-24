@@ -9,15 +9,13 @@ import uuid
 
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
-from aind_data_schema_models.platforms import Platform
 from pydantic import ValidationError
 from pydantic import __version__ as pyd_version
 
-from aind_data_schema.components.devices import MousePlatform
+from aind_data_schema.components.devices import EphysAssembly, EphysProbe, Manipulator, MousePlatform, Objective
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.acquisition import Acquisition
 from aind_data_schema.core.data_description import DataDescription, Funding
-from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.core.metadata import ExternalPlatforms, Metadata, MetadataStatus, create_metadata_json
 from aind_data_schema.core.procedures import (
     IontophoresisInjection,
@@ -27,7 +25,7 @@ from aind_data_schema.core.procedures import (
     ViralMaterial,
 )
 from aind_data_schema.core.processing import PipelineProcess, Processing
-from aind_data_schema.core.rig import Rig
+from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.core.session import Session
 from aind_data_schema.core.subject import BreedingInfo, Housing, Sex, Species, Subject
 
@@ -59,8 +57,7 @@ class TestMetadata(unittest.TestCase):
         )
         dd = DataDescription(
             label="test_data",
-            modality=[Modality.ECEPHYS],
-            platform=Platform.ECEPHYS,
+            modalities=[Modality.ECEPHYS],
             subject_id="123456",
             data_level="raw",
             creation_time=datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc),
@@ -195,9 +192,8 @@ class TestMetadata(unittest.TestCase):
                 location="bucket",
                 data_description=DataDescription.model_construct(
                     label="some label",
-                    platform=Platform.SMARTSPIM,
                     creation_time=time(12, 12, 12),
-                    modality=[Modality.SPIM],
+                    modalities=[Modality.SPIM],
                 ),
                 procedures=Procedures.model_construct(subject_procedures=[surgery1]),
                 acquisition=Acquisition.model_construct(),
@@ -215,9 +211,8 @@ class TestMetadata(unittest.TestCase):
                 location="bucket",
                 data_description=DataDescription.model_construct(
                     label="some label",
-                    platform=Platform.SMARTSPIM,
                     creation_time=time(12, 12, 12),
-                    modality=[Modality.SPIM],
+                    modalities=[Modality.SPIM],
                 ),
                 subject=Subject.model_construct(),
                 session=Session.model_construct(),
@@ -237,14 +232,15 @@ class TestMetadata(unittest.TestCase):
                 location="bucket",
                 data_description=DataDescription.model_construct(
                     label="some label",
-                    platform=Platform.SMARTSPIM,
                     creation_time=time(12, 12, 12),
-                    modality=[Modality.SPIM],
+                    modalities=[Modality.SPIM],
                 ),
                 subject=Subject.model_construct(),
                 procedures=Procedures.model_construct(subject_procedures=[surgery2]),
                 acquisition=Acquisition.model_construct(),
-                instrument=Instrument.model_construct(),
+                instrument=Instrument.model_construct(
+                    modalities=[Modality.SPIM], components=[Objective.model_construct()]
+                ),
                 processing=Processing.model_construct(),
             )
         self.assertIn("Injection is missing injection_materials.", str(context.exception))
@@ -258,25 +254,27 @@ class TestMetadata(unittest.TestCase):
         surgery1 = Surgery.model_construct(procedures=[nano_inj, ionto_inj])
 
         mouse_platform = MousePlatform.model_construct(name="platform1")
-        rig = Rig.model_construct(rig_id="123_EPHYS1_20220101", mouse_platform=mouse_platform)
-        session = Session.model_construct(rig_id="123_EPHYS1_20220101", mouse_platform_name="platform1")
+        inst = Instrument.model_construct(
+            instrument_id="123_EPHYS1_20220101",
+            mouse_platform=mouse_platform,
+            modalities=[Modality.BEHAVIOR, Modality.SPIM],
+        )
+        session = Session.model_construct(instrument_id="123_EPHYS1_20220101", mouse_platform_name="platform1")
 
         m = Metadata(
             name="ecephys_655019_2023-04-03_18-17-09",
             location="bucket",
             data_description=DataDescription.model_construct(
                 label="some label",
-                platform=Platform.SMARTSPIM,
                 creation_time=time(12, 12, 12),
-                modality=[Modality.BEHAVIOR, Modality.SPIM],  # technically this is impossible, but we need to test it
+                modalities=[Modality.BEHAVIOR, Modality.SPIM],  # technically this is impossible, but we need to test it
             ),
             subject=Subject.model_construct(),
             session=session,  # SPIM excludes session, but BEHAVIOR requires it
             procedures=Procedures.model_construct(subject_procedures=[surgery1]),
             acquisition=Acquisition.model_construct(),
-            rig=rig,
+            instrument=inst,
             processing=Processing.model_construct(),
-            instrument=Instrument.model_construct(),
         )
         self.assertIsNotNone(m)
 
@@ -294,12 +292,11 @@ class TestMetadata(unittest.TestCase):
                 location="bucket",
                 data_description=DataDescription.model_construct(
                     label="some label",
-                    platform=Platform.ECEPHYS,
                     creation_time=time(12, 12, 12),
-                    modality=[Modality.ECEPHYS],
+                    modalities=[Modality.ECEPHYS],
                 ),
                 procedures=Procedures.model_construct(subject_procedures=[surgery1]),
-                rig=Rig.model_construct(),
+                instrument=Instrument.model_construct(),
             )
         self.assertIn(
             "ECEPHYS metadata missing required file: subject",
@@ -314,68 +311,55 @@ class TestMetadata(unittest.TestCase):
                 location="bucket",
                 data_description=DataDescription.model_construct(
                     label="some label",
-                    platform=Platform.ECEPHYS,
                     creation_time=time(12, 12, 12),
-                    modality=[Modality.ECEPHYS],
+                    modalities=[Modality.ECEPHYS],
                 ),
                 subject=Subject.model_construct(),
                 procedures=Procedures.model_construct(subject_procedures=[surgery2]),
-                rig=Rig.model_construct(),
+                instrument=Instrument.model_construct(),
                 processing=Processing.model_construct(),
                 session=Session.model_construct(),
             )
         self.assertIn("Injection is missing injection_materials.", str(context.exception))
 
-    def test_validate_underscore_modality(self):
-        """Tests that ecephys validator works as expected"""
-        viral_material = ViralMaterial.model_construct()
-        nano_inj = NanojectInjection.model_construct(injection_materials=[viral_material])
-        ionto_inj = IontophoresisInjection.model_construct(injection_materials=[viral_material])
-        mouse_platform = MousePlatform.model_construct(name="platform1")
-        rig = Rig.model_construct(rig_id="123_EPHYS2_20230101", mouse_platform=mouse_platform)
-        session = Session.model_construct(rig_id="123_EPHYS2_20230101", mouse_platform_name="platform1")
-
-        # Tests missing metadata
-        surgery1 = Surgery.model_construct(procedures=[nano_inj, ionto_inj])
-        m = Metadata(
-            name="ecephys_655019_2023-04-03_18-17-09",
-            location="bucket",
-            data_description=DataDescription.model_construct(
-                label="some label",
-                platform=Platform.ECEPHYS,
-                creation_time=time(12, 12, 12),
-                modality=[Modality.BEHAVIOR_VIDEOS],
+    def test_validate_instrument_session_compatibility(self):
+        """Tests that instrument/session compatibility validator works as expected"""
+        ephys_assembly = EphysAssembly(
+            probes=[EphysProbe(probe_model="Neuropixels 1.0", name="Probe A")],
+            manipulator=Manipulator(
+                name="Probe manipulator",
+                manufacturer=Organization.NEW_SCALE_TECHNOLOGIES,
+                serial_number="4321",
             ),
-            subject=Subject.model_construct(),
-            procedures=Procedures.model_construct(subject_procedures=[surgery1]),
-            rig=rig,
-            session=session,
+            name="Ephys_assemblyA",
         )
-        self.assertIsNotNone(m)
 
-    def test_validate_rig_session_compatibility(self):
-        """Tests that rig/session compatibility validator works as expected"""
         mouse_platform = MousePlatform.model_construct(name="platform1")
-        rig = Rig.model_construct(rig_id="123_EPHYS1_20220101", mouse_platform=mouse_platform)
-        session = Session.model_construct(rig_id="123_EPHYS2_20230101", mouse_platform_name="platform2")
+        inst = Instrument.model_construct(
+            instrument_id="123_EPHYS1_20220101",
+            mouse_platform=mouse_platform,
+            modalities=[Modality.ECEPHYS],
+            components=[ephys_assembly],
+        )
+        session = Session.model_construct(instrument_id="123_EPHYS2_20230101", mouse_platform_name="platform2")
         with self.assertRaises(ValidationError) as context:
             Metadata(
                 name="ecephys_655019_2023-04-03_18-17-09",
                 location="bucket",
                 data_description=DataDescription.model_construct(
                     label="some label",
-                    platform=Platform.ECEPHYS,
                     creation_time=time(12, 12, 12),
-                    modality=[Modality.ECEPHYS],
+                    modalities=[Modality.ECEPHYS],
                 ),
                 subject=Subject.model_construct(),
                 procedures=Procedures.model_construct(),
-                rig=rig,
+                instrument=inst,
                 processing=Processing.model_construct(),
                 session=session,
             )
+        print(str(context.exception))
         self.assertIn(
-            "Rig ID in session 123_EPHYS2_20230101 does not match the rig's 123_EPHYS1_20220101.",
+            "Instrument ID in session 123_EPHYS2_20230101 does not match the rig's 123_EPHYS1_20220101.",
             str(context.exception),
         )
 
@@ -403,10 +387,9 @@ class TestMetadata(unittest.TestCase):
             "data_description": None,
             "procedures": self.procedures_json,
             "session": None,
-            "rig": None,
+            "instrument": None,
             "processing": self.processing_json,
             "acquisition": None,
-            "instrument": None,
             "quality_control": None,
         }
         expected_md = Metadata(
@@ -470,10 +453,9 @@ class TestMetadata(unittest.TestCase):
             "data_description": self.dd_json,
             "procedures": self.procedures_json,
             "session": None,
-            "rig": None,
+            "instrument": None,
             "processing": self.processing_json,
             "acquisition": None,
-            "instrument": None,
             "quality_control": None,
         }
         # there are some userwarnings when creating Subject from json
@@ -507,10 +489,9 @@ class TestMetadata(unittest.TestCase):
             "data_description": None,
             "procedures": self.procedures_json,
             "session": None,
-            "rig": None,
+            "instrument": None,
             "processing": self.processing_json,
             "acquisition": None,
-            "instrument": None,
             "quality_control": None,
         }
         # there are some userwarnings when creating Subject from json
