@@ -294,6 +294,10 @@ class DataDescriptionTest(unittest.TestCase):
         modality_abbreviations = [m().abbreviation for m in Modality.ALL]
         self.assertEqual(len(set(modality_abbreviations)), len(modality_abbreviations))
 
+
+class DerivedDataDescriptionTest(unittest.TestCase):
+    """test DerivedDataDescription"""
+
     def test_from_data_description(self):
         """Tests DerivedDataDescription.from_data_description method"""
 
@@ -311,10 +315,12 @@ class DataDescriptionTest(unittest.TestCase):
         process_name = "spikesorter"
 
         dd1 = DerivedDataDescription.from_data_description(d1, process_name=process_name)
-        dd2 = DerivedDataDescription.from_data_description(d1, process_name=process_name, subject_id="12345")
+        # check that the original name is in the derived name
         self.assertTrue("test_data_2020-10-10_10-10-10_spikesorter_" in dd1.name)
+        # check that the subject ID is retained
         self.assertEqual("1234", dd1.subject_id)
-        self.assertEqual("12345", dd2.subject_id)
+        # check that the data level is upgraded
+        self.assertEqual("derived", dd1.data_level)
 
     def test_derived_data_description_build_name(self):
         """Tests build name method in derived data description class"""

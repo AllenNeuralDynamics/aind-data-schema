@@ -193,7 +193,7 @@ class TestMetadata(unittest.TestCase):
                 data_description=DataDescription.model_construct(
                     label="some label",
                     creation_time=time(12, 12, 12),
-                    modality=[Modality.SPIM],
+                    modalities=[Modality.SPIM],
                 ),
                 procedures=Procedures.model_construct(subject_procedures=[surgery1]),
                 acquisition=Acquisition.model_construct(),
@@ -212,7 +212,7 @@ class TestMetadata(unittest.TestCase):
                 data_description=DataDescription.model_construct(
                     label="some label",
                     creation_time=time(12, 12, 12),
-                    modality=[Modality.SPIM],
+                    modalities=[Modality.SPIM],
                 ),
                 subject=Subject.model_construct(),
                 session=Session.model_construct(),
@@ -233,7 +233,7 @@ class TestMetadata(unittest.TestCase):
                 data_description=DataDescription.model_construct(
                     label="some label",
                     creation_time=time(12, 12, 12),
-                    modality=[Modality.SPIM],
+                    modalities=[Modality.SPIM],
                 ),
                 subject=Subject.model_construct(),
                 procedures=Procedures.model_construct(subject_procedures=[surgery2]),
@@ -267,7 +267,7 @@ class TestMetadata(unittest.TestCase):
             data_description=DataDescription.model_construct(
                 label="some label",
                 creation_time=time(12, 12, 12),
-                modality=[Modality.BEHAVIOR, Modality.SPIM],  # technically this is impossible, but we need to test it
+                modalities=[Modality.BEHAVIOR, Modality.SPIM],  # technically this is impossible, but we need to test it
             ),
             subject=Subject.model_construct(),
             session=session,  # SPIM excludes session, but BEHAVIOR requires it
@@ -293,7 +293,7 @@ class TestMetadata(unittest.TestCase):
                 data_description=DataDescription.model_construct(
                     label="some label",
                     creation_time=time(12, 12, 12),
-                    modality=[Modality.ECEPHYS],
+                    modalities=[Modality.ECEPHYS],
                 ),
                 procedures=Procedures.model_construct(subject_procedures=[surgery1]),
                 instrument=Instrument.model_construct(),
@@ -312,7 +312,7 @@ class TestMetadata(unittest.TestCase):
                 data_description=DataDescription.model_construct(
                     label="some label",
                     creation_time=time(12, 12, 12),
-                    modality=[Modality.ECEPHYS],
+                    modalities=[Modality.ECEPHYS],
                 ),
                 subject=Subject.model_construct(),
                 procedures=Procedures.model_construct(subject_procedures=[surgery2]),
@@ -349,7 +349,7 @@ class TestMetadata(unittest.TestCase):
                 data_description=DataDescription.model_construct(
                     label="some label",
                     creation_time=time(12, 12, 12),
-                    modality=[Modality.ECEPHYS],
+                    modalities=[Modality.ECEPHYS],
                 ),
                 subject=Subject.model_construct(),
                 procedures=Procedures.model_construct(),

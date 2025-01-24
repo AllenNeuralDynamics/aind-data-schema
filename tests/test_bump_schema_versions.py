@@ -8,7 +8,7 @@ from semver import Version
 
 from aind_data_schema.core.session import Session
 from aind_data_schema.core.subject import Subject
-from aind_data_schema.core.rig import Rig
+from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.utils.json_writer import SchemaWriter
 from aind_data_schema.utils.schema_version_bump import SchemaVersionHandler
 
@@ -134,11 +134,11 @@ class SchemaVersionTests(unittest.TestCase):
         new_subject_version = str(Version.parse(old_subject_version).bump_patch())
         old_session_version = Session.model_fields["schema_version"].default
         new_session_version = str(Version.parse(old_session_version).bump_patch())
-        old_rig_version = Rig.model_fields["schema_version"].default
-        new_rig_version = str(Version.parse(old_rig_version).bump_minor())
+        old_inst_version = Instrument.model_fields["schema_version"].default
+        new_inst_version = str(Version.parse(old_inst_version).bump_minor())
         # Pycharm raises a warning about types that we can ignore
         # noinspection PyTypeChecker
-        handler._update_files({Subject: new_subject_version, Session: new_session_version, Rig: new_rig_version})
+        handler._update_files({Subject: new_subject_version, Session: new_session_version, Instrument: new_inst_version})
 
         expected_line_change0 = (
             f'schema_version: SkipValidation[Literal["{new_subject_version}"]] = Field(default="{new_subject_version}")'

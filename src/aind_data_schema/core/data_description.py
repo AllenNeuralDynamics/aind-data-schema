@@ -40,7 +40,7 @@ class DataDescription(DataCoreModel):
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/data_description.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
     schema_version: SkipValidation[Literal["1.0.5"]] = Field(default="1.0.5")
-    license: Literal["CC-BY-4.0"] = Field("CC-BY-4.0", title="License")
+    license: Literal["CC-BY-4.0"] = Field(default="CC-BY-4.0", title="License")
 
     subject_id: str = Field(
         ...,
@@ -237,7 +237,7 @@ class DerivedDataDescription(DataDescription):
             group=get_or_default("group"),
             investigators=get_or_default("investigators"),
             restrictions=get_or_default("restrictions"),
-            modality=get_or_default("modality"),
+            modalities=get_or_default("modalities"),
             project_name=get_or_default("project_name"),
             subject_id=get_or_default("subject_id"),
             related_data=get_or_default("related_data"),
