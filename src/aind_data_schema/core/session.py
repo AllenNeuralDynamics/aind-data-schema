@@ -38,6 +38,7 @@ from aind_data_schema.components.coordinates import (
     Translation3dTransform,
 )
 from aind_data_schema.components.devices import Calibration, Maintenance, RelativePosition, Scanner, Software, SpoutSide
+from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.stimulus import (
     AuditoryStimulation,
     OlfactoryStimulation,
@@ -545,18 +546,17 @@ class Session(DataCoreModel):
 
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/session.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["1.1.3"]] = Field(default="1.1.3")
+    schema_version: SkipValidation[Literal["1.1.5"]] = Field(default="1.1.5")
     protocol_id: List[str] = Field(default=[], title="Protocol ID", description="DOI for protocols.io")
-    experimenter_full_name: List[str] = Field(
-        ...,
-        description="First and last name of the experimenter(s).",
-        title="Experimenter(s) full name",
+    experimenters: List[Person] = Field(
+        default=[],
+        title="experimenter(s)",
     )
     session_start_time: AwareDatetimeWithDefault = Field(..., title="Session start time")
     session_end_time: Optional[AwareDatetimeWithDefault] = Field(default=None, title="Session end time")
     session_type: str = Field(..., title="Session type")
-    iacuc_protocol: Optional[str] = Field(default=None, title="IACUC protocol")
-    instrument_id: str = Field(..., title="Insturment ID")
+    instrument_id: str = Field(..., title="Instrument ID")
+    ethics_review_id: Optional[str] = Field(default=None, title="Ethics review ID")
     calibrations: List[Calibration] = Field(
         default=[],
         title="Calibrations",

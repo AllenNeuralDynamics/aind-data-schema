@@ -5,6 +5,7 @@ from datetime import datetime, timezone
 from aind_data_schema_models.modalities import Modality
 
 from aind_data_schema.components.devices import Software
+from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.session import (
     CcfCoords,
     Coordinates3d,
@@ -19,13 +20,13 @@ from aind_data_schema.core.session import (
 from aind_data_schema_models.brain_atlas import CCFStructure
 
 session = Session(
-    experimenter_full_name=["Max Quibble", "Finn Tickle"],
+    experimenters=[Person(name="John Smith")],
     subject_id="664484",
     session_start_time=datetime(year=2023, month=4, day=25, hour=2, minute=35, second=0, tzinfo=timezone.utc),
     session_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0, tzinfo=timezone.utc),
     session_type="Receptive field mapping",
-    iacuc_protocol="2109",
     instrument_id="323_EPHYS1_20231003",
+    ethics_review_id="2109",
     active_mouse_platform=False,
     mouse_platform_name="Running Wheel",
     stimulus_epochs=[

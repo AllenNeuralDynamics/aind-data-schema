@@ -5,6 +5,7 @@ from datetime import datetime, timezone
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.units import PowerUnit, SizeUnit, FrequencyUnit
 
+from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.session import FieldOfView, LaserConfig, Session, Stream
 from aind_data_schema_models.brain_atlas import CCFStructure
 
@@ -13,13 +14,13 @@ from aind_data_schema_models.brain_atlas import CCFStructure
 t = datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc)
 
 s = Session(
-    experimenter_full_name=["John Doe"],
+    experimenters=[Person(name="John Smith")],
     session_start_time=t,
     session_end_time=t,
     subject_id="12345",
     session_type="Mesoscope",
-    iacuc_protocol="12345",
     instrument_id="MESO.1",
+    ethics_review_id="12345",
     mouse_platform_name="disc",
     active_mouse_platform=True,
     data_streams=[

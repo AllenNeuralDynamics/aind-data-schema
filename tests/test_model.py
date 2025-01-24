@@ -9,6 +9,7 @@ from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.system_architecture import ModelBackbone
 
 from aind_data_schema.components.devices import Software
+from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.model import Model, ModelArchitecture, ModelEvaluation, ModelTraining, PerformanceMetric
 
 
@@ -26,7 +27,7 @@ class ModelTests(unittest.TestCase):
         m = Model(
             name="2024_01_01_ResNet18_SmartSPIM.h5",
             license="CC-BY-4.0",
-            developer_full_name=["Joe Schmoe"],
+            developers=[Person(name="Dr. Dan")],
             developer_institution=Organization.AIND,
             modality=[Modality.SPIM],
             pretrained_source_url="url pretrained weights are from",

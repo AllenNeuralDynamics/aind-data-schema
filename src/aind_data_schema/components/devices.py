@@ -561,6 +561,20 @@ class Lamp(Device):
     temperature_unit: Optional[TemperatureUnit] = Field(default=None, title="Temperature unit")
 
 
+class LightAssembly(DataModel):
+    """Named assembly of a light source and lens"""
+
+    device_type: Literal["Light assembly"] = "Light assembly"
+
+    # required fields
+    name: str = Field(..., title="Light assembly name")
+    light: Annotated[Union[Laser, LightEmittingDiode, Lamp], Field(discriminator="device_type")]
+    lens: Lens = Field(..., title="Lens")
+
+    # optional fields
+    filter: Optional[Filter] = Field(default=None, title="Filter")
+
+
 class ProbePort(DataModel):
     """Port for a probe connection"""
 
@@ -780,6 +794,8 @@ class Treadmill(MousePlatform):
     device_type: Literal["Treadmill"] = "Treadmill"
     treadmill_width: Decimal = Field(..., title="Width of treadmill (mm)")
     width_unit: SizeUnit = Field(default=SizeUnit.CM, title="Width unit")
+    encoder: Device = Field(..., title="Encoder")
+    pulse_per_revolution: int = Field(..., title="Pulse per revolution")
 
 
 class Arena(MousePlatform):

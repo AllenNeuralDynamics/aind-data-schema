@@ -27,6 +27,7 @@ from typing_extensions import Annotated
 
 from aind_data_schema.base import DataCoreModel, DataModel, AwareDatetimeWithDefault
 from aind_data_schema.components.devices import FiberProbe, MyomatrixArray
+from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.reagent import Reagent
 
 
@@ -275,10 +276,9 @@ class SpecimenProcedure(DataModel):
     specimen_id: str = Field(..., title="Specimen ID")
     start_date: date = Field(..., title="Start date")
     end_date: date = Field(..., title="End date")
-    experimenter_full_name: str = Field(
-        ...,
-        description="First and last name of the experimenter.",
-        title="Experimenter full name",
+    experimenters: List[Person] = Field(
+        default=[],
+        title="experimenter(s)",
     )
     protocol_id: List[str] = Field(..., title="Protocol ID", description="DOI for protocols.io")
     reagents: List[Reagent] = Field(default=[], title="Reagents")
@@ -595,7 +595,7 @@ class WaterRestriction(DataModel):
     """Description of a water restriction procedure"""
 
     procedure_type: Literal["Water restriction"] = "Water restriction"
-    iacuc_protocol: str = Field(..., title="IACUC protocol")
+    ethics_review_id: str = Field(..., title="Ethics review ID")
     target_fraction_weight: int = Field(..., title="Target fraction weight (%)")
     target_fraction_weight_unit: UnitlessUnit = Field(default=UnitlessUnit.PERCENT, title="Target fraction weight unit")
     minimum_water_per_day: Decimal = Field(..., title="Minimum water per day (mL)")
@@ -659,12 +659,11 @@ class Surgery(DataModel):
     procedure_type: Literal["Surgery"] = "Surgery"
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     start_date: date = Field(..., title="Start date")
-    experimenter_full_name: str = Field(
-        ...,
-        description="First and last name of the experimenter.",
-        title="Experimenter full name",
+    experimenters: Optional[List[Person]] = Field(
+        default=None,
+        title="experimenter(s)",
     )
-    iacuc_protocol: Optional[str] = Field(default=None, title="IACUC protocol")
+    ethics_review_id: Optional[str] = Field(default=None, title="Ethics review ID")
     animal_weight_prior: Optional[Decimal] = Field(
         default=None, title="Animal weight (g)", description="Animal weight before procedure"
     )
@@ -705,7 +704,7 @@ class Procedures(DataCoreModel):
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/procedures.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
 
-    schema_version: SkipValidation[Literal["1.2.4"]] = Field(default="1.2.4")
+    schema_version: SkipValidation[Literal["1.2.6"]] = Field(default="1.2.6")
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",

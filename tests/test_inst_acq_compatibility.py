@@ -11,7 +11,7 @@ from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.units import FrequencyUnit, SizeUnit
 
 import aind_data_schema.components.devices as d
-import aind_data_schema.core.instrument as r
+from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.devices import (
     Calibration,
     Camera,
@@ -247,13 +247,13 @@ ephys_inst = Instrument(
 )
 
 ephys_session = Session(
-    experimenter_full_name=["Max Quibble", "Finn Tickle"],
+    experimenters=[Person(name="Mam Moth")],
     subject_id="664484",
     session_start_time=datetime(year=2023, month=4, day=25, hour=2, minute=35, second=0, tzinfo=timezone.utc),
     session_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0, tzinfo=timezone.utc),
     session_type="Receptive field mapping",
-    iacuc_protocol="2109",
     instrument_id="323_EPHYS2-RF_2023-04-24_01",
+    ethics_review_id="2109",
     active_mouse_platform=False,
     mouse_platform_name="mouse platform",
     stimulus_epochs=[
@@ -790,13 +790,13 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
             ],
         )
         cls.ophys_session = Session(
-            experimenter_full_name=["John Doe"],
+            experimenters=[Person(name="Mam Moth")],
             session_start_time=datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc),
             session_end_time=datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc),
             subject_id="652567",
             session_type="Parameter Testing",
-            iacuc_protocol="2115",
             instrument_id="ophys_inst",
+            ethics_review_id="2115",
             mouse_platform_name="Disc",
             active_mouse_platform=False,
             data_streams=[

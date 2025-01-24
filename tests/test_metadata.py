@@ -9,12 +9,11 @@ import uuid
 
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
-from aind_data_schema_models.pid_names import PIDName
-from aind_data_schema_models.platforms import Platform
 from pydantic import ValidationError
 from pydantic import __version__ as pyd_version
 
 from aind_data_schema.components.devices import EphysAssembly, EphysProbe, Manipulator, MousePlatform, Objective
+from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.acquisition import Acquisition
 from aind_data_schema.core.data_description import DataDescription, Funding
 from aind_data_schema.core.metadata import ExternalPlatforms, Metadata, MetadataStatus, create_metadata_json
@@ -58,20 +57,19 @@ class TestMetadata(unittest.TestCase):
         )
         dd = DataDescription(
             label="test_data",
-            modality=[Modality.ECEPHYS],
-            platform=Platform.ECEPHYS,
+            modalities=[Modality.ECEPHYS],
             subject_id="123456",
             data_level="raw",
             creation_time=datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc),
             institution=Organization.AIND,
             funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
-            investigators=[PIDName(name="Jane Smith")],
+            investigators=[Person(name="Jane Smith")],
         )
         procedures = Procedures(
             subject_id="12345",
         )
         processing = Processing(
-            processing_pipeline=PipelineProcess(processor_full_name="Processor", data_processes=[]),
+            processing_pipeline=PipelineProcess(experimenters=[Person(name="Dan Processor")], data_processes=[]),
         )
 
         cls.sample_name = "ecephys_655019_2023-04-03_18-17-09"
@@ -194,7 +192,6 @@ class TestMetadata(unittest.TestCase):
                 location="bucket",
                 data_description=DataDescription.model_construct(
                     label="some label",
-                    platform=Platform.SMARTSPIM,
                     creation_time=time(12, 12, 12),
                     modality=[Modality.SPIM],
                 ),
@@ -214,7 +211,6 @@ class TestMetadata(unittest.TestCase):
                 location="bucket",
                 data_description=DataDescription.model_construct(
                     label="some label",
-                    platform=Platform.SMARTSPIM,
                     creation_time=time(12, 12, 12),
                     modality=[Modality.SPIM],
                 ),
@@ -236,7 +232,6 @@ class TestMetadata(unittest.TestCase):
                 location="bucket",
                 data_description=DataDescription.model_construct(
                     label="some label",
-                    platform=Platform.SMARTSPIM,
                     creation_time=time(12, 12, 12),
                     modality=[Modality.SPIM],
                 ),
@@ -269,7 +264,6 @@ class TestMetadata(unittest.TestCase):
             location="bucket",
             data_description=DataDescription.model_construct(
                 label="some label",
-                platform=Platform.SMARTSPIM,
                 creation_time=time(12, 12, 12),
                 modality=[Modality.BEHAVIOR, Modality.SPIM],  # technically this is impossible, but we need to test it
             ),
@@ -296,7 +290,6 @@ class TestMetadata(unittest.TestCase):
                 location="bucket",
                 data_description=DataDescription.model_construct(
                     label="some label",
-                    platform=Platform.ECEPHYS,
                     creation_time=time(12, 12, 12),
                     modality=[Modality.ECEPHYS],
                 ),
@@ -316,7 +309,6 @@ class TestMetadata(unittest.TestCase):
                 location="bucket",
                 data_description=DataDescription.model_construct(
                     label="some label",
-                    platform=Platform.ECEPHYS,
                     creation_time=time(12, 12, 12),
                     modality=[Modality.ECEPHYS],
                 ),
@@ -349,7 +341,6 @@ class TestMetadata(unittest.TestCase):
                 location="bucket",
                 data_description=DataDescription.model_construct(
                     label="some label",
-                    platform=Platform.ECEPHYS,
                     creation_time=time(12, 12, 12),
                     modality=[Modality.ECEPHYS],
                 ),

@@ -21,6 +21,7 @@ from aind_data_schema.core import acquisition as acq
 from aind_data_schema.core.processing import Registration
 from aind_data_schema.core.instrument import Instrument
 from aind_data_schema_models.modalities import Modality
+from aind_data_schema.components.identifiers import Person
 
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
 
@@ -34,7 +35,7 @@ class ImagingTests(unittest.TestCase):
             acq.Acquisition()
 
         a = acq.Acquisition(
-            experimenter_full_name=["alice"],
+            experimenters=[Person(name="alice bob")],
             session_start_time=datetime.now(tz=timezone.utc),
             specimen_id="12345",
             subject_id="1234",
@@ -130,7 +131,7 @@ class ImagingTests(unittest.TestCase):
         test_codes = ["RAS", "LSP", "RAI", "PAR"]
         for test_code in test_codes:
             a = acq.Acquisition(
-                experimenter_full_name=["alice"],
+                experimenters=[Person(name="alice bob")],
                 session_start_time=datetime.now(tz=timezone.utc),
                 specimen_id="12345",
                 subject_id="1234",

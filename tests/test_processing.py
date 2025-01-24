@@ -8,6 +8,7 @@ import pydantic
 from aind_data_schema_models.system_architecture import CPUArchitecture, OperatingSystem
 from aind_data_schema_models.units import MemoryUnit
 
+from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.processing import (
     DataProcess,
     PipelineProcess,
@@ -29,7 +30,7 @@ class ProcessingTest(unittest.TestCase):
             Processing()
 
         p = Processing(
-            processing_pipeline=PipelineProcess(processor_full_name="Processor", data_processes=[]),
+            processing_pipeline=PipelineProcess(experimenters=[Person(name="Dr. Dan")], data_processes=[]),
         )
 
         with self.assertRaises(pydantic.ValidationError) as e:
