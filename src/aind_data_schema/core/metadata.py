@@ -8,8 +8,7 @@ from enum import Enum
 from typing import Dict, List, Literal, Optional, get_args
 from uuid import UUID, uuid4
 
-from aind_data_schema_models.modalities import ExpectedFiles, FileRequirement
-from aind_data_schema_models.platforms import Platform
+from aind_data_schema_models.modalities import ExpectedFiles, FileRequirement, Modality
 from pydantic import (
     Field,
     PrivateAttr,
@@ -214,7 +213,7 @@ class Metadata(DataCoreModel):
     def validate_expected_files_by_modality(self):
         """Validator checks that all required/excluded files match the metadata model"""
         if self.data_description:
-            modalities = self.data_description.modality
+            modalities = self.data_description.modalities
 
             requirement_dict = {}
 
@@ -257,7 +256,7 @@ class Metadata(DataCoreModel):
 
         if (
             self.data_description
-            and self.data_description.platform == Platform.SMARTSPIM
+            and any([modality == Modality.SPIM for modality in self.data_description.modalities])
             and self.procedures
             and any(
                 isinstance(surgery, Injection) and getattr(surgery, "injection_materials", None) is None
@@ -275,7 +274,7 @@ class Metadata(DataCoreModel):
         """Validator for metadata"""
         if (
             self.data_description
-            and self.data_description.platform == Platform.ECEPHYS
+            and any([modality == Modality.ECEPHYS for modality in self.data_description.modalities])
             and self.procedures
             and any(
                 isinstance(surgery, Injection) and getattr(surgery, "injection_materials", None) is None

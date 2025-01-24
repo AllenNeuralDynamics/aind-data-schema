@@ -10,7 +10,6 @@ from typing import List
 
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
-from aind_data_schema_models.platforms import Platform
 from pydantic import ValidationError
 from pydantic import __version__ as pyd_version
 
@@ -58,8 +57,7 @@ class DataDescriptionTest(unittest.TestCase):
             institution=Organization.AIND,
             data_level="raw",
             funding_source=[f],
-            modality=[Modality.ECEPHYS],
-            platform=Platform.ECEPHYS,
+            modalities=[Modality.ECEPHYS],
             subject_id="12345",
             investigators=[Person(name="Jane Smith")],
         )
@@ -70,8 +68,7 @@ class DataDescriptionTest(unittest.TestCase):
             creation_time=dt,
             institution=Organization.AIND,
             funding_source=[f],
-            modality=da.modality,
-            platform=da.platform,
+            modalities=da.modalities,
             subject_id=da.subject_id,
             investigators=[Person(name="Jane Smith")],
         )
@@ -82,8 +79,7 @@ class DataDescriptionTest(unittest.TestCase):
             creation_time=dt,
             institution=Organization.AIND,
             funding_source=[f],
-            modality=r1.modality,
-            platform=r1.platform,
+            modalities=r1.modalities,
             subject_id="12345",
             investigators=[Person(name="Jane Smith")],
         )
@@ -94,8 +90,7 @@ class DataDescriptionTest(unittest.TestCase):
             creation_time=dt,
             institution=Organization.AIND,
             funding_source=[f],
-            modality=r2.modality,
-            platform=r2.platform,
+            modalities=r2.modalities,
             subject_id="12345",
             investigators=[Person(name="Jane Smith")],
         )
@@ -103,8 +98,7 @@ class DataDescriptionTest(unittest.TestCase):
 
         dd = DataDescription(
             label="test_data",
-            modality=[Modality.SPIM],
-            platform=Platform.EXASPIM,
+            modalities=[Modality.SPIM],
             subject_id="1234",
             data_level="raw",
             creation_time=dt,
@@ -119,8 +113,7 @@ class DataDescriptionTest(unittest.TestCase):
         with self.assertRaises(ValidationError):
             DataDescription(
                 label="test_data",
-                modality=[Modality.SPIM],
-                platform="fake platform",
+                modalities=[Modality.SPIM],
                 subject_id="1234",
                 data_level="raw",
                 creation_time=dt,
@@ -134,8 +127,7 @@ class DataDescriptionTest(unittest.TestCase):
             project_name="project",
             creation_time=dt,
             subject_id="1234",
-            modality=[Modality.SPIM],
-            platform=Platform.EXASPIM,
+            modalities=[Modality.SPIM],
             institution=Organization.AIND,
             funding_source=[f],
             investigators=[Person(name="Jane Smith")],
@@ -147,8 +139,7 @@ class DataDescriptionTest(unittest.TestCase):
                 analysis_name="ana lysis",
                 project_name="pro_ject",
                 subject_id="1234",
-                modality=[Modality.SPIM],
-                platform="exaspim",
+                modalities=[Modality.SPIM],
                 creation_time=dt,
                 institution=Organization.AIND,
                 funding_source=[f],
@@ -181,8 +172,7 @@ class DataDescriptionTest(unittest.TestCase):
                 analysis_name="",
                 project_name="project",
                 subject_id="1234",
-                modality=[Modality.SPIM],
-                platform="exaspim",
+                modalities=[Modality.SPIM],
                 creation_time=dt,
                 institution=Organization.AIND,
                 funding_source=[f],
@@ -194,8 +184,7 @@ class DataDescriptionTest(unittest.TestCase):
                 analysis_name="analysis",
                 project_name="",
                 subject_id="1234",
-                modality=[Modality.SPIM],
-                platform="exaspim",
+                modalities=[Modality.SPIM],
                 creation_time=dt,
                 institution=Organization.AIND,
                 funding_source=[f],
@@ -207,8 +196,7 @@ class DataDescriptionTest(unittest.TestCase):
         with self.assertRaises(ValidationError) as e:
             DataDescription(
                 label="test_data",
-                modality=[Modality.SPIM],
-                platform=Platform.EXASPIM,
+                modalities=[Modality.SPIM],
                 subject_id="1234",
                 data_level="raw",
                 project_name="a_32r&!#R$&#",
@@ -239,8 +227,7 @@ class DataDescriptionTest(unittest.TestCase):
 
         with self.assertRaises(ValidationError) as e:
             DataDescription(
-                modality=[Modality.SPIM],
-                platform=Platform.EXASPIM,
+                modalities=[Modality.SPIM],
                 subject_id="1234",
                 data_level="raw",
                 creation_time=datetime.datetime(2020, 10, 10, 10, 10, 10),
@@ -260,8 +247,7 @@ class DataDescriptionTest(unittest.TestCase):
             institution=Organization.AIND,
             data_level="raw",
             funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
-            modality=[Modality.SPIM],
-            platform=Platform.EXASPIM,
+            modalities=[Modality.SPIM],
             subject_id="12345",
             investigators=[Person(name="Jane Smith")],
         )
@@ -281,7 +267,6 @@ class DataDescriptionTest(unittest.TestCase):
             DataDescription.parse_name(self.BAD_NAME)
 
         toks = RawDataDescription.parse_name(self.BASIC_NAME)
-        assert toks["platform"] == Platform.ECEPHYS
         assert toks["subject_id"] == "1234"
         assert toks["creation_time"] == datetime.datetime(3033, 12, 21, 4, 22, 11)
 
@@ -308,16 +293,13 @@ class DataDescriptionTest(unittest.TestCase):
         """Tests that abbreviations are unique"""
         modality_abbreviations = [m().abbreviation for m in Modality.ALL]
         self.assertEqual(len(set(modality_abbreviations)), len(modality_abbreviations))
-        platform_abbreviations = [p().abbreviation for p in Platform.ALL]
-        self.assertEqual(len(set(platform_abbreviations)), len(platform_abbreviations))
 
     def test_from_data_description(self):
         """Tests DerivedDataDescription.from_data_description method"""
 
         d1 = DataDescription(
             label="test_data",
-            modality=[Modality.SPIM],
-            platform=Platform.EXASPIM,
+            modalities=[Modality.SPIM],
             subject_id="1234",
             data_level="raw",
             creation_time=datetime.datetime(2020, 10, 10, 10, 10, 10),
@@ -342,8 +324,7 @@ class DataDescriptionTest(unittest.TestCase):
             creation_time=datetime.datetime(2020, 10, 10, 10, 10, 10),
             institution=Organization.AIND,
             funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
-            modality=[Modality.ECEPHYS],
-            platform=Platform.ECEPHYS,
+            modalities=[Modality.ECEPHYS],
             subject_id="12345",
             investigators=[Person(name="Jane Smith")],
         )

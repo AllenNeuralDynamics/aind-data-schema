@@ -2,14 +2,10 @@
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/data_description.py",
    "schema_version": "1.0.5",
    "license": "CC-BY-4.0",
-   "platform": {
-      "name": "Electrophysiology platform",
-      "abbreviation": "ecephys"
-   },
    "subject_id": "12345",
    "creation_time": "2022-02-21T16:30:01Z",
    "label": null,
-   "name": "ecephys_12345_2022-02-21_16-30-01",
+   "name": "12345_2022-02-21_16-30-01",
    "institution": {
       "name": "Allen Institute for Neural Dynamics",
       "abbreviation": "AIND",
@@ -48,7 +44,7 @@
    ],
    "project_name": null,
    "restrictions": null,
-   "modality": [
+   "modalities": [
       {
          "name": "Extracellular electrophysiology",
          "abbreviation": "ecephys"
