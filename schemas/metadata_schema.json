@@ -3853,13 +3853,13 @@
                "description": "A short name for the group of individuals that collected this data",
                "title": "Group"
             },
-            "investigators": {
-               "description": "Full name(s) of key investigators (e.g. PI, lead scientist, contact person)",
+            "experimenters": {
+               "description": "Full name(s) of key experimenters (e.g. PI, lead scientist, contact person)",
                "items": {
                   "$ref": "#/$defs/PIDName"
                },
                "minItems": 1,
-               "title": "Investigators",
+               "title": "experimenters",
                "type": "array"
             },
             "project_name": {
@@ -3989,7 +3989,7 @@
             "institution",
             "funding_source",
             "data_level",
-            "investigators",
+            "experimenters",
             "modality"
          ],
          "title": "DataDescription",

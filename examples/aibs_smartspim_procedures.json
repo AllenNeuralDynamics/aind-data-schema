@@ -7,7 +7,16 @@
          "procedure_type": "Surgery",
          "protocol_id": "doi_of_protocol_surgery",
          "start_date": "2022-11-17",
-         "experimenter_full_name": "LAS",
+         "experimenters": [
+            {
+               "name": "LAS",
+               "registry": {
+                  "name": "Open Researcher and Contributor ID",
+                  "abbreviation": "ORCID"
+               },
+               "registry_identifier": null
+            }
+         ],
          "ethics_review_id": "xxxx",
          "animal_weight_prior": null,
          "animal_weight_post": null,
@@ -33,7 +42,16 @@
          "specimen_id": "651286",
          "start_date": "2023-01-13",
          "end_date": "2023-01-17",
-         "experimenter_full_name": "John Smith",
+         "experimenters": [
+            {
+               "name": "John Smith",
+               "registry": {
+                  "name": "Open Researcher and Contributor ID",
+                  "abbreviation": "ORCID"
+               },
+               "registry_identifier": null
+            }
+         ],
          "protocol_id": [
             "unknown"
          ],
@@ -74,7 +92,16 @@
          "specimen_id": "651286",
          "start_date": "2023-01-17",
          "end_date": "2023-01-18",
-         "experimenter_full_name": "John Smith",
+         "experimenters": [
+            {
+               "name": "John Smith",
+               "registry": {
+                  "name": "Open Researcher and Contributor ID",
+                  "abbreviation": "ORCID"
+               },
+               "registry_identifier": null
+            }
+         ],
          "protocol_id": [
             "unknown"
          ],
@@ -103,7 +130,16 @@
          "specimen_id": "651286",
          "start_date": "2023-01-18",
          "end_date": "2023-01-19",
-         "experimenter_full_name": "John Smith",
+         "experimenters": [
+            {
+               "name": "John Smith",
+               "registry": {
+                  "name": "Open Researcher and Contributor ID",
+                  "abbreviation": "ORCID"
+               },
+               "registry_identifier": null
+            }
+         ],
          "protocol_id": [
             "unknown"
          ],
@@ -132,7 +168,16 @@
          "specimen_id": "651286",
          "start_date": "2023-01-19",
          "end_date": "2023-01-20",
-         "experimenter_full_name": "John Smith",
+         "experimenters": [
+            {
+               "name": "John Smith",
+               "registry": {
+                  "name": "Open Researcher and Contributor ID",
+                  "abbreviation": "ORCID"
+               },
+               "registry_identifier": null
+            }
+         ],
          "protocol_id": [
             "unknown"
          ],
@@ -173,7 +218,16 @@
          "specimen_id": "651286",
          "start_date": "2023-01-30",
          "end_date": "2023-01-31",
-         "experimenter_full_name": "John Smith",
+         "experimenters": [
+            {
+               "name": "John Smith",
+               "registry": {
+                  "name": "Open Researcher and Contributor ID",
+                  "abbreviation": "ORCID"
+               },
+               "registry_identifier": null
+            }
+         ],
          "protocol_id": [
             "unknown"
          ],
@@ -214,7 +268,16 @@
          "specimen_id": "651286",
          "start_date": "2023-01-31",
          "end_date": "2023-02-02",
-         "experimenter_full_name": "John Smith",
+         "experimenters": [
+            {
+               "name": "John Smith",
+               "registry": {
+                  "name": "Open Researcher and Contributor ID",
+                  "abbreviation": "ORCID"
+               },
+               "registry_identifier": null
+            }
+         ],
          "protocol_id": [
             "unknown"
          ],
@@ -243,7 +306,16 @@
          "specimen_id": "651286",
          "start_date": "2023-01-31",
          "end_date": "2023-02-02",
-         "experimenter_full_name": "John Smith",
+         "experimenters": [
+            {
+               "name": "John Smith",
+               "registry": {
+                  "name": "Open Researcher and Contributor ID",
+                  "abbreviation": "ORCID"
+               },
+               "registry_identifier": null
+            }
+         ],
          "protocol_id": [
             "unknown"
          ],

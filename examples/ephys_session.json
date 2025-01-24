@@ -2,9 +2,15 @@
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/session.py",
    "schema_version": "1.1.4",
    "protocol_id": [],
-   "experimenter_full_name": [
-      "Max Quibble",
-      "Finn Tickle"
+   "experimenters": [
+      {
+         "name": "John Smith",
+         "registry": {
+            "name": "Open Researcher and Contributor ID",
+            "abbreviation": "ORCID"
+         },
+         "registry_identifier": null
+      }
    ],
    "session_start_time": "2023-04-25T02:35:00Z",
    "session_end_time": "2023-04-25T03:16:00Z",

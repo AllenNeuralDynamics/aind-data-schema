@@ -2,8 +2,15 @@
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/acquisition.py",
    "schema_version": "1.0.5",
    "protocol_id": [],
-   "experimenter_full_name": [
-      "###"
+   "experimenters": [
+      {
+         "name": "John Smith",
+         "registry": {
+            "name": "Open Researcher and Contributor ID",
+            "abbreviation": "ORCID"
+         },
+         "registry_identifier": null
+      }
    ],
    "specimen_id": "###",
    "subject_id": "###",

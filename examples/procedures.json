@@ -7,7 +7,16 @@
          "procedure_type": "Surgery",
          "protocol_id": "doi",
          "start_date": "2022-07-12",
-         "experimenter_full_name": "John Apple",
+         "experimenters": [
+            {
+               "name": "Scientist Smith",
+               "registry": {
+                  "name": "Open Researcher and Contributor ID",
+                  "abbreviation": "ORCID"
+               },
+               "registry_identifier": null
+            }
+         ],
          "ethics_review_id": "2109",
          "animal_weight_prior": "22.6",
          "animal_weight_post": "22.3",
@@ -88,7 +97,16 @@
          "procedure_type": "Surgery",
          "protocol_id": "doi",
          "start_date": "2022-09-23",
-         "experimenter_full_name": "Frank Lee",
+         "experimenters": [
+            {
+               "name": "Scientist Smith",
+               "registry": {
+                  "name": "Open Researcher and Contributor ID",
+                  "abbreviation": "ORCID"
+               },
+               "registry_identifier": null
+            }
+         ],
          "ethics_review_id": "2109",
          "animal_weight_prior": null,
          "animal_weight_post": null,

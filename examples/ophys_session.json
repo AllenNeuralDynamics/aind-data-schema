@@ -2,8 +2,15 @@
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/session.py",
    "schema_version": "1.1.4",
    "protocol_id": [],
-   "experimenter_full_name": [
-      "John Doe"
+   "experimenters": [
+      {
+         "name": "Scientist Smith",
+         "registry": {
+            "name": "Open Researcher and Contributor ID",
+            "abbreviation": "ORCID"
+         },
+         "registry_identifier": null
+      }
    ],
    "session_start_time": "2022-07-12T07:00:00Z",
    "session_end_time": "2022-07-12T07:00:00Z",
