@@ -549,6 +549,37 @@
          "title": "PIDName",
          "type": "object"
       },
+      "Person": {
+         "description": "Person identifier",
+         "properties": {
+            "name": {
+               "description": "First and last name OR anonymous ID",
+               "title": "Person's name",
+               "type": "string"
+            },
+            "registry": {
+               "$ref": "#/$defs/_Orcid",
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "ORCID ID"
+            }
+         },
+         "required": [
+            "name"
+         ],
+         "title": "Person",
+         "type": "object"
+      },
       "PowerUnit": {
          "description": "Unit for power, set or measured",
          "enum": [
@@ -5716,8 +5747,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "1.0.5",
-         "default": "1.0.5",
+         "const": "1.0.6",
+         "default": "1.0.6",
          "title": "Schema Version",
          "type": "string"
       },
@@ -5730,12 +5761,12 @@
          "title": "Protocol ID",
          "type": "array"
       },
-      "experimenter_full_name": {
-         "description": "First and last name of the experimenter(s).",
+      "experimenters": {
+         "default": [],
          "items": {
-            "type": "string"
+            "$ref": "#/$defs/Person"
          },
-         "title": "Experimenter(s) full name",
+         "title": "experimenter(s)",
          "type": "array"
       },
       "specimen_id": {
@@ -5905,7 +5936,6 @@
       }
    },
    "required": [
-      "experimenter_full_name",
       "specimen_id",
       "instrument_id",
       "session_start_time",

@@ -1,32 +1,5 @@
 {
    "$defs": {
-      "BaseName": {
-         "additionalProperties": false,
-         "description": "A simple model associating a name with an abbreviation",
-         "properties": {
-            "name": {
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Abbreviation"
-            }
-         },
-         "required": [
-            "name"
-         ],
-         "title": "BaseName",
-         "type": "object"
-      },
       "DataLevel": {
          "description": "Data level name",
          "enum": [
@@ -131,36 +104,16 @@
          "title": "Group",
          "type": "string"
       },
-      "PIDName": {
-         "additionalProperties": false,
-         "description": "Model for associate a name with a persistent identifier (PID),\nthe registry for that PID, and abbreviation for that registry",
+      "Person": {
+         "description": "Person identifier",
          "properties": {
             "name": {
-               "title": "Name",
+               "description": "First and last name OR anonymous ID",
+               "title": "Person's name",
                "type": "string"
             },
-            "abbreviation": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Abbreviation"
-            },
             "registry": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/BaseName"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
+               "$ref": "#/$defs/_Orcid",
                "title": "Registry"
             },
             "registry_identifier": {
@@ -173,13 +126,13 @@
                   }
                ],
                "default": null,
-               "title": "Registry identifier"
+               "title": "ORCID ID"
             }
          },
          "required": [
             "name"
          ],
-         "title": "PIDName",
+         "title": "Person",
          "type": "object"
       },
       "RelatedData": {
@@ -1972,8 +1925,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "1.0.4",
-         "default": "1.0.4",
+         "const": "1.0.5",
+         "default": "1.0.5",
          "title": "Schema Version",
          "type": "string"
       },
@@ -2162,13 +2115,13 @@
          "description": "A short name for the group of individuals that collected this data",
          "title": "Group"
       },
-      "experimenters": {
-         "description": "Full name(s) of key experimenters (e.g. PI, lead scientist, contact person)",
+      "investigators": {
+         "description": "Full name(s) of key investigators (e.g. PI, lead scientist, contact person)",
          "items": {
-            "$ref": "#/$defs/PIDName"
+            "$ref": "#/$defs/Person"
          },
          "minItems": 1,
-         "title": "experimenters",
+         "title": "Investigators",
          "type": "array"
       },
       "project_name": {
@@ -2298,7 +2251,7 @@
       "institution",
       "funding_source",
       "data_level",
-      "experimenters",
+      "investigators",
       "modality"
    ],
    "title": "DataDescription",

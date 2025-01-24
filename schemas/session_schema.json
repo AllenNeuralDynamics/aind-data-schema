@@ -18791,6 +18791,37 @@
          "title": "PIDName",
          "type": "object"
       },
+      "Person": {
+         "description": "Person identifier",
+         "properties": {
+            "name": {
+               "description": "First and last name OR anonymous ID",
+               "title": "Person's name",
+               "type": "string"
+            },
+            "registry": {
+               "$ref": "#/$defs/_Orcid",
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "ORCID ID"
+            }
+         },
+         "required": [
+            "name"
+         ],
+         "title": "Person",
+         "type": "object"
+      },
       "PhotoStimulation": {
          "additionalProperties": false,
          "description": "Description of a photostimulation session",
@@ -59014,8 +59045,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "1.1.4",
-         "default": "1.1.4",
+         "const": "1.1.5",
+         "default": "1.1.5",
          "title": "Schema Version",
          "type": "string"
       },
@@ -59028,12 +59059,12 @@
          "title": "Protocol ID",
          "type": "array"
       },
-      "experimenter_full_name": {
-         "description": "First and last name of the experimenter(s).",
+      "experimenters": {
+         "default": [],
          "items": {
-            "type": "string"
+            "$ref": "#/$defs/Person"
          },
-         "title": "Experimenter(s) full name",
+         "title": "experimenter(s)",
          "type": "array"
       },
       "session_start_time": {
@@ -59229,7 +59260,6 @@
       }
    },
    "required": [
-      "experimenter_full_name",
       "session_start_time",
       "session_type",
       "rig_id",

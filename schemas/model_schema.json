@@ -383,6 +383,37 @@
          "title": "PerformanceMetric",
          "type": "object"
       },
+      "Person": {
+         "description": "Person identifier",
+         "properties": {
+            "name": {
+               "description": "First and last name OR anonymous ID",
+               "title": "Person's name",
+               "type": "string"
+            },
+            "registry": {
+               "$ref": "#/$defs/_Orcid",
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "ORCID ID"
+            }
+         },
+         "required": [
+            "name"
+         ],
+         "title": "Person",
+         "type": "object"
+      },
       "ProcessName": {
          "description": "Process names",
          "enum": [
@@ -5467,11 +5498,11 @@
          "title": "License",
          "type": "string"
       },
-      "developer_full_name": {
+      "developers": {
          "anyOf": [
             {
                "items": {
-                  "type": "string"
+                  "$ref": "#/$defs/Person"
                },
                "type": "array"
             },
@@ -5480,7 +5511,7 @@
             }
          ],
          "default": null,
-         "title": "Name of developer"
+         "title": "Name of developer(s)"
       },
       "developer_institution": {
          "anyOf": [
