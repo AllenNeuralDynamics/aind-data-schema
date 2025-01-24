@@ -323,7 +323,7 @@ class TestMetadata(unittest.TestCase):
         self.assertIn("Injection is missing injection_materials.", str(context.exception))
 
     def test_validate_instrument_session_compatibility(self):
-        """Tests that rig/session compatibility validator works as expected"""
+        """Tests that instrument/session compatibility validator works as expected"""
         ephys_assembly = EphysAssembly(
             probes=[EphysProbe(probe_model="Neuropixels 1.0", name="Probe A")],
             manipulator=Manipulator(
@@ -387,7 +387,7 @@ class TestMetadata(unittest.TestCase):
             "data_description": None,
             "procedures": self.procedures_json,
             "session": None,
-            "rig": None,
+            "instrument": None,
             "processing": self.processing_json,
             "acquisition": None,
             "quality_control": None,
@@ -453,7 +453,7 @@ class TestMetadata(unittest.TestCase):
             "data_description": self.dd_json,
             "procedures": self.procedures_json,
             "session": None,
-            "rig": None,
+            "instrument": None,
             "processing": self.processing_json,
             "acquisition": None,
             "quality_control": None,
@@ -489,7 +489,7 @@ class TestMetadata(unittest.TestCase):
             "data_description": None,
             "procedures": self.procedures_json,
             "session": None,
-            "rig": None,
+            "instrument": None,
             "processing": self.processing_json,
             "acquisition": None,
             "quality_control": None,

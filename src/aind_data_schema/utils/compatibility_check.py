@@ -18,7 +18,7 @@ class InstrumentSessionCompatibility:
         """Compares instrument_id"""
         if self.session.instrument_id != self.inst.instrument_id:
             return ValueError(
-                f"Insturment ID in session {self.session.instrument_id} does",
+                f"Instrument ID in session {self.session.instrument_id} does",
                 " not match the instrument's {self.inst.instrument_id}.",
             )
         else:

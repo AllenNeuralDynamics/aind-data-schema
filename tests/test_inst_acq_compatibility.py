@@ -861,7 +861,7 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
     def test_run_compatibility_check(self):
         """Tests compatibility check"""
         expected_error = (
-            "Insturment ID in session 323_EPHYS2-RF_2023-04-24_01 does not match the rig's 323_EPHYS1_20231003."
+            "Instrument ID in session 323_EPHYS2-RF_2023-04-24_01 does not match the rig's 323_EPHYS1_20231003."
         )
         with self.assertRaises(ValueError) as context:
             InstrumentSessionCompatibility(instrument=ephys_inst, session=ephys_session).run_compatibility_check()

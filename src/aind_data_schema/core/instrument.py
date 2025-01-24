@@ -91,7 +91,7 @@ class Instrument(DataCoreModel):
     instrument_id: str = Field(
         ...,
         description="Unique instrument identifier, name convention: <room>_<apparatus name>_<date modified YYYYMMDD>",
-        title="Insturment ID",
+        title="Instrument ID",
         pattern=instrument_id_PATTERN,
     )
     mouse_platform: Optional[MOUSE_PLATFORMS] = Field(default=None, title="Mouse platform")

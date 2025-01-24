@@ -1,4 +1,4 @@
-""" test Rig """
+""" test Instrument """
 
 import json
 import unittest
@@ -226,8 +226,8 @@ calibration = Calibration(
 )
 
 
-class RigTests(unittest.TestCase):
-    """test rig schemas"""
+class InstrumentTests(unittest.TestCase):
+    """test instrument schemas"""
 
     def test_constructors(self):
         """always returns true"""
