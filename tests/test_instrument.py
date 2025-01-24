@@ -277,7 +277,7 @@ class RigTests(unittest.TestCase):
                     components=[],
                     calibrations=[],
                 )
-    
+
     def test_validator_modality_device_present(self):
         """Test that the modality -> device validator does not throw validation errors when devices are present"""
 

@@ -328,7 +328,9 @@ class CatheterImplant(DataModel):
     catheter_material: CatheterMaterial = Field(..., title="Catheter material")
     catheter_design: CatheterDesign = Field(..., title="Catheter design")
     catheter_port: CatheterPort = Field(..., title="Catheter port")
-    targeted_structure: MouseAnatomyModel = Field(..., title="Targeted blood vessel", description="Use options from MouseBloodVessels")
+    targeted_structure: MouseAnatomyModel = Field(
+        ..., title="Targeted blood vessel", description="Use options from MouseBloodVessels"
+    )
 
 
 class Craniotomy(DataModel):
@@ -623,7 +625,9 @@ class MyomatrixContact(DataModel):
 class MyomatrixThread(DataModel):
     """Description of a thread of a myomatrix array"""
 
-    ground_electrode_location: MouseAnatomyModel = Field(..., title="Location of ground electrode", description="Use MouseBodyParts")
+    ground_electrode_location: MouseAnatomyModel = Field(
+        ..., title="Location of ground electrode", description="Use MouseBodyParts"
+    )
     contacts: List[MyomatrixContact] = Field(..., title="Contacts")
 
 

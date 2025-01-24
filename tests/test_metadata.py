@@ -238,7 +238,9 @@ class TestMetadata(unittest.TestCase):
                 subject=Subject.model_construct(),
                 procedures=Procedures.model_construct(subject_procedures=[surgery2]),
                 acquisition=Acquisition.model_construct(),
-                instrument=Instrument.model_construct(modalities=[Modality.SPIM], components=[Objective.model_construct()]),
+                instrument=Instrument.model_construct(
+                    modalities=[Modality.SPIM], components=[Objective.model_construct()]
+                ),
                 processing=Processing.model_construct(),
             )
         self.assertIn("Injection is missing injection_materials.", str(context.exception))
@@ -333,7 +335,12 @@ class TestMetadata(unittest.TestCase):
         )
 
         mouse_platform = MousePlatform.model_construct(name="platform1")
-        inst = Instrument.model_construct(instrument_id="123_EPHYS1_20220101", mouse_platform=mouse_platform, modalities=[Modality.ECEPHYS], components=[ephys_assembly])
+        inst = Instrument.model_construct(
+            instrument_id="123_EPHYS1_20220101",
+            mouse_platform=mouse_platform,
+            modalities=[Modality.ECEPHYS],
+            components=[ephys_assembly],
+        )
         session = Session.model_construct(instrument_id="123_EPHYS2_20230101", mouse_platform_name="platform2")
         with self.assertRaises(ValidationError) as context:
             Metadata(

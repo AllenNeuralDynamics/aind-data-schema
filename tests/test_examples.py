@@ -19,7 +19,7 @@ class ExampleTests(unittest.TestCase):
 
     def test_examples(self):
         """run through each example
-        
+
         Check that the existing examples/*.json files match what gets generated from .write_standard_file()
         """
 
