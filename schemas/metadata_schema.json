@@ -11,8 +11,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "1.0.5",
-               "default": "1.0.5",
+               "const": "1.0.6",
+               "default": "1.0.6",
                "title": "Schema Version",
                "type": "string"
             },
@@ -25,12 +25,12 @@
                "title": "Protocol ID",
                "type": "array"
             },
-            "experimenter_full_name": {
-               "description": "First and last name of the experimenter(s).",
+            "experimenters": {
+               "default": [],
                "items": {
-                  "type": "string"
+                  "$ref": "#/$defs/Person"
                },
-               "title": "Experimenter(s) full name",
+               "title": "experimenter(s)",
                "type": "array"
             },
             "specimen_id": {
@@ -200,7 +200,6 @@
             }
          },
          "required": [
-            "experimenter_full_name",
             "specimen_id",
             "instrument_id",
             "session_start_time",
@@ -997,10 +996,13 @@
                "default": null,
                "title": "Process resource usage"
             },
-            "analyst_full_name": {
-               "description": "Name of person responsible for running analysis",
-               "title": "Analyst Full Name",
-               "type": "string"
+            "experimenters": {
+               "description": "experimenters responsible for analysis",
+               "items": {
+                  "$ref": "#/$defs/Person"
+               },
+               "title": "experimenters",
+               "type": "array"
             },
             "description": {
                "title": "Analysis Description",
@@ -1013,7 +1015,7 @@
             "input_location",
             "output_location",
             "code_url",
-            "analyst_full_name",
+            "experimenters",
             "description"
          ],
          "title": "AnalysisProcess",
@@ -3663,8 +3665,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "1.0.4",
-               "default": "1.0.4",
+               "const": "1.0.5",
+               "default": "1.0.5",
                "title": "Schema Version",
                "type": "string"
             },
@@ -3856,7 +3858,7 @@
             "investigators": {
                "description": "Full name(s) of key investigators (e.g. PI, lead scientist, contact person)",
                "items": {
-                  "$ref": "#/$defs/PIDName"
+                  "$ref": "#/$defs/Person"
                },
                "minItems": 1,
                "title": "Investigators",
@@ -53534,6 +53536,37 @@
          "title": "Perfusion",
          "type": "object"
       },
+      "Person": {
+         "description": "Person identifier",
+         "properties": {
+            "name": {
+               "description": "First and last name OR anonymous ID",
+               "title": "Person's name",
+               "type": "string"
+            },
+            "registry": {
+               "$ref": "#/$defs/_Orcid",
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "ORCID ID"
+            }
+         },
+         "required": [
+            "name"
+         ],
+         "title": "Person",
+         "type": "object"
+      },
       "PhotoStimulation": {
          "additionalProperties": false,
          "description": "Description of a photostimulation session",
@@ -53711,10 +53744,13 @@
                "title": "Data processing",
                "type": "array"
             },
-            "processor_full_name": {
-               "description": "Name of person responsible for processing pipeline",
-               "title": "Processor Full Name",
-               "type": "string"
+            "experimenters": {
+               "description": "experimenters responsible for processing pipeline",
+               "items": {
+                  "$ref": "#/$defs/Person"
+               },
+               "title": "experimenters",
+               "type": "array"
             },
             "pipeline_version": {
                "anyOf": [
@@ -53757,7 +53793,7 @@
          },
          "required": [
             "data_processes",
-            "processor_full_name"
+            "experimenters"
          ],
          "title": "PipelineProcess",
          "type": "object"
@@ -54890,8 +54926,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "1.2.5",
-               "default": "1.2.5",
+               "const": "1.2.6",
+               "default": "1.2.6",
                "title": "Schema Version",
                "type": "string"
             },
@@ -55016,8 +55052,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "1.1.5",
-               "default": "1.1.5",
+               "const": "1.1.6",
+               "default": "1.1.6",
                "title": "Schema Version",
                "type": "string"
             },
@@ -62510,8 +62546,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "1.1.4",
-               "default": "1.1.4",
+               "const": "1.1.5",
+               "default": "1.1.5",
                "title": "Schema Version",
                "type": "string"
             },
@@ -62524,12 +62560,12 @@
                "title": "Protocol ID",
                "type": "array"
             },
-            "experimenter_full_name": {
-               "description": "First and last name of the experimenter(s).",
+            "experimenters": {
+               "default": [],
                "items": {
-                  "type": "string"
+                  "$ref": "#/$defs/Person"
                },
-               "title": "Experimenter(s) full name",
+               "title": "experimenter(s)",
                "type": "array"
             },
             "session_start_time": {
@@ -62725,7 +62761,6 @@
             }
          },
          "required": [
-            "experimenter_full_name",
             "session_start_time",
             "session_type",
             "rig_id",
@@ -66706,10 +66741,13 @@
                "title": "End date",
                "type": "string"
             },
-            "experimenter_full_name": {
-               "description": "First and last name of the experimenter.",
-               "title": "Experimenter full name",
-               "type": "string"
+            "experimenters": {
+               "default": [],
+               "items": {
+                  "$ref": "#/$defs/Person"
+               },
+               "title": "experimenter(s)",
+               "type": "array"
             },
             "protocol_id": {
                "description": "DOI for protocols.io",
@@ -66784,7 +66822,6 @@
             "specimen_id",
             "start_date",
             "end_date",
-            "experimenter_full_name",
             "protocol_id"
          ],
          "title": "SpecimenProcedure",
@@ -71722,10 +71759,20 @@
                "title": "Start date",
                "type": "string"
             },
-            "experimenter_full_name": {
-               "description": "First and last name of the experimenter.",
-               "title": "Experimenter full name",
-               "type": "string"
+            "experimenters": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "$ref": "#/$defs/Person"
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "experimenter(s)"
             },
             "ethics_review_id": {
                "anyOf": [
@@ -71890,7 +71937,6 @@
          "required": [
             "protocol_id",
             "start_date",
-            "experimenter_full_name",
             "procedures"
          ],
          "title": "Surgery",
@@ -107387,8 +107433,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "1.1.6",
-         "default": "1.1.6",
+         "const": "1.1.7",
+         "default": "1.1.7",
          "title": "Schema Version",
          "type": "string"
       },

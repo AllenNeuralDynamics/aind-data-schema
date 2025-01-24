@@ -2,6 +2,7 @@
 
 from datetime import datetime, timezone
 
+from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.processing import (
     AnalysisProcess,
     DataProcess,
@@ -41,7 +42,7 @@ file_io_usage_list = [
 
 p = Processing(
     processing_pipeline=PipelineProcess(
-        processor_full_name="Some Processor",
+        experimenters=[Person(name="Dr. Dan")],
         pipeline_url="https://url/for/pipeline",
         pipeline_version="0.1.1",
         data_processes=[
@@ -96,9 +97,9 @@ p = Processing(
     ),
     analyses=[
         AnalysisProcess(
-            analyst_full_name="Some Analyzer",
+            experimenters=[Person(name="Some Analyzer")],
             description="some description",
-            name="Analysis",
+            name=ProcessName.ANALYSIS,
             software_version="0.0.1",
             start_date_time=t,
             end_date_time=t,
@@ -109,9 +110,9 @@ p = Processing(
             parameters={"size": 7},
         ),
         AnalysisProcess(
-            analyst_full_name="Some Analyzer",
+            experimenters=[Person(name="Some Analyzer")],
             description="some description",
-            name="Analysis",
+            name=ProcessName.ANALYSIS,
             software_version="0.0.1",
             start_date_time=t,
             end_date_time=t,

@@ -72,7 +72,7 @@ more ontologies into our schema. We currently use:
 
 * NCBI Taxonomy to specify species
 * Research Organization Registry (ROR) to specify organizations (including manufacturer, funders, research organizations)
-* Open Researcher and Contributor ID (ORCID) to identify investigators
+* Open Researcher and Contributor ID (ORCID) to identify experimenters
 * Research Resource Identifiers (RRID) to identify reagents and other resources
 * Addgene to identify viruses and plasmids
 * Mouse Genome Informatics (MGI) to identify transgenic alleles
