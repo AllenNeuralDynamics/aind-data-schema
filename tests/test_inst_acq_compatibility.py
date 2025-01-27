@@ -59,7 +59,7 @@ EPHYS_SESSION_JSON = EXAMPLES_DIR / "ephys_session.json"
 behavior_computer = "W10DT72941"
 ephys_computer = "W10DT72942"
 
-running_wheel = Disc(name="Running Wheel", radius=15)
+disc_mouse_platform = Disc(name="Running Wheel", radius=15)
 
 digital_out0 = DAQChannel(channel_name="DO0", device_name="Face Camera", channel_type="Digital Output")
 
@@ -246,8 +246,8 @@ ephys_inst = Instrument(
         basestation,
         harp,
         microscope,
-        running_wheel,
     ],
+    mouse_platform=disc_mouse_platform,
     calibrations=[red_laser_calibration, blue_laser_calibration],
 )
 

@@ -546,7 +546,7 @@ class Session(DataCoreModel):
 
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/session.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["1.1.5"]] = Field(default="1.1.5")
+    schema_version: SkipValidation[Literal["2.0.0"]] = Field(default="2.0.0")
     protocol_id: List[str] = Field(default=[], title="Protocol ID", description="DOI for protocols.io")
     experimenters: List[Person] = Field(
         default=[],

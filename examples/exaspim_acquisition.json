@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/acquisition.py",
-   "schema_version": "1.0.6",
+   "schema_version": "2.0.0",
    "protocol_id": [],
    "experimenters": [
       {

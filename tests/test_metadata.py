@@ -209,11 +209,12 @@ class TestMetadata(unittest.TestCase):
         surgery2 = Surgery.model_construct(procedures=[nano_inj])
         with self.assertRaises(ValidationError) as context:
             Metadata(
-                name="ecephys_655019_2023-04-03_18-17-09",
+                name="655019_2023-04-03T181709",
                 location="bucket",
                 data_description=DataDescription.model_construct(
                     creation_time=time(12, 12, 12),
                     modalities=[Modality.SPIM],
+                    subject_id="655019",
                 ),
                 subject=Subject.model_construct(),
                 procedures=Procedures.model_construct(subject_procedures=[surgery2]),

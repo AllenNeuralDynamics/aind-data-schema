@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/inst.py",
-   "schema_version": "1.0.5",
+   "schema_version": "2.0.0",
    "instrument_id": "447_FIP-Behavior_20000101",
    "mouse_platform": {
       "device_type": "Tube",
