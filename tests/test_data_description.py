@@ -43,9 +43,9 @@ class DataDescriptionTest(unittest.TestCase):
         cls.data_descriptions = dict(data_descriptions)
 
     BAD_NAME = "fizzbuzz"
-    BASIC_NAME = "ecephys_1234_3033-12-21_04-22-11"
-    DERIVED_NAME = "ecephys_1234_3033-12-21_04-22-11_spikesorted-ks25_2022-10-12_23-23-11"
-    ANALYSIS_NAME = "project_analysis_3033-12-21_04-22-11"
+    BASIC_NAME = "1234_3033-12-21T042211"
+    DERIVED_NAME = "1234_3033-12-21T042211_spikesorted-ks25_2022-10-12T232311"
+    ANALYSIS_NAME = "project_analysis_3033-12-21T042211"
 
     def test_funding_construction(self):
         """Test Funding construction"""
@@ -159,9 +159,9 @@ class DataDescriptionTest(unittest.TestCase):
         f = Funding(funder=Organization.NINDS, grant_number="grant001")
         with self.assertRaises(ValidationError):
             DataDescription(
-                label="not-allowed-label-1224242",
+                label="",
                 modalities=[Modality.SPIM],
-                subject_id="1234",
+                subject_id="",
                 data_level="raw",
                 creation_time=dt,
                 institution=Organization.AIND,
@@ -326,7 +326,7 @@ class DataDescriptionTest(unittest.TestCase):
         """tests for parsing names"""
 
         toks = DataDescription.parse_name(self.BASIC_NAME)
-        assert toks["label"] == "ecephys_1234"
+        assert toks["label"] == "1234"
         assert toks["creation_time"] == datetime.datetime(3033, 12, 21, 4, 22, 11)
 
         with self.assertRaises(ValueError):
@@ -340,7 +340,7 @@ class DataDescriptionTest(unittest.TestCase):
             RawDataDescription.parse_name(self.BAD_NAME)
 
         toks = DerivedDataDescription.parse_name(self.DERIVED_NAME)
-        assert toks["input_data_name"] == "ecephys_1234_3033-12-21_04-22-11"
+        assert toks["input_data_name"] == "1234_3033-12-21T042211"
         assert toks["process_name"] == "spikesorted-ks25"
         assert toks["creation_time"] == datetime.datetime(2022, 10, 12, 23, 23, 11)
 
@@ -393,15 +393,27 @@ class DerivedDataDescriptionTest(unittest.TestCase):
         """Tests build name method in derived data description class"""
 
         dd = DerivedDataDescription(
-            input_data_name="input",
-            creation_time=datetime.datetime(2020, 10, 10, 10, 10, 10),
+            input_data_name="12345_2020-10-10T101010",
+            creation_time=datetime.datetime(2021, 10, 10, 10, 10, 10),
             institution=Organization.AIND,
             funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
             modalities=[Modality.ECEPHYS],
             subject_id="12345",
             investigators=[Person(name="Jane Smith")],
         )
-        self.assertEqual("input_2020-10-10_10-10-10", dd.name)
+        self.assertEqual("12345_2020-10-10T101010_2021-10-10T101010", dd.name)
+
+        dd2 = DerivedDataDescription(
+            input_data_name="12345_2020-10-10T101010",
+            creation_time=datetime.datetime(2021, 10, 10, 10, 10, 10),
+            institution=Organization.AIND,
+            funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
+            modalities=[Modality.ECEPHYS],
+            subject_id="12345",
+            investigators=[Person(name="Jane Smith")],
+            process_name="spikesorter",
+        )
+        self.assertIn("12345_2020-10-10T101010_spikesorter", dd2.name)
 
 
 if __name__ == "__main__":
