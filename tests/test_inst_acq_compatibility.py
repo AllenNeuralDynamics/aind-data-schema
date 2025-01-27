@@ -1,4 +1,4 @@
-"""Tests rig session compatibility check"""
+"""Tests instrument session compatibility check"""
 
 import json
 import unittest

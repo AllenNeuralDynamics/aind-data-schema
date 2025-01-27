@@ -1,13 +1,13 @@
 {
-   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/rig.py",
-   "schema_version": "1.0.5",
-   "rig_id": "440_SmartSPIM1_20231004",
+   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/inst.py",
+   "schema_version": "2.0.0",
+   "instrument_id": "440_SmartSPIM1_20231004",
    "mouse_platform": null,
    "modification_date": "2023-10-04",
    "calibrations": null,
    "ccf_coordinate_transform": null,
    "origin": null,
-   "rig_axes": null,
+   "instrument_axes": null,
    "modalities": [
       {
          "name": "Selective plane illumination microscopy",

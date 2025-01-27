@@ -1,10 +1,10 @@
 {
-   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/rig.py",
-   "schema_version": "1.0.5",
-   "rig_id": "447_FIP-Behavior_20000101",
+   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/inst.py",
+   "schema_version": "2.0.0",
+   "instrument_id": "428_FIP1_20231003",
    "mouse_platform": {
-      "device_type": "Tube",
-      "name": "mouse_tube_foraging",
+      "device_type": "Disc",
+      "name": "mouse_disc",
       "serial_number": null,
       "manufacturer": null,
       "model": null,
@@ -14,10 +14,14 @@
       "notes": null,
       "surface_material": null,
       "date_surface_replaced": null,
-      "diameter": "4.0",
-      "diameter_unit": "centimeter"
+      "radius": "8.5",
+      "radius_unit": "centimeter",
+      "output": null,
+      "encoder": null,
+      "decoder": null,
+      "encoder_firmware": null
    },
-   "modification_date": "2000-01-01",
+   "modification_date": "2023-10-03",
    "calibrations": [
       {
          "calibration_date": "2023-10-02T03:15:22Z",
@@ -25,44 +29,16 @@
          "description": "LED calibration",
          "input": {
             "Power setting": [
-               0
+               1,
+               2,
+               3
             ]
          },
          "output": {
             "Power mW": [
-               0.02
-            ]
-         },
-         "notes": null
-      },
-      {
-         "calibration_date": "2023-10-02T03:15:22Z",
-         "device_name": "415nm LED",
-         "description": "LED calibration",
-         "input": {
-            "Power setting": [
-               0
-            ]
-         },
-         "output": {
-            "Power mW": [
-               0.02
-            ]
-         },
-         "notes": null
-      },
-      {
-         "calibration_date": "2023-10-02T03:15:22Z",
-         "device_name": "560nm LED",
-         "description": "LED calibration",
-         "input": {
-            "Power setting": [
-               0
-            ]
-         },
-         "output": {
-            "Power mW": [
-               0.02
+               5,
+               10,
+               13
             ]
          },
          "notes": null
@@ -70,12 +46,8 @@
    ],
    "ccf_coordinate_transform": null,
    "origin": null,
-   "rig_axes": null,
+   "instrument_axes": null,
    "modalities": [
-      {
-         "name": "Behavior",
-         "abbreviation": "behavior"
-      },
       {
          "name": "Fiber photometry",
          "abbreviation": "fib"
@@ -243,204 +215,6 @@
          },
          "filter": null,
          "position": null
-      },
-      {
-         "device_type": "Harp device",
-         "name": "Harp Behavior",
-         "serial_number": null,
-         "manufacturer": {
-            "name": "Open Ephys Production Site",
-            "abbreviation": "OEPS",
-            "registry": {
-               "name": "Research Organization Registry",
-               "abbreviation": "ROR"
-            },
-            "registry_identifier": "007rkz355"
-         },
-         "model": null,
-         "path_to_cad": null,
-         "port_index": null,
-         "additional_settings": null,
-         "notes": null,
-         "data_interface": "USB",
-         "computer_name": "behavior_computer",
-         "channels": [
-            {
-               "channel_name": "DO0",
-               "device_name": "Solenoid Left",
-               "channel_type": "Digital Output",
-               "port": null,
-               "channel_index": null,
-               "sample_rate": null,
-               "sample_rate_unit": null,
-               "event_based_sampling": null
-            },
-            {
-               "channel_name": "DO1",
-               "device_name": "Solenoid Right",
-               "channel_type": "Digital Output",
-               "port": null,
-               "channel_index": null,
-               "sample_rate": null,
-               "sample_rate_unit": null,
-               "event_based_sampling": null
-            },
-            {
-               "channel_name": "DI0",
-               "device_name": "Janelia_Lick_Detector Left",
-               "channel_type": "Digital Input",
-               "port": null,
-               "channel_index": null,
-               "sample_rate": null,
-               "sample_rate_unit": null,
-               "event_based_sampling": null
-            },
-            {
-               "channel_name": "DI1",
-               "device_name": "Janelia_Lick_Detector Right",
-               "channel_type": "Digital Input",
-               "port": null,
-               "channel_index": null,
-               "sample_rate": null,
-               "sample_rate_unit": null,
-               "event_based_sampling": null
-            },
-            {
-               "channel_name": "DI3",
-               "device_name": "Photometry Clock",
-               "channel_type": "Digital Input",
-               "port": null,
-               "channel_index": null,
-               "sample_rate": null,
-               "sample_rate_unit": null,
-               "event_based_sampling": null
-            }
-         ],
-         "firmware_version": "FTDI version:",
-         "hardware_version": null,
-         "harp_device_type": {
-            "whoami": 1216,
-            "name": "Behavior"
-         },
-         "core_version": "2.1",
-         "tag_version": null,
-         "is_clock_generator": false
-      },
-      {
-         "device_type": "Reward delivery",
-         "stage_type": {
-            "device_type": "Motorized stage",
-            "name": "NewScaleMotor for LickSpouts",
-            "serial_number": "xxxx",
-            "manufacturer": {
-               "name": "New Scale Technologies",
-               "abbreviation": null,
-               "registry": null,
-               "registry_identifier": null
-            },
-            "model": null,
-            "path_to_cad": null,
-            "port_index": null,
-            "additional_settings": null,
-            "notes": null,
-            "travel": "15.0",
-            "travel_unit": "millimeter",
-            "firmware": "https://github.com/AllenNeuralDynamics/python-newscale,branch: axes-on-target,commit #7c17497"
-         },
-         "reward_spouts": [
-            {
-               "device_type": "Reward spout",
-               "name": "Left spout",
-               "serial_number": null,
-               "manufacturer": null,
-               "model": null,
-               "path_to_cad": null,
-               "port_index": null,
-               "additional_settings": null,
-               "notes": null,
-               "side": "Left",
-               "spout_diameter": "1.2",
-               "spout_diameter_unit": "millimeter",
-               "spout_position": null,
-               "solenoid_valve": {
-                  "device_type": "device",
-                  "name": "Solenoid Left",
-                  "serial_number": null,
-                  "manufacturer": null,
-                  "model": null,
-                  "path_to_cad": null,
-                  "port_index": null,
-                  "additional_settings": null,
-                  "notes": null
-               },
-               "lick_sensor": {
-                  "device_type": "device",
-                  "name": "Janelia_Lick_Detector Left",
-                  "serial_number": null,
-                  "manufacturer": {
-                     "name": "Janelia Research Campus",
-                     "abbreviation": "Janelia",
-                     "registry": {
-                        "name": "Research Organization Registry",
-                        "abbreviation": "ROR"
-                     },
-                     "registry_identifier": "013sk6x84"
-                  },
-                  "model": null,
-                  "path_to_cad": null,
-                  "port_index": null,
-                  "additional_settings": null,
-                  "notes": null
-               },
-               "lick_sensor_type": "Capacitive"
-            },
-            {
-               "device_type": "Reward spout",
-               "name": "Right spout",
-               "serial_number": null,
-               "manufacturer": null,
-               "model": null,
-               "path_to_cad": null,
-               "port_index": null,
-               "additional_settings": null,
-               "notes": null,
-               "side": "Right",
-               "spout_diameter": "1.2",
-               "spout_diameter_unit": "millimeter",
-               "spout_position": null,
-               "solenoid_valve": {
-                  "device_type": "device",
-                  "name": "Solenoid Right",
-                  "serial_number": null,
-                  "manufacturer": null,
-                  "model": null,
-                  "path_to_cad": null,
-                  "port_index": null,
-                  "additional_settings": null,
-                  "notes": null
-               },
-               "lick_sensor": {
-                  "device_type": "device",
-                  "name": "Janelia_Lick_Detector Right",
-                  "serial_number": null,
-                  "manufacturer": {
-                     "name": "Janelia Research Campus",
-                     "abbreviation": "Janelia",
-                     "registry": {
-                        "name": "Research Organization Registry",
-                        "abbreviation": "ROR"
-                     },
-                     "registry_identifier": "013sk6x84"
-                  },
-                  "model": null,
-                  "path_to_cad": null,
-                  "port_index": null,
-                  "additional_settings": null,
-                  "notes": null
-               },
-               "lick_sensor_type": "Capacitive"
-            }
-         ]
       },
       {
          "device_type": "Patch",
@@ -949,6 +723,170 @@
          "optimized_wavelength_range": null,
          "wavelength_unit": "nanometer",
          "max_aperture": null
+      },
+      {
+         "device_type": "Harp device",
+         "name": "Harp Behavior",
+         "serial_number": null,
+         "manufacturer": {
+            "name": "Open Ephys Production Site",
+            "abbreviation": "OEPS",
+            "registry": {
+               "name": "Research Organization Registry",
+               "abbreviation": "ROR"
+            },
+            "registry_identifier": "007rkz355"
+         },
+         "model": null,
+         "path_to_cad": null,
+         "port_index": null,
+         "additional_settings": null,
+         "notes": null,
+         "data_interface": "USB",
+         "computer_name": "behavior_computer",
+         "channels": [
+            {
+               "channel_name": "DO0",
+               "device_name": "Solenoid Left",
+               "channel_type": "Digital Output",
+               "port": null,
+               "channel_index": null,
+               "sample_rate": null,
+               "sample_rate_unit": null,
+               "event_based_sampling": null
+            },
+            {
+               "channel_name": "DO1",
+               "device_name": "Solenoid Right",
+               "channel_type": "Digital Output",
+               "port": null,
+               "channel_index": null,
+               "sample_rate": null,
+               "sample_rate_unit": null,
+               "event_based_sampling": null
+            },
+            {
+               "channel_name": "DI0",
+               "device_name": "Lick-o-meter Left",
+               "channel_type": "Digital Input",
+               "port": null,
+               "channel_index": null,
+               "sample_rate": null,
+               "sample_rate_unit": null,
+               "event_based_sampling": null
+            },
+            {
+               "channel_name": "DI1",
+               "device_name": "Lick-o-meter Right",
+               "channel_type": "Digital Input",
+               "port": null,
+               "channel_index": null,
+               "sample_rate": null,
+               "sample_rate_unit": null,
+               "event_based_sampling": null
+            },
+            {
+               "channel_name": "DI3",
+               "device_name": "Photometry Clock",
+               "channel_type": "Digital Input",
+               "port": null,
+               "channel_index": null,
+               "sample_rate": null,
+               "sample_rate_unit": null,
+               "event_based_sampling": null
+            }
+         ],
+         "firmware_version": null,
+         "hardware_version": null,
+         "harp_device_type": {
+            "whoami": 1216,
+            "name": "Behavior"
+         },
+         "core_version": "2.1",
+         "tag_version": null,
+         "is_clock_generator": false
+      },
+      {
+         "device_type": "Reward delivery",
+         "stage_type": null,
+         "reward_spouts": [
+            {
+               "device_type": "Reward spout",
+               "name": "Left spout",
+               "serial_number": null,
+               "manufacturer": null,
+               "model": null,
+               "path_to_cad": null,
+               "port_index": null,
+               "additional_settings": null,
+               "notes": null,
+               "side": "Left",
+               "spout_diameter": "1.2",
+               "spout_diameter_unit": "millimeter",
+               "spout_position": null,
+               "solenoid_valve": {
+                  "device_type": "device",
+                  "name": "Solenoid Left",
+                  "serial_number": null,
+                  "manufacturer": null,
+                  "model": null,
+                  "path_to_cad": null,
+                  "port_index": null,
+                  "additional_settings": null,
+                  "notes": null
+               },
+               "lick_sensor": {
+                  "device_type": "device",
+                  "name": "Lick-o-meter Left",
+                  "serial_number": null,
+                  "manufacturer": null,
+                  "model": null,
+                  "path_to_cad": null,
+                  "port_index": null,
+                  "additional_settings": null,
+                  "notes": null
+               },
+               "lick_sensor_type": null
+            },
+            {
+               "device_type": "Reward spout",
+               "name": "Right spout",
+               "serial_number": null,
+               "manufacturer": null,
+               "model": null,
+               "path_to_cad": null,
+               "port_index": null,
+               "additional_settings": null,
+               "notes": null,
+               "side": "Right",
+               "spout_diameter": "1.2",
+               "spout_diameter_unit": "millimeter",
+               "spout_position": null,
+               "solenoid_valve": {
+                  "device_type": "device",
+                  "name": "Solenoid Right",
+                  "serial_number": null,
+                  "manufacturer": null,
+                  "model": null,
+                  "path_to_cad": null,
+                  "port_index": null,
+                  "additional_settings": null,
+                  "notes": null
+               },
+               "lick_sensor": {
+                  "device_type": "device",
+                  "name": "Lick-o-meter Right",
+                  "serial_number": null,
+                  "manufacturer": null,
+                  "model": null,
+                  "path_to_cad": null,
+                  "port_index": null,
+                  "additional_settings": null,
+                  "notes": null
+               },
+               "lick_sensor_type": null
+            }
+         ]
       },
       {
          "device_type": "device",
