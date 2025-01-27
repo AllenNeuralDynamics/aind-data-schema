@@ -32,6 +32,16 @@ from tests.resources.spim_instrument import inst
 
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
 
+ephys_assembly = EphysAssembly(
+    probes=[EphysProbe(probe_model="Neuropixels 1.0", name="Probe A")],
+    manipulator=Manipulator(
+        name="Probe manipulator",
+        manufacturer=Organization.NEW_SCALE_TECHNOLOGIES,
+        serial_number="4321",
+    ),
+    name="Ephys_assemblyA",
+)
+
 
 class TestMetadata(unittest.TestCase):
     """Class to test Metadata model"""
@@ -322,7 +332,12 @@ class TestMetadata(unittest.TestCase):
                     subject_id="655019",
                 ),
                 procedures=Procedures.model_construct(subject_procedures=[surgery1]),
-                instrument=Instrument.model_construct(modalities=modalities),
+                instrument=Instrument.model_construct(
+                    modalities=modalities,
+                    components=[
+                        ephys_assembly,
+                    ],
+                ),
             )
         self.assertIn(
             "ECEPHYS metadata missing required file: subject",
@@ -350,15 +365,6 @@ class TestMetadata(unittest.TestCase):
 
     def test_validate_instrument_session_compatibility(self):
         """Tests that instrument/session compatibility validator works as expected"""
-        ephys_assembly = EphysAssembly(
-            probes=[EphysProbe(probe_model="Neuropixels 1.0", name="Probe A")],
-            manipulator=Manipulator(
-                name="Probe manipulator",
-                manufacturer=Organization.NEW_SCALE_TECHNOLOGIES,
-                serial_number="4321",
-            ),
-            name="Ephys_assemblyA",
-        )
 
         mouse_platform = MousePlatform.model_construct(name="platform1")
         inst = Instrument.model_construct(
@@ -367,7 +373,6 @@ class TestMetadata(unittest.TestCase):
             modalities=[Modality.ECEPHYS],
             components=[ephys_assembly],
         )
-        session = Session.model_construct(instrument_id="123_EPHYS2_20230101", mouse_platform_name="platform2")
         with self.assertRaises(ValidationError) as context:
             Metadata(
                 name="655019_2023-04-03_18-17-09",
@@ -381,9 +386,11 @@ class TestMetadata(unittest.TestCase):
                 procedures=Procedures.model_construct(),
                 instrument=inst,
                 processing=Processing.model_construct(),
-                session=session,
+                acquisition=Acquisition.model_construct(
+                    instrument_id="123_EPHYS2_20230101",
+                ),
+                session=Session.model_construct(instrument_id="123_EPHYS2_20230101"),
             )
-        print(str(context.exception))
         self.assertIn(
             "Instrument ID in session 123_EPHYS2_20230101 does not match the rig's 123_EPHYS1_20220101.",
             str(context.exception),

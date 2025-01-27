@@ -29,8 +29,8 @@ PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
 class ImagingTests(unittest.TestCase):
     """test imaging schemas"""
 
-    def test_constructors(self):
-        """testing constructors"""
+    def test_acquisition_constructor(self):
+        """testing Acquisition constructor"""
         with self.assertRaises(ValidationError):
             acq.Acquisition()
 
@@ -76,10 +76,10 @@ class ImagingTests(unittest.TestCase):
 
         self.assertIsNotNone(a)
 
+    def test_instrument_constructor(self):
+        """testing Instrument constructor"""
         with self.assertRaises(ValidationError):
             Instrument()
-
-        # Generate a valid instrument
 
         objective = Objective(
             name="TLX Objective",
@@ -102,7 +102,8 @@ class ImagingTests(unittest.TestCase):
 
         self.assertIsNotNone(i)
 
-        # Instrument type Other requires notes
+    def test_instrument_type_other_requires_notes(self):
+        """testing Instrument type Other requires notes"""
         with self.assertRaises(ValidationError) as e1:
             Instrument(
                 instrument_id="room_exaSPIM1-1_20231004",
@@ -114,7 +115,8 @@ class ImagingTests(unittest.TestCase):
 
         self.assertIn("instrument_id", repr(e1.exception))
 
-        # Modality SPIM requirements components
+    def test_modality_spim_requires_components(self):
+        """testing Modality SPIM requires components"""
         with self.assertRaises(ValidationError) as e2:
             Instrument(
                 instrument_id="room_exaSPIM1-1_20231004",
@@ -124,19 +126,7 @@ class ImagingTests(unittest.TestCase):
                 manufacturer=Organization.OTHER,
             )
 
-        expected_exception2 = (
-            "2 validation errors for Instrument\n"
-            "modification_date\n"
-            "  Field required [type=missing, input_value={'instrument_type': 'diSP...[],"
-            " 'light_sources': []}, input_type=dict]\n"
-            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/missing\n"
-            "notes\n"
-            "  Value error, Notes cannot be empty if manufacturer is Other."
-            " Describe the manufacturer in the notes field."
-            " [type=value_error, input_value=None, input_type=NoneType]\n"
-            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/value_error"
-        )
-        self.assertEqual(expected_exception2, repr(e2.exception))
+        self.assertIn("modality 'SPIM' requires at least one device", repr(e2.exception))
 
     def test_axis(self):
         """test the axis class"""

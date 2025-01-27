@@ -53,7 +53,7 @@ from aind_data_schema.utils.compatibility_check import InstrumentSessionCompatib
 from aind_data_schema_models.brain_atlas import CCFStructure
 
 EXAMPLES_DIR = Path(__file__).parents[1] / "examples"
-EPHYS_INST_JSON = EXAMPLES_DIR / "ephys_inst.json"
+EPHYS_INST_JSON = EXAMPLES_DIR / "ephys_instrument.json"
 EPHYS_SESSION_JSON = EXAMPLES_DIR / "ephys_session.json"
 
 behavior_computer = "W10DT72941"
@@ -761,7 +761,7 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
                 ],
             ),
         ]
-        additional_devices = [d.Device(device_type="Photometry Clock", name="Photometry Clock")]
+        additional_devices = [d.Device(name="Photometry Clock")]
 
         cls.example_ephys_inst = Instrument.model_validate_json(json.dumps(read_json(EPHYS_INST_JSON)))
         cls.example_ephys_session = Session.model_validate_json(json.dumps(read_json(EPHYS_SESSION_JSON)))
