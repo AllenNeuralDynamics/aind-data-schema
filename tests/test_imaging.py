@@ -79,12 +79,25 @@ class ImagingTests(unittest.TestCase):
         with self.assertRaises(ValidationError):
             Instrument()
 
+        # Generate a valid instrument
+
+        objective = Objective(
+            name="TLX Objective",
+            numerical_aperture=0.2,
+            magnification=3.6,
+            immersion="multi",
+            manufacturer=Organization.THORLABS,
+            model="TL4X-SAP",
+            notes="Thorlabs TL4X-SAP with LifeCanvas dipping cap and correction optics.",
+        )
+
         i = Instrument(
             instrument_id="room_exaSPIM1-1_20231004",
             modalities=[Modality.SPIM],
             instrument_type="diSPIM",
             modification_date=datetime.now().date(),
             manufacturer=Organization.LIFECANVAS,
+            components=[objective],
         )
 
         self.assertIsNotNone(i)
