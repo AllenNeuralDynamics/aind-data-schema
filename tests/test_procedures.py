@@ -215,7 +215,6 @@ class ProceduresTests(unittest.TestCase):
                             probes=[
                                 OphysProbe(
                                     ophys_probe=FiberProbe(
-                                        device_type="Fiber optic probe",
                                         name="Probe A",
                                         manufacturer=Organization.DORIC,
                                         model="8",
