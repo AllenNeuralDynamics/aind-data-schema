@@ -136,10 +136,13 @@ class DataDescription(DataCoreModel):
     @model_validator(mode="after")
     def build_name(self):
         """sets the name of the file"""
-        if self.label is not None and self.name is None:
-            self.name = build_data_name(self.label, creation_datetime=self.creation_time)
-        elif self.name is None:
+        if self.name is None and self.label is None:
             raise ValueError("Either label or name must be set")
+        elif self.label is not None and self.name is None:
+            self.name = build_data_name(self.subject_id, creation_datetime=self.creation_time)
+            # check that the name matches the name regex
+            if not re.match(DataRegex.DATA.value, self.name):
+                raise ValueError(f"Name({self.name}) does not match allowed Regex pattern")
         return self
 
 
