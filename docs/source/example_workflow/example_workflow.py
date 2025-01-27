@@ -3,7 +3,6 @@ import os
 import pandas as pd
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
-from aind_data_schema_models.platforms import Platform
 
 from aind_data_schema.core.data_description import Funding, RawDataDescription
 from aind_data_schema.core.procedures import NanojectInjection, Perfusion, Procedures, Surgery, ViralMaterial
@@ -31,13 +30,13 @@ ethics_review_id = "2109"
 for session_idx, session in sessions_df.iterrows():
     # our data always contains planar optical physiology and behavior videos
     d = RawDataDescription(
-        modality=[Modality.POPHYS, Modality.BEHAVIOR_VIDEOS],
-        platform=Platform.BEHAVIOR,
+        modalities=[Modality.POPHYS, Modality.BEHAVIOR_VIDEOS],
         subject_id=str(session["mouse_id"]),
         creation_time=session["end_time"].to_pydatetime(),
         institution=Organization.OTHER,
         experimenters=[experimenter],
         funding_source=[Funding(funder=Organization.NIMH)],
+        investigators=[experimenter)],
     )
 
     # we will store our json files in a directory named after the session

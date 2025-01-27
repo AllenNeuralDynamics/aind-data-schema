@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/session.py",
-   "schema_version": "1.1.5",
+   "schema_version": "2.0.0",
    "protocol_id": [],
    "experimenters": [
       {
@@ -15,8 +15,8 @@
    "session_start_time": "2022-07-12T07:00:00Z",
    "session_end_time": "2022-07-12T07:00:00Z",
    "session_type": "Mesoscope",
+   "instrument_id": "MESO.1",
    "ethics_review_id": "12345",
-   "rig_id": "MESO.1",
    "calibrations": [],
    "maintenance": [],
    "subject_id": "12345",
