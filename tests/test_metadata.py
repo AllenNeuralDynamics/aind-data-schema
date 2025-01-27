@@ -59,7 +59,6 @@ class TestMetadata(unittest.TestCase):
             background_strain="C57BL/6J",
         )
         dd = DataDescription(
-            label="test_data",
             modalities=[Modality.ECEPHYS],
             subject_id="123456",
             data_level="raw",
@@ -194,7 +193,6 @@ class TestMetadata(unittest.TestCase):
                 name="655019_2023-04-03T181709",
                 location="bucket",
                 data_description=DataDescription.model_construct(
-                    label="some label",
                     creation_time=time(12, 12, 12),
                     modalities=[Modality.SPIM],
                     subject_id="655019",
@@ -214,7 +212,6 @@ class TestMetadata(unittest.TestCase):
                 name="ecephys_655019_2023-04-03_18-17-09",
                 location="bucket",
                 data_description=DataDescription.model_construct(
-                    label="some label",
                     creation_time=time(12, 12, 12),
                     modalities=[Modality.SPIM],
                 ),
@@ -235,7 +232,6 @@ class TestMetadata(unittest.TestCase):
                 name="ecephys_655019_2023-04-03_18-17-09",
                 location="bucket",
                 data_description=DataDescription.model_construct(
-                    label="some label",
                     creation_time=time(12, 12, 12),
                     modalities=[Modality.SPIM],
                 ),
@@ -267,7 +263,7 @@ class TestMetadata(unittest.TestCase):
             name="ecephys_655019_2023-04-03_18-17-09",
             location="bucket",
             data_description=DataDescription.model_construct(
-                label="some label",
+                subject_id="655019",
                 creation_time=time(12, 12, 12),
                 modalities=[Modality.BEHAVIOR, Modality.SPIM],  # technically this is impossible, but we need to test it
             ),
@@ -290,12 +286,12 @@ class TestMetadata(unittest.TestCase):
         surgery1 = Surgery.model_construct(procedures=[nano_inj, ionto_inj])
         with self.assertRaises(ValidationError) as context:
             Metadata(
-                name="ecephys_655019_2023-04-03_18-17-09",
+                name="655019_2023-04-03_18-17-09",
                 location="bucket",
                 data_description=DataDescription.model_construct(
-                    label="some label",
                     creation_time=time(12, 12, 12),
                     modalities=[Modality.ECEPHYS],
+                    subject_id="655019",
                 ),
                 procedures=Procedures.model_construct(subject_procedures=[surgery1]),
                 instrument=Instrument.model_construct(),
@@ -312,7 +308,6 @@ class TestMetadata(unittest.TestCase):
                 name="ecephys_655019_2023-04-03_18-17-09",
                 location="bucket",
                 data_description=DataDescription.model_construct(
-                    label="some label",
                     creation_time=time(12, 12, 12),
                     modalities=[Modality.ECEPHYS],
                 ),
@@ -346,12 +341,12 @@ class TestMetadata(unittest.TestCase):
         session = Session.model_construct(instrument_id="123_EPHYS2_20230101", mouse_platform_name="platform2")
         with self.assertRaises(ValidationError) as context:
             Metadata(
-                name="ecephys_655019_2023-04-03_18-17-09",
+                name="655019_2023-04-03_18-17-09",
                 location="bucket",
                 data_description=DataDescription.model_construct(
-                    label="some label",
                     creation_time=time(12, 12, 12),
                     modalities=[Modality.ECEPHYS],
+                    subject_id="655019",
                 ),
                 subject=Subject.model_construct(),
                 procedures=Procedures.model_construct(),

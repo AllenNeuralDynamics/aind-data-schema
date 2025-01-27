@@ -142,7 +142,6 @@ class DataDescriptionTest(unittest.TestCase):
         dt = datetime.datetime.now()
         f = Funding(funder=Organization.NINDS, grant_number="grant001")
         dd = DataDescription(
-            label="test_data",
             modalities=[Modality.SPIM],
             subject_id="1234",
             data_level="raw",
@@ -159,7 +158,6 @@ class DataDescriptionTest(unittest.TestCase):
         f = Funding(funder=Organization.NINDS, grant_number="grant001")
         with self.assertRaises(ValidationError):
             DataDescription(
-                label="",
                 modalities=[Modality.SPIM],
                 subject_id="",
                 data_level="raw",
@@ -261,7 +259,6 @@ class DataDescriptionTest(unittest.TestCase):
         """Tests that errors are raised if malformed strings are input"""
         with self.assertRaises(ValidationError) as e:
             DataDescription(
-                label="test_data",
                 modalities=[Modality.SPIM],
                 subject_id="1234",
                 data_level="raw",
@@ -368,7 +365,6 @@ class DerivedDataDescriptionTest(unittest.TestCase):
         """Tests DerivedDataDescription.from_data_description method"""
 
         d1 = DataDescription(
-            label="test_data",
             modalities=[Modality.SPIM],
             subject_id="1234",
             data_level="raw",
