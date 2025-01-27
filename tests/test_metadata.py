@@ -29,6 +29,8 @@ from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.core.session import Session
 from aind_data_schema.core.subject import BreedingInfo, Housing, Sex, Species, Subject
 
+from resources.spim_instrument import inst
+
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
 
 
@@ -38,6 +40,8 @@ class TestMetadata(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         """Set up the test class."""
+        spim_instrument = inst
+
         subject = Subject(
             species=Species.MUS_MUSCULUS,
             subject_id="12345",
@@ -238,9 +242,7 @@ class TestMetadata(unittest.TestCase):
                 subject=Subject.model_construct(),
                 procedures=Procedures.model_construct(subject_procedures=[surgery2]),
                 acquisition=Acquisition.model_construct(),
-                instrument=Instrument.model_construct(
-                    modalities=[Modality.SPIM], components=[Objective.model_construct()]
-                ),
+                instrument=inst,
                 processing=Processing.model_construct(),
             )
         self.assertIn("Injection is missing injection_materials.", str(context.exception))

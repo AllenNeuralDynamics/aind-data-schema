@@ -1,7 +1,4 @@
-""" example SmartSPIM instrument """
-
-from datetime import datetime
-
+import datetime
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.units import SizeUnit
 
@@ -288,7 +285,3 @@ inst = Instrument(
     ],
     temperature_control=False,
 )
-
-serialized = inst.model_dump_json()
-deserialized = Instrument.model_validate_json(serialized)
-deserialized.write_standard_file(prefix="aind_smartspim")

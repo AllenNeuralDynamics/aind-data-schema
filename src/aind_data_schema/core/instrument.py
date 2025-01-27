@@ -104,7 +104,7 @@ class Instrument(DataCoreModel):
     )
     origin: Optional[Origin] = Field(default=None, title="Origin point for instrument position transforms")
     instrument_axes: Optional[List[Axis]] = Field(default=None, title="Instrument axes", min_length=3, max_length=3)
-    modalities: Set[Modality.ONE_OF] = Field(..., title="Modalities")
+    modalities: List[Modality.ONE_OF] = Field(..., title="Modalities")
     com_ports: List[Com] = Field(default=[], title="COM ports")
     instrument_type: Optional[ImagingInstrumentType] = Field(default=None, title="Instrument type")
     manufacturer: Optional[Organization.ONE_OF] = Field(default=None, title="Instrument manufacturer")
