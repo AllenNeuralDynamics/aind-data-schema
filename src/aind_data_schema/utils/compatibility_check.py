@@ -51,7 +51,10 @@ class InstrumentSessionCompatibility:
             for stream in getattr(self.session, "data_streams", [])
             for camera in getattr(stream, "camera_names", [])
         ]
-        instrument_camera_names = [comp.camera.name if isinstance(comp, CameraAssembly) else None for comp in getattr(self.inst, "components", [])]
+        instrument_camera_names = [
+            comp.camera.name if isinstance(comp, CameraAssembly) else None
+            for comp in getattr(self.inst, "components", [])
+        ]
 
         if not set(session_cameras).issubset(set(instrument_camera_names)):
             return ValueError(
@@ -81,7 +84,9 @@ class InstrumentSessionCompatibility:
             for stream in getattr(self.session, "data_streams", [])
             for ephys_module in getattr(stream, "ephys_modules")
         ]
-        instrument_component_names = [comp.name if isinstance(comp, EphysAssembly) else None for comp in getattr(self.inst, "components", [])]
+        instrument_component_names = [
+            comp.name if isinstance(comp, EphysAssembly) else None for comp in getattr(self.inst, "components", [])
+        ]
 
         if not set(session_ephys_assemblies).issubset(set(instrument_component_names)):
             return ValueError(
@@ -97,7 +102,10 @@ class InstrumentSessionCompatibility:
             for stream in getattr(self.session, "data_streams", [])
             for stick_microscope in getattr(stream, "stick_microscopes", [])
         ]
-        instrument_camera_names = [comp.camera.name if isinstance(comp, CameraAssembly) else None for comp in getattr(self.inst, "components", [])]
+        instrument_camera_names = [
+            comp.camera.name if isinstance(comp, CameraAssembly) else None
+            for comp in getattr(self.inst, "components", [])
+        ]
 
         if not set(session_stick_microscopes).issubset(set(instrument_camera_names)):
             return ValueError(

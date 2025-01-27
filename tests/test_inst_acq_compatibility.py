@@ -864,7 +864,12 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
     def test_run_compatibility_check(self):
         """Tests compatibility check"""
 
-        self.assertRaises(ValueError, InstrumentSessionCompatibility(instrument=self.ophys_instrument, session=self.ophys_session).run_compatibility_check)
+        self.assertRaises(
+            ValueError,
+            InstrumentSessionCompatibility(
+                instrument=self.ophys_instrument, session=self.ophys_session
+            ).run_compatibility_check,
+        )
 
         with self.assertRaises(ValueError):
             InstrumentSessionCompatibility(

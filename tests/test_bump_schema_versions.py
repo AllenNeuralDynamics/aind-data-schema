@@ -138,7 +138,9 @@ class SchemaVersionTests(unittest.TestCase):
         new_inst_version = str(Version.parse(old_inst_version).bump_minor())
         # Pycharm raises a warning about types that we can ignore
         # noinspection PyTypeChecker
-        handler._update_files({Subject: new_subject_version, Session: new_session_version, Instrument: new_inst_version})
+        handler._update_files(
+            {Subject: new_subject_version, Session: new_session_version, Instrument: new_inst_version}
+        )
 
         expected_line_change0 = (
             f'schema_version: SkipValidation[Literal["{new_subject_version}"]] = Field(default="{new_subject_version}")'

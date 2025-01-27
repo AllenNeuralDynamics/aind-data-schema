@@ -12,7 +12,19 @@ from aind_data_schema_models.organizations import Organization
 from pydantic import ValidationError
 from pydantic import __version__ as pyd_version
 
-from aind_data_schema.components.devices import Device, EphysAssembly, EphysProbe, LickSensorType, Manipulator, MotorizedStage, MousePlatform, Objective, RewardDelivery, RewardSpout, SpoutSide
+from aind_data_schema.components.devices import (
+    Device,
+    EphysAssembly,
+    EphysProbe,
+    LickSensorType,
+    Manipulator,
+    MotorizedStage,
+    MousePlatform,
+    Objective,
+    RewardDelivery,
+    RewardSpout,
+    SpoutSide,
+)
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.acquisition import Acquisition
 from aind_data_schema.core.data_description import DataDescription, Funding
@@ -285,7 +297,9 @@ class TestMetadata(unittest.TestCase):
                 serial_number="xxxx",  # grabbing from GUI/SettingFiles
                 manufacturer=Organization.NEW_SCALE_TECHNOLOGIES,
                 travel=15.0,  # unit is mm
-                firmware=("https://github.com/AllenNeuralDynamics/python-newscale,branch: axes-on-target,commit #7c17497"),
+                firmware=(
+                    "https://github.com/AllenNeuralDynamics/python-newscale,branch: axes-on-target,commit #7c17497"
+                ),
             ),
         )
 
