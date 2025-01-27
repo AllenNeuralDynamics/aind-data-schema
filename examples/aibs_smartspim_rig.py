@@ -39,7 +39,6 @@ camera1 = Detector(
 )
 laser1 = Laser(
     name="Ex_488",
-    device_type="Laser",
     coupling="Single-mode fiber",
     wavelength=488,
     maximum_power=150,
@@ -50,7 +49,6 @@ laser1 = Laser(
 )
 laser2 = Laser(
     name="Ex_561",
-    device_type="Laser",
     coupling="Single-mode fiber",
     wavelength=561,
     maximum_power=150,
@@ -61,7 +59,6 @@ laser2 = Laser(
 )
 laser3 = Laser(
     name="Ex_647",
-    device_type="Laser",
     coupling="Single-mode fiber",
     wavelength=647,
     maximum_power=160,
