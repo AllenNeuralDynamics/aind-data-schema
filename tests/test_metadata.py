@@ -29,6 +29,7 @@ from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.core.session import Session
 from aind_data_schema.core.subject import BreedingInfo, Housing, Sex, Species, Subject
 from tests.resources.spim_instrument import inst
+from tests.resources.ephys_instrument import inst as ephys_inst
 
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
 
@@ -84,8 +85,8 @@ class TestMetadata(unittest.TestCase):
             processing_pipeline=PipelineProcess(experimenters=[Person(name="Dan Processor")], data_processes=[]),
         )
 
-        cls.sample_name = "ecephys_655019_2023-04-03_18-17-09"
-        cls.sample_location = "s3://bucket/ecephys_655019_2023-04-03_18-17-09"
+        cls.sample_name = "655019_2023-04-03T181709"
+        cls.sample_location = "s3://bucket/655019_2023-04-03T181709"
         cls.subject = subject
         cls.dd = dd
         cls.procedures = procedures
@@ -114,8 +115,8 @@ class TestMetadata(unittest.TestCase):
             ),
             genotype="Emx1-IRES-Cre;Camk2a-tTA;Ai93(TITL-GCaMP6f)/wt",
         )
-        d1 = Metadata(name="ecephys_655019_2023-04-03_18-17-09", location="bucket", subject=s1)
-        self.assertEqual("ecephys_655019_2023-04-03_18-17-09", d1.name)
+        d1 = Metadata(name="655019_2023-04-03T181709", location="bucket", subject=s1)
+        self.assertEqual("655019_2023-04-03T181709", d1.name)
         self.assertEqual("bucket", d1.location)
         self.assertEqual(MetadataStatus.VALID, d1.metadata_status)
         self.assertEqual(s1, d1.subject)
@@ -125,11 +126,11 @@ class TestMetadata(unittest.TestCase):
         present"""
 
         d1 = Metadata(
-            name="ecephys_655019_2023-04-03_18-17-09",
+            name="655019_2023-04-03T181709",
             location="bucket",
         )
         self.assertEqual(MetadataStatus.MISSING, d1.metadata_status)
-        self.assertEqual("ecephys_655019_2023-04-03_18-17-09", d1.name)
+        self.assertEqual("655019_2023-04-03T181709", d1.name)
         self.assertEqual("bucket", d1.location)
 
         # Assert at least a name and location are required
@@ -151,7 +152,7 @@ class TestMetadata(unittest.TestCase):
         metadata_status as INVALID"""
 
         # Invalid subject model
-        d1 = Metadata(name="ecephys_655019_2023-04-03_18-17-09", location="bucket", subject=Subject.model_construct())
+        d1 = Metadata(name="655019_2023-04-03T181709", location="bucket", subject=Subject.model_construct())
         self.assertEqual(MetadataStatus.INVALID, d1.metadata_status)
 
         # Valid subject model, but invalid procedures model
@@ -171,7 +172,7 @@ class TestMetadata(unittest.TestCase):
             genotype="Emx1-IRES-Cre;Camk2a-tTA;Ai93(TITL-GCaMP6f)/wt",
         )
         d2 = Metadata(
-            name="ecephys_655019_2023-04-03_18-17-09",
+            name="655019_2023-04-03T181709",
             location="bucket",
             subject=s2,
             procedures=Procedures.model_construct(injection_materials=["some materials"]),
@@ -180,7 +181,7 @@ class TestMetadata(unittest.TestCase):
 
         # Tests constructed via dictionary
         d3 = Metadata(
-            name="ecephys_655019_2023-04-03_18-17-09",
+            name="655019_2023-04-03T181709",
             location="bucket",
             subject=json.loads(Subject.model_construct().model_dump_json()),
         )
@@ -297,7 +298,7 @@ class TestMetadata(unittest.TestCase):
         session = Session.model_construct(instrument_id="123_EPHYS1_20220101", mouse_platform_name="platform1")
 
         m = Metadata(
-            name="ecephys_655019_2023-04-03_18-17-09",
+            name="655019_2023-04-03T181709",
             location="bucket",
             data_description=DataDescription.model_construct(
                 subject_id="655019",
@@ -324,7 +325,7 @@ class TestMetadata(unittest.TestCase):
         modalities = [Modality.ECEPHYS]
         with self.assertRaises(ValidationError) as context:
             Metadata(
-                name="655019_2023-04-03_18-17-09",
+                name="655019_2023-04-03T181709",
                 location="bucket",
                 data_description=DataDescription.model_construct(
                     creation_time=time(12, 12, 12),
@@ -349,37 +350,40 @@ class TestMetadata(unittest.TestCase):
         modalities = [Modality.ECEPHYS]
         with self.assertRaises(ValidationError) as context:
             Metadata(
-                name="ecephys_655019_2023-04-03_18-17-09",
+                name="655019_2023-04-03T181709",
                 location="bucket",
                 data_description=DataDescription.model_construct(
                     creation_time=time(12, 12, 12),
                     modalities=modalities,
+                    subject_id="655019",
                 ),
                 subject=Subject.model_construct(),
                 procedures=Procedures.model_construct(subject_procedures=[surgery2]),
-                instrument=Instrument.model_construct(modalities=modalities),
+                instrument=ephys_inst,
                 processing=Processing.model_construct(),
                 session=Session.model_construct(),
+                acquisition=Acquisition.model_construct(instrument_id="323_EPHYS1_20231003"),
             )
         self.assertIn("Injection is missing injection_materials.", str(context.exception))
 
     def test_validate_instrument_session_compatibility(self):
         """Tests that instrument/session compatibility validator works as expected"""
 
+        modalities = [Modality.ECEPHYS]
         mouse_platform = MousePlatform.model_construct(name="platform1")
         inst = Instrument.model_construct(
             instrument_id="123_EPHYS1_20220101",
             mouse_platform=mouse_platform,
-            modalities=[Modality.ECEPHYS],
+            modalities=modalities,
             components=[ephys_assembly],
         )
         with self.assertRaises(ValidationError) as context:
             Metadata(
-                name="655019_2023-04-03_18-17-09",
+                name="655019_2023-04-03T181709",
                 location="bucket",
                 data_description=DataDescription.model_construct(
                     creation_time=time(12, 12, 12),
-                    modalities=[Modality.ECEPHYS],
+                    modalities=modalities,
                     subject_id="655019",
                 ),
                 subject=Subject.model_construct(),
@@ -389,10 +393,10 @@ class TestMetadata(unittest.TestCase):
                 acquisition=Acquisition.model_construct(
                     instrument_id="123_EPHYS2_20230101",
                 ),
-                session=Session.model_construct(instrument_id="123_EPHYS2_20230101"),
+                session=Session.model_construct(instrument_id="123_EPHYS2_20230101", mouse_platform_name="platform1"),
             )
         self.assertIn(
-            "Instrument ID in session 123_EPHYS2_20230101 does not match the rig's 123_EPHYS1_20220101.",
+            "Instrument ID in session 123_EPHYS2_20230101 does not match the instrument's 123_EPHYS1_20220101.",
             str(context.exception),
         )
 
