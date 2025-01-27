@@ -28,8 +28,7 @@ from aind_data_schema.core.processing import PipelineProcess, Processing
 from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.core.session import Session
 from aind_data_schema.core.subject import BreedingInfo, Housing, Sex, Species, Subject
-
-from resources.spim_instrument import inst
+from tests.resources.spim_instrument import inst
 
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
 
@@ -192,12 +191,13 @@ class TestMetadata(unittest.TestCase):
         surgery1 = Surgery.model_construct(procedures=[nano_inj, ionto_inj])
         with self.assertRaises(ValidationError) as context:
             Metadata(
-                name="ecephys_655019_2023-04-03_18-17-09",
+                name="655019_2023-04-03T181709",
                 location="bucket",
                 data_description=DataDescription.model_construct(
                     label="some label",
                     creation_time=time(12, 12, 12),
                     modalities=[Modality.SPIM],
+                    subject_id="655019",
                 ),
                 procedures=Procedures.model_construct(subject_procedures=[surgery1]),
                 acquisition=Acquisition.model_construct(),
