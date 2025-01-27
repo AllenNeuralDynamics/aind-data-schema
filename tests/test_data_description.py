@@ -285,21 +285,6 @@ class DataDescriptionTest(unittest.TestCase):
         assert Modality.from_abbreviation("ecephys") == Modality.ECEPHYS
         assert Organization().name_map["Allen Institute for Neural Dynamics"] == Organization.AIND
 
-    def test_name_label_error(self):
-        """Tests an error is raised if label and name are None"""
-
-        with self.assertRaises(ValidationError) as e:
-            DataDescription(
-                modalities=[Modality.SPIM],
-                subject_id="1234",
-                data_level="raw",
-                creation_time=datetime.datetime(2020, 10, 10, 10, 10, 10),
-                institution=Organization.AIND,
-                funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
-                investigators=[Person(name="Jane Smith")],
-            )
-        self.assertTrue("Value error, Either label or name must be set" in repr(e.exception))
-
     def test_round_trip(self):
         """make sure we can round trip from json"""
 
@@ -378,7 +363,6 @@ class DerivedDataDescriptionTest(unittest.TestCase):
 
         dd1 = DerivedDataDescription.from_data_description(d1, process_name=process_name)
         # check that the original name is in the derived name
-        print(dd1.name)
         self.assertTrue("1234_2020-10-10T101010_spikesorter_" in dd1.name)
         # check that the subject ID is retained
         self.assertEqual("1234", dd1.subject_id)

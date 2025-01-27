@@ -12,7 +12,7 @@ from aind_data_schema_models.organizations import Organization
 from pydantic import ValidationError
 from pydantic import __version__ as pyd_version
 
-from aind_data_schema.components.devices import EphysAssembly, EphysProbe, Manipulator, MousePlatform
+from aind_data_schema.components.devices import Device, EphysAssembly, EphysProbe, LickSensorType, Manipulator, MotorizedStage, MousePlatform, Objective, RewardDelivery, RewardSpout, SpoutSide
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.acquisition import Acquisition
 from aind_data_schema.core.data_description import DataDescription, Funding
@@ -205,26 +205,6 @@ class TestMetadata(unittest.TestCase):
             str(context.exception),
         )
 
-        # Tests excluded metadata getting included
-        surgery1 = Surgery.model_construct(procedures=[nano_inj, ionto_inj])
-        with self.assertRaises(ValidationError) as context:
-            Metadata(
-                name="ecephys_655019_2023-04-03_18-17-09",
-                location="bucket",
-                data_description=DataDescription.model_construct(
-                    creation_time=time(12, 12, 12),
-                    modalities=[Modality.SPIM],
-                ),
-                subject=Subject.model_construct(),
-                session=Session.model_construct(),
-                procedures=Procedures.model_construct(subject_procedures=[surgery1]),
-                acquisition=Acquisition.model_construct(),
-            )
-        self.assertIn(
-            "SPIM metadata includes excluded file: session",
-            str(context.exception),
-        )
-
         # Tests missing injection materials
         surgery2 = Surgery.model_construct(procedures=[nano_inj])
         with self.assertRaises(ValidationError) as context:
@@ -252,10 +232,56 @@ class TestMetadata(unittest.TestCase):
         surgery1 = Surgery.model_construct(procedures=[nano_inj, ionto_inj])
 
         mouse_platform = MousePlatform.model_construct(name="platform1")
+
+        objective = Objective(
+            name="TLX Objective",
+            numerical_aperture=0.2,
+            magnification=3.6,
+            immersion="multi",
+            manufacturer=Organization.THORLABS,
+            model="TL4X-SAP",
+            notes="Thorlabs TL4X-SAP with LifeCanvas dipping cap and correction optics.",
+        )
+
+        reward_delivery = RewardDelivery(
+            reward_spouts=[
+                RewardSpout(
+                    name="Left spout",
+                    side=SpoutSide.LEFT,
+                    spout_diameter=1.2,
+                    solenoid_valve=Device(name="Solenoid Left"),
+                    lick_sensor=Device(
+                        name="Janelia_Lick_Detector Left",
+                        manufacturer=Organization.JANELIA,
+                    ),
+                    lick_sensor_type=LickSensorType("Capacitive"),
+                ),
+                RewardSpout(
+                    name="Right spout",
+                    side=SpoutSide.RIGHT,
+                    spout_diameter=1.2,
+                    solenoid_valve=Device(name="Solenoid Right"),
+                    lick_sensor=Device(
+                        name="Janelia_Lick_Detector Right",
+                        manufacturer=Organization.JANELIA,
+                    ),
+                    lick_sensor_type=LickSensorType("Capacitive"),
+                ),
+            ],
+            stage_type=MotorizedStage(
+                name="NewScaleMotor for LickSpouts",
+                serial_number="xxxx",  # grabbing from GUI/SettingFiles
+                manufacturer=Organization.NEW_SCALE_TECHNOLOGIES,
+                travel=15.0,  # unit is mm
+                firmware=("https://github.com/AllenNeuralDynamics/python-newscale,branch: axes-on-target,commit #7c17497"),
+            ),
+        )
+
         inst = Instrument.model_construct(
             instrument_id="123_EPHYS1_20220101",
             mouse_platform=mouse_platform,
             modalities=[Modality.BEHAVIOR, Modality.SPIM],
+            components=[objective, reward_delivery],
         )
         session = Session.model_construct(instrument_id="123_EPHYS1_20220101", mouse_platform_name="platform1")
 
@@ -284,17 +310,18 @@ class TestMetadata(unittest.TestCase):
 
         # Tests missing metadata
         surgery1 = Surgery.model_construct(procedures=[nano_inj, ionto_inj])
+        modalities = [Modality.ECEPHYS]
         with self.assertRaises(ValidationError) as context:
             Metadata(
                 name="655019_2023-04-03_18-17-09",
                 location="bucket",
                 data_description=DataDescription.model_construct(
                     creation_time=time(12, 12, 12),
-                    modalities=[Modality.ECEPHYS],
+                    modalities=modalities,
                     subject_id="655019",
                 ),
                 procedures=Procedures.model_construct(subject_procedures=[surgery1]),
-                instrument=Instrument.model_construct(),
+                instrument=Instrument.model_construct(modalities=modalities),
             )
         self.assertIn(
             "ECEPHYS metadata missing required file: subject",
@@ -303,17 +330,18 @@ class TestMetadata(unittest.TestCase):
 
         # Tests missing injection materials
         surgery2 = Surgery.model_construct(procedures=[nano_inj])
+        modalities = [Modality.ECEPHYS]
         with self.assertRaises(ValidationError) as context:
             Metadata(
                 name="ecephys_655019_2023-04-03_18-17-09",
                 location="bucket",
                 data_description=DataDescription.model_construct(
                     creation_time=time(12, 12, 12),
-                    modalities=[Modality.ECEPHYS],
+                    modalities=modalities,
                 ),
                 subject=Subject.model_construct(),
                 procedures=Procedures.model_construct(subject_procedures=[surgery2]),
-                instrument=Instrument.model_construct(),
+                instrument=Instrument.model_construct(modalities=modalities),
                 processing=Processing.model_construct(),
                 session=Session.model_construct(),
             )

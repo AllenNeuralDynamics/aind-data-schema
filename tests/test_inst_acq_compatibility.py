@@ -237,12 +237,17 @@ ephys_inst = Instrument(
     instrument_id="323_EPHYS1_20231003",
     modification_date=date(2023, 10, 3),
     modalities=[Modality.ECEPHYS],
-    ephys_assemblies=[ephys_assemblyA, ephys_assemblyB],
-    cameras=[camassm1, camassm2],
-    laser_assemblies=[laser_assembly],
-    daqs=[basestation, harp],
-    stick_microscopes=[microscope],
-    mouse_platform=running_wheel,
+    components=[
+        ephys_assemblyA,
+        ephys_assemblyB,
+        camassm1,
+        camassm2,
+        laser_assembly,
+        basestation,
+        harp,
+        microscope,
+        running_wheel,
+    ],
     calibrations=[red_laser_calibration, blue_laser_calibration],
 )
 

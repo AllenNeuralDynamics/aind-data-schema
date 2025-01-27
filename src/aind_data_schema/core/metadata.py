@@ -35,7 +35,6 @@ CORE_FILES = [
     "subject",
     "data_description",
     "procedures",
-    "session",
     "instrument",
     "processing",
     "acquisition",
@@ -227,7 +226,7 @@ class Metadata(DataCoreModel):
                     if file not in requirement_dict:
                         requirement_dict[file] = (abbreviation, file_requirement)
                     else:
-                        (prev_modality, prev_requirement) = requirement_dict[file]
+                        (_, prev_requirement) = requirement_dict[file]
 
                         if (file_requirement == FileRequirement.REQUIRED) or (
                             file_requirement == FileRequirement.OPTIONAL

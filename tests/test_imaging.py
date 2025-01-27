@@ -16,7 +16,7 @@ from aind_data_schema.components.coordinates import (
     Scale3dTransform,
     Translation3dTransform,
 )
-from aind_data_schema.components.devices import Calibration
+from aind_data_schema.components.devices import Calibration, Objective
 from aind_data_schema.core import acquisition as acq
 from aind_data_schema.core.processing import Registration
 from aind_data_schema.core.instrument import Instrument
