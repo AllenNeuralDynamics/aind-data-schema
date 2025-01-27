@@ -12,7 +12,7 @@ from aind_data_schema_models.organizations import Organization
 from pydantic import ValidationError
 from pydantic import __version__ as pyd_version
 
-from aind_data_schema.components.devices import EphysAssembly, EphysProbe, Manipulator, MousePlatform, Objective
+from aind_data_schema.components.devices import EphysAssembly, EphysProbe, Manipulator, MousePlatform
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.acquisition import Acquisition
 from aind_data_schema.core.data_description import DataDescription, Funding
@@ -40,7 +40,7 @@ class TestMetadata(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         """Set up the test class."""
-        spim_instrument = inst
+        cls.spim_instrument = inst
 
         subject = Subject(
             species=Species.MUS_MUSCULUS,
