@@ -9,7 +9,6 @@ from aind_data_schema_models.data_name_patterns import (
     DataRegex,
     Group,
     build_data_name,
-    datetime_from_name_string,
 )
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization

@@ -3,7 +3,7 @@
 from typing import Optional
 
 from aind_data_schema.components.devices import CameraAssembly, EphysAssembly
-from aind_data_schema.core.instrument import RewardDelivery, Instrument
+from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.core.session import Session
 
 
@@ -18,9 +18,7 @@ class InstrumentSessionCompatibility:
     def _compare_instrument_id(self) -> Optional[ValueError]:
         """Compares instrument_id"""
         if self.session.instrument_id != self.inst.instrument_id:
-            return ValueError(
-                f"Instrument ID in session {self.session.instrument_id} does not match the instrument's {self.inst.instrument_id}."
-            )
+            return ValueError(f"Instrument ID in session {self.session.instrument_id} does not match the instrument's {self.inst.instrument_id}.")  # noqa: E501
         else:
             return None
 
@@ -157,7 +155,7 @@ class InstrumentSessionCompatibility:
         if not set(session_patch_cords).issubset(set(instrument_component_names)):
             return ValueError(
                 f"patch cord names in session do not match patch cord names in inst. "
-                f"session_patch_cords: {set(session_patch_cords)} instrument_patch_cords: {set(instrument_component_names)}"
+                f"session_patch_cords: {set(session_patch_cords)} instrument_patch_cords: {set(instrument_component_names)}"  # noqa: E501
             )
 
     def _compare_fiber_modules(self) -> Optional[ValueError]:
