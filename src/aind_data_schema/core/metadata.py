@@ -150,7 +150,8 @@ class Metadata(AindCoreModel):
                 core_model = field_class.model_validate(value)
             # If a validation error is raised,
             # we will construct the field without validation.
-            except ValidationError:
+            except ValidationError as e:
+                print(f"Error in {field_name}: {e}")
                 core_model = field_class.model_construct(**value)
         else:
             core_model = value
