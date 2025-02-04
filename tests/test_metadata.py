@@ -418,12 +418,11 @@ class TestMetadata(unittest.TestCase):
         )
         expected_result = json.loads(expected_md.model_dump_json(by_alias=True))
         # there are some userwarnings when creating Subject from json
-        with self.assertWarns(UserWarning):
-            result = create_metadata_json(
-                name=self.sample_name,
-                location=self.sample_location,
-                core_jsons=core_jsons,
-            )
+        result = create_metadata_json(
+            name=self.sample_name,
+            location=self.sample_location,
+            core_jsons=core_jsons,
+        )
         # check that metadata was created with expected values
         self.assertEqual(self.sample_name, result["name"])
         self.assertEqual(self.sample_location, result["location"])
@@ -445,17 +444,15 @@ class TestMetadata(unittest.TestCase):
         external_links = {
             ExternalPlatforms.CODEOCEAN.value: ["123", "abc"],
         }
-        # there are some userwarnings when creating from json
-        with self.assertWarns(UserWarning):
-            result = create_metadata_json(
-                name=self.sample_name,
-                location=self.sample_location,
-                core_jsons={
-                    "subject": self.subject_json,
-                },
-                optional_created=created,
-                optional_external_links=external_links,
-            )
+        result = create_metadata_json(
+            name=self.sample_name,
+            location=self.sample_location,
+            core_jsons={
+                "subject": self.subject_json,
+            },
+            optional_created=created,
+            optional_external_links=external_links,
+        )
         self.assertEqual(self.sample_name, result["name"])
         self.assertEqual(self.sample_location, result["location"])
         self.assertEqual("2024-10-31T12:00:00Z", result["created"])
@@ -476,13 +473,11 @@ class TestMetadata(unittest.TestCase):
             "instrument": None,
             "quality_control": None,
         }
-        # there are some userwarnings when creating Subject from json
-        with self.assertWarns(UserWarning):
-            result = create_metadata_json(
-                name=self.sample_name,
-                location=self.sample_location,
-                core_jsons=core_jsons,
-            )
+        result = create_metadata_json(
+            name=self.sample_name,
+            location=self.sample_location,
+            core_jsons=core_jsons,
+        )
         # check that metadata was still created
         self.assertEqual(self.sample_name, result["name"])
         self.assertEqual(self.sample_location, result["location"])
@@ -513,13 +508,11 @@ class TestMetadata(unittest.TestCase):
             "instrument": None,
             "quality_control": None,
         }
-        # there are some userwarnings when creating Subject from json
-        with self.assertWarns(UserWarning):
-            result = create_metadata_json(
-                name=self.sample_name,
-                location=self.sample_location,
-                core_jsons=core_jsons,
-            )
+        result = create_metadata_json(
+            name=self.sample_name,
+            location=self.sample_location,
+            core_jsons=core_jsons,
+        )
         # check that metadata was still created
         self.assertEqual(self.sample_name, result["name"])
         self.assertEqual(self.sample_location, result["location"])

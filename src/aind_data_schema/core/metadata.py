@@ -144,14 +144,11 @@ class Metadata(AindCoreModel):
         field_name = info.field_name
         field_class = [f for f in get_args(cls.model_fields[field_name].annotation) if inspect.isclass(f)][0]
 
-        # If the input is a json object, we will try to create the field
         if isinstance(value, dict):
             try:
                 core_model = field_class.model_validate(value)
-            # If a validation error is raised,
-            # we will construct the field without validation.
             except ValidationError as e:
-                print(f"Error in {field_name}: {e}")
+                print(f"Error in validating {field_name}: {e}")
                 core_model = field_class.model_construct(**value)
         else:
             core_model = value
