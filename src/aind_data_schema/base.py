@@ -87,7 +87,7 @@ class AindGeneric(BaseModel, extra="allow"):
     @model_validator(mode="after")
     def validate_fieldnames(self):
         """Warn users when field names contain forbidden characters
-        
+
         These characters will cause issues with MongoDB queries
         """
         model_dict = json.loads(self.model_dump_json(by_alias=True))
