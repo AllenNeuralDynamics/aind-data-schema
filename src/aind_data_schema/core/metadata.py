@@ -148,7 +148,7 @@ class Metadata(AindCoreModel):
             try:
                 core_model = field_class.model_validate(value)
             except ValidationError as e:
-                print(f"Error in validating {field_name}: {e}")
+                logging.warning(f"Error in validating {field_name}: {e}")
                 core_model = field_class.model_construct(**value)
         else:
             core_model = value
@@ -202,7 +202,7 @@ class Metadata(AindCoreModel):
                 try:
                     model_class(**model_contents)
                 except ValidationError as e:
-                    print(f"Error in {field_name}: {e}")
+                    logging.warning(f"Error in {field_name}: {e}")
                     metadata_status = MetadataStatus.INVALID
         # For certain required fields, like subject, if they are not present,
         # mark the metadata record as missing
