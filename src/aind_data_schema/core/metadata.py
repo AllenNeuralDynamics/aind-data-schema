@@ -147,7 +147,7 @@ class Metadata(AindCoreModel):
         # If the input is a json object, we will try to create the field
         if isinstance(value, dict):
             try:
-                core_model = field_class.model_validate_json(value)
+                core_model = field_class.model_validate(value)
             # If a validation error is raised,
             # we will construct the field without validation.
             except ValidationError:
@@ -203,7 +203,8 @@ class Metadata(AindCoreModel):
                 model_contents = model.model_dump()
                 try:
                     model_class(**model_contents)
-                except ValidationError:
+                except ValidationError as e:
+                    print(f"Error in {field_name}: {e}")
                     metadata_status = MetadataStatus.INVALID
         # For certain required fields, like subject, if they are not present,
         # mark the metadata record as missing
