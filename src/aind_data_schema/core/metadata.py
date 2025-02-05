@@ -144,13 +144,11 @@ class Metadata(AindCoreModel):
         field_name = info.field_name
         field_class = [f for f in get_args(cls.model_fields[field_name].annotation) if inspect.isclass(f)][0]
 
-        # If the input is a json object, we will try to create the field
         if isinstance(value, dict):
             try:
-                core_model = field_class.model_validate_json(value)
-            # If a validation error is raised,
-            # we will construct the field without validation.
-            except ValidationError:
+                core_model = field_class.model_validate(value)
+            except ValidationError as e:
+                logging.warning(f"Error in validating {field_name}: {e}")
                 core_model = field_class.model_construct(**value)
         else:
             core_model = value
@@ -203,7 +201,8 @@ class Metadata(AindCoreModel):
                 model_contents = model.model_dump()
                 try:
                     model_class(**model_contents)
-                except ValidationError:
+                except ValidationError as e:
+                    logging.warning(f"Error in {field_name}: {e}")
                     metadata_status = MetadataStatus.INVALID
         # For certain required fields, like subject, if they are not present,
         # mark the metadata record as missing
