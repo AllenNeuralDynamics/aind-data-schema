@@ -119,14 +119,14 @@ class BaseTests(unittest.TestCase):
                 AindGeneric(**params)
                 self.assertTrue(
                     any(
-                        "MongoDB queries will not work for fields that contain '.' or '$'" in str(warning.message)
+                        "fields that contain '.' or '$'" in str(warning.message)
                         for warning in w
                     )
                 )
                 AindGeneric.model_validate(params)
                 self.assertTrue(
                     any(
-                        "MongoDB queries will not work for fields that contain '.' or '$'" in str(warning.message)
+                        "fields that contain '.' or '$'" in str(warning.message)
                         for warning in w
                     )
                 )
