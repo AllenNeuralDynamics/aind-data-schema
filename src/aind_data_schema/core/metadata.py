@@ -21,7 +21,7 @@ from pydantic import (
     model_validator,
 )
 
-from aind_data_schema.base import AindCoreModel, is_dict_corrupt, AwareDatetimeWithDefault
+from aind_data_schema.base import AindCoreModel, AwareDatetimeWithDefault
 from aind_data_schema.core.acquisition import Acquisition
 from aind_data_schema.core.data_description import DataDescription
 from aind_data_schema.core.instrument import Instrument
