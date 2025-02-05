@@ -92,7 +92,7 @@ class AindGeneric(BaseModel, extra="allow"):
         """
         model_dict = json.loads(self.model_dump_json(by_alias=True))
         if is_dict_corrupt(model_dict):
-            warnings.warn("MongoDB queries will not work for fields that contain '.' or '$'")
+            warnings.warn("MongoDB queries may not work as expected for fields that contain '.' or '$'")
         return self
 
 
