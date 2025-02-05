@@ -117,19 +117,9 @@ class BaseTests(unittest.TestCase):
             with warnings.catch_warnings(record=True) as w:
                 warnings.simplefilter("always")
                 AindGeneric(**params)
-                self.assertTrue(
-                    any(
-                        "fields that contain '.' or '$'" in str(warning.message)
-                        for warning in w
-                    )
-                )
+                self.assertTrue(any("fields that contain '.' or '$'" in str(warning.message) for warning in w))
                 AindGeneric.model_validate(params)
-                self.assertTrue(
-                    any(
-                        "fields that contain '.' or '$'" in str(warning.message)
-                        for warning in w
-                    )
-                )
+                self.assertTrue(any("fields that contain '.' or '$'" in str(warning.message) for warning in w))
 
     def test_ccf_validator(self):
         """Tests that CCFStructure validator works"""

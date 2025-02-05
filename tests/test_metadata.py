@@ -4,7 +4,7 @@ import json
 import re
 import unittest
 from datetime import datetime, time, timezone
-from unittest.mock import MagicMock, call, patch
+from unittest.mock import MagicMock, patch
 import uuid
 
 from aind_data_schema_models.modalities import Modality
