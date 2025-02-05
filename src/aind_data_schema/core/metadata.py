@@ -21,7 +21,7 @@ from pydantic import (
     model_validator,
 )
 
-from aind_data_schema.base import AindCoreModel, is_dict_corrupt, AwareDatetimeWithDefault
+from aind_data_schema.base import AindCoreModel, AwareDatetimeWithDefault
 from aind_data_schema.core.acquisition import Acquisition
 from aind_data_schema.core.data_description import DataDescription
 from aind_data_schema.core.instrument import Instrument
@@ -318,10 +318,7 @@ def create_metadata_json(
     core_fields = dict()
     for key, value in core_jsons.items():
         if key in CORE_FILES and value is not None:
-            if is_dict_corrupt(value):
-                logging.warning(f"Provided {key} is corrupt! It will be ignored.")
-            else:
-                core_fields[key] = value
+            core_fields[key] = value
     # Create Metadata object and convert to JSON
     # If there are any validation errors, still create it
     # but set MetadataStatus as Invalid

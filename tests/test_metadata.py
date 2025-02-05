@@ -4,7 +4,7 @@ import json
 import re
 import unittest
 from datetime import datetime, time, timezone
-from unittest.mock import MagicMock, call, patch
+from unittest.mock import MagicMock, patch
 import uuid
 
 from aind_data_schema_models.modalities import Modality
@@ -490,45 +490,6 @@ class TestMetadata(unittest.TestCase):
         self.assertEqual(MetadataStatus.INVALID.value, result["metadata_status"])
         mock_warning.assert_called_once()
         self.assertIn("Issue with metadata construction!", mock_warning.call_args_list[0].args[0])
-
-    @patch("logging.warning")
-    @patch("aind_data_schema.core.metadata.is_dict_corrupt")
-    def test_create_from_core_jsons_corrupt(self, mock_is_dict_corrupt: MagicMock, mock_warning: MagicMock):
-        """Tests metadata json creation ignores corrupt core jsons"""
-        # mock corrupt procedures and processing
-        mock_is_dict_corrupt.side_effect = lambda x: (x == self.procedures_json or x == self.processing_json)
-        core_jsons = {
-            "subject": self.subject_json,
-            "data_description": None,
-            "procedures": self.procedures_json,
-            "session": None,
-            "rig": None,
-            "processing": self.processing_json,
-            "acquisition": None,
-            "instrument": None,
-            "quality_control": None,
-        }
-        result = create_metadata_json(
-            name=self.sample_name,
-            location=self.sample_location,
-            core_jsons=core_jsons,
-        )
-        # check that metadata was still created
-        self.assertEqual(self.sample_name, result["name"])
-        self.assertEqual(self.sample_location, result["location"])
-        self.assertEqual(self.subject_json, result["subject"])
-        self.assertIsNone(result["acquisition"])
-        self.assertEqual(MetadataStatus.VALID.value, result["metadata_status"])
-        # check that corrupt core jsons were ignored
-        self.assertIsNone(result["procedures"])
-        self.assertIsNone(result["processing"])
-        mock_warning.assert_has_calls(
-            [
-                call("Provided processing is corrupt! It will be ignored."),
-                call("Provided procedures is corrupt! It will be ignored."),
-            ],
-            any_order=True,
-        )
 
     def test_last_modified(self):
         """Test that the last_modified field enforces timezones"""
