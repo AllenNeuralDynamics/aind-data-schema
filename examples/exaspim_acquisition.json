@@ -85,6 +85,7 @@
          "file_name": "tile_X_0000_Y_0000_Z_0000_CH_488.ims",
          "channel": {
             "channel_name": "488",
+            "intended_measurement": null,
             "light_source_name": "Ex_488",
             "filter_names": [
                "Em_600"
@@ -96,6 +97,8 @@
             "excitation_power": 200.0,
             "excitation_power_unit": "milliwatt",
             "filter_wheel_index": 0,
+            "emission_wavelength": null,
+            "emission_wavelength_unit": "nanometer",
             "dilation": null,
             "dilation_unit": "pixel",
             "description": null
@@ -128,6 +131,7 @@
          "file_name": "tile_X_0000_Y_0000_Z_0000_CH_561.ims",
          "channel": {
             "channel_name": "561",
+            "intended_measurement": null,
             "light_source_name": "Ex_561",
             "filter_names": [
                "Em_600"
@@ -139,6 +143,8 @@
             "excitation_power": 200.0,
             "excitation_power_unit": "milliwatt",
             "filter_wheel_index": 0,
+            "emission_wavelength": null,
+            "emission_wavelength_unit": "nanometer",
             "dilation": null,
             "dilation_unit": "pixel",
             "description": null
