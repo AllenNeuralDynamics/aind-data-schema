@@ -4,7 +4,6 @@ import unittest
 from unittest.mock import patch
 
 from aind_data_schema.utils.examples_generator import ExamplesGenerator
-from unittest.mock import MagicMock
 
 
 class ExamplesGeneratorTest(unittest.TestCase):
@@ -14,12 +13,12 @@ class ExamplesGeneratorTest(unittest.TestCase):
     @patch('aind_data_schema.utils.examples_generator.runpy.run_path')
     def test_generate_all_examples(self, mock_run_path, mock_glob):
         """Test generate_all_examples method"""
-        mock_glob.return_value = ['example1.py', 'example2.py']
+        mock_glob.return_value = ['example1.json', 'example2.json']
         generator = ExamplesGenerator()
         generator.generate_all_examples()
         self.assertEqual(mock_run_path.call_count, 2)
-        mock_run_path.assert_any_call(path_name='example1.py')
-        mock_run_path.assert_any_call(path_name='example2.py')
+        mock_run_path.assert_any_call(path_name='example1.json')
+        mock_run_path.assert_any_call(path_name='example2.json')
 
     @patch('aind_data_schema.utils.examples_generator.runpy.run_path')
     def test_generate_example_success(self, mock_run_path):

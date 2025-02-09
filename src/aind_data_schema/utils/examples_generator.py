@@ -19,17 +19,20 @@ class ExamplesGenerator:
 
         logging.info(f"Running all examples in {EXAMPLES_DIR}")
         for example_file in glob(f"{EXAMPLES_DIR}/*.py"):
-            logging.info(f"Running {example_file}")
-            runpy.run_path(path_name=example_file)
+            self.generate_example(example_file)
 
     def generate_example(self, example_file):
         """Generate example from example_file"""
 
         logging.info(f"Running {example_file}")
+        original_dir = os.getcwd()
         try:
+            os.chdir(EXAMPLES_DIR)
             runpy.run_path(path_name=example_file)
         except Exception as e:
             logging.info(f"Error running {example_file}: {e}")
+        finally:
+            os.chdir(original_dir)
 
 
 if __name__ == "__main__":

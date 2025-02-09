@@ -8,6 +8,7 @@ import sys
 import unittest
 from pathlib import Path
 from unittest.mock import mock_open, patch
+from aind_data_schema.utils.examples_generator import ExamplesGenerator
 
 import dictdiffer
 
@@ -16,6 +17,12 @@ EXAMPLES_DIR = Path(__file__).parents[1] / "examples"
 
 class ExampleTests(unittest.TestCase):
     """tests for examples"""
+    
+    def setUp(self):
+        """Set up examples generator
+        """
+        examples_generator = ExamplesGenerator()
+        examples_generator.generate_all_examples()
 
     def test_examples(self):
         """run through each example, compare to rendered json"""
