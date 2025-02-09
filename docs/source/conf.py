@@ -5,6 +5,8 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 import os
 from datetime import date
+from aind_data_schema.utils.examples_generator import ExamplesGenerator
+
 
 # -- Path Setup --------------------------------------------------------------
 from os.path import abspath, dirname
@@ -103,3 +105,9 @@ for diagram in diagrams_list:
             diagram=diagram, url_base=DIAGRAM_URL
         )
     )
+
+# -- Setup python example files for aind-data-schema -----------------------------------------------------
+
+
+def setup(app):
+    ExamplesGenerator().generate_all_examples()
