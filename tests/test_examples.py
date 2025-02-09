@@ -17,10 +17,9 @@ EXAMPLES_DIR = Path(__file__).parents[1] / "examples"
 
 class ExampleTests(unittest.TestCase):
     """tests for examples"""
-    
+
     def setUp(self):
-        """Set up the examples tests by re-building all the example files
-        """
+        """Set up the examples tests by re-building all the example files"""
         examples_generator = ExamplesGenerator()
         examples_generator.generate_all_examples()
 
