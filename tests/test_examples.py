@@ -19,7 +19,7 @@ class ExampleTests(unittest.TestCase):
     """tests for examples"""
     
     def setUp(self):
-        """Set up examples generator
+        """Set up the examples tests by re-building all the example files
         """
         examples_generator = ExamplesGenerator()
         examples_generator.generate_all_examples()
