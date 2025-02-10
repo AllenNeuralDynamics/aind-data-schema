@@ -790,6 +790,8 @@ class Treadmill(MousePlatform):
     device_type: Literal["Treadmill"] = "Treadmill"
     treadmill_width: Decimal = Field(..., title="Width of treadmill (mm)")
     width_unit: SizeUnit = Field(default=SizeUnit.CM, title="Width unit")
+    encoder: Device = Field(..., title="Encoder")
+    pulse_per_revolution: int = Field(..., title="Pulse per revolution")
 
 
 class Arena(MousePlatform):
