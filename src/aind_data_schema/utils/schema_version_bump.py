@@ -8,7 +8,7 @@ from typing import Dict, List
 import dictdiffer
 import semver
 
-from aind_data_schema.base import DataCoreModel
+from aind_data_schema.base import AindCoreModel
 from aind_data_schema.utils.json_writer import SchemaWriter
 
 CURRENT_DIR = Path(os.path.dirname(os.path.realpath(__file__)))
@@ -34,51 +34,86 @@ class SchemaVersionHandler:
         self.commit_message = commit_message
         self.json_schemas_location = json_schemas_location
 
-    def _get_list_of_models_that_changed(self) -> List[DataCoreModel]:
+    def _get_schema_json(self, model: AindCoreModel) -> dict:
+        """
+        Get the json schema of a model
+        Parameters
+        ----------
+        model : AindCoreModel
+          The model to get the json schema of
+
+        Returns
+        -------
+        dict
+          The json schema of the model
+        """
+        default_filename = model.default_filename()
+        if default_filename.find(".") != -1:
+            schema_filename = default_filename[: default_filename.find(".")] + "_schema.json"
+        main_branch_schema_path = self.json_schemas_location / schema_filename
+        if main_branch_schema_path.exists():
+            with open(main_branch_schema_path, "r") as f:
+                main_branch_schema_contents = json.load(f)
+        else:
+            raise FileNotFoundError(f"Schema file not found: {main_branch_schema_path}")
+        return main_branch_schema_contents
+
+    def _get_list_of_models_that_changed(self) -> List[AindCoreModel]:
         """
         Get a list of core models that have been updated by comparing the json
         schema of the models to the json schema in the schemas folder.
         Returns
         -------
-        List[DataCoreModel]
-          A list of DataCoreModels that changed.
+        List[AindCoreModel]
+          A list of AindCoreModels that changed.
         """
         schemas_that_need_updating = []
         for core_model in SchemaWriter.get_schemas():
             core_model_json = core_model.model_json_schema()
-            default_filename = core_model.default_filename()
-            if default_filename.find(".") != -1:
-                schema_filename = default_filename[: default_filename.find(".")] + "_schema.json"
-            main_branch_schema_path = self.json_schemas_location / schema_filename
-            if main_branch_schema_path.exists():
-                with open(main_branch_schema_path, "r") as f:
-                    main_branch_schema_contents = json.load(f)
-                diff = dictdiffer.diff(main_branch_schema_contents, core_model_json)
-                if len(list(diff)) > 0:
-                    schemas_that_need_updating.append(core_model)
+            original_schema = self._get_schema_json(core_model)
+
+            diff_list = list(dictdiffer.diff(original_schema, core_model_json))
+
+            print(f"Diff for {core_model.__name__}: {diff_list}")
+            if len(diff_list) > 0:
+                schemas_that_need_updating.append(core_model)
+
+        print(f"Schemas that need updating: {[model.__name__ for model in schemas_that_need_updating]}")
         return schemas_that_need_updating
 
-    @staticmethod
-    def _get_incremented_versions_map(models_that_changed: List[DataCoreModel]) -> Dict[DataCoreModel, str]:
+    def _get_incremented_versions_map(self, models_that_changed: List[AindCoreModel]) -> Dict[AindCoreModel, str]:
         """
 
         Parameters
         ----------
-        models_that_changed : List[DataCoreModel]
+        models_that_changed : List[AindCoreModel]
           A list of models that have been updated and need to have their version numbers incremented.
 
         Returns
         -------
-        Dict[DataCoreModel, str]
-          A mapping of the DataCoreModel to its new version number.
+        Dict[AindCoreModel, str]
+          A mapping of the AindCoreModel to its new version number.
 
         """
         version_bump_map = {}
-        # TODO: Use commit message to determine version number to bump?
         for model in models_that_changed:
+            # We only want to bump the patch if the major or minor versions didn't already change
+            # Load the current version of the model
+            original_schema = self._get_schema_json(model)
+            schema_version = original_schema.get("properties", {}).get("schema_version", {}).get("default")
+            if schema_version:
+                orig_ver = semver.Version.parse(schema_version)
+            else:
+                raise ValueError("Schema version not found in the schema file")
+
             old_v = semver.Version.parse(model.model_fields["schema_version"].default)
-            new_v = old_v.bump_patch()
-            version_bump_map[model] = str(new_v)
+            if orig_ver.major == old_v.major and orig_ver.minor == old_v.minor:
+                print(f"Updating {model.__name__} from {old_v} to {old_v.bump_patch()}")
+                new_ver = old_v.bump_patch()
+                version_bump_map[model] = str(new_ver)
+            else:
+                print(f"Skipping {model.__name__}, major or minor version already updated")
+                new_ver = old_v
         return version_bump_map
 
     @staticmethod
@@ -98,6 +133,7 @@ class SchemaVersionHandler:
 
         """
         new_file_contents = []
+        print(f"Updating {python_file_path} to version {new_ver}")
         with open(python_file_path, "rb") as f:
             file_lines = f.readlines()
         for line in file_lines:
@@ -133,13 +169,13 @@ class SchemaVersionHandler:
             for line in new_file_contents:
                 f.write(line)
 
-    def _update_files(self, version_bump_map: Dict[DataCoreModel, str]) -> None:
+    def _update_files(self, version_bump_map: Dict[AindCoreModel, str]) -> None:
         """
         Using the information in the version_bump_map, will update the python
         files in the core directory.
         Parameters
         ----------
-        version_bump_map : Dict[DataCoreModel, str]
+        version_bump_map : Dict[AindCoreModel, str]
           The models that need updating are in the dictionary keys and the
           new version number is the dictionary value.
 

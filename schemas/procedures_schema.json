@@ -22571,6 +22571,37 @@
          "title": "Perfusion",
          "type": "object"
       },
+      "Person": {
+         "description": "Person identifier",
+         "properties": {
+            "name": {
+               "description": "First and last name OR anonymous ID",
+               "title": "Person's name",
+               "type": "string"
+            },
+            "registry": {
+               "$ref": "#/$defs/_Orcid",
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "ORCID ID"
+            }
+         },
+         "required": [
+            "name"
+         ],
+         "title": "Person",
+         "type": "object"
+      },
       "ProtectiveMaterial": {
          "description": "Name of material applied to craniotomy",
          "enum": [
@@ -27311,10 +27342,13 @@
                "title": "End date",
                "type": "string"
             },
-            "experimenter_full_name": {
-               "description": "First and last name of the experimenter.",
-               "title": "Experimenter full name",
-               "type": "string"
+            "experimenters": {
+               "default": [],
+               "items": {
+                  "$ref": "#/$defs/Person"
+               },
+               "title": "experimenter(s)",
+               "type": "array"
             },
             "protocol_id": {
                "description": "DOI for protocols.io",
@@ -27389,7 +27423,6 @@
             "specimen_id",
             "start_date",
             "end_date",
-            "experimenter_full_name",
             "protocol_id"
          ],
          "title": "SpecimenProcedure",
@@ -27912,10 +27945,20 @@
                "title": "Start date",
                "type": "string"
             },
-            "experimenter_full_name": {
-               "description": "First and last name of the experimenter.",
-               "title": "Experimenter full name",
-               "type": "string"
+            "experimenters": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "$ref": "#/$defs/Person"
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "experimenter(s)"
             },
             "ethics_review_id": {
                "anyOf": [
@@ -28080,7 +28123,6 @@
          "required": [
             "protocol_id",
             "start_date",
-            "experimenter_full_name",
             "procedures"
          ],
          "title": "Surgery",
@@ -60876,8 +60918,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "1.2.5",
-         "default": "1.2.5",
+         "const": "1.2.6",
+         "default": "1.2.6",
          "title": "Schema Version",
          "type": "string"
       },

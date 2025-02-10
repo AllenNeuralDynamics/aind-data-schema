@@ -1,13 +1,22 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/procedures.py",
-   "schema_version": "1.2.5",
+   "schema_version": "1.2.6",
    "subject_id": "625100",
    "subject_procedures": [
       {
          "procedure_type": "Surgery",
          "protocol_id": "doi",
          "start_date": "2022-07-12",
-         "experimenter_full_name": "John Apple",
+         "experimenters": [
+            {
+               "name": "Scientist Smith",
+               "registry": {
+                  "name": "Open Researcher and Contributor ID",
+                  "abbreviation": "ORCID"
+               },
+               "registry_identifier": null
+            }
+         ],
          "ethics_review_id": "2109",
          "animal_weight_prior": "22.6",
          "animal_weight_post": "22.3",
@@ -139,7 +148,16 @@
          "procedure_type": "Surgery",
          "protocol_id": "doi",
          "start_date": "2023-05-31",
-         "experimenter_full_name": "John Apple",
+         "experimenters": [
+            {
+               "name": "Scientist Smith",
+               "registry": {
+                  "name": "Open Researcher and Contributor ID",
+                  "abbreviation": "ORCID"
+               },
+               "registry_identifier": null
+            }
+         ],
          "ethics_review_id": "2109",
          "animal_weight_prior": null,
          "animal_weight_post": null,
@@ -170,7 +188,16 @@
          "specimen_id": "672640",
          "start_date": "2023-06-09",
          "end_date": "2023-06-12",
-         "experimenter_full_name": "John Apple",
+         "experimenters": [
+            {
+               "name": "Scientist Smith",
+               "registry": {
+                  "name": "Open Researcher and Contributor ID",
+                  "abbreviation": "ORCID"
+               },
+               "registry_identifier": null
+            }
+         ],
          "protocol_id": [
             "TO ENTER"
          ],
@@ -215,7 +242,16 @@
          "specimen_id": "672640",
          "start_date": "2023-06-12",
          "end_date": "2023-06-13",
-         "experimenter_full_name": "John Apple",
+         "experimenters": [
+            {
+               "name": "Scientist Smith",
+               "registry": {
+                  "name": "Open Researcher and Contributor ID",
+                  "abbreviation": "ORCID"
+               },
+               "registry_identifier": null
+            }
+         ],
          "protocol_id": [
             "TO ENTER"
          ],

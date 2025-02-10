@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/processing.py",
-   "schema_version": "1.1.5",
+   "schema_version": "1.1.6",
    "processing_pipeline": {
       "data_processes": [
          {
@@ -95,7 +95,16 @@
             "resources": null
          }
       ],
-      "processor_full_name": "Some Processor",
+      "experimenters": [
+         {
+            "name": "Dr. Dan",
+            "registry": {
+               "name": "Open Researcher and Contributor ID",
+               "abbreviation": "ORCID"
+            },
+            "registry_identifier": null
+         }
+      ],
       "pipeline_version": "0.1.1",
       "pipeline_url": "https://url/for/pipeline",
       "note": null
@@ -116,7 +125,16 @@
          "outputs": {},
          "notes": null,
          "resources": null,
-         "analyst_full_name": "Some Analyzer",
+         "experimenters": [
+            {
+               "name": "Some Analyzer",
+               "registry": {
+                  "name": "Open Researcher and Contributor ID",
+                  "abbreviation": "ORCID"
+               },
+               "registry_identifier": null
+            }
+         ],
          "description": "some description"
       },
       {
@@ -135,7 +153,16 @@
          "outputs": {},
          "notes": null,
          "resources": null,
-         "analyst_full_name": "Some Analyzer",
+         "experimenters": [
+            {
+               "name": "Some Analyzer",
+               "registry": {
+                  "name": "Open Researcher and Contributor ID",
+                  "abbreviation": "ORCID"
+               },
+               "registry_identifier": null
+            }
+         ],
          "description": "some description"
       }
    ],
