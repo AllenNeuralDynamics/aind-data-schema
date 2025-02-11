@@ -69,36 +69,3 @@ jobs:
           python -m aind_data_schema.utils.json_writer --output $TEMP_DIR --attach-version
           python -m pip install awscli
           aws s3 sync $TEMP_DIR s3://${AWS_DATA_SCHEMA_BUCKET}/$S3_PREFIX
-
-  upload_diagrams:
-    needs: tag_and_publish
-    runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-      contents: read
-    env:
-      AWS_DATA_SCHEMA_ROLE: ${{ secrets.AWS_DATA_SCHEMA_ROLE_PROD }}
-      AWS_DATA_SCHEMA_BUCKET: ${{ vars.AWS_DATA_SCHEMA_BUCKET_PROD }}
-      AWS_REGION : ${{ vars.AWS_REGION_PROD }}
-      DIAGRAM_DIRECTORY: ./docs/source/_static/diagrams
-    steps:
-      - uses: actions/checkout@master
-      - name: Pull latest changes
-        run: git pull origin main
-      - name: Set up Python 3.8
-        uses: actions/setup-python@v3
-        with:
-          python-version: 3.8
-      - name: Install dependencies
-        run: |
-          sudo apt install graphviz libgraphviz-dev -y
-          python -m pip install -e .[docs] --no-cache-dir
-          python -m pip install awscli
-      - name: Configure aws credentials
-        uses: aws-actions/configure-aws-credentials@v2
-        with:
-          role-to-assume: ${{ env.AWS_DATA_SCHEMA_ROLE }}
-          role-session-name: github-diagram-upload-session
-          aws-region: ${{ env.AWS_REGION }}
-      - name: Create and upload diagrams
-        run: aws s3 sync $DIAGRAM_DIRECTORY s3://${AWS_DATA_SCHEMA_BUCKET}/diagrams

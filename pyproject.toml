@@ -81,7 +81,6 @@ exclude = '''
 [tool.coverage.run]
 omit = [
     "*__init__*",
-    "*/aind_data_schema/utils/diagrams.py",
     "*/aind_data_schema/visualizations/*",
     "*/tests/test_diagram_builder.py"
 ]

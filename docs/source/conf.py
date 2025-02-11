@@ -79,27 +79,3 @@ html_show_sphinx = False
 
 # If true, "(C) Copyright ..." is shown in the HTML footer. Default is True.
 html_show_copyright = False
-
-DIAGRAM_URL = os.getenv("DIAGRAM_URL")
-diagrams_list = [
-    "acquisition",
-    "data_description",
-    "instrument",
-    "metadata.nd",
-    "procedures",
-    "processing",
-    "rig",
-    "session",
-    "subject",
-    "quality_control",
-]
-rst_epilog = ""
-for diagram in diagrams_list:
-    rst_epilog = (
-        rst_epilog
-        + """
-.. |{diagram}| image:: {url_base}/{diagram}.svg
-""".format(
-            diagram=diagram, url_base=DIAGRAM_URL
-        )
-    )
