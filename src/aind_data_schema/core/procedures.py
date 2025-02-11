@@ -167,6 +167,13 @@ class SampleType(str, Enum):
     OTHER = "Other"
 
 
+class InjectionProfile(str, Enum):
+    """Injection profile"""
+
+    BOLUS = "Bolus"
+    CONTINUOUS = "Continuous"
+
+
 class Readout(Reagent):
     """Description of a readout"""
 
@@ -428,6 +435,16 @@ class NonViralMaterial(Reagent):
         default=None, title="Concentration", description="Must provide concentration unit"
     )
     concentration_unit: str = Field(default="mg/mL", title="Concentration unit")
+
+
+class InjectionDynamics(AindModel):
+    """Description of the volume and rate of an injection"""
+
+    volume: Decimal = Field(..., title="Injection volume (uL)")
+    volume_unit: VolumeUnit = Field(default=VolumeUnit.UL, title="Injection volume unit")
+    rate: Decimal = Field(..., title="Injection rate (uL/min)")
+    rate_unit: VolumeUnit = Field(default=VolumeUnit.UL, title="Injection rate unit")
+    profile: InjectionProfile = Field(..., title="Injection profile")
 
 
 class Injection(AindModel):
