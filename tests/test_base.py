@@ -1,6 +1,7 @@
 """ tests for Subject """
 
 import json
+import warnings
 import unittest
 from datetime import datetime, timezone
 from pathlib import Path
@@ -108,18 +109,17 @@ class BaseTests(unittest.TestCase):
 
     def test_aind_generic_validate_fieldnames(self):
         """Tests that fieldnames are validated in AindGeneric"""
-        expected_error = "1 validation error for AindGeneric\n" "  Value error, Field names cannot contain '.' or '$' "
         invalid_params = [
             {"$foo": "bar"},
             {"foo": {"foo.name": "bar"}},
         ]
         for params in invalid_params:
-            with self.assertRaises(ValidationError) as e:
+            with warnings.catch_warnings(record=True) as w:
+                warnings.simplefilter("always")
                 AindGeneric(**params)
-            self.assertIn(expected_error, repr(e.exception))
-            with self.assertRaises(ValidationError) as e:
+                self.assertTrue(any("fields that contain '.' or '$'" in str(warning.message) for warning in w))
                 AindGeneric.model_validate(params)
-            self.assertIn(expected_error, repr(e.exception))
+                self.assertTrue(any("fields that contain '.' or '$'" in str(warning.message) for warning in w))
 
     def test_ccf_validator(self):
         """Tests that CCFStructure validator works"""

@@ -27601,6 +27601,21 @@
                "description": "Light sources for stimulation",
                "title": "Light source config"
             },
+            "objects_in_arena": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "type": "string"
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Objects in arena"
+            },
             "output_parameters": {
                "$ref": "#/$defs/AindGeneric",
                "default": {},
@@ -27688,6 +27703,7 @@
          "description": "Types of stimulus modalities",
          "enum": [
             "Auditory",
+            "Free moving",
             "Olfactory",
             "Optogenetics",
             "None",
@@ -58914,8 +58930,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "1.1.1",
-         "default": "1.1.1",
+         "const": "1.1.2",
+         "default": "1.1.2",
          "title": "Schema Version",
          "type": "string"
       },
