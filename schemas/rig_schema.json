@@ -12505,11 +12505,21 @@
                "$ref": "#/$defs/SizeUnit",
                "default": "centimeter",
                "title": "Width unit"
+            },
+            "encoder": {
+               "$ref": "#/$defs/Device",
+               "title": "Encoder"
+            },
+            "pulse_per_revolution": {
+               "title": "Pulse per revolution",
+               "type": "integer"
             }
          },
          "required": [
             "name",
-            "treadmill_width"
+            "treadmill_width",
+            "encoder",
+            "pulse_per_revolution"
          ],
          "title": "Treadmill",
          "type": "object"
@@ -18777,8 +18787,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "1.0.4",
-         "default": "1.0.4",
+         "const": "1.0.5",
+         "default": "1.0.5",
          "title": "Schema Version",
          "type": "string"
       },

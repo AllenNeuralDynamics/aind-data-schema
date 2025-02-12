@@ -57247,8 +57247,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "1.0.4",
-               "default": "1.0.4",
+               "const": "1.0.5",
+               "default": "1.0.5",
                "title": "Schema Version",
                "type": "string"
             },
@@ -62306,8 +62306,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "1.1.1",
-               "default": "1.1.1",
+               "const": "1.1.2",
+               "default": "1.1.2",
                "title": "Schema Version",
                "type": "string"
             },
@@ -70874,6 +70874,21 @@
                "description": "Light sources for stimulation",
                "title": "Light source config"
             },
+            "objects_in_arena": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "type": "string"
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Objects in arena"
+            },
             "output_parameters": {
                "$ref": "#/$defs/AindGeneric",
                "default": {},
@@ -70961,6 +70976,7 @@
          "description": "Types of stimulus modalities",
          "enum": [
             "Auditory",
+            "Free moving",
             "Olfactory",
             "Optogenetics",
             "None",
@@ -72341,11 +72357,21 @@
                "$ref": "#/$defs/SizeUnit",
                "default": "centimeter",
                "title": "Width unit"
+            },
+            "encoder": {
+               "$ref": "#/$defs/Device",
+               "title": "Encoder"
+            },
+            "pulse_per_revolution": {
+               "title": "Pulse per revolution",
+               "type": "integer"
             }
          },
          "required": [
             "name",
-            "treadmill_width"
+            "treadmill_width",
+            "encoder",
+            "pulse_per_revolution"
          ],
          "title": "Treadmill",
          "type": "object"
@@ -107144,8 +107170,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "1.1.2",
-         "default": "1.1.2",
+         "const": "1.1.3",
+         "default": "1.1.3",
          "title": "Schema Version",
          "type": "string"
       },
