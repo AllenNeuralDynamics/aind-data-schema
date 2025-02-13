@@ -29,7 +29,7 @@ class ModelTests(unittest.TestCase):
             license="CC-BY-4.0",
             developers=[Person(name="Dr. Dan")],
             developer_institution=Organization.AIND,
-            modality=[Modality.SPIM],
+            modalities=[Modality.SPIM],
             pretrained_source_url="url pretrained weights are from",
             architecture=ModelArchitecture(
                 backbone=ModelBackbone.RESNET,

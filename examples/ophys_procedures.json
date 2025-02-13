@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/procedures.py",
-   "schema_version": "1.2.6",
+   "schema_version": "2.0.0",
    "subject_id": "625100",
    "subject_procedures": [
       {
@@ -100,7 +100,7 @@
                         "model": null,
                         "path_to_cad": null,
                         "port_index": null,
-                        "additional_settings": {},
+                        "additional_settings": null,
                         "notes": null,
                         "core_diameter": "200",
                         "core_diameter_unit": "micrometer",
