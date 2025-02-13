@@ -205,28 +205,7 @@ class TestMetadata(unittest.TestCase):
 
     def test_validate_smartspim_metadata(self):
         """Tests that smartspim validator works as expected"""
-        viral_material = ViralMaterial.model_construct()
         nano_inj = NanojectInjection.model_construct()
-        ionto_inj = IontophoresisInjection.model_construct(injection_materials=[viral_material])
-
-        # Tests missing metadata
-        surgery1 = Surgery.model_construct(procedures=[nano_inj, ionto_inj])
-        with self.assertRaises(ValidationError) as context:
-            Metadata(
-                name="655019_2023-04-03T181709",
-                location="bucket",
-                data_description=DataDescription.model_construct(
-                    creation_time=time(12, 12, 12),
-                    modalities=[Modality.SPIM],
-                    subject_id="655019",
-                ),
-                procedures=Procedures.model_construct(subject_procedures=[surgery1]),
-                acquisition=Acquisition.model_construct(),
-            )
-        self.assertIn(
-            "SPIM metadata missing required file: subject",
-            str(context.exception),
-        )
 
         # Tests missing injection materials
         surgery2 = Surgery.model_construct(procedures=[nano_inj])
@@ -330,34 +309,7 @@ class TestMetadata(unittest.TestCase):
 
     def test_validate_ecephys_metadata(self):
         """Tests that ecephys validator works as expected"""
-        viral_material = ViralMaterial.model_construct()
         nano_inj = NanojectInjection.model_construct()
-        ionto_inj = IontophoresisInjection.model_construct(injection_materials=[viral_material])
-
-        # Tests missing metadata
-        surgery1 = Surgery.model_construct(procedures=[nano_inj, ionto_inj])
-        modalities = [Modality.ECEPHYS]
-        with self.assertRaises(ValidationError) as context:
-            Metadata(
-                name="655019_2023-04-03T181709",
-                location="bucket",
-                data_description=DataDescription.model_construct(
-                    creation_time=time(12, 12, 12),
-                    modalities=modalities,
-                    subject_id="655019",
-                ),
-                procedures=Procedures.model_construct(subject_procedures=[surgery1]),
-                instrument=Instrument.model_construct(
-                    modalities=modalities,
-                    components=[
-                        ephys_assembly,
-                    ],
-                ),
-            )
-        self.assertIn(
-            "ECEPHYS metadata missing required file: subject",
-            str(context.exception),
-        )
 
         # Tests missing injection materials
         surgery2 = Surgery.model_construct(procedures=[nano_inj])
@@ -494,40 +446,6 @@ class TestMetadata(unittest.TestCase):
         self.assertEqual(self.sample_location, result["location"])
         self.assertEqual("2024-10-31T12:00:00Z", result["created"])
         self.assertEqual(external_links, result["external_links"])
-
-    @patch("logging.warning")
-    def test_create_from_core_jsons_invalid(self, mock_warning: MagicMock):
-        """Tests that metadata json is marked invalid if there are errors"""
-        # data_description triggers cross-validation of other fields to fail
-        core_jsons = {
-            "subject": self.subject_json,
-            "data_description": self.dd_json,
-            "procedures": self.procedures_json,
-            "session": None,
-            "instrument": None,
-            "processing": self.processing_json,
-            "acquisition": None,
-            "quality_control": None,
-        }
-        # there are some userwarnings when creating Subject from json
-        with self.assertWarns(UserWarning):
-            result = create_metadata_json(
-                name=self.sample_name,
-                location=self.sample_location,
-                core_jsons=core_jsons,
-            )
-        # check that metadata was still created
-        self.assertEqual(self.sample_name, result["name"])
-        self.assertEqual(self.sample_location, result["location"])
-        self.assertEqual(self.subject_json, result["subject"])
-        self.assertEqual(self.dd_json, result["data_description"])
-        self.assertEqual(self.procedures_json, result["procedures"])
-        self.assertEqual(self.processing_json, result["processing"])
-        self.assertIsNone(result["acquisition"])
-        # check that metadata was marked as invalid
-        self.assertEqual(MetadataStatus.INVALID.value, result["metadata_status"])
-        mock_warning.assert_called_once()
-        self.assertIn("Issue with metadata construction!", mock_warning.call_args_list[0].args[0])
 
     @patch("logging.warning")
     @patch("aind_data_schema.core.metadata.is_dict_corrupt")

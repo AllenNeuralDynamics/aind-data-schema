@@ -5,6 +5,7 @@ import json
 import logging
 from datetime import datetime, timezone
 from enum import Enum
+import warnings
 from typing import Dict, List, Literal, Optional, get_args
 from uuid import UUID, uuid4
 
@@ -47,7 +48,6 @@ REQUIRED_FILES = [
     "procedures",
     "instrument",
     "acquisition",
-    "quality_control",
 ]
 
 
@@ -219,11 +219,11 @@ class Metadata(DataCoreModel):
 
     @model_validator(mode="after")
     def validate_expected_files_by_modality(self):
-        """Validator checks that all required/excluded files match the metadata model"""
+        """Validator warns users if required files are missing"""
 
         for file in REQUIRED_FILES:
             if not getattr(self, file):
-                raise ValueError(f"Metadata missing required file: {file}")
+                warnings.warn(f"Metadata missing required file: {file}")
 
         return self
 
