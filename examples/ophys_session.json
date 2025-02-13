@@ -57,13 +57,53 @@
                "patch_cord_name": "Patch Cord A",
                "patch_cord_output_power": "40",
                "output_power_unit": "microwatt",
-               "fiber_name": "Fiber A"
+               "fiber_name": "Fiber A",
+               "channel": {
+                  "channel_name": "Channel A",
+                  "intended_measurement": "Dopamine",
+                  "light_source_name": "Laser A",
+                  "filter_names": [
+                     "Excitation filter 410nm"
+                  ],
+                  "detector_name": "Green CMOS",
+                  "additional_device_names": [],
+                  "excitation_wavelength": 410,
+                  "excitation_wavelength_unit": "nanometer",
+                  "excitation_power": 10.0,
+                  "excitation_power_unit": "milliwatt",
+                  "filter_wheel_index": null,
+                  "emission_wavelength": 600,
+                  "emission_wavelength_unit": "nanometer",
+                  "dilation": null,
+                  "dilation_unit": "pixel",
+                  "description": null
+               }
             },
             {
                "patch_cord_name": "Patch Cord B",
                "patch_cord_output_power": "43",
                "output_power_unit": "microwatt",
-               "fiber_name": "Fiber B"
+               "fiber_name": "Fiber B",
+               "channel": {
+                  "channel_name": "Channel B",
+                  "intended_measurement": "Dopamine",
+                  "light_source_name": "Laser B",
+                  "filter_names": [
+                     "Excitation filter 560nm"
+                  ],
+                  "detector_name": "Red CMOS",
+                  "additional_device_names": [],
+                  "excitation_wavelength": 560,
+                  "excitation_wavelength_unit": "nanometer",
+                  "excitation_power": 7.0,
+                  "excitation_power_unit": "milliwatt",
+                  "filter_wheel_index": null,
+                  "emission_wavelength": 700,
+                  "emission_wavelength_unit": "nanometer",
+                  "dilation": null,
+                  "dilation_unit": "pixel",
+                  "description": null
+               }
             }
          ],
          "fiber_modules": [],
@@ -78,7 +118,7 @@
             }
          ],
          "software": [],
-         "notes": "Internal trigger. GRAB-DA2m shows signal. Unclear about GRAB-rAC"
+         "notes": "Internal trigger."
       }
    ],
    "stimulus_epochs": [],
