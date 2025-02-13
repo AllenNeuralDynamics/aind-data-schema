@@ -440,10 +440,10 @@ class TestMetadata(unittest.TestCase):
         }
         # invalid core_jsons
         metadata = create_metadata_json(
-                name=self.sample_name,
-                location=self.sample_location,
-                core_jsons=core_jsons,
-            )
+            name=self.sample_name,
+            location=self.sample_location,
+            core_jsons=core_jsons,
+        )
         self.assertEqual(MetadataStatus.INVALID.value, metadata["metadata_status"])
 
     def test_create_from_core_jsons_optional_overwrite(self):
