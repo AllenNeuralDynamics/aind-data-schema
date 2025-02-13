@@ -170,7 +170,7 @@ class DerivedDataDescription(DataDescription):
         if m is None:
             raise ValueError(f"name({name}) does not match pattern")
 
-        creation_time = datetime.fromisoformat(m.group("c_datetime"))
+        creation_time = datetime_from_name_string(m.group("c_datetime"))  # replace with fromisoformat in python >3.11
 
         return dict(
             process_name=m.group("process_name"),
