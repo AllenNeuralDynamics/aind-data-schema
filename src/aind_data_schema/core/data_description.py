@@ -126,7 +126,7 @@ class DataDescription(DataCoreModel):
         if m is None:
             raise ValueError(f"name({name}) does not match pattern")
 
-        creation_time = datetime_from_name_string(m.group("c_datetime"))
+        creation_time = datetime_from_name_string(m.group("c_datetime"))  # replace with fromisoformat in python >3.11
 
         return dict(
             label=m.group("label"),
@@ -271,7 +271,7 @@ class RawDataDescription(DataDescription):
         if m is None:
             raise ValueError(f"name({name}) does not match pattern")
 
-        creation_time = datetime.fromisoformat(m.group("c_datetime"))
+        creation_time = datetime_from_name_string(m.group("c_datetime"))  # replace with fromisoformat in python >3.11
 
         return dict(
             subject_id=m.group("subject_id"),
@@ -313,7 +313,7 @@ class AnalysisDescription(DataDescription):
         if m is None:
             raise ValueError(f"name({name}) does not match pattern")
 
-        creation_time = datetime.fromisoformat(m.group("c_datetime"))
+        creation_time = datetime_from_name_string(m.group("c_datetime"))  # replace with fromisoformat in python >3.11
 
         return dict(
             project_abbreviation=m.group("project_abbreviation"),
