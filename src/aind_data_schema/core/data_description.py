@@ -9,6 +9,7 @@ from aind_data_schema_models.data_name_patterns import (
     DataRegex,
     Group,
     build_data_name,
+    datetime_from_name_string,
 )
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
@@ -125,7 +126,7 @@ class DataDescription(DataCoreModel):
         if m is None:
             raise ValueError(f"name({name}) does not match pattern")
 
-        creation_time = datetime.fromisoformat(m.group("c_datetime"))
+        creation_time = datetime_from_name_string(m.group("c_datetime"))
 
         return dict(
             label=m.group("label"),
