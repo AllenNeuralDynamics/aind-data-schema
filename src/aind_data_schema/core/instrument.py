@@ -14,7 +14,6 @@ from aind_data_schema.components.devices import (
     AdditionalImagingDevice,
     Calibration,
     CameraAssembly,
-    CameraTarget,
     DAQDevice,
     Detector,
     Device,
@@ -164,30 +163,17 @@ class Instrument(DataCoreModel):
         return sorted(modalities, key=lambda x: x.get("name") if isinstance(x, dict) else x.name)
 
     @model_validator(mode="after")
-    def validate_cameras_other(self):
-        """check if any cameras contain an 'other' field"""
-
-        if self.notes is None:
-            for component in self.components:
-                if isinstance(component, CameraAssembly) and component.camera_target == CameraTarget.OTHER:
-                    raise ValueError(
-                        f"Notes cannot be empty if a camera target contains an 'Other' field. "
-                        f"Describe the camera target from ({component.name}) in the notes field"
-                    )
-
-        return self
-
-    @field_validator("connections", mode="after")
-    def validate_device_names(cls, value: List[Connection], info: ValidationInfo) -> List[Connection]:
+    @classmethod
+    def validate_connections(cls, self):
         """validate that all connections map between devices that actually exist"""
-        device_names = [device.name for device in info.data.get("components", [])]
+        device_names = [device.name for device in self.components]
 
-        for connection in value:
+        for connection in self.connections:
             for device_name in connection.device_names:
                 if device_name not in device_names:
-                    raise ValueError(f"Device name validation error: '{device_name}' is not part of the inst.")
+                    raise ValueError(f"Device name validation error: '{device_name}' is not part of the instrument.")
 
-        return value
+        return self
 
     @field_validator("notes", mode="after")
     def validate_other(cls, value: Optional[str], info: ValidationInfo) -> Optional[str]:
@@ -220,9 +206,9 @@ class Instrument(DataCoreModel):
             ValueError: If a required device type is missing for any modality.
         """
 
-        # Return if there are no modalities listed, this is largely for testing
+        # Return if there are no modalities listed, this is for testing
         if len(value.modalities) == 0:
-            return value
+            return value  # pragma: no cover
 
         # Retrieve the components from the validation info
         components = value.components
@@ -233,7 +219,7 @@ class Instrument(DataCoreModel):
             required_device_groups = DEVICES_REQUIRED.get(modality.abbreviation)
             if not required_device_groups:
                 # Skip modalities that don't require validation
-                continue
+                continue  # pragma: no cover
 
             # Check each group of required devices
             for required_group in required_device_groups:
