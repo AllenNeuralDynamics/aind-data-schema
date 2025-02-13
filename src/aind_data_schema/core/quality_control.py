@@ -92,21 +92,10 @@ class QCEvaluation(DataModel):
             " will allow individual metrics to fail while still passing the evaluation."
         ),
     )
-    latest_status: Status = Field(default=None, title="Evaluation status")
+    latest_status: Optional[Status] = Field(default=None, title="Evaluation status")
     created: AwareDatetimeWithDefault = Field(
         default_factory=lambda: datetime.now(tz=timezone.utc), title="Evaluation creation date"
     )
-
-    def status(self, date: datetime = datetime.now(tz=timezone.utc)) -> Status:
-        """DEPRECATED
-
-        Replace with QCEvaluation.status or QCEvaluation.evaluate_status()
-        """
-        warnings.warn(
-            "The status method is deprecated. Please use QCEvaluation.status or QCEvaluation.evaluate_status()",
-            DeprecationWarning,
-        )
-        return self.evaluate_status(date)
 
     @property
     def failed_metrics(self) -> Optional[List[QCMetric]]:
