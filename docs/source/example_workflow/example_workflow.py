@@ -34,9 +34,8 @@ for session_idx, session in sessions_df.iterrows():
         subject_id=str(session["mouse_id"]),
         creation_time=session["end_time"].to_pydatetime(),
         institution=Organization.OTHER,
-        experimenters=[experimenter],
         funding_source=[Funding(funder=Organization.NIMH)],
-        investigators=[experimenter)],
+        investigators=[experimenter],
     )
 
     # we will store our json files in a directory named after the session
