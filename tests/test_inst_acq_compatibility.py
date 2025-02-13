@@ -735,6 +735,7 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
         ]
         stimulus_devices = [
             d.RewardDelivery(
+                name="Reward Delivery",
                 reward_spouts=[
                     d.RewardSpout(
                         name="Left spout",
@@ -864,13 +865,6 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
     def test_run_compatibility_check(self):
         """Tests compatibility check"""
 
-        self.assertRaises(
-            ValueError,
-            InstrumentSessionCompatibility(
-                instrument=self.ophys_instrument, session=self.ophys_session
-            ).run_compatibility_check,
-        )
-
         with self.assertRaises(ValueError):
             InstrumentSessionCompatibility(
                 instrument=self.ophys_instrument, session=self.ophys_session
@@ -883,6 +877,98 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
             instrument=self.example_ephys_inst, session=self.example_ephys_session
         )
         self.assertIsNone(example_ephys_check.run_compatibility_check())
+
+    def test_compare_instrument_id_error(self):
+        self.ophys_session.instrument_id = "wrong_id"
+        with self.assertRaises(ValueError):
+            InstrumentSessionCompatibility(
+                instrument=self.ophys_instrument, session=self.ophys_session
+            ).run_compatibility_check()
+
+    def test_compare_mouse_platform_name_error(self):
+        self.ophys_session.mouse_platform_name = "wrong_platform"
+        with self.assertRaises(ValueError):
+            InstrumentSessionCompatibility(
+                instrument=self.ophys_instrument, session=self.ophys_session
+            ).run_compatibility_check()
+
+    def test_compare_daq_names_error(self):
+        self.ophys_session.data_streams[0].daq_names = ["wrong_daq"]
+        with self.assertRaises(ValueError):
+            InstrumentSessionCompatibility(
+                instrument=self.ophys_instrument, session=self.ophys_session
+            ).run_compatibility_check()
+
+    def test_compare_camera_names_error(self):
+        self.ophys_session.data_streams[0].camera_names = ["wrong_camera"]
+        with self.assertRaises(ValueError):
+            InstrumentSessionCompatibility(
+                instrument=self.ophys_instrument, session=self.ophys_session
+            ).run_compatibility_check()
+
+    def test_compare_light_sources_error(self):
+        self.ophys_session.data_streams[0].light_sources = [
+            LaserConfig(name="wrong_laser", wavelength=488, excitation_power=10, excitation_power_unit="milliwatt"),
+        ]
+        with self.assertRaises(ValueError):
+            InstrumentSessionCompatibility(
+                instrument=self.ophys_instrument, session=self.ophys_session
+            ).run_compatibility_check()
+
+    def test_compare_ephys_assemblies_error(self):
+        module = ManipulatorModule(
+                    targeted_ccf_coordinates=[
+                        CcfCoords(ml=8150, ap=3250, dv=7800),
+                    ],
+                    assembly_name="fake module",
+                    arc_angle=5.2,
+                    module_angle=8,
+                    coordinate_transform="behavior/calibration_info_np2_2023_04_24.npy",
+                    primary_targeted_structure=CCFStructure.LGD,
+                    manipulator_coordinates=Coordinates3d(x=8422, y=4205, z=11087.5),
+                    calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
+                    notes=(
+                        "Moved Y to avoid blood vessel, X to avoid edge. Mouse made some noise during the recording"
+                        " with a sudden shift in signals. Lots of motion. Maybe some implant motion."
+                    ),
+                )
+        self.ophys_session.data_streams[0].ephys_modules = [module]
+        with self.assertRaises(ValueError):
+            InstrumentSessionCompatibility(
+                instrument=self.ophys_instrument, session=self.ophys_session
+            ).run_compatibility_check()
+
+    def test_compare_stick_microscopes_error(self):
+        self.ophys_session.data_streams[0].stick_microscopes = [
+            DomeModule(assembly_name="wrong_microscope", rotation_angle=0, arc_angle=-180, module_angle=-180)
+        ]
+        with self.assertRaises(ValueError):
+            InstrumentSessionCompatibility(
+                instrument=self.ophys_instrument, session=self.ophys_session
+            ).run_compatibility_check()
+
+    def test_compare_manipulator_modules_error(self):
+        module = ManipulatorModule(
+                    targeted_ccf_coordinates=[
+                        CcfCoords(ml=8150, ap=3250, dv=7800),
+                    ],
+                    assembly_name="fake module",
+                    arc_angle=5.2,
+                    module_angle=8,
+                    coordinate_transform="behavior/calibration_info_np2_2023_04_24.npy",
+                    primary_targeted_structure=CCFStructure.LGD,
+                    manipulator_coordinates=Coordinates3d(x=8422, y=4205, z=11087.5),
+                    calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
+                    notes=(
+                        "Moved Y to avoid blood vessel, X to avoid edge. Mouse made some noise during the recording"
+                        " with a sudden shift in signals. Lots of motion. Maybe some implant motion."
+                    ),
+                )
+        self.ophys_session.data_streams[0].manipulator_modules = [module]
+        with self.assertRaises(ValueError):
+            InstrumentSessionCompatibility(
+                instrument=self.ophys_instrument, session=self.ophys_session
+            ).run_compatibility_check()
 
 
 if __name__ == "__main__":

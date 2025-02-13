@@ -247,6 +247,7 @@ class TestMetadata(unittest.TestCase):
         )
 
         reward_delivery = RewardDelivery(
+            name="Reward Delivery",
             reward_spouts=[
                 RewardSpout(
                     name="Left spout",
@@ -424,6 +425,26 @@ class TestMetadata(unittest.TestCase):
         expected_result["created"] = result["created"]
         expected_result["last_modified"] = result["last_modified"]
         self.assertDictEqual(expected_result, result)
+
+    def test_create_from_core_jsons_invalid(self):
+        """Tests metadata json creation with invalid inputs"""
+        core_jsons = {
+            "subject": self.subject_json,
+            "data_description": None,
+            "procedures": self.procedures_json,
+            "session": None,
+            "instrument": Instrument.model_construct().model_dump(),
+            "processing": Procedures.model_construct(injection_materials=["some materials"]).model_dump(),
+            "acquisition": None,
+            "quality_control": None,
+        }
+        # invalid core_jsons
+        metadata = create_metadata_json(
+                name=self.sample_name,
+                location=self.sample_location,
+                core_jsons=core_jsons,
+            )
+        self.assertEqual(MetadataStatus.INVALID.value, metadata["metadata_status"])
 
     def test_create_from_core_jsons_optional_overwrite(self):
         """Tests metadata json creation with created and external links"""

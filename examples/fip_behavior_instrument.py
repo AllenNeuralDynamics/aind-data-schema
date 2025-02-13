@@ -111,6 +111,7 @@ harp_behavior = HarpDevice(
 )
 
 reward_delivery = RewardDelivery(
+    name="Reward Delivery",
     reward_spouts=[
         RewardSpout(
             name="Left spout",

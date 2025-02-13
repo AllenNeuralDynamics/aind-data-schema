@@ -34,7 +34,7 @@ from aind_data_schema.components.devices import (
     OlfactometerChannel,
     Patch,
 )
-from aind_data_schema.core.instrument import Instrument, DEVICES_REQUIRED
+from aind_data_schema.core.instrument import Connection, Instrument, DEVICES_REQUIRED
 
 daqs = [
     NeuropixelsBasestation(
@@ -260,8 +260,48 @@ class InstrumentTests(unittest.TestCase):
                     output={"power mW": [2, 6, 10]},
                 )
             ],
+            connections=[
+                Connection(
+                    device_names=["Olfactometer", "Laser A"],
+                )
+            ],
         )
         self.assertIsNotNone(inst)
+
+    def test_missing_connections(self):
+        """Validation error when connections are missing"""
+        with self.assertRaises(ValidationError):
+            Instrument(
+                instrument_id="123_EPHYS1-OPTO_20220101",
+                modification_date=date(2020, 10, 10),
+                modalities=[Modality.ECEPHYS, Modality.FIB],
+                components=[
+                    *daqs,
+                    *cameras,
+                    *stick_microscopes,
+                    *light_sources,
+                    *lms,
+                    *ems,
+                    *detectors,
+                    *patch_cords,
+                    *stimulus_devices,
+                ],
+                mouse_platform=Disc(name="Disc A", radius=1),
+                calibrations=[
+                    Calibration(
+                        calibration_date=date(2020, 10, 10),
+                        device_name="Laser A",
+                        description="Laser power calibration",
+                        input={"power percent": [10, 40, 80]},
+                        output={"power mW": [2, 6, 10]},
+                    )
+                ],
+                connections=[
+                    Connection(
+                        device_names=["Not a real device"],
+                    )
+                ],
+            )
 
     def test_validator_modality_device_missing(self):
         """Test that the modality -> device validator throws validation errors when devices are missing"""

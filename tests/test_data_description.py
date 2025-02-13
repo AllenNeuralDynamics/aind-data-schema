@@ -7,7 +7,9 @@ import re
 import unittest
 from pathlib import Path
 from typing import List
+from unittest.mock import MagicMock, patch
 
+from aind_data_schema_models.data_name_patterns import DataLevel
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
 from pydantic import ValidationError
@@ -66,6 +68,29 @@ class DataDescriptionTest(unittest.TestCase):
             investigators=[Person(name="Jane Smith")],
         )
         self.assertIsNotNone(da)
+
+    def test_build_name(self):
+        """Test build_data_name function"""
+        dt = datetime.datetime(2022, 10, 12, 23, 23, 11)
+        name = build_data_name("project", dt)
+        self.assertEqual(name, "project_2022-10-12T232311")
+
+    @patch("aind_data_schema.core.data_description.build_data_name")
+    def test_build_name_validation_error(self, mock_build_data_name: MagicMock):
+        """Test build_data_name function to trigger validation error"""
+        mock_build_data_name.return_value = "invalid"
+
+        dt = datetime.datetime(2022, 10, 12, 23, 23, 11)
+        with self.assertRaises(ValueError):
+            DataDescription(
+                modalities=[Modality.SPIM],
+                subject_id="1234",
+                data_level=DataLevel.RAW,
+                creation_time=dt,
+                institution=Organization.AIND,
+                funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
+                investigators=[Person(name="Jane Smith")],
+            )
 
     def test_derived_data_description_construction(self):
         """Test DerivedDataDescription construction"""
@@ -349,11 +374,13 @@ class DerivedDataDescriptionTest(unittest.TestCase):
     def test_from_data_description(self):
         """Tests DerivedDataDescription.from_data_description method"""
 
+        dt = datetime.datetime(2020, 10, 10, 10, 10, 10)
+
         d1 = DataDescription(
             modalities=[Modality.SPIM],
             subject_id="1234",
             data_level="raw",
-            creation_time=datetime.datetime(2020, 10, 10, 10, 10, 10),
+            creation_time=dt,
             institution=Organization.AIND,
             funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
             investigators=[Person(name="Jane Smith")],
@@ -361,7 +388,7 @@ class DerivedDataDescriptionTest(unittest.TestCase):
 
         process_name = "spikesorter"
 
-        dd1 = DerivedDataDescription.from_data_description(d1, process_name=process_name)
+        dd1 = DerivedDataDescription.from_data_description(d1, process_name=process_name, institution=Organization.AIND)
         # check that the original name is in the derived name
         self.assertTrue("1234_2020-10-10T101010_spikesorter_" in dd1.name)
         # check that the subject ID is retained
