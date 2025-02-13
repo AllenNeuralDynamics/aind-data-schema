@@ -140,3 +140,4 @@ dmypy.json
 
 # Jupyter
 notebook/
+*.vscode

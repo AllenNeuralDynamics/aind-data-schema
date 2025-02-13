@@ -208,5 +208,36 @@ class BaseTests(unittest.TestCase):
         )
 
 
+class DataModelTests(unittest.TestCase):
+    """Tests for DataModel"""
+
+    def test_generate_data_type(self):
+        """Test that generate_data_type correctly sets the data_type field"""
+
+        class TestModel(DataModel):
+            """Temporary test model"""
+            value: str
+
+        model_instance = TestModel(value="test")
+        self.assertEqual(model_instance.data_type, "test_model")
+
+        class AnotherTestModel(DataModel):
+            """Another temporary test model"""
+            value: str
+
+        another_model_instance = AnotherTestModel(value="test")
+        self.assertEqual(another_model_instance.data_type, "another_test_model")
+
+    def test_data_type_unique(self):
+        """Test that all subclasses of DataModel have unique data_type values"""
+
+        data_types = set()
+        for subclass in DataModel.__subclasses__():
+            data_type = DataModel._data_type_from_name(subclass.__name__)
+            self.assertNotIn(data_type, data_types)
+
+            data_types.add(data_type)
+
+
 if __name__ == "__main__":
     unittest.main()
