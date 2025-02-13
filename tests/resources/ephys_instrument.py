@@ -1,4 +1,4 @@
-"""Generates an example JSON file for an ephys rig"""
+"""Generates an example JSON file for an ephys instrument"""
 
 from datetime import date, datetime, timezone
 
