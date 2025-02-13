@@ -219,7 +219,6 @@ class DataModelTests(unittest.TestCase):
             value: str
 
         model_instance = TestModel(value="test")
-        print(model_instance)
         self.assertEqual(model_instance.data_type, "test_model")
 
         class AnotherTestModel(DataModel):
@@ -228,6 +227,16 @@ class DataModelTests(unittest.TestCase):
 
         another_model_instance = AnotherTestModel(value="test")
         self.assertEqual(another_model_instance.data_type, "another_test_model")
+
+    def test_data_type_unique(self):
+        """Test that all subclasses of DataModel have unique data_type values"""
+
+        data_types = set()
+        for subclass in DataModel.__subclasses__():
+            data_type = DataModel._data_type_from_name(subclass.__name__)
+            self.assertNotIn(data_type, data_types)
+
+            data_types.add(data_type)
 
 
 if __name__ == "__main__":
