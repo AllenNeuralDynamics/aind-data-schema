@@ -5,6 +5,7 @@ from typing import List, Literal, Optional, Union
 
 from aind_data_schema_models.process_names import ProcessName
 from aind_data_schema_models.units import MemoryUnit, UnitlessUnit
+from aind_data_schema.core.quality_control import Stage
 from pydantic import Field, SkipValidation, ValidationInfo, field_validator
 
 from aind_data_schema.base import (
@@ -15,7 +16,6 @@ from aind_data_schema.base import (
     AwareDatetimeWithDefault,
 )
 from aind_data_schema.components.identifiers import Person
-from aind_data_schema.components.tile import Tile
 
 
 class RegistrationType(str, Enum):
@@ -55,6 +55,10 @@ class DataProcess(DataModel):
     """Description of a single processing step"""
 
     name: ProcessName = Field(..., title="Name")
+    stage: Stage = Field(..., title="Processing stage")
+    experimenters: List[Person] = Field(
+        ..., title="experimenters", description="People responsible for processing"
+    )
     software_version: Optional[str] = Field(default=None, description="Version of the software used", title="Version")
     start_date_time: AwareDatetimeWithDefault = Field(..., title="Start date time")
     end_date_time: AwareDatetimeWithDefault = Field(..., title="End date time")
@@ -77,47 +81,6 @@ class DataProcess(DataModel):
         return value
 
 
-class PipelineProcess(DataModel):
-    """Description of a Processing Pipeline"""
-
-    data_processes: List[DataProcess] = Field(..., title="Data processing")
-    experimenters: List[Person] = Field(
-        ..., title="experimenters", description="experimenters responsible for processing pipeline"
-    )
-    pipeline_version: Optional[str] = Field(
-        default=None, description="Version of the pipeline", title="Pipeline version"
-    )
-    pipeline_url: Optional[str] = Field(default=None, description="URL to the pipeline code", title="Pipeline URL")
-    note: Optional[str] = Field(default=None, title="Notes")
-
-
-class AnalysisProcess(DataProcess):
-    """Description of an Analysis"""
-
-    name: ProcessName = Field(ProcessName.ANALYSIS, title="Process name")
-    experimenters: List[Person] = Field(
-        ..., title="experimenters", description="experimenters responsible for analysis"
-    )
-    description: str = Field(..., title="Analysis Description")
-
-
-#  TODO: Check where this class is supposed to be invoked?
-class Registration(DataProcess):
-    """Description of tile alignment coordinate transformations"""
-
-    registration_type: RegistrationType = Field(
-        ...,
-        title="Registration type",
-        description="Either inter channel across different channels or intra channel",
-    )
-    registration_channel: Optional[int] = Field(
-        default=None,
-        title="Registration channel",
-        description="Channel registered to when inter channel",
-    )
-    tiles: List[Tile] = Field(..., title="Data tiles")
-
-
 class Processing(DataCoreModel):
     """Description of all processes run on data"""
 
@@ -125,10 +88,5 @@ class Processing(DataCoreModel):
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
     schema_version: SkipValidation[Literal["1.1.6"]] = Field(default="1.1.6")
 
-    processing_pipeline: PipelineProcess = Field(
-        ..., description="Pipeline used to process data", title="Processing Pipeline"
-    )
-    analyses: List[AnalysisProcess] = Field(
-        default=[], description="Analysis steps taken after processing", title="Analysis Steps"
-    )
+    data_processes: List[DataProcess] = Field(..., title="Data processing")
     notes: Optional[str] = Field(default=None, title="Notes")
