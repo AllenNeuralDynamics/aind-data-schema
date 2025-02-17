@@ -14,6 +14,7 @@ from aind_data_schema.components.devices import (
     AdditionalImagingDevice,
     Calibration,
     CameraAssembly,
+    CameraTarget,
     DAQDevice,
     Detector,
     Device,
@@ -161,6 +162,20 @@ class Instrument(DataCoreModel):
     def serialize_modalities(self, modalities: Set[Modality.ONE_OF]):
         """Dynamically serialize modalities based on their type."""
         return sorted(modalities, key=lambda x: x.get("name") if isinstance(x, dict) else x.name)
+
+    @model_validator(mode="after")
+    def validate_cameras_other(self):
+        """check if any CameraAssemblies contain an 'other' field"""
+
+        if self.notes is None:
+            for component in self.components:
+                if isinstance(component, CameraAssembly) and component.camera_target == CameraTarget.OTHER:
+                    raise ValueError(
+                        f"Notes cannot be empty if a camera target contains an 'Other' field. "
+                        f"Describe the camera target from ({component.name}) in the notes field"
+                    )
+
+        return self
 
     @model_validator(mode="after")
     @classmethod
