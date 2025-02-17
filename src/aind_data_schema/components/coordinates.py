@@ -65,6 +65,7 @@ class Scale3dTransform(DataModel):
     scale: List[Decimal] = Field(..., title="3D scale parameters", min_length=3, max_length=3)
 
 
+# TODO: rename "Translation"
 class Translation3dTransform(DataModel):
     """Values to be vector-added to a 3D position. Often needed to specify a device or tile's origin."""
 
@@ -72,6 +73,7 @@ class Translation3dTransform(DataModel):
     translation: List[Decimal] = Field(..., title="3D translation parameters", min_length=3, max_length=3)
 
 
+# TODO: rename "Rotatoin"
 class Rotation3dTransform(DataModel):
     """Values to be vector-added to a 3D position. Often needed to specify a device or tile's origin."""
 
@@ -79,6 +81,7 @@ class Rotation3dTransform(DataModel):
     rotation: List[Decimal] = Field(..., title="3D rotation matrix values (3x3) ", min_length=9, max_length=9)
 
 
+# TODO: rename "etc"
 class Affine3dTransform(DataModel):
     """Values to be vector-added to a 3D position. Often needed to specify a Tile's origin."""
 
