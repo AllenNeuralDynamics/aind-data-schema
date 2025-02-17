@@ -181,7 +181,9 @@ class Instrument(DataCoreModel):
     @classmethod
     def validate_connections(cls, self):
         """validate that all connections map between devices that actually exist"""
-        device_names = [device.name for device in self.components]
+        device_names = [device.name if hasattr(device, "name") else None for device in self.components]
+        # remove None values from device_names
+        device_names = [name for name in device_names if name is not None]
 
         for connection in self.connections:
             for device_name in connection.device_names:

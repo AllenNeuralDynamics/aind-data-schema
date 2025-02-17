@@ -328,14 +328,6 @@
       },
       {
          "device_type": "Reward delivery",
-         "name": "Reward Delivery",
-         "serial_number": null,
-         "manufacturer": null,
-         "model": null,
-         "path_to_cad": null,
-         "port_index": null,
-         "additional_settings": null,
-         "notes": null,
          "stage_type": {
             "device_type": "Motorized stage",
             "name": "NewScaleMotor for LickSpouts",
