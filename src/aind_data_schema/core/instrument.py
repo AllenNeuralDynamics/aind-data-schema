@@ -12,6 +12,7 @@ from aind_data_schema.base import DataCoreModel, DataModel
 from aind_data_schema.components.coordinates import Axis, Origin
 from aind_data_schema.components.devices import (
     AdditionalImagingDevice,
+    Arena,
     Calibration,
     CameraAssembly,
     CameraTarget,
@@ -19,6 +20,7 @@ from aind_data_schema.components.devices import (
     Detector,
     Device,
     DigitalMicromirrorDevice,
+    Disc,
     Enclosure,
     EphysAssembly,
     FiberAssembly,
@@ -44,6 +46,9 @@ from aind_data_schema.components.devices import (
     RewardDelivery,
     ScanningStage,
     Speaker,
+    Treadmill,
+    Tube,
+    Wheel,
 )
 
 # Define the mapping of modalities to their required device types
@@ -59,7 +64,6 @@ DEVICES_REQUIRED = {
     Modality.SPIM.abbreviation: [Objective],
 }
 
-MOUSE_PLATFORMS = Annotated[Union[tuple(MousePlatform.__subclasses__())], Field(discriminator="device_type")]
 instrument_id_PATTERN = r"^[a-zA-Z0-9]+_[a-zA-Z0-9-]+_\d{8}$"
 
 
@@ -94,7 +98,6 @@ class Instrument(DataCoreModel):
         title="Instrument ID",
         pattern=instrument_id_PATTERN,
     )
-    mouse_platform: Optional[MOUSE_PLATFORMS] = Field(default=None, title="Mouse platform")
     modification_date: date = Field(..., title="Date of modification")
     calibrations: Optional[List[Calibration]] = Field(default=None, title="Full calibration of devices")
     ccf_coordinate_transform: Optional[str] = Field(
@@ -147,6 +150,12 @@ class Instrument(DataCoreModel):
                 MotorizedStage,
                 ScanningStage,
                 AdditionalImagingDevice,
+                Disc,
+                Wheel,
+                Tube,
+                Treadmill,
+                Arena,
+                MousePlatform,
                 DAQDevice,
                 Device,  # note that order matters in the Union, DAQDevice and Device should go last
             ],

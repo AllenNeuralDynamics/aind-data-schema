@@ -284,9 +284,8 @@ class TestMetadata(unittest.TestCase):
 
         inst = Instrument.model_construct(
             instrument_id="123_EPHYS1_20220101",
-            mouse_platform=mouse_platform,
             modalities=[Modality.BEHAVIOR, Modality.SPIM],
-            components=[objective, reward_delivery],
+            components=[objective, reward_delivery, mouse_platform],
         )
         session = Session.model_construct(instrument_id="123_EPHYS1_20220101", mouse_platform_name="platform1")
 
@@ -339,9 +338,8 @@ class TestMetadata(unittest.TestCase):
         mouse_platform = MousePlatform.model_construct(name="platform1")
         inst = Instrument.model_construct(
             instrument_id="123_EPHYS1_20220101",
-            mouse_platform=mouse_platform,
             modalities=modalities,
-            components=[ephys_assembly],
+            components=[ephys_assembly, mouse_platform],
         )
         with self.assertRaises(ValidationError) as context:
             Metadata(

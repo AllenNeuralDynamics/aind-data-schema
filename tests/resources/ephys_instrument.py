@@ -291,8 +291,8 @@ inst = Instrument(
         microscope_2,
         microscope_3,
         microscope_4,
+        running_wheel,
     ],
-    mouse_platform=running_wheel,
     calibrations=[red_laser_calibration, blue_laser_calibration],
 )
 serialized = inst.model_dump_json()

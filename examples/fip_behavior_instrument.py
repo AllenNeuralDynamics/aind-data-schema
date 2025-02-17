@@ -345,7 +345,6 @@ inst = Instrument(
     instrument_id="447_FIP-Behavior_20000101",
     modification_date=date(2000, 1, 1),
     modalities=[Modality.BEHAVIOR, Modality.FIB],
-    mouse_platform=Tube(name="mouse_tube_foraging", diameter=4.0),
     components=[
         camera1,
         camera2,
@@ -358,6 +357,7 @@ inst = Instrument(
         *filters,
         lens,
         additional_device,
+        Tube(name="mouse_tube_foraging", diameter=4.0),
     ],
     calibrations=calibrations,
 )

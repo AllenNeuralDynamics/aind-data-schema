@@ -246,8 +246,8 @@ ephys_inst = Instrument(
         basestation,
         harp,
         microscope,
+        disc_mouse_platform,
     ],
-    mouse_platform=disc_mouse_platform,
     calibrations=[red_laser_calibration, blue_laser_calibration],
 )
 
@@ -769,7 +769,6 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
             instrument_id="428_FIP1_20231003",
             modification_date=date(2023, 10, 3),
             modalities=[Modality.FIB],
-            mouse_platform=d.Disc(name="mouse_disc", radius=8.5),
             components=[
                 *cameras,
                 *patch_cords,
@@ -781,6 +780,7 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
                 *daqs,
                 *stimulus_devices,
                 *additional_devices,
+                d.Disc(name="mouse_disc", radius=8.5),
             ],
             calibrations=[
                 d.Calibration(

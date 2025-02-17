@@ -249,8 +249,8 @@ class InstrumentTests(unittest.TestCase):
                 *detectors,
                 *patch_cords,
                 *stimulus_devices,
+                Disc(name="Disc A", radius=1),
             ],
-            mouse_platform=Disc(name="Disc A", radius=1),
             calibrations=[
                 Calibration(
                     calibration_date=date(2020, 10, 10),
@@ -289,8 +289,8 @@ class InstrumentTests(unittest.TestCase):
                     *detectors,
                     *patch_cords,
                     *stimulus_devices,
+                    Disc(name="Disc A", radius=1),
                 ],
-                mouse_platform=Disc(name="Disc A", radius=1),
                 calibrations=[
                     Calibration(
                         calibration_date=date(2020, 10, 10),
@@ -321,8 +321,8 @@ class InstrumentTests(unittest.TestCase):
                 *detectors,
                 *patch_cords,
                 *stimulus_devices,
+                Disc(name="Disc A", radius=1),
             ],
-            mouse_platform=Disc(name="Disc A", radius=1),
             calibrations=[
                 Calibration(
                     calibration_date=date(2020, 10, 10),
@@ -358,8 +358,8 @@ class InstrumentTests(unittest.TestCase):
                     *detectors,
                     *patch_cords,
                     *stimulus_devices,
+                    Disc(name="Disc A", radius=1),
                 ],
-                mouse_platform=Disc(name="Disc A", radius=1),
                 calibrations=[
                     Calibration(
                         calibration_date=date(2020, 10, 10),
@@ -509,8 +509,8 @@ class InstrumentTests(unittest.TestCase):
                     *detectors,
                     *patch_cords,
                     *stimulus_devices,
+                    Disc(name="Disc A", radius=1),
                 ],
-                mouse_platform=Disc(name="Disc A", radius=1),
                 calibrations=[calibration],
             )
         with self.assertRaises(ValidationError):
@@ -528,8 +528,8 @@ class InstrumentTests(unittest.TestCase):
                     *detectors,
                     *patch_cords,
                     *stimulus_devices,
+                    Disc(name="Disc A", radius=1),
                 ],
-                mouse_platform=Disc(name="Disc A", radius=1),
                 calibrations=[calibration],
             )
 

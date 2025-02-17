@@ -322,8 +322,8 @@ instrument = r.Instrument(
         daq,
         stimulus_device,
         additional_device,
+        mouse_platform,
     ],
-    mouse_platform=mouse_platform,
     calibrations=[calibration],
 )
 

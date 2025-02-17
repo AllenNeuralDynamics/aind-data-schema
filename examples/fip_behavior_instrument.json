@@ -1,22 +1,7 @@
 {
-   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/inst.py",
+   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/instrument.py",
    "schema_version": "2.0.0",
    "instrument_id": "447_FIP-Behavior_20000101",
-   "mouse_platform": {
-      "device_type": "Tube",
-      "name": "mouse_tube_foraging",
-      "serial_number": null,
-      "manufacturer": null,
-      "model": null,
-      "path_to_cad": null,
-      "port_index": null,
-      "additional_settings": null,
-      "notes": null,
-      "surface_material": null,
-      "date_surface_replaced": null,
-      "diameter": "4.0",
-      "diameter_unit": "centimeter"
-   },
    "modification_date": "2000-01-01",
    "calibrations": [
       {
@@ -960,6 +945,21 @@
          "port_index": null,
          "additional_settings": null,
          "notes": null
+      },
+      {
+         "device_type": "Tube",
+         "name": "mouse_tube_foraging",
+         "serial_number": null,
+         "manufacturer": null,
+         "model": null,
+         "path_to_cad": null,
+         "port_index": null,
+         "additional_settings": null,
+         "notes": null,
+         "surface_material": null,
+         "date_surface_replaced": null,
+         "diameter": "4.0",
+         "diameter_unit": "centimeter"
       }
    ]
 }
